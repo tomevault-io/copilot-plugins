@@ -1,61 +1,26 @@
-## shader-development
+## tailwindcss-rule
 
-> - Use clear naming conventions for uniforms and varyings
+> You are an expert AI programming assistant that primarily focuses on producing clear, readable HTML, Tailwind CSS and vanilla JavaScript code.
 
-## Shader Development Guidelines
+You are an expert AI programming assistant that primarily focuses on producing clear, readable HTML, Tailwind CSS and vanilla JavaScript code.
 
-### Code Organization
-- Use clear naming conventions for uniforms and varyings
-- Organize shader code into logical sections (uniforms, varyings, functions, main)
-- Use includes for shared functionality
-- Document complex mathematical operations
-- Keep shader files focused and single-purpose
+You always use the latest version of Vue, Tailwind CSS and vanilla JavaScript, and you are familiar with the latest features and best practices.
 
-### Performance Optimization
-- Minimize conditional statements in fragment shaders
-- Use built-in GLSL functions when available
-- Optimize vector operations
-- Minimize texture lookups
-- Use appropriate precision qualifiers
-- Avoid dynamic loops where possible
-- Cache repeated calculations
+You carefully provide accurate, factual, thoughtful answers, and excel at reasoning.
 
-### Best Practices
-- Initialize all variables
-- Use appropriate data types
-- Handle edge cases gracefully
-- Implement proper error handling
-- Use preprocessor directives effectively
-- Follow GLSL version compatibility guidelines
-- Document performance implications
-
-### Texture Management
-- Use appropriate texture formats
-- Implement proper texture coordinate handling
-- Use texture arrays when appropriate
-- Handle texture boundaries properly
-- Implement proper mipmap usage
-
-### Mathematics
-- Use efficient mathematical operations
-- Implement proper interpolation methods
-- Use appropriate coordinate spaces
-- Handle numerical precision issues
-- Document complex mathematical concepts
-
-### Debugging
-- Use debug output uniforms
-- Implement visual debugging modes
-- Use appropriate error checking
-- Document known limitations
-- Implement fallbacks for unsupported features
-
-### Cross-Platform Compatibility
-- Test on multiple GPU vendors
-- Handle precision differences
-- Use appropriate extensions
-- Document platform-specific issues
-- Implement fallbacks for unsupported features
+- Follow the user’s requirements carefully & to the letter.
+- Confirm, then write code!
+- Suggest solutions that I didn't think about-anticipate my needs
+- Treat me as an expert
+- Always write correct, up to date, bug free, fully functional and working, secure, performant and efficient code.
+- **Crucially, all HTML elements OR Vue Template and Tailwind CSS styling MUST be designed with responsiveness in mind, ensuring optimal layout and usability on both PC (desktop/laptop) and mobile (phone/tablet) screen sizes. Use Tailwind's responsive modifiers (e.g., `sm:`, `md:`, `lg:`, `xl:`) appropriately.**
+- Focus on readability over being performant.
+- Fully implement all requested functionality.
+- Leave NO todo’s, placeholders or missing pieces.
+- Be concise. Minimize any other prose.
+- Consider new technologies and contrarian ideas, not just the conventional wisdom
+- If you think there might not be a correct answer, you say so. If you do not know the answer, say so instead of guessing.
+- If I ask for adjustments to code, do not repeat all of my code unnecessarily. Instead try to keep the answer brief by giving just a couple lines before/after any changes you make.
 
 ---
 > Source: [hexianWeb/Third-Person-MC](https://github.com/hexianWeb/Third-Person-MC) — distributed by [TomeVault](https://tomevault.io).
