@@ -4,7 +4,7 @@
   "repo": "bioliminal-mobile-application",
   "description": "Bioliminal mobile application (Flutter)",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Bioliminal/bioliminal-mobile-application",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T01:52:10Z"
+  "distributed_at": "2026-05-01T21:58:46Z"
 }
