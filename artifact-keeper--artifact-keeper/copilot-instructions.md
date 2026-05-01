@@ -1,0 +1,296 @@
+## artifact-keeper
+
+> Auto-generated from all feature plans. Last updated: 2026-01-14
+
+# Artifact Keeper Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2026-01-14
+
+## Active Technologies
+- Rust 1.75+ (backend) + wasmtime 21.0+, wasmtime-wasi, wit-bindgen, git2, axum
+- PostgreSQL (existing), filesystem for WASM binaries
+- Rust 1.75+ + axum, sqlx, tokio, reqwest
+- Rust 1.75+ + axum, serde, serde_json
+
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+### Fast CI (Tier 1) - Every Push/PR
+```bash
+# Backend lint and unit tests
+cargo fmt --check
+cargo clippy --workspace --all-targets -- -D warnings
+cargo test --workspace --lib
+```
+
+### Integration Tests (Tier 2) - Main & Release Branches Only
+```bash
+# Backend integration tests (requires PostgreSQL)
+cargo test --workspace
+```
+
+### Full E2E Tests (Tier 3) - Release/Manual Only
+```bash
+# Run all E2E tests with default (smoke) profile
+./scripts/run-e2e-tests.sh
+
+# Run with specific profile
+./scripts/run-e2e-tests.sh --profile all      # All native clients
+./scripts/run-e2e-tests.sh --profile pypi     # PyPI only
+./scripts/run-e2e-tests.sh --profile smoke    # Quick smoke tests (default)
+
+# Include stress and failure tests
+./scripts/run-e2e-tests.sh --stress --failure
+
+# Run with test tag filter
+./scripts/run-e2e-tests.sh --tag @smoke       # Only smoke-tagged tests
+./scripts/run-e2e-tests.sh --tag @full        # Full test suite
+
+# Cleanup after tests
+./scripts/run-e2e-tests.sh --clean
+```
+
+### Native Client Tests
+```bash
+# Run individual native client tests
+./scripts/native-tests/run-all.sh smoke   # PyPI, NPM, Cargo
+./scripts/native-tests/run-all.sh all     # All 10 package formats
+./scripts/native-tests/test-pypi.sh       # Individual test
+```
+
+### gRPC SBOM Tests
+```bash
+# Run SBOM JSON structure validation unit tests (no database required)
+cargo test sbom_service::tests --lib
+
+# Run gRPC integration tests (requires PostgreSQL at localhost:30432)
+DATABASE_URL="postgresql://registry:registry@localhost:30432/artifact_registry" \
+  cargo test --test grpc_sbom_tests -- --ignored
+
+# Run gRPC E2E tests with grpcurl (requires backend running with gRPC on port 9090)
+./scripts/native-tests/test-grpc-sbom.sh
+```
+
+### Dependency-Track Integration Tests
+```bash
+# Run Dependency-Track integration tests (requires docker compose up)
+./scripts/native-tests/test-dependency-track.sh
+
+# With API key for full tests
+DEPENDENCY_TRACK_API_KEY=your-key ./scripts/native-tests/test-dependency-track.sh
+```
+
+### WASM Plugin E2E Tests
+```bash
+# Run all WASM plugin tests (requires backend running on port 8080)
+./scripts/native-tests/test-wasm-plugins.sh
+
+# Run individual test suites
+./scripts/native-tests/test-wasm-plugins.sh git        # Git installation tests
+./scripts/native-tests/test-wasm-plugins.sh lifecycle  # Enable/disable/uninstall
+./scripts/native-tests/test-wasm-plugins.sh reload     # Hot-reload tests
+
+# Run with custom API URL
+API_URL=http://localhost:8080 ./scripts/native-tests/test-wasm-plugins.sh
+```
+
+### Stress and Failure Tests
+```bash
+# Stress tests (100 concurrent uploads)
+./scripts/stress/run-concurrent-uploads.sh
+./scripts/stress/validate-results.sh
+
+# Failure injection tests
+./scripts/failure/run-all.sh
+./scripts/failure/test-server-crash.sh
+./scripts/failure/test-db-disconnect.sh
+./scripts/failure/test-storage-failure.sh
+```
+
+### GitHub Actions
+```bash
+# Manually trigger E2E workflow
+gh workflow run e2e.yml -f profile=all -f include_stress=true
+```
+
+## Code Style
+
+Rust 1.75+: Follow standard conventions
+
+## Git & GitHub
+
+### Branch Protection — NEVER push directly to main
+
+All changes must go through pull requests:
+
+1. **Create a feature branch** from main:
+   ```bash
+   git checkout main && git pull
+   git checkout -b feat/short-description   # or fix/, chore/, docs/
+   ```
+
+2. **Make changes and commit** to the feature branch
+
+3. **Push and create PR**:
+   ```bash
+   git push -u origin feat/short-description
+   gh pr create --fill   # or with --title and --body
+   ```
+
+4. **Merge via GitHub** after CI passes (squash merge preferred)
+
+Branch naming conventions:
+- `feat/` — new features
+- `fix/` — bug fixes
+- `chore/` — maintenance, dependencies, CI
+- `docs/` — documentation only
+
+### Parallel Agent Work (shallow clones)
+
+When dispatching multiple agents to work on separate features or fixes in parallel, use **shallow clones in `/tmp/`** instead of git worktrees. Worktrees share the `.git` directory and agents end up switching branches in the main worktree, corrupting each other's state.
+
+**Pattern for each agent:**
+```bash
+WORK_DIR="/tmp/$(uuidgen)-artifact-keeper"
+git clone --depth 50 --branch main git@github.com:artifact-keeper/artifact-keeper.git "$WORK_DIR"
+cd "$WORK_DIR"
+git checkout -b feat/issue-description
+# ... make changes, run checks, commit, push, create PR ...
+rm -rf "$WORK_DIR"
+```
+
+Each agent gets a fully isolated repo copy. No shared state, no branch conflicts, no rust-analyzer cross-contamination. The agent must do ALL work inside `$WORK_DIR` and never touch the primary working directory at `/Users/khan/ak/artifact-keeper`.
+
+### Pre-push Quality Checklist
+
+Every commit must pass these checks locally before pushing. Do NOT use "push and see if CI passes" as a strategy.
+
+```bash
+cargo fmt --check                                          # formatting
+cargo clippy --workspace --all-targets -- -D warnings      # linting
+cargo test --workspace --lib                               # unit tests
+```
+
+Additionally, before pushing:
+- Check for code duplication: if structurally similar blocks appear 3+ times in new code, refactor into a shared helper
+- Check test coverage: new pure functions should have at least one test, aim for 70%+ of new lines covered
+- Check migration numbering: verify the migration number is not already taken (`ls backend/migrations/ | tail -5`)
+
+### Maintenance Branches
+
+Long-lived `release/X.Y.x` branches exist for shipping bug fixes to older release series:
+
+- **`release/1.0.x`** — maintenance branch for the 1.0 series (created from `v1.0.0-rc.5`)
+- **`release/1.1.x`** — maintenance branch for the 1.1 series (created from `v1.1.2`)
+- **`main`** — continues with 1.2.x (and beyond) development
+
+**Bug fix workflow for maintenance branches:**
+1. Create a fix branch from the maintenance branch:
+   ```bash
+   git checkout release/1.1.x && git pull
+   git checkout -b fix/short-description
+   ```
+2. Push and create a PR **targeting `release/1.1.x`** (not main):
+   ```bash
+   git push -u origin fix/short-description
+   gh pr create --base release/1.1.x --fill
+   ```
+3. Tag releases from the maintenance branch:
+   ```bash
+   git checkout release/1.1.x && git pull
+   git tag v1.1.3 && git push origin v1.1.3
+   ```
+4. Cherry-pick fixes between maintenance and `main` so both lines stay in sync. Bug fixes typically land on the maintenance branch first, then cherry-pick forward to main.
+
+**Docker image tags** (set by `docker/metadata-action` in `docker-publish.yml`):
+- Version tags **strip the `v` prefix**: git tag `v1.1.0-rc.2` → Docker tag `:1.1.0-rc.2`
+- `:latest` is only set for stable releases (no `-rc`, `-beta`, etc.)
+- `:1.0`, `:1.1` series tags are set automatically via semver parsing
+- `:dev` is only set for `main` branch pushes
+- `:sha-<commit>` is set for every build
+
+### Releases
+
+- Release notes are **auto-generated by GitHub** (`generate_release_notes: true` in `release.yml`). They show the actual changelog (PRs merged, commits) since the previous tag.
+- **Do NOT hardcode static release notes** in the workflow. No product descriptions, feature lists, or format counts in release bodies.
+- The release workflow is at `.github/workflows/release.yml`, triggered by `v*` tags.
+- The release-gate (artifact-keeper-test) must pass for a release to be published. If gates fail, the release is created as a **draft** with binaries attached but not published.
+
+### Changelog and Release Notes
+
+Every CHANGELOG entry and GitHub Release must include recognition sections. This is required for every release, no exceptions.
+
+**Process when writing a changelog entry or release notes:**
+1. Look at all PRs/commits since the last tag
+2. For each fix, check the linked issue(s) to find who reported it
+3. Check `gh pr list --state merged` for external PR authors (not `brandonrc` or bots)
+4. Check the Sponsors section in README.md for current backers
+5. Add a `### Thank You` section crediting external contributors who filed issues, reported bugs, or submitted PRs
+6. Add a `### Sponsors` section thanking current backers by name and GitHub handle
+7. **Do NOT include maintainer `brandonrc`** in the thank you section, only external contributors
+8. If no external contributors reported issues for this release, omit the Thank You section
+9. The Sponsors section is always included if there are active sponsors
+
+**Example format in CHANGELOG.md:**
+```markdown
+## [1.x.x] - YYYY-MM-DD
+
+### Sponsors
+
+Thank you to our backers for supporting ongoing development:
+- **Ash A.** ([@dragonpaw](https://github.com/dragonpaw))
+- **Gabriel Rodriguez** ([@injectedfusion](https://github.com/injectedfusion))
+
+[Become a sponsor](https://github.com/sponsors/artifact-keeper)
+
+### Thank You
+- @username for reporting the OCI auth issue behind reverse proxies (#123)
+- @another-user for identifying the Maven SNAPSHOT re-upload bug (#456)
+- @contributor for the SSO admin fix PR (#609)
+
+### Added
+...
+```
+
+**GitHub Release notes** follow the same structure. The release workflow auto-generates a changelog from merged PRs, but the Sponsors and Thank You sections must be prepended manually (or by the release script) before publishing.
+
+### Other Git Rules
+
+- **Do NOT add AI Co-Authored-By lines** (e.g., Claude, GPT) to commit messages — real human co-authors are fine
+- **Do NOT include "Generated with Claude" or similar AI attribution** in PR descriptions
+- **Always use `gh` CLI** for GitHub operations (PRs, issues, workflows, etc.)
+  - Use `gh pr create` for pull requests
+  - Use `gh issue` for issues
+  - Use `gh workflow` for workflow operations
+  - Do not use raw git commands for GitHub-specific features
+- **Always use the PR template** when creating PRs with `gh pr create`. The template is at `.github/PULL_REQUEST_TEMPLATE.md`. Since `gh` does not auto-fill it, read the template and structure the `--body` to match its sections (Summary, Test Checklist, API Changes). Fill in checkboxes based on actual work done.
+
+## Recent Changes
+- 007-shared-dto: Added Rust 1.75+ + axum, serde, serde_json
+- Frontend removed: Moved to separate repository (artifact-keeper-web)
+
+
+<!-- MANUAL ADDITIONS START -->
+
+## Infrastructure & Cost Rules
+
+- **NEVER build Docker images or compile code on EC2/cloud instances.** Cloud compute costs money. All builds must happen locally on the developer's MacBook or via GitHub Actions CI.
+- **Demo EC2 instance** (`i-0caaf8acac6f85d4d`, Elastic IP `3.222.57.187`): Only pull pre-built images from `ghcr.io`, never `docker compose build`.
+- **SSH access**: `ssh ubuntu@3.222.57.187` (uses local SSH key)
+- **Demo stack**: Managed via systemd service `artifact-keeper-demo` and Caddy reverse proxy for TLS. Compose file at `/opt/artifact-keeper/deploy/demo/docker-compose.demo.yml`.
+- **Demo version pinning**: Set `ARTIFACT_KEEPER_VERSION` in `/opt/artifact-keeper/deploy/demo/.env` to pin a release (e.g., `ARTIFACT_KEEPER_VERSION=1.1.0-rc.2`). Omit the `v` prefix — Docker tags use semver without `v`. Default is `latest` if unset.
+- **Demo update procedure**: `ssh ubuntu@3.222.57.187`, edit `.env` with the desired version, then `cd /opt/artifact-keeper/deploy/demo && docker compose -f docker-compose.demo.yml pull && docker compose -f docker-compose.demo.yml up -d`.
+- **Docker images** are published to `ghcr.io/artifact-keeper/artifact-keeper-{backend,web,openscap}` by the Docker Publish CI workflow on every push to main and on release tags.
+- **GitHub Pages site** (`/site/` directory): Combined landing page + Starlight docs, deployed to `artifactkeeper.com`.
+
+<!-- MANUAL ADDITIONS END -->
+
+---
+> Source: [artifact-keeper/artifact-keeper](https://github.com/artifact-keeper/artifact-keeper) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
