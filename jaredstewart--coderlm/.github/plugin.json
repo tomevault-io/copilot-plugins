@@ -1,0 +1,9 @@
+{
+  "name": "jaredstewart--coderlm",
+  "displayName": "coderlm",
+  "description": "Tree-sitter-powered code indexing server that gives LLM agents precise, on-demand access to symbols, implementations, callers, tests, and grep across multi-language projects - so they explore codebase",
+  "version": "1.0.0",
+  "author": "JaredStewart",
+  "homepage": "https://github.com/JaredStewart/coderlm",
+  "skills": []
+}
