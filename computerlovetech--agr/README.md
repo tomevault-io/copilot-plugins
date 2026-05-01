@@ -7,11 +7,11 @@ A package manager for AI agents. Install agent skills from GitHub with a single 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [computerlovetech/agr](https://github.com/computerlovetech/agr).
+Original source: `CLAUDE.md` in [computerlovetech/agr](https://github.com/computerlovetech/agr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
