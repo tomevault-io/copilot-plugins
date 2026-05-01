@@ -4,7 +4,7 @@
   "repo": "intercept",
   "description": "iNTERCEPT, a free and open-source platform that unites the best signal intelligence tools into a single, accessible interface.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/smittix/intercept",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T09:16:08Z"
+  "distributed_at": "2026-05-01T10:14:11Z"
 }
