@@ -1,69 +1,37 @@
-## graph-nodes
+## integrations
 
-> LangGraph pipeline architecture and node development
+> Integration client patterns
 
 
-# Graph & Node Development
+# Integration Clients
 
-## Pipeline Architecture
+## Directory Structure
 
-The agent is a LangGraph `StateGraph` over `AgentState` (a `TypedDict` in `app/state.py`).
-
-### Investigation Flow
 ```
-inject_auth → extract_alert → resolve_integrations → plan_actions → investigate → diagnose
-                                                          ↑                          │
-                                                          └── (loop if recommendations) ──┘
-                                                                                     │
-                                                                                  publish → END
-```
-
-### Chat Flow
-```
-inject_auth → router → chat_agent ⇄ tool_executor → END
-                     → general → END
+app/integrations/
+├── clients/
+│   ├── grafana/          # Vendor-specific client packages
+│   ├── datadog/
+│   ├── s3_client.py      # Single-file clients
+│   └── vercel.py
+├── opensre_mcp.py        # MCP server implementation
+└── ...
 ```
 
-## Key Files
+## Adding a New Integration
 
-- `app/graph_pipeline.py` — `build_graph()` wires nodes and edges
-- `app/routing.py` — conditional edge functions (`route_by_mode`, `route_after_extract`, etc.)
-- `app/state.py` — `AgentState` TypedDict + `AgentStateModel` Pydantic validator
-- `app/nodes/__init__.py` — barrel exports for all node functions
+1. Create a client under `app/integrations/clients/<vendor>/`
+2. Implement connection, authentication, and API methods
+3. Create a tool under `app/tools/<VendorTool>/` that uses the client
+4. Wire availability into `resolve_integrations` node if the integration requires runtime discovery
+5. Add the vendor to `EvidenceSource` literal in `app/state.py` if it's a new source type
 
-## Writing a Node
+## Conventions
 
-1. Create a subpackage under `app/nodes/` (e.g., `app/nodes/my_step/`)
-2. Implement the node function in `node.py`
-3. Re-export from the subpackage `__init__.py`
-4. Register in `app/nodes/__init__.py` and wire into `graph_pipeline.py`
-
-### Node function pattern:
-
-```python
-from langsmith import traceable
-from app.output import get_tracker
-from app.state import InvestigationState
-
-@traceable(name="node_my_step")
-def node_my_step(state: InvestigationState) -> dict:
-    tracker = get_tracker()
-    tracker.start("my_step", "Doing something")
-    # ... read from state, do work ...
-    tracker.complete("my_step", fields_updated=["evidence"], message="Done")
-    return {"field": value}  # partial state update dict
-```
-
-## Rules
-
-- Nodes receive full state, return a **partial dict** of fields to update
-- Always edit `routing.py` alongside `graph_pipeline.py` when adding conditional edges
-- New state keys go in `AgentState` (TypedDict) AND `AgentStateModel` (Pydantic) in `state.py`
-- Use `@traceable(name="node_xxx")` for LangSmith tracing on all node functions
-- Use `get_tracker()` for CLI progress output
-- Use `InvestigateInput.from_state(state)` in investigation nodes to extract typed inputs
-- The investigation loop is capped at 5 total iterations (see `should_continue_investigation`)
-- `InvestigationState` is an alias for `AgentState`
+- Clients should be stateless or use context managers for connection lifecycle
+- Return `{"success": bool, "data": ..., "error": ...}` from client methods
+- Keep API-specific logic in the client; tool handles param extraction and result formatting
+- MCP tools are registered via `opensre-mcp` entry point in `pyproject.toml`
 
 ---
 > Source: [Tracer-Cloud/opensre](https://github.com/Tracer-Cloud/opensre) — distributed by [TomeVault](https://tomevault.io).
