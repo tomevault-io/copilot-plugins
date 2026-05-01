@@ -1,0 +1,44 @@
+{
+  "name": "huobao-drama",
+  "owner": "chatfire-AI",
+  "repo": "huobao-drama",
+  "description": "\ud83c\udfac \u706b\u5b9d\u77ed\u5267 - \u57fa\u4e8eAI\u7684\u4e00\u7ad9\u5f0f\u77ed\u5267\u751f\u6210\u5e73\u53f0 \u300a\u4e00\u53e5\u8bdd\u751f\u6210\u5b8c\u6574\u77ed\u5267\uff0c\u4ece\u5267\u672c\u5230\u6210\u7247\u5168\u81ea\u52a8\u5316\u300b  Huobao Drama - An AI-Powered End-to-End Short Drama Generator \"One Sentence to Complete Drama: Fully Automated from Script to Final Video\"",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/chatfire-AI/huobao-drama",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T07:55:40Z"
+}
