@@ -1,0 +1,9 @@
+{
+  "name": "nstepien--ecij",
+  "displayName": "ecij",
+  "description": "Rolldown and Vite plugin to Extract CSS-in-JS",
+  "version": "1.0.0",
+  "author": "nstepien",
+  "homepage": "https://github.com/nstepien/ecij",
+  "skills": []
+}
