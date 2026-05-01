@@ -1,0 +1,9 @@
+{
+  "name": "eternalevan--varestorer",
+  "displayName": "VARestorer",
+  "description": "Official repository for VARestorer: One-Step VAR Distillation for Real-World Image Super-Resolution (ICLR2026))",
+  "version": "1.0.0",
+  "author": "EternalEvan",
+  "homepage": "https://github.com/EternalEvan/VARestorer",
+  "skills": []
+}
