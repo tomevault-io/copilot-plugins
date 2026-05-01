@@ -1,0 +1,9 @@
+{
+  "name": "reflexioai--reflexio",
+  "displayName": "reflexio",
+  "description": "Make your agents improve themselves. Reflexio is an AI agent self-improvement harness that enables your AI agents to continuously learn from real user interactions. ",
+  "version": "1.0.0",
+  "author": "ReflexioAI",
+  "homepage": "https://github.com/ReflexioAI/reflexio",
+  "skills": []
+}
