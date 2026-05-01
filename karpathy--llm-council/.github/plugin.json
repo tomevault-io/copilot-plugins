@@ -1,0 +1,9 @@
+{
+  "name": "karpathy--llm-council",
+  "displayName": "llm-council",
+  "description": "LLM Council works together to answer your hardest questions",
+  "version": "1.0.0",
+  "author": "karpathy",
+  "homepage": "https://github.com/karpathy/llm-council",
+  "skills": []
+}
