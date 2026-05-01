@@ -1,0 +1,9 @@
+{
+  "name": "varandrew--moor",
+  "displayName": "moor",
+  "description": "Moor is a local MCP control plane for Mac. It gives every coding agent one safe, observable, configurable gateway to your MCP servers.",
+  "version": "1.0.0",
+  "author": "varandrew",
+  "homepage": "https://github.com/varandrew/moor",
+  "skills": []
+}
