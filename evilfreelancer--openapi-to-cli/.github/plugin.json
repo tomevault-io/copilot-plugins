@@ -1,0 +1,9 @@
+{
+  "name": "evilfreelancer--openapi-to-cli",
+  "displayName": "openapi-to-cli",
+  "description": "Turns any OpenAPI/Swagger API into an CLI with set of commands. One CLI command per endpoint.",
+  "version": "1.0.0",
+  "author": "EvilFreelancer",
+  "homepage": "https://github.com/EvilFreelancer/openapi-to-cli",
+  "skills": []
+}
