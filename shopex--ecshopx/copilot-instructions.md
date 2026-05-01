@@ -1,28 +1,31 @@
-## index
+## tdd-guard
 
-> Agent 系统触发条件和使用规则
+> TDD Development Workflow
 
 
-# Agent 系统触发条件约定
+## Overview
 
-本文档定义了各个 Agent 的触发条件和使用规则。当用户输入匹配以下条件时，AI 应该自动切换到相应的 Agent 模式。
+TDD Guard is a Cursor hook that enforces Test-Driven Development by intercepting file operations.
+When your agent tries to skip tests or over-implement, TDD Guard blocks the action and explains what needs to happen instead.
 
-## 核心原则
+## Features
+- **Captures**: Intercepts Edit, MultiEdit, and Write operations
+- **Analyzes**: Examines test results, file paths, and code changes
+- **Validates**: Checks TDD compliance using an AI model
+- **Blocks**: Prevents operations that skip tests or over-implement
+- **Guides**: Explains violations and suggests corrections
 
-1. **自动识别**：当用户输入匹配触发条件时，AI 应该自动切换到相应的 Agent 模式
-2. **明确指定优先**：如果用户使用 `@<Agent名>`（如 `@planner`、`@orchestrator`、`@developer`）明确指定，优先使用指定的 Agent
-3. **职责分离**：严格遵守各 Agent 的职责边界，不能越界
-4. **流程完整**：确保规划阶段和执行阶段的流程完整，不跳过任何步骤
+## When Blocked（被拦截时）
 
-## 强制规划原则
+当 hook 返回 block 时，Agent 必须：
 
-见 **workflow.mdc** 的「强制规划原则」：所有任务须经规划阶段、规划与执行分离。
+1. **读取 `reason`**：block 返回的 `reason` 中会说明违规原因与「正确的下一步」。
+2. **按 reason 执行**：在本会话内按「正确的下一步」操作（例如：仅添加最小实现、只加方法 stub、先建空类再跑测试），不得跳过或扩大范围。
+3. **禁止绕过**：不得通过执行脚本（如 `sed`、`echo` 重定向）或提示用户「请手动在 XXX 文件加入以下内容」等方式规避 Edit/Write 拦截。详见 **workflow.mdc** 的「Developer 约束」。
 
-## 相关规则文件
+## Hook 不可用时的行为
 
-- `agent-triggers.mdc` - Agent 触发条件详细说明
-- `workflow.mdc` - 工作流程规则
-- `tdd-guard.mdc` - TDD 与 tdd-guard 约束（强制，Edit/Write 时须遵守）
+当 tdd-guard hook 不可用（未安装、超时或执行错误）时：Developer 仍须按同一 TDD 规则自律执行（RED-GREEN-REFACTOR、一次一测、最小实现），仅不再有自动拦截；行为标准与 hook 启用时一致。
 
 ---
 > Source: [ShopeX/ECShopX](https://github.com/ShopeX/ECShopX) — distributed by [TomeVault](https://tomevault.io).
