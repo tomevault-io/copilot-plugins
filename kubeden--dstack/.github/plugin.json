@@ -1,0 +1,9 @@
+{
+  "name": "kubeden--dstack",
+  "displayName": "dstack",
+  "description": "Kubernetes platform starter template with Terraform and ArgoCD.",
+  "version": "1.0.0",
+  "author": "kubeden",
+  "homepage": "https://github.com/kubeden/dstack",
+  "skills": []
+}
