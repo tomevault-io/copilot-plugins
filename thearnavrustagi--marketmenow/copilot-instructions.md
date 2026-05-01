@@ -1,86 +1,94 @@
-## marketmenow
+## prompts
 
-> MarketMeNow architecture and coding conventions
+> Rules for LLM prompt management
 
+# Prompt Management Rules
 
-# MarketMeNow Architecture Rules
+## PromptBuilder Required for Content Generation
 
-## Project Layout
+**All content generation prompts MUST use `PromptBuilder`** (`core/prompt_builder.py`).
+Do NOT create new `load_prompt()` helper functions. Use `PromptBuilder.build()` with
+decomposed persona + function YAML files.
 
+Deterministic tool prompts (autograde, rubric generation, sentiment scoring, guideline
+generation, worksheet gen/fill) may use direct YAML loading since they don't need
+persona/brand injection.
+
+## No Inline Prompts
+
+All LLM prompt text — system prompts, user prompts, image-generation prompts,
+and ICL templates — MUST live in YAML files under `prompts/`.
+
+Python code loads prompts via `PromptBuilder.build()` (preferred) or
+`yaml.safe_load` + Jinja2 (tool prompts only); it must never contain
+hardcoded prompt strings.
+
+## Standard YAML Schema
+
+Chat prompts use two keys:
+
+```yaml
+system: |
+  The AI's persona, rules, and constraints.
+  Uses {{ jinja2_variables }} for dynamic data.
+
+user: |
+  The per-request template with {{ variables }}.
 ```
-src/marketmenow/          # Platform-agnostic core (models, ports, core logic, workflows)
-src/marketmenow/steps/    # Reusable workflow steps (generate, post, discover, etc.)
-src/marketmenow/workflows/# Built-in workflow definitions
-src/adapters/             # Platform-specific adapters (instagram, twitter, linkedin, reddit, email)
-tests/                    # Test suite (pytest + pytest-asyncio)
-pyproject.toml            # Single source of truth for deps and config
+
+ICL (in-context learning) templates use the `block:` key:
+
+```yaml
+block: |
+  {% for ex in examples %}...{% endfor %}
 ```
 
-## Ports and Adapters
+Image-generation fallback prompts may use custom keys (e.g. `simplify_template:`,
+`fallback:`).
 
-- All platform-specific logic MUST live in adapter packages outside `src/marketmenow/`.
-  The `core/`, `models/`, `ports/`, `normaliser.py`, and `registry.py` are
-  platform-agnostic and MUST NOT import any platform SDK or contain any
-  platform-specific branching.
-- Adapters implement `typing.Protocol` interfaces from `ports/`. Never subclass
-  an ABC — use structural subtyping.
-- Register adapters by constructing a `PlatformBundle` and calling
-  `AdapterRegistry.register(bundle)`.
+## Resolution Order
 
-## Adding a New Platform
+`PromptBuilder` and adapter `load_prompt()` helpers resolve files in this order:
 
-1. Create a new package (e.g. `adapters/twitter/`).
-2. Implement `PlatformAdapter`, `ContentRenderer`, `Uploader` protocols.
-3. Optionally implement `AnalyticsCollector`.
-4. Bundle into `PlatformBundle` and register with `AdapterRegistry`.
-5. No changes needed in `core/`, `models/`, or `ports/`.
+1. `projects/{slug}/prompts/{platform}/{file}` — project + platform override
+2. `projects/{slug}/prompts/{file}` — project-level default
+3. `prompts/{platform}/{file}` — global default
 
-## Adding a New Workflow
+## Onboarding Templates
 
-1. Create a step in `src/marketmenow/steps/yourstep.py` implementing `WorkflowStep`
-   protocol: `name`, `description`, `async execute(ctx: WorkflowContext)`.
-2. Create `src/marketmenow/workflows/your_workflow.py` composing steps into a
-   `Workflow(name, description, steps, params)`.
-3. Add a `_try_register()` call in `core/workflow_registry.py`.
-4. No changes needed in `core/`, `models/`, `ports/`, or `cli.py`.
+Persona templates used during `mmn project add` live in `prompts/templates/`.
+These are YAML files with placeholder tokens (`{{ persona_description }}`, etc.)
+that get filled in by `core/project_templates.py` and written to the new project.
 
-## Adding a New Content Modality
+## Exempt from This Rule
 
-1. Add a new variant to `ContentModality` enum in `models/content.py`.
-2. Create the Pydantic model in `models/content.py` inheriting `BaseContent`.
-3. Add a `case` arm in `ContentNormaliser.normalise()`.
-4. Existing adapters gain support by updating their `supported_modalities()`.
+- LangChain tool docstrings (`integrations/langchain.py`) — required by framework
+- Error messages, CLI help text, log messages
+- The `labeling_instruction` conditional fragment in `worksheet.py` which is a
+  short inline string passed as a template variable, not a standalone prompt
 
-## Python Style
+## Prompt Types
 
-- Python >= 3.12. Use `from __future__ import annotations` in every file.
-- All data models: Pydantic `BaseModel` with `frozen=True`.
-- All adapter interfaces: `typing.Protocol` with `@runtime_checkable`.
-- Full type annotations everywhere. Never use `Any`.
-- Async-first: adapter methods are `async def`.
-- Immutable data flow: never mutate models, use `model_copy(update=...)`.
+| Type | Use PromptBuilder? | persona param | brand param |
+|------|--------------------|---------------|-------------|
+| Content generation (comments, replies, threads, posts, scripts, carousels) | Yes | Required | Required |
+| Outreach (prospect scoring, message generation) | Yes | None | None |
+| Platform metadata (YouTube metadata, email paraphrase) | Yes | Optional | Optional |
+| Deterministic tools (autograde, rubric gen, sentiment, guidelines, worksheets) | No | N/A | N/A |
 
-## Dependencies
+## Adding a New Content Generation Prompt
 
-- `uv` is the package manager. Use `uv sync` / `uv add`.
-- `pyproject.toml` is the single source of truth for all dependencies.
-- Dev/test deps live under `[project.optional-dependencies] dev`.
+1. Create `prompts/{platform}/functions/{function_name}.yaml` with `system:` + `user:` keys (Jinja2).
+2. If persona-driven: ensure `prompts/{platform}/persona.yaml` exists.
+3. In code: `PromptBuilder().build(platform=..., function=..., persona=..., brand=..., template_vars=...)`.
+4. Add an entry to the inventory table in `prompts/prompt.md`.
 
-## Linting
+## Anti-Patterns
 
-- Ruff is the linter and formatter. Config lives in `pyproject.toml`.
-- Lint: `uv run ruff check src/ tests/`
-- Format: `uv run ruff format src/ tests/`
-- Auto-fix safe issues: `uv run ruff check --fix src/ tests/`
-
-## Testing
-
-- Tests live in `tests/`, one `test_*.py` per module under test.
-- `conftest.py` provides mock adapters and content factory fixtures.
-- pytest-asyncio with `asyncio_mode = "auto"` — async tests need no decorator.
-- Tests must never call external APIs — mock all I/O.
-- `from __future__ import annotations` in every test file.
-- Run tests: `uv run --extra dev pytest`.
+- Creating new `load_prompt()` functions for content generation -- use `PromptBuilder`
+- Using Python `.format()` in YAML templates -- use Jinja2 `{{ }}`
+- Hardcoding brand names in prompt files -- use `{{ brand.name }}`, `{{ brand.url }}`
+- Embedding persona instructions in function YAML -- keep persona in `persona.yaml`
 
 ---
 > Source: [thearnavrustagi/marketmenow](https://github.com/thearnavrustagi/marketmenow) — distributed by [TomeVault](https://tomevault.io).
