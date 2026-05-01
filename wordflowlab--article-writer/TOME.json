@@ -4,7 +4,7 @@
   "repo": "article-writer",
   "description": "\u4f7f\u7528Claude Code\uff0cCursor, codex, gemini \u5199\u5fae\u4fe1\u516c\u4f17\u53f7\u6587\u7ae0\u5de5\u5177\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wordflowlab/article-writer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T06:13:20Z"
+  "distributed_at": "2026-05-01T19:08:12Z"
 }
