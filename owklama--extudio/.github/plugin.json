@@ -1,0 +1,9 @@
+{
+  "name": "owklama--extudio",
+  "displayName": "extudio",
+  "description": "Open-source content studio for X/Twitter with AI writing, scheduling, Kanban, replies, and brand.json context.",
+  "version": "1.0.0",
+  "author": "owklama",
+  "homepage": "https://github.com/owklama/extudio",
+  "skills": []
+}
