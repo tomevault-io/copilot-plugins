@@ -1,0 +1,9 @@
+{
+  "name": "ariasbruno--skillbase",
+  "displayName": "skillbase",
+  "description": "\ud83e\udde0 Local AI skill manager. Prevent context saturation by linking only the essentials per workspace. \ud83d\ude80",
+  "version": "1.0.0",
+  "author": "ariasbruno",
+  "homepage": "https://github.com/ariasbruno/skillbase",
+  "skills": []
+}
