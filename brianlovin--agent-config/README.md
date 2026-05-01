@@ -7,11 +7,11 @@ My coding agent config
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [brianlovin/agent-config](https://github.com/brianlovin/agent-config).
+Original source: `CLAUDE.md` in [brianlovin/agent-config](https://github.com/brianlovin/agent-config).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
