@@ -4,7 +4,7 @@
   "repo": "open-agents",
   "description": "An open source template for building cloud agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/vercel-labs/open-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T09:07:20Z"
+  "distributed_at": "2026-05-01T10:07:09Z"
 }
