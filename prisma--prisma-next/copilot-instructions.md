@@ -1,98 +1,55 @@
-## moving-packages
+## multi-plane-entrypoints
 
-> Guidelines for moving packages and updating relative paths
+> Single package exposing migration/runtime/shared entrypoints via subpaths
 
 
-# Moving Packages
+# Multi‑Plane Entrypoints in a Single Package
 
-When moving packages to new locations, you must update all relative paths that reference root-level files or other packages.
+Sometimes a single installable package must serve both migration and runtime planes with distinct entrypoints (e.g., adapter `/control` for control plane and `/runtime` for execution) while sharing a core implementation. This rule encodes how to do that without violating plane boundaries.
 
-## Relative Path Calculation
+## Pattern
 
-**Key Principle**: Count the directory depth from the package to the root, then use that many `../` segments.
+- Keep one NPM package (e.g., `@prisma-next/adapter-postgres`).
+- Split sources by plane inside the package:
+  - `src/core/**` — shared plane only
+  - `src/exports/control.ts` — migration plane entrypoint (control plane)
+  - `src/exports/runtime.ts` — runtime plane entrypoint
+- Export entrypoints from `package.json`:
 
-**Formula**: Count the directory depth from package to root (note: numbered prefixes like `1-framework` count as one directory):
-- From `packages/1-framework/1-core/shared/plan/` to root = 5 levels up (`../../../../../`)
-- From `packages/2-sql/3-tooling/emitter/` to root = 4 levels up (`../../../../`)
-- From `packages/3-targets/6-adapters/postgres/` to root = 4 levels up (`../../../../`)
-- From `packages/3-extensions/pgvector/` to root = 3 levels up (`../../../`)
-
-### Common Paths to Update
-
-1. **Test files** - Paths to other packages:
-   - Extension pack manifests (e.g., `packages/sql/runtime/adapters/postgres/packs/manifest.json`)
-   - Fixture paths
-   - Import paths in test utilities
-
-## Examples
-
-### Moving from `packages/` to `test/`
-
-**Before** (from `packages/integration-tests/test/`):
-```typescript
-const packs = loadExtensionPacks(join(__dirname, '../../sql/runtime/adapters/postgres'), []);
-// Resolves to: packages/sql/runtime/adapters/postgres
+```json
+{
+  "exports": {
+    "./adapter": { "types": "./dist/exports/adapter.d.ts", "import": "./dist/exports/adapter.js" },
+    "./control": { "types": "./dist/exports/control.d.ts", "import": "./dist/exports/control.js" },
+    "./runtime": { "types": "./dist/exports/runtime.d.ts", "import": "./dist/exports/runtime.js" }
+  }
+}
 ```
 
-**After** (from `test/integration/test/`):
-```typescript
-const packs = loadExtensionPacks(join(__dirname, '../../../packages/3-targets/6-adapters/postgres'), []);
-// Resolves to: packages/3-targets/6-adapters/postgres
+## Architecture Mapping
+
+Register subpaths as separate globs in `architecture.config.json` to map planes:
+
+```json
+{ "glob": "packages/targets/postgres-adapter/src/core/**", "domain": "targets", "layer": "adapters", "plane": "shared" }
+{ "glob": "packages/targets/postgres-adapter/src/exports/control.ts", "domain": "targets", "layer": "adapters", "plane": "migration" }
+{ "glob": "packages/targets/postgres-adapter/src/exports/runtime.ts", "domain": "targets", "layer": "adapters", "plane": "runtime" }
 ```
 
-**Why?** From `test/integration/test/`:
-- `../` → `test/integration/`
-- `../../` → `test/`
-- `../../../` → root
-- `../../../packages/3-targets/` → `packages/3-targets/`
+This lets dependency guards treat a single package as three plane‑scoped module groups, so imports remain plane‑safe.
 
-## Checklist When Moving Packages
+## Do’s and Don’ts
 
-1. **Update test files** - Paths to other packages, fixtures, manifests
-2. **Update `pnpm-workspace.yaml`** - Add/remove package globs if needed
-3. **Update `architecture.config.json`** - Add/remove package entries
-   - For multi-plane packages, add separate globs for each plane (see `.cursor/rules/multi-plane-packages.mdc`)
-4. **Update `tsconfig.base.json`** - Update project references
-5. **Update `dependency-cruiser.config.mjs`** - Update exclude patterns if needed
-6. **Update CI workflows** - Update any hardcoded paths
-7. **Update documentation** - READMEs, AGENTS.md, etc.
-8. **Update relative paths in source files** - Manifest paths, import paths, etc.
+- Do keep `src/core/**` free of migration/runtime imports; depend only on shared‑plane packages.
+- Do import control plane/tooling only from `src/exports/control.ts`.
+- Do import runtime/driver only from `src/exports/runtime.ts`.
+- Don't add plane‑crossing imports inside `src/core/**`.
+- Don't export plane‑specific files via the wrong entrypoint.
+- **Naming convention**: Migration plane entrypoints use `control.ts` (not `cli.ts`) and export as `./control` (not `./cli`).
 
-## Verification
+## Rationale
 
-After moving a package, verify paths work:
-
-```bash
-# From the moved package directory
-node -e "const path = require('path'); console.log(path.resolve(__dirname, '../../packages/sql/runtime/adapters/postgres'))"
-```
-
-This should resolve to the correct absolute path.
-
-## Common Mistakes
-
-**❌ WRONG: Not updating paths after move**
-```typescript
-// Still using old path after moving from packages/ to test/
-const packs = loadExtensionPacks(join(__dirname, '../../sql/runtime/adapters/postgres'), []);
-// This resolves to test/sql/runtime/adapters/postgres (doesn't exist!)
-```
-
-**✅ CORRECT: Update paths based on new location**
-```typescript
-// Updated path after moving to test/
-const packs = loadExtensionPacks(join(__dirname, '../../../packages/3-targets/6-adapters/postgres'), []);
-// This resolves to packages/3-targets/6-adapters/postgres (correct!)
-```
-
-## Test Packages Special Case
-
-Test packages moved to `test/` directory:
-- Still need to be in `pnpm-workspace.yaml` for dependency resolution
-- Use `workspace:*` protocol for dependencies
-- Marked as `private: true` in `package.json`
-- Not included in `architecture.config.json` (not source packages)
-- Excluded from dependency cruiser checks (via `exclude` patterns)
+This pattern keeps a single installable artifact with tree‑shakeable, plane‑specific entrypoints while maintaining strict plane boundaries enforced by dependency‑cruiser.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
