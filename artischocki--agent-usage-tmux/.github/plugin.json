@@ -1,0 +1,9 @@
+{
+  "name": "artischocki--agent-usage-tmux",
+  "displayName": "agent-usage-tmux",
+  "description": "Claude / Codex Usage in tmux Statusline",
+  "version": "1.0.0",
+  "author": "artischocki",
+  "homepage": "https://github.com/artischocki/agent-usage-tmux",
+  "skills": []
+}
