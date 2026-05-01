@@ -4,7 +4,7 @@
   "repo": "acci_eaf",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Broccode/acci_eaf",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T10:54:33Z"
+  "distributed_at": "2026-05-01T00:14:18Z"
 }
