@@ -1,0 +1,9 @@
+{
+  "name": "jegly--box",
+  "displayName": "Box",
+  "description": "Private on-device AI chat for Android. Fork of Google AI Edge Gallery with llama.cpp, GGUF import, biometric lock, and encrypted chat history. ",
+  "version": "1.0.0",
+  "author": "jegly",
+  "homepage": "https://github.com/jegly/Box",
+  "skills": []
+}
