@@ -1,0 +1,9 @@
+{
+  "name": "sapienxai--agentos",
+  "displayName": "AgentOS",
+  "description": "Human Control Layer for AI Agents. Built on OpenClaw by SapienX",
+  "version": "1.0.0",
+  "author": "SapienXai",
+  "homepage": "https://github.com/SapienXai/AgentOS",
+  "skills": []
+}
