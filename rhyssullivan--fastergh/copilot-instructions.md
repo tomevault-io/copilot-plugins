@@ -1,17 +1,40 @@
-## never-use-as-any
+## nextjs-proxy
 
-> Never use `any`, `unknown`, or TypeScript type casting.
+> Understanding proxy.ts in Next.js 16+ (formerly middleware.ts)
 
 
-Never use `any`, `unknown`, or TypeScript type casting.
+# Next.js Proxy (formerly Middleware)
 
-This includes:
-- The `any` type
-- The `unknown` type
-- Type assertions using `as` (e.g., `value as SomeType`)
-- Type assertions using angle brackets (e.g., `<SomeType>value`)
+In Next.js 16 and higher, `middleware.ts` was renamed to `proxy.ts`, but it works the same way.
 
-Types should be correct and properly inferred or explicitly defined. If you find yourself needing to cast types, refactor the code to use proper type definitions, type guards, or type narrowing instead.
+## Key Points
+
+- **File name**: `proxy.ts` (or `proxy.js`) in the project root or `src/` directory
+- **Runtime**: Runs in regular Node.js runtime (not Edge runtime)
+- **Functionality**: Identical to previous `middleware.ts` - intercepts requests before they reach routes
+- **Use cases**: Authentication, redirects, rewrites, headers modification, etc.
+
+## Example
+
+```typescript
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function proxy(request: NextRequest) {
+  // Your proxy logic here
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: '/about/:path*',
+};
+```
+
+## Notes
+
+- The export name changed from `middleware` to `proxy`
+- Configuration using `matcher` or conditional logic works the same
+- Runs on every request that matches the configured paths
 
 ---
 > Source: [RhysSullivan/fastergh](https://github.com/RhysSullivan/fastergh) — distributed by [TomeVault](https://tomevault.io).
