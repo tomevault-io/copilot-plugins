@@ -1,0 +1,9 @@
+{
+  "name": "zilliztech--memsearch",
+  "displayName": "memsearch",
+  "description": "A Markdown-first memory system, a standalone library for any AI agent. Inspired by OpenClaw.",
+  "version": "1.0.0",
+  "author": "zilliztech",
+  "homepage": "https://github.com/zilliztech/memsearch",
+  "skills": []
+}
