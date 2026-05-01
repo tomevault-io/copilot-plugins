@@ -7,11 +7,11 @@ DSPy 3.1.x agent skills + validated end-to-end examples for Claude Code and Code
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [intertwine/dspy-agent-skills](https://github.com/intertwine/dspy-agent-skills).
+Original source: `CLAUDE.md` in [intertwine/dspy-agent-skills](https://github.com/intertwine/dspy-agent-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
