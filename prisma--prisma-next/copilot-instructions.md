@@ -1,93 +1,96 @@
-## declarative-config
+## directory-layout
 
-> Prefer declarative configuration over hardcoded logic
+> Directory layout rules for SQL family vs concrete targets
 
 
-# Declarative Configuration
+# Directory Layout — Numbered Prefixes, Domains, Layers, and Planes
 
-## Overview
+The repository uses numbered prefixes in directory names to reflect the architecture hierarchy and dependency direction.
 
-When implementing validation rules, constraints, or configuration logic, prefer declarative data structures over hardcoded conditionals. This makes rules explicit, easier to maintain, and easier to track for removal.
+## Directory Structure
 
-## Pattern
-
-**❌ WRONG: Hardcoded logic in config generator**
-
-```javascript
-// dependency-cruiser.config.mjs
-const createPlaneRules = () => {
-  for (const sourceGroup of moduleGroups) {
-    if (sourceGroup.plane === 'migration') {
-      for (const targetGroup of moduleGroups) {
-        if (targetGroup.plane === 'runtime') {
-          // Hardcoded exception check
-          if (isCompatPrismaToSql(sourceGroup, targetGroup)) {
-            continue;
-          }
-          pushRule(...);
-        }
-      }
-    }
-  }
-};
+```
+packages/
+  1-framework/           # Domain 1: Framework (target-agnostic)
+    1-core/              # Layer 1: Core
+      shared/            # Plane: Shared
+        contract/
+        plan/
+        operations/
+      migration/         # Plane: Migration
+        control-plane/
+      runtime/           # Plane: Runtime
+        execution-plane/
+    2-authoring/         # Layer 2: Authoring
+    3-tooling/           # Layer 3: Tooling
+    4-runtime-executor/  # Layer 4: Runtime Executor
+  2-document/            # Domain 2: Document (placeholder)
+  2-sql/                 # Domain 2: SQL family
+    1-core/              # Layer 1: Core
+    2-authoring/         # Layer 2: Authoring
+    3-tooling/           # Layer 3: Tooling
+    4-lanes/             # Layer 4: Lanes
+    5-runtime/           # Layer 5: Runtime
+  3-extensions/          # Domain 3: Extensions
+    pgvector/
+  3-targets/             # Domain 3: Targets
+    3-targets/           # Layer 3: Target descriptors
+      postgres/
+    6-adapters/          # Layer 6: Adapters
+      postgres/
+    7-drivers/           # Layer 7: Drivers
+      postgres/
 ```
 
-**✅ CORRECT: Declarative configuration**
+## Numbered Prefix Rules
 
-```json
-// architecture.config.json
-{
-  "planeRules": {
-    "migration": {
-      "forbid": ["runtime"],
-      "exceptions": []
-    }
-  }
-}
-```
+1. **Domain numbers**: Lower domain numbers can be imported by higher ones
+   - Domain 1 (framework) can be imported by domains 2 and 3
+   - Domain 2 (sql, document) cannot import from each other
+   - Domain 3 (targets, extensions) can import from domains 1 and 2
 
-```javascript
-// dependency-cruiser.config.mjs
-const createPlaneRules = () => {
-  for (const [sourcePlaneName, planeRule] of Object.entries(planeRules)) {
-    for (const forbiddenPlaneName of planeRule.forbid) {
-      // Read from config, check exceptions declaratively
-      const isException = planeRule.exceptions?.some((exception) => {
-        return matchesGlobPattern(sourceGroup, exception.from) &&
-               matchesGlobPattern(targetGroup, exception.to);
-      });
-      if (isException) continue;
-      pushRule(...);
-    }
-  }
-};
-```
+2. **Layer numbers**: Lower layer numbers can be imported by higher ones
+   - Within a domain, layer 1 (core) can be imported by layers 2, 3, 4, etc.
+   - Within a domain, layer 4 cannot import from layer 5
 
-## Benefits
+3. **Planes**: Appear as subdirectories only when needed
+   - Shared plane: can be imported by both migration and runtime
+   - Migration plane: cannot import from runtime
+   - Runtime plane: cannot import from migration (except artifacts)
 
-1. **Explicit**: Rules and exceptions are visible in the config file
-2. **Maintainable**: Easy to add/remove exceptions without code changes
-3. **Trackable**: Exceptions include reasons and can be tracked for removal
-4. **Testable**: Config can be validated independently of the generator logic
+## SQL Family vs Targets
 
-## When to Use
+**Rule**: Place all SQL target-family packages (all layers and planes) under `packages/2-sql/**`. Place concrete dialects, adapters, and drivers under `packages/3-targets/**`.
 
-- Validation rules with exceptions
-- Constraint definitions (e.g., plane boundaries, layer rules)
-- Configuration that changes frequently
-- Rules that need to be documented and tracked
+- **Family internals** (`packages/2-sql/**`): contract types, operations, emitter hooks, lanes, and family runtime. The SQL family is target‑agnostic; do not place concrete dialect code here.
 
-## When Not to Use
+- **Concrete targets** (`packages/3-targets/**`): target descriptors, adapters, and drivers for specific databases (e.g., Postgres, MySQL). These contribute manifests, adapter cores, control plane descriptors, and runtime pieces per the extension SPI.
 
-- Simple, stable logic that doesn't need exceptions
-- Performance-critical code where indirection adds overhead
-- Logic that's inherently algorithmic (e.g., graph traversal)
+## Examples
 
-## Examples in Codebase
+| Purpose | Directory | Package Name |
+|---------|-----------|--------------|
+| Family emitter hook | `packages/2-sql/3-tooling/emitter/` | `@prisma-next/sql-contract-emitter` |
+| Contract types | `packages/2-sql/1-core/contract/` | `@prisma-next/sql-contract` |
+| Operations | `packages/2-sql/1-core/operations/` | `@prisma-next/sql-operations` |
+| Postgres target | `packages/3-targets/3-targets/postgres/` | `@prisma-next/target-postgres` |
+| Postgres adapter | `packages/3-targets/6-adapters/postgres/` | `@prisma-next/adapter-postgres` |
+| Postgres driver | `packages/3-targets/7-drivers/postgres/` | `@prisma-next/driver-postgres` |
 
-- `architecture.config.json` → `planeRules`: Declarative plane import constraints
-- `architecture.config.json` → `layerOrder`: Declarative layer dependency direction
-- Future: Cross-domain rules, driver access rules, etc.
+## Multi-Plane Entrypoints
+
+A single package may expose multiple plane‑specific entrypoints:
+- `./control` for migration plane (control plane descriptors)
+- `./runtime` for runtime plane (runtime factories)
+- `./adapter` for shared plane (re-exports from core)
+
+Use subpath globs in `architecture.config.json` to map those files to their respective planes.
+
+## Notes
+
+- Avoid placing SQL family internals under `packages/3-targets/**`. Likewise, avoid placing concrete target code under `packages/2-sql/**`.
+- When moving existing code to conform, update `architecture.config.json`, `tsconfig.base.json` project references, and docs alongside the move.
+- The numbered prefixes make dependency direction visually obvious when browsing the filesystem.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
