@@ -1,0 +1,9 @@
+{
+  "name": "ethanolivertroy--kevs-tui",
+  "displayName": "kevs-tui",
+  "description": "Terminal UI for searching CISA Known Exploited Vulnerabilities (KEV) catalog with EPSS exploit probability scores.",
+  "version": "1.0.0",
+  "author": "ethanolivertroy",
+  "homepage": "https://github.com/ethanolivertroy/kevs-tui",
+  "skills": []
+}
