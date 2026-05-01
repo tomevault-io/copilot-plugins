@@ -1,0 +1,9 @@
+{
+  "name": "expo--skills",
+  "displayName": "skills",
+  "description": "A collection of AI agent skills for working with Expo projects and Expo Application Services",
+  "version": "1.0.0",
+  "author": "expo",
+  "homepage": "https://github.com/expo/skills",
+  "skills": []
+}
