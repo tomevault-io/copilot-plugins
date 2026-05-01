@@ -1,0 +1,9 @@
+{
+  "name": "manufosela--karajan-code",
+  "displayName": "karajan-code",
+  "description": "Local multi-agent coding orchestrator with 16 pipeline roles, TDD enforcement, SonarQube integration, and automated code review. Supports Claude, Codex, Gemini, OpenCode and Aider. MCP server included",
+  "version": "1.0.0",
+  "author": "manufosela",
+  "homepage": "https://github.com/manufosela/karajan-code",
+  "skills": []
+}
