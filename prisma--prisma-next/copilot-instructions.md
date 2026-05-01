@@ -1,15 +1,63 @@
-## no-direct-lockfile-edits
+## no-inline-imports
 
-> Never edit the pnpm lockfile manually; use pnpm install
+> Prohibit inline type imports in source files
 
 
-# Lockfile Updates
+# No Inline Type Imports
 
-**CRITICAL**: Never edit `pnpm-lock.yaml` by hand.
+**CRITICAL**: Never use inline type imports (e.g., `import('./module').Type`) in source files. Always use top-level type imports instead.
 
-When dependency declarations change, run `pnpm install` to update `pnpm-lock.yaml` and `node_modules` together.
+## The Problem
 
-If the lockfile changed without running `pnpm install`, run it before continuing.
+Inline type imports like `import('./module').Type` make code harder to read, maintain, and understand. They hide dependencies and make it difficult to see what types are being used in a file.
+
+## The Solution
+
+**❌ WRONG: Inline type import**
+
+```typescript
+export interface OperationExpr {
+  readonly returns: import('./operations-registry').ReturnSpec;
+  readonly lowering: import('./operations-registry').LoweringSpec;
+}
+```
+
+**✅ CORRECT: Top-level type import**
+
+```typescript
+import type { LoweringSpec, ReturnSpec } from './operations-registry';
+
+export interface OperationExpr {
+  readonly returns: ReturnSpec;
+  readonly lowering: LoweringSpec;
+}
+```
+
+## Benefits
+
+- **Better readability**: All imports are visible at the top of the file
+- **Easier maintenance**: Dependencies are clear and easy to update
+- **Consistent style**: Matches standard TypeScript import patterns
+- **Better tooling**: IDEs can better track and refactor imports
+
+## How to Refactor
+
+If you find inline type imports in source files:
+
+1. **Add top-level import**: Add `import type { TypeName } from './module'` at the top
+2. **Replace inline usage**: Replace `import('./module').TypeName` with `TypeName`
+3. **Verify**: Ensure the file compiles and tests pass
+
+## Examples from Codebase
+
+**Good patterns:**
+- Top-level type imports: `import type { ReturnSpec, LoweringSpec } from './operations-registry'`
+- Standard import statements at file top
+
+**Bad patterns (to avoid):**
+- `import('./module').Type` in interface definitions
+- `import('@prisma-next/package').Type` in type annotations
+- Inline imports in function return types (except in tests)
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
