@@ -1,0 +1,9 @@
+{
+  "name": "solusops--mygpu",
+  "displayName": "MyGPU",
+  "description": "Simple real-time monitoring tool for your local GPU setup.",
+  "version": "1.0.0",
+  "author": "solusops",
+  "homepage": "https://github.com/solusops/MyGPU",
+  "skills": []
+}
