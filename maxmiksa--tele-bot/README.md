@@ -7,11 +7,11 @@ A clean Bot running on your PC, interacting with you on Telegram via Claude or C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MaxMiksa/Tele-Bot](https://github.com/MaxMiksa/Tele-Bot).
+Original source: `CLAUDE.md` in [MaxMiksa/Tele-Bot](https://github.com/MaxMiksa/Tele-Bot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
