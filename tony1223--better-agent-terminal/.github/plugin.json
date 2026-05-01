@@ -1,0 +1,9 @@
+{
+  "name": "tony1223--better-agent-terminal",
+  "displayName": "better-agent-terminal",
+  "description": "Multi-workspace terminal aggregator with Claude Code AI integration",
+  "version": "1.0.0",
+  "author": "tony1223",
+  "homepage": "https://github.com/tony1223/better-agent-terminal",
+  "skills": []
+}
