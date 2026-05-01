@@ -1,0 +1,9 @@
+{
+  "name": "helgesverre--sema",
+  "displayName": "sema",
+  "description": "A Lisp with first-class LLM primitives, implemented in Rust",
+  "version": "1.0.0",
+  "author": "HelgeSverre",
+  "homepage": "https://github.com/HelgeSverre/sema",
+  "skills": []
+}
