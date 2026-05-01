@@ -7,13 +7,13 @@ A unified framework for easy reinforcement learning in Flow-Matching models
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [X-GenGroup/Flow-Factory](https://github.com/X-GenGroup/Flow-Factory).
+Original source: `.cursor/rules/*.mdc` in [X-GenGroup/Flow-Factory](https://github.com/X-GenGroup/Flow-Factory).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
