@@ -1,6 +1,6 @@
 # ShipIt
 
-> Tome by [NJLaPrell](https://github.com/NJLaPrell/ShipIt) — distributed by [TomeVault](https://tomevault.io/claim/NJLaPrell)
+> Tome by [NJLaPrell](https://github.com/NJLaPrell/ShipIt) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [NJLaPrell/ShipIt](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/NJLaPrell#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/NJLaPrell/ShipIt](https://github.com/NJLaPrell/ShipIt)
 
 ---
 
