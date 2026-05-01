@@ -7,13 +7,13 @@ An open-source publishing framework built for AI agents and developers to ship w
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [waynesutton/markdown-site](https://github.com/waynesutton/markdown-site).
+Original source: `CLAUDE.md` in [waynesutton/markdown-site](https://github.com/waynesutton/markdown-site).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
