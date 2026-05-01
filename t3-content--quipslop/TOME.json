@@ -4,7 +4,7 @@
   "repo": "quipslop",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/T3-Content/quipslop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T23:52:30Z"
+  "distributed_at": "2026-05-01T08:12:45Z"
 }
