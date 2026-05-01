@@ -1,0 +1,9 @@
+{
+  "name": "mathomhaus--guild",
+  "displayName": "guild",
+  "description": "A local-first, persistent cognition substrate for AI agents. Single Go binary, local SQLite, hybrid keyword and semantic search.",
+  "version": "1.0.0",
+  "author": "mathomhaus",
+  "homepage": "https://github.com/mathomhaus/guild",
+  "skills": []
+}
