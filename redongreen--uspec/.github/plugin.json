@@ -1,0 +1,9 @@
+{
+  "name": "redongreen--uspec",
+  "displayName": "uSpec",
+  "description": "Skillset for generating design system documentation in Figma. Works with Cursor, Claude Code, and Codex via Figma MCPs.",
+  "version": "1.0.0",
+  "author": "redongreen",
+  "homepage": "https://github.com/redongreen/uSpec",
+  "skills": []
+}
