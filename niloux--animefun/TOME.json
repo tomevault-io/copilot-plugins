@@ -1,0 +1,44 @@
+{
+  "name": "animefun",
+  "owner": "Niloux",
+  "repo": "animefun",
+  "description": "\u4e00\u6b3e\u4e13\u6ce8\u4e8e\u8ffd\u756a\u4f53\u9a8c\u7684\u52a8\u753bapp",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Niloux/animefun",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T05:56:50Z"
+}
