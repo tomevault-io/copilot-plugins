@@ -7,11 +7,11 @@ Claude Code skills and sub-agents for .NET Developers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Aaronontheweb/dotnet-skills](https://github.com/Aaronontheweb/dotnet-skills).
+Original source: `CLAUDE.md` in [Aaronontheweb/dotnet-skills](https://github.com/Aaronontheweb/dotnet-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
