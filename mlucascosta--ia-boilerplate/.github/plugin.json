@@ -1,0 +1,9 @@
+{
+  "name": "mlucascosta--ia-boilerplate",
+  "displayName": "ia_boilerplate",
+  "description": "Cross-AI workflow bootstrap for software delivery. Standardizes how Copilot, Claude, and Codex interact with your repo through shared artifacts, planning contracts, and execution rules.",
+  "version": "1.0.0",
+  "author": "mlucascosta",
+  "homepage": "https://github.com/mlucascosta/ia_boilerplate",
+  "skills": []
+}
