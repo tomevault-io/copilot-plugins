@@ -1,9 +1,9 @@
-## idea-scoring
+## pivot-engine
 
-> Skill — idea-scoring. Aggregates all dimension scores into a final 0-100 score with verdict (pursue/test/pivot/drop).
+> Skill — pivot-engine. Generates structured pivot options and writes pivot_options.json (structured data) + pivot_report.md (human-readable brief with evidence, score projections, trade-offs, and recommendation).
 
 
-See [skills/idea-scoring/SKILL.md](../../skills/idea-scoring/SKILL.md) for full instructions and output schema.
+See [skills/pivot-engine/SKILL.md](../../skills/pivot-engine/SKILL.md) for full instructions and output schema.
 
 ---
 > Source: [MaxKmet/idea-validation-agents](https://github.com/MaxKmet/idea-validation-agents) — distributed by [TomeVault](https://tomevault.io).
