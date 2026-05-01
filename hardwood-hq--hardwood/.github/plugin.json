@@ -1,0 +1,9 @@
+{
+  "name": "hardwood-hq--hardwood",
+  "displayName": "hardwood",
+  "description": "A fast minimal dependency implementation of Apache Parquet",
+  "version": "1.0.0",
+  "author": "hardwood-hq",
+  "homepage": "https://github.com/hardwood-hq/hardwood",
+  "skills": []
+}
