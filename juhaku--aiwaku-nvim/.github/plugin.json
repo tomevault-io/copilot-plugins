@@ -1,0 +1,9 @@
+{
+  "name": "juhaku--aiwaku-nvim",
+  "displayName": "aiwaku.nvim",
+  "description": "Bring your CLI AI tool into Neovim as a persistent sidebar panel",
+  "version": "1.0.0",
+  "author": "juhaku",
+  "homepage": "https://github.com/juhaku/aiwaku.nvim",
+  "skills": []
+}
