@@ -1,0 +1,9 @@
+{
+  "name": "egeominotti--bunqueue",
+  "displayName": "bunqueue",
+  "description": "\u26a1 High-performance job queue for Bun. SQLite persistence, DLQ, cron jobs, S3 backups. Built for AI agents and automation  ",
+  "version": "1.0.0",
+  "author": "egeominotti",
+  "homepage": "https://github.com/egeominotti/bunqueue",
+  "skills": []
+}
