@@ -1,48 +1,52 @@
-## version-name-timestamp
+## windows-shell-encoding
 
-> 每次修改代码后更新 versionName 添加测试时间戳
+> Windows PowerShell 中文编码问题 - 避免在命令行中使用中文
 
 
-# 版本名时间戳规则
+# Windows Shell 编码规则
 
-每次修改或增加代码后，必须更新 `app/build.gradle.kts` 中的 `versionName`。
+在 Windows 系统上执行 Shell 命令时，**必须避免在命令参数中使用中文字符**。
 
-## 格式要求
+## 问题原因
 
-```
-versionName = "基础版本号-test-MMddHHmm"
-```
+Cursor IDE 的 Shell 工具在传递命令参数和读取输出时存在编码问题。即使设置了 UTF-8 编码（chcp 65001、Console.OutputEncoding 等），中文字符仍会变成乱码。
 
-- **基础版本号**：保持原有版本号不变（如 `1.0.2`）
-- **时间戳格式**：`MMddHHmm`（月日时分，24小时制）
+这是 **Cursor 工具层面的限制**，不是 PowerShell 或 Windows 的问题，无法通过编码设置解决。
 
-## 示例
+## 规则
 
-假设当前时间是 2026年1月30日 15:30：
+### Git 提交消息
+```bash
+# ❌ BAD - 中文会变成乱码
+git commit -m "修复登录问题"
 
-```kotlin
-// 修改前
-versionName = "1.0.2"
-
-// 修改后
-versionName = "1.0.2-test-01301530"
+# ✅ GOOD - 使用英文
+git commit -m "fix: resolve login issue"
 ```
 
-如果已有测试后缀，替换为新时间：
+### GitHub CLI 评论
+```bash
+# ❌ BAD
+gh pr comment 5 --body "功能已合并，感谢贡献！"
 
-```kotlin
-// 修改前
-versionName = "1.0.2-test-01291200"
-
-// 修改后
-versionName = "1.0.2-test-01301530"
+# ✅ GOOD
+gh pr comment 5 --body "Features merged. Thank you for the contribution!"
 ```
 
-## 重要说明
+### PR/Issue 创建
+```bash
+# ❌ BAD
+gh pr create --title "添加新功能" --body "实现了用户登录"
 
-- 只修改 `-test-` 后缀部分，不要改动基础版本号
-- 用户发布正式版时会自己修改版本号，届时移除 `-test-` 后缀
-- 此规则帮助用户区分不同时间的测试构建
+# ✅ GOOD
+gh pr create --title "Add new feature" --body "Implement user login"
+```
+
+## 总结
+
+- 所有通过 Shell 工具执行的命令，参数中**只使用英文**
+- 需要中文内容时，建议用户通过 GitHub/GitLab 网页界面手动编辑
+- 代码文件中的中文注释不受影响（文件编码由编辑器控制）
 
 ---
 > Source: [suyunkai/EVCam](https://github.com/suyunkai/EVCam) — distributed by [TomeVault](https://tomevault.io).
