@@ -1,0 +1,9 @@
+{
+  "name": "altaidevorg--isanagent",
+  "displayName": "isanagent",
+  "description": "Your always-on and autonomous ML engineer that works 24/7 to conduct research, generate datasets, train models, learn and evolve. Works on Colab, local GPU or over SSH. Zero infra needed",
+  "version": "1.0.0",
+  "author": "altaidevorg",
+  "homepage": "https://github.com/altaidevorg/isanagent",
+  "skills": []
+}
