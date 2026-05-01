@@ -1,55 +1,35 @@
-## architecture
+## code-style
 
-> Architecture of openapi-to-cli (ocli)
+> Code style for openapi-to-cli (TypeScript)
 
 
-## Architectural Rules
+## Code Style Rules
 
-### General Architecture
+### General rules
 
-The `openapi-to-cli` project is a Node.js/TypeScript CLI application that:
+1. All code comments for this project must be written in English.
+2. All documentation files for this project must be written in English.
+3. New files must end with a single empty line.
+4. Use straight double quotes `"`. Use the regular dash `-` for punctuation, do not use long dashes.
 
-- reads an OpenAPI/Swagger spec from a URL or file;
-- caches the spec in `.ocli/specs`;
-- uses profiles to describe connected APIs;
-- maps OpenAPI operations to `ocli` subcommands.
+### TypeScript
 
-### Data Flow
+- `strict: true` is enabled in `tsconfig.json`.
+- For exported functions and public APIs, prefer explicit parameter and return types.
+- For reusable object shapes, use `interface`.
 
-```text
-ocli onboard --options --> write profile (profiles.ini) --> download OpenAPI --> save to .ocli/specs
-       |
-       v
-ocli [--profile] <tool> [options] --> load profile + cached spec --> build commands from OpenAPI --> perform HTTP request to API_BASE_URL
-```
+### File structure
 
-### Components
+1. Imports first (Node/third-party, then local).
+2. Then constants and types.
+3. Then main logic (functions, classes, exports).
 
-- **config** - locate and select `.ocli` directory, resolve `profiles.ini` paths with global and local priority.
-- **profile-store** - read and write profile INI files (`profiles.ini`), select current profile.
-- **openapi-loader** - load spec from URL or file and cache it into `.ocli/specs/<profile>.json`.
-- **openapi-to-commands** - parse OpenAPI, apply include/exclude filters, build command names and option schemas.
-- **cli** - entry point, argument parser, command registration, help rendering.
+### Naming
 
-### Design Principles
-
-1. **OpenAPI-driven** - the list of commands and their parameters is defined by the spec.
-2. **Profiles** - all API settings are configured via profiles (global or local).
-3. **Spec cache** - the spec is cached under `.ocli/specs` to avoid fetching it on every run.
-4. **TypeScript strict** - `strict: true`; explicit types for public APIs and profile interfaces.
-5. **TDD for core logic** - unit tests for profile parsing, spec loading and command mapping.
-6. **Language** - all documentation and code comments for this project must be written in English.
-
-### Repository Layout (for the openapi-to-cli directory)
-
-- `README.md` - concept and description of the CLI and profiles.
-- `package.json` - npm package with the `ocli` binary.
-- `tsconfig.json` - TypeScript config with strict mode.
-- `jest.config.js` - Jest configuration.
-- `src/`:
-  - `cli.ts` - `ocli` binary entry point.
-  - future modules: `config`, `profile-store`, `openapi-loader`, `openapi-to-commands`, etc.
-- `tests/` - tests for the modules above.
+- Classes - PascalCase.
+- Functions and methods - camelCase.
+- Configuration constants - UPPER_SNAKE_CASE or meaningful camelCase names.
+- Files - kebab-case or camelCase, consistent with existing files.
 
 ---
 > Source: [EvilFreelancer/openapi-to-cli](https://github.com/EvilFreelancer/openapi-to-cli) — distributed by [TomeVault](https://tomevault.io).
