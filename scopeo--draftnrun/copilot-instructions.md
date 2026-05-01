@@ -1,0 +1,19 @@
+## draftnrun
+
+> - Services encapsulate business logic between routers and repositories.
+
+
+## Service Layer Conventions
+
+- Services encapsulate business logic between routers and repositories.
+- Services receive a `Session` from the router (via `Depends(get_db)`).
+- Heavy operations: use the Redis run queue (don't block the request).
+- External calls (Supabase Edge Functions, Nango, S3): always use `httpx.AsyncClient` with timeouts.
+- Secrets: encrypted with Fernet before storage, decrypted on read via `ada_backend/utils/encryption.py`.
+- Prefer UUID-typed identifiers in service-facing schemas and payload models; only stringify UUIDs at API/JSON boundaries.
+- Prefer typed schemas/models for service return payloads; avoid untyped `dict` returns when a stable shape exists.
+- See `ada_backend/docs/` for domain-specific documentation.
+
+---
+> Converted and distributed by [TomeVault](https://tomevault.io/claim/Scopeo) — claim your Tome and manage your conversions.
+<!-- tomevault:4.0:copilot_instructions:2026-04-16 -->
