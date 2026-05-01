@@ -1,6 +1,8 @@
-# keypal — distributed by TomeVault
+# keypal
 
-> Originally from [izadoesdev/keypal](https://github.com/izadoesdev/keypal). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [izadoesdev/keypal](https://github.com/izadoesdev/keypal) — distributed by [TomeVault](https://tomevault.io)
+
+A TypeScript library for secure API key management with cryptographic hashing, expiration, scopes, and pluggable storage
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [izadoesdev/keypal](https://github.com
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/izadoesdev)
+From [izadoesdev/keypal](https://github.com/izadoesdev/keypal) — a repo with 199+ stars on GitHub.
 
 ---
 
