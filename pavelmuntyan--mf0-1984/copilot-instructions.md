@@ -1,27 +1,27 @@
-## mf-lab-restart-api
+## mf-lab-version-github-pm2
 
-> After API edits the agent restarts mf-lab-api itself (pm2 or port 35184).
+> Version → GitHub; after project edits → pm2 restart (mf-lab)
 
 
-# Restart MF0-1984 API (`mf-lab`)
+# Version, GitHub, and PM2 (`mf-lab`)
 
-When **`server/**/*.mjs`**, the `/api` contract, the API proxy, or loading fresh code from disk matters — **the agent restarts the local API** in the terminal, not only telling the user to restart.
+## New version → GitHub
 
-## Steps
+When the user **declares a new project version** (release, pin version, push to GitHub, etc.) — **immediately** run the full flow from **`mf0-github-backup.mdc`**: `git add`, commit with version from `package.json` (or as the user said), `git push` to `origin` / `main`, remote `git@github.com:PavelMuntyan/MF0-1984.git`.
 
-1. Working directory: **`mf-lab` root** (where `server/api.mjs`, `package.json` live).
-2. First: **`pm2 restart mf-lab-api`** (optionally **`pm2 save`** on success).
-3. If pm2 is missing, there is no `mf-lab-api` process, or the command fails:
-   - API port: **`API_PORT`** from env or **35184** by default;
-   - kill the process listening on that port (e.g. `lsof -ti :35184`), then run in the background: **`node server/api.mjs`** from `mf-lab`.
-4. Check: **`GET http://127.0.0.1:<PORT>/api/health`** — JSON must include **`ok: true`** and **`mfLabApi: true`**.
+## After edits in the project → PM2
+
+When the agent **wrote changes** to `mf-lab` repo files in response to the user:
+
+1. **At the end** of handling the request (before the final reply), if there were substantive code changes — from project root run **`pm2 restart mf-lab-api mf-lab-vite`** (same as **`npm run pm2:restart`**).
+2. If `pm2` is unavailable or processes are missing — for the API follow **`mf-lab-restart-api.mdc`** (`mf-lab-api` / default port 35184).
+3. If **no project files** changed for the request (read-only, advice only) — do not restart PM2.
+
+Do not only say “restart yourself” when the terminal is available.
 
 ## Limits
 
-- Do not use restart as cover for **destructive tests** on live `data/*.sqlite` — see **`no-destructive-db-in-agent-tests.mdc`**.
-- If the environment blocks network/processes and restart is impossible — briefly tell the user what to do manually.
-
-Do not stop at “please restart the API” without trying the steps above when the terminal is available.
+- Do not use restart and the API for **destructive tests** on live `data/*.sqlite` — see **`no-destructive-db-in-agent-tests.mdc`**.
 
 ---
 > Source: [PavelMuntyan/MF0-1984](https://github.com/PavelMuntyan/MF0-1984) — distributed by [TomeVault](https://tomevault.io).
