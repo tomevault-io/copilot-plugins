@@ -1,87 +1,85 @@
-## project-structure
+## self-improve
 
-> This rule explains the folder structure of the project. Use this as a reference for navigating and understanding the codebase.
+> Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
 
 
-# Project Structure Guide
+# Self-Improvement
 
-This rule explains the folder structure of the project. Use this as a reference for navigating and understanding the codebase.
+This rule explains how to continuously improve Cursor rules based on emerging code patterns and best practices.
 
-## Root Directory
+## Rule Improvement Triggers
 
-The root contains configuration files and the main project folders:
-- [package.json](mdc:package.json): Project dependencies and scripts
-- [tsconfig.json](mdc:tsconfig.json): TypeScript configuration
-- [next.config.js](mdc:next.config.js): Next.js configuration
-- [tailwind.config.js](mdc:tailwind.config.js): Tailwind CSS configuration
+- New code patterns not covered by existing rules
+- Repeated similar implementations across files
+- Common error patterns that could be prevented
+- New libraries or tools being used consistently
+- Emerging best practices in the codebase
 
-## Key Directories
+# Analysis Process:
+- Compare new code with existing rules
+- Identify patterns that should be standardized
+- Look for references to external documentation
+- Check for consistent error handling patterns
+- Monitor test patterns and coverage
 
-### [components/](mdc:components)
+# Rule Updates:
 
-Reusable React components, organized by feature:
+- **Add New Rules When:**
+  - A new technology/pattern is used in 3+ files
+  - Common bugs could be prevented by a rule
+  - Code reviews repeatedly mention the same feedback
+  - New security or performance patterns emerge
 
-- `landing/`: Landing page components
-- `shared/`: Shared UI primitives (often Shadcn-based)
-- `search/`: Search UI components
-- `icons/`: SVG and icon components
+- **Modify Existing Rules When:**
+  - Better examples exist in the codebase
+  - Additional edge cases are discovered
+  - Related rules have been updated
+  - Implementation details have changed
 
-### [app/](mdc:app)
+- **Example Pattern Recognition:**
 
-Next.js App Router directory. Contains all route definitions and API endpoints:
+  ```typescript
+  // If you see repeated patterns like:
+  const data = await prisma.user.findMany({
+    select: { id: true, email: true },
+    where: { status: 'ACTIVE' }
+  });
 
-- `page.tsx`: Main entry point
-- `layout.tsx`: Root layout
-- `not-found.tsx`: 404 page
-- `seo.tsx`, `theme-providers.tsx`: SEO and theme context
-- Subfolders for routes: `about/`, `api/`, `terms/`, `pricing/`, `privacy/`, etc.
+  // Consider adding to [prisma.mdc](mdc:shipixen/.cursor/rules/prisma.mdc):
+  // - Standard select fields
+  // - Common where conditions
+  // - Performance optimization patterns
+  ```
 
-### [scripts/](mdc:scripts)
+- **Rule Quality Checks:**
+- Rules should be actionable and specific
+- Examples should come from actual code
+- References should be up to date
+- Patterns should be consistently enforced
 
-Node scripts for build, RSS generation, and app info automation.
+## Continuous Improvement:
 
-### [css/](mdc:css)
+- Monitor code review comments
+- Track common development questions
+- Update rules after major refactors
+- Add links to relevant documentation
+- Cross-reference related rules
 
-Global and syntax highlighting CSS files.
+## Rule Deprecation
 
-### [lib/](mdc:lib)
+- Mark outdated patterns as deprecated
+- Remove rules that no longer apply
+- Update references to deprecated rules
+- Document migration paths for old patterns
 
-Utility functions and helpers.
+## Documentation Updates:
 
-### [components/shared/](mdc:components/shared)
+- Keep examples synchronized with code
+- Update references to external docs
+- Maintain links between related rules
+- Document breaking changes
 
-**Shared Components**: Common UI and logic used across the app, including:
-- `Header.tsx`: Main site header, navigation, and theme switcher. Uses `headerNavLinks` from config.
-- `Footer.tsx`: Main site footer, renders columns and social links using `footerLinks` and `siteConfig`.
-- `MobileNav.tsx`, `ScrollTop.tsx`, `ThemeSwitch.tsx`, `Analytics.tsx`, `PageTitle.tsx`, `SectionContainer.tsx`, `VideoPlayer.tsx`, `ActiveLink.tsx`, `Link.tsx`, `FooterSupportButton.tsx`, `Image.tsx`: Utility and layout components for navigation, theming, analytics, and content display.
-- `SearchProvider.tsx`: Context provider for search functionality.
-- `useThemeSwitch.tsx`: Custom hook for theme toggling.
-- **[ui/](mdc:components/shared/ui)**: Shadcn-based UI primitives (buttons, toggles, dialogs, forms, etc.) for consistent design system usage. Example primitives:
-  - `button.tsx`: Button component with multiple variants and sizes.
-  - `toggle.tsx`: Toggle switch using Radix UI and class-variance-authority.
-  - `dropdown-menu.tsx`, `menubar.tsx`, `pagination.tsx`, `calendar.tsx`, `card.tsx`, `table.tsx`, `tabs.tsx`, `select.tsx`, `sheet.tsx`, `slider.tsx`, `switch.tsx`, `badge.tsx`, `dialog.tsx`, `alert.tsx`, `avatar.tsx`, `form.tsx`, etc.
-  - All primitives are designed for accessibility, theme support, and composability.
-
-### [data/config/](mdc:data/config)
-
-**Configuration Directory**: Centralized site and UI configuration:
-- `site.settings.js`: Main site config (title, description, analytics, search, etc.), imported as `siteConfig`.
-- `siteSettingsInterface.ts`: TypeScript interface for site config and metadata.
-- `metadata.js`: Site metadata (title, description, domain, social links, theme, etc.).
-- `footerLinks.ts`: Footer navigation columns and links.
-- `headerNavLinks.ts`: Header navigation links, referencing `siteConfig` for dynamic paths.
-- `colors.js`: Semantic color palette for Tailwind and UI.
-- `pricingData.tsx` & `pricingDataInterface.ts`: Pricing tiers, frequencies, and types for pricing pages.
-- `searchLinks.ts`: Quick navigation/search links for the app.
-
-These config files are imported throughout the app and components to ensure consistent navigation, theming, and business logic.
-
-## Other Notable Folders
-
-- `.cursor/`: Cursor AI rules and metadata
-- `public/`: Static assets
-
-Refer to this rule for a high-level overview of the project structure and the purpose of each directory.
+Follow [cursor-rules.mdc](mdc:.cursor/rules/cursor-rules.mdc) for proper rule formatting and structure.
 
 ---
 > Source: [PageAI-Pro/vibe-coding-starter](https://github.com/PageAI-Pro/vibe-coding-starter) — distributed by [TomeVault](https://tomevault.io).
