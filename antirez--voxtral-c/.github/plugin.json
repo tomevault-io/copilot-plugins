@@ -1,0 +1,9 @@
+{
+  "name": "antirez--voxtral-c",
+  "displayName": "voxtral.c",
+  "description": "Pure C inference of Mistral Voxtral Realtime 4B speech to text model",
+  "version": "1.0.0",
+  "author": "antirez",
+  "homepage": "https://github.com/antirez/voxtral.c",
+  "skills": []
+}
