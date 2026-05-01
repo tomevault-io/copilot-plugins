@@ -1,113 +1,437 @@
-## task
+## write
 
-> Guidelines for creating and managing task lists in markdown files to track project progress
+> Writing style guide with AI detection avoidance. For tweets, LinkedIn, blogs, READMEs, commits. Activate with @write
 
 
----
+# Writing style rules
 
-# Task List Management
+Use this rule when writing documentation, README files, comments, commit messages, or any other user facing text.
 
-Guidelines for creating and managing task lists in markdown files to track project progress
+## Triggers
 
-## Task List Creation
+| Trigger | Output |
+|---|---|
+| `write:tweet` or `write:x` | X or Twitter post |
+| `write:linkedin` | LinkedIn post |
+| `write:blog` | Blog post |
+| `write:readme` | README |
+| `write:commit` | Git commit message |
+| `write:docs` | Developer documentation |
+| `write:feature` | Feature post |
+| `write:convex` | Convex specific content |
+| `write:tip` | Quick tip |
 
-1. Create task lists in a markdown file (in the project root):
-   - Use `TASKS.md` or a descriptive name relevant to the feature (e.g., `ASSISTANT_CHAT.md`)
-   - Include a clear title and description of the feature being implemented
+Example usage:
+* "write:tweet about real time sync"
+* "write:blog on authentication patterns"
+* "write:feature for our new search API"
 
-2. Structure the file with these sections:
+## Rule of one
 
-   ```markdown
-   # Feature Name Implementation
+Every piece of content follows this framework:
 
-   Brief description of the feature and its purpose.
+* **One person**: Write to a specific person, not an audience.
+* **One problem**: State the single problem they face.
+* **One cause**: Identify the root cause.
+* **One difference**: Explain what the solution does differently.
+* **One action**: End with one clear next step.
 
-   ## Completed Tasks
+### Rule of one checklist
 
-   - [x] Task 1 that has been completed
-   - [x] Task 2 that has been completed
+Before publishing, answer these:
 
-   ## In Progress Tasks
+* [ ] Can I name the one person this is for?
+* [ ] Can the problem fit in one sentence?
+* [ ] Is the root cause obvious?
+* [ ] Can I explain the difference in one breath?
+* [ ] Is there only one action at the end?
 
-   - [ ] Task 3 currently being worked on
-   - [ ] Task 4 to be completed soon
+If any answer is no, revise before publishing.
 
-   ## Future Tasks
+## When to use this rule
 
-   - [ ] Task 5 planned for future implementation
-   - [ ] Task 6 planned for future implementation
+Use it for:
+* X or Twitter posts
+* LinkedIn content
+* Blog posts
+* README files
+* Git commits
+* Product announcements
+* Developer documentation
+* Feature posts
 
-   ## Implementation Plan
+Important: this is for standalone writing. Do not update project files like files.md, changelog.md, or README.md when using this rule.
 
-   Detailed description of how the feature will be implemented.
+## Voice styles
 
-   ### Relevant Files
+Pick a voice that fits the output:
 
-   - path/to/file1.ts - Description of purpose
-   - path/to/file2.ts - Description of purpose
-   ```
+| Style | Characteristics | Use for |
+|---|---|---|
+| Technical educator | Clear, structured, educational | Technical content, tutorials, READMEs |
+| Conversational dev | Warm, witty, approachable | Social posts, personal takes |
+| Analytical thinker | Data driven, bold, opinionated | Thought leadership, threads |
+| Aphorist | Compressed, timeless, pithy | Short posts, one liners |
+| Founder voice | Experience backed, energetic | Startup content, advice |
+| Systems thinker | Frameworks, mental models | Long form, technical takes |
+| Dev culture | Relatable, playful, authentic | Community content, personality |
+| Data storyteller | Visual, analytical, trend focused | AI trends, market insights |
+| Enterprise pro | Professional, strategic, precise | Enterprise SaaS, B2B content |
+| Community builder | Encouraging, personal, supportive | Career growth, DevRel |
+| Learn in public | Educational, transparent, iterative | Developer career, web dev |
+| Product thinker | Community first, growth minded | Community building, growth |
 
-## Task List Maintenance
+## Core principles
 
-1. Update the task list as you progress:
-   - Mark tasks as completed by changing `[ ]` to `[x]`
-   - Add new tasks as they are identified
-   - Move tasks between sections as appropriate
+### Stand out by being you
+You do not stand out online by saying the same things as everyone else. Say what you think, feel, and believe. Consensus takes are forgettable. Your take is not.
 
-2. Keep "Relevant Files" section updated with:
-   - File paths that have been created or modified
-   - Brief descriptions of each file's purpose
-   - Status indicators (e.g., ✅) for completed components
+### Lead with value
+* First sentence does the work
+* Do not bury the takeaway
+* Readers scroll fast
 
-3. Add implementation details:
-   - Architecture decisions
-   - Data flow descriptions
-   - Technical components needed
-   - Environment configuration
+### Be direct, not blunt
+* Say what you mean
+* Confidence without arrogance
+* Contractions are fine
 
-## AI Instructions
+### Technical, not alienating
+* Define terms when helpful
+* Complex ideas deserve simple language
+* Let code speak when it can
 
-When working with task lists, the AI should:
+### Share what you actually know
+* Personal experience beats generic advice
+* Specific examples beat abstract principles
+* Acknowledge what you do not know
 
-1. Regularly update the task list file after implementing significant components
-2. Mark completed tasks with [x] when finished
-3. Add new tasks discovered during implementation
-4. Maintain the "Relevant Files" section with accurate file paths and descriptions
-5. Document implementation details, especially for complex features
-6. When implementing tasks one by one, first check which task to implement next
-7. After implementing a task, update the file to reflect progress
+## Formats by content type
 
-## Example Task Update
+### write:tweet (or write:x)
 
-When updating a task from "In Progress" to "Completed":
+```
+[Clear statement or observation]
 
-```markdown
-## In Progress Tasks
+[Supporting point or context]
 
-- [ ] Implement database schema
-- [ ] Create API endpoints for data access
-
-## Completed Tasks
-
-- [x] Set up project structure
-- [x] Configure environment variables
+[Optional: question or call to action]
 ```
 
-Should become:
+Rules:
+* First 2 lines visible in preview. Make them count.
+* 280 characters forces compression. Use it.
+* One idea per post.
+* No hashtags.
+* No emojis unless requested.
 
-```markdown
-## In Progress Tasks
+### write:linkedin
 
-- [ ] Create API endpoints for data access
+```
+[Hook that stops the scroll]
 
-## Completed Tasks
+[Story or context in short paragraphs]
 
-- [x] Set up project structure
-- [x] Configure environment variables
-- [x] Implement database schema
+[Insight or lesson]
+
+[Call to action or question]
 ```
 
-**!IMPORTANT**: **DO NOT** externalize or document your work, usage guidelines, or benchmarks (e.g. `README.md`, `CONTRIBUTING.md`, `SUMMARY.md`, `USAGE_GUIDELINES.md` after completing the task, do not use emoji, unless explicitly instructed to do so. You may include a brief summary of your work, but do not create separate documentation files for it.
+Rules:
+* Short paragraphs for mobile
+* Professional but not corporate
+* Personal stories perform well
+* One clear takeaway
+
+### write:blog
+
+```
+# Title (sentence case, max 70 characters)
+
+[Opening that states the value immediately]
+
+## Section heading
+[Max 300 words per section]
+
+## Section heading
+[Use bullet points or tables where helpful]
+```
+
+Rules:
+* Sentence case for all headings
+* No H3s unless absolutely necessary
+* Fact check everything
+* Lead with why it matters
+* Max 5 sections
+
+### write:readme
+
+```
+# Project name
+
+[One sentence: what this does]
+
+## Getting started
+[Minimal steps to run]
+
+## Usage
+[Code examples]
+
+## API or configuration
+[Reference docs]
+```
+
+Rules:
+* Start with what it does, not what it is
+* Code examples over descriptions
+* Keep it scannable
+
+### write:commit
+
+```
+[type]: [short description]
+
+[Optional: longer explanation if needed]
+```
+
+Types: feat, fix, docs, style, refactor, test, chore
+
+Rules:
+* Present tense: "add feature" not "added feature"
+* 50 characters max for subject line
+* No period at the end
+
+### write:docs
+
+```
+# [Task or concept name]
+
+[One sentence: what this page helps you do]
+
+## Before you start
+[Prerequisites, if any]
+
+## Steps
+1. [Action]
+2. [Action]
+3. [Action]
+
+## Example
+[Code snippet]
+
+## Related
+[Links to related docs]
+```
+
+Rules:
+* Task oriented, not feature oriented
+* Show, do not tell
+* Working code examples required
+* Keep prerequisites minimal
+
+### write:feature
+
+```
+## [Feature name]
+
+**What it is**
+[One sentence description]
+
+**Who it is for**
+[Specific user or role]
+
+**The problem it solves**
+[One problem, clearly stated]
+
+**How it works**
+[High level explanation, 2 to 3 sentences max]
+
+**Try it**
+[One clear action: link, command, or next step]
+```
+
+Rules:
+* Five sections only
+* Each section answers one question
+* Skip the hype. State facts.
+* End with a single action
+
+### write:tip
+
+```
+[One sentence tip]
+
+[Concrete example, ideally code]
+
+[One line why this works]
+```
+
+Rules:
+* Make it shippable in under a minute
+* If you mention a tool, show the exact command or snippet
+* End with one action or takeaway, not a question pile
+
+### write:convex
+
+New guide or tutorial:
+
+```
+New guide: [topic]
+
+[What you will learn or build]
+
+[Link]
+```
+
+Convex tip:
+
+```
+Convex tip:
+
+[Pattern in one sentence]
+
+[Code snippet showing it]
+
+[Why this works]
+```
+
+What to avoid:
+* Generic praise
+* Comparisons that trash competitors
+* Overpromising
+* Screenshots without context
+* Sharing customer work without permission
+* Empty engagement bait
+
+Content mix for Convex:
+* 40 percent educational: tutorials, tips, patterns
+* 30 percent community: spotlights, customer stories
+* 20 percent product: updates, features, changelog
+* 10 percent personal: projects, learnings, opinions
+
+## Templates
+
+### Technical educator
+
+```
+[Clear headline]
+
+Here is what matters:
+* Point 1
+* Point 2
+* Optional: one more point
+
+[Code snippet or visual]
+
+[Resource link]
+```
+
+### Analytical thinker
+
+```
+[Counterintuitive opening]
+
+[Common belief]
+
+[Your argument with evidence]
+
+[Implications]
+```
+
+### Data storyteller
+
+```
+[Trend observation with a specific data point]
+
+[Context: why this matters now]
+
+[Visual reference or chart if applicable]
+
+[What to watch next]
+```
+
+Rules:
+* Lead with numbers
+* Connect data to broader movements
+* End with a forward looking signal
+
+### Learn in public
+
+```
+[Thing I just figured out]
+
+[How I got there, mistakes included]
+
+[Resources or links for others]
+```
+
+Rules:
+* Document the journey
+* Share rough drafts
+* Credit sources
+
+## AI detection avoidance
+
+### Banned vocabulary
+
+Never use these words:
+delve, intricate, pivotal, comprehensive, multifaceted, facilitate, encompass, underscore, testament, notably, crucial, underpins, realm, landscape, tapestry, moreover, furthermore, additionally, specifically, importantly, consequently, therefore, thus, myriad, plethora, nuanced, holistic, meticulous, versatile, leverage, synergy, ecosystem, paradigm shift, disruptive, scalable, seamless, empower, innovative, transformative, robust, agile, dynamic, cutting edge, next gen, revolutionary, breakthrough, game changer, supercharge, unlock, groundbreaking, ai powered, ai-powered
+
+### Banned sentence openers
+
+Never start sentences with:
+* Dive into / Delve into
+* It is important to note
+* In conclusion / In summary
+* Based on the information provided
+* When it comes to
+* In today’s digital age
+* Let’s explore
+
+### Banned patterns
+
+* **Rule of three**: AI groups items in threes. Vary list lengths.
+* **Negative parallelism**: Do not say "not just X, but Y." State what it is.
+* **Vague attribution**: Do not say "experts believe." Name sources or remove.
+* **Setup pivot conclusion**: Not every paragraph needs "however" and resolution.
+* **Symmetrical structures**: Do not balance pros and cons evenly by default. Be asymmetric.
+
+### Style markers to avoid
+
+* No em dashes between words
+* No hashtags
+* No emojis unless requested
+* No title case in headings
+* No excessive formatting
+
+### How to write human
+
+* Vary sentence structure. Mix short and long. Fragments work.
+* Use exact numbers, not ranges.
+* Name specific sources, not "experts say."
+* Show your thinking: "I tried X, but it did not work because..."
+* Not every paragraph needs a neat resolution.
+
+## Before publishing checklist
+
+Rule of one:
+* [ ] One person
+* [ ] One problem
+* [ ] One cause
+* [ ] One difference
+* [ ] One action
+
+Quality:
+* [ ] Clear takeaway in the first line
+* [ ] No banned vocabulary
+* [ ] No banned sentence openers
+* [ ] No vague attributions
+* [ ] No overbalanced pros and cons
+* [ ] No excessive formatting
+
+## Core principle
+
+AI writes to sound authoritative. Humans write to communicate. AI smooths rough edges. Human writing has texture. AI balances everything. Human writing has opinions. Be clear. Be useful. Have a point of view.
 
 ---
 > Source: [waynesutton/opensync](https://github.com/waynesutton/opensync) — distributed by [TomeVault](https://tomevault.io).
