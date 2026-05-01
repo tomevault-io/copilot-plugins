@@ -1,0 +1,9 @@
+{
+  "name": "0xr1l3s--netraze",
+  "displayName": "NetRaze",
+  "description": "NetRaze is an advanced offensive security framework focused on network exploitation and lateral movement across Active Directory infrastructures. Built in Rust, it emphasizes performance, stealth, and",
+  "version": "1.0.0",
+  "author": "0xr1l3s",
+  "homepage": "https://github.com/0xr1l3s/NetRaze",
+  "skills": []
+}
