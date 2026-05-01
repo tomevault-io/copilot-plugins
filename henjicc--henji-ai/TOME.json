@@ -1,0 +1,44 @@
+{
+  "name": "Henji-AI",
+  "owner": "henjicc",
+  "repo": "Henji-AI",
+  "description": "\u75d5\u8ff9AI - \u4e00\u4e2a\u8f6f\u4ef6\u7528\u4e0a\u5404\u79cdAI\uff01\u805a\u5408\u591a\u5bb6\u4f9b\u5e94\u5546\uff0c\u4e00\u7ad9\u5f0f\u751f\u6210\u56fe\u7247\u3001\u89c6\u9891\u548c\u97f3\u9891",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/henjicc/Henji-AI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T15:36:26Z"
+}
