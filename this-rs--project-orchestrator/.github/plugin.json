@@ -1,0 +1,9 @@
+{
+  "name": "this-rs--project-orchestrator",
+  "displayName": "project-orchestrator",
+  "description": "A Rust-based AI agent orchestrator with Neo4j knowledge graph, Meilisearch semantic search, and Tree-sitter code parsing.",
+  "version": "1.0.0",
+  "author": "this-rs",
+  "homepage": "https://github.com/this-rs/project-orchestrator",
+  "skills": []
+}
