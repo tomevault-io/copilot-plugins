@@ -1,0 +1,9 @@
+{
+  "name": "andrzejchm--fdb",
+  "displayName": "fdb",
+  "description": "Flutter Debug Bridge - CLI for AI agents to interact with running Flutter apps on device",
+  "version": "1.0.0",
+  "author": "andrzejchm",
+  "homepage": "https://github.com/andrzejchm/fdb",
+  "skills": []
+}
