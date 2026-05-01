@@ -4,7 +4,7 @@
   "repo": "poco-claw",
   "description": "A more beautiful and easier-to-use alternative to OpenClaw. It features a nicer Web UI, built-in IM support, and a sandboxed runtime for improved safety. Under the hood, it is powered by a Claude Code\u2013based agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/poco-ai/poco-claw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T05:51:13Z"
+  "distributed_at": "2026-05-01T08:03:47Z"
 }
