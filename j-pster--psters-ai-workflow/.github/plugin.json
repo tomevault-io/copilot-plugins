@@ -1,0 +1,9 @@
+{
+  "name": "j-pster--psters-ai-workflow",
+  "displayName": "Psters_AI_Workflow",
+  "description": "An auto-documenting, model-agnostic AI workflow for any project, framework, and language. It reduces hallucination and keeps delivery predictable: the developer controls the path, AI executes the step",
+  "version": "1.0.0",
+  "author": "J-Pster",
+  "homepage": "https://github.com/J-Pster/Psters_AI_Workflow",
+  "skills": []
+}
