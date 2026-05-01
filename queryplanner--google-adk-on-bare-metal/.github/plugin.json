@@ -1,0 +1,9 @@
+{
+  "name": "queryplanner--google-adk-on-bare-metal",
+  "displayName": "google-adk-on-bare-metal",
+  "description": "Deploy google adk on bare metal",
+  "version": "1.0.0",
+  "author": "QueryPlanner",
+  "homepage": "https://github.com/QueryPlanner/google-adk-on-bare-metal",
+  "skills": []
+}
