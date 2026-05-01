@@ -1,0 +1,9 @@
+{
+  "name": "clawdbotatg--agent-bounty-board",
+  "displayName": "agent-bounty-board",
+  "description": "Dutch auction job market for ERC-8004 AI agents. Powered by CLAWD token on Base.",
+  "version": "1.0.0",
+  "author": "clawdbotatg",
+  "homepage": "https://github.com/clawdbotatg/agent-bounty-board",
+  "skills": []
+}
