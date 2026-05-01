@@ -1,35 +1,53 @@
-## electron-ipc
+## git-workflow
 
-> Electron IPC 跨層開發順序與注意事項
+> Qclaw 開源貢獻的 Git 工作流程、Commit 格式與分支命名
 
 
-# Electron IPC 開發規範
+# Git 工作流程
 
-## 跨層改動順序
+## Remote 設定
 
-新增或修改 IPC 功能時，**必須依照以下順序**：
+| Remote | 指向 | 用途 |
+|--------|------|------|
+| `origin` | `JasonYang318/Qclaw`（fork） | 推送改動 |
+| `upstream` | `qiuzhi2046/Qclaw`（原始） | 同步最新版 |
 
-1. **型別定義** — `src/types/electron.d.ts`
-2. **Preload 橋接** — `electron/preload/`
-3. **IPC Handler** — `electron/main/ipc-handlers.ts`
-4. **主程式邏輯** — `electron/main/`（新增服務檔案）
-5. **UI 元件** — `src/pages/` 或 `src/components/`
+## 同步上游
 
-## 架構分層說明
+```powershell
+git fetch upstream
+git checkout main
+git merge upstream/main
+git push origin main
+```
 
-| 層 | 路徑 | 說明 |
-|----|------|------|
-| UI | `src/pages/` | React 頁面、按鈕、互動 |
-| 型別定義 | `src/types/electron.d.ts` | IPC API 型別 |
-| Preload | `electron/preload/` | 安全橋接層（Context Bridge） |
-| IPC | `electron/main/ipc-handlers.ts` | IPC 事件處理 |
-| 業務邏輯 | `electron/main/` | 主程式服務 |
+## 分支命名
 
-## 注意事項
+- 新功能：`feat/<功能名>`
+- 修 bug：`fix/<問題描述>`
+- 文件：`docs/<主題>`
 
-- Preload 只能使用 `contextBridge.exposeInMainWorld` 暴露 API
-- 主程序使用 `process.getBuiltinModule('node:...')` 取得 Node 內建模組
-- 跨平台路徑比較前須正規化分隔符：`.replace(/\\/g, '/')`
+## Commit 訊息格式
+
+```
+<type>: <簡述>
+```
+
+| 前綴 | 用途 |
+|------|------|
+| `feat` | 新功能 |
+| `fix` | 修 bug |
+| `docs` | 文件變更 |
+| `refactor` | 重構 |
+| `test` | 測試 |
+| `chore` | 工具 / 設定 |
+
+## PR 流程
+
+1. 先開 GitHub Issue，等維護者確認方向
+2. 在自己的 fork 分支開發
+3. 跑完三個驗證指令後再 commit
+4. 推送到 `origin`，開 PR 指向 `qiuzhi2046/Qclaw`
 
 ---
 > Source: [qiuzhi2046/Qclaw](https://github.com/qiuzhi2046/Qclaw) — distributed by [TomeVault](https://tomevault.io).
