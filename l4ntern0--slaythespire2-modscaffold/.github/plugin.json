@@ -1,0 +1,9 @@
+{
+  "name": "l4ntern0--slaythespire2-modscaffold",
+  "displayName": "SlaytheSpire2-ModScaffold",
+  "description": "Slay the Spire 2 mod development scaffold \u2014 one-click setup (.NET 10, Godot, ILSpy MCP, STS2MCP), Harmony hook templates, automated install/build/deploy, and complete modding guide with 144 documented",
+  "version": "1.0.0",
+  "author": "L4ntern0",
+  "homepage": "https://github.com/L4ntern0/SlaytheSpire2-ModScaffold",
+  "skills": []
+}
