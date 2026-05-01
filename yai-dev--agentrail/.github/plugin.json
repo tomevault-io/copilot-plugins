@@ -1,0 +1,9 @@
+{
+  "name": "yai-dev--agentrail",
+  "displayName": "agentrail",
+  "description": "Agentrail is an open-source agent harness framework for building, hosting, and orchestrating tool-using AI agents.",
+  "version": "1.0.0",
+  "author": "yai-dev",
+  "homepage": "https://github.com/yai-dev/agentrail",
+  "skills": []
+}
