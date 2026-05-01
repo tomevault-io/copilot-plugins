@@ -1,92 +1,216 @@
-## vite-three-js-pro
+## vite-three-js
 
-> - 所有 Three.js 相关逻辑应通过 `src/js/experience.js` 的 `Experience` 单例访问和管理。
+> 我在利用 threejs 的快速启动框架 来实现 `PRD.md` 中的内容, 其中 `threejs` 使用的语言为 `JS`，框架中的绝大部分代码都存在于类组件中，然后通过实例化类组件后获取实例再对其内在内:**
 
-# vite-three-js 项目开发规则（mdc 规范）
+# vite-three-js 框架风格指南
+
+我在利用 threejs 的快速启动框架 来实现 `PRD.md` 中的内容, 其中 `threejs` 使用的语言为 `JS`，框架中的绝大部分代码都存在于类组件中，然后通过实例化类组件后获取实例再对其内在内:**
+
+框架的核心是 `src/js/experience.js` 文件中定义的 `Experience` 类。这个类采用**单例模式**，确保全局只有一个 `Experience` 实例。它负责初始化和管理 Three.js 的核心组件以及各种工具类实例。
+
+**获取核心实例:**
+
+在框架的其他类组件中，你需要先获取 `Experience` 的单例实例，然后通过该实例访问所需的属性和工具。标准做法如下：
+
+```js
+// 确保从正确的路径导入 Experience
+import Experience from './experience.js' 
+
+export default class Your3DComponent {
+  constructor() {
+    // 获取 Experience 单例实例
+    this.experience = new Experience()
+
+    // 通过 experience 实例访问核心组件和工具 
+    this.scene = this.experience.scene             // THREE.Scene 实例
+    this.resources = this.experience.resources     // 资源加载器实例 (Resources)
+    this.camera = this.experience.camera.instance  // THREE.Camera 实例 (透视或正交)
+    this.renderer = this.experience.renderer.instance // THREE.WebGLRenderer 实例
+    this.time = this.experience.time               // 时间控制器实例 (Time)
+    this.sizes = this.experience.sizes             // 尺寸管理器实例 (Sizes)
+    this.iMouse = this.experience.iMouse           // 鼠标跟踪器实例 (IMouse)
+    this.debug = this.experience.debug             // 调试 UI 实例 (Debug)
+    this.physics = this.experience.physics         // 物理世界实例 (PhysicsWorld)
+    this.stats = this.experience.stats             //性能监控实例 (Stats)
+    this.canvas = this.experience.canvas           // HTML Canvas 元素
+    // ... 其他可能需要的实例
+  }
+
+  // ... 组件的其他方法 (例如 update, resize 等)
+}
+```
+
+**注意 自动生成代码获取共用属性以及方法时仅取得需要的属性即可**：
+如某个3D组件用于引入加载的模型，则他只需要引入 scene & resource
+
+```js
+export default class Your3DComponent {
+  // 获取共用属性以及方法
+  constructor() {
+    // 获取 Experience 单例实例
+    this.experience = new Experience()
+
+    // 通过 experience 实例访问核心组件和工具 
+    this.scene = this.experience.scene             // THREE.Scene 实例
+    this.resources = this.experience.resources     // 资源加载器实例 (Resources)
+    this.debug = this.experience.debug             // 调试 UI 实例 (Debug)
+
+    // 组件自身属性
+    this.selfProp1;
+    this.selfProp2;
+
+
+    if (this.debug.active) {
+      this.debugInit()
+    }
+  }
+
+  // 3D 组件内置方法
+  this.func1();
+  // TODO： 要在3D 组件实现的功能
+
+  func1() {
+
+  }
+
+  func2() {
+
+  }
+
+  // 控制面板
+  debugInit() {
+    // ===== 总控制面板 =====
+    this.debugFolder = this.debug.ui.addFolder({
+      title: '控制面板名称',
+      expanded: true,
+    })
+    
+    // ----- 次级控制面板 -----
+    const XXXolder = this.debugFolder.addFolder({
+      title: '基本信息',
+      expanded: true,
+    })
+    XXXolder.addBinding(
+       this.object,
+       params,
+       {
+        label: '标题',
+       }
+    ).on('change',(event)=>{
+      // todo
+    })
+  }
+
+ //如果组件内部有更新行为 需要构建 update func
+ update() { 
+  // 做更新行为  
+ }
+
+ //如果组件内部有resize行为 需要构建 resize func
+ resize() {
+
+ }
+
+}
+
+```
+
+**创造时需注意关键点**
+
+*   **单例模式:** 任何地方调用 `new Experience()` 都会返回同一个已经创建好的实例。这是获取框架核心访问权限的标准方式。
+*   **实例访问:** 始终通过 `this.experience` 这个实例来访问共享的资源，例如 `this.experience.scene`, `this.experience.time`。
+*   **父子组件通信:** 如果父组件和子组件之间需要进行通信（例如，子组件需要通知父组件某个事件发生），应考虑让相关组件继承 [event-emitter.js](mdc:src/js/utils/event-emitter.js) 中的 `EventEmitter` 类。子组件可以通过 `this.trigger('eventName', [arguments])` 触发事件，父组件可以通过 `childInstance.on('eventName', callback)` 来监听事件。
+*   **debugInit** 每个创建的类组件都应该拥有足够多的可控制面板。特别是创建的 3D 基本体使用了 `ShaderMaterial` 时,注意 一般调控属性使用 `addBinding` 而不是 `addInput` ,**所有的颜色调控都使用**:
+
+```js
+XXXFolder.addBinding(PARAMS, 'background', {
+  view: 'color',
+});
+```
+
+*  **update** 当类组件中 `update` 内部存在逻辑时，要求在调用他的父组件(如果有)里调用 `update` 如在`FatherComponent`中执行 `this.child.update()` **注意： 时间并不通过update参数传递 而是 通过this.experience.time来获取时间对象**
+
+*  **
+
+*   **相机 (`Camera`)**:
+    *   定义在 `src/js/camera/camera.js`。
+    *   `Experience` 持有 `Camera` 类的实例 (`this.experience.camera`)。
+    *   实际使用的 `THREE.Camera` 对象通过 `this.experience.camera.instance` 获取。
+    *   `new Experience(canvas)` 时，内部会调用 `new Camera(true)` 创建一个 **正交相机**。如果需要透视相机，需要修改 `experience.js` 中 `Camera` 的实例化。
+*   **渲染器 (`Renderer`)**:
+    *   定义在 `src/js/renderer.js`。
+    *   `Experience` 持有 `Renderer` 类的实例 (`this.experience.renderer`)。
+    *   实际使用的 `THREE.WebGLRenderer` 对象通过 `this.experience.renderer.instance` 获取。
+*   **资源 (`Resources`)**:
+    *   定义在 `src/js/utils/resources.js`。
+    *   用于加载纹理、模型等资源，资源列表定义在 `src/js/sources.js`。
+    *   通过 `this.experience.resources` 访问。加载完成的资源存储在 `this.experience.resources.items` 中。
+*   **加载部分资源:** 默认情况下，`Experience` 会加载 `sources.js` 中的所有资源。如果你只需要加载特定资源并在某子组件内使用只需要在 [sources.js](mdc:src/js/sources.js) 文件中统一定义所有需要加载的资源（模型、纹理等）。`Experience` 类会自动初始化 `Resources` 并加载 `src/js/sources.js` 中定义的 *所有* 资源。`Resources` 类会根据资源的 `type` 自动选择合适的加载器。资源加载完成后，在任何组件中，都可以通过 `Experience` 单例的 `this.experience.resources.items['资源名称']` 来访问已加载的资源。
+*   **鼠标/触摸与射线拾取:** 当你需要进行射线拾取 (Raycasting) 或其他需要归一化设备坐标 (NDC) 的操作时，**务必**使用 `IMouse` 实例提供的 `normalizedMouse` 属性 (`this.experience.iMouse.normalizedMouse`)。这个属性已经是计算好的、范围在 [-1, 1] 的 NDC 坐标。**避免**在组件中重新通过 `event.clientX / window.innerWidth * 2 - 1` 等方式手动计算 NDC，以保持代码简洁和一致性。
+*   **代码风格:** 编写新的 3D 组件或逻辑时，请遵循这种通过 `Experience` 单例获取依赖的方式，以保持代码风格的统一和易于维护。尽量将相关的 3D 逻辑封装在独立的类中。且代码中的注释需要为中文注释
+*   **着色器风格:** 因为框架集成了 `vite-glsl-plugin` 在编写 `ShaderMaterial` 或者带有着色器部分的代码片段时，需要将着色器放入 `src`的`shaders`文件夹下.
 
 ---
 
-## 1. 代码结构与风格
+## Vue 与 Three.js 场景通信规范
 
-- 所有 Three.js 相关逻辑应通过 `src/js/experience.js` 的 `Experience` 单例访问和管理。
-- 新建 3D 组件时，务必采用类组件方式，并通过 `this.experience = new Experience()` 获取全局依赖。
-- 仅获取当前组件所需的 Experience 属性，避免冗余依赖。
-- 所有新增/修改代码需配备中文注释，说明关键逻辑和参数含义。
-- 自定义 Shader 必须存放于 `src/shaders/` 目录，且通过 `vite-glsl-plugin` 引入。
+### 1. 职责分离
 
----
+- **Vue 层**：主要负责实现游戏 UI（gameui），如按钮、面板、信息展示等，处理用户输入、界面交互和状态管理。
+- **Three.js 层**：专注于 3D 场景（game scene）的渲染、物理、动画、模型加载等三维相关逻辑。
 
-## 2. 资源与模型管理
+### 2. 通信机制
 
-- 所有模型、纹理等资源需在 `src/js/sources.js` 统一声明。
-- 通过 `this.experience.resources.items['资源名称']` 访问已加载资源。
-- `Resources` 会根据 type 自动选择加载器，无需手动指定。
+- **统一使用 mitt 事件总线** 作为 Vue 层与 Three.js 层的通信桥梁。
+- mitt 实例应在全局唯一，建议在 `src/js/tools/` 或 `src/js/utils/` 下新建 `event-bus.js`，导出 mitt 实例，供 Vue 和 Three.js 层共同引入使用。
 
----
+### 3. 通信流程
 
-## 3. 组件通信与事件（Pinia + mitt 协同）
+- **Vue 层** 通过 mitt 发送事件（如用户点击、参数调整等），Three.js 层监听并响应。
+- **Three.js 层** 通过 mitt 发送事件（如场景状态变化、动画完成等），Vue 层监听并更新 UI。
+- 事件命名建议采用 `game:`、`ui:` 前缀区分来源，例如：`game:player-move`、`ui:toggle-menu`。
 
-- 状态同步优先用 Pinia。如需让 Three.js 层感知 UI 操作（如当前模式、选中建筑类型等），应优先通过 Pinia 全局状态管理（参考 `useGameState.js`）。
-- Three.js 层通过 `useGameState().currentMode` 获取当前模式，或监听 Pinia 的变化响应 UI 操作。
-- mitt 用于事件驱动，仅当需要触发即时事件（如弹窗、提示、动画完成等）时，使用 mitt 事件总线进行通信。
-- Pinia 负责全局状态同步，mitt 负责事件通知，二者结合实现高效解耦的通信机制。
+### 4. 示例代码
 
----
+#### event-bus.js
+```js
+// src/js/utils/event-bus.js
+import mitt from 'mitt'
+const emitter = mitt()
+export default emitter
+```
 
-## 4. 组件开发规范
+#### Vue 组件中使用
+```js
+import emitter from '@/js/utils/event-bus.js'
 
-- 所有 Vue 组件必须放在 `src/components/` 目录下，如有需要可在该目录下新建子文件夹以细分组件职能。
-- 每个 Vue 组件应职责单一，复杂 UI 可拆分为多个子组件，便于维护和复用。
-- 组件文件名采用大驼峰，子组件建议以父组件为前缀。
-- 每个 3D 组件应实现 `debugInit` 方法，利用 `this.debug.ui` 创建可控面板，颜色调控统一用 `view: 'color'`。
-- 如有更新/自适应行为，需实现 `update` 和 `resize` 方法，并由父组件主动调用。
-- 所有父子组件或跨组件通信统一使用 mitt，不再继承 `EventEmitter`。
+// 发送事件
+emitter.emit('ui:toggle-menu', { open: true })
 
----
+// 监听事件
+emitter.on('game:player-move', (data) => {
+  // 处理 Three.js 场景反馈
+})
+```
 
-## 5. ShaderMaterial 组件调试
+#### Three.js 组件中使用
+```js
+import emitter from './utils/event-bus.js'
 
-- 凡是包含 `ShaderMaterial` 的类组件，必须为所有关键 `uniform` 参数提供调试面板（`debugInit`），便于实时调整和开发。
-- 颜色类 uniform 必须用 `view: 'color'`，数值/向量等参数用 `addBinding`。
-- 面板结构应清晰分组，便于查找和操作。
-- shader 参数变化可通过 mitt 通知其他相关组件或 UI 层。
+// 监听 UI 事件
+emitter.on('ui:toggle-menu', (data) => {
+  // 控制场景暂停/继续等
+})
 
----
+// 发送事件
+emitter.emit('game:player-move', { x: 1, y: 2 })
+```
 
-## 6. 鼠标与交互
+### 5. 其他注意事项
 
-- 射线拾取统一使用 `this.experience.iMouse.normalizedMouse` 获取 NDC 坐标，禁止手动计算。
-- 如需复杂交互，建议封装于 `src/js/tools/` 下的工具类。
-
----
-
-## 7. UI 与 3D 场景分离（Pinia 特殊情况）
-
-- UI 层（Vue）与 3D 场景（Three.js）严格分离，UI 只负责界面和用户输入，Three.js 只负责场景渲染和逻辑。
-- Pinia 用于全局状态同步，如当前模式、选中对象、资源数量等，Vue 和 Three.js 层均可读写这些状态，实现双向同步。
-- mitt 用于事件通知，如弹窗、toast、动画完成等即时事件。
-- 禁止直接在 Vue 组件中操作 Three.js 实例，所有交互均通过 Pinia 状态或 mitt 事件完成，保持解耦。
-- 如需在 Three.js 层主动通知 UI 层（如场景状态变化），可通过 Pinia 更新状态或 mitt 发送事件，Vue 层监听并响应。
-
----
-
-## 8. 代码提交与测试
-
-- 每次功能完善或修复后，需进行 Git 提交，保持历史清晰。
-- 所有新增/修改功能需编写对应测试用例，确保稳定性。
-- 严禁未确认情况下删除代码或数据，涉及破坏性操作需二次确认。
-
----
-
-## 9. 其他约定
-
-- 遵循项目现有风格，变量命名、缩进、分号等保持一致。
-- 代码需易于理解和维护，适当增加注释，避免晦涩写法。
-- 遇到新需求或难题时，优先从本质出发分析和设计解决方案（第一性原理）。
-
----
-
-如需补充或细化规则，请在本文件下方追加说明。
+- **不要直接在 Vue 组件中操作 Three.js 实例**，所有交互均通过 mitt 事件完成，保持解耦。
+- mitt 事件参数建议为对象，便于扩展和维护。
+- 事件监听应在组件销毁时及时移除，防止内存泄漏。
 
 ---
 > Source: [hexianWeb/Third-Person-MC](https://github.com/hexianWeb/Third-Person-MC) — distributed by [TomeVault](https://tomevault.io).
