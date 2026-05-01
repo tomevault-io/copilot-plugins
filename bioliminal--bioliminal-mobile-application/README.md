@@ -7,14 +7,14 @@ Bioliminal mobile application (Flutter)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Bioliminal/bioliminal-mobile-application](https://github.com/Bioliminal/bioliminal-mobile-application).
+Original source: `CLAUDE.md` in [Bioliminal/bioliminal-mobile-application](https://github.com/Bioliminal/bioliminal-mobile-application).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [Bioliminal/bioliminal-mobile-application](https://github.com/Bioliminal/bioliminal-mobile-application) — a repo with 59+ stars on GitHub.
