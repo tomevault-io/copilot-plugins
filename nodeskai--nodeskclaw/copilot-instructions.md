@@ -1,78 +1,65 @@
-## runtime-provider-awareness
+## sensitive-info-policy
 
-> **所有涉及实例基础设施操作的代码，必须同时考虑 runtime 类型（OpenClaw / Nanobot / ...）和 compute provider（K8s / Docker / Process）的差异。禁止硬编码任何 runtime 或 provider 特定的值。**
+> 敏感信息隔离策略 — 文档放 EE、规则不留隐私
 
-# Runtime / Compute Provider 感知规则
 
-## 核心原则
+# 敏感信息隔离策略
 
-**所有涉及实例基础设施操作的代码，必须同时考虑 runtime 类型（OpenClaw / Nanobot / ...）和 compute provider（K8s / Docker / Process）的差异。禁止硬编码任何 runtime 或 provider 特定的值。**
+## 文档归属
 
-## Runtime 差异
+**所有项目文档必须放在 EE 私有仓库（`ee/docs/`），禁止在 CE 公开仓库中新建文档目录或文档文件。**
 
-不同 runtime 的基础参数不同，必须从 `RuntimeSpec`（`RUNTIME_REGISTRY`）查取：
+- 新增设计文档、架构文档、PRD、部署方案等 → 写入 `ee/docs/`
+- 需要引用文档内容时 → 引用路径为 `ee/docs/xxx.md`
+- CE 仓库的 `docs/` 目录已清空并移除，不得重建
 
-| 参数 | OpenClaw | Nanobot |
-|------|----------|---------|
-| Gateway 端口 | 18789 | 18790 |
-| 数据目录 | `/root/.openclaw` | `/opt/nanobot` |
-| 配置文件格式 | JSON (JSONC) | YAML |
-| 镜像仓库 key | `image_registry` | `image_registry_nanobot` |
+## Rules 文件信息边界
 
-### 必须做
+**`.cursor/rules/*.mdc` 规则文件属于 CE 公开仓库，禁止包含以下内容：**
 
-- **端口、数据目录、配置路径等 runtime 相关值必须从 `RuntimeSpec` 查取**，通过 `RUNTIME_REGISTRY.get(runtime_id)` 获取
-- **新增 runtime 相关字段时**，必须在 `RuntimeSpec` dataclass 中添加字段，并在 `_register_builtins()` 中为所有已注册 runtime 设置值
-- **端口传递链路**：`RuntimeSpec.gateway_port` -> `InstanceComputeConfig.gateway_port` -> 各 provider 使用
-- **新增 runtime 时**，必须在 `_register_builtins()` 中注册完整的 `RuntimeSpec`，所有字段都要填写
+- IP 地址、域名、URL（内部服务地址）
+- 数据库连接串、密钥、Token
+- 集群名称、Namespace、节点信息等基础设施细节
+- 内部人员信息、组织架构
+- 业务数据样例（用户名、手机号等）
 
-### 严禁
+**如果规则需要引用敏感上下文**，使用间接引用：
 
-- **禁止硬编码端口号**（如 `18789`、`8080`）在 provider 或 deploy 逻辑中
-- **禁止硬编码数据目录路径**（如 `/root/.openclaw`）在通用逻辑中
-- **禁止假设所有 runtime 行为一致**——端口、配置格式、日志路径、健康检查方式都可能不同
+```markdown
+# 正确 — 引导去 EE 文档查阅
+详细的集群配置和部署拓扑见 `ee/docs/VKE部署方案.md`。
 
-## Compute Provider 差异
+# 错误 — 在规则里直接写敏感信息
+集群 API 地址为 https://10.x.x.x:6443，context 名称为 xxx。
+```
 
-同一操作在不同 provider 下的实现方式不同：
+## 代码中禁止出现真人个人信息
 
-| 操作 | K8s | Docker | Process |
-|------|-----|--------|---------|
-| 文件访问 | `kubectl exec` (PodFS) | 宿主机路径 (DockerFS) | 直接本地路径 |
-| 端口暴露 | Service + Ingress | Docker Compose ports | 直接绑定 |
-| 日志获取 | `kubectl logs` | `docker logs` | stdout/stderr |
-| 重启 | `kubectl rollout restart` | `docker compose restart` | 进程信号 |
+**代码（含注释、placeholder、demo 数据、测试 fixture）中严禁出现真实的个人信息：**
 
-### 必须做
+- 真人邮箱地址
+- 真人姓名、手机号
+- 真实用户名、员工工号
 
-- **新增文件系统操作时**，必须同时实现 `PodFS` 和 `DockerFS` 两套逻辑，保持接口签名和返回格式一致
-- **新增 compute provider 操作时**，必须检查所有 provider 实现（`K8sAdapter`、`DockerComputeProvider`、`ProcessComputeProvider`）是否都已覆盖
-- **接口方法签名变更时**，必须同步更新所有实现类
+**必须使用 `example.com` 等占位域名或虚构数据：**
 
-### 严禁
+```python
+# 正确
+placeholder = "user@example.com"
+test_email = "alice@example.com"
 
-- **禁止只实现 K8s 路径**——Docker 和 Process provider 同样需要支持
-- **禁止在通用 service 层假定 provider 类型**（如直接调用 `kubectl`），必须通过 `RemoteFS` 或 `ComputeProvider` 抽象层操作
+# 错误 — 使用了真人邮箱
+placeholder = "zhangsan@company.com"
+test_email = "realuser@gmail.com"
+```
 
-## 自查清单
+- 邮箱 placeholder / 测试数据统一用 `@example.com`（RFC 2606 保留域名）
+- 姓名用 `Alice`、`Bob` 等虚构名或 `user1`、`admin` 等通用标识
+- 发现代码中存在真人信息时，**立即替换并提交**，不需要等用户确认
 
-每次改动涉及实例操作时，必须自问：
+## CLAUDE.md / AGENTS.md 同样适用
 
-1. **换个 runtime 还能跑吗？** 端口、路径、配置格式是否都从 RuntimeSpec 查取？
-2. **换个 provider 还能跑吗？** K8s 实例能用，Docker 实例也能用吗？
-3. **新增了 runtime 特有字段？** 是否已加到 `RuntimeSpec` 并为所有 runtime 设值？
-4. **新增了文件系统操作？** `PodFS` 和 `DockerFS` 是否都实现了，签名和返回格式是否一致？
-
-## 关键代码路径
-
-| 组件 | 文件 |
-|------|------|
-| RuntimeSpec 定义与注册 | `nodeskclaw-backend/app/services/runtime/registries/runtime_registry.py` |
-| ComputeConfig 定义 | `nodeskclaw-backend/app/services/runtime/compute/base.py` |
-| K8s 部署 | `nodeskclaw-backend/app/services/deploy_service.py` (`_execute_deploy_inner`) |
-| Docker 部署 | `nodeskclaw-backend/app/services/runtime/compute/docker_provider.py` |
-| 文件系统抽象 | `nodeskclaw-backend/app/services/nfs_mount.py` (`PodFS` / `DockerFS`) |
-| K8s 资源构建 | `nodeskclaw-backend/app/services/k8s/resource_builder.py` |
+根目录的 `CLAUDE.md` 和 `AGENTS.md` 属于 CE 公开仓库，同样禁止包含敏感信息。只保留通用的开发规范和项目结构说明。
 
 ---
 > Source: [NoDeskAI/nodeskclaw](https://github.com/NoDeskAI/nodeskclaw) — distributed by [TomeVault](https://tomevault.io).
