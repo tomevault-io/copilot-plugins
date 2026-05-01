@@ -1,130 +1,113 @@
-## aghub
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> **Project**: aghub — AI coding agent configuration management tool\
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
-# AGHUB KNOWLEDGE BASE
 
-**Project**: aghub — AI coding agent configuration management tool\
-**Stack**: Rust workspace + Tauri v2 desktop + React/TypeScript\
-**Package Manager**: cargo (Rust), bun (desktop frontend)
+Default to using Bun instead of Node.js.
 
-## OVERVIEW
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Use `bunx <package> <command>` instead of `npx <package> <command>`
+- Bun automatically loads .env, so don't use dotenv.
 
-Aghub manages AGENTS.md, MCP configs, and skills for 25+ AI assistants through a unified CLI (`aghub-cli`) and desktop app. Stateless design—reads actual config files, tracks capability sources, enforces explicit opt-in for changes.
+## APIs
 
-## STRUCTURE
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-```
-.
-├── crates/
-│   ├── agents/       # Agent descriptors, models, formats (24 agents)
-│   ├── core/         # Orchestration: adapter dispatch, manager, registry, transfer
-│   ├── cli/          # CLI binary: aghub-cli
-│   ├── api/          # REST API: Rocket HTTP server
-│   ├── skill/        # Skill packaging: .skill/.zip format + lock files
-│   ├── skills-sh/    # skills.sh registry HTTP client
-│   ├── git/          # Git clone with credential injection
-│   └── desktop/      # Tauri v2 + React 19 + HeroUI v3
-├── .agents/skills/   # Local skill definitions
-├── justfile          # Build commands
-└── AGENTS.md         # This file
-```
+## Testing
 
-## WHERE TO LOOK
+Use `bun test` to run tests.
 
-| Task               | Location                          | Notes                         |
-| ------------------ | --------------------------------- | ----------------------------- |
-| Add agent support  | `crates/agents/src/agents/`       | Create `<name>.rs` descriptor |
-| Agent models/types | `crates/agents/src/models.rs`     | `AgentConfig`, `AgentType`    |
-| Agent registry     | `crates/core/src/registry/mod.rs` | `ALL_AGENTS` array            |
-| Config management  | `crates/core/src/manager/mod.rs`  | `ConfigManager` struct        |
-| Adapter trait      | `crates/core/src/adapters/mod.rs` | `AgentAdapter` trait          |
-| Batch install/copy | `crates/core/src/transfer.rs`     | `OperationBatchResult`        |
-| CLI commands       | `crates/cli/src/commands/`        | Clap-based subcommands        |
-| API routes         | `crates/api/src/routes/`          | Rocket route handlers         |
-| Desktop UI         | `crates/desktop/src/`             | React + HeroUI v3             |
+```ts#index.test.ts
+import { test, expect } from "bun:test";
 
-## CONVENTIONS
-
-### Rust
-
-- **Indentation**: Hard tabs (width 4) — NOT spaces
-- **Line width**: 80 characters max
-- **Formatter**: `rustfmt` for Rust, `prettier` for JS/TS (via `just fmt`)
-- **Linter**: `cargo clippy -- -D warnings` (warnings = errors)
-
-### TypeScript/Frontend
-
-- **Package manager**: `bun` (never npm/yarn/pnpm)
-- **Framework**: React 19 + HeroUI v3
-- **CSS**: Tailwind CSS v4
-- **Config**: Strict TypeScript (`strict: true`)
-
-### Code Organization
-
-- One agent = one file in `crates/agents/src/agents/<name>.rs`
-- Each agent descriptor defines: config paths, file format, capabilities
-- No hand-wired adapters — behavior driven by descriptor function pointers
-
-## COMMANDS
-
-```bash
-# Build & Development
-just build              # Release build
-just dev                # Debug build
-just start -- --help    # Run CLI with args
-
-# Testing
-just test               # All workspace tests
-just integration-test   # Core integration tests only
-just test-with-validation  # Requires claude/opencode CLIs
-
-# Code Quality
-just fmt                # Format with rustfmt (Rust) and prettier (JS/TS)
-just lint               # Clippy (denies warnings)
-
-# Desktop App
-cd crates/desktop && bun run dev      # Vite dev
-cd crates/desktop && bun run start    # Tauri dev
-just desktop                           # Convenience alias
-
-# Install
-just install            # Copy aghub-cli to ~/.cargo/bin
+test("hello world", () => {
+  expect(1).toBe(1);
+});
 ```
 
-## ANTI-PATTERNS
+## Frontend
 
-### Code Quality
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
 
-- NEVER use spaces for Rust indentation (hard_tabs enforced)
-- NEVER exceed 80 character line width
-- NEVER ignore clippy warnings (CI/build treats as errors)
+Server:
 
-### Adding/Removing Agents
+```ts#index.ts
+import index from "./index.html"
 
-Must touch ALL of these:
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
 
-1. `crates/agents/src/agents/<name>.rs` — create/delete descriptor constant
-2. `crates/agents/src/agents/mod.rs` — add/remove `pub mod`
-3. `crates/agents/src/agents/factory.rs` — add/remove dispatch arm
-4. `crates/agents/src/models.rs` — add/remove enum variant + `ALL` array + `as_str()` + `from_str()`
-5. `crates/core/src/registry/mod.rs` — add/remove from `ALL_AGENTS`
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
 
-### Agent-Specific Gotchas
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
 
-- **Claude**: Skills discovered from `~/.claude/skills/` — NOT stored in JSON
-- **OpenCode**: Native `mcp` object key (not `mcp_servers` array); SSE/StreamableHttp unified as `remote`
-- **Codex/Mistral**: TOML config format (not JSON)
-- **Copilot**: Shares `~/.claude/skills/` path with Claude
+With the following `frontend.tsx`:
 
-## NOTES
+```tsx#frontend.tsx
+import React from "react";
+import { createRoot } from "react-dom/client";
 
-- Registry fallback: Returns Claude's descriptor if agent ID not found
-- `.git` alone is NOT sufficient for project root — needs agent marker (`.claude/`, `.opencode/`, etc.)
-- `skills-lock.json` tracks skill dependencies with content hashes
-- Desktop HeroUI docs: Search `./.heroui-docs/react/` before implementing UI
-- `.impeccable.md` — project code style guide (read before writing Rust)
-- `cliff.toml` — changelog generation config (git-cliff, used in release workflow)</content>
+// import .css files directly and it works
+import './index.css';
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
+
+root.render(<Frontend />);
+```
+
+Then, run index.ts
+
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
 
 ---
 > Source: [AkaraChen/aghub](https://github.com/AkaraChen/aghub) — distributed by [TomeVault](https://tomevault.io).
