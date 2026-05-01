@@ -1,0 +1,9 @@
+{
+  "name": "ink1ing--anti-api",
+  "displayName": "anti-api",
+  "description": "Turn Antigravity / codex / github copilot into Anthropic & Openai API compatible server. Usable with Claude Code / Xcode etc.",
+  "version": "1.0.0",
+  "author": "ink1ing",
+  "homepage": "https://github.com/ink1ing/anti-api",
+  "skills": []
+}
