@@ -1,53 +1,51 @@
-## git-workflow
+## qclaw-project
 
-> Qclaw 開源貢獻的 Git 工作流程、Commit 格式與分支命名
+> Qclaw 專案概述：技術棧、目錄結構與開發指令
 
 
-# Git 工作流程
+# Qclaw 專案規範
 
-## Remote 設定
+## 技術棧
 
-| Remote | 指向 | 用途 |
-|--------|------|------|
-| `origin` | `JasonYang318/Qclaw`（fork） | 推送改動 |
-| `upstream` | `qiuzhi2046/Qclaw`（原始） | 同步最新版 |
+- 桌面框架：Electron
+- 前端：React + TypeScript + Vite
+- UI：Mantine 8 + Tailwind CSS 3
+- 打包：electron-builder
+- 測試：Vitest
+- 授權：Apache-2.0
 
-## 同步上游
+## 目錄結構
+
+```
+electron/
+  main/         主程序（窗口管理、CLI 調用、IPC 處理）
+  preload/      預加載腳本（安全橋接）
+src/
+  pages/        頁面元件（嚮導步驟、Dashboard、聊天等）
+  components/   UI 元件
+  lib/          業務邏輯
+  shared/       共享模組
+  types/        TypeScript 型別定義（含 IPC API 介面）
+```
+
+## 開發指令
+
+| 指令 | 用途 |
+|------|------|
+| `npm run dev` | 啟動開發伺服器 |
+| `npm run typecheck` | TypeScript 型別檢查 |
+| `npm test` | 執行測試套件（Vitest） |
+| `npm run build:app` | 前端 + 主程式編譯 |
+
+> `npm run build` 因 `forceCodeSigning: true` 在無憑證環境會失敗，屬預期行為。
+
+## 提交前必跑
 
 ```powershell
-git fetch upstream
-git checkout main
-git merge upstream/main
-git push origin main
+npm run typecheck
+npm test
+npm run build:app
 ```
-
-## 分支命名
-
-- 新功能：`feat/<功能名>`
-- 修 bug：`fix/<問題描述>`
-- 文件：`docs/<主題>`
-
-## Commit 訊息格式
-
-```
-<type>: <簡述>
-```
-
-| 前綴 | 用途 |
-|------|------|
-| `feat` | 新功能 |
-| `fix` | 修 bug |
-| `docs` | 文件變更 |
-| `refactor` | 重構 |
-| `test` | 測試 |
-| `chore` | 工具 / 設定 |
-
-## PR 流程
-
-1. 先開 GitHub Issue，等維護者確認方向
-2. 在自己的 fork 分支開發
-3. 跑完三個驗證指令後再 commit
-4. 推送到 `origin`，開 PR 指向 `qiuzhi2046/Qclaw`
 
 ---
 > Source: [qiuzhi2046/Qclaw](https://github.com/qiuzhi2046/Qclaw) — distributed by [TomeVault](https://tomevault.io).
