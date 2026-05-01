@@ -1,21 +1,20 @@
-## capabilities-ownership
+## cli-e2e-test-patterns
 
-> Capabilities are adapter-reported, contracts declare requirements
+> Patterns for CLI e2e tests using shared fixture app
 
 
-# Capability Ownership
+# CLI E2E Test Fixture Patterns
 
-**Capabilities describe the database environment and are reported by adapters.** The contract only declares required capabilities in `contract.capabilities` and pins the resulting `profileHash`.
+This rulecard is intentionally short. For full fixture layout and examples, see `docs/reference/cli-e2e-test-patterns.md`.
 
-## Do
+## Key points
 
-- Describe capabilities as adapter-reported and negotiated at connect time
-- Frame contract capabilities as requirements, not definitions
+- Prefer the shared fixture app directory for reliable workspace resolution.
+- Tests must clean up their own ephemeral directories.
 
-## Avoid
+## Related rules
 
-- Wording that implies the contract owns or defines capabilities
-- Treating `sql.*` as a separate “SQL family” capability set rather than shared adapter keys
+- `.cursor/rules/cli-error-handling.mdc`
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
