@@ -1,0 +1,9 @@
+{
+  "name": "vinubalagopalap--claudforge",
+  "displayName": "claudforge",
+  "description": "Automate packaging and uploading of Claude skills with validation, zipping, and browser integration.",
+  "version": "1.0.0",
+  "author": "VinuBalagopalAP",
+  "homepage": "https://github.com/VinuBalagopalAP/claudforge",
+  "skills": []
+}
