@@ -1,35 +1,24 @@
-## no-defensive-except
+## no-section-divider-comments
 
-> Prefer explicit checks and raise; avoid broad defensive try/except
+> Do not add section-divider comments (e.g., # --- Section ---). Use descriptive docstrings and clear function/class names instead.
 
 
-# Error handling: fail fast with informative raises
+Avoid decorative section-divider comments in Python files. Prefer:
+- Module-level docstrings for file purpose
+- Class/function docstrings for component documentation
+- Inline comments only for non-obvious logic
 
-Do not write defensive `try`/`except` that hides failures: no bare `except`, no `except Exception` that returns a default, logs and continues, or swallows errors.
-
-When behavior violates expectations (wrong type, `None`, bad shape, invalid range):
-
-- Prefer `isinstance`, explicit `None` checks, dimension/range validation, or invariant checks **before** relying on values.
-- On failure, `raise` with a **specific** exception (`TypeError`, `ValueError`, or a narrow project exception) and a message that includes **what was expected**, **what was received**, and **relevant identifiers** (names, shapes, ids) so users can debug.
-
-Narrow `try`/`except` is acceptable only when documented (e.g. optional import → `ImportError`, or an API that returns error codes). Prefer `raise ... from e` to preserve the chain.
-
+Bad:
 ```python
-# Bad: swallow or mask
-try:
-    x = f(y)
-except Exception:
-    x = 0
+# ========================
+# Model Loading Section
+# ========================
+```
 
-# Bad: vague message
-if not isinstance(x, int):
-    raise TypeError("bad type")
-
-# Good: explicit check + informative raise
-if not isinstance(x, int):
-    raise TypeError(
-        f"expected int for batch_size, got {type(x).__name__}: {x!r}"
-    )
+Good:
+```python
+class ModelLoader:
+    """Handles model loading and initialization."""
 ```
 
 ---
