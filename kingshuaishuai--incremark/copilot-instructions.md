@@ -1,0 +1,43 @@
+## project-architecture
+
+> incremark 是一个 markdown 增量解析工具，主要为了解决 AIChat 应用接收 chunk 后重复拼接 markdown 字符串解析造成的性能问题，同时为不同的 UI 框架提供了相应的开箱即用方案。
+
+
+## 项目介绍
+
+incremark 是一个 markdown 增量解析工具，主要为了解决 AIChat 应用接收 chunk 后重复拼接 markdown 字符串解析造成的性能问题，同时为不同的 UI 框架提供了相应的开箱即用方案。
+
+当前项目主要分为以下几个子包:
+
+- `@incremark/core`: 框架无关，主要进行 markdown 的增量解析，主要思路是边界检测，解析完成的部分不参与重复解析，不稳定的部分重复解析，最终将 O(n²) 的整体解析复杂度降为 O(n)。
+- `@incremark/theme`: 不同 UI 框架公用的主题系统，主要为不同框架提供一致的 css 样式，达到高度统一的样式效果。
+- `@incremark/vue`,`@incremark/react`,`@incremark/svele` 不同框架的 UI 适配层，其中 vue 应当作为首先适配选项，react、svelte 组件文件组织方式，dom 结构等应该对齐 vue 实现，后期可能增加 solid 等框架的支持。
+- `@incremark/docs`: 使用 vitepress 搭建的文档应用，每次更新新功能需要及时修改文档，且文档需要支持中英文。
+- 其他的子包主要作为辅助工具提供。
+
+## 后期规划
+
+- 提供更多 AI 场景
+- 基于当前的 UI 组件实现 chat ui，如：chat-core chat-vue chat-react chat-svelte
+
+## 项目要求
+
+### 代码统一规范
+
+1. 所有的测试文件应当放置于相应的子包中
+2. 核心包需要保证较高的测试覆盖率，每次修改代码后，不合格的测试用例应当移除，缺失的用例应该及时补充
+3. 未使用的引入或变量定义需要及时清除
+4. 项目采用 pnpm 管理，如需运行命令有限 pnpm 而非 npm
+5. 项目采用 ts 编写，无论是 core 还是 UI 层，都需要保证 ts 类型正确，any 或者 as any 需要尽量避免
+6. 各个 UI 子包需要使用其最佳设计模式进行代码编写，其中 vue 需要使用 vue 3.5 推荐的写法，svelte 需要使用 svelte5 的最新写法，react 目前使用的是 react 18，需要注意 api 的正确使用。
+7. core 的底线是遵循 commonmark，如果修改代码时发现不符合的地方，需要及时优化
+
+
+### 单元测试文件规范
+
+1. 单元测试需要写在相应子包的 `__tests__` 目录下，并可以根据功能整理到对应的目录中
+2. 单测文件必须以 `.test.ts` 结尾
+
+---
+> Source: [kingshuaishuai/incremark](https://github.com/kingshuaishuai/incremark) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
