@@ -1,0 +1,142 @@
+## use-bun-instead-of-node-vite-npm-pnpm
+
+> Use Bun instead of Node.js, npm, pnpm, or vite. Use existing tools via bash commands.
+
+
+Default to using Bun instead of Node.js.
+
+## Working with this SDK
+
+- **Use the varg CLI**: Run actions via `bun run src/cli/index.ts run <action> [options]`
+  - Use `--quiet` for minimal output (recommended for scripts)
+  - Use `--json` for JSON output
+  - Example: `bun run src/cli/index.ts run video --prompt "sunset over ocean" --quiet`
+- **Available actions**: image, video, voice, music, transcribe, captions, sync, upload, edit
+- **List actions**: `bun run src/cli/index.ts list`
+- **Action help**: `bun run src/cli/index.ts run <action> --help`
+- **Media folders**: Store input files in `media/` folder, outputs go to `output/` folder
+- **Local file support**: Actions support local file paths (e.g., `media/image.png`) in addition to URLs
+- **Providers**: Located in `src/providers/` (fal, elevenlabs, replicate, groq, etc.)
+- **Action definitions**: Located in `src/definitions/actions/`
+
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
+
+## APIs
+
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
+
+## Testing
+
+Use `bun test` to run tests.
+
+```ts#index.test.ts
+import { test, expect } from "bun:test";
+
+test("hello world", () => {
+  expect(1).toBe(1);
+});
+```
+
+## Frontend
+
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+
+Server:
+
+```ts#index.ts
+import index from "./index.html"
+
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
+```
+
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
+
+With the following `frontend.tsx`:
+
+```tsx#frontend.tsx
+import React from "react";
+
+// import .css files directly and it works
+import './index.css';
+
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
+}
+
+root.render(<Frontend />);
+```
+
+Then, run index.ts
+
+```sh
+bun --hot ./index.ts
+```
+
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+
+## JSX Pragma in Comments
+
+**NEVER write `@jsxImportSource` in code comments or strings in `.tsx` files.** Bun's parser treats any `@jsxImportSource <value>` as a real JSX pragma, even inside comments. For example, `// Resolve @jsxImportSource to absolute path` makes Bun try to import `to/jsx-dev-runtime`, which crashes the CLI. Use alternative wording like "jsxImportSource pragma" or "JSX import source directive" instead.
+
+## Cache Policy
+
+**NEVER clear or delete the user's cache**, even when debugging.
+
+- Video/image generation costs real money ($0.05–$0.50+ per generation) and takes 60–180 seconds
+- The cache is the user's asset — treat it as production data, not disposable debug state
+- If you need to regenerate, modify the prompt slightly or use a different cache key
+- If cache must be cleared, always ask the user explicitly first
+- Suggest `--no-cache` flag for one-off re-renders instead of deleting cached files
+
+---
+> Source: [vargHQ/sdk](https://github.com/vargHQ/sdk) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
