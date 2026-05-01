@@ -1,0 +1,9 @@
+{
+  "name": "aguilar-ai--fincantatem",
+  "displayName": "fincantatem",
+  "description": "Decorator, CLI & IPython extension for LLM-powered exception analysis.",
+  "version": "1.0.0",
+  "author": "aguilar-ai",
+  "homepage": "https://github.com/aguilar-ai/fincantatem",
+  "skills": []
+}
