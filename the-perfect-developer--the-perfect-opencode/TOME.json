@@ -1,0 +1,44 @@
+{
+  "name": "the-perfect-opencode",
+  "owner": "the-perfect-developer",
+  "repo": "the-perfect-opencode",
+  "description": "A curated collection of agents, skills, and commands for OpenCode \u2014 specialized AI agents, 50+ domain skills, workflow commands, and a one-liner installer for AI-powered development.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/the-perfect-developer/the-perfect-opencode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T10:29:09Z"
+}
