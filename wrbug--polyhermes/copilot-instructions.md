@@ -1,218 +1,237 @@
-## polyhermes
+## backend
 
 > - **禁止**在代码中添加 TODO/FIXME/XXX 注释
 
 
-# 前端开发规范
+# 后端开发规范
 
 ## 核心原则
 - **禁止**在代码中添加 TODO/FIXME/XXX 注释
-- **禁止**使用 `any` 类型
-- **禁止**硬编码中文或英文文本
-- **必须**支持移动端和桌面端
+- **禁止**返回 mock 数据或硬编码的假数据
+- **禁止**在 API 调用失败时返回默认值作为 fallback
+- 所有功能必须完整实现，确保代码可以正常运行
 
-## 技术栈
-- **框架**: React + TypeScript
-- **UI 库**: Ant Design（移动端使用 Ant Design Mobile）
-- **HTTP 客户端**: axios
-- **状态管理**: Zustand
-- **国际化**: react-i18next
+## 项目范围
+- **平台**: 仅支持 Polymarket
+- **包名**: `com.wrbug.polymarketbot`
 
-## 移动端适配
+## 实体类规范
+```kotlin
+@Entity
+@Table(name = "example_table")
+data class ExampleEntity(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long? = null,  // ✅ 正确：使用可空类型
+    
+    @Column(name = "created_at", nullable = false)
+    val createdAt: Long = System.currentTimeMillis(),  // ✅ 使用 Long 时间戳
+    
+    @Column(name = "amount", nullable = false, precision = 20, scale = 8)
+    val amount: BigDecimal = BigDecimal.ZERO  // ✅ 使用 BigDecimal
+)
+```
 
-### 响应式断点
-- **移动端**: < 768px
-- **平板**: 768px - 1024px
-- **桌面端**: > 1024px
+**规则**:
+- ID 字段必须使用 `Long? = null`
+- 时间字段使用 `Long` 时间戳（毫秒）
+- 数值字段使用 `BigDecimal`
+- **禁止**使用 `LocalDateTime` 或 `Double`
 
-### 适配要求
-- 使用响应式布局（Mobile First）
-- 导航栏：移动端抽屉菜单，桌面端顶部导航
-- 列表：移动端卡片布局，桌面端表格布局
-- 按钮：移动端不小于 44x44px
-- 支持触摸操作和手势
-
-### 性能优化
-- 图片懒加载
-- 代码分割（Code Splitting）
-- 移动端减少动画效果
+## 配置文件规范
+- **必须**使用 `application.properties` 格式（禁止 `application.yml`）
+- 使用 `${ENV_VAR:default}` 引用环境变量
 
 ## 代码规范
 
-### 组件
-- 使用函数式组件
-- 使用 TypeScript 类型定义
-- 组件文件使用 PascalCase 命名
+### Controller
+- **禁止**使用 `suspend`
+- 使用 `runBlocking` 调用 suspend 方法
+- 统一使用 `@PostMapping`
 
-```typescript
-// ✅ 正确
-interface MarketProps {
-  marketId: string;
-  platform: string;
+### Service
+- 可以使用 `suspend` 方法
+- 使用 `@Transactional` 管理事务
+- 使用构造函数注入依赖
+
+### Repository
+- 继承 `JpaRepository<Entity, Long>`
+- 使用 Spring Data JPA 方法命名规范
+
+## API 接口规范
+
+### 统一响应格式
+```json
+{
+  "code": 0,
+  "data": {},
+  "msg": ""
 }
+```
 
-export const MarketCard: React.FC<MarketProps> = ({ marketId, platform }) => {
-  // ...
-};
+### 错误码范围
+- `0`: 成功
+- `1001-1999`: 参数错误
+- `2001-2999`: 认证/权限错误
+- `3001-3999`: 资源不存在
+- `4001-4999`: 业务逻辑错误
+- `5001-5999`: 服务器内部错误
 
+### Controller 示例
+```kotlin
+@RestController
+@RequestMapping("/api/example")
+class ExampleController(
+    private val exampleService: ExampleService,
+    private val messageSource: MessageSource
+) {
+    @PostMapping("/list")
+    fun getList(@RequestBody request: ExampleListRequest): ResponseEntity<ApiResponse<ExampleListResponse>> {
+        return try {
+            val data = runBlocking { exampleService.getList(request) }
+            ResponseEntity.ok(ApiResponse.success(data))
+        } catch (e: Exception) {
+            logger.error("Failed to get list", e)
+            ResponseEntity.ok(ApiResponse.error(ErrorCode.SERVER_ERROR, messageSource))
+        }
+    }
+}
+```
+
+## 数值计算
+```kotlin
+val amount = "0.5".toSafeBigDecimal()
+val total = amount.add("0.4".toSafeBigDecimal())
+
+if (total.lt(BigDecimal.ONE)) {
+    // 业务逻辑
+}
+```
+
+## JSON 解析规范
+
+### 使用扩展函数（推荐）
+- **优先**使用扩展函数 `fromJson<T>()` 和 `toJson()`，禁止直接使用 `Gson`
+- 扩展函数提供了类型安全的解析，使用方便
+
+```kotlin
+// ✅ 正确：使用扩展函数（推荐）
+val json = "{\"name\":\"test\"}"
+val obj = json.fromJson<MyDataClass>()
+val jsonStr = obj.toJson()
+
+// ✅ 也可以：使用 JsonUtils 类（兼容旧代码）
+val obj = jsonUtils.fromJson<MyDataClass>(json)
+
+// ❌ 错误：直接使用 Gson
+val obj = gson.fromJson(json, MyDataClass::class.java)
+```
+
+### 扩展函数列表
+- `String?.fromJson<T>()` - 解析 JSON 字符串为对象（支持泛型）
+- `JsonElement?.fromJson<T>()` - 解析 JsonElement 为对象（支持泛型）
+- `Any?.toJson()` - 将对象转换为 JSON 字符串
+- `String?.parseStringArray()` - 解析 JSON 字符串数组
+
+### JsonUtils 类
+- `JsonUtils` 主要用于初始化全局 Gson 实例，供扩展函数使用
+- 保留 `parseStringArray()` 方法用于兼容旧代码
+- 不推荐直接使用 `JsonUtils` 的方法，优先使用扩展函数
+
+### Data Class 规范
+- **所有 data class 字段必须提供默认值**
+- 可空字段使用 `? = null`
+- 非空字段提供合适的默认值（空字符串、空集合、默认数值等）
+
+```kotlin
+// ✅ 正确：所有字段都有默认值
+data class MyDto(
+    val name: String = "",
+    val age: Int = 0,
+    val tags: List<String> = emptyList(),
+    val optional: String? = null
+)
+
+// ❌ 错误：缺少默认值
+data class MyDto(
+    val name: String,  // 缺少默认值
+    val age: Int = 0
+)
+```
+
+## Side 判断规范
+**禁止**使用 "YES"/"NO" 字符串判断 side
+
+```kotlin
 // ❌ 错误
-export const marketCard = (props: any) => { }
-```
-
-### API 调用
-- 使用 axios
-- 统一错误处理
-- 使用 TypeScript 定义响应类型
-
-```typescript
-interface Market {
-  id: string;
-  marketId: string;
-  title: string;
-}
-
-export const marketService = {
-  getMarkets: async (): Promise<Market[]> => {
-    const response = await axios.get<Market[]>('/api/markets');
-    return response.data;
-  }
-};
-```
-
-### 状态管理
-- 全局状态使用 Zustand
-- 本地状态使用 `useState`
-- 复杂状态使用 `useReducer`
-
-```typescript
-interface MarketStore {
-  markets: Market[];
-  setMarkets: (markets: Market[]) => void;
-}
-
-export const useMarketStore = create<MarketStore>((set) => ({
-  markets: [],
-  setMarkets: (markets) => set({ markets }),
-}));
-```
-
-### USDC 金额格式化
-**必须**使用 `formatUSDC` 函数（从 `../utils` 导入）
-
-```typescript
-import { formatUSDC } from '../utils'
+if (side != null && side.uppercase() == "NO") { }
 
 // ✅ 正确
-<Statistic
-  title="总盈亏"
-  value={formatUSDC(stats?.totalPnl || '0')}
-  suffix="USDC"
-/>
-
-// ❌ 错误
-const balance = parseFloat(value).toFixed(4)
+if (outcomeIndex != null && outcomeIndex == 1) { }
 ```
-
-**格式化规则**:
-- 最多显示 4 位小数（截断，不四舍五入）
-- 自动去除尾随零
-- 空值返回 `'-'`
 
 ## 多语言规范
+- **禁止**硬编码中文或英文错误消息
+- **必须**使用 `ErrorCode` 枚举和 `MessageSource`
 
-### 使用方式
-**必须**使用 `useTranslation` Hook
+```kotlin
+// ❌ 错误
+return ResponseEntity.ok(ApiResponse.paramError("配置ID不能为空"))
 
-```typescript
 // ✅ 正确
-import { useTranslation } from 'react-i18next'
-
-const MyComponent: React.FC = () => {
-  const { t } = useTranslation()
-  
-  return (
-    <div>
-      <h1>{t('page.title')}</h1>
-      <Button>{t('common.save')}</Button>
-    </div>
-  )
-}
-
-// ❌ 错误：硬编码文本
-<h1>页面标题</h1>
-<Button>保存</Button>
+return ResponseEntity.ok(ApiResponse.error(ErrorCode.PARAM_EMPTY, messageSource))
 ```
 
-### 语言文件
-- 位置: `src/locales/{locale}/common.json`
-- 支持: `zh-CN`、`zh-TW`、`en`
-- 键名: 点号分隔的层级结构（如 `notificationSettings.title`）
+### 多语言支持范围
+1. **API 响应消息**: 使用 `ErrorCode` + `MessageSource`
+2. **日志消息**: 可使用中文或英文
+3. **代码注释**: 建议使用中文
+4. **数据库字段**: 使用英文（snake_case）
 
-### 添加新翻译
-1. 在 `src/locales/zh-CN/common.json` 添加中文
-2. 在 `src/locales/zh-TW/common.json` 添加繁体
-3. 在 `src/locales/en/common.json` 添加英文
-4. 在组件中使用 `t('key')`
+## HTTP 客户端
+- 使用 Retrofit + OkHttp
+- 使用拦截器处理认证
 
-## 移动端适配示例
+## 跟单系统需求
+参考文档: `docs/copy-trading-requirements.md`
 
-### 响应式布局
-```typescript
-import { useMediaQuery } from 'react-responsive';
-
-const MyComponent: React.FC = () => {
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-  
-  return (
-    <div className={isMobile ? 'mobile-layout' : 'desktop-layout'}>
-      {isMobile ? <MobileView /> : <DesktopView />}
-    </div>
-  );
-};
-```
-
-### 响应式表格
-```typescript
-import { Table } from 'antd';
-
-const ResponsiveTable: React.FC = () => {
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-  
-  return (
-    <Table
-      dataSource={data}
-      columns={columns}
-      scroll={{ x: isMobile ? 600 : 'auto' }}
-      pagination={{
-        pageSize: isMobile ? 10 : 20,
-        showSizeChanger: !isMobile
-      }}
-    />
-  );
-};
-```
+核心功能:
+- 账户管理（私钥导入，多账户）
+- Leader 管理
+- 订单同步与执行
+- 跟单配置管理
+- 风险控制
+- 跟单记录与统计
 
 ## 禁止事项
 
 ### 代码质量
-- ❌ 禁止使用 `any` 类型
-- ❌ 禁止忽略错误处理
-- ❌ 禁止硬编码 API 地址
-- ❌ 禁止在组件中直接使用 `fetch`
-- ❌ 禁止忽略移动端适配
+- ❌ 禁止使用 `!!` 除非有明确原因
+- ❌ 禁止忽略异常
+- ❌ 禁止硬编码配置值
+- ❌ 禁止提交敏感信息到 Git
 
-### 类型安全
-- ❌ 禁止使用 `@ts-ignore` 除非有明确原因
+### 类型
+- ❌ 禁止使用 `Double` 进行数值计算
+- ❌ 禁止使用 `LocalDateTime` 存储时间
+- ❌ 禁止实体类 ID 使用非空默认值
+- ❌ 禁止直接使用 `Gson`（必须使用 `JsonUtils`）
+- ❌ 禁止 data class 字段缺少默认值
 
-### 移动端适配
-- ❌ 禁止固定宽度布局
-- ❌ 禁止使用过小的触摸目标（< 44x44px）
-- ❌ 禁止使用桌面端专用交互（如 hover）
+### API 接口
+- ❌ 禁止使用 GET/PUT/DELETE（统一使用 POST）
+- ❌ 禁止返回不符合统一格式的响应
+- ❌ 禁止在响应中直接返回 Map 类型
 
-### 多语言
-- ❌ 禁止硬编码中文或英文文本
-- ❌ 禁止绕过 `useTranslation` 直接显示文本
+### Side 判断
+- ❌ 禁止使用 "YES"/"NO" 字符串判断 side
+- ✅ 必须使用 `outcomeIndex` 判断
+
+### 数据源
+- ❌ 禁止直接返回 mock 数据
+- ❌ 禁止在 API 调用失败时返回 mock 数据
+- ✅ 所有数据必须来自真实 API 或数据库查询
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/WrBug) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [WrBug/PolyHermes](https://github.com/WrBug/PolyHermes) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
