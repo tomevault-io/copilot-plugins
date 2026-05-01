@@ -1,0 +1,9 @@
+{
+  "name": "enter-tainer--libultrahdr-rs",
+  "displayName": "libultrahdr-rs",
+  "description": "libultrahdr binding for rust",
+  "version": "1.0.0",
+  "author": "Enter-tainer",
+  "homepage": "https://github.com/Enter-tainer/libultrahdr-rs",
+  "skills": []
+}
