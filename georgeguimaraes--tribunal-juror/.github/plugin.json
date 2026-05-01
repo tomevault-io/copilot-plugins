@@ -1,0 +1,9 @@
+{
+  "name": "georgeguimaraes--tribunal-juror",
+  "displayName": "tribunal-juror",
+  "description": "Phoenix LiveView showcase for the tribunal LLM evaluation library",
+  "version": "1.0.0",
+  "author": "georgeguimaraes",
+  "homepage": "https://github.com/georgeguimaraes/tribunal-juror",
+  "skills": []
+}
