@@ -1,54 +1,31 @@
-## test-intent-readability
+## test-mocking-patterns
 
-> Tests must be readable by context (BDD-style grouping)
+> Test-only type assertions and mocking patterns (avoid brittle mocks)
 
 
-# Test intent readability (context-driven structure)
+# Test Mocking Patterns
 
-Tests must communicate **intent** without requiring the reader to inspect implementation details.
+## Type assertions in tests
 
-## Do
+**Allowed in tests only**:
+- `@ts-expect-error` (with a short reason)
+- Double casts (`as unknown as X`) for mocks / dynamic proxies
 
-- Group assertions by the **conditions under which they’re true**.
-  - Use nested `describe()` blocks to model state and transitions (“given…”, “when…”, “after…”).
-- Make each `it()` read as a statement about behavior under that context.
-- Prefer lifecycle tests that read like a story:
-  - **given** an object in state A
-  - **when** an action happens
-  - **then** behavior X is observed
-- If a suite is validating a lifecycle, encode the lifecycle in the test structure (describes), not by scattered `it()` blocks.
+Prefer `unknown` over `any` to keep the unsafe boundary explicit.
 
-## Don’t
+## Mocking class instances
 
-- Don’t write “disjointed” tests where the reader must reverse‑engineer a lifecycle from unrelated expectations.
-- Don’t mix multiple preconditions in a single `describe()` without naming them.
-- Don’t rely on comments to explain context; make the context explicit via structure and naming.
+**Rule**: Don’t spread (`{ ...instance }`) class instances in tests — you’ll lose prototype methods.
 
-## Example: lifecycle tests
-
-✅ Prefer:
-
-```ts
-describe('postgres driver', () => {
-  describe('given an unbound driver', () => {
-    it('throws when query is called', async () => { /* ... */ });
-
-    describe('when connected with url binding', () => {
-      it('executes queries', async () => { /* ... */ });
-    });
-  });
-});
+```typescript
+const mocked = Object.create(Object.getPrototypeOf(original));
+Object.assign(mocked, original, { verify: mockedVerify });
 ```
 
-❌ Avoid:
+## When a test mock needs a cast
 
-```ts
-describe('postgres driver', () => {
-  it('throws clear error when query called before connect', async () => { /* ... */ });
-  it('connects from url binding and executes', async () => { /* ... */ });
-  it('close works after connect with pool binding', async () => { /* ... */ });
-});
-```
+- Keep the mock shape minimal (only fields you need)
+- Put the cast at the boundary (return statement), not sprinkled throughout the test
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
