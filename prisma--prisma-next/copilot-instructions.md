@@ -1,73 +1,226 @@
-## postgres-lateral-patterns
+## prefer-assertions-over-defensive-checks
 
-> PostgreSQL LATERAL and json_agg rendering patterns
+> Prefer assertions over defensive checks when data is guaranteed to be valid
 
 
-# PostgreSQL LATERAL Join Patterns
+# Prefer Assertions Over Defensive Checks
 
-## Identifier Quoting
+**CRITICAL**: When data has already been validated, use assertions instead of defensive checks. This eliminates unrealistic test scenarios and makes invalid states unrepresentable.
 
-**Don't quote identifiers early in functions.** Quote them only when needed in SQL generation to avoid double-quoting issues.
+## The Problem
 
-**❌ Wrong:**
+Defensive checks with optional chaining create code paths that are impossible in practice:
+
 ```typescript
-function renderInclude(include: IncludeAst): string {
-  const alias = quoteIdentifier(include.alias);  // Already quoted: "posts"
-  // Later: quoteIdentifier(alias) would produce """posts""" (triple quotes)
-  return `... AS ${quoteIdentifier(alias)} ...`;
+// ❌ WRONG: Defensive check after validation
+if (!contractTable.columns[columnName]) {
+  errorUnknownColumn(columnName, tableName);
+}
+
+const columnMeta = contractTable.columns[columnName];
+const codecId = columnMeta?.codecId; // Optional chaining unnecessary
+if (codecId && paramName) {
+  paramCodecs[paramName] = codecId;
+}
+
+paramDescriptors.push({
+  ...(codecId ? { type: codecId } : {}),
+  ...(columnMeta?.nullable !== undefined ? { nullable: columnMeta.nullable } : {}),
+});
+```
+
+This leads to:
+- **Unrealistic tests**: Tests that use type assertions to bypass TypeScript and test impossible states
+- **Code coverage padding**: Tests added solely to reach coverage thresholds, not to test real scenarios
+- **Maintenance burden**: Tests that break when types are tightened, requiring type assertions to work around
+
+## The Solution
+
+**✅ CORRECT: Use assertions after validation**
+
+```typescript
+// Validate first
+if (!contractTable.columns[columnName]) {
+  errorUnknownColumn(columnName, tableName);
+}
+
+// Assert that data exists (non-null assertion or explicit check)
+const columnMeta = contractTable.columns[columnName]!;
+const codecId = columnMeta.codecId; // Required property, no optional chaining
+
+if (paramName) {
+  paramCodecs[paramName] = codecId;
+}
+
+paramDescriptors.push({
+  type: codecId,
+  nullable: columnMeta.nullable, // Required property, no optional check
+});
+```
+
+## When to Use Assertions
+
+Use assertions when:
+
+1. **Data has been validated**: You've already checked that the data exists/is valid
+2. **Type system guarantees it**: TypeScript types require the property to exist
+3. **Contract validation ensures it**: Runtime validation (e.g., `validateContract`) guarantees the structure
+
+**Example scenarios:**
+- After checking `if (!contractTable.columns[columnName])` → use `columnMeta!` assertion
+- After validating contract structure → access required properties directly
+- After checking `if (!model)` → use `model!` assertion
+
+## When NOT to Use Assertions
+
+Don't use assertions when:
+
+1. **Data is truly optional**: The property might legitimately be missing
+2. **External input**: Data from user input, APIs, or files that hasn't been validated
+3. **Unvalidated contracts**: Contract data that hasn't been validated yet
+
+## Benefits
+
+- **Eliminates unrealistic tests**: No need to test impossible states with type assertions
+- **Better type safety**: TypeScript can infer types correctly without optional chaining
+- **Clearer intent**: Code shows that data is guaranteed to exist
+- **Reduced test maintenance**: Fewer tests that break when types are tightened
+- **Better error messages**: Assertions fail fast with clear errors if assumptions are wrong
+
+## Refactoring Pattern
+
+**Before:**
+```typescript
+const columnMeta = contractTable.columns[columnName];
+const codecId = columnMeta?.codecId;
+if (codecId && paramName) {
+  paramCodecs[paramName] = codecId;
 }
 ```
 
-**✅ Correct:**
+**After:**
 ```typescript
-function renderInclude(include: IncludeAst): string {
-  const alias = include.alias;  // Unquoted: posts
-  // Quote only when needed in SQL
-  return `... AS ${quoteIdentifier(alias)} ...`;  // Produces: "posts"
+const columnMeta = contractTable.columns[columnName]!;
+const codecId = columnMeta.codecId; // Required property
+if (paramName) {
+  paramCodecs[paramName] = codecId;
 }
 ```
 
-## LATERAL Join Column Selection
+## Test Cleanup
 
-When using LATERAL joins in PostgreSQL adapters, use different aliases for the table alias and column alias to avoid ambiguity:
+After refactoring to use assertions, remove tests that:
+- Use type assertions (`as SqlContract<SqlStorage>`) to bypass type checking
+- Test impossible states (e.g., missing required properties)
+- Were added solely for code coverage
 
-- **Table alias**: Use `{alias}_lateral` (e.g., `posts_lateral`)
-- **Column alias**: Use `{alias}` (e.g., `posts`)
-- **Selection**: Select using `table_alias.column_alias` (e.g., `"posts_lateral"."posts"`)
-
-**Example:**
+**Example of test to remove:**
 ```typescript
-// In adapter lowering
-const tableAlias = `${alias}_lateral`;  // e.g., "posts_lateral"
-return `LEFT JOIN LATERAL ${subquery} AS ${quoteIdentifier(tableAlias)} ON true`;
+// ❌ Remove: Tests impossible state
+it('builds plan without codecId when column codecId is missing', () => {
+  const contractWithoutCodecId = {
+    ...contract,
+    storage: {
+      tables: {
+        user: {
+          columns: {
+            email: { nativeType: 'text', nullable: true } as { nativeType: string; nullable: true; codecId?: string },
+          },
+        },
+      },
+    },
+  } as SqlContract<SqlStorage>; // Type assertion bypasses validation
 
-// In projection rendering
-return `${quoteIdentifier(tableAlias)}.${quoteIdentifier(item.expr.alias)} AS ${quoteIdentifier(item.alias)}`;
-// Results in: "posts_lateral"."posts" AS "posts"
+  // This test is unrealistic - StorageColumn requires 'codecId'
+});
 ```
 
-This pattern prevents PostgreSQL from getting confused when both the table and column have the same name.
+## Examples from Codebase
 
-## ORDER BY with LIMIT in Subqueries
+**Good patterns:**
+- Using `columnMeta!` after validating column exists
+- Accessing `columnMeta.codecId` directly (required property)
+- Accessing `columnMeta.nativeType` directly (required property)
+- Using `columnMeta.nullable` directly (required property)
 
-When both ORDER BY and LIMIT are present in a LATERAL subquery, wrap the query in an inner SELECT that projects individual columns with aliases, then use `json_agg(row_to_json(sub.*))` on the result:
+**Bad patterns (to avoid):**
+- Optional chaining (`columnMeta?.codecId`) after validation
+- Conditional property spreading (`...(columnMeta?.nullable !== undefined ? { nullable: columnMeta.nullable } : {})`) for required properties
+- Tests that use type assertions to test impossible states
 
-**Pattern:**
-```sql
-SELECT json_agg(row_to_json(sub.*)) AS "posts"
-FROM (
-  SELECT "post"."id" AS "id", "post"."title" AS "title"
-  FROM "post"
-  WHERE ...
-  ORDER BY "id" ASC  -- Use column alias, not table.column
-  LIMIT 1
-) sub
+## Schema Validation Redundancy
+
+**CRITICAL**: Don't re-validate structural properties that are already validated by schema validators (e.g., Arktype).
+
+**❌ WRONG: Re-validating properties already validated by Arktype**
+
+```typescript
+// validateStructure() re-checking properties that Arktype already validates
+for (const [colName, col] of Object.entries(table.columns)) {
+  if (typeof col.nullable !== 'boolean') {
+    throw new Error(`Column "${colName}" is missing required field "nullable"`);
+  }
+  if (!col.nativeType || typeof col.nativeType !== 'string') {
+    throw new Error(`Column "${colName}" is missing required field "nativeType"`);
+  }
+  if (!col.codecId || typeof col.codecId !== 'string') {
+    throw new Error(`Column "${colName}" is missing required field "codecId"`);
+  }
+}
 ```
 
-**Key points:**
-- Use column aliases in ORDER BY when the column is in the SELECT list
-- Map column references to their aliases before generating ORDER BY clause
-- Wrap in subquery to avoid GROUP BY issues with aggregates
+**Why this is wrong:**
+- Arktype's `StorageColumnSchema` already validates `nullable`, `nativeType`, and `codecId` as required fields
+- These checks create impossible code paths (contracts that pass Arktype validation but fail these checks)
+- Requires awkward tests that bypass type checking to test impossible states
+- Adds maintenance burden when schema changes
+
+**✅ CORRECT: Focus on logical validation that schema validators can't do**
+
+```typescript
+// validateStructure() focuses on logical consistency (references, relationships)
+// Column structure is already validated by Arktype - no need to re-check here
+for (const [tableName, table] of Object.entries(storage.tables)) {
+  const columnNames = new Set(Object.keys(table.columns));
+
+  // Validate foreign key references (logical validation, not structural)
+  for (const fk of table.foreignKeys) {
+    for (const colName of fk.columns) {
+      if (!columnNames.has(colName)) {
+        throw new Error(`ForeignKey references non-existent column "${colName}"`);
+      }
+    }
+    // Validate referenced table exists (logical validation)
+    if (!tableNames.has(fk.references.table)) {
+      throw new Error(`ForeignKey references non-existent table "${fk.references.table}"`);
+    }
+  }
+}
+```
+
+**Validation Responsibility Separation:**
+
+- **Schema Validators (Arktype)**: Validate structural properties (required fields, types, shapes)
+- **Logical Validators (`validateStructure`)**: Validate logical consistency (references, relationships, constraints)
+
+**When to add validation checks:**
+- ✅ Validating references (foreign keys, model references)
+- ✅ Validating relationships (model-to-table mappings)
+- ✅ Validating constraint consistency (primary key columns exist)
+- ❌ Re-validating structural properties already validated by schema validators
+
+**Benefits:**
+- Eliminates redundant code and tests
+- Clear separation of concerns (structural vs logical validation)
+- Easier to maintain (schema changes don't require updating multiple validators)
+- Better error messages (schema validator catches structural issues early)
+
+## Related Rules
+
+- `.cursor/rules/use-ast-factories.mdc`: Use factory functions for AST nodes
+- `.cursor/rules/typescript-patterns.mdc`: TypeScript best practices
+- `docs/Testing Guide.md`: Testing best practices
+- `.cursor/rules/arktype-usage.mdc`: Arktype validation patterns
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
