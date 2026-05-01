@@ -4,7 +4,7 @@
   "repo": "Better-Fullstack",
   "description": "Scaffold fullstack apps with your exact stack in seconds. 270+ options across TypeScript, Rust, Python & Go \u2014 everything configured and ready to build.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Marve10s/Better-Fullstack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:49:12Z"
+  "distributed_at": "2026-05-01T06:16:07Z"
 }
