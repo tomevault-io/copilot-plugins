@@ -1,0 +1,9 @@
+{
+  "name": "antonbabenko--terraform-skill",
+  "displayName": "terraform-skill",
+  "description": "The Claude Agent Skill for Terraform and OpenTofu - testing, modules, CI/CD, and production patterns",
+  "version": "1.0.0",
+  "author": "antonbabenko",
+  "homepage": "https://github.com/antonbabenko/terraform-skill",
+  "skills": []
+}
