@@ -1,0 +1,9 @@
+{
+  "name": "artifact-keeper--artifact-keeper",
+  "displayName": "artifact-keeper",
+  "description": "Open-source universal artifact registry. Drop-in Artifactory/Nexus alternative with 40+ package formats, security scanning, WASM plugins, and edge replication.",
+  "version": "1.0.0",
+  "author": "artifact-keeper",
+  "homepage": "https://github.com/artifact-keeper/artifact-keeper",
+  "skills": []
+}
