@@ -1,0 +1,44 @@
+{
+  "name": "ServerKit",
+  "owner": "jhd3197",
+  "repo": "ServerKit",
+  "description": "ServerKit is a lightweight, modern server control panel for managing web applications, databases, and services on your VPS or dedicated server. Built with Python/Flask backend and React frontend.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jhd3197/ServerKit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T07:40:35Z"
+}
