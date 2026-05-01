@@ -4,7 +4,7 @@
   "repo": "URDF-Studio",
   "description": "URDF-Studio is a web-based visual URDF robot modeler with 3D workspace, structured skeleton/detail/hardware workflows, motor library integration, MuJoCo export, and AI assistance.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenLegged/URDF-Studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T16:48:29Z"
+  "distributed_at": "2026-05-01T13:44:13Z"
 }
