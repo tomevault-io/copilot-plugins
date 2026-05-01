@@ -1,0 +1,9 @@
+{
+  "name": "mhaggis--security-detections-mcp",
+  "displayName": "Security-Detections-MCP",
+  "description": "MCP to help Defenders Detection Engineer Harder and Smarter",
+  "version": "1.0.0",
+  "author": "MHaggis",
+  "homepage": "https://github.com/MHaggis/Security-Detections-MCP",
+  "skills": []
+}
