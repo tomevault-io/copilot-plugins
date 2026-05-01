@@ -7,11 +7,11 @@ The AI agent with a wallet — spends USDC autonomously to get real work done. A
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [BlockRunAI/Franklin](https://github.com/BlockRunAI/Franklin).
+Original source: `CLAUDE.md` in [BlockRunAI/Franklin](https://github.com/BlockRunAI/Franklin).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
