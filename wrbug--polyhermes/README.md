@@ -2,6 +2,8 @@
 
 > Tome by [WrBug](https://github.com/WrBug/PolyHermes) — distributed by [TomeVault](https://tomevault.io)
 
+一个功能强大的 Polymarket 预测市场跟单交易系统，支持自动化跟单、多账户管理、实时订单推送和统计分析。
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
