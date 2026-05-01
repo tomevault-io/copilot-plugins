@@ -1,0 +1,9 @@
+{
+  "name": "zby--commonplace",
+  "displayName": "commonplace",
+  "description": "Methodology for agent-operated knowledge bases. Wiki ethos, markdown files, agent skills.",
+  "version": "1.0.0",
+  "author": "zby",
+  "homepage": "https://github.com/zby/commonplace",
+  "skills": []
+}
