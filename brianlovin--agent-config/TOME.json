@@ -4,7 +4,7 @@
   "repo": "agent-config",
   "description": "My coding agent config",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/brianlovin/agent-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:54:35Z"
+  "distributed_at": "2026-05-01T06:25:34Z"
 }
