@@ -1,0 +1,9 @@
+{
+  "name": "abubakarsiddik31--axiom-wiki",
+  "displayName": "axiom-wiki",
+  "description": "Inspired by Andrej Karpathy's llm-wiki \u2014 the idea that LLMs should maintain a persistent, compounding wiki rather than re-derive answers from raw sources on every query. https://gist.github.com/karpat",
+  "version": "1.0.0",
+  "author": "abubakarsiddik31",
+  "homepage": "https://github.com/abubakarsiddik31/axiom-wiki",
+  "skills": []
+}
