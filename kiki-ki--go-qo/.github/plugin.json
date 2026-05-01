@@ -1,0 +1,9 @@
+{
+  "name": "kiki-ki--go-qo",
+  "displayName": "go-qo",
+  "description": "qo is an interactive minimalist TUI to query JSON and CSV using SQL.",
+  "version": "1.0.0",
+  "author": "kiki-ki",
+  "homepage": "https://github.com/kiki-ki/go-qo",
+  "skills": []
+}
