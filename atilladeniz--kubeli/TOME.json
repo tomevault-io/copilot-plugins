@@ -4,7 +4,7 @@
   "repo": "Kubeli",
   "description": "A modern Kubernetes GUI management desktop app for macOS & Windows. Multi-cluster support, real-time monitoring, AI assistant, terminal access, and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/atilladeniz/Kubeli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:53:14Z"
+  "distributed_at": "2026-05-01T06:24:24Z"
 }
