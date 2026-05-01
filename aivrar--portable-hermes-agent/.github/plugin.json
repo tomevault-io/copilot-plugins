@@ -1,0 +1,9 @@
+{
+  "name": "aivrar--portable-hermes-agent",
+  "displayName": "portable-hermes-agent",
+  "description": "Hermes Agent made portable desktop for Windows \u2014 100 tools, GUI, local models via LM Studio, TTS, Music, ComfyUI, workflows, tool maker. No install. No Docker. No admin rights.",
+  "version": "1.0.0",
+  "author": "aivrar",
+  "homepage": "https://github.com/aivrar/portable-hermes-agent",
+  "skills": []
+}
