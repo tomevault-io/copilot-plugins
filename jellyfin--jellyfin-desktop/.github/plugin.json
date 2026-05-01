@@ -1,0 +1,9 @@
+{
+  "name": "jellyfin--jellyfin-desktop",
+  "displayName": "jellyfin-desktop",
+  "description": "Jellyfin Desktop Client",
+  "version": "1.0.0",
+  "author": "jellyfin",
+  "homepage": "https://github.com/jellyfin/jellyfin-desktop",
+  "skills": []
+}
