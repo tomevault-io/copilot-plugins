@@ -4,7 +4,7 @@
   "repo": "executor",
   "description": "The missing integration layer for AI agents. Let them call any OpenAPI / MCP / GraphQL / custom js functions in secure environment.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RhysSullivan/executor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T18:18:35Z"
+  "distributed_at": "2026-05-01T00:19:46Z"
 }
