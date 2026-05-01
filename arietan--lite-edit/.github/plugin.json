@@ -1,0 +1,9 @@
+{
+  "name": "arietan--lite-edit",
+  "displayName": "lite-edit",
+  "description": "A lightweight, fast code editor for macOS \u2014 built with Swift and AppKit",
+  "version": "1.0.0",
+  "author": "arietan",
+  "homepage": "https://github.com/arietan/lite-edit",
+  "skills": []
+}
