@@ -1,0 +1,44 @@
+{
+  "name": "apexyard",
+  "owner": "me2resh",
+  "repo": "apexyard",
+  "description": " SDLC-as-code for founders who ship alone, or companies standing up AI-enabled squads. 33 skills, 18   hooks, 19 roles. MIT, plain markdown and shell.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/me2resh/apexyard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T19:44:16Z"
+}
