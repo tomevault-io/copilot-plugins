@@ -1,35 +1,28 @@
-## code-style
+## testing
 
-> Code style for openapi-to-cli (TypeScript)
+> Test rules for openapi-to-cli
 
 
-## Code Style Rules
+## Test Writing Rules
 
-### General rules
+### General principles
 
-1. All code comments for this project must be written in English.
-2. All documentation files for this project must be written in English.
-3. New files must end with a single empty line.
-4. Use straight double quotes `"`. Use the regular dash `-` for punctuation, do not use long dashes.
+1. Tests live in the `tests/` directory inside `openapi-to-cli`.
+2. Each test must be independent; use mocks for HTTP (axios) and the filesystem when needed.
+3. `describe` and `it` names should clearly describe the behavior under test.
 
-### TypeScript
+### Test structure
 
-- `strict: true` is enabled in `tsconfig.json`.
-- For exported functions and public APIs, prefer explicit parameter and return types.
-- For reusable object shapes, use `interface`.
+- Test files: `*.test.ts`.
+- Grouping by modules, for example: `describe("profile-store", ...)`, `describe("openapi-loader", ...)` etc.
 
-### File structure
+### Running tests
 
-1. Imports first (Node/third-party, then local).
-2. Then constants and types.
-3. Then main logic (functions, classes, exports).
+From the `openapi-to-cli` directory:
 
-### Naming
-
-- Classes - PascalCase.
-- Functions and methods - camelCase.
-- Configuration constants - UPPER_SNAKE_CASE or meaningful camelCase names.
-- Files - kebab-case or camelCase, consistent with existing files.
+```bash
+npm test
+```
 
 ---
 > Source: [EvilFreelancer/openapi-to-cli](https://github.com/EvilFreelancer/openapi-to-cli) — distributed by [TomeVault](https://tomevault.io).
