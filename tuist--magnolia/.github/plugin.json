@@ -1,0 +1,9 @@
+{
+  "name": "tuist--magnolia",
+  "displayName": "magnolia",
+  "description": "Run your CI pipelines locally",
+  "version": "1.0.0",
+  "author": "tuist",
+  "homepage": "https://github.com/tuist/magnolia",
+  "skills": []
+}
