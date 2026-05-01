@@ -1,17 +1,21 @@
-## arktype-usage
+## capabilities-ownership
 
-> When you would otherwise reach for Zod, use Arktype. Read this any time you need to work with Arktype
+> Capabilities are adapter-reported, contracts declare requirements
 
 
-# Arktype Usage Guidelines
+# Capability Ownership
 
-This rulecard is intentionally short. For examples and edge cases, see `docs/reference/arktype-usage.md`.
+**Capabilities describe the database environment and are reported by adapters.** The contract only declares required capabilities in `contract.capabilities` and pins the resulting `profileHash`.
 
-## Rules of thumb
+## Do
 
-- Use optional keys via `'key?'` (not `string | undefined`).
-- Use `type({ '[string]': Schema })` for records.
-- Use `Schema.array()` for arrays (avoid tuple mistakes).
+- Describe capabilities as adapter-reported and negotiated at connect time
+- Frame contract capabilities as requirements, not definitions
+
+## Avoid
+
+- Wording that implies the contract owns or defines capabilities
+- Treating `sql.*` as a separate “SQL family” capability set rather than shared adapter keys
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
