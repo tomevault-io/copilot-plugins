@@ -1,57 +1,48 @@
-## grep-search-discipline
+## plan-no-line-numbers
 
-> Grep 搜索必须用精确模式，搜不到时先扩大范围再下结论
+> Plan 技术改动步骤禁止使用行号定位代码，改用语义化定位（类/函数/文件/功能块）
 
 
-# Grep 搜索纪律
+# Plan 代码定位方式
 
 ## 核心规则
 
-**Grep 搜索"无结果"不等于"不存在"。搜不到时，必须换更宽泛的关键词重试，确认确实不存在后才能下结论。**
+**Plan 中描述代码改动位置时，禁止使用行号。** 多个 Plan 可能并发执行，任何一个 Plan 的改动都会导致其他 Plan 中的行号偏移失效。
 
-这个规则源于真实事故：用 `specsTab` 搜索 EE Admin 的 i18n 词条，搜不到就断定"词条缺失"——实际上词条以嵌套格式 `specs: { tab: "..." }` 存在，只是搜索模式不匹配。
+## 定位方式
 
-## 搜索策略
+用语义化锚点描述改动位置，从粗到细：
 
-### 1. 先从代码中提取实际使用的字符串
+1. **文件** — `nodeskclaw-backend/app/services/deploy_service.py`
+2. **类/函数/方法** — `DeployService.create_deployment()`
+3. **功能块** — "`create_deployment()` 中构建 env_vars 的逻辑"、"`router.post('/instances')` 的请求校验部分"
 
-搜索某个东西是否存在之前，先确认你要搜的关键词是什么。**从使用方（调用处）提取实际字符串**，而不是自己猜测命名格式。
+三层按需组合，精确到执行者能无歧义定位即可。
 
-```
-# 错误：猜测 i18n 键名格式然后去搜
-Grep: specsTab|specsSaved|specsValidation
+## 改动描述格式
 
-# 正确：先从代码中看到 t('settings.specs.tab')，再用实际键名搜
-Grep: settings\.specs\.
-```
+每条改动必须包含：
 
-### 2. 第一次搜不到时必须扩大范围
-
-| 搜不到的情况 | 扩大方式 |
-|---|---|
-| 搜具体格式（如 `specsTab`） | 改为搜最短核心词（如 `specs`） |
-| 搜组合关键词 | 拆成单个关键词分别搜 |
-| 限定了文件类型/路径 | 去掉限定，全项目搜 |
-| 用了正则 | 改为纯文本搜索 |
-
-### 3. 搜索结论必须附带搜索模式
-
-报告"某个东西不存在"时，必须说明用了什么搜索模式。让结论可验证：
+- **位置**：用上述语义化锚点定位
+- **操作**：新增 / 修改 / 删除 / 替换 / 重命名 / 移动
+- **内容**：具体改什么（如"新增参数 `timeout`"、"将硬编码 URL 替换为配置项"、"删除废弃的兼容逻辑"）
 
 ```
-# 错误
-"EE Admin 的 i18n 词条缺失"
+示例（正确）:
+- `DeployService.create_deployment()` — 修改：env_vars 序列化方式从 `str()` 改为 `json.dumps()`
+- `nodeskclaw-portal/src/views/Instance/Create.vue` 的 `onSubmit()` — 新增：提交前校验 slug 唯一性
+- `resource_builder.py` 的 `build_deployment_spec()` 中资源限制部分 — 修改：memory limit 从硬编码改为读取集群配置
 
-# 正确
-"用 `settings\.specs\.` 在 ee/nodeskclaw-frontend/src/i18n/locales/ 搜索，
-zh-CN.ts 第 302-314 行找到完整 specs 词条"
+示例（禁止）:
+- `deploy_service.py` 第 142-158 行 — 修改 env_vars 序列化逻辑
+- 在 `Create.vue` 的 L89 后插入校验逻辑
 ```
 
 ## 禁止
 
-- **禁止一次搜索无结果就下结论** — 必须至少换一次更宽泛的模式重试
-- **禁止假设命名格式** — 从源码实际调用处提取搜索词，不要用自己猜测的格式
-- **禁止省略搜索依据** — "不存在"的结论必须附带搜索模式和搜索范围
+- **禁止出现行号**：`第 N 行`、`L42`、`line 42-58`、`第 142-158 行` 等任何形式
+- **禁止用行号范围描述改动范围**：如"修改第 100-200 行的逻辑"
+- **禁止用行号作为唯一定位手段**：即使附带了函数名，也不要加行号（冗余且会误导）
 
 ---
 > Source: [NoDeskAI/nodeskclaw](https://github.com/NoDeskAI/nodeskclaw) — distributed by [TomeVault](https://tomevault.io).
