@@ -1,0 +1,9 @@
+{
+  "name": "sgasser--pasteguard",
+  "displayName": "pasteguard",
+  "description": "AI gets the context. Not your secrets. Open-source privacy proxy for LLMs.",
+  "version": "1.0.0",
+  "author": "sgasser",
+  "homepage": "https://github.com/sgasser/pasteguard",
+  "skills": []
+}
