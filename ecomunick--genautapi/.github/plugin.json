@@ -1,0 +1,9 @@
+{
+  "name": "ecomunick--genautapi",
+  "displayName": "GenauTapi",
+  "description": "AI-powered German language coach using LLMs, Voice Interaction, and distributed memory context. Built with FastAPI, OpenAI, and SwiftUI.",
+  "version": "1.0.0",
+  "author": "ecomunick",
+  "homepage": "https://github.com/ecomunick/GenauTapi",
+  "skills": []
+}
