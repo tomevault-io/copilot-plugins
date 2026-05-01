@@ -1,187 +1,207 @@
-## terragon-oss
+## project-conventions
 
-> You are an AI assistant helping with the Terragon codebase, an AI-powered coding assistant platform that allows users to run coding agents in parallel inside remote sandboxes.
+> Terragon AI coding assistant platform development conventions and guidelines
 
-# Terragon Project Cursor Rules
+# Terragon Project Conventions
 
-You are an AI assistant helping with the Terragon codebase, an AI-powered coding assistant platform that allows users to run coding agents in parallel inside remote sandboxes.
+This document outlines key conventions and commands for working with the Terragon AI coding assistant platform monorepo.
 
 ## Project Overview
 
-Terragon is a sophisticated monorepo that enables concurrent AI coding tasks in full development environments with capabilities for editing, testing, and creating PRs.
+Terragon is an AI-powered coding assistant platform that integrates Claude AI with real development environments through multi-provider sandbox orchestration, GitHub workflows, and real-time collaboration.
 
-## Repository Structure & Conventions
+## Package Management
 
-### Monorepo Setup
-- Uses **pnpm workspace (v10.11.1)** - ALWAYS use `pnpm` for package management
-- TypeScript throughout with strict typing
-- Path aliases: `@/*` → `./src/*` in Next.js app
-- Workspace dependencies use `workspace:*` references
+- **Always use `pnpm v10.11.1`** for package management operations.
+  ```bash
+  pnpm add <package-name>
+  pnpm install
+  ```
+
+## Monorepo Structure
+
+This is a sophisticated monorepo with multiple apps and packages:
 
 ### Core Applications
-- `apps/www` - Next.js 15.3.4 frontend with React 19.1
+- `apps/www` - Next.js 15.3.3 frontend with React 19
 - `apps/broadcast` - PartyKit WebSocket service for real-time features
-- `apps/docs` - Fumadocs-based documentation site  
-- `apps/cli` - Terry CLI tool (uses Ink for terminal UI)
 
 ### Shared Packages
 - `@terragon/shared` - Database models, schemas, core utilities
 - `@terragon/daemon` - Sandbox agent runtime and communication
-- `@terragon/bundled` - Bundled deployment scripts
+- `@terragon/bundled` - Bundled scripts for deployment (includes the daemon cli and mcp server)
 - `@terragon/env` - Environment configuration management
 - `@terragon/r2` - Cloudflare R2 storage integration
-- And 8+ other specialized packages
+- `@terragon/dev-env` - Docker development environment
+- `@terragon/tsconfig` - Shared TypeScript configuration
 
-## Technology Stack
+## Development Commands
 
-### Frontend (apps/www)
-- **Framework**: Next.js 15.3.4 (App Router) with React 19
-- **Styling**: Tailwind CSS v4
-- **State**: Jotai, React Query (Tanstack Query)
-- **UI Components**: Radix UI primitives with shadcn/ui
-- **Rich Text**: TipTap editor with slash commands
-- **Real-time**: PartySocket for WebSocket communication
-
-### Backend & Database
-- **Database**: Drizzle ORM with PostgreSQL
-- **Auth**: Better Auth with GitHub OAuth, Claude OAuth integration
-- **AI**: Anthropic Claude SDK (v0.52.0), AI SDK, OpenAI
-- **Rate Limiting**: @upstash/ratelimit with Redis
-- **File Storage**: Cloudflare R2 integration
-
-### Development & Testing
-- **Testing**: Vitest
-- **CLI**: Ink for interactive terminal UI, ORPC for type-safe API communication
-- **Email**: React Email for transactional emails
-- **UI Development**: Ladle for component development
-
-## Key Development Commands
-
+### Start Development Environment
 ```bash
-# Start full development environment
+# Start full development environment (env, www, cron, broadcast, daemon services)
 pnpm dev
 
-# TypeScript watch mode for all services  
-pnpm tsc-watch
+# Frontend development only
+cd apps/www && pnpm dev
 
-# Run tests
-pnpm -C apps/www test
-pnpm -C packages/shared test
-
-# Database operations
-pnpm -C packages/shared drizzle-kit-push-dev
-pnpm -C packages/shared drizzle-kit-studio-dev
-
-# CLI tool development
-pnpm install-cli:dev
+# WebSocket/broadcast development
+cd apps/broadcast && pnpm dev
 ```
 
-## Code Conventions
+### Testing & Quality
+```bash
+# Run tests (www app with Vitest)
+cd apps/www && pnpm test
 
-### React/Next.js
+# Run linting
+cd apps/www && pnpm lint
+
+# TypeScript type checking
+cd apps/www && pnpm check
+
+# TypeScript watch mode for all services
+pnpm tsc-watch
+```
+
+### Database Operations (Drizzle ORM)
+```bash
+# Push schema to dev database
+cd apps/www && pnpm drizzle-kit-push-dev
+
+# Open database studio
+cd apps/www && pnpm drizzle-kit-studio-dev
+```
+
+### Deployment
+```bash
+# Build frontend (includes daemon packages)
+cd apps/www && pnpm build
+
+# Deploy broadcast service to PartyKit
+cd apps/broadcast && pnpm deploy
+```
+
+## Frontend (apps/www)
+
+### Technology Stack
+- **Framework**: Next.js 15.3.3 (App Router) with React 19
+- **Styling**: Tailwind CSS v4 with PostCSS
+- **State Management**: Jotai
+- **UI Components**: Radix UI primitives with shadcn/ui
+- **API**: Hono framework with tRPC
+- **Real-time**: PartySocket for WebSocket communication
+
+### Adding Shadcn UI Components
+1. Navigate to the www directory:
+   ```bash
+   cd apps/www
+   ```
+2. Add components:
+   ```bash
+   npx shadcn@latest add <component-name> --yes
+   ```
+
+### Code Conventions
+- Use TypeScript throughout with strict typing
 - Prefer server components over client components
 - Use Jotai for client-side state management
 - Follow established patterns in `src/components/`
 - Implement proper error handling and loading states
 - Use workspace packages (`@terragon/*`) for shared code
 
-### Database
-- Use Drizzle ORM patterns
-- Push schema changes with `drizzle-kit-push-dev`
-- All environment configs in dedicated files
+## Architecture Components
 
-### File Naming
+### Core Agent System (`apps/www/src/agent/`)
+- **Sandbox Orchestration**: Multi-provider management (E2B, CodeSandbox, Local)
+- **Claude Integration**: Message processing and tool execution
+- **Daemon System**: Autonomous Node.js agent running in sandboxes
+- **Resource Management**: Hibernation and session lifecycle management
+
+### Chat System (`apps/www/src/components/chat/`)
+- **Real-time UI**: React-based chat interface with message streaming
+- **Tool Visualization**: Custom components for bash, file operations, git diff
+- **Message Processing**: Structured Claude message handling with tool calls
+- **Status Tracking**: Thread status, sandbox state, and real-time updates
+
+### Database Schema (`packages/shared/src/db/`)
+- **Threads**: Chat sessions with sandbox and GitHub integration
+- **Users**: Authentication, settings, and API key management
+- **Environments**: User-repository combinations for development
+- **GitHub PRs**: Pull request tracking and automated workflows
+
+## Key Dependencies
+
+### AI & Sandbox Integration
+- `@anthropic-ai/sdk` v0.52.0 - Claude AI integration
+- `@codesandbox/sdk` v1.1.6 - CodeSandbox provider
+- `@e2b/code-interpreter` (beta) - E2B provider
+- `ai` v4.3.16 - AI SDK for streaming
+
+### Database & Auth
+- `drizzle-orm` v0.43.1 - Database ORM
+- `better-auth` v1.2.8 - Authentication with GitHub OAuth
+- `@upstash/ratelimit` v2.0.5 - Rate limiting with Redis
+
+### GitHub Integration
+- `octokit` v5.0.2 - GitHub API client
+- `@ai-sdk/openai` v1.3.22 - OpenAI for commit messages
+
+## File Naming Conventions
+
 - Use kebab-case for file names
 - Use PascalCase for React components
 - Use camelCase for TypeScript interfaces/types
 - Add `.test.ts` suffix for test files
 - Use `.mdc` for Cursor documentation files
 
-## Feature Flags System
+## Important Patterns
 
-### Creating Feature Flags
-1. Define in `packages/shared/src/model/feature-flags-definitions.ts`
-2. Use `useFeatureFlag` hook in React components
-3. Configure via admin page (global + per-user overrides)
+### Sandbox System
+- Multiple providers with unified interface
+- Resource hibernation for cost optimization
+- Autonomous daemon communication
+- Real-time status updates
 
-### Example Usage
-```typescript
-import { useFeatureFlag } from "@/hooks/use-feature-flag";
+### GitHub Workflows
+- Automated branch creation and commits
+- AI-generated commit messages and PR descriptions
+- Real-time PR status synchronization
 
-const MyComponent = () => {
-  const isFeatureEnabled = useFeatureFlag("myNewFeature");
-  // Use the flag...
-};
-```
-
-## Architecture Components
-
-### Core Agent System (`apps/www/src/agent/`)
-- Sandbox orchestration (E2B, Docker)
-- Claude integration and message processing
-- Daemon system for autonomous agents
-- Resource management and hibernation
-
-### Chat System (`apps/www/src/components/chat/`)
-- Real-time UI with message streaming
-- Tool visualization (bash, files, git diff, web search, todos)
-- Rich text editor with mentions and attachments
-- Follow-up tasks and copy features
-
-### Database Schema (`packages/shared/src/db/`)
-- Threads with sandbox/GitHub integration
-- Users with auth and API key management
-- Environments with variables and MCP config
-- GitHub PRs with automated workflows
-- Feature flags and user preferences
-
-## Environment Configuration
-
-### Development Setup
-- PostgreSQL on port 5432, Redis on port 6379
-- Test DB on port 15432, Test Redis on port 16379
-- Use `.env.development.local` for local development
-- Docker Compose handles dev infrastructure
-
-### Key Environment Variables
-- AI Services: Anthropic Claude, OpenAI, E2B API keys
-- Infrastructure: Database URL, Redis, Cloudflare R2
-- Auth: GitHub OAuth, internal shared secrets
-- Development: ngrok tunnel, sandbox provider configs
-
-## Security Guidelines
+### Security Guidelines
 - Never commit API keys or secrets
 - Use proper rate limiting with Upstash
 - Validate all inputs with Zod schemas
 - Implement proper authentication checks
 - Secure sandbox isolation
 
-## Recent Features to be aware of
-- Claude OAuth integration
-- Follow-up task queuing
-- Interactive CLI with thread selection
-- MCP Server for task suggestions  
-- Task sharing with visibility controls
-- Access codes for controlled signup
-- Slash commands in TipTap editor
-- Admin UI enhancements
+## Environment Setup
 
-## Troubleshooting Common Issues
-- Docker not starting: Check ports 5432, 6379 are free
-- TypeScript errors: Run `pnpm install` after pulling
-- DB schema out of sync: Run `drizzle-kit-push-dev`
-- Sandbox issues: Verify E2B API keys
-- Ngrok issues: Check auth token and domain in env
+### Required Environment Variables
+- **AI Services**: Anthropic Claude, OpenAI, CodeSandbox, E2B API keys
+- **Infrastructure**: Database URL, Redis, Cloudflare R2 storage
+- **Auth**: GitHub OAuth credentials, internal shared secrets
+- **Development**: ngrok for local tunnel, sandbox provider configs
 
-## When Working on This Codebase
-1. Always use `pnpm` for package management
-2. Check existing patterns in similar components before implementing
-3. Use workspace packages for shared functionality
-4. Implement proper TypeScript typing
-5. Follow the established file naming conventions
-6. Test database changes with push commands
-7. Consider feature flags for new functionality
-8. Maintain security best practices
+### Configuration Files
+- `.env.example` files in apps/www, apps/broadcast, packages
+- Docker Compose with PostgreSQL 16, Redis 7
+- TypeScript shared config via `@terragon/tsconfig`
+
+## Reference Files
+
+- `CLAUDE.md` - Comprehensive project documentation
+- `apps/www/src/agent/sandbox.ts` - Core sandbox orchestration
+- `apps/www/src/components/chat/chat-ui.tsx` - Main chat interface
+- `packages/shared/src/db/schema.ts` - Database schema definitions
+- `apps/www/src/lib/auth-server.ts` - Authentication utilities
+
+## Development Workflow
+
+1. **Thread Lifecycle**: User creates thread → Sandbox provisioning → Daemon installation → Claude processing → Git integration → Resource cleanup
+2. **Real-time Collaboration**: WebSocket-based live updates via PartyKit
+3. **Resource Management**: Cost optimization through hibernation
+4. **Mobile Support**: Full-featured responsive design
 
 ---
 > Source: [terragon-labs/terragon-oss](https://github.com/terragon-labs/terragon-oss) — distributed by [TomeVault](https://tomevault.io).
