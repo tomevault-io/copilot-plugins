@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--distrobox-gaming",
+  "displayName": "distrobox-gaming",
+  "description": "Script to create a gaming focused Distrobox with all emulators pre-configured",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/distrobox-gaming",
+  "skills": []
+}
