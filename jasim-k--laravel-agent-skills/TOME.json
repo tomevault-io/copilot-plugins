@@ -1,0 +1,44 @@
+{
+  "name": "laravel-agent-skills",
+  "owner": "jasim-k",
+  "repo": "laravel-agent-skills",
+  "description": "A curated library of AI Agent skills for modern Laravel development. Standardizing patterns for Inertia, Vue 3, and full-stack architecture. Optimized for Claude Code, Cursor, and Windsurf.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jasim-k/laravel-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T18:37:35Z"
+}
