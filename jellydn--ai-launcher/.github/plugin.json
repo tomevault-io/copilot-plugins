@@ -1,0 +1,9 @@
+{
+  "name": "jellydn--ai-launcher",
+  "displayName": "ai-launcher",
+  "description": "A fast, secure launcher CLI tool that lets you switch between different AI coding assistants using fuzzy search.",
+  "version": "1.0.0",
+  "author": "jellydn",
+  "homepage": "https://github.com/jellydn/ai-launcher",
+  "skills": []
+}
