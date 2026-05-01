@@ -7,11 +7,11 @@ Secure Node.js Execution Without a Sandbox  A lightweight library for secure Nod
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [rivet-dev/secure-exec](https://github.com/rivet-dev/secure-exec).
+Original source: `CLAUDE.md` in [rivet-dev/secure-exec](https://github.com/rivet-dev/secure-exec).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
