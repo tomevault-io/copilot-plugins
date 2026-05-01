@@ -1,0 +1,9 @@
+{
+  "name": "midudev--disable-cloudflare-cli",
+  "displayName": "disable-cloudflare-cli",
+  "description": "CLI to disable Cloudflare without having to access Cloudflare Dashboard",
+  "version": "1.0.0",
+  "author": "midudev",
+  "homepage": "https://github.com/midudev/disable-cloudflare-cli",
+  "skills": []
+}
