@@ -1,0 +1,9 @@
+{
+  "name": "westonplatter--aps",
+  "displayName": "aps",
+  "description": "Compose and sync your own collection of AGENTS.md, Skills, and other agentic prompts",
+  "version": "1.0.0",
+  "author": "westonplatter",
+  "homepage": "https://github.com/westonplatter/aps",
+  "skills": []
+}
