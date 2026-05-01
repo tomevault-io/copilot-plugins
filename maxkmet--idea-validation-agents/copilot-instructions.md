@@ -1,9 +1,9 @@
-## competitor-mapper
+## decision-memo
 
-> Skill — competitor-mapper. Maps direct, indirect, and substitute competitors with positioning gaps.
+> Skill — decision-memo. Writes a human-readable decision brief: verdict, score, top 3 strengths, top 3 risks, next step.
 
 
-See [skills/competitor-mapper/SKILL.md](../../skills/competitor-mapper/SKILL.md) for full instructions and output schema.
+See [skills/decision-memo/SKILL.md](../../skills/decision-memo/SKILL.md) for full instructions and output schema.
 
 ---
 > Source: [MaxKmet/idea-validation-agents](https://github.com/MaxKmet/idea-validation-agents) — distributed by [TomeVault](https://tomevault.io).
