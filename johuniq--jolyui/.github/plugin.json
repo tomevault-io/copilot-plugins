@@ -1,9 +1,9 @@
 {
   "name": "johuniq--jolyui",
   "displayName": "jolyui",
-  "description": "jolyui",
+  "description": "A custom registry of composable, accessible and extensible components designed for use with shadcn/ui. Free and open source, forever.",
   "version": "1.0.0",
   "author": "Johuniq",
-  "homepage": "https://tomevault.io/claim/Johuniq",
+  "homepage": "https://github.com/Johuniq/jolyui",
   "skills": []
 }
