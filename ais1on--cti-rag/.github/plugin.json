@@ -1,0 +1,9 @@
+{
+  "name": "ais1on--cti-rag",
+  "displayName": "CTI-RAG",
+  "description": "CTI-RAG is a Retrieval-Augmented Generation (RAG) framework for Cyber Threat Intelligence (CTI), integrating knowledge graph and causal reasoning capabilities to provide security analysts with an inte",
+  "version": "1.0.0",
+  "author": "Ais1on",
+  "homepage": "https://github.com/Ais1on/CTI-RAG",
+  "skills": []
+}
