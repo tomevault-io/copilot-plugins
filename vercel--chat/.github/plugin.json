@@ -1,0 +1,9 @@
+{
+  "name": "vercel--chat",
+  "displayName": "chat",
+  "description": "A unified TypeScript SDK for building chat bots across Slack, Microsoft Teams, Google Chat, Discord, and more.",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/chat",
+  "skills": []
+}
