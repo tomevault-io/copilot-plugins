@@ -1,0 +1,9 @@
+{
+  "name": "crosstalk-solutions--unifi-toolkit",
+  "displayName": "unifi-toolkit",
+  "description": "A suite of tools for UniFi network management",
+  "version": "1.0.0",
+  "author": "Crosstalk-Solutions",
+  "homepage": "https://github.com/Crosstalk-Solutions/unifi-toolkit",
+  "skills": []
+}
