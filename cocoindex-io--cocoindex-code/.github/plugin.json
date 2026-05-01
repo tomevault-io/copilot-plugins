@@ -1,0 +1,9 @@
+{
+  "name": "cocoindex-io--cocoindex-code",
+  "displayName": "cocoindex-code",
+  "description": "A super light-weight embedded code search engine CLI (AST based) that just works - saves 70% token and improves speed for coding agent  \ud83c\udf1f Star if you like it!",
+  "version": "1.0.0",
+  "author": "cocoindex-io",
+  "homepage": "https://github.com/cocoindex-io/cocoindex-code",
+  "skills": []
+}
