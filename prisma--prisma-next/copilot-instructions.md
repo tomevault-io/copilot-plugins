@@ -1,111 +1,46 @@
-## use-contract-ir-factories
+## use-hash-constructors
 
-> Use factory functions for creating ContractIR objects instead of manual object creation
+> Use coreHash() and profileHash() constructors instead of 'as never' casts for branded hash types
 
 
-# Use Factory Functions for ContractIR
+# Use Hash Constructors for Branded Hash Types
 
-**CRITICAL**: When creating `ContractIR` objects in tests, use factory functions instead of manual object creation.
+When creating `CoreHashBase` or `ProfileHashBase` values in tests, use the `coreHash()` and `profileHash()` constructors from `@prisma-next/contract/types`.
 
 ## The Problem
 
-Manual ContractIR creation:
-- Duplicates contract structure definitions
-- Is error-prone (easy to miss required fields like `capabilities`, `meta`, `sources`)
-- Makes refactoring harder (changes to ContractIR structure require updates in many places)
-- Doesn't ensure all required fields are present with proper defaults
+`CoreHashBase` and `ProfileHashBase` are branded types (`string & Brand<'CoreHash'>`). Plain strings don't satisfy the brand, so tests historically used `as never` casts to bypass the type system:
+
+```typescript
+// ❌ WRONG: unsafe cast, hides the branded type from the reader
+coreHash: 'sha256:test' as never,
+profileHash: 'sha256:test-profile' as never,
+```
 
 ## The Solution
 
-**❌ WRONG: Manual ContractIR creation**
-
 ```typescript
-const ir: ContractIR = {
-  schemaVersion: '1',
-  targetFamily: 'sql',
-  target: 'postgres',
-  models: {},
-  relations: {},
-  storage: { tables: {} },
-  extensions: {},
-  capabilities: {},
-  meta: {},
-  sources: {},
-};
+import { coreHash, profileHash } from '@prisma-next/contract/types';
+
+// ✅ CORRECT: type-safe, preserves literal type via const type parameter
+coreHash: coreHash('sha256:test'),
+profileHash: profileHash('sha256:test-profile'),
 ```
 
-**✅ CORRECT: Use factory functions**
+The constructors use `const` type parameters so `coreHash('sha256:test')` returns `CoreHashBase<'sha256:test'>`, not `CoreHashBase<string>`.
 
-```typescript
-import { createContractIR } from './utils'; // or from '@prisma-next/emitter' if exported
+## Available Constructors
 
-const ir = createContractIR({
-  storage: {
-    tables: {
-      user: {
-        columns: {
-          id: { type: 'pg/int4@1', nullable: false },
-        },
-      },
-    },
-  },
-});
-```
+From `@prisma-next/contract/types`:
+- `coreHash<const T extends string>(value: T): CoreHashBase<T>`
+- `profileHash<const T extends string>(value: T): ProfileHashBase<T>`
 
-## Available Factory Functions
+## When to Use
 
-From test utilities:
-- `createContractIR(overrides?)` - Creates a `ContractIR` with sensible defaults
+- ✅ Any test or test utility that constructs an `SqlContract` or `ContractBase` literal
+- ✅ Test helper functions that accept optional hash strings and need to produce branded values
 
-**Note**: This factory function is currently in test utilities but may be moved to production code in the future for use when loading contracts from JSON or constructing contracts programmatically.
-
-## When to Use Factory Functions
-
-Use factory functions when:
-- ✅ Creating `ContractIR` objects in tests
-- ✅ Constructing contracts from parsed JSON (ensures all required fields are present)
-- ✅ Creating minimal contracts programmatically
-
-**Exception**: When using the contract builder (`defineContract()`), the builder handles normalization and you don't need the factory function.
-
-## Required Fields
-
-All `ContractIR` fields are required (non-optional). The factory function ensures all fields are present:
-- `schemaVersion`: string
-- `targetFamily`: string
-- `target`: string
-- `models`: Record<string, unknown> (can be empty `{}`)
-- `relations`: Record<string, unknown> (can be empty `{}`)
-- `storage`: Record<string, unknown> (must have `tables` for SQL contracts)
-- `extensions`: Record<string, unknown> (can be empty `{}`)
-- `capabilities`: Record<string, Record<string, boolean>> (can be empty `{}`)
-- `meta`: Record<string, unknown> (can be empty `{}`)
-- `sources`: Record<string, unknown> (can be empty `{}`)
-
-## Type Notes
-
-- `capabilities` is typed as `Record<string, Record<string, boolean>>`, not `Record<string, unknown>`
-- `ExtensionPack` requires both `manifest` and `path` properties
-
-## Benefits
-
-- **Consistency**: All ContractIR objects created the same way
-- **Type safety**: Factory functions ensure correct structure
-- **Maintainability**: Changes to ContractIR structure only need updates in factory functions
-- **Less duplication**: No need to repeat all required fields in every test
-- **Default values**: Factory provides sensible defaults for all required fields
-
-## Examples from Codebase
-
-**Good patterns:**
-- Using `createContractIR({ storage: {...} })` instead of manually constructing the full object
-- Using `createContractIR()` for minimal contracts
-- Overriding specific fields: `createContractIR({ target: 'mysql' })`
-
-**Bad patterns (to avoid):**
-- Manual object creation for ContractIR in tests
-- Duplicating ContractIR structure definitions in tests
-- Creating ContractIR objects with incomplete structure (missing required fields)
+Do **not** use these in production emission code — the emitter computes hashes via `computeCoreHash()` and returns plain strings that are consumed at the type level through `contract.d.ts`.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
