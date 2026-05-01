@@ -1,0 +1,9 @@
+{
+  "name": "david-crty--databasement",
+  "displayName": "databasement",
+  "description": "Self-hosted database backup manager with a web UI. Schedule, backup, and restore MySQL, PostgreSQL, MariaDB, MongoDB, SQLite & Redis to S3, SFTP, or local storage. SSH Tunnel support.",
+  "version": "1.0.0",
+  "author": "David-Crty",
+  "homepage": "https://github.com/David-Crty/databasement",
+  "skills": []
+}
