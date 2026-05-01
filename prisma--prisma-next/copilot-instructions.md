@@ -1,139 +1,53 @@
-## shared-plane-packages
+## sql-types-imports
 
-> Pattern for creating shared plane packages that serve both migration and runtime planes
+> Canonical import paths for SQL types
 
 
-# Shared Plane Packages
+# SQL Types Import Path
 
-## Overview
+**CRITICAL**: SQL-specific contract types (`SqlContract`, `SqlStorage`, `SqlMappings`, etc.) should be imported from `@prisma-next/sql-contract/types` (shared plane package).
 
-Shared plane packages contain side-effect-free code (types, validators, factories) that can be safely imported by both migration-plane (authoring, emitter, targets) and runtime-plane (lanes, runtime, adapters) packages. This pattern allows runtime-plane packages to import type definitions without violating plane boundaries.
+## Current Import Strategy
 
-## When to Create a Shared Plane Package
+All packages should import SQL contract types from the shared plane:
 
-Create a shared plane package when:
-
-1. **Types are needed by both planes**: Type definitions that are used by both migration-plane (e.g., emitter, authoring) and runtime-plane (e.g., lanes, runtime) packages
-2. **Validators are pure**: Arktype validators that perform structural validation without side effects
-3. **Factories are pure**: Factory functions that construct data structures without IO or external dependencies
-4. **No migration-specific logic**: The package contains no code that depends on migration-plane concerns (file I/O, pack loading, emitter hooks)
-
-## Examples
-
-### SQL Contract Types (`@prisma-next/sql-contract`)
-
-Located at `packages/sql/contract/` (shared plane):
-- **Types**: `SqlContract`, `SqlStorage`, `StorageTable`, `ModelDefinition`
-- **Validators**: Arktype validators for contract structures
-- **Factories**: Pure factory functions for constructing contract IR
-
-Used by:
-- Migration plane: authoring, emitter (for validation and IR construction)
-- Runtime plane: lanes, runtime (for type definitions)
-
-### SQL Operations Types (planned: `@prisma-next/sql-operations`)
-
-When moved to shared plane at `packages/sql/operations/`:
-- **Types**: `LoweringSpec`, `OperationSignature`
-- **Assembly**: Pure function `assembleOperationRegistry(manifests)` that takes plain manifest objects
-- **Validators**: (optional) Arktype validators for operation manifests
-
-Used by:
-- Migration plane: emitter (for assembling operations from extension packs)
-- Runtime plane: lanes, runtime (for operation type definitions)
+```typescript
+// ✅ CORRECT: Import SQL types from sql-contract (shared plane)
+import type { SqlContract, SqlStorage, SqlMappings } from '@prisma-next/sql-contract/types';
+```
 
 ## Package Structure
 
-Shared plane packages follow this structure:
+- **`@prisma-next/contract`**: Core contract types (`ContractBase`, `Source`) and document family types (`DocumentContract`)
+- **`@prisma-next/sql-contract`**: SQL-specific contract types (`SqlContract`, `SqlStorage`, `SqlMappings`, `ModelDefinition`, `StorageTable`, `StorageColumn`, etc.) - **canonical source** (shared plane)
+- **`@prisma-next/sql-operations`**: SQL-specific operations (`OperationSignature`, `LoweringSpec`, `assembleOperationRegistry`) - **canonical source** (shared plane, see brief 18)
+- **`@prisma-next/sql-contract-emitter`**: SQL emitter hook (`sqlTargetFamilyHook`) - **canonical source**
+- **`@prisma-next/operations`**: Target-neutral operations (`OperationRegistry`, `ArgSpec`, `ReturnSpec`, `createOperationRegistry`) - **canonical source**
 
-```
-packages/{domain}/{package-name}/
-├── package.json          # sideEffects: false, plane: shared
-├── src/
-│   ├── types.ts         # Type definitions
-│   ├── validators.ts    # (optional) Arktype validators
-│   ├── factories.ts    # (optional) Factory functions
-│   └── exports/
-│       ├── types.ts     # Re-export types
-│       ├── validators.ts # (optional) Re-export validators
-│       └── factories.ts # (optional) Re-export factories
-├── test/                # Tests for validators/factories
-└── README.md            # Documents package purpose and usage
-```
+## When to Use Each Package
 
-## Architecture Config
+- **`@prisma-next/contract/types`**: Core contract types (`ContractBase`, `Source`) or document family types (`DocumentContract`)
+- **`@prisma-next/sql-contract/types`**: SQL-specific contract types (canonical source, shared plane)
+- **`@prisma-next/sql-contract/validators`**: SQL contract validators (shared plane)
+- **`@prisma-next/sql-contract/factories`**: SQL contract IR factories (shared plane)
+- **`@prisma-next/sql-operations`**: SQL-specific operations (canonical source, shared plane, use directly)
+- **`@prisma-next/sql-contract-emitter`**: SQL emitter hook (canonical source, use directly)
+- **`@prisma-next/operations`**: Target-neutral operations (canonical source, use directly)
 
-Register shared plane packages in `architecture.config.json`:
+## Migration Notes
 
-```json
-{
-  "glob": "packages/sql/contract/**",
-  "domain": "sql",
-  "layer": "core",
-  "plane": "shared"
-}
-```
+- **All packages**: Should import SQL contract types from `@prisma-next/sql-contract/types` (shared plane)
+- **Runtime and Lanes**: Can safely import from `@prisma-next/sql-contract/types` as it's in the shared plane
+- **Authoring and Emitter**: Import from `@prisma-next/sql-contract/types` for types, `@prisma-next/sql-contract/validators` for validation
+- **Test files**: Use `@prisma-next/sql-contract/types` and `@prisma-next/sql-contract/factories` for test fixtures
 
-## Dependencies
+## Common Mistakes
 
-Shared plane packages should:
-- **Depend on**: Framework core packages (`@prisma-next/contract`, `@prisma-next/operations`), validation libraries (Arktype)
-- **NOT depend on**: Migration-plane packages (emitter, CLI), runtime-plane packages (lanes, runtime), or packages with side effects
+If you see TypeScript errors like:
+- `"@prisma-next/contract/types" has no exported member named 'SqlContract'`
+- `Module '"@prisma-next/contract/types"' has no exported member 'SqlStorage'`
 
-## Exports Pattern
-
-Use explicit export paths following the pattern:
-
-```json
-{
-  "exports": {
-    "./types": {
-      "types": "./dist/exports/types.d.ts",
-      "import": "./dist/exports/types.js"
-    },
-    "./validators": {
-      "types": "./dist/exports/validators.d.ts",
-      "import": "./dist/exports/validators.js"
-    }
-  }
-}
-```
-
-Import using package name and export identifier (not `/exports/` paths):
-
-```typescript
-// ✅ CORRECT
-import type { SqlContract } from '@prisma-next/sql-contract/types';
-import { validateSqlContract } from '@prisma-next/sql-contract/validators';
-
-// ❌ WRONG
-import type { SqlContract } from '@prisma-next/sql-contract/exports/types';
-```
-
-## Migration from Migration Plane
-
-When moving a package from migration plane to shared plane:
-
-1. **Remove migration-specific dependencies**: Remove imports of `@prisma-next/emitter`, file I/O, pack loading
-2. **Extract pure functions**: Keep only pure functions that take plain data structures
-3. **Move tooling logic**: Move pack reading/resolution to emitter/CLI (migration plane)
-4. **Update architecture.config.json**: Change plane from `migration` to `shared`
-5. **Update imports**: Runtime-plane imports remain the same (package name doesn't change)
-6. **Update dependency cruiser**: Remove runtime→migration exceptions for this package
-
-## Testing
-
-Shared plane packages should have:
-- Unit tests for validators (structural validation)
-- Unit tests for factories (object construction)
-- Type tests for exported types (if applicable)
-- No integration tests that require migration or runtime plane packages
-
-## Related Patterns
-
-- **Contract-first architecture**: Shared plane packages align with contract-first design by providing type-safe, verifiable surfaces
-- **Thin core, fat targets**: Shared plane packages provide common vocabulary while adapters handle target-specific logic
-- **Package layering**: Shared plane packages sit at the `core` layer, allowing both migration and runtime planes to depend on them
+This means you're importing SQL types from the wrong package. Change the import to use `@prisma-next/sql-contract/types`.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
