@@ -1,0 +1,9 @@
+{
+  "name": "emerysilb--immibridge",
+  "displayName": "immibridge",
+  "description": "Desktop app for copying and syncing an apple photo library to immich.",
+  "version": "1.0.0",
+  "author": "emerysilb",
+  "homepage": "https://github.com/emerysilb/immibridge",
+  "skills": []
+}
