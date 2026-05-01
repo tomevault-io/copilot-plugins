@@ -1,0 +1,9 @@
+{
+  "name": "scosman--outclaw",
+  "displayName": "outclaw",
+  "description": "Setup OpenClaw in Docker in 3 minutes",
+  "version": "1.0.0",
+  "author": "scosman",
+  "homepage": "https://github.com/scosman/outclaw",
+  "skills": []
+}
