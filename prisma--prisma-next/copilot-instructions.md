@@ -1,72 +1,70 @@
-## prefer-object-matcher
+## prefer-to-throw
 
-> Prefer object matchers over multiple individual expect().toBe() calls
+> Use expect().toThrow() instead of manual try/catch blocks in tests
 
 
-# Prefer Object Matchers Over Multiple Individual Assertions
+# Prefer `toThrow` Over Manual try/catch
 
-**CRITICAL**: When checking multiple related values in a test, use a single object matcher instead of multiple individual `expect().toBe()` calls.
+Use `expect(() => ...).toThrow(...)` to assert errors instead of manual try/catch blocks.
 
-## The Problem
-
-Multiple individual `expect().toBe()` calls for related values:
-- Create visual clutter
-- Make it harder to see the expected state at a glance
-- Are harder to maintain when adding or removing checks
-- Don't clearly show the relationship between values
-
-## The Solution
-
-**❌ WRONG: Multiple individual `expect().toBe()` calls**
+## Don't
 
 ```typescript
-expect(alias1).toBe('user_id');
-expect(alias2).toBe('user_email');
-expect(tracker.has('user_id')).toBe(true);
-expect(tracker.has('user_email')).toBe(true);
-```
-
-**✅ CORRECT: Single object matcher**
-
-```typescript
-expect({
-  alias1,
-  alias2,
-  has1: tracker.has('user_id'),
-  has2: tracker.has('user_email'),
-}).toMatchObject({
-  alias1: 'user_id',
-  alias2: 'user_email',
-  has1: true,
-  has2: true,
+// ❌ Manual try/catch — verbose, easy to forget the "did it throw?" check
+let caughtError: unknown;
+try {
+  doSomething();
+} catch (error) {
+  caughtError = error;
+}
+expect(caughtError).toBeInstanceOf(MyError);
+expect(caughtError).toMatchObject({
+  code: 'SOME_CODE',
+  message: 'something went wrong',
 });
 ```
 
-## When to Use Object Matchers
+```typescript
+// ❌ Calling the function twice — once with toThrow, once with try/catch
+expect(() => doSomething()).toThrow(MyError);
 
-Use object matchers when:
-- ✅ You have 2+ related `expect().toBe()` calls checking different values
-- ✅ The values are logically related (e.g., multiple aliases, multiple properties)
-- ✅ The checks are part of the same test assertion
+let caughtError: unknown;
+try {
+  doSomething();
+} catch (error) {
+  caughtError = error;
+}
+expect((caughtError as MyError).code).toBe('SOME_CODE');
+```
 
-**Exception**: Single `expect().toBe()` calls are fine when checking a single isolated value.
+## Do
 
-## Benefits
+```typescript
+// ✅ Single toThrow with expect.objectContaining for structured errors
+expect(() => doSomething()).toThrow(
+  expect.objectContaining({
+    code: 'SOME_CODE',
+    message: 'something went wrong',
+    details: expect.objectContaining({ table: 'user' }),
+  }),
+);
+```
 
-- **Better readability**: All expected values are visible in one place
-- **Easier maintenance**: Add or remove checks by modifying the object
-- **Clearer intent**: Shows the expected state as a cohesive unit
-- **Less verbose**: Reduces test code size
+```typescript
+// ✅ Simple class check when you only need to verify the error type
+expect(() => doSomething()).toThrow(MyError);
+```
 
-## Examples from Codebase
+```typescript
+// ✅ Message substring match
+expect(() => doSomething()).toThrow('something went wrong');
+```
 
-**Good patterns:**
-- Single object matcher with `toMatchObject`
-- Combined related assertions into one object
+## Why
 
-**Bad patterns (to avoid):**
-- Multiple `expect().toBe()` calls for related values
-- Scattered assertions that could be combined
+- **Single invocation**: the function under test runs exactly once.
+- **Fail-safe**: if the function does not throw, vitest fails the test automatically. Manual try/catch silently passes when the throw is missing unless you add extra `expect.assertions(n)` bookkeeping.
+- **Less noise**: no `let caughtError`, no `as MyError` cast, no separate `toBeInstanceOf` check.
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
