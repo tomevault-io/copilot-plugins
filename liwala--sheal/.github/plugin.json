@@ -1,0 +1,9 @@
+{
+  "name": "liwala--sheal",
+  "displayName": "sheal",
+  "description": "your ai agent keeps making the same mistakes. sheal fixes that.",
+  "version": "1.0.0",
+  "author": "liwala",
+  "homepage": "https://github.com/liwala/sheal",
+  "skills": []
+}
