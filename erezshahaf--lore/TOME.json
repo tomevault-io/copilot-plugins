@@ -1,0 +1,44 @@
+{
+  "name": "Lore",
+  "owner": "ErezShahaf",
+  "repo": "Lore",
+  "description": "Summon it with a keystroke, throw in anything you want to remember or ask your own memory. A local LLM agent that restructures your knowledge into a vectorized DB. fully private, zero cloud.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ErezShahaf/Lore",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T06:23:41Z"
+}
