@@ -1,0 +1,9 @@
+{
+  "name": "rkeyoceannetworks--cloudloop-webhook",
+  "displayName": "cloudloop-webhook",
+  "description": "cloudloop-webhook",
+  "version": "1.0.0",
+  "author": "rkeyoceannetworks",
+  "homepage": "https://github.com/rkeyoceannetworks/cloudloop-webhook",
+  "skills": []
+}
