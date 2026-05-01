@@ -1,0 +1,9 @@
+{
+  "name": "rohanthomas1202--edgeterminal",
+  "displayName": "EdgeTerminal",
+  "description": "Real-time cross-market arbitrage scanner for Polymarket and Kalshi. Multi-tier matching (FAISS + Claude LLM), fee-adjusted spreads, settlement-verified scoreboard.",
+  "version": "1.0.0",
+  "author": "rohanthomas1202",
+  "homepage": "https://github.com/rohanthomas1202/EdgeTerminal",
+  "skills": []
+}
