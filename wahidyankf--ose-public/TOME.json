@@ -1,0 +1,44 @@
+{
+  "name": "ose-public",
+  "owner": "wahidyankf",
+  "repo": "ose-public",
+  "description": "Source-available Sharia-compliant enterprise platform. Phase 1: Building OrganicLever productivity tracker. Learning in public. No timelines\u2014building it right.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wahidyankf/ose-public",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T14:22:16Z"
+}
