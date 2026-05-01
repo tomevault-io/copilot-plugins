@@ -1,0 +1,44 @@
+{
+  "name": "Ace-Mcp-Node",
+  "owner": "yeuxuan",
+  "repo": "Ace-Mcp-Node",
+  "description": "Acemcp \u662f\u4e00\u4e2a\u9ad8\u6027\u80fd\u7684 MCP (Model Context Protocol) \u670d\u52a1\u5668\uff0c\u4e13\u4e3a AI \u52a9\u624b\uff08\u5982 Claude\u3001GPT \u7b49\uff09\u63d0\u4f9b\u4ee3\u7801\u5e93\u7d22\u5f15\u548c\u8bed\u4e49\u641c\u7d22\u80fd\u529b\u3002\u901a\u8fc7 Acemcp\uff0cAI \u52a9\u624b\u53ef\u4ee5\uff1a  \ud83d\udd0d \u5feb\u901f\u641c\u7d22\u548c\u7406\u89e3\u5927\u578b\u4ee3\u7801\u5e93 \ud83d\udcca \u83b7\u53d6\u5e26\u884c\u53f7\u7684\u7cbe\u786e\u4ee3\u7801\u7247\u6bb5 \ud83e\udd16 \u81ea\u52a8\u589e\u91cf\u66f4\u65b0\u7d22\u5f15 \ud83c\udf10 \u901a\u8fc7 Web \u754c\u9762\u7ba1\u7406\u548c\u8c03\u8bd5",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yeuxuan/Ace-Mcp-Node",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T16:12:01Z"
+}
