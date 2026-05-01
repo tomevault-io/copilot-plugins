@@ -1,25 +1,14 @@
-## no-section-divider-comments
+## registry-consistency
 
-> Do not add section-divider comments (e.g., # --- Section ---). Use descriptive docstrings and clear function/class names instead.
+> Keep registry entries in sync with actual module locations
 
 
-Avoid decorative section-divider comments in Python files. Prefer:
-- Module-level docstrings for file purpose
-- Class/function docstrings for component documentation
-- Inline comments only for non-obvious logic
-
-Bad:
-```python
-# ========================
-# Model Loading Section
-# ========================
-```
-
-Good:
-```python
-class ModelLoader:
-    """Handles model loading and initialization."""
-```
+Registry entries map string keys to fully qualified Python import paths.
+When modifying registry files:
+- Verify each path actually resolves to the correct class
+- Check that class names match the import path
+- Test with get_*_class() to confirm resolution works
+See constraints #1-#4 in .agents/knowledge/constraints.md.
 
 ---
 > Source: [X-GenGroup/Flow-Factory](https://github.com/X-GenGroup/Flow-Factory) — distributed by [TomeVault](https://tomevault.io).
