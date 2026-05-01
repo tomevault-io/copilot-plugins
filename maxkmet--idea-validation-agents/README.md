@@ -7,13 +7,13 @@ AI agents that act as your personal venture analyst - from startup idea brainsto
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [MaxKmet/idea-validation-agents](https://github.com/MaxKmet/idea-validation-agents).
+Original source: `CLAUDE.md` in [MaxKmet/idea-validation-agents](https://github.com/MaxKmet/idea-validation-agents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
