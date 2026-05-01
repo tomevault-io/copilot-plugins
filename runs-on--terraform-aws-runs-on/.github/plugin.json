@@ -1,0 +1,9 @@
+{
+  "name": "runs-on--terraform-aws-runs-on",
+  "displayName": "terraform-aws-runs-on",
+  "description": "Terraform module for setting up RunsOn on AWS. RunsOn allows to easily manage GitHub Actions self-hosted runners, for a fraction of the price.",
+  "version": "1.0.0",
+  "author": "runs-on",
+  "homepage": "https://github.com/runs-on/terraform-aws-runs-on",
+  "skills": []
+}
