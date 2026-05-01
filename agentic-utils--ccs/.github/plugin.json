@@ -1,0 +1,9 @@
+{
+  "name": "agentic-utils--ccs",
+  "displayName": "ccs",
+  "description": "Globally search and resume Claude Code conversations",
+  "version": "1.0.0",
+  "author": "agentic-utils",
+  "homepage": "https://github.com/agentic-utils/ccs",
+  "skills": []
+}
