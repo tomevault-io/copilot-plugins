@@ -1,0 +1,9 @@
+{
+  "name": "humancompatibleai--highjax",
+  "displayName": "HighJax",
+  "description": "Highway driving simulation in JAX for Reinforcement Learning research",
+  "version": "1.0.0",
+  "author": "HumanCompatibleAI",
+  "homepage": "https://github.com/HumanCompatibleAI/HighJax",
+  "skills": []
+}
