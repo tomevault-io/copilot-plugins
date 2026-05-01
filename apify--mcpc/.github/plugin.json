@@ -1,0 +1,9 @@
+{
+  "name": "apify--mcpc",
+  "displayName": "mcpc",
+  "description": "mcpc is a universal CLI client for MCP. It supports persistent sessions, stdio/HTTP, OAuth 2.1, tasks, JSON output for code mode, proxy for AI sandboxes, x402, and more.",
+  "version": "1.0.0",
+  "author": "apify",
+  "homepage": "https://github.com/apify/mcpc",
+  "skills": []
+}
