@@ -1,13 +1,13 @@
-## no-custom-hacks
+## no-destructive-db-in-agent-tests
 
-> No one-off hacks or magic branches in code
+> Do not damage the user's working SQLite while debugging the API
 
 
-# No one-off hacks or “magic for a single case”
+# Database during an agent session
 
-- **Do not add** hacks, branches tied to specific user data, hard-coded entity/name/brand lists, or heuristics that only apply to one node.
-- **Do not duplicate** business meaning with string tricks where real analysis belongs (duplicate entities, languages, categories) — move that to an **explicit**, **shared** layer (e.g. one LLM step with a clear JSON contract for arbitrary inputs), and keep persistence **straightforward** (exactly what that layer decided).
-- If a private hack seems unavoidable — **agree with the product owner first** or propose one short general rule; do not ship silently.
+- **Do not** run `DELETE` / `UPDATE` / `INSERT` on `data/mf-lab.sqlite` (or equivalents) for “testing” without an explicit user request.
+- For HTTP API checks use a **separate DB file** (`API_SQLITE_PATH` / file copy) or a **temporary port** and a **test** database the user does not rely on as primary.
+- Do not run `curl` / theme-delete scripts against the real `data/*.sqlite` in the user's workspace.
 
 ---
 > Source: [PavelMuntyan/MF0-1984](https://github.com/PavelMuntyan/MF0-1984) — distributed by [TomeVault](https://tomevault.io).
