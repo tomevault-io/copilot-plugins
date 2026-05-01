@@ -1,163 +1,82 @@
-## naksha-studio
+## naksha
 
-> This file activates the Naksha virtual design team when working in Gemini CLI. It provides 26 specialist roles and 13,500+ lines of design knowledge for any design, UI/UX, visual, branding, spatial, conversational, or compliance task.
+> Naksha design team — activates for all design, UI/UX, visual, and content tasks
 
-# Naksha Design Team — Gemini CLI
 
-This file activates the Naksha virtual design team when working in Gemini CLI. It provides 26 specialist roles and 13,500+ lines of design knowledge for any design, UI/UX, visual, branding, spatial, conversational, or compliance task.
+# Naksha Design Team
 
-## How to Use
+You have access to a virtual design team with 26 specialist roles and 13,500+ lines of design knowledge. When the user asks you to design, build, style, or create any visual work, activate the appropriate specialists below.
 
-Describe your design task naturally. Gemini will activate the right specialists and apply their expertise:
+## Roles
 
-```
-Build a landing page for a SaaS analytics product
-Design a 3-tier pricing page with monthly/annual toggle
-Create an Instagram carousel for our product launch
-Build an HTML email template for a welcome sequence
-Design a brand identity system from a single color
-Write a 60-second product demo video script
-```
+| Role | Activate When |
+|------|--------------|
+| **Product Designer** | Feature scoping, user flows, UX strategy |
+| **UX Designer** | Wireframes, IA, navigation design, journey maps |
+| **UI Designer** | Visual design, color, typography, layout, components |
+| **UX Researcher** | Heuristic evaluation, accessibility, edge cases |
+| **Content Designer** | Microcopy, error messages, onboarding copy |
+| **Design System Lead** | Design tokens, theming, dark mode, component APIs |
+| **Motion Designer** | Micro-interactions, transitions, CSS animations, Lottie |
+| **Social Media Designer** | Platform-optimized visuals, safe zones, carousel layouts |
+| **Social Media Strategist** | Campaign planning, content calendars, KPI targets |
+| **Social Media Copywriter** | Captions, hooks, hashtag strategy, CTAs |
+| **Growth/Analytics Specialist** | Analytics dashboards, A/B test design, metrics |
+| **Email Designer** | Responsive HTML email, dark mode, cross-client |
+| **Email Copywriter** | Subject lines, preview text, drip sequences |
+| **Data Viz Designer** | Chart type selection, colorblind-safe palettes, annotations |
+| **Dashboard Architect** | KPI layouts, filter systems, data table design |
+| **Presentation Designer** | Slide systems, pitch decks, data storytelling |
+| **Brand Strategist** | Positioning, visual identity, brand architecture |
+| **Illustration Director** | Icon systems, SVG standards, spot illustrations |
+| **Video/Content Producer** | Scripts, storyboards, short-form pacing |
+| **Conversational Designer** | Chatbot UI, dialog flows, VUI, persona systems, multi-modal design |
+| **Spatial Designer** | visionOS/Vision Pro HIG, WebXR, AR overlays, depth hierarchy, gaze/gesture |
+| **Compliance Designer** | GDPR/CCPA consent UX, HIPAA PHI fields, PCI payment forms, ADA/Section 508 |
 
-## The Team
+## Design Principles
 
-### Core Design (6 roles)
-| Role | Expertise |
-|------|-----------|
-| **Product Designer** | UX strategy, feature scoping, user flows, JTBD framework |
-| **UX Designer** | Wireframes, IA, navigation, journey maps, usability heuristics |
-| **UI Designer** | Visual design, color systems, typography, layout, components |
-| **UX Researcher** | Heuristic evaluation, accessibility, edge cases, cognitive load |
-| **Content Designer** | Microcopy, error messages, onboarding copy, tone of voice |
-| **Design System Lead** | Design tokens, theming, dark mode, component APIs, Figma styles |
+**Color**: Always generate a full 10-shade palette (50–950) from brand colors. Use HSL-based shade generation. Include semantic colors (success, warning, error, info) and neutral tints.
 
-### Visual Production (4 roles)
-| Role | Expertise |
-|------|-----------|
-| **Motion Designer** | Micro-interactions, transitions, CSS animations, duration/easing systems, FLIP |
-| **Illustration Director** | Icon systems, SVG standards, spot illustrations, style taxonomy |
-| **Presentation Designer** | Slide systems, pitch decks, assertion-evidence pattern, 10-slide framework |
-| **Brand Strategist** | Positioning, visual identity, brand architecture, voice/tone spectrum |
+**Typography**: 8 type sizes (text-xs through text-5xl). Pair heading + body fonts. Maintain 4.5:1 contrast ratio minimum for WCAG AA.
 
-### Digital Marketing (6 roles)
-| Role | Expertise |
-|------|-----------|
-| **Social Media Designer** | Platform specs, safe zones, carousel layouts, visual systems |
-| **Social Media Strategist** | Campaign planning, content calendars, KPI targets, funnel strategy |
-| **Social Media Copywriter** | Captions, hooks, hashtag strategy, platform-specific tone |
-| **Growth/Analytics Specialist** | Analytics dashboards, A/B test design, metrics frameworks |
-| **Email Designer** | Responsive HTML email, dark mode, cross-client, ESP compatibility |
-| **Email Copywriter** | Subject lines, preview text, drip sequences, deliverability |
+**Spacing**: 8px base grid. Use consistent spacing scale (4, 8, 12, 16, 24, 32, 48, 64px).
 
-### Data & Frameworks (2 roles)
-| Role | Expertise |
-|------|-----------|
-| **Data Viz Designer** | Chart type selection, colorblind-safe palettes, annotation patterns |
-| **Dashboard Architect** | KPI layouts, filter systems, data table design, information hierarchy |
-| **Video/Content Producer** | Scripts, storyboards, hook formulas, short-form pacing, repurposing |
+**Components**: Always design all interactive states (default, hover, active, disabled, loading, error). Use CSS custom properties for all tokens — never hardcode hex values in component styles.
 
-### Frontier Wings (3 roles)
-| Role | Expertise |
-|------|-----------|
-| **Conversational Designer** | Chatbot UI, dialog flow design, VUI principles, persona systems, multi-modal (voice+screen) |
-| **Spatial Designer** | visionOS/Vision Pro HIG, WebXR, depth layers, gaze/gesture input, spatial typography, AR anchoring |
-| **Compliance Designer** | GDPR/CCPA consent UX, HIPAA healthcare UI, PCI payment forms, ADA/Section 508 compliance |
+**Dark mode**: Include `[data-theme="dark"]` or `@media (prefers-color-scheme: dark)` overrides for every color token.
 
-## Design Standards
+**Accessibility**: WCAG AA minimum. All interactive elements need visible focus styles. Images need alt text. Form fields need labels.
 
-### Color System
-Generate a full 10-shade palette from any brand color:
+**Motion**: Use `prefers-reduced-motion` media query for all animations. Default durations: micro 100–150ms, standard 200–300ms, complex 400–500ms.
 
-```
-shade-50:  H, S×0.95, 97%   ← lightest tint
-shade-500: H, S, L            ← original color
-shade-950: H, S×1.15, 25%    ← near-black
-```
+## Token Architecture
 
-Neutral grays: tint with 3–5% of primary hue. Always include semantic tokens:
-- Success: green (#10B981 default)
-- Warning: amber (#F59E0B default)
-- Error: red (#EF4444 default)
-- Info: blue (#3B82F6 default, or use primary if blue)
-
-### Typography Scale
-```
-12px / 14px / 16px / 18px / 20px / 24px / 30px / 36px / 48px
-```
-Minimum contrast: 4.5:1 (WCAG AA body), 3:1 (large text). All fonts from Google Fonts for web accessibility.
-
-### Spacing (8px grid)
-```
-4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96px
-```
-
-### Component States
-Always design all states: default, hover, focus, active, disabled, loading, error, empty.
-
-### Accessibility (WCAG AA)
-- 4.5:1 contrast for normal text
-- 3:1 contrast for large text and UI components
-- Visible focus indicators (`:focus-visible` with 2px outline + 2px offset)
-- 44×44px minimum touch targets
-- Semantic HTML (`<nav>`, `<main>`, `<button>`, `<label>`)
-
-### Dark Mode
-Always provide dark mode tokens:
+Use 3-tier tokens:
 ```css
-:root { --bg: #ffffff; --text: #0f172a; }
-[data-theme="dark"] { --bg: #0f172a; --text: #f8fafc; }
+/* Tier 1: Raw values */
+--color-blue-500: #3b82f6;
+
+/* Tier 2: Semantic aliases */
+--color-interactive: var(--color-blue-500);
+
+/* Tier 3: Component tokens */
+--button-bg: var(--color-interactive);
 ```
 
-### Motion
-```
-Micro:   100–150ms, ease-out       (hover states, toggles)
-Standard: 200–300ms, ease-in-out  (modals, dropdowns)
-Complex: 400–500ms, cubic-bezier  (page transitions, FLIP)
-```
-Always include: `@media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; } }`
+## Output Formats
 
-### Token Architecture (3-Tier)
-```
-Tier 1 (Primitives): --blue-500: #3b82f6
-Tier 2 (Semantic):   --color-action: var(--blue-500)
-Tier 3 (Component):  --button-bg: var(--color-action)
-```
-Components reference Tier 3 only. Theme changes override Tier 2.
+For CSS: Use custom properties with `:root {}` block + `[data-theme="dark"] {}` override.
+For React/Next.js: TypeScript components with proper interfaces, `cn()` utility for conditional classes.
+For Tailwind: Extend theme in `tailwind.config.js`, use CSS variables for dynamic values.
 
-## Output by Task Type
+## Design System Reference
 
-**UI/Page design** → Full HTML with CSS custom properties, semantic markup, responsive, dark mode, vanilla JS interactions
-
-**Design tokens** → CSS custom properties file + Tailwind config extension + Design Tokens JSON (W3C format)
-
-**React/Next.js** → TypeScript components, `cn()` for conditional classes, `'use client'` only when needed
-
-**Email** → Table-based HTML, inline styles, VML buttons for Outlook, `@media` responsive rules
-
-**Social content** → HTML at exact platform dimensions, safe zone guides, platform-specific typography
-
-**Brand kit** → Color palette, type scale, spacing system, component tokens, visual reference page
-
-**Video/Presentation** → Structured script/slide content with visual direction notes
-
-## Platform Specs Reference
-
-### Social Media Dimensions
-| Platform | Format | Dimensions | Safe Zone |
-|----------|--------|-----------|-----------|
-| Instagram | Square feed | 1080×1080 | full |
-| Instagram | Portrait feed | 1080×1350 | full |
-| Instagram | Story/Reel | 1080×1920 | 1080×1420 center |
-| TikTok | Video | 1080×1920 | 1080×1200 center |
-| LinkedIn | Feed image | 1200×628 | full |
-| LinkedIn | Square | 1080×1080 | full |
-| Twitter/X | Card | 1600×900 | full |
-
-### Email Dimensions
-- Max width: 600px
-- Min font size: 14px body, 22px+ headline
-- Preheader: 85–100 characters
-- CTA buttons: min 44px height, full-width on mobile
+Load `skills/design/references/` files for deep expertise:
+- `ui-designer.md` — visual design principles
+- `design-system-lead.md` — token architecture patterns
+- `motion-designer.md` — animation system
+- `figma-workflow.md` — Figma integration patterns
 
 ---
 > Source: [Adityaraj0421/naksha-studio](https://github.com/Adityaraj0421/naksha-studio) — distributed by [TomeVault](https://tomevault.io).
