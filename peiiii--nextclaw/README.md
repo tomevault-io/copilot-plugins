@@ -7,13 +7,13 @@ NextClaw: Your omnipotent personal assistant, residing above the digital realm. 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Peiiii/nextclaw](https://github.com/Peiiii/nextclaw).
+Original source: `.cursor/rules/*.mdc` in [Peiiii/nextclaw](https://github.com/Peiiii/nextclaw).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
