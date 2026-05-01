@@ -1,0 +1,9 @@
+{
+  "name": "iotsharp--sonnetdb",
+  "displayName": "SonnetDB",
+  "description": "SonnetDB is a time-series database project built with C# and .NET 10. ",
+  "version": "1.0.0",
+  "author": "IoTSharp",
+  "homepage": "https://github.com/IoTSharp/SonnetDB",
+  "skills": []
+}
