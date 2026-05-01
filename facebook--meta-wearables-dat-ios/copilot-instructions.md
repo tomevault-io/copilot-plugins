@@ -1,119 +1,113 @@
-## mockdevice-testing
+## permissions-registration
 
-> MockDeviceKit for testing without physical glasses hardware
+> App registration with Meta AI, camera permission flows
 
 
 
-# MockDevice Testing (iOS)
+# Permissions & Registration (iOS)
 
-Guide for testing DAT SDK integrations without physical Meta glasses.
+Guide for app registration and camera permission flows in the DAT SDK.
 
 ## Overview
 
-MockDeviceKit simulates Meta glasses behavior for development and testing. It provides:
-- `MockDeviceKit` — Entry point for creating simulated devices
-- `MockRaybanMeta` — Simulated Ray-Ban Meta glasses
-- `MockCameraKit` — Simulated camera with configurable video feed and photo capture
+The DAT SDK separates two concepts:
+1. **Registration** — Your app registers with Meta AI to become a permitted integration
+2. **Device permissions** — After registration, request specific device permissions (e.g., camera)
 
-## Setup
+All permission grants occur through the Meta AI companion app.
 
-Add `MWDATMockDevice` to your target via Swift Package Manager (it's included in the `meta-wearables-dat-ios` package).
+## Registration flow
+
+### Start registration
 
 ```swift
-import MWDATMockDevice
+func startRegistration() throws {
+    try Wearables.shared.startRegistration()
+}
 ```
 
-## Creating a mock device
+This opens the Meta AI app where the user approves your app. Meta AI then calls back via your URL scheme.
+
+### Handle the callback
 
 ```swift
-import MWDATMockDevice
-
-let mockDeviceKit = MockDeviceKit.shared
-mockDeviceKit.enable()
-
-let mockDevice = mockDeviceKit.pairRaybanMeta()
-```
-
-## Simulating device states
-
-```swift
-// Simulate glasses lifecycle
-await mockDevice.powerOn()
-await mockDevice.unfold()
-await mockDevice.don()    // Simulate wearing the glasses
-
-// Later...
-await mockDevice.doff()   // Simulate removing
-await mockDevice.fold()
-await mockDevice.powerOff()
-```
-
-## Setting up mock camera feeds
-
-### Video streaming
-
-```swift
-let camera = mockDevice.services.camera
-camera.setCameraFeed(fileURL: videoURL)
-```
-
-### Photo capture
-
-```swift
-let camera = mockDevice.services.camera
-camera.setCapturedImage(fileURL: imageURL)
-```
-
-## Writing tests with MockDeviceKit
-
-Create a reusable test base class:
-
-```swift
-import XCTest
-import MetaWearablesDAT
-
-@MainActor
-class MockDeviceKitTestCase: XCTestCase {
-    private var mockDevice: MockRaybanMeta?
-    private var cameraKit: MockCameraKit?
-
-    override func setUp() async throws {
-        try await super.setUp()
-        MockDeviceKit.shared.enable()
-        mockDevice = MockDeviceKit.shared.pairRaybanMeta()
-        cameraKit = mockDevice?.services.camera
-    }
-
-    override func tearDown() async throws {
-        MockDeviceKit.shared.disable()
-        mockDevice = nil
-        cameraKit = nil
-        try await super.tearDown()
+.onOpenURL { url in
+    Task {
+        _ = try? await Wearables.shared.handleUrl(url)
     }
 }
 ```
 
-## Using MockDeviceKit in the CameraAccess sample
+### Observe registration state
 
-The CameraAccess sample app includes a Debug menu for MockDeviceKit:
+```swift
+Task {
+    for await state in Wearables.shared.registrationStateStream() {
+        switch state {
+        case .registered:
+            // App is registered, can request permissions
+        case .unregistered:
+            // App is not registered
+        case .registering:
+            // Registration in progress
+        }
+    }
+}
+```
 
-1. Tap the **Debug icon** to open the MockDeviceKit menu
-2. Tap **Pair RayBan Meta** to create a simulated device
-3. Use **PowerOn**, **Unfold**, **Don** to simulate glasses states
-4. Select video/image files to configure mock camera feeds
-5. Start streaming to see simulated frames
+### Unregister
 
-## Supported media formats
+```swift
+func startUnregistration() throws {
+    try Wearables.shared.startUnregistration()
+}
+```
 
-| Type | Formats |
-|------|---------|
-| Video | h.265 (HEVC) |
-| Image | JPEG, PNG |
+## Camera permissions
+
+### Check permission status
+
+```swift
+let status = try await Wearables.shared.checkPermissionStatus(.camera)
+```
+
+### Request permission
+
+```swift
+let status = try await Wearables.shared.requestPermission(.camera)
+```
+
+The SDK opens Meta AI for the user to grant access. Users can choose:
+- **Allow once** — temporary, single-session grant
+- **Allow always** — persistent grant
+
+## Multi-device behavior
+
+Users can link multiple glasses to Meta AI. The SDK handles this transparently:
+- Permission granted on **any** linked device means your app has access
+- You don't need to track which device has permissions
+- If all devices disconnect, permissions become unavailable
+
+## Developer Mode vs Production
+
+| Mode | Registration behavior |
+|------|----------------------|
+| Developer Mode | Registration always allowed (use `MetaAppID` = `0`) |
+| Production | Users must be in proper release channel |
+
+For production, get your `APPLICATION_ID` from the [Wearables Developer Center](https://wearables.developer.meta.com/).
+
+## Prerequisites
+
+- Registration requires an internet connection
+- Meta AI companion app must be installed
+- For Developer Mode: enable in Meta AI > Settings > Your glasses > Developer Mode
 
 ## Links
 
-- [Mock Device Kit overview](https://wearables.developer.meta.com/docs/mock-device-kit)
-- [iOS testing guide](https://wearables.developer.meta.com/docs/testing-mdk-ios)
+- [Permissions documentation](https://wearables.developer.meta.com/docs/permissions-requests)
+- [Getting started guide](https://wearables.developer.meta.com/docs/getting-started-toolkit)
+- [Manage projects](https://wearables.developer.meta.com/docs/manage-projects)
 
 ---
 > Source: [facebook/meta-wearables-dat-ios](https://github.com/facebook/meta-wearables-dat-ios) — distributed by [TomeVault](https://tomevault.io).
