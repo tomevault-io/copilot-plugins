@@ -1,0 +1,9 @@
+{
+  "name": "j-jiseophan--epub-translator",
+  "displayName": "epub-translator",
+  "description": "Epub Translator using Ollama",
+  "version": "1.0.0",
+  "author": "j-jiseophan",
+  "homepage": "https://github.com/j-jiseophan/epub-translator",
+  "skills": []
+}
