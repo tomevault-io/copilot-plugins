@@ -2,7 +2,7 @@
   "name": "jolyui",
   "owner": "Johuniq",
   "repo": "jolyui",
-  "description": "",
+  "description": "A custom registry of composable, accessible and extensible components designed for use with shadcn/ui. Free and open source, forever.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Johuniq",
+  "source_url": "https://github.com/Johuniq/jolyui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T03:51:43Z"
+  "distributed_at": "2026-05-01T13:48:15Z"
 }
