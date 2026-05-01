@@ -1,0 +1,9 @@
+{
+  "name": "emskin--emskin",
+  "displayName": "emskin",
+  "description": "Nested Wayland compositor for Emacs",
+  "version": "1.0.0",
+  "author": "emskin",
+  "homepage": "https://github.com/emskin/emskin",
+  "skills": []
+}
