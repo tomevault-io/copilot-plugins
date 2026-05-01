@@ -1,0 +1,446 @@
+## sofos-code
+
+> and anthropi# Sofos - AI Coding Assistant Project Context
+
+and anthropi# Sofos - AI Coding Assistant Project Context
+
+## Project Overview
+
+Sofos is a terminal-based AI coding assistant powered by Anthropic's Claude API. It's built in Rust for maximum performance and security. The assistant can read/write files, search code, execute bash commands, and search the web - within the workspace by default, with interactive permission prompts for external paths.
+
+**Core Philosophy:**
+- Security first: Workspace-sandboxed by default, with interactive user-approved access to external paths via three independent scopes (Read, Write, Bash)
+- Fast and efficient: Native Rust implementation with optional ultra-fast editing via Morph API
+- Developer-friendly: Interactive REPL with session persistence and custom instructions
+- Transparent: All tool executions are visible to the user
+
+## Architecture
+
+### Key Design Decisions
+
+1. **Dual Session Storage Format** (src/session/history.rs)
+   - `api_messages`: Anthropic API format for continuing conversations
+   - `display_messages`: UI-friendly format for showing conversation history
+   - This separation ensures Claude sees proper API format while users see original UI
+
+2. **Tool Calling Pattern** (src/repl/mod.rs)
+   - Assistant returns content blocks (text + tool_use)
+   - REPL executes tools and collects results
+   - Results sent back as user message with tool_result blocks
+   - **Loop-based handling** allows Claude to use multiple tools in sequence iteratively
+
+3. **Two-Level Instructions** (src/session/history.rs)
+   - `AGENTS.md`: Project-level, version controlled
+   - `.sofos/instructions.md`: Personal, gitignored
+   - Both appended to system prompt at startup
+
+4. **Sandboxing Strategy** (src/tools/filesystem.rs, src/tools/bashexec.rs)
+   - All paths validated before operations
+   - Parent directory traversal blocked (`..`)
+   - Absolute paths rejected
+   - Symlinks checked to prevent escape
+   - Bash commands filtered through blocklist
+
+## Code Organization
+
+### Directory Structure
+
+```
+src/
+├── main.rs              # Entry point
+├── cli.rs               # CLI argument parsing
+├── error.rs             # Error types
+├── error_ext.rs         # Error extensions
+├── config.rs            # Configuration (SofosConfig, ModelConfig)
+│
+├── api/                 # API clients
+│   ├── anthropic.rs     # Claude API client
+│   ├── openai.rs        # OpenAI API client
+│   ├── morph.rs         # Morph Apply API client
+│   ├── types.rs         # Message types and serialization
+│   └── utils.rs         # API utilities
+│
+├── mcp/                 # MCP (Model Context Protocol) integration
+│   ├── mod.rs           # MCP module exports
+│   ├── config.rs        # MCP server configuration loading
+│   ├── protocol.rs      # MCP protocol types (JSON-RPC, tools)
+│   ├── client.rs        # MCP client implementations (stdio, HTTP)
+│   └── manager.rs       # MCP server connection management
+│
+├── repl/                # REPL components
+│   ├── mod.rs           # Main REPL loop and Repl struct
+│   ├── clipboard_edit_mode.rs # Custom EditMode wrapping Emacs to intercept Ctrl+V
+│   ├── conversation.rs  # Message history management
+│   ├── prompt.rs        # Prompt rendering
+│   ├── request_builder.rs   # API request construction
+│   └── response_handler.rs  # Response processing
+│
+├── session/             # Session management
+│   ├── history.rs       # Session persistence + custom instructions
+│   ├── state.rs         # Runtime session state
+│   └── selector.rs      # Session selection TUI
+│
+├── clipboard.rs         # Clipboard image paste (Ctrl+V) with numbered markers
+│
+├── tools/               # Tool implementations
+│   ├── filesystem.rs    # File operations (read, write, list, etc)
+│   ├── bashexec.rs      # Sandboxed bash execution
+│   ├── codesearch.rs    # Ripgrep integration
+│   ├── image.rs         # Image handling (local paths, URLs)
+│   ├── permissions.rs   # 3-tier command permission system
+│   ├── tool_name.rs     # Type-safe tool name enum
+│   ├── types.rs         # Tool definitions for API
+│   └── utils.rs         # Tool utilities (confirmations, HTML-to-text)
+│
+├── ui/                  # UI components
+│   ├── mod.rs           # Main UI utilities and display logic
+│   ├── syntax.rs        # Markdown/code syntax highlighting
+│   └── diff.rs          # Contextual diff generation and display
+│
+└── commands/            # Built-in commands
+    └── builtin.rs       # Command implementations
+```
+
+### Key Files
+
+**src/api/types.rs**
+- Defines Message, ContentBlock, and MessageContentBlock enums
+- Handles serialization/deserialization for Anthropic API
+- Supports both regular and server-side tools (like web_search)
+
+**src/ui/diff.rs**
+- Generate contextual diffs with syntax highlighting and line numbers
+- Uses `similar` crate for diffing, `syntect` for syntax coloring
+- Dark backgrounds (#5e0000 deletions, #00005f additions) with syntax-colored code
+- Context lines (default: 2) show unchanged code around changes
+- Used by edit_file, write_file, and morph_edit_file tools
+
+**src/session/history.rs**
+- SessionMetadata: Preview and timestamps for session list
+- Session: Dual storage (api_messages + display_messages)
+- DisplayMessage: Enum for user messages, assistant responses, and tool executions
+
+**src/repl/mod.rs**
+- Main event loop (run method)
+- Manages REPL state and user interaction
+- Coordinates conversation, tools, and UI
+
+**src/repl/response_handler.rs**
+- Iteratively processes assistant responses and tool calls
+- Max iterations: 200 (prevents infinite loops)
+
+**src/repl/conversation.rs**
+- Manages in-memory message history
+- Trims to MAX_MESSAGES (500) to prevent token overflow
+- Builds system prompt with features list and custom instructions
+
+**src/tools/filesystem.rs**
+- validate_path: Security-critical path validation
+- All operations check sandboxing before execution
+- File size limit: 50MB to prevent memory issues
+- User confirmation required for deletions
+
+**src/tools/bashexec.rs**
+- Uses PermissionManager for 3-tier command checking
+- Validates command structure (paths, redirection, git ops)
+- Executes commands with size limits
+- Provides detailed rejection messages
+
+**src/tools/permissions.rs**
+- PermissionManager: Manages command permission checking
+- PermissionSettings: Stores user's allow/deny/ask lists
+- Three permission tiers: Allowed, Denied, Ask
+- Persists decisions to `.sofos/config.local.toml`
+- Predefined lists: ~50 allowed commands, ~30 forbidden commands
+- Wildcard matching: `Bash(cargo:*)` matches all cargo commands
+- Exact matching: `Bash(cargo build)` matches specific command only
+
+## Code Conventions
+
+### Rust Style
+- Follow standard Rust idioms and conventions
+- Use meaningful variable names (no single-letter except in loops)
+- Prefer `Result<T>` over `panic!` for error handling
+- Use `?` operator for error propagation
+- Keep functions focused and under ~100 lines
+
+### Error Handling
+- Custom `SofosError` enum in src/error.rs
+- Always provide context in error messages
+- Use `map_err` to add context when propagating errors
+- Display user-friendly error messages in REPL
+
+### Testing
+- Unit tests in the same file under `#[cfg(test)]`
+- Use `tempfile::TempDir` for filesystem tests
+- Mock API calls in tests (don't require real API keys)
+- Test security features thoroughly (path validation, sandboxing)
+
+### Documentation
+- Add doc comments (`///`) for public APIs
+- Explain "why" not just "what" in complex sections
+- Keep comments up-to-date with code changes
+- README.md is the primary user documentation
+- **Avoid self-explanatory comments** - only comment what is non-obvious or explains important "why"
+- **Keep README clean and simple** - focus on essential user-facing information
+
+## Security Considerations
+Ï
+**Critical Security Features:**
+
+1. **Path Validation** (filesystem.rs:validate_path)
+   - Canonicalize paths to resolve symlinks
+   - Check that canonical path starts with workspace
+   - Reject parent traversal (`..`)
+   - Reject absolute paths
+   - This is the first line of defense - NEVER bypass!
+
+2. **Bash Command 3-Tier Permission System** (permissions.rs + bashexec.rs)
+   - **Tier 1 (Allowed)**: Predefined safe commands (build tools, read-only operations)
+     - Automatically executed without user confirmation
+     - Examples: cargo, npm, ls, cat, grep, git status
+   - **Tier 2 (Forbidden)**: Predefined dangerous commands
+     - Always blocked with clear error messages
+     - Examples: rm, sudo, chmod, mkdir, cd, git push
+   - **Tier 3 (Ask)**: Unknown commands
+     - Prompt user for permission
+     - Can be temporarily allowed or permanently remembered
+     - Decisions stored in `.sofos/config.local.toml`
+   - Additional structural checks always enforced:
+     - No parent traversal (`..`)
+     - No absolute paths
+     - No output redirection
+     - Git operations limited to read-only
+
+3. **File Size Limits**
+   - Read operations: 50MB limit (full file loaded into memory)
+   - Bash output: 10MB limit (per stdout / stderr stream)
+   - Prevents memory exhaustion attacks
+
+4. **User Confirmations**
+   - Delete operations require interactive confirmation
+   - Unknown bash commands prompt for permission
+   - Shows what will be executed/deleted before action
+   - User can cancel by declining
+
+**When Adding New Features:**
+- Always consider security implications first
+- Add path validation for any new file operations
+- Update permission lists if adding bash command capabilities
+- Test with malicious inputs (path traversal attempts, etc)
+
+## Important Implementation Details
+
+### Session Persistence
+
+**Session File Location:**
+- Stored in `.sofos/sessions/{session_id}.json`
+- Index file: `.sofos/sessions/index.json`
+- Entire `.sofos/` directory is gitignored
+
+### Message Flow
+
+**User sends message:**
+1. REPL adds to conversation history as user message
+2. Creates API request with all messages + system prompt
+3. Sends to Claude API
+
+**Claude responds with tools (iterative loop):**
+1. Response contains text + tool_use blocks
+2. REPL adds full response (with both text and tool_use) to history as assistant message
+3. Executes each tool sequentially
+4. Collects all tool results
+5. Adds all results as single user message
+6. Makes new API request and **continues loop** with new response
+7. **Loop exits** when Claude's response contains no tool calls
+
+**Important:** Tool results must be in a user message, with tool_use_id matching the original tool_use id.
+
+### Tool Iteration Limiting
+
+**Problem:** Claude can make infinite tool calls if it gets stuck in a loop
+
+**Solution:** (src/repl/response_handler.rs)
+- Use an **iterative loop** instead of recursion for constant stack space
+- Track iteration count in the loop
+- MAX_TOOL_ITERATIONS = 200
+- If exceeded, inject a system interruption message into the conversation
+- Claude receives the interruption and can provide a summary and suggestions
+- Clear, predictable control flow without recursion overhead
+- Graceful degradation: Claude knows it was interrupted and can help the user recover
+
+### Thinking Animation
+
+When waiting for Claude's response after tool execution:
+- Show animated spinner ("⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏")
+- Orange color (0xFF, 0x99, 0x33)
+- "Thinking..." text
+- Clears when response arrives
+
+## Dependencies
+
+### Core Dependencies
+- `tokio`: Async runtime for HTTP requests
+- `reqwest`: HTTP client for API calls
+- `serde`, `serde_json`: Serialization/deserialization
+- `colored`: Terminal colors and formatting
+- `rustyline`: REPL with readline support
+- `clap`: Command-line argument parsing
+- `similar`: Text diffing for visual change display
+
+### Optional Dependencies
+- `ripgrep`: Code search functionality (runtime check)
+- Morph API: Ultra-fast code editing (via MORPH_API_KEY)
+
+### Why These Choices?
+- `tokio` + `reqwest`: Industry standard for async HTTP in Rust
+- `rustyline`: Best readline implementation for Rust CLIs
+- `colored`: Simple, cross-platform terminal colors
+- Native dependencies minimal (only ripgrep, which is optional)
+
+## Testing Strategy
+
+### What to Test
+- Path validation with various malicious inputs
+- Bash command blocklist effectiveness
+- Session save/load with different formats
+- Message trimming behavior
+- Tool execution and result collection
+
+### What Not to Test
+- Actual Claude API responses (too expensive, non-deterministic)
+- Actual file I/O in most cases (use TempDir)
+- Network requests (mock when possible)
+
+### Running Tests
+```bash
+cargo test                    # All tests
+cargo test filesystem         # Just filesystem tests
+cargo test -- --nocapture     # Show println output
+```
+
+## Common Tasks
+
+### Adding a New Tool
+
+1. Add variant to `src/tools/tool_name.rs` (ToolName enum, as_str, from_str)
+2. Define tool schema in `src/tools/types.rs` and add to tool lists
+3. Implement execution in `src/tools/mod.rs` (ToolExecutor::execute match arm)
+4. Add tests in `src/tools/tests.rs`
+5. Update README.md with tool description
+
+### Modifying Bash Command Permissions
+
+**To add a safe command to Tier 1 (Allowed):**
+1. Add to `allowed_commands` HashSet in `permissions.rs:new()`
+2. Test that command executes without prompting
+3. Document in README.md if it's a major addition
+
+**To add a dangerous command to Tier 2 (Forbidden):**
+1. Add to `forbidden_commands` HashSet in `permissions.rs:new()`
+2. Add helpful error message if needed
+3. Test that command is blocked
+4. Document restriction in README.md
+
+**User-specific permissions (Tier 3):**
+- Stored in `.sofos/config.local.toml` (gitignored)
+- Format: `allow = ["Bash(command:*)"]` for wildcards, `allow = ["Bash(exact command)"]` for exact matches
+- Can be edited manually or via interactive prompts
+
+### Adding a New API Field
+
+1. Update types in `src/api/types.rs`
+2. Add serde attributes for proper serialization
+3. Handle in response processing (repl.rs:handle_response)
+4. Test with actual API if possible
+
+### Debugging Tool Execution
+
+Set `SOFOS_DEBUG=1` environment variable:
+```bash
+SOFOS_DEBUG=1 cargo run
+```
+
+This prints:
+- Recursion depth at each step
+- Number of tools being executed
+- Tool success/failure and output length
+- Conversation state before API calls
+
+## Version Compatibility
+
+### Anthropic API
+- Uses Claude Messages API (not legacy Completions)
+- Model: claude-sonnet-4-6 (default)
+- Supports tool calling and server-side tools (web_search)
+- API version: 2023-06-01
+- Usage tracking: Automatic token counting and cost calculation
+
+### Morph API
+- Uses Morph Apply REST API
+- Model: morph-v3-fast (default)
+- Optional integration via MORPH_API_KEY
+- Provides `morph_edit_file` tool when available
+
+## Future Considerations
+
+**Potential Improvements:**
+- Streaming responses for faster perceived performance
+- Multiple parallel tool executions (currently sequential)
+- Richer TUI with panels and split views
+- Plugin system for custom tools
+- Configuration file for default settings
+
+**Constraints:**
+- Keep binary size small (currently ~5MB)
+- Maintain zero-setup experience (except API keys)
+- Keep security as top priority
+
+## When Working on This Codebase
+
+**Always:**
+- Test security features when making changes to filesystem or bash tools
+- Update both README.md and this CLAUDE.md when adding features
+- Run `cargo test` before committing
+- Add helpful error messages for user-facing errors
+
+**Never:**
+- Skip path validation in file operations
+- Add commands to bash without security review
+- Panic in user-facing code (use Result and show errors gracefully)
+- Break the tool calling protocol (tool_use -> tool_result matching)
+- Commit API keys or sensitive data
+
+**Code Review Checklist:**
+- [ ] Security: Path validation present and correct?
+- [ ] Security: New bash commands in blocklist if needed?
+- [ ] Error handling: All Results properly handled?
+- [ ] Tests: Added tests for new functionality?
+- [ ] Docs: Updated README if user-visible change?
+- [ ] UX: Error messages clear and actionable?
+
+## Non-Negotiable Rules
+
+- Use idiomatic Rust and repository naming conventions.
+- Keep code DRY and focused.
+- Avoid magic strings and numbers.
+- Do not add self-explanatory comments.
+- Do not leave `unwrap()` or `expect()` in normal code paths.
+- Use strong types where possible.
+- Add or update important tests and keep them self-contained.
+- After each important change, but only when we are ready to commit, update if relevant:
+    - `README.md`
+    - `CHANGELOG.md` under `[Unreleased]`
+- Run:
+    - `cargo fmt --all`
+    - `cargo clippy --all-targets -- -D warnings`
+    - `cargo test --all`
+- Before finishing, review the change for bugs and corner cases.
+
+---
+
+This file is loaded by Sofos and appended to the system prompt, providing deep project context for AI-assisted development.
+
+---
+> Source: [alexylon/sofos-code](https://github.com/alexylon/sofos-code) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
