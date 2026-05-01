@@ -4,7 +4,7 @@
   "repo": "web-quality-skills",
   "description": "Agent Skills for optimizing web quality based on Lighthouse and Core Web Vitals.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/addyosmani/web-quality-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T00:16:28Z"
+  "distributed_at": "2026-05-01T05:38:40Z"
 }
