@@ -7,11 +7,11 @@ An open-source AI-native operating system to define, organize, and run intellige
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wecode-ai/Wegent](https://github.com/wecode-ai/Wegent).
+Original source: `CLAUDE.md` in [wecode-ai/Wegent](https://github.com/wecode-ai/Wegent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
