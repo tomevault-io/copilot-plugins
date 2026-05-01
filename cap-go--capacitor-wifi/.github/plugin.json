@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-wifi",
+  "displayName": "capacitor-wifi",
+  "description": "Capacitor plugin to manage WiFi connectivity for your Capacitor app",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-wifi",
+  "skills": []
+}
