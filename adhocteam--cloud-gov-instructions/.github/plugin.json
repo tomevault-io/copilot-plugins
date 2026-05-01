@@ -1,0 +1,9 @@
+{
+  "name": "adhocteam--cloud-gov-instructions",
+  "displayName": "cloud-gov-instructions",
+  "description": "A reusable set of instruction files for AI coding assistants (like GitHub Copilot) that encapsulate cloud.gov platform guidance and best practices.",
+  "version": "1.0.0",
+  "author": "adhocteam",
+  "homepage": "https://github.com/adhocteam/cloud-gov-instructions",
+  "skills": []
+}
