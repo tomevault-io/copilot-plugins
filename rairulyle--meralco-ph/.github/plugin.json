@@ -1,0 +1,9 @@
+{
+  "name": "rairulyle--meralco-ph",
+  "displayName": "meralco-ph",
+  "description": "A REST API and Home Assistant Add-On that parses and provides current MERALCO (Manila Electric Company) electricity rates in the Philippines.",
+  "version": "1.0.0",
+  "author": "rairulyle",
+  "homepage": "https://github.com/rairulyle/meralco-ph",
+  "skills": []
+}
