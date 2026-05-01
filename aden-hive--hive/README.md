@@ -7,11 +7,11 @@ Multi-Agent Harness for Production AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aden-hive/hive](https://github.com/aden-hive/hive).
+Original source: `CLAUDE.md` in [aden-hive/hive](https://github.com/aden-hive/hive).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
