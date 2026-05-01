@@ -1,0 +1,9 @@
+{
+  "name": "growth-circle--cadis",
+  "displayName": "cadis",
+  "description": "Rust-first, local-first multi-agent runtime with a desktop HUD, policy-gated tools, voice, and worktree-isolated coding agents.",
+  "version": "1.0.0",
+  "author": "Growth-Circle",
+  "homepage": "https://github.com/Growth-Circle/cadis",
+  "skills": []
+}
