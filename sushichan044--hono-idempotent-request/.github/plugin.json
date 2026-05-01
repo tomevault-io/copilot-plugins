@@ -1,0 +1,9 @@
+{
+  "name": "sushichan044--hono-idempotent-request",
+  "displayName": "hono-idempotent-request",
+  "description": "Idempotent request middleware for https://github.com/honojs/hono",
+  "version": "1.0.0",
+  "author": "sushichan044",
+  "homepage": "https://github.com/sushichan044/hono-idempotent-request",
+  "skills": []
+}
