@@ -1,0 +1,9 @@
+{
+  "name": "benavlabs--vibe-check",
+  "displayName": "vibe-check",
+  "description": "Security checklist for vibe coded apps. AI rules file + automated audit + manual verification.",
+  "version": "1.0.0",
+  "author": "benavlabs",
+  "homepage": "https://github.com/benavlabs/vibe-check",
+  "skills": []
+}
