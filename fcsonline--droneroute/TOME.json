@@ -1,0 +1,44 @@
+{
+  "name": "droneroute",
+  "owner": "fcsonline",
+  "repo": "droneroute",
+  "description": "Free, open-source DJI waypoint mission planner. Plan orbits, grid surveys, and facade scans \u2014 export KMZ files ready to fly.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fcsonline/droneroute",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T08:08:19Z"
+}
