@@ -1,0 +1,9 @@
+{
+  "name": "cloudwaddie--lmarenabridge",
+  "displayName": "LMArenaBridge",
+  "description": "LMArena scripts to enable hosting an OpenAI compatible API endpoint that interacts with models on LMArena including experimental support for stealth models.",
+  "version": "1.0.0",
+  "author": "CloudWaddie",
+  "homepage": "https://github.com/CloudWaddie/LMArenaBridge",
+  "skills": []
+}
