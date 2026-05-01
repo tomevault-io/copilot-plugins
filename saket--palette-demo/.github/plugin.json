@@ -1,0 +1,9 @@
+{
+  "name": "saket--palette-demo",
+  "displayName": "palette-demo",
+  "description": "Web demo of color extraction from images using jetpack palette (AI generated)",
+  "version": "1.0.0",
+  "author": "saket",
+  "homepage": "https://github.com/saket/palette-demo",
+  "skills": []
+}
