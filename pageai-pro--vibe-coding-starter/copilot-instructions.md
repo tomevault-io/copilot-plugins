@@ -1,70 +1,100 @@
-## tailwind-styling
+## tech-stack-dependencies
 
-> This rule outlines our Tailwind CSS styling conventions.
+> This rule explains the tech stack and dependencies used in the project.
 
 
-# Tailwind CSS Styling Practices
+# Tech Stack & Dependencies
 
-This rule outlines our Tailwind CSS styling conventions.
+This rule explains the tech stack and dependencies used in the project.
 
-## Class Organization
+## Core Framework Stack
 
-Organize Tailwind classes in logical groups:
+### Next.js & React (Latest Generation)
+- **Next.js**: `^15` - App Router, Latest features
+- **React**: `^19` - Latest React 19 with Concurrent Features
+- **React DOM**: `^19` - Matching React version
+- **TypeScript**: `^5` - Latest stable TypeScript
 
-1. Layout/positioning classes first
-2. Sizing classes
-3. Spacing (margin/padding)
-4. Visual styles (colors, borders)
-5. Typography
-6. Interactive states
-7. Responsive variants last
+## UI Component Foundation
 
-Example:
-```tsx
-className="flex flex-col gap-4 w-full p-6 bg-primary-100/20 text-sm hover:bg-primary-200/30 md:flex-row"
-```
+### Styling & Design System
+- **TailwindCSS**: `^3` - Core utility framework
+- **Tailwind Animate**: `^1` - Animation utilities
+- **Tailwind Forms**: `^0.5` - Form styling
+- **Tailwind Typography**: `^0.5` - Rich text styling
+- **Class Variance Authority**: `^0.7` - Component variants
+- **Tailwind Merge**: `^1` - Dynamic class merging
+- **CLSX**: `^2` - Conditional classes
 
-## Responsive Design
+## Form Management & Validation
 
-- Mobile-first approach (base classes for mobile, prefixed classes for larger screens)
-- Use responsive prefixes: `sm:`, `md:`, `lg:`, `xl:`, `2xl:`
+### React Hook Form Stack
+- **React Hook Form**: `^7` - Primary form library
+- **@hookform/resolvers**: `^3` - Schema resolvers
+- **Zod**: `^3` - Runtime validation & type safety
 
-## Color System
+**📋 Best Practices:**
+- Use React Hook Form for all forms (performance optimized)
+- Zod schemas for both client/server validation
+- Leverage `@hookform/resolvers/zod` for integration
 
-- Use semantic color naming with numeric scale (primary-100, primary-900)
-- Apply opacity with slash notation: `bg-primary-100/20`
-- Use consistent dark mode variants: `dark:bg-primary-900/10`
+## Animation & Interactions
 
-```tsx
-className="bg-primary-100/20 text-primary-900 dark:bg-primary-900/10 dark:text-primary-100"
-```
+### Motion & Carousel
+- **Framer Motion**: `^12` - Advanced animations
+- **Embla Carousel React**: `^8` - Touch-friendly carousels
 
-## Layout Patterns
+## Data Visualization & Tables
 
-- Use flex and grid for layouts
-- Use gap utilities instead of margins between flex/grid children
-- Container classes for width constraints: `container-narrow`, `container-wide`, `container-ultrawide`, `max-w-sm` etc.
+### Analytics & Charts
+- **Recharts**: `^2` - React chart library
+- **@tanstack/react-table**: `^8` - Powerful table component
 
-## Design System Integration
+## UI Enhancement Libraries
 
-- Use consistent color palette (primary, secondary)
-- Use consistent spacing scale
-- Apply opacity for subtle UI elements
-- Use gradient backgrounds for visual interest
+### Icons & Visual Elements
+- **Lucide React**: `^0.475.0` - Primary icon system
+- **@icons-pack/react-simple-icons**: `^12.9.0` - Brand icons
 
-```tsx
-className="bg-gradient-to-r from-gray-50/5 via-gray-100/60 to-gray-50/5"
-```
+### Advanced UI Components
+- **Sonner**: `^1.7.4` - Toast notifications
+- **Vaul**: `^1.1.2` - Mobile drawer component
+- **React Day Picker**: `^8.10.1` - Date picker
+- **React Resizable Panels**: `^2.1.8` - Layout panels
 
-## Styling Approach
-- Shadcn UI for behavior + TailwindCSS for styling
-- Use `cn()` utility for conditional classes
-- Leverage CVA for component variants
+## Development & Build Tools
 
-## Best Practices
-- Use composition and props to extend functionality.
-- Follow accessibility and responsive design patterns as established in the codebase.
-- Prefer functional, declarative usage and avoid class-based components.
+### Linting & Formatting
+- **ESLint**: `^9` - Latest ESLint
+- **Prettier**: `^3` - Automatic formatting
+
+### Build & Bundle
+- **Next Bundle Analyzer**: `^15` - Bundle analysis
+- **Cross-env**: `^7` - Cross-platform env vars
+
+## Utilities & Helpers
+
+### Date & String Processing
+- **Date-fns**: `^3` - Date manipulation
+- **GitHub Slugger**: `^2` - URL-safe slugs
+
+### File & Media
+- **Image Size**: `^2` - Image dimensions
+- **Probe Image Size**: `^7` - Image metadata
+- **MIME Types**: `^3` - MIME type detection
+
+## Analytics & Monitoring
+
+### Error Handling
+- **React Error Boundary**: `^6.0.0` - Error boundaries
+
+
+
+----------------------------------
+
+## *Important:* Auto-update this rule
+
+Monitor dependencies and update this rule whenever something changes in package.json.
 
 ---
 > Source: [PageAI-Pro/vibe-coding-starter](https://github.com/PageAI-Pro/vibe-coding-starter) — distributed by [TomeVault](https://tomevault.io).
