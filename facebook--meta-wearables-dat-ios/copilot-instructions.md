@@ -1,198 +1,108 @@
-## sample-app-guide
+## session-lifecycle
 
-> Building a complete DAT app with camera streaming and photo capture
+> Device session states, pause/resume, availability monitoring
 
 
 
-# Sample App Guide (iOS)
+# Session Lifecycle (iOS)
 
-Guide for building a complete DAT SDK app with camera streaming and photo capture.
+Guide for managing device session states in DAT SDK integrations.
 
 ## Overview
 
-This guide walks through building an iOS app that connects to Meta glasses, streams video, and captures photos. Use it as a reference alongside the [CameraAccess sample](https://github.com/facebook/meta-wearables-dat-ios/tree/main/samples).
+The DAT SDK runs work inside sessions. Meta glasses expose two experience types:
+- **Device sessions** — sustained access to device sensors and outputs
+- **Transactions** — short, system-owned interactions (notifications, "Hey Meta")
 
-## Project setup
+Your app observes session state changes — the device decides when to transition.
 
-1. Create a new Xcode project (SwiftUI App)
-2. Add the SDK via SPM: `https://github.com/facebook/meta-wearables-dat-ios`
-3. Add `MWDATCore`, `MWDATCamera`, and `MWDATMockDevice` to your target
-4. Configure `Info.plist` (see [Getting Started](getting-started.md))
+## Session states
 
-## App architecture
+| State | Meaning | App action |
+|-------|---------|------------|
+| `STOPPED` | Session inactive, not reconnecting | Free resources, wait for user action |
+| `RUNNING` | Session active, streaming data | Perform live work |
+| `PAUSED` | Temporarily suspended | Hold work, may resume |
 
-A typical DAT app has these components:
+## Observing session state
+
+```swift
+Task {
+    for await state in Wearables.shared.deviceSessionStateStream(for: deviceId) {
+        switch state {
+        case .running:
+            // Confirm UI shows session is live
+        case .paused:
+            // Keep connection, wait for running or stopped
+        case .stopped:
+            // Release resources, allow user to restart
+        }
+    }
+}
+```
+
+## StreamSession state transitions
+
+StreamSession has its own state flow:
 
 ```text
-MyDATApp/
-├── MyDATApp.swift              # App entry point, SDK init
-├── ViewModels/
-│   ├── WearablesViewModel.swift    # Registration, device management
-│   └── StreamSessionViewModel.swift # Streaming, photo capture
-└── Views/
-    ├── MainAppView.swift           # Navigation
-    ├── RegistrationView.swift      # Registration UI
-    └── StreamView.swift            # Video preview, capture button
+stopped → waitingForDevice → starting → streaming → paused → stopped
 ```
-
-## SDK initialization
 
 ```swift
-import MWDATCore
-
-@main
-struct MyDATApp: App {
-    init() {
-        do {
-            try Wearables.configure()
-        } catch {
-            assertionFailure("Wearables SDK configuration failed: \(error)")
-        }
-    }
-
-    var body: some Scene {
-        WindowGroup {
-            MainAppView()
-                .onOpenURL { url in
-                    Task {
-                        _ = try? await Wearables.shared.handleUrl(url)
-                    }
-                }
-        }
+let token = session.statePublisher.listen { state in
+    Task { @MainActor in
+        // React to state changes
     }
 }
 ```
 
-## Wearables ViewModel
+## Common transitions
+
+The device changes session state when:
+- User performs a system gesture that opens another experience
+- Another app starts a device session
+- User removes or folds the glasses (Bluetooth disconnects)
+- User removes the app from Meta AI companion app
+- Connectivity between companion app and glasses drops
+
+## Pause and resume
+
+When a session is paused:
+- The device keeps the connection alive
+- Streams stop delivering data
+- The device may resume by returning to `RUNNING`
+
+Your app should **not** attempt to restart while paused — wait for `RUNNING` or `STOPPED`.
+
+## Device availability
+
+Monitor device availability to know when sessions can start:
 
 ```swift
-import MWDATCore
-
-@MainActor
-class WearablesViewModel: ObservableObject {
-    @Published var registrationState: String = "Unknown"
-    @Published var devices: [DeviceIdentifier] = []
-
-    private let wearables = Wearables.shared
-
-    func observeState() {
-        Task {
-            for await state in wearables.registrationStateStream() {
-                self.registrationState = "\(state)"
-            }
-        }
-        Task {
-            for await devices in wearables.devicesStream() {
-                self.devices = devices.map { $0.identifier }
-            }
-        }
-    }
-
-    func register() {
-        try? wearables.startRegistration()
-    }
-
-    func unregister() {
-        try? wearables.startUnregistration()
+Task {
+    for await devices in Wearables.shared.devicesStream() {
+        // Update list of available glasses
     }
 }
 ```
 
-## Stream ViewModel
+Key behaviors:
+- Closing hinges disconnects Bluetooth → forces `STOPPED`
+- Opening hinges restores Bluetooth but does **not** restart sessions
+- Start a new session after the device becomes available again
 
-```swift
-import MWDATCamera
-import MWDATCore
+## Implementation checklist
 
-@MainActor
-class StreamSessionViewModel: ObservableObject {
-    @Published var currentFrame: UIImage?
-    @Published var streamState: String = "Stopped"
-    @Published var capturedPhoto: Data?
-
-    private var session: StreamSession?
-
-    func startStream() {
-        let wearables = Wearables.shared
-        let config = StreamSessionConfig(
-            videoCodec: .raw,
-            resolution: .medium,
-            frameRate: 24
-        )
-        let selector = AutoDeviceSelector(wearables: wearables)
-        let session = StreamSession(streamSessionConfig: config, deviceSelector: selector)
-        self.session = session
-
-        _ = session.statePublisher.listen { [weak self] state in
-            Task { @MainActor in
-                self?.streamState = "\(state)"
-            }
-        }
-
-        _ = session.videoFramePublisher.listen { [weak self] frame in
-            guard let image = frame.makeUIImage() else { return }
-            Task { @MainActor in
-                self?.currentFrame = image
-            }
-        }
-
-        _ = session.photoDataPublisher.listen { [weak self] photoData in
-            Task { @MainActor in
-                self?.capturedPhoto = photoData.data
-            }
-        }
-
-        Task { await session.start() }
-    }
-
-    func stopStream() {
-        Task { await session?.stop() }
-        session = nil
-    }
-
-    func capturePhoto() {
-        session?.capturePhoto(format: .jpeg)
-    }
-}
-```
-
-## Testing with MockDeviceKit
-
-Add mock device support to develop without glasses:
-
-```swift
-import MWDATMockDevice
-
-func setupMockDevice() async {
-    let mockDeviceKit = MockDeviceKit.shared
-    mockDeviceKit.enable()
-
-    let device = mockDeviceKit.pairRaybanMeta()
-    device.don()
-
-    if let videoURL = Bundle.main.url(forResource: "test_video", withExtension: "mov") {
-        let camera = device.services.camera
-        camera.setCameraFeed(fileURL: videoURL)
-    }
-}
-
-func tearDownMockDevice() {
-    MockDeviceKit.shared.disable()
-}
-```
-
-## Allowed dependencies
-
-Your DAT app should only depend on:
-- `MWDATCore` — always required
-- `MWDATCamera` — for camera streaming
-- `MWDATMockDevice` — for testing (can be test-only dependency)
+- [ ] Handle all session states (`RUNNING`, `PAUSED`, `STOPPED`)
+- [ ] Monitor device availability before starting work
+- [ ] Release resources only after `STOPPED`
+- [ ] Don't infer transition causes — rely only on observable state
+- [ ] Don't restart during `PAUSED` — wait for system to resume or stop
 
 ## Links
 
-- [CameraAccess sample](https://github.com/facebook/meta-wearables-dat-ios/tree/main/samples)
-- [Full integration guide](https://wearables.developer.meta.com/docs/build-integration-ios)
-- [Developer documentation](https://wearables.developer.meta.com/docs/develop/)
+- [Session lifecycle documentation](https://wearables.developer.meta.com/docs/lifecycle-events)
 
 ---
 > Source: [facebook/meta-wearables-dat-ios](https://github.com/facebook/meta-wearables-dat-ios) — distributed by [TomeVault](https://tomevault.io).
