@@ -1,0 +1,9 @@
+{
+  "name": "fcsonline--droneroute",
+  "displayName": "droneroute",
+  "description": "Free, open-source DJI waypoint mission planner. Plan orbits, grid surveys, and facade scans \u2014 export KMZ files ready to fly.",
+  "version": "1.0.0",
+  "author": "fcsonline",
+  "homepage": "https://github.com/fcsonline/droneroute",
+  "skills": []
+}
