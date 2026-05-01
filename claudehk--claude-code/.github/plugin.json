@@ -1,0 +1,9 @@
+{
+  "name": "claudehk--claude-code",
+  "displayName": "claude-code",
+  "description": "Claude Code source code can be run directly using npx heibai.\uff0cclaude.hk Give away $120 worth of 60 million tokens to experience Claude, GPT, Gemini, Grok, and other models.",
+  "version": "1.0.0",
+  "author": "claudehk",
+  "homepage": "https://github.com/claudehk/claude-code",
+  "skills": []
+}
