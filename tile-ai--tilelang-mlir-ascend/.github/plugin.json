@@ -1,0 +1,9 @@
+{
+  "name": "tile-ai--tilelang-mlir-ascend",
+  "displayName": "tilelang-mlir-ascend",
+  "description": "MLIR-based TileLang Ascend Adapter",
+  "version": "1.0.0",
+  "author": "tile-ai",
+  "homepage": "https://github.com/tile-ai/tilelang-mlir-ascend",
+  "skills": []
+}
