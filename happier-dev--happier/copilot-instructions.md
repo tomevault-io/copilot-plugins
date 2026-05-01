@@ -1,39 +1,16 @@
-## edison
+## implementation
 
-> Edison Framework Development Rules
+> Each implementation round must produce an implementation report Markdown file (YAML frontmatter + body) in the round evidence directory:
 
 
-# Edison Framework Rules
+# Implementation Report Markdown is required per round
 
-## Critical Principles (Config-Driven)
+## Body
+Each implementation round must produce an implementation report Markdown file (YAML frontmatter + body) in the round evidence directory:
+- Include summary, changed files, automation outputs, Context7 packages queried, follow-ups, and blockers.
+- Do not invent new report paths or filenames; follow the project’s configured schema/locations.
 
-These rules are **project-configurable** via Edison YAML. Do not assume every project uses the same enforcement level.
-
-- **TDD**: write failing test FIRST (RED), then implement (GREEN), then refactor.
-
-- **No internal mocks**: test real behavior; only mock at true system boundaries.
-
-- **Configuration-first**: avoid hardcoded behavior; load config from YAML/environment.
-
-- **Quality basics**: DRY, SOLID, KISS; avoid speculative/YAGNI code.
-- **Root cause**: fix underlying issues; avoid “dirty fixes”.
-
-## Development Practices
-
-- When updating code, ALL related tests should be updated (unit, integration, e2e)
-- When a test fails, analyze and fix the ROOT CAUSE - never simplify/skip tests
-- Before implementing, search for existing patterns to reuse/extend
-- Maintain strict coherence and unity across the codebase
-
-## Testing Guidelines
-
-- Prefer real behavior tests over mocked behavior.
-- Use temporary directories for filesystem tests (auto-cleaned).
-- Use isolated databases for integration tests (template DBs, containers, or per-test schemas).
-- Use real HTTP clients against local test servers for API tests.
-- Only mock at system boundaries (third-party services you do not control).
-
-<!-- Pack/project extensions go here -->
+Reference: `guidelines/agents/OUTPUT_FORMAT.md`
 
 ---
 > Source: [happier-dev/happier](https://github.com/happier-dev/happier) — distributed by [TomeVault](https://tomevault.io).
