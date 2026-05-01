@@ -1,0 +1,9 @@
+{
+  "name": "type-ruby--t-ruby",
+  "displayName": "t-ruby",
+  "description": "T-Ruby, TypeScript-style types for Ruby language",
+  "version": "1.0.0",
+  "author": "type-ruby",
+  "homepage": "https://github.com/type-ruby/t-ruby",
+  "skills": []
+}
