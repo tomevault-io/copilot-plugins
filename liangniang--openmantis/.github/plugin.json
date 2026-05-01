@@ -1,0 +1,9 @@
+{
+  "name": "liangniang--openmantis",
+  "displayName": "OpenMantis",
+  "description": "Lightweight multi-platform AI agent chat framework. Connect multiple LLMs to Feishu/WeCom/QQ with composable tools, long-term memory, scheduling & browser automation. | \u8f7b\u91cf\u7ea7\u591a\u5e73\u53f0 AI  Agent \u804a\u5929\u6846\u67b6\uff0c\u8fde\u63a5\u591a\u4e2a LLM ",
+  "version": "1.0.0",
+  "author": "LiangNiang",
+  "homepage": "https://github.com/LiangNiang/OpenMantis",
+  "skills": []
+}
