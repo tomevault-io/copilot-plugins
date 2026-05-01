@@ -1,0 +1,9 @@
+{
+  "name": "serverless-devs--agentrun-cli",
+  "displayName": "agentrun-cli",
+  "description": "AgentRun CLI (agentrun / ar) \u2014 A command-line tool for managing AI agent infrastructure on the AgentRun platform.",
+  "version": "1.0.0",
+  "author": "Serverless-Devs",
+  "homepage": "https://github.com/Serverless-Devs/agentrun-cli",
+  "skills": []
+}
