@@ -1,0 +1,9 @@
+{
+  "name": "oil-oil--wolfcha",
+  "displayName": "wolfcha",
+  "description": "AI-powered Werewolf (Mafia) social deduction game where every player is controlled by top LLMs like DeepSeek, Qwen, Gemini, and more",
+  "version": "1.0.0",
+  "author": "oil-oil",
+  "homepage": "https://github.com/oil-oil/wolfcha",
+  "skills": []
+}
