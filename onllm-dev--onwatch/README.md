@@ -7,11 +7,11 @@ Track AI API quotas across Synthetic, Z.ai, Anthropic (Claude Code), Codex, GitH
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [onllm-dev/onWatch](https://github.com/onllm-dev/onWatch).
+Original source: `CLAUDE.md` in [onllm-dev/onWatch](https://github.com/onllm-dev/onWatch).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
