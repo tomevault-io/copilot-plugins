@@ -7,11 +7,11 @@ One config to rule all your AI agents: portable (every project, every session), 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yzhao062/anywhere-agents](https://github.com/yzhao062/anywhere-agents).
+Original source: `CLAUDE.md` in [yzhao062/anywhere-agents](https://github.com/yzhao062/anywhere-agents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
