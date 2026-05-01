@@ -1,0 +1,9 @@
+{
+  "name": "perryts--perry",
+  "displayName": "perry",
+  "description": "A native TypeScript compiler written in Rust. Compiles TypeScript directly to executables using SWC and LLVM.",
+  "version": "1.0.0",
+  "author": "PerryTS",
+  "homepage": "https://github.com/PerryTS/perry",
+  "skills": []
+}
