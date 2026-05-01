@@ -1,184 +1,101 @@
-## sample-app-guide
+## session-lifecycle
 
-> Building a complete DAT app with camera streaming and photo capture
+> Device session states, pause/resume, availability monitoring
 
 
 
-# Sample App Guide (Android)
+# Session Lifecycle (Android)
 
-Guide for building a complete DAT SDK app with camera streaming and photo capture.
+Guide for managing device session states in DAT SDK integrations.
 
 ## Overview
 
-This guide walks through building an Android app that connects to Meta glasses, streams video, and captures photos. Use it as a reference alongside the [CameraAccess sample](https://github.com/facebook/meta-wearables-dat-android/tree/main/samples).
+The DAT SDK runs work inside sessions. Meta glasses expose two experience types:
+- **Device sessions** — sustained access to device sensors and outputs
+- **Transactions** — short, system-owned interactions (notifications, "Hey Meta")
 
-## Project setup
+Your app observes session state changes — the device decides when to transition.
 
-1. Create a new Android Studio project (Compose Activity)
-2. Add the Maven repository in `settings.gradle.kts`
-3. Add `mwdat-core`, `mwdat-camera`, `mwdat-mockdevice` dependencies
-4. Configure `AndroidManifest.xml` (see [Getting Started](getting-started.md))
+## Session states
 
-## App architecture
+| State | Meaning | App action |
+|-------|---------|------------|
+| `STOPPED` | Session inactive, not reconnecting | Free resources, wait for user action |
+| `RUNNING` | Session active, streaming data | Perform live work |
+| `PAUSED` | Temporarily suspended | Hold work, may resume |
 
-A typical DAT app has these components:
+## Observing session state
+
+```kotlin
+lifecycleScope.launch {
+    Wearables.getDeviceSessionState(deviceId).collect { state ->
+        when (state) {
+            SessionState.RUNNING -> onRunning()
+            SessionState.PAUSED -> onPaused()
+            SessionState.STOPPED -> onStopped()
+        }
+    }
+}
+```
+
+## StreamSession state transitions
 
 ```text
-app/src/main/java/com/example/myapp/
-├── MyApplication.kt                # Application class, SDK init
-├── MainActivity.kt                 # Registration, permission handling
-├── stream/
-│   └── StreamViewModel.kt          # Streaming, photo capture
-└── ui/
-    ├── RegistrationScreen.kt       # Registration UI
-    └── StreamScreen.kt             # Video preview, capture
+STARTING -> STARTED -> STREAMING -> STOPPING -> STOPPED -> CLOSED
 ```
-
-## SDK initialization
 
 ```kotlin
-import com.meta.wearable.dat.core.Wearables
-
-class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        Wearables.initialize(this)
+lifecycleScope.launch {
+    session.state.collect { state ->
+        // React to state changes
     }
 }
 ```
 
-## Stream ViewModel
+## Common transitions
+
+The device changes session state when:
+- User performs a system gesture that opens another experience
+- Another app starts a device session
+- User removes or folds the glasses (Bluetooth disconnects)
+- User removes the app from Meta AI companion app
+- Connectivity between companion app and glasses drops
+
+## Pause and resume
+
+When a session is paused:
+- The device keeps the connection alive
+- Streams stop delivering data
+- The device may resume by returning to `RUNNING`
+
+Your app should **not** attempt to restart while paused — wait for `RUNNING` or `STOPPED`.
+
+## Device availability
 
 ```kotlin
-import com.meta.wearable.dat.camera.types.StreamConfiguration
-import com.meta.wearable.dat.camera.types.StreamSessionState
-import com.meta.wearable.dat.camera.types.VideoQuality
-import com.meta.wearable.dat.core.Wearables
-import com.meta.wearable.dat.core.selectors.AutoDeviceSelector
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-
-class StreamViewModel : ViewModel() {
-    private val _streamState = MutableStateFlow<StreamSessionState?>(null)
-    val streamState = _streamState.asStateFlow()
-
-    private var session: StreamSession? = null
-
-    fun startStream(context: Context) {
-        val streamSession = Wearables.startStreamSession(
-            context = context,
-            deviceSelector = AutoDeviceSelector(),
-            streamConfiguration = StreamConfiguration(
-                videoQuality = VideoQuality.MEDIUM,
-                frameRate = 24,
-            ),
-        )
-        session = streamSession
-
-        viewModelScope.launch {
-            streamSession.state.collect { state ->
-                _streamState.value = state
-            }
-        }
-
-        viewModelScope.launch {
-            streamSession.videoStream.collect { frame ->
-                // Update UI with frame
-            }
-        }
-    }
-
-    fun stopStream() {
-        session?.stop()
-        session = null
-    }
-
-    fun capturePhoto() {
-        session?.capturePhoto()
-            ?.onSuccess { photoData ->
-                // Handle photo
-            }
-            ?.onFailure { error ->
-                // Handle error
-            }
+lifecycleScope.launch {
+    Wearables.devices.collect { devices ->
+        // Update list of available glasses
     }
 }
 ```
 
-## Registration handling
+Key behaviors:
+- Closing hinges disconnects Bluetooth -> forces `STOPPED`
+- Opening hinges restores Bluetooth but does **not** restart sessions
+- Start a new session after the device becomes available again
 
-```kotlin
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+## Implementation checklist
 
-        lifecycleScope.launch {
-            Wearables.registrationState.collect { state ->
-                // Update registration UI
-            }
-        }
-
-        lifecycleScope.launch {
-            Wearables.devices.collect { devices ->
-                // Update device list
-            }
-        }
-    }
-
-    fun register() {
-        Wearables.startRegistration(this)
-    }
-
-    fun unregister() {
-        Wearables.startUnregistration(this)
-    }
-}
-```
-
-## Testing with MockDeviceKit
-
-```kotlin
-import com.meta.wearable.dat.mockdevice.MockDeviceKit
-import com.meta.wearable.dat.mockdevice.api.MockDeviceKitConfig
-
-fun setupMockDevice(context: Context) {
-    val mockDeviceKit = MockDeviceKit.getInstance(context)
-
-    // Attach fake implementations (auto-initializes Wearables if needed).
-    // Starts Registered by default. Pass MockDeviceKitConfig(initiallyRegistered = false)
-    // to start in unregistered state for testing registration flows.
-    mockDeviceKit.enable()
-
-    val device = mockDeviceKit.pairRaybanMeta()
-    device.powerOn()
-    device.unfold()
-    device.don()
-
-    // Set up mock camera feed
-    val camera = device.services.camera
-    camera.setCameraFeed(videoUri)
-}
-
-fun tearDownMockDevice(context: Context) {
-    val mockDeviceKit = MockDeviceKit.getInstance(context)
-    // Unpairs all mock devices, clears pairedDevices, restores real stack
-    mockDeviceKit.disable()
-}
-```
-
-## Allowed dependencies
-
-Your DAT app should only depend on:
-- `mwdat-core` — always required
-- `mwdat-camera` — for camera streaming
-- `mwdat-mockdevice` — for testing
+- [ ] Handle all session states (`RUNNING`, `PAUSED`, `STOPPED`)
+- [ ] Monitor device availability before starting work
+- [ ] Release resources only after `STOPPED`
+- [ ] Don't infer transition causes — rely only on observable state
+- [ ] Don't restart during `PAUSED` — wait for system to resume or stop
 
 ## Links
 
-- [CameraAccess sample](https://github.com/facebook/meta-wearables-dat-android/tree/main/samples)
-- [Full integration guide](https://wearables.developer.meta.com/docs/build-integration-android)
-- [Developer documentation](https://wearables.developer.meta.com/docs/develop/)
+- [Session lifecycle documentation](https://wearables.developer.meta.com/docs/lifecycle-events)
 
 ---
 > Source: [facebook/meta-wearables-dat-android](https://github.com/facebook/meta-wearables-dat-android) — distributed by [TomeVault](https://tomevault.io).
