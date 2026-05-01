@@ -1,113 +1,198 @@
-## permissions-registration
+## sample-app-guide
 
-> App registration with Meta AI, camera permission flows
+> Building a complete DAT app with camera streaming and photo capture
 
 
 
-# Permissions & Registration (iOS)
+# Sample App Guide (iOS)
 
-Guide for app registration and camera permission flows in the DAT SDK.
+Guide for building a complete DAT SDK app with camera streaming and photo capture.
 
 ## Overview
 
-The DAT SDK separates two concepts:
-1. **Registration** — Your app registers with Meta AI to become a permitted integration
-2. **Device permissions** — After registration, request specific device permissions (e.g., camera)
+This guide walks through building an iOS app that connects to Meta glasses, streams video, and captures photos. Use it as a reference alongside the [CameraAccess sample](https://github.com/facebook/meta-wearables-dat-ios/tree/main/samples).
 
-All permission grants occur through the Meta AI companion app.
+## Project setup
 
-## Registration flow
+1. Create a new Xcode project (SwiftUI App)
+2. Add the SDK via SPM: `https://github.com/facebook/meta-wearables-dat-ios`
+3. Add `MWDATCore`, `MWDATCamera`, and `MWDATMockDevice` to your target
+4. Configure `Info.plist` (see [Getting Started](getting-started.md))
 
-### Start registration
+## App architecture
 
-```swift
-func startRegistration() throws {
-    try Wearables.shared.startRegistration()
-}
+A typical DAT app has these components:
+
+```text
+MyDATApp/
+├── MyDATApp.swift              # App entry point, SDK init
+├── ViewModels/
+│   ├── WearablesViewModel.swift    # Registration, device management
+│   └── StreamSessionViewModel.swift # Streaming, photo capture
+└── Views/
+    ├── MainAppView.swift           # Navigation
+    ├── RegistrationView.swift      # Registration UI
+    └── StreamView.swift            # Video preview, capture button
 ```
 
-This opens the Meta AI app where the user approves your app. Meta AI then calls back via your URL scheme.
-
-### Handle the callback
+## SDK initialization
 
 ```swift
-.onOpenURL { url in
-    Task {
-        _ = try? await Wearables.shared.handleUrl(url)
+import MWDATCore
+
+@main
+struct MyDATApp: App {
+    init() {
+        do {
+            try Wearables.configure()
+        } catch {
+            assertionFailure("Wearables SDK configuration failed: \(error)")
+        }
     }
-}
-```
 
-### Observe registration state
-
-```swift
-Task {
-    for await state in Wearables.shared.registrationStateStream() {
-        switch state {
-        case .registered:
-            // App is registered, can request permissions
-        case .unregistered:
-            // App is not registered
-        case .registering:
-            // Registration in progress
+    var body: some Scene {
+        WindowGroup {
+            MainAppView()
+                .onOpenURL { url in
+                    Task {
+                        _ = try? await Wearables.shared.handleUrl(url)
+                    }
+                }
         }
     }
 }
 ```
 
-### Unregister
+## Wearables ViewModel
 
 ```swift
-func startUnregistration() throws {
-    try Wearables.shared.startUnregistration()
+import MWDATCore
+
+@MainActor
+class WearablesViewModel: ObservableObject {
+    @Published var registrationState: String = "Unknown"
+    @Published var devices: [DeviceIdentifier] = []
+
+    private let wearables = Wearables.shared
+
+    func observeState() {
+        Task {
+            for await state in wearables.registrationStateStream() {
+                self.registrationState = "\(state)"
+            }
+        }
+        Task {
+            for await devices in wearables.devicesStream() {
+                self.devices = devices.map { $0.identifier }
+            }
+        }
+    }
+
+    func register() {
+        try? wearables.startRegistration()
+    }
+
+    func unregister() {
+        try? wearables.startUnregistration()
+    }
 }
 ```
 
-## Camera permissions
-
-### Check permission status
+## Stream ViewModel
 
 ```swift
-let status = try await Wearables.shared.checkPermissionStatus(.camera)
+import MWDATCamera
+import MWDATCore
+
+@MainActor
+class StreamSessionViewModel: ObservableObject {
+    @Published var currentFrame: UIImage?
+    @Published var streamState: String = "Stopped"
+    @Published var capturedPhoto: Data?
+
+    private var session: StreamSession?
+
+    func startStream() {
+        let wearables = Wearables.shared
+        let config = StreamSessionConfig(
+            videoCodec: .raw,
+            resolution: .medium,
+            frameRate: 24
+        )
+        let selector = AutoDeviceSelector(wearables: wearables)
+        let session = StreamSession(streamSessionConfig: config, deviceSelector: selector)
+        self.session = session
+
+        _ = session.statePublisher.listen { [weak self] state in
+            Task { @MainActor in
+                self?.streamState = "\(state)"
+            }
+        }
+
+        _ = session.videoFramePublisher.listen { [weak self] frame in
+            guard let image = frame.makeUIImage() else { return }
+            Task { @MainActor in
+                self?.currentFrame = image
+            }
+        }
+
+        _ = session.photoDataPublisher.listen { [weak self] photoData in
+            Task { @MainActor in
+                self?.capturedPhoto = photoData.data
+            }
+        }
+
+        Task { await session.start() }
+    }
+
+    func stopStream() {
+        Task { await session?.stop() }
+        session = nil
+    }
+
+    func capturePhoto() {
+        session?.capturePhoto(format: .jpeg)
+    }
+}
 ```
 
-### Request permission
+## Testing with MockDeviceKit
+
+Add mock device support to develop without glasses:
 
 ```swift
-let status = try await Wearables.shared.requestPermission(.camera)
+import MWDATMockDevice
+
+func setupMockDevice() async {
+    let mockDeviceKit = MockDeviceKit.shared
+    mockDeviceKit.enable()
+
+    let device = mockDeviceKit.pairRaybanMeta()
+    device.don()
+
+    if let videoURL = Bundle.main.url(forResource: "test_video", withExtension: "mov") {
+        let camera = device.services.camera
+        camera.setCameraFeed(fileURL: videoURL)
+    }
+}
+
+func tearDownMockDevice() {
+    MockDeviceKit.shared.disable()
+}
 ```
 
-The SDK opens Meta AI for the user to grant access. Users can choose:
-- **Allow once** — temporary, single-session grant
-- **Allow always** — persistent grant
+## Allowed dependencies
 
-## Multi-device behavior
-
-Users can link multiple glasses to Meta AI. The SDK handles this transparently:
-- Permission granted on **any** linked device means your app has access
-- You don't need to track which device has permissions
-- If all devices disconnect, permissions become unavailable
-
-## Developer Mode vs Production
-
-| Mode | Registration behavior |
-|------|----------------------|
-| Developer Mode | Registration always allowed (use `MetaAppID` = `0`) |
-| Production | Users must be in proper release channel |
-
-For production, get your `APPLICATION_ID` from the [Wearables Developer Center](https://wearables.developer.meta.com/).
-
-## Prerequisites
-
-- Registration requires an internet connection
-- Meta AI companion app must be installed
-- For Developer Mode: enable in Meta AI > Settings > Your glasses > Developer Mode
+Your DAT app should only depend on:
+- `MWDATCore` — always required
+- `MWDATCamera` — for camera streaming
+- `MWDATMockDevice` — for testing (can be test-only dependency)
 
 ## Links
 
-- [Permissions documentation](https://wearables.developer.meta.com/docs/permissions-requests)
-- [Getting started guide](https://wearables.developer.meta.com/docs/getting-started-toolkit)
-- [Manage projects](https://wearables.developer.meta.com/docs/manage-projects)
+- [CameraAccess sample](https://github.com/facebook/meta-wearables-dat-ios/tree/main/samples)
+- [Full integration guide](https://wearables.developer.meta.com/docs/build-integration-ios)
+- [Developer documentation](https://wearables.developer.meta.com/docs/develop/)
 
 ---
 > Source: [facebook/meta-wearables-dat-ios](https://github.com/facebook/meta-wearables-dat-ios) — distributed by [TomeVault](https://tomevault.io).
