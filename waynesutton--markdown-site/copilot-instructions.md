@@ -1,113 +1,55 @@
-## task
+## workflow
 
-> Guidelines for creating and managing task lists in markdown files to track project progress
+> Workflow orchestration and task management for every session
 
 
----
+# Workflow
 
-# Task List Management
+## Before starting any non-trivial task (3+ steps or touches architecture)
 
-Guidelines for creating and managing task lists in markdown files to track project progress
+1. Stop. Write a PRD to `prds/<feature-name>.md` before touching code.
+   - PRD files end in `.md`, not `.prd`
+   - Include: problem, proposed solution, files to change, edge cases
+   - For bug fixes: problem, root cause, fix, verification steps
+2. Add tasks to `TASK.md` under `## To Do` as checkable items
+3. If anything is unclear, ask before implementing
 
-## Task List Creation
+## During implementation
 
-1. Create task lists in a markdown file (in the project root):
-   - Use `TASKS.md` or a descriptive name relevant to the feature (e.g., `ASSISTANT_CHAT.md`)
-   - Include a clear title and description of the feature being implemented
+- Work task by task. Mark `[x]` as you go in `TASK.md`
+- Never mark a task complete without verifying it works
+- Use subagents for research, exploration, and parallel analysis
+- One task per subagent for focused execution
+- When given a bug: just fix it. Find the root cause in logs/errors/types. No handholding needed.
+- If something goes sideways: STOP and re-plan. Don't keep pushing.
+- Before shipping: ask yourself "Would a staff engineer approve this?"
 
-2. Structure the file with these sections:
+## After every feature or fix
 
-   ```markdown
-   # Feature Name Implementation
+Always update both project docs. No exceptions:
 
-   Brief description of the feature and its purpose.
+1. `TASK.md` - Move completed items to `## Completed` with bullet details and date
+2. `changelog.md` - Add keepachangelog.com format entry. Run `git log --date=short -n 10` for real dates. No placeholders, no future months.
+3. `files.md` - Update if new files were added or descriptions changed
 
-   ## Completed Tasks
+## Self-improvement
 
-   - [x] Task 1 that has been completed
-   - [x] Task 2 that has been completed
+- After any user correction: note the pattern in `prds/lessons.md` to prevent repeat
+- If a fix feels hacky: pause and implement the elegant solution instead
+- Simple obvious fixes: skip the reflection, just fix it
+- Review `prds/lessons.md` at the start of sessions when relevant
 
-   ## In Progress Tasks
+## PRD rules
 
-   - [ ] Task 3 currently being worked on
-   - [ ] Task 4 to be completed soon
+- All PRDs live in `prds/` folder
+- File name: `prds/<feature-or-problem-slug>.md`
+- Extension is always `.md` not `.prd`
 
-   ## Future Tasks
+## Subagent strategy
 
-   - [ ] Task 5 planned for future implementation
-   - [ ] Task 6 planned for future implementation
-
-   ## Implementation Plan
-
-   Detailed description of how the feature will be implemented.
-
-   ### Relevant Files
-
-   - path/to/file1.ts - Description of purpose
-   - path/to/file2.ts - Description of purpose
-   ```
-
-## Task List Maintenance
-
-1. Update the task list as you progress:
-   - Mark tasks as completed by changing `[ ]` to `[x]`
-   - Add new tasks as they are identified
-   - Move tasks between sections as appropriate
-
-2. Keep "Relevant Files" section updated with:
-   - File paths that have been created or modified
-   - Brief descriptions of each file's purpose
-   - Status indicators (e.g., ✅) for completed components
-
-3. Add implementation details:
-   - Architecture decisions
-   - Data flow descriptions
-   - Technical components needed
-   - Environment configuration
-
-## AI Instructions
-
-When working with task lists, the AI should:
-
-1. Regularly update the task list file after implementing significant components
-2. Mark completed tasks with [x] when finished
-3. Add new tasks discovered during implementation
-4. Maintain the "Relevant Files" section with accurate file paths and descriptions
-5. Document implementation details, especially for complex features
-6. When implementing tasks one by one, first check which task to implement next
-7. After implementing a task, update the file to reflect progress
-
-## Example Task Update
-
-When updating a task from "In Progress" to "Completed":
-
-```markdown
-## In Progress Tasks
-
-- [ ] Implement database schema
-- [ ] Create API endpoints for data access
-
-## Completed Tasks
-
-- [x] Set up project structure
-- [x] Configure environment variables
-```
-
-Should become:
-
-```markdown
-## In Progress Tasks
-
-- [ ] Create API endpoints for data access
-
-## Completed Tasks
-
-- [x] Set up project structure
-- [x] Configure environment variables
-- [x] Implement database schema
-```
-
-**!IMPORTANT**: **DO NOT** externalize or document your work, usage guidelines, or benchmarks (e.g. `README.md`, `CONTRIBUTING.md`, `SUMMARY.md`, `USAGE_GUIDELINES.md` after completing the task, do not use emoji, unless explicitly instructed to do so. You may include a brief summary of your work, but do not create separate documentation files for it.
+- Offload research and exploration to subagents to keep the main context clean
+- Throw more compute at complex problems via subagents
+- Use one subagent per focused task, not one subagent for everything
 
 ---
 > Source: [waynesutton/markdown-site](https://github.com/waynesutton/markdown-site) — distributed by [TomeVault](https://tomevault.io).
