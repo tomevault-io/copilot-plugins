@@ -1,66 +1,46 @@
 ## kicad-happy
 
-> AI-powered electronics design review skills for KiCad 5-10. This repo provides structured Python analysis scripts and skill definitions for AI coding agents.
+> KiCad electronics design analysis skills — schematic review, PCB layout, EMC pre-compliance, SPICE, BOM, manufacturing
+
 
 # kicad-happy
 
-AI-powered electronics design review skills for KiCad 5-10. This repo provides structured Python analysis scripts and skill definitions for AI coding agents.
+This repo is a suite of AI-powered electronics design skills for KiCad 5-10.
 
 ## Skills
 
-Each skill is defined in `skills/<name>/SKILL.md` with usage instructions and triggers. Read the relevant SKILL.md before using a skill.
+Each skill lives under `skills/<name>/SKILL.md` — read the SKILL.md for full usage. Key skills:
 
-| Skill | Purpose |
-|-------|---------|
-| kicad | Core analysis — schematic parsing, PCB layout review, Gerber verification, thermal, diff, what-if |
-| emc | EMC pre-compliance — 42 rules across 17 categories |
-| spice | SPICE simulation — auto-generated testbenches, Monte Carlo tolerance |
-| kidoc | Engineering documentation — PDF/HTML reports, schematic SVG rendering |
-| bom | BOM management — multi-supplier pricing, order file export |
-| digikey | DigiKey API — component search, datasheet download |
-| mouser | Mouser API — component search |
-| lcsc | LCSC/JLCPCB parts — community API, no auth required |
-| element14 | element14/Newark/Farnell API |
-| jlcpcb | JLCPCB fab rules, BOM/CPL format |
-| pcbway | PCBWay fab rules, turnkey assembly |
+- **kicad** — Schematic/PCB/Gerber analysis. Run `python3 skills/kicad/scripts/analyze_schematic.py <file>.kicad_sch` for structured analysis.
+- **emc** — EMC pre-compliance (42 rules). Consumes schematic + PCB analyzer JSON.
+- **spice** — SPICE simulation with auto-generated testbenches.
+- **kidoc** — Engineering documentation generation (PDF/HTML).
+- **bom** — BOM management with multi-supplier pricing.
+- **digikey/mouser/lcsc/element14** — Component sourcing APIs.
+- **jlcpcb/pcbway** — Manufacturing prep and DFM validation.
 
-## Running analysis
+## Analysis workflow
 
-```bash
-# Schematic analysis
-python3 skills/kicad/scripts/analyze_schematic.py <file>.kicad_sch
-python3 skills/kicad/scripts/analyze_schematic.py <file>.kicad_sch --output analysis.json
+1. Run schematic analyzer: `python3 skills/kicad/scripts/analyze_schematic.py <file>.kicad_sch --output sch.json`
+2. Run PCB analyzer: `python3 skills/kicad/scripts/analyze_pcb.py <file>.kicad_pcb --full --output pcb.json`
+3. Run EMC analysis: `python3 skills/emc/scripts/analyze_emc.py --schematic sch.json --pcb pcb.json`
+4. Run thermal analysis: `python3 skills/kicad/scripts/analyze_thermal.py --schematic sch.json --pcb pcb.json`
 
-# PCB layout analysis
-python3 skills/kicad/scripts/analyze_pcb.py <file>.kicad_pcb
-python3 skills/kicad/scripts/analyze_pcb.py <file>.kicad_pcb --full --output pcb.json
-
-# EMC pre-compliance (requires schematic + PCB JSON)
-python3 skills/emc/scripts/analyze_emc.py --schematic sch.json --pcb pcb.json
-
-# Gerber verification
-python3 skills/kicad/scripts/analyze_gerbers.py <gerber_dir>/
-```
-
-All scripts are zero-dependency (Python 3.8+ stdlib only). No pip install needed.
+All scripts are zero-dependency Python 3.8+ (stdlib only).
 
 ## Code structure
 
-- `skills/kicad/scripts/analyze_schematic.py` — Schematic parser and analysis orchestrator (~7,200 LOC)
-- `skills/kicad/scripts/signal_detectors.py` — Core signal path detectors (~3,000 LOC)
-- `skills/kicad/scripts/domain_detectors.py` — Domain-specific detectors (~4,500 LOC)
-- `skills/kicad/scripts/analyze_pcb.py` — PCB layout analyzer (~4,300 LOC)
-- `skills/emc/scripts/emc_rules.py` — 42 EMC rule implementations (~4,100 LOC)
+- `skills/kicad/scripts/analyze_schematic.py` — Main schematic parser and orchestrator
+- `skills/kicad/scripts/signal_detectors.py` — Core signal path detectors (regulators, filters, opamps)
+- `skills/kicad/scripts/domain_detectors.py` — Domain-specific detectors (USB, Ethernet, BMS, audio, sensors)
+- `skills/kicad/scripts/analyze_pcb.py` — PCB layout analyzer
+- `skills/emc/scripts/emc_rules.py` — EMC rule implementations
 - `skills/kicad/scripts/kicad_types.py` — `AnalysisContext` dataclass shared by all detectors
-- `skills/kicad/references/` — 14 deep methodology guides
 
-## Key docs
+## Testing
 
-- `CONTRIBUTING.md` — How detectors work, how to add skills, test harness usage
-- `VALIDATION.md` — Test methodology and corpus statistics
-- `CHANGELOG.md` — Release history
+Test harness at `~/Projects/kicad-happy-testharness/` validates against 1,036 real KiCad projects. Run `python3 run/run_schematic.py --jobs 16` and `python3 regression/run_checks.py --type schematic`.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/aklofas)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/aklofas)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [aklofas/kicad-happy](https://github.com/aklofas/kicad-happy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-20 -->
