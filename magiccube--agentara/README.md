@@ -7,13 +7,13 @@ Your 24/7 personal assistant powered by Claude Code and OpenAI Codex. Multi-chan
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `CLAUDE.md` in [MagicCube/agentara](https://github.com/MagicCube/agentara).
+Original source: `.cursor/rules/*.mdc` in [MagicCube/agentara](https://github.com/MagicCube/agentara).
 
 ## Also available for
 
+- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
