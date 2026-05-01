@@ -7,11 +7,11 @@ Use claude-code for free in the terminal, VSCode extension or via discord like o
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Alishahryar1/free-claude-code](https://github.com/Alishahryar1/free-claude-code).
+Original source: `CLAUDE.md` in [Alishahryar1/free-claude-code](https://github.com/Alishahryar1/free-claude-code).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
