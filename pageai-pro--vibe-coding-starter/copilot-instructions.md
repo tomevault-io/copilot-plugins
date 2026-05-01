@@ -1,85 +1,61 @@
-## typescript-style
+## ui-components
 
-> This rule defines the TypeScript code style conventions for the project. Follow these rules for all TypeScript and React code.
+> For creating UIs, dashboards, interactive elements etc.
 
 
-# TypeScript Code Style Guide
+# UI Components from @ui (Shadcn UI)
 
-This rule defines the TypeScript code style conventions for the project. Follow these rules for all TypeScript and React code.
+This rule explains how to use UI components from Shadcn UI.
 
-## Parameter Passing
+## Overview
 
-- **Always pass parameters as a single object** (named parameters pattern).
+All components imported from `@/components/shared/ui` are [Shadcn UI](https://ui.shadcn.com/docs) primitives. These components serve as the foundation for building user interfaces in this codebase.
 
-  **Example:**
-  ```ts
-  // Good
-  function doSomething({ id, name }: { id: string; name: string }) { /* ... */ }
-  // Bad
-  function doSomething(id: string, name: string) { /* ... */ }
-  ```
+## Usage Guidelines
 
-## Type Safety
-
-- **Never use `any` as a type.** Use explicit types, interfaces, or `unknown` with type guards if necessary.
-- **Reuse interfaces** and place them in a `models/` directory when shared across files.
-
-  **Example:**
-  ```ts
-  // models/user.ts
-  export interface User { id: string; name: string; }
-  // Usage
-  import { User } from '@/models/user';
-  ```
-
-## Imports
-
-- **Use shorter imports** via path aliases (e.g., `@/components/...`), not relative paths like `../../components`.
-- **Do not use index exports.** Use named exports and import modules directly.
-
-  **Example:**
-  ```ts
-  // Good
+- **Always prefer importing UI primitives from [@/components/shared/ui](mdc:components/shared/ui) if available**
+- **Do not duplicate UI logic**—extend or compose existing [@/components/shared/ui](mdc:components/shared/ui) components if additional functionality is needed.
+- **Follow the design system**: All [@/components/shared/ui](mdc:components/shared/ui) components are styled with Tailwind CSS and follow the project's design tokens and accessibility standards.
+- **Use named imports**: Example:
+  ```tsx
   import { Button } from '@/components/shared/ui/button';
-  // Bad
-  import { Button } from '@/components/shared/ui';
   ```
+- **Reference the implementation**: If you need to customize or debug a component, check `@/components/shared/ui`
 
-## Functional Programming
+## When to use `@/components/shared/ui` components
 
-- **Do not use classes.** Use functional methods and hooks.
-- **Always wrap `if` statements in curly braces**, even for single-line blocks.
+- For all buttons, forms, dialogs, menus, and other UI primitives, use the corresponding [@/components/shared/ui](mdc:components/shared/ui) component.
+- For custom UI, compose with [@/components/shared/ui](mdc:components/shared/ui) components as building blocks.
+- Only use third-party or custom UI code if a suitable [@/components/shared/ui](mdc:components/shared/ui) component does not exist and cannot be composed.
 
-  **Example:**
-  ```ts
-  // Good
-  if (isActive) {
-    doSomething();
-  }
-  // Bad
-  if (isActive) doSomething();
-  ```
+## Example
 
-## Comments and Documentation
+```tsx
+import { Button } from '@/components/shared/ui/button';
+import { Input } from '@/components/shared/ui/input';
+import { Dialog } from '@/components/shared/ui/dialog';
 
-- **Do not comment obvious things.**
-- **Do not explain changes in comments.**
-- **Only document extraordinary changes or complex logic.**
-- **Use JSDoc or a short description for top-level functions.**
+function ExampleForm() {
+  return (
+    <Dialog>
+      <form className="flex flex-col gap-4">
+        <Input label="Email" type="email" />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Dialog>
+  );
+}
+```
 
-## Forms and Schemas
+## Best Practices
 
-- **Reuse schemas** for forms (e.g., Zod schemas) and validation logic. Place schemas in a `schemas/` directory if shared.
+- Use composition and props to extend functionality.
+- Follow accessibility and responsive design patterns as established in the codebase.
+- Prefer functional, declarative usage and avoid class-based components.
 
-## Utility Functions
+---
 
-- **Place small utility functions under `utils/function-name.ts`**.
-
-  **Example:**
-  ```ts
-  // utils/format-date.ts
-  export function formatDate(date: Date): string { /* ... */ }
-  ```
+**See also:** [tailwind-styling.mdc](mdc:.cursor/tailwind-styling.mdc), [nextjs.mdc](mdc:.cursor/nextjs.mdc)
 
 ---
 > Source: [PageAI-Pro/vibe-coding-starter](https://github.com/PageAI-Pro/vibe-coding-starter) — distributed by [TomeVault](https://tomevault.io).
