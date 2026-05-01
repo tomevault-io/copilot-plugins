@@ -7,11 +7,11 @@ Voice input reimagined — speak in any language, type in any language.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ZhangHanDong/vox](https://github.com/ZhangHanDong/vox).
+Original source: `CLAUDE.md` in [ZhangHanDong/vox](https://github.com/ZhangHanDong/vox).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
