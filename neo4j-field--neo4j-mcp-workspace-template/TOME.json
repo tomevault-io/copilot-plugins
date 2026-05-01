@@ -4,7 +4,7 @@
   "repo": "neo4j-mcp-workspace-template",
   "description": "A template repo for end to end Neo4j development using MCP",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/neo4j-field/neo4j-mcp-workspace-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T00:42:29Z"
+  "distributed_at": "2026-05-01T14:23:33Z"
 }
