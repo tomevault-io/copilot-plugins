@@ -1,0 +1,9 @@
+{
+  "name": "neilhtennek--previewops",
+  "displayName": "PreviewOps",
+  "description": "Prompt-to-production infrastructure. Every PR gets a full-stack preview. No config, no YAML, no waiting.",
+  "version": "1.0.0",
+  "author": "neilhtennek",
+  "homepage": "https://github.com/neilhtennek/PreviewOps",
+  "skills": []
+}
