@@ -1,45 +1,24 @@
-## frontend-locales-single-quotes
+## think-docs-convention
 
-> 前端 i18n locale 文本统一使用单引号
+> 规划文档、思考文档等内部开发文档的存放规范
 
 
-## frontend i18n 文本统一使用单引号
+# think_docs 文件夹使用规范
 
-- **适用范围**: `frontend/src/locales/*.ts` 中的 i18n 语言包文件。
-- **约束内容**: 所有字符串字面量统一使用单引号 `'`，不要使用双引号 `"`。
+## 适用场景
 
-### 具体要求
+以下类型的文档应放入项目根目录的 `think_docs/` 文件夹：
 
-- **键名**：按项目既有风格处理（一般为无引号或双引号），本规则不强制。
-- **值（翻译文本）**：
-  - **必须使用单引号**：`'some text'`。
-  - **禁止使用双引号**：`"some text"`。
-  - 当文案中需要双引号时，直接写在字符串内部：`'Don\'t forget "Save"'`。
-  - 当文案中需要单引号时，用转义或改写表达：`'Tap "Generate QR code" to install'`
+- **规划文档**：功能设计、技术方案、架构演进计划等
+- **思考文档**：需求分析、方案对比、决策记录等
+- **AI 协作文档**：给 AI 辅助开发用的上下文说明、提示词草稿等
+- **内部草稿**：任何非面向最终用户/客户的开发过程文档
 
-### 示例
+## 规则
 
-```ts
-// ❌ BAD：值使用了双引号
-export default {
-  common: {
-    ok: "OK",
-    cancel: "Cancel",
-  },
-};
-
-// ✅ GOOD：值统一使用单引号
-export default {
-  common: {
-    ok: 'OK',
-    cancel: 'Cancel',
-  },
-};
-```
-
-### AI 编写时的注意事项
-
-AI 在编写 i18n 时容易自动使用双引号。编写完成后应将所有 `key: "value"` 替换为 `key: 'value'`，若值中包含单引号则替换为双引号。
+1. `think_docs/` 已加入 `.gitignore`，**不会被提交到 Git 仓库**。
+2. 当需要创建上述类型的文档时，**必须**放在 `think_docs/` 下，而非项目其他位置。
+3. 面向用户的文档（如 README、CHANGELOG、用户帮助文档）不受此规则约束，应放在项目常规位置。
 
 ---
 > Source: [zhimaAi/ChatClaw](https://github.com/zhimaAi/ChatClaw) — distributed by [TomeVault](https://tomevault.io).
