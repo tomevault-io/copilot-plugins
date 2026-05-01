@@ -1,0 +1,9 @@
+{
+  "name": "thenetworkchuck--claude-phone",
+  "displayName": "claude-phone",
+  "description": "Voice interface for Claude Code via SIP/3CX - Call your AI, and your AI can call you",
+  "version": "1.0.0",
+  "author": "theNetworkChuck",
+  "homepage": "https://github.com/theNetworkChuck/claude-phone",
+  "skills": []
+}
