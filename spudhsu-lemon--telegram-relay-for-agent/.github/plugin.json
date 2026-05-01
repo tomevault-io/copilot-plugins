@@ -1,0 +1,9 @@
+{
+  "name": "spudhsu-lemon--telegram-relay-for-agent",
+  "displayName": "telegram-relay-for-agent",
+  "description": "Telegram relay bot for Cursor Cloud Agent - receives files/videos and saves to local directory",
+  "version": "1.0.0",
+  "author": "spudhsu-lemon",
+  "homepage": "https://github.com/spudhsu-lemon/telegram-relay-for-agent",
+  "skills": []
+}
