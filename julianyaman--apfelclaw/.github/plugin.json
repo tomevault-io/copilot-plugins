@@ -1,0 +1,9 @@
+{
+  "name": "julianyaman--apfelclaw",
+  "displayName": "apfelclaw",
+  "description": "apfelclaw is an AI agent for tasks with macOS using Apple's Foundation model via apfel.",
+  "version": "1.0.0",
+  "author": "julianYaman",
+  "homepage": "https://github.com/julianYaman/apfelclaw",
+  "skills": []
+}
