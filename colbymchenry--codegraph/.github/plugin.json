@@ -1,0 +1,9 @@
+{
+  "name": "colbymchenry--codegraph",
+  "displayName": "codegraph",
+  "description": "Pre-indexed code knowledge graph for Claude Code \u2014 fewer tokens, fewer tool calls, 100% local",
+  "version": "1.0.0",
+  "author": "colbymchenry",
+  "homepage": "https://github.com/colbymchenry/codegraph",
+  "skills": []
+}
