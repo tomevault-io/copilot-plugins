@@ -1,0 +1,9 @@
+{
+  "name": "dzhng--claude-agent-server",
+  "displayName": "claude-agent-server",
+  "description": "Run Claude Agent (Claude Code) in a sandbox, control it via websocket",
+  "version": "1.0.0",
+  "author": "dzhng",
+  "homepage": "https://github.com/dzhng/claude-agent-server",
+  "skills": []
+}
