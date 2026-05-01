@@ -1,4 +1,4 @@
-## proxmux
+## use-bun-instead-of-node-vite-npm-pnpm
 
 > Terminal UI for managing Proxmox VE clusters, built with [Ink](https://github.com/vadimdemedes/ink) (React for CLIs) and [Bun](https://bun.sh).
 
