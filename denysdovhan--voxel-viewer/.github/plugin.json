@@ -1,0 +1,9 @@
+{
+  "name": "denysdovhan--voxel-viewer",
+  "displayName": "voxel-viewer",
+  "description": "Web-based viewer for CBCT (Cone Beam Computed Tomography) volumes and scan folders (supports Sirona GALILEOS, DICOM, OneVolume)",
+  "version": "1.0.0",
+  "author": "denysdovhan",
+  "homepage": "https://github.com/denysdovhan/voxel-viewer",
+  "skills": []
+}
