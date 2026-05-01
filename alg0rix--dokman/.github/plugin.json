@@ -1,0 +1,9 @@
+{
+  "name": "alg0rix--dokman",
+  "displayName": "dokman",
+  "description": "Dokman is a command-line manager for Docker Compose deployments that lets you register projects and then list, start, stop, restart, redeploy, inspect, and monitor them via a unified CLI",
+  "version": "1.0.0",
+  "author": "Alg0rix",
+  "homepage": "https://github.com/Alg0rix/dokman",
+  "skills": []
+}
