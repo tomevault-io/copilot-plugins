@@ -1,0 +1,66 @@
+## preview
+
+> SwiftUI preview capture toolkit - build and screenshot SwiftUI previews for visual analysis
+
+
+# PreviewBuild - SwiftUI Preview Capture Toolkit
+
+A toolkit for building and capturing SwiftUI previews for visual analysis.
+
+## Quick Start
+
+```bash
+# Standalone Swift file (no external dependencies)
+./scripts/preview MyView.swift
+
+# File in an Xcode project (auto-injects PreviewHost target)
+./scripts/preview ContentView.swift --project MyApp.xcodeproj
+
+# File in an SPM package
+./scripts/preview Sources/Module/MyView.swift
+
+# Just capture current simulator
+./scripts/preview --capture-only
+```
+
+## How It Works
+
+| Project Type | Approach | Build Time | Script |
+|--------------|----------|------------|--------|
+| **Standalone Swift** | Minimal host app | ~5 seconds | `preview-minimal.sh` |
+| **Xcode project** | Dynamic target injection | ~3-4 seconds | `preview-tool` |
+| **SPM package** | Temporary project creation | ~20 seconds | `preview-tool` |
+
+## Scripts & Tools
+
+| Path | Purpose |
+|------|---------|
+| `scripts/preview` | Unified entry point - auto-detects best approach |
+| `scripts/preview-minimal.sh` | Build standalone Swift files |
+| `scripts/xcode-preview.sh` | Build full Xcode project schemes |
+| `scripts/capture-simulator.sh` | Screenshot current simulator |
+| `scripts/sim-manager.sh` | Simulator management |
+| `tools/preview-tool` | Swift CLI for dynamic preview injection, SPM preview, dependency resolution |
+
+## Workflow for Cursor
+
+When asked to preview a SwiftUI view:
+
+1. **Run the preview script**:
+   ```bash
+   ./scripts/preview path/to/MyView.swift --output /tmp/preview.png
+   ```
+
+2. **View the screenshot**: Read the file at `/tmp/preview.png`
+
+3. **Analyze and report**: Describe layout, styling, colors, and any issues
+
+## Requirements
+
+- macOS with Xcode installed
+- iOS Simulator
+- Swift toolchain (preview-tool auto-builds on first run)
+
+---
+> Source: [Iron-Ham/XcodePreviews](https://github.com/Iron-Ham/XcodePreviews) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
