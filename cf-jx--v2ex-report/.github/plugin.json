@@ -1,0 +1,9 @@
+{
+  "name": "cf-jx--v2ex-report",
+  "displayName": "v2ex-report",
+  "description": "V2EX \u5e16\u5b50\u8bc4\u8bba\u53ef\u89c6\u5316\u62a5\u544a\u7cfb\u7edf - \u62a5\u7eb8\u7f16\u8f91\u98ce\u683c\u7684\u4ea4\u4e92\u5f0f\u6570\u636e\u62a5\u544a | NYT-style interactive comment visualization",
+  "version": "1.0.0",
+  "author": "cf-jx",
+  "homepage": "https://github.com/cf-jx/v2ex-report",
+  "skills": []
+}
