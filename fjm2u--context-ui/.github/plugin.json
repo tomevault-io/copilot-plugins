@@ -1,0 +1,9 @@
+{
+  "name": "fjm2u--context-ui",
+  "displayName": "context-ui",
+  "description": "A headless generative UI engine for hyper-personalized interfaces.",
+  "version": "1.0.0",
+  "author": "fjm2u",
+  "homepage": "https://github.com/fjm2u/context-ui",
+  "skills": []
+}
