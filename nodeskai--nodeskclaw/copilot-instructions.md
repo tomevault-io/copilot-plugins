@@ -1,54 +1,27 @@
-## admin-portal-boundary
+## auto-plan-review
 
-> **Admin 平台和 Portal 是两个完全独立的用户入口和身份体系，不要混为一谈。**
+> **每次调用 CreatePlan 工具创建 Plan 后，必须立即读取 plan-review skill 文件并由你自己直接执行审查。**
 
-# Admin / Portal 用户体系边界
+# Plan 自动审查
 
-## 核心认知
+## 触发条件
 
-**Admin 平台和 Portal 是两个完全独立的用户入口和身份体系，不要混为一谈。**
+**每次调用 CreatePlan 工具创建 Plan 后，必须立即读取 plan-review skill 文件并由你自己直接执行审查。**
 
-| 维度 | Admin 平台 | Portal |
-|------|-----------|--------|
-| 前端 | `ee/nodeskclaw-frontend`（EE-only） | `nodeskclaw-portal`（CE + EE） |
-| 面向对象 | 平台运维 / 超管 | 组织内普通成员 |
-| 用户来源 | Admin 后台创建或分配 | Portal 注册或邀请 |
-| 关联表 | `AdminMembership` | `OrgMembership` |
+Plan 文件是 markdown，Plan 模式明确允许编辑 markdown 文件，因此审查过程中可以直接修改 plan 文件。
 
-## 关键规则
+## 执行方式
 
-- **Admin 平台创建的用户全部是 Admin 用户**，不会是 Portal 用户
-- `AdminMembership` 记录的是 Admin 用户与组织的关联，这些用户在 Portal 视角中**不可见**
-- 任何涉及"面向 Portal 用户展示"的查询（成员列表、成员计数、协作者选择等），都**必须排除** `AdminMembership` 中的用户
-- Admin 用户虽然可能同时存在于 `OrgMembership` 表中（用于权限关联），但 Portal 的 UI 和统计数据不应包含他们
+1. CreatePlan 调用返回后，立即用 Read 工具读取 `~/.cursor/skills/plan-review/SKILL.md`
+2. 按 skill 中定义的流程（方向审查 → 逐步验证 → 全局检查 → 修正）完成审查
+3. 如发现问题，直接编辑 plan 文件修正
+4. 输出审查结果
 
-## 实现要求
+## 禁止
 
-### member_count 统计
-
-所有面向 Portal 用户的 `member_count` 计算必须排除 Admin 用户：
-
-```python
-admin_user_ids_sub = (
-    select(AdminMembership.user_id)
-    .where(AdminMembership.org_id == org_id, AdminMembership.deleted_at.is_(None))
-)
-count_query = select(func.count(OrgMembership.id)).where(
-    OrgMembership.org_id == org_id,
-    not_deleted(OrgMembership),
-    OrgMembership.user_id.notin_(admin_user_ids_sub),
-)
-```
-
-### 成员列表查询
-
-`list_members()` 已正确排除 Admin 用户。新增任何成员相关查询时，必须保持同样的过滤逻辑。
-
-## 严禁
-
-- **禁止将 Admin 用户和 Portal 用户混为一谈** — 它们是两个独立的身份体系
-- **禁止在 Portal 侧展示 Admin 用户** — 包括成员列表、成员计数、协作者下拉等
-- **禁止假设 Admin 用户 = 组织管理员** — Admin 是平台级概念，组织管理员是 `OrgRole.admin`
+- **禁止使用 Task 工具委派给 sub-agent** — 必须由你自己亲自完成审查
+- **禁止跳过审查** — CreatePlan 后的下一个动作就是读 skill 并执行 review
+- **禁止只报告不修** — 能直接修正的问题直接改 plan 文件
 
 ---
 > Source: [NoDeskAI/nodeskclaw](https://github.com/NoDeskAI/nodeskclaw) — distributed by [TomeVault](https://tomevault.io).
