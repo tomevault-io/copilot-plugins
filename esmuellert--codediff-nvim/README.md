@@ -7,11 +7,11 @@ A Neovim plugin that provides VSCode-style diff rendering with two-tier highligh
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [esmuellert/codediff.nvim](https://github.com/esmuellert/codediff.nvim).
+Original source: `CLAUDE.md` in [esmuellert/codediff.nvim](https://github.com/esmuellert/codediff.nvim).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
