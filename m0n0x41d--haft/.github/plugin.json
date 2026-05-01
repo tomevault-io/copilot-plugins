@@ -1,0 +1,9 @@
+{
+  "name": "m0n0x41d--haft",
+  "displayName": "haft",
+  "description": "Engineering decisions  engine that know when they're stale. Frame, compare, decide \u2014 with evidence decay and parity enforcement. For Claude Code, Cursor, Gemini CLI, Codex and more.",
+  "version": "1.0.0",
+  "author": "m0n0x41d",
+  "homepage": "https://github.com/m0n0x41d/haft",
+  "skills": []
+}
