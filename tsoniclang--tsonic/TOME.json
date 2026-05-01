@@ -4,7 +4,7 @@
   "repo": "tsonic",
   "description": "Compile TS to native code via NativeAOT",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tsoniclang/tsonic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T08:42:03Z"
+  "distributed_at": "2026-05-01T19:43:02Z"
 }
