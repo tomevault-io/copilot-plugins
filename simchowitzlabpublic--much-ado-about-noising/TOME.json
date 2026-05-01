@@ -1,0 +1,44 @@
+{
+  "name": "much-ado-about-noising",
+  "owner": "simchowitzlabpublic",
+  "repo": "much-ado-about-noising",
+  "description": "A optimized PyTorch framework for behavior cloning with flow related generative models. ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/simchowitzlabpublic/much-ado-about-noising",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T19:05:42Z"
+}
