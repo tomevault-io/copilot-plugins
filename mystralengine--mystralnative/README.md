@@ -7,11 +7,11 @@ Native WebGPU JS runtime with SDL3
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mystralengine/mystralnative](https://github.com/mystralengine/mystralnative).
+Original source: `CLAUDE.md` in [mystralengine/mystralnative](https://github.com/mystralengine/mystralnative).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
