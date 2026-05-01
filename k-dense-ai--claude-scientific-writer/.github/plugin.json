@@ -1,0 +1,9 @@
+{
+  "name": "k-dense-ai--claude-scientific-writer",
+  "displayName": "claude-scientific-writer",
+  "description": "A general purpose scientific writer",
+  "version": "1.0.0",
+  "author": "K-Dense-AI",
+  "homepage": "https://github.com/K-Dense-AI/claude-scientific-writer",
+  "skills": []
+}
