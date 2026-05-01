@@ -1,34 +1,34 @@
-## no-emoji-icons
+## release-tagging
 
-> Icon 不用 emoji，统一用 inline SVG
+> 发版打 tag 的正确顺序，防止 package.json 版本号与 git tag 不一致
 
 
-# Icon 规范：SVG 替代 Emoji
+# 发版流程
 
-UI 中所有图标一律使用 inline SVG，禁止使用 emoji 字符。
+每次发新版本必须按以下顺序操作：
 
-```tsx
-// ❌ BAD
-<span className="text-base">{item.icon}</span>    // "🎓" emoji
-<span>📋</span>
+```bash
+# 1. 更新 package.json 版本号
+sed -i '' 's/"version": "x.x.x"/"version": "x.x.y"/' package.json
 
-// ✅ GOOD — inline SVG with currentColor
-<svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8">
-  <path d="M12 14l9-5-9-5-9 5 9 5z" />
-  <path d="M12 14l6.16-3.42A12 12 0 0112 21a12 12 0 01-6.16-10.42L12 14z" />
-</svg>
+# 2. 提交版本号变更
+git add package.json
+git commit -m "chore: bump version to x.x.y"
 
-// ✅ GOOD — icon 为空时用分类色首字母圆标
-<span
-  className="flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold text-white"
-  style={{ backgroundColor: categoryColor }}
->
-  {name.slice(0, 1)}
-</span>
+# 3. 打 tag
+git tag vx.x.y
+
+# 4. 推送（本仓库常用远端名 `teamclaw`）
+git push teamclaw main && git push teamclaw vx.x.y
 ```
 
-- 静态数据中 `icon` 字段留空字符串 `""`，渲染时 fallback 到首字母圆标
-- HAND.toml 等外部数据可能带 emoji，渲染层统一用 SVG 或首字母替代
+推送 `v*` tag 后，GitHub Actions **CI & Release** 会打包并发布到 **GitHub Releases**（无需阿里云；可选配置 OSS 再传对象存储）。也可使用脚本：`./scripts/release-github.sh x.x.y`（要求工作区干净）。
+
+## ❌ 禁止
+
+- 不能先打 tag 再改版本号
+- 不能 force push 已有 tag（GitHub Actions 可能不重新触发）
+- 不能跳过 package.json 更新（应用内显示版本来自 package.json，不是 git tag）
 
 ---
 > Source: [zhangdszq/teamclaw](https://github.com/zhangdszq/teamclaw) — distributed by [TomeVault](https://tomevault.io).
