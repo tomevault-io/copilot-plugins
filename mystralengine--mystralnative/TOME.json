@@ -4,7 +4,7 @@
   "repo": "mystralnative",
   "description": "Native WebGPU JS runtime with SDL3",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mystralengine/mystralnative",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:50:32Z"
+  "distributed_at": "2026-05-01T06:19:40Z"
 }
