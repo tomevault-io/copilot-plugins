@@ -4,7 +4,7 @@
   "repo": "happier",
   "description": "Web, Desktop & Mobile client for Codex, Claude Code, OpenCode, Kimi, Augment Code, Qwen, fully end-to-end encrypted",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/happier-dev/happier",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T10:28:20Z"
+  "distributed_at": "2026-05-01T11:31:00Z"
 }
