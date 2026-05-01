@@ -1,22 +1,20 @@
-## use-pathe-for-paths
+## use-timeouts-helper-in-tests
 
-> Prefer pathe over node:path in TypeScript files.
+> Use shared timeout helpers in tests
 
-# Use pathe for path operations
 
-Use `pathe` instead of `node:path` for path manipulation:
+# Use Timeouts Helper In Tests
 
-- Consistent behavior across Windows/macOS/Linux
-- Works in non-Node runtimes (Deno, Bun, edge)
-- Drop-in replacement with identical API
+When a test needs an explicit timeout, always use a shared named helper from `@prisma-next/test-utils` (for example `timeouts.spinUpPpgDev`).
 
-```typescript
-// Good
-import { dirname, join, resolve } from 'pathe';
+## Do
 
-// Avoid
-import { dirname, join, resolve } from 'node:path';
-```
+- Use `timeouts.*` constants instead of raw numbers.
+- Keep timeout values centralized in `@prisma-next/test-utils`.
+
+## Don't
+
+- Don't write raw numeric timeout values in test bodies (for example `{ timeout: 1_000 }`).
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
