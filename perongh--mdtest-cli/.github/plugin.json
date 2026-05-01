@@ -1,0 +1,9 @@
+{
+  "name": "perongh--mdtest-cli",
+  "displayName": "mdtest-cli",
+  "description": "Run .test.md files using coding agent.",
+  "version": "1.0.0",
+  "author": "PeronGH",
+  "homepage": "https://github.com/PeronGH/mdtest-cli",
+  "skills": []
+}
