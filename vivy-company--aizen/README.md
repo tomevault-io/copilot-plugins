@@ -7,11 +7,11 @@ Bring order to your projects, environments, and day-to-day work.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vivy-company/aizen](https://github.com/vivy-company/aizen).
+Original source: `CLAUDE.md` in [vivy-company/aizen](https://github.com/vivy-company/aizen).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
