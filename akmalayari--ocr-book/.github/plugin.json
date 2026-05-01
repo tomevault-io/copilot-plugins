@@ -1,0 +1,9 @@
+{
+  "name": "akmalayari--ocr-book",
+  "displayName": "ocr-book",
+  "description": "Book OCR Pipeline \u2192 Markdown (PaddleOCR-VL-1.5 + llama-server)",
+  "version": "1.0.0",
+  "author": "akmalayari",
+  "homepage": "https://github.com/akmalayari/ocr-book",
+  "skills": []
+}
