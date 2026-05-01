@@ -1,0 +1,44 @@
+{
+  "name": "GenauTapi",
+  "owner": "ecomunick",
+  "repo": "GenauTapi",
+  "description": "AI-powered German language coach using LLMs, Voice Interaction, and distributed memory context. Built with FastAPI, OpenAI, and SwiftUI.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ecomunick/GenauTapi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T00:21:46Z"
+}
