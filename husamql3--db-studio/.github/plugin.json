@@ -1,0 +1,9 @@
+{
+  "name": "husamql3--db-studio",
+  "displayName": "db-studio",
+  "description": "The modern pgAdmin alternative that works with every database.",
+  "version": "1.0.0",
+  "author": "husamql3",
+  "homepage": "https://github.com/husamql3/db-studio",
+  "skills": []
+}
