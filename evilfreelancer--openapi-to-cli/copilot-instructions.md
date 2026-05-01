@@ -1,24 +1,41 @@
-## testing
+## workflow
 
-> Test rules for openapi-to-cli
+> Workflow for openapi-to-cli
 
 
-## Test Writing Rules
+## Workflow Rules
 
-### General principles
+### Documentation
 
-1. Tests live in the `tests/` directory inside `openapi-to-cli`.
-2. Each test must be independent; use mocks for HTTP (axios) and the filesystem when needed.
-3. `describe` and `it` names should clearly describe the behavior under test.
+- Main documentation is `README.md` in the root of `openapi-to-cli`.
+- When changing CLI behavior, profile format or `.ocli` structure, update `README.md`.
+- All documentation for this project must be written in English.
 
-### Test structure
+### New features (TDD)
 
-- Test files: `*.test.ts`.
-- Grouping by modules, for example: `describe("profile-store", ...)`, `describe("openapi-loader", ...)` etc.
+When adding new functionality to `openapi-to-cli`:
 
-### Running tests
+1. First write a test in `tests/` (for example for profile parsing or command generation).
+2. Run the test and make sure it fails.
+3. Implement the feature in `src/` following architecture and code-style rules.
+4. Run the test again and make sure it passes.
+5. Run all tests: `npm test` from the `openapi-to-cli` directory.
 
-From the `openapi-to-cli` directory:
+### Bug fixes (TDD)
+
+When fixing a bug:
+
+1. Write a test that reproduces the bug.
+2. Make sure the test fails.
+3. Fix the code.
+4. Make sure the test passes.
+5. Run all tests.
+
+### Tests
+
+- Tests are stored in `tests/` next to `src/`.
+- Test file names: `*.test.ts`.
+- Run tests:
 
 ```bash
 npm test
