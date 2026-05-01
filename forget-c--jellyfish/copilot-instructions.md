@@ -1,79 +1,56 @@
-## jellyfish-doc-governance
+## jellyfish-product-boundary
 
-> Jellyfish 文档目录职责与更新治理规则
+> Jellyfish 页面职责、状态语义与主流程边界
 
 
-# Jellyfish Documentation Governance Rules
+# Jellyfish Product Boundary Rules
 
-## 目录职责
+## 前端页面职责
 
-- `site/content/blog` 用于存放 release note。
-- 未被明确指定时，不修改已固化版本的 release note。
-- `site/content/docs` 栏目职责必须严格区分：
-  - `guide` = 开发指南 / how-to，回答“怎么做”。
-  - `architecture` = 当前架构，回答“现在是什么”。
-  - `plans` = 任务计划，回答“接下来做什么”。
-  - `reference` = 稳定参考资料，回答“查什么”。
+- 分镜编辑页 = 准备：
+  - 负责资产/对白提取、候选确认、基础信息修正。
+  - 负责将镜头推进到 `ready`。
+- 分镜工作室 = 生成：
+  - 负责视频准备度、关键帧、图片、视频参数与视频生成。
+  - 不应承担主要的提取确认职责。
+- 任务中心 = 通用任务状态面板：
+  - 只展示通用、轻量任务信息（状态、进度、成功/失败、取消与回跳入口）。
+  - 不承载业务专属上下文摘要，不展示提示词调试上下文、图文映射细节等重信息。
+  - 业务细节应留在对应业务面板（提示词弹窗、生成面板、诊断面板）。
 
-## 文档归属判定
+## 状态语义约定
 
-- 新增或调整文档前，必须先判断内容归属：
-  - 当前真实实现、当前边界、当前状态流转 -> `architecture`
-  - 正在推进或待推进的改造方案、任务拆解、阶段计划 -> `plans`
-  - 操作说明、开发流程、接入方式 -> `guide`
+- `shot.status` 只表示信息提取确认状态：
+  - `pending`：仍有提取确认工作未完成。
+  - `ready`：已完成提取确认，可进入后续生成准备。
+- `shot.status` 不用于表达运行时生成状态：
+  - `generating` 不再作为正式 `shot.status` 使用。
+  - 运行中状态统一来自任务系统与 runtime summary。
+- `video-readiness` 单独表示“是否具备视频生成条件”，并与 `shot.status` 分离。
+- 页面展示必须明确区分三类状态：
+  - 信息确认状态
+  - 运行时任务状态
+  - 视频生成准备度
+- 状态语义变更后必须同步：
+  - 后端实现
+  - OpenAPI
+  - 前端 generated types
+  - 开发文档 / 说明文档
 
-## 协作约定
+## 分镜主流程约定
 
-- 涉及系统结构、状态语义、页面职责边界调整时，必须同步更新 `site` 文档：
-  - 当前已生效规则，更新到 `site/content/docs/architecture/`
-  - 尚在推进中的方案，更新到 `site/content/docs/plans/`
-- `architecture` 与 `plans` 必须保持动态更新，不允许长期滞后于真实代码状态：
-  - 架构已落地但文档未更新，视为未完成。
-  - 计划已变更但文档未更新，视为未完成。
-
-## 文档更新原则
-
-- `architecture` 文档：
-  - 只记录当前真实生效的实现。
-  - 不混入“未来准备怎么改”的内容。
-  - 当代码行为、状态语义、页面职责发生变化时，必须同步修订。
-- `plans` 文档：
-  - 记录当前仍在推进中的计划、分阶段任务和方案。
-  - 当计划范围、优先级、执行路径发生变化时，必须同步修订。
-  - 某项计划稳定落地后，应沉淀到 `architecture` 或发布到 `blog`。
-- 同一主题若同时涉及“当前事实”和“未来计划”：
-  - 当前事实写入 `architecture`
-  - 未来执行写入 `plans`
-  - 不得混写在同一篇 how-to 中
-
-## Release Note 规范（site/content/blog）
-
-- release note 必须采用稳定结构（可按需裁剪，但顺序不变）：
-  - `Highlights`
-  - `Added` / `Changed` / `Fixed`
-  - `Breaking Changes`（存在行为/契约变化时必填）
-  - `Deprecations`（存在弃用路径时必填）
-  - `Security`
-  - `Known Issues`
-  - `Migration Guide`
-  - `Rollback Notes`
-  - `Compatibility Matrix`
-  - `Validation Commands`
-  - `Upgrade Checklist`
-  - `References`
-  - `Notes for Contributors`
-  - `Acknowledgements`
-- frontmatter 最低要求：
-  - `title`
-  - `date`
-  - `description`
-  - `tags`
-  - `authors`
-- 写作风格要求：
-  - 使用维护者发布口径，优先“变更结论 + 升级动作 + 风险提示”。
-  - 术语保持一致，不混用状态语义（如 `shot.status` 与 runtime task status）。
-  - 升级、回滚、验证信息必须具备可执行性，避免模糊指引。
-  - 采用清单化与短段落表达，避免重复叙述与无信息密度段落。
+- 标准主流程：
+  1. 章节内容提取分镜
+  2. 分镜编辑页完成资产/对白等基础信息提取与确认
+  3. 分镜工作室完成关键帧、参考图、视频参数与视频准备度检查
+  4. 分镜工作室发起视频生成
+- 默认职责边界：
+  - 分镜编辑页负责“提取、确认、修正”。
+  - 分镜工作室负责“生成准备、执行生成、查看结果”。
+- 若工作室保留提取相关能力，仅作为快捷入口或诊断入口，不应成为提取确认主入口。
+- 涉及页面交互调整时，优先保证流转成立：
+  - 编辑页准备完成后，明确引导进入工作室继续生成。
+  - 工作室发现镜头未 `ready` 时，明确引导回编辑页确认。
 
 ---
 > Source: [Forget-C/Jellyfish](https://github.com/Forget-C/Jellyfish) — distributed by [TomeVault](https://tomevault.io).
