@@ -1,0 +1,9 @@
+{
+  "name": "benodiwal--pg-ai-query",
+  "displayName": "pg_ai_query",
+  "description": "postgresql extension that converts natural language to sql",
+  "version": "1.0.0",
+  "author": "benodiwal",
+  "homepage": "https://github.com/benodiwal/pg_ai_query",
+  "skills": []
+}
