@@ -1,0 +1,9 @@
+{
+  "name": "gumbiwambo--obsidian-character-sheet",
+  "displayName": "obsidian-character-sheet",
+  "description": "An obsidian plugin to create a dnd character sheet in obsidian",
+  "version": "1.0.0",
+  "author": "gumbiWambo",
+  "homepage": "https://github.com/gumbiWambo/obsidian-character-sheet",
+  "skills": []
+}
