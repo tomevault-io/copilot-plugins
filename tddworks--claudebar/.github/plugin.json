@@ -1,0 +1,9 @@
+{
+  "name": "tddworks--claudebar",
+  "displayName": "ClaudeBar",
+  "description": "A macOS menu bar application that monitors AI coding assistant usage quotas. Keep track of your Claude, Codex, Antigravity ,and Gemini usage at a glance.",
+  "version": "1.0.0",
+  "author": "tddworks",
+  "homepage": "https://github.com/tddworks/ClaudeBar",
+  "skills": []
+}
