@@ -1,0 +1,9 @@
+{
+  "name": "zhizhuodemao--js-reverse-mcp",
+  "displayName": "js-reverse-mcp",
+  "description": "\u4e3a AI Agent \u8bbe\u8ba1\u7684 JS \u9006\u5411 MCP Server\uff0c\u5185\u7f6e\u53cd\u68c0\u6d4b\uff0c\u57fa\u4e8e chrome-devtools-mcp \u91cd\u6784 | JS reverse engineering MCP server with agent-first tool design and built-in anti-detection. Rebuilt from chrome-devtools-mcp.",
+  "version": "1.0.0",
+  "author": "zhizhuodemao",
+  "homepage": "https://github.com/zhizhuodemao/js-reverse-mcp",
+  "skills": []
+}
