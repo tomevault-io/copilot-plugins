@@ -1,0 +1,44 @@
+{
+  "name": "SlaytheSpire2-ModScaffold",
+  "owner": "L4ntern0",
+  "repo": "SlaytheSpire2-ModScaffold",
+  "description": "Slay the Spire 2 mod development scaffold \u2014 one-click setup (.NET 10, Godot, ILSpy MCP, STS2MCP), Harmony hook templates, automated install/build/deploy, and complete modding guide with 144 documented hook points.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/L4ntern0/SlaytheSpire2-ModScaffold",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-01T09:35:36Z"
+}
