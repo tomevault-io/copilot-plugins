@@ -1,53 +1,24 @@
-## sql-types-imports
+## storage-type-hooks
 
-> Canonical import paths for SQL types
+> Use codec-owned storage-type hooks for control-plane type behavior
 
 
-# SQL Types Import Path
+# Storage Type Control Hooks
 
-**CRITICAL**: SQL-specific contract types (`SqlContract`, `SqlStorage`, `SqlMappings`, etc.) should be imported from `@prisma-next/sql-contract/types` (shared plane package).
+**Use codec-owned control hooks for storage type behavior.** Contract-defined storage types must be handled by codec owners (adapter/extension), not by adding enum-specific fields to shared IR.
 
-## Current Import Strategy
+## Do
 
-All packages should import SQL contract types from the shared plane:
+- Represent custom storage types via `storage.types` and column `typeRef`
+- Implement planning/verification/introspection in codec-owned hooks
+- Use schema annotations for target-specific introspection data
+- Prefer adapter `format_type()` output when expanding parameterized native types
 
-```typescript
-// ✅ CORRECT: Import SQL types from sql-contract (shared plane)
-import type { SqlContract, SqlStorage, SqlMappings } from '@prisma-next/sql-contract/types';
-```
+## Avoid
 
-## Package Structure
-
-- **`@prisma-next/contract`**: Core contract types (`ContractBase`, `Source`) and document family types (`DocumentContract`)
-- **`@prisma-next/sql-contract`**: SQL-specific contract types (`SqlContract`, `SqlStorage`, `SqlMappings`, `ModelDefinition`, `StorageTable`, `StorageColumn`, etc.) - **canonical source** (shared plane)
-- **`@prisma-next/sql-operations`**: SQL-specific operations (`OperationSignature`, `LoweringSpec`, `assembleOperationRegistry`) - **canonical source** (shared plane, see brief 18)
-- **`@prisma-next/sql-contract-emitter`**: SQL emitter hook (`sqlTargetFamilyHook`) - **canonical source**
-- **`@prisma-next/operations`**: Target-neutral operations (`OperationRegistry`, `ArgSpec`, `ReturnSpec`, `createOperationRegistry`) - **canonical source**
-
-## When to Use Each Package
-
-- **`@prisma-next/contract/types`**: Core contract types (`ContractBase`, `Source`) or document family types (`DocumentContract`)
-- **`@prisma-next/sql-contract/types`**: SQL-specific contract types (canonical source, shared plane)
-- **`@prisma-next/sql-contract/validators`**: SQL contract validators (shared plane)
-- **`@prisma-next/sql-contract/factories`**: SQL contract IR factories (shared plane)
-- **`@prisma-next/sql-operations`**: SQL-specific operations (canonical source, shared plane, use directly)
-- **`@prisma-next/sql-contract-emitter`**: SQL emitter hook (canonical source, use directly)
-- **`@prisma-next/operations`**: Target-neutral operations (canonical source, use directly)
-
-## Migration Notes
-
-- **All packages**: Should import SQL contract types from `@prisma-next/sql-contract/types` (shared plane)
-- **Runtime and Lanes**: Can safely import from `@prisma-next/sql-contract/types` as it's in the shared plane
-- **Authoring and Emitter**: Import from `@prisma-next/sql-contract/types` for types, `@prisma-next/sql-contract/validators` for validation
-- **Test files**: Use `@prisma-next/sql-contract/types` and `@prisma-next/sql-contract/factories` for test fixtures
-
-## Common Mistakes
-
-If you see TypeScript errors like:
-- `"@prisma-next/contract/types" has no exported member named 'SqlContract'`
-- `Module '"@prisma-next/contract/types"' has no exported member 'SqlStorage'`
-
-This means you're importing SQL types from the wrong package. Change the import to use `@prisma-next/sql-contract/types`.
+- Adding enum-specific fields to `SqlSchemaIR`
+- Framework-level enum abstractions or codecId branching in shared SQL layers
+- Treating missing type parameters as a successful match when the contract declares them
 
 ---
 > Source: [prisma/prisma-next](https://github.com/prisma/prisma-next) — distributed by [TomeVault](https://tomevault.io).
