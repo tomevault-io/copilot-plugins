@@ -1,61 +1,108 @@
-## clarify-first-prompting
+## cursor-agent-orchestration
 
-> Clarification guidance: inspect first, ask only on real forks, and keep questions small and consequential.
+> Cursor orchestration guide: when to plan, when to delegate, and how to keep multi-step work coherent.
 
 
-# Clarify-First Prompting
+# Cursor Agent Orchestration
 
-Clarification is for real uncertainty, not for information the repo or runtime already contains.
+Use this rule for deep or exhaustive tasks where coordination matters more than raw implementation speed.
 
-## Inspect Before Asking
+## Core Idea
 
-Before asking a question, first check whether the answer is available through:
-- project files
-- existing code patterns
-- tool output
-- current docs when version-sensitive behavior matters
+The main agent should own synthesis. Plans, subagents, and task tracking exist to reduce context load and make large work safer.
 
-Do not ask the user for information you can inspect directly.
+## Local and cloud sessions (optional)
 
-## When to Ask
+Cursor 3 emphasizes moving work between **local** and **cloud** agent sessions. Treat this as workflow guidance, not a requirement:
 
-Ask only when the answer materially changes the implementation:
-- security or authentication model
-- destructive data or migration strategy
-- major architecture branch
-- user-facing product choice with costly reversal
+- Prefer **local** when you need fast edit–run–debug loops, full filesystem access, or machine-specific verification.
+- Consider **cloud** when a task should keep running while you are away, or when you want continuation without tying up the local machine—then **hand back to local** to validate on the real environment when claims are environment-specific.
 
-## When to Proceed
+Handoffs should still use explicit goals, owned paths, and what was verified (see `agent-teams.mdc`).
 
-Proceed without asking when:
-- project conventions already answer the question
-- the choice is small and reversible
-- a safe default exists
-- the user explicitly asked for a best-effort implementation
+## Parallel sessions and the sidebar
 
-## Question Rules
+Cursor 3 can show **many agent sessions** at once (including from other surfaces). That mirrors the idea of concurrent **`Task`** / subagent delegation: only parallelize **independent** slices, merge results in one synthesis step, and avoid two sessions racing the same files. The UI makes parallelism easier; it does not remove the need for clear ownership.
 
-- Ask at most 1-2 critical questions at a time.
-- Use structured questions only when the choice has real tradeoffs.
-- Put the recommended or safest default first when presenting options.
-- Once the user answers, proceed without re-confirming.
+## When to Plan
 
-## Good Pattern
+Plan when:
+- the task is ambiguous
+- multiple valid approaches exist
+- many files or systems will change
+- the user needs approval before implementation
+
+Do not over-plan one-file fixes or straightforward edits.
+Use the environment's active planning workflow or mode when it exists instead of assuming a specific planning tool name.
+
+## When to Use Task (subagents)
+
+In Composer-style Cursor agents the tool is usually **`Task`** (subagent-style delegation; types such as explore, debugger, verifier—see the live schema). Use it when:
+- repo exploration is broad and would pollute main context
+- independent investigations can run in parallel
+- a verifier or debugger pass would help
+- the task has a long-running research branch
+
+Avoid delegation overhead for instant or light work.
+
+When several independent branches exist, do not launch them serially by habit. Launch multiple `Task` calls together with separate scopes and merge their results in the main thread.
+
+## Delegation Pattern
 
 ```text
-1. Inspect repo and runtime
-2. Identify the true unknown
-3. Ask only if that unknown changes the architecture or outcome
-4. Otherwise choose a safe default and continue
+1. Define the slices
+2. Delegate only independent work
+3. Launch independent subagents concurrently when possible
+4. Read subagent summaries
+5. Synthesize decisions in the main thread
+6. Implement and verify centrally
 ```
 
-## Anti-Patterns
+## Parallel Delegation Rules
 
-Do not:
-- ask about framework, package, or file structure when the repo can answer it
-- ask about tiny implementation details
-- repeat questions the user already answered
-- use fake `<think>` or `<thinking>` blocks as clarification scaffolding
+- Give each subagent a bounded scope, not a vague restatement of the whole task.
+- State exactly what the subagent should return: findings, file paths, risks, or a decision recommendation.
+- Prefer 2 to 4 concurrent subagents over a long serial chain.
+- Do not split work so finely that coordination costs more than the saved time.
+- If one branch depends on another, keep it sequential.
+- If two subagents may overlap, assign different directories, files, or questions.
+
+Parallel subagents are best for research and analysis. Centralize edits and final verification unless there is a strong reason to delegate them.
+
+## Todo and Progress Tracking
+
+Use `TodoWrite` for real multi-step execution:
+- large refactors
+- multi-file features
+- research plus implementation plus validation
+
+Keep the list current. Do not let stale in-progress items pile up.
+
+## Solver Loop for Complex Tasks
+
+For deep work:
+
+```text
+Orient
+Find the spine
+Choose the smallest proving slice
+Implement
+Verify
+Broaden carefully
+```
+
+For exhaustive work, break the task into independently verifiable milestones rather than broad abstract epics.
+
+## Verification During Orchestration
+
+Do not postpone all checks to the end. Verify per phase:
+- after code changes, run the smallest relevant command
+- after UI changes, use browser checks when needed
+- after a major feature phase, run broader validation
+
+Use the **diff / review surface** in Cursor when it helps you stage, review, and ship; keep claims aligned with the always-on status and verification rule regardless of UI.
+
+Final user-facing completion claims should follow the always-on status and verification rule rather than ad-hoc wording.
 
 ---
 > Source: [madebyaris/advance-minimax-m2-cursor-rules](https://github.com/madebyaris/advance-minimax-m2-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
