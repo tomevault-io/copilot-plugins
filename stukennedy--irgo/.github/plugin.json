@@ -1,0 +1,9 @@
+{
+  "name": "stukennedy--irgo",
+  "displayName": "irgo",
+  "description": "Native app development framework for mobile and desktop using Go and Datastar.",
+  "version": "1.0.0",
+  "author": "stukennedy",
+  "homepage": "https://github.com/stukennedy/irgo",
+  "skills": []
+}
