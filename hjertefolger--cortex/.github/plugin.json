@@ -1,0 +1,9 @@
+{
+  "name": "hjertefolger--cortex",
+  "displayName": "cortex",
+  "description": "Persistent local memory for Claude Code. Longer sessions. Cross-session recall. Zero cloud.",
+  "version": "1.0.0",
+  "author": "hjertefolger",
+  "homepage": "https://github.com/hjertefolger/cortex",
+  "skills": []
+}
