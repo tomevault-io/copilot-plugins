@@ -1,0 +1,75 @@
+{
+  "name": "perry",
+  "owner": "gricha",
+  "repo": "perry",
+  "description": "Workspace orchestration for local development environments using docker-in-docker",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "perry",
+      "path": "skills/perry",
+      "github_url": "https://github.com/gricha/perry/tree/main/skills/perry",
+      "description": ""
+    },
+    {
+      "name": "react-review",
+      "path": ".claude/skills/react-review",
+      "github_url": "https://github.com/gricha/perry/tree/main/.claude/skills/react-review",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "path": ".agents/skills/security-review",
+      "github_url": "https://github.com/gricha/perry/tree/main/.agents/skills/security-review",
+      "description": ""
+    },
+    {
+      "name": "warden-skill",
+      "path": ".agents/skills/warden-skill",
+      "github_url": "https://github.com/gricha/perry/tree/main/.agents/skills/warden-skill",
+      "description": ""
+    },
+    {
+      "name": "perry-workspaces",
+      "path": "perry-workspaces",
+      "github_url": "https://github.com/gricha/perry/tree/main/perry-workspaces",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gricha/perry",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:40:40Z"
+}
