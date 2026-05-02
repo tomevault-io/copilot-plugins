@@ -1,0 +1,9 @@
+{
+  "name": "elliotykim--claudewatch",
+  "displayName": "claudewatch",
+  "description": "A macOS menu bar app that monitors your Claude Code usage and service status",
+  "version": "1.0.0",
+  "author": "elliotykim",
+  "homepage": "https://github.com/elliotykim/claudewatch",
+  "skills": []
+}
