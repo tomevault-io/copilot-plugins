@@ -1,0 +1,441 @@
+{
+  "name": "samuel",
+  "owner": "ar4mirez",
+  "repo": "samuel",
+  "description": "Minimalist yet powerful AI-assisted development framework. Production-ready CLAUDE.md & AGENTS.md system with 35+ guardrails, 4D methodology, and auto-loading language guides for TypeScript, Python, Go, and Rust.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "actix-web",
+      "path": ".claude/skills/actix-web",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/actix-web",
+      "description": ""
+    },
+    {
+      "name": "android-compose",
+      "path": ".claude/skills/android-compose",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/android-compose",
+      "description": ""
+    },
+    {
+      "name": "aspnet-core",
+      "path": ".claude/skills/aspnet-core",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/aspnet-core",
+      "description": ""
+    },
+    {
+      "name": "assembly-guide",
+      "path": ".claude/skills/assembly-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/assembly-guide",
+      "description": ""
+    },
+    {
+      "name": "auto",
+      "path": ".claude/skills/auto",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/auto",
+      "description": ""
+    },
+    {
+      "name": "axum",
+      "path": ".claude/skills/axum",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/axum",
+      "description": ""
+    },
+    {
+      "name": "blazor",
+      "path": ".claude/skills/blazor",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/blazor",
+      "description": ""
+    },
+    {
+      "name": "cleanup-project",
+      "path": ".claude/skills/cleanup-project",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/cleanup-project",
+      "description": ""
+    },
+    {
+      "name": "commit-message",
+      "path": ".claude/skills/commit-message",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/commit-message",
+      "description": ""
+    },
+    {
+      "name": "cpp-guide",
+      "path": ".claude/skills/cpp-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/cpp-guide",
+      "description": ""
+    },
+    {
+      "name": "create-prd",
+      "path": ".claude/skills/create-prd",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/create-prd",
+      "description": ""
+    },
+    {
+      "name": "create-rfd",
+      "path": ".claude/skills/create-rfd",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/create-rfd",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "path": ".claude/skills/create-skill",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/create-skill",
+      "description": ""
+    },
+    {
+      "name": "csharp-guide",
+      "path": ".claude/skills/csharp-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/csharp-guide",
+      "description": ""
+    },
+    {
+      "name": "cuda-guide",
+      "path": ".claude/skills/cuda-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/cuda-guide",
+      "description": ""
+    },
+    {
+      "name": "dart-frog",
+      "path": ".claude/skills/dart-frog",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/dart-frog",
+      "description": ""
+    },
+    {
+      "name": "dart-guide",
+      "path": ".claude/skills/dart-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/dart-guide",
+      "description": ""
+    },
+    {
+      "name": "document-work",
+      "path": ".claude/skills/document-work",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/document-work",
+      "description": ""
+    },
+    {
+      "name": "echo",
+      "path": ".claude/skills/echo",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/echo",
+      "description": ""
+    },
+    {
+      "name": "express",
+      "path": ".claude/skills/express",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/express",
+      "description": ""
+    },
+    {
+      "name": "fastapi",
+      "path": ".claude/skills/fastapi",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/fastapi",
+      "description": ""
+    },
+    {
+      "name": "fiber",
+      "path": ".claude/skills/fiber",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/fiber",
+      "description": ""
+    },
+    {
+      "name": "flask",
+      "path": ".claude/skills/flask",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/flask",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "path": ".claude/skills/flutter",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/flutter",
+      "description": ""
+    },
+    {
+      "name": "generate-agents-md",
+      "path": ".claude/skills/generate-agents-md",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/generate-agents-md",
+      "description": ""
+    },
+    {
+      "name": "gin",
+      "path": ".claude/skills/gin",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/gin",
+      "description": ""
+    },
+    {
+      "name": "go-guide",
+      "path": ".claude/skills/go-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/go-guide",
+      "description": ""
+    },
+    {
+      "name": "hanami",
+      "path": ".claude/skills/hanami",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/hanami",
+      "description": ""
+    },
+    {
+      "name": "html-css-guide",
+      "path": ".claude/skills/html-css-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/html-css-guide",
+      "description": ""
+    },
+    {
+      "name": "initialize-project",
+      "path": ".claude/skills/initialize-project",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/initialize-project",
+      "description": ""
+    },
+    {
+      "name": "java-guide",
+      "path": ".claude/skills/java-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/java-guide",
+      "description": ""
+    },
+    {
+      "name": "kotlin-guide",
+      "path": ".claude/skills/kotlin-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/kotlin-guide",
+      "description": ""
+    },
+    {
+      "name": "ktor",
+      "path": ".claude/skills/ktor",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/ktor",
+      "description": ""
+    },
+    {
+      "name": "laravel",
+      "path": ".claude/skills/laravel",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/laravel",
+      "description": ""
+    },
+    {
+      "name": "lua-guide",
+      "path": ".claude/skills/lua-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/lua-guide",
+      "description": ""
+    },
+    {
+      "name": "micronaut",
+      "path": ".claude/skills/micronaut",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/micronaut",
+      "description": ""
+    },
+    {
+      "name": "nextjs",
+      "path": ".claude/skills/nextjs",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/nextjs",
+      "description": ""
+    },
+    {
+      "name": "php-guide",
+      "path": ".claude/skills/php-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/php-guide",
+      "description": ""
+    },
+    {
+      "name": "python-guide",
+      "path": ".claude/skills/python-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/python-guide",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "path": ".claude/skills/quarkus",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/quarkus",
+      "description": ""
+    },
+    {
+      "name": "r-guide",
+      "path": ".claude/skills/r-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/r-guide",
+      "description": ""
+    },
+    {
+      "name": "rails",
+      "path": ".claude/skills/rails",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/rails",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": ".claude/skills/react",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/react",
+      "description": ""
+    },
+    {
+      "name": "refactoring",
+      "path": ".claude/skills/refactoring",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/refactoring",
+      "description": ""
+    },
+    {
+      "name": "rocket",
+      "path": ".claude/skills/rocket",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/rocket",
+      "description": ""
+    },
+    {
+      "name": "ruby-guide",
+      "path": ".claude/skills/ruby-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/ruby-guide",
+      "description": ""
+    },
+    {
+      "name": "rust-guide",
+      "path": ".claude/skills/rust-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/rust-guide",
+      "description": ""
+    },
+    {
+      "name": "security-audit",
+      "path": ".claude/skills/security-audit",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/security-audit",
+      "description": ""
+    },
+    {
+      "name": "shelf",
+      "path": ".claude/skills/shelf",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/shelf",
+      "description": ""
+    },
+    {
+      "name": "sinatra",
+      "path": ".claude/skills/sinatra",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/sinatra",
+      "description": ""
+    },
+    {
+      "name": "solidity-guide",
+      "path": ".claude/skills/solidity-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/solidity-guide",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-java",
+      "path": ".claude/skills/spring-boot-java",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/spring-boot-java",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-kotlin",
+      "path": ".claude/skills/spring-boot-kotlin",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/spring-boot-kotlin",
+      "description": ""
+    },
+    {
+      "name": "sql-guide",
+      "path": ".claude/skills/sql-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/sql-guide",
+      "description": ""
+    },
+    {
+      "name": "swift-guide",
+      "path": ".claude/skills/swift-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/swift-guide",
+      "description": ""
+    },
+    {
+      "name": "swiftui",
+      "path": ".claude/skills/swiftui",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/swiftui",
+      "description": ""
+    },
+    {
+      "name": "symfony",
+      "path": ".claude/skills/symfony",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/symfony",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy",
+      "path": ".claude/skills/testing-strategy",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/testing-strategy",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting",
+      "path": ".claude/skills/troubleshooting",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "typescript-guide",
+      "path": ".claude/skills/typescript-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/typescript-guide",
+      "description": ""
+    },
+    {
+      "name": "uikit",
+      "path": ".claude/skills/uikit",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/uikit",
+      "description": ""
+    },
+    {
+      "name": "unity",
+      "path": ".claude/skills/unity",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/unity",
+      "description": ""
+    },
+    {
+      "name": "update-framework",
+      "path": ".claude/skills/update-framework",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/update-framework",
+      "description": ""
+    },
+    {
+      "name": "vapor",
+      "path": ".claude/skills/vapor",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/vapor",
+      "description": ""
+    },
+    {
+      "name": "wordpress",
+      "path": ".claude/skills/wordpress",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/wordpress",
+      "description": ""
+    },
+    {
+      "name": "zig-guide",
+      "path": ".claude/skills/zig-guide",
+      "github_url": "https://github.com/ar4mirez/samuel/tree/main/.claude/skills/zig-guide",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ar4mirez/samuel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T00:30:08Z"
+}
