@@ -1,0 +1,9 @@
+{
+  "name": "hotchpotch--duckdb-vaporetto",
+  "displayName": "duckdb-vaporetto",
+  "description": "DuckDB extension for Japanese full-text search with \ud83d\udee5Vaporetto / Vaporetto \u306b\u3088\u308b DuckDB + \u65e5\u672c\u8a9e\u5168\u6587\u691c\u7d22\u62e1\u5f35\u6a5f\u80fd",
+  "version": "1.0.0",
+  "author": "hotchpotch",
+  "homepage": "https://github.com/hotchpotch/duckdb-vaporetto",
+  "skills": []
+}
