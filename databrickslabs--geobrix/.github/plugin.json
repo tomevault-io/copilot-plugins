@@ -1,0 +1,9 @@
+{
+  "name": "databrickslabs--geobrix",
+  "displayName": "geobrix",
+  "description": "GeoBrix is a high-performance spatial processing library.",
+  "version": "1.0.0",
+  "author": "databrickslabs",
+  "homepage": "https://github.com/databrickslabs/geobrix",
+  "skills": []
+}
