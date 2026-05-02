@@ -1,15 +1,27 @@
-## changelog
+## openapi-sync
 
-> Update CHANGELOG.md for user-visible changes (Keep a Changelog)
+> Keep OpenAPI in sync when the v1 API or CLI-exposed HTTP surface changes
 
 
-# Changelog
+# OpenAPI and API surface
 
-When a change affects **users or operators** (API, CLI, behavior, docs readers care about, examples, defaults), add a bullet under **`## [Unreleased]`** in [CHANGELOG.md](CHANGELOG.md) in the right section: **Added**, **Changed**, **Deprecated**, **Removed**, **Fixed**, or **Security**.
+When you change any of the following, update **[openapi/](openapi/)** so paths and schemas stay accurate, then run the same check as CI:
 
-Skip changelog entries for internal refactors, test-only changes, and CI/tooling that does not change user-visible behavior. Full policy: [CONTRIBUTING.md](CONTRIBUTING.md) (section **Changelog**).
+`npx --yes @redocly/cli@1.28.5 lint openapi/openapi.yaml`
 
-If the PR already has a suitable `[Unreleased]` entry, do not duplicate; extend it.
+**Usually requires OpenAPI updates**
+
+- **`api/`** — new or changed routes, status codes, query params, or JSON bodies on the control-plane API.
+- **Resource JSON** shipped over the API — Go types in **`resources/`** (and related handlers) when they change serialized shape fields users or `orlojctl apply` send/receive.
+- **`orlojctl`** — new subcommands or flags that call **new or changed** HTTP endpoints or bodies (extend the spec to match what the server actually does).
+
+**Often does not require OpenAPI updates**
+
+- **Offline-only CLI** (e.g. manifest parse/validate with no new HTTP contract).
+- Internal refactors with identical wire format.
+- Docs-only changes outside the spec.
+
+When unsure, compare **`api/server.go`** route registration and handler payloads to **`openapi/openapi.yaml`** (and split schemas under **`openapi/schemas/`**). Regenerate the bundled root doc when your workflow uses **`openapi/build_openapi.py`**.
 
 ---
 > Source: [OrlojHQ/orloj](https://github.com/OrlojHQ/orloj) — distributed by [TomeVault](https://tomevault.io).
