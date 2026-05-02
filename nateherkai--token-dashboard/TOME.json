@@ -1,0 +1,44 @@
+{
+  "name": "token-dashboard",
+  "owner": "nateherkai",
+  "repo": "token-dashboard",
+  "description": "Local dashboard for Claude Code token usage, costs, and session history \u2014 reads JSONL transcripts and turns them into charts, heatmaps, and cost analytics.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nateherkai/token-dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T00:49:10Z"
+}
