@@ -1,0 +1,44 @@
+{
+  "name": "rent-ops",
+  "owner": "BENZEMA216",
+  "repo": "rent-ops",
+  "description": "AI \u79df\u623f\u52a9\u624b \u2014 Claude Code Skill\uff0c\u4e3b\u52a8\u626b\u63cf\u5404\u5e73\u53f0\u623f\u6e90\u3001\u667a\u80fd\u8bc4\u4f30\u6253\u5206\u3001\u9ad8\u5fb7\u5730\u56fe\u53ef\u89c6\u5316",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BENZEMA216/rent-ops",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T01:38:01Z"
+}
