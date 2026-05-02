@@ -1,0 +1,9 @@
+{
+  "name": "casparser--agent-toolkit",
+  "displayName": "agent-toolkit",
+  "description": "The CAS Parser Agent Toolkit is a comprehensive collection of skills, templates, and documentation designed to empower AI coding agents to build, integrate, and manage Fintech applications using CAS P",
+  "version": "1.0.0",
+  "author": "CASParser",
+  "homepage": "https://github.com/CASParser/agent-toolkit",
+  "skills": []
+}
