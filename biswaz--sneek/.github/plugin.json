@@ -1,0 +1,9 @@
+{
+  "name": "biswaz--sneek",
+  "displayName": "sneek",
+  "description": " macOS GUI, CLI for turning your cli commands into persistent mcp tools \u2014 passwords from Keychain and password managers, SSH tunnels handled.",
+  "version": "1.0.0",
+  "author": "biswaz",
+  "homepage": "https://github.com/biswaz/sneek",
+  "skills": []
+}
