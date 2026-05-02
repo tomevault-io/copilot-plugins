@@ -1,9 +1,9 @@
 {
   "name": "kdroidfilter--nucleus",
   "displayName": "Nucleus",
-  "description": "Nucleus",
+  "description": "Nucleus is the native desktop platform for the JVM. Combined with Compose Multiplatform, it forms the most complete, most performant, and most deeply integrated desktop application stack ever built \u2014 ",
   "version": "1.0.0",
   "author": "kdroidFilter",
-  "homepage": "https://tomevault.io/claim/kdroidFilter",
+  "homepage": "https://github.com/kdroidFilter/Nucleus",
   "skills": []
 }
