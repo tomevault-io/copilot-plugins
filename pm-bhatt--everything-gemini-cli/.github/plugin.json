@@ -1,0 +1,9 @@
+{
+  "name": "pm-bhatt--everything-gemini-cli",
+  "displayName": "everything-gemini-cli",
+  "description": "Gemini CLI extension adapted from everything-claude-code by Affaan Mustafa. Commands, skills, and best practices for software development.",
+  "version": "1.0.0",
+  "author": "pm-bhatt",
+  "homepage": "https://github.com/pm-bhatt/everything-gemini-cli",
+  "skills": []
+}
