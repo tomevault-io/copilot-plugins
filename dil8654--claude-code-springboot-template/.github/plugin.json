@@ -1,0 +1,9 @@
+{
+  "name": "dil8654--claude-code-springboot-template",
+  "displayName": "claude-code-springboot-template",
+  "description": "Spring Boot Gradle template with Claude agents, reusable AI skills, and cross-tool guidance for Copilot and local LLM workflows.",
+  "version": "1.0.0",
+  "author": "DIL8654",
+  "homepage": "https://github.com/DIL8654/claude-code-springboot-template",
+  "skills": []
+}
