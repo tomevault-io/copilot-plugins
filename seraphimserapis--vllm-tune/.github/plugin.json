@@ -1,0 +1,9 @@
+{
+  "name": "seraphimserapis--vllm-tune",
+  "displayName": "vllm-tune",
+  "description": "vLLM Tune consolidates MoE and FP8 dense GEMM kernel tuning into a single command",
+  "version": "1.0.0",
+  "author": "SeraphimSerapis",
+  "homepage": "https://github.com/SeraphimSerapis/vllm-tune",
+  "skills": []
+}
