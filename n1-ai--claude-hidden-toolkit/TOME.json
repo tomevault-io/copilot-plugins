@@ -4,7 +4,7 @@
   "repo": "claude-hidden-toolkit",
   "description": "The first comprehensive reverse-engineering of Claude.ai's 37 internal tools. Full parameter schemas, platform-specific behavior across browser/desktop/Android/iOS, and reproducible discovery methodology.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/N1-AI/claude-hidden-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T21:41:56Z"
+  "distributed_at": "2026-05-02T08:09:04Z"
 }
