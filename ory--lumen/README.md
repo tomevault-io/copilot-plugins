@@ -7,11 +7,11 @@ Reduce Claude Code, Codex, OpenCode wall clock and token use by 50% with open so
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ory/lumen](https://github.com/ory/lumen).
+Original source: `CLAUDE.md` in [ory/lumen](https://github.com/ory/lumen).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
