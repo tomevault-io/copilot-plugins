@@ -1,0 +1,9 @@
+{
+  "name": "keypo-us--keypo-cli",
+  "displayName": "keypo-cli",
+  "description": "Local-first, hardware-bound key management and encrypted secrets for AI agents. ",
+  "version": "1.0.0",
+  "author": "keypo-us",
+  "homepage": "https://github.com/keypo-us/keypo-cli",
+  "skills": []
+}
