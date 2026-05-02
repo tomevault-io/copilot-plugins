@@ -1,0 +1,9 @@
+{
+  "name": "iurykrieger--claude-bedrock",
+  "displayName": "claude-bedrock",
+  "description": "Second Brain automation for Obsidian vaults \u2014 entity management, ingestion, compression, and sync via Claude Code skills",
+  "version": "1.0.0",
+  "author": "iurykrieger",
+  "homepage": "https://github.com/iurykrieger/claude-bedrock",
+  "skills": []
+}
