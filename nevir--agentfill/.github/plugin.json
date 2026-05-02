@@ -1,0 +1,30 @@
+{
+  "name": "nevir--agentfill",
+  "displayName": "agentfill",
+  "description": "A \"polyfill\" that standardizes and centralizes AGENTS.md configuration and Agent Skills support within your repository.",
+  "version": "1.0.0",
+  "author": "nevir",
+  "homepage": "https://github.com/nevir/agentfill",
+  "skills": [
+    {
+      "name": "global-magic-skill",
+      "description": ""
+    },
+    {
+      "name": "magic-skill",
+      "description": ""
+    },
+    {
+      "name": "markdown-style",
+      "description": ""
+    },
+    {
+      "name": "shell-style",
+      "description": ""
+    },
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
