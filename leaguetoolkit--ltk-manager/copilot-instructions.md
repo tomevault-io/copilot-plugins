@@ -1,438 +1,196 @@
-## error-handling
+## frontend-guidelines
 
-> Error handling patterns for IPC communication between Rust backend and React frontend
+> Frontend best practices and conventions for the LTK Manager UI
 
 
-# Error Handling Guide
+# LTK Manager Frontend Guidelines
 
-This document describes the error handling patterns used in the LTK Manager application for communication between the Rust backend and React frontend through Tauri's IPC layer.
+This document outlines the best practices and conventions for the LTK Manager frontend built with React, TypeScript, and Tauri.
 
-## Overview
+## Tech Stack
 
-The application uses a **typed Result pattern** for IPC communication, providing:
-- Type-safe error codes for pattern matching
-- Rich error context for debugging
-- Consistent error handling across the entire application
+- **Framework**: React 19 with TypeScript
+- **Build Tool**: Vite
+- **Desktop Runtime**: Tauri v2
+- **Routing**: TanStack Router (file-based routing)
+- **State Management**: Zustand, TanStack Query
+- **Styling**: Tailwind CSS v4
+- **UI Components**: Base UI (`@base-ui-components/react`)
 
-## Architecture
+## Pattern Matching
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        Rust Backend                              │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────────┐   │
-│  │   AppError   │ -> │ AppErrorResp │ -> │  IpcResult<T>    │   │
-│  │  (internal)  │    │  (boundary)  │    │  (serialized)    │   │
-│  └──────────────┘    └──────────────┘    └──────────────────┘   │
-└─────────────────────────────────────────────────────────────────┘
-                              │ JSON
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      TypeScript Frontend                         │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────────┐   │
-│  │  Result<T>   │ -> │   isOk/Err   │ -> │  UI Handling     │   │
-│  │  (received)  │    │  (guards)    │    │  (toast/state)   │   │
-│  └──────────────┘    └──────────────┘    └──────────────────┘   │
-└─────────────────────────────────────────────────────────────────┘
-```
+Use `ts-pattern` for all conditional logic involving multiple cases or complex matching. Avoid nested ternaries.
 
-## Error Types
+```tsx
+// ✅ Preferred: ts-pattern
+import { match } from "ts-pattern";
 
-### Error Codes (Shared)
+const result = match(status)
+  .with("loading", () => <Spinner />)
+  .with("error", () => <ErrorMessage />)
+  .with("success", () => <Content />)
+  .exhaustive();
 
-Error codes are shared between Rust and TypeScript:
+// ✅ Tuple matching for multiple conditions
+const sizeClass = match([isCompact, isIconOnly] as const)
+  .with([true, true], () => "h-6 w-6")
+  .with([true, false], () => "h-6 px-2")
+  .with([false, true], () => "h-8 w-8")
+  .with([false, false], () => "h-8 px-4")
+  .exhaustive();
 
-```typescript
-// @/utils/errors.ts
-type ErrorCode =
-  | "IO"                 // File system errors
-  | "SERIALIZATION"      // JSON parsing errors
-  | "MODPKG"             // Mod package errors
-  | "LEAGUE_NOT_FOUND"   // League installation not found
-  | "INVALID_PATH"       // Invalid file/directory path
-  | "MOD_NOT_FOUND"      // Requested mod doesn't exist
-  | "VALIDATION_FAILED"  // Input validation errors
-  | "INTERNAL_STATE"     // Internal app state errors
-  | "UNKNOWN";           // Unclassified errors
+// ❌ Avoid: Nested ternaries
+const result = isLoading ? <Spinner /> : isError ? <Error /> : <Content />;
 ```
 
-### AppError Interface
+## Class Name Merging
 
-```typescript
-// @/utils/errors.ts
-interface AppError {
-  code: ErrorCode;      // Machine-readable code
-  message: string;      // Human-readable message
-  context?: unknown;    // Optional contextual data
-}
+Always use `tailwind-merge` (`twMerge`) when combining Tailwind classes, especially when accepting className props. This ensures proper class precedence and conflict resolution.
+
+```tsx
+// ✅ Preferred
+import { twMerge } from "tailwind-merge";
+
+const classes = twMerge(baseClasses, variantClasses, sizeClasses, className);
+
+// ❌ Avoid: String concatenation or template literals
+const classes = `${baseClasses} ${variantClasses} ${className}`;
 ```
 
-### Result Type
+## Component Architecture
 
-```typescript
-// @/utils/result.ts
-type Result<T, E = AppError> =
-  | { ok: true; value: T }
-  | { ok: false; error: E };
-```
+### Base UI Components
 
-## Frontend Error Handling Patterns
+Use `@base-ui-components/react` as the foundation for all interactive components. Extend them with custom styles and behavior.
 
-### Pattern 1: Type Guards (Recommended for simple cases)
+```tsx
+// ✅ Preferred: Wrap Base UI components
+import { Button as BaseButton } from "@base-ui-components/react";
 
-Use `isOk` and `isErr` type guards for simple conditional handling:
-
-```typescript
-import { api, isOk, isErr } from "@/lib/tauri";
-
-async function loadMods() {
-  const result = await api.getInstalledMods();
-  
-  if (isOk(result)) {
-    setMods(result.value);
-  } else {
-    console.error("Failed to load mods:", result.error.message);
-    showErrorToast(result.error.message);
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant, size, className, ...props }, ref) => {
+    const classes = twMerge(baseClasses, variantClasses[variant], className);
+    return <BaseButton ref={ref} className={classes} {...props} />;
   }
-}
+);
 ```
 
-### Pattern 2: Match Function (Recommended for exhaustive handling)
+### Component File Structure
 
-Use `match` for cleaner handling of both cases:
+```tsx
+// 1. External imports (React, libraries)
+import { forwardRef, type ReactNode } from "react";
+import { match } from "ts-pattern";
 
-```typescript
-import { api, match } from "@/lib/tauri";
+// 2. Internal imports (base components, utilities)
+import { Button as BaseButton } from "@base-ui-components/react";
+import { twMerge } from "tailwind-merge";
 
-async function loadSettings() {
-  const result = await api.getSettings();
-  
-  match(result, {
-    ok: (settings) => {
-      setSettings(settings);
-    },
-    err: (error) => {
-      // Handle specific error codes
-      if (error.code === "LEAGUE_NOT_FOUND") {
-        showSetupWizard();
-      } else {
-        showErrorToast(error.message);
-      }
-    },
-  });
-}
+// 3. Types
+export type ButtonVariant = "default" | "filled" | "outline";
+export interface ButtonProps { ... }
+
+// 4. Constants (classes, configs)
+const baseClasses = "...";
+const variantClasses: Record<ButtonVariant, string> = { ... };
+
+// 5. Component implementation
+export const Button = forwardRef<...>(...);
+Button.displayName = "Button";
 ```
 
-### Pattern 3: Error Code Pattern Matching
+## Icons
 
-Handle errors differently based on error codes:
+Use `react-icons` for icons. Import from specific icon sets to enable tree-shaking.
 
-```typescript
-import { api, isErr } from "@/lib/tauri";
+```tsx
+// ✅ Preferred: Import from specific set
+import { FiPlus, FiTrash } from "react-icons/fi";
+import { HiOutlineDownload } from "react-icons/hi";
 
-async function installMod(filePath: string) {
-  const result = await api.installMod(filePath);
-  
-  if (isErr(result)) {
-    switch (result.error.code) {
-      case "INVALID_PATH":
-        showError("The selected file doesn't exist or is inaccessible.");
-        break;
-      case "MODPKG":
-        showError("The file is not a valid mod package.");
-        break;
-      case "VALIDATION_FAILED":
-        showError("The mod package failed validation checks.");
-        break;
-      default:
-        showError(`Installation failed: ${result.error.message}`);
-    }
-    return;
-  }
-  
-  // Success case
-  addModToLibrary(result.value);
-  showSuccess("Mod installed successfully!");
-}
+// ❌ Avoid: Importing from root
+import { FiPlus } from "react-icons";
 ```
 
-## TanStack Query Integration
+## Styling Conventions
 
-TanStack Query expects promises to **reject** on error for its error state to work properly. Since our `IpcResult` always resolves successfully (with errors encoded in the payload), we need adapter functions.
+### Tailwind Classes
 
-### Unwrapping Results for Queries
+- Use the custom color palette defined in `app.css` (`brand-*`, `surface-*`, `accent-*`)
+- Prefer semantic color names over raw values
+- Group related classes logically
 
-Create a utility to throw errors for TanStack Query:
-
-```typescript
-// @/utils/query.ts
-import type { Result } from "./result";
-import { isErr } from "./result";
-import type { AppError } from "./errors";
-
-/**
- * Unwrap a Result for use with TanStack Query.
- * Throws the error if Result is Err, allowing Query to catch it.
- */
-export function unwrapForQuery<T>(result: Result<T>): T {
-  if (isErr(result)) {
-    throw result.error;
-  }
-  return result.value;
-}
-
-/**
- * Wrap an API call for use with TanStack Query.
- * Returns a function that throws on error.
- */
-export function queryFn<T>(
-  fn: () => Promise<Result<T>>
-): () => Promise<T> {
-  return async () => {
-    const result = await fn();
-    return unwrapForQuery(result);
-  };
-}
+```tsx
+// ✅ Organized class groups
+const classes = twMerge(
+  // Layout
+  "inline-flex items-center justify-center",
+  // Typography
+  "font-medium text-sm",
+  // Colors
+  "bg-surface-700 text-surface-100",
+  // Interactive states
+  "hover:bg-surface-600 active:bg-surface-800",
+  // Focus
+  "focus-visible:outline-brand-500 focus-visible:outline-2",
+  // Disabled
+  "disabled:opacity-50 disabled:cursor-not-allowed"
+);
 ```
 
-### Using with useQuery
+### Component Variants
 
-```typescript
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/tauri";
-import { queryFn } from "@/utils/query";
-import type { AppError } from "@/utils/errors";
+Use Record types for variant mappings:
 
-function useInstalledMods() {
-  return useQuery<InstalledMod[], AppError>({
-    queryKey: ["mods", "installed"],
-    queryFn: queryFn(api.getInstalledMods),
-  });
-}
-
-// Usage in component
-function ModLibrary() {
-  const { data: mods, error, isLoading, isError } = useInstalledMods();
-  
-  if (isLoading) return <Spinner />;
-  
-  if (isError) {
-    // error is typed as AppError
-    return <ErrorDisplay code={error.code} message={error.message} />;
-  }
-  
-  return <ModGrid mods={mods} />;
-}
-```
-
-### Using with useMutation
-
-```typescript
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/tauri";
-import { unwrapForQuery } from "@/utils/query";
-import type { AppError } from "@/utils/errors";
-
-function useInstallMod() {
-  const queryClient = useQueryClient();
-  
-  return useMutation<InstalledMod, AppError, string>({
-    mutationFn: async (filePath) => {
-      const result = await api.installMod(filePath);
-      return unwrapForQuery(result);
-    },
-    onSuccess: (newMod) => {
-      queryClient.invalidateQueries({ queryKey: ["mods", "installed"] });
-      showSuccess(`${newMod.displayName} installed!`);
-    },
-    onError: (error) => {
-      // Handle specific error codes
-      switch (error.code) {
-        case "INVALID_PATH":
-          showError("File not found or inaccessible.");
-          break;
-        case "MODPKG":
-          showError("Invalid mod package format.");
-          break;
-        default:
-          showError(error.message);
-      }
-    },
-  });
-}
-```
-
-### Custom Query Hooks Pattern
-
-Create domain-specific hooks that encapsulate error handling:
-
-```typescript
-// @/modules/library/hooks/useModLibrary.ts
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/tauri";
-import { queryFn, unwrapForQuery } from "@/utils/query";
-import type { InstalledMod, AppError } from "@/lib/tauri";
-
-export const modKeys = {
-  all: ["mods"] as const,
-  installed: () => [...modKeys.all, "installed"] as const,
-  detail: (id: string) => [...modKeys.all, "detail", id] as const,
+```tsx
+const variantClasses: Record<ButtonVariant, string> = {
+  default: "bg-surface-700 text-surface-100 hover:bg-surface-600",
+  filled: "bg-brand-600 text-white hover:bg-brand-500",
+  outline: "bg-transparent border border-surface-600",
 };
+```
 
-export function useInstalledMods() {
-  return useQuery({
-    queryKey: modKeys.installed(),
-    queryFn: queryFn(api.getInstalledMods),
-  });
-}
+## TypeScript
 
-export function useToggleMod() {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: async ({ modId, enabled }: { modId: string; enabled: boolean }) => {
-      const result = await api.toggleMod(modId, enabled);
-      return unwrapForQuery(result);
-    },
-    onMutate: async ({ modId, enabled }) => {
-      // Optimistic update
-      await queryClient.cancelQueries({ queryKey: modKeys.installed() });
-      
-      const previous = queryClient.getQueryData<InstalledMod[]>(modKeys.installed());
-      
-      queryClient.setQueryData<InstalledMod[]>(modKeys.installed(), (old) =>
-        old?.map((mod) =>
-          mod.id === modId ? { ...mod, enabled } : mod
-        )
-      );
-      
-      return { previous };
-    },
-    onError: (error, variables, context) => {
-      // Rollback on error
-      if (context?.previous) {
-        queryClient.setQueryData(modKeys.installed(), context.previous);
-      }
-      showError(error.message);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: modKeys.installed() });
-    },
-  });
+- Use strict mode
+- Prefer `interface` for object shapes, `type` for unions/intersections
+- Export types alongside components
+- Use `forwardRef` for components that need ref forwarding
+
+```tsx
+export interface ButtonProps
+  extends Omit<BaseButton.Props, "className" | "children"> {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  loading?: boolean;
 }
 ```
 
-## UI Error Handling Components
+## Routing (TanStack Router)
 
-### Error Toast Notifications
+- Use file-based routing in `src/routes/`
+- Access route data via `Route.useLoaderData()`, `Route.useParams()`, etc.
+- Use `<Link>` component for navigation with type-safe `to` prop
 
-```typescript
-// @/components/ui/toast.tsx
-import type { AppError, ErrorCode } from "@/utils/errors";
+## State Management
 
-const errorMessages: Partial<Record<ErrorCode, string>> = {
-  LEAGUE_NOT_FOUND: "League of Legends installation not found. Please configure in Settings.",
-  INVALID_PATH: "The specified path is invalid or inaccessible.",
-  MOD_NOT_FOUND: "The requested mod could not be found.",
-  VALIDATION_FAILED: "Validation failed. Please check your input.",
-};
+- **Local UI state**: `useState`, `useReducer`
+- **Global client state**: Zustand stores
+- **Server state**: TanStack Query
+- **URL state**: TanStack Router search params
 
-export function showAppError(error: AppError) {
-  const title = errorMessages[error.code] || "An error occurred";
-  
-  toast.error(title, {
-    description: error.message,
-  });
-}
+## File Organization
+
 ```
-
-### Error Boundary for Query Errors
-
-```typescript
-// @/components/QueryErrorBoundary.tsx
-import { QueryErrorResetBoundary } from "@tanstack/react-query";
-import { ErrorBoundary } from "react-error-boundary";
-import type { AppError } from "@/utils/errors";
-
-interface ErrorFallbackProps {
-  error: AppError;
-  resetErrorBoundary: () => void;
-}
-
-function ErrorFallback({ error, resetErrorBoundary }: ErrorFallbackProps) {
-  return (
-    <div className="error-container">
-      <h2>Something went wrong</h2>
-      <p className="error-code">{error.code}</p>
-      <p className="error-message">{error.message}</p>
-      <button onClick={resetErrorBoundary}>Try again</button>
-    </div>
-  );
-}
-
-export function QueryErrorBoundary({ children }: { children: React.ReactNode }) {
-  return (
-    <QueryErrorResetBoundary>
-      {({ reset }) => (
-        <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
-          {children}
-        </ErrorBoundary>
-      )}
-    </QueryErrorResetBoundary>
-  );
-}
+src/
+├── components/       # Reusable UI components
+├── routes/          # TanStack Router file-based routes
+├── stores/          # Zustand stores
+├── hooks/           # Custom React hooks
+├── utils/           # Utility functions
+├── types/           # Shared TypeScript types
+└── styles/          # Global styles (app.css)
 ```
-
-## Backend Error Handling (Rust)
-
-### Creating Errors
-
-```rust
-// In command implementations
-fn some_command() -> IpcResult<Data> {
-    // Using ? operator with AppResult
-    let data = do_something().map_err(|e| AppError::Other(e.to_string()))?;
-    
-    // Explicit error creation
-    if !is_valid {
-        return IpcResult::err(AppError::ValidationFailed("Invalid input".into()));
-    }
-    
-    IpcResult::ok(data)
-}
-```
-
-### Adding Error Context
-
-```rust
-// In error.rs - the From<AppError> implementation adds context automatically
-AppError::InvalidPath(path) => {
-    AppErrorResponse::new(ErrorCode::InvalidPath, format!("Invalid path: {}", path))
-        .with_context(serde_json::json!({ "path": path }))
-}
-
-AppError::ModNotFound(id) => {
-    AppErrorResponse::new(ErrorCode::ModNotFound, format!("Mod not found: {}", id))
-        .with_context(serde_json::json!({ "modId": id }))
-}
-```
-
-## Best Practices
-
-1. **Always use typed error codes** - Never rely on string matching for error messages
-2. **Provide context** - Include relevant data (paths, IDs) in error context
-3. **Handle errors at the appropriate level** - Don't catch errors just to re-throw them
-4. **Use optimistic updates with rollback** - For better UX in mutations
-5. **Show user-friendly messages** - Map error codes to human-readable text
-6. **Log errors for debugging** - Keep technical details in console/logs
-7. **Use error boundaries** - Prevent entire app crashes from unhandled errors
-
-## File Locations
-
-- `src/utils/errors.ts` - Error types and helpers
-- `src/utils/result.ts` - Result type and utilities
-- `src/utils/query.ts` - TanStack Query integration helpers
-- `src/lib/tauri.ts` - API functions with Result returns
-- `src-tauri/src/error.rs` - Rust error types and IpcResult
 
 ---
 > Source: [LeagueToolkit/ltk-manager](https://github.com/LeagueToolkit/ltk-manager) — distributed by [TomeVault](https://tomevault.io).
