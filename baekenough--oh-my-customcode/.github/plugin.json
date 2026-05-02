@@ -1,0 +1,166 @@
+{
+  "name": "baekenough--oh-my-customcode",
+  "displayName": "oh-my-customcode",
+  "description": "oh-my-zsh style customization framework for Claude Code",
+  "version": "1.0.0",
+  "author": "baekenough",
+  "homepage": "https://github.com/baekenough/oh-my-customcode",
+  "skills": [
+    {
+      "name": "airflow-best-practices",
+      "description": ""
+    },
+    {
+      "name": "audit-agents",
+      "description": ""
+    },
+    {
+      "name": "aws-best-practices",
+      "description": ""
+    },
+    {
+      "name": "claude-code-bible",
+      "description": ""
+    },
+    {
+      "name": "codex-exec",
+      "description": ""
+    },
+    {
+      "name": "create-agent",
+      "description": ""
+    },
+    {
+      "name": "dbt-best-practices",
+      "description": ""
+    },
+    {
+      "name": "de-lead-routing",
+      "description": ""
+    },
+    {
+      "name": "dev-lead-routing",
+      "description": ""
+    },
+    {
+      "name": "dev-refactor",
+      "description": ""
+    },
+    {
+      "name": "dev-review",
+      "description": ""
+    },
+    {
+      "name": "fastapi-best-practices",
+      "description": ""
+    },
+    {
+      "name": "fix-refs",
+      "description": ""
+    },
+    {
+      "name": "go-backend-best-practices",
+      "description": ""
+    },
+    {
+      "name": "go-best-practices",
+      "description": ""
+    },
+    {
+      "name": "intent-detection",
+      "description": ""
+    },
+    {
+      "name": "kafka-best-practices",
+      "description": ""
+    },
+    {
+      "name": "kotlin-best-practices",
+      "description": ""
+    },
+    {
+      "name": "monitoring-setup",
+      "description": ""
+    },
+    {
+      "name": "optimize-bundle",
+      "description": ""
+    },
+    {
+      "name": "pipeline-architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "python-best-practices",
+      "description": ""
+    },
+    {
+      "name": "qa-lead-routing",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "redis-best-practices",
+      "description": ""
+    },
+    {
+      "name": "result-aggregation",
+      "description": ""
+    },
+    {
+      "name": "rust-best-practices",
+      "description": ""
+    },
+    {
+      "name": "secretary-routing",
+      "description": ""
+    },
+    {
+      "name": "snowflake-best-practices",
+      "description": ""
+    },
+    {
+      "name": "spark-best-practices",
+      "description": ""
+    },
+    {
+      "name": "springboot-best-practices",
+      "description": ""
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "update-docs",
+      "description": ""
+    },
+    {
+      "name": "update-external",
+      "description": ""
+    },
+    {
+      "name": "vercel-deploy",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "writing-clearly-and-concisely",
+      "description": ""
+    }
+  ]
+}
