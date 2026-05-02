@@ -1,59 +1,36 @@
-## preferences
+## react-red-flags
 
-> - Never use `any`, `unknown`, or TypeScript type casting (`as` or angle bracket syntax)
+> Red flags in a React codebase
 
 
-# Code Style & Architecture Preferences
+Red flags in a React codebase
 
-## Type Safety
+🚩 functions like <button onClick={handleClick}
 
-- Never use `any`, `unknown`, or TypeScript type casting (`as` or angle bracket syntax)
-- Use proper types and type inference instead
-- **Prefer type inference over manual type annotations** - if TypeScript can infer the type, let it infer rather than adding explicit annotations
+- handleClick doesn't explain what it does
+- you lose colocation
+- need new names for each callback
 
-## Database Design
+Inline callbacks can call multiple functions with good names
 
-- Use regular boolean fields instead of bitfield encoding/decoding
-- Store settings in separate tables rather than embedding flags in main entities
-- All database operations should flow through the database service layer
+onClick={() => {
+analytics.event('this-button')
+openModal()
 
-## Testing
+🚩 useMemo
 
-- Tests should use the same patterns as production code (database service layer)
-- Include tests in implementation plans and run them during development (`bun run test`)
-- Keep test code clean and straightforward
+React devs are terrified of renders and often overuseMemo
 
-## Code Quality
+- memoize things that you pass as props to components that may have expensive children
+- it's ok for leaf components to over-render
 
-- Prefer type inference; only add explicit types when necessary for clarity or when inference isn't sufficient
-- Prefer clear separation of concerns
-- Avoid test-specific workarounds or shortcuts
+useMemo does not fix bugs, it just makes them happen less often
 
-## UI Components
+🚩 <div onClick
 
-- **Always prefer components from `@packages/ui` over native HTML elements**
-- Use `<Button />` instead of `<button />`
-- Use `<Input />` instead of `<input />`
-- Use `<Textarea />` instead of `<textarea />`
-- Use `<Label />` instead of `<label />`
-- Use `<Select />` instead of `<select />`
-- Use `<Checkbox />` instead of `<input type="checkbox" />`
-- Use `<Link />` instead of `<a />` for navigation
-- Import components from `@packages/ui/components/*` (e.g., `import { Button } from "@packages/ui/components/button"`)
-- Only use native HTML elements when there is no equivalent component in `@packages/ui`
+divs are not interactive elements and adding onClick requires implementing keyboard control, screen reader announcement, etc
 
-## Typecheck
-
-- **Do NOT run `bun typecheck` after every change** - it's slow and wasteful
-- Only run typecheck when:
-  - Done making a set of changes
-  - Verifying work is complete
-  - Debugging type errors
-- During active development, rely on IDE type checking and only run the full typecheck at checkpoints
-
-## Dev Server
-
-- Do not run the dev server unless explicitly instructed
+This is almost never the right move, and anyone capable of doing it right (the new tweet button) isn't going to be swayed by this tweet
 
 ---
 > Source: [RhysSullivan/create-epoch-app](https://github.com/RhysSullivan/create-epoch-app) — distributed by [TomeVault](https://tomevault.io).
