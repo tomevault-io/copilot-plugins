@@ -1,65 +1,32 @@
-## specify-rules
+## speckit-numbering
 
-> Project Development Guidelines
-
-
-# Energy-Horizon Development Guidelines
-
-Auto-generated from all feature plans. Last updated: 2026-04-12
-
-## Active Technologies
-- TypeScript 5 (strict mode) + LitElement 4, Vite (bundler), Chart.js (002-i18n-localization)
-- N/A – translations bundled statically at build time (Vite JSON import) (002-i18n-localization)
-- TypeScript 5.6 (ES2020+, strict mode) + Lit 3.1 (LitElement, `html` tagged template), Chart.js, Vite 6 (bundler), Vitest 2 (tests) (001-card-ui-enhancements)
-- N/A — all processing is in-browser; HA state is read-only at render time (001-card-ui-enhancements)
-- TypeScript 5.6 (ES2020+, `strict` enabled) + Lit 3.1 (LitElement, `html`, `css`), Chart.js 4.4 (core, LineController, LinearScale, Filler, Tooltip, Legend), chartjs-adapter-date-fns, Vite 6 (bundler), Vitest 2 (tests) (001-chart-updates)
-- N/A — in-browser only; HA state is read-only at render time (001-chart-updates)
-- TypeScript 5.6 (ES2020+, `strict` enabled) + Lit 3.1 (LitElement), Apache ECharts 5.6.0 (modularny — `echarts/core`, `echarts/charts`, `echarts/components`, `echarts/renderers`), Vite 6 (bundler), Vitest 2 (testy) (003-echarts-migration)
-- N/A — przetwarzanie in-browser, dane read-only z HA (003-echarts-migration)
-- TypeScript 5.6 (ES2020+, `strict` enabled) + Lit 3.1 (LitElement) — bez nowych zależności (001-compute-forecast)
-- TypeScript 5.6 (ES2020+, `strict` enabled) + Lit 3.1 (LitElement), Apache ECharts 5.6.0 (modularny), Vite 6, Vitest 2 — żadna nowa zależność NPM nie jest wymagana przez tę funkcję (004-smart-unit-scaling)
-- TypeScript 5.6 (ES2020+, `strict` enabled) + Lit 3.1 (LitElement, `html`, `css`, `property` decorator), `window.jsyaml` (HA frontend global — no npm addition), Vite 6 (bundler), Vitest 2 (tests) (005-gui-editor)
-- N/A — in-browser only; config written by HA Lovelace infrastructure (005-gui-editor)
-- TypeScript 5.6+, `strict` + Lit 3.1, Apache ECharts 5.6 (modular), **Luxon** (nowa — patrz [research.md](./research.md)), Vite 6, Vitest 2 (001-time-windows-engine)
-- N/A (stan w pamięci komponentu) (001-time-windows-engine)
-- TypeScript 5.6+, `strict` + Lit 3.1, Apache ECharts 5.6 (modular), **Luxon** (już w projekcie), Vite 6, Vitest 2 (001-aggregation-axis-labels)
-- N/A (stan w pamięci komponentu / karta Lovelace) (001-aggregation-axis-labels)
-- Treść dokumentacji — **Markdown** (GitHub Flavored); repozytorium — **TypeScript** (karta) pozostaje bez zmian funkcjonalnych w ramach tej funkcji, poza ewentualną synchronizacją README. + GitHub Wiki (hosting publikacji); pliki w `wiki-publish/` (źródło); powiązanie z **Diátaxis** jako modelu informacji (brak biblioteki NPM — konwencja struktury). (001-github-wiki)
-- Pliki Markdown + zasoby statyczne (np. PNG) w `wiki-publish/`; historia w git; GitHub Wiki jako kopia publikowana ręcznie przy release. (001-github-wiki)
-- TypeScript 5.6+ (`strict`) + Lit 3.1, Apache ECharts 5.6, Luxon 3.7, date-fns 4.x, Vite 6, Vitest 2 (001-figma-ui-rollout)
-- N/A (in-browser; HA stores Lovelace config) (001-figma-ui-rollout)
-- TypeScript 5.6+, `strict` + Lit 3.1, Apache ECharts 5.6 (modular), Luxon, Vite 6, Vitest 2 (zgodnie z repo) (006-time-windows-unify)
-- N/A — stan w pamięci karty Lovelace (006-time-windows-unify)
-
-- TypeScript (ES2020+, `strict` enabled) + Lit (`lit`, `lit/decorators.js`), Chart.js (core + line/tooltip/legend/gradient plugins), Home Assistant Lovelace card API typings, Vite bundler (001-energy-horizon-card)
-
-## Project Structure
-
-```text
-src/           # application code (Lovelace card: src/card/, translations, index.ts)
-tests/         # Vitest — unit/ and integration/
-config/        # vite.config.ts, eslint.config.js (see package.json scripts)
-wiki-publish/  # wiki source (Diátaxis) where applicable
-specs/         # Speckit feature specs (see specs/README.md)
-```
-
-## Commands
-
-npm test && npm run lint
-
-## Code Style
-
-TypeScript (ES2020+, `strict` enabled): Follow standard conventions
-
-## Recent Changes
-- 006-time-windows-unify: Added TypeScript 5.6+, `strict` + Lit 3.1, Apache ECharts 5.6 (modular), Luxon, Vite 6, Vitest 2 (zgodnie z repo)
-- 001-figma-ui-rollout: Added TypeScript 5.6+ (`strict`) + Lit 3.1, Apache ECharts 5.6, Luxon 3.7, date-fns 4.x, Vite 6, Vitest 2
-- 001-github-wiki: Added Treść dokumentacji — **Markdown** (GitHub Flavored); repozytorium — **TypeScript** (karta) pozostaje bez zmian funkcjonalnych w ramach tej funkcji, poza ewentualną synchronizacją README. + GitHub Wiki (hosting publikacji); pliki w `wiki-publish/` (źródło); powiązanie z **Diátaxis** jako modelu informacji (brak biblioteki NPM — konwencja struktury).
+> Polityka numeracji gałęzi i folderów specs/ (Spec Kit) — źródło prawdy i rozszerzenia bez forkowania core
 
 
-<!-- MANUAL ADDITIONS START -->
-<!-- Project Structure must stay aligned with repo: src/, tests/, config/ — not backend/frontend. -->
-<!-- MANUAL ADDITIONS END -->
+# Speckit — numeracja feature (Energy-Horizon)
+
+## Źródło prawdy w tym repozytorium
+
+- **[`.specify/init-options.json`](.specify/init-options.json)**: `branch_numbering` — `sequential` (prefiks `NNN`) lub po reinicjalizacji z Specify CLI możliwy tryb `timestamp` (zgodnie z upstream Spec Kit).
+- **Skrypt**: [`.specify/scripts/bash/create-new-feature.sh`](.specify/scripts/bash/create-new-feature.sh) — przy trybie sekwencyjnym kolejny numer to **globalne** maximum: wszystkie gałęzie pasujące do `###-*` (lokalne + opcjonalnie remote przez `ls-remote`) oraz wszystkie katalogi w `specs/`, potem **+1**. To **nie** jest osobny licznik per `short-name`.
+- **Komenda Cursor** [`speckit.specify`](.cursor/commands/speckit.specify.md) musi być zgodna z powyższym (katalog `specs/<prefix>-<short-name>` wg `init-options.json` i skanowania istniejących folderów).
+
+## Czego nie robić
+
+- **Nie zmieniaj** na stałe plików w `.specify/scripts/` (np. `create-new-feature.sh`) pod kątem polityki projektu — utrudnia to aktualizacje Spec Kit (`specify init`, upgrade CLI).
+
+## Rozszerzenia odpornie na aktualizacje upstream
+
+1. **Specify CLI** — `specify init … --branch-numbering sequential|timestamp` ([github/spec-kit](https://github.com/github/spec-kit)).
+2. **Overrides szablonów** — [`.specify/templates/overrides/`](.specify/templates/overrides/) (pierwszy priorytet w `resolve_template` w `common.sh`).
+3. **Rozszerzenie społeczności** [spec-kit-branch-convention](https://github.com/Quratulain-bilal/spec-kit-branch-convention) — konfiguracja w `.specify/branch-convention.yml`, hook `before_specify` opcjonalnie.
+4. **Własna logika poza `.specify/scripts/`** — np. [scripts/speckit-create-feature.sh](scripts/speckit-create-feature.sh) woła oficjalny skrypt z argumentami (`--number`, `--short-name`, `--timestamp`); ewentualny dodatkowy skrypt liczący numer tylko w `scripts/`, nie w core.
+
+## Skrót flag skryptu
+
+- `--number N` — wymusza numer (np. gdy orchestrujesz własny licznik).
+- `--timestamp` — nazwa gałęzi/folderu z prefiksem czasu (zgodne z trybem timestamp).
+- `--short-name <kebab>` — sufiks po prefiksie.
 
 ---
 > Source: [hello-sebastian/Energy-Horizon](https://github.com/hello-sebastian/Energy-Horizon) — distributed by [TomeVault](https://tomevault.io).
