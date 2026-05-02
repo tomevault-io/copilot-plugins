@@ -1,0 +1,44 @@
+{
+  "name": "trading-review-wiki",
+  "owner": "ymj8903668-droid",
+  "repo": "trading-review-wiki",
+  "description": "A trading review knowledge base powered by LLM  \u4e13\u4e3a\u4ea4\u6613\u8005\u8bbe\u8ba1\u7684 LLM \u9a71\u52a8\u77e5\u8bc6\u5e93\uff1a\u5feb\u901f\u590d\u76d8\u3001\u4ea4\u5272\u5355\u5bfc\u5165\u3001FIFO \u76c8\u4e8f\u8ba1\u7b97\u3001\u4e2a\u80a1\u5f52\u6863\u4e0e\u622a\u56fe\u8ba8\u8bba\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ymj8903668-droid/trading-review-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T00:52:37Z"
+}
