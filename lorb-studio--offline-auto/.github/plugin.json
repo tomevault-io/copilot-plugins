@@ -1,0 +1,9 @@
+{
+  "name": "lorb-studio--offline-auto",
+  "displayName": "offline-auto",
+  "description": "Your web app works offline. Three lines, zero config",
+  "version": "1.0.0",
+  "author": "lorb-studio",
+  "homepage": "https://github.com/lorb-studio/offline-auto",
+  "skills": []
+}
