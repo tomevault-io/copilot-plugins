@@ -1,0 +1,9 @@
+{
+  "name": "stolinski--clint",
+  "displayName": "clint",
+  "description": "A Rust + Lightening Based CSS Linter with Smart Defaults",
+  "version": "1.0.0",
+  "author": "stolinski",
+  "homepage": "https://github.com/stolinski/clint",
+  "skills": []
+}
