@@ -1,0 +1,9 @@
+{
+  "name": "richkuo--go-trader",
+  "displayName": "go-trader",
+  "description": "Crypto trading bot \u2014 backtesting, paper trading, live trading with risk management",
+  "version": "1.0.0",
+  "author": "richkuo",
+  "homepage": "https://github.com/richkuo/go-trader",
+  "skills": []
+}
