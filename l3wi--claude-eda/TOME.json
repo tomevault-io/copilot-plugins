@@ -1,0 +1,75 @@
+{
+  "name": "claude-eda",
+  "owner": "l3wi",
+  "repo": "claude-eda",
+  "description": "A Claude Code based system for EDA w/ Kicad",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "eda-pcb",
+      "path": "templates/claude/skills/eda-pcb",
+      "github_url": "https://github.com/l3wi/claude-eda/tree/main/templates/claude/skills/eda-pcb",
+      "description": ""
+    },
+    {
+      "name": "eda-architect",
+      "path": "templates/claude/skills/eda-architect",
+      "github_url": "https://github.com/l3wi/claude-eda/tree/main/templates/claude/skills/eda-architect",
+      "description": ""
+    },
+    {
+      "name": "eda-drc",
+      "path": "templates/claude/skills/eda-drc",
+      "github_url": "https://github.com/l3wi/claude-eda/tree/main/templates/claude/skills/eda-drc",
+      "description": ""
+    },
+    {
+      "name": "eda-research",
+      "path": "templates/claude/skills/eda-research",
+      "github_url": "https://github.com/l3wi/claude-eda/tree/main/templates/claude/skills/eda-research",
+      "description": ""
+    },
+    {
+      "name": "eda-schematics",
+      "path": "templates/claude/skills/eda-schematics",
+      "github_url": "https://github.com/l3wi/claude-eda/tree/main/templates/claude/skills/eda-schematics",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/l3wi/claude-eda",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:44:40Z"
+}
