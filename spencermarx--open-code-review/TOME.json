@@ -4,7 +4,7 @@
   "repo": "open-code-review",
   "description": "AI-powered multi-agent code review. Simulates a customizable team of Engineers performing code review with built-in discourse.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spencermarx/open-code-review",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T08:47:04Z"
+  "distributed_at": "2026-05-02T20:02:35Z"
 }
