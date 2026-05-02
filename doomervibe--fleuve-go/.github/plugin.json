@@ -1,0 +1,9 @@
+{
+  "name": "doomervibe--fleuve-go",
+  "displayName": "fleuve-go",
+  "description": "Event-sourced workflows in Go \u2014 PostgreSQL, NATS JetStream, REST gateway, Python-compatible admin UI.",
+  "version": "1.0.0",
+  "author": "doomervibe",
+  "homepage": "https://github.com/doomervibe/fleuve-go",
+  "skills": []
+}
