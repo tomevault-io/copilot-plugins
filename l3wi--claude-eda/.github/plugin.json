@@ -1,0 +1,30 @@
+{
+  "name": "l3wi--claude-eda",
+  "displayName": "claude-eda",
+  "description": "A Claude Code based system for EDA w/ Kicad",
+  "version": "1.0.0",
+  "author": "l3wi",
+  "homepage": "https://github.com/l3wi/claude-eda",
+  "skills": [
+    {
+      "name": "eda-pcb",
+      "description": ""
+    },
+    {
+      "name": "eda-architect",
+      "description": ""
+    },
+    {
+      "name": "eda-drc",
+      "description": ""
+    },
+    {
+      "name": "eda-research",
+      "description": ""
+    },
+    {
+      "name": "eda-schematics",
+      "description": ""
+    }
+  ]
+}
