@@ -1,0 +1,57 @@
+{
+  "name": "algorand-agent-skills",
+  "owner": "algorand-devrel",
+  "repo": "algorand-agent-skills",
+  "description": "Canonical collection of Agent Skills for for AI-assisted development on Algorand",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "algorand-typescript",
+      "path": "skills/algorand-typescript",
+      "github_url": "https://github.com/algorand-devrel/algorand-agent-skills/tree/main/skills/algorand-typescript",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/algorand-devrel/algorand-agent-skills/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/algorand-devrel/algorand-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:39:05Z"
+}
