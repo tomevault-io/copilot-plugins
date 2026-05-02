@@ -1,0 +1,44 @@
+{
+  "name": "awesome-claudcode-tutorial",
+  "owner": "xianyu110",
+  "repo": "awesome-claudcode-tutorial",
+  "description": "\u6700\u5168\u9762\u7684 Claude Code \u4e2d\u6587\u6559\u7a0b - \u4ece\u96f6\u57fa\u7840\u5230\u4f01\u4e1a\u7ea7\u5e94\u7528",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xianyu110/awesome-claudcode-tutorial",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T22:43:34Z"
+}
