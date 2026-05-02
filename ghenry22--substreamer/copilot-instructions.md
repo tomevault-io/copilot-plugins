@@ -1,355 +1,200 @@
-## project-overview
+## react-components
 
-> Substreamer project architecture, structure, and conventions
+> React Native component patterns, styling, and UI conventions for Substreamer
 
 
-# Substreamer – Project Overview
+# Component Patterns
 
-Substreamer is a React Native music streaming client for Subsonic-compatible servers (Subsonic, Navidrome, etc.), built with Expo SDK 55, React 19, and TypeScript (strict mode).
+## Structure
 
-## Tech Stack
-
-- **Framework:** Expo ~55 / React Native 0.83 (New Architecture enabled)
-- **Routing:** Expo Router (file-based) with Stack + Tab navigators
-- **State:** Zustand with SQLite persistence (`expo-sqlite`)
-- **API:** `subsonic-api` library for Subsonic REST protocol
-- **Audio:** `react-native-track-player` (RNTP, local fork in `modules/`) for streaming and background playback
-- **Lists:** `@shopify/flash-list` v2 (FlashList) for all performant lists – replaces React Native FlatList
-- **Image caching:** Custom disk cache via `expo-file-system`
-- **Animations:** `react-native-reanimated` (v4) for all animations – see `ux-quality` rule for details and exceptions
-- **i18n:** `react-i18next` v17 + `i18next` v26 with `@formatjs/intl-pluralrules` polyfill for Hermes
-- **Styling:** `StyleSheet.create` + inline theme colors (no CSS-in-JS libraries)
-- **Path alias:** `@/*` maps to `./src/*`
-
-## Directory Structure
-
-```
-src/
-  app/            # Expo Router routes (thin wrappers that import from screens/)
-    _layout.tsx   # Root Stack layout, auth guard, splash screen
-    (tabs)/       # Bottom tab navigator group
-    album/[id]    # Dynamic routes for entities
-    artist/[id]
-    playlist/[id]
-  screens/        # Screen components with business logic
-  components/     # Reusable UI components
-  hooks/          # Custom hooks
-  services/       # API clients and external integrations
-  store/          # Zustand stores
-  i18n/           # react-i18next singleton, locale JSON files, language list
-  constants/      # Theme definitions
-  utils/          # Formatting, color, string, and timing helpers
-  assets/         # App icons, splash images
-modules/          # Local Expo native modules (see native-modules rule)
-scripts/          # Build helper scripts
-fastlane/         # Store listing metadata (descriptions, screenshots, release notes)
-  metadata/       # Plain-text metadata files for iOS and Android stores
-```
-
-## Key Architectural Patterns
-
-1. **Route/Screen separation:** Route files in `app/` are thin wrappers; business logic lives in `screens/`. See `routing-and-navigation` rule.
-2. **Zustand stores** manage all app state. See `zustand-stores` rule.
-3. **Services** are plain modules exporting async functions (no classes). See `services-and-api` rule.
-4. **CachedImage** is the standard component for all cover art – never use raw `<Image>` for Subsonic artwork.
-5. **`useTheme()`** provides `{ theme, colors }` – all components consume colors from this hook rather than importing theme constants directly.
-6. **Shared utilities** live in `src/utils/` – common helpers (alphabet indexing via `getFirstLetter`, minimum-delay promises via `minDelay`) are extracted here rather than duplicated.
-7. **All user-facing strings** are translated via `react-i18next`. See `Internationalization` section below.
-
-## Internationalization (i18n)
-
-All user-facing strings use `react-i18next`. English is the source language; translations are stored as flat JSON in `src/i18n/locales/`.
-
-### Setup
-
-- **Runtime:** `i18next` v26 + `react-i18next` v17 + `i18next-resources-to-backend` for lazy loading
-- **Hermes polyfill:** `@formatjs/intl-pluralrules/polyfill-force` — imported first in `src/i18n/i18n.ts` (must precede i18next init)
-- **Locale persistence:** `localeStore` (Zustand + SQLite) — `null` = follow device locale
-- **Test setup:** `src/test-utils/i18nSetup.ts` initializes i18next with English resources; included in Jest `setupFiles`
-
-### Usage Patterns
-
-**In React components** — use the `useTranslation` hook:
+- All components are **functional** – no class components.
+- Use **`memo()`** for list-rendered items (cards, rows) and frequently re-rendered components.
+- Use **named exports** for components. Wrap memo'd components with a named function:
 
 ```tsx
-import { useTranslation } from 'react-i18next';
+export const AlbumCard = memo(function AlbumCard({ album, width }: { album: AlbumID3; width: number }) {
+  const { colors } = useTheme();
+  // ...
+});
+```
 
-function MyScreen() {
-  const { t } = useTranslation();
-  return <Text>{t('recentlyAdded')}</Text>;
+## Props Typing
+
+Most memo'd components use **inline props** directly in the function signature:
+
+```tsx
+export const AlbumRow = memo(function AlbumRow({ album }: { album: AlbumID3 }) {
+```
+
+Use a named `ComponentNameProps` interface when the props type is complex, shared, or referenced elsewhere:
+
+```tsx
+interface AlphabetScrollerProps {
+  letters: string[];
+  onLetterChange: (letter: string) => void;
+  listRef: RefObject<FlashListRef<unknown>>;
+  sectionMap: Map<string, number>;
 }
+
+export const AlphabetScroller = memo(function AlphabetScroller(props: AlphabetScrollerProps) {
 ```
 
-**In services/stores (outside React)** — import `i18next` directly:
+## Entity Component Pairs
+
+Each entity (Album, Artist, Song, Playlist) follows a Card + Row + ListView pattern:
+
+- **Card** (`AlbumCard`) – grid display with cover art and title
+- **Row** (`AlbumRow`) – list display with thumbnail, title, and metadata
+- **ListView** (`AlbumListView`) – FlashList wrapper supporting list/grid toggle, pull-to-refresh, empty states, and alphabet scrolling
+
+## Styling
+
+- Use `StyleSheet.create()` at module scope for static styles.
+- Apply theme colors inline via `useTheme()`:
 
 ```tsx
-import i18n from 'i18next';
-
-processingOverlayStore.getState().showSuccess(i18n.t('playlistCreated'));
+<Text style={[styles.title, { color: colors.textPrimary }]}>{title}</Text>
 ```
 
-**Module-level constant arrays** — use `labelKey` instead of `label`:
+- Use `useMemo` for dynamic `StyleSheet.create` when many styles depend on theme colors.
+- Use `Pressable` with function styles for pressed states:
 
 ```tsx
-const OPTIONS = [
-  { value: 'recent', labelKey: 'recentlyAdded' },
+<Pressable style={({ pressed }) => [styles.row, { backgroundColor: colors.card }, pressed && styles.pressed]}>
+```
+
+## Cover Art
+
+Always use `CachedImage` for Subsonic cover art – never raw `<Image>`:
+
+```tsx
+<CachedImage coverArtId={album.coverArt} size={300} style={styles.cover} resizeMode="cover" />
+```
+
+Standard sizes: 50 (thumbnails), 150 (small), 300 (cards/lists), 600 (hero/detail).
+
+## FlashList Performance
+
+Uses `@shopify/flash-list` v2 (`FlashList`) instead of React Native's `FlatList`. FlashList v2 handles view recycling, batching, and size estimation automatically.
+
+- Use `keyExtractor={(item) => item.id}`.
+- Memoize `renderItem` with `useCallback`.
+- Do **not** pass `estimatedItemSize` – FlashList v2 removed this prop and handles size estimation automatically.
+- Do **not** pass `windowSize`, `maxToRenderPerBatch`, `initialNumToRender`, `removeClippedSubviews`, or `getItemLayout` – these are FlatList-only concepts that do not exist in FlashList's architecture.
+- Use `drawDistance` (pixels) to control off-screen rendering distance when needed (default 250px is usually sufficient; use 300 for lists with alphabet scrollers).
+- Grid: use `numColumns={2}`. Handle inter-column gaps via padding on individual grid items (FlashList does not support `columnWrapperStyle`):
+
+```tsx
+const renderGridItem = ({ item, index }: { item: AlbumID3; index: number }) => {
+  const isLeftColumn = index % GRID_COLUMNS === 0;
+  return (
+    <View style={{
+      flex: 1,
+      paddingLeft: isLeftColumn ? 0 : GRID_GAP / 2,
+      paddingRight: isLeftColumn ? GRID_GAP / 2 : 0,
+    }}>
+      <AlbumCard album={item} width={cardWidth} />
+    </View>
+  );
+};
+```
+
+- Ref type: `useRef<FlashListRef<T>>(null)` (import `FlashListRef` from `@shopify/flash-list`).
+
+**Exception:** Two screens use `ReorderableList` from `react-native-reorderable-list` instead of FlashList because they require drag-to-reorder functionality:
+
+- `src/screens/download-queue.tsx` – the download queue is inherently small (typically under 20 items) and does not need FlashList's virtualization.
+- `src/screens/playlist-detail.tsx` – conditionally renders `ReorderableList` when the user enters edit mode to reorder tracks.
+
+`ReorderableList` is built natively for the New Architecture on Reanimated worklets. Drag is initiated via the `useReorderableDrag()` hook called inside the row component (not threaded as a `drag` prop) and wired to a dedicated drag-handle `Pressable` so the rest of the row body still scrolls normally. Reorder events fire as `{ from, to }` indices; use the exported `reorderItems(data, from, to)` helper to apply the move to local state.
+
+**Exception:** Bounded, static, single-digit-item horizontal carousels may use RN `FlatList` with `getItemLayout`. Example: `src/components/OnboardingGuide.tsx` (4-slide onboarding carousel). FlashList's virtualization adds zero value below ~20 items, and its recycling doesn't pair cleanly with horizontal paging on a fixed list. Always document the carveout with an inline comment.
+
+## Modals and Bottom Sheets
+
+Use RN `Modal` with transparent backdrop for bottom sheets:
+
+```tsx
+<Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+  <Pressable style={styles.backdrop} onPress={onClose} />
+  <View style={[styles.sheet, { backgroundColor: colors.card, paddingBottom: Math.max(insets.bottom, 16) }]}>
+    <View style={[styles.handle, { backgroundColor: colors.border }]} />
+    {/* content */}
+  </View>
+</Modal>
+```
+
+Use `useSafeAreaInsets()` for bottom padding.
+
+## Swipe Action Ordering
+
+When a `SwipeableRow` has multiple actions on one side, the **primary / default action** must be placed at the **outside edge** (last in the array). Secondary or less-frequent actions go closer to the content (earlier in the array).
+
+This follows the iOS convention where the outermost button is the one a full swipe would trigger. Even when full-swipe is disabled (because multiple actions make auto-triggering ambiguous), the visual hierarchy must still place the most important action at the edge so users build consistent muscle memory.
+
+```tsx
+// Correct – primary action (Favorite) is last → outermost position
+const leftActions: SwipeAction[] = [
+  { icon: 'add-outline',   color: colors.primary, label: 'Playlist', onPress: handleAddToPlaylist },
+  { icon: 'heart-outline', color: colors.red,     label: 'Add',      onPress: handleToggleStar },
 ];
-// At render: <Text>{t(opt.labelKey)}</Text>
+
+// Wrong – primary action is first → hidden behind secondary action
+const leftActions: SwipeAction[] = [
+  { icon: 'heart-outline', color: colors.red,     label: 'Add',      onPress: handleToggleStar },
+  { icon: 'add-outline',   color: colors.primary, label: 'Playlist', onPress: handleAddToPlaylist },
+];
 ```
 
-**Interpolation:** `t('greeting', { name: 'Miles' })` → key: `"greeting": "Hello {{name}}"`
+`SwipeableRow` always triggers the **outermost** action on a full swipe: for swipe-right this is index 0 (left screen edge); for swipe-left this is the last index (right screen edge). This means `enableFullSwipeLeft` can remain enabled with multiple actions -- the outermost (primary) action will fire on a full swipe.
 
-**Plurals:** Key-suffix convention with `_one`/`_other`:
+## Theming
 
-```json
-{ "songCount_one": "{{count}} song", "songCount_other": "{{count}} songs" }
-```
+- Access theme via `useTheme()` which returns `{ theme, colors, preference, primaryColor, setThemePreference, setPrimaryColor }`.
+- `ThemeColors` interface defines: `background`, `card`, `textPrimary`, `textSecondary`, `label`, `border`, `primary`, `red`, `inputBg`.
+- Supports light/dark/system modes with optional primary color override.
+- Pass `colors` as a prop to memo'd child components to avoid re-renders from hook calls.
+
+## Layout Constants
+
+Define reusable layout values as constants at the top of files. Keep them **module-private** (`const`, not `export const`) unless they are consumed by another file:
+
 ```tsx
-t('songCount', { count: 5 }) // "5 songs"
+const GRID_COLUMNS = 2;
+const GRID_GAP = 10;
+const LIST_PADDING = 16;
+const COVER_SIZE = 300;
+const ROW_HEIGHT = 80;
 ```
 
-### Key Naming Rules
+## Navigation Transition Deferral
 
-- Flat camelCase: `recentlyAdded`, not `home.recentlyAdded`
-- Single `translation` namespace (no namespace prefix in `t()` calls)
-- Reuse existing keys for shared strings (`cancel`, `delete`, `save`, `albums`, etc.)
-- Check `src/i18n/locales/en.json` before creating new keys
+Detail screens (album, artist, playlist) use `useTransitionComplete()` to defer heavy rendering until the navigation transition animation finishes. This prevents janky transitions:
 
-### What NOT to Translate
+```tsx
+import { useTransitionComplete } from '../hooks/useTransitionComplete';
 
-- Remote API data (album titles, artist names, track titles)
-- App name "Substreamer"
-- Technical identifiers, log messages, file paths
-- Numeric format strings from formatters (`1h30m`, `1.2 GB`)
-
-### Crowdin Integration
-
-Community translations are managed via [Crowdin](https://crowdin.com/). The `crowdin.yml` config at the repo root maps `src/i18n/locales/en.json` as the source file.
-
-**Automated sync** (`.github/workflows/crowdin.yml`):
-- **Upload**: source strings push to Crowdin automatically when `en.json` changes on `master`
-- **Download**: translations pull weekly (Monday 6am UTC) into a PR on branch `crowdin-translations`. Can also be triggered manually via `workflow_dispatch`.
-
-**Validation**: `scripts/validate-translations.js` runs in CI and checks all locale files for missing/extra keys and interpolation placeholder mismatches. Run locally with `npm run validate:i18n`.
-
-**Adding a new language** (e.g. `ja`):
-1. The locale JSON file arrives via Crowdin PR (`src/i18n/locales/ja.json`)
-2. Add polyfill import in `src/i18n/i18n.ts`: `import '@formatjs/intl-pluralrules/locale-data/ja.js'`
-3. Add JSON import + entry in `localeResources` in `src/i18n/i18n.ts`
-4. Add/uncomment entry in `src/i18n/languages.ts`
-5. Update test mocks in `src/i18n/__tests__/i18n-fallbacks.test.ts`
-6. Run `npx tsc --noEmit && npx jest`
-
-Translation files can exist in the repo before the language is enabled — a language only becomes user-visible when added to `languages.ts`.
-
-## Naming Conventions
-
-| Type | Convention | Example |
-|------|-----------|---------|
-| Component files | PascalCase | `AlbumCard.tsx` |
-| Screen files | kebab-case | `album-detail.tsx` |
-| Route files | kebab-case / `[id]` | `album/[id].tsx` |
-| Components | PascalCase | `AlbumCard` |
-| Hooks | camelCase with `use` prefix | `useTheme` |
-| Stores | camelCase with `Store` suffix | `playerStore` |
-| Constants | UPPER_SNAKE_CASE | `ROW_HEIGHT`, `COVER_SIZE` |
-| Handler functions | `handle` prefix | `handlePress` |
-| Callback props | `on` prefix | `onPress`, `onClose` |
-| Props types | Inline for simple; named `ComponentNameProps` for complex | `{ album: AlbumID3; width: number }`, `AlphabetScrollerProps` |
-
-## Import Organization
-
-Order imports as: external packages, then internal modules, then type-only imports.
-
-```typescript
-import { useRouter } from 'expo-router';
-import { memo, useCallback } from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
-
-import { CachedImage } from './CachedImage';
-import { useTheme } from '../hooks/useTheme';
-import { type AlbumID3 } from '../services/subsonicService';
+const transitionComplete = useTransitionComplete();
+// Render a lightweight placeholder until transitionComplete is true
 ```
 
-Use `type` keyword for type-only imports: `import { type AlbumID3 } from '...'`.
-
-## Native Modules
-
-Local native modules live in `modules/` and are referenced in `package.json` as `"module-name": "file:./modules/module-name"`. Current modules: `expo-async-fs`, `expo-ssl-trust`, `expo-gzip`, `expo-backup-exclusions`, `expo-move-to-back`, `expo-image-resize`, `expo-image-colors`, `react-native-track-player`, `subsonic-api`. After adding or removing a module dependency, **always run `npm install`** to update the symlink. See `native-modules` rule for the full creation checklist.
-
-## Generated Native Directories — DO NOT EDIT
-
-The `android/` and `ios/` directories are **generated by `expo prebuild`** and are **not persisted** (they are gitignored and rebuilt from scratch). **NEVER edit files inside `android/` or `ios/` directly** — all changes will be lost on the next prebuild. To modify native configuration, use Expo config plugins in `app.json` / `app.config.js`, or create a local config plugin. This is non-negotiable.
-
-## Public Repository — No Secrets or PII
-
-This is a **public repository**. **NEVER** commit secrets, credentials, API keys, personal information (names, emails, phone numbers, addresses), or any other sensitive data to the repo. This is non-negotiable.
-
-- Secrets and credentials must be stored in environment variables (via `fastlane/.env`, gitignored) or GitHub Secrets for CI.
-- Use `.env-template` files with placeholder values for reference — never real values.
-- Review contact information (e.g. App Store review contact) must be passed via environment variables, not checked into metadata files.
-- If you need to reference sensitive values in code or configuration, always use `ENV["..."]` or `${{ secrets.* }}` — never hardcode them.
-- Before committing, verify that no sensitive information is included in new or modified files.
-
-## Native Builds
-
-Use the npm scripts in `package.json` for native builds:
-
-| Command | What it does |
-|---------|-------------|
-| `npm run android` | Build and run on Android (sets env vars automatically) |
-| `npm run ios` | Build and run on iOS |
-| `npm run concurrent` | Build and run both platforms concurrently |
-| `scripts/build-android.sh` | One-off manual Android build with additional options |
-| `scripts/build-modules.sh` | Builds local native module JS/types |
-
-Do not run `./gradlew`, `expo run:android`, or `expo run:ios` directly — the npm scripts handle environment setup (`JAVA_HOME`, `ANDROID_HOME`) automatically.
-
-**Do not run native builds from within the agent.** Native builds require network access and environment setup that the agent sandbox does not provide. When a plan includes a build verification step, note it as a manual step for the user to run in their own terminal.
-
-## Store Listing Metadata
-
-App Store and Play Store listing metadata (descriptions, screenshots, keywords, release notes) is managed via **fastlane** and version-controlled in `fastlane/metadata/`. EAS handles builds and binary submission; fastlane handles metadata only.
-
-| Command | What it does |
-|---------|-------------|
-| `bundle exec fastlane ios metadata` | Push iOS metadata to App Store Connect |
-| `bundle exec fastlane android metadata` | Push Android metadata to Play Store |
-| `bundle exec fastlane ios pull_metadata` | Pull current iOS listings into local files |
-| `bundle exec fastlane android pull_metadata` | Pull current Android listings into local files |
-
-A GitHub Actions workflow (`.github/workflows/store-metadata.yml`) automatically pushes metadata to both stores when files under `fastlane/metadata/` change on `master`. See `fastlane/README.md` for credential setup and full documentation.
-
-## Testing
-
-**Before starting any work**, run both a TypeScript compilation check (`npx tsc --noEmit`) and the full test suite (`npx jest --no-coverage`). Ensure there are no errors or warnings. If there are failures, resolve them before making any changes.
-
-**After completing work**, run both checks again. There must be no TypeScript errors, and any new warnings introduced by your changes should be seriously considered and resolved. All tests must still pass. Always check if tests need to be updated, added, or removed to keep the test suite aligned with the changes made.
-
-**Coverage target (non-negotiable):** Every source file in `src/` and `modules/` must maintain **≥ 80% statement coverage and ≥ 80% branch coverage**. If a file does not yet have a corresponding test file, create one. Run `npx jest path/to/test --coverage --coverageReporters=text` to verify after writing or updating tests.
-
-**Test real use cases, not just the happy path.** Tests should cover the scenarios users and code actually encounter:
-
-- Null/undefined inputs and optional fields (e.g. `userRating` absent, `song` array missing)
-- Error and failure paths (API returns null, network error, empty results)
-- Edge cases and boundary conditions (empty arrays, zero values, duplicate calls)
-- State transitions across multiple steps (e.g. lifecycle tests that progress through a sequence without resetting between steps)
-- Interactions between subsystems (e.g. verifying that a store fetch triggers reconciliation in another store)
-
-Avoid tests that only confirm the trivial success case. If a function has branches, test them.
-
-## AI Instruction Files — Keep in Sync
-
-Three files contain AI agent instructions and must always stay identical in **instructional content**:
-
-- `.cursor/rules/project-overview.mdc` (Cursor)
-- `.github/copilot-instructions.md` (GitHub Copilot)
-- `CLAUDE.md` (Claude Code)
-
-Tool-specific headers are expected to differ (e.g. Cursor's `.mdc` YAML frontmatter). The instructional body must match across all three files.
-
-**When any one of these files is updated, the same change must be applied to all three.** This is non-negotiable. Never update one without updating the others in the same operation.
-
-## Project Markdown Files
-
-When asked to work on any of the project's own markdown files (`README.md`, `CONTRIBUTING.md`, `LICENSE`, etc.), **look in the project root directory only**. Do not search `node_modules/` or other subdirectories for project files. If you cannot find the file in the root, ask the user before looking elsewhere.
-
-Searching `node_modules/` README files and documentation is fine when researching the capabilities of installed packages — just not when looking for the project's own files.
-
-## Planning (non-negotiable)
-
-When creating or presenting a plan, **always** end with a **bulleted list of todos** — each a single actionable step using clear, imperative phrasing. Keep the list proportional to the work.
-
-**Plan persistence:** Every plan **must** be saved as a markdown file in `plans/` before implementation begins. This directory is gitignored — plans are local working documents, not committed artifacts. The plan file must capture:
-
-- The final agreed design and architectural decisions
-- Phased breakdown with tasks per phase
-- Manual test plan (if applicable)
-
-**Plan maintenance:** Update the plan file during and after implementation to reflect what actually happened — deviations from the original design, issues encountered, how they were fixed, and final state. Plans are a living record of the work, not a throwaway prompt. They are a valuable resource for understanding past decisions and resuming interrupted work.
-
-**Resumability:** At the end of any session involving a plan, ensure the plan file is up to date so that a future session can pick up exactly where things left off without needing to reconstruct context from commits or conversation logs.
-
-## Commit Messages (non-negotiable)
-
-Commit messages **must** be short, concise, and factual. State what changed and briefly why — nothing else.
-
-- **No** preamble, no summary, no recap of what the agent did.
-- **No** mentions of test coverage, test counts, TypeScript status, or other ambient facts unless the commit is specifically about those things.
-- **No** attribution trailers, **ever**. Never add `Co-Authored-By`, `Signed-off-by`, `Generated with`, "🤖" markers, tool credits, or any other attribution to any person, model, or tool. This applies to every commit without exception.
-- Prefer a single-line subject. Add a short body only when the "why" needs explanation beyond what the subject can carry.
-
-This rule is non-negotiable and overrides any default commit-message formatting from skills, templates, or tool defaults.
-
-## Code Search
-
-When a **Symdex MCP server** is available, prefer it over built-in file search tools (Glob, Grep, file-tree exploration agents) for codebase queries. Symdex provides indexed symbol lookup, full-text search, file outlines, call graphs, and semantic search — all faster and more accurate than raw filesystem scanning. Fall back to Glob/Grep when Symdex is unavailable, returns empty/unexpected results, or when searching for content outside the indexed repository (e.g. `node_modules/`, temporary files).
-
----
-
-# UX & UI Quality
-
-## Excellence by Default
-
-Every change must consider the user experience beyond the basic functional requirement. Prioritize how the interface looks, feels, and responds — not just whether it works.
-
-## Smooth, Consistent Animations
-
-Animations and transitions should be smooth, beautiful, and stylistically consistent across the entire application. Use consistent easing curves and durations so the app feels cohesive. Avoid jarring cuts, instant state swaps, or mismatched motion styles between screens.
-
-## Prefer Reanimated
-
-All animations should use `react-native-reanimated` by default. Reanimated runs animations on the UI thread via worklets, avoiding JS thread bottlenecks and enabling smooth 60fps motion even under load.
-
-Key APIs to use:
-
-- `useSharedValue` for mutable animated values
-- `useAnimatedStyle` for styles driven by shared values
-- `withTiming`, `withSpring`, `withDelay`, `withSequence`, `withRepeat` for animation composition
-- `interpolate` (inside `useAnimatedStyle`) for value mapping
-- `cancelAnimation` to stop running animations
-- `runOnJS` to call JS-thread functions from animation callbacks
-- `Animated.View`, `Animated.Image` etc. imported from `react-native-reanimated`
-
-Do **not** import `Animated` or `Easing` from `react-native`, except in the case noted below.
-
-### Exception: Slow Linear Translations
-
-For **slow, constant-velocity linear animations** such as marquee or ticker scrolling, use React Native's built-in `Animated` API with `useNativeDriver: true` instead of Reanimated. The native driver delegates interpolation directly to the platform's display-synced animation loop (CADisplayLink on iOS, Choreographer on Android), which produces perfectly uniform frame-to-frame deltas. Reanimated's worklet-thread timing introduces micro-jitter at low speeds that is perceptible to users.
-
-Canonical example: `MarqueeText` (`src/components/MarqueeText.tsx`) uses `Animated.timing` + `Animated.loop` from `react-native` for this reason.
-
-## Let Animations Breathe
-
-Give animations and transitions enough time to run and complete so users can perceive what is happening. Do not skip or shortcut visual feedback in favor of speed. The user should always understand the result of their action through motion and visual cues.
-
-Existing patterns that embody this principle:
-
-- **`useTransitionComplete()`** – defer heavy rendering until a navigation transition finishes, preventing janky animations.
-- **`minDelay()`** – ensure loading spinners and refresh indicators remain visible long enough for the user to perceive them.
-
-## Native Theme Synchronization (iOS 26 Liquid Glass)
-
-On iOS 26, native UI elements (liquid glass header capsules, navigation bar materials) derive their appearance from the native UIKit layer, not from React. If the app's theme preference diverges from the system setting, native elements will flash with the wrong color scheme during navigation transitions unless all three synchronization layers are in place:
-
-### 1. ThemeProvider (critical)
-
-Expo Router's `NavigationContainer` defaults to React Navigation's `DefaultTheme`, which has a near-white background (`rgb(242, 242, 242)`). During native push/pop transitions, `react-native-screens` briefly exposes this background — on iOS 26 the liquid glass refracts it, causing a white flash.
-
-**Fix:** Wrap root layout content with `<ThemeProvider value={navigationTheme}>` from `@react-navigation/native`. Build `navigationTheme` via `useMemo`, spreading `DarkTheme` or `DefaultTheme` and overriding `colors` with the app's resolved theme colors.
-
-### 2. Root View Background Color
-
-`GestureHandlerRootView` must have `backgroundColor: colors.background` in its style. Without it, the native `RCTRootView` falls back to `UIColor.systemBackgroundColor` (white in system light mode), which the glass material can sample during transitions.
-
-### 3. Module-Scope Appearance Sync
-
-Call `Appearance.setColorScheme()` at module scope in `_layout.tsx` by reading the persisted theme from SQLite synchronously (`sqliteStorage.getItem('substreamer-theme')`). This sets `UIUserInterfaceStyle` before any React component renders. A companion `useEffect` watching `preference` from `useTheme()` handles runtime theme changes.
-
-### What Does NOT Work
-
-- **`headerBlurEffect: 'systemMaterial'`** conflicts with custom `BlurView` headerBackground — causes grey headers and permanent white button backgrounds.
-- **`Appearance.setColorScheme()` alone** is insufficient — it sets the window-level override but the navigation container's white default background still shows through during transitions.
+Pass `skip = true` when there is no cached data and you want the loading state immediately.
+
+## Pull-to-Refresh Minimum Delay
+
+Use the shared `minDelay()` helper to ensure pull-to-refresh spinners are visible long enough for the user to perceive:
+
+```tsx
+import { minDelay } from '../utils/stringHelpers';
+
+const handleRefresh = useCallback(async () => {
+  setRefreshing(true);
+  const delay = minDelay();   // default 2000ms
+  await fetchData();
+  await delay;
+  setRefreshing(false);
+}, [fetchData]);
+```
 
 ---
 > Source: [ghenry22/substreamer](https://github.com/ghenry22/substreamer) — distributed by [TomeVault](https://tomevault.io).
