@@ -1,0 +1,42 @@
+{
+  "name": "asynkron--asynkron-skills",
+  "displayName": "asynkron-skills",
+  "description": "ASYNKRON developer tools skills \u2014 profiler, test runner, code duplication detector, and line counter",
+  "version": "1.0.0",
+  "author": "asynkron",
+  "homepage": "https://github.com/asynkron/asynkron-skills",
+  "skills": [
+    {
+      "name": "cloc",
+      "description": ""
+    },
+    {
+      "name": "dotnet-strict",
+      "description": ""
+    },
+    {
+      "name": "palette",
+      "description": ""
+    },
+    {
+      "name": "profile",
+      "description": ""
+    },
+    {
+      "name": "quickdup",
+      "description": ""
+    },
+    {
+      "name": "roslynator",
+      "description": ""
+    },
+    {
+      "name": "systematic-debug",
+      "description": ""
+    },
+    {
+      "name": "testrunner",
+      "description": ""
+    }
+  ]
+}
