@@ -1,0 +1,9 @@
+{
+  "name": "unhappychoice--splashboard",
+  "displayName": "splashboard",
+  "description": "A customizable terminal splash screen with plugin-based data sources.",
+  "version": "1.0.0",
+  "author": "unhappychoice",
+  "homepage": "https://github.com/unhappychoice/splashboard",
+  "skills": []
+}
