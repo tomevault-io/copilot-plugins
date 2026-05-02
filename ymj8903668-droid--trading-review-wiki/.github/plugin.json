@@ -1,0 +1,9 @@
+{
+  "name": "ymj8903668-droid--trading-review-wiki",
+  "displayName": "trading-review-wiki",
+  "description": "A trading review knowledge base powered by LLM  \u4e13\u4e3a\u4ea4\u6613\u8005\u8bbe\u8ba1\u7684 LLM \u9a71\u52a8\u77e5\u8bc6\u5e93\uff1a\u5feb\u901f\u590d\u76d8\u3001\u4ea4\u5272\u5355\u5bfc\u5165\u3001FIFO \u76c8\u4e8f\u8ba1\u7b97\u3001\u4e2a\u80a1\u5f52\u6863\u4e0e\u622a\u56fe\u8ba8\u8bba\u3002",
+  "version": "1.0.0",
+  "author": "ymj8903668-droid",
+  "homepage": "https://github.com/ymj8903668-droid/trading-review-wiki",
+  "skills": []
+}
