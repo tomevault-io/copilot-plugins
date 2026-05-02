@@ -1,0 +1,27 @@
+## frontend-vben
+
+> 前端 Vben Admin：路径与结构索引；详细与易错点见 ncp-admin-frontend skill
+
+
+# 前端 Vben Admin
+
+技术栈：Vue 3、Vite、TypeScript、Ant Design Vue、Vben Admin。
+
+**详细规范**（API/视图易错点、权限与菜单清单、表单抽屉流程、路由 `activePath` 等）见 **`.cursor/skills/ncp-admin-frontend/SKILL.md`**；开发时建议 @ 引用该技能。
+
+## 路径与结构（相对 `src/frontend/apps/admin-antd/`）
+
+- API：`src/api/system/{feature}.ts`
+- 列表 / 表单 / Schema：`src/views/{module}/{feature}/` 下 `list.vue`、`modules/form.vue`、`data.ts`
+- 路由：`src/router/routes/modules/{module}.ts`
+- 多语言：`src/locales/langs/{zh-CN,en-US}/{module}.json`
+
+## 常用约定（摘要）
+
+- API：`namespace` 定义类型，`requestClient` 发请求
+- 列表：`Page`、`useVbenVxeGrid`、`useVbenModal`；弹窗表单：`modules/form.vue`
+- 表单：`useVbenForm`、`formModalApi.getData/setData`，提交后 `emit('success')`；文案：`$t()`
+
+---
+> Source: [zhouda1fu/Ncp.Admin](https://github.com/zhouda1fu/Ncp.Admin) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
