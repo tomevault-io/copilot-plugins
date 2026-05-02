@@ -1,93 +1,72 @@
-## minimax-m2-verification
+## minimax-mcp-tools
 
-> description: "Extended verification playbook: proof selection, shell checks, browser checks, and recovery loops."
+> MCP and web-tool guidance: current-doc retrieval, direct-tool preference, and version-aware external lookups.
 
-description: "Extended verification playbook: proof selection, shell checks, browser checks, and recovery loops."
-alwaysApply: false
----
 
-# Verification Playbook
+# MCP and Web Tools
 
-Use this file to extend the always-on status and verification contract with more detailed check-selection guidance.
+Use this rule when current documentation, external systems, or plugin-backed tools matter.
 
-## Proof Selection
+## Preferred Order
 
-- Match the proof to the claim being made.
-- Prefer the smallest proof that can honestly support the user-facing claim.
-- Strengthen the proof when the claim involves runtime behavior, interaction, styling, navigation, persistence, or integration.
+When multiple paths exist, prefer:
 
-## Minimum Proof By Change Type
+1. direct native tools exposed in the prompt
+2. direct plugin or MCP-backed tools exposed in the prompt
+3. MCP resource functions when available
+4. `WebSearch` and `WebFetch`
 
-| Change type | Minimum proof |
-|-------------|---------------|
-| **Instant/localized edit** | Re-read or one targeted static check |
-| **Backend, logic, or API change** | Targeted test, command, script, or runtime request |
-| **UI or interaction change** | Browser or user-surface verification, plus static checks as needed |
-| **Integration-sensitive change** | Build or typecheck plus one focused behavior check |
-| **New app or scaffold** | Setup/install succeeds, startup or health check succeeds, production build succeeds, one primary happy-path flow works, and promised persistence or reload behavior is verified |
+Do not assume old wrapper APIs are present just because they appear in older docs or rules.
 
-If the deliverable promises a styling or toolchain integration such as Tailwind, shadcn, routing, or persistence, verify that promised layer directly instead of assuming it works because the scaffold exists.
+## Web Search Discipline
 
-## Regression And Blast Radius
+Use `WebSearch` for:
+- package versions
+- breaking changes
+- compatibility questions
+- recent framework behavior
+- error messages after repeated failures
 
-- If the repo has tests, a smoke script, or CI, state whether they were run before claiming no regressions.
-- If not run, label regression risk as unverified and name what was skipped.
+Use `WebFetch` for:
+- official docs pages
+- changelogs
+- reference pages that need close reading
 
-## Typical Verification Order
+Before presenting advice as `current`, `official`, `recommended`, or `best practice`, verify it against a current authoritative source such as official docs, release notes, or changelogs.
 
-```text
-1. Fastest relevant static check
-2. Focused executable or surface check
-3. Broader validation only when the change warrants it
-```
+When versions matter:
+- use the actual current month and year
+- do not leave placeholders in the search query
+- do not rely on stale memory when a current source is available
 
-## Shell-Based Checks
+## MCP Discipline
 
-Use the smallest useful command first:
+- Follow the exact schema of currently exposed tools.
+- If the environment exposes direct tools, use them directly.
+- If the environment exposes resources instead of actions, use the resource discovery and fetch path.
+- Keep assumptions about server names and tool IDs out of general rules.
 
-- JavaScript/TypeScript: `lint`, `typecheck`, `build`, targeted tests, focused scripts
-- Python: `ruff`, targeted `pytest`, import or compile checks
-- Go: `go build`, `go test`, `go vet`
-- Rust: `cargo check`, `cargo test`, `cargo clippy`
-- Flutter: `flutter analyze`, `flutter test`
-- Swift: `swift build`, `swift test`, `xcodebuild` when applicable
-
-## Browser and Surface Checks
-
-Use browser verification when the user would experience the change visually or interactively:
-- layout-sensitive UI changes
-- flow or navigation regressions
-- console or network failures
-- styling pipeline issues
-- end-to-end behavior the shell cannot prove
-
-When browser verification is unavailable, say that clearly and downgrade the claim instead of implying full proof.
-
-## Self-Review
-
-For non-trivial work, ask:
+## Typical Chains
 
 ```text
-What would break this?
-What assumptions might be wrong?
-Is there a simpler way?
-Did I solve the actual request?
+Version check -> install or configure -> verify
+Docs lookup -> implement -> behavior check
+Resource discovery -> targeted fetch -> synthesize
 ```
 
-## When Verification Fails
-
-Use an evidence-first loop:
+For version-sensitive setup guidance, prefer:
 
 ```text
-What failed?
-What is the best current hypothesis?
-What is the smallest corrective change?
-What exact check will prove the fix?
+Current authoritative source -> install or configure -> executable verification
 ```
 
-Do not describe the task as complete while required verification is still failing or missing.
+## Failure Handling
 
-After two failures on the same hypothesis, document evidence and switch strategy (smaller change, wider read, one forked user question); do not repeat the same fix blindly. After that, use current docs or web search before another attempt.
+If an MCP or plugin call fails:
+- re-check the current schema
+- simplify the arguments
+- remove stale placeholder text
+- fall back to another available source if the integration is optional
 
 ---
 > Source: [madebyaris/advance-minimax-m2-cursor-rules](https://github.com/madebyaris/advance-minimax-m2-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
