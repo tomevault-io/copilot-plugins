@@ -1,0 +1,9 @@
+{
+  "name": "kusutori--bitwardenforcommandpalette",
+  "displayName": "BitwardenForCommandPalette",
+  "description": "Bitwarden Command Palette Plugin for Powertoys",
+  "version": "1.0.0",
+  "author": "kusutori",
+  "homepage": "https://github.com/kusutori/BitwardenForCommandPalette",
+  "skills": []
+}
