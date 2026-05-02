@@ -1,16 +1,14 @@
-## pathes-plugin
+## platform-support
 
-> 路径相关逻辑统一放在 tauri-plugin-pathes 中
+> 应用支持的平台范围，明确不包含 iOS
 
 
-# 路径逻辑归属：tauri-plugin-pathes
+# 平台支持范围
 
-- **任何**与应用路径、数据目录、缓存目录、资源目录等相关的**定义、计算或暴露**，应写在 **tauri-plugin-pathes**（`src-tauri-plugins/tauri-plugin-pathes/`）中。
-- 其他模块（如 app-main、core、前端）只应**使用**该插件提供的路径 API 或已初始化的 `AppPaths`，不应再实现或硬编码路径逻辑。
-- 新增路径类型或平台差异（如 Android / 桌面）时，在 tauri-plugin-pathes 内扩展；需要被 core 使用的路径，通过插件初始化时写入 `kabegame_core::app_paths::AppPaths`。
+- **支持**：Android、Windows、macOS、Linux（桌面三大操作系统 + 安卓）
+- **不支持**：iOS
 
-**正确**：在 `tauri-plugin-pathes` 中定义/计算路径，在别处通过 `app_paths` 或插件命令获取。  
-**错误**：在 app-main、core 或其它插件里直接算路径、写死目录或重复实现平台路径逻辑。
+编写或修改与平台相关的代码、文档、构建配置时，不要为 iOS 做适配或预留；若需求/讨论涉及 iOS，应说明本应用不支持 iOS。
 
 ---
 > Source: [kabegame/kabegame](https://github.com/kabegame/kabegame) — distributed by [TomeVault](https://tomevault.io).
