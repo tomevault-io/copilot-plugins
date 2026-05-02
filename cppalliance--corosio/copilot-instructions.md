@@ -1,24 +1,84 @@
-## doc-awaitable
+## portable-headers
 
-> doc javadoc for async awaitable functions of I/O objects
+> No non-portable header includes in type-erased public headers
 
+# Portable Headers Rule
 
-**Checklist for an outstanding awaitable function javadoc:**
-- **Brief** — One-sentence summary starting with a verb, e.g. "Read data from the stream asynchronously."
-- **Extended description** — Short paragraph explaining what the function does. State that it is an asynchronous operation that suspends the calling coroutine until completion. If composed, state which underlying operations it is implemented in terms of.
-- **Completion conditions** — Bulleted `@li` list of conditions under which the operation completes and the coroutine resumes (e.g. "The supplied buffers are full", "An error occurs", "The operation was canceled").
-- **Concurrency and overlap** — State which operations may be simultaneously in flight. E.g. for a read: "At most one write operation may be in flight concurrently with this read operation. No other read operations may be in flight until this operation completes." Clarify that simultaneous in-flight operations does *not* imply that the initiating calls themselves may be made concurrently; all calls to the stream must be made from the same implicit or explicit serialization context.
-- **`@param` for each parameter** — Including ownership/lifetime semantics. For buffers: state that the caller retains ownership and must guarantee validity until the operation completes. For string/view parameters: state whether the implementation copies the data or requires it to remain valid for the duration.
-- **`@return`** — Describe the returned aggregate and its elements. The first element is always `error_code`. Name and describe each subsequent element (e.g. "bytes_transferred", "endpoint"). Note that the result is customarily destructured by the caller.
-- **Error conditions** — Document the notable `error_code` values or conditions that may appear in the first element. E.g. `capy::cond::canceled` if the stop token was activated or the i/o object's `cancel()` was called, EOF conditions, protocol-specific errors, etc. State that error codes should be compared to error conditions, not specific values.
-- **`@throws`** — Typically only for precondition violations. State which preconditions trigger exceptions, or state that no exceptions are thrown during normal operation.
-- **Cancellation** — State that the operation supports cancellation via `stop_token` propagated through the IoAwaitable protocol, or via the i/o object's `cancel()` member. State that the resulting error compares equal to `capy::cond::canceled`.
-- **`@par Example`** — Two or three `@code` blocks showing different usage patterns: typical happy path with destructuring, error handling, cancellation, different overloads, etc.
-- **`@note` / `@par Remarks`** — Behavioral gotchas. E.g. "This operation may not read all of the requested bytes." Or equivalence to another overload.
-- **`@tparam`** — For non-variadic template parameters. State the concept requirement (e.g. "The type must satisfy the *AsyncStream* concept"). Don't document `Args...`.
-- **`@see`** — Always last. Cross-references to related functions, concepts, and relevant RFC sections.
-- Keep the ascii-art to a minimum, only add dividers if the class declaration is very long
-- Don't emit @tparam for deduced types or concepts
+**Headers in `include/boost/corosio/` and `include/boost/corosio/detail/` MUST NOT include platform-specific headers.**
+
+The `native/` subtree (`include/boost/corosio/native/`) is exempt — it is the direct/native API that deliberately exposes platform types.
+
+## Scope
+
+**Type-erased headers** (platform includes FORBIDDEN):
+- `include/boost/corosio/*.hpp`
+- `include/boost/corosio/detail/*.hpp`
+- `include/boost/corosio/concept/*.hpp`
+
+**Native/direct headers** (platform includes ALLOWED):
+- `include/boost/corosio/native/*.hpp`
+- `include/boost/corosio/native/detail/**/*.hpp`
+
+## Prohibited Headers (in type-erased scope)
+
+### Windows-specific
+- `<windows.h>`, `<WinSock2.h>`, `<Ws2tcpip.h>`, `<MSWSock.h>`
+- Any other Windows SDK headers
+
+### Unix/POSIX-specific
+- `<sys/socket.h>`, `<netinet/in.h>`, `<arpa/inet.h>`, `<unistd.h>`, `<sys/types.h>`
+- `<errno.h>` when used for platform-specific constants (e.g., `ECANCELED`)
+- Any other POSIX/Unix-specific headers
+
+### Platform-specific macros and types
+- Constants like `AF_INET`, `INADDR_ANY`, `ECANCELED`, `ERROR_OPERATION_ABORTED`
+- Types like `sockaddr_in`, `sockaddr_in6`, `sockaddr_storage`, `SOCKET`
+
+## Allowed Locations for Platform-Specific Code
+
+- `include/boost/corosio/native/` and `include/boost/corosio/native/detail/` (direct API)
+- Implementation files in `src/` (compilation firewall)
+
+## Rationale
+
+The library has two API layers:
+1. **Type-erased** (`corosio/` and `corosio/detail/`): portable, no platform headers leak to users
+2. **Native/direct** (`corosio/native/`): opt-in, exposes platform types for zero-overhead access
+
+## Examples
+
+### Bad (platform header in type-erased scope)
+```cpp
+// include/boost/corosio/detail/endpoint_convert.hpp  ← WRONG location
+#include <sys/socket.h>
+#include <netinet/in.h>
+```
+
+### Good (platform header in native scope)
+```cpp
+// include/boost/corosio/native/detail/endpoint_convert.hpp  ← correct
+#include <sys/socket.h>
+#include <netinet/in.h>
+```
+
+### Good (type-erased public header)
+```cpp
+// include/boost/corosio/endpoint.hpp
+#include <cstdint>
+
+class endpoint {
+    ipv4_address v4_address() const noexcept;
+    std::uint16_t port() const noexcept;
+};
+```
+
+## Enforcement
+
+When adding or modifying headers in the type-erased scope:
+
+1. Check all `#include` directives for platform-specific headers
+2. If platform types are needed, the header belongs in `native/detail/`
+3. Type-erased code reaches platform APIs only through `src/` compiled translation units
 
 ---
 > Source: [cppalliance/corosio](https://github.com/cppalliance/corosio) — distributed by [TomeVault](https://tomevault.io).
