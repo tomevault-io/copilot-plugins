@@ -1,93 +1,144 @@
-## cursor-mcp-optimization
+## cursor-tools-mastery
 
-> Cursor MCP optimization: browser, Figma, and Cloudflare tools with direct action patterns.
+> Cursor runtime guide: choose the right tool, prefer direct tools, and keep execution parallel where safe.
 
 
-# Cursor MCP Optimization
+# Cursor Tools Mastery
 
-Direct guidance for Cursor's MCP tools. Use the right tool for each job.
+Keep durable behavior in the core rule. Use this file for current Cursor tool-selection patterns.
 
-## Browser Tools (cursor-ide-browser)
+## Cursor 3 workspace
 
-**Always do before any interaction:**
-```
-1. browser_tabs with action: "list" → check current tabs/URLs
-2. browser_snapshot → get current page structure and refs
-```
+In Cursor 3, agent work is centered in the **Agents** experience. Open it from the command palette: **Agents Window** (for example `Cmd+Shift+P` on macOS, as described in the [Cursor 3 announcement](https://cursor.com/blog/cursor-3)).
 
-**Interaction pattern:**
-```
-1. Identify the target ref from snapshot (use exact ref, not coordinates)
-2. For clicks: prefer snapshot refs over mouse_xy coordinates
-3. For forms: use browser_fill for existing content, browser_type to append
-4. After ANY action that changes page: take fresh snapshot
-```
+- **Multi-workspace / multi-repo:** the UI can surface several workspaces at once. Name the repo or root path when handing off work, opening files, or running commands so edits land in the intended tree.
+- **Integrated browser:** prefer the IDE’s built-in browser for local UI verification when it is exposed in your session; it matches the “snapshot-first” flow in Browser Guidance below.
 
-**Coordinate clicks ONLY when:**
-- A fresh screenshot confirms the exact visual target
-- No snapshot ref is available
-- The target is visually verifiable (button, link)
+## Golden Rule
 
-**Never do:**
-- Click without a fresh snapshot first
-- Reuse old screenshot coordinates
-- Assume page state without verification
+For significant actions:
 
-## Figma Tools (plugin-figma-figma)
-
-**Design-to-code workflow:**
-```
-1. Call get_design_context with fileKey and nodeId
-2. Adapt output to project's existing stack/components
-3. Do NOT use raw Figma output as final code
+```text
+Check what exists
+Choose the smallest correct tool
+Act
+Validate with the lightest useful verification
 ```
 
-**URL parsing:**
-- `figma.com/design/:fileKey/:fileName?node-id=:nodeId` → convert "-" to ":" in nodeId
-- `figma.com/board/:fileKey/:fileName` → FigJam, use get_figjam
-- `figma.com/make/:makeFileKey/:makeFileName` → use makeFileKey
+## Default Tool Map
 
-**When designer provides screenshots:**
-- Use get_screenshot for visual verification
-- Translate Figma design tokens to project's token system
-- Never copy exact Figma hex values without checking project palette
+**Composer 2 / Cursor agent (typical names in current desktop agents):** the session usually exposes something close to:
 
-## Cloudflare Tools
+| Step | Tool name | Notes |
+|------|-----------|--------|
+| Read a path | `Read` | Prefer over shell `cat`/`sed` |
+| Search by pattern | `Grep` | Ripgrep-backed; use for exact symbols and strings |
+| Search by meaning | `SemanticSearch` | “Where does X happen?” not exact text |
+| List paths | `Glob` | File discovery by pattern |
+| Edit in place | `StrReplace` | Surgical edits; read the file first |
+| Create or replace whole file | `Write` | Use when there is no stable old_string to patch |
+| Remove file | `Delete` | |
+| Terminal | `Shell` | Builds, tests, git, installs |
+| Web | `WebSearch`, `WebFetch` | |
+| Ask user | `AskQuestion` | |
+| Track steps | `TodoWrite` | |
+| Delegate branch work | `Task` | Subagent-style runs (types such as explore, debugger, verifier—see schema) |
+| MCP servers | `call_mcp_tool` (+ resource helpers if present) | Read MCP tool descriptors before calling |
+| Plan mode | `SwitchMode` | When the product exposes a planning mode |
+| Images | `GenerateImage` | Only when the user asks for generated images |
+| Notebooks | `EditNotebook` | `.ipynb` cell edits |
+| Lint diagnostics | `ReadLints` | After substantive edits when available |
 
-**Load these skills before Cloudflare work:**
-- `cloudflare/SKILL.md` — comprehensive platform guidance
-- `wrangler/SKILL.md` — CLI usage and best practices
-- `workers-best-practices/SKILL.md` — production Worker patterns
+**Browser:** often MCP tools (for example `cursor-ide-browser`) with names like `browser_snapshot`, `browser_navigate`—follow the server’s schema.
 
-**Before deploying:**
+**Parallel batching:** issue **multiple independent tool calls in one assistant turn** when the runtime allows it (same idea as batched parallel execution).
+
+**Other Cursor surfaces** (CLI, older builds, API): names may differ (`ReadFile`, `ApplyPatch`, `Subagent`, etc.). The **exact tool list in the current session always wins**—same principle as `model-compatibility.mdc`.
+
+## Read and Search Guidance
+
+- Prefer direct read/search tools over shell equivalents.
+- Batch independent reads and searches in one turn when the session allows parallel calls.
+- Use `SemanticSearch` for "how/where/what handles this?" questions, not exact symbol lookups.
+
+## Editing Guidance
+
+- Read the file first (`Read`).
+- Use `StrReplace` for focused in-file edits; use `Write` for new files or full rewrites when patch context is awkward.
+- Keep edits coherent; avoid thrashing the same file with many tiny changes.
+- Re-read or verify after editing.
+
+## Shell Guidance
+
+Use `Shell` for:
+- builds, tests, typechecks, and linting
+- package-manager or framework CLI commands
+- git inspection
+- long-running verification commands when no dedicated tool exists
+
+Before starting dev servers or watchers, check whether one is already running.
+
+## Browser Guidance
+
+When browser tools exist (including Cursor’s integrated browser in supported builds):
+
+```text
+1. Check tabs
+2. Navigate
+3. Snapshot before interaction
+4. Interact using snapshot refs
+5. Re-snapshot and inspect console/network when behavior is unclear
 ```
-1. Read wrangler skill for correct syntax
-2. Verify secrets/bindings in wrangler.jsonc
-3. Run wrangler dev locally first
+
+Use browser checks for layout-sensitive UI work, interaction bugs, and issues shell commands cannot prove.
+Do not promise a browser-only or canvas-style deliverable until you have confirmed the browser path in the current runtime.
+
+## MCP and Plugin Guidance
+
+- Prefer direct tools exposed in the prompt over wrapper APIs.
+- If an MCP server exposes resources instead of action tools, use the resource functions the environment provides.
+- Keep repo guidance generic enough to survive tool and server renames.
+
+## Task and subagent guidance
+
+In Composer-style agents the delegation tool is usually **`Task`**, with a `subagent_type` and prompt (see the live schema). Use it for isolated research, broad exploration, debugger or verifier passes, or branches that would otherwise pollute the main context.
+
+When multiple delegations are truly independent:
+- launch them concurrently in the same assistant turn when the schema allows
+- give each run a distinct scope, expected output, and stopping point
+- keep one synthesis step in the main thread after they return
+- avoid overlap that makes two agents inspect the same surface without a reason
+
+Good parallel split examples:
+- frontend investigation vs backend investigation
+- version research vs codebase pattern search
+- debugger pass vs verifier pass
+
+Bad parallel split examples:
+- two agents editing the same file
+- agent B depends on findings from agent A
+- multiple agents exploring the whole repo with no separation
+
+If the task is narrow, prefer direct tools over spawning subagents.
+
+## Parallelism
+
+Parallelize only when calls are independent:
+- multiple reads
+- unrelated searches
+- independent research tracks
+- separate `Task` / subagent investigations with different scopes
+
+For `Task` specifically:
+
+```text
+1. Split the work into independent slices
+2. Launch multiple Task calls in one message when they do not depend on each other
+3. Wait for all results
+4. Synthesize centrally before acting
 ```
 
-**MCP auth:** If a Cloudflare MCP server has `mcp_auth`, call it before using tools.
-
-## MCP General Rules
-
-```
-1. Read the tool schema BEFORE calling unfamiliar MCP tools
-2. Use exact parameter names from the schema
-3. If tool unavailable, say so and use next best exposed path
-4. Do not infer hidden parameters or old API versions
-```
-
-## Marketplace plugins
-
-Plugins installed from the [Cursor Marketplace](https://cursor.com/marketplace) extend agents with MCPs, skills, and related capabilities. Treat them like any other MCP surface: **inventory** what the session exposes, **read descriptors/schemas** before first use, then call the smallest valid tool—same as in `tool-discovery.mdc`.
-
-## Capability Mapping Checklist
-
-Before acting, confirm:
-- [ ] Direct native tool exists for this action
-- [ ] MCP tool exists with current schema
-- [ ] Browser interaction confirmed via snapshot
-- [ ] Fallback path identified if primary fails
+Do not parallelize dependent edits or steps that require previous outputs, and do not default to serial Task launches when a parallel batch is possible.
 
 ---
 > Source: [madebyaris/advance-minimax-m2-cursor-rules](https://github.com/madebyaris/advance-minimax-m2-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
