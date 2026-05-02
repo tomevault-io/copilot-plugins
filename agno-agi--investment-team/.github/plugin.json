@@ -1,0 +1,9 @@
+{
+  "name": "agno-agi--investment-team",
+  "displayName": "investment-team",
+  "description": "Multi-agent investment team powered by Agno and Gemini \u2014 7 AI analysts collaborate across 5 architectures to deploy a $10M equity portfolio",
+  "version": "1.0.0",
+  "author": "agno-agi",
+  "homepage": "https://github.com/agno-agi/investment-team",
+  "skills": []
+}
