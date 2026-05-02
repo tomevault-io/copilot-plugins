@@ -1,0 +1,9 @@
+{
+  "name": "jeremytregunna--foldb",
+  "displayName": "foldb",
+  "description": "The database that is a log, and all operations are `fold(log)`.",
+  "version": "1.0.0",
+  "author": "jeremytregunna",
+  "homepage": "https://github.com/jeremytregunna/foldb",
+  "skills": []
+}
