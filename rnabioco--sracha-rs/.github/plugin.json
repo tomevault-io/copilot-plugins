@@ -1,0 +1,9 @@
+{
+  "name": "rnabioco--sracha-rs",
+  "displayName": "sracha-rs",
+  "description": "Rust-based sra-tools",
+  "version": "1.0.0",
+  "author": "rnabioco",
+  "homepage": "https://github.com/rnabioco/sracha-rs",
+  "skills": []
+}
