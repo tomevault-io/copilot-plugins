@@ -7,11 +7,11 @@ Typescript Desktop UI framework without the browser stuff
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [golok727/uzumaki](https://github.com/golok727/uzumaki).
+Original source: `CLAUDE.md` in [golok727/uzumaki](https://github.com/golok727/uzumaki).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
