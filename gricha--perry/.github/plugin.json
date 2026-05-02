@@ -1,0 +1,30 @@
+{
+  "name": "gricha--perry",
+  "displayName": "perry",
+  "description": "Workspace orchestration for local development environments using docker-in-docker",
+  "version": "1.0.0",
+  "author": "gricha",
+  "homepage": "https://github.com/gricha/perry",
+  "skills": [
+    {
+      "name": "perry",
+      "description": ""
+    },
+    {
+      "name": "react-review",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "description": ""
+    },
+    {
+      "name": "warden-skill",
+      "description": ""
+    },
+    {
+      "name": "perry-workspaces",
+      "description": ""
+    }
+  ]
+}
