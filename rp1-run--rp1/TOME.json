@@ -1,0 +1,81 @@
+{
+  "name": "rp1",
+  "owner": "rp1-run",
+  "repo": "rp1",
+  "description": "Ready Player One - stop prompting; start shipping",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-comments",
+      "path": "plugins/base/skills/code-comments",
+      "github_url": "https://github.com/rp1-run/rp1/tree/main/plugins/base/skills/code-comments",
+      "description": ""
+    },
+    {
+      "name": "knowledge-base-templates",
+      "path": "plugins/base/skills/knowledge-base-templates",
+      "github_url": "https://github.com/rp1-run/rp1/tree/main/plugins/base/skills/knowledge-base-templates",
+      "description": ""
+    },
+    {
+      "name": "markdown-preview",
+      "path": "plugins/base/skills/markdown-preview",
+      "github_url": "https://github.com/rp1-run/rp1/tree/main/plugins/base/skills/markdown-preview",
+      "description": ""
+    },
+    {
+      "name": "prompt-eval-builder",
+      "path": "plugins/utils/skills/prompt-eval-builder",
+      "github_url": "https://github.com/rp1-run/rp1/tree/main/plugins/utils/skills/prompt-eval-builder",
+      "description": ""
+    },
+    {
+      "name": "prompt-writer",
+      "path": "plugins/utils/skills/prompt-writer",
+      "github_url": "https://github.com/rp1-run/rp1/tree/main/plugins/utils/skills/prompt-writer",
+      "description": ""
+    },
+    {
+      "name": "sample-skill",
+      "path": "cli/src/__tests__/fixtures/valid-plugin/skill/sample-skill",
+      "github_url": "https://github.com/rp1-run/rp1/tree/main/cli/src/__tests__/fixtures/valid-plugin/skill/sample-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rp1-run/rp1",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:39:19Z"
+}
