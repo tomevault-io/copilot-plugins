@@ -1,0 +1,22 @@
+{
+  "name": "olafkfreund--cosmic-ext-rdp-server",
+  "displayName": "cosmic-ext",
+  "description": "AI instruction skills by olafkfreund",
+  "version": "1.0.0",
+  "author": "olafkfreund",
+  "homepage": "https://github.com/olafkfreund/cosmic-ext-rdp-server",
+  "skills": [
+    {
+      "name": "cosmic_development",
+      "description": ""
+    },
+    {
+      "name": "nixos_development",
+      "description": ""
+    },
+    {
+      "name": "rust_development",
+      "description": ""
+    }
+  ]
+}
