@@ -1,0 +1,9 @@
+{
+  "name": "mouseart2025--ai-reader-v2",
+  "displayName": "AI-Reader-V2",
+  "description": "AI \u5c0f\u8bf4\u5206\u6790\u53ef\u89c6\u5316\u5de5\u5177 \u2014 \u89d2\u8272\u5173\u7cfb\u56fe\u8c31 \u00b7 \u5730\u7406\u5730\u56fe \u00b7 \u65f6\u95f4\u7ebf \u00b7 \u767e\u79d1\u5168\u4e66 | \u652f\u6301 Ollama \u672c\u5730 + 10 \u5927\u4e91\u7aef LLM | React + FastAPI + SQLite",
+  "version": "1.0.0",
+  "author": "mouseart2025",
+  "homepage": "https://github.com/mouseart2025/AI-Reader-V2",
+  "skills": []
+}
