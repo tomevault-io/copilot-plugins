@@ -1,0 +1,9 @@
+{
+  "name": "parcadei--ouros",
+  "displayName": "ouros",
+  "description": "A sandboxed Python runtime for AI agents, written in Rust.",
+  "version": "1.0.0",
+  "author": "parcadei",
+  "homepage": "https://github.com/parcadei/ouros",
+  "skills": []
+}
