@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--personal-genome-pipeline",
+  "displayName": "Personal-Genome-Pipeline",
+  "description": "Whole genome sequencing analysis pipeline for consumer hardware. 100% local, Docker-powered, free and open source.",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/Personal-Genome-Pipeline",
+  "skills": []
+}
