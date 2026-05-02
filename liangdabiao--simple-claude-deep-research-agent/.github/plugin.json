@@ -1,0 +1,22 @@
+{
+  "name": "liangdabiao--simple-claude-deep-research-agent",
+  "displayName": "simple_claude_deep_research_agent",
+  "description": "\u4e00\u4e2a\u4e3a Claude Code \u8bbe\u8ba1\u7684\u7b80\u5316\u7248\u591a\u667a\u80fd\u4f53\u7814\u7a76\u7cfb\u7edf\uff0c\u901a\u8fc7\u5e76\u884c\u5b50\u4ee3\u7406\u6267\u884c\u57fa\u4e8e Web \u7684\u7efc\u5408\u6027\u7814\u7a76\u3002  \u6982\u8ff0 \u672c\u7cfb\u7edf\u4f7f\u7528\u4e09\u79cd\u4e13\u95e8\u7684\u4ee3\u7406\u7c7b\u578b\uff1a  \u7814\u7a76\u4e3b\u5bfc\u4ee3\u7406\uff08Research Lead Agent\uff09\uff1a\u7edf\u7b79\u7814\u7a76\u3001\u89c4\u5212\u4efb\u52a1\u3001\u59d4\u6d3e\u7ed9\u5b50\u4ee3\u7406\u3001\u7efc\u5408\u53d1\u73b0 \u7814\u7a76\u5b50\u4ee3\u7406\uff08Research Subagents\uff09\uff1a\u4f7f\u7528 Web \u5de5\u5177\u5e76\u884c\u6267\u884c\u4e13\u6ce8\u7684\u7814\u7a76\u4efb\u52a1 \u5f15\u7528\u4ee3\u7406\uff08Citations Agent\uff09\uff1a\u4e3a\u7814\u7a76\u62a5\u544a",
+  "version": "1.0.0",
+  "author": "liangdabiao",
+  "homepage": "https://github.com/liangdabiao/simple_claude_deep_research_agent",
+  "skills": [
+    {
+      "name": "research-subagent",
+      "description": ""
+    },
+    {
+      "name": "ducksearch",
+      "description": ""
+    },
+    {
+      "name": "research-brightdata",
+      "description": ""
+    }
+  ]
+}
