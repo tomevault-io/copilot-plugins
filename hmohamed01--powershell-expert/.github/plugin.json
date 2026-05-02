@@ -1,0 +1,14 @@
+{
+  "name": "hmohamed01--powershell-expert",
+  "displayName": "powershell-expert",
+  "description": "Claude Code skill for PowerShell development - scripts, tools, modules, and GUIs",
+  "version": "1.0.0",
+  "author": "hmohamed01",
+  "homepage": "https://github.com/hmohamed01/powershell-expert",
+  "skills": [
+    {
+      "name": "powershell-expert",
+      "description": ""
+    }
+  ]
+}
