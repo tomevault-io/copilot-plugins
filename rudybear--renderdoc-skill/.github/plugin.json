@@ -1,0 +1,9 @@
+{
+  "name": "rudybear--renderdoc-skill",
+  "displayName": "renderdoc-skill",
+  "description": "A Claude Code skill for GPU frame debugging with RenderDoc via rdc-cli",
+  "version": "1.0.0",
+  "author": "rudybear",
+  "homepage": "https://github.com/rudybear/renderdoc-skill",
+  "skills": []
+}
