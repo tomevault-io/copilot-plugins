@@ -1,0 +1,9 @@
+{
+  "name": "blacklanternsecurity--red-run",
+  "displayName": "red-run",
+  "description": "Offensive security toolkit for Claude Code",
+  "version": "1.0.0",
+  "author": "blacklanternsecurity",
+  "homepage": "https://github.com/blacklanternsecurity/red-run",
+  "skills": []
+}
