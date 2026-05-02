@@ -1,0 +1,51 @@
+{
+  "name": "faidd",
+  "owner": "faidd",
+  "repo": "faidd",
+  "description": "FAIDD is a sovereign security framework designed to govern, audit, and secure the interactions of AI agents within high-integrity development environments",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ui-ux-pro-max",
+      "path": ".agents/skills/ui-ux-pro-max",
+      "github_url": "https://github.com/faidd/faidd/tree/main/.agents/skills/ui-ux-pro-max",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/faidd/faidd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:44:23Z"
+}
