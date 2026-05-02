@@ -1,151 +1,444 @@
-## shadcn
+## sanityappsdk
 
-> Shadcn usage
+> Anything related to Sanity usage
 
-# shadcn/ui
+# App SDK best practices
 
-> shadcn/ui is a collection of beautifully-designed, accessible components and a code distribution platform. It is built with TypeScript, Tailwind CSS, and Radix UI primitives. It supports multiple frameworks including Next.js, Vite, Remix, Astro, and more. Open Source. Open Code. AI-Ready. It also comes with a command-line tool to install and manage components and a registry system to publish and distribute code.
+If you’ve worked with Sanity before, your experience querying the Content Lake is likely grounded in building Server-Side Rendered (SSR) or statically generated front-end applications designed for page load time performance.
 
-## Overview
+Now, with the Sanity App SDK, you can build feature-rich content applications for authoring. However, this requires a different approach: swapping SSR thinking for Single-Page Application (SPA) best practices.
 
-- [Introduction](https://ui.shadcn.com/docs): Core principles—Open Code, Composition, Distribution, Beautiful Defaults, and AI-Ready design.
-- [CLI](https://ui.shadcn.com/docs/cli): Command-line tool for installing and managing components.
-- [components.json](https://ui.shadcn.com/docs/components-json): Configuration file for customizing the CLI and component installation.
-- [Theming](https://ui.shadcn.com/docs/theming): Guide to customizing colors, typography, and design tokens.
-- [Changelog](https://ui.shadcn.com/docs/changelog): Release notes and version history.
-- [About](https://ui.shadcn.com/docs/about): Credits and project information.
+On top of this, if you’re used to writing React applications, some common patterns for building form-based user interfaces are best avoided when working with App SDK.
 
-## Installation
+## What makes a great content application?
 
-- [Next.js](https://ui.shadcn.com/docs/installation/next): Install shadcn/ui in a Next.js project.
-- [Vite](https://ui.shadcn.com/docs/installation/vite): Install shadcn/ui in a Vite project.
-- [Remix](https://ui.shadcn.com/docs/installation/remix): Install shadcn/ui in a Remix project.
-- [Astro](https://ui.shadcn.com/docs/installation/astro): Install shadcn/ui in an Astro project.
-- [Laravel](https://ui.shadcn.com/docs/installation/laravel): Install shadcn/ui in a Laravel project.
-- [Gatsby](https://ui.shadcn.com/docs/installation/gatsby): Install shadcn/ui in a Gatsby project.
-- [React Router](https://ui.shadcn.com/docs/installation/react-router): Install shadcn/ui in a React Router project.
-- [TanStack Router](https://ui.shadcn.com/docs/installation/tanstack-router): Install shadcn/ui in a TanStack Router project.
-- [TanStack Start](https://ui.shadcn.com/docs/installation/tanstack): Install shadcn/ui in a TanStack Start project.
-- [Manual Installation](https://ui.shadcn.com/docs/installation/manual): Manually install shadcn/ui without the CLI.
+Content applications are defined as distinct, new experiences that give authors a focused environment to perform content operations. Instead of digging through a general-purpose CMS interface, authors work in a fit-for-purpose user interface to get the job done.
 
-## Components
+Content applications developed with the Sanity App SDK should be:
 
-### Form & Input
+### Real-time
 
-- [Form](https://ui.shadcn.com/docs/components/form): Building forms with React Hook Form and Zod validation.
-- [Field](https://ui.shadcn.com/docs/components/field): Field component for form inputs with labels and error messages.
-- [Button](https://ui.shadcn.com/docs/components/button): Button component with multiple variants.
-- [Button Group](https://ui.shadcn.com/docs/components/button-group): Group multiple buttons together.
-- [Input](https://ui.shadcn.com/docs/components/input): Text input component.
-- [Input Group](https://ui.shadcn.com/docs/components/input-group): Input component with prefix and suffix addons.
-- [Input OTP](https://ui.shadcn.com/docs/components/input-otp): One-time password input component.
-- [Textarea](https://ui.shadcn.com/docs/components/textarea): Multi-line text input component.
-- [Checkbox](https://ui.shadcn.com/docs/components/checkbox): Checkbox input component.
-- [Radio Group](https://ui.shadcn.com/docs/components/radio-group): Radio button group component.
-- [Select](https://ui.shadcn.com/docs/components/select): Select dropdown component.
-- [Switch](https://ui.shadcn.com/docs/components/switch): Toggle switch component.
-- [Slider](https://ui.shadcn.com/docs/components/slider): Slider input component.
-- [Calendar](https://ui.shadcn.com/docs/components/calendar): Calendar component for date selection.
-- [Date Picker](https://ui.shadcn.com/docs/components/date-picker): Date picker component combining input and calendar.
-- [Combobox](https://ui.shadcn.com/docs/components/combobox): Searchable select component with autocomplete.
-- [Label](https://ui.shadcn.com/docs/components/label): Form label component.
+Any number of documents fetched and rendered into the user interface should continue to update as mutations happen to the source documents. Content applications should avoid concepts that handle stale data like "submit," “save” or "lock" buttons.
 
-### Layout & Navigation
+### Multiplayer
 
-- [Accordion](https://ui.shadcn.com/docs/components/accordion): Collapsible accordion component.
-- [Breadcrumb](https://ui.shadcn.com/docs/components/breadcrumb): Breadcrumb navigation component.
-- [Navigation Menu](https://ui.shadcn.com/docs/components/navigation-menu): Accessible navigation menu with dropdowns.
-- [Sidebar](https://ui.shadcn.com/docs/components/sidebar): Collapsible sidebar component for app layouts.
-- [Tabs](https://ui.shadcn.com/docs/components/tabs): Tabbed interface component.
-- [Separator](https://ui.shadcn.com/docs/components/separator): Visual divider between content sections.
-- [Scroll Area](https://ui.shadcn.com/docs/components/scroll-area): Custom scrollable area with styled scrollbars.
-- [Resizable](https://ui.shadcn.com/docs/components/resizable): Resizable panel layout component.
+Two authors looking at the same document should be able to continually make and see edits without fear of overwriting one another’s work.
 
-### Overlays & Dialogs
+### Fast
 
-- [Dialog](https://ui.shadcn.com/docs/components/dialog): Modal dialog component.
-- [Alert Dialog](https://ui.shadcn.com/docs/components/alert-dialog): Alert dialog for confirmation prompts.
-- [Sheet](https://ui.shadcn.com/docs/components/sheet): Slide-out panel component (drawer).
-- [Drawer](https://ui.shadcn.com/docs/components/drawer): Mobile-friendly drawer component using Vaul.
-- [Popover](https://ui.shadcn.com/docs/components/popover): Floating popover component.
-- [Tooltip](https://ui.shadcn.com/docs/components/tooltip): Tooltip component for additional context.
-- [Hover Card](https://ui.shadcn.com/docs/components/hover-card): Card that appears on hover.
-- [Context Menu](https://ui.shadcn.com/docs/components/context-menu): Right-click context menu.
-- [Dropdown Menu](https://ui.shadcn.com/docs/components/dropdown-menu): Dropdown menu component.
-- [Menubar](https://ui.shadcn.com/docs/components/menubar): Horizontal menubar component.
-- [Command](https://ui.shadcn.com/docs/components/command): Command palette component (cmdk).
+Content rendered in the application should be locally cached, updated optimistically, and kept eventually consistent with the Content Lake.
 
-### Feedback & Status
+### Accurate
 
-- [Alert](https://ui.shadcn.com/docs/components/alert): Alert component for messages and notifications.
-- [Toast](https://ui.shadcn.com/docs/components/toast): Toast notification component using Sonner.
-- [Progress](https://ui.shadcn.com/docs/components/progress): Progress bar component.
-- [Spinner](https://ui.shadcn.com/docs/components/spinner): Loading spinner component.
-- [Skeleton](https://ui.shadcn.com/docs/components/skeleton): Skeleton loading placeholder.
-- [Badge](https://ui.shadcn.com/docs/components/badge): Badge component for labels and status indicators.
-- [Empty](https://ui.shadcn.com/docs/components/empty): Empty state component for no data scenarios.
+There should never be stale data in an author's browser as they write content, nor after page load when fetched content is rendered. Updates should be written to and received directly from the Content Lake.
 
-### Display & Media
+### This is all built-in to Sanity App SDK
 
-- [Avatar](https://ui.shadcn.com/docs/components/avatar): Avatar component for user profiles.
-- [Card](https://ui.shadcn.com/docs/components/card): Card container component.
-- [Table](https://ui.shadcn.com/docs/components/table): Table component for displaying data.
-- [Data Table](https://ui.shadcn.com/docs/components/data-table): Advanced data table with sorting, filtering, and pagination.
-- [Chart](https://ui.shadcn.com/docs/components/chart): Chart components using Recharts.
-- [Carousel](https://ui.shadcn.com/docs/components/carousel): Carousel component using Embla Carousel.
-- [Aspect Ratio](https://ui.shadcn.com/docs/components/aspect-ratio): Container that maintains aspect ratio.
-- [Typography](https://ui.shadcn.com/docs/components/typography): Typography styles and components.
-- [Item](https://ui.shadcn.com/docs/components/item): Generic item component for lists and menus.
-- [Kbd](https://ui.shadcn.com/docs/components/kbd): Keyboard shortcut display component.
+These are the baseline expectations that Sanity’s engineers have had while developing Sanity Studio since 2017, and they’re now democratized for everyone to take advantage of via React Hooks in the Sanity App SDK.
 
-### Misc
+## Get comfortable with more fetches
 
-- [Collapsible](https://ui.shadcn.com/docs/components/collapsible): Collapsible container component.
-- [Toggle](https://ui.shadcn.com/docs/components/toggle): Toggle button component.
-- [Toggle Group](https://ui.shadcn.com/docs/components/toggle-group): Group of toggle buttons.
-- [Pagination](https://ui.shadcn.com/docs/components/pagination): Pagination component for lists and tables.
+If you’ve built an SSR front end with Sanity before (such as in Next.js), you’ve likely created a Sanity Client and fetched all on-page content in a single query like this.
 
-## Dark Mode
+```tsx
+// The SSR way: query and render "event" type documents
 
-- [Dark Mode](https://ui.shadcn.com/docs/dark-mode): Overview of dark mode implementation.
-- [Dark Mode - Next.js](https://ui.shadcn.com/docs/dark-mode/next): Dark mode setup for Next.js.
-- [Dark Mode - Vite](https://ui.shadcn.com/docs/dark-mode/vite): Dark mode setup for Vite.
-- [Dark Mode - Astro](https://ui.shadcn.com/docs/dark-mode/astro): Dark mode setup for Astro.
-- [Dark Mode - Remix](https://ui.shadcn.com/docs/dark-mode/remix): Dark mode setup for Remix.
+import { client } from "../sanity/client";
 
-## Forms
+export async function Page() {
+  const events = await client.fetch(
+    `*[_type == "event"]`
+  );
 
-- [Forms Overview](https://ui.shadcn.com/docs/forms): Guide to building forms with shadcn/ui.
-- [React Hook Form](https://ui.shadcn.com/docs/forms/react-hook-form): Using shadcn/ui with React Hook Form.
-- [TanStack Form](https://ui.shadcn.com/docs/forms/tanstack-form): Using shadcn/ui with TanStack Form.
-- [Forms - Next.js](https://ui.shadcn.com/docs/forms/next): Building forms in Next.js with Server Actions.
+  return (
+    <ul>
+      {events.map((event) => (
+        <li key={event._id}>{event.title}</li>
+      ))}
+    </ul>
+  );
+}
+```
 
-## Advanced
+This can work great for SSR apps—where only the initial page load is important—since the grunt work of optimization is done behind the scenes, cached and delivered fast in a static format to your end users. But it falls short of a great SPA experience which may involve querying and editing an evolving number and type of documents, while keeping the user interface up to date in real-time.
 
-- [Monorepo](https://ui.shadcn.com/docs/monorepo): Using shadcn/ui in a monorepo setup.
-- [React 19](https://ui.shadcn.com/docs/react-19): React 19 support and migration guide.
-- [Tailwind CSS v4](https://ui.shadcn.com/docs/tailwind-v4): Tailwind CSS v4 support and setup.
-- [JavaScript](https://ui.shadcn.com/docs/javascript): Using shadcn/ui with JavaScript (no TypeScript).
-- [Figma](https://ui.shadcn.com/docs/figma): Figma design resources.
-- [v0](https://ui.shadcn.com/docs/v0): Generating UI with v0 by Vercel.
+### Prefer useDocuments over useQuery to fetch documents
 
-## MCP Server
+Your natural inclination may be to use the App SDK hooks to recreate the "fetch everything in one query" pattern.
 
-- [MCP Server](https://ui.shadcn.com/docs/mcp): Model Context Protocol server for AI integrations. Allows AI assistants to browse, search, and install components from registries using natural language. Works with Claude Code, Cursor, VS Code (GitHub Copilot), Codex and more.
+```tsx
+// ❌ Do not simply swap client.fetch for useQuery
+// It's too easy to over-fetch!
 
-## Registry
+import { useQuery } from "@sanity/sdk-react";
 
-- [Registry Overview](https://ui.shadcn.com/docs/registry): Creating and publishing your own component registry.
-- [Getting Started](https://ui.shadcn.com/docs/registry/getting-started): Set up your own registry.
-- [Examples](https://ui.shadcn.com/docs/registry/examples): Example registries.
-- [FAQ](https://ui.shadcn.com/docs/registry/faq): Common questions about registries.
-- [Authentication](https://ui.shadcn.com/docs/registry/authentication): Adding authentication to your registry.
-- [Registry MCP](https://ui.shadcn.com/docs/registry/mcp): MCP integration for registries.
+export function Page() {
+  const { data: events } = useQuery(
+    `*[_type == "event"]`
+  );
 
-### Registry Schemas
+  if (!events) return null;
 
-- [Registry Schema](https://ui.shadcn.com/schema/registry.json): JSON Schema for registry index files. Defines the structure for a collection of components, hooks, pages, etc. Requires name, homepage, and items array.
-- [Registry Item Schema](https://ui.shadcn.com/schema/registry-item.json): JSON Schema for individual registry items. Defines components, hooks, themes, and other distributable code with properties for dependencies, files, Tailwind config, CSS variables, and more.
+  return (
+    <ul>
+      {events.map((event) => (
+        <li key={event._id}>{event.title}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+This list of documents will receive real-time updates—an upgrade from `client.fetch`—but may unknowingly fetch 1000’s of documents, each with 100’s of attributes.
+
+> [!WARNING]
+> Keeping raw GROQ queries performant
+> The query in this particular example is problematic for performance. There’s no “array slicing” such as `[0..10]` to reduce the total number of documents returned, and no projection such as `{ title }` to reduce the number of attributes returned. 
+> High performance is built-in when you use hooks like `useDocuments` and `usePaginatedDocuments` to return a filtered list of [document handles](/docs/app-sdk/document-handles), but your implementation will need to be more carefully considered when fetching by GROQ queries with `useQuery`.
+
+`useQuery` exists to fetch content with a GROQ query should you need to—but makes it your responsibility to maintain your application’s performance. One particular example of where this may be useful is when a parent component needs all the details of child documents. 
+
+In most cases, you should prefer `useDocuments` to fetch a list of document handles, and render components that do their own data fetching for more content.
+
+> [!TIP]
+> Document handles provide stable `key` values
+> Among the benefits of fetching for and using [document handles](/docs/app-sdk/document-handles) is that they provide a stable `documentId` attribute which can be used as the `key` value when mapping over the response to render a list. 
+> Stable unique identifiers are preferable to using the index when [rendering lists in a real-time React application](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key).
+
+Here's an example of fetching and rendering the same documents using the App SDK’s more purpose-built hooks.
+
+```tsx
+// ✅ Fetch and render event type documents the App SDK way
+
+import { Suspense } from "react";
+import {
+  useDocuments,
+  useDocumentProjection,
+  type DocumentHandle,
+} from "@sanity/sdk-react";
+
+// Parent component that queries and renders event documents
+export function EventsList() {
+  const { data: events } = useDocuments({
+    documentType: 'event',
+  });
+
+  if (!events) return null;
+
+  return (
+    <ul>
+      {events.map((event) => (
+        <Suspense key={event.documentId} fallback={<li>Loading...</li>}>
+          <Event {...event} />
+        </Suspense>
+      ))}
+    </ul>
+  );
+}
+
+// Event component now renders the <li> itself
+function Event(props: DocumentHandle) {
+  const { data } = useDocumentProjection({ ...props, projection: `{ title }` });
+
+  if (!data) return null;
+
+  return <li>{data.title}</li>;
+}
+```
+
+This may feel like an anti-pattern if you've been regularly building SSR front-ends—so many fetches! 
+
+Rest assured that in a custom app, this is acceptable and in fact the intended usage pattern. The App SDK will handle concerns around caching and query batch sizing to avoid over-fetching.
+
+**Summary:** Don’t fetch everything at once. First fetch for document handles, then fetch individual documents’ content within dedicated components.
+
+## Apply Suspense boundaries liberally
+
+[Suspense](https://react.dev/reference/react/Suspense) may be an unfamiliar part of the React library to many developers, but it won’t be once you’re familiar with the App SDK. The hooks in the App SDK use Suspense for data fetching—this means that when fetches are in flight, React will navigate up the component “tree” to the nearest Suspense boundary and trigger its `fallback` prop.
+
+```tsx
+// A very simple example of using Suspense
+
+import { useDocuments } from "@sanity/sdk-react"
+import { Stack, Text } from "@sanity/ui"
+import { Suspense } from "react"
+
+// 👇 The `useDocuments` hook in this component returns a promise
+function FeedbackListDocuments() {
+  const { data } = useDocuments({
+    documentType: "feedback",
+  })
+
+  return (
+    <Stack>
+      {data?.map((feedback) => (
+        <Text key={feedback.documentId}>{feedback.documentId}</Text>
+      ))}
+    </Stack>
+  )
+}
+
+// 👇 So the component must be wrapped in Suspense
+// which will render the `fallback` prop until data is loaded
+function FeedbackList() {
+  return (
+    <Suspense fallback={<Text>Loading...</Text>}>
+      <FeedbackListDocuments />
+    </Suspense>
+  )
+}
+```
+
+The `SanityApp` component which wraps Sanity custom applications includes a Suspense boundary itself. So, if you have not put any Suspense boundaries throughout your app, you may constantly see the entire app re-render.
+
+Keep in mind that for a small, simple enough app, you may rarely see a Suspense boundary invoked. For larger applications, or those that use more complex rendering libraries like TanStack Table or a Google Map, you may occasionally see runaway re-renders and wonder why. Suspense is likely why.
+
+See the [App SDK Suspense documentation page](/docs/app-sdk/react-suspense-sdk) for more information.
+
+### Expect re-renders from real-time updates
+
+Because fetches for Sanity content with the App SDK are real-time and kept up to date, you may see re-renders happening when nothing seems to change. 
+
+It may be that a document has been edited—just not in a way that would be rendered in your application. For example: A document rendered by your application may receive edits in Sanity Studio by another editor to fields that your application is not rendering, thus updating the latest edited date on the document and potentially causing a re-render.
+
+Thus, you need to account for changes to content not performed by your application which will impact your application re-rendering.
+
+### Wrap Suspense around the parent, not the child
+
+A component which uses a data fetching hook such as `useDocuments` may trigger the outer Suspense boundary. In the example below, this means React will look **above** this component in the tree.
+
+```tsx
+import { Suspense } from "react"
+import { type DocumentHandle, useDocuments } from "@sanity/sdk-react"
+import { Stack, Button } from "@sanity/ui"
+
+// 👇 This component needs to be wrapped in Suspense
+// because it contains a fetching hook
+export function FeedbackList() {
+  const { data, hasMore, loadMore } = useDocuments({
+    documentType: "feedback",
+  })
+
+  return (
+    <Stack space={2} padding={5}>
+      {data?.map((feedback) => (
+        // 👇 Just like FeedbackItem needs to be wrapped
+        // because it does its own data fetching too
+        <Suspense key={feedback.documentId}>
+          <FeedbackItem {...feedback} />
+        </Suspense>
+      ))}
+    </Stack>
+  )
+}
+```
+
+The child elements are wrapped in Suspense (because they also fetch for data), but if the result of `useDocuments` is being updated, it is **this** parent component which needs to be wrapped in Suspense.
+
+**Summary:** Wrap **every** data-fetching component in Suspense.
+
+### Anticipate and prevent layout shift
+
+"Layout shift" is when an element in an application changes dimensions or location, potentially moving other elements as a result.
+
+A common example is when an image loads, changes size and pushes elements below it further down the web page. This can be a little problematic in web applications, and the effect is exacerbated in real-time applications.
+
+In a real-time application an element which renders content could change dimension without user interaction. Another user may publish a change which adds a value that previously didn't exist, or a string may go from a few words to an entire paragraph. Your application should account for changes—unexpected or otherwise—to any content being fetched and rendered.
+
+### How to prevent layout shift with Suspense  
+
+A Suspense boundary’s `fallback` prop can take a component, not just text. Consider creating a “skeleton” version of the component which has the exact same dimensions as the final component that renders when content has been fetched.
+
+In the example below, the `useNavigateToStudioDocument` hook requires a Suspense boundary. 
+
+```tsx
+import { Suspense } from "react"
+import {
+  type DocumentHandle,
+  useNavigateToStudioDocument,
+} from "@sanity/sdk-react"
+import { Button } from "@sanity/ui"
+
+const BUTTON_TEXT = "Open in Studio"
+
+type OpenInStudioProps = {
+  handle: DocumentHandle
+}
+
+// The exported component, pre-wrapped in Suspense
+export function OpenInStudio({ handle }: OpenInStudioProps) {
+  return (
+    <Suspense fallback={<OpenInStudioFallback />}>
+      <OpenInStudioButton handle={handle} />
+    </Suspense>
+  )
+}
+
+// The fallback component, rendered while the final component is loading
+function OpenInStudioFallback() {
+  return <Button text={BUTTON_TEXT} disabled />
+}
+
+// The final component, rendered after the fallback
+function OpenInStudioButton({ handle }: OpenInStudioProps) {
+  const { navigateToStudioDocument } = useNavigateToStudioDocument(handle)
+
+  return <Button onClick={navigateToStudioDocument} text={BUTTON_TEXT} />
+}
+```
+
+So within the one component, we have: 
+
+- The exported component containing the Suspense boundary, which will render either the fallback or the child component depending on the loading state of the `useNavigateToStudioDocument` hook.
+- A fallback button, disabled, with the same text to fill the same space.
+- The final, active button to be clicked.
+
+**Summary: **Components should not change size or location based on the availability of content or their loading state.
+
+### Components should only have one Suspenseful hook
+
+A good rule to keep in mind is that each component should only have one instance of a hook that fetches content (such as `useDocuments` or `useDocumentProjection`)
+
+```tsx
+// ❌ Don't put multiple fetchers in a single component!
+// Updates to either list of documents will rerender both lists.
+
+import { useDocuments } from "@sanity/sdk-react";
+import { List } from "./List";
+
+export function EventsAndVenues() {
+  const { data: events } = useDocuments({
+    documentType: 'event'
+  });
+
+  const { data: venues } = useDocuments({
+    documentType: 'venue'
+  });
+
+  if (!events || !venues) return null;
+
+  return (
+    <>
+      <List title="Events" items={events} />
+      <List title="Venues" items={venues} />
+    </>
+  );
+}
+```
+
+It’s possible to use multiple fetching hooks in a single component, but any one of these that receive an update will cause React to look up the component tree for a Suspense boundary, putting the entire component (and maybe others) into a loading state.
+
+```tsx
+// ✅ Separate fetchers into their own list components
+
+import { Suspense } from 'react'
+import { useDocuments } from '@sanity/react-sdk'
+import { List } from './List'
+
+// Component that renders two independent document lists
+export function EventsAndVenues() {
+  return (
+    <>
+      <Suspense fallback="Loading events...">
+        <DocumentListSection documentType="event" />
+      </Suspense>
+
+      <Suspense fallback="Loading venues...">
+        <DocumentListSection documentType="venue" />
+      </Suspense>
+    </>
+  )
+}
+
+// Reusable component to fetch and render a list of documents by type
+function DocumentListSection({ documentType }: { documentType: string }) {
+  const { data: items } = useDocuments({ documentType })
+
+  if (!items) return null
+
+  return <List items={items} />
+}
+```
+
+**Summary:** Separate individual fetchers into individual components.
+
+## Read and write state from Content Lake 
+
+Real-time applications require values to be up to date in **all** browsers. Therefore you should always read from and write to Content Lake instead of your local state at all times.
+
+### Antipattern: Local state with controlled inputs with `useEditDocument`
+
+For as long as you’ve been building React applications with hooks, you’ve likely implemented forms with controlled inputs where the `useState` hook stores, writes and renders the value of a field and content is submitted upon completion.
+
+```tsx
+// ❌ Do not copy this code example! 
+// It only writes values to the browser, not the Content Lake
+
+import { useState, FormEvent } from "react";
+import { useEditDocument, type DocumentHandle } from "@sanity/sdk-react";
+
+export function TitleForm(props: DocumentHandle) {
+  const [value, setValue] = useState("");
+  const editTitle = useEditDocument({ ...props, path: "title" });
+
+  // 😱 This edit will only happen on submission
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    editTitle(value);
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        // 😱 This value only exists in your browser!
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Enter title"
+      />
+      <button type="submit">Save</button>
+    </form>
+  );
+}
+```
+
+In a real-time application this leads to stale data in an author's browser, and creates scenarios where one author can overwrite another's work unknowingly.
+
+### Correct controlled inputs the App SDK way
+
+Hooks in the App SDK have been written to handle the local-first optimistic edits seen in `useState`, while sending and receiving mutations to the Content Lake behind the scenes. This is why you’ll see `useDocument` and `useEditDocument` combined in a pattern like the one below, to achieve the same effect as demonstrated in the incorrect example above.
+
+```tsx
+// ✅ Read from and write values directly to the document
+
+import { useDocument, useEditDocument, type DocumentHandle } from '@sanity/react-sdk'
+
+export function TitleInput(props: DocumentHandle) {
+  const { data: title } = useDocument({ ...props, path: 'title' })
+  const editTitle = useEditDocument({ ...props, path: 'title' })
+
+  return (
+    <input
+      type="text"
+      value={title ?? ''}
+      onChange={e => editTitle(e.currentTarget.value)}
+      placeholder="Enter title"
+    />
+  )
+}
+```
+
+The behavior of this component works the same as the first one, but in a way that will continue to render from and write changes to the Content Lake.
+
+Most magical of all, if your document is in a published state, the first edit made to any value in the document will invoke a new draft version of the document—something Sanity Studio has always done and is now made easy by App SDK.
+
+Instead of requiring the author to “save” changes when they are done, edits are written directly to a “draft” version document. You can “publish” the draft version of the document with the `useApplyActions` hook—[see the documentation](https://reference.sanity.io/_sanity/sdk-react/exports/useApplyDocumentActions/) for more details.
+
+**Summary:** Avoid creating forms that rely on a user’s local session, and always read from and write to the Content Lake.
+
+## What more would you like to know?
+
+Custom applications and the Sanity App SDK are relatively new parts of the Sanity Content Operating System. As such, these best practices are in their early days too. If you feel there is something architecturally difficult to understand, let us know in the [#app-sdk channel of our community](https://snty.link/community).
 
 ---
 > Source: [sonnysangha/lms-platform-ai-saas-sanity-clerk-coderabbit-mux-openai-ai-agent-nextjs-16](https://github.com/sonnysangha/lms-platform-ai-saas-sanity-clerk-coderabbit-mux-openai-ai-agent-nextjs-16) — distributed by [TomeVault](https://tomevault.io).
