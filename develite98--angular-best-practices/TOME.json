@@ -1,0 +1,63 @@
+{
+  "name": "angular-best-practices",
+  "owner": "develite98",
+  "repo": "angular-best-practices",
+  "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "angular-best-practices-legacy",
+      "path": "skills/angular-best-practices-legacy",
+      "github_url": "https://github.com/develite98/angular-best-practices/tree/main/skills/angular-best-practices-legacy",
+      "description": ""
+    },
+    {
+      "name": "angular-css-bem-best-practices",
+      "path": "skills/angular-css-bem-best-practices",
+      "github_url": "https://github.com/develite98/angular-best-practices/tree/main/skills/angular-css-bem-best-practices",
+      "description": ""
+    },
+    {
+      "name": "the-art-of-naming",
+      "path": "skills/the-art-of-naming",
+      "github_url": "https://github.com/develite98/angular-best-practices/tree/main/skills/the-art-of-naming",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/develite98/angular-best-practices",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:32:59Z"
+}
