@@ -1,0 +1,44 @@
+{
+  "name": "ZeroEQ",
+  "owner": "Jun-Murakami",
+  "repo": "ZeroEQ",
+  "description": "A professional zero-latency broadcast-oriented equalizer plugin. for VST/AU/AAX/LV2/CLAP",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jun-Murakami/ZeroEQ",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T10:19:06Z"
+}
