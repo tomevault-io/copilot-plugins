@@ -1,0 +1,9 @@
+{
+  "name": "iii-experimental--agentos",
+  "displayName": "agentos",
+  "description": "The agent OS that evolves itself. 51 workers, 18 security layers, self-improving functions. Built on iii-engine.",
+  "version": "1.0.0",
+  "author": "iii-experimental",
+  "homepage": "https://github.com/iii-experimental/agentos",
+  "skills": []
+}
