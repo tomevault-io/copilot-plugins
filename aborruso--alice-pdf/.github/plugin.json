@@ -1,0 +1,9 @@
+{
+  "name": "aborruso--alice-pdf",
+  "displayName": "alice-pdf",
+  "description": "Alice PDF is a CLI that extracts tables from PDFs\u2014native or scanned\u2014using Camelot, Mistral OCR, AWS Textract, or pdfplumber and saves   them as CSV files",
+  "version": "1.0.0",
+  "author": "aborruso",
+  "homepage": "https://github.com/aborruso/alice-pdf",
+  "skills": []
+}
