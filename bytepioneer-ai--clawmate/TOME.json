@@ -4,7 +4,7 @@
   "repo": "clawmate",
   "description": "\u4e3a OpenClaw \u6dfb\u52a0\u4e00\u4e2a\u6709\u6e29\u5ea6\u7684\u89d2\u8272\u4f34\u4fa3\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BytePioneer-AI/clawmate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T21:05:11Z"
+  "distributed_at": "2026-05-02T06:19:50Z"
 }
