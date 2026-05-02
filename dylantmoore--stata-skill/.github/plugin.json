@@ -1,0 +1,9 @@
+{
+  "name": "dylantmoore--stata-skill",
+  "displayName": "stata-skill",
+  "description": "Claude Code skill for writing correct, idiomatic Stata code \u2014 covers syntax, data management, econometrics, causal inference, graphics, Mata, and 20 community packages.",
+  "version": "1.0.0",
+  "author": "dylantmoore",
+  "homepage": "https://github.com/dylantmoore/stata-skill",
+  "skills": []
+}
