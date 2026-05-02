@@ -1,0 +1,9 @@
+{
+  "name": "carbeneai--talon",
+  "displayName": "Talon",
+  "description": "Penetration Testing MCP for Claude Code. AI-assisted security testing with automated recon, service enumeration, and reporting.",
+  "version": "1.0.0",
+  "author": "CarbeneAI",
+  "homepage": "https://github.com/CarbeneAI/Talon",
+  "skills": []
+}
