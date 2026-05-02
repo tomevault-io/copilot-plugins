@@ -1,0 +1,67 @@
+## opencode-cursor-proxy
+
+> This configuration guides the AI assistant to generate content that matches project conventions. It does not affect any existing CI/CD or other validation rules.
+
+# Cursor AI Rules Configuration
+
+This configuration guides the AI assistant to generate content that matches project conventions. It does not affect any existing CI/CD or other validation rules.
+
+## Git Commit Message Rules
+
+### Principles
+- Commit messages must be written in English.
+- The commit message should clearly describe what changed in this commit.
+- Follow Conventional Commits, but use English descriptions.
+- Use an ordered list for detailed change items.
+
+### Commit Type Prefixes
+Use the following standard prefixes, followed by an English description:
+
+- `feat`: New feature
+- `fix`: Bug fix
+- `refactor`: Code refactoring (neither a new feature nor a bug fix)
+- `perf`: Performance improvement
+- `style`: Code style/formatting changes (no functional changes)
+- `docs`: Documentation changes
+- `test`: Test-related changes
+- `chore`: Build process or auxiliary tooling changes
+- `ci`: CI/CD configuration and scripts changes
+- `build`: Changes that affect the build system or external dependencies
+
+### Commit Format Requirements
+- **Subject line**: type prefix + one concise summary (recommended ≤ 50 characters)
+- **Details**: use an ordered list to enumerate specific change points
+- Keep the subject short; put details in the list
+
+## Commit Log Examples
+
+**Example 1: Feature**
+```
+feat: Improve mobile layout
+
+1. Add a fixed action bar component for mobile
+2. Optimize chord playback control logic
+3. Adjust page layout for small screens
+4. Improve overall mobile user experience
+```
+
+**Example 2: Bug Fix**
+```
+fix: Resolve audio playback issue
+
+1. Fix Safari audio context initialization
+2. Correct metronome timing when running in background
+```
+
+**Example 3: Refactor**
+```
+refactor: Restructure chord data model
+
+1. Unify chord fingering data format
+2. Improve chord lookup performance
+3. Simplify data flow between components
+```
+
+---
+> Source: [MorseWayne/opencode-cursor-proxy](https://github.com/MorseWayne/opencode-cursor-proxy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
