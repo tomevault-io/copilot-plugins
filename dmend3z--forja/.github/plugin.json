@@ -1,0 +1,14 @@
+{
+  "name": "dmend3z--forja",
+  "displayName": "forja",
+  "description": "Agent manager for Claude Code. Stop configuring, start shipping. 25 curated agents across 5 dev phases \u2014 Research, Code, Test, Review, Deploy.",
+  "version": "1.0.0",
+  "author": "dmend3z",
+  "homepage": "https://github.com/dmend3z/forja",
+  "skills": [
+    {
+      "name": "tdd-workflow",
+      "description": ""
+    }
+  ]
+}
