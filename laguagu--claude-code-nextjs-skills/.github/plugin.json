@@ -1,0 +1,42 @@
+{
+  "name": "laguagu--claude-code-nextjs-skills",
+  "displayName": "claude-code-nextjs-skills",
+  "description": "Claude Code skills for AI apps \u2022 Next.js 16 \u2022 AI SDK 6 \u2022 pgvector \u2022 bun",
+  "version": "1.0.0",
+  "author": "laguagu",
+  "homepage": "https://github.com/laguagu/claude-code-nextjs-skills",
+  "skills": [
+    {
+      "name": "nextjs-seo",
+      "description": ""
+    },
+    {
+      "name": "nextjs-shadcn",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-6",
+      "description": ""
+    },
+    {
+      "name": "ai-app",
+      "description": ""
+    },
+    {
+      "name": "ai-elements",
+      "description": ""
+    },
+    {
+      "name": "cache-components",
+      "description": ""
+    },
+    {
+      "name": "openai-agents-sdk",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    }
+  ]
+}
