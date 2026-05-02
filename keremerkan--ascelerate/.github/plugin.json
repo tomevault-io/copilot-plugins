@@ -1,0 +1,9 @@
+{
+  "name": "keremerkan--ascelerate",
+  "displayName": "ascelerate",
+  "description": "A command-line tool for building, archiving, and publishing apps to the App Store \u2014 from Xcode archive to App Review submission. Built with Swift on the App Store Connect API.",
+  "version": "1.0.0",
+  "author": "keremerkan",
+  "homepage": "https://github.com/keremerkan/ascelerate",
+  "skills": []
+}
