@@ -1,31 +1,27 @@
-## commit-discipline
+## core-runtime
 
-> Atomic commit discipline — every commit must build and pass tests
+> Vanilla JS conventions for shared core runtime modules
 
 
-# Commit Discipline
+# Core Runtime Conventions
 
-## Rules
+## Module Rules
 
-- Every commit is an atomic logical unit of work — one concern per commit
-- Every commit must build cleanly and pass all tests before being created
-- Never commit code that is known to be broken. Stubs are fine; broken stubs are not.
-- Use conventional commit prefixes: `feat:`, `fix:`, `test:`, `chore:`, `refactor:`, `docs:`
+- Vanilla ES modules only — zero dependencies, no frameworks, no build step required
+- Must work identically when imported by the editor (via Vite) and by the player (via native ES modules)
+- Export clean named exports or a default class — no side effects on import
 
-## Pre-Commit Checklist
+## Timing
 
-1. `npm run build` succeeds in `src/editor/`
-2. `npm test` passes in `src/editor/` (Vitest)
-3. No linter errors introduced
-4. If a tracked milestone was completed, update `docs/TRACKER.md`
+All time values are in seconds, sourced from `AudioContext.currentTime`. Never use `Date.now()` or `performance.now()`.
 
-## Commit Message Format
+## Testing
 
-```
-<type>: <concise description of what and why>
-```
+Every core module must have accompanying unit tests in `src/__tests__/`. Keep pure logic testable without a real WebGL context — mock `gl` where needed.
 
-Types: `feat` (new feature), `fix` (bug fix), `test` (tests), `chore` (tooling/config), `refactor` (restructure), `docs` (documentation)
+## API Stability
+
+These modules are shared across editor and player. Changing an export signature requires updating both consumers.
 
 ---
 > Source: [pdcgomes/second-reality-augmented](https://github.com/pdcgomes/second-reality-augmented) — distributed by [TomeVault](https://tomevault.io).
