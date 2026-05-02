@@ -1,0 +1,99 @@
+{
+  "name": "skills",
+  "owner": "ericmjl",
+  "repo": "skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/ericmjl/skills/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "gh-cli",
+      "path": "skills/gh-cli",
+      "github_url": "https://github.com/ericmjl/skills/tree/main/skills/gh-cli",
+      "description": ""
+    },
+    {
+      "name": "gh-activity-summary",
+      "path": "skills/gh-activity-summary",
+      "github_url": "https://github.com/ericmjl/skills/tree/main/skills/gh-activity-summary",
+      "description": ""
+    },
+    {
+      "name": "gh-daily-timeline",
+      "path": "skills/gh-daily-timeline",
+      "github_url": "https://github.com/ericmjl/skills/tree/main/skills/gh-daily-timeline",
+      "description": ""
+    },
+    {
+      "name": "publish-to-google-docs",
+      "path": "skills/publish-to-google-docs",
+      "github_url": "https://github.com/ericmjl/skills/tree/main/skills/publish-to-google-docs",
+      "description": ""
+    },
+    {
+      "name": "debug-github-ci",
+      "path": "skills/debug-github-ci",
+      "github_url": "https://github.com/ericmjl/skills/tree/main/skills/debug-github-ci",
+      "description": ""
+    },
+    {
+      "name": "gh-pr-code-review",
+      "path": "skills/gh-pr-code-review",
+      "github_url": "https://github.com/ericmjl/skills/tree/main/skills/gh-pr-code-review",
+      "description": ""
+    },
+    {
+      "name": "ml-experimentation",
+      "path": "skills/ml-experimentation",
+      "github_url": "https://github.com/ericmjl/skills/tree/main/skills/ml-experimentation",
+      "description": ""
+    },
+    {
+      "name": "scientific-eda",
+      "path": "skills/scientific-eda",
+      "github_url": "https://github.com/ericmjl/skills/tree/main/skills/scientific-eda",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ericmjl/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:32:34Z"
+}
