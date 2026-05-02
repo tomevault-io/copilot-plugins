@@ -1,0 +1,9 @@
+{
+  "name": "igerber--diff-diff",
+  "displayName": "diff-diff",
+  "description": "Difference-in-Differences causal inference in Python. Callaway-Sant'Anna, Synthetic DiD, Honest DiD, event studies. sklearn-like API, validated against R.",
+  "version": "1.0.0",
+  "author": "igerber",
+  "homepage": "https://github.com/igerber/diff-diff",
+  "skills": []
+}
