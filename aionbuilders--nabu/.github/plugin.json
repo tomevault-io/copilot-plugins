@@ -1,0 +1,9 @@
+{
+  "name": "aionbuilders--nabu",
+  "displayName": "nabu",
+  "description": "Modular, local-first Svelte block editor engine built on a Single ContentEditable architecture",
+  "version": "1.0.0",
+  "author": "aionbuilders",
+  "homepage": "https://github.com/aionbuilders/nabu",
+  "skills": []
+}
