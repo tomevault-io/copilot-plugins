@@ -7,11 +7,11 @@ Open-source 2D IDE for managing AI agents in native CLIs, terminal, gits, beads 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [49Agents/49Agents](https://github.com/49Agents/49Agents).
+Original source: `CLAUDE.md` in [49Agents/49Agents](https://github.com/49Agents/49Agents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
