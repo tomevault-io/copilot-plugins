@@ -1,0 +1,18 @@
+{
+  "name": "gokhanarkan--minimal-second-brain",
+  "displayName": "minimal-second-brain",
+  "description": "A minimal, AI-native Obsidian vault template. 3 folders, manifest files for Claude/Copilot, automated maintenance.",
+  "version": "1.0.0",
+  "author": "gokhanarkan",
+  "homepage": "https://github.com/gokhanarkan/minimal-second-brain",
+  "skills": [
+    {
+      "name": "archive-project",
+      "description": ""
+    },
+    {
+      "name": "github-summary",
+      "description": ""
+    }
+  ]
+}
