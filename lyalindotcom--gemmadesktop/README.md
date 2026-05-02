@@ -7,14 +7,14 @@ An experiment, what if Gemma had a Desktop app tuned for the model and offline s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [LyalinDotCom/GemmaDesktop](https://github.com/LyalinDotCom/GemmaDesktop).
+Original source: `AGENTS.md` in [LyalinDotCom/GemmaDesktop](https://github.com/LyalinDotCom/GemmaDesktop).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [LyalinDotCom/GemmaDesktop](https://github.com/LyalinDotCom/GemmaDesktop) — a repo with 26+ stars on GitHub.
