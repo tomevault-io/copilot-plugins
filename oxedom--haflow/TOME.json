@@ -1,0 +1,105 @@
+{
+  "name": "haflow",
+  "owner": "oxedom",
+  "repo": "haflow",
+  "description": "Local-first AI mission orchestrator",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "complex-task-planner",
+      "path": ".claude/skills/complex-task-planner",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/complex-task-planner",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "path": ".claude/skills/playwright",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/playwright",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": ".claude/skills/react-best-practices",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "small-to-before-research",
+      "path": ".claude/skills/small-to-before-research",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/small-to-before-research",
+      "description": ""
+    },
+    {
+      "name": "sql-pro",
+      "path": ".claude/skills/sql-pro",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/sql-pro",
+      "description": ""
+    },
+    {
+      "name": "sync-claude-resources",
+      "path": ".claude/skills/sync-claude-resources",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/sync-claude-resources",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".claude/skills/testing",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees copy",
+      "path": ".claude/skills/using-git-worktrees copy",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/using-git-worktrees copy",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "path": ".claude/skills/using-git-worktrees",
+      "github_url": "https://github.com/oxedom/haflow/tree/main/.claude/skills/using-git-worktrees",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oxedom/haflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:36:12Z"
+}
