@@ -1,0 +1,9 @@
+{
+  "name": "solardev-xyz--freedom-browser",
+  "displayName": "freedom-browser",
+  "description": "A browser for the decentralized web, with Swarm, IPFS, and ENS as first-class protocols",
+  "version": "1.0.0",
+  "author": "solardev-xyz",
+  "homepage": "https://github.com/solardev-xyz/freedom-browser",
+  "skills": []
+}
