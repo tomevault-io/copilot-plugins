@@ -1,0 +1,210 @@
+## pasal
+
+> Pasal.id — Open, AI-native Indonesian legal platform. MCP server + web app giving Claude grounded access to Indonesian legislation.
+
+# CLAUDE.md
+
+Pasal.id — Open, AI-native Indonesian legal platform. MCP server + web app giving Claude grounded access to Indonesian legislation.
+
+**Repo:** `ilhamfp/pasal` | **Live:** https://pasal.id | **MCP:** Deployed on Railway
+
+## Architecture
+
+Monorepo with three main pieces:
+
+| Component | Path | Tech |
+|-----------|------|------|
+| Web app | `apps/web/` | Next.js 16 (App Router), React 19, TypeScript, Tailwind v4, shadcn/ui |
+| MCP server | `apps/mcp-server/` | Python 3.12+, FastMCP, supabase-py |
+| Data pipeline | `scripts/` | Python — crawler, parser (PyMuPDF), loader, Gemini verification agent |
+| Database | `packages/supabase/migrations/` | Supabase (PostgreSQL), 56 migrations (001–055, two 030s + two 039s) |
+
+### Key directories
+
+```
+apps/web/src/app/[locale]/     — Public pages under locale segment (/, /search, /jelajahi, /peraturan/[type]/[slug])
+apps/web/src/app/admin/        — Admin pages (NOT under [locale], Indonesian only)
+apps/web/src/components/       — React components (PascalCase.tsx)
+apps/web/src/lib/              — Utilities, Supabase clients (server.ts, client.ts, service.ts)
+apps/web/src/i18n/             — i18n config (routing.ts, request.ts)
+apps/web/messages/             — Translation files (id.json, en.json)
+apps/mcp-server/server.py      — MCP tools: search_laws, get_pasal, get_law_status, list_laws
+server.json                    — MCP server registry manifest (name, tools, URL)
+scripts/crawler/               — Mass scraper for peraturan.go.id
+scripts/parser/                — PDF parsing pipeline (PyMuPDF-based)
+scripts/agent/                 — Gemini verification agent + apply_revision()
+scripts/loader/                — DB import scripts
+packages/supabase/migrations/  — All SQL migrations (001–053)
+```
+
+## Commands
+
+```bash
+# Web (from apps/web/)
+npm run dev          # Dev server
+npm run build        # Production build
+npm run lint         # ESLint
+npm run test         # Vitest
+
+# MCP server (from apps/mcp-server/)
+python server.py     # Start MCP server (needs SUPABASE_URL + SUPABASE_ANON_KEY)
+
+# Scraper worker (from project root)
+python -m scripts.worker.run  # Background job processor
+```
+
+Migrations are applied directly to Supabase via the SQL editor or `supabase db push` — they are not run locally.
+
+## Database Schema
+
+Core tables — all have RLS enabled with public read policies for legal data:
+
+| Table | Purpose |
+|-------|---------|
+| `works` | Individual regulations (UU, PP, Perpres, etc.). Has `slug`, metadata, parse quality fields. `search_text` maintained by trigger `trg_works_search_text`, `search_fts` TSVECTOR GENERATED ALWAYS from it |
+| `document_nodes` | Hierarchical document structure: BAB > Bagian > Pasal > Ayat. Content in `content_text`, `fts` TSVECTOR column auto-generated for search |
+| `revisions` | **Append-only** audit log for content changes. Never UPDATE or DELETE rows |
+| `suggestions` | Crowd-sourced corrections. Anyone submits, admin approves |
+| `work_relationships` | Cross-references between regulations |
+| `regulation_types` | ~26 regulation types (UU, PP, PERPRES, UUD, PERPPU, PERMEN, PERDA, etc.) |
+| `crawl_jobs` | Scraper job queue and state tracking |
+| `scraper_runs` | Scraper session tracking (jobs discovered/processed/failed) |
+| `discovery_progress` | Crawl freshness cache per regulation type |
+
+### Critical invariant: content mutations
+
+**Never UPDATE `document_nodes.content_text` directly.** All mutations go through `apply_revision()` (SQL function in migration 020, updated in 038; Python wrapper in `scripts/agent/apply_revision.py`):
+
+1. INSERT into `revisions` (old + new content, reason, actor)
+2. UPDATE `document_nodes.content_text` (the `fts` TSVECTOR column auto-updates via `GENERATED ALWAYS`)
+3. UPDATE `suggestions.status` if triggered by a suggestion
+
+All steps run in a single transaction. If any fails, everything rolls back.
+
+### Search: `search_legal_chunks()`
+
+3-layer search (migration 039, perf-optimized in 043). Layer 1: **Identity fast path** — detects regulation identifiers (e.g. "uu 10 2011", "uud 1945") via code/name_id match + number extraction, returns deterministic score 1000. **Early exit** — if identity match found, skips Layers 2-3. Handles codes, two-word codes (TAP_MPR), aliases (PERPU→PERPPU), and full name_id prefixes ("Undang-Undang Nomor 10"). Input sanitized (`[^a-zA-Z0-9 ]` → space) to prevent tsquery crashes. Layer 2: **Works FTS** — searches `works.search_fts` for title/topic queries ("ketenagakerjaan"), score ~1-15. Early exit if enough results. Layer 3: **Content FTS** — 3-tier fallback on `document_nodes.fts` (`websearch_to_tsquery` > `plainto_tsquery` > `ILIKE`), score ~0.01-0.5. Uses **CTE pattern**: candidates (capped at 500) → rank → ts_headline only on top N results (avoids O(N) snippet generation). Tier 3 ILIKE capped at 200 candidates. Results accumulate via `RETURN QUERY`; client `groupChunksByWork()` deduplicates by work_id keeping highest score. The function name is intentionally preserved — 5 consumers call it via `.rpc("search_legal_chunks")`.
+
+## Coding Conventions
+
+### TypeScript / Next.js
+
+- **Server Components by default.** Only `"use client"` for interactivity.
+- **Supabase access:** `@supabase/ssr` (not deprecated auth-helpers). Use `getUser()` on server, never trust `getSession()`.
+- **File naming:** `kebab-case.tsx` for routes, `PascalCase.tsx` for components.
+- **Styling:** Tailwind utility classes only. No CSS modules or styled-components.
+- **UI language:** Indonesian primary, English secondary. Legal content always Indonesian.
+- **Admin auth:** `requireAdmin()` from `src/lib/admin-auth.ts` — checks Supabase auth + `ADMIN_EMAILS` env var.
+
+### i18n
+
+Uses `next-intl` with `localePrefix: 'as-needed'`. Indonesian (default) has no URL prefix. English uses `/en` prefix.
+
+- **Config:** `src/i18n/routing.ts`, `src/i18n/request.ts`
+- **Messages:** `messages/id.json` (source of truth), `messages/en.json`
+- **Middleware:** `src/middleware.ts` (excludes `/api`, `/admin`, static files)
+- **Type safety:** `global.d.ts` augments `next-intl` with message types from `id.json`
+- **Navigation:** Use `Link`, `useRouter`, `usePathname` from `@/i18n/routing` (not `next/link`)
+- **Server Components:** Use `getTranslations` from `next-intl/server` with `await` for async components, `useTranslations` for sync
+- **Client Components:** Use `useTranslations` from `next-intl`
+- **setRequestLocale:** Required at the top of every Server Component page: `setRequestLocale(locale as Locale)`
+- **Legal content:** Stays in Indonesian regardless of UI locale — only UI chrome is translated
+- **TYPE_LABELS:** Remain in Indonesian (official legal nomenclature, not UI strings)
+- **Admin pages:** NOT internationalized — excluded from middleware matcher
+- **CRITICAL:** Async Server Components (`async function`) MUST use `getTranslations` with `await`, never `useTranslations` (causes "Expected a suspended thenable" error)
+- **STATUS_LABELS deprecated:** Use `statusT(work.status as "berlaku" | "diubah" | "dicabut" | "tidak_berlaku")` instead
+
+### Python
+
+- Python 3.12+. Type hints on all function signatures.
+- `httpx` with async/await for HTTP (not `requests`).
+- Prefer functions over classes.
+- PDF extraction: `pymupdf` (PyMuPDF). Legacy `parse_law.py` uses pdfplumber — kept for reference.
+- Gemini agent: `from google import genai`, model `gemini-3-flash-preview`. Advisory only — admin must approve.
+
+### SQL migrations
+
+- Numbered sequentially: `packages/supabase/migrations/NNN_description.sql` (next: 056)
+- Always glob `packages/supabase/migrations/*.sql` to verify the next number before creating a new migration.
+- Always add indexes for WHERE/JOIN/ORDER BY columns.
+- Always enable RLS on new tables. Add public read policy for legal data.
+- Computed columns use `GENERATED ALWAYS AS`.
+- Heavy migrations (ALTER TABLE on large tables) timeout via `apply_migration` MCP tool. Use `execute_sql` with `SET statement_timeout = '600s'` and run steps individually.
+- **Use `apply_migration` (not `execute_sql`) for migrations** — `execute_sql` runs SQL but doesn't track it in the migrations table. Only use `execute_sql` for heavy operations that timeout via `apply_migration`, or for one-off queries.
+- **`CREATE OR REPLACE FUNCTION` drops `SET search_path` AND the entire function body.** Migration 049 hardened all functions with `SET search_path = 'public', 'extensions'`. When replacing a function: (1) re-apply `ALTER FUNCTION ... SET search_path = 'public', 'extensions'` after the definition, and (2) preserve all existing logic branches (e.g. `generate_work_slug()` has UUD/UUDS special-case from 052 + double-hyphen collapsing from 053). Always read the current function body before replacing.
+
+## Brand & Design
+
+**Read `BRAND_GUIDELINES.md` before any frontend work.** Key rules:
+
+- **One accent color:** Verdigris `#2B6150` (`bg-primary`) — buttons, links, focus rings
+- **Background:** Warm stone `#F8F5F0` (`bg-background`), not pure white. Cards use `bg-card` (white) for lift
+- **Typography:** Instrument Serif (`font-heading`, weight 400 only — hierarchy through size) + Instrument Sans (`font-sans`) + JetBrains Mono (`font-mono`)
+- **Neutrals:** Warm graphite ("Batu Candi"). Never cool gray/slate/zinc
+- **Borders over shadows.** Only `shadow-sm` on popovers. `rounded-lg` default radius
+- Color variables are defined as CSS custom properties in `globals.css` — never hardcode hex values
+
+## Environment Variables
+
+Root `.env` holds all keys (never committed). Each sub-project has its own env file:
+
+| File | Key vars |
+|------|----------|
+| `.env` (root) | `SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `GEMINI_API_KEY` |
+| `apps/web/.env.local` | `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `ADMIN_EMAILS`, `NEXT_PUBLIC_SITE_URL` |
+| `apps/mcp-server/.env` | `SUPABASE_URL`, `SUPABASE_ANON_KEY` |
+| `scripts/.env` | `SUPABASE_URL`, `SUPABASE_KEY`, `GEMINI_API_KEY` |
+
+**`SUPABASE_KEY` in scripts = `SUPABASE_SERVICE_ROLE_KEY` (bypasses RLS). Never expose to browser.** MCP server uses `SUPABASE_ANON_KEY` (read-only via RLS).
+
+## Domain Glossary
+
+| Term | Meaning |
+|------|---------|
+| UU (Undang-Undang) | Law — primary legislation from parliament |
+| PP (Peraturan Pemerintah) | Government Regulation — implements a UU |
+| Perpres (Peraturan Presiden) | Presidential Regulation |
+| Pasal | Article — the primary searchable unit |
+| Ayat | Sub-article, numbered (1), (2), (3) within a Pasal |
+| BAB | Chapter — top-level grouping (Roman numerals) |
+| Bagian | Section — sub-grouping within a BAB |
+| Penjelasan | Elucidation — official explanation alongside the law |
+| Berlaku / Dicabut / Diubah | In force / Revoked / Amended |
+| FRBR URI | Unique ID, e.g. `/akn/id/act/uu/2003/13` |
+
+## Gotchas
+
+- **When deleting a Python function, grep all `.py` files for importers.** `scripts/worker/process.py` and `scripts/load_uud.py` both import from `loader/load_to_supabase.py` separately from the main loader flow.
+- **RLS blocks empty results.** If a new table returns no data, check that an RLS policy exists — Supabase silently returns `[]` without one.
+- **`SUPABASE_KEY` naming.** Scripts use `SUPABASE_KEY` but the root `.env` calls it `SUPABASE_SERVICE_ROLE_KEY`. They're the same value. MCP server uses `SUPABASE_ANON_KEY` (separate key).
+- **No vector/embedding search.** `document_nodes.fts` is keyword-only (TSVECTOR). No pgvector, no embeddings.
+- **Supabase `anon` role has a 3s `statement_timeout`.** Queries on large tables (e.g. `COUNT(*)` on `document_nodes` ~3M rows) will silently fail. Use an RPC function with `SET statement_timeout = '30s'` to bypass.
+- **Instrument Serif has no bold.** Only weight 400. Use font size for heading hierarchy, not weight.
+- **`data/` is gitignored.** Raw PDFs and parsed JSON live in `data/raw/` and `data/parsed/` locally only.
+- **i18n async/sync distinction.** Using `useTranslations` in async Server Components causes build error. Use `getTranslations` with `await` for any `async function` component.
+- **i18n navigation imports.** Public pages must import from `@/i18n/routing`, not `next/link` or `next/navigation`, or locale prefixes won't work.
+- **Landing page metadata.** Shared metadata (title template, OG, Twitter) in `[locale]/layout.tsx`. Hreflang alternates in `[locale]/page.tsx` via `generateMetadata` + `getAlternates("/", locale)`.
+- **`<html lang>` is dynamic.** Root layout uses `getLocale()` from `next-intl/server` — returns the active locale for public pages, falls back to `"id"` for admin routes (excluded from middleware). Does NOT break ISR — each page segment controls its own rendering strategy independently.
+- **Metadata layering.** Root `layout.tsx` owns shared static metadata (icons, manifest, metadataBase, msapplication). `[locale]/layout.tsx` owns locale-specific metadata (title template, OG, Twitter). Individual pages add page-specific metadata (hreflang alternates via `getAlternates()`). Never duplicate fields across layers — Next.js merges parent→child automatically.
+- **Title template trap.** A plain string `title` in `generateMetadata` gets the parent layout's `template` applied (`%s | Pasal.id`). Use `title: { absolute: "..." }` on pages like the landing page to prevent doubling.
+- **robots.txt wildcards.** `*` in robots.txt (RFC 9309) matches any character sequence including `/`. `/peraturan/*/koreksi/` correctly matches `/peraturan/uu/uu-13-2003/koreksi/123`.
+- **Sitemap index is custom.** Next.js 16 `generateSitemaps()` creates individual `/sitemap/{id}.xml` files but does NOT auto-generate a `/sitemap.xml` index. We use a custom route handler at `apps/web/src/app/api/sitemap-index/route.ts` + a rewrite in `next.config.ts` (`/sitemap.xml` → `/api/sitemap-index`). If the number of sitemaps changes, the route handler picks it up automatically via `generateSitemaps()`.
+- **Sitemap hreflang.** `sitemap.ts` emits `alternates.languages` (id, en, x-default) for every URL. The `getAlternates()` helper in `src/lib/i18n-metadata.ts` does the same for `<link rel="alternate">` in page metadata — keep both in sync when adding new public pages. Always include all 3 hreflang variants.
+- **Law detail title uses topic extraction.** `generateMetadata` extracts the topic from `title_id` (text after " tentang ") to avoid repeating the regulation reference in `<title>`. Falls back to full `title_id` for laws without "tentang" (e.g. UUD).
+- **JSON-LD structured data per page type.** Landing: WebSite + SearchAction. Law detail: Legislation + BreadcrumbList. Topic detail: BreadcrumbList + FAQPage. Browse index/type: BreadcrumbList. Use `<JsonLd>` component from `src/components/JsonLd.tsx`.
+- **Dual worktree.** `main` is checked out at `~/Desktop/personal-project/pasal`. From the `project-improve-scraper` worktree, use `git push origin <branch>:main` instead of `git checkout main && merge`.
+- **Test slugs:** Use `uu-13-2003` format (not `uu-nomor-13-tahun-2003`) when verifying law detail pages locally.
+- **UUD amendment FRBR URIs.** Amendments use `/akn/id/act/uud/1945/perubahan-1` (not `.../p1`). Slugs are `uud-1945-p1` (from `number: "1945/P1"`). Keep `load_uud.py` slugs in sync with the DB trigger output.
+- **MCP URL referenced in 5 places.** `connect/page.tsx`, `[locale]/page.tsx` (landing MCP card), `server.json`, `apps/web/public/llms.txt`, `README.md`. Update all when the URL changes. No trailing slash — Starlette 307 redirects break Claude Code's HTTP transport on Railway.
+- **`/topik` pages intentionally NOT in nav.** Topic pages are discoverable via sitemap and internal links only — not linked from header or footer navigation. Do not add them to nav.
+- **MCP tool name mismatch fixed.** The actual server tool is `get_law_status` (not `get_law_detail`). `server.json`, `llms.txt`, and i18n connect strings must all match this.
+
+## Deployment
+
+- **Web:** Vercel (auto-deploys from `main`). **CLI:** Run `vercel link --project pasal-id-web --yes` first if `.vercel/` doesn't exist, then `vercel --prod --yes` from the **monorepo root** (not `apps/web/`). The Vercel project `pasal-id-web` has root directory set to `apps/web` in its settings — running from `apps/web/` causes path doubling error. Without the link step, `vercel` creates a new project instead of deploying to `pasal-id-web`.
+- **MCP Server:** Railway (Dockerfile at `apps/mcp-server/Dockerfile`, config at `railway.json`)
+- **Git:** Push to `main` directly. Repo is public.
+
+---
+> Source: [ilhamfp/pasal](https://github.com/ilhamfp/pasal) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
