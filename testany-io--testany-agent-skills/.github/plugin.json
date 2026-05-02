@@ -1,0 +1,9 @@
+{
+  "name": "testany-io--testany-agent-skills",
+  "displayName": "testany-agent-skills",
+  "description": "Testany \u516c\u53f8\u7684 Agent Skills \u96c6\u5408\uff0c\u63d0\u4f9b\u4ea7\u54c1\u7814\u53d1\u6d41\u7a0b\u4e2d\u7684\u5404\u7c7b\u4e13\u4e1a\u6280\u80fd",
+  "version": "1.0.0",
+  "author": "TestAny-io",
+  "homepage": "https://github.com/TestAny-io/testany-agent-skills",
+  "skills": []
+}
