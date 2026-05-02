@@ -1,0 +1,26 @@
+{
+  "name": "full-stack-biz--claude-skills-toolkit",
+  "displayName": "claude-skills-toolkit",
+  "description": "Skills Toolkit for Claude Code",
+  "version": "1.0.0",
+  "author": "full-stack-biz",
+  "homepage": "https://github.com/full-stack-biz/claude-skills-toolkit",
+  "skills": [
+    {
+      "name": "hook-creator",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-refiner",
+      "description": ""
+    },
+    {
+      "name": "subagent-creator",
+      "description": ""
+    }
+  ]
+}
