@@ -1,91 +1,89 @@
-## 05-security
+## 06-observability
 
-> Security gate. Applied alongside verification gates on every task.
+> Observability conventions. Applied to every feature that has runtime behavior.
 
 
-# Security gate
+# Observability rules
 
-Builders run these checks before marking `in-review`.
-QA runs these checks as part of review.
-A task cannot move to `done` with any unresolved security finding.
+Every task that introduces runtime behavior (API handler, background job,
+client mutation, service) must ship with observability built in. Observability
+is part of Definition of Done, not a separate later task.
 
-## Check 1 — Secret scanning
+## 1) Structured logging
 
-Scan every file in `Files to create/modify` for:
-- hardcoded API keys, tokens, passwords, private keys
-- `.env` values committed to source (including `.env.local`, `.env.production`)
-- connection strings with embedded credentials
-- cloud provider access keys (AWS/GCP/Azure patterns)
+- Every service and API handler logs at entry and exit (success + error path).
+- Logs are structured (JSON) with at minimum:
+  - `level` (`debug` | `info` | `warn` | `error`)
+  - `event` (short, snake_case, stable name — e.g. `login_attempt`,
+    `booking_created`, `payment_failed`)
+  - `actor_id` when available (do not log raw credentials or tokens)
+  - `request_id` / `trace_id` when available
+  - `duration_ms` for any boundary-crossing call
+- Do not log PII fields (email/phone/address) in full. Hash or truncate
+  (`email_hash`, `email_domain_only`) if the signal is needed.
+- `console.log` / `print()` are not acceptable outside scripts. Use the
+  project logger.
 
-Preferred tools (use whichever is available in the project):
-- `gitleaks detect --no-git --source .`
-- `trufflehog filesystem . --only-verified`
-- `detect-secrets scan`
+## 2) Error reporting
 
-If no secret scanner is configured, Builder installs one during the scaffold
-task and records the decision in `memory/decisions.md`.
+- Every `catch` path either logs at `error` level or rethrows — never both
+  silently swallows and returns a success shape.
+- Uncaught errors surface to the project's error reporter (Sentry, Rollbar,
+  Datadog, etc.) when one is configured.
+- Error responses carry a `code` the UI can switch on. The human-readable
+  `message` is separate from the machine `code`.
 
-## Check 2 — Dependency audit
+## 3) Metrics
 
-Run the stack's dependency audit tool on any task that touches dependency
-manifests (`package.json`, `pyproject.toml`, `requirements.txt`, `go.mod`,
-`Cargo.toml`, `Gemfile`).
+For any task that introduces a user-visible flow or a cross-service call,
+add at least one counter and one duration metric:
 
-- npm/pnpm/yarn: `npm audit --audit-level=high`
-- pip: `pip-audit`
-- go: `govulncheck ./...`
-- cargo: `cargo audit`
+- `event_count{event="<event_name>", outcome="success|failure"}`
+- `event_duration_ms{event="<event_name>"}`
 
-Zero `high` or `critical` advisories is required. Any accepted exception is
-recorded with rationale in `memory/decisions.md` under a `Security exception`
-heading.
+Use whatever library the project declares (OpenTelemetry, StatsD, Prometheus
+client). If no metrics library is configured, the first task that needs one
+adds it and records the choice in `memory/decisions.md`.
 
-## Check 3 — Auth boundary integrity
+## 4) Tracing
 
-For any task that adds or modifies routes, handlers, or screens:
+For any request that crosses a process or network boundary:
 
-- Every protected route/handler must invoke the project's canonical auth
-  middleware or session check. No route can rely on "assumed to be protected
-  by parent router" without an explicit assertion.
-- Public routes are listed explicitly in the task's acceptance criteria with
-  a rationale.
-- Test suite includes at least one test per protected route that asserts
-  `401` (or project equivalent) for missing/invalid credentials.
+- Propagate `trace_id` / `request_id` across the boundary (header or context).
+- Child spans for external calls (DB, third-party API, queue) when the
+  project uses OpenTelemetry or equivalent.
+- No task marks `done` with a new cross-service call that drops trace context.
 
-## Check 4 — Input validation at boundaries
+## 5) Client-side telemetry (UI tasks)
 
-- Every API handler validates request input (body/query/params) with the
-  project's validation library (Zod, Pydantic, class-validator, etc.) before
-  calling service code.
-- Every form field is validated before submission.
-- Database queries are parameterized. Raw concatenated SQL is rejected.
+For user-facing flows:
 
-## Check 5 — Output hygiene
+- Emit an analytics event at the decision points defined in the feature's
+  `User flow`:
+  - flow entry
+  - each meaningful user action
+  - flow success / flow failure / flow abandonment
+- Event names follow `object_action` convention (`login_submitted`,
+  `booking_confirmed`, `search_empty_result_shown`).
+- Do not emit events with free-form user content as property values.
 
-- No stack traces, internal error messages, or raw DB errors returned to the
-  client. Error shape must match the project's NFR contract.
-- No PII or secrets written to logs (log statements reviewed for user data).
-- Tokens never logged, never rendered in HTML, never embedded in URLs.
+## 6) What QA checks
 
-## Check 6 — CSP / CORS / headers (web UI tasks)
+QA rejects a task if any of the following is true for affected files:
 
-For any task touching server response headers or web deployment config:
-- CORS origin allowlist is explicit — no `*` in production paths.
-- CSP is present or a `Security: CSP deferred to TASK-XXX` note exists.
-- Cookie flags: `HttpOnly`, `Secure`, `SameSite` are set where applicable.
+- A new code path has no log line at error boundary.
+- A new API route has no entry/exit log or duration metric.
+- A new user-facing action has no analytics event when the feature's
+  `User flow` lists it as a decision point.
+- Any log line prints a raw token, password, full email, or PII without
+  hashing/truncation.
+- A new cross-service call drops `trace_id` propagation.
 
-## Rejection handling
+## 7) What is out of scope here
 
-If any check fails:
-- Builder: fix before handoff. Do not mark `in-review`.
-- QA: reject with `needs-fix`. Rejection note must cite the specific file,
-  line, finding, and expected fix.
-
-## Rule of thumb
-
-When a security concern is ambiguous, choose the stricter interpretation and
-surface the decision to the user in the QA notes field. Never silently relax
-a security default.
+This rule does not require dashboards, alerts, or SLO definitions. Those live
+in ops work. This rule only covers the instrumentation that agents must emit
+so the resulting system is observable when ops work happens.
 
 ---
 > Source: [BolderApps/agentic-workflow](https://github.com/BolderApps/agentic-workflow) — distributed by [TomeVault](https://tomevault.io).
