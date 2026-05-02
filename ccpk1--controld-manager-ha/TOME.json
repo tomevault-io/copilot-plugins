@@ -1,0 +1,44 @@
+{
+  "name": "controld-manager-ha",
+  "owner": "ccpk1",
+  "repo": "controld-manager-ha",
+  "description": "Platinum-grade Home Assistant integration for Control D DNS. Features zero-bloat opt-in architecture, profile-driven automation, and a native service layer.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ccpk1/controld-manager-ha",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T09:38:27Z"
+}
