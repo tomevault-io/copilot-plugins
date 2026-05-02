@@ -1,0 +1,297 @@
+{
+  "name": "cc-skills",
+  "owner": "terrylica",
+  "repo": "cc-skills",
+  "description": "Claude Code Skills Marketplace: plugins, skills for ADR-driven development, DevOps automation, ClickHouse management, semantic versioning, and productivity workflows",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "python-logging-best-practices",
+      "path": "plugins/devops-tools/skills/python-logging-best-practices",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/python-logging-best-practices",
+      "description": ""
+    },
+    {
+      "name": "pandoc-pdf-generation",
+      "path": "plugins/doc-tools/skills/pandoc-pdf-generation",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/doc-tools/skills/pandoc-pdf-generation",
+      "description": ""
+    },
+    {
+      "name": "mql5-indicator-patterns",
+      "path": "plugins/mql5/skills/mql5-indicator-patterns",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/mql5/skills/mql5-indicator-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-hardcode-audit",
+      "path": "plugins/itp/skills/code-hardcode-audit",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/itp/skills/code-hardcode-audit",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-architect",
+      "path": "plugins/quality-tools/skills/clickhouse-architect",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/quality-tools/skills/clickhouse-architect",
+      "description": ""
+    },
+    {
+      "name": "mlflow-python",
+      "path": "plugins/devops-tools/skills/mlflow-python",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/mlflow-python",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-cloud-management",
+      "path": "plugins/devops-tools/skills/clickhouse-cloud-management",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/clickhouse-cloud-management",
+      "description": ""
+    },
+    {
+      "name": "asciinema-streaming-backup",
+      "path": "plugins/asciinema-tools/skills/asciinema-streaming-backup",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/asciinema-tools/skills/asciinema-streaming-backup",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-pydantic-config",
+      "path": "plugins/devops-tools/skills/clickhouse-pydantic-config",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/clickhouse-pydantic-config",
+      "description": ""
+    },
+    {
+      "name": "adr-code-traceability",
+      "path": "plugins/itp/skills/adr-code-traceability",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/itp/skills/adr-code-traceability",
+      "description": ""
+    },
+    {
+      "name": "article-extractor",
+      "path": "plugins/mql5/skills/article-extractor",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/mql5/skills/article-extractor",
+      "description": ""
+    },
+    {
+      "name": "backtesting-py-oracle",
+      "path": "plugins/quant-research/skills/backtesting-py-oracle",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/quant-research/skills/backtesting-py-oracle",
+      "description": ""
+    },
+    {
+      "name": "booking-notify",
+      "path": "plugins/calcom-commander/skills/booking-notify",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/calcom-commander/skills/booking-notify",
+      "description": ""
+    },
+    {
+      "name": "bootstrap-monorepo",
+      "path": "plugins/itp/skills/bootstrap-monorepo",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/itp/skills/bootstrap-monorepo",
+      "description": ""
+    },
+    {
+      "name": "calcom-access",
+      "path": "plugins/calcom-commander/skills/calcom-access",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/calcom-commander/skills/calcom-access",
+      "description": ""
+    },
+    {
+      "name": "code-clone-assistant",
+      "path": "plugins/quality-tools/skills/code-clone-assistant",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/quality-tools/skills/code-clone-assistant",
+      "description": ""
+    },
+    {
+      "name": "dead-code-detector",
+      "path": "plugins/quality-tools/skills/dead-code-detector",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/quality-tools/skills/dead-code-detector",
+      "description": ""
+    },
+    {
+      "name": "distributed-job-safety",
+      "path": "plugins/devops-tools/skills/distributed-job-safety",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/distributed-job-safety",
+      "description": ""
+    },
+    {
+      "name": "doppler-secret-validation",
+      "path": "plugins/devops-tools/skills/doppler-secret-validation",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/doppler-secret-validation",
+      "description": ""
+    },
+    {
+      "name": "email-triage",
+      "path": "plugins/gmail-commander/skills/email-triage",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/gmail-commander/skills/email-triage",
+      "description": ""
+    },
+    {
+      "name": "gmail-access",
+      "path": "plugins/gmail-commander/skills/gmail-access",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/gmail-commander/skills/gmail-access",
+      "description": ""
+    },
+    {
+      "name": "hooks-development",
+      "path": "plugins/itp-hooks/skills/hooks-development",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/itp-hooks/skills/hooks-development",
+      "description": ""
+    },
+    {
+      "name": "impl-standards",
+      "path": "plugins/itp/skills/impl-standards",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/itp/skills/impl-standards",
+      "description": ""
+    },
+    {
+      "name": "implement-plan-preflight",
+      "path": "plugins/itp/skills/implement-plan-preflight",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/itp/skills/implement-plan-preflight",
+      "description": ""
+    },
+    {
+      "name": "interactive-bot",
+      "path": "plugins/gmail-commander/skills/interactive-bot",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/gmail-commander/skills/interactive-bot",
+      "description": ""
+    },
+    {
+      "name": "issue-create",
+      "path": "plugins/gh-tools/skills/issue-create",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/gh-tools/skills/issue-create",
+      "description": ""
+    },
+    {
+      "name": "issues-workflow",
+      "path": "plugins/gh-tools/skills/issues-workflow",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/gh-tools/skills/issues-workflow",
+      "description": ""
+    },
+    {
+      "name": "link-validator",
+      "path": "plugins/link-tools/skills/link-validator",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/link-tools/skills/link-validator",
+      "description": ""
+    },
+    {
+      "name": "mise-configuration",
+      "path": "plugins/itp/skills/mise-configuration",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/itp/skills/mise-configuration",
+      "description": ""
+    },
+    {
+      "name": "ml-data-pipeline-architecture",
+      "path": "plugins/devops-tools/skills/ml-data-pipeline-architecture",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/ml-data-pipeline-architecture",
+      "description": ""
+    },
+    {
+      "name": "ml-failfast-validation",
+      "path": "plugins/devops-tools/skills/ml-failfast-validation",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/ml-failfast-validation",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-e2e-validation",
+      "path": "plugins/quality-tools/skills/multi-agent-e2e-validation",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/quality-tools/skills/multi-agent-e2e-validation",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-performance-profiling",
+      "path": "plugins/quality-tools/skills/multi-agent-performance-profiling",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/quality-tools/skills/multi-agent-performance-profiling",
+      "description": ""
+    },
+    {
+      "name": "pre-ship-review",
+      "path": "plugins/quality-tools/skills/pre-ship-review",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/quality-tools/skills/pre-ship-review",
+      "description": ""
+    },
+    {
+      "name": "project-directory-migration",
+      "path": "plugins/devops-tools/skills/project-directory-migration",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/project-directory-migration",
+      "description": ""
+    },
+    {
+      "name": "pueue-job-orchestration",
+      "path": "plugins/devops-tools/skills/pueue-job-orchestration",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/devops-tools/skills/pueue-job-orchestration",
+      "description": ""
+    },
+    {
+      "name": "python-workspace",
+      "path": "plugins/mql5/skills/python-workspace",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/mql5/skills/python-workspace",
+      "description": ""
+    },
+    {
+      "name": "research-archival",
+      "path": "plugins/gh-tools/skills/research-archival",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/gh-tools/skills/research-archival",
+      "description": ""
+    },
+    {
+      "name": "semantic-release",
+      "path": "plugins/itp/skills/semantic-release",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/itp/skills/semantic-release",
+      "description": ""
+    },
+    {
+      "name": "skill-architecture",
+      "path": "plugins/plugin-dev/skills/skill-architecture",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/plugin-dev/skills/skill-architecture",
+      "description": ""
+    },
+    {
+      "name": "slash-command-factory",
+      "path": "plugins/productivity-tools/skills/slash-command-factory",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/productivity-tools/skills/slash-command-factory",
+      "description": ""
+    },
+    {
+      "name": "symmetric-dogfooding",
+      "path": "plugins/quality-tools/skills/symmetric-dogfooding",
+      "github_url": "https://github.com/terrylica/cc-skills/tree/main/plugins/quality-tools/skills/symmetric-dogfooding",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/terrylica/cc-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:40:40Z"
+}
