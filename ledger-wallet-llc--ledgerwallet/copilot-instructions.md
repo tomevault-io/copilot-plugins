@@ -1,11 +1,45 @@
-## shared-packages
+## team-split-convention
 
-> Shared package structure and conventions — read shared/README.md before creating or modifying packages under shared/
+> Team-split convention for multi-team files — split into team-* folders to reduce CODEOWNERS friction
 
 
-# Shared Packages
+# Team-split convention
 
-Before creating or modifying any package under `shared/`, read `shared/README.md` and follow its conventions for naming, structure, dependencies, and barrel exports.
+Monolithic files or folders that many teams touch must be split into pieces to reduce the friction between teams in CODEOWNERS (clear ownership per team, fewer cross-team review bottlenecks).
+
+## When to apply
+
+- A file or folder is contributed to by many teams (single large file or flat directory with many owners).
+- Rule activates when editing or adding such areas or when the agent infers a multi-team file.
+
+## Target layout
+
+Transform `[foo].ts` or `[foo]/` into:
+
+```
+[foo]/
+  index.ts              # re-exports only
+  team-[team]/          # one or more files per team
+    <feature>.ts
+```
+
+**Example**: `[foo]/` → `[foo]/index.ts` and `[foo]/team-coin-integration/coin_bitcoin.ts`.
+
+## Structure
+
+- **`[foo]/index.ts`** — Only re-exports (e.g. `export * from "./team-coin-integration/coin_bitcoin"`). Not generated; maintain by hand or with AI. Must export from every team file that is part of the public API.
+- **`[foo]/team-[team]/`** — One or more files per team. Team slug = CODEOWNERS team name **without** the `@ledgerhq/` prefix (e.g. `coin-integration`, `ledger-partner-hoodies`).
+
+## Naming
+
+- Folder: `team-<slug>` (slug from CODEOWNERS).
+- Files inside: named by feature (e.g. `coin_bitcoin.ts`, `swap.handler.ts`).
+
+## CODEOWNERS
+
+Each `**/team-<team>/` path is owned by `@ledgerhq/<team>`. See CODEOWNERS for the canonical list of team slugs. When a new team is added to CODEOWNERS elsewhere, add a matching `**/team-<new-team>/` line in that block.
+
+Apply this convention when refactoring multi-team areas so ownership stays clear per team.
 
 ---
 > Source: [Ledger-Wallet-LLC/ledgerwallet](https://github.com/Ledger-Wallet-LLC/ledgerwallet) — distributed by [TomeVault](https://tomevault.io).
