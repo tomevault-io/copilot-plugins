@@ -1,0 +1,9 @@
+{
+  "name": "mudler--vibevoice-cpp",
+  "displayName": "vibevoice.cpp",
+  "description": "C++ port of Microsoft VibeVoice built on ggml",
+  "version": "1.0.0",
+  "author": "mudler",
+  "homepage": "https://github.com/mudler/vibevoice.cpp",
+  "skills": []
+}
