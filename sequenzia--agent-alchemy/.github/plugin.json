@@ -1,0 +1,110 @@
+{
+  "name": "sequenzia--agent-alchemy",
+  "displayName": "agent-alchemy",
+  "description": "Agent Alchemy is a curated collection of plugins, apps, and extensions designed to elevate your agentic engineering workflows. Built for Claude Code and other AI coding agents, these tools help develo",
+  "version": "1.0.0",
+  "author": "sequenzia",
+  "homepage": "https://github.com/sequenzia/agent-alchemy",
+  "skills": [
+    {
+      "name": "analyze-coverage",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "changelog-format",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "description": ""
+    },
+    {
+      "name": "codebase-analysis",
+      "description": ""
+    },
+    {
+      "name": "create-spec",
+      "description": ""
+    },
+    {
+      "name": "create-tasks",
+      "description": ""
+    },
+    {
+      "name": "deep-analysis",
+      "description": ""
+    },
+    {
+      "name": "dependency-checker",
+      "description": ""
+    },
+    {
+      "name": "docs-manager",
+      "description": ""
+    },
+    {
+      "name": "execute-tasks",
+      "description": ""
+    },
+    {
+      "name": "feature-dev",
+      "description": ""
+    },
+    {
+      "name": "generate-tests",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "description": ""
+    },
+    {
+      "name": "project-conventions",
+      "description": ""
+    },
+    {
+      "name": "release-python-package",
+      "description": ""
+    },
+    {
+      "name": "update-ported-plugin",
+      "description": ""
+    },
+    {
+      "name": "validate-adapter",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "description": ""
+    }
+  ]
+}
