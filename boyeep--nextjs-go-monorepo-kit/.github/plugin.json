@@ -1,0 +1,9 @@
+{
+  "name": "boyeep--nextjs-go-monorepo-kit",
+  "displayName": "nextjs-go-monorepo-kit",
+  "description": "Full-stack starter template with Next.js, Go, PostgreSQL, auth, dashboard patterns, Playwright, and AI-ready repo guidance.",
+  "version": "1.0.0",
+  "author": "Boyeep",
+  "homepage": "https://github.com/Boyeep/nextjs-go-monorepo-kit",
+  "skills": []
+}
