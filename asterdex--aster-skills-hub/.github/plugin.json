@@ -1,0 +1,9 @@
+{
+  "name": "asterdex--aster-skills-hub",
+  "displayName": "aster-skills-hub",
+  "description": "A set of Agent skills for the Aster Futures API: depositing funds from a wallet, and for both v1 (HMAC) and v3 (EIP-712) \u2014 auth, public market data, account/balance/positions, order placement and mana",
+  "version": "1.0.0",
+  "author": "asterdex",
+  "homepage": "https://github.com/asterdex/aster-skills-hub",
+  "skills": []
+}
