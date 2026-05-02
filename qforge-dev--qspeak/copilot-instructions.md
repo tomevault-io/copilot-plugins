@@ -1,54 +1,43 @@
-## frontend-structure
+## project-overview
 
-> The frontend is built with React 18, TypeScript, and Vite, organized in the [src/](mdc:src) directory.
+> **qSpeak** is a powerful voice transcription and AI assistant tool built with Tauri, React, TypeScript, and Rust. It provides real-time voice transcription and AI assistance across all applications while keeping voice data completely offline.
 
-# Frontend Structure Guide
+# qSpeak Project Overview
 
-The frontend is built with React 18, TypeScript, and Vite, organized in the [src/](mdc:src) directory.
+**qSpeak** is a powerful voice transcription and AI assistant tool built with Tauri, React, TypeScript, and Rust. It provides real-time voice transcription and AI assistance across all applications while keeping voice data completely offline.
 
-## Directory Structure
+## Project Architecture
 
-### Core Directories
-- **[src/components/](mdc:src/components)** - Reusable UI components built with Radix UI
-- **[src/hooks/](mdc:src/hooks)** - Custom React hooks for state and side effects
-- **[src/utils/](mdc:src/utils)** - Utility functions and helpers
-- **[src/shared/](mdc:src/shared)** - Shared modules and types
-- **[src/assets/](mdc:src/assets)** - Static assets (images, icons, etc.)
-- **[src/icons/](mdc:src/icons)** - Custom icon components
+This is a **Tauri application** with a clear separation between frontend and backend:
 
-### Feature-Specific Directories
-- **[src/settings/](mdc:src/settings)** - Settings UI and configuration window
-- **[src/onboarding/](mdc:src/onboarding)** - User onboarding flow window
-- **[src/recorder/](mdc:src/recorder)** - Voice recording interface window
+### Frontend (React + TypeScript)
+- **Main Entry Points**: [recorder.html](mdc:recorder.html), [settings.html](mdc:settings.html), [onboarding.html](mdc:onboarding.html)
+- **Core Configuration**: [vite.config.ts](mdc:vite.config.ts), [package.json](mdc:package.json)
+- **Source Code**: [src/](mdc:src) directory contains all React components and frontend logic
+- **Styling**: Uses Tailwind CSS with custom configurations in [global.css](mdc:src/global.css)
+- **Internationalization**: i18n setup in [i18n.ts](mdc:src/i18n.ts)
 
-## Key Components
+### Backend (Rust + Tauri)
+- **Main Configuration**: [src-tauri/tauri.conf.json](mdc:src-tauri/tauri.conf.json)
+- **Rust Source**: [src-tauri/src/](mdc:src-tauri/src) contains all backend logic
+- **Dependencies**: [src-tauri/Cargo.toml](mdc:src-tauri/Cargo.toml)
+- **Custom Modules**: Audio recording, keyboard handling, screenshot capabilities
 
-### UI Components ([src/components/](mdc:src/components))
-All components are built with **Radix UI** primitives and styled with **Tailwind CSS**:
+## Key Features
+- Real-time voice transcription with offline processing
+- AI assistant with adaptive personas
+- Cross-platform support (Windows, macOS, Ubuntu)
+- MCP (Model Context Protocol) integration
+- Global hotkey support (default: F6)
+- Universal compatibility with any text input application
 
-- **[button.tsx](mdc:src/components/button.tsx)** - Button component with variants
-- **[dialog.tsx](mdc:src/components/dialog.tsx)** - Modal dialogs
-- **[input.tsx](mdc:src/components/input.tsx)** - Text input components
-- **[select.tsx](mdc:src/components/select.tsx)** - Dropdown selects
-- **[textarea.tsx](mdc:src/components/textarea.tsx)** - Multiline text input
-- **[markdown.tsx](mdc:src/components/markdown.tsx)** - Markdown rendering
-- **[models-cards.tsx](mdc:src/components/models-cards.tsx)** - AI model selection cards
-
-### Styling
-- **[global.css](mdc:src/global.css)** - Global styles and Tailwind CSS imports
-- Uses **Tailwind CSS v4** with custom animations and components
-- **[tailwind.config.js](mdc:tailwind.config.js)** - Tailwind configuration (if exists)
-
-## Entry Points
-- **[recorder.html](mdc:recorder.html)** - Main recorder window
-- **[settings.html](mdc:settings.html)** - Settings window
-- **[onboarding.html](mdc:onboarding.html)** - First-time user setup window
-
-## Development Notes
-- All components use TypeScript with strict typing
-- Components follow the **composition pattern** with Radix UI
-- Internationalization is handled through [i18n.ts](mdc:src/i18n.ts)
-- Uses **React Router** for navigation between views
+## Development Stack
+- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS
+- **Backend**: Rust, Tauri 2.0
+- **UI Components**: Radix UI primitives with custom styling
+- **State Management**: React hooks and context
+- **Build Tool**: Vite with Tauri integration
+- **Package Manager**: pnpm
 
 ---
 > Source: [qforge-dev/qspeak](https://github.com/qforge-dev/qspeak) — distributed by [TomeVault](https://tomevault.io).
