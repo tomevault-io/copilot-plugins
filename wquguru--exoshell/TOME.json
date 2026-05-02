@@ -1,0 +1,51 @@
+{
+  "name": "exoshell",
+  "owner": "wquguru",
+  "repo": "exoshell",
+  "description": "A curated collection of Claude plugins and AI-assisted development skills inspired by Moltbot's atomic commit methodology\ud83e\udd9e\ud83d\udc1a",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ralph-ryan",
+      "path": "plugins/ralph-ryan/skills/ralph-ryan",
+      "github_url": "https://github.com/wquguru/exoshell/tree/main/plugins/ralph-ryan/skills/ralph-ryan",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wquguru/exoshell",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:48:21Z"
+}
