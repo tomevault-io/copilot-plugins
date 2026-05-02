@@ -1,42 +1,34 @@
-## project-architecture
+## readme-maintenance
 
-> Core architecture conventions for the Second Reality Web Demo Engine
+> Update `README.md` whenever any of the following changes:
 
+# README Maintenance
 
-# Project Architecture
+## When to Update
 
-Monorepo with source under `src/`, two entry points sharing `core/` and `effects/`:
+Update `README.md` whenever any of the following changes:
 
-- `src/editor/` — React + Vite creative tool (the only place React/Vite/Tailwind live)
-- `src/player/` — Vanilla JS fullscreen runtime (no npm deps, no build step)
-- `src/core/` — Shared runtime machinery (vanilla ES modules, zero dependencies)
-- `src/effects/` — One subfolder per effect with classic + optional remastered variants
+- A new classic effect is completed (update the progress table)
+- A new remastered effect is completed (update the progress table and Remastered Effects section)
+- A new learning guide is added to `docs/learning/` (update the Learning Guides section)
+- A new design doc is added to `docs/effects/` (update the Design Documents table)
+- A new pattern doc is added to `docs/patterns/` (update the Additional docs table)
+- The project structure changes meaningfully (new top-level directories, new tools)
+- A bonus effect is added (update the Bonus Effects list)
 
-React, Vite, Tailwind, and any npm framework code must NEVER appear in `core/`, `effects/`, or `player/`.
+## What to Keep in Sync
 
-## Master Clock
+1. **Progress table** — the Classic/Remastered columns must reflect the actual state of `src/effects/`
+2. **Remastered Effects section** — list each completed remastered variant with its key techniques
+3. **Learning Guides section** — full table of contents for every guide in `docs/learning/`
+4. **Design Documents table** — one row per doc in `docs/effects/` and `docs/patterns/`
+5. **Bonus Effects list** — all non-original-demo effects
 
-`AudioContext.currentTime` is the single source of truth for all timing. Never use `Date.now()` or `performance.now()` for demo timing.
+## What NOT to Change
 
-## Beat Map
-
-Pre-authored JSON beat map, not real-time beat detection. Sync is intentional and handcrafted.
-
-## Effect Fidelity
-
-Each effect has a `classic` variant (1:1 faithful to the original) and an optional `remastered` variant (4K, enhanced). Classic is always implemented first.
-
-## Testing
-
-`core/` modules must have unit tests (Vitest). Effects are validated manually — do not unit test shaders or visual output.
-
-## Documentation
-
-`docs/` contains technical design documents. Update `docs/TRACKER.md` when completing tracked milestones.
-
-## Deliverable
-
-The exported single-HTML file (via `tools/export.js`) is the true distribution artifact.
+- Do not update the README for minor internal refactors, test additions, or rule changes
+- Do not add work-in-progress items — only reflect completed work
+- Do not duplicate content from TRACKER.md — the README is a polished public-facing summary
 
 ---
 > Source: [pdcgomes/second-reality-augmented](https://github.com/pdcgomes/second-reality-augmented) — distributed by [TomeVault](https://tomevault.io).
