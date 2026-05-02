@@ -1,0 +1,9 @@
+{
+  "name": "nicolasvegam--garmin-connect-mcp",
+  "displayName": "garmin-connect-mcp",
+  "description": "MCP server for Garmin Connect \u2014 access 61 health, fitness and activity tools from any AI assistant",
+  "version": "1.0.0",
+  "author": "Nicolasvegam",
+  "homepage": "https://github.com/Nicolasvegam/garmin-connect-mcp",
+  "skills": []
+}
