@@ -1,0 +1,26 @@
+{
+  "name": "takumiyoshikawa--skill-loop",
+  "displayName": "skill-loop",
+  "description": "An agentic skill orchestrator.",
+  "version": "1.0.0",
+  "author": "takumiyoshikawa",
+  "homepage": "https://github.com/takumiyoshikawa/skill-loop",
+  "skills": [
+    {
+      "name": "1-impl",
+      "description": ""
+    },
+    {
+      "name": "1-impl",
+      "description": ""
+    },
+    {
+      "name": "2-review",
+      "description": ""
+    },
+    {
+      "name": "2-review",
+      "description": ""
+    }
+  ]
+}
