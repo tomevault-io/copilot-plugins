@@ -1,0 +1,14 @@
+{
+  "name": "tomoyaf--logifai",
+  "displayName": "logifai",
+  "description": "Auto-capture development logs for Claude Code \u2014 stop copy-pasting terminal output.",
+  "version": "1.0.0",
+  "author": "tomoyaf",
+  "homepage": "https://github.com/tomoyaf/logifai",
+  "skills": [
+    {
+      "name": "logifai",
+      "description": ""
+    }
+  ]
+}
