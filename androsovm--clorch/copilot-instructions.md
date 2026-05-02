@@ -84,6 +84,5 @@ The TUI sends keystrokes (`y`/`n` + Enter) to tmux panes via `tmux send-keys`. B
 - Dependencies: `textual>=0.85.0`, `pyyaml>=6.0`, optional `rich`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/androsovm)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/androsovm)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [androsovm/clorch](https://github.com/androsovm/clorch) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
