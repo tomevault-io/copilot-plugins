@@ -1,0 +1,9 @@
+{
+  "name": "millionco--spawn-agent",
+  "displayName": "spawn-agent",
+  "description": "Spawn available local agents on a user's computer",
+  "version": "1.0.0",
+  "author": "millionco",
+  "homepage": "https://github.com/millionco/spawn-agent",
+  "skills": []
+}
