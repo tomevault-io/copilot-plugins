@@ -4,7 +4,7 @@
   "repo": "ochami-from-scratch",
   "description": "Deployment method for OpenCHAMI",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aescoubas/ochami-from-scratch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T23:39:25Z"
+  "distributed_at": "2026-05-02T20:05:16Z"
 }
