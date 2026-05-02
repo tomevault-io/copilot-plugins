@@ -1,0 +1,9 @@
+{
+  "name": "wespreadjam--jam-nodes",
+  "displayName": "jam-nodes",
+  "description": "Extensible workflow node framework for building automation pipelines. Define, register, and execute typed nodes with Zod validation.",
+  "version": "1.0.0",
+  "author": "wespreadjam",
+  "homepage": "https://github.com/wespreadjam/jam-nodes",
+  "skills": []
+}
