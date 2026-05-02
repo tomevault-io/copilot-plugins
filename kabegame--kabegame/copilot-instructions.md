@@ -1,44 +1,49 @@
-## archive-extensions-single-source
+## image-type-single-source
 
-> 支持的压缩文件后缀列表统一从 archiver 模块获取，禁止在别处写死
+> 支持的图片后缀列表统一从 image_type 模块获取，禁止在别处写死
 
 
-# 压缩类型 / 后缀列表单一数据源
+# 图片类型 / 后缀列表单一数据源
 
-所有需要「列出支持的压缩文件后缀」的逻辑，必须从 **`src-tauri/core/src/crawler/archiver/mod.rs`** 获取，不得在其它文件中写死扩展名列表（如 `["zip", "rar"]`）。
+所有需要「列出支持的图片后缀」或「判断是否为支持的图片」的逻辑，必须从 **`src-tauri/core/src/image_type.rs`** 获取，不得在其它文件中写死扩展名列表（如 `["jpg","png",...]`）。
 
 ## 数据源位置
 
-- **定义**：`supported_archive_extensions()`（约第 30-33 行）与公开的 `supported_types()` 一致，均来自 `ArchiveManager::supported_types()`
-- **Rust 模块**：`crate::archive`（core 内）或 `kabegame_core::archive`（app-main 内），由 `lib.rs` 重导出 `crawler::archiver`
+- **Rust 模块**：`crate::image_type`（在 core 内）或 `kabegame_core::image_type`（在 app-main 内）
+- **定义文件**：`src-tauri/core/src/image_type.rs`
 
-## 应使用的 API
+## 应使用的 API（示例）
 
 | 需求 | 使用 |
 |------|------|
-| 支持的压缩扩展名列表 | `crate::archive::supported_types()` 或 `kabegame_core::archive::supported_types()` |
-| 按路径是否压缩包 | `crate::archive::is_archive_by_path(path)` |
-| 按路径取处理器 | `crate::archive::get_processor_by_path(path)` |
+| 支持的扩展名列表 | `image_type::supported_image_extensions()` |
+| 扩展名 → MIME | `image_type::mime_by_ext()` |
+| 某扩展名是否支持 | `image_type::is_supported_image_ext(ext)` |
+| 按路径是否图片 | `image_type::is_image_by_path(path)` |
+| 按 MIME 是否图片 | `image_type::is_image_mime(mime)` |
+| URL 是否图片扩展名 | `image_type::url_has_image_extension(url)` |
+| 默认扩展名（下载/缩略图等） | `image_type::default_image_extension()` |
 
 ## 正确写法示例
 
 ```rust
-// ✅ 从 archive 获取
-let exts = kabegame_core::archive::supported_types();
-if crate::archive::is_archive_by_path(path) { ... }
+// ✅ 从 image_type 获取
+if crate::image_type::is_image_by_path(path) { ... }
+let ext = crate::image_type::default_image_extension();
+let exts = kabegame_core::image_type::supported_image_extensions();
 ```
 
 ## 错误写法示例
 
 ```rust
-// ❌ 禁止：在其它模块写死压缩扩展名
-const ARCHIVE_EXT: &[&str] = &["zip", "rar"];
-if ["zip", "rar"].contains(&ext) { ... }
+// ❌ 禁止：在其它模块写死扩展名或 MIME 列表
+const IMAGE_EXT: &[&str] = &["jpg", "png", "gif"];
+if ["jpg", "jpeg", "png"].contains(&ext) { ... }
 ```
 
 ## 前端
 
-前端需要「支持的压缩类型列表」时，应通过 Tauri 命令获取（命令内部从 `archive::supported_types()` 读取），不要在 TS/Vue 里维护重复的后缀列表。
+前端需要「支持的图片类型列表」时，应通过 Tauri 命令 **`get_supported_image_types`** 获取（该命令内部从 `image_type` 读取），不要在 TS/Vue 里维护一份重复的后缀或 MIME 列表。
 
 ---
 > Source: [kabegame/kabegame](https://github.com/kabegame/kabegame) — distributed by [TomeVault](https://tomevault.io).
