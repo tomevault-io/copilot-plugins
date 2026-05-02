@@ -1,0 +1,225 @@
+{
+  "name": "claude-code-minoan",
+  "owner": "tdimino",
+  "repo": "claude-code-minoan",
+  "description": "A curated ~/.claude/ configuration for professional development workflows \u2014 80 skills, 44 hooks, and CLI tools",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "academic-research",
+      "path": "skills/research/academic-research",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/research/academic-research",
+      "description": ""
+    },
+    {
+      "name": "agent-browser",
+      "path": "skills/integration-automation/agent-browser",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "agents-md-manager",
+      "path": "skills/core-development/agents-md-manager",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/core-development/agents-md-manager",
+      "description": ""
+    },
+    {
+      "name": "architecture-md-builder",
+      "path": "skills/core-development/architecture-md-builder",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/core-development/architecture-md-builder",
+      "description": ""
+    },
+    {
+      "name": "atk-ux-research",
+      "path": "skills/research/atk-ux-research",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/research/atk-ux-research",
+      "description": ""
+    },
+    {
+      "name": "beads-task-tracker",
+      "path": "skills/core-development/beads-task-tracker",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/core-development/beads-task-tracker",
+      "description": ""
+    },
+    {
+      "name": "beautiful-mermaid",
+      "path": "skills/integration-automation/beautiful-mermaid",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/beautiful-mermaid",
+      "description": ""
+    },
+    {
+      "name": "classical-887",
+      "path": "skills/integration-automation/classical-887",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/classical-887",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk",
+      "path": "skills/core-development/claude-agent-sdk",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/core-development/claude-agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "claude-md-manager",
+      "path": "skills/core-development/claude-md-manager",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/core-development/claude-md-manager",
+      "description": ""
+    },
+    {
+      "name": "claude-tracker-suite",
+      "path": "skills/planning-productivity/claude-tracker-suite",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/planning-productivity/claude-tracker-suite",
+      "description": ""
+    },
+    {
+      "name": "codex-orchestrator",
+      "path": "skills/integration-automation/codex-orchestrator",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/codex-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "crypt-librarian",
+      "path": "skills/planning-productivity/crypt-librarian",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/planning-productivity/crypt-librarian",
+      "description": ""
+    },
+    {
+      "name": "exa-search",
+      "path": "skills/research/exa-search",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/research/exa-search",
+      "description": ""
+    },
+    {
+      "name": "figma-mcp",
+      "path": "skills/integration-automation/figma-mcp",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/figma-mcp",
+      "description": ""
+    },
+    {
+      "name": "firecrawl",
+      "path": "skills/research/firecrawl",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/research/firecrawl",
+      "description": ""
+    },
+    {
+      "name": "gemini-claude-resonance",
+      "path": "skills/design-media/gemini-claude-resonance",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/design-media/gemini-claude-resonance",
+      "description": ""
+    },
+    {
+      "name": "linear-a-decipherment",
+      "path": "skills/research/linear-a-decipherment",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/research/linear-a-decipherment",
+      "description": ""
+    },
+    {
+      "name": "linkedin-export",
+      "path": "skills/integration-automation/linkedin-export",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/linkedin-export",
+      "description": ""
+    },
+    {
+      "name": "llama-cpp",
+      "path": "skills/integration-automation/llama-cpp",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/llama-cpp",
+      "description": ""
+    },
+    {
+      "name": "mdpreview",
+      "path": "skills/planning-productivity/mdpreview",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/planning-productivity/mdpreview",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-pro",
+      "path": "skills/design-media/nano-banana-pro",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/design-media/nano-banana-pro",
+      "description": ""
+    },
+    {
+      "name": "netlify-integration",
+      "path": "skills/integration-automation/netlify-integration",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/netlify-integration",
+      "description": ""
+    },
+    {
+      "name": "parakeet",
+      "path": "skills/integration-automation/parakeet",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/parakeet",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "skills/core-development/react-best-practices",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/core-development/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-optimizer",
+      "path": "skills/core-development/skill-optimizer",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/core-development/skill-optimizer",
+      "description": ""
+    },
+    {
+      "name": "slack",
+      "path": "skills/integration-automation/slack",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/slack",
+      "description": ""
+    },
+    {
+      "name": "supabase-skill",
+      "path": "skills/integration-automation/supabase-skill",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/supabase-skill",
+      "description": ""
+    },
+    {
+      "name": "super-ralph-wiggum",
+      "path": "skills/planning-productivity/super-ralph-wiggum",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/planning-productivity/super-ralph-wiggum",
+      "description": ""
+    },
+    {
+      "name": "twitter",
+      "path": "skills/integration-automation/twitter",
+      "github_url": "https://github.com/tdimino/claude-code-minoan/tree/main/skills/integration-automation/twitter",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tdimino/claude-code-minoan",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:56:24Z"
+}
