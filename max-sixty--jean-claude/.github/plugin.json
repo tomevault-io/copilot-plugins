@@ -1,0 +1,14 @@
+{
+  "name": "max-sixty--jean-claude",
+  "displayName": "jean-claude",
+  "description": "AI instruction skills by max-sixty",
+  "version": "1.0.0",
+  "author": "max-sixty",
+  "homepage": "https://github.com/max-sixty/jean-claude",
+  "skills": [
+    {
+      "name": "jean-claude",
+      "description": ""
+    }
+  ]
+}
