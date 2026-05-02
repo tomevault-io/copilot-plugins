@@ -1,18 +1,27 @@
-## kreuzakt
+## file-structure-content-ordering
 
-> - **Runtime**: Bun is installed at `~/.bun/bin/bun`. Ensure `~/.bun/bin` is on `PATH` (the update script handles this).
+> Every code file must follow a strict top-to-bottom ordering that reflects a "newspaper" hierarchy — the headline goes first, the fine print goes last. A reader skimming from line 1 should immediately understand what this file is about, and should only encounter supporting details as they scroll further.
 
-## Cursor Cloud specific instructions
 
-- **Runtime**: Bun is installed at `~/.bun/bin/bun`. Ensure `~/.bun/bin` is on `PATH` (the update script handles this).
-- **No external services needed**: SQLite is embedded via `bun:sqlite`; no database server to start. The `./data` directory (DB, ingest, originals, thumbnails) is auto-created on first run.
-- **LLM API key is optional for dev**: Without `OPENROUTER_KEY` or `OPENAI_API_KEY`, the app starts and runs normally. Document ingestion falls back to filename-based metadata (no OCR/LLM enrichment). To enable full LLM features, copy `.env.local.example` to `.env.local` and set at least `OPENROUTER_KEY`.
-- **Dev server**: `bun dev` starts Next.js on port 3000. The server auto-creates the SQLite DB and data directories on startup.
-- **Lint + type check**: `bun run check` runs Biome lint followed by `tsgo --noEmit`.
-- **Unit tests**: `bun test` — all 24 unit tests should pass without any env vars or API keys.
-- **Integration tests**: `bun run test:integration` requires `.env.local` with valid API keys and sets `KREUZAKT_RUN_INTEGRATION=1` automatically.
-- **Upload test**: `curl -X POST http://localhost:3000/api/upload -F "files=@/path/to/file"` to verify document ingestion end-to-end.
-- **Search test**: `curl "http://localhost:3000/api/search?q=<term>"` to verify FTS search works.
+Every code file must follow a strict top-to-bottom ordering that reflects a "newspaper" hierarchy — the headline goes first, the fine print goes last. A reader skimming from line 1 should immediately understand what this file is about, and should only encounter supporting details as they scroll further.
+
+Required ordering
+
+Imports — external dependencies first, then internal/relative imports, separated by a blank line.
+Constants — module-level configuration, magic numbers pulled into named values, environment lookups, default values.
+Types and Interfaces — type aliases, interfaces, enums, Zod schemas, or any shape definitions that the rest of the file depends on.
+Primary export / "headline" — the single class, function, or component that defines why this file exists. If someone reads only this, they should understand the file's purpose. This is the thing the filename describes.
+Supporting actors — secondary classes, functions, or components that the headline depends on or that extend it. Ordered by relevance to the headline, most related first.
+Utilities and helpers — pure functions, formatters, validators, mappers, and anything that could plausibly live in a utils/ file but is only used here. These are the least thematically central items.
+
+Why this matters
+
+Readability: new contributors orient themselves in seconds, not minutes.
+Code review: reviewers see intent before implementation details.
+Merge conflicts: keeping a consistent structure means different authors' changes land in predictable zones.
+
+When you're unsure where something belongs
+Ask: "If I deleted everything else in this file, would this item alone still justify the file's name?" If yes, it's the headline. If it supports the headline, it's a supporting actor. If it supports anything generically, it's a utility.
 
 ---
 > Source: [anaisbetts/kreuzakt](https://github.com/anaisbetts/kreuzakt) — distributed by [TomeVault](https://tomevault.io).
