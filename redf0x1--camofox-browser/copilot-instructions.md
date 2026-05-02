@@ -1,66 +1,91 @@
-## 030-workflows
+## 040-anti-patterns
 
-> Common camofox-browser workflows and automation patterns
+> camofox-browser anti-patterns — common mistakes to avoid
 
 
-# CamoFox Workflow Patterns
+# Anti-Patterns (Avoid These)
 
-## 1) Basic Interaction Loop
+## 1) Skipping snapshot before actions
 ```bash
-camofox open https://example.com                   # open tab
-camofox snapshot                                   # get refs
-camofox click e5                                   # click
-camofox type e7 "hello"                            # type
-camofox snapshot                                   # refresh refs
+# BAD
+camofox click e4
+
+# GOOD
+camofox snapshot
+camofox click e4
 ```
 
-## 2) Search Workflow
+## 2) Reusing refs after navigation/rerender
 ```bash
-camofox open https://google.com                    # create tab
-camofox search "camofox" --engine google           # navigate to search results
-camofox snapshot                                   # inspect result refs
+# BAD
+camofox click e9
+camofox navigate https://another-page.com
+camofox click e9
+
+# GOOD
+camofox click e9
+camofox navigate https://another-page.com
+camofox snapshot
+camofox click e3
 ```
 
-## 3) Login Workflow (Vault-Safe)
+## 3) Mixing `userId` across same tab flow
 ```bash
-camofox auth save account --url https://service.com/login   # store encrypted credentials
-camofox open https://service.com/login                      # open login page
-camofox snapshot                                            # get username/password refs
-camofox auth load account --inject --username-ref e5 --password-ref e9  # inject without stdout leaks
+# BAD
+camofox open https://x.com --user alice
+camofox snapshot --user bob
+
+# GOOD
+camofox open https://x.com --user alice
+camofox snapshot --user alice
 ```
 
-## 4) Pipeline Workflow
+## 4) Parsing text output in automation
 ```bash
-camofox run login-flow.txt                        # run file
-camofox run login-flow.txt --continue-on-error    # keep going after failures
-echo "get-url" | camofox run -                    # stdin pipeline
+# BAD
+camofox get-url | awk '{print $2}'
+
+# GOOD
+camofox get-url --format json
 ```
 
-## 5) API + curl Workflow
+## 5) Hardcoded query URLs instead of macros
 ```bash
-curl -X POST http://localhost:9377/tabs \
-  -H 'Content-Type: application/json' \
-  -d '{"userId":"agent1","sessionKey":"task1","url":"https://example.com"}'
+# BAD
+# manually composing search URL every time
 
-curl "http://localhost:9377/tabs/<tabId>/snapshot?userId=agent1"
+# GOOD
+# API macro use
+# {"macro":"@google_search","query":"my query"}
 ```
 
-## 6) Session Restore Workflow
+## 6) Embedding plaintext credentials in scripts
 ```bash
-camofox session save before-login                  # save cookies
-# ... close/restart ...
-camofox session load before-login                  # restore cookies to tab
+# BAD
+type e2 "my-secret-password"
+
+# GOOD
+camofox auth save profile
+camofox auth load profile --inject --username-ref e2 --password-ref e3
 ```
 
-## 7) CAPTCHA / Visual Intervention Workflow
+## 7) Forgetting tab invalidation after display toggle
 ```bash
-curl -X POST http://localhost:9377/sessions/agent1/toggle-display \
-  -H 'Content-Type: application/json' \
-  -d '{"headless":"virtual"}'                   # restart with noVNC
-# solve challenge manually via returned vncUrl
-curl -X POST http://localhost:9377/sessions/agent1/toggle-display \
-  -H 'Content-Type: application/json' \
-  -d '{"headless":true}'                          # return to headless
+# BAD
+# toggle display then keep using old tabId
+
+# GOOD
+# toggle display, then create a new tab
+```
+
+## 8) Assuming `download` command performs server-side direct fetch
+```bash
+# BAD
+camofox download https://files.example.com/a.zip
+
+# GOOD
+camofox downloads --format json
+# or call /tabs/:tabId/batch-download
 ```
 
 ---
