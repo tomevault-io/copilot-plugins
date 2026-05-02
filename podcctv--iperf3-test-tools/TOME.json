@@ -1,0 +1,44 @@
+{
+  "name": "iperf3-test-tools",
+  "owner": "podcctv",
+  "repo": "iperf3-test-tools",
+  "description": "Docker\u90e8\u7f72\uff0c\u4f7f\u7528iperf3/\u811a\u672c\u8fdb\u884c\u670d\u52a1\u5668\u6279\u91cf\u4e92\u76f8\u6d4b\u8bd5",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/podcctv/iperf3-test-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:58:37Z"
+}
