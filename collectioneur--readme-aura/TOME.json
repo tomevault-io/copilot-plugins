@@ -4,7 +4,7 @@
   "repo": "readme-aura",
   "description": "Render React/JSX components as animated SVGs directly inside GitHub READMEs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/collectioneur/readme-aura",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T08:32:36Z"
+  "distributed_at": "2026-05-02T09:38:08Z"
 }
