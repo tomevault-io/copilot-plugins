@@ -1,0 +1,9 @@
+{
+  "name": "war851--ai-governance-architecture",
+  "displayName": "AI-Governance-Architecture",
+  "description": "Claude Code best practices -- applied to application design. Interactive HLD/LLD visualization, implementation example. LLM-agnostic, DB-governed, GDPR-ready.",
+  "version": "1.0.0",
+  "author": "war851",
+  "homepage": "https://github.com/war851/AI-Governance-Architecture",
+  "skills": []
+}
