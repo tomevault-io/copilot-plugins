@@ -1,25 +1,122 @@
-## prefer-set-has
+## react-general
 
-> Prefer Set.has() over Array.includes() for constant allowlists/blocklists
+> General React and React Native engineering rules for Ledger Live
 
 
-# Prefer Set .has() over Array .includes()
+# General React & React Native Patterns
 
-When checking membership in a **constant list** of known values (allowlists, blocklists, enum-like sets), use a `Set` with `.has()` instead of an array with `.includes()`.
+_These rules apply to all files, including those inside `src/mvvm/`._
 
-```typescript
-// ❌ BAD
-const ALLOWED = ["a", "b", "c"];
-if (ALLOWED.includes(value)) { … }
+## Component Architecture
 
-// ✅ GOOD
-const ALLOWED = new Set(["a", "b", "c"]);
-if (ALLOWED.has(value)) { … }
-```
+- Prefer functional components.
+- Keep components focused and reasonably sized.
+- Decompose large UI into smaller reusable elements.
+- Use composition for extensibility.
 
-**Why:** `Set.has()` is O(1) vs `.includes()` O(n), communicates "membership test" intent more clearly, and avoids accidental mutation of the backing array.
+## State Management
 
-**When .includes() is fine:** Searching within a dynamic or short-lived array (e.g. function parameters, user input) where creating a Set would add noise.
+- Prioritize local state for UI-only concerns.
+- Use RTK Query (with slices) only when necessary for app-wide state.
+- Apply optimized selectors to limit re-rendering.
+- Connect Redux at the lowest component level when possible.
+
+## Styling
+
+### Mobile (React Native)
+
+- Define styles with `StyleSheet.create()`.
+- Follow design-system tokens.
+- Typography uses design-system components.
+- All styles support theme switching.
+
+### Desktop
+
+- Use CSS modules or styled-components.
+- Follow design-system foundations (colors, spacing, typography).
+- Full compatibility with dark/light mode is required.
+
+## Performance
+
+- Memoize expensive operations with `useMemo`.
+- Stabilize callbacks with `useCallback`.
+- Wrap costly components in `React.memo`.
+- Apply list virtualization where needed.
+- Use lazy loading for large screens or modules.
+
+## Navigation
+
+### Mobile
+
+- Use React Navigation.
+- Ensure correct deep-link support.
+- Keep navigation types strict and consistent.
+
+### Desktop
+
+- Use React Router.
+- Implement route guards when necessary.
+- Maintain clear history logic.
+
+## Data Fetching
+
+- Use RTK Query
+  - `dada-client` or `cal-client` are good examples to follow
+- Use consistent loading, retry, and error states.
+- Prefer optimistic UI when appropriate.
+- Apply caching and stale-time strategies.
+
+## Accessibility
+
+### Mobile
+
+- Provide accessible labels for all interactive elements.
+- Support screen reader flows.
+- Ensure proper focus transitions.
+
+### Desktop
+
+- Use semantic HTML tags.
+- Implement full keyboard navigation.
+- Apply meaningful ARIA attributes when required.
+
+## Error Boundaries
+
+- Wrap critical areas in error boundaries.
+- Report errors to monitoring services.
+- Provide clean, user-friendly fallback UIs.
+
+## Platform-Specific Code
+
+### React Native
+
+- Use `Platform.select` for small platform variations.
+- Ensure behavior parity across iOS and Android.
+
+### Desktop
+
+- Use environment flags for Electron/Web differences.
+- Keep platform abstraction consistent.
+
+## Animations
+
+### Mobile
+
+- Use the native driver whenever feasible.
+- Prefer `Animated` and layout animations for performance.
+
+### Desktop
+
+- Use CSS transitions for lightweight animations.
+- Use Framer Motion for structured or complex animations.
+- Respect reduced-motion system preferences.
+
+## Internationalization (i18n)
+
+- Use `react-i18next` consistently.
+- Keep translation keys descriptive and structured.
+- Support pluralization, gender, and variable interpolation.
+- Validate components across multiple locales.
 
 ---
 > Source: [Ledger-Wallet-LLC/ledgerwallet](https://github.com/Ledger-Wallet-LLC/ledgerwallet) — distributed by [TomeVault](https://tomevault.io).
