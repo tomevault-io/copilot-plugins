@@ -1,0 +1,51 @@
+{
+  "name": "skill-memory",
+  "owner": "memodb-io",
+  "repo": "skill-memory",
+  "description": "agent skill as memory layer",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-memory",
+      "path": "skills/skill-memory",
+      "github_url": "https://github.com/memodb-io/skill-memory/tree/main/skills/skill-memory",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/memodb-io/skill-memory",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:49:26Z"
+}
