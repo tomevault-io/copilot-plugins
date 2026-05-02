@@ -1,62 +1,75 @@
-## 30-tests-and-output
+## 40-deploy
 
-> When changing output formatting or test stability.
+> For PM2 processes, GitHub Actions, health checks, and production operations.
 
-# Tests & Expected Output (Rule)
+# Deploy & Ops (Rule)
 
-When changing output formatting or test stability.
+For PM2 processes, GitHub Actions, health checks, and production operations.
 
-## Test Architecture
-- **Test Runner**: `test/tools/run-tests.js` - Unified test execution
-- **HTTP Client**: `test/_utils/httpClient.js` - Server interaction utilities
-- **Result Parser**: `test/_utils/parseResults.js` - Output format validation
-- **Smoke Tests**: `test/tools/search.smoke.js` - Quick functionality validation
+## Deployment Pipeline
+- **GitHub Action**: "Deploy MCP stack" workflow  
+- **Trigger**: Push to main branch or manual dispatch via workflow_dispatch
+- **Process**: SSH → git pull → enhanced `setup.sh` → PM2 restart
+- **Health Checks**: Automated validation of all endpoints (proxy, http, streamable)
 
-## Expected Output Format (BM25-Only)
-```
-⭐️ **<document-id>** (Score: <final-score>)
-   <description-preview>
-   Use in sap_docs_get
-```
+## Enhanced Setup Script (`setup.sh`)
+- **Shallow Submodules**: Single-branch, depth-1 clones with blob filtering
+- **Partial Clone**: Uses `--filter=blob:none` for minimal bandwidth
+- **Branch Fallback**: Tries specified branch, falls back to master
+- **Repository Compaction**: Aggressive GC and reflog cleanup
+- **Skip Nested**: `SKIP_NESTED_SUBMODULES=1` for deployment optimization
 
-## Test Categories
-- **Search Tests**: Verify query results and context detection
-- **Retrieval Tests**: Document fetching and formatting
-- **Integration Tests**: End-to-end MCP tool functionality
-- **Performance Tests**: Response time and resource usage
+## PM2 Configuration (`ecosystem.config.cjs`)
+- **abap-mcp-http**: HTTP status server (127.0.0.1:3001)  
+- **abap-mcp-streamable**: Streamable HTTP MCP (127.0.0.1:3122)
 
-## Test Data Structure
+## Environment Configuration (BM25-Only)
 ```javascript
-{
-  name: 'Test Name',
-  tool: 'sap_docs_search',
-  query: 'search term',
-  expectIncludes: ['/expected/document/id'],
-  validate: (results) => { /* custom validation */ }
+env: {
+  NODE_ENV: "production",
+  LOG_LEVEL: "INFO", 
+  LOG_FORMAT: "json",
+  RETURN_K: "25"  // Centralized result limit
 }
 ```
 
-## Output Validation
-- **Score Format**: Numeric scores with 2 decimal places
-- **Context Indicators**: Emoji-based context detection (🎨🏗️🧪)
-- **Source Attribution**: Clear library identification
-- **Result Limits**: Configurable via `CONFIG.RETURN_K` (default: 25)
+## Health Endpoints
+- **HTTP Server**: `/status`, `/healthz`, `/readyz`
+- **Streamable Server**: `/health`
+- **Proxy Server**: `/status` (via mcp-proxy)
 
-## Test Execution
-- **Fast Tests**: `npm run test:fast` - Skip build, use existing artifacts
-- **Full Tests**: `npm run test` - Build + test complete pipeline  
-- **Smoke Tests**: `npm run test:smoke` - Quick validation only
-- **Community Tests**: `npm run test:community` - SAP Community search functionality
-- **MCP Inspector**: `npm run inspect` - Debug MCP protocol interactions
+## Build Process
+1. **TypeScript**: `npm run build:tsc` → `dist/src/`
+2. **Index Build**: `npm run build:index` → `dist/data/index.json`
+3. **FTS Build**: `npm run build:fts` → `dist/data/docs.sqlite`
+4. **Full Build**: `npm run build` → Complete pipeline
 
-@file test/tools/run-tests.js
-@file test/_utils/parseResults.js
-@file test/_utils/httpClient.js
-@file test/tools/search.smoke.js
-@file test/tools/sap_docs_search/search-cap-docs.js
-@file test/tools/sap_docs_search/search-cloud-sdk-js.js
-@file test/tools/sap_docs_search/search-sapui5-docs.js
-@file docs/TESTS.md
+## Monitoring & Logging
+- **Structured Logging**: JSON format in production
+- **Performance Metrics**: Search timing and result counts
+- **Error Tracking**: Graceful fallbacks with error logging
+- **Resource Usage**: PM2 process monitoring
+
+## Build Process
+1. **Index Build**: `npm run build:index` → `dist/data/index.json`
+2. **FTS Build**: `npm run build:fts` → `dist/data/docs.sqlite`
+3. **TypeScript**: `npm run build:tsc` → `dist/src/`
+4. **Full Build**: `npm run build` → Complete pipeline
+
+## Production Checklist
+- [ ] All health endpoints responding
+- [ ] Search functionality working
+- [ ] Metadata loaded successfully
+- [ ] PM2 processes stable
+- [ ] Log levels appropriate
+- [ ] Resource usage normal
+
+@file .github/workflows/deploy-abap-mcp-server.yml
+@file ecosystem.config.cjs
+@file setup.sh
+@file src/http-server.ts
+@file src/streamable-http-server.ts
+@file docs/ARCHITECTURE.md
 @file docs/DEV.md
 
 ---
