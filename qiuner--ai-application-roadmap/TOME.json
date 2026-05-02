@@ -4,7 +4,7 @@
   "repo": "ai-application-roadmap",
   "description": "A bilingual map of AI engineering evolution, real-world AI usage patterns, and vibe coding best practices.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Qiuner/ai-application-roadmap",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:43:46Z"
+  "distributed_at": "2026-05-02T06:00:03Z"
 }
