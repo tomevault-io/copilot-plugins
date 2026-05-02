@@ -1,0 +1,9 @@
+{
+  "name": "tobyilee--book-writer",
+  "displayName": "book-writer",
+  "description": "Automated book-writing harness with Toby-style voice (11 agents + 10 skills, EPUB output)",
+  "version": "1.0.0",
+  "author": "tobyilee",
+  "homepage": "https://github.com/tobyilee/book-writer",
+  "skills": []
+}
