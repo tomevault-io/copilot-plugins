@@ -1,0 +1,9 @@
+{
+  "name": "ushironoko--octorus",
+  "displayName": "octorus",
+  "description": "Review GitHub PRs and local diff in your terminal, with AI-powered automated review & fix cycles",
+  "version": "1.0.0",
+  "author": "ushironoko",
+  "homepage": "https://github.com/ushironoko/octorus",
+  "skills": []
+}
