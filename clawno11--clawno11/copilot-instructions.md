@@ -1,44 +1,49 @@
-## shared-first
+## ts-new-page
 
-> 跨平台共享优先原则 — 新增代码前必须判定是否应放入共享层
+> 新增前端页面/组件时的共享检查流程
 
 
-# 共享优先原则（Share-First Rule）
+# 新增页面/组件规则
 
-新增任何功能时，必须先回答：**这段代码是否两个平台都需要？** 如果是，它必须写在共享层。
+## 新增页面的标准流程
 
-## Rust 层判定表
+1. **核心内容组件** → 放 `packages/shared/src/components/` 通过 props 处理平台差异
+2. **页面壳** → 放各端 `apps/{platform}/src/pages/`，只做布局 + 导入共享组件
+3. **新增 store** → 先放 `packages/shared/src/stores/`，各端通过 re-export 使用
+4. **新增 hook** → 判断是否两端都用，是则放 `packages/shared/src/hooks/`
 
-| 条件 | 放入位置 |
-|------|---------|
-| 两端都需要 + 不依赖 `tauri::AppHandle` | `crates/clawno-core/src/` |
-| 两端都需要 + 依赖 tauri | core 提供逻辑函数，各端写薄 `#[tauri::command]` 包装 |
-| 仅一端需要 | `apps/{platform}/src-tauri/src/` |
+## 页面壳模式示例
 
-## TypeScript 层判定表
+```tsx
+// ✅ apps/desktop/src/pages/RagPage.tsx — 薄壳
+import { RagPageContent } from "@clawno/shared/components/rag/RagPageContent";
 
-| 条件 | 放入位置 |
-|------|---------|
-| 两端都需要的类型/invoke 函数 | `packages/shared/src/ipc/types.ts` |
-| 两端都需要的状态逻辑 | `packages/shared/src/stores/` |
-| 两端 UI 相似度 >70% | `packages/shared/src/components/` |
-| 两端都需要的 hook | `packages/shared/src/hooks/` |
-| 仅一端需要 | `apps/{platform}/src/` |
+export default function RagPage() {
+  return (
+    <div className="p-6">
+      <RagPageContent />
+    </div>
+  );
+}
+```
 
-## 翻译判定
+## 共享组件通过 props 处理平台差异
 
-| 条件 | 放入位置 |
-|------|---------|
-| 两端均使用且值相同 | `packages/shared/src/locales/` |
-| 仅一端使用或值不同 | `apps/{platform}/src/locales/` |
+```tsx
+// ✅ 用 props 而非条件编译
+interface Props {
+  compact?: boolean;       // mobile = true
+  showTopBar?: boolean;    // mobile = true
+  onKillSwitch?: () => void; // 平台注入
+}
+```
 
-## 禁止事项
+## 新增后必须更新 package.json exports
 
-- ❌ 禁止在两端 ipc.ts 中定义相同的 `invoke` 函数
-- ❌ 禁止在两端 types.rs 中定义相同的 struct
-- ❌ 禁止在两端 locales 中放置相同的翻译键
-- ❌ 禁止 `clawno-core` 依赖 `tauri` crate
-- ❌ 禁止 `@clawno/shared` 导入 `apps/` 中的代码
+在 `packages/shared/package.json` 的 `"exports"` 字段添加新路径：
+```json
+"./components/xxx/XxxContent": "./src/components/xxx/XxxContent.tsx"
+```
 
 ---
 > Source: [clawno11/clawno11](https://github.com/clawno11/clawno11) — distributed by [TomeVault](https://tomevault.io).
