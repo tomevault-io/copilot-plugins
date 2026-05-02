@@ -1,0 +1,51 @@
+{
+  "name": "ml-ralph",
+  "owner": "pentoai",
+  "repo": "ml-ralph",
+  "description": "Autonomous ML agent for running experiments using Claude.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ml-ralph",
+      "path": ".claude/skills/ml-ralph",
+      "github_url": "https://github.com/pentoai/ml-ralph/tree/main/.claude/skills/ml-ralph",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pentoai/ml-ralph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:47:15Z"
+}
