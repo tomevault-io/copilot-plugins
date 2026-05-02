@@ -1,0 +1,9 @@
+{
+  "name": "jo3l--transmule",
+  "displayName": "transmule",
+  "description": "A download manager that unifies amule, transmission and pyload, all in the same place.",
+  "version": "1.0.0",
+  "author": "Jo3l",
+  "homepage": "https://github.com/Jo3l/transmule",
+  "skills": []
+}
