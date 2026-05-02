@@ -1,220 +1,227 @@
-## intent-ref-ethical-design
+## intent-ref-information-architecture
 
-> Intent reference: anti-pattern remediation, dark pattern alternatives, consent design, design ethics frameworks, regulatory compliance patterns. Load when fixing dark patterns, designing consent flows, or reviewing ethical concerns.
+> Intent reference: navigation patterns and trade-offs, taxonomy design, mental model theory, wayfinding principles, search behavior models. Load when designing navigation, site structure, taxonomy, or information hierarchy.
 
 
-# Ethical Design
+# Information Architecture
 
-## Anti-Pattern Remediation Guide
+## Navigation Patterns
 
-The master skill catalogs anti-patterns. This document explains how to fix them — and how to design the ethical alternative from the start.
+Every navigation pattern is a trade-off between findability, scalability, and cognitive load. There is no universally correct pattern — there's the right pattern for your content, users, and context.
 
-### Deceptive Patterns → Honest Alternatives
+### Hierarchical (Tree)
 
-**Bait and Switch → Consistent Delivery.** What you show is what you deliver. If a button says "Download," it downloads. If a link says "Learn more," it teaches. Test by asking: if a user described what just happened, would their description match the label they clicked?
+The most common pattern. Content is organized in nested categories: top-level → subcategory → item.
 
-**Trick Questions → Plain Language Choices.** Every option should be stateable as an affirmative: "Yes, send me emails" / "No, don't send me emails." Never use double negatives ("Uncheck to not receive..."). Never combine multiple consents into one checkbox. Test by reading the question aloud — if a colleague gets confused, users will too.
+**When it works:** Large content sets with clear categorical relationships. Users have a general sense of what category their item belongs to. Content creators can maintain consistent categorization.
 
-**Visual Misdirection → Equal Visual Weight.** When presenting choices, the "decline" or "opt-out" option should be equally visible — same size, same visual weight, same position prominence. The user's preferred choice, not the business's preferred choice, should determine which option they pick. Test: cover the page with your hand and peek — can you see both options equally?
+**When it fails:** When categories overlap significantly (is a "wireless mouse" in Accessories, Computers, or Peripherals?). When the hierarchy is deeper than 3-4 levels — users lose orientation quickly. When the hierarchy reflects organizational structure rather than user mental models ("Products" → "Business Unit A" → "Division 2" → "Team Alpha's Output").
 
-**Hidden Costs → Upfront Pricing.** Show the total cost, including taxes, fees, and shipping, before the user enters any personal information. The Baymard Institute found that 48% of cart abandonment is caused by extra costs shown too late. The fix isn't just ethical — it converts better.
+**Watch for:** The "miscellaneous" drawer. If you have a category called "Other" or "General" that keeps growing, your hierarchy isn't working. Also: category names that mean something to the organization but nothing to users.
 
-**Confirmshaming → Neutral Opt-Out.** Opt-out text should be factual, not emotional. "No thanks" is fine. "No thanks, I hate saving money" is manipulation. The test is simple: would you say the opt-out text to someone's face without feeling embarrassed?
+### Hub-and-Spoke
 
-**Sneak into Basket → Explicit Additions Only.** Nothing enters a cart, plan, or order without a deliberate user action. Pre-selected add-ons, bundled insurance, and automatic upsells all fail this test. If the user didn't click "add," it shouldn't be there.
+A central hub connects to independent sections. Each section is largely self-contained. Users return to the hub to navigate between sections.
 
-### Default Manipulation → Respectful Defaults
+**When it works:** Mobile apps with distinct functional areas (Messages, Camera, Profile). Products where tasks are independent — you don't need to combine search results with your shopping cart. Kiosk interfaces and set-top boxes where the input model favors focused navigation.
 
-**Prechecked Consent → Unchecked by Default.** GDPR requires this explicitly. But beyond regulation — consent means nothing if it's pre-selected. Every consent checkbox should start unchecked. Every permission should start un-granted. The user's first interaction should be a choice, not an override.
+**When it fails:** When users need to move fluidly between sections. When tasks span multiple sections. When the "hub" becomes a dumping ground for everything that doesn't fit in a spoke.
 
-**Opt-Out Burden → Symmetrical Effort.** The effort to leave should mirror the effort to join. If signing up takes one click, cancellation should take one click. The FTC's "click to cancel" rule codifies this, but the principle predates the rule: asymmetric friction is manipulation.
+**Watch for:** The desire to add cross-links between spokes. Once spokes start linking to each other extensively, the hub-and-spoke model is fighting the user's actual workflow. Consider switching to a different pattern.
 
-**Forced Continuity → Clear Trial Endings.** Before a trial ends: notify the user (email and in-app, not just email). On the transition day: require explicit confirmation before charging. After charging: provide easy refund for the first billing period. Making cancellation hard doesn't create loyal customers — it creates resentful ones who warn others.
+### Flat
 
-### Urgency Fabrication → Honest Scarcity
+All content is at the same level. No hierarchy. Often paired with powerful search/filter.
 
-**Fake Timers → Real Deadlines Only.** If a deadline is real (event starts at 8pm, sale ends Sunday), show it. If there's no real deadline, don't invent one. A timer that resets when the page refreshes is not a deadline — it's a lie.
+**When it works:** Homogeneous content sets (a photo gallery, a list of transactions, a feed of posts). Content that doesn't have natural categories. Products with excellent search infrastructure.
 
-**Fabricated Scarcity → Actual Inventory.** If you show stock levels, they should be real. "Only 2 left" when you have 2,000 in the warehouse is fraud by implication. If demand genuinely fluctuates, show real-time data. Otherwise, don't show numbers at all.
+**When it fails:** Diverse content types. Large content sets without strong search/filter. Users who browse rather than search.
 
-**Fake Social Proof → Real Activity.** "15 people are viewing this" should reflect actual concurrent viewers, not a random number generator. Fabricated social proof is straightforward deception. Real social proof (verified reviews, actual purchase counts) builds genuine trust.
+**Watch for:** The illusion of flatness. Many "flat" architectures are actually filtered hierarchies — the user selects filters that create ad-hoc categories. That's fine, but the filter design is now your navigation design.
 
-### Addictive Design → Respectful Engagement
+### Faceted
 
-**Infinite Scroll → Natural Boundaries.** Pagination, "load more" buttons, or session summaries create natural stopping points. This doesn't reduce engagement — it shifts it from compulsive to intentional. Instagram's "You're all caught up" is a partial fix; actual pagination is more honest.
+Multiple independent dimensions for filtering the same content set. Users combine facets freely (color + size + price + brand).
 
-**Variable Ratio Reinforcement → Predictable Value.** Notifications should arrive because something meaningful happened, not because the algorithm determined this is the optimal moment to re-engage. Content should be organized, not randomly dispensed. The value should be in the content, not in the unpredictability of its delivery.
+**When it works:** E-commerce, search results, large databases with multiple attributes. When different users want to slice the same content differently. When the content has natural, independent attributes.
 
-**Streak Manipulation → Progress Without Punishment.** If you track streaks, breaking one should carry no penalty. "You had a 30-day streak! Start a new one?" is fine. "You lost your 30-day streak forever" is manufactured loss aversion. Duolingo's streak freeze is an admission that their streak mechanic creates unhealthy obligation.
+**When it fails:** When facets aren't independent (selecting "red" and "small" leaves zero results because small items don't come in red). When there are too many facets — 15 filter dimensions overwhelm rather than help. When the vocabulary is inconsistent across facets.
 
----
+**Watch for:** Empty states. Faceted navigation creates combinatorial explosion — many facet combinations will return zero results. Design for graceful degradation: show result counts per facet before selection, disable facets that would return zero.
 
-## Regulatory Landscape
+### Dashboard
 
-### GDPR (EU, 2018)
+Multiple content types displayed simultaneously, typically with summary views that link to detail.
 
-The General Data Protection Regulation is the most comprehensive privacy regulation in force. Key requirements for designers:
+**When it works:** Monitoring and analytics products. Executive overviews. Products where users need to scan multiple information streams quickly. Return-visit products where users want a status snapshot.
 
-**Consent (Article 7, Recitals 32, 42, 43):**
-- Must be freely given — no bundling consent with service access unless data processing is genuinely necessary for the service
-- Must be specific — separate consent for separate purposes
-- Must be informed — plain language, no legalese
-- Must be unambiguous — affirmative action required; silence, pre-ticked boxes, and inactivity do not constitute consent
-- Withdrawal must be as easy as giving consent — no asymmetric flows
+**When it fails:** When the dashboard becomes the entire product — dashboards that require scrolling through 15 widgets have become a flat architecture by accident. When every stakeholder demands their metric on the dashboard, resulting in information overload. When the dashboard shows data but doesn't enable action.
 
-**Data Minimization (Article 5(1)(c)):**
-- Collect only what's necessary for the stated purpose
-- Don't collect data "in case we need it later"
-- Design forms to request minimum required fields
-
-**Right to Erasure (Article 17):**
-- Users can request deletion of their data
-- Deletion must be actual, not just hiding the record
-- Design systems need real deletion capabilities, not just soft deletes
-
-**Privacy by Design (Article 25):**
-- Data protection must be built into the design of systems, not bolted on
-- Default settings must be the most privacy-protective option
-- This is a legal requirement, not a best practice
-
-**Enforcement reality:** Fines up to 4% of global annual revenue or 20 million euros, whichever is higher. As of 2024, cumulative GDPR fines exceed 4 billion euros. Meta alone has been fined over 2 billion euros.
-
-### FTC (United States)
-
-The Federal Trade Commission uses its authority under Section 5 (unfair or deceptive acts) to pursue dark patterns.
-
-**Key enforcement actions:**
-- Epic Games / Fortnite (2022): $520M settlement for dark patterns targeting children, including confusing purchase flows and unauthorized charges
-- Amazon Prime (2023): FTC sued over "Iliad" — Amazon's internal name for a cancellation flow deliberately designed to be confusing
-- Age of Empires / Microsoft (2023): Enforcement against manipulative subscription practices
-
-**"Click to Cancel" Rule (2024):**
-- Businesses must make cancellation as easy as sign-up
-- Must get affirmative consent before charging
-- Must provide clear annual reminders for negative-option programs
-- Applies to all negative-option marketing
-
-**FTC approach:** Pattern-based enforcement. If a design practice is widespread and harmful, the FTC may issue a rule. Designers should treat FTC enforcement actions as de facto design standards.
-
-### COPPA (United States, 1998 / Updated 2013)
-
-The Children's Online Privacy Protection Act applies to services directed at children under 13, or services that knowingly collect data from children under 13.
-
-**Design requirements:**
-- Verifiable parental consent before collecting personal information from children
-- No behavioral advertising to children
-- No conditioning participation on data collection beyond what's necessary
-- Clear, prominent, and understandable privacy policies
-- Data retention limits — delete when no longer needed
-
-**Design implication:** If your product might have child users, design the entire data collection pipeline with COPPA in mind from the start. Retrofitting COPPA compliance is far more expensive than building it in.
-
-### California CPRA (2023) and Automated Decision-Making
-
-**Symmetry requirement:** The means by which a consumer opts out of data sale/sharing must be symmetric with the means by which they opted in. If opt-in is one click, opt-out must be one click.
-
-**Do Not Sell/Share:** Must provide a "Do Not Sell or Share My Personal Information" link on the homepage. This is a design requirement — the link must be visible, clear, and functional.
-
-**Automated decision-making:** Consumers have the right to opt out of automated decision-making technology, including profiling. If your product uses algorithms to make decisions about users, they have the right to know and the right to opt out.
-
-### EU Digital Services Act (2024)
-
-**Dark pattern prohibition (Article 25):**
-- Online platforms must not design, organize, or operate interfaces in a way that deceives, manipulates, or materially distorts users' ability to make free and informed decisions
-- Specific prohibition on: giving more prominence to certain choices, repeatedly requesting users to make choices they've already made, making cancellation harder than sign-up, and making choices non-neutral by default
-
-**Minor protection (Article 28):**
-- Platforms accessible to minors must implement appropriate measures to ensure a high level of privacy, safety, and security
-- No targeted advertising based on profiling when the platform is aware the user is a minor
-
-**Algorithmic transparency (Articles 27, 38):**
-- Recommendation systems must explain the main parameters used
-- Users must have at least one option not based on profiling
+**Watch for:** Dashboard-driven design, where every new feature gets a widget on the dashboard instead of its own proper location. Also: dashboards that show the same data to everyone when different roles need different views.
 
 ---
 
-## Design Ethics Frameworks
+## Taxonomy Design
 
-### Values Sensitive Design (VSD)
+Taxonomy is the art of naming and grouping things so that users can find them. Get taxonomy wrong and no amount of visual design will save the navigation.
 
-Developed by Batya Friedman and colleagues at the University of Washington, VSD is a theoretically grounded approach to the design of technology that accounts for human values in a principled and comprehensive manner throughout the design process.
+### Top-Down vs. Bottom-Up
 
-**Three investigations:**
-1. **Conceptual** — Identify stakeholders (direct and indirect), identify values at stake, investigate how values might conflict
-2. **Empirical** — Study how stakeholders actually apprehend and experience the technology and the values at stake
-3. **Technical** — Analyze how specific technical properties support or hinder stakeholder values
+**Top-down** starts with organizational logic: What are the major categories? How do they subdivide? This approach works when domain experts understand the structure well and users share that understanding. Risk: imposing a structure that makes sense internally but not to users.
 
-**Key values VSD investigates:** Human welfare, ownership and property, privacy, freedom from bias, universal usability, trust, autonomy, informed consent, accountability, courtesy, identity, calmness, environmental sustainability.
+**Bottom-up** starts with content items: What do we have? How do users group these things? What labels do they use? Card sorting is the primary method. This approach discovers the taxonomy users actually want. Risk: producing categories that are too specific or too numerous to function as navigation.
 
-**Application to design:** When making a design decision, identify which human values are at stake, who is affected (including non-users), and how the technical implementation supports or undermines those values. VSD doesn't tell you what to decide — it tells you what to consider.
+**Best practice:** Start bottom-up (card sorting to understand user mental models), then refine top-down (using domain expertise to fill gaps and resolve edge cases). Neither approach alone produces good taxonomy.
 
-### Design Justice (Costanza-Chock, 2020)
+### MECE Principle
 
-Design Justice rethinks design processes by centering the people who are most impacted by design decisions, rather than the most powerful stakeholders.
+Mutually Exclusive, Collectively Exhaustive. Every item belongs in exactly one category, and every item has a category to belong to.
 
-**Core principles:**
-1. Design to sustain, heal, and empower communities — prioritize impact on the most marginalized
-2. Center the voices of those who are directly impacted by design outcomes
-3. Prioritize design's impact on the community over the designer's intent
-4. View change as emergent from accountable, accessible, and collaborative processes
-5. See the role of the designer as a facilitator rather than an expert
+**Mutually Exclusive:** If a user could reasonably place an item in two categories, the categories overlap. Fix by: making categories more specific, merging overlapping categories, or moving to faceted navigation where items can exist on multiple dimensions.
 
-**Application:** When your user research doesn't include the most vulnerable users of your product, your design will fail them. When your design team doesn't include diverse perspectives, your assumptions will go unchallenged. Design Justice argues that who participates in the design process determines who benefits from the design outcome.
+**Collectively Exhaustive:** If items exist that don't fit any category, the taxonomy has gaps. The test: take 50 random content items and try to categorize each one. If you hesitate on more than 10%, the taxonomy needs work.
 
-### Consequence Scanning
+**Reality:** True MECE is often unachievable for complex domains. When items genuinely belong in multiple categories, consider cross-referencing (the item lives in one place with links from others) or polyhierarchy.
 
-Developed by Doteveryone (now the Responsible Technology Institute), Consequence Scanning is a lightweight practice for identifying potential consequences of a product or feature.
+### Polyhierarchy
 
-**Process:**
-1. **Describe** the product/feature in plain terms — what it does, who uses it, what data it touches
-2. **Brainstorm consequences** across three dimensions:
-   - Intended consequences (what you're trying to achieve)
-   - Unintended but foreseeable consequences (what might happen that you didn't plan for)
-   - Unintended and unforeseeable consequences (what could happen that nobody predicted)
-3. **Categorize** each consequence: positive, negative, or unclear
-4. **Decide** for each negative consequence: mitigate (design around it), accept (document and monitor), or stop (don't build this)
+An item can appear in multiple places in the hierarchy. "Wireless Mouse" appears under both "Computer Accessories" and "Wireless Devices."
 
-**When to use it:** Before building new features, during design critiques, when expanding to new markets or user groups, when adding data collection, when changing algorithms or recommendation systems.
+**When to use:** When card sorting consistently shows items being placed in multiple categories by different users. When the cost of "missing" an item (user can't find it) is higher than the cost of duplication.
+
+**Risks:** Maintenance complexity (update in one place, forget the other). User confusion if the same item has different metadata or behavior in different locations. Navigation that feels unreliable — "I saw this somewhere else, which is the real one?"
+
+**Mitigation:** Make one location canonical. Other appearances are clearly marked as cross-references. Maintain through automation, not manual duplication.
 
 ---
 
-## Consent Design Patterns
+## Mental Models
 
-Consent is not a checkbox. It's a design system.
+A mental model is the user's internal representation of how a system works. It doesn't need to match the actual system model — but the interface needs to match the user's mental model, or the user will fail.
 
-### Principles of meaningful consent
+### Applied Mental Model Theory
 
-**Informed:** The user understands what they're consenting to. This means plain language, specific descriptions, and concrete examples — not legal abstracts or blanket permissions. "We'll use your location to show nearby restaurants" is informed. "We process data to improve our services" is not.
+**Don Norman's "The Design of Everyday Things" (1988)** distinguishes three models:
+1. **Design model** — How the designer thinks the system works
+2. **System model** — How the system actually works
+3. **User model** — How the user thinks the system works
 
-**Specific:** Each consent is for one specific purpose. Bundled consent ("By using this service you agree to X, Y, Z, and also W") is not meaningful consent. Separate purposes get separate choices.
+The interface is the bridge between design model and user model. When they align, the product feels intuitive. When they don't, the product feels broken — even if it works perfectly from a technical standpoint.
 
-**Freely given:** The user can say no without losing access to the core service. If saying no makes the product unusable, consent wasn't free — it was coerced. The exception: when data processing is genuinely necessary for the service (you can't use a mapping app without sharing your location).
+**Common misalignments:**
+- Users think "deleting" removes something permanently; the system moves it to trash. (Mild — the system is more forgiving than expected.)
+- Users think "saving" preserves their work; the system auto-saves and "save" does nothing visible. (Confusing — the action has no visible effect.)
+- Users think each browser tab is independent; the system shares session state across tabs. (Dangerous — changes in one tab silently affect another.)
 
-**Revocable:** The user can withdraw consent as easily as they gave it. A consent given with one toggle should be revocable with one toggle, in the same location, with the same effort.
+**Design implication:** Research mental models before designing navigation, naming, or interaction patterns. Card sorting reveals categorical mental models. Think-aloud usability testing reveals procedural mental models. Both are necessary.
 
-**Timely:** Consent is requested at the moment it's relevant, not in a batch during onboarding. Ask for location permission when the user first accesses a location feature, not during account creation.
+---
 
-### Consent interface patterns
+## Wayfinding
 
-**Layered disclosure:** Present a summary first ("We'd like to use your location to show nearby restaurants"), with a path to full detail ("Learn more about how we use location data"). The summary must be accurate and complete enough to make a real decision; the detail is for those who want it.
+Romedi Passini and Paul Arthur's "Wayfinding: People, Signs, and Architecture" (1992) established principles for spatial navigation that translate directly to digital environments.
 
-**Granular controls:** Separate toggles for separate purposes. Cookie consent should offer granular choices (analytics, marketing, personalization), not just "accept all / reject all." Permission dashboards should show each permission individually with clear descriptions.
+### Core Wayfinding Principles
 
-**Just-in-time consent:** Request permissions when the user encounters the feature that needs them, with context that explains why. "To save your route, we need access to your location" at the moment of saving is far more meaningful than a bare permission prompt during onboarding.
+**Orientation:** Users must always know where they are. In physical space: "You Are Here" maps, visible landmarks, floor numbers. In digital space: breadcrumbs, highlighted navigation items, page titles, URL structure. A user who doesn't know where they are can't decide where to go next.
 
-**Consent receipts:** Show the user what they've consented to, when, and how to change it. A privacy dashboard that lists active consents with modification dates and one-click revocation is the gold standard.
+**Route decision:** At every decision point, users need enough information to choose correctly. In physical space: directional signs at intersections. In digital space: navigation labels, preview text, descriptions. If a user must click to learn whether a link leads somewhere useful, the wayfinding has failed.
 
-**Re-consent for material changes:** When you change how you use data, don't bury it in a terms-of-service update. Re-request consent for the specific change, with clear explanation of what changed and why.
+**Closure:** Users need feedback that they've arrived. In physical space: room numbers, door labels, reception desks. In digital space: page headings that match the link they clicked, content that delivers what the label promised. The disorienting feeling of clicking "Privacy Settings" and landing on a page titled "Account Management" is a closure failure.
 
-### Common consent failures
+**Progressive disclosure of the environment:** Don't show the entire map at once. Show what's relevant at each decision point. In physical space: building directories show floors, not individual rooms. In digital space: top-level navigation shows categories, not subcategories. Reveal depth as the user navigates deeper.
 
-- Consent walls that block the entire service until the user agrees to non-essential data processing
-- "Accept all" buttons that are visually dominant while "Manage preferences" is small and gray
-- Consent flows that take one click to accept but seven clicks to customize
-- Withdrawal paths hidden in account settings behind three layers of navigation
-- Pre-checked consent boxes (illegal under GDPR, deceptive everywhere)
-- Bundled consent that combines essential service terms with optional marketing consent
-- Consent prompts that appear on every visit because rejection isn't stored (deliberately or through incompetence)
+### Lynch's Spatial Elements
+
+Kevin Lynch's "The Image of the City" (1960) identified five elements people use to navigate physical space. All five apply to digital products:
+
+1. **Paths** — Routes through the environment. In digital: navigation flows, breadcrumbs, sequential processes.
+2. **Edges** — Boundaries between regions. In digital: section dividers, navigation group boundaries, sidebar edges.
+3. **Districts** — Areas with identifiable character. In digital: distinct product sections with consistent visual treatment (the "settings" area looks different from the "content" area).
+4. **Nodes** — Strategic focus points. In digital: landing pages, dashboards, search results pages — places users pass through to reach destinations.
+5. **Landmarks** — Reference points for orientation. In digital: logos, persistent headers, unique page layouts that users remember and navigate by.
+
+---
+
+## Search Behavior Models
+
+Not all search is the same. Marcia Bates' research and Gary Marchionini's framework identify fundamentally different search behaviors that require different design responses.
+
+### Known-Item Search
+
+The user knows what they want and knows what it's called. They type a specific query and expect a specific result. Example: searching for "AirPods Pro" on an electronics site.
+
+**Design for:** Speed. Autocomplete. Exact match ranking. Typo tolerance. The user's success metric is: did I find the exact thing, fast?
+
+### Exploratory Search
+
+The user has a need but doesn't know the exact solution. They're browsing, comparing, learning. Example: searching for "wireless earbuds" to learn what options exist.
+
+**Design for:** Browsing. Faceted filtering. Comparison. Rich result previews. Related items. The user's success metric is: did I learn enough to make a decision?
+
+### Re-finding
+
+The user found something before and wants to find it again. Example: "I saw a pair of earbuds last week, they were around $150, I think they were Sony..."
+
+**Design for:** History. Recently viewed. Favorites/bookmarks. Fuzzy search that handles partial recall. The user's success metric is: did I find that thing I saw before?
+
+### Don't-Know-What-I-Don't-Know
+
+The user doesn't know the domain well enough to formulate a useful query. Example: a first-time investor searching a financial platform with no idea what terminology to use.
+
+**Design for:** Guided discovery. Popular searches. Category browsing. Plain-language interpretation. "Did you mean..." suggestions that educate, not just correct.
+
+---
+
+## Card Sort and Tree Test Methodology
+
+### Running a Card Sort
+
+**Preparation:**
+1. Select 30-60 content items that represent the full breadth of your content. Too few misses important distinctions; too many fatigues participants.
+2. Write each item on a card (physical or digital — tools like OptimalSort, Maze, or UXtweak work well for remote sorts).
+3. Use real content labels, not internal jargon. If the sort reveals that users don't understand a label, that's a finding.
+
+**Open sort protocol:**
+1. Ask participants to group cards in whatever way makes sense to them. No right answer.
+2. After grouping, ask them to name each group.
+3. Ask about any cards they found difficult to place.
+4. Note: some participants will create many small groups; others will create few large groups. Both patterns are informative.
+
+**Closed sort protocol:**
+1. Provide pre-defined categories.
+2. Ask participants to place each card in the category where they'd expect to find it.
+3. Record placement and confidence. Low-confidence placements indicate taxonomy problems.
+
+**Analysis:**
+- Generate a similarity matrix showing how often items were grouped together.
+- Use dendrograms or cluster analysis to identify natural groupings.
+- Look for items that consistently end up alone or oscillate between groups — these are your taxonomy's problem children.
+- Compare sort results with your proposed architecture. Where they diverge, the user is right and your architecture needs to adjust.
+
+### Running a Tree Test
+
+**Preparation:**
+1. Create a text-only representation of your navigation hierarchy. No visual design, no icons, no color.
+2. Write 8-12 tasks that represent common user goals. Example: "Where would you find information about changing your password?"
+3. Each task should have exactly one correct destination.
+
+**Protocol:**
+1. Show the top level of the tree.
+2. Present a task.
+3. Participant clicks into categories, drilling deeper until they think they've found the right place.
+4. Record: path taken, success/failure, directness (did they backtrack?), time to completion.
+
+**Key metrics:**
+- **Success rate:** What percentage of participants found the correct answer? Below 70% for a task indicates a structural problem.
+- **Directness:** What percentage went straight to the answer without backtracking? Low directness with high eventual success means the label worked but the location wasn't intuitive — users found it by elimination.
+- **First click:** Where did participants click first? If the majority's first click is wrong, the top-level labels or categories are the problem.
+
+**Interpreting results:**
+- High success + high directness = the structure works for this task
+- High success + low directness = findable but not intuitive; users had to hunt
+- Low success + varied paths = structural problem; the item isn't where users expect it
+- Low success + consistent wrong path = the item is in the wrong category, and users agree about where it should be (which tells you where to move it)
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
