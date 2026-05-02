@@ -1,0 +1,81 @@
+{
+  "name": "skillet",
+  "owner": "martinemde",
+  "repo": "skillet",
+  "description": "\ud83c\udf73 Run SKILLs as Shell Scripts. Cook with Claude without the mess.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-spec-skill",
+      "path": "testdata/claude-spec-skill",
+      "github_url": "https://github.com/martinemde/skillet/tree/main/testdata/claude-spec-skill",
+      "description": ""
+    },
+    {
+      "name": "comprehensive-skill",
+      "path": "testdata/comprehensive-skill",
+      "github_url": "https://github.com/martinemde/skillet/tree/main/testdata/comprehensive-skill",
+      "description": ""
+    },
+    {
+      "name": "interpolation-skill",
+      "path": "testdata/interpolation-skill",
+      "github_url": "https://github.com/martinemde/skillet/tree/main/testdata/interpolation-skill",
+      "description": ""
+    },
+    {
+      "name": "simple-skill",
+      "path": "testdata/simple-skill",
+      "github_url": "https://github.com/martinemde/skillet/tree/main/testdata/simple-skill",
+      "description": ""
+    },
+    {
+      "name": "task-test",
+      "path": ".claude/skills/task-test",
+      "github_url": "https://github.com/martinemde/skillet/tree/main/.claude/skills/task-test",
+      "description": ""
+    },
+    {
+      "name": "test-skill",
+      "path": ".claude/skills/test-skill",
+      "github_url": "https://github.com/martinemde/skillet/tree/main/.claude/skills/test-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/martinemde/skillet",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:46:00Z"
+}
