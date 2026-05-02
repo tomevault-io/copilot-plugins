@@ -1,0 +1,9 @@
+{
+  "name": "clouedoc--hzfind",
+  "displayName": "hzfind",
+  "description": "A TUI to find the best Hetzner dedicated server auction deals, with PassMark CPU benchmarks built-in",
+  "version": "1.0.0",
+  "author": "clouedoc",
+  "homepage": "https://github.com/clouedoc/hzfind",
+  "skills": []
+}
