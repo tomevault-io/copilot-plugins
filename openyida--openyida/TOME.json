@@ -4,7 +4,7 @@
   "repo": "openyida",
   "description": "Your own personal YiDA AI assistant!\ud83e\udd16",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openyida/openyida",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T16:57:40Z"
+  "distributed_at": "2026-05-02T03:53:59Z"
 }
