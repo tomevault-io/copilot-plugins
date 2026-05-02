@@ -1,0 +1,105 @@
+{
+  "name": "gopher-ai",
+  "owner": "gopherguides",
+  "repo": "gopher-ai",
+  "description": "Claude Code plugins for Go developers - by Gopher Guides",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "go-best-practices",
+      "path": "plugins/go-dev/skills/go-best-practices",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/plugins/go-dev/skills/go-best-practices",
+      "description": ""
+    },
+    {
+      "name": "go-code-audit",
+      "path": "agent-skills/skills/go-code-audit",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/agent-skills/skills/go-code-audit",
+      "description": ""
+    },
+    {
+      "name": "go-code-review",
+      "path": "agent-skills/skills/go-code-review",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/agent-skills/skills/go-code-review",
+      "description": ""
+    },
+    {
+      "name": "go-lint-audit",
+      "path": "agent-skills/skills/go-lint-audit",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/agent-skills/skills/go-lint-audit",
+      "description": ""
+    },
+    {
+      "name": "go-standards-audit",
+      "path": "agent-skills/skills/go-standards-audit",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/agent-skills/skills/go-standards-audit",
+      "description": ""
+    },
+    {
+      "name": "go-test-coverage",
+      "path": "agent-skills/skills/go-test-coverage",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/agent-skills/skills/go-test-coverage",
+      "description": ""
+    },
+    {
+      "name": "gopher-guides",
+      "path": "plugins/gopher-guides/skills/gopher-guides",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/plugins/gopher-guides/skills/gopher-guides",
+      "description": ""
+    },
+    {
+      "name": "second-opinion",
+      "path": "plugins/llm-tools/skills/second-opinion",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/plugins/llm-tools/skills/second-opinion",
+      "description": ""
+    },
+    {
+      "name": "tailwind-best-practices",
+      "path": "plugins/tailwind/skills/tailwind-best-practices",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/plugins/tailwind/skills/tailwind-best-practices",
+      "description": ""
+    },
+    {
+      "name": "templui",
+      "path": "plugins/go-web/skills/templui",
+      "github_url": "https://github.com/gopherguides/gopher-ai/tree/main/plugins/go-web/skills/templui",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gopherguides/gopher-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:34:29Z"
+}
