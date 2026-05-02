@@ -1,0 +1,9 @@
+{
+  "name": "glavo--graalriscv",
+  "displayName": "GraalRISCV",
+  "description": "A pure Java implementation of a 64-bit user-space RISC-V emulator.",
+  "version": "1.0.0",
+  "author": "Glavo",
+  "homepage": "https://github.com/Glavo/GraalRISCV",
+  "skills": []
+}
