@@ -1,0 +1,9 @@
+{
+  "name": "arch-hdl-lang--arch-com",
+  "displayName": "arch-com",
+  "description": "ARCH hardware description language and compiler",
+  "version": "1.0.0",
+  "author": "arch-hdl-lang",
+  "homepage": "https://github.com/arch-hdl-lang/arch-com",
+  "skills": []
+}
