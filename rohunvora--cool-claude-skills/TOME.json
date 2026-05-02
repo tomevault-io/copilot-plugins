@@ -1,0 +1,195 @@
+{
+  "name": "cool-claude-skills",
+  "owner": "rohunvora",
+  "repo": "cool-claude-skills",
+  "description": "claude skills i've made my self that are lowkey goated",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-loading-ux",
+      "path": "skills/ai-loading-ux",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/ai-loading-ux",
+      "description": ""
+    },
+    {
+      "name": "arena-cli",
+      "path": "skills/arena-cli",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/arena-cli",
+      "description": ""
+    },
+    {
+      "name": "comment-mode",
+      "path": "skills/comment-mode",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/comment-mode",
+      "description": ""
+    },
+    {
+      "name": "html-style",
+      "path": "skills/html-style",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/html-style",
+      "description": ""
+    },
+    {
+      "name": "imsg-ingest",
+      "path": "skills/imsg-ingest",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/imsg-ingest",
+      "description": ""
+    },
+    {
+      "name": "incremental-fetch",
+      "path": "skills/incremental-fetch",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/incremental-fetch",
+      "description": ""
+    },
+    {
+      "name": "mobbin-ux",
+      "path": "skills/mobbin-ux",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/mobbin-ux",
+      "description": ""
+    },
+    {
+      "name": "quick-view",
+      "path": "skills/quick-view",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/quick-view",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "table-filters",
+      "path": "skills/table-filters",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/table-filters",
+      "description": ""
+    },
+    {
+      "name": "tg-ingest",
+      "path": "skills/tg-ingest",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/tg-ingest",
+      "description": ""
+    },
+    {
+      "name": "webhook-notify",
+      "path": "skills/webhook-notify",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/skills/webhook-notify",
+      "description": ""
+    },
+    {
+      "name": "build-design-system",
+      "path": ".claude/skills/build-design-system",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/build-design-system",
+      "description": ""
+    },
+    {
+      "name": "changelog-generator",
+      "path": ".claude/skills/changelog-generator",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/changelog-generator",
+      "description": ""
+    },
+    {
+      "name": "extract-insights",
+      "path": ".claude/skills/extract-insights",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/extract-insights",
+      "description": ""
+    },
+    {
+      "name": "fix-hierarchy",
+      "path": ".claude/skills/fix-hierarchy",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/fix-hierarchy",
+      "description": ""
+    },
+    {
+      "name": "fix-spacing",
+      "path": ".claude/skills/fix-spacing",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/fix-spacing",
+      "description": ""
+    },
+    {
+      "name": "html-tools",
+      "path": ".claude/skills/html-tools",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/html-tools",
+      "description": ""
+    },
+    {
+      "name": "improve-flow",
+      "path": ".claude/skills/improve-flow",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/improve-flow",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "path": ".claude/skills/prompt-engineering",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "quick-view",
+      "path": ".claude/skills/quick-view",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/quick-view",
+      "description": ""
+    },
+    {
+      "name": "reframe",
+      "path": ".claude/skills/reframe",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/reframe",
+      "description": ""
+    },
+    {
+      "name": "spec-first",
+      "path": ".claude/skills/spec-first",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/spec-first",
+      "description": ""
+    },
+    {
+      "name": "structure-app",
+      "path": ".claude/skills/structure-app",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/structure-app",
+      "description": ""
+    },
+    {
+      "name": "ui-density",
+      "path": ".claude/skills/ui-density",
+      "github_url": "https://github.com/rohunvora/cool-claude-skills/tree/main/.claude/skills/ui-density",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rohunvora/cool-claude-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:48:34Z"
+}
