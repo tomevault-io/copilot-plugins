@@ -1,0 +1,34 @@
+{
+  "name": "martinemde--skillet",
+  "displayName": "skillet",
+  "description": "\ud83c\udf73 Run SKILLs as Shell Scripts. Cook with Claude without the mess.",
+  "version": "1.0.0",
+  "author": "martinemde",
+  "homepage": "https://github.com/martinemde/skillet",
+  "skills": [
+    {
+      "name": "claude-spec-skill",
+      "description": ""
+    },
+    {
+      "name": "comprehensive-skill",
+      "description": ""
+    },
+    {
+      "name": "interpolation-skill",
+      "description": ""
+    },
+    {
+      "name": "simple-skill",
+      "description": ""
+    },
+    {
+      "name": "task-test",
+      "description": ""
+    },
+    {
+      "name": "test-skill",
+      "description": ""
+    }
+  ]
+}
