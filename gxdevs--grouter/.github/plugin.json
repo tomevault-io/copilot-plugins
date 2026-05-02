@@ -1,0 +1,9 @@
+{
+  "name": "gxdevs--grouter",
+  "displayName": "grouter",
+  "description": "Universal AI router \u2014 OAuth + API Key providers behind one OpenAI-compatible endpoint.",
+  "version": "1.0.0",
+  "author": "GXDEVS",
+  "homepage": "https://github.com/GXDEVS/grouter",
+  "skills": []
+}
