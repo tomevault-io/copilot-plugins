@@ -1,60 +1,91 @@
-## 04-design-fidelity
+## 05-security
 
-> Non-negotiable design fidelity gates for Figma-driven UI tasks.
+> Security gate. Applied alongside verification gates on every task.
 
 
-# Design fidelity rules
+# Security gate
 
-Apply these rules to any task with `Design source: Figma`, `Codegen artifact`, or `Visual baseline refs`.
+Builders run these checks before marking `in-review`.
+QA runs these checks as part of review.
+A task cannot move to `done` with any unresolved security finding.
 
-## 1) Token integrity
+## Check 1 — Secret scanning
 
-- Do not hardcode visual values when a design token exists.
-- Required token categories:
-  - color
-  - typography
-  - spacing
-  - radius
-  - shadow/elevation
-- If a hardcoded value is unavoidable, include an inline reason and add a follow-up decision entry.
+Scan every file in `Files to create/modify` for:
+- hardcoded API keys, tokens, passwords, private keys
+- `.env` values committed to source (including `.env.local`, `.env.production`)
+- connection strings with embedded credentials
+- cloud provider access keys (AWS/GCP/Azure patterns)
 
-## 2) State parity
+Preferred tools (use whichever is available in the project):
+- `gitleaks detect --no-git --source .`
+- `trufflehog filesystem . --only-verified`
+- `detect-secrets scan`
 
-For each designed component/state matrix, implement all required states:
-- default
-- hover
-- focus
-- disabled
-- loading
-- error
-- empty (if applicable)
+If no secret scanner is configured, Builder installs one during the scaffold
+task and records the decision in `memory/decisions.md`.
 
-Missing a designed state means task cannot pass QA.
+## Check 2 — Dependency audit
 
-## 3) Responsive parity
+Run the stack's dependency audit tool on any task that touches dependency
+manifests (`package.json`, `pyproject.toml`, `requirements.txt`, `go.mod`,
+`Cargo.toml`, `Gemfile`).
 
-- Respect breakpoint behavior defined in design artifacts/cache.
-- Do not collapse, hide, or reorder critical content outside defined responsive rules.
-- Core user paths must remain usable at target viewport sizes documented by design.
+- npm/pnpm/yarn: `npm audit --audit-level=high`
+- pip: `pip-audit`
+- go: `govulncheck ./...`
+- cargo: `cargo audit`
 
-## 4) Structure and semantics
+Zero `high` or `critical` advisories is required. Any accepted exception is
+recorded with rationale in `memory/decisions.md` under a `Security exception`
+heading.
 
-- Keep scaffold hierarchy from codegen artifacts unless acceptance criteria require a change.
-- Treat Figma device previews as framing only. Do not duplicate system status bars, notches, home indicators, or phone shells inside application UI unless the task explicitly covers app-shell chrome.
-- Preserve semantic HTML and accessible names.
-- Keyboard focus order and focus visibility are required for interactive controls.
+## Check 3 — Auth boundary integrity
 
-## 5) Visual baseline checks
+For any task that adds or modifies routes, handlers, or screens:
 
-- If visual baseline refs exist, QA must run design-fidelity checks against them.
-- Any major mismatch in layout/tokens/states must result in `needs-fix`.
-- No UI task can be marked `done` without passing QA design-fidelity checks.
+- Every protected route/handler must invoke the project's canonical auth
+  middleware or session check. No route can rely on "assumed to be protected
+  by parent router" without an explicit assertion.
+- Public routes are listed explicitly in the task's acceptance criteria with
+  a rationale.
+- Test suite includes at least one test per protected route that asserts
+  `401` (or project equivalent) for missing/invalid credentials.
 
-## 6) Builder/QA contract
+## Check 4 — Input validation at boundaries
 
-- Builder must complete `Design checklist` in task block before handoff.
-- QA must verify checklist objectively and reject vague self-assertions.
-- A task with unresolved design checklist items is not eligible for `done`.
+- Every API handler validates request input (body/query/params) with the
+  project's validation library (Zod, Pydantic, class-validator, etc.) before
+  calling service code.
+- Every form field is validated before submission.
+- Database queries are parameterized. Raw concatenated SQL is rejected.
+
+## Check 5 — Output hygiene
+
+- No stack traces, internal error messages, or raw DB errors returned to the
+  client. Error shape must match the project's NFR contract.
+- No PII or secrets written to logs (log statements reviewed for user data).
+- Tokens never logged, never rendered in HTML, never embedded in URLs.
+
+## Check 6 — CSP / CORS / headers (web UI tasks)
+
+For any task touching server response headers or web deployment config:
+- CORS origin allowlist is explicit — no `*` in production paths.
+- CSP is present or a `Security: CSP deferred to TASK-XXX` note exists.
+- Cookie flags: `HttpOnly`, `Secure`, `SameSite` are set where applicable.
+
+## Rejection handling
+
+If any check fails:
+- Builder: fix before handoff. Do not mark `in-review`.
+- QA: reject with `needs-fix`. Rejection note must cite the specific file,
+  line, finding, and expected fix.
+
+## Rule of thumb
+
+When a security concern is ambiguous, choose the stricter interpretation and
+surface the decision to the user in the QA notes field. Never silently relax
+a security default.
 
 ---
 > Source: [BolderApps/agentic-workflow](https://github.com/BolderApps/agentic-workflow) — distributed by [TomeVault](https://tomevault.io).
