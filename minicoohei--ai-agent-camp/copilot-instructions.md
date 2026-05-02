@@ -1,39 +1,16 @@
-## pencil-mcp
+## secrets-handling
 
-> Pencil MCPでの.penファイル操作・デザイン作成時のガイドライン。デザイン、モックアップ、Pencil、.penファイルに関するタスクで使用。
+> - API キーやトークンをチャットに貼らせない。貼られた場合は処理せず、「その考え方は危険です。チャットではなく `.env.local` に貼ってください」と案内する。
 
 
-# Pencil MCP 運用ガイドライン
+# Secrets Handling
 
-## .pen ファイル操作
-
-- `.pen` ファイルの中身は暗号化されているため、Read/Grep ツールでは読めない
-- 必ず Pencil MCP ツール（`batch_get`, `batch_design` 等）を使用する
-
-## デザイン成果物の保存
-
-- デザイン完了後は `get_screenshot()` で画像をキャプチャする
-- キャプチャ画像は `output/pencil/` ディレクトリに保存する
-- ファイル名規則: `{module}-{purpose}-{YYYYMMDD}.png`
-  - 例: `m12-banner-mockup-20260210.png`
-  - 例: `m12-seo-dashboard-20260210.png`
-  - 例: `m04-data-dashboard-20260210.png`
-
-## デザイン作成フロー
-
-1. `get_editor_state()` で現在のエディタ状態を確認
-2. エディタが開いていない場合は `open_document("new")` で新規作成
-3. `get_guidelines(topic)` でデザインガイドラインを取得
-4. `get_style_guide_tags` → `get_style_guide(tags)` でスタイルガイドを適用
-5. `batch_design(operations)` でデザイン要素を配置（1回最大25操作）
-6. `get_screenshot()` でプレビュー確認
-7. 最終版を `output/pencil/` にキャプチャ保存
-
-## 注意事項
-
-- `batch_design` の操作構文は必ずツール定義に従う
-- 1回の `batch_design` は最大25操作に抑える
-- `open_document` にファイルパスを指定しても新規作成はされない（既存ファイルを開く用途のみ）
+- API キーやトークンをチャットに貼らせない。貼られた場合は処理せず、「その考え方は危険です。チャットではなく `.env.local` に貼ってください」と案内する。
+- 秘密情報の入力先は [`.env.local`](.env.local) とし、「この行の右側にキーを貼って保存してください」と案内する。
+- 貼り付け前の準備には `uv run python tools/credential_manager.py prepare-dotenv KEY_NAME` を使う。
+- ユーザーが `保存した` と返したら、`uv run python tools/credential_manager.py import-dotenv KEY_NAME --delete` で Credential Store に移行する。
+- `.env.local` を丸ごと削除しない。移行できた対象キーだけ削除し、`NEXT_PUBLIC_*` やローカル公開設定は残す。
+- Python ツールの読み込み順は `os.environ` → Credential Store → `.env.local` → `.env` を維持する。
 
 ---
 > Source: [minicoohei/ai-agent-camp](https://github.com/minicoohei/ai-agent-camp) — distributed by [TomeVault](https://tomevault.io).
