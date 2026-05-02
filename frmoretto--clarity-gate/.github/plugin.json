@@ -1,0 +1,22 @@
+{
+  "name": "frmoretto--clarity-gate",
+  "displayName": "clarity-gate",
+  "description": "Stop LLMs from hallucinating your guesses as facts. Clarity Gate is a verification protocol for your documents that are going to be provided to LLMs or RAG systems. Place automatically the missing unc",
+  "version": "1.0.0",
+  "author": "frmoretto",
+  "homepage": "https://github.com/frmoretto/clarity-gate",
+  "skills": [
+    {
+      "name": "clarity-gate",
+      "description": ""
+    },
+    {
+      "name": "clarity-gate",
+      "description": ""
+    },
+    {
+      "name": "clarity-gate",
+      "description": ""
+    }
+  ]
+}
