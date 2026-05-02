@@ -1,0 +1,22 @@
+{
+  "name": "udapy--rust-agentic-skills",
+  "displayName": "rust-agentic-skills",
+  "description": "Agentic Skills focused on Rust Language.",
+  "version": "1.0.0",
+  "author": "udapy",
+  "homepage": "https://github.com/udapy/rust-agentic-skills",
+  "skills": [
+    {
+      "name": "router",
+      "description": ""
+    },
+    {
+      "name": "rust-core",
+      "description": ""
+    },
+    {
+      "name": "general-security",
+      "description": ""
+    }
+  ]
+}
