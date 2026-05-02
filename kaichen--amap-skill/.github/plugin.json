@@ -1,0 +1,14 @@
+{
+  "name": "kaichen--amap-skill",
+  "displayName": "amap-skill",
+  "description": "Claude Code skill for AMap (\u9ad8\u5fb7\u5730\u56fe) Web Service API",
+  "version": "1.0.0",
+  "author": "kaichen",
+  "homepage": "https://github.com/kaichen/amap-skill",
+  "skills": [
+    {
+      "name": "amap",
+      "description": ""
+    }
+  ]
+}
