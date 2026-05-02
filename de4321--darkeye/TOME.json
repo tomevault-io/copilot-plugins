@@ -4,7 +4,7 @@
   "repo": "darkeye",
   "description": "Local desktop app for JAV collection & library management: skeuomorphic DVD shelves, immersive browser capture, force\u2011directed relationship graphs, and analytics.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/de4321/darkeye",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T04:37:45Z"
+  "distributed_at": "2026-05-02T00:57:43Z"
 }
