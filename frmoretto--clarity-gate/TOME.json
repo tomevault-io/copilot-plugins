@@ -1,0 +1,63 @@
+{
+  "name": "clarity-gate",
+  "owner": "frmoretto",
+  "repo": "clarity-gate",
+  "description": "Stop LLMs from hallucinating your guesses as facts. Clarity Gate is a verification protocol for your documents that are going to be provided to LLMs or RAG systems. Place automatically the missing uncertainty markers to avoid confident hallucinations. HITL for non-directly verifiable claims.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clarity-gate",
+      "path": ".codex/skills/clarity-gate",
+      "github_url": "https://github.com/frmoretto/clarity-gate/tree/main/.codex/skills/clarity-gate",
+      "description": ""
+    },
+    {
+      "name": "clarity-gate",
+      "path": "skills/clarity-gate",
+      "github_url": "https://github.com/frmoretto/clarity-gate/tree/main/skills/clarity-gate",
+      "description": ""
+    },
+    {
+      "name": "clarity-gate",
+      "path": ".claude/skills/clarity-gate",
+      "github_url": "https://github.com/frmoretto/clarity-gate/tree/main/.claude/skills/clarity-gate",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/frmoretto/clarity-gate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:33:54Z"
+}
