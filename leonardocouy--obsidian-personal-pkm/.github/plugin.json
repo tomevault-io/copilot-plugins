@@ -1,0 +1,18 @@
+{
+  "name": "leonardocouy--obsidian-personal-pkm",
+  "displayName": "obsidian-personal-pkm",
+  "description": "A minimal personal knowledge management system for Obsidian with Claude Code integration",
+  "version": "1.0.0",
+  "author": "leonardocouy",
+  "homepage": "https://github.com/leonardocouy/obsidian-personal-pkm",
+  "skills": [
+    {
+      "name": "push",
+      "description": ""
+    },
+    {
+      "name": "weekly",
+      "description": ""
+    }
+  ]
+}
