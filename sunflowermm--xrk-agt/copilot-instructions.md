@@ -1,39 +1,22 @@
-## xrk-dev-requirements
+## xrk-infrastructure
 
-> XRK-AGT 开发需求与编码约定（constructor/全局对象/HttpResponse）
+> 基础设施层（src/）代码约定，仅修改底层时遵守
 
 
-# 开发需求与约定
+# 基础设施层约定
 
-## Constructor 内不要定义易变状态
+## 职责边界
 
-- **禁止**在 `constructor` 里定义会被反复创建、或作为“缓存/状态容器”的变量（如 `this.cache = new Map()`、`this.xxx = {}`）。
-- **原因**：热加载或多次实例化时 constructor 会重复执行，导致引用错乱或“无限刷新”感。
-- **正确做法**：需要实例级缓存/状态时，用**类字段**在声明处初始化（如 `cache = new Map()`），或放在只调用一次的 `init()` 里；constructor 内只做 `super()` 与固定配置（如 `name`、`event`）。
+- 本层只提供基类、加载器、工具、工厂；不包含业务逻辑（业务在 `core/*`）。
 
-## segment 已挂全局，无需 import
+## 错误与日志
 
-- `segment` 在插件加载时已挂到 `global.segment`（见 `src/infrastructure/plugins/loader.js`）。
-- 在插件、事件、Tasker 中**不要**写 `import { segment } from '#oicq'`，直接使用全局 `segment`（如 `segment.image(url)`）。
+- 错误处理：使用 `#utils/error-handler.js` 的 `errorHandler.handle()` 与 `ErrorCodes`；HTTP 响应用 `HttpResponse.error()`。
+- 日志：使用 `BotUtil.makeLog`（或注入的 logger），不在业务逻辑处随意 `console.log`。
 
-## 充分利用 Bot 对象
+## 接口稳定
 
-- **不要**在业务里手动 `import Bot` 或 `new Bot()`；由 `node app` / `start.js` 创建并挂载全局 `Bot`。
-- **插件 / Tasker / 事件监听器**：直接用全局 `Bot`、`Bot[self_id]`、`Bot.em()`、`Bot.tasker`、`Bot.makeLog()` 等（详见 `docs/bot.md`）。
-- **HTTP API handler**：使用注入的 `req.bot` 或路由第三参 `Bot`，用于 `getServerUrl()`、`callRoute()`、多 Bot 等。
-
-## HttpResponse（src/utils/http-utils.js）
-
-- **导入**：`import { HttpResponse } from '#utils/http-utils.js'`（文件名是 http-utils，不是 http-response）。
-- **用途**：统一 HTTP 响应格式与错误处理；`core/*/http/*.js` 的 handler 应优先使用。
-- **常用静态方法**：
-  - `HttpResponse.success(res, data, message)`：成功；
-  - `HttpResponse.error(res, error, statusCode, context)`：统一错误与日志；
-  - `HttpResponse.validationError(res, message, code)`：400；
-  - `HttpResponse.notFound(res, message)`、`HttpResponse.unauthorized(res, message)`、`HttpResponse.forbidden(res, message)`；
-  - `HttpResponse.asyncHandler(handler, context)`：包装异步 handler，自动 try/catch 并调 `HttpResponse.error`；
-  - 流式/SSE：`HttpResponse.streamResponse(res, streamHandler, context)`；MCP：`jsonRpcError` / `jsonRpcSuccess` / `validateJsonRpcRequest`。
-- **约定**：handler 内用 `return HttpResponse.xxx(...)` 提前返回，不要与 `res.json()` 混用。
+- 修改基类或加载器对外 API 时，需兼容现有 core 与 `docs/` 文档；优先新增可选参数，避免破坏性变更。
 
 ---
 > Source: [sunflowermm/XRK-AGT](https://github.com/sunflowermm/XRK-AGT) — distributed by [TomeVault](https://tomevault.io).
