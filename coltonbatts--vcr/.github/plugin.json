@@ -1,0 +1,30 @@
+{
+  "name": "coltonbatts--vcr",
+  "displayName": "VCR",
+  "description": "Headless motion graphics renderer \u2014 declarative YAML scenes to ProRes 4444 with alpha. GPU-accelerated, expression-driven, CLI-first.",
+  "version": "1.0.0",
+  "author": "coltonbatts",
+  "homepage": "https://github.com/coltonbatts/VCR",
+  "skills": [
+    {
+      "name": "vcr-debugger",
+      "description": ""
+    },
+    {
+      "name": "vcr-figma-workflow",
+      "description": ""
+    },
+    {
+      "name": "vcr-manifest-author",
+      "description": ""
+    },
+    {
+      "name": "vcr-render-planner",
+      "description": ""
+    },
+    {
+      "name": "vcr-style-skill-template",
+      "description": ""
+    }
+  ]
+}
