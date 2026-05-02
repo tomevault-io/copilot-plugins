@@ -1,0 +1,30 @@
+{
+  "name": "muyen--vibe-to-prod",
+  "displayName": "vibe-to-prod",
+  "description": "From Vibe Coding to Production in Days, Not Months - A production-ready full-stack template with AI-native development workflow",
+  "version": "1.0.0",
+  "author": "muyen",
+  "homepage": "https://github.com/muyen/vibe-to-prod",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "dev-workflow",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "openapi-workflow",
+      "description": ""
+    },
+    {
+      "name": "security-scan",
+      "description": ""
+    }
+  ]
+}
