@@ -1,0 +1,146 @@
+{
+  "name": "cameronapak--freedom-stack-v3",
+  "displayName": "freedom-stack-v3",
+  "description": "A no-build, un-bloated stack built upon Web Standards that feels freeing to use and can be deployed anywhere.",
+  "version": "1.0.0",
+  "author": "cameronapak",
+  "homepage": "https://github.com/cameronapak/freedom-stack-v3",
+  "skills": [
+    {
+      "name": "bknd-add-field",
+      "description": ""
+    },
+    {
+      "name": "bknd-api-discovery",
+      "description": ""
+    },
+    {
+      "name": "bknd-client-setup",
+      "description": ""
+    },
+    {
+      "name": "bknd-create-entity",
+      "description": ""
+    },
+    {
+      "name": "bknd-create-role",
+      "description": ""
+    },
+    {
+      "name": "bknd-create-user",
+      "description": ""
+    },
+    {
+      "name": "bknd-crud-create",
+      "description": ""
+    },
+    {
+      "name": "bknd-crud-delete",
+      "description": ""
+    },
+    {
+      "name": "bknd-crud-read",
+      "description": ""
+    },
+    {
+      "name": "bknd-crud-update",
+      "description": ""
+    },
+    {
+      "name": "bknd-custom-endpoint",
+      "description": ""
+    },
+    {
+      "name": "bknd-debugging",
+      "description": ""
+    },
+    {
+      "name": "bknd-define-relationship",
+      "description": ""
+    },
+    {
+      "name": "bknd-deploy-hosting",
+      "description": ""
+    },
+    {
+      "name": "bknd-file-upload",
+      "description": ""
+    },
+    {
+      "name": "bknd-local-setup",
+      "description": ""
+    },
+    {
+      "name": "bknd-login-flow",
+      "description": ""
+    },
+    {
+      "name": "bknd-oauth-setup",
+      "description": ""
+    },
+    {
+      "name": "bknd-pagination",
+      "description": ""
+    },
+    {
+      "name": "bknd-password-reset",
+      "description": ""
+    },
+    {
+      "name": "bknd-production-config",
+      "description": ""
+    },
+    {
+      "name": "bknd-protect-endpoint",
+      "description": ""
+    },
+    {
+      "name": "bknd-public-vs-auth",
+      "description": ""
+    },
+    {
+      "name": "bknd-registration",
+      "description": ""
+    },
+    {
+      "name": "bknd-repo-search-with-opencode",
+      "description": ""
+    },
+    {
+      "name": "bknd-seed-data",
+      "description": ""
+    },
+    {
+      "name": "bknd-serve-files",
+      "description": ""
+    },
+    {
+      "name": "bknd-session-handling",
+      "description": ""
+    },
+    {
+      "name": "bknd-setup-auth",
+      "description": ""
+    },
+    {
+      "name": "bknd-storage-config",
+      "description": ""
+    },
+    {
+      "name": "bknd-testing",
+      "description": ""
+    },
+    {
+      "name": "bknd-troubleshoot",
+      "description": ""
+    },
+    {
+      "name": "bknd-webhooks",
+      "description": ""
+    },
+    {
+      "name": "btca-bknd-repo-learn",
+      "description": ""
+    }
+  ]
+}
