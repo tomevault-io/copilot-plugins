@@ -1,0 +1,9 @@
+{
+  "name": "rhowardstone--epstein-research-data",
+  "displayName": "Epstein-research-data",
+  "description": "Structured data exports from forensic analysis of the 218GB DOJ Epstein file release \u2014 knowledge graph, entity extractions, image catalog, EFTA mapping",
+  "version": "1.0.0",
+  "author": "rhowardstone",
+  "homepage": "https://github.com/rhowardstone/Epstein-research-data",
+  "skills": []
+}
