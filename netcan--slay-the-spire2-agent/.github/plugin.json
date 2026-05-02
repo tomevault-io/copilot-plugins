@@ -1,0 +1,9 @@
+{
+  "name": "netcan--slay-the-spire2-agent",
+  "displayName": "slay-the-spire2-agent",
+  "description": "sts2-agent is an agent/mod prototype for Slay the Spire 2. The repository focuses on exposing structured in-game state, safe action execution, and local tooling so external policies or LLMs can drive ",
+  "version": "1.0.0",
+  "author": "netcan",
+  "homepage": "https://github.com/netcan/slay-the-spire2-agent",
+  "skills": []
+}
