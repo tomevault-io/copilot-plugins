@@ -2,22 +2,22 @@
 
 > Sourced from [dirnbauer/webconsulting-skills](https://github.com/dirnbauer/webconsulting-skills) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-AI instruction skills by dirnbauer
+AI-augmented development environment with Agent Skills for enterprise TYPO3 projects (Cursor IDE)
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [dirnbauer/webconsulting-skills](https://github.com/dirnbauer/webconsulting-skills).
+Original source: `CLAUDE.md` in [dirnbauer/webconsulting-skills](https://github.com/dirnbauer/webconsulting-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-## Bundled Skills (36)
+## Bundled Skills (37)
 
 - [ai-search-optimization](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/ai-search-optimization)
 - [typo3-ddev](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/typo3-ddev)
@@ -55,6 +55,7 @@ Original source: `GEMINI.md` in [dirnbauer/webconsulting-skills](https://github.
 - [watchos-design](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/watchos-design)
 - [web-platform-design](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/web-platform-design)
 - [webconsulting-create-documentation](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/webconsulting-create-documentation)
+- [frontend-design](https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/frontend-design)
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/dirnbauer/webconsulting-skills](https://github.com/dirnbauer/webconsulting-skills)
 
