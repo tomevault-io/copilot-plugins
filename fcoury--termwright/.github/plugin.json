@@ -1,0 +1,22 @@
+{
+  "name": "fcoury--termwright",
+  "displayName": "termwright",
+  "description": "Playwright-like automation framework for terminal TUI applications",
+  "version": "1.0.0",
+  "author": "fcoury",
+  "homepage": "https://github.com/fcoury/termwright",
+  "skills": [
+    {
+      "name": "termwright-tui-testing",
+      "description": ""
+    },
+    {
+      "name": "termwright-tui-testing",
+      "description": ""
+    },
+    {
+      "name": "termwright-tui-testing-focused",
+      "description": ""
+    }
+  ]
+}
