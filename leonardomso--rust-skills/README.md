@@ -7,11 +7,11 @@ A collection of 179 rules that AI coding agents can use when writing Rust.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [leonardomso/rust-skills](https://github.com/leonardomso/rust-skills).
+Original source: `CLAUDE.md` in [leonardomso/rust-skills](https://github.com/leonardomso/rust-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
