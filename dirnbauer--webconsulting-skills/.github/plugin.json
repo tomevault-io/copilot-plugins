@@ -1,7 +1,7 @@
 {
   "name": "dirnbauer--webconsulting-skills",
   "displayName": "webconsulting-skills",
-  "description": "AI instruction skills by dirnbauer",
+  "description": "AI-augmented development environment with Agent Skills for enterprise TYPO3 projects (Cursor IDE)",
   "version": "1.0.0",
   "author": "dirnbauer",
   "homepage": "https://github.com/dirnbauer/webconsulting-skills",
@@ -148,6 +148,10 @@
     },
     {
       "name": "webconsulting-create-documentation",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
       "description": ""
     }
   ]
