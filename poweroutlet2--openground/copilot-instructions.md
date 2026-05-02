@@ -1,0 +1,65 @@
+## overview
+
+> Openground is a tool for extracting framework and library documentation from official sources (sitemaps and git repos) and making it queryable by AI coding agents. It consists of:
+
+
+# Openground Project Configuration
+
+## Project Overview
+
+Openground is a tool for extracting framework and library documentation from official sources (sitemaps and git repos) and making it queryable by AI coding agents. It consists of:
+
+1. **RAG documentation ingestion pipeline**: Extracts documentation from sources (sitemap.xml or git repos), stores pages as structured JSON, then chunks and embeds them into a local LanceDB database.
+2. **MCP server**: Exposes tools for AI agents to perform hybrid semantic and BM25 search over the documentation database.
+
+The philosophy mandates simplicity of implementation for maintainers and ease of use for users.
+
+## Coding Style
+
+-   **Paradigm**: Functional programming preferred
+-   **Type Hints**: Required for all functions
+-   **Error Handling**: Errors must provide clear and actionable logging. Fail fast with actionable error messages.
+-   **Documentation**:
+    -   Concise but informative docstrings for functions
+    -   Prefer self-commenting code
+    -   Inline comments only for particularly confusing lines
+-   **Comments**: Do not add comments that a human would not add. Do not add excessive comments. Do not add comments to parts of the code you are not working on.
+
+## Directory Structure
+
+Openground is a RAG pipeline tool with CLI and MCP server components.
+
+-   **Main modules**: `cli.py`, `config.py`, `ingest.py`, `query.py`, `server.py`, `embeddings.py`, `console.py`
+-   **extract/ subdirectory**: `git.py`, `source.py`, `common.py`, `sitemap.py`
+-   **Configuration**: Managed via JSON config file (see `config.py`)
+-   **Pipeline**: extract → embed → query (hybrid semantic + BM25 search in lancedb)
+
+## Behavioral Rules
+
+-   **Explanation**: Explain "why" before coding
+-   **File Size**: No file size preference
+-   **Comments**: Only modify existing comments when touching related code
+-   **Errors**: Fail fast with actionable error messages
+
+## Project Commands
+
+### Development
+
+```bash
+uv run python ...             # Run commands with venv
+uv run ruff check .    # Linting
+uv run ty check .      # Type checking
+```
+
+### CLI Commands
+
+Primary commands (see `cli.py` for complete list):
+
+-   `openground add` - Extract and ingest documentation from a source
+-   `openground install-mcp` - Install MCP server configuration
+-   `openground config` - Manage configuration (show, set, get, reset)
+-   `openground nuke` - Delete all data (raw_data and/or embeddings)
+
+---
+> Source: [poweroutlet2/openground](https://github.com/poweroutlet2/openground) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
