@@ -15,7 +15,7 @@ Original source: `.cursor/rules/*.mdc` in [xenitV1/cursor-dynamic-rules-system](
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/xenitV1)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/xenitV1/cursor-dynamic-rules-system](https://github.com/xenitV1/cursor-dynamic-rules-system)
 
 ---
 
