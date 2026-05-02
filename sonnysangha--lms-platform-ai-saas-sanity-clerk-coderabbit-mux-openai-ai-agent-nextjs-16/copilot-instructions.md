@@ -1,250 +1,151 @@
-## agents
+## shadcn
 
-> You are a principal-level TypeScript and React engineer who writes best-practice, high performance code. You are also an expert on structured content modelling.
+> Shadcn usage
 
+# shadcn/ui
 
-## Your role
+> shadcn/ui is a collection of beautifully-designed, accessible components and a code distribution platform. It is built with TypeScript, Tailwind CSS, and Radix UI primitives. It supports multiple frameworks including Next.js, Vite, Remix, Astro, and more. Open Source. Open Code. AI-Ready. It also comes with a command-line tool to install and manage components and a registry system to publish and distribute code.
 
-You are a principal-level TypeScript and React engineer who writes best-practice, high performance code. You are also an expert on structured content modelling.
+## Overview
 
-## UI/UX
+- [Introduction](https://ui.shadcn.com/docs): Core principles—Open Code, Composition, Distribution, Beautiful Defaults, and AI-Ready design.
+- [CLI](https://ui.shadcn.com/docs/cli): Command-line tool for installing and managing components.
+- [components.json](https://ui.shadcn.com/docs/components-json): Configuration file for customizing the CLI and component installation.
+- [Theming](https://ui.shadcn.com/docs/theming): Guide to customizing colors, typography, and design tokens.
+- [Changelog](https://ui.shadcn.com/docs/changelog): Release notes and version history.
+- [About](https://ui.shadcn.com/docs/about): Credits and project information.
 
-Always use Shadcn components and Tailwind CSS where possible, use the Shadcn MCP server to identify which components are available and how to install them.
-- NEVER try to create a Shadcn component yourself, it must always come through the command line
-- NEVER modify the actual component once imported, use classNames to modify an imported component instead.
+## Installation
 
-## Sanity Studio Schema Types
+- [Next.js](https://ui.shadcn.com/docs/installation/next): Install shadcn/ui in a Next.js project.
+- [Vite](https://ui.shadcn.com/docs/installation/vite): Install shadcn/ui in a Vite project.
+- [Remix](https://ui.shadcn.com/docs/installation/remix): Install shadcn/ui in a Remix project.
+- [Astro](https://ui.shadcn.com/docs/installation/astro): Install shadcn/ui in an Astro project.
+- [Laravel](https://ui.shadcn.com/docs/installation/laravel): Install shadcn/ui in a Laravel project.
+- [Gatsby](https://ui.shadcn.com/docs/installation/gatsby): Install shadcn/ui in a Gatsby project.
+- [React Router](https://ui.shadcn.com/docs/installation/react-router): Install shadcn/ui in a React Router project.
+- [TanStack Router](https://ui.shadcn.com/docs/installation/tanstack-router): Install shadcn/ui in a TanStack Router project.
+- [TanStack Start](https://ui.shadcn.com/docs/installation/tanstack): Install shadcn/ui in a TanStack Start project.
+- [Manual Installation](https://ui.shadcn.com/docs/installation/manual): Manually install shadcn/ui without the CLI.
 
-### Content modelling
+## Components
 
-Unless explicitly modelling web pages or app views, model content that describes what things are, not what they look like:
+### Form & Input
 
-- Good examples describe what things are: `status`, `tone`, `visibility`, `role`
-- Bad examples describe what things look like: `color`, `font-size`, `border-radius`
+- [Form](https://ui.shadcn.com/docs/components/form): Building forms with React Hook Form and Zod validation.
+- [Field](https://ui.shadcn.com/docs/components/field): Field component for form inputs with labels and error messages.
+- [Button](https://ui.shadcn.com/docs/components/button): Button component with multiple variants.
+- [Button Group](https://ui.shadcn.com/docs/components/button-group): Group multiple buttons together.
+- [Input](https://ui.shadcn.com/docs/components/input): Text input component.
+- [Input Group](https://ui.shadcn.com/docs/components/input-group): Input component with prefix and suffix addons.
+- [Input OTP](https://ui.shadcn.com/docs/components/input-otp): One-time password input component.
+- [Textarea](https://ui.shadcn.com/docs/components/textarea): Multi-line text input component.
+- [Checkbox](https://ui.shadcn.com/docs/components/checkbox): Checkbox input component.
+- [Radio Group](https://ui.shadcn.com/docs/components/radio-group): Radio button group component.
+- [Select](https://ui.shadcn.com/docs/components/select): Select dropdown component.
+- [Switch](https://ui.shadcn.com/docs/components/switch): Toggle switch component.
+- [Slider](https://ui.shadcn.com/docs/components/slider): Slider input component.
+- [Calendar](https://ui.shadcn.com/docs/components/calendar): Calendar component for date selection.
+- [Date Picker](https://ui.shadcn.com/docs/components/date-picker): Date picker component combining input and calendar.
+- [Combobox](https://ui.shadcn.com/docs/components/combobox): Searchable select component with autocomplete.
+- [Label](https://ui.shadcn.com/docs/components/label): Form label component.
 
-### Basic schema types
+### Layout & Navigation
 
-- ALWAYS use the `defineType`, `defineField`, and `defineArrayMember` helper functions
-- ALWAYS write schema types to their own files and export a named `const` that matches the filename
-- ONLY use a `name` attribute in fields unless the `title` needs to be something other than a title-case version of the `name`
-- ANY `string` field type with an `options.list` array with fewer than 5 options must use `options.layout: "radio"`
-- ANY `image` field must include `options.hotspot: true`
-- INCLUDE brief, useful `description` values if the intention of a field is not obvious
-- INCLUDE `rule.warning()` for fields that would benefit from being a certain length
-- INCLUDE brief, useful validation errors in `rule.required().error('<Message>')` that signal why the field must be correct before publishing is allowed
-- AVOID `boolean` fields, write a `string` field with an `options.list` configuration
-- ONLY use a single reference when there is no possibility that more than one value will be required: examples include `city`, `country`
-- ALWAYS use an array of references when there is any possibility more than one value will be required: examples include `authors`, `categories`
-- CONSIDER the order of fields, from most important and relevant first, to least often used last
+- [Accordion](https://ui.shadcn.com/docs/components/accordion): Collapsible accordion component.
+- [Breadcrumb](https://ui.shadcn.com/docs/components/breadcrumb): Breadcrumb navigation component.
+- [Navigation Menu](https://ui.shadcn.com/docs/components/navigation-menu): Accessible navigation menu with dropdowns.
+- [Sidebar](https://ui.shadcn.com/docs/components/sidebar): Collapsible sidebar component for app layouts.
+- [Tabs](https://ui.shadcn.com/docs/components/tabs): Tabbed interface component.
+- [Separator](https://ui.shadcn.com/docs/components/separator): Visual divider between content sections.
+- [Scroll Area](https://ui.shadcn.com/docs/components/scroll-area): Custom scrollable area with styled scrollbars.
+- [Resizable](https://ui.shadcn.com/docs/components/resizable): Resizable panel layout component.
 
-```ts
-// ./src/schemaTypes/lessonType.ts
+### Overlays & Dialogs
 
-import { defineField, defineType } from "sanity";
+- [Dialog](https://ui.shadcn.com/docs/components/dialog): Modal dialog component.
+- [Alert Dialog](https://ui.shadcn.com/docs/components/alert-dialog): Alert dialog for confirmation prompts.
+- [Sheet](https://ui.shadcn.com/docs/components/sheet): Slide-out panel component (drawer).
+- [Drawer](https://ui.shadcn.com/docs/components/drawer): Mobile-friendly drawer component using Vaul.
+- [Popover](https://ui.shadcn.com/docs/components/popover): Floating popover component.
+- [Tooltip](https://ui.shadcn.com/docs/components/tooltip): Tooltip component for additional context.
+- [Hover Card](https://ui.shadcn.com/docs/components/hover-card): Card that appears on hover.
+- [Context Menu](https://ui.shadcn.com/docs/components/context-menu): Right-click context menu.
+- [Dropdown Menu](https://ui.shadcn.com/docs/components/dropdown-menu): Dropdown menu component.
+- [Menubar](https://ui.shadcn.com/docs/components/menubar): Horizontal menubar component.
+- [Command](https://ui.shadcn.com/docs/components/command): Command palette component (cmdk).
 
-export const lessonType = defineType({
-  name: "lesson",
-  title: "Lesson",
-  type: "document",
-  fields: [
-    defineField({
-      name: "title",
-      type: "string",
-    }),
-    defineField({
-      name: "categories",
-      type: "array",
-      of: [defineArrayMember({ type: "reference", to: { type: "category" } })],
-    }),
-  ],
-});
-```
+### Feedback & Status
 
-### Schema type with custom input components
+- [Alert](https://ui.shadcn.com/docs/components/alert): Alert component for messages and notifications.
+- [Toast](https://ui.shadcn.com/docs/components/toast): Toast notification component using Sonner.
+- [Progress](https://ui.shadcn.com/docs/components/progress): Progress bar component.
+- [Spinner](https://ui.shadcn.com/docs/components/spinner): Loading spinner component.
+- [Skeleton](https://ui.shadcn.com/docs/components/skeleton): Skeleton loading placeholder.
+- [Badge](https://ui.shadcn.com/docs/components/badge): Badge component for labels and status indicators.
+- [Empty](https://ui.shadcn.com/docs/components/empty): Empty state component for no data scenarios.
 
-- If a schema type has input components, they should be colocated with the schema type file. The schema type should have the same named export but stored in a `[typeName]/index.ts` file:
+### Display & Media
 
-```ts
-// ./src/schemaTypes/seoType/index.ts
+- [Avatar](https://ui.shadcn.com/docs/components/avatar): Avatar component for user profiles.
+- [Card](https://ui.shadcn.com/docs/components/card): Card container component.
+- [Table](https://ui.shadcn.com/docs/components/table): Table component for displaying data.
+- [Data Table](https://ui.shadcn.com/docs/components/data-table): Advanced data table with sorting, filtering, and pagination.
+- [Chart](https://ui.shadcn.com/docs/components/chart): Chart components using Recharts.
+- [Carousel](https://ui.shadcn.com/docs/components/carousel): Carousel component using Embla Carousel.
+- [Aspect Ratio](https://ui.shadcn.com/docs/components/aspect-ratio): Container that maintains aspect ratio.
+- [Typography](https://ui.shadcn.com/docs/components/typography): Typography styles and components.
+- [Item](https://ui.shadcn.com/docs/components/item): Generic item component for lists and menus.
+- [Kbd](https://ui.shadcn.com/docs/components/kbd): Keyboard shortcut display component.
 
-import { defineField, defineType } from "sanity";
+### Misc
 
-import seoInput from "./seoInput";
+- [Collapsible](https://ui.shadcn.com/docs/components/collapsible): Collapsible container component.
+- [Toggle](https://ui.shadcn.com/docs/components/toggle): Toggle button component.
+- [Toggle Group](https://ui.shadcn.com/docs/components/toggle-group): Group of toggle buttons.
+- [Pagination](https://ui.shadcn.com/docs/components/pagination): Pagination component for lists and tables.
 
-export const seoType = defineType({
-  name: "seo",
-  title: "SEO",
-  type: "object",
-  components: { input: seoInput },
-  // ...
-});
-```
+## Dark Mode
 
-### No anonymous reusable schema types
+- [Dark Mode](https://ui.shadcn.com/docs/dark-mode): Overview of dark mode implementation.
+- [Dark Mode - Next.js](https://ui.shadcn.com/docs/dark-mode/next): Dark mode setup for Next.js.
+- [Dark Mode - Vite](https://ui.shadcn.com/docs/dark-mode/vite): Dark mode setup for Vite.
+- [Dark Mode - Astro](https://ui.shadcn.com/docs/dark-mode/astro): Dark mode setup for Astro.
+- [Dark Mode - Remix](https://ui.shadcn.com/docs/dark-mode/remix): Dark mode setup for Remix.
 
-Any field type that can be reused in multiple document types should be registered as its own custom schema type.
+## Forms
 
-```ts
-// ./src/schemaTypes/blockContentType.ts
+- [Forms Overview](https://ui.shadcn.com/docs/forms): Guide to building forms with shadcn/ui.
+- [React Hook Form](https://ui.shadcn.com/docs/forms/react-hook-form): Using shadcn/ui with React Hook Form.
+- [TanStack Form](https://ui.shadcn.com/docs/forms/tanstack-form): Using shadcn/ui with TanStack Form.
+- [Forms - Next.js](https://ui.shadcn.com/docs/forms/next): Building forms in Next.js with Server Actions.
 
-import { defineField, defineType } from "sanity";
+## Advanced
 
-export const blockContentType = defineType({
-  name: "blockContent",
-  title: "Block content",
-  type: "array",
-  of: [defineField({ name: "block", type: "block" })],
-});
-```
+- [Monorepo](https://ui.shadcn.com/docs/monorepo): Using shadcn/ui in a monorepo setup.
+- [React 19](https://ui.shadcn.com/docs/react-19): React 19 support and migration guide.
+- [Tailwind CSS v4](https://ui.shadcn.com/docs/tailwind-v4): Tailwind CSS v4 support and setup.
+- [JavaScript](https://ui.shadcn.com/docs/javascript): Using shadcn/ui with JavaScript (no TypeScript).
+- [Figma](https://ui.shadcn.com/docs/figma): Figma design resources.
+- [v0](https://ui.shadcn.com/docs/v0): Generating UI with v0 by Vercel.
 
-### Decorating schema types
+## MCP Server
 
-Every `document` and `object` schema type should:
+- [MCP Server](https://ui.shadcn.com/docs/mcp): Model Context Protocol server for AI integrations. Allows AI assistants to browse, search, and install components from registries using natural language. Works with Claude Code, Cursor, VS Code (GitHub Copilot), Codex and more.
 
-- Have an `icon` property from `@sanity/icons`
-- Have a customized `preview` property that shows rich contextual details about the document
-- Use `groups` when the schema type has more than a few fields to collate related fields and only show the most important group by default. These `groups` should use the icon property as well.
-- Use `fieldsets` with `options: {columns: 2}` if related fields could be grouped visually together, such as `startDate` and `endDate`
+## Registry
 
-### Validation rules for fields
+- [Registry Overview](https://ui.shadcn.com/docs/registry): Creating and publishing your own component registry.
+- [Getting Started](https://ui.shadcn.com/docs/registry/getting-started): Set up your own registry.
+- [Examples](https://ui.shadcn.com/docs/registry/examples): Example registries.
+- [FAQ](https://ui.shadcn.com/docs/registry/faq): Common questions about registries.
+- [Authentication](https://ui.shadcn.com/docs/registry/authentication): Adding authentication to your registry.
+- [Registry MCP](https://ui.shadcn.com/docs/registry/mcp): MCP integration for registries.
 
-- ALWAYS make fields `required` if a document should not be published without that field meeting a criteria
-- ALWAYS give a validation `warning` if a field value should meet a certain criteria
-- ALWAYS contain a custom `error` message to signal why the field must be correct, or how it could be improved to satisfy the rule
-- ALWAYS put validation rules in an array, and order them from most important to least important
-- Use `.custom()` to enforce validation rules that cannot be expressed with other validation methods, such as checking the value of another field from the document
+### Registry Schemas
 
-```ts
-// ./src/schemaTypes/slugType/index.ts
-
-import { defineField, defineType } from "sanity";
-
-export const slugType = defineType({
-  name: "slug",
-  title: "Slug",
-  type: "object",
-  validation: (Rule) => [
-    Rule.custom((value, context) =>
-      value?.current && value?.current.length > 100
-        ? "Slug cannot be longer than 100 characters"
-        : true
-    ),
-    Rule.required().error("Required to generate a URL"),
-  ],
-  // ...
-});
-```
-
-### Testing Studio configuration
-
-After making changes to schema or studio configuration, test the configuration with the following scripts. Always run all three scripts after making changes.
-
-Add these scripts to `package.json` to test the Studio configuration:
-
-```json
-// package.json
-{
-  // existing configuration...
-  "scripts": {
-    // existing scripts...
-    "typegen": "sanity schema extract && sanity typegen generate --enforce-required-fields",
-    "typecheck": "tsc --noEmit"
-  }
-}
-```
-
-1. Ensure TypeScript can compile with `npm run typecheck`
-2. Ensure schema types are valid for export with `npm run typegen`
-3. Ensure the Studio can be built with `npm run build`
-
-## Writing Sanity content
-
-### Write using Sanity MCP Server
-
-- ALWAYS use the [Sanity MCP Server](https://mcp.sanity.io) if available use to query and create content
-
-### Write and import using Sanity CLI
-
-If you do not have the Sanity MCP server installed:
-
-- ONLY use the existing schema types registered in the Studio configuration
-- ALWAYS write content as an `.ndjson` file at the root of the project, where each line is a single JSON object representing a document
-- NEVER write scripts to write content, just write the `.ndjson` file
-- IMPORT `.ndjson` files using the CLI command `npx sanity dataset import <filename.ndjson>`
-- NEVER include a `.` in the `_id` field of a document unless you need the document to be private
-- NEVER include image references if you do not know which image documents exist
-- ALWAYS if the full URL of an image or file is known, use it in the `_sanityAsset` field, for example:
-
-```JSON
-{"_type":"image","_sanityAsset":"image@https://{url-to-image}"}
-{"_type":"file","_sanityAsset":"file@https://{url-to-file}"}
-```
-
-## Writing GROQ queries
-
-- ALWAYS use `SCREAMING_SNAKE_CASE` for variable names, for example `POSTS_QUERY`
-- ALWAYS import the `defineQuery` function to wrap query strings from the `groq` or `next-sanity` package
-- ALWAYS write every required attribute in a projection when writing a query
-  -- DO NOT use the `...` operator to project all attributes
-- ALWAYS put each segment in a filter, and each attribute in a projection its own line
-- ALWAYS use parameters for variables in a query
-  -- DO NOT insert dynamic values using string interpolation
-
-```ts
-// ✅ Good GROQ query example
-import { defineQuery } from "groq";
-
-export const POST_QUERY = defineQuery(`*[
-  _type == "post"
-  && slug.current == $slug
-][0]{
-  _id,
-  title,
-  image,
-  author->{
-    _id,
-    name
-  }
-}`);
-```
-
-## TypeScript generation
-
-### For monorepos with a studio and a front-end
-
-- ALWAYS use a simple pnpm workspace configuration to place the studio in `apps/studio`
-
-```
-your-project/
-└── apps/
-    ├── studio/ -> Sanity Studio
-    └── web/    -> Front-end
-```
-
-- ALWAYS extract the schema to the web folder with `npx sanity@latest schema extract --path=../<front-end-folder>/sanity/extract.json`
-- ALWAYS generate types with `npx sanity@latest typegen generate` after every GROQ query change
-- ALWAYS create a TypeGen configuration file:
-
-```json
-// apps/studio/sanity-typegen.json
-{
-  "path": "./**/*.{ts,tsx,js,jsx}",
-  "schema": "./<front-end-folder>/sanity/extract.json",
-  "generates": "./<web-folder>/sanity/types.ts"
-}
-```
-
-### For the front-end
-
-- ONLY write Types for document types and query responses if you cannot generate them with Sanity TypeGen
-
-## Looking for help
-
-Sanity CLI provides many ways to interact with Sanity projects, datasets and search documentation and API's.
-
-- To understand Sanity product features search the documentation with `npx sanity docs search "<query>"`
-- To see available OpenAPI endpoints for a project, run `npx sanity openapi list`
-- To see available CLI commands, run `npx sanity --help`
+- [Registry Schema](https://ui.shadcn.com/schema/registry.json): JSON Schema for registry index files. Defines the structure for a collection of components, hooks, pages, etc. Requires name, homepage, and items array.
+- [Registry Item Schema](https://ui.shadcn.com/schema/registry-item.json): JSON Schema for individual registry items. Defines components, hooks, themes, and other distributable code with properties for dependencies, files, Tailwind config, CSS variables, and more.
 
 ---
 > Source: [sonnysangha/lms-platform-ai-saas-sanity-clerk-coderabbit-mux-openai-ai-agent-nextjs-16](https://github.com/sonnysangha/lms-platform-ai-saas-sanity-clerk-coderabbit-mux-openai-ai-agent-nextjs-16) — distributed by [TomeVault](https://tomevault.io).
