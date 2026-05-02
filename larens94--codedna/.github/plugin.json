@@ -1,0 +1,9 @@
+{
+  "name": "larens94--codedna",
+  "displayName": "codedna",
+  "description": "A lightweight annotation standard that helps AI agents navigate codebases faster, with fewer file reads and tool calls",
+  "version": "1.0.0",
+  "author": "Larens94",
+  "homepage": "https://github.com/Larens94/codedna",
+  "skills": []
+}
