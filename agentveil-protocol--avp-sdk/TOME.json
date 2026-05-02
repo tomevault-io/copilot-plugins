@@ -1,0 +1,44 @@
+{
+  "name": "avp-sdk",
+  "owner": "agentveil-protocol",
+  "repo": "avp-sdk",
+  "description": "Operational Trust for autonomous agents. Decide which agents can act, then prove what happened with cryptographic evidence.  Trust-gated action for agent systems, with evidence clients and reviewers can verify independently.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/agentveil-protocol/avp-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T01:03:54Z"
+}
