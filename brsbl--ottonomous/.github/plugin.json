@@ -1,0 +1,46 @@
+{
+  "name": "brsbl--ottonomous",
+  "displayName": "ottonomous",
+  "description": "Set of Claude Code skills for product development",
+  "version": "1.0.0",
+  "author": "brsbl",
+  "homepage": "https://github.com/brsbl/ottonomous",
+  "skills": [
+    {
+      "name": "browser",
+      "description": ""
+    },
+    {
+      "name": "next",
+      "description": ""
+    },
+    {
+      "name": "otto",
+      "description": ""
+    },
+    {
+      "name": "reset-code",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "skill-diff",
+      "description": ""
+    },
+    {
+      "name": "spec",
+      "description": ""
+    },
+    {
+      "name": "summary",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    }
+  ]
+}
