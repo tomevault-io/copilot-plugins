@@ -1,0 +1,22 @@
+{
+  "name": "dev-whitecrow--ark-context",
+  "displayName": "ark-context",
+  "description": "Your AI is smart, but does it know you? Don't build just Agents. Build Identities.",
+  "version": "1.0.0",
+  "author": "dev-whitecrow",
+  "homepage": "https://github.com/dev-whitecrow/ark-context",
+  "skills": [
+    {
+      "name": "distill",
+      "description": ""
+    },
+    {
+      "name": "log",
+      "description": ""
+    },
+    {
+      "name": "monitoring",
+      "description": ""
+    }
+  ]
+}
