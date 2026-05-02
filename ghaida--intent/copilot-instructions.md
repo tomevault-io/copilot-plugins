@@ -1,370 +1,320 @@
-## philosopher
+## specify
 
-> A cross-cutting cognitive mode for sitting with design problems before rushing to solve them. Part of the Intent design strategy system. Activates expansive brainstorming: hyperassociativity, beginner's mind, cross-domain pattern recognition, and suppression of premature idea-dismissal. Works alongside every Intent skill — strategize uses it to reframe briefs, blueprint to question structural assumptions, journey to rethink interaction models, and specify to stress-test specs. Trigger when the user invokes "expansive mode", "philosopher mode", "sit with this", "brainstorm", "explore this problem", or says things like "go weird with it", "don't filter yourself", "what connections are you not making", "think about this differently", or "I'm stuck". This is a reasoning protocol, not a persona — Claude's voice stays grounded but the cognitive process changes significantly.
+> Bridges design and engineering by producing detailed specs, organized handoff packages, asset inventories, and cross-functional documentation. Part of the Intent design strategy system. Trigger when: writing design specs, preparing engineering handoffs, documenting for development, creating design reviews, writing test plans, building copy matrices, addressing edge cases, aligning stakeholders, packaging designs "for engineering," or saying "write the spec," "prepare the handoff," "document this," or "what do we need for design review?
 
 
 
-# The Philosopher — Sit With the Problem
+# Specify — Bridge Design to Engineering
 
 ## Overview
 
-A cross-cutting cognitive mode that shifts how you reason — not how you sound. The philosopher activates broader associative thinking, suppresses premature idea-dismissal, enables cross-domain connection-making, and forces genuine re-examination of assumptions. It works alongside every Intent skill at any stage of the design process, turning shallow problem statements into genuinely complex, interesting ones.
-
-**When to activate:** when a designer says "I'm stuck," "sit with this," "brainstorm," "explore this problem," "go deeper," "what am I missing," "philosopher mode," or "expansive mode." Also activate when a problem is being solved too quickly, when the framing feels shallow, when research findings seem too clean, or when any Intent skill needs to question its own assumptions before moving forward.
+This skill transforms design work into actionable, implementation-ready documentation. It produces structured specs, asset packages, test plans, and stakeholder presentations that ensure design intent survives to production. Use this when design needs to move into engineering, when cross-functional clarity is required, or when you must document decisions in a way that prevents rework.
 
 ---
 
-## How this skill fits the design practice
+## Skill family
 
-The philosopher is not a phase. It's a cognitive mode that any Intent skill
-can enter when the problem needs more exploration before the next move.
+Specify works alongside the full Intent skill system:
 
-Every Intent skill has moments where the philosopher belongs:
-
-### Strategy & Research
-
-**With `/strategize`** — when a brief feels too tidy, when the problem
-statement might be wrong, when the five foundational questions are returning
-obvious answers. The philosopher helps `/strategize` question whether
-they're even asking the right questions. Use it to reframe assumptions,
-find the problem adjacent to the stated problem, and challenge whether the
-opportunity is where everyone thinks it is.
-
-**With `/investigate`** — when research findings seem too clean, when the
-interview data confirms everything you expected (confirmation bias alarm),
-when synthesis is producing obvious themes. "What would we learn if we
-studied the people who don't have this problem?" The philosopher helps
-the researcher question whether the methodology itself is shaping the
-findings.
-
-**With `/blueprint`** — when a service blueprint reveals something
-structurally odd, when dependencies seem unnecessarily tangled, or when the
-"how it works today" doesn't explain why it was built that way. The
-philosopher helps `/blueprint` ask "what if this whole structure
-is solving the wrong problem?" and explore alternative organizational
-models from other domains.
-
-### Experience Design
-
-**With `/journey`** — when a user flow feels logical but lifeless, when the
-"obvious" interaction pattern might not serve the user's actual mental model,
-or when device constraints are being treated as limitations instead of design
-inputs. The philosopher helps the journey designer question the inherited
-patterns and explore what the interaction would look like if current
-conventions didn't exist.
-
-**With `/organize`** — when the category system feels natural but users keep
-getting lost. "What if the mental model we're assuming doesn't exist?" When
-labels make sense to the team but not to users. The philosopher helps
-question whether the structure reflects how people actually think about
-the domain, or just how the organization thinks about it.
-
-**With `/articulate`** — when the words feel correct but the experience
-still confuses. "What if the language itself is creating the problem?" When
-error messages are accurate but unhelpful, when microcopy is clear but cold.
-The philosopher helps examine whether language is clarifying the experience
-or obscuring it — and whether the voice itself carries unexamined assumptions.
-
-### Quality & Evaluation
-
-**With `/evaluate`** — when heuristic evaluation produces passing scores but
-something still feels wrong. "What if the heuristics we're evaluating against
-are wrong for this domain?" The philosopher helps question whether the
-quality framework itself is appropriate, or whether it's measuring the wrong
-things well.
-
-**With `/fortify`** — when edge cases keep multiplying. "What's the most
-embarrassing way this could fail in public?" When the happy path is solid
-but the system feels fragile. The philosopher helps think through failure
-not as a list of cases to handle, but as a structural property of the
-design itself.
-
-**With `/include`** — when accessibility is technically compliant but the
-experience still excludes. "Who are we excluding that we haven't even thought
-to consider?" When the definition of "user" is too narrow. The philosopher
-helps expand the frame beyond compliance toward genuine inclusion — asking
-what it means for an experience to truly welcome someone.
-
-### Adaptation & Measurement
-
-**With `/transpose`** — when adapting for a new platform feels like shrinking
-rather than rethinking. "What if this experience was born on mobile? What
-would we never have added?" The philosopher helps question whether
-cross-platform work is translation or transformation — and what the target
-platform actually affords that the source doesn't.
-
-**With `/localize`** — when localization feels like translation rather than
-adaptation. "What cultural assumptions are invisible to us because we're
-inside them?" The philosopher helps surface the assumptions that are so
-deeply embedded in the original design that they don't register as
-assumptions at all.
-
-**With `/measure`** — when metrics feel defined but hollow. "What if
-measuring this changes the behavior we're trying to measure?" "What would we
-learn from measuring the things we're afraid to measure?" The philosopher
-helps question whether the measurement framework captures what matters or
-just what's convenient to count.
-
-### Handoff
-
-**With `/specify`** — when edge cases keep surfacing that the spec doesn't
-cover, when something about the design feels fragile under real conditions,
-or when the "pending questions" section keeps growing. The philosopher helps
-the specification process think through what could go wrong that nobody has
-imagined yet, and whether the spec is documenting the right thing. "What
-decisions did we make that we forgot to document, and what happens when
-someone asks 'why?'"
-
-### Invoking the philosopher
-
-Any skill can enter philosopher mode mid-task. Typical signals:
-
-- The user says "sit with this", "explore this", "brainstorm", "go deeper",
-  "expansive mode", "philosopher mode", "I'm stuck", "what am I missing"
-- The skill senses the problem is being solved too quickly — the framing
-  feels shallow or the solution feels predetermined
-- The user pushes back on an output and the right response isn't to revise
-  but to re-examine
-
-When entering philosopher mode from another skill, acknowledge the shift:
-*"Let me sit with this before we move forward."* When exiting back to the
-original skill, signal the return: *"Here's what that opens up. Want to
-bring this back into the [brief / blueprint / journey / structure / spec]?"*
+- **`/strategize`**: Their briefs and hypotheses provide the "why" behind everything you specify. Every spec should trace back to a strategic intent — why this feature exists, what hypothesis it tests, what user need it serves.
+- **`/investigate`**: Their research findings ground your use cases in evidence. Real user quotes, observed behaviors, and validated pain points make specs persuasive and accurate, not hypothetical.
+- **`/blueprint`**: Their system architecture constrains and informs your specs. Service dependencies, data flows, and technical constraints shape what's possible and what needs engineering discussion.
+- **`/journey`**: Their flows are what you're specifying — screen sequences, interaction transitions, state changes. Journey designs the experience; specify documents it for implementation.
+- **`/organize`**: Their information architecture informs your navigation specs. Taxonomy, hierarchy, and labeling decisions from organize become the structural backbone of your screen specs.
+- **`/articulate`**: Their copy work feeds directly into your copy matrices. Voice, tone, and content strategy decisions become specific strings in your spec.
+- **`/fortify`**: Their edge case analysis becomes part of your spec. Error states, failure modes, boundary conditions, and recovery patterns — all documented screen by screen.
+- **`/include`**: Their accessibility requirements go into every screen spec. ARIA labels, keyboard navigation, color contrast, screen reader behavior — inclusion is not an appendix, it's woven into every screen.
+- **`/evaluate`**: Their assessment identifies gaps in your specs. Heuristic violations, usability issues, and anti-pattern flags become items to resolve before handoff.
+- **`/measure`**: Their success metrics define your test plan criteria. Every feature spec should include what success looks like, how to measure it, and what to instrument.
+- **`/philosopher`**: A cross-cutting cognitive mode for when specification reveals deeper problems. Invoke when: edge cases keep multiplying, something about the design feels fragile under real conditions, the "pending questions" section keeps growing, or the user says "sit with this", "brainstorm", or "what could go wrong that nobody has imagined?" The philosopher helps think through failure scenarios nobody has considered and whether the spec is documenting the right thing.
 
 ---
 
-## The Cognitive Protocol
+## Core capabilities
 
-When this skill is active, follow this process — strictly in this order.
-**Do not enter solution space until the user explicitly asks or chooses
-"synthesize" at a check-in.**
+### 1. Detailed design specifications
 
----
+Write comprehensive, screen-by-screen (or state-by-state) specifications that document:
+- Visual design with specific measurements, colors, typography, spacing
+- Interaction logic: what triggers what, in what order, with what conditions
+- Copy: exact text, variants for different contexts/markets/edge cases
+- States: default, hover, active, error, loading, empty, success — all documented visually and logically
+- Constraints: device sizes, performance requirements, accessibility needs
 
-### Phase 1: Problem Immersion (always start here)
+Output should be a living spec document (HTML or markdown) that engineers can reference during implementation without guessing.
 
-Do not generate ideas, directions, or solutions yet. Instead, inhabit the
-problem itself. The goal is to make the problem *strange again* — to strip
-away the assumptions baked into how it was handed to you.
+### 2. Organized engineering handoff packages
 
-Ask and explore:
+Structure deliverables so engineering knows exactly what to build and why:
+- Clear ownership: who decided what and when
+- Problem context: what user need or business problem does this solve
+- Design approach: constraints considered, alternatives rejected and why
+- Use cases: specific, not generic — real user scenarios that expose edge cases
+- Assets: all files organized, named, versioned, with usage notes
+- Test criteria: success metrics and audience-specific test plans
 
-- **What is actually being asked?** Not what it sounds like — what's underneath
-  it. What tension, fear, or desire is generating this question?
-- **Who experiences this problem, and how differently?** Map the range of
-  people touched by it. Their relationship to it is not the same as the
-  person asking.
-- **What assumptions are already inside the framing?** The way a problem is
-  stated contains hidden decisions. Name them. What if they're wrong?
-- **What is the problem *adjacent to*?** What older, bigger, or stranger
-  problem does this live inside?
-- **What would it mean if this problem didn't need solving?** What if it's
-  not a problem — what is it then?
-- **What's the history of this problem?** Has it been "solved" before? What
-  happened?
+### 3. Copy and variant matrices
 
-In design contexts, also ask:
+Document all copy variations in one place:
+- Primary copy vs. secondary copy vs. microcopy (labels, hints, errors, empty states)
+- Market variants: tone shifts, cultural considerations, regulatory language
+- Edge cases: character limits, long strings, very short strings, numeric edge cases
+- A/B test variations: explicit copy changes being tested, with success criteria
 
-- **What would a user who never encounters this problem tell us?** Their
-  absence from the problem is information.
-- **What is the organizational reason this problem exists?** Many design
-  problems are org chart problems in disguise.
-- **Who benefits from the problem staying unsolved?** Incentive structures
-  shape product reality more than user research.
+### 4. Interactive HTML specification documentation
 
-Stay here. Turn it over. Don't move on until the problem feels genuinely
-more complex and interesting than when you started.
+When appropriate, produce interactive HTML specs that:
+- Show designs inline with explanatory text
+- Link related screens and decisions
+- Include collapsible reference sections (component specs, copy matrices, test plans)
+- Are self-contained and viewable in any browser without external dependencies
 
----
+### 5. Use case and edge case documentation
 
-### Phase 2: Associative Expansion (only after Phase 1)
+Write out specific, not generic use cases:
+- "First-time user creating an account" vs. "User logs in"
+- "Network timeout during payment" vs. "Error state"
+- "User has 200+ items in cart" vs. "User has items in cart"
+- Document how the design behaves in each case, what copy appears, what happens next
 
-Now widen — but still not toward solutions. Toward *connections*.
+### 6. Stakeholder presentations
 
-Pull from unrelated domains, scales, and systems that share structural
-similarities with the problem:
-- Biology, ecology, architecture, thermodynamics, linguistics, mythology,
-  music theory, urban planning, material science, game design, library
-  science — wherever genuine structural resonance exists
-- What does this problem look like at a much larger scale? A much smaller one?
-- What's the *opposite* of this problem, and is that opposite also true?
-- What metaphors want to attach themselves to this? Follow them.
-- What would someone from a completely different discipline see immediately
-  that a designer wouldn't?
+Structure presentations that align cross-functional teams:
+- Problem statement (from `/strategize`)
+- Design approach and constraints considered
+- Key decisions and what was intentionally NOT done
+- Test plan: what we're measuring and why (from `/measure`)
+- Open questions: what we still need to resolve
+- Timeline and dependencies
 
-The test for pursuing a connection: is it *alive*? Does following it reveal
-something? Not: is it useful, correct, or practical.
+### 7. Test plans with success criteria
 
-Suppress the editor. Weird threads stay on the table. Flag when you're
-following something uncertain — "going down this thread —" — but follow it.
-
-In design contexts, also explore:
-
-- **Analogous experiences in other products or industries.** Not competitors —
-  structurally similar problems in unrelated spaces.
-- **Physical-world equivalents.** What does this digital problem look like
-  when it happens in physical space? What do people do there?
-- **Historical design precedents.** Has another era of design solved a version
-  of this? What did they know that we've forgotten?
+Write test plans that pair observations with decision-makers:
+- Who needs to see this work (PM, engineering lead, CEO?)
+- What success looks like: specific, measurable outcomes (connected to `/measure` GSM chains)
+- What we're learning and why we're learning it
+- How results feed back into design iteration
 
 ---
 
-### Phase 3: Synthesis (only when invited)
+## Output format template
 
-Don't go here until the user chooses "synthesize" at a check-in, or
-explicitly asks to land the exploration.
+Follow this structure for comprehensive handoffs:
 
-When you do arrive here, insights should feel like they *emerged from* the
-problem rather than being applied to it. If they don't, you left Phase 1
-too early.
+```
+## Ownership & Context
+- Owner: [Name, role]
+- Created: [Date]
+- Status: [Draft/Ready for Engineering/In Implementation]
+- Design document version: [v0.1, etc.]
 
-In design contexts, synthesis means translating what you've found back into
-the language of whichever skill you're working alongside:
+## Problem & User Need
+[1-2 paragraphs: what problem does this solve, for whom, why now]
 
-- For `/strategize`: reframed problem statements, new hypotheses, revised
-  scope recommendations
-- For `/investigate`: reframed research questions, alternative methodologies,
-  bias awareness
-- For `/blueprint`: alternative structural models, new dependency questions,
-  reframed service boundaries
-- For `/journey`: alternative interaction models, reframed user mental models,
-  new entry point considerations
-- For `/organize`: alternative category systems, new navigation models,
-  reframed taxonomies
-- For `/articulate`: reframed messaging, alternative voice approaches, new
-  metaphors
-- For `/evaluate`: reframed assessment criteria, alternative quality
-  definitions
-- For `/fortify`: newly surfaced failure scenarios, structural risks
-- For `/include`: expanded definitions of "user", newly visible barriers
-- For `/specify`: newly surfaced edge cases, revised test hypotheses,
-  structural risks in the spec
+## Design Approach
+- Constraints considered: [device, performance, accessibility, brand, etc.]
+- Design strategy: [how we approached the problem]
+- What we did NOT do (and why): [alternatives considered and rejected]
 
-You can offer: *"Want to start pulling on what's actually useful here?"*
-But don't collapse into synthesis unasked. Let the check-in system handle
-the transition.
+## UX Questions Answered
+[List specific design questions this spec resolves, e.g.:
+- How does the user know this action succeeded?
+- What happens if the API returns no results?
+- How do we handle very long titles?]
 
----
+## Ethical Review
+[Before handoff, check the design against Intent's anti-pattern catalog:]
+- Patterns reviewed: [list specific interaction patterns checked]
+- Potential concerns: [any patterns that could be perceived as manipulative]
+- Design intent documentation: [for each concern, document the intent behind the decision and why it serves user interest]
+- Dark pattern clearance: [explicit statement that the design was reviewed and does not employ deceptive, coercive, or manipulative patterns]
 
-## Output Shape
+## Measurement
+[Connected to /measure's success criteria:]
+- Primary success metric: [from GSM mapping]
+- Counter-metrics: [what must NOT get worse]
+- Instrumentation needs: [what events/data engineering needs to capture]
+- Learning plan: [when to check metrics post-launch — day 1, week 1, month 1]
 
-Outputs in this mode tend to be:
-- **Non-linear** — don't force a logical sequence if the ideas don't naturally
-  have one
-- **Dense with connections** — surface the links explicitly ("this reminds me
-  of...", "structurally this is similar to...", "this is the same problem as X
-  in a different domain")
-- **Honest about uncertainty** — use language that signals generative vs
-  grounded thinking
-- **Not artificially resolved** — it's okay to end in open territory
+## Design Specification
 
-Outputs should NOT be:
-- Vague or abstract without content
-- Performatively mystical ("everything is connected, man")
-- Incoherent or unparseable
-- Longer than necessary — expansive thinking is vivid, not rambling
+### Screen [Name/ID]
+**Intent:** [Why does this screen exist? What user need does it serve? What happens if we remove it?]
 
----
+**Behavior:** [What does the user see and what can they do?]
 
-## Intensity Levels
+**Layout & Styling:**
+- [Specific measurements, spacing, colors, fonts]
+- [Visual hierarchy and grid placement]
 
-If the user specifies or implies intensity, modulate accordingly:
+**Copy:**
+- Headline: "[Exact copy]"
+- Description: "[Exact copy]"
+- Button label: "[Exact copy]"
+- Error state: "[Exact copy]"
+- Empty state: "[Exact copy]"
 
-| Level | Behavior |
-|-------|----------|
-| **Low / light** | Slightly wider associations, less filtering. Still fairly linear output. Good for a quick reframe before continuing with the primary skill. |
-| **Medium** | Full protocol active. Cross-domain, multi-framing, resonance-following. The default when a designer says "I'm stuck" or "brainstorm with me." |
-| **High / deep** | Maximize associative width. Treat everything as potentially significant. Structure loosens. Connections become the point. Be explicit that you're in deep generative territory. Reserve for early-stage exploration or when the problem feels fundamentally misframed. |
+**Interaction Logic:**
+- On load: [what happens]
+- On user action [X]: [expected outcome]
+- On error [Y]: [fallback behavior and messaging]
 
-Default to **medium** unless told otherwise.
+**Accessibility:**
+- ARIA labels: [if needed]
+- Keyboard navigation: [if needed]
+- Color contrast: [ratios if non-standard]
 
----
+**States:** [Visual and copy documentation for default, hover, active, error, loading, empty states]
 
-## Check-ins and Exiting the Mode
+[Repeat for each screen/state]
 
-Philosopher mode uses structured check-ins to prevent runaway exploration.
-The user can also exit at any time by asking for a deliverable or saying
-"land it", "back to the [brief / journey / spec]", or similar.
+## Use Cases & Variants
 
-### Check-in rhythm
+### Use Case 1: [Specific scenario]
+[Describe the user journey, what they see at each step, what copy appears, what happens on success/failure]
 
-After every 3 exchanges in philosopher mode, pause and offer a check-in.
-A check-in is brief — one or two sentences — and gives the user three
-clear options:
+### Use Case 2: [Specific scenario]
+[Repeat as needed; be specific, not generic]
 
-1. **Keep exploring.** There's more to uncover. Stay in philosopher mode.
-2. **Synthesize.** Enough raw material — pull out what's useful and
-   translate it back into the active design skill.
-3. **Redirect.** The exploration went somewhere unexpected — refocus on
-   a specific thread before continuing.
+## Copy Matrix
 
-Format the check-in naturally, not as a numbered menu. For example:
+| Element | Primary | Edge Case 1 | Edge Case 2 | Market Variant (DE) | A/B Test Variant |
+|---------|---------|-------------|-------------|-------------------|-----------------|
+| Headline | "[Copy]" | "[Copy]" | ... | ... | ... |
+| [Repeat for each copy element] |
 
-*"We've opened up a few threads here — the org incentive question and the
-physical-space analogy both feel alive. Want to keep pulling on those,
-or should I start landing what's useful for the brief?"*
+## Test Plan
 
-*"Three things surfaced: the onboarding flow might be solving the wrong
-problem, there's a parallel to library wayfinding worth following, and
-the edge case around permissions is more structural than it looked. Keep
-going, synthesize, or zoom into one of these?"*
+### Audience 1: [PM / Engineering / End User]
+**What we're testing:** [Specific behavior]
+**Success looks like:** [Measurable outcome, connected to Measurement section]
+**How we measure it:** [method/tool]
 
-### Check-in at intensity levels
+### Audience 2: [Different audience]
+[Repeat as needed]
 
-| Level | Check-in frequency |
-|-------|-------------------|
-| **Low / light** | After 2 exchanges. Light mode is a quick reframe, not an extended session. |
-| **Medium** | After 3 exchanges. The default rhythm. |
-| **High / deep** | After 4-5 exchanges. Deep exploration needs more room before interruption, but still needs a checkpoint. |
+## Pending Questions
 
-### Immediate exit triggers
+### Design Questions
+- [Question 1: impacts design decision]
+- [Question 2: impacts design decision]
 
-Skip the check-in rhythm and offer to exit immediately if:
-- The user asks for a decision, recommendation, or concrete deliverable
-- The user seems frustrated, confused, or is repeating themselves
-- The user explicitly asks to return to the brief, blueprint, journey, or spec
+### Engineering Questions
+- [Question 1: impacts implementation approach]
+- [Question 2: impacts implementation approach]
 
-### Exiting cleanly
+## Assets & Deliverables
 
-When exiting — whether from a check-in or an immediate trigger — follow
-this sequence:
+**Design files:**
+- [Figma file name and link]
+- [Specific artboards/pages to reference]
 
-1. **Summarize what surfaced.** 3-5 bullet points of the most significant
-   insights, reframes, or open questions that emerged. No filler.
-2. **Flag what changed.** If the exploration reframed the original problem,
-   say so explicitly. "We started with X, but the real question might be Y."
-3. **Translate back to the active skill.** Frame the insights in the
-   language of whichever Intent skill is active — reframed hypotheses for
-   `/strategize`, alternative structural models for `/blueprint`, new
-   reference directions for `/articulate`, revised interaction assumptions
-   for `/journey`, newly surfaced edge cases for `/specify`, reframed
-   assessment criteria for `/evaluate`, expanded inclusion frames for
-   `/include`, structural failure insights for `/fortify`.
-4. **Hand back control.** *"Here's what that opens up. Want to bring this
-   back into the [brief / blueprint / journey / structure / spec]?"*
+**Handoff package contents:**
+- Design spec (this document)
+- Design files (Figma link)
+- Copy matrix (separate or embedded)
+- Test plan (separate or embedded)
+- [Any other assets]
+
+**File naming & organization:**
+- [How files are named and organized in assets/]
+- [Version control approach if applicable]
+
+## Appendix
+
+[Reference material: component specs referenced, design system tokens, brand guidelines excerpts, accessibility standards applied, etc.]
+```
 
 ---
 
-## Thinking Style Variants (Future)
+## Quality checklist
 
-This skill currently implements a unified expansive-reasoning mode. Future
-variants can target different cognitive signatures:
+Before marking a handoff as complete, verify:
 
-- `inward.md` — reflective, emotional, systems-level, slower. Pairs well
-  with `/strategize` and `/investigate` work on user motivation, research
-  framing, and journey mapping.
-- `connective.md` — hyperconnective, linguistic, energized, faster. Pairs
-  well with `/organize` and `/articulate` work on information architecture,
-  naming, and voice.
-- `empathic.md` — relational warmth, emotional reframing, perspective-taking.
-  Pairs well with `/journey` and `/include` work on user context, error
-  recovery, and inclusive design.
-- `architectural.md` — dissociative, structural, perspective-from-outside.
-  Pairs well with `/blueprint` and `/fortify` work on dependency analysis,
-  failure modes, and system resilience.
+- [ ] Every screen has a documented intent — why it exists and what user need it serves (no real estate tours)
+- [ ] All screens and states are visually documented
+- [ ] All copy is written out (no placeholders like "TBD")
+- [ ] All variants (markets, edge cases, A/B tests) are documented
+- [ ] Edge cases are addressed (empty states, errors, long content, network delays)
+- [ ] Pending questions are explicitly flagged (design + engineering)
+- [ ] Ownership is stated (who, when, status)
+- [ ] Test plan is included with specific success criteria
+- [ ] Assets are organized and named; their locations are documented
+- [ ] Open questions don't block engineering; they're flagged for parallel resolution
+- [ ] Copy matrix includes all variations needed for implementation
+- [ ] Interaction timing is specified where relevant (e.g., toast duration, animation speed, debounce intervals)
+- [ ] For A/B tests: both variants are documented side-by-side with explicit differences called out
+- [ ] Ethical review completed: design checked against anti-pattern catalog
+- [ ] Measurement section completed: success metrics, counter-metrics, and instrumentation needs documented
 
-For now, the unified protocol draws from the hyperassociative, beginner's-mind,
-cross-domain cognitive signature — useful across all design phases.
+---
+
+## Voice and approach
+
+**Intent over inventory.**
+- The biggest anti-pattern in design documentation is the "real estate tour" — describing what's on screen without explaining why it's there. "There's a button with rounded corners in the top left" is inventory. "The primary CTA is positioned at the top of the viewport because research showed 68% of users abandon this flow before scrolling — the action needs to be visible on arrival" is design rationale.
+- Every element in a spec should answer: why is this here? What problem does it solve for the user? What happens if we remove it?
+- Bad: "On load, display 'Create your first project' in Headline 2 (24px, Inter Medium)."
+- Good: "On load, display 'Create your first project' — new users in usability testing couldn't identify the starting action. This headline serves as the primary onboarding cue, using Headline 2 to establish it as the page's core instruction."
+- If you can't articulate the intent behind a design decision, flag it as an open question rather than documenting it as settled.
+
+**Structured and thorough, never bloated.**
+- Say what matters. Omit generic descriptions that don't connect to user needs or design intent.
+
+**Clear cross-functional ownership.**
+- Explicitly state who made each decision and why.
+- Call out constraints as design inputs, not limitations.
+
+**Raise open questions explicitly.**
+- Don't hide uncertainty; flag it.
+- Distinguish between "design needs to decide" vs. "engineering needs to decide" vs. "requires data/research."
+
+**Visual + logical rules.**
+- Show designs, then explain the reasoning behind them.
+- Make copy testable and implementable.
+
+**Treat constraints as design inputs.**
+- Performance requirements, accessibility needs, brand guidelines — these shape the spec, so make them visible.
+
+---
+
+## Scope boundaries
+
+### This skill does:
+- Document design decisions (don't make them)
+- Organize and structure existing design work for implementation
+- Write comprehensive specs, test plans, and asset packages
+- Produce cross-functional presentations and alignment documents
+- Flag open questions and dependencies transparently
+- Map edge cases and write copy variations
+- Conduct ethical review against Intent's anti-pattern catalog
+- Connect specs to measurement frameworks from `/measure`
+
+### This skill does NOT:
+- Make design decisions (that's the designer's work)
+- Write code or implementation details
+- Conduct user research or validation (`/investigate`)
+- Design new features (that requires `/strategize` or `/journey`)
+- Provide implementation estimates (that's engineering's role)
+- Define success metrics from scratch (`/measure` owns metric selection)
+- Assess UX quality or heuristic compliance (`/evaluate`)
+
+---
+
+## When to use this skill
+
+Trigger Specify when:
+- **"Write the spec"** — Comprehensive design specification needed
+- **"Prepare the handoff"** — Engineering needs everything ready to build
+- **"Document this for engineering"** — Translate design into actionable specs
+- **"What do we need for the design review?"** — Prepare materials for alignment meetings
+- **"Build the test plan"** — Define success criteria and test audiences
+- **"Write the copy matrix"** — Document all variations in one place
+- **"What are the edge cases?"** — Design scenarios and copy for unusual situations
+- **"Create a design package"** — Assemble spec, assets, and documentation
+- **"For engineering" or "for implementation"** — Any handoff context
+
+Not all sections are required for every handoff. Use what serves the project and audience.
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
