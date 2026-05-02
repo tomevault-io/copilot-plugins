@@ -1,98 +1,66 @@
-## agents-md-management
+## github-cli
 
-> Guide agents to automatically update AGENTS.md with important architectural decisions and patterns
+> GitHub CLI (gh) command patterns and best practices for managing PRs, issues, workflows, and repository operations
 
 
-# AGENTS.md Update Rule
+# GitHub CLI (gh) Usage Rules
 
-## When to Update
+## When to Use GitHub CLI
 
-Update `AGENTS.md` when:
+Use the `gh` command-line tool for GitHub operations instead of manual web UI interactions when:
 
-1. **Architectural decisions are made**: New patterns, conventions, technology choices, design patterns, or structural changes
-2. **Important patterns are established**: Code organization, naming conventions, error handling, testing approaches, API design patterns
-3. **Gotchas or important notes are discovered**: Common mistakes, special considerations, dependencies, constraints, performance considerations
-4. **Significant changes occur**: Major refactorings, migrations, breaking changes, version upgrades
-
-## How to Update
-
-### Update Format
-
-1. **Update relevant sections** (Architectural Decisions, Patterns, etc.) if the change affects them
-2. **Be concise but informative** - include enough context for future sessions
-3. **Use clear, actionable language**
-
-### Structure
-
-```markdown
-## Key Architectural Decisions
-- [Decision name]: [Description and rationale]
+1. **Creating or managing pull requests**: Use `gh pr create`, `gh pr view`, `gh pr merge`
+2. **Working with issues**: Use `gh issue create`, `gh issue list`, `gh issue view`
+3. **Managing releases**: Use `gh release create`, `gh release list`
+4. **Repository operations**: Use `gh repo view`, `gh repo clone`, `gh repo create`
+5. **Workflow management**: Use `gh workflow run`, `gh workflow view`, `gh run list`
 
 ## Common Patterns
-- [Pattern name]: [How to use it, when to use it]
+
+### Pull Requests
+
+- **Create PR**: `gh pr create --title "Title" --body "Description" --base main --head branch-name`
+- **Create PR with web**: `gh pr create --web` (opens browser for interactive creation)
+- **View PR**: `gh pr view [number]` or `gh pr view --web` for browser
+- **List PRs**: `gh pr list --state all --limit 20`
+- **Merge PR**: `gh pr merge [number] --squash` or `--merge` or `--rebase`
+- **Checkout PR**: `gh pr checkout [number]`
+
+### Issues
+
+- **Create issue**: `gh issue create --title "Title" --body "Description"`
+- **List issues**: `gh issue list --label bug --state open`
+- **View issue**: `gh issue view [number]`
+
+### Workflows
+
+- **List workflows**: `gh workflow list`
+- **Run workflow**: `gh workflow run [workflow-name]`
+- **View workflow runs**: `gh run list --workflow=[workflow-name]`
+- **Watch run**: `gh run watch [run-id]`
+- **View run logs**: `gh run view [run-id] --log`
+
+### Repository Info
+
+- **View repo**: `gh repo view` (in repo directory) or `gh repo view owner/repo`
+- **Clone repo**: `gh repo clone owner/repo`
+- **View in browser**: `gh repo view --web`
+
+## Best Practices
+
+1. **Authentication**: Ensure `gh auth login` is completed before using gh commands
+2. **Check status**: Use `gh auth status` to verify authentication
+3. **Use aliases**: Create gh aliases for frequently used commands with `gh alias set`
+4. **JSON output**: Add `--json` flag for machine-readable output when scripting
+5. **Interactive mode**: Use `--web` flag to open operations in browser when complex input needed
 
 ## Things to Remember
-- [Important notes and gotchas]
-```
 
-### Examples
-
-**After implementing a new authentication pattern:**
-
-```markdown
-## Key Architectural Decisions
-- Authentication: Use JWT tokens stored in httpOnly cookies (better security than localStorage, works with SSR)
-
-## Common Patterns
-- Authentication: Use `validateJWT()` middleware from `@/lib/auth` for protected routes
-```
-
-**After establishing a new code organization pattern:**
-
-```markdown
-## Key Architectural Decisions
-- File Organization: Organize by feature, not by file type (better scalability and code discoverability)
-
-## Common Patterns
-- File Organization: Use feature-based structure: `features/[name]/components/`, `features/[name]/hooks/`, `features/[name]/utils/`
-```
-
-## Nested AGENTS.md Support
-
-Cursor supports nested `AGENTS.md` files in subdirectories. Instructions from nested files are automatically combined with parent directories, with more specific instructions taking precedence.
-
-### When to Use Nested AGENTS.md
-
-Create nested `AGENTS.md` files when:
-
-- **Area-specific patterns**: Different parts of the codebase have distinct patterns (e.g., frontend vs backend)
-- **Domain-specific instructions**: Specific directories need specialized guidance (e.g., API routes, components, services)
-- **Technology-specific rules**: Different subdirectories use different frameworks or libraries
-
-### Structure Example
-
-```bash
-project/
-  AGENTS.md              # Global instructions
-  frontend/
-    AGENTS.md            # Frontend-specific instructions
-    components/
-      AGENTS.md          # Component-specific instructions
-  backend/
-    AGENTS.md            # Backend-specific instructions
-```
-
-### Update Strategy
-
-- **Global changes**: Update root `AGENTS.md` for project-wide patterns and decisions
-- **Area-specific changes**: Update the relevant nested `AGENTS.md` (e.g., `frontend/AGENTS.md` for frontend patterns)
-- **Scope appropriately**: Place instructions at the most specific level where they apply
-
-## Workflow
-
-- **After completing significant work**: Update AGENTS.md with new patterns, decisions, gotchas, and things to remember
-- **On explicit request**: Update immediately with all relevant context
-- **Proactively**: Update when making significant architectural decisions or establishing reusable patterns, even if not explicitly asked
+- `gh` requires authentication via `gh auth login` (supports OAuth, token, SSH)
+- Most commands work within a git repository context
+- Use `gh --help` or `gh [command] --help` for detailed command information
+- `gh` respects `.gitignore` and git configuration
+- For CI/CD: Set `GH_TOKEN` or `GITHUB_TOKEN` environment variable for non-interactive auth
 
 ---
 > Source: [zowe/zowe-mcp](https://github.com/zowe/zowe-mcp) — distributed by [TomeVault](https://tomevault.io).
