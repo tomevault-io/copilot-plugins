@@ -1,750 +1,896 @@
-## design-systems
+## devops-infrastructure
 
-> Design system mastery: design tokens, shadcn/ui, Tailwind CSS v4, component composition, theming, animations, and icon systems.
+> DevOps and infrastructure: Docker, Kubernetes, Terraform, CI/CD pipelines, and cloud deployment patterns
 
 
-# Design System Mastery
+# DevOps & Infrastructure Patterns
 
-Comprehensive guide for building and using design systems in modern web applications.
+Containerization, orchestration, infrastructure as code, and CI/CD best practices.
 
-## Design Tokens
+## DevOps Workflow
 
-### Color Tokens
+Before changing infrastructure or deployment code:
 
-```javascript
-// tailwind.config.js
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        // Semantic colors
-        brand: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-          950: '#172554',
-        },
-        // Status colors
-        success: {
-          DEFAULT: '#22c55e',
-          light: '#4ade80',
-          dark: '#16a34a',
-        },
-        warning: {
-          DEFAULT: '#eab308',
-          light: '#facc15',
-          dark: '#ca8a04',
-        },
-        error: {
-          DEFAULT: '#ef4444',
-          light: '#f87171',
-          dark: '#dc2626',
-        },
-        // Surface colors
-        surface: {
-          primary: '#ffffff',
-          secondary: '#f8fafc',
-          tertiary: '#f1f5f9',
-          muted: '#e2e8f0',
-        },
-      },
-    },
-  },
-};
+```text
+1. Read the existing Docker, Kubernetes, Terraform, or CI files first
+2. Understand the current state and provider/tool versions in use
+3. For version-sensitive work, verify current versions with the actual current date
+4. Validate configurations before recommending apply or deploy steps
 ```
 
-### Typography Tokens
+### CLI-First DevOps Workflow
 
-```javascript
-// tailwind.config.js
-theme: {
-  extend: {
-    fontFamily: {
-      sans: ['Inter var', 'system-ui', 'sans-serif'],
-      display: ['Cal Sans', 'system-ui', 'sans-serif'],
-      mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
-    },
-    fontSize: {
-      'xs': ['0.75rem', { lineHeight: '1rem' }],
-      'sm': ['0.875rem', { lineHeight: '1.25rem' }],
-      'base': ['1rem', { lineHeight: '1.5rem' }],
-      'lg': ['1.125rem', { lineHeight: '1.75rem' }],
-      'xl': ['1.25rem', { lineHeight: '1.75rem' }],
-      '2xl': ['1.5rem', { lineHeight: '2rem' }],
-      '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
-      '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
-    },
-    fontWeight: {
-      normal: '400',
-      medium: '500',
-      semibold: '600',
-      bold: '700',
-    },
-  },
-}
+Prefer CLI validation and dry-run workflows:
+```bash
+# Docker
+docker build -t test:latest .
+docker-compose config  # Validate compose file
+docker-compose up --dry-run  # Test without running
+
+# Kubernetes
+kubectl apply --dry-run=client -f manifest.yaml
+kubectl diff -f manifest.yaml  # See changes before applying
+kubeval manifest.yaml  # Validate against schema
+
+# Terraform
+terraform init
+terraform fmt -recursive
+terraform validate
+terraform plan -out=tfplan  # Prefer planning before apply
+
+# Helm
+helm lint ./my-chart
+helm template ./my-chart  # Render templates locally
+helm install --dry-run --debug my-release ./my-chart
 ```
 
-### Spacing Tokens
+### Post-Edit Verification
 
-```javascript
-theme: {
-  extend: {
-    spacing: {
-      '0': '0',
-      '1': '0.25rem',
-      '2': '0.5rem',
-      '3': '0.75rem',
-      '4': '1rem',
-      '5': '1.25rem',
-      '6': '1.5rem',
-      '8': '2rem',
-      '10': '2.5rem',
-      '12': '3rem',
-      '16': '4rem',
-      '20': '5rem',
-      '24': '6rem',
-      // Component-specific
-      'card-padding': '1.5rem',
-      'section-gap': '4rem',
-      'input-height': '2.5rem',
-    },
-  },
-}
-```
-
-### Border Radius Tokens
-
-```javascript
-theme: {
-  extend: {
-    borderRadius: {
-      none: '0',
-      sm: '0.25rem',
-      DEFAULT: '0.375rem',
-      md: '0.5rem',
-      lg: '0.75rem',
-      xl: '1rem',
-      '2xl': '1.5rem',
-      '3xl': '2rem',
-      full: '9999px',
-      // Semantic
-      card: '12px',
-      button: '8px',
-      input: '6px',
-      avatar: '50%',
-    },
-  },
-}
-```
-
----
-
-## shadcn/ui Patterns
-
-### Initialization
+After meaningful infrastructure changes, run the smallest useful validation for the files you touched:
 
 ```bash
-# Initialize shadcn-ui
-npx shadcn@latest init
+# Docker
+docker build -t test:latest .
 
-# Add components
-npx shadcn@latest add button card input label form
-npx shadcn@latest add dialog dropdown-menu select
-npx shadcn@latest add toast alert accordion
+# Terraform
+terraform fmt -check -recursive
+terraform validate
+terraform plan
+
+# Kubernetes
+kubectl apply --dry-run=client -f manifest.yaml
 ```
 
-### Component Composition
+Use broader checks only when the change warrants them.
 
-```tsx
-import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
+### Common DevOps Syntax Traps (Avoid These!)
 
-// Login form composition
-function LoginForm() {
-  return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Welcome back</CardTitle>
-        <CardDescription>
-          Enter your email and password to sign in to your account.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input 
-              id="email" 
-              type="email" 
-              placeholder="m@example.com"
-              required 
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input 
-              id="password" 
-              type="password" 
-              required 
-            />
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox id="remember" />
-            <label
-              htmlFor="remember"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Remember me
-            </label>
-          </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex flex-col space-y-4">
-        <Button className="w-full">Sign in</Button>
-        <p className="text-sm text-muted-foreground text-center">
-          Don't have an account?{' '}
-          <a href="/register" className="text-primary hover:underline">
-            Sign up
-          </a>
-        </p>
-      </CardFooter>
-    </Card>
-  );
-}
+```yaml
+# WRONG: YAML indentation with tabs
+services:
+	app:      # Tab character - YAML error!
+		image: nginx
+
+# CORRECT: Always use spaces (2 spaces standard)
+services:
+  app:
+    image: nginx
+
+# WRONG: Missing quotes for special values
+environment:
+  - VERSION=1.0      # Might be parsed as number
+  - ENABLED=true     # Might be parsed as boolean
+
+# CORRECT: Quote string values
+environment:
+  - VERSION="1.0"
+  - ENABLED="true"
+
+# WRONG: Hardcoded secrets in config
+env:
+  - name: DB_PASSWORD
+    value: "supersecret123"  # NEVER do this!
+
+# CORRECT: Use secrets
+env:
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: db-secrets
+        key: password
 ```
 
-### Dialog Patterns
+### Infrastructure Version Pinning
 
-```tsx
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+Always pin versions explicitly:
 
-function SettingsDialog() {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Open Settings</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Edit profile</DialogTitle>
-          <DialogDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          {/* Form fields */}
-        </div>
-        <DialogFooter>
-          <Button type="submit">Save changes</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
+```dockerfile
+# WRONG
+FROM node:latest
+FROM python
+
+# CORRECT - Pin major.minor at minimum
+FROM node:20-alpine
+FROM python:3.12-slim
 ```
 
-### Form with Validation
-
-```tsx
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-
-const formSchema = z.object({
-  username: z.string().min(2).max(50),
-  email: z.string().email(),
-  bio: z.string().max(160).optional(),
-});
-
-function ProfileForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: '',
-      email: '',
-    },
-  });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+```hcl
+# WRONG
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
   }
+}
 
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="m@example.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  );
+# CORRECT - Pin provider versions
+terraform {
+  required_version = ">= 1.6.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
 }
 ```
 
 ---
 
-## Tailwind CSS v4 Features
+## Docker
 
-### @theme Directive
+### Dockerfile Best Practices
 
-```css
-/* app.css */
-@theme {
-  --color-brand: #3b82f6;
-  --color-brand-dark: #2563eb;
+```dockerfile
+# Use specific version tags
+FROM node:20-alpine AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy dependency files first (better caching)
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy source code
+COPY . .
+
+# Build application
+RUN npm run build
+
+# Production stage
+FROM node:20-alpine AS production
+
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Copy built assets from builder
+COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
+
+# Switch to non-root user
+USER nodejs
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
+
+# Run application
+CMD ["node", "dist/main.js"]
+```
+
+### Multi-Stage Builds
+
+```dockerfile
+# Build stage
+FROM golang:1.21-alpine AS builder
+WORKDIR /app
+COPY go.* ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/server ./cmd/server
+
+# Final stage
+FROM alpine:3.18
+RUN apk --no-cache add ca-certificates
+WORKDIR /app
+COPY --from=builder /app/server .
+EXPOSE 8080
+ENTRYPOINT ["./server"]
+```
+
+### Docker Compose
+
+```yaml
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://user:pass@db:5432/mydb
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - backend
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d mydb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+
+networks:
+  backend:
+    driver: bridge
+```
+
+---
+
+## Kubernetes
+
+### Deployment
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  labels:
+    app: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: myregistry/myapp:v1.0.0
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: myapp-secrets
+                  key: database-url
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+      volumes:
+        - name: config
+          configMap:
+            name: myapp-config
+```
+
+### Service
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+spec:
+  selector:
+    app: myapp
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - myapp.example.com
+      secretName: myapp-tls
+  rules:
+    - host: myapp.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: myapp
+                port:
+                  number: 80
+```
+
+### ConfigMap and Secrets
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myapp-config
+data:
+  APP_ENV: production
+  LOG_LEVEL: info
+  config.yaml: |
+    server:
+      port: 8080
+    features:
+      cache: true
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: myapp-secrets
+type: Opaque
+stringData:
+  database-url: postgres://user:pass@db:5432/mydb
+  api-key: your-secret-api-key
+```
+
+### Horizontal Pod Autoscaler
+
+```yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myapp-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myapp
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+```
+
+---
+
+## Terraform
+
+### Provider Configuration
+
+```hcl
+terraform {
+  required_version = ">= 1.5.0"
   
-  --font-sans: Inter, system-ui, sans-serif;
-  --font-display: Cal Sans, system-ui, sans-serif;
-  
-  --spacing-card: 1.5rem;
-  
-  --radius-card: 12px;
-  
-  --animate-fade-in: fade-in 0.5s ease-out;
-  --animate-slide-up: slide-up 0.3s ease-out;
-  
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
   }
   
-  @keyframes slide-up {
-    from { transform: translateY(10px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+  backend "s3" {
+    bucket         = "my-terraform-state"
+    key            = "prod/terraform.tfstate"
+    region         = "us-west-2"
+    encrypt        = true
+    dynamodb_table = "terraform-locks"
   }
 }
 
-/* Usage */
-.card {
-  background-color: var(--color-surface-primary);
-  border-radius: var(--radius-card);
-  padding: var(--spacing-card);
-  animation: var(--animate-fade-in);
+provider "aws" {
+  region = var.aws_region
+  
+  default_tags {
+    tags = {
+      Environment = var.environment
+      Project     = var.project_name
+      ManagedBy   = "terraform"
+    }
+  }
 }
 ```
 
-### Container Queries
+### Variables and Outputs
 
-```css
-/* Container query for responsive components */
-.card-container {
-  container-type: inline-size;
-}
-
-@container {
-  .card {
-    display: grid;
-    gap: 1rem;
-  }
-  
-  /* Adjust layout based on container width */
-  .card-title {
-    font-size: 1.25rem;
+```hcl
+# variables.tf
+variable "environment" {
+  description = "Deployment environment"
+  type        = string
+  validation {
+    condition     = contains(["dev", "staging", "prod"], var.environment)
+    error_message = "Environment must be dev, staging, or prod."
   }
 }
 
-/* Use in component */
-<div className="card-container">
-  <div className="card">
-    <h2 className="card-title">Title</h2>
-    <p>Content</p>
-  </div>
-</div>
+variable "instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "db_config" {
+  description = "Database configuration"
+  type = object({
+    instance_class = string
+    storage_gb     = number
+    multi_az       = bool
+  })
+  default = {
+    instance_class = "db.t3.micro"
+    storage_gb     = 20
+    multi_az       = false
+  }
+}
+
+# outputs.tf
+output "api_endpoint" {
+  description = "API Gateway endpoint URL"
+  value       = aws_apigatewayv2_api.main.api_endpoint
+}
+
+output "database_endpoint" {
+  description = "RDS endpoint"
+  value       = aws_db_instance.main.endpoint
+  sensitive   = true
+}
 ```
 
-### Advanced Selectors
+### Modules
 
-```css
-/* Peer variants */
-.checkbox:checked ~ .label {
-  text-decoration: line-through;
-  opacity: 0.5;
+```hcl
+# modules/vpc/main.tf
+resource "aws_vpc" "main" {
+  cidr_block           = var.cidr_block
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+  
+  tags = {
+    Name = "${var.project}-vpc"
+  }
 }
 
-/* Has modifier */
-.card:has(.image) {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+resource "aws_subnet" "public" {
+  count             = length(var.availability_zones)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = cidrsubnet(var.cidr_block, 4, count.index)
+  availability_zone = var.availability_zones[count.index]
+  
+  map_public_ip_on_launch = true
+  
+  tags = {
+    Name = "${var.project}-public-${count.index + 1}"
+    Type = "public"
+  }
 }
 
-/* First/last letter */
-.prose > p::first-letter {
-  font-size: 2em;
-  font-weight: bold;
+# Usage in root module
+module "vpc" {
+  source = "./modules/vpc"
+  
+  project            = var.project_name
+  cidr_block         = "10.0.0.0/16"
+  availability_zones = ["us-west-2a", "us-west-2b"]
+}
+
+module "ecs" {
+  source = "./modules/ecs"
+  
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = module.vpc.public_subnet_ids
+  
+  depends_on = [module.vpc]
 }
 ```
 
 ---
 
-## Component Patterns
+## GitHub Actions
 
-### Compound Components
+### CI Pipeline
 
-```tsx
-import { createContext, useContext, useState } from 'react';
+```yaml
+name: CI
 
-const TabsContext = createContext(null);
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
-function Tabs({ defaultValue, children, className }) {
-  const [activeTab, setActiveTab] = useState(defaultValue);
-  
-  return (
-    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-      <div className={className}>{children}</div>
-    </TabsContext.Provider>
-  );
-}
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
-function TabsList({ children, className }) {
-  return <div role="tablist" className={`flex border-b ${className}`}>{children}</div>;
-}
-
-function TabsTrigger({ value, children }) {
-  const { activeTab, setActiveTab } = useContext(TabsContext);
-  const isActive = activeTab === value;
-  
-  return (
-    <button
-      role="tab"
-      aria-selected={isActive}
-      onClick={() => setActiveTab(value)}
-      className={`px-4 py-2 ${isActive ? 'border-b-2 border-primary' : ''}`}
-    >
-      {children}
-    </button>
-  );
-}
-
-function TabsContent({ value, children }) {
-  const { activeTab } = useContext(TabsContext);
-  if (activeTab !== value) return null;
-  
-  return <div role="tabpanel">{children}</div>;
-}
-
-// Export compound
-export { Tabs, TabsList, TabsTrigger, TabsContent };
-
-// Usage
-function Example() {
-  return (
-    <Tabs defaultValue="account">
-      <TabsList>
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger value="password">Password</TabsTrigger>
-      </TabsList>
-      <TabsContent value="account">Account settings</TabsContent>
-      <TabsContent value="password">Password settings</TabsContent>
-    </Tabs>
-  );
-}
-```
-
-### Polymorphic Components
-
-```tsx
-import { forwardRef } from 'react';
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
-}
-
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', size = 'md', className = '', children, ...props }, ref) => {
-    const variants = {
-      primary: 'bg-blue-600 text-white hover:bg-blue-700',
-      secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300',
-      ghost: 'bg-transparent hover:bg-gray-100',
-    };
-    
-    const sizes = {
-      sm: 'px-3 py-1 text-sm',
-      md: 'px-4 py-2',
-      lg: 'px-6 py-3 text-lg',
-    };
-    
-    return (
-      <button
-        ref={ref}
-        className={`rounded-lg font-medium transition-colors ${variants[variant]} ${sizes[size]} ${className}`}
-        {...props}
-      >
-        {children}
-      </button>
-    );
-  }
-);
-
-Button.displayName = 'Button';
-```
-
----
-
-## Animation Systems
-
-### Framer Motion
-
-```tsx
-import { motion, AnimatePresence } from 'framer-motion';
-
-// Page transitions
-const pageVariants = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 },
-};
-
-function Page({ children }) {
-  return (
-    <motion.div
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      variants={pageVariants}
-      transition={{ duration: 0.3 }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-// List animations
-function AnimatedList({ items }) {
-  return (
-    <motion.ul layout>
-      <AnimatePresence>
-        {items.map((item) => (
-          <motion.li
-            key={item.id}
-            layout
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ duration: 0.2 }}
-          >
-            {item.content}
-          </motion.li>
-        ))}
-      </AnimatePresence>
-    </motion.ul>
-  );
-}
-
-// Gesture animations
-function DraggableCard() {
-  return (
-    <motion.div
-      drag
-      dragConstraints={{ left: -100, right: 100, top: -100, bottom: 100 }}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      Drag me
-    </motion.div>
-  );
-}
-```
-
----
-
-## Icon Systems
-
-### Lucide React
-
-```tsx
-import { 
-  IconArrowLeft,
-  IconArrowRight,
-  IconCheck,
-  IconX,
-  IconSettings,
-  IconUser,
-  IconSearch,
-  IconMenu,
-  IconMoon,
-  IconSun,
-  IconGithub,
-  IconTwitter,
-} from 'lucide-react';
-
-function IconExamples() {
-  return (
-    <div className="flex gap-4">
-      <IconArrowLeft className="w-5 h-5" />
-      <IconCheck className="w-5 h-5 text-green-500" />
-      <IconSettings className="w-5 h-5 animate-spin" />
-    </div>
-  );
-}
-```
-
-### Icon with Button
-
-```tsx
-import { Button } from '@/components/ui/button';
-import { IconPlus, IconSearch } from 'lucide-react';
-
-function IconButtons() {
-  return (
-    <>
-      <Button>
-        <IconPlus className="mr-2 w-4 h-4" />
-        Add Item
-      </Button>
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
       
-      <Button variant="ghost" size="icon">
-        <IconSearch className="w-4 h-4" />
-      </Button>
-    </>
-  );
-}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Lint
+        run: npm run lint
+      
+      - name: Test
+        run: npm test -- --coverage
+      
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+```
+
+### CD Pipeline
+
+```yaml
+name: Deploy
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+      
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster staging-cluster \
+            --service myapp \
+            --force-new-deployment
+
+  deploy-production:
+    needs: deploy-staging
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+      
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster production-cluster \
+            --service myapp \
+            --force-new-deployment
 ```
 
 ---
 
-## Dark Mode
+## Monitoring & Observability
 
-### Configuration
+### Prometheus Metrics
 
-```javascript
-// tailwind.config.js
-module.exports = {
-  darkMode: 'class', // or 'media'
-  // ...
-}
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+    
+    scrape_configs:
+      - job_name: 'kubernetes-pods'
+        kubernetes_sd_configs:
+          - role: pod
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+            action: keep
+            regex: true
+          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+            action: replace
+            target_label: __metrics_path__
+            regex: (.+)
 ```
 
-### Implementation
+### Application Logging
 
-```tsx
-import { useTheme } from 'next-themes';
-import { IconMoon, IconSun } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-    >
-      {theme === 'dark' ? (
-        <IconMoon className="w-5 h-5" />
-      ) : (
-        <IconSun className="w-5 h-5" />
-      )}
-    </Button>
-  );
-}
-
-// Usage with dark: prefix
-function Card() {
-  return (
-    <div className="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
-      Content
-    </div>
-  );
-}
-```
-
----
-
-## Responsive Design
-
-### Breakpoint Patterns
-
-```tsx
-// Mobile-first
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-  {/* 1 col mobile, 2 col tablet, 3 col desktop, 4 col large */}
-</div>
-
-// Hide on mobile
-<div className="hidden md:block">Hidden on mobile</div>
-
-// Show on mobile only
-<div className="md:hidden">Mobile only</div>
-
-// Responsive text
-<p className="text-sm md:text-base lg:text-lg">
-  Responsive text
-</p>
+```yaml
+# Fluent Bit configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-config
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush         1
+        Log_Level     info
+        Daemon        off
+        Parsers_File  parsers.conf
+    
+    [INPUT]
+        Name              tail
+        Path              /var/log/containers/*.log
+        Parser            docker
+        Tag               kube.*
+        Refresh_Interval  5
+    
+    [FILTER]
+        Name                kubernetes
+        Match               kube.*
+        Kube_URL            https://kubernetes.default.svc:443
+        Kube_Tag_Prefix     kube.var.log.containers.
+    
+    [OUTPUT]
+        Name            es
+        Match           *
+        Host            elasticsearch
+        Port            9200
+        Index           logs
 ```
 
 ---
 
-## Accessibility Patterns
+## Security Best Practices
 
-### Focus States
+### Container Security
 
-```tsx
-// Visible focus
-<Button className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-  Button
-</Button>
+```dockerfile
+# Use distroless or minimal base images
+FROM gcr.io/distroless/nodejs20-debian12
 
-// Skip link
-function SkipLink() {
-  return (
-    <a 
-      href="#main-content"
-      className="absolute -top-10 left-0 bg-primary p-3 text-white transition-all focus:top-0"
-    >
-      Skip to main content
-    </a>
-  );
-}
+# Never run as root
+USER nonroot:nonroot
+
+# Use specific versions, not latest
+FROM node:20.10.0-alpine3.18
+
+# Scan images in CI
+# - trivy image myapp:latest
+# - grype myapp:latest
 ```
 
-### Screen Reader Only
+### Secrets Management
 
-```tsx
-// Visually hidden but accessible
-<span className="sr-only">Loading...</span>
-<span className="sr-only focus:not-sr-only">
-  Error: Click to retry
-</span>
+```yaml
+# External Secrets Operator
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: myapp-secrets
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: aws-secrets-manager
+  target:
+    name: myapp-secrets
+    creationPolicy: Owner
+  data:
+    - secretKey: database-url
+      remoteRef:
+        key: prod/myapp/database
+        property: url
+```
+
+### Network Policies
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: myapp-network-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: myapp
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: nginx-ingress
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress:
+    - to:
+        - podSelector:
+            matchLabels:
+              app: postgres
+      ports:
+        - protocol: TCP
+          port: 5432
+    - to:
+        - namespaceSelector: {}
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+```
+
+---
+
+## Common Commands
+
+### Docker
+```bash
+# Build and run
+docker build -t myapp .
+docker run -p 3000:3000 myapp
+
+# Debug container
+docker exec -it <container_id> sh
+docker logs -f <container_id>
+
+# Clean up
+docker system prune -af
+```
+
+### Kubernetes
+```bash
+# Apply resources
+kubectl apply -f k8s/
+
+# Debug pod
+kubectl logs -f <pod_name>
+kubectl exec -it <pod_name> -- sh
+kubectl describe pod <pod_name>
+
+# Rollout management
+kubectl rollout status deployment/myapp
+kubectl rollout undo deployment/myapp
+```
+
+### Terraform
+```bash
+# Initialize and plan
+terraform init
+terraform plan -out=tfplan
+
+# Apply changes
+terraform apply tfplan
+
+# Destroy resources
+terraform destroy
+
+# Format and validate
+terraform fmt -recursive
+terraform validate
 ```
 
 ---
