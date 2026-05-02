@@ -1,0 +1,22 @@
+{
+  "name": "geekjourneyx--mind-skills",
+  "displayName": "mind-skills",
+  "description": " Claude Code skills for fetching curated content from high-quality sources. AI news, mental models, GitHub           trending, and more.    ",
+  "version": "1.0.0",
+  "author": "geekjourneyx",
+  "homepage": "https://github.com/geekjourneyx/mind-skills",
+  "skills": [
+    {
+      "name": "ai-daily",
+      "description": ""
+    },
+    {
+      "name": "github-topics",
+      "description": ""
+    },
+    {
+      "name": "trending-skills",
+      "description": ""
+    }
+  ]
+}
