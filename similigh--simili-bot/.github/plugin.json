@@ -1,0 +1,9 @@
+{
+  "name": "similigh--simili-bot",
+  "displayName": "simili-bot",
+  "description": "AI-powered GitHub issue intelligence - semantic duplicate detection, cross-repo search, and intelligent issue routing",
+  "version": "1.0.0",
+  "author": "similigh",
+  "homepage": "https://github.com/similigh/simili-bot",
+  "skills": []
+}
