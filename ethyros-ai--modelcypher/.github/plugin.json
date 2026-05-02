@@ -1,0 +1,9 @@
+{
+  "name": "ethyros-ai--modelcypher",
+  "displayName": "ModelCypher",
+  "description": "ModelCypher - Decipher the high dimensional geometry of LLMs. An open source x-ray into LLM representation structure.",
+  "version": "1.0.0",
+  "author": "Ethyros-AI",
+  "homepage": "https://github.com/Ethyros-AI/ModelCypher",
+  "skills": []
+}
