@@ -1,21 +1,31 @@
-## documentation
+## tdd
 
-> Documentation standards and decision logging
+> TDD workflow for medium/large code changes
 
 
-# Documentation Standards
+# TDD Workflow
 
-- **English only**: All documentation, comments, and text content must be in English.
-- **Decision log**: After medium/large changes, add an entry to `docs/decisions.md` using ADR-lite format:
-  ```
-  ## YYYY-MM-DD: Title
-  - **Context**: Why was this needed?
-  - **Decision**: What was chosen?
-  - **Alternatives**: What else was considered?
-  - **Avoid**: What should not be done?
-  ```
-- **Keep AGENTS.md in sync**: When adding new files or modules, update the Project Map in `AGENTS.md`.
-- **Architecture docs**: Keep `docs/architecture.md` current when the pipeline or module structure changes.
+Medium and large changes MUST follow strict Test-Driven Development:
+
+1. **Red**: Write tests that describe expected behavior. Run `npm test` — they must FAIL.
+2. **Green**: Write the minimum code to make tests pass. Run `npm test` — they must PASS.
+3. **Refactor**: Clean up implementation while keeping tests green.
+
+## What counts as medium/large?
+- New features or commands
+- New modules or components
+- Refactors touching more than one file
+- Changes to public API signatures
+
+## What is exempt?
+- Config changes, dependency bumps
+- Documentation-only edits
+- Cosmetic fixes under 10 lines
+
+## Test structure
+- Tests live in `src/tests/`, mirroring `src/` file names
+- Use Vitest: `describe`, `it`, `expect`
+- Run: `npm test` (once) or `npm run test:watch` (continuous)
 
 ---
 > Source: [collectioneur/readme-aura](https://github.com/collectioneur/readme-aura) — distributed by [TomeVault](https://tomevault.io).
