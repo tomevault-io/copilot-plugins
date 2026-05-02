@@ -1,0 +1,57 @@
+{
+  "name": "crypto-rs-backtester",
+  "owner": "takurot",
+  "repo": "crypto-rs-backtester",
+  "description": "A research-friendly, tick-level, high-fidelity backtester powered by Rust and Python (Polars). ",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "benchmark",
+      "path": ".agent/skills/benchmark",
+      "github_url": "https://github.com/takurot/crypto-rs-backtester/tree/main/.agent/skills/benchmark",
+      "description": ""
+    },
+    {
+      "name": "codex",
+      "path": ".agent/skills/codex",
+      "github_url": "https://github.com/takurot/crypto-rs-backtester/tree/main/.agent/skills/codex",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/takurot/crypto-rs-backtester",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:49:55Z"
+}
