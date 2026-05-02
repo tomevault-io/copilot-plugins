@@ -1,0 +1,26 @@
+{
+  "name": "turmyshevd--openclawgotchi",
+  "displayName": "openclawgotchi",
+  "description": "(\u25b0\u02d8\u25e1\u02d8\u25b0) - AI Tamagotchi on Raspberry Pi. Agentic life-form with an E-Ink face",
+  "version": "1.0.0",
+  "author": "turmyshevd",
+  "homepage": "https://github.com/turmyshevd/openclawgotchi",
+  "skills": [
+    {
+      "name": "devto",
+      "description": ""
+    },
+    {
+      "name": "discord",
+      "description": ""
+    },
+    {
+      "name": "coding",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "description": ""
+    }
+  ]
+}
