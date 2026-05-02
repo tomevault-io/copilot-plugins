@@ -1,0 +1,279 @@
+{
+  "name": "oh-my-customcode",
+  "owner": "baekenough",
+  "repo": "oh-my-customcode",
+  "description": "oh-my-zsh style customization framework for Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "airflow-best-practices",
+      "path": "templates/.claude/skills/airflow-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/airflow-best-practices",
+      "description": ""
+    },
+    {
+      "name": "audit-agents",
+      "path": "templates/.claude/skills/audit-agents",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/audit-agents",
+      "description": ""
+    },
+    {
+      "name": "aws-best-practices",
+      "path": "templates/.claude/skills/aws-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/aws-best-practices",
+      "description": ""
+    },
+    {
+      "name": "claude-code-bible",
+      "path": "templates/.claude/skills/claude-code-bible",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/claude-code-bible",
+      "description": ""
+    },
+    {
+      "name": "codex-exec",
+      "path": "templates/.claude/skills/codex-exec",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/codex-exec",
+      "description": ""
+    },
+    {
+      "name": "create-agent",
+      "path": "templates/.claude/skills/create-agent",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/create-agent",
+      "description": ""
+    },
+    {
+      "name": "dbt-best-practices",
+      "path": "templates/.claude/skills/dbt-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/dbt-best-practices",
+      "description": ""
+    },
+    {
+      "name": "de-lead-routing",
+      "path": "templates/.claude/skills/de-lead-routing",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/de-lead-routing",
+      "description": ""
+    },
+    {
+      "name": "dev-lead-routing",
+      "path": "templates/.claude/skills/dev-lead-routing",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/dev-lead-routing",
+      "description": ""
+    },
+    {
+      "name": "dev-refactor",
+      "path": "templates/.claude/skills/dev-refactor",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/dev-refactor",
+      "description": ""
+    },
+    {
+      "name": "dev-review",
+      "path": "templates/.claude/skills/dev-review",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/dev-review",
+      "description": ""
+    },
+    {
+      "name": "fastapi-best-practices",
+      "path": "templates/.claude/skills/fastapi-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/fastapi-best-practices",
+      "description": ""
+    },
+    {
+      "name": "fix-refs",
+      "path": "templates/.claude/skills/fix-refs",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/fix-refs",
+      "description": ""
+    },
+    {
+      "name": "go-backend-best-practices",
+      "path": "templates/.claude/skills/go-backend-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/go-backend-best-practices",
+      "description": ""
+    },
+    {
+      "name": "go-best-practices",
+      "path": "templates/.claude/skills/go-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/go-best-practices",
+      "description": ""
+    },
+    {
+      "name": "intent-detection",
+      "path": "templates/.claude/skills/intent-detection",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/intent-detection",
+      "description": ""
+    },
+    {
+      "name": "kafka-best-practices",
+      "path": "templates/.claude/skills/kafka-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/kafka-best-practices",
+      "description": ""
+    },
+    {
+      "name": "kotlin-best-practices",
+      "path": "templates/.claude/skills/kotlin-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/kotlin-best-practices",
+      "description": ""
+    },
+    {
+      "name": "monitoring-setup",
+      "path": "templates/.claude/skills/monitoring-setup",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/monitoring-setup",
+      "description": ""
+    },
+    {
+      "name": "optimize-bundle",
+      "path": "templates/.claude/skills/optimize-bundle",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/optimize-bundle",
+      "description": ""
+    },
+    {
+      "name": "pipeline-architecture-patterns",
+      "path": "templates/.claude/skills/pipeline-architecture-patterns",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/pipeline-architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "postgres-best-practices",
+      "path": "templates/.claude/skills/postgres-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "python-best-practices",
+      "path": "templates/.claude/skills/python-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/python-best-practices",
+      "description": ""
+    },
+    {
+      "name": "qa-lead-routing",
+      "path": "templates/.claude/skills/qa-lead-routing",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/qa-lead-routing",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "templates/.claude/skills/react-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "redis-best-practices",
+      "path": "templates/.claude/skills/redis-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/redis-best-practices",
+      "description": ""
+    },
+    {
+      "name": "result-aggregation",
+      "path": "templates/.claude/skills/result-aggregation",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/result-aggregation",
+      "description": ""
+    },
+    {
+      "name": "rust-best-practices",
+      "path": "templates/.claude/skills/rust-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/rust-best-practices",
+      "description": ""
+    },
+    {
+      "name": "secretary-routing",
+      "path": "templates/.claude/skills/secretary-routing",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/secretary-routing",
+      "description": ""
+    },
+    {
+      "name": "snowflake-best-practices",
+      "path": "templates/.claude/skills/snowflake-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/snowflake-best-practices",
+      "description": ""
+    },
+    {
+      "name": "spark-best-practices",
+      "path": "templates/.claude/skills/spark-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/spark-best-practices",
+      "description": ""
+    },
+    {
+      "name": "springboot-best-practices",
+      "path": "templates/.claude/skills/springboot-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/springboot-best-practices",
+      "description": ""
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "path": "templates/.claude/skills/supabase-postgres-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/supabase-postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "typescript-best-practices",
+      "path": "templates/.claude/skills/typescript-best-practices",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/typescript-best-practices",
+      "description": ""
+    },
+    {
+      "name": "update-docs",
+      "path": "templates/.claude/skills/update-docs",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/update-docs",
+      "description": ""
+    },
+    {
+      "name": "update-external",
+      "path": "templates/.claude/skills/update-external",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/update-external",
+      "description": ""
+    },
+    {
+      "name": "vercel-deploy",
+      "path": "templates/.claude/skills/vercel-deploy",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/vercel-deploy",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": "templates/.claude/skills/web-design-guidelines",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "writing-clearly-and-concisely",
+      "path": "templates/.claude/skills/writing-clearly-and-concisely",
+      "github_url": "https://github.com/baekenough/oh-my-customcode/tree/main/templates/.claude/skills/writing-clearly-and-concisely",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/baekenough/oh-my-customcode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:30:29Z"
+}
