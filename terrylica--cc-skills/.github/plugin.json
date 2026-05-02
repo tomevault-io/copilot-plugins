@@ -1,0 +1,178 @@
+{
+  "name": "terrylica--cc-skills",
+  "displayName": "cc-skills",
+  "description": "Claude Code Skills Marketplace: plugins, skills for ADR-driven development, DevOps automation, ClickHouse management, semantic versioning, and productivity workflows",
+  "version": "1.0.0",
+  "author": "terrylica",
+  "homepage": "https://github.com/terrylica/cc-skills",
+  "skills": [
+    {
+      "name": "python-logging-best-practices",
+      "description": ""
+    },
+    {
+      "name": "pandoc-pdf-generation",
+      "description": ""
+    },
+    {
+      "name": "mql5-indicator-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-hardcode-audit",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-architect",
+      "description": ""
+    },
+    {
+      "name": "mlflow-python",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-cloud-management",
+      "description": ""
+    },
+    {
+      "name": "asciinema-streaming-backup",
+      "description": ""
+    },
+    {
+      "name": "clickhouse-pydantic-config",
+      "description": ""
+    },
+    {
+      "name": "adr-code-traceability",
+      "description": ""
+    },
+    {
+      "name": "article-extractor",
+      "description": ""
+    },
+    {
+      "name": "backtesting-py-oracle",
+      "description": ""
+    },
+    {
+      "name": "booking-notify",
+      "description": ""
+    },
+    {
+      "name": "bootstrap-monorepo",
+      "description": ""
+    },
+    {
+      "name": "calcom-access",
+      "description": ""
+    },
+    {
+      "name": "code-clone-assistant",
+      "description": ""
+    },
+    {
+      "name": "dead-code-detector",
+      "description": ""
+    },
+    {
+      "name": "distributed-job-safety",
+      "description": ""
+    },
+    {
+      "name": "doppler-secret-validation",
+      "description": ""
+    },
+    {
+      "name": "email-triage",
+      "description": ""
+    },
+    {
+      "name": "gmail-access",
+      "description": ""
+    },
+    {
+      "name": "hooks-development",
+      "description": ""
+    },
+    {
+      "name": "impl-standards",
+      "description": ""
+    },
+    {
+      "name": "implement-plan-preflight",
+      "description": ""
+    },
+    {
+      "name": "interactive-bot",
+      "description": ""
+    },
+    {
+      "name": "issue-create",
+      "description": ""
+    },
+    {
+      "name": "issues-workflow",
+      "description": ""
+    },
+    {
+      "name": "link-validator",
+      "description": ""
+    },
+    {
+      "name": "mise-configuration",
+      "description": ""
+    },
+    {
+      "name": "ml-data-pipeline-architecture",
+      "description": ""
+    },
+    {
+      "name": "ml-failfast-validation",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-e2e-validation",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-performance-profiling",
+      "description": ""
+    },
+    {
+      "name": "pre-ship-review",
+      "description": ""
+    },
+    {
+      "name": "project-directory-migration",
+      "description": ""
+    },
+    {
+      "name": "pueue-job-orchestration",
+      "description": ""
+    },
+    {
+      "name": "python-workspace",
+      "description": ""
+    },
+    {
+      "name": "research-archival",
+      "description": ""
+    },
+    {
+      "name": "semantic-release",
+      "description": ""
+    },
+    {
+      "name": "skill-architecture",
+      "description": ""
+    },
+    {
+      "name": "slash-command-factory",
+      "description": ""
+    },
+    {
+      "name": "symmetric-dogfooding",
+      "description": ""
+    }
+  ]
+}
