@@ -7,13 +7,13 @@ Turn a repo, skill, or starter into a governed agent environment you can customi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Growthub-ai/growthub-local](https://github.com/Growthub-ai/growthub-local).
+Original source: `AGENTS.md` in [Growthub-ai/growthub-local](https://github.com/Growthub-ai/growthub-local).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
