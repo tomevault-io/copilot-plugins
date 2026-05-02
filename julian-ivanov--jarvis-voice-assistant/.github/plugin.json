@@ -1,0 +1,9 @@
+{
+  "name": "julian-ivanov--jarvis-voice-assistant",
+  "displayName": "jarvis-voice-assistant",
+  "description": "Personal AI assistant with voice control, browser automation, and screen capture. Double-clap to launch. Built with Claude Code.",
+  "version": "1.0.0",
+  "author": "Julian-Ivanov",
+  "homepage": "https://github.com/Julian-Ivanov/jarvis-voice-assistant",
+  "skills": []
+}
