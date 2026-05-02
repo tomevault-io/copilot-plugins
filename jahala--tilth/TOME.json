@@ -4,7 +4,7 @@
   "repo": "tilth",
   "description": "Smart(er) code reading for humans and AI agents. Reduces cost per correct answer by ~40% on average. Install: cargo install tilth -or- npx tilth",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jahala/tilth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T04:33:27Z"
+  "distributed_at": "2026-05-02T13:49:06Z"
 }
