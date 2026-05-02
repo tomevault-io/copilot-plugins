@@ -1,0 +1,9 @@
+{
+  "name": "metyatech--skill-sub-agent-dispatch",
+  "displayName": "skill-sub-agent-dispatch",
+  "description": "Agent skill for decomposing requests and dispatching background agents in parallel",
+  "version": "1.0.0",
+  "author": "metyatech",
+  "homepage": "https://github.com/metyatech/skill-sub-agent-dispatch",
+  "skills": []
+}
