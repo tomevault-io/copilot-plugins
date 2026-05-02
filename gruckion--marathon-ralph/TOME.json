@@ -1,0 +1,69 @@
+{
+  "name": "marathon-ralph",
+  "owner": "gruckion",
+  "repo": "marathon-ralph",
+  "description": "AI instruction skills by gruckion",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "marathon-ralph",
+      "path": "skills/marathon-ralph",
+      "github_url": "https://github.com/gruckion/marathon-ralph/tree/main/skills/marathon-ralph",
+      "description": ""
+    },
+    {
+      "name": "project-detection",
+      "path": "skills/project-detection",
+      "github_url": "https://github.com/gruckion/marathon-ralph/tree/main/skills/project-detection",
+      "description": ""
+    },
+    {
+      "name": "setup-playwright",
+      "path": "skills/setup-playwright",
+      "github_url": "https://github.com/gruckion/marathon-ralph/tree/main/skills/setup-playwright",
+      "description": ""
+    },
+    {
+      "name": "visual-verification",
+      "path": "skills/visual-verification",
+      "github_url": "https://github.com/gruckion/marathon-ralph/tree/main/skills/visual-verification",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gruckion/marathon-ralph",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:41:17Z"
+}
