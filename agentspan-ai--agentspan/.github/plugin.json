@@ -1,0 +1,9 @@
+{
+  "name": "agentspan-ai--agentspan",
+  "displayName": "agentspan",
+  "description": "Durable, Distributed runtime for ALL of your agents - OpenAI, ADK, Langchain, Vercel, etc.",
+  "version": "1.0.0",
+  "author": "agentspan-ai",
+  "homepage": "https://github.com/agentspan-ai/agentspan",
+  "skills": []
+}
