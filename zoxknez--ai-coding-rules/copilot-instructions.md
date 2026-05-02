@@ -1,36 +1,28 @@
-## security
+## testing
 
-> > Apply when working with auth, security, or sensitive code paths.
+> > Apply when working with test files.
 
-# Windsurf Rules - Security
+# Windsurf Rules - Testing
 
-> Apply when working with auth, security, or sensitive code paths.
+> Apply when working with test files.
 
-## 🔴 Non-Negotiable
+## Structure
 
-- NEVER log tokens, passwords, or API keys
-- NEVER commit secrets to version control
-- ALWAYS validate and sanitize user input
-- ALWAYS use parameterized queries
+- Use AAA pattern: Arrange → Act → Assert
+- One assertion concept per test
+- Descriptive names: "should [action] when [condition]"
 
-## Authentication & Authorization
+## Philosophy
 
-- Verify both authn AND authz
-- Use constant-time comparison for secrets
-- Implement rate limiting on auth endpoints
-- Hash passwords with bcrypt/argon2
+- Test behavior, not implementation
+- Mock external dependencies (APIs, DB)
+- Prefer integration tests for critical paths
 
-## Session Management
+## Coverage
 
-- Use httpOnly, secure, sameSite cookies
-- Implement proper session invalidation
-- Rotate session IDs after login
-
-## API Security
-
-- Validate JWT signatures and expiration
-- Set appropriate CORS policies
-- Use TLS for all external communication
+- >80% on business logic
+- 100% on security-critical code
+- Skip trivial getters/setters
 
 ---
 > Source: [zoxknez/ai-coding-rules](https://github.com/zoxknez/ai-coding-rules) — distributed by [TomeVault](https://tomevault.io).
