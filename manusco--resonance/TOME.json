@@ -1,0 +1,135 @@
+{
+  "name": "resonance",
+  "owner": "manusco",
+  "repo": "resonance",
+  "description": "The Vibe Coding Operating System.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "resonance-architect",
+      "path": ".agent/skills/resonance-architect",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-architect",
+      "description": ""
+    },
+    {
+      "name": "resonance-automation",
+      "path": ".agent/skills/resonance-automation",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-automation",
+      "description": ""
+    },
+    {
+      "name": "resonance-backend",
+      "path": ".agent/skills/resonance-backend",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-backend",
+      "description": ""
+    },
+    {
+      "name": "resonance-database",
+      "path": ".agent/skills/resonance-database",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-database",
+      "description": ""
+    },
+    {
+      "name": "resonance-designer",
+      "path": ".agent/skills/resonance-designer",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-designer",
+      "description": ""
+    },
+    {
+      "name": "resonance-devops",
+      "path": ".agent/skills/resonance-devops",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-devops",
+      "description": ""
+    },
+    {
+      "name": "resonance-frontend",
+      "path": ".agent/skills/resonance-frontend",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-frontend",
+      "description": ""
+    },
+    {
+      "name": "resonance-game-dev",
+      "path": ".agent/skills/resonance-game-dev",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-game-dev",
+      "description": ""
+    },
+    {
+      "name": "resonance-librarian",
+      "path": ".agent/skills/resonance-librarian",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-librarian",
+      "description": ""
+    },
+    {
+      "name": "resonance-mobile",
+      "path": ".agent/skills/resonance-mobile",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-mobile",
+      "description": ""
+    },
+    {
+      "name": "resonance-qa",
+      "path": ".agent/skills/resonance-qa",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-qa",
+      "description": ""
+    },
+    {
+      "name": "resonance-refactor",
+      "path": ".agent/skills/resonance-refactor",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-refactor",
+      "description": ""
+    },
+    {
+      "name": "resonance-reviewer",
+      "path": ".agent/skills/resonance-reviewer",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-reviewer",
+      "description": ""
+    },
+    {
+      "name": "resonance-skill-author",
+      "path": ".agent/skills/resonance-skill-author",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-skill-author",
+      "description": ""
+    },
+    {
+      "name": "resonance-studio",
+      "path": ".agent/skills/resonance-studio",
+      "github_url": "https://github.com/manusco/resonance/tree/main/.agent/skills/resonance-studio",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/manusco/resonance",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:36:24Z"
+}
