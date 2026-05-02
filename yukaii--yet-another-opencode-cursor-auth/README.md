@@ -1,0 +1,26 @@
+# AI instruction files for yet-another-opencode-cursor-auth
+
+> Sourced from [Yukaii/yet-another-opencode-cursor-auth](https://github.com/Yukaii/yet-another-opencode-cursor-auth) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+experimental support for opencode cursor model calling
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `.cursor/rules/*.mdc` in [Yukaii/yet-another-opencode-cursor-auth](https://github.com/Yukaii/yet-another-opencode-cursor-auth).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/Yukaii/yet-another-opencode-cursor-auth](https://github.com/Yukaii/yet-another-opencode-cursor-auth)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-p -->
