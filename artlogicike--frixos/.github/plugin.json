@@ -1,0 +1,9 @@
+{
+  "name": "artlogicike--frixos",
+  "displayName": "frixos",
+  "description": "Firmware for Frixos devices (https://buyfrixos.com), an ESP32-based family of daylight color projection clocks. Includes smart-home integration (including Home Assistant, OpenWeather, finnhub.io and C",
+  "version": "1.0.0",
+  "author": "ArtLogicIKE",
+  "homepage": "https://github.com/ArtLogicIKE/frixos",
+  "skills": []
+}
