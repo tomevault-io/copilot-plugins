@@ -1,0 +1,14 @@
+{
+  "name": "open-agreements--open-agreements",
+  "displayName": "open-agreements",
+  "description": "Fill standard legal agreement templates and produce signable DOCX files. 25 templates covering NDAs, cloud terms, SAFEs, and NVCA financing documents.",
+  "version": "1.0.0",
+  "author": "open-agreements",
+  "homepage": "https://github.com/open-agreements/open-agreements",
+  "skills": [
+    {
+      "name": "open-agreements",
+      "description": ""
+    }
+  ]
+}
