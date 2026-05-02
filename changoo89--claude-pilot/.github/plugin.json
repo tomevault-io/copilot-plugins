@@ -1,0 +1,118 @@
+{
+  "name": "changoo89--claude-pilot",
+  "displayName": "claude-pilot",
+  "description": "\ud83c\udfaf Claude Code workflow engine - SPEC-first planning, TDD automation, GPT delegation, and context engineering. From idea to production, discipline included.",
+  "version": "1.0.0",
+  "author": "changoo89",
+  "homepage": "https://github.com/changoo89/claude-pilot",
+  "skills": [
+    {
+      "name": "agent-teams",
+      "description": ""
+    },
+    {
+      "name": "claude-pilot-standards",
+      "description": ""
+    },
+    {
+      "name": "claude-prompt-guide",
+      "description": ""
+    },
+    {
+      "name": "close-plan",
+      "description": ""
+    },
+    {
+      "name": "code-cleanup",
+      "description": ""
+    },
+    {
+      "name": "code-quality-gates",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "docs-verify",
+      "description": ""
+    },
+    {
+      "name": "documentation-best-practices",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "git-master",
+      "description": ""
+    },
+    {
+      "name": "git-operations",
+      "description": ""
+    },
+    {
+      "name": "gpt-delegation",
+      "description": ""
+    },
+    {
+      "name": "parallel-subagents",
+      "description": ""
+    },
+    {
+      "name": "quality-gates",
+      "description": ""
+    },
+    {
+      "name": "ralph-loop",
+      "description": ""
+    },
+    {
+      "name": "rapid-fix",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "safe-file-ops",
+      "description": ""
+    },
+    {
+      "name": "setup-workflow",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-workflow",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "three-tier-docs",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding",
+      "description": ""
+    }
+  ]
+}
