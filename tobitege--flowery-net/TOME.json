@@ -4,7 +4,7 @@
   "repo": "Flowery.NET",
   "description": "Beautiful DaisyUI-styled components for Avalonia UI in C#",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tobitege/Flowery.NET",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T12:13:12Z"
+  "distributed_at": "2026-05-02T07:38:22Z"
 }
