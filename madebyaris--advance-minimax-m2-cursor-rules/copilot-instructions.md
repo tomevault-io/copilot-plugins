@@ -1,675 +1,453 @@
-## go-development
+## language-agnostic-patterns
 
-> Go development: error handling, interfaces, concurrency, modules, and idiomatic patterns
+> Language-agnostic programming patterns: SOLID principles, design patterns, clean code, architecture decisions applicable across all languages
 
 
-# Go Development Patterns
+# Language-Agnostic Programming Patterns
 
-Idiomatic Go patterns focusing on simplicity, clarity, and concurrency.
+Universal principles and patterns applicable across all programming languages.
 
-## Go Workflow
+## Development Workflow
 
-Before changing Go code:
+### CLI-First Principle
+
+Before manually creating project scaffolding or dependency manifests, check if a CLI tool exists:
+
+| Task | Check for CLI | Example |
+|------|---------------|---------|
+| New project | Scaffolding CLI | `npm create`, `cargo new`, `flutter create` |
+| New component | Generator CLI | `npx shadcn-ui add`, `ng generate`, `rails generate` |
+| New module | Framework CLI | `nest generate module` |
+| Dependencies | Package manager | `npm install`, `pip install` |
+
+### Verification-First Principle
+
+Code is not done until it is verified at a level proportional to the change:
+
+```
+1. Write code
+2. Build/compile: Does it compile?
+3. Lint: Are there warnings?
+4. Run: Does it execute?
+5. Test: Does it work correctly?
+```
+
+### Version-Aware Development
+
+When versions matter:
 
 ```text
-1. Read `go.mod` and existing package structure first
-2. Check the current Go version in the repo before recommending newer features
-3. For new modules, use `go mod init`; do not hand-create `go.mod`
-4. For new dependencies or version-sensitive work, verify current versions with the actual current date
-```
-
-### CLI-First Go Development
-
-Prefer standard Go CLI workflows:
-```bash
-# Project initialization (NEVER manually create go.mod)
-go mod init github.com/myorg/myproject
-
-# Add dependencies (NEVER manually edit go.mod)
-go get github.com/gin-gonic/gin@latest
-go get github.com/lib/pq@v1.10.9
-
-# Verify and tidy
-go mod tidy
-go mod verify
-
-# Build and test
-go build ./...
-go test ./...
-go vet ./...
-
-# Format before committing
-go fmt ./...
-gofmt -s -w .
-```
-
-### Post-Edit Verification
-
-After meaningful Go changes, run the smallest useful check for the task:
-
-```bash
-go build ./...
-go test ./...
-go vet ./...
-```
-
-Run `go mod tidy` when imports or dependencies changed rather than after every tiny edit.
-
-### Common Go Syntax Traps (Avoid These!)
-
-```go
-// WRONG: Missing error check
-result, _ := doSomething()  // Never ignore errors!
-
-// CORRECT: Always handle errors
-result, err := doSomething()
-if err != nil {
-    return fmt.Errorf("doSomething failed: %w", err)
-}
-
-// WRONG: Range loop variable capture
-for _, item := range items {
-    go func() {
-        process(item)  // Bug! Captures loop variable
-    }()
-}
-
-// CORRECT: Pass as parameter
-for _, item := range items {
-    go func(i Item) {
-        process(i)
-    }(item)
-}
-
-// WRONG: Nil map write
-var m map[string]int
-m["key"] = 1  // Panic!
-
-// CORRECT: Initialize map
-m := make(map[string]int)
-m["key"] = 1
+1. Search the current version with the actual month and year
+2. Check compatibility with the current stack
+3. Then recommend installation or migration steps
 ```
 
 ---
 
-## Error Handling
+## SOLID Principles
 
-### Basic Error Handling
-```go
-// Always check errors
-result, err := doSomething()
-if err != nil {
-    return fmt.Errorf("doSomething failed: %w", err)
-}
+### Single Responsibility Principle (SRP)
+A class/module should have only one reason to change.
 
-// Wrap errors with context
-if err := db.Query(sql); err != nil {
-    return fmt.Errorf("failed to query users: %w", err)
-}
+**Apply when:**
+- A function does multiple unrelated things
+- A class has too many dependencies
+- Changes in one area affect unrelated code
+
+**Example Pattern:**
+```
+Bad:  UserService handles auth, profile, notifications, and billing
+Good: AuthService, ProfileService, NotificationService, BillingService
 ```
 
-### Custom Error Types
-```go
-// Simple error type
-type NotFoundError struct {
-    Resource string
-    ID       string
-}
+### Open/Closed Principle (OCP)
+Open for extension, closed for modification.
 
-func (e *NotFoundError) Error() string {
-    return fmt.Sprintf("%s with id %s not found", e.Resource, e.ID)
-}
+**Apply when:**
+- Adding new features requires modifying existing code
+- Switch statements grow with each new type
+- Core logic changes for edge cases
 
-// Checking error types
-if errors.Is(err, sql.ErrNoRows) {
-    return &NotFoundError{Resource: "user", ID: id}
-}
-
-// Type assertions
-var notFound *NotFoundError
-if errors.As(err, &notFound) {
-    // Handle not found case
-}
+**Example Pattern:**
+```
+Bad:  if type == "email" ... elif type == "sms" ... elif type == "push" ...
+Good: NotificationStrategy interface with EmailStrategy, SMSStrategy, PushStrategy
 ```
 
-### Error Handling Patterns
-```go
-// Early return pattern
-func processData(data []byte) error {
-    if len(data) == 0 {
-        return errors.New("empty data")
-    }
-    
-    parsed, err := parse(data)
-    if err != nil {
-        return fmt.Errorf("parse failed: %w", err)
-    }
-    
-    if err := validate(parsed); err != nil {
-        return fmt.Errorf("validation failed: %w", err)
-    }
-    
-    return save(parsed)
-}
+### Liskov Substitution Principle (LSP)
+Subtypes must be substitutable for their base types.
 
-// Error sentinel values
-var (
-    ErrNotFound     = errors.New("not found")
-    ErrUnauthorized = errors.New("unauthorized")
-    ErrInvalidInput = errors.New("invalid input")
-)
+**Apply when:**
+- Derived classes override behavior in unexpected ways
+- Code checks for specific types before operating
+- Inheritance creates illogical hierarchies
+
+**Example Pattern:**
+```
+Bad:  Square extends Rectangle but can't independently set width/height
+Good: Both Square and Rectangle implement Shape interface
 ```
 
----
+### Interface Segregation Principle (ISP)
+Clients shouldn't depend on interfaces they don't use.
 
-## Interfaces
+**Apply when:**
+- Classes implement methods they don't need
+- Interfaces have too many methods
+- Changes affect many unrelated implementations
 
-### Interface Design
-```go
-// Small, focused interfaces
-type Reader interface {
-    Read(p []byte) (n int, err error)
-}
-
-type Writer interface {
-    Write(p []byte) (n int, err error)
-}
-
-type ReadWriter interface {
-    Reader
-    Writer
-}
-
-// Accept interfaces, return structs
-func ProcessData(r io.Reader) (*Result, error) {
-    data, err := io.ReadAll(r)
-    if err != nil {
-        return nil, err
-    }
-    return &Result{Data: data}, nil
-}
+**Example Pattern:**
+```
+Bad:  Animal interface with fly(), swim(), walk() - Penguin can't fly
+Good: Flyable, Swimmable, Walkable interfaces
 ```
 
-### Interface Best Practices
-```go
-// Define interfaces where they're used, not where implemented
-// In consumer package:
-type UserStore interface {
-    Get(id string) (*User, error)
-    Save(user *User) error
-}
+### Dependency Inversion Principle (DIP)
+Depend on abstractions, not concretions.
 
-type UserService struct {
-    store UserStore  // Accepts any implementation
-}
+**Apply when:**
+- High-level modules import low-level modules directly
+- Changing database/service requires code changes
+- Testing requires real dependencies
 
-// Implementation in another package
-type PostgresUserStore struct {
-    db *sql.DB
-}
-
-func (s *PostgresUserStore) Get(id string) (*User, error) { ... }
-func (s *PostgresUserStore) Save(user *User) error { ... }
+**Example Pattern:**
+```
+Bad:  UserService directly imports MySQLDatabase
+Good: UserService depends on DatabaseInterface, injected at runtime
 ```
 
-### Empty Interface and Type Assertions
-```go
-// Avoid interface{} / any when possible
-// When necessary, use type switches
-func process(v any) string {
-    switch x := v.(type) {
-    case string:
-        return x
-    case int:
-        return strconv.Itoa(x)
-    case fmt.Stringer:
-        return x.String()
-    default:
-        return fmt.Sprintf("%v", v)
-    }
-}
+## Common Design Patterns
+
+### Creational Patterns
+
+#### Factory Pattern
+Use when object creation logic is complex or needs to be centralized.
+
+```
+When to use:
+- Multiple similar objects with different configurations
+- Object creation depends on runtime conditions
+- Hiding complex initialization logic
 ```
 
----
+#### Builder Pattern
+Use for constructing complex objects step by step.
 
-## Concurrency
-
-### Goroutines and Channels
-```go
-// Basic goroutine
-go func() {
-    result := expensiveOperation()
-    resultChan <- result
-}()
-
-// Buffered channel
-jobs := make(chan Job, 100)
-
-// Wait for completion
-var wg sync.WaitGroup
-for i := 0; i < numWorkers; i++ {
-    wg.Add(1)
-    go func() {
-        defer wg.Done()
-        for job := range jobs {
-            process(job)
-        }
-    }()
-}
-wg.Wait()
+```
+When to use:
+- Objects with many optional parameters
+- Complex configuration requirements
+- Need for immutable objects with many fields
 ```
 
-### Context for Cancellation
-```go
-func fetchData(ctx context.Context, url string) ([]byte, error) {
-    req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
-    if err != nil {
-        return nil, err
-    }
-    
-    resp, err := http.DefaultClient.Do(req)
-    if err != nil {
-        return nil, err
-    }
-    defer resp.Body.Close()
-    
-    return io.ReadAll(resp.Body)
-}
+#### Singleton Pattern
+Use sparingly for truly global, single-instance resources.
 
-// Usage with timeout
-ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-defer cancel()
+```
+When to use:
+- Configuration managers
+- Connection pools
+- Logger instances
 
-data, err := fetchData(ctx, "https://api.example.com")
+Avoid when:
+- It's just for convenience (use DI instead)
+- Testing would be difficult
+- Multiple instances might be needed later
 ```
 
-### Worker Pool Pattern
-```go
-func WorkerPool(ctx context.Context, jobs <-chan Job, numWorkers int) <-chan Result {
-    results := make(chan Result)
-    
-    var wg sync.WaitGroup
-    for i := 0; i < numWorkers; i++ {
-        wg.Add(1)
-        go func() {
-            defer wg.Done()
-            for {
-                select {
-                case job, ok := <-jobs:
-                    if !ok {
-                        return
-                    }
-                    results <- process(job)
-                case <-ctx.Done():
-                    return
-                }
-            }
-        }()
-    }
-    
-    go func() {
-        wg.Wait()
-        close(results)
-    }()
-    
-    return results
-}
+### Structural Patterns
+
+#### Adapter Pattern
+Convert one interface to another that clients expect.
+
+```
+When to use:
+- Integrating third-party libraries
+- Working with legacy code
+- Unifying different data sources
 ```
 
-### Mutex and Atomic Operations
-```go
-type Counter struct {
-    mu    sync.Mutex
-    value int
-}
+#### Decorator Pattern
+Add behavior to objects dynamically.
 
-func (c *Counter) Increment() {
-    c.mu.Lock()
-    defer c.mu.Unlock()
-    c.value++
-}
-
-func (c *Counter) Value() int {
-    c.mu.Lock()
-    defer c.mu.Unlock()
-    return c.value
-}
-
-// For simple counters, use atomic
-type AtomicCounter struct {
-    value atomic.Int64
-}
-
-func (c *AtomicCounter) Increment() {
-    c.value.Add(1)
-}
+```
+When to use:
+- Adding features without subclassing
+- Composable behaviors
+- Middleware-like patterns
 ```
 
----
+#### Facade Pattern
+Provide a simplified interface to a complex subsystem.
 
-## Structs and Methods
-
-### Struct Design
-```go
-type User struct {
-    ID        string    `json:"id"`
-    Name      string    `json:"name"`
-    Email     string    `json:"email"`
-    CreatedAt time.Time `json:"created_at"`
-}
-
-// Constructor function
-func NewUser(name, email string) *User {
-    return &User{
-        ID:        uuid.New().String(),
-        Name:      name,
-        Email:     email,
-        CreatedAt: time.Now(),
-    }
-}
+```
+When to use:
+- Simplifying complex library usage
+- Creating API boundaries
+- Reducing coupling between layers
 ```
 
-### Method Receivers
-```go
-// Value receiver - doesn't modify, safe for concurrent use
-func (u User) FullName() string {
-    return u.FirstName + " " + u.LastName
-}
+### Behavioral Patterns
 
-// Pointer receiver - can modify, more efficient for large structs
-func (u *User) UpdateEmail(email string) error {
-    if !isValidEmail(email) {
-        return errors.New("invalid email")
-    }
-    u.Email = email
-    return nil
-}
+#### Strategy Pattern
+Define a family of interchangeable algorithms.
+
+```
+When to use:
+- Multiple algorithms for the same task
+- Runtime algorithm selection
+- Avoiding complex conditionals
 ```
 
-### Embedded Structs
-```go
-type Timestamps struct {
-    CreatedAt time.Time
-    UpdatedAt time.Time
-}
+#### Observer Pattern
+Notify dependents of state changes.
 
-type User struct {
-    Timestamps  // Embedded - fields promoted
-    ID    string
-    Name  string
-}
-
-// Access promoted fields directly
-user.CreatedAt = time.Now()
+```
+When to use:
+- Event-driven systems
+- Pub/sub messaging
+- Reactive data flows
 ```
 
----
+#### Command Pattern
+Encapsulate requests as objects.
 
-## Testing
-
-### Table-Driven Tests
-```go
-func TestAdd(t *testing.T) {
-    tests := []struct {
-        name     string
-        a, b     int
-        expected int
-    }{
-        {"positive", 2, 3, 5},
-        {"negative", -1, -1, -2},
-        {"zero", 0, 0, 0},
-        {"mixed", -1, 1, 0},
-    }
-    
-    for _, tt := range tests {
-        t.Run(tt.name, func(t *testing.T) {
-            result := Add(tt.a, tt.b)
-            if result != tt.expected {
-                t.Errorf("Add(%d, %d) = %d; want %d", 
-                    tt.a, tt.b, result, tt.expected)
-            }
-        })
-    }
-}
+```
+When to use:
+- Undo/redo functionality
+- Queueing operations
+- Macro recording
 ```
 
-### Subtests and Parallel
-```go
-func TestUserService(t *testing.T) {
-    t.Run("Create", func(t *testing.T) {
-        t.Parallel()
-        // test create
-    })
-    
-    t.Run("Get", func(t *testing.T) {
-        t.Parallel()
-        // test get
-    })
-}
-```
-
-### Mocking with Interfaces
-```go
-// Interface in production code
-type UserRepository interface {
-    Get(id string) (*User, error)
-    Save(user *User) error
-}
-
-// Mock in test
-type MockUserRepository struct {
-    users map[string]*User
-}
-
-func (m *MockUserRepository) Get(id string) (*User, error) {
-    user, ok := m.users[id]
-    if !ok {
-        return nil, ErrNotFound
-    }
-    return user, nil
-}
-
-func TestUserService_GetUser(t *testing.T) {
-    repo := &MockUserRepository{
-        users: map[string]*User{
-            "1": {ID: "1", Name: "Test"},
-        },
-    }
-    service := NewUserService(repo)
-    
-    user, err := service.Get("1")
-    if err != nil {
-        t.Fatalf("unexpected error: %v", err)
-    }
-    if user.Name != "Test" {
-        t.Errorf("expected name 'Test', got '%s'", user.Name)
-    }
-}
-```
-
----
-
-## Project Structure
-
-### Standard Layout
-```
-myproject/
-  cmd/
-    myapp/
-      main.go        # Application entry point
-  internal/          # Private application code
-    config/
-    handler/
-    service/
-    repository/
-  pkg/               # Public library code
-    utils/
-  api/               # API definitions (OpenAPI, protobuf)
-  web/               # Web assets
-  scripts/           # Build/CI scripts
-  go.mod
-  go.sum
-```
-
-### Package Organization
-```go
-// cmd/myapp/main.go
-package main
-
-import (
-    "myproject/internal/config"
-    "myproject/internal/handler"
-    "myproject/internal/service"
-)
-
-func main() {
-    cfg := config.Load()
-    svc := service.New(cfg)
-    h := handler.New(svc)
-    
-    http.ListenAndServe(":8080", h)
-}
-```
-
----
-
-## HTTP Handlers
-
-### Handler Functions
-```go
-func handleGetUser(svc *UserService) http.HandlerFunc {
-    return func(w http.ResponseWriter, r *http.Request) {
-        id := chi.URLParam(r, "id")
-        
-        user, err := svc.Get(r.Context(), id)
-        if err != nil {
-            if errors.Is(err, ErrNotFound) {
-                http.Error(w, "user not found", http.StatusNotFound)
-                return
-            }
-            http.Error(w, "internal error", http.StatusInternalServerError)
-            return
-        }
-        
-        w.Header().Set("Content-Type", "application/json")
-        json.NewEncoder(w).Encode(user)
-    }
-}
-```
-
-### Middleware
-```go
-func LoggingMiddleware(next http.Handler) http.Handler {
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        start := time.Now()
-        
-        // Wrap response writer to capture status
-        wrapped := &responseWriter{ResponseWriter: w, status: http.StatusOK}
-        
-        next.ServeHTTP(wrapped, r)
-        
-        log.Printf("%s %s %d %v", 
-            r.Method, r.URL.Path, wrapped.status, time.Since(start))
-    })
-}
-
-type responseWriter struct {
-    http.ResponseWriter
-    status int
-}
-
-func (w *responseWriter) WriteHeader(status int) {
-    w.status = status
-    w.ResponseWriter.WriteHeader(status)
-}
-```
-
----
-
-## Go Modules
-
-### go.mod
-```go
-module github.com/myorg/myproject
-
-go 1.21
-
-require (
-    github.com/go-chi/chi/v5 v5.0.10
-    github.com/lib/pq v1.10.9
-)
-
-require (
-    // indirect dependencies
-)
-```
-
-### Common Commands
-```bash
-# Initialize module
-go mod init github.com/myorg/myproject
-
-# Add dependencies
-go get github.com/go-chi/chi/v5
-
-# Tidy dependencies
-go mod tidy
-
-# Update dependencies
-go get -u ./...
-
-# Vendor dependencies
-go mod vendor
-```
-
----
-
-## Code Style
+## Clean Code Principles
 
 ### Naming Conventions
-```go
-// Exported (public) - PascalCase
-type UserService struct { ... }
-func NewUserService() *UserService { ... }
 
-// Unexported (private) - camelCase
-type userCache struct { ... }
-func validateEmail(email string) bool { ... }
+#### Variables and Functions
+- Use intention-revealing names
+- Avoid abbreviations unless universally understood
+- Be consistent with terminology
 
-// Acronyms - all caps
-var httpClient *http.Client
-type JSONResponse struct { ... }
-userID := "123"  // not userId
 ```
+Bad:  d, tmp, data, info, process()
+Good: elapsedTimeInDays, userProfile, activeConnections, validatePayment()
+```
+
+#### Booleans
+- Use positive names (avoid double negatives)
+- Start with is/has/can/should
+
+```
+Bad:  notDisabled, flag, status
+Good: isEnabled, hasPermission, canEdit, shouldRefresh
+```
+
+#### Functions
+- Use verbs for actions
+- Be specific about what they do
+
+```
+Bad:  handle(), process(), manage()
+Good: validateUserInput(), calculateTotalPrice(), sendConfirmationEmail()
+```
+
+### Function Design
+
+#### Keep Functions Small
+- Do one thing well
+- 5-20 lines is ideal
+- If you can't name it well, it's probably doing too much
+
+#### Limit Parameters
+- 0-3 parameters is ideal
+- Use objects for more
+- Consider builder pattern for complex initialization
+
+#### Avoid Side Effects
+- Functions should be predictable
+- Clearly document mutations
+- Prefer pure functions when possible
 
 ### Comments
-```go
-// Package users provides user management functionality.
-package users
 
-// User represents a registered user in the system.
-type User struct {
-    // ID is the unique identifier for the user.
-    ID string
-    // Name is the user's display name.
-    Name string
-}
+#### When to Comment
+- Explain WHY, not WHAT
+- Document public APIs
+- Warn about non-obvious behavior
+- Link to external resources/tickets
 
-// NewUser creates a new user with the given name.
-// It returns an error if the name is empty.
-func NewUser(name string) (*User, error) {
-    ...
-}
+#### When NOT to Comment
+- Explaining what code does (make code clearer instead)
+- Commented-out code (delete it)
+- Redundant descriptions
+- TODOs without tickets
+
+```
+Bad:  // increment counter by 1
+      counter += 1;
+
+Good: // Retry limit based on SLA requirements (see JIRA-1234)
+      MAX_RETRIES = 3;
 ```
 
-### Formatting
-```bash
-# Always format code
-go fmt ./...
+### Error Handling
 
-# Lint code
-golangci-lint run
+#### Fail Fast
+- Validate inputs early
+- Throw exceptions for unexpected states
+- Don't swallow errors silently
+
+#### Error Messages
+- Include context (what was being done)
+- Include relevant values
+- Suggest remediation when possible
+
 ```
+Bad:  "Error occurred"
+Good: "Failed to connect to database 'users' at localhost:5432: Connection refused. Check if PostgreSQL is running."
+```
+
+#### Error Categories
+1. **Recoverable**: Retry, fallback, or prompt user
+2. **Validation**: Return clear error to caller
+3. **Programming**: Fail fast, fix the bug
+4. **System**: Log, alert, graceful degradation
+
+## Architecture Patterns
+
+### Layered Architecture
+```
+Presentation → Business Logic → Data Access → Database
+```
+- Each layer only talks to adjacent layers
+- Dependencies flow downward
+
+### Clean Architecture
+```
+Entities → Use Cases → Controllers → Frameworks
+```
+- Business rules at the center
+- Frameworks/DB at the edges
+- Dependency rule: inward only
+
+### Hexagonal Architecture (Ports & Adapters)
+```
+[Adapters] → [Ports] → [Core Domain] ← [Ports] ← [Adapters]
+```
+- Core domain is isolated
+- Ports define interfaces
+- Adapters implement external concerns
+
+### When to Choose What
+- **Layered**: Simple CRUD apps, rapid development
+- **Clean**: Complex business logic, long-lived systems
+- **Hexagonal**: Multiple interfaces, testability focus
+
+## Testing Principles
+
+### Test Pyramid
+```
+     /\
+    /  \   E2E Tests (few)
+   /----\  Integration Tests (some)
+  /------\ Unit Tests (many)
+```
+
+### Unit Tests
+- Test one thing in isolation
+- Fast and deterministic
+- Mock external dependencies
+
+### Integration Tests
+- Test component interactions
+- Use real (or realistic) dependencies
+- Focus on boundaries
+
+### End-to-End Tests
+- Test complete user flows
+- Slowest and most brittle
+- Use for critical paths only
+
+### Test Quality
+- Tests are documentation
+- One assertion per test when possible
+- Arrange-Act-Assert pattern
+- Test behavior, not implementation
+
+## Performance Principles
+
+### Measure First
+- Don't optimize prematurely
+- Profile before changing
+- Set performance budgets
+
+### Common Optimizations
+- **Caching**: Memoization, HTTP caching, query caching
+- **Batching**: Combine multiple operations
+- **Lazy Loading**: Defer until needed
+- **Pagination**: Don't load everything at once
+
+### Database Performance
+- Index frequently queried columns
+- Avoid N+1 queries
+- Use connection pooling
+- Consider read replicas for scale
+
+## Security Best Practices
+
+### Input Validation
+- Validate all external input
+- Whitelist, don't blacklist
+- Sanitize before use
+
+### Authentication
+- Use established libraries
+- Hash passwords with strong algorithms
+- Implement rate limiting
+- Use HTTPS everywhere
+
+### Authorization
+- Check permissions on every request
+- Fail closed (deny by default)
+- Log access attempts
+
+### Data Protection
+- Encrypt sensitive data at rest
+- Use parameterized queries
+- Don't log sensitive information
+- Implement proper session management
+
+## Code Organization
+
+### Module Structure
+```
+Feature-based (preferred for larger apps):
+/features
+  /auth
+    - service
+    - controller
+    - repository
+  /products
+    - service
+    - controller
+    - repository
+
+Layer-based (simpler for smaller apps):
+/controllers
+/services
+/repositories
+```
+
+### File Naming
+- Consistent conventions across project
+- Reflect content purpose
+- Include type suffix when helpful (e.g., `.service`, `.controller`)
+
+### Import Organization
+1. Standard library
+2. Third-party packages
+3. Local modules
+4. Relative imports
 
 ---
 > Source: [madebyaris/advance-minimax-m2-cursor-rules](https://github.com/madebyaris/advance-minimax-m2-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
