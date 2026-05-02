@@ -1,0 +1,9 @@
+{
+  "name": "right202209--askflow",
+  "displayName": "AskFlow",
+  "description": "AskFlow is an intelligent customer support and Q&A system powered by Large Language Models (LLMs). Its core architecture is built around FastAPI, Retrieval-Augmented Generation (RAG), and an intent-re",
+  "version": "1.0.0",
+  "author": "Right202209",
+  "homepage": "https://github.com/Right202209/AskFlow",
+  "skills": []
+}
