@@ -1,0 +1,9 @@
+{
+  "name": "epsilla-cloud--clawtrace",
+  "displayName": "clawtrace",
+  "description": "Make your OpenClaw agents better, cheaper, and faster.",
+  "version": "1.0.0",
+  "author": "epsilla-cloud",
+  "homepage": "https://github.com/epsilla-cloud/clawtrace",
+  "skills": []
+}
