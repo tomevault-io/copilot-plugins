@@ -1,0 +1,75 @@
+{
+  "name": "laravel",
+  "owner": "spatie",
+  "repo": "laravel-openapi-cli",
+  "description": "Create a Laravel command for your OpenAPI specs",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "laravel-permission-development",
+      "path": "resources/boost/skills/laravel-permission-development",
+      "github_url": "https://github.com/spatie/laravel-openapi-cli/tree/main/resources/boost/skills/laravel-permission-development",
+      "description": ""
+    },
+    {
+      "name": "medialibrary-development",
+      "path": "resources/boost/skills/medialibrary-development",
+      "github_url": "https://github.com/spatie/laravel-openapi-cli/tree/main/resources/boost/skills/medialibrary-development",
+      "description": ""
+    },
+    {
+      "name": "responsecache-development",
+      "path": "resources/boost/skills/responsecache-development",
+      "github_url": "https://github.com/spatie/laravel-openapi-cli/tree/main/resources/boost/skills/responsecache-development",
+      "description": ""
+    },
+    {
+      "name": "laravel-pdf",
+      "path": "resources/boost/skills/laravel-pdf",
+      "github_url": "https://github.com/spatie/laravel-openapi-cli/tree/main/resources/boost/skills/laravel-pdf",
+      "description": ""
+    },
+    {
+      "name": "show-debugging-output-and-html-using-ray",
+      "path": "resources/boost/skills/show-debugging-output-and-html-using-ray",
+      "github_url": "https://github.com/spatie/laravel-openapi-cli/tree/main/resources/boost/skills/show-debugging-output-and-html-using-ray",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/spatie/laravel-openapi-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:41:45Z"
+}
