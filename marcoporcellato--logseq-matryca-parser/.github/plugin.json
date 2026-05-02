@@ -1,0 +1,9 @@
+{
+  "name": "marcoporcellato--logseq-matryca-parser",
+  "displayName": "logseq-matryca-parser",
+  "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer.",
+  "version": "1.0.0",
+  "author": "MarcoPorcellato",
+  "homepage": "https://github.com/MarcoPorcellato/logseq-matryca-parser",
+  "skills": []
+}
