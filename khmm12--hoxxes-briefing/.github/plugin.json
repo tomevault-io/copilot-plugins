@@ -1,0 +1,9 @@
+{
+  "name": "khmm12--hoxxes-briefing",
+  "displayName": "hoxxes-briefing",
+  "description": "A Deep Rock Galactic weekly Deep Dive briefing board built with Solid, Rust, and WebAssembly.",
+  "version": "1.0.0",
+  "author": "khmm12",
+  "homepage": "https://github.com/khmm12/hoxxes-briefing",
+  "skills": []
+}
