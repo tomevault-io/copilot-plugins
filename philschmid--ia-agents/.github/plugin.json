@@ -1,0 +1,26 @@
+{
+  "name": "philschmid--ia-agents",
+  "displayName": "ia-agents",
+  "description": "AI instruction skills by philschmid",
+  "version": "1.0.0",
+  "author": "philschmid",
+  "homepage": "https://github.com/philschmid/ia-agents",
+  "skills": [
+    {
+      "name": "context7",
+      "description": ""
+    },
+    {
+      "name": "docs-writer",
+      "description": ""
+    },
+    {
+      "name": "self-learning",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
