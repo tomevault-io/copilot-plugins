@@ -7,13 +7,13 @@ Surgical GPU kernel benchmark: 7 hard problems, frontier coding agents, roofline
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Infatoshi/KernelBench-Hard](https://github.com/Infatoshi/KernelBench-Hard).
+Original source: `AGENTS.md` in [Infatoshi/KernelBench-Hard](https://github.com/Infatoshi/KernelBench-Hard).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
