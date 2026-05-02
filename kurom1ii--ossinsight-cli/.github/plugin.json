@@ -1,0 +1,9 @@
+{
+  "name": "kurom1ii--ossinsight-cli",
+  "displayName": "ossinsight-cli",
+  "description": "CLI tool + Claude Code skill for querying OSSInsight API \u2014 open source intelligence powered by 6B+ GitHub events. Outputs LLM-friendly text.",
+  "version": "1.0.0",
+  "author": "kurom1ii",
+  "homepage": "https://github.com/kurom1ii/ossinsight-cli",
+  "skills": []
+}
