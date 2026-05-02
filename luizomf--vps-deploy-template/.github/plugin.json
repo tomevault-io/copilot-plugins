@@ -1,0 +1,9 @@
+{
+  "name": "luizomf--vps-deploy-template",
+  "displayName": "vps_deploy_template",
+  "description": "Um template para economizar tempo ao fazer deploy de produ\u00e7\u00e3o em servidores do tipo VPS, VM ou qualquer servidor que voc\u00ea tenha acesso root.",
+  "version": "1.0.0",
+  "author": "luizomf",
+  "homepage": "https://github.com/luizomf/vps_deploy_template",
+  "skills": []
+}
