@@ -1,0 +1,9 @@
+{
+  "name": "cdump--proton-tui",
+  "displayName": "proton-tui",
+  "description": "A modern, unofficial ProtonVPN Terminal User Interface (TUI) for Linux, written in Rust.",
+  "version": "1.0.0",
+  "author": "cdump",
+  "homepage": "https://github.com/cdump/proton-tui",
+  "skills": []
+}
