@@ -1,0 +1,261 @@
+{
+  "name": "intelligent-c",
+  "owner": "intelligentcode-ai",
+  "repo": "intelligent-code-agents",
+  "description": "Intelligent Code Agents (ICA): portable skills, workflows, and installers for multiple AI agents and IDEs.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-engineer",
+      "path": "src/skills/ai-engineer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/ai-engineer",
+      "description": ""
+    },
+    {
+      "name": "architect",
+      "path": "src/skills/architect",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/architect",
+      "description": ""
+    },
+    {
+      "name": "autonomy",
+      "path": "src/skills/autonomy",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/autonomy",
+      "description": ""
+    },
+    {
+      "name": "backend-tester",
+      "path": "src/skills/backend-tester",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/backend-tester",
+      "description": ""
+    },
+    {
+      "name": "best-practices",
+      "path": "src/skills/best-practices",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/best-practices",
+      "description": ""
+    },
+    {
+      "name": "branch-protection",
+      "path": "src/skills/branch-protection",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/branch-protection",
+      "description": ""
+    },
+    {
+      "name": "commit-pr",
+      "path": "src/skills/commit-pr",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/commit-pr",
+      "description": ""
+    },
+    {
+      "name": "database-engineer",
+      "path": "src/skills/database-engineer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/database-engineer",
+      "description": ""
+    },
+    {
+      "name": "developer",
+      "path": "src/skills/developer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/developer",
+      "description": ""
+    },
+    {
+      "name": "devops-engineer",
+      "path": "src/skills/devops-engineer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/devops-engineer",
+      "description": ""
+    },
+    {
+      "name": "file-placement",
+      "path": "src/skills/file-placement",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/file-placement",
+      "description": ""
+    },
+    {
+      "name": "git-privacy",
+      "path": "src/skills/git-privacy",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/git-privacy",
+      "description": ""
+    },
+    {
+      "name": "icc-development",
+      "path": ".claude/skills/icc-development",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/.claude/skills/icc-development",
+      "description": ""
+    },
+    {
+      "name": "icc-get-setting",
+      "path": "src/skills/icc-get-setting",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/icc-get-setting",
+      "description": ""
+    },
+    {
+      "name": "icc-version",
+      "path": "src/skills/icc-version",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/icc-version",
+      "description": ""
+    },
+    {
+      "name": "mcp-config",
+      "path": "src/skills/mcp-config",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/mcp-config",
+      "description": ""
+    },
+    {
+      "name": "memory",
+      "path": "src/skills/memory",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/memory",
+      "description": ""
+    },
+    {
+      "name": "parallel-execution",
+      "path": "src/skills/parallel-execution",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/parallel-execution",
+      "description": ""
+    },
+    {
+      "name": "pm",
+      "path": "src/skills/pm",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/pm",
+      "description": ""
+    },
+    {
+      "name": "pr-automerge",
+      "path": "src/skills/pr-automerge",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/pr-automerge",
+      "description": ""
+    },
+    {
+      "name": "process",
+      "path": "src/skills/process",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/process",
+      "description": ""
+    },
+    {
+      "name": "qa-engineer",
+      "path": "src/skills/qa-engineer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/qa-engineer",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": "src/skills/release",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/release",
+      "description": ""
+    },
+    {
+      "name": "requirements-engineer",
+      "path": "src/skills/requirements-engineer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/requirements-engineer",
+      "description": ""
+    },
+    {
+      "name": "reviewer",
+      "path": "src/skills/reviewer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/reviewer",
+      "description": ""
+    },
+    {
+      "name": "security-engineer",
+      "path": "src/skills/security-engineer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/security-engineer",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "src/skills/skill-creator",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "story-breakdown",
+      "path": "src/skills/story-breakdown",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/story-breakdown",
+      "description": ""
+    },
+    {
+      "name": "suggest",
+      "path": "src/skills/suggest",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/suggest",
+      "description": ""
+    },
+    {
+      "name": "system-engineer",
+      "path": "src/skills/system-engineer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/system-engineer",
+      "description": ""
+    },
+    {
+      "name": "thinking",
+      "path": "src/skills/thinking",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/thinking",
+      "description": ""
+    },
+    {
+      "name": "user-tester",
+      "path": "src/skills/user-tester",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/user-tester",
+      "description": ""
+    },
+    {
+      "name": "validate",
+      "path": "src/skills/validate",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/validate",
+      "description": ""
+    },
+    {
+      "name": "web-designer",
+      "path": "src/skills/web-designer",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/web-designer",
+      "description": ""
+    },
+    {
+      "name": "work-queue",
+      "path": "src/skills/work-queue",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/work-queue",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "path": "src/skills/workflow",
+      "github_url": "https://github.com/intelligentcode-ai/intelligent-code-agents/tree/main/src/skills/workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/intelligentcode-ai/intelligent-code-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:44:58Z"
+}
