@@ -1,0 +1,66 @@
+{
+  "name": "y1feng200156--ham-study",
+  "displayName": "ham-study",
+  "description": "Interactive 3D visualization platform for Amateur Radio (Ham) antenna patterns and physics. Built with React Router v7, Three.js, and TypeScript. \ud83d\udce1",
+  "version": "1.0.0",
+  "author": "y1feng200156",
+  "homepage": "https://github.com/y1feng200156/ham-study",
+  "skills": [
+    {
+      "name": "ai-agent-lint",
+      "description": ""
+    },
+    {
+      "name": "db-migrate",
+      "description": ""
+    },
+    {
+      "name": "docker-lint",
+      "description": ""
+    },
+    {
+      "name": "format-js",
+      "description": ""
+    },
+    {
+      "name": "format-python",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "k8s-lint",
+      "description": ""
+    },
+    {
+      "name": "lint-js",
+      "description": ""
+    },
+    {
+      "name": "lint-python",
+      "description": ""
+    },
+    {
+      "name": "memory-guardian",
+      "description": ""
+    },
+    {
+      "name": "run-tests",
+      "description": ""
+    },
+    {
+      "name": "rust-lint",
+      "description": ""
+    },
+    {
+      "name": "sql-lint",
+      "description": ""
+    },
+    {
+      "name": "vuln-scan",
+      "description": ""
+    }
+  ]
+}
