@@ -4,7 +4,7 @@
   "repo": "indexion",
   "description": "source code exploration and documentation tool ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/trkbt10/indexion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:33:25Z"
+  "distributed_at": "2026-05-02T05:37:06Z"
 }
