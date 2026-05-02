@@ -1,61 +1,51 @@
-## 00-workflow
+## 01-verification
 
-> Core workflow rules. Apply to every agent session in this project.
+> Verification gates that must pass before any task is handed to QA.
 
 
-# Core workflow rules
+# Verification gates
 
-## Session start (mandatory)
+## When to run
 
-At the start of every session, before writing any code:
+Builders run these gates before marking any task `in-review`.
+QA runs these gates as part of its review.
+Never hand off without all gates passing.
 
-1. Read `SCOPE.md` — understand the project, tech stack, and feature breakdown.
-2. Read `TASKS.md` — find the current task state.
-3. Read `memory/architecture.md` — understand existing module structure.
-4. Read `memory/patterns.md` — use established patterns; do not invent duplicates.
-5. Read `memory/decisions.md` — do not re-litigate past decisions.
-6. Read `memory/stack-guidance.md` — use stack-specific senior defaults when it exists.
-7. Skim every `.cursor/rules/*.mdc` file. They are all `alwaysApply: true` and
-   cover workflow, verification, memory, sub-agents, design fidelity,
-   security, observability, and concurrency. Do not apply only a subset.
+## Gate 1 — Lint
 
-If any of these files do not exist yet, skip it and continue.
+Run the project linter on all files created or modified in the current task.
 
-## Trigger phrase recognition
+- Zero errors allowed.
+- Zero warnings allowed unless the warning is pre-existing and unrelated to this task.
+- If the project has no linter configured yet: note it in `memory/decisions.md` and skip.
 
-Recognize and act on trigger phrases from `AGENTS.md`:
-- `import docs` → run import-docs skill (docs → SCOPE + stack-guidance)
-- `figma ingest` → run figma-plugin-ingest skill
-- `reqops` → run reqops skill for target feature requirements
-- `parse scope` → run parse-scope skill
-- `delta scope` / `rescope` → run delta-scope skill when SCOPE changes after tasks exist
-- `refresh mcp` → force `fetch-mcp` / `figma ingest` to ignore TTL and refetch
-- `start build` → run orchestrate skill
-- `resume build` → resume scheduler loop from current task states
-- `qa only` → run QA skill on in-review tasks only
-- `show status` → summarize TASKS.md counts
+## Gate 2 — Typecheck
 
-## Task discipline
+Run the TypeScript compiler (or equivalent) on the full project.
 
-- Work on one task at a time within a session.
-- Never implement code outside the files listed in the current task block.
-- Never invent features not described in `SCOPE.md`.
-- Never mark a task `done` — only the QA agent does that.
-- If something is unclear: mark the task `blocked`, write the specific question, surface it to the user. Do not guess.
+- Zero type errors allowed.
+- `tsc --noEmit` or equivalent.
+- Fixing a type error by adding `as any` or `@ts-ignore` is not acceptable unless the reason is documented in a comment.
 
-## File discipline
+## Gate 3 — Tests
 
-- Always read a file before editing it.
-- Always place new files in the location indicated by `memory/architecture.md`.
-- Never delete files unless the task explicitly requires it.
-- Never commit secrets, credentials, or `.env` values.
+Run tests scoped to the feature being built.
 
-## Code quality (always)
+- All existing tests must continue to pass (no regressions).
+- All new tests introduced by the task must pass.
+- Minimum test coverage for the task: happy path + at least one error/edge case per unit.
+- If a test runner is not yet set up: the scaffold task must include setting it up before any feature task starts.
 
-- No `any` types unless absolutely unavoidable and commented with reason.
-- No `TODO` comments left in completed code — if something is unfinished, the task is not done.
-- No hardcoded values that belong in config or environment variables.
-- Error paths must be handled — no silent swallows.
+## Gate 4 — Acceptance criteria
+
+Every checklist item in the task block must be verifiable.
+
+- Each `[ ]` item in the acceptance criteria must be checked `[x]`.
+- If an item cannot be verified automatically, the QA agent documents how it was verified manually.
+
+## Non-negotiable rule
+
+**If any gate fails, the task is not done.** Fix in the current session before handing off. Do not move to the next task while a gate is failing.
 
 ---
 > Source: [BolderApps/agentic-workflow](https://github.com/BolderApps/agentic-workflow) — distributed by [TomeVault](https://tomevault.io).
