@@ -4,7 +4,7 @@
   "repo": "Dialogue",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hajimini/Dialogue",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T23:35:52Z"
+  "distributed_at": "2026-05-02T06:00:50Z"
 }
