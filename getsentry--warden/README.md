@@ -7,11 +7,11 @@ Your code is under new management. Agents that review your code.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [getsentry/warden](https://github.com/getsentry/warden).
+Original source: `CLAUDE.md` in [getsentry/warden](https://github.com/getsentry/warden).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
