@@ -1,0 +1,105 @@
+{
+  "name": "mapbox-agent-skills",
+  "owner": "mapbox",
+  "repo": "mapbox-agent-skills",
+  "description": "AI instruction skills by mapbox",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mapbox-web-performance-patterns",
+      "path": "skills/mapbox-web-performance-patterns",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-web-performance-patterns",
+      "description": ""
+    },
+    {
+      "name": "mapbox-web-integration-patterns",
+      "path": "skills/mapbox-web-integration-patterns",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-web-integration-patterns",
+      "description": ""
+    },
+    {
+      "name": "mapbox-cartography",
+      "path": "skills/mapbox-cartography",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-cartography",
+      "description": ""
+    },
+    {
+      "name": "mapbox-token-security",
+      "path": "skills/mapbox-token-security",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-token-security",
+      "description": ""
+    },
+    {
+      "name": "mapbox-search-integration",
+      "path": "skills/mapbox-search-integration",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-search-integration",
+      "description": ""
+    },
+    {
+      "name": "mapbox-android-patterns",
+      "path": "skills/mapbox-android-patterns",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-android-patterns",
+      "description": ""
+    },
+    {
+      "name": "mapbox-ios-patterns",
+      "path": "skills/mapbox-ios-patterns",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-ios-patterns",
+      "description": ""
+    },
+    {
+      "name": "mapbox-google-maps-migration",
+      "path": "skills/mapbox-google-maps-migration",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-google-maps-migration",
+      "description": ""
+    },
+    {
+      "name": "mapbox-maplibre-migration",
+      "path": "skills/mapbox-maplibre-migration",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-maplibre-migration",
+      "description": ""
+    },
+    {
+      "name": "mapbox-store-locator-patterns",
+      "path": "skills/mapbox-store-locator-patterns",
+      "github_url": "https://github.com/mapbox/mapbox-agent-skills/tree/main/skills/mapbox-store-locator-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mapbox/mapbox-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:34:52Z"
+}
