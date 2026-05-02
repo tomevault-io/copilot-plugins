@@ -1,0 +1,57 @@
+{
+  "name": "components-build-skill",
+  "owner": "nolly-studio",
+  "repo": "components-build-skill",
+  "description": "AI agent skill for building modern, composable, and accessible React UI components following the components.build specification",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "components-build",
+      "path": ".agents/skills/components-build",
+      "github_url": "https://github.com/nolly-studio/components-build-skill/tree/main/.agents/skills/components-build",
+      "description": ""
+    },
+    {
+      "name": "components-build",
+      "path": "skills/components-build",
+      "github_url": "https://github.com/nolly-studio/components-build-skill/tree/main/skills/components-build",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nolly-studio/components-build-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:46:42Z"
+}
