@@ -1,0 +1,28 @@
+# pomodoro-timer
+
+> Source: [hudaniu-1/pomodoro-timer](https://github.com/hudaniu-1/pomodoro-timer) — distributed by [TomeVault](https://tomevault.io)
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `AGENTS.md` in [hudaniu-1/pomodoro-timer](https://github.com/hudaniu-1/pomodoro-timer).
+
+## Also available for
+
+- **Claude Code** — `CLAUDE.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/hudaniu-1/pomodoro-timer](https://github.com/hudaniu-1/pomodoro-timer)
+
+---
+
+Install this config instantly:
+```
+npx tomevault install hudaniu-1/pomodoro-timer
+```
+Source: [github.com/hudaniu-1/pomodoro-timer](https://github.com/hudaniu-1/pomodoro-timer).
+
+<!-- genome:d-i-p -->
