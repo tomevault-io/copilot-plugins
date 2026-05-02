@@ -1,173 +1,164 @@
-## directory-index
+## docs-style
 
-> cutcli-cookbook 仓库目录索引 — 谁放在哪、改谁会影响什么
+> 文档站编写规范 — 改 docs/** 时遵守的写作风格、链接规则、VitePress 注意事项
 
 
-# 仓库目录索引
+# 文档编写规范（docs/**）
 
-> 改动文件前先在这里查"它属于哪个层"，避免越权或漏改。
+## VitePress 配置约束
 
-## 顶层一览
+`docs/.vitepress/config.mts` 关键设置：
 
-```text
-cutcli-cookbook/
-├── README.md / README.zh.md         # 仓库门面（英文为主 / 中文）
-├── LICENSE                          # MIT
-├── CONTRIBUTING.md / CONTRIBUTING.zh.md
-├── CODE_OF_CONDUCT.md               # 已是英文
-├── CHANGELOG.md / CHANGELOG.zh.md
-├── package.json                     # 根 package（VitePress + 工具脚本依赖）
-├── package-lock.json
-├── .gitignore
-│
-├── docs/                            # VitePress 文档站源（部署到 docs.cutcli.com）
-│   ├── *.md / guide/ / cookbook/    # 英文（root locale）
-│   └── zh/                          # 中文 locale 镜像（/zh/）
-├── examples/                        # 一键运行的 cutcli 案例（核心资产；每个 case 双语 README）
-├── templates/                       # 可复用 JSON 片段
-├── prompts/                         # AI 工具提示词（双语）
-├── showcase/                        # 月刊精选 + 上线发布资料
-├── scripts/                         # 仓库工具脚本（lint / 校验 / R2 上传）
-├── worker/                          # docs.cutcli.com 的 Cloudflare Worker
-├── .github/                         # Issue/PR/CI/发布指南（模板双语，GOOD_FIRST_ISSUES 双语）
-└── .cursor/                         # Cursor IDE 规则与 MCP 配置（中文）
+```typescript
+cleanUrls: false   // 必须保留：让 R2 直接命中 .html 文件
 ```
 
-## docs/ — 文档站
+如果改成 `cleanUrls: true`，`docs.cutcli.com/guide/installation` 就需要 worker 强行重写到 `.html`，但 worker 已经做了路径回退（`/foo` → `foo.html` → `foo/index.html`），这层回退是为了兼容 cleanUrls 风格的链接，不要因此关掉路径回退。
 
-```text
-docs/
-├── .vitepress/
-│   └── config.mts             # 站点配置（locales={root:en, zh:/zh/}, cleanUrls=false）
-├── index.md                   # 英文首页 (hero + features)
-├── public/                    # 静态资源（被复制到 dist 根目录）
-│   ├── 404.html               # 英文 404 页（worker miss 时返回）
-│   ├── favicon.svg / logo.svg / hero.svg
-│   └── gallery.json           # build:gallery 自动生成
-├── guide/                     # 英文入门指南（5 篇）
-├── cookbook/                  # 英文场景教程（5 篇）
-├── reference/                 # 英文命令参考（11 篇；cli/api/concepts 由同步脚本覆盖）
-├── prompts/index.md           # 英文 Prompts 库
-└── zh/                        # 中文 locale 镜像（与 root 同结构）
-    ├── index.md
-    ├── guide/ / cookbook/ / reference/ / prompts/
+## 中文文档风格
+
+- 中英文之间 1 个空格：「使用 cutcli 创建草稿」
+- 数字与中文之间 1 个空格：「3 秒后退出」
+- 标点：使用全角中文标点（，。？！）；代码 / 命令内保持半角
+- 引号：内容用「」，引用用 ""
+
+## 标题层级
+
+- 每篇 markdown **唯一** H1（用文件 frontmatter `title` 也行，但要么 frontmatter 要么 H1，二选一不要双写）
+- H2 用作主要章节
+- H3 / H4 用作小节
+- 不要直接跳层（H2 → H4）
+
+## 文件名 / URL 风格
+
+- 文件名 kebab-case：`first-draft.md`、`time-units.md`
+- URL 不带扩展名（VitePress 自动加 `.html`）
+- 内部链接用相对路径：`./first-draft` 或 `/guide/first-draft`
+- 引用案例用绝对 GitHub 链接：`https://github.com/xuliang2024/cutcli-cookbook/tree/main/examples/...`
+
+## 链接规则
+
+| 场景 | 写法 |
+|---|---|
+| 同侧栏内的 guide 互链 | `[一节](./time-units)` |
+| 跨侧栏（guide → reference） | `[CLI](/reference/cli)` |
+| 引用案例目录 | `[`examples/01-hello-caption`](https://github.com/xuliang2024/cutcli-cookbook/tree/main/examples/01-hello-caption)` |
+| 外链（cutcli.com、GitHub） | 直接 `<https://...>` 或 `[文字](https://...)` |
+| 引用图片资源 | 放 `docs/public/` 下，URL 用 `/foo.svg`（不是 `./public/foo.svg`） |
+
+CI 用 `scripts/check-links.mjs` 校验内部链接，不通过 fail。
+
+## 命令示例
+
+- 命令名严格 `cutcli`，不写 `cut`
+- 多行命令换行用 `\` 续行
+- 复杂 JSON 用 `--captions @data/captions.json` 文件引用，避免 shell 转义噩梦
+- 时间字段必须是整数微秒（`3000000`）；不写 `3s` / `3000ms`
+
+## 表格
+
+- 用纯 markdown 表格（`| ... |`）
+- 不要拿 HTML table
+- 列对齐用 `|---|`、`|:---|`、`|---:|`、`|:---:|`
+
+## 代码块
+
+- 都加语言：`bash`、`json`、`typescript`、`yaml`
+- shell 命令前不加 `$` 提示符（VitePress 主题已视觉化）
+- 引用本地文件路径用 `inline code`，例如 `` `docs/.vitepress/config.mts` ``
+
+## VitePress 特有语法
+
+```markdown
+::: tip
+小提示
+:::
+
+::: warning
+警告
+:::
+
+::: danger
+危险操作
+:::
+
+::: details 折叠展开
+里面写细节
+:::
 ```
 
-> 改 `docs/reference/cli|api|concepts.md` 与 `docs/zh/reference/cli|api|concepts.md` ⚠ **不要直接编辑** — 它们由 `jy_cli/scripts/sync-to-cookbook.mjs` 覆盖。改源头 `jy_cli/docs/cli.md` 等再跑同步。
->
-> 当前过渡期：闭源同步脚本只输出中文，所以 `docs/reference/{cli,api,concepts}.md` 与 `docs/zh/reference/...` 都是中文；待 `jy_cli/scripts/sync-to-cookbook.mjs` 升级后，root 写英文、`zh/` 写中文。
+适度用，不要每段都包。
 
-## examples/ — 案例
+## 自动生成区域 ⚠
 
-```text
-examples/
-├── README.md / README.zh.md     # 案例总览（双语）
-├── 01-hello-caption/            # P0：一行字幕
-├── 02-image-slideshow-bgm/      # P0：3 图轮播 + BGM
-├── 03-tiktok-keyword-highlight/ # P0：关键词高亮
-├── 04-easy-by-audio/            # P0：cutcli draft easy
-├── 05-keyframe-zoom-in/         # P0：关键帧
-├── 10-product-promo-30s/        # 进阶：30s 产品宣传片
-├── 20-knowledge-science-card/   # 进阶：60s 知识科普
-├── 30-vlog-day-in-life/         # 进阶：30s Vlog
-└── 99-community/                # 社区贡献区
-    ├── README.md / README.zh.md
-    └── .example-template/       # 模板（供 scripts/new-example.mjs 复用）
+`docs/reference/cli.md`、`docs/reference/api.md`、`docs/reference/concepts.md` 由 `jy_cli/scripts/sync-to-cookbook.mjs` 单向覆盖。**不要直接编辑**：
+
+- 改这些文件 → 下次同步会被覆盖回去
+- 真要改 → 改 `jy_cli/docs/cli.md`（或 api.md / README.md）→ 跑 `node scripts/sync-to-cookbook.mjs`
+
+文件顶部有 `<!-- THIS FILE IS GENERATED ... DO NOT EDIT. -->` 标识。
+
+## 新增页面
+
+1. 在 `docs/<section>/` 加新 `.md` 文件
+2. 在 `docs/.vitepress/config.mts` 的对应 `sidebar` 数组里加链接
+3. 跑 `npm run docs:build` 看是否成功
+4. 跑 `npm run lint:links` 看新链接是否可达
+
+## 国际化（i18n）
+
+**英文为默认 locale**，中文是第二语言。
+
+| 内容 | 英文（root） | 中文 |
+|---|---|---|
+| 文档站 | `docs/<section>/*.md` | `docs/zh/<section>/*.md` |
+| 仓库门面 | `README.md` | `README.zh.md` |
+| 治理文档 | `CONTRIBUTING.md` / `CHANGELOG.md` | `CONTRIBUTING.zh.md` / `CHANGELOG.zh.md` |
+| 子目录 README | `templates/README.md` 等 | `templates/README.zh.md` 等 |
+| 案例 README | `examples/<id>/README.md` | `examples/<id>/README.zh.md` |
+| 提示词 | `prompts/system/cutcli-expert.md` | `prompts/system/cutcli-expert.zh.md` |
+| GitHub Issue / PR 模板 | 单文件双语（English / 中文 同行写） | 同左 |
+| 维护者文档 | — | `.github/RELEASE_GUIDE.md`、`showcase/launch.md`、`.cursor/rules/*` 都保留中文 |
+
+VitePress `locales`：
+
+```typescript
+locales: {
+  root: { label: 'English', lang: 'en-US', themeConfig: { ... } },
+  zh:   { label: '简体中文', lang: 'zh-CN', link: '/zh/', themeConfig: { ... } },
+}
 ```
 
-每个 case 必有：`README.md`（英文）、`README.zh.md`（中文）、`run.sh` (chmod +x)、`meta.json`、`data/*.json`、`preview.gif`。详见 `.cursor/rules/example-spec.mdc`。
+新建任何面向用户的 markdown，**默认要写英文 + 一份中文 .zh.md**。`scripts/check-i18n-pairs.mjs` 会扫成对存在；`npm run lint:i18n` 失败时不能合并。
 
-## scripts/
+`docs/reference/{cli,api,concepts}.md` 由闭源仓 `jy_cli/scripts/sync-to-cookbook.mjs` 写入，因此暂时跳过 i18n-pairs 检查；闭源仓同步脚本升级后会双语输出（详见 `.cursor/rules/open-source-boundary.mdc`）。
 
-```text
-scripts/
-├── _lib/
-│   ├── walk.mjs               # 通用文件遍历
-│   └── example-schema.mjs     # 案例 schema + 中英 H2 章节集合 + URL 白名单
-├── validate-example.mjs       # 案例校验，同时认 README.md 英文 + README.zh.md 中文章节 (npm run lint:cases)
-├── new-example.mjs            # 案例脚手架，同时生成中英两份 README 骨架 (npm run new:example)
-├── build-gallery.mjs          # 生成 docs/public/gallery.json
-├── check-command-name.mjs     # grep 公开仓 cut vs cutcli (npm run lint:cmds)
-├── check-links.mjs            # 校验 markdown 内部链接 (npm run lint:links)
-├── check-i18n-pairs.mjs       # 校验中英文件成对存在 (npm run lint:i18n)
-├── lint.mjs                   # 聚合 lint runner (npm run lint)
-├── upload-r2.mjs              # 增量上传 dist 到 R2 (npm run r2:upload)
-└── r2-gc.mjs                  # 清 R2 孤儿对象 (npm run r2:gc，每周一次)
+每个 README / docs / prompts 的顶部加双语切换链接：
+
+```markdown
+[English](README.md) · [简体中文](README.zh.md)
 ```
 
-## worker/
+## 静态资源
 
-```text
-worker/
-├── package.json               # wrangler + workers-types
-├── wrangler.toml              # name=docs-cutcli, R2 binding=DOCS, routes=docs.cutcli.com
-├── tsconfig.json
-├── README.md
-└── src/
-    └── index.ts               # ~100 行：R2 反代 + 5 步路径回退 + 缓存策略
+- SVG / PNG / GIF 放 `docs/public/`
+- 文件大小：单图 ≤ 200 KB，超过用 R2 + CDN 链接
+- 命名：kebab-case，`hero.svg` / `case-thumbnail-01.png`
+
+## 字数控制
+
+- 单页 ≤ 1500 字（中文计算）
+- 超过就拆 2 篇
+- 章节排版：先 1-2 句概述 → 表格/列表 → 代码示例 → 进阶链接
+
+## 生成 gallery
+
+如果加了新 case，跑：
+
+```bash
+npm run build:gallery   # 重新生成 docs/public/gallery.json
+npm run docs:build
 ```
-
-## templates/
-
-```text
-templates/
-├── README.md / README.zh.md
-├── captions/
-│   ├── cinematic-title.json
-│   ├── tiktok-bouncy.json
-│   └── news-ticker.json
-├── animations/
-│   ├── smooth-zoom-in.json
-│   └── glitch-cut.json
-└── filters/
-    └── (待充实)
-```
-
-## prompts/
-
-```text
-prompts/
-├── README.md / README.zh.md
-├── system/
-│   ├── cutcli-expert.md       # 英文（LLM 默认）
-│   └── cutcli-expert.zh.md    # 中文备份
-├── cursor/
-│   ├── make-promo-video.md
-│   └── make-promo-video.zh.md
-└── claude/
-    ├── auto-storyboard.md
-    └── auto-storyboard.zh.md
-```
-
-## showcase/
-
-```text
-showcase/
-├── README.md / README.zh.md   # 投稿规则 + 评选标准（双语）
-├── _gallery.json              # 月刊机器可读列表
-├── 2026-04.md / 2026-04.zh.md # 第 1 期月刊（双语）
-└── launch.md                  # W4 上线发布 checklist + 渠道文案 + demo 脚本（中文，维护者用）
-```
-
-## .github/
-
-```text
-.github/
-├── FUNDING.yml
-├── GOOD_FIRST_ISSUES.md / GOOD_FIRST_ISSUES.zh.md  # 双语
-├── RELEASE_GUIDE.md           # 中文，维护者用
-├── PULL_REQUEST_TEMPLATE.md   # 单文件双语
-├── ISSUE_TEMPLATE/
-│   └── bug_report / case_request / showcase / config — 4 个 yml，name/description/label 字段双语
-└── workflows/
-    ├── ci.yml                       # PR + push 都跑：lint (含 lint:i18n) + build + worker typecheck
-    ├── deploy-docs.yml              # main 改动 docs/ 或 worker/ 时：build + R2 增量 + worker deploy + smoke
-    └── scheduled-cases-test.yml     # 每天 02:00 UTC+8 跑全部案例校验，失败开 issue
-```
-
-## .cursor/rules/ — 本目录
-
-参见 `.cursor/rules/README.md`。
 
 ---
 > Source: [xuliang2024/cutcli-cookbook](https://github.com/xuliang2024/cutcli-cookbook) — distributed by [TomeVault](https://tomevault.io).
