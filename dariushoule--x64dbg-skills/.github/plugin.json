@@ -1,0 +1,9 @@
+{
+  "name": "dariushoule--x64dbg-skills",
+  "displayName": "x64dbg-skills",
+  "description": "Claude Code plugin providing skills for x64dbg debugger automation",
+  "version": "1.0.0",
+  "author": "dariushoule",
+  "homepage": "https://github.com/dariushoule/x64dbg-skills",
+  "skills": []
+}
