@@ -1,0 +1,9 @@
+{
+  "name": "mylxsw--typeflux",
+  "displayName": "typeflux",
+  "description": "Typeflux is a macOS menu bar voice input tool built with Swift. It is designed for a fast \"hold to talk, release to insert\" workflow: press a hotkey, speak naturally, let the app transcribe your speec",
+  "version": "1.0.0",
+  "author": "mylxsw",
+  "homepage": "https://github.com/mylxsw/typeflux",
+  "skills": []
+}
