@@ -1,0 +1,58 @@
+{
+  "name": "mwguerra--claude-code-plugins",
+  "displayName": "claude-code-plugins",
+  "description": "MWGuerra Claude Code Marketplace",
+  "version": "1.0.0",
+  "author": "mwguerra",
+  "homepage": "https://github.com/mwguerra/claude-code-plugins",
+  "skills": [
+    {
+      "name": "article-writer",
+      "description": ""
+    },
+    {
+      "name": "author-profile",
+      "description": ""
+    },
+    {
+      "name": "docs-specialist",
+      "description": ""
+    },
+    {
+      "name": "error-handling",
+      "description": ""
+    },
+    {
+      "name": "post-development",
+      "description": ""
+    },
+    {
+      "name": "prd-interview",
+      "description": ""
+    },
+    {
+      "name": "production-ready",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "description": ""
+    },
+    {
+      "name": "secretary",
+      "description": ""
+    },
+    {
+      "name": "terminal-docs",
+      "description": ""
+    },
+    {
+      "name": "vault-management",
+      "description": ""
+    },
+    {
+      "name": "voice-extractor",
+      "description": ""
+    }
+  ]
+}
