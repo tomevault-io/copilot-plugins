@@ -1,0 +1,14 @@
+{
+  "name": "pentoai--ml-ralph",
+  "displayName": "ml-ralph",
+  "description": "Autonomous ML agent for running experiments using Claude.",
+  "version": "1.0.0",
+  "author": "pentoai",
+  "homepage": "https://github.com/pentoai/ml-ralph",
+  "skills": [
+    {
+      "name": "ml-ralph",
+      "description": ""
+    }
+  ]
+}
