@@ -1,0 +1,14 @@
+{
+  "name": "minorcell--memo-code",
+  "displayName": "memo-code",
+  "description": "A lightweight coding agent that runs in your terminal.",
+  "version": "1.0.0",
+  "author": "minorcell",
+  "homepage": "https://github.com/minorcell/memo-code",
+  "skills": [
+    {
+      "name": "remotion-best-practices",
+      "description": ""
+    }
+  ]
+}
