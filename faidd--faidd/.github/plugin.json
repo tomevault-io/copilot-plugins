@@ -1,0 +1,14 @@
+{
+  "name": "faidd--faidd",
+  "displayName": "faidd",
+  "description": "FAIDD is a sovereign security framework designed to govern, audit, and secure the interactions of AI agents within high-integrity development environments",
+  "version": "1.0.0",
+  "author": "faidd",
+  "homepage": "https://github.com/faidd/faidd",
+  "skills": [
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    }
+  ]
+}
