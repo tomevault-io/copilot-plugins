@@ -1,0 +1,9 @@
+{
+  "name": "davegoldblatt--total-recall",
+  "displayName": "total-recall",
+  "description": "Persistent memory plugin for Claude Code. Tiered memory system with write gates, correction propagation, and slash commands.",
+  "version": "1.0.0",
+  "author": "davegoldblatt",
+  "homepage": "https://github.com/davegoldblatt/total-recall",
+  "skills": []
+}
