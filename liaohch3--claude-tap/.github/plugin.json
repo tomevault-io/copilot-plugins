@@ -1,0 +1,9 @@
+{
+  "name": "liaohch3--claude-tap",
+  "displayName": "claude-tap",
+  "description": "Tap into Claude Code API requests via a local reverse proxy. Inspect system prompts, messages, tools, and token usage.",
+  "version": "1.0.0",
+  "author": "liaohch3",
+  "homepage": "https://github.com/liaohch3/claude-tap",
+  "skills": []
+}
