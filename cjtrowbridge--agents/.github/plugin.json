@@ -1,0 +1,9 @@
+{
+  "name": "cjtrowbridge--agents",
+  "displayName": "agents",
+  "description": "A set of constraints for a self-evolving agentic system that will work on any LLM.",
+  "version": "1.0.0",
+  "author": "cjtrowbridge",
+  "homepage": "https://github.com/cjtrowbridge/agents",
+  "skills": []
+}
