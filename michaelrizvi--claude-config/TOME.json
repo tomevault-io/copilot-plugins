@@ -1,0 +1,63 @@
+{
+  "name": "claude-config",
+  "owner": "michaelrizvi",
+  "repo": "claude-config",
+  "description": "Personal CLAUDE.md and Claude Code skills",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git",
+      "path": "skills/git",
+      "github_url": "https://github.com/michaelrizvi/claude-config/tree/main/skills/git",
+      "description": ""
+    },
+    {
+      "name": "pytorch-debug",
+      "path": "skills/pytorch-debug",
+      "github_url": "https://github.com/michaelrizvi/claude-config/tree/main/skills/pytorch-debug",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "skills/review",
+      "github_url": "https://github.com/michaelrizvi/claude-config/tree/main/skills/review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/michaelrizvi/claude-config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:32:21Z"
+}
