@@ -1,38 +1,29 @@
-## no-dev-build-commands
+## sync-architecture-docs
 
-> 禁止 AI 自行执行 pnpm dev / build 等启动和构建命令
+> 当项目架构、设计模式、设计规范、UI 设计等发生变更时，同步更新架构文档
 
 
-# 禁止执行开发/构建命令
+# 架构文档同步更新规则
 
-**严格禁止**自行执行以下命令（包括但不限于）：
+当你的代码变更涉及以下任何一项时，**必须**同步更新 `docs/PROJECT_ARCHITECTURE.md`：
 
-- `pnpm dev` / `pnpm run dev`
-- `pnpm build` / `pnpm run build`
-- `pnpm start` / `pnpm run start`
-- `pnpm preview` / `pnpm run preview`
-- 以及任何等效的 `npm run …` / `yarn …` 变体
+## 触发条件
 
-## 正确做法
+1. **项目架构变更**：新增/删除/重命名目录、调整分层结构、修改数据流
+2. **设计模式变更**：引入新模式、修改现有模式（如 Store 模式、Hook 组合模式、中间件链等）
+3. **UI 设计规范变更**：颜色系统、字体、圆角、动画、组件库配置等
+4. **技术栈变更**：新增/移除/升级核心依赖
+5. **API 变更**：新增/修改 Socket 事件、REST 端点
+6. **数据模型变更**：核心类型定义（Track、RoomState、PlayState 等）的增删改
+7. **新增组件/Hook/Store**：在目录结构和对应设计模式章节中补充说明
 
-当需要启动开发服务器或执行构建时，**告诉用户需要运行的命令**，由用户自行在终端中执行。
+## 更新要求
 
-```
-// ✅ 正确 — 提示用户执行
-"请在终端中运行 `pnpm dev` 启动开发服务器。"
-
-// ❌ 错误 — 自行执行
-Shell: pnpm dev
-```
-
-## 允许的操作
-
-以下命令**可以**正常执行，不受此规则限制：
-
-- `pnpm install` / `pnpm add <pkg>` — 安装依赖
-- `pnpm exec …` — 执行工具命令（如 `pnpm exec prisma migrate`）
-- `pnpm run lint` / `pnpm run typecheck` — 代码检查
-- `npx shadcn@latest add …` — 添加 shadcn 组件
+- 只更新与本次变更相关的章节，不要重写整个文档
+- 保持文档现有的格式和风格
+- 如果新增了文件，确保在「目录结构」章节中体现
+- 如果变更了依赖版本，在「第三方库依赖」章节中更新
+- 完成代码变更后，在同一次操作中完成文档更新
 
 ---
 > Source: [Yueby/music-together](https://github.com/Yueby/music-together) — distributed by [TomeVault](https://tomevault.io).
