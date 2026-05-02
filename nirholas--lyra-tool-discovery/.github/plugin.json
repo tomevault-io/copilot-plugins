@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--lyra-tool-discovery",
+  "displayName": "lyra-tool-discovery",
+  "description": "AI powered automation toolkit which acts as an agent that discovers MCP servers for you. Point it at GitHub/npm/configure your own discovery, let GPT or Claude analyze the API or MCP or any tool, get ",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/lyra-tool-discovery",
+  "skills": []
+}
