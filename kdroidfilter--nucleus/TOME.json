@@ -2,9 +2,9 @@
   "name": "Nucleus",
   "owner": "kdroidFilter",
   "repo": "Nucleus",
-  "description": "",
+  "description": "Nucleus is the native desktop platform for the JVM. Combined with Compose Multiplatform, it forms the most complete, most performant, and most deeply integrated desktop application stack ever built \u2014 on any language, any runtime, any platform.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/kdroidFilter",
+  "source_url": "https://github.com/kdroidFilter/Nucleus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T21:04:42Z"
+  "distributed_at": "2026-05-02T13:35:13Z"
 }
