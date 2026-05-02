@@ -7,11 +7,11 @@ Just a open Claude Code Remote Control
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Eric-Song-Nop/mobvibe](https://github.com/Eric-Song-Nop/mobvibe).
+Original source: `CLAUDE.md` in [Eric-Song-Nop/mobvibe](https://github.com/Eric-Song-Nop/mobvibe).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
