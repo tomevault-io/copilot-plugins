@@ -1,0 +1,9 @@
+{
+  "name": "openbootdotdev--openboot",
+  "displayName": "openboot",
+  "description": "Set up your Mac dev environment in one command \u2014 CLI + Web Dashboard + Team sharing",
+  "version": "1.0.0",
+  "author": "openbootdotdev",
+  "homepage": "https://github.com/openbootdotdev/openboot",
+  "skills": []
+}
