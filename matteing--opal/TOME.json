@@ -1,0 +1,99 @@
+{
+  "name": "opal",
+  "owner": "matteing",
+  "repo": "opal",
+  "description": "\ud83d\udd2e A smol coding agent in Elixir",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ci-preflight",
+      "path": ".claude/skills/ci-preflight",
+      "github_url": "https://github.com/matteing/opal/tree/main/.claude/skills/ci-preflight",
+      "description": ""
+    },
+    {
+      "name": "citations",
+      "path": ".claude/skills/citations",
+      "github_url": "https://github.com/matteing/opal/tree/main/.claude/skills/citations",
+      "description": ""
+    },
+    {
+      "name": "codegen-sync",
+      "path": ".claude/skills/codegen-sync",
+      "github_url": "https://github.com/matteing/opal/tree/main/.claude/skills/codegen-sync",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "path": ".claude/skills/debugging",
+      "github_url": "https://github.com/matteing/opal/tree/main/.claude/skills/debugging",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/docs",
+      "github_url": "https://github.com/matteing/opal/tree/main/.claude/skills/docs",
+      "description": ""
+    },
+    {
+      "name": "elixir-cyclic-deps",
+      "path": ".claude/skills/elixir-cyclic-deps",
+      "github_url": "https://github.com/matteing/opal/tree/main/.claude/skills/elixir-cyclic-deps",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "path": ".claude/skills/git",
+      "github_url": "https://github.com/matteing/opal/tree/main/.claude/skills/git",
+      "description": ""
+    },
+    {
+      "name": "lint-and-format",
+      "path": ".claude/skills/lint-and-format",
+      "github_url": "https://github.com/matteing/opal/tree/main/.claude/skills/lint-and-format",
+      "description": ""
+    },
+    {
+      "name": "live-tests",
+      "path": ".claude/skills/live-tests",
+      "github_url": "https://github.com/matteing/opal/tree/main/.claude/skills/live-tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/matteing/opal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:37:59Z"
+}
