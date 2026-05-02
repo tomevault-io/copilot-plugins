@@ -1,0 +1,9 @@
+{
+  "name": "celltype--celltype-agent",
+  "displayName": "celltype-agent",
+  "description": "celltype-agent",
+  "version": "1.0.0",
+  "author": "celltype",
+  "homepage": "https://github.com/celltype/celltype-agent",
+  "skills": []
+}
