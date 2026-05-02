@@ -1,43 +1,47 @@
-## spec-injection-index
+## task-centered-workflow
 
-> Auto-select and inject project specs by task type
+> Execute substantial work through task-centered workflow
 
 
-# Spec Injection Router
+# Task-Centered Execution Rule
 
-`spec/` + `tasks/` apply to **developing this repo**, not to end-user or shipped-app runtime configuration (see **Repository scope** in `spec/README.md`).
+For non-trivial work, use `tasks/` as the source of execution truth.
 
-Before implementation, load `spec/README.md` and choose injected specs using its mapping and deterministic rules.
+## Contribution Modes
 
-## Required Workflow
+- External/community contribution (lightweight mode):
+  - Task folder is optional.
+  - `Task ID: N/A` is allowed for small fixes/docs/issues.
+  - Keep PR summary, validation evidence, and regression notes clear.
+- Core/maintainer contribution (strict mode):
+  - Use full task-centered workflow for non-trivial changes.
 
-1. **Always** inject `spec/verification-integrity.md` first — this is the highest-priority spec and applies unconditionally.
-2. **Always** inject `spec/task-artifact-language.md` for task execution records (`tasks/TASK-.../*`).
-3. Determine task type:
-   - `architecture`, `security`, `sandbox`, `agent`, `commands`, `mcp`, `python-sdk`, `docs-only`, or `mixed`.
-4. Build `[Injected Specs]` from `spec/README.md`.
-5. Follow all MUST / MUST NOT / CHECKLIST items in each injected spec.
-6. If multiple mappings match, inject all matched specs.
-7. For any Rust code change, always include `spec/rust-conventions.md` and `spec/testing-policy.md`.
-8. If user-visible behavior, env vars, commands, architecture docs, or release matrix change, include `spec/docs-sync.md`.
+## Required Behavior
 
-## Output Convention
+1. If work spans multiple files/subsystems or requires review traceability:
+   - create or reuse a `tasks/TASK-.../` folder.
+2. Before implementation starts, ensure design baseline exists:
+   - `TASK.md` has scope + acceptance criteria.
+   - `PRD.md` is drafted (or explicitly marked `N/A` with reason).
+   - `CONTEXT.md` is drafted (or explicitly marked `N/A` with reason).
+3. Keep these files updated during execution:
+   - `TASK.md` (scope, acceptance, risks, validation, regression scope)
+   - `PRD.md` (what/why decisions and requirement changes)
+   - `CONTEXT.md` (technical boundaries, constraints, compatibility notes)
+   - `STATUS.md` (progress and blockers)
+   - `REVIEW.md` (findings and merge readiness)
+4. Update `tasks/board.md` whenever status changes.
+5. Keep strategic discussion in `todo/*.md`, execution details in `tasks/`.
 
-At task start, explicitly declare:
+## Completion Gate
 
-```text
-[Injected Specs]
-- spec/<file-a>.md
-- spec/<file-b>.md
-...
-```
+Before declaring work complete:
 
-At task end, confirm:
-
-- `spec/verification-integrity.md` checklist was completed (anti-hallucination, anti-false-positive),
-- which specs were injected,
-- which checklists were completed,
-- which verification commands were run (with actual output, not model assertions).
+- acceptance criteria in `TASK.md` are checked or explicitly deferred,
+- `PRD.md` and `CONTEXT.md` reflect the implemented reality (or are explicitly `N/A`),
+- validation evidence is recorded,
+- regression scope is reviewed,
+- `tasks/board.md` is updated AND re-read to confirm the status change landed.
 
 ---
 > Source: [EXboys/skilllite](https://github.com/EXboys/skilllite) — distributed by [TomeVault](https://tomevault.io).
