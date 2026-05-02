@@ -1,0 +1,9 @@
+{
+  "name": "jun-murakami--zeroeq",
+  "displayName": "ZeroEQ",
+  "description": "A professional zero-latency broadcast-oriented equalizer plugin. for VST/AU/AAX/LV2/CLAP",
+  "version": "1.0.0",
+  "author": "Jun-Murakami",
+  "homepage": "https://github.com/Jun-Murakami/ZeroEQ",
+  "skills": []
+}
