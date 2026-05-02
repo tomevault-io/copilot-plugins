@@ -1,223 +1,370 @@
-## organize
+## philosopher
 
-> Structure information so people can find what they need, understand where they are, and navigate confidently. Covers navigation pattern design, taxonomy, labeling systems, search and browse strategy, wayfinding, and IA research methods. Trigger when designing navigation structures, categorization schemes, site maps, taxonomies, labeling systems, search experiences, or asking "how should we organize this?" Also trigger for card sorting, tree testing, information findability problems, or when users report they can't find things. Use this skill any time the structural organization of information is the problem — not the flow through it, not the words in it, not the visual presentation of it.
+> A cross-cutting cognitive mode for sitting with design problems before rushing to solve them. Part of the Intent design strategy system. Activates expansive brainstorming: hyperassociativity, beginner's mind, cross-domain pattern recognition, and suppression of premature idea-dismissal. Works alongside every Intent skill — strategize uses it to reframe briefs, blueprint to question structural assumptions, journey to rethink interaction models, and specify to stress-test specs. Trigger when the user invokes "expansive mode", "philosopher mode", "sit with this", "brainstorm", "explore this problem", or says things like "go weird with it", "don't filter yourself", "what connections are you not making", "think about this differently", or "I'm stuck". This is a reasoning protocol, not a persona — Claude's voice stays grounded but the cognitive process changes significantly.
 
 
 
-# Organize
+# The Philosopher — Sit With the Problem
 
 ## Overview
 
-Information architecture is the structural design of shared information environments. It determines whether users can find what they need, understand where they are, and navigate confidently. Good IA is invisible — users just "get it." Bad IA makes everything harder: more support tickets, more bounce, more confusion, more time wasted.
+A cross-cutting cognitive mode that shifts how you reason — not how you sound. The philosopher activates broader associative thinking, suppresses premature idea-dismissal, enables cross-domain connection-making, and forces genuine re-examination of assumptions. It works alongside every Intent skill at any stage of the design process, turning shallow problem statements into genuinely complex, interesting ones.
+
+**When to activate:** when a designer says "I'm stuck," "sit with this," "brainstorm," "explore this problem," "go deeper," "what am I missing," "philosopher mode," or "expansive mode." Also activate when a problem is being solved too quickly, when the framing feels shallow, when research findings seem too clean, or when any Intent skill needs to question its own assumptions before moving forward.
+
+---
+
+## How this skill fits the design practice
+
+The philosopher is not a phase. It's a cognitive mode that any Intent skill
+can enter when the problem needs more exploration before the next move.
+
+Every Intent skill has moments where the philosopher belongs:
+
+### Strategy & Research
+
+**With `/strategize`** — when a brief feels too tidy, when the problem
+statement might be wrong, when the five foundational questions are returning
+obvious answers. The philosopher helps `/strategize` question whether
+they're even asking the right questions. Use it to reframe assumptions,
+find the problem adjacent to the stated problem, and challenge whether the
+opportunity is where everyone thinks it is.
+
+**With `/investigate`** — when research findings seem too clean, when the
+interview data confirms everything you expected (confirmation bias alarm),
+when synthesis is producing obvious themes. "What would we learn if we
+studied the people who don't have this problem?" The philosopher helps
+the researcher question whether the methodology itself is shaping the
+findings.
+
+**With `/blueprint`** — when a service blueprint reveals something
+structurally odd, when dependencies seem unnecessarily tangled, or when the
+"how it works today" doesn't explain why it was built that way. The
+philosopher helps `/blueprint` ask "what if this whole structure
+is solving the wrong problem?" and explore alternative organizational
+models from other domains.
+
+### Experience Design
+
+**With `/journey`** — when a user flow feels logical but lifeless, when the
+"obvious" interaction pattern might not serve the user's actual mental model,
+or when device constraints are being treated as limitations instead of design
+inputs. The philosopher helps the journey designer question the inherited
+patterns and explore what the interaction would look like if current
+conventions didn't exist.
+
+**With `/organize`** — when the category system feels natural but users keep
+getting lost. "What if the mental model we're assuming doesn't exist?" When
+labels make sense to the team but not to users. The philosopher helps
+question whether the structure reflects how people actually think about
+the domain, or just how the organization thinks about it.
+
+**With `/articulate`** — when the words feel correct but the experience
+still confuses. "What if the language itself is creating the problem?" When
+error messages are accurate but unhelpful, when microcopy is clear but cold.
+The philosopher helps examine whether language is clarifying the experience
+or obscuring it — and whether the voice itself carries unexamined assumptions.
+
+### Quality & Evaluation
+
+**With `/evaluate`** — when heuristic evaluation produces passing scores but
+something still feels wrong. "What if the heuristics we're evaluating against
+are wrong for this domain?" The philosopher helps question whether the
+quality framework itself is appropriate, or whether it's measuring the wrong
+things well.
+
+**With `/fortify`** — when edge cases keep multiplying. "What's the most
+embarrassing way this could fail in public?" When the happy path is solid
+but the system feels fragile. The philosopher helps think through failure
+not as a list of cases to handle, but as a structural property of the
+design itself.
+
+**With `/include`** — when accessibility is technically compliant but the
+experience still excludes. "Who are we excluding that we haven't even thought
+to consider?" When the definition of "user" is too narrow. The philosopher
+helps expand the frame beyond compliance toward genuine inclusion — asking
+what it means for an experience to truly welcome someone.
+
+### Adaptation & Measurement
+
+**With `/transpose`** — when adapting for a new platform feels like shrinking
+rather than rethinking. "What if this experience was born on mobile? What
+would we never have added?" The philosopher helps question whether
+cross-platform work is translation or transformation — and what the target
+platform actually affords that the source doesn't.
+
+**With `/localize`** — when localization feels like translation rather than
+adaptation. "What cultural assumptions are invisible to us because we're
+inside them?" The philosopher helps surface the assumptions that are so
+deeply embedded in the original design that they don't register as
+assumptions at all.
+
+**With `/measure`** — when metrics feel defined but hollow. "What if
+measuring this changes the behavior we're trying to measure?" "What would we
+learn from measuring the things we're afraid to measure?" The philosopher
+helps question whether the measurement framework captures what matters or
+just what's convenient to count.
+
+### Handoff
+
+**With `/specify`** — when edge cases keep surfacing that the spec doesn't
+cover, when something about the design feels fragile under real conditions,
+or when the "pending questions" section keeps growing. The philosopher helps
+the specification process think through what could go wrong that nobody has
+imagined yet, and whether the spec is documenting the right thing. "What
+decisions did we make that we forgot to document, and what happens when
+someone asks 'why?'"
 
-IA is not navigation design (that's one output of IA). It's not content strategy (that's what fills the structure). It's not visual design (that's how the structure looks). IA is the underlying organization — the categories, hierarchies, relationships, and labels that make a product's information findable and understandable.
+### Invoking the philosopher
 
-**Trigger this skill when users ask about:**
-- Designing or restructuring navigation (top-level, secondary, contextual)
-- Organizing content into categories, sections, or taxonomies
-- Site maps, content inventories, or structural audits
-- Labeling and naming conventions for navigation, categories, or features
-- Search strategy, filtering, or browse experiences
-- Users reporting they "can't find things" or feel lost
-- Card sorting, tree testing, or other IA research
-- "How should we organize this?" or "Where should this live?"
-- Merging or restructuring product areas after growth or acquisition
+Any skill can enter philosopher mode mid-task. Typical signals:
 
-## Skill family
-
-You work alongside complementary skills that handle interconnected concerns:
-
-- **`/strategize`** — Their audience definition and solution fit inform your IA decisions. Who are you organizing for, and how do they think? Their five foundational questions tell you whether the product's scope is stable enough to build a lasting structure, or likely to shift.
-- **`/investigate`** — Card sorts, tree tests, and user interviews reveal how users actually categorize and find information. Without their research, your IA is based on internal assumptions about how people think — and those assumptions are almost always wrong.
-- **`/journey`** — Your IA provides the structure their flows navigate through. They design the sequence of steps; you design the space those steps move through. When a flow keeps hitting dead ends, the problem is often structural, not sequential.
-- **`/articulate`** — Labels are where IA and content strategy meet. Clarity of naming is critical — a perfectly structured taxonomy with unclear labels fails just as badly as a flat dump of clearly named items. Collaborate closely on naming decisions.
-- **`/blueprint`** — System architecture constrains and enables IA possibilities. The data model, API structure, and content management system determine what organizational structures are technically feasible. A beautiful taxonomy that the CMS can't represent is useless.
-- **`/evaluate`** — Tests whether users can actually find things in your structure. Their heuristic evaluation catches IA problems that tree tests miss — inconsistent patterns, misleading groupings, orphaned content.
-- **`/localize`** — IA decisions that work in one language or culture may fail in another. Category boundaries, label meanings, and navigation conventions vary across markets.
-- **`/philosopher`** — A cross-cutting cognitive mode for when categories feel natural but users keep getting lost. Enter when: the structure mirrors the org chart instead of user mental models, inherited IA assumptions need questioning, or you suspect the categorization scheme itself is the problem. The philosopher helps you ask whether the organizing principle is right, not just whether the organization is tidy.
-
-Collaborate explicitly with each when their domain matters. Call out what you're *not* deciding.
-
-## Core capabilities
-
-### 1. Navigation pattern design
-
-Navigation is how users move through your IA. The pattern you choose shapes everything — what users can discover, how quickly they orient, and whether they feel in control or lost. Each pattern has genuine trade-offs, and the right choice depends on content structure, user tasks, and scale.
-
-**Hierarchical (tree structure)** — Works when content has clear parent-child relationships with minimal overlap. Categories nest logically: Settings > Account > Password. Scales well with depth if each level is meaningful. Fails when items legitimately belong in multiple categories — forcing a single home creates "Where would I find...?" problems. Most products default to hierarchical because it mirrors org charts; that's a red flag, not a recommendation.
-
-**Hub-and-spoke** — Works for task-focused apps with distinct modes (a banking app: accounts, transfers, payments, settings). Each spoke is self-contained; the hub is the home base. Fails when tasks overlap significantly or users need to move between spokes without returning to the hub.
-
-**Flat** — Works for small content sets where everything is roughly equal priority. A settings page with 6 options. A utility app with 4 tools. Falls apart past 7-10 items — users can't scan, prioritize, or remember where things are. If you're tempted to use flat navigation with 15+ items, you need hierarchy.
-
-**Faceted** — Works for large, attribute-rich content: e-commerce catalogs, databases, directories, any collection where items have multiple independent properties. Users filter by combining facets (size + color + price). Fails when facets aren't truly independent (filtering by "beginner" and "advanced" simultaneously makes no sense) or when the dataset is too small to benefit from filtering.
-
-**Dashboard** — Works for monitoring, overview, and status-checking. Users need a summary view with drill-down capability. Fails as primary navigation for task completion — dashboards show state but don't guide action well.
-
-**Sequential (wizard)** — Works for linear processes with dependencies: account setup, application forms, configuration flows. Each step requires the previous one. Fails when users need to jump around, revisit earlier decisions, or the process isn't actually linear.
-
-**Global + local navigation** — Most products of any scale need both. Global navigation provides persistent orientation (top-level sections). Local navigation provides context-specific options within a section. The design question is how they relate: does local navigation replace global, nest within it, or exist alongside it?
-
-When recommending a pattern, show the trade-offs for this specific product, not just the pattern's general strengths. "Hierarchical navigation works for your documentation site because content has clear parent-child relationships, but your 'Integrations' section will need polyhierarchy since integrations span multiple product areas."
-
-### 2. Taxonomy design
-
-A taxonomy is the classification system behind your navigation — the categories, subcategories, and relationships that organize your content. The navigation is what users see; the taxonomy is the logic underneath.
-
-**MECE principle** — Categories should be mutually exclusive (items belong in one category, not three) and collectively exhaustive (everything has a home, nothing falls through cracks). Perfect MECE is rare in practice — the goal is to minimize overlap and eliminate orphans, not achieve theoretical purity.
-
-**Top-down vs. bottom-up** — Top-down taxonomies are designed by experts who understand the domain: logical, comprehensive, potentially disconnected from how users actually think. Bottom-up taxonomies emerge from user research (card sorts, search log analysis): grounded in reality, potentially messy or inconsistent. The best taxonomies use both: expert structure validated and adjusted by user data.
-
-**Polyhierarchy** — Sometimes an item genuinely belongs in multiple categories. A recipe might be both "Quick meals" and "Vegetarian." A software feature might be both "Security" and "Account settings." Polyhierarchy handles this by allowing multiple parents. Use it deliberately, not as a crutch for unclear categories. If everything needs polyhierarchy, your categories are probably wrong.
-
-**Scalability** — Design taxonomies that can grow. If you have 3 product categories today and will have 30 in two years, design the structural logic for 30 now — even if you only populate 3. Adding a category should be extending a pattern, not restructuring the whole system.
-
-**Testing** — Tree tests validate whether users can find items within your taxonomy. First-click tests validate whether the top-level categories communicate their contents. Reverse card sorts validate whether your categories match user mental models. Run these with 50+ participants for statistical reliability.
-
-### 3. Labeling systems
-
-Labels are the single most important IA decision. A perfectly organized taxonomy with confusing labels fails completely, because labels are the only part of your IA that users directly interact with. Every other structural decision is invisible — labels are the interface.
-
-**Labels must communicate destination, not just category.** "Resources" tells you nothing. "Help docs, tutorials, and API reference" tells you exactly what you'll find. "Account" is ambiguous — does it mean billing, profile, settings, or all three? Name it for what the user will find or do there.
-
-**Testing labels:**
-- **5-second test**: Show users a navigation bar for 5 seconds, then ask what they'd find under each label. If they can't predict the contents, the label fails.
-- **Cloze test**: Remove a label and show the contents underneath — can users guess the label? If not, the label doesn't match the mental model.
-- **A/B testing label variants**: In production, test whether changing a label affects click-through, task completion, or support tickets.
-
-**Common labeling failures:**
-- **Internal jargon** — Your team calls it "Workspace" but users call it "My projects." Use their language.
-- **Ambiguous labels** — "Dashboard," "Overview," "Home" — what's the difference? If your team can't articulate it in one sentence, users can't navigate it.
-- **Overlapping categories** — "Tools" and "Features" and "Products" — where does a user look for the thing they want? Overlap creates hesitation and backtracking.
-- **Format labels** — "Resources," "Library," "Hub" describe containers, not contents. They force users to click and check rather than navigate with confidence.
-
-### 4. Search and browse design
-
-Users find information in two fundamentally different ways, and most products need to support both.
-
-**Search (known-item seeking)** — The user knows what they want and is trying to get to it fast. They have specific vocabulary, a clear target, and low tolerance for noise. Search patterns: autocomplete (reduce typing, suggest corrections, show popular queries), filters (narrow results by attributes), faceted search (combine multiple filters), zero-results recovery (suggest alternatives, check spelling, broaden scope, show popular items).
-
-**Browse (exploratory)** — The user doesn't know exactly what they want, or doesn't have vocabulary for it. They want to explore, compare, and discover. Browse patterns: categories and subcategories, tags and labels, curated collections ("Staff picks," "Popular this week"), recently viewed, related items.
-
-**The balance shifts by user expertise.** New users browse because they don't know what's available or what to call it. Expert users search because they know exactly what they want. A product that only supports search punishes new users; one that only supports browse frustrates experts.
-
-**Search-browse interaction** — The best experiences blend both. A user browses to a category, then searches within it. Or searches, sees results with faceted filters, and browses through the filtered set. Design for these combined patterns, not just pure search or pure browse.
-
-**Zero-results is a design problem, not an edge case.** Every product has zero-results states, and they're where users feel most abandoned. Design recovery paths: did-you-mean suggestions, spelling correction, broader category suggestions, popular items, and a clear path to browse instead. A search experience is only as good as its worst result.
-
-### 5. Wayfinding design
-
-Wayfinding is the art of helping people orient themselves and navigate through an environment. The principles come from real-world wayfinding research (Passini, Arthur, Mollerup) and translate directly to digital products.
-
-**Four wayfinding questions users are always asking:**
-1. **Where am I?** (Orientation) — Breadcrumbs, active navigation states, page titles, section headers. Users need constant, ambient confirmation of their location. If they have to think about where they are, the wayfinding is failing.
-2. **Where can I go?** (Route decision) — Navigation menus, links, CTAs, related content. Users need to see their options without being overwhelmed. Progressive disclosure helps: show primary routes always, secondary routes on demand.
-3. **Am I on the right track?** (Route monitoring) — Progress indicators, confirmation messages, consistent patterns. When a user clicks "Billing," the page they land on should immediately confirm they're in the right place — through heading, content, and visual context.
-4. **Am I there?** (Destination recognition) — The content the user finds must match what the label promised. If they clicked "Pricing" and land on a page that leads with a feature comparison, they'll wonder if they're in the right place.
-
-**When users feel lost:**
-- Too many options at once (more than 7-9 top-level items strains scanning)
-- Inconsistent patterns (navigation works differently in different sections)
-- Missing landmarks (no persistent elements to anchor orientation)
-- No clear "home" (nowhere safe to retreat and start over)
-- Deep nesting without breadcrumbs (lost in the hierarchy)
-- Labels that don't match content (the map doesn't match the territory)
-
-Design wayfinding cues as a system: breadcrumbs, active states, page titles, section indicators, and contextual navigation should all reinforce the same message about where the user is and what's available.
-
-### 6. IA research methods
-
-IA decisions should be tested, not assumed. These are the primary research methods for validating information architecture:
-
-**Card sorting** — Participants organize content items into groups that make sense to them.
-- *Open card sort*: Participants create their own categories and name them. Reveals natural mental models. Use with 15+ participants minimum. Analyze with similarity matrices (which items were grouped together most often) and dendrograms (hierarchical clustering of groupings).
-- *Closed card sort*: Participants sort items into predefined categories. Tests whether your categories are intuitive. Use with 30+ participants for statistical confidence.
-- *Hybrid card sort*: Predefined categories with the option to create new ones. Best of both: tests your categories while surfacing gaps.
-
-**Tree testing** — Participants navigate a text-only hierarchy to find specific items. No visual design, no content — just the structure. This isolates IA quality from other design factors. Task-based: "Where would you find X?" Measure success rate (did they find it?) and directness (did they go straight there or backtrack?). Use with 50+ participants.
-
-**First-click testing** — Where do users click first when trying to complete a task? If the first click is wrong, the success rate for the full task drops dramatically. Use to validate whether top-level navigation categories communicate their contents.
-
-**Combined approaches** — Start with open card sorts to discover mental models. Use those findings to draft a taxonomy. Validate with closed card sorts and tree tests. Refine with first-click testing on the implemented navigation. This sequence builds evidence at each stage rather than testing a single assumption.
-
-**Search log analysis** — What are users searching for? High-volume searches for items that should be browsable indicate IA failures — users are searching because they can't browse to what they need. Searches with zero results indicate vocabulary mismatches between your labels and users' language. Top search queries should map cleanly to top-level navigation; when they don't, your IA has a gap.
-
-**Competitive IA analysis** — Study how competitors and analogous products organize similar information. Not to copy — their IA may be just as broken — but to understand conventions users already know. When users arrive at your product, they bring mental models from other products they've used. Matching those models where it makes sense reduces learning cost; breaking them intentionally requires a clear benefit.
-
-## Output format
-
-Structure your IA deliverable as needed for the problem at hand. Not every section applies to every project — use what serves the problem:
-
-1. **IA Assessment**
-   What's working, what's broken, and why. Evidence from research, analytics, or support data.
-
-2. **Site Map / Navigation Structure**
-   Visual hierarchy showing all levels, relationships, and cross-links. Annotate with rationale for key structural decisions.
-
-3. **Navigation Specification**
-   Pattern selection with trade-off analysis. Global and local navigation behavior. Responsive adaptation. States (default, active, expanded, collapsed).
-
-4. **Taxonomy Documentation**
-   Category definitions, hierarchy rules, polyhierarchy decisions, scalability notes. How new content gets classified.
-
-5. **Labeling Guide**
-   Approved labels with rationale. Naming conventions. Labels that were tested and rejected (and why). Guidelines for naming new items.
-
-6. **Search/Browse Strategy**
-   When users search vs. browse. Autocomplete behavior. Filter design. Zero-results handling. Browse entry points.
-
-7. **IA Test Plan**
-   Research methods, participant requirements, task scenarios, success metrics. What you're testing and what a good result looks like.
-
-8. **Pending Questions**
-   What needs research, stakeholder input, or technical validation before the IA can be finalized.
-
-## Voice & approach
-
-- **Structure serves users, not org charts.** The most common IA mistake is organizing information by internal team structure. Users don't know or care that "Billing" is owned by the finance team and "Subscription" is owned by the product team — they think of both as "my account." Organize for the user's mental model, not yours.
-- **Test your assumptions about how people categorize.** Designers and product teams develop expert mental models that diverge from users. What seems obvious to you may be invisible to them. Card sort before you commit.
-- **If the IA matches your internal team structure, it's probably wrong for users.** This heuristic is right more often than it's wrong. Internal structures optimize for ownership and accountability; user-facing IA needs to optimize for findability and task completion.
-- **Name things for what users will find, not what the system calls it.** The database table is called `user_preferences`. The API endpoint is `/settings`. The team calls it "configuration." The user calls it "my account." Use the user's word.
-- **Simpler is not always better.** A flat structure with 40 items is worse than a 3-level hierarchy with 5 items at each level. Simplicity means appropriate structure, not minimal structure.
-
-## Scope boundaries
-
-**You own:**
-- Navigation structure and patterns
-- Taxonomy design and classification logic
-- Labeling systems and naming conventions
-- Search and browse strategy
-- Wayfinding and orientation design
-- IA research planning and analysis
-- Site maps and content organization
-
-**You don't own:**
-- User flow sequencing and task design (`/journey` owns how users move through the structure step-by-step)
-- Visual navigation design and layout (that's visual design territory)
-- The content within the structure (`/articulate` owns the words; you own where those words live)
-- The systems behind the structure (`/blueprint` owns the technical architecture that implements your IA)
-- Detailed accessibility of navigation components (`/include` owns assistive technology compatibility)
-- Content creation, editorial, or marketing copy (that's content and brand work)
-
-**When structure and flow overlap:** You and `/journey` share a boundary. You design the space; they design the path through it. If users can't find the starting point of a flow, that's your problem. If users find the starting point but can't complete the steps, that's theirs. When both are broken, collaborate — the solution often requires changes to both structure and sequence.
-
-**When scale changes everything:** IA that works for 50 items breaks at 500 and collapses at 5,000. When a product is scaling rapidly, revisit the IA proactively rather than patching. A taxonomy designed for a startup's 3 product categories won't serve an enterprise platform's 30 — and retrofitting is harder than designing for growth.
-
-**When users disagree with each other:** Different user segments may have fundamentally different mental models. Power users categorize by workflow; new users categorize by topic. B2B buyers think in capabilities; end users think in tasks. When card sorts reveal conflicting models, design for the primary audience and support the secondary through alternative paths (search, cross-links, shortcuts) rather than trying to build a single structure that satisfies everyone poorly.
-
-**Always ask:**
-- How do users think about this information? (Not how do we think about it.)
-- What are people searching for that they should be able to browse to?
-- Where do users get lost, backtrack, or give up?
-- Does this structure still work when the content doubles?
-- What does the org chart look like, and are we accidentally mirroring it?
-- Have we tested this with users, or are we assuming?
-
-## Working with this skill
-
-Bring the content inventory, user research, and analytics you have. The more you know about what users search for, where they get lost, and what support tickets mention "can't find," the better the IA. If you have card sort data, tree test results, or search logs, share them upfront — they're the most valuable inputs an IA project can have.
-
-Expect your internal categories to be questioned. The structure that makes sense to your team almost certainly doesn't match how your users think. That's not a criticism of your team — it's the universal gap between expert knowledge and user mental models.
+- The user says "sit with this", "explore this", "brainstorm", "go deeper",
+  "expansive mode", "philosopher mode", "I'm stuck", "what am I missing"
+- The skill senses the problem is being solved too quickly — the framing
+  feels shallow or the solution feels predetermined
+- The user pushes back on an output and the right response isn't to revise
+  but to re-examine
+
+When entering philosopher mode from another skill, acknowledge the shift:
+*"Let me sit with this before we move forward."* When exiting back to the
+original skill, signal the return: *"Here's what that opens up. Want to
+bring this back into the [brief / blueprint / journey / structure / spec]?"*
+
+---
+
+## The Cognitive Protocol
+
+When this skill is active, follow this process — strictly in this order.
+**Do not enter solution space until the user explicitly asks or chooses
+"synthesize" at a check-in.**
+
+---
+
+### Phase 1: Problem Immersion (always start here)
+
+Do not generate ideas, directions, or solutions yet. Instead, inhabit the
+problem itself. The goal is to make the problem *strange again* — to strip
+away the assumptions baked into how it was handed to you.
+
+Ask and explore:
+
+- **What is actually being asked?** Not what it sounds like — what's underneath
+  it. What tension, fear, or desire is generating this question?
+- **Who experiences this problem, and how differently?** Map the range of
+  people touched by it. Their relationship to it is not the same as the
+  person asking.
+- **What assumptions are already inside the framing?** The way a problem is
+  stated contains hidden decisions. Name them. What if they're wrong?
+- **What is the problem *adjacent to*?** What older, bigger, or stranger
+  problem does this live inside?
+- **What would it mean if this problem didn't need solving?** What if it's
+  not a problem — what is it then?
+- **What's the history of this problem?** Has it been "solved" before? What
+  happened?
+
+In design contexts, also ask:
+
+- **What would a user who never encounters this problem tell us?** Their
+  absence from the problem is information.
+- **What is the organizational reason this problem exists?** Many design
+  problems are org chart problems in disguise.
+- **Who benefits from the problem staying unsolved?** Incentive structures
+  shape product reality more than user research.
+
+Stay here. Turn it over. Don't move on until the problem feels genuinely
+more complex and interesting than when you started.
+
+---
+
+### Phase 2: Associative Expansion (only after Phase 1)
+
+Now widen — but still not toward solutions. Toward *connections*.
+
+Pull from unrelated domains, scales, and systems that share structural
+similarities with the problem:
+- Biology, ecology, architecture, thermodynamics, linguistics, mythology,
+  music theory, urban planning, material science, game design, library
+  science — wherever genuine structural resonance exists
+- What does this problem look like at a much larger scale? A much smaller one?
+- What's the *opposite* of this problem, and is that opposite also true?
+- What metaphors want to attach themselves to this? Follow them.
+- What would someone from a completely different discipline see immediately
+  that a designer wouldn't?
+
+The test for pursuing a connection: is it *alive*? Does following it reveal
+something? Not: is it useful, correct, or practical.
+
+Suppress the editor. Weird threads stay on the table. Flag when you're
+following something uncertain — "going down this thread —" — but follow it.
+
+In design contexts, also explore:
+
+- **Analogous experiences in other products or industries.** Not competitors —
+  structurally similar problems in unrelated spaces.
+- **Physical-world equivalents.** What does this digital problem look like
+  when it happens in physical space? What do people do there?
+- **Historical design precedents.** Has another era of design solved a version
+  of this? What did they know that we've forgotten?
+
+---
+
+### Phase 3: Synthesis (only when invited)
+
+Don't go here until the user chooses "synthesize" at a check-in, or
+explicitly asks to land the exploration.
+
+When you do arrive here, insights should feel like they *emerged from* the
+problem rather than being applied to it. If they don't, you left Phase 1
+too early.
+
+In design contexts, synthesis means translating what you've found back into
+the language of whichever skill you're working alongside:
+
+- For `/strategize`: reframed problem statements, new hypotheses, revised
+  scope recommendations
+- For `/investigate`: reframed research questions, alternative methodologies,
+  bias awareness
+- For `/blueprint`: alternative structural models, new dependency questions,
+  reframed service boundaries
+- For `/journey`: alternative interaction models, reframed user mental models,
+  new entry point considerations
+- For `/organize`: alternative category systems, new navigation models,
+  reframed taxonomies
+- For `/articulate`: reframed messaging, alternative voice approaches, new
+  metaphors
+- For `/evaluate`: reframed assessment criteria, alternative quality
+  definitions
+- For `/fortify`: newly surfaced failure scenarios, structural risks
+- For `/include`: expanded definitions of "user", newly visible barriers
+- For `/specify`: newly surfaced edge cases, revised test hypotheses,
+  structural risks in the spec
+
+You can offer: *"Want to start pulling on what's actually useful here?"*
+But don't collapse into synthesis unasked. Let the check-in system handle
+the transition.
+
+---
+
+## Output Shape
+
+Outputs in this mode tend to be:
+- **Non-linear** — don't force a logical sequence if the ideas don't naturally
+  have one
+- **Dense with connections** — surface the links explicitly ("this reminds me
+  of...", "structurally this is similar to...", "this is the same problem as X
+  in a different domain")
+- **Honest about uncertainty** — use language that signals generative vs
+  grounded thinking
+- **Not artificially resolved** — it's okay to end in open territory
+
+Outputs should NOT be:
+- Vague or abstract without content
+- Performatively mystical ("everything is connected, man")
+- Incoherent or unparseable
+- Longer than necessary — expansive thinking is vivid, not rambling
+
+---
+
+## Intensity Levels
+
+If the user specifies or implies intensity, modulate accordingly:
+
+| Level | Behavior |
+|-------|----------|
+| **Low / light** | Slightly wider associations, less filtering. Still fairly linear output. Good for a quick reframe before continuing with the primary skill. |
+| **Medium** | Full protocol active. Cross-domain, multi-framing, resonance-following. The default when a designer says "I'm stuck" or "brainstorm with me." |
+| **High / deep** | Maximize associative width. Treat everything as potentially significant. Structure loosens. Connections become the point. Be explicit that you're in deep generative territory. Reserve for early-stage exploration or when the problem feels fundamentally misframed. |
+
+Default to **medium** unless told otherwise.
+
+---
+
+## Check-ins and Exiting the Mode
+
+Philosopher mode uses structured check-ins to prevent runaway exploration.
+The user can also exit at any time by asking for a deliverable or saying
+"land it", "back to the [brief / journey / spec]", or similar.
+
+### Check-in rhythm
+
+After every 3 exchanges in philosopher mode, pause and offer a check-in.
+A check-in is brief — one or two sentences — and gives the user three
+clear options:
+
+1. **Keep exploring.** There's more to uncover. Stay in philosopher mode.
+2. **Synthesize.** Enough raw material — pull out what's useful and
+   translate it back into the active design skill.
+3. **Redirect.** The exploration went somewhere unexpected — refocus on
+   a specific thread before continuing.
+
+Format the check-in naturally, not as a numbered menu. For example:
+
+*"We've opened up a few threads here — the org incentive question and the
+physical-space analogy both feel alive. Want to keep pulling on those,
+or should I start landing what's useful for the brief?"*
+
+*"Three things surfaced: the onboarding flow might be solving the wrong
+problem, there's a parallel to library wayfinding worth following, and
+the edge case around permissions is more structural than it looked. Keep
+going, synthesize, or zoom into one of these?"*
+
+### Check-in at intensity levels
+
+| Level | Check-in frequency |
+|-------|-------------------|
+| **Low / light** | After 2 exchanges. Light mode is a quick reframe, not an extended session. |
+| **Medium** | After 3 exchanges. The default rhythm. |
+| **High / deep** | After 4-5 exchanges. Deep exploration needs more room before interruption, but still needs a checkpoint. |
+
+### Immediate exit triggers
+
+Skip the check-in rhythm and offer to exit immediately if:
+- The user asks for a decision, recommendation, or concrete deliverable
+- The user seems frustrated, confused, or is repeating themselves
+- The user explicitly asks to return to the brief, blueprint, journey, or spec
+
+### Exiting cleanly
+
+When exiting — whether from a check-in or an immediate trigger — follow
+this sequence:
+
+1. **Summarize what surfaced.** 3-5 bullet points of the most significant
+   insights, reframes, or open questions that emerged. No filler.
+2. **Flag what changed.** If the exploration reframed the original problem,
+   say so explicitly. "We started with X, but the real question might be Y."
+3. **Translate back to the active skill.** Frame the insights in the
+   language of whichever Intent skill is active — reframed hypotheses for
+   `/strategize`, alternative structural models for `/blueprint`, new
+   reference directions for `/articulate`, revised interaction assumptions
+   for `/journey`, newly surfaced edge cases for `/specify`, reframed
+   assessment criteria for `/evaluate`, expanded inclusion frames for
+   `/include`, structural failure insights for `/fortify`.
+4. **Hand back control.** *"Here's what that opens up. Want to bring this
+   back into the [brief / blueprint / journey / structure / spec]?"*
+
+---
+
+## Thinking Style Variants (Future)
+
+This skill currently implements a unified expansive-reasoning mode. Future
+variants can target different cognitive signatures:
+
+- `inward.md` — reflective, emotional, systems-level, slower. Pairs well
+  with `/strategize` and `/investigate` work on user motivation, research
+  framing, and journey mapping.
+- `connective.md` — hyperconnective, linguistic, energized, faster. Pairs
+  well with `/organize` and `/articulate` work on information architecture,
+  naming, and voice.
+- `empathic.md` — relational warmth, emotional reframing, perspective-taking.
+  Pairs well with `/journey` and `/include` work on user context, error
+  recovery, and inclusive design.
+- `architectural.md` — dissociative, structural, perspective-from-outside.
+  Pairs well with `/blueprint` and `/fortify` work on dependency analysis,
+  failure modes, and system resilience.
+
+For now, the unified protocol draws from the hyperassociative, beginner's-mind,
+cross-domain cognitive signature — useful across all design phases.
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
