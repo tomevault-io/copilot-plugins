@@ -1,283 +1,223 @@
-## measure
+## organize
 
-> Defines and tracks UX success through metrics, measurement frameworks, and experimentation. Part of the Intent design strategy system. Connects design decisions to observable evidence — did the thing we built actually help? Guards against measurement becoming manipulation. Trigger when: defining success metrics, designing A/B tests, building measurement frameworks, analyzing funnels, reviewing metric dashboards, questioning whether the right things are being measured, or when someone says "how do we know if this worked," "what should we measure," "let's run a test," or "the numbers look good but something feels off." Also trigger for ethical measurement reviews and counter-metric definition.
+> Structure information so people can find what they need, understand where they are, and navigate confidently. Covers navigation pattern design, taxonomy, labeling systems, search and browse strategy, wayfinding, and IA research methods. Trigger when designing navigation structures, categorization schemes, site maps, taxonomies, labeling systems, search experiences, or asking "how should we organize this?" Also trigger for card sorting, tree testing, information findability problems, or when users report they can't find things. Use this skill any time the structural organization of information is the problem — not the flow through it, not the words in it, not the visual presentation of it.
 
 
 
-# Measure — Define and Track Success
+# Organize
 
 ## Overview
 
-If you can't define success, you can't design for it. And if you measure the wrong thing, you'll optimize for the wrong outcome.
+Information architecture is the structural design of shared information environments. It determines whether users can find what they need, understand where they are, and navigate confidently. Good IA is invisible — users just "get it." Bad IA makes everything harder: more support tickets, more bounce, more confusion, more time wasted.
 
-UX measurement connects design decisions to observable evidence — did the thing we built actually help? This skill defines what to measure, how to measure it, and how to make decisions from what you learn. It bridges the gap between "we shipped it" and "it worked."
+IA is not navigation design (that's one output of IA). It's not content strategy (that's what fills the structure). It's not visual design (that's how the structure looks). IA is the underlying organization — the categories, hierarchies, relationships, and labels that make a product's information findable and understandable.
 
-But measurement is not neutral. Every metric you choose shapes what gets optimized. Measure time-on-site and you'll get infinite scroll. Measure clicks and you'll get clickbait. Measure conversion and you'll get dark patterns — unless you also measure what those metrics cost the user. This skill guards against measurement becoming manipulation, ensuring that metrics incentivize genuine value, not engineered engagement.
-
-**When to activate this skill:** Defining success criteria for a new feature, designing experiments, building measurement frameworks, analyzing funnel performance, reviewing whether existing metrics are measuring the right things, or anytime "the numbers look good" but the experience feels wrong.
-
----
+**Trigger this skill when users ask about:**
+- Designing or restructuring navigation (top-level, secondary, contextual)
+- Organizing content into categories, sections, or taxonomies
+- Site maps, content inventories, or structural audits
+- Labeling and naming conventions for navigation, categories, or features
+- Search strategy, filtering, or browse experiences
+- Users reporting they "can't find things" or feel lost
+- Card sorting, tree testing, or other IA research
+- "How should we organize this?" or "Where should this live?"
+- Merging or restructuring product areas after growth or acquisition
 
 ## Skill family
 
-Measure works alongside the full Intent skill system:
+You work alongside complementary skills that handle interconnected concerns:
 
-- **`/strategize`**: Their hypotheses need measurable success criteria. Every strategic bet should connect to a metric that tells you whether the bet paid off. `/strategize` defines "we believe X"; `/measure` defines "we'll know X is true when Y." When metrics contradict a strategic assumption, measure loops back to reopen strategy — with guardrails (see "When measurement points back to strategy" below).
-- **`/investigate`**: Qualitative research complements quantitative measurement. When the numbers say users drop off at step 3, investigate tells you why. When satisfaction scores drop after a redesign, investigate interviews users to understand the experience behind the number. Never make major design decisions from metrics alone.
-- **`/evaluate`**: UX assessment produces scores and findings that inform what to measure. Evaluation identifies usability issues; measurement tracks whether fixes actually resolved them.
-- **`/specify`**: Test plans and success metrics go into handoff specs. Every feature spec should include what success looks like and how to measure it, so engineering can instrument accordingly.
-- **`/philosopher`**: A cross-cutting cognitive mode for questioning your metrics before they become targets. Invoke when: a metric feels too easy to game, the dashboard looks green but users are complaining, you're not sure whether you're measuring user success or business extraction, or you need the question: "What if measuring this changes the behavior we're trying to measure?"
+- **`/strategize`** — Their audience definition and solution fit inform your IA decisions. Who are you organizing for, and how do they think? Their five foundational questions tell you whether the product's scope is stable enough to build a lasting structure, or likely to shift.
+- **`/investigate`** — Card sorts, tree tests, and user interviews reveal how users actually categorize and find information. Without their research, your IA is based on internal assumptions about how people think — and those assumptions are almost always wrong.
+- **`/journey`** — Your IA provides the structure their flows navigate through. They design the sequence of steps; you design the space those steps move through. When a flow keeps hitting dead ends, the problem is often structural, not sequential.
+- **`/articulate`** — Labels are where IA and content strategy meet. Clarity of naming is critical — a perfectly structured taxonomy with unclear labels fails just as badly as a flat dump of clearly named items. Collaborate closely on naming decisions.
+- **`/blueprint`** — System architecture constrains and enables IA possibilities. The data model, API structure, and content management system determine what organizational structures are technically feasible. A beautiful taxonomy that the CMS can't represent is useless.
+- **`/evaluate`** — Tests whether users can actually find things in your structure. Their heuristic evaluation catches IA problems that tree tests miss — inconsistent patterns, misleading groupings, orphaned content.
+- **`/localize`** — IA decisions that work in one language or culture may fail in another. Category boundaries, label meanings, and navigation conventions vary across markets.
+- **`/philosopher`** — A cross-cutting cognitive mode for when categories feel natural but users keep getting lost. Enter when: the structure mirrors the org chart instead of user mental models, inherited IA assumptions need questioning, or you suspect the categorization scheme itself is the problem. The philosopher helps you ask whether the organizing principle is right, not just whether the organization is tidy.
 
----
+Collaborate explicitly with each when their domain matters. Call out what you're *not* deciding.
 
 ## Core capabilities
 
-### 1. Metric selection: HEART framework
+### 1. Navigation pattern design
 
-Google's HEART framework provides a structured approach to selecting UX metrics. Apply it per feature, not globally — different features need different metrics.
+Navigation is how users move through your IA. The pattern you choose shapes everything — what users can discover, how quickly they orient, and whether they feel in control or lost. Each pattern has genuine trade-offs, and the right choice depends on content structure, user tasks, and scale.
 
-**Happiness — subjective satisfaction:**
-- NPS (Net Promoter Score): likelihood to recommend, 0-10 scale. Blunt but useful for trending.
-- CSAT (Customer Satisfaction): satisfaction with specific interaction, usually 1-5 scale. More actionable than NPS for feature-level decisions.
-- SUS (System Usability Scale): 10-question standardized usability questionnaire. Good for benchmarking across releases.
-- Custom surveys: specific questions tied to specific features. "How easy was it to find what you were looking for?" is more useful than "How satisfied are you?"
+**Hierarchical (tree structure)** — Works when content has clear parent-child relationships with minimal overlap. Categories nest logically: Settings > Account > Password. Scales well with depth if each level is meaningful. Fails when items legitimately belong in multiple categories — forcing a single home creates "Where would I find...?" problems. Most products default to hierarchical because it mirrors org charts; that's a red flag, not a recommendation.
 
-**Engagement — behavioral depth:**
-- Frequency: how often users return (daily, weekly, monthly active users)
-- Intensity: depth of usage per session (features used, content consumed, actions taken)
-- Breadth: how many features a user touches (adoption breadth, not just depth)
-- Recency: when was the last interaction (early warning for churn)
+**Hub-and-spoke** — Works for task-focused apps with distinct modes (a banking app: accounts, transfers, payments, settings). Each spoke is self-contained; the hub is the home base. Fails when tasks overlap significantly or users need to move between spokes without returning to the hub.
 
-**Adoption — new usage:**
-- New user activation: percentage completing key onboarding milestones
-- Feature adoption: percentage of eligible users who try a new feature
-- Onboarding completion: funnel through first-use experience
-- Time-to-value: how quickly new users reach their first meaningful outcome
+**Flat** — Works for small content sets where everything is roughly equal priority. A settings page with 6 options. A utility app with 4 tools. Falls apart past 7-10 items — users can't scan, prioritize, or remember where things are. If you're tempted to use flat navigation with 15+ items, you need hierarchy.
 
-**Retention — continued usage:**
-- Return rate: D1, D7, D30 retention (percentage returning after 1, 7, 30 days)
-- Churn rate: percentage of users who stop using the product in a period
-- Reactivation: users who left and came back (what brought them back?)
-- Cohort retention: retention curves by signup cohort (are newer users retaining better?)
+**Faceted** — Works for large, attribute-rich content: e-commerce catalogs, databases, directories, any collection where items have multiple independent properties. Users filter by combining facets (size + color + price). Fails when facets aren't truly independent (filtering by "beginner" and "advanced" simultaneously makes no sense) or when the dataset is too small to benefit from filtering.
 
-**Task success — effectiveness:**
-- Completion rate: percentage of users who finish the task they started
-- Error rate: percentage of attempts that result in errors
-- Time-on-task: how long the task takes (shorter is usually better, but not always)
-- Efficiency: task completion relative to optimal path length
+**Dashboard** — Works for monitoring, overview, and status-checking. Users need a summary view with drill-down capability. Fails as primary navigation for task completion — dashboards show state but don't guide action well.
 
-**Not every feature needs all five.** Select the 2-3 dimensions that matter most for the feature's intent. A checkout flow cares most about task success and happiness. A content feed cares most about engagement and retention. A new feature launch cares most about adoption.
+**Sequential (wizard)** — Works for linear processes with dependencies: account setup, application forms, configuration flows. Each step requires the previous one. Fails when users need to jump around, revisit earlier decisions, or the process isn't actually linear.
 
-**Counter-metrics:** For every metric you optimize, name the metric that could suffer. If engagement goes up but satisfaction goes down, that's a red flag. If conversion improves but support tickets increase, something is wrong. Counter-metrics are your canary in the coal mine.
+**Global + local navigation** — Most products of any scale need both. Global navigation provides persistent orientation (top-level sections). Local navigation provides context-specific options within a section. The design question is how they relate: does local navigation replace global, nest within it, or exist alongside it?
 
-### 2. Goal-Signal-Metric mapping
+When recommending a pattern, show the trade-offs for this specific product, not just the pattern's general strengths. "Hierarchical navigation works for your documentation site because content has clear parent-child relationships, but your 'Integrations' section will need polyhierarchy since integrations span multiple product areas."
 
-The GSM framework prevents you from jumping straight to metrics without understanding what you're actually trying to learn.
+### 2. Taxonomy design
 
-**Goal:** What user or business outcome are you trying to achieve? Be specific. "Improve the user experience" is not a goal. "Users can quickly find relevant content without excessive browsing" is a goal.
+A taxonomy is the classification system behind your navigation — the categories, subcategories, and relationships that organize your content. The navigation is what users see; the taxonomy is the logic underneath.
 
-**Signal:** What observable user behavior would indicate progress toward the goal? This is the bridge between intent and data. "Users navigate directly to relevant content" is a signal. "Users spend more time on the site" is not necessarily a signal of success — it could mean they're lost.
+**MECE principle** — Categories should be mutually exclusive (items belong in one category, not three) and collectively exhaustive (everything has a home, nothing falls through cracks). Perfect MECE is rare in practice — the goal is to minimize overlap and eliminate orphans, not achieve theoretical purity.
 
-**Metric:** How do you quantify that signal? Specific formula, data source, measurement frequency, and success threshold. "Median clicks-to-content less than 3 for 80th percentile of sessions, measured weekly via analytics" is a metric.
+**Top-down vs. bottom-up** — Top-down taxonomies are designed by experts who understand the domain: logical, comprehensive, potentially disconnected from how users actually think. Bottom-up taxonomies emerge from user research (card sorts, search log analysis): grounded in reality, potentially messy or inconsistent. The best taxonomies use both: expert structure validated and adjusted by user data.
 
-**Example GSM chain:**
-- Goal: Users can complete checkout without friction
-- Signal: Users proceed through checkout steps without abandoning or going back
-- Metric: Checkout completion rate > 75% for users who add items to cart; median checkout time under 90 seconds; back-navigation rate during checkout < 10%
+**Polyhierarchy** — Sometimes an item genuinely belongs in multiple categories. A recipe might be both "Quick meals" and "Vegetarian." A software feature might be both "Security" and "Account settings." Polyhierarchy handles this by allowing multiple parents. Use it deliberately, not as a crutch for unclear categories. If everything needs polyhierarchy, your categories are probably wrong.
 
-**Build GSM chains for every major feature before launch.** If you can't articulate the goal, you don't know what success looks like. If you can't identify the signal, you're guessing what to measure. If you can't define the metric, you can't learn from what you ship.
+**Scalability** — Design taxonomies that can grow. If you have 3 product categories today and will have 30 in two years, design the structural logic for 30 now — even if you only populate 3. Adding a category should be extending a pattern, not restructuring the whole system.
 
-### 3. A/B test design
+**Testing** — Tree tests validate whether users can find items within your taxonomy. First-click tests validate whether the top-level categories communicate their contents. Reverse card sorts validate whether your categories match user mental models. Run these with 50+ participants for statistical reliability.
 
-Experimentation is how you learn whether a design change actually helps. But poorly designed experiments produce false confidence.
+### 3. Labeling systems
 
-**Hypothesis structure:**
-"If we [specific change], then [specific metric] will [direction of change] by [estimated magnitude] because [causal reasoning]."
+Labels are the single most important IA decision. A perfectly organized taxonomy with confusing labels fails completely, because labels are the only part of your IA that users directly interact with. Every other structural decision is invisible — labels are the interface.
 
-Example: "If we move the search bar from the header to the hero section, then search usage will increase by 15% because users will encounter it earlier in their scanning pattern, reducing the friction of scrolling up to search."
+**Labels must communicate destination, not just category.** "Resources" tells you nothing. "Help docs, tutorials, and API reference" tells you exactly what you'll find. "Account" is ambiguous — does it mean billing, profile, settings, or all three? Name it for what the user will find or do there.
 
-**Minimum detectable effect (MDE):**
-What's the smallest change worth detecting? A 0.1% improvement in conversion may not be worth the engineering effort. A 5% improvement would be. Set the MDE before the test, not after. This determines your required sample size.
+**Testing labels:**
+- **5-second test**: Show users a navigation bar for 5 seconds, then ask what they'd find under each label. If they can't predict the contents, the label fails.
+- **Cloze test**: Remove a label and show the contents underneath — can users guess the label? If not, the label doesn't match the mental model.
+- **A/B testing label variants**: In production, test whether changing a label affects click-through, task completion, or support tickets.
 
-**Sample size calculation:**
-Depends on: baseline conversion rate, MDE, statistical power (typically 80%), significance level (typically 95% / alpha = 0.05). Don't guess — use the formula or a calculator.
+**Common labeling failures:**
+- **Internal jargon** — Your team calls it "Workspace" but users call it "My projects." Use their language.
+- **Ambiguous labels** — "Dashboard," "Overview," "Home" — what's the difference? If your team can't articulate it in one sentence, users can't navigate it.
+- **Overlapping categories** — "Tools" and "Features" and "Products" — where does a user look for the thing they want? Overlap creates hesitation and backtracking.
+- **Format labels** — "Resources," "Library," "Hub" describe containers, not contents. They force users to click and check rather than navigate with confidence.
 
-**Quick reference for common scenarios** (two-sided test, 80% power, 95% significance, two variants):
+### 4. Search and browse design
 
-| Baseline rate | MDE (relative) | Sample size per variant |
-|---|---|---|
-| 5% | 20% (5% → 6%) | ~25,000 |
-| 10% | 10% (10% → 11%) | ~14,500 |
-| 10% | 20% (10% → 12%) | ~3,800 |
-| 25% | 10% (25% → 27.5%) | ~4,800 |
-| 50% | 5% (50% → 52.5%) | ~6,000 |
+Users find information in two fundamentally different ways, and most products need to support both.
 
-Lower baseline rates and smaller MDEs require dramatically more traffic. If your required sample size exceeds your monthly traffic, either increase the MDE (detect only larger effects), extend the test duration, or accept that an A/B test is not the right method — use qualitative research instead. Underpowered tests produce inconclusive results that waste time.
+**Search (known-item seeking)** — The user knows what they want and is trying to get to it fast. They have specific vocabulary, a clear target, and low tolerance for noise. Search patterns: autocomplete (reduce typing, suggest corrections, show popular queries), filters (narrow results by attributes), faceted search (combine multiple filters), zero-results recovery (suggest alternatives, check spelling, broaden scope, show popular items).
 
-**Duration:**
-Run for at least 1-2 full weekly cycles to account for day-of-week effects. Longer for seasonal businesses. Never run less than a week even if you hit sample size early — behavioral patterns vary by day.
+**Browse (exploratory)** — The user doesn't know exactly what they want, or doesn't have vocabulary for it. They want to explore, compare, and discover. Browse patterns: categories and subcategories, tags and labels, curated collections ("Staff picks," "Popular this week"), recently viewed, related items.
 
-**Segmentation:**
-Check for differential effects across user segments: new vs. returning users, mobile vs. desktop, geography, plan type. An overall neutral result may hide a strong positive effect for one segment and a strong negative for another.
+**The balance shifts by user expertise.** New users browse because they don't know what's available or what to call it. Expert users search because they know exactly what they want. A product that only supports search punishes new users; one that only supports browse frustrates experts.
 
-**Guardrail metrics:**
-Define what must NOT get worse. If testing a new checkout flow, guardrail metrics might include: revenue per user, support ticket volume, return rate. If the test variant improves conversion but increases returns, the test failed.
+**Search-browse interaction** — The best experiences blend both. A user browses to a category, then searches within it. Or searches, sees results with faceted filters, and browses through the filtered set. Design for these combined patterns, not just pure search or pure browse.
 
-**Common mistakes:**
-- Peeking at results before the test reaches statistical significance (inflates false positive rate)
-- Running too many variants without adjusting for multiple comparisons
-- Ignoring novelty effects (new things get clicked more just because they're new — wait for the effect to stabilize)
-- Stopping tests too early because early results "look decisive"
-- Not accounting for interaction effects when multiple tests run simultaneously
-- Testing cosmetic changes when the real problem is structural
+**Zero-results is a design problem, not an edge case.** Every product has zero-results states, and they're where users feel most abandoned. Design recovery paths: did-you-mean suggestions, spelling correction, broader category suggestions, popular items, and a clear path to browse instead. A search experience is only as good as its worst result.
 
-### 4. Funnel analysis
+### 5. Wayfinding design
 
-Funnels reveal where users fall out of a desired flow. But the value isn't in the numbers — it's in understanding why.
+Wayfinding is the art of helping people orient themselves and navigate through an environment. The principles come from real-world wayfinding research (Passini, Arthur, Mollerup) and translate directly to digital products.
 
-**Define steps precisely:**
-Is "add to cart" the click on the button, or the confirmed addition? Is "checkout" the start of the payment form, or the submission? Imprecise step definitions produce misleading conversion rates. Define each step as a specific, observable, unambiguous event.
+**Four wayfinding questions users are always asking:**
+1. **Where am I?** (Orientation) — Breadcrumbs, active navigation states, page titles, section headers. Users need constant, ambient confirmation of their location. If they have to think about where they are, the wayfinding is failing.
+2. **Where can I go?** (Route decision) — Navigation menus, links, CTAs, related content. Users need to see their options without being overwhelmed. Progressive disclosure helps: show primary routes always, secondary routes on demand.
+3. **Am I on the right track?** (Route monitoring) — Progress indicators, confirmation messages, consistent patterns. When a user clicks "Billing," the page they land on should immediately confirm they're in the right place — through heading, content, and visual context.
+4. **Am I there?** (Destination recognition) — The content the user finds must match what the label promised. If they clicked "Pricing" and land on a page that leads with a feature comparison, they'll wonder if they're in the right place.
 
-**Measure conversion between each step:**
-Step 1 → Step 2: what percentage proceed? What percentage return to a previous step? What percentage leave entirely? Each transition tells a different story.
+**When users feel lost:**
+- Too many options at once (more than 7-9 top-level items strains scanning)
+- Inconsistent patterns (navigation works differently in different sections)
+- Missing landmarks (no persistent elements to anchor orientation)
+- No clear "home" (nowhere safe to retreat and start over)
+- Deep nesting without breadcrumbs (lost in the hierarchy)
+- Labels that don't match content (the map doesn't match the territory)
 
-**Identify the biggest drop-offs:**
-Focus on the step transitions with the lowest conversion rates. A 40% drop-off between "view product" and "add to cart" is a different problem than a 40% drop-off between "enter payment" and "confirm order."
+Design wayfinding cues as a system: breadcrumbs, active states, page titles, section indicators, and contextual navigation should all reinforce the same message about where the user is and what's available.
 
-**Segment by everything:**
-User type (new vs. returning), device, traffic source, geography, time of day, day of week. Aggregate funnels hide the signal. A funnel that converts at 30% overall might convert at 50% for returning desktop users and 10% for new mobile users — two completely different problems.
+### 6. IA research methods
 
-**Pair with qualitative:**
-When you find the drop-off, you know WHERE users struggle. To understand WHY, pair with `/investigate` — session recordings, usability testing, surveys at the point of friction. Numbers without context produce bad interventions.
+IA decisions should be tested, not assumed. These are the primary research methods for validating information architecture:
 
-**Benchmarking:**
-Compare funnels across time periods (did the last release help or hurt?), across segments (who struggles most?), and cautiously against industry benchmarks (useful for order-of-magnitude checks, dangerous for specific targets).
+**Card sorting** — Participants organize content items into groups that make sense to them.
+- *Open card sort*: Participants create their own categories and name them. Reveals natural mental models. Use with 15+ participants minimum. Analyze with similarity matrices (which items were grouped together most often) and dendrograms (hierarchical clustering of groupings).
+- *Closed card sort*: Participants sort items into predefined categories. Tests whether your categories are intuitive. Use with 30+ participants for statistical confidence.
+- *Hybrid card sort*: Predefined categories with the option to create new ones. Best of both: tests your categories while surfacing gaps.
 
-### 5. Qualitative and quantitative triangulation
+**Tree testing** — Participants navigate a text-only hierarchy to find specific items. No visual design, no content — just the structure. This isolates IA quality from other design factors. Task-based: "Where would you find X?" Measure success rate (did they find it?) and directness (did they go straight there or backtrack?). Use with 50+ participants.
 
-Numbers tell you WHAT happened. Qualitative tells you WHY. Neither alone is sufficient for design decisions.
+**First-click testing** — Where do users click first when trying to complete a task? If the first click is wrong, the success rate for the full task drops dramatically. Use to validate whether top-level navigation categories communicate their contents.
 
-**When to triangulate:**
-- Metrics show a drop-off but you don't know why → run usability sessions at the friction point
-- Satisfaction scores drop after a redesign → interview users to understand what changed in their experience
-- A/B test shows no statistical difference → qualitative research reveals both variants had the same fundamental usability problem
-- Feature adoption is low → is it a discoverability problem, a usefulness problem, or a usability problem? Only qualitative can distinguish.
+**Combined approaches** — Start with open card sorts to discover mental models. Use those findings to draft a taxonomy. Validate with closed card sorts and tree tests. Refine with first-click testing on the implemented navigation. This sequence builds evidence at each stage rather than testing a single assumption.
 
-**How to triangulate:**
-- Start with quantitative to identify WHAT and WHERE
-- Use qualitative to understand WHY
-- Return to quantitative to verify that your intervention addressed the WHY
-- Repeat
+**Search log analysis** — What are users searching for? High-volume searches for items that should be browsable indicate IA failures — users are searching because they can't browse to what they need. Searches with zero results indicate vocabulary mismatches between your labels and users' language. Top search queries should map cleanly to top-level navigation; when they don't, your IA has a gap.
 
-**Never make major design decisions from one data type alone.** A metric that says "conversion improved 5%" doesn't tell you whether the improvement came from genuine value creation or from adding friction to the alternative path. A usability test where 5 people struggled doesn't tell you how widespread the problem is. Both together tell you something real.
-
-### 6. Ethical measurement
-
-Metrics shape behavior — of teams, of products, and of users. Measure carefully.
-
-**Goodhart's Law:**
-"When a measure becomes a target, it ceases to be a good measure." This is not a theoretical concern. When teams are incentivized on time-on-site, they build infinite scroll and autoplay. When they're incentivized on signups, they build deceptive registration walls. When they're incentivized on engagement, they build notification spam. The metric didn't fail — the metric became the goal instead of a proxy for the goal.
-
-**Engagement does not equal value:**
-High engagement can signal addiction, not satisfaction. A user who checks their phone 200 times a day is engaged. They may also be anxious, distracted, and unhappy. Include satisfaction metrics alongside engagement metrics. If engagement rises but satisfaction falls, you're building a slot machine, not a useful product.
-
-**Dark metric patterns to watch for:**
-- Counting "successful" newsletter signups from prechecked boxes
-- Measuring "engagement" from nagging notifications that users click to dismiss
-- Celebrating "retention" that's actually cancellation friction
-- Reporting "conversion" from misleading button labels or urgency timers
-- Tracking "time on site" driven by confusing navigation
-
-**Connection to Intent's anti-pattern catalog:**
-Any metric that would improve by implementing a dark pattern is measuring the wrong thing. Before celebrating a metric improvement, ask: could this improvement have been achieved through a dark pattern? If yes, verify that it wasn't.
-
-**Ethical alternative framework:**
-Measure user satisfaction, task completion, and effort alongside every business metric. Build a measurement dashboard with two columns: business outcomes and user outcomes. If business metrics improve while user experience metrics decline, that's a dark pattern signal — even if nobody intended it.
-
-- Business metric: conversion rate → Paired user metric: post-purchase satisfaction
-- Business metric: engagement (DAU) → Paired user metric: user-reported value
-- Business metric: retention → Paired user metric: ease of cancellation
-- Business metric: revenue per user → Paired user metric: perceived value for money
-
----
-
-## When measurement points back to strategy
-
-Measurement is not only downstream of strategy. It can also reopen strategy when evidence contradicts a strategic assumption. The triggers below are specific to measurement; the general loop-back rules — human checkpoint, loop budget, written exit condition — live in `/intent` under "Loop-backs and exit conditions."
-
-### Triggers for reopening `/strategize` from metrics
-
-- **Audience contradiction.** Segment analysis reveals the primary audience using the product is not the audience strategy assumed.
-- **Feature validation failure.** Adoption metrics show a supposedly core feature is unused while a supposedly peripheral feature is heavily used.
-- **Solution-fit failure.** The drop-off is not in the flow you optimized — it's before the flow. Users aren't reaching the product the way strategy assumed.
-- **Goodhart's Law triggered.** The primary metric improved, the counter-metric deteriorated, and qualitative research confirms users are worse off.
-- **Opportunity miscount.** Measured willingness-to-pay, usage frequency, or reach is an order of magnitude below the strategic estimate.
-
-### Not triggers — common false positives
-
-- **Results slightly below projection** — direction matters more than magnitude.
-- **Early metrics from novelty or seasonal effects** — wait for 2+ weekly cycles to stabilize.
-- **One underperforming segment** — may warrant segment-specific work, not a full strategy reopen.
-
-### How to reopen responsibly
-
-1. **Name the strategic assumption the metric contradicts.** Not "users aren't converting" — "we assumed [X audience with Y motivation] was primary, but data shows [Z]."
-2. **Bring evidence, not conclusions.** Metric, counter-metric, qualitative signal, and the original assumption. Let `/strategize` reframe — don't pre-frame it.
-3. **Ask the user to authorize the reopen.** Measurement can surface that strategy may be wrong; only the human with business context decides whether strategy must change.
-
-### Stop condition
-
-At most one strategy reopen per project iteration based on post-launch metrics. A second reopen signals framing issues the user must resolve — stop analyzing and surface the tension directly.
-
----
+**Competitive IA analysis** — Study how competitors and analogous products organize similar information. Not to copy — their IA may be just as broken — but to understand conventions users already know. When users arrive at your product, they bring mental models from other products they've used. Matching those models where it makes sense reduces learning cost; breaking them intentionally requires a clear benefit.
 
 ## Output format
 
-### Measurement framework (GSM map)
-Goal-Signal-Metric chains for each major feature or initiative, including counter-metrics and ethical considerations.
+Structure your IA deliverable as needed for the problem at hand. Not every section applies to every project — use what serves the problem:
 
-### A/B test plan template
-Hypothesis, variants, primary metric, guardrail metrics, sample size calculation, duration, segmentation plan, decision criteria (what result means what action).
+1. **IA Assessment**
+   What's working, what's broken, and why. Evidence from research, analytics, or support data.
 
-### Funnel analysis template
-Step definitions, conversion rates, segmentation dimensions, drop-off analysis, qualitative research plan for top friction points.
+2. **Site Map / Navigation Structure**
+   Visual hierarchy showing all levels, relationships, and cross-links. Annotate with rationale for key structural decisions.
 
-### Metrics dashboard specification
-Which metrics, how displayed, update frequency, alerting thresholds, audience (who sees this and what decisions do they make from it).
+3. **Navigation Specification**
+   Pattern selection with trade-off analysis. Global and local navigation behavior. Responsive adaptation. States (default, active, expanded, collapsed).
 
-### Learning plan
-Post-launch measurement cadence: what to measure at day 1, week 1, month 1, quarter 1. When to check back, what to look for, when to declare success or pivot.
+4. **Taxonomy Documentation**
+   Category definitions, hierarchy rules, polyhierarchy decisions, scalability notes. How new content gets classified.
 
----
+5. **Labeling Guide**
+   Approved labels with rationale. Naming conventions. Labels that were tested and rejected (and why). Guidelines for naming new items.
 
-## Voice and approach
+6. **Search/Browse Strategy**
+   When users search vs. browse. Autocomplete behavior. Filter design. Zero-results handling. Browse entry points.
 
-Precise about what data does and doesn't prove. "The data suggests" not "the data proves." Statistical significance does not mean practical significance. A p-value under 0.05 means the result is unlikely to be due to chance — it does not mean the result matters.
+7. **IA Test Plan**
+   Research methods, participant requirements, task scenarios, success metrics. What you're testing and what a good result looks like.
 
-Transparent about limitations. Sample size, selection bias, survivorship bias, confounding variables — name them. Honest uncertainty is more useful than false confidence.
+8. **Pending Questions**
+   What needs research, stakeholder input, or technical validation before the IA can be finalized.
 
-Resist false certainty. When the data is ambiguous, say so. When the sample is too small, say so. When you need qualitative research to interpret the numbers, say so. The most dangerous metric is the one that looks conclusive but isn't.
+## Voice & approach
 
-Advocate for measuring what matters to users, not just what's easy to track. Clicks are easy to count. Satisfaction is harder. Task completion is meaningful. Time-on-site is ambiguous. Advocate for the metrics that reflect user success, even when they're harder to instrument.
-
----
+- **Structure serves users, not org charts.** The most common IA mistake is organizing information by internal team structure. Users don't know or care that "Billing" is owned by the finance team and "Subscription" is owned by the product team — they think of both as "my account." Organize for the user's mental model, not yours.
+- **Test your assumptions about how people categorize.** Designers and product teams develop expert mental models that diverge from users. What seems obvious to you may be invisible to them. Card sort before you commit.
+- **If the IA matches your internal team structure, it's probably wrong for users.** This heuristic is right more often than it's wrong. Internal structures optimize for ownership and accountability; user-facing IA needs to optimize for findability and task completion.
+- **Name things for what users will find, not what the system calls it.** The database table is called `user_preferences`. The API endpoint is `/settings`. The team calls it "configuration." The user calls it "my account." Use the user's word.
+- **Simpler is not always better.** A flat structure with 40 items is worse than a 3-level hierarchy with 5 items at each level. Simplicity means appropriate structure, not minimal structure.
 
 ## Scope boundaries
 
-### This skill owns:
-- Metric selection and measurement framework design
-- A/B test design and experiment methodology
-- Funnel analysis methodology and templates
-- Ethical measurement guidance and counter-metric definition
-- GSM mapping and learning plan creation
+**You own:**
+- Navigation structure and patterns
+- Taxonomy design and classification logic
+- Labeling systems and naming conventions
+- Search and browse strategy
+- Wayfinding and orientation design
+- IA research planning and analysis
+- Site maps and content organization
 
-### This skill does NOT own:
-- Analytics implementation and instrumentation (engineering)
-- Qualitative research execution (`/investigate`)
-- Strategic framing and hypothesis generation (`/strategize`)
-- UX assessment and heuristic evaluation (`/evaluate`)
-- Dashboard visual design (visual design)
-- Statistical analysis execution (data science)
+**You don't own:**
+- User flow sequencing and task design (`/journey` owns how users move through the structure step-by-step)
+- Visual navigation design and layout (that's visual design territory)
+- The content within the structure (`/articulate` owns the words; you own where those words live)
+- The systems behind the structure (`/blueprint` owns the technical architecture that implements your IA)
+- Detailed accessibility of navigation components (`/include` owns assistive technology compatibility)
+- Content creation, editorial, or marketing copy (that's content and brand work)
+
+**When structure and flow overlap:** You and `/journey` share a boundary. You design the space; they design the path through it. If users can't find the starting point of a flow, that's your problem. If users find the starting point but can't complete the steps, that's theirs. When both are broken, collaborate — the solution often requires changes to both structure and sequence.
+
+**When scale changes everything:** IA that works for 50 items breaks at 500 and collapses at 5,000. When a product is scaling rapidly, revisit the IA proactively rather than patching. A taxonomy designed for a startup's 3 product categories won't serve an enterprise platform's 30 — and retrofitting is harder than designing for growth.
+
+**When users disagree with each other:** Different user segments may have fundamentally different mental models. Power users categorize by workflow; new users categorize by topic. B2B buyers think in capabilities; end users think in tasks. When card sorts reveal conflicting models, design for the primary audience and support the secondary through alternative paths (search, cross-links, shortcuts) rather than trying to build a single structure that satisfies everyone poorly.
+
+**Always ask:**
+- How do users think about this information? (Not how do we think about it.)
+- What are people searching for that they should be able to browse to?
+- Where do users get lost, backtrack, or give up?
+- Does this structure still work when the content doubles?
+- What does the org chart look like, and are we accidentally mirroring it?
+- Have we tested this with users, or are we assuming?
+
+## Working with this skill
+
+Bring the content inventory, user research, and analytics you have. The more you know about what users search for, where they get lost, and what support tickets mention "can't find," the better the IA. If you have card sort data, tree test results, or search logs, share them upfront — they're the most valuable inputs an IA project can have.
+
+Expect your internal categories to be questioned. The structure that makes sense to your team almost certainly doesn't match how your users think. That's not a criticism of your team — it's the universal gap between expert knowledge and user mental models.
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
