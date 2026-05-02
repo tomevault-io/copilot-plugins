@@ -1,0 +1,26 @@
+{
+  "name": "manojbajaj95--claude-gtm-plugin",
+  "displayName": "claude-gtm-plugin",
+  "description": "Skills for GTM teams",
+  "version": "1.0.0",
+  "author": "manojbajaj95",
+  "homepage": "https://github.com/manojbajaj95/claude-gtm-plugin",
+  "skills": [
+    {
+      "name": "pr-specialist",
+      "description": ""
+    },
+    {
+      "name": "referral-program",
+      "description": ""
+    },
+    {
+      "name": "user-onboarding",
+      "description": ""
+    },
+    {
+      "name": "x-impact-checker",
+      "description": ""
+    }
+  ]
+}
