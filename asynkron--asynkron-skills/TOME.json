@@ -1,0 +1,93 @@
+{
+  "name": "asynkron-skills",
+  "owner": "asynkron",
+  "repo": "asynkron-skills",
+  "description": "ASYNKRON developer tools skills \u2014 profiler, test runner, code duplication detector, and line counter",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cloc",
+      "path": "skills/cloc",
+      "github_url": "https://github.com/asynkron/asynkron-skills/tree/main/skills/cloc",
+      "description": ""
+    },
+    {
+      "name": "dotnet-strict",
+      "path": "skills/dotnet-strict",
+      "github_url": "https://github.com/asynkron/asynkron-skills/tree/main/skills/dotnet-strict",
+      "description": ""
+    },
+    {
+      "name": "palette",
+      "path": "skills/palette",
+      "github_url": "https://github.com/asynkron/asynkron-skills/tree/main/skills/palette",
+      "description": ""
+    },
+    {
+      "name": "profile",
+      "path": "skills/profile",
+      "github_url": "https://github.com/asynkron/asynkron-skills/tree/main/skills/profile",
+      "description": ""
+    },
+    {
+      "name": "quickdup",
+      "path": "skills/quickdup",
+      "github_url": "https://github.com/asynkron/asynkron-skills/tree/main/skills/quickdup",
+      "description": ""
+    },
+    {
+      "name": "roslynator",
+      "path": "skills/roslynator",
+      "github_url": "https://github.com/asynkron/asynkron-skills/tree/main/skills/roslynator",
+      "description": ""
+    },
+    {
+      "name": "systematic-debug",
+      "path": "skills/systematic-debug",
+      "github_url": "https://github.com/asynkron/asynkron-skills/tree/main/skills/systematic-debug",
+      "description": ""
+    },
+    {
+      "name": "testrunner",
+      "path": "skills/testrunner",
+      "github_url": "https://github.com/asynkron/asynkron-skills/tree/main/skills/testrunner",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/asynkron/asynkron-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:30:20Z"
+}
