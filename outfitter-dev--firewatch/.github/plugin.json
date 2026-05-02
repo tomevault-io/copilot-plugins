@@ -1,0 +1,14 @@
+{
+  "name": "outfitter-dev--firewatch",
+  "displayName": "firewatch",
+  "description": "GitHub PR activity logger with pure JSONL output for jq-based workflows",
+  "version": "1.0.0",
+  "author": "outfitter-dev",
+  "homepage": "https://github.com/outfitter-dev/firewatch",
+  "skills": [
+    {
+      "name": "firewatch",
+      "description": ""
+    }
+  ]
+}
