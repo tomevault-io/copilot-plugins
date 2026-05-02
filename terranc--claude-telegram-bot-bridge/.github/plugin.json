@@ -1,0 +1,9 @@
+{
+  "name": "terranc--claude-telegram-bot-bridge",
+  "displayName": "claude-telegram-bot-bridge",
+  "description": "A lightweight Telegram bot that bridges Claude Code to any local folder, with autostart support for remote mobile development.",
+  "version": "1.0.0",
+  "author": "terranc",
+  "homepage": "https://github.com/terranc/claude-telegram-bot-bridge",
+  "skills": []
+}
