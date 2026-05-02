@@ -1,0 +1,9 @@
+{
+  "name": "kylesnowschwartz--tail-claude",
+  "displayName": "tail-claude",
+  "description": "A Go Bubble Tea TUI for reading Claude Code session JSONL files",
+  "version": "1.0.0",
+  "author": "kylesnowschwartz",
+  "homepage": "https://github.com/kylesnowschwartz/tail-claude",
+  "skills": []
+}
