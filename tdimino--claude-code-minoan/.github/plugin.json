@@ -1,0 +1,130 @@
+{
+  "name": "tdimino--claude-code-minoan",
+  "displayName": "claude-code-minoan",
+  "description": "A curated ~/.claude/ configuration for professional development workflows \u2014 80 skills, 44 hooks, and CLI tools",
+  "version": "1.0.0",
+  "author": "tdimino",
+  "homepage": "https://github.com/tdimino/claude-code-minoan",
+  "skills": [
+    {
+      "name": "academic-research",
+      "description": ""
+    },
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "agents-md-manager",
+      "description": ""
+    },
+    {
+      "name": "architecture-md-builder",
+      "description": ""
+    },
+    {
+      "name": "atk-ux-research",
+      "description": ""
+    },
+    {
+      "name": "beads-task-tracker",
+      "description": ""
+    },
+    {
+      "name": "beautiful-mermaid",
+      "description": ""
+    },
+    {
+      "name": "classical-887",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "claude-md-manager",
+      "description": ""
+    },
+    {
+      "name": "claude-tracker-suite",
+      "description": ""
+    },
+    {
+      "name": "codex-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "crypt-librarian",
+      "description": ""
+    },
+    {
+      "name": "exa-search",
+      "description": ""
+    },
+    {
+      "name": "figma-mcp",
+      "description": ""
+    },
+    {
+      "name": "firecrawl",
+      "description": ""
+    },
+    {
+      "name": "gemini-claude-resonance",
+      "description": ""
+    },
+    {
+      "name": "linear-a-decipherment",
+      "description": ""
+    },
+    {
+      "name": "linkedin-export",
+      "description": ""
+    },
+    {
+      "name": "llama-cpp",
+      "description": ""
+    },
+    {
+      "name": "mdpreview",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-pro",
+      "description": ""
+    },
+    {
+      "name": "netlify-integration",
+      "description": ""
+    },
+    {
+      "name": "parakeet",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-optimizer",
+      "description": ""
+    },
+    {
+      "name": "slack",
+      "description": ""
+    },
+    {
+      "name": "supabase-skill",
+      "description": ""
+    },
+    {
+      "name": "super-ralph-wiggum",
+      "description": ""
+    },
+    {
+      "name": "twitter",
+      "description": ""
+    }
+  ]
+}
