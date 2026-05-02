@@ -1,0 +1,9 @@
+{
+  "name": "butter-dot-dev--bvisor",
+  "displayName": "bVisor",
+  "description": "Embedded bash sandbox for agents, inspired by gVisor",
+  "version": "1.0.0",
+  "author": "butter-dot-dev",
+  "homepage": "https://github.com/butter-dot-dev/bVisor",
+  "skills": []
+}
