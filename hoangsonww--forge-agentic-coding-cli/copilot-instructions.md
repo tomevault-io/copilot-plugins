@@ -1,31 +1,22 @@
-## models-and-agents
+## security
 
-> Model, agent, and core-loop rules
+> Security rules (non-negotiable)
 
 
-# Model, agent, and core-loop rules
+# Security rules (non-negotiable)
 
-**Providers** (`src/models/`):
-- Register in `src/models/registry.ts#initProviders`. Add id to
-  `providerEnum`. If local, add to `isLocalProvider`.
-- Classify model ids via `src/models/local-catalog.ts` — do not
-  hand-roll regexes in a new provider.
-- Availability probe ≤ ~1.5 s.
-- HTTP via `undici`. Redact credentials via
-  `src/security/redact.ts`.
-
-**Agents** (`src/agents/`):
-- Register in `src/agents/registry.ts`. Extend
-  `src/agents/base.ts`.
-- Declare narrow allowed tool sets. Never "all tools" to pass a test.
-
-**Core loop** (`src/core/`):
-- Hot paths (`loop.ts`, `mode-policy.ts`, `validation.ts`): surgical
-  edits only.
-- Mode-cap changes require updating the caps table in
-  `docs/ARCHITECTURE.md` §4.
-- State transitions go in `LEGAL_TRANSITIONS`
-  (`src/persistence/tasks.ts`). Never monkey-patch.
+- Credentials live in the OS keychain (`src/keychain/`) or the
+  encrypted fallback. **Never** in a config file at rest.
+- All log output routed through `src/security/redact.ts`. Do not
+  `console.log` a config object that may contain an API key.
+- Prompt-injection defence uses fenced-data boundaries
+  (`src/security/injection.ts`). Any new place that ingests untrusted
+  content must be fenced.
+- Never add a code path that writes outside the sandbox without a
+  matching permission gate. Never bypass permission prompts unless
+  the user explicitly passed `--skip-permissions` or `--allow-*`.
+- Shell risk is classified in `src/sandbox/shell.ts`. The `critical`
+  tier is hard-blocked — do not add exceptions.
 
 ---
 > Source: [hoangsonww/Forge-Agentic-Coding-CLI](https://github.com/hoangsonww/Forge-Agentic-Coding-CLI) — distributed by [TomeVault](https://tomevault.io).
