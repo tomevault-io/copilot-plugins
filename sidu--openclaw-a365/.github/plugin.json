@@ -1,0 +1,9 @@
+{
+  "name": "sidu--openclaw-a365",
+  "displayName": "openclaw-a365",
+  "description": "Microsoft 365 Agents channel for OpenClaw with integrated Graph API tools (alpha)",
+  "version": "1.0.0",
+  "author": "SidU",
+  "homepage": "https://github.com/SidU/openclaw-a365",
+  "skills": []
+}
