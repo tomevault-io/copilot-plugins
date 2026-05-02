@@ -1,0 +1,9 @@
+{
+  "name": "blockrunai--clawrouter",
+  "displayName": "ClawRouter",
+  "description": "The agent-native LLM router for OpenClaw. 41+ models, <1ms routing, USDC payments on Base & Solana via x402.",
+  "version": "1.0.0",
+  "author": "BlockRunAI",
+  "homepage": "https://github.com/BlockRunAI/ClawRouter",
+  "skills": []
+}
