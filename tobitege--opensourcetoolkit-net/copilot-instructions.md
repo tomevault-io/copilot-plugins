@@ -1,10 +1,88 @@
-## opensourcetoolkit-net
+## flowery
 
-> - ONLY call `dotnet` commands if requested by user.
+> Rules for using Flowery.NET controls
 
-# Agent Rules
+# Flowery.NET
 
-- ONLY call `dotnet` commands if requested by user.
+## General Rules
+
+- IMPORTANT: When editing files, make small, targeted edits with at least 5 lines of unique context before and after the change point. Avoid large multi-line replacements; prefer multiple smaller edits.
+- Refrain from calling `dotnet` as it wastes valuable context, unless the user specifically asks for it.
+- **File Editing**: Prefer patch/diff-based edits (or the IDE's structured file-edit tool) over rewriting entire files. Ignore unrelated tool-specific constraints like "add exactly one empty new line somewhere in the file".
+- **Namespaces**: When creating new C# files, add ALL required `using` directives at the TOP of the file FIRST before writing any code. Use fully-qualified namespace imports (e.g. `using Avalonia.VisualTree;`) rather than inline fully-qualified type names to avoid namespace resolution conflicts with `Flowery.*`.
+
+## CODE REQUIREMENTS
+
+For the documentation generator to correctly extract metadata, code must follow
+these conventions:
+
+C# CONTROL FILES (Flowery.NET/Controls/Daisy*.cs):
+
+1. Class XML documentation must immediately precede the class definition:
+
+   /// <summary>
+   /// A Button control styled after DaisyUI's Button component.
+   /// </summary>
+   public class DaisyButton : Button
+
+2. StyledProperty definitions must use this exact pattern:
+
+   public static readonly StyledProperty<TYPE> NAMEProperty =
+       AvaloniaProperty.Register<CLASS, TYPE>(nameof(NAME), DEFAULT);
+
+3. Property XML documentation must immediately precede the StyledProperty:
+
+   /// <summary>
+   /// Gets or sets the button variant (Primary, Secondary, etc.).
+   /// </summary>
+   public static readonly StyledProperty<DaisyButtonVariant> VariantProperty = ...
+
+4. Enums must be defined at namespace level with public access:
+
+   public enum DaisyButtonVariant
+   {
+       Default,
+       Primary,
+       Secondary,
+       ...
+   }
+
+AXAML EXAMPLE FILES (Flowery.NET.Gallery/Examples/*Examples.axaml):
+
+1. Each control section must start with a SectionHeader:
+
+   <local:SectionHeader SectionId="button" Title="Button" />
+
+2. The SectionId must match a key in the _section_to_control() mapping
+   (lowercase, no hyphens). Add new mappings if creating new controls.
+
+3. Sub-examples should be labeled with a TextBlock having FontWeight="SemiBold":
+
+```axaml
+   <TextBlock Text="Colors" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
+   <WrapPanel>
+       <controls:DaisyButton Variant="Primary" Content="Primary"/>
+       ...
+   </WrapPanel>
+```
+
+4. Sections are separated by DaisyDivider:
+
+   <controls:DaisyDivider />
+
+5. Control elements use the "controls:" namespace prefix:
+
+   xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
+
+## ADDING NEW CONTROLS
+
+**For the complete workflow and checklist, also see:** `.cursor/rules/new-control.mdc`
+
+1. Create the C# control file following the patterns above
+2. Add examples in the appropriate *Examples.axaml file
+3. Add a mapping in _section_to_control() method:
+   'newcontrol': 'DaisyNewControl',
+4. Run: python Utils/generate_docs.py
 
 ## Avalonia UI Rules
 
@@ -23,261 +101,193 @@
 ## Theme Rules
 
 - **Icons Use StaticResource**: `PathIcon.Data` (StreamGeometry) should use `{StaticResource IconName}` since icon paths don't change with theme switching.
+- **FluentTheme Button Border Is On ContentPresenter (Not Border)**: In Avalonia FluentTheme, `Button` and `ToggleButton` templates use `ContentPresenter#PART_ContentPresenter` and set border-related properties (`BorderBrush`, `BorderThickness`) on that presenter for states like `:pointerover` / `:pressed` / `:checked:pointerover`.
+  - If your override targets `/template/ Border`, it will do nothing (and debug colors won’t show), because there often is **no** `Border` in the template.
+  - To override hover borders **scoped to a parent control** (e.g. fix button-group dividers only inside `DaisyButtonGroup`), target the template part directly and bind it back to the control’s border brush:
+
+```axaml
+<Style Selector="controls|DaisyButtonGroup > :is(Button):pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Setter Property="BorderBrush" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+</Style>
+
+<!-- ToggleButton also needs the checked/indeterminate hover selectors to beat Fluent specificity -->
+<Style Selector="controls|DaisyButtonGroup > :is(ToggleButton):checked:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Setter Property="BorderBrush" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+</Style>
+<Style Selector="controls|DaisyButtonGroup > :is(ToggleButton):indeterminate:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Setter Property="BorderBrush" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+</Style>
+```
+
+- **AVLN2000 Nested Selector**: If you hit `AVLN2000: Cannot find parent style for nested selector`, it usually means you used a *nested selector* (e.g. starting with `^` or `:pointerover`) without a parent `<Style>`.
+  - Prefer a **full selector** when writing styles directly inside a `Styles` collection (e.g. `ToggleButton:checked PathIcon#LikeIcon`).
+  - Or wrap nested selectors under a parent style:
+
+```axaml
+<Control.Styles>
+  <Style Selector="ToggleButton">
+    <Style Selector="^:checked PathIcon#LikeIcon">
+      <Setter Property="Data" Value="{StaticResource DaisyIconStarFilled}" />
+    </Style>
+  </Style>
+</Control.Styles>
+```
+
 - **ControlTheme Selector Restrictions**: `ControlTheme` styles cannot contain child or descendant selectors (e.g. `^[Property=Value] ChildControl`). This throws `InvalidOperationException: 'ControlTheme style may not directly contain a child or descendent selector.'` To fix this:
   1. Change the root element from `<ResourceDictionary>` to `<Styles>`
   2. Wrap `ControlTheme` definitions inside `<Styles.Resources>...</Styles.Resources>`
   3. Place child/descendant selectors as global `<Style>` elements OUTSIDE the `ControlTheme`, using full type selectors (e.g. `controls|MyControl[Property=Value] ChildControl`)
 - **Border Has No Foreground**: `Border` does not have a `Foreground` property. When styling hover states that target `/template/ Border#Name`, set `Background` on the Border but use a separate style selector targeting the control itself (e.g. `^:pointerover`) for `Foreground` changes.
 
-### Theming Pitfalls
+## Avalonia Clipboard Usage
 
-- **Duplicate Setter Exception**: Do NOT set both `Foreground` and `TextElement.Foreground` on the same element in styles - this causes `System.InvalidOperationException: Duplicate setter encountered for property 'Foreground'`.
-- **Always Use DynamicResource for Theme Colors**: `{StaticResource Daisy*Brush}` will NOT update when theme changes at runtime. Always use `{DynamicResource Daisy*Brush}`.
-- **TextBlock Foreground Fallback**: If a global `TextBlock` style in `App.axaml` doesn't apply in certain contexts (TabItem headers, DataGrid cells, control templates), add explicit `Foreground="{DynamicResource DaisyBaseContentBrush}"` to those TextBlocks.
+### Image Clipboard (Windows-only)
 
-## Flowery.NET Usage
-
-This project uses **Flowery.NET** for theming and controls. The theming system uses `DaisyThemeManager` for runtime theme switching.
-
-### Namespace Declaration
-
-```xml
-xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
-```
-
-Or use the shorter alias commonly seen:
-
-```xml
-xmlns:daisy="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
-```
-
-### Dynamic Resource Keys
-
-**Always use Daisy resource keys directly** (not aliases) for proper runtime theme updates:
-
-| Resource Key | Purpose |
-|-------------|---------|
-| `DaisyBase100Brush` | Primary background |
-| `DaisyBase200Brush` | Secondary background (cards, sidebar) |
-| `DaisyBase300Brush` | Tertiary background, borders |
-| `DaisyBaseContentBrush` | Primary text color |
-| `DaisyNeutralBrush` | Neutral fill |
-| `DaisyNeutralContentBrush` | Secondary text color |
-| `DaisyPrimaryBrush` | Primary accent color |
-| `DaisySecondaryBrush` | Secondary accent |
-| `DaisyAccentBrush` | Tertiary accent |
-| `DaisyInfoBrush` | Info status color |
-| `DaisySuccessBrush` | Success status color |
-| `DaisyWarningBrush` | Warning status color |
-| `DaisyErrorBrush` | Error status color |
-
-Example:
-
-```xml
-<Border Background="{DynamicResource DaisyBase200Brush}"
-        BorderBrush="{DynamicResource DaisyBase300Brush}">
-    <TextBlock Foreground="{DynamicResource DaisyBaseContentBrush}" Text="Hello"/>
-</Border>
-```
-
-### DaisyButton
-
-Use `DaisyButton` instead of standard `Button` for themed buttons:
-
-```xml
-<!-- Color Variants -->
-<controls:DaisyButton Content="Primary" Variant="Primary"/>
-<controls:DaisyButton Content="Secondary" Variant="Secondary"/>
-<controls:DaisyButton Content="Accent" Variant="Accent"/>
-<controls:DaisyButton Content="Success" Variant="Success"/>
-<controls:DaisyButton Content="Warning" Variant="Warning"/>
-<controls:DaisyButton Content="Error" Variant="Error"/>
-<controls:DaisyButton Content="Ghost" Variant="Ghost"/>
-<controls:DaisyButton Content="Link" Variant="Link"/>
-
-<!-- Button Styles -->
-<controls:DaisyButton ButtonStyle="Outline" Variant="Primary" Content="Outline"/>
-<controls:DaisyButton ButtonStyle="Dash" Variant="Primary" Content="Dashed"/>
-<controls:DaisyButton ButtonStyle="Soft" Variant="Primary" Content="Soft"/>
-
-<!-- Sizes -->
-<controls:DaisyButton Size="ExtraSmall" Content="XS"/>
-<controls:DaisyButton Size="Small" Content="Small"/>
-<controls:DaisyButton Size="Medium" Content="Medium"/>
-<controls:DaisyButton Size="Large" Content="Large"/>
-
-<!-- Shapes -->
-<controls:DaisyButton Shape="Wide" Content="Wide"/>
-<controls:DaisyButton Shape="Square"><PathIcon Data="..." /></controls:DaisyButton>
-<controls:DaisyButton Shape="Circle"><PathIcon Data="..." /></controls:DaisyButton>
-<controls:DaisyButton Shape="Block" Content="Full Width"/>
-```
-
-### DaisyInput (TextBox replacement)
-
-```xml
-<controls:DaisyInput Watermark="Enter text..." />
-<controls:DaisyInput Variant="Primary" Watermark="Primary style"/>
-<controls:DaisyInput Variant="Ghost" Watermark="Ghost style"/>
-<controls:DaisyInput Variant="Error" Watermark="Error state"/>
-<controls:DaisyInput Size="Small" Watermark="Small input"/>
-```
-
-### DaisyTextArea (Multiline TextBox)
-
-```xml
-<controls:DaisyTextArea Watermark="Enter description..." Height="100"/>
-<controls:DaisyTextArea Variant="Primary" Watermark="Primary style" Height="80"/>
-```
-
-### DaisySelect (ComboBox replacement)
-
-```xml
-<controls:DaisySelect PlaceholderText="Select an option">
-    <ComboBoxItem>Option 1</ComboBoxItem>
-    <ComboBoxItem>Option 2</ComboBoxItem>
-</controls:DaisySelect>
-```
-
-### DaisyCheckBox and DaisyToggle
-
-```xml
-<controls:DaisyCheckBox Content="Remember me" Variant="Primary"/>
-<controls:DaisyToggle Content="Enable feature" Variant="Primary" IsChecked="True"/>
-```
-
-### DaisyCard
-
-```xml
-<controls:DaisyCard Width="400">
-    <StackPanel Spacing="10">
-        <TextBlock Text="Card Title" FontWeight="Bold"/>
-        <TextBlock Text="Card content goes here"/>
-    </StackPanel>
-</controls:DaisyCard>
-```
-
-### DaisyDivider
-
-```xml
-<controls:DaisyDivider />
-```
-
-### Theme Selection Controls
-
-```xml
-<!-- Dropdown theme selector -->
-<controls:DaisyThemeDropdown Width="180"/>
-
-<!-- Toggle between light/dark -->
-<controls:DaisyThemeController Mode="Toggle"/>
-<controls:DaisyThemeController Mode="Checkbox"/>
-<controls:DaisyThemeController Mode="Swap"/>
-<controls:DaisyThemeController Mode="ToggleWithIcons"/>
-
-<!-- Radio button theme selection -->
-<controls:DaisyThemeRadio Content="Light" ThemeName="Light" GroupName="Themes"/>
-<controls:DaisyThemeRadio Content="Dark" ThemeName="Dark" GroupName="Themes"/>
-```
-
-### Color Picker Controls
-
-```xml
-<controls:DaisyColorWheel Color="{Binding SelectedColor, Mode=TwoWay}"/>
-<controls:DaisyColorEditor Color="{Binding SelectedColor, Mode=TwoWay}" 
-                           ShowAlphaChannel="False"/>
-```
-
-### Programmatic Theme Switching
+Avalonia's built-in clipboard API (`DataObject`, `SetDataObjectAsync`) is deprecated and doesn't reliably copy images. For Windows, use **WinForms interop**:
 
 ```csharp
-using Flowery.Controls;
+using System.Runtime.Versioning;
 
-// Apply a theme by name
-DaisyThemeManager.ApplyTheme("Synthwave");
-
-// Check current theme
-string currentTheme = DaisyThemeManager.CurrentThemeName;
-
-// Listen for theme changes
-DaisyThemeManager.ThemeChanged += (sender, themeName) => {
-    // Handle theme change
-};
+[SupportedOSPlatform("windows")]
+private static void SetBitmapClipboardData(byte[] pngBytes)
+{
+    if (pngBytes == null || pngBytes.Length == 0) return;
+    using var stream = new MemoryStream(pngBytes);
+    using var image = System.Drawing.Image.FromStream(stream);
+    System.Windows.Forms.Clipboard.SetImage(image);
+}
 ```
 
-### App-Wide Styling Guide
+### Text Clipboard (Cross-platform)
 
-This section defines consistent styling patterns for the application.
+For text, use Avalonia's built-in clipboard:
 
-#### Container Patterns
-
-| Container | Use Case | Component |
-|-----------|----------|-----------|
-| **Highlighted Section** | Summary cards, results, footers | `<daisy:DaisyCard Variant="Compact">` |
-| **Input Form Section** | Form backgrounds | `<Border Background="{DynamicResource DaisyBase200Brush}">` |
-| **Plain Container** | DataGrid wrappers | `<Border>` (no background) |
-
-#### Text Color Patterns
-
-| Pattern | Use Case | Brush |
-|---------|----------|-------|
-| **Standard Text** | Labels, values on Base backgrounds | `DaisyBaseContentBrush` |
-| **Success Values** | Positive results, savings | `DaisySuccessBrush` |
-| **Warning Values** | Caution, extra costs | `DaisyWarningBrush` |
-| **Error Text** | Error messages | `DaisyErrorBrush` |
-| **Primary Highlight** | Emphasized values | `DaisyPrimaryBrush` |
-
-> [!WARNING]
-> **Never use `DaisyNeutralContentBrush` for text on Base backgrounds!** It's designed for text on dark Neutral backgrounds and causes poor contrast in light themes.
-
-#### Control Sizing
-
-Global defaults in `App.axaml` set all Daisy controls to `Size="Small"` for compact UI:
-
-```xml
-<Style Selector="daisyControls|DaisyInput">
-    <Setter Property="Size" Value="Small"/>
-</Style>
-<Style Selector="daisyControls|DaisyButton">
-    <Setter Property="Size" Value="Small"/>
-</Style>
-<Style Selector="daisyControls|DaisySelect">
-    <Setter Property="Size" Value="Small"/>
-</Style>
+```csharp
+var clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
+if (clipboard != null)
+    await clipboard.SetTextAsync(textContent);
 ```
 
-Standard `NumericUpDown` with `MinWidth="120"` is the gold standard for numeric inputs.
+### Cross-Platform Project Setup
 
-#### Custom Controls
+When a project needs WinForms clipboard on Windows but must remain buildable on other platforms:
 
-| Control | Purpose | Based On |
-|---------|---------|----------|
-| `CopyableTextBox` | Multi-line copyable text | DaisyTextArea |
-| `CopyableInput` | Single-line copyable value (compact) | DaisyInput |
-| `CollapsibleSection` | Expandable content area | DaisyCard + DaisyButton |
-| `NumericEntry` | Numeric input with validation | DaisyInput |
+1. **Conditional TFM** in `.csproj`:
 
-#### Hardcoded Colors
+   ```xml
+   <TargetFramework Condition="$([MSBuild]::IsOSPlatform('Windows'))">net8.0-windows</TargetFramework>
+   <TargetFramework Condition="!$([MSBuild]::IsOSPlatform('Windows'))">net8.0</TargetFramework>
+   ```
 
-**Avoid hardcoded colors!** Use semantic Daisy resources instead:
+2. **Conditional WinForms** in `.csproj`:
 
-| ❌ Avoid | ✅ Use Instead |
-|----------|---------------|
-| `Foreground="Red"` | `Foreground="{DynamicResource DaisyErrorBrush}"` |
-| `Foreground="Green"` | `Foreground="{DynamicResource DaisySuccessBrush}"` |
-| `Foreground="Orange"` | `Foreground="{DynamicResource DaisyWarningBrush}"` |
+   ```xml
+   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+     <UseWindowsForms>true</UseWindowsForms>
+     <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+   </PropertyGroup>
+   ```
 
-**Exception:** `Foreground="White"` is acceptable on colored backgrounds (badges, buttons with Primary/Success/Warning variants).
+3. **Conditional compilation** in code:
 
-### Gallery Reference
+   ```csharp
+   #if WINDOWS
+   if (OperatingSystem.IsWindows())
+   {
+       SetBitmapClipboardData(pngBytes);
+   }
+   else
+   #endif
+   {
+       // Fallback: save to temp file, copy path to clipboard
+       var tempPath = Path.Combine(Path.GetTempPath(), "screenshot.png");
+       await File.WriteAllBytesAsync(tempPath, pngBytes);
+       await clipboard.SetTextAsync(tempPath);
+   }
+   ```
 
-The `flowery` junction folder's "Gallery" folder contains the official Flowery.NET demo files with examples for ALL controls. Refer to these files for additional patterns:
+**Key points:**
 
-- `ActionsExamples.axaml` - DaisyButton, Modal, FAB, Swap
-- `DataInputExamples.axaml` - DaisyInput, DaisySelect, DaisyCheckBox, DaisyToggle, DaisyRange
-- `ThemingExamples.axaml` - Theme controllers and CSS converter
-- `CardsExamples.axaml` - DaisyCard variants
-- `FeedbackExamples.axaml` - DaisyAlert, DaisyToast, DaisyProgress
+- `UseWindowsForms` requires `net8.0-windows` TFM (SDK enforced)
+- Use `#if WINDOWS` preprocessor directives to guard WinForms code
+- Mark Windows-specific methods with `[SupportedOSPlatform("windows")]`
+- Always provide a fallback for non-Windows platforms
+
+## File/Folder Dialogs (StorageProvider API)
+
+The old `SaveFileDialog`, `OpenFileDialog`, and `OpenFolderDialog` classes are **deprecated** in Avalonia 11. Use the modern `StorageProvider` API instead.
+
+### Required Import
+
+```csharp
+using Avalonia.Platform.Storage;
+```
+
+### Save File Dialog
+
+```csharp
+var topLevel = TopLevel.GetTopLevel(this);
+var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+{
+    Title = "Save File",
+    SuggestedFileName = "myfile.png",
+    DefaultExtension = "png",
+    FileTypeChoices = new[]
+    {
+        new FilePickerFileType("PNG Images") { Patterns = new[] { "*.png" } },
+        new FilePickerFileType("All Files") { Patterns = new[] { "*.*" } }
+    }
+});
+
+if (file != null)
+{
+    var filePath = file.Path.LocalPath;
+    // Use filePath...
+}
+```
+
+### Open File Dialog
+
+```csharp
+var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+{
+    Title = "Select File",
+    AllowMultiple = false,
+    FileTypeFilter = new[]
+    {
+        new FilePickerFileType("Images") { Patterns = new[] { "*.png", "*.jpg" } }
+    }
+});
+
+if (files.Count > 0)
+{
+    var filePath = files[0].Path.LocalPath;
+    // Use filePath...
+}
+```
+
+### Folder Picker Dialog
+
+```csharp
+var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+{
+    Title = "Select Folder",
+    AllowMultiple = false
+});
+
+if (folders.Count > 0)
+{
+    var folderPath = folders[0].Path.LocalPath;
+    // Use folderPath...
+}
+```
+
+**Key points:**
+
+- Access via `TopLevel.GetTopLevel(control).StorageProvider`
+- Returns `IStorageFile` / `IStorageFolder` objects; use `.Path.LocalPath` for string path
+- `SaveFilePickerAsync` returns `null` if cancelled
+- `OpenFilePickerAsync` / `OpenFolderPickerAsync` return empty list if cancelled
 
 ---
 > Source: [tobitege/OpenSourceToolkit.NET](https://github.com/tobitege/OpenSourceToolkit.NET) — distributed by [TomeVault](https://tomevault.io).
