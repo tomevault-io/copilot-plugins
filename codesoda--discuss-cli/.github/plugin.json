@@ -1,0 +1,9 @@
+{
+  "name": "codesoda--discuss-cli",
+  "displayName": "discuss-cli",
+  "description": "Stop reviewing agent plans in the terminal \u2014 PR-style review for Markdown that Codex / Claude Code can reply to.",
+  "version": "1.0.0",
+  "author": "codesoda",
+  "homepage": "https://github.com/codesoda/discuss-cli",
+  "skills": []
+}
