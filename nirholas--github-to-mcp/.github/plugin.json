@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--github-to-mcp",
+  "displayName": "github-to-mcp",
+  "description": "Convert GitHub repositories to MCP servers automatically. Extract tools from OpenAPI, GraphQL & REST APIs for Claude Desktop, Cursor, Windsurf, Cline & VS Code. AI-powered code generation creates type",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/github-to-mcp",
+  "skills": []
+}
