@@ -1,0 +1,51 @@
+{
+  "name": "hn-cli",
+  "owner": "brianlovin",
+  "repo": "hn-cli",
+  "description": "Hacker News in your terminal",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opentui",
+      "path": ".claude/skills/opentui",
+      "github_url": "https://github.com/brianlovin/hn-cli/tree/main/.claude/skills/opentui",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/brianlovin/hn-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:44:32Z"
+}
