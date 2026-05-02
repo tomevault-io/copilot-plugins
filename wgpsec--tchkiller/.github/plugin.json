@@ -1,0 +1,9 @@
+{
+  "name": "wgpsec--tchkiller",
+  "displayName": "tchkiller",
+  "description": "\u57fa\u4e8e claude-agent-sdk \u7684\u667a\u80fd\u6e17\u900f\u6d4b\u8bd5 Agent\uff0c\u7528\u4e8e\u53c2\u4e0e\u7b2c\u4e8c\u5c4a TCH \u667a\u80fd\u6e17\u900f\u6311\u6218\u8d5b\u3002",
+  "version": "1.0.0",
+  "author": "wgpsec",
+  "homepage": "https://github.com/wgpsec/tchkiller",
+  "skills": []
+}
