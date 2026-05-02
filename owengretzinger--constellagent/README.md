@@ -7,11 +7,11 @@ Desktop app for running multiple AI agents in parallel. Each agent gets its own 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [owengretzinger/constellagent](https://github.com/owengretzinger/constellagent).
+Original source: `CLAUDE.md` in [owengretzinger/constellagent](https://github.com/owengretzinger/constellagent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
