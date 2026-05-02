@@ -1,0 +1,9 @@
+{
+  "name": "erlichliu--claude-agent-sdk-master",
+  "displayName": "claude-agent-sdk-master",
+  "description": " Learn to build real-world applications with Claude Agent SDK. This tutorial takes you from basics to advanced implementations, covering essential integrations (Skills, MCP) and the core principles of",
+  "version": "1.0.0",
+  "author": "ErlichLiu",
+  "homepage": "https://github.com/ErlichLiu/claude-agent-sdk-master",
+  "skills": []
+}
