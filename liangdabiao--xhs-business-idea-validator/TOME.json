@@ -1,0 +1,44 @@
+{
+  "name": "XHS_Business_Idea_Validator",
+  "owner": "liangdabiao",
+  "repo": "XHS_Business_Idea_Validator",
+  "description": "\u5c0f\u7ea2\u4e66\u6536\u96c6\u548c\u5206\u6790\u6570\u636e\u6765\u89e3\u6790\u5e02\u573a\u9700\u6c42\u7528\u6237\u75db\u70b9\u53ca\u7ade\u4e89\u683c\u5c40 - \ud83d\udcca **\u5c0f\u7ea2\u4e66\u6570\u636e\u6293\u53d6**: \u81ea\u52a8\u6293\u53d6\u76f8\u5173\u7b14\u8bb0\u548c\u8bc4\u8bba\u6570\u636e  - \ud83e\udd16 **AI \u5185\u5bb9\u5206\u6790**: \u4f7f\u7528 LLM \u5206\u6790\u7528\u6237\u75db\u70b9\u548c\u5e02\u573a\u9700\u6c42 - \ud83d\udcc4 **\u81ea\u52a8\u5316\u62a5\u544a\u751f\u6210**: \u751f\u6210\u4e13\u4e1a\u7684\u5e02\u573a\u9a8c\u8bc1\u62a5\u544a",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liangdabiao/XHS_Business_Idea_Validator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T22:13:32Z"
+}
