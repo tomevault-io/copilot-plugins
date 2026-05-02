@@ -1,0 +1,14 @@
+{
+  "name": "cap-go--capgo-skills",
+  "displayName": "capgo-skills",
+  "description": "Skills for AI coding agents working with Capacitor (formerly capacitor-skills)",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capgo-skills",
+  "skills": [
+    {
+      "name": "capacitor-ci-cd",
+      "description": ""
+    }
+  ]
+}
