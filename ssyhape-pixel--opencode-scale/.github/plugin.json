@@ -1,0 +1,9 @@
+{
+  "name": "ssyhape-pixel--opencode-scale",
+  "displayName": "opencode-scale",
+  "description": "Production-grade orchestration layer for horizontally-scalable OpenCode Server instances with Temporal workflows, K8s sandbox management, and full observability.",
+  "version": "1.0.0",
+  "author": "ssyhape-pixel",
+  "homepage": "https://github.com/ssyhape-pixel/opencode-scale",
+  "skills": []
+}
