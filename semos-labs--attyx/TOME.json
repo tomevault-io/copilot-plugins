@@ -4,7 +4,7 @@
   "repo": "attyx",
   "description": "Fast programmable GPU-accelerated terminal emulator built with Zig",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/semos-labs/attyx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T19:49:52Z"
+  "distributed_at": "2026-05-02T06:22:09Z"
 }
