@@ -1,896 +1,871 @@
-## devops-infrastructure
+## flutter-development
 
-> DevOps and infrastructure: Docker, Kubernetes, Terraform, CI/CD pipelines, and cloud deployment patterns
+> Flutter development: widget patterns, state management, Dart best practices, and platform channel integration
 
 
-# DevOps & Infrastructure Patterns
+# Flutter Development Patterns
 
-Containerization, orchestration, infrastructure as code, and CI/CD best practices.
+Modern Flutter patterns for cross-platform mobile, web, and desktop development.
 
-## DevOps Workflow
+## Flutter Workflow
 
-Before changing infrastructure or deployment code:
+Before changing Flutter code:
 
 ```text
-1. Read the existing Docker, Kubernetes, Terraform, or CI files first
-2. Understand the current state and provider/tool versions in use
-3. For version-sensitive work, verify current versions with the actual current date
-4. Validate configurations before recommending apply or deploy steps
+1. Read `pubspec.yaml` and the current app structure first
+2. Check the repo's Flutter and Dart constraints before using newer language or framework features
+3. For new apps, use `flutter create`; do not hand-create `pubspec.yaml`
+4. For new dependencies or version-sensitive work, verify current versions with the actual current date
 ```
 
-### CLI-First DevOps Workflow
+### CLI-First Flutter Development
 
-Prefer CLI validation and dry-run workflows:
+Prefer Flutter CLI workflows:
 ```bash
-# Docker
-docker build -t test:latest .
-docker-compose config  # Validate compose file
-docker-compose up --dry-run  # Test without running
+# Project creation (NEVER manually create pubspec.yaml)
+flutter create my_app
+flutter create --org com.example my_app
+flutter create --template package my_package
 
-# Kubernetes
-kubectl apply --dry-run=client -f manifest.yaml
-kubectl diff -f manifest.yaml  # See changes before applying
-kubeval manifest.yaml  # Validate against schema
+# Add dependencies (NEVER manually edit pubspec.yaml for adding)
+flutter pub add provider
+flutter pub add go_router
+flutter pub add flutter_bloc
+flutter pub add dio
+flutter pub add freezed --dev
+flutter pub add build_runner --dev
 
-# Terraform
-terraform init
-terraform fmt -recursive
-terraform validate
-terraform plan -out=tfplan  # Prefer planning before apply
+# Get dependencies after any pubspec change
+flutter pub get
 
-# Helm
-helm lint ./my-chart
-helm template ./my-chart  # Render templates locally
-helm install --dry-run --debug my-release ./my-chart
+# Code generation (for freezed, json_serializable)
+dart run build_runner build --delete-conflicting-outputs
+
+# Verify project health
+flutter analyze
+flutter test
 ```
 
 ### Post-Edit Verification
 
-After meaningful infrastructure changes, run the smallest useful validation for the files you touched:
+After meaningful Flutter changes, run the smallest useful check for the task:
 
 ```bash
-# Docker
-docker build -t test:latest .
-
-# Terraform
-terraform fmt -check -recursive
-terraform validate
-terraform plan
-
-# Kubernetes
-kubectl apply --dry-run=client -f manifest.yaml
+flutter analyze
+flutter test
+dart format --set-exit-if-changed .
 ```
 
-Use broader checks only when the change warrants them.
+Run `flutter pub get` when `pubspec.yaml` changed rather than after every code edit.
 
-### Common DevOps Syntax Traps (Avoid These!)
+### Common Dart/Flutter Syntax Traps (Avoid These!)
 
+```dart
+// WRONG: Missing const for immutable widgets
+Widget build(BuildContext context) {
+  return Container(  // Should be const Container()
+    child: Text('Hello'),
+  );
+}
+
+// CORRECT: Use const where possible
+Widget build(BuildContext context) {
+  return const Container(
+    child: Text('Hello'),
+  );
+}
+
+// WRONG: Not disposing controllers
+class _MyWidgetState extends State<MyWidget> {
+  final controller = TextEditingController();
+  // Missing dispose!
+}
+
+// CORRECT: Always dispose controllers
+class _MyWidgetState extends State<MyWidget> {
+  final controller = TextEditingController();
+  
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+}
+
+// WRONG: Using setState after dispose
+void _onDataLoaded(data) async {
+  await fetchMore();
+  setState(() {  // Might be called after dispose!
+    this.data = data;
+  });
+}
+
+// CORRECT: Check mounted before setState
+void _onDataLoaded(data) async {
+  await fetchMore();
+  if (mounted) {
+    setState(() {
+      this.data = data;
+    });
+  }
+}
+
+// WRONG: Missing required in named parameters (Dart 3+)
+void greet({String name}) { }  // Error in null-safe Dart
+
+// CORRECT: Use required for non-nullable required params
+void greet({required String name}) { }
+```
+
+---
+
+## Widget Fundamentals
+
+### StatelessWidget
+```dart
+class UserCard extends StatelessWidget {
+  const UserCard({
+    super.key,
+    required this.user,
+    this.onTap,
+  });
+
+  final User user;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundImage: NetworkImage(user.avatarUrl),
+        ),
+        title: Text(user.name),
+        subtitle: Text(user.email),
+        onTap: onTap,
+      ),
+    );
+  }
+}
+```
+
+### StatefulWidget
+```dart
+class Counter extends StatefulWidget {
+  const Counter({super.key, this.initialValue = 0});
+
+  final int initialValue;
+
+  @override
+  State<Counter> createState() => _CounterState();
+}
+
+class _CounterState extends State<Counter> {
+  late int _count;
+
+  @override
+  void initState() {
+    super.initState();
+    _count = widget.initialValue;
+  }
+
+  void _increment() {
+    setState(() {
+      _count++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Count: $_count'),
+        ElevatedButton(
+          onPressed: _increment,
+          child: const Text('Increment'),
+        ),
+      ],
+    );
+  }
+}
+```
+
+### Widget Composition
+```dart
+// Prefer composition over inheritance
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key, required this.user});
+
+  final User user;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(user.name)),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ProfileHeader(user: user),
+            ProfileStats(user: user),
+            ProfileActions(user: user),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+---
+
+## State Management
+
+### Provider Pattern
+```dart
+// Model
+class CartModel extends ChangeNotifier {
+  final List<Item> _items = [];
+
+  List<Item> get items => List.unmodifiable(_items);
+  
+  int get totalItems => _items.length;
+  
+  double get totalPrice => _items.fold(0, (sum, item) => sum + item.price);
+
+  void add(Item item) {
+    _items.add(item);
+    notifyListeners();
+  }
+
+  void remove(Item item) {
+    _items.remove(item);
+    notifyListeners();
+  }
+
+  void clear() {
+    _items.clear();
+    notifyListeners();
+  }
+}
+
+// Provider setup
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartModel(),
+      child: const MyApp(),
+    ),
+  );
+}
+
+// Consuming
+class CartButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<CartModel>(
+      builder: (context, cart, child) {
+        return Badge(
+          label: Text('${cart.totalItems}'),
+          child: child,
+        );
+      },
+      child: const Icon(Icons.shopping_cart),
+    );
+  }
+}
+
+// Reading without rebuilding
+void addToCart(BuildContext context, Item item) {
+  context.read<CartModel>().add(item);
+}
+```
+
+### Riverpod Pattern
+```dart
+// Providers
+final userProvider = FutureProvider<User>((ref) async {
+  final repository = ref.watch(userRepositoryProvider);
+  return repository.getCurrentUser();
+});
+
+final cartProvider = StateNotifierProvider<CartNotifier, CartState>((ref) {
+  return CartNotifier();
+});
+
+// StateNotifier
+class CartNotifier extends StateNotifier<CartState> {
+  CartNotifier() : super(const CartState());
+
+  void addItem(Item item) {
+    state = state.copyWith(
+      items: [...state.items, item],
+    );
+  }
+
+  void removeItem(Item item) {
+    state = state.copyWith(
+      items: state.items.where((i) => i.id != item.id).toList(),
+    );
+  }
+}
+
+// Consuming
+class CartPage extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cart = ref.watch(cartProvider);
+    
+    return ListView.builder(
+      itemCount: cart.items.length,
+      itemBuilder: (context, index) {
+        return CartItemTile(item: cart.items[index]);
+      },
+    );
+  }
+}
+```
+
+### BLoC Pattern
+```dart
+// Events
+abstract class AuthEvent {}
+
+class LoginRequested extends AuthEvent {
+  final String email;
+  final String password;
+  
+  LoginRequested({required this.email, required this.password});
+}
+
+class LogoutRequested extends AuthEvent {}
+
+// States
+abstract class AuthState {}
+
+class AuthInitial extends AuthState {}
+class AuthLoading extends AuthState {}
+class AuthSuccess extends AuthState {
+  final User user;
+  AuthSuccess(this.user);
+}
+class AuthFailure extends AuthState {
+  final String message;
+  AuthFailure(this.message);
+}
+
+// Bloc
+class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final AuthRepository _authRepository;
+
+  AuthBloc(this._authRepository) : super(AuthInitial()) {
+    on<LoginRequested>(_onLoginRequested);
+    on<LogoutRequested>(_onLogoutRequested);
+  }
+
+  Future<void> _onLoginRequested(
+    LoginRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(AuthLoading());
+    try {
+      final user = await _authRepository.login(event.email, event.password);
+      emit(AuthSuccess(user));
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onLogoutRequested(
+    LogoutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    await _authRepository.logout();
+    emit(AuthInitial());
+  }
+}
+
+// Usage
+BlocBuilder<AuthBloc, AuthState>(
+  builder: (context, state) {
+    if (state is AuthLoading) {
+      return const CircularProgressIndicator();
+    }
+    if (state is AuthSuccess) {
+      return Text('Welcome, ${state.user.name}');
+    }
+    if (state is AuthFailure) {
+      return Text('Error: ${state.message}');
+    }
+    return const LoginForm();
+  },
+)
+```
+
+---
+
+## Navigation
+
+### GoRouter
+```dart
+final router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const HomePage(),
+      routes: [
+        GoRoute(
+          path: 'products/:id',
+          builder: (context, state) {
+            final id = state.pathParameters['id']!;
+            return ProductPage(id: id);
+          },
+        ),
+      ],
+    ),
+    GoRoute(
+      path: '/cart',
+      builder: (context, state) => const CartPage(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfilePage(),
+      redirect: (context, state) {
+        final isLoggedIn = context.read<AuthBloc>().state is AuthSuccess;
+        if (!isLoggedIn) return '/login';
+        return null;
+      },
+    ),
+  ],
+);
+
+// Navigation
+context.go('/products/123');
+context.push('/cart');
+context.pop();
+```
+
+### Navigator 2.0 Basics
+```dart
+// Simple navigation
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => const DetailPage()),
+);
+
+// Named routes
+Navigator.pushNamed(context, '/detail', arguments: item);
+
+// Pop with result
+final result = await Navigator.push<bool>(
+  context,
+  MaterialPageRoute(builder: (context) => const ConfirmDialog()),
+);
+if (result == true) {
+  // Confirmed
+}
+```
+
+---
+
+## Async Patterns
+
+### FutureBuilder
+```dart
+class UserProfile extends StatelessWidget {
+  final Future<User> userFuture;
+
+  const UserProfile({super.key, required this.userFuture});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<User>(
+      future: userFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        }
+        
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+        
+        if (!snapshot.hasData) {
+          return const Text('No user found');
+        }
+        
+        final user = snapshot.data!;
+        return Text('Hello, ${user.name}');
+      },
+    );
+  }
+}
+```
+
+### StreamBuilder
+```dart
+class MessageList extends StatelessWidget {
+  final Stream<List<Message>> messageStream;
+
+  const MessageList({super.key, required this.messageStream});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<List<Message>>(
+      stream: messageStream,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+        
+        if (!snapshot.hasData) {
+          return const CircularProgressIndicator();
+        }
+        
+        final messages = snapshot.data!;
+        return ListView.builder(
+          itemCount: messages.length,
+          itemBuilder: (context, index) {
+            return MessageTile(message: messages[index]);
+          },
+        );
+      },
+    );
+  }
+}
+```
+
+---
+
+## Networking
+
+### HTTP Client
+```dart
+class ApiClient {
+  final http.Client _client;
+  final String _baseUrl;
+
+  ApiClient({http.Client? client, required String baseUrl})
+      : _client = client ?? http.Client(),
+        _baseUrl = baseUrl;
+
+  Future<T> get<T>(
+    String path, {
+    required T Function(Map<String, dynamic>) fromJson,
+  }) async {
+    final response = await _client.get(
+      Uri.parse('$_baseUrl$path'),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode != 200) {
+      throw ApiException(
+        statusCode: response.statusCode,
+        message: response.body,
+      );
+    }
+
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    return fromJson(json);
+  }
+
+  Future<T> post<T>(
+    String path, {
+    required Map<String, dynamic> body,
+    required T Function(Map<String, dynamic>) fromJson,
+  }) async {
+    final response = await _client.post(
+      Uri.parse('$_baseUrl$path'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(body),
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 201) {
+      throw ApiException(
+        statusCode: response.statusCode,
+        message: response.body,
+      );
+    }
+
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
+    return fromJson(json);
+  }
+}
+```
+
+### Dio Client
+```dart
+class DioClient {
+  late final Dio _dio;
+
+  DioClient({required String baseUrl}) {
+    _dio = Dio(BaseOptions(
+      baseUrl: baseUrl,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    ));
+
+    _dio.interceptors.add(LogInterceptor());
+    _dio.interceptors.add(AuthInterceptor());
+  }
+
+  Future<T> get<T>(
+    String path, {
+    required T Function(dynamic) fromJson,
+  }) async {
+    final response = await _dio.get(path);
+    return fromJson(response.data);
+  }
+}
+```
+
+---
+
+## Testing
+
+### Widget Tests
+```dart
+void main() {
+  testWidgets('Counter increments', (WidgetTester tester) async {
+    // Build widget
+    await tester.pumpWidget(const MaterialApp(home: Counter()));
+
+    // Verify initial state
+    expect(find.text('Count: 0'), findsOneWidget);
+
+    // Tap button
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pump();
+
+    // Verify incremented
+    expect(find.text('Count: 1'), findsOneWidget);
+  });
+}
+```
+
+### Unit Tests
+```dart
+void main() {
+  group('CartModel', () {
+    late CartModel cart;
+
+    setUp(() {
+      cart = CartModel();
+    });
+
+    test('starts empty', () {
+      expect(cart.items, isEmpty);
+      expect(cart.totalPrice, 0);
+    });
+
+    test('adds items', () {
+      final item = Item(id: '1', name: 'Test', price: 10);
+      cart.add(item);
+      
+      expect(cart.items, contains(item));
+      expect(cart.totalPrice, 10);
+    });
+
+    test('removes items', () {
+      final item = Item(id: '1', name: 'Test', price: 10);
+      cart.add(item);
+      cart.remove(item);
+      
+      expect(cart.items, isEmpty);
+    });
+  });
+}
+```
+
+### Mocking
+```dart
+import 'package:mocktail/mocktail.dart';
+
+class MockUserRepository extends Mock implements UserRepository {}
+
+void main() {
+  late MockUserRepository mockRepository;
+  late UserBloc bloc;
+
+  setUp(() {
+    mockRepository = MockUserRepository();
+    bloc = UserBloc(mockRepository);
+  });
+
+  test('emits UserLoaded when fetch succeeds', () async {
+    final user = User(id: '1', name: 'Test');
+    when(() => mockRepository.getUser('1')).thenAnswer((_) async => user);
+
+    bloc.add(FetchUser('1'));
+
+    await expectLater(
+      bloc.stream,
+      emitsInOrder([
+        isA<UserLoading>(),
+        isA<UserLoaded>().having((s) => s.user, 'user', user),
+      ]),
+    );
+  });
+}
+```
+
+---
+
+## Dart Best Practices
+
+### Null Safety
+```dart
+// Non-nullable by default
+String name = 'John'; // Cannot be null
+
+// Nullable types
+String? nickname; // Can be null
+
+// Null-aware operators
+final displayName = nickname ?? 'Unknown';
+final length = nickname?.length ?? 0;
+nickname ??= 'Default';
+
+// Late initialization
+late final Database db;
+
+void init() {
+  db = Database.connect();
+}
+
+// Required named parameters
+void greet({required String name, String? title}) {
+  print('Hello, ${title ?? ''} $name');
+}
+```
+
+### Collections
+```dart
+// List
+final numbers = [1, 2, 3];
+final doubled = numbers.map((n) => n * 2).toList();
+final evens = numbers.where((n) => n.isEven).toList();
+
+// Map
+final scores = {'Alice': 95, 'Bob': 87};
+final aliceScore = scores['Alice'] ?? 0;
+
+// Set
+final uniqueIds = <String>{};
+uniqueIds.add('id1');
+
+// Spread operator
+final combined = [...list1, ...list2];
+final mergedMap = {...map1, ...map2};
+
+// Collection if/for
+final widgets = [
+  Header(),
+  if (showBody) Body(),
+  for (final item in items) ItemWidget(item: item),
+  Footer(),
+];
+```
+
+### Extensions
+```dart
+extension StringExtensions on String {
+  String capitalize() {
+    if (isEmpty) return this;
+    return '${this[0].toUpperCase()}${substring(1)}';
+  }
+
+  bool get isValidEmail {
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(this);
+  }
+}
+
+// Usage
+'hello'.capitalize(); // 'Hello'
+'test@email.com'.isValidEmail; // true
+```
+
+### Freezed for Immutable Data
+```dart
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user.freezed.dart';
+part 'user.g.dart';
+
+@freezed
+class User with _$User {
+  const factory User({
+    required String id,
+    required String name,
+    required String email,
+    @Default(false) bool isVerified,
+  }) = _User;
+
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+
+// Usage
+final user = User(id: '1', name: 'John', email: 'john@example.com');
+final updated = user.copyWith(isVerified: true);
+```
+
+---
+
+## Project Structure
+
+```
+lib/
+  main.dart
+  app.dart
+  
+  core/
+    constants/
+    theme/
+    utils/
+    
+  features/
+    auth/
+      data/
+        models/
+        repositories/
+      presentation/
+        bloc/
+        pages/
+        widgets/
+    home/
+      ...
+      
+  shared/
+    widgets/
+    services/
+```
+
+### Pubspec.yaml
 ```yaml
-# WRONG: YAML indentation with tabs
-services:
-	app:      # Tab character - YAML error!
-		image: nginx
+name: my_app
+description: My Flutter app
+version: 1.0.0+1
 
-# CORRECT: Always use spaces (2 spaces standard)
-services:
-  app:
-    image: nginx
-
-# WRONG: Missing quotes for special values
 environment:
-  - VERSION=1.0      # Might be parsed as number
-  - ENABLED=true     # Might be parsed as boolean
-
-# CORRECT: Quote string values
-environment:
-  - VERSION="1.0"
-  - ENABLED="true"
-
-# WRONG: Hardcoded secrets in config
-env:
-  - name: DB_PASSWORD
-    value: "supersecret123"  # NEVER do this!
-
-# CORRECT: Use secrets
-env:
-  - name: DB_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: db-secrets
-        key: password
-```
-
-### Infrastructure Version Pinning
-
-Always pin versions explicitly:
-
-```dockerfile
-# WRONG
-FROM node:latest
-FROM python
-
-# CORRECT - Pin major.minor at minimum
-FROM node:20-alpine
-FROM python:3.12-slim
-```
-
-```hcl
-# WRONG
-terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-    }
-  }
-}
-
-# CORRECT - Pin provider versions
-terraform {
-  required_version = ">= 1.6.0"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-```
-
----
-
-## Docker
-
-### Dockerfile Best Practices
-
-```dockerfile
-# Use specific version tags
-FROM node:20-alpine AS builder
-
-# Set working directory
-WORKDIR /app
-
-# Copy dependency files first (better caching)
-COPY package*.json ./
-
-# Install dependencies
-RUN npm ci --only=production
-
-# Copy source code
-COPY . .
-
-# Build application
-RUN npm run build
-
-# Production stage
-FROM node:20-alpine AS production
-
-WORKDIR /app
-
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
-
-# Copy built assets from builder
-COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
-COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
-
-# Switch to non-root user
-USER nodejs
-
-# Expose port
-EXPOSE 3000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
-
-# Run application
-CMD ["node", "dist/main.js"]
-```
-
-### Multi-Stage Builds
-
-```dockerfile
-# Build stage
-FROM golang:1.21-alpine AS builder
-WORKDIR /app
-COPY go.* ./
-RUN go mod download
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o /app/server ./cmd/server
-
-# Final stage
-FROM alpine:3.18
-RUN apk --no-cache add ca-certificates
-WORKDIR /app
-COPY --from=builder /app/server .
-EXPOSE 8080
-ENTRYPOINT ["./server"]
-```
-
-### Docker Compose
-
-```yaml
-version: '3.8'
-
-services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: development
-    ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
-      - DATABASE_URL=postgres://user:pass@db:5432/mydb
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - backend
-
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: mydb
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U user -d mydb"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    networks:
-      - backend
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    networks:
-      - backend
-
-volumes:
-  postgres_data:
-
-networks:
-  backend:
-    driver: bridge
-```
-
----
-
-## Kubernetes
-
-### Deployment
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: myapp
-  labels:
-    app: myapp
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: myapp
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-  template:
-    metadata:
-      labels:
-        app: myapp
-    spec:
-      containers:
-        - name: myapp
-          image: myregistry/myapp:v1.0.0
-          ports:
-            - containerPort: 8080
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "100m"
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 8080
-            initialDelaySeconds: 10
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /ready
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 5
-          env:
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: myapp-secrets
-                  key: database-url
-          volumeMounts:
-            - name: config
-              mountPath: /app/config
-      volumes:
-        - name: config
-          configMap:
-            name: myapp-config
-```
-
-### Service
-
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: myapp
-spec:
-  selector:
-    app: myapp
-  ports:
-    - port: 80
-      targetPort: 8080
-  type: ClusterIP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: myapp-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-spec:
-  tls:
-    - hosts:
-        - myapp.example.com
-      secretName: myapp-tls
-  rules:
-    - host: myapp.example.com
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: myapp
-                port:
-                  number: 80
-```
-
-### ConfigMap and Secrets
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: myapp-config
-data:
-  APP_ENV: production
-  LOG_LEVEL: info
-  config.yaml: |
-    server:
-      port: 8080
-    features:
-      cache: true
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: myapp-secrets
-type: Opaque
-stringData:
-  database-url: postgres://user:pass@db:5432/mydb
-  api-key: your-secret-api-key
-```
-
-### Horizontal Pod Autoscaler
-
-```yaml
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: myapp-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: myapp
-  minReplicas: 2
-  maxReplicas: 10
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 70
-    - type: Resource
-      resource:
-        name: memory
-        target:
-          type: Utilization
-          averageUtilization: 80
-```
-
----
-
-## Terraform
-
-### Provider Configuration
-
-```hcl
-terraform {
-  required_version = ">= 1.5.0"
-  
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-  
-  backend "s3" {
-    bucket         = "my-terraform-state"
-    key            = "prod/terraform.tfstate"
-    region         = "us-west-2"
-    encrypt        = true
-    dynamodb_table = "terraform-locks"
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-  
-  default_tags {
-    tags = {
-      Environment = var.environment
-      Project     = var.project_name
-      ManagedBy   = "terraform"
-    }
-  }
-}
-```
-
-### Variables and Outputs
-
-```hcl
-# variables.tf
-variable "environment" {
-  description = "Deployment environment"
-  type        = string
-  validation {
-    condition     = contains(["dev", "staging", "prod"], var.environment)
-    error_message = "Environment must be dev, staging, or prod."
-  }
-}
-
-variable "instance_type" {
-  description = "EC2 instance type"
-  type        = string
-  default     = "t3.micro"
-}
-
-variable "db_config" {
-  description = "Database configuration"
-  type = object({
-    instance_class = string
-    storage_gb     = number
-    multi_az       = bool
-  })
-  default = {
-    instance_class = "db.t3.micro"
-    storage_gb     = 20
-    multi_az       = false
-  }
-}
-
-# outputs.tf
-output "api_endpoint" {
-  description = "API Gateway endpoint URL"
-  value       = aws_apigatewayv2_api.main.api_endpoint
-}
-
-output "database_endpoint" {
-  description = "RDS endpoint"
-  value       = aws_db_instance.main.endpoint
-  sensitive   = true
-}
-```
-
-### Modules
-
-```hcl
-# modules/vpc/main.tf
-resource "aws_vpc" "main" {
-  cidr_block           = var.cidr_block
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-  
-  tags = {
-    Name = "${var.project}-vpc"
-  }
-}
-
-resource "aws_subnet" "public" {
-  count             = length(var.availability_zones)
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = cidrsubnet(var.cidr_block, 4, count.index)
-  availability_zone = var.availability_zones[count.index]
-  
-  map_public_ip_on_launch = true
-  
-  tags = {
-    Name = "${var.project}-public-${count.index + 1}"
-    Type = "public"
-  }
-}
-
-# Usage in root module
-module "vpc" {
-  source = "./modules/vpc"
-  
-  project            = var.project_name
-  cidr_block         = "10.0.0.0/16"
-  availability_zones = ["us-west-2a", "us-west-2b"]
-}
-
-module "ecs" {
-  source = "./modules/ecs"
-  
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.public_subnet_ids
-  
-  depends_on = [module.vpc]
-}
-```
-
----
-
-## GitHub Actions
-
-### CI Pipeline
-
-```yaml
-name: CI
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm ci
-      
-      - name: Lint
-        run: npm run lint
-      
-      - name: Test
-        run: npm test -- --coverage
-      
-      - name: Upload coverage
-        uses: codecov/codecov-action@v3
-
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Log in to Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=sha,prefix=
-            type=ref,event=branch
-            type=semver,pattern={{version}}
-      
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-```
-
-### CD Pipeline
-
-```yaml
-name: Deploy
-
-on:
-  push:
-    tags:
-      - 'v*'
-
-jobs:
-  deploy-staging:
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-west-2
-      
-      - name: Deploy to ECS
-        run: |
-          aws ecs update-service \
-            --cluster staging-cluster \
-            --service myapp \
-            --force-new-deployment
-
-  deploy-production:
-    needs: deploy-staging
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-west-2
-      
-      - name: Deploy to ECS
-        run: |
-          aws ecs update-service \
-            --cluster production-cluster \
-            --service myapp \
-            --force-new-deployment
-```
-
----
-
-## Monitoring & Observability
-
-### Prometheus Metrics
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: prometheus-config
-data:
-  prometheus.yml: |
-    global:
-      scrape_interval: 15s
-    
-    scrape_configs:
-      - job_name: 'kubernetes-pods'
-        kubernetes_sd_configs:
-          - role: pod
-        relabel_configs:
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
-            action: keep
-            regex: true
-          - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-            action: replace
-            target_label: __metrics_path__
-            regex: (.+)
-```
-
-### Application Logging
-
-```yaml
-# Fluent Bit configuration
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: fluent-bit-config
-data:
-  fluent-bit.conf: |
-    [SERVICE]
-        Flush         1
-        Log_Level     info
-        Daemon        off
-        Parsers_File  parsers.conf
-    
-    [INPUT]
-        Name              tail
-        Path              /var/log/containers/*.log
-        Parser            docker
-        Tag               kube.*
-        Refresh_Interval  5
-    
-    [FILTER]
-        Name                kubernetes
-        Match               kube.*
-        Kube_URL            https://kubernetes.default.svc:443
-        Kube_Tag_Prefix     kube.var.log.containers.
-    
-    [OUTPUT]
-        Name            es
-        Match           *
-        Host            elasticsearch
-        Port            9200
-        Index           logs
-```
-
----
-
-## Security Best Practices
-
-### Container Security
-
-```dockerfile
-# Use distroless or minimal base images
-FROM gcr.io/distroless/nodejs20-debian12
-
-# Never run as root
-USER nonroot:nonroot
-
-# Use specific versions, not latest
-FROM node:20.10.0-alpine3.18
-
-# Scan images in CI
-# - trivy image myapp:latest
-# - grype myapp:latest
-```
-
-### Secrets Management
-
-```yaml
-# External Secrets Operator
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
-metadata:
-  name: myapp-secrets
-spec:
-  refreshInterval: 1h
-  secretStoreRef:
-    kind: ClusterSecretStore
-    name: aws-secrets-manager
-  target:
-    name: myapp-secrets
-    creationPolicy: Owner
-  data:
-    - secretKey: database-url
-      remoteRef:
-        key: prod/myapp/database
-        property: url
-```
-
-### Network Policies
-
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: myapp-network-policy
-spec:
-  podSelector:
-    matchLabels:
-      app: myapp
-  policyTypes:
-    - Ingress
-    - Egress
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app: nginx-ingress
-      ports:
-        - protocol: TCP
-          port: 8080
-  egress:
-    - to:
-        - podSelector:
-            matchLabels:
-              app: postgres
-      ports:
-        - protocol: TCP
-          port: 5432
-    - to:
-        - namespaceSelector: {}
-          podSelector:
-            matchLabels:
-              k8s-app: kube-dns
-      ports:
-        - protocol: UDP
-          port: 53
-```
-
----
-
-## Common Commands
-
-### Docker
-```bash
-# Build and run
-docker build -t myapp .
-docker run -p 3000:3000 myapp
-
-# Debug container
-docker exec -it <container_id> sh
-docker logs -f <container_id>
-
-# Clean up
-docker system prune -af
-```
-
-### Kubernetes
-```bash
-# Apply resources
-kubectl apply -f k8s/
-
-# Debug pod
-kubectl logs -f <pod_name>
-kubectl exec -it <pod_name> -- sh
-kubectl describe pod <pod_name>
-
-# Rollout management
-kubectl rollout status deployment/myapp
-kubectl rollout undo deployment/myapp
-```
-
-### Terraform
-```bash
-# Initialize and plan
-terraform init
-terraform plan -out=tfplan
-
-# Apply changes
-terraform apply tfplan
-
-# Destroy resources
-terraform destroy
-
-# Format and validate
-terraform fmt -recursive
-terraform validate
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.0
+  go_router: ^12.0.0
+  dio: ^5.3.0
+  freezed_annotation: ^2.4.0
+  json_annotation: ^4.8.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.0
+  freezed: ^2.4.0
+  json_serializable: ^6.7.0
+  mocktail: ^1.0.0
 ```
 
 ---
