@@ -1,0 +1,57 @@
+{
+  "name": "eyes-on-claude-code",
+  "owner": "joe-re",
+  "repo": "eyes-on-claude-code",
+  "description": "Claude Code session monitoring application.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mit-licensing",
+      "path": ".claude/skills/mit-licensing",
+      "github_url": "https://github.com/joe-re/eyes-on-claude-code/tree/main/.claude/skills/mit-licensing",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": ".claude/skills/release",
+      "github_url": "https://github.com/joe-re/eyes-on-claude-code/tree/main/.claude/skills/release",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joe-re/eyes-on-claude-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:44:07Z"
+}
