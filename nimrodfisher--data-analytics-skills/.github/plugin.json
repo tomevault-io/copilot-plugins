@@ -1,0 +1,58 @@
+{
+  "name": "nimrodfisher--data-analytics-skills",
+  "displayName": "data-analytics-skills",
+  "description": "A comprehensive list of Claude skills for a wide range of data analytics tasks",
+  "version": "1.0.0",
+  "author": "nimrodfisher",
+  "homepage": "https://github.com/nimrodfisher/data-analytics-skills",
+  "skills": [
+    {
+      "name": "funnel-analysis",
+      "description": ""
+    },
+    {
+      "name": "analysis-assumptions-log",
+      "description": ""
+    },
+    {
+      "name": "analysis-documentation",
+      "description": ""
+    },
+    {
+      "name": "analysis-planning",
+      "description": ""
+    },
+    {
+      "name": "analysis-retrospective",
+      "description": ""
+    },
+    {
+      "name": "dashboard-specification",
+      "description": ""
+    },
+    {
+      "name": "programmatic-eda",
+      "description": ""
+    },
+    {
+      "name": "schema-mapper",
+      "description": ""
+    },
+    {
+      "name": "semantic-model-builder",
+      "description": ""
+    },
+    {
+      "name": "sql-to-business-logic",
+      "description": ""
+    },
+    {
+      "name": "stakeholder-requirements-gathering",
+      "description": ""
+    },
+    {
+      "name": "visualization-builder",
+      "description": ""
+    }
+  ]
+}
