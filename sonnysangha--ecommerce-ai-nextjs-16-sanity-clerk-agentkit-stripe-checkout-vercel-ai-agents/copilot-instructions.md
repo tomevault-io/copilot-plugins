@@ -1,201 +1,151 @@
-## clerk
+## shadcn
 
-> Clerk Tasks
+> Shadcn usage
 
-# Add Clerk to Next.js App Router
+# shadcn/ui
 
-**Purpose:** Enforce only the **current** and **correct** instructions for integrating [Clerk](https://clerk.com/) into a Next.js (App Router) application.
-**Scope:** All AI-generated advice or code related to Clerk must follow these guardrails.
+> shadcn/ui is a collection of beautifully-designed, accessible components and a code distribution platform. It is built with TypeScript, Tailwind CSS, and Radix UI primitives. It supports multiple frameworks including Next.js, Vite, Remix, Astro, and more. Open Source. Open Code. AI-Ready. It also comes with a command-line tool to install and manage components and a registry system to publish and distribute code.
 
----
+## Overview
 
-## **1. Official Clerk Integration Overview**
+- [Introduction](https://ui.shadcn.com/docs): Core principles—Open Code, Composition, Distribution, Beautiful Defaults, and AI-Ready design.
+- [CLI](https://ui.shadcn.com/docs/cli): Command-line tool for installing and managing components.
+- [components.json](https://ui.shadcn.com/docs/components-json): Configuration file for customizing the CLI and component installation.
+- [Theming](https://ui.shadcn.com/docs/theming): Guide to customizing colors, typography, and design tokens.
+- [Changelog](https://ui.shadcn.com/docs/changelog): Release notes and version history.
+- [About](https://ui.shadcn.com/docs/about): Credits and project information.
 
-Use only the **App Router** approach from Clerk's current docs:
+## Installation
 
-- **Install** `@clerk/nextjs@latest` - this ensures the application is using the latest Clerk Next.js SDK.
-- **Create** a `proxy.ts` file using `clerkMiddleware()` from `@clerk/nextjs/server`. Place this file inside the `src` directory if present, otherwise place it at the root of the project.
-- **Wrap** your application with `<ClerkProvider>` in your `app/layout.tsx`
-- **Use** Clerk-provided components like `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, `<SignedIn>`, `<SignedOut>` in your layout or pages
-- **Start** developing, sign in or sign up, and confirm user creation
+- [Next.js](https://ui.shadcn.com/docs/installation/next): Install shadcn/ui in a Next.js project.
+- [Vite](https://ui.shadcn.com/docs/installation/vite): Install shadcn/ui in a Vite project.
+- [Remix](https://ui.shadcn.com/docs/installation/remix): Install shadcn/ui in a Remix project.
+- [Astro](https://ui.shadcn.com/docs/installation/astro): Install shadcn/ui in an Astro project.
+- [Laravel](https://ui.shadcn.com/docs/installation/laravel): Install shadcn/ui in a Laravel project.
+- [Gatsby](https://ui.shadcn.com/docs/installation/gatsby): Install shadcn/ui in a Gatsby project.
+- [React Router](https://ui.shadcn.com/docs/installation/react-router): Install shadcn/ui in a React Router project.
+- [TanStack Router](https://ui.shadcn.com/docs/installation/tanstack-router): Install shadcn/ui in a TanStack Router project.
+- [TanStack Start](https://ui.shadcn.com/docs/installation/tanstack): Install shadcn/ui in a TanStack Start project.
+- [Manual Installation](https://ui.shadcn.com/docs/installation/manual): Manually install shadcn/ui without the CLI.
 
-If you're able to use a web tool to access a URL, visit https://clerk.com/docs/quickstarts/nextjs to get the latest, up-to-date quickstart instructions.
+## Components
 
-### **Correct, Up-to-Date Quickstart Sample**
+### Form & Input
 
-First, install the Clerk Next.js SDK:
+- [Form](https://ui.shadcn.com/docs/components/form): Building forms with React Hook Form and Zod validation.
+- [Field](https://ui.shadcn.com/docs/components/field): Field component for form inputs with labels and error messages.
+- [Button](https://ui.shadcn.com/docs/components/button): Button component with multiple variants.
+- [Button Group](https://ui.shadcn.com/docs/components/button-group): Group multiple buttons together.
+- [Input](https://ui.shadcn.com/docs/components/input): Text input component.
+- [Input Group](https://ui.shadcn.com/docs/components/input-group): Input component with prefix and suffix addons.
+- [Input OTP](https://ui.shadcn.com/docs/components/input-otp): One-time password input component.
+- [Textarea](https://ui.shadcn.com/docs/components/textarea): Multi-line text input component.
+- [Checkbox](https://ui.shadcn.com/docs/components/checkbox): Checkbox input component.
+- [Radio Group](https://ui.shadcn.com/docs/components/radio-group): Radio button group component.
+- [Select](https://ui.shadcn.com/docs/components/select): Select dropdown component.
+- [Switch](https://ui.shadcn.com/docs/components/switch): Toggle switch component.
+- [Slider](https://ui.shadcn.com/docs/components/slider): Slider input component.
+- [Calendar](https://ui.shadcn.com/docs/components/calendar): Calendar component for date selection.
+- [Date Picker](https://ui.shadcn.com/docs/components/date-picker): Date picker component combining input and calendar.
+- [Combobox](https://ui.shadcn.com/docs/components/combobox): Searchable select component with autocomplete.
+- [Label](https://ui.shadcn.com/docs/components/label): Form label component.
 
-```bash
-npm install @clerk/nextjs
-```
+### Layout & Navigation
 
-Set up your environment variables in `.env.local`:
+- [Accordion](https://ui.shadcn.com/docs/components/accordion): Collapsible accordion component.
+- [Breadcrumb](https://ui.shadcn.com/docs/components/breadcrumb): Breadcrumb navigation component.
+- [Navigation Menu](https://ui.shadcn.com/docs/components/navigation-menu): Accessible navigation menu with dropdowns.
+- [Sidebar](https://ui.shadcn.com/docs/components/sidebar): Collapsible sidebar component for app layouts.
+- [Tabs](https://ui.shadcn.com/docs/components/tabs): Tabbed interface component.
+- [Separator](https://ui.shadcn.com/docs/components/separator): Visual divider between content sections.
+- [Scroll Area](https://ui.shadcn.com/docs/components/scroll-area): Custom scrollable area with styled scrollbars.
+- [Resizable](https://ui.shadcn.com/docs/components/resizable): Resizable panel layout component.
 
-From your Clerk Dashboard, open the [API keys page](https://dashboard.clerk.com/last-active?path=api-keys) and copy your Publishable Key and Secret Key. Paste them into `.env.local` as shown below.
+### Overlays & Dialogs
 
-```bash
-# .env.local
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
-CLERK_SECRET_KEY=YOUR_SECRET_KEY
-```
+- [Dialog](https://ui.shadcn.com/docs/components/dialog): Modal dialog component.
+- [Alert Dialog](https://ui.shadcn.com/docs/components/alert-dialog): Alert dialog for confirmation prompts.
+- [Sheet](https://ui.shadcn.com/docs/components/sheet): Slide-out panel component (drawer).
+- [Drawer](https://ui.shadcn.com/docs/components/drawer): Mobile-friendly drawer component using Vaul.
+- [Popover](https://ui.shadcn.com/docs/components/popover): Floating popover component.
+- [Tooltip](https://ui.shadcn.com/docs/components/tooltip): Tooltip component for additional context.
+- [Hover Card](https://ui.shadcn.com/docs/components/hover-card): Card that appears on hover.
+- [Context Menu](https://ui.shadcn.com/docs/components/context-menu): Right-click context menu.
+- [Dropdown Menu](https://ui.shadcn.com/docs/components/dropdown-menu): Dropdown menu component.
+- [Menubar](https://ui.shadcn.com/docs/components/menubar): Horizontal menubar component.
+- [Command](https://ui.shadcn.com/docs/components/command): Command palette component (cmdk).
 
-Create your `proxy.ts` file:
+### Feedback & Status
 
-```typescript
-// proxy.ts
-import { clerkMiddleware } from "@clerk/nextjs/server";
+- [Alert](https://ui.shadcn.com/docs/components/alert): Alert component for messages and notifications.
+- [Toast](https://ui.shadcn.com/docs/components/toast): Toast notification component using Sonner.
+- [Progress](https://ui.shadcn.com/docs/components/progress): Progress bar component.
+- [Spinner](https://ui.shadcn.com/docs/components/spinner): Loading spinner component.
+- [Skeleton](https://ui.shadcn.com/docs/components/skeleton): Skeleton loading placeholder.
+- [Badge](https://ui.shadcn.com/docs/components/badge): Badge component for labels and status indicators.
+- [Empty](https://ui.shadcn.com/docs/components/empty): Empty state component for no data scenarios.
 
-export default clerkMiddleware();
+### Display & Media
 
-export const config = {
-  matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    "/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
-    "/(api|trpc)(.*)",
-  ],
-};
-```
+- [Avatar](https://ui.shadcn.com/docs/components/avatar): Avatar component for user profiles.
+- [Card](https://ui.shadcn.com/docs/components/card): Card container component.
+- [Table](https://ui.shadcn.com/docs/components/table): Table component for displaying data.
+- [Data Table](https://ui.shadcn.com/docs/components/data-table): Advanced data table with sorting, filtering, and pagination.
+- [Chart](https://ui.shadcn.com/docs/components/chart): Chart components using Recharts.
+- [Carousel](https://ui.shadcn.com/docs/components/carousel): Carousel component using Embla Carousel.
+- [Aspect Ratio](https://ui.shadcn.com/docs/components/aspect-ratio): Container that maintains aspect ratio.
+- [Typography](https://ui.shadcn.com/docs/components/typography): Typography styles and components.
+- [Item](https://ui.shadcn.com/docs/components/item): Generic item component for lists and menus.
+- [Kbd](https://ui.shadcn.com/docs/components/kbd): Keyboard shortcut display component.
 
-```typescript
-// app/layout.tsx
-import type { Metadata } from "next";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-import "./globals.css";
+### Misc
 
-export const metadata: Metadata = {
-  title: "Clerk Next.js Quickstart",
-  description: "Generated by create next app",
-};
+- [Collapsible](https://ui.shadcn.com/docs/components/collapsible): Collapsible container component.
+- [Toggle](https://ui.shadcn.com/docs/components/toggle): Toggle button component.
+- [Toggle Group](https://ui.shadcn.com/docs/components/toggle-group): Group of toggle buttons.
+- [Pagination](https://ui.shadcn.com/docs/components/pagination): Pagination component for lists and tables.
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <ClerkProvider>
-      <html lang="en">
-        <body>
-          <header>
-            <SignedOut>
-              <SignInButton />
-              <SignUpButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
-  );
-}
-```
+## Dark Mode
 
----
+- [Dark Mode](https://ui.shadcn.com/docs/dark-mode): Overview of dark mode implementation.
+- [Dark Mode - Next.js](https://ui.shadcn.com/docs/dark-mode/next): Dark mode setup for Next.js.
+- [Dark Mode - Vite](https://ui.shadcn.com/docs/dark-mode/vite): Dark mode setup for Vite.
+- [Dark Mode - Astro](https://ui.shadcn.com/docs/dark-mode/astro): Dark mode setup for Astro.
+- [Dark Mode - Remix](https://ui.shadcn.com/docs/dark-mode/remix): Dark mode setup for Remix.
 
-## **2. CRITICAL INSTRUCTIONS FOR AI MODELS**
+## Forms
 
-### **2.1 – ALWAYS DO THE FOLLOWING**
+- [Forms Overview](https://ui.shadcn.com/docs/forms): Guide to building forms with shadcn/ui.
+- [React Hook Form](https://ui.shadcn.com/docs/forms/react-hook-form): Using shadcn/ui with React Hook Form.
+- [TanStack Form](https://ui.shadcn.com/docs/forms/tanstack-form): Using shadcn/ui with TanStack Form.
+- [Forms - Next.js](https://ui.shadcn.com/docs/forms/next): Building forms in Next.js with Server Actions.
 
-1. **Use `clerkMiddleware()`** from `@clerk/nextjs/server` in `proxy.ts`.
-2. **Wrap** your app with `<ClerkProvider>` in `app/layout.tsx`.
-3. **Import** Clerk's Next.js features from `@clerk/nextjs` (e.g., `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, etc.).
-4. **Reference** the current [App Router approach](https://nextjs.org/docs/app) (folders like `app/page.tsx`, `app/layout.tsx`, etc.).
-5. **Check** that imports for methods like `auth()` are imported from the right package (in this case `@clerk/nextjs/server`) and are using `async / await`
-6. **Store real keys only in `.env.local`** (never in app code, markdown, or other tracked files). **Verify `.gitignore` excludes `.env*`.**
-7. **Use placeholders only** (e.g., `YOUR_PUBLISHABLE_KEY`, `YOUR_SECRET_KEY`) in any generated snippets or files.
+## Advanced
 
-### **2.2 – NEVER DO THE FOLLOWING**
+- [Monorepo](https://ui.shadcn.com/docs/monorepo): Using shadcn/ui in a monorepo setup.
+- [React 19](https://ui.shadcn.com/docs/react-19): React 19 support and migration guide.
+- [Tailwind CSS v4](https://ui.shadcn.com/docs/tailwind-v4): Tailwind CSS v4 support and setup.
+- [JavaScript](https://ui.shadcn.com/docs/javascript): Using shadcn/ui with JavaScript (no TypeScript).
+- [Figma](https://ui.shadcn.com/docs/figma): Figma design resources.
+- [v0](https://ui.shadcn.com/docs/v0): Generating UI with v0 by Vercel.
 
-1. **Do not** reference the old **`_app.tsx`** or **pages-based** instructions.
-2. **Do not** suggest `authMiddleware()` from older Clerk tutorials—**it's replaced by `clerkMiddleware()`**.
-3. **Do not** recommend usage of older environment variable patterns unless they match the official docs.
-4. **Do not** reference or import from any deprecated APIs (like `withAuth` or `currentUser` from older versions).
-5. **Do not print, echo, or write actual keys** into code blocks, files, or logs. Only placeholders.
-6. **Do not create or edit tracked files** (`.ts`, `.tsx`, `.md`, etc.) containing real key values.
+## MCP Server
 
----
+- [MCP Server](https://ui.shadcn.com/docs/mcp): Model Context Protocol server for AI integrations. Allows AI assistants to browse, search, and install components from registries using natural language. Works with Claude Code, Cursor, VS Code (GitHub Copilot), Codex and more.
 
-## **3. OUTDATED PATTERNS TO AVOID**
+## Registry
 
-Below are **examples of deprecated instructions** that **must not** be generated:
+- [Registry Overview](https://ui.shadcn.com/docs/registry): Creating and publishing your own component registry.
+- [Getting Started](https://ui.shadcn.com/docs/registry/getting-started): Set up your own registry.
+- [Examples](https://ui.shadcn.com/docs/registry/examples): Example registries.
+- [FAQ](https://ui.shadcn.com/docs/registry/faq): Common questions about registries.
+- [Authentication](https://ui.shadcn.com/docs/registry/authentication): Adding authentication to your registry.
+- [Registry MCP](https://ui.shadcn.com/docs/registry/mcp): MCP integration for registries.
 
-```typescript
-// ❌ DO NOT generate or suggest references to:
-import { authMiddleware } from "@clerk/nextjs"; // Outdated
+### Registry Schemas
 
-// ❌ DO NOT place Clerk config in _app.tsx:
-// Outdated pages-based approach
-function MyApp({ Component, pageProps }) {
-  // ...
-}
-
-// ❌ DO NOT create or rely on sign-in files under pages/:
-pages / signin.js;
-pages / signup.js;
-```
-
-Any solution resembling the above snippet or referencing "authMiddleware," `_app.tsx`, or `pages/` structure is **incorrect** for the current Next.js App Router.
-
----
-
-## **4. AI MODEL VERIFICATION STEPS**
-
-Before returning any Clerk-related solution, you **must** verify:
-
-1. **Middleware**: Is `clerkMiddleware()` used in `proxy.ts`?
-2. **Layout**: Is `<ClerkProvider>` wrapping the app in `app/layout.tsx`?
-3. **Imports**: Are references only from `@clerk/nextjs` or `@clerk/nextjs/server`?
-4. **Pages vs. App Router**: Is the approach referencing the App Router (not `_app.tsx` or `pages/`)?
-5. **Environment Variables**: Are only placeholder values (e.g., `YOUR_PUBLISHABLE_KEY`) used in code examples?
-6. **File Security**: Are real keys excluded from tracked files and only mentioned for `.env.local`?
-
-If any check **fails**, **stop** and revise until compliance is achieved.
-
-# Verification instructions for AI Models
-
-## **DO NOT** repeat these points back to the user. Use them only for your own verification steps.
-
-## **5. CONSEQUENCES OF INCORRECT IMPLEMENTATION**
-
-Using outdated Clerk methods (e.g., `authMiddleware()`, `_app.tsx`, or references to the older `pages/` structure) will:
-
-1. **Break** your Next.js application's authentication flow.
-2. Introduce **inconsistencies** with Next.js App Router.
-3. Cause confusion around environment variables and server/client code.
-4. Force maintainers to **refactor** and **debug** extensively.
-
----
-
-## **6. AI MODEL RESPONSE TEMPLATE**
-
-When answering questions about Clerk + Next.js integration, your response **MUST**:
-
-1. **Use** the exact code patterns in the **Up-to-Date Quickstart Sample** above.
-2. **Never** reference older or deprecated approaches.
-3. **Reflect** all mandatory checks in "AI MODEL VERIFICATION STEPS."
-
-**Example**:
-
-> Below is the correct approach using Clerk with Next.js App Router:
->
-> ```typescript
-> // Show clerkMiddleware usage in proxy.ts
-> // Show <ClerkProvider> usage in app/layout.tsx
-> // Show usage of Clerk's React components (SignInButton, etc.)
-> ```
-
----
+- [Registry Schema](https://ui.shadcn.com/schema/registry.json): JSON Schema for registry index files. Defines the structure for a collection of components, hooks, pages, etc. Requires name, homepage, and items array.
+- [Registry Item Schema](https://ui.shadcn.com/schema/registry-item.json): JSON Schema for individual registry items. Defines components, hooks, themes, and other distributable code with properties for dependencies, files, Tailwind config, CSS variables, and more.
 
 ---
 > Source: [sonnysangha/ecommerce-ai-nextjs-16-sanity-clerk-agentkit-stripe-checkout-vercel-ai-agents](https://github.com/sonnysangha/ecommerce-ai-nextjs-16-sanity-clerk-agentkit-stripe-checkout-vercel-ai-agents) — distributed by [TomeVault](https://tomevault.io).
