@@ -1,0 +1,9 @@
+{
+  "name": "borkdude--cream",
+  "displayName": "cream",
+  "description": "Fast starting Clojure runtime built with GraalVM native-image + Crema",
+  "version": "1.0.0",
+  "author": "borkdude",
+  "homepage": "https://github.com/borkdude/cream",
+  "skills": []
+}
