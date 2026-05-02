@@ -1,0 +1,9 @@
+{
+  "name": "gendigitalinc--sage",
+  "displayName": "sage",
+  "description": "Lightweight Agent Detection & Response (ADR) layer for AI agents \u2014 guards commands, files, and web requests. Part of Gen Agent Trust Hub.",
+  "version": "1.0.0",
+  "author": "gendigitalinc",
+  "homepage": "https://github.com/gendigitalinc/sage",
+  "skills": []
+}
