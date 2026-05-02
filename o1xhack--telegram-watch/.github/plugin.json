@@ -1,0 +1,14 @@
+{
+  "name": "o1xhack--telegram-watch",
+  "displayName": "telegram-watch",
+  "description": "Fully local Telegram watcher powered by Telethon \u2014 monitor specific users in a target group/channel, capture messages/media into SQLite, and push periodic HTML reports back to a control chat.",
+  "version": "1.0.0",
+  "author": "o1xhack",
+  "homepage": "https://github.com/o1xhack/telegram-watch",
+  "skills": [
+    {
+      "name": "telegram-watch-dev",
+      "description": ""
+    }
+  ]
+}
