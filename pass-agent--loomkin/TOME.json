@@ -4,7 +4,7 @@
   "repo": "loomkin",
   "description": "What if AI agents could form teams as fluidly as humans? Spawn specialists in milliseconds, share discoveries in real-time, review each other's work, and remember everything across sessions. Watch it all unfold in a live mission control UI. Open source.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pass-agent/loomkin",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T16:53:09Z"
+  "distributed_at": "2026-05-02T03:49:24Z"
 }
