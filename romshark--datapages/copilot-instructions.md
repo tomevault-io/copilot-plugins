@@ -1,13 +1,9 @@
-## datapages
+## code-style
 
-> Datapages framework guide for writing application code and using the CLI
+> Project conventions and commands
 
 
-When working with Datapages application code, read and follow these files:
-
-- `.skills/datapages/SKILL.md` — step-by-step guide for writing Datapages apps and using
-  the CLI.
-- `SPECIFICATION.md` — full parameter, return type, and configuration reference.
+Read and follow `AGENTS.md` in the repository root.
 
 ---
 > Source: [romshark/datapages](https://github.com/romshark/datapages) — distributed by [TomeVault](https://tomevault.io).
