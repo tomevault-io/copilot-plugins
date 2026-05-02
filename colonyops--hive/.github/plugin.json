@@ -1,0 +1,42 @@
+{
+  "name": "colonyops--hive",
+  "displayName": "hive",
+  "description": "CLI/TUI for managing multiple AI agent sessions in isolated git environments with real-time status monitoring, task tracking, and inter-agent messaging.",
+  "version": "1.0.0",
+  "author": "colonyops",
+  "homepage": "https://github.com/colonyops/hive",
+  "skills": [
+    {
+      "name": "config",
+      "description": ""
+    },
+    {
+      "name": "docs-update",
+      "description": ""
+    },
+    {
+      "name": "inbox",
+      "description": ""
+    },
+    {
+      "name": "msg-publish",
+      "description": ""
+    },
+    {
+      "name": "session-info",
+      "description": ""
+    },
+    {
+      "name": "tui-component-design",
+      "description": ""
+    },
+    {
+      "name": "tui-testing",
+      "description": ""
+    },
+    {
+      "name": "msg-wait",
+      "description": ""
+    }
+  ]
+}
