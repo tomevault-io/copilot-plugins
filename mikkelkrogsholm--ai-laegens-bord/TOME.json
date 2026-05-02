@@ -1,0 +1,63 @@
+{
+  "name": "ai-laegens-bord",
+  "owner": "mikkelkrogsholm",
+  "repo": "ai-laegens-bord",
+  "description": "AI instruction skills by mikkelkrogsholm",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lab-review",
+      "path": ".claude/skills/lab-review",
+      "github_url": "https://github.com/mikkelkrogsholm/ai-laegens-bord/tree/main/.claude/skills/lab-review",
+      "description": ""
+    },
+    {
+      "name": "medrxiv-search",
+      "path": ".claude/skills/medrxiv-search",
+      "github_url": "https://github.com/mikkelkrogsholm/ai-laegens-bord/tree/main/.claude/skills/medrxiv-search",
+      "description": ""
+    },
+    {
+      "name": "sundhed-dk",
+      "path": ".claude/skills/sundhed-dk",
+      "github_url": "https://github.com/mikkelkrogsholm/ai-laegens-bord/tree/main/.claude/skills/sundhed-dk",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mikkelkrogsholm/ai-laegens-bord",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:32:56Z"
+}
