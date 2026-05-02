@@ -1,0 +1,9 @@
+{
+  "name": "open-pgx--openpgx",
+  "displayName": "openpgx",
+  "description": "The open standard for AI-readable pharmacogenomics. MCP Server for personalized drug-gene analysis.",
+  "version": "1.0.0",
+  "author": "open-pgx",
+  "homepage": "https://github.com/open-pgx/openpgx",
+  "skills": []
+}
