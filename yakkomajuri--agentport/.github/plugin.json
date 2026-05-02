@@ -1,0 +1,9 @@
+{
+  "name": "yakkomajuri--agentport",
+  "displayName": "agentport",
+  "description": "Secure gateway to connect your agents to any service with granular permissions. ",
+  "version": "1.0.0",
+  "author": "yakkomajuri",
+  "homepage": "https://github.com/yakkomajuri/agentport",
+  "skills": []
+}
