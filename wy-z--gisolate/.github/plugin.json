@@ -1,0 +1,9 @@
+{
+  "name": "wy-z--gisolate",
+  "displayName": "gisolate",
+  "description": "Process isolation for gevent applications \u2014 run any object in a clean subprocess, call methods transparently via ZMQ IPC.",
+  "version": "1.0.0",
+  "author": "wy-z",
+  "homepage": "https://github.com/wy-z/gisolate",
+  "skills": []
+}
