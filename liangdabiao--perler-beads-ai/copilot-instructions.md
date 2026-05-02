@@ -1,240 +1,128 @@
-## plan
+## reviewgate
 
-> 基于统一画布工作台理念的拼豆制作工具，为拼豆爱好者提供从图像处理到成品制作的一站式解决方案。
+> This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
 
-# 拼豆图纸生成器微信小程序 PRD
+# AI Agent Protocol: Self-Contained Mandatory Interactive Final Review Loop with Auto-Script Creation (Version 3)
 
-## 1. 产品概述
+## 0. User Advisory & Safety:
+This is an advanced, experimental rule. It instructs the AI Agent to check for, potentially create, and then execute a Python script (`final_review_gate.py`) in your project's root directory to facilitate an interactive review loop. By using this rule, you acknowledge that the AI will attempt file system operations (read, write, execute) as directed. Ensure the AI's execution environment has appropriate permissions if you expect script auto-creation to work, and be aware of the security implications.
 
-### 1.1 产品定位
-基于统一画布工作台理念的拼豆制作工具，为拼豆爱好者提供从图像处理到成品制作的一站式解决方案。
+## 1. Core Principle & Context:
+Your primary task processing includes a **mandatory final interactive review stage** driven by user input through a specific Python script (`final_review_gate.py`). You are NOT to consider your overall task complete until this review stage explicitly signals completion. This protocol leverages your known capability to run commands in a sub-terminal (displayed within the chat interface) and read their output.
 
-### 1.2 核心价值
-- **一体化体验**：统一画布承载所有操作，无缝切换不同工作模式
-- **智能色板**：自动适配不同店家色号体系，简化用户选择
-- **渐进式引导**：从新手友好的预览模式到专业的编辑模式，再到专注的制作模式
+## Phase 0: Ensure `final_review_gate.py` Script Exists
+(This phase is executed ONCE per user request that triggers this overall protocol, or if the script is missing or its content is incorrect.)
 
-### 1.3 目标用户
-- 拼豆制作爱好者（初学者到专业玩家）
-- 需要定制图案的用户
-- 希望数字化管理拼豆项目的用户
+1.  **Define Script Details:**
+    * **Script Name:** `final_review_gate.py`
+    * **Target Location:** Directly in the root of the current project/workspace.
+    * **Python Script Content (ensure this exact content is used):**
+        ```python
+        # final_review_gate.py
+        import sys
+        import os
 
-## 2. 产品架构
+        if __name__ == "__main__":
+            # Try to make stdout unbuffered for more responsive interaction.
+            # This might not work on all platforms or if stdout is not a TTY,
+            # but it's a good practice for this kind of interactive script.
+            try:
+                sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', buffering=1)
+            except Exception:
+                pass # Ignore if unbuffering fails, e.g., in certain environments
 
-### 2.1 整体流程
-```
-首页导入按钮 → 图像转像素画（预览模式） → 像素画编辑（编辑模式） → 专心拼豆（拼豆模式） → 完成分享
-```
+            try:
+                sys.stderr = os.fdopen(sys.stderr.fileno(), 'w', buffering=1)
+            except Exception:
+                pass # Ignore
 
-### 2.2 核心模块关系
-- **统一色板模块**：为所有模块提供颜色数据和店家适配，以及通过勾选的自定义色板
-- **统一画布模块**：承载所有视觉交互和模式切换
-- **数据管理模块**：处理图像处理、存储和同步
+            print("--- FINAL REVIEW GATE ACTIVE ---", flush=True)
+            print("AI has completed its primary actions. Awaiting your review or further sub-prompts.", flush=True)
+            print("Type your sub-prompt, or one of: 'TASK_COMPLETE', 'Done', 'Quit', 'q' to signal completion.", flush=True) # MODIFIED
+            
+            active_session = True
+            while active_session:
+                try:
+                    # Signal that the script is ready for input.
+                    # The AI doesn't need to parse this, but it's good for user visibility.
+                    print("REVIEW_GATE_AWAITING_INPUT:", end="", flush=True) 
+                    
+                    line = sys.stdin.readline()
+                    
+                    if not line:  # EOF
+                        print("--- REVIEW GATE: STDIN CLOSED (EOF), EXITING SCRIPT ---", flush=True)
+                        active_session = False
+                        break
+                    
+                    user_input = line.strip()
 
-## 3. 功能模块详述
+                    # Check for exit conditions
+                    if user_input.upper() in ['TASK_COMPLETE', 'DONE', 'QUIT', 'Q']: # MODIFIED: Empty string no longer exits
+                        print(f"--- REVIEW GATE: USER SIGNALED COMPLETION WITH '{user_input.upper()}' ---", flush=True)
+                        active_session = False
+                        break
+                    elif user_input: # If there's any other non-empty input (and not a completion command)
+                        # This is the critical line the AI will "listen" for.
+                        print(f"USER_REVIEW_SUB_PROMPT: {user_input}", flush=True)
+                    # If user_input was empty (and not a completion command),
+                    # the loop simply continues, and "REVIEW_GATE_AWAITING_INPUT:" will be printed again.
+                    
+                except KeyboardInterrupt:
+                    print("--- REVIEW GATE: SESSION INTERRUPTED BY USER (KeyboardInterrupt) ---", flush=True)
+                    active_session = False
+                    break
+                except Exception as e:
+                    print(f"--- REVIEW GATE SCRIPT ERROR: {e} ---", flush=True)
+                    active_session = False
+                    break
+                    
+            print("--- FINAL REVIEW GATE SCRIPT EXITED ---", flush=True)
+        ```
 
-### 3.1 首页模块
+2.  **Ensure Script Existence and Correctness:**
+    a.  Use your file system tools to check if the file `final_review_gate.py` exists in the project root.
+    b.  **If the file `final_review_gate.py` does NOT exist OR if its content does not EXACTLY match the Python script provided in section "Phase 0.1.Python Script Content" (you may need to read the existing file and compare):**
+        i.  You MUST create or overwrite the `final_review_gate.py` file in the project root.
+        ii. The content of this file MUST be *exactly* the Python script content provided above. Ensure all indentation, comments, and lines are preserved perfectly. Use your "create file" or "edit file" tool.
+        iii. After creating/overwriting it, announce: "The `final_review_gate.py` script has been created/updated in the project root with the latest interaction enhancements."
+    c.  **If the file `final_review_gate.py` already exists and its content is correct:** You may skip announcing its creation.
+    d.  If you encounter any errors checking for, reading, or creating/writing the file (e.g., permission issues), you MUST report this to the user. State clearly: "Error managing `final_review_gate.py`: [specific error]. Cannot proceed with interactive review." and then conclude the interaction for the main task as best as you can without this interactive step.
 
-#### 3.1.1 功能概述
-作为用户进入小程序的第一个接触点，提供简洁的功能入口和项目管理。
+## Phase 1: Primary Task Execution
+1.  Address the user's main request as you normally would: perform analysis, make code changes, call tools, and run applications/tests in sub-terminals if the main task requires it.
+    * **Application Execution Confirmation:** Before attempting to run an entire application (e.g., a web server, a full front-end build, a long-running background process), you MUST ask the user for explicit confirmation. For example: "I am about to run the [application name/command]. Is it okay to proceed, or is it possibly already running?"
+    * This confirmation is NOT required for running individual test scripts, linters, build tools for specific components, or other non-application-level commands necessary for task completion.
+    * If the user indicates an application is already running or denies permission, adapt your strategy accordingly (e.g., focus on tests or specific file executions).
+2.  Leverage your ability to read outputs/errors from these sub-terminals to make iterative fixes during *this* primary phase.
 
-#### 3.1.2 主要功能（两个按钮）
-- **快速开始**：一键创建新项目（图片上传/拍照）
-- **色板设置**：全局店家色号体系选择
+## Phase 2: Mandatory Final Interactive Review Script Execution
+1.  **Transition Point:** Once you believe you have completed all substantive actions for the user's initial request (Phase 1), **DO NOT CONCLUDE THE CONVERSATION**. You MUST now transition to this Final Interactive Review phase.
+2.  **Action:** Execute the `final_review_gate.py` script (which you ensured exists and is correct in Phase 0) from the project root.
+    * Determine the correct Python interpreter command (e.g., `python`, `python3`) available in the execution environment. A robust command attempt would be `python3 ./final_review_gate.py` and if that fails, try `python ./final_review_gate.py`.
+    * **Crucially, the terminal for this script MUST run directly within the chat window, and its output MUST be continuously visible to the user as it is generated.** It must NOT pop open as a separate window or run hidden in the background. You MUST wait for the script (and its terminal interaction) to fully complete and exit before you proceed with any further actions or attempt to conclude the overall task. Your processing will be blocked by this script's execution.
+3.  **Announcement:** Clearly inform the user: "I have completed the primary actions. Now initiating the mandatory Final Interactive Review by running `./final_review_gate.py`. The review terminal is now active **in this chat window, and its output will be displayed live**. Please provide any sub-prompts directly into that script's input area, or type 'TASK_COMPLETE', 'Done', 'Quit', or 'q' when satisfied." (MODIFIED: Removed "or simply press Enter")
 
-#### 3.1.3 界面布局
-- 顶部（占据一半）：品牌标识
-- 中部（大）：点击导入图片或者 csv 文件
-- 下部（弱）：点击进入色板编辑（编辑后的色板储存在本地）
+## Phase 3: Interactive Review Loop (Monitoring Script Output)
+1.  **Active Monitoring & Display:** Continuously monitor the standard output (stdout) of the launched `final_review_gate.py` script **as it appears live in the chat window**. Ensure the user sees all script output, including the `REVIEW_GATE_AWAITING_INPUT:` prompt. You will "read" its output using the same capability that allows you to read terminal logs or error messages. The script will loop and re-prompt if an empty input is given.
+2.  **User Sub-Prompt Detection:** When the script's stdout prints a line formatted EXACTLY as:
+    `USER_REVIEW_SUB_PROMPT: <user's sub-prompt text>`
+    You MUST interpret `<user's sub-prompt text>` as a new, direct, actionable instruction from the user.
+3.  **Processing Sub-Prompts:**
+    a.  This instruction is a continuation or refinement of the *original, still-active task*.
+    b.  Analyze the sub-prompt. Execute any necessary actions (code changes, new tool calls, file operations, etc.). **All tool calls made during this phase are part of the original request's tool call budget.** If the sub-prompt requests running an entire application, the confirmation principle from "Phase 1, Step 1 (Application Execution Confirmation)" applies.
+    c.  Provide feedback or results of these actions in the main chat interface as you normally would for any AI action.
+    d.  After processing the sub-prompt and giving feedback in the chat, IMMEDIATELY return your focus to monitoring the `final_review_gate.py` script's terminal output (which remains live and visible in the chat) for the next user instruction or completion signal. This loop is critical.
+4.  **Completion Signal Detection:** The interactive review loop continues until the script's stdout (visible in the chat window) prints a line containing:
+    * `--- REVIEW GATE: USER SIGNALED COMPLETION WITH 'TASK_COMPLETE' ---` (or 'DONE', 'QUIT', 'Q' as per script logic)
+    * OR `--- FINAL REVIEW GATE SCRIPT EXITED ---` (or any other script exit/error message like `REVIEW GATE: STDIN CLOSED` or `REVIEW GATE SCRIPT ERROR:`)
+    (MODIFIED: Removed specific "EMPTY INPUT RECEIVED" as a completion signal, as the script no longer behaves this way for completion.)
 
-### 3.2 统一色板模块
+## Phase 4: True Task Conclusion
+1.  Only after the `final_review_gate.py` script has terminated (as observed by its terminal session in the chat window closing and its final exit messages being printed and visible) are you permitted to consider the user's original request fully satisfied.
+2.  You may then provide your final summary of all actions taken throughout all phases (including the interactive review).
 
-#### 3.2.1 设计理念
-基于 `colorSystemMapping.json` 构建的智能色板系统，对用户完全透明化 hex 值，只显示当前选择店家的色号命名。
-
-#### 3.2.2 核心功能
-
-**3.2.2.1 色板数据管理**
-- 维护 291 个标准 hex 颜色
-- 支持 5 个店家色号体系：MARD、COCO、漫漫、盼盼、咪小窝
-- 动态映射：同一颜色在不同店家显示不同色号
-- 全局色号体系切换：用户选择店家后，整个小程序所有颜色显示自动更新
-
-**3.2.2.2 自定义色板机制**
-- 用户可以自定义自己想要的色板（自己的拼豆颜色种类）
-
-**3.2.2.3 交互设计**
-- **预览模式**：色板仅用于信息展示，点击颜色显示详细信息
-- **编辑模式**：色板作为画笔工具，支持颜色选择、自定义色板
-- **拼豆模式**：色板按使用顺序和重要性排序，突出当前需要的颜色
-
-#### 3.2.3 技术实现要点
-- 建立 hex 到店家色号的单向映射索引
-- 实现响应式色板组件，支持不同尺寸屏幕
-- 色彩空间转换算法，确保颜色显示一致性
-
-### 3.3 统一画布模块
-
-#### 3.3.1 设计理念
-单一画布承载所有视觉交互，通过模式切换实现不同功能状态，提供连贯的用户体验。
-
-#### 3.3.2 核心功能
-
-**3.3.2.1 基础画布能力**
-- **自适应尺寸**：根据像素网格自动计算画布大小，初始化的时候最长边占满屏幕
-- **手势支持**：双指捏合缩放、单指拖拽平移
-- **性能优化**：大尺寸网格的虚拟化渲染，保证流畅性
-- **坐标系统**：统一的网格坐标系，支持精确的像素级操作
-
-**3.3.2.2 多模式状态管理**
-
-**预览模式（Mode 1）**
-- **视觉状态**：显示完整像素化结果，网格线清晰可见
-- **交互行为**：
-  - 点击：显示该位置颜色信息弹窗（店家色号 + 颜色预览）
-  - 长按：显示周围区域的颜色分布热力图
-  - 双击：快速放大到该区域
-- **UI 覆盖层**：网格坐标标识、色彩统计信息
-
-**编辑模式（Mode 2）**
-- **视觉状态**：突出显示可编辑区域，当前工具状态指示
-- **交互行为**：
-  - 单击：使用当前画笔颜色填充像素
-  - 长按：激活连续绘制模式
-  - 双指点击：吸管工具，获取该位置颜色
-- **工具栏集成**：画笔选择、橡皮擦、填充工具、撤销重做
-- **实时预览**：编辑操作的即时视觉反馈
-
-**拼豆模式（Mode 3）**
-- **视觉状态**：游戏化界面，突出显示当前任务区域
-- **交互行为**：
-  - 点击：标记完成该像素
-  - 长按：查看该区域的详细制作指导
-- **进度系统**：完成度可视化、区域引导、成就反馈
-- **辅助功能**：放大镜工具、颜色高亮、完成动画
-
-**3.3.2.3 模式切换机制**
-- **无缝转换**：保持画布视口位置和缩放比例
-- **状态持久化**：每个模式的操作历史独立保存
-- **上下文保护**：切换模式时保护用户当前操作进度
-
-#### 3.3.3 技术架构
-
-**3.3.3.1 渲染引擎**
-- 基于微信小程序 Canvas 2D API
-- 分层渲染：背景层、像素层、交互层、UI 层
-- 局部刷新策略，仅重绘变化区域
-
-**3.3.3.2 状态管理**
-```typescript
-interface CanvasState {
-  mode: 'preview' | 'edit' | 'create'
-  viewport: { x: number, y: number, scale: number }
-  pixelData: MappedPixel[][]
-  currentTool: ToolType
-  operationHistory: Operation[]
-}
-```
-
-### 3.4 图像转像素画模块（预览模式）
-
-#### 3.4.1 功能概述
-将用户上传的图像智能转换为适合拼豆制作的像素画，并提供预览和调整功能。
-
-#### 3.4.2 图像处理流程
-
-**3.4.2.1 图像预处理**
-- **尺寸标准化**：自动调整为横轴 100 像素，纵轴按比例计算
-- **色彩优化**：色彩空间转换、对比度增强、降噪处理
-- **边缘处理**：智能识别和保护重要边缘信息
-
-**3.4.2.2 像素化算法**
-- **卡通模式**：基于主导色的像素化（保持色块纯净）
-- **真实模式**：基于平均色的像素化（保持色彩过渡）
-- **智能色彩映射**：将像素色彩映射到最接近的拼豆颜色
-
-**3.4.2.3 后处理优化**
-- **色彩合并**：相似颜色自动合并，减少色彩数量
-- **区域优化**：小面积杂色自动清理
-- **边缘锐化**：重要边缘的对比度增强
-
-#### 3.4.3 交互功能
-- **参数调节**：实时调整像素化精度、色彩合并阈值
-- **区域预览**：支持局部放大查看细节效果
-- **色彩统计**：显示使用的颜色数量和分布
-
-### 3.5 像素画编辑模块
-
-#### 3.5.1 功能概述
-提供专业的像素画编辑能力，允许用户精细调整转换结果。
-
-#### 3.5.2 编辑工具集
-
-**3.5.2.1 基础绘制工具**
-- **画笔工具**：支持不同大小的方形画笔
-- **橡皮擦**：删除指定区域的像素
-- **填充工具**：快速填充连通区域
-- **吸管工具**：快速获取画布上的颜色
-
-**3.5.2.2 高级编辑功能**
-- **区域选择**：矩形、自由形状选择工具
-- **批量替换**：将特定颜色批量替换为另一种颜色
-- **图层管理**：支持多图层编辑（背景层、前景层等）
-- **对称绘制**：支持水平、垂直对称绘制模式
-
-**3.5.2.3 辅助功能**
-- **网格对齐**：自动对齐到像素网格
-- **颜色建议**：基于周围颜色推荐最适合的颜色
-- **撤销重做**：支持多步操作的撤销和重做
-- **实时预览**：编辑过程中的实时效果预览
-
-#### 3.5.3 用户体验优化
-- **手势识别**：支持常用编辑手势（缩放、拖拽、点击）
-- **工具切换**：快速访问常用工具的浮动工具栏
-- **操作反馈**：每个操作都有清晰的视觉反馈
-
-### 3.6 专心拼豆模块
-
-#### 3.6.1 功能概述
-游戏化的拼豆制作指导系统，帮助用户有序完成拼豆作品。
-
-#### 3.6.2 核心功能
-
-**3.6.2.1 智能引导系统**
-- **制作顺序优化**：基于颜色分布和难易度推荐制作顺序
-- **区域推荐**：
-  - 最近优先：推荐距离当前位置最近的未完成区域
-  - 大块优先：优先推荐大色块区域，提高效率
-  - 边缘优先：从外围向内部制作，符合拼豆制作习惯
-
-**3.6.2.2 进度管理**
-- **颜色进度跟踪**：每种颜色的完成进度可视化
-- **区域完成标记**：点击标记已完成的像素区域
-- **总体进度展示**：整体完成百分比和剩余工作量
-
-**3.6.2.3 辅助工具**
-- **放大镜功能**：支持选择特定区域进行放大操作
-- **颜色高亮**：突出显示当前工作颜色的所有位置
-- **完成动画**：颜色完成时的庆祝动效
-
-#### 3.6.3 用户体验设计
-
-**3.6.3.1 游戏化元素**
-- **成就系统**：设置里程碑奖励（完成第一个颜色、完成 50% 等）
-- **进度条动画**：平滑的进度变化动画
-- **完成庆祝**：作品完成时的特殊庆祝效果
-
-**3.6.3.2 实用功能**
-- **时间记录**：记录制作时间，支持暂停和继续
-- **拍照记录**：支持拍照记录制作进度
-- **分享功能**：生成完成图片，支持分享到社交平台
-
-### 3.7 数据管理模块
-
-#### 3.7.1 本地存储
-- **项目文件**：完整的像素画数据、编辑历史、进度信息
-- **用户设置**：色板偏好、操作习惯、界面配置
-- **缓存管理**：图像处理结果缓存、色板数据缓存
+## Overriding Default Behavior:
+This entire "Final Interactive Review" process (Phases 0, 2, 3, and 4) is a **strict, non-negotiable requirement** that overrides any default tendency you have to end the conversation after completing Phase 1. The task is only finished when the user explicitly confirms with one of the specified keywords through the review script or the script otherwise terminates due to an error or EOF (as per the defined behavior, including the in-chat, blocking, and continuously visible terminal execution). Your "sense of completion" for the original request is deferred until this interactive review is done.
 
 ---
 > Source: [liangdabiao/perler-beads-ai](https://github.com/liangdabiao/perler-beads-ai) — distributed by [TomeVault](https://tomevault.io).
