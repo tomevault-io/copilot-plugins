@@ -1,33 +1,34 @@
-## i18n-locale
+## ipc-invoke
 
-> 翻译文件放置规则 — 防止 locales 重复
+> 新增 IPC invoke 函数时的共享检查
 
 
-# 翻译文件规则
+# IPC Invoke 函数规则
 
-## 新增翻译键的判定
+## 新增 invoke 函数的判定流程
 
-| 条件 | 放入 |
-|------|------|
-| 两端均使用且值相同 | `packages/shared/src/locales/{lang}.json` |
-| 仅一端使用 | `apps/{platform}/src/locales/{lang}.json` |
-| 两端均使用但值不同 | 各端 locales（平台可覆盖 shared） |
+两端都需要 → 放 `packages/shared/src/ipc/types.ts` + 各端 re-export
+仅一端需要 → 放该端 `src/ipc.ts`
 
-## 检查步骤
+## 当前已共享的 invoke 函数（禁止在各端重复定义）
 
-1. 在 shared locales 中搜索是否已有相同/相似的 key
-2. 如果是通用 UI 文本（按钮、标签、错误），优先放 shared
-3. 如果是平台特有功能描述，放对应端
+- SecureStore: `setSecureValue`, `getSecureValue`, `deleteSecureValue`, `listSecureKeys`, `wipeSecureStore`
+- MCP: `scanMcpServer`
+- RAG: `readTextFile`
+- Tailscale: `getTailscaleStatus`
+- SSH Deploy: `deployRemoteConnect`, `deployRemoteCheckNode`, `deployRemoteInstallOpenclaw`, `deployRemoteOnboard`, `deployRemoteStartGateway`
 
-## 合并机制
+## 各端 ipc.ts 的正确导入方式
 
-两端通过 `createI18n(platformOverrides)` 自动合并：`{ ...shared, ...platform }`
-平台可以覆盖 shared 的同名 key（但应尽量避免）。
+```typescript
+// ✅ 从 shared re-export
+export { setSecureValue, getSecureValue } from "@clawno/shared/ipc/types";
+export type { StepResult, SshArgs } from "@clawno/shared/ipc/types";
 
-## 禁止
-
-- ❌ 两端 locales 中出现完全相同的 key+value 组合
-- ❌ 新增翻译时只改一端忘记改另一端
+// ❌ 禁止本地重复定义
+export const setSecureValue = (key: string, value: string) =>
+  invoke<void>("set_secure_value", { key, value });
+```
 
 ---
 > Source: [clawno11/clawno11](https://github.com/clawno11/clawno11) — distributed by [TomeVault](https://tomevault.io).
