@@ -1,0 +1,9 @@
+{
+  "name": "urikirsh--investment-planner",
+  "displayName": "investment-planner",
+  "description": "A GUI to help rebalance investment according an an investment strategy",
+  "version": "1.0.0",
+  "author": "urikirsh",
+  "homepage": "https://github.com/urikirsh/investment-planner",
+  "skills": []
+}
