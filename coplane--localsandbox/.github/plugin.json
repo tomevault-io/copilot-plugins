@@ -1,0 +1,9 @@
+{
+  "name": "coplane--localsandbox",
+  "displayName": "localsandbox",
+  "description": "Lightweight AgentFS sandbox that runs bash and python.",
+  "version": "1.0.0",
+  "author": "coplane",
+  "homepage": "https://github.com/coplane/localsandbox",
+  "skills": []
+}
