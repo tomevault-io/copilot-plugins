@@ -1,30 +1,39 @@
-## xrk-core-code
+## xrk-dev-requirements
 
-> core 目录下业务代码（插件/HTTP/工作流）的编写约定
+> XRK-AGT 开发需求与编码约定（constructor/全局对象/HttpResponse）
 
 
-# Core 业务代码约定
+# 开发需求与约定
 
-## 底层与基类
+## Constructor 内不要定义易变状态
 
-- **不改底层**：不得修改 `src/infrastructure/`、`src/utils/` 等底层代码。
-- **充分利用底层**：继承基类并按文档实现接口即可；commonconfig 用足 ConfigBase 的 schema、getStructure、read、write、validate，插件/HTTP/工作流用足各自基类能力，不重复实现、不伸手改 src/。
+- **禁止**在 `constructor` 里定义会被反复创建、或作为“缓存/状态容器”的变量（如 `this.cache = new Map()`、`this.xxx = {}`）。
+- **原因**：热加载或多次实例化时 constructor 会重复执行，导致引用错乱或“无限刷新”感。
+- **正确做法**：需要实例级缓存/状态时，用**类字段**在声明处初始化（如 `cache = new Map()`），或放在只调用一次的 `init()` 里；constructor 内只做 `super()` 与固定配置（如 `name`、`event`）。
 
-## 放码位置
+## segment 已挂全局，无需 import
 
-- 插件：`core/*/plugin/*.js`；HTTP API：`core/*/http/*.js`；工作流：`core/*/stream/*.js`。各自继承对应基类，行为符合 `docs/` 中对应文档。
-- 基类路径（无 package.json 时用 `#`）：插件 `#infrastructure/plugins/plugin.js`，HTTP `#infrastructure/http/http.js`，工作流 `#infrastructure/aistream/aistream.js`。有 package.json 时改为相对路径至 `src/`（如 `../../../src/infrastructure/...`）。
+- `segment` 在插件加载时已挂到 `global.segment`（见 `src/infrastructure/plugins/loader.js`）。
+- 在插件、事件、Tasker 中**不要**写 `import { segment } from '#oicq'`，直接使用全局 `segment`（如 `segment.image(url)`）。
 
-## 导入约定
+## 充分利用 Bot 对象
 
-- **无** package.json 的 core：使用根包 `#` 别名（`#infrastructure/*`、`#utils/*`）。
-- **有** package.json 的 core：**禁止使用 `#`**（子包无法解析根包别名），须用**相对路径**引用项目根下 `src/`（如从 `core/X/commonconfig/` 用 `../../../src/infrastructure/...`）。写业务 core 时若该 core 目录下存在 package.json，一律不得使用 `#` 路径。
+- **不要**在业务里手动 `import Bot` 或 `new Bot()`；由 `node app` / `start.js` 创建并挂载全局 `Bot`。
+- **插件 / Tasker / 事件监听器**：直接用全局 `Bot`、`Bot[self_id]`、`Bot.em()`、`Bot.tasker`、`Bot.makeLog()` 等（详见 `docs/bot.md`）。
+- **HTTP API handler**：使用注入的 `req.bot` 或路由第三参 `Bot`，用于 `getServerUrl()`、`callRoute()`、多 Bot 等。
 
-## 编码约定
+## HttpResponse（src/utils/http-utils.js）
 
-- constructor 内不定义缓存/状态容器，用类字段或 `init()` 初始化。
-- 插件/事件/Tasker：使用全局 `Bot`、`segment`（不要 import Bot 或 segment）。
-- HTTP handler：使用 `HttpResponse`（`#utils/http-utils.js`）与注入的 `req.bot`。详见 `xrk-dev-requirements.mdc`。
+- **导入**：`import { HttpResponse } from '#utils/http-utils.js'`（文件名是 http-utils，不是 http-response）。
+- **用途**：统一 HTTP 响应格式与错误处理；`core/*/http/*.js` 的 handler 应优先使用。
+- **常用静态方法**：
+  - `HttpResponse.success(res, data, message)`：成功；
+  - `HttpResponse.error(res, error, statusCode, context)`：统一错误与日志；
+  - `HttpResponse.validationError(res, message, code)`：400；
+  - `HttpResponse.notFound(res, message)`、`HttpResponse.unauthorized(res, message)`、`HttpResponse.forbidden(res, message)`；
+  - `HttpResponse.asyncHandler(handler, context)`：包装异步 handler，自动 try/catch 并调 `HttpResponse.error`；
+  - 流式/SSE：`HttpResponse.streamResponse(res, streamHandler, context)`；MCP：`jsonRpcError` / `jsonRpcSuccess` / `validateJsonRpcRequest`。
+- **约定**：handler 内用 `return HttpResponse.xxx(...)` 提前返回，不要与 `res.json()` 混用。
 
 ---
 > Source: [sunflowermm/XRK-AGT](https://github.com/sunflowermm/XRK-AGT) — distributed by [TomeVault](https://tomevault.io).
