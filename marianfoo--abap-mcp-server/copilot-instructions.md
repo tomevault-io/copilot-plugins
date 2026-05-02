@@ -1,74 +1,60 @@
-## 40-deploy
+## 50-metadata-config
 
-> For PM2 processes, GitHub Actions, health checks, and production operations.
+> For centralized configuration management and metadata-driven features.
 
-# Deploy & Ops (Rule)
+# Metadata & Configuration (Rule)
 
-For PM2 processes, GitHub Actions, health checks, and production operations.
+For centralized configuration management and metadata-driven features.
 
-## Deployment Pipeline
-- **GitHub Action**: "Deploy MCP stack" workflow  
-- **Trigger**: Push to main branch or manual dispatch via workflow_dispatch
-- **Process**: SSH → git pull → enhanced `setup.sh` → PM2 restart
-- **Health Checks**: Automated validation of all endpoints (proxy, http, streamable)
+## Metadata System Architecture
+- **Central Config**: `src/metadata.json` - Single source of truth
+- **Type-Safe APIs**: `src/lib/metadata.ts` - 12 comprehensive functions
+- **Core Settings**: `src/lib/config.ts` - System-level configuration only
+- **Runtime Loading**: Metadata loaded once at startup with fallbacks
 
-## Enhanced Setup Script (`setup.sh`)
-- **Shallow Submodules**: Single-branch, depth-1 clones with blob filtering
-- **Partial Clone**: Uses `--filter=blob:none` for minimal bandwidth
-- **Branch Fallback**: Tries specified branch, falls back to master
-- **Repository Compaction**: Aggressive GC and reflog cleanup
-- **Skip Nested**: `SKIP_NESTED_SUBMODULES=1` for deployment optimization
-
-## PM2 Configuration (`ecosystem.config.cjs`)
-- **abap-mcp-http**: HTTP status server (127.0.0.1:3001)  
-- **abap-mcp-streamable**: Streamable HTTP MCP (127.0.0.1:3122)
-
-## Environment Configuration (BM25-Only)
-```javascript
-env: {
-  NODE_ENV: "production",
-  LOG_LEVEL: "INFO", 
-  LOG_FORMAT: "json",
-  RETURN_K: "25"  // Centralized result limit
+## Configuration Structure
+```json
+{
+  "sources": [/* 12 documentation sources with full metadata */],
+  "contextBoosts": {/* Context-specific scoring boosts */},
+  "libraryMappings": {/* Source ID to library ID mappings */},
+  "contextEmojis": {/* UI presentation emojis */},
+  "synonyms": [/* Query expansion synonyms */],
+  "acronyms": {/* Acronym expansions */}
 }
 ```
 
-## Health Endpoints
-- **HTTP Server**: `/status`, `/healthz`, `/readyz`
-- **Streamable Server**: `/health`
-- **Proxy Server**: `/status` (via mcp-proxy)
+## Metadata APIs (12 functions)
+- **URL Configuration**: `getDocUrlConfig()`, `getAllDocUrlConfigs()`
+- **Source Paths**: `getSourcePath()`, `getAllSourcePaths()`
+- **Context Boosts**: `getContextBoosts()`, `getAllContextBoosts()`
+- **Library Mappings**: `getLibraryMapping()`, `getAllLibraryMappings()`
+- **UI Elements**: `getContextEmoji()`, `getAllContextEmojis()`
+- **Source Lookup**: `getSourceByLibraryId()`, `getSourceById()`
 
-## Build Process
-1. **TypeScript**: `npm run build:tsc` → `dist/src/`
-2. **Index Build**: `npm run build:index` → `dist/data/index.json`
-3. **FTS Build**: `npm run build:fts` → `dist/data/docs.sqlite`
-4. **Full Build**: `npm run build` → Complete pipeline
+## Adding New Sources
+1. Add source definition to `src/metadata.json`
+2. Include: id, libraryId, sourcePath, baseUrl, pathPattern, anchorStyle, boost, tags
+3. Add to contextBoosts if context-specific scoring needed
+4. Add to libraryMappings if ID mapping required
+5. No code changes needed - APIs handle automatically
 
-## Monitoring & Logging
-- **Structured Logging**: JSON format in production
-- **Performance Metrics**: Search timing and result counts
-- **Error Tracking**: Graceful fallbacks with error logging
-- **Resource Usage**: PM2 process monitoring
+## Configuration Best Practices
+- **Single Source**: All source configs in metadata.json only
+- **Type Safety**: Use metadata APIs, never direct JSON access
+- **Fallbacks**: APIs return sensible defaults for missing data
+- **Validation**: Metadata loading includes error handling
+- **Environment**: Core settings can be overridden via env vars
 
-## Build Process
-1. **Index Build**: `npm run build:index` → `dist/data/index.json`
-2. **FTS Build**: `npm run build:fts` → `dist/data/docs.sqlite`
-3. **TypeScript**: `npm run build:tsc` → `dist/src/`
-4. **Full Build**: `npm run build` → Complete pipeline
+## Migration from Hardcoded Config
+- **Before**: Scattered configs in multiple files (~250+ lines)
+- **After**: Centralized metadata with type-safe access
+- **Benefits**: Maintainable, extensible, no code changes for new sources
 
-## Production Checklist
-- [ ] All health endpoints responding
-- [ ] Search functionality working
-- [ ] Metadata loaded successfully
-- [ ] PM2 processes stable
-- [ ] Log levels appropriate
-- [ ] Resource usage normal
-
-@file .github/workflows/deploy-abap-mcp-server.yml
-@file ecosystem.config.cjs
-@file setup.sh
-@file src/http-server.ts
-@file src/streamable-http-server.ts
+@file src/metadata.json
+@file src/lib/metadata.ts
+@file src/lib/config.ts
+@file docs/METADATA-CONSOLIDATION.md
 @file docs/ARCHITECTURE.md
 @file docs/DEV.md
 
