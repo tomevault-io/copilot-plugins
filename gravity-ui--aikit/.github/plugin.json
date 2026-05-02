@@ -1,0 +1,9 @@
+{
+  "name": "gravity-ui--aikit",
+  "displayName": "aikit",
+  "description": "A comprehensive, SDK-agnostic UI library built on Atomic Design principles. Create beautiful, accessible AI chat experiences with full TypeScript support, theming, and extensive customization options.",
+  "version": "1.0.0",
+  "author": "gravity-ui",
+  "homepage": "https://github.com/gravity-ui/aikit",
+  "skills": []
+}
