@@ -1,0 +1,34 @@
+{
+  "name": "martinellich--aiup-marketplace",
+  "displayName": "aiup-marketplace",
+  "description": "Plugin for Claude Code for AI Unified Process",
+  "version": "1.0.0",
+  "author": "martinellich",
+  "homepage": "https://github.com/martinellich/aiup-marketplace",
+  "skills": [
+    {
+      "name": "entity-model",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "description": ""
+    },
+    {
+      "name": "karibu-test",
+      "description": ""
+    },
+    {
+      "name": "playwright-test",
+      "description": ""
+    },
+    {
+      "name": "requirements",
+      "description": ""
+    },
+    {
+      "name": "use-case-spec",
+      "description": ""
+    }
+  ]
+}
