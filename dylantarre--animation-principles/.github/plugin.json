@@ -1,0 +1,274 @@
+{
+  "name": "dylantarre--animation-principles",
+  "displayName": "animation-principles",
+  "description": "Disney's 12 Animation Principles - Claude Code Skill Marketplace",
+  "version": "1.0.0",
+  "author": "dylantarre",
+  "homepage": "https://github.com/dylantarre/animation-principles",
+  "skills": [
+    {
+      "name": "mobile-touch",
+      "description": ""
+    },
+    {
+      "name": "motion-designer",
+      "description": ""
+    },
+    {
+      "name": "micro-interactions",
+      "description": ""
+    },
+    {
+      "name": "game-designer",
+      "description": ""
+    },
+    {
+      "name": "framer-motion",
+      "description": ""
+    },
+    {
+      "name": "saas-productivity",
+      "description": ""
+    },
+    {
+      "name": "buttons-ctas",
+      "description": ""
+    },
+    {
+      "name": "filmmaker",
+      "description": ""
+    },
+    {
+      "name": "notifications-toasts",
+      "description": ""
+    },
+    {
+      "name": "web-motion-design",
+      "description": ""
+    },
+    {
+      "name": "education-learning",
+      "description": ""
+    },
+    {
+      "name": "fitness-wellness",
+      "description": ""
+    },
+    {
+      "name": "page-transitions",
+      "description": ""
+    },
+    {
+      "name": "react-spring",
+      "description": ""
+    },
+    {
+      "name": "accessible-motion",
+      "description": ""
+    },
+    {
+      "name": "gaming-entertainment",
+      "description": ""
+    },
+    {
+      "name": "3d-spatial",
+      "description": ""
+    },
+    {
+      "name": "e-commerce-retail",
+      "description": ""
+    },
+    {
+      "name": "game-development",
+      "description": ""
+    },
+    {
+      "name": "gesture-responses",
+      "description": ""
+    },
+    {
+      "name": "character-appeal",
+      "description": ""
+    },
+    {
+      "name": "enterprise-b2b",
+      "description": ""
+    },
+    {
+      "name": "fintech-banking",
+      "description": ""
+    },
+    {
+      "name": "healthcare-medical",
+      "description": ""
+    },
+    {
+      "name": "micro-100-200ms",
+      "description": ""
+    },
+    {
+      "name": "presentations",
+      "description": ""
+    },
+    {
+      "name": "travel-hospitality",
+      "description": ""
+    },
+    {
+      "name": "anticipation-mastery",
+      "description": ""
+    },
+    {
+      "name": "brand-consistency",
+      "description": ""
+    },
+    {
+      "name": "responsive-adaptive",
+      "description": ""
+    },
+    {
+      "name": "slow-in-out-mastery",
+      "description": ""
+    },
+    {
+      "name": "solid-drawing-mastery",
+      "description": ""
+    },
+    {
+      "name": "accessibility-advocate",
+      "description": ""
+    },
+    {
+      "name": "orchestrated-sequences",
+      "description": ""
+    },
+    {
+      "name": "friendliness-approachability",
+      "description": ""
+    },
+    {
+      "name": "advanced",
+      "description": ""
+    },
+    {
+      "name": "novice",
+      "description": ""
+    },
+    {
+      "name": "teaching-others",
+      "description": ""
+    },
+    {
+      "name": "universal-reference",
+      "description": ""
+    },
+    {
+      "name": "animator-traditional",
+      "description": ""
+    },
+    {
+      "name": "anticipation-payoff",
+      "description": ""
+    },
+    {
+      "name": "appeal-mastery",
+      "description": ""
+    },
+    {
+      "name": "arc-mastery",
+      "description": ""
+    },
+    {
+      "name": "brand-strategist",
+      "description": ""
+    },
+    {
+      "name": "deliberate-1200-2000ms",
+      "description": ""
+    },
+    {
+      "name": "entrance-animations",
+      "description": ""
+    },
+    {
+      "name": "follow-through-overlapping",
+      "description": ""
+    },
+    {
+      "name": "frontend-developer",
+      "description": ""
+    },
+    {
+      "name": "instant-0-100ms",
+      "description": ""
+    },
+    {
+      "name": "media-publishing",
+      "description": ""
+    },
+    {
+      "name": "medium-300-500ms",
+      "description": ""
+    },
+    {
+      "name": "naturalistic-motion",
+      "description": ""
+    },
+    {
+      "name": "power-confidence",
+      "description": ""
+    },
+    {
+      "name": "small-200-300ms",
+      "description": ""
+    },
+    {
+      "name": "social-media",
+      "description": ""
+    },
+    {
+      "name": "staging-mastery",
+      "description": ""
+    },
+    {
+      "name": "straight-ahead-pose-mastery",
+      "description": ""
+    },
+    {
+      "name": "timing-principle-mastery",
+      "description": ""
+    },
+    {
+      "name": "universal-elements",
+      "description": ""
+    },
+    {
+      "name": "universal-industry",
+      "description": ""
+    },
+    {
+      "name": "universal-mindset",
+      "description": ""
+    },
+    {
+      "name": "universal-patterns",
+      "description": ""
+    },
+    {
+      "name": "universal-practitioner",
+      "description": ""
+    },
+    {
+      "name": "universal-timing",
+      "description": ""
+    },
+    {
+      "name": "ux-friction",
+      "description": ""
+    },
+    {
+      "name": "ux-researcher",
+      "description": ""
+    }
+  ]
+}
