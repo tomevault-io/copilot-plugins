@@ -1,75 +1,29 @@
-## effects-module
+## player-vanilla
 
-> Effect module interface contract and file layout
+> Vanilla JS constraints for the player runtime
 
 
-# Effect Module Conventions
+# Player Runtime Conventions
 
-## File Layout
+## Constraints
 
-One subfolder per effect with two possible variants:
+- Pure vanilla JS — no npm dependencies, no build step, no framework
+- Must work as a static file served from any origin (file://, http://, https://)
+- Imports only from `../core/` and `../effects/` via relative ES module paths
 
-```
-effects/<name>/effect.js              — Classic (1:1 faithful to original)
-effects/<name>/effect.remastered.js   — Remastered (4K, enhanced) — optional
-effects/<name>/data.js                — Base64-embedded binary data (generated)
-```
+## Project Loading
 
-Classic is always implemented first. Remastered is optional and additive.
+Three-mode resolution, checked in order:
 
-## Interface Contract
+1. URL param: `?project=https://example.com/project.json`
+2. Inline: `window.__DEMO_PROJECT__` (set by export pipeline)
+3. Local fallback: `fetch('../assets/project.json')`
 
-Every variant exports a default object with exactly three methods plus an optional `params` array:
+## Canvas
 
-```javascript
-export default {
-  label: 'effectName',
-  params: [],  // parameter descriptors — required for remastered, optional for classic
-  init(gl) { },
-  render(gl, t, beat, params) { },
-  destroy(gl) { }
-}
-```
-
-- `t` — seconds elapsed since this clip's start (local time, not global)
-- `beat` — 0.0–1.0 position within the current bar
-- `params` — clip-specific parameter overrides (keys match `params[].key` descriptors)
-
-Remastered variants must export a `params` descriptor array for the editor UI. See `remastered-effects.mdc` for the full pattern.
-
-## Asset Extraction
-
-When an effect bakes in visual data (textures, palettes, frame sequences, font
-bitmaps, landscapes, etc.), those assets **must also be extracted as readable
-image files** for later AI-upscaling and remastering.
-
-### Convention
-
-- Output directory: `assets/effects/{effect-name}/`
-- Naming: `{resource-name}.{ext}` (e.g. `landscape.png`, `frame-07.png`, `palette.png`)
-- Format: PNG for images, plain text for non-image data
-- Palette-indexed data should be decoded to full RGB — no indexed PNGs
-- Frame sequences use zero-padded numbering: `frame-{NN}.png`
-- Extract at **normal palette** (no fades applied) so the raw artwork is preserved
-
-### How
-
-Add extraction logic to `tools/extract-assets-png.mjs`. The script uses only
-Node.js built-ins (zlib for PNG deflate) — no external image libraries needed.
-Run it with `node tools/extract-assets-png.mjs` to regenerate all assets.
-
-When implementing a new effect that embeds data:
-1. Create the `data.js` module with base64 data (via a `tools/extract-*-data.mjs` script)
-2. Add an extraction function to `tools/extract-assets-png.mjs` that decodes the
-   visual data into PNG files under `assets/`
-3. Run the script and verify the output images look correct
-
-## Rules
-
-- Effects are self-contained — no shared mutable state between effects
-- Use `core/webgl.js` helpers for shader compilation and fullscreen quad setup
-- Prefer GLSL native `sin()`/`cos()`/`atan()` over precalculated lookup tables
-- Effects are NOT unit-tested — validate visually by scrubbing in the editor
+- Fullscreen `<canvas>` with `image-rendering: pixelated`
+- Internal resolution: 320×256 (classic) or viewport size (remastered)
+- Nearest-neighbor upscaling only — never bilinear
 
 ---
 > Source: [pdcgomes/second-reality-augmented](https://github.com/pdcgomes/second-reality-augmented) — distributed by [TomeVault](https://tomevault.io).
