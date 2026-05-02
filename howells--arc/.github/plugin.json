@@ -1,0 +1,98 @@
+{
+  "name": "howells--arc",
+  "displayName": "arc",
+  "description": "Claude Code plugin. From idea to working implementation\u2014explore, validate, plan, and build in one flow.",
+  "version": "1.0.0",
+  "author": "howells",
+  "homepage": "https://github.com/howells/arc",
+  "skills": [
+    {
+      "name": "ai",
+      "description": ""
+    },
+    {
+      "name": "audit",
+      "description": ""
+    },
+    {
+      "name": "build",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "detail",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "description": ""
+    },
+    {
+      "name": "go",
+      "description": ""
+    },
+    {
+      "name": "ideate",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "description": ""
+    },
+    {
+      "name": "letsgo",
+      "description": ""
+    },
+    {
+      "name": "naming",
+      "description": ""
+    },
+    {
+      "name": "progress",
+      "description": ""
+    },
+    {
+      "name": "prune-agents",
+      "description": ""
+    },
+    {
+      "name": "responsive",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "rules",
+      "description": ""
+    },
+    {
+      "name": "seo",
+      "description": ""
+    },
+    {
+      "name": "suggest",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "tidy",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "description": ""
+    },
+    {
+      "name": "vision",
+      "description": ""
+    }
+  ]
+}
