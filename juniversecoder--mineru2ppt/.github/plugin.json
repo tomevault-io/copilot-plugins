@@ -1,0 +1,9 @@
+{
+  "name": "juniversecoder--mineru2ppt",
+  "displayName": "MinerU2PPT",
+  "description": "High-fidelity tool to convert PDF files and images into fully editable PowerPoint presentations (.pptx). Unlike basic converters, it uses AI-powered structure extraction (MinerU) to accurately reconst",
+  "version": "1.0.0",
+  "author": "JuniverseCoder",
+  "homepage": "https://github.com/JuniverseCoder/MinerU2PPT",
+  "skills": []
+}
