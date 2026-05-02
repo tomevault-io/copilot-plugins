@@ -1,41 +1,55 @@
-## 060-routes-dev
+## 070-search-macros-presets
 
-> Conventions for developing camofox-browser REST API routes
+> camofox-browser search macros and geo presets reference
 
 
-# Route Development Conventions
+# Search Macros and Geo Presets
 
-## Route Files
-- Keep core API in `src/routes/core.ts` and OpenClaw compatibility in `src/routes/openclaw.ts`.
-- Preserve endpoint compatibility unless a versioned migration is planned.
+## Search Macros (from `src/utils/macros.ts`)
 
-## Request Validation
-- Validate required fields early and return `400` on malformed input.
-- Keep user-scoped tab lookup consistent (`findTabById(tabId, userId)`).
-- Enforce request body limits for evaluation endpoints.
+| Macro | Destination |
+|---|---|
+| `@google_search` | Google search |
+| `@youtube_search` | YouTube search |
+| `@amazon_search` | Amazon search |
+| `@reddit_search` | Reddit search JSON |
+| `@reddit_subreddit` | Reddit subreddit JSON |
+| `@wikipedia_search` | Wikipedia search |
+| `@twitter_search` | Twitter/X search |
+| `@yelp_search` | Yelp search |
+| `@spotify_search` | Spotify search |
+| `@netflix_search` | Netflix search |
+| `@linkedin_search` | LinkedIn search |
+| `@instagram_search` | Instagram tag search |
+| `@tiktok_search` | TikTok search |
+| `@twitch_search` | Twitch search |
 
-## Concurrency and Timeouts
-- Use `withUserLimit` and `withTimeout` for heavy tab operations.
-- Use `withTabLock` for tab-mutating actions.
-- Respect config-driven limits from `loadConfig()`.
+Usage pattern:
+```json
+{ "macro": "@google_search", "query": "camofox" }
+```
 
-## Auth and Security
-- Apply conditional API-key checks where currently defined.
-- Apply admin-key checks for destructive server controls (`/stop`).
-- Sanitize cookie payloads and enforce bounds.
+## Geo Presets (from `src/utils/presets.ts`)
 
-## Response Shape
-- Keep responses stable for CLI and OpenClaw clients.
-- Include `ok` and useful context fields when practical.
-- Avoid returning raw internal errors; use safe error wrappers.
+| Preset | Locale | Timezone | Coordinates |
+|---|---|---|---|
+| `us-east` | `en-US` | `America/New_York` | `40.7128, -74.006` |
+| `us-west` | `en-US` | `America/Los_Angeles` | `34.0522, -118.2437` |
+| `japan` | `ja-JP` | `Asia/Tokyo` | `35.6895, 139.6917` |
+| `uk` | `en-GB` | `Europe/London` | `51.5074, -0.1278` |
+| `germany` | `de-DE` | `Europe/Berlin` | `52.52, 13.405` |
+| `vietnam` | `vi-VN` | `Asia/Ho_Chi_Minh` | `10.8231, 106.6297` |
+| `singapore` | `en-SG` | `Asia/Singapore` | `1.3521, 103.8198` |
+| `australia` | `en-AU` | `Australia/Sydney` | `-33.8688, 151.2093` |
 
-## Download/Resource Routes
-- Keep user ownership checks on download lookup/content/delete.
-- Enforce limits on blob resolution arrays and payload sizes.
+Preset use in tab creation:
+```json
+{ "userId": "agent1", "sessionKey": "task1", "preset": "japan", "url": "https://example.com" }
+```
 
-## Logging
-- Use structured `log()` calls with req context when available.
-- Log operation failures with concise, non-sensitive details.
+Custom presets:
+- Set `CAMOFOX_PRESETS_FILE` to JSON object path.
+- Built-ins + custom are merged; custom keys override same-name built-ins.
 
 ---
 > Source: [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser) — distributed by [TomeVault](https://tomevault.io).
