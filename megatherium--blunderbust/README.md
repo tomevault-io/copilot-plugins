@@ -7,14 +7,14 @@ A beads aware agent launcher
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Megatherium/blunderbust](https://github.com/Megatherium/blunderbust).
+Original source: `AGENTS.md` in [Megatherium/blunderbust](https://github.com/Megatherium/blunderbust).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [Megatherium/blunderbust](https://github.com/Megatherium/blunderbust) — a repo with 0+ stars on GitHub.
