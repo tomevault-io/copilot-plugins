@@ -1,0 +1,18 @@
+{
+  "name": "emalorenzo--three-agent-skills",
+  "displayName": "three-agent-skills",
+  "description": "AI coding agent skills for Three.js and React Three Fiber best practices",
+  "version": "1.0.0",
+  "author": "emalorenzo",
+  "homepage": "https://github.com/emalorenzo/three-agent-skills",
+  "skills": [
+    {
+      "name": "r3f-best-practices",
+      "description": ""
+    },
+    {
+      "name": "three-best-practices",
+      "description": ""
+    }
+  ]
+}
