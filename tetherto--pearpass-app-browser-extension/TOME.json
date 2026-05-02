@@ -4,7 +4,7 @@
   "repo": "pearpass-app-browser-extension",
   "description": "PearPass is an open-source, privacy-first password manager with peer-to-peer syncing and end-to-end encryption.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tetherto/pearpass-app-browser-extension",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T20:14:45Z"
+  "distributed_at": "2026-05-02T16:04:37Z"
 }
