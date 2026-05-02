@@ -1,0 +1,69 @@
+{
+  "name": "claude-php-agent",
+  "owner": "claude-php",
+  "repo": "claude-php-agent",
+  "description": "Claude PHP Agents Framework",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-testing",
+      "path": "skills/api-testing",
+      "github_url": "https://github.com/claude-php/claude-php-agent/tree/main/skills/api-testing",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/claude-php/claude-php-agent/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "documentation-writer",
+      "path": "skills/documentation-writer",
+      "github_url": "https://github.com/claude-php/claude-php-agent/tree/main/skills/documentation-writer",
+      "description": ""
+    },
+    {
+      "name": "php-refactoring",
+      "path": "skills/php-refactoring",
+      "github_url": "https://github.com/claude-php/claude-php-agent/tree/main/skills/php-refactoring",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/claude-php/claude-php-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:31:24Z"
+}
