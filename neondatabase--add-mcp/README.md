@@ -7,11 +7,11 @@ The open MCP config tool - npx add-mcp
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [neondatabase/add-mcp](https://github.com/neondatabase/add-mcp).
+Original source: `CLAUDE.md` in [neondatabase/add-mcp](https://github.com/neondatabase/add-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
