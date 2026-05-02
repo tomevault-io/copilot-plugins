@@ -1,69 +1,280 @@
-## cheatsheet
+## tambo-ai
 
-> AI-powered spreadsheet using **Tambo** (https://tambo.co) + FortuneSheet. See https://docs.tambo.co/llms.txt for full Tambo documentation.
+> working with tambo-ai, llms, generative UI/UX, or AI agents/assistants/co-pilots, chatbots, etc.
 
-# Agent Cheat Sheet
+# Using tambo-ai to build AI powered chat experiences with generative UI/UX
 
-AI-powered spreadsheet using **Tambo** (https://tambo.co) + FortuneSheet. See https://docs.tambo.co/llms.txt for full Tambo documentation.
+version: 0.21.1
 
-## Tambo Architecture
+## Quick Setup
 
-**Three-Layer System:**
-1. **Context Helpers** - Auto-included in every AI message (read-only)
-2. **Interactables** - Publish component state via `withInteractable` HOC
-3. **Tools** - Functions AI calls to mutate state (in `src/tools/`)
+1. Initialize a new Tambo project:
+```bash
+npm create tambo-app@latest my-tambo-app for a new project
 
-**Configuration:** `src/lib/tambo.ts` registers all components and tools.
+npx tambo init // to get tambo-ai api key
 
-**Critical Streaming Gotchas:**
-- Props stream token-by-token as LLM generates
-- Use `useTamboStreamStatus()` to detect streaming
-- Safe destructuring: `const { prop = default } = props || {}`
-- Optional chaining: `array?.[0]?.property`
+npx tambo full-send // to add to an existing project & include tambo-ai api key
+```
 
-## FortuneSheet Integration
+Alternative manual setup to get key:
+   - Rename `example.env.local` to `.env.local`
+   - Add your Tambo API key from tambo.co/cli-auth
 
-**State:** `src/lib/fortune-sheet-store.tsx` (Zustand store + mounted Workbook)
+```
+2. Wrap your app in the TamboProvider:
+Needs to be a client component:
 
-**Context:**
-- `spreadsheet` - Active sheet snapshot as markdown table
-- `selection` - Current selection in A1 notation
-- `TabsState` - Sheet ids/names/active tab (interactable)
+```typescript
+<TamboProvider
+  apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!}
+  components={components}
+>
+  {children}
+</TamboProvider>
 
-**Tools:** `src/tools/spreadsheet-tools.ts`
-- updateCell, updateRange, **updateStyles**, readCell, readRange
-- addRow, removeRow, addColumn, removeColumn
-- clearRange, sortByColumn
+```
 
-**Key Rules:**
-- All operations go through `fortuneSheetStore` (no local state forks)
-- Context helpers must tolerate SSR (`return null` when `window` undefined)
-- Selection requires mounted Workbook
+3. Register your tools:
 
-## Development
+```typescript
+const { registerTool } = useTambo();
 
-**Commands:**
-- `npm run dev` - Dev server
-- `npm run build` - Production build
-- `npm run lint` - ESLint
-- `npm run check-types` - TypeScript check
+useEffect(() => {
+  registerTool(//insert tool here);
+}, []);
 
-**Style:**
-- TypeScript + React (App Router) + functional components
-- 2-space indent, PascalCase components, camelCase hooks, kebab-case utils
-- FortuneSheet helpers in `src/lib/fortune-sheet-*.ts`
+Add tambo-components to your project:
 
-**Build & Commit:**
-- Run `npm run build` BEFORE committing (not after every fix)
-- Imperative mood (`Add utils`, `Fix context`)
-- Mention affected Tambo tools/components explicitly
+```bash
+npx tambo add message-thread-full //Fullscreen chat useTamboThreadInput
+npx tambo add message-thread-collapsible //Collapsible chat
+npx tambo add message-thread-panel //Chat panel
 
-**Dependency Upgrades:**
-- When upgrading Tambo packages or UI components, preserve custom edits
-- Key customizations to preserve:
-  - `src/components/tambo/message-thread-full.tsx` - GitHub and Tambo buttons in sidebar
-  - `src/components/tambo/thread-history.tsx` - Exported `useThreadHistoryContext` hook
-- Always review diffs before accepting upstream changes
+npx tambo add graph //Graph component
+npx tambo add form //Form component
+
+# There might be more components available, check the docs for the latest list:
+npx tambo add [component-name]
+```
+
+## Model Context Protocol (MCP) Configuration
+
+MCP extends Tambo's capabilities by connecting to external tool providers. To set up MCP:
+
+1. Wrap your TamboProvider with TamboMcpProvider:
+
+```typescript
+<TamboProvider apiKey={process.env.NEXT_PUBLIC_TAMBO_API_KEY!} components={components} tools={tools}>
+  <TamboMcpProvider mcpServers={mcpServers}>
+    {children}
+  </TamboMcpProvider>
+</TamboProvider>
+```
+
+2. MCP Server Configuration Types:
+
+```typescript
+export enum MCPTransport {
+  SSE = "sse",
+  HTTP = "http", // Default
+}
+
+export type MCPServerConfig =
+  | string
+  | {
+      url: string;
+      transport?: MCPTransport;
+      name?: string;
+    };
+```
+
+
+MCP servers extend Tambo's capabilities by providing additional tools that will be automatically registered and available in the chat interface. Each server should implement the Model Context Protocol to be compatible.
+
+## Recommended Project Structure
+
+```bash
+src/
+  ├── app/
+  │   ├── chat/                # Chat interface implementation
+  │   │   └── page.tsx        # Main chat page with TamboProvider & TamboMcpProvider
+  ├── components/             # React components
+  │   ├── ui/                # Reusable UI components
+  │   └── lib/               # Complex component logic
+  ├── lib/                   # Shared utilities and configuration
+  │   └── tambo.ts          # Tambo configuration and setup: component registration, tool configuration, etc.
+
+# Key Files
+.env.local                   # Environment variables (renamed from example.env.local)
+tailwind.config.ts          # Tailwind CSS configuration
+```
+
+## Recommendations
+- use zod for defining tool and component schemas
+
+## Core React Hooks
+
+### useTamboRegistry
+Provides helpers for component and tool registration.
+
+```typescript
+const { 
+  registerComponent,    // Register single component
+  registerTool,        // Register single tool
+  registerTools,       // Register multiple tools
+  addToolAssociation,  // Associate components with tools
+  componentList,       // Access registered components
+  toolRegistry,        // Access registered tools
+  componentToolAssociations // Access component-tool associations
+} = useTamboRegistry()
+```
+
+### useTamboThread
+Manages thread interactions and state.
+
+```typescript
+const {
+  thread,              // Current thread object with messages
+  sendThreadMessage,   // Send user message and get response
+  generationStage,     // Current generation stage (IDLE, CHOOSING_COMPONENT, etc.)
+  inputValue,          // Current input field value
+  generationStatusMessage, // Status message for generation
+  isIdle,             // Whether thread is idle
+  switchCurrentThread, // Change active thread
+  addThreadMessage,    // Add new message
+  updateThreadMessage, // Modify existing message
+  setLastThreadStatus, // Update last message status
+  setInputValue       // Update input value
+} = useTamboThread()
+```
+
+### useTamboThreadList
+Access and manage all threads.
+
+```typescript
+const {
+  data,       // Array of threads
+  isPending,  // Loading state
+  isSuccess,  // Success state
+  isError,    // Error state
+  error       // Error details
+} = useTamboThreadList()
+```
+
+### useTamboThreadInput
+Build input interfaces for Tambo.
+
+```typescript
+const {
+  value,      // Input field value
+  setValue,   // Update input value
+  submit,     // Submit input
+  isPending,  // Submission state
+  isSuccess,  // Success state
+  isError,    // Error state
+  error       // Error details
+} = useTamboThreadInput()
+```
+
+### useTamboSuggestions
+Manage AI-generated suggestions.
+
+```typescript
+const {
+  suggestions,         // Available AI suggestions
+  selectedSuggestionId, // Currently selected suggestion
+  accept,             // Accept a suggestion
+  acceptResult,       // Detailed accept result
+  generateResult,     // Generation result
+  isPending,          // Operation state
+  isSuccess,          // Success state
+  isError,            // Error state
+  error              // Error details
+} = useTamboSuggestions()
+```
+
+### useTamboStreaming
+Enables real-time streaming of AI-generated content into component state.
+
+```typescript
+const { streamingProps, isStreaming } = useTamboStreaming(
+  state,              // Current state object
+  setState,           // State setter function
+  {
+    // Initial values and configuration
+    field1: initialValue1,
+    field2: initialValue2,
+    // ... more fields
+  },
+  {
+    // Optional configuration
+    onStreamStart?: () => void,
+    onStreamEnd?: () => void,
+    debounceMs?: number,  // Debounce delay for state updates
+  }
+)
+```
+
+#### Key Features:
+- Real-time updates of component state during AI generation
+- Smooth streaming of content into multiple fields simultaneously
+- Configurable debouncing for performance optimization
+- Lifecycle hooks for stream start/end events
+
+#### Example Usage:
+```typescript
+// Email composer with streaming AI content
+const [emailState, setEmailState] = useState({
+  subject: "",
+  body: ""
+});
+
+const { streamingProps, isStreaming } = useTamboStreaming(
+  emailState,
+  setEmailState,
+  {
+    subject: initialSubject || "",
+    body: initialBody || "",
+  },
+  {
+    onStreamEnd: () => {
+      console.log("AI generation complete");
+    },
+    debounceMs: 100
+  }
+);
+
+// streamingProps can be spread into your component
+<EmailComposer {...streamingProps} />
+```
+
+### useTamboClient
+Direct access to Tambo client.
+
+```typescript
+const { client } = useTamboClient()
+```
+
+### useTamboComponentState
+State management with Tambo awareness.
+
+```typescript
+const [value, setValue] = useTamboComponentState()
+```
+
+### 
+
+## Generation Stages
+
+The `generationStage` from `useTamboThread` can be:
+- `IDLE`: No active generation
+- `CHOOSING_COMPONENT`: Selecting response component
+- `FETCHING_CONTEXT`: Gathering context via tools
+- `HYDRATING_COMPONENT`: Generating component props
+- `STREAMING_RESPONSE`: Actively streaming
+- `COMPLETE`: Generation finished
+- `ERROR`: Error occurred
 
 ---
 > Source: [michaelmagan/cheatsheet](https://github.com/michaelmagan/cheatsheet) — distributed by [TomeVault](https://tomevault.io).
