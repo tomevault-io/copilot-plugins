@@ -1,0 +1,9 @@
+{
+  "name": "johnsideserf--siggy",
+  "displayName": "siggy",
+  "description": "Terminal-based Signal messenger client with vim keybindings",
+  "version": "1.0.0",
+  "author": "johnsideserf",
+  "homepage": "https://github.com/johnsideserf/siggy",
+  "skills": []
+}
