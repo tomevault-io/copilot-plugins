@@ -1,108 +1,93 @@
-## cursor-agent-orchestration
+## cursor-mcp-optimization
 
-> Cursor orchestration guide: when to plan, when to delegate, and how to keep multi-step work coherent.
+> Cursor MCP optimization: browser, Figma, and Cloudflare tools with direct action patterns.
 
 
-# Cursor Agent Orchestration
+# Cursor MCP Optimization
 
-Use this rule for deep or exhaustive tasks where coordination matters more than raw implementation speed.
+Direct guidance for Cursor's MCP tools. Use the right tool for each job.
 
-## Core Idea
+## Browser Tools (cursor-ide-browser)
 
-The main agent should own synthesis. Plans, subagents, and task tracking exist to reduce context load and make large work safer.
-
-## Local and cloud sessions (optional)
-
-Cursor 3 emphasizes moving work between **local** and **cloud** agent sessions. Treat this as workflow guidance, not a requirement:
-
-- Prefer **local** when you need fast edit–run–debug loops, full filesystem access, or machine-specific verification.
-- Consider **cloud** when a task should keep running while you are away, or when you want continuation without tying up the local machine—then **hand back to local** to validate on the real environment when claims are environment-specific.
-
-Handoffs should still use explicit goals, owned paths, and what was verified (see `agent-teams.mdc`).
-
-## Parallel sessions and the sidebar
-
-Cursor 3 can show **many agent sessions** at once (including from other surfaces). That mirrors the idea of concurrent **`Task`** / subagent delegation: only parallelize **independent** slices, merge results in one synthesis step, and avoid two sessions racing the same files. The UI makes parallelism easier; it does not remove the need for clear ownership.
-
-## When to Plan
-
-Plan when:
-- the task is ambiguous
-- multiple valid approaches exist
-- many files or systems will change
-- the user needs approval before implementation
-
-Do not over-plan one-file fixes or straightforward edits.
-Use the environment's active planning workflow or mode when it exists instead of assuming a specific planning tool name.
-
-## When to Use Task (subagents)
-
-In Composer-style Cursor agents the tool is usually **`Task`** (subagent-style delegation; types such as explore, debugger, verifier—see the live schema). Use it when:
-- repo exploration is broad and would pollute main context
-- independent investigations can run in parallel
-- a verifier or debugger pass would help
-- the task has a long-running research branch
-
-Avoid delegation overhead for instant or light work.
-
-When several independent branches exist, do not launch them serially by habit. Launch multiple `Task` calls together with separate scopes and merge their results in the main thread.
-
-## Delegation Pattern
-
-```text
-1. Define the slices
-2. Delegate only independent work
-3. Launch independent subagents concurrently when possible
-4. Read subagent summaries
-5. Synthesize decisions in the main thread
-6. Implement and verify centrally
+**Always do before any interaction:**
+```
+1. browser_tabs with action: "list" → check current tabs/URLs
+2. browser_snapshot → get current page structure and refs
 ```
 
-## Parallel Delegation Rules
-
-- Give each subagent a bounded scope, not a vague restatement of the whole task.
-- State exactly what the subagent should return: findings, file paths, risks, or a decision recommendation.
-- Prefer 2 to 4 concurrent subagents over a long serial chain.
-- Do not split work so finely that coordination costs more than the saved time.
-- If one branch depends on another, keep it sequential.
-- If two subagents may overlap, assign different directories, files, or questions.
-
-Parallel subagents are best for research and analysis. Centralize edits and final verification unless there is a strong reason to delegate them.
-
-## Todo and Progress Tracking
-
-Use `TodoWrite` for real multi-step execution:
-- large refactors
-- multi-file features
-- research plus implementation plus validation
-
-Keep the list current. Do not let stale in-progress items pile up.
-
-## Solver Loop for Complex Tasks
-
-For deep work:
-
-```text
-Orient
-Find the spine
-Choose the smallest proving slice
-Implement
-Verify
-Broaden carefully
+**Interaction pattern:**
+```
+1. Identify the target ref from snapshot (use exact ref, not coordinates)
+2. For clicks: prefer snapshot refs over mouse_xy coordinates
+3. For forms: use browser_fill for existing content, browser_type to append
+4. After ANY action that changes page: take fresh snapshot
 ```
 
-For exhaustive work, break the task into independently verifiable milestones rather than broad abstract epics.
+**Coordinate clicks ONLY when:**
+- A fresh screenshot confirms the exact visual target
+- No snapshot ref is available
+- The target is visually verifiable (button, link)
 
-## Verification During Orchestration
+**Never do:**
+- Click without a fresh snapshot first
+- Reuse old screenshot coordinates
+- Assume page state without verification
 
-Do not postpone all checks to the end. Verify per phase:
-- after code changes, run the smallest relevant command
-- after UI changes, use browser checks when needed
-- after a major feature phase, run broader validation
+## Figma Tools (plugin-figma-figma)
 
-Use the **diff / review surface** in Cursor when it helps you stage, review, and ship; keep claims aligned with the always-on status and verification rule regardless of UI.
+**Design-to-code workflow:**
+```
+1. Call get_design_context with fileKey and nodeId
+2. Adapt output to project's existing stack/components
+3. Do NOT use raw Figma output as final code
+```
 
-Final user-facing completion claims should follow the always-on status and verification rule rather than ad-hoc wording.
+**URL parsing:**
+- `figma.com/design/:fileKey/:fileName?node-id=:nodeId` → convert "-" to ":" in nodeId
+- `figma.com/board/:fileKey/:fileName` → FigJam, use get_figjam
+- `figma.com/make/:makeFileKey/:makeFileName` → use makeFileKey
+
+**When designer provides screenshots:**
+- Use get_screenshot for visual verification
+- Translate Figma design tokens to project's token system
+- Never copy exact Figma hex values without checking project palette
+
+## Cloudflare Tools
+
+**Load these skills before Cloudflare work:**
+- `cloudflare/SKILL.md` — comprehensive platform guidance
+- `wrangler/SKILL.md` — CLI usage and best practices
+- `workers-best-practices/SKILL.md` — production Worker patterns
+
+**Before deploying:**
+```
+1. Read wrangler skill for correct syntax
+2. Verify secrets/bindings in wrangler.jsonc
+3. Run wrangler dev locally first
+```
+
+**MCP auth:** If a Cloudflare MCP server has `mcp_auth`, call it before using tools.
+
+## MCP General Rules
+
+```
+1. Read the tool schema BEFORE calling unfamiliar MCP tools
+2. Use exact parameter names from the schema
+3. If tool unavailable, say so and use next best exposed path
+4. Do not infer hidden parameters or old API versions
+```
+
+## Marketplace plugins
+
+Plugins installed from the [Cursor Marketplace](https://cursor.com/marketplace) extend agents with MCPs, skills, and related capabilities. Treat them like any other MCP surface: **inventory** what the session exposes, **read descriptors/schemas** before first use, then call the smallest valid tool—same as in `tool-discovery.mdc`.
+
+## Capability Mapping Checklist
+
+Before acting, confirm:
+- [ ] Direct native tool exists for this action
+- [ ] MCP tool exists with current schema
+- [ ] Browser interaction confirmed via snapshot
+- [ ] Fallback path identified if primary fails
 
 ---
 > Source: [madebyaris/advance-minimax-m2-cursor-rules](https://github.com/madebyaris/advance-minimax-m2-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
