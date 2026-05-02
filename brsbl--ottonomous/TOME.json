@@ -1,0 +1,99 @@
+{
+  "name": "ottonomous",
+  "owner": "brsbl",
+  "repo": "ottonomous",
+  "description": "Set of Claude Code skills for product development",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "browser",
+      "path": "skills/browser",
+      "github_url": "https://github.com/brsbl/ottonomous/tree/main/skills/browser",
+      "description": ""
+    },
+    {
+      "name": "next",
+      "path": "skills/next",
+      "github_url": "https://github.com/brsbl/ottonomous/tree/main/skills/next",
+      "description": ""
+    },
+    {
+      "name": "otto",
+      "path": "skills/otto",
+      "github_url": "https://github.com/brsbl/ottonomous/tree/main/skills/otto",
+      "description": ""
+    },
+    {
+      "name": "reset-code",
+      "path": ".claude/skills/reset-code",
+      "github_url": "https://github.com/brsbl/ottonomous/tree/main/.claude/skills/reset-code",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "skills/review",
+      "github_url": "https://github.com/brsbl/ottonomous/tree/main/skills/review",
+      "description": ""
+    },
+    {
+      "name": "skill-diff",
+      "path": ".claude/skills/skill-diff",
+      "github_url": "https://github.com/brsbl/ottonomous/tree/main/.claude/skills/skill-diff",
+      "description": ""
+    },
+    {
+      "name": "spec",
+      "path": "skills/spec",
+      "github_url": "https://github.com/brsbl/ottonomous/tree/main/skills/spec",
+      "description": ""
+    },
+    {
+      "name": "summary",
+      "path": "skills/summary",
+      "github_url": "https://github.com/brsbl/ottonomous/tree/main/skills/summary",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": "skills/test",
+      "github_url": "https://github.com/brsbl/ottonomous/tree/main/skills/test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/brsbl/ottonomous",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:31:14Z"
+}
