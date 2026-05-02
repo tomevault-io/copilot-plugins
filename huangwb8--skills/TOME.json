@@ -1,0 +1,87 @@
+{
+  "name": "skills",
+  "owner": "huangwb8",
+  "repo": "skills",
+  "description": "General Skills Development Pipeline - Claude Code & Codex",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "auto-test-project",
+      "path": "auto-test-project",
+      "github_url": "https://github.com/huangwb8/skills/tree/main/auto-test-project",
+      "description": ""
+    },
+    {
+      "name": "auto-test-skill",
+      "path": "auto-test-skill",
+      "github_url": "https://github.com/huangwb8/skills/tree/main/auto-test-skill",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": "git-commit",
+      "github_url": "https://github.com/huangwb8/skills/tree/main/git-commit",
+      "description": ""
+    },
+    {
+      "name": "git-publish-release",
+      "path": "git-publish-release",
+      "github_url": "https://github.com/huangwb8/skills/tree/main/git-publish-release",
+      "description": ""
+    },
+    {
+      "name": "init-project",
+      "path": "init-project",
+      "github_url": "https://github.com/huangwb8/skills/tree/main/init-project",
+      "description": ""
+    },
+    {
+      "name": "install-bensz-skills",
+      "path": "install-bensz-skills",
+      "github_url": "https://github.com/huangwb8/skills/tree/main/install-bensz-skills",
+      "description": ""
+    },
+    {
+      "name": "write-skill-readme",
+      "path": "write-skill-readme",
+      "github_url": "https://github.com/huangwb8/skills/tree/main/write-skill-readme",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/huangwb8/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:55:44Z"
+}
