@@ -1,69 +1,83 @@
-## minimax-m2-self-evolution
+## minimax-m2-status-verification
 
-> MiniMax M2.7 self-evolution harness: iterative refinement loops, autonomous debugging, and recursive improvement patterns.
+> MiniMax M2.7 status and verification contract: exact claim labels, proof matching, and evidence-first closeouts.
 
 
-# MiniMax M2.7 Self-Evolution Harness
+# MiniMax M2.7 Status And Verification
 
-M2.7 has a 97% skill adherence rate and supports autonomous self-improvement through iterative reinforcement learning loops. Use this rule when the task involves debugging, optimization, or recursive code improvement.
+Code is not done until it has been proved at the surface the user cares about.
 
-## Core Loop
+## Allowed Status Labels
 
-```
-Iterate until evidence shows the problem is solved or the approach is exhausted:
-  1. Run the smallest diagnostic check
-  2. Read the failure output directly
-  3. Make ONE targeted fix based on evidence
-  4. Re-run the exact check that failed
-  5. If fixed, verify the broader surface
-  6. If not fixed, form new hypothesis from the NEW evidence only
-```
+Use explicit status language in updates and closeouts:
 
-Do NOT repeat the same fix twice on the same hypothesis. Do NOT assume the cause without reading the evidence.
+- `changed`: you edited or produced something
+- `verified`: you proved a claim with a relevant check
+- `unverified`: the work exists but the required proof was not run
+- `blocked`: required progress or proof failed and the task cannot honestly be called done
+- `assumption`: a choice or statement depends on inference rather than direct evidence
 
-## When to Use This Harness
+Do not use `done`, `fixed`, `working`, or `resolved` without naming the proof immediately after.
 
-| Task | Harness Approach |
-|------|------------------|
-| Debug runtime error | Read error → one fix → re-run |
-| Optimize performance | Profile → smallest change → measure |
-| Fix failing test | Read test → read code → one fix → run test |
-| Investigate unexpected behavior | Log/check → hypothesis → targeted probe |
-| Iterative code improvement | Current state → one improvement → verify |
+## Claim And Evidence Rules
 
-## Iteration Limits
+- Match the proof to the strongest claim you make.
+- Name the exact evidence for completion claims.
+- Separate what you observed from what you infer.
+- If intended verification failed and you fall back to a weaker check, say so explicitly.
+- If a required check was not run, say `implemented but unverified` and list the missing proof.
 
-- **Diagnostic phase**: 3 iterations to identify root cause
-- **Fix phase**: 2 iterations per hypothesis before switching strategy
-- **Overall**: If 5 total iterations pass without progress, summarize evidence and ask
+## Minimum Proof By Change Type
 
-## Evidence Rules
+| Change type | Minimum proof |
+|-------------|---------------|
+| Localized edit | Re-read or one targeted static check |
+| Backend, logic, or API change | Targeted test, command, script, or runtime request |
+| UI or interaction change | Browser or user-surface verification, plus static checks as needed |
+| Integration-sensitive change | Build or typecheck plus one focused behavior check |
+| New app or scaffold | Setup/install succeeds, startup or health check succeeds, production build succeeds, one primary happy-path flow works, and any promised persistence or reload behavior is verified |
 
-Always prefer direct evidence over inference:
-- Runtime errors: Read the actual error message
-- Test failures: Read the test output
-- Performance: Read the actual measurement
-- Behavior: Read the actual output/log
+Build, lint, and typecheck support completion claims, but they do not replace runtime or surface proof for interaction, styling, navigation, or integration promises.
 
-Never say "likely caused by" without reading the evidence first.
+## Regression And Blast Radius
 
-## Self-Correction Pattern
+- Before closeout, if the repo has an automated test suite, smoke script, or documented CI entrypoint, state whether it was run on the changes.
+- If tests or smoke were not run, label regression risk as `unverified` and name what was skipped. Do not imply “no regressions” without that evidence.
 
-When a fix doesn't work:
+## Verification Order
 
-```
-Previous hypothesis: [what I thought was wrong]
-Evidence against it: [what actually happened]
-New hypothesis: [what the evidence suggests instead]
-Next action: [specific check to confirm new hypothesis]
+```text
+1. Smallest relevant static check
+2. Focused executable or user-surface proof
+3. Broader validation only when warranted
 ```
 
-## Anti-Patterns
+## Closeout Contract
 
-- Do not run the same diagnostic command twice expecting different results
-- Do not make multiple changes between diagnostic cycles
-- Do not assume a fix works without re-running the exact check
-- Do not expand scope mid-iteration (finish the loop first)
+Every substantive completion summary should make clear:
+
+- what changed
+- what was verified
+- what remains unverified
+- what is blocked, if anything
+
+Use this PR-style shape so humans can scan quickly:
+
+| Section | Content |
+|---------|---------|
+| **Summary** | Outcome in one short paragraph |
+| **Files touched** | Paths or areas changed |
+| **Verification evidence** | Exact commands run, manual checks, user-visible surfaces exercised |
+| **Risks and unverified items** | Regressions not tested, assumptions, recommended follow-ups |
+
+## When Verification Fails
+
+- State the failing check and the evidence.
+- Form the smallest corrective hypothesis.
+- Make the smallest corrective change.
+- Re-run the exact check that proves the fix.
+- Stop claiming completion while required proof is failing or missing.
+- After two failures on the same hypothesis, document evidence and switch strategy (smaller change, wider read, or one forked user question); do not repeat the same fix blindly.
 
 ---
 > Source: [madebyaris/advance-minimax-m2-cursor-rules](https://github.com/madebyaris/advance-minimax-m2-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
