@@ -1,0 +1,14 @@
+{
+  "name": "qodo-ai--qodo-skills",
+  "displayName": "qodo-skills",
+  "description": "AI instruction skills by qodo-ai",
+  "version": "1.0.0",
+  "author": "qodo-ai",
+  "homepage": "https://github.com/qodo-ai/qodo-skills",
+  "skills": [
+    {
+      "name": "qodo-pr-resolver",
+      "description": ""
+    }
+  ]
+}
