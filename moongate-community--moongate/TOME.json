@@ -4,7 +4,7 @@
   "repo": "moongate",
   "description": "Moongate is modern Ultima Online server built from scratch in C# with AOT compilation for high performance and nostalgic gameplay experience.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moongate-community/moongate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T20:57:36Z"
+  "distributed_at": "2026-05-02T06:16:24Z"
 }
