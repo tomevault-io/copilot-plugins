@@ -2,9 +2,9 @@
   "name": "webconsulting-skills",
   "owner": "dirnbauer",
   "repo": "webconsulting-skills",
-  "description": "AI instruction skills by dirnbauer",
+  "description": "AI-augmented development environment with Agent Skills for enterprise TYPO3 projects (Cursor IDE)",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -253,9 +253,15 @@
       "path": "skills/webconsulting-create-documentation",
       "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/webconsulting-create-documentation",
       "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/dirnbauer/webconsulting-skills/tree/main/skills/frontend-design",
+      "description": ""
     }
   ],
   "source_url": "https://github.com/dirnbauer/webconsulting-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T14:30:58Z"
+  "distributed_at": "2026-05-02T18:34:30Z"
 }
