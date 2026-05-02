@@ -1,0 +1,9 @@
+{
+  "name": "championswimmer--pi-context-prune",
+  "displayName": "pi-context-prune",
+  "description": "Pi coding-agent extension for pruning tool-call trees",
+  "version": "1.0.0",
+  "author": "championswimmer",
+  "homepage": "https://github.com/championswimmer/pi-context-prune",
+  "skills": []
+}
