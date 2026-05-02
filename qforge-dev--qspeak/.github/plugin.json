@@ -1,0 +1,9 @@
+{
+  "name": "qforge-dev--qspeak",
+  "displayName": "qspeak",
+  "description": "qSpeak is a powerful voice transcription and AI assistant tool that helps you manage your workflow, answer questions, and maintain focus across all your applications.",
+  "version": "1.0.0",
+  "author": "qforge-dev",
+  "homepage": "https://github.com/qforge-dev/qspeak",
+  "skills": []
+}
