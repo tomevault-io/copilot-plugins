@@ -1,0 +1,9 @@
+{
+  "name": "industrial--id-effect",
+  "displayName": "id_effect",
+  "description": "Rust Effect<A, E, R> \u2014 sync and async functional effects with context/layers and pipe, interpreter-style, no bundled executor.",
+  "version": "1.0.0",
+  "author": "Industrial",
+  "homepage": "https://github.com/Industrial/id_effect",
+  "skills": []
+}
