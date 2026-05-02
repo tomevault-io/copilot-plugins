@@ -4,7 +4,7 @@
   "repo": "jules-mcp-server",
   "description": "Production-ready Model Context Protocol (MCP) server for Google Jules API. Enables autonomous coding tasks and scheduling from AI assistants. Independent open-source project, not affiliated with Google.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/savethepolarbears/jules-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T23:41:23Z"
+  "distributed_at": "2026-05-02T20:10:01Z"
 }
