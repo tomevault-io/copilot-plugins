@@ -1,43 +1,28 @@
-## memory
+## testing
 
-> Memory management for important conversation points
+> Testing conventions for langclaw
 
 
-# Conversation Memory
+# Testing
 
-Track and save important points during conversations to `.cursor/memories/`.
+## Setup
 
-## What counts as important
-- User's vision and goals for the project
-- Corrections the user makes to my mistakes (especially when they say "remember this")
-- Solutions we brainstorm together
-- Reasoning behind decisions we made
+- Framework: pytest + pytest-asyncio (`asyncio_mode = "auto"` — no need for `@pytest.mark.asyncio`)
+- Run: `uv run pytest tests/ -v`
 
-## Behavior
-When I detect one of the above, I should:
-1. Proactively offer to save it, OR
-2. If it's clearly important (explicit correction, key decision), automatically append to today's memory file
+## Patterns
 
-## File format
-Save to `.cursor/memories/YYYY-MM-DD.md` (one file per day, append entries).
+- Use `monkeypatch.setenv()` for env var overrides — never mutate `os.environ` directly
+- Use factory functions (`make_message_bus`, `make_checkpointer_backend`) for integration tests
+- Class-based grouping for related tests (e.g. `TestSplitMessage`, `TestIsAllowed`)
+- Prefer real implementations over mocks when the component is fast and deterministic (buses, config)
+- For async tests, just define `async def test_...` — the auto mode handles the rest
 
-Each entry format:
-```
-## HH:MM - [Category]
+## Assertions
 
-**Summary:** Brief description
-
-**Details:** Context and reasoning if relevant
-
----
-```
-
-Categories: `Vision` | `Correction` | `Brainstorm` | `Decision`
-
-## Guidelines
-- Don't save trivial things or routine coding tasks
-- When in doubt, ask before saving
-- Keep summaries concise but capture the "why"
+- Assert tool error responses with `assert result == {"error": ...}`
+- For bus tests, use `async with bus:` and break after first consumed message
+- For config tests, use `monkeypatch.setenv("LANGCLAW__...", value)` then call `load_config()`
 
 ---
 > Source: [tisu19021997/langclaw](https://github.com/tisu19021997/langclaw) — distributed by [TomeVault](https://tomevault.io).
