@@ -1,0 +1,44 @@
+{
+  "name": "perler-beads-ai",
+  "owner": "liangdabiao",
+  "repo": "perler-beads-ai",
+  "description": "\u56e0\u4e3a\u5e02\u9762\u4e0a\u7684\u62fc\u8c46\u8f6f\u4ef6\u5dee\u5f3a\u4eba\u610f \uff0c\u6240\u4ee5\u6211\u57fa\u4e8e\u5f00\u6e90\u9879\u76ee\uff1aZippland/perler-beads \uff0c\u5e26\u5c0f\u7a0b\u5e8f\uff08perlerBeadsApplet\uff09 \u6211\u52a0\u4e0aAI\u4f18\u5316\u4e86\u9879\u76ee\uff0cAI\u8f85\u52a9\u4f18\u5316\u56fe\u7247\u529f\u80fd\uff0c\u5199\u4e86\u4e00\u4e2a\u4e13\u95e8\u751f\u6210\u62fc\u8c46\u56fe\u7eb8\u7684\u7f51\u7ad9\u3002 \u7ecf\u8fc7\u5927\u91cf\u6d4b\u8bd5\uff0c\u6211\u89c9\u5f97\u5df2\u7ecf\u53ef\u4ee5\u8fbe\u5230 \u4e00\u952e\u751f\u6210\u62fc\u8c46\u56fe\u7eb8\u4e86\uff01",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/liangdabiao/perler-beads-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T03:35:42Z"
+}
