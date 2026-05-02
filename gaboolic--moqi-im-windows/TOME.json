@@ -1,0 +1,44 @@
+{
+  "name": "moqi-im-windows",
+  "owner": "gaboolic",
+  "repo": "moqi-im-windows",
+  "description": " \u58a8\u5947\u8f93\u5165\u6cd5windows\u7248\u3002\u5df2\u63a5\u5165librime\uff08\u4e2d\u5dde\u97f5\uff09\uff0c\u5185\u7f6e\u767d\u971c\u62fc\u97f3\u3002\u539f\u751f\u652f\u6301AI\u529f\u80fd\u3002\u6258\u76d8\u83dc\u5355\u652f\u6301\u4e3b\u9898\u66ff\u6362\u3001\u8f93\u5165\u72b6\u6001\u5207\u6362\u7b49\u529f\u80fd\u3002\u7fa4\uff1a696353204",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gaboolic/moqi-im-windows",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T16:15:06Z"
+}
