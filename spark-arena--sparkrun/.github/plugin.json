@@ -1,0 +1,9 @@
+{
+  "name": "spark-arena--sparkrun",
+  "displayName": "sparkrun",
+  "description": "sparkrun - launch, manage, and stop LLM inference workloads on NVIDIA DGX Spark systems",
+  "version": "1.0.0",
+  "author": "spark-arena",
+  "homepage": "https://github.com/spark-arena/sparkrun",
+  "skills": []
+}
