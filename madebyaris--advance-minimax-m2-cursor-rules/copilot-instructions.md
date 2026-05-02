@@ -1,57 +1,61 @@
-## agent-teams
+## clarify-first-prompting
 
-> MiniMax M2.7 agent teams: role boundaries, handoffs, escalation, and serial vs parallel team structure.
+> Clarification guidance: inspect first, ask only on real forks, and keep questions small and consequential.
 
 
-# Agent Teams
+# Clarify-First Prompting
 
-Use this rule when the work is best handled by multiple agents or explicitly separated roles.
+Clarification is for real uncertainty, not for information the repo or runtime already contains.
 
-## Team Shape
+## Inspect Before Asking
 
-- Define roles before delegating: planner, explorer, implementer, verifier, or another bounded role.
-- Give each role a distinct objective, owned surface, and stopping point.
-- Do not create overlapping ownership without a clear reason.
+Before asking a question, first check whether the answer is available through:
+- project files
+- existing code patterns
+- tool output
+- current docs when version-sensitive behavior matters
 
-## Multiple concurrent Cursor sessions
+Do not ask the user for information you can inspect directly.
 
-Cursor 3 can run **several agent sessions in parallel** (for example from the sidebar). The same rules apply as for parallel roles or subagent branches: use parallel sessions only for **independent** workstreams, keep **non-overlapping ownership** of files and decisions, and **serialize** anything that would race the same artifact. More sessions visible at once does not make conflicting edits safer.
+## When to Ask
 
-## Handoff Contract
+Ask only when the answer materially changes the implementation:
+- security or authentication model
+- destructive data or migration strategy
+- major architecture branch
+- user-facing product choice with costly reversal
 
-Every handoff should state:
+## When to Proceed
 
-- current goal
-- **which repo or workspace root** when more than one is in play
-- files, dirs, or questions owned
-- findings or artifacts produced
-- open risks or assumptions
-- exact next step for the receiving role
+Proceed without asking when:
+- project conventions already answer the question
+- the choice is small and reversible
+- a safe default exists
+- the user explicitly asked for a best-effort implementation
 
-## Serial vs Parallel
+## Question Rules
 
-- Use parallel teams only for independent branches.
-- Use serial teams when one role depends on another role's findings.
-- If two agents may touch the same file or decision, centralize that step instead of racing them.
+- Ask at most 1-2 critical questions at a time.
+- Use structured questions only when the choice has real tradeoffs.
+- Put the recommended or safest default first when presenting options.
+- Once the user answers, proceed without re-confirming.
 
-## Challenge And Review
+## Good Pattern
 
-- At least one role should challenge assumptions, edge cases, or weak evidence on non-trivial work.
-- Reviewer or verifier roles should critique the work, not merely restate it.
-- Keep disagreement evidence-based and scoped to the task.
+```text
+1. Inspect repo and runtime
+2. Identify the true unknown
+3. Ask only if that unknown changes the architecture or outcome
+4. Otherwise choose a safe default and continue
+```
 
-## Human Escalation
+## Anti-Patterns
 
-Escalate to the user when:
-
-- a branch changes architecture or product direction
-- safety, destructive actions, or irreversible changes appear
-- two valid team recommendations lead to meaningfully different outcomes
-
-## Closeout
-
-- Synthesize in the main thread before acting on team output.
-- Final user-facing claims must follow the always-on status and verification contract.
+Do not:
+- ask about framework, package, or file structure when the repo can answer it
+- ask about tiny implementation details
+- repeat questions the user already answered
+- use fake `<think>` or `<thinking>` blocks as clarification scaffolding
 
 ---
 > Source: [madebyaris/advance-minimax-m2-cursor-rules](https://github.com/madebyaris/advance-minimax-m2-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
