@@ -4,7 +4,7 @@
   "repo": "chum-mem",
   "description": "Better memory for your AI agents. (Karpathy + Graphify + PCKC)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sly-codechum/chum-mem",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:49:28Z"
+  "distributed_at": "2026-05-02T06:08:12Z"
 }
