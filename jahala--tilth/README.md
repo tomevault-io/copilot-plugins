@@ -7,11 +7,11 @@ Smart(er) code reading for humans and AI agents. Reduces cost per correct answer
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [jahala/tilth](https://github.com/jahala/tilth).
+Original source: `CLAUDE.md` in [jahala/tilth](https://github.com/jahala/tilth).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
