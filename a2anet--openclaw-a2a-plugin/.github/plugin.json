@@ -1,0 +1,9 @@
+{
+  "name": "a2anet--openclaw-a2a-plugin",
+  "displayName": "openclaw-a2a-plugin",
+  "description": "OpenClaw A2A protocol community plugin. Send messages and files to other agents over the internet, and allow other people to connect to your agent with Tailscale",
+  "version": "1.0.0",
+  "author": "a2anet",
+  "homepage": "https://github.com/a2anet/openclaw-a2a-plugin",
+  "skills": []
+}
