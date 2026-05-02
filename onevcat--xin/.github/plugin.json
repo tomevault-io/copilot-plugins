@@ -1,0 +1,14 @@
+{
+  "name": "onevcat--xin",
+  "displayName": "xin",
+  "description": "AI instruction skills by onevcat",
+  "version": "1.0.0",
+  "author": "onevcat",
+  "homepage": "https://github.com/onevcat/xin",
+  "skills": [
+    {
+      "name": "xin",
+      "description": ""
+    }
+  ]
+}
