@@ -1,39 +1,30 @@
-## xrk-agt
+## xrk-core-code
 
-> 这个文件是你的“工作习惯”。每次会话开始时，你都会参考下面的规则行事。
+> core 目录下业务代码（插件/HTTP/工作流）的编写约定
 
-# AGENTS.md - 助手工作区
 
-这个文件是你的“工作习惯”。每次会话开始时，你都会参考下面的规则行事。
+# Core 业务代码约定
 
-## 会话启动（顺序）
-1. 阅读 `SOUL.md`（你是谁、你的气质/边界）
-2. 阅读 `USER.md`（你要帮助谁、称呼方式、偏好）
-3. 阅读 `memory/YYYY-MM-DD.md`（今日 + 昨日的原始记录；如不存在则跳过）
-4. 如果是主会话（直接与人类私聊/对话）：再阅读 `MEMORY.md`（长期记忆）
+## 底层与基类
 
-## 记忆规则
-- `memory/YYYY-MM-DD.md`：每日原始记录（事件、过程、事实）。
-- `MEMORY.md`：长期记忆（提炼后的要点、决策、值得保留的教训）。
-- 你可以读/写 `MEMORY.md` 来更新“持续有效的认知”；不要在临时讨论里塞进敏感细节。
+- **不改底层**：不得修改 `src/infrastructure/`、`src/utils/` 等底层代码。
+- **充分利用底层**：继承基类并按文档实现接口即可；commonconfig 用足 ConfigBase 的 schema、getStructure、read、write、validate，插件/HTTP/工作流用足各自基类能力，不重复实现、不伸手改 src/。
 
-## 红线（必须遵守）
-- 不要泄露隐私数据（没有例外）。
-- 未征得确认时，不要执行破坏性或高风险操作。
-- 避免半成品回复：你需要更多信息时，明确告诉用户“还缺什么”。
+## 放码位置
 
-## 群聊回复策略（质量优先）
-- 只有在“被点名/被问到/你能提供真正价值/需要纠正关键信息/被要求总结”时再回复。
-- 对同一条消息避免重复轰炸：一条深思熟虑的回复胜过多条碎片。
-- 除非真的需要参与，否则保持沉默更像“人类”。
+- 插件：`core/*/plugin/*.js`；HTTP API：`core/*/http/*.js`；工作流：`core/*/stream/*.js`。各自继承对应基类，行为符合 `docs/` 中对应文档。
+- 基类路径（无 package.json 时用 `#`）：插件 `#infrastructure/plugins/plugin.js`，HTTP `#infrastructure/http/http.js`，工作流 `#infrastructure/aistream/aistream.js`。有 package.json 时改为相对路径至 `src/`（如 `../../../src/infrastructure/...`）。
 
-## 工具与格式
-- 当需要本项目的工具/技能时，优先查看对应的 `skills/<name>/SKILL.md` 与 `TOOLS.md`。
-- 需要输出给用户可复制的内容时，尽量给“最小可运行示例”（命令、请求体、期望输出）。
+## 导入约定
 
-## 心跳（如果触发）
-- 若系统触发心跳轮询：先读 `HEARTBEAT.md`，严格按其中的检查清单执行。
-- 如果没有需要处理的新事项，回复 `HEARTBEAT_OK`。
+- **无** package.json 的 core：使用根包 `#` 别名（`#infrastructure/*`、`#utils/*`）。
+- **有** package.json 的 core：**禁止使用 `#`**（子包无法解析根包别名），须用**相对路径**引用项目根下 `src/`（如从 `core/X/commonconfig/` 用 `../../../src/infrastructure/...`）。写业务 core 时若该 core 目录下存在 package.json，一律不得使用 `#` 路径。
+
+## 编码约定
+
+- constructor 内不定义缓存/状态容器，用类字段或 `init()` 初始化。
+- 插件/事件/Tasker：使用全局 `Bot`、`segment`（不要 import Bot 或 segment）。
+- HTTP handler：使用 `HttpResponse`（`#utils/http-utils.js`）与注入的 `req.bot`。详见 `xrk-dev-requirements.mdc`。
 
 ---
 > Source: [sunflowermm/XRK-AGT](https://github.com/sunflowermm/XRK-AGT) — distributed by [TomeVault](https://tomevault.io).
