@@ -1,0 +1,9 @@
+{
+  "name": "jmerelnyc--lorebrain",
+  "displayName": "lorebrain",
+  "description": "Local-first AI knowledge layer with vector embeddings and retrieval",
+  "version": "1.0.0",
+  "author": "jmerelnyc",
+  "homepage": "https://github.com/jmerelnyc/lorebrain",
+  "skills": []
+}
