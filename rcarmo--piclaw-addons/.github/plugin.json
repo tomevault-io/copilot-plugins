@@ -1,0 +1,14 @@
+{
+  "name": "rcarmo--piclaw-addons",
+  "displayName": "piclaw",
+  "description": "extensions, tools and add-ons that we've used with piclaw ",
+  "version": "1.0.0",
+  "author": "rcarmo",
+  "homepage": "https://github.com/rcarmo/piclaw-addons",
+  "skills": [
+    {
+      "name": "setup",
+      "description": ""
+    }
+  ]
+}
