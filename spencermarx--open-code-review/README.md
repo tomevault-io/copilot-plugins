@@ -7,11 +7,11 @@ AI-powered multi-agent code review. Simulates a customizable team of Engineers p
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [spencermarx/open-code-review](https://github.com/spencermarx/open-code-review).
+Original source: `CLAUDE.md` in [spencermarx/open-code-review](https://github.com/spencermarx/open-code-review).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
