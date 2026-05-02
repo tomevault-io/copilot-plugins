@@ -1,0 +1,9 @@
+{
+  "name": "szzh--codex-cc-web-terminal",
+  "displayName": "codex-cc-web-terminal",
+  "description": "Browser-based multi-session Codex terminal for Windows and macOS.",
+  "version": "1.0.0",
+  "author": "SZZH",
+  "homepage": "https://github.com/SZZH/codex-cc-web-terminal",
+  "skills": []
+}
