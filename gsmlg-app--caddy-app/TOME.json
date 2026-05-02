@@ -4,7 +4,7 @@
   "repo": "caddy-app",
   "description": "run caddy in a flutter app for development",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gsmlg-app/caddy-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T15:34:01Z"
+  "distributed_at": "2026-05-02T13:52:11Z"
 }
