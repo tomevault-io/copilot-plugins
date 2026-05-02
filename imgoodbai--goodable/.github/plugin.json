@@ -1,0 +1,9 @@
+{
+  "name": "imgoodbai--goodable",
+  "displayName": "goodable",
+  "description": "Goodable is a local-first Desktop AI Workspace (Desktop Agent Runtime) powered by Claude Agent SDK, combining OS/file control, browser automation, and coding into composable Skills (tool + app modes) ",
+  "version": "1.0.0",
+  "author": "ImGoodBai",
+  "homepage": "https://github.com/ImGoodBai/goodable",
+  "skills": []
+}
