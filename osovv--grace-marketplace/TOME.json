@@ -4,7 +4,7 @@
   "repo": "grace-marketplace",
   "description": " GRACE (Graph-RAG Anchored Code Engineering): open Agent Skills for contract-driven AI code generation with semantic markup, knowledge graphs, and support for Claude   Code, Codex CLI, and Kilo Code.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/osovv/grace-marketplace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T21:45:15Z"
+  "distributed_at": "2026-05-02T08:15:59Z"
 }
