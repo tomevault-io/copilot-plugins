@@ -1,0 +1,9 @@
+{
+  "name": "bluzir--claude-code-design",
+  "displayName": "claude-code-design",
+  "description": "Claude Design reproduced for Claude Code \u2014 HTML decks, prototypes, design systems, animated videos via skills + starters + Chrome DevTools MCP",
+  "version": "1.0.0",
+  "author": "bluzir",
+  "homepage": "https://github.com/bluzir/claude-code-design",
+  "skills": []
+}
