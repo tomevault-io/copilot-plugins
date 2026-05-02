@@ -1,23 +1,19 @@
-## typescript
+## ui
 
-> TypeScript style rules, scoped to .ts files
+> UI/dashboard rules — vanilla JS, no frameworks
 
 
-# TypeScript rules
+# UI rules
 
-- Strict mode is on. Never use `any` in production code without a
-  comment explaining why. The one accepted exception is
-  `src/tools/registry.ts`.
-- Prefer `readonly` and immutable data flow. Prefer function modules
-  over classes, except in `src/models/*` where the provider-class
-  shape is established.
-- Return `Result<T, E>`-shaped objects for expected failures. Throw
-  only for programmer errors.
-- Throw `ForgeRuntimeError` from `src/types/errors.ts`, never bare
-  `Error`.
-- Comments explain **why**, not what. Delete comments that only
-  narrate the code. Never leave a comment describing the change you
-  just made.
+- The UI is a single vanilla-JS shell. **No frameworks, no CDN
+  fetches, no build step for the UI.**
+- `src/ui/public/app.js` must stay < 120 KB uncompressed (currently
+  < 100 KB).
+- No synchronous disk reads on the UI poll path or REPL redraw path.
+- Watchers are ref-counted so multiple surfaces share one file
+  watcher — preserve that pattern.
+- Before adding a dependency, ask whether a ~20-line hand-written
+  utility would do. It almost always does.
 
 ---
 > Source: [hoangsonww/Forge-Agentic-Coding-CLI](https://github.com/hoangsonww/Forge-Agentic-Coding-CLI) — distributed by [TomeVault](https://tomevault.io).
