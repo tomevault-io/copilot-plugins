@@ -1,0 +1,9 @@
+{
+  "name": "bsquang--naotab",
+  "displayName": "naotab",
+  "description": "A Chrome extension that turns your browser tabs into a personal knowledge base \u2014 save tabs with context, auto-tag with AI, and visualize connections as a network graph.",
+  "version": "1.0.0",
+  "author": "bsquang",
+  "homepage": "https://github.com/bsquang/naotab",
+  "skills": []
+}
