@@ -1,0 +1,9 @@
+{
+  "name": "pangon--ai-sdlc-scaffold",
+  "displayName": "ai-sdlc-scaffold",
+  "description": "Template scaffolding for AI-first software development focused on the pre-coding phases",
+  "version": "1.0.0",
+  "author": "pangon",
+  "homepage": "https://github.com/pangon/ai-sdlc-scaffold",
+  "skills": []
+}
