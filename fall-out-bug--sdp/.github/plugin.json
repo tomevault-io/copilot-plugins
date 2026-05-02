@@ -1,0 +1,70 @@
+{
+  "name": "fall-out-bug--sdp",
+  "displayName": "sdp",
+  "description": "Structured protocol for AI-assisted development. Discovery \u2192 Delivery \u2192 Evidence.",
+  "version": "1.0.0",
+  "author": "fall-out-bug",
+  "homepage": "https://github.com/fall-out-bug/sdp",
+  "skills": [
+    {
+      "name": "bugfix",
+      "description": ""
+    },
+    {
+      "name": "ci-triage",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "feature",
+      "description": ""
+    },
+    {
+      "name": "hotfix",
+      "description": ""
+    },
+    {
+      "name": "issue",
+      "description": ""
+    },
+    {
+      "name": "oneshot",
+      "description": ""
+    },
+    {
+      "name": "protocol-consistency",
+      "description": ""
+    },
+    {
+      "name": "reality",
+      "description": ""
+    },
+    {
+      "name": "reality-check",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "description": ""
+    },
+    {
+      "name": "think",
+      "description": ""
+    },
+    {
+      "name": "verify-workstream",
+      "description": ""
+    }
+  ]
+}
