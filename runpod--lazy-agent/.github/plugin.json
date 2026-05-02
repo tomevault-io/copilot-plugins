@@ -1,0 +1,18 @@
+{
+  "name": "runpod--lazy-agent",
+  "displayName": "lazy-agent",
+  "description": "Like LazyVim, but for terminal-based AI agent workflows. Get a beautiful, productive terminal setup in minutes.",
+  "version": "1.0.0",
+  "author": "runpod",
+  "homepage": "https://github.com/runpod/lazy-agent",
+  "skills": [
+    {
+      "name": "agent-skills",
+      "description": ""
+    },
+    {
+      "name": "onboard",
+      "description": ""
+    }
+  ]
+}
