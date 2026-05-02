@@ -1,0 +1,9 @@
+{
+  "name": "sburl--crosscheck",
+  "displayName": "CrossCheck",
+  "description": "A self correcting system for AI coding loops. Autonomous development with multi-modal review, backed up by git hooks and branch protection.",
+  "version": "1.0.0",
+  "author": "sburl",
+  "homepage": "https://github.com/sburl/CrossCheck",
+  "skills": []
+}
