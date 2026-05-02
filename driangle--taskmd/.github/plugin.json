@@ -1,0 +1,18 @@
+{
+  "name": "driangle--taskmd",
+  "displayName": "taskmd",
+  "description": "Markdown-based task management designed for both humans and AI coding assistants.",
+  "version": "1.0.0",
+  "author": "driangle",
+  "homepage": "https://github.com/driangle/taskmd",
+  "skills": [
+    {
+      "name": "audit-docs",
+      "description": ""
+    },
+    {
+      "name": "next-task",
+      "description": ""
+    }
+  ]
+}
