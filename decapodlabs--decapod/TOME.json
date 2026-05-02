@@ -4,7 +4,7 @@
   "repo": "decapod",
   "description": "Decapod is the daemonless, local-first control plane agents call on demand to converge on human intent, shape context before inference, enforce boundaries, and deliver proof-backed completion across concurrent multi-agent work. \ud83e\udd80",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/DecapodLabs/decapod",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T21:01:33Z"
+  "distributed_at": "2026-05-02T06:18:41Z"
 }
