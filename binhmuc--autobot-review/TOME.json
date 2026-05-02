@@ -1,0 +1,111 @@
+{
+  "name": "autobot-review",
+  "owner": "binhmuc",
+  "repo": "autobot-review",
+  "description": "AI-powered GitLab code review bot using Azure OpenAI Haiku 4.5. Automated security checks, performance analysis, and inline comments on merge requests with smart batching and false positive filtering.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-artist",
+      "path": ".claude/skills/ai-artist",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/ai-artist",
+      "description": ""
+    },
+    {
+      "name": "payment-integration",
+      "path": ".claude/skills/payment-integration",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/payment-integration",
+      "description": ""
+    },
+    {
+      "name": "ai-multimodal",
+      "path": ".claude/skills/ai-multimodal",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/ai-multimodal",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "path": ".claude/skills/chrome-devtools",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "databases",
+      "path": ".claude/skills/databases",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/databases",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "path": ".claude/skills/devops",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/devops",
+      "description": ""
+    },
+    {
+      "name": "docs-seeker",
+      "path": ".claude/skills/docs-seeker",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/docs-seeker",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".claude/skills/frontend-design",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "mcp-management",
+      "path": ".claude/skills/mcp-management",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/mcp-management",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": ".claude/skills/ui-ux-pro-max",
+      "github_url": "https://github.com/binhmuc/autobot-review/tree/main/.claude/skills/ui-ux-pro-max",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/binhmuc/autobot-review",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:30:29Z"
+}
