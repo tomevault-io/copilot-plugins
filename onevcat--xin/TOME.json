@@ -1,0 +1,51 @@
+{
+  "name": "xin",
+  "owner": "onevcat",
+  "repo": "xin",
+  "description": "AI instruction skills by onevcat",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "xin",
+      "path": "skills/xin",
+      "github_url": "https://github.com/onevcat/xin/tree/main/skills/xin",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/onevcat/xin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:46:35Z"
+}
