@@ -1,0 +1,9 @@
+{
+  "name": "open-constructs--cdk-terrain",
+  "displayName": "cdk-terrain",
+  "description": "Define infrastructure resources using programming constructs and provision them using OpenTofu/Terraform",
+  "version": "1.0.0",
+  "author": "open-constructs",
+  "homepage": "https://github.com/open-constructs/cdk-terrain",
+  "skills": []
+}
