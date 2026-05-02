@@ -1,0 +1,94 @@
+## coding-guidelines
+
+> Code style, patterns, and conventions for the Tallyman CLI tool
+
+
+## Tech Stack
+
+- **Python 3.14+** (uses match statements, dataclass slots, `tomllib`)
+- **textual** - TUI framework for first-run setup wizard
+- **rich** - colored terminal output
+- **pathspec** - gitignore pattern matching
+- **pytest** + **ruff** for dev tooling
+- **Build backend**: hatchling
+
+This is a CLI tool with no web server, no database, and no async code. It runs synchronously as a pipeline.
+
+## Project Structure
+
+```
+src/tallyman/
+├── cli.py             # Entry point, arg parsing, orchestrates the pipeline
+├── languages.py       # Language registry (40+ languages), frozen dataclasses
+├── walker.py          # Directory traversal, gitignore + config exclusions
+├── counter.py         # Reads files, classifies lines as code/comment/blank
+├── aggregator.py      # Accumulates stats, groups by category
+├── display.py         # Rich-based terminal rendering
+├── config.py          # .tally-config.toml read/write
+├── tui/setup_app.py   # Textual App for interactive directory selection
+├── __main__.py        # Enables `python -m tallyman`
+└── __init__.py        # Package init, __version__
+```
+
+## Python Standards
+
+- **Line Length**: 120 characters max (per ruff.toml)
+- **Quotes**: Single quotes for strings (per ruff.toml)
+- **Linting**: `ruff check src/ tests/` and `ruff format src/ tests/`
+- **Target Python**: 3.14+ features are allowed
+- **Type Hints**: Use modern Python type hints on all function signatures
+- **Imports**: `from __future__ import annotations` in every module
+- **Private Functions**: `_prefixed` for module-private functions
+- **Dataclasses**: Frozen for immutable values (Language), mutable for accumulators (LanguageStats)
+- **All dataclasses use `slots=True`** for efficiency
+
+## Core Data Structures
+
+```python
+Language(frozen=True)    # name, category, color, single_line_comment, extensions
+FileCount                # total_lines, code_lines, comment_lines, blank_lines
+LanguageStats            # language, file_count, total_lines, code_lines, comment_lines, blank_lines
+CategoryStats            # name, total_lines, effective_lines, languages
+TallyResult              # by_language, by_category, grand_total_lines
+TallyConfig              # excluded_dirs: set[str], spec_dirs: set[str]
+```
+
+## Key Design Patterns
+
+### Language Objects Are Frozen and Identity Matters
+
+`Markdown(docs)` and `Markdown(specs)` are distinct objects. Aggregation groups by Language object, not name alone.
+
+### Spec Variants via `as_spec()`
+
+When a docs-category file is found in a spec directory, `as_spec()` creates a new Language with `category='specs'`. Results are cached with `@cache`.
+
+### Comment Detection Is Single-Line Only
+
+Strips the line, checks `startswith(marker)`. Multi-line comments (`/* */`, `""" """`) are NOT detected.
+
+### Binary Detection
+
+Checks first 8KB for `\x00` byte.
+
+### Config Search Walks Up
+
+`find_config()` walks up from target dir to filesystem root looking for `.tally-config.toml`.
+
+## Test Conventions
+
+- Tests use `tmp_path` fixtures extensively
+- Helper functions like `_lang()` create test Language instances
+- Test files map to source modules: `test_walker.py` tests `walker.py`, etc.
+
+## When Adding a New Language
+
+Add a `Language(...)` instance to `languages.py` and include it in the `LANGUAGES` tuple. The `EXTENSION_MAP` is built automatically. Add tests in `test_languages.py`.
+
+## When Adding a New Category
+
+Update `aggregator.py` category ordering, `display.py` rendering, and ensure walker handles it correctly. The Specs category addition in `plans/002-specs-category/` is a reference implementation.
+
+---
+> Source: [mikeckennedy/tallyman](https://github.com/mikeckennedy/tallyman) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
