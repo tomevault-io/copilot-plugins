@@ -1,0 +1,9 @@
+{
+  "name": "leolionart--cliproxyapi-dashboard",
+  "displayName": "CLIProxyAPI-Dashboard",
+  "description": "The reporting system integrated into the CLIProxyAPI allows for monitoring usage and setting up alerts when data plan limits are reached.",
+  "version": "1.0.0",
+  "author": "leolionart",
+  "homepage": "https://github.com/leolionart/CLIProxyAPI-Dashboard",
+  "skills": []
+}
