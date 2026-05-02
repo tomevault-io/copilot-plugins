@@ -1,0 +1,44 @@
+{
+  "name": "Meow-Box",
+  "owner": "leehyukshuai",
+  "repo": "Meow-Box",
+  "description": "\u7528\u4e8e\u5c0f\u7c73\u7b14\u8bb0\u672c\u7684\u89e6\u63a7\u677f\u548c\u952e\u76d8\u81ea\u5b9a\u4e49\u6620\u5c04\u5de5\u5177\uff08xiaomibook pro 14 2026\uff09",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/leehyukshuai/Meow-Box",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T10:20:15Z"
+}
