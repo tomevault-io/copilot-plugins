@@ -1,0 +1,9 @@
+{
+  "name": "projectai00--polytopia-ai",
+  "displayName": "polytopia-ai",
+  "description": "AI agent that plays The Battle of Polytopia using LLM-powered strategic reasoning. Training environment for AI strategy game research.",
+  "version": "1.0.0",
+  "author": "ProjectAI00",
+  "homepage": "https://github.com/ProjectAI00/polytopia-ai",
+  "skills": []
+}
