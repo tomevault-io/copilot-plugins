@@ -1,0 +1,9 @@
+{
+  "name": "oracle--skills",
+  "displayName": "skills",
+  "description": "Oracle DB Skills is a curated library of 100+ practical, documentation-backed guides for working with Oracle Database, organized by domain",
+  "version": "1.0.0",
+  "author": "oracle",
+  "homepage": "https://github.com/oracle/skills",
+  "skills": []
+}
