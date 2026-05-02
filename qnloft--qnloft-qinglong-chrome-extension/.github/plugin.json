@@ -1,0 +1,9 @@
+{
+  "name": "qnloft--qnloft-qinglong-chrome-extension",
+  "displayName": "qnloft-qinglong-chrome-extension",
+  "description": "\ud83c\udf6a \u9752\u9f99\u52a9\u624b\uff1a\u81ea\u52a8\u540c\u6b65\u7f51\u7ad9Cookie\u5230\u9752\u9f99\u9762\u677f\u7684Chrome\u6269\u5c55\uff0c\u652f\u6301\u591a\u7f51\u7ad9\u914d\u7f6e\u548c\u5b8c\u6574\u7684\u73af\u5883\u53d8\u91cf\u7ba1\u7406\u3002[qnloft\u51fa\u54c1]",
+  "version": "1.0.0",
+  "author": "qnloft",
+  "homepage": "https://github.com/qnloft/qnloft-qinglong-chrome-extension",
+  "skills": []
+}
