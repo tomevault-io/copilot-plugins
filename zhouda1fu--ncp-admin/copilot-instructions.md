@@ -1,26 +1,83 @@
-## frontend-vben
+## project-conventions
 
-> 前端 Vben Admin：路径与结构索引；详细与易错点见 ncp-admin-frontend skill
+> Ncp.Admin 总则：分层与路径；本仓库权限/端点/GlobalUsings；通用 DDD 见 cleanddd-dotnet-coding
 
 
-# 前端 Vben Admin
+# Ncp.Admin 项目规范
 
-技术栈：Vue 3、Vite、TypeScript、Ant Design Vue、Vben Admin。
+本仓库采用 **DDD 分层架构**（NetCorePal）。**后端**需求拆解、建模与通用编码约定以 `.cursor/skills/` 下 **cleanddd-*** 技能为准（尤其 **`cleanddd-dotnet-coding`**）。**前端**路径与摘要见 **`frontend-vben.mdc`**，易错点与权限清单见 **`ncp-admin-frontend`** 技能。
 
-**详细规范**（API/视图易错点、权限与菜单清单、表单抽屉流程、路由 `activePath` 等）见 **`.cursor/skills/ncp-admin-frontend/SKILL.md`**；开发时建议 @ 引用该技能。
+程序集与路径：**`Ncp.Admin.Domain` / `Ncp.Admin.Infrastructure` / `Ncp.Admin.Web`**（实现时勿使用模板中的 `ProjectName` 占位）。
 
-## 路径与结构（相对 `src/frontend/apps/admin-antd/`）
+## 项目结构
 
-- API：`src/api/system/{feature}.ts`
-- 列表 / 表单 / Schema：`src/views/{module}/{feature}/` 下 `list.vue`、`modules/form.vue`、`data.ts`
-- 路由：`src/router/routes/modules/{module}.ts`
-- 多语言：`src/locales/langs/{zh-CN,en-US}/{module}.json`
+```
+Ncp.Admin.sln
+├── src/
+│   ├── Ncp.Admin.Domain/
+│   ├── Ncp.Admin.Infrastructure/
+│   └── Ncp.Admin.Web/
+└── test/
+    ├── Ncp.Admin.Domain.Tests/
+    ├── Ncp.Admin.Infrastructure.Tests/
+    └── Ncp.Admin.Web.Tests/
+```
 
-## 常用约定（摘要）
+**分层依赖：** Web → Infrastructure → Domain（严格单向）。
 
-- API：`namespace` 定义类型，`requestClient` 发请求
-- 列表：`Page`、`useVbenVxeGrid`、`useVbenModal`；弹窗表单：`modules/form.vue`
-- 表单：`useVbenForm`、`formModalApi.getData/setData`，提交后 `emit('success')`；文案：`$t()`
+## 后端：CleanDDD 技能（按阶段选用）
+
+| 技能目录 | 用途 |
+|----------|------|
+| `cleanddd-requirements-analysis` | 需求澄清与结构化拆解（建模前） |
+| `cleanddd-modeling` | 聚合/命令/查询/事件/Endpoints 等建模蓝图 |
+| `cleanddd-dotnet-coding` | 分层、命名、强类型 ID、`KnownException`、命令不 `SaveChanges`、FastEndpoints、仓储/EF 异步等 |
+| `cleanddd-coach` | 可选：教练流程 |
+
+在对话中通过 @ 引用对应 `SKILL.md`（`cleanddd-coach` 若仅有 `SKILL.beta.md`，可将其视为该技能说明文档）。
+
+## 后端：本仓库特有约定
+
+- 领域事件处理器实现 **`Handle()`**（非 `HandleAsync()`）。
+
+其余与 NetCorePal/CleanDDD 一致的约定见 **`cleanddd-dotnet-coding`**。
+
+## 新增需权限的接口时（后端 5 处）
+
+与前端 `permission-codes.ts`、`permission-tree.ts`、路由 `authority` 对齐；前端步骤见 **`ncp-admin-frontend`** 技能。
+
+| 步骤 | 位置 | 说明 |
+|------|------|------|
+| 1 | `AppPermissions/PermissionCodes.cs` | 新增权限常量 |
+| 2 | `AppPermissions/PermissionDefinitionContext.cs` | 对应父权限下 `AddChild(权限码, "显示名")` |
+| 3 | `AppPermissions/PermissionMapper.cs` | `_permissionDescriptionMap` 增加条目 |
+| 4 | 各端点 | `Permissions(PermissionCodes.AllApiAccess, PermissionCodes.XxxView)` 等 |
+| 5 | `Utils/SeedDatabaseExtension.cs` | 需默认给管理员时在 `adminPermissionCodes` 中加入新权限码 |
+
+## API 端点 Request/Response（`src/Ncp.Admin.Web/Endpoints/**/*.cs`）
+
+参考：`Endpoints/Identity/Admin/UserEndpoints/UpdateUserEndpoint.cs`、`Endpoints/Customer/*.cs`。
+
+- Request/Response **一律 `record`**，优先位置参数；ID 用强类型（禁止裸 `Guid`/`long`/`string`）；列表可用 `IReadOnlyList<XxxId>?`。
+- 每个 Request/Response 须有 `<summary>` 与各参数 `<param>`；端点类同样；响应使用 `ResponseData<T>` 与 `.AsResponseData()`。
+- 若 Request 继承查询入参类型，端点类仍须补充 summary 与构造函数参数注释。
+
+## 前端开发时
+
+路径与常用约定摘要见 **`.cursor/rules/frontend-vben.mdc`**；易错点、权限与菜单、表单抽屉等见 **`.cursor/skills/ncp-admin-frontend/SKILL.md`**。
+
+## GlobalUsings.cs
+
+- **Web**：`FluentValidation`、`MediatR`、`NetCorePal.Extensions.Primitives`、`FastEndpoints`、`NetCorePal.Extensions.Dto`、`NetCorePal.Extensions.Domain`
+- **Infrastructure**：`Microsoft.EntityFrameworkCore`、`Microsoft.EntityFrameworkCore.Metadata.Builders`、`NetCorePal.Extensions.Primitives`
+- **Domain**：`NetCorePal.Extensions.Domain`、`NetCorePal.Extensions.Primitives`
+- **Tests**：`Xunit`、`NetCorePal.Extensions.Primitives`
+
+手动 using 示例：查询处理器需 `Ncp.Admin.Domain.AggregatesModel.{AggregateFolder}` + `Ncp.Admin.Infrastructure`；端点需领域聚合、`Application.Commands` / `Queries` 等（与 cleanddd-dotnet-coding 中路径对照时替换为 `Ncp.Admin.*`）。
+
+## 异常处理
+
+业务异常须使用 **`KnownException`**（用法与示例见 **`cleanddd-dotnet-coding`**），勿使用普通 `Exception`。
 
 ---
 > Source: [zhouda1fu/Ncp.Admin](https://github.com/zhouda1fu/Ncp.Admin) — distributed by [TomeVault](https://tomevault.io).
