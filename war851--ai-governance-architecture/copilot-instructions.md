@@ -1,29 +1,36 @@
-## git-standards
+## planning-and-execution
 
-> Git commit and branching standards
+> Planning and execution discipline for complex tasks
 
 
-# Git Standards
+# Planning and Execution
 
-## Commits
+## When to Plan First
 
-- Format: `type(scope): description` (Conventional Commits)
-- Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`, `build`, `ci`
-- Description: imperative mood, lowercase, no trailing period
-- One logical change per commit
+- Any task touching 3+ files
+- Architectural decisions or new patterns
+- Database schema changes
+- Anything the user describes as "complex" or "important"
 
-## Branches
+## Plan Structure
 
-- `feat/short-description` for features
-- `fix/short-description` for bug fixes
-- `chore/short-description` for maintenance
+1. Restate the goal in your own words
+2. Identify constraints and existing patterns
+3. Break into numbered phases with completion criteria
+4. Flag risks and assumptions
+5. Wait for explicit approval before executing
 
-## Forbidden
+## Execution Rules
 
-- NEVER force-push to main/master
-- NEVER commit .env, secrets, credentials, or API keys
-- NEVER commit generated files (build output, node_modules, dist)
-- NEVER rewrite published history
+- One phase at a time — verify before moving on
+- If something fails mid-plan: stop, reassess, re-plan
+- After a mediocre result: "scrap this and implement the elegant solution"
+- Loop closure: every change must be verifiable (test, manual check, or build)
+
+## Compounding Engineering
+
+- After corrections: update CLAUDE.md or .cursor/rules/ so it never recurs
+- Treat config as living code — review and improve continuously
 
 ---
 > Source: [war851/AI-Governance-Architecture](https://github.com/war851/AI-Governance-Architecture) — distributed by [TomeVault](https://tomevault.io).
