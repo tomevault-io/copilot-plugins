@@ -1,0 +1,9 @@
+{
+  "name": "sundegan--jsonstudio",
+  "displayName": "JsonStudio",
+  "description": "A fast, modern desktop JSON app built with Rust and Tauri 2.0, supporting various common JSON features",
+  "version": "1.0.0",
+  "author": "sundegan",
+  "homepage": "https://github.com/sundegan/JsonStudio",
+  "skills": []
+}
