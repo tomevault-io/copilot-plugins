@@ -1,0 +1,14 @@
+{
+  "name": "typefully--agent-skills",
+  "displayName": "agent-skills",
+  "description": "AI agent skills for drafting and scheduling social media posts via Typefully",
+  "version": "1.0.0",
+  "author": "typefully",
+  "homepage": "https://github.com/typefully/agent-skills",
+  "skills": [
+    {
+      "name": "typefully",
+      "description": ""
+    }
+  ]
+}
