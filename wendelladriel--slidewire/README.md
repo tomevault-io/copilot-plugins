@@ -7,11 +7,11 @@ Create beautiful presentations powered by Livewire
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [WendellAdriel/slidewire](https://github.com/WendellAdriel/slidewire).
+Original source: `CLAUDE.md` in [WendellAdriel/slidewire](https://github.com/WendellAdriel/slidewire).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
