@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## openpolicy
 
 > Default to using Bun instead of Node.js.
 
