@@ -1,0 +1,212 @@
+## tokf
+
+> tokf is an open source project built for the community. We are not looking for profits — this exists for open source sake. Every decision should prioritize:
+
+# tokf — Development Guidelines
+
+## Project Philosophy
+
+tokf is an open source project built for the community. We are not looking for profits — this exists for open source sake. Every decision should prioritize:
+
+- **End-user experience** — whether the user is a human or an LLM, the tool should be intuitive, fast, and transparent about what it's doing.
+- **Visibility** — users should always understand what tokf is doing. Stderr notes, `--timing`, `--verbose` flags. Never hide behavior.
+- **Transparency** — clear error messages, honest documentation, no dark patterns.
+
+## Commits
+
+Use **Conventional Commits** strictly:
+
+```
+<type>(<scope>): <description>
+
+[optional body]
+
+[optional footer]
+```
+
+Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`, `ci`, `perf`, `build`
+
+Scopes: `config`, `filter`, `runner`, `output`, `cli`, `hook`, `tracking`, `history`
+
+Examples:
+- `feat(filter): implement skip/keep line filtering`
+- `fix(config): handle missing optional fields in git-status.toml`
+- `test(filter): add fixtures for cargo-test failure case`
+- `ci: add clippy and fmt checks to GitHub Actions`
+
+Keep commits atomic — one logical change per commit. Don't bundle unrelated changes.
+
+## Code Quality
+
+### Testing
+- **Minimum 80% coverage, target 90%.**
+- Every module gets unit tests. Every filter gets integration tests with fixture data.
+- Fixture-driven: save real command outputs as `.txt` files in `tests/fixtures/`. Tests load fixtures, apply filters, assert on output. No dependency on external tools in tests.
+- **Declarative filter tests**: place test cases in a `<stem>_test/` directory adjacent to the filter TOML (e.g. `filters/git/push_test/` next to `filters/git/push.toml`). Each case is a TOML file with `name`, `inline` or `fixture`, `exit_code`, and `[[expect]]` blocks. Run with `tokf verify`. Every filter in the stdlib **must** have a `_test/` suite — CI enforces this with `tokf verify --require-all`.
+- Run `cargo test` after every meaningful change. Tests must pass before committing.
+
+### Pragmatism
+
+We are pragmatic. The limits below are guidelines that produce better code in the vast majority of cases. When a limit actively harms readability or forces an awkward split, it can be exceeded — but this requires explicit approval from the maintainer. Document the reason in a code comment when overriding.
+
+### Linting & Formatting
+- `cargo fmt` before every commit. No exceptions.
+- `cargo clippy --workspace --all-targets -- -D warnings` must pass clean.
+- Functions should stay under 60 lines (enforced via `clippy.toml`). Can be overridden with `#[allow()]` when approved.
+- Source files:
+  - **Soft limit: 500 lines** — aim to split before this. CI warns.
+  - **Hard limit: 700 lines** — CI fails. Requires approval to override.
+
+### Duplication
+- Keep duplication low. If you see the same logic in two places, extract it — but only when it's genuinely the same concern, not just superficially similar.
+- DRY applies to logic, not to test setup. Test clarity beats test brevity.
+
+### Dependencies
+- Use reputable, well-maintained crates instead of reinventing. Check download counts, maintenance activity, and dependency footprint before adding.
+- Keep the dependency tree tight. Don't add a crate for something the standard library handles.
+- Pin versions in `Cargo.toml`. Review what transitive dependencies you're pulling in.
+
+## Architecture
+
+### File Structure
+```
+src/
+  main.rs          — CLI entry, argument parsing, subcommand routing
+  lib.rs           — Public module declarations
+  resolve.rs       — Filter resolution, command execution, tracking (binary crate)
+  runner.rs        — Command execution, stdout/stderr capture
+  baseline.rs      — Fair baseline computation for piped commands
+  config/
+    mod.rs         — Config loading, file discovery, pattern matching
+    types.rs       — Serde structs for the TOML schema
+    variant.rs     — Two-phase variant resolution (file detection + output pattern)
+    cache.rs       — Binary config cache (rkyv serialization)
+  filter/
+    mod.rs         — FilterEngine orchestration
+    skip.rs        — Skip/keep line filtering
+    extract.rs     — Regex capture and template interpolation
+    replace.rs     — Per-line regex replacement
+    group.rs       — Line grouping by key pattern
+    section.rs     — State machine section parsing
+    aggregate.rs   — Sum/count across collected items
+    template.rs    — Template rendering, variable interpolation, pipe chains
+    match_output.rs — Whole-output substring matching
+    dedup.rs       — Line deduplication
+    parse.rs       — Declarative structured parser (branch + group)
+    cleanup.rs     — ANSI stripping, line trimming, blank line handling
+    lua.rs         — Luau script escape hatch
+  rewrite/         — Shell rewrite engine (hook + CLI)
+  hook/            — Claude Code PreToolUse hook handler + installer
+  tracking/        — Token savings tracking (SQLite)
+  history/         — Filtered output history (SQLite)
+  skill.rs         — Claude Code skill installer
+  verify_cmd.rs    — Declarative test suite runner
+  eject_cmd.rs     — Filter ejection to local/global config
+  cache_cmd.rs     — Cache management subcommand
+  gain.rs          — Token savings display
+  history_cmd.rs   — History subcommand
+filters/           — Standard library of filter configs (.toml)
+  git/             — git add, commit, diff, log, push, show, status
+  cargo/           — cargo build, check, clippy, install, test
+  npm/             — npm run, npm/pnpm/yarn test (with vitest/jest variants)
+  docker/          — docker build, compose, images, ps
+  go/              — go build, go vet
+  gradle/          — gradle build, test, dependencies
+  gh/              — GitHub CLI (pr, issue)
+  kubectl/         — kubectl get pods
+  next/            — next build
+  pnpm/            — pnpm add, install
+  prisma/          — prisma generate
+tests/
+  cli_*.rs         — End-to-end CLI integration tests
+  filter_*.rs      — Filter pipeline integration tests
+  fixtures/        — Sample command outputs for testing
+```
+
+### Design Decisions (Do Not Revisit)
+- **TOML** for config. Not YAML, not JSON.
+- **Capture then process**, not streaming.
+- **First match wins** for config resolution. No merging, no inheritance.
+- **Passthrough on missing filter.** Never block a command because a filter doesn't exist.
+- **Exit code masking (default on).** tokf exits 0 and prepends `Error: Exit code N` on failure, to avoid output duplication in Claude Code. Use `--no-mask-exit-code` to propagate the real exit code.
+- **Variant delegation, not inheritance.** Parent filters delegate to child filters via `[[variant]]` — the child filter replaces the parent entirely, it doesn't inherit or merge fields.
+- **Two-phase variant detection.** File detection (pre-execution) takes priority; output-pattern matching (post-execution) is the fallback. Parent config applies when no variant matches.
+
+## Build & Run
+
+```sh
+cargo build              # Build
+cargo test               # Run all tests
+cargo clippy --workspace --all-targets -- -D warnings  # Lint
+cargo fmt -- --check     # Format check
+```
+
+### Database & end-to-end tests
+
+`tokf-server` uses CockroachDB. DB integration tests and end-to-end tests are `#[ignore]`d by default — they require `DATABASE_URL` and the `--ignored` flag.
+
+Copy `.env.example` → `.env` to configure `CONTAINER_RUNTIME` (`podman` or `docker`) and `DATABASE_URL`.
+
+```sh
+just db-start                  # start CockroachDB
+just db-status                 # check if running
+just db-setup                  # create tokf_test database
+just test-db                   # tokf-server integration tests
+just test-e2e                  # end-to-end tests
+just test-all                  # unit + DB + e2e
+just db-reset                  # wipe and restart fresh
+```
+
+Or manually:
+
+```sh
+podman compose -f crates/tokf-server/docker-compose.yml up -d
+export DATABASE_URL="postgresql://root@localhost:26257/tokf_test?sslmode=disable"
+psql "postgresql://root@localhost:26257/defaultdb?sslmode=disable" \
+  -c "CREATE DATABASE IF NOT EXISTS tokf_test"
+cargo test -p tokf-server -- --ignored
+cargo test -p e2e-tests -- --ignored
+```
+
+Each `#[crdb_test]` creates an isolated database per test with fresh migrations — no manual migration step needed.
+
+## Documentation
+
+**Every user-facing feature or behaviour change must be documented in the same PR.**
+
+### README generation
+
+`README.md` is **generated** — do not edit it directly. Changes made directly to `README.md` will be overwritten by the pre-commit hook.
+
+The source files live in `docs/`:
+- `docs/_readme/header.md` — top of the README (badges, intro)
+- `docs/_readme/footer.md` — bottom of the README (acknowledgements, licence)
+- `docs/*.md` — individual sections, ordered by `order:` frontmatter
+
+To update documentation, edit the appropriate file in `docs/` and then regenerate:
+
+```sh
+bash scripts/generate-readme.sh   # regenerate README.md
+```
+
+The pre-commit hook runs this automatically on every commit, so staged changes to `docs/` will be reflected in `README.md` in the same commit.
+
+### What to document
+
+- New filter fields → add to `docs/writing-filters.md`.
+- New CLI flags or subcommands → add to the relevant `docs/*.md` section.
+- Changed behaviour (e.g. how piped commands are handled) → update the relevant `docs/*.md`.
+- New runtime behaviours visible to LLMs or end-users → document with a concrete example showing input and output.
+- Significant new features → consider adding a dedicated section with a short explanation and a code/shell example.
+
+Documentation lives in `docs/` (end-user reference) and `CONTRIBUTING.md` (contributor guide). Do not open a PR that adds or changes behaviour without also updating these files.
+
+## What Not To Do
+
+- Don't add features beyond what the current issue asks for.
+- Don't implement streaming, hot-reloading, HTTP registries, GUIs, parallel execution, output caching, or advanced linting. These are explicitly deferred.
+- Don't sacrifice user experience for implementation convenience.
+
+---
+> Source: [mpecan/tokf](https://github.com/mpecan/tokf) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
