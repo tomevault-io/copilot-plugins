@@ -1,36 +1,45 @@
-## planning-and-execution
+## project-conventions
 
-> Planning and execution discipline for complex tasks
+> Core project conventions and AI agent behavior standards
 
 
-# Planning and Execution
+# Project Conventions
 
-## When to Plan First
+## Agent Separation of Concerns
 
-- Any task touching 3+ files
-- Architectural decisions or new patterns
-- Database schema changes
-- Anything the user describes as "complex" or "important"
+- Cursor owns: code standards, naming conventions, architecture patterns, file-scoped rules
+- Claude Code owns: planning, execution, skills, agents, hooks, slash commands
+- Shared layer owns: CLAUDE.md, plans, tasks, logs, docs/
 
-## Plan Structure
+## Code Quality Standards
 
-1. Restate the goal in your own words
-2. Identify constraints and existing patterns
-3. Break into numbered phases with completion criteria
-4. Flag risks and assumptions
-5. Wait for explicit approval before executing
+- Explicit over implicit — never rely on side effects or implicit type coercion
+- Every function has a single clear responsibility
+- All error paths handled explicitly — no empty catch blocks
+- No `any` types in TypeScript — use `unknown` + type guards
+- No commented-out code — use version control history
+- Comments only for non-obvious intent, trade-offs, or constraints
 
-## Execution Rules
+## Naming Conventions
 
-- One phase at a time — verify before moving on
-- If something fails mid-plan: stop, reassess, re-plan
-- After a mediocre result: "scrap this and implement the elegant solution"
-- Loop closure: every change must be verifiable (test, manual check, or build)
+- Files: `kebab-case.ts` for modules, `PascalCase.tsx` for components
+- Variables/functions: `camelCase`
+- Classes/types/interfaces: `PascalCase`
+- Constants: `UPPER_SNAKE_CASE`
+- Boolean variables: prefix with `is`, `has`, `should`, `can`
 
-## Compounding Engineering
+## File Organization
 
-- After corrections: update CLAUDE.md or .cursor/rules/ so it never recurs
-- Treat config as living code — review and improve continuously
+- Group by feature/domain, not by file type
+- Co-locate tests with source files or in a parallel `__tests__/` directory
+- Keep files under 300 lines — extract when exceeding this
+- One export per file for main modules; utility files may have multiple exports
+
+## Environment
+
+- Windows 10, PowerShell shell
+- Use forward slashes in config; PowerShell syntax in terminal commands
+- All secrets via environment variables — never hardcoded
 
 ---
 > Source: [war851/AI-Governance-Architecture](https://github.com/war851/AI-Governance-Architecture) — distributed by [TomeVault](https://tomevault.io).
