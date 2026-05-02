@@ -1,0 +1,51 @@
+## goodable
+
+> claude agent sdk 驱动的跨平台的桌面（electron打包）通用agent应用，支持code和work双模式。我的员工是预定义的各种角色的 system prompt 角色，我的技能兼容并扩展了 claude skills能力，支持 app 模式（带 UI 可独立运行（默认单实例），可复制源码二开），另外支持内置 build-in 环境变量注入，解决子项目需要使用第三方 api 时的统一快速实现。目前子项目主要分为两大类：
+
+# 项目介绍
+claude agent sdk 驱动的跨平台的桌面（electron打包）通用agent应用，支持code和work双模式。我的员工是预定义的各种角色的 system prompt 角色，我的技能兼容并扩展了 claude skills能力，支持 app 模式（带 UI 可独立运行（默认单实例），可复制源码二开），另外支持内置 build-in 环境变量注入，解决子项目需要使用第三方 api 时的统一快速实现。目前子项目主要分为两大类：
+1 自动生成 Python FastAPI 和Next.js 项目；
+2 完成本地电脑基于文件系统的各种自动化智能化任务。
+
+我的技能模块具体规范：skills/README.md
+
+## 核心概念
+
+### 主项目 vs 子项目
+- **主项目**：Goodable 平台本身（当前目录）
+- **子项目**：用户通过 AI 生成的项目，存储在 `PROJECTS_DIR` 配置的目录
+- 每个子项目都有timeline日志，在 `PROJECTS_DIR` 目录下的 `logs` 子目录中，有json和txt两种格式。skills 运行单实例模式，目录在 user-skills 目录。
+
+### 关键配置文件
+- **`lib/config/paths.ts`** - 路径配置中心，所有项目路径的单一真实来源
+- **`.env`** - 环境变量配置
+
+## 指令
+1 每次回复前定要先阅读所有可能的代码，否则不要回复；
+2 我要求给方案时，只是需要方案文档，切记不要直接修改代码。具体要求为：需要修改的文件清单，以及执行步骤和任务可能面临的技术风险，但不要包括代码实现（除非明确要求）
+3 当我的任务指令有明显漏洞或者指向不清时，不要执行而是先反问我；
+4 不管任何情况，都不要直接修改代码，而是先给我方案，方案以文字为主，尽量不要加代码，要简洁明了，等我确认才可以开始修改。
+5 每次回复我都要简洁明了，不要啰嗦！
+6 每次回复都不要夹代码，纯文字为主，除非我要求！
+7 目前是开发阶段，不需要也不要为任何历史数据做优化和处理。
+
+## 修改代码必读
+代码和脚本注释一律英文，禁止中文。
+修改后一定要运行类型检查命令：npm run type-check
+
+## commit必读
+只给我 add 文件的清单和一句话的 commit 文本，绝对不要擅自提交，除非我提出要求。
+commit 注释要求英文、简洁明了但要具体。比如不要说优化了 UI fix bug，而应该说优化了xxx按钮/面板等。，不要加任何小尾巴。
+绝对不要加后缀：    Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+
+## 测试必读
+快速测试和服务启动参考：resources/tests/quick_test_step1.js
+
+## 详细项目信息参考：README.md文档
+
+## 提醒1
+我会用语音输入法来输入提示词，语音输入法的特点就是有前后内容矛盾的地方，你要识别的时候注意一下。
+
+---
+> Source: [ImGoodBai/goodable](https://github.com/ImGoodBai/goodable) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
