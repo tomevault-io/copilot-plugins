@@ -2,9 +2,9 @@
   "name": "clorch",
   "owner": "androsovm",
   "repo": "clorch",
-  "description": "",
+  "description": "Clorch is a dashboard that shows all your Claude Code sessions in one place",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/androsovm",
+  "source_url": "https://github.com/androsovm/clorch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T21:08:53Z"
+  "distributed_at": "2026-05-02T07:56:21Z"
 }
