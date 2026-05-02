@@ -1,0 +1,9 @@
+{
+  "name": "node9-ai--node9-proxy",
+  "displayName": "node9-proxy",
+  "description": "The Execution Security Layer for the Agentic Era. Providing deterministic \"Sudo\" governance and audit logs for autonomous AI agents.",
+  "version": "1.0.0",
+  "author": "node9-ai",
+  "homepage": "https://github.com/node9-ai/node9-proxy",
+  "skills": []
+}
