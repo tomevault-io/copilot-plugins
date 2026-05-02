@@ -1,95 +1,25 @@
-## jest-mocks
+## prefer-set-has
 
-> Jest mock best practices to avoid flaky tests and mock conflicts
+> Prefer Set.has() over Array.includes() for constant allowlists/blocklists
 
 
-# Jest Mock Rules
+# Prefer Set .has() over Array .includes()
 
-Follow these rules when writing or generating Jest tests to avoid flaky tests and mock conflicts when running with parallel workers (`--maxWorkers=50%`).
+When checking membership in a **constant list** of known values (allowlists, blocklists, enum-like sets), use a `Set` with `.has()` instead of an array with `.includes()`.
 
-## Do NOT
+```typescript
+// ❌ BAD
+const ALLOWED = ["a", "b", "c"];
+if (ALLOWED.includes(value)) { … }
 
-### 1. Duplicate mocks for modules already mocked in jest-setup
-
-**Avoid** adding `jest.mock("module")` in a test file when that module is already mocked in the app's jest-setup.
-
-**Before adding a mock:** Scan the relevant jest-setup file to see what is already mocked:
-
-- Mobile: `apps/ledger-live-mobile/__tests__/jest-setup.js`
-- Desktop: `apps/ledger-live-desktop/tests/jestSetup.js`
-
-If the module appears in `jest.mock("...")` there, do not duplicate it in the test file.
-
-**Instead:** Use the global mock and customize via `jest.mocked(module.export).mockReturnValue(...)` in `beforeEach`. Reset in `afterEach` if needed.
-
-### 2. Call `renderHook` or hooks at describe load time
-
-**Avoid:**
-
-```ts
-describe("MyTest", () => {
-  const { t } = renderHook(useSomething).result.current; // ❌ Runs when describe loads
-  // ...
-});
+// ✅ GOOD
+const ALLOWED = new Set(["a", "b", "c"]);
+if (ALLOWED.has(value)) { … }
 ```
 
-**Instead:** Call inside `beforeEach` or within each test:
+**Why:** `Set.has()` is O(1) vs `.includes()` O(n), communicates "membership test" intent more clearly, and avoids accidental mutation of the backing array.
 
-```ts
-describe("MyTest", () => {
-  let t: ReturnType<typeof useSomething>["t"];
-  beforeEach(() => {
-    t = renderHook(useSomething).result.current.t; // ✅ Runs before each test
-  });
-});
-```
-
-### 3. Use `jest.restoreAllMocks()` in test files
-
-**Avoid:** `jest.restoreAllMocks()` — it restores **all** mocks including global ones from jest-setup, breaking other tests.
-
-**Instead:** Use `jest.clearAllMocks()` to clear call history only, or `mock.mockReset()` for specific mocks. Restore only spies you created: `mySpy.mockRestore()` in `afterEach`.
-
-### 4. Call `jest.clearAllMocks()` after setting mock return values (in same `beforeEach`)
-
-**Avoid:**
-
-```ts
-beforeEach(() => {
-  jest.mocked(useNavigation).mockReturnValue(mockNav);
-  jest.clearAllMocks(); // ❌ Clears the mockReturnValue you just set
-});
-```
-
-**Instead:** Either clear first then configure, or clean up in `afterEach`:
-
-```ts
-// Option A: clear first, then configure
-beforeEach(() => {
-  jest.clearAllMocks();
-  jest.mocked(useNavigation).mockReturnValue(mockNav); // ✅
-});
-
-// Option B: configure before, clean up after
-beforeEach(() => {
-  jest.mocked(useNavigation).mockReturnValue(mockNav);
-});
-afterEach(() => {
-  jest.clearAllMocks(); // ✅
-});
-
-// Option C: mockReturnValueOnce when possible (no cleanup needed)
-beforeEach(() => {
-  jest.mocked(useNavigation).mockReturnValueOnce(mockNav); // ✅
-});
-```
-
-## Do
-
-- **Configure before, clean up after:** Use `beforeEach` to set mock return values, `afterEach` with `jest.clearAllMocks()` to reset.
-- **Prefer `mockReturnValueOnce` when possible** — no cleanup needed.
-- Restore only spies you created in `afterEach`: `platformSpy?.mockRestore()`.
-- Add `beforeEach(() => jest.clearAllMocks())` to integration tests that may be affected by shared state.
+**When .includes() is fine:** Searching within a dynamic or short-lived array (e.g. function parameters, user input) where creating a Set would add noise.
 
 ---
 > Source: [Ledger-Wallet-LLC/ledgerwallet](https://github.com/Ledger-Wallet-LLC/ledgerwallet) — distributed by [TomeVault](https://tomevault.io).
