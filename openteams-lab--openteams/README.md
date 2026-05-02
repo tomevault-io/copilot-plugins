@@ -7,11 +7,11 @@ Open-Source AI Agentic Teammates.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [openteams-lab/openteams](https://github.com/openteams-lab/openteams).
+Original source: `CLAUDE.md` in [openteams-lab/openteams](https://github.com/openteams-lab/openteams).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
