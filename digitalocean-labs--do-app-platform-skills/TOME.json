@@ -1,0 +1,99 @@
+{
+  "name": "do-app-platform-skills",
+  "owner": "digitalocean-labs",
+  "repo": "do-app-platform-skills",
+  "description": "Claude/Agent Skills for DigitalOcean App Platform - deployment, migration, networking, database configuration, and troubleshooting",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-services",
+      "path": "skills/ai-services",
+      "github_url": "https://github.com/digitalocean-labs/do-app-platform-skills/tree/main/skills/ai-services",
+      "description": ""
+    },
+    {
+      "name": "designer",
+      "path": "skills/designer",
+      "github_url": "https://github.com/digitalocean-labs/do-app-platform-skills/tree/main/skills/designer",
+      "description": ""
+    },
+    {
+      "name": "migration",
+      "path": "skills/migration",
+      "github_url": "https://github.com/digitalocean-labs/do-app-platform-skills/tree/main/skills/migration",
+      "description": ""
+    },
+    {
+      "name": "networking",
+      "path": "skills/networking",
+      "github_url": "https://github.com/digitalocean-labs/do-app-platform-skills/tree/main/skills/networking",
+      "description": ""
+    },
+    {
+      "name": "sandbox",
+      "path": "skills/sandbox",
+      "github_url": "https://github.com/digitalocean-labs/do-app-platform-skills/tree/main/skills/sandbox",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "path": "skills/deployment",
+      "github_url": "https://github.com/digitalocean-labs/do-app-platform-skills/tree/main/skills/deployment",
+      "description": ""
+    },
+    {
+      "name": "managed-db-services",
+      "path": "skills/managed-db-services",
+      "github_url": "https://github.com/digitalocean-labs/do-app-platform-skills/tree/main/skills/managed-db-services",
+      "description": ""
+    },
+    {
+      "name": "postgres",
+      "path": "skills/postgres",
+      "github_url": "https://github.com/digitalocean-labs/do-app-platform-skills/tree/main/skills/postgres",
+      "description": ""
+    },
+    {
+      "name": "spaces",
+      "path": "skills/spaces",
+      "github_url": "https://github.com/digitalocean-labs/do-app-platform-skills/tree/main/skills/spaces",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/digitalocean-labs/do-app-platform-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:57:30Z"
+}
