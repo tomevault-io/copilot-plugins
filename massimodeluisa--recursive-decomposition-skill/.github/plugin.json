@@ -1,0 +1,14 @@
+{
+  "name": "massimodeluisa--recursive-decomposition-skill",
+  "displayName": "recursive-decomposition-skill",
+  "description": "Claude Code skill for handling long-context tasks through recursive decomposition",
+  "version": "1.0.0",
+  "author": "massimodeluisa",
+  "homepage": "https://github.com/massimodeluisa/recursive-decomposition-skill",
+  "skills": [
+    {
+      "name": "recursive-decomposition",
+      "description": ""
+    }
+  ]
+}
