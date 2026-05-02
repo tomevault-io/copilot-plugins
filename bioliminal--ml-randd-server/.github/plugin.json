@@ -1,0 +1,9 @@
+{
+  "name": "bioliminal--ml-randd-server",
+  "displayName": "ML_RandD_Server",
+  "description": "Bioliminal ML research & development server",
+  "version": "1.0.0",
+  "author": "Bioliminal",
+  "homepage": "https://github.com/Bioliminal/ML_RandD_Server",
+  "skills": []
+}
