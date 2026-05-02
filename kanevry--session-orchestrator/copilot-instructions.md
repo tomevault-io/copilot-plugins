@@ -1,130 +1,218 @@
-## 020-quality-gates
+## 030-wave-execution
 
-> When running quality checks — typecheck, test, lint — during development or session execution
+> When executing session plan waves via /go command — task sequencing, quality checks, progress tracking
 
 
-# Quality Gates
+# Wave Execution (Cursor Adaptation)
 
-Four quality gate variants for different session phases. Commands are read from Session Config in `CLAUDE.md` (field defaults shown below).
+> **CRITICAL**: Cursor does NOT have an `Agent()` tool. All wave tasks execute **sequentially in the current Composer session**. You are both the coordinator AND the implementer. Agent dispatch (3-tier resolution: project > plugin > general-purpose) is NOT applicable — follow the role's agent-prompt patterns directly.
 
-## Config Fields
+> **State directory**: All state files live in `.cursor/` (STATE.md, wave-scope.json).
 
-| Field | Default | Notes |
-|-------|---------|-------|
-| `test-command` | `pnpm test --run` | Set to `skip` to disable |
-| `typecheck-command` | `tsgo --noEmit` | Set to `skip` to disable |
-| `lint-command` | `pnpm lint` | Set to `skip` to disable |
+## Pre-Execution
 
-## Variant 1: Baseline
+Before starting Wave 1:
 
-**When**: Session start (Phase 3)
-**Purpose**: Quick health check — non-blocking.
+1. `git status --short` — commit or stash any uncommitted changes
+2. Capture baseline: `SESSION_START_REF=$(git rev-parse HEAD)` — keep for the whole session
+3. Confirm the agreed plan is still valid
+4. Read `persistence` from Session Config (default: `true`)
 
-```bash
-{typecheck-command} 2>&1 | tail -5
-{test-command} 2>&1 | tail -5
+### Initialize STATE.md (if persistence enabled)
+
+Create `.cursor/STATE.md` (`mkdir -p .cursor` if needed):
+
+```yaml
+---
+schema-version: 1
+session-type: feature|deep|housekeeping
+branch: <current branch>
+issues: [<issue numbers from plan>]
+started_at: <ISO 8601 timestamp>
+status: active
+current-wave: 0
+total-waves: <from session plan>
+---
 ```
 
-- Report results but do NOT block the session
-- Store error counts as the session baseline for later comparison
+```markdown
+## Current Wave
 
-## Variant 2: Incremental
+Wave 0 — Initializing
 
-**When**: After implementation waves (Impl-Core, Impl-Polish)
-**Purpose**: Verify implementation did not break anything.
+## Wave History
 
-```bash
-# Run tests on changed files only
-{test-command} -- <changed-test-files>
+(none yet)
 
-# Full typecheck (always full — partial typecheck is unreliable)
-{typecheck-command}
+## Deviations
+
+(none yet)
 ```
 
-- Report failures but do NOT block wave progression
-- If issues found, add fix tasks to the next wave automatically
+## Wave Loop
 
-## Variant 3: Full Gate
+For each wave in the session plan:
 
-**When**: Session end (Phase 2) — before committing
-**Purpose**: Final quality gate — BLOCKING.
+### Step 1: Write Scope Manifest
 
-```bash
-# 1. Typecheck — must produce 0 errors
-{typecheck-command}
+Write `.cursor/wave-scope.json` before each wave. Set `enforcement: warn` — Cursor's afterFileEdit hook is post-hoc (warns only, cannot block):
 
-# 2. Tests — must pass (exit code 0)
-{test-command}
-
-# 3. Lint — errors NOT OK, warnings OK
-{lint-command}
-
-# 4. Debug artifact scan
-grep -rn 'console\.log\|debugger\|TODO: remove' \
-  --include='*.ts' --include='*.tsx' --include='*.js' \
-  src/ lib/ 2>/dev/null || true
+```json
+{
+  "wave": 1,
+  "role": "<role>",
+  "enforcement": "warn",
+  "allowedPaths": ["<union of all task file scopes for this wave>"],
+  "blockedCommands": ["rm -rf", "git push --force", "DROP TABLE", "git reset --hard", "git checkout -- ."]
+}
 ```
 
-**Rules**:
-- Do NOT commit if any check fails
-- Fix quick issues (<2 min) inline
-- For longer fixes: create a `priority:high` issue and exclude affected files from commit
+Role-specific scope rules:
+- **Discovery**: `allowedPaths: []` — READ-ONLY, do not edit files
+- **Quality Phase 1 (Simplification)**: production files changed this session only (no test files)
+- **Quality Phase 2 (Tests)**: test file patterns only (`**/*.test.*`, `**/*.spec.*`, `**/__tests__/**`)
 
-## Variant 4: Per-File
+Validate with: `bash "$CURSOR_RULES_DIR/../scripts/validate-wave-scope.sh"` — fix JSON if it exits 1.
 
-**When**: Session review (reviewer agent)
-**Purpose**: Targeted check on specific changed files.
+### Step 2: Execute Tasks Sequentially
 
-```bash
-# Run tests for specific files
-{test-command} -- <specific-file-paths>
+For each task in the wave:
+1. Read the task description and acceptance criteria
+2. Implement the task fully (you are the implementer)
+3. Report status after each task:
+   ```
+   Task "[description]": done|partial|failed — [1-line summary]
+   ```
+4. If stuck, note the blocker and move to the next task
 
-# Full typecheck
-{typecheck-command}
+**DO NOT commit during wave execution** — `/close` handles commits.
+
+### Step 3: Run Incremental Quality Checks
+
+After ALL tasks in the wave complete:
+
+| Role | Quality check |
+|------|--------------|
+| Discovery | None (read-only) |
+| Impl-Core | typecheck + test changed files |
+| Impl-Polish | typecheck + test changed files + integration verification |
+| Quality | Full Gate: typecheck + test + lint — all must pass |
+| Finalization | `git status` — verify clean state |
+
+### Step 4: Quality Wave — Simplification Pass
+
+At the START of the Quality wave, before running tests:
+
+1. `git diff --name-only $SESSION_START_REF..HEAD` — list files changed this session
+2. Filter to production files (exclude `*.test.*`, `*.spec.*`, `__tests__/`). If none, skip.
+3. Review each production file for AI-generated patterns and apply targeted cleanup:
+   - Remove unnecessary try-catch around non-throwing operations
+   - Delete over-documentation (params that restate the name, returns that say "the result")
+   - Replace re-implemented stdlib functions with standard alternatives
+   - Simplify redundant boolean logic (if/else returning true/false, double negation)
+   - **Do NOT change functionality**
+4. After simplification, run Full Gate quality checks (typecheck + test + lint)
+
+**Note:** Session-reviewer cannot be dispatched as a subagent on Cursor. Quality review is deferred to session-end Phase 1.8. In-wave quality relies on incremental checks + this simplification pass.
+
+### Step 5: Update STATE.md (if persistence enabled)
+
+After each wave:
+
+1. **Frontmatter**: update `current-wave` to the completed wave number
+2. **`## Current Wave`**: replace with next wave info
+3. **`## Wave History`**: append:
+   ```
+   ### Wave N — <Role>
+   - Task "[description]": done|partial|failed — [files changed] — [1-line note]
+   ```
+4. **`## Deviations`**: if plan was adapted, append:
+   ```
+   - [<ISO timestamp>] Wave N: <what changed and why>
+   ```
+
+### Step 6: Capture Wave Metrics (if persistence enabled)
+
+Record after each wave:
+- `wave_number`, `role`, `agent_count` (always 1 on Cursor), `files_changed`
+- Per-task results: `{description, status: done|partial|failed}`
+- `quality_check`: pass/fail/skipped
+
+This data is written to `.orchestrator/metrics/sessions.jsonl` by session-end.
+
+### Step 7: Report Wave Status
+
+```
+## Wave [N] ([Role]) Complete
+
+- Task 1: [done/partial/failed] — [1-line summary]
+- Task 2: [done/partial/failed] — [1-line summary]
+- Tests: [passing/failing] | TypeScript: [0 errors / N errors]
+- Adaptations for Wave [N+1] ([NextRole]): [none / list changes]
 ```
 
-- Report per-file pass/fail status
-- Used by reviewers to annotate findings
+### Step 8: Adapt Plan (if needed)
 
-## Decision Table
+- **On track**: proceed to next wave as planned
+- **Minor issues**: add fix tasks to the next wave
+- **Major blocker**: STOP — inform the user, propose revised plan
+- **Scope change**: document WHY, adjust remaining waves, inform user
 
-| Phase | Variant | Blocking? | Scope |
-|-------|---------|-----------|-------|
-| Session start | Baseline | No | Quick health check |
-| After impl wave | Incremental | No | Changed files + full typecheck |
-| Before commit (/close) | Full Gate | **Yes** | All checks, all files |
-| Review | Per-File | No | Specific files |
+## Agent-Mapping Config (Reference Only)
 
-## Graceful Degradation
+If Session Config includes `agent-mapping`, use it to determine which role's prompt patterns to follow for each task type (e.g., `db-specialist` patterns for DB tasks). On Cursor this is reference only — no actual agent dispatch occurs.
 
-Handle missing tools without failing:
+## Circuit Breaker
 
-- `command not found` for typecheck → skip, note "No TypeScript configured"
-- `command not found` for test → skip, note "No test runner configured"
-- `command not found` for lint → skip, note "No linter configured"
-- Non-TypeScript projects: set `typecheck-command: skip` in Session Config
+**If the same error appears 3+ times:**
 
-Always continue with remaining checks — never abort because one tool is missing.
+1. STOP immediately
+2. Report:
+   ```
+   CIRCUIT BREAKER: Stuck on [error description].
+   Attempted [N] times. Same error persists.
 
-## Script Alternative
+   Options:
+   1. Narrow scope and retry with a different approach
+   2. Skip this task and continue with remaining waves
+   3. Abort session
+   ```
+3. Wait for user decision
 
-If the Session Orchestrator plugin is installed, prefer the script for structured JSON output:
+**Spiral indicators**: same file edited 3+ times without progress, same error repeating, reverting own changes.
 
-```bash
-# Baseline
-bash "$SO_PLUGIN_ROOT/scripts/run-quality-gate.sh" --variant baseline
+## Session Type Behavior
 
-# Incremental
-bash "$SO_PLUGIN_ROOT/scripts/run-quality-gate.sh" --variant incremental --files file1.ts,file2.ts
+| Type | Behavior |
+|------|----------|
+| Housekeeping | Serial tasks, no wave-scope.json, Baseline QC at end, single commit via /close |
+| Feature | Full 5-role wave execution, incremental QC |
+| Deep | Full 5-role wave execution, extra emphasis on Discovery and Quality roles |
 
-# Full Gate
-bash "$SO_PLUGIN_ROOT/scripts/run-quality-gate.sh" --variant full-gate
+## Completion
 
-# Per-File
-bash "$SO_PLUGIN_ROOT/scripts/run-quality-gate.sh" --variant per-file --files specific-file.ts
-```
+After the final (Finalization) wave:
+1. Delete `.cursor/wave-scope.json`
+2. Report final status to the user
+3. Suggest running `/close` — do NOT auto-commit
 
-Exit codes: 0=pass, 1=error, 2=gate-failed.
+## Error Recovery
+
+| Situation | Action |
+|-----------|--------|
+| Tests fail after wave | Diagnose and fix, don't skip |
+| TypeScript errors introduced | Track count, fix by Quality wave |
+| New critical issue discovered | Inform user, add to remaining waves if in scope |
+| Edits to wrong files | Revert via git, redo with correct scope |
+| Stuck in loop | Trigger circuit breaker (see above) |
+
+## Anti-Patterns
+
+- **NEVER** skip inter-wave review — quality degrades exponentially
+- **NEVER** commit during wave execution — `/close` handles that
+- **NEVER** continue to next wave with unresolved failures
+- **NEVER** execute without reporting progress to the user
+- **NEVER** modify files outside the wave's `allowedPaths`
 
 ---
 > Source: [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — distributed by [TomeVault](https://tomevault.io).
