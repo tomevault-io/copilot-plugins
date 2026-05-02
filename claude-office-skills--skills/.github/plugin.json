@@ -1,0 +1,9 @@
+{
+  "name": "claude-office-skills--skills",
+  "displayName": "skills",
+  "description": "A curated collection of practical Claude Skills for real-world office tasks",
+  "version": "1.0.0",
+  "author": "claude-office-skills",
+  "homepage": "https://github.com/claude-office-skills/skills",
+  "skills": []
+}
