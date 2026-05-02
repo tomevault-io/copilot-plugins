@@ -1,0 +1,93 @@
+{
+  "name": "hive",
+  "owner": "colonyops",
+  "repo": "hive",
+  "description": "CLI/TUI for managing multiple AI agent sessions in isolated git environments with real-time status monitoring, task tracking, and inter-agent messaging.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "config",
+      "path": "claude-plugin/hive/skills/config",
+      "github_url": "https://github.com/colonyops/hive/tree/main/claude-plugin/hive/skills/config",
+      "description": ""
+    },
+    {
+      "name": "docs-update",
+      "path": ".claude/skills/docs-update",
+      "github_url": "https://github.com/colonyops/hive/tree/main/.claude/skills/docs-update",
+      "description": ""
+    },
+    {
+      "name": "inbox",
+      "path": "claude-plugin/hive/skills/inbox",
+      "github_url": "https://github.com/colonyops/hive/tree/main/claude-plugin/hive/skills/inbox",
+      "description": ""
+    },
+    {
+      "name": "msg-publish",
+      "path": "claude-plugin/hive/skills/msg-publish",
+      "github_url": "https://github.com/colonyops/hive/tree/main/claude-plugin/hive/skills/msg-publish",
+      "description": ""
+    },
+    {
+      "name": "session-info",
+      "path": "claude-plugin/hive/skills/session-info",
+      "github_url": "https://github.com/colonyops/hive/tree/main/claude-plugin/hive/skills/session-info",
+      "description": ""
+    },
+    {
+      "name": "tui-component-design",
+      "path": ".claude/skills/tui-component-design",
+      "github_url": "https://github.com/colonyops/hive/tree/main/.claude/skills/tui-component-design",
+      "description": ""
+    },
+    {
+      "name": "tui-testing",
+      "path": ".claude/skills/tui-testing",
+      "github_url": "https://github.com/colonyops/hive/tree/main/.claude/skills/tui-testing",
+      "description": ""
+    },
+    {
+      "name": "msg-wait",
+      "path": "claude-plugin/hive/skills/msg-wait",
+      "github_url": "https://github.com/colonyops/hive/tree/main/claude-plugin/hive/skills/msg-wait",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/colonyops/hive",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:42:36Z"
+}
