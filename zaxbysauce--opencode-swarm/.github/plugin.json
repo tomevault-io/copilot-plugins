@@ -1,0 +1,9 @@
+{
+  "name": "zaxbysauce--opencode-swarm",
+  "displayName": "opencode-swarm",
+  "description": "  Architect-centric agentic swarm plugin for OpenCode. Hub-and-spoke orchestration with SME consultation, code generation, and QA review.",
+  "version": "1.0.0",
+  "author": "zaxbysauce",
+  "homepage": "https://github.com/zaxbysauce/opencode-swarm",
+  "skills": []
+}
