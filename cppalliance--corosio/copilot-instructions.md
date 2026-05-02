@@ -1,84 +1,172 @@
-## portable-headers
+## writing-guide
 
-> No non-portable header includes in type-erased public headers
+> Documentation style guide for Corosio docs
 
-# Portable Headers Rule
 
-**Headers in `include/boost/corosio/` and `include/boost/corosio/detail/` MUST NOT include platform-specific headers.**
+# Style
 
-The `native/` subtree (`include/boost/corosio/native/`) is exempt — it is the direct/native API that deliberately exposes platform types.
+Technical documentation should be:
 
-## Scope
+- **Comprehensive and written for all experience levels**
+- **Technically detailed and correct**
+- **Practical, useful, and self-contained**
+- **Friendly but formal**
 
-**Type-erased headers** (platform includes FORBIDDEN):
-- `include/boost/corosio/*.hpp`
-- `include/boost/corosio/detail/*.hpp`
-- `include/boost/corosio/concept/*.hpp`
+## Comprehensive and Written for All Experience Levels
 
-**Native/direct headers** (platform includes ALLOWED):
-- `include/boost/corosio/native/*.hpp`
-- `include/boost/corosio/native/detail/**/*.hpp`
+Write clearly without assuming background knowledge. Provide explanations and context readers need to understand concepts, not just copy code.
 
-## Prohibited Headers (in type-erased scope)
+Avoid words like "simple," "straightforward," "easy," "simply," "obviously," and "just." These make assumptions about the reader's knowledge. A reader who hears something is "easy" may be frustrated when they encounter an issue.
 
-### Windows-specific
-- `<windows.h>`, `<WinSock2.h>`, `<Ws2tcpip.h>`, `<MSWSock.h>`
-- Any other Windows SDK headers
+## Technically Detailed and Correct
 
-### Unix/POSIX-specific
-- `<sys/socket.h>`, `<netinet/in.h>`, `<arpa/inet.h>`, `<unistd.h>`, `<sys/types.h>`
-- `<errno.h>` when used for platform-specific constants (e.g., `ECANCELED`)
-- Any other POSIX/Unix-specific headers
+Don't provide blocks of code and ask readers to trust it works. Every command should have a detailed explanation. Every block of code should be followed by prose explaining what it does and why.
 
-### Platform-specific macros and types
-- Constants like `AF_INET`, `INADDR_ANY`, `ECANCELED`, `ERROR_OPERATION_ABORTED`
-- Types like `sockaddr_in`, `sockaddr_in6`, `sockaddr_storage`, `SOCKET`
+When asking the reader to execute a command or modify code, first explain what it does and why. These details help readers grow their skills.
 
-## Allowed Locations for Platform-Specific Code
+## Practical and Self-Contained
 
-- `include/boost/corosio/native/` and `include/boost/corosio/native/detail/` (direct API)
-- Implementation files in `src/` (compilation firewall)
+Readers should have something usable when finished. Link to prerequisites they should complete first. Link to other docs for additional information. Only send readers offsite if no existing doc covers it and the information can't be summarized.
 
-## Rationale
+## Friendly but Formal
 
-The library has two API layers:
-1. **Type-erased** (`corosio/` and `corosio/detail/`): portable, no platform headers leak to users
-2. **Native/direct** (`corosio/native/`): opt-in, exposes platform types for zero-overhead access
+No jargon, memes, excessive slang, emoji, or jokes. Aim for a tone that works across language and cultural boundaries.
 
-## Examples
+Use second person ("You will configure...") to keep focus on the reader. In some cases, use first person plural ("We will examine..."). Avoid first person singular ("I think...").
 
-### Bad (platform header in type-erased scope)
-```cpp
-// include/boost/corosio/detail/endpoint_convert.hpp  ← WRONG location
-#include <sys/socket.h>
-#include <netinet/in.h>
-```
+Use motivational language focused on outcomes. Instead of "You will learn how to install Apache," try "In this tutorial, you will install Apache."
 
-### Good (platform header in native scope)
-```cpp
-// include/boost/corosio/native/detail/endpoint_convert.hpp  ← correct
-#include <sys/socket.h>
-#include <netinet/in.h>
-```
+## Technical Depth for Core Topics
 
-### Good (type-erased public header)
-```cpp
-// include/boost/corosio/endpoint.hpp
-#include <cstdint>
+Certain foundational topics require deeper, more methodical treatment:
 
-class endpoint {
-    ipv4_address v4_address() const noexcept;
-    std::uint16_t port() const noexcept;
-};
-```
+- **Task/coroutine documentation**
+- **Buffer sequences**
+- **Streams**
 
-## Enforcement
+For these sections:
 
-When adding or modifying headers in the type-erased scope:
+- Use more technical and methodical exposition
+- Provide convincing explanations with thorough reasoning
+- Include extended background and context
+- Explain the "why" behind design decisions
 
-1. Check all `#include` directives for platform-specific headers
-2. If platform types are needed, the header belongs in `native/detail/`
-3. Type-erased code reaches platform APIs only through `src/` compiled translation units
+These topics build reader understanding from first principles, not just usage. Readers need to understand the reasoning to apply concepts correctly in their own code.
+
+# Build Workflow
+
+When documentation is built:
+
+- Obsolete pages are automatically removed
+- New pages are linked into the table of contents
+
+No manual cleanup of old files is needed.
+
+# Structure
+
+## Introduction
+
+Usually one to three paragraphs. Answer:
+
+- What is this about? What does each component do (briefly)?
+- Why should the reader learn this? What are the benefits?
+- What will the reader do or create? Be specific.
+- What will they have accomplished when done? What new skills?
+
+Keep focus on the reader and what they will accomplish. Instead of "we will learn how to," use "you will configure" or "you will build."
+
+## Prerequisites
+
+Spell out exactly what the reader should have or do before starting. Format as a checklist. Link to existing docs covering prerequisite content.
+
+Be specific. "Familiarity with JavaScript" without a link gives little context. Instead: "Familiarity with JavaScript. To build your skills, check out [resource]."
+
+## Steps
+
+Each step describes what the reader needs to do and why. Include commands, code listings, and explanations of both what to do and why.
+
+Step titles describe what readers will accomplish using gerunds (-ing words):
+
+> Step 1 — Creating User Accounts
+
+After the title, add an introductory sentence describing what the reader will do and how it contributes to the overall goal.
+
+### Commands
+
+All commands go on their own line in a code block. Precede with a description of what the command does. After the command, explain arguments and why they're used:
+
+> Execute the following command to display the contents of the directory, including hidden files:
+>
+> `ls -al /home/sammy`
+>
+> The `-a` switch shows all files including hidden ones, and `-l` shows a long listing with timestamps and sizes.
+
+Display command output in a separate block with text explaining what it shows.
+
+### Code Blocks
+
+Introduce code with a high-level explanation of what it does. Show the code. Then call out important details:
+
+> Add the following code, which prints a message to the screen:
+>
+> ```cpp
+> std::cout << "Hello world!\n";
+> ```
+>
+> The `std::cout` stream sends text to standard output.
+
+When changing something specific in existing code, show the relevant parts and highlight what should change. Explain what the change does and why it's necessary.
+
+### Transitions
+
+Frame each step with a brief intro sentence and a closing transition describing what the reader accomplished and where they're going next. Vary the language to avoid repetition:
+
+> You have now configured the server. Before proceeding, you need to verify the settings in the next step.
+
+## Conclusion
+
+Summarize what the reader accomplished. Instead of "we learned how to," use "you configured" or "you built."
+
+Describe what the reader can do next: use cases, features to explore, links to related docs.
+
+# Formatting
+
+## Line-level
+
+**Bold** for:
+- Visible GUI text
+- Hostnames and usernames
+- Term lists
+- Emphasis when changing context
+
+*Italics* only for introducing technical terms.
+
+`Inline code` for:
+- Command names
+- Package names
+- File names and paths
+- Example URLs
+- Ports
+- Key presses (ALL CAPS, use + for simultaneous: `CTRL+C`)
+
+## Code Blocks
+
+Use for:
+- Commands to execute
+- Files and scripts
+- Terminal output
+
+Use ellipses (`...`) to indicate excerpts and omissions.
+
+If most of a file can be left with defaults, show just the section that needs changing.
+
+## Variables
+
+Highlight items the reader must change: example URLs, version numbers, modified lines. Make clear what needs customization.
+
+## Notes and Warnings
+
+Use note and warning callouts for very important information.
 
 ---
 > Source: [cppalliance/corosio](https://github.com/cppalliance/corosio) — distributed by [TomeVault](https://tomevault.io).
