@@ -1,0 +1,9 @@
+{
+  "name": "ar-forum--hodoscope",
+  "displayName": "hodoscope",
+  "description": "Analyze AI agent trajectories: extract actions, summarize, embed, and visualize.",
+  "version": "1.0.0",
+  "author": "AR-FORUM",
+  "homepage": "https://github.com/AR-FORUM/hodoscope",
+  "skills": []
+}
