@@ -1,0 +1,154 @@
+{
+  "name": "intelligentcode-ai--intelligent-code-agents",
+  "displayName": "intelligent-c",
+  "description": "Intelligent Code Agents (ICA): portable skills, workflows, and installers for multiple AI agents and IDEs.",
+  "version": "1.0.0",
+  "author": "intelligentcode-ai",
+  "homepage": "https://github.com/intelligentcode-ai/intelligent-code-agents",
+  "skills": [
+    {
+      "name": "ai-engineer",
+      "description": ""
+    },
+    {
+      "name": "architect",
+      "description": ""
+    },
+    {
+      "name": "autonomy",
+      "description": ""
+    },
+    {
+      "name": "backend-tester",
+      "description": ""
+    },
+    {
+      "name": "best-practices",
+      "description": ""
+    },
+    {
+      "name": "branch-protection",
+      "description": ""
+    },
+    {
+      "name": "commit-pr",
+      "description": ""
+    },
+    {
+      "name": "database-engineer",
+      "description": ""
+    },
+    {
+      "name": "developer",
+      "description": ""
+    },
+    {
+      "name": "devops-engineer",
+      "description": ""
+    },
+    {
+      "name": "file-placement",
+      "description": ""
+    },
+    {
+      "name": "git-privacy",
+      "description": ""
+    },
+    {
+      "name": "icc-development",
+      "description": ""
+    },
+    {
+      "name": "icc-get-setting",
+      "description": ""
+    },
+    {
+      "name": "icc-version",
+      "description": ""
+    },
+    {
+      "name": "mcp-config",
+      "description": ""
+    },
+    {
+      "name": "memory",
+      "description": ""
+    },
+    {
+      "name": "parallel-execution",
+      "description": ""
+    },
+    {
+      "name": "pm",
+      "description": ""
+    },
+    {
+      "name": "pr-automerge",
+      "description": ""
+    },
+    {
+      "name": "process",
+      "description": ""
+    },
+    {
+      "name": "qa-engineer",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "requirements-engineer",
+      "description": ""
+    },
+    {
+      "name": "reviewer",
+      "description": ""
+    },
+    {
+      "name": "security-engineer",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "story-breakdown",
+      "description": ""
+    },
+    {
+      "name": "suggest",
+      "description": ""
+    },
+    {
+      "name": "system-engineer",
+      "description": ""
+    },
+    {
+      "name": "thinking",
+      "description": ""
+    },
+    {
+      "name": "user-tester",
+      "description": ""
+    },
+    {
+      "name": "validate",
+      "description": ""
+    },
+    {
+      "name": "web-designer",
+      "description": ""
+    },
+    {
+      "name": "work-queue",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "description": ""
+    }
+  ]
+}
