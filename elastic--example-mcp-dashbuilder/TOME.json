@@ -4,7 +4,7 @@
   "repo": "example-mcp-dashbuilder",
   "description": "MCP app to build dashboards via cursor",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/elastic/example-mcp-dashbuilder",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T15:34:33Z"
+  "distributed_at": "2026-05-02T00:53:24Z"
 }
