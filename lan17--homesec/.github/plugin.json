@@ -1,0 +1,14 @@
+{
+  "name": "lan17--homesec",
+  "displayName": "homesec",
+  "description": "Home security intelligence ",
+  "version": "1.0.0",
+  "author": "lan17",
+  "homepage": "https://github.com/lan17/homesec",
+  "skills": [
+    {
+      "name": "homesec-db-logs",
+      "description": ""
+    }
+  ]
+}
