@@ -1,0 +1,9 @@
+{
+  "name": "rodcone--flutter-meta-wearables-dat",
+  "displayName": "flutter_meta_wearables_dat",
+  "description": "A Flutter plugin that provides a bridge to Meta's Wearables Device Access Toolkit (DAT), enabling integration with Meta AI Glasses for iOS and Android",
+  "version": "1.0.0",
+  "author": "rodcone",
+  "homepage": "https://github.com/rodcone/flutter_meta_wearables_dat",
+  "skills": []
+}
