@@ -1,0 +1,9 @@
+{
+  "name": "johnzfitch--claude-cowork-linux",
+  "displayName": "claude-cowork-linux",
+  "description": "Run Claude Desktop\u2019s Cowork mode natively on Linux \u2014 no macOS or VM required",
+  "version": "1.0.0",
+  "author": "johnzfitch",
+  "homepage": "https://github.com/johnzfitch/claude-cowork-linux",
+  "skills": []
+}
