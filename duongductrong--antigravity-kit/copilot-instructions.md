@@ -1,55 +1,32 @@
-## git
+## toc
 
-> Follow Conventional Commits format:
+> You have multiple specialized rules organized into **Skills** (comprehensive guides with references) and **Rules** (concise best practices).
 
 
-# Git Conventions
+You have multiple specialized rules organized into **Skills** (comprehensive guides with references) and **Rules** (concise best practices).
 
-## Commit Messages
-Follow Conventional Commits format:
-```
-<type>(<scope>): <subject>
+## Skills
 
-[optional body]
+- [Aesthetic](../skills/aesthetic/SKILL.mdc) - Visual design principles, storytelling, and micro-interactions for distinctive interfaces
+- [Backend Development](../skills/backend-development/SKILL.mdc) - API design, architecture, authentication, security, and DevOps patterns
+- [Frontend Design](../skills/frontend-design/SKILL.mdc) - Create distinctive, production-grade interfaces with bold aesthetics (avoid generic AI slop)
+- [Frontend Development](../skills/frontend-development/SKILL.mdc) - React/TypeScript patterns: Suspense, lazy loading, TanStack Query/Router, MUI v7, file organization
+- [UI Styling](../skills/ui-styling/SKILL.mdc) - shadcn/ui components, Tailwind CSS utilities, theming, accessibility, and canvas-based visual design
+- [Sequential Thinking](../skills/sequential-thinking/SKILL.mdc) - Structured problem-solving with revision, branching, and hypothesis verification
+- [Problem Solving](../skills/problem-solving/SKILL.mdc) - Techniques for complexity spirals, innovation blocks, meta-patterns, and scale testing
+- [Research](../skills/research/SKILL.mdc) - Systematic research methodology for technical solutions with report generation
 
-[optional footer]
-```
+## Rules
 
-### Types
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation only
-- `style`: Code style (formatting, semicolons)
-- `refactor`: Code change that neither fixes a bug nor adds a feature
-- `perf`: Performance improvement
-- `test`: Adding or updating tests
-- `chore`: Build process, dependencies, tooling
+- [Git](./git.mdc) - Git commit and branching conventions
+- [Coding Style](./coding-style.mdc) - Coding style and best practices
 
-### Subject Rules
-- Use imperative mood ("add" not "added")
-- Don't capitalize first letter
-- No period at the end
-- Max 50 characters
+## Routing Guidelines
 
-### Examples
-```
-feat(auth): add social login with Google
-fix(cart): resolve quantity update race condition
-docs: update API endpoint documentation
-refactor(utils): extract date formatting to shared module
-```
-
-## Branch Naming
-- `feature/<description>` - New features
-- `fix/<description>` - Bug fixes
-- `hotfix/<description>` - Urgent production fixes
-- `chore/<description>` - Maintenance tasks
-
-## Pull Request Guidelines
-- Keep PRs focused and reasonably sized
-- Include clear description of changes
-- Reference related issues
-- Ensure CI passes before requesting review
+1. For each user request, first infer which domains are relevant.
+2. Select 0–3 rules/skills that best match the request, prefer the SINGLE most specific one when possible.
+3. If both security and performance apply, prioritize `security.mdc` first, then `performance.mdc`.
+4. If no rule clearly matches, ignore all rules and answer normally.
 
 ---
 > Source: [duongductrong/antigravity-kit](https://github.com/duongductrong/antigravity-kit) — distributed by [TomeVault](https://tomevault.io).
