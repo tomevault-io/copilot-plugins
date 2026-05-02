@@ -1,0 +1,9 @@
+{
+  "name": "aadorian--protegedesk",
+  "displayName": "ProtegeDesk",
+  "description": "Modern web-based ontology editor with AI assistance, built with Next.js, React Flow, and WebAssembly reasoning. Features intelligent editing, graph visualization, and LLM-powered ontology generation.",
+  "version": "1.0.0",
+  "author": "aadorian",
+  "homepage": "https://github.com/aadorian/ProtegeDesk",
+  "skills": []
+}
