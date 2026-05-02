@@ -1,234 +1,247 @@
-## 060-evolve
+## 070-gitlab-ops
 
-> When the user types /evolve or asks about session learnings, pattern extraction, or learning management
+> When working with GitLab or GitHub — issues, merge requests, pull requests, CI pipelines, labels
 
 
-# Evolve — Session Learning Extraction
+# VCS Operations Reference (GitLab & GitHub)
 
-Extract patterns from session history into reusable learnings. Three modes of operation.
+Single source of truth for all VCS CLI commands, label taxonomy, issue templates, and project resolution.
 
-## Prerequisites
+## VCS Auto-Detection
 
-- **Persistence gate**: `persistence: true` must be set in Session Config. If not, abort: "Learnings require persistence to be enabled in Session Config."
-- Session history must exist at `.orchestrator/metrics/sessions.jsonl`
-- Learnings are stored at `.orchestrator/metrics/learnings.jsonl`
-- Config field: `learning-expiry-days` (default: 30) — controls `expires_at` for new and updated learnings
+Detect which platform the current repo uses:
 
-## Cursor Adaptation
-
-**No AskUserQuestion tool on Cursor.** Present all choices as numbered Markdown lists:
-```
-Which learnings should be saved?
-
-1. [fragile-file] src/lib/auth.ts — Changed in 4 of last 5 sessions (confidence: 0.5 new)
-2. [scope-guidance] optimal-scope-per-session-type — 3 issues/session works well (+0.15 update)
-3. Skip all — do not save any learnings
-
-Reply with the number(s) of your choice.
+```bash
+REMOTE_URL=$(git remote get-url origin 2>/dev/null)
+if echo "$REMOTE_URL" | grep -q "github.com"; then
+  VCS=github    # use `gh`
+else
+  VCS=gitlab    # use `glab`
+fi
 ```
 
-## Mode Selection
+Session Config overrides:
+- `vcs: github|gitlab` -- force a specific platform
+- `gitlab-host: <host>` -- override auto-detected GitLab host
 
-Determine mode from user input (default: `analyze`):
+## Dynamic Project Resolution
 
-| Mode | Purpose |
-|------|---------|
-| `analyze` | Extract new learnings from session history |
-| `review` | Edit/manage existing learnings interactively |
-| `list` | Display active learnings (read-only) |
+Never hardcode project IDs. Resolve at runtime.
+
+### Current Project
+
+```bash
+# GitLab — numeric project ID
+glab repo view --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['id'])"
+
+# GitHub — owner/name
+gh repo view --json nameWithOwner -q '.nameWithOwner'
+```
+
+### Cross-Project Queries
+
+```bash
+# GitLab — resolve by name
+glab api "projects?search=<project-name>" | python3 -c "import json,sys; [print(p['id'], p['path_with_namespace']) for p in json.load(sys.stdin)]"
+
+# GitHub — resolve repo details
+gh api "repos/<owner>/<name>" --jq '.full_name'
+```
 
 ---
 
-## Mode 1: Analyze
+## Common CLI Commands
 
-Extract learnings from `.orchestrator/metrics/sessions.jsonl`.
+### GitLab (glab)
 
-### Step 1: Load Session Data
+```bash
+# Issues
+glab issue list --per-page 50                              # All open issues
+glab issue list --label "status:ready" --per-page 10       # Filtered by label
+glab issue list --label "priority:high" --per-page 10      # High priority
+glab issue list --closed --per-page 10                     # Recently closed
+glab issue view <IID>                                      # View issue details
+glab issue view <IID> --comments                           # With comments
+glab issue create --title "title" --label "priority:high,status:ready"
+glab issue update <IID> --label "status:in-progress"
+glab issue close <IID>
+glab issue note <IID> -m "Comment text"                    # Add comment
 
-1. Read all entries from `sessions.jsonl`, parse each line as JSON
-2. Sort by `completed_at` descending (most recent first)
-3. If no sessions found, abort: "No session data available."
+# MRs
+glab mr list                                               # Open MRs
+glab mr create --fill --draft                              # Create draft MR
+glab mr merge <MR_IID>                                     # Merge MR
 
-### Step 2: Pattern Extraction
+# Pipelines
+glab pipeline list --per-page 5                            # Recent pipelines
+glab pipeline status <ID>                                  # Pipeline details
 
-Apply these heuristics for each learning type:
+# API (reads host from git remote automatically)
+PROJECT_ID=$(glab repo view --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['id'])")
+glab api "projects/$PROJECT_ID/issues?state=opened&per_page=50"
+glab api "projects/$PROJECT_ID/milestones?state=active"
+```
 
-#### fragile-file
-- Same file appears in 3+ waves' `files_changed` within a session, or in 3+ different sessions
-- Subject = relative file path
+### GitHub (gh)
 
-#### effective-sizing
-- Compare `total_agents` and `total_waves` across session types
-- Calculate average agents per wave per session type
-- Subject = e.g. `deep-session-sizing` or `feature-session-sizing`
+```bash
+# Issues
+gh issue list --limit 50                                   # All open issues
+gh issue list --label "status:ready" --limit 10            # Filtered by label
+gh issue list --label "priority:high" --limit 10           # High priority
+gh issue list --state closed --limit 10                    # Recently closed
+gh issue view <NUMBER>                                     # View issue details
+gh issue view <NUMBER> --comments                          # With comments
+gh issue create --title "title" --label "priority:high,status:ready"
+gh issue edit <NUMBER> --add-label "status:in-progress"
+gh issue close <NUMBER>
+gh issue comment <NUMBER> --body "Comment text"            # Add comment
 
-#### recurring-issue
-- `agent_summary` shows `failed` or `partial` > 0 across multiple sessions
-- Repeated failures in wave `quality` fields
-- Subject = issue pattern identifier (e.g. `test-failures-in-wave-execution`)
+# PRs
+gh pr list --state open                                    # Open PRs
+gh pr create --fill --draft                                # Create draft PR
+gh pr merge <NUMBER>                                       # Merge PR
 
-#### scope-guidance
-- Cross-reference `effectiveness.planned_issues` vs `effectiveness.completion_rate`
-- Skip sessions lacking the `effectiveness` field
-- If completion_rate consistently 1.0 with N issues: "N issues per session works well"
-- If completion_rate < 0.7: "scope was too large"
-- Subject = `optimal-scope-per-session-type`
+# Workflows (CI)
+gh run list --limit 5                                      # Recent workflow runs
+gh run view <RUN_ID>                                       # Run details
 
-#### deviation-pattern
-- Read `.cursor/STATE.md` if it exists, check `## Deviations` section
-- Cross-reference session duration vs planned waves
-- Subject = pattern name (e.g. `scope-creep-in-feature-sessions`)
-
-### Step 3: Deduplicate
-
-For each extracted pattern, check if a learning with same `type` + `subject` exists in `learnings.jsonl`:
-- **Exists:** propose confidence update (+0.15 if confirmed, -0.2 if contradicted)
-- **New:** propose as new learning with confidence 0.5
-
-### Step 4: Present to User
-
-Present extracted patterns as a numbered Markdown list (see Cursor Adaptation above). Let the user select which to save. Include a "Skip all" option.
-
-If user skips or selects nothing: "No learnings saved."
-
-If zero patterns were extracted, report: "No patterns found in session history." and stop.
-
-### Step 5: Write Confirmed Learnings
-
-Use atomic rewrite strategy:
-1. Read ALL existing lines from `learnings.jsonl` into memory
-2. Apply confidence updates for confirmed existing learnings (+0.15, cap at 1.0)
-3. Apply confidence decrements for contradicted learnings (-0.2)
-4. Append new learnings with confidence 0.5
-5. Prune entries where `expires_at` < current date OR `confidence` <= 0.0
-6. Consolidate duplicates (same `type` + `subject`): keep highest confidence
-7. Write entire result back with `>` (atomic rewrite, NOT append `>>`)
-
-Report: "Saved N new learnings, updated M existing. Total active: K."
+# API
+gh api "repos/{owner}/{repo}/issues?state=open&per_page=50"
+gh api "repos/{owner}/{repo}/milestones?state=open"
+```
 
 ---
 
-## Mode 2: Review
+## glab CLI Quirks
 
-Interactive management of existing learnings.
+These are known differences from `gh` that cause frequent mistakes:
 
-### Step 1: Load and Display
-
-Read `learnings.jsonl`. If empty or missing: "No learnings found. Run `/evolve analyze` first."
-
-Display as a formatted table grouped by type:
-
-```
-## Active Learnings
-
-| # | Type | Subject | Confidence | Expires | Insight |
-|---|------|---------|------------|---------|---------|
-| 1 | fragile-file | src/lib/auth.ts | 0.80 | 2026-07-05 | Changed in 4 of last 5 sessions |
-
-Summary: N active learnings (M high confidence, K expiring soon)
-```
-
-### Step 2: Interactive Management
-
-Present as a numbered Markdown list (see Cursor Adaptation above):
-- **Boost confidence** — select learnings to boost (+0.15, cap 1.0)
-- **Reduce confidence** — select learnings to reduce (-0.2)
-- **Delete specific learnings** — remove selected entries
-- **Extend expiry** — reset `expires_at` to current date + `learning-expiry-days`
-- **Done** — exit without changes
-
-### Step 3: Apply Changes
-
-Same atomic rewrite strategy as analyze mode. Read all, modify selected, prune, consolidate, write all with `>`.
-
-Report: "Updated N learnings. Total active: K."
+| Quirk | Correct | Wrong |
+|-------|---------|-------|
+| Listing closed issues | `glab issue list --closed` | `glab issue list --state closed` |
+| Confirmations | glab has NO `--yes` flag | Do not pass `--yes` |
+| Comprehensive listing | `glab issue list --per-page 100` | Default per-page is small |
+| Pagination flag | `--per-page N` (glab) | `--limit N` (that is gh syntax) |
 
 ---
 
-## Mode 3: List
+## Label Taxonomy
 
-Read-only display of active learnings.
+### Priority Labels
+- `priority:critical` -- blocking production or users
+- `priority:high` -- important, schedule this sprint
+- `priority:medium` -- plan for next sprint
+- `priority:low` -- backlog, nice-to-have
 
-### Output Format
+### Status Labels
+- `status:ready` -- defined, ready to pick up
+- `status:in-progress` -- actively being worked on
+- `status:review` -- MR/PR created, awaiting review
+- `status:blocked` -- waiting on external dependency
 
-Display grouped by type:
+### Area Labels
+- `area:frontend` | `area:backend` | `area:database`
+- `area:ai` | `area:security` | `area:testing`
+- `area:ci` | `area:infrastructure` | `area:compliance`
 
-```
-## Active Learnings
-
-### fragile-file
-| Subject | Confidence | Expires | Insight |
-|---------|------------|---------|---------|
-
-### effective-sizing
-| Subject | Confidence | Expires | Insight |
-|---------|------------|---------|---------|
-
-(repeat for each type with entries)
-```
-
-### Summary Line
-
-```
-N active learnings (M high confidence, K expiring soon)
-```
-
-- **High confidence** = confidence > 0.7
-- **Expiring soon** = `expires_at` within 14 days of current date
+### Type Labels
+- `bug` | `feature` | `enhancement` | `refactor`
+- `chore` | `documentation` | `epic` | `discovery`
 
 ---
 
-## Learning JSONL Format
+## Issue Templates
 
-Each line in `.orchestrator/metrics/learnings.jsonl` is a JSON object:
+### Bug
 
-```json
-{
-  "id": "uuid-v4",
-  "type": "fragile-file|effective-sizing|recurring-issue|scope-guidance|deviation-pattern",
-  "subject": "identifier for the pattern",
-  "insight": "human-readable description",
-  "evidence": "specific data points supporting the pattern",
-  "confidence": 0.5,
-  "source_session": "session-id",
-  "created_at": "2026-04-07T00:00:00Z",
-  "expires_at": "2026-05-07T00:00:00Z"
-}
+```markdown
+## Description
+What happens vs. what should happen.
+
+## Steps to Reproduce
+1.
+2.
+
+## Root Cause (if known)
+
+## Acceptance Criteria
+- [ ]
 ```
 
-### Confidence Lifecycle
+### Feature
 
-| Event | Change |
-|-------|--------|
-| Created | 0.5 |
-| Confirmed (new evidence or user boost) | +0.15 (cap 1.0) |
-| Contradicted or user reduce | -0.2 |
-| Past `expires_at` date | Pruned on next write |
-| Confidence <= 0.0 | Pruned on next write |
+```markdown
+## Goal
+What should be achieved and why.
 
-### Valid Learning Types
+## Tasks
+- [ ]
 
-| Type | What it captures |
-|------|-----------------|
-| `fragile-file` | Files changed too frequently across sessions/waves |
-| `effective-sizing` | Optimal agent/wave sizing per session type |
-| `recurring-issue` | Repeated failures or partial completions |
-| `scope-guidance` | How many issues fit well in a session |
-| `deviation-pattern` | Scope creep, underestimation, plan deviations |
+## Acceptance Criteria
+- [ ]
+
+## Session Type
+[housekeeping|feature|deep]
+```
+
+### Carryover (from /close)
+
+```markdown
+## [Carryover] Original Task Description
+
+### What was completed
+- [completed items]
+
+### What remains
+- [ ] [remaining task 1]
+- [ ] [remaining task 2]
+
+### Context for next session
+[relevant context, file paths, decisions made]
+
+### Original Issue
+Relates to #ORIGINAL_IID
+```
+
+### Discovery Finding
+
+```markdown
+## [Discovery] <finding title>
+
+**Probe:** <probe_name>
+**Severity:** <priority:critical|high|medium|low>
+**Category:** <code|infra|ui|arch|session>
+
+### Finding
+<description of the problem>
+
+### Evidence
+- **File:** `<file_path>`
+- **Line:** <line_number>
+- **Code:**
+  ```
+  <matched_text with surrounding context>
+  ```
+
+### Impact
+<why this matters>
+
+### Recommended Fix
+<concrete fix suggestion>
+
+### Acceptance Criteria
+- [ ] <specific, verifiable condition>
+- [ ] Quality gates pass after fix
+```
+
+Labels for discovery findings: `type:discovery`, `priority:<level>`, `area:<inferred>`, `status:ready`
+
+
 
 ---
 
-## Critical Rules
-
-- NEVER modify `learnings.jsonl` without reading it first
-- NEVER skip deduplication (check `type` + `subject` match)
-- NEVER write learnings without user confirmation
-- ALWAYS use uuid-v4 for new learning IDs (generate via `uuidgen`)
-- ALWAYS set `expires_at` to current date + `learning-expiry-days` from config (default: 30)
-- ALWAYS use atomic rewrite (read all, modify, write all with `>`)
-- ALWAYS cap confidence at 1.0
-- NEVER fabricate patterns -- only extract from actual session data with verifiable evidence
-- NEVER append to `learnings.jsonl` with `>>` -- always atomic rewrite
+CI pipeline commands are listed in the Common CLI Commands section above (Pipelines/Workflows). Interpret: green=passed, red=failed (investigate before proceeding), pending=in progress.
 
 ---
 > Source: [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — distributed by [TomeVault](https://tomevault.io).
