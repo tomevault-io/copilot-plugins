@@ -1,0 +1,46 @@
+{
+  "name": "cfircoo--claude-code-toolkit",
+  "displayName": "claude-code-toolkit",
+  "description": "claude-code-toolkit",
+  "version": "1.0.0",
+  "author": "cfircoo",
+  "homepage": "https://github.com/cfircoo/claude-code-toolkit",
+  "skills": [
+    {
+      "name": "sqlalchemy-postgres",
+      "description": ""
+    },
+    {
+      "name": "create-agent-skills",
+      "description": ""
+    },
+    {
+      "name": "create-hooks",
+      "description": ""
+    },
+    {
+      "name": "damage-control",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "description": ""
+    },
+    {
+      "name": "pytest-best-practices",
+      "description": ""
+    },
+    {
+      "name": "ralph-convert-prd",
+      "description": ""
+    },
+    {
+      "name": "ralph-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "spec-interview",
+      "description": ""
+    }
+  ]
+}
