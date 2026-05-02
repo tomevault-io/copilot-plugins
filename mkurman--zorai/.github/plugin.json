@@ -1,0 +1,9 @@
+{
+  "name": "mkurman--zorai",
+  "displayName": "zorai",
+  "description": "Zorai is a persistent, multi-agent, auditable, learning execution platform where the daemon owns work, memory, approvals, tools, and long-running goals.",
+  "version": "1.0.0",
+  "author": "mkurman",
+  "homepage": "https://github.com/mkurman/zorai",
+  "skills": []
+}
