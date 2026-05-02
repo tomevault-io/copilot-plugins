@@ -4,7 +4,7 @@
   "repo": "kilnx",
   "description": "The backend language for the htmx era",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kilnx-org/kilnx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T04:31:44Z"
+  "distributed_at": "2026-05-02T08:21:04Z"
 }
