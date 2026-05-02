@@ -4,7 +4,7 @@
   "repo": "camofox-browser",
   "description": "Anti-detection browser server for AI agents \u2014 REST API wrapping Camoufox engine with OpenClaw plugin support",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/redf0x1/camofox-browser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T08:32:33Z"
+  "distributed_at": "2026-05-02T03:41:53Z"
 }
