@@ -1,0 +1,51 @@
+{
+  "name": "recursive-decomposition-skill",
+  "owner": "massimodeluisa",
+  "repo": "recursive-decomposition-skill",
+  "description": "Claude Code skill for handling long-context tasks through recursive decomposition",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "recursive-decomposition",
+      "path": "plugins/recursive-decomposition/skills/recursive-decomposition",
+      "github_url": "https://github.com/massimodeluisa/recursive-decomposition-skill/tree/main/plugins/recursive-decomposition/skills/recursive-decomposition",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/massimodeluisa/recursive-decomposition-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:51:38Z"
+}
