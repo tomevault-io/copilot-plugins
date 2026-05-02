@@ -1,0 +1,9 @@
+{
+  "name": "dreadnode--agent-lens",
+  "displayName": "agent-lens",
+  "description": "Agent observability and replay tooling for AI safety & interpretability research.",
+  "version": "1.0.0",
+  "author": "dreadnode",
+  "homepage": "https://github.com/dreadnode/agent-lens",
+  "skills": []
+}
