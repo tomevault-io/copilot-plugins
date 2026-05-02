@@ -1,23 +1,17 @@
-## import-rules
+## never-use-as-any
 
-> Import rules for cross-package and self-import prevention
+> Never use `any`, `unknown`, or TypeScript type casting.
 
 
-# Import Rules
+Never use `any`, `unknown`, or TypeScript type casting.
 
-## Cross-Package Imports
+This includes:
+- The `any` type
+- The `unknown` type
+- Type assertions using `as` (e.g., `value as SomeType`)
+- Type assertions using angle brackets (e.g., `<SomeType>value`)
 
-Do not use relative paths when importing across packages. Always use package imports instead.
-
-- ❌ `import { something } from "../../../packages/database"`
-- ✅ `import { something } from "@packages/database"`
-
-## Self-Imports
-
-Do not import from a package within itself.
-
-- ❌ `import { Button } from "@packages/ui"` inside `packages/ui/`
-- ✅ Use relative imports within the same package
+Types should be correct and properly inferred or explicitly defined. If you find yourself needing to cast types, refactor the code to use proper type definitions, type guards, or type narrowing instead.
 
 ---
 > Source: [RhysSullivan/create-epoch-app](https://github.com/RhysSullivan/create-epoch-app) — distributed by [TomeVault](https://tomevault.io).
