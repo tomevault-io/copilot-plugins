@@ -1,0 +1,54 @@
+{
+  "name": "binhmuc--autobot-review",
+  "displayName": "autobot-review",
+  "description": "AI-powered GitLab code review bot using Azure OpenAI Haiku 4.5. Automated security checks, performance analysis, and inline comments on merge requests with smart batching and false positive filtering.",
+  "version": "1.0.0",
+  "author": "binhmuc",
+  "homepage": "https://github.com/binhmuc/autobot-review",
+  "skills": [
+    {
+      "name": "ai-artist",
+      "description": ""
+    },
+    {
+      "name": "payment-integration",
+      "description": ""
+    },
+    {
+      "name": "ai-multimodal",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "databases",
+      "description": ""
+    },
+    {
+      "name": "devops",
+      "description": ""
+    },
+    {
+      "name": "docs-seeker",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "mcp-management",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    }
+  ]
+}
