@@ -1,0 +1,9 @@
+{
+  "name": "infatoshi--metal-mc-terrain",
+  "displayName": "metal-mc-terrain",
+  "description": "Native Metal terrain renderer for Minecraft 1.16.5 on Apple Silicon. 10x FPS by replacing macOS OpenGL with Metal.",
+  "version": "1.0.0",
+  "author": "Infatoshi",
+  "homepage": "https://github.com/Infatoshi/metal-mc-terrain",
+  "skills": []
+}
