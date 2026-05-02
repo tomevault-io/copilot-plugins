@@ -1,0 +1,9 @@
+{
+  "name": "jgarzik--botmaker",
+  "displayName": "botmaker",
+  "description": "UI/app to Create containerized OpenClaw bots",
+  "version": "1.0.0",
+  "author": "jgarzik",
+  "homepage": "https://github.com/jgarzik/botmaker",
+  "skills": []
+}
