@@ -1,0 +1,9 @@
+{
+  "name": "byreal-git--byreal-agent-skills",
+  "displayName": "byreal-agent-skills",
+  "description": "byreal-cli for AI agent",
+  "version": "1.0.0",
+  "author": "byreal-git",
+  "homepage": "https://github.com/byreal-git/byreal-agent-skills",
+  "skills": []
+}
