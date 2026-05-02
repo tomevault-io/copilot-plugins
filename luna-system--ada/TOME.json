@@ -2,9 +2,9 @@
   "name": "ada",
   "owner": "luna-system",
   "repo": "ada",
-  "description": "",
+  "description": "locally hosted neural net chat framework with biomimetic RAG (cc0) (by luna+ada) (<3)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/luna-system",
+  "source_url": "https://github.com/luna-system/ada",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T19:30:19Z"
+  "distributed_at": "2026-05-02T21:47:24Z"
 }
