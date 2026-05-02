@@ -1,0 +1,18 @@
+{
+  "name": "lanegrid--agtrace",
+  "displayName": "agtrace",
+  "description": "See What Your AI Agent Is Actually Doing",
+  "version": "1.0.0",
+  "author": "lanegrid",
+  "homepage": "https://github.com/lanegrid/agtrace",
+  "skills": [
+    {
+      "name": "agtrace-provider-normalization",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
