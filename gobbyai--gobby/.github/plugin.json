@@ -1,0 +1,9 @@
+{
+  "name": "gobbyai--gobby",
+  "displayName": "gobby",
+  "description": "A local-first daemon to unify your AI coding tools. Session tracking and handoffs across Claude Code, Codex, Gemini CLI and Qwen. An MCP proxy that discovers tools without flooding context. Task manag",
+  "version": "1.0.0",
+  "author": "GobbyAI",
+  "homepage": "https://github.com/GobbyAI/gobby",
+  "skills": []
+}
