@@ -1,0 +1,75 @@
+{
+  "name": "granary",
+  "owner": "speakeasy-api",
+  "repo": "granary",
+  "description": "A CLI context hub for agentic work. Used by the Speakeasy engineering team",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "execute-task",
+      "path": ".claude-plugin/skills/execute-task",
+      "github_url": "https://github.com/speakeasy-api/granary/tree/main/.claude-plugin/skills/execute-task",
+      "description": ""
+    },
+    {
+      "name": "initiative-planner",
+      "path": ".claude-plugin/skills/initiative-planner",
+      "github_url": "https://github.com/speakeasy-api/granary/tree/main/.claude-plugin/skills/initiative-planner",
+      "description": ""
+    },
+    {
+      "name": "orchestrate",
+      "path": ".claude-plugin/skills/orchestrate",
+      "github_url": "https://github.com/speakeasy-api/granary/tree/main/.claude-plugin/skills/orchestrate",
+      "description": ""
+    },
+    {
+      "name": "plan-work",
+      "path": ".claude-plugin/skills/plan-work",
+      "github_url": "https://github.com/speakeasy-api/granary/tree/main/.claude-plugin/skills/plan-work",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": ".claude-plugin/skills/setup",
+      "github_url": "https://github.com/speakeasy-api/granary/tree/main/.claude-plugin/skills/setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/speakeasy-api/granary",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:55:06Z"
+}
