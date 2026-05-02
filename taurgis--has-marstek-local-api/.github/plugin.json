@@ -1,0 +1,38 @@
+{
+  "name": "taurgis--has-marstek-local-api",
+  "displayName": "has-marstek-local-api",
+  "description": "Home Assistant custom component to integrate with Marstek devices using the local API.",
+  "version": "1.0.0",
+  "author": "taurgis",
+  "homepage": "https://github.com/taurgis/has-marstek-local-api",
+  "skills": [
+    {
+      "name": "homeassistant-quality-and-testing",
+      "description": ""
+    },
+    {
+      "name": "homeassistant-testing-playbook",
+      "description": ""
+    },
+    {
+      "name": "marstek-integration-development",
+      "description": ""
+    },
+    {
+      "name": "marstek-open-api-udp",
+      "description": ""
+    },
+    {
+      "name": "mock-device-development",
+      "description": ""
+    },
+    {
+      "name": "python-development",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "description": ""
+    }
+  ]
+}
