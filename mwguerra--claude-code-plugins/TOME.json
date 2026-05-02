@@ -1,0 +1,117 @@
+{
+  "name": "claude-code-plugins",
+  "owner": "mwguerra",
+  "repo": "claude-code-plugins",
+  "description": "MWGuerra Claude Code Marketplace",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "article-writer",
+      "path": "article-writer/skills/article-writer",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/article-writer/skills/article-writer",
+      "description": ""
+    },
+    {
+      "name": "author-profile",
+      "path": "article-writer/skills/author-profile",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/article-writer/skills/author-profile",
+      "description": ""
+    },
+    {
+      "name": "docs-specialist",
+      "path": "docs-specialist/skills/docs-specialist",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/docs-specialist/skills/docs-specialist",
+      "description": ""
+    },
+    {
+      "name": "error-handling",
+      "path": "error-memory/skills/error-handling",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/error-memory/skills/error-handling",
+      "description": ""
+    },
+    {
+      "name": "post-development",
+      "path": "post-development/skills/post-development",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/post-development/skills/post-development",
+      "description": ""
+    },
+    {
+      "name": "prd-interview",
+      "path": "prd-builder/skills/prd-interview",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/prd-builder/skills/prd-interview",
+      "description": ""
+    },
+    {
+      "name": "production-ready",
+      "path": "code/skills/production-ready",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/code/skills/production-ready",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "path": "remotion",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/remotion",
+      "description": ""
+    },
+    {
+      "name": "secretary",
+      "path": "secretary/skills/secretary",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/secretary/skills/secretary",
+      "description": ""
+    },
+    {
+      "name": "terminal-docs",
+      "path": "terminal-specialist/skills/terminal-docs",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/terminal-specialist/skills/terminal-docs",
+      "description": ""
+    },
+    {
+      "name": "vault-management",
+      "path": "obsidian-vault/skills/vault-management",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/obsidian-vault/skills/vault-management",
+      "description": ""
+    },
+    {
+      "name": "voice-extractor",
+      "path": "article-writer/skills/voice-extractor",
+      "github_url": "https://github.com/mwguerra/claude-code-plugins/tree/main/article-writer/skills/voice-extractor",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mwguerra/claude-code-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:37:50Z"
+}
