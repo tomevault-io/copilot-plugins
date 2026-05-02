@@ -1,23 +1,38 @@
-## communication
+## git-safety
 
-> ユーザーが日本語で質問した場合は日本語で回答してください。
+> Gitの危険操作・Secrets保護・ブランチ運用ルール
 
 
-# コミュニケーションガイドライン
+# Git安全ガイドライン
 
-## 日本語で応答
-ユーザーが日本語で質問した場合は日本語で回答してください。
+## 禁止操作
 
-## 明確な説明
-- 専門用語は避け、平易な言葉で説明
-- 手順は番号付きリストで示す
-- エラーが発生した場合は原因と解決策を提示
+### 絶対に禁止
+- `git push --force` / `--force-with-lease` - mainブランチへの強制プッシュ
+- `git reset --hard` - コミットされていない変更がある場合
+- `git clean -fd` / `-fdx` - 確認なしの未追跡ファイル削除（`.env` も消える）
+- `git branch -D` - 未マージブランチの強制削除
 
-## 確認の重要性
-- 破壊的な操作の前に必ず確認
-- 重要な変更は差分を表示
-- 不明点があれば質問する
-- **`.env` ファイルは絶対に削除・上書きしない**（追記のみ許可。詳細は shell-safety.mdc 参照）
+### 要注意（確認必須）
+- `git rebase` - プッシュ済みコミットに対する使用
+- `git commit --amend` - プッシュ済みコミットの修正
+- `git filter-branch` - 履歴の書き換え
+
+## Secrets保護
+
+### 絶対にコミットしないファイル
+`.env`, `.env.local`, `credentials.json`, `client_secret.json`, `token.json`, `*.pem`, `*.key`
+
+### 編集ルール
+- `.env` / `.env.local` は**追記（`>>`）のみ**許可。変更前に `cp .env .env.bak` でバックアップ
+- JSON/鍵ファイル（`credentials.json`, `client_secret.json`, `token.json`, `*.pem`, `*.key`）は原則手動編集禁止（必要時は再発行手順を利用）
+- 上記すべてのファイルの削除・上書きは禁止
+
+## ブランチ運用ルール
+- 新機能はブランチで開発、PRでマージ
+- 長期ブランチは週1以上 main をリベース
+- PRブランチは main からの乖離コミット数を20以下に保つ
+- PR マージ前に `git fetch origin` してから `git diff --stat origin/main...HEAD` でコンフリクト量を事前チェック
 
 ---
 > Source: [minicoohei/ai-agent-camp](https://github.com/minicoohei/ai-agent-camp) — distributed by [TomeVault](https://tomevault.io).
