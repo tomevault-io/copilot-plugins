@@ -1,0 +1,69 @@
+{
+  "name": "claude-skills-toolkit",
+  "owner": "full-stack-biz",
+  "repo": "claude-skills-toolkit",
+  "description": "Skills Toolkit for Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hook-creator",
+      "path": "skills/hook-creator",
+      "github_url": "https://github.com/full-stack-biz/claude-skills-toolkit/tree/main/skills/hook-creator",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "path": "skills/plugin-creator",
+      "github_url": "https://github.com/full-stack-biz/claude-skills-toolkit/tree/main/skills/plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-refiner",
+      "path": "skills/skill-refiner",
+      "github_url": "https://github.com/full-stack-biz/claude-skills-toolkit/tree/main/skills/skill-refiner",
+      "description": ""
+    },
+    {
+      "name": "subagent-creator",
+      "path": "skills/subagent-creator",
+      "github_url": "https://github.com/full-stack-biz/claude-skills-toolkit/tree/main/skills/subagent-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/full-stack-biz/claude-skills-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:38:54Z"
+}
