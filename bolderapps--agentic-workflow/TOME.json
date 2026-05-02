@@ -4,7 +4,7 @@
   "repo": "agentic-workflow",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BolderApps/agentic-workflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T07:35:32Z"
+  "distributed_at": "2026-05-02T16:19:03Z"
 }
