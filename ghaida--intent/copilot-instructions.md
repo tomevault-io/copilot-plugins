@@ -1,227 +1,238 @@
-## intent-ref-information-architecture
+## intent-ref-interaction-patterns
 
-> Intent reference: navigation patterns and trade-offs, taxonomy design, mental model theory, wayfinding principles, search behavior models. Load when designing navigation, site structure, taxonomy, or information hierarchy.
+> Intent reference: form design, state management, validation patterns, feedback loops, progressive disclosure, error recovery, undo/redo. Load when designing forms, interactions, input validation, or state transitions.
 
 
-# Information Architecture
+# Interaction Patterns
 
-## Navigation Patterns
+## Form Design Principles
 
-Every navigation pattern is a trade-off between findability, scalability, and cognitive load. There is no universally correct pattern — there's the right pattern for your content, users, and context.
+Forms are where users exchange value with your product. Every unnecessary field, confusing label, or unhelpful error message is friction between the user and their goal. The research on form design is extensive and remarkably consistent.
 
-### Hierarchical (Tree)
+### One Thing Per Page
 
-The most common pattern. Content is organized in nested categories: top-level → subcategory → item.
+The Government Digital Service (GDS) pattern, validated across millions of transactions: each screen asks one question or collects one piece of information. Not one form field — one conceptual unit.
 
-**When it works:** Large content sets with clear categorical relationships. Users have a general sense of what category their item belongs to. Content creators can maintain consistent categorization.
+**Why it works:** Reduces cognitive load. Each page has a clear purpose. Error recovery is simpler — the error is on this page, about this thing. Progress feels tangible. Mobile performance improves (less content per load). Analytics are more granular (you know exactly where drop-off occurs).
 
-**When it fails:** When categories overlap significantly (is a "wireless mouse" in Accessories, Computers, or Peripherals?). When the hierarchy is deeper than 3-4 levels — users lose orientation quickly. When the hierarchy reflects organizational structure rather than user mental models ("Products" → "Business Unit A" → "Division 2" → "Team Alpha's Output").
+**When to bend it:** Closely related fields that users think of as one concept (first name + last name, city + state + zip). Editing flows where users need to see multiple fields to understand context. Expert tools where speed matters more than guidance.
 
-**Watch for:** The "miscellaneous" drawer. If you have a category called "Other" or "General" that keeps growing, your hierarchy isn't working. Also: category names that mean something to the organization but nothing to users.
+**When not to bend it:** Checkout flows. Registration. Any flow where drop-off is a risk. Any flow used on mobile.
 
-### Hub-and-Spoke
+### Inline Validation Timing
 
-A central hub connects to independent sections. Each section is largely self-contained. Users return to the hub to navigate between sections.
+When to validate is as important as how to validate. Get the timing wrong and validation becomes harassment.
 
-**When it works:** Mobile apps with distinct functional areas (Messages, Camera, Profile). Products where tasks are independent — you don't need to combine search results with your shopping cart. Kiosk interfaces and set-top boxes where the input model favors focused navigation.
+**Validate on blur (leaving a field), not on keystroke.** Validating while the user is still typing is hostile — they haven't finished their input and you're already telling them it's wrong. Luke Wroblewski's research (2009) confirmed that inline validation improves completion rates, but only when triggered after the user leaves the field.
 
-**When it fails:** When users need to move fluidly between sections. When tasks span multiple sections. When the "hub" becomes a dumping ground for everything that doesn't fit in a spoke.
+**Exception: password strength.** Real-time feedback on password requirements is one of the few cases where keystroke-level validation helps, because the user is building toward a goal and needs to know the criteria as they type.
 
-**Watch for:** The desire to add cross-links between spokes. Once spokes start linking to each other extensively, the hub-and-spoke model is fighting the user's actual workflow. Consider switching to a different pattern.
+**Exception: character counts.** If a field has a maximum length, show the remaining count as the user types. Don't wait until they've written a paragraph to tell them the limit is 140 characters.
 
-### Flat
+**Validate once, then validate on change.** After a field shows an error, re-validate on every change so the error disappears the moment the input becomes valid. Don't make users re-submit the form to discover they've fixed the error.
 
-All content is at the same level. No hierarchy. Often paired with powerful search/filter.
+### Field Grouping
 
-**When it works:** Homogeneous content sets (a photo gallery, a list of transactions, a feed of posts). Content that doesn't have natural categories. Products with excellent search infrastructure.
+Related fields should be visually and semantically grouped. Ungrouped forms feel longer than they are.
 
-**When it fails:** Diverse content types. Large content sets without strong search/filter. Users who browse rather than search.
+**Use fieldsets for conceptual groups:** Personal information, payment details, shipping address — each is a group. The `<fieldset>` element with a `<legend>` provides both visual grouping and accessibility structure.
 
-**Watch for:** The illusion of flatness. Many "flat" architectures are actually filtered hierarchies — the user selects filters that create ad-hoc categories. That's fine, but the filter design is now your navigation design.
+**Limit visible fields.** If a form has 20 fields but only 6 are relevant based on previous answers, show 6. Conditional visibility reduces perceived complexity without hiding options. The user sees a short form that adapts, not a long form that wastes their time.
 
-### Faceted
+**Single-column layout.** Matteo Penzo's eye-tracking research (2006) and Baymard Institute's studies consistently show that single-column forms outperform multi-column forms. Users scan vertically; multi-column layouts create ambiguous reading order and increase completion time.
 
-Multiple independent dimensions for filtering the same content set. Users combine facets freely (color + size + price + brand).
+### Smart Defaults
 
-**When it works:** E-commerce, search results, large databases with multiple attributes. When different users want to slice the same content differently. When the content has natural, independent attributes.
+Default values should serve the user's most likely intent, not the business's preferred outcome.
 
-**When it fails:** When facets aren't independent (selecting "red" and "small" leaves zero results because small items don't come in red). When there are too many facets — 15 filter dimensions overwhelm rather than help. When the vocabulary is inconsistent across facets.
+**Good defaults:** Country pre-filled from IP geolocation. Date pre-filled to today. Quantity defaulting to 1. Shipping address copied from billing address with one click.
 
-**Watch for:** Empty states. Faceted navigation creates combinatorial explosion — many facet combinations will return zero results. Design for graceful degradation: show result counts per facet before selection, disable facets that would return zero.
+**Bad defaults:** Pre-selected premium tier. Pre-checked marketing consent. Default to most expensive option. Privacy settings defaulting to "share with everyone."
 
-### Dashboard
-
-Multiple content types displayed simultaneously, typically with summary views that link to detail.
-
-**When it works:** Monitoring and analytics products. Executive overviews. Products where users need to scan multiple information streams quickly. Return-visit products where users want a status snapshot.
-
-**When it fails:** When the dashboard becomes the entire product — dashboards that require scrolling through 15 widgets have become a flat architecture by accident. When every stakeholder demands their metric on the dashboard, resulting in information overload. When the dashboard shows data but doesn't enable action.
-
-**Watch for:** Dashboard-driven design, where every new feature gets a widget on the dashboard instead of its own proper location. Also: dashboards that show the same data to everyone when different roles need different views.
+**The test:** If 80% of users would choose this value, it's a good default. If the default primarily benefits the business, it's manipulation (see the anti-pattern catalog).
 
 ---
 
-## Taxonomy Design
+## State Machines for UI
 
-Taxonomy is the art of naming and grouping things so that users can find them. Get taxonomy wrong and no amount of visual design will save the navigation.
+Every interactive component exists in multiple states. Enumerating those states before building prevents the most common class of UI bugs: the states nobody designed for.
 
-### Top-Down vs. Bottom-Up
+### Universal Component States
 
-**Top-down** starts with organizational logic: What are the major categories? How do they subdivide? This approach works when domain experts understand the structure well and users share that understanding. Risk: imposing a structure that makes sense internally but not to users.
+**Default/Resting** — The component as it appears before any interaction. This is what the user sees first. It must communicate: what is this, and what can I do with it?
 
-**Bottom-up** starts with content items: What do we have? How do users group these things? What labels do they use? Card sorting is the primary method. This approach discovers the taxonomy users actually want. Risk: producing categories that are too specific or too numerous to function as navigation.
+**Hover** — Mouse cursor is over the component. Must communicate: this is interactive, something will happen if you click. Not applicable to touch interfaces — never put essential information in hover states.
 
-**Best practice:** Start bottom-up (card sorting to understand user mental models), then refine top-down (using domain expertise to fill gaps and resolve edge cases). Neither approach alone produces good taxonomy.
+**Focus** — Component has keyboard focus. Must be visually distinct from hover AND default. This is a hard accessibility requirement — users navigating by keyboard need to know where they are.
 
-### MECE Principle
+**Active/Pressed** — User is in the process of activating (mouse down, touch start). Must provide immediate tactile feedback that the action is registering.
 
-Mutually Exclusive, Collectively Exhaustive. Every item belongs in exactly one category, and every item has a category to belong to.
+**Disabled** — Component exists but can't be activated. Must communicate: this exists, but you can't use it right now (and ideally, why). Disabled states that provide no explanation for why they're disabled are a common frustration.
 
-**Mutually Exclusive:** If a user could reasonably place an item in two categories, the categories overlap. Fix by: making categories more specific, merging overlapping categories, or moving to faceted navigation where items can exist on multiple dimensions.
+**Loading** — Component is processing. Must communicate: your action was received, we're working on it, here's how long it might take.
 
-**Collectively Exhaustive:** If items exist that don't fit any category, the taxonomy has gaps. The test: take 50 random content items and try to categorize each one. If you hesitate on more than 10%, the taxonomy needs work.
+**Success** — Action completed successfully. Must communicate: it worked, here's the result.
 
-**Reality:** True MECE is often unachievable for complex domains. When items genuinely belong in multiple categories, consider cross-referencing (the item lives in one place with links from others) or polyhierarchy.
+**Error** — Action failed. Must communicate: it didn't work, here's why, here's what to do about it.
 
-### Polyhierarchy
+**Empty** — Component has no content to display. Must communicate: this is where [thing] will appear, here's how to add the first one. Empty states are one of the most neglected states in product design.
 
-An item can appear in multiple places in the hierarchy. "Wireless Mouse" appears under both "Computer Accessories" and "Wireless Devices."
+### Form Field States
 
-**When to use:** When card sorting consistently shows items being placed in multiple categories by different users. When the cost of "missing" an item (user can't find it) is higher than the cost of duplication.
+Form fields add additional states:
 
-**Risks:** Maintenance complexity (update in one place, forget the other). User confusion if the same item has different metadata or behavior in different locations. Navigation that feels unreliable — "I saw this somewhere else, which is the real one?"
+**Placeholder** — Hint text visible when the field is empty. Use for format examples ("DD/MM/YYYY"), not labels. Placeholder text disappears on focus, so if the user needs the information while typing, it's in the wrong place.
 
-**Mitigation:** Make one location canonical. Other appearances are clearly marked as cross-references. Maintain through automation, not manual duplication.
+**Filled** — Field contains user input. This should look different from placeholder — users need to distinguish "I typed this" from "this is a hint."
 
----
+**Read-only** — Field displays a value that can't be edited. Different from disabled — read-only values are informational; disabled fields are temporarily unavailable.
 
-## Mental Models
+**Valid** — Input passes validation. Whether to show positive validation is a design choice — showing green checkmarks after every field can feel patronizing. Reserve positive validation for fields where success isn't obvious (password strength, username availability).
 
-A mental model is the user's internal representation of how a system works. It doesn't need to match the actual system model — but the interface needs to match the user's mental model, or the user will fail.
+**Invalid** — Input fails validation. Must show what's wrong and how to fix it. "Invalid input" is not an error message. "Email must include an @ symbol" is.
 
-### Applied Mental Model Theory
+### Button States
 
-**Don Norman's "The Design of Everyday Things" (1988)** distinguishes three models:
-1. **Design model** — How the designer thinks the system works
-2. **System model** — How the system actually works
-3. **User model** — How the user thinks the system works
+**Primary action** — The main action the user is here to perform. Visually prominent. One primary action per screen (or per form section in long forms).
 
-The interface is the bridge between design model and user model. When they align, the product feels intuitive. When they don't, the product feels broken — even if it works perfectly from a technical standpoint.
+**Secondary action** — Alternative actions (Cancel, Save Draft, Reset). Visually subordinate to primary. Should not be styled in a way that makes them easy to confuse with the primary action.
 
-**Common misalignments:**
-- Users think "deleting" removes something permanently; the system moves it to trash. (Mild — the system is more forgiving than expected.)
-- Users think "saving" preserves their work; the system auto-saves and "save" does nothing visible. (Confusing — the action has no visible effect.)
-- Users think each browser tab is independent; the system shares session state across tabs. (Dangerous — changes in one tab silently affect another.)
-
-**Design implication:** Research mental models before designing navigation, naming, or interaction patterns. Card sorting reveals categorical mental models. Think-aloud usability testing reveals procedural mental models. Both are necessary.
+**Destructive action** — Actions that can't be undone (Delete, Remove, Revoke). Visually distinct — red is conventional but not sufficient. Should require confirmation proportional to the consequence.
 
 ---
 
-## Wayfinding
+## Validation Patterns
 
-Romedi Passini and Paul Arthur's "Wayfinding: People, Signs, and Architecture" (1992) established principles for spatial navigation that translate directly to digital environments.
+### When to Validate
 
-### Core Wayfinding Principles
+| Timing | Use when | Example |
+|--------|----------|---------|
+| **On blur** | Most fields. Validate when the user leaves the field. | Email format, required fields |
+| **On change (after first error)** | After an error is shown, re-validate on each change so the error clears immediately when fixed. | Password requirements |
+| **On submit** | Complex cross-field validation that depends on multiple fields together. | "End date must be after start date" |
+| **Real-time** | User is building toward a visible goal. | Password strength meter, character count |
+| **Server-side (async)** | Validation requires a network call. | Username availability, address verification |
 
-**Orientation:** Users must always know where they are. In physical space: "You Are Here" maps, visible landmarks, floor numbers. In digital space: breadcrumbs, highlighted navigation items, page titles, URL structure. A user who doesn't know where they are can't decide where to go next.
+### Error Message Design
 
-**Route decision:** At every decision point, users need enough information to choose correctly. In physical space: directional signs at intersections. In digital space: navigation labels, preview text, descriptions. If a user must click to learn whether a link leads somewhere useful, the wayfinding has failed.
+**Structure:** What went wrong + how to fix it. Always both. Never just one.
 
-**Closure:** Users need feedback that they've arrived. In physical space: room numbers, door labels, reception desks. In digital space: page headings that match the link they clicked, content that delivers what the label promised. The disorienting feeling of clicking "Privacy Settings" and landing on a page titled "Account Management" is a closure failure.
+- Bad: "Invalid input"
+- Bad: "Error in field 3"
+- Good: "Email address must include an @ symbol — for example: name@company.com"
+- Good: "This username is taken. Try adding numbers or try: maria_designer, maria.d"
 
-**Progressive disclosure of the environment:** Don't show the entire map at once. Show what's relevant at each decision point. In physical space: building directories show floors, not individual rooms. In digital space: top-level navigation shows categories, not subcategories. Reveal depth as the user navigates deeper.
+**Position:** Adjacent to the field, not at the top of the form. If the user has to scroll to find which field has an error, the error message has failed its purpose.
 
-### Lynch's Spatial Elements
+**Timing:** Appear when the error is detected. Disappear when the error is fixed. Don't wait for form submission to clear resolved errors.
 
-Kevin Lynch's "The Image of the City" (1960) identified five elements people use to navigate physical space. All five apply to digital products:
+**Tone:** Neutral and helpful. Never blame the user. "You entered an invalid email" puts fault on the user. "Please enter an email address in the format name@example.com" puts focus on the solution.
 
-1. **Paths** — Routes through the environment. In digital: navigation flows, breadcrumbs, sequential processes.
-2. **Edges** — Boundaries between regions. In digital: section dividers, navigation group boundaries, sidebar edges.
-3. **Districts** — Areas with identifiable character. In digital: distinct product sections with consistent visual treatment (the "settings" area looks different from the "content" area).
-4. **Nodes** — Strategic focus points. In digital: landing pages, dashboards, search results pages — places users pass through to reach destinations.
-5. **Landmarks** — Reference points for orientation. In digital: logos, persistent headers, unique page layouts that users remember and navigate by.
-
----
-
-## Search Behavior Models
-
-Not all search is the same. Marcia Bates' research and Gary Marchionini's framework identify fundamentally different search behaviors that require different design responses.
-
-### Known-Item Search
-
-The user knows what they want and knows what it's called. They type a specific query and expect a specific result. Example: searching for "AirPods Pro" on an electronics site.
-
-**Design for:** Speed. Autocomplete. Exact match ranking. Typo tolerance. The user's success metric is: did I find the exact thing, fast?
-
-### Exploratory Search
-
-The user has a need but doesn't know the exact solution. They're browsing, comparing, learning. Example: searching for "wireless earbuds" to learn what options exist.
-
-**Design for:** Browsing. Faceted filtering. Comparison. Rich result previews. Related items. The user's success metric is: did I learn enough to make a decision?
-
-### Re-finding
-
-The user found something before and wants to find it again. Example: "I saw a pair of earbuds last week, they were around $150, I think they were Sony..."
-
-**Design for:** History. Recently viewed. Favorites/bookmarks. Fuzzy search that handles partial recall. The user's success metric is: did I find that thing I saw before?
-
-### Don't-Know-What-I-Don't-Know
-
-The user doesn't know the domain well enough to formulate a useful query. Example: a first-time investor searching a financial platform with no idea what terminology to use.
-
-**Design for:** Guided discovery. Popular searches. Category browsing. Plain-language interpretation. "Did you mean..." suggestions that educate, not just correct.
+**Accessibility:** Error messages must be programmatically associated with their fields (aria-describedby). Screen readers need to announce errors when they appear (use aria-live regions or role="alert" for form-level summaries).
 
 ---
 
-## Card Sort and Tree Test Methodology
+## Feedback Loops
 
-### Running a Card Sort
+Users need to know that the system heard them and is responding. Silence is the enemy of trust.
 
-**Preparation:**
-1. Select 30-60 content items that represent the full breadth of your content. Too few misses important distinctions; too many fatigues participants.
-2. Write each item on a card (physical or digital — tools like OptimalSort, Maze, or UXtweak work well for remote sorts).
-3. Use real content labels, not internal jargon. If the sort reveals that users don't understand a label, that's a finding.
+### Optimistic UI
 
-**Open sort protocol:**
-1. Ask participants to group cards in whatever way makes sense to them. No right answer.
-2. After grouping, ask them to name each group.
-3. Ask about any cards they found difficult to place.
-4. Note: some participants will create many small groups; others will create few large groups. Both patterns are informative.
+Update the interface immediately as if the action succeeded, then reconcile with the server. If the server rejects the action, roll back gracefully.
 
-**Closed sort protocol:**
-1. Provide pre-defined categories.
-2. Ask participants to place each card in the category where they'd expect to find it.
-3. Record placement and confidence. Low-confidence placements indicate taxonomy problems.
+**When to use:** Low-stakes actions with high success rates. Toggling a favorite, sending a chat message, reordering a list. The action will almost certainly succeed, and the 200ms delay for server confirmation feels sluggish.
 
-**Analysis:**
-- Generate a similarity matrix showing how often items were grouped together.
-- Use dendrograms or cluster analysis to identify natural groupings.
-- Look for items that consistently end up alone or oscillate between groups — these are your taxonomy's problem children.
-- Compare sort results with your proposed architecture. Where they diverge, the user is right and your architecture needs to adjust.
+**When not to use:** Financial transactions. Actions that affect other users. Anything where the rollback would be confusing or harmful. If "oops, that didn't actually work" would cause real problems, wait for confirmation.
 
-### Running a Tree Test
+**Rollback design:** If the optimistic update needs to be reversed, explain what happened. "Message couldn't be sent — tap to retry" is clear. Silently removing the message the user thought they sent is not.
 
-**Preparation:**
-1. Create a text-only representation of your navigation hierarchy. No visual design, no icons, no color.
-2. Write 8-12 tasks that represent common user goals. Example: "Where would you find information about changing your password?"
-3. Each task should have exactly one correct destination.
+### Skeleton Screens
 
-**Protocol:**
-1. Show the top level of the tree.
-2. Present a task.
-3. Participant clicks into categories, drilling deeper until they think they've found the right place.
-4. Record: path taken, success/failure, directness (did they backtrack?), time to completion.
+Show the structure of the page before the content loads. Placeholder shapes in the positions where content will appear.
 
-**Key metrics:**
-- **Success rate:** What percentage of participants found the correct answer? Below 70% for a task indicates a structural problem.
-- **Directness:** What percentage went straight to the answer without backtracking? Low directness with high eventual success means the label worked but the location wasn't intuitive — users found it by elimination.
-- **First click:** Where did participants click first? If the majority's first click is wrong, the top-level labels or categories are the problem.
+**Why they work:** Luke Wroblewski and Google's research shows skeleton screens reduce perceived load time compared to spinners. Users see progress — the page is "filling in" — rather than waiting for a blank-then-full transition.
 
-**Interpreting results:**
-- High success + high directness = the structure works for this task
-- High success + low directness = findable but not intuitive; users had to hunt
-- Low success + varied paths = structural problem; the item isn't where users expect it
-- Low success + consistent wrong path = the item is in the wrong category, and users agree about where it should be (which tells you where to move it)
+**When to use:** Content pages, feeds, dashboards — anywhere the layout is predictable but the content is dynamic. Not appropriate for forms or transactional pages where the structure itself is unknown.
+
+**Implementation detail:** Skeleton shapes should match the actual content layout. A skeleton that looks nothing like the loaded page creates a jarring transition that's worse than no skeleton.
+
+### Progress Indicators
+
+**Determinate** (you know how long it will take): Use a progress bar with percentage. Show the user how far through the process they are and, ideally, how long remains.
+
+**Indeterminate** (you don't know how long): Use a spinner or pulsing animation. Be honest — if you don't know how long, don't fake a progress bar. But do provide context: "Uploading your file..." is better than a naked spinner.
+
+**Multi-step** (sequential process): Show the steps and highlight the current one. Users need to know: how many steps are there, which one am I on, can I go back, can I save and continue later?
+
+---
+
+## Progressive Disclosure
+
+Show what's needed now. Reveal what's needed next. Hide what's rarely needed but make it findable.
+
+### Patterns
+
+**Stepped flows:** Break complex tasks into sequential steps. Each step focuses on one decision or one type of information. The user sees only the current step, with awareness of the overall process (step indicator, progress bar).
+
+**Expandable sections:** Group advanced or optional information behind expand/collapse controls. The label should be descriptive enough that users know what's inside without expanding. "Advanced options" is better than "More."
+
+**Contextual help:** Tooltips, info icons, and inline help that provide explanation on demand. Good for technical concepts or unusual fields. Bad when used as a substitute for clear labels.
+
+**Feature disclosure:** In complex tools, show core features by default and surface advanced features as the user demonstrates proficiency. This is distinct from hiding features — the path to discovery should be visible.
+
+### Anti-Patterns in Progressive Disclosure
+
+**Mystery meat navigation:** Icons or labels so abstract that users can't predict what they'll find. Progressive disclosure requires clear signals about what's hidden.
+
+**Required information behind disclosure:** If the user needs the information to complete their task, it shouldn't be behind a "show more" toggle. Progressive disclosure is for optional and contextual information.
+
+**Inconsistent depth:** Some sections expand to reveal one item; others reveal 15. Users build expectations about the depth behind disclosure controls. Consistency matters.
+
+---
+
+## Undo/Redo Patterns
+
+Undo is not a feature. It's a safety net that makes every other interaction less stressful.
+
+### Implementation Approaches
+
+**Immediate undo (toast/snackbar):** For quick, low-stakes actions. "Message archived — Undo." The undo window is typically 5-10 seconds. After that, the action becomes permanent. Gmail's undo-send is the canonical example.
+
+**History-based undo:** For document editing and creative tools. Maintain a stack of actions. Users can undo sequentially (Ctrl+Z) or browse the history. Each state should be named descriptively ("Changed font to Helvetica," not "Action 47").
+
+**Version history:** For long-lived documents and collaborative work. Periodic snapshots with timestamps and authorship. Users can browse, compare, and restore previous versions. Google Docs' version history is well-implemented; the key is that versions are named by time and author, not arbitrary version numbers.
+
+**Trash/Archive:** For deletion. Move items to a recoverable location rather than deleting permanently. Provide a clear emptying schedule ("Trash empties after 30 days") so users understand the safety window.
+
+### Design Principles for Undo
+
+- Make it discoverable. If users don't know undo exists, it doesn't function as a safety net.
+- Make the window clear. If undo expires, tell users when.
+- Make the scope clear. Does undo reverse the last action? The last 5 actions? Everything since last save?
+- In collaborative contexts, undo should affect only the user's own actions, not other collaborators'.
+
+---
+
+## Destructive Action Safeguards
+
+Actions that can't be undone need friction proportional to their consequences.
+
+### Friction Hierarchy
+
+**Level 1 — Visual distinction:** Make the destructive button red or otherwise visually distinct from safe actions. This is the minimum — necessary but not sufficient for important actions.
+
+**Level 2 — Confirmation dialog:** "Are you sure you want to delete this project? This action cannot be undone." Include what will be lost. A generic "Are you sure?" carries no information.
+
+**Level 3 — Deliberate action:** Require the user to type a confirmation phrase. "Type DELETE to permanently remove this repository." GitHub's repository deletion uses this pattern. Reserve for actions with severe consequences.
+
+**Level 4 — Cooling period:** For the most consequential actions (account deletion, data export for deletion), implement a waiting period. "Your account will be deleted in 14 days. You can cancel deletion any time before then." GDPR supports this pattern — the right to erasure doesn't require instant deletion.
+
+### Safeguard Design Principles
+
+- Name the consequence. "Delete project" is less clear than "Delete project and all 47 files inside it."
+- Show what will be lost. A preview of the data being destroyed makes the decision concrete.
+- Offer alternatives. "You can also archive this project, which hides it without deleting it."
+- Don't ask for confirmation on reversible actions. Confirming "are you sure?" on every action trains users to click through without reading. Save confirmation for genuinely destructive actions. For everything else, provide undo.
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
