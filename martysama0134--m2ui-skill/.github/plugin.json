@@ -1,0 +1,9 @@
+{
+  "name": "martysama0134--m2ui-skill",
+  "displayName": "m2ui-skill",
+  "description": "AI coding skill for generating and modifying Metin2 client UI code from screenshots, descriptions, or existing scripts. Works with Claude Code, Cursor, Codex, Windsurf, Cline, Copilot, and Gemini CLI.",
+  "version": "1.0.0",
+  "author": "martysama0134",
+  "homepage": "https://github.com/martysama0134/m2ui-skill",
+  "skills": []
+}
