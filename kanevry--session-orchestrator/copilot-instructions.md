@@ -1,218 +1,236 @@
-## 030-wave-execution
+## 040-discovery
 
-> When executing session plan waves via /go command — task sequencing, quality checks, progress tracking
+> When the user types /discovery or requests quality analysis, code audit, or issue detection
 
 
-# Wave Execution (Cursor Adaptation)
+# Discovery — Quality Analysis & Issue Detection
 
-> **CRITICAL**: Cursor does NOT have an `Agent()` tool. All wave tasks execute **sequentially in the current Composer session**. You are both the coordinator AND the implementer. Agent dispatch (3-tier resolution: project > plugin > general-purpose) is NOT applicable — follow the role's agent-prompt patterns directly.
+Systematic quality discovery that runs modular probes adapted to the project's tech stack, presents findings interactively, and creates VCS issues for confirmed problems.
 
-> **State directory**: All state files live in `.cursor/` (STATE.md, wave-scope.json).
+## Invocation
 
-## Pre-Execution
+- **Standalone** (`/discovery [scope]`): Full flow with interactive triage (Phases 0-5 + Phase 6 stats)
+- **Embedded** (from session-end when `discovery-on-close: true`): Phases 0-3 only, returns structured JSON to caller
 
-Before starting Wave 1:
+Scope accepts: `all` (default), `code`, `infra`, `ui`, `arch`, `session`, or comma-separated like `code,session`.
 
-1. `git status --short` — commit or stash any uncommitted changes
-2. Capture baseline: `SESSION_START_REF=$(git rev-parse HEAD)` — keep for the whole session
-3. Confirm the agreed plan is still valid
-4. Read `persistence` from Session Config (default: `true`)
+## Phase 0: Read Session Config
 
-### Initialize STATE.md (if persistence enabled)
+Read Session Config from CLAUDE.md. Parse discovery-specific fields:
+- `discovery-probes`, `discovery-exclude-paths`, `discovery-severity-threshold`, `discovery-confidence-threshold`, `discovery-on-close`
 
-Create `.cursor/STATE.md` (`mkdir -p .cursor` if needed):
+## Phase 1: Stack Detection
 
-```yaml
----
-schema-version: 1
-session-type: feature|deep|housekeeping
-branch: <current branch>
-issues: [<issue numbers from plan>]
-started_at: <ISO 8601 timestamp>
-status: active
-current-wave: 0
-total-waves: <from session plan>
----
+Detect the project's tech stack via marker file checks (Glob):
+
+| Marker File(s) | Activates |
+|----------------|-----------|
+| `package.json` | JS/TS probes |
+| `tsconfig.json` | TypeScript probes |
+| `requirements.txt` / `pyproject.toml` | Python probes |
+| `Dockerfile` / `docker-compose.yml` | Container probes |
+| `.github/workflows/` | GitHub CI probes |
+| `.gitlab-ci.yml` | GitLab CI probes |
+| `next.config.*` / `nuxt.config.*` | SSR probes |
+| `tailwind.config.*` | Tailwind probes |
+| `.orchestrator/` exists | Session probes |
+
+Build activation set: start with marker-matched probes → intersect `discovery-probes` config (if set) → restrict to scope argument (if passed).
+
+Default exclude paths (always apply): `node_modules/`, `.git/`, `dist/`, `build/`, `.next/`, `.nuxt/`, `coverage/`. Add paths from `discovery-exclude-paths`.
+
+Report: "Discovery: [N] probes active across [categories]. Stack: [detected]. Threshold: [severity]."
+
+## Phase 2: Probe Execution
+
+Run probes **sequentially** — Cursor has no parallel agents. One category at a time. Complete each category's analysis before moving to the next.
+
+### 6 Probe Categories
+
+**Code probes** (any project with source files):
+- `hardcoded-values`, `orphaned-annotations`, `dead-code`, `ai-slop`, `type-safety-gaps`, `test-coverage-gaps`, `test-anti-patterns`, `security-basics`
+
+**Infra probes** (when CI/Docker markers found):
+- CI configuration issues, Dockerfile anti-patterns
+
+**UI probes** (when frontend frameworks detected):
+- Accessibility gaps, component anti-patterns
+
+**Arch probes** (any project):
+- Circular dependencies, complexity hotspots, deep nesting
+
+**Session probes** (when `.orchestrator/` exists):
+- Session metric anomalies, recurring failures, stale learnings
+
+For each probe match, record a finding in this exact format:
+```
+FINDING:
+  probe: <probe_name>
+  category: <category>
+  severity: <critical|high|medium|low>
+  file_path: <absolute path>
+  line_number: <number>
+  matched_text: <exact text from tool output>
+  title: <short title>
+  description: <1-2 sentence description>
+  recommended_fix: <concrete fix suggestion>
 ```
 
-```markdown
-## Current Wave
+If a probe's activation condition is not met, skip with note. If a probe command fails, skip gracefully and continue.
 
-Wave 0 — Initializing
+**CRITICAL**: Do NOT fabricate findings. Only report what tool output confirms.
 
-## Wave History
+### Key Detection Patterns
 
-(none yet)
+| Probe | Severity | Pattern |
+|-------|----------|---------|
+| Hardcoded secrets | Critical | `(password\|api_key\|secret\|token)\s*[:=]\s*["'][^"']+["']` (exclude test/env/fixtures) |
+| eval usage | High | `eval\s*\(` |
+| XSS (React) | High | `dangerouslySetInnerHTML` |
+| SQL injection | High | `` `[^`]*SELECT[^`]*\$\{`` |
+| any type | Medium | `:\s*any\b` or `as\s+any\b` |
+| TS suppression | Medium | `@ts-ignore` |
+| AI filler | Medium | `(as you can see\|it's worth noting\|needless to say)` |
 
-## Deviations
+## Phase 3: Verification & Scoring
 
-(none yet)
-```
+### 3.1 Verify Each Finding
 
-## Wave Loop
+For EACH finding: read the file at `file_path:line_number`. Confirm `matched_text` appears at or near that line (+/-3 lines tolerance). If NOT confirmed, discard as false positive.
 
-For each wave in the session plan:
+Report: "Verification: N confirmed, M discarded as false positives"
 
-### Step 1: Write Scope Manifest
+### 3.2 Confidence Scoring
 
-Write `.cursor/wave-scope.json` before each wave. Set `enforcement: warn` — Cursor's afterFileEdit hook is post-hoc (warns only, cannot block):
+Start at 40 baseline, add factor scores, clamp to 0-100. Critical severity findings always get minimum 70.
+
+| Factor | Low (+0) | Medium (+10) | High (+20) |
+|--------|----------|-------------|------------|
+| Pattern specificity | Generic (URL, TODO) | Moderate (orphaned annotation) | Specific (API key regex, eval()) |
+| File context | Test/example/docs | Utility/config/scripts | Production source/API handler |
+| Historical signal | Previously dismissed | No prior data | Recurring issue |
+
+Read `discovery-confidence-threshold` from config (default: 60).
+
+### 3.3 Deduplication
+
+Same `file_path` + overlapping line range (+/-5 lines) + different probes = duplicate. Keep higher severity finding.
+
+### 3.4 Apply Thresholds
+
+Remove findings below `discovery-severity-threshold` and below `discovery-confidence-threshold`. Log auto-dismissed count.
+
+### 3.5 Embedded Mode Exit
+
+If in embedded mode (called from session-end): STOP HERE. Return this JSON schema:
 
 ```json
 {
-  "wave": 1,
-  "role": "<role>",
-  "enforcement": "warn",
-  "allowedPaths": ["<union of all task file scopes for this wave>"],
-  "blockedCommands": ["rm -rf", "git push --force", "DROP TABLE", "git reset --hard", "git checkout -- ."]
+  "findings": [
+    {"probe": "string", "category": "string", "severity": "critical|high|medium|low",
+     "confidence": 0, "file": "string", "line": 0, "description": "string", "recommendation": "string"}
+  ],
+  "stats": {
+    "probes_run": 0, "findings_raw": 0, "verified": 0,
+    "false_positives": 0, "by_category": {"<category>": {"findings": 0}}
+  }
 }
 ```
 
-Role-specific scope rules:
-- **Discovery**: `allowedPaths: []` — READ-ONLY, do not edit files
-- **Quality Phase 1 (Simplification)**: production files changed this session only (no test files)
-- **Quality Phase 2 (Tests)**: test file patterns only (`**/*.test.*`, `**/*.spec.*`, `**/__tests__/**`)
+## Phase 4: Interactive Triage (Standalone Only)
 
-Validate with: `bash "$CURSOR_RULES_DIR/../scripts/validate-wave-scope.sh"` — fix JSON if it exits 1.
+Use **numbered Markdown lists** for all choices — Cursor does not have AskUserQuestion.
 
-### Step 2: Execute Tasks Sequentially
-
-For each task in the wave:
-1. Read the task description and acceptance criteria
-2. Implement the task fully (you are the implementer)
-3. Report status after each task:
-   ```
-   Task "[description]": done|partial|failed — [1-line summary]
-   ```
-4. If stuck, note the blocker and move to the next task
-
-**DO NOT commit during wave execution** — `/close` handles commits.
-
-### Step 3: Run Incremental Quality Checks
-
-After ALL tasks in the wave complete:
-
-| Role | Quality check |
-|------|--------------|
-| Discovery | None (read-only) |
-| Impl-Core | typecheck + test changed files |
-| Impl-Polish | typecheck + test changed files + integration verification |
-| Quality | Full Gate: typecheck + test + lint — all must pass |
-| Finalization | `git status` — verify clean state |
-
-### Step 4: Quality Wave — Simplification Pass
-
-At the START of the Quality wave, before running tests:
-
-1. `git diff --name-only $SESSION_START_REF..HEAD` — list files changed this session
-2. Filter to production files (exclude `*.test.*`, `*.spec.*`, `__tests__/`). If none, skip.
-3. Review each production file for AI-generated patterns and apply targeted cleanup:
-   - Remove unnecessary try-catch around non-throwing operations
-   - Delete over-documentation (params that restate the name, returns that say "the result")
-   - Replace re-implemented stdlib functions with standard alternatives
-   - Simplify redundant boolean logic (if/else returning true/false, double negation)
-   - **Do NOT change functionality**
-4. After simplification, run Full Gate quality checks (typecheck + test + lint)
-
-**Note:** Session-reviewer cannot be dispatched as a subagent on Cursor. Quality review is deferred to session-end Phase 1.8. In-wave quality relies on incremental checks + this simplification pass.
-
-### Step 5: Update STATE.md (if persistence enabled)
-
-After each wave:
-
-1. **Frontmatter**: update `current-wave` to the completed wave number
-2. **`## Current Wave`**: replace with next wave info
-3. **`## Wave History`**: append:
-   ```
-   ### Wave N — <Role>
-   - Task "[description]": done|partial|failed — [files changed] — [1-line note]
-   ```
-4. **`## Deviations`**: if plan was adapted, append:
-   ```
-   - [<ISO timestamp>] Wave N: <what changed and why>
-   ```
-
-### Step 6: Capture Wave Metrics (if persistence enabled)
-
-Record after each wave:
-- `wave_number`, `role`, `agent_count` (always 1 on Cursor), `files_changed`
-- Per-task results: `{description, status: done|partial|failed}`
-- `quality_check`: pass/fail/skipped
-
-This data is written to `.orchestrator/metrics/sessions.jsonl` by session-end.
-
-### Step 7: Report Wave Status
+### Step 1: Summary Table
 
 ```
-## Wave [N] ([Role]) Complete
+## Discovery Results
 
-- Task 1: [done/partial/failed] — [1-line summary]
-- Task 2: [done/partial/failed] — [1-line summary]
-- Tests: [passing/failing] | TypeScript: [0 errors / N errors]
-- Adaptations for Wave [N+1] ([NextRole]): [none / list changes]
+Probes run: [N] | Findings verified: [N] | False positives discarded: [N]
+
+| Category | Critical | High | Medium | Low | Total |
+|----------|----------|------|--------|-----|-------|
 ```
 
-### Step 8: Adapt Plan (if needed)
+### Step 2: Critical + High Findings — Review Individually
 
-- **On track**: proceed to next wave as planned
-- **Minor issues**: add fix tasks to the next wave
-- **Major blocker**: STOP — inform the user, propose revised plan
-- **Scope change**: document WHY, adjust remaining waves, inform user
+For each Critical or High finding, present with file context (+/-3 lines):
 
-## Agent-Mapping Config (Reference Only)
+```
+[CRITICAL] (confidence: 85) hardcoded-values: API key found in src/config.ts:42
 
-If Session Config includes `agent-mapping`, use it to determine which role's prompt patterns to follow for each task type (e.g., `db-specialist` patterns for DB tasks). On Cursor this is reference only — no actual agent dispatch occurs.
+<file context>
 
-## Circuit Breaker
+Recommended fix: <suggestion>
 
-**If the same error appears 3+ times:**
+Options:
+1. Create issue (critical)
+2. Adjust priority
+3. Dismiss — intentional
+4. Dismiss — false positive
+```
 
-1. STOP immediately
-2. Report:
-   ```
-   CIRCUIT BREAKER: Stuck on [error description].
-   Attempted [N] times. Same error persists.
+### Step 3: Medium + Low Findings — Review Batched
 
-   Options:
-   1. Narrow scope and retry with a different approach
-   2. Skip this task and continue with remaining waves
-   3. Abort session
-   ```
-3. Wait for user decision
+```
+[N] medium/low findings in [category]:
+1. [title] — [file_path]:[line] ([severity])
 
-**Spiral indicators**: same file edited 3+ times without progress, same error repeating, reverting own changes.
+Options:
+1. Accept all (Recommended) — create issues for all
+2. Review individually
+3. Dismiss all
+```
 
-## Session Type Behavior
+### Step 4: Batch Confirmation
 
-| Type | Behavior |
-|------|----------|
-| Housekeeping | Serial tasks, no wave-scope.json, Baseline QC at end, single commit via /close |
-| Feature | Full 5-role wave execution, incremental QC |
-| Deep | Full 5-role wave execution, extra emphasis on Discovery and Quality roles |
+```
+Ready to create [N] issues? ([X] critical, [Y] high, [Z] medium, [W] low)
 
-## Completion
+1. Create all [N] issues (Recommended)
+2. Review list first
+3. Cancel
+```
 
-After the final (Finalization) wave:
-1. Delete `.cursor/wave-scope.json`
-2. Report final status to the user
-3. Suggest running `/close` — do NOT auto-commit
+## Phase 5: Issue Creation
 
-## Error Recovery
+For each approved finding:
+1. Format using gitlab-ops discovery issue template
+2. Labels: `type:discovery` + `priority:<level>` + `area:<inferred>` + `status:ready`
+3. **GitLab**: `glab issue create --title "[Discovery] <title>" --label "type:discovery,priority:<level>,area:<area>,status:ready" --description "<body>"`
+4. **GitHub**: `gh issue create --title "[Discovery] <title>" --label "..." --body "<body>"`
+5. Brief pause (1s) between creations
 
-| Situation | Action |
-|-----------|--------|
-| Tests fail after wave | Diagnose and fix, don't skip |
-| TypeScript errors introduced | Track count, fix by Quality wave |
-| New critical issue discovered | Inform user, add to remaining waves if in scope |
-| Edits to wrong files | Revert via git, redo with correct scope |
-| Stuck in loop | Trigger circuit breaker (see above) |
+### Final Report
 
-## Anti-Patterns
+```
+## Discovery Report
+- Probes run: [N] across [categories]
+- Verified: [N] (false positives: [M])
+- User approved: [N]
+- Issues created: [N]
 
-- **NEVER** skip inter-wave review — quality degrades exponentially
-- **NEVER** commit during wave execution — `/close` handles that
-- **NEVER** continue to next wave with unresolved failures
-- **NEVER** execute without reporting progress to the user
-- **NEVER** modify files outside the wave's `allowedPaths`
+| # | Title | Priority | Area | Probe |
+|---|-------|----------|------|-------|
+```
+
+## Phase 6: Capture Stats (Standalone Only)
+
+After Phase 5, prepare stats for session metrics (do NOT write to `sessions.jsonl` directly — session-end handles that):
+
+- `probes_run`, `findings_raw`, `findings_verified`, `false_positives`, `user_dismissed`, `issues_created`, `by_category`
+
+Report: "Discovery stats: [probes_run] probes, [findings_raw] raw → [findings_verified] verified ([false_positives] false positives). Created [issues_created] issues."
+
+## Critical Rules
+
+- **NEVER** fabricate findings — every finding must come from tool output with verifiable evidence
+- **NEVER** create issues without user approval (standalone mode)
+- **ALWAYS** verify findings by re-reading the file at the reported line (Phase 3)
+- **ALWAYS** use numbered Markdown lists for choices — Cursor has no AskUserQuestion
+- If a probe command fails, skip gracefully, continue with others
+- If in embedded mode, stop after Phase 3, return findings as structured JSON
+- Default exclude paths always apply
 
 ---
 > Source: [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — distributed by [TomeVault](https://tomevault.io).
