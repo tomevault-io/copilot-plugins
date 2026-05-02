@@ -1,0 +1,9 @@
+{
+  "name": "dejanr--demo-it",
+  "displayName": "demo-it",
+  "description": "`demo-it` runs transcript-driven demonstrations and presentations via CLI and Neovim frontends.",
+  "version": "1.0.0",
+  "author": "dejanr",
+  "homepage": "https://github.com/dejanr/demo-it",
+  "skills": []
+}
