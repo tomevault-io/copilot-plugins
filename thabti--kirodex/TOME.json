@@ -4,7 +4,7 @@
   "repo": "kirodex",
   "description": "In beta - PR welcomed",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thabti/kirodex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:47:13Z"
+  "distributed_at": "2026-05-02T06:05:54Z"
 }
