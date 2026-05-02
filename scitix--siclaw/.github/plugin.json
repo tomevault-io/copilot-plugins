@@ -1,0 +1,9 @@
+{
+  "name": "scitix--siclaw",
+  "displayName": "siclaw",
+  "description": "AI-powered SRE platform \u2014 read-only infrastructure diagnostics with deep investigation, security governance, and team collaboration",
+  "version": "1.0.0",
+  "author": "scitix",
+  "homepage": "https://github.com/scitix/siclaw",
+  "skills": []
+}
