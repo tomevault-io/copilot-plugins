@@ -1,0 +1,9 @@
+{
+  "name": "jasondocton--lucid-memory",
+  "displayName": "lucid-memory",
+  "description": "Memory for AI that works like yours\u2014local, instant, persistent. 13x faster than Pinecone, 5x leaner than RAG. Finds what RAG misses. Zero cloud, zero cost.",
+  "version": "1.0.0",
+  "author": "JasonDocton",
+  "homepage": "https://github.com/JasonDocton/lucid-memory",
+  "skills": []
+}
