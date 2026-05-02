@@ -1,0 +1,9 @@
+{
+  "name": "yucchiy--unicli",
+  "displayName": "UniCli",
+  "description": "A CLI tool to control Unity Editor - enabling both humans and AI agents to run compilations, tests, and editor commands from the terminal.",
+  "version": "1.0.0",
+  "author": "yucchiy",
+  "homepage": "https://github.com/yucchiy/UniCli",
+  "skills": []
+}
