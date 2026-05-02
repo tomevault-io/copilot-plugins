@@ -4,7 +4,7 @@
   "repo": "constellagent",
   "description": "Desktop app for running multiple AI agents in parallel. Each agent gets its own terminal, editor, and git worktree, all in one window.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/owengretzinger/constellagent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T01:35:37Z"
+  "distributed_at": "2026-05-02T13:01:51Z"
 }
