@@ -1,0 +1,44 @@
+## spec-injection-index
+
+> Auto-select and inject project specs by task type
+
+
+# Spec Injection Router
+
+`spec/` + `tasks/` apply to **developing this repo**, not to end-user or shipped-app runtime configuration (see **Repository scope** in `spec/README.md`).
+
+Before implementation, load `spec/README.md` and choose injected specs using its mapping and deterministic rules.
+
+## Required Workflow
+
+1. **Always** inject `spec/verification-integrity.md` first — this is the highest-priority spec and applies unconditionally.
+2. **Always** inject `spec/task-artifact-language.md` for task execution records (`tasks/TASK-.../*`).
+3. Determine task type:
+   - `architecture`, `security`, `sandbox`, `agent`, `commands`, `mcp`, `python-sdk`, `docs-only`, or `mixed`.
+4. Build `[Injected Specs]` from `spec/README.md`.
+5. Follow all MUST / MUST NOT / CHECKLIST items in each injected spec.
+6. If multiple mappings match, inject all matched specs.
+7. For any Rust code change, always include `spec/rust-conventions.md` and `spec/testing-policy.md`.
+8. If user-visible behavior, env vars, commands, architecture docs, or release matrix change, include `spec/docs-sync.md`.
+
+## Output Convention
+
+At task start, explicitly declare:
+
+```text
+[Injected Specs]
+- spec/<file-a>.md
+- spec/<file-b>.md
+...
+```
+
+At task end, confirm:
+
+- `spec/verification-integrity.md` checklist was completed (anti-hallucination, anti-false-positive),
+- which specs were injected,
+- which checklists were completed,
+- which verification commands were run (with actual output, not model assertions).
+
+---
+> Source: [EXboys/skilllite](https://github.com/EXboys/skilllite) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
