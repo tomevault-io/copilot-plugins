@@ -1,0 +1,30 @@
+{
+  "name": "owliabot--owliabot",
+  "displayName": "owliabot",
+  "description": "Self-hosted AI agent for crypto \u2014 secure, extensible, yours.",
+  "version": "1.0.0",
+  "author": "owliabot",
+  "homepage": "https://github.com/owliabot/owliabot",
+  "skills": [
+    {
+      "name": "clawlet-wallet-connect",
+      "description": ""
+    },
+    {
+      "name": "crypto-price",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "description": ""
+    },
+    {
+      "name": "web-search",
+      "description": ""
+    }
+  ]
+}
