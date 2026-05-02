@@ -1,38 +1,75 @@
-## editor-react
+## effects-module
 
-> React component patterns and state management for the editor
+> Effect module interface contract and file layout
 
 
-# Editor React Conventions
+# Effect Module Conventions
 
-## Components
+## File Layout
 
-- Functional components only (React 18)
-- One component per file, named export matching filename
+One subfolder per effect with two possible variants:
 
-## State Management
-
-- Zustand for all shared state (playhead, selection, zoom, project data)
-- No prop-drilling — access store directly via hooks in any component
-- Local UI state (hover, drag) can use `useState`/`useRef`
-
-## Canvas Panels
-
-Timeline, Tracker, and Preview use React refs for lifecycle management but raw canvas APIs for drawing:
-
-```jsx
-const canvasRef = useRef(null);
-useEffect(() => {
-  const ctx = canvasRef.current.getContext('2d');
-  // draw loop here
-}, []);
+```
+effects/<name>/effect.js              — Classic (1:1 faithful to original)
+effects/<name>/effect.remastered.js   — Remastered (4K, enhanced) — optional
+effects/<name>/data.js                — Base64-embedded binary data (generated)
 ```
 
-## Styling
+Classic is always implemented first. Remastered is optional and additive.
 
-- Tailwind utility classes — dark theme with FL Studio aesthetic
-- shadcn/ui for interactive primitives (sliders, dropdowns, tooltips)
-- No custom CSS files unless absolutely necessary
+## Interface Contract
+
+Every variant exports a default object with exactly three methods plus an optional `params` array:
+
+```javascript
+export default {
+  label: 'effectName',
+  params: [],  // parameter descriptors — required for remastered, optional for classic
+  init(gl) { },
+  render(gl, t, beat, params) { },
+  destroy(gl) { }
+}
+```
+
+- `t` — seconds elapsed since this clip's start (local time, not global)
+- `beat` — 0.0–1.0 position within the current bar
+- `params` — clip-specific parameter overrides (keys match `params[].key` descriptors)
+
+Remastered variants must export a `params` descriptor array for the editor UI. See `remastered-effects.mdc` for the full pattern.
+
+## Asset Extraction
+
+When an effect bakes in visual data (textures, palettes, frame sequences, font
+bitmaps, landscapes, etc.), those assets **must also be extracted as readable
+image files** for later AI-upscaling and remastering.
+
+### Convention
+
+- Output directory: `assets/effects/{effect-name}/`
+- Naming: `{resource-name}.{ext}` (e.g. `landscape.png`, `frame-07.png`, `palette.png`)
+- Format: PNG for images, plain text for non-image data
+- Palette-indexed data should be decoded to full RGB — no indexed PNGs
+- Frame sequences use zero-padded numbering: `frame-{NN}.png`
+- Extract at **normal palette** (no fades applied) so the raw artwork is preserved
+
+### How
+
+Add extraction logic to `tools/extract-assets-png.mjs`. The script uses only
+Node.js built-ins (zlib for PNG deflate) — no external image libraries needed.
+Run it with `node tools/extract-assets-png.mjs` to regenerate all assets.
+
+When implementing a new effect that embeds data:
+1. Create the `data.js` module with base64 data (via a `tools/extract-*-data.mjs` script)
+2. Add an extraction function to `tools/extract-assets-png.mjs` that decodes the
+   visual data into PNG files under `assets/`
+3. Run the script and verify the output images look correct
+
+## Rules
+
+- Effects are self-contained — no shared mutable state between effects
+- Use `core/webgl.js` helpers for shader compilation and fullscreen quad setup
+- Prefer GLSL native `sin()`/`cos()`/`atan()` over precalculated lookup tables
+- Effects are NOT unit-tested — validate visually by scrubbing in the editor
 
 ---
 > Source: [pdcgomes/second-reality-augmented](https://github.com/pdcgomes/second-reality-augmented) — distributed by [TomeVault](https://tomevault.io).
