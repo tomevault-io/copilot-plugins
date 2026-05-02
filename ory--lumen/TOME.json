@@ -4,7 +4,7 @@
   "repo": "lumen",
   "description": "Reduce Claude Code, Codex, OpenCode wall clock and token use by 50% with open source, local semantic search. Works for small and large codebases and monorepos! Enterprise-ready and fully compliant via Ollama and SQLite-vec.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ory/lumen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:00:19Z"
+  "distributed_at": "2026-05-02T03:56:19Z"
 }
