@@ -1,0 +1,9 @@
+{
+  "name": "falkordb--mem0-falkordb",
+  "displayName": "mem0-falkordb",
+  "description": "FalkorDB graph store plugin for Mem0",
+  "version": "1.0.0",
+  "author": "FalkorDB",
+  "homepage": "https://github.com/FalkorDB/mem0-falkordb",
+  "skills": []
+}
