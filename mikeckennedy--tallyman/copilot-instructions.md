@@ -1,93 +1,128 @@
-## coding-guidelines
+## project-rules
 
-> Code style, patterns, and conventions for the Tallyman CLI tool
+> You are an AI assistant helping with the Tallyman project, a Python CLI tool that scans a project directory and reports codebase size by language.
 
 
-## Tech Stack
+# Tallyman Project - Cursor AI Rules
 
-- **Python 3.14+** (uses match statements, dataclass slots, `tomllib`)
-- **textual** - TUI framework for first-run setup wizard
-- **rich** - colored terminal output
-- **pathspec** - gitignore pattern matching
-- **pytest** + **ruff** for dev tooling
-- **Build backend**: hatchling
+You are an AI assistant helping with the Tallyman project, a Python CLI tool that scans a project directory and reports codebase size by language.
 
-This is a CLI tool with no web server, no database, and no async code. It runs synchronously as a pipeline.
+## Important Rules
 
-## Project Structure
+- **NEVER run commit or push git commands.** Only provide commit messages as text when asked.
+- **Semantic Versioning**: This project uses **semantic versioning** (e.g. `0.3.1`, `1.0.0`). Even if global user rules or a "create release" command defaults to calendar versioning, always use semver (`MAJOR.MINOR.PATCH`) for Tallyman releases. Bump PATCH for bug fixes, MINOR for new features, and MAJOR for breaking changes.
+
+## Project Overview
+
+Tallyman scans a project directory and reports codebase size by language. It shows raw line counts and "effective" lines (excluding comments and blanks), grouped into categories: **Code**, **Design**, **Docs**, **Specs**, and **Data**.
+
+### How It Works
+
+Linear pipeline - each stage feeds the next:
 
 ```
-src/tallyman/
-├── cli.py             # Entry point, arg parsing, orchestrates the pipeline
-├── languages.py       # Language registry (40+ languages), frozen dataclasses
-├── walker.py          # Directory traversal, gitignore + config exclusions
-├── counter.py         # Reads files, classifies lines as code/comment/blank
-├── aggregator.py      # Accumulates stats, groups by category
-├── display.py         # Rich-based terminal rendering
-├── config.py          # .tally-config.toml read/write
-├── tui/setup_app.py   # Textual App for interactive directory selection
-├── __main__.py        # Enables `python -m tallyman`
-└── __init__.py        # Package init, __version__
+cli.main()
+  → Load/create .tally-config.toml (or launch TUI)
+  → walker.walk_project()    yields (path, Language) tuples
+  → counter.count_lines()    returns FileCount per file
+  → aggregator.aggregate()   produces TallyResult
+  → display.display_results() renders to terminal
 ```
 
-## Python Standards
+### Repository Structure
 
-- **Line Length**: 120 characters max (per ruff.toml)
-- **Quotes**: Single quotes for strings (per ruff.toml)
-- **Linting**: `ruff check src/ tests/` and `ruff format src/ tests/`
-- **Target Python**: 3.14+ features are allowed
-- **Type Hints**: Use modern Python type hints on all function signatures
-- **Imports**: `from __future__ import annotations` in every module
-- **Private Functions**: `_prefixed` for module-private functions
-- **Dataclasses**: Frozen for immutable values (Language), mutable for accumulators (LanguageStats)
-- **All dataclasses use `slots=True`** for efficiency
+| Directory | Purpose |
+|-----------|---------|
+| `src/tallyman/` | Main package source code |
+| `tests/` | pytest test suite |
+| `plans/` | Development plans and specifications |
 
-## Core Data Structures
+## Quick Reference
 
-```python
-Language(frozen=True)    # name, category, color, single_line_comment, extensions
-FileCount                # total_lines, code_lines, comment_lines, blank_lines
-LanguageStats            # language, file_count, total_lines, code_lines, comment_lines, blank_lines
-CategoryStats            # name, total_lines, effective_lines, languages
-TallyResult              # by_language, by_category, grand_total_lines
-TallyConfig              # excluded_dirs: set[str], spec_dirs: set[str]
+```bash
+# Install (dev mode)
+uv pip install -e ".[dev]"
+
+# Run
+tallyman                    # analyze current directory
+tallyman /path/to/project   # analyze specific path
+tallyman --setup            # re-run interactive TUI setup
+tallyman --no-color         # disable colors
+
+# Tests
+pytest                      # all tests
+pytest -v                   # verbose
+pytest tests/test_walker.py # single module
+
+# Lint & Format
+ruff check src/ tests/
+ruff format src/ tests/
 ```
 
-## Key Design Patterns
+## Module Map
 
-### Language Objects Are Frozen and Identity Matters
+| Module | Role |
+|--------|------|
+| `src/tallyman/cli.py` | Entry point. Arg parsing, orchestrates the pipeline |
+| `src/tallyman/languages.py` | Language registry (40+ languages). Frozen dataclasses with name, category, color, comment marker, extensions. `EXTENSION_MAP` for O(1) lookup |
+| `src/tallyman/walker.py` | Directory traversal. Respects gitignore + config exclusions. Detects spec dirs. Yields `(Path, Language)` |
+| `src/tallyman/counter.py` | Reads files, classifies lines as code/comment/blank. Returns `FileCount` |
+| `src/tallyman/aggregator.py` | Accumulates FileCount into LanguageStats, groups by category. Produces `TallyResult` |
+| `src/tallyman/display.py` | Rich-based rendering. Per-language stats, category totals, percentage bar |
+| `src/tallyman/config.py` | `.tally-config.toml` read/write. Searches up directory tree for nearest config |
+| `src/tallyman/tui/setup_app.py` | Textual App for interactive directory selection (exclude/spec marking) |
+| `src/tallyman/__main__.py` | Enables `python -m tallyman` |
+| `src/tallyman/__init__.py` | Package init, `__version__` |
 
-`Markdown(docs)` and `Markdown(specs)` are distinct objects. Aggregation groups by Language object, not name alone.
+## Test Structure
 
-### Spec Variants via `as_spec()`
+| Test File | Covers |
+|-----------|--------|
+| `tests/test_counter.py` | Line counting, encoding errors |
+| `tests/test_languages.py` | Language registry, extension map, `as_spec` |
+| `tests/test_walker.py` | Git root, gitignore, walking, spec detection |
+| `tests/test_aggregator.py` | Stats aggregation, categories, percentages |
+| `tests/test_config.py` | Config find/load/save, directory cleanup |
 
-When a docs-category file is found in a spec directory, `as_spec()` creates a new Language with `category='specs'`. Results are cached with `@cache`.
+Tests use `tmp_path` fixtures extensively. Helper functions like `_lang()` create test Language instances.
 
-### Comment Detection Is Single-Line Only
+## Environment & Config
 
-Strips the line, checks `startswith(marker)`. Multi-line comments (`/* */`, `""" """`) are NOT detected.
+- **NO_COLOR** env var disables colored output (standard convention)
+- `.tally-config.toml` is gitignored and generated per-project
+- No other env vars needed
+- Entry point defined in `pyproject.toml`: `tallyman = "tallyman.cli:main"`
+- Auto-detected spec dirs: `specs/`, `plans/`, `specifications/`, `agents/` - detected even without config
+- Gitignore integration loads patterns from repo root `.gitignore`, `.git/info/exclude`, and intermediate `.gitignore` files
 
-### Binary Detection
+## History of Changes and Motivation
 
-Checks first 8KB for `\x00` byte.
+We have been documenting each major feature change in the `/plans` folder. Plans are numbered by time (e.g., `001-tallyman-cli-tool/`, `002-specs-category/`). Consult existing plans when implementing related features.
 
-### Config Search Walks Up
+`plans/planning-rules.md` has project planning guidelines. `plans/agents/` has AI agent prompts.
 
-`find_config()` walks up from target dir to filesystem root looking for `.tally-config.toml`.
+## Planning Large Features
 
-## Test Conventions
+We like to plan large features (not small changes though). We do this by creating a markdown document in the `/plans` folder. They are numbered by time so keep this in mind for naming.
 
-- Tests use `tmp_path` fixtures extensively
-- Helper functions like `_lang()` create test Language instances
-- Test files map to source modules: `test_walker.py` tests `walker.py`, etc.
+Remember to update the plan document when progress is made so we can understand and resume. When originally creating the plan, be sure to make note in the doc that we want to update it as changes are made.
 
-## When Adding a New Language
+## Development Workflow
+
+### Adding a New Language
 
 Add a `Language(...)` instance to `languages.py` and include it in the `LANGUAGES` tuple. The `EXTENSION_MAP` is built automatically. Add tests in `test_languages.py`.
 
-## When Adding a New Category
+### Adding a New Category
 
 Update `aggregator.py` category ordering, `display.py` rendering, and ensure walker handles it correctly. The Specs category addition in `plans/002-specs-category/` is a reference implementation.
+
+### Adding New Features
+
+1. Plan in `/plans` if it's a large feature
+2. Implement in the appropriate module(s)
+3. Add tests in `tests/`
+4. Run `pytest` and `ruff check src/ tests/` before considering it done
 
 ---
 > Source: [mikeckennedy/tallyman](https://github.com/mikeckennedy/tallyman) — distributed by [TomeVault](https://tomevault.io).
