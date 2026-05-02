@@ -1,27 +1,38 @@
-## core-runtime
+## editor-react
 
-> Vanilla JS conventions for shared core runtime modules
+> React component patterns and state management for the editor
 
 
-# Core Runtime Conventions
+# Editor React Conventions
 
-## Module Rules
+## Components
 
-- Vanilla ES modules only — zero dependencies, no frameworks, no build step required
-- Must work identically when imported by the editor (via Vite) and by the player (via native ES modules)
-- Export clean named exports or a default class — no side effects on import
+- Functional components only (React 18)
+- One component per file, named export matching filename
 
-## Timing
+## State Management
 
-All time values are in seconds, sourced from `AudioContext.currentTime`. Never use `Date.now()` or `performance.now()`.
+- Zustand for all shared state (playhead, selection, zoom, project data)
+- No prop-drilling — access store directly via hooks in any component
+- Local UI state (hover, drag) can use `useState`/`useRef`
 
-## Testing
+## Canvas Panels
 
-Every core module must have accompanying unit tests in `src/__tests__/`. Keep pure logic testable without a real WebGL context — mock `gl` where needed.
+Timeline, Tracker, and Preview use React refs for lifecycle management but raw canvas APIs for drawing:
 
-## API Stability
+```jsx
+const canvasRef = useRef(null);
+useEffect(() => {
+  const ctx = canvasRef.current.getContext('2d');
+  // draw loop here
+}, []);
+```
 
-These modules are shared across editor and player. Changing an export signature requires updating both consumers.
+## Styling
+
+- Tailwind utility classes — dark theme with FL Studio aesthetic
+- shadcn/ui for interactive primitives (sliders, dropdowns, tooltips)
+- No custom CSS files unless absolutely necessary
 
 ---
 > Source: [pdcgomes/second-reality-augmented](https://github.com/pdcgomes/second-reality-augmented) — distributed by [TomeVault](https://tomevault.io).
