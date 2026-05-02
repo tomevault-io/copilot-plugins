@@ -4,7 +4,7 @@
   "repo": "hongdown",
   "description": "A Markdown formatter that enforces Hong Minhee's Markdown style conventions",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dahlia/hongdown",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T09:13:21Z"
+  "distributed_at": "2026-05-02T22:07:39Z"
 }
