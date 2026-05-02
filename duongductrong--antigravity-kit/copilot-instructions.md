@@ -1,15 +1,55 @@
-## coding-style
+## git
 
-> - Type safety first: Prefer TypeScript with explicit types on public functions, props, and return values. Avoid any and implicit any.
+> Follow Conventional Commits format:
 
 
-- Type safety first: Prefer TypeScript with explicit types on public functions, props, and return values. Avoid any and implicit any.
-- Guard clauses over nesting: Use early returns and guard clauses instead of deeply nested if/else blocks; keep branches short and readable.
-- Use descriptive variable and function/const names. Also, event functions should be named with a "handle" prefix, like "handleClick" for onClick and "handleKeyDown" for onKeyDown.
-- Clear naming & structure: Use descriptive, consistent names (camelCase for variables/functions, PascalCase for components) and keep related logic grouped in hooks/, utils/, components/.
-- Avoid adding unnecessary comments to the code of your generated code.
-- Small, pure units: Write small, single-purpose functions/components. Keep them pure when possible and move side effects (API calls, logging) to the edges.
-- Refactor: Use the refactor command to improve the code quality without breaking existing functionality. Do not use it for simple code improvements.
+# Git Conventions
+
+## Commit Messages
+Follow Conventional Commits format:
+```
+<type>(<scope>): <subject>
+
+[optional body]
+
+[optional footer]
+```
+
+### Types
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation only
+- `style`: Code style (formatting, semicolons)
+- `refactor`: Code change that neither fixes a bug nor adds a feature
+- `perf`: Performance improvement
+- `test`: Adding or updating tests
+- `chore`: Build process, dependencies, tooling
+
+### Subject Rules
+- Use imperative mood ("add" not "added")
+- Don't capitalize first letter
+- No period at the end
+- Max 50 characters
+
+### Examples
+```
+feat(auth): add social login with Google
+fix(cart): resolve quantity update race condition
+docs: update API endpoint documentation
+refactor(utils): extract date formatting to shared module
+```
+
+## Branch Naming
+- `feature/<description>` - New features
+- `fix/<description>` - Bug fixes
+- `hotfix/<description>` - Urgent production fixes
+- `chore/<description>` - Maintenance tasks
+
+## Pull Request Guidelines
+- Keep PRs focused and reasonably sized
+- Include clear description of changes
+- Reference related issues
+- Ensure CI passes before requesting review
 
 ---
 > Source: [duongductrong/antigravity-kit](https://github.com/duongductrong/antigravity-kit) — distributed by [TomeVault](https://tomevault.io).
