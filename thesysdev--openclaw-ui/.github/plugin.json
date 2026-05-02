@@ -1,0 +1,9 @@
+{
+  "name": "thesysdev--openclaw-ui",
+  "displayName": "openclaw-ui",
+  "description": "OpenClaw + OpenUI: Generative UI Client for OpenClaw",
+  "version": "1.0.0",
+  "author": "thesysdev",
+  "homepage": "https://github.com/thesysdev/openclaw-ui",
+  "skills": []
+}
