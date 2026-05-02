@@ -1,236 +1,237 @@
-## 040-discovery
+## 050-plan
 
-> When the user types /discovery or requests quality analysis, code audit, or issue detection
+> When the user types /plan or asks to create a project plan, feature PRD, or retrospective
 
 
-# Discovery — Quality Analysis & Issue Detection
+# Plan — Structured Project Planning & PRD Generation
 
-Systematic quality discovery that runs modular probes adapted to the project's tech stack, presents findings interactively, and creates VCS issues for confirmed problems.
-
-## Invocation
-
-- **Standalone** (`/discovery [scope]`): Full flow with interactive triage (Phases 0-5 + Phase 6 stats)
-- **Embedded** (from session-end when `discovery-on-close: true`): Phases 0-3 only, returns structured JSON to caller
-
-Scope accepts: `all` (default), `code`, `infra`, `ui`, `arch`, `session`, or comma-separated like `code,session`.
+Three planning modes with a shared research-driven Q&A engine. Pattern across all modes: **research → questions → document → review → issues**.
 
 ## Phase 0: Read Session Config
 
-Read Session Config from CLAUDE.md. Parse discovery-specific fields:
-- `discovery-probes`, `discovery-exclude-paths`, `discovery-severity-threshold`, `discovery-confidence-threshold`, `discovery-on-close`
+Read Session Config from CLAUDE.md. Required field: `plan-baseline-path`. If missing or absent, stop with error:
 
-## Phase 1: Stack Detection
+> "Error: `plan-baseline-path` is not configured in Session Config. Add it to your CLAUDE.md under `## Session Config`. Example: `plan-baseline-path: ~/Projects/projects-baseline`"
 
-Detect the project's tech stack via marker file checks (Glob):
+Additional fields: `plan-default-visibility`, `plan-prd-location`, `plan-retro-location`, `vcs`. Expand `~` in paths.
 
-| Marker File(s) | Activates |
-|----------------|-----------|
-| `package.json` | JS/TS probes |
-| `tsconfig.json` | TypeScript probes |
-| `requirements.txt` / `pyproject.toml` | Python probes |
-| `Dockerfile` / `docker-compose.yml` | Container probes |
-| `.github/workflows/` | GitHub CI probes |
-| `.gitlab-ci.yml` | GitLab CI probes |
-| `next.config.*` / `nuxt.config.*` | SSR probes |
-| `tailwind.config.*` | Tailwind probes |
-| `.orchestrator/` exists | Session probes |
+## Phase 1: Mode Selection
 
-Build activation set: start with marker-matched probes → intersect `discovery-probes` config (if set) → restrict to scope argument (if passed).
+Parse the argument to determine mode:
 
-Default exclude paths (always apply): `node_modules/`, `.git/`, `dist/`, `build/`, `.next/`, `.nuxt/`, `coverage/`. Add paths from `discovery-exclude-paths`.
+- **`new`** — Project kickoff: scaffolding, architecture decisions, initial setup
+- **`feature`** — Feature PRD: requirements gathering, compact scope, acceptance criteria
+- **`retro`** — Retrospective: data-driven analysis of recent work, learnings extraction
 
-Report: "Discovery: [N] probes active across [categories]. Stack: [detected]. Threshold: [severity]."
-
-## Phase 2: Probe Execution
-
-Run probes **sequentially** — Cursor has no parallel agents. One category at a time. Complete each category's analysis before moving to the next.
-
-### 6 Probe Categories
-
-**Code probes** (any project with source files):
-- `hardcoded-values`, `orphaned-annotations`, `dead-code`, `ai-slop`, `type-safety-gaps`, `test-coverage-gaps`, `test-anti-patterns`, `security-basics`
-
-**Infra probes** (when CI/Docker markers found):
-- CI configuration issues, Dockerfile anti-patterns
-
-**UI probes** (when frontend frameworks detected):
-- Accessibility gaps, component anti-patterns
-
-**Arch probes** (any project):
-- Circular dependencies, complexity hotspots, deep nesting
-
-**Session probes** (when `.orchestrator/` exists):
-- Session metric anomalies, recurring failures, stale learnings
-
-For each probe match, record a finding in this exact format:
-```
-FINDING:
-  probe: <probe_name>
-  category: <category>
-  severity: <critical|high|medium|low>
-  file_path: <absolute path>
-  line_number: <number>
-  matched_text: <exact text from tool output>
-  title: <short title>
-  description: <1-2 sentence description>
-  recommended_fix: <concrete fix suggestion>
-```
-
-If a probe's activation condition is not met, skip with note. If a probe command fails, skip gracefully and continue.
-
-**CRITICAL**: Do NOT fabricate findings. Only report what tool output confirms.
-
-### Key Detection Patterns
-
-| Probe | Severity | Pattern |
-|-------|----------|---------|
-| Hardcoded secrets | Critical | `(password\|api_key\|secret\|token)\s*[:=]\s*["'][^"']+["']` (exclude test/env/fixtures) |
-| eval usage | High | `eval\s*\(` |
-| XSS (React) | High | `dangerouslySetInnerHTML` |
-| SQL injection | High | `` `[^`]*SELECT[^`]*\$\{`` |
-| any type | Medium | `:\s*any\b` or `as\s+any\b` |
-| TS suppression | Medium | `@ts-ignore` |
-| AI filler | Medium | `(as you can see\|it's worth noting\|needless to say)` |
-
-## Phase 3: Verification & Scoring
-
-### 3.1 Verify Each Finding
-
-For EACH finding: read the file at `file_path:line_number`. Confirm `matched_text` appears at or near that line (+/-3 lines tolerance). If NOT confirmed, discard as false positive.
-
-Report: "Verification: N confirmed, M discarded as false positives"
-
-### 3.2 Confidence Scoring
-
-Start at 40 baseline, add factor scores, clamp to 0-100. Critical severity findings always get minimum 70.
-
-| Factor | Low (+0) | Medium (+10) | High (+20) |
-|--------|----------|-------------|------------|
-| Pattern specificity | Generic (URL, TODO) | Moderate (orphaned annotation) | Specific (API key regex, eval()) |
-| File context | Test/example/docs | Utility/config/scripts | Production source/API handler |
-| Historical signal | Previously dismissed | No prior data | Recurring issue |
-
-Read `discovery-confidence-threshold` from config (default: 60).
-
-### 3.3 Deduplication
-
-Same `file_path` + overlapping line range (+/-5 lines) + different probes = duplicate. Keep higher severity finding.
-
-### 3.4 Apply Thresholds
-
-Remove findings below `discovery-severity-threshold` and below `discovery-confidence-threshold`. Log auto-dismissed count.
-
-### 3.5 Embedded Mode Exit
-
-If in embedded mode (called from session-end): STOP HERE. Return this JSON schema:
-
-```json
-{
-  "findings": [
-    {"probe": "string", "category": "string", "severity": "critical|high|medium|low",
-     "confidence": 0, "file": "string", "line": 0, "description": "string", "recommendation": "string"}
-  ],
-  "stats": {
-    "probes_run": 0, "findings_raw": 0, "verified": 0,
-    "false_positives": 0, "by_category": {"<category>": {"findings": 0}}
-  }
-}
-```
-
-## Phase 4: Interactive Triage (Standalone Only)
-
-Use **numbered Markdown lists** for all choices — Cursor does not have AskUserQuestion.
-
-### Step 1: Summary Table
+If no mode specified, ask via numbered list:
 
 ```
-## Discovery Results
+Which planning mode?
 
-Probes run: [N] | Findings verified: [N] | False positives discarded: [N]
-
-| Category | Critical | High | Medium | Low | Total |
-|----------|----------|------|--------|-----|-------|
+1. new (Recommended) — Project kickoff (full PRD, repo setup, issue creation)
+2. feature — Feature PRD (compact scope, acceptance criteria, issues)
+3. retro — Retrospective (metrics analysis, reflection, improvement actions)
 ```
 
-### Step 2: Critical + High Findings — Review Individually
+## Phase 2: Q&A Engine (Shared Core)
 
-For each Critical or High finding, present with file context (+/-3 lines):
+Every question wave follows the same pattern. This is the core mechanic across all modes.
+
+### 2.1 Pre-Question Research
+
+Before each Q&A wave, perform research **sequentially** — Cursor has no parallel agents:
+
+1. **Market/online context** — Search for relevant market data, best practices, competitor analysis, or technical patterns for the upcoming questions
+2. **Baseline analysis** — Read projects-baseline templates, rules, and scripts at `$BASELINE_PATH` (Glob, Grep, Read)
+3. **Repo context** — Analyze current repository for patterns, file structure, dependencies, conventions (skip for `/plan new` wave 1)
+
+### 2.2 Question Presentation
+
+Synthesize research into **5 questions per wave**. Present as numbered Markdown lists — Cursor has no AskUserQuestion:
+
+- **Option 1 is ALWAYS the recommendation**, marked with `(Recommended)`
+- Include Pros/Cons drawn from the research for each option
+- Include an "Other" option when custom input makes sense
+
+Example:
+```
+## Architecture (Wave 1, Q1)
+
+Which project archetype fits best?
+
+1. nextjs-saas (Recommended) — Pro: Full SaaS stack with auth, payments. Con: Heavier setup.
+2. express-service — Pro: Lightweight API. Con: No frontend.
+3. docker-service — Pro: Maximum flexibility. Con: More manual setup.
+4. Other — Describe your preferred archetype.
+```
+
+### 2.3 Adaptive Depth
+
+Starting wave counts: `new` → 3 waves minimum, `feature` → 1 wave minimum, `retro` → 1 wave minimum. Maximum 5 waves across all modes.
+
+After each wave:
+- **Answers clear** → proceed to document generation
+- **Complexity revealed** → add targeted follow-up wave
+- **User aborts** → proceed with answers gathered
+
+### 2.4 Answer Tracking
+
+After each wave, output a recap:
+```
+## Answers So Far (Wave N/M)
+1. Archetype: nextjs-saas
+2. Visibility: internal
+3. Audience: B2B customers
+```
+
+---
+
+## Mode: new — Project Kickoff
+
+**Wave 1** — Core Decisions: archetype (read `$BASELINE_PATH/templates/`), visibility, target audience, core problem, GitLab group.
+
+**Wave 2** — Technical Details (per chosen archetype): tech stack decisions, design style, external integrations, performance requirements, security requirements.
+
+**Wave 3** — Business & Scope: MVP appetite (1w/2w/6w), success criteria (SMART), known risks, post-launch plan, ecosystem dependencies.
+
+Document: 8-section full PRD. Save to `{plan-prd-location}/YYYY-MM-DD-{project-name}.md`.
+
+After PRD approval: run `$BASELINE_PATH/scripts/setup-project.sh`, verify repo, populate CLAUDE.md, commit PRD.
+
+Issues: Epic (project name) + sub-issues per MVP feature from PRD Section 4 (Solution & Scope).
+
+---
+
+## Mode: feature — Feature PRD
+
+**Wave 1** — Feature Core: what to build, why now, who uses it, scope + explicit exclusions, dependencies.
+
+**Wave 2** (conditional — only if Wave 1 reveals multiple subsystems or unclear integration): architecture decisions, integration points, data model changes, edge cases, performance impact.
+
+Document: 5-section compact PRD. Save to `{plan-prd-location}/YYYY-MM-DD-{feature-slug}.md`.
+
+Issues: Epic (feature name) + sub-issues per acceptance criterion group.
+
+---
+
+## Mode: retro — Retrospective
+
+**Phase 1 (automatic, no user input):** Read `.orchestrator/metrics/sessions.jsonl`, run git log analysis, query open issues, compare last 5 vs prior 5 sessions.
+
+**Wave 1** — What went well / what didn't: highlights, blockers with root causes, carryover items, process assessment, data anomalies.
+
+**Wave 2** (conditional — if Wave 1 reveals significant blockers or process issues): improvement actions, priority ranking, ownership, baseline changes, Session Config adjustments.
+
+Artifacts: retro doc → `{plan-retro-location}/YYYY-MM-DD-retro.md`. Improvement issues + learnings update (`.orchestrator/metrics/learnings.jsonl`).
+
+---
+
+## Phase 3: Document Generation
+
+Read the appropriate template from the skill directory:
+- `new` → `prd-full-template.md` (8 sections)
+- `feature` → `prd-feature-template.md` (5 sections)
+- `retro` → `retro-template.md`
+
+Fill ALL sections — no TBD or placeholder content. If a section cannot be filled from gathered data, make a best-effort recommendation and mark it `<!-- REVIEW: inferred from research, confirm with stakeholders -->`.
+
+Save the document, creating the target directory (`mkdir -p`) if needed.
+
+## Phase 4: PRD Review (skip for retro)
+
+Dispatch a sequential self-review (read `prd-reviewer-prompt.md` from skill directory). Reviewer checks 6 criteria:
+1. **Completeness** — all sections filled
+2. **Consistency** — no internal contradictions
+3. **Clarity** — implementable by a developer from this document alone
+4. **Scope** — focused on one project/feature
+5. **YAGNI** — no unrequested features
+6. **SMART metrics** — success criteria are measurable
+
+If any criterion fails, revise and re-review. Maximum **3 iterations**. After 3 rounds with remaining issues, present to user as numbered list:
 
 ```
-[CRITICAL] (confidence: 85) hardcoded-values: API key found in src/config.ts:42
+The PRD reviewer flagged these remaining issues:
+[list]
 
-<file context>
-
-Recommended fix: <suggestion>
-
-Options:
-1. Create issue (critical)
-2. Adjust priority
-3. Dismiss — intentional
-4. Dismiss — false positive
+1. Accept as-is (Recommended) — issues are minor, proceed
+2. Manual edit — I'll edit the PRD myself before continuing
+3. Re-run review — try one more revision round
 ```
 
-### Step 3: Medium + Low Findings — Review Batched
+Then present the saved PRD path and ask for final approval:
 
 ```
-[N] medium/low findings in [category]:
-1. [title] — [file_path]:[line] ([severity])
+PRD saved to [path]. Ready for your review.
 
-Options:
-1. Accept all (Recommended) — create issues for all
-2. Review individually
-3. Dismiss all
-```
-
-### Step 4: Batch Confirmation
-
-```
-Ready to create [N] issues? ([X] critical, [Y] high, [Z] medium, [W] low)
-
-1. Create all [N] issues (Recommended)
-2. Review list first
-3. Cancel
+1. Approve PRD (Recommended) — proceed to issue creation
+2. Request changes — describe what to change
 ```
 
 ## Phase 5: Issue Creation
 
-For each approved finding:
-1. Format using gitlab-ops discovery issue template
-2. Labels: `type:discovery` + `priority:<level>` + `area:<inferred>` + `status:ready`
-3. **GitLab**: `glab issue create --title "[Discovery] <title>" --label "type:discovery,priority:<level>,area:<area>,status:ready" --description "<body>"`
-4. **GitHub**: `gh issue create --title "[Discovery] <title>" --label "..." --body "<body>"`
-5. Brief pause (1s) between creations
+### Auto-Prioritize
+
+Score each issue by three factors:
+1. **Technical dependencies** (highest weight) — blocking issues get `priority:critical` or `priority:high`. DB schema before API, API before frontend.
+2. **Business value** (medium weight) — core MVP = `priority:high`, nice-to-haves = `priority:medium/low`.
+3. **Risk** (tiebreaker) — unknowns or external dependencies bump priority up one level.
+
+Labels: `priority:<level>`, `type:feature/enhancement/chore`, `status:ready`, `area:<inferred>`. For `new`: add `appetite:<1w|2w|6w>`.
+
+### User Confirmation (numbered list)
+
+```
+Proposed issue structure:
+
+Epic: [title]
+
+| # | Sub-Issue | Priority | Labels | Blocked By |
+|---|-----------|----------|--------|------------|
+
+Total: [N] issues.
+
+1. Create all issues (Recommended)
+2. Adjust priorities
+3. Remove issues
+4. Cancel
+```
+
+### Issue Creation
+
+- **GitLab**: `glab issue create --title "[Plan] <title>" --label "<labels>" --description "<body>"`
+- **GitHub**: `gh issue create --title "[Plan] <title>" --label "<labels>" --body "<body>"`
+- 1s pause between creations. Set dependency links after all issues are created (GitLab: `glab api` blocking relations).
 
 ### Final Report
 
 ```
-## Discovery Report
-- Probes run: [N] across [categories]
-- Verified: [N] (false positives: [M])
-- User approved: [N]
-- Issues created: [N]
+## Plan Complete
 
-| # | Title | Priority | Area | Probe |
-|---|-------|----------|------|-------|
+### Document
+- [PRD/Retro] saved to: [path]
+
+### Issues Created
+| # | Title | Priority | Labels | Blocks |
+|---|-------|----------|--------|--------|
+
+### Dependencies
+[Dependency graph: #1 → #2 → #4, #3 (independent)]
+
+### Next Steps
+- [Contextual: run /session feature to implement, or address improvement issues]
 ```
-
-## Phase 6: Capture Stats (Standalone Only)
-
-After Phase 5, prepare stats for session metrics (do NOT write to `sessions.jsonl` directly — session-end handles that):
-
-- `probes_run`, `findings_raw`, `findings_verified`, `false_positives`, `user_dismissed`, `issues_created`, `by_category`
-
-Report: "Discovery stats: [probes_run] probes, [findings_raw] raw → [findings_verified] verified ([false_positives] false positives). Created [issues_created] issues."
 
 ## Critical Rules
 
-- **NEVER** fabricate findings — every finding must come from tool output with verifiable evidence
-- **NEVER** create issues without user approval (standalone mode)
-- **ALWAYS** verify findings by re-reading the file at the reported line (Phase 3)
-- **ALWAYS** use numbered Markdown lists for choices — Cursor has no AskUserQuestion
-- If a probe command fails, skip gracefully, continue with others
-- If in embedded mode, stop after Phase 3, return findings as structured JSON
-- Default exclude paths always apply
+- **NEVER skip the Q&A phase** — even with a detailed brief, validate through structured questions
+- **NEVER assume baseline templates** — always read from the configured `plan-baseline-path`
+- **ALWAYS research before asking** — sequential research before every Q&A wave
+- **ALWAYS mark Option 1 as recommended** — with `(Recommended)` on every question
+- **ALWAYS use numbered Markdown lists** — Cursor has no AskUserQuestion
+- **ALWAYS save documents before creating issues** — the PRD/retro document is the source of truth
+- **NEVER leave PRD sections with TBD** — make a best-effort recommendation if data is insufficient
+- **NEVER create issues without user confirmation**
+- **NEVER include internal paths, IPs, or infrastructure details in output documents**
 
 ---
 > Source: [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — distributed by [TomeVault](https://tomevault.io).
