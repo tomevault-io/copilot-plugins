@@ -7,11 +7,11 @@ The missing linter and lsp for AI coding assistants. Validate CLAUDE.md, AGENTS.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [agent-sh/agnix](https://github.com/agent-sh/agnix).
+Original source: `CLAUDE.md` in [agent-sh/agnix](https://github.com/agent-sh/agnix).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
