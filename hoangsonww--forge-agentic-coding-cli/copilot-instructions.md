@@ -1,22 +1,24 @@
-## security
+## testing
 
-> Security rules (non-negotiable)
+> Testing rules for vitest suite
 
 
-# Security rules (non-negotiable)
+# Testing rules
 
-- Credentials live in the OS keychain (`src/keychain/`) or the
-  encrypted fallback. **Never** in a config file at rest.
-- All log output routed through `src/security/redact.ts`. Do not
-  `console.log` a config object that may contain an API key.
-- Prompt-injection defence uses fenced-data boundaries
-  (`src/security/injection.ts`). Any new place that ingests untrusted
-  content must be fenced.
-- Never add a code path that writes outside the sandbox without a
-  matching permission gate. Never bypass permission prompts unless
-  the user explicitly passed `--skip-permissions` or `--allow-*`.
-- Shell risk is classified in `src/sandbox/shell.ts`. The `critical`
-  tier is hard-blocked — do not add exceptions.
+- Runner: **vitest**. Run one file:
+  `npx vitest run test/unit/<file>.test.ts`.
+- 249 tests across 43 files must remain 100% green. Never `.only`,
+  skip, or comment out a test to make the suite pass.
+- **Never** make real network calls in unit tests. Mock with
+  `vi.mock`. See `test/unit/executor-loop.test.ts` for the
+  `callModel` stub and `test/unit/adapter.test.ts` for the
+  provider stub.
+- Use tempdirs (`os.tmpdir()` + `fs.mkdtempSync`) for disk writes;
+  clean up in `afterEach`. See `test/unit/validation-gate.test.ts`.
+- Test names describe behaviour: "should reject task when provider is
+  unreachable", not "calls provider.ping once".
+- New logic in `src/core`, `src/agents`, or `src/tools` **requires**
+  a unit test — not optional.
 
 ---
 > Source: [hoangsonww/Forge-Agentic-Coding-CLI](https://github.com/hoangsonww/Forge-Agentic-Coding-CLI) — distributed by [TomeVault](https://tomevault.io).
