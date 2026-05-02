@@ -1,0 +1,9 @@
+{
+  "name": "trevors--qwen3-tts-rs",
+  "displayName": "qwen3-tts-rs",
+  "description": "Rust implementation of Qwen3-TTS speech synthesis",
+  "version": "1.0.0",
+  "author": "TrevorS",
+  "homepage": "https://github.com/TrevorS/qwen3-tts-rs",
+  "skills": []
+}
