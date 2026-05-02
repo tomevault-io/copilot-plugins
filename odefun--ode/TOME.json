@@ -1,0 +1,93 @@
+{
+  "name": "ode",
+  "owner": "odefun",
+  "repo": "ode",
+  "description": "Work anywhere with your favorite coding agents connected, coding sessions map 1-1 to chat threads, live updates and much more!",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": ".agents/skills/agent-browser",
+      "github_url": "https://github.com/odefun/ode/tree/main/.agents/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "codex-cli-reference",
+      "path": ".agents/skills/codex-cli-reference",
+      "github_url": "https://github.com/odefun/ode/tree/main/.agents/skills/codex-cli-reference",
+      "description": ""
+    },
+    {
+      "name": "kilo-cli-skill",
+      "path": ".agents/skills/kilo-cli-skill",
+      "github_url": "https://github.com/odefun/ode/tree/main/.agents/skills/kilo-cli-skill",
+      "description": ""
+    },
+    {
+      "name": "kimi-cli-skill",
+      "path": ".agents/skills/kimi-cli-skill",
+      "github_url": "https://github.com/odefun/ode/tree/main/.agents/skills/kimi-cli-skill",
+      "description": ""
+    },
+    {
+      "name": "kiro-cli-skill",
+      "path": ".agents/skills/kiro-cli-skill",
+      "github_url": "https://github.com/odefun/ode/tree/main/.agents/skills/kiro-cli-skill",
+      "description": ""
+    },
+    {
+      "name": "opencode-developer-researcher",
+      "path": ".agents/skills/opencode-developer-researcher",
+      "github_url": "https://github.com/odefun/ode/tree/main/.agents/skills/opencode-developer-researcher",
+      "description": ""
+    },
+    {
+      "name": "qwen-code-skill",
+      "path": ".agents/skills/qwen-code-skill",
+      "github_url": "https://github.com/odefun/ode/tree/main/.agents/skills/qwen-code-skill",
+      "description": ""
+    },
+    {
+      "name": "slack-developer-researcher",
+      "path": ".agents/skills/slack-developer-researcher",
+      "github_url": "https://github.com/odefun/ode/tree/main/.agents/skills/slack-developer-researcher",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/odefun/ode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:47:53Z"
+}
