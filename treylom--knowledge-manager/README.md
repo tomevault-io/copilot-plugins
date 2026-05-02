@@ -7,11 +7,11 @@ Knowledge Manager Agent for Claude Code - Extract and organize content from web,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [treylom/knowledge-manager](https://github.com/treylom/knowledge-manager).
+Original source: `CLAUDE.md` in [treylom/knowledge-manager](https://github.com/treylom/knowledge-manager).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
