@@ -1,0 +1,18 @@
+{
+  "name": "joe-re--eyes-on-claude-code",
+  "displayName": "eyes-on-claude-code",
+  "description": "Claude Code session monitoring application.",
+  "version": "1.0.0",
+  "author": "joe-re",
+  "homepage": "https://github.com/joe-re/eyes-on-claude-code",
+  "skills": [
+    {
+      "name": "mit-licensing",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
