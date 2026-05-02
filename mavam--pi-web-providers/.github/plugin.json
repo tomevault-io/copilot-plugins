@@ -1,0 +1,9 @@
+{
+  "name": "mavam--pi-web-providers",
+  "displayName": "pi-web-providers",
+  "description": "Configurable web access extension for pi that routes search, contents, answers, and research across Claude, Codex, Exa, Gemini, Parallel, and Valyu providers.",
+  "version": "1.0.0",
+  "author": "mavam",
+  "homepage": "https://github.com/mavam/pi-web-providers",
+  "skills": []
+}
