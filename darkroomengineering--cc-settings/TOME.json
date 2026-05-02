@@ -1,0 +1,159 @@
+{
+  "name": "cc-settings",
+  "owner": "darkroomengineering",
+  "repo": "cc-settings",
+  "description": "Vulcan may be a good name",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ask",
+      "path": "skills/ask",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/ask",
+      "description": ""
+    },
+    {
+      "name": "build",
+      "path": "skills/build",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/build",
+      "description": ""
+    },
+    {
+      "name": "component",
+      "path": "skills/component",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/component",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "path": "skills/debug",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/debug",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": "skills/docs",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/docs",
+      "description": ""
+    },
+    {
+      "name": "explore",
+      "path": "skills/explore",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/explore",
+      "description": ""
+    },
+    {
+      "name": "fix",
+      "path": "skills/fix",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/fix",
+      "description": ""
+    },
+    {
+      "name": "hook",
+      "path": "skills/hook",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/hook",
+      "description": ""
+    },
+    {
+      "name": "init",
+      "path": "skills/init",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/init",
+      "description": ""
+    },
+    {
+      "name": "learn",
+      "path": "skills/learn",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/learn",
+      "description": ""
+    },
+    {
+      "name": "lenis",
+      "path": "skills/lenis",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/lenis",
+      "description": ""
+    },
+    {
+      "name": "orchestrate",
+      "path": "skills/orchestrate",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/orchestrate",
+      "description": ""
+    },
+    {
+      "name": "premortem",
+      "path": "skills/premortem",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/premortem",
+      "description": ""
+    },
+    {
+      "name": "qa",
+      "path": "skills/qa",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/qa",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "path": "skills/refactor",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/refactor",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "skills/review",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/review",
+      "description": ""
+    },
+    {
+      "name": "teams",
+      "path": "skills/teams",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/teams",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": "skills/test",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/test",
+      "description": ""
+    },
+    {
+      "name": "tldr",
+      "path": "skills/tldr",
+      "github_url": "https://github.com/darkroomengineering/cc-settings/tree/main/skills/tldr",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/darkroomengineering/cc-settings",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:33:38Z"
+}
