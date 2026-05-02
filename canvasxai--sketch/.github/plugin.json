@@ -1,0 +1,9 @@
+{
+  "name": "canvasxai--sketch",
+  "displayName": "sketch",
+  "description": "An org-level AI assistant. One deployment, multiple users, each with their own workspace, memory, and tool integrations.",
+  "version": "1.0.0",
+  "author": "canvasxai",
+  "homepage": "https://github.com/canvasxai/sketch",
+  "skills": []
+}
