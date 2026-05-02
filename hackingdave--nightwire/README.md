@@ -7,13 +7,13 @@ A secure way to code via Signal. Integrates long-term memory, ralph-style loopin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [HackingDave/nightwire](https://github.com/HackingDave/nightwire).
+Original source: `CLAUDE.md` in [HackingDave/nightwire](https://github.com/HackingDave/nightwire).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
