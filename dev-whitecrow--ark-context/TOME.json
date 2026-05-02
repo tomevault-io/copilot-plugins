@@ -1,0 +1,63 @@
+{
+  "name": "ark-context",
+  "owner": "dev-whitecrow",
+  "repo": "ark-context",
+  "description": "Your AI is smart, but does it know you? Don't build just Agents. Build Identities.",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "distill",
+      "path": ".agent/skills/distill",
+      "github_url": "https://github.com/dev-whitecrow/ark-context/tree/main/.agent/skills/distill",
+      "description": ""
+    },
+    {
+      "name": "log",
+      "path": ".agent/skills/log",
+      "github_url": "https://github.com/dev-whitecrow/ark-context/tree/main/.agent/skills/log",
+      "description": ""
+    },
+    {
+      "name": "monitoring",
+      "path": ".agent/skills/monitoring",
+      "github_url": "https://github.com/dev-whitecrow/ark-context/tree/main/.agent/skills/monitoring",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dev-whitecrow/ark-context",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:32:26Z"
+}
