@@ -1,0 +1,44 @@
+{
+  "name": "ascelerate",
+  "owner": "keremerkan",
+  "repo": "ascelerate",
+  "description": "A command-line tool for building, archiving, and publishing apps to the App Store \u2014 from Xcode archive to App Review submission. Built with Swift on the App Store Connect API.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/keremerkan/ascelerate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T08:22:56Z"
+}
