@@ -1,0 +1,9 @@
+{
+  "name": "ombulabs--claude-code-rails-upgrade-skill",
+  "displayName": "claude-code_rails-upgrade-skill",
+  "description": "A Claude Code Skill to Upgrade Rails",
+  "version": "1.0.0",
+  "author": "ombulabs",
+  "homepage": "https://github.com/ombulabs/claude-code_rails-upgrade-skill",
+  "skills": []
+}
