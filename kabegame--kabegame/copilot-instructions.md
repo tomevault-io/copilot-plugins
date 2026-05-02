@@ -1,43 +1,29 @@
-## modal-back-android
+## no-dynamic-import
 
-> 安卓下弹出层必须用 useModalBack 注册返回栈
+> Tauri 项目禁止使用动态 import
 
 
-# 安卓弹出层与返回栈
+# 禁止动态 import
 
-在 **Android** 下，任何弹出层（对话框、抽屉、ActionSheet、预览等）都必须使用 `@packages/core/src/composables/useModalBack.ts` 的 **useModalBack** 注册到模态返回栈，以便物理/虚拟返回键能按栈顺序关闭弹层。
+本项目为 Tauri 项目，**所有代码不得使用动态 `import()`**，应使用静态 `import` 导入。
 
-## 要求
+**原因**：Tauri 打包与部分运行环境下，动态 import 没有好处，反而导致复杂度。
 
-- 弹层「打开状态」由 `Ref<boolean>` 或 `WritableComputedRef<boolean>` 表示时，在组件里调用 `useModalBack(该 ref)`。
-- 从 `@kabegame/core` 使用时：`import { useModalBack } from "@kabegame/core/composables/useModalBack";`
-- 在 core 包内使用时：`import { useModalBack } from "../composables/useModalBack";`（路径按实际调整）
-- `useModalBack` 内部已做 `IS_ANDROID` 判断，非安卓无副作用，可放心在桌面与安卓共用同一组件。
+**正确**：静态 import
 
-## 示例
-
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-import { useModalBack } from "@kabegame/core/composables/useModalBack";
-
-const visible = ref(false);
-useModalBack(visible);
-</script>
+```ts
+import { foo } from './module'
+import Component from './Component.vue'
 ```
 
-有子层时（如 ActionSheet 的二级菜单），每个「可被返回键关闭」的层单独一个 ref，分别调用一次 `useModalBack`，先注册子层再注册主层，这样返回键会先关子层再关主层。
+**错误**：动态 import
 
-```typescript
-// 主 sheet 与子菜单各一个 ref，各调 useModalBack
-useModalBack(sheetOpen, { onClose: () => { expandedItem.value = null; } });
-useModalBack(submenuOpen);
+```ts
+const module = await import('./module')
+const Component = () => import('./Component.vue')
 ```
 
-## 错误做法
-
-- 仅在安卓用 `close-on-back` 等单独处理、却不把弹层压入模态栈，导致返回键行为不一致或无法按栈关闭。
-- 新增弹层组件时忘记调用 `useModalBack(控制显示的 ref)`。
+若需按需加载或懒加载，应在 Tauri/构建侧用路由或分包等方式实现，而不是在业务代码里使用 `import()`。
 
 ---
 > Source: [kabegame/kabegame](https://github.com/kabegame/kabegame) — distributed by [TomeVault](https://tomevault.io).
