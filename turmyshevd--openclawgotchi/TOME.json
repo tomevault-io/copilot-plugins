@@ -1,0 +1,69 @@
+{
+  "name": "openclawgotchi",
+  "owner": "turmyshevd",
+  "repo": "openclawgotchi",
+  "description": "(\u25b0\u02d8\u25e1\u02d8\u25b0) - AI Tamagotchi on Raspberry Pi. Agentic life-form with an E-Ink face",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "devto",
+      "path": "gotchi-skills/devto",
+      "github_url": "https://github.com/turmyshevd/openclawgotchi/tree/main/gotchi-skills/devto",
+      "description": ""
+    },
+    {
+      "name": "discord",
+      "path": "gotchi-skills/discord",
+      "github_url": "https://github.com/turmyshevd/openclawgotchi/tree/main/gotchi-skills/discord",
+      "description": ""
+    },
+    {
+      "name": "coding",
+      "path": "gotchi-skills/coding",
+      "github_url": "https://github.com/turmyshevd/openclawgotchi/tree/main/gotchi-skills/coding",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "path": "gotchi-skills/weather",
+      "github_url": "https://github.com/turmyshevd/openclawgotchi/tree/main/gotchi-skills/weather",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/turmyshevd/openclawgotchi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:36:02Z"
+}
