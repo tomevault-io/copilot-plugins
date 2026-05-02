@@ -1,0 +1,9 @@
+{
+  "name": "gitlabhq--orbit-knowledge-graph",
+  "displayName": "orbit-knowledge-graph",
+  "description": "Orbit, aka the GitLab Knowledge Graph, is a project that aims to provide a unified context API for AI systems and human users. This project has both a local Knowledge Graph for your code and a backend",
+  "version": "1.0.0",
+  "author": "gitlabhq",
+  "homepage": "https://github.com/gitlabhq/orbit-knowledge-graph",
+  "skills": []
+}
