@@ -1,0 +1,9 @@
+{
+  "name": "constantineb6--comfy-pilot",
+  "displayName": "comfy-pilot",
+  "description": "MCP server + embedded terminal that lets Claude Code see and edit your ComfyUI workflows",
+  "version": "1.0.0",
+  "author": "ConstantineB6",
+  "homepage": "https://github.com/ConstantineB6/comfy-pilot",
+  "skills": []
+}
