@@ -1,871 +1,674 @@
-## flutter-development
+## go-development
 
-> Flutter development: widget patterns, state management, Dart best practices, and platform channel integration
+> Go development: error handling, interfaces, concurrency, modules, and idiomatic patterns
 
 
-# Flutter Development Patterns
+# Go Development Patterns
 
-Modern Flutter patterns for cross-platform mobile, web, and desktop development.
+Idiomatic Go patterns focusing on simplicity, clarity, and concurrency.
 
-## Flutter Workflow
+## Go Workflow
 
-Before changing Flutter code:
+Before changing Go code:
 
 ```text
-1. Read `pubspec.yaml` and the current app structure first
-2. Check the repo's Flutter and Dart constraints before using newer language or framework features
-3. For new apps, use `flutter create`; do not hand-create `pubspec.yaml`
+1. Read `go.mod` and existing package structure first
+2. Check the current Go version in the repo before recommending newer features
+3. For new modules, use `go mod init`; do not hand-create `go.mod`
 4. For new dependencies or version-sensitive work, verify current versions with the actual current date
 ```
 
-### CLI-First Flutter Development
+### CLI-First Go Development
 
-Prefer Flutter CLI workflows:
+Prefer standard Go CLI workflows:
 ```bash
-# Project creation (NEVER manually create pubspec.yaml)
-flutter create my_app
-flutter create --org com.example my_app
-flutter create --template package my_package
+# Project initialization (NEVER manually create go.mod)
+go mod init github.com/myorg/myproject
 
-# Add dependencies (NEVER manually edit pubspec.yaml for adding)
-flutter pub add provider
-flutter pub add go_router
-flutter pub add flutter_bloc
-flutter pub add dio
-flutter pub add freezed --dev
-flutter pub add build_runner --dev
+# Add dependencies (NEVER manually edit go.mod)
+go get github.com/gin-gonic/gin@latest
+go get github.com/lib/pq@v1.10.9
 
-# Get dependencies after any pubspec change
-flutter pub get
+# Verify and tidy
+go mod tidy
+go mod verify
 
-# Code generation (for freezed, json_serializable)
-dart run build_runner build --delete-conflicting-outputs
+# Build and test
+go build ./...
+go test ./...
+go vet ./...
 
-# Verify project health
-flutter analyze
-flutter test
+# Format before committing
+go fmt ./...
+gofmt -s -w .
 ```
 
 ### Post-Edit Verification
 
-After meaningful Flutter changes, run the smallest useful check for the task:
+After meaningful Go changes, run the smallest useful check for the task:
 
 ```bash
-flutter analyze
-flutter test
-dart format --set-exit-if-changed .
+go build ./...
+go test ./...
+go vet ./...
 ```
 
-Run `flutter pub get` when `pubspec.yaml` changed rather than after every code edit.
+Run `go mod tidy` when imports or dependencies changed rather than after every tiny edit.
 
-### Common Dart/Flutter Syntax Traps (Avoid These!)
+### Common Go Syntax Traps (Avoid These!)
 
-```dart
-// WRONG: Missing const for immutable widgets
-Widget build(BuildContext context) {
-  return Container(  // Should be const Container()
-    child: Text('Hello'),
-  );
+```go
+// WRONG: Missing error check
+result, _ := doSomething()  // Never ignore errors!
+
+// CORRECT: Always handle errors
+result, err := doSomething()
+if err != nil {
+    return fmt.Errorf("doSomething failed: %w", err)
 }
 
-// CORRECT: Use const where possible
-Widget build(BuildContext context) {
-  return const Container(
-    child: Text('Hello'),
-  );
+// WRONG: Range loop variable capture
+for _, item := range items {
+    go func() {
+        process(item)  // Bug! Captures loop variable
+    }()
 }
 
-// WRONG: Not disposing controllers
-class _MyWidgetState extends State<MyWidget> {
-  final controller = TextEditingController();
-  // Missing dispose!
+// CORRECT: Pass as parameter
+for _, item := range items {
+    go func(i Item) {
+        process(i)
+    }(item)
 }
 
-// CORRECT: Always dispose controllers
-class _MyWidgetState extends State<MyWidget> {
-  final controller = TextEditingController();
-  
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-}
+// WRONG: Nil map write
+var m map[string]int
+m["key"] = 1  // Panic!
 
-// WRONG: Using setState after dispose
-void _onDataLoaded(data) async {
-  await fetchMore();
-  setState(() {  // Might be called after dispose!
-    this.data = data;
-  });
-}
-
-// CORRECT: Check mounted before setState
-void _onDataLoaded(data) async {
-  await fetchMore();
-  if (mounted) {
-    setState(() {
-      this.data = data;
-    });
-  }
-}
-
-// WRONG: Missing required in named parameters (Dart 3+)
-void greet({String name}) { }  // Error in null-safe Dart
-
-// CORRECT: Use required for non-nullable required params
-void greet({required String name}) { }
+// CORRECT: Initialize map
+m := make(map[string]int)
+m["key"] = 1
 ```
 
 ---
 
-## Widget Fundamentals
+## Error Handling
 
-### StatelessWidget
-```dart
-class UserCard extends StatelessWidget {
-  const UserCard({
-    super.key,
-    required this.user,
-    this.onTap,
-  });
+### Basic Error Handling
+```go
+// Always check errors
+result, err := doSomething()
+if err != nil {
+    return fmt.Errorf("doSomething failed: %w", err)
+}
 
-  final User user;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(user.avatarUrl),
-        ),
-        title: Text(user.name),
-        subtitle: Text(user.email),
-        onTap: onTap,
-      ),
-    );
-  }
+// Wrap errors with context
+if err := db.Query(sql); err != nil {
+    return fmt.Errorf("failed to query users: %w", err)
 }
 ```
 
-### StatefulWidget
-```dart
-class Counter extends StatefulWidget {
-  const Counter({super.key, this.initialValue = 0});
-
-  final int initialValue;
-
-  @override
-  State<Counter> createState() => _CounterState();
+### Custom Error Types
+```go
+// Simple error type
+type NotFoundError struct {
+    Resource string
+    ID       string
 }
 
-class _CounterState extends State<Counter> {
-  late int _count;
+func (e *NotFoundError) Error() string {
+    return fmt.Sprintf("%s with id %s not found", e.Resource, e.ID)
+}
 
-  @override
-  void initState() {
-    super.initState();
-    _count = widget.initialValue;
-  }
+// Checking error types
+if errors.Is(err, sql.ErrNoRows) {
+    return &NotFoundError{Resource: "user", ID: id}
+}
 
-  void _increment() {
-    setState(() {
-      _count++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text('Count: $_count'),
-        ElevatedButton(
-          onPressed: _increment,
-          child: const Text('Increment'),
-        ),
-      ],
-    );
-  }
+// Type assertions
+var notFound *NotFoundError
+if errors.As(err, &notFound) {
+    // Handle not found case
 }
 ```
 
-### Widget Composition
-```dart
-// Prefer composition over inheritance
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key, required this.user});
-
-  final User user;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(user.name)),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ProfileHeader(user: user),
-            ProfileStats(user: user),
-            ProfileActions(user: user),
-          ],
-        ),
-      ),
-    );
-  }
-}
-```
-
----
-
-## State Management
-
-### Provider Pattern
-```dart
-// Model
-class CartModel extends ChangeNotifier {
-  final List<Item> _items = [];
-
-  List<Item> get items => List.unmodifiable(_items);
-  
-  int get totalItems => _items.length;
-  
-  double get totalPrice => _items.fold(0, (sum, item) => sum + item.price);
-
-  void add(Item item) {
-    _items.add(item);
-    notifyListeners();
-  }
-
-  void remove(Item item) {
-    _items.remove(item);
-    notifyListeners();
-  }
-
-  void clear() {
-    _items.clear();
-    notifyListeners();
-  }
-}
-
-// Provider setup
-void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => CartModel(),
-      child: const MyApp(),
-    ),
-  );
-}
-
-// Consuming
-class CartButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<CartModel>(
-      builder: (context, cart, child) {
-        return Badge(
-          label: Text('${cart.totalItems}'),
-          child: child,
-        );
-      },
-      child: const Icon(Icons.shopping_cart),
-    );
-  }
-}
-
-// Reading without rebuilding
-void addToCart(BuildContext context, Item item) {
-  context.read<CartModel>().add(item);
-}
-```
-
-### Riverpod Pattern
-```dart
-// Providers
-final userProvider = FutureProvider<User>((ref) async {
-  final repository = ref.watch(userRepositoryProvider);
-  return repository.getCurrentUser();
-});
-
-final cartProvider = StateNotifierProvider<CartNotifier, CartState>((ref) {
-  return CartNotifier();
-});
-
-// StateNotifier
-class CartNotifier extends StateNotifier<CartState> {
-  CartNotifier() : super(const CartState());
-
-  void addItem(Item item) {
-    state = state.copyWith(
-      items: [...state.items, item],
-    );
-  }
-
-  void removeItem(Item item) {
-    state = state.copyWith(
-      items: state.items.where((i) => i.id != item.id).toList(),
-    );
-  }
-}
-
-// Consuming
-class CartPage extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final cart = ref.watch(cartProvider);
+### Error Handling Patterns
+```go
+// Early return pattern
+func processData(data []byte) error {
+    if len(data) == 0 {
+        return errors.New("empty data")
+    }
     
-    return ListView.builder(
-      itemCount: cart.items.length,
-      itemBuilder: (context, index) {
-        return CartItemTile(item: cart.items[index]);
-      },
-    );
-  }
-}
-```
-
-### BLoC Pattern
-```dart
-// Events
-abstract class AuthEvent {}
-
-class LoginRequested extends AuthEvent {
-  final String email;
-  final String password;
-  
-  LoginRequested({required this.email, required this.password});
-}
-
-class LogoutRequested extends AuthEvent {}
-
-// States
-abstract class AuthState {}
-
-class AuthInitial extends AuthState {}
-class AuthLoading extends AuthState {}
-class AuthSuccess extends AuthState {
-  final User user;
-  AuthSuccess(this.user);
-}
-class AuthFailure extends AuthState {
-  final String message;
-  AuthFailure(this.message);
-}
-
-// Bloc
-class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository _authRepository;
-
-  AuthBloc(this._authRepository) : super(AuthInitial()) {
-    on<LoginRequested>(_onLoginRequested);
-    on<LogoutRequested>(_onLogoutRequested);
-  }
-
-  Future<void> _onLoginRequested(
-    LoginRequested event,
-    Emitter<AuthState> emit,
-  ) async {
-    emit(AuthLoading());
-    try {
-      final user = await _authRepository.login(event.email, event.password);
-      emit(AuthSuccess(user));
-    } catch (e) {
-      emit(AuthFailure(e.toString()));
+    parsed, err := parse(data)
+    if err != nil {
+        return fmt.Errorf("parse failed: %w", err)
     }
-  }
-
-  Future<void> _onLogoutRequested(
-    LogoutRequested event,
-    Emitter<AuthState> emit,
-  ) async {
-    await _authRepository.logout();
-    emit(AuthInitial());
-  }
+    
+    if err := validate(parsed); err != nil {
+        return fmt.Errorf("validation failed: %w", err)
+    }
+    
+    return save(parsed)
 }
 
-// Usage
-BlocBuilder<AuthBloc, AuthState>(
-  builder: (context, state) {
-    if (state is AuthLoading) {
-      return const CircularProgressIndicator();
-    }
-    if (state is AuthSuccess) {
-      return Text('Welcome, ${state.user.name}');
-    }
-    if (state is AuthFailure) {
-      return Text('Error: ${state.message}');
-    }
-    return const LoginForm();
-  },
+// Error sentinel values
+var (
+    ErrNotFound     = errors.New("not found")
+    ErrUnauthorized = errors.New("unauthorized")
+    ErrInvalidInput = errors.New("invalid input")
 )
 ```
 
 ---
 
-## Navigation
+## Interfaces
 
-### GoRouter
-```dart
-final router = GoRouter(
-  initialLocation: '/',
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const HomePage(),
-      routes: [
-        GoRoute(
-          path: 'products/:id',
-          builder: (context, state) {
-            final id = state.pathParameters['id']!;
-            return ProductPage(id: id);
-          },
-        ),
-      ],
-    ),
-    GoRoute(
-      path: '/cart',
-      builder: (context, state) => const CartPage(),
-    ),
-    GoRoute(
-      path: '/profile',
-      builder: (context, state) => const ProfilePage(),
-      redirect: (context, state) {
-        final isLoggedIn = context.read<AuthBloc>().state is AuthSuccess;
-        if (!isLoggedIn) return '/login';
-        return null;
-      },
-    ),
-  ],
-);
+### Interface Design
+```go
+// Small, focused interfaces
+type Reader interface {
+    Read(p []byte) (n int, err error)
+}
 
-// Navigation
-context.go('/products/123');
-context.push('/cart');
-context.pop();
+type Writer interface {
+    Write(p []byte) (n int, err error)
+}
+
+type ReadWriter interface {
+    Reader
+    Writer
+}
+
+// Accept interfaces, return structs
+func ProcessData(r io.Reader) (*Result, error) {
+    data, err := io.ReadAll(r)
+    if err != nil {
+        return nil, err
+    }
+    return &Result{Data: data}, nil
+}
 ```
 
-### Navigator 2.0 Basics
-```dart
-// Simple navigation
-Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => const DetailPage()),
-);
+### Interface Best Practices
+```go
+// Define interfaces where they're used, not where implemented
+// In consumer package:
+type UserStore interface {
+    Get(id string) (*User, error)
+    Save(user *User) error
+}
 
-// Named routes
-Navigator.pushNamed(context, '/detail', arguments: item);
+type UserService struct {
+    store UserStore  // Accepts any implementation
+}
 
-// Pop with result
-final result = await Navigator.push<bool>(
-  context,
-  MaterialPageRoute(builder: (context) => const ConfirmDialog()),
-);
-if (result == true) {
-  // Confirmed
+// Implementation in another package
+type PostgresUserStore struct {
+    db *sql.DB
+}
+
+func (s *PostgresUserStore) Get(id string) (*User, error) { ... }
+func (s *PostgresUserStore) Save(user *User) error { ... }
+```
+
+### Empty Interface and Type Assertions
+```go
+// Avoid interface{} / any when possible
+// When necessary, use type switches
+func process(v any) string {
+    switch x := v.(type) {
+    case string:
+        return x
+    case int:
+        return strconv.Itoa(x)
+    case fmt.Stringer:
+        return x.String()
+    default:
+        return fmt.Sprintf("%v", v)
+    }
 }
 ```
 
 ---
 
-## Async Patterns
+## Concurrency
 
-### FutureBuilder
-```dart
-class UserProfile extends StatelessWidget {
-  final Future<User> userFuture;
+### Goroutines and Channels
+```go
+// Basic goroutine
+go func() {
+    result := expensiveOperation()
+    resultChan <- result
+}()
 
-  const UserProfile({super.key, required this.userFuture});
+// Buffered channel
+jobs := make(chan Job, 100)
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<User>(
-      future: userFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+// Wait for completion
+var wg sync.WaitGroup
+for i := 0; i < numWorkers; i++ {
+    wg.Add(1)
+    go func() {
+        defer wg.Done()
+        for job := range jobs {
+            process(job)
         }
-        
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-        
-        if (!snapshot.hasData) {
-          return const Text('No user found');
-        }
-        
-        final user = snapshot.data!;
-        return Text('Hello, ${user.name}');
-      },
-    );
-  }
+    }()
+}
+wg.Wait()
+```
+
+### Context for Cancellation
+```go
+func fetchData(ctx context.Context, url string) ([]byte, error) {
+    req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+    if err != nil {
+        return nil, err
+    }
+    
+    resp, err := http.DefaultClient.Do(req)
+    if err != nil {
+        return nil, err
+    }
+    defer resp.Body.Close()
+    
+    return io.ReadAll(resp.Body)
+}
+
+// Usage with timeout
+ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+defer cancel()
+
+data, err := fetchData(ctx, "https://api.example.com")
+```
+
+### Worker Pool Pattern
+```go
+func WorkerPool(ctx context.Context, jobs <-chan Job, numWorkers int) <-chan Result {
+    results := make(chan Result)
+    
+    var wg sync.WaitGroup
+    for i := 0; i < numWorkers; i++ {
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            for {
+                select {
+                case job, ok := <-jobs:
+                    if !ok {
+                        return
+                    }
+                    results <- process(job)
+                case <-ctx.Done():
+                    return
+                }
+            }
+        }()
+    }
+    
+    go func() {
+        wg.Wait()
+        close(results)
+    }()
+    
+    return results
 }
 ```
 
-### StreamBuilder
-```dart
-class MessageList extends StatelessWidget {
-  final Stream<List<Message>> messageStream;
+### Mutex and Atomic Operations
+```go
+type Counter struct {
+    mu    sync.Mutex
+    value int
+}
 
-  const MessageList({super.key, required this.messageStream});
+func (c *Counter) Increment() {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    c.value++
+}
 
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder<List<Message>>(
-      stream: messageStream,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        }
-        
-        if (!snapshot.hasData) {
-          return const CircularProgressIndicator();
-        }
-        
-        final messages = snapshot.data!;
-        return ListView.builder(
-          itemCount: messages.length,
-          itemBuilder: (context, index) {
-            return MessageTile(message: messages[index]);
-          },
-        );
-      },
-    );
-  }
+func (c *Counter) Value() int {
+    c.mu.Lock()
+    defer c.mu.Unlock()
+    return c.value
+}
+
+// For simple counters, use atomic
+type AtomicCounter struct {
+    value atomic.Int64
+}
+
+func (c *AtomicCounter) Increment() {
+    c.value.Add(1)
 }
 ```
 
 ---
 
-## Networking
+## Structs and Methods
 
-### HTTP Client
-```dart
-class ApiClient {
-  final http.Client _client;
-  final String _baseUrl;
+### Struct Design
+```go
+type User struct {
+    ID        string    `json:"id"`
+    Name      string    `json:"name"`
+    Email     string    `json:"email"`
+    CreatedAt time.Time `json:"created_at"`
+}
 
-  ApiClient({http.Client? client, required String baseUrl})
-      : _client = client ?? http.Client(),
-        _baseUrl = baseUrl;
-
-  Future<T> get<T>(
-    String path, {
-    required T Function(Map<String, dynamic>) fromJson,
-  }) async {
-    final response = await _client.get(
-      Uri.parse('$_baseUrl$path'),
-      headers: {'Content-Type': 'application/json'},
-    );
-
-    if (response.statusCode != 200) {
-      throw ApiException(
-        statusCode: response.statusCode,
-        message: response.body,
-      );
+// Constructor function
+func NewUser(name, email string) *User {
+    return &User{
+        ID:        uuid.New().String(),
+        Name:      name,
+        Email:     email,
+        CreatedAt: time.Now(),
     }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
-    return fromJson(json);
-  }
-
-  Future<T> post<T>(
-    String path, {
-    required Map<String, dynamic> body,
-    required T Function(Map<String, dynamic>) fromJson,
-  }) async {
-    final response = await _client.post(
-      Uri.parse('$_baseUrl$path'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(body),
-    );
-
-    if (response.statusCode != 200 && response.statusCode != 201) {
-      throw ApiException(
-        statusCode: response.statusCode,
-        message: response.body,
-      );
-    }
-
-    final json = jsonDecode(response.body) as Map<String, dynamic>;
-    return fromJson(json);
-  }
 }
 ```
 
-### Dio Client
-```dart
-class DioClient {
-  late final Dio _dio;
-
-  DioClient({required String baseUrl}) {
-    _dio = Dio(BaseOptions(
-      baseUrl: baseUrl,
-      connectTimeout: const Duration(seconds: 10),
-      receiveTimeout: const Duration(seconds: 10),
-    ));
-
-    _dio.interceptors.add(LogInterceptor());
-    _dio.interceptors.add(AuthInterceptor());
-  }
-
-  Future<T> get<T>(
-    String path, {
-    required T Function(dynamic) fromJson,
-  }) async {
-    final response = await _dio.get(path);
-    return fromJson(response.data);
-  }
+### Method Receivers
+```go
+// Value receiver - doesn't modify, safe for concurrent use
+func (u User) FullName() string {
+    return u.FirstName + " " + u.LastName
 }
+
+// Pointer receiver - can modify, more efficient for large structs
+func (u *User) UpdateEmail(email string) error {
+    if !isValidEmail(email) {
+        return errors.New("invalid email")
+    }
+    u.Email = email
+    return nil
+}
+```
+
+### Embedded Structs
+```go
+type Timestamps struct {
+    CreatedAt time.Time
+    UpdatedAt time.Time
+}
+
+type User struct {
+    Timestamps  // Embedded - fields promoted
+    ID    string
+    Name  string
+}
+
+// Access promoted fields directly
+user.CreatedAt = time.Now()
 ```
 
 ---
 
 ## Testing
 
-### Widget Tests
-```dart
-void main() {
-  testWidgets('Counter increments', (WidgetTester tester) async {
-    // Build widget
-    await tester.pumpWidget(const MaterialApp(home: Counter()));
-
-    // Verify initial state
-    expect(find.text('Count: 0'), findsOneWidget);
-
-    // Tap button
-    await tester.tap(find.byType(ElevatedButton));
-    await tester.pump();
-
-    // Verify incremented
-    expect(find.text('Count: 1'), findsOneWidget);
-  });
+### Table-Driven Tests
+```go
+func TestAdd(t *testing.T) {
+    tests := []struct {
+        name     string
+        a, b     int
+        expected int
+    }{
+        {"positive", 2, 3, 5},
+        {"negative", -1, -1, -2},
+        {"zero", 0, 0, 0},
+        {"mixed", -1, 1, 0},
+    }
+    
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            result := Add(tt.a, tt.b)
+            if result != tt.expected {
+                t.Errorf("Add(%d, %d) = %d; want %d", 
+                    tt.a, tt.b, result, tt.expected)
+            }
+        })
+    }
 }
 ```
 
-### Unit Tests
-```dart
-void main() {
-  group('CartModel', () {
-    late CartModel cart;
-
-    setUp(() {
-      cart = CartModel();
-    });
-
-    test('starts empty', () {
-      expect(cart.items, isEmpty);
-      expect(cart.totalPrice, 0);
-    });
-
-    test('adds items', () {
-      final item = Item(id: '1', name: 'Test', price: 10);
-      cart.add(item);
-      
-      expect(cart.items, contains(item));
-      expect(cart.totalPrice, 10);
-    });
-
-    test('removes items', () {
-      final item = Item(id: '1', name: 'Test', price: 10);
-      cart.add(item);
-      cart.remove(item);
-      
-      expect(cart.items, isEmpty);
-    });
-  });
+### Subtests and Parallel
+```go
+func TestUserService(t *testing.T) {
+    t.Run("Create", func(t *testing.T) {
+        t.Parallel()
+        // test create
+    })
+    
+    t.Run("Get", func(t *testing.T) {
+        t.Parallel()
+        // test get
+    })
 }
 ```
 
-### Mocking
-```dart
-import 'package:mocktail/mocktail.dart';
-
-class MockUserRepository extends Mock implements UserRepository {}
-
-void main() {
-  late MockUserRepository mockRepository;
-  late UserBloc bloc;
-
-  setUp(() {
-    mockRepository = MockUserRepository();
-    bloc = UserBloc(mockRepository);
-  });
-
-  test('emits UserLoaded when fetch succeeds', () async {
-    final user = User(id: '1', name: 'Test');
-    when(() => mockRepository.getUser('1')).thenAnswer((_) async => user);
-
-    bloc.add(FetchUser('1'));
-
-    await expectLater(
-      bloc.stream,
-      emitsInOrder([
-        isA<UserLoading>(),
-        isA<UserLoaded>().having((s) => s.user, 'user', user),
-      ]),
-    );
-  });
-}
-```
-
----
-
-## Dart Best Practices
-
-### Null Safety
-```dart
-// Non-nullable by default
-String name = 'John'; // Cannot be null
-
-// Nullable types
-String? nickname; // Can be null
-
-// Null-aware operators
-final displayName = nickname ?? 'Unknown';
-final length = nickname?.length ?? 0;
-nickname ??= 'Default';
-
-// Late initialization
-late final Database db;
-
-void init() {
-  db = Database.connect();
+### Mocking with Interfaces
+```go
+// Interface in production code
+type UserRepository interface {
+    Get(id string) (*User, error)
+    Save(user *User) error
 }
 
-// Required named parameters
-void greet({required String name, String? title}) {
-  print('Hello, ${title ?? ''} $name');
-}
-```
-
-### Collections
-```dart
-// List
-final numbers = [1, 2, 3];
-final doubled = numbers.map((n) => n * 2).toList();
-final evens = numbers.where((n) => n.isEven).toList();
-
-// Map
-final scores = {'Alice': 95, 'Bob': 87};
-final aliceScore = scores['Alice'] ?? 0;
-
-// Set
-final uniqueIds = <String>{};
-uniqueIds.add('id1');
-
-// Spread operator
-final combined = [...list1, ...list2];
-final mergedMap = {...map1, ...map2};
-
-// Collection if/for
-final widgets = [
-  Header(),
-  if (showBody) Body(),
-  for (final item in items) ItemWidget(item: item),
-  Footer(),
-];
-```
-
-### Extensions
-```dart
-extension StringExtensions on String {
-  String capitalize() {
-    if (isEmpty) return this;
-    return '${this[0].toUpperCase()}${substring(1)}';
-  }
-
-  bool get isValidEmail {
-    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(this);
-  }
+// Mock in test
+type MockUserRepository struct {
+    users map[string]*User
 }
 
-// Usage
-'hello'.capitalize(); // 'Hello'
-'test@email.com'.isValidEmail; // true
-```
-
-### Freezed for Immutable Data
-```dart
-import 'package:freezed_annotation/freezed_annotation.dart';
-
-part 'user.freezed.dart';
-part 'user.g.dart';
-
-@freezed
-class User with _$User {
-  const factory User({
-    required String id,
-    required String name,
-    required String email,
-    @Default(false) bool isVerified,
-  }) = _User;
-
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+func (m *MockUserRepository) Get(id string) (*User, error) {
+    user, ok := m.users[id]
+    if !ok {
+        return nil, ErrNotFound
+    }
+    return user, nil
 }
 
-// Usage
-final user = User(id: '1', name: 'John', email: 'john@example.com');
-final updated = user.copyWith(isVerified: true);
+func TestUserService_GetUser(t *testing.T) {
+    repo := &MockUserRepository{
+        users: map[string]*User{
+            "1": {ID: "1", Name: "Test"},
+        },
+    }
+    service := NewUserService(repo)
+    
+    user, err := service.Get("1")
+    if err != nil {
+        t.Fatalf("unexpected error: %v", err)
+    }
+    if user.Name != "Test" {
+        t.Errorf("expected name 'Test', got '%s'", user.Name)
+    }
+}
 ```
 
 ---
 
 ## Project Structure
 
+### Standard Layout
 ```
-lib/
-  main.dart
-  app.dart
-  
-  core/
-    constants/
-    theme/
+myproject/
+  cmd/
+    myapp/
+      main.go        # Application entry point
+  internal/          # Private application code
+    config/
+    handler/
+    service/
+    repository/
+  pkg/               # Public library code
     utils/
-    
-  features/
-    auth/
-      data/
-        models/
-        repositories/
-      presentation/
-        bloc/
-        pages/
-        widgets/
-    home/
-      ...
-      
-  shared/
-    widgets/
-    services/
+  api/               # API definitions (OpenAPI, protobuf)
+  web/               # Web assets
+  scripts/           # Build/CI scripts
+  go.mod
+  go.sum
 ```
 
-### Pubspec.yaml
-```yaml
-name: my_app
-description: My Flutter app
-version: 1.0.0+1
+### Package Organization
+```go
+// cmd/myapp/main.go
+package main
 
-environment:
-  sdk: '>=3.0.0 <4.0.0'
+import (
+    "myproject/internal/config"
+    "myproject/internal/handler"
+    "myproject/internal/service"
+)
 
-dependencies:
-  flutter:
-    sdk: flutter
-  flutter_bloc: ^8.1.0
-  go_router: ^12.0.0
-  dio: ^5.3.0
-  freezed_annotation: ^2.4.0
-  json_annotation: ^4.8.0
+func main() {
+    cfg := config.Load()
+    svc := service.New(cfg)
+    h := handler.New(svc)
+    
+    http.ListenAndServe(":8080", h)
+}
+```
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^3.0.0
-  build_runner: ^2.4.0
-  freezed: ^2.4.0
-  json_serializable: ^6.7.0
-  mocktail: ^1.0.0
+---
+
+## HTTP Handlers
+
+### Handler Functions
+```go
+func handleGetUser(svc *UserService) http.HandlerFunc {
+    return func(w http.ResponseWriter, r *http.Request) {
+        id := chi.URLParam(r, "id")
+        
+        user, err := svc.Get(r.Context(), id)
+        if err != nil {
+            if errors.Is(err, ErrNotFound) {
+                http.Error(w, "user not found", http.StatusNotFound)
+                return
+            }
+            http.Error(w, "internal error", http.StatusInternalServerError)
+            return
+        }
+        
+        w.Header().Set("Content-Type", "application/json")
+        json.NewEncoder(w).Encode(user)
+    }
+}
+```
+
+### Middleware
+```go
+func LoggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
+        
+        // Wrap response writer to capture status
+        wrapped := &responseWriter{ResponseWriter: w, status: http.StatusOK}
+        
+        next.ServeHTTP(wrapped, r)
+        
+        log.Printf("%s %s %d %v", 
+            r.Method, r.URL.Path, wrapped.status, time.Since(start))
+    })
+}
+
+type responseWriter struct {
+    http.ResponseWriter
+    status int
+}
+
+func (w *responseWriter) WriteHeader(status int) {
+    w.status = status
+    w.ResponseWriter.WriteHeader(status)
+}
+```
+
+---
+
+## Go Modules
+
+### go.mod
+```go
+module github.com/myorg/myproject
+
+go 1.21
+
+require (
+    github.com/go-chi/chi/v5 v5.0.10
+    github.com/lib/pq v1.10.9
+)
+
+require (
+    // indirect dependencies
+)
+```
+
+### Common Commands
+```bash
+# Initialize module
+go mod init github.com/myorg/myproject
+
+# Add dependencies
+go get github.com/go-chi/chi/v5
+
+# Tidy dependencies
+go mod tidy
+
+# Update dependencies
+go get -u ./...
+
+# Vendor dependencies
+go mod vendor
+```
+
+---
+
+## Code Style
+
+### Naming Conventions
+```go
+// Exported (public) - PascalCase
+type UserService struct { ... }
+func NewUserService() *UserService { ... }
+
+// Unexported (private) - camelCase
+type userCache struct { ... }
+func validateEmail(email string) bool { ... }
+
+// Acronyms - all caps
+var httpClient *http.Client
+type JSONResponse struct { ... }
+userID := "123"  // not userId
+```
+
+### Comments
+```go
+// Package users provides user management functionality.
+package users
+
+// User represents a registered user in the system.
+type User struct {
+    // ID is the unique identifier for the user.
+    ID string
+    // Name is the user's display name.
+    Name string
+}
+
+// NewUser creates a new user with the given name.
+// It returns an error if the name is empty.
+func NewUser(name string) (*User, error) {
+    ...
+}
+```
+
+### Formatting
+```bash
+# Always format code
+go fmt ./...
+
+# Lint code
+golangci-lint run
 ```
 
 ---
