@@ -1,0 +1,9 @@
+{
+  "name": "six-ddc--ccbot",
+  "displayName": "ccbot",
+  "description": "Telegram \u2194 tmux bridge for Claude Code: 1 topic = 1 window = 1 session",
+  "version": "1.0.0",
+  "author": "six-ddc",
+  "homepage": "https://github.com/six-ddc/ccbot",
+  "skills": []
+}
