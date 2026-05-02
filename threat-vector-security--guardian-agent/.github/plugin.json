@@ -1,0 +1,9 @@
+{
+  "name": "threat-vector-security--guardian-agent",
+  "displayName": "guardian-agent",
+  "description": "Security-first AI agent orchestration system. Built-in agents with predefined capabilities, strict guardrails on what they can and cannot do, and a four-layer defense system that enforces security at ",
+  "version": "1.0.0",
+  "author": "Threat-Vector-Security",
+  "homepage": "https://github.com/Threat-Vector-Security/guardian-agent",
+  "skills": []
+}
