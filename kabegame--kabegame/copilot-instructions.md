@@ -1,49 +1,43 @@
-## image-type-single-source
+## modal-back-android
 
-> 支持的图片后缀列表统一从 image_type 模块获取，禁止在别处写死
+> 安卓下弹出层必须用 useModalBack 注册返回栈
 
 
-# 图片类型 / 后缀列表单一数据源
+# 安卓弹出层与返回栈
 
-所有需要「列出支持的图片后缀」或「判断是否为支持的图片」的逻辑，必须从 **`src-tauri/core/src/image_type.rs`** 获取，不得在其它文件中写死扩展名列表（如 `["jpg","png",...]`）。
+在 **Android** 下，任何弹出层（对话框、抽屉、ActionSheet、预览等）都必须使用 `@packages/core/src/composables/useModalBack.ts` 的 **useModalBack** 注册到模态返回栈，以便物理/虚拟返回键能按栈顺序关闭弹层。
 
-## 数据源位置
+## 要求
 
-- **Rust 模块**：`crate::image_type`（在 core 内）或 `kabegame_core::image_type`（在 app-main 内）
-- **定义文件**：`src-tauri/core/src/image_type.rs`
+- 弹层「打开状态」由 `Ref<boolean>` 或 `WritableComputedRef<boolean>` 表示时，在组件里调用 `useModalBack(该 ref)`。
+- 从 `@kabegame/core` 使用时：`import { useModalBack } from "@kabegame/core/composables/useModalBack";`
+- 在 core 包内使用时：`import { useModalBack } from "../composables/useModalBack";`（路径按实际调整）
+- `useModalBack` 内部已做 `IS_ANDROID` 判断，非安卓无副作用，可放心在桌面与安卓共用同一组件。
 
-## 应使用的 API（示例）
+## 示例
 
-| 需求 | 使用 |
-|------|------|
-| 支持的扩展名列表 | `image_type::supported_image_extensions()` |
-| 扩展名 → MIME | `image_type::mime_by_ext()` |
-| 某扩展名是否支持 | `image_type::is_supported_image_ext(ext)` |
-| 按路径是否图片 | `image_type::is_image_by_path(path)` |
-| 按 MIME 是否图片 | `image_type::is_image_mime(mime)` |
-| URL 是否图片扩展名 | `image_type::url_has_image_extension(url)` |
-| 默认扩展名（下载/缩略图等） | `image_type::default_image_extension()` |
+```vue
+<script setup lang="ts">
+import { ref } from 'vue';
+import { useModalBack } from "@kabegame/core/composables/useModalBack";
 
-## 正确写法示例
-
-```rust
-// ✅ 从 image_type 获取
-if crate::image_type::is_image_by_path(path) { ... }
-let ext = crate::image_type::default_image_extension();
-let exts = kabegame_core::image_type::supported_image_extensions();
+const visible = ref(false);
+useModalBack(visible);
+</script>
 ```
 
-## 错误写法示例
+有子层时（如 ActionSheet 的二级菜单），每个「可被返回键关闭」的层单独一个 ref，分别调用一次 `useModalBack`，先注册子层再注册主层，这样返回键会先关子层再关主层。
 
-```rust
-// ❌ 禁止：在其它模块写死扩展名或 MIME 列表
-const IMAGE_EXT: &[&str] = &["jpg", "png", "gif"];
-if ["jpg", "jpeg", "png"].contains(&ext) { ... }
+```typescript
+// 主 sheet 与子菜单各一个 ref，各调 useModalBack
+useModalBack(sheetOpen, { onClose: () => { expandedItem.value = null; } });
+useModalBack(submenuOpen);
 ```
 
-## 前端
+## 错误做法
 
-前端需要「支持的图片类型列表」时，应通过 Tauri 命令 **`get_supported_image_types`** 获取（该命令内部从 `image_type` 读取），不要在 TS/Vue 里维护一份重复的后缀或 MIME 列表。
+- 仅在安卓用 `close-on-back` 等单独处理、却不把弹层压入模态栈，导致返回键行为不一致或无法按栈关闭。
+- 新增弹层组件时忘记调用 `useModalBack(控制显示的 ref)`。
 
 ---
 > Source: [kabegame/kabegame](https://github.com/kabegame/kabegame) — distributed by [TomeVault](https://tomevault.io).
