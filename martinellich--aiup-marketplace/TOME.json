@@ -1,0 +1,81 @@
+{
+  "name": "aiup-marketplace",
+  "owner": "martinellich",
+  "repo": "aiup-marketplace",
+  "description": "Plugin for Claude Code for AI Unified Process",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "entity-model",
+      "path": "aiup-core/skills/entity-model",
+      "github_url": "https://github.com/martinellich/aiup-marketplace/tree/main/aiup-core/skills/entity-model",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "path": "aiup-vaadin-jooq/skills/implement",
+      "github_url": "https://github.com/martinellich/aiup-marketplace/tree/main/aiup-vaadin-jooq/skills/implement",
+      "description": ""
+    },
+    {
+      "name": "karibu-test",
+      "path": "aiup-vaadin-jooq/skills/karibu-test",
+      "github_url": "https://github.com/martinellich/aiup-marketplace/tree/main/aiup-vaadin-jooq/skills/karibu-test",
+      "description": ""
+    },
+    {
+      "name": "playwright-test",
+      "path": "aiup-vaadin-jooq/skills/playwright-test",
+      "github_url": "https://github.com/martinellich/aiup-marketplace/tree/main/aiup-vaadin-jooq/skills/playwright-test",
+      "description": ""
+    },
+    {
+      "name": "requirements",
+      "path": "aiup-core/skills/requirements",
+      "github_url": "https://github.com/martinellich/aiup-marketplace/tree/main/aiup-core/skills/requirements",
+      "description": ""
+    },
+    {
+      "name": "use-case-spec",
+      "path": "aiup-core/skills/use-case-spec",
+      "github_url": "https://github.com/martinellich/aiup-marketplace/tree/main/aiup-core/skills/use-case-spec",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/martinellich/aiup-marketplace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:37:12Z"
+}
