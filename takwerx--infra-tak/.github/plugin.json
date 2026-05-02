@@ -1,0 +1,9 @@
+{
+  "name": "takwerx--infra-tak",
+  "displayName": "infra-TAK",
+  "description": "Browser based Team Awareness Kit Infrastructure Management Platform. One-click deployment of TAK Server, Authentik identity provider, and TAK Portal with automated LDAP, SSL, and QR enrollment. Includ",
+  "version": "1.0.0",
+  "author": "takwerx",
+  "homepage": "https://github.com/takwerx/infra-TAK",
+  "skills": []
+}
