@@ -1,0 +1,366 @@
+## retain
+
+> Native macOS app that aggregates AI conversations from multiple platforms into a unified, searchable knowledge base with intelligent learning extraction.
+
+# Retain
+
+Native macOS app that aggregates AI conversations from multiple platforms into a unified, searchable knowledge base with intelligent learning extraction.
+
+**GitHub:** https://github.com/BayramAnnakov/retain
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         SwiftUI                              │
+│  ContentView → ConversationDetailView, MenuBarView, etc.    │
+├─────────────────────────────────────────────────────────────┤
+│                    AppState (@MainActor)                     │
+│  - conversations, searchResults, syncState                   │
+│  - manages all UI state and coordinates services             │
+├─────────────────────────────────────────────────────────────┤
+│                        Services                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌────────────────────┐   │
+│  │ SyncService │  │ FileWatcher │  │  WebSyncEngine     │   │
+│  │ (actor)     │  │ (FSEvents)  │  │  (claude.ai/gpt)   │   │
+│  └──────┬──────┘  └──────┬──────┘  └─────────┬──────────┘   │
+│         └────────────────┴───────────────────┘              │
+│                          │                                   │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │  ConversationRepository / LearningRepository (GRDB)     ││
+│  └─────────────────────────────────────────────────────────┘│
+│                          │                                   │
+│  ┌─────────────────────────────────────────────────────────┐│
+│  │  SQLite + FTS5 (~/.../Retain/retain.sqlite)            ││
+│  └─────────────────────────────────────────────────────────┘│
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Project Structure
+
+```
+Sources/Retain/
+├── App/                    # Entry point, AppState, ContentView
+├── Components/             # Reusable UI (SyncOverlay, ProviderBadge)
+├── Data/
+│   ├── Models/             # Conversation, Message, Learning, Provider
+│   ├── Parsers/            # ClaudeCodeParser, CodexParser
+│   └── Storage/            # Database, Repositories
+├── Features/
+│   ├── ConversationBrowser/
+│   ├── Learning/
+│   ├── MenuBar/
+│   ├── Settings/
+│   └── Onboarding/
+├── Integrations/           # macOS native integrations
+│   ├── SpotlightIndexer.swift  # Core Spotlight indexing
+│   └── URLSchemeHandler.swift  # retain:// deep linking
+├── Intents/                # App Intents for Shortcuts/Siri
+│   ├── ConversationEntity.swift
+│   ├── ConversationQuery.swift
+│   ├── RetainIntents.swift
+│   └── ShortcutsProvider.swift
+└── Services/
+    ├── FileWatcher.swift   # FSEvents for file changes
+    ├── SyncService.swift   # Background sync (actor)
+    ├── Learning/           # CorrectionDetector, CLAUDEMDExporter
+    ├── Search/             # SemanticSearch, OllamaService
+    └── WebSync/            # ClaudeWebSync, ChatGPTWebSync
+```
+
+## Key Components
+
+### Data Sources
+
+| Source | Location | Format | Auto-sync |
+|--------|----------|--------|-----------|
+| Claude Code | `~/.claude/projects/**/*.jsonl` | JSONL | Yes (FSEvents) |
+| Codex CLI | `~/.codex/history.jsonl` | JSONL | Yes (FSEvents) |
+| Cursor | `~/Library/Application Support/Cursor/User/*Storage/state.vscdb` | SQLite | Yes (FSEvents) |
+| claude.ai | Web API | JSON | Manual connect |
+| chatgpt.com | Web API | JSON | Manual connect |
+
+### Threading Model
+
+- **SyncService**: Swift `actor` for thread-safe background sync
+- **AppState**: `@MainActor` for UI state management
+- **Database ops**: `DispatchQueue.global(qos: .userInitiated)`
+- **UI updates**: Batched progress updates to reduce MainActor thrashing
+
+### Core Models
+
+```swift
+struct Conversation {
+    var id: UUID
+    var provider: Provider       // .claudeCode, .claudeWeb, .chatgptWeb, .codex
+    var sourceType: SourceType   // .cli, .web, .importFile
+    var externalId: String?      // For deduplication
+    var title: String?
+    var projectPath: String?     // For CLI sources
+    var messageCount: Int
+}
+
+struct Message {
+    var id: UUID
+    var conversationId: UUID
+    var role: Role              // .user, .assistant, .system, .tool
+    var content: String
+    var timestamp: Date
+}
+
+struct Learning {
+    var id: UUID
+    var conversationId: UUID
+    var type: LearningType      // .correction, .positive, .implicit
+    var extractedRule: String
+    var status: LearningStatus  // .pending, .approved, .rejected
+    var scope: LearningScope    // .global, .project
+}
+```
+
+## macOS Native Integration
+
+### Spotlight Integration
+Conversations are indexed in system Spotlight for universal search.
+- **SpotlightIndexer** (`Integrations/SpotlightIndexer.swift`): Actor that manages Core Spotlight indexing
+- Automatically indexes conversations after sync
+- Toggle in Settings → Diagnostics → Spotlight Integration
+- Test with: `mdfind "kMDItemContentType == 'com.retain.conversations'"`
+
+### URL Scheme (Deep Linking)
+Retain supports `retain://` URLs for deep linking:
+
+| URL | Action |
+|-----|--------|
+| `retain://conversation/{uuid}` | Open specific conversation |
+| `retain://search?q={query}` | Search with query |
+| `retain://learnings` | Open learnings view |
+| `retain://sync` | Trigger sync |
+
+Test with: `open "retain://search?q=async"`
+
+### Dock Menu
+Right-click the Dock icon to access:
+- Sync Now
+- Review Learnings (with pending count)
+- Recent conversations submenu
+
+### App Intents (Shortcuts/Siri)
+Exposes app functionality to Shortcuts app and Siri:
+
+| Intent | Description |
+|--------|-------------|
+| `SearchConversationsIntent` | Search conversations by query |
+| `SyncConversationsIntent` | Trigger sync |
+| `OpenConversationIntent` | Open a specific conversation |
+| `OpenLearningsIntent` | Open learnings view |
+| `GetRecentConversationsIntent` | Get list of recent conversations |
+| `GetPendingLearningsCountIntent` | Get pending learnings count |
+
+Phrases registered in `ShortcutsProvider.swift`:
+- "Search Retain for [query]"
+- "Sync Retain"
+- "Open Retain learnings"
+
+## Build & Run
+
+```bash
+swift build                      # Debug build
+swift build -c release           # Release build
+swift test                       # Run tests
+swift build && .build/debug/Retain  # Build and run
+```
+
+## Key Patterns
+
+### Non-blocking Sync
+```swift
+// AppState.syncAll() uses Task.detached to avoid MainActor inheritance
+syncTask = Task.detached { [syncService] in
+    _ = try await syncService.syncAll()
+}
+```
+
+### Background Database Operations
+```swift
+// SyncService uses withCheckedContinuation for async DB writes
+await withCheckedContinuation { continuation in
+    DispatchQueue.global(qos: .userInitiated).async {
+        try? repository.upsert(conversation, messages: messages)
+        continuation.resume()
+    }
+}
+```
+
+### FTS5 Search
+```swift
+// Uses synchronized FTS5 tables for instant search
+try db.create(virtualTable: "messages_fts", using: FTS5()) { t in
+    t.synchronize(withTable: "messages")
+    t.tokenizer = .porter()
+    t.column("content")
+}
+```
+
+### Progress Updates (batched)
+```swift
+// Update UI every 20 files or 5% to reduce MainActor thrashing
+let progressUpdateInterval = max(20, totalFiles / 20)
+if index % progressUpdateInterval == 0 { ... }
+```
+
+## Provider Registry Architecture
+
+The Provider Registry (`Data/Models/ProviderRegistry.swift`) centralizes provider configuration:
+
+```swift
+// Adding a new provider:
+struct OpenCodeProviderConfig: ProviderConfiguration {
+    let provider = Provider.opencode
+    let displayName = "OpenCode"
+    let iconName = "chevron.left.slash.chevron.right"
+    let brandColor = Color.cyan
+    let isSupported = true
+    let isWebProvider = false
+    let enabledKey = "opencodeEnabled"
+    let sourceDescription = "~/.local/share/opencode/storage/"
+
+    var dataPath: URL? {
+        FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent(".local/share/opencode/storage")
+    }
+}
+
+// Register in ProviderRegistry.all
+static let all: [ProviderConfiguration] = [
+    ...,
+    OpenCodeProviderConfig(),
+]
+```
+
+### Provider Data Locations (Reference)
+
+From [agent-sessions](https://github.com/jazzyalex/agent-sessions):
+
+| Provider | Location | Format |
+|----------|----------|--------|
+| Claude Code | `~/.claude/projects/**/*.jsonl` | JSONL |
+| Codex CLI | `~/.codex/sessions/` | JSONL |
+| OpenCode | `~/.local/share/opencode/storage/` | JSON |
+| Gemini CLI | `~/.gemini/tmp/` | JSON |
+| GitHub Copilot CLI | `~/.copilot/session-state/` | JSON |
+| Factory/Droid | `~/.factory/sessions/` | JSON |
+
+## Common Tasks
+
+### Add New Provider
+1. Add case to `Provider` enum in `Data/Models/Provider.swift`
+2. Create config struct implementing `ProviderConfiguration` in `Data/Models/ProviderRegistry.swift`
+3. Register in `ProviderRegistry.all`
+4. Create parser in `Data/Parsers/` (if CLI provider)
+5. Add sync method in `SyncService`
+6. Add file watcher in `FileWatcher` (if applicable)
+7. Add @AppStorage binding in `DataSourcesSettingsView` if needed
+
+### Database Migration
+```swift
+// In Database.swift migrator
+migrator.registerMigration("v2_feature") { db in
+    try db.alter(table: "conversations") { t in
+        t.add(column: "newField", .text)
+    }
+}
+```
+
+## Dependencies
+
+- **GRDB.swift 6.24+**: SQLite wrapper with FTS5 support
+- **Ollama** (optional): Local embeddings for semantic search
+
+## Database Location
+
+`~/Library/Application Support/Retain/retain.sqlite`
+
+## Notes
+
+- Menu bar uses `MenuBarExtra` with `.menuBarExtraStyle(.window)`
+- Dock icon set programmatically via `NSApplication.shared.applicationIconImage`
+- Web sessions stored in Keychain, expire after ~30 days
+- Learning extraction uses regex patterns in `CorrectionDetector`
+- **Message preservation**: Messages are intentionally NOT deleted when source files are removed (preserves learnings via FK)
+- **Browser support**: Any Chromium-based browser works (Chrome, Brave, Vivaldi, Arc) for cookie reading
+
+## Release & Distribution
+
+### Release Workflow
+
+```bash
+# 1. Build release
+./scripts/build-release.sh
+
+# 2. Sign, notarize, and create DMG (requires Developer ID certificate)
+./scripts/sign-and-notarize.sh 0.1.x-beta
+
+# 3. Create GitHub release
+git tag v0.1.x-beta && git push origin v0.1.x-beta
+gh release create v0.1.x-beta dist/Retain-0.1.x-beta.dmg dist/Retain-0.1.x-beta.zip --prerelease
+
+# 4. Generate and publish appcast for auto-updates
+./scripts/generate-appcast.sh 0.1.x-beta "Release notes here"
+git add appcast.xml && git commit -m "Update appcast for v0.1.x-beta" && git push
+```
+
+### Auto-Updates (Sparkle)
+
+The app uses [Sparkle](https://sparkle-project.org/) for automatic updates:
+
+- **Appcast URL**: `https://raw.githubusercontent.com/BayramAnnakov/retain/main/appcast.xml`
+- **EdDSA Public Key**: Stored in Info.plist (`SUPublicEDKey`)
+- **Private Key**: Stored in macOS Keychain (generated with `generate_keys`)
+
+**Key files:**
+- `Services/UpdateController.swift` - Sparkle integration
+- `scripts/generate-appcast.sh` - Generates signed appcast.xml
+- `appcast.xml` - Update feed (committed to repo)
+
+**Regenerating signing keys** (only if needed):
+```bash
+.build/artifacts/sparkle/Sparkle/bin/generate_keys
+# Update SUPublicEDKey in scripts/build-release.sh
+```
+
+**Framework bundling**: The build script copies `Sparkle.framework` to `Contents/Frameworks/` and sets `@executable_path/../Frameworks` rpath. Without this, the app crashes on launch with "Library not loaded".
+
+**Bootstrap version**: v0.1.3-beta is the first release with Sparkle. Users on older versions must manually update once; future updates will auto-notify.
+
+**Version numbers for Sparkle**: Use numeric `BUILD_NUMBER` (2, 3, 4...) for `CFBundleVersion` and `sparkle:version` (comparison), while `CFBundleShortVersionString` and `sparkle:shortVersionString` use human-readable versions like "0.1.5-beta" (display only).
+
+**CRITICAL - Sparkle code signing order**: Never use `codesign --deep` for Sparkle apps - it corrupts XPC service signatures and strips entitlements. Sign components individually in this order:
+1. XPC services first: `Installer.xpc`, then `Downloader.xpc` (with `--preserve-metadata=entitlements`)
+2. `Updater.app`
+3. `Autoupdate` binary
+4. `Sparkle.framework`
+5. Main app bundle last (WITHOUT `--deep`)
+
+See: https://steipete.me/posts/2025/code-signing-and-notarization-sparkle-and-tears
+
+### Key Points
+
+- **Xcode 15.4+ required**: `nonisolated(unsafe)` syntax requires Swift 5.10; CI workflows must use Xcode 15.4+
+- **CI should NOT upload release assets**: Release workflows overwrite manually notarized builds; use verify-only CI
+- **Both .app AND .dmg must be notarized**: The .app is notarized first, then the DMG is signed, notarized, and stapled. Without DMG notarization, Sparkle auto-updates will fail with "Update Error"
+- **DMG creation**: The sign-and-notarize script uses `create-dmg` (install with `brew install create-dmg`) with fallback to `hdiutil`. Both methods include the Applications symlink for drag-to-install support.
+- **Parser version bump**: When changing `ClaudeCodeParser` display logic (titles, previews), bump `claudeCodeParserVersion` in `SyncService.swift` to force re-sync on user's next launch
+
+### DMG Creation Tools
+
+The `sign-and-notarize.sh` script handles DMG creation with a cascade of fallbacks:
+1. **create-dmg** (best quality, custom window layout) - install with `brew install create-dmg`
+2. **hdiutil direct** - standard macOS tool
+3. **Sparse image method** - workaround for "Operation not permitted" errors on some systems
+
+All methods include the Applications symlink for drag-to-install support.
+
+---
+> Source: [BayramAnnakov/retain](https://github.com/BayramAnnakov/retain) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
