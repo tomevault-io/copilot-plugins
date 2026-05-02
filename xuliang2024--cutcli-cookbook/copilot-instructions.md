@@ -1,164 +1,221 @@
-## docs-style
+## example-spec
 
-> 文档站编写规范 — 改 docs/** 时遵守的写作风格、链接规则、VitePress 注意事项
+> 案例规范 — 改动 examples/** 时必须遵守的目录结构、字段、章节
 
 
-# 文档编写规范（docs/**）
+# 案例规范（examples/**）
 
-## VitePress 配置约束
+> 改动任何 `examples/<id>-<slug>/` 都要遵守。CI 会用 `scripts/validate-example.mjs` 校验。
 
-`docs/.vitepress/config.mts` 关键设置：
+## 目录结构
 
-```typescript
-cleanUrls: false   // 必须保留：让 R2 直接命中 .html 文件
+```text
+examples/<id>-<slug>/
+├── README.md         # 必填：英文版（5 段，英文 H2 标题）
+├── README.zh.md      # 必填：中文版（5 段，中文 H2 标题）
+├── run.sh            # 必填：可执行 + set -euo pipefail
+├── meta.json         # 必填：通过 schema 校验
+├── data/             # 复杂 JSON 拆这里
+│   ├── captions.json
+│   ├── images.json
+│   └── ...
+└── preview.gif       # 推荐：≤ 3 MB，3-8s
 ```
 
-如果改成 `cleanUrls: true`，`docs.cutcli.com/guide/installation` 就需要 worker 强行重写到 `.html`，但 worker 已经做了路径回退（`/foo` → `foo.html` → `foo/index.html`），这层回退是为了兼容 cleanUrls 风格的链接，不要因此关掉路径回退。
+## 命名规则
 
-## 中文文档风格
+- `<id>` 范围：
+  - `01~09` = P0 入门案例（官方维护）
+  - `10~19` = 营销 / 产品类
+  - `20~29` = 知识 / 教育类
+  - `30~39` = Vlog / 个人类
+  - `99-community/<github-handle>/<case>/` = 社区贡献区
+- `<slug>` 用 kebab-case，如 `hello-caption`、`product-promo-30s`
 
-- 中英文之间 1 个空格：「使用 cutcli 创建草稿」
-- 数字与中文之间 1 个空格：「3 秒后退出」
-- 标点：使用全角中文标点（，。？！）；代码 / 命令内保持半角
-- 引号：内容用「」，引用用 ""
+## meta.json schema
 
-## 标题层级
-
-- 每篇 markdown **唯一** H1（用文件 frontmatter `title` 也行，但要么 frontmatter 要么 H1，二选一不要双写）
-- H2 用作主要章节
-- H3 / H4 用作小节
-- 不要直接跳层（H2 → H4）
-
-## 文件名 / URL 风格
-
-- 文件名 kebab-case：`first-draft.md`、`time-units.md`
-- URL 不带扩展名（VitePress 自动加 `.html`）
-- 内部链接用相对路径：`./first-draft` 或 `/guide/first-draft`
-- 引用案例用绝对 GitHub 链接：`https://github.com/xuliang2024/cutcli-cookbook/tree/main/examples/...`
-
-## 链接规则
-
-| 场景 | 写法 |
-|---|---|
-| 同侧栏内的 guide 互链 | `[一节](./time-units)` |
-| 跨侧栏（guide → reference） | `[CLI](/reference/cli)` |
-| 引用案例目录 | `[`examples/01-hello-caption`](https://github.com/xuliang2024/cutcli-cookbook/tree/main/examples/01-hello-caption)` |
-| 外链（cutcli.com、GitHub） | 直接 `<https://...>` 或 `[文字](https://...)` |
-| 引用图片资源 | 放 `docs/public/` 下，URL 用 `/foo.svg`（不是 `./public/foo.svg`） |
-
-CI 用 `scripts/check-links.mjs` 校验内部链接，不通过 fail。
-
-## 命令示例
-
-- 命令名严格 `cutcli`，不写 `cut`
-- 多行命令换行用 `\` 续行
-- 复杂 JSON 用 `--captions @data/captions.json` 文件引用，避免 shell 转义噩梦
-- 时间字段必须是整数微秒（`3000000`）；不写 `3s` / `3000ms`
-
-## 表格
-
-- 用纯 markdown 表格（`| ... |`）
-- 不要拿 HTML table
-- 列对齐用 `|---|`、`|:---|`、`|---:|`、`|:---:|`
-
-## 代码块
-
-- 都加语言：`bash`、`json`、`typescript`、`yaml`
-- shell 命令前不加 `$` 提示符（VitePress 主题已视觉化）
-- 引用本地文件路径用 `inline code`，例如 `` `docs/.vitepress/config.mts` ``
-
-## VitePress 特有语法
-
-```markdown
-::: tip
-小提示
-:::
-
-::: warning
-警告
-:::
-
-::: danger
-危险操作
-:::
-
-::: details 折叠展开
-里面写细节
-:::
-```
-
-适度用，不要每段都包。
-
-## 自动生成区域 ⚠
-
-`docs/reference/cli.md`、`docs/reference/api.md`、`docs/reference/concepts.md` 由 `jy_cli/scripts/sync-to-cookbook.mjs` 单向覆盖。**不要直接编辑**：
-
-- 改这些文件 → 下次同步会被覆盖回去
-- 真要改 → 改 `jy_cli/docs/cli.md`（或 api.md / README.md）→ 跑 `node scripts/sync-to-cookbook.mjs`
-
-文件顶部有 `<!-- THIS FILE IS GENERATED ... DO NOT EDIT. -->` 标识。
-
-## 新增页面
-
-1. 在 `docs/<section>/` 加新 `.md` 文件
-2. 在 `docs/.vitepress/config.mts` 的对应 `sidebar` 数组里加链接
-3. 跑 `npm run docs:build` 看是否成功
-4. 跑 `npm run lint:links` 看新链接是否可达
-
-## 国际化（i18n）
-
-**英文为默认 locale**，中文是第二语言。
-
-| 内容 | 英文（root） | 中文 |
-|---|---|---|
-| 文档站 | `docs/<section>/*.md` | `docs/zh/<section>/*.md` |
-| 仓库门面 | `README.md` | `README.zh.md` |
-| 治理文档 | `CONTRIBUTING.md` / `CHANGELOG.md` | `CONTRIBUTING.zh.md` / `CHANGELOG.zh.md` |
-| 子目录 README | `templates/README.md` 等 | `templates/README.zh.md` 等 |
-| 案例 README | `examples/<id>/README.md` | `examples/<id>/README.zh.md` |
-| 提示词 | `prompts/system/cutcli-expert.md` | `prompts/system/cutcli-expert.zh.md` |
-| GitHub Issue / PR 模板 | 单文件双语（English / 中文 同行写） | 同左 |
-| 维护者文档 | — | `.github/RELEASE_GUIDE.md`、`showcase/launch.md`、`.cursor/rules/*` 都保留中文 |
-
-VitePress `locales`：
-
-```typescript
-locales: {
-  root: { label: 'English', lang: 'en-US', themeConfig: { ... } },
-  zh:   { label: '简体中文', lang: 'zh-CN', link: '/zh/', themeConfig: { ... } },
+```json
+{
+  "id": "01-hello-caption",
+  "title": "Hello Caption",
+  "tags": ["captions", "animation"],
+  "author": "your-github-handle",
+  "duration": 5,
+  "resolution": "1080x1920",
+  "gif": "preview.gif",
+  "description": "一句话描述",
+  "level": 1
 }
 ```
 
-新建任何面向用户的 markdown，**默认要写英文 + 一份中文 .zh.md**。`scripts/check-i18n-pairs.mjs` 会扫成对存在；`npm run lint:i18n` 失败时不能合并。
+字段约束（详见 `scripts/_lib/example-schema.mjs`）：
 
-`docs/reference/{cli,api,concepts}.md` 由闭源仓 `jy_cli/scripts/sync-to-cookbook.mjs` 写入，因此暂时跳过 i18n-pairs 检查；闭源仓同步脚本升级后会双语输出（详见 `.cursor/rules/open-source-boundary.mdc`）。
+| 字段 | 类型 | 约束 |
+|---|---|---|
+| `id` | string | `^[a-z0-9][a-z0-9-]*$` |
+| `tags` | string[] | 至少 1 个 |
+| `duration` | number | > 0 |
+| `resolution` | string | `^[0-9]+x[0-9]+$` |
+| `level` | int | 1-5（推荐难度） |
 
-每个 README / docs / prompts 的顶部加双语切换链接：
+## README.md（英文）+ README.zh.md（中文）必有 5 个 H2 章节
+
+主 `README.md` 必须用英文章节（CI 严格匹配）：
+
+```markdown
+## When to use
+
+## Run it
+
+## Key parameters
+
+## Customize
+
+## cutcli features used
+```
+
+如果存在 `README.zh.md`（强烈推荐 + `lint:i18n` 强制成对），中文章节必须是：
+
+```markdown
+## 适用场景
+
+## 一行运行
+
+## 关键参数解释
+
+## 进阶改造
+
+## 用到的 cutcli 能力
+```
+
+第一段必须包含 `![preview](preview.gif)`（即使 gif 还没录，也要占位）。两个 README 顶部都要有双语切换链接：
 
 ```markdown
 [English](README.md) · [简体中文](README.zh.md)
 ```
 
-## 静态资源
-
-- SVG / PNG / GIF 放 `docs/public/`
-- 文件大小：单图 ≤ 200 KB，超过用 R2 + CDN 链接
-- 命名：kebab-case，`hero.svg` / `case-thumbnail-01.png`
-
-## 字数控制
-
-- 单页 ≤ 1500 字（中文计算）
-- 超过就拆 2 篇
-- 章节排版：先 1-2 句概述 → 表格/列表 → 代码示例 → 进阶链接
-
-## 生成 gallery
-
-如果加了新 case，跑：
+## run.sh 必有要素
 
 ```bash
-npm run build:gallery   # 重新生成 docs/public/gallery.json
-npm run docs:build
+#!/usr/bin/env bash
+# <id>: <一句话描述>
+# Usage: bash run.sh
+set -euo pipefail
+
+if ! command -v cutcli >/dev/null 2>&1; then
+  echo "cutcli not found. Install: curl -s https://cutcli.com/cli | bash" >&2
+  exit 1
+fi
+if ! command -v jq >/dev/null 2>&1; then
+  echo "jq not found." >&2
+  exit 1
+fi
+
+HERE="$(cd "$(dirname "$0")" && pwd)"
+
+DRAFT_ID=$(cutcli draft create --width 1080 --height 1920 --name "<id>" | jq -r '.draftId')
+
+# ... 加内容
+cutcli captions add "$DRAFT_ID" --captions "@$HERE/data/captions.json" ...
+
+cutcli draft info "$DRAFT_ID" --pretty
 ```
+
+要求：
+
+- 顶部 shebang `#!/usr/bin/env bash`
+- `set -euo pipefail`
+- 用 `cutcli`（不是 `cut`）
+- 用 `chmod +x run.sh`
+- 用 `@$HERE/data/file.json` 引用 JSON（不要内联在命令行里转义）
+- 输出关键变量给用户参考
+
+## 素材 URL 白名单
+
+`run.sh` 和 `data/*.json` 中的 URL 必须匹配以下之一：
+
+```regex
+^https://cutcli\.com/
+^https://[a-z0-9-]+\.r2\.dev/
+^https://[a-z0-9-]+\.r2\.cloudflarestorage\.com/
+^https://cdn\.jsdelivr\.net/
+^https://raw\.githubusercontent\.com/
+^https://[a-z0-9-]+\.githubusercontent\.com/
+```
+
+不允许：
+
+- `http://` 明文
+- 个人云盘 / OSS 私链
+- 带 query token 的临时签名 URL
+
+## 时间单位
+
+**所有时间字段都是微秒**：
+
+| 期望 | 写法 |
+|---|---|
+| 0.5 秒 | `500000` |
+| 3 秒 | `3000000` |
+| 30 秒 | `30000000` |
+
+错写毫秒（如 `3000` = 3ms）字幕只闪一帧。
+
+## 关键帧的 segmentId 怎么拿
+
+`segmentId` 在 add 之前不存在。脚手架模式：
+
+```bash
+# 1. 先 add 片段
+cutcli images add "$DRAFT_ID" --image-infos @data/images.json
+
+# 2. 用 list 拿回 segmentId
+SEG=$(cutcli images list "$DRAFT_ID" | jq -r '.[0].segmentId')
+
+# 3. 用 jq 替换模板里的 __SEG_ID__
+KFS=$(jq --arg seg "$SEG" '[.[] | .segmentId = $seg]' "$HERE/data/keyframes.template.json")
+
+# 4. add 关键帧
+cutcli keyframes add "$DRAFT_ID" --keyframes "$KFS"
+```
+
+参考 `examples/05-keyframe-zoom-in/run.sh`。
+
+## 校验
+
+提交前必跑：
+
+```bash
+node scripts/validate-example.mjs examples/<your-case>
+bash examples/<your-case>/run.sh    # 实际跑一遍，剪映打开看效果
+```
+
+校验项：
+
+- [ ] `run.sh` / `README.md` / `meta.json` 存在
+- [ ] `README.zh.md` 存在（`npm run lint:i18n` 强制中英成对）
+- [ ] `run.sh` chmod +x、有 shebang、有 `set -euo pipefail`
+- [ ] `meta.json` 通过 ajv schema（`description` 英文，可选 `description_zh` 中文）
+- [ ] `README.md` 5 个英文章节齐全；`README.zh.md` 5 个中文章节齐全
+- [ ] `data/*.json` 都是合法 JSON
+- [ ] 所有 URL 在白名单内
+- [ ] README 不含本地路径 `/Users/...`
+
+## 脚手架（推荐入口）
+
+```bash
+node scripts/new-example.mjs my-case-slug
+# 按提示输入 author / title / tags / duration / resolution / description
+# 自动生成 examples/99-community/<author>/my-case-slug/{README.md,README.zh.md,run.sh,meta.json,data/}
+```
+
+脚手架生成的 `README.md` 是英文骨架（5 段英文 H2），`README.zh.md` 是中文骨架（5 段中文 H2）。两者都已经填好双语切换链接。
+
+## 最后
+
+- 拿不准的 case 复杂度，先看 `examples/01~05`（最简单的样板）
+- 想做长视频，看 `examples/10~30`（30s~60s）
+- 装饰元素（贴纸/特效/滤镜）先 `cutcli query` 找 ID，再 add
 
 ---
 > Source: [xuliang2024/cutcli-cookbook](https://github.com/xuliang2024/cutcli-cookbook) — distributed by [TomeVault](https://tomevault.io).
