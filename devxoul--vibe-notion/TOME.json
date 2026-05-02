@@ -1,0 +1,51 @@
+{
+  "name": "vibe-notion",
+  "owner": "devxoul",
+  "repo": "vibe-notion",
+  "description": "Notion automation CLI for AI agents",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vibe-notionbot",
+      "path": "skills/vibe-notionbot",
+      "github_url": "https://github.com/devxoul/vibe-notion/tree/main/skills/vibe-notionbot",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/devxoul/vibe-notion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:42:44Z"
+}
