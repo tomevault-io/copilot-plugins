@@ -4,7 +4,7 @@
   "repo": "giip-dev-agent",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LowyShin/giip-dev-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T15:54:52Z"
+  "distributed_at": "2026-05-02T15:55:14Z"
 }
