@@ -1,0 +1,9 @@
+{
+  "name": "guicn555--roomrelay",
+  "displayName": "RoomRelay",
+  "description": "Stream Windows system or per-app audio to Sonos speakers over your local network.",
+  "version": "1.0.0",
+  "author": "guicn555",
+  "homepage": "https://github.com/guicn555/RoomRelay",
+  "skills": []
+}
