@@ -1,0 +1,9 @@
+{
+  "name": "blockether--svar",
+  "displayName": "svar",
+  "description": "Type\u2011safe LLM output for Clojure. Works with any text\u2011only model.",
+  "version": "1.0.0",
+  "author": "Blockether",
+  "homepage": "https://github.com/Blockether/svar",
+  "skills": []
+}
