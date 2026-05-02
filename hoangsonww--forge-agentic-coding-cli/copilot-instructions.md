@@ -1,23 +1,23 @@
-## tools
+## typescript
 
-> Tool authoring rules
+> TypeScript style rules, scoped to .ts files
 
 
-# Tool authoring rules
+# TypeScript rules
 
-- Every new tool registers in `src/tools/registry.ts`.
-- Tool schemas must declare `sideEffect`
-  (`none|read|write|network|exec`) and `risk`
-  (`low|medium|high|critical`). These drive the permission
-  classifier — be honest.
-- Every tool invocation must go through `requestPermission`
-  (`src/permissions/manager.ts`). No direct filesystem or shell calls.
-- Paths resolved to realpath and confined via `src/sandbox/fs.ts`.
-- Shell commands go through `classifyCommandRisk`
-  (`src/sandbox/shell.ts`). `critical` is hard-blocked — do not add
-  bypasses.
-- Prefer `{ ok, data }` / `{ ok: false, error }` returns. Throw only
-  for programmer errors, using `ForgeRuntimeError`.
+- Strict mode is on. Never use `any` in production code without a
+  comment explaining why. The one accepted exception is
+  `src/tools/registry.ts`.
+- Prefer `readonly` and immutable data flow. Prefer function modules
+  over classes, except in `src/models/*` where the provider-class
+  shape is established.
+- Return `Result<T, E>`-shaped objects for expected failures. Throw
+  only for programmer errors.
+- Throw `ForgeRuntimeError` from `src/types/errors.ts`, never bare
+  `Error`.
+- Comments explain **why**, not what. Delete comments that only
+  narrate the code. Never leave a comment describing the change you
+  just made.
 
 ---
 > Source: [hoangsonww/Forge-Agentic-Coding-CLI](https://github.com/hoangsonww/Forge-Agentic-Coding-CLI) — distributed by [TomeVault](https://tomevault.io).
