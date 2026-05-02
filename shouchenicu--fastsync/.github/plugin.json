@@ -1,0 +1,9 @@
+{
+  "name": "shouchenicu--fastsync",
+  "displayName": "FastSync",
+  "description": "Fast folder sync, written in Rust.",
+  "version": "1.0.0",
+  "author": "ShouChenICU",
+  "homepage": "https://github.com/ShouChenICU/FastSync",
+  "skills": []
+}
