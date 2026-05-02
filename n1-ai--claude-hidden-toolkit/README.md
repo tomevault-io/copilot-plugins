@@ -7,11 +7,11 @@ The first comprehensive reverse-engineering of Claude.ai's 37 internal tools. Fu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [N1-AI/claude-hidden-toolkit](https://github.com/N1-AI/claude-hidden-toolkit).
+Original source: `CLAUDE.md` in [N1-AI/claude-hidden-toolkit](https://github.com/N1-AI/claude-hidden-toolkit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
