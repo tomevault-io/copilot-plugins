@@ -1,362 +1,218 @@
-## cursor-dynamic-rules-system
+## rules
 
-> Kalite kontrol geçitleri - Otomatik validasyon sistemi ve kod kalitesi metrikleri
+> Merkezi kural yönetim sistemi - Dinamik kural seçimi ve component'ler arası koordinasyon
 
 
-# KALİTE KONTROL GEÇİTLERİ - OTOMATİK VALİDASYON
+# Cursor AI Assistant - Merkezi Kural Yönetimi
 
-## TEMEL FELSEFESİ - PREVENTION OVER CORRECTION
+## NASIL ÇALIŞIR? - SİSTEM AKIŞ DİYAGRAMI
 
-Kalite sorunlarını sonradan düzeltmek yerine baştan önlemek daha verimli ve güvenlidir. Bu component her implementasyon öncesi ve sonrası otomatik kontroller yapar, sorunlu kodun sisteme girmesini engeller.
+```
+Kullanıcı İsteği
+       ↓
+1. CONTEXT DETECTION (Otomatik Analiz) ⚠️ ZORUNLU
+       ↓
+2. Windows 11 & PowerShell Kontrolü 🖥️
+       ↓
+3. GitHub İzin Kontrolü 🔒
+       ↓
+4. KURAL SETİ SEÇİMİ (Dinamik)
+       ↓
+5. İLGİLİ COMPONENT'LERİ YÜKLEDİL (Modüler)
+       ↓
+6. UYGULAMA (Fokuslu)
+```
 
-## ÇOK KATMANLI VALİDASYON SİSTEMİ
+## TEMEL PRENSİPLER - HER ZAMAN AKTİF
 
-### KATMAN 1: PRE-IMPLEMENTATION GATES
-Her kod değişikliği öncesi zorunlu kontroller:
+### 🇹🇷 DİL KURALI (MUTLAK)
+- **Kullanıcıyla iletişim**: Her zaman Türkçe
+- **Kod ve teknik**: İngilizce
+- **Dosya yapısı**: İngilizce
 
+### 📏 DOSYA BOYUTU KURALI (MUTLAK - İSTİSNASIZ)
+- **HARD LİMİT**: 700-1000 satır
+- **BLOKAJ**: 700+ satırda YENİ KOD YOK
+- **ZORUNLU**: Refactoring gerekli
+- **ACİL DURUM**: Sadece kritik hatalar için +50 satır
+
+### 🧹 TEMİZ KOD (MUTLAK)
+- **Kullanılmayan importları sil**
+- **Gereksiz kodu temizle**
+- **Tek sorumluluk ilkesi**
+- **Minimal implementasyon**
+
+### 🖥️ SİSTEM VE GÜVENLİK KURALLARI (MUTLAK - UNUTULMAZ)
+- **İşletim Sistemi**: Windows 11 kullanıcısı - PowerShell komutları Windows'a uygun olmalı
+- **GitHub Güvenliği**: Kullanıcı izni olmadan ASLA GitHub'a yükleme yapılmaz
+- **Dinamik Kural Seçimi**: Her talepte önce CONTEXT DETECTION yapılır, uygun kural seti seçilir
+- **Bu kurallar sistemin başında uygulanır, sonradan kontrol edilmez**
+
+## CONTEXT DETECTION - OTOMATİK ANALİZ SİSTEMİ (ZORUNLU ADIM)
+
+**⚠️ KRİTİK UYARI**: Her kullanıcı talebinde önce CONTEXT DETECTION yapılması ZORUNLUDUR. Bu adım atlanamaz!
+
+Sistem her isteği analiz ederek otomatik olarak şu değişkenleri belirler:
+
+### ANALİZ DEĞİŞKENLERİ
 ```javascript
-function preImplementationGate(targetFiles, proposedChanges) {
-    const validationResults = {
-        fileSizeCheck: validateFileSizes(targetFiles),
-        architectureCompliance: checkArchitecturalRules(proposedChanges),
-        dependencyHealth: analyzeDependencies(targetFiles),
-        codebaseReadiness: assessCodebaseState(targetFiles)
-    };
-    
-    return determineImplementationEligibility(validationResults);
+CONTEXT = {
+  PROJECT_TYPE: 'new' | 'existing' | 'debugging' | 'refactoring',
+  COMPLEXITY: 'simple' | 'moderate' | 'complex',
+  USER_INTENT: 'implementation' | 'learning' | 'fix' | 'optimize',
+  FILE_COUNT: 1 | 'few' | 'many',
+  FILE_SIZE_STATUS: 'safe' | 'approaching' | 'violation'
 }
 ```
 
-**Pre-implementation checklist:**
-- [ ] **Hedef dosya boyutları** 700 satır altında mı?
-- [ ] **Mevcut kod kalitesi** standartlara uygun mu?
-- [ ] **Dependency conflicts** var mı?
-- [ ] **Architecture violations** söz konusu mu?
-- [ ] **Technical debt** critical level'da mı?
-
-### KATMAN 2: DURING-IMPLEMENTATION MONITORING
-İmplementasyon sırasında real-time kalite takibi:
-
+### DİNAMİK KURAL SEÇİMİ
 ```javascript
-function realTimeQualityMonitoring(implementationProgress) {
-    const metrics = {
-        linesTooAdded: countAddedLines(),
-        complexityIncrease: measureComplexityGrowth(),
-        importChanges: trackImportModifications(),
-        codeSmells: detectEmergingSmells()
-    };
-    
-    if (metrics.linesAdded > SAFE_THRESHOLD) {
-        triggerSizeWarning();
-    }
-    
-    return metrics;
+if (CONTEXT.FILE_SIZE_STATUS === 'violation') {
+  LOAD: ['file-size-enforcement.mdc']
+  BLOCK: all_new_code_additions
 }
-```
-
-### KATMAN 3: POST-IMPLEMENTATION VALIDATION
-İmplementasyon sonrası comprehensive kontrol:
-
-```javascript
-function postImplementationGate(modifiedFiles) {
-    const finalValidation = {
-        codeQuality: assessFinalCodeQuality(modifiedFiles),
-        performanceImpact: measurePerformanceImpact(modifiedFiles),
-        maintainabilityScore: calculateMaintainabilityScore(modifiedFiles),
-        testCoverage: validateTestCoverage(modifiedFiles),
-        documentationCompleteness: checkDocumentation(modifiedFiles)
-    };
-    
-    return generateQualityReport(finalValidation);
+else if (CONTEXT.PROJECT_TYPE === 'new' && CONTEXT.COMPLEXITY === 'simple') {
+  LOAD: ['clean-implementation.mdc']
 }
-```
-
-## KALİTE METRİKLERİ - ÖLÇÜM STANDARDLARI
-
-### CORE METRICS - TEMEL ÖLÇÜMLER
-
-**File Size Metrics:**
-- Dosya başına satır sayısı (hard limit: 1000)
-- Fonksiyon başına satır sayısı (recommended: <20)
-- Class başına method sayısı (recommended: <10)
-- Complexity per function (cyclomatic complexity)
-
-**Code Quality Metrics:**
-- Unused imports count (target: 0)
-- Dead code blocks (target: 0)
-- Duplicate code percentage (target: <5%)
-- Magic numbers count (target: minimal)
-
-**Dependency Metrics:**
-- External dependencies count
-- Circular dependencies (target: 0)
-- Unused dependencies (target: 0)
-- Version conflicts (target: 0)
-
-### QUALITY SCORING SYSTEM
-
-```javascript
-function calculateQualityScore(metrics) {
-    const weights = {
-        fileSize: 0.25,        // %25 - kritik önem
-        codeCleanness: 0.25,   // %25 - temizlik
-        maintainability: 0.20, // %20 - sürdürülebilirlik
-        performance: 0.15,     // %15 - performans
-        documentation: 0.15    // %15 - dokümantasyon
-    };
-    
-    const score = (
-        metrics.fileSizeScore * weights.fileSize +
-        metrics.cleanlinessScore * weights.codeCleanness +
-        metrics.maintainabilityScore * weights.maintainability +
-        metrics.performanceScore * weights.performance +
-        metrics.documentationScore * weights.documentation
-    );
-    
-    return Math.round(score * 100); // 0-100 scale
+else if (CONTEXT.USER_INTENT === 'learning' && CONTEXT.COMPLEXITY === 'complex') {
+  LOAD: ['educational-approach.mdc', 'step-by-step.mdc']
 }
+// ... diğer kombinasyonlar
 ```
 
-## OTOMATIK VALİDASYON KURALLARI
+## COMPONENT DOSYALARI - MODÜLER YAPI
 
-### RED LINES - ÇİĞNENEMEZ KURALLAR
+### 📋 Component Listesi
+1. **`language-rules.mdc`** - Türkçe/İngilizce kullanım kuralları
+2. **`file-size-enforcement.mdc`** - Dosya boyutu kontrolü (EN KRİTİK)
+3. **`clean-code-standards.mdc`** - Kod kalitesi standartları
+4. **`simple-task-handling.mdc`** - Basit görevler için kurallar
+5. **`complex-project-management.mdc`** - Karmaşık projeler için kurallar
+6. **`codebase-analysis.mdc`** - Kod tabanı analiz kuralları
+7. **`emergency-protocols.mdc`** - Acil durum prosedürleri
+8. **`educational-approach.mdc`** - Öğretim odaklı yaklaşım
+9. **`mcp-tool-usage.mdc`** - MCP araç kullanım kuralları
+10. **`quality-gates.mdc`** - Kalite kontrol standartları
 
-**Absolute blockers (işlemi durdur):**
-- Dosya boyutu > 1000 satır
-- Syntax errors
-- Critical security vulnerabilities
-- Circular dependencies
-- Build failures
-
-**Warning triggers (uyar ama devam et):**
-- Dosya boyutu 700-999 satır arası
-- High complexity functions
-- Missing documentation
-- Performance concerns
-- Code smells
-
-### VALİDASYON RAPORU FORMAT
-
-```javascript
-const qualityReport = {
-    overallScore: 87, // 0-100
-    status: 'PASSED_WITH_WARNINGS',
-    
-    breakdown: {
-        fileSize: { score: 95, status: 'EXCELLENT', issues: [] },
-        cleanliness: { score: 90, status: 'GOOD', issues: ['1 unused import'] },
-        maintainability: { score: 85, status: 'GOOD', issues: [] },
-        performance: { score: 80, status: 'ACCEPTABLE', issues: ['Large bundle size'] },
-        documentation: { score: 75, status: 'NEEDS_IMPROVEMENT', issues: ['Missing JSDoc'] }
-    },
-    
-    recommendations: [
-        'Kalan unused import\'ı temizle',
-        'JSDoc documentation ekle',
-        'Bundle size optimization dikkate al'
-    ],
-    
-    blockers: [],
-    passedGates: ['PRE_IMPLEMENTATION', 'DURING_IMPLEMENTATION', 'POST_IMPLEMENTATION']
-};
+### 📁 DOSYA YAPISI
+```
+.cursor/
+├── rules.mdc (ANA MERKEZ - BU DOSYA)
+└── components/
+    ├── core/
+    │   ├── language-rules.mdc
+    │   ├── file-size-enforcement.mdc (KRİTİK)
+    │   └── clean-code-standards.mdc
+    ├── task-handling/
+    │   ├── simple-task-handling.mdc
+    │   ├── complex-project-management.mdc
+    │   └── codebase-analysis.mdc
+    ├── protocols/
+    │   ├── emergency-protocols.mdc
+    │   └── mcp-tool-usage.mdc
+    └── specialized/
+        ├── educational-approach.mdc
+        └── quality-gates.mdc
 ```
 
-## FAILURE HANDLING - HATA YÖNETİMİ
+## KURAL SETLERİ - DURUM BAZLI YÜKLEME
 
-### QUALITY GATE FAILURES
+### SET_001: BASİT GÖREV (Tek dosya, basit değişiklik)
+**Yüklenen componentler:**
+- `language-rules.mdc`
+- `file-size-enforcement.mdc` (MUTLAK)
+- `clean-code-standards.mdc`
+- `simple-task-handling.mdc`
 
-**Immediate blockers için işlem:**
+### SET_002: KARMAŞIK PROJE (Çoklu dosya, yeni özellik)
+**Yüklenen componentler:**
+- `language-rules.mdc`
+- `file-size-enforcement.mdc` (MUTLAK)
+- `clean-code-standards.mdc`
+- `complex-project-management.mdc`
+- `codebase-analysis.mdc`
+- `mcp-tool-usage.mdc`
+
+### SET_003: ÖĞRETİM MODU (Kullanıcı öğrenmeye odaklanmış)
+**Yüklenen componentler:**
+- `language-rules.mdc`
+- `educational-approach.mdc`
+- `clean-code-standards.mdc`
+
+### SET_004: ACİL DURUM (Kritik hata düzeltme)
+**Yüklenen componentler:**
+- `language-rules.mdc`
+- `file-size-enforcement.mdc` (MUTLAK - hafif esneklik)
+- `emergency-protocols.mdc`
+- `clean-code-standards.mdc`
+
+### SET_005: DOSYA BOYUTU İHLALİ (700+ satır tespit edildi)
+**Yüklenen componentler:**
+- `language-rules.mdc`
+- `file-size-enforcement.mdc` (TAM BLOKAJ MODU)
+- `codebase-analysis.mdc`
+
+## KOD KALİTE KONTROLÜ - OTOMATİK SİSTEM
+
+### 🚨 MUTLAK KONTROLLER (Her zaman aktif)
+- [ ] Dosya boyutu limitleri (700-1000 satır)
+- [ ] Kullanılmayan import temizliği
+- [ ] Gereksiz kod eliminasyonu
+- [ ] Türkçe iletişim standardı
+
+### 📊 RESPONSE FORMATILARI
 ```
-🚫 KALİTE GATE BAŞARISIZ
-🎯 Blocker: [spesifik sorun]
-📊 Quality Score: [X]/100 (minimum 70 gerekli)
-⚠️ Kritik sorunlar:
-   • [Liste of blocking issues]
-
-🔧 GEREKLİ AKSİYONLAR:
-   1. [Spesifik düzeltme adımları]
-   2. [Validation tekrarı]
-   3. [Approval süreci]
-
-❌ İmplementasyon bu sorunlar çözülene kadar bloke edildi.
-```
-
-**Warning durumu için bilgilendirme:**
-```
-⚠️ KALİTE UYARILARI TESPİT EDİLDİ
-📊 Quality Score: [X]/100 (kabul edilebilir seviyede)
-💡 İyileştirme önerileri:
-   • [Improvement suggestions]
-
-✅ İmplementasyon onaylandı ancak iyileştirmeler önerilir.
-```
-
-### PROGRESSIVE IMPROVEMENT
-
-**Quality debt tracking:**
-```javascript
-function trackQualityDebt(currentMetrics, historicalData) {
-    const trends = {
-        improving: calculateImprovementTrend(historicalData),
-        degrading: identifyQualityRegression(currentMetrics),
-        stable: assessStabilityMetrics(historicalData)
-    };
-    
-    return generateTrendReport(trends);
-}
-```
-
-## ÖZEL DURUM YÖNETİMİ
-
-### LEGACY CODE HANDLING
-Mevcut düşük kaliteli kodlar için özel yaklaşım:
-
-**Legacy tolerance rules:**
-- Mevcut kötü kodu kötüleştirme (don't make it worse)
-- Yeni kod high quality olmalı (new code must be excellent)  
-- Progressive improvement (adım adım iyileştir)
-- Refactoring opportunities (iyileştirme fırsatları)
-
-### EMERGENCY OVERRIDES
-Acil durum kalite geçiş kuralları:
-
-```javascript
-const emergencyQualityRules = {
-    maxQualityScoreReduction: 15, // En fazla 15 puan düşüş
-    mandatoryPostEmergencyCleanup: true,
-    emergencyDocumentationRequired: true,
-    automaticRefactoringScheduled: true
-};
+✅ Aktif kural seti: [SET_XXX]
+🖥️ Sistem: Windows 11 PowerShell
+🔒 GitHub: İzin kontrolü yapıldı
+📏 Dosya boyutu durumu: [X satır / 1000 limit - DURUM]
+🧹 Temizlik yapıldı: [liste]
+🔄 Refactoring gerekli: [dosya listesi]
+⚠️ Blokaj durumu: [sebep ve çözüm]
 ```
 
-## INTEGRATION HOOKS - SİSTEM ENTEGRASYONU
+## COMPONENT YÜKLEME SİSTEMİ
 
-### CONTINUOUS MONITORING
-Sürekli kalite takibi için hook'lar:
+### Örnek Senaryo:
+```
+Kullanıcı: "Yeni bir React komponenti eklemek istiyorum"
 
-**File size monitoring:**
-```javascript
-// Her dosya değişikliğinde otomatik boyut kontrolü
-onFileModification(file => {
-    const newSize = getFileSize(file);
-    if (newSize > 700) {
-        triggerSizeAlert(file, newSize);
-    }
-});
+CONTEXT DETECTION:
+- PROJECT_TYPE: existing
+- COMPLEXITY: simple
+- USER_INTENT: implementation
+- FILE_COUNT: 1
+
+KURAL SEÇİMİ: SET_001 (Basit Görev)
+
+YÜKLENEN COMPONENTLER:
+✅ language-rules.mdc
+✅ file-size-enforcement.mdc
+✅ clean-code-standards.mdc
+✅ simple-task-handling.mdc
+
+UYGULAMA:
+1. Önce dosya boyutlarını kontrol et
+2. Eğer 700+ satır varsa BLOKE ET
+3. Değilse temiz implementasyon yap
+4. Kalite kontrolü yap
 ```
 
-**Code quality monitoring:**
-```javascript
-// Her code commit'te kalite analizi
-onCodeCommit(changes => {
-    const qualityDelta = calculateQualityChange(changes);
-    if (qualityDelta < 0) {
-        reportQualityRegression(changes, qualityDelta);
-    }
-});
-```
+## ÖZETİN ÖZETİ - CORE MESSAGe
 
-### REPORTING INTEGRATION
+**Bu sistem neden daha iyi:**
+1. **Odaklanmış**: Sadece gerekli kurallar yüklenir
+2. **Hızlı**: Cursor daha az metin işler
+3. **Akıllı**: Durum bazlı otomatik seçim
+4. **Modüler**: Component'ler bağımsız güncellenir
+5. **Merkezi**: Tek noktadan yönetim
+6. **Mutlak**: Kritik kurallar her zaman aktif
 
-**Dashboard metrics:**
-- Daily quality scores
-- Quality trend analysis  
-- File size distribution
-- Technical debt accumulation
-- Refactoring effectiveness
-
-## QUALITY GATE CONFIGURATION
-
-### CONFIGURABILITY
-Farklı proje tipleri için ayarlanabilir thresholds:
-
-```javascript
-const qualityThresholds = {
-    newProject: {
-        minQualityScore: 90,
-        maxFileSize: 500,
-        zeroToleranceRules: ['unused_imports', 'dead_code']
-    },
-    
-    existingProject: {
-        minQualityScore: 75,
-        maxFileSize: 700,
-        progressiveImprovement: true
-    },
-    
-    legacyProject: {
-        minQualityScore: 60,
-        maxFileSize: 1000,
-        gradualMigration: true
-    }
-};
-```
-
-### TEAM COORDINATION
-Takım çalışması için quality gate coordination:
-
-**Multi-developer scenarios:**
-- Merge conflict quality assessment
-- Code review quality gate integration  
-- Team quality metric aggregation
-- Cross-developer quality consistency
-
-## AUTOMATED IMPROVEMENT SUGGESTIONS
-
-### SMART RECOMMENDATIONS
-Kalite sorunları için otomatik çözüm önerileri:
-
-```javascript
-function generateImprovementSuggestions(qualityIssues) {
-    const suggestions = qualityIssues.map(issue => ({
-        issue: issue.type,
-        severity: issue.severity,
-        autoFixable: issue.canAutoFix,
-        suggestion: generateSpecificSuggestion(issue),
-        estimatedEffort: estimateFixEffort(issue)
-    }));
-    
-    return prioritizeSuggestions(suggestions);
-}
-```
-
-**Suggestion categories:**
-- Otomatik düzeltilebilir (unused imports, formatting)
-- Guided refactoring (component splitting, extraction)
-- Architecture improvements (design pattern applications)
-- Performance optimizations (bundle size, rendering)
-- Documentation enhancements (JSDoc, README updates)
-
-## QUALITY GATE REPORTING
-
-### SUMMARY REPORTING
-Her implementasyon için özet rapor:
-
-```
-✅ KALİTE GATE RAPORU
-📊 Genel Skor: [X]/100 (BAŞARILI/UYARILI/BAŞARISIZ)
-
-🎯 KALİTE BREAKDOWN:
-   📏 Dosya Boyutu: [X]/100 - [STATUS]
-   🧹 Kod Temizliği: [X]/100 - [STATUS]  
-   🔧 Sürdürülebilirlik: [X]/100 - [STATUS]
-   ⚡ Performans: [X]/100 - [STATUS]
-   📚 Dokümantasyon: [X]/100 - [STATUS]
-
-🔍 TESPİT EDİLEN SORUNLAR: [X adet]
-   • [Issue list with priorities]
-
-💡 İYİLEŞTİRME ÖNERİLERİ: [X adet]
-   • [Prioritized improvement suggestions]
-
-✅ SONUÇ: [Implementation approved/requires fixes/blocked]
-```
+**EN ÖNEMLİ NOKTA:**
+`file-size-enforcement.mdc` her zaman yüklenir çünkü dosya boyutu kontrolü MUTLAK kuraldır!
 
 ---
 
-*Kalite bir luxury değil necessity'dir. Bu quality gate sistemi her kod değişikliğinin sistemi daha iyi hale getirmesini garanti eder.*
-
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/xenitV1)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/xenitV1)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [xenitV1/cursor-dynamic-rules-system](https://github.com/xenitV1/cursor-dynamic-rules-system) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
