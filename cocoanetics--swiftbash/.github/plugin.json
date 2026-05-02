@@ -1,0 +1,9 @@
+{
+  "name": "cocoanetics--swiftbash",
+  "displayName": "SwiftBash",
+  "description": "Pure-Swift sandboxed bash interpreter \u2014 embeddable in Mac/iOS apps. No Process/fork/exec; commands are Swift types; sandbox-by-default for FS, network, processes, and identity.",
+  "version": "1.0.0",
+  "author": "Cocoanetics",
+  "homepage": "https://github.com/Cocoanetics/SwiftBash",
+  "skills": []
+}
