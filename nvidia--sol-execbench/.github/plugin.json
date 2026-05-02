@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--sol-execbench",
+  "displayName": "SOL-ExecBench",
+  "description": "A benchmark of real-world DL kernel problems ",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/SOL-ExecBench",
+  "skills": []
+}
