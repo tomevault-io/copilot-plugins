@@ -1,0 +1,195 @@
+{
+  "name": "agent-alchemy",
+  "owner": "sequenzia",
+  "repo": "agent-alchemy",
+  "description": "Agent Alchemy is a curated collection of plugins, apps, and extensions designed to elevate your agentic engineering workflows. Built for Claude Code and other AI coding agents, these tools help developers work smarter and ship faster.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "analyze-coverage",
+      "path": "claude/tdd-tools/skills/analyze-coverage",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/tdd-tools/skills/analyze-coverage",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": "claude/dev-tools/skills/architecture-patterns",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "changelog-format",
+      "path": "claude/dev-tools/skills/changelog-format",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/changelog-format",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "path": "claude/dev-tools/skills/code-quality",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/code-quality",
+      "description": ""
+    },
+    {
+      "name": "codebase-analysis",
+      "path": "claude/core-tools/skills/codebase-analysis",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/codebase-analysis",
+      "description": ""
+    },
+    {
+      "name": "create-spec",
+      "path": "claude/sdd-tools/skills/create-spec",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/sdd-tools/skills/create-spec",
+      "description": ""
+    },
+    {
+      "name": "create-tasks",
+      "path": "claude/sdd-tools/skills/create-tasks",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/sdd-tools/skills/create-tasks",
+      "description": ""
+    },
+    {
+      "name": "deep-analysis",
+      "path": "claude/core-tools/skills/deep-analysis",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/deep-analysis",
+      "description": ""
+    },
+    {
+      "name": "dependency-checker",
+      "path": "claude/plugin-tools/skills/dependency-checker",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/plugin-tools/skills/dependency-checker",
+      "description": ""
+    },
+    {
+      "name": "docs-manager",
+      "path": "claude/dev-tools/skills/docs-manager",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/docs-manager",
+      "description": ""
+    },
+    {
+      "name": "execute-tasks",
+      "path": "claude/sdd-tools/skills/execute-tasks",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/sdd-tools/skills/execute-tasks",
+      "description": ""
+    },
+    {
+      "name": "feature-dev",
+      "path": "claude/dev-tools/skills/feature-dev",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/feature-dev",
+      "description": ""
+    },
+    {
+      "name": "generate-tests",
+      "path": "claude/tdd-tools/skills/generate-tests",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/tdd-tools/skills/generate-tests",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": "claude/git-tools/skills/git-commit",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/git-tools/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "path": "claude/core-tools/skills/language-patterns",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/language-patterns",
+      "description": ""
+    },
+    {
+      "name": "project-conventions",
+      "path": "claude/core-tools/skills/project-conventions",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/core-tools/skills/project-conventions",
+      "description": ""
+    },
+    {
+      "name": "release-python-package",
+      "path": "claude/dev-tools/skills/release-python-package",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/dev-tools/skills/release-python-package",
+      "description": ""
+    },
+    {
+      "name": "update-ported-plugin",
+      "path": "claude/plugin-tools/skills/update-ported-plugin",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/plugin-tools/skills/update-ported-plugin",
+      "description": ""
+    },
+    {
+      "name": "validate-adapter",
+      "path": "claude/plugin-tools/skills/validate-adapter",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/claude/plugin-tools/skills/validate-adapter",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "path": "ported/20260310/nested/core-tools/skills/language-patterns",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/nested/core-tools/skills/language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "path": "ported/20260304-102613/core-tools/skills/language-patterns",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260304-102613/core-tools/skills/language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "path": "ported/20260305-085418/core-tools/skills/language-patterns",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-085418/core-tools/skills/language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "path": "ported/20260305-191444/skills/language-patterns",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260305-191444/skills/language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "path": "ported/20260310/flat/core-tools/skills/language-patterns",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/flat/core-tools/skills/language-patterns",
+      "description": ""
+    },
+    {
+      "name": "language-patterns",
+      "path": "ported/20260310/full/core-tools/skills/language-patterns",
+      "github_url": "https://github.com/sequenzia/agent-alchemy/tree/main/ported/20260310/full/core-tools/skills/language-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sequenzia/agent-alchemy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:37:29Z"
+}
