@@ -1,0 +1,9 @@
+{
+  "name": "sheawinkler--hermes-agent-ultra",
+  "displayName": "hermes-agent-ultra",
+  "description": "Hermes Agent Ultra (built from hermes-agent-rs core by lumioresearch, @oxterrybit). Hermes-agent feature parity at commit level. Rust Performance",
+  "version": "1.0.0",
+  "author": "sheawinkler",
+  "homepage": "https://github.com/sheawinkler/hermes-agent-ultra",
+  "skills": []
+}
