@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankenredis",
+  "displayName": "frankenredis",
+  "description": "Memory-safe clean-room Redis reimplementation in Rust with strict/hardened compatibility modes, deterministic replication semantics, differential conformance harnesses, and profile-guided optimization",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankenredis",
+  "skills": []
+}
