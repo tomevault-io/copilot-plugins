@@ -1,0 +1,26 @@
+# AI instruction files for ai-sdlc-scaffold
+
+> Sourced from [pangon/ai-sdlc-scaffold](https://github.com/pangon/ai-sdlc-scaffold) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+Template scaffolding for AI-first software development focused on the pre-coding phases
+
+## GitHub Copilot Config
+
+The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
+Original source: `CLAUDE.md` in [pangon/ai-sdlc-scaffold](https://github.com/pangon/ai-sdlc-scaffold).
+
+## Also available for
+
+- **Codex** — `AGENTS.md`
+- **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
+
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/pangon/ai-sdlc-scaffold](https://github.com/pangon/ai-sdlc-scaffold)
+
+---
+
+Explore more instruction files on [TomeVault](https://tomevault.io) — the open index of AI config files for every platform.
+
+<!-- genome:a-e-p -->
