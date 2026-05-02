@@ -1,0 +1,117 @@
+{
+  "name": "data-analytics-skills",
+  "owner": "nimrodfisher",
+  "repo": "data-analytics-skills",
+  "description": "A comprehensive list of Claude skills for a wide range of data analytics tasks",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "funnel-analysis",
+      "path": "03-data-analysis-investigation/funnel-analysis",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/03-data-analysis-investigation/funnel-analysis",
+      "description": ""
+    },
+    {
+      "name": "analysis-assumptions-log",
+      "path": "02-documentation-knowledge/analysis-assumptions-log",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/02-documentation-knowledge/analysis-assumptions-log",
+      "description": ""
+    },
+    {
+      "name": "analysis-documentation",
+      "path": "02-documentation-knowledge/analysis-documentation",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/02-documentation-knowledge/analysis-documentation",
+      "description": ""
+    },
+    {
+      "name": "analysis-planning",
+      "path": "06-workflow-optimization/analysis-planning",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/06-workflow-optimization/analysis-planning",
+      "description": ""
+    },
+    {
+      "name": "analysis-retrospective",
+      "path": "06-workflow-optimization/analysis-retrospective",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/06-workflow-optimization/analysis-retrospective",
+      "description": ""
+    },
+    {
+      "name": "dashboard-specification",
+      "path": "04-data-storytelling-visualization/dashboard-specification",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/04-data-storytelling-visualization/dashboard-specification",
+      "description": ""
+    },
+    {
+      "name": "programmatic-eda",
+      "path": "01-data-quality-validation/programmatic-eda",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/01-data-quality-validation/programmatic-eda",
+      "description": ""
+    },
+    {
+      "name": "schema-mapper",
+      "path": "01-data-quality-validation/schema-mapper",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/01-data-quality-validation/schema-mapper",
+      "description": ""
+    },
+    {
+      "name": "semantic-model-builder",
+      "path": "02-documentation-knowledge/semantic-model-builder",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/02-documentation-knowledge/semantic-model-builder",
+      "description": ""
+    },
+    {
+      "name": "sql-to-business-logic",
+      "path": "02-documentation-knowledge/sql-to-business-logic",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/02-documentation-knowledge/sql-to-business-logic",
+      "description": ""
+    },
+    {
+      "name": "stakeholder-requirements-gathering",
+      "path": "05-stakeholder-communication/stakeholder-requirements-gathering",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/05-stakeholder-communication/stakeholder-requirements-gathering",
+      "description": ""
+    },
+    {
+      "name": "visualization-builder",
+      "path": "04-data-storytelling-visualization/visualization-builder",
+      "github_url": "https://github.com/nimrodfisher/data-analytics-skills/tree/main/04-data-storytelling-visualization/visualization-builder",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nimrodfisher/data-analytics-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:41:00Z"
+}
