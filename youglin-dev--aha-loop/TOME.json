@@ -4,7 +4,7 @@
   "repo": "Aha-Loop",
   "description": "[MVP] Aha Loop is a fully autonomous AI development system, extended from the core ideas of Ralph. It's not just an execution engine, but a complete AI development framework with planning capabilities, research abilities, and oversight mechanisms.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YougLin-dev/Aha-Loop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T01:37:55Z"
+  "distributed_at": "2026-05-02T13:07:25Z"
 }
