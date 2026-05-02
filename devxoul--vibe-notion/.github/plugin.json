@@ -1,0 +1,14 @@
+{
+  "name": "devxoul--vibe-notion",
+  "displayName": "vibe-notion",
+  "description": "Notion automation CLI for AI agents",
+  "version": "1.0.0",
+  "author": "devxoul",
+  "homepage": "https://github.com/devxoul/vibe-notion",
+  "skills": [
+    {
+      "name": "vibe-notionbot",
+      "description": ""
+    }
+  ]
+}
