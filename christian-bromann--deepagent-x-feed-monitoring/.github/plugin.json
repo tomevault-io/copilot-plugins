@@ -1,0 +1,9 @@
+{
+  "name": "christian-bromann--deepagent-x-feed-monitoring",
+  "displayName": "deepagent-x-feed-monitoring",
+  "description": "A LangChain Deep Agent that helps me monitor my X feed.",
+  "version": "1.0.0",
+  "author": "christian-bromann",
+  "homepage": "https://github.com/christian-bromann/deepagent-x-feed-monitoring",
+  "skills": []
+}
