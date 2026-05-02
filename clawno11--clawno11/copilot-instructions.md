@@ -1,34 +1,46 @@
-## ipc-invoke
+## rust-new-command
 
-> 新增 IPC invoke 函数时的共享检查
+> 新增 Rust Tauri 命令时的共享检查流程
 
 
-# IPC Invoke 函数规则
+# 新增 Tauri 命令规则
 
-## 新增 invoke 函数的判定流程
+## 添加新 Tauri 命令前的检查流程
 
-两端都需要 → 放 `packages/shared/src/ipc/types.ts` + 各端 re-export
-仅一端需要 → 放该端 `src/ipc.ts`
+1. **是否两端都需要？** → 业务逻辑放 `clawno-core`，两端只写薄包装
+2. **是否已有类似功能？** → 先搜索 `clawno-core/src/` 避免重复实现
+3. **返回类型是否共享？** → 用 `clawno_core::types::StepResult` 等共享类型
 
-## 当前已共享的 invoke 函数（禁止在各端重复定义）
+## 薄包装模式示例
 
-- SecureStore: `setSecureValue`, `getSecureValue`, `deleteSecureValue`, `listSecureKeys`, `wipeSecureStore`
-- MCP: `scanMcpServer`
-- RAG: `readTextFile`
-- Tailscale: `getTailscaleStatus`
-- SSH Deploy: `deployRemoteConnect`, `deployRemoteCheckNode`, `deployRemoteInstallOpenclaw`, `deployRemoteOnboard`, `deployRemoteStartGateway`
+```rust
+// ✅ 正确：逻辑在 core，命令只是包装
+#[tauri::command]
+pub async fn deploy_remote_connect(args: SshArgs) -> StepResult {
+    if let Err(e) = ssh::validate_ssh_args(&args) {
+        return StepResult::err(e);
+    }
+    match ssh::ssh_exec(&args, "echo ok").await {
+        Ok((0, out)) => StepResult::ok(out),
+        Ok((_, out)) => StepResult::err(out),
+        Err(e) => StepResult::err(e),
+    }
+}
 
-## 各端 ipc.ts 的正确导入方式
-
-```typescript
-// ✅ 从 shared re-export
-export { setSecureValue, getSecureValue } from "@clawno/shared/ipc/types";
-export type { StepResult, SshArgs } from "@clawno/shared/ipc/types";
-
-// ❌ 禁止本地重复定义
-export const setSecureValue = (key: string, value: string) =>
-  invoke<void>("set_secure_value", { key, value });
+// ❌ 错误：在命令中内联大量业务逻辑
+#[tauri::command]
+pub async fn deploy_remote_connect(args: SshArgs) -> StepResult {
+    // 100+ 行 SSH 连接、认证、执行逻辑...
+}
 ```
+
+## 共享类型使用
+
+- `StepResult` → `use clawno_core::types::StepResult;`
+- `SshArgs` → `use clawno_core::ssh::SshArgs;`
+- `ChatChunk/ChatDone` → `use clawno_core::chat::{ChatChunk, ChatDone};`
+- `McpScanResult` → `use clawno_core::mcp::McpScanResult;`
+- 新增共享 struct → 放入 `clawno-core/src/types.rs`
 
 ---
 > Source: [clawno11/clawno11](https://github.com/clawno11/clawno11) — distributed by [TomeVault](https://tomevault.io).
