@@ -1,0 +1,9 @@
+{
+  "name": "boycececil666gmailcom--t1-pub-argus",
+  "displayName": "t1-pub-argus",
+  "description": "Always-on daemon that records active app + window time every 5s and generates daily/weekly behavior reports to understand yourself",
+  "version": "1.0.0",
+  "author": "boycececil666gmailcom",
+  "homepage": "https://github.com/boycececil666gmailcom/t1-pub-argus",
+  "skills": []
+}
