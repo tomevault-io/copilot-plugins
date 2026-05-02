@@ -1,0 +1,22 @@
+## rosetta-open-source
+
+> This codebase uses Rosetta for AI context management.
+
+## Rosetta Protocol
+
+This codebase uses Rosetta for AI context management.
+
+ALWAYS read ROSETTA.md first for:
+- Project architecture and tech stack
+- Coding conventions and patterns
+- Known gotchas and warnings
+
+Load relevant modules from .rosetta/modules/ based on your task.
+Append learnings to .rosetta/notes.md before ending session.
+
+If ROSETTA.md doesn't exist, create it by analyzing the codebase.
+See: https://github.com/metisos/Rosetta_Open_Source
+
+---
+> Source: [metisos/Rosetta_Open_Source](https://github.com/metisos/Rosetta_Open_Source) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
