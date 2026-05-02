@@ -1,0 +1,189 @@
+{
+  "name": "design-system-skills",
+  "owner": "dylantarre",
+  "repo": "design-system-skills",
+  "description": "  Design system skills for agentic coding",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "angular",
+      "path": "skills/frameworks/angular",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/frameworks/angular",
+      "description": ""
+    },
+    {
+      "name": "animation-principles",
+      "path": "skills/patterns/animation-principles",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/patterns/animation-principles",
+      "description": ""
+    },
+    {
+      "name": "breakpoints",
+      "path": "skills/tokens/breakpoints",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tokens/breakpoints",
+      "description": ""
+    },
+    {
+      "name": "color-scale",
+      "path": "skills/tokens/color-scale",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tokens/color-scale",
+      "description": ""
+    },
+    {
+      "name": "component-docs",
+      "path": "skills/documentation/component-docs",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/documentation/component-docs",
+      "description": ""
+    },
+    {
+      "name": "compound-components",
+      "path": "skills/patterns/compound-components",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/patterns/compound-components",
+      "description": ""
+    },
+    {
+      "name": "design-tokens-structure",
+      "path": "skills/tokens/design-tokens-structure",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tokens/design-tokens-structure",
+      "description": ""
+    },
+    {
+      "name": "figma",
+      "path": "skills/tools/figma",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tools/figma",
+      "description": ""
+    },
+    {
+      "name": "framer",
+      "path": "skills/tools/framer",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tools/framer",
+      "description": ""
+    },
+    {
+      "name": "getting-started",
+      "path": "skills/getting-started",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/getting-started",
+      "description": ""
+    },
+    {
+      "name": "icon-system",
+      "path": "skills/patterns/icon-system",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/patterns/icon-system",
+      "description": ""
+    },
+    {
+      "name": "layout-primitives",
+      "path": "skills/patterns/layout-primitives",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/patterns/layout-primitives",
+      "description": ""
+    },
+    {
+      "name": "motion-scale",
+      "path": "skills/tokens/motion-scale",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tokens/motion-scale",
+      "description": ""
+    },
+    {
+      "name": "radius-scale",
+      "path": "skills/tokens/radius-scale",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tokens/radius-scale",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "skills/frameworks/react",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/frameworks/react",
+      "description": ""
+    },
+    {
+      "name": "shadow-scale",
+      "path": "skills/tokens/shadow-scale",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tokens/shadow-scale",
+      "description": ""
+    },
+    {
+      "name": "spacing-scale",
+      "path": "skills/tokens/spacing-scale",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tokens/spacing-scale",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "path": "skills/tools/storybook",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tools/storybook",
+      "description": ""
+    },
+    {
+      "name": "style-dictionary",
+      "path": "skills/tools/style-dictionary",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tools/style-dictionary",
+      "description": ""
+    },
+    {
+      "name": "svelte",
+      "path": "skills/frameworks/svelte",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/frameworks/svelte",
+      "description": ""
+    },
+    {
+      "name": "token-docs",
+      "path": "skills/documentation/token-docs",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/documentation/token-docs",
+      "description": ""
+    },
+    {
+      "name": "type-scale",
+      "path": "skills/tokens/type-scale",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tokens/type-scale",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "skills/frameworks/vue",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/frameworks/vue",
+      "description": ""
+    },
+    {
+      "name": "z-index-scale",
+      "path": "skills/tokens/z-index-scale",
+      "github_url": "https://github.com/dylantarre/design-system-skills/tree/main/skills/tokens/z-index-scale",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dylantarre/design-system-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:54:07Z"
+}
