@@ -1,0 +1,14 @@
+{
+  "name": "youware-labs--pai-agent-sdk",
+  "displayName": "pai-agent-sdk",
+  "description": "Application framework for building AI agents with Pydantic AI. Used to build the next-generation agent system of YouWare.",
+  "version": "1.0.0",
+  "author": "youware-labs",
+  "homepage": "https://github.com/youware-labs/pai-agent-sdk",
+  "skills": [
+    {
+      "name": "cli-config",
+      "description": ""
+    }
+  ]
+}
