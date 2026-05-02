@@ -1,0 +1,9 @@
+{
+  "name": "bioliminal--esp32-firmware",
+  "displayName": "esp32-firmware",
+  "description": "ESP32 firmware: sEMG capture + haptic cueing",
+  "version": "1.0.0",
+  "author": "Bioliminal",
+  "homepage": "https://github.com/Bioliminal/esp32-firmware",
+  "skills": []
+}
