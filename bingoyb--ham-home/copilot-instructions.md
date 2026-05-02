@@ -1,10 +1,10 @@
-## content-ui
+## doc-sync
 
-> See [docs/ai-work/content-ui.md](docs/ai-work/content-ui.md) for the detailed rules.
+> See [docs/ai-work/doc-sync.md](docs/ai-work/doc-sync.md) for the detailed rules.
 
-# Rule: Content UI Portal Container Standard
+# Documentation Sync Rules
 
-See [docs/ai-work/content-ui.md](docs/ai-work/content-ui.md) for the detailed rules.
+See [docs/ai-work/doc-sync.md](docs/ai-work/doc-sync.md) for the detailed rules.
 Strictly follow the guidelines in that file.
 
 ---
