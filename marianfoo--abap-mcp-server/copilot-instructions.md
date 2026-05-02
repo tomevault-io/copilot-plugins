@@ -1,48 +1,67 @@
-## 10-search-stack
+## 20-tools-and-apis
 
-> When modifying search behavior, ranking, or index builds.
+> For tool schemas, request/response formats, and endpoints.
 
-# Search & Indexing (Rule)
+# MCP Tools & HTTP Endpoints (Rule)
 
-When modifying search behavior, ranking, or index builds.
+For tool schemas, request/response formats, and endpoints.
 
-## Search Architecture (BM25-Only with FTS5)
-- **Index Build**: `scripts/build-index.ts` → `dist/data/index.json`
-- **FTS Database**: `scripts/build-fts.ts` → `dist/data/docs.sqlite` (SQLite FTS5)
-- **Hybrid Search**: FTS5 candidate filtering → sophisticated scoring
-- **Search Logic**: Pure BM25 via `src/lib/search.ts` using metadata APIs
-- **Query Processing**: `toMatchQuery()` in `src/lib/searchDb.ts`
-- **Configuration**: All source settings in `src/metadata.json`
-- **Performance**: 16x faster with FTS5 hybrid approach (~42ms vs 700ms)
+## MCP Tools (5 total)
+- **`search`**: Unified search across all documentation sources (alias: `sap_docs_search`)
+- **`fetch`**: Retrieve specific documents by ID (alias: `sap_docs_get`)
+- **`sap_community_search`**: Search SAP Community posts with full content (max 75k chars per post with intelligent truncation)
+- **`sap_help_search`**: Search SAP Help Portal using private APIs
+- **`sap_help_get`**: Retrieve full SAP Help page content (max 75k chars with intelligent truncation)
 
-## Metadata-Driven Configuration
-- **Source Boosts**: Context-aware scoring via `getContextBoosts()`
-- **Library Mappings**: ID resolution via `getAllLibraryMappings()`
-- **URL Generation**: Documentation links via `getDocUrlConfig()`
-- **Source Paths**: File system paths via `getSourcePath()`
+**Note**: Tool names may appear with prefixes depending on MCP client (e.g., `mcp_abap-mcp-remote_search`)
 
-## Key Search Features
-- **OR Logic**: Better recall for multi-term queries
-- **Prefix Matching**: Terms get `*` suffix for broader matching
-- **Phrase Queries**: Dotted terms (sap.m.Button) quoted for exact match
-- **Context Awareness**: UI5/CAP/wdi5 context detection and scoring
-- **ABAP Version Filtering**: Intelligent version detection and result filtering
-- **Graceful Fallback**: Falls back to full search if FTS finds no candidates
+## Content Size Limits
+- **Maximum**: 75,000 characters (~18,750 tokens) for SAP Help and Community content
+- **Algorithm**: Intelligent truncation preserving beginning (60%) and end (20%) with clear notice
+- **Configuration**: `CONFIG.MAX_CONTENT_LENGTH` in `src/lib/config.ts`
+- **Details**: See `docs/CONTENT-SIZE-LIMITS.md`
 
-## Performance
-- **FTS5**: SQLite full-text search for sub-second response times
-- **Centralized Config**: Single metadata load at startup
-- **Efficient APIs**: Type-safe configuration access
+## Server Implementations
+- **Stdio MCP**: `src/server.ts` - Main MCP server for Claude integration
+- **HTTP Test Server**: `src/http-server.ts` - Development server (port 3001)
+  - Endpoints: `/status`, `/healthz`, `/readyz`, `/mcp`
+- **Streamable HTTP**: `src/streamable-http-server.ts` - Production HTTP MCP (port 3122)
+  - Endpoints: `/mcp`, `/health`
 
-@file scripts/build-index.ts
-@file scripts/build-fts.ts
-@file src/lib/searchDb.ts
-@file src/lib/search.ts
-@file src/lib/metadata.ts
-@file src/metadata.json
+## Response Formats
+
+### **Standard Text Format**
+- **Search Results**: `⭐️ **<id>** (Score: <score>)` format
+- **Context Detection**: Emoji indicators (🎨 UI5, 🏗️ CAP, 🧪 wdi5)
+- **Source Attribution**: Library grouping with clear source identification
+
+### **ChatGPT/JSON Format**
+- **Search**: `{ "results": [{ "id", "title", "url", "snippet", "score" }] }`
+- **Fetch**: `{ "id", "title", "text", "url", "metadata" }`
+- **Structured**: Clean JSON for programmatic access and ChatGPT compatibility
+
+## Integration Points
+- **Community**: HTML scraping + LiQL API for post content
+- **SAP Help**: Private elasticsearch + metadata + page content APIs
+- **Local Docs**: File system access with URL generation
+
+## Configuration
+- **Tool Descriptions**: Comprehensive help text in server implementations
+- **Input Schemas**: Detailed parameter descriptions and examples
+- **Error Handling**: Graceful fallbacks and informative error messages
+
+@file src/lib/BaseServerHandler.ts
+@file src/server.ts
+@file src/http-server.ts
+@file src/streamable-http-server.ts
 @file src/lib/localDocs.ts
-@file docs/FTS5-IMPLEMENTATION-COMPLETE.md
-@file docs/ABAP-INTEGRATION-SUMMARY.md
+@file src/lib/sapHelp.ts
+@file src/lib/communityBestMatch.ts
+@file src/lib/truncate.ts
+@file src/lib/config.ts
+@file src/lib/types.ts
+@file docs/CONTENT-SIZE-LIMITS.md
+@file docs/LLM-FRIENDLY-IMPROVEMENTS.md
 @file docs/ARCHITECTURE.md
 @file docs/DEV.md
 
