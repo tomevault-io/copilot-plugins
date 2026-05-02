@@ -1,0 +1,9 @@
+{
+  "name": "engineeringmadness--testbricks",
+  "displayName": "testbricks",
+  "description": "Mocking system for testing Databricks workflows to inject CSV files in place of Delta table operations. Developed using OpenCode + Kimi K2.5 in python.",
+  "version": "1.0.0",
+  "author": "engineeringmadness",
+  "homepage": "https://github.com/engineeringmadness/testbricks",
+  "skills": []
+}
