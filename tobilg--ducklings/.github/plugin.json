@@ -1,0 +1,9 @@
+{
+  "name": "tobilg--ducklings",
+  "displayName": "ducklings",
+  "description": "A minimal DuckDB Wasm build for browsers and serverless environments like Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "tobilg",
+  "homepage": "https://github.com/tobilg/ducklings",
+  "skills": []
+}
