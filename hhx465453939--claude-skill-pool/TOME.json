@@ -1,0 +1,117 @@
+{
+  "name": "Claude_skill_pool",
+  "owner": "hhx465453939",
+  "repo": "Claude_skill_pool",
+  "description": "\u5404\u79cdcc skill\u5de5\u5177\u7684\u52a8\u6001\u66f4\u65b0\u4ed3\u5e93",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-spec",
+      "path": "skills.gemini/ai-spec",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/skills.gemini/ai-spec",
+      "description": ""
+    },
+    {
+      "name": "ai-spec",
+      "path": "package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/ai-spec",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/ai-spec",
+      "description": ""
+    },
+    {
+      "name": "api-first-modular",
+      "path": "package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/api-first-modular",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/api-first-modular",
+      "description": ""
+    },
+    {
+      "name": "code-debugger",
+      "path": "package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/code-debugger",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/code-debugger",
+      "description": ""
+    },
+    {
+      "name": "debug-ui",
+      "path": "package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/debug-ui",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/debug-ui",
+      "description": ""
+    },
+    {
+      "name": "extract",
+      "path": "skills.codex/extract/.codex/skills/extract",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/skills.codex/extract/.codex/skills/extract",
+      "description": ""
+    },
+    {
+      "name": "inspector",
+      "path": "skills.codex/inspector/.codex/skills/inspector",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/skills.codex/inspector/.codex/skills/inspector",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "path": "package/full-dev-\u811a\u624b\u67b6-inspector/.gemini/skills/prd",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/package/full-dev-\u811a\u624b\u67b6-inspector/.gemini/skills/prd",
+      "description": ""
+    },
+    {
+      "name": "pubmed-linker",
+      "path": "skills.claude/ref-pubmed-linker/.claude/skills/pubmed-linker",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/skills.claude/ref-pubmed-linker/.claude/skills/pubmed-linker",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "path": "package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/ralph",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/package/full-dev-\u811a\u624b\u67b6-inspector/.codex/skills/ralph",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "path": "package/full-dev-\u811a\u624b\u67b6-inspector/.gemini/skills/ralph",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/package/full-dev-\u811a\u624b\u67b6-inspector/.gemini/skills/ralph",
+      "description": ""
+    },
+    {
+      "name": "research-analyst-system",
+      "path": "skills.codex/research-analyst-system/.codex/skills/research-analyst-system",
+      "github_url": "https://github.com/hhx465453939/Claude_skill_pool/tree/main/skills.codex/research-analyst-system/.codex/skills/research-analyst-system",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hhx465453939/Claude_skill_pool",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T19:00:25Z"
+}
