@@ -1,0 +1,9 @@
+{
+  "name": "gerstep--humancompiler",
+  "displayName": "HumanCompiler",
+  "description": "Compile humans into AI agents \u2014 a Claude Code plugin that conducts deep behavioral interviews and generates installable agent plugins",
+  "version": "1.0.0",
+  "author": "Gerstep",
+  "homepage": "https://github.com/Gerstep/HumanCompiler",
+  "skills": []
+}
