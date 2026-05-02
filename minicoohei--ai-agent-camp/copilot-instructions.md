@@ -1,38 +1,39 @@
-## git-safety
+## pencil-mcp
 
-> Gitの危険操作・Secrets保護・ブランチ運用ルール
+> Pencil MCPでの.penファイル操作・デザイン作成時のガイドライン。デザイン、モックアップ、Pencil、.penファイルに関するタスクで使用。
 
 
-# Git安全ガイドライン
+# Pencil MCP 運用ガイドライン
 
-## 禁止操作
+## .pen ファイル操作
 
-### 絶対に禁止
-- `git push --force` / `--force-with-lease` - mainブランチへの強制プッシュ
-- `git reset --hard` - コミットされていない変更がある場合
-- `git clean -fd` / `-fdx` - 確認なしの未追跡ファイル削除（`.env` も消える）
-- `git branch -D` - 未マージブランチの強制削除
+- `.pen` ファイルの中身は暗号化されているため、Read/Grep ツールでは読めない
+- 必ず Pencil MCP ツール（`batch_get`, `batch_design` 等）を使用する
 
-### 要注意（確認必須）
-- `git rebase` - プッシュ済みコミットに対する使用
-- `git commit --amend` - プッシュ済みコミットの修正
-- `git filter-branch` - 履歴の書き換え
+## デザイン成果物の保存
 
-## Secrets保護
+- デザイン完了後は `get_screenshot()` で画像をキャプチャする
+- キャプチャ画像は `output/pencil/` ディレクトリに保存する
+- ファイル名規則: `{module}-{purpose}-{YYYYMMDD}.png`
+  - 例: `m12-banner-mockup-20260210.png`
+  - 例: `m12-seo-dashboard-20260210.png`
+  - 例: `m04-data-dashboard-20260210.png`
 
-### 絶対にコミットしないファイル
-`.env`, `.env.local`, `credentials.json`, `client_secret.json`, `token.json`, `*.pem`, `*.key`
+## デザイン作成フロー
 
-### 編集ルール
-- `.env` / `.env.local` は**追記（`>>`）のみ**許可。変更前に `cp .env .env.bak` でバックアップ
-- JSON/鍵ファイル（`credentials.json`, `client_secret.json`, `token.json`, `*.pem`, `*.key`）は原則手動編集禁止（必要時は再発行手順を利用）
-- 上記すべてのファイルの削除・上書きは禁止
+1. `get_editor_state()` で現在のエディタ状態を確認
+2. エディタが開いていない場合は `open_document("new")` で新規作成
+3. `get_guidelines(topic)` でデザインガイドラインを取得
+4. `get_style_guide_tags` → `get_style_guide(tags)` でスタイルガイドを適用
+5. `batch_design(operations)` でデザイン要素を配置（1回最大25操作）
+6. `get_screenshot()` でプレビュー確認
+7. 最終版を `output/pencil/` にキャプチャ保存
 
-## ブランチ運用ルール
-- 新機能はブランチで開発、PRでマージ
-- 長期ブランチは週1以上 main をリベース
-- PRブランチは main からの乖離コミット数を20以下に保つ
-- PR マージ前に `git fetch origin` してから `git diff --stat origin/main...HEAD` でコンフリクト量を事前チェック
+## 注意事項
+
+- `batch_design` の操作構文は必ずツール定義に従う
+- 1回の `batch_design` は最大25操作に抑える
+- `open_document` にファイルパスを指定しても新規作成はされない（既存ファイルを開く用途のみ）
 
 ---
 > Source: [minicoohei/ai-agent-camp](https://github.com/minicoohei/ai-agent-camp) — distributed by [TomeVault](https://tomevault.io).
