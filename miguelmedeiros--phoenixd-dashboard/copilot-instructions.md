@@ -1,0 +1,473 @@
+## phoenixd-dashboard
+
+> When the user types `/check`, run all CI/CD checks locally before committing. Execute these commands in order:
+
+# Phoenixd Dashboard - Cursor Rules
+
+## /check Command
+
+When the user types `/check`, run all CI/CD checks locally before committing. Execute these commands in order:
+
+### Quick Check (default)
+
+```bash
+# From project root
+cd /Users/miguelmedeiros/code/phoenixd-dashboard
+
+# 1. Backend checks
+cd backend && npm run db:generate && npm run format:check && npm run lint && npm run test && npm run build && cd ..
+
+# 2. Frontend checks
+cd frontend && npm run format:check && npm run lint && npm run test && npm run build && cd ..
+```
+
+### Full Check (with E2E)
+
+If user requests `/check full` or `/check e2e`, also run:
+
+```bash
+cd e2e && npm run test && cd ..
+```
+
+### Check Summary
+
+After running checks, provide a summary:
+
+- ✅ Format check passed
+- ✅ Lint passed
+- ✅ Tests passed
+- ✅ Build successful
+
+If any check fails, stop and report the error immediately.
+
+---
+
+## Docker Development Workflow
+
+When modifying any Docker-related files (Dockerfile, docker-compose.yml, entrypoint scripts, or configuration files in /services/\*), always:
+
+1. **Rebuild the affected containers** after making changes:
+
+   ```bash
+   docker compose build --no-cache <service-name>
+   ```
+
+2. **Recreate and restart the containers** to apply changes:
+
+   ```bash
+   docker compose up -d --force-recreate <service-name>
+   ```
+
+3. **For changes affecting multiple services**, rebuild all:
+
+   ```bash
+   docker compose down
+   docker compose build --no-cache
+   docker compose up -d
+   ```
+
+4. **Verify the containers are running correctly**:
+   ```bash
+   docker compose ps
+   docker compose logs -f <service-name>
+   ```
+
+## Service-Specific Commands
+
+- **Backend changes**: `docker compose up -d --build backend`
+- **Frontend changes**: `docker compose up -d --build frontend`
+- **Tor changes**: `docker compose --profile tor up -d --build tor`
+- **All services**: `docker compose down && docker compose up -d --build`
+
+## Important Notes
+
+- The Tor service uses a profile (`--profile tor`), so include it when working with Tor
+- Always check logs after rebuilding to ensure services started correctly
+- Use `docker compose logs -f` to follow logs in real-time
+
+## File Structure
+
+Services configuration files are organized under `/services/`:
+
+- `/services/tor/` - Tor SOCKS5 proxy configuration
+- Future: `/services/tailscale/`, `/services/cloudflared/`
+
+---
+
+## Internationalization (i18n) Rules
+
+**CRITICAL**: When adding, modifying, or removing any translation string, you MUST update ALL supported language files.
+
+### Supported Languages (11 total)
+
+| File                            | Language     | Code |
+| ------------------------------- | ------------ | ---- |
+| `frontend/src/messages/en.json` | English      | en   |
+| `frontend/src/messages/pt.json` | Portuguese   | pt   |
+| `frontend/src/messages/es.json` | Spanish      | es   |
+| `frontend/src/messages/fr.json` | French       | fr   |
+| `frontend/src/messages/de.json` | German       | de   |
+| `frontend/src/messages/ar.json` | Arabic (RTL) | ar   |
+| `frontend/src/messages/zh.json` | Chinese      | zh   |
+| `frontend/src/messages/ja.json` | Japanese     | ja   |
+| `frontend/src/messages/ko.json` | Korean       | ko   |
+| `frontend/src/messages/ru.json` | Russian      | ru   |
+| `frontend/src/messages/hi.json` | Hindi        | hi   |
+
+### Workflow
+
+1. **Adding new strings**:
+
+   - Add to `en.json` first (source of truth)
+   - Then add translations to ALL other 10 language files
+   - Use Context7 or web search to get accurate translations
+
+2. **Modifying existing strings**:
+
+   - Update in `en.json` first
+   - Update the corresponding key in ALL other language files
+
+3. **Removing strings**:
+   - Remove from ALL 11 language files
+
+### Translation Guidelines
+
+- Maintain the same JSON structure and key names across all files
+- Keep placeholders like `{count}`, `{amount}`, `{minutes}` unchanged
+- For RTL languages (Arabic), the text direction is handled by the app
+- Prefer native translations over transliterations
+- Keep translations concise for UI elements
+
+### Verification
+
+After any i18n changes, verify all files have the same keys:
+
+```bash
+# Check all translation files have consistent keys
+cd frontend && npm run build
+```
+
+Build will fail if any translation key is missing in a locale.
+
+---
+
+## E2E Tests (Cypress) Structure
+
+**CRITICAL**: The Cypress E2E tests are located ONLY in the `/e2e` folder at the project root.
+
+### Correct Structure
+
+```
+phoenixd-dashboard/
+├── e2e/                    ← All Cypress tests go here
+│   ├── e2e/               ← Test spec files
+│   │   ├── auth.cy.ts
+│   │   ├── channels.cy.ts
+│   │   ├── dashboard.cy.ts
+│   │   ├── lnurl.cy.ts
+│   │   ├── navigation.cy.ts
+│   │   ├── payments.cy.ts
+│   │   ├── receive.cy.ts
+│   │   ├── send.cy.ts
+│   │   └── tools.cy.ts
+│   ├── fixtures/          ← Mock data
+│   ├── support/           ← Commands and setup
+│   ├── cypress.config.ts
+│   └── package.json
+├── frontend/               ← NO cypress folder here!
+└── backend/
+```
+
+### Rules
+
+1. **NEVER create a `frontend/cypress` folder** - all E2E tests live in `/e2e`
+2. **NEVER duplicate test files** between `/e2e` and any other location
+3. To run E2E tests: `npm run test:e2e` from project root or `npm test` from `/e2e`
+4. The frontend dev server must be running on `localhost:3000` for E2E tests
+
+### Running E2E Tests
+
+```bash
+# From project root
+npm run test:e2e
+
+# Or from e2e folder
+cd e2e && npm test
+```
+
+---
+
+## Release & Versioning Rules
+
+### Semantic Versioning (SemVer)
+
+Format: `MAJOR.MINOR.PATCH[-PRERELEASE]`
+
+| Part      | When to Increment                  | Example           |
+| --------- | ---------------------------------- | ----------------- |
+| **MAJOR** | Breaking changes, incompatible API | `1.0.0` → `2.0.0` |
+| **MINOR** | New features, backwards compatible | `1.0.0` → `1.1.0` |
+| **PATCH** | Bug fixes, backwards compatible    | `1.0.0` → `1.0.1` |
+
+### Pre-release Tags
+
+| Tag     | Meaning                          | Stability     | Example         |
+| ------- | -------------------------------- | ------------- | --------------- |
+| `alpha` | Experimental, may break anything | Very unstable | `0.0.1-alpha.1` |
+| `beta`  | Feature complete, in testing     | Unstable      | `0.0.1-beta.1`  |
+| `rc`    | Release candidate, final testing | Almost stable | `0.0.1-rc.1`    |
+| (none)  | Stable release                   | Stable        | `0.0.1`         |
+
+### Release Lifecycle
+
+```
+alpha.1 → alpha.2 → ... → beta.1 → beta.2 → ... → rc.1 → rc.2 → stable
+```
+
+Example progression:
+
+```
+0.0.1-alpha.1  # First experimental release
+0.0.1-alpha.2  # Bug fixes in alpha
+0.0.1-beta.1   # Ready for wider testing
+0.0.1-rc.1     # Release candidate
+0.0.1          # Stable release
+0.0.2-alpha.1  # Next patch cycle
+0.1.0-alpha.1  # New feature cycle
+```
+
+### How to Create a Release
+
+**Option 1: Git Tag (Recommended)**
+
+```bash
+# 1. Update version in desktop/src-tauri/tauri.conf.json
+# 2. Commit the change
+git commit -am "chore: bump version to 0.0.1-alpha.1"
+
+# 3. Create and push tag
+git tag v0.0.1-alpha.1
+git push origin v0.0.1-alpha.1
+
+# 4. GitHub Actions automatically:
+#    - Builds for macOS, Windows, Linux
+#    - Creates draft release
+#    - Uploads installers
+#    - Publishes when all builds complete
+```
+
+**Option 2: Manual Workflow Dispatch**
+
+1. Go to GitHub → Actions → "Release Desktop App"
+2. Click "Run workflow"
+3. Enter version (e.g., `0.0.1-alpha.1`)
+4. Click "Run workflow"
+
+### Version Files to Update
+
+When releasing, update version in:
+
+- `desktop/src-tauri/tauri.conf.json` → `version` field
+- `desktop/package.json` → `version` field (keep in sync)
+
+### GitHub Release Behavior
+
+- Tags with `-alpha`, `-beta`, `-rc` → Marked as **Pre-release**
+- Tags without pre-release suffix → Marked as **Latest Release**
+- All releases start as **Draft** until all builds complete
+
+### Current Project Status
+
+- **Starting version**: `0.0.1-alpha.1`
+- **Current phase**: Alpha (experimental)
+- **Target for v1.0.0**: When core features are stable
+
+### Checklist Before Release
+
+- [ ] All tests passing (`npm run check` or `/check`)
+- [ ] Version updated in `desktop/src-tauri/tauri.conf.json`
+- [ ] CHANGELOG.md updated (if exists)
+- [ ] No console errors in app
+- [ ] Tested on at least one platform locally
+
+---
+
+## Auto Restart Docker After Changes
+
+**CRITICAL**: After completing ANY task that modifies code in this project, you MUST offer to run the `/restart-docker` command.
+
+### When to Trigger
+
+Always suggest running `/restart-docker` after:
+
+1. **Any code changes** in `backend/`, `frontend/`, or `services/`
+2. **Configuration changes** in `docker-compose.yml`, Dockerfiles, or entrypoint scripts
+3. **Database schema changes** in `prisma/schema.prisma`
+4. **Environment variable changes** in `.env` files
+
+### How to Suggest
+
+At the END of every response that includes code changes, add:
+
+```
+---
+🐳 **Docker Restart Required**
+
+Changes detected. Run `/restart-docker` to rebuild and restart the affected containers:
+
+- `/restart-docker` - Auto-detect changes and rebuild affected containers
+- `/restart-docker backend` - Rebuild only backend
+- `/restart-docker frontend` - Rebuild only frontend  
+- `/restart-docker all` - Rebuild all containers
+```
+
+### Automatic Detection
+
+When suggesting, specify which containers need restart based on changed files:
+
+| Changed Files | Container to Restart |
+| ------------- | -------------------- |
+| `backend/**` | backend |
+| `frontend/**` | frontend |
+| `services/tor/**` | tor |
+| `services/tailscale/**` | tailscale |
+| `services/cloudflared/**` | cloudflared |
+| `docker-compose.yml` | all |
+| `prisma/**` | backend |
+
+### Example End of Response
+
+```
+✅ Changes complete!
+
+---
+🐳 **Docker Restart Required**
+
+Files changed in `frontend/`. To apply changes:
+
+`/restart-docker frontend`
+
+Or run `/restart-docker` to auto-detect and rebuild.
+```
+
+---
+
+## Pre-Restart Workflow (MANDATORY)
+
+**CRITICAL**: Before restarting Docker containers after completing changes, you MUST follow this workflow in order:
+
+### Step 1: Sync Translations
+
+Run the translation sync check to ensure all language files are in sync with `en.json`:
+
+```bash
+node -e "
+const fs = require('fs');
+const path = require('path');
+
+const messagesDir = './frontend/src/messages';
+const sourceFile = 'en.json';
+
+function getAllKeys(obj, prefix = '') {
+  let keys = [];
+  for (const key in obj) {
+    const fullKey = prefix ? \\\`\\\${prefix}.\\\${key}\\\` : key;
+    if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
+      keys = keys.concat(getAllKeys(obj[key], fullKey));
+    } else {
+      keys.push(fullKey);
+    }
+  }
+  return keys;
+}
+
+const source = JSON.parse(fs.readFileSync(path.join(messagesDir, sourceFile), 'utf8'));
+const sourceKeys = getAllKeys(source);
+
+const files = fs.readdirSync(messagesDir).filter(f => f.endsWith('.json') && f !== sourceFile);
+let hasIssues = false;
+
+console.log('\\n📊 Translation Sync Check\\n');
+console.log('| Language   | Missing | Extra | Status |');
+console.log('|------------|---------|-------|--------|');
+
+for (const file of files) {
+  const target = JSON.parse(fs.readFileSync(path.join(messagesDir, file), 'utf8'));
+  const targetKeys = getAllKeys(target);
+  const missing = sourceKeys.filter(k => !targetKeys.includes(k));
+  const extra = targetKeys.filter(k => !sourceKeys.includes(k));
+  const status = missing.length === 0 && extra.length === 0 ? '✅' : '⚠️';
+  if (missing.length > 0 || extra.length > 0) hasIssues = true;
+  console.log(\\\`| \\\${file.padEnd(10)} | \\\${String(missing.length).padEnd(7)} | \\\${String(extra.length).padEnd(5)} | \\\${status}      |\\\`);
+}
+
+if (hasIssues) {
+  console.log('\\n❌ Translation issues found! Fix before restarting Docker.');
+  process.exit(1);
+} else {
+  console.log('\\n✅ All translations in sync!');
+}
+"
+```
+
+### Step 2: Restart Docker
+
+Only after translations are verified, run the docker restart:
+
+```bash
+/restart-docker
+```
+
+### Workflow Summary
+
+```
+1. ✅ Complete code changes
+2. ✅ Run /sync-translations (check translations)
+3. ✅ Fix any translation issues (if found)
+4. ✅ Run /restart-docker (rebuild containers)
+```
+
+### When Using /restart-docker Command
+
+The `/restart-docker` command should automatically run the translation check first. If issues are found, stop and report them before rebuilding containers.
+
+### Example Complete Workflow
+
+```
+User: "Add a new feature X"
+
+AI: [Makes changes to frontend/src/...]
+    [Adds translations to en.json]
+    [Adds translations to ALL other language files]
+
+    ✅ Changes complete!
+    
+    ---
+    📋 **Pre-Restart Checklist**
+    
+    1. Checking translations... ✅ All 879 keys synced
+    2. Ready to restart Docker
+    
+    Run `/restart-docker` to apply changes.
+```
+
+### If Translations Are Out of Sync
+
+```
+❌ Translation issues found!
+
+| Language   | Missing | Extra | Status |
+|------------|---------|-------|--------|
+| pt.json    | 2       | 0     | ⚠️     |
+| es.json    | 2       | 0     | ⚠️     |
+
+Missing keys:
+- contacts.newFeature
+- contacts.newFeatureDesc
+
+Fix these before running /restart-docker!
+```
+
+---
+> Source: [MiguelMedeiros/phoenixd-dashboard](https://github.com/MiguelMedeiros/phoenixd-dashboard) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
