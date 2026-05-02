@@ -4,7 +4,7 @@
   "repo": "signetai",
   "description": "Local-first identity, memory, and secrets for AI agents. Portable state across models and harnesses.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Signet-AI/signetai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T21:58:04Z"
+  "distributed_at": "2026-05-02T09:43:27Z"
 }
