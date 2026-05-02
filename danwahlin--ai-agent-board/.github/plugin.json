@@ -1,0 +1,9 @@
+{
+  "name": "danwahlin--ai-agent-board",
+  "displayName": "ai-agent-board",
+  "description": "Drag-and-drop Kanban board that delegates coding tasks to AI agents \u2014 GitHub Copilot, Claude Code, OpenAI Codex, and OpenCode \u2014 with real-time streaming, task groups, and git worktree isolation.",
+  "version": "1.0.0",
+  "author": "DanWahlin",
+  "homepage": "https://github.com/DanWahlin/ai-agent-board",
+  "skills": []
+}
