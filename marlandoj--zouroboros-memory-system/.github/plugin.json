@@ -1,0 +1,9 @@
+{
+  "name": "marlandoj--zouroboros-memory-system",
+  "displayName": "zouroboros-memory-system",
+  "description": "Zo Memory System skill: SQLite-backed shared memory + persona memory files + CLI utilities for Zo.",
+  "version": "1.0.0",
+  "author": "marlandoj",
+  "homepage": "https://github.com/marlandoj/zouroboros-memory-system",
+  "skills": []
+}
