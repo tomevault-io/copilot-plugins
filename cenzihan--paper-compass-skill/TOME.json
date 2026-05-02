@@ -1,0 +1,44 @@
+{
+  "name": "paper-compass-skill",
+  "owner": "cenzihan",
+  "repo": "paper-compass-skill",
+  "description": "\u8bba\u6587\u7f57\u76d8skill-\u5728\u8bfb\u8bba\u6587\u4e4b\u524d\uff0c\u5148\u7ed9\u4f60\u4e00\u5f20\u201c\u5148\u5b66\u4ec0\u4e48\u201d/\u201c\u503c\u5f97\u8bfb\u5417\u201d\u7684\u8def\u7ebf\u56fe\u3002 What should I learn before read a paper\uff1fCompass will trade off directions for u.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cenzihan/paper-compass-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T01:09:03Z"
+}
