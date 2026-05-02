@@ -1,24 +1,23 @@
-## testing
+## tools
 
-> Testing rules for vitest suite
+> Tool authoring rules
 
 
-# Testing rules
+# Tool authoring rules
 
-- Runner: **vitest**. Run one file:
-  `npx vitest run test/unit/<file>.test.ts`.
-- 249 tests across 43 files must remain 100% green. Never `.only`,
-  skip, or comment out a test to make the suite pass.
-- **Never** make real network calls in unit tests. Mock with
-  `vi.mock`. See `test/unit/executor-loop.test.ts` for the
-  `callModel` stub and `test/unit/adapter.test.ts` for the
-  provider stub.
-- Use tempdirs (`os.tmpdir()` + `fs.mkdtempSync`) for disk writes;
-  clean up in `afterEach`. See `test/unit/validation-gate.test.ts`.
-- Test names describe behaviour: "should reject task when provider is
-  unreachable", not "calls provider.ping once".
-- New logic in `src/core`, `src/agents`, or `src/tools` **requires**
-  a unit test — not optional.
+- Every new tool registers in `src/tools/registry.ts`.
+- Tool schemas must declare `sideEffect`
+  (`none|read|write|network|exec`) and `risk`
+  (`low|medium|high|critical`). These drive the permission
+  classifier — be honest.
+- Every tool invocation must go through `requestPermission`
+  (`src/permissions/manager.ts`). No direct filesystem or shell calls.
+- Paths resolved to realpath and confined via `src/sandbox/fs.ts`.
+- Shell commands go through `classifyCommandRisk`
+  (`src/sandbox/shell.ts`). `critical` is hard-blocked — do not add
+  bypasses.
+- Prefer `{ ok, data }` / `{ ok: false, error }` returns. Throw only
+  for programmer errors, using `ForgeRuntimeError`.
 
 ---
 > Source: [hoangsonww/Forge-Agentic-Coding-CLI](https://github.com/hoangsonww/Forge-Agentic-Coding-CLI) — distributed by [TomeVault](https://tomevault.io).
