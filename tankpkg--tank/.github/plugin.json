@@ -1,0 +1,14 @@
+{
+  "name": "tankpkg--tank",
+  "displayName": "tank",
+  "description": "Security-first package manager for AI agent skills",
+  "version": "1.0.0",
+  "author": "tankpkg",
+  "homepage": "https://github.com/tankpkg/tank",
+  "skills": [
+    {
+      "name": "tank-node-express",
+      "description": ""
+    }
+  ]
+}
