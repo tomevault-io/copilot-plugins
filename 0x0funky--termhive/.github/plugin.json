@@ -1,0 +1,9 @@
+{
+  "name": "0x0funky--termhive",
+  "displayName": "TermHive",
+  "description": "Human-driven multi-agent dashboard for Claude Code, Codex, Gemini & OpenCode. Web UI, project wiki, shared content,   and MCP-based agent messaging \u2014 see every agent, coordinate manually, intervene in",
+  "version": "1.0.0",
+  "author": "0x0funky",
+  "homepage": "https://github.com/0x0funky/TermHive",
+  "skills": []
+}
