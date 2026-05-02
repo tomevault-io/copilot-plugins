@@ -1,0 +1,57 @@
+{
+  "name": "agentsync",
+  "owner": "dallay",
+  "repo": "agentsync",
+  "description": "A fast, portable CLI tool for synchronizing AI agent configurations across multiple AI coding assistants using symbolic links.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pinned-tag",
+      "path": ".agents/skills/pinned-tag",
+      "github_url": "https://github.com/dallay/agentsync/tree/main/.agents/skills/pinned-tag",
+      "description": ""
+    },
+    {
+      "name": "rust-async-patterns",
+      "path": ".agents/skills/rust-async-patterns",
+      "github_url": "https://github.com/dallay/agentsync/tree/main/.agents/skills/rust-async-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dallay/agentsync",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:31:47Z"
+}
