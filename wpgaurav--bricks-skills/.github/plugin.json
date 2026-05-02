@@ -1,0 +1,14 @@
+{
+  "name": "wpgaurav--bricks-skills",
+  "displayName": "generateblocks-skills",
+  "description": "Bricks Builder Skills to create better layouts with AI tools.",
+  "version": "1.0.0",
+  "author": "wpgaurav",
+  "homepage": "https://github.com/wpgaurav/bricks-skills",
+  "skills": [
+    {
+      "name": "figma-to-generateblocks",
+      "description": ""
+    }
+  ]
+}
