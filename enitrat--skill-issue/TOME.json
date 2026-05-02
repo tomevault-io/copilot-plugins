@@ -1,0 +1,75 @@
+{
+  "name": "skill-issue",
+  "owner": "enitrat",
+  "repo": "skill-issue",
+  "description": "Your Claude sucks? Probably a skill issue",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "d2-diagram",
+      "path": "plugins/base-config/skills/d2-diagram",
+      "github_url": "https://github.com/enitrat/skill-issue/tree/main/plugins/base-config/skills/d2-diagram",
+      "description": ""
+    },
+    {
+      "name": "github-issue",
+      "path": "plugins/base-config/skills/github-issue",
+      "github_url": "https://github.com/enitrat/skill-issue/tree/main/plugins/base-config/skills/github-issue",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "path": "plugins/base-config/skills/pr-creator",
+      "github_url": "https://github.com/enitrat/skill-issue/tree/main/plugins/base-config/skills/pr-creator",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "path": "plugins/base-config/skills/pr-review",
+      "github_url": "https://github.com/enitrat/skill-issue/tree/main/plugins/base-config/skills/pr-review",
+      "description": ""
+    },
+    {
+      "name": "smithers",
+      "path": "plugins/personal-skills/skills/smithers",
+      "github_url": "https://github.com/enitrat/skill-issue/tree/main/plugins/personal-skills/skills/smithers",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/enitrat/skill-issue",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:31:55Z"
+}
