@@ -1,0 +1,44 @@
+{
+  "name": "vps_deploy_template",
+  "owner": "luizomf",
+  "repo": "vps_deploy_template",
+  "description": "Um template para economizar tempo ao fazer deploy de produ\u00e7\u00e3o em servidores do tipo VPS, VM ou qualquer servidor que voc\u00ea tenha acesso root.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/luizomf/vps_deploy_template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T16:07:52Z"
+}
