@@ -1,0 +1,9 @@
+{
+  "name": "michaelliv--claude-quest",
+  "displayName": "claude-quest",
+  "description": "RPG-style animation viewer for Claude Code sessions - watch your AI companion react to tool usage with pixel-art animations",
+  "version": "1.0.0",
+  "author": "Michaelliv",
+  "homepage": "https://github.com/Michaelliv/claude-quest",
+  "skills": []
+}
