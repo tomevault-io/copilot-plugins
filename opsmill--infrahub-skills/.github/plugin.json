@@ -1,0 +1,14 @@
+{
+  "name": "opsmill--infrahub-skills",
+  "displayName": "infrahub",
+  "description": "AI skills for developing with Infrahub. These skills provide structured guidance to any AI coding assistant that supports custom instructions or context files.",
+  "version": "1.0.0",
+  "author": "opsmill",
+  "homepage": "https://github.com/opsmill/infrahub-skills",
+  "skills": [
+    {
+      "name": "neo4j-cypher-guide",
+      "description": ""
+    }
+  ]
+}
