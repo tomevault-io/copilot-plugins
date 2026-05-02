@@ -4,7 +4,7 @@
   "repo": "debug-that",
   "description": "Universal debugger CLI built for AI agents. Allows Claude Code and Codex to debug much faster. Support Node (Javascript, Typescript), bun, lldb (C++/Rust), python. Fast, token-efficient, no fluff.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/theodo-group/debug-that",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T22:02:46Z"
+  "distributed_at": "2026-05-02T13:51:26Z"
 }
