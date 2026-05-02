@@ -1,0 +1,44 @@
+{
+  "name": "duckdb-vaporetto",
+  "owner": "hotchpotch",
+  "repo": "duckdb-vaporetto",
+  "description": "DuckDB extension for Japanese full-text search with \ud83d\udee5Vaporetto / Vaporetto \u306b\u3088\u308b DuckDB + \u65e5\u672c\u8a9e\u5168\u6587\u691c\u7d22\u62e1\u5f35\u6a5f\u80fd",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hotchpotch/duckdb-vaporetto",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T10:23:51Z"
+}
