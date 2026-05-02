@@ -1,0 +1,110 @@
+{
+  "name": "rohunvora--cool-claude-skills",
+  "displayName": "cool-claude-skills",
+  "description": "claude skills i've made my self that are lowkey goated",
+  "version": "1.0.0",
+  "author": "rohunvora",
+  "homepage": "https://github.com/rohunvora/cool-claude-skills",
+  "skills": [
+    {
+      "name": "ai-loading-ux",
+      "description": ""
+    },
+    {
+      "name": "arena-cli",
+      "description": ""
+    },
+    {
+      "name": "comment-mode",
+      "description": ""
+    },
+    {
+      "name": "html-style",
+      "description": ""
+    },
+    {
+      "name": "imsg-ingest",
+      "description": ""
+    },
+    {
+      "name": "incremental-fetch",
+      "description": ""
+    },
+    {
+      "name": "mobbin-ux",
+      "description": ""
+    },
+    {
+      "name": "quick-view",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "table-filters",
+      "description": ""
+    },
+    {
+      "name": "tg-ingest",
+      "description": ""
+    },
+    {
+      "name": "webhook-notify",
+      "description": ""
+    },
+    {
+      "name": "build-design-system",
+      "description": ""
+    },
+    {
+      "name": "changelog-generator",
+      "description": ""
+    },
+    {
+      "name": "extract-insights",
+      "description": ""
+    },
+    {
+      "name": "fix-hierarchy",
+      "description": ""
+    },
+    {
+      "name": "fix-spacing",
+      "description": ""
+    },
+    {
+      "name": "html-tools",
+      "description": ""
+    },
+    {
+      "name": "improve-flow",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "quick-view",
+      "description": ""
+    },
+    {
+      "name": "reframe",
+      "description": ""
+    },
+    {
+      "name": "spec-first",
+      "description": ""
+    },
+    {
+      "name": "structure-app",
+      "description": ""
+    },
+    {
+      "name": "ui-density",
+      "description": ""
+    }
+  ]
+}
