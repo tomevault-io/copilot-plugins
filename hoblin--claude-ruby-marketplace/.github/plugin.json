@@ -1,0 +1,34 @@
+{
+  "name": "hoblin--claude-ruby-marketplace",
+  "displayName": "claude-ruby-marketplace",
+  "description": "Claude Code plugin marketplace for Ruby and Rails development",
+  "version": "1.0.0",
+  "author": "hoblin",
+  "homepage": "https://github.com/hoblin/claude-ruby-marketplace",
+  "skills": [
+    {
+      "name": "activerecord",
+      "description": ""
+    },
+    {
+      "name": "dragonruby",
+      "description": ""
+    },
+    {
+      "name": "draper-decorators",
+      "description": ""
+    },
+    {
+      "name": "mcp-server",
+      "description": ""
+    },
+    {
+      "name": "ratatui-ruby",
+      "description": ""
+    },
+    {
+      "name": "rspec",
+      "description": ""
+    }
+  ]
+}
