@@ -1,0 +1,30 @@
+{
+  "name": "speakeasy-api--granary",
+  "displayName": "granary",
+  "description": "A CLI context hub for agentic work. Used by the Speakeasy engineering team",
+  "version": "1.0.0",
+  "author": "speakeasy-api",
+  "homepage": "https://github.com/speakeasy-api/granary",
+  "skills": [
+    {
+      "name": "execute-task",
+      "description": ""
+    },
+    {
+      "name": "initiative-planner",
+      "description": ""
+    },
+    {
+      "name": "orchestrate",
+      "description": ""
+    },
+    {
+      "name": "plan-work",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    }
+  ]
+}
