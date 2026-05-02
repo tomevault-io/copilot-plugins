@@ -1,294 +1,283 @@
-## localize
+## measure
 
-> Adapts experiences across cultures and languages — not just translation, but cultural reconception. Part of the Intent design strategy system. When a product enters a new market, everything is in play: information density, navigation patterns, color meaning, icon comprehension, date formats, trust signals, payment flows, and the fundamental assumptions about how people make decisions. Trigger when: planning international expansion, auditing i18n readiness, adapting designs for RTL languages, reviewing cultural assumptions in a design, preparing localization test plans, or when someone says "we need to launch in [country]" and the plan is "just translate it." Also trigger for compliance reviews across markets (GDPR, PIPL, accessibility laws).
+> Defines and tracks UX success through metrics, measurement frameworks, and experimentation. Part of the Intent design strategy system. Connects design decisions to observable evidence — did the thing we built actually help? Guards against measurement becoming manipulation. Trigger when: defining success metrics, designing A/B tests, building measurement frameworks, analyzing funnels, reviewing metric dashboards, questioning whether the right things are being measured, or when someone says "how do we know if this worked," "what should we measure," "let's run a test," or "the numbers look good but something feels off." Also trigger for ethical measurement reviews and counter-metric definition.
 
 
 
-# Localize — Design Across Cultures
+# Measure — Define and Track Success
 
 ## Overview
 
-Localization is not translation. Translation converts words; localization adapts the experience.
+If you can't define success, you can't design for it. And if you measure the wrong thing, you'll optimize for the wrong outcome.
 
-When a product enters a new market, everything is in play: information density, navigation patterns, color meaning, icon comprehension, date formats, trust signals, payment flows, legal compliance, and the fundamental assumptions about how people make decisions. A checkout flow designed for US consumers doesn't become a Japanese experience by translating the strings. A trust-building pattern that works in Germany may be irrelevant in Brazil and offensive in Saudi Arabia.
+UX measurement connects design decisions to observable evidence — did the thing we built actually help? This skill defines what to measure, how to measure it, and how to make decisions from what you learn. It bridges the gap between "we shipped it" and "it worked."
 
-Design for localization from the start, or pay for it exponentially later. Retrofitting RTL support, plural rules, and cultural adaptation into a product that assumed English-speaking Western users is one of the most expensive kinds of design debt.
+But measurement is not neutral. Every metric you choose shapes what gets optimized. Measure time-on-site and you'll get infinite scroll. Measure clicks and you'll get clickbait. Measure conversion and you'll get dark patterns — unless you also measure what those metrics cost the user. This skill guards against measurement becoming manipulation, ensuring that metrics incentivize genuine value, not engineered engagement.
 
-**When to activate this skill:** International expansion planning, i18n readiness audits, new market entry design, RTL adaptation, cultural review of existing designs, localization testing strategy, or anytime someone says "just translate it" and the problem is deeper than language.
+**When to activate this skill:** Defining success criteria for a new feature, designing experiments, building measurement frameworks, analyzing funnel performance, reviewing whether existing metrics are measuring the right things, or anytime "the numbers look good" but the experience feels wrong.
 
 ---
 
 ## Skill family
 
-Localize works alongside the full Intent skill system:
+Measure works alongside the full Intent skill system:
 
-- **`/articulate`**: Everything they write will be localized. Content strategy must design for translation from the start — sentence structure, concatenation, tone, humor, idiom. If the English copy is clever, the localized copy may be incomprehensible. Articulate designs translatable content; localize ensures it survives translation.
-- **`/organize`**: Navigation and labeling may need cultural adaptation. Category structures that make sense in one culture may be arbitrary in another. Menu labels that are concise in English may expand to unwieldy lengths in German or Finnish.
-- **`/fortify`**: i18n technical readiness — text expansion breaking layouts, RTL rendering bugs, date/number format parsing failures, character encoding issues. Fortify maps the failure modes; localize defines the requirements that prevent them.
-- **`/strategize`**: Market analysis and audience definition per locale. Which markets, in what order, with what level of adaptation? `/strategize` defines the business case; `/localize` defines the design implications.
-- **`/investigate`**: Cultural research methods for unfamiliar markets. When your assumptions about a market are based on stereotypes rather than evidence, investigate plans the research to validate or challenge them.
-- **`/philosopher`**: A cross-cutting cognitive mode for confronting invisible assumptions. Invoke when: your design team is monocultural and can't see its own biases, the "obvious" user flow is obvious only to people from your culture, or you need the question: "What cultural assumptions are invisible to us because we're inside them?"
+- **`/strategize`**: Their hypotheses need measurable success criteria. Every strategic bet should connect to a metric that tells you whether the bet paid off. `/strategize` defines "we believe X"; `/measure` defines "we'll know X is true when Y." When metrics contradict a strategic assumption, measure loops back to reopen strategy — with guardrails (see "When measurement points back to strategy" below).
+- **`/investigate`**: Qualitative research complements quantitative measurement. When the numbers say users drop off at step 3, investigate tells you why. When satisfaction scores drop after a redesign, investigate interviews users to understand the experience behind the number. Never make major design decisions from metrics alone.
+- **`/evaluate`**: UX assessment produces scores and findings that inform what to measure. Evaluation identifies usability issues; measurement tracks whether fixes actually resolved them.
+- **`/specify`**: Test plans and success metrics go into handoff specs. Every feature spec should include what success looks like and how to measure it, so engineering can instrument accordingly.
+- **`/philosopher`**: A cross-cutting cognitive mode for questioning your metrics before they become targets. Invoke when: a metric feels too easy to game, the dashboard looks green but users are complaining, you're not sure whether you're measuring user success or business extraction, or you need the question: "What if measuring this changes the behavior we're trying to measure?"
 
 ---
 
 ## Core capabilities
 
-### 1. Cultural dimension analysis for UX
+### 1. Metric selection: HEART framework
 
-Cultural frameworks provide starting hypotheses for design adaptation — not stereotypes to design by. Use them to generate questions, then validate with research.
+Google's HEART framework provides a structured approach to selecting UX metrics. Apply it per feature, not globally — different features need different metrics.
 
-**High-context vs. low-context (Hall):**
-- High-context cultures (Japan, China, Arab countries, Korea): communication is implicit, relationships matter before transactions, visual density is expected (not cluttered), social proof and authority signals carry weight, indirectness is politeness.
-- Low-context cultures (US, Germany, Scandinavia, Netherlands): communication is explicit, task-first flows are preferred, minimal UI is valued, direct calls to action work, users expect to self-serve.
-- UX implications: onboarding flows, help text density, social features, the balance between guidance and autonomy.
+**Happiness — subjective satisfaction:**
+- NPS (Net Promoter Score): likelihood to recommend, 0-10 scale. Blunt but useful for trending.
+- CSAT (Customer Satisfaction): satisfaction with specific interaction, usually 1-5 scale. More actionable than NPS for feature-level decisions.
+- SUS (System Usability Scale): 10-question standardized usability questionnaire. Good for benchmarking across releases.
+- Custom surveys: specific questions tied to specific features. "How easy was it to find what you were looking for?" is more useful than "How satisfied are you?"
 
-**Power distance (Hofstede):**
-- High power distance: formal tone, hierarchical navigation, respect for authority in copy ("Approved by Dr. [Name]"), institutional trust signals.
-- Low power distance: informal tone, flat navigation, peer trust signals ("1,000 users like you chose this"), egalitarian messaging.
-- UX implications: form of address, tone of voice, error messages, authority signals.
+**Engagement — behavioral depth:**
+- Frequency: how often users return (daily, weekly, monthly active users)
+- Intensity: depth of usage per session (features used, content consumed, actions taken)
+- Breadth: how many features a user touches (adoption breadth, not just depth)
+- Recency: when was the last interaction (early warning for churn)
 
-**Individualism vs. collectivism:**
-- Individualist cultures: personal accounts, individual preferences, "my" dashboard, solo decision-making flows.
-- Collectivist cultures: family/group accounts, shared decision-making, social features, gift-giving flows, group purchase patterns.
-- UX implications: account models, sharing features, decision-making flows, social proof patterns.
+**Adoption — new usage:**
+- New user activation: percentage completing key onboarding milestones
+- Feature adoption: percentage of eligible users who try a new feature
+- Onboarding completion: funnel through first-use experience
+- Time-to-value: how quickly new users reach their first meaningful outcome
 
-**Uncertainty avoidance:**
-- High uncertainty avoidance (Japan, Germany, Greece): detailed explanations, confirmation steps, progress indicators, safety nets, explicit guarantees.
-- Low uncertainty avoidance (Singapore, Denmark, UK): tolerance for ambiguity, fewer confirmation steps, willingness to explore, comfort with uncertainty.
-- UX implications: how much guidance to provide, number of confirmation steps, error prevention vs. error recovery.
+**Retention — continued usage:**
+- Return rate: D1, D7, D30 retention (percentage returning after 1, 7, 30 days)
+- Churn rate: percentage of users who stop using the product in a period
+- Reactivation: users who left and came back (what brought them back?)
+- Cohort retention: retention curves by signup cohort (are newer users retaining better?)
 
-**Long-term orientation:**
-- Long-term oriented cultures: loyalty programs resonate, subscription models accepted, trust built gradually, relationship-first onboarding.
-- Short-term oriented cultures: immediate value expected, trial-first models, quick wins, instant gratification patterns.
+**Task success — effectiveness:**
+- Completion rate: percentage of users who finish the task they started
+- Error rate: percentage of attempts that result in errors
+- Time-on-task: how long the task takes (shorter is usually better, but not always)
+- Efficiency: task completion relative to optimal path length
 
-**IMPORTANT:** These are spectrums and tendencies, not rules. Every individual is different. Every market has subcultures. Never design for a stereotype. Use these dimensions to generate hypotheses, then validate with `/investigate` research and `/measure` data from real users in the target market.
+**Not every feature needs all five.** Select the 2-3 dimensions that matter most for the feature's intent. A checkout flow cares most about task success and happiness. A content feed cares most about engagement and retention. A new feature launch cares most about adoption.
 
-### 2. RTL and LTR design
+**Counter-metrics:** For every metric you optimize, name the metric that could suffer. If engagement goes up but satisfaction goes down, that's a red flag. If conversion improves but support tickets increase, something is wrong. Counter-metrics are your canary in the coal mine.
 
-Right-to-left layout is not mirroring. It requires understanding what flips, what doesn't, and what needs rethinking.
+### 2. Goal-Signal-Metric mapping
 
-**What flips:**
-- Layout direction: content flows right-to-left
-- Text alignment: right-aligned by default
-- Navigation order: back arrow points right, forward points left
-- Progress indicators: fill from right to left
-- Swipe directions: next is left-to-right, previous is right-to-left
-- Slider direction: min on right, max on left
-- Icon direction: icons that imply direction (arrows, reply, share) flip
+The GSM framework prevents you from jumping straight to metrics without understanding what you're actually trying to learn.
 
-**What does NOT flip:**
-- Numbers and phone numbers (always LTR within their container)
-- Media playback controls (play/pause/skip are universal)
-- Clock direction
-- Brand logos
-- Universal icons (play, pause, close, add)
-- Checkmarks and toggles (debated, but generally don't flip)
+**Goal:** What user or business outcome are you trying to achieve? Be specific. "Improve the user experience" is not a goal. "Users can quickly find relevant content without excessive browsing" is a goal.
 
-**Bidirectional text:**
-When RTL and LTR content mix — Arabic text with English brand names, code snippets, URLs, email addresses — the Unicode Bidirectional Algorithm handles most cases, but edge cases require manual intervention with directional markers. Test with real mixed-direction content, not lorem ipsum.
+**Signal:** What observable user behavior would indicate progress toward the goal? This is the bridge between intent and data. "Users navigate directly to relevant content" is a signal. "Users spend more time on the site" is not necessarily a signal of success — it could mean they're lost.
 
-**CSS implementation principles:**
-- Use logical properties: `inline-start`/`inline-end` instead of `left`/`right`, `block-start`/`block-end` instead of `top`/`bottom`
-- Use `dir="rtl"` on the root element, not CSS transforms
-- Flexbox and Grid handle direction automatically with logical properties
-- Absolute positioning and transforms need manual attention
+**Metric:** How do you quantify that signal? Specific formula, data source, measurement frequency, and success threshold. "Median clicks-to-content less than 3 for 80th percentile of sessions, measured weekly via analytics" is a metric.
 
-**Testing RTL:**
-- Test with actual RTL users, not just mirrored screenshots
-- Test with real Arabic/Hebrew content, not reversed English
-- Test bidirectional content: Arabic paragraphs with English terms, numbers, URLs
-- Test form inputs: cursor position, text selection, copy-paste behavior
+**Example GSM chain:**
+- Goal: Users can complete checkout without friction
+- Signal: Users proceed through checkout steps without abandoning or going back
+- Metric: Checkout completion rate > 75% for users who add items to cart; median checkout time under 90 seconds; back-navigation rate during checkout < 10%
 
-### 3. Content adaptation beyond translation
+**Build GSM chains for every major feature before launch.** If you can't articulate the goal, you don't know what success looks like. If you can't identify the signal, you're guessing what to measure. If you can't define the metric, you can't learn from what you ship.
 
-Translation converts words. Content adaptation converts meaning, structure, and formatting.
+### 3. A/B test design
 
-**Text expansion and contraction:**
-- German expands ~30% from English. Finnish ~40%. Some compounds create single words that are 30+ characters.
-- Chinese and Japanese can compress 30-50% from English character count (but may need more vertical space due to character complexity).
-- Layout MUST accommodate expansion without breaking. Test with pseudo-localized strings at 150% length as a minimum.
+Experimentation is how you learn whether a design change actually helps. But poorly designed experiments produce false confidence.
 
-**String concatenation is the enemy:**
-"Hello {name}, you have {n} items in your cart" breaks in almost every language. Word order changes. Pluralization rules differ. Gender agreement is required. Use proper i18n libraries with ICU MessageFormat. Never build sentences by concatenating variables.
+**Hypothesis structure:**
+"If we [specific change], then [specific metric] will [direction of change] by [estimated magnitude] because [causal reasoning]."
 
-**Pluralization:**
-- English: 2 forms (1 item, 2 items)
-- Arabic: 6 forms (zero, one, two, few, many, other)
-- Polish: 4 forms with complex rules
-- Chinese/Japanese/Korean: 1 form (no grammatical plural)
-- Use CLDR plural rules, not "if count != 1, add 's'"
+Example: "If we move the search bar from the header to the hero section, then search usage will increase by 15% because users will encounter it earlier in their scanning pattern, reducing the friction of scrolling up to search."
 
-**Date and time:**
-- MM/DD/YYYY (US) vs. DD/MM/YYYY (most of world) vs. YYYY-MM-DD (ISO/East Asia)
-- 12-hour (US, UK, Australia) vs. 24-hour (most of world)
-- Week starts Monday (ISO, most of world) vs. Sunday (US, Israel, some Middle Eastern countries)
-- Use locale-aware formatting libraries. Never hardcode date formats.
+**Minimum detectable effect (MDE):**
+What's the smallest change worth detecting? A 0.1% improvement in conversion may not be worth the engineering effort. A 5% improvement would be. Set the MDE before the test, not after. This determines your required sample size.
 
-**Numbers:**
-- 1,000.00 (US, UK) vs. 1.000,00 (Germany, Brazil) vs. 1 000,00 (France, Sweden)
-- Decimal and thousands separators vary. Use locale-aware number formatting.
+**Sample size calculation:**
+Depends on: baseline conversion rate, MDE, statistical power (typically 80%), significance level (typically 95% / alpha = 0.05). Don't guess — use the formula or a calculator.
 
-**Currency:**
-- Symbol position varies: $1,000.00 vs. 1.000,00 EUR vs. 1 000 kr
-- Some currencies have no decimal places (JPY, KRW)
-- Exchange rate display needs careful formatting per locale
+**Quick reference for common scenarios** (two-sided test, 80% power, 95% significance, two variants):
 
-**Addresses:**
-- Format varies wildly by country. Japan: postal code, prefecture, city, ward, block, building, room. US: street, city, state, zip. UK: house, street, town, county, postcode.
-- Never assume street/city/state/zip structure. Use locale-aware address forms or flexible freeform input.
+| Baseline rate | MDE (relative) | Sample size per variant |
+|---|---|---|
+| 5% | 20% (5% → 6%) | ~25,000 |
+| 10% | 10% (10% → 11%) | ~14,500 |
+| 10% | 20% (10% → 12%) | ~3,800 |
+| 25% | 10% (25% → 27.5%) | ~4,800 |
+| 50% | 5% (50% → 52.5%) | ~6,000 |
 
-**Names:**
-- Not everyone has first name + last name
-- Chinese, Japanese, Korean: family name first
-- Icelandic: patronymic, not family name
-- Indonesian: many people have single names
-- Spanish: two family names (paternal + maternal)
-- Don't force Western name structures. Use "full name" as a single field when possible, with optional structured fields.
+Lower baseline rates and smaller MDEs require dramatically more traffic. If your required sample size exceeds your monthly traffic, either increase the MDE (detect only larger effects), extend the test duration, or accept that an A/B test is not the right method — use qualitative research instead. Underpowered tests produce inconclusive results that waste time.
 
-### 4. Visual and symbolic adaptation
+**Duration:**
+Run for at least 1-2 full weekly cycles to account for day-of-week effects. Longer for seasonal businesses. Never run less than a week even if you hit sample size early — behavioral patterns vary by day.
 
-Visual elements carry cultural meaning that doesn't translate.
+**Segmentation:**
+Check for differential effects across user segments: new vs. returning users, mobile vs. desktop, geography, plan type. An overall neutral result may hide a strong positive effect for one segment and a strong negative for another.
 
-**Color meaning (starting points, not rules):**
-- Red: luck and prosperity (China), danger and warning (Western), mourning (South Africa), bridal (India)
-- Green: Islam (Middle East), nature/go (Western), jealousy (some Latin American), money (US)
-- White: purity and weddings (Western), mourning and death (East Asian, some South Asian)
-- Yellow: royalty (Thailand), caution (Western), sacred (Hindu)
-- Blue: trust and corporate (near-universal, but depth of association varies)
-- Don't assume your color palette communicates the same emotions everywhere. Test.
+**Guardrail metrics:**
+Define what must NOT get worse. If testing a new checkout flow, guardrail metrics might include: revenue per user, support ticket volume, return rate. If the test variant improves conversion but increases returns, the test failed.
 
-**Icons and symbols:**
-- Mailbox icon: varies by country (US mailbox vs. European post box vs. Japanese post mark)
-- Trash can: American-style trash can is not universal
-- Thumbs up: positive in most Western cultures, offensive in parts of Middle East and West Africa
-- Checkmark: correct/yes in Western cultures, can mean "wrong/incorrect" in Japan and Korea (they use circles for correct)
-- Hand gestures: culturally loaded everywhere. Avoid them or test thoroughly.
-- Animals: cultural significance varies enormously (owls = wisdom in West, bad luck in India; pigs problematic in Islamic and Jewish contexts)
+**Common mistakes:**
+- Peeking at results before the test reaches statistical significance (inflates false positive rate)
+- Running too many variants without adjusting for multiple comparisons
+- Ignoring novelty effects (new things get clicked more just because they're new — wait for the effect to stabilize)
+- Stopping tests too early because early results "look decisive"
+- Not accounting for interaction effects when multiple tests run simultaneously
+- Testing cosmetic changes when the real problem is structural
 
-**Imagery:**
-- Diverse representation appropriate to the market
-- Contextually appropriate clothing, architecture, food, landscapes
-- Avoid Western-default stock photography for non-Western markets
-- Avoid images that could be politically sensitive in the target market
-- Show local context: local devices, local environments, local people
+### 4. Funnel analysis
 
-### 5. Market-specific compliance
+Funnels reveal where users fall out of a desired flow. But the value isn't in the numbers — it's in understanding why.
 
-Legal requirements that directly affect UX. This is not comprehensive legal advice — it's awareness of compliance requirements that shape design decisions.
+**Define steps precisely:**
+Is "add to cart" the click on the button, or the confirmed addition? Is "checkout" the start of the payment form, or the submission? Imprecise step definitions produce misleading conversion rates. Define each step as a specific, observable, unambiguous event.
 
-**GDPR (EU/EEA):**
-- Consent must be freely given, specific, informed, unambiguous — no prechecked boxes
-- Cookie consent banners with genuine opt-out (not just "accept" buttons)
-- Data portability: users must be able to export their data
-- Right to deletion: users must be able to delete their account and data
-- Privacy by design: data minimization, purpose limitation
+**Measure conversion between each step:**
+Step 1 → Step 2: what percentage proceed? What percentage return to a previous step? What percentage leave entirely? Each transition tells a different story.
 
-**CCPA/CPRA (California):**
-- "Do Not Sell or Share My Personal Information" link required
-- Opt-out must be as easy as opt-in
-- Financial incentive disclosures for data collection
+**Identify the biggest drop-offs:**
+Focus on the step transitions with the lowest conversion rates. A 40% drop-off between "view product" and "add to cart" is a different problem than a 40% drop-off between "enter payment" and "confirm order."
 
-**PIPL (China):**
-- Data localization: personal data of Chinese citizens stored in China
-- Separate consent for each purpose of data processing
-- Cross-border transfer requires security assessment or certification
-- Significant implications for product architecture
+**Segment by everything:**
+User type (new vs. returning), device, traffic source, geography, time of day, day of week. Aggregate funnels hide the signal. A funnel that converts at 30% overall might convert at 50% for returning desktop users and 10% for new mobile users — two completely different problems.
 
-**Accessibility laws (selection):**
-- EAA — European Accessibility Act (EU): WCAG 2.1 AA for products and services, enforcement from 2025
-- ADA (US): no explicit digital standard, but WCAG 2.1 AA is the de facto requirement
-- AODA (Canada/Ontario): WCAG 2.0 AA required
-- JIS X 8341-3 (Japan): aligned with WCAG but with Japanese-specific guidance
-- Different standards, different enforcement, different penalties
+**Pair with qualitative:**
+When you find the drop-off, you know WHERE users struggle. To understand WHY, pair with `/investigate` — session recordings, usability testing, surveys at the point of friction. Numbers without context produce bad interventions.
 
-**Age verification:**
-- Varies by country and content type
-- COPPA (US): under-13 restrictions
-- UK Age Appropriate Design Code: child-specific data protection
-- Alcohol, gambling, tobacco: age gates vary by jurisdiction
+**Benchmarking:**
+Compare funnels across time periods (did the last release help or hurt?), across segments (who struggles most?), and cautiously against industry benchmarks (useful for order-of-magnitude checks, dangerous for specific targets).
 
-**Payment regulations:**
-- PSD2/SCA (EU): Strong Customer Authentication for online payments
-- Local payment methods: iDEAL (Netherlands), Boleto (Brazil), UPI (India), WeChat Pay/Alipay (China)
-- Installment expectations: Klarna (Europe), Afterpay (Australia), buy-now-pay-later varies by market
+### 5. Qualitative and quantitative triangulation
 
-### 6. Localization testing
+Numbers tell you WHAT happened. Qualitative tells you WHY. Neither alone is sufficient for design decisions.
 
-Testing localization isn't translating test cases. It's verifying that the experience works for real users in real contexts.
+**When to triangulate:**
+- Metrics show a drop-off but you don't know why → run usability sessions at the friction point
+- Satisfaction scores drop after a redesign → interview users to understand what changed in their experience
+- A/B test shows no statistical difference → qualitative research reveals both variants had the same fundamental usability problem
+- Feature adoption is low → is it a discoverability problem, a usefulness problem, or a usability problem? Only qualitative can distinguish.
 
-**Pseudo-localization:**
-Run before any real translation. Replace all strings with accented/extended character versions (e.g., "[Ħéĺĺö Ŵöŕĺð!!!]") to find:
-- Hardcoded strings that bypass the i18n system
-- String concatenation that will break in other languages
-- Layout issues from text expansion (pseudo-expand by 30-50%)
-- Truncation where expanded text gets cut off
-- Character encoding issues
+**How to triangulate:**
+- Start with quantitative to identify WHAT and WHERE
+- Use qualitative to understand WHY
+- Return to quantitative to verify that your intervention addressed the WHY
+- Repeat
 
-**Linguistic QA:**
-- Native speakers reviewing translations in context (in the actual UI, not a spreadsheet)
-- Check: meaning preserved, tone appropriate, no machine-translation artifacts, technical terms handled correctly
-- Cultural review: local market experts reviewing flows, imagery, patterns, and metaphors
+**Never make major design decisions from one data type alone.** A metric that says "conversion improved 5%" doesn't tell you whether the improvement came from genuine value creation or from adding friction to the alternative path. A usability test where 5 people struggled doesn't tell you how widespread the problem is. Both together tell you something real.
 
-**Functional testing:**
-- All features work with RTL layout enabled
-- All features work with expanded text (German, Finnish test strings)
-- Date, number, and currency formatting correct per locale
-- Form validation works with local formats (postal codes, phone numbers, addresses)
-- Search works with local character sets (CJK, Arabic, Cyrillic)
-- Sorting works correctly per locale (alphabetical order varies)
+### 6. Ethical measurement
 
-**Crowd testing:**
-- Real users in target markets testing end-to-end flows
-- Unmoderated testing for broad coverage
-- Moderated testing for cultural insight
-- Device and OS coverage per market (Android-dominant vs. iOS-dominant markets)
+Metrics shape behavior — of teams, of products, and of users. Measure carefully.
+
+**Goodhart's Law:**
+"When a measure becomes a target, it ceases to be a good measure." This is not a theoretical concern. When teams are incentivized on time-on-site, they build infinite scroll and autoplay. When they're incentivized on signups, they build deceptive registration walls. When they're incentivized on engagement, they build notification spam. The metric didn't fail — the metric became the goal instead of a proxy for the goal.
+
+**Engagement does not equal value:**
+High engagement can signal addiction, not satisfaction. A user who checks their phone 200 times a day is engaged. They may also be anxious, distracted, and unhappy. Include satisfaction metrics alongside engagement metrics. If engagement rises but satisfaction falls, you're building a slot machine, not a useful product.
+
+**Dark metric patterns to watch for:**
+- Counting "successful" newsletter signups from prechecked boxes
+- Measuring "engagement" from nagging notifications that users click to dismiss
+- Celebrating "retention" that's actually cancellation friction
+- Reporting "conversion" from misleading button labels or urgency timers
+- Tracking "time on site" driven by confusing navigation
+
+**Connection to Intent's anti-pattern catalog:**
+Any metric that would improve by implementing a dark pattern is measuring the wrong thing. Before celebrating a metric improvement, ask: could this improvement have been achieved through a dark pattern? If yes, verify that it wasn't.
+
+**Ethical alternative framework:**
+Measure user satisfaction, task completion, and effort alongside every business metric. Build a measurement dashboard with two columns: business outcomes and user outcomes. If business metrics improve while user experience metrics decline, that's a dark pattern signal — even if nobody intended it.
+
+- Business metric: conversion rate → Paired user metric: post-purchase satisfaction
+- Business metric: engagement (DAU) → Paired user metric: user-reported value
+- Business metric: retention → Paired user metric: ease of cancellation
+- Business metric: revenue per user → Paired user metric: perceived value for money
+
+---
+
+## When measurement points back to strategy
+
+Measurement is not only downstream of strategy. It can also reopen strategy when evidence contradicts a strategic assumption. The triggers below are specific to measurement; the general loop-back rules — human checkpoint, loop budget, written exit condition — live in `/intent` under "Loop-backs and exit conditions."
+
+### Triggers for reopening `/strategize` from metrics
+
+- **Audience contradiction.** Segment analysis reveals the primary audience using the product is not the audience strategy assumed.
+- **Feature validation failure.** Adoption metrics show a supposedly core feature is unused while a supposedly peripheral feature is heavily used.
+- **Solution-fit failure.** The drop-off is not in the flow you optimized — it's before the flow. Users aren't reaching the product the way strategy assumed.
+- **Goodhart's Law triggered.** The primary metric improved, the counter-metric deteriorated, and qualitative research confirms users are worse off.
+- **Opportunity miscount.** Measured willingness-to-pay, usage frequency, or reach is an order of magnitude below the strategic estimate.
+
+### Not triggers — common false positives
+
+- **Results slightly below projection** — direction matters more than magnitude.
+- **Early metrics from novelty or seasonal effects** — wait for 2+ weekly cycles to stabilize.
+- **One underperforming segment** — may warrant segment-specific work, not a full strategy reopen.
+
+### How to reopen responsibly
+
+1. **Name the strategic assumption the metric contradicts.** Not "users aren't converting" — "we assumed [X audience with Y motivation] was primary, but data shows [Z]."
+2. **Bring evidence, not conclusions.** Metric, counter-metric, qualitative signal, and the original assumption. Let `/strategize` reframe — don't pre-frame it.
+3. **Ask the user to authorize the reopen.** Measurement can surface that strategy may be wrong; only the human with business context decides whether strategy must change.
+
+### Stop condition
+
+At most one strategy reopen per project iteration based on post-launch metrics. A second reopen signals framing issues the user must resolve — stop analyzing and surface the tension directly.
 
 ---
 
 ## Output format
 
-### Localization readiness checklist
-Audit of current design and codebase against i18n requirements: string externalization, layout flexibility, format handling, RTL support, cultural assumptions.
+### Measurement framework (GSM map)
+Goal-Signal-Metric chains for each major feature or initiative, including counter-metrics and ethical considerations.
 
-### Cultural adaptation brief
-Per target market: cultural dimensions analysis, specific design adaptations needed, imagery and symbolism changes, tone and voice adjustments, compliance requirements.
+### A/B test plan template
+Hypothesis, variants, primary metric, guardrail metrics, sample size calculation, duration, segmentation plan, decision criteria (what result means what action).
 
-### Market-specific requirement matrix
-Cross-market comparison: what changes per market (legal, cultural, technical, content) and what stays consistent.
+### Funnel analysis template
+Step definitions, conversion rates, segmentation dimensions, drop-off analysis, qualitative research plan for top friction points.
 
-### Localization test plan
-Testing strategy per market: pseudo-localization, linguistic QA, functional testing, crowd testing, compliance verification.
+### Metrics dashboard specification
+Which metrics, how displayed, update frequency, alerting thresholds, audience (who sees this and what decisions do they make from it).
+
+### Learning plan
+Post-launch measurement cadence: what to measure at day 1, week 1, month 1, quarter 1. When to check back, what to look for, when to declare success or pivot.
 
 ---
 
 ## Voice and approach
 
-Humility first. You are not an expert in every culture — but you can build a framework that respects cultural differences and validates assumptions through research. Cultural frameworks are starting points for inquiry, not design specifications.
+Precise about what data does and doesn't prove. "The data suggests" not "the data proves." Statistical significance does not mean practical significance. A p-value under 0.05 means the result is unlikely to be due to chance — it does not mean the result matters.
 
-Never stereotype. Saying "Japanese users prefer dense interfaces" is a hypothesis to test, not a design decision to implement. Always pair cultural dimension analysis with research validation through `/investigate` and measurement through `/measure`.
+Transparent about limitations. Sample size, selection bias, survivorship bias, confounding variables — name them. Honest uncertainty is more useful than false confidence.
 
-Be specific about what needs to change and why. Don't say "adapt for the German market" — say which elements need adaptation (text expansion accommodation, formal address tone, comma-as-decimal formatting, GDPR consent flow) and why each matters.
+Resist false certainty. When the data is ambiguous, say so. When the sample is too small, say so. When you need qualitative research to interpret the numbers, say so. The most dangerous metric is the one that looks conclusive but isn't.
 
-Design for localization from day one. The cost of retrofitting i18n support is orders of magnitude higher than building it in. Every string externalized, every layout flexible, every format locale-aware — from the first commit.
+Advocate for measuring what matters to users, not just what's easy to track. Clicks are easy to count. Satisfaction is harder. Task completion is meaningful. Time-on-site is ambiguous. Advocate for the metrics that reflect user success, even when they're harder to instrument.
 
 ---
 
 ## Scope boundaries
 
 ### This skill owns:
-- Cultural adaptation strategy and frameworks
-- i18n UX patterns and requirements (RTL, text expansion, format handling)
-- Localization testing methodology and test plans
-- Market-specific compliance awareness (as it affects UX)
-- Cross-market design adaptation guidance
+- Metric selection and measurement framework design
+- A/B test design and experiment methodology
+- Funnel analysis methodology and templates
+- Ethical measurement guidance and counter-metric definition
+- GSM mapping and learning plan creation
 
 ### This skill does NOT own:
-- Actual translation (translation teams and linguists)
-- Technical i18n implementation (engineering)
-- Market research and primary cultural research (`/investigate` + `/strategize`)
-- Visual adaptation details (visual design)
-- Accessibility implementation per market (`/include`)
-- Legal compliance decisions (legal team — this skill flags requirements, not interprets law)
+- Analytics implementation and instrumentation (engineering)
+- Qualitative research execution (`/investigate`)
+- Strategic framing and hypothesis generation (`/strategize`)
+- UX assessment and heuristic evaluation (`/evaluate`)
+- Dashboard visual design (visual design)
+- Statistical analysis execution (data science)
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
