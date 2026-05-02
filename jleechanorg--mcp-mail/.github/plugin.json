@@ -1,0 +1,9 @@
+{
+  "name": "jleechanorg--mcp-mail",
+  "displayName": "mcp_mail",
+  "description": "Fork of mcp_agent_mail - A mail-like coordination layer for coding agents",
+  "version": "1.0.0",
+  "author": "jleechanorg",
+  "homepage": "https://github.com/jleechanorg/mcp_mail",
+  "skills": []
+}
