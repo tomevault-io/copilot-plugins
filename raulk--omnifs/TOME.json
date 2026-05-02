@@ -4,7 +4,7 @@
   "repo": "omnifs",
   "description": "the universe, mounted on your filesystem  \ud83e\ude90",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/raulk/omnifs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T17:51:45Z"
+  "distributed_at": "2026-05-02T06:09:21Z"
 }
