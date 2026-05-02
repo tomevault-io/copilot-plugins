@@ -1,0 +1,42 @@
+{
+  "name": "tao12345666333--amcp",
+  "displayName": "amcp",
+  "description": "It\u2019s a coding agent, but I\u2019m trying to strip it down to the bare essentials and offload everything else to MCP/subagents, snapping the pieces together like LEGO.",
+  "version": "1.0.0",
+  "author": "tao12345666333",
+  "homepage": "https://github.com/tao12345666333/amcp",
+  "skills": [
+    {
+      "name": "ai-engineer",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "gh-ci-analyzer",
+      "description": ""
+    },
+    {
+      "name": "mobile-developer",
+      "description": ""
+    },
+    {
+      "name": "python-expert",
+      "description": ""
+    },
+    {
+      "name": "react-developer",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
