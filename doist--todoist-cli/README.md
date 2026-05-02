@@ -7,11 +7,11 @@ Command-line interface for Todoist
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Doist/todoist-cli](https://github.com/Doist/todoist-cli).
+Original source: `CLAUDE.md` in [Doist/todoist-cli](https://github.com/Doist/todoist-cli).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
