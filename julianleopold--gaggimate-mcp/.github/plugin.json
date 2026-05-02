@@ -1,0 +1,18 @@
+{
+  "name": "julianleopold--gaggimate-mcp",
+  "displayName": "gaggimate-mcp",
+  "description": "AI instruction skills by julianleopold",
+  "version": "1.0.0",
+  "author": "julianleopold",
+  "homepage": "https://github.com/julianleopold/gaggimate-mcp",
+  "skills": [
+    {
+      "name": "gaggimate-profiles",
+      "description": ""
+    },
+    {
+      "name": "new-coffee",
+      "description": ""
+    }
+  ]
+}
