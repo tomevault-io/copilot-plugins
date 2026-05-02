@@ -1,0 +1,22 @@
+{
+  "name": "michaelrizvi--claude-config",
+  "displayName": "claude-config",
+  "description": "Personal CLAUDE.md and Claude Code skills",
+  "version": "1.0.0",
+  "author": "michaelrizvi",
+  "homepage": "https://github.com/michaelrizvi/claude-config",
+  "skills": [
+    {
+      "name": "git",
+      "description": ""
+    },
+    {
+      "name": "pytorch-debug",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    }
+  ]
+}
