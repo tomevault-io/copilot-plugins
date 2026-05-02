@@ -1,0 +1,9 @@
+{
+  "name": "jgravelle--jdocmunch-mcp",
+  "displayName": "jdocmunch-mcp",
+  "description": "The leading, most token-efficient MCP server for documentation exploration and retrieval via structured section indexing",
+  "version": "1.0.0",
+  "author": "jgravelle",
+  "homepage": "https://github.com/jgravelle/jdocmunch-mcp",
+  "skills": []
+}
