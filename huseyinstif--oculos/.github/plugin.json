@@ -1,0 +1,9 @@
+{
+  "name": "huseyinstif--oculos",
+  "displayName": "oculos",
+  "description": "If it's on the screen, it's an API. Control any desktop app via REST + MCP. Rust.",
+  "version": "1.0.0",
+  "author": "huseyinstif",
+  "homepage": "https://github.com/huseyinstif/oculos",
+  "skills": []
+}
