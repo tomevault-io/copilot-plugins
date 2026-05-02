@@ -1,0 +1,9 @@
+{
+  "name": "andrew2net--rails-schema",
+  "displayName": "rails-schema",
+  "description": "Rails DB visualization tool",
+  "version": "1.0.0",
+  "author": "andrew2net",
+  "homepage": "https://github.com/andrew2net/rails-schema",
+  "skills": []
+}
