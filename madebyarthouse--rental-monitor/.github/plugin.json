@@ -1,0 +1,9 @@
+{
+  "name": "madebyarthouse--rental-monitor",
+  "displayName": "rental-monitor",
+  "description": "Application for scraping, analyzing and visualizing rental listings in Austria",
+  "version": "1.0.0",
+  "author": "madebyarthouse",
+  "homepage": "https://github.com/madebyarthouse/rental-monitor",
+  "skills": []
+}
