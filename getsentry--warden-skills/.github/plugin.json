@@ -1,0 +1,9 @@
+{
+  "name": "getsentry--warden-skills",
+  "displayName": "warden-skills",
+  "description": "warden-skills",
+  "version": "1.0.0",
+  "author": "getsentry",
+  "homepage": "https://github.com/getsentry/warden-skills",
+  "skills": []
+}
