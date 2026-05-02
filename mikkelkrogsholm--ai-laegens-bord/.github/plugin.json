@@ -1,0 +1,22 @@
+{
+  "name": "mikkelkrogsholm--ai-laegens-bord",
+  "displayName": "ai-laegens-bord",
+  "description": "AI instruction skills by mikkelkrogsholm",
+  "version": "1.0.0",
+  "author": "mikkelkrogsholm",
+  "homepage": "https://github.com/mikkelkrogsholm/ai-laegens-bord",
+  "skills": [
+    {
+      "name": "lab-review",
+      "description": ""
+    },
+    {
+      "name": "medrxiv-search",
+      "description": ""
+    },
+    {
+      "name": "sundhed-dk",
+      "description": ""
+    }
+  ]
+}
