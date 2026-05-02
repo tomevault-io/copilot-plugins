@@ -1,0 +1,9 @@
+{
+  "name": "nateherkai--token-dashboard",
+  "displayName": "token-dashboard",
+  "description": "Local dashboard for Claude Code token usage, costs, and session history \u2014 reads JSONL transcripts and turns them into charts, heatmaps, and cost analytics.",
+  "version": "1.0.0",
+  "author": "nateherkai",
+  "homepage": "https://github.com/nateherkai/token-dashboard",
+  "skills": []
+}
