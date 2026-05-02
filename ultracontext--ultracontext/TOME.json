@@ -4,7 +4,7 @@
   "repo": "ultracontext",
   "description": "Open Source Context infrastructure for AI agents. Auto-capture and share your agents' context everywhere.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ultracontext/ultracontext",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T09:12:09Z"
+  "distributed_at": "2026-05-02T22:03:39Z"
 }
