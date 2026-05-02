@@ -1,0 +1,99 @@
+{
+  "name": "claude-code-toolkit",
+  "owner": "cfircoo",
+  "repo": "claude-code-toolkit",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sqlalchemy-postgres",
+      "path": "skills/sqlalchemy-postgres",
+      "github_url": "https://github.com/cfircoo/claude-code-toolkit/tree/main/skills/sqlalchemy-postgres",
+      "description": ""
+    },
+    {
+      "name": "create-agent-skills",
+      "path": "skills/create-agent-skills",
+      "github_url": "https://github.com/cfircoo/claude-code-toolkit/tree/main/skills/create-agent-skills",
+      "description": ""
+    },
+    {
+      "name": "create-hooks",
+      "path": "skills/create-hooks",
+      "github_url": "https://github.com/cfircoo/claude-code-toolkit/tree/main/skills/create-hooks",
+      "description": ""
+    },
+    {
+      "name": "damage-control",
+      "path": "skills/damage-control",
+      "github_url": "https://github.com/cfircoo/claude-code-toolkit/tree/main/skills/damage-control",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "path": "skills/git",
+      "github_url": "https://github.com/cfircoo/claude-code-toolkit/tree/main/skills/git",
+      "description": ""
+    },
+    {
+      "name": "pytest-best-practices",
+      "path": "skills/pytest-best-practices",
+      "github_url": "https://github.com/cfircoo/claude-code-toolkit/tree/main/skills/pytest-best-practices",
+      "description": ""
+    },
+    {
+      "name": "ralph-convert-prd",
+      "path": "skills/ralph-convert-prd",
+      "github_url": "https://github.com/cfircoo/claude-code-toolkit/tree/main/skills/ralph-convert-prd",
+      "description": ""
+    },
+    {
+      "name": "ralph-orchestrator",
+      "path": "skills/ralph-orchestrator",
+      "github_url": "https://github.com/cfircoo/claude-code-toolkit/tree/main/skills/ralph-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "spec-interview",
+      "path": "skills/spec-interview",
+      "github_url": "https://github.com/cfircoo/claude-code-toolkit/tree/main/skills/spec-interview",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cfircoo/claude-code-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:31:55Z"
+}
