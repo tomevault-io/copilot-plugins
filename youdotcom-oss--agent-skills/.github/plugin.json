@@ -1,0 +1,34 @@
+{
+  "name": "youdotcom-oss--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Agent Skills for integrating You.com capabilities into agentic workflows and AI development tools - guided integrations for Claude, OpenAI, Vercel AI SDK, and Teams.ai",
+  "version": "1.0.0",
+  "author": "youdotcom-oss",
+  "homepage": "https://github.com/youdotcom-oss/agent-skills",
+  "skills": [
+    {
+      "name": "teams-anthropic-integration",
+      "description": ""
+    },
+    {
+      "name": "ydc-ai-sdk-integration",
+      "description": ""
+    },
+    {
+      "name": "ydc-claude-agent-sdk-integration",
+      "description": ""
+    },
+    {
+      "name": "ydc-crewai-mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "ydc-openai-agent-sdk-integration",
+      "description": ""
+    },
+    {
+      "name": "youdotcom-cli",
+      "description": ""
+    }
+  ]
+}
