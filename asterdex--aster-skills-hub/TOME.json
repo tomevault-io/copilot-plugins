@@ -1,0 +1,44 @@
+{
+  "name": "aster-skills-hub",
+  "owner": "asterdex",
+  "repo": "aster-skills-hub",
+  "description": "A set of Agent skills for the Aster Futures API: depositing funds from a wallet, and for both v1 (HMAC) and v3 (EIP-712) \u2014 auth, public market data, account/balance/positions, order placement and management, WebSocket streams, and error/rate-limit handling.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/asterdex/aster-skills-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T03:40:44Z"
+}
