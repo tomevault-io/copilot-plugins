@@ -1,0 +1,9 @@
+{
+  "name": "mpecan--tokf",
+  "displayName": "tokf",
+  "description": "Config-driven CLI tool that compresses command output before it reaches an LLM context",
+  "version": "1.0.0",
+  "author": "mpecan",
+  "homepage": "https://github.com/mpecan/tokf",
+  "skills": []
+}
