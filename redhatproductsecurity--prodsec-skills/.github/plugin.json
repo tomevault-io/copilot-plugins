@@ -1,0 +1,9 @@
+{
+  "name": "redhatproductsecurity--prodsec-skills",
+  "displayName": "prodsec-skills",
+  "description": "Security skills for AI coding assistants and agentic systems",
+  "version": "1.0.0",
+  "author": "RedHatProductSecurity",
+  "homepage": "https://github.com/RedHatProductSecurity/prodsec-skills",
+  "skills": []
+}
