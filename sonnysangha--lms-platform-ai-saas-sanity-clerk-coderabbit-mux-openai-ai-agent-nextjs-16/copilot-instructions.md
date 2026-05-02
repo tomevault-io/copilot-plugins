@@ -1,444 +1,394 @@
-## sanityappsdk
+## sanityappsdktypegen
 
-> Anything related to Sanity usage
+> Anything related to Sanity usage with Typescript & App SDK
 
-# App SDK best practices
+# App SDK and TypeGen
 
-If you’ve worked with Sanity before, your experience querying the Content Lake is likely grounded in building Server-Side Rendered (SSR) or statically generated front-end applications designed for page load time performance.
+> [!NOTE]
+> This page is for using TypeGen with the App SDK. See [the TypeGen article](/docs/apis-and-sdks/sanity-typegen) to generate types for your Studio and front end applications.
 
-Now, with the Sanity App SDK, you can build feature-rich content applications for authoring. However, this requires a different approach: swapping SSR thinking for Single-Page Application (SPA) best practices.
+[Sanity TypeGen](/docs/apis-and-sdks/sanity-typegen) is a tool that generates TypeScript types directly from your Sanity schemas and GROQ queries. When used with the Sanity App SDK, it provides strong type safety and autocompletion suggestions for your documents, query results, and projections.
 
-On top of this, if you’re used to writing React applications, some common patterns for building form-based user interfaces are best avoided when working with App SDK.
-
-## What makes a great content application?
-
-Content applications are defined as distinct, new experiences that give authors a focused environment to perform content operations. Instead of digging through a general-purpose CMS interface, authors work in a fit-for-purpose user interface to get the job done.
-
-Content applications developed with the Sanity App SDK should be:
-
-### Real-time
-
-Any number of documents fetched and rendered into the user interface should continue to update as mutations happen to the source documents. Content applications should avoid concepts that handle stale data like "submit," “save” or "lock" buttons.
-
-### Multiplayer
-
-Two authors looking at the same document should be able to continually make and see edits without fear of overwriting one another’s work.
-
-### Fast
-
-Content rendered in the application should be locally cached, updated optimistically, and kept eventually consistent with the Content Lake.
-
-### Accurate
-
-There should never be stale data in an author's browser as they write content, nor after page load when fetched content is rendered. Updates should be written to and received directly from the Content Lake.
-
-### This is all built-in to Sanity App SDK
-
-These are the baseline expectations that Sanity’s engineers have had while developing Sanity Studio since 2017, and they’re now democratized for everyone to take advantage of via React Hooks in the Sanity App SDK.
-
-## Get comfortable with more fetches
-
-If you’ve built an SSR front end with Sanity before (such as in Next.js), you’ve likely created a Sanity Client and fetched all on-page content in a single query like this.
-
-```tsx
-// The SSR way: query and render "event" type documents
-
-import { client } from "../sanity/client";
-
-export async function Page() {
-  const events = await client.fetch(
-    `*[_type == "event"]`
-  );
-
-  return (
-    <ul>
-      {events.map((event) => (
-        <li key={event._id}>{event.title}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-This can work great for SSR apps—where only the initial page load is important—since the grunt work of optimization is done behind the scenes, cached and delivered fast in a static format to your end users. But it falls short of a great SPA experience which may involve querying and editing an evolving number and type of documents, while keeping the user interface up to date in real-time.
-
-### Prefer useDocuments over useQuery to fetch documents
-
-Your natural inclination may be to use the App SDK hooks to recreate the "fetch everything in one query" pattern.
-
-```tsx
-// ❌ Do not simply swap client.fetch for useQuery
-// It's too easy to over-fetch!
-
-import { useQuery } from "@sanity/sdk-react";
-
-export function Page() {
-  const { data: events } = useQuery(
-    `*[_type == "event"]`
-  );
-
-  if (!events) return null;
-
-  return (
-    <ul>
-      {events.map((event) => (
-        <li key={event._id}>{event.title}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-This list of documents will receive real-time updates—an upgrade from `client.fetch`—but may unknowingly fetch 1000’s of documents, each with 100’s of attributes.
+In this guide, we’ll walk through setting up and using TypeGen within your SDK app.
 
 > [!WARNING]
-> Keeping raw GROQ queries performant
-> The query in this particular example is problematic for performance. There’s no “array slicing” such as `[0..10]` to reduce the total number of documents returned, and no projection such as `{ title }` to reduce the number of attributes returned. 
-> High performance is built-in when you use hooks like `useDocuments` and `usePaginatedDocuments` to return a filtered list of [document handles](/docs/app-sdk/document-handles), but your implementation will need to be more carefully considered when fetching by GROQ queries with `useQuery`.
+> Experimental feature
+> TypeGen support in the App SDK is currently in its early stages. We’re actively working on improving this integration and the developer experience around it. For now, some parts of this process may be suboptimal, but we invite the adventurous among you to follow along!
 
-`useQuery` exists to fetch content with a GROQ query should you need to—but makes it your responsibility to maintain your application’s performance. One particular example of where this may be useful is when a parent component needs all the details of child documents. 
+## Setup
 
-In most cases, you should prefer `useDocuments` to fetch a list of document handles, and render components that do their own data fetching for more content.
+Using Typegen involves two main steps: extracting your schema(s) and then generating the types. Both commands are available via the CLI.
+
+### Extract schemas
+
+First, you need to extract your Sanity schema(s) into a JSON format that Typegen can understand. **Currently, this step relies on the full** **sanity** **package**, typically used within your Sanity Studio project, as Typegen needs access to the complete schema definition to generate accurate types.
+
+Schema extraction is performed within your Studio setup to generate the `schema.json` file. Once created, this file can be used independently by other tools or parts of your workflow.
+
+> [!NOTE]
+> We recognize that requiring the Studio environment solely for this generation step isn't ideal, and we're actively working on improving this workflow in future App SDK updates to make the process more self-contained.
+
+Use the `sanity schema extract` command within your Studio project or a project that has the `sanity` package installed:
+
+**Terminal**
+
+```sh
+npx sanity schema extract --workspace <workspace-name> --output-path <path/to/schema.json>
+```
+
+This `schema.json` file can be copied to (or the `--output-path` can be set directly to) your Sanity app's repository. Your application itself does *not* need the full `sanity` package as a dependency to use the generated types; it only needs the `schema.json` file for the `typegen generate` step.
+
+If your Studio project defines multiple workspaces or you need types for different schemas (e.g., for different datasets), run the `extract` command for each one, outputting to separate JSON files. For example, you could configure you Studio’s `package.json` as follows:
+
+**package.json**
+
+```json
+{
+  "scripts": {
+    "schema:extract:test": "sanity schema extract --workspace test --output-path ../my-frontend-app/schema-test.json",
+    "schema:extract:prod": "sanity schema extract --workspace production --output-path ../my-frontend-app/schema-prod.json",
+    "schema:extract": "npm run schema:extract:test && npm run schema:extract:prod"
+  }
+}
+```
+
+We plan to improve this schema extraction process as the SDK matures to potentially reduce the dependencies and improve overall developer experience.
+
+### Install (experimental) packages
+
+To use the Typegen features described in this guide, your SDK app needs specific experimental versions of `@sanity/cli` and `groq` installed. Install these packages from within your SDK app directory:
+
+**Terminal**
+
+```sh
+npm install groq@typegen-experimental-2025-04-23
+npm install @sanity/cli@typegen-experimental-2025-04-23 --save-dev
+```
+
+> [!WARNING]
+> Package names and installation
+> These are experimental pre-release versions. The package names and installation process may change as these features stabilize.
+
+### Configure TypeGen (optional)
+
+For the most common use case – a single Sanity schema for your project – **no configuration file is needed**. However, you'll need to create a TypeGen configuration file for more complex use cases, such as:
+
+- Using multiple schemas (e.g., from different workspaces or for different datasets).
+- Needing to explicitly map a single schema to a specific `schemaId` for accurate schema scoping (instead of using the default  `'default'`).
+- Using a different name or location for your schema file(s).
+- Specifying a custom output path for the generated types file.
+
+If you need this level of configuration, create a TypeGen configuration file (`sanity-typegen.json` ) at the root of your SDK app and use the `unstable_schemas` array:
+
+**sanity-typegen.json**
+
+```json
+// sanity-typegen.json
+{
+  "unstable_schemas": [
+    {
+      // Path to the schema
+      "schemaPath": "./schemas/products-schema.json",
+      // The schema ID, formatted as `projectId.datasetName`
+      "schemaId": "your-project-id.products"
+    },
+    {
+      "schemaPath": "./schemas/authors-schema.json",
+      "schemaId": "your-project-id.authors"
+    }
+    // Add more schema objects if needed
+  ],
+  "overloadClientMethods": false // client methods are not needed for the App SDK
+  // Optional: Specify output path for generated types
+  // "outputPath": "./src/generated/sanity-types.ts"
+}
+```
+
+Objects in the `unstable_schemas` array each consist of the following properties:
+
+- **schemaPath:** The path (relative to the project root) to the corresponding extracted schema JSON file.
+- **schemaId:** A string combining your `projectId` and `dataset` (e.g., `"your-project-id.your-dataset-name"`). This is used to map the schema to the correct project and dataset context for type generation, as the extracted `schema.json` doesn't contain this information itself.
+
+The optional **outputPath** property specifies where to write the generated `sanity.types.ts` file. It defaults to the project root.
+
+By default, TypeGen works seamlessly for the common single-schema setup without extra configuration. Use `sanity-typegen.json` only when your needs require more explicit control.
+
+### Generate types
+
+With the necessary packages installed and your schema(s) extracted (and optionally configured in `sanity-typegen.json`), you can run the `sanity typegen generate` command from within your SDK app directory:
+
+**Terminal**
+
+```sh
+# use `@sanity/cli` package directly for now
+./node_modules/@sanity/cli/bin/sanity typegen generate
+```
+
+This command reads your configuration (either `sanity-typegen.json` or the default `schema.json`), processes the specified schemas, and generates a `sanity.types.ts` file, which contains your types. It's recommended to add this command to your SDK app’s `package.json` scripts. For example:
+
+**package.json**
+
+```json
+{
+  "scripts": {
+    "typegen": "./node_modules/@sanity/cli/bin/sanity typegen generate"
+  }
+}
+```
+
+Congratulations! You’ve now generated types for your schema documents, projections, and query results. With your `sanity.types.ts` file in place, the App SDK hooks will automatically pick up these types.
+
+Next, we’ll cover how to make use of these generated types in your SDK app.
+
+## Use the generated types
+
+TypeGen generates interfaces for each document type defined in your schemas. For projects using multiple schemas/datasets defined in `sanity-typegen.json`, it utilizes a helper type `SchemaOrigin` (imported from `groq`) to brand the types.
+
+This allows TypeScript to narrow down the possible document types based on the dataset context provided via a `DocumentHandle`. See the code below for an example of this:
+
+**Document type narrowing**
+
+```
+import {useDocument, createDocumentHandle} from '@sanity/sdk-react'
+
+// Assuming 'book' is only in 'test' dataset, 'dog' only in 'production'
+const testHandle = createDocumentHandle({
+  projectId: 'your-project-id',
+  dataset: 'test',
+  documentId: 'some-id',
+  documentType: 'book', // Type narrowed to 'book'
+})
+
+const prodHandle = createDocumentHandle({
+  projectId: 'your-project-id',
+  dataset: 'production',
+  documentId: 'another-id',
+  documentType: 'dog', // Type narrowed to 'dog'
+})
+
+function MyComponent() {
+  const {data: bookData} = useDocument(testHandle)
+  // bookData is correctly typed as Book
+
+  const {data: dogData} = useDocument(prodHandle)
+  // dogData is correctly typed as Dog
+
+  // ...
+}
+```
+
+### Handles and literal types
+
+For TypeGen to correctly infer types in hooks like `useDocument`, it needs to know the *specific* literal type of the `documentType` (e.g., `'book'` instead of just `string`).
+
+The App SDK provides helper functions (like `createDocumentHandle `and `createDatasetHandle`) that help capture these literal types:
+
+**Document handle creation**
+
+```
+import {createDocumentHandle} from '@sanity/sdk'
+
+// Using the helper ensures handle.documentType is typed as 'book'
+const handle = createDocumentHandle({
+  documentId: '123',
+  documentType: 'book',
+  dataset: 'production',
+  projectId: 'abc',
+})
+```
+
+Alternatively, if you prefer defining handles as plain objects, use `as const` to ensure the `documentType` has the literal type of `'book'`:
+
+**Document handle creation with object literals**
+
+```
+const handle = {
+  documentId: '123',
+  documentType: 'book',
+  dataset: 'production',
+  projectId: 'abc',
+} as const // 'as const' ensures documentType is 'book', not string
+```
 
 > [!TIP]
-> Document handles provide stable `key` values
-> Among the benefits of fetching for and using [document handles](/docs/app-sdk/document-handles) is that they provide a stable `documentId` attribute which can be used as the `key` value when mapping over the response to render a list. 
-> Stable unique identifiers are preferable to using the index when [rendering lists in a real-time React application](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key).
+> We recommend that you use `createDocumentHandle` (or other `create*Handle` helpers) when using Typegen for cleaner code.
 
-Here's an example of fetching and rendering the same documents using the App SDK’s more purpose-built hooks.
+### Document projections
 
-```tsx
-// ✅ Fetch and render event type documents the App SDK way
+To get types for GROQ projections used with `useDocumentProjection` and TypeGen, you **must** define them using the `defineProjection` helper from `groq`.
 
-import { Suspense } from "react";
-import {
-  useDocuments,
-  useDocumentProjection,
-  type DocumentHandle,
-} from "@sanity/sdk-react";
+**Defining projections**
 
-// Parent component that queries and renders event documents
-export function EventsList() {
-  const { data: events } = useDocuments({
-    documentType: 'event',
-  });
+```
+import {defineProjection} from 'groq'
+import {useDocumentProjection, type DocumentHandle} from '@sanity/sdk-react'
 
-  if (!events) return null;
+// Typegen derives the type name (AuthorSummaryProjectionResult) from the variable name
+export const authorSummary = defineProjection(`{
+  "name": name,
+  "favoriteBookTitles": favoriteBooks[]->title,
+}`)
 
+function AuthorDetails({doc}: {doc: DocumentHandle<'author'>}) {
+  // The type of `data` is inferred from `authorProjection`
+  const {data} = useDocumentProjection({
+    ...doc, // Spread the handle containing documentId, type, etc.
+    projection: authorProjection,
+  })
+
+  // data is typed as AuthorSummaryProjectionResult
+  // Autocompletion works for data.name and data.favoriteBookTitles
+  return <div>{data.name}</div>
+}
+```
+
+There are few important things to note here:
+
+- In the example above, the generated type (e.g., `AuthorSummaryProjectionResult`) includes a `ProjectionBase` [brand](https://www.learningtypescript.com/articles/branded-types), allowing unions of projection results if a projection applies to multiple document types.
+- TypeGen intelligently removes types from the projection result if all fields in the projection evaluate to `null` for a given document type.
+- When using Typegen, you **cannot** pass raw projection strings to `useDocumentProjection` and get type inference; you must use `defineProjection`.
+
+### GROQ queries
+
+Similarly to `useProjection`, when using the `useQuery` hook, you **must** define your GROQ queries using `defineQuery` from the `groq` package to get type inference:
+
+**Defining queries**
+
+```
+import {defineQuery} from 'groq'
+import {useQuery} from '@sanity/sdk-react'
+
+// Typegen derives the type name (AllBooksQuery) from the variable name
+export const allBooksQuery = defineQuery('*[_type == "book"]{ _id, title }')
+
+function BookList() {
+  // Type of `data` is inferred from `allBooksQuery`
+  const {data} = useQuery({query: allBooksQuery})
+
+  // data is typed as Array<{_id: string, title: string}> (or similar)
   return (
     <ul>
-      {events.map((event) => (
-        <Suspense key={event.documentId} fallback={<li>Loading...</li>}>
-          <Event {...event} />
+      {data.map((book) => (
+        <li key={book._id}>{book.title}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+Note that `useQuery` accepts options as a single object, allowing you to spread handles easily. For example:
+
+**Spreading options to `useQuery`**
+
+```
+const handle = createDatasetHandle({dataset: 'test', projectId: 'abc'})
+const {data} = useQuery({...handle, query: allBooksQuery})
+```
+
+### Document lists
+
+The App SDK’s document list hooks, `useDocuments` and `usePaginatedDocuments`, benefit from TypeGen through dataset scoping (as shown earlier). You can use the `documentType` option to specify the document type(s) you are querying:
+
+**Paginated list example**
+
+```
+import {usePaginatedDocuments, createDatasetHandle} from '@sanity/sdk-react'
+import {DocumentPreview} from './your-document-preview'
+
+const testDataset = createDatasetHandle({dataset: 'test', projectId: 'abc'})
+
+function MixedList() {
+  // Specify the types being queried
+  const {data} = usePaginatedDocuments({
+    ...testDataset,
+    documentType: ['author', 'book'], // Pass string or array of strings
+  })
+
+  // `data` is an array of DocumentHandles, correctly scoped.
+  // If used with `useDocument` (and other hooks) later, types will be scoped
+  // appropriately (e.g. Author | Book).
+  return (
+    <ul>
+      {data.map((doc) => (
+        <Suspense key={doc.documentId} fallback={<li>Loading...</li>}>
+          <DocumentPreview doc={doc} />
         </Suspense>
       ))}
     </ul>
-  );
-}
-
-// Event component now renders the <li> itself
-function Event(props: DocumentHandle) {
-  const { data } = useDocumentProjection({ ...props, projection: `{ title }` });
-
-  if (!data) return null;
-
-  return <li>{data.title}</li>;
-}
-```
-
-This may feel like an anti-pattern if you've been regularly building SSR front-ends—so many fetches! 
-
-Rest assured that in a custom app, this is acceptable and in fact the intended usage pattern. The App SDK will handle concerns around caching and query batch sizing to avoid over-fetching.
-
-**Summary:** Don’t fetch everything at once. First fetch for document handles, then fetch individual documents’ content within dedicated components.
-
-## Apply Suspense boundaries liberally
-
-[Suspense](https://react.dev/reference/react/Suspense) may be an unfamiliar part of the React library to many developers, but it won’t be once you’re familiar with the App SDK. The hooks in the App SDK use Suspense for data fetching—this means that when fetches are in flight, React will navigate up the component “tree” to the nearest Suspense boundary and trigger its `fallback` prop.
-
-```tsx
-// A very simple example of using Suspense
-
-import { useDocuments } from "@sanity/sdk-react"
-import { Stack, Text } from "@sanity/ui"
-import { Suspense } from "react"
-
-// 👇 The `useDocuments` hook in this component returns a promise
-function FeedbackListDocuments() {
-  const { data } = useDocuments({
-    documentType: "feedback",
-  })
-
-  return (
-    <Stack>
-      {data?.map((feedback) => (
-        <Text key={feedback.documentId}>{feedback.documentId}</Text>
-      ))}
-    </Stack>
-  )
-}
-
-// 👇 So the component must be wrapped in Suspense
-// which will render the `fallback` prop until data is loaded
-function FeedbackList() {
-  return (
-    <Suspense fallback={<Text>Loading...</Text>}>
-      <FeedbackListDocuments />
-    </Suspense>
   )
 }
 ```
 
-The `SanityApp` component which wraps Sanity custom applications includes a Suspense boundary itself. So, if you have not put any Suspense boundaries throughout your app, you may constantly see the entire app re-render.
+### Specific document types
 
-Keep in mind that for a small, simple enough app, you may rarely see a Suspense boundary invoked. For larger applications, or those that use more complex rendering libraries like TanStack Table or a Google Map, you may occasionally see runaway re-renders and wonder why. Suspense is likely why.
+When you know the specific document type you're dealing with, you can make your TypeScript code even more precise using the methods described below.
 
-See the [App SDK Suspense documentation page](/docs/app-sdk/react-suspense-sdk) for more information.
+#### Parameterizing `DocumentHandles`
 
-### Expect re-renders from real-time updates
+`DocumentHandle` is a generic type that accept type parameters. You can provide a specific document type literal (like `'book'`) as a type argument. This is useful for typing props or variables that should only reference a handle for a specific document type:
 
-Because fetches for Sanity content with the App SDK are real-time and kept up to date, you may see re-renders happening when nothing seems to change. 
+**Parameterizing a Document Handle**
 
-It may be that a document has been edited—just not in a way that would be rendered in your application. For example: A document rendered by your application may receive edits in Sanity Studio by another editor to fields that your application is not rendering, thus updating the latest edited date on the document and potentially causing a re-render.
+```
+import {type DocumentHandle} from '@sanity/sdk-react'
 
-Thus, you need to account for changes to content not performed by your application which will impact your application re-rendering.
-
-### Wrap Suspense around the parent, not the child
-
-A component which uses a data fetching hook such as `useDocuments` may trigger the outer Suspense boundary. In the example below, this means React will look **above** this component in the tree.
-
-```tsx
-import { Suspense } from "react"
-import { type DocumentHandle, useDocuments } from "@sanity/sdk-react"
-import { Stack, Button } from "@sanity/ui"
-
-// 👇 This component needs to be wrapped in Suspense
-// because it contains a fetching hook
-export function FeedbackList() {
-  const { data, hasMore, loadMore } = useDocuments({
-    documentType: "feedback",
-  })
-
-  return (
-    <Stack space={2} padding={5}>
-      {data?.map((feedback) => (
-        // 👇 Just like FeedbackItem needs to be wrapped
-        // because it does its own data fetching too
-        <Suspense key={feedback.documentId}>
-          <FeedbackItem {...feedback} />
-        </Suspense>
-      ))}
-    </Stack>
-  )
+// This function expects a handle that *must* reference a 'book' document
+function BookComponent({doc}: {doc: DocumentHandle<'book'>}) {
+  // Thanks to DocumentHandle<'book'>, TypeScript knows the context
+  const {data} = useDocument(doc)
+  // `data` will be typed as the generated `Book` interface
+  // ...
 }
 ```
 
-The child elements are wrapped in Suspense (because they also fetch for data), but if the result of `useDocuments` is being updated, it is **this** parent component which needs to be wrapped in Suspense.
+This works because the full definition of `DocumentHandle` includes generic type parameters (`TDocumentType`, `TDataset`, `TProjectId`) that default to `string` but can be made more specific.
 
-**Summary:** Wrap **every** data-fetching component in Suspense.
+#### Using `SanityDocument` for document data
 
-### Anticipate and prevent layout shift
+If you need the type for the actual document *data* itself (not just the handle), the `groq` package exports the `SanityDocument<TDocumentType>` helper type. Pass the document type literal to get the corresponding generated interface for the document content:
 
-"Layout shift" is when an element in an application changes dimensions or location, potentially moving other elements as a result.
+**Parameterizing SanityDocument**
 
-A common example is when an image loads, changes size and pushes elements below it further down the web page. This can be a little problematic in web applications, and the effect is exacerbated in real-time applications.
+```
+import {type SanityDocument} from 'groq'
 
-In a real-time application an element which renders content could change dimension without user interaction. Another user may publish a change which adds a value that previously didn't exist, or a string may go from a few words to an entire paragraph. Your application should account for changes—unexpected or otherwise—to any content being fetched and rendered.
+type BookData = SanityDocument<'book'>
+// BookData is now equivalent to the generated Book interface (e.g., { _id: string; title: string; ... })
 
-### How to prevent layout shift with Suspense  
-
-A Suspense boundary’s `fallback` prop can take a component, not just text. Consider creating a “skeleton” version of the component which has the exact same dimensions as the final component that renders when content has been fetched.
-
-In the example below, the `useNavigateToStudioDocument` hook requires a Suspense boundary. 
-
-```tsx
-import { Suspense } from "react"
-import {
-  type DocumentHandle,
-  useNavigateToStudioDocument,
-} from "@sanity/sdk-react"
-import { Button } from "@sanity/ui"
-
-const BUTTON_TEXT = "Open in Studio"
-
-type OpenInStudioProps = {
-  handle: DocumentHandle
-}
-
-// The exported component, pre-wrapped in Suspense
-export function OpenInStudio({ handle }: OpenInStudioProps) {
-  return (
-    <Suspense fallback={<OpenInStudioFallback />}>
-      <OpenInStudioButton handle={handle} />
-    </Suspense>
-  )
-}
-
-// The fallback component, rendered while the final component is loading
-function OpenInStudioFallback() {
-  return <Button text={BUTTON_TEXT} disabled />
-}
-
-// The final component, rendered after the fallback
-function OpenInStudioButton({ handle }: OpenInStudioProps) {
-  const { navigateToStudioDocument } = useNavigateToStudioDocument(handle)
-
-  return <Button onClick={navigateToStudioDocument} text={BUTTON_TEXT} />
+// This function expects the fully typed book data
+function processBook(book: BookData) {
+  console.log(book.title) // Autocomplete works!
 }
 ```
 
-So within the one component, we have: 
+In summary:
 
-- The exported component containing the Suspense boundary, which will render either the fallback or the child component depending on the loading state of the `useNavigateToStudioDocument` hook.
-- A fallback button, disabled, with the same text to fill the same space.
-- The final, active button to be clicked.
+- Use `DocumentHandle<'yourType'>` to constrain a document handle to documents of a specific type.
+- Use `SanityDocument<'yourType'>` to type the actual data structure of a document of a specific type.
 
-**Summary: **Components should not change size or location based on the availability of content or their loading state.
+## Workflow considerations
 
-### Components should only have one Suspenseful hook
+### Regeneration
 
-A good rule to keep in mind is that each component should only have one instance of a hook that fetches content (such as `useDocuments` or `useDocumentProjection`)
+You'll need to re-run `npm run typegen` whenever you:
 
-```tsx
-// ❌ Don't put multiple fetchers in a single component!
-// Updates to either list of documents will rerender both lists.
+- Change your Sanity schemas.
+- Add or modify queries/projections defined with `defineQuery` or `defineProjection`.
+- Consider integrating this into your `dev` script or a file watcher.
 
-import { useDocuments } from "@sanity/sdk-react";
-import { List } from "./List";
+### TypeGen is additive
 
-export function EventsAndVenues() {
-  const { data: events } = useDocuments({
-    documentType: 'event'
-  });
+TypeGen is designed to enhance the App SDK experience. If you don't use it, the App SDK hooks will still work, but data types will often default to `any` or `unknown`, losing the benefits of TypeScript. Adopting TypeGen later should be a non-breaking change that simply adds type safety.
 
-  const { data: venues } = useDocuments({
-    documentType: 'venue'
-  });
+### JavaScript projects
 
-  if (!events || !venues) return null;
+Even if your project doesn't use TypeScript, you can still leverage TypeGen to enhance your JavaScript development experience.
 
-  return (
-    <>
-      <List title="Events" items={events} />
-      <List title="Venues" items={venues} />
-    </>
-  );
-}
-```
+By following the steps in this guide – extracting your schema, installing the necessary packages, using helpers like `createDocumentHandle`, `defineProjection`, and `defineQuery`, and running `npm run typegen` – you create a `sanity.types.ts` file.
 
-It’s possible to use multiple fetching hooks in a single component, but any one of these that receive an update will cause React to look up the component tree for a Suspense boundary, putting the entire component (and maybe others) into a loading state.
+While your JavaScript code won't undergo compile-time type checking, modern code editors (like VS Code) that use the TypeScript language service can read this generated file.
 
-```tsx
-// ✅ Separate fetchers into their own list components
-
-import { Suspense } from 'react'
-import { useDocuments } from '@sanity/react-sdk'
-import { List } from './List'
-
-// Component that renders two independent document lists
-export function EventsAndVenues() {
-  return (
-    <>
-      <Suspense fallback="Loading events...">
-        <DocumentListSection documentType="event" />
-      </Suspense>
-
-      <Suspense fallback="Loading venues...">
-        <DocumentListSection documentType="venue" />
-      </Suspense>
-    </>
-  )
-}
-
-// Reusable component to fetch and render a list of documents by type
-function DocumentListSection({ documentType }: { documentType: string }) {
-  const { data: items } = useDocuments({ documentType })
-
-  if (!items) return null
-
-  return <List items={items} />
-}
-```
-
-**Summary:** Separate individual fetchers into individual components.
-
-## Read and write state from Content Lake 
-
-Real-time applications require values to be up to date in **all** browsers. Therefore you should always read from and write to Content Lake instead of your local state at all times.
-
-### Antipattern: Local state with controlled inputs with `useEditDocument`
-
-For as long as you’ve been building React applications with hooks, you’ve likely implemented forms with controlled inputs where the `useState` hook stores, writes and renders the value of a field and content is submitted upon completion.
-
-```tsx
-// ❌ Do not copy this code example! 
-// It only writes values to the browser, not the Content Lake
-
-import { useState, FormEvent } from "react";
-import { useEditDocument, type DocumentHandle } from "@sanity/sdk-react";
-
-export function TitleForm(props: DocumentHandle) {
-  const [value, setValue] = useState("");
-  const editTitle = useEditDocument({ ...props, path: "title" });
-
-  // 😱 This edit will only happen on submission
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    editTitle(value);
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        // 😱 This value only exists in your browser!
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder="Enter title"
-      />
-      <button type="submit">Save</button>
-    </form>
-  );
-}
-```
-
-In a real-time application this leads to stale data in an author's browser, and creates scenarios where one author can overwrite another's work unknowingly.
-
-### Correct controlled inputs the App SDK way
-
-Hooks in the App SDK have been written to handle the local-first optimistic edits seen in `useState`, while sending and receiving mutations to the Content Lake behind the scenes. This is why you’ll see `useDocument` and `useEditDocument` combined in a pattern like the one below, to achieve the same effect as demonstrated in the incorrect example above.
-
-```tsx
-// ✅ Read from and write values directly to the document
-
-import { useDocument, useEditDocument, type DocumentHandle } from '@sanity/react-sdk'
-
-export function TitleInput(props: DocumentHandle) {
-  const { data: title } = useDocument({ ...props, path: 'title' })
-  const editTitle = useEditDocument({ ...props, path: 'title' })
-
-  return (
-    <input
-      type="text"
-      value={title ?? ''}
-      onChange={e => editTitle(e.currentTarget.value)}
-      placeholder="Enter title"
-    />
-  )
-}
-```
-
-The behavior of this component works the same as the first one, but in a way that will continue to render from and write changes to the Content Lake.
-
-Most magical of all, if your document is in a published state, the first edit made to any value in the document will invoke a new draft version of the document—something Sanity Studio has always done and is now made easy by App SDK.
-
-Instead of requiring the author to “save” changes when they are done, edits are written directly to a “draft” version document. You can “publish” the draft version of the document with the `useApplyActions` hook—[see the documentation](https://reference.sanity.io/_sanity/sdk-react/exports/useApplyDocumentActions/) for more details.
-
-**Summary:** Avoid creating forms that rely on a user’s local session, and always read from and write to the Content Lake.
-
-## What more would you like to know?
-
-Custom applications and the Sanity App SDK are relatively new parts of the Sanity Content Operating System. As such, these best practices are in their early days too. If you feel there is something architecturally difficult to understand, let us know in the [#app-sdk channel of our community](https://snty.link/community).
+This often results in significantly better autocompletion within your JavaScript files when interacting with App SDK hooks and data. Remember, however, that using `defineProjection` and `defineQuery` is still required for TypeGen to generate types for those specific artifacts.
 
 ---
 > Source: [sonnysangha/lms-platform-ai-saas-sanity-clerk-coderabbit-mux-openai-ai-agent-nextjs-16](https://github.com/sonnysangha/lms-platform-ai-saas-sanity-clerk-coderabbit-mux-openai-ai-agent-nextjs-16) — distributed by [TomeVault](https://tomevault.io).
