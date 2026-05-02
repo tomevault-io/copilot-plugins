@@ -1,0 +1,44 @@
+{
+  "name": "qspeak",
+  "owner": "qforge-dev",
+  "repo": "qspeak",
+  "description": "qSpeak is a powerful voice transcription and AI assistant tool that helps you manage your workflow, answer questions, and maintain focus across all your applications.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qforge-dev/qspeak",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T07:48:48Z"
+}
