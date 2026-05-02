@@ -1,45 +1,41 @@
-## 050-cli-dev
+## 060-routes-dev
 
-> Conventions for developing camofox CLI commands
+> Conventions for developing camofox-browser REST API routes
 
 
-# CLI Development Conventions
+# Route Development Conventions
 
-## Structure
-- Register commands in `src/cli/commands/*.ts` grouped by domain.
-- Wire modules in `src/cli/index.ts` only.
-- Keep command handlers thin: parse input, call transport, format output.
+## Route Files
+- Keep core API in `src/routes/core.ts` and OpenClaw compatibility in `src/routes/openclaw.ts`.
+- Preserve endpoint compatibility unless a versioned migration is planned.
 
-## Command Design
-- Prefer `.argument()` + `.option()` signatures with explicit validation.
-- Support active tab fallback for optional `[tabId]` where relevant.
-- Resolve user via `resolveCommandUser` and default to CLI/global setting.
-- Use `printWithOptionalFormat` or context formatter for consistent output.
+## Request Validation
+- Validate required fields early and return `400` on malformed input.
+- Keep user-scoped tab lookup consistent (`findTabById(tabId, userId)`).
+- Enforce request body limits for evaluation endpoints.
 
-## Transport and Fallback
-- Use `apiRequestWithFallback` / `requestWithFallback` where legacy paths exist.
-- Handle 404 fallback explicitly for compatibility branches.
-- Keep fallback logic deterministic and minimal.
+## Concurrency and Timeouts
+- Use `withUserLimit` and `withTimeout` for heavy tab operations.
+- Use `withTabLock` for tab-mutating actions.
+- Respect config-driven limits from `loadConfig()`.
 
-## Error Handling
-- Route all errors to `context.handleError`.
-- Throw actionable validation errors for bad CLI input.
-- Avoid leaking secrets in errors or logs.
+## Auth and Security
+- Apply conditional API-key checks where currently defined.
+- Apply admin-key checks for destructive server controls (`/stop`).
+- Sanitize cookie payloads and enforce bounds.
 
-## Auth Vault Safety
-- Never print decrypted passwords to stdout.
-- For `--inject`, require explicit username/password refs.
-- Keep password values in narrow scope and wipe best-effort buffers.
+## Response Shape
+- Keep responses stable for CLI and OpenClaw clients.
+- Include `ok` and useful context fields when practical.
+- Avoid returning raw internal errors; use safe error wrappers.
 
-## TypeScript Practices
-- Preserve strict typing for command options and action handlers.
-- Avoid `any`; use narrow records/interfaces for payloads.
-- Keep helpers pure when possible.
+## Download/Resource Routes
+- Keep user ownership checks on download lookup/content/delete.
+- Enforce limits on blob resolution arrays and payload sizes.
 
-## Testing/Validation
-- Verify help text and command signatures with `--help` outputs.
-- Validate JSON/text/plain formatting behavior.
-- Confirm auto-start behavior and `server` command exclusions in preAction logic.
+## Logging
+- Use structured `log()` calls with req context when available.
+- Log operation failures with concise, non-sensitive details.
 
 ---
 > Source: [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser) — distributed by [TomeVault](https://tomevault.io).
