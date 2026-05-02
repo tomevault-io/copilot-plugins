@@ -1,56 +1,52 @@
-## langclaw
+## extending-the-framework
 
-> Multi-channel AI agent **framework** (not an app) built on LangChain, LangGraph, and deepagents. Developers `pip install langclaw` and build on top of it — think Flask/FastAPI for agentic systems. Python 3.11+.
+> When adding new tools, channels, middleware, message bus backends, or checkpointer backends to the langclaw framework
 
-# Langclaw
 
-Multi-channel AI agent **framework** (not an app) built on LangChain, LangGraph, and deepagents. Developers `pip install langclaw` and build on top of it — think Flask/FastAPI for agentic systems. Python 3.11+.
+# Extending Langclaw
 
-## Package Map
+## Adding a Tool
 
-| Package | Purpose |
-|---|---|
-| `app.py` | `Langclaw` class — developer's primary interface (decorators, lifecycle, wiring) |
-| `agents/` | LangGraph agent construction, tool wiring, subagent delegation |
-| `gateway/` | Channel orchestration (`GatewayManager`), command routing, message dispatch |
-| `bus/` | Message bus abstraction — asyncio (dev), RabbitMQ, Kafka (prod) |
-| `middleware/` | Request pipeline: RBAC, rate limit, content filter, PII redaction |
-| `config/` | Pydantic Settings with `LANGCLAW__` env var prefix (nested `__` delimiter) |
-| `cron/` | Scheduled jobs via APScheduler v4 |
-| `session/` | Maps (channel, user, context) → LangGraph thread IDs |
-| `checkpointer/` | Conversation state persistence — SQLite (dev), Postgres (prod) |
-| `providers/` | LLM model resolution via `init_chat_model` |
-| `cli/` | Typer CLI: `langclaw gateway`, `langclaw agent`, `langclaw cron`, `langclaw status` |
+Tools are async functions decorated with `@tool` from `langchain_core.tools` or registered via `@app.tool()` on the `Langclaw` instance. Follow the pattern in `langclaw/agents/tools/`.
 
-## Development
+- Return a dict on failure: `{"error": f"Failed to ...: {exc}"}` — never raise
+- Add type hints to all parameters — LangChain uses them for the tool schema
+- The docstring becomes the tool description the LLM sees — make it actionable
+- Register in `langclaw/agents/tools/__init__.py` if it's a built-in tool
 
-```bash
-uv sync --group dev                    # Install all deps
-uv run pytest tests/ -v                # Run tests
-uv run ruff check . && uv run ruff format .  # Lint + format
-uv run pre-commit run --all-files      # Full pre-commit suite
-```
+## Adding a Channel
 
-## Architecture
+Extend `BaseChannel` in `langclaw/gateway/base.py`. See `telegram.py`, `discord.py`, `websocket.py` for reference.
 
-Read `docs/ARCHITECTURE.md` for design principles and rationale. Critical invariants:
+- Implement `start()`, `stop()`, `send()`, and `send_ai_message()`
+- The channel publishes `InboundMessage` to the bus — it never talks to the agent directly
+- Set `origin="channel"` when publishing user messages to the bus
+- Add the optional dependency to `pyproject.toml` under `[project.optional-dependencies]`
+- Guard the import in `Langclaw._build_all_channels()` with `try/except ImportError`
 
-- **Message flow:** Channel → `InboundMessage` → Bus → `GatewayManager` → Middleware → Agent → `OutboundMessage` → Channel
-- **Commands** (`/start`, `/reset`, `/help`) bypass the bus and LLM — handled by `CommandRouter` in `gateway/commands.py`
-- **Cron jobs** publish `InboundMessage` to the same bus, flowing through the identical agent pipeline
-- **Pluggable backends** always follow: abstract `base.py` + factory function (`make_message_bus`, `make_checkpointer_backend`)
-- **Middleware order matters** — see `agents/builder.py` for the stack composition
-- **Explicit registration** over auto-discovery — tools, channels, middleware are registered on the `Langclaw` app object
+## Adding a Bus or Checkpointer Backend
 
-## Conventions
+Follow the abstract-base + factory pattern:
 
-- `from __future__ import annotations` in every module
-- `TYPE_CHECKING` guard for import-only types
-- Modern type syntax: `list[T]`, `dict[K, V]`, `str | None` — never `typing.List`, `Optional`
-- `loguru.logger` for all application logging (not stdlib `logging`)
-- Google-style docstrings (Args/Returns/Raises)
-- Tools return `{"error": "..."}` dicts on failure — never raise into the agent
-- Ruff handles formatting and linting — see `[tool.ruff]` in `pyproject.toml`
+1. Create the implementation in the respective package (e.g. `bus/redis_bus.py`)
+2. Extend the abstract base (`bus/base.py` or `checkpointer/base.py`)
+3. Implement the async context manager protocol (`__aenter__` / `__aexit__`)
+4. Register in the factory function (`make_message_bus` or `make_checkpointer_backend`)
+5. Add config options to `config/schema.py` following the existing nested pattern
+
+## Adding Middleware
+
+Middleware uses the `@wrap_model_call` pattern from deepagents. See `middleware/permissions.py` for the canonical example.
+
+- Middleware filters or transforms the tool list **before** the LLM sees it
+- Order matters — middleware is composed in `agents/builder.py`
+- Accept `LangclawConfig` in the factory, return the middleware callable
+
+## Config Changes
+
+When adding config, update both:
+1. `langclaw/config/schema.py` — add the Pydantic model/field
+2. `.env.example` — document the new env var with the `LANGCLAW__` prefix
 
 ---
 > Source: [tisu19021997/langclaw](https://github.com/tisu19021997/langclaw) — distributed by [TomeVault](https://tomevault.io).
