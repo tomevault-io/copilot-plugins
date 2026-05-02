@@ -1,168 +1,19 @@
-## devmemory-cold-start
+## devmemory-context
 
-> Prevent cold start by querying project memories before beginning work
+> Auto-generated project context from DevMemory
 
 
-# Cold Start Prevention: Query Project Memories First
+# DevMemory Auto-Context
 
-**CRITICAL**: Before starting ANY coding task, you MUST query the project's memory system to prevent cold start and avoid repeating past work.
+If `.devmemory/CONTEXT.md` exists, **read it at the start of every task**.
+It contains a pre-built briefing with relevant architecture decisions,
+known gotchas, and coordination state for your current work area.
 
-## Step 1: Check for Existing Summaries (NEW!)
+Run `devmemory context` in the terminal to refresh it before starting work.
 
-The project now maintains **hierarchical summaries** that provide immediate context:
-
-```python
-# Query project-level summaries first
-project_summaries = search_long_term_memory(
-    text="project summary architecture decisions",
-    topics=["project-summary"],
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git",
-    limit=3
-)
-
-# Query architecture evolution summaries
-architecture_summaries = search_long_term_memory(
-    text="architecture evolution design patterns",
-    topics=["architecture-summary"],
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git",
-    limit=3
-)
-```
-
-**If summaries exist**, read them FIRST. They contain:
-- High-level architecture overview
-- Key design decisions and rationale
-- Evolution timeline and lessons learned
-- Current technical debt and known issues
-- Emerging patterns and conventions
-
-## Step 2: Query Commit-Level Memories
-
-```python
-# Search for relevant commit memories
-commit_memories = search_long_term_memory(
-    text="<describe your task in 1-2 sentences>",
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git",
-    limit=5
-)
-```
-
-## Step 3: Query Knowledge Files
-
-```python
-# Check if knowledge files exist
-knowledge_files = search_long_term_memory(
-    text="knowledge files architecture gotchas",
-    topics=["knowledge"],
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git",
-    limit=10
-)
-```
-
-## Step 4: Check Active Coordination
-
-```python
-# Check if other agents are working on related tasks
-coordination = get_working_memory(session_id="project-coordination")
-```
-
-## What to Look For
-
-✅ **Architecture Decisions**: Why was approach A chosen over B?
-✅ **Known Gotchas**: What breaks easily in this area?
-✅ **Past Attempts**: Has someone already tried and failed at this?
-✅ **API Quirks**: Are there non-obvious behaviors to watch for?
-✅ **Dependencies**: Are there version constraints or compatibility issues?
-✅ **Performance**: Are there known bottlenecks or scaling limits?
-✅ **Security**: Are there established patterns for auth/validation?
-
-## Cold Start Checklist
-
-Before writing any code, answer these questions:
-
-1. **Context**: What's the current state of this component/module?
-2. **History**: How has this area evolved? What changed recently?
-3. **Decisions**: What architectural choices affect my work?
-4. **Gotchas**: What common pitfalls should I avoid?
-5. **Patterns**: What conventions should I follow?
-6. **Coordination**: Is anyone else working on this?
-
-## Memory Query Patterns
-
-### For New Features:
-```python
-search_long_term_memory(
-    text="how to add <feature type> to this project",
-    topics=["architecture", "patterns"],
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git"
-)
-```
-
-### For Bug Fixes:
-```python
-search_long_term_memory(
-    text="<error message> root cause and fix",
-    topics=["bugfix", "gotchas"],
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git"
-)
-```
-
-### For Refactoring:
-```python
-search_long_term_memory(
-    text="<module> redesign decisions and tradeoffs",
-    topics=["refactoring", "architecture"],
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git"
-)
-```
-
-### For API Changes:
-```python
-search_long_term_memory(
-    text="<API name> usage patterns and limitations",
-    topics=["api", "integration"],
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git"
-)
-```
-
-## Memory Types Reference
-
-| Type | When to Query | Example Topics |
-|------|--------------|----------------|
-| `project-summary` | Start of session, new feature | architecture, evolution, decisions |
-| `architecture-summary` | Design work, refactoring | design, patterns, components |
-| `semantic` | General knowledge, decisions | conventions, gotchas, rationale |
-| `episodic` | Specific events, changes | migrations, incidents, changes |
-
-## Performance Optimization
-
-For large projects, use targeted queries:
-
-```python
-# Filter by time (last 30 days)
-recent_memories = search_long_term_memory(
-    text="<your task>",
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git",
-    created_at={"gte": "30 days ago"}
-)
-
-# Filter by specific technologies
-tech_memories = search_long_term_memory(
-    text="<your task>",
-    entities=["FastAPI", "Redis"],
-    namespace="default:git-github-com-AI-Provenance-ai-dev-memory-git"
-)
-```
-
-## Remember: You're Not Alone
-
-Every query you make helps future sessions. Every memory you create helps the next developer. This is a **shared knowledge system** — use it actively to:
-- Avoid repeating past mistakes
-- Build on established patterns
-- Maintain architectural consistency
-- Reduce onboarding time for new agents
-
-**Cold start is optional. Use the memories.**
+This file is auto-generated based on the current git branch, changed files,
+and recent commits. It complements — but does not replace — deeper searches
+via `search_long_term_memory()` through MCP when you need specific answers.
 
 ---
 > Source: [AI-Provenance/ai-dev-memory](https://github.com/AI-Provenance/ai-dev-memory) — distributed by [TomeVault](https://tomevault.io).
