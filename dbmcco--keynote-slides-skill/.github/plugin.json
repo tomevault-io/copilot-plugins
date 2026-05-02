@@ -1,0 +1,14 @@
+{
+  "name": "dbmcco--keynote-slides-skill",
+  "displayName": "keynote-slides-skill",
+  "description": "AI instruction skills by dbmcco",
+  "version": "1.0.0",
+  "author": "dbmcco",
+  "homepage": "https://github.com/dbmcco/keynote-slides-skill",
+  "skills": [
+    {
+      "name": "keynote-slides",
+      "description": ""
+    }
+  ]
+}
