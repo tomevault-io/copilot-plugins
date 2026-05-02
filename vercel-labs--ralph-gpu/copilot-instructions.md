@@ -1,333 +1,1706 @@
-## leva-controls
+## ralph-gpu
 
-> How to use Leva controls to create interactive debug UI for experiments
+> Complete guide for using ralph-gpu - a minimal WebGPU shader library for creative coding and real-time graphics.
 
 
-# Leva Controls Setup
+# ralph-gpu Usage Guide
 
-This project uses [Leva](https://github.com/pmndrs/leva) to create interactive debug UIs for controlling shader parameters, material properties, and scene configurations.
+ralph-gpu is a WebGPU shader library for creative coding and real-time graphics. This rule provides comprehensive guidance on using the library effectively.
 
 ## Installation
 
-Already included in `package.json`:
+```bash
+npm install ralph-gpu
+# or
+pnpm add ralph-gpu
+```
+
+For TypeScript support (recommended):
 
 ```bash
-pnpm add leva
+npm install -D @webgpu/types
 ```
 
-## Basic Usage
+## Core Concepts
 
-### Import
+| Concept    | Description                                             |
+| ---------- | ------------------------------------------------------- |
+| `gpu`      | Module entry point for initialization                   |
+| `ctx`      | GPU context — manages state and rendering               |
+| `pass`     | Fullscreen shader (fragment only, uses internal quad)   |
+| `material` | Shader with custom vertex code (particles, geometry)    |
+| `target`   | Render target (offscreen texture)                       |
+| `pingPong` | Pair of render targets for iterative effects            |
+| `compute`  | Compute shader for GPU-parallel computation             |
+| `storage`  | Storage buffer for large data (particles, simulations)  |
+| `sampler`  | Custom texture sampler with explicit filtering/wrapping |
+| `texture`  | Load images, canvases, video, or raw data as GPU textures |
 
-```typescript
-import { useControls } from "leva";
-// Or with additional utilities
-import { useControls, button, folder as levaFolder } from "leva";
-```
+## Auto-Injected Globals
 
-### Simple Controls
+Every shader automatically has access to these uniforms via `globals`:
 
-For basic boolean or simple value controls:
-
-```typescript
-const { debug, postEnabled } = useControls({
-  debug: false,
-  postEnabled: {
-    value: true,
-    label: "PostProcessing",
-  },
-});
-```
-
-### Numeric Controls with Range
-
-```typescript
-const { exposure, rotationX, lightIntensity } = useControls({
-  rotationX: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
-  exposure: { value: 2.8, min: -5, max: 5, step: 0.1 },
-  lightIntensity: { value: 1.3, min: 0, max: 5, step: 0.01 },
-});
-```
-
-### Vector Controls (Position/Direction)
-
-Leva auto-detects `{x, y, z}` objects as 3D vectors:
-
-```typescript
-const { lightPos } = useControls({
-  lightPos: { value: { x: -0.53, y: 0.33, z: 0.1 }, step: 0.01 },
-});
-```
-
-### Color Controls
-
-Leva auto-detects hex strings as colors:
-
-```typescript
-const { lightColor } = useControls({
-  lightColor: { value: "#8c8c8c" },
-});
-```
-
-### Dropdown/Select Controls
-
-```typescript
-const DITHER_METHODS = {
-  None: "none",
-  "Bayer 2x2": "bayer2x2",
-  "Bayer 4x4": "bayer4x4",
-  "Bayer 8x8": "bayer8x8",
-} as const;
-
-const { ditherMethod } = useControls({
-  ditherMethod: {
-    value: "bayer4x4",
-    options: DITHER_METHODS,
-    label: "Dithering",
-  },
-});
-```
-
-## Advanced Patterns
-
-### Functional Form with Buttons
-
-Use the functional form `useControls(() => ({...}))` when you need access to the `get` function for buttons:
-
-```typescript
-const [{ rotationX, exposure }] = useControls(() => ({
-  rotationX: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
-  exposure: { value: 5, min: -5, max: 5, step: 0.1 },
-  "Copy Settings": button((get) => {
-    const settings = {
-      rotationX: get("rotationX"),
-      exposure: get("exposure"),
-    };
-    navigator.clipboard.writeText(JSON.stringify(settings, null, 2));
-    console.log("Settings copied to clipboard:", settings);
-  }),
-}));
-```
-
-### onChange Handlers for Immediate Updates
-
-Use `onChange` when you need to update values immediately without re-renders:
-
-```typescript
-const turnProgressTarget = useRef(0);
-const coverOpenTarget = useRef(0);
-
-const { debugPageTurn } = useControls({
-  topRotation: {
-    value: 0,
-    min: 0,
-    max: 1,
-    step: 0.01,
-    label: "Cover open",
-    onChange: (v: number) => {
-      coverOpenTarget.current = v;
-    },
-  },
-  pageTurn: {
-    value: 0,
-    min: 0,
-    max: 1,
-    label: "Page turn",
-    onChange: (v: number) => {
-      turnProgressTarget.current = v;
-    },
-  },
-  debugPageTurn: false,
-});
-```
-
-### Folder Organization
-
-Group related controls into collapsible folders:
-
-```typescript
-import { folder as levaFolder, useControls } from "leva";
-
-const { debugTarget } = useControls({
-  DebugTextures: levaFolder({
-    debugTarget: {
-      value: "screen",
-      options: ["screen", "baseColor", "debug", "all"],
-      onChange: (value) => {
-        window.history.pushState(
-          {},
-          "",
-          window.location.pathname + "?debugTarget=" + value
-        );
-      },
-      transient: false,
-    },
-  }),
-});
-```
-
-### URL Sync Pattern
-
-Sync control values with URL parameters for shareable states:
-
-```typescript
-function getInitialSelectedTexture(defaultTexture: string, textures: string[]) {
-  const query =
-    typeof window !== "undefined"
-      ? new URLSearchParams(window.location.search).get("debugTarget") ||
-        defaultTexture
-      : defaultTexture;
-
-  if (textures.includes(query)) {
-    return query;
-  }
-  return defaultTexture;
+```wgsl
+struct Globals {
+  resolution: vec2f,  // Current render target size in pixels
+  time: f32,          // Seconds since init (affected by timeScale)
+  deltaTime: f32,     // Seconds since last frame
+  frame: u32,         // Frame count since init
+  aspect: f32,        // resolution.x / resolution.y
 }
+@group(0) @binding(0) var<uniform> globals: Globals;
+```
 
-const { debugTarget } = useControls({
-  debugTarget: {
-    value: getInitialSelectedTexture("screen", Object.keys(textures)),
-    options: Object.keys(textures).concat("all"),
-    onChange: (value) => {
-      if (typeof window !== "undefined") {
-        window.history.pushState(
-          {},
-          "",
-          window.location.pathname + "?debugTarget=" + value
-        );
+**Usage in shaders:**
+
+```wgsl
+let uv = pos.xy / globals.resolution;        // Normalized UV coordinates
+let t = globals.time;                         // Animated time
+let dt = globals.deltaTime;                   // Frame delta
+let ar = globals.aspect;                      // Aspect ratio
+```
+
+## Basic Patterns
+
+### 1. Initialization with React
+
+```tsx
+"use client";
+
+import { useEffect, useRef } from "react";
+import { gpu, GPUContext, Pass, Sampler, RenderTarget } from "ralph-gpu";
+
+export default function ShaderComponent() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    let ctx: GPUContext | null = null;
+    let pass: Pass;
+    let animationId: number;
+    let disposed = false;
+
+    async function init() {
+      if (!canvasRef.current) return;
+
+      // Always check WebGPU support first
+      if (!gpu.isSupported()) {
+        console.error("WebGPU is not supported");
+        return;
       }
-    },
-    transient: false,
-  },
-});
-```
 
-## Integration with THREE.js Uniforms
+      ctx = await gpu.init(canvasRef.current, {
+        autoResize: true, // Automatically handles canvas sizing and DPR
+        debug: true,
+      });
 
-### Pattern: Direct Uniform Updates
+      // Handle disposal during async init
+      if (disposed) {
+        ctx.dispose();
+        return;
+      }
 
-The standard pattern for syncing Leva controls with THREE.js uniforms:
+      pass = ctx.pass(/* wgsl */ `
+        @fragment
+        fn main(@builtin(position) pos: vec4f) -> @location(0) vec4f {
+          let uv = pos.xy / globals.resolution;
+          return vec4f(uv, sin(globals.time) * 0.5 + 0.5, 1.0);
+        }
+      `);
 
-```typescript
-function Scene() {
-  const { rotationX, lightPos, lightIntensity, lightColor } = useControls({
-    rotationX: { value: 0, min: -Math.PI, max: Math.PI, step: 0.01 },
-    lightPos: { value: { x: 0, y: -1.11, z: 0.87 }, step: 0.01 },
-    lightIntensity: { value: 3.64, min: 0, max: 10, step: 0.01 },
-    lightColor: { value: "#8c8c8c" },
-  });
+      function frame() {
+        if (disposed) return;
+        pass.draw();
+        animationId = requestAnimationFrame(frame);
+      }
+      frame();
+    }
 
-  // Create uniforms once
-  const baseUniforms = useUniforms(() => ({
-    rotationX: new THREE.Uniform(rotationX),
-    lightPos: new THREE.Uniform(
-      new THREE.Vector3(lightPos.x, lightPos.y, lightPos.z)
-    ),
-    lightIntensity: new THREE.Uniform(lightIntensity),
-    lightColor: new THREE.Uniform(new THREE.Color(lightColor)),
-  }));
+    init();
 
-  // Update uniforms each render (outside useFrame for reactive updates)
-  baseUniforms.rotationX.value = rotationX;
-  baseUniforms.lightPos.value.copy(lightPos);
-  baseUniforms.lightIntensity.value = lightIntensity;
-  baseUniforms.lightColor.value.set(lightColor);
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(animationId);
+      ctx?.dispose();
+    };
+  }, []);
 
-  // ... rest of scene
-}
-```
-
-### Pattern: TSL/WebGPU Uniform Nodes
-
-For TSL materials with WebGPU:
-
-```typescript
-import { uniform } from "three/tsl";
-
-function VercelBook() {
-  const reveal = useMemo(() => uniform(0), []);
-
-  useControls({
-    reveal: {
-      value: 0,
-      min: 0,
-      max: 1,
-      step: 0.01,
-      label: "Reveal",
-      onChange: (v: number) => {
-        reveal.value = v;
-      },
-    },
-  });
-
-  // Pass uniform node to material
-  const { coverMaterial } = useCoverMaterial({ reveal });
-}
-```
-
-## Debug Patterns
-
-### Conditional Debug Views
-
-Use Leva to toggle debug visualizations:
-
-```typescript
-const [{ debugFbo }] = useControls(() => ({
-  debugFbo: false,
-}));
-
-return (
-  <>
-    <QuadShader
-      program={postprocessingProgram}
-      renderTarget={debugFbo ? postprocessingFbo : null}
-      priority={1}
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ width: "100%", height: "100%" }}
+      width={800}
+      height={600}
     />
-    {debugFbo && (
-      <FboDebug
-        textures={{
-          screen: postprocessingFbo,
-          baseColor: baseFbo.textures[0],
-          debug: baseFbo.textures[1],
-        }}
-      />
-    )}
-  </>
+  );
+}
+```
+
+### 2. Fullscreen Pass (Fragment Shader)
+
+Use `ctx.pass()` for fullscreen effects. It has two modes:
+
+#### Simple Mode (Recommended)
+
+Pass an object with plain values. WGSL bindings are auto-generated and uniforms are available via the `uniforms` struct.
+
+```tsx
+const wave = ctx.pass(
+  /* wgsl */ `
+  @fragment
+  fn main(@builtin(position) pos: vec4f) -> @location(0) vec4f {
+    let uv = pos.xy / globals.resolution;
+    // Bindings for uTexture, uSampler, and uniforms struct are auto-generated!
+    let tex = textureSample(uTexture, uSampler, uv);
+    return tex * vec4f(uniforms.color, 1.0) * uniforms.intensity;
+  }
+`,
+  {
+    uTexture: someTarget,
+    color: [1, 0, 0],
+    intensity: 0.5,
+  }
+);
+
+// Update values directly
+wave.set("intensity", 0.8);
+```
+
+#### Manual Mode (Explicit Bindings)
+
+Define uniforms with `{ value: X }` wrapper for reactive updates. Requires manual `@group(1)` declarations in WGSL.
+
+```tsx
+const gradient = ctx.pass(
+  /* wgsl */ `
+  struct MyUniforms { color: vec3f }
+  @group(1) @binding(0) var<uniform> u: MyUniforms;
+
+  @fragment
+  fn main(@builtin(position) pos: vec4f) -> @location(0) vec4f {
+    let uv = pos.xy / globals.resolution;
+    return vec4f(u.color, 1.0);
+  }
+`,
+  {
+    uniforms: {
+      color: { value: [1, 0, 0] },
+    },
+  }
+);
+
+// Update value
+gradient.uniforms.color.value = [0, 1, 0];
+```
+
+// In render loop
+wave.draw();
+
+````
+
+### 3. Custom Uniforms (Reactive Pattern)
+
+Define uniforms with `{ value: X }` wrapper for reactive updates:
+
+```tsx
+// Define uniforms object
+const uniforms = {
+  amplitude: { value: 0.5 },
+  frequency: { value: 10.0 },
+  color: { value: [1.0, 0.5, 0.2] },
+};
+
+const wave = ctx.pass(
+  /* wgsl */ `
+  struct MyUniforms {
+    amplitude: f32,
+    frequency: f32,
+    color: vec3f,
+  }
+  @group(1) @binding(0) var<uniform> u: MyUniforms;
+
+  @fragment
+  fn main(@builtin(position) pos: vec4f) -> @location(0) vec4f {
+    let uv = pos.xy / globals.resolution;
+    let y = sin(uv.x * u.frequency + globals.time) * u.amplitude;
+    let c = smoothstep(0.0, 0.02, abs(uv.y - 0.5 - y));
+    return vec4f(u.color * (1.0 - c), 1.0);
+  }
+`,
+  { uniforms }
+);
+
+// Update uniforms anywhere - changes apply automatically
+uniforms.amplitude.value = 0.8;
+uniforms.color.value = [0.2, 1.0, 0.5];
+````
+
+### 4. Render Targets (Offscreen Rendering)
+
+```tsx
+// Create offscreen target
+const buffer = ctx.target(512, 512, {
+  format: "rgba16float", // or "rgba8unorm", "r16float", "rg16float"
+  filter: "linear", // or "nearest"
+  wrap: "clamp", // or "repeat", "mirror"
+});
+
+// Scene pass renders to target
+const scenePass = ctx.pass(/* wgsl */ `...`);
+
+// Display pass samples from target
+const displayUniforms = {
+  inputTex: { value: buffer },
+};
+
+const displayPass = ctx.pass(
+  /* wgsl */ `
+  @group(1) @binding(0) var inputTex: texture_2d<f32>;
+  @group(1) @binding(1) var inputSampler: sampler;
+
+  @fragment
+  fn main(@builtin(position) pos: vec4f) -> @location(0) vec4f {
+    let uv = pos.xy / globals.resolution;
+    return textureSample(inputTex, inputSampler, uv);
+  }
+`,
+  { uniforms: displayUniforms }
+);
+
+// Render loop
+function frame() {
+  ctx.setTarget(buffer); // Render to buffer
+  scenePass.draw();
+
+  ctx.setTarget(null); // Render to screen
+  displayPass.draw();
+}
+```
+
+### 5. Ping-Pong Buffers (Iterative Effects)
+
+For simulations, blur, feedback effects:
+
+```tsx
+const simulation = ctx.pingPong(128, 128, {
+  format: "rgba16float",
+  filter: "linear",
+  wrap: "clamp",
+});
+
+const processUniforms = {
+  inputTex: { value: simulation.read },
+};
+
+const processPass = ctx.pass(
+  /* wgsl */ `
+  @group(1) @binding(0) var inputTex: texture_2d<f32>;
+  @group(1) @binding(1) var inputSampler: sampler;
+
+  @fragment
+  fn main(@builtin(position) pos: vec4f) -> @location(0) vec4f {
+    let uv = pos.xy / globals.resolution;
+    let prev = textureSample(inputTex, inputSampler, uv);
+    // Process and return new value...
+    return prev * 0.99;
+  }
+`,
+  { uniforms: processUniforms }
+);
+
+// Render loop
+function frame() {
+  // Update uniform to read from current state
+  processUniforms.inputTex.value = simulation.read;
+
+  // Write to write buffer
+  ctx.setTarget(simulation.write);
+  ctx.autoClear = false;
+  processPass.draw();
+
+  // Swap read/write
+  simulation.swap();
+
+  // Display
+  ctx.setTarget(null);
+  displayPass.draw();
+}
+```
+
+### 6. Storage Buffers & Materials (Particles)
+
+**NOTE:** While ralph-gpu supports `point-list` topology, WebGPU renders points as **1 pixel only** (no size control). For variable-sized particles, use **instanced rendering** where each particle is a quad (2 triangles).
+
+#### WGSL Alignment Requirements
+
+**CRITICAL:** When using `array<vec3f>` in storage buffers, each element is **16-byte aligned** (not 12 bytes). You must pad your data accordingly.
+
+| WGSL Type | Size | Alignment | Stride in Array |
+| --------- | ---- | --------- | --------------- |
+| `f32`     | 4    | 4         | 4               |
+| `vec2f`   | 8    | 8         | 8               |
+| `vec3f`   | 12   | 16        | **16** (padded) |
+| `vec4f`   | 16   | 16        | 16              |
+| `mat4x4f` | 64   | 16        | 64              |
+
+**Wrong (data will be misaligned):**
+
+```tsx
+// DON'T: Packed 12-byte vec3f data
+const buffer = ctx.storage(3 * 3 * 4); // 36 bytes
+buffer.write(
+  new Float32Array([
+    0.0,
+    0.5,
+    0.0, // vertex 0
+    -0.5,
+    -0.5,
+    0.0, // vertex 1
+    0.5,
+    -0.5,
+    0.0, // vertex 2
+  ])
 );
 ```
 
-### Material Debug Mode
+**Correct (16-byte aligned):**
 
-Switch between normal and debug material outputs:
-
-```typescript
-const { debug } = useControls({
-  debug: false,
-});
-
-const { coverMaterial } = useMemo(() => {
-  const coverMaterial = new MeshPhysicalNodeMaterial({
-    side: FrontSide,
-  });
-
-  if (!debug) {
-    coverMaterial.opacityNode = opacityNode;
-    coverMaterial.emissiveNode = emissiveNode;
-  } else {
-    coverMaterial.colorNode = debugColorNode;
-  }
-
-  return { coverMaterial };
-}, [debug]);
+```tsx
+// DO: Pad each vec3f to 16 bytes (add 4th component)
+const buffer = ctx.storage(3 * 16); // 48 bytes
+buffer.write(
+  new Float32Array([
+    0.0,
+    0.5,
+    0.0,
+    0.0, // vertex 0 (x, y, z, padding)
+    -0.5,
+    -0.5,
+    0.0,
+    0.0, // vertex 1 (x, y, z, padding)
+    0.5,
+    -0.5,
+    0.0,
+    0.0, // vertex 2 (x, y, z, padding)
+  ])
+);
 ```
 
-## Tips
+**Alternative: Use vec4f or structs with explicit padding:**
 
-1. **Placement**: Call `useControls` inside React Three Fiber's Canvas context for proper integration
-2. **Performance**: Use `onChange` for high-frequency updates to avoid re-renders
-3. **Organization**: Group related controls into folders for cleaner UI
-4. **Copy Settings Button**: Add a button to copy current settings to clipboard for saving presets
-5. **transient: false**: Use this option when you want onChange to also update the returned value
+```wgsl
+// Option 1: Use vec4f instead of vec3f
+@group(1) @binding(0) var<storage, read> positions: array<vec4f>;
+
+// Option 2: Use struct with padding
+struct Vertex {
+  position: vec3f,
+  _pad: f32,  // explicit padding
+}
+@group(1) @binding(0) var<storage, read> vertices: array<Vertex>;
+```
+
+#### Basic Particle System
+
+```tsx
+const particleCount = 1000;
+const particleBuffer = ctx.storage(particleCount * 4 * 4); // 4 floats × 4 bytes
+
+// Initialize data
+const initialData = new Float32Array(particleCount * 4);
+for (let i = 0; i < particleCount; i++) {
+  initialData[i * 4 + 0] = (Math.random() - 0.5) * 2; // x
+  initialData[i * 4 + 1] = (Math.random() - 0.5) * 2; // y
+  initialData[i * 4 + 2] = Math.random(); // hue
+  initialData[i * 4 + 3] = 0.02; // size
+}
+particleBuffer.write(initialData);
+
+// Material with vertex + fragment shaders
+const particles = ctx.material(
+  /* wgsl */ `
+  struct Particle {
+    pos: vec2f,
+    hue: f32,
+    size: f32,
+  }
+
+  @group(1) @binding(0) var<storage, read> particles: array<Particle>;
+
+  struct VertexOutput {
+    @builtin(position) pos: vec4f,
+    @location(0) uv: vec2f,
+    @location(1) hue: f32,
+  }
+
+  @vertex
+  fn vs_main(
+    @builtin(vertex_index) vid: u32,
+    @builtin(instance_index) iid: u32
+  ) -> VertexOutput {
+    let p = particles[iid];
+
+    // Quad vertices (two triangles)
+    var quad = array<vec2f, 6>(
+      vec2f(-1, -1), vec2f(1, -1), vec2f(-1, 1),
+      vec2f(-1, 1), vec2f(1, -1), vec2f(1, 1),
+    );
+
+    let aspect = globals.resolution.x / globals.resolution.y;
+    let localPos = quad[vid] * vec2f(p.size / aspect, p.size);
+
+    var out: VertexOutput;
+    out.pos = vec4f(p.pos + localPos, 0.0, 1.0);
+    out.uv = quad[vid] * 0.5 + 0.5;
+    out.hue = p.hue;
+    return out;
+  }
+
+  @fragment
+  fn fs_main(in: VertexOutput) -> @location(0) vec4f {
+    let d = length(in.uv - 0.5);
+    if (d > 0.5) { discard; }
+    let alpha = smoothstep(0.5, 0.3, d);
+    return vec4f(1.0, in.hue, 0.5, alpha);
+  }
+`,
+  {
+    vertexCount: 6, // 6 vertices per quad (2 triangles)
+    instances: particleCount, // One quad per particle
+    blend: "additive", // or "alpha", "multiply", "screen"
+  }
+);
+
+// Bind storage buffer
+particles.storage("particles", particleBuffer);
+
+// Draw
+particles.draw();
+```
+
+#### Key Particle Rendering Patterns
+
+**1. Always use instanced quads:**
+
+```tsx
+{
+  vertexCount: 6,           // NOT 1! Each particle is a quad
+  instances: particleCount, // Number of particles
+}
+```
+
+**2. Vertex shader uses both indices:**
+
+- `@builtin(vertex_index)` - Which vertex of the quad (0-5)
+- `@builtin(instance_index)` - Which particle instance
+
+**3. Create circular particles in fragment shader:**
+
+```wgsl
+@fragment
+fn fs_main(in: VertexOutput) -> @location(0) vec4f {
+  let d = length(in.uv - 0.5);
+  if (d > 0.5) { discard; }  // Discard pixels outside circle
+  let alpha = smoothstep(0.5, 0.3, d); // Smooth edges
+  return vec4f(color.rgb, alpha);
+}
+```
+
+**4. Proper canvas sizing for sharp rendering:**
+
+```tsx
+async function init() {
+  // Set canvas size with DPR
+  const dpr = Math.min(window.devicePixelRatio, 2);
+  canvasRef.current.width = window.innerWidth * dpr;
+  canvasRef.current.height = window.innerHeight * dpr;
+
+  ctx = await gpu.init(canvasRef.current, {
+    dpr: dpr,
+  });
+
+  // Handle window resize
+  function handleResize() {
+    if (!canvasRef.current || !ctx) return;
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    canvasRef.current.width = window.innerWidth * dpr;
+    canvasRef.current.height = window.innerHeight * dpr;
+    ctx.resize(window.innerWidth * dpr, window.innerHeight * dpr);
+  }
+  window.addEventListener("resize", handleResize);
+}
+```
+
+**5. Use flat array storage for particle data:**
+
+```tsx
+// Instead of structured arrays, use flat Float32Array
+const positions = ctx.storage(particleCount * 2 * 4); // x, y per particle
+const velocities = ctx.storage(particleCount * 2 * 4);
+const lifetimes = ctx.storage(particleCount * 4);
+
+// In WGSL, access as flat arrays
+@group(1) @binding(0) var<storage, read> positions: array<f32>;
+@group(1) @binding(1) var<storage, read> lifetimes: array<f32>;
+
+// Read in vertex shader
+let posIdx = iid * 2u;
+let x = positions[posIdx];
+let y = positions[posIdx + 1u];
+let life = lifetimes[iid];
+```
+
+### 7. Compute Shaders
+
+#### Basic Compute with Storage Buffers
+
+For GPU-parallel computation:
+
+```tsx
+const particleBuffer = ctx.storage(particleCount * 8 * 4);
+
+const computeShader = ctx.compute(/* wgsl */ `
+  struct Particle {
+    position: vec2f,
+    velocity: vec2f,
+    life: f32,
+    age: f32,
+    size: f32,
+    padding: f32,
+  }
+
+  @group(1) @binding(0) var<storage, read_write> particles: array<Particle>;
+
+  @compute @workgroup_size(64, 1, 1)
+  fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let index = id.x;
+    if (index >= arrayLength(&particles)) { return; }
+
+    var p = particles[index];
+
+    // Update physics
+    p.position += p.velocity * globals.deltaTime;
+    p.velocity.y -= 9.8 * globals.deltaTime;  // gravity
+
+    // Bounce
+    if (p.position.y < -1.0) {
+      p.velocity.y *= -0.8;
+      p.position.y = -1.0;
+    }
+
+    particles[index] = p;
+  }
+`);
+
+computeShader.storage("particles", particleBuffer);
+
+// In render loop
+computeShader.dispatch(Math.ceil(particleCount / 64));
+```
+
+#### Compute Shaders with Texture Sampling
+
+Compute shaders can now sample from textures (e.g., reading from an SDF or noise texture):
+
+```tsx
+const compute = ctx.compute(
+  /* wgsl */ `
+  @group(1) @binding(0) var<uniform> u: MyUniforms;
+  @group(1) @binding(1) var<storage, read_write> data: array<f32>;
+  @group(1) @binding(2) var myTexture: texture_2d<f32>;
+  @group(1) @binding(3) var mySampler: sampler;
+  
+  @compute @workgroup_size(64)
+  fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let uv = vec2f(f32(id.x) / 512.0, f32(id.y) / 512.0);
+    // Sample texture in compute shader!
+    let texValue = textureSampleLevel(myTexture, mySampler, uv, 0.0);
+    data[id.x] = texValue.r;
+  }
+`,
+  {
+    uniforms: {
+      myTexture: { value: renderTarget }, // Pass RenderTarget
+    },
+  }
+);
+
+compute.storage("data", dataBuffer);
+compute.dispatch(512);
+```
+
+#### Compute with Storage Textures (Write Operations)
+
+For writing to textures from compute shaders:
+
+```tsx
+// Create render target with storage usage
+const outputTarget = ctx.target(512, 512, {
+  format: "rgba16float",
+  usage: "storage", // Enable write operations
+});
+
+const compute = ctx.compute(
+  /* wgsl */ `
+  @group(1) @binding(0) var input: texture_2d<f32>;
+  @group(1) @binding(1) var inputSampler: sampler;
+  @group(1) @binding(2) var output: texture_storage_2d<rgba16float, write>;
+  
+  @compute @workgroup_size(8, 8)
+  fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let uv = vec2f(id.xy) / 512.0;
+    let color = textureSampleLevel(input, inputSampler, uv, 0.0);
+    textureStore(output, id.xy, color * 2.0); // Write to storage texture
+  }
+`,
+  {
+    uniforms: {
+      input: { value: inputTarget },
+      output: { value: outputTarget },
+    },
+  }
+);
+
+compute.dispatch(512 / 8, 512 / 8);
+```
+
+#### Texture Loading Without Sampler
+
+Use `textureLoad()` for direct pixel access without sampling:
+
+```tsx
+const compute = ctx.compute(
+  /* wgsl */ `
+  @group(1) @binding(0) var dataTexture: texture_2d<f32>;
+  
+  @compute @workgroup_size(64)
+  fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    // No sampler needed for textureLoad
+    let value = textureLoad(dataTexture, vec2i(id.xy), 0).r;
+  }
+`,
+  {
+    uniforms: {
+      dataTexture: { value: target.texture }, // Just texture, no sampler
+    },
+  }
+);
+```
+
+### 8. Complete Particle System with Compute Physics
+
+Full example combining compute shaders for physics with instanced particle rendering:
+
+```tsx
+const NUM_PARTICLES = 10000;
+
+// Create storage buffers for particle data
+const positionBuffer = ctx.storage(NUM_PARTICLES * 2 * 4); // x, y
+const velocityBuffer = ctx.storage(NUM_PARTICLES * 2 * 4); // vx, vy
+
+// Initialize particle data
+const positions = new Float32Array(NUM_PARTICLES * 2);
+const velocities = new Float32Array(NUM_PARTICLES * 2);
+for (let i = 0; i < NUM_PARTICLES; i++) {
+  positions[i * 2] = (Math.random() - 0.5) * 2;
+  positions[i * 2 + 1] = (Math.random() - 0.5) * 2;
+  velocities[i * 2] = (Math.random() - 0.5) * 0.1;
+  velocities[i * 2 + 1] = (Math.random() - 0.5) * 0.1;
+}
+positionBuffer.write(positions);
+velocityBuffer.write(velocities);
+
+// Create compute shader for physics
+const physicsCompute = ctx.compute(/* wgsl */ `
+  @group(1) @binding(0) var<storage, read_write> positions: array<f32>;
+  @group(1) @binding(1) var<storage, read_write> velocities: array<f32>;
+
+  @compute @workgroup_size(64, 1, 1)
+  fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+    let index = id.x;
+    if (index >= arrayLength(&positions) / 2u) { return; }
+
+    let posIdx = index * 2u;
+    var x = positions[posIdx];
+    var y = positions[posIdx + 1u];
+    var vx = velocities[posIdx];
+    var vy = velocities[posIdx + 1u];
+
+    // Apply physics
+    vy -= 9.8 * globals.deltaTime * 0.1;
+    x += vx * globals.deltaTime;
+    y += vy * globals.deltaTime;
+
+    // Bounce off boundaries
+    if (x < -1.0 || x > 1.0) { vx *= -0.8; x = clamp(x, -1.0, 1.0); }
+    if (y < -1.0 || y > 1.0) { vy *= -0.8; y = clamp(y, -1.0, 1.0); }
+
+    // Write back
+    positions[posIdx] = x;
+    positions[posIdx + 1u] = y;
+    velocities[posIdx] = vx;
+    velocities[posIdx + 1u] = vy;
+  }
+`);
+
+physicsCompute.storage("positions", positionBuffer);
+physicsCompute.storage("velocities", velocityBuffer);
+
+// Create particle rendering material
+const particleMaterial = ctx.material(
+  /* wgsl */ `
+  @group(1) @binding(0) var<storage, read> positions: array<f32>;
+
+  struct VertexOutput {
+    @builtin(position) pos: vec4f,
+    @location(0) uv: vec2f,
+  }
+
+  @vertex
+  fn vs_main(
+    @builtin(vertex_index) vid: u32,
+    @builtin(instance_index) iid: u32
+  ) -> VertexOutput {
+    // Read particle position
+    let posIdx = iid * 2u;
+    let x = positions[posIdx];
+    let y = positions[posIdx + 1u];
+
+    // Quad vertices
+    var quad = array<vec2f, 6>(
+      vec2f(-1, -1), vec2f(1, -1), vec2f(-1, 1),
+      vec2f(-1, 1), vec2f(1, -1), vec2f(1, 1),
+    );
+
+    let particleSize = 0.01;
+    let aspect = globals.aspect;
+    let localPos = quad[vid] * vec2f(particleSize / aspect, particleSize);
+
+    var out: VertexOutput;
+    out.pos = vec4f(x + localPos.x, y + localPos.y, 0.0, 1.0);
+    out.uv = quad[vid] * 0.5 + 0.5;
+    return out;
+  }
+
+  @fragment
+  fn fs_main(in: VertexOutput) -> @location(0) vec4f {
+    let d = length(in.uv - 0.5);
+    if (d > 0.5) { discard; }
+    let alpha = smoothstep(0.5, 0.3, d);
+    return vec4f(1.0, 1.0, 1.0, alpha);
+  }
+`,
+  {
+    vertexCount: 6,
+    instances: NUM_PARTICLES,
+    blend: "additive",
+  }
+);
+
+particleMaterial.storage("positions", positionBuffer);
+
+// Render loop
+function frame() {
+  // Update physics
+  physicsCompute.dispatch(Math.ceil(NUM_PARTICLES / 64));
+
+  // Render particles
+  ctx.setTarget(null);
+  ctx.clear(null, [0, 0, 0, 1]);
+  particleMaterial.draw();
+
+  requestAnimationFrame(frame);
+}
+frame();
+```
+
+### 9. Particles Helper
+
+The `ctx.particles()` helper provides a minimal API for instanced quad rendering with full shader control:
+
+```tsx
+const particleCount = 1000;
+
+const particles = ctx.particles(particleCount, {
+  shader: /* wgsl */ `
+    // User defines their own particle struct
+    struct Particle {
+      pos: vec2f,
+      size: f32,
+      hue: f32,
+    }
+
+    // Storage buffer is auto-bound at group(1) binding(0)
+    @group(1) @binding(0) var<storage, read> particles: array<Particle>;
+
+    struct VertexOutput {
+      @builtin(position) position: vec4f,
+      @location(0) uv: vec2f,
+      @location(1) hue: f32,
+    }
+
+    @vertex
+    fn vs_main(
+      @builtin(instance_index) iid: u32,
+      @builtin(vertex_index) vid: u32
+    ) -> VertexOutput {
+      let p = particles[iid];
+      
+      // Built-in helpers:
+      // quadOffset(vid) returns -0.5 to 0.5 (quad corner position)
+      // quadUV(vid) returns 0 to 1 (UV coordinates)
+      let quadPos = quadOffset(vid) * p.size;
+      
+      var out: VertexOutput;
+      out.position = vec4f(p.pos + quadPos, 0.0, 1.0);
+      out.uv = quadUV(vid);
+      out.hue = p.hue;
+      return out;
+    }
+
+    @fragment
+    fn fs_main(in: VertexOutput) -> @location(0) vec4f {
+      // User controls shape - square by default, circle via SDF
+      let d = length(in.uv - 0.5);
+      if (d > 0.5) { discard; }
+      return vec4f(1.0, in.hue, 0.5, 1.0);
+    }
+  `,
+  bufferSize: particleCount * 16, // 16 bytes per particle
+  blend: "alpha",
+});
+
+// Write particle data
+const data = new Float32Array(particleCount * 4);
+for (let i = 0; i < particleCount; i++) {
+  data[i * 4 + 0] = (Math.random() - 0.5) * 2; // x
+  data[i * 4 + 1] = (Math.random() - 0.5) * 2; // y
+  data[i * 4 + 2] = 0.02 + Math.random() * 0.03; // size
+  data[i * 4 + 3] = Math.random(); // hue
+}
+particles.write(data);
+
+// Draw
+particles.draw();
+```
+
+#### What the Helper Provides
+
+1. **Quad vertex generation** - 6 vertices (2 triangles) per instance
+2. **Built-in WGSL helpers** injected into shader:
+   - `fn quadOffset(vid: u32) -> vec2f` - Returns quad corner position (-0.5 to 0.5)
+   - `fn quadUV(vid: u32) -> vec2f` - Returns UV coordinates (0 to 1)
+3. **Storage buffer** - Automatically bound at `@group(1) @binding(0)`
+4. **Instancing** - `instanceCount = count`, `vertexCount = 6`
+
+#### What User Controls
+
+- **Particle struct layout** - Any data layout you need
+- **Vertex shader** - Position, size, rotation, billboarding, etc.
+- **Fragment shader** - Shape via SDF, color, effects, etc.
+
+#### Particles API
+
+```tsx
+// Create
+const particles = ctx.particles(count, {
+  shader: string, // Full WGSL with vertex + fragment
+  bufferSize: number, // Buffer size in bytes
+  blend: BlendMode, // "alpha" | "additive" | etc. (default: "alpha")
+});
+
+// Methods
+particles.write(data); // Write Float32Array/Uint32Array to buffer
+particles.draw(); // Draw all particles
+particles.storageBuffer; // Access underlying StorageBuffer
+particles.underlyingMaterial; // Access underlying Material
+```
+
+### 10. Line Rendering
+
+Use the `topology` option in materials for line rendering:
+
+```tsx
+// Separate line segments (pairs of vertices)
+const lines = ctx.material(shader, {
+  vertexCount: 6, // 3 lines = 6 vertices
+  topology: "line-list",
+});
+
+// Connected line strip
+const strip = ctx.material(shader, {
+  vertexCount: 20, // 20 connected points
+  topology: "line-strip",
+});
+```
+
+#### Available Topologies
+
+| Topology           | Description                                | Use Case                   |
+| ------------------ | ------------------------------------------ | -------------------------- |
+| `"triangle-list"`  | Default, separate triangles (3 verts each) | Standard geometry          |
+| `"triangle-strip"` | Connected triangles (shared verts)         | Efficient meshes           |
+| `"line-list"`      | Separate line segments (2 verts each)      | Disconnected lines         |
+| `"line-strip"`     | Connected line (shared vertices)           | Paths, waveforms           |
+| `"point-list"`     | Individual points (**1px only, no size**)  | Sparse point clouds, debug |
+
+#### Line-List Example (Separate Segments)
+
+```tsx
+const lineList = ctx.material(
+  /* wgsl */ `
+  @vertex
+  fn vs_main(@builtin(vertex_index) vid: u32) -> @builtin(position) vec4f {
+    // 6 vertices = 3 separate lines
+    var positions = array<vec2f, 6>(
+      vec2f(-0.8, 0.0), vec2f(-0.4, 0.5),  // Line 1
+      vec2f(-0.2, -0.3), vec2f(0.2, 0.3),  // Line 2
+      vec2f(0.4, -0.5), vec2f(0.8, 0.0),   // Line 3
+    );
+    let p = positions[vid];
+    let y = p.y + sin(globals.time + p.x * 3.0) * 0.1;
+    return vec4f(p.x, y, 0.0, 1.0);
+  }
+
+  @fragment
+  fn fs_main() -> @location(0) vec4f {
+    return vec4f(0.2, 0.8, 1.0, 1.0);
+  }
+`,
+  {
+    vertexCount: 6,
+    topology: "line-list",
+  }
+);
+```
+
+#### Line-Strip Example (Connected Line)
+
+```tsx
+const lineStrip = ctx.material(
+  /* wgsl */ `
+  @vertex
+  fn vs_main(@builtin(vertex_index) vid: u32) -> @builtin(position) vec4f {
+    let count = 50u;
+    let t = f32(vid) / f32(count - 1u);
+    let x = t * 2.0 - 1.0;  // -1 to 1
+    let y = sin(x * 6.28 + globals.time * 2.0) * 0.4;
+    return vec4f(x * 0.9, y, 0.0, 1.0);
+  }
+
+  @fragment
+  fn fs_main() -> @location(0) vec4f {
+    return vec4f(1.0, 0.5, 0.2, 1.0);
+  }
+`,
+  {
+    vertexCount: 50,
+    topology: "line-strip",
+  }
+);
+```
+
+#### Dynamic Grid Lines
+
+```tsx
+const gridLines = ctx.material(
+  /* wgsl */ `
+  @vertex
+  fn vs_main(@builtin(vertex_index) vid: u32) -> @builtin(position) vec4f {
+    // Create grid lines dynamically
+    let lineCount = 20u;
+    let lineIndex = vid / 2u;
+    let isStart = (vid % 2u) == 0u;
+    
+    let isHorizontal = lineIndex < lineCount / 2u;
+    let idx = lineIndex % (lineCount / 2u);
+    let pos = f32(idx) / f32(lineCount / 2u - 1u) * 2.0 - 1.0;
+    
+    if (isHorizontal) {
+      let x = select(0.9, -0.9, isStart);
+      return vec4f(x, pos * 0.9, 0.0, 1.0);
+    } else {
+      let y = select(0.9, -0.9, isStart);
+      return vec4f(pos * 0.9, y, 0.0, 1.0);
+    }
+  }
+
+  @fragment
+  fn fs_main() -> @location(0) vec4f {
+    return vec4f(0.3, 0.3, 0.3, 1.0);
+  }
+`,
+  {
+    vertexCount: 40, // 20 lines × 2 vertices
+    topology: "line-list",
+  }
+);
+```
+
+## Blend Modes
+
+```tsx
+// Presets
+ctx.pass(shader, { blend: "alpha" }); // Standard transparency
+ctx.pass(shader, { blend: "additive" }); // Glow, fire, light
+ctx.pass(shader, { blend: "multiply" }); // Darken
+ctx.pass(shader, { blend: "screen" }); // Lighten
+
+// Custom blend
+ctx.pass(shader, {
+  blend: {
+    color: { src: "src-alpha", dst: "one", operation: "add" },
+    alpha: { src: "one", dst: "one-minus-src-alpha", operation: "add" },
+  },
+});
+```
+
+## Time Control
+
+```tsx
+ctx.paused = true; // Pause time
+ctx.paused = false; // Resume
+ctx.timeScale = 0.5; // Slow motion
+ctx.timeScale = 2.0; // Fast forward
+ctx.time = 0; // Reset time
+```
+
+## Transparent Canvas
+
+For transparent canvas backgrounds that blend with the page:
+
+```tsx
+const ctx = await gpu.init(canvas, {
+  alphaMode: "premultiplied", // Default - enables transparency
+});
+
+// Set transparent clear color
+ctx.clearColor = [0, 0, 0, 0]; // Fully transparent
+
+// In shader: MUST premultiply RGB by alpha
+const pass = ctx.pass(
+  /* wgsl */ `
+  @fragment
+  fn main(@builtin(position) pos: vec4f) -> @location(0) vec4f {
+    let color = vec3f(1.0, 0.0, 0.0); // Red
+    let alpha = 0.5;
+    // CRITICAL: Premultiply RGB by alpha!
+    return vec4f(color * alpha, alpha);
+  }
+`,
+  { blend: "alpha" }
+);
+```
+
+**Alpha Modes:**
+
+- `"premultiplied"` (default): Enables transparency, RGB must be premultiplied by alpha
+- `"opaque"`: No transparency, better performance when not needed
+
+**Important:** With premultiplied alpha, always multiply RGB by alpha in shaders:
+
+- ✅ Correct: `vec4f(color * alpha, alpha)`
+- ❌ Wrong: `vec4f(color, alpha)` - will show black instead of background
+
+## Error Handling
+
+```tsx
+import {
+  WebGPUNotSupportedError,
+  DeviceCreationError,
+  ShaderCompileError,
+} from "ralph-gpu";
+
+try {
+  const ctx = await gpu.init(canvas);
+} catch (e) {
+  if (e instanceof WebGPUNotSupportedError) {
+    // Browser doesn't support WebGPU
+  } else if (e instanceof DeviceCreationError) {
+    // GPU device couldn't be created
+  } else if (e instanceof ShaderCompileError) {
+    console.error(`Line ${e.line}, Col ${e.column}: ${e.message}`);
+  }
+}
+```
+
+## Texture Formats and Usage
+
+### Texture Formats
+
+| Format        | Description                 | Use Case                      |
+| ------------- | --------------------------- | ----------------------------- |
+| `rgba8unorm`  | 8-bit RGBA, 0-1 range       | General purpose, final output |
+| `rgba16float` | 16-bit float RGBA           | HDR, accumulation buffers     |
+| `r16float`    | Single channel 16-bit float | Pressure, divergence          |
+| `rg16float`   | Two channel 16-bit float    | Velocity fields               |
+| `r32float`    | Single channel 32-bit float | High precision                |
+
+### RenderTarget Usage Modes
+
+Control how render targets can be used:
+
+```tsx
+// Default: For rendering and sampling only
+const renderTarget = ctx.target(512, 512, {
+  format: "rgba16float",
+  usage: "render", // Default
+});
+
+// For compute shader write operations (storage textures)
+const storageTarget = ctx.target(512, 512, {
+  format: "rgba16float",
+  usage: "storage", // Enables texture_storage_2d
+});
+
+// For both rendering and compute writes
+const dualTarget = ctx.target(512, 512, {
+  format: "rgba16float",
+  usage: "both", // Maximum flexibility
+});
+```
+
+**Usage Modes:**
+
+- `"render"` (default): RENDER_ATTACHMENT + TEXTURE_BINDING + COPY_SRC
+- `"storage"`: STORAGE_BINDING + TEXTURE_BINDING + COPY_SRC
+- `"both"`: All usage flags combined
+
+### RenderTarget Resize Stability
+
+**Important**: Texture references remain valid after resize! Similar to modern GPU APIs, you don't need to manually update uniform references when resizing.
+
+```tsx
+const sdfTarget = ctx.target(400, 400, { format: "r16float" });
+
+// Set once in uniforms
+const uniforms = {
+  sdfTexture: { value: sdfTarget.texture }, // Stable reference
+};
+
+// Resize later - uniform reference stays valid automatically!
+sdfTarget.resize(800, 800); // ✅ No need to update uniforms
+
+// Under the hood: TextureReference wrapper keeps the same object
+// but updates the internal GPUTexture during resize
+```
+
+**API Properties:**
+
+- `.texture` → `TextureReference` (stable, use for uniforms)
+- `.gpuTexture` → `GPUTexture` (direct access, becomes invalid after resize)
+- `.view` → Auto-updated on resize
+
+## Common WGSL Patterns
+
+### UV Coordinates
+
+```wgsl
+let uv = pos.xy / globals.resolution;        // 0 to 1
+let centered = uv * 2.0 - 1.0;               // -1 to 1
+let aspect_correct = centered * vec2f(globals.aspect, 1.0);
+```
+
+### Texture Sampling with Uniforms
+
+```wgsl
+// Declare in shader
+@group(1) @binding(0) var inputTex: texture_2d<f32>;
+@group(1) @binding(1) var inputSampler: sampler;
+
+// In TypeScript
+const uniforms = {
+  inputTex: { value: someRenderTarget },
+};
+```
+
+### Custom Samplers
+
+Create reusable samplers with explicit filtering and wrapping control using `ctx.createSampler()`:
+
+```tsx
+// Linear filtering with clamp-to-edge (ideal for blur/postprocessing)
+const linearClamp = ctx.createSampler({
+  magFilter: "linear",
+  minFilter: "linear",
+  addressModeU: "clamp-to-edge",
+  addressModeV: "clamp-to-edge",
+});
+
+// Nearest filtering with repeat (ideal for pixel art/tiling)
+const nearestRepeat = ctx.createSampler({
+  magFilter: "nearest",
+  minFilter: "nearest",
+  addressModeU: "repeat",
+  addressModeV: "repeat",
+});
+
+// Mirror repeat (ideal for seamless tiling)
+const mirrorSampler = ctx.createSampler({
+  addressModeU: "mirror-repeat",
+  addressModeV: "mirror-repeat",
+});
+
+// Reuse across multiple shaders and textures
+const uniforms = {
+  texture1: { value: tex1.texture },
+  sampler1: { value: linearClamp },
+  texture2: { value: tex2.texture },
+  sampler2: { value: nearestRepeat },
+};
+
+const pass = ctx.pass(shader, { uniforms });
+```
+
+**Sampler Options:**
+
+```tsx
+{
+  magFilter?: "linear" | "nearest",
+  minFilter?: "linear" | "nearest",
+  mipmapFilter?: "linear" | "nearest",
+  addressModeU?: "clamp-to-edge" | "repeat" | "mirror-repeat",
+  addressModeV?: "clamp-to-edge" | "repeat" | "mirror-repeat",
+  addressModeW?: "clamp-to-edge" | "repeat" | "mirror-repeat",
+  lodMinClamp?: number,  // Default: 0
+  lodMaxClamp?: number,  // Default: 32
+  compare?: "never" | "less" | "equal" | "less-equal" | "greater" | "not-equal" | "greater-equal" | "always",
+  maxAnisotropy?: number,  // Default: 1
+}
+```
+
+**Benefits of Custom Samplers:**
+
+- **Reusability**: Create once, use across multiple textures and shaders
+- **Performance**: Avoid recreating samplers with the same settings
+- **Explicit Control**: Choose exact filtering and wrapping behavior
+- **Consistency**: Ensure the same sampling behavior across effects
+
+### Texture Loading
+
+Load external images, canvases, video, or raw pixel data as GPU textures via `ctx.texture()`. The `Texture` class exposes `.texture` and `.sampler` properties, matching the same duck-type interface as `RenderTarget`.
+
+```tsx
+// From URL (async)
+const photo = await ctx.texture("/photo.jpg");
+const tiled = await ctx.texture("/bricks.png", { filter: "nearest", wrap: "repeat" });
+
+// From canvas/video (sync)
+const canvasTex = ctx.texture(canvas2dElement);
+const videoTex = ctx.texture(videoElement);
+
+// From raw pixel data (sync)
+const data = new Uint8Array(256 * 256 * 4);
+const dataTex = ctx.texture(data, { width: 256, height: 256 });
+
+// Use in manual uniforms mode
+const pass = ctx.pass(/* wgsl */ `
+  @group(1) @binding(0) var uTex: texture_2d<f32>;
+  @group(1) @binding(1) var uTexSampler: sampler;
+
+  @fragment
+  fn main(@builtin(position) pos: vec4f) -> @location(0) vec4f {
+    let uv = pos.xy / globals.resolution;
+    return textureSample(uTex, uTexSampler, uv);
+  }
+`, {
+  uniforms: {
+    uTex: { value: photo },
+  },
+});
+
+// Update live sources each frame
+videoTex.update(videoElement);
+canvasTex.update(canvas2dElement);
+
+// Cleanup
+photo.dispose();
+```
+
+**TextureOptions:**
+
+```tsx
+{
+  filter?: "linear" | "nearest",          // Default: "linear"
+  wrap?: "clamp" | "repeat" | "mirror",   // Default: "clamp"
+  premultiply?: boolean,                  // Default: true
+  flipY?: boolean,                        // Default: false
+}
+```
+
+**Texture API:**
+
+```tsx
+texture.texture;   // GPUTexture
+texture.sampler;   // GPUSampler
+texture.width;     // number
+texture.height;    // number
+texture.update(source); // Re-upload from canvas/video/ImageBitmap
+texture.dispose();      // Destroy GPU texture
+```
+
+### Texture Binding Patterns
+
+Ralph-GPU supports multiple flexible ways to pass textures to shaders:
+
+```tsx
+// Pattern 1: RenderTarget (convenience - auto-extracts texture + creates default sampler)
+const uniforms1 = {
+  myTexture: { value: renderTarget }, // Easiest - includes texture + sampler
+};
+
+// Pattern 2: Separate texture + sampler (explicit control)
+// Note: .texture returns TextureReference (stable across resizes)
+const customSampler = ctx.createSampler({ magFilter: "nearest" });
+const uniforms2 = {
+  myTexture: { value: renderTarget.texture }, // Stable texture reference
+  mySampler: { value: customSampler }, // Custom sampler
+};
+
+// Pattern 3: Texture without sampler (for textureLoad in WGSL)
+const uniforms3 = {
+  dataTexture: { value: renderTarget.texture }, // No sampler needed
+};
+
+// Pattern 4: Direct GPU texture access (advanced - becomes invalid after resize)
+const uniforms4 = {
+  directTexture: { value: renderTarget.gpuTexture }, // Direct GPUTexture
+};
+```
+
+**Sampler Naming Convention:**
+The system automatically matches samplers to textures using conventions:
+
+- `myTexture` → looks for `myTextureSampler`
+- `inputTex` → looks for `inputSampler` or `inputTexSampler`
+- `someTexture` → looks for `someSampler` or `someTextureSampler`
+
+### SDF Primitives
+
+```wgsl
+fn sdSphere(p: vec3f, r: f32) -> f32 {
+  return length(p) - r;
+}
+
+fn sdBox(p: vec3f, b: vec3f) -> f32 {
+  let q = abs(p) - b;
+  return length(max(q, vec3f(0.0))) + min(max(q.x, max(q.y, q.z)), 0.0);
+}
+
+fn opSmoothUnion(d1: f32, d2: f32, k: f32) -> f32 {
+  let h = clamp(0.5 + 0.5 * (d2 - d1) / k, 0.0, 1.0);
+  return mix(d2, d1, h) - k * h * (1.0 - h);
+}
+```
+
+## Important Internals & Gotchas
+
+### Globals Binding Behavior
+
+The globals struct (`@group(0) @binding(0)`) is **always declared** in your shader, but the WGSL optimizer may remove unused bindings. If your shader doesn't reference `globals.time`, `globals.resolution`, etc., the binding may be optimized away internally. The library handles this automatically, but be aware that:
+
+- Globals are auto-prepended to all shaders at `@group(0)`
+- User uniforms are always at `@group(1)`
+- The library detects if your shader uses globals and only binds them when needed
+
+### Reading Pixels from Screen vs RenderTarget
+
+**You cannot `readPixels()` from the screen** (swap chain texture). The WebGPU swap chain texture doesn't have `CopySrc` usage. For pixel verification or CPU readback:
+
+```tsx
+// ❌ This won't work - screen can't be read
+ctx.setTarget(null);
+myPass.draw();
+const pixels = await ctx.readPixels(); // Returns zeros!
+
+// ✅ This works - render to a RenderTarget first
+const target = ctx.target(256, 256);
+ctx.setTarget(target);
+myPass.draw();
+const pixels = await target.readPixels(); // Actual pixel data!
+```
+
+### Particles Helper Functions
+
+The `ctx.particles()` helper **auto-injects** these WGSL functions into your shader:
+
+```wgsl
+fn quadOffset(vid: u32) -> vec2f  // Returns -0.5 to 0.5 (quad corner position)
+fn quadUV(vid: u32) -> vec2f      // Returns 0 to 1 (UV coordinates)
+```
+
+**Do NOT redefine these functions** in your shader - it will cause duplicate function errors:
+
+```wgsl
+// ❌ DON'T define your own - these are auto-injected
+fn quadOffset(index: u32) -> vec2f { ... }
+
+// ✅ DO use them directly
+let pos = quadOffset(vid) * particleSize;
+let uv = quadUV(vid);
+```
+
+### Texture Format Differences
+
+Be aware of default texture formats:
+
+| Target          | Default Format    |
+| --------------- | ----------------- |
+| Canvas (screen) | `bgra8unorm`      |
+| RenderTarget    | `rgba8unorm`      |
+| MRT targets     | Per-target format |
+
+When creating render pipelines that target different outputs, format mismatches will cause WebGPU validation errors. The library handles this internally, but if you're doing advanced rendering, be aware of these differences.
+
+## Best Practices
+
+1. **Always check WebGPU support** before initializing
+2. **Handle async disposal** in React useEffect cleanup
+3. **Use `autoResize: true`** for automatic canvas sizing and resize handling:
+   ```tsx
+   ctx = await gpu.init(canvas, { autoResize: true });
+   ```
+   This uses ResizeObserver to automatically track canvas size changes and applies DPR to the resolution.
+4. **Or manually handle resize** if you need more control:
+
+   ```tsx
+   // Set pixel dimensions directly on canvas
+   canvas.width = 1280;
+   canvas.height = 720;
+
+   // Init without autoResize uses canvas.width/height directly
+   // No extra DPR multiplication is applied in this mode.
+   ctx = await gpu.init(canvas, { autoResize: false });
+   ```
+
+5. **Use `ctx.particles()` for sized particles** - provides instanced quads with built-in helpers:
+   ```tsx
+   ctx.particles(count, { shader: `...`, bufferSize: count * 16 });
+   ```
+6. **Use `ctx.autoClear = false`** when doing ping-pong operations
+7. **Update uniform references** before each ping-pong iteration
+8. **Use appropriate texture formats** - `rgba8unorm` for display, `*16float` for computation
+9. **Structure uniforms as { value: T }** for the reactive uniform pattern
+10. **Use flat Float32Array for particle data** instead of structured arrays
+11. **Create circular particles** with fragment shader `discard` for pixels outside radius
+12. **Use `/* wgsl */`** template tag for syntax highlighting
+13. **Dispose resources** on cleanup: `ctx.dispose()`, `target.dispose()`, `pass.dispose()`
+14. **Respect WGSL alignment** for storage buffers - `array<vec3f>` has 16-byte stride, not 12:
+    ```tsx
+    // Pad vec3f data to 16 bytes: [x, y, z, 0.0]
+    const buffer = ctx.storage(vertexCount * 16); // NOT vertexCount * 12
+    ```
+15. **Create custom samplers** for explicit texture filtering control:
+    ```tsx
+    const sampler = ctx.createSampler({
+      magFilter: "linear",
+      minFilter: "linear",
+    });
+    ```
+16. **Use storage textures** for compute shader write operations:
+    ```tsx
+    const target = ctx.target(512, 512, { usage: "storage" });
+    ```
+17. **Reuse samplers** across multiple textures and shaders for better performance
+
+## Profiler & Debug System
+
+ralph-gpu includes a built-in profiler and event system for performance monitoring and debugging.
+
+### Enabling Events
+
+```tsx
+const ctx = await gpu.init(canvas, {
+  events: {
+    enabled: true,
+    types: ["draw", "compute", "frame", "memory"], // Optional filter
+    historySize: 1000, // Event history buffer size
+  },
+});
+```
+
+### Using the Profiler
+
+```tsx
+import { Profiler } from "ralph-gpu";
+
+// Create profiler
+const profiler = new Profiler(ctx, {
+  maxFrameHistory: 120,
+  autoTrackFrames: true,
+});
+
+// In your render loop
+function animate() {
+  profiler.tick(); // Track frame timing for FPS
+
+  // Profile specific regions
+  profiler.begin("physics");
+  // ... physics code ...
+  profiler.end("physics");
+
+  profiler.begin("render");
+  myPass.draw();
+  profiler.end("render");
+
+  // Get stats
+  const fps = profiler.getFPS();
+  const regions = profiler.getResults();
+
+  requestAnimationFrame(animate);
+}
+
+// Cleanup
+profiler.dispose();
+```
+
+### Profiler API
+
+```tsx
+// FPS tracking (use with pass.draw() API)
+profiler.tick()                        // Call once per animation frame
+profiler.getFPS(sampleCount?)          // Get averaged FPS
+
+// Region profiling
+profiler.begin(name)                   // Start timing a region
+profiler.end(name)                     // End timing a region
+profiler.getRegion(name)               // Get stats for a region
+profiler.getResults()                  // Get all region stats
+
+// Frame statistics
+profiler.getFrameStats()               // Get frame time statistics
+profiler.getLastFrames(count)          // Get last N frame profiles
+profiler.getAverageFrameTime(frames?)  // Average frame interval (for FPS)
+profiler.getAverageRenderTime(frames?) // Average GPU work duration
+
+// Control
+profiler.setEnabled(enabled)           // Enable/disable profiling
+profiler.reset()                       // Clear all data
+profiler.dispose()                     // Cleanup and unsubscribe
+```
+
+### Listening to Events
+
+```tsx
+// Subscribe to specific event type
+const unsubscribe = ctx.on("draw", (event) => {
+  console.log(`Draw: ${event.source}, vertices: ${event.vertexCount}`);
+});
+
+// Subscribe to all events
+ctx.onAll((event) => {
+  console.log(`[${event.type}]`, event);
+});
+
+// Get event history
+const history = ctx.getEventHistory(["draw", "compute"]);
+
+// Unsubscribe
+unsubscribe();
+```
+
+### Event Types
+
+| Event Type       | Description                             |
+| ---------------- | --------------------------------------- |
+| `draw`           | Draw call (pass, material, particles)   |
+| `compute`        | Compute shader dispatch                 |
+| `frame`          | Frame start/end with timing             |
+| `shader_compile` | Shader compilation                      |
+| `memory`         | Buffer/texture allocate/free/resize     |
+| `target`         | Render target set/clear                 |
+| `pipeline`       | Pipeline creation (with cache hit info) |
+
+## API Quick Reference
+
+```tsx
+// Exports
+import {
+  gpu, GPUContext, Pass, Material, ComputeShader,
+  RenderTarget, TextureReference, PingPongTarget, MultiRenderTarget,
+  StorageBuffer, Particles, Sampler,
+  Profiler, EventEmitter,  // Debug/profiling
+  WebGPUNotSupportedError, DeviceCreationError, ShaderCompileError
+} from "ralph-gpu";
+
+// Module
+gpu.isSupported()                          // → boolean
+gpu.init(canvas, { autoResize?, dpr?, debug? }) // → Promise<GPUContext>
+
+// Context
+ctx.pass(fragmentWGSL, options?)           // → Pass
+ctx.material(wgsl, options?)               // → Material
+ctx.compute(wgsl, options?)                // → ComputeShader
+ctx.target(width, height, options?)        // → RenderTarget
+ctx.pingPong(width, height, options?)      // → PingPongTarget
+ctx.storage(byteSize)                      // → StorageBuffer
+ctx.particles(count, options)              // → Particles (instanced quads)
+ctx.createSampler(descriptor?)             // → Sampler (custom texture sampler)
+
+ctx.setTarget(target | null)               // Set render target
+ctx.clear(target?, color?)                 // Clear target
+ctx.clearColor = [r, g, b, a]              // Set clear color (default black)
+ctx.resize(width, height)                  // Resize context (pixels)
+ctx.dpr                                    // Get/set device pixel ratio
+ctx.dispose()                              // Cleanup all resources
+
+// Pass / Material
+pass.draw()                                // Draw to current target
+pass.storage(name, buffer)                 // Bind storage buffer
+pass.uniforms                              // Access uniforms (manual mode)
+pass.set(key, value)                       // Update uniform (simple mode)
+pass.dispose()                             // Cleanup
+
+// Compute
+compute.dispatch(x, y?, z?)                // Run compute shader
+compute.storage(name, buffer)              // Bind storage buffer
+compute.uniforms                           // Access uniforms
+compute.dispose()                          // Cleanup
+
+// Render Target
+target.texture                             // TextureReference (stable - use for uniforms)
+target.gpuTexture                          // GPUTexture (direct - becomes invalid after resize)
+target.view                                // GPUTextureView (auto-updated on resize)
+target.sampler                             // GPUSampler
+target.width / target.height               // Dimensions
+target.format / target.usage               // Format and usage mode
+target.resize(width, height)               // Resize (refs stay valid!)
+target.readPixels(x?, y?, w?, h?)          // → Promise<Uint8Array | Float32Array>
+target.dispose()                           // Cleanup
+
+// Ping-Pong
+pingPong.read                              // Current state (RenderTarget)
+pingPong.write                             // Next state (RenderTarget)
+pingPong.swap()                            // Swap read/write
+pingPong.resize(width, height)             // Resize both
+pingPong.dispose()                         // Cleanup
+
+// Multi Render Target (MRT)
+mrt.get(name)                              // Get target by name → RenderTarget | undefined
+mrt.getViews()                             // Get all GPUTextureViews → GPUTextureView[]
+mrt.getFormats()                           // Get all formats → string[]
+mrt.getFirstTarget()                       // Get first target → RenderTarget | undefined
+mrt.width / mrt.height                     // Dimensions
+mrt.resize(width, height)                  // Resize all targets
+mrt.dispose()                              // Cleanup all targets
+
+// Storage Buffer
+storage.write(data)                        // Write TypedArray
+storage.gpuBuffer                          // Underlying GPUBuffer
+storage.byteSize                           // Buffer size
+storage.dispose()                          // Cleanup
+
+// Sampler
+sampler.gpuSampler                         // Underlying GPUSampler
+sampler.descriptor                         // Descriptor (readonly)
+sampler.dispose()                          // Cleanup
+
+// Particles
+particles.write(data)                      // Write TypedArray to buffer
+particles.draw()                           // Draw all particles
+particles.storageBuffer                    // Underlying StorageBuffer
+particles.underlyingMaterial               // Underlying Material
+particles.dispose()                        // Cleanup
+```
 
 ---
 > Source: [vercel-labs/ralph-gpu](https://github.com/vercel-labs/ralph-gpu) — distributed by [TomeVault](https://tomevault.io).
