@@ -1,0 +1,9 @@
+{
+  "name": "dep--agent-rules",
+  "displayName": "agent-rules",
+  "description": "Centralize your agent instructions, commands, skills, and handle symlinking.",
+  "version": "1.0.0",
+  "author": "dep",
+  "homepage": "https://github.com/dep/agent-rules",
+  "skills": []
+}
