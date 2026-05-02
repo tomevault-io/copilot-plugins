@@ -1,9 +1,9 @@
 {
   "name": "androsovm--clorch",
   "displayName": "clorch",
-  "description": "clorch",
+  "description": "Clorch is a dashboard that shows all your Claude Code sessions in one place",
   "version": "1.0.0",
   "author": "androsovm",
-  "homepage": "https://tomevault.io/claim/androsovm",
+  "homepage": "https://github.com/androsovm/clorch",
   "skills": []
 }
