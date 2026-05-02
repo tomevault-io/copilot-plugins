@@ -1,0 +1,441 @@
+{
+  "name": "animation-principles",
+  "owner": "dylantarre",
+  "repo": "animation-principles",
+  "description": "Disney's 12 Animation Principles - Claude Code Skill Marketplace",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mobile-touch",
+      "path": "skills/01-by-domain/mobile-touch",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/01-by-domain/mobile-touch",
+      "description": ""
+    },
+    {
+      "name": "motion-designer",
+      "path": "skills/03-by-role-persona/motion-designer",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/03-by-role-persona/motion-designer",
+      "description": ""
+    },
+    {
+      "name": "micro-interactions",
+      "path": "skills/01-by-domain/micro-interactions",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/01-by-domain/micro-interactions",
+      "description": ""
+    },
+    {
+      "name": "game-designer",
+      "path": "skills/03-by-role-persona/game-designer",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/03-by-role-persona/game-designer",
+      "description": ""
+    },
+    {
+      "name": "framer-motion",
+      "path": "skills/09-by-tool-framework/framer-motion",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/09-by-tool-framework/framer-motion",
+      "description": ""
+    },
+    {
+      "name": "saas-productivity",
+      "path": "skills/08-by-industry/saas-productivity",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/saas-productivity",
+      "description": ""
+    },
+    {
+      "name": "buttons-ctas",
+      "path": "skills/07-by-ui-element/buttons-ctas",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/07-by-ui-element/buttons-ctas",
+      "description": ""
+    },
+    {
+      "name": "filmmaker",
+      "path": "skills/03-by-role-persona/filmmaker",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/03-by-role-persona/filmmaker",
+      "description": ""
+    },
+    {
+      "name": "notifications-toasts",
+      "path": "skills/07-by-ui-element/notifications-toasts",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/07-by-ui-element/notifications-toasts",
+      "description": ""
+    },
+    {
+      "name": "web-motion-design",
+      "path": "skills/01-by-domain/web-motion-design",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/01-by-domain/web-motion-design",
+      "description": ""
+    },
+    {
+      "name": "education-learning",
+      "path": "skills/08-by-industry/education-learning",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/education-learning",
+      "description": ""
+    },
+    {
+      "name": "fitness-wellness",
+      "path": "skills/08-by-industry/fitness-wellness",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/fitness-wellness",
+      "description": ""
+    },
+    {
+      "name": "page-transitions",
+      "path": "skills/01-by-domain/page-transitions",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/01-by-domain/page-transitions",
+      "description": ""
+    },
+    {
+      "name": "react-spring",
+      "path": "skills/09-by-tool-framework/react-spring",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/09-by-tool-framework/react-spring",
+      "description": ""
+    },
+    {
+      "name": "accessible-motion",
+      "path": "skills/01-by-domain/accessible-motion",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/01-by-domain/accessible-motion",
+      "description": ""
+    },
+    {
+      "name": "gaming-entertainment",
+      "path": "skills/08-by-industry/gaming-entertainment",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/gaming-entertainment",
+      "description": ""
+    },
+    {
+      "name": "3d-spatial",
+      "path": "skills/01-by-domain/3d-spatial",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/01-by-domain/3d-spatial",
+      "description": ""
+    },
+    {
+      "name": "e-commerce-retail",
+      "path": "skills/08-by-industry/e-commerce-retail",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/e-commerce-retail",
+      "description": ""
+    },
+    {
+      "name": "game-development",
+      "path": "skills/01-by-domain/game-development",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/01-by-domain/game-development",
+      "description": ""
+    },
+    {
+      "name": "gesture-responses",
+      "path": "skills/05-by-animation-type/gesture-responses",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/05-by-animation-type/gesture-responses",
+      "description": ""
+    },
+    {
+      "name": "character-appeal",
+      "path": "skills/02-by-thinking-style/character-appeal",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/02-by-thinking-style/character-appeal",
+      "description": ""
+    },
+    {
+      "name": "enterprise-b2b",
+      "path": "skills/08-by-industry/enterprise-b2b",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/enterprise-b2b",
+      "description": ""
+    },
+    {
+      "name": "fintech-banking",
+      "path": "skills/08-by-industry/fintech-banking",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/fintech-banking",
+      "description": ""
+    },
+    {
+      "name": "healthcare-medical",
+      "path": "skills/08-by-industry/healthcare-medical",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/healthcare-medical",
+      "description": ""
+    },
+    {
+      "name": "micro-100-200ms",
+      "path": "skills/10-by-time-scale/micro-100-200ms",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/10-by-time-scale/micro-100-200ms",
+      "description": ""
+    },
+    {
+      "name": "presentations",
+      "path": "skills/01-by-domain/presentations",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/01-by-domain/presentations",
+      "description": ""
+    },
+    {
+      "name": "travel-hospitality",
+      "path": "skills/08-by-industry/travel-hospitality",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/travel-hospitality",
+      "description": ""
+    },
+    {
+      "name": "anticipation-mastery",
+      "path": "skills/11-by-principle-focus/anticipation-mastery",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/11-by-principle-focus/anticipation-mastery",
+      "description": ""
+    },
+    {
+      "name": "brand-consistency",
+      "path": "skills/12-by-problem-type/brand-consistency",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/12-by-problem-type/brand-consistency",
+      "description": ""
+    },
+    {
+      "name": "responsive-adaptive",
+      "path": "skills/10-by-time-scale/responsive-adaptive",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/10-by-time-scale/responsive-adaptive",
+      "description": ""
+    },
+    {
+      "name": "slow-in-out-mastery",
+      "path": "skills/11-by-principle-focus/slow-in-out-mastery",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/11-by-principle-focus/slow-in-out-mastery",
+      "description": ""
+    },
+    {
+      "name": "solid-drawing-mastery",
+      "path": "skills/11-by-principle-focus/solid-drawing-mastery",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/11-by-principle-focus/solid-drawing-mastery",
+      "description": ""
+    },
+    {
+      "name": "accessibility-advocate",
+      "path": "skills/03-by-role-persona/accessibility-advocate",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/03-by-role-persona/accessibility-advocate",
+      "description": ""
+    },
+    {
+      "name": "orchestrated-sequences",
+      "path": "skills/10-by-time-scale/orchestrated-sequences",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/10-by-time-scale/orchestrated-sequences",
+      "description": ""
+    },
+    {
+      "name": "friendliness-approachability",
+      "path": "skills/06-by-emotional-outcome/friendliness-approachability",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/06-by-emotional-outcome/friendliness-approachability",
+      "description": ""
+    },
+    {
+      "name": "advanced",
+      "path": "skills/04-by-skill-level/advanced",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/04-by-skill-level/advanced",
+      "description": ""
+    },
+    {
+      "name": "novice",
+      "path": "skills/04-by-skill-level/novice",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/04-by-skill-level/novice",
+      "description": ""
+    },
+    {
+      "name": "teaching-others",
+      "path": "skills/04-by-skill-level/teaching-others",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/04-by-skill-level/teaching-others",
+      "description": ""
+    },
+    {
+      "name": "universal-reference",
+      "path": "skills/04-by-skill-level/universal-reference",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/04-by-skill-level/universal-reference",
+      "description": ""
+    },
+    {
+      "name": "animator-traditional",
+      "path": "skills/03-by-role-persona/animator-traditional",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/03-by-role-persona/animator-traditional",
+      "description": ""
+    },
+    {
+      "name": "anticipation-payoff",
+      "path": "skills/02-by-thinking-style/anticipation-payoff",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/02-by-thinking-style/anticipation-payoff",
+      "description": ""
+    },
+    {
+      "name": "appeal-mastery",
+      "path": "skills/11-by-principle-focus/appeal-mastery",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/11-by-principle-focus/appeal-mastery",
+      "description": ""
+    },
+    {
+      "name": "arc-mastery",
+      "path": "skills/11-by-principle-focus/arc-mastery",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/11-by-principle-focus/arc-mastery",
+      "description": ""
+    },
+    {
+      "name": "brand-strategist",
+      "path": "skills/03-by-role-persona/brand-strategist",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/03-by-role-persona/brand-strategist",
+      "description": ""
+    },
+    {
+      "name": "deliberate-1200-2000ms",
+      "path": "skills/10-by-time-scale/deliberate-1200-2000ms",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/10-by-time-scale/deliberate-1200-2000ms",
+      "description": ""
+    },
+    {
+      "name": "entrance-animations",
+      "path": "skills/05-by-animation-type/entrance-animations",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/05-by-animation-type/entrance-animations",
+      "description": ""
+    },
+    {
+      "name": "follow-through-overlapping",
+      "path": "skills/11-by-principle-focus/follow-through-overlapping",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/11-by-principle-focus/follow-through-overlapping",
+      "description": ""
+    },
+    {
+      "name": "frontend-developer",
+      "path": "skills/03-by-role-persona/frontend-developer",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/03-by-role-persona/frontend-developer",
+      "description": ""
+    },
+    {
+      "name": "instant-0-100ms",
+      "path": "skills/10-by-time-scale/instant-0-100ms",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/10-by-time-scale/instant-0-100ms",
+      "description": ""
+    },
+    {
+      "name": "media-publishing",
+      "path": "skills/08-by-industry/media-publishing",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/media-publishing",
+      "description": ""
+    },
+    {
+      "name": "medium-300-500ms",
+      "path": "skills/10-by-time-scale/medium-300-500ms",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/10-by-time-scale/medium-300-500ms",
+      "description": ""
+    },
+    {
+      "name": "naturalistic-motion",
+      "path": "skills/02-by-thinking-style/naturalistic-motion",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/02-by-thinking-style/naturalistic-motion",
+      "description": ""
+    },
+    {
+      "name": "power-confidence",
+      "path": "skills/06-by-emotional-outcome/power-confidence",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/06-by-emotional-outcome/power-confidence",
+      "description": ""
+    },
+    {
+      "name": "small-200-300ms",
+      "path": "skills/10-by-time-scale/small-200-300ms",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/10-by-time-scale/small-200-300ms",
+      "description": ""
+    },
+    {
+      "name": "social-media",
+      "path": "skills/08-by-industry/social-media",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/social-media",
+      "description": ""
+    },
+    {
+      "name": "staging-mastery",
+      "path": "skills/11-by-principle-focus/staging-mastery",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/11-by-principle-focus/staging-mastery",
+      "description": ""
+    },
+    {
+      "name": "straight-ahead-pose-mastery",
+      "path": "skills/11-by-principle-focus/straight-ahead-pose-mastery",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/11-by-principle-focus/straight-ahead-pose-mastery",
+      "description": ""
+    },
+    {
+      "name": "timing-principle-mastery",
+      "path": "skills/11-by-principle-focus/timing-principle-mastery",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/11-by-principle-focus/timing-principle-mastery",
+      "description": ""
+    },
+    {
+      "name": "universal-elements",
+      "path": "skills/07-by-ui-element/universal-elements",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/07-by-ui-element/universal-elements",
+      "description": ""
+    },
+    {
+      "name": "universal-industry",
+      "path": "skills/08-by-industry/universal-industry",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/08-by-industry/universal-industry",
+      "description": ""
+    },
+    {
+      "name": "universal-mindset",
+      "path": "skills/02-by-thinking-style/universal-mindset",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/02-by-thinking-style/universal-mindset",
+      "description": ""
+    },
+    {
+      "name": "universal-patterns",
+      "path": "skills/05-by-animation-type/universal-patterns",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/05-by-animation-type/universal-patterns",
+      "description": ""
+    },
+    {
+      "name": "universal-practitioner",
+      "path": "skills/03-by-role-persona/universal-practitioner",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/03-by-role-persona/universal-practitioner",
+      "description": ""
+    },
+    {
+      "name": "universal-timing",
+      "path": "skills/10-by-time-scale/universal-timing",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/10-by-time-scale/universal-timing",
+      "description": ""
+    },
+    {
+      "name": "ux-friction",
+      "path": "skills/12-by-problem-type/ux-friction",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/12-by-problem-type/ux-friction",
+      "description": ""
+    },
+    {
+      "name": "ux-researcher",
+      "path": "skills/03-by-role-persona/ux-researcher",
+      "github_url": "https://github.com/dylantarre/animation-principles/tree/main/skills/03-by-role-persona/ux-researcher",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dylantarre/animation-principles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:35:47Z"
+}
