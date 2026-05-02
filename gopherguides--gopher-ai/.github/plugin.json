@@ -1,0 +1,50 @@
+{
+  "name": "gopherguides--gopher-ai",
+  "displayName": "gopher-ai",
+  "description": "Claude Code plugins for Go developers - by Gopher Guides",
+  "version": "1.0.0",
+  "author": "gopherguides",
+  "homepage": "https://github.com/gopherguides/gopher-ai",
+  "skills": [
+    {
+      "name": "go-best-practices",
+      "description": ""
+    },
+    {
+      "name": "go-code-audit",
+      "description": ""
+    },
+    {
+      "name": "go-code-review",
+      "description": ""
+    },
+    {
+      "name": "go-lint-audit",
+      "description": ""
+    },
+    {
+      "name": "go-standards-audit",
+      "description": ""
+    },
+    {
+      "name": "go-test-coverage",
+      "description": ""
+    },
+    {
+      "name": "gopher-guides",
+      "description": ""
+    },
+    {
+      "name": "second-opinion",
+      "description": ""
+    },
+    {
+      "name": "tailwind-best-practices",
+      "description": ""
+    },
+    {
+      "name": "templui",
+      "description": ""
+    }
+  ]
+}
