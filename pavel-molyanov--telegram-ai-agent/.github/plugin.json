@@ -1,0 +1,9 @@
+{
+  "name": "pavel-molyanov--telegram-ai-agent",
+  "displayName": "telegram-ai-agent",
+  "description": "Generic Claude/Codex Telegram bot runtime",
+  "version": "1.0.0",
+  "author": "pavel-molyanov",
+  "homepage": "https://github.com/pavel-molyanov/telegram-ai-agent",
+  "skills": []
+}
