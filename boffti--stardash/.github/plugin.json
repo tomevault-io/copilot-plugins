@@ -1,0 +1,9 @@
+{
+  "name": "boffti--stardash",
+  "displayName": "stardash",
+  "description": "AI-powered workspace to discover, organize, and contribute to your starred GitHub repos - with MCP support for code assistants (coming soon)",
+  "version": "1.0.0",
+  "author": "boffti",
+  "homepage": "https://github.com/boffti/stardash",
+  "skills": []
+}
