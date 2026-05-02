@@ -1,0 +1,44 @@
+{
+  "name": "Energy-Horizon",
+  "owner": "hello-sebastian",
+  "repo": "Energy-Horizon",
+  "description": "A Lovelace card for Home Assistant that compares cumulative energy usage between the current period and a corresponding historical period (eg. year-over-year or month-over-year), with a chart, summary stats, and optional forecast.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hello-sebastian/Energy-Horizon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T08:25:45Z"
+}
