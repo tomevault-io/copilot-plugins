@@ -1,0 +1,34 @@
+{
+  "name": "triggerdotdev--skills",
+  "displayName": "trigger.dev",
+  "description": "Best practices for building AI agents and background jobs with Trigger.dev. Use when creating durable tasks, scheduling workflows, or integrating with the Trigger.dev SDK.",
+  "version": "1.0.0",
+  "author": "triggerdotdev",
+  "homepage": "https://github.com/triggerdotdev/skills",
+  "skills": [
+    {
+      "name": "trigger-dev-tasks",
+      "description": ""
+    },
+    {
+      "name": "trigger-tasks",
+      "description": ""
+    },
+    {
+      "name": "trigger-config",
+      "description": ""
+    },
+    {
+      "name": "trigger-agents",
+      "description": ""
+    },
+    {
+      "name": "trigger-setup",
+      "description": ""
+    },
+    {
+      "name": "trigger-realtime",
+      "description": ""
+    }
+  ]
+}
