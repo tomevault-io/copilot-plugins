@@ -1,0 +1,18 @@
+{
+  "name": "watany-dev--kantan-ui",
+  "displayName": "kantan-ui",
+  "description": "AI instruction skills by watany-dev",
+  "version": "1.0.0",
+  "author": "watany-dev",
+  "homepage": "https://github.com/watany-dev/kantan-ui",
+  "skills": [
+    {
+      "name": "update-design",
+      "description": ""
+    },
+    {
+      "name": "update-docs",
+      "description": ""
+    }
+  ]
+}
