@@ -1,0 +1,57 @@
+{
+  "name": "minimal-second-brain",
+  "owner": "gokhanarkan",
+  "repo": "minimal-second-brain",
+  "description": "A minimal, AI-native Obsidian vault template. 3 folders, manifest files for Claude/Copilot, automated maintenance.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "archive-project",
+      "path": ".claude/skills/archive-project",
+      "github_url": "https://github.com/gokhanarkan/minimal-second-brain/tree/main/.claude/skills/archive-project",
+      "description": ""
+    },
+    {
+      "name": "github-summary",
+      "path": ".claude/skills/github-summary",
+      "github_url": "https://github.com/gokhanarkan/minimal-second-brain/tree/main/.claude/skills/github-summary",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gokhanarkan/minimal-second-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:39:31Z"
+}
