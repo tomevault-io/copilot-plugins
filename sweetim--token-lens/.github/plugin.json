@@ -1,0 +1,9 @@
+{
+  "name": "sweetim--token-lens",
+  "displayName": "token-lens",
+  "description": "Master your LLM spend with usage insights tailored to your coding style",
+  "version": "1.0.0",
+  "author": "sweetim",
+  "homepage": "https://github.com/sweetim/token-lens",
+  "skills": []
+}
