@@ -4,7 +4,7 @@
   "repo": "Undefined",
   "description": "QQ bot platform with cognitive memory architecture and multi-agent Skills, via OneBot V11.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/69gg/Undefined",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T09:08:27Z"
+  "distributed_at": "2026-05-02T21:52:45Z"
 }
