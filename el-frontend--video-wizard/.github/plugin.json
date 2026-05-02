@@ -1,0 +1,9 @@
+{
+  "name": "el-frontend--video-wizard",
+  "displayName": "video-wizard",
+  "description": "AI-powered video content analysis, viral clip identification, and subtitle generation platform.",
+  "version": "1.0.0",
+  "author": "el-frontend",
+  "homepage": "https://github.com/el-frontend/video-wizard",
+  "skills": []
+}
