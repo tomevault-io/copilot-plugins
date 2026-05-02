@@ -1,17 +1,25 @@
-## bash-powers
+## clone-repos-to-tmp
 
-> Use bash commands (`rg`, `fd`, `find`, `grep`, `sed`, `jq`, `git`, `xargs`) for bulk operations when faster/safer than manual edits.
+> When a user provides a GitHub repository URL (or any git repository URL) in the chat, clone it to `/tmp/` so it can be referenced, explored, or used as an implementation guide.
 
 
-# Bash Powers
+# Clone Repository URLs to /tmp
 
-Use bash commands (`rg`, `fd`, `find`, `grep`, `sed`, `jq`, `git`, `xargs`) for bulk operations when faster/safer than manual edits.
+When a user provides a GitHub repository URL (or any git repository URL) in the chat, clone it to `/tmp/` so it can be referenced, explored, or used as an implementation guide.
 
-**Guidelines:**
-- Prefer non-destructive/reversible operations
-- Get approval before destructive commands (`rm`, mass renames)
-- Use for: bulk file ops, search/replace, git ops, data processing
-- Show dry-runs when possible
+## Guidelines
+
+- Clone to `/tmp/<repo-name>/` (e.g., `git clone https://github.com/user/repo /tmp/repo`)
+- If the directory already exists, skip cloning and use the existing clone
+- Use shallow clone (`--depth 1`) for faster cloning when full history isn't needed
+- Use the cloned repo for: exploration, referencing implementations, understanding patterns, or answering questions
+
+## Example
+
+```bash
+# Check if already cloned, otherwise shallow clone
+[ -d "/tmp/repo" ] || git clone --depth 1 https://github.com/user/repo /tmp/repo
+```
 
 ---
 > Source: [RhysSullivan/create-epoch-app](https://github.com/RhysSullivan/create-epoch-app) — distributed by [TomeVault](https://tomevault.io).
