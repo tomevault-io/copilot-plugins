@@ -1,0 +1,9 @@
+{
+  "name": "agentveil-protocol--avp-sdk",
+  "displayName": "avp-sdk",
+  "description": "Operational Trust for autonomous agents. Decide which agents can act, then prove what happened with cryptographic evidence.  Trust-gated action for agent systems, with evidence clients and reviewers c",
+  "version": "1.0.0",
+  "author": "agentveil-protocol",
+  "homepage": "https://github.com/agentveil-protocol/avp-sdk",
+  "skills": []
+}
