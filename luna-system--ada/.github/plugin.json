@@ -1,9 +1,9 @@
 {
   "name": "luna-system--ada",
   "displayName": "ada",
-  "description": "ada",
+  "description": "locally hosted neural net chat framework with biomimetic RAG (cc0) (by luna+ada) (<3)",
   "version": "1.0.0",
   "author": "luna-system",
-  "homepage": "https://tomevault.io/claim/luna-system",
+  "homepage": "https://github.com/luna-system/ada",
   "skills": []
 }
