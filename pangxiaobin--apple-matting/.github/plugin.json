@@ -1,0 +1,9 @@
+{
+  "name": "pangxiaobin--apple-matting",
+  "displayName": "apple-matting",
+  "description": "A local macOS desktop matting tool built with Tauri, Vue, and Rust.",
+  "version": "1.0.0",
+  "author": "pangxiaobin",
+  "homepage": "https://github.com/pangxiaobin/apple-matting",
+  "skills": []
+}
