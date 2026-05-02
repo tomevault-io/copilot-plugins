@@ -1,0 +1,9 @@
+{
+  "name": "lord0fturk--rpgmlocalizer",
+  "displayName": "RPGMLocalizer",
+  "description": "RPGMLocalizer is a powerful automated translation tool designed for RPG Maker games. It extracts text from game data, translates it using machine translation services (Google Translate), and re-insert",
+  "version": "1.0.0",
+  "author": "Lord0fTurk",
+  "homepage": "https://github.com/Lord0fTurk/RPGMLocalizer",
+  "skills": []
+}
