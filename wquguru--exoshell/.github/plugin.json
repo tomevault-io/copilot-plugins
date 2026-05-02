@@ -1,0 +1,14 @@
+{
+  "name": "wquguru--exoshell",
+  "displayName": "exoshell",
+  "description": "A curated collection of Claude plugins and AI-assisted development skills inspired by Moltbot's atomic commit methodology\ud83e\udd9e\ud83d\udc1a",
+  "version": "1.0.0",
+  "author": "wquguru",
+  "homepage": "https://github.com/wquguru/exoshell",
+  "skills": [
+    {
+      "name": "ralph-ryan",
+      "description": ""
+    }
+  ]
+}
