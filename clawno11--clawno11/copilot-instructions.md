@@ -1,46 +1,44 @@
-## rust-new-command
+## shared-first
 
-> 新增 Rust Tauri 命令时的共享检查流程
+> 跨平台共享优先原则 — 新增代码前必须判定是否应放入共享层
 
 
-# 新增 Tauri 命令规则
+# 共享优先原则（Share-First Rule）
 
-## 添加新 Tauri 命令前的检查流程
+新增任何功能时，必须先回答：**这段代码是否两个平台都需要？** 如果是，它必须写在共享层。
 
-1. **是否两端都需要？** → 业务逻辑放 `clawno-core`，两端只写薄包装
-2. **是否已有类似功能？** → 先搜索 `clawno-core/src/` 避免重复实现
-3. **返回类型是否共享？** → 用 `clawno_core::types::StepResult` 等共享类型
+## Rust 层判定表
 
-## 薄包装模式示例
+| 条件 | 放入位置 |
+|------|---------|
+| 两端都需要 + 不依赖 `tauri::AppHandle` | `crates/clawno-core/src/` |
+| 两端都需要 + 依赖 tauri | core 提供逻辑函数，各端写薄 `#[tauri::command]` 包装 |
+| 仅一端需要 | `apps/{platform}/src-tauri/src/` |
 
-```rust
-// ✅ 正确：逻辑在 core，命令只是包装
-#[tauri::command]
-pub async fn deploy_remote_connect(args: SshArgs) -> StepResult {
-    if let Err(e) = ssh::validate_ssh_args(&args) {
-        return StepResult::err(e);
-    }
-    match ssh::ssh_exec(&args, "echo ok").await {
-        Ok((0, out)) => StepResult::ok(out),
-        Ok((_, out)) => StepResult::err(out),
-        Err(e) => StepResult::err(e),
-    }
-}
+## TypeScript 层判定表
 
-// ❌ 错误：在命令中内联大量业务逻辑
-#[tauri::command]
-pub async fn deploy_remote_connect(args: SshArgs) -> StepResult {
-    // 100+ 行 SSH 连接、认证、执行逻辑...
-}
-```
+| 条件 | 放入位置 |
+|------|---------|
+| 两端都需要的类型/invoke 函数 | `packages/shared/src/ipc/types.ts` |
+| 两端都需要的状态逻辑 | `packages/shared/src/stores/` |
+| 两端 UI 相似度 >70% | `packages/shared/src/components/` |
+| 两端都需要的 hook | `packages/shared/src/hooks/` |
+| 仅一端需要 | `apps/{platform}/src/` |
 
-## 共享类型使用
+## 翻译判定
 
-- `StepResult` → `use clawno_core::types::StepResult;`
-- `SshArgs` → `use clawno_core::ssh::SshArgs;`
-- `ChatChunk/ChatDone` → `use clawno_core::chat::{ChatChunk, ChatDone};`
-- `McpScanResult` → `use clawno_core::mcp::McpScanResult;`
-- 新增共享 struct → 放入 `clawno-core/src/types.rs`
+| 条件 | 放入位置 |
+|------|---------|
+| 两端均使用且值相同 | `packages/shared/src/locales/` |
+| 仅一端使用或值不同 | `apps/{platform}/src/locales/` |
+
+## 禁止事项
+
+- ❌ 禁止在两端 ipc.ts 中定义相同的 `invoke` 函数
+- ❌ 禁止在两端 types.rs 中定义相同的 struct
+- ❌ 禁止在两端 locales 中放置相同的翻译键
+- ❌ 禁止 `clawno-core` 依赖 `tauri` crate
+- ❌ 禁止 `@clawno/shared` 导入 `apps/` 中的代码
 
 ---
 > Source: [clawno11/clawno11](https://github.com/clawno11/clawno11) — distributed by [TomeVault](https://tomevault.io).
