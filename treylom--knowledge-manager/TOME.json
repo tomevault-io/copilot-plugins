@@ -4,7 +4,7 @@
   "repo": "knowledge-manager",
   "description": "Knowledge Manager Agent for Claude Code - Extract and organize content from web, PDF, social media to Obsidian/Notion",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/treylom/knowledge-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T08:54:02Z"
+  "distributed_at": "2026-05-02T20:08:52Z"
 }
