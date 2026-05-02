@@ -1,0 +1,9 @@
+{
+  "name": "websitebutlers--codefire-app",
+  "displayName": "codefire-app",
+  "description": "CodeFire gives AI coding tools persistent memory, task tracking, and project intelligence. A desktop companion for the AI-native workflow.",
+  "version": "1.0.0",
+  "author": "websitebutlers",
+  "homepage": "https://github.com/websitebutlers/codefire-app",
+  "skills": []
+}
