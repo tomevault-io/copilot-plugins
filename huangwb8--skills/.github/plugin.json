@@ -1,0 +1,38 @@
+{
+  "name": "huangwb8--skills",
+  "displayName": "skills",
+  "description": "General Skills Development Pipeline - Claude Code & Codex",
+  "version": "1.0.0",
+  "author": "huangwb8",
+  "homepage": "https://github.com/huangwb8/skills",
+  "skills": [
+    {
+      "name": "auto-test-project",
+      "description": ""
+    },
+    {
+      "name": "auto-test-skill",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "git-publish-release",
+      "description": ""
+    },
+    {
+      "name": "init-project",
+      "description": ""
+    },
+    {
+      "name": "install-bensz-skills",
+      "description": ""
+    },
+    {
+      "name": "write-skill-readme",
+      "description": ""
+    }
+  ]
+}
