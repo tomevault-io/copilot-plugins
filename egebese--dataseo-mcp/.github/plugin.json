@@ -1,0 +1,9 @@
+{
+  "name": "egebese--dataseo-mcp",
+  "displayName": "dataseo-mcp",
+  "description": "A free SEO research tool using Model Context Protocol (MCP) powered by Ahrefs data. Get backlink analysis, keyword research, traffic estimation, and more \u2014 directly in your AI-powered IDE.",
+  "version": "1.0.0",
+  "author": "egebese",
+  "homepage": "https://github.com/egebese/dataseo-mcp",
+  "skills": []
+}
