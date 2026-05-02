@@ -1,0 +1,9 @@
+{
+  "name": "denven--mediascribe",
+  "displayName": "mediascribe",
+  "description": "CLI for audio, video, and text transcription with ASR providers and LLM-powered summarization via local or cloud backends.",
+  "version": "1.0.0",
+  "author": "denven",
+  "homepage": "https://github.com/denven/mediascribe",
+  "skills": []
+}
