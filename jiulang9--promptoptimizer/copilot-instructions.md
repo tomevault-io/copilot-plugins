@@ -1,12 +1,16 @@
-## architecture-design-specification
+## code-check-rules
 
-> - **架构**：MVI（Model-View-Intent）架构
+> 运行任何命令，请在 powershell 上运行 并且不要有 && 连链接符号
 
 
-架构模式
-- **架构**：MVI（Model-View-Intent）架构
-- **数据流**：单向数据流（Unidirectional Data Flow）
-- **三层结构**：表现层（Presentation）→ 领域层（Domain）→ 数据层（Data）
+# 立即执行
+运行任何命令，请在 powershell 上运行 并且不要有 && 连链接符号
+每完成一个任务都要运行
+   - 运行 `flutter pub get` 安装依赖
+   - 运行 `flutter analyze` 检查代码
+   - 运行 `flutter test` 执行测试
+   - 修复任何发现的问题
+检查代码是都符合规范，如有错误，请继续修改
 
 ---
 > Source: [JIULANG9/PromptOptimizer](https://github.com/JIULANG9/PromptOptimizer) — distributed by [TomeVault](https://tomevault.io).
