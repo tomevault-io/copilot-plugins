@@ -1,0 +1,105 @@
+{
+  "name": "codex-bmad-skills",
+  "owner": "xmm",
+  "repo": "codex-bmad-skills",
+  "description": "BMAD skills and workflows for OpenAI Codex (App, CLI, Web): intent-based execution, YAML project state, and reusable skill packs for planning, architecture, sprint delivery, development, and code review.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bmad-analyst",
+      "path": "skills/bmad-analyst",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-analyst",
+      "description": ""
+    },
+    {
+      "name": "bmad-architect",
+      "path": "skills/bmad-architect",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-architect",
+      "description": ""
+    },
+    {
+      "name": "bmad-builder",
+      "path": "skills/bmad-builder",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-builder",
+      "description": ""
+    },
+    {
+      "name": "bmad-creative-intelligence",
+      "path": "skills/bmad-creative-intelligence",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-creative-intelligence",
+      "description": ""
+    },
+    {
+      "name": "bmad-developer",
+      "path": "skills/bmad-developer",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-developer",
+      "description": ""
+    },
+    {
+      "name": "bmad-orchestrator",
+      "path": "skills/bmad-orchestrator",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "bmad-product-manager",
+      "path": "skills/bmad-product-manager",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-product-manager",
+      "description": ""
+    },
+    {
+      "name": "bmad-scrum-master",
+      "path": "skills/bmad-scrum-master",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-scrum-master",
+      "description": ""
+    },
+    {
+      "name": "bmad-shared",
+      "path": "skills/bmad-shared",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-shared",
+      "description": ""
+    },
+    {
+      "name": "bmad-ux-designer",
+      "path": "skills/bmad-ux-designer",
+      "github_url": "https://github.com/xmm/codex-bmad-skills/tree/main/skills/bmad-ux-designer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/xmm/codex-bmad-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:36:40Z"
+}
