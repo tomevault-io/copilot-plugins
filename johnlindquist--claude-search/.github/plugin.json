@@ -1,0 +1,46 @@
+{
+  "name": "johnlindquist--claude-search",
+  "displayName": "claude",
+  "description": "Semantic search across your Claude conversation history using AI embeddings",
+  "version": "1.0.0",
+  "author": "johnlindquist",
+  "homepage": "https://github.com/johnlindquist/claude-search",
+  "skills": [
+    {
+      "name": "chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "diagram",
+      "description": ""
+    },
+    {
+      "name": "workflow-devkit",
+      "description": ""
+    },
+    {
+      "name": "karabiner",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "diagram",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    }
+  ]
+}
