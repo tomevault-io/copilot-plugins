@@ -1,0 +1,51 @@
+{
+  "name": "ComfyUI",
+  "owner": "Comfy-Org",
+  "repo": "ComfyUI-Desktop-2.0-Beta",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "writing-storybook-stories",
+      "path": ".claude/skills/writing-storybook-stories",
+      "github_url": "https://github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta/tree/main/.claude/skills/writing-storybook-stories",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:40:30Z"
+}
