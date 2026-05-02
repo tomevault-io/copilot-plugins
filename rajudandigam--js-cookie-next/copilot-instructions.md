@@ -1,14 +1,12 @@
-## js-cookie-next
+## architecture
 
-> - Use TypeScript with strict mode. No implicit any; prefer explicit types for public API.
+> js-cookie-next — native-first cookie utility with cookieStore async + document.cookie fallback.
 
-- Use TypeScript with strict mode. No implicit any; prefer explicit types for public API.
-- Do not add runtime dependencies unless explicitly required. Dev dependencies are allowed.
-- All library code lives under src/. Core sync in src/core/; async layer in src/async/. No React or framework-specific code.
-- Never access window, document, or navigator at module top-level (SSR-safe). Check at call time inside functions.
-- Repo execution guide (structure, order, testing, CI): docs/DEV-ARCHITECTURE.md. Behavior and API contract: docs/API.md and docs/ARCH.md (locked).
-- Implement one module at a time; add tests with each module. No speculative features beyond docs/PRD.md.
-- Packaging: ESM + CJS via tsup; exports map with types, import, require. Publish dist only.
+
+This repo is **js-cookie-next**: a vanilla browser cookie utility with zero runtime deps, strict TypeScript, Cookie Store API (async) with document.cookie fallback, CHIPS-aware options, and SSR-safe design.
+
+- **Repo execution guide (structure, build order, testing, CI):** [docs/DEV-ARCHITECTURE.md](../../docs/DEV-ARCHITECTURE.md) — single source of truth for how to extend and build the repo.
+- **Behavior and API contract (locked):** [docs/API.md](../../docs/API.md) and [docs/ARCH.md](../../docs/ARCH.md) — follow them for all public API and internal architecture.
 
 ---
 > Source: [rajudandigam/js-cookie-next](https://github.com/rajudandigam/js-cookie-next) — distributed by [TomeVault](https://tomevault.io).
