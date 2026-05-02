@@ -1,0 +1,9 @@
+{
+  "name": "rpblc-hq--dam",
+  "displayName": "DAM",
+  "description": "The PII firewall for AI agents.",
+  "version": "1.0.0",
+  "author": "RPBLC-hq",
+  "homepage": "https://github.com/RPBLC-hq/DAM",
+  "skills": []
+}
