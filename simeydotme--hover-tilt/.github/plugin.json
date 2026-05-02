@@ -1,0 +1,9 @@
+{
+  "name": "simeydotme--hover-tilt",
+  "displayName": "hover-tilt",
+  "description": "A Svelte & Web Component for a hoverable tilting card with optional glare / mask",
+  "version": "1.0.0",
+  "author": "simeydotme",
+  "homepage": "https://github.com/simeydotme/hover-tilt",
+  "skills": []
+}
