@@ -1,0 +1,9 @@
+{
+  "name": "powerbeef--qwenvoice",
+  "displayName": "QwenVoice",
+  "description": "Vocello is a native macOS app for offline Qwen3-TTS on Apple Silicon, with Custom Voice, Voice Design, and Voice Cloning.",
+  "version": "1.0.0",
+  "author": "PowerBeef",
+  "homepage": "https://github.com/PowerBeef/QwenVoice",
+  "skills": []
+}
