@@ -1,0 +1,9 @@
+{
+  "name": "pandazki--pneuma-skills",
+  "displayName": "pneuma-skills",
+  "description": "Co-creation infrastructure for humans and code agents \u2014 visual environment, skills, continuous learning, and distribution.",
+  "version": "1.0.0",
+  "author": "pandazki",
+  "homepage": "https://github.com/pandazki/pneuma-skills",
+  "skills": []
+}
