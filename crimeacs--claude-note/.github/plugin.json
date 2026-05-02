@@ -1,0 +1,14 @@
+{
+  "name": "crimeacs--claude-note",
+  "displayName": "claude-note",
+  "description": "Your AI pair programmer's memory, synced to Obsidian",
+  "version": "1.0.0",
+  "author": "crimeacs",
+  "homepage": "https://github.com/crimeacs/claude-note",
+  "skills": [
+    {
+      "name": "ingest",
+      "description": ""
+    }
+  ]
+}
