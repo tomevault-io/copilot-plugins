@@ -1,0 +1,69 @@
+{
+  "name": "agentic-obs",
+  "owner": "ironystock",
+  "repo": "agentic-obs",
+  "description": "agentic-obs: A Model Context Protocol (MCP) server that provides AI assistants with programmatic control over OBS Studio via the OBS WebSocket API. This server enables AI agents to manage scenes, sources, recording, streaming, and other OBS functionality through standardized MCP tools.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "audio-engineer",
+      "path": "skills/audio-engineer",
+      "github_url": "https://github.com/ironystock/agentic-obs/tree/main/skills/audio-engineer",
+      "description": ""
+    },
+    {
+      "name": "preset-manager",
+      "path": "skills/preset-manager",
+      "github_url": "https://github.com/ironystock/agentic-obs/tree/main/skills/preset-manager",
+      "description": ""
+    },
+    {
+      "name": "scene-designer",
+      "path": "skills/scene-designer",
+      "github_url": "https://github.com/ironystock/agentic-obs/tree/main/skills/scene-designer",
+      "description": ""
+    },
+    {
+      "name": "streaming-assistant",
+      "path": "skills/streaming-assistant",
+      "github_url": "https://github.com/ironystock/agentic-obs/tree/main/skills/streaming-assistant",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ironystock/agentic-obs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:35:13Z"
+}
