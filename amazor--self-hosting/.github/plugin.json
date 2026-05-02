@@ -1,0 +1,9 @@
+{
+  "name": "amazor--self-hosting",
+  "displayName": "Self-Hosting",
+  "description": "This repository documents my self-hosted homelab",
+  "version": "1.0.0",
+  "author": "amazor",
+  "homepage": "https://github.com/amazor/Self-Hosting",
+  "skills": []
+}
