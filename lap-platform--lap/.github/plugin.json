@@ -1,0 +1,9 @@
+{
+  "name": "lap-platform--lap",
+  "displayName": "LAP",
+  "description": "Your agents are guessing at APIs. Give them the actual Agent-Native spec. 1500+ API's Ready To-Use skills,  Compile any API spec into a lean, agent-native format. 10\u00d7 smaller. OpenAPI, GraphQL, AsyncA",
+  "version": "1.0.0",
+  "author": "Lap-Platform",
+  "homepage": "https://github.com/Lap-Platform/LAP",
+  "skills": []
+}
