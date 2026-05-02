@@ -1,0 +1,9 @@
+{
+  "name": "coingecko--coingecko-cli",
+  "displayName": "coingecko-cli",
+  "description": "CoinGecko CLI - Real Time & Historical Crypto Data",
+  "version": "1.0.0",
+  "author": "coingecko",
+  "homepage": "https://github.com/coingecko/coingecko-cli",
+  "skills": []
+}
