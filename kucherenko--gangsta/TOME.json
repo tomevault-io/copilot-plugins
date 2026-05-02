@@ -4,7 +4,7 @@
   "repo": "gangsta",
   "description": "AI agentic skills framework for spec-driven development, built on the organizational model of mafia.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kucherenko/gangsta",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T03:31:47Z"
+  "distributed_at": "2026-05-02T22:09:14Z"
 }
