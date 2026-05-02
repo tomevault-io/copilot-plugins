@@ -1,0 +1,9 @@
+{
+  "name": "kcowger--commcare-forge",
+  "displayName": "commcare-forge",
+  "description": "AI-powered desktop app for generating CommCare applications from natural language or uploaded documents",
+  "version": "1.0.0",
+  "author": "kcowger",
+  "homepage": "https://github.com/kcowger/commcare-forge",
+  "skills": []
+}
