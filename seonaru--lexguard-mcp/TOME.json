@@ -1,0 +1,44 @@
+{
+  "name": "lexguard-mcp",
+  "owner": "SeoNaRu",
+  "repo": "lexguard-mcp",
+  "description": "\uc77c\ubc18\uc778\ub4e4\uc774 AI\ub97c \ud1b5\ud574 \ubc95\ub960 \uc815\ubcf4\ub97c \uc27d\uac8c \uc870\ud68c\ud560 \uc218 \uc788\ub294 MCP \uc11c\ubc84. \ubc95\ub839 \uac80\uc0c9, \uc870\ubb38 \uc870\ud68c, \ud310\ub840 \uac80\uc0c9 \ub4f1 159\uac1c API \uc9c0\uc6d0.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SeoNaRu/lexguard-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T04:18:55Z"
+}
