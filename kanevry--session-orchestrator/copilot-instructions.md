@@ -1,172 +1,130 @@
-## 010-session-workflow
+## 020-quality-gates
 
-> When the user types /session, starts a development session, types /go to execute, or /close to end a session
+> When running quality checks — typecheck, test, lint — during development or session execution
 
 
-# Session Workflow
+# Quality Gates
 
-Three-phase workflow: Start -> Execute -> Close.
+Four quality gate variants for different session phases. Commands are read from Session Config in `CLAUDE.md` (field defaults shown below).
 
-## Phase 1: Session Start (`/session [type]`)
+## Config Fields
 
-Session types:
-- **housekeeping** — git cleanup, docs, CI health, dependency updates
-- **feature** — implementation of issues/features
-- **deep** — thorough work requiring extended focus
+| Field | Default | Notes |
+|-------|---------|-------|
+| `test-command` | `pnpm test --run` | Set to `skip` to disable |
+| `typecheck-command` | `tsgo --noEmit` | Set to `skip` to disable |
+| `lint-command` | `pnpm lint` | Set to `skip` to disable |
 
-### Step 1: Read Session Config
+## Variant 1: Baseline
 
-Parse `## Session Config` from project's `CLAUDE.md`. Store as `$CONFIG`.
-
-### Step 2: Session Continuity
-
-If `persistence` is enabled, check `.cursor/STATE.md`:
-- `status: active` — crashed session. Ask: "Found unfinished session. Resume or start fresh?"
-- `status: paused` — intentional pause. Offer to resume or start fresh.
-- `status: completed` — note summary for context, continue normally.
-- Missing — first session, continue normally.
-
-### Step 3: Git Analysis
-
-Run in parallel:
-```bash
-# Branch state
-git branch -a && git log --oneline -20
-
-# Unpushed/uncommitted work
-git status --short
-git log origin/main..HEAD --oneline
-
-# Stale branches (no commits in 7+ days)
-git for-each-ref --sort=-committerdate --format='%(refname:short) %(committerdate:relative)' refs/heads/
-```
-
-### Step 4: VCS Deep Dive
-
-Query open issues, recent closures, milestones, MRs/PRs, CI status:
-```bash
-# GitLab
-glab issue list --per-page 50
-glab issue list --closed --per-page 10
-glab mr list --per-page 20
-
-# GitHub
-gh issue list --limit 50
-gh pr list --limit 20
-```
-
-Group issues by priority (critical/high first) and session-type relevance.
-
-### Step 5: Environment Check
+**When**: Session start (Phase 3)
+**Purpose**: Quick health check — non-blocking.
 
 ```bash
-# Quality baseline (non-blocking)
 {typecheck-command} 2>&1 | tail -5
 {test-command} 2>&1 | tail -5
 ```
 
-Check SSOT file freshness. Flag files older than 5 days.
+- Report results but do NOT block the session
+- Store error counts as the session baseline for later comparison
 
-**Plugin freshness**: Check the session-orchestrator plugin's last commit date. If older than `plugin-freshness-days` (default: 30) days, flag a non-blocking warning in the overview.
+## Variant 2: Incremental
 
-### Step 5.5: Pattern Recognition
-
-Look across gathered data for:
-- **Blocking chains**: issues blocked by other issues
-- **Quick wins**: low-effort issues closable alongside main work
-- **Synergies**: issues sharing code paths that can be combined
-
-### Step 5.6: Memory Recall
-
-> Skip if `persistence` is `false`.
-
-1. Look for session memory files at `~/.claude/projects/<project>/memory/session-*.md`
-2. Read the 2–3 most recent files (newest first)
-3. Extract: accomplishments, carryovers, patterns or warnings
-4. Surface under **Previous Sessions** in the overview
-
-### Step 5.7: Project Intelligence
-
-> Skip if `persistence` is `false` or `learnings.jsonl` does not exist.
-
-Read `.orchestrator/metrics/learnings.jsonl` and surface active learnings (confidence > 0.3, not expired):
-- Fragile files, effective sizing, recurring issues, scope guidance
-- Config field: `learning-expiry-days` (default: 30) controls expiry window
-
-**Effectiveness analysis** (requires 5+ sessions in `sessions.jsonl`):
-- Completion rate trend, discovery probe value, carryover pattern
-- If fewer than 5 sessions: "Effectiveness analysis: not enough data yet ([N]/5 sessions)."
-
-### Step 7: Present Findings
-
-Present a structured Session Overview with:
-- Git state summary
-- Issue recommendations (grouped by priority)
-- Quality baseline results
-- Previous sessions context (if available)
-- Project intelligence insights (learnings + effectiveness if 5+ sessions)
-- Recommended focus areas
-
-On Cursor, present scope confirmation as a numbered Markdown list (no AskUserQuestion tool). Ask the user to confirm scope before proceeding.
-
----
-
-## Phase 2: Session Execution (`/go`)
-
-### Step 1: Create Wave Plan
-
-Distribute tasks across waves (see `030-wave-execution.mdc` for full details on roles, scope manifests, and quality checks).
-
-### Step 2: Execute Sequentially
-
-On Cursor, execute all tasks one by one (no parallel agents). For each task:
-1. State what you are doing and which wave/role it belongs to
-2. Execute the task fully
-3. Report status with checklist update
-4. Run incremental quality checks after implementation waves
-5. Move to next task
-
-### Step 3: Update STATE.md
-
-If persistence is enabled, update `.cursor/STATE.md` after each wave with wave status, files changed, and quality check results.
-
----
-
-## Phase 3: Session End (`/close`)
-
-### Step 1: Plan Verification
-
-For each planned item:
-- **Done**: Verify with `git diff`, confirm acceptance criteria met
-- **Partially done**: Create carryover issue with `[Carryover]` prefix
-- **Not started**: Document why, ensure issue stays open
-- **Emergent work**: Document unplanned tasks that were completed
-
-### Step 2: Full Quality Gate (BLOCKING)
+**When**: After implementation waves (Impl-Core, Impl-Polish)
+**Purpose**: Verify implementation did not break anything.
 
 ```bash
-# All must pass before committing
-{typecheck-command}    # 0 errors required
-{test-command}         # exit code 0 required
-{lint-command}         # errors NOT OK, warnings OK
+# Run tests on changed files only
+{test-command} -- <changed-test-files>
 
-# Check for debug artifacts
-grep -rn 'console\.log\|debugger\|TODO: remove' --include='*.ts' --include='*.tsx' src/
+# Full typecheck (always full — partial typecheck is unreliable)
+{typecheck-command}
 ```
 
-Do NOT commit if any check fails. Fix quick issues (<2 min) inline. For longer fixes, create a `priority:high` issue.
+- Report failures but do NOT block wave progression
+- If issues found, add fix tasks to the next wave automatically
 
-### Step 3: Commit and Push
+## Variant 3: Full Gate
 
-Stage specific files, commit with Conventional Commit format, push to origin. Mirror to GitHub if configured.
+**When**: Session end (Phase 2) — before committing
+**Purpose**: Final quality gate — BLOCKING.
 
-### Step 4: Session Metrics
+```bash
+# 1. Typecheck — must produce 0 errors
+{typecheck-command}
 
-If persistence is enabled, append session metrics to `.orchestrator/metrics/sessions.jsonl` with `"platform": "cursor"`. Include: session_id, session_type, timestamps, wave/file counts, and effectiveness stats (planned/completed/carryover/completion_rate).
+# 2. Tests — must pass (exit code 0)
+{test-command}
 
-### Step 5: Cleanup
+# 3. Lint — errors NOT OK, warnings OK
+{lint-command}
 
-Remove `.cursor/wave-scope.json` and update `.cursor/STATE.md` with `status: completed`.
+# 4. Debug artifact scan
+grep -rn 'console\.log\|debugger\|TODO: remove' \
+  --include='*.ts' --include='*.tsx' --include='*.js' \
+  src/ lib/ 2>/dev/null || true
+```
+
+**Rules**:
+- Do NOT commit if any check fails
+- Fix quick issues (<2 min) inline
+- For longer fixes: create a `priority:high` issue and exclude affected files from commit
+
+## Variant 4: Per-File
+
+**When**: Session review (reviewer agent)
+**Purpose**: Targeted check on specific changed files.
+
+```bash
+# Run tests for specific files
+{test-command} -- <specific-file-paths>
+
+# Full typecheck
+{typecheck-command}
+```
+
+- Report per-file pass/fail status
+- Used by reviewers to annotate findings
+
+## Decision Table
+
+| Phase | Variant | Blocking? | Scope |
+|-------|---------|-----------|-------|
+| Session start | Baseline | No | Quick health check |
+| After impl wave | Incremental | No | Changed files + full typecheck |
+| Before commit (/close) | Full Gate | **Yes** | All checks, all files |
+| Review | Per-File | No | Specific files |
+
+## Graceful Degradation
+
+Handle missing tools without failing:
+
+- `command not found` for typecheck → skip, note "No TypeScript configured"
+- `command not found` for test → skip, note "No test runner configured"
+- `command not found` for lint → skip, note "No linter configured"
+- Non-TypeScript projects: set `typecheck-command: skip` in Session Config
+
+Always continue with remaining checks — never abort because one tool is missing.
+
+## Script Alternative
+
+If the Session Orchestrator plugin is installed, prefer the script for structured JSON output:
+
+```bash
+# Baseline
+bash "$SO_PLUGIN_ROOT/scripts/run-quality-gate.sh" --variant baseline
+
+# Incremental
+bash "$SO_PLUGIN_ROOT/scripts/run-quality-gate.sh" --variant incremental --files file1.ts,file2.ts
+
+# Full Gate
+bash "$SO_PLUGIN_ROOT/scripts/run-quality-gate.sh" --variant full-gate
+
+# Per-File
+bash "$SO_PLUGIN_ROOT/scripts/run-quality-gate.sh" --variant per-file --files specific-file.ts
+```
+
+Exit codes: 0=pass, 1=error, 2=gate-failed.
 
 ---
 > Source: [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — distributed by [TomeVault](https://tomevault.io).
