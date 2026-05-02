@@ -1,155 +1,173 @@
-## commit-flow
+## deploy
 
-> cutcli-cookbook 提交流程：commit message 风格、PR 流程、CI 通过线、分支保护
+> cutcli-cookbook 部署 — R2 + Worker 流程、CF API Token 权限、回滚、监控
 
 
-# 提交流程
+# 部署架构与流程
 
-## 提交前自检（必跑）
+## 资源拓扑
 
-```bash
-npm run lint            # cases + commands + links 全过
-npm run docs:build      # VitePress 构建无错
+```mermaid
+flowchart LR
+  user[Browser] -->|"https://docs.cutcli.com/*"| dns[Cloudflare DNS]
+  dns -->|"proxied A 192.0.2.1"| route[Worker Route]
+  route -->|"docs.cutcli.com/*"| worker[Worker docs-cutcli]
+  worker -->|"R2 binding DOCS"| r2[(R2 cutcli-docs)]
 ```
 
-如果改动了案例：
+## 资源清单
 
-```bash
-node scripts/validate-example.mjs examples/<your-case>
-bash examples/<your-case>/run.sh    # 真跑一遍，剪映打开验证
-```
-
-如果改动了 Worker：
-
-```bash
-cd worker && npx tsc --noEmit       # type-check
-cd worker && npx wrangler dev       # 本地起测一下
-```
-
-## Conventional Commits
-
-格式：
-
-```text
-<type>(<scope>): <subject>
-
-[可选正文]
-
-[可选 footer，如 BREAKING CHANGE / Closes #123]
-```
-
-| type | 用途 |
+| 资源 | 标识 |
 |---|---|
-| `feat` | 新功能、新案例、新模板 |
-| `fix` | bug 修复 |
-| `docs` | 文档变更（含 README、guide、cookbook） |
-| `chore` | 构建脚本、依赖升级、CI、配置 |
-| `refactor` | 重构、不影响行为 |
-| `test` | 测试代码 |
-| `style` | 仅格式调整 |
+| R2 bucket | `cutcli-docs`（专放 VitePress build 产物） |
+| Worker | `docs-cutcli`（src 在本仓 `worker/`） |
+| Worker route | `docs.cutcli.com/*` + `docs.cutcli.com` |
+| DNS 记录 | `docs.cutcli.com` A 192.0.2.1 (proxied) |
+| Cloudflare account | `xuliang2022@gmail.com` (id `11c47779f0d4c3d0e69ccc6c484dc589`) |
+| Zone | `cutcli.com` (zone id `064059cb21d36956c11381995b964467`) |
 
-scope 推荐：`examples` / `templates` / `prompts` / `docs` / `worker` / `scripts` / `ci` / `release`
+## 路径解析（worker 行为）
 
-例子：
+`worker/src/index.ts` 收到请求时按下面顺序解析 R2 key：
+
+1. `/`             → `index.html`
+2. `/foo/`         → `foo/index.html`
+3. `/foo/bar.html` → `foo/bar.html` （直接命中）
+4. `/foo/bar`（无扩展名）→ 依次试 `foo/bar.html` → `foo/bar/index.html`
+5. 都不命中       → 返回 R2 中的 `404.html`，HTTP 404
+
+## 缓存策略
+
+| 路径 | Cache-Control |
+|---|---|
+| `assets/<hash>.{js,css}` | `public, max-age=31536000, immutable` (VitePress 文件名带 hash，安全) |
+| 其他（含 `.html`） | `public, max-age=3600, must-revalidate` |
+
+## 本地部署
+
+```bash
+# 一键
+npm run deploy
+
+# 等价于
+npm run docs:build      # vitepress build → docs/.vitepress/dist
+npm run r2:upload       # 增量上传，仅 etag 变化的文件 (~10s)
+npm run worker:deploy   # 仅 worker 改动时需要
+```
+
+`r2:upload` 用并发 6 路调用 `worker/node_modules/.bin/wrangler`，跳过 md5 相同的文件。设置 `UPLOAD_CONCURRENCY=8` 可提速。
+
+## CI 部署（推荐）
+
+合并到 `main` 后，`.github/workflows/deploy-docs.yml` 自动跑：
 
 ```text
-feat(examples): add 06-cinematic-title with bouncy text
-fix(worker): handle trailing slash in path resolution
-docs(guide): translate first-draft.md to English
-chore(ci): bump cloudflare/wrangler-action to v3.5
-refactor(scripts): extract walk() into _lib
+checkout
+  → setup-node v22
+  → npm ci (root + worker)
+  → npm run docs:build
+  → node scripts/upload-r2.mjs        # 增量上传
+  → cloudflare/wrangler-action@v3 deploy worker (仅 worker 有改动时)
+  → smoke test (curl 5 个关键路径)
 ```
 
-## PR 流程
+触发条件（`paths`）：
 
-1. **Fork 或创建分支**
-   ```bash
-   git checkout -b feat/my-case
-   ```
-2. **改动 + 自检**（见上文）
-3. **Push 到 origin**
-   ```bash
-   git push -u origin feat/my-case
-   ```
-4. **开 PR**
-   ```bash
-   gh pr create --title "feat(examples): add my-case" --body-file <(cat <<'EOF'
-   ## 这个 PR 做了什么？
-   ...
-   ## 自检
-   - [x] npm run lint 通过
-   - [x] bash examples/my-case/run.sh 本地跑成功
-   - [x] preview.gif 已加（≤3 MB）
-   EOF
-   )
-   ```
-5. **等 CI 绿**（约 1-2 分钟）
-6. **等 review**：默认要 1 个 approve
+- `docs/**`
+- `worker/**`
+- `scripts/upload-r2.mjs`
+- `package.json` / `package-lock.json`
+- `.github/workflows/deploy-docs.yml`
 
-## CI 必过线
+也可手动 `gh workflow run deploy-docs.yml`。
 
-PR 必须满足：
+## CF API Token 权限
 
-| 检查 | workflow | 任务 |
-|---|---|---|
-| Lint | `ci.yml` | `npm run lint:cases / lint:cmds / lint:links` |
-| 文档构建 | `ci.yml` | `npm run docs:build` |
-| Worker 类型检查 | `ci.yml` | `cd worker && npx tsc --noEmit` |
+GitHub Secrets 必须配：
 
-合并到 `main` 后还会自动跑：
+| Secret | 用途 |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | wrangler 鉴权 |
+| `CLOUDFLARE_ACCOUNT_ID` | `11c47779f0d4c3d0e69ccc6c484dc589` |
 
-| Workflow | 触发 | 内容 |
-|---|---|---|
-| `deploy-docs.yml` | push 到 main 且改了 `docs/` 或 `worker/` | build + R2 上传 + worker deploy + smoke test |
-| `scheduled-cases-test.yml` | 每天 02:00 UTC+8 | 跑全部案例校验，失败自动开 issue |
+Token 推荐**最小权限**（不要用 Global API Key）：
 
-## 分支保护
+- Account → Workers Scripts → Edit
+- Account → Workers R2 Storage → Edit
+- Zone → Workers Routes → Edit (resource: `cutcli.com`)
+- Zone → DNS → Edit (resource: `cutcli.com`，仅首次绑域名时需要)
 
-`main` 启用以下保护（首次部署后由维护者一次性设置）：
+## 监控
 
 ```bash
-gh api repos/xuliang2024/cutcli-cookbook/branches/main/protection \
-  --method PUT \
-  --field required_status_checks[strict]=true \
-  --field required_status_checks[contexts][]='Lint (cases + commands + links)' \
-  --field required_status_checks[contexts][]='VitePress build' \
-  --field enforce_admins=false \
-  --field required_pull_request_reviews[required_approving_review_count]=1 \
-  --field restrictions=null
+# 实时 worker 日志
+cd worker && npx wrangler tail
+
+# 查 7 日错误率（目标 < 0.1%）
+# Cloudflare Dashboard → Workers & Pages → docs-cutcli → Logs / Analytics
 ```
 
-## 不要做的事
+`scheduled-cases-test.yml` 每晚跑案例校验，失败自动开 issue。
 
-- ❌ 直接编辑 `docs/reference/cli.md` / `api.md` / `concepts.md`（由同步脚本生成）
-- ❌ 引用 `cut <subcommand>` 命令名（用 `cutcli`）
-- ❌ 提交 `.env` 文件或任何含 token / cookie 的内容
-- ❌ 把私有 CDN 链接（带 query token）写进 case
-- ❌ 提交 > 3 MB 的 preview.gif（会被 CI 警告）
-- ❌ 跨用例修改超过 5 个文件 — 请拆成多个 PR
+## 回滚
 
-## 应急回滚
+### 文档内容回滚（最常见）
 
 ```bash
-# 上一个 commit 出 bug，但已 push 到 main
+# 回滚到上一个 commit
 git revert HEAD
 git push
 
-# CI deploy-docs 自动重跑，约 1 分钟内 docs.cutcli.com 回到旧版本
+# CI 自动重跑 deploy-docs，约 1 分钟内全球 R2 + worker 边缘节点同步完
 ```
 
-## 闭源同步配套
-
-如果改动了闭源 `jy_cli/docs/cli.md` 等需要传到公开仓：
+### Worker 回滚
 
 ```bash
-cd /Users/m007/codes/jy_cli
-node scripts/sync-to-cookbook.mjs
-
-cd /Users/m007/codes/cutcli-cookbook
-git status -s docs/reference/    # 看是哪些文件变了
-git add docs/reference && git commit -m "docs(sync): sync from jy_cli@<short-sha>"
-git push
+# Cloudflare Dashboard → Workers & Pages → docs-cutcli → Deployments
+# 选上一版本 → Rollback
 ```
+
+或用 wrangler：
+
+```bash
+cd worker
+npx wrangler deployments list
+npx wrangler rollback --version-id <previous-id>
+```
+
+### R2 整体回滚（极端情况）
+
+R2 没有自动版本控制；需要从最近一次成功的 build 重新上传：
+
+```bash
+git checkout <good-sha>
+npm run docs:build && npm run r2:upload
+# 再 git checkout main 回到当前
+```
+
+## 周级 GC（清孤儿）
+
+VitePress 每次 build 会生成新的 `assets/<hash>.{js,css}`，旧的会留在 R2。每周一次清理：
+
+```bash
+CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN \
+CLOUDFLARE_ACCOUNT_ID=11c47779f0d4c3d0e69ccc6c484dc589 \
+node scripts/r2-gc.mjs --dry-run    # 预览要删什么
+node scripts/r2-gc.mjs --yes         # 实际删
+```
+
+## 首次部署 checklist（参考 .github/RELEASE_GUIDE.md）
+
+- [x] R2 bucket `cutcli-docs` 已建
+- [x] Worker `docs-cutcli` 已部署
+- [x] DNS `docs.cutcli.com` A 192.0.2.1 proxied
+- [x] Worker routes 已绑
+- [x] GitHub repo 已创建并 push
+- [x] GitHub secrets 已配
+- [x] CI / Deploy 跑过一次全绿
+- [ ] `main` 分支保护（待开）
+- [ ] 90s demo 视频（待人手）
 
 ---
 > Source: [xuliang2024/cutcli-cookbook](https://github.com/xuliang2024/cutcli-cookbook) — distributed by [TomeVault](https://tomevault.io).
