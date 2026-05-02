@@ -1,0 +1,75 @@
+{
+  "name": "agentfill",
+  "owner": "nevir",
+  "repo": "agentfill",
+  "description": "A \"polyfill\" that standardizes and centralizes AGENTS.md configuration and Agent Skills support within your repository.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "global-magic-skill",
+      "path": "tests/agents/global-skills/global/.agents/skills/global-magic-skill",
+      "github_url": "https://github.com/nevir/agentfill/tree/main/tests/agents/global-skills/global/.agents/skills/global-magic-skill",
+      "description": ""
+    },
+    {
+      "name": "magic-skill",
+      "path": "tests/agents/skills-support/sandbox/.agents/skills/magic-skill",
+      "github_url": "https://github.com/nevir/agentfill/tree/main/tests/agents/skills-support/sandbox/.agents/skills/magic-skill",
+      "description": ""
+    },
+    {
+      "name": "markdown-style",
+      "path": ".agents/skills/markdown-style",
+      "github_url": "https://github.com/nevir/agentfill/tree/main/.agents/skills/markdown-style",
+      "description": ""
+    },
+    {
+      "name": "shell-style",
+      "path": ".agents/skills/shell-style",
+      "github_url": "https://github.com/nevir/agentfill/tree/main/.agents/skills/shell-style",
+      "description": ""
+    },
+    {
+      "name": "skill",
+      "path": ".agents/skills/skill",
+      "github_url": "https://github.com/nevir/agentfill/tree/main/.agents/skills/skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nevir/agentfill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:47:16Z"
+}
