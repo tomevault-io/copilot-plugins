@@ -1,0 +1,44 @@
+{
+  "name": "AMP_Running_baseline",
+  "owner": "Jiarui-Xie",
+  "repo": "AMP_Running_baseline",
+  "description": "Locomotion training codebase for Unitree G1 competing in the 2026 Beijing Yizhuang Half Marathon Robot Race. Built on Isaac Lab with Adversarial Motion     Priors (AMP), motion imitation, and hardware-ready deployment.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jiarui-Xie/AMP_Running_baseline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T22:35:30Z"
+}
