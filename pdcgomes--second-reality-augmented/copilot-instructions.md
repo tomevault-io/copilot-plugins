@@ -1,34 +1,82 @@
-## readme-maintenance
+## remastered-docs
 
-> Update `README.md` whenever any of the following changes:
+> Create and maintain remastered effect documentation whenever a remastered variant is completed or refined
 
-# README Maintenance
+
+# Remastered Effect Documentation
+
+## When to Create
+
+After completing a new remastered effect variant (`effect.remastered.js`), create a companion document at:
+
+```
+docs/effects/{NN}-{effect-name}-remastered.md
+```
+
+where `{NN}` matches the part number of the classic doc (e.g., `06-glenz-3d-remastered.md`).
 
 ## When to Update
 
-Update `README.md` whenever any of the following changes:
+Update the remastered doc whenever:
 
-- A new classic effect is completed (update the progress table)
-- A new remastered effect is completed (update the progress table and Remastered Effects section)
-- A new learning guide is added to `docs/learning/` (update the Learning Guides section)
-- A new design doc is added to `docs/effects/` (update the Design Documents table)
-- A new pattern doc is added to `docs/patterns/` (update the Additional docs table)
-- The project structure changes meaningfully (new top-level directories, new tools)
-- A bonus effect is added (update the Bonus Effects list)
+- The remastered effect's rendering pipeline changes (new passes, different shader approach)
+- Parameters are added, removed, or their ranges change
+- Beat reactivity behavior is modified
+- New post-processing stages are added
+- Items move from "not yet implemented" to implemented
+- The implementation checklist changes status
 
-## What to Keep in Sync
+## Required Sections
 
-1. **Progress table** — the Classic/Remastered columns must reflect the actual state of `src/effects/`
-2. **Remastered Effects section** — list each completed remastered variant with its key techniques
-3. **Learning Guides section** — full table of contents for every guide in `docs/learning/`
-4. **Design Documents table** — one row per doc in `docs/effects/` and `docs/patterns/`
-5. **Bonus Effects list** — all non-original-demo effects
+Every remastered doc must include these sections:
 
-## What NOT to Change
+### Header
 
-- Do not update the README for minor internal refactors, test additions, or rule changes
-- Do not add work-in-progress items — only reflect completed work
-- Do not duplicate content from TRACKER.md — the README is a polished public-facing summary
+```markdown
+# Part {N} — {NAME} Remastered: {Short Description}
+
+**Status:** Complete | In progress
+**Source file:** `src/effects/{name}/effect.remastered.js`
+**Shared animation:** `src/effects/{name}/animation.js`
+**Classic doc:** [{NN}-{effect-name}.md]({NN}-{effect-name}.md)
+```
+
+### Sections Checklist
+
+1. **Overview** — What the remastered variant does differently, with a comparison table vs classic
+2. **Architecture** — Mermaid diagram showing module relationships (shared animation, data, core)
+3. **Rendering Pipeline** — Mermaid flowchart of the per-frame render passes with a table of pass details (program, target FBO, resolution)
+4. **Lighting/Shading Model** — How surfaces are lit (if applicable), with shader component breakdown
+5. **Post-Processing** — Bloom pipeline, trails, or other full-screen effects
+6. **Beat Reactivity** — Table of beat-driven effects with formulas
+7. **Editor Parameters** — Full table of the exported `params` array (key, label, range, default, description)
+8. **Shader Programs** — Table listing each program, its vertex/fragment shaders, and purpose
+9. **GPU Resources** — Summary of allocated GL objects (programs, VAOs, textures, FBOs)
+10. **What Changed From Classic** — Side-by-side table of classic vs remastered approach per aspect
+11. **Remaining Ideas** — Unimplemented ideas from the classic doc's "Remastered Ideas" section
+12. **References** — Links to classic doc, shared animation module, remastered rule
+
+For effects still in progress, also include:
+
+13. **Implementation Checklist** — Checkbox list tracking what is done vs pending
+
+## Diagram Conventions
+
+Use Mermaid diagrams for:
+
+- **Module dependency graphs**: `graph LR` showing how animation.js, data.js, core/webgl.js connect to the effect
+- **Rendering pipeline flowcharts**: `flowchart TD` showing the sequence of render passes, FBO targets, and data flow
+- **Shading model graphs**: `graph LR/TD` showing how shader inputs combine to produce the final color
+
+Keep diagrams focused — one concept per diagram. Use subgraphs to group related passes.
+
+## Style
+
+- Match the tone and depth of the classic effect docs
+- Focus on the *how* and *why* of technical decisions, not just *what*
+- Include formulas for lighting, beat curves, and blending when they clarify behavior
+- Use tables for structured comparisons and parameter listings
+- Link back to the classic doc for shared details (geometry, timeline, physics) rather than duplicating them
 
 ---
 > Source: [pdcgomes/second-reality-augmented](https://github.com/pdcgomes/second-reality-augmented) — distributed by [TomeVault](https://tomevault.io).
