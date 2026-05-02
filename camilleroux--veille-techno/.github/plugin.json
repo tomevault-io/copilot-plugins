@@ -1,0 +1,9 @@
+{
+  "name": "camilleroux--veille-techno",
+  "displayName": "veille-techno",
+  "description": "Skill Claude Code de veille tech francophone. Agr\u00e8ge les flux RSS (Journal du Hacker, Human Coders News\u2026) et produit un r\u00e9cap tri\u00e9 par jour. Z\u00e9ro d\u00e9pendance.",
+  "version": "1.0.0",
+  "author": "camilleroux",
+  "homepage": "https://github.com/camilleroux/veille-techno",
+  "skills": []
+}
