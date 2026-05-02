@@ -1,221 +1,121 @@
-## example-spec
+## open-source-boundary
 
-> 案例规范 — 改动 examples/** 时必须遵守的目录结构、字段、章节
+> 开源 / 闭源边界 — 禁止从闭源仓 jy_cli 复制源码到本仓的安全铁律
 
 
-# 案例规范（examples/**）
+# 开源 / 闭源边界（安全关键）
 
-> 改动任何 `examples/<id>-<slug>/` 都要遵守。CI 会用 `scripts/validate-example.mjs` 校验。
+> ⚠ 这是本仓**最重要**的安全约束。违反任何一条都可能泄露 cutcli 闭源核心代码。
 
-## 目录结构
+## 仓库定位
+
+| 仓 | 路径 | 状态 |
+|---|---|---|
+| `cutcli-cookbook`（本仓） | `/Users/m007/codes/cutcli-cookbook/` | **公开** GitHub: <https://github.com/xuliang2024/cutcli-cookbook> |
+| `jy_cli` | `/Users/m007/codes/jy_cli/` | **闭源** 私有，不得泄露 |
+
+## 四条铁律
+
+### 1. 公开仓**永远不出现**这些路径的内容
+
+| 闭源路径 | 包含的敏感内容 |
+|---|---|
+| `jy_cli/src/` | TypeScript 源码、API 实现、内部模型 |
+| `jy_cli/dist/` | 编译产物 |
+| `jy_cli/binaries/` | 各平台二进制 |
+| `jy_cli/worker/` | cutcli.com 的 worker 实现 |
+| `jy_cli/scripts/build-*.sh` | 构建脚本 |
+| `jy_cli/.env` | 任何 .env 内容 |
+
+> ✅ 公开仓**自己**的 `worker/`（即 `cutcli-cookbook/worker/`）是 docs.cutcli.com 的反向代理，开源是合理的，不属于禁区。
+
+### 2. 案例只调用**公开 CLI 命令** `cutcli xxx`
+
+- ✅ 允许：`cutcli draft create`、`cutcli captions add ...`
+- ❌ 禁止：`import { addCaptions } from 'cut_cli/api/...'`
+- ❌ 禁止：访问 `~/.cut_cli/` 内部数据
+- ❌ 禁止：直接读写剪映草稿 JSON 字段
+
+### 3. 闭源 → 公开的内容流动**只有一条路径**
 
 ```text
-examples/<id>-<slug>/
-├── README.md         # 必填：英文版（5 段，英文 H2 标题）
-├── README.zh.md      # 必填：中文版（5 段，中文 H2 标题）
-├── run.sh            # 必填：可执行 + set -euo pipefail
-├── meta.json         # 必填：通过 schema 校验
-├── data/             # 复杂 JSON 拆这里
-│   ├── captions.json
-│   ├── images.json
-│   └── ...
-└── preview.gif       # 推荐：≤ 3 MB，3-8s
+jy_cli/docs/cli.md, api.md, README.md          (中文源)
+jy_cli/docs/cli.en.md, api.en.md, README.en.md (英文源；TODO 待补)
+            ↓
+jy_cli/scripts/sync-to-cookbook.mjs (单向 + sanitizer + 双输出)
+            ↓
+cutcli-cookbook/docs/reference/{cli,api,concepts}.md      ← 英文
+cutcli-cookbook/docs/zh/reference/{cli,api,concepts}.md   ← 中文
 ```
 
-## 命名规则
+详见 `jy_cli/scripts/sync.config.json`。所有同步都过：
 
-- `<id>` 范围：
-  - `01~09` = P0 入门案例（官方维护）
-  - `10~19` = 营销 / 产品类
-  - `20~29` = 知识 / 教育类
-  - `30~39` = Vlog / 个人类
-  - `99-community/<github-handle>/<case>/` = 社区贡献区
-- `<slug>` 用 kebab-case，如 `hello-caption`、`product-promo-30s`
+- `stripBlocks`：删除 `<!-- internal -->...<!-- /internal -->` 段落
+- `stripBlocks`：删除 `<!-- TODO-internal: ... -->` 单行
+- `replacements`：`cut <subcommand>` → `cutcli <subcommand>`
+- `replacements`：`npm install -g cut_cli` → `curl -s https://cutcli.com/cli | bash`
 
-## meta.json schema
+#### 当前过渡态（cookbook 仓 i18n 已上线、闭源 sync 待升级）
 
-```json
-{
-  "id": "01-hello-caption",
-  "title": "Hello Caption",
-  "tags": ["captions", "animation"],
-  "author": "your-github-handle",
-  "duration": 5,
-  "resolution": "1080x1920",
-  "gif": "preview.gif",
-  "description": "一句话描述",
-  "level": 1
-}
-```
+闭源 sync 脚本目前**只有中文输出**。在它升级成双输出之前，本仓采取保底措施：
 
-字段约束（详见 `scripts/_lib/example-schema.mjs`）：
+- `docs/reference/{cli,api,concepts}.md`：暂时仍是中文，等闭源仓产出英文源后由 sync 覆盖
+- `docs/zh/reference/{cli,api,concepts}.md`：直接是中文（PR 1 时从 root 复制过来）
+- `scripts/check-i18n-pairs.mjs` 把这三个文件加入 `SYNC_GENERATED` 白名单，跳过强制成对
 
-| 字段 | 类型 | 约束 |
-|---|---|---|
-| `id` | string | `^[a-z0-9][a-z0-9-]*$` |
-| `tags` | string[] | 至少 1 个 |
-| `duration` | number | > 0 |
-| `resolution` | string | `^[0-9]+x[0-9]+$` |
-| `level` | int | 1-5（推荐难度） |
+闭源仓升级后：
 
-## README.md（英文）+ README.zh.md（中文）必有 5 个 H2 章节
+1. `jy_cli/docs/` 增加 `cli.en.md` / `api.en.md` / `README.en.md` 三份英文源
+2. `jy_cli/scripts/sync-to-cookbook.mjs` 改成双输出，sync.test.mjs 增加双语用例
+3. 跑 `node scripts/sync-to-cookbook.mjs` 同时覆盖 cookbook 的 root 与 zh
+4. 公开仓侧：把 `SYNC_GENERATED` 白名单从 `check-i18n-pairs.mjs` 移除（双语都强制存在）
 
-主 `README.md` 必须用英文章节（CI 严格匹配）：
+### 4. 命令名严格用 `cutcli`，不是 `cut`
 
-```markdown
-## When to use
+`cut` 是 Unix 系统命令，混用会让用户复制即报错。CI 里 `scripts/check-command-name.mjs` grep 出现 `cut <draft|captions|...>` 即 fail。
 
-## Run it
+## 加内容前必查
 
-## Key parameters
+写或修改任何文件前，问自己：
 
-## Customize
+- [ ] 我添加的代码 / 文档**只**用了 cutcli 的公开 CLI 接口吗？
+- [ ] 我引用的素材 URL 在 `CONTRIBUTING.md` 的白名单里吗？
+- [ ] 我的命令示例都是 `cutcli` 而非 `cut` 吗？
+- [ ] 我没有意外贴上 `~/.cut_cli/`、`/Users/m007/codes/jy_cli/` 等本地路径吗？
+- [ ] 我没有暴露任何 token、cookie、密钥吗？
 
-## cutcli features used
-```
+如果对答案有任何不确定，**停下问维护者**，不要盲目提交。
 
-如果存在 `README.zh.md`（强烈推荐 + `lint:i18n` 强制成对），中文章节必须是：
+## CI 防线
 
-```markdown
-## 适用场景
-
-## 一行运行
-
-## 关键参数解释
-
-## 进阶改造
-
-## 用到的 cutcli 能力
-```
-
-第一段必须包含 `![preview](preview.gif)`（即使 gif 还没录，也要占位）。两个 README 顶部都要有双语切换链接：
-
-```markdown
-[English](README.md) · [简体中文](README.zh.md)
-```
-
-## run.sh 必有要素
-
-```bash
-#!/usr/bin/env bash
-# <id>: <一句话描述>
-# Usage: bash run.sh
-set -euo pipefail
-
-if ! command -v cutcli >/dev/null 2>&1; then
-  echo "cutcli not found. Install: curl -s https://cutcli.com/cli | bash" >&2
-  exit 1
-fi
-if ! command -v jq >/dev/null 2>&1; then
-  echo "jq not found." >&2
-  exit 1
-fi
-
-HERE="$(cd "$(dirname "$0")" && pwd)"
-
-DRAFT_ID=$(cutcli draft create --width 1080 --height 1920 --name "<id>" | jq -r '.draftId')
-
-# ... 加内容
-cutcli captions add "$DRAFT_ID" --captions "@$HERE/data/captions.json" ...
-
-cutcli draft info "$DRAFT_ID" --pretty
-```
-
-要求：
-
-- 顶部 shebang `#!/usr/bin/env bash`
-- `set -euo pipefail`
-- 用 `cutcli`（不是 `cut`）
-- 用 `chmod +x run.sh`
-- 用 `@$HERE/data/file.json` 引用 JSON（不要内联在命令行里转义）
-- 输出关键变量给用户参考
-
-## 素材 URL 白名单
-
-`run.sh` 和 `data/*.json` 中的 URL 必须匹配以下之一：
-
-```regex
-^https://cutcli\.com/
-^https://[a-z0-9-]+\.r2\.dev/
-^https://[a-z0-9-]+\.r2\.cloudflarestorage\.com/
-^https://cdn\.jsdelivr\.net/
-^https://raw\.githubusercontent\.com/
-^https://[a-z0-9-]+\.githubusercontent\.com/
-```
-
-不允许：
-
-- `http://` 明文
-- 个人云盘 / OSS 私链
-- 带 query token 的临时签名 URL
-
-## 时间单位
-
-**所有时间字段都是微秒**：
-
-| 期望 | 写法 |
+| 检查 | 阻断 |
 |---|---|
-| 0.5 秒 | `500000` |
-| 3 秒 | `3000000` |
-| 30 秒 | `30000000` |
+| `scripts/check-command-name.mjs` | 公开仓出现裸 `cut <subcommand>` 即 fail |
+| `scripts/validate-example.mjs` | URL 不在白名单 / README 提及绝对本地路径，fail |
+| `.github/workflows/ci.yml` | 三个 lint 任何一个不过都不能 merge |
 
-错写毫秒（如 `3000` = 3ms）字幕只闪一帧。
+## 同步脚本边界
 
-## 关键帧的 segmentId 怎么拿
+`jy_cli/scripts/sync-to-cookbook.mjs`：
 
-`segmentId` 在 add 之前不存在。脚手架模式：
+- ✅ 输出**只**写 `../cutcli-cookbook/docs/reference/`，绝不碰其他目录
+- ✅ 默认 dry-run 友好；用 `--dry-run` 总能预览
+- ✅ 输出文件第一行有 `THIS FILE IS GENERATED ... DO NOT EDIT` 注释
+- ✅ 单元测试 `scripts/sync.test.mjs` 覆盖核心转换
 
-```bash
-# 1. 先 add 片段
-cutcli images add "$DRAFT_ID" --image-infos @data/images.json
+如果维护者改了同步脚本，**必须**先跑 `node scripts/sync.test.mjs` 确保 8/8 PASS。
 
-# 2. 用 list 拿回 segmentId
-SEG=$(cutcli images list "$DRAFT_ID" | jq -r '.[0].segmentId')
+## 如果不小心泄露了
 
-# 3. 用 jq 替换模板里的 __SEG_ID__
-KFS=$(jq --arg seg "$SEG" '[.[] | .segmentId = $seg]' "$HERE/data/keyframes.template.json")
+1. **立刻**停止 push
+2. 用 `git filter-repo` 或 BFG 清掉敏感 commit
+3. force push 覆盖远程历史
+4. 如已有 fork / clone，**默认这条信息已失守**，必须重新生成所有相关 secret / token
+5. 在 release 公告中说明（如果对用户有影响）
 
-# 4. add 关键帧
-cutcli keyframes add "$DRAFT_ID" --keyframes "$KFS"
-```
+## 报告漏洞
 
-参考 `examples/05-keyframe-zoom-in/run.sh`。
-
-## 校验
-
-提交前必跑：
-
-```bash
-node scripts/validate-example.mjs examples/<your-case>
-bash examples/<your-case>/run.sh    # 实际跑一遍，剪映打开看效果
-```
-
-校验项：
-
-- [ ] `run.sh` / `README.md` / `meta.json` 存在
-- [ ] `README.zh.md` 存在（`npm run lint:i18n` 强制中英成对）
-- [ ] `run.sh` chmod +x、有 shebang、有 `set -euo pipefail`
-- [ ] `meta.json` 通过 ajv schema（`description` 英文，可选 `description_zh` 中文）
-- [ ] `README.md` 5 个英文章节齐全；`README.zh.md` 5 个中文章节齐全
-- [ ] `data/*.json` 都是合法 JSON
-- [ ] 所有 URL 在白名单内
-- [ ] README 不含本地路径 `/Users/...`
-
-## 脚手架（推荐入口）
-
-```bash
-node scripts/new-example.mjs my-case-slug
-# 按提示输入 author / title / tags / duration / resolution / description
-# 自动生成 examples/99-community/<author>/my-case-slug/{README.md,README.zh.md,run.sh,meta.json,data/}
-```
-
-脚手架生成的 `README.md` 是英文骨架（5 段英文 H2），`README.zh.md` 是中文骨架（5 段中文 H2）。两者都已经填好双语切换链接。
-
-## 最后
-
-- 拿不准的 case 复杂度，先看 `examples/01~05`（最简单的样板）
-- 想做长视频，看 `examples/10~30`（30s~60s）
-- 装饰元素（贴纸/特效/滤镜）先 `cutcli query` 找 ID，再 add
+发现可能泄露的代码 / 文档，请**不要**开公开 issue，直接邮件 maintainer，或在 GitHub Security Advisories 私下报告。
 
 ---
 > Source: [xuliang2024/cutcli-cookbook](https://github.com/xuliang2024/cutcli-cookbook) — distributed by [TomeVault](https://tomevault.io).
