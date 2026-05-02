@@ -1,0 +1,57 @@
+{
+  "name": "lark-cli",
+  "owner": "yjwong",
+  "repo": "lark-cli",
+  "description": "A token-efficient CLI for Lark/Feishu APIs, designed for AI assistants like Claude Code. Supports calendar, contacts, documents, and messages.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "documents",
+      "path": "skills/documents",
+      "github_url": "https://github.com/yjwong/lark-cli/tree/main/skills/documents",
+      "description": ""
+    },
+    {
+      "name": "messages",
+      "path": "skills/messages",
+      "github_url": "https://github.com/yjwong/lark-cli/tree/main/skills/messages",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yjwong/lark-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:38:30Z"
+}
