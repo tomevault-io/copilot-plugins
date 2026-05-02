@@ -1,202 +1,220 @@
-## intent-ref-accessibility-foundations
+## intent-ref-ethical-design
 
-> Intent reference: WCAG 2.2 for designers, screen reader design, keyboard navigation, cognitive and motor accessibility, inclusive design principles and testing methodology. Load when working on accessibility, a11y audits, inclusive design, or assistive technology.
+> Intent reference: anti-pattern remediation, dark pattern alternatives, consent design, design ethics frameworks, regulatory compliance patterns. Load when fixing dark patterns, designing consent flows, or reviewing ethical concerns.
 
 
-# Accessibility Foundations
+# Ethical Design
 
-## WCAG 2.2 for Designers
+## Anti-Pattern Remediation Guide
 
-The Web Content Accessibility Guidelines are organized around four principles: Perceivable, Operable, Understandable, Robust (POUR). Most designers encounter WCAG as a compliance checklist. That's the wrong frame. WCAG is a design specification — it tells you what your design must achieve for the full spectrum of human ability.
+The master skill catalogs anti-patterns. This document explains how to fix them — and how to design the ethical alternative from the start.
 
-### Perceivable
+### Deceptive Patterns → Honest Alternatives
 
-Information and interface components must be presentable to users in ways they can perceive. This means: not everyone sees, not everyone hears, not everyone processes information the same way.
+**Bait and Switch → Consistent Delivery.** What you show is what you deliver. If a button says "Download," it downloads. If a link says "Learn more," it teaches. Test by asking: if a user described what just happened, would their description match the label they clicked?
 
-**Text alternatives (1.1):** Every non-text element that conveys information needs a text equivalent. Images need alt text. Icons need labels. Charts need data tables or summaries. Video needs captions and audio description. The question is always: if this visual element disappeared, would the user lose information?
+**Trick Questions → Plain Language Choices.** Every option should be stateable as an affirmative: "Yes, send me emails" / "No, don't send me emails." Never use double negatives ("Uncheck to not receive..."). Never combine multiple consents into one checkbox. Test by reading the question aloud — if a colleague gets confused, users will too.
 
-**How designers get this wrong:** Decorative images with verbose alt text (screen readers will read "stock photo of a diverse team collaborating in a modern office" for every page — exhausting). Informative images with empty alt text. Complex charts with alt text that says "chart" instead of describing the data. Icons without any programmatic label. The fix is intentional alt text: describe what the image communicates, not what it depicts.
+**Visual Misdirection → Equal Visual Weight.** When presenting choices, the "decline" or "opt-out" option should be equally visible — same size, same visual weight, same position prominence. The user's preferred choice, not the business's preferred choice, should determine which option they pick. Test: cover the page with your hand and peek — can you see both options equally?
 
-**Time-based media (1.2):** Video needs captions (synchronized text of spoken content) and audio description (narration of visual content). Audio needs transcripts. Live content needs real-time captions. This isn't just for deaf users — captions serve anyone in a noisy or quiet environment.
+**Hidden Costs → Upfront Pricing.** Show the total cost, including taxes, fees, and shipping, before the user enters any personal information. The Baymard Institute found that 48% of cart abandonment is caused by extra costs shown too late. The fix isn't just ethical — it converts better.
 
-**Adaptable (1.3):** Information structure must be programmatic, not just visual. A heading that's bold and large but coded as a `<div>` is invisible to screen readers. A data table that's built with positioned divs instead of `<table>` elements loses its row/column relationships. Design decisions about hierarchy, grouping, and sequence must be implementable as semantic structure.
+**Confirmshaming → Neutral Opt-Out.** Opt-out text should be factual, not emotional. "No thanks" is fine. "No thanks, I hate saving money" is manipulation. The test is simple: would you say the opt-out text to someone's face without feeling embarrassed?
 
-**Distinguishable (1.4):** Contrast ratios: 4.5:1 for normal text, 3:1 for large text (18px+ or 14px+ bold), 3:1 for UI components and graphics. These are minimums — aim higher for body text. Color must not be the only means of conveying information — a red error border needs an icon or text too, because not everyone perceives red. Text must be resizable to 200% without loss of content or functionality.
+**Sneak into Basket → Explicit Additions Only.** Nothing enters a cart, plan, or order without a deliberate user action. Pre-selected add-ons, bundled insurance, and automatic upsells all fail this test. If the user didn't click "add," it shouldn't be there.
 
-**New in 2.2 — Dragging movements (2.5.7):** Any functionality that uses dragging must have a non-dragging alternative. Drag-to-reorder must also offer move-up/move-down buttons or an alternative input method.
+### Default Manipulation → Respectful Defaults
 
-### Operable
+**Prechecked Consent → Unchecked by Default.** GDPR requires this explicitly. But beyond regulation — consent means nothing if it's pre-selected. Every consent checkbox should start unchecked. Every permission should start un-granted. The user's first interaction should be a choice, not an override.
 
-Users must be able to operate the interface through multiple input methods — not just mouse and touch.
+**Opt-Out Burden → Symmetrical Effort.** The effort to leave should mirror the effort to join. If signing up takes one click, cancellation should take one click. The FTC's "click to cancel" rule codifies this, but the principle predates the rule: asymmetric friction is manipulation.
 
-**Keyboard accessible (2.1):** Everything must work with a keyboard. Every interactive element must be focusable and activatable. No keyboard traps — users must be able to navigate away from any component. Custom keyboard shortcuts must not conflict with browser or assistive technology shortcuts.
+**Forced Continuity → Clear Trial Endings.** Before a trial ends: notify the user (email and in-app, not just email). On the transition day: require explicit confirmation before charging. After charging: provide easy refund for the first billing period. Making cancellation hard doesn't create loyal customers — it creates resentful ones who warn others.
 
-**Enough time (2.2):** If content has a time limit, users must be able to turn off, adjust, or extend the limit. Session timeouts need warnings and extension options. Auto-updating content needs pause/stop controls. Moving or auto-playing content must be stoppable.
+### Urgency Fabrication → Honest Scarcity
 
-**Seizures and physical reactions (2.3):** No content that flashes more than three times per second. This isn't theoretical — flashing content can trigger seizures in people with photosensitive epilepsy. Motion animations should be reducible (respect prefers-reduced-motion).
+**Fake Timers → Real Deadlines Only.** If a deadline is real (event starts at 8pm, sale ends Sunday), show it. If there's no real deadline, don't invent one. A timer that resets when the page refreshes is not a deadline — it's a lie.
 
-**Navigable (2.4):** Provide a skip navigation link (first focusable element, links to main content). Use descriptive page titles. Focus order must be logical and predictable — typically matching visual reading order. Link text must make sense out of context ("Read more" fails this; "Read our accessibility policy" passes). Headings and labels must be descriptive.
+**Fabricated Scarcity → Actual Inventory.** If you show stock levels, they should be real. "Only 2 left" when you have 2,000 in the warehouse is fraud by implication. If demand genuinely fluctuates, show real-time data. Otherwise, don't show numbers at all.
 
-**New in 2.2 — Focus not obscured (2.4.11):** When a component receives keyboard focus, it must not be entirely hidden by other content (sticky headers, modals, toasts). At least partially visible.
+**Fake Social Proof → Real Activity.** "15 people are viewing this" should reflect actual concurrent viewers, not a random number generator. Fabricated social proof is straightforward deception. Real social proof (verified reviews, actual purchase counts) builds genuine trust.
 
-**New in 2.2 — Target size (2.5.8):** Interactive targets must be at least 24x24 CSS pixels, with certain exceptions (inline links, native browser controls). This benefits motor-impaired users, touch users, and everyone with large fingers on small screens.
+### Addictive Design → Respectful Engagement
 
-### Understandable
+**Infinite Scroll → Natural Boundaries.** Pagination, "load more" buttons, or session summaries create natural stopping points. This doesn't reduce engagement — it shifts it from compulsive to intentional. Instagram's "You're all caught up" is a partial fix; actual pagination is more honest.
 
-Content and interface behavior must be understandable to the user.
+**Variable Ratio Reinforcement → Predictable Value.** Notifications should arrive because something meaningful happened, not because the algorithm determined this is the optimal moment to re-engage. Content should be organized, not randomly dispensed. The value should be in the content, not in the unpredictability of its delivery.
 
-**Readable (3.1):** Set the language of the page (lang attribute). Identify changes in language within the page. Define unusual words, abbreviations, and jargon. These seem like developer concerns, but they're design decisions — the designer decides what terminology to use and how to explain it.
-
-**Predictable (3.2):** Components that look the same should work the same, everywhere in the product. Navigation should be consistent across pages. Changes of context (opening a new window, submitting a form, changing focus) should only happen when users expect them — not on focus, not on input without warning.
-
-**Input assistance (3.3):** Errors must be identified and described in text. Labels and instructions must be provided for user input. Error suggestions must offer correction when possible. Important submissions (financial, legal, data modification) must be reversible, verified, or confirmed.
-
-**New in 2.2 — Redundant entry (3.3.7):** Don't ask users to re-enter information they've already provided in the same process. If shipping and billing address are the same, offer a checkbox instead of making them type it twice. Autocomplete where possible.
-
-**New in 2.2 — Accessible authentication (3.3.8):** Authentication should not require cognitive function tests (puzzles, memory tasks) unless an alternative is provided. Support password managers, passkeys, and copy-paste for verification codes.
-
-### Robust
-
-Content must be robust enough that it can be reliably interpreted by a wide variety of user agents, including assistive technologies. This is primarily an implementation concern, but designers influence it through component choices and specification clarity.
+**Streak Manipulation → Progress Without Punishment.** If you track streaks, breaking one should carry no penalty. "You had a 30-day streak! Start a new one?" is fine. "You lost your 30-day streak forever" is manufactured loss aversion. Duolingo's streak freeze is an admission that their streak mechanic creates unhealthy obligation.
 
 ---
 
-## Assistive Technology Landscape
+## Regulatory Landscape
 
-Designing for accessibility requires understanding how people actually use assistive technology — not just checking boxes.
+### GDPR (EU, 2018)
 
-### Screen Readers
+The General Data Protection Regulation is the most comprehensive privacy regulation in force. Key requirements for designers:
 
-Software that converts on-screen content to speech or braille. Major screen readers: JAWS (Windows, professional contexts), NVDA (Windows, free and open source), VoiceOver (macOS/iOS, built-in), TalkBack (Android, built-in), Narrator (Windows, built-in).
+**Consent (Article 7, Recitals 32, 42, 43):**
+- Must be freely given — no bundling consent with service access unless data processing is genuinely necessary for the service
+- Must be specific — separate consent for separate purposes
+- Must be informed — plain language, no legalese
+- Must be unambiguous — affirmative action required; silence, pre-ticked boxes, and inactivity do not constitute consent
+- Withdrawal must be as easy as giving consent — no asymmetric flows
 
-**How people use them:** Not by reading every word on the screen. Experienced screen reader users navigate by headings (H key), landmarks (D key in JAWS), links (Tab), and form elements. They skim structure first, then dive into content. A page without proper headings and landmarks is like a printed page without any formatting — technically readable, practically unusable.
+**Data Minimization (Article 5(1)(c)):**
+- Collect only what's necessary for the stated purpose
+- Don't collect data "in case we need it later"
+- Design forms to request minimum required fields
 
-**Common misconception:** "Screen reader users are blind." Many screen reader users have partial vision and use the screen reader in combination with magnification or high contrast. Design for the combination, not the assumption.
+**Right to Erasure (Article 17):**
+- Users can request deletion of their data
+- Deletion must be actual, not just hiding the record
+- Design systems need real deletion capabilities, not just soft deletes
 
-### Switch Access
+**Privacy by Design (Article 25):**
+- Data protection must be built into the design of systems, not bolted on
+- Default settings must be the most privacy-protective option
+- This is a legal requirement, not a best practice
 
-Users who can't use a mouse, touchscreen, or standard keyboard use switches — physical buttons, sips and puffs, eye-tracking, head movements — to navigate sequentially through interactive elements. Every focusable element is visited in order.
+**Enforcement reality:** Fines up to 4% of global annual revenue or 20 million euros, whichever is higher. As of 2024, cumulative GDPR fines exceed 4 billion euros. Meta alone has been fined over 2 billion euros.
 
-**Design implication:** The number of interactive elements on a page directly impacts switch users. A page with 50 clickable elements requires 50 switch presses to reach the last one. Group related actions. Provide skip mechanisms. Make the most common actions reachable first.
+### FTC (United States)
 
-### Voice Control
+The Federal Trade Commission uses its authority under Section 5 (unfair or deceptive acts) to pursue dark patterns.
 
-Software that allows users to navigate and interact by speaking commands. Dragon NaturallySpeaking (professional), Voice Control (macOS/iOS), Voice Access (Android).
+**Key enforcement actions:**
+- Epic Games / Fortnite (2022): $520M settlement for dark patterns targeting children, including confusing purchase flows and unauthorized charges
+- Amazon Prime (2023): FTC sued over "Iliad" — Amazon's internal name for a cancellation flow deliberately designed to be confusing
+- Age of Empires / Microsoft (2023): Enforcement against manipulative subscription practices
 
-**Design implication:** Voice control users say what they see — "click Submit," "click the search button." If a button's visible label doesn't match its programmatic name, voice commands fail. Ensure visible labels match accessible names exactly.
+**"Click to Cancel" Rule (2024):**
+- Businesses must make cancellation as easy as sign-up
+- Must get affirmative consent before charging
+- Must provide clear annual reminders for negative-option programs
+- Applies to all negative-option marketing
 
-### Magnification
+**FTC approach:** Pattern-based enforcement. If a design practice is widespread and harmful, the FTC may issue a rule. Designers should treat FTC enforcement actions as de facto design standards.
 
-Software or OS features that enlarge portions of the screen. Used by people with low vision who can see but need larger content.
+### COPPA (United States, 1998 / Updated 2013)
 
-**Design implication:** At 200% zoom, users see roughly one quarter of the original viewport. At 400%, one sixteenth. Layout must reflow — content that requires horizontal scrolling at zoom levels up to 400% fails WCAG 1.4.10. Think of magnification as a very narrow viewport, not a zoomed-in version of the full page.
+The Children's Online Privacy Protection Act applies to services directed at children under 13, or services that knowingly collect data from children under 13.
 
----
+**Design requirements:**
+- Verifiable parental consent before collecting personal information from children
+- No behavioral advertising to children
+- No conditioning participation on data collection beyond what's necessary
+- Clear, prominent, and understandable privacy policies
+- Data retention limits — delete when no longer needed
 
-## Screen Reader Flow Design
+**Design implication:** If your product might have child users, design the entire data collection pipeline with COPPA in mind from the start. Retrofitting COPPA compliance is far more expensive than building it in.
 
-### Reading Order
+### California CPRA (2023) and Automated Decision-Making
 
-Screen readers process the DOM in source order. Visual position (CSS) can differ from source order, creating a mismatch between what sighted users see and what screen reader users hear.
+**Symmetry requirement:** The means by which a consumer opts out of data sale/sharing must be symmetric with the means by which they opted in. If opt-in is one click, opt-out must be one click.
 
-**Rule:** Visual order and source order must match. If a card shows a title, then an image, then a description, the source order should be title → image → description — not image → title → description with CSS repositioning.
+**Do Not Sell/Share:** Must provide a "Do Not Sell or Share My Personal Information" link on the homepage. This is a design requirement — the link must be visible, clear, and functional.
 
-**Common failure:** CSS Grid and Flexbox make it easy to reorder visually while leaving the source in a different order. This creates a disconnect that confuses screen reader users AND keyboard users (Tab order follows source order by default).
+**Automated decision-making:** Consumers have the right to opt out of automated decision-making technology, including profiling. If your product uses algorithms to make decisions about users, they have the right to know and the right to opt out.
 
-### Landmarks
+### EU Digital Services Act (2024)
 
-ARIA landmarks define the major sections of a page: banner, navigation, main, complementary, contentinfo, search, form. Screen reader users can jump between landmarks to navigate the page structure.
+**Dark pattern prohibition (Article 25):**
+- Online platforms must not design, organize, or operate interfaces in a way that deceives, manipulates, or materially distorts users' ability to make free and informed decisions
+- Specific prohibition on: giving more prominence to certain choices, repeatedly requesting users to make choices they've already made, making cancellation harder than sign-up, and making choices non-neutral by default
 
-**Minimum landmarks:** Every page should have a `<main>` landmark, a `<nav>` landmark for primary navigation, and a `<header>` / `<footer>`. Multiple navigation landmarks need unique labels: "Primary navigation," "Footer navigation."
+**Minor protection (Article 28):**
+- Platforms accessible to minors must implement appropriate measures to ensure a high level of privacy, safety, and security
+- No targeted advertising based on profiling when the platform is aware the user is a minor
 
-### Live Regions
-
-Content that updates dynamically (notifications, chat messages, status changes, real-time data) needs to announce itself to screen readers using ARIA live regions.
-
-**aria-live="polite":** Announce when the screen reader is idle. Use for non-urgent updates (status messages, search result counts).
-
-**aria-live="assertive":** Interrupt current speech to announce. Use for urgent information (error alerts, time-sensitive warnings). Use sparingly — frequent assertive announcements make the interface unusable.
-
-**role="alert":** Implicitly assertive. Use for error messages and critical warnings. An element with role="alert" will be announced immediately when its content changes or when it's added to the DOM.
-
-**role="status":** Implicitly polite. Use for status messages and non-critical updates. "Your file was saved successfully" is a status, not an alert.
-
----
-
-## Keyboard Navigation Design
-
-### Focus Management
-
-**Focus must be visible.** The default browser focus ring is ugly but functional. If you replace it with a custom style, the custom style must be at least as visible — 2px solid outline with sufficient contrast against the background. Removing focus styles (outline: none without replacement) is an accessibility failure.
-
-**Focus must be logical.** Tab order should follow visual reading order: left to right, top to bottom (in LTR languages). Using tabindex values greater than 0 to force a non-standard order creates confusion for keyboard and screen reader users.
-
-**Focus must be managed during UI changes.** When a modal opens, focus moves to the modal. When it closes, focus returns to the trigger. When content is deleted, focus moves to the next logical element. When an inline edit completes, focus moves to the saved content. Every dynamic UI change needs a focus management plan.
-
-### Tab Order
-
-**Focusable elements:** Links, buttons, form inputs, textareas, selects, and elements with tabindex="0". Only interactive elements should be in the tab order. Non-interactive elements (headings, paragraphs, divs) should not be made focusable unless they serve as custom interactive widgets.
-
-**Skip links:** The first focusable element on the page should be a "Skip to main content" link. This saves keyboard and screen reader users from tabbing through the entire navigation on every page. The skip link should be visually hidden until focused (visible when it matters, invisible when it doesn't).
-
-### Keyboard Patterns for Custom Components
-
-Native HTML elements (buttons, links, inputs) come with built-in keyboard behavior. Custom components need manual keyboard implementation following WAI-ARIA Authoring Practices.
-
-**Tabs:** Arrow keys move between tabs. Tab key moves to the tab panel content. Home/End keys move to first/last tab.
-
-**Menus:** Arrow keys move between items. Enter/Space activates. Escape closes. Type-ahead selects items by first letter.
-
-**Modals/Dialogs:** Focus trapped inside while open. Escape closes. Focus returns to trigger on close. Background content is inert (aria-hidden="true" or the inert attribute).
-
-**Tree views:** Arrow keys navigate. Right arrow expands a node. Left arrow collapses or moves to parent. Enter activates.
+**Algorithmic transparency (Articles 27, 38):**
+- Recommendation systems must explain the main parameters used
+- Users must have at least one option not based on profiling
 
 ---
 
-## Cognitive Accessibility
+## Design Ethics Frameworks
 
-Accessibility isn't only about sensory and motor ability. Cognitive and learning disabilities affect more people than all physical disabilities combined.
+### Values Sensitive Design (VSD)
 
-### Plain Language
+Developed by Batya Friedman and colleagues at the University of Washington, VSD is a theoretically grounded approach to the design of technology that accounts for human values in a principled and comprehensive manner throughout the design process.
 
-Use simple, direct language. Short sentences. Common words. Consistent terminology. Define technical terms in context. This benefits everyone but is essential for users with cognitive disabilities, learning disabilities, low literacy, or non-native language proficiency.
+**Three investigations:**
+1. **Conceptual** — Identify stakeholders (direct and indirect), identify values at stake, investigate how values might conflict
+2. **Empirical** — Study how stakeholders actually apprehend and experience the technology and the values at stake
+3. **Technical** — Analyze how specific technical properties support or hinder stakeholder values
 
-### Consistent Patterns
+**Key values VSD investigates:** Human welfare, ownership and property, privacy, freedom from bias, universal usability, trust, autonomy, informed consent, accountability, courtesy, identity, calmness, environmental sustainability.
 
-Do the same thing the same way everywhere. If "delete" is the word in one place, don't use "remove" in another. If the primary action is on the right in one dialog, it should be on the right in all dialogs. Consistency reduces the cognitive load of learning and remembering interface behavior.
+**Application to design:** When making a design decision, identify which human values are at stake, who is affected (including non-users), and how the technical implementation supports or undermines those values. VSD doesn't tell you what to decide — it tells you what to consider.
 
-### Error Prevention
+### Design Justice (Costanza-Chock, 2020)
 
-Prevent errors before they happen rather than reporting them after. Constrain inputs (datepickers instead of free-text date fields). Provide smart defaults. Show real-time formatting examples. Disable invalid combinations. For consequential actions, show a preview before committing.
+Design Justice rethinks design processes by centering the people who are most impacted by design decisions, rather than the most powerful stakeholders.
 
-### Simplify Processes
+**Core principles:**
+1. Design to sustain, heal, and empower communities — prioritize impact on the most marginalized
+2. Center the voices of those who are directly impacted by design outcomes
+3. Prioritize design's impact on the community over the designer's intent
+4. View change as emergent from accountable, accessible, and collaborative processes
+5. See the role of the designer as a facilitator rather than an expert
 
-Break multi-step processes into clear, named stages with progress indicators. Allow saving progress and returning later. Don't require users to hold information in memory across steps. Show summaries before final submission.
+**Application:** When your user research doesn't include the most vulnerable users of your product, your design will fail them. When your design team doesn't include diverse perspectives, your assumptions will go unchallenged. Design Justice argues that who participates in the design process determines who benefits from the design outcome.
+
+### Consequence Scanning
+
+Developed by Doteveryone (now the Responsible Technology Institute), Consequence Scanning is a lightweight practice for identifying potential consequences of a product or feature.
+
+**Process:**
+1. **Describe** the product/feature in plain terms — what it does, who uses it, what data it touches
+2. **Brainstorm consequences** across three dimensions:
+   - Intended consequences (what you're trying to achieve)
+   - Unintended but foreseeable consequences (what might happen that you didn't plan for)
+   - Unintended and unforeseeable consequences (what could happen that nobody predicted)
+3. **Categorize** each consequence: positive, negative, or unclear
+4. **Decide** for each negative consequence: mitigate (design around it), accept (document and monitor), or stop (don't build this)
+
+**When to use it:** Before building new features, during design critiques, when expanding to new markets or user groups, when adding data collection, when changing algorithms or recommendation systems.
 
 ---
 
-## Inclusive Design Beyond Disability
+## Consent Design Patterns
 
-Accessibility standards address permanent disability. Inclusive design goes further — designing for the full range of human diversity, including situational and temporary impairment.
+Consent is not a checkbox. It's a design system.
 
-### Situational Impairment
+### Principles of meaningful consent
 
-- **One-handed use:** Carrying a child, holding a subway pole, arm in a sling. Touch targets and gestures should work one-handed.
-- **Bright sunlight:** Outdoor use makes low-contrast text invisible. Sufficient contrast isn't just for low vision — it's for Tuesday afternoon on a park bench.
-- **Noisy environments:** Audio content is useless on a construction site or in a crowded bar. Captions and visual indicators serve everyone in these contexts.
-- **Divided attention:** Driving (please don't), cooking, watching kids. Interfaces used during divided attention need to be operable with minimal visual engagement.
+**Informed:** The user understands what they're consenting to. This means plain language, specific descriptions, and concrete examples — not legal abstracts or blanket permissions. "We'll use your location to show nearby restaurants" is informed. "We process data to improve our services" is not.
 
-### Low Literacy
+**Specific:** Each consent is for one specific purpose. Bundled consent ("By using this service you agree to X, Y, Z, and also W") is not meaningful consent. Separate purposes get separate choices.
 
-Over 50% of U.S. adults read below a 6th-grade level (NAAL, 2003). Globally, 773 million adults lack basic literacy skills (UNESCO). Designing for low literacy means: short sentences, common words, visual cues alongside text, numbered steps for instructions, and avoiding dense paragraphs.
+**Freely given:** The user can say no without losing access to the core service. If saying no makes the product unusable, consent wasn't free — it was coerced. The exception: when data processing is genuinely necessary for the service (you can't use a mapping app without sharing your location).
 
-### Older Devices and Low Bandwidth
+**Revocable:** The user can withdraw consent as easily as they gave it. A consent given with one toggle should be revocable with one toggle, in the same location, with the same effort.
 
-Not everyone has a current-generation smartphone or fast internet. A significant portion of the global population accesses the internet on 3G or slower connections, on devices with limited memory and processing power. Accessibility means designing for these conditions: smaller page weights, progressive enhancement, functional offline states, and interfaces that work without JavaScript when possible.
+**Timely:** Consent is requested at the moment it's relevant, not in a batch during onboarding. Ask for location permission when the user first accesses a location feature, not during account creation.
 
-### Aging
+### Consent interface patterns
 
-Age-related changes affect vision (presbyopia, reduced contrast sensitivity), hearing (high-frequency loss), motor control (reduced precision, slower response time), and cognition (slower processing, reduced working memory). These are not disabilities — they're the universal human trajectory. Design for the user your product's audience will become, not just the user they are today. Larger text, higher contrast, larger touch targets, simpler navigation, and forgiving error handling serve the aging population — and make the product better for everyone.
+**Layered disclosure:** Present a summary first ("We'd like to use your location to show nearby restaurants"), with a path to full detail ("Learn more about how we use location data"). The summary must be accurate and complete enough to make a real decision; the detail is for those who want it.
+
+**Granular controls:** Separate toggles for separate purposes. Cookie consent should offer granular choices (analytics, marketing, personalization), not just "accept all / reject all." Permission dashboards should show each permission individually with clear descriptions.
+
+**Just-in-time consent:** Request permissions when the user encounters the feature that needs them, with context that explains why. "To save your route, we need access to your location" at the moment of saving is far more meaningful than a bare permission prompt during onboarding.
+
+**Consent receipts:** Show the user what they've consented to, when, and how to change it. A privacy dashboard that lists active consents with modification dates and one-click revocation is the gold standard.
+
+**Re-consent for material changes:** When you change how you use data, don't bury it in a terms-of-service update. Re-request consent for the specific change, with clear explanation of what changed and why.
+
+### Common consent failures
+
+- Consent walls that block the entire service until the user agrees to non-essential data processing
+- "Accept all" buttons that are visually dominant while "Manage preferences" is small and gray
+- Consent flows that take one click to accept but seven clicks to customize
+- Withdrawal paths hidden in account settings behind three layers of navigation
+- Pre-checked consent boxes (illegal under GDPR, deceptive everywhere)
+- Bundled consent that combines essential service terms with optional marketing consent
+- Consent prompts that appear on every visit because rejection isn't stored (deliberately or through incompetence)
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
