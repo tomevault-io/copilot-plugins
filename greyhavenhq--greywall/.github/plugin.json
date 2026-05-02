@@ -1,0 +1,9 @@
+{
+  "name": "greyhavenhq--greywall",
+  "displayName": "greywall",
+  "description": "Container-free, deny-by-default sandbox for AI coding agents. Kernel-enforced filesystem, network, and syscall isolation for Linux and macOS",
+  "version": "1.0.0",
+  "author": "GreyhavenHQ",
+  "homepage": "https://github.com/GreyhavenHQ/greywall",
+  "skills": []
+}
