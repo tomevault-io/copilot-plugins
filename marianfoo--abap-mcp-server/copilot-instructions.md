@@ -1,43 +1,48 @@
-## 00-overview
+## 10-search-stack
 
-> Use this when asked about "how it works", "where to change X", or "what runs in prod".
+> When modifying search behavior, ranking, or index builds.
 
-# SAP Docs MCP – High-level Overview (Rule)
+# Search & Indexing (Rule)
 
-Use this when asked about "how it works", "where to change X", or "what runs in prod".
+When modifying search behavior, ranking, or index builds.
 
-## System Architecture
-- **MCP Server**: Stdio-based server for Claude/LLM integration
-- **HTTP Servers**: Development server (port 3001) and streamable HTTP server (port 3122)
-- **Search Pipeline**: BM25-only (FTS5) → metadata-driven configuration → formatted results
-- **Metadata-Driven**: All source configurations centralized in `src/metadata.json`
-- **Submodule Management**: Shallow, single-branch clones with blob filtering for performance
+## Search Architecture (BM25-Only with FTS5)
+- **Index Build**: `scripts/build-index.ts` → `dist/data/index.json`
+- **FTS Database**: `scripts/build-fts.ts` → `dist/data/docs.sqlite` (SQLite FTS5)
+- **Hybrid Search**: FTS5 candidate filtering → sophisticated scoring
+- **Search Logic**: Pure BM25 via `src/lib/search.ts` using metadata APIs
+- **Query Processing**: `toMatchQuery()` in `src/lib/searchDb.ts`
+- **Configuration**: All source settings in `src/metadata.json`
+- **Performance**: 16x faster with FTS5 hybrid approach (~42ms vs 700ms)
 
-## Key Components
-- **Search**: Pure BM25 using SQLite FTS5 for fast, reliable search
-- **Configuration**: Centralized metadata system with type-safe APIs
-- **Sources**: 27 documentation sources including 8 ABAP versions (SAPUI5, CAP, ABAP, wdi5, Cloud SDK, etc.)
-- **Tools**: 5 MCP tools (search, fetch, sap_community_search, sap_help_search, sap_help_get)
-- **Build Process**: TypeScript compilation → Index building → FTS database creation
-- **ABAP Integration**: 40,761+ files across 8 versions with intelligent version filtering
+## Metadata-Driven Configuration
+- **Source Boosts**: Context-aware scoring via `getContextBoosts()`
+- **Library Mappings**: ID resolution via `getAllLibraryMappings()`
+- **URL Generation**: Documentation links via `getDocUrlConfig()`
+- **Source Paths**: File system paths via `getSourcePath()`
 
-## Production Setup
-- **Remote Server**: Hosted MCP server at https://mcp-abap.marianzeis.de/mcp
-- **PM2**: 3 processes (proxy, http, streamable) via `ecosystem.config.cjs`
-- **Deployment**: GitHub Actions → SSH → enhanced `setup.sh` → PM2 restart
-- **Health**: Multiple endpoints (/status, /health, /healthz, /readyz)
-- **Submodules**: Optimized shallow clones with partial clone filtering
-- **Protocol**: MCP Streamable HTTP (latest protocol) + STDIO support
+## Key Search Features
+- **OR Logic**: Better recall for multi-term queries
+- **Prefix Matching**: Terms get `*` suffix for broader matching
+- **Phrase Queries**: Dotted terms (sap.m.Button) quoted for exact match
+- **Context Awareness**: UI5/CAP/wdi5 context detection and scoring
+- **ABAP Version Filtering**: Intelligent version detection and result filtering
+- **Graceful Fallback**: Falls back to full search if FTS finds no candidates
 
-@file package.json
-@file src/metadata.json
-@file src/lib/config.ts
-@file src/lib/metadata.ts
+## Performance
+- **FTS5**: SQLite full-text search for sub-second response times
+- **Centralized Config**: Single metadata load at startup
+- **Efficient APIs**: Type-safe configuration access
+
+@file scripts/build-index.ts
+@file scripts/build-fts.ts
+@file src/lib/searchDb.ts
 @file src/lib/search.ts
-@file src/server.ts
-@file src/http-server.ts
-@file src/streamable-http-server.ts
-@file ecosystem.config.cjs
+@file src/lib/metadata.ts
+@file src/metadata.json
+@file src/lib/localDocs.ts
+@file docs/FTS5-IMPLEMENTATION-COMPLETE.md
+@file docs/ABAP-INTEGRATION-SUMMARY.md
 @file docs/ARCHITECTURE.md
 @file docs/DEV.md
 
