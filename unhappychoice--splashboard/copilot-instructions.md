@@ -1,0 +1,198 @@
+## splashboard
+
+> Operating notes for AI agents (Claude, Codex, etc.) working on splashboard. Humans reading this are welcome too.
+
+# AGENTS.md
+
+Operating notes for AI agents (Claude, Codex, etc.) working on splashboard. Humans reading this are welcome too.
+
+## What splashboard is
+
+A customizable terminal splash rendered on shell startup and on `cd`. One-line install into your shell rc, TOML config, fast cached first-paint with background refresh.
+
+**Killer feature**: per-directory `.splashboard/config.toml` (walk-up discovery). Different repos get different splashes automatically. Competitor products (neofetch, fastfetch, starship) don't do this.
+
+**Positioning contexts** — all three are first-class:
+
+| context | value axis | config source |
+|---|---|---|
+| self / home | daily delight, ambient info | `$HOME/.splashboard/config.toml` |
+| self / project | operational (CI, branch, PRs) | `./.splashboard/config.toml` (per-dir, walk-up) |
+| other / project | craft + wow for cloners | `./.splashboard/config.toml` shipped with the repo |
+
+## Core architecture: Shape × Fetcher × Renderer
+
+A **widget** is the composition of three independent pieces:
+
+```
+Widget = Fetcher × Renderer × Layout slot
+```
+
+Splitting those axes is the whole design. Treat them as separate concerns; resist coupling.
+
+### Shape (`src/render/mod.rs::Shape`, `src/payload.rs::Body`)
+
+The **data-shape contract** between fetchers and renderers. Each `Body` variant corresponds to one `Shape`:
+
+- `Text` — exactly one string (clock time, branch name, greeting)
+- `TextBlock` — zero or more lines of text (recent commits, welcome notes, todo items)
+- `Entries` — key/value rows with optional status
+- `Ratio` — a single `0..=1` value + optional label
+- `NumberSeries` — `Vec<u64>`, histograms / sparklines
+- `PointSeries` — `Vec<(f64, f64)>` in one or more series
+- `Bars` — labeled bars
+- `Image` — path to PNG/JPEG
+- `Calendar` — year + month + optional highlighted day + event days
+- `Heatmap` — 2D intensity grid with optional thresholds and edge labels
+- `Badge` — short status pill (label + tone), consumed by the `status_badge` renderer
+- `Timeline` — chronological entries (commits, releases, notifications)
+
+Adding a new shape means:
+1. A new `Body` variant + its `*Data` struct in `payload.rs` (serde-serializable).
+2. A new `Shape` enum variant in `render/mod.rs`.
+3. An entry in `shape_of()`.
+4. An entry in `default_renderer_for()`.
+5. At least one renderer that lists the new shape in its `accepts()`.
+
+Shapes are the **only** coupling between fetchers and renderers. If you find yourself thinking "my renderer needs the raw fetcher data", add a new shape instead.
+
+### Fetcher (`src/fetcher/`)
+
+Produces a `Payload`. Two flavors:
+
+- **`Fetcher` (cached, async)** — disk cache with TTL, daemon refreshes in background, renderer reads from cache. Right for anything that does I/O: git2, HTTP, filesystem scans.
+- **`RealtimeFetcher` (sync, per-frame)** — recomputed on every draw tick, no cache at all. Right for "right now" values: `clock`, `system_cpu`, `system_uptime`, `clock_countdown`, `pomodoro`. Contract: < 1ms, infallible, no I/O. If you want to put `reqwest` in a `RealtimeFetcher`, it's not realtime — it's cached.
+
+Key invariants:
+
+- Each fetcher declares its supported shapes via **`fn shapes(&self) -> &[Shape]`**. Multi-shape fetchers (`clock`, `basic_read_store`) branch on `ctx.shape` inside `fetch` / `compute`; the runtime validates the config-requested shape against the list before dispatch and renders a placeholder on mismatch instead of crashing. Single-shape fetchers just return a one-element slice.
+- Each fetcher declares a **`Safety`** class:
+  - `Safe` — renders even in untrusted local configs. Local-only reads, or fixed-host authenticated network (the token only leaves to a known host).
+  - `Network` — trust-gated when the URL or query is config-provided (rss, calendar, any fetcher that takes a user URL).
+  - `Exec` — **no longer supported**. Plugin protocol (#5) and command widget (#20) are closed. Don't reintroduce.
+
+- `basic_read_store` (`src/fetcher/read_store.rs`) is the escape hatch for "I want a custom widget": user writes `$HOME/.splashboard/store/<id>.<ext>`, splashboard deserializes per the declared shape. Always `Safe` (fixed path, no traversal).
+
+- Fetchers declare their output shape(s) explicitly via `shapes()`. Renderers are compat-checked against the emitted `Body` variant at dispatch time.
+
+- Both kinds register into the shared `Registry` via `with_builtins()`. Lookup is name-keyed; realtime and cached live in the same namespace, same name = collision (last one wins).
+
+### Renderer (`src/render/`)
+
+Consumes a `Payload` + `RenderOptions` and draws into a ratatui `Frame`. Each renderer declares:
+
+- `name()` — used in config (`render = "grid_heatmap"` or `render = { type = "grid_heatmap", align = "center" }`). Names follow a `family_variant` convention (`text_plain`, `text_ascii`, `gauge_circle`, `gauge_line`, `chart_sparkline`, `grid_table`, `list_timeline`, …) so siblings sort together in the catalog.
+- `accepts()` — list of `Shape` it can render. **Each primary renderer accepts exactly one shape.** If you find yourself wanting two, register two renderers that share helpers — `text_plain` (Text) vs `list_plain` (TextBlock) is the canonical pair. Animated post-process wrappers (`animated_postfx`, `animated_boot`, `animated_scanlines`, `animated_splitflap`, `animated_wave`) are the only `ALL_SHAPES` exception, because they delegate to an inner renderer and don't draw payload data themselves.
+- `animates()` — `true` if it produces different output on repeated calls within a single draw cycle. Affects whether the runtime extends the 2-second animation window to let the motion play.
+- `render(frame, area, body, opts)` — do the drawing.
+
+Key invariants:
+
+- **One shape can feed multiple renderers**. `Text` → `text_plain`, `text_ascii`, `animated_typewriter`. That flexibility is the point; resist "one shape, one renderer".
+
+- **Empty-state handling is centralized**. `render::render_payload` short-circuits any body that `is_empty_body()` considers empty to the shared "nothing here yet" placeholder. Don't bake empty handling into individual renderers.
+
+- **Unknown renderer or shape/renderer mismatch** renders an in-band error string, never panics. Users must be able to see what's misconfigured without crashing the splash.
+
+- **Alignment**. `RenderOptions.align` (`left` / `center` / `right`) is honored by renderers where it makes sense (`text_plain`, `text_ascii`, `grid_heatmap`). Structural renderers (`grid_table`, `gauge_*`, `chart_*`) ignore it.
+
+## Trust model (`src/trust.rs`)
+
+Per-widget gate, not per-file. Safe widgets always render; Network widgets are replaced with a `🔒 requires trust` placeholder when the local config is untrusted.
+
+- Local configs must be `splashboard trust`-ed before their Network widgets run. Global config is `ImplicitlyTrusted` (user's own authority).
+- Trust is `(canonicalized path, sha256)` — editing the file revokes trust automatically.
+- TOCTOU-safe: the trust-sensitive callers use `load_config_and_hash()` which reads bytes once.
+- Escape hatch: `SPLASHBOARD_TRUST_ALL=1`.
+- `Exec` class is closed (plugin / command-widget dropped in #5 / #20). The gate exists for future-proofing but the Exec arm is currently unreachable.
+
+Details: see the `project_trust_model.md` memory (auto-loaded) for the full threat model and hardening rules.
+
+## Filesystem layout
+
+All splashboard state lives under **`$HOME/.splashboard/`** (no XDG paths, same on Linux/macOS/Windows):
+
+```
+$HOME/.splashboard/
+├── config.toml        # global config
+├── secrets.toml       # tokens / env vars exported at startup (git-ignored by install)
+├── trust.toml         # trust store (path + sha256 entries)
+├── cache/             # per-widget cache (key.json + key.lock)
+└── store/             # ReadStore files — $HOME/.splashboard/store/<id>.<ext>
+```
+
+`secrets.toml` is a flat top-level TOML map (`GH_TOKEN = "ghp_..."`). Keys get exported
+as process env at startup, but only when the shell env doesn't already define them — shell
+wins. `SPLASHBOARD_*`, `PATH`, `HOME`, `SHELL`, and a small denylist of ambient/owned keys
+are filtered out (see `secrets.rs`). `splashboard install` drops `secrets.toml` into
+`$HOME/.splashboard/.gitignore` so dotfiles-in-git users don't commit tokens by accident.
+
+Overridable via `SPLASHBOARD_HOME` env var (for tests, CI, relocatable installs).
+
+Per-directory configs stay in the repo: `./.splashboard/config.toml` or `./.splashboard.toml` (walk-up discovery starting from CWD).
+
+## Widget / renderer / fetcher catalog
+
+Issue #41 is the index. Candidates live as checkboxes on category sub-issues — **no separate issue per candidate**. A PR that ships something ticks the box on the relevant sub-issue and references it. Things that DO get their own issue: cross-cutting features (CLI subcommands, theme system).
+
+Sub-issues:
+
+- **#61** — renderer roadmap (primitives + animation families)
+- **#62** — fetcher roadmap: Local / System (`clock_*`, `system_*`, `disk_*`, `net_*`, `docker_*`, `k8s_*`, `project_*`)
+- **#63** — fetcher roadmap: VCS / Forge (`git_*`, `github_*`, `gitlab_*`, `bitbucket_*`, `gitea_*`, `sourcehut_*`, `azure_devops_*`, `gerrit_*`)
+- **#64** — fetcher roadmap: Coding & Build (`ci_*`, `deploy_*`, `wakatime_*`, `leetcode_*`, `stackoverflow_*`, `oss_*`, package downloads)
+- **#65** — fetcher roadmap: Cloud / Infra / Ops (`aws_*`, `gcp_*`, `cloudflare_*`, `tailscale_*`, uptime, `pagerduty_*`, observability)
+- **#66** — fetcher roadmap: Communication & PM (`slack_*`, `discord_*`, `email_*`, `matrix_*`, `jira_*`, `linear_*`, `todoist_*`, `notion_*`)
+- **#67** — fetcher roadmap: Social & Media (RSS / news, `mastodon_*`, `bluesky_*`, `youtube_*`, `twitch_*`, `spotify_*`, reading / watching, novelty feeds)
+- **#68** — fetcher roadmap: Life & Ambient (`weather_*`, `calendar_*`, `holiday_*`, `travel_*`, `anki_*`, `health_*`, `strava_*`, finance, analytics, IoT, gaming, public-API feeds)
+
+#41 also holds the composition model, prioritization rubric, ReadStore recipes, composition helpers, and rejected designs.
+
+Prioritization rubric (see #41 for the full version):
+1. Renderer primitives unlock many fetchers → highest leverage.
+2. Daily-driver coverage (fresh install looks satisfying).
+3. Per-dir killer feature (cd into a project shows more than without splashboard).
+4. Dedicated built-ins beat ReadStore for curated UX; ReadStore is the ad-hoc escape hatch.
+
+## Conventions
+
+### Code style (from repo CLAUDE rules)
+
+- English in source / commits / docs.
+- Public items at top of files.
+- Prefer `map` / `filter` / `reduce` over imperative loops.
+- Single responsibility, small functions (~10–15 lines), small files (~100 lines where practical).
+- Minimal comments — well-named functions do the explaining. Add a comment only when the *why* is non-obvious: a hidden constraint, a subtle invariant, a workaround.
+- Tests live next to the code in `#[cfg(test)] mod tests` blocks. Integration / cross-module tests reuse `src/render/test_utils.rs`.
+
+### Git / PR style
+
+- Conventional commit messages (`feat(scope): ...`, `fix(scope): ...`, `chore(...)`, `refactor(...)`).
+- Every PR gets a `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>` trailer.
+- **Merge strategy**: always `--merge` (merge commit). Never rebase or squash — this is a hard project preference captured in memory.
+- PRs include a Summary + Test plan section. Link the catalog issue (#41) with the checkbox that's being ticked.
+
+### Testing
+
+- `cargo test` must be green before a PR is opened. `cargo clippy --all-targets -- -D warnings` and `cargo fmt --all -- --check` too — CI runs all three.
+- Tests that mutate process env (`SPLASHBOARD_HOME` is the notable one) must take `paths::TEST_ENV_LOCK` to serialize with other tests.
+- Rendering tests use `src/render/test_utils.rs` — `render_to_buffer*()` helpers return a `Buffer` you can scan for expected cells/symbols.
+
+## Rejected designs (don't reintroduce)
+
+- **Plugin protocol (#5)** — closed. Splashboard is a curated splash renderer, not a dashboard framework. Subprocess plugins can't be bounded in blast radius (a generic `http_fetch` plugin breaks every mitigation). Custom widgets land as built-in PRs or use ReadStore.
+- **Command widget (#20)** — closed. No `command = "..."` fetcher, in any config scope. Local-vs-global rule carve-outs are not worth the footgun potential or the threat-model complexity.
+- **Screensaver sub-mode** — out of scope. Animation lives within the existing 2-second ANIMATION_WINDOW; a persistent idle loop is a different product.
+- **XDG paths via the `dirs` crate** — migrated away. One user-visible `$HOME/.splashboard/` for all platforms, because `~/Library/Application Support/splashboard/` is a surprising place for a CLI tool's state.
+
+## When in doubt
+
+- **"Which fetcher does this belong in?"** — same underlying read, different presentation = same fetcher, different shape (add the variant to `shapes()` and branch in `fetch` / `compute`). Genuinely different data = different fetcher.
+- **"Which renderer?"** — does an existing one accept this shape? Use it. Need different visuals? Register a new renderer that also accepts the shape; don't invent a new shape.
+- **"Is this Safe or Network?"** — ask "can config control where the traffic goes?". If yes → Network. If the URL is hardcoded in the struct → Safe, even with auth (the token only leaves to a known host).
+- **"Realtime or cached?"** — can this fetch ever take > 1ms or ever fail? Cached. Otherwise realtime.
+- **"ReadStore or built-in?"** — does the widget deserve curated UX (parsing, auth, rate limits, stateful update)? Build it. Is it "a number the user can write to a file"? ReadStore.
+
+---
+> Source: [unhappychoice/splashboard](https://github.com/unhappychoice/splashboard) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
