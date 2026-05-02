@@ -1,0 +1,26 @@
+{
+  "name": "greenstevester--fastlane-skill",
+  "displayName": "fastlane-skill",
+  "description": "AI skill to setup and use fastlane to automate building and releasing your iOS and Android apps",
+  "version": "1.0.0",
+  "author": "greenstevester",
+  "homepage": "https://github.com/greenstevester/fastlane-skill",
+  "skills": [
+    {
+      "name": "beta",
+      "description": ""
+    },
+    {
+      "name": "match",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "snapshot",
+      "description": ""
+    }
+  ]
+}
