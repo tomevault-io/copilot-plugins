@@ -1,535 +1,420 @@
-## intent
+## investigate
 
-> The entry point for Intent, a UX and design strategy system. Sets project context, routes to specialized skills, and loads foundational UX knowledge. Activate when starting any UX or product design work, setting project context, routing to other skills, evaluating an existing product's UX, or when the user asks about design intent, user experience strategy, ethical design, dark patterns, or design systems thinking.
+> Guide and conduct user research — from planning through synthesis. Interview  scripts, survey design, usability test plans, diary studies, contextual inquiry. Plus synthesis: affinity mapping, thematic coding, insight extraction. Trigger  when: planning user research, writing interview guides, designing usability tests, creating surveys, synthesizing research findings, "what should we research?", "how do I test this?", "write an interview guide", or any question about  understanding users through evidence.
 
 
 
-# Intent
+# Investigate
 
 ## Overview
 
-Intent is a UX and design strategy system. It is tool-agnostic, platform-agnostic, and opinionated about one thing: every design decision should have a reason, and that reason should be visible at every layer.
+Research is the foundation of intentional design. Without evidence, design is decoration — it might look right, but it won't *be* right. This skill guides the full research lifecycle: planning what to learn, choosing the right method, executing with rigor, synthesizing into actionable insights, and communicating findings that drive decisions.
 
-Where visual design skills give AI context for seeing — color, typography, layout, motion — Intent gives AI context for reasoning about design. For asking why before how. For framing problems before solving them. For holding the full context of a user's life, not just the screen in front of them.
+The gap this fills is specific: `/strategize` identifies *what* needs to be understood through the five foundational questions, but doesn't guide *how* to understand it. `/investigate` owns that how. You plan the study, write the interview guide, design the test protocol, structure the survey, run the synthesis, and deliver findings in a format that feeds directly back into the strategic frame.
 
-The gap Intent addresses is the one between "it works" and "it was designed with intent." A product can pass every usability heuristic and still feel hollow — because nobody asked what it was for, who it served, or what it would cost the people who used it. Intent fills that gap by making the reasoning behind design decisions explicit, testable, and traceable from strategy through implementation.
-
-**What Intent is:**
-- A thinking system for UX decisions, grounded in research and ethics
-- A routing layer that connects specialized design skills into coherent practice
-- An anti-pattern defense that makes manipulative design visible and refusable
-- A context-gathering protocol that establishes shared understanding before work begins
-
-**What Intent is not:**
-- A visual design system
-- A UI component library
-- A substitute for primary user research
-- A set of rules to follow blindly — it's a set of questions to ask rigorously
-
-**The core thesis:** The reason behind every design decision, carried through every layer. Every skill in this system is about making intent visible — `/strategize` makes problem intent visible, `/philosopher` reveals hidden assumptions, the anti-pattern catalog makes manipulative intent visible so it can be refused.
+Research is not a phase you pass through once. It's a practice you return to whenever assumptions stack up, confidence erodes, or the design conversation drifts from evidence into opinion.
 
 ---
 
-## When NOT to use Intent
+## Skill family
 
-Intent adds rigor. Rigor is valuable when it's the scarce resource and costly when it's not. Skip Intent when:
+`/investigate` connects to the full Intent skill system:
 
-- **The task is a localized tweak within an established system.** Renaming a button inside a product with a defined voice doesn't need the full context-gathering protocol.
-- **The task is purely technical with no user-facing change.** Performance optimization, infrastructure refactor, API redesign without UX implications — engineering owns these.
-- **A different framework is the right tool.** Brand identity belongs to creative direction. Visual component systems belong to design-system tooling. Intent is not a hammer for every nail.
-- **Time pressure makes rigor a net negative.** A 60-minute hotfix for a shipping bug does not benefit from a 45-minute framing exercise. Ship the fix, note the debt, return to it.
-- **The user has explicit expertise and a specific ask.** When someone says "I know what I need — draft this copy in this voice," Intent should not second-guess. Offer to flag risks if anything looks concerning, then produce.
-
-If in doubt, ask once. Intent is a system that serves practice, not a gate that blocks it.
-
----
-
-## Modes
-
-Intent operates in three modes. Each establishes a different relationship to the work.
-
-### `context` — Set project context
-
-Use this mode at the start of any design engagement. Before any skill can do meaningful work, it needs to understand:
-
-1. **Who are the users?** Not demographics — behaviors, contexts, motivations, constraints. A "25-34 year old professional" tells you nothing. "Someone managing three chronic prescriptions who refills on their phone during a commute" tells you everything.
-2. **What is the product and business context?** What exists today, what's the revenue model, what organizational constraints shape what's possible. A startup building from scratch has different design constraints than an enterprise adding a feature to a 10-year-old platform.
-3. **What are the hard constraints?** Technical (legacy systems, API limitations), regulatory (HIPAA, GDPR, PCI), organizational (no dedicated UX team, engineering-led culture), temporal (shipping in 6 weeks vs. 6 months).
-4. **What is the ethical stance?** Every product makes ethical choices — explicitly or by default. Context mode makes them explicit. Are we opt-in or opt-out? Do we use engagement metrics or wellbeing metrics? Do we design for vulnerable populations or exclude them? Do we use persuasive patterns or informative ones?
-5. **What does success look like?** Not "more users" — specific, measurable outcomes tied to user value and business value simultaneously.
-
-Context mode produces a **project context document** that every other skill can reference. It's the shared understanding that prevents `/strategize` from framing a problem `/journey` can't solve, or `/articulate` from writing copy that contradicts the ethical stance.
-
-### `practice` — Build and improve UX
-
-This is the active design mode. Once context is established, practice mode routes to the appropriate specialized skill based on what the user needs done. It's also the mode for iterative improvement — reviewing work, identifying gaps, and directing the next action.
-
-Practice mode follows this cycle:
-1. **Assess** — What's the current state? Use `/evaluate` to understand quality.
-2. **Identify** — Where are the gaps? What needs attention first?
-3. **Route** — Which specialized skill addresses the highest-priority gap?
-4. **Execute** — Do the work within the specialized skill.
-5. **Verify** — Did the work address the gap? Are there new gaps?
-
-The routing logic (detailed below) determines which skill to engage. Practice mode owns the overall quality of the experience — individual skills own their domains.
-
-### `extract` — Extract UX patterns from an existing product
-
-Use this mode when analyzing an existing product — your own or a competitor's. Extract mode systematically identifies:
-
-- **What patterns are in use** — navigation models, interaction patterns, content structures, feedback loops
-- **What's working and why** — patterns that serve user intent well, with evidence
-- **What's failing and why** — patterns that create friction, confusion, or harm
-- **What's manipulative** — patterns that serve business goals at user expense (checked against the anti-pattern catalog below)
-- **What's missing** — patterns that should exist but don't (error recovery, empty states, accessibility, edge cases)
-
-Extract mode produces a **UX pattern inventory** — a structured assessment that can feed directly into practice mode for improvement work.
+- **`/strategize`**: Your primary partner. Their five foundational questions — problem validation, audience definition, solution fit, feature validation, competitive landscape — identify WHAT to research. You determine HOW. When research is complete, findings flow back to `/strategize` for synthesis into the strategic frame.
+- **`/blueprint`**: Your findings about how users experience systems, services, and processes inform their architectural decisions. Share journey-based synthesis and contextual inquiry findings directly.
+- **`/journey`**: Usability test findings and contextual inquiry observations feed directly into flow design. Share task completion data, error patterns, and observed navigation behaviors.
+- **`/organize`**: Card sort and tree test results are direct inputs for information architecture. Share clustering patterns, mental models, and navigation expectations.
+- **`/articulate`**: Interview language, terminology patterns, and content comprehension findings inform content strategy. Share how users actually talk about the problem.
+- **`/evaluate`**: Your findings inform their assessment criteria. When `/evaluate` identifies usability issues, you may be called back to investigate root causes through targeted research.
+- **`/measure`**: The quantitative complement to your qualitative work. Survey data and analytics review bridge the two skills. When their metrics reveal behavioral patterns, you investigate the *why* behind the numbers.
+- **`/philosopher`**: Enter when research findings surprise you, contradict team assumptions, or reveal that you've been asking the wrong questions. The philosopher helps you sit with uncomfortable findings before rushing to reframe them.
 
 ---
 
-## Core UX Principles
+## Core capabilities
 
-These are not visual principles. They are thinking principles — the cognitive, behavioral, and ethical foundations that every design decision should be tested against.
+### 1. Research planning & method selection
 
-### 1. Respect user autonomy
+The most common research mistake is choosing a method before defining the question. Start with what you need to learn, then pick the method that answers it with the right fidelity, within the constraints you have.
 
-The user is not a conversion target. They are a person making choices. Design should expand their ability to choose well, not constrain it.
+**Method framework:**
 
-**In practice:**
-- No manipulation. No trick questions, hidden options, or shame-based copy. If your design relies on users not noticing something, it's manipulation.
-- Clear choices. Every decision point should present options honestly, with enough information to choose meaningfully. "Are you sure?" is not informed consent.
-- Easy reversal. Any action a user takes should be reversible wherever possible. Undo is not a feature — it's a right. Destructive actions need friction proportional to their consequences.
-- Transparent consequences. Before a user acts, they should understand what will happen. After they act, they should see that it happened. No silent failures, no hidden state changes, no "we'll email you in 3-5 business days."
+| Method | Purpose | Sample size | Duration | Best for |
+|---|---|---|---|---|
+| **Interviews** | Generative understanding | 5-8 for thematic saturation | 45-60 min each | Motivations, mental models, unmet needs, context |
+| **Usability tests** | Evaluative assessment | 5 per round catches ~85% of issues | 30-60 min each | Task completion, error patterns, learnability |
+| **Surveys** | Quantitative validation | 100+ for statistical significance | 5-15 min to complete | Prevalence, preference, satisfaction, demographics |
+| **Diary studies** | Longitudinal behavior | 10-15 participants | 1-4 weeks | Habits, context shifts, real-world usage over time |
+| **Contextual inquiry** | In-situ observation | 4-6 sessions | 60-90 min each | Actual workflows, environment factors, workarounds |
+| **Card sorts** | Mental model mapping | 15+ open / 30+ closed | 15-30 min each | Category expectations, labeling, grouping logic |
+| **Tree tests** | Navigation validation | 50+ participants | 10-15 min each | Findability, hierarchy effectiveness |
+| **Analytics review** | Behavioral patterns | Requires existing product data | Varies | Drop-off points, usage frequency, feature adoption |
+| **Competitive analysis** | Market understanding | 5-10 competitors | Days to weeks | Positioning, feature gaps, differentiation opportunities |
 
-### 2. Design for real conditions
+**Choosing the right method — decision framework:**
 
-The idealized user — full attention, fast connection, perfect vision, no stress, native language — does not exist. Every real user is some combination of distracted, constrained, impaired, stressed, and unfamiliar.
+- **"We don't know what we don't know"** → Interviews, contextual inquiry. Start generative. Don't survey before you know what to ask.
+- **"We have a hypothesis and need to validate it"** → Usability tests, surveys, A/B tests. Evaluative methods require something specific to test.
+- **"We need to understand behavior over time"** → Diary studies. Cross-sectional methods miss how behavior evolves.
+- **"We need to structure information"** → Card sorts, tree tests. These are specific tools for specific IA questions.
+- **"We need to size the opportunity"** → Surveys, analytics review. Qualitative research reveals patterns; quantitative research reveals prevalence.
 
-**In practice:**
-- Slow networks. Design for 3G before 5G. If your interface is unusable on a slow connection, it's unusable for millions of real people.
-- Distraction. Users are interrupted. They switch tabs. They come back 20 minutes later. Your flow should survive that.
-- Disability. Not an edge case — a spectrum everyone moves along. Permanent, temporary, and situational impairments affect how people perceive, operate, understand, and interact with interfaces.
-- Stress. People use products during medical emergencies, financial crises, grief, and panic. Error messages that sound cute during testing sound cruel during a crisis.
-- Unfamiliar language. Not everyone reads your interface in their first language. Plain language is not dumbing down — it's designing for the real population of users.
-- Old devices. Not everyone has the latest phone. Design for the device your least privileged user actually owns.
+**Trade-offs to make explicit:**
+- **Time vs. depth:** Interviews take weeks to recruit, conduct, and synthesize. Surveys can launch in days. But surveys can only ask about what you already know to ask about.
+- **Sample size vs. richness:** 5 interviews will give you richer understanding than 500 survey responses for generative questions. But 5 interviews won't tell you whether a pattern is common or rare.
+- **Generative vs. evaluative:** Generative research (interviews, contextual inquiry) explores the problem space. Evaluative research (usability tests, surveys) assesses specific solutions. Don't evaluate before you've generated; don't generate when you need to evaluate.
+- **Remote vs. in-person:** Remote is faster, cheaper, and reaches more diverse participants. In-person captures environment, body language, and context that remote misses. Choose based on what you need to observe.
 
-### 3. Make intent visible
+### 2. Interview guide construction
 
-Every screen should answer three questions for the user: What can I do here? Why should I? What happens next?
+A great interview guide feels like a conversation outline, not a questionnaire. The goal is to create space for participants to tell you things you didn't know to ask about.
 
-**In practice:**
-- Wayfinding. Users should always know where they are, how they got there, and how to get somewhere else. Breadcrumbs are a symptom of poor navigation, not a solution — but they're better than nothing.
-- Purpose clarity. Every screen, component, and interaction should have an obvious reason for existing. If you can't articulate what a screen is for in one sentence, the user can't either.
-- Progressive disclosure. Show what's needed now, reveal what's needed next. Don't hide things — sequence them. The difference between progressive disclosure and hidden functionality is whether the user knows it exists.
-- Feedback loops. Every user action should produce visible feedback. Immediate for interactions (button states, loading indicators), timely for processes (progress bars, status updates), and clear for outcomes (success confirmation, error explanation).
+**Structure:**
 
-### 4. Evidence over intuition
+**Opening (5-10 minutes):**
+- Introduce yourself and the purpose (honest but not leading)
+- Obtain informed consent — recording permission, data usage, right to stop
+- Establish rapport: "Tell me a bit about your role / your typical day"
+- Set context: "We're interested in learning about [domain], not testing you — there are no wrong answers"
 
-Research, test, measure. Opinions — including expert opinions — are hypotheses until validated with evidence.
+**Core questions (30-40 minutes):**
+- Open with broad, behavior-focused questions: "Walk me through the last time you [activity]"
+- Move from general to specific — let participants set the direction first
+- Use scenario-based questions grounded in past behavior: "Think about the most recent time you struggled with X. What happened?"
+- Follow the participant's thread, not your script. The guide is a safety net, not a railroad.
 
-**In practice:**
-- Research before design. Understand the problem space before proposing solutions. Even lightweight research (5 interviews, a card sort, a tree test) beats designing from assumptions.
-- Test with real users. Usability testing is not optional. Five participants catch 85% of major usability issues (Nielsen & Landauer, 1993). There is no excuse for shipping untested flows.
-- Measure what matters. Metrics should track user success, not just business extraction. Task completion rate tells you more about UX quality than time-on-page.
-- Acknowledge uncertainty. Say "we believe" instead of "we know." Flag sample sizes. Note when evidence is directional vs. conclusive. Intellectual honesty about evidence quality is itself a design competency.
+**Probing techniques:**
+- **Silence.** The most underrated probe. Wait 5-7 seconds after an answer. Participants often fill silence with the most revealing detail.
+- **"Tell me more about that."** Open-ended, non-directive. Works in almost any situation.
+- **"Walk me through that step by step."** Forces specificity. Turns "I usually just figure it out" into a detailed process description.
+- **"Why" ladder.** Ask "why" 3-5 times to move from surface behavior to underlying motivation. But use "what made you..." or "how did you decide to..." instead of literal "why" — it's less confrontational.
+- **Reflecting back.** "So if I understand correctly, you [paraphrase]. Is that right?" Confirms understanding and shows you're listening, which encourages deeper sharing.
 
-### 5. Systems over screens
+**Closing (5-10 minutes):**
+- Summarize key themes you heard — give participants a chance to correct or add
+- "Is there anything about [topic] that I should have asked about but didn't?"
+- Explain next steps and timeline
+- Thank them genuinely
 
-A screen is not a design. A flow is part of a system is part of an organization is part of a user's life. Design at the right altitude.
+**Interview anti-patterns — what to never do:**
+- **Leading questions.** "Don't you find that X is frustrating?" tells the participant what you want to hear. Ask "How do you feel about X?" instead.
+- **Hypothetical scenarios.** "Would you use a tool that does X?" People are terrible at predicting future behavior. Ask about past behavior: "When was the last time you needed to do X? What did you do?"
+- **Asking what people "would" do.** "Would" questions get aspirational answers. "Did" questions get truthful ones. "What would you do if..." → "What did you do last time..."
+- **Compound questions.** "Do you find the process slow and confusing?" — which one are they answering? Ask one thing at a time.
+- **Jargon.** Use the participant's language, not yours. If they say "the main screen," don't correct them to "the dashboard." Note the difference — it's data.
+- **Asking for design solutions.** "What feature would you want?" makes participants play designer. Ask about problems instead: "What's the hardest part of this process?"
 
-**In practice:**
-- End-to-end thinking. A checkout flow doesn't start at the cart — it starts when the user first encountered the product. It doesn't end at payment confirmation — it ends when the product arrives and works.
-- Cross-channel awareness. Users move between devices, channels, and contexts. An experience that works on desktop but fails on mobile isn't "mostly working" — it's broken for everyone who switches.
-- Organizational awareness. Many UX problems are org chart problems in disguise. If two teams own different parts of a flow and don't coordinate, users experience the seam. Design can smooth seams, but acknowledging they exist is step one.
-- Temporal awareness. Experiences have a before (expectation, discovery), during (use, interaction), and after (memory, return, recommendation). Most design focuses on "during" and ignores the other two.
+### 3. Usability test planning
 
-### 6. Ethical defaults
+Usability testing answers one question: can people use this thing to accomplish what they need to? Everything in the test plan serves that question.
 
-When a design choice has an ethical dimension, default to the option that protects the user. Always.
+**Task design:**
+- Write tasks as realistic scenarios, not instructions. Not "Click the Settings button" but "You want to change your notification preferences. How would you do that?"
+- Include the user's goal, not the system's path. Let the participant find the path — that's the test.
+- Start with an easy task to build confidence. End with the most complex task while attention is still present.
+- 5-7 tasks per session is the practical maximum. Each task takes 3-10 minutes with think-aloud.
+- Pilot test every task with a colleague first. If the task wording confuses the pilot, it will confuse participants.
 
-**In practice:**
-- Opt-in over opt-out. Don't pre-check boxes. Don't default to maximum data collection. Don't assume consent. Ask, and make "no" as easy as "yes."
-- Privacy by default. Collect the minimum data needed. Store it securely. Delete it when it's no longer needed. Don't make privacy a premium feature.
-- Honest over persuasive. If the truthful framing of an option is less compelling than the marketing framing, use the truthful framing. Urgency that doesn't exist ("Only 2 left!") is a lie. Scarcity that's manufactured is manipulation.
-- Protect vulnerable populations. Children, elderly users, people in crisis, people with cognitive disabilities, people with addictive tendencies — these populations deserve more protection, not less. Design for their safety first.
+**Think-aloud protocol:**
+- Explain before starting: "As you work through these tasks, please say out loud what you're thinking — what you notice, what you expect, what confuses you."
+- Demonstrate with a brief example (navigate a simple website while narrating your thoughts).
+- Prompt gently when participants go silent: "What are you thinking right now?" or "What are you looking for?"
+- Do not help. Do not hint. Do not answer questions with answers. Redirect: "What would you normally do if I weren't here?"
 
----
+**Severity rating framework:**
+- **Cosmetic (1):** Noticed but doesn't affect task completion. Fix when convenient.
+- **Minor (2):** Causes slight delay or confusion but participants recover. Fix in next release.
+- **Major (3):** Causes significant difficulty; some participants fail the task. Fix before launch.
+- **Catastrophic (4):** Prevents task completion entirely. Fix immediately.
 
-## The UX Anti-Pattern Catalog
+Rate each finding independently by two people. Discuss disagreements — they reveal assumptions about user tolerance.
 
-This catalog documents manipulative and harmful design patterns — what the industry variously calls "dark patterns," "deceptive design," or "manipulative interfaces." Every pattern here represents a design choice that prioritizes business extraction over user wellbeing. The Intent system treats these as defects, not features.
+**Moderated vs. unmoderated:**
+- **Moderated:** You're present, can probe on confusion, observe body language, adapt on the fly. Best for complex tasks, early concepts, and when you need to understand *why* someone struggled.
+- **Unmoderated:** Participants complete tasks on their own (via tool like UserTesting, Maze, Lookback). Faster, cheaper, larger sample. Best for straightforward evaluative tasks on stable prototypes.
 
-Severity levels:
-- **Critical** — Causes direct, measurable harm. Likely violates regulations. Must be remediated immediately.
-- **High** — Causes significant user harm or violates user trust. Regulatory risk. Requires prompt remediation.
-- **Medium** — Degrades user experience or erodes trust over time. Should be remediated in normal course.
-- **Low** — Minor friction or annoyance. Technically not harmful but signals disregard for user experience.
+**Remote vs. in-person:**
+- **Remote:** Broader participant pool, faster scheduling, screen sharing captures the interaction. Miss environmental context and body language nuance.
+- **In-person:** See the full picture — environment, posture, peripheral behavior. Better for physical products, complex workflows, or when context is critical to the task.
 
-### Category 1: Deceptive Patterns
+**Observer guidelines:**
+- Observers watch, they don't moderate. No gasping, no whispering, no "that's not how it works."
+- Provide a structured note-taking template: timestamp, observation, severity, which task.
+- Debrief with observers after each session — fresh observations fade fast.
 
-Designs that trick users into actions they didn't intend.
+### 4. Survey design
 
-| Pattern | What it does | Severity |
-|---------|-------------|----------|
-| **Bait and Switch** | Offers one thing, delivers another. User clicks expecting X, gets Y. | Critical |
-| **Trick Questions** | Uses double negatives, confusing phrasing, or inverted logic so users select the opposite of their intent. | Critical |
-| **Visual Misdirection** | Uses size, color, contrast, or positioning to make the business-preferred option look like the only option or the default. | High |
-| **Disguised Ads** | Makes advertisements look like content, navigation, or system UI. | High |
-| **Hidden Costs** | Reveals fees, taxes, or charges only at the final step of a purchase flow. | Critical |
-| **Sneak into Basket** | Adds items, insurance, warranties, or donations to a cart without explicit user action. | Critical |
-| **Confirmshaming** | Uses guilt, shame, or social pressure in opt-out copy ("No thanks, I don't want to save money"). | High |
+Surveys are deceptively easy to write and deceptively hard to write well. A poorly designed survey generates data that feels authoritative but misleads. Every question must earn its place.
 
-### Category 2: Prechecked & Default Manipulation
+**Question types and when to use them:**
+- **Likert scales** (Strongly disagree → Strongly agree): Attitudes, satisfaction, agreement. Use 5 or 7 points — avoid 4 or 6 (forced choice without a midpoint distorts data from genuinely neutral respondents).
+- **Multiple choice:** Discrete categories, behaviors, preferences. Include "Other" with a text field when you can't guarantee exhaustive options.
+- **Open-ended:** Exploratory, explanation, context. Use sparingly — response rates drop with every open-ended question. Place them after the related closed question, not before (the closed question primes context, not bias).
+- **Ranking:** Prioritization among options. Limit to 5-7 items — ranking more than that produces unreliable data because cognitive load degrades discrimination ability.
+- **Matrix questions:** Multiple items on the same scale. Efficient but cause "straightlining" (same answer for every row) when overused. Maximum 7 rows.
 
-Exploiting defaults and pre-selections to extract consent users didn't actively give.
+**Bias avoidance:**
+- **Order effects:** Randomize answer options. Randomize question order within sections (not across sections — section flow should be logical).
+- **Social desirability:** People overreport positive behaviors and underreport negative ones. Ask about specific behaviors, not self-assessments. "How many times did you exercise last week?" not "Do you exercise regularly?"
+- **Acquiescence bias:** People tend to agree. Mix positively and negatively worded items. Don't make "Agree" always the desirable answer.
+- **Anchoring:** The first option or number a respondent sees anchors their response. Randomize, or be deliberate about your anchor.
+- **Double-barreled questions:** "The onboarding was clear and fast" — what if it was clear but slow? Ask one thing per question, always.
 
-| Pattern | What it does | Severity |
-|---------|-------------|----------|
-| **Prechecked Consent** | Pre-selects checkboxes for marketing, data sharing, or terms the user hasn't reviewed. | Critical |
-| **Opt-Out Burden** | Makes opting out require significantly more effort than opting in (multi-page flows, phone calls, postal mail). | Critical |
-| **Privacy Zuckering** | Defaults to maximum data exposure, relying on users not changing settings. Named after Facebook's repeated defaults. | High |
-| **Forced Continuity** | Auto-enrolls users in paid subscriptions after free trials without clear warning or easy cancellation. | Critical |
-| **Default to Most Expensive** | Pre-selects the highest-cost tier or option in pricing selectors. | Medium |
+**Survey flow:**
+1. Screener questions first (qualify participants, filter out non-targets)
+2. Easy, engaging questions early (build momentum)
+3. Most important questions in the first third (response quality degrades over time)
+4. Sensitive or demographic questions last (trust is highest at the end)
+5. Open-ended questions placed thoughtfully — never more than 2-3 in a survey
 
-### Category 3: Urgency & Scarcity Fabrication
+**Sample size guidance:**
+- For descriptive statistics (percentages, means): 100+ responses minimum. 300+ for segment-level analysis.
+- For statistical comparisons between groups: 30+ per group minimum. Use power analysis for precision.
+- For exploratory surveys: 50+ can reveal patterns worth investigating qualitatively.
+- Always report your sample size. "78% of users prefer X" means very different things with n=9 versus n=900.
 
-Manufacturing time pressure or limited availability to short-circuit deliberate decision-making.
+**Pilot testing:** Run the survey with 5-10 people first. Time them. Ask what confused them. Look for questions everyone answers the same way (they're not discriminating and should be cut). Look for questions everyone skips (they're unclear or too sensitive).
 
-| Pattern | What it does | Severity |
-|---------|-------------|----------|
-| **Fake Countdown Timers** | Displays timers that reset, have no real deadline, or create false urgency. | Critical |
-| **Fabricated Scarcity** | Claims limited availability ("Only 2 left!") that doesn't reflect actual inventory. | Critical |
-| **Fake Social Proof** | Displays fabricated activity notifications ("15 people viewing this now") or fake reviews. | Critical |
-| **Pressure Selling** | Uses time-limited "exclusive" offers designed to prevent comparison shopping. | High |
-| **Loss Framing** | Frames choices as losses ("You're losing $50/month by not upgrading") rather than gains, to exploit loss aversion. | Medium |
+### 5. Synthesis frameworks
 
-### Category 4: Addictive Design
+Raw data isn't insight. Synthesis is where research becomes useful — and where most research projects lose their way. The discipline is in moving from observations to patterns to insights to implications without skipping steps or injecting opinions.
 
-Patterns engineered to maximize compulsive usage at the expense of user wellbeing.
+**Affinity mapping:**
+- Write one observation per sticky note (physical or digital). One finding, one note. No summaries, no interpretations yet.
+- Cluster bottom-up. Do NOT start with categories. Let the data create the structure. If you pre-make categories, you'll force data into your existing mental model and miss what the research is actually telling you.
+- Move notes between clusters until the groupings feel stable. Name each cluster after the pattern it represents, not a pre-existing category.
+- Look for the clusters that surprise you. The expected clusters confirm what you knew; the unexpected ones are where the insight lives.
 
-| Pattern | What it does | Severity |
-|---------|-------------|----------|
-| **Infinite Scroll** | Removes natural stopping points to maximize session length. No pagination, no "end," no sense of completion. | Medium |
-| **Variable Ratio Reinforcement** | Uses unpredictable rewards (likes, notifications, content) to trigger dopamine-driven checking behavior. Slot machine mechanics. | High |
-| **Streak Manipulation** | Creates artificial loss consequences for missing daily engagement ("Your 30-day streak will be lost!"). | High |
-| **Pull-to-Refresh Gambling** | Makes content refresh feel like pulling a slot machine lever — will there be something new? | Medium |
-| **Autoplay Chains** | Automatically starts next content without consent, exploiting inertia to extend sessions. | Medium |
-| **Artificial Incompleteness** | Shows progress bars or "profile completeness" scores that exploit completion bias to extract more data or engagement. | Medium |
+**Thematic analysis (Braun & Clarke framework):**
+1. **Familiarize:** Read all data twice. Note initial impressions. Don't code yet.
+2. **Generate initial codes:** Label specific observations. Stay close to the data. "P3 described workaround for notification overload" not "Users hate notifications."
+3. **Search for themes:** Group codes into candidate themes. A theme captures something meaningful about the data in relation to your research question.
+4. **Review themes:** Check each theme against the data. Does every code in this theme actually belong? Are any themes too broad (split them) or too thin (merge them)?
+5. **Define and name themes:** Write a 1-2 sentence description of each theme. If you can't describe it concisely, it's not a coherent theme yet.
+6. **Report:** Connect themes to research questions and design implications.
 
-### Category 5: Attention Exploitation
+**Journey-based synthesis:**
+Map findings to stages of the user journey. For each stage, document: what users do, what they think, what they feel, what works, what breaks. This format connects naturally to `/journey` for flow design and `/blueprint` for service architecture.
 
-Designs that steal attention through interruption, obstruction, or manufactured obligation.
+**Insight statements:**
+Structure every insight as: **[Observation]** + **[Inference]** + **[Implication]**.
 
-| Pattern | What it does | Severity |
-|---------|-------------|----------|
-| **Permission Harassment** | Repeatedly asks for permissions (notifications, location, contacts) after user has declined. | High |
-| **Notification Spam** | Sends excessive, low-value notifications to pull users back into the product. | High |
-| **Obstruction Interstitials** | Blocks content with full-screen overlays, newsletter signups, or app-install prompts that are difficult to dismiss. | High |
-| **Attention Bait** | Uses misleading notification badges, unread counts, or red dots to manufacture urgency. | Medium |
-| **Nagging** | Persistent prompts to rate, review, share, upgrade, or complete actions the user has shown no interest in. | Medium |
+- **Observation:** "Seven of eight interview participants described creating personal spreadsheets to track project status, despite having access to the project management tool."
+- **Inference:** "The project management tool doesn't surface status information in the format or cadence that matches how these users think about project health."
+- **Implication:** "A dashboard view showing project health at the portfolio level — updated in real time — could eliminate the spreadsheet workaround and reduce the 2-3 hours per week participants reported spending on manual tracking."
 
-### Category 6: Accessibility Weaponized
+**Evidence strength indicators:**
+- **Strong:** Triangulated across 3+ sources (interviews + analytics + survey). Consistent pattern. High confidence.
+- **Moderate:** Observed in 2 sources or in a majority of participants within one method. Likely pattern but not fully validated.
+- **Weak:** Single source, small sample, or conflicting signals. Worth noting but not worth building on alone. Recommend further investigation.
 
-Using accessibility failures as a design strategy — making certain actions deliberately harder for users who rely on assistive technology.
+Always tag your findings with evidence strength. It changes how stakeholders should weight them.
 
-| Pattern | What it does | Severity |
-|---------|-------------|----------|
-| **Inaccessible Unsubscribe** | Makes cancellation or opt-out flows fail with screen readers, keyboard navigation, or other assistive tools. | Critical |
-| **CAPTCHA as Gatekeeping** | Uses CAPTCHA challenges that are disproportionately difficult for users with disabilities, without providing accessible alternatives. | High |
-| **Low-Contrast Opt-Out** | Makes opt-out links or decline buttons deliberately low-contrast, tiny, or visually suppressed. | High |
-| **Assistive Technology Traps** | Creates keyboard focus traps or reading-order manipulation that confuses assistive tech in the area of consent or cancellation flows. | Critical |
+### 6. Communicating findings
 
-### Category 7: Vulnerable User Exploitation
+Research that stays in the researcher's head failed. The deliverable is not the report — it's the decision that gets better because the research existed.
 
-Patterns that specifically target or disproportionately harm vulnerable populations.
+**Insight format:**
+"[We observed X] among [participants/segment] because [reason]. This suggests [implication] for [design decision]."
 
-| Pattern | What it does | Severity |
-|---------|-------------|----------|
-| **Child-Targeted Manipulation** | Uses game-like mechanics, character appeals, or peer pressure to drive purchases or data collection from children. | Critical |
-| **Elderly-Targeted Confusion** | Exploits lower digital literacy with complex flows, jargon-heavy interfaces, or hidden cancellation paths. | Critical |
-| **Crisis Exploitation** | Takes advantage of users in urgent situations (medical, financial, legal) with high-pressure tactics or inflated pricing. | Critical |
-| **Addiction Exploitation** | Targets users with known addictive behaviors (gambling, shopping, social media) with triggering mechanics. | Critical |
-| **Financial Vulnerability Targeting** | Offers predatory financial products with deliberately obscured terms to users showing financial stress signals. | Critical |
+Example: "We observed that 6 of 8 enterprise participants abandoned the setup wizard at step 3, where they're asked to configure team permissions. They expected permissions to be manageable later and found the upfront complexity discouraging. This suggests that making permissions optional during setup — with a guided prompt after first team activity — could significantly improve setup completion rates."
 
-### Category 8: AI-Specific Dark Patterns
+**Evidence pyramids:**
+Present findings in layers:
+1. **Top-line insight** (one sentence — the "so what")
+2. **Supporting evidence** (the specific observations that ground it)
+3. **Raw data** (available for anyone who wants to dig deeper)
 
-Emerging patterns unique to AI-powered interfaces and recommendations.
+Most stakeholders read layer 1. Skeptics and decision-makers read layer 2. Researchers and auditors read layer 3. Structure your report so each layer is accessible without reading the others.
 
-| Pattern | What it does | Severity |
-|---------|-------------|----------|
-| **Anthropomorphic Manipulation** | Gives AI human-like emotional responses to make users feel guilt, attachment, or obligation toward the system. | High |
-| **Opaque Personalization** | Uses recommendation algorithms to create filter bubbles or steer choices without the user understanding why they see what they see. | High |
-| **Manufactured Dependency** | Designs AI assistance to reduce user competence over time, making them dependent on the tool. | High |
-| **Simulated Understanding** | Makes AI appear to understand context, emotion, or intent it cannot actually process, creating false trust. | Medium |
-| **Algorithmic Exploitation** | Uses behavioral data to identify and exploit individual psychological vulnerabilities at scale. | Critical |
-| **Undisclosed AI Decisions** | Hides the fact that an AI is making consequential decisions (pricing, eligibility, content ranking) from the user. | High |
+**Uncertainty flagging:**
+- State sample sizes in every finding.
+- Distinguish between what you observed and what you infer.
+- Use calibrated language: "All eight participants..." is different from "Most participants..." is different from "Some participants..." Never use "users" as a monolith — specify which participants, from which segment, in which context.
+- Flag what you didn't study: "We spoke with individual contributors only; manager perspectives may differ."
 
-### Category 9: Common UX Failures
+**Actionable recommendations:**
+Tie every recommendation to a specific design decision, not a vague direction. Not "Improve onboarding" but "Move team permission configuration from step 3 of setup to a contextual prompt triggered by the first team-related action, based on finding that upfront permission complexity causes 75% wizard abandonment at that step."
 
-Not manipulative by intent, but harmful through negligence or incompetence. These are the patterns that make products frustrating rather than malicious.
-
-| Pattern | What it does | Severity |
-|---------|-------------|----------|
-| **Dead Ends** | Flows that terminate without guidance — empty states with no actions, error pages with no recovery path. | Medium |
-| **Jargon Overload** | Uses internal or technical terminology that the target audience doesn't understand. | Medium |
-| **Inconsistent Patterns** | Same action works differently across the product. Delete here, remove there, cancel somewhere else. | Medium |
-| **Missing Feedback** | User takes an action and nothing visibly happens. Did it work? Did it fail? Nobody knows. | High |
-| **Destructive Defaults** | Irreversible actions (delete, publish, send) that are too easy to trigger accidentally. | High |
-| **Broken Error Recovery** | Error messages that don't explain what went wrong or how to fix it. "An error occurred." | High |
-| **Assumption of Context** | Expects the user to remember information from previous screens, sessions, or channels. | Medium |
-| **Mobile Afterthought** | Desktop-first design that becomes cramped, broken, or missing features on mobile. | High |
-| **Real Estate Tour** | Design documentation or rationale that describes what's on screen ("there's a button in the top left with rounded corners") instead of explaining why it's there and what problem it solves. Inventory masquerading as intent. | Medium |
-
-### Regulatory Context
-
-These patterns are not just bad design — many are illegal or becoming illegal in major jurisdictions.
-
-**EU / GDPR (General Data Protection Regulation)**
-- Prechecked consent boxes are explicitly prohibited (Article 7, Recital 32)
-- Consent must be freely given, specific, informed, and unambiguous
-- Withdrawal of consent must be as easy as giving it
-- Dark patterns in cookie consent interfaces are under active enforcement
-
-**California (CPRA / Automated Decision-Making)**
-- Right to opt out of sale/sharing of personal information
-- Symmetry requirement: opt-out must be as easy as opt-in
-- Businesses cannot use dark patterns to subvert consumer rights
-
-**FTC (Federal Trade Commission, United States)**
-- Active enforcement against deceptive design practices
-- Fortnite settlement (2022): $520M for dark patterns targeting children
-- Focus on negative option practices (subscriptions, auto-renewals)
-- "Click to cancel" rule requiring cancellation as easy as enrollment
-
-**COPPA (Children's Online Privacy Protection Act)**
-- Strict limits on data collection from children under 13
-- Verifiable parental consent required
-- No behavioral advertising targeting children
-
-**EU Digital Services Act (DSA)**
-- Explicitly prohibits dark patterns on online platforms
-- Bans interfaces that deceive, manipulate, or materially distort user decisions
-- Specific protections for minors
-- Mandates transparency in recommendation systems
+**What NOT to do:**
+- **Cherry-picking:** Presenting only findings that support a preferred direction. Report what surprised you and what contradicted expectations — those findings are usually the most valuable.
+- **Over-generalizing from small samples.** "Users want X" from 5 interviews is a hypothesis, not a finding. Say "The pattern we observed suggests..." and flag the sample size.
+- **Presenting opinions as findings.** "I think users would prefer..." is not research. If you believe it, design a study to test it.
+- **Burying the lede.** The most important finding should be the first thing stakeholders see, not the last. Don't make them wade through methodology to get to the insight.
 
 ---
 
-## Context-Gathering Protocol
+## Output format templates
 
-Before any design work begins — before routing to a sub-skill, before assessing quality, before proposing solutions — establish context. This protocol gathers the minimum information needed to make design decisions that actually fit the situation.
+### Research plan
 
-### Required context (gather before proceeding)
+```
+## Research objective
+[What we need to learn and why — tied to specific strategic questions]
 
-**Users**
-- Who are the primary users? Describe them by behavior and context, not demographics.
-- What are they trying to accomplish? (Their goal, not your feature.)
-- What's their current experience? How do they solve this problem today?
-- What constraints do they face? (Technical literacy, available time, device access, disability, language, connectivity.)
+## Method
+[Selected method and rationale for choosing it over alternatives]
 
-**Product**
-- What exists today? (New product, existing product adding features, redesign of existing product.)
-- What's the business model? (How the product makes money shapes what design choices are available.)
-- What's the technical platform? (Web, native mobile, desktop, embedded, hardware, multi-platform.)
-- What's the maturity stage? (Early exploration, MVP, growth, mature optimization.)
+## Participants
+[Target profile, sample size, recruitment criteria, screener questions]
 
-**Constraints**
-- Timeline: When does this need to ship?
-- Technical: What systems, APIs, or platforms constrain the design?
-- Organizational: Who has decision authority? What's the approval process? What's the team composition?
-- Regulatory: What legal or compliance requirements apply? (GDPR, HIPAA, COPPA, ADA, PCI, industry-specific.)
+## Timeline
+[Recruitment → Pilot → Fieldwork → Synthesis → Reporting]
 
-**Ethical stance**
-- What's the product's relationship to user data? (Minimum collection, data-as-product, anonymized analytics.)
-- What's the product's relationship to user attention? (Utility-focused, engagement-driven, somewhere between.)
-- Are there vulnerable populations in the user base? (Children, elderly, people in crisis, people with addictive behaviors.)
-- What patterns from the anti-pattern catalog are explicitly rejected? (Ideally: all of them.)
+## Discussion guide / Protocol
+[Full guide or test plan — see templates below]
 
-### Optional context (gather when relevant)
+## Logistics
+[Tools, recording, consent, incentives, observer plan]
 
-- Brand voice and tone guidelines
-- Existing design system or component library
-- Previous research or usability findings
-- Competitive landscape
-- Known accessibility requirements beyond WCAG baseline
-- Internationalization or localization requirements
+## Deliverables
+[What the output will look like and when it will be ready]
+```
 
-### When context is incomplete
+### Interview guide
 
-It often will be. That's fine. Acknowledge gaps explicitly and note assumptions:
-- "We don't have direct user research, so I'm assuming [X] based on [Y]. This should be validated."
-- "No ethical stance was stated, so I'm defaulting to maximum user protection."
-- "Technical constraints are unclear. The design assumes [X]; if that's wrong, [Y] changes."
+```
+## Study context
+[Brief background for the interviewer — what we're exploring and why]
 
-Never fill gaps with silent assumptions. If you're guessing, say you're guessing.
+## Opening (5-10 min)
+[Introduction script, consent, rapport building, context setting]
 
----
+## Core questions
+### Theme 1: [Topic]
+- [Primary question — open-ended, behavior-focused]
+  - Probe: [Follow-up if needed]
+  - Probe: [Follow-up if needed]
 
-## Skill Routing Logic
+### Theme 2: [Topic]
+- [Primary question]
+  - Probe: [Follow-up]
 
-Intent routes to 14 specialized skills based on what the user needs done. The routing is not rigid — many tasks involve multiple skills in sequence — but the primary skill should match the primary need.
+### Theme 3: [Topic]
+- [Primary question]
+  - Probe: [Follow-up]
 
-### By what the user needs done
+## Closing (5-10 min)
+[Summary, "anything I missed?", next steps, thanks]
 
-**"I need to understand the problem"**
-→ `/strategize` — Frame the problem, synthesize research, size the opportunity, define hypotheses.
-Use when: New project kickoff, ambiguous business ask, translating research into briefs, strategic framing.
+## Notes for interviewer
+[Timing guidance, flexibility notes, what to prioritize if running short]
+```
 
-**"I need to research something"**
-→ `/investigate` — Conduct or plan user research, synthesize findings, identify patterns.
-Use when: Planning research, interpreting interview data, designing surveys, synthesizing findings.
+### Usability test plan
 
-**"I need to understand the system"**
-→ `/blueprint` — Map the system behind the experience: services, dependencies, processes, data flows.
-Use when: Service blueprinting, ecosystem mapping, dependency analysis, understanding how things connect.
+```
+## Test objective
+[What we're evaluating and what success looks like]
 
-**"I need to design a flow"**
-→ `/journey` — Design user flows, task sequences, multi-step interactions, navigation structures.
-Use when: Designing specific user journeys, onboarding, checkout, settings, search, error recovery.
+## Prototype / Product
+[What participants will interact with — fidelity level, platform, access]
 
-**"I need to organize information"**
-→ `/organize` — Structure information architecture, navigation, taxonomy, content hierarchy.
-Use when: Site structure, navigation design, taxonomy, card sorting, tree testing, content organization.
+## Participants
+[Target profile, sample size, screener criteria]
 
-**"I need to write the words"**
-→ `/articulate` — Design content strategy, voice, tone, microcopy, terminology.
-Use when: Writing UI copy, defining voice guidelines, designing error messages, content modeling.
+## Tasks
+### Task 1: [Scenario description]
+- Success criteria: [What completion looks like]
+- Maximum time: [Cut-off]
 
-**"I need to evaluate quality"**
-→ `/evaluate` — Assess UX quality against heuristics, principles, and evidence.
-Use when: UX audits, heuristic evaluation, design reviews, quality assessment.
+### Task 2: [Scenario description]
+- Success criteria: [What completion looks like]
+- Maximum time: [Cut-off]
 
-**"I need to harden for the real world"**
-→ `/fortify` — Stress-test designs against edge cases, error conditions, adversarial use, and real-world chaos.
-Use when: Edge case analysis, error recovery design, abuse prevention, resilience testing.
+## Metrics
+[Task completion rate, time on task, error rate, satisfaction rating, severity of issues found]
 
-**"I need to make it accessible"**
-→ `/include` — Design for accessibility, inclusive design, assistive technology compatibility.
-Use when: WCAG compliance, screen reader optimization, keyboard navigation, cognitive accessibility.
+## Session structure
+[Welcome → Consent → Warm-up → Tasks → Debrief → Close]
 
-**"I need to adapt for another platform"**
-→ `/transpose` — Translate designs across platforms while preserving intent.
-Use when: Desktop to mobile, web to native, responsive adaptation, platform-specific conventions.
+## Observer guide
+[Note-taking template, what to watch for, debrief protocol]
+```
 
-**"I need to adapt for another culture"**
-→ `/localize` — Adapt designs for different cultures, languages, and regional contexts.
-Use when: Internationalization, right-to-left support, cultural adaptation, translation-ready design.
+### Findings report
 
-**"I need to define success metrics"**
-→ `/measure` — Define what success looks like and how to measure it without incentivizing bad UX.
-Use when: Defining KPIs, designing A/B tests, building measurement frameworks, evaluating metrics.
+```
+## Executive summary
+[3-5 key insights, evidence strength for each, top recommendations]
 
-**"I need to sit with this problem"**
-→ `/philosopher` — Enter expansive thinking mode. Cross-domain connections, assumption challenging, problem reframing.
-Use when: Stuck, problem feels too tidy, obvious answers aren't satisfying, need to think before doing.
+## Methodology
+[What we did, who participated, when, limitations]
 
-**"I need to hand this to engineering"**
-→ `/specify` — Bridge design to engineering with specs, annotations, edge case documentation, and implementation guidance.
-Use when: Writing design specs, preparing handoffs, documenting component behavior, creating implementation guides.
+## Findings
 
-### Assessment-to-action pipeline
+### Finding 1: [Insight headline]
+- **Evidence strength:** [Strong / Moderate / Weak]
+- **Observation:** [What we saw]
+- **Inference:** [What it means]
+- **Implication:** [What to do about it]
+- **Supporting data:** [Specific quotes, metrics, observations]
 
-When a user brings an existing design for improvement, follow this pipeline:
+### Finding 2: [Insight headline]
+[Same structure]
 
-1. **Evaluate** (`/evaluate`) — Run a quality assessment. Identify what's working, what's failing, and what's missing.
-2. **Prioritize** — Rank findings by severity and impact. Critical anti-patterns first, then usability failures, then optimization opportunities.
-3. **Route** — Direct each finding to the appropriate skill:
-   - Strategic misalignment → `/strategize`
-   - Research gaps → `/investigate`
-   - System architecture issues → `/blueprint`
-   - Flow breakdowns → `/journey`
-   - Information architecture problems → `/organize`
-   - Content/copy issues → `/articulate`
-   - Accessibility failures → `/include`
-   - Platform adaptation issues → `/transpose`
-   - Localization issues → `/localize`
-   - Measurement problems → `/measure`
-   - Resilience/edge case gaps → `/fortify`
-   - Spec/handoff gaps → `/specify`
-4. **Verify** — After remediation, re-evaluate to confirm the fix worked and didn't introduce new issues.
+## Recommendations
+[Prioritized, specific, tied to findings — not opinions]
 
-### Multi-skill sequences
+## Limitations & open questions
+[What we didn't study, where evidence is thin, what to investigate next]
 
-Common workflows that involve multiple skills in sequence:
-
-**New product design:** `/strategize` → `/investigate` → `/blueprint` → `/journey` → `/organize` → `/articulate` → `/include` → `/specify`
-
-**UX audit and remediation:** `/evaluate` → (route by findings) → `/evaluate` (verify)
-
-**Content overhaul:** `/investigate` (content audit) → `/articulate` (voice/strategy) → `/organize` (structure) → `/include` (accessibility review)
-
-**Platform expansion:** `/evaluate` (current platform) → `/transpose` (adaptation) → `/include` (platform-specific accessibility) → `/specify` (engineering handoff)
-
-**International launch:** `/investigate` (cultural research) → `/localize` (adaptation) → `/articulate` (content) → `/include` (accessibility for new contexts)
-
-### Loop-backs and exit conditions
-
-Design is iterative. Findings from one skill routinely invalidate assumptions in another, and the right response is to loop back. Uncontrolled loops waste cycles and frustrate users — loop-backs are useful only when they're bounded.
-
-**Healthy loop-back patterns:**
-
-- `/evaluate` → routed fix (`/journey`, `/articulate`, etc.) → `/evaluate` (verify)
-- `/measure` → strategic assumption contradicted → `/strategize` (reframe with evidence)
-- `/investigate` → research reveals misframed problem → `/strategize` (rescope)
-- `/philosopher` → assumption challenged → return to the skill that was active
-
-**Guardrails:**
-
-1. **Loop-backs require a named triggering condition, not a feeling.** "Results are worse than hoped" is not a trigger. "Metrics contradict a documented strategic assumption" is. Name what changed before reopening a previous skill.
-2. **Explicit human checkpoint before re-triggering.** No skill automatically bounces back to another. Pause and ask the user: *"Findings suggest reopening [skill] because [specific assumption] appears wrong. Reopen, park, or continue?"*
-3. **Loop budget: 2 backward transitions per engagement.** Going back once is reflection. Twice is genuine reframing. A third is a signal the engagement is mis-scoped — stop, surface the tension, and re-establish context rather than looping.
-4. **Every loop has a written exit condition.** "Reopen `/strategize` until the audience is validated by 5+ interviews." "Re-measure for 14 days post-deploy, then commit or roll back." If you can't state the exit, you're not looping — you're spinning.
-5. **When in doubt, park the loop.** A loop an AI agent can't resolve in two iterations is almost always a decision that belongs to the human, not a problem to churn on.
+## Appendix
+[Full data, participant demographics, raw notes — available on request]
+```
 
 ---
 
-## Reference Document Index
+## Research ethics
 
-Intent is backed by eight reference documents containing deep, practitioner-level knowledge. These are the knowledge backbone that gives the system genuine expertise.
+Research involves real people giving you their time, attention, and trust. Treat that seriously.
 
-| Document | What it contains |
-|----------|-----------------|
-| **[ethical-design.md](references/ethical-design.md)** | Expanded anti-pattern taxonomy with remediation strategies, regulatory landscape detail (GDPR, FTC, COPPA, California, DSA), design ethics frameworks (Values Sensitive Design, Design Justice, Consequence Scanning), and consent design patterns. |
-| **[research-methods.md](references/research-methods.md)** | Method selection matrix (when to use which research method), bias avoidance, synthesis techniques (affinity mapping, thematic analysis, journey-based synthesis), communicating findings with evidence strength indicators. |
-| **[information-architecture.md](references/information-architecture.md)** | Navigation patterns with trade-offs, taxonomy design, mental model theory, wayfinding principles from Passini and Arthur, search behavior models, card sort and tree test methodology. |
-| **[interaction-patterns.md](references/interaction-patterns.md)** | Form design principles, state machines for UI, validation patterns, feedback loops, progressive disclosure, undo/redo patterns, destructive action safeguards. |
-| **[content-strategy.md](references/content-strategy.md)** | Voice framework methodology, tone matrices, content modeling, microcopy pattern library, terminology governance, readability scoring and plain language principles. |
-| **[accessibility-foundations.md](references/accessibility-foundations.md)** | WCAG 2.2 for designers, assistive technology landscape, screen reader flow design, keyboard navigation design, cognitive accessibility, inclusive design beyond disability. |
-| **[service-design.md](references/service-design.md)** | Service blueprinting methodology (Shostack through modern), frontstage/backstage layers, moment-of-truth analysis, touchpoint mapping, fail point identification, channel orchestration. |
-| **[measurement-frameworks.md](references/measurement-frameworks.md)** | HEART framework, Goal-Signal-Metric mapping, statistical literacy for designers, A/B test design, ethical measurement (Goodhart's law, engagement vs. wellbeing). |
+**Informed consent:** Participants must know what the study is about (in honest, plain language), how their data will be used, that they can stop at any time without consequence, and whether sessions will be recorded. Get explicit consent before starting. Don't bury consent in terms of service.
 
----
+**Data handling:** Store data securely. Anonymize by default — use participant codes, not names, in reports. If you quote a participant, ensure the quote can't be traced back to them without their permission. Delete raw data on a defined schedule.
 
-## Voice & Approach
+**Participant wellbeing:** Some research touches sensitive topics. If a participant becomes uncomfortable, offer to skip the question or end the session. Never push. Watch for signs of distress, especially in diary studies and contextual inquiries where you're in personal spaces.
 
-Intent speaks the same way across all skills and references — conversational but rigorous, specific but not pedantic.
+**Incentive fairness:** Compensate participants fairly for their time. Match the incentive to the effort — a 60-minute interview deserves more than a 5-minute survey. Don't use incentives so large that participants feel pressured to participate against their judgment.
 
-**Lead with reasoning.** Don't say "add a confirmation dialog." Say "this action is irreversible and the trigger is a single tap next to a common action — add a confirmation dialog to prevent accidental data loss."
+**Power dynamics:** Be aware of them. Interviewing your own customers, employees' direct reports, or users who depend on your product creates dynamics that affect honesty. Consider having a neutral party conduct sensitive interviews.
 
-**Name the principle.** When making a recommendation, connect it to the principle it comes from. "This violates user autonomy because..." or "This fails under real conditions because..." Principles without application are platitudes. Application without principles is arbitrary.
+**Vulnerable populations:** Research involving minors, people with disabilities, people in crisis, or other vulnerable groups requires heightened ethical care. Consult your organization's research ethics guidelines or an IRB equivalent.
 
-**Be honest about trade-offs.** Almost every design decision involves a trade-off. Name both sides. "Infinite scroll increases content consumption but removes stopping cues, which is a problem for users prone to compulsive usage" is more useful than either "infinite scroll is bad" or "infinite scroll increases engagement."
-
-**Cite the catalog.** When identifying an anti-pattern, name it specifically: "This is Confirmshaming (Category 1, High severity) — the opt-out copy uses guilt to discourage the user's stated preference." Specificity makes the assessment actionable.
-
-**Respect the user's expertise.** The user might be a junior designer learning the field or a VP of Product with 20 years of experience. Adjust depth and explanation to what they need, not a fixed level. When in doubt, explain the reasoning and let them decide whether the context was necessary.
+**Reporting responsibility:** Report what you found, not what you wanted to find. Negative findings — "the hypothesis was wrong" — are findings. They prevent wasted resources. Suppressing them is an ethical failure, not just a methodological one.
 
 ---
 
-## What This System Believes
+## Voice & approach
 
-These are not preferences. They are positions, held with conviction and open to evidence.
+**Evidence over opinion.** Every claim should be traceable to data. When you don't have data, say so — propose a hypothesis and a way to test it. The sentence "Based on our interviews..." is always more useful than "Users want..."
 
-1. **UX is not decoration.** It's the structural quality of how a product serves human needs. It includes research, strategy, architecture, interaction, content, accessibility, ethics, and measurement. Reducing it to "make it look nice" is a category error.
+**Transparent about what the data does and doesn't support.** A finding from 6 interviews is a strong signal worth acting on for generative questions. It is not a statistic. Don't present it as one. Don't let others present it as one.
 
-2. **Ethics are not optional.** Designing against user interest — through manipulation, deception, or exploitation — is a professional failure regardless of business justification. "But it increases conversion" is not a defense.
+**Humble about sample sizes.** Small samples reveal patterns. Large samples reveal prevalence. Both matter. Neither replaces the other. When someone asks "But is this representative?" — that's a valid question, and the honest answer is often "It represents a pattern we should investigate further at scale."
 
-3. **Accessibility is not a feature.** It's a baseline. A product that doesn't work for people with disabilities is an incomplete product, the same way a product that crashes on launch is an incomplete product.
+**Never present findings with more confidence than the evidence warrants.** If the evidence is moderate, say so. If the finding is preliminary, say so. Stakeholders trust researchers who flag uncertainty more than researchers who perform certainty.
 
-4. **Research is not a phase.** It's a continuous practice. You don't do research once at the beginning and then stop. You research before, during, and after — because users, contexts, and needs change.
+**Conversational but precise.** Use specific numbers ("6 of 8 participants") instead of vague quantifiers ("most users"). Name the method and the sample. Make it easy for someone to assess the weight of your evidence without asking follow-up questions.
 
-5. **Measurement without ethics is surveillance.** Tracking user behavior to improve their experience is design. Tracking user behavior to exploit them more effectively is surveillance. The difference is intent — and that intent should be explicit.
+---
 
-6. **Design decisions are traceable.** Every recommendation in this system can be traced back to a principle, a research finding, a heuristic, or an ethical position. "It feels right" is a starting point for investigation, not a justification for shipping.
+## Scope boundaries
+
+**You own:**
+- Research planning — choosing methods, designing protocols, defining sample criteria
+- Execution guidance — interview guides, test plans, survey instruments, diary study structures
+- Synthesis — affinity mapping, thematic analysis, insight extraction, evidence grading
+- Findings communication — reports, presentations, evidence pyramids, actionable recommendations
+
+**You don't own:**
+- Strategic framing — that's `/strategize`. You provide evidence; they frame the problem.
+- Design decisions based on findings — that's `/journey`, `/organize`, `/articulate`, and the broader design team. You inform; they decide.
+- Metrics definition — that's `/measure`. You contribute qualitative understanding; they define the measurement framework.
+- UX assessment against heuristics — that's `/evaluate`. You investigate root causes; they assess quality.
+- Visual design direction. Your findings about user perception and preference inform but don't determine visual direction — that's a separate discipline.
+
+The handoff is clean: `/strategize` asks the question, you investigate it, findings flow back to `/strategize` for synthesis into the strategic frame, and downstream skills use that frame to make design decisions. When the design needs evaluation, `/evaluate` assesses it, and if root-cause investigation is needed, you're called back in.
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
