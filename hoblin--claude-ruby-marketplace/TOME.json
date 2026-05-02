@@ -1,0 +1,81 @@
+{
+  "name": "claude-ruby-marketplace",
+  "owner": "hoblin",
+  "repo": "claude-ruby-marketplace",
+  "description": "Claude Code plugin marketplace for Ruby and Rails development",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "activerecord",
+      "path": "plugins/activerecord/skills/activerecord",
+      "github_url": "https://github.com/hoblin/claude-ruby-marketplace/tree/main/plugins/activerecord/skills/activerecord",
+      "description": ""
+    },
+    {
+      "name": "dragonruby",
+      "path": "plugins/dragonruby/skills/dragonruby",
+      "github_url": "https://github.com/hoblin/claude-ruby-marketplace/tree/main/plugins/dragonruby/skills/dragonruby",
+      "description": ""
+    },
+    {
+      "name": "draper-decorators",
+      "path": "plugins/draper/skills/draper-decorators",
+      "github_url": "https://github.com/hoblin/claude-ruby-marketplace/tree/main/plugins/draper/skills/draper-decorators",
+      "description": ""
+    },
+    {
+      "name": "mcp-server",
+      "path": "plugins/mcp/skills/mcp-server",
+      "github_url": "https://github.com/hoblin/claude-ruby-marketplace/tree/main/plugins/mcp/skills/mcp-server",
+      "description": ""
+    },
+    {
+      "name": "ratatui-ruby",
+      "path": "plugins/ratatui-ruby/skills/ratatui-ruby",
+      "github_url": "https://github.com/hoblin/claude-ruby-marketplace/tree/main/plugins/ratatui-ruby/skills/ratatui-ruby",
+      "description": ""
+    },
+    {
+      "name": "rspec",
+      "path": "plugins/rspec/skills/rspec",
+      "github_url": "https://github.com/hoblin/claude-ruby-marketplace/tree/main/plugins/rspec/skills/rspec",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hoblin/claude-ruby-marketplace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:41:53Z"
+}
