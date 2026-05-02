@@ -1,0 +1,9 @@
+{
+  "name": "lukeifrene-hash--sha8al-command-center",
+  "displayName": "Sha8al-Command-Center",
+  "description": "Tracker-driven Electron app + MCP/CLI command center for   milestone-based autonomous project execution.",
+  "version": "1.0.0",
+  "author": "lukeifrene-hash",
+  "homepage": "https://github.com/lukeifrene-hash/Sha8al-Command-Center",
+  "skills": []
+}
