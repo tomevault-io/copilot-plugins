@@ -1,0 +1,9 @@
+{
+  "name": "braidapp-ai--slop-buster",
+  "displayName": "slop-buster",
+  "description": "Find and delete unmaintained Vercel projects before their API keys leak.",
+  "version": "1.0.0",
+  "author": "BraidApp-AI",
+  "homepage": "https://github.com/BraidApp-AI/slop-buster",
+  "skills": []
+}
