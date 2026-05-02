@@ -1,0 +1,9 @@
+{
+  "name": "hello-sebastian--energy-horizon",
+  "displayName": "Energy-Horizon",
+  "description": "A Lovelace card for Home Assistant that compares cumulative energy usage between the current period and a corresponding historical period (eg. year-over-year or month-over-year), with a chart, summary",
+  "version": "1.0.0",
+  "author": "hello-sebastian",
+  "homepage": "https://github.com/hello-sebastian/Energy-Horizon",
+  "skills": []
+}
