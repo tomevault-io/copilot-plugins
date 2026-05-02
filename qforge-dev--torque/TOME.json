@@ -4,7 +4,7 @@
   "repo": "torque",
   "description": "Torque is a Declarative, typesafe DSL for building synthetic LLM datasets \u2014 compose conversations like React components",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qforge-dev/torque",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T19:38:26Z"
+  "distributed_at": "2026-05-02T07:57:58Z"
 }
