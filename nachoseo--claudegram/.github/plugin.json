@@ -1,0 +1,9 @@
+{
+  "name": "nachoseo--claudegram",
+  "displayName": "claudegram",
+  "description": "Telegram bot that bridges messages to Claude Code",
+  "version": "1.0.0",
+  "author": "NachoSEO",
+  "homepage": "https://github.com/NachoSEO/claudegram",
+  "skills": []
+}
