@@ -1,0 +1,63 @@
+{
+  "name": "termwright",
+  "owner": "fcoury",
+  "repo": "termwright",
+  "description": "Playwright-like automation framework for terminal TUI applications",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "termwright-tui-testing",
+      "path": "ai/skills/termwright-tui-testing",
+      "github_url": "https://github.com/fcoury/termwright/tree/main/ai/skills/termwright-tui-testing",
+      "description": ""
+    },
+    {
+      "name": "termwright-tui-testing",
+      "path": "skills/termwright-tui-testing",
+      "github_url": "https://github.com/fcoury/termwright/tree/main/skills/termwright-tui-testing",
+      "description": ""
+    },
+    {
+      "name": "termwright-tui-testing-focused",
+      "path": "skills/termwright-tui-testing-focused",
+      "github_url": "https://github.com/fcoury/termwright/tree/main/skills/termwright-tui-testing-focused",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fcoury/termwright",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:58:12Z"
+}
