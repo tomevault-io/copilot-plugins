@@ -1,0 +1,9 @@
+{
+  "name": "codagent-ai--agent-validator",
+  "displayName": "agent-validator",
+  "description": "Don't just review the agent's code; put it through the gauntlet.",
+  "version": "1.0.0",
+  "author": "Codagent-AI",
+  "homepage": "https://github.com/Codagent-AI/agent-validator",
+  "skills": []
+}
