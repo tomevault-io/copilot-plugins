@@ -1,0 +1,14 @@
+{
+  "name": "dannyhw--react-native-storybook-tools",
+  "displayName": "react-native-storybook-tools",
+  "description": "AI instruction skills by dannyhw",
+  "version": "1.0.0",
+  "author": "dannyhw",
+  "homepage": "https://github.com/dannyhw/react-native-storybook-tools",
+  "skills": [
+    {
+      "name": "react-native-storybook",
+      "description": ""
+    }
+  ]
+}
