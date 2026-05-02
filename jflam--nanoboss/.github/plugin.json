@@ -1,0 +1,9 @@
+{
+  "name": "jflam--nanoboss",
+  "displayName": "nanoboss",
+  "description": "Inversion of control for agentic coding \u2014 deterministic TypeScript procedures that orchestrate AI agents via ACP",
+  "version": "1.0.0",
+  "author": "jflam",
+  "homepage": "https://github.com/jflam/nanoboss",
+  "skills": []
+}
