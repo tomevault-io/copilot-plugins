@@ -1,0 +1,207 @@
+{
+  "name": "claude-pilot",
+  "owner": "changoo89",
+  "repo": "claude-pilot",
+  "description": "\ud83c\udfaf Claude Code workflow engine - SPEC-first planning, TDD automation, GPT delegation, and context engineering. From idea to production, discipline included.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-teams",
+      "path": ".claude/skills/agent-teams",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/agent-teams",
+      "description": ""
+    },
+    {
+      "name": "claude-pilot-standards",
+      "path": ".claude/skills/claude-pilot-standards",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/claude-pilot-standards",
+      "description": ""
+    },
+    {
+      "name": "claude-prompt-guide",
+      "path": ".claude/skills/claude-prompt-guide",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/claude-prompt-guide",
+      "description": ""
+    },
+    {
+      "name": "close-plan",
+      "path": ".claude/skills/close-plan",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/close-plan",
+      "description": ""
+    },
+    {
+      "name": "code-cleanup",
+      "path": ".claude/skills/code-cleanup",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/code-cleanup",
+      "description": ""
+    },
+    {
+      "name": "code-quality-gates",
+      "path": ".claude/skills/code-quality-gates",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/code-quality-gates",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "path": ".claude/skills/coding-standards",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/coding-standards",
+      "description": ""
+    },
+    {
+      "name": "docs-verify",
+      "path": ".claude/skills/docs-verify",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/docs-verify",
+      "description": ""
+    },
+    {
+      "name": "documentation-best-practices",
+      "path": ".claude/skills/documentation-best-practices",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/documentation-best-practices",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".claude/skills/frontend-design",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "git-master",
+      "path": ".claude/skills/git-master",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/git-master",
+      "description": ""
+    },
+    {
+      "name": "git-operations",
+      "path": ".claude/skills/git-operations",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/git-operations",
+      "description": ""
+    },
+    {
+      "name": "gpt-delegation",
+      "path": ".claude/skills/gpt-delegation",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/gpt-delegation",
+      "description": ""
+    },
+    {
+      "name": "parallel-subagents",
+      "path": ".claude/skills/parallel-subagents",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/parallel-subagents",
+      "description": ""
+    },
+    {
+      "name": "quality-gates",
+      "path": ".claude/skills/quality-gates",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/quality-gates",
+      "description": ""
+    },
+    {
+      "name": "ralph-loop",
+      "path": ".claude/skills/ralph-loop",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/ralph-loop",
+      "description": ""
+    },
+    {
+      "name": "rapid-fix",
+      "path": ".claude/skills/rapid-fix",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/rapid-fix",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": ".claude/skills/release",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/release",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": ".claude/skills/review",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/review",
+      "description": ""
+    },
+    {
+      "name": "safe-file-ops",
+      "path": ".claude/skills/safe-file-ops",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/safe-file-ops",
+      "description": ""
+    },
+    {
+      "name": "setup-workflow",
+      "path": ".claude/skills/setup-workflow",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/setup-workflow",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-workflow",
+      "path": ".claude/skills/spec-driven-workflow",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/spec-driven-workflow",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": ".claude/skills/tdd",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/tdd",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": ".claude/skills/test-driven-development",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "three-tier-docs",
+      "path": ".claude/skills/three-tier-docs",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/three-tier-docs",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "path": ".claude/skills/using-git-worktrees",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "vibe-coding",
+      "path": ".claude/skills/vibe-coding",
+      "github_url": "https://github.com/changoo89/claude-pilot/tree/main/.claude/skills/vibe-coding",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/changoo89/claude-pilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:32:36Z"
+}
