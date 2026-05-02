@@ -7,11 +7,11 @@ The World's Most Comprehensive, Authoritative, and Structured Open Source Data S
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MLT-OSS/FirstData](https://github.com/MLT-OSS/FirstData).
+Original source: `CLAUDE.md` in [MLT-OSS/FirstData](https://github.com/MLT-OSS/FirstData).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
