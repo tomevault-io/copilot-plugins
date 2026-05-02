@@ -1,0 +1,22 @@
+{
+  "name": "tolitius--salvador",
+  "displayName": "salvador",
+  "description": "visualize the universe: quark by quark, lepton by lepton",
+  "version": "1.0.0",
+  "author": "tolitius",
+  "homepage": "https://github.com/tolitius/salvador",
+  "skills": [
+    {
+      "name": "game",
+      "description": ""
+    },
+    {
+      "name": "publisher",
+      "description": ""
+    },
+    {
+      "name": "salvador",
+      "description": ""
+    }
+  ]
+}
