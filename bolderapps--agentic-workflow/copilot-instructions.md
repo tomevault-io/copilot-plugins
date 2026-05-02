@@ -1,89 +1,60 @@
-## 03-subagents
+## 04-design-fidelity
 
-> Sub-agent roles, handoff protocol, and parallelism rules. Apply whenever the orchestrate skill is active.
+> Non-negotiable design fidelity gates for Figma-driven UI tasks.
 
 
-# Sub-agent rules
+# Design fidelity rules
 
-## Roles summary
+Apply these rules to any task with `Design source: Figma`, `Codegen artifact`, or `Visual baseline refs`.
 
-| Role | Count | Writes code? | Marks done? | Marks in-review? |
-|------|-------|-------------|------------|-----------------|
-| Orchestrator | 1 | No | No | No |
-| Builder | Dynamic (1 per independent ready chain) | Yes | No | Yes |
-| QA Agent | 1 shared | No (fix notes only) | Yes | No |
+## 1) Token integrity
 
-## Status transitions (only valid paths)
+- Do not hardcode visual values when a design token exists.
+- Required token categories:
+  - color
+  - typography
+  - spacing
+  - radius
+  - shadow/elevation
+- If a hardcoded value is unavoidable, include an inline reason and add a follow-up decision entry.
 
-```
-pending → in-progress     (Builder picks up task)
-in-progress → in-review   (Builder finishes, verification passes)
-in-progress → blocked     (Builder hits blocker)
-in-review → done          (QA approves)
-in-review → needs-fix     (QA rejects)
-in-review → blocked       (QA rejects but attempt budget is exhausted)
-needs-fix → in-progress   (Builder picks up fix)
-blocked → pending         (blocker resolved, task returned to scheduler queue)
-blocked → in-progress     (blocker resolved and original Builder resumes directly)
-pending → obsolete        (only via delta-scope skill; archive, do not delete)
-```
+## 2) State parity
 
-Any other transition is invalid. Agents must not skip steps.
+For each designed component/state matrix, implement all required states:
+- default
+- hover
+- focus
+- disabled
+- loading
+- error
+- empty (if applicable)
 
-## Parallelism rules
+Missing a designed state means task cannot pass QA.
 
-**Can run in parallel:**
-- Tasks in different feature groups with no shared files
-- Tasks with no dependency edge between them
-- Tasks whose file sets do not overlap
+## 3) Responsive parity
 
-**Must run sequentially (same Builder, in order):**
-- Tasks that share any file
-- Tasks where one `Depends on` the other
-- Any task that depends on the scaffold task (scaffold must be `done` first)
+- Respect breakpoint behavior defined in design artifacts/cache.
+- Do not collapse, hide, or reorder critical content outside defined responsive rules.
+- Core user paths must remain usable at target viewport sizes documented by design.
 
-**Orchestrator decides at `start build` time.** It reads all task blocks, builds a dependency graph, groups independent chains, and assigns one Builder per chain (`builder-1 ... builder-N`).
+## 4) Structure and semantics
 
-## File ownership
+- Keep scaffold hierarchy from codegen artifacts unless acceptance criteria require a change.
+- Treat Figma device previews as framing only. Do not duplicate system status bars, notches, home indicators, or phone shells inside application UI unless the task explicitly covers app-shell chrome.
+- Preserve semantic HTML and accessible names.
+- Keyboard focus order and focus visibility are required for interactive controls.
 
-When the Orchestrator fans out tasks:
-- Each Builder "owns" the files in its assigned tasks.
-- No Builder may modify a file owned by another Builder's active task.
-- If two tasks need to modify the same file, they must be in the same Builder's chain, run sequentially.
-- Shared utility files (`memory/`, `types/`, `config/`) are written by whichever Builder creates them first, then read-only for others until that Builder's task is `done`.
+## 5) Visual baseline checks
 
-## Builder handoff note format
+- If visual baseline refs exist, QA must run design-fidelity checks against them.
+- Any major mismatch in layout/tokens/states must result in `needs-fix`.
+- No UI task can be marked `done` without passing QA design-fidelity checks.
 
-When marking a task `in-review`, Builder writes a brief note in the task block:
+## 6) Builder/QA contract
 
-```
-- QA notes: Built POST /auth/login handler in src/api/auth.ts. Added LoginScreen in
-  src/screens/Login.tsx using cached Figma context (memory/mcp-cache/auth-figma.md).
-  Tests in src/tests/auth.test.ts cover happy path + 401 + network error.
-  Lint and typecheck pass. Acceptance criteria self-checked.
-```
-
-## QA rejection note format
-
-When marking a task `needs-fix`, QA writes specific notes:
-
-```
-- QA notes: REJECTED.
-  1. src/api/auth.ts:34 — missing error handling for DB connection failure.
-     Expected: catch block that returns 500 with { error: "internal", code: "DB_ERROR" }.
-  2. src/tests/auth.test.ts — no test for 500 error path. Add one.
-  3. Lint: unused import 'hashPassword' at src/api/auth.ts:2. Remove.
-```
-
-Vague notes like "tests are wrong" are not acceptable.
-
-## Blocked task protocol
-
-When a Builder marks a task `blocked`:
-1. Write the specific reason: missing dependency, ambiguous spec, unreachable MCP URL, repeated test failure.
-2. If it's an ambiguous spec: paste the exact sentence from `SCOPE.md` that is unclear and ask the specific question.
-3. Orchestrator surfaces all `blocked` tasks to the user at the next check interval.
-4. Do not guess. Do not invent a solution. Wait for human input.
+- Builder must complete `Design checklist` in task block before handoff.
+- QA must verify checklist objectively and reject vague self-assertions.
+- A task with unresolved design checklist items is not eligible for `done`.
 
 ---
 > Source: [BolderApps/agentic-workflow](https://github.com/BolderApps/agentic-workflow) — distributed by [TomeVault](https://tomevault.io).
