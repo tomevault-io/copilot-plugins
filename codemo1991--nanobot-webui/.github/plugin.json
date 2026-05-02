@@ -1,0 +1,62 @@
+{
+  "name": "codemo1991--nanobot-webui",
+  "displayName": "nanobot-webui",
+  "description": "\ud83c\udfaf Nanobot WebUI \u2014 A Smarter, More Efficient Claude AI Assistant  \u2705 Coding & Bug Fixes \u2705 Excel / PDF / PPT Processing \u2705 Git Automation \u2705 Visual Configuration Panel \u2705 Q&A & Knowledge Management  24/7 re",
+  "version": "1.0.0",
+  "author": "codemo1991",
+  "homepage": "https://github.com/codemo1991/nanobot-webui",
+  "skills": [
+    {
+      "name": "claude-code",
+      "description": ""
+    },
+    {
+      "name": "code-review-expert",
+      "description": ""
+    },
+    {
+      "name": "cron",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "mirror-system",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "summarize",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "description": ""
+    }
+  ]
+}
