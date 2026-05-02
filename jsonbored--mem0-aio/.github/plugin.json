@@ -1,0 +1,9 @@
+{
+  "name": "jsonbored--mem0-aio",
+  "displayName": "mem0-aio",
+  "description": "Unraid CA template and Docker build for Mem0 (OpenMemory). This mega-container utilizes s6-overlay to seamlessly bundle the pre-compiled Qdrant Vector Database, the Python FastAPI/MCP server, and the ",
+  "version": "1.0.0",
+  "author": "JSONbored",
+  "homepage": "https://github.com/JSONbored/mem0-aio",
+  "skills": []
+}
