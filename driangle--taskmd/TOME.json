@@ -1,0 +1,57 @@
+{
+  "name": "taskmd",
+  "owner": "driangle",
+  "repo": "taskmd",
+  "description": "Markdown-based task management designed for both humans and AI coding assistants.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "audit-docs",
+      "path": ".agents/skills/audit-docs",
+      "github_url": "https://github.com/driangle/taskmd/tree/main/.agents/skills/audit-docs",
+      "description": ""
+    },
+    {
+      "name": "next-task",
+      "path": "claude-code-plugin/skills/next-task",
+      "github_url": "https://github.com/driangle/taskmd/tree/main/claude-code-plugin/skills/next-task",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/driangle/taskmd",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:37:23Z"
+}
