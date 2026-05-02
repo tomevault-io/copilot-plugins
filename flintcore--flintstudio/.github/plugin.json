@@ -1,0 +1,9 @@
+{
+  "name": "flintcore--flintstudio",
+  "displayName": "FlintStudio",
+  "description": "Open-source AI film automation: novel \u2192 script \u2192 storyboard \u2192 images \u2192 voiceover \u2192 video. All APIs configurable.\u5f00\u6e90 AI \u5f71\u89c6\u81ea\u52a8\u5316\uff1a\u5c0f\u8bf4\u2192\u5267\u672c\u2192\u5206\u955c\u2192\u51fa\u56fe\u2192\u914d\u97f3\u2192\u6210\u7247\uff0c\u5168 API \u53ef\u914d\u7f6e",
+  "version": "1.0.0",
+  "author": "Flintcore",
+  "homepage": "https://github.com/Flintcore/FlintStudio",
+  "skills": []
+}
