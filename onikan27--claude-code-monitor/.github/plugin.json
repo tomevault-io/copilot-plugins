@@ -1,0 +1,9 @@
+{
+  "name": "onikan27--claude-code-monitor",
+  "displayName": "claude-code-monitor",
+  "description": "Real-time dashboard for monitoring multiple Claude Code sessions. CLI + Mobile Web UI with QR code access, terminal focus   switching (iTerm2, Terminal.app, Ghostty). macOS only.",
+  "version": "1.0.0",
+  "author": "onikan27",
+  "homepage": "https://github.com/onikan27/claude-code-monitor",
+  "skills": []
+}
