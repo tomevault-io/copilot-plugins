@@ -1,0 +1,9 @@
+{
+  "name": "miguelmedeiros--phoenixd-dashboard",
+  "displayName": "phoenixd-dashboard",
+  "description": "Self-hosted web dashboard for phoenixd Lightning node. Real-time balance monitoring, channel management, send/receive Lightning payments, LNURL support, and more.",
+  "version": "1.0.0",
+  "author": "MiguelMedeiros",
+  "homepage": "https://github.com/MiguelMedeiros/phoenixd-dashboard",
+  "skills": []
+}
