@@ -1,0 +1,14 @@
+{
+  "name": "zk-b612--claude-cookbooks-zh",
+  "displayName": "claude-cookbooks-zh",
+  "description": "Claude \u5b98\u65b9 Cookbooks \u4e2d\u6587\u7ffb\u8bd1\u7248 \ud83c\udf73 \u6536\u5f55 Anthropic \u5b98\u65b9\u6700\u65b0 Claude \u4f7f\u7528\u6280\u5de7\u3001Prompt \u5de5\u7a0b\u3001\u5de5\u5177\u8c03\u7528\u3001MCP\u3001\u591a\u4ee3\u7406\u3001RAG \u7b49\u5168\u90e8\u793a\u4f8b\u7b14\u8bb0\u672c\u7684\u5b8c\u6574\u4e2d\u6587\u7ffb\u8bd1\u4e0e\u9002\u914d\u3002",
+  "version": "1.0.0",
+  "author": "zk-b612",
+  "homepage": "https://github.com/zk-b612/claude-cookbooks-zh",
+  "skills": [
+    {
+      "name": "applying-brand-guidelines",
+      "description": ""
+    }
+  ]
+}
