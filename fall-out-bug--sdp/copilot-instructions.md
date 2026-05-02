@@ -1,0 +1,66 @@
+## sdp
+
+> This project uses **Spec-Driven Protocol (SDP)** v0.9.0.
+
+# SDP Project Rules
+
+This project uses **Spec-Driven Protocol (SDP)** v0.9.0.
+
+## Beads (SDP Development)
+
+**This repo develops SDP.** Beads is ENABLED and MANDATORY here:
+
+- Before `@build`: `bd update {beads_id} --status in_progress`
+- After `@build`: `bd sync` before commit
+- After `@design`: `sdp beads migrate docs/workstreams/backlog/ --real`
+
+For other projects using SDP: Beads is optional (skills check `bd` + `.beads/`).
+
+## Commands
+
+Use skills for all work:
+- `@vision` — Strategic product planning
+- `@reality` — Codebase analysis
+- `@feature` — Plan feature (idea + design)
+- `@idea` — Gather requirements
+- `@design` — Plan workstreams
+- `@build` — Execute workstream (guard enforced)
+- `@oneshot` — Autonomous feature execution
+- `@review` — Quality review
+- `@deploy` — Production deployment
+
+## Guard Enforcement
+
+All edits require active workstream:
+
+```bash
+sdp guard activate {PP-FFF-SS}  # Before editing
+sdp guard check {file}          # Verify allowed
+```
+
+## Critical Rules
+
+**Forbidden:**
+- Files > 200 LOC
+- TODO without WS
+- Edit without active WS
+
+**Required:**
+- TDD (Red -> Green -> Refactor)
+- Coverage >= 80%
+- Type hints / strict typing
+- Conventional commits
+
+## Documentation
+
+- [PROTOCOL.md](docs/PROTOCOL.md) — Full specification
+- [Skills](.claude/skills/) — Command details
+- [Quality Gates](docs/reference/quality-gates.md)
+
+---
+
+**Version:** 0.9.0
+
+---
+> Source: [fall-out-bug/sdp](https://github.com/fall-out-bug/sdp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
