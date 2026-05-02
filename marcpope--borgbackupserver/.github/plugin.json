@@ -1,0 +1,9 @@
+{
+  "name": "marcpope--borgbackupserver",
+  "displayName": "borgbackupserver",
+  "description": "A GUI Manager for Multiple Borg Endpoints. Manage backup schedules, restores and much more.",
+  "version": "1.0.0",
+  "author": "marcpope",
+  "homepage": "https://github.com/marcpope/borgbackupserver",
+  "skills": []
+}
