@@ -1,0 +1,9 @@
+{
+  "name": "opensolon--solonclaw",
+  "displayName": "solonclaw",
+  "description": "Java impl version of \"OpenClaw(Clawdbot,Moltbot)\"",
+  "version": "1.0.0",
+  "author": "opensolon",
+  "homepage": "https://github.com/opensolon/solonclaw",
+  "skills": []
+}
