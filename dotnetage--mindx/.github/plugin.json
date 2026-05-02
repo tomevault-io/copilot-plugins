@@ -1,9 +1,9 @@
 {
   "name": "dotnetage--mindx",
   "displayName": "mindx",
-  "description": "mindx",
+  "description": "\u4e00\u4e2a\u53ef\u81ea\u4e3b\u8fdb\u5316\u7684\u6570\u5b57\u5316\u5206\u8eab",
   "version": "1.0.0",
   "author": "DotNetAge",
-  "homepage": "https://tomevault.io/claim/DotNetAge",
+  "homepage": "https://github.com/DotNetAge/mindx",
   "skills": []
 }
