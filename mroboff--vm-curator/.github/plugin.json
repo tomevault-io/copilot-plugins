@@ -1,0 +1,9 @@
+{
+  "name": "mroboff--vm-curator",
+  "displayName": "vm-curator",
+  "description": "vm-curator is a fast and friendly TUI to build and manage QEMU/KVM virtual machines for desktop use with working 3D acceleration (para-virtualized and pass-through.)",
+  "version": "1.0.0",
+  "author": "mroboff",
+  "homepage": "https://github.com/mroboff/vm-curator",
+  "skills": []
+}
