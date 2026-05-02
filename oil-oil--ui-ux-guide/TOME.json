@@ -4,7 +4,7 @@
   "repo": "ui-ux-guide",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/oil-oil/ui-ux-guide",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T09:40:37Z"
+  "distributed_at": "2026-05-02T09:47:22Z"
 }
