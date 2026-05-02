@@ -1,0 +1,9 @@
+{
+  "name": "gianlucasb--hallucinator",
+  "displayName": "hallucinator",
+  "description": "A tool to detect potentially hallucinated or fabricated references in academic PDF papers.",
+  "version": "1.0.0",
+  "author": "gianlucasb",
+  "homepage": "https://github.com/gianlucasb/hallucinator",
+  "skills": []
+}
