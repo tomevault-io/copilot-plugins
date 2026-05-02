@@ -4,7 +4,7 @@
   "repo": "career-copilot",
   "description": "AI-powered job search pipeline built on GitHub Copilot CLI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RajjjAryan/career-copilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T13:13:47Z"
+  "distributed_at": "2026-05-02T01:39:11Z"
 }
