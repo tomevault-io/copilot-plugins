@@ -1,0 +1,9 @@
+{
+  "name": "asynkor--asynkor",
+  "displayName": "asynkor",
+  "description": "File leasing for AI agent teams. One MCP server. Any IDE. Zero merge conflicts.",
+  "version": "1.0.0",
+  "author": "asynkor",
+  "homepage": "https://github.com/asynkor/asynkor",
+  "skills": []
+}
