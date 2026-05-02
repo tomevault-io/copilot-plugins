@@ -1,0 +1,9 @@
+{
+  "name": "poteto--noodle",
+  "displayName": "noodle",
+  "description": "Orchestrate agents using skills",
+  "version": "1.0.0",
+  "author": "poteto",
+  "homepage": "https://github.com/poteto/noodle",
+  "skills": []
+}
