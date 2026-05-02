@@ -1,0 +1,9 @@
+{
+  "name": "full-chaos--container-compose",
+  "displayName": "container-compose",
+  "description": "Implementation of Docker Compose for Apple containers",
+  "version": "1.0.0",
+  "author": "full-chaos",
+  "homepage": "https://github.com/full-chaos/container-compose",
+  "skills": []
+}
