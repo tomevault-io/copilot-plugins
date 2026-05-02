@@ -1,0 +1,44 @@
+{
+  "name": "ProductFlow",
+  "owner": "yuqie6",
+  "repo": "ProductFlow",
+  "description": "gpt 2 image \u753b\u56fe\u5de5\u4f5c\u53f0 / Self-hosted workbench for AI copy, posters, image sessions, and visual product workflows",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yuqie6/ProductFlow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:50:04Z"
+}
