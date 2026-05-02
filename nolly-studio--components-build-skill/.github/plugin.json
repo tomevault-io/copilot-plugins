@@ -1,0 +1,18 @@
+{
+  "name": "nolly-studio--components-build-skill",
+  "displayName": "components-build-skill",
+  "description": "AI agent skill for building modern, composable, and accessible React UI components following the components.build specification",
+  "version": "1.0.0",
+  "author": "nolly-studio",
+  "homepage": "https://github.com/nolly-studio/components-build-skill",
+  "skills": [
+    {
+      "name": "components-build",
+      "description": ""
+    },
+    {
+      "name": "components-build",
+      "description": ""
+    }
+  ]
+}
