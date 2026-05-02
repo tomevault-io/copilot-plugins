@@ -1,242 +1,294 @@
-## journey
+## localize
 
-> Design any user-facing experience end-to-end: task flows, multi-step workflows, navigation structures, onboarding, settings, search, content creation, collaboration, signup, checkout, dashboards, notifications, error recovery, and more. Handles cross-platform adaptation (mobile/web/TV/embedded), device-aware design, accessibility, interaction specifications, and multi-channel journey mapping. Trigger when designing user flows of any kind, mapping screen sequences, optimizing task completion, specifying interactions, designing navigation, or asking "how should the user experience X?" Use this skill broadly — any time someone is working through how a user moves through a product experience, this skill applies.
+> Adapts experiences across cultures and languages — not just translation, but cultural reconception. Part of the Intent design strategy system. When a product enters a new market, everything is in play: information density, navigation patterns, color meaning, icon comprehension, date formats, trust signals, payment flows, and the fundamental assumptions about how people make decisions. Trigger when: planning international expansion, auditing i18n readiness, adapting designs for RTL languages, reviewing cultural assumptions in a design, preparing localization test plans, or when someone says "we need to launch in [country]" and the plan is "just translate it." Also trigger for compliance reviews across markets (GDPR, PIPL, accessibility laws).
 
 
 
-# Journey
+# Localize — Design Across Cultures
 
 ## Overview
 
-You design user-facing experiences end-to-end. Your scope is any sequence of screens, states, or interactions that a user moves through to accomplish something — whether that's signing up, configuring settings, creating content, completing a purchase, navigating a dashboard, collaborating with teammates, or recovering from an error.
+Localization is not translation. Translation converts words; localization adapts the experience.
 
-Your work lives at the intersection of user understanding and product outcomes. You see the full journey, anticipate friction, and design experiences that help users succeed while serving the product's goals. You think across channels — a single user task might span email, mobile app, web, and a support call — and across time, because users leave mid-flow and return later.
+When a product enters a new market, everything is in play: information density, navigation patterns, color meaning, icon comprehension, date formats, trust signals, payment flows, legal compliance, and the fundamental assumptions about how people make decisions. A checkout flow designed for US consumers doesn't become a Japanese experience by translating the strings. A trust-building pattern that works in Germany may be irrelevant in Brazil and offensive in Saudi Arabia.
 
-**Trigger this skill when users ask about:**
-- Designing or optimizing any user flow (signup, onboarding, task completion, settings, search, content creation, collaboration, etc.)
-- Multi-step workflows, wizards, or guided experiences
-- Navigation structures, information finding, or wayfinding
-- Cross-platform experiences (mobile, web, TV, embedded contexts)
-- Multi-channel journeys (how one task flows across different touchpoints)
-- Funnel optimization, drop-off analysis, or task completion rates
-- Error handling, recovery flows, or edge case experiences
-- Notification systems, alerts, or messaging flows
-- Dashboard interactions, filtering, or data exploration flows
-- "How should the user experience X?" or "What's the best flow for..."
+Design for localization from the start, or pay for it exponentially later. Retrofitting RTL support, plural rules, and cultural adaptation into a product that assumed English-speaking Western users is one of the most expensive kinds of design debt.
+
+**When to activate this skill:** International expansion planning, i18n readiness audits, new market entry design, RTL adaptation, cultural review of existing designs, localization testing strategy, or anytime someone says "just translate it" and the problem is deeper than language.
+
+---
 
 ## Skill family
 
-You work alongside complementary skills that handle interconnected concerns:
+Localize works alongside the full Intent skill system:
 
-- **`/strategize`** — Validates whether to build what you're designing. Their five foundational questions — problem validation, audience definition, solution fit, feature validation, competitive landscape — directly inform your flow decisions. If the problem hasn't been framed, your flows risk solving the wrong thing.
-- **`/investigate`** — Their research findings reveal how users actually behave, think, and struggle. Ground your flows in evidence from their user interviews, usability tests, and behavioral analytics. Without investigation, you're designing from assumptions.
-- **`/blueprint`** — Maps the system architecture behind your flows. They ensure the system can actually deliver the experience you're designing. When your flow requires understanding backend dependencies, data availability, or service constraints, bring them in.
-- **`/organize`** — Structures the information architecture your flows navigate through. Hand off when the flow needs better wayfinding, the navigation model isn't working, or users can't find what they need within the structure.
-- **`/articulate`** — Designs the words within your flows. Hand off for UX writing, error messages, microcopy, voice and tone. You define what screens exist and what they need to communicate; they define exactly what those screens say.
-- **`/specify`** — Translates your flows into implementation specs. They own the final handoff documentation, interaction specifications, and engineering-ready details.
-- **`/fortify`** — Hardens your flows for edge cases, error states, and real-world conditions. They stress-test what happens when things go wrong, networks fail, permissions change, or users do the unexpected.
-- **`/include`** — Ensures your flows work for everyone: accessibility, cognitive accessibility, motor accessibility, assistive technology compatibility. They audit what you design for inclusivity gaps.
-- **`/evaluate`** — Assesses your flows against UX heuristics and the Intent anti-pattern catalog. They catch usability problems you're too close to see.
-- **`/philosopher`** — A cross-cutting cognitive mode — not a phase — that any skill can enter when the problem needs more exploration before the next move. Enter when: a flow feels logical but lifeless, the "obvious" interaction pattern might not serve the user's actual mental model, device constraints are being treated as limitations instead of design inputs, or the user says "sit with this", "brainstorm", or "think about this differently." The philosopher helps question inherited patterns and explore what the interaction would look like if current conventions didn't exist.
+- **`/articulate`**: Everything they write will be localized. Content strategy must design for translation from the start — sentence structure, concatenation, tone, humor, idiom. If the English copy is clever, the localized copy may be incomprehensible. Articulate designs translatable content; localize ensures it survives translation.
+- **`/organize`**: Navigation and labeling may need cultural adaptation. Category structures that make sense in one culture may be arbitrary in another. Menu labels that are concise in English may expand to unwieldy lengths in German or Finnish.
+- **`/fortify`**: i18n technical readiness — text expansion breaking layouts, RTL rendering bugs, date/number format parsing failures, character encoding issues. Fortify maps the failure modes; localize defines the requirements that prevent them.
+- **`/strategize`**: Market analysis and audience definition per locale. Which markets, in what order, with what level of adaptation? `/strategize` defines the business case; `/localize` defines the design implications.
+- **`/investigate`**: Cultural research methods for unfamiliar markets. When your assumptions about a market are based on stereotypes rather than evidence, investigate plans the research to validate or challenge them.
+- **`/philosopher`**: A cross-cutting cognitive mode for confronting invisible assumptions. Invoke when: your design team is monocultural and can't see its own biases, the "obvious" user flow is obvious only to people from your culture, or you need the question: "What cultural assumptions are invisible to us because we're inside them?"
 
-Collaborate explicitly with each when their domain matters. Call out what you're *not* deciding.
+---
 
 ## Core capabilities
 
-### 1. End-to-end flow mapping
+### 1. Cultural dimension analysis for UX
 
-Design complete journeys from entry point to desired outcome. For any flow, understand: where users arrive from, what mental model they carry, what they're trying to accomplish, what success looks like, and what happens after.
+Cultural frameworks provide starting hypotheses for design adaptation — not stereotypes to design by. Use them to generate questions, then validate with research.
 
-Map all critical decision points, branch conditions, and error recovery paths. Every flow has a beginning (how do users get here?), a middle (what choices and actions do they take?), and an end (what does completion look like, and where do they go next?). Avoid designing isolated screens — always understand what precedes and follows.
+**High-context vs. low-context (Hall):**
+- High-context cultures (Japan, China, Arab countries, Korea): communication is implicit, relationships matter before transactions, visual density is expected (not cluttered), social proof and authority signals carry weight, indirectness is politeness.
+- Low-context cultures (US, Germany, Scandinavia, Netherlands): communication is explicit, task-first flows are preferred, minimal UI is valued, direct calls to action work, users expect to self-serve.
+- UX implications: onboarding flows, help text density, social features, the balance between guidance and autonomy.
 
-This applies equally to a first-time signup flow, a settings configuration wizard, a search-and-filter exploration, a content publishing pipeline, or an admin review queue.
+**Power distance (Hofstede):**
+- High power distance: formal tone, hierarchical navigation, respect for authority in copy ("Approved by Dr. [Name]"), institutional trust signals.
+- Low power distance: informal tone, flat navigation, peer trust signals ("1,000 users like you chose this"), egalitarian messaging.
+- UX implications: form of address, tone of voice, error messages, authority signals.
 
-### 2. User context & variation handling
+**Individualism vs. collectivism:**
+- Individualist cultures: personal accounts, individual preferences, "my" dashboard, solo decision-making flows.
+- Collectivist cultures: family/group accounts, shared decision-making, social features, gift-giving flows, group purchase patterns.
+- UX implications: account models, sharing features, decision-making flows, social proof patterns.
 
-One flow doesn't fit all. Define explicit variations by:
-- **User type**: New users, returning users, power users, admins, guests, and collaborators all bring different knowledge, permissions, and goals to the same flow
-- **Task context**: Is the user exploring, completing a known task, recovering from an error, or being interrupted by the system (e.g., a notification or required action)?
-- **Device**: Mobile flows differ fundamentally from web and TV; responsive layout isn't enough — rethink the interaction model per platform
-- **Entry point**: Deep links, notifications, search results, navigation menus, onboarding prompts, and external referrals each create different expectations
-- **Market/localization**: Cultural norms, regulatory requirements, language direction (LTR/RTL), and connectivity assumptions vary by region
+**Uncertainty avoidance:**
+- High uncertainty avoidance (Japan, Germany, Greece): detailed explanations, confirmation steps, progress indicators, safety nets, explicit guarantees.
+- Low uncertainty avoidance (Singapore, Denmark, UK): tolerance for ambiguity, fewer confirmation steps, willingness to explore, comfort with uncertainty.
+- UX implications: how much guidance to provide, number of confirmation steps, error prevention vs. error recovery.
 
-### 3. Task analysis & flow optimization
+**Long-term orientation:**
+- Long-term oriented cultures: loyalty programs resonate, subscription models accepted, trust built gradually, relationship-first onboarding.
+- Short-term oriented cultures: immediate value expected, trial-first models, quick wins, instant gratification patterns.
 
-Design with user success in mind. Whether the goal is conversion, task completion, or engagement, reduce friction by:
-- Removing unnecessary steps and decisions from the critical path
-- Grouping related actions and breaking complex tasks into manageable chunks
-- Validating inline rather than forcing full-page correction
-- Showing progress and expected effort for multi-step flows
-- Providing shortcuts for experienced users without overwhelming new ones
-- Creating psychologically safe moments (explain why you're asking, what happens next, how to undo)
-- A/B testing flow variations before scaling
+**IMPORTANT:** These are spectrums and tendencies, not rules. Every individual is different. Every market has subcultures. Never design for a stereotype. Use these dimensions to generate hypotheses, then validate with `/investigate` research and `/measure` data from real users in the target market.
 
-Ask: "What's the user trying to accomplish? Where do they currently fail or give up? What assumptions are they bringing into this flow?"
+### 2. RTL and LTR design
 
-### 4. Flow optimization patterns
+Right-to-left layout is not mirroring. It requires understanding what flips, what doesn't, and what needs rethinking.
 
-Beyond removing friction, actively design for efficiency and clarity:
+**What flips:**
+- Layout direction: content flows right-to-left
+- Text alignment: right-aligned by default
+- Navigation order: back arrow points right, forward points left
+- Progress indicators: fill from right to left
+- Swipe directions: next is left-to-right, previous is right-to-left
+- Slider direction: min on right, max on left
+- Icon direction: icons that imply direction (arrows, reply, share) flip
 
-**Progressive disclosure** — Show only what's needed at each step. Start with the essential decision, then reveal complexity as the user commits. This isn't about hiding information — it's about sequencing it so the user's cognitive load stays manageable. Forms that show 3 fields and expand to 12 are better than forms that show 12 upfront, but only if the expansion feels natural, not like a bait-and-switch.
+**What does NOT flip:**
+- Numbers and phone numbers (always LTR within their container)
+- Media playback controls (play/pause/skip are universal)
+- Clock direction
+- Brand logos
+- Universal icons (play, pause, close, add)
+- Checkmarks and toggles (debated, but generally don't flip)
 
-**Decision tree simplification** — When a flow branches, simplify the branching logic from the user's perspective. Three clear choices are better than six ambiguous ones. If branching depends on information the system already has (account type, previous selections, device), branch automatically rather than asking. Show the user only the decisions they need to make.
+**Bidirectional text:**
+When RTL and LTR content mix — Arabic text with English brand names, code snippets, URLs, email addresses — the Unicode Bidirectional Algorithm handles most cases, but edge cases require manual intervention with directional markers. Test with real mixed-direction content, not lorem ipsum.
 
-**Shortcut patterns for power users** — Keyboard shortcuts, bulk actions, saved templates, recently used items, command palettes. Design the default path for new users, then add acceleration for repeat users. The test: can a power user complete their most common task in half the steps of a new user?
+**CSS implementation principles:**
+- Use logical properties: `inline-start`/`inline-end` instead of `left`/`right`, `block-start`/`block-end` instead of `top`/`bottom`
+- Use `dir="rtl"` on the root element, not CSS transforms
+- Flexbox and Grid handle direction automatically with logical properties
+- Absolute positioning and transforms need manual attention
 
-**Error prevention over error recovery** — Inline validation, smart defaults, confirmation previews, and constraint-based inputs (date pickers instead of free text for dates) prevent more errors than the best error messages recover. Design the input to make the wrong answer hard to give. When errors do happen, recover in place — don't restart the flow.
+**Testing RTL:**
+- Test with actual RTL users, not just mirrored screenshots
+- Test with real Arabic/Hebrew content, not reversed English
+- Test bidirectional content: Arabic paragraphs with English terms, numbers, URLs
+- Test form inputs: cursor position, text selection, copy-paste behavior
 
-### 5. Copy specifications
+### 3. Content adaptation beyond translation
 
-Write for clarity, not brand voice alone. Specify:
-- **Primary message** (what's the one thing they need to know at this step?)
-- **Instructional copy** (how do they complete the action? what do fields mean?)
-- **Proof or reassurance** (why is this safe, reversible, or worth their time?)
-- **Call to action** (specific verb, phrasing that implies the next step)
-- **Microcopy** (error states, hints, loading states, empty states, success confirmations, tooltips)
-- **Localization flags** (phrases that don't translate, cultural assumptions to revisit)
+Translation converts words. Content adaptation converts meaning, structure, and formatting.
 
-Default to simple over clever. Test headlines and CTAs early — this is where assumptions break. Partner with `/articulate` for detailed voice and tone work, content strategy, and copy that needs to scale across the product.
+**Text expansion and contraction:**
+- German expands ~30% from English. Finnish ~40%. Some compounds create single words that are 30+ characters.
+- Chinese and Japanese can compress 30-50% from English character count (but may need more vertical space due to character complexity).
+- Layout MUST accommodate expansion without breaking. Test with pseudo-localized strings at 150% length as a minimum.
 
-### 6. Interaction & animation specifications
+**String concatenation is the enemy:**
+"Hello {name}, you have {n} items in your cart" breaks in almost every language. Word order changes. Pluralization rules differ. Gender agreement is required. Use proper i18n libraries with ICU MessageFormat. Never build sentences by concatenating variables.
 
-Define:
-- **State transitions** (what changes when user taps, hovers, submits, drags, selects?)
-- **Validation feedback** (inline errors vs. summary errors; when do they appear and clear?)
-- **Loading and latency** (skeleton loaders, placeholder content, reassurance copy, optimistic UI)
-- **Motion and timing** (when to use animation to guide attention; standard: 200-400ms for feedback loops)
-- **Accessibility** (focus management, ARIA labels, keyboard navigation, screen reader announcements, motion preferences)
-- **Undo and reversibility** (can the user go back? how do they recover from mistakes?)
+**Pluralization:**
+- English: 2 forms (1 item, 2 items)
+- Arabic: 6 forms (zero, one, two, few, many, other)
+- Polish: 4 forms with complex rules
+- Chinese/Japanese/Korean: 1 form (no grammatical plural)
+- Use CLDR plural rules, not "if count != 1, add 's'"
 
-Document what *must* animate versus what's nice-to-have. Partner with `/specify` for final motion specs.
+**Date and time:**
+- MM/DD/YYYY (US) vs. DD/MM/YYYY (most of world) vs. YYYY-MM-DD (ISO/East Asia)
+- 12-hour (US, UK, Australia) vs. 24-hour (most of world)
+- Week starts Monday (ISO, most of world) vs. Sunday (US, Israel, some Middle Eastern countries)
+- Use locale-aware formatting libraries. Never hardcode date formats.
 
-### 7. Device-aware design
+**Numbers:**
+- 1,000.00 (US, UK) vs. 1.000,00 (Germany, Brazil) vs. 1 000,00 (France, Sweden)
+- Decimal and thousands separators vary. Use locale-aware number formatting.
 
-Create experiences native to each platform:
-- **Mobile**: Thumb-friendly, single-column, mobile keyboards, unreliable networks, interruption-prone context, system gestures
-- **Web**: Larger interaction targets, multi-step flows can breathe across width, keyboard & mouse shortcuts, multiple windows/tabs
-- **TV**: Large text, remote control constraints, lean-back posture, 10-foot UI, limited text input
-- **Embedded**: Limited screen real estate, contextual switching, avoid disruption to host experience
+**Currency:**
+- Symbol position varies: $1,000.00 vs. 1.000,00 EUR vs. 1 000 kr
+- Some currencies have no decimal places (JPY, KRW)
+- Exchange rate display needs careful formatting per locale
 
-Show device variants side-by-side. Explain what changes and why.
+**Addresses:**
+- Format varies wildly by country. Japan: postal code, prefecture, city, ward, block, building, room. US: street, city, state, zip. UK: house, street, town, county, postcode.
+- Never assume street/city/state/zip structure. Use locale-aware address forms or flexible freeform input.
 
-### 8. Context & channel variation design
+**Names:**
+- Not everyone has first name + last name
+- Chinese, Japanese, Korean: family name first
+- Icelandic: patronymic, not family name
+- Indonesian: many people have single names
+- Spanish: two family names (paternal + maternal)
+- Don't force Western name structures. Use "full name" as a single field when possible, with optional structured fields.
 
-Different entry points and contexts shape the same flow differently:
-- **Self-directed**: User initiates the flow on their own terms — full onboarding and exploration is appropriate
-- **System-initiated**: The product prompts the user (notification, required action, upgrade prompt) — brevity and clarity matter, don't waste their attention
-- **Collaborative**: Multiple users interact with the same flow or data — show awareness of roles, permissions, and concurrent actions
-- **Embedded/integrated**: Flow appears within another product or platform — minimal disruption, match the host's conventions
-- **Promotional/campaign**: Time-limited or incentivized — urgency framing, rapid decision-making, clear value proposition
+### 4. Visual and symbolic adaptation
 
-Show how the same outcome adapts to each context. Specify what's fixed vs. flexible.
+Visual elements carry cultural meaning that doesn't translate.
 
-### 9. Multi-channel journey mapping
+**Color meaning (starting points, not rules):**
+- Red: luck and prosperity (China), danger and warning (Western), mourning (South Africa), bridal (India)
+- Green: Islam (Middle East), nature/go (Western), jealousy (some Latin American), money (US)
+- White: purity and weddings (Western), mourning and death (East Asian, some South Asian)
+- Yellow: royalty (Thailand), caution (Western), sacred (Hindu)
+- Blue: trust and corporate (near-universal, but depth of association varies)
+- Don't assume your color palette communicates the same emotions everywhere. Test.
 
-Real user journeys rarely stay in one channel. A single task might span: marketing email that links to a mobile app, which hands off to a web dashboard, which eventually involves a support call. Map these cross-channel flows explicitly:
+**Icons and symbols:**
+- Mailbox icon: varies by country (US mailbox vs. European post box vs. Japanese post mark)
+- Trash can: American-style trash can is not universal
+- Thumbs up: positive in most Western cultures, offensive in parts of Middle East and West Africa
+- Checkmark: correct/yes in Western cultures, can mean "wrong/incorrect" in Japan and Korea (they use circles for correct)
+- Hand gestures: culturally loaded everywhere. Avoid them or test thoroughly.
+- Animals: cultural significance varies enormously (owls = wisdom in West, bad luck in India; pigs problematic in Islamic and Jewish contexts)
 
-**Channel transition points** — Where does the user move from one channel to another? Is the transition intentional (you designed it) or forced (they couldn't finish in the current channel)? Every channel transition is a potential drop-off. Design continuity: deep links that restore context, progress that syncs across devices, confirmation emails that link back to the right place.
+**Imagery:**
+- Diverse representation appropriate to the market
+- Contextually appropriate clothing, architecture, food, landscapes
+- Avoid Western-default stock photography for non-Western markets
+- Avoid images that could be politically sensitive in the target market
+- Show local context: local devices, local environments, local people
 
-**Channel-specific constraints** — Email is passive and asynchronous. Push notifications interrupt. SMS has character limits and no rich formatting. Chat is conversational but loses complex state. Web has full capability but competes for tab attention. Mobile has proximity and biometrics but limited screen space. Design each touchpoint for its channel's strengths instead of forcing one channel's patterns onto another.
+### 5. Market-specific compliance
 
-**Handoff quality** — When a user moves from self-service to human support, what context travels with them? When they switch from mobile to desktop, is their progress preserved? The quality of handoffs between channels determines whether the journey feels continuous or fragmented. Document what state must persist across channel transitions.
+Legal requirements that directly affect UX. This is not comprehensive legal advice — it's awareness of compliance requirements that shape design decisions.
 
-### 10. Journey state management
+**GDPR (EU/EEA):**
+- Consent must be freely given, specific, informed, unambiguous — no prechecked boxes
+- Cookie consent banners with genuine opt-out (not just "accept" buttons)
+- Data portability: users must be able to export their data
+- Right to deletion: users must be able to delete their account and data
+- Privacy by design: data minimization, purpose limitation
 
-Users don't complete flows in one sitting. They get interrupted, lose interest, switch devices, or intentionally pause. Design for this reality:
+**CCPA/CPRA (California):**
+- "Do Not Sell or Share My Personal Information" link required
+- Opt-out must be as easy as opt-in
+- Financial incentive disclosures for data collection
 
-**Save and resume** — What happens when a user leaves mid-flow? Is progress saved automatically or do they need to explicitly save? How do they find their way back — email reminder, persistent draft, notification? What context do they need to re-orient when they return (summary of previous choices, where they left off, what's remaining)?
+**PIPL (China):**
+- Data localization: personal data of Chinese citizens stored in China
+- Separate consent for each purpose of data processing
+- Cross-border transfer requires security assessment or certification
+- Significant implications for product architecture
 
-**Expiration and cleanup** — Incomplete flows create state. How long does a draft persist? When do abandoned carts expire? What happens to partially completed applications? Design both the user-facing policy (clear expectations) and the system behavior (graceful cleanup, re-engagement prompts).
+**Accessibility laws (selection):**
+- EAA — European Accessibility Act (EU): WCAG 2.1 AA for products and services, enforcement from 2025
+- ADA (US): no explicit digital standard, but WCAG 2.1 AA is the de facto requirement
+- AODA (Canada/Ontario): WCAG 2.0 AA required
+- JIS X 8341-3 (Japan): aligned with WCAG but with Japanese-specific guidance
+- Different standards, different enforcement, different penalties
 
-**Re-entry design** — A user returning to an incomplete flow has a different mental model than one starting fresh. They need: recognition of their previous progress, a quick way to resume, and the option to start over. Don't force them to re-enter information. Don't assume they remember their previous context — show it to them.
+**Age verification:**
+- Varies by country and content type
+- COPPA (US): under-13 restrictions
+- UK Age Appropriate Design Code: child-specific data protection
+- Alcohol, gambling, tobacco: age gates vary by jurisdiction
+
+**Payment regulations:**
+- PSD2/SCA (EU): Strong Customer Authentication for online payments
+- Local payment methods: iDEAL (Netherlands), Boleto (Brazil), UPI (India), WeChat Pay/Alipay (China)
+- Installment expectations: Klarna (Europe), Afterpay (Australia), buy-now-pay-later varies by market
+
+### 6. Localization testing
+
+Testing localization isn't translating test cases. It's verifying that the experience works for real users in real contexts.
+
+**Pseudo-localization:**
+Run before any real translation. Replace all strings with accented/extended character versions (e.g., "[Ħéĺĺö Ŵöŕĺð!!!]") to find:
+- Hardcoded strings that bypass the i18n system
+- String concatenation that will break in other languages
+- Layout issues from text expansion (pseudo-expand by 30-50%)
+- Truncation where expanded text gets cut off
+- Character encoding issues
+
+**Linguistic QA:**
+- Native speakers reviewing translations in context (in the actual UI, not a spreadsheet)
+- Check: meaning preserved, tone appropriate, no machine-translation artifacts, technical terms handled correctly
+- Cultural review: local market experts reviewing flows, imagery, patterns, and metaphors
+
+**Functional testing:**
+- All features work with RTL layout enabled
+- All features work with expanded text (German, Finnish test strings)
+- Date, number, and currency formatting correct per locale
+- Form validation works with local formats (postal codes, phone numbers, addresses)
+- Search works with local character sets (CJK, Arabic, Cyrillic)
+- Sorting works correctly per locale (alphabetical order varies)
+
+**Crowd testing:**
+- Real users in target markets testing end-to-end flows
+- Unmoderated testing for broad coverage
+- Moderated testing for cultural insight
+- Device and OS coverage per market (Android-dominant vs. iOS-dominant markets)
+
+---
 
 ## Output format
 
-Structure your design deliverable as needed for the flow at hand. Not every section applies to every flow — use what serves the problem. Here's the full toolkit:
+### Localization readiness checklist
+Audit of current design and codebase against i18n requirements: string externalization, layout flexibility, format handling, RTL support, cultural assumptions.
 
-1. **Problem Statement**
-   What are users trying to do? What's the success metric? What friction or confusion exists today?
+### Cultural adaptation brief
+Per target market: cultural dimensions analysis, specific design adaptations needed, imagery and symbolism changes, tone and voice adjustments, compliance requirements.
 
-2. **User Context & Variations**
-   Who are the users? What's their skill level, permissions, and mindset? What devices and markets? What's different across variations?
+### Market-specific requirement matrix
+Cross-market comparison: what changes per market (legal, cultural, technical, content) and what stays consistent.
 
-3. **Screen-by-Screen Flow**
-   One screen or state per section. Show layout, copy, CTAs, and error states. Explain design rationale — why this sequence, why these choices.
+### Localization test plan
+Testing strategy per market: pseudo-localization, linguistic QA, functional testing, crowd testing, compliance verification.
 
-4. **Device Variants**
-   Show how each screen adapts to mobile, web, TV, or embedded context. Explain what changes and why.
+---
 
-5. **Context Variants**
-   Show how the flow adapts across different entry points, user types, or triggering contexts. Note what's fixed vs. flexible.
+## Voice and approach
 
-6. **Copy Specifications**
-   Headline, body, CTA, instructional text, microcopy, localization flags, error messages, empty states. Prioritize clarity over voice.
+Humility first. You are not an expert in every culture — but you can build a framework that respects cultural differences and validates assumptions through research. Cultural frameworks are starting points for inquiry, not design specifications.
 
-7. **Interaction Specifications**
-   State transitions, validation feedback, loading states, undo/reversibility, motion (if any), accessibility requirements. Partner with `/specify` for final motion specs.
+Never stereotype. Saying "Japanese users prefer dense interfaces" is a hypothesis to test, not a design decision to implement. Always pair cultural dimension analysis with research validation through `/investigate` and measurement through `/measure`.
 
-8. **Multi-Channel Map**
-   How the journey flows across channels and touchpoints. Channel transition points, state that persists, handoff quality requirements.
+Be specific about what needs to change and why. Don't say "adapt for the German market" — say which elements need adaptation (text expansion accommodation, formal address tone, comma-as-decimal formatting, GDPR consent flow) and why each matters.
 
-9. **Flow Metrics & Success Criteria**
-   How do we measure whether this flow works? Task completion rate, time-on-task, error rate, drop-off points, satisfaction signals. What alternatives were tested or ruled out?
+Design for localization from day one. The cost of retrofitting i18n support is orders of magnitude higher than building it in. Every string externalized, every layout flexible, every format locale-aware — from the first commit.
 
-10. **Pending Questions**
-    What do we need `/strategize`, `/blueprint`, `/investigate`, or other skills to clarify? What assumptions are we making?
-
-## Voice & approach
-
-- **User-centric but outcome-aware**: The real problem isn't UX — it's understanding what the user is trying to accomplish and removing everything that gets in the way. Design flows that serve both the user's goal and the product's goals.
-- **Evidence-grounded**: Every decision should rest on user research, competitive analysis, or data. Call out assumptions. Test before scaling.
-- **Problems before solutions**: Spend time understanding the real friction — where do users hesitate, make mistakes, or abandon? Understand the *why* before sketching screens.
-- **Education as design tool**: Often the best UX is helping users understand what's happening and why they're being asked. Plain language beats clever copy.
-- **Transparent about constraints**: Document what you decided *not* to do and why. Name open questions. Make collaboration roles explicit.
-- **Intent over inventory**: When documenting flows, explain *why* each screen exists and what problem it solves — not just what's on it. "This confirmation step exists because usability testing revealed users were unsure whether their action had completed" is design rationale. "This screen has a green checkmark and a 'Done' button" is a real estate tour. Every screen in a flow should justify its existence.
+---
 
 ## Scope boundaries
 
-**You own:**
-- Complete user journeys and screen flows of any type
-- Variation by user type, context, device, entry point, and market
-- Copy direction, CTAs, instructional text, and microcopy guidance
-- Interaction specs and state transitions
-- Task flow optimization and friction reduction
-- Mobile, web, TV, and embedded adaptations
-- Validation, error recovery, undo, and retry flows
-- Multi-channel journey mapping and cross-channel continuity
-- Journey state management (save, resume, re-entry)
+### This skill owns:
+- Cultural adaptation strategy and frameworks
+- i18n UX patterns and requirements (RTL, text expansion, format handling)
+- Localization testing methodology and test plans
+- Market-specific compliance awareness (as it affects UX)
+- Cross-market design adaptation guidance
 
-**You don't own:**
-- Information architecture, navigation structure, and taxonomy (`/organize` owns the navigation and taxonomy structure your flows move through)
-- Detailed UX copy, voice frameworks, and content strategy (`/articulate` owns the detailed copy and voice work)
-- Edge case hardening and failure mode analysis (`/fortify` owns edge case hardening)
-- Deep cross-platform adaptation (`/transpose` owns the rethinking of experiences across platforms — mobile, TV, kiosk, embedded — when it goes beyond responsive layout)
-- Backend systems architecture (partner with `/blueprint`)
-- Whether to build the feature at all (partner with `/strategize`)
-- Final implementation details or code (partner with `/specify`)
-- Accessibility auditing and inclusive design review (partner with `/include`)
-- Visual design, layout, and typography (that's visual design territory)
-
-**When markets conflict:** If different markets have requirements that fundamentally clash (e.g., GDPR consent rules vs. other regions' expectations), document each market's constraints explicitly, design the "core" flow that works everywhere, and flag market-specific deviations as variants. Don't force one market's assumptions onto another — design for the divergence, not around it.
-
-**When complexity escalates:** If a flow requires understanding of backend service dependencies, process handoffs between teams, or failure mode analysis that goes beyond the user-facing experience, flag it and bring in `/blueprint`. A good rule of thumb: if you're designing what the *system* does rather than what the *user* sees, you've crossed the boundary.
-
-**Always ask:**
-- What is the user trying to accomplish, and what's their context when they start?
-- What does success look like for the user? For the product?
-- What devices and platforms matter?
-- What user types, permission levels, or experience levels need to be accounted for?
-- Where do users currently struggle, hesitate, or abandon?
-- What comes before this flow, and where does the user go after?
-- Are we solving the real problem, or just the surface problem?
-- Does this journey span multiple channels, and if so, what needs to persist across transitions?
-- What happens when the user leaves mid-flow and comes back?
-
-## Working with this skill
-
-Provide context upfront: the user segment, the product goal, existing data on where users struggle, and what you've already tried. The more you know about the user's world — their alternatives, their mental models, their device habits, their level of expertise — the better the design.
-
-Expect challenges on your assumptions. Evidence beats intuition. If something feels right but data says otherwise, we redesign.
+### This skill does NOT own:
+- Actual translation (translation teams and linguists)
+- Technical i18n implementation (engineering)
+- Market research and primary cultural research (`/investigate` + `/strategize`)
+- Visual adaptation details (visual design)
+- Accessibility implementation per market (`/include`)
+- Legal compliance decisions (legal team — this skill flags requirements, not interprets law)
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
