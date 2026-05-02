@@ -1,0 +1,46 @@
+{
+  "name": "ericmjl--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "ericmjl",
+  "homepage": "https://github.com/ericmjl/skills",
+  "skills": [
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "gh-cli",
+      "description": ""
+    },
+    {
+      "name": "gh-activity-summary",
+      "description": ""
+    },
+    {
+      "name": "gh-daily-timeline",
+      "description": ""
+    },
+    {
+      "name": "publish-to-google-docs",
+      "description": ""
+    },
+    {
+      "name": "debug-github-ci",
+      "description": ""
+    },
+    {
+      "name": "gh-pr-code-review",
+      "description": ""
+    },
+    {
+      "name": "ml-experimentation",
+      "description": ""
+    },
+    {
+      "name": "scientific-eda",
+      "description": ""
+    }
+  ]
+}
