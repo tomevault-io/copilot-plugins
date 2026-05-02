@@ -1,0 +1,44 @@
+{
+  "name": "Coder-Codex-Gemini",
+  "owner": "FredericMN",
+  "repo": "Coder-Codex-Gemini",
+  "description": "CCG \u591a\u6a21\u578b\u534f\u4f5c\u6846\u67b6\uff1aClaude + Coder + Codex + Gemini | \u652f\u6301 Claude Code & OpenCode \u53cc\u73af\u5883 / CCG Multi-model Collaboration: Claude + Coder + Codex + Gemini | Supports Claude Code & OpenCode",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FredericMN/Coder-Codex-Gemini",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T22:17:04Z"
+}
