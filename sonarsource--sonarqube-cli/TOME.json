@@ -4,7 +4,7 @@
   "repo": "sonarqube-cli",
   "description": "CLI tool to provide access to Sonar features",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SonarSource/sonarqube-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T22:05:11Z"
+  "distributed_at": "2026-05-02T15:56:22Z"
 }
