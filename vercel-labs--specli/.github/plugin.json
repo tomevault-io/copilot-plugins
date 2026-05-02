@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--specli",
+  "displayName": "specli",
+  "description": "Run any OpenAPI spec as an Agent optimized executable",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/specli",
+  "skills": []
+}
