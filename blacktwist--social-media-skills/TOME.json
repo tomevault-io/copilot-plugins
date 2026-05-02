@@ -4,7 +4,7 @@
   "repo": "social-media-skills",
   "description": "AI agent skills for social media content strategy, creation, and analysis across text-first platforms",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/blacktwist/social-media-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T12:43:46Z"
+  "distributed_at": "2026-05-02T00:46:52Z"
 }
