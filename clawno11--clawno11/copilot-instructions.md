@@ -1,40 +1,33 @@
-## architecture-layers
+## i18n-locale
 
-> 四层架构依赖方向规则和模块规模约束
+> 翻译文件放置规则 — 防止 locales 重复
 
 
-# 架构层级规则
+# 翻译文件规则
 
-## 依赖方向（只能向下，禁止向上）
+## 新增翻译键的判定
 
-```
-Layer 4: apps/desktop, apps/mobile     → 可依赖 Layer 3, 2
-Layer 3: packages/shared               → 可依赖 Tauri plugin API
-Layer 2: crates/clawno-core            → 只依赖 Rust 第三方 crate
-Layer 1: Foundation (Cargo/Tauri/SQLite) → 无依赖
-```
-
-## 绝对禁止
-
-- `clawno-core` import `tauri`（用 macro/callback 替代）
-- `@clawno/shared` import from `apps/`
-- `apps/desktop` import from `apps/mobile`（反之亦然）
-
-## 模块规模阈值（超出必须拆分）
-
-| 指标 | 阈值 |
+| 条件 | 放入 |
 |------|------|
-| Rust 单文件 | ≤500 行 |
-| TSX 页面组件 | ≤400 行 |
-| 单模块 Tauri 命令数 | ≤10 个 |
-| shared store 总数 | ≤10 个 |
+| 两端均使用且值相同 | `packages/shared/src/locales/{lang}.json` |
+| 仅一端使用 | `apps/{platform}/src/locales/{lang}.json` |
+| 两端均使用但值不同 | 各端 locales（平台可覆盖 shared） |
 
-## 关键文档位置
+## 检查步骤
 
-- 架构规格: `docs/ARCHITECTURE-V2.md`
-- 模块边界: `docs/MODULE-BOUNDARIES.md`
-- 共享契约: `docs/SHARED-CONTRACT.md`
-- 决策记录: `docs/DECISIONS.md`
+1. 在 shared locales 中搜索是否已有相同/相似的 key
+2. 如果是通用 UI 文本（按钮、标签、错误），优先放 shared
+3. 如果是平台特有功能描述，放对应端
+
+## 合并机制
+
+两端通过 `createI18n(platformOverrides)` 自动合并：`{ ...shared, ...platform }`
+平台可以覆盖 shared 的同名 key（但应尽量避免）。
+
+## 禁止
+
+- ❌ 两端 locales 中出现完全相同的 key+value 组合
+- ❌ 新增翻译时只改一端忘记改另一端
 
 ---
 > Source: [clawno11/clawno11](https://github.com/clawno11/clawno11) — distributed by [TomeVault](https://tomevault.io).
