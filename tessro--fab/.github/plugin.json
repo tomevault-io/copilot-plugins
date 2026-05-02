@@ -1,0 +1,18 @@
+{
+  "name": "tessro--fab",
+  "displayName": "fab",
+  "description": "\ud83d\ude8c beep beep. Hop aboard the fabulous agent bus: an agent swarm supervisor.",
+  "version": "1.0.0",
+  "author": "tessro",
+  "homepage": "https://github.com/tessro/fab",
+  "skills": [
+    {
+      "name": "docs-review",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    }
+  ]
+}
