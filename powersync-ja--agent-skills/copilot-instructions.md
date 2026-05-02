@@ -1,21 +1,17 @@
-## agent-skills
+## powersync-playbook
 
-> If you are building or modifying anything that uses **PowerSync**, you **must** follow the playbook in **[skills/powersync/AGENTS.md](skills/powersync/AGENTS.md)** — not a condensed summary.
+> PowerSync skill — follow AGENTS.md playbook; powersync login is Cloud-only
 
-# PowerSync Agent Skills
 
-If you are building or modifying anything that uses **PowerSync**, you **must** follow the playbook in **[skills/powersync/AGENTS.md](skills/powersync/AGENTS.md)** — not a condensed summary.
+# PowerSync agent skills
 
-That file includes:
+When editing or when the user’s task involves PowerSync:
 
-- **Agent compliance (non-negotiable):** ask Cloud vs self-hosted, ask backend if unspecified, CLI-first, no silent shortcuts.
-- Full onboarding sequence, setup paths, SDK references, and debugging.
+1. Open **skills/powersync/AGENTS.md** and follow **Agent compliance** and the numbered onboarding playbook. Do not assume backend or Cloud vs self-hosted.
+2. Prefer the **PowerSync CLI** per that file; do not hand-roll deployable config unless the user explicitly cannot use the CLI.
+3. **`powersync login`** is for **PowerSync Cloud** (PAT) only — not for authenticating to a **self-hosted** service. Self-hosted: `powersync init self-hosted`, Docker commands, `PS_ADMIN_TOKEN` on the service.
 
-**Do not** assume Supabase, assume self-hosted Docker, or skip CLI steps unless the user **explicitly** opts out.
-
-**`powersync login`** is **PowerSync Cloud only**. Self-hosted does not use it — see `skills/powersync/references/powersync-cli.md` § “Authentication”.
-
-When editing files under `skills/powersync/`, preserve and strengthen playbook language so agents cannot reasonably treat references as optional recipes.
+If instructions here conflict with a “faster” approach, the playbook wins unless the user explicitly overrides.
 
 ---
 > Source: [powersync-ja/agent-skills](https://github.com/powersync-ja/agent-skills) — distributed by [TomeVault](https://tomevault.io).
