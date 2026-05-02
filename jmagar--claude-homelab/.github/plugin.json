@@ -1,0 +1,42 @@
+{
+  "name": "jmagar--claude-homelab",
+  "displayName": "claude-homelab",
+  "description": "Comprehensive Agents, Commands, Hooks, and Skills for homelab service management - media automation, infrastructure monitoring, document management, and more",
+  "version": "1.0.0",
+  "author": "jmagar",
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "skills": [
+    {
+      "name": "bytestash",
+      "description": ""
+    },
+    {
+      "name": "gh-address-comments",
+      "description": ""
+    },
+    {
+      "name": "notebooklm",
+      "description": ""
+    },
+    {
+      "name": "paperless-ngx",
+      "description": ""
+    },
+    {
+      "name": "radarr",
+      "description": ""
+    },
+    {
+      "name": "sonarr",
+      "description": ""
+    },
+    {
+      "name": "tautulli",
+      "description": ""
+    },
+    {
+      "name": "zfs",
+      "description": ""
+    }
+  ]
+}
