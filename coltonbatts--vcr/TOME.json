@@ -1,0 +1,75 @@
+{
+  "name": "VCR",
+  "owner": "coltonbatts",
+  "repo": "VCR",
+  "description": "Headless motion graphics renderer \u2014 declarative YAML scenes to ProRes 4444 with alpha. GPU-accelerated, expression-driven, CLI-first.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vcr-debugger",
+      "path": ".skills/vcr-debugger",
+      "github_url": "https://github.com/coltonbatts/VCR/tree/main/.skills/vcr-debugger",
+      "description": ""
+    },
+    {
+      "name": "vcr-figma-workflow",
+      "path": ".skills/vcr-figma-workflow",
+      "github_url": "https://github.com/coltonbatts/VCR/tree/main/.skills/vcr-figma-workflow",
+      "description": ""
+    },
+    {
+      "name": "vcr-manifest-author",
+      "path": ".skills/vcr-manifest-author",
+      "github_url": "https://github.com/coltonbatts/VCR/tree/main/.skills/vcr-manifest-author",
+      "description": ""
+    },
+    {
+      "name": "vcr-render-planner",
+      "path": "skills/vcr-render-planner/vcr-render-planner",
+      "github_url": "https://github.com/coltonbatts/VCR/tree/main/skills/vcr-render-planner/vcr-render-planner",
+      "description": ""
+    },
+    {
+      "name": "vcr-style-skill-template",
+      "path": ".skills/vcr-style-skill-template",
+      "github_url": "https://github.com/coltonbatts/VCR/tree/main/.skills/vcr-style-skill-template",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/coltonbatts/VCR",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:41:37Z"
+}
