@@ -1,0 +1,44 @@
+{
+  "name": "RPGMLocalizer",
+  "owner": "Lord0fTurk",
+  "repo": "RPGMLocalizer",
+  "description": "RPGMLocalizer is a powerful automated translation tool designed for RPG Maker games. It extracts text from game data, translates it using machine translation services (Google Translate), and re-inserts it back into the game files, all while preserving game logic, control codes, and scripts",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lord0fTurk/RPGMLocalizer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T16:49:02Z"
+}
