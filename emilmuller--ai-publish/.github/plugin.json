@@ -1,0 +1,9 @@
+{
+  "name": "emilmuller--ai-publish",
+  "displayName": "ai-publish",
+  "description": "AI-assisted release authoring: generates changelogs, release notes, and next semver from git diff.",
+  "version": "1.0.0",
+  "author": "emilmuller",
+  "homepage": "https://github.com/emilmuller/ai-publish",
+  "skills": []
+}
