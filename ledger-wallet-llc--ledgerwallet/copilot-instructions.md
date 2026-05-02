@@ -1,92 +1,95 @@
-## git-workflow
+## jest-mocks
 
-> Git workflow and commit conventions for Ledger Wallet
+> Jest mock best practices to avoid flaky tests and mock conflicts
 
 
-# Git Workflow & Commit Conventions
+# Jest Mock Rules
 
-## Branch Naming
+Follow these rules when writing or generating Jest tests to avoid flaky tests and mock conflicts when running with parallel workers (`--maxWorkers=50%`).
 
-Branches must use a clear prefix based on their purpose:
+## Do NOT
 
-- **feat/** — New features
-- **bugfix/** — Bug fixes
-- **support/** — Refactor, tests, CI, improvements
-- **chore** — Maintenance, tooling, configs
+### 1. Duplicate mocks for modules already mocked in jest-setup
 
-### Examples
+**Avoid** adding `jest.mock("module")` in a test file when that module is already mocked in the app's jest-setup.
 
-- `feat/add-ethereum-staking`
-- `bugfix/fix-transaction-signing`
-- `support/update-dependencies`
+**Before adding a mock:** Scan the relevant jest-setup file to see what is already mocked:
 
-### Best Practices
+- Mobile: `apps/ledger-live-mobile/__tests__/jest-setup.js`
+- Desktop: `apps/ledger-live-desktop/tests/jestSetup.js`
 
-- Use **kebab-case**
-- Keep names **short, explicit, action-oriented**
-- One branch = **one isolated concern**
+If the module appears in `jest.mock("...")` there, do not duplicate it in the test file.
 
----
+**Instead:** Use the global mock and customize via `jest.mocked(module.export).mockReturnValue(...)` in `beforeEach`. Reset in `afterEach` if needed.
 
-## Commit Message Format
+### 2. Call `renderHook` or hooks at describe load time
 
-Follow the **Conventional Commits** standard.
+**Avoid:**
 
-### Format
-
+```ts
+describe("MyTest", () => {
+  const { t } = renderHook(useSomething).result.current; // ❌ Runs when describe loads
+  // ...
+});
 ```
 
-<type>[optional scope]: <description>
+**Instead:** Call inside `beforeEach` or within each test:
 
-[optional body]
-
-[optional footer(s)]
-
+```ts
+describe("MyTest", () => {
+  let t: ReturnType<typeof useSomething>["t"];
+  beforeEach(() => {
+    t = renderHook(useSomething).result.current.t; // ✅ Runs before each test
+  });
+});
 ```
 
-### Rules
+### 3. Use `jest.restoreAllMocks()` in test files
 
-- Description must be **imperative, clear, lowercase**
-- Scope is optional but recommended (`desktop`, `mobile`, `coin`, `common`, etc.)
-- Add body for complex or user-facing changes
-- If needed, include footers:
-  - `BREAKING CHANGE: ...`
-  - Jira ticket (`LL-1234`)
+**Avoid:** `jest.restoreAllMocks()` — it restores **all** mocks including global ones from jest-setup, breaking other tests.
 
----
+**Instead:** Use `jest.clearAllMocks()` to clear call history only, or `mock.mockReset()` for specific mocks. Restore only spies you created: `mySpy.mockRestore()` in `afterEach`.
 
-## Commit Types
+### 4. Call `jest.clearAllMocks()` after setting mock return values (in same `beforeEach`)
 
-- **feat** — New feature
-- **fix** — Bug fix
-- **docs** — Docs only
-- **style** — Formatting, no code change
-- **refactor** — Restructure without behavior change
-- **test** — Add/update tests
-- **chore** — Maintenance, tooling, configs
-- **perf** — Performance improvements
-- **ci** — CI/CD changes
+**Avoid:**
 
-### Examples
-
-```
-feat(desktop): add dark mode toggle
-fix(mobile): resolve transaction signing issue
-docs(common): update API documentation
-refactor(account): simplify account syncing logic
-test(coin): add bitcoin integration tests
+```ts
+beforeEach(() => {
+  jest.mocked(useNavigation).mockReturnValue(mockNav);
+  jest.clearAllMocks(); // ❌ Clears the mockReturnValue you just set
+});
 ```
 
----
+**Instead:** Either clear first then configure, or clean up in `afterEach`:
 
-## Workflow Best Practices
+```ts
+// Option A: clear first, then configure
+beforeEach(() => {
+  jest.clearAllMocks();
+  jest.mocked(useNavigation).mockReturnValue(mockNav); // ✅
+});
 
-- Commits must be **small, isolated, meaningful**
-- One commit = **one logical change**
-- Prefer **multiple focused commits** over large mixed ones
-- Never mix refactor + fix + feature
-- Rebase before PR to keep history clean
-- Squash only for trivial branches (`support/cleanup`)
+// Option B: configure before, clean up after
+beforeEach(() => {
+  jest.mocked(useNavigation).mockReturnValue(mockNav);
+});
+afterEach(() => {
+  jest.clearAllMocks(); // ✅
+});
+
+// Option C: mockReturnValueOnce when possible (no cleanup needed)
+beforeEach(() => {
+  jest.mocked(useNavigation).mockReturnValueOnce(mockNav); // ✅
+});
+```
+
+## Do
+
+- **Configure before, clean up after:** Use `beforeEach` to set mock return values, `afterEach` with `jest.clearAllMocks()` to reset.
+- **Prefer `mockReturnValueOnce` when possible** — no cleanup needed.
+- Restore only spies you created in `afterEach`: `platformSpy?.mockRestore()`.
+- Add `beforeEach(() => jest.clearAllMocks())` to integration tests that may be affected by shared state.
 
 ---
 > Source: [Ledger-Wallet-LLC/ledgerwallet](https://github.com/Ledger-Wallet-LLC/ledgerwallet) — distributed by [TomeVault](https://tomevault.io).
