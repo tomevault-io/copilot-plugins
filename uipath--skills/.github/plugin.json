@@ -1,0 +1,9 @@
+{
+  "name": "uipath--skills",
+  "displayName": "skills",
+  "description": "This is a repository of skills for interfacing UiPath capabilities to external developers.",
+  "version": "1.0.0",
+  "author": "UiPath",
+  "homepage": "https://github.com/UiPath/skills",
+  "skills": []
+}
