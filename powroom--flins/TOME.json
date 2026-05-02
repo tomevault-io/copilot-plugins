@@ -1,0 +1,57 @@
+{
+  "name": "flins",
+  "owner": "powroom",
+  "repo": "flins",
+  "description": "Universal skill installer for AI coding agents",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clack-guidelines",
+      "path": ".agents/skills/clack-guidelines",
+      "github_url": "https://github.com/powroom/flins/tree/main/.agents/skills/clack-guidelines",
+      "description": ""
+    },
+    {
+      "name": "commander-guidelines",
+      "path": ".agents/skills/commander-guidelines",
+      "github_url": "https://github.com/powroom/flins/tree/main/.agents/skills/commander-guidelines",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/powroom/flins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:36:55Z"
+}
