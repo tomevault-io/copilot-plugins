@@ -4,7 +4,7 @@
   "repo": "melta-ui",
   "description": "\u4eba\u9593\u306b\u3082\u3001AI\u306b\u3082\u3001\u8aad\u3081\u308b\u30c7\u30b6\u30a4\u30f3\u30b7\u30b9\u30c6\u30e0 \u2014 AI-Ready Design System for Claude Code & Cursor",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tsubotax/melta-ui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T19:36:13Z"
+  "distributed_at": "2026-05-02T04:14:58Z"
 }
