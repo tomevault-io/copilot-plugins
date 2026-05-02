@@ -1,0 +1,9 @@
+{
+  "name": "stevenathompson--self-command",
+  "displayName": "self-command",
+  "description": "An MCP tool that allows the Gemini CLI to send commands to itself, run very long commands in the background and be woken, sleep for a specified amount of time, watch logs and receive notifications, et",
+  "version": "1.0.0",
+  "author": "stevenAthompson",
+  "homepage": "https://github.com/stevenAthompson/self-command",
+  "skills": []
+}
