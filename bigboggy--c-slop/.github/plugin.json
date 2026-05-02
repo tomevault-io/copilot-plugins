@@ -1,0 +1,14 @@
+{
+  "name": "bigboggy--c-slop",
+  "displayName": "C-slop",
+  "description": "Token optimized programming language & full-stack framework",
+  "version": "1.0.0",
+  "author": "bigboggy",
+  "homepage": "https://github.com/bigboggy/C-slop",
+  "skills": [
+    {
+      "name": "c-slop",
+      "description": ""
+    }
+  ]
+}
