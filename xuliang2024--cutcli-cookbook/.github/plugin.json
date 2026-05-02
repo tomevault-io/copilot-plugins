@@ -1,0 +1,9 @@
+{
+  "name": "xuliang2024--cutcli-cookbook",
+  "displayName": "cutcli-cookbook",
+  "description": "Cookbook, JSON templates, AI prompts and docs for cutcli \u2014 the CapCut / Jianying (\u526a\u6620) draft CLI. Generate editable video drafts from code, Cursor, Claude Code or any MCP agent.",
+  "version": "1.0.0",
+  "author": "xuliang2024",
+  "homepage": "https://github.com/xuliang2024/cutcli-cookbook",
+  "skills": []
+}
