@@ -4,7 +4,7 @@
   "repo": "designbrief",
   "description": "Design guardrails, not templates. A library of UI design direction files that give LLMs (and humans) the context to build tasteful, consistent interfaces in any style.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Heiberg-Industries/designbrief",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T16:16:16Z"
+  "distributed_at": "2026-05-02T20:17:30Z"
 }
