@@ -1,0 +1,46 @@
+{
+  "name": "digitalocean-labs--do-app-platform-skills",
+  "displayName": "do-app-platform-skills",
+  "description": "Claude/Agent Skills for DigitalOcean App Platform - deployment, migration, networking, database configuration, and troubleshooting",
+  "version": "1.0.0",
+  "author": "digitalocean-labs",
+  "homepage": "https://github.com/digitalocean-labs/do-app-platform-skills",
+  "skills": [
+    {
+      "name": "ai-services",
+      "description": ""
+    },
+    {
+      "name": "designer",
+      "description": ""
+    },
+    {
+      "name": "migration",
+      "description": ""
+    },
+    {
+      "name": "networking",
+      "description": ""
+    },
+    {
+      "name": "sandbox",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "description": ""
+    },
+    {
+      "name": "managed-db-services",
+      "description": ""
+    },
+    {
+      "name": "postgres",
+      "description": ""
+    },
+    {
+      "name": "spaces",
+      "description": ""
+    }
+  ]
+}
