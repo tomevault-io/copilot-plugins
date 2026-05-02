@@ -1,0 +1,9 @@
+{
+  "name": "dash0hq--agent-skills",
+  "displayName": "agent-skills",
+  "description": "OpenTelemetry skills and reference documentation for AI coding assistants - instrumentation patterns, telemetry quality guides, and Dash0 integration ",
+  "version": "1.0.0",
+  "author": "dash0hq",
+  "homepage": "https://github.com/dash0hq/agent-skills",
+  "skills": []
+}
