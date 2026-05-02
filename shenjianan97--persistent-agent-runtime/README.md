@@ -7,11 +7,11 @@ Persistent runtime for long-running AI agent tasks with durable checkpoints, lea
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [shenjianan97/persistent-agent-runtime](https://github.com/shenjianan97/persistent-agent-runtime).
+Original source: `CLAUDE.md` in [shenjianan97/persistent-agent-runtime](https://github.com/shenjianan97/persistent-agent-runtime).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
