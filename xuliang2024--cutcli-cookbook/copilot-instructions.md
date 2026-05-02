@@ -1,173 +1,173 @@
-## deploy
+## directory-index
 
-> cutcli-cookbook 部署 — R2 + Worker 流程、CF API Token 权限、回滚、监控
+> cutcli-cookbook 仓库目录索引 — 谁放在哪、改谁会影响什么
 
 
-# 部署架构与流程
+# 仓库目录索引
 
-## 资源拓扑
+> 改动文件前先在这里查"它属于哪个层"，避免越权或漏改。
 
-```mermaid
-flowchart LR
-  user[Browser] -->|"https://docs.cutcli.com/*"| dns[Cloudflare DNS]
-  dns -->|"proxied A 192.0.2.1"| route[Worker Route]
-  route -->|"docs.cutcli.com/*"| worker[Worker docs-cutcli]
-  worker -->|"R2 binding DOCS"| r2[(R2 cutcli-docs)]
-```
-
-## 资源清单
-
-| 资源 | 标识 |
-|---|---|
-| R2 bucket | `cutcli-docs`（专放 VitePress build 产物） |
-| Worker | `docs-cutcli`（src 在本仓 `worker/`） |
-| Worker route | `docs.cutcli.com/*` + `docs.cutcli.com` |
-| DNS 记录 | `docs.cutcli.com` A 192.0.2.1 (proxied) |
-| Cloudflare account | `xuliang2022@gmail.com` (id `11c47779f0d4c3d0e69ccc6c484dc589`) |
-| Zone | `cutcli.com` (zone id `064059cb21d36956c11381995b964467`) |
-
-## 路径解析（worker 行为）
-
-`worker/src/index.ts` 收到请求时按下面顺序解析 R2 key：
-
-1. `/`             → `index.html`
-2. `/foo/`         → `foo/index.html`
-3. `/foo/bar.html` → `foo/bar.html` （直接命中）
-4. `/foo/bar`（无扩展名）→ 依次试 `foo/bar.html` → `foo/bar/index.html`
-5. 都不命中       → 返回 R2 中的 `404.html`，HTTP 404
-
-## 缓存策略
-
-| 路径 | Cache-Control |
-|---|---|
-| `assets/<hash>.{js,css}` | `public, max-age=31536000, immutable` (VitePress 文件名带 hash，安全) |
-| 其他（含 `.html`） | `public, max-age=3600, must-revalidate` |
-
-## 本地部署
-
-```bash
-# 一键
-npm run deploy
-
-# 等价于
-npm run docs:build      # vitepress build → docs/.vitepress/dist
-npm run r2:upload       # 增量上传，仅 etag 变化的文件 (~10s)
-npm run worker:deploy   # 仅 worker 改动时需要
-```
-
-`r2:upload` 用并发 6 路调用 `worker/node_modules/.bin/wrangler`，跳过 md5 相同的文件。设置 `UPLOAD_CONCURRENCY=8` 可提速。
-
-## CI 部署（推荐）
-
-合并到 `main` 后，`.github/workflows/deploy-docs.yml` 自动跑：
+## 顶层一览
 
 ```text
-checkout
-  → setup-node v22
-  → npm ci (root + worker)
-  → npm run docs:build
-  → node scripts/upload-r2.mjs        # 增量上传
-  → cloudflare/wrangler-action@v3 deploy worker (仅 worker 有改动时)
-  → smoke test (curl 5 个关键路径)
+cutcli-cookbook/
+├── README.md / README.zh.md         # 仓库门面（英文为主 / 中文）
+├── LICENSE                          # MIT
+├── CONTRIBUTING.md / CONTRIBUTING.zh.md
+├── CODE_OF_CONDUCT.md               # 已是英文
+├── CHANGELOG.md / CHANGELOG.zh.md
+├── package.json                     # 根 package（VitePress + 工具脚本依赖）
+├── package-lock.json
+├── .gitignore
+│
+├── docs/                            # VitePress 文档站源（部署到 docs.cutcli.com）
+│   ├── *.md / guide/ / cookbook/    # 英文（root locale）
+│   └── zh/                          # 中文 locale 镜像（/zh/）
+├── examples/                        # 一键运行的 cutcli 案例（核心资产；每个 case 双语 README）
+├── templates/                       # 可复用 JSON 片段
+├── prompts/                         # AI 工具提示词（双语）
+├── showcase/                        # 月刊精选 + 上线发布资料
+├── scripts/                         # 仓库工具脚本（lint / 校验 / R2 上传）
+├── worker/                          # docs.cutcli.com 的 Cloudflare Worker
+├── .github/                         # Issue/PR/CI/发布指南（模板双语，GOOD_FIRST_ISSUES 双语）
+└── .cursor/                         # Cursor IDE 规则与 MCP 配置（中文）
 ```
 
-触发条件（`paths`）：
+## docs/ — 文档站
 
-- `docs/**`
-- `worker/**`
-- `scripts/upload-r2.mjs`
-- `package.json` / `package-lock.json`
-- `.github/workflows/deploy-docs.yml`
-
-也可手动 `gh workflow run deploy-docs.yml`。
-
-## CF API Token 权限
-
-GitHub Secrets 必须配：
-
-| Secret | 用途 |
-|---|---|
-| `CLOUDFLARE_API_TOKEN` | wrangler 鉴权 |
-| `CLOUDFLARE_ACCOUNT_ID` | `11c47779f0d4c3d0e69ccc6c484dc589` |
-
-Token 推荐**最小权限**（不要用 Global API Key）：
-
-- Account → Workers Scripts → Edit
-- Account → Workers R2 Storage → Edit
-- Zone → Workers Routes → Edit (resource: `cutcli.com`)
-- Zone → DNS → Edit (resource: `cutcli.com`，仅首次绑域名时需要)
-
-## 监控
-
-```bash
-# 实时 worker 日志
-cd worker && npx wrangler tail
-
-# 查 7 日错误率（目标 < 0.1%）
-# Cloudflare Dashboard → Workers & Pages → docs-cutcli → Logs / Analytics
+```text
+docs/
+├── .vitepress/
+│   └── config.mts             # 站点配置（locales={root:en, zh:/zh/}, cleanUrls=false）
+├── index.md                   # 英文首页 (hero + features)
+├── public/                    # 静态资源（被复制到 dist 根目录）
+│   ├── 404.html               # 英文 404 页（worker miss 时返回）
+│   ├── favicon.svg / logo.svg / hero.svg
+│   └── gallery.json           # build:gallery 自动生成
+├── guide/                     # 英文入门指南（5 篇）
+├── cookbook/                  # 英文场景教程（5 篇）
+├── reference/                 # 英文命令参考（11 篇；cli/api/concepts 由同步脚本覆盖）
+├── prompts/index.md           # 英文 Prompts 库
+└── zh/                        # 中文 locale 镜像（与 root 同结构）
+    ├── index.md
+    ├── guide/ / cookbook/ / reference/ / prompts/
 ```
 
-`scheduled-cases-test.yml` 每晚跑案例校验，失败自动开 issue。
+> 改 `docs/reference/cli|api|concepts.md` 与 `docs/zh/reference/cli|api|concepts.md` ⚠ **不要直接编辑** — 它们由 `jy_cli/scripts/sync-to-cookbook.mjs` 覆盖。改源头 `jy_cli/docs/cli.md` 等再跑同步。
+>
+> 当前过渡期：闭源同步脚本只输出中文，所以 `docs/reference/{cli,api,concepts}.md` 与 `docs/zh/reference/...` 都是中文；待 `jy_cli/scripts/sync-to-cookbook.mjs` 升级后，root 写英文、`zh/` 写中文。
 
-## 回滚
+## examples/ — 案例
 
-### 文档内容回滚（最常见）
-
-```bash
-# 回滚到上一个 commit
-git revert HEAD
-git push
-
-# CI 自动重跑 deploy-docs，约 1 分钟内全球 R2 + worker 边缘节点同步完
+```text
+examples/
+├── README.md / README.zh.md     # 案例总览（双语）
+├── 01-hello-caption/            # P0：一行字幕
+├── 02-image-slideshow-bgm/      # P0：3 图轮播 + BGM
+├── 03-tiktok-keyword-highlight/ # P0：关键词高亮
+├── 04-easy-by-audio/            # P0：cutcli draft easy
+├── 05-keyframe-zoom-in/         # P0：关键帧
+├── 10-product-promo-30s/        # 进阶：30s 产品宣传片
+├── 20-knowledge-science-card/   # 进阶：60s 知识科普
+├── 30-vlog-day-in-life/         # 进阶：30s Vlog
+└── 99-community/                # 社区贡献区
+    ├── README.md / README.zh.md
+    └── .example-template/       # 模板（供 scripts/new-example.mjs 复用）
 ```
 
-### Worker 回滚
+每个 case 必有：`README.md`（英文）、`README.zh.md`（中文）、`run.sh` (chmod +x)、`meta.json`、`data/*.json`、`preview.gif`。详见 `.cursor/rules/example-spec.mdc`。
 
-```bash
-# Cloudflare Dashboard → Workers & Pages → docs-cutcli → Deployments
-# 选上一版本 → Rollback
+## scripts/
+
+```text
+scripts/
+├── _lib/
+│   ├── walk.mjs               # 通用文件遍历
+│   └── example-schema.mjs     # 案例 schema + 中英 H2 章节集合 + URL 白名单
+├── validate-example.mjs       # 案例校验，同时认 README.md 英文 + README.zh.md 中文章节 (npm run lint:cases)
+├── new-example.mjs            # 案例脚手架，同时生成中英两份 README 骨架 (npm run new:example)
+├── build-gallery.mjs          # 生成 docs/public/gallery.json
+├── check-command-name.mjs     # grep 公开仓 cut vs cutcli (npm run lint:cmds)
+├── check-links.mjs            # 校验 markdown 内部链接 (npm run lint:links)
+├── check-i18n-pairs.mjs       # 校验中英文件成对存在 (npm run lint:i18n)
+├── lint.mjs                   # 聚合 lint runner (npm run lint)
+├── upload-r2.mjs              # 增量上传 dist 到 R2 (npm run r2:upload)
+└── r2-gc.mjs                  # 清 R2 孤儿对象 (npm run r2:gc，每周一次)
 ```
 
-或用 wrangler：
+## worker/
 
-```bash
-cd worker
-npx wrangler deployments list
-npx wrangler rollback --version-id <previous-id>
+```text
+worker/
+├── package.json               # wrangler + workers-types
+├── wrangler.toml              # name=docs-cutcli, R2 binding=DOCS, routes=docs.cutcli.com
+├── tsconfig.json
+├── README.md
+└── src/
+    └── index.ts               # ~100 行：R2 反代 + 5 步路径回退 + 缓存策略
 ```
 
-### R2 整体回滚（极端情况）
+## templates/
 
-R2 没有自动版本控制；需要从最近一次成功的 build 重新上传：
-
-```bash
-git checkout <good-sha>
-npm run docs:build && npm run r2:upload
-# 再 git checkout main 回到当前
+```text
+templates/
+├── README.md / README.zh.md
+├── captions/
+│   ├── cinematic-title.json
+│   ├── tiktok-bouncy.json
+│   └── news-ticker.json
+├── animations/
+│   ├── smooth-zoom-in.json
+│   └── glitch-cut.json
+└── filters/
+    └── (待充实)
 ```
 
-## 周级 GC（清孤儿）
+## prompts/
 
-VitePress 每次 build 会生成新的 `assets/<hash>.{js,css}`，旧的会留在 R2。每周一次清理：
-
-```bash
-CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN \
-CLOUDFLARE_ACCOUNT_ID=11c47779f0d4c3d0e69ccc6c484dc589 \
-node scripts/r2-gc.mjs --dry-run    # 预览要删什么
-node scripts/r2-gc.mjs --yes         # 实际删
+```text
+prompts/
+├── README.md / README.zh.md
+├── system/
+│   ├── cutcli-expert.md       # 英文（LLM 默认）
+│   └── cutcli-expert.zh.md    # 中文备份
+├── cursor/
+│   ├── make-promo-video.md
+│   └── make-promo-video.zh.md
+└── claude/
+    ├── auto-storyboard.md
+    └── auto-storyboard.zh.md
 ```
 
-## 首次部署 checklist（参考 .github/RELEASE_GUIDE.md）
+## showcase/
 
-- [x] R2 bucket `cutcli-docs` 已建
-- [x] Worker `docs-cutcli` 已部署
-- [x] DNS `docs.cutcli.com` A 192.0.2.1 proxied
-- [x] Worker routes 已绑
-- [x] GitHub repo 已创建并 push
-- [x] GitHub secrets 已配
-- [x] CI / Deploy 跑过一次全绿
-- [ ] `main` 分支保护（待开）
-- [ ] 90s demo 视频（待人手）
+```text
+showcase/
+├── README.md / README.zh.md   # 投稿规则 + 评选标准（双语）
+├── _gallery.json              # 月刊机器可读列表
+├── 2026-04.md / 2026-04.zh.md # 第 1 期月刊（双语）
+└── launch.md                  # W4 上线发布 checklist + 渠道文案 + demo 脚本（中文，维护者用）
+```
+
+## .github/
+
+```text
+.github/
+├── FUNDING.yml
+├── GOOD_FIRST_ISSUES.md / GOOD_FIRST_ISSUES.zh.md  # 双语
+├── RELEASE_GUIDE.md           # 中文，维护者用
+├── PULL_REQUEST_TEMPLATE.md   # 单文件双语
+├── ISSUE_TEMPLATE/
+│   └── bug_report / case_request / showcase / config — 4 个 yml，name/description/label 字段双语
+└── workflows/
+    ├── ci.yml                       # PR + push 都跑：lint (含 lint:i18n) + build + worker typecheck
+    ├── deploy-docs.yml              # main 改动 docs/ 或 worker/ 时：build + R2 增量 + worker deploy + smoke
+    └── scheduled-cases-test.yml     # 每天 02:00 UTC+8 跑全部案例校验，失败开 issue
+```
+
+## .cursor/rules/ — 本目录
+
+参见 `.cursor/rules/README.md`。
 
 ---
 > Source: [xuliang2024/cutcli-cookbook](https://github.com/xuliang2024/cutcli-cookbook) — distributed by [TomeVault](https://tomevault.io).
