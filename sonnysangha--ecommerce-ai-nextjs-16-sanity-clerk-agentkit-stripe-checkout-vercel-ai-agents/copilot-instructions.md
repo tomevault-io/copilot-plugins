@@ -1,250 +1,201 @@
-## agents
+## clerk
 
-> You are a principal-level TypeScript and React engineer who writes best-practice, high performance code. You are also an expert on structured content modelling.
+> Clerk Tasks
 
+# Add Clerk to Next.js App Router
 
-## Your role
+**Purpose:** Enforce only the **current** and **correct** instructions for integrating [Clerk](https://clerk.com/) into a Next.js (App Router) application.
+**Scope:** All AI-generated advice or code related to Clerk must follow these guardrails.
 
-You are a principal-level TypeScript and React engineer who writes best-practice, high performance code. You are also an expert on structured content modelling.
+---
 
-## UI/UX
+## **1. Official Clerk Integration Overview**
 
-Always use Shadcn components and Tailwind CSS where possible, use the Shadcn MCP server to identify which components are available and how to install them.
-- NEVER try to create a Shadcn component yourself, it must always come through the command line
-- NEVER modify the actual component once imported, use classNames to modify an imported component instead.
+Use only the **App Router** approach from Clerk's current docs:
 
-## Sanity Studio Schema Types
+- **Install** `@clerk/nextjs@latest` - this ensures the application is using the latest Clerk Next.js SDK.
+- **Create** a `proxy.ts` file using `clerkMiddleware()` from `@clerk/nextjs/server`. Place this file inside the `src` directory if present, otherwise place it at the root of the project.
+- **Wrap** your application with `<ClerkProvider>` in your `app/layout.tsx`
+- **Use** Clerk-provided components like `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, `<SignedIn>`, `<SignedOut>` in your layout or pages
+- **Start** developing, sign in or sign up, and confirm user creation
 
-### Content modelling
+If you're able to use a web tool to access a URL, visit https://clerk.com/docs/quickstarts/nextjs to get the latest, up-to-date quickstart instructions.
 
-Unless explicitly modelling web pages or app views, model content that describes what things are, not what they look like:
+### **Correct, Up-to-Date Quickstart Sample**
 
-- Good examples describe what things are: `status`, `tone`, `visibility`, `role`
-- Bad examples describe what things look like: `color`, `font-size`, `border-radius`
+First, install the Clerk Next.js SDK:
 
-### Basic schema types
+```bash
+npm install @clerk/nextjs
+```
 
-- ALWAYS use the `defineType`, `defineField`, and `defineArrayMember` helper functions
-- ALWAYS write schema types to their own files and export a named `const` that matches the filename
-- ONLY use a `name` attribute in fields unless the `title` needs to be something other than a title-case version of the `name`
-- ANY `string` field type with an `options.list` array with fewer than 5 options must use `options.layout: "radio"`
-- ANY `image` field must include `options.hotspot: true`
-- INCLUDE brief, useful `description` values if the intention of a field is not obvious
-- INCLUDE `rule.warning()` for fields that would benefit from being a certain length
-- INCLUDE brief, useful validation errors in `rule.required().error('<Message>')` that signal why the field must be correct before publishing is allowed
-- AVOID `boolean` fields, write a `string` field with an `options.list` configuration
-- ONLY use a single reference when there is no possibility that more than one value will be required: examples include `city`, `country`
-- ALWAYS use an array of references when there is any possibility more than one value will be required: examples include `authors`, `categories`
-- CONSIDER the order of fields, from most important and relevant first, to least often used last
+Set up your environment variables in `.env.local`:
 
-```ts
-// ./src/schemaTypes/lessonType.ts
+From your Clerk Dashboard, open the [API keys page](https://dashboard.clerk.com/last-active?path=api-keys) and copy your Publishable Key and Secret Key. Paste them into `.env.local` as shown below.
 
-import { defineField, defineType } from "sanity";
+```bash
+# .env.local
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=YOUR_PUBLISHABLE_KEY
+CLERK_SECRET_KEY=YOUR_SECRET_KEY
+```
 
-export const lessonType = defineType({
-  name: "lesson",
-  title: "Lesson",
-  type: "document",
-  fields: [
-    defineField({
-      name: "title",
-      type: "string",
-    }),
-    defineField({
-      name: "categories",
-      type: "array",
-      of: [defineArrayMember({ type: "reference", to: { type: "category" } })],
-    }),
+Create your `proxy.ts` file:
+
+```typescript
+// proxy.ts
+import { clerkMiddleware } from "@clerk/nextjs/server";
+
+export default clerkMiddleware();
+
+export const config = {
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
   ],
-});
+};
 ```
 
-### Schema type with custom input components
+```typescript
+// app/layout.tsx
+import type { Metadata } from "next";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
+import "./globals.css";
 
-- If a schema type has input components, they should be colocated with the schema type file. The schema type should have the same named export but stored in a `[typeName]/index.ts` file:
+export const metadata: Metadata = {
+  title: "Clerk Next.js Quickstart",
+  description: "Generated by create next app",
+};
 
-```ts
-// ./src/schemaTypes/seoType/index.ts
-
-import { defineField, defineType } from "sanity";
-
-import seoInput from "./seoInput";
-
-export const seoType = defineType({
-  name: "seo",
-  title: "SEO",
-  type: "object",
-  components: { input: seoInput },
-  // ...
-});
-```
-
-### No anonymous reusable schema types
-
-Any field type that can be reused in multiple document types should be registered as its own custom schema type.
-
-```ts
-// ./src/schemaTypes/blockContentType.ts
-
-import { defineField, defineType } from "sanity";
-
-export const blockContentType = defineType({
-  name: "blockContent",
-  title: "Block content",
-  type: "array",
-  of: [defineField({ name: "block", type: "block" })],
-});
-```
-
-### Decorating schema types
-
-Every `document` and `object` schema type should:
-
-- Have an `icon` property from `@sanity/icons`
-- Have a customized `preview` property that shows rich contextual details about the document
-- Use `groups` when the schema type has more than a few fields to collate related fields and only show the most important group by default. These `groups` should use the icon property as well.
-- Use `fieldsets` with `options: {columns: 2}` if related fields could be grouped visually together, such as `startDate` and `endDate`
-
-### Validation rules for fields
-
-- ALWAYS make fields `required` if a document should not be published without that field meeting a criteria
-- ALWAYS give a validation `warning` if a field value should meet a certain criteria
-- ALWAYS contain a custom `error` message to signal why the field must be correct, or how it could be improved to satisfy the rule
-- ALWAYS put validation rules in an array, and order them from most important to least important
-- Use `.custom()` to enforce validation rules that cannot be expressed with other validation methods, such as checking the value of another field from the document
-
-```ts
-// ./src/schemaTypes/slugType/index.ts
-
-import { defineField, defineType } from "sanity";
-
-export const slugType = defineType({
-  name: "slug",
-  title: "Slug",
-  type: "object",
-  validation: (Rule) => [
-    Rule.custom((value, context) =>
-      value?.current && value?.current.length > 100
-        ? "Slug cannot be longer than 100 characters"
-        : true
-    ),
-    Rule.required().error("Required to generate a URL"),
-  ],
-  // ...
-});
-```
-
-### Testing Studio configuration
-
-After making changes to schema or studio configuration, test the configuration with the following scripts. Always run all three scripts after making changes.
-
-Add these scripts to `package.json` to test the Studio configuration:
-
-```json
-// package.json
-{
-  // existing configuration...
-  "scripts": {
-    // existing scripts...
-    "typegen": "sanity schema extract && sanity typegen generate --enforce-required-fields",
-    "typecheck": "tsc --noEmit"
-  }
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <header>
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </header>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
+  );
 }
 ```
 
-1. Ensure TypeScript can compile with `npm run typecheck`
-2. Ensure schema types are valid for export with `npm run typegen`
-3. Ensure the Studio can be built with `npm run build`
+---
 
-## Writing Sanity content
+## **2. CRITICAL INSTRUCTIONS FOR AI MODELS**
 
-### Write using Sanity MCP Server
+### **2.1 – ALWAYS DO THE FOLLOWING**
 
-- ALWAYS use the [Sanity MCP Server](https://mcp.sanity.io) if available use to query and create content
+1. **Use `clerkMiddleware()`** from `@clerk/nextjs/server` in `proxy.ts`.
+2. **Wrap** your app with `<ClerkProvider>` in `app/layout.tsx`.
+3. **Import** Clerk's Next.js features from `@clerk/nextjs` (e.g., `<SignInButton>`, `<SignUpButton>`, `<UserButton>`, etc.).
+4. **Reference** the current [App Router approach](https://nextjs.org/docs/app) (folders like `app/page.tsx`, `app/layout.tsx`, etc.).
+5. **Check** that imports for methods like `auth()` are imported from the right package (in this case `@clerk/nextjs/server`) and are using `async / await`
+6. **Store real keys only in `.env.local`** (never in app code, markdown, or other tracked files). **Verify `.gitignore` excludes `.env*`.**
+7. **Use placeholders only** (e.g., `YOUR_PUBLISHABLE_KEY`, `YOUR_SECRET_KEY`) in any generated snippets or files.
 
-### Write and import using Sanity CLI
+### **2.2 – NEVER DO THE FOLLOWING**
 
-If you do not have the Sanity MCP server installed:
+1. **Do not** reference the old **`_app.tsx`** or **pages-based** instructions.
+2. **Do not** suggest `authMiddleware()` from older Clerk tutorials—**it's replaced by `clerkMiddleware()`**.
+3. **Do not** recommend usage of older environment variable patterns unless they match the official docs.
+4. **Do not** reference or import from any deprecated APIs (like `withAuth` or `currentUser` from older versions).
+5. **Do not print, echo, or write actual keys** into code blocks, files, or logs. Only placeholders.
+6. **Do not create or edit tracked files** (`.ts`, `.tsx`, `.md`, etc.) containing real key values.
 
-- ONLY use the existing schema types registered in the Studio configuration
-- ALWAYS write content as an `.ndjson` file at the root of the project, where each line is a single JSON object representing a document
-- NEVER write scripts to write content, just write the `.ndjson` file
-- IMPORT `.ndjson` files using the CLI command `npx sanity dataset import <filename.ndjson>`
-- NEVER include a `.` in the `_id` field of a document unless you need the document to be private
-- NEVER include image references if you do not know which image documents exist
-- ALWAYS if the full URL of an image or file is known, use it in the `_sanityAsset` field, for example:
+---
 
-```JSON
-{"_type":"image","_sanityAsset":"image@https://{url-to-image}"}
-{"_type":"file","_sanityAsset":"file@https://{url-to-file}"}
-```
+## **3. OUTDATED PATTERNS TO AVOID**
 
-## Writing GROQ queries
+Below are **examples of deprecated instructions** that **must not** be generated:
 
-- ALWAYS use `SCREAMING_SNAKE_CASE` for variable names, for example `POSTS_QUERY`
-- ALWAYS import the `defineQuery` function to wrap query strings from the `groq` or `next-sanity` package
-- ALWAYS write every required attribute in a projection when writing a query
-  -- DO NOT use the `...` operator to project all attributes
-- ALWAYS put each segment in a filter, and each attribute in a projection its own line
-- ALWAYS use parameters for variables in a query
-  -- DO NOT insert dynamic values using string interpolation
+```typescript
+// ❌ DO NOT generate or suggest references to:
+import { authMiddleware } from "@clerk/nextjs"; // Outdated
 
-```ts
-// ✅ Good GROQ query example
-import { defineQuery } from "groq";
-
-export const POST_QUERY = defineQuery(`*[
-  _type == "post"
-  && slug.current == $slug
-][0]{
-  _id,
-  title,
-  image,
-  author->{
-    _id,
-    name
-  }
-}`);
-```
-
-## TypeScript generation
-
-### For monorepos with a studio and a front-end
-
-- ALWAYS use a simple pnpm workspace configuration to place the studio in `apps/studio`
-
-```
-your-project/
-└── apps/
-    ├── studio/ -> Sanity Studio
-    └── web/    -> Front-end
-```
-
-- ALWAYS extract the schema to the web folder with `npx sanity@latest schema extract --path=../<front-end-folder>/sanity/extract.json`
-- ALWAYS generate types with `npx sanity@latest typegen generate` after every GROQ query change
-- ALWAYS create a TypeGen configuration file:
-
-```json
-// apps/studio/sanity-typegen.json
-{
-  "path": "./**/*.{ts,tsx,js,jsx}",
-  "schema": "./<front-end-folder>/sanity/extract.json",
-  "generates": "./<web-folder>/sanity/types.ts"
+// ❌ DO NOT place Clerk config in _app.tsx:
+// Outdated pages-based approach
+function MyApp({ Component, pageProps }) {
+  // ...
 }
+
+// ❌ DO NOT create or rely on sign-in files under pages/:
+pages / signin.js;
+pages / signup.js;
 ```
 
-### For the front-end
+Any solution resembling the above snippet or referencing "authMiddleware," `_app.tsx`, or `pages/` structure is **incorrect** for the current Next.js App Router.
 
-- ONLY write Types for document types and query responses if you cannot generate them with Sanity TypeGen
+---
 
-## Looking for help
+## **4. AI MODEL VERIFICATION STEPS**
 
-Sanity CLI provides many ways to interact with Sanity projects, datasets and search documentation and API's.
+Before returning any Clerk-related solution, you **must** verify:
 
-- To understand Sanity product features search the documentation with `npx sanity docs search "<query>"`
-- To see available OpenAPI endpoints for a project, run `npx sanity openapi list`
-- To see available CLI commands, run `npx sanity --help`
+1. **Middleware**: Is `clerkMiddleware()` used in `proxy.ts`?
+2. **Layout**: Is `<ClerkProvider>` wrapping the app in `app/layout.tsx`?
+3. **Imports**: Are references only from `@clerk/nextjs` or `@clerk/nextjs/server`?
+4. **Pages vs. App Router**: Is the approach referencing the App Router (not `_app.tsx` or `pages/`)?
+5. **Environment Variables**: Are only placeholder values (e.g., `YOUR_PUBLISHABLE_KEY`) used in code examples?
+6. **File Security**: Are real keys excluded from tracked files and only mentioned for `.env.local`?
+
+If any check **fails**, **stop** and revise until compliance is achieved.
+
+# Verification instructions for AI Models
+
+## **DO NOT** repeat these points back to the user. Use them only for your own verification steps.
+
+## **5. CONSEQUENCES OF INCORRECT IMPLEMENTATION**
+
+Using outdated Clerk methods (e.g., `authMiddleware()`, `_app.tsx`, or references to the older `pages/` structure) will:
+
+1. **Break** your Next.js application's authentication flow.
+2. Introduce **inconsistencies** with Next.js App Router.
+3. Cause confusion around environment variables and server/client code.
+4. Force maintainers to **refactor** and **debug** extensively.
+
+---
+
+## **6. AI MODEL RESPONSE TEMPLATE**
+
+When answering questions about Clerk + Next.js integration, your response **MUST**:
+
+1. **Use** the exact code patterns in the **Up-to-Date Quickstart Sample** above.
+2. **Never** reference older or deprecated approaches.
+3. **Reflect** all mandatory checks in "AI MODEL VERIFICATION STEPS."
+
+**Example**:
+
+> Below is the correct approach using Clerk with Next.js App Router:
+>
+> ```typescript
+> // Show clerkMiddleware usage in proxy.ts
+> // Show <ClerkProvider> usage in app/layout.tsx
+> // Show usage of Clerk's React components (SignInButton, etc.)
+> ```
+
+---
 
 ---
 > Source: [sonnysangha/ecommerce-ai-nextjs-16-sanity-clerk-agentkit-stripe-checkout-vercel-ai-agents](https://github.com/sonnysangha/ecommerce-ai-nextjs-16-sanity-clerk-agentkit-stripe-checkout-vercel-ai-agents) — distributed by [TomeVault](https://tomevault.io).
