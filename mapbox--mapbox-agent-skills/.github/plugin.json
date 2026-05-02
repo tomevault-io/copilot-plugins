@@ -1,0 +1,50 @@
+{
+  "name": "mapbox--mapbox-agent-skills",
+  "displayName": "mapbox-agent-skills",
+  "description": "AI instruction skills by mapbox",
+  "version": "1.0.0",
+  "author": "mapbox",
+  "homepage": "https://github.com/mapbox/mapbox-agent-skills",
+  "skills": [
+    {
+      "name": "mapbox-web-performance-patterns",
+      "description": ""
+    },
+    {
+      "name": "mapbox-web-integration-patterns",
+      "description": ""
+    },
+    {
+      "name": "mapbox-cartography",
+      "description": ""
+    },
+    {
+      "name": "mapbox-token-security",
+      "description": ""
+    },
+    {
+      "name": "mapbox-search-integration",
+      "description": ""
+    },
+    {
+      "name": "mapbox-android-patterns",
+      "description": ""
+    },
+    {
+      "name": "mapbox-ios-patterns",
+      "description": ""
+    },
+    {
+      "name": "mapbox-google-maps-migration",
+      "description": ""
+    },
+    {
+      "name": "mapbox-maplibre-migration",
+      "description": ""
+    },
+    {
+      "name": "mapbox-store-locator-patterns",
+      "description": ""
+    }
+  ]
+}
