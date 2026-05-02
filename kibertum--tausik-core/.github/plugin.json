@@ -1,0 +1,9 @@
+{
+  "name": "kibertum--tausik-core",
+  "displayName": "tausik-core",
+  "description": "Engineering governance framework for AI coding agents. Forces planning before code, evidence before completion, memory across sessions.",
+  "version": "1.0.0",
+  "author": "Kibertum",
+  "homepage": "https://github.com/Kibertum/tausik-core",
+  "skills": []
+}
