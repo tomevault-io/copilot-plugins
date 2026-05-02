@@ -1,0 +1,9 @@
+{
+  "name": "ondata--ckan-mcp-server",
+  "displayName": "ckan-mcp-server",
+  "description": "MCP server for querying CKAN open data portals (package search, DataStore SQL, organizations, groups, tags)",
+  "version": "1.0.0",
+  "author": "ondata",
+  "homepage": "https://github.com/ondata/ckan-mcp-server",
+  "skills": []
+}
