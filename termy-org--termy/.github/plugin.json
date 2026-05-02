@@ -1,0 +1,9 @@
+{
+  "name": "termy-org--termy",
+  "displayName": "termy",
+  "description": "A Lightweight & GPU-rendered terminal emulator, written in Rust \ud83e\udd80",
+  "version": "1.0.0",
+  "author": "termy-org",
+  "homepage": "https://github.com/termy-org/termy",
+  "skills": []
+}
