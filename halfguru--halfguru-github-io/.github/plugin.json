@@ -1,0 +1,9 @@
+{
+  "name": "halfguru--halfguru-github-io",
+  "displayName": "halfguru.github.io",
+  "description": "Software developer portfolio built with Astro and Tailwind CSS \u2014 configurable via a single file",
+  "version": "1.0.0",
+  "author": "halfguru",
+  "homepage": "https://github.com/halfguru/halfguru.github.io",
+  "skills": []
+}
