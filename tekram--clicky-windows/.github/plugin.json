@@ -1,0 +1,9 @@
+{
+  "name": "tekram--clicky-windows",
+  "displayName": "clicky-windows",
+  "description": "AI-powered screen companion for Windows. See your screen, hear your voice, point at answers. Windows companion to farzaa/clicky.",
+  "version": "1.0.0",
+  "author": "tekram",
+  "homepage": "https://github.com/tekram/clicky-windows",
+  "skills": []
+}
