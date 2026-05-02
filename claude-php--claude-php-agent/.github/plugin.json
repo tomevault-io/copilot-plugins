@@ -1,0 +1,26 @@
+{
+  "name": "claude-php--claude-php-agent",
+  "displayName": "claude-php-agent",
+  "description": "Claude PHP Agents Framework",
+  "version": "1.0.0",
+  "author": "claude-php",
+  "homepage": "https://github.com/claude-php/claude-php-agent",
+  "skills": [
+    {
+      "name": "api-testing",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "documentation-writer",
+      "description": ""
+    },
+    {
+      "name": "php-refactoring",
+      "description": ""
+    }
+  ]
+}
