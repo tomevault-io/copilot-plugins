@@ -1,74 +1,67 @@
-## 020-api-endpoints
+## 030-workflows
 
-> camofox-browser REST API endpoint reference — all endpoints on port 9377
+> Common camofox-browser workflows and automation patterns
 
 
-# REST API Endpoints (Source-Verified)
+# CamoFox Workflow Patterns
 
-Base URL: `http://localhost:9377`
+## 1) Basic Interaction Loop
+```bash
+camofox open https://example.com                   # open tab
+camofox snapshot                                   # get refs
+camofox click e5                                   # click
+camofox type e7 "hello"                            # type
+camofox snapshot                                   # refresh refs
+```
 
-## Core (`src/routes/core.ts`)
+## 2) Search Workflow
+```bash
+camofox open https://google.com                    # create tab
+camofox search "camofox" --engine google           # navigate to search results
+camofox snapshot                                   # inspect result refs
+```
 
-| Method | Endpoint |
-|---|---|
-| POST | `/sessions/:userId/cookies` |
-| GET | `/tabs/:tabId/cookies` |
-| GET | `/health` |
-| GET | `/presets` |
-| POST | `/tabs` |
-| GET | `/tabs` |
-| POST | `/tabs/:tabId/navigate` |
-| GET | `/tabs/:tabId/snapshot` |
-| POST | `/tabs/:tabId/wait` |
-| POST | `/tabs/:tabId/click` |
-| POST | `/tabs/:tabId/type` |
-| POST | `/tabs/:tabId/press` |
-| POST | `/tabs/:tabId/scroll` |
-| POST | `/tabs/:tabId/scroll-element` |
-| POST | `/tabs/:tabId/evaluate` |
-| POST | `/tabs/:tabId/evaluate-extended` |
-| POST | `/tabs/:tabId/back` |
-| POST | `/tabs/:tabId/forward` |
-| POST | `/tabs/:tabId/refresh` |
-| GET | `/tabs/:tabId/links` |
-| GET | `/tabs/:tabId/screenshot` |
-| GET | `/tabs/:tabId/stats` |
-| DELETE | `/tabs/:tabId` |
-| DELETE | `/tabs/group/:listItemId` |
-| DELETE | `/sessions/:userId` |
-| POST | `/sessions/:userId/toggle-display` |
-| GET | `/tabs/:tabId/downloads` |
-| GET | `/users/:userId/downloads` |
-| GET | `/downloads/:downloadId` |
-| GET | `/downloads/:downloadId/content` |
-| DELETE | `/downloads/:downloadId` |
-| POST | `/tabs/:tabId/extract-resources` |
-| POST | `/tabs/:tabId/batch-download` |
-| POST | `/tabs/:tabId/resolve-blobs` |
+## 3) Login Workflow (Vault-Safe)
+```bash
+camofox auth save account --url https://service.com/login   # store encrypted credentials
+camofox open https://service.com/login                      # open login page
+camofox snapshot                                            # get username/password refs
+camofox auth load account --inject --username-ref e5 --password-ref e9  # inject without stdout leaks
+```
 
-## OpenClaw (`src/routes/openclaw.ts`)
+## 4) Pipeline Workflow
+```bash
+camofox run login-flow.txt                        # run file
+camofox run login-flow.txt --continue-on-error    # keep going after failures
+echo "get-url" | camofox run -                    # stdin pipeline
+```
 
-| Method | Endpoint |
-|---|---|
-| GET | `/` |
-| POST | `/tabs/open` |
-| POST | `/start` |
-| POST | `/stop` |
-| POST | `/navigate` |
-| GET | `/snapshot` |
-| POST | `/act` |
+## 5) API + curl Workflow
+```bash
+curl -X POST http://localhost:9377/tabs \
+  -H 'Content-Type: application/json' \
+  -d '{"userId":"agent1","sessionKey":"task1","url":"https://example.com"}'
 
-## Common Request Patterns
+curl "http://localhost:9377/tabs/<tabId>/snapshot?userId=agent1"
+```
 
-- Tab-targeted routes require user-scoped lookup (`tabId` + `userId`).
-- Snapshot/click/type/press/scroll are intended to run in a loop with fresh refs.
-- `navigate` supports direct URL or macro expansion (`macro` + `query`).
+## 6) Session Restore Workflow
+```bash
+camofox session save before-login                  # save cookies
+# ... close/restart ...
+camofox session load before-login                  # restore cookies to tab
+```
 
-## Auth Rules
-
-- If `CAMOFOX_API_KEY` is set, cookie import/export and evaluate routes require `Authorization: Bearer <key>`.
-- OpenClaw `POST /stop` always requires `x-admin-key` and compares it to configured admin key value.
-- If keys are unset, routes are open except OpenClaw `POST /stop`, which still requires `x-admin-key`.
+## 7) CAPTCHA / Visual Intervention Workflow
+```bash
+curl -X POST http://localhost:9377/sessions/agent1/toggle-display \
+  -H 'Content-Type: application/json' \
+  -d '{"headless":"virtual"}'                   # restart with noVNC
+# solve challenge manually via returned vncUrl
+curl -X POST http://localhost:9377/sessions/agent1/toggle-display \
+  -H 'Content-Type: application/json' \
+  -d '{"headless":true}'                          # return to headless
+```
 
 ---
 > Source: [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser) — distributed by [TomeVault](https://tomevault.io).
