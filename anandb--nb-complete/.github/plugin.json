@@ -1,0 +1,9 @@
+{
+  "name": "anandb--nb-complete",
+  "displayName": "nb-complete",
+  "description": "Netbeans Plugin to integrate with OpenCode",
+  "version": "1.0.0",
+  "author": "anandb",
+  "homepage": "https://github.com/anandb/nb-complete",
+  "skills": []
+}
