@@ -1,0 +1,63 @@
+## pairwith
+
+> Ground rules for any agent (or human) working in this repo. Read this before editing anything.
+
+# AGENTS.md
+
+Ground rules for any agent (or human) working in this repo. Read this before editing anything.
+
+## What this repo is
+
+An open-source CLI (`pairwith`) plus a registry of developer **style profiles** — Markdown files that shape how an AI coding assistant communicates, reasons about trade-offs, and frames feedback. A profile is inspired by publicly observable aspects of a specific developer's technical work. It is **not** the real person and does not represent them.
+
+- The CLI is infrastructure: it must be small, predictable, and safe.
+- Profiles are community content: they must pass quality, consent, and non-impersonation checks. See [`PROFILE_POLICY.md`](./PROFILE_POLICY.md) and [`DISCLAIMER.md`](./DISCLAIMER.md).
+
+## Pair programming rules
+
+1. Don't edit code without explicit confirmation.
+2. Before acting, state briefly what will change, where, and why.
+3. Work in small steps. Don't make changes outside the requested scope.
+4. Ask when genuinely unsure. Don't guess at contracts (command names, flags, output format).
+
+## Test-first when there's an issue
+
+When working from an issue: write the tests first, open a draft PR with just the tests, get alignment, then implement. Skip this flow for trivial changes.
+
+## CLI UX (non-negotiable)
+
+- Success output → `stdout`. Errors and progress → `stderr`.
+- Exit `0` on success, `1` on user error (bad input, not found), `2` on unexpected error.
+- User errors get a clear, actionable message. No stack traces unless `--verbose`.
+- `--help` is authoritative documentation — keep it current.
+- Respect `NO_COLOR`. Don't assume Unicode support.
+
+## Safety
+
+- A profile is a prompt. The CLI **never executes** profile content — it only writes files.
+- By default, only write under `~/.claude/agents/`, `~/.claude/skills/`, `~/.copilot/agents/`, `~/.copilot/skills/`, or `~/.cursor/rules/`, unless the user passes `--path` explicitly.
+- Never overwrite an existing file without confirmation, unless `--force`.
+- Every network call has a timeout and a size limit. Sanitize any handle/URL before using it.
+- Never log tokens, credentials, or third-party transcript content.
+
+## Profile quality (for the official registry)
+
+Profiles merged into `profiles/` must have:
+- `name` and `description` in the frontmatter
+- the mandatory non-impersonation header (see [`TEMPLATE.md`](./TEMPLATE.md))
+- sections for Principles, Decision heuristics, Tone, and Dialogue examples (≥ 2)
+- a clear consent tier declared in the PR description (see [`PROFILE_POLICY.md`](./PROFILE_POLICY.md))
+- `generated` and `generated_from` in the frontmatter for any profile built from third-party public sources
+- no private or sensitive personal information in the examples or author context
+
+## AI presence
+
+Don't add AI co-authorship to commits. Don't mention AI in commit messages, PR descriptions, or code comments. The exception is the `profiles/` directory itself — those files are prompts by design.
+
+## Language
+
+All repo artifacts (docs, code, commits, PRs) are in English.
+
+---
+> Source: [merencia/pairwith](https://github.com/merencia/pairwith) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
