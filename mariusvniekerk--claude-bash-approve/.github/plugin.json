@@ -1,0 +1,9 @@
+{
+  "name": "mariusvniekerk--claude-bash-approve",
+  "displayName": "claude-bash-approve",
+  "description": "An alternative take on permissions for claude code.",
+  "version": "1.0.0",
+  "author": "mariusvniekerk",
+  "homepage": "https://github.com/mariusvniekerk/claude-bash-approve",
+  "skills": []
+}
