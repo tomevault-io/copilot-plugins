@@ -1,0 +1,9 @@
+{
+  "name": "tillahoffmann--jax-mps",
+  "displayName": "jax-mps",
+  "description": "A JAX backend for Apple Metal Performance Shaders (MPS), enabling GPU-accelerated JAX computations on Apple Silicon.",
+  "version": "1.0.0",
+  "author": "tillahoffmann",
+  "homepage": "https://github.com/tillahoffmann/jax-mps",
+  "skills": []
+}
