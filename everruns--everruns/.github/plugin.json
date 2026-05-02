@@ -1,0 +1,18 @@
+{
+  "name": "everruns--everruns",
+  "displayName": "everruns",
+  "description": "Headless durable agentic harness engine. Run durable AI agents reliably and scalably.",
+  "version": "1.0.0",
+  "author": "everruns",
+  "homepage": "https://github.com/everruns/everruns",
+  "skills": [
+    {
+      "name": "hello-world",
+      "description": ""
+    },
+    {
+      "name": "ui-screenshots",
+      "description": ""
+    }
+  ]
+}
