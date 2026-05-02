@@ -7,11 +7,11 @@ Vera: a programming language designed for LLMs to write
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [aallan/vera](https://github.com/aallan/vera).
+Original source: `CLAUDE.md` in [aallan/vera](https://github.com/aallan/vera).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
