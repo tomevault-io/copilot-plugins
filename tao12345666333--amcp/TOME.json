@@ -1,0 +1,93 @@
+{
+  "name": "amcp",
+  "owner": "tao12345666333",
+  "repo": "amcp",
+  "description": "It\u2019s a coding agent, but I\u2019m trying to strip it down to the bare essentials and offload everything else to MCP/subagents, snapping the pieces together like LEGO.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-engineer",
+      "path": "examples/skills/ai-engineer",
+      "github_url": "https://github.com/tao12345666333/amcp/tree/main/examples/skills/ai-engineer",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "examples/skills/code-review",
+      "github_url": "https://github.com/tao12345666333/amcp/tree/main/examples/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "gh-ci-analyzer",
+      "path": ".amcp/skills/gh-ci-analyzer",
+      "github_url": "https://github.com/tao12345666333/amcp/tree/main/.amcp/skills/gh-ci-analyzer",
+      "description": ""
+    },
+    {
+      "name": "mobile-developer",
+      "path": "examples/skills/mobile-developer",
+      "github_url": "https://github.com/tao12345666333/amcp/tree/main/examples/skills/mobile-developer",
+      "description": ""
+    },
+    {
+      "name": "python-expert",
+      "path": "examples/skills/python-expert",
+      "github_url": "https://github.com/tao12345666333/amcp/tree/main/examples/skills/python-expert",
+      "description": ""
+    },
+    {
+      "name": "react-developer",
+      "path": "examples/skills/react-developer",
+      "github_url": "https://github.com/tao12345666333/amcp/tree/main/examples/skills/react-developer",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "path": "examples/plugins/security-guidance/skills/security-best-practices",
+      "github_url": "https://github.com/tao12345666333/amcp/tree/main/examples/plugins/security-guidance/skills/security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "src/amcp/builtin_skills/skill-creator",
+      "github_url": "https://github.com/tao12345666333/amcp/tree/main/src/amcp/builtin_skills/skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tao12345666333/amcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:39:59Z"
+}
