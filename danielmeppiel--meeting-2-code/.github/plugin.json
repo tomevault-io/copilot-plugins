@@ -1,0 +1,14 @@
+{
+  "name": "danielmeppiel--meeting-2-code",
+  "displayName": "meeting-2-code",
+  "description": "Demonstrate end to end Agentic SDLC on Microsoft stack, From a Teams meeting (WorkIQ) intent to automated implementation and then Azure deployment. Powered by GitHub Copilot SDK.",
+  "version": "1.0.0",
+  "author": "danielmeppiel",
+  "homepage": "https://github.com/danielmeppiel/meeting-2-code",
+  "skills": [
+    {
+      "name": "copilot-sdk-setup",
+      "description": ""
+    }
+  ]
+}
