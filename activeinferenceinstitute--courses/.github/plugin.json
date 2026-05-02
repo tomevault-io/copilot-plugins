@@ -1,0 +1,9 @@
+{
+  "name": "activeinferenceinstitute--courses",
+  "displayName": "courses",
+  "description": "Courses for learning Active Inference",
+  "version": "1.0.0",
+  "author": "ActiveInferenceInstitute",
+  "homepage": "https://github.com/ActiveInferenceInstitute/courses",
+  "skills": []
+}
