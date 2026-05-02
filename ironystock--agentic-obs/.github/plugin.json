@@ -1,0 +1,26 @@
+{
+  "name": "ironystock--agentic-obs",
+  "displayName": "agentic-obs",
+  "description": "agentic-obs: A Model Context Protocol (MCP) server that provides AI assistants with programmatic control over OBS Studio via the OBS WebSocket API. This server enables AI agents to manage scenes, sour",
+  "version": "1.0.0",
+  "author": "ironystock",
+  "homepage": "https://github.com/ironystock/agentic-obs",
+  "skills": [
+    {
+      "name": "audio-engineer",
+      "description": ""
+    },
+    {
+      "name": "preset-manager",
+      "description": ""
+    },
+    {
+      "name": "scene-designer",
+      "description": ""
+    },
+    {
+      "name": "streaming-assistant",
+      "description": ""
+    }
+  ]
+}
