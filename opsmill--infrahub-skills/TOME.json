@@ -1,0 +1,51 @@
+{
+  "name": "infrahub",
+  "owner": "opsmill",
+  "repo": "infrahub-skills",
+  "description": "AI skills for developing with Infrahub. These skills provide structured guidance to any AI coding assistant that supports custom instructions or context files.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "neo4j-cypher-guide",
+      "path": "dev/skills/neo4j-cypher-guide",
+      "github_url": "https://github.com/opsmill/infrahub-skills/tree/main/dev/skills/neo4j-cypher-guide",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/opsmill/infrahub-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:58:48Z"
+}
