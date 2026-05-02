@@ -1,0 +1,9 @@
+{
+  "name": "chicagohai--openaireview",
+  "displayName": "OpenAIReview",
+  "description": "AI reviewing paper drafts for improvement.",
+  "version": "1.0.0",
+  "author": "ChicagoHAI",
+  "homepage": "https://github.com/ChicagoHAI/OpenAIReview",
+  "skills": []
+}
