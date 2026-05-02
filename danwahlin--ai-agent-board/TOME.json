@@ -1,0 +1,44 @@
+{
+  "name": "ai-agent-board",
+  "owner": "DanWahlin",
+  "repo": "ai-agent-board",
+  "description": "Drag-and-drop Kanban board that delegates coding tasks to AI agents \u2014 GitHub Copilot, Claude Code, OpenAI Codex, and OpenCode \u2014 with real-time streaming, task groups, and git worktree isolation.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DanWahlin/ai-agent-board",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T10:25:01Z"
+}
