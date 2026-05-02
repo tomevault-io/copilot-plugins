@@ -1,68 +1,62 @@
-## 20-tools-and-apis
+## 30-tests-and-output
 
-> For tool schemas, request/response formats, and endpoints.
+> When changing output formatting or test stability.
 
-# MCP Tools & HTTP Endpoints (Rule)
+# Tests & Expected Output (Rule)
 
-For tool schemas, request/response formats, and endpoints.
+When changing output formatting or test stability.
 
-## MCP Tools (5 total)
-- **`search`**: Unified search across all documentation sources (alias: `sap_docs_search`)
-- **`fetch`**: Retrieve specific documents by ID (alias: `sap_docs_get`)
-- **`sap_community_search`**: Search SAP Community posts with full content (max 75k chars per post with intelligent truncation)
-- **`sap_help_search`**: Search SAP Help Portal using private APIs
-- **`sap_help_get`**: Retrieve full SAP Help page content (max 75k chars with intelligent truncation)
+## Test Architecture
+- **Test Runner**: `test/tools/run-tests.js` - Unified test execution
+- **HTTP Client**: `test/_utils/httpClient.js` - Server interaction utilities
+- **Result Parser**: `test/_utils/parseResults.js` - Output format validation
+- **Smoke Tests**: `test/tools/search.smoke.js` - Quick functionality validation
 
-**Note**: Tool names may appear with prefixes depending on MCP client (e.g., `mcp_abap-mcp-remote_search`)
+## Expected Output Format (BM25-Only)
+```
+⭐️ **<document-id>** (Score: <final-score>)
+   <description-preview>
+   Use in sap_docs_get
+```
 
-## Content Size Limits
-- **Maximum**: 75,000 characters (~18,750 tokens) for SAP Help and Community content
-- **Algorithm**: Intelligent truncation preserving beginning (60%) and end (20%) with clear notice
-- **Configuration**: `CONFIG.MAX_CONTENT_LENGTH` in `src/lib/config.ts`
-- **Details**: See `docs/CONTENT-SIZE-LIMITS.md`
+## Test Categories
+- **Search Tests**: Verify query results and context detection
+- **Retrieval Tests**: Document fetching and formatting
+- **Integration Tests**: End-to-end MCP tool functionality
+- **Performance Tests**: Response time and resource usage
 
-## Server Implementations
-- **Stdio MCP**: `src/server.ts` - Main MCP server for Claude integration
-- **HTTP Test Server**: `src/http-server.ts` - Development server (port 3001)
-  - Endpoints: `/status`, `/healthz`, `/readyz`, `/mcp`
-- **Streamable HTTP**: `src/streamable-http-server.ts` - Production HTTP MCP (port 3122)
-  - Endpoints: `/mcp`, `/health`
+## Test Data Structure
+```javascript
+{
+  name: 'Test Name',
+  tool: 'sap_docs_search',
+  query: 'search term',
+  expectIncludes: ['/expected/document/id'],
+  validate: (results) => { /* custom validation */ }
+}
+```
 
-## Response Formats
+## Output Validation
+- **Score Format**: Numeric scores with 2 decimal places
+- **Context Indicators**: Emoji-based context detection (🎨🏗️🧪)
+- **Source Attribution**: Clear library identification
+- **Result Limits**: Configurable via `CONFIG.RETURN_K` (default: 25)
 
-### **Standard Text Format**
-- **Search Results**: `⭐️ **<id>** (Score: <score>)` format
-- **Context Detection**: Emoji indicators (🎨 UI5, 🏗️ CAP, 🧪 wdi5)
-- **Source Attribution**: Library grouping with clear source identification
+## Test Execution
+- **Fast Tests**: `npm run test:fast` - Skip build, use existing artifacts
+- **Full Tests**: `npm run test` - Build + test complete pipeline  
+- **Smoke Tests**: `npm run test:smoke` - Quick validation only
+- **Community Tests**: `npm run test:community` - SAP Community search functionality
+- **MCP Inspector**: `npm run inspect` - Debug MCP protocol interactions
 
-### **ChatGPT/JSON Format**
-- **Search**: `{ "results": [{ "id", "title", "url", "snippet", "score" }] }`
-- **Fetch**: `{ "id", "title", "text", "url", "metadata" }`
-- **Structured**: Clean JSON for programmatic access and ChatGPT compatibility
-
-## Integration Points
-- **Community**: HTML scraping + LiQL API for post content
-- **SAP Help**: Private elasticsearch + metadata + page content APIs
-- **Local Docs**: File system access with URL generation
-
-## Configuration
-- **Tool Descriptions**: Comprehensive help text in server implementations
-- **Input Schemas**: Detailed parameter descriptions and examples
-- **Error Handling**: Graceful fallbacks and informative error messages
-
-@file src/lib/BaseServerHandler.ts
-@file src/server.ts
-@file src/http-server.ts
-@file src/streamable-http-server.ts
-@file src/lib/localDocs.ts
-@file src/lib/sapHelp.ts
-@file src/lib/communityBestMatch.ts
-@file src/lib/truncate.ts
-@file src/lib/config.ts
-@file src/lib/types.ts
-@file docs/CONTENT-SIZE-LIMITS.md
-@file docs/LLM-FRIENDLY-IMPROVEMENTS.md
-@file docs/ARCHITECTURE.md
+@file test/tools/run-tests.js
+@file test/_utils/parseResults.js
+@file test/_utils/httpClient.js
+@file test/tools/search.smoke.js
+@file test/tools/sap_docs_search/search-cap-docs.js
+@file test/tools/sap_docs_search/search-cloud-sdk-js.js
+@file test/tools/sap_docs_search/search-sapui5-docs.js
+@file docs/TESTS.md
 @file docs/DEV.md
 
 ---
