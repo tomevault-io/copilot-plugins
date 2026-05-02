@@ -1,0 +1,14 @@
+{
+  "name": "lsp-client--lsp-client",
+  "displayName": "lsp-client",
+  "description": "A full-featured, well-typed, and easy-to-use Python client for the Language Server Protocol (LSP).",
+  "version": "1.0.0",
+  "author": "lsp-client",
+  "homepage": "https://github.com/lsp-client/lsp-client",
+  "skills": [
+    {
+      "name": "lsp-client",
+      "description": ""
+    }
+  ]
+}
