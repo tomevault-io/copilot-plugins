@@ -1,0 +1,30 @@
+{
+  "name": "enitrat--skill-issue",
+  "displayName": "skill-issue",
+  "description": "Your Claude sucks? Probably a skill issue",
+  "version": "1.0.0",
+  "author": "enitrat",
+  "homepage": "https://github.com/enitrat/skill-issue",
+  "skills": [
+    {
+      "name": "d2-diagram",
+      "description": ""
+    },
+    {
+      "name": "github-issue",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "description": ""
+    },
+    {
+      "name": "smithers",
+      "description": ""
+    }
+  ]
+}
