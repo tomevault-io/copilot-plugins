@@ -1,0 +1,9 @@
+{
+  "name": "karmacoke--chargen",
+  "displayName": "chargen",
+  "description": "AI-powered character generator built with React. Create detailed TRPG/Novel characters, NPC system prompts, and visual tags using Gemini, OpenAI, or Local LLMs.\u652f\u6301\u5b8c\u6574\u89d2\u8272\u5b9a\u4e49\u7684\u4eba\u8bbe\u751f\u6210\u5668",
+  "version": "1.0.0",
+  "author": "Karmacoke",
+  "homepage": "https://github.com/Karmacoke/chargen",
+  "skills": []
+}
