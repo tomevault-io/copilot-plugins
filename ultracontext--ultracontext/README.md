@@ -7,11 +7,11 @@ Open Source Context infrastructure for AI agents. Auto-capture and share your ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ultracontext/ultracontext](https://github.com/ultracontext/ultracontext).
+Original source: `CLAUDE.md` in [ultracontext/ultracontext](https://github.com/ultracontext/ultracontext).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
