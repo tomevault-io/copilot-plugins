@@ -1,29 +1,16 @@
-## no-dynamic-import
+## pathes-plugin
 
-> Tauri 项目禁止使用动态 import
+> 路径相关逻辑统一放在 tauri-plugin-pathes 中
 
 
-# 禁止动态 import
+# 路径逻辑归属：tauri-plugin-pathes
 
-本项目为 Tauri 项目，**所有代码不得使用动态 `import()`**，应使用静态 `import` 导入。
+- **任何**与应用路径、数据目录、缓存目录、资源目录等相关的**定义、计算或暴露**，应写在 **tauri-plugin-pathes**（`src-tauri-plugins/tauri-plugin-pathes/`）中。
+- 其他模块（如 app-main、core、前端）只应**使用**该插件提供的路径 API 或已初始化的 `AppPaths`，不应再实现或硬编码路径逻辑。
+- 新增路径类型或平台差异（如 Android / 桌面）时，在 tauri-plugin-pathes 内扩展；需要被 core 使用的路径，通过插件初始化时写入 `kabegame_core::app_paths::AppPaths`。
 
-**原因**：Tauri 打包与部分运行环境下，动态 import 没有好处，反而导致复杂度。
-
-**正确**：静态 import
-
-```ts
-import { foo } from './module'
-import Component from './Component.vue'
-```
-
-**错误**：动态 import
-
-```ts
-const module = await import('./module')
-const Component = () => import('./Component.vue')
-```
-
-若需按需加载或懒加载，应在 Tauri/构建侧用路由或分包等方式实现，而不是在业务代码里使用 `import()`。
+**正确**：在 `tauri-plugin-pathes` 中定义/计算路径，在别处通过 `app_paths` 或插件命令获取。  
+**错误**：在 app-main、core 或其它插件里直接算路径、写死目录或重复实现平台路径逻辑。
 
 ---
 > Source: [kabegame/kabegame](https://github.com/kabegame/kabegame) — distributed by [TomeVault](https://tomevault.io).
