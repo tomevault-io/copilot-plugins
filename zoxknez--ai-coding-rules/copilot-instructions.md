@@ -1,35 +1,37 @@
-## ai-coding-rules
+## security
 
-> > Apply when working with React/Vue/Svelte components.
+> > Apply when working with auth, security, or sensitive code paths.
 
-# Windsurf Rules - Frontend
+# Windsurf Rules - Security
 
-> Apply when working with React/Vue/Svelte components.
+> Apply when working with auth, security, or sensitive code paths.
 
-## Component Structure
+## 🔴 Non-Negotiable
 
-- One component per file
-- Use named exports
-- Colocate styles, tests, and types
+- NEVER log tokens, passwords, or API keys
+- NEVER commit secrets to version control
+- ALWAYS validate and sanitize user input
+- ALWAYS use parameterized queries
 
-## React Patterns
+## Authentication & Authorization
 
-- Prefer functional components with hooks
-- Use React.memo() for expensive renders
-- Prefer composition over inheritance
+- Verify both authn AND authz
+- Use constant-time comparison for secrets
+- Implement rate limiting on auth endpoints
+- Hash passwords with bcrypt/argon2
 
-## TypeScript
+## Session Management
 
-- Explicit return types on exports
-- Use `interface` for objects, `type` for unions
-- Avoid `any` — use `unknown` if unclear
+- Use httpOnly, secure, sameSite cookies
+- Implement proper session invalidation
+- Rotate session IDs after login
 
-## Performance
+## API Security
 
-- Lazy load routes and heavy components
-- Optimize images
-- Avoid unnecessary re-renders
+- Validate JWT signatures and expiration
+- Set appropriate CORS policies
+- Use TLS for all external communication
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/zoxknez) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [zoxknez/ai-coding-rules](https://github.com/zoxknez/ai-coding-rules) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
