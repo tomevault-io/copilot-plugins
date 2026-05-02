@@ -1,0 +1,9 @@
+{
+  "name": "allenai--olmo-bonepick",
+  "displayName": "olmo-bonepick",
+  "description": "Tools to build fast quality classifiers for Olmo data filtering",
+  "version": "1.0.0",
+  "author": "allenai",
+  "homepage": "https://github.com/allenai/olmo-bonepick",
+  "skills": []
+}
