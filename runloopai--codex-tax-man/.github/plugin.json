@@ -1,0 +1,9 @@
+{
+  "name": "runloopai--codex-tax-man",
+  "displayName": "codex-tax-man",
+  "description": "Runloop's AI TaxMan Project: an agent development starter that uses Codex & W&B Weave to process tax forms. Watch YouTube series: https://youtu.be/an7OMH_i8DU",
+  "version": "1.0.0",
+  "author": "runloopai",
+  "homepage": "https://github.com/runloopai/codex-tax-man",
+  "skills": []
+}
