@@ -1,0 +1,177 @@
+{
+  "name": "arc",
+  "owner": "howells",
+  "repo": "arc",
+  "description": "Claude Code plugin. From idea to working implementation\u2014explore, validate, plan, and build in one flow.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai",
+      "path": "skills/ai",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/ai",
+      "description": ""
+    },
+    {
+      "name": "audit",
+      "path": "skills/audit",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/audit",
+      "description": ""
+    },
+    {
+      "name": "build",
+      "path": "skills/build",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/build",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": "skills/design",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/design",
+      "description": ""
+    },
+    {
+      "name": "detail",
+      "path": "skills/detail",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/detail",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "path": "skills/document",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/document",
+      "description": ""
+    },
+    {
+      "name": "go",
+      "path": "skills/go",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/go",
+      "description": ""
+    },
+    {
+      "name": "ideate",
+      "path": "skills/ideate",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/ideate",
+      "description": ""
+    },
+    {
+      "name": "implement",
+      "path": "skills/implement",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/implement",
+      "description": ""
+    },
+    {
+      "name": "letsgo",
+      "path": "skills/letsgo",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/letsgo",
+      "description": ""
+    },
+    {
+      "name": "naming",
+      "path": "skills/naming",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/naming",
+      "description": ""
+    },
+    {
+      "name": "progress",
+      "path": "skills/progress",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/progress",
+      "description": ""
+    },
+    {
+      "name": "prune-agents",
+      "path": "skills/prune-agents",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/prune-agents",
+      "description": ""
+    },
+    {
+      "name": "responsive",
+      "path": "skills/responsive",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/responsive",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "skills/review",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/review",
+      "description": ""
+    },
+    {
+      "name": "rules",
+      "path": "skills/rules",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/rules",
+      "description": ""
+    },
+    {
+      "name": "seo",
+      "path": "skills/seo",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/seo",
+      "description": ""
+    },
+    {
+      "name": "suggest",
+      "path": "skills/suggest",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/suggest",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "skills/testing",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "tidy",
+      "path": "skills/tidy",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/tidy",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "path": "skills/verify",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/verify",
+      "description": ""
+    },
+    {
+      "name": "vision",
+      "path": "skills/vision",
+      "github_url": "https://github.com/howells/arc/tree/main/skills/vision",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/howells/arc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:42:31Z"
+}
