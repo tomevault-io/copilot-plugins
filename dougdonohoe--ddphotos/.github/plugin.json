@@ -1,0 +1,9 @@
+{
+  "name": "dougdonohoe--ddphotos",
+  "displayName": "ddphotos",
+  "description": "Static site generator for super-fast photo albums \u2014 Go CLI for image resizing/indexing, SvelteKit for the gallery, no database required.",
+  "version": "1.0.0",
+  "author": "dougdonohoe",
+  "homepage": "https://github.com/dougdonohoe/ddphotos",
+  "skills": []
+}
