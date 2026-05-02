@@ -4,7 +4,7 @@
   "repo": "openclaw-railway",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/alexandrchumakin/openclaw-railway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T11:31:55Z"
+  "distributed_at": "2026-05-02T10:08:31Z"
 }
