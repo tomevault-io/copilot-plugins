@@ -1,0 +1,14 @@
+{
+  "name": "brianlovin--hn-cli",
+  "displayName": "hn-cli",
+  "description": "Hacker News in your terminal",
+  "version": "1.0.0",
+  "author": "brianlovin",
+  "homepage": "https://github.com/brianlovin/hn-cli",
+  "skills": [
+    {
+      "name": "opentui",
+      "description": ""
+    }
+  ]
+}
