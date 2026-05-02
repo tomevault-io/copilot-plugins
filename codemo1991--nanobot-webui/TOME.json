@@ -1,0 +1,123 @@
+{
+  "name": "nanobot-webui",
+  "owner": "codemo1991",
+  "repo": "nanobot-webui",
+  "description": "\ud83c\udfaf Nanobot WebUI \u2014 A Smarter, More Efficient Claude AI Assistant  \u2705 Coding & Bug Fixes \u2705 Excel / PDF / PPT Processing \u2705 Git Automation \u2705 Visual Configuration Panel \u2705 Q&A & Knowledge Management  24/7 ready to boost your productivity \ud83d\ude80 ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-code",
+      "path": "nanobot/skills/claude-code",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/claude-code",
+      "description": ""
+    },
+    {
+      "name": "code-review-expert",
+      "path": "nanobot/skills/code-review-expert",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/code-review-expert",
+      "description": ""
+    },
+    {
+      "name": "cron",
+      "path": "nanobot/skills/cron",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/cron",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "nanobot/skills/docx",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "path": "nanobot/skills/github",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/github",
+      "description": ""
+    },
+    {
+      "name": "mirror-system",
+      "path": "nanobot/skills/mirror-system",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/mirror-system",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "nanobot/skills/pdf",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "pptx",
+      "path": "nanobot/skills/pptx",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/pptx",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "nanobot/skills/skill-creator",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "summarize",
+      "path": "nanobot/skills/summarize",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/summarize",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "path": "nanobot/skills/tmux",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/tmux",
+      "description": ""
+    },
+    {
+      "name": "weather",
+      "path": "nanobot/skills/weather",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/weather",
+      "description": ""
+    },
+    {
+      "name": "xlsx",
+      "path": "nanobot/skills/xlsx",
+      "github_url": "https://github.com/codemo1991/nanobot-webui/tree/main/nanobot/skills/xlsx",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/codemo1991/nanobot-webui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:31:01Z"
+}
