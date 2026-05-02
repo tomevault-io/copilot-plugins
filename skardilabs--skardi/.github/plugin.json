@@ -1,0 +1,9 @@
+{
+  "name": "skardilabs--skardi",
+  "displayName": "skardi",
+  "description": "Skardi is an agent data plane that gives AI agents data autonomy.",
+  "version": "1.0.0",
+  "author": "SkardiLabs",
+  "homepage": "https://github.com/SkardiLabs/skardi",
+  "skills": []
+}
