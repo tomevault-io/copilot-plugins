@@ -1,0 +1,135 @@
+{
+  "name": "sdp",
+  "owner": "fall-out-bug",
+  "repo": "sdp",
+  "description": "Structured protocol for AI-assisted development. Discovery \u2192 Delivery \u2192 Evidence.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bugfix",
+      "path": "prompts/skills/bugfix",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/bugfix",
+      "description": ""
+    },
+    {
+      "name": "ci-triage",
+      "path": "prompts/skills/ci-triage",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/ci-triage",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "path": "prompts/skills/deploy",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/deploy",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": "prompts/skills/design",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/design",
+      "description": ""
+    },
+    {
+      "name": "feature",
+      "path": "prompts/skills/feature",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/feature",
+      "description": ""
+    },
+    {
+      "name": "hotfix",
+      "path": "prompts/skills/hotfix",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/hotfix",
+      "description": ""
+    },
+    {
+      "name": "issue",
+      "path": "prompts/skills/issue",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/issue",
+      "description": ""
+    },
+    {
+      "name": "oneshot",
+      "path": "prompts/skills/oneshot",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/oneshot",
+      "description": ""
+    },
+    {
+      "name": "protocol-consistency",
+      "path": "prompts/skills/protocol-consistency",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/protocol-consistency",
+      "description": ""
+    },
+    {
+      "name": "reality",
+      "path": "prompts/skills/reality",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/reality",
+      "description": ""
+    },
+    {
+      "name": "reality-check",
+      "path": "prompts/skills/reality-check",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/reality-check",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "prompts/skills/review",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/review",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": "prompts/skills/tdd",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/tdd",
+      "description": ""
+    },
+    {
+      "name": "think",
+      "path": "prompts/skills/think",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/think",
+      "description": ""
+    },
+    {
+      "name": "verify-workstream",
+      "path": "prompts/skills/verify-workstream",
+      "github_url": "https://github.com/fall-out-bug/sdp/tree/main/prompts/skills/verify-workstream",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fall-out-bug/sdp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:38:06Z"
+}
