@@ -1,0 +1,9 @@
+{
+  "name": "yideng-xl--gemini-cli-hud",
+  "displayName": "gemini-cli-hud",
+  "description": "Real-time bottom-sticky HUD for Gemini CLI \u2014 model, context usage, tool calls, and more",
+  "version": "1.0.0",
+  "author": "yideng-xl",
+  "homepage": "https://github.com/yideng-xl/gemini-cli-hud",
+  "skills": []
+}
