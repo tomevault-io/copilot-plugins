@@ -1,0 +1,9 @@
+{
+  "name": "mikeckennedy--tallyman",
+  "displayName": "tallyman",
+  "description": "A command-line tool that summarizes the size of a codebase by language, showing lines of code with and without comments and blank lines.",
+  "version": "1.0.0",
+  "author": "mikeckennedy",
+  "homepage": "https://github.com/mikeckennedy/tallyman",
+  "skills": []
+}
