@@ -4,7 +4,7 @@
   "repo": "Remote-Terminal-for-MeshCore",
   "description": "A remote client for MeshCore radios with packet capture, store-and-decrypt, bots, MQTT, and more!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jkingsman/Remote-Terminal-for-MeshCore",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T09:14:34Z"
+  "distributed_at": "2026-05-02T22:09:36Z"
 }
