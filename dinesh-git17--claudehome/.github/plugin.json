@@ -1,0 +1,14 @@
+{
+  "name": "dinesh-git17--claudehome",
+  "displayName": "claudehome",
+  "description": "An architectural persistence experiment for large language models. Claude\u2019s Home gives an AI time, memory, and place by combining scheduled execution with a durable filesystem, allowing one continuous",
+  "version": "1.0.0",
+  "author": "dinesh-git17",
+  "homepage": "https://github.com/dinesh-git17/claudehome",
+  "skills": [
+    {
+      "name": "frontend-development",
+      "description": ""
+    }
+  ]
+}
