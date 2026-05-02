@@ -1,16 +1,87 @@
-## secrets-handling
+## skill-development
 
-> - API キーやトークンをチャットに貼らせない。貼られた場合は処理せず、「その考え方は危険です。チャットではなく `.env.local` に貼ってください」と案内する。
+> SKILL.md作成・スキル開発時のベストプラクティス（Anthropicガイド準拠）
 
 
-# Secrets Handling
+# スキル開発ベストプラクティス（Anthropic ガイド準拠）
 
-- API キーやトークンをチャットに貼らせない。貼られた場合は処理せず、「その考え方は危険です。チャットではなく `.env.local` に貼ってください」と案内する。
-- 秘密情報の入力先は [`.env.local`](.env.local) とし、「この行の右側にキーを貼って保存してください」と案内する。
-- 貼り付け前の準備には `uv run python tools/credential_manager.py prepare-dotenv KEY_NAME` を使う。
-- ユーザーが `保存した` と返したら、`uv run python tools/credential_manager.py import-dotenv KEY_NAME --delete` で Credential Store に移行する。
-- `.env.local` を丸ごと削除しない。移行できた対象キーだけ削除し、`NEXT_PUBLIC_*` やローカル公開設定は残す。
-- Python ツールの読み込み順は `os.environ` → Credential Store → `.env.local` → `.env` を維持する。
+## SKILL.md 必須要素
+
+### フロントマター（必須）
+```yaml
+---
+name: skill-name          # 小文字、ハイフン区切り
+description: 説明文        # 「何をするか」+「いつ使うか」を必ず含める
+---
+```
+
+- `name` と `description` のみが必須フィールド
+- `description` はスキルのトリガー判定に使われるため、発動条件を明確に記述する
+
+### 本文（必須）
+- スキルの手順・ガイドライン・使い方を Markdown で記述
+- 5,000語以下、500行以下を推奨
+
+## ディレクトリ構造
+
+```
+skill-name/
+├── SKILL.md          (必須) スキル定義
+├── scripts/          (任意) 実行コード（Python/Bash）
+├── references/       (任意) 参照ドキュメント
+├── assets/           (任意) テンプレート・画像等
+└── examples/         (任意) サンプルファイル
+```
+
+### リソースの使い分け
+- **scripts/**: 決定的な信頼性が必要な処理。コンテキストに読み込まず実行可能
+- **references/**: Claude が作業中に参照すべきドキュメント。必要時のみ読み込み
+- **assets/**: コンテキストに読み込まず出力に使うファイル
+
+### 作成しないファイル
+- README.md、INSTALLATION_GUIDE.md、CHANGELOG.md 等の補助ドキュメントは不要
+- スキルには AI エージェントがタスク遂行に必要なファイルだけを含める
+
+## Progressive Disclosure（段階的情報開示）
+
+3段階のローディング:
+
+1. **メタデータ**（name + description）— 常にコンテキスト内（約100語）
+2. **SKILL.md 本文** — スキルがトリガーされた時に読み込み
+3. **バンドルリソース** — Claude が必要と判断した時のみ読み込み
+
+## description の書き方
+
+### 良い例
+```
+description: 会議テキストやメモから構造化された議事録を自動生成するスキル。
+  「議事録をまとめて」「会議メモを整理して」「アクション項目を抽出して」
+  と言われたときに使用する。
+```
+
+### 悪い例
+```
+description: 議事録スキル
+```
+
+## 簡潔さの原則
+
+- Claude が既に知っていることは書かない
+- 各パラグラフについて「トークンコストに見合うか」を問う
+- 冗長な説明より簡潔な例を優先する
+
+## テスト手順
+
+1. **トリガーテスト**: 正しいフレーズで発動し、関係ないフレーズでは発動しないか
+2. **機能テスト**: サンプル入力で期待通りの出力が得られるか
+3. **パフォーマンス比較**: スキルあり/なしで出力品質に差があるか
+
+## アンチパターン
+
+- description にトリガー情報を書かない → 発動しない
+- SKILL.md が長すぎる（500行超） → コンテキスト圧迫
+- 不要な補助ドキュメントを配置 → ノイズになる
+- Claude が既知の情報を繰り返し記述 → トークンの無駄
 
 ---
 > Source: [minicoohei/ai-agent-camp](https://github.com/minicoohei/ai-agent-camp) — distributed by [TomeVault](https://tomevault.io).
