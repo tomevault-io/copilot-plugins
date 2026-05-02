@@ -1,48 +1,74 @@
-## testing
+## typescript
 
-> General, Desktop, and Mobile testing patterns for Ledger Wallet
+> React and React Native development patterns for Ledger Wallet
 
 
-# Testing Rules
+## **Components**
 
-- **Stack:** Jest, MSW, coin-tester
-- **File Structure:**
-  - Tests next to source files
-  - `.test.ts` / `.spec.ts`
-  - `__tests__` for grouped tests
-  - `__integrations__` for integration tests
-- **Test Types:** Unit, Integration (prefer integration for complex features)
-- **Rules:**
-  - Test behavior, not implementation
-  - Deterministic tests
-  - Keep mocks minimal
-  - See `jest-mocks.mdc` for Jest mock patterns (avoid duplicate mocks, `restoreAllMocks`, hooks at describe load time)
-  - use MSW for Network API calls (use same pattern as `apps/ledger-live-mobile/__tests__/server.ts` with `handlers`)
-  - Integrate Redux when relevant
-  - Async: use `async/await` + `waitFor`
-- **Test Data:** Fixtures under `__fixtures__`, use factories/builders, avoid hardcoded/unrealistic values
-- **Maintenance:** Keep tests minimal/focused, remove obsolete tests
-- **Query Priority:** ByRole > ByLabelText > ByText > ByTestId
+- Use **function components** with typed props.
+- Prefer **React.FC** only when children typing is needed; otherwise avoid.
+- Memoize when beneficial (`React.memo`, `useMemo`, `useCallback`).
 
 ---
 
-# Desktop Testing
+## **Props & State**
 
-- **Environment:** ledger-live-desktop
-- **Render function:** imported from `tests/testSetup`
-- **Mocking Network** `apps/ledger-live-desktop/tests/server.ts`
-- **Stack:** + React Testing Library + MSW
-- **Command** inside ledger-live-desktop `pnpm test:jest "filename"` or `pnpm test:jest` to run them all
+- Type props with **interfaces** or **type aliases** (PascalCase).
+- Use `readonly` for immutable props/state shapes.
+- Avoid `any`; use `unknown` when necessary.
+- Prefer discriminated unions for state machines.
 
 ---
 
-# Mobile Testing
+## **Hooks**
 
-- **Environment:** ledger-live-mobile
-- **Render function:** imported from `@tests/test-renderer`
-- **Mocking Network** `apps/ledger-live-mobile/__tests__/server.ts`
-- **Stack:** + React Native Testing Library + MSW
-- **Command** inside ledger-live-mobile `pnpm test:jest "filename"` or `pnpm test:jest` to run them all
+- Extract logic into **custom hooks**.
+- Type hook return values explicitly.
+- Avoid unnecessary dependencies in hook arrays.
+
+---
+
+## **Data & Types**
+
+- Store types in `types.ts` files.
+- Use **Zod** for runtime validation.
+
+---
+
+## **Imports & Exports**
+
+- Prefer **named imports** and **named exports**.
+- Always declare imports at the beginning of source files.
+- Import order:
+
+  1. External libs
+  2. Internal modules
+  3. Types
+
+- Avoid default exports.
+
+---
+
+## **Error Handling**
+
+- Use custom error classes with `code` and optional context.
+- Prefer **Result<T, E>** patterns for recoverable failures.
+
+---
+
+## **Async Patterns**
+
+- Use `async/await`.
+- Wrap async code with `try/catch`.
+- Avoid inline Promises inside JSX.
+
+---
+
+## **Performance**
+
+- Use `as const` for literals.
+- Use mapped types for transformations.
+- Use memoization and stable references to reduce re-renders.
 
 ---
 > Source: [Ledger-Wallet-LLC/ledgerwallet](https://github.com/Ledger-Wallet-LLC/ledgerwallet) — distributed by [TomeVault](https://tomevault.io).
