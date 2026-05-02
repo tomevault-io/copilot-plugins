@@ -1,0 +1,18 @@
+{
+  "name": "powroom--flins",
+  "displayName": "flins",
+  "description": "Universal skill installer for AI coding agents",
+  "version": "1.0.0",
+  "author": "powroom",
+  "homepage": "https://github.com/powroom/flins",
+  "skills": [
+    {
+      "name": "clack-guidelines",
+      "description": ""
+    },
+    {
+      "name": "commander-guidelines",
+      "description": ""
+    }
+  ]
+}
