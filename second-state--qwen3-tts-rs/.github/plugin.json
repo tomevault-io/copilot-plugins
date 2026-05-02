@@ -1,0 +1,9 @@
+{
+  "name": "second-state--qwen3-tts-rs",
+  "displayName": "qwen3_tts_rs",
+  "description": "A Rust implementation of the Qwen3 Text-to-Speech (TTS) model inference.",
+  "version": "1.0.0",
+  "author": "second-state",
+  "homepage": "https://github.com/second-state/qwen3_tts_rs",
+  "skills": []
+}
