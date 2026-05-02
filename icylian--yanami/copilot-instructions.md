@@ -1,0 +1,97 @@
+## yanami
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Yanami is a Material Design 3 Android client for the **Komari** server monitoring tool. It provides real-time WebSocket updates, multi-instance management, and server status visualization.
+
+- **Package:** `com.sekusarisu.yanami`
+- **Language:** Kotlin | **Min SDK:** 28 | **Target/Compile SDK:** 36
+- **UI:** Jetpack Compose with Material 3
+
+## Build Commands
+
+```bash
+# Build debug APK
+./gradlew assembleDebug
+
+# Build release APK
+./gradlew assembleRelease
+
+# Run unit tests
+./gradlew test
+
+# Run a single test class
+./gradlew testDebugUnitTest --tests "com.sekusarisu.yanami.ExampleUnitTest"
+
+# Run Android instrumentation tests
+./gradlew connectedAndroidTest
+
+# Clean build
+./gradlew clean assembleDebug
+```
+
+## Architecture
+
+**MVI (Model-View-Intent)** pattern with three layers:
+
+- **UI Layer:** Voyager `Screen` + Compose UI + `MviViewModel<State, Event, Effect>`
+- **Domain Layer:** Repository interfaces + domain models (`Node`, `ServerInstance`, etc.)
+- **Data Layer:** Repository implementations, Ktor (HTTP + WebSocket), Room DB, DataStore
+
+Each screen follows a **Contract pattern** — a `Contract` object containing nested `State`, `Event`, and `Effect` types (e.g., `NodeListContract`).
+
+### Key Libraries
+
+| Library | Purpose |
+|---|---|
+| Voyager 1.1.0-beta03 | Navigation + ScreenModel lifecycle |
+| Koin 4.1.1 | Dependency injection |
+| Ktor 3.4.0 | HTTP client + WebSocket (RPC2 protocol) |
+| Room 2.8.4 + KSP | Local database (encrypted credentials) |
+| Vico 3.0.4 | Charts (Compose M3) |
+| DataStore | User preferences (theme, language, dark mode) |
+
+### Navigation Flow (Voyager)
+
+```
+ServerListScreen → AddServerScreen → NodeListScreen → NodeDetailScreen
+                 ↘ SettingsHubScreen → SettingsScreen (视觉与样式)
+                                     ↘ AboutScreen
+```
+
+### Data & Networking
+
+- **Komari API** uses JSON-RPC 2.0 over WebSocket (`wss://domain/api/rpc2`) as primary transport, with HTTP POST fallback.
+- WebSocket requires `Origin` header — without it, server returns 403.
+- **Dual authentication modes** (`AuthType` enum):
+  - `PASSWORD`: `session_token` cookie via `POST /api/login`, injected as `Cookie: session_token=xxx`
+  - `API_KEY`: API Key used directly as `Authorization: Bearer <api-key>`, no login required
+- `SessionCookieInterceptor` (OkHttp) auto-injects the appropriate auth header based on `authType`.
+- Credentials and API Keys encrypted with AES/GCM via Android KeyStore (`CryptoManager`).
+- Room DB v3 stores `auth_type` and `encrypted_api_key` columns.
+- API details documented in `docs/API_STRUCTURES.md`.
+
+### DI Setup
+
+All dependencies registered in `di/AppModule.kt` via Koin. App initialized in `YanamiApplication.kt`.
+
+## Internationalization
+
+Default language is **Chinese (zh)**. Also supports English (en) and Japanese (ja). String resources in `res/values/`, `res/values-en/`, `res/values-ja/`. Runtime switching uses `AppCompatDelegate.setApplicationLocales()` — requires `AppCompatActivity`.
+
+## Documentation
+
+- `docs/ARCHITECTURE.md` — Architecture diagrams and flows (Chinese)
+- `docs/API_STRUCTURES.md` — Complete Komari API reference
+- `docs/PROGRESS.md` — Development status and session notes
+- `REQUEST.MD` — Original requirements specification
+
+---
+> Source: [icylian/Yanami](https://github.com/icylian/Yanami) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
