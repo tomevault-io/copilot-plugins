@@ -1,0 +1,9 @@
+{
+  "name": "yazinsai--quran-validator",
+  "displayName": "quran-validator",
+  "description": "Validate and verify Quranic verses in LLM-generated text with high accuracy",
+  "version": "1.0.0",
+  "author": "yazinsai",
+  "homepage": "https://github.com/yazinsai/quran-validator",
+  "skills": []
+}
