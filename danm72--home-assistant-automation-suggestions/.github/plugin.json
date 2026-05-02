@@ -1,0 +1,9 @@
+{
+  "name": "danm72--home-assistant-automation-suggestions",
+  "displayName": "home-assistant-automation-suggestions",
+  "description": "A Home Assistant integration that analyzes your manual actions and suggests automations to create",
+  "version": "1.0.0",
+  "author": "Danm72",
+  "homepage": "https://github.com/Danm72/home-assistant-automation-suggestions",
+  "skills": []
+}
