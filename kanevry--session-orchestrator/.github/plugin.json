@@ -1,0 +1,9 @@
+{
+  "name": "kanevry--session-orchestrator",
+  "displayName": "session-orchestrator",
+  "description": "Claude Code plugin for structured AI development sessions \u2014 5-wave execution, parallel agents, quality gates, VCS integration. Pure Markdown, no runtime code.",
+  "version": "1.0.0",
+  "author": "Kanevry",
+  "homepage": "https://github.com/Kanevry/session-orchestrator",
+  "skills": []
+}
