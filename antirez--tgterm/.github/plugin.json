@@ -1,0 +1,9 @@
+{
+  "name": "antirez--tgterm",
+  "displayName": "tgterm",
+  "description": "Control your MacOS terminals via Telegram, for fun coding agents interaction and profit",
+  "version": "1.0.0",
+  "author": "antirez",
+  "homepage": "https://github.com/antirez/tgterm",
+  "skills": []
+}
