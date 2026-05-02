@@ -1,92 +1,45 @@
-## 040-anti-patterns
+## 050-cli-dev
 
-> camofox-browser anti-patterns — common mistakes to avoid
+> Conventions for developing camofox CLI commands
 
 
-# Anti-Patterns (Avoid These)
+# CLI Development Conventions
 
-## 1) Skipping snapshot before actions
-```bash
-# BAD
-camofox click e4
+## Structure
+- Register commands in `src/cli/commands/*.ts` grouped by domain.
+- Wire modules in `src/cli/index.ts` only.
+- Keep command handlers thin: parse input, call transport, format output.
 
-# GOOD
-camofox snapshot
-camofox click e4
-```
+## Command Design
+- Prefer `.argument()` + `.option()` signatures with explicit validation.
+- Support active tab fallback for optional `[tabId]` where relevant.
+- Resolve user via `resolveCommandUser` and default to CLI/global setting.
+- Use `printWithOptionalFormat` or context formatter for consistent output.
 
-## 2) Reusing refs after navigation/rerender
-```bash
-# BAD
-camofox click e9
-camofox navigate https://another-page.com
-camofox click e9
+## Transport and Fallback
+- Use `apiRequestWithFallback` / `requestWithFallback` where legacy paths exist.
+- Handle 404 fallback explicitly for compatibility branches.
+- Keep fallback logic deterministic and minimal.
 
-# GOOD
-camofox click e9
-camofox navigate https://another-page.com
-camofox snapshot
-camofox click e3
-```
+## Error Handling
+- Route all errors to `context.handleError`.
+- Throw actionable validation errors for bad CLI input.
+- Avoid leaking secrets in errors or logs.
 
-## 3) Mixing `userId` across same tab flow
-```bash
-# BAD
-camofox open https://x.com --user alice
-camofox snapshot --user bob
+## Auth Vault Safety
+- Never print decrypted passwords to stdout.
+- For `--inject`, require explicit username/password refs.
+- Keep password values in narrow scope and wipe best-effort buffers.
 
-# GOOD
-camofox open https://x.com --user alice
-camofox snapshot --user alice
-```
+## TypeScript Practices
+- Preserve strict typing for command options and action handlers.
+- Avoid `any`; use narrow records/interfaces for payloads.
+- Keep helpers pure when possible.
 
-## 4) Parsing text output in automation
-```bash
-# BAD
-camofox get-url | awk '{print $2}'
-
-# GOOD
-camofox get-url --format json
-```
-
-## 5) Hardcoded query URLs instead of macros
-```bash
-# BAD
-# manually composing search URL every time
-
-# GOOD
-# API macro use
-# {"macro":"@google_search","query":"my query"}
-```
-
-## 6) Embedding plaintext credentials in scripts
-```bash
-# BAD
-type e2 "my-secret-password"
-
-# GOOD
-camofox auth save profile
-camofox auth load profile --inject --username-ref e2 --password-ref e3
-```
-
-## 7) Forgetting tab invalidation after display toggle
-```bash
-# BAD
-# toggle display then keep using old tabId
-
-# GOOD
-# toggle display, then create a new tab
-```
-
-## 8) Assuming `download` command performs server-side direct fetch
-```bash
-# BAD
-camofox download https://files.example.com/a.zip
-
-# GOOD
-camofox downloads --format json
-# or call /tabs/:tabId/batch-download
-```
+## Testing/Validation
+- Verify help text and command signatures with `--help` outputs.
+- Validate JSON/text/plain formatting behavior.
+- Confirm auto-start behavior and `server` command exclusions in preAction logic.
 
 ---
 > Source: [redf0x1/camofox-browser](https://github.com/redf0x1/camofox-browser) — distributed by [TomeVault](https://tomevault.io).
