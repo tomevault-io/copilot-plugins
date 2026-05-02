@@ -1,0 +1,14 @@
+{
+  "name": "efremidze--swift-architecture-skill",
+  "displayName": "swift-architecture-skill",
+  "description": "Agent Skill for Swift architecture design and implementation patterns.",
+  "version": "1.0.0",
+  "author": "efremidze",
+  "homepage": "https://github.com/efremidze/swift-architecture-skill",
+  "skills": [
+    {
+      "name": "swift-architecture-skill",
+      "description": ""
+    }
+  ]
+}
