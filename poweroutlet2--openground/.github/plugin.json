@@ -1,0 +1,9 @@
+{
+  "name": "poweroutlet2--openground",
+  "displayName": "openground",
+  "description": "On-device documentation search for agents",
+  "version": "1.0.0",
+  "author": "poweroutlet2",
+  "homepage": "https://github.com/poweroutlet2/openground",
+  "skills": []
+}
