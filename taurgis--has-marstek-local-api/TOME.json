@@ -1,0 +1,87 @@
+{
+  "name": "has-marstek-local-api",
+  "owner": "taurgis",
+  "repo": "has-marstek-local-api",
+  "description": "Home Assistant custom component to integrate with Marstek devices using the local API.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "homeassistant-quality-and-testing",
+      "path": ".agent/skills/homeassistant-quality-and-testing",
+      "github_url": "https://github.com/taurgis/has-marstek-local-api/tree/main/.agent/skills/homeassistant-quality-and-testing",
+      "description": ""
+    },
+    {
+      "name": "homeassistant-testing-playbook",
+      "path": ".agent/skills/homeassistant-testing-playbook",
+      "github_url": "https://github.com/taurgis/has-marstek-local-api/tree/main/.agent/skills/homeassistant-testing-playbook",
+      "description": ""
+    },
+    {
+      "name": "marstek-integration-development",
+      "path": ".agent/skills/marstek-integration-development",
+      "github_url": "https://github.com/taurgis/has-marstek-local-api/tree/main/.agent/skills/marstek-integration-development",
+      "description": ""
+    },
+    {
+      "name": "marstek-open-api-udp",
+      "path": ".agent/skills/marstek-open-api-udp",
+      "github_url": "https://github.com/taurgis/has-marstek-local-api/tree/main/.agent/skills/marstek-open-api-udp",
+      "description": ""
+    },
+    {
+      "name": "mock-device-development",
+      "path": ".agent/skills/mock-device-development",
+      "github_url": "https://github.com/taurgis/has-marstek-local-api/tree/main/.agent/skills/mock-device-development",
+      "description": ""
+    },
+    {
+      "name": "python-development",
+      "path": ".agent/skills/python-development",
+      "github_url": "https://github.com/taurgis/has-marstek-local-api/tree/main/.agent/skills/python-development",
+      "description": ""
+    },
+    {
+      "name": "python-testing",
+      "path": ".agent/skills/python-testing",
+      "github_url": "https://github.com/taurgis/has-marstek-local-api/tree/main/.agent/skills/python-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/taurgis/has-marstek-local-api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:39:41Z"
+}
