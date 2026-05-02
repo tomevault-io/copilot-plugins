@@ -1,0 +1,9 @@
+{
+  "name": "agent-receipts--ar",
+  "displayName": "ar",
+  "description": "Agent Receipts \u2014 cryptographically signed audit trails for AI agent actions. Protocol spec, SDKs (Go, TypeScript, Python), and MCP proxy.",
+  "version": "1.0.0",
+  "author": "agent-receipts",
+  "homepage": "https://github.com/agent-receipts/ar",
+  "skills": []
+}
