@@ -1,0 +1,93 @@
+{
+  "name": "vvvv-skills",
+  "owner": "tebjan",
+  "repo": "vvvv-skills",
+  "description": "Skills to help AI Agents master the vvvv gamma ecosystem",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vvvv-channels",
+      "path": "skills/vvvv-channels",
+      "github_url": "https://github.com/tebjan/vvvv-skills/tree/main/skills/vvvv-channels",
+      "description": ""
+    },
+    {
+      "name": "vvvv-custom-nodes",
+      "path": "skills/vvvv-custom-nodes",
+      "github_url": "https://github.com/tebjan/vvvv-skills/tree/main/skills/vvvv-custom-nodes",
+      "description": ""
+    },
+    {
+      "name": "vvvv-editor-extensions",
+      "path": "skills/vvvv-editor-extensions",
+      "github_url": "https://github.com/tebjan/vvvv-skills/tree/main/skills/vvvv-editor-extensions",
+      "description": ""
+    },
+    {
+      "name": "vvvv-fundamentals",
+      "path": "skills/vvvv-fundamentals",
+      "github_url": "https://github.com/tebjan/vvvv-skills/tree/main/skills/vvvv-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "vvvv-node-libraries",
+      "path": "skills/vvvv-node-libraries",
+      "github_url": "https://github.com/tebjan/vvvv-skills/tree/main/skills/vvvv-node-libraries",
+      "description": ""
+    },
+    {
+      "name": "vvvv-patching",
+      "path": "skills/vvvv-patching",
+      "github_url": "https://github.com/tebjan/vvvv-skills/tree/main/skills/vvvv-patching",
+      "description": ""
+    },
+    {
+      "name": "vvvv-spreads",
+      "path": "skills/vvvv-spreads",
+      "github_url": "https://github.com/tebjan/vvvv-skills/tree/main/skills/vvvv-spreads",
+      "description": ""
+    },
+    {
+      "name": "vvvv-troubleshooting",
+      "path": "skills/vvvv-troubleshooting",
+      "github_url": "https://github.com/tebjan/vvvv-skills/tree/main/skills/vvvv-troubleshooting",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tebjan/vvvv-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:35:20Z"
+}
