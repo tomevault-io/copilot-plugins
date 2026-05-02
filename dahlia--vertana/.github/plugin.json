@@ -1,0 +1,9 @@
+{
+  "name": "dahlia--vertana",
+  "displayName": "vertana",
+  "description": "LLM-powered agentic translation library for JavaScript/TypeScript",
+  "version": "1.0.0",
+  "author": "dahlia",
+  "homepage": "https://github.com/dahlia/vertana",
+  "skills": []
+}
