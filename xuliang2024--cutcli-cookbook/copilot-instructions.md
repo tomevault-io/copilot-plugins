@@ -1,121 +1,83 @@
-## open-source-boundary
+## project-info
 
-> 开源 / 闭源边界 — 禁止从闭源仓 jy_cli 复制源码到本仓的安全铁律
+> cutcli-cookbook 项目元信息：用途、地址、本地路径、域名、与闭源仓 jy_cli 的关系
 
 
-# 开源 / 闭源边界（安全关键）
+# cutcli-cookbook · 项目元信息
 
-> ⚠ 这是本仓**最重要**的安全约束。违反任何一条都可能泄露 cutcli 闭源核心代码。
+> 这是一个**开源**项目，配套于闭源核心 `cutcli`（CapCut / 剪映 草稿命令行工具）。
 
-## 仓库定位
+## 一句话
 
-| 仓 | 路径 | 状态 |
-|---|---|---|
-| `cutcli-cookbook`（本仓） | `/Users/m007/codes/cutcli-cookbook/` | **公开** GitHub: <https://github.com/xuliang2024/cutcli-cookbook> |
-| `jy_cli` | `/Users/m007/codes/jy_cli/` | **闭源** 私有，不得泄露 |
+收录 cutcli 的可一键运行案例、JSON 模板、AI 提示词、官方文档站源码与社区贡献入口。
 
-## 四条铁律
+## 核心地址
 
-### 1. 公开仓**永远不出现**这些路径的内容
-
-| 闭源路径 | 包含的敏感内容 |
+| 项 | 值 |
 |---|---|
-| `jy_cli/src/` | TypeScript 源码、API 实现、内部模型 |
-| `jy_cli/dist/` | 编译产物 |
-| `jy_cli/binaries/` | 各平台二进制 |
-| `jy_cli/worker/` | cutcli.com 的 worker 实现 |
-| `jy_cli/scripts/build-*.sh` | 构建脚本 |
-| `jy_cli/.env` | 任何 .env 内容 |
+| GitHub | <https://github.com/xuliang2024/cutcli-cookbook> |
+| 文档站 | <https://docs.cutcli.com> |
+| 主站 | <https://cutcli.com>（cutcli 安装 + 落地页） |
+| License | MIT |
+| 默认分支 | `main` |
 
-> ✅ 公开仓**自己**的 `worker/`（即 `cutcli-cookbook/worker/`）是 docs.cutcli.com 的反向代理，开源是合理的，不属于禁区。
+## 本地路径
 
-### 2. 案例只调用**公开 CLI 命令** `cutcli xxx`
+| 仓库 | 路径 | 类型 |
+|---|---|---|
+| `cutcli-cookbook` | `/Users/m007/codes/cutcli-cookbook/` | **开源**（本仓） |
+| `jy_cli` | `/Users/m007/codes/jy_cli/` | **闭源**（cutcli 源码 + cutcli.com worker） |
 
-- ✅ 允许：`cutcli draft create`、`cutcli captions add ...`
-- ❌ 禁止：`import { addCaptions } from 'cut_cli/api/...'`
-- ❌ 禁止：访问 `~/.cut_cli/` 内部数据
-- ❌ 禁止：直接读写剪映草稿 JSON 字段
+两个仓库**同级**摆放，便于 `jy_cli/scripts/sync-to-cookbook.mjs` 走相对路径 `../cutcli-cookbook/` 同步公开文档。
 
-### 3. 闭源 → 公开的内容流动**只有一条路径**
+## 部署架构
 
 ```text
-jy_cli/docs/cli.md, api.md, README.md          (中文源)
-jy_cli/docs/cli.en.md, api.en.md, README.en.md (英文源；TODO 待补)
-            ↓
-jy_cli/scripts/sync-to-cookbook.mjs (单向 + sanitizer + 双输出)
-            ↓
-cutcli-cookbook/docs/reference/{cli,api,concepts}.md      ← 英文
-cutcli-cookbook/docs/zh/reference/{cli,api,concepts}.md   ← 中文
+docs.cutcli.com  →  Cloudflare DNS (proxied A 192.0.2.1)
+                 →  Worker docs-cutcli (本仓 worker/)
+                 →  R2 bucket cutcli-docs (VitePress build 产物)
 ```
 
-详见 `jy_cli/scripts/sync.config.json`。所有同步都过：
-
-- `stripBlocks`：删除 `<!-- internal -->...<!-- /internal -->` 段落
-- `stripBlocks`：删除 `<!-- TODO-internal: ... -->` 单行
-- `replacements`：`cut <subcommand>` → `cutcli <subcommand>`
-- `replacements`：`npm install -g cut_cli` → `curl -s https://cutcli.com/cli | bash`
-
-#### 当前过渡态（cookbook 仓 i18n 已上线、闭源 sync 待升级）
-
-闭源 sync 脚本目前**只有中文输出**。在它升级成双输出之前，本仓采取保底措施：
-
-- `docs/reference/{cli,api,concepts}.md`：暂时仍是中文，等闭源仓产出英文源后由 sync 覆盖
-- `docs/zh/reference/{cli,api,concepts}.md`：直接是中文（PR 1 时从 root 复制过来）
-- `scripts/check-i18n-pairs.mjs` 把这三个文件加入 `SYNC_GENERATED` 白名单，跳过强制成对
-
-闭源仓升级后：
-
-1. `jy_cli/docs/` 增加 `cli.en.md` / `api.en.md` / `README.en.md` 三份英文源
-2. `jy_cli/scripts/sync-to-cookbook.mjs` 改成双输出，sync.test.mjs 增加双语用例
-3. 跑 `node scripts/sync-to-cookbook.mjs` 同时覆盖 cookbook 的 root 与 zh
-4. 公开仓侧：把 `SYNC_GENERATED` 白名单从 `check-i18n-pairs.mjs` 移除（双语都强制存在）
-
-### 4. 命令名严格用 `cutcli`，不是 `cut`
-
-`cut` 是 Unix 系统命令，混用会让用户复制即报错。CI 里 `scripts/check-command-name.mjs` grep 出现 `cut <draft|captions|...>` 即 fail。
-
-## 加内容前必查
-
-写或修改任何文件前，问自己：
-
-- [ ] 我添加的代码 / 文档**只**用了 cutcli 的公开 CLI 接口吗？
-- [ ] 我引用的素材 URL 在 `CONTRIBUTING.md` 的白名单里吗？
-- [ ] 我的命令示例都是 `cutcli` 而非 `cut` 吗？
-- [ ] 我没有意外贴上 `~/.cut_cli/`、`/Users/m007/codes/jy_cli/` 等本地路径吗？
-- [ ] 我没有暴露任何 token、cookie、密钥吗？
-
-如果对答案有任何不确定，**停下问维护者**，不要盲目提交。
-
-## CI 防线
-
-| 检查 | 阻断 |
+| 资源 | 位置 |
 |---|---|
-| `scripts/check-command-name.mjs` | 公开仓出现裸 `cut <subcommand>` 即 fail |
-| `scripts/validate-example.mjs` | URL 不在白名单 / README 提及绝对本地路径，fail |
-| `.github/workflows/ci.yml` | 三个 lint 任何一个不过都不能 merge |
+| R2 bucket | `cutcli-docs`（账号 `xuliang2022@gmail.com`，account id `11c47779f0d4c3d0e69ccc6c484dc589`） |
+| Worker | `docs-cutcli`（路由 `docs.cutcli.com/*` + `docs.cutcli.com`） |
+| Worker 源码 | `worker/src/index.ts`（R2 反代 + SPA 路径回退） |
+| 域名 zone | `cutcli.com`（zone id `064059cb21d36956c11381995b964467`） |
 
-## 同步脚本边界
+## 仓内/仓外铁律
 
-`jy_cli/scripts/sync-to-cookbook.mjs`：
+1. **绝不**把 `jy_cli/src/`、`jy_cli/dist/`、`jy_cli/binaries/`、闭源 `jy_cli/worker/` 的内容复制进本仓。
+2. 案例只调用 **公开 CLI 命令** `cutcli xxx`，不引用 npm 包 `cut_cli` 的内部 API。
+3. 闭源 → 公开的内容流动只能通过 `jy_cli/scripts/sync-to-cookbook.mjs`（单向、带 sanitizer）。
+4. 命令名严格用 `cutcli`，禁止 `cut`（与 Unix util 冲突）；CI 会 grep fail。
 
-- ✅ 输出**只**写 `../cutcli-cookbook/docs/reference/`，绝不碰其他目录
-- ✅ 默认 dry-run 友好；用 `--dry-run` 总能预览
-- ✅ 输出文件第一行有 `THIS FILE IS GENERATED ... DO NOT EDIT` 注释
-- ✅ 单元测试 `scripts/sync.test.mjs` 覆盖核心转换
+## 与闭源 jy_cli 的关系
 
-如果维护者改了同步脚本，**必须**先跑 `node scripts/sync.test.mjs` 确保 8/8 PASS。
+```mermaid
+flowchart LR
+  subgraph priv [Private jy_cli]
+    privDocs[docs/]
+    syncScript[scripts/sync-to-cookbook.mjs]
+    privWorker[worker cutcli &#x2192; cutcli.com]
+  end
+  subgraph pub [Public cutcli-cookbook]
+    examples[examples/]
+    pubDocs[docs/]
+    pubWorker[worker docs-cutcli &#x2192; docs.cutcli.com]
+  end
+  privDocs -->|"sync (sanitized)"| syncScript
+  syncScript -->|"writes docs/reference/"| pubDocs
+  pubDocs -->|"vitepress build &#x2192; R2"| live[(docs.cutcli.com)]
+```
 
-## 如果不小心泄露了
+## 想了解更多
 
-1. **立刻**停止 push
-2. 用 `git filter-repo` 或 BFG 清掉敏感 commit
-3. force push 覆盖远程历史
-4. 如已有 fork / clone，**默认这条信息已失守**，必须重新生成所有相关 secret / token
-5. 在 release 公告中说明（如果对用户有影响）
-
-## 报告漏洞
-
-发现可能泄露的代码 / 文档，请**不要**开公开 issue，直接邮件 maintainer，或在 GitHub Security Advisories 私下报告。
+- 目录索引：参见 `.cursor/rules/directory-index.mdc`
+- 提交流程：参见 `.cursor/rules/commit-flow.mdc`
+- 部署流程：参见 `.cursor/rules/deploy.mdc`
+- 案例规范：参见 `.cursor/rules/example-spec.mdc`（自动应用于 examples/**）
+- 闭源/开源边界：参见 `.cursor/rules/open-source-boundary.mdc`
 
 ---
 > Source: [xuliang2024/cutcli-cookbook](https://github.com/xuliang2024/cutcli-cookbook) — distributed by [TomeVault](https://tomevault.io).
