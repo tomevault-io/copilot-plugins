@@ -1,0 +1,9 @@
+{
+  "name": "yutaofr--clec-strategy-backtest",
+  "displayName": "clec-strategy-backtest",
+  "description": "QQQ/QLD assets allocation strategies back test",
+  "version": "1.0.0",
+  "author": "yutaofr",
+  "homepage": "https://github.com/yutaofr/clec-strategy-backtest",
+  "skills": []
+}
