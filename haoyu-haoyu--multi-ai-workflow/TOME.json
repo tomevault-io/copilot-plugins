@@ -1,0 +1,44 @@
+{
+  "name": "Multi-AI-Workflow",
+  "owner": "haoyu-haoyu",
+  "repo": "Multi-AI-Workflow",
+  "description": "Multi-AI orchestration framework for Claude Code \u2014 coordinate Claude, Codex, and Gemini with 7 workflow modes, parallel execution, and session unification",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/haoyu-haoyu/Multi-AI-Workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:48:07Z"
+}
