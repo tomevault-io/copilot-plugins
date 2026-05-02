@@ -1,0 +1,9 @@
+{
+  "name": "noemuch--bridge",
+  "displayName": "bridge",
+  "description": "Design in Figma with Claude Code. Bridge connects your terminal to the Figma Plugin API via WebSocket.",
+  "version": "1.0.0",
+  "author": "noemuch",
+  "homepage": "https://github.com/noemuch/bridge",
+  "skills": []
+}
