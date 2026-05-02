@@ -1,0 +1,9 @@
+{
+  "name": "huangdijia--ccswitch",
+  "displayName": "ccswitch",
+  "description": "A command-line tool for managing and switching between different Claude Code API profiles and configurations.",
+  "version": "1.0.0",
+  "author": "huangdijia",
+  "homepage": "https://github.com/huangdijia/ccswitch",
+  "skills": []
+}
