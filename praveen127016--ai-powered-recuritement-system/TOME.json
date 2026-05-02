@@ -1,0 +1,44 @@
+{
+  "name": "AI-POWERED-RECURITEMENT-SYSTEM",
+  "owner": "Praveen127016",
+  "repo": "AI-POWERED-RECURITEMENT-SYSTEM",
+  "description": "This project is an AI-powered Recruitment System that uses Natural Language Processing (NLP) and similarity algorithms to intelligently match candidate resumes with job descriptions. The system automates the recruitment process by analyzing unstructured text data and providing accurate matching results along with skill gap analysis.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Praveen127016/AI-POWERED-RECURITEMENT-SYSTEM",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T22:24:24Z"
+}
