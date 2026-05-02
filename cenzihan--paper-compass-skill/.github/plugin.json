@@ -1,0 +1,9 @@
+{
+  "name": "cenzihan--paper-compass-skill",
+  "displayName": "paper-compass-skill",
+  "description": "\u8bba\u6587\u7f57\u76d8skill-\u5728\u8bfb\u8bba\u6587\u4e4b\u524d\uff0c\u5148\u7ed9\u4f60\u4e00\u5f20\u201c\u5148\u5b66\u4ec0\u4e48\u201d/\u201c\u503c\u5f97\u8bfb\u5417\u201d\u7684\u8def\u7ebf\u56fe\u3002 What should I learn before read a paper\uff1fCompass will trade off directions for u.",
+  "version": "1.0.0",
+  "author": "cenzihan",
+  "homepage": "https://github.com/cenzihan/paper-compass-skill",
+  "skills": []
+}
