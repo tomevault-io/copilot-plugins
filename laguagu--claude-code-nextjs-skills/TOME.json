@@ -1,0 +1,93 @@
+{
+  "name": "claude-code-nextjs-skills",
+  "owner": "laguagu",
+  "repo": "claude-code-nextjs-skills",
+  "description": "Claude Code skills for AI apps \u2022 Next.js 16 \u2022 AI SDK 6 \u2022 pgvector \u2022 bun",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nextjs-seo",
+      "path": "skills/nextjs-seo",
+      "github_url": "https://github.com/laguagu/claude-code-nextjs-skills/tree/main/skills/nextjs-seo",
+      "description": ""
+    },
+    {
+      "name": "nextjs-shadcn",
+      "path": "skills/nextjs-shadcn",
+      "github_url": "https://github.com/laguagu/claude-code-nextjs-skills/tree/main/skills/nextjs-shadcn",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-6",
+      "path": "skills/ai-sdk-6",
+      "github_url": "https://github.com/laguagu/claude-code-nextjs-skills/tree/main/skills/ai-sdk-6",
+      "description": ""
+    },
+    {
+      "name": "ai-app",
+      "path": "skills/ai-app",
+      "github_url": "https://github.com/laguagu/claude-code-nextjs-skills/tree/main/skills/ai-app",
+      "description": ""
+    },
+    {
+      "name": "ai-elements",
+      "path": "skills/ai-elements",
+      "github_url": "https://github.com/laguagu/claude-code-nextjs-skills/tree/main/skills/ai-elements",
+      "description": ""
+    },
+    {
+      "name": "cache-components",
+      "path": "skills/cache-components",
+      "github_url": "https://github.com/laguagu/claude-code-nextjs-skills/tree/main/skills/cache-components",
+      "description": ""
+    },
+    {
+      "name": "openai-agents-sdk",
+      "path": "skills/openai-agents-sdk",
+      "github_url": "https://github.com/laguagu/claude-code-nextjs-skills/tree/main/skills/openai-agents-sdk",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "skills/react-best-practices",
+      "github_url": "https://github.com/laguagu/claude-code-nextjs-skills/tree/main/skills/react-best-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/laguagu/claude-code-nextjs-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:34:10Z"
+}
