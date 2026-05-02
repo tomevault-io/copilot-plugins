@@ -1,0 +1,129 @@
+{
+  "name": "ham-study",
+  "owner": "y1feng200156",
+  "repo": "ham-study",
+  "description": "Interactive 3D visualization platform for Amateur Radio (Ham) antenna patterns and physics. Built with React Router v7, Three.js, and TypeScript. \ud83d\udce1",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-agent-lint",
+      "path": ".agent/skills/ai-agent-lint",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/ai-agent-lint",
+      "description": ""
+    },
+    {
+      "name": "db-migrate",
+      "path": ".agent/skills/db-migrate",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/db-migrate",
+      "description": ""
+    },
+    {
+      "name": "docker-lint",
+      "path": ".agent/skills/docker-lint",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/docker-lint",
+      "description": ""
+    },
+    {
+      "name": "format-js",
+      "path": ".agent/skills/format-js",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/format-js",
+      "description": ""
+    },
+    {
+      "name": "format-python",
+      "path": ".agent/skills/format-python",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/format-python",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": ".agent/skills/git-commit",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "k8s-lint",
+      "path": ".agent/skills/k8s-lint",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/k8s-lint",
+      "description": ""
+    },
+    {
+      "name": "lint-js",
+      "path": ".agent/skills/lint-js",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/lint-js",
+      "description": ""
+    },
+    {
+      "name": "lint-python",
+      "path": ".agent/skills/lint-python",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/lint-python",
+      "description": ""
+    },
+    {
+      "name": "memory-guardian",
+      "path": ".agent/skills/memory-guardian",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/memory-guardian",
+      "description": ""
+    },
+    {
+      "name": "run-tests",
+      "path": ".agent/skills/run-tests",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/run-tests",
+      "description": ""
+    },
+    {
+      "name": "rust-lint",
+      "path": ".agent/skills/rust-lint",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/rust-lint",
+      "description": ""
+    },
+    {
+      "name": "sql-lint",
+      "path": ".agent/skills/sql-lint",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/sql-lint",
+      "description": ""
+    },
+    {
+      "name": "vuln-scan",
+      "path": ".agent/skills/vuln-scan",
+      "github_url": "https://github.com/y1feng200156/ham-study/tree/main/.agent/skills/vuln-scan",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/y1feng200156/ham-study",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T18:52:49Z"
+}
