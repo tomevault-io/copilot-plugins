@@ -1,0 +1,9 @@
+{
+  "name": "rajsinghtech--garage-operator",
+  "displayName": "garage-operator",
+  "description": "A Kubernetes operator for managing Garage - a distributed S3-compatible object storage system designed for self-hosting.",
+  "version": "1.0.0",
+  "author": "rajsinghtech",
+  "homepage": "https://github.com/rajsinghtech/garage-operator",
+  "skills": []
+}
