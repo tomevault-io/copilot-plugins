@@ -1,0 +1,9 @@
+{
+  "name": "kangraemin--claude-inspector",
+  "displayName": "claude-inspector",
+  "description": "Claude Code Prompt Mechanism Visualizer \u2014 Electron desktop app",
+  "version": "1.0.0",
+  "author": "kangraemin",
+  "homepage": "https://github.com/kangraemin/claude-inspector",
+  "skills": []
+}
