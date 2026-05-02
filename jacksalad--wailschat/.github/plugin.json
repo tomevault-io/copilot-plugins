@@ -1,0 +1,9 @@
+{
+  "name": "jacksalad--wailschat",
+  "displayName": "wailschat",
+  "description": "A desktop AI chat application built with Wails v2 (Go backend + Vue 3 frontend) that connects to OpenAI-compatible LLM APIs with MCP tool calling support.",
+  "version": "1.0.0",
+  "author": "jacksalad",
+  "homepage": "https://github.com/jacksalad/wailschat",
+  "skills": []
+}
