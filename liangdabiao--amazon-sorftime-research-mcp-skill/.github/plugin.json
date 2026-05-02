@@ -1,0 +1,9 @@
+{
+  "name": "liangdabiao--amazon-sorftime-research-mcp-skill",
+  "displayName": "amazon-sorftime-research-MCP-skill",
+  "description": "\u4e9a\u9a6c\u900a\u9009\u54c1 \u4e4b Listing\u5168\u7ef4\u5ea6\u7a7f\u900f\u5206\u6790\u62a5\u544a  \u52a0\u4e0a \u5168\u54c1\u7c7b\u5206\u6790 \uff0c\u5173\u952e\u8bcd\u5206\u6790\uff0c\u5dee\u8bc4\u5206\u6790 \uff0c\u5e02\u573a\u8c03\u7814 \u7b49\u7b49\u3002OpenClaw /claude code agent skill, amazon sorftime research MCP \u667a\u80fd\u4f53skill.\u57fa\u4e8e Sorftime MCP \u670d\u52a1\u548c Claude Skills \u7684\u4e9a\u9a6c\u900a\u7ade\u54c1\u5206\u6790\u5de5\u5177\u96c6\u3002",
+  "version": "1.0.0",
+  "author": "liangdabiao",
+  "homepage": "https://github.com/liangdabiao/amazon-sorftime-research-MCP-skill",
+  "skills": []
+}
