@@ -1,0 +1,51 @@
+{
+  "name": "telegram-watch",
+  "owner": "o1xhack",
+  "repo": "telegram-watch",
+  "description": "Fully local Telegram watcher powered by Telethon \u2014 monitor specific users in a target group/channel, capture messages/media into SQLite, and push periodic HTML reports back to a control chat.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "telegram-watch-dev",
+      "path": ".codex/skills/telegram-watch-dev",
+      "github_url": "https://github.com/o1xhack/telegram-watch/tree/main/.codex/skills/telegram-watch-dev",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/o1xhack/telegram-watch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:52:42Z"
+}
