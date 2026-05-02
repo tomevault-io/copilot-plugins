@@ -1,0 +1,249 @@
+{
+  "name": "freedom-stack-v3",
+  "owner": "cameronapak",
+  "repo": "freedom-stack-v3",
+  "description": "A no-build, un-bloated stack built upon Web Standards that feels freeing to use and can be deployed anywhere.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bknd-add-field",
+      "path": ".agents/skills/bknd-add-field",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-add-field",
+      "description": ""
+    },
+    {
+      "name": "bknd-api-discovery",
+      "path": ".agents/skills/bknd-api-discovery",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-api-discovery",
+      "description": ""
+    },
+    {
+      "name": "bknd-client-setup",
+      "path": ".agents/skills/bknd-client-setup",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-client-setup",
+      "description": ""
+    },
+    {
+      "name": "bknd-create-entity",
+      "path": ".agents/skills/bknd-create-entity",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-create-entity",
+      "description": ""
+    },
+    {
+      "name": "bknd-create-role",
+      "path": ".agents/skills/bknd-create-role",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-create-role",
+      "description": ""
+    },
+    {
+      "name": "bknd-create-user",
+      "path": ".agents/skills/bknd-create-user",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-create-user",
+      "description": ""
+    },
+    {
+      "name": "bknd-crud-create",
+      "path": ".agents/skills/bknd-crud-create",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-crud-create",
+      "description": ""
+    },
+    {
+      "name": "bknd-crud-delete",
+      "path": ".agents/skills/bknd-crud-delete",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-crud-delete",
+      "description": ""
+    },
+    {
+      "name": "bknd-crud-read",
+      "path": ".agents/skills/bknd-crud-read",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-crud-read",
+      "description": ""
+    },
+    {
+      "name": "bknd-crud-update",
+      "path": ".agents/skills/bknd-crud-update",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-crud-update",
+      "description": ""
+    },
+    {
+      "name": "bknd-custom-endpoint",
+      "path": ".agents/skills/bknd-custom-endpoint",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-custom-endpoint",
+      "description": ""
+    },
+    {
+      "name": "bknd-debugging",
+      "path": ".agents/skills/bknd-debugging",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-debugging",
+      "description": ""
+    },
+    {
+      "name": "bknd-define-relationship",
+      "path": ".agents/skills/bknd-define-relationship",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-define-relationship",
+      "description": ""
+    },
+    {
+      "name": "bknd-deploy-hosting",
+      "path": ".agents/skills/bknd-deploy-hosting",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-deploy-hosting",
+      "description": ""
+    },
+    {
+      "name": "bknd-file-upload",
+      "path": ".agents/skills/bknd-file-upload",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-file-upload",
+      "description": ""
+    },
+    {
+      "name": "bknd-local-setup",
+      "path": ".agents/skills/bknd-local-setup",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-local-setup",
+      "description": ""
+    },
+    {
+      "name": "bknd-login-flow",
+      "path": ".agents/skills/bknd-login-flow",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-login-flow",
+      "description": ""
+    },
+    {
+      "name": "bknd-oauth-setup",
+      "path": ".agents/skills/bknd-oauth-setup",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-oauth-setup",
+      "description": ""
+    },
+    {
+      "name": "bknd-pagination",
+      "path": ".agents/skills/bknd-pagination",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-pagination",
+      "description": ""
+    },
+    {
+      "name": "bknd-password-reset",
+      "path": ".agents/skills/bknd-password-reset",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-password-reset",
+      "description": ""
+    },
+    {
+      "name": "bknd-production-config",
+      "path": ".agents/skills/bknd-production-config",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-production-config",
+      "description": ""
+    },
+    {
+      "name": "bknd-protect-endpoint",
+      "path": ".agents/skills/bknd-protect-endpoint",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-protect-endpoint",
+      "description": ""
+    },
+    {
+      "name": "bknd-public-vs-auth",
+      "path": ".agents/skills/bknd-public-vs-auth",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-public-vs-auth",
+      "description": ""
+    },
+    {
+      "name": "bknd-registration",
+      "path": ".agents/skills/bknd-registration",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-registration",
+      "description": ""
+    },
+    {
+      "name": "bknd-repo-search-with-opencode",
+      "path": ".agents/skills/bknd-repo-search-with-opencode",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-repo-search-with-opencode",
+      "description": ""
+    },
+    {
+      "name": "bknd-seed-data",
+      "path": ".agents/skills/bknd-seed-data",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-seed-data",
+      "description": ""
+    },
+    {
+      "name": "bknd-serve-files",
+      "path": ".agents/skills/bknd-serve-files",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-serve-files",
+      "description": ""
+    },
+    {
+      "name": "bknd-session-handling",
+      "path": ".agents/skills/bknd-session-handling",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-session-handling",
+      "description": ""
+    },
+    {
+      "name": "bknd-setup-auth",
+      "path": ".agents/skills/bknd-setup-auth",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-setup-auth",
+      "description": ""
+    },
+    {
+      "name": "bknd-storage-config",
+      "path": ".agents/skills/bknd-storage-config",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-storage-config",
+      "description": ""
+    },
+    {
+      "name": "bknd-testing",
+      "path": ".agents/skills/bknd-testing",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-testing",
+      "description": ""
+    },
+    {
+      "name": "bknd-troubleshoot",
+      "path": ".agents/skills/bknd-troubleshoot",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-troubleshoot",
+      "description": ""
+    },
+    {
+      "name": "bknd-webhooks",
+      "path": ".agents/skills/bknd-webhooks",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/bknd-webhooks",
+      "description": ""
+    },
+    {
+      "name": "btca-bknd-repo-learn",
+      "path": ".agents/skills/btca-bknd-repo-learn",
+      "github_url": "https://github.com/cameronapak/freedom-stack-v3/tree/main/.agents/skills/btca-bknd-repo-learn",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cameronapak/freedom-stack-v3",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:30:22Z"
+}
