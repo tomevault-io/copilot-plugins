@@ -1,64 +1,90 @@
-## react-general
+## react-mvvm
 
-> General React and React Native engineering rules for Ledger Live
+> React MVVM Architecture engineering rules (mvvm) for Ledger Wallet
 
 
-# General React & React Native Patterns
+# React MVVM Architecture (`mvvm`)
 
-_These rules apply to all files, including those inside `src/mvvm/`._
+_Mandatory rules for all files inside `src/mvvm/`._
 
-## Component Architecture
+## Migration Principles
 
-- Prefer functional components.
-- Keep components focused and reasonably sized.
-- Decompose large UI into smaller reusable elements.
-- Use composition for extensibility.
+- New code must conform to `mvvm` patterns.
+- Upon completion, `src/mvvm` replaces `src/` entirely.
+- Applies equally to `ledger-live-mobile` and `ledger-live-desktop` codebases.
+- Code reviews enforce strict adherence.
 
-## State Management
+## Folder & Project Structure
 
-- Prioritize local state for UI-only concerns.
-- Use RTK Query (with slices) only when necessary for app-wide state.
-- Apply optimized selectors to limit re-rendering.
-- Connect Redux at the lowest component level when possible.
+### High-Level Structure
 
-## Styling
+```
+src/mvvm/
+├── features/
+│   └── FeatureName/
+│       ├── __integrations__/
+│       ├── components/
+│       ├── screens/
+│       ├── hooks/
+│       └── utils/
+├── components/
+├── hooks/
+└── utils/
+```
 
-### Mobile (React Native)
+### Feature Folder Responsibilities
 
-- Define styles with `StyleSheet.create()`.
-- Follow design-system tokens.
-- Typography uses design-system components.
-- All styles support theme switching.
+- `components/` gathers reusable UI elements across multiple screens.
+- `screens/` contains individual screen folders and their private building blocks.
+- `hooks/` contains feature-specific reusable hooks.
+- `utils/` contains feature-scoped utilities.
 
-### Desktop
+### Nesting Guidelines
 
-- Use CSS modules or styled-components.
-- Follow design-system foundations (colors, spacing, typography).
-- Full compatibility with dark/light mode is required.
+- Place elements inside the closest folder matching their reuse scope.
+- Screen-specific building blocks stay inside the screen folder.
+- Feature-level components belong to `FeatureName/components/`.
+- Global shared UI belongs to `src/mvvm/components/`.
 
-## Performance
+## Component & File Patterns
 
-- Memoize expensive operations with `useMemo`.
-- Stabilize callbacks with `useCallback`.
-- Wrap costly components in `React.memo`.
-- Apply list virtualization where needed.
-- Use lazy loading for large screens or modules.
+### Index-Based Structure
 
-## Navigation
+- Each component resides in its own folder.
+- Entry file: `index.tsx`.
+- Support files live alongside it:
 
-### Mobile
+  - `use<ComponentName>ViewModel.ts`
+  - `types.ts`
+  - `styles.ts`
 
-- Use React Navigation.
-- Ensure correct deep-link support.
-- Keep navigation types strict and consistent.
+### Naming Rules
 
-### Desktop
+- Let folder hierarchy convey context; component names remain concise.
+- Use the **List / Detail** naming pattern for multi-view workflows.
+- ViewModel hooks always follow the naming: `use<ComponentName>ViewModel.ts`
 
-- Use React Router.
-- Implement route guards when necessary.
-- Maintain clear history logic.
+### Constants & Utils
 
-## Data Fetching
+- Store utilities in a `utils/` directory near their consumers.
+- Shared constants belong to `utils/constants/`.
+- Utilities remain separate from component folders.
+
+## Import Rules
+
+- Keep relative imports shallow (within one directory level).
+- Use TypeScript path aliases for broader access.
+- Import directories via alias paths instead of long relative chains.
+- Importing `index.tsx` explicitly is discouraged — rely on folder alias exports.
+
+## ViewModel Pattern
+
+- Components needing external logic use: `Container → ViewModel → View`.
+- The ViewModel produces data and handlers.
+- The View receives everything via props.
+- The View does not directly call hooks that connect to external systems.
+
+## Data Fetching & State Management
 
 - Use RTK Query
   - `dada-client` or `cal-client` are good examples to follow
@@ -66,57 +92,27 @@ _These rules apply to all files, including those inside `src/mvvm/`._
 - Prefer optimistic UI when appropriate.
 - Apply caching and stale-time strategies.
 
-## Accessibility
+## Testing
 
-### Mobile
+### Integration Tests
 
-- Provide accessible labels for all interactive elements.
-- Support screen reader flows.
-- Ensure proper focus transitions.
+- Every new feature under `src/mvvm/` **must include an integration test** located inside its `__integrations__/` folder.
+- A **minimal integration test** must be created as soon as the feature folder is added.
+- This test should be expanded and updated progressively as the feature grows.
+- Integration tests ensure that screens, components, hooks, and navigation work together as expected within the MVVM Architecture.
+- use MSW to mock Network API calls
 
-### Desktop
+### Hooks & Utils
 
-- Use semantic HTML tags.
-- Implement full keyboard navigation.
-- Apply meaningful ARIA attributes when required.
+- All **hooks** must have dedicated tests validating their logic, edge cases, and interactions with external systems.
+- **Utilities (`utils/`)** must also be covered by unit tests to ensure stability and prevent regressions.
+- Keep test files close to their source whenever appropriate (e.g., `utils/` and `hooks/` can contain their own `__tests__/`).
 
-## Error Boundaries
+### General Guidelines
 
-- Wrap critical areas in error boundaries.
-- Report errors to monitoring services.
-- Provide clean, user-friendly fallback UIs.
-
-## Platform-Specific Code
-
-### React Native
-
-- Use `Platform.select` for small platform variations.
-- Ensure behavior parity across iOS and Android.
-
-### Desktop
-
-- Use environment flags for Electron/Web differences.
-- Keep platform abstraction consistent.
-
-## Animations
-
-### Mobile
-
-- Use the native driver whenever feasible.
-- Prefer `Animated` and layout animations for performance.
-
-### Desktop
-
-- Use CSS transitions for lightweight animations.
-- Use Framer Motion for structured or complex animations.
-- Respect reduced-motion system preferences.
-
-## Internationalization (i18n)
-
-- Use `react-i18next` consistently.
-- Keep translation keys descriptive and structured.
-- Support pluralization, gender, and variable interpolation.
-- Validate components across multiple locales.
+- Prefer **integration-first** testing where possible, to validate the complete behavior of the feature.
+- Keep mocks minimal—favor realistic wiring of components through the MVVM Architecture patterns.
+- Follow the project's existing **custom test renderer** conventions and best practices.
 
 ---
 > Source: [Ledger-Wallet-LLC/ledgerwallet](https://github.com/Ledger-Wallet-LLC/ledgerwallet) — distributed by [TomeVault](https://tomevault.io).
