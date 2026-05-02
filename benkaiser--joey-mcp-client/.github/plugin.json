@@ -1,0 +1,9 @@
+{
+  "name": "benkaiser--joey-mcp-client",
+  "displayName": "joey-mcp-client",
+  "description": "An AI chat app with native OpenRouter and MCP support",
+  "version": "1.0.0",
+  "author": "benkaiser",
+  "homepage": "https://github.com/benkaiser/joey-mcp-client",
+  "skills": []
+}
