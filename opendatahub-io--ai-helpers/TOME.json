@@ -1,0 +1,111 @@
+{
+  "name": "ai-helpers",
+  "owner": "opendatahub-io",
+  "repo": "ai-helpers",
+  "description": "AI Helpers \u2014 collections of Skills, Commands, Agents (compatible with Claude Code, Cursor and other tools) and Gemini Gems",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-shallow-clone",
+      "path": "helpers/skills/git-shallow-clone",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/git-shallow-clone",
+      "description": ""
+    },
+    {
+      "name": "gitlab-pipeline-debugger",
+      "path": "helpers/skills/gitlab-pipeline-debugger",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/gitlab-pipeline-debugger",
+      "description": ""
+    },
+    {
+      "name": "jira-upload-chat-log",
+      "path": "helpers/skills/jira-upload-chat-log",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/jira-upload-chat-log",
+      "description": ""
+    },
+    {
+      "name": "python-full-deps",
+      "path": "helpers/skills/python-full-deps",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/python-full-deps",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-bug-finder",
+      "path": "helpers/skills/python-packaging-bug-finder",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/python-packaging-bug-finder",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-complexity",
+      "path": "helpers/skills/python-packaging-complexity",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/python-packaging-complexity",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-env-finder",
+      "path": "helpers/skills/python-packaging-env-finder",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/python-packaging-env-finder",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-license-checker",
+      "path": "helpers/skills/python-packaging-license-checker",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/python-packaging-license-checker",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-license-finder",
+      "path": "helpers/skills/python-packaging-license-finder",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/python-packaging-license-finder",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-source-finder",
+      "path": "helpers/skills/python-packaging-source-finder",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/python-packaging-source-finder",
+      "description": ""
+    },
+    {
+      "name": "unit-test-project-conformant",
+      "path": "helpers/skills/unit-test-project-conformant",
+      "github_url": "https://github.com/opendatahub-io/ai-helpers/tree/main/helpers/skills/unit-test-project-conformant",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/opendatahub-io/ai-helpers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T21:38:35Z"
+}
