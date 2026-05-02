@@ -1,0 +1,34 @@
+{
+  "name": "rp1-run--rp1",
+  "displayName": "rp1",
+  "description": "Ready Player One - stop prompting; start shipping",
+  "version": "1.0.0",
+  "author": "rp1-run",
+  "homepage": "https://github.com/rp1-run/rp1",
+  "skills": [
+    {
+      "name": "code-comments",
+      "description": ""
+    },
+    {
+      "name": "knowledge-base-templates",
+      "description": ""
+    },
+    {
+      "name": "markdown-preview",
+      "description": ""
+    },
+    {
+      "name": "prompt-eval-builder",
+      "description": ""
+    },
+    {
+      "name": "prompt-writer",
+      "description": ""
+    },
+    {
+      "name": "sample-skill",
+      "description": ""
+    }
+  ]
+}
