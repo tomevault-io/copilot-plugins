@@ -1,0 +1,70 @@
+{
+  "name": "manusco--resonance",
+  "displayName": "resonance",
+  "description": "The Vibe Coding Operating System.",
+  "version": "1.0.0",
+  "author": "manusco",
+  "homepage": "https://github.com/manusco/resonance",
+  "skills": [
+    {
+      "name": "resonance-architect",
+      "description": ""
+    },
+    {
+      "name": "resonance-automation",
+      "description": ""
+    },
+    {
+      "name": "resonance-backend",
+      "description": ""
+    },
+    {
+      "name": "resonance-database",
+      "description": ""
+    },
+    {
+      "name": "resonance-designer",
+      "description": ""
+    },
+    {
+      "name": "resonance-devops",
+      "description": ""
+    },
+    {
+      "name": "resonance-frontend",
+      "description": ""
+    },
+    {
+      "name": "resonance-game-dev",
+      "description": ""
+    },
+    {
+      "name": "resonance-librarian",
+      "description": ""
+    },
+    {
+      "name": "resonance-mobile",
+      "description": ""
+    },
+    {
+      "name": "resonance-qa",
+      "description": ""
+    },
+    {
+      "name": "resonance-refactor",
+      "description": ""
+    },
+    {
+      "name": "resonance-reviewer",
+      "description": ""
+    },
+    {
+      "name": "resonance-skill-author",
+      "description": ""
+    },
+    {
+      "name": "resonance-studio",
+      "description": ""
+    }
+  ]
+}
