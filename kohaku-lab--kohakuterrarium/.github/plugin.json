@@ -1,0 +1,9 @@
+{
+  "name": "kohaku-lab--kohakuterrarium",
+  "displayName": "KohakuTerrarium",
+  "description": "KohakuTerrarium is a general-purpose AI agent framework and batteries-included app for building, running, and composing self-contained agents and multi-agent teams, with built-in tools, sub-agents, pe",
+  "version": "1.0.0",
+  "author": "Kohaku-Lab",
+  "homepage": "https://github.com/Kohaku-Lab/KohakuTerrarium",
+  "skills": []
+}
