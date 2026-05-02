@@ -1,0 +1,9 @@
+{
+  "name": "gupsammy--claudest",
+  "displayName": "Claudest",
+  "description": "A highly opinionated plugin marketplace for augmenting your Claude Code.  Battle-tested skills and tools that actually work.",
+  "version": "1.0.0",
+  "author": "gupsammy",
+  "homepage": "https://github.com/gupsammy/Claudest",
+  "skills": []
+}
