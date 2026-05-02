@@ -4,7 +4,7 @@
   "repo": "abap-mcp-server",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marianfoo/abap-mcp-server",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T22:06:15Z"
+  "distributed_at": "2026-05-02T04:07:19Z"
 }
