@@ -1,52 +1,43 @@
-## extending-the-framework
+## memory
 
-> When adding new tools, channels, middleware, message bus backends, or checkpointer backends to the langclaw framework
+> Memory management for important conversation points
 
 
-# Extending Langclaw
+# Conversation Memory
 
-## Adding a Tool
+Track and save important points during conversations to `.cursor/memories/`.
 
-Tools are async functions decorated with `@tool` from `langchain_core.tools` or registered via `@app.tool()` on the `Langclaw` instance. Follow the pattern in `langclaw/agents/tools/`.
+## What counts as important
+- User's vision and goals for the project
+- Corrections the user makes to my mistakes (especially when they say "remember this")
+- Solutions we brainstorm together
+- Reasoning behind decisions we made
 
-- Return a dict on failure: `{"error": f"Failed to ...: {exc}"}` — never raise
-- Add type hints to all parameters — LangChain uses them for the tool schema
-- The docstring becomes the tool description the LLM sees — make it actionable
-- Register in `langclaw/agents/tools/__init__.py` if it's a built-in tool
+## Behavior
+When I detect one of the above, I should:
+1. Proactively offer to save it, OR
+2. If it's clearly important (explicit correction, key decision), automatically append to today's memory file
 
-## Adding a Channel
+## File format
+Save to `.cursor/memories/YYYY-MM-DD.md` (one file per day, append entries).
 
-Extend `BaseChannel` in `langclaw/gateway/base.py`. See `telegram.py`, `discord.py`, `websocket.py` for reference.
+Each entry format:
+```
+## HH:MM - [Category]
 
-- Implement `start()`, `stop()`, `send()`, and `send_ai_message()`
-- The channel publishes `InboundMessage` to the bus — it never talks to the agent directly
-- Set `origin="channel"` when publishing user messages to the bus
-- Add the optional dependency to `pyproject.toml` under `[project.optional-dependencies]`
-- Guard the import in `Langclaw._build_all_channels()` with `try/except ImportError`
+**Summary:** Brief description
 
-## Adding a Bus or Checkpointer Backend
+**Details:** Context and reasoning if relevant
 
-Follow the abstract-base + factory pattern:
+---
+```
 
-1. Create the implementation in the respective package (e.g. `bus/redis_bus.py`)
-2. Extend the abstract base (`bus/base.py` or `checkpointer/base.py`)
-3. Implement the async context manager protocol (`__aenter__` / `__aexit__`)
-4. Register in the factory function (`make_message_bus` or `make_checkpointer_backend`)
-5. Add config options to `config/schema.py` following the existing nested pattern
+Categories: `Vision` | `Correction` | `Brainstorm` | `Decision`
 
-## Adding Middleware
-
-Middleware uses the `@wrap_model_call` pattern from deepagents. See `middleware/permissions.py` for the canonical example.
-
-- Middleware filters or transforms the tool list **before** the LLM sees it
-- Order matters — middleware is composed in `agents/builder.py`
-- Accept `LangclawConfig` in the factory, return the middleware callable
-
-## Config Changes
-
-When adding config, update both:
-1. `langclaw/config/schema.py` — add the Pydantic model/field
-2. `.env.example` — document the new env var with the `LANGCLAW__` prefix
+## Guidelines
+- Don't save trivial things or routine coding tasks
+- When in doubt, ask before saving
+- Keep summaries concise but capture the "why"
 
 ---
 > Source: [tisu19021997/langclaw](https://github.com/tisu19021997/langclaw) — distributed by [TomeVault](https://tomevault.io).
