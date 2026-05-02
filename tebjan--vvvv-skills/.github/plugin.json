@@ -1,0 +1,42 @@
+{
+  "name": "tebjan--vvvv-skills",
+  "displayName": "vvvv-skills",
+  "description": "Skills to help AI Agents master the vvvv gamma ecosystem",
+  "version": "1.0.0",
+  "author": "tebjan",
+  "homepage": "https://github.com/tebjan/vvvv-skills",
+  "skills": [
+    {
+      "name": "vvvv-channels",
+      "description": ""
+    },
+    {
+      "name": "vvvv-custom-nodes",
+      "description": ""
+    },
+    {
+      "name": "vvvv-editor-extensions",
+      "description": ""
+    },
+    {
+      "name": "vvvv-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "vvvv-node-libraries",
+      "description": ""
+    },
+    {
+      "name": "vvvv-patching",
+      "description": ""
+    },
+    {
+      "name": "vvvv-spreads",
+      "description": ""
+    },
+    {
+      "name": "vvvv-troubleshooting",
+      "description": ""
+    }
+  ]
+}
