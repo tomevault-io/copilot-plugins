@@ -1,0 +1,269 @@
+## agent-alchemy
+
+> Agent Alchemy is a monorepo that extends Claude Code into a structured development platform through markdown-as-code plugins, a real-time task dashboard, and a VS Code extension.
+
+# CLAUDE.md
+
+## Project Overview
+
+Agent Alchemy is a monorepo that extends Claude Code into a structured development platform through markdown-as-code plugins, a real-time task dashboard, and a VS Code extension.
+
+## Repository Structure
+
+```
+agent-alchemy/
+├── claude/                    # Claude Code plugins (markdown-as-code)
+│   ├── .claude-plugin/        # Plugin marketplace registry
+│   ├── claude-tools/          # Claude Code Tasks & Agent Teams reference skills
+│   ├── core-tools/            # Codebase analysis, deep exploration, language patterns (includes hooks/)
+│   ├── dev-tools/             # Feature dev, debugging, code review, docs, changelog
+│   ├── sdd-tools/             # Spec-Driven Development pipeline
+│   ├── tdd-tools/             # TDD workflows: test generation, RED-GREEN-REFACTOR, coverage
+│   ├── git-tools/             # Git commit automation
+│   ├── plugin-tools/          # Plugin porting, adapter validation, ported plugin maintenance, ecosystem health
+│   ├── opencode-tools/        # OpenCode extension creation, update, and validation toolkit
+│   └── cs-tools/              # Competitive programming problem-solving and solution verification
+├── agent-tools/               # Python CLI for cross-harness skill management (Typer)
+├── apps/
+│   └── task-manager/          # Next.js 16 real-time Kanban dashboard
+├── extensions/
+│   └── vscode/                # VS Code extension for plugin authoring
+├── internal/docs/             # Internal documentation and analysis
+└── site/                      # MkDocs documentation site (generated)
+```
+
+## Development Commands
+
+```bash
+# Task Manager
+pnpm dev:task-manager          # Start dev server on port 3030
+pnpm build:task-manager        # Production build
+
+# VS Code Extension
+cd extensions/vscode
+npm install
+npm run build                  # Build with esbuild
+npm run watch                  # Watch mode
+npm run package                # Package VSIX
+
+# Agent Tools CLI
+cd agent-tools
+uv sync                        # Install dependencies
+uv run agent-tools --help      # Run CLI
+uv run pytest                  # Run tests (~295 tests)
+uv run ruff check .            # Lint
+
+# Linting
+pnpm lint                      # Lint all packages
+```
+
+## Architecture Patterns
+
+### Plugin System (claude/)
+
+- **Skills** are defined in `SKILL.md` with YAML frontmatter and markdown body
+- **Agents** are defined in `{name}.md` with YAML frontmatter (model, tools, skills)
+- **Hooks** are JSON configs in `hooks/hooks.json` for lifecycle events
+- Skills compose by loading other skills: `Read ${CLAUDE_PLUGIN_ROOT}/skills/{name}/SKILL.md`
+- Complex skills use `references/` subdirectories for supporting materials
+
+### Plugin Composition Patterns
+
+- **Skill Loading**: Skills compose at runtime via `Read ${CLAUDE_PLUGIN_ROOT}/skills/{name}/SKILL.md` — prompt injection, not function calls
+- **Hub-and-Spoke Teams**: `deep-analysis` spawns N explorer agents (Sonnet) + 1 synthesizer (Opus); explorers work independently, synthesizer merges with follow-ups + Bash investigation
+- **Phase Workflows**: Complex skills use numbered phases with `"CRITICAL: Complete ALL N phases"` directives to prevent premature stopping
+- **Reference Materials**: Large knowledge bases externalized into `references/` subdirectories (~6,000 lines total), loaded progressively when needed
+- **Agent Tool Restrictions**: Architect (core-tools) and reviewer (dev-tools) agents are read-only (Glob, Grep, Read only); executor agents can write — enforces separation of concerns
+- **AskUserQuestion Enforcement**: All interactive skills route user interaction through `AskUserQuestion`, never plain text output
+
+### SDD Pipeline Patterns
+
+- **Artifact chain**: `/create-spec` → spec markdown → `/create-tasks` → task JSON → `/execute-tasks` → code + session logs
+- **Wave-based execution**: Tasks grouped by topological sort level; N agents per wave, configurable via `--max-parallel`
+- **Result file protocol**: Each task-executor writes a compact `result-task-{id}.md` (~18 lines) as its last action; orchestrator polls for these instead of consuming full agent output (79% context reduction per wave)
+- **Per-task context isolation**: Each agent writes to `context-task-{id}.md`; orchestrator merges into shared `execution_context.md` between waves — eliminates write contention
+- **Merge mode**: `/create-tasks` uses `task_uid` composite keys for idempotent re-runs — completed tasks preserved, pending tasks updated, new tasks created
+- **Session management**: Single-session invariant via `.lock` file; interrupted sessions auto-recovered with in_progress tasks reset to pending
+
+### Session Directory Layout
+
+```
+.claude/sessions/__live_session__/       # Active execution session
+├── execution_plan.md                    # Wave plan from orchestrator
+├── execution_context.md                 # Shared learnings across tasks
+├── task_log.md                          # Per-task status, duration, tokens
+├── progress.md                          # Real-time progress tracking
+├── tasks/                               # Archived completed task JSONs
+├── context-task-{id}.md                 # Per-task context (ephemeral)
+├── result-task-{id}.md                  # Per-task result (ephemeral)
+└── .lock                                # Concurrency guard
+```
+
+### Cross-Plugin Dependencies
+
+`deep-analysis` (core-tools) is the keystone skill, loaded by 3 skills across 2 plugin groups:
+- `codebase-analysis` (core-tools) — wraps deep-analysis with reporting + post-analysis actions
+- `feature-dev` (dev-tools) — loads in Phase 2 for codebase exploration
+- `docs-manager` (dev-tools) — loads for codebase understanding before doc generation
+
+`technical-diagrams` (core-tools) is a reference skill loaded by:
+- `codebase-analysis` (core-tools) — loads in Phase 2 for Mermaid diagrams in reports
+- `docs-writer` agent (dev-tools) — auto-loaded via `skills:` frontmatter for consistent diagram quality
+- `code-architect` agent (core-tools) — auto-loaded via `skills:` frontmatter for blueprint diagrams
+- `code-synthesizer` agent (core-tools) — auto-loaded via `skills:` frontmatter for synthesis report diagrams
+- `feature-dev` (dev-tools) — loads in Phase 4 for architecture proposal diagrams
+- `create-spec` (sdd-tools) — loads in Phase 6 for detailed/full-tech spec diagrams
+- `dependency-checker` (plugin-tools) — loads in Phase 5 for dependency graph visualization
+- `architecture-patterns` (dev-tools) — contains inline Mermaid following technical-diagrams conventions
+
+`claude-code-tasks` and `claude-code-teams` (claude-tools) are reference skills loaded by sdd-tools and available for cross-plugin loading by any skill that interacts with Claude Code Tasks or Agent Teams:
+- `create-tasks` (sdd-tools) — loads claude-code-tasks for task conventions, metadata patterns, and anti-pattern validation
+- `run-tasks` (sdd-tools) — loads both claude-code-tasks and claude-code-teams for team orchestration, messaging, and hooks
+- `create-spec` (sdd-tools) — loads claude-code-teams for team-based codebase exploration (Parallel Specialists pattern)
+- `analyze-spec` (sdd-tools) — loads claude-code-tasks for creating fix tasks from analysis findings
+- `wave-lead` agent (sdd-tools) — loads both for task management and team coordination
+- `task-executor-v2` agent (sdd-tools) — loads claude-code-tasks for task status conventions
+- `spec-analyzer` agent (sdd-tools) — loads claude-code-tasks for fix task creation
+- Loaded via `${CLAUDE_PLUGIN_ROOT}/../claude-tools/skills/claude-code-tasks/SKILL.md` or `${CLAUDE_PLUGIN_ROOT}/../claude-tools/skills/claude-code-teams/SKILL.md`
+
+**Cross-plugin reference convention:** Always use `${CLAUDE_PLUGIN_ROOT}/../{source-dir-name}/` for cross-plugin references, where `{source-dir-name}` is the directory name under `claude/` (e.g., `core-tools`, `tdd-tools`). Same-plugin references use `${CLAUDE_PLUGIN_ROOT}/` directly. Never use full marketplace names (e.g., `agent-alchemy-core-tools`) in path references — use the short source directory name.
+
+### Model Tiering
+
+- **Opus**: Synthesis, architecture, review (high-reasoning tasks)
+- **Sonnet**: Exploration, worker tasks (parallelizable broad search)
+- **Haiku**: Simple/quick tasks (git commit)
+
+### Key Skill Composition Chains
+
+```
+feature-dev -> deep-analysis -> code-explorer (sonnet) x N + code-synthesizer (opus) x 1
+feature-dev -> architecture-patterns + language-patterns + technical-diagrams -> code-architect (core-tools, opus) x 2-3 -> code-reviewer (opus) x 3
+
+create-spec -> claude-code-teams (reference) -> TeamCreate explorer team -> codebase-explorer (sonnet) x 2-3 (Parallel Specialists pattern)
+create-spec -> researcher agent (for technical research)
+create-spec -> technical-diagrams (Phase 6, detailed/full-tech only) -> spec compilation
+
+create-tasks -> claude-code-tasks (reference) -> reads spec -> generates tasks with anti-pattern validation
+analyze-spec -> spec-analyzer (opus) -> optional fix task creation via claude-code-tasks
+run-tasks -> claude-code-tasks + claude-code-teams (references) -> wave-lead (opus) x 1 per wave -> context-manager (sonnet) + task-executor-v2 (opus) x N
+
+tdd-cycle -> tdd-executor (opus) x 1 per feature (6-phase RED-GREEN-REFACTOR)
+generate-tests -> test-writer (sonnet) x N parallel (criteria-driven or code-analysis)
+create-tdd-tasks (tdd-tools) -> reads existing tasks -> generates TDD pairs (test blocks impl)
+execute-tdd-tasks (tdd-tools) -> tdd-executor for TDD tasks, task-executor (sdd-tools, soft dep) for non-TDD tasks
+
+port-plugin -> researcher (sonnet) x 1 -> port-converter (sonnet) x N per wave -> orchestrator resolves incompatibilities between waves
+validate-adapter -> researcher (sonnet) x 1 -> compare adapter sections against research
+update-ported-plugin -> validate-adapter (phases 1-3) + git diff -> incremental re-conversion
+
+dependency-checker -> reads all plugin groups -> builds dependency graph -> 7 analysis passes + doc drift checks -> technical-diagrams (Phase 5) for report visualization
+
+bug-killer (quick) -> reads error location, targeted investigation, fix + regression test -> project-learnings
+bug-killer (deep) -> code-explorer (core-tools, sonnet) x 2-3 + bug-investigator (sonnet) x 1-3 -> code-quality (same plugin) for fix validation -> project-learnings
+
+codebase-analysis -> technical-diagrams (loaded in Phase 2 for report diagrams)
+docs-manager -> docs-writer -> technical-diagrams (auto-loaded via skills: frontmatter)
+
+interview-me -> question-bank + research-triggers (references, loaded Phase 2) -> interview-researcher (opus) x 0-N per interview, bounded by proactive budget -> templates/{report-detailed,report-summary,implementation-plan}.md (Phase 5) -> technical-diagrams (Phase 5, detailed/deep-dive only)
+
+oc-tool-dev -> triage interview -> dependency detection -> loads oc-create-*/oc-update-* skills -> oc-generator x N -> oc-validator x N
+oc-create-skill/oc-create-agent/oc-create-command (opencode-tools) -> oc-generator x 1 -> oc-validator x 1
+oc-update-skill/oc-update-agent/oc-update-command (opencode-tools) -> oc-researcher x 1 -> oc-validator x 1
+
+solve (cs-tools) -> classify problem -> load reference skill(s) (dp-patterns, graph-algorithms, etc.) -> problem-solver (opus) x 1
+verify (cs-tools) -> solution-verifier (opus) x 1 -> static analysis + test generation + execution
+```
+
+### Task Manager (apps/task-manager/)
+
+- Next.js 16 App Router with Server Components + Client Components
+- Real-time: Chokidar watches `~/.claude/tasks/` -> SSE -> TanStack Query invalidation
+- Global FileWatcher singleton survives HMR via `globalThis`
+
+### VS Code Extension (extensions/vscode/)
+
+- Ajv-based YAML frontmatter validation for skills and agents
+- JSON schema validation for plugin.json, hooks.json, .mcp.json, .lsp.json, marketplace.json
+- 7 JSON schemas total in `extensions/vscode/schemas/` (skill-frontmatter, agent-frontmatter, plugin, hooks, mcp, lsp, marketplace)
+- Schema-driven autocompletion and hover documentation
+- Auto-activates on workspaces containing `.claude-plugin/plugin.json`
+
+## Conventions
+
+- **Git**: Conventional Commits (`type(scope): description`)
+- **TypeScript**: Strict mode, functional patterns preferred
+- **Styling**: Tailwind CSS v4 with shadcn/ui components (task manager)
+- **Schemas**: JSON schemas live in `extensions/vscode/schemas/` (bundled with the VS Code extension)
+
+## Plugin Inventory
+
+| Group | Skills | Agents | Version |
+|-------|--------|--------|---------|
+| claude-tools | claude-code-tasks, claude-code-teams | — | 0.2.5 |
+| core-tools | deep-analysis, codebase-analysis, interview-me, language-patterns, project-conventions, technical-diagrams | code-explorer, code-synthesizer, code-architect, interview-researcher | 0.2.4 |
+| dev-tools | feature-dev, bug-killer, architecture-patterns, code-quality, project-learnings, changelog-format, docs-manager, release-python-package, document-changes | code-reviewer, bug-investigator, changelog-manager, docs-writer | 0.3.4 |
+| sdd-tools | create-spec, analyze-spec, create-tasks, run-tasks | codebase-explorer, researcher, spec-analyzer, wave-lead, context-manager, task-executor-v2 | 0.2.11 |
+| tdd-tools | generate-tests, tdd-cycle, analyze-coverage, create-tdd-tasks, execute-tdd-tasks | test-writer, tdd-executor, test-reviewer | 0.2.1 |
+| git-tools | git-commit | — | 0.1.0 |
+| plugin-tools | port-plugin, port-master, validate-adapter, update-ported-plugin, dependency-checker, bump-plugin-version | researcher, port-converter | 0.2.6 |
+| opencode-tools | oc-tool-dev, oc-create-skill, oc-update-skill, oc-create-agent, oc-update-agent, oc-create-command, oc-update-command | oc-researcher, oc-validator, oc-generator | 0.1.3 |
+| cs-tools | solve, verify, dp-patterns, graph-algorithms, search-and-optimization, data-structures, math-and-combinatorics, string-algorithms | problem-solver, solution-verifier | 0.1.0 |
+
+## Critical Plugin Files
+
+| File | Lines | Role |
+|------|-------|------|
+| `claude/core-tools/skills/deep-analysis/SKILL.md` | 521 | Keystone skill — hub-and-spoke team engine loaded by 4 other skills |
+| `claude/plugin-tools/skills/port-plugin/SKILL.md` | ~2575 | Largest skill — cross-platform plugin porting with 7-phase (+4.5) workflow, wave-based agent team conversion |
+| `claude/plugin-tools/skills/validate-adapter/SKILL.md` | 625 | Adapter validation against live platform docs (4 phases) |
+| `claude/plugin-tools/skills/update-ported-plugin/SKILL.md` | 793 | Incremental ported plugin updates with dual-track change detection (5 phases) |
+| `claude/sdd-tools/skills/create-spec/SKILL.md` | ~742 | Adaptive interview with context input, complexity detection, and depth-aware questioning |
+| `claude/sdd-tools/skills/create-tasks/SKILL.md` | 653 | Spec-to-task decomposition with `task_uid` merge mode |
+| `claude/sdd-tools/skills/run-tasks/SKILL.md` | ~230 | Wave-based parallel execution with claude-tools integration and quality gate hooks |
+| `claude/dev-tools/skills/feature-dev/SKILL.md` | 275 | 7-phase lifecycle spawning architect + reviewer agent teams |
+| `claude/dev-tools/skills/bug-killer/SKILL.md` | ~480 | Hypothesis-driven debugging — triage-based quick/deep track with agent investigation |
+| `claude/tdd-tools/skills/tdd-cycle/SKILL.md` | 727 | 7-phase RED-GREEN-REFACTOR TDD workflow |
+| `claude/tdd-tools/skills/generate-tests/SKILL.md` | 524 | Test generation from acceptance criteria or source code |
+| `claude/tdd-tools/skills/create-tdd-tasks/SKILL.md` | 687 | SDD-to-TDD task pair transformation |
+| `claude/tdd-tools/skills/execute-tdd-tasks/SKILL.md` | 630 | TDD-aware wave execution with agent routing |
+| `claude/core-tools/skills/technical-diagrams/SKILL.md` | 345 | Mermaid diagram syntax, styling rules, and quick reference — loaded by 8 skills/agents across 4 plugin groups |
+| `claude/plugin-tools/skills/dependency-checker/SKILL.md` | 651 | Ecosystem dependency analysis with 7 detection passes + doc drift |
+
+## Known Challenges
+
+| Challenge | Severity | Notes |
+|-----------|----------|-------|
+| Cross-plugin `${CLAUDE_PLUGIN_ROOT}` inconsistency | Resolved | Standardized to `/../{source-dir-name}/` pattern. Convention documented above in Cross-Plugin Dependencies. |
+| Zero test coverage for VS Code extension | High | Validator is the most critical component — Ajv compilation, path detection, and line-number mapping are all untested. |
+| Schema drift risk | Medium | JSON schemas manually maintained. No CI validation ensures schemas match actual plugin frontmatter usage. |
+| Large reference files | Medium | plugin-tools has 6 reference files totaling ~3,300 lines + port-plugin SKILL.md (~2,575 lines) + port-converter agent (~390 lines) + session-format.md (~200 lines). Largest single reference is mcp-converter.md (713 lines). Context isolation via wave-based agents mitigates the port-plugin context pressure. |
+
+## Settings
+
+User preferences are stored in `.claude/agent-alchemy.local.md` (not committed):
+- `deep-analysis.direct-invocation-approval`: Whether to require plan approval when user invokes directly (default: true)
+- `deep-analysis.invocation-by-skill-approval`: Whether to require approval when loaded by another skill (default: false)
+- `deep-analysis.cache-ttl-hours`: Hours before exploration cache expires; 0 disables caching (default: 24)
+- `deep-analysis.enable-checkpointing`: Write session checkpoints at phase boundaries for recovery (default: true)
+- `deep-analysis.enable-progress-indicators`: Display `[Phase N/6]` progress messages during execution (default: true)
+- `tdd.framework`: Override test framework auto-detection (`auto` | `pytest` | `jest` | `vitest`, default: `auto`)
+- `tdd.coverage-threshold`: Target coverage percentage for analyze-coverage (0-100, default: `80`)
+- `tdd.strictness`: RED phase enforcement level (`strict` | `normal` | `relaxed`, default: `normal`)
+- `tdd.test-review-threshold`: Minimum test quality score (0-100, default: `70`)
+- `tdd.test-review-on-generate`: Auto-run test-reviewer after generate-tests (default: `false`)
+- `run-tasks.retry_partial`: Whether to retry PARTIAL tasks. When false, PARTIAL is marked completed. When true, PARTIAL enters retry flow. (default: `false`)
+- `run-tasks.context_manager_threshold`: Minimum task count per wave to spawn a Context Manager. Waves with fewer tasks skip CM and wave-lead handles context inline. (default: `3`)
+- `plugin-tools.dependency-checker.severity-threshold`: Minimum severity to show (`critical` | `high` | `medium` | `low`, default: `low`)
+- `plugin-tools.dependency-checker.check-docs-drift`: Run Phase 4 CLAUDE.md/README cross-referencing (default: `true`)
+- `plugin-tools.dependency-checker.line-count-tolerance`: Percentage tolerance for line count drift in CLAUDE.md tables (default: `10`)
+- `interview-me.default-depth`: Default interview depth (`overview` | `detailed` | `deep-dive`, default: `detailed`)
+- `interview-me.default-output-type`: Default output type (`report-detailed` | `report-summary` | `implementation-plan` | `something-else`, default: `report-detailed`)
+- `interview-me.output-directory`: Default directory for interview artifacts (default: `internal/interviews/`)
+- `interview-me.proactive-research-budget`: Max proactive research calls per interview; `0` disables proactive research (default: `3`)
+- `interview-me.enable-context-argument`: Whether the skill accepts a `$ARGUMENTS` context (file path or inline text) to pre-load (default: `true`)
+- `interview-me.slug-collision-strategy`: How to handle existing output files (`timestamp-suffix` | `prompt`, default: `timestamp-suffix`)
+
+---
+> Source: [sequenzia/agent-alchemy](https://github.com/sequenzia/agent-alchemy) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
