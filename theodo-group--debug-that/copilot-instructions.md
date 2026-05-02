@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## debug-that
 
 > CLI debugger built with Bun, optimized for AI agent consumption.
 
