@@ -1,0 +1,9 @@
+{
+  "name": "debba--gh-dashboard",
+  "displayName": "gh-dashboard",
+  "description": "Open-source dashboard built on GitHub's REST and GraphQL APIs: repositories, issues, pull requests, traffic, Actions, contributors, dependents, and a kanban board view.",
+  "version": "1.0.0",
+  "author": "debba",
+  "homepage": "https://github.com/debba/gh-dashboard",
+  "skills": []
+}
