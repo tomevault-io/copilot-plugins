@@ -1,0 +1,14 @@
+{
+  "name": "awakecoding--openspecs",
+  "displayName": "openspecs",
+  "description": "Microsoft Open Specifications Windows Protocols Skill",
+  "version": "1.0.0",
+  "author": "awakecoding",
+  "homepage": "https://github.com/awakecoding/openspecs",
+  "skills": [
+    {
+      "name": "windows-protocols",
+      "description": ""
+    }
+  ]
+}
