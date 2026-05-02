@@ -1,0 +1,46 @@
+{
+  "name": "matteing--opal",
+  "displayName": "opal",
+  "description": "\ud83d\udd2e A smol coding agent in Elixir",
+  "version": "1.0.0",
+  "author": "matteing",
+  "homepage": "https://github.com/matteing/opal",
+  "skills": [
+    {
+      "name": "ci-preflight",
+      "description": ""
+    },
+    {
+      "name": "citations",
+      "description": ""
+    },
+    {
+      "name": "codegen-sync",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "elixir-cyclic-deps",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "description": ""
+    },
+    {
+      "name": "lint-and-format",
+      "description": ""
+    },
+    {
+      "name": "live-tests",
+      "description": ""
+    }
+  ]
+}
