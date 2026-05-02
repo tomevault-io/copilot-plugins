@@ -1,0 +1,9 @@
+{
+  "name": "mame--ai-coding-lang-bench",
+  "displayName": "ai-coding-lang-bench",
+  "description": "Which programming language is best for AI coding agents? Benchmarking 13 languages with Claude Code.",
+  "version": "1.0.0",
+  "author": "mame",
+  "homepage": "https://github.com/mame/ai-coding-lang-bench",
+  "skills": []
+}
