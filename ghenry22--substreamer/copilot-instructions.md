@@ -1,73 +1,48 @@
-## routing-and-navigation
+## ux-quality
 
-> Expo Router navigation patterns and route file conventions
+> UX/UI quality principles – animations, transitions, and user-perceivable feedback
 
 
-# Routing & Navigation
+# UX & UI Quality
 
-## Expo Router (File-Based)
+## Excellence by Default
 
-Routes live in `src/app/`. The app uses a Stack navigator at the root and a Tab navigator for the main interface.
+Every change must consider the user experience beyond the basic functional requirement. Prioritize how the interface looks, feels, and responds — not just whether it works.
 
-## Route File Pattern
+## Smooth, Consistent Animations
 
-Route files are **thin wrappers** that import and render screen components:
+Animations and transitions should be smooth, beautiful, and stylistically consistent across the entire application. Use consistent easing curves and durations so the app feels cohesive. Avoid jarring cuts, instant state swaps, or mismatched motion styles between screens.
 
-```tsx
-// src/app/(tabs)/index.tsx
-import { HomeScreen } from '@/screens/home';
+## Prefer Reanimated
 
-export default function HomeTab() {
-  return <HomeScreen />;
-}
-```
+All animations should use `react-native-reanimated` by default. Reanimated runs animations on the UI thread via worklets, avoiding JS thread bottlenecks and enabling smooth 60fps motion even under load.
 
-Keep all business logic, data fetching, and UI in `src/screens/` – not in route files.
+Key APIs to use:
 
-## Dynamic Routes
+- `useSharedValue` for mutable animated values
+- `useAnimatedStyle` for styles driven by shared values
+- `withTiming`, `withSpring`, `withDelay`, `withSequence`, `withRepeat` for animation composition
+- `interpolate` (inside `useAnimatedStyle`) for value mapping
+- `cancelAnimation` to stop running animations
+- `runOnJS` to call JS-thread functions from animation callbacks
+- `Animated.View`, `Animated.Image` etc. imported from `react-native-reanimated`
 
-Entity detail screens use dynamic segments: `album/[id].tsx`, `artist/[id].tsx`, `playlist/[id].tsx`.
+Do **not** import `Animated` or `Easing` from `react-native`, except in the case noted below.
 
-Access params with `useLocalSearchParams()`:
+### Exception: Slow Linear Translations
 
-```tsx
-const { id } = useLocalSearchParams<{ id: string }>();
-```
+For **slow, constant-velocity linear animations** such as marquee or ticker scrolling, use React Native's built-in `Animated` API with `useNativeDriver: true` instead of Reanimated. The native driver delegates interpolation directly to the platform's display-synced animation loop (CADisplayLink on iOS, Choreographer on Android), which produces perfectly uniform frame-to-frame deltas. Reanimated's worklet-thread timing introduces micro-jitter at low speeds that is perceptible to users.
 
-## Navigation
+Canonical example: `MarqueeText` (`src/components/MarqueeText.tsx`) uses `Animated.timing` + `Animated.loop` from `react-native` for this reason.
 
-Use `useRouter()` for programmatic navigation:
+## Let Animations Breathe
 
-```tsx
-const router = useRouter();
-router.push(`/album/${album.id}`);
-router.push({ pathname: '/album-list', params: { type: listType } });
-router.replace('/login');
-```
+Give animations and transitions enough time to run and complete so users can perceive what is happening. Do not skip or shortcut visual feedback in favor of speed. The user should always understand the result of their action through motion and visual cues.
 
-## Layout Files
+Existing patterns that embody this principle:
 
-- `app/_layout.tsx` – Root Stack with auth guard, splash screen, and theme-aware header styles.
-- `app/(tabs)/_layout.tsx` – Tab navigator with `MiniPlayer` above the tab bar and `SearchableHeader` as custom header.
-
-## Auth Guard
-
-Authentication redirect logic lives in the root `_layout.tsx`:
-
-```tsx
-useEffect(() => {
-  if (!rehydrated || splashVisible) return;
-  if (!isLoggedIn && !onLoginScreen) router.replace('/login');
-  else if (isLoggedIn && onLoginScreen) router.replace('/');
-}, [rehydrated, isLoggedIn, splashVisible, segments, router]);
-```
-
-## Adding New Routes
-
-1. Create a screen component in `src/screens/new-screen.tsx`.
-2. Create a route file in `src/app/new-screen.tsx` that imports and renders the screen.
-3. Register the route in `app/_layout.tsx` Stack if it needs custom header options.
-4. For entity detail routes, use `app/entity/[id].tsx` pattern.
+- **`useTransitionComplete()`** – defer heavy rendering until a navigation transition finishes, preventing janky animations.
+- **`minDelay()`** – ensure loading spinners and refresh indicators remain visible long enough for the user to perceive them.
 
 ---
 > Source: [ghenry22/substreamer](https://github.com/ghenry22/substreamer) — distributed by [TomeVault](https://tomevault.io).
