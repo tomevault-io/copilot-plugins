@@ -1,34 +1,14 @@
-## cursor-rules
+## domain-packages
 
-> Guidelines for authoring and configuring .cursor/rules — activation modes, frontmatter, best practices
+> Domain package structure and conventions — read domain READMEs before creating or modifying packages under domain/
 
 
-# Cursor Rule Authoring
+# Domain Packages
 
-Reference: https://cursor.com/docs/context/rules#rule-file-format
+Before creating or modifying any package under `domain/`, read the relevant README and follow its conventions:
 
-## Rule Activation Modes
-
-Rules activate based on the combination of `description`, `globs`, and `alwaysApply` in their frontmatter:
-
-| Rule Type               | Frontmatter                                 | Behavior                           |
-| ----------------------- | ------------------------------------------- | ---------------------------------- |
-| Always Apply            | `alwaysApply: true`                         | Injected into every conversation   |
-| Apply Intelligently     | `description` + `alwaysApply: false`        | Agent decides based on description |
-| Apply to Specific Files | `globs` + `alwaysApply: false`              | Auto-activates on matching files   |
-| Apply Manually          | `alwaysApply: false` (no description/globs) | Only when @-mentioned in chat      |
-
-A `description` can be combined with `globs` — the description serves as documentation for human readers and also enables agent-decided activation when no matching file is open. The `description` field is always recommended.
-
-## Rules
-
-- **Avoid `alwaysApply: true`** — it clogs the context window by injecting the rule into every conversation unconditionally.
-- **Always add a `description`** — it documents the rule's purpose for human readers and enables intelligent agent-decided activation.
-- **Prefer smart activation (`description`) over `globs`** — the agent can judge relevance from conversation context better than broad file patterns. Add `globs` only when activation must be strictly tied to specific file types (e.g., test files, `.tsx` components).
-- **Never combine `alwaysApply: true` with `description` or `globs`** — it makes the other fields useless since the rule is always injected regardless.
-- If using `globs`, ensure patterns are precise (avoid overly broad patterns like `**/*`).
-- Keep rules under 500 lines. Split large rules into composable pieces.
-- Reference files with `@path` instead of copying their contents.
+- **Entity packages** (`domain/entity/`): read `domain/entity/README.md` for schema, slice, selectors, and file layout rules.
+- **API packages** (`domain/api/`): read `domain/api/README.md` for RTK Query endpoint conventions and file layout rules.
 
 ---
 > Source: [Ledger-Wallet-LLC/ledgerwallet](https://github.com/Ledger-Wallet-LLC/ledgerwallet) — distributed by [TomeVault](https://tomevault.io).
