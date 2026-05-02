@@ -1,0 +1,14 @@
+{
+  "name": "comfy-org--comfyui-desktop-2-0-beta",
+  "displayName": "ComfyUI",
+  "description": "ComfyUI-Desktop-2.0-Beta",
+  "version": "1.0.0",
+  "author": "Comfy-Org",
+  "homepage": "https://github.com/Comfy-Org/ComfyUI-Desktop-2.0-Beta",
+  "skills": [
+    {
+      "name": "writing-storybook-stories",
+      "description": ""
+    }
+  ]
+}
