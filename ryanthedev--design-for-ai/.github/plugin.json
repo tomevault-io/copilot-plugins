@@ -1,0 +1,9 @@
+{
+  "name": "ryanthedev--design-for-ai",
+  "displayName": "design-for-ai",
+  "description": "A Claude Code plugin that teaches visual design \u2014 typography, color, composition, proportions, and visual hierarchy",
+  "version": "1.0.0",
+  "author": "ryanthedev",
+  "homepage": "https://github.com/ryanthedev/design-for-ai",
+  "skills": []
+}
