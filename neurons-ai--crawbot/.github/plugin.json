@@ -1,0 +1,9 @@
+{
+  "name": "neurons-ai--crawbot",
+  "displayName": "crawbot",
+  "description": "Personal Agentic AI Assistant for non-tech user powered by OpenClaw",
+  "version": "1.0.0",
+  "author": "Neurons-AI",
+  "homepage": "https://github.com/Neurons-AI/crawbot",
+  "skills": []
+}
