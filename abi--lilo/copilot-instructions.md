@@ -1,0 +1,72 @@
+## lilo
+
+> This repository uses `main` as the primary branch.
+
+# AGENTS
+
+This repository uses `main` as the primary branch.
+
+## Project
+
+Lilo is a monorepo with:
+
+- `frontend/`: React + Vite + TypeScript + Tailwind + Zustand chat UI.
+- `backend/`: Hono + TypeScript server that uses the Pi SDK for persistent multi-session chats and streams events to the frontend via SSE.
+
+## Frontend Preferences
+
+- Favor small components.
+- Put each component in its own file.
+- Keep everything organized well into directories.
+
+## Configuration
+
+- Keep runtime/build configuration centralized.
+- Backend code should read environment-backed values through `backend/src/shared/config/config.ts`; do not read `process.env` directly from routes, services, or tools.
+- Frontend code should read Vite env-backed values through `frontend/src/config/config.ts`; do not read `import.meta.env` directly from components, hooks, stores, or libs.
+- If a new env var is needed, add it to the appropriate `config.ts` first, then consume it from there.
+
+## Coding Agent
+
+The coding agent used in this product is Pi Mono:
+
+- Repository: <https://github.com/badlogic/pi-mono>
+- Pi SDK docs: <https://raw.githubusercontent.com/badlogic/pi-mono/refs/heads/main/packages/coding-agent/docs/sdk.md>
+
+When changing Pi SDK integration code in this repo, use the Pi SDK docs above as the primary reference for supported session options and APIs.
+
+## Reference Implementations
+
+When asked how a feature is implemented, or to compare Lilo's implementation to Hermes or OpenClaw, consult these docs for details:
+
+- OpenClaw docs: <https://docs.openclaw.ai/>
+- Hermes Agent docs: <https://hermes-agent.nousresearch.com/docs>
+
+## Local Development
+
+- Never edit `.env` directly.
+
+From the repo root:
+
+```bash
+pnpm install
+pnpm run dev:backend
+pnpm run dev:frontend
+```
+
+Default local URLs:
+
+- Frontend: `http://localhost:5800`
+- Backend: `http://localhost:8787`
+
+Workspace apps should be opened over HTTP via:
+
+- `http://localhost:8787/workspace/<app-name>`
+
+## Agent Runtime
+
+The backend runs Pi sessions through the Pi SDK and translates agent events into SSE events for the frontend.
+
+---
+> Source: [abi/lilo](https://github.com/abi/lilo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
