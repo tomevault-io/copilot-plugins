@@ -1,0 +1,54 @@
+{
+  "name": "opendatahub-io--ai-helpers",
+  "displayName": "ai-helpers",
+  "description": "AI Helpers \u2014 collections of Skills, Commands, Agents (compatible with Claude Code, Cursor and other tools) and Gemini Gems",
+  "version": "1.0.0",
+  "author": "opendatahub-io",
+  "homepage": "https://github.com/opendatahub-io/ai-helpers",
+  "skills": [
+    {
+      "name": "git-shallow-clone",
+      "description": ""
+    },
+    {
+      "name": "gitlab-pipeline-debugger",
+      "description": ""
+    },
+    {
+      "name": "jira-upload-chat-log",
+      "description": ""
+    },
+    {
+      "name": "python-full-deps",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-bug-finder",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-complexity",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-env-finder",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-license-checker",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-license-finder",
+      "description": ""
+    },
+    {
+      "name": "python-packaging-source-finder",
+      "description": ""
+    },
+    {
+      "name": "unit-test-project-conformant",
+      "description": ""
+    }
+  ]
+}
