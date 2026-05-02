@@ -1,0 +1,9 @@
+{
+  "name": "fchimpan--gh-slimify",
+  "displayName": "gh-slimify",
+  "description": "\ud83d\ude80 Automatically detect and migrate GitHub Actions workflows to `ubuntu-slim` for cost-efficient CI",
+  "version": "1.0.0",
+  "author": "fchimpan",
+  "homepage": "https://github.com/fchimpan/gh-slimify",
+  "skills": []
+}
