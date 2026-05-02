@@ -1,29 +1,42 @@
-## player-vanilla
+## project-architecture
 
-> Vanilla JS constraints for the player runtime
+> Core architecture conventions for the Second Reality Web Demo Engine
 
 
-# Player Runtime Conventions
+# Project Architecture
 
-## Constraints
+Monorepo with source under `src/`, two entry points sharing `core/` and `effects/`:
 
-- Pure vanilla JS — no npm dependencies, no build step, no framework
-- Must work as a static file served from any origin (file://, http://, https://)
-- Imports only from `../core/` and `../effects/` via relative ES module paths
+- `src/editor/` — React + Vite creative tool (the only place React/Vite/Tailwind live)
+- `src/player/` — Vanilla JS fullscreen runtime (no npm deps, no build step)
+- `src/core/` — Shared runtime machinery (vanilla ES modules, zero dependencies)
+- `src/effects/` — One subfolder per effect with classic + optional remastered variants
 
-## Project Loading
+React, Vite, Tailwind, and any npm framework code must NEVER appear in `core/`, `effects/`, or `player/`.
 
-Three-mode resolution, checked in order:
+## Master Clock
 
-1. URL param: `?project=https://example.com/project.json`
-2. Inline: `window.__DEMO_PROJECT__` (set by export pipeline)
-3. Local fallback: `fetch('../assets/project.json')`
+`AudioContext.currentTime` is the single source of truth for all timing. Never use `Date.now()` or `performance.now()` for demo timing.
 
-## Canvas
+## Beat Map
 
-- Fullscreen `<canvas>` with `image-rendering: pixelated`
-- Internal resolution: 320×256 (classic) or viewport size (remastered)
-- Nearest-neighbor upscaling only — never bilinear
+Pre-authored JSON beat map, not real-time beat detection. Sync is intentional and handcrafted.
+
+## Effect Fidelity
+
+Each effect has a `classic` variant (1:1 faithful to the original) and an optional `remastered` variant (4K, enhanced). Classic is always implemented first.
+
+## Testing
+
+`core/` modules must have unit tests (Vitest). Effects are validated manually — do not unit test shaders or visual output.
+
+## Documentation
+
+`docs/` contains technical design documents. Update `docs/TRACKER.md` when completing tracked milestones.
+
+## Deliverable
+
+The exported single-HTML file (via `tools/export.js`) is the true distribution artifact.
 
 ---
 > Source: [pdcgomes/second-reality-augmented](https://github.com/pdcgomes/second-reality-augmented) — distributed by [TomeVault](https://tomevault.io).
