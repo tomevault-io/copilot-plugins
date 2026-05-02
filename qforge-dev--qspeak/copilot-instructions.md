@@ -1,59 +1,54 @@
-## backend-structure
+## frontend-structure
 
-> The backend is built with **Rust** and **Tauri 2.0**, providing native desktop functionality and system integrations.
+> The frontend is built with React 18, TypeScript, and Vite, organized in the [src/](mdc:src) directory.
 
-# Backend Structure Guide
+# Frontend Structure Guide
 
-The backend is built with **Rust** and **Tauri 2.0**, providing native desktop functionality and system integrations.
+The frontend is built with React 18, TypeScript, and Vite, organized in the [src/](mdc:src) directory.
 
 ## Directory Structure
 
-### Core Backend ([src-tauri/src/](mdc:src-tauri/src))
-- **[main.rs](mdc:src-tauri/src/main.rs)** - Application entry point
-- **[lib.rs](mdc:src-tauri/src/lib.rs)** - Main library with Tauri setup and commands
-- **[feature_flags.rs](mdc:src-tauri/src/feature_flags.rs)** - Feature toggles and configuration
-- **[koboldcpp_server.rs](mdc:src-tauri/src/koboldcpp_server.rs)** - KoboldCPP server integration
+### Core Directories
+- **[src/components/](mdc:src/components)** - Reusable UI components built with Radix UI
+- **[src/hooks/](mdc:src/hooks)** - Custom React hooks for state and side effects
+- **[src/utils/](mdc:src/utils)** - Utility functions and helpers
+- **[src/shared/](mdc:src/shared)** - Shared modules and types
+- **[src/assets/](mdc:src/assets)** - Static assets (images, icons, etc.)
+- **[src/icons/](mdc:src/icons)** - Custom icon components
 
-### Feature Modules
-- **[src-tauri/src/api/](mdc:src-tauri/src/api)** - API handlers and external integrations
-- **[src-tauri/src/llm/](mdc:src-tauri/src/llm)** - Large Language Model integration
-- **[src-tauri/src/state_machine/](mdc:src-tauri/src/state_machine)** - Application state management
+### Feature-Specific Directories
+- **[src/settings/](mdc:src/settings)** - Settings UI and configuration window
+- **[src/onboarding/](mdc:src/onboarding)** - User onboarding flow window
+- **[src/recorder/](mdc:src/recorder)** - Voice recording interface window
 
-### Custom Crates
-- **[src-tauri/qspeak-audio-recording/](mdc:src-tauri/qspeak-audio-recording)** - Audio capture and processing
-- **[src-tauri/qspeak-keyboard/](mdc:src-tauri/qspeak-keyboard)** - Global hotkey handling
-- **[src-tauri/qspeak-screenshot/](mdc:src-tauri/qspeak-screenshot)** - Screen capture functionality
-- **[src-tauri/qspeak-audio-player/](mdc:src-tauri/qspeak-audio-player)** - Audio playback
+## Key Components
 
-## Configuration Files
+### UI Components ([src/components/](mdc:src/components))
+All components are built with **Radix UI** primitives and styled with **Tailwind CSS**:
 
-### Build Configuration
-- **[src-tauri/Cargo.toml](mdc:src-tauri/Cargo.toml)** - Rust dependencies and project metadata
-- **[src-tauri/tauri.conf.json](mdc:src-tauri/tauri.conf.json)** - Tauri application configuration
-- **[src-tauri/build.rs](mdc:src-tauri/build.rs)** - Build script for custom compilation steps
+- **[button.tsx](mdc:src/components/button.tsx)** - Button component with variants
+- **[dialog.tsx](mdc:src/components/dialog.tsx)** - Modal dialogs
+- **[input.tsx](mdc:src/components/input.tsx)** - Text input components
+- **[select.tsx](mdc:src/components/select.tsx)** - Dropdown selects
+- **[textarea.tsx](mdc:src/components/textarea.tsx)** - Multiline text input
+- **[markdown.tsx](mdc:src/components/markdown.tsx)** - Markdown rendering
+- **[models-cards.tsx](mdc:src/components/models-cards.tsx)** - AI model selection cards
 
-### Platform-Specific
-- **[src-tauri/Info.plist](mdc:src-tauri/Info.plist)** - macOS application info
-- **[src-tauri/entitlements.plist](mdc:src-tauri/entitlements.plist)** - macOS security entitlements
-- **[src-tauri/capabilities/](mdc:src-tauri/capabilities)** - Tauri security capabilities
+### Styling
+- **[global.css](mdc:src/global.css)** - Global styles and Tailwind CSS imports
+- Uses **Tailwind CSS v4** with custom animations and components
+- **[tailwind.config.js](mdc:tailwind.config.js)** - Tailwind configuration (if exists)
 
-### Resources
-- **[src-tauri/icons/](mdc:src-tauri/icons)** - Application icons for different platforms
-- **[src-tauri/binaries/](mdc:src-tauri/binaries)** - External binaries bundled with the app
-- **[src-tauri/kobold-configs/](mdc:src-tauri/kobold-configs)** - KoboldCPP configuration files
-
-## Key Features Implemented
-- **Global Hotkeys**: System-wide keyboard shortcuts for voice activation
-- **Audio Processing**: Real-time voice recording and transcription
-- **LLM Integration**: Local AI model execution and inference
-- **Cross-Platform**: Windows, macOS, and Linux support
-- **System Integration**: Native OS features and file system access
+## Entry Points
+- **[recorder.html](mdc:recorder.html)** - Main recorder window
+- **[settings.html](mdc:settings.html)** - Settings window
+- **[onboarding.html](mdc:onboarding.html)** - First-time user setup window
 
 ## Development Notes
-- Uses **Tauri 2.0** with the latest security model
-- All voice processing happens **locally** - no cloud dependencies
-- Modular architecture with separate crates for different functionalities
-- Follows Rust best practices with proper error handling and memory safety
+- All components use TypeScript with strict typing
+- Components follow the **composition pattern** with Radix UI
+- Internationalization is handled through [i18n.ts](mdc:src/i18n.ts)
+- Uses **React Router** for navigation between views
 
 ---
 > Source: [qforge-dev/qspeak](https://github.com/qforge-dev/qspeak) — distributed by [TomeVault](https://tomevault.io).
