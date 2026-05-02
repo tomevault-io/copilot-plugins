@@ -1,0 +1,9 @@
+{
+  "name": "geo-team-red--geo-optimizer",
+  "displayName": "geo-optimizer",
+  "description": "A pluggable framework for GEO (Generative Engine Optimization) in Go. Built-in strategies for common use cases, with full support for custom strategy registration.",
+  "version": "1.0.0",
+  "author": "geo-team-red",
+  "homepage": "https://github.com/geo-team-red/geo-optimizer",
+  "skills": []
+}
