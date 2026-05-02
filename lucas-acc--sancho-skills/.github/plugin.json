@@ -1,0 +1,14 @@
+{
+  "name": "lucas-acc--sancho-skills",
+  "displayName": "sancho-skills",
+  "description": "Skills of my personal assistant, I call him Sancho.",
+  "version": "1.0.0",
+  "author": "lucas-acc",
+  "homepage": "https://github.com/lucas-acc/sancho-skills",
+  "skills": [
+    {
+      "name": "podcast-download",
+      "description": ""
+    }
+  ]
+}
