@@ -1,0 +1,9 @@
+{
+  "name": "joicodev--polymarket-bot",
+  "displayName": "polymarket-bot",
+  "description": "Real-time BTC price prediction engine for Polymarket 5-minute binary markets",
+  "version": "1.0.0",
+  "author": "joicodev",
+  "homepage": "https://github.com/joicodev/polymarket-bot",
+  "skills": []
+}
