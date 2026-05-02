@@ -1,0 +1,9 @@
+{
+  "name": "lmwilki--civ6-mcp",
+  "displayName": "civ6-mcp",
+  "description": "An MCP server that lets LLM agents play Civilization VI.",
+  "version": "1.0.0",
+  "author": "lmwilki",
+  "homepage": "https://github.com/lmwilki/civ6-mcp",
+  "skills": []
+}
