@@ -1,0 +1,22 @@
+{
+  "name": "develite98--angular-best-practices",
+  "displayName": "angular-best-practices",
+  "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs.",
+  "version": "1.0.0",
+  "author": "develite98",
+  "homepage": "https://github.com/develite98/angular-best-practices",
+  "skills": [
+    {
+      "name": "angular-best-practices-legacy",
+      "description": ""
+    },
+    {
+      "name": "angular-css-bem-best-practices",
+      "description": ""
+    },
+    {
+      "name": "the-art-of-naming",
+      "description": ""
+    }
+  ]
+}
