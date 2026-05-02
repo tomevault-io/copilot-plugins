@@ -1,0 +1,9 @@
+{
+  "name": "blockrunai--blockrun-mcp",
+  "displayName": "blockrun-mcp",
+  "description": "Live data for AI agents \u2014 search, research, markets, crypto, X/Twitter. Pay-per-call via x402 micropayments.",
+  "version": "1.0.0",
+  "author": "BlockRunAI",
+  "homepage": "https://github.com/BlockRunAI/blockrun-mcp",
+  "skills": []
+}
