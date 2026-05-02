@@ -1,0 +1,57 @@
+{
+  "name": "gaggimate-mcp",
+  "owner": "julianleopold",
+  "repo": "gaggimate-mcp",
+  "description": "AI instruction skills by julianleopold",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gaggimate-profiles",
+      "path": "agent-skills/gaggimate-profiles",
+      "github_url": "https://github.com/julianleopold/gaggimate-mcp/tree/main/agent-skills/gaggimate-profiles",
+      "description": ""
+    },
+    {
+      "name": "new-coffee",
+      "path": "agent-skills/new-coffee",
+      "github_url": "https://github.com/julianleopold/gaggimate-mcp/tree/main/agent-skills/new-coffee",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/julianleopold/gaggimate-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:33:34Z"
+}
