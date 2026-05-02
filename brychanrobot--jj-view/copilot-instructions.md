@@ -1,0 +1,112 @@
+## jj-view
+
+> This document outlines the coding standards, testing strategies, and architectural patterns for the `jj-view` VS Code extension.
+
+# JJ View Extension - Development Guidelines
+
+This document outlines the coding standards, testing strategies, and architectural patterns for the `jj-view` VS Code extension.
+
+## Code Style
+
+### Language
+
+- All code should be written in **TypeScript**.
+- Strict type checking is enabled (`"strict": true` in `tsconfig.json`).
+- **Forbidden**: `any` type usage. Use strict types or `unknown` if absolute necessary.
+- **Forbidden**: disabling the `any` type check for a line or block. `// @ts-ignore` or `// eslint-disable-line` are not allowed.
+- **Forbidden**: `as unknown as Type` double casting. Use `createMock` utility or proper type narrowing instead.
+
+### Naming Conventions
+
+- **Classes**: PascalCase (e.g., `JjScmProvider`).
+- **Methods & Functions**: camelCase (e.g., `getWorkingCopyChanges`).
+- **Variables**: camelCase.
+- **Context Keys**: Use dot notation for namespacing context keys used in `package.json` `when` clauses.
+    - **Correct**: `jj.parentMutable`, `jj.hasChild`
+    - **Incorrect**: `jj-view:parentMutable` (colons acceptable but dot notation is preferred for consistency).
+- **Files**: Kebab-case (e.g., `jj-scm-provider.ts`).
+
+### CLI Usage
+
+- **Pager**: Always use `--no-pager` when running `jj help` or other jj `--help` commands during research to prevent hanging. If you don't it won't return. It will require user input.
+
+### Formatting & Linting
+
+- Use **ESLint** for code quality (`pnpm lint`).
+
+## Testing Strategy
+
+This project employs a split testing strategy to ensure both logic correctness and integration validity.
+
+**CRITICAL RULE**: Tests should **NEVER** mock `JjService` methods.
+
+- Always use `TestRepo` to set up a real temporary repository on disk.
+- Use a real `JjService` instance to operate on it.
+- Use `TestRepo` methods to verify outcomes (e.g. file content, log history), rather than spying on `JjService` calls.
+
+### 1. Unit Tests
+
+- **Tool**: [Vitest](https://vitest.dev/)
+- **Command**: `pnpm test:unit`
+    - _Note_: Please narrow the run by passing all or part of the filename to the command when iterating on a test. For example: `pnpm test:unit merge-editor`.
+- **Pattern**: `src/test/**/*.test.ts` (Excluding `*.integration.test.ts`)
+- **Scope**:
+    - Test individual classes and functions in isolation.
+    - **Mock all external dependencies**, especially the `vscode` module and file system operations.
+    - **EXCEPTION**: Do NOT mock `JjService` methods (e.g. `jj.absorb`). Instead, use `TestRepo` to create a real temporary repo and use a real `JjService` instance to interact with it.
+    - Fast feedback loop, run frequently.
+    - **Mocking VS Code**: Use the shared `createVscodeMock` helper with dynamic import to avoid hoisting issues.
+        ```typescript
+        // Correct pattern
+        vi.mock('vscode', async () => {
+            const { createVscodeMock } = await import('../vscode-mock');
+            return createVscodeMock({
+                // Overrides
+                window: { showErrorMessage: vi.fn() },
+            });
+        });
+        ```
+- **Example**: Testing `JjService` log parsing logic or `JjScmProvider` state calculations without starting VS Code.
+
+### 2. Integration Tests
+
+- **Tool**: [VS Code Test Electron](https://github.com/microsoft/vscode-test)
+- **Command**: `pnpm test:integration`
+    - _Note_: This command automatically executes `pnpm build:tests` before running.
+    - _Note_: You can narrow the run by using -- --grep "pattern". Plese do this when iterating on a test to speed up the process.
+- **Pattern**: `src/test/**/*.integration.test.ts`
+- **Scope**:
+    - Tests that require the VS Code Extension Host.
+    - verifying extension activation, command registration, and interaction with the real VS Code API (e.g., `vscode.scm`, `vscode.commands`).
+    - Uses a temporary workspace on disk.
+- **Writing Integration Tests**:
+    - Must import `vscode`.
+    - Should handle async operations carefully as they run in a real environment.
+    - Use `sinon` for spying/stubbing internal VS Code commands if necessary (e.g., spying on `setContext`).
+
+## Project Structure
+
+```
+├── .vscode-test/           # VS Code test runner configuration/cache
+├── src/
+│   ├── jj-service.ts       # Core logic for interacting with 'jj' CLI
+│   ├── jj-scm-provider.ts  # VS Code SCM API implementation
+│   ├── extension.ts        # Entry point, command registration
+│   └── test/               # Test files
+│       ├── suite/          # VS Code test runner entry point
+│       ├── runTest.ts      # Integration test runner script
+│       ├── *.test.ts       # Unit tests
+│       └── *.integration.test.ts # Integration tests
+├── package.json            # Manifest, command definitions, menus, activation events
+└── vitest.config.ts        # Vitest configuration for unit tests
+```
+
+## "When" Clauses
+
+- For SCM resource menu items (inline or context menu), always use **`scmResourceState`** as the context key to match `SourceControlResourceState.contextValue`.
+    - Example: `"when": "scmResourceState == 'jjParent'"`
+- Avoid using `viewItem` for SCM resources as it is intended for generic tree views.
+
+---
+> Source: [brychanrobot/jj-view](https://github.com/brychanrobot/jj-view) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
