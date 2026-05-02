@@ -1,0 +1,9 @@
+{
+  "name": "second-state--payment-skill",
+  "displayName": "payment-skill",
+  "description": "Agentic skill for requesting and accepting payments from / to humans and agents",
+  "version": "1.0.0",
+  "author": "second-state",
+  "homepage": "https://github.com/second-state/payment-skill",
+  "skills": []
+}
