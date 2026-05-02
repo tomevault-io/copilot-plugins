@@ -7,11 +7,11 @@ The spec of leaderless log protocol used in Ursa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [lakestream-io/leaderless-log-protocol](https://github.com/lakestream-io/leaderless-log-protocol).
+Original source: `CLAUDE.md` in [lakestream-io/leaderless-log-protocol](https://github.com/lakestream-io/leaderless-log-protocol).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
