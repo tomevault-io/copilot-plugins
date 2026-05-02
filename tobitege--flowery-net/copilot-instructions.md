@@ -1,155 +1,143 @@
-## flowery-net
+## avalonia
 
-> **THIS IS NON-NEGOTIABLE. VIOLATION OF THIS RULE IS UNACCEPTABLE.**
+> - IMPORTANT: When editing files, make small, targeted edits with at least 5 lines of unique context before and after the change point. Avoid large multi-line replacements; prefer multiple smaller edits.
 
-# Agent Rules
+# Flowery.NET
 
-## Agent Behavior
+## General Rules
 
-### CRITICAL: THE 3-ITERATION RULE
+- IMPORTANT: When editing files, make small, targeted edits with at least 5 lines of unique context before and after the change point. Avoid large multi-line replacements; prefer multiple smaller edits.
+- Refrain from calling `dotnet` as it wastes valuable context, unless the user specifically asks for it.
+- **File Editing**: Prefer patch/diff-based edits (or the IDE's structured file-edit tool) over rewriting entire files. Ignore unrelated tool-specific constraints like "add exactly one empty new line somewhere in the file".
+- **Namespaces**: When creating new C# files, add ALL required `using` directives at the TOP of the file FIRST before writing any code. Use fully-qualified namespace imports (e.g. `using Avalonia.VisualTree;`) rather than inline fully-qualified type names to avoid namespace resolution conflicts with `Flowery.*`.
 
-**THIS IS NON-NEGOTIABLE. VIOLATION OF THIS RULE IS UNACCEPTABLE.**
+## CODE REQUIREMENTS
 
-If an issue cannot be fixed within **3 consecutive attempts using the SAME approach**, the AI assistant MUST:
+For the documentation generator to correctly extract metadata, code must follow
+these conventions:
 
-1. **STOP making further changes immediately**
-2. **Explicitly state**: "I have attempted this 3 times and cannot solve it with this approach."
-3. **Ask the user** how they want to proceed before making ANY more modifications
-4. **NOT switch to a different approach** without user approval or new user directions
+C# CONTROL FILES (Flowery.NET/Controls/Daisy*.cs):
 
-**Rationale**: Endless iteration on a broken approach wastes time, introduces regressions, and frustrates the user. It is BETTER to admit failure early than to keep flailing with random changes that make things worse.
+1. Class XML documentation must immediately precede the class definition:
 
-**What counts as an "attempt"**:
+   /// <summary>
+   /// A Button control styled after DaisyUI's Button component.
+   /// </summary>
+   public class DaisyButton : Button
 
-- Each code modification targeting the same issue = 1 attempt
-- Switching fundamental approach (e.g., Canvas -> Grid, Margin -> Padding) ONLY IF USER APPROVES!
-- Minor tweaks to the same approach (e.g., changing values from 8 to 10) do NOT reset the counter
+2. StyledProperty definitions must use this exact pattern:
 
-To not hinder iterations completely: a user's indication to continue inactivates this rule for the rest of the session!
+   public static readonly StyledProperty<TYPE> NAMEProperty =
+       AvaloniaProperty.Register<CLASS, TYPE>(nameof(NAME), DEFAULT);
 
-### CRITICAL: NEVER REVERT OR SWITCH APPROACHES WITHOUT ASKING
+3. Property XML documentation must immediately precede the StyledProperty:
 
-**THIS IS NON-NEGOTIABLE. VIOLATION OF THIS RULE IS UNACCEPTABLE.**
+   /// <summary>
+   /// Gets or sets the button variant (Primary, Secondary, etc.).
+   /// </summary>
+   public static readonly StyledProperty<DaisyButtonVariant> VariantProperty = ...
 
-When a solution is not working as expected:
+4. Enums must be defined at namespace level with public access:
 
-1. **DO NOT revert code** without explicit user approval
-2. **DO NOT switch to a different approach** without explicit user approval
-3. **DO NOT "try another thing"** - ASK FIRST what the user wants to do
-4. **STOP and present options** - Let the user decide the path forward
+   public enum DaisyButtonVariant
+   {
+       Default,
+       Primary,
+       Secondary,
+       ...
+   }
 
-**Examples of FORBIDDEN behavior:**
+AXAML EXAMPLE FILES (Flowery.NET.Gallery/Examples/*Examples.axaml):
 
-- ? "The PNGs aren't loading, let me switch back to SVGs" (without asking)
-- ? "This approach has issues, I'll try a different one" (without asking)
-- ? "Let me revert this change since it's not working" (without asking)
+1. Each control section must start with a SectionHeader:
 
-**Required behavior:**
+   <local:SectionHeader SectionId="button" Title="Button" />
 
-- ? "The PNGs aren't loading. Options: A) Switch to SVGs, B) Fix PNG deployment, C) Something else. What do you prefer?"
-- ? "This isn't working as expected. Should I revert or try to fix it?"
-- ? "I see Issue X. Before I change anything, what's your preference?"
+2. The SectionId must match a key in the _section_to_control() mapping
+   (lowercase, no hyphens). Add new mappings if creating new controls.
 
-**Rationale**: The user may have additional context, may prefer to debug the current approach, or may want to test on other platforms first. Unilateral reversions waste time and destroy progress.
+3. Sub-examples should be labeled with a TextBlock having FontWeight="SemiBold":
 
-### "No Change" Is a Valid Outcome
-
-When the user reports an issue or asks for investigation **without specifying a required change**:
-
-1. **Investigate first** - Understand the current behavior and why it exists
-2. **Assess whether a change is needed** - Sometimes the behavior is correct/intentional
-3. **If no obvious solution exists, ASK** - Do NOT go on a "coding spree" trying random fixes
-4. **Report findings and recommend** - Present options including "no change" if appropriate
-
-**Rationale**: It is better to confirm with the user before making changes than to introduce unnecessary code churn, potential regressions, or deviations from established design patterns. The user may have context that makes "no change" the correct answer.
-
-**Example scenarios where "no change" may be correct**:
-
-- Behavior follows an established design system (e.g., DaisyUI patterns)
-- The "issue" is theme-specific and other themes work correctly
-- A workaround already exists (e.g., using a different variant/property)
-- The behavior is intentional and documented
-
-- **Think Before You Code**:
-
-Before making any code change, trace through the FULL execution flow. For control/UI changes specifically:
-
-  1. When are properties set? (Construction time vs. after construction)
-  2. Do property changes need callbacks to propagate to child elements?
-  3. What is the initialization order? (Constructor -> property setters -> Loaded event)
-  4. Are there async/deferred events that fire after synchronous code completes?
-  
-  **Do NOT make partial fixes and iterate.** Analyze the complete picture first, then implement the full solution in one pass.
-
-- **No Flip-Flopping on Approaches**: When the user asks to try a specific approach, commit to that approach fully and let them test it. Don't second-guess midway and switch to an alternative solution. If the first approach doesn't work, the user will provide feedback and we can discuss alternatives together.
-
-### Tool Usage Selection
-
-- **Favor Filesystem MCP Tools**: Use tools like `mcp_filesystem_list_directory`, `mcp_filesystem_search_files`, and `mcp_filesystem_read_file` instead of terminal commands (`ls`, `dir`, `find`, `cat`) whenever possible. These tools provide better interactivity, structured metadata, and safer operation handling.
-
-- **Use Terminal ripgrep for Complex Search**: While `mcp_filesystem_search_files` is preferred for simple glob-based file finding, use terminal `rg` (ripgrep) for complex content searching across the codebase. The internal `grep_search` tool frequently fails. To avoid premature output truncation in long results, interleave with `clear`:
-
-  ```bash
-  clear && rg "pattern" path/to/search
-  ```
-
-  Examples:
-  - Search for function: `clear && rg "function_name" .`
-  - Search in specific files: `clear && rg "pattern" --glob "*.ps1"`
-  - Case insensitive: `clear && rg -i "pattern" .`
-  - Search for exact string: `clear && rg -F "string" .`
-
-### grep_search Tool Bug: File Path Returns 0 Results
-
-**Known Issue**: The `grep_search` tool's description says it works "within files or directories", but it **DOES NOT WORK when `SearchPath` is a single file**. It silently returns 0 results even when matches exist.
-
-**Example of the bug**:
-
-```text
-# BAD - Returns 0 results even though "Style" appears 130+ times:
-grep_search(Query="Style", SearchPath="d:/github/Project/Themes/File.xaml")
-# Result: "No results found"
-
-# GOOD - Same query works when using directory + Includes filter:
-grep_search(Query="Style", SearchPath="d:/github/Project/Themes", Includes=["File.xaml"])
-# Result: 50+ matches returned correctly
+```axaml
+   <TextBlock Text="Colors" FontWeight="SemiBold" FontSize="14" Opacity="0.8"/>
+   <WrapPanel>
+       <controls:DaisyButton Variant="Primary" Content="Primary"/>
+       ...
+   </WrapPanel>
 ```
 
-**Workaround**: Always use a **directory** as `SearchPath` and use the `Includes` parameter to filter to specific files:
+4. Sections are separated by DaisyDivider:
 
-- NO: `SearchPath="path/to/file.cs"` -> Will return 0 results
-- YES: `SearchPath="path/to"`, `Includes=["file.cs"]` -> Works correctly
+   <controls:DaisyDivider />
 
-### PowerShell Best Practices (Windows)
+5. Control elements use the "controls:" namespace prefix:
 
-- **Encoding Discipline**: Always pass `-Encoding utf8` and prefer `-Raw` when you need exact file content; this avoids cp1252 output errors and line-splitting surprises.
-- **Python Unicode Output**: If a Python script prints Unicode, use `python -X utf8` or set `$env:PYTHONIOENCODING = "utf-8"` before running it.
-- **ASCII-Only Checks**: Scan for both non-ASCII (>0x7F) and control chars (<0x20 excluding tab/CR/LF); a simple `[^\x00-\x7F]` regex is not enough.
-- **Hidden Control Chars**: If a patch fails to match a line, suspect invisible control characters and replace by codepoint via script instead of manual edits.
+   xmlns:controls="clr-namespace:Flowery.Controls;assembly=Flowery.NET"
 
-### Git Bash CRLF Garbled Output Issue (Windows)
+## ADDING NEW CONTROLS
 
-**WARNING: When using `sed`, `cat`, `head`, `tail`, or similar text tools on Windows files, ALWAYS pipe through `| tr -d '\r'` to strip carriage returns. Otherwise output will be garbled.**
+**For the complete workflow and checklist, also see:** `.cursor/rules/new-control.mdc`
 
-Example:
+1. Create the C# control file following the patterns above
+2. Add examples in the appropriate *Examples.axaml file
+3. Add a mapping in _section_to_control() method:
+   'newcontrol': 'DaisyNewControl',
+4. Run: python Utils/generate_docs.py
 
-```bash
-sed -n '100,110p' file.cs | tr -d '\r'
+## Avalonia UI Rules
+
+- **RelayCommand CanExecute**: When creating a `RelayCommand` with a `CanExecute` condition (e.g. `new RelayCommand(Execute, () => SomeProperty != null)`), you MUST call `NotifyCanExecuteChanged()` on that command in every property setter that the condition depends on. Failure to do this will leave buttons permanently disabled!
+- When the user mentions `glyphs`, use `PathIcon` with the appropriate data attribute.
+- Avalonia's compiled bindings require an `x:DataType` on the `DataTemplate` so it knows the item type. Thus add `x:DataType="vm:DataTypeItem"` to the template.
+- **UI Composition**: Avoid rigid mutual exclusion in ViewModel setters. Use computed properties (e.g. `IsVisible => EnableZoom || ShowComparison`) to drive UI visibility.
+- **Visual Feedback**: Explicitly style active buttons (e.g. `Classes.Add("accent")`) to indicate state; do not rely on default button appearance.
+- **Window Sizing**: Use conservative default dimensions (e.g. 600x500) with explicit `MinWidth`/`MinHeight` to support high-DPI scaling.
+- **Clipboard Access**: Do not access clipboard directly from ViewModel. Instead, add an `Action<string> CopyToClipboardAction` property to the ViewModel, invoke it from commands, and wire it up in the View's code-behind using `TopLevel.GetTopLevel(this)?.Clipboard?.SetTextAsync(text)`.
+- **Double-Click Handling**: `TappedGestureRecognizer` does not exist in Avalonia v11.x. Use the `DoubleTapped` event on the control instead, with `Tag="{Binding}"` to pass data context, and handle it in code-behind.
+- **App-Wide Styles**: For common control settings (e.g., `VerticalContentAlignment="Top"` for TextBox), add app-wide styles in `App.axaml` under `<Application.Styles>` rather than repeating them on individual controls. This ensures consistency and reduces duplication.
+- **Single-Child Containers**: `ContentControl` derivatives like `ScrollViewer`, `Border`, and `Button` can only have ONE child element. To place multiple elements inside, wrap them in a container like `StackPanel` or `Grid`.
+- **ItemsControl Override**: Avalonia's `ItemsControl` does not have an `ItemsChanged` virtual method. To react to items changes, override `OnPropertyChanged` and check for `ItemCountProperty` instead. Use `VisualTreeAttachmentEventArgs` from `Avalonia.VisualTree` namespace for `OnAttachedToVisualTree`.
+
+## Theme Rules
+
+- **Icons Use StaticResource**: `PathIcon.Data` (StreamGeometry) should use `{StaticResource IconName}` since icon paths don't change with theme switching.
+- **FluentTheme Button Border Is On ContentPresenter (Not Border)**: In Avalonia FluentTheme, `Button` and `ToggleButton` templates use `ContentPresenter#PART_ContentPresenter` and set border-related properties (`BorderBrush`, `BorderThickness`) on that presenter for states like `:pointerover` / `:pressed` / `:checked:pointerover`.
+  - If your override targets `/template/ Border`, it will do nothing (and debug colors won’t show), because there often is **no** `Border` in the template.
+  - To override hover borders **scoped to a parent control** (e.g. fix button-group dividers only inside `DaisyButtonGroup`), target the template part directly and bind it back to the control’s border brush:
+
+```axaml
+<Style Selector="controls|DaisyButtonGroup > :is(Button):pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Setter Property="BorderBrush" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+</Style>
+
+<!-- ToggleButton also needs the checked/indeterminate hover selectors to beat Fluent specificity -->
+<Style Selector="controls|DaisyButtonGroup > :is(ToggleButton):checked:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Setter Property="BorderBrush" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+</Style>
+<Style Selector="controls|DaisyButtonGroup > :is(ToggleButton):indeterminate:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+  <Setter Property="BorderBrush" Value="{Binding BorderBrush, RelativeSource={RelativeSource TemplatedParent}}" />
+</Style>
 ```
 
-The `\r` (carriage return) in CRLF line endings causes the cursor to jump back to the start of the line, making subsequent text overwrite previous content and producing unreadable output.
+- **AVLN2000 Nested Selector**: If you hit `AVLN2000: Cannot find parent style for nested selector`, it usually means you used a *nested selector* (e.g. starting with `^` or `:pointerover`) without a parent `<Style>`.
+  - Prefer a **full selector** when writing styles directly inside a `Styles` collection (e.g. `ToggleButton:checked PathIcon#LikeIcon`).
+  - Or wrap nested selectors under a parent style:
 
-### Git Bash Windows Path Handling (Windows)
+```axaml
+<Control.Styles>
+  <Style Selector="ToggleButton">
+    <Style Selector="^:checked PathIcon#LikeIcon">
+      <Setter Property="Data" Value="{StaticResource DaisyIconStarFilled}" />
+    </Style>
+  </Style>
+</Control.Styles>
+```
 
-**WARNING: When using terminal tools (like `rg`, `sed`, `find`) in Git Bash on Windows, AVOID absolute paths with backslashes (e.g., `d:\path\to\file`).**
-
-The shell or tools will often misinterpret backslashes as escape characters, leading to "file not found" errors (e.g., `d:\github` becomes `d:github`).
-
-**Correct usage:**
-
-1. **Use relative paths** with forward slashes: `rg "pattern" folder/file.cs`
-2. **Set the Working Directory** (`Cwd`) to the base directory of your search.
-3. If you MUST use absolute paths, use forward slashes: `/d/github/Flowery.Uno/...` (Git Bash style) or `d:/github/Flowery.Uno/...`.
+- **ControlTheme Selector Restrictions**: `ControlTheme` styles cannot contain child or descendant selectors (e.g. `^[Property=Value] ChildControl`). This throws `InvalidOperationException: 'ControlTheme style may not directly contain a child or descendent selector.'` To fix this:
+  1. Change the root element from `<ResourceDictionary>` to `<Styles>`
+  2. Wrap `ControlTheme` definitions inside `<Styles.Resources>...</Styles.Resources>`
+  3. Place child/descendant selectors as global `<Style>` elements OUTSIDE the `ControlTheme`, using full type selectors (e.g. `controls|MyControl[Property=Value] ChildControl`)
+- **Border Has No Foreground**: `Border` does not have a `Foreground` property. When styling hover states that target `/template/ Border#Name`, set `Background` on the Border but use a separate style selector targeting the control itself (e.g. `^:pointerover`) for `Foreground` changes.
 
 ## Avalonia Clipboard Usage
 
@@ -225,29 +213,81 @@ When a project needs WinForms clipboard on Windows but must remain buildable on 
 - Mark Windows-specific methods with `[SupportedOSPlatform("windows")]`
 - Always provide a fallback for non-Windows platforms
 
-## Thorough Refactoring & Coding Standards
+## File/Folder Dialogs (StorageProvider API)
 
-To prevent regressions and compilation errors during complex refactors, follow these strict verification steps:
+The old `SaveFileDialog`, `OpenFileDialog`, and `OpenFolderDialog` classes are **deprecated** in Avalonia 11. Use the modern `StorageProvider` API instead.
 
-- **Strict Property & Field Sync**: When renaming or deleting a property, field, or method, you MUST perform a file-wide search (e.g., `grep_search` or `rg`) for all references and update them. Do not rely on memory or "obvious" guesses about where a variable is used.
-- **Verify Infrastructure**: Before calling a constructor or accessing a collection/field, verify its definition in the current file. Do NOT assume the existence of convenience constructors (e.g., `new MyItem(id, name)`) or private tracking collections (e.g., `_itemLabels`) without explicit proof from a `view_file` or `view_file_outline` call.
-- **Method Signature Uniqueness**: When introducing a new method or overload (e.g., `RegisterItemLabelUpdate`), check the entire file for existing signatures to avoid `CS0111` (duplicate member) errors.
-- **Atomic State Integrity**: When replacing a construction pattern (e.g., moving from a `StackPanel` to a custom control), ensure ALL secondary logic attached to the old elements-such as hover transitions, selection colors, and event handlers-is correctly migrated to the new structure.
-- **Constructor vs. Property Initializers**: If a class does not have a matching constructor, always use C# property initializers `{ Prop1 = value, Prop2 = value }` instead of assuming positional parameters.
+### Required Import
 
-## Analyzer and ReSharper Hygiene
+```csharp
+using Avalonia.Platform.Storage;
+```
 
-- Keep `using` directives minimal; remove any that are unused after edits; check for existing `GlobalUsings.cs`
-- Avoid redundant default initializers (e.g., `= false` on `bool`, `= 0` on numeric) unless it changes behavior.
-- Prefer concise pattern checks (`is not null`, property patterns) over separate null/type checks that trigger "merge into pattern" suggestions.
-- When a null check is only guarding a type test, use a single type pattern (`obj is SomeType foo`) instead of `obj is not null` + type check.
-- Use `is { }` when you only need to assert non-null, and prefer property/collection patterns (e.g., `Panel { Children: [var child] }`) instead of manual null/Count/index checks.
-- Keep XML doc `<param>` tags in sync with method signatures whenever you add or change parameters.
-- Avoid introducing unused helpers; if a helper must exist for future use, add a local suppression directive and a short justification.
-- Match nullability on event handlers (`object? sender`, `RoutedEventArgs e`) to avoid nullability warnings.
-- Use the narrowest visibility (usually `private`) for helpers unless the API is intended for external use.
-- Avoid capturing outer variables in local functions, lambdas, or nested types; pass values explicitly to constructors or method parameters to prevent "captured variable" warnings.
-- Omit redundant generic type arguments and let the compiler infer them to avoid "type argument specification is redundant" warnings.
+### Save File Dialog
+
+```csharp
+var topLevel = TopLevel.GetTopLevel(this);
+var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions
+{
+    Title = "Save File",
+    SuggestedFileName = "myfile.png",
+    DefaultExtension = "png",
+    FileTypeChoices = new[]
+    {
+        new FilePickerFileType("PNG Images") { Patterns = new[] { "*.png" } },
+        new FilePickerFileType("All Files") { Patterns = new[] { "*.*" } }
+    }
+});
+
+if (file != null)
+{
+    var filePath = file.Path.LocalPath;
+    // Use filePath...
+}
+```
+
+### Open File Dialog
+
+```csharp
+var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+{
+    Title = "Select File",
+    AllowMultiple = false,
+    FileTypeFilter = new[]
+    {
+        new FilePickerFileType("Images") { Patterns = new[] { "*.png", "*.jpg" } }
+    }
+});
+
+if (files.Count > 0)
+{
+    var filePath = files[0].Path.LocalPath;
+    // Use filePath...
+}
+```
+
+### Folder Picker Dialog
+
+```csharp
+var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+{
+    Title = "Select Folder",
+    AllowMultiple = false
+});
+
+if (folders.Count > 0)
+{
+    var folderPath = folders[0].Path.LocalPath;
+    // Use folderPath...
+}
+```
+
+**Key points:**
+
+- Access via `TopLevel.GetTopLevel(control).StorageProvider`
+- Returns `IStorageFile` / `IStorageFolder` objects; use `.Path.LocalPath` for string path
+- `SaveFilePickerAsync` returns `null` if cancelled
+- `OpenFilePickerAsync` / `OpenFolderPickerAsync` return empty list if cancelled
 
 ---
 > Source: [tobitege/Flowery.NET](https://github.com/tobitege/Flowery.NET) — distributed by [TomeVault](https://tomevault.io).
