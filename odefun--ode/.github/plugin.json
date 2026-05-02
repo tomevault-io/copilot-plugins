@@ -1,0 +1,42 @@
+{
+  "name": "odefun--ode",
+  "displayName": "ode",
+  "description": "Work anywhere with your favorite coding agents connected, coding sessions map 1-1 to chat threads, live updates and much more!",
+  "version": "1.0.0",
+  "author": "odefun",
+  "homepage": "https://github.com/odefun/ode",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "codex-cli-reference",
+      "description": ""
+    },
+    {
+      "name": "kilo-cli-skill",
+      "description": ""
+    },
+    {
+      "name": "kimi-cli-skill",
+      "description": ""
+    },
+    {
+      "name": "kiro-cli-skill",
+      "description": ""
+    },
+    {
+      "name": "opencode-developer-researcher",
+      "description": ""
+    },
+    {
+      "name": "qwen-code-skill",
+      "description": ""
+    },
+    {
+      "name": "slack-developer-researcher",
+      "description": ""
+    }
+  ]
+}
