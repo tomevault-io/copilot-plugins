@@ -1,0 +1,9 @@
+{
+  "name": "careerhackeralex--visualize",
+  "displayName": "visualize",
+  "description": "Turn any idea into a beautiful HTML visualization \u2014 with one prompt. A Claude Code skill.",
+  "version": "1.0.0",
+  "author": "careerhackeralex",
+  "homepage": "https://github.com/careerhackeralex/visualize",
+  "skills": []
+}
