@@ -1,0 +1,44 @@
+{
+  "name": "FlowPilot",
+  "owner": "6BNBN",
+  "repo": "FlowPilot",
+  "description": "\u4e00\u53e5\u9700\u6c42\uff0c\u81ea\u52a8\u62c6\u4efb\u52a1\u3001\u5e76\u884c\u591a\u4ee3\u7406\u5199\u7801\u3001\u65ad\u70b9\u6062\u590d\u3001\u9a8c\u8bc1\u6536\u5c3e\u3002FlowPilot \u8ba9 Claude Code / Codex / Cursor / snow-cli \u8fdb\u5165\u771f\u6b63\u7684\u81ea\u52a8\u5f00\u53d1\u6d41\u7a0b\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/6BNBN/FlowPilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T08:26:27Z"
+}
