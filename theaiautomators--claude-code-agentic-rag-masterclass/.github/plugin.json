@@ -1,0 +1,9 @@
+{
+  "name": "theaiautomators--claude-code-agentic-rag-masterclass",
+  "displayName": "claude-code-agentic-rag-masterclass",
+  "description": "Build an agentic RAG app from scratch by collaborating with Claude Code. 8-module course covering hybrid search, reranking, text-to-SQL, subagents, and more. React + FastAPI + Supabase.",
+  "version": "1.0.0",
+  "author": "theaiautomators",
+  "homepage": "https://github.com/theaiautomators/claude-code-agentic-rag-masterclass",
+  "skills": []
+}
