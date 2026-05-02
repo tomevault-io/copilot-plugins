@@ -1,0 +1,30 @@
+{
+  "name": "spatie--laravel-openapi-cli",
+  "displayName": "laravel",
+  "description": "Create a Laravel command for your OpenAPI specs",
+  "version": "1.0.0",
+  "author": "spatie",
+  "homepage": "https://github.com/spatie/laravel-openapi-cli",
+  "skills": [
+    {
+      "name": "laravel-permission-development",
+      "description": ""
+    },
+    {
+      "name": "medialibrary-development",
+      "description": ""
+    },
+    {
+      "name": "responsecache-development",
+      "description": ""
+    },
+    {
+      "name": "laravel-pdf",
+      "description": ""
+    },
+    {
+      "name": "show-debugging-output-and-html-using-ray",
+      "description": ""
+    }
+  ]
+}
