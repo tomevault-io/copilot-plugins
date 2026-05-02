@@ -1,0 +1,9 @@
+{
+  "name": "inceptionstack--pi-hard-no",
+  "displayName": "pi-hard-no",
+  "description": "Pi extension that auto-reviews code changes after each agent turn",
+  "version": "1.0.0",
+  "author": "inceptionstack",
+  "homepage": "https://github.com/inceptionstack/pi-hard-no",
+  "skills": []
+}
