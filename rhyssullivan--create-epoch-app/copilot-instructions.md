@@ -1,13 +1,17 @@
-## always-use-bun
+## bash-powers
 
-> Always use `bun` for package management:
+> Use bash commands (`rg`, `fd`, `find`, `grep`, `sed`, `jq`, `git`, `xargs`) for bulk operations when faster/safer than manual edits.
 
 
-Always use `bun` for package management:
-- `bun install` (not npm/yarn/pnpm install)
-- `bun run <script>` (not npm run/yarn/pnpm run)
-- `bunx` (not npx)
-- Prefer `bun typecheck` over running `tsc` directly as it uses TypeScript Go and is faster
+# Bash Powers
+
+Use bash commands (`rg`, `fd`, `find`, `grep`, `sed`, `jq`, `git`, `xargs`) for bulk operations when faster/safer than manual edits.
+
+**Guidelines:**
+- Prefer non-destructive/reversible operations
+- Get approval before destructive commands (`rm`, mass renames)
+- Use for: bulk file ops, search/replace, git ops, data processing
+- Show dry-runs when possible
 
 ---
 > Source: [RhysSullivan/create-epoch-app](https://github.com/RhysSullivan/create-epoch-app) — distributed by [TomeVault](https://tomevault.io).
