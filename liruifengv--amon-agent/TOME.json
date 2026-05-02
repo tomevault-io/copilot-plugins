@@ -4,7 +4,7 @@
   "repo": "amon-agent",
   "description": "Amon - Your AI coworker running on your desktop",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/liruifengv/amon-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T09:15:46Z"
+  "distributed_at": "2026-05-02T22:20:10Z"
 }
