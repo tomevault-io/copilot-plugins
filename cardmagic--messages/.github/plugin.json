@@ -1,0 +1,14 @@
+{
+  "name": "cardmagic--messages",
+  "displayName": "messages",
+  "description": "Fuzzy search through Apple Messages (iMessage/SMS) - CLI and MCP server",
+  "version": "1.0.0",
+  "author": "cardmagic",
+  "homepage": "https://github.com/cardmagic/messages",
+  "skills": [
+    {
+      "name": "messages",
+      "description": ""
+    }
+  ]
+}
