@@ -1,14 +1,92 @@
-## domain-packages
+## git-workflow
 
-> Domain package structure and conventions — read domain READMEs before creating or modifying packages under domain/
+> Git workflow and commit conventions for Ledger Wallet
 
 
-# Domain Packages
+# Git Workflow & Commit Conventions
 
-Before creating or modifying any package under `domain/`, read the relevant README and follow its conventions:
+## Branch Naming
 
-- **Entity packages** (`domain/entity/`): read `domain/entity/README.md` for schema, slice, selectors, and file layout rules.
-- **API packages** (`domain/api/`): read `domain/api/README.md` for RTK Query endpoint conventions and file layout rules.
+Branches must use a clear prefix based on their purpose:
+
+- **feat/** — New features
+- **bugfix/** — Bug fixes
+- **support/** — Refactor, tests, CI, improvements
+- **chore** — Maintenance, tooling, configs
+
+### Examples
+
+- `feat/add-ethereum-staking`
+- `bugfix/fix-transaction-signing`
+- `support/update-dependencies`
+
+### Best Practices
+
+- Use **kebab-case**
+- Keep names **short, explicit, action-oriented**
+- One branch = **one isolated concern**
+
+---
+
+## Commit Message Format
+
+Follow the **Conventional Commits** standard.
+
+### Format
+
+```
+
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+
+```
+
+### Rules
+
+- Description must be **imperative, clear, lowercase**
+- Scope is optional but recommended (`desktop`, `mobile`, `coin`, `common`, etc.)
+- Add body for complex or user-facing changes
+- If needed, include footers:
+  - `BREAKING CHANGE: ...`
+  - Jira ticket (`LL-1234`)
+
+---
+
+## Commit Types
+
+- **feat** — New feature
+- **fix** — Bug fix
+- **docs** — Docs only
+- **style** — Formatting, no code change
+- **refactor** — Restructure without behavior change
+- **test** — Add/update tests
+- **chore** — Maintenance, tooling, configs
+- **perf** — Performance improvements
+- **ci** — CI/CD changes
+
+### Examples
+
+```
+feat(desktop): add dark mode toggle
+fix(mobile): resolve transaction signing issue
+docs(common): update API documentation
+refactor(account): simplify account syncing logic
+test(coin): add bitcoin integration tests
+```
+
+---
+
+## Workflow Best Practices
+
+- Commits must be **small, isolated, meaningful**
+- One commit = **one logical change**
+- Prefer **multiple focused commits** over large mixed ones
+- Never mix refactor + fix + feature
+- Rebase before PR to keep history clean
+- Squash only for trivial branches (`support/cleanup`)
 
 ---
 > Source: [Ledger-Wallet-LLC/ledgerwallet](https://github.com/Ledger-Wallet-LLC/ledgerwallet) — distributed by [TomeVault](https://tomevault.io).
