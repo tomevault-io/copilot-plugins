@@ -1,0 +1,50 @@
+{
+  "name": "oxedom--haflow",
+  "displayName": "haflow",
+  "description": "Local-first AI mission orchestrator",
+  "version": "1.0.0",
+  "author": "oxedom",
+  "homepage": "https://github.com/oxedom/haflow",
+  "skills": [
+    {
+      "name": "complex-task-planner",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "small-to-before-research",
+      "description": ""
+    },
+    {
+      "name": "sql-pro",
+      "description": ""
+    },
+    {
+      "name": "sync-claude-resources",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees copy",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": ""
+    }
+  ]
+}
