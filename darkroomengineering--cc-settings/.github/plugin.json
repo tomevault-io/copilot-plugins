@@ -1,0 +1,86 @@
+{
+  "name": "darkroomengineering--cc-settings",
+  "displayName": "cc-settings",
+  "description": "Vulcan may be a good name",
+  "version": "1.0.0",
+  "author": "darkroomengineering",
+  "homepage": "https://github.com/darkroomengineering/cc-settings",
+  "skills": [
+    {
+      "name": "ask",
+      "description": ""
+    },
+    {
+      "name": "build",
+      "description": ""
+    },
+    {
+      "name": "component",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "explore",
+      "description": ""
+    },
+    {
+      "name": "fix",
+      "description": ""
+    },
+    {
+      "name": "hook",
+      "description": ""
+    },
+    {
+      "name": "init",
+      "description": ""
+    },
+    {
+      "name": "learn",
+      "description": ""
+    },
+    {
+      "name": "lenis",
+      "description": ""
+    },
+    {
+      "name": "orchestrate",
+      "description": ""
+    },
+    {
+      "name": "premortem",
+      "description": ""
+    },
+    {
+      "name": "qa",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "teams",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "tldr",
+      "description": ""
+    }
+  ]
+}
