@@ -1,216 +1,190 @@
-## intent-ref-research-methods
+## intent-ref-service-design
 
-> Intent reference: method selection matrix, sample size guidance, interview techniques, usability testing, survey design, synthesis frameworks. Load when planning or conducting user research.
+> Intent reference: service blueprinting methodology, frontstage/backstage mapping, touchpoint analysis, moment-of-truth design, channel orchestration. Load when mapping services, systems, or cross-channel experiences.
 
 
-# Research Methods
+# Service Design
 
-## Method Selection Matrix
+## Service Blueprinting Methodology
 
-Choosing the right research method depends on what you need to learn, how much time and budget you have, and where you are in the design process. There is no universal "best method" — there's the right method for the question you're asking right now.
+A service blueprint is a diagram that maps the complete service delivery process — what the customer sees, what the organization does behind the scenes, and how the technical systems support it all. Lynn Shostack introduced the concept in 1984 to address a fundamental problem: services are invisible, and you can't improve what you can't see.
 
-### Generative Methods (What should we build?)
+### Shostack's Original Model
 
-**Contextual Inquiry**
-- What it is: Observe users in their natural environment while they perform real tasks. Ask questions as they work.
-- When to use: Early exploration. You don't understand the problem space well enough to ask good survey questions yet.
-- Sample size: 4-8 participants per user segment.
-- Time/cost: High. 1-2 hours per session, plus travel. Analysis is intensive.
-- What it reveals: Workarounds, environmental constraints, unspoken needs, the gap between what people say and what they do.
-- Trade-offs: Small samples, not generalizable, observer effect can alter behavior. But the depth of insight is unmatched.
+Shostack's original blueprint was deliberately simple: a horizontal timeline of the service process with a "line of visibility" separating what the customer sees from what they don't. Above the line: the customer's experience. Below the line: the backstage processes that produce that experience.
 
-**Semi-Structured Interviews**
-- What it is: One-on-one conversations guided by a topic framework, not a rigid script. Follow interesting threads.
-- When to use: When you need to understand motivations, mental models, and experiences in depth. Works at any stage.
-- Sample size: 5-8 for pattern identification, 12-20 for saturation (Guest, Bunce & Johnson, 2006).
-- Time/cost: Moderate. 45-60 minutes per session. Analysis takes roughly 3x the interview time.
-- What it reveals: User motivations, pain points, mental models, emotional responses, workarounds.
-- Trade-offs: Self-reported behavior differs from actual behavior. Users are not reliable predictors of their own future actions. But interviews surface the "why" that behavioral data can't.
+**Why it mattered:** Before Shostack, services were designed through intuition and anecdote. The blueprint made the invisible visible — showing where the service was fragile, where it depended on specific people, and where it failed predictably.
 
-**Diary Studies**
-- What it is: Participants record experiences over time (days to weeks), logging entries when specific events occur.
-- When to use: When behavior unfolds over time and can't be observed in a single session. Habit formation, recurring tasks, infrequent events.
-- Sample size: 10-15 participants minimum (high dropout expected — recruit 20-30% more).
-- Time/cost: Study runs 1-4 weeks. Setup is moderate; analysis is substantial.
-- What it reveals: Temporal patterns, context shifts, emotional changes over time, frequency and triggers of behavior.
-- Trade-offs: High participant burden, significant dropout, entries are self-reported and often incomplete. But nothing else captures real behavior over time.
+### Modern Blueprint Layers
 
-**Surveys**
-- What it is: Structured questionnaires distributed to a sample population. Quantitative or mixed-method.
-- When to use: When you have specific hypotheses to validate, when you need quantitative data at scale, or when you need to measure attitudes/preferences across a population.
-- Sample size: 30 minimum for basic statistics, 100+ for segmentation, 400+ for population estimates with reasonable confidence intervals.
-- Time/cost: Low per-respondent. Design is the hard part — a bad survey produces confidently wrong data.
-- What it reveals: Prevalence of behaviors, attitudes, preferences, and demographics across a population.
-- Trade-offs: You only learn what you ask about. Question design bias is pervasive and hard to detect. Response rates are falling across all channels. Self-report limitations apply. But surveys are the only practical way to quantify patterns at scale.
+Contemporary service blueprints expand Shostack's model to five layers, each providing different analytical leverage.
 
-### Evaluative Methods (Is this working?)
+**Layer 1: Customer Actions**
+What the customer does at each stage of the service. Their decisions, interactions, and movements across channels. This is the user journey — but in a service blueprint, it's one layer of a larger picture, not the whole picture.
 
-**Usability Testing (Moderated)**
-- What it is: Observe users attempting tasks with a prototype or product while thinking aloud. Facilitator guides the session.
-- When to use: Whenever you have something testable — wireframes, prototypes, live products. The single most valuable evaluative method.
-- Sample size: 5 participants catch approximately 85% of major usability issues (Nielsen & Landauer, 1993). Run 5 per round, iterate, test again.
-- Time/cost: Moderate. 30-60 minutes per session. Can be done remotely to reduce logistics.
-- What it reveals: Where users succeed, fail, hesitate, and get confused. Task completion rates, error frequencies, and recovery patterns.
-- Trade-offs: Small sample, not statistically generalizable, facilitator skill matters enormously. But 5 users finding the same problem is a signal, not a sample size issue.
+Document: What the customer is trying to accomplish, what they physically do, and what channels they use. Note emotional states where you have evidence — but be careful about projecting emotions you haven't researched.
 
-**Usability Testing (Unmoderated)**
-- What it is: Users complete tasks independently, recorded by software. No facilitator present.
-- When to use: When you need more participants, faster turnaround, or lower cost. Good for benchmarking and A/B comparison.
-- Sample size: 10-20 for qualitative patterns, 50+ for quantitative benchmarking.
-- Time/cost: Low per-session. Platform costs (UserTesting, Maze, Lookback). No facilitator time.
-- What it reveals: Task completion rates, time on task, click paths, self-reported satisfaction.
-- Trade-offs: No ability to probe "why." Users may abandon without explanation. Technical issues go unnoticed. Thinking aloud without a facilitator is less natural and less revealing.
+**Layer 2: Frontstage (Onstage) Actions**
+What the customer-facing parts of the organization do that the customer can see. The website, the app, the retail store, the call center agent, the email. This is the visible surface of the service.
 
-**A/B Testing**
-- What it is: Randomly assign users to different versions of a design and measure behavioral differences.
-- When to use: When you have enough traffic for statistical significance (typically 1000+ users per variant), a clear metric to optimize, and a hypothesis to test.
-- Sample size: Depends on baseline conversion rate and minimum detectable effect. Use a sample size calculator — guessing is how you get inconclusive results.
-- Time/cost: Low marginal cost per user. Setup requires engineering. Run time depends on traffic and effect size.
-- What it reveals: Which variant performs better on specific metrics. Causal, not correlational.
-- Trade-offs: Only measures what you track. Can incentivize local optimization. Requires significant traffic. Doesn't explain why one variant wins. Ethical considerations when variants differ in user protection.
+Document: Every touchpoint the customer interacts with, and every employee action the customer witnesses. The frontstage is where brand perception is formed — it's also where most organizations focus their design effort, sometimes to the exclusion of everything below.
 
-**Heuristic Evaluation**
-- What it is: Expert reviewers assess a design against established usability principles (Nielsen's heuristics, Shneiderman's rules, or custom criteria).
-- When to use: When you need fast, low-cost feedback. Good for catching obvious issues before usability testing. Not a substitute for testing with real users.
-- Sample size: 3-5 expert reviewers. One expert finds ~35% of issues; five find ~75% (Nielsen, 1994).
-- Time/cost: Low. Hours, not days. But requires evaluators with genuine expertise.
-- What it reveals: Violation of established design principles, consistency issues, missing affordances, accessibility gaps.
-- Trade-offs: Expert blindness — evaluators may miss issues that real users encounter, and may flag issues that don't actually bother real users. Always validate heuristic findings with user testing.
+**Layer 3: Backstage Actions**
+What the organization does that the customer can't see but that directly supports the frontstage. The warehouse worker who picks the order. The algorithm that generates recommendations. The support agent who reviews a flagged transaction. The designer who creates the email template.
 
-### Structural Methods (How should we organize this?)
+Document: Every internal action that supports a frontstage interaction. This is where efficiency, consistency, and quality are determined — and where most service failures originate.
 
-**Card Sorting (Open)**
-- What it is: Participants organize content items into groups and name the groups. Reveals how users mentally categorize information.
-- When to use: When designing or redesigning information architecture. When you don't know what categories make sense to users.
-- Sample size: 15-20 for open sorts (Tullis & Wood, 2004). Can be done remotely.
-- Time/cost: Low to moderate. 15-30 minutes per participant. Analysis requires dendrogram or similarity matrix generation.
-- What it reveals: Mental models for categorization, expected groupings, natural vocabulary for labels.
-- Trade-offs: Only reveals grouping — not hierarchy, navigation preferences, or findability. Results can be messy — people categorize differently and that's the point.
+**Layer 4: Support Processes**
+The systems, tools, and organizational processes that enable backstage actions. CRM systems, inventory management, payment processing, identity verification, internal communication tools. These are typically owned by different teams, different departments, sometimes different companies.
 
-**Card Sorting (Closed)**
-- What it is: Participants sort content items into pre-defined categories. Tests whether your proposed structure matches user expectations.
-- When to use: When validating a proposed information architecture. After open sorts have informed the category structure.
-- Sample size: 15-30 participants.
-- What it reveals: Whether your categories make sense to users. Which items are ambiguous or misplaced.
-- Trade-offs: Only tests the categories you provide. Can't discover missing categories. Gives false confidence if the categories themselves are wrong.
+Document: The technical systems and organizational processes that backstage actors depend on. This is where cross-functional dependencies live — and where improving one team's process can break another team's workflow.
 
-**Tree Testing**
-- What it is: Participants find items in a text-only hierarchy (no visual design, no navigation UI). Tests whether the structure itself works.
-- When to use: After card sorting has informed the structure. Before building navigation UI. The purest test of information architecture.
-- Sample size: 50+ for quantitative results (each task needs enough data to identify patterns).
-- Time/cost: Low. 10-15 minutes per participant. Fully remote.
-- What it reveals: Findability scores per item, path analysis (where users go wrong), which branches cause confusion.
-- Trade-offs: Text-only — doesn't test the experience of navigating a real interface. Structure works ≠ navigation works.
+**Layer 5: Physical Evidence**
+The tangible artifacts the customer encounters at each stage. The packaging, the receipt, the app notification, the confirmation email, the physical product itself. Physical evidence shapes expectations and creates memories.
 
-**Analytics Review**
-- What it is: Analyze existing behavioral data — page views, click paths, search queries, drop-off funnels, error logs.
-- When to use: When you have a live product with traffic. As a complement to qualitative research, not a replacement.
-- Sample size: Depends on traffic. More is better for funnel analysis.
-- What it reveals: What users actually do (not what they say they do), where they drop off, what they search for, which paths they take.
-- Trade-offs: Shows behavior, not motivation. You know users left at step 3, but not why. Analytics alone is one eye open — pair with qualitative research for both eyes.
+Document: Every artifact the customer receives, sees, or keeps. Physical evidence persists after the interaction ends — it's what the customer takes away.
+
+### The Lines
+
+Service blueprints are divided by three horizontal lines:
+
+**Line of Interaction** — Between Customer Actions and Frontstage. Where the customer and the service provider interact directly. Every crossing of this line is a moment of truth.
+
+**Line of Visibility** — Between Frontstage and Backstage. What the customer can see vs. what they can't. The strategic question at this line: should we make more of the backstage visible (building trust through transparency) or keep it hidden (reducing complexity)?
+
+**Line of Internal Interaction** — Between Backstage and Support Processes. Where human backstage actors interact with technical systems and organizational processes. This line reveals technology dependencies and process bottlenecks.
 
 ---
 
-## Bias Avoidance in Research
+## Moment-of-Truth Analysis
 
-Every research method is susceptible to bias. Knowing the biases doesn't eliminate them, but it makes them manageable.
+Not all touchpoints are equal. Moments of truth (a term coined by Jan Carlzon, then CEO of SAS Airlines, in 1987) are the critical interactions that disproportionately shape the customer's overall perception of the service.
 
-### In question design
+### Identifying Moments of Truth
 
-**Leading questions** steer respondents toward a particular answer. "How much did you enjoy using our new feature?" presupposes enjoyment. Better: "Describe your experience using the feature."
+A moment of truth has three characteristics:
+1. **High emotional stakes** — The customer cares about the outcome. The anxiety of a medical test result, the anticipation of a delivery, the frustration of a failed payment.
+2. **Perception formation** — The interaction shapes how the customer perceives the entire service. A smooth onboarding creates a halo effect. A botched recovery from an error colors everything.
+3. **Decision influence** — The interaction affects whether the customer continues, recommends, or leaves.
 
-**Double-barreled questions** ask two things at once. "Was the checkout fast and easy?" — what if it was fast but confusing? Split into separate questions.
+**First impressions** are always moments of truth. The first time a customer interacts with the service — first visit, first transaction, first support contact — sets expectations for everything that follows.
 
-**Social desirability bias** causes people to answer in ways that make them look good. People overreport privacy concerns, underreport engagement with addictive features, and claim to read terms of service. Mitigate by asking about behaviors, not attitudes: "When did you last review your privacy settings?" not "How important is privacy to you?"
+**Failure moments** are always moments of truth. How the service handles things going wrong reveals its true character. A service that recovers gracefully from failure builds more trust than one that never fails but has no recovery mechanism.
 
-**Acquiescence bias** is the tendency to agree with statements regardless of content. Avoid agree/disagree scales when possible. Use forced-choice or behavioral questions instead.
+**Peak and end** (Kahneman's Peak-End Rule): People judge experiences primarily by their most intense point (peak) and their ending. A service that's mediocre throughout but ends well is remembered more favorably than one that's consistently good but ends poorly.
 
-### In sampling
+### Moment-of-Truth Categories
 
-**Survivorship bias** means you're only talking to people who stuck around. Your users aren't representative of all the people who tried your product — they're the ones who didn't leave. Interview churned users, abandoned signups, and support-ticket authors to get the full picture.
+**Positive moments of truth** — Interactions where the service exceeds expectations. Surprising ease, unexpected delight, proactive problem prevention. These create loyalty and word-of-mouth.
 
-**Convenience sampling** means you're testing with whoever is easiest to recruit. Your colleagues, your social network, and respondents on a user testing platform all skew toward specific demographics, tech literacy levels, and behavioral patterns. Document who you're missing.
+**Negative moments of truth** — Interactions where the service fails to meet expectations. Friction, confusion, delay, rudeness, lack of information. These create churn and negative word-of-mouth (which spreads faster).
 
-**Selection bias** in A/B tests occurs when the randomization isn't truly random, or when early results cause you to stop the test prematurely. Let tests run to calculated sample sizes. Don't peek and decide.
+**Moment of truth zero (Google's concept)** — The moment a potential customer researches the service before ever interacting with it. Reviews, social media, comparison sites. The experience begins before the service does.
 
-### In analysis
+### Designing for Moments of Truth
 
-**Confirmation bias** is the tendency to weight evidence that supports your hypothesis and discount evidence that challenges it. Counter by actively looking for disconfirming evidence. Assign a team member to argue the opposite interpretation.
-
-**Narrative bias** is the tendency to construct a coherent story from scattered data. Real user behavior is messy and contradictory. If your findings tell a clean, simple story, ask what you're leaving out.
-
-**Anchoring** occurs when early data points disproportionately influence interpretation. If the first two interviews tell the same story, you'll hear that story in the remaining eight. Randomize analysis order. Code transcripts independently before discussing.
-
----
-
-## Synthesis Techniques
-
-Raw research data is not insight. Synthesis is the process of turning observations into understanding.
-
-### Affinity Mapping
-
-Take individual observations (quotes, behaviors, notes) and cluster them by similarity. Bottom-up — don't start with categories, let them emerge.
-
-**Process:** Write each observation on a separate note. Group similar observations. Name the groups. Look for relationships between groups. The group names become your themes.
-
-**When it works:** When you have diverse, unstructured data from interviews or contextual inquiry. When you need the team to build shared understanding.
-
-**When it fails:** When one person does it alone and loses the benefit of multiple perspectives. When groups are too broad ("users want it to be better") or too specific ("user 3 wants blue buttons").
-
-### Thematic Analysis (Braun & Clarke, 2006)
-
-A systematic method for identifying, analyzing, and reporting patterns across qualitative data.
-
-**Six phases:**
-1. **Familiarize** — Read and re-read the data. Note initial impressions.
-2. **Code** — Generate initial codes from the data. Codes are labels for interesting features.
-3. **Search** — Collate codes into candidate themes. A theme captures something important about the data in relation to the research question.
-4. **Review** — Check themes against coded data and the full dataset. Do they hold up?
-5. **Define** — Name and define each theme. What story does each tell?
-6. **Report** — Select compelling examples, relate themes to research questions.
-
-**Key distinction:** Themes don't "emerge from the data" passively. The researcher makes active choices about what to code, how to group, and what to name. Be transparent about those choices.
-
-### Journey-Based Synthesis
-
-Organize findings around the user's journey rather than by theme. Especially useful when research reveals temporal patterns or when the output needs to feed into flow design.
-
-**Process:** Map the user's journey stages from research data. For each stage, collect: what users are doing, thinking, and feeling; what's working and what isn't; what tools and channels they're using; where the breakdowns occur. The synthesis output is a research-grounded journey map, not a hypothetical one.
+1. **Identify** — Use customer journey research, support ticket analysis, NPS verbatims, and social media analysis to find which interactions matter most.
+2. **Invest disproportionately** — Moments of truth deserve more design attention, more testing, more polish, and more monitoring than routine interactions.
+3. **Prepare for failure** — Every moment of truth should have a designed failure mode. What happens if the payment doesn't go through? What happens if the delivery is late? What happens if the agent can't solve the problem? The answer should never be "I don't know."
+4. **Measure separately** — Track satisfaction and outcome metrics for moments of truth independently from overall service metrics. A service with high average satisfaction but low moment-of-truth satisfaction has a hidden problem.
 
 ---
 
-## Communicating Findings
+## Touchpoint Mapping
 
-Research that doesn't change decisions is wasted research. Communication is the last mile.
+A touchpoint is any point of contact between the customer and the service. Touchpoint mapping catalogs every touchpoint across every channel and evaluates each for quality, consistency, and strategic importance.
 
-### Evidence Strength Indicators
+### Touchpoint Inventory
 
-Not all findings carry equal weight. Be explicit about confidence levels:
+**Digital touchpoints:** Website, mobile app, email, SMS, push notifications, chatbot, social media, advertising, search results, app store listing, in-app messages.
 
-| Indicator | Meaning | Example |
-|-----------|---------|---------|
-| **Strong evidence** | Multiple sources, multiple methods, consistent pattern | "7 of 8 participants failed to complete checkout. Analytics show 62% drop-off at the same step." |
-| **Moderate evidence** | Single method with clear pattern, or multiple methods with partial agreement | "Interview participants consistently mentioned confusion with pricing tiers. We haven't tested this quantitatively." |
-| **Directional evidence** | Small sample or single source, but worth noting | "Two participants mentioned this pain point. It's not a pattern yet, but it's worth monitoring." |
-| **Hypothesis** | Researcher interpretation, not directly observed | "Based on the drop-off data and interview themes, we believe the root cause is X. This needs validation." |
+**Human touchpoints:** Call center, in-person staff, live chat agents, account managers, delivery personnel, installation technicians.
 
-### Findings Format
+**Physical touchpoints:** Packaging, product, physical store, printed materials, signage, receipts, business cards.
 
-Structure findings for decision-making:
+**Environmental touchpoints:** Store layout, office environment, waiting room, parking, physical accessibility.
 
-1. **What we observed** — Factual description of the finding. No interpretation yet.
-2. **What it means** — Interpretation. What does this observation tell us about user needs, behaviors, or the design?
-3. **How confident we are** — Evidence strength indicator. How much weight should this finding carry?
-4. **What we recommend** — Actionable recommendation tied to the finding.
-5. **What we still need to learn** — Open questions that this finding raises.
+### Touchpoint Evaluation Matrix
 
-### Common Communication Failures
+For each touchpoint, assess:
 
-- **Burying the lead.** Start with the most important finding, not the methodology section. Decision-makers need the "so what" first.
-- **Cherry-picking quotes.** One vivid quote is not a pattern. Always state the prevalence: "5 of 8 participants" is evidence; "one participant memorably said..." is an anecdote.
-- **Conflating correlation and causation.** "Users who completed onboarding retained better" does not mean onboarding caused retention. Maybe motivated users complete both onboarding and retention.
-- **Presenting findings without recommendations.** Research that says "users are confused" without saying "here's what to do about it" creates frustration, not action.
-- **Overstating confidence.** Five interviews do not represent "users" as a monolith. They represent five people who share some characteristics with your users. Language matters: "participants in our study" vs. "our users."
+| Dimension | Question |
+|-----------|----------|
+| **Frequency** | How often does this touchpoint occur? Daily, weekly, once? |
+| **Criticality** | If this touchpoint fails, what's the consequence? Minor annoyance or complete service breakdown? |
+| **Emotional impact** | What emotional state is the customer in when they encounter this touchpoint? |
+| **Consistency** | Does this touchpoint deliver the same quality every time? |
+| **Brand alignment** | Does this touchpoint reflect the brand's values and voice? |
+| **Handoff quality** | How well does this touchpoint connect to the previous and next touchpoints? |
+
+### Cross-Channel Consistency
+
+The most common touchpoint failure isn't a bad individual touchpoint — it's inconsistency between touchpoints. The website says one thing, the app says another, the call center agent says a third. The customer starts a process online and can't continue in the store. The mobile app's features don't match the desktop app's features.
+
+**Designing for cross-channel consistency:**
+- Shared content model: information authored once, displayed across channels
+- Unified customer record: every channel sees the same customer history
+- Consistent terminology: the same action has the same name everywhere
+- Coherent visual identity: adapted for each channel but recognizably the same brand
+- Seamless transitions: start on one channel, continue on another without losing progress
+
+---
+
+## Fail Point Identification and Recovery Design
+
+Every service fails. The question is whether the failure was anticipated and designed for, or whether it's a surprise for both the customer and the organization.
+
+### Fail Point Categories
+
+**Process failures** — The defined process doesn't produce the expected outcome. The order was placed but not fulfilled. The verification step timed out. The payment was charged twice. These are predictable and designable.
+
+**People failures** — A human in the service chain makes an error or performs poorly. An agent gives wrong information. A delivery person is rude. A colleague forgets to hand off a task. These are manageable through training, tools, and process design.
+
+**System failures** — Technology breaks. The API goes down. The database loses a record. The email doesn't send. These are inevitable and must be designed around.
+
+**Customer failures** — The customer does something unexpected. Enters wrong information, misunderstands a step, uses the wrong channel. These are not really failures — they're normal human behavior that the service should accommodate.
+
+**External failures** — Forces outside the service's control. Weather, supply chain disruptions, third-party service outages, regulatory changes. These can't be prevented, only prepared for.
+
+### Recovery Design Principles
+
+**Detect early.** The faster you detect a failure, the more options you have for recovery. Monitoring, alerting, and customer feedback loops should surface problems before the customer has to report them.
+
+**Communicate proactively.** If you know something went wrong, tell the customer before they discover it. "Your order is delayed due to weather; new estimated delivery is Thursday" is worlds better than the customer checking tracking on Wednesday and seeing no update.
+
+**Offer resolution, not explanation.** Customers want to know what you're going to do about it, not a detailed explanation of what went wrong. "Here's what happened" should be followed immediately by "Here's what we're doing about it."
+
+**Empower frontline staff.** If the person the customer is talking to can't fix the problem, the recovery has already failed. Service recovery design should give customer-facing employees the authority and tools to resolve common failures without escalation.
+
+**Make it right, then make it better.** Fix the immediate problem (refund, reship, correct the error). Then add something unexpected — a discount, an upgrade, a personal follow-up. Service recovery done well creates more loyalty than no failure at all (the "service recovery paradox," documented by McCollough & Bharadwaj, 1992).
+
+---
+
+## Channel Orchestration
+
+Modern services operate across multiple channels. Channel orchestration is the practice of designing how experiences flow across these channels — not as independent silos, but as a coordinated service.
+
+### Orchestration Patterns
+
+**Channel-native:** Each channel offers the complete service experience, adapted to the channel's strengths. The website, app, and physical store each provide the full service. This is resource-intensive but maximizes customer choice.
+
+**Channel-complementary:** Different channels serve different parts of the journey. Research on the website, purchase in the store, support through the app. Each channel does what it does best. This is efficient but requires clear handoffs.
+
+**Channel-primary with fallback:** One channel is the primary experience; others serve as fallbacks for specific situations. "Use the app for everything; call us if you're stuck." This is common for digital-native services.
+
+**Channel-sequential:** The service moves the customer across channels in a defined sequence. Sign up online, verify by phone, activate in the app. This is common for regulated services (banking, insurance) where different channels serve compliance needs.
+
+### Orchestration Design Principles
+
+**Don't force channels.** Let customers choose their preferred channel. If someone wants to call instead of using the chatbot, let them. Channel forcing creates frustration even when the forced channel is objectively faster.
+
+**Preserve context across channels.** If a customer starts a process on the website and calls support, the support agent should see what the customer was doing. If a customer adds items to a cart on mobile, the cart should appear on desktop. Context loss across channels is one of the most common service design failures.
+
+**Design the transitions.** The moment a customer moves from one channel to another is a high-risk moment for confusion and context loss. Design explicit handoff experiences: "Continue this on the app — we've saved your progress" with a clear path to pick up where they left off.
+
+**Let channels know about each other.** In-store staff should know what the website offers. The chatbot should know the phone number for human support. The app should know about the physical store's hours. Channels that are unaware of each other create a fractured experience.
+
+**Measure across channels, not within them.** A customer who starts on the website and completes on the phone had a successful journey — but channel-specific metrics would show the website as a "bounce" and the phone as an unattributed conversion. Cross-channel measurement reveals the actual experience.
 
 ---
 > Source: [ghaida/intent](https://github.com/ghaida/intent) — distributed by [TomeVault](https://tomevault.io).
