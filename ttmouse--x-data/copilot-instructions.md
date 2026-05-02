@@ -1,39 +1,55 @@
-## x-data
+## cursor-rules
 
-> - `chrome-extension/` holds all extension sources: `manifest.json` and the scripts (`background.js`, `content.js`, `popup.js`) plus UI assets (`popup.html`, `style.css`, `icons/`).
+> Guidelines for creating and maintaining Cursor rules to ensure consistency and effectiveness.
 
-# Repository Guidelines
 
-## Project Structure & Module Organization
-- `chrome-extension/` holds all extension sources: `manifest.json` and the scripts (`background.js`, `content.js`, `popup.js`) plus UI assets (`popup.html`, `style.css`, `icons/`).  
-- `content.js` scrapes tweets, injects the sidebar iframe, and persists data via `chrome.storage.local`.  
-- `popup.js` drives the popup/sidebar UI, rendering cached tweets and wiring controls.  
-- Keep new assets under `chrome-extension/` so they remain web‑accessible via `chrome.runtime.getURL`.
+- **Required Rule Structure:**
+  ```markdown
+  ---
+  description: Clear, one-line description of what the rule enforces
+  globs: path/to/files/*.ext, other/path/**/*
+  alwaysApply: boolean
+  ---
 
-## Build, Test, and Development Commands
-- Load the extension unpacked in Chrome: `chrome://extensions` → Enable *Developer mode* → *Load unpacked* → select `chrome-extension/`. Reload here after code changes.  
-- For quick validation of script syntax, run `node --check chrome-extension/content.js`. Repeat for other JS files if edited.
+  - **Main Points in Bold**
+    - Sub-points with details
+    - Examples and explanations
+  ```
 
-## Coding Style & Naming Conventions
-- JavaScript is ES2020+, 2-space indentation, `const`/`let` only.  
-- Use descriptive camelCase for variables/functions (`scrapeCurrentView`, `toggleSidebarBtn`).  
-- Prefer template literals for DOM snippets and keep inline comments brief.  
-- When touching HTML/CSS, keep class names kebab-case and align with existing BEM-lite structure.
+- **File References:**
+  - Use `[filename](mdc:path/to/file)` ([filename](mdc:filename)) to reference files
+  - Example: [prisma.mdc](mdc:.cursor/rules/prisma.mdc) for rule references
+  - Example: [schema.prisma](mdc:prisma/schema.prisma) for code references
 
-## Testing Guidelines
-- Manual verification is primary: reload the extension, trigger `Scrape Current View`, confirm the sidebar shows counts/dates, and run auto-scroll on a live analytics page.  
-- For parser tweaks, log to DevTools (`console.log('X Data Scraper:', …)`) and inspect `chrome.storage.local` to ensure cached tweets contain the expected fields.  
-- Snapshot any DOM selectors you rely on inside comments to ease future maintenance.
+- **Code Examples:**
+  - Use language-specific code blocks
+  ```typescript
+  // ✅ DO: Show good examples
+  const goodExample = true;
+  
+  // ❌ DON'T: Show anti-patterns
+  const badExample = false;
+  ```
 
-## Commit & Pull Request Guidelines
-- Follow the existing concise style: imperative subject lines (`Add robust timestamp parser`, `Fix sidebar iframe append`).  
-- Include context in the body when a change alters scraping behavior or UX.  
-- Pull requests should describe the feature/fix, list manual verification steps (e.g., “Reloaded extension and scraped @handle feed”), and attach screenshots/GIFs for UI adjustments.
+- **Rule Content Guidelines:**
+  - Start with high-level overview
+  - Include specific, actionable requirements
+  - Show examples of correct implementation
+  - Reference existing code when possible
+  - Keep rules DRY by referencing other rules
 
-## Security & Configuration Tips
-- Never ship secrets; the extension only interacts with public X pages.  
-- Keep permissions minimal (currently `activeTab`, `scripting`, `storage`). If you add APIs, justify them in `manifest.json` comments and PR notes.  
-- Test against both `https://x.com` and `https://twitter.com` since the manifest covers both.
+- **Rule Maintenance:**
+  - Update rules when new patterns emerge
+  - Add examples from actual codebase
+  - Remove outdated patterns
+  - Cross-reference related rules
+
+- **Best Practices:**
+  - Use bullet points for clarity
+  - Keep descriptions concise
+  - Include both DO and DON'T examples
+  - Reference actual code over theoretical examples
+  - Use consistent formatting across rules 
 
 ---
 > Source: [ttmouse/X-data](https://github.com/ttmouse/X-data) — distributed by [TomeVault](https://tomevault.io).
