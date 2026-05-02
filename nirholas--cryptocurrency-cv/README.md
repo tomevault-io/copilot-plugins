@@ -7,11 +7,11 @@ Free crypto news API - real-time aggregator for Bitcoin, Ethereum, DeFi, Solana 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nirholas/cryptocurrency.cv](https://github.com/nirholas/cryptocurrency.cv).
+Original source: `CLAUDE.md` in [nirholas/cryptocurrency.cv](https://github.com/nirholas/cryptocurrency.cv).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
