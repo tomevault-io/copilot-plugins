@@ -1,0 +1,9 @@
+{
+  "name": "mustache-dev--three-vfx",
+  "displayName": "Three-VFX",
+  "description": " High-performance particle system for Three.js WebGPU, with support for React Three Fiber, TresJS, and Threlte",
+  "version": "1.0.0",
+  "author": "mustache-dev",
+  "homepage": "https://github.com/mustache-dev/Three-VFX",
+  "skills": []
+}
