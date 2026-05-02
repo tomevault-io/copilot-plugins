@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--claude-canvas",
+  "displayName": "claude-canvas",
+  "description": "AI-orchestrated visual production for Obsidian Canvas. Create presentations, flowcharts, mood boards, knowledge graphs, and galleries with intelligent layout and AI-generated content.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/claude-canvas",
+  "skills": []
+}
