@@ -1,0 +1,14 @@
+{
+  "name": "memodb-io--skill-memory",
+  "displayName": "skill-memory",
+  "description": "agent skill as memory layer",
+  "version": "1.0.0",
+  "author": "memodb-io",
+  "homepage": "https://github.com/memodb-io/skill-memory",
+  "skills": [
+    {
+      "name": "skill-memory",
+      "description": ""
+    }
+  ]
+}
