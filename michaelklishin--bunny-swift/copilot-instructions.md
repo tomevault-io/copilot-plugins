@@ -30,6 +30,10 @@ swift test --filter "TestClassName/testMethodName"
 
 Test suites require a RabbitMQ node running on `localhost:5672` with default credentials (`guest`/`guest`).
 
+RabbitMQ 4.x deprecates transient non-exclusive queues (`transient_nonexcl_queues`). Declaring a queue
+with `durable: false` and `exclusive: false` causes the broker to close the connection with a protocol
+error. Always use `durable: true`, `exclusive: true`, or `temporaryQueue()` in tests.
+
 
 ## Repository Layout
 
@@ -105,6 +109,5 @@ Reducing duplication is good unless it makes the codebase more complex.
 "There's nothing meaningful to improve" is an acceptable answer.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/michaelklishin)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/michaelklishin)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [michaelklishin/bunny-swift](https://github.com/michaelklishin/bunny-swift) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
