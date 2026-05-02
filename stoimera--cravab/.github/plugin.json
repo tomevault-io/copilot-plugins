@@ -1,0 +1,9 @@
+{
+  "name": "stoimera--cravab",
+  "displayName": "Cravab",
+  "description": " AI phone receptionist and operations PWA app for appointment-based field-service businesses: call handling, booking, clients, reporting, and multi-tenant Supabase (Next.js PWA).",
+  "version": "1.0.0",
+  "author": "stoimera",
+  "homepage": "https://github.com/stoimera/Cravab",
+  "skills": []
+}
