@@ -1,0 +1,44 @@
+{
+  "name": "gru-ai",
+  "owner": "andrew-yangy",
+  "repo": "gru-ai",
+  "description": "Autonomous AI agent team for one-man companies. Context engineering + harness engineering drive a pipeline that brainstorms, builds, reviews, and ships.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/andrew-yangy/gru-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T08:25:17Z"
+}
