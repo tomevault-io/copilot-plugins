@@ -1,0 +1,9 @@
+{
+  "name": "chadbyte--clay",
+  "displayName": "clay",
+  "description": "Turn Claude Code into a team workspace. Any device, one command.",
+  "version": "1.0.0",
+  "author": "chadbyte",
+  "homepage": "https://github.com/chadbyte/clay",
+  "skills": []
+}
