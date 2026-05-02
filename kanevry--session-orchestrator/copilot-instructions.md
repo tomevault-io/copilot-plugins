@@ -1,75 +1,172 @@
-## 000-session-orchestrator
+## 010-session-workflow
 
-> When working in any project with Session Orchestrator capabilities
+> When the user types /session, starts a development session, types /go to execute, or /close to end a session
 
 
-# Session Orchestrator — Cursor IDE
+# Session Workflow
 
-You have Session Orchestrator capabilities. This plugin provides structured session management for development work.
+Three-phase workflow: Start -> Execute -> Close.
 
-## Platform Context
+## Phase 1: Session Start (`/session [type]`)
 
-- Platform: Cursor IDE (SO_PLATFORM=cursor)
-- State directory: `.cursor/` (STATE.md, wave-scope.json)
-- Config: Session Config in `CLAUDE.md` under `## Session Config`
-- Shared knowledge: `.orchestrator/metrics/` (sessions.jsonl, learnings.jsonl)
+Session types:
+- **housekeeping** — git cleanup, docs, CI health, dependency updates
+- **feature** — implementation of issues/features
+- **deep** — thorough work requiring extended focus
 
-## Available Commands
+### Step 1: Read Session Config
 
-| Command | Purpose |
-|---------|---------|
-| /session [type] | Start a session (housekeeping, feature, deep) |
-| /go | Execute the agreed session plan |
-| /close | End session with verification and commits |
-| /discovery [scope] | Run quality analysis probes |
-| /plan [mode] | Create project plan or PRD (new, feature, retro) |
-| /evolve [mode] | Extract session learnings (analyze, review, list) |
+Parse `## Session Config` from project's `CLAUDE.md`. Store as `$CONFIG`.
 
-## Cursor-Specific Adaptations
+### Step 2: Session Continuity
 
-**No parallel agents**: Execute wave tasks sequentially. Complete one task fully before starting the next. The `agents-per-wave` config is ignored on Cursor.
+If `persistence` is enabled, check `.cursor/STATE.md`:
+- `status: active` — crashed session. Ask: "Found unfinished session. Resume or start fresh?"
+- `status: paused` — intentional pause. Offer to resume or start fresh.
+- `status: completed` — note summary for context, continue normally.
+- Missing — first session, continue normally.
 
-**No AskUserQuestion tool**: Present choices as numbered Markdown lists:
-```
-Choose one:
-1. Option A — description
-2. Option B — description
-Reply with the number of your choice.
-```
+### Step 3: Git Analysis
 
-**No TaskCreate/Update**: Use plain-text checklists to track progress:
-```
-- [x] Task 1 — done
-- [ ] Task 2 — in progress
-- [ ] Task 3 — pending
+Run in parallel:
+```bash
+# Branch state
+git branch -a && git log --oneline -20
+
+# Unpushed/uncommitted work
+git status --short
+git log origin/main..HEAD --oneline
+
+# Stale branches (no commits in 7+ days)
+git for-each-ref --sort=-committerdate --format='%(refname:short) %(committerdate:relative)' refs/heads/
 ```
 
-**No EnterPlanMode**: When planning, state "I will focus on analysis only. No files will be modified until you approve the plan."
+### Step 4: VCS Deep Dive
 
-**Web search**: Use `@web` in Cursor chat instead of WebSearch tool.
+Query open issues, recent closures, milestones, MRs/PRs, CI status:
+```bash
+# GitLab
+glab issue list --per-page 50
+glab issue list --closed --per-page 10
+glab mr list --per-page 20
 
-**Web fetch**: Use `curl` via Bash instead of WebFetch tool.
+# GitHub
+gh issue list --limit 50
+gh pr list --limit 20
+```
 
-## Quality Gates
+Group issues by priority (critical/high first) and session-type relevance.
 
-Standard quality commands (read from Session Config, defaults below):
-- **Typecheck**: `tsgo --noEmit` (or `npx tsc --noEmit`)
-- **Test**: `pnpm test --run`
-- **Lint**: `pnpm lint`
+### Step 5: Environment Check
 
-If a command is set to `skip` in Session Config, skip that check entirely.
+```bash
+# Quality baseline (non-blocking)
+{typecheck-command} 2>&1 | tail -5
+{test-command} 2>&1 | tail -5
+```
 
-## Agent Dispatch
+Check SSOT file freshness. Flag files older than 5 days.
 
-Agents are resolved in priority order: project agents (`.cursor/agents/`) > plugin agents (`agents/`) > general-purpose. Use the `agent-mapping` Session Config field to bind roles explicitly to specific agents.
+**Plugin freshness**: Check the session-orchestrator plugin's last commit date. If older than `plugin-freshness-days` (default: 30) days, flag a non-blocking warning in the overview.
 
-See `.orchestrator/metrics/model-selection.md` for model choice guidance (haiku/sonnet/opus per task type).
+### Step 5.5: Pattern Recognition
 
-## Shared Knowledge
+Look across gathered data for:
+- **Blocking chains**: issues blocked by other issues
+- **Quick wins**: low-effort issues closable alongside main work
+- **Synergies**: issues sharing code paths that can be combined
 
-- Read `.orchestrator/metrics/learnings.jsonl` for cross-session intelligence. Only apply learnings with confidence >= 0.5.
-- Write session metrics to `.orchestrator/metrics/sessions.jsonl` with `"platform": "cursor"`.
-- Metrics directory: `.orchestrator/metrics/` (not `.claude/metrics/`).
+### Step 5.6: Memory Recall
+
+> Skip if `persistence` is `false`.
+
+1. Look for session memory files at `~/.claude/projects/<project>/memory/session-*.md`
+2. Read the 2–3 most recent files (newest first)
+3. Extract: accomplishments, carryovers, patterns or warnings
+4. Surface under **Previous Sessions** in the overview
+
+### Step 5.7: Project Intelligence
+
+> Skip if `persistence` is `false` or `learnings.jsonl` does not exist.
+
+Read `.orchestrator/metrics/learnings.jsonl` and surface active learnings (confidence > 0.3, not expired):
+- Fragile files, effective sizing, recurring issues, scope guidance
+- Config field: `learning-expiry-days` (default: 30) controls expiry window
+
+**Effectiveness analysis** (requires 5+ sessions in `sessions.jsonl`):
+- Completion rate trend, discovery probe value, carryover pattern
+- If fewer than 5 sessions: "Effectiveness analysis: not enough data yet ([N]/5 sessions)."
+
+### Step 7: Present Findings
+
+Present a structured Session Overview with:
+- Git state summary
+- Issue recommendations (grouped by priority)
+- Quality baseline results
+- Previous sessions context (if available)
+- Project intelligence insights (learnings + effectiveness if 5+ sessions)
+- Recommended focus areas
+
+On Cursor, present scope confirmation as a numbered Markdown list (no AskUserQuestion tool). Ask the user to confirm scope before proceeding.
+
+---
+
+## Phase 2: Session Execution (`/go`)
+
+### Step 1: Create Wave Plan
+
+Distribute tasks across waves (see `030-wave-execution.mdc` for full details on roles, scope manifests, and quality checks).
+
+### Step 2: Execute Sequentially
+
+On Cursor, execute all tasks one by one (no parallel agents). For each task:
+1. State what you are doing and which wave/role it belongs to
+2. Execute the task fully
+3. Report status with checklist update
+4. Run incremental quality checks after implementation waves
+5. Move to next task
+
+### Step 3: Update STATE.md
+
+If persistence is enabled, update `.cursor/STATE.md` after each wave with wave status, files changed, and quality check results.
+
+---
+
+## Phase 3: Session End (`/close`)
+
+### Step 1: Plan Verification
+
+For each planned item:
+- **Done**: Verify with `git diff`, confirm acceptance criteria met
+- **Partially done**: Create carryover issue with `[Carryover]` prefix
+- **Not started**: Document why, ensure issue stays open
+- **Emergent work**: Document unplanned tasks that were completed
+
+### Step 2: Full Quality Gate (BLOCKING)
+
+```bash
+# All must pass before committing
+{typecheck-command}    # 0 errors required
+{test-command}         # exit code 0 required
+{lint-command}         # errors NOT OK, warnings OK
+
+# Check for debug artifacts
+grep -rn 'console\.log\|debugger\|TODO: remove' --include='*.ts' --include='*.tsx' src/
+```
+
+Do NOT commit if any check fails. Fix quick issues (<2 min) inline. For longer fixes, create a `priority:high` issue.
+
+### Step 3: Commit and Push
+
+Stage specific files, commit with Conventional Commit format, push to origin. Mirror to GitHub if configured.
+
+### Step 4: Session Metrics
+
+If persistence is enabled, append session metrics to `.orchestrator/metrics/sessions.jsonl` with `"platform": "cursor"`. Include: session_id, session_type, timestamps, wave/file counts, and effectiveness stats (planned/completed/carryover/completion_rate).
+
+### Step 5: Cleanup
+
+Remove `.cursor/wave-scope.json` and update `.cursor/STATE.md` with `status: completed`.
 
 ---
 > Source: [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — distributed by [TomeVault](https://tomevault.io).
