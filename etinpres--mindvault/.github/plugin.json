@@ -1,0 +1,9 @@
+{
+  "name": "etinpres--mindvault",
+  "displayName": "mindvault",
+  "description": "AI coding tool's long-term memory \u2014 auto-converts codebases into knowledge graph + wiki + search index",
+  "version": "1.0.0",
+  "author": "etinpres",
+  "homepage": "https://github.com/etinpres/mindvault",
+  "skills": []
+}
