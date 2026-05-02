@@ -1,0 +1,14 @@
+{
+  "name": "smerchek--bulk-summarize",
+  "displayName": "bulk-summarize",
+  "description": "A bulk version of Peter Steinberger's summarize package, capable of scanning youtube playlists or podcasts as part of research project.",
+  "version": "1.0.0",
+  "author": "smerchek",
+  "homepage": "https://github.com/smerchek/bulk-summarize",
+  "skills": [
+    {
+      "name": "bulk-summarize",
+      "description": ""
+    }
+  ]
+}
