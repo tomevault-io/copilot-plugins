@@ -1,218 +1,69 @@
 ## mindx
 
-> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+> MindX is a lightweight, thinking, and self-evolving AI digital twin/personal assistant. It utilizes a "bionic brain architecture" with subconscious and conscious layers to optimize the use of local Large Language Models (LLMs) via Ollama, reducing the need for cloud-based inference and saving on token costs.
 
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+# MindX
 
 ## Project Overview
 
-MindX is a lightweight, self-evolving AI personal assistant with a bionic brain architecture. It's written in Go (backend) and React/TypeScript (frontend dashboard), designed to run primarily on local models via Ollama with optional cloud model fallback.
+MindX is a lightweight, thinking, and self-evolving AI digital twin/personal assistant. It utilizes a "bionic brain architecture" with subconscious and conscious layers to optimize the use of local Large Language Models (LLMs) via Ollama, reducing the need for cloud-based inference and saving on token costs.
 
-## Core Architecture
+Key features include:
+- **Bionic Brain Architecture:** Layered thinking (fast subconscious vs. deep conscious).
+- **Long-term Memory:** Automatically extracts and manages memories from conversations.
+- **Skill Ecosystem:** Compatible with OpenClaw skills and the MCP protocol.
+- **Autonomous Evolution:** Supports local fine-tuning of models to adapt to user preferences.
+- **Multi-channel Support:** Integrates with DingTalk, WeChat, QQ, Feishu, WhatsApp, Telegram, Facebook, etc.
 
-### Bionic Brain System (仿生大脑架构)
+The project is structured as a monorepo containing a Go-based backend and a React/TypeScript/Vite-based frontend dashboard.
 
-The system implements a dual-hemisphere brain model inspired by human cognition:
+## Key Directories and Files
 
-- **Left Brain (潜意识层 - Subconscious)**: Fast, automatic, low-power processing for simple interactions (weather queries, messages). Uses lightweight local models for quick responses.
-- **Right Brain (主意识层 - Conscious)**: Deep, focused, high-quality processing for complex tasks (coding, decision-making). Uses more powerful models when needed.
-- **Consciousness Manager**: Routes requests between left/right brain based on complexity, manages token budgets, and handles fallback logic.
+- `cmd/main.go`: The main entry point for the Go application.
+- `internal/`: Core application logic following clean architecture principles (`adapters`, `core`, `entity`, `infrastructure`, `usecase`).
+- `dashboard/`: The frontend web interface built with React, TypeScript, Vite, and Tailwind CSS.
+- `scripts/`: Various shell and Python scripts for building, installing, and development.
+- `skills/`: A collection of executable skills/tools available to the AI (e.g., web search, calculator, weather).
+- `config/`: Configuration files and templates for server, models, channels, and capabilities.
+- `training/`: Scripts and Python tools for fine-tuning local models (LoRA).
+- `pkg/`: Reusable Go packages (errors, i18n, llama, logging).
+- `Makefile`: The central entry point for all build, development, and operational commands.
 
-Key files:
-- `internal/usecase/brain/brain.go`: Main BionicBrain implementation
-- `internal/usecase/brain/consciousness_manager.go`: Request routing logic
-- `internal/usecase/brain/thinking.go`: Core thinking/inference engine
-- `internal/core/brain.go`: Brain interface definitions
+## Building and Running
 
-### Clean Architecture Layers
+The project relies heavily on `make` for its lifecycle commands.
 
-1. **cmd/**: Application entry point
-2. **internal/adapters/**: External interfaces (CLI, HTTP, channels)
-3. **internal/usecase/**: Business logic (brain, skills, memory, training, cron)
-4. **internal/core/**: Domain interfaces and entities
-5. **internal/infrastructure/**: Technical implementations (persistence, embedding, llama)
-6. **internal/entity/**: Domain models
-7. **pkg/**: Reusable utilities (logging, i18n, llama wrapper)
+### Prerequisites
+- **Go:** 1.21 or later.
+- **Node.js:** 18 or later (with `npm`).
+- **Ollama:** Required for local model execution (`brew install ollama` or `curl -fsSL https://ollama.com/install.sh | sh`, then `ollama serve`).
 
-### Memory System
+### Common Commands
 
-Long-term memory with automatic consolidation:
-- `internal/usecase/memory/`: Memory management logic
-- `internal/infrastructure/persistence/`: BadgerDB-based storage
-- Automatic memory extraction from conversations
-- Vector embeddings for semantic search
+- **Start Development Mode:** `make dev`
+  - Starts both the Go backend and the Vite frontend with hot-reloading. The frontend will typically be accessible at `http://localhost:5173`.
+- **Build Project:** `make build`
+  - Compiles the Go binary and builds the React frontend for production.
+- **Install:** `make install`
+  - Builds the project and installs the `mindx` CLI to your system.
+- **Run Tests:** `make test`
+  - Executes all Go unit tests within an isolated `.test` workspace.
+- **Code Quality:**
+  - Format code: `make fmt`
+  - Lint code: `make lint`
+- **Dependency Management:** `make deps`
+  - Runs `go mod tidy` and `npm update` in the dashboard.
+- **Run Interfaces:**
+  - Web Dashboard: `make run-dashboard` (or `mindx dashboard`)
+  - Terminal UI: `make run-tui` (or `mindx tui`)
+  - Backend Kernel: `make run-kernel` (or `mindx kernel run`)
 
-### Skills System
+## Development Conventions
 
-Extensible tool/skill framework compatible with OpenClaw ecosystem:
-- `skills/`: Built-in skills (calculator, calendar, file_search, etc.)
-- `internal/usecase/skills/`: Skill manager and execution
-- Supports MCP (Model Context Protocol)
-- Skills can be written in any language as CLI tools
-
-### Training System
-
-Self-evolution through fine-tuning on conversation data:
-- `training/`: Python-based fine-tuning scripts
-- `internal/usecase/training/`: Training data preparation
-- Exports conversation data for model training
-- Supports Ollama model format
-
-## Common Development Commands
-
-### Building and Running
-
-```bash
-# Build everything (frontend + backend)
-make build
-
-# Install to system
-make install
-
-# Development mode (hot reload for both frontend and backend)
-make dev
-
-# Run dashboard only
-make run
-
-# Run TUI chat interface
-make run-tui
-
-# Start kernel service
-make run-kernel
-```
-
-### Testing
-
-```bash
-# Run all tests (uses .test workspace to avoid polluting data)
-make test
-
-# Test specific package
-MINDX_WORKSPACE=$(PWD)/.test go test ./internal/usecase/brain/...
-```
-
-### Code Quality
-
-```bash
-# Format code
-make fmt
-
-# Lint code
-make lint
-
-# Check environment for issues
-make doctor
-```
-
-### Building Releases
-
-```bash
-# Build for all platforms (binaries only)
-make build-all
-
-# Build Linux release packages (AMD64 + ARM64)
-make build-linux-release
-
-# Build Windows release packages
-make build-windows-release
-
-# Build all release packages
-make build-all-releases
-```
-
-### Model and Skill Management
-
-```bash
-# Test model compatibility
-make run-model-test
-
-# List all skills
-make run-skill-list
-
-# Run training once
-make run-train
-```
-
-## Configuration
-
-Configuration files are located in `$MINDX_WORKSPACE/config/` (default: `~/.mindx/config/`):
-
-- `models.json`: Model configurations (left brain, right brain, capabilities)
-- `capabilities.json`: Capability-specific model bindings
-- `channels.json`: Communication channel configurations (WeChat, DingTalk, Telegram, etc.)
-- `general.json`: General settings (persona, token budget, etc.)
-
-## Environment Variables
-
-- `MINDX_WORKSPACE`: Working directory (default: `~/.mindx`)
-- `MINDX_SKILLS_DIR`: Skills directory (default: `~/.mindx/skills`)
-- `BOT_DEV_MODE`: Enable development mode
-
-## Key Technical Details
-
-### Model Integration
-
-- Primary: Ollama for local models (via `pkg/llama/`)
-- Fallback: OpenAI-compatible APIs (via `github.com/sashabaranov/go-openai`)
-- Model manager: `internal/config/model.go` handles model selection and routing
-
-### Token Budget Management
-
-- `internal/usecase/brain/token_budget.go`: Tracks and limits token usage
-- Configurable budgets per time window (hourly, daily, monthly)
-- Automatic fallback to cheaper models when budget exceeded
-
-### Tool Calling
-
-- `internal/usecase/brain/tool_caller.go`: Executes skills based on LLM decisions
-- Supports function calling with structured JSON arguments
-- Automatic retry and error handling
-
-### Streaming Responses
-
-- `internal/usecase/brain/thinking_stream.go`: Real-time streaming of LLM responses
-- WebSocket support for live updates to dashboard/TUI
-- Event types: Start, Progress, Chunk, ToolCall, ToolResult, Complete, Error
-
-### Cron/Scheduling
-
-- `internal/usecase/cron/`: Scheduled task management
-- LLM can create scheduled tasks from natural language
-- Persistent storage of cron jobs
-
-## Frontend (Dashboard)
-
-- Location: `dashboard/`
-- Tech stack: React 18, TypeScript, Vite, TailwindCSS, TDesign React
-- Key features: Chat interface, model management, skill management, training interface
-- Build: `cd dashboard && npm run build`
-- Dev: `cd dashboard && npm run dev`
-
-## Important Notes
-
-- Always use `MINDX_WORKSPACE=$(PWD)/.test` when running tests to avoid polluting production data
-- The system requires Ollama to be running for local model inference
-- Skills are discovered automatically from `$MINDX_WORKSPACE/skills/` and `$MINDX_INSTALL_PATH/skills/`
-- Memory consolidation runs automatically in the background
-- Training data is exported to `$MINDX_WORKSPACE/data/training/`
-
-## CLI Command Reference
-
-See `internal/adapters/cli/README.md` for complete CLI documentation.
-
-Main commands:
-- `mindx version`: Show version info
-- `mindx dashboard`: Open web console
-- `mindx tui`: Start terminal chat interface
-- `mindx kernel start|stop|restart|status`: Service control
-- `mindx model test`: Test model compatibility
-- `mindx skill list|install|uninstall`: Skill management
-- `mindx train run|export`: Training operations
+- **Backend Architecture:** The Go code heavily utilizes a layered, domain-driven/clean architecture pattern. Changes to business logic should generally flow from `entity` -> `usecase` -> `core` -> `adapters`.
+- **Frontend Stack:** The dashboard is built using standard modern React practices (Hooks, Functional Components) with TypeScript for type safety and Tailwind CSS for styling.
+- **Cross-Platform:** The build system supports cross-compilation for macOS (Intel/Apple Silicon Universal Binaries), Linux, and Windows.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/DotNetAge)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/DotNetAge)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [DotNetAge/mindx](https://github.com/DotNetAge/mindx) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
