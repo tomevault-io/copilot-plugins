@@ -1,618 +1,667 @@
-## python-development
+## rust-development
 
-> Python development: modern Python, async/await, FastAPI, Django, data science, and ML patterns
+> Rust development: ownership, lifetimes, error handling, async patterns, and cargo workflows
 
 
-# Python Development Patterns
+# Rust Development Patterns
 
-Modern Python (3.10+) best practices for web development, data science, and general programming.
+Idiomatic Rust patterns focusing on ownership, safety, and performance.
 
-## Python Workflow
+## Rust Workflow
 
-Before changing Python code:
+Before changing Rust code:
 
 ```text
-1. Read the existing project files first (`pyproject.toml`, `requirements.txt`, `setup.py`)
-2. Check whether the repo already uses `uv`, `pip`, `poetry`, or another workflow
-3. For new dependencies or version-sensitive work, verify current versions with the actual current date
-4. Prefer the package manager and project conventions already in use
+1. Read `Cargo.toml` and current crate structure first
+2. Check the edition and existing dependency set before recommending new patterns
+3. For new crates, use `cargo new` or `cargo init`; do not hand-create `Cargo.toml`
+4. For new dependencies or version-sensitive work, verify current versions with the actual current date
 ```
 
-### CLI-First Python Development
+### CLI-First Rust Development
 
-Prefer CLI tools and existing repo conventions for package management:
+Prefer standard Cargo workflows:
 ```bash
-# Virtual environment (recommended first step)
-python3 -m venv .venv
-source .venv/bin/activate  # Unix
-.venv\Scripts\activate  # Windows
+# Project creation (NEVER manually create Cargo.toml)
+cargo new my_project
+cargo new --lib my_library
+cargo init  # In existing directory
 
-# Modern: uv (10-100x faster than pip)
-uv venv
-uv pip install fastapi uvicorn
-uv pip sync requirements.txt
+# Add dependencies (NEVER manually edit Cargo.toml for deps)
+cargo add tokio --features full
+cargo add serde --features derive
+cargo add thiserror
+cargo add anyhow
 
-# Traditional: pip
-pip install fastapi uvicorn
-pip install -r requirements.txt
-pip freeze > requirements.txt
+# Development dependencies
+cargo add --dev tokio-test
+cargo add --dev mockall
 
-# Framework CLIs (use these for scaffolding)
-# Django
-django-admin startproject myproject
-python manage.py startapp myapp
+# Build and verify
+cargo build
+cargo check  # Faster than build, just checks
+cargo clippy  # Linting
+cargo fmt  # Format code
 
-# FastAPI with cookiecutter
-pip install cookiecutter
-cookiecutter https://github.com/tiangolo/full-stack-fastapi-template
-
-# Poetry (if project uses it)
-poetry init
-poetry add fastapi
-poetry install
+# Test
+cargo test
+cargo test -- --nocapture  # See println output
 ```
 
 ### Post-Edit Verification
 
-After meaningful Python changes, run the smallest useful check for the task:
+After meaningful Rust changes, run the smallest useful check for the task:
 
 ```bash
-# Common checks when configured in the repo
-mypy src/
-ruff check .
-ruff format --check .
-pytest
+cargo check
+cargo test
+cargo fmt --check
 ```
 
-Scale up only when the change warrants it. Do not force every command after every tiny edit.
+Add `cargo clippy` when the change is substantial, safety-sensitive, or lint-heavy.
 
-### Common Python Syntax Traps (Avoid These!)
+### Common Rust Syntax Traps (Avoid These!)
 
-```python
-# WRONG: Mutable default argument
-def append_to(item, target=[]):  # Bug! List is shared!
-    target.append(item)
-    return target
+```rust
+// WRONG: Using unwrap in production code
+let value = some_option.unwrap();  // Panics on None!
+let data = result.unwrap();  // Panics on Err!
 
-# CORRECT: Use None as default
-def append_to(item, target=None):
-    if target is None:
-        target = []
-    target.append(item)
-    return target
+// CORRECT: Handle errors properly
+let value = some_option.ok_or(MyError::NotFound)?;
+let data = result.map_err(|e| MyError::from(e))?;
 
-# WRONG: Not using context managers for files
-f = open('file.txt')
-data = f.read()
-f.close()  # Might not run if exception occurs!
+// WRONG: Borrowing across await points
+async fn bad_example(data: &mut Data) {
+    let reference = &data.field;
+    async_operation().await;  // reference held across await!
+    use_reference(reference);
+}
 
-# CORRECT: Always use with statement
-with open('file.txt') as f:
-    data = f.read()
+// CORRECT: Clone or restructure
+async fn good_example(data: &mut Data) {
+    let value = data.field.clone();
+    async_operation().await;
+    use_value(value);
+}
 
-# WRONG: Bare except clause
-try:
-    risky_operation()
-except:  # Catches EVERYTHING including KeyboardInterrupt!
-    pass
+// WRONG: Missing Send bound for async traits
+trait MyAsyncTrait {
+    async fn do_work(&self);  // Won't compile in multi-threaded!
+}
 
-# CORRECT: Catch specific exceptions
-try:
-    risky_operation()
-except (ValueError, TypeError) as e:
-    logger.error(f"Operation failed: {e}")
+// CORRECT: Add Send bound when needed
+trait MyAsyncTrait: Send + Sync {
+    fn do_work(&self) -> impl Future<Output = ()> + Send;
+}
 
-# WRONG: Late binding in closures
-funcs = [lambda: i for i in range(3)]
-[f() for f in funcs]  # Returns [2, 2, 2], not [0, 1, 2]!
+// WRONG: String vs &str confusion
+fn greet(name: String) { }  // Takes ownership unnecessarily
+greet("hello".to_string());  // Wasteful allocation
 
-# CORRECT: Capture value as default argument
-funcs = [lambda i=i: i for i in range(3)]
-[f() for f in funcs]  # Returns [0, 1, 2]
-
-# WRONG: Using is for value comparison
-if x is 1:  # Works sometimes, but wrong!
-    pass
-
-# CORRECT: Use == for values, is for identity
-if x == 1:  # Value comparison
-    pass
-if x is None:  # Identity (OK for None, True, False)
-    pass
+// CORRECT: Accept borrowed when possible
+fn greet(name: &str) { }  // Borrows, no allocation needed
+greet("hello");  // Works directly with string literal
 ```
 
-### Python Version-Specific Features
+### Cargo.toml Best Practices
 
-Check Python version before using new features:
+```toml
+[package]
+name = "myproject"
+version = "0.1.0"
+edition = "2021"  # Always specify edition
+rust-version = "1.75"  # Minimum Rust version
 
-```python
-# Python 3.10+ Pattern Matching
-match command:
-    case ["quit"]:
-        return "Goodbye"
-    case _:
-        return "Unknown"
+[dependencies]
+# Pin to semver-compatible range
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
 
-# Python 3.9+ Built-in Generic Types
-def process(items: list[str]) -> dict[str, int]:
-    pass
+[dev-dependencies]
+tokio-test = "0.4"
 
-# Python 3.8+ Walrus Operator
-if (n := len(data)) > 10:
-    print(f"Processing {n} items")
-
-# Check version in code if needed
-import sys
-if sys.version_info >= (3, 10):
-    # Use match statement
-else:
-    # Use if/elif chain
+# Optimize release builds
+[profile.release]
+lto = true
+codegen-units = 1
 ```
 
 ---
 
-## Modern Python Syntax
+## Ownership & Borrowing
 
-### Type Hints
-```python
-# Basic types
-def greet(name: str) -> str:
-    return f"Hello, {name}"
+### Core Principles
+1. Each value has exactly one owner
+2. When the owner goes out of scope, the value is dropped
+3. References must always be valid
+4. Either one mutable reference OR any number of immutable references
 
-# Collections (Python 3.9+)
-def process(items: list[str]) -> dict[str, int]:
-    return {item: len(item) for item in items}
+### Borrowing Patterns
+```rust
+// Immutable borrow - read only
+fn print_length(s: &str) {
+    println!("Length: {}", s.len());
+}
 
-# Optional and Union
-def find_user(id: int) -> User | None:
-    return db.get(id)
+// Mutable borrow - can modify
+fn append_suffix(s: &mut String) {
+    s.push_str("_suffix");
+}
 
-# Generic types
-from typing import TypeVar, Generic
+// Taking ownership - consumes the value
+fn consume_string(s: String) {
+    println!("Consumed: {}", s);
+    // s is dropped here
+}
 
-T = TypeVar('T')
-
-class Repository(Generic[T]):
-    def get(self, id: int) -> T | None: ...
-    def save(self, item: T) -> T: ...
+// Returning ownership
+fn create_string() -> String {
+    String::from("created")
+}
 ```
 
-### Pattern Matching (3.10+)
-```python
-match command:
-    case ["quit"]:
-        return "Goodbye"
-    case ["load", filename]:
-        return load_file(filename)
-    case ["save", filename, *options]:
-        return save_file(filename, options)
-    case _:
-        return "Unknown command"
-
-# With guards
-match user:
-    case User(role="admin"):
-        return full_access()
-    case User(role="user", verified=True):
-        return limited_access()
-    case _:
-        return no_access()
-```
-
-### Dataclasses
-```python
-from dataclasses import dataclass, field
-from datetime import datetime
-
-@dataclass
-class User:
-    id: int
-    name: str
-    email: str
-    created_at: datetime = field(default_factory=datetime.now)
-    tags: list[str] = field(default_factory=list)
-    
-    def __post_init__(self):
-        self.email = self.email.lower()
-
-# Immutable
-@dataclass(frozen=True)
-class Config:
-    host: str
-    port: int
-```
+### When to Use What
+- `&T`: Reading data, most function parameters
+- `&mut T`: Modifying data in place
+- `T`: Taking ownership, returning from functions, storing in structs
 
 ---
 
-## Async/Await Patterns
+## Lifetimes
 
-### Basic Async
-```python
-import asyncio
+### Basic Lifetime Annotations
+```rust
+// The returned reference lives as long as the shortest input lifetime
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() { x } else { y }
+}
 
-async def fetch_data(url: str) -> dict:
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            return await response.json()
+// Struct with references
+struct ImportantExcerpt<'a> {
+    part: &'a str,
+}
 
-# Parallel execution
-async def fetch_all(urls: list[str]) -> list[dict]:
-    tasks = [fetch_data(url) for url in urls]
-    return await asyncio.gather(*tasks)
-
-# With error handling
-async def safe_fetch(url: str) -> dict | None:
-    try:
-        return await fetch_data(url)
-    except aiohttp.ClientError as e:
-        logger.error(f"Failed to fetch {url}: {e}")
-        return None
-```
-
-### Async Context Managers
-```python
-from contextlib import asynccontextmanager
-
-@asynccontextmanager
-async def get_db_connection():
-    conn = await database.connect()
-    try:
-        yield conn
-    finally:
-        await conn.close()
-
-# Usage
-async with get_db_connection() as conn:
-    result = await conn.fetch("SELECT * FROM users")
-```
-
----
-
-## FastAPI Patterns
-
-### Application Structure
-```
-app/
-  __init__.py
-  main.py           # FastAPI app instance
-  config.py         # Settings
-  models/           # Pydantic models
-  routers/          # Route handlers
-  services/         # Business logic
-  repositories/     # Data access
-  dependencies.py   # Dependency injection
-```
-
-### Route Handlers
-```python
-from fastapi import FastAPI, HTTPException, Depends, status
-from pydantic import BaseModel
-
-app = FastAPI()
-
-class UserCreate(BaseModel):
-    name: str
-    email: str
-
-class UserResponse(BaseModel):
-    id: int
-    name: str
-    email: str
-
-    class Config:
-        from_attributes = True
-
-@app.post("/users", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
-async def create_user(
-    user: UserCreate,
-    db: Database = Depends(get_db)
-) -> UserResponse:
-    db_user = await db.users.create(user.model_dump())
-    return db_user
-
-@app.get("/users/{user_id}", response_model=UserResponse)
-async def get_user(user_id: int, db: Database = Depends(get_db)):
-    user = await db.users.get(user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
-```
-
-### Dependency Injection
-```python
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-async def get_current_user(token: str = Depends(oauth2_scheme)) -> User:
-    user = await verify_token(token)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-        )
-    return user
-
-async def get_admin_user(user: User = Depends(get_current_user)) -> User:
-    if user.role != "admin":
-        raise HTTPException(status_code=403, detail="Admin access required")
-    return user
-```
-
-### Pydantic Validation
-```python
-from pydantic import BaseModel, EmailStr, Field, field_validator
-
-class UserCreate(BaseModel):
-    name: str = Field(min_length=1, max_length=100)
-    email: EmailStr
-    age: int = Field(ge=0, le=150)
+impl<'a> ImportantExcerpt<'a> {
+    fn level(&self) -> i32 {
+        3
+    }
     
-    @field_validator('name')
-    @classmethod
-    def name_must_not_be_empty(cls, v: str) -> str:
-        if not v.strip():
-            raise ValueError('Name cannot be empty')
-        return v.strip()
+    fn announce_and_return_part(&self, announcement: &str) -> &str {
+        println!("Attention: {}", announcement);
+        self.part
+    }
+}
 ```
 
----
+### Lifetime Elision Rules
+The compiler infers lifetimes when:
+1. Each reference parameter gets its own lifetime
+2. If exactly one input lifetime, it's assigned to all outputs
+3. If `&self` or `&mut self`, that lifetime is assigned to outputs
 
-## Django Patterns
-
-### Model Design
-```python
-from django.db import models
-from django.contrib.auth.models import AbstractUser
-
-class User(AbstractUser):
-    bio = models.TextField(blank=True)
-    avatar = models.ImageField(upload_to='avatars/', null=True)
-
-class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        ordering = ['-created_at']
-    
-    def __str__(self):
-        return self.title
-```
-
-### Views (Class-Based)
-```python
-from django.views.generic import ListView, DetailView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-class PostListView(ListView):
-    model = Post
-    paginate_by = 10
-    context_object_name = 'posts'
-
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['title', 'content']
-    
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-```
-
-### QuerySet Optimization
-```python
-# Avoid N+1 queries
-posts = Post.objects.select_related('author').prefetch_related('comments')
-
-# Only fetch needed fields
-users = User.objects.only('id', 'name', 'email')
-
-# Efficient counting
-count = Post.objects.filter(published=True).count()
-
-# Bulk operations
-Post.objects.filter(draft=True).update(published=True)
-Post.objects.bulk_create([Post(title=t) for t in titles])
-```
-
----
-
-## Data Science Patterns
-
-### Pandas Best Practices
-```python
-import pandas as pd
-
-# Method chaining
-df = (
-    pd.read_csv('data.csv')
-    .dropna(subset=['important_column'])
-    .assign(
-        new_col=lambda x: x['col1'] + x['col2'],
-        date=lambda x: pd.to_datetime(x['date_str'])
-    )
-    .query('value > 0')
-    .groupby('category')
-    .agg({'value': 'sum', 'count': 'size'})
-    .reset_index()
-)
-
-# Efficient operations
-# Bad: iterating rows
-for idx, row in df.iterrows():
-    df.loc[idx, 'new'] = row['a'] + row['b']
-
-# Good: vectorized
-df['new'] = df['a'] + df['b']
-
-# Memory efficiency
-df = pd.read_csv('large.csv', 
-    dtype={'id': 'int32', 'category': 'category'},
-    usecols=['id', 'category', 'value']
-)
-```
-
-### NumPy Patterns
-```python
-import numpy as np
-
-# Vectorized operations
-result = np.sum(arr1 * arr2, axis=1)
-
-# Broadcasting
-normalized = (data - data.mean(axis=0)) / data.std(axis=0)
-
-# Efficient conditionals
-result = np.where(condition, value_if_true, value_if_false)
-```
-
----
-
-## Testing with pytest
-
-### Test Structure
-```python
-import pytest
-from myapp import calculate_total, UserService
-
-class TestCalculateTotal:
-    def test_empty_list_returns_zero(self):
-        assert calculate_total([]) == 0
-    
-    def test_sums_positive_numbers(self):
-        assert calculate_total([1, 2, 3]) == 6
-    
-    def test_raises_on_invalid_input(self):
-        with pytest.raises(ValueError):
-            calculate_total(None)
-
-# Fixtures
-@pytest.fixture
-def db_session():
-    session = create_test_session()
-    yield session
-    session.rollback()
-
-@pytest.fixture
-def user_service(db_session):
-    return UserService(db_session)
-
-def test_create_user(user_service):
-    user = user_service.create(name="Test", email="test@example.com")
-    assert user.id is not None
-```
-
-### Async Tests
-```python
-import pytest
-
-@pytest.mark.asyncio
-async def test_fetch_user():
-    user = await fetch_user(1)
-    assert user.name == "Expected Name"
-```
-
-### Parametrized Tests
-```python
-@pytest.mark.parametrize("input,expected", [
-    ([], 0),
-    ([1], 1),
-    ([1, 2, 3], 6),
-    ([-1, 1], 0),
-])
-def test_sum(input, expected):
-    assert sum(input) == expected
+```rust
+// These are equivalent:
+fn first_word(s: &str) -> &str { ... }
+fn first_word<'a>(s: &'a str) -> &'a str { ... }
 ```
 
 ---
 
 ## Error Handling
 
-### Custom Exceptions
-```python
-class AppError(Exception):
-    """Base exception for application errors."""
-    pass
+### Result and Option
+```rust
+use std::fs::File;
+use std::io::{self, Read};
 
-class NotFoundError(AppError):
-    """Resource not found."""
-    def __init__(self, resource: str, id: int):
-        self.resource = resource
-        self.id = id
-        super().__init__(f"{resource} with id {id} not found")
+// Using Result
+fn read_file(path: &str) -> Result<String, io::Error> {
+    let mut file = File::open(path)?;
+    let mut contents = String::new();
+    file.read_to_string(&mut contents)?;
+    Ok(contents)
+}
 
-class ValidationError(AppError):
-    """Validation failed."""
-    def __init__(self, field: str, message: str):
-        self.field = field
-        self.message = message
-        super().__init__(f"{field}: {message}")
+// Using Option
+fn find_user(id: u64) -> Option<User> {
+    users.iter().find(|u| u.id == id).cloned()
+}
+
+// Combining with ?
+fn get_user_email(id: u64) -> Option<String> {
+    let user = find_user(id)?;
+    Some(user.email)
+}
 ```
 
-### Context Managers
-```python
-from contextlib import contextmanager
+### Custom Error Types
+```rust
+use thiserror::Error;
 
-@contextmanager
-def transaction(db):
-    try:
-        yield db
-        db.commit()
-    except Exception:
-        db.rollback()
-        raise
+#[derive(Error, Debug)]
+pub enum AppError {
+    #[error("Database error: {0}")]
+    Database(#[from] sqlx::Error),
+    
+    #[error("Not found: {resource} with id {id}")]
+    NotFound { resource: String, id: u64 },
+    
+    #[error("Validation error: {0}")]
+    Validation(String),
+}
+
+// Using anyhow for applications
+use anyhow::{Context, Result};
+
+fn load_config() -> Result<Config> {
+    let contents = std::fs::read_to_string("config.toml")
+        .context("Failed to read config file")?;
+    
+    let config: Config = toml::from_str(&contents)
+        .context("Failed to parse config")?;
+    
+    Ok(config)
+}
+```
+
+### Error Handling Best Practices
+- Use `thiserror` for library error types
+- Use `anyhow` for application error handling
+- Prefer `?` operator over `unwrap()` in production code
+- Use `expect()` only when panic is truly unrecoverable
+
+---
+
+## Async Rust
+
+### Async/Await Basics
+```rust
+use tokio;
+
+#[tokio::main]
+async fn main() {
+    let result = fetch_data("https://api.example.com").await;
+    println!("{:?}", result);
+}
+
+async fn fetch_data(url: &str) -> Result<String, reqwest::Error> {
+    let response = reqwest::get(url).await?;
+    let body = response.text().await?;
+    Ok(body)
+}
+```
+
+### Concurrent Operations
+```rust
+use tokio::join;
+use futures::future::join_all;
+
+// Run multiple futures concurrently
+async fn fetch_all() -> (Data1, Data2) {
+    let (data1, data2) = join!(
+        fetch_data1(),
+        fetch_data2()
+    );
+    (data1.unwrap(), data2.unwrap())
+}
+
+// Dynamic number of futures
+async fn fetch_many(urls: Vec<String>) -> Vec<String> {
+    let futures: Vec<_> = urls.iter()
+        .map(|url| fetch_data(url))
+        .collect();
+    
+    join_all(futures).await
+        .into_iter()
+        .filter_map(|r| r.ok())
+        .collect()
+}
+```
+
+### Streams
+```rust
+use tokio_stream::StreamExt;
+
+async fn process_stream() {
+    let mut stream = tokio_stream::iter(vec![1, 2, 3]);
+    
+    while let Some(value) = stream.next().await {
+        println!("{}", value);
+    }
+}
 ```
 
 ---
 
-## Package Management
+## Common Patterns
 
-### pyproject.toml (Modern Standard)
-```toml
-[project]
-name = "myproject"
-version = "0.1.0"
-description = "My Python project"
-requires-python = ">=3.10"
-dependencies = [
-    "fastapi>=0.100.0",
-    "pydantic>=2.0.0",
-    "sqlalchemy>=2.0.0",
-]
+### Builder Pattern
+```rust
+#[derive(Default)]
+pub struct RequestBuilder {
+    url: String,
+    method: Method,
+    headers: HashMap<String, String>,
+    body: Option<Vec<u8>>,
+}
 
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0.0",
-    "black>=23.0.0",
-    "ruff>=0.1.0",
-]
+impl RequestBuilder {
+    pub fn new(url: impl Into<String>) -> Self {
+        Self {
+            url: url.into(),
+            ..Default::default()
+        }
+    }
+    
+    pub fn method(mut self, method: Method) -> Self {
+        self.method = method;
+        self
+    }
+    
+    pub fn header(mut self, key: impl Into<String>, value: impl Into<String>) -> Self {
+        self.headers.insert(key.into(), value.into());
+        self
+    }
+    
+    pub fn body(mut self, body: Vec<u8>) -> Self {
+        self.body = Some(body);
+        self
+    }
+    
+    pub fn build(self) -> Request {
+        Request {
+            url: self.url,
+            method: self.method,
+            headers: self.headers,
+            body: self.body,
+        }
+    }
+}
 
-[tool.ruff]
-line-length = 100
-select = ["E", "F", "I"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-asyncio_mode = "auto"
+// Usage
+let request = RequestBuilder::new("https://api.example.com")
+    .method(Method::POST)
+    .header("Content-Type", "application/json")
+    .body(data)
+    .build();
 ```
 
-### uv (Fast Package Manager)
-```bash
-# Install dependencies
-uv pip install -r requirements.txt
+### Newtype Pattern
+```rust
+// Type-safe wrappers
+pub struct UserId(pub u64);
+pub struct OrderId(pub u64);
 
-# Add dependency
-uv pip install fastapi
+// Can't accidentally pass OrderId where UserId expected
+fn get_user(id: UserId) -> Option<User> { ... }
 
-# Create virtual environment
-uv venv
+// Implement traits as needed
+impl From<u64> for UserId {
+    fn from(id: u64) -> Self {
+        UserId(id)
+    }
+}
+```
 
-# Sync dependencies
-uv pip sync requirements.txt
+### Type State Pattern
+```rust
+pub struct Request<State> {
+    inner: RequestInner,
+    _state: PhantomData<State>,
+}
+
+pub struct Draft;
+pub struct Ready;
+
+impl Request<Draft> {
+    pub fn new() -> Self { ... }
+    
+    pub fn set_url(mut self, url: String) -> Self {
+        self.inner.url = Some(url);
+        self
+    }
+    
+    pub fn finalize(self) -> Result<Request<Ready>, ValidationError> {
+        // Validate and transition state
+        Ok(Request { inner: self.inner, _state: PhantomData })
+    }
+}
+
+impl Request<Ready> {
+    pub async fn send(self) -> Result<Response, Error> {
+        // Only Ready requests can be sent
+    }
+}
+```
+
+---
+
+## Traits & Generics
+
+### Trait Definitions
+```rust
+pub trait Repository<T> {
+    fn get(&self, id: u64) -> Option<T>;
+    fn save(&mut self, item: T) -> Result<(), Error>;
+    fn delete(&mut self, id: u64) -> Result<(), Error>;
+}
+
+// Default implementations
+pub trait Greet {
+    fn name(&self) -> &str;
+    
+    fn greet(&self) -> String {
+        format!("Hello, {}!", self.name())
+    }
+}
+```
+
+### Trait Bounds
+```rust
+// Single bound
+fn print_debug<T: Debug>(item: T) {
+    println!("{:?}", item);
+}
+
+// Multiple bounds
+fn process<T: Clone + Send + Sync>(item: T) { ... }
+
+// Where clauses for complex bounds
+fn complex_function<T, U>(t: T, u: U) -> Result<(), Error>
+where
+    T: Repository<User> + Clone,
+    U: Into<String> + Send,
+{
+    // ...
+}
+
+// Impl trait for return types
+fn create_iterator() -> impl Iterator<Item = i32> {
+    (0..10).filter(|x| x % 2 == 0)
+}
+```
+
+---
+
+## Cargo & Project Structure
+
+### Cargo.toml
+```toml
+[package]
+name = "myproject"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+thiserror = "1"
+anyhow = "1"
+
+[dev-dependencies]
+tokio-test = "0.4"
+
+[features]
+default = []
+full = ["feature-a", "feature-b"]
+feature-a = []
+feature-b = ["dep:optional-dep"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+```
+
+### Project Layout
+```
+myproject/
+  src/
+    lib.rs          # Library root
+    main.rs         # Binary entry point
+    config.rs       # Configuration
+    error.rs        # Error types
+    models/         # Data structures
+      mod.rs
+      user.rs
+    services/       # Business logic
+      mod.rs
+    handlers/       # Request handlers
+      mod.rs
+  tests/            # Integration tests
+    integration_test.rs
+  benches/          # Benchmarks
+    benchmark.rs
+  examples/         # Example binaries
+    example.rs
+```
+
+### Module Organization
+```rust
+// src/lib.rs
+pub mod config;
+pub mod error;
+pub mod models;
+pub mod services;
+
+pub use error::Error;
+pub use config::Config;
+
+// src/models/mod.rs
+mod user;
+mod order;
+
+pub use user::User;
+pub use order::Order;
+```
+
+---
+
+## Testing
+
+### Unit Tests
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_add() {
+        assert_eq!(add(2, 2), 4);
+    }
+
+    #[test]
+    #[should_panic(expected = "division by zero")]
+    fn test_divide_by_zero() {
+        divide(1, 0);
+    }
+
+    #[test]
+    fn test_result() -> Result<(), Error> {
+        let result = fallible_function()?;
+        assert_eq!(result, expected);
+        Ok(())
+    }
+}
+```
+
+### Async Tests
+```rust
+#[tokio::test]
+async fn test_async_function() {
+    let result = async_function().await;
+    assert!(result.is_ok());
+}
+```
+
+### Integration Tests
+```rust
+// tests/integration_test.rs
+use myproject::Config;
+
+#[test]
+fn test_config_loading() {
+    let config = Config::load("test_config.toml").unwrap();
+    assert_eq!(config.port, 8080);
+}
+```
+
+---
+
+## Performance Tips
+
+### Avoid Unnecessary Allocations
+```rust
+// Bad: creates new String each iteration
+for item in items {
+    let key = format!("key_{}", item.id);
+}
+
+// Good: reuse buffer
+let mut key = String::with_capacity(20);
+for item in items {
+    key.clear();
+    write!(&mut key, "key_{}", item.id).unwrap();
+}
+```
+
+### Use Iterators
+```rust
+// Bad: intermediate collections
+let filtered: Vec<_> = items.iter().filter(|x| x.active).collect();
+let mapped: Vec<_> = filtered.iter().map(|x| x.value).collect();
+let sum: i32 = mapped.iter().sum();
+
+// Good: lazy iterator chain
+let sum: i32 = items.iter()
+    .filter(|x| x.active)
+    .map(|x| x.value)
+    .sum();
+```
+
+### Smart Pointers
+```rust
+// Rc for shared ownership (single-threaded)
+use std::rc::Rc;
+let shared = Rc::new(data);
+
+// Arc for shared ownership (multi-threaded)
+use std::sync::Arc;
+let shared = Arc::new(data);
+
+// Box for heap allocation
+let boxed: Box<dyn Trait> = Box::new(implementation);
+
+// Cow for clone-on-write
+use std::borrow::Cow;
+fn process(input: Cow<str>) -> Cow<str> {
+    if needs_modification(&input) {
+        Cow::Owned(modify(input.into_owned()))
+    } else {
+        input
+    }
+}
 ```
 
 ---
