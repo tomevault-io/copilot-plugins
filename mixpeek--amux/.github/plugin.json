@@ -1,0 +1,9 @@
+{
+  "name": "mixpeek--amux",
+  "displayName": "amux",
+  "description": "Open-source Claude Code agent multiplexer \u2014 run dozens of parallel AI coding agents unattended via tmux",
+  "version": "1.0.0",
+  "author": "mixpeek",
+  "homepage": "https://github.com/mixpeek/amux",
+  "skills": []
+}
