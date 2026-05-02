@@ -1,0 +1,51 @@
+{
+  "name": "qodo-skills",
+  "owner": "qodo-ai",
+  "repo": "qodo-skills",
+  "description": "AI instruction skills by qodo-ai",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "qodo-pr-resolver",
+      "path": "skills/qodo-pr-resolver",
+      "github_url": "https://github.com/qodo-ai/qodo-skills/tree/main/skills/qodo-pr-resolver",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/qodo-ai/qodo-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T12:47:41Z"
+}
