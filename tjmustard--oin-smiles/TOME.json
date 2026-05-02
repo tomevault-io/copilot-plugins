@@ -4,7 +4,7 @@
   "repo": "OIN-SMILES",
   "description": "EtaTMCSMILES will be a standalone, open-source Python library capable of lossless conversion between 3D XYZ structures and 1D SMILES strings.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tjmustard/OIN-SMILES",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T23:47:22Z"
+  "distributed_at": "2026-05-02T20:14:41Z"
 }
