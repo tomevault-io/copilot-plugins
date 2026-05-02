@@ -1,45 +1,48 @@
-## team-split-convention
+## testing
 
-> Team-split convention for multi-team files — split into team-* folders to reduce CODEOWNERS friction
+> General, Desktop, and Mobile testing patterns for Ledger Wallet
 
 
-# Team-split convention
+# Testing Rules
 
-Monolithic files or folders that many teams touch must be split into pieces to reduce the friction between teams in CODEOWNERS (clear ownership per team, fewer cross-team review bottlenecks).
+- **Stack:** Jest, MSW, coin-tester
+- **File Structure:**
+  - Tests next to source files
+  - `.test.ts` / `.spec.ts`
+  - `__tests__` for grouped tests
+  - `__integrations__` for integration tests
+- **Test Types:** Unit, Integration (prefer integration for complex features)
+- **Rules:**
+  - Test behavior, not implementation
+  - Deterministic tests
+  - Keep mocks minimal
+  - See `jest-mocks.mdc` for Jest mock patterns (avoid duplicate mocks, `restoreAllMocks`, hooks at describe load time)
+  - use MSW for Network API calls (use same pattern as `apps/ledger-live-mobile/__tests__/server.ts` with `handlers`)
+  - Integrate Redux when relevant
+  - Async: use `async/await` + `waitFor`
+- **Test Data:** Fixtures under `__fixtures__`, use factories/builders, avoid hardcoded/unrealistic values
+- **Maintenance:** Keep tests minimal/focused, remove obsolete tests
+- **Query Priority:** ByRole > ByLabelText > ByText > ByTestId
 
-## When to apply
+---
 
-- A file or folder is contributed to by many teams (single large file or flat directory with many owners).
-- Rule activates when editing or adding such areas or when the agent infers a multi-team file.
+# Desktop Testing
 
-## Target layout
+- **Environment:** ledger-live-desktop
+- **Render function:** imported from `tests/testSetup`
+- **Mocking Network** `apps/ledger-live-desktop/tests/server.ts`
+- **Stack:** + React Testing Library + MSW
+- **Command** inside ledger-live-desktop `pnpm test:jest "filename"` or `pnpm test:jest` to run them all
 
-Transform `[foo].ts` or `[foo]/` into:
+---
 
-```
-[foo]/
-  index.ts              # re-exports only
-  team-[team]/          # one or more files per team
-    <feature>.ts
-```
+# Mobile Testing
 
-**Example**: `[foo]/` → `[foo]/index.ts` and `[foo]/team-coin-integration/coin_bitcoin.ts`.
-
-## Structure
-
-- **`[foo]/index.ts`** — Only re-exports (e.g. `export * from "./team-coin-integration/coin_bitcoin"`). Not generated; maintain by hand or with AI. Must export from every team file that is part of the public API.
-- **`[foo]/team-[team]/`** — One or more files per team. Team slug = CODEOWNERS team name **without** the `@ledgerhq/` prefix (e.g. `coin-integration`, `ledger-partner-hoodies`).
-
-## Naming
-
-- Folder: `team-<slug>` (slug from CODEOWNERS).
-- Files inside: named by feature (e.g. `coin_bitcoin.ts`, `swap.handler.ts`).
-
-## CODEOWNERS
-
-Each `**/team-<team>/` path is owned by `@ledgerhq/<team>`. See CODEOWNERS for the canonical list of team slugs. When a new team is added to CODEOWNERS elsewhere, add a matching `**/team-<new-team>/` line in that block.
-
-Apply this convention when refactoring multi-team areas so ownership stays clear per team.
+- **Environment:** ledger-live-mobile
+- **Render function:** imported from `@tests/test-renderer`
+- **Mocking Network** `apps/ledger-live-mobile/__tests__/server.ts`
+- **Stack:** + React Native Testing Library + MSW
+- **Command** inside ledger-live-mobile `pnpm test:jest "filename"` or `pnpm test:jest` to run them all
 
 ---
 > Source: [Ledger-Wallet-LLC/ledgerwallet](https://github.com/Ledger-Wallet-LLC/ledgerwallet) — distributed by [TomeVault](https://tomevault.io).
