@@ -4,7 +4,7 @@
   "repo": "49Agents",
   "description": "Open-source 2D IDE for managing AI agents in native CLIs, terminal, gits, beads issues, and files across multiple projects and machines. Self-host on a single machine via localhost OR host on a cluster via Tailscale OR connect to app.49agents.com (coming soon)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/49Agents/49Agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T13:41:20Z"
+  "distributed_at": "2026-05-02T03:39:06Z"
 }
