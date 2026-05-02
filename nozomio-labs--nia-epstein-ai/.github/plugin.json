@@ -1,0 +1,14 @@
+{
+  "name": "nozomio-labs--nia-epstein-ai",
+  "displayName": "nia-epstein-ai",
+  "description": "I used Nia API to index 100 million words worth of Epstein files lol. ",
+  "version": "1.0.0",
+  "author": "nozomio-labs",
+  "homepage": "https://github.com/nozomio-labs/nia-epstein-ai",
+  "skills": [
+    {
+      "name": "nia",
+      "description": ""
+    }
+  ]
+}
