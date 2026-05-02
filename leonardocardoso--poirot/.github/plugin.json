@@ -1,0 +1,9 @@
+{
+  "name": "leonardocardoso--poirot",
+  "displayName": "poirot",
+  "description": "A native macOS companion for Claude Code that lets you browse sessions, explore diffs, and re-run commands.",
+  "version": "1.0.0",
+  "author": "leonardocardoso",
+  "homepage": "https://github.com/leonardocardoso/poirot",
+  "skills": []
+}
