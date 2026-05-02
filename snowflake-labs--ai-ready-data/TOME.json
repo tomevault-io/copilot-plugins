@@ -1,0 +1,44 @@
+{
+  "name": "ai-ready-data",
+  "owner": "Snowflake-Labs",
+  "repo": "ai-ready-data",
+  "description": "Framework to define AI-ready data and Skills for coding agents to assess and make your data AI-ready",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Snowflake-Labs/ai-ready-data",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T03:46:46Z"
+}
