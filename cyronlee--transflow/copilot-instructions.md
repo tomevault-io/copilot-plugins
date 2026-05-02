@@ -1,26 +1,29 @@
-## global-rules
+## speech-model-lifecycle
 
-> - 使用 `apple-docs-mcp` 搜索 macOS 开发文档
+> Speech model lifecycle constraints — AssetInventory stale cache workaround, model readiness checks, lifecycle observers
 
 
-## 开发文档
-- 使用 `apple-docs-mcp` 搜索 macOS 开发文档
-- 修改语音转写相关文件前，先读 `docs/speech-model-lifecycle.md`
+# Speech Model Lifecycle
 
-## 质量检查
-- 确保 xcode build 成功
+Full design doc: `docs/speech-model-lifecycle.md` — read it before modifying these files.
 
-## DMG 打包
-- 使用 `build-dmg` skill 打包 DMG（`./scripts/build-dmg.sh`）
+## Must-Not-Break Rules
 
-## 国际化（i18n）
-- 所有用户可见字符串使用 `Localizable.xcstrings` String Catalog，key 格式 `模块.描述`（如 `settings.language`）
-- 支持语言：`en`、`zh-Hans`；新增字符串须同时提供两种翻译
-- SwiftUI 中用 `Text("key")` / `LocalizedStringKey`；纯 `String` 上下文用 `String(localized: "key")`
+1. **Keep lifecycle observers** — `SpeechModelManager` and `TransFlowViewModel` both observe `NSApplication.didBecomeActiveNotification`. This is the workaround for macOS 26 AssetInventory stale cache. Removing either will re-introduce the "model not ready after idle" bug.
 
-## 外观模式
-- 通过 `AppSettings.shared.appAppearance` 控制，支持跟随系统 / 浅色 / 深色
-- 在 `TransFlowApp` 根视图使用 `.preferredColorScheme(settings.appAppearance.colorScheme)` 应用
+2. **Always call `ensureModelReady()` before transcription** — `SpeechEngine` assumes models are installed. Every transcription entry point (`startListening`, `startTranscription`, any new one) must gate on `ensureModelReady()` returning `true`.
+
+3. **Keep re-reserve in `ensureModelReady()`** — When `checkStatus()` returns `.notDownloaded`, the code calls `attemptReReserve()` then re-checks before falling through to download. This recovers stale cache without a full re-download.
+
+4. **SettingsView must refresh on every appearance** — The `.onAppear` block calls `refreshAllStatuses()` on subsequent visits. Do NOT guard it behind a "load once" flag.
+
+5. **Log all status transitions** — `ErrorLogger.shared.log(…, source: "SpeechModel")` on every status change. These logs are essential for diagnosing the intermittent stale cache issue.
+
+## Adding New Transcription Features
+
+- Add `modelManager.ensureModelReady(for: locale)` guard
+- Add lifecycle observer for `didBecomeActiveNotification` if the ViewModel holds a selected locale
+- Log lifecycle events with `ErrorLogger.shared`
 
 ---
 > Source: [Cyronlee/TransFlow](https://github.com/Cyronlee/TransFlow) — distributed by [TomeVault](https://tomevault.io).
