@@ -4,7 +4,7 @@
   "repo": "uzumaki",
   "description": "Typescript Desktop UI framework without the browser stuff",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/golok727/uzumaki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T16:49:01Z"
+  "distributed_at": "2026-05-02T03:47:08Z"
 }
