@@ -1,0 +1,9 @@
+{
+  "name": "chuckjonas--duckdb-vscode",
+  "displayName": "duckdb-vscode",
+  "description": "A duckdb \"studio\" extension for vscode",
+  "version": "1.0.0",
+  "author": "ChuckJonas",
+  "homepage": "https://github.com/ChuckJonas/duckdb-vscode",
+  "skills": []
+}
