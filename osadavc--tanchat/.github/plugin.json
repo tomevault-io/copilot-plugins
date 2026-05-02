@@ -1,0 +1,9 @@
+{
+  "name": "osadavc--tanchat",
+  "displayName": "tanchat",
+  "description": "A full-featured, TanStack AI Chatbot",
+  "version": "1.0.0",
+  "author": "osadavc",
+  "homepage": "https://github.com/osadavc/tanchat",
+  "skills": []
+}
