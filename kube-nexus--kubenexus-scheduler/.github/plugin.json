@@ -1,0 +1,9 @@
+{
+  "name": "kube-nexus--kubenexus-scheduler",
+  "displayName": "kubenexus-scheduler",
+  "description": "Topology-aware Kubernetes scheduler for multi-tenant, heterogeneous clusters",
+  "version": "1.0.0",
+  "author": "kube-nexus",
+  "homepage": "https://github.com/kube-nexus/kubenexus-scheduler",
+  "skills": []
+}
