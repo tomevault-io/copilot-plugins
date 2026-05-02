@@ -1,0 +1,26 @@
+{
+  "name": "gruckion--marathon-ralph",
+  "displayName": "marathon-ralph",
+  "description": "AI instruction skills by gruckion",
+  "version": "1.0.0",
+  "author": "gruckion",
+  "homepage": "https://github.com/gruckion/marathon-ralph",
+  "skills": [
+    {
+      "name": "marathon-ralph",
+      "description": ""
+    },
+    {
+      "name": "project-detection",
+      "description": ""
+    },
+    {
+      "name": "setup-playwright",
+      "description": ""
+    },
+    {
+      "name": "visual-verification",
+      "description": ""
+    }
+  ]
+}
