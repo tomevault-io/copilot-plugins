@@ -1,0 +1,9 @@
+{
+  "name": "orlojhq--orloj",
+  "displayName": "orloj",
+  "description": "An orchestration runtime for multi-agent AI systems. Declare agents, tools, and policies as YAML; Orloj schedules, executes, routes, and governs them for production-grade operation.",
+  "version": "1.0.0",
+  "author": "OrlojHQ",
+  "homepage": "https://github.com/OrlojHQ/orloj",
+  "skills": []
+}
