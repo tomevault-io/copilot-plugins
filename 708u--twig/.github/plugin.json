@@ -1,0 +1,14 @@
+{
+  "name": "708u--twig",
+  "displayName": "twig",
+  "description": "Simplify git worktree and branch management with configurable symlinks, change carrying, and cleanup.",
+  "version": "1.0.0",
+  "author": "708u",
+  "homepage": "https://github.com/708u/twig",
+  "skills": [
+    {
+      "name": "twig-guide",
+      "description": ""
+    }
+  ]
+}
