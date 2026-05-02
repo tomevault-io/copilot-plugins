@@ -1,0 +1,9 @@
+{
+  "name": "rwliebs--dossier",
+  "displayName": "Dossier",
+  "description": "Visual planning and context control for shipping big apps with AI coding. Build from scratch or map existing repos. Dossier maps user workflows, sets agent context per feature, builds, tests and ships",
+  "version": "1.0.0",
+  "author": "rwliebs",
+  "homepage": "https://github.com/rwliebs/Dossier",
+  "skills": []
+}
