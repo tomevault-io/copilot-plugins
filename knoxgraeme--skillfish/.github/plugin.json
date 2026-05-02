@@ -1,0 +1,9 @@
+{
+  "name": "knoxgraeme--skillfish",
+  "displayName": "skillfish",
+  "description": "The skill manager for AI coding agents. Install, update, and sync skills across Claude Code, Cursor, Copilot + more.",
+  "version": "1.0.0",
+  "author": "knoxgraeme",
+  "homepage": "https://github.com/knoxgraeme/skillfish",
+  "skills": []
+}
