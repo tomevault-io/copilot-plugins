@@ -1,0 +1,9 @@
+{
+  "name": "groenerfelix--tutorial-generator-v2",
+  "displayName": "tutorial-generator-v2",
+  "description": "LangGraph pipeline to generate tutorial websites",
+  "version": "1.0.0",
+  "author": "groenerfelix",
+  "homepage": "https://github.com/groenerfelix/tutorial-generator-v2",
+  "skills": []
+}
