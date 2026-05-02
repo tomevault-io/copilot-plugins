@@ -1,0 +1,106 @@
+{
+  "name": "dylantarre--design-system-skills",
+  "displayName": "design-system-skills",
+  "description": "  Design system skills for agentic coding",
+  "version": "1.0.0",
+  "author": "dylantarre",
+  "homepage": "https://github.com/dylantarre/design-system-skills",
+  "skills": [
+    {
+      "name": "angular",
+      "description": ""
+    },
+    {
+      "name": "animation-principles",
+      "description": ""
+    },
+    {
+      "name": "breakpoints",
+      "description": ""
+    },
+    {
+      "name": "color-scale",
+      "description": ""
+    },
+    {
+      "name": "component-docs",
+      "description": ""
+    },
+    {
+      "name": "compound-components",
+      "description": ""
+    },
+    {
+      "name": "design-tokens-structure",
+      "description": ""
+    },
+    {
+      "name": "figma",
+      "description": ""
+    },
+    {
+      "name": "framer",
+      "description": ""
+    },
+    {
+      "name": "getting-started",
+      "description": ""
+    },
+    {
+      "name": "icon-system",
+      "description": ""
+    },
+    {
+      "name": "layout-primitives",
+      "description": ""
+    },
+    {
+      "name": "motion-scale",
+      "description": ""
+    },
+    {
+      "name": "radius-scale",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "shadow-scale",
+      "description": ""
+    },
+    {
+      "name": "spacing-scale",
+      "description": ""
+    },
+    {
+      "name": "storybook",
+      "description": ""
+    },
+    {
+      "name": "style-dictionary",
+      "description": ""
+    },
+    {
+      "name": "svelte",
+      "description": ""
+    },
+    {
+      "name": "token-docs",
+      "description": ""
+    },
+    {
+      "name": "type-scale",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "z-index-scale",
+      "description": ""
+    }
+  ]
+}
