@@ -1,0 +1,14 @@
+{
+  "name": "kieranklaassen--ruby-llm-skills",
+  "displayName": "ruby_llm-skills",
+  "description": "Agent Skills extension for RubyLLM - load, validate, and integrate skills from filesystem or database",
+  "version": "1.0.0",
+  "author": "kieranklaassen",
+  "homepage": "https://github.com/kieranklaassen/ruby_llm-skills",
+  "skills": [
+    {
+      "name": "valid-skill",
+      "description": ""
+    }
+  ]
+}
