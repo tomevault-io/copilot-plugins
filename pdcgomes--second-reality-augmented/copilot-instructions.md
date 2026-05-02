@@ -1,82 +1,91 @@
-## remastered-docs
+## remastered-effects
 
-> Create and maintain remastered effect documentation whenever a remastered variant is completed or refined
+> Resolution independence and parameterization patterns for remastered effects
 
 
-# Remastered Effect Documentation
+# Remastered Effect Standards
 
-## When to Create
+## Resolution Independence
 
-After completing a new remastered effect variant (`effect.remastered.js`), create a companion document at:
+Remastered effects must render at the display's native resolution, not the classic 320x256.
 
-```
-docs/effects/{NN}-{effect-name}-remastered.md
-```
+- Read `gl.drawingBufferWidth` / `gl.drawingBufferHeight` each frame — the canvas may resize
+- Recreate FBOs when dimensions change (track previous size, compare, rebuild)
+- Bloom / blur FBOs scale proportionally: half-res for tight bloom, quarter-res for wide bloom
+- Final composite outputs to `gl.bindFramebuffer(null)` at full `drawingBufferWidth x drawingBufferHeight`
+- Use MSAA renderbuffers for anti-aliased 3D geometry, then blit-resolve to a texture FBO
+- Projection matrices must use the current aspect ratio (`sw / sh`), not a hardcoded ratio
+- Never assume a fixed resolution — everything flows from the canvas size
 
-where `{NN}` matches the part number of the classic doc (e.g., `06-glenz-3d-remastered.md`).
-
-## When to Update
-
-Update the remastered doc whenever:
-
-- The remastered effect's rendering pipeline changes (new passes, different shader approach)
-- Parameters are added, removed, or their ranges change
-- Beat reactivity behavior is modified
-- New post-processing stages are added
-- Items move from "not yet implemented" to implemented
-- The implementation checklist changes status
-
-## Required Sections
-
-Every remastered doc must include these sections:
-
-### Header
-
-```markdown
-# Part {N} — {NAME} Remastered: {Short Description}
-
-**Status:** Complete | In progress
-**Source file:** `src/effects/{name}/effect.remastered.js`
-**Shared animation:** `src/effects/{name}/animation.js`
-**Classic doc:** [{NN}-{effect-name}.md]({NN}-{effect-name}.md)
+```javascript
+render(gl, t, beat, params) {
+  const sw = gl.drawingBufferWidth;
+  const sh = gl.drawingBufferHeight;
+  if (sw !== fboW || sh !== fboH) {
+    // Destroy old FBOs, recreate at new size
+    msaaFBO = createMSAAFBO(gl, sw, sh, samples);
+    sceneFBO = createFBO(gl, sw, sh);
+    bloomFBO = createFBO(gl, sw >> 1, sh >> 1);
+    fboW = sw; fboH = sh;
+  }
+  // ...
+}
 ```
 
-### Sections Checklist
+## Effect Parameterization
 
-1. **Overview** — What the remastered variant does differently, with a comparison table vs classic
-2. **Architecture** — Mermaid diagram showing module relationships (shared animation, data, core)
-3. **Rendering Pipeline** — Mermaid flowchart of the per-frame render passes with a table of pass details (program, target FBO, resolution)
-4. **Lighting/Shading Model** — How surfaces are lit (if applicable), with shader component breakdown
-5. **Post-Processing** — Bloom pipeline, trails, or other full-screen effects
-6. **Beat Reactivity** — Table of beat-driven effects with formulas
-7. **Editor Parameters** — Full table of the exported `params` array (key, label, range, default, description)
-8. **Shader Programs** — Table listing each program, its vertex/fragment shaders, and purpose
-9. **GPU Resources** — Summary of allocated GL objects (programs, VAOs, textures, FBOs)
-10. **What Changed From Classic** — Side-by-side table of classic vs remastered approach per aspect
-11. **Remaining Ideas** — Unimplemented ideas from the classic doc's "Remastered Ideas" section
-12. **References** — Links to classic doc, shared animation module, remastered rule
+Every remastered effect must export a `params` array of descriptors alongside `init`, `render`, `destroy`. This enables the editor's CLIP PROPERTIES pane to auto-generate controls.
 
-For effects still in progress, also include:
+### Parameter Descriptor Schema
 
-13. **Implementation Checklist** — Checkbox list tracking what is done vs pending
+```javascript
+export default {
+  label: 'effectName (remastered)',
+  params: [
+    { key: 'bloomThreshold', label: 'Bloom Threshold', type: 'float', min: 0, max: 1, step: 0.01, default: 0.2 },
+    // ...
+  ],
+  init(gl) { },
+  render(gl, t, beat, params) { },
+  destroy(gl) { },
+}
+```
 
-## Diagram Conventions
+Each descriptor has: `key` (uniform/variable name), `label` (display name), `type` (`float` for now — extend with `int`, `bool`, `color` as needed), `min`, `max`, `step`, `default`.
 
-Use Mermaid diagrams for:
+### Consuming Parameters in render()
 
-- **Module dependency graphs**: `graph LR` showing how animation.js, data.js, core/webgl.js connect to the effect
-- **Rendering pipeline flowcharts**: `flowchart TD` showing the sequence of render passes, FBO targets, and data flow
-- **Shading model graphs**: `graph LR/TD` showing how shader inputs combine to produce the final color
+Use a helper to read params with fallback to defaults:
 
-Keep diagrams focused — one concept per diagram. Use subgraphs to group related passes.
+```javascript
+render(gl, t, beat, params) {
+  const p = (k, d) => params[k] ?? d;
+  gl.uniform1f(loc.threshold, p('bloomThreshold', 0.2));
+  const scale = 1.0 + beatPulse * p('beatScale', 0.02);
+  // ...
+}
+```
 
-## Style
+### What to Parameterize
 
-- Match the tone and depth of the classic effect docs
-- Focus on the *how* and *why* of technical decisions, not just *what*
-- Include formulas for lighting, beat curves, and blending when they clarify behavior
-- Use tables for structured comparisons and parameter listings
-- Link back to the classic doc for shared details (geometry, timeline, physics) rather than duplicating them
+Expose anything that meaningfully changes the visual output:
+
+- **Post-processing**: bloom threshold, bloom intensity (tight/wide), scanline strength
+- **Lighting**: specular power, fresnel exponent, ambient levels
+- **Beat reactivity**: scale pulse amount, bloom pulse amount
+- **Material**: transparency, color tint, reflectivity
+
+Do NOT parameterize internal implementation details (buffer sizes, iteration counts for convergence, etc.).
+
+## Registering Remastered Variants
+
+In `src/effects/index.js`, pass the remastered module as the third argument to `registerEffect`:
+
+```javascript
+registerEffect('EFFECT_NAME', classicModule, remasteredModule);
+```
+
+The registry's `getEffectParams(name, variant)` helper reads the `params` array from whichever variant is active. The editor reads this to build the UI — no per-effect UI code needed.
 
 ---
 > Source: [pdcgomes/second-reality-augmented](https://github.com/pdcgomes/second-reality-augmented) — distributed by [TomeVault](https://tomevault.io).
