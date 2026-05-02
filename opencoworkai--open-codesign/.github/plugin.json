@@ -1,0 +1,9 @@
+{
+  "name": "opencoworkai--open-codesign",
+  "displayName": "open-codesign",
+  "description": "Open-source AI design tool \u2014 prompt to interactive prototype, slide deck, PDF & marketing assets. Multi-model (Anthropic, OpenAI, Gemini, DeepSeek, Ollama), BYOK, local-first. The open counterpart to ",
+  "version": "1.0.0",
+  "author": "OpenCoworkAI",
+  "homepage": "https://github.com/OpenCoworkAI/open-codesign",
+  "skills": []
+}
