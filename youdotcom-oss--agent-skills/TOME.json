@@ -1,0 +1,81 @@
+{
+  "name": "agent-skills",
+  "owner": "youdotcom-oss",
+  "repo": "agent-skills",
+  "description": "Agent Skills for integrating You.com capabilities into agentic workflows and AI development tools - guided integrations for Claude, OpenAI, Vercel AI SDK, and Teams.ai",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "teams-anthropic-integration",
+      "path": "skills/teams-anthropic-integration",
+      "github_url": "https://github.com/youdotcom-oss/agent-skills/tree/main/skills/teams-anthropic-integration",
+      "description": ""
+    },
+    {
+      "name": "ydc-ai-sdk-integration",
+      "path": "skills/ydc-ai-sdk-integration",
+      "github_url": "https://github.com/youdotcom-oss/agent-skills/tree/main/skills/ydc-ai-sdk-integration",
+      "description": ""
+    },
+    {
+      "name": "ydc-claude-agent-sdk-integration",
+      "path": "skills/ydc-claude-agent-sdk-integration",
+      "github_url": "https://github.com/youdotcom-oss/agent-skills/tree/main/skills/ydc-claude-agent-sdk-integration",
+      "description": ""
+    },
+    {
+      "name": "ydc-crewai-mcp-integration",
+      "path": "skills/ydc-crewai-mcp-integration",
+      "github_url": "https://github.com/youdotcom-oss/agent-skills/tree/main/skills/ydc-crewai-mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "ydc-openai-agent-sdk-integration",
+      "path": "skills/ydc-openai-agent-sdk-integration",
+      "github_url": "https://github.com/youdotcom-oss/agent-skills/tree/main/skills/ydc-openai-agent-sdk-integration",
+      "description": ""
+    },
+    {
+      "name": "youdotcom-cli",
+      "path": "skills/youdotcom-cli",
+      "github_url": "https://github.com/youdotcom-oss/agent-skills/tree/main/skills/youdotcom-cli",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/youdotcom-oss/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-02T15:40:21Z"
+}
