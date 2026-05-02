@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--auto-kill-terminal",
+  "displayName": "auto-kill-terminal",
+  "description": "\ud83e\udd2f  Stop AI agents from leaving zombie terminals in GitHub Codespaces & VS Code. Copy-paste terminal management rules for Copilot, Claude, Gemini, Cursor, Windsurf, Cline, Aider. Fix \"terminal unrespon",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/auto-kill-terminal",
+  "skills": []
+}
