@@ -4,7 +4,7 @@
   "repo": "blunderbust",
   "description": "A beads aware agent launcher",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Megatherium/blunderbust",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T11:41:12Z"
+  "distributed_at": "2026-05-02T13:03:23Z"
 }
