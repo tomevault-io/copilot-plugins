@@ -1,9 +1,9 @@
 {
   "name": "michaelklishin--bunny-swift",
   "displayName": "bunny-swift",
-  "description": "bunny-swift",
+  "description": "A modern RabbitMQ (AMQP 0-9-1) client for Swift",
   "version": "1.0.0",
   "author": "michaelklishin",
-  "homepage": "https://tomevault.io/claim/michaelklishin",
+  "homepage": "https://github.com/michaelklishin/bunny-swift",
   "skills": []
 }
