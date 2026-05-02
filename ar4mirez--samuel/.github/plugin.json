@@ -1,0 +1,274 @@
+{
+  "name": "ar4mirez--samuel",
+  "displayName": "samuel",
+  "description": "Minimalist yet powerful AI-assisted development framework. Production-ready CLAUDE.md & AGENTS.md system with 35+ guardrails, 4D methodology, and auto-loading language guides for TypeScript, Python, G",
+  "version": "1.0.0",
+  "author": "ar4mirez",
+  "homepage": "https://github.com/ar4mirez/samuel",
+  "skills": [
+    {
+      "name": "actix-web",
+      "description": ""
+    },
+    {
+      "name": "android-compose",
+      "description": ""
+    },
+    {
+      "name": "aspnet-core",
+      "description": ""
+    },
+    {
+      "name": "assembly-guide",
+      "description": ""
+    },
+    {
+      "name": "auto",
+      "description": ""
+    },
+    {
+      "name": "axum",
+      "description": ""
+    },
+    {
+      "name": "blazor",
+      "description": ""
+    },
+    {
+      "name": "cleanup-project",
+      "description": ""
+    },
+    {
+      "name": "commit-message",
+      "description": ""
+    },
+    {
+      "name": "cpp-guide",
+      "description": ""
+    },
+    {
+      "name": "create-prd",
+      "description": ""
+    },
+    {
+      "name": "create-rfd",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "description": ""
+    },
+    {
+      "name": "csharp-guide",
+      "description": ""
+    },
+    {
+      "name": "cuda-guide",
+      "description": ""
+    },
+    {
+      "name": "dart-frog",
+      "description": ""
+    },
+    {
+      "name": "dart-guide",
+      "description": ""
+    },
+    {
+      "name": "document-work",
+      "description": ""
+    },
+    {
+      "name": "echo",
+      "description": ""
+    },
+    {
+      "name": "express",
+      "description": ""
+    },
+    {
+      "name": "fastapi",
+      "description": ""
+    },
+    {
+      "name": "fiber",
+      "description": ""
+    },
+    {
+      "name": "flask",
+      "description": ""
+    },
+    {
+      "name": "flutter",
+      "description": ""
+    },
+    {
+      "name": "generate-agents-md",
+      "description": ""
+    },
+    {
+      "name": "gin",
+      "description": ""
+    },
+    {
+      "name": "go-guide",
+      "description": ""
+    },
+    {
+      "name": "hanami",
+      "description": ""
+    },
+    {
+      "name": "html-css-guide",
+      "description": ""
+    },
+    {
+      "name": "initialize-project",
+      "description": ""
+    },
+    {
+      "name": "java-guide",
+      "description": ""
+    },
+    {
+      "name": "kotlin-guide",
+      "description": ""
+    },
+    {
+      "name": "ktor",
+      "description": ""
+    },
+    {
+      "name": "laravel",
+      "description": ""
+    },
+    {
+      "name": "lua-guide",
+      "description": ""
+    },
+    {
+      "name": "micronaut",
+      "description": ""
+    },
+    {
+      "name": "nextjs",
+      "description": ""
+    },
+    {
+      "name": "php-guide",
+      "description": ""
+    },
+    {
+      "name": "python-guide",
+      "description": ""
+    },
+    {
+      "name": "quarkus",
+      "description": ""
+    },
+    {
+      "name": "r-guide",
+      "description": ""
+    },
+    {
+      "name": "rails",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "refactoring",
+      "description": ""
+    },
+    {
+      "name": "rocket",
+      "description": ""
+    },
+    {
+      "name": "ruby-guide",
+      "description": ""
+    },
+    {
+      "name": "rust-guide",
+      "description": ""
+    },
+    {
+      "name": "security-audit",
+      "description": ""
+    },
+    {
+      "name": "shelf",
+      "description": ""
+    },
+    {
+      "name": "sinatra",
+      "description": ""
+    },
+    {
+      "name": "solidity-guide",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-java",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-kotlin",
+      "description": ""
+    },
+    {
+      "name": "sql-guide",
+      "description": ""
+    },
+    {
+      "name": "swift-guide",
+      "description": ""
+    },
+    {
+      "name": "swiftui",
+      "description": ""
+    },
+    {
+      "name": "symfony",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "typescript-guide",
+      "description": ""
+    },
+    {
+      "name": "uikit",
+      "description": ""
+    },
+    {
+      "name": "unity",
+      "description": ""
+    },
+    {
+      "name": "update-framework",
+      "description": ""
+    },
+    {
+      "name": "vapor",
+      "description": ""
+    },
+    {
+      "name": "wordpress",
+      "description": ""
+    },
+    {
+      "name": "zig-guide",
+      "description": ""
+    }
+  ]
+}
