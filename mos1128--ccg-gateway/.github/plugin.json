@@ -1,0 +1,9 @@
+{
+  "name": "mos1128--ccg-gateway",
+  "displayName": "ccg-gateway",
+  "description": "\u4e3a Claude Code\u3001Codex\u3001Gemini CLI \u6253\u9020\u7684\u6548\u7387\u5de5\u5177\uff0c\u96c6\u667a\u80fd\u7f51\u5173\u4e0e\u914d\u7f6e\u7ba1\u7406\u4e8e\u4e00\u4f53",
+  "version": "1.0.0",
+  "author": "mos1128",
+  "homepage": "https://github.com/mos1128/ccg-gateway",
+  "skills": []
+}
