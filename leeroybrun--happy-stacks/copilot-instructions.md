@@ -1,80 +1,39 @@
-## delegation
+## edison
 
-> Default to delegation:
+> Edison Framework Development Rules
 
 
-# Delegate the majority of work
+# Edison Framework Rules
 
-## Body
-Default to delegation:
-- Orchestrator should delegate most non-trivial implementation to specialized agents.
-- Only implement directly when truly trivial or explicitly required by policy/config.
+## Critical Principles (Config-Driven)
 
-Reference: `guidelines/orchestrators/DELEGATION.md`
+These rules are **project-configurable** via Edison YAML. Do not assume every project uses the same enforcement level.
 
----
-id: RULE.DELEGATION.NO_REDELEGATION
-title: Sub-agents must not re-delegate
-category: delegation
-blocking: false
-contexts: []
-origins:
-- core
-source:
-  file: guidelines/orchestrators/DELEGATION.md
----
+- **TDD**: write failing test FIRST (RED), then implement (GREEN), then refactor.
 
-# Sub-agents must not re-delegate
+- **No internal mocks**: test real behavior; only mock at true system boundaries.
 
-## Body
-Sub-agents are implementers, not orchestrators:
-- Sub-agents must not delegate to other agents/models.
-- If work needs splitting, return to the orchestrator with a proposed split.
+- **Configuration-first**: avoid hardcoded behavior; load config from YAML/environment.
 
-Reference: `guidelines/orchestrators/DELEGATION.md`
+- **Quality basics**: DRY, SOLID, KISS; avoid speculative/YAGNI code.
+- **Root cause**: fix underlying issues; avoid “dirty fixes”.
 
----
-id: RULE.DELEGATION.PARALLELIZE_WHEN_RELEVANT
-title: Orchestrator should parallelize via tasks/split for non-trivial tasks
-category: delegation
-blocking: false
-contexts: []
-origins:
-- core
-source:
-  file: guidelines/orchestrators/DELEGATION.md
----
+## Development Practices
 
-# Orchestrator should parallelize via tasks/split for non-trivial tasks
+- When updating code, ALL related tests should be updated (unit, integration, e2e)
+- When a test fails, analyze and fix the ROOT CAUSE - never simplify/skip tests
+- Before implementing, search for existing patterns to reuse/extend
+- Maintain strict coherence and unity across the codebase
 
-## Body
-Parallelize when it improves throughput:
-- Split work into independent slices (API/UI/DB/tests) when coupling is low.
-- Respect the configured concurrency cap; batch overflow instead of over-assigning.
+## Testing Guidelines
 
----
-id: RULE.DELEGATION.PRIORITY_CHAIN
-title: Delegation Decision Priority Chain
-category: delegation
-blocking: false
-contexts:
-- guidance
-- delegation
-origins:
-- core
-source:
-  file: guidelines/orchestrators/DELEGATION.md
----
+- Prefer real behavior tests over mocked behavior.
+- Use temporary directories for filesystem tests (auto-cleaned).
+- Use isolated databases for integration tests (template DBs, containers, or per-test schemas).
+- Use real HTTP clients against local test servers for API tests.
+- Only mock at system boundaries (third-party services you do not control).
 
-# Delegation Decision Priority Chain
-
-## Body
-Make delegation decisions deterministically using the configured priority chain:
-- User instruction → file pattern rules → task type rules → sub-agent defaults → tie-breakers.
-- Do not “shop” for models after selection; take the first deterministic match.
-- Stop and escalate if routing is ambiguous or config is missing.
-
-Reference: `guidelines/orchestrators/DELEGATION.md`
+<!-- Pack/project extensions go here -->
 
 ---
 > Source: [leeroybrun/happy-stacks](https://github.com/leeroybrun/happy-stacks) — distributed by [TomeVault](https://tomevault.io).
