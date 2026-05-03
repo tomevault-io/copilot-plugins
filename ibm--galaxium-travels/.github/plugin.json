@@ -1,0 +1,9 @@
+{
+  "name": "ibm--galaxium-travels",
+  "displayName": "galaxium-travels",
+  "description": "Demo application for IBM Bob. A complete full-stack application for booking interplanetary space travel",
+  "version": "1.0.0",
+  "author": "IBM",
+  "homepage": "https://github.com/IBM/galaxium-travels",
+  "skills": []
+}
