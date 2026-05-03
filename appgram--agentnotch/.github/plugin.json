@@ -1,0 +1,9 @@
+{
+  "name": "appgram--agentnotch",
+  "displayName": "agentnotch",
+  "description": "AgentNotch is a sleek macOS menu bar app that lives in your Mac's notch, providing real-time visibility into your AI coding assistants. Watch as Claude Code and OpenAI Codex think, read files, and exe",
+  "version": "1.0.0",
+  "author": "AppGram",
+  "homepage": "https://github.com/AppGram/agentnotch",
+  "skills": []
+}
