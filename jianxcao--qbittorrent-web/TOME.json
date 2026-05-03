@@ -2,9 +2,9 @@
   "name": "qbittorrent-web",
   "owner": "jianxcao",
   "repo": "qbittorrent-web",
-  "description": "AI instruction skills by jianxcao",
+  "description": "A modern, feature-rich web interface for qBittorrent client management",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -71,5 +71,5 @@
   ],
   "source_url": "https://github.com/jianxcao/qbittorrent-web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T14:34:24Z"
+  "distributed_at": "2026-05-03T00:33:07Z"
 }
