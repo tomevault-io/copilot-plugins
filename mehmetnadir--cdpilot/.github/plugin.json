@@ -1,0 +1,9 @@
+{
+  "name": "mehmetnadir--cdpilot",
+  "displayName": "cdpilot",
+  "description": "Zero-dependency browser automation CLI. 70+ commands, 10 test assertions, smart commands (click/fill by text \u2014 no LLM needed). MCP server for AI agents with 500x fewer tokens. Extract, observe, script",
+  "version": "1.0.0",
+  "author": "mehmetnadir",
+  "homepage": "https://github.com/mehmetnadir/cdpilot",
+  "skills": []
+}
