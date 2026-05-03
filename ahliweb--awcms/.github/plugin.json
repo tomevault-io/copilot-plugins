@@ -1,0 +1,14 @@
+{
+  "name": "ahliweb--awcms",
+  "displayName": "awcms",
+  "description": "AWCMS (AhliWeb Content Management System) \u2014 an enterprise-grade, multi-tenant, ABAC-secured CMS built with React, Supabase, and modern web architecture.",
+  "version": "1.0.0",
+  "author": "ahliweb",
+  "homepage": "https://github.com/ahliweb/awcms",
+  "skills": [
+    {
+      "name": "astro",
+      "description": ""
+    }
+  ]
+}
