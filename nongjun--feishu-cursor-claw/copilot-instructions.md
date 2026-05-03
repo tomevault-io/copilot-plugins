@@ -1,71 +1,85 @@
 ## unnamed-skill
 
-> 新增或修改小助手/webhook机器人推送功能时，必须遵循的自动注册规范
+> 瑞小美系统技术栈标准与部署规范——涉及技术选型、容器、部署、数据库时加载
 
 
-# 小助手统一注册规范
+# 瑞小美系统技术栈标准与字符标准
 
-## 核心原则
+## 技术栈
 
-系统中所有 webhook 推送功能（告警、日报、提醒等）**必须**注册到门户系统的小助手配置中心，由门户统一管理 webhook URL 和开关。
+### 后端
 
-## 新增小助手的标准流程
+| 技术 | 版本/说明 |
+| --- | --- |
+| **语言** | Python 3.11 |
+| **框架** | FastAPI |
+| **ORM** | SQLAlchemy |
+| **数据库** | MySQL 8.0 |
+| **认证** | OAuth |
 
-### 1. 在模块 main.py 的 MODULE_ASSISTANTS 中添加定义
+### 前端
 
-```python
-MODULE_ASSISTANTS = [
-    # ... 现有定义 ...
-    {
-        "assistant_code": "your_new_assistant",  # 全局唯一，snake_case
-        "display_name": "你的新功能名称",
-        "description": "一句话描述推送内容和触发方式",
-        "module_code": "your_module",  # archive/quality/moment/contact 等
-        "schedule_config": {
-            "type": "cron",  # cron / interval / realtime
-            "times": ["09:00"],  # cron 类型填写
-            # "interval_minutes": 5,  # interval 类型填写
-            # "description": "事件触发",  # realtime 类型填写
-        },
-    },
-]
-```
+| 类别 | 首选技术 | 说明 |
+| --- | --- | --- |
+| **语言** | TypeScript | 类型安全 |
+| **框架** | Vue 3 | 统一前端框架 |
+| **构建工具** | Vite | 快速开发 |
+| **包管理器** | npm | 生态成熟 |
+| **UI组件库** | Element Plus / Ant Design Vue | 企业级UI |
+| **CSS方案** | Tailwind CSS | 可与组件库共存 |
+| **HTTP客户端** | Axios | 统一请求库 |
+| **状态管理** | Pinia | 按需使用 |
 
-模块启动时会通过 `register_assistants(MODULE_ASSISTANTS)` 自动向门户注册。
+### 前端（特殊场景可选）
 
-### 2. 通过 assistant_config_client 获取 webhook 配置
+| 技术 | 适用场景 |
+| --- | --- |
+| **Uni-app** | 小程序/跨平台开发 |
+| **qiankun** | 微前端架构整合 |
+| **React/Next.js** | 仅用于遗留系统维护 |
 
-```python
-from app.services.assistant_config_client import get_assistant_config
+### 基础设施
 
-config = await get_assistant_config("your_new_assistant")
-if not config.enabled or not config.webhook_key:
-    return  # 未启用或未配置则跳过
+| 技术 | 说明 |
+| --- | --- |
+| **容器化** | Docker + Docker Compose |
+| **反向代理** | Nginx（独立 Docker 容器） |
+| **网络** | Docker Bridge Network |
+| **SSL** | Let's Encrypt (Certbot) |
 
-# config.webhook_key 是完整的 webhook URL
-```
+## 部署规范
 
-### 3. 使用 build_payload 构建多平台消息
+| 规范 | 说明 |
+| --- | --- |
+| 容器化部署 | 所有服务必须在 Docker 容器中 |
+| 前后端分离 | 前后端独立容器、独立部署 |
+| Docker Compose | 管理多服务与依赖 |
+| Nginx 统一入口 | 后端不直接暴露公网 |
+| 热重载 | 开发环境必须启用 HMR |
+| 禁用 latest | 镜像必须指定具体版本号 |
+| 健康检查 | 所有容器必须配置，后端提供 /health 端点 |
+| 日志轮转 | json-file 驱动，max-size 10m |
+| 容器间通信 | 用容器名，禁止硬编码 IP |
+| Nginx DNS | 用 resolver 127.0.0.11 + 变量 proxy_pass 避免 502 |
+| 敏感信息 | .env 管理，禁止硬编码，权限 600 |
 
-```python
-from shared_backend.utils.webhook_platform import detect_platform, build_payload
+## 镜像源
 
-payload = build_payload(detect_platform(webhook_url), content, "markdown")
-```
+| 类型 | 首选 |
+| --- | --- |
+| Docker Registry | `https://kjphlxn2.mirror.aliyuncs.com` |
+| APT 源 | `http://mirrors.aliyun.com/debian/` |
 
-## 禁止事项
+## 字符标准
 
-- ❌ 不要在代码中硬编码 webhook URL
-- ❌ 不要直接从环境变量读取 webhook（仅作为降级回退）
-- ❌ 不要硬编码企微消息格式（使用 build_payload 适配多平台）
-- ❌ 不要在门户的 ASSISTANT_DEFINITIONS 中手动添加（由各模块自动注册）
-
-## 相关文件
-
-- 注册工具: `公共模块/shared_backend/utils/assistant_registry.py`
-- 平台适配: `公共模块/shared_backend/utils/webhook_platform.py`
-- 配置客户端: 各模块 `app/services/assistant_config_client.py`
-- 门户 API: `门户系统/后端服务/app/api/assistant.py`（/internal/register-batch）
+| 项目 | 标准 |
+| --- | --- |
+| 字符编码 | UTF-8 |
+| 数据库字符集 | utf8mb4 |
+| 排序规则 | utf8mb4_unicode_ci |
+| API 响应 | JSON (UTF-8) |
+| 日期格式 | ISO 8601 |
+| 时区 | Asia/Shanghai (UTC+8) |
 
 ---
 > Source: [nongjun/feishu-cursor-claw](https://github.com/nongjun/feishu-cursor-claw) — distributed by [TomeVault](https://tomevault.io).
