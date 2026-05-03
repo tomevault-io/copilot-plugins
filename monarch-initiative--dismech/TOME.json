@@ -1,0 +1,87 @@
+{
+  "name": "dismech",
+  "owner": "monarch-initiative",
+  "repo": "dismech",
+  "description": "Disease Mechanisms KB",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cancer-curator",
+      "path": ".claude/skills/cancer-curator",
+      "github_url": "https://github.com/monarch-initiative/dismech/tree/main/.claude/skills/cancer-curator",
+      "description": ""
+    },
+    {
+      "name": "dismech-compliance",
+      "path": ".claude/skills/dismech-compliance",
+      "github_url": "https://github.com/monarch-initiative/dismech/tree/main/.claude/skills/dismech-compliance",
+      "description": ""
+    },
+    {
+      "name": "dismech-references",
+      "path": ".claude/skills/dismech-references",
+      "github_url": "https://github.com/monarch-initiative/dismech/tree/main/.claude/skills/dismech-references",
+      "description": ""
+    },
+    {
+      "name": "dismech-terms",
+      "path": ".claude/skills/dismech-terms",
+      "github_url": "https://github.com/monarch-initiative/dismech/tree/main/.claude/skills/dismech-terms",
+      "description": ""
+    },
+    {
+      "name": "initiate-new-disorder-creation",
+      "path": ".claude/skills/initiate-new-disorder-creation",
+      "github_url": "https://github.com/monarch-initiative/dismech/tree/main/.claude/skills/initiate-new-disorder-creation",
+      "description": ""
+    },
+    {
+      "name": "microbiome-curation",
+      "path": ".claude/skills/microbiome-curation",
+      "github_url": "https://github.com/monarch-initiative/dismech/tree/main/.claude/skills/microbiome-curation",
+      "description": ""
+    },
+    {
+      "name": "projman",
+      "path": ".claude/skills/projman",
+      "github_url": "https://github.com/monarch-initiative/dismech/tree/main/.claude/skills/projman",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/monarch-initiative/dismech",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:37:23Z"
+}
