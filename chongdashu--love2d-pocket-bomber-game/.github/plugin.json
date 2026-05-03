@@ -1,0 +1,18 @@
+{
+  "name": "chongdashu--love2d-pocket-bomber-game",
+  "displayName": "love2d-pocket-bomber-game",
+  "description": "Vibe code a bomberman clone using Claude Code and Love2D skills",
+  "version": "1.0.0",
+  "author": "chongdashu",
+  "homepage": "https://github.com/chongdashu/love2d-pocket-bomber-game",
+  "skills": [
+    {
+      "name": "love2d-gamedev",
+      "description": ""
+    },
+    {
+      "name": "love2d-ios",
+      "description": ""
+    }
+  ]
+}
