@@ -1,0 +1,9 @@
+{
+  "name": "tikitribe--claude-secure-coding-rules",
+  "displayName": "claude-secure-coding-rules",
+  "description": "Secure Coding Rules for Claude Code with a particular emphasis on AIML projects",
+  "version": "1.0.0",
+  "author": "TikiTribe",
+  "homepage": "https://github.com/TikiTribe/claude-secure-coding-rules",
+  "skills": []
+}
