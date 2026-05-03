@@ -1,0 +1,9 @@
+{
+  "name": "doitmagic--rag-code-mcp",
+  "displayName": "rag-code-mcp",
+  "description": "Privacy-first semantic code navigation MCP server using RAG. Features deep AST multi-language support (Go, PHP/Laravel/WP, JS/TS/React, Python), 100% local LLMs (Ollama), and vector search (Qdrant) fo",
+  "version": "1.0.0",
+  "author": "doITmagic",
+  "homepage": "https://github.com/doITmagic/rag-code-mcp",
+  "skills": []
+}
