@@ -1,118 +1,67 @@
 ## agent-quickstart-nextjs
 
-> > Read `agents.md` for the full project map (directory layout, API routes, data flow, known gotchas) before making changes.
+> Use this file as the primary agent-facing guide for `agora-convoai-quickstart-nextjs`.
 
-# CLAUDE.md
+# Agent Guide
 
-> Read `agents.md` for the full project map (directory layout, API routes, data flow, known gotchas) before making changes.
+Use this file as the primary agent-facing guide for `agora-convoai-quickstart-nextjs`.
 
-## Project
+## Start Here
 
-Next.js 16 (App Router) quickstart demonstrating Agora Conversational AI Engine. Developers copy this code — production quality and idiomatic patterns are required in every change.
+- Read [README.md](./README.md) for setup, commands, verification, and deployment.
+- Use [DOCS/GUIDE.md](./DOCS/GUIDE.md) for the long-form build walkthrough.
+- Use [DOCS/TEXT_STREAMING_GUIDE.md](./DOCS/TEXT_STREAMING_GUIDE.md) for transcript and RTM behavior.
+
+## Current System Shape
+
+- Next.js 16 App Router with React 19 and TypeScript
+- Browser RTC via `agora-rtc-react`
+- RTM transcripts via `agora-rtm`
+- Transcript/runtime helpers via `agora-agent-client-toolkit`
+- Shared UI primitives via `agora-agent-uikit`
+- Token and agent lifecycle routes inside `app/api`
+
+## Key Files
+
+- `app/api/generate-agora-token/route.ts`: RTC + RTM token generation
+- `app/api/invite-agent/route.ts`: managed agent session startup
+- `app/api/stop-conversation/route.ts`: agent shutdown
+- `components/LandingPage.tsx`: session bootstrap, RTM setup, provider wiring
+- `components/ConversationComponent.tsx`: RTC join, transcript flow, visualizer, renewals
+- `lib/agora.ts`: shared agent UID defaults
+- `env.local.example`: local environment template
+
+## Working Rules
+
+- Keep the RTC client creation StrictMode-safe with `useRef`, not `useMemo`.
+- Keep the token route on `RtcTokenBuilder.buildTokenWithRtm`.
+- Keep transcript UID remapping aligned with the toolkit sentinel behavior.
+- Keep README, `DOCS/GUIDE.md`, and `DOCS/TEXT_STREAMING_GUIDE.md` aligned with implementation changes.
 
 ## Commands
 
 ```bash
-pnpm dev      # start dev server (http://localhost:3000)
-pnpm build    # production build
-pnpm lint     # ESLint
+pnpm install
+pnpm run doctor
+pnpm run dev
+pnpm run verify
 ```
 
-## Key Patterns
+Useful narrower checks:
 
-### StrictMode Guard (`isReady`)
-
-Both `useJoin` and `useLocalMicrophoneTrack` are gated by `isReady` to prevent double-initialization in React StrictMode dev mode. The cleanup fires synchronously before any `setTimeout`, so only the real second mount's timer fires.
-
-```tsx
-const [isReady, setIsReady] = useState(false);
-useEffect(() => {
-  let cancelled = false;
-  const id = setTimeout(() => { if (!cancelled) setIsReady(true); }, 0);
-  return () => { cancelled = true; clearTimeout(id); setIsReady(false); };
-}, []);
-const { isConnected: joinSuccess } = useJoin(config, isReady);
-const { localMicrophoneTrack } = useLocalMicrophoneTrack(isReady);
+```bash
+pnpm run lint
+pnpm run typecheck
+pnpm run verify:api
+pnpm run build
 ```
 
-Do not remove this pattern. Do not set `reactStrictMode: false` as a workaround.
+## Done Criteria
 
-### Hook Ownership
-
-- `useJoin` owns `client.leave()` — **never call it manually**
-- `useLocalMicrophoneTrack` owns track lifecycle — **no manual `.close()`**
-- `usePublish` owns publish state — mute via `track.setEnabled()` only, never unpublish manually
-
-### AgoraVoiceAI Init — Raw Toolkit with `isReady && joinSuccess` Gate
-
-`AgoraVoiceAI` (from `agora-agent-client-toolkit`) is initialized in a `useEffect` inside `ConversationComponent`, gated on `isReady && joinSuccess`:
-
-```tsx
-useEffect(() => {
-  if (!isReady || !joinSuccess) return;
-  // AgoraVoiceAI.init() called here — exactly once, no StrictMode interference
-}, [isReady, joinSuccess]);
-```
-
-**Why not `ConversationalAIProvider` from `agora-agent-client-toolkit-react`?**
-The React toolkit has a StrictMode race condition: when any component mounting `ConversationalAIProvider` is double-mounted by StrictMode, two concurrent `AgoraVoiceAI.init()` calls share the same singleton object. The first call's cancellation destroys the instance after the second call has reconfigured it (same object reference), so `subscribeMessage` on the second call fails silently.
-
-**Why `isReady && joinSuccess` works:**
-- `isReady` is `true` only after the StrictMode fake-unmount cycle completes (via `setTimeout(fn, 0)` pattern).
-- Once `isReady` is `true`, React does NOT double-invoke the effect for subsequent dependency changes (`joinSuccess` becoming `true`). This means `AgoraVoiceAI.init()` is called exactly once.
-
-`transcript` and `agentState` are managed via `useState` + `ai.on(TRANSCRIPT_UPDATED, ...)` / `ai.on(AGENT_STATE_CHANGED, ...)` directly.
-
-### UID Remapping
-
-The toolkit uses `uid="0"` as a sentinel for the local user's speech. The uikit treats `uid===0` as an AI message. Remap in the `TRANSCRIPT_UPDATED` callback to `client.uid` or ConvoTextStream will show user speech on the wrong side.
-
-### `messageList` Filter
-
-Include `INTERRUPTED` turns in `messageList` (filter only `IN_PROGRESS`). If the agent's first turn is interrupted, omitting it means `messageList` stays empty and `ConvoTextStream` never auto-opens.
-
-## Architecture
-
-| Layer | Package | Role |
-|---|---|---|
-| Client UI | `agora-rtc-react` | RTC hooks (`useJoin`, `useLocalMicrophoneTrack`, `usePublish`, etc.) |
-| Transcripts | `agora-agent-client-toolkit-react` | `ConversationalAIProvider` + `useTranscript()`, `useAgentState()` |
-| Toolkit core | `agora-agent-client-toolkit` | `TurnStatus` enum, `TranscriptHelperItem` types |
-| UI components | `agora-agent-uikit` | `AudioVisualizer`, `ConvoTextStream`, `MicButtonWithVisualizer` |
-| Server SDK | `agora-agent-server-sdk` | Builder pattern — `AgoraClient` → `Agent` → `session.start()` |
-| Messaging | `agora-rtm` | RTM transport for transcripts |
-
-RTM token must be generated with `RtcTokenBuilder.buildTokenWithRtm` — a standard RTC-only token does not grant RTM access.
-
-Tailwind must scan uikit classes: `./node_modules/agora-agent-uikit/dist/**/*.{js,mjs}` in `tailwind.config.ts`.
-
-## Important Files
-
-| File | Purpose |
-|---|---|
-| `components/ConversationComponent.tsx` | Core real-time UI — all Agora hooks, `AgoraVoiceAI` init, transcript state |
-| `components/LandingPage.tsx` | Entry point — session setup, RTM client lifecycle, parallel agent+RTM init |
-| `app/api/invite-agent/route.ts` | Starts AI agent — edit for system prompt, VAD, model, voice |
-| `app/api/generate-agora-token/route.ts` | Issues RTC+RTM token for the browser user |
-| `app/api/stop-conversation/route.ts` | Stops the agent |
-| `DOCS/GUIDE.md` | Step-by-step build guide — must stay in sync with implementation |
-| `DOCS/TEXT_STREAMING_GUIDE.md` | Text streaming / transcription deep-dive |
-| `agents.md` | Machine-readable project map for AI context |
-
-## After Changing Implementation Files
-
-After editing anything in `components/` or `app/api/`, run the `docs-sync` agent to check that GUIDE.md, TEXT_STREAMING_GUIDE.md, and README.md are still accurate.
-
-## What NOT To Do
-
-- Do not call `client.leave()` manually (breaks `useJoin` cleanup)
-- Do not call `localMicrophoneTrack.close()` manually (breaks hook ownership)
-- Do not use `ConversationalAIProvider` or `useConversationalAI` from `agora-agent-client-toolkit-react` — they have a StrictMode singleton race condition. Use raw `AgoraVoiceAI` gated on `isReady && joinSuccess` instead.
-- Do not remove the `isReady` guard
-- Do not set `reactStrictMode: false`
-- Do not use the deprecated `turnDetection.type: 'agora_vad'` flat API — use `turnDetection.config.start_of_speech` / `end_of_speech`
+1. Run the narrowest relevant validation command.
+2. For shipped app/runtime changes, ensure `pnpm run verify` passes.
+3. Update the root README and any affected docs when workflow or architecture guidance changes.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/AgoraIO-Conversational-AI)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/AgoraIO-Conversational-AI)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [AgoraIO-Conversational-AI/agent-quickstart-nextjs](https://github.com/AgoraIO-Conversational-AI/agent-quickstart-nextjs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-01 -->
