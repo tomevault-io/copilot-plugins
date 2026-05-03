@@ -1,0 +1,9 @@
+{
+  "name": "zhiyuzi--signex",
+  "displayName": "Signex",
+  "description": "Personal intelligence agent powered by Claude Code. Describe what to watch, it collects, analyzes, and learns \u2014 with extensible sensors and lenses.",
+  "version": "1.0.0",
+  "author": "zhiyuzi",
+  "homepage": "https://github.com/zhiyuzi/Signex",
+  "skills": []
+}
