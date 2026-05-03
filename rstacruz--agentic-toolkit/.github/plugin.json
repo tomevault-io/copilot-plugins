@@ -1,0 +1,26 @@
+{
+  "name": "rstacruz--agentic-toolkit",
+  "displayName": "agentic-toolkit",
+  "description": "AI instruction skills by rstacruz",
+  "version": "1.0.0",
+  "author": "rstacruz",
+  "homepage": "https://github.com/rstacruz/agentic-toolkit",
+  "skills": [
+    {
+      "name": "explain-code",
+      "description": ""
+    },
+    {
+      "name": "high-density-writing-style",
+      "description": ""
+    },
+    {
+      "name": "mermaid-diagrams",
+      "description": ""
+    },
+    {
+      "name": "review-changes",
+      "description": ""
+    }
+  ]
+}
