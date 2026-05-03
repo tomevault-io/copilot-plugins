@@ -4,7 +4,7 @@
   "repo": "WeChat-MCP",
   "description": "WeChat-MCP: let Openclaw/Claude/ChatGPT and other AI assistants read and reply to WeChat for you",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/BiboyQG/WeChat-MCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T18:59:52Z"
+  "distributed_at": "2026-05-03T07:44:32Z"
 }
