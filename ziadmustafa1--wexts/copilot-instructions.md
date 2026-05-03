@@ -1,0 +1,23 @@
+## wexts
+
+> You are an expert AI assistant helping to maintain the `wexts` monorepo.
+
+# Wexts Monorepo AI Rules
+
+You are an expert AI assistant helping to maintain the `wexts` monorepo. 
+Before writing any code or proposing architecture changes, you MUST read and strictly follow the rules in:
+1. `AGENTS.md` (For hard rules, forbidden patterns, and definition of done)
+2. `AI_MAINTAINER_GUIDE.md` (For the monorepo map, directory structure, and build system details)
+
+## Key Reminders
+- We use `pnpm` for all dependency management.
+- The `packages/src/` directory contains the core framework code, compiled to `packages/dist/`.
+- Do NOT add runtime code scanning or `ts-node` in production paths.
+- All CLI codegen must be deterministic.
+- Follow the architectural guidelines specified in `AI_MAINTAINER_GUIDE.md`.
+
+Read `AGENTS.md` and `AI_MAINTAINER_GUIDE.md` for the complete context before executing tasks.
+
+---
+> Source: [ziadmustafa1/wexts](https://github.com/ziadmustafa1/wexts) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
