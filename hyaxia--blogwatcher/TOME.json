@@ -4,7 +4,7 @@
   "repo": "blogwatcher",
   "description": "stay on top of your favorite blogs",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hyaxia/blogwatcher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T16:57:33Z"
+  "distributed_at": "2026-05-03T06:36:12Z"
 }
