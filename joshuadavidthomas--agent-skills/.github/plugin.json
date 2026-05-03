@@ -1,0 +1,9 @@
+{
+  "name": "joshuadavidthomas--agent-skills",
+  "displayName": "agent",
+  "description": "A collection of skills for agentic LLM tools",
+  "version": "1.0.0",
+  "author": "joshuadavidthomas",
+  "homepage": "https://github.com/joshuadavidthomas/agent-skills",
+  "skills": []
+}
