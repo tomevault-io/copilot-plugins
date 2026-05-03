@@ -1,0 +1,14 @@
+{
+  "name": "privacy-ethereum--webtor-rs",
+  "displayName": "webtor-rs",
+  "description": "A browser-focused Tor client written in Rust and compiled to WebAssembly (WASM)",
+  "version": "1.0.0",
+  "author": "privacy-ethereum",
+  "homepage": "https://github.com/privacy-ethereum/webtor-rs",
+  "skills": [
+    {
+      "name": "formal-verification-guard",
+      "description": ""
+    }
+  ]
+}
