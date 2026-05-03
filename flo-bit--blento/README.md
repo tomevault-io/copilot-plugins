@@ -7,11 +7,11 @@ your bento style website with data hosted on your bluesky PDS, svelte/tailwind
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [flo-bit/blento](https://github.com/flo-bit/blento).
+Original source: `CLAUDE.md` in [flo-bit/blento](https://github.com/flo-bit/blento).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
