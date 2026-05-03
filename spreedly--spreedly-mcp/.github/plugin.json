@@ -1,0 +1,9 @@
+{
+  "name": "spreedly--spreedly-mcp",
+  "displayName": "spreedly-mcp",
+  "description": "A Model Context Protocol (MCP) server that provides AI assistants with direct access to the Spreedly payments API. Enables LLMs to manage gateways, process transactions, tokenize payment methods, and ",
+  "version": "1.0.0",
+  "author": "spreedly",
+  "homepage": "https://github.com/spreedly/spreedly-mcp",
+  "skills": []
+}
