@@ -1,0 +1,9 @@
+{
+  "name": "hith3sh--openclaw-desktop",
+  "displayName": "openclaw-desktop",
+  "description": "Windows-first Electron desktop wrapper for OpenClaw \ud83e\udd9e",
+  "version": "1.0.0",
+  "author": "hith3sh",
+  "homepage": "https://github.com/hith3sh/openclaw-desktop",
+  "skills": []
+}
