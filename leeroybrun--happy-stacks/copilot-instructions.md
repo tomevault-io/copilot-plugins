@@ -1,98 +1,80 @@
-## context
+## delegation
 
-> Preserve context budget:
+> Default to delegation:
 
 
-# Preserve context budget – load only what's needed
+# Delegate the majority of work
 
 ## Body
-Preserve context budget:
-- Load only the minimum files/sections necessary for the current decision.
-- Prefer diffs + focused snippets over whole files.
+Default to delegation:
+- Orchestrator should delegate most non-trivial implementation to specialized agents.
+- Only implement directly when truly trivial or explicitly required by policy/config.
 
-Reference: `guidelines/orchestrators/SESSION_WORKFLOW.md`
+Reference: `guidelines/orchestrators/DELEGATION.md`
 
 ---
-id: RULE.CONTEXT.CWAM_REASSURANCE
-title: Context window anxiety management (CWAM)
-category: context
+id: RULE.DELEGATION.NO_REDELEGATION
+title: Sub-agents must not re-delegate
+category: delegation
+blocking: false
+contexts: []
+origins:
+- core
+source:
+  file: guidelines/orchestrators/DELEGATION.md
+---
+
+# Sub-agents must not re-delegate
+
+## Body
+Sub-agents are implementers, not orchestrators:
+- Sub-agents must not delegate to other agents/models.
+- If work needs splitting, return to the orchestrator with a proposed split.
+
+Reference: `guidelines/orchestrators/DELEGATION.md`
+
+---
+id: RULE.DELEGATION.PARALLELIZE_WHEN_RELEVANT
+title: Orchestrator should parallelize via tasks/split for non-trivial tasks
+category: delegation
+blocking: false
+contexts: []
+origins:
+- core
+source:
+  file: guidelines/orchestrators/DELEGATION.md
+---
+
+# Orchestrator should parallelize via tasks/split for non-trivial tasks
+
+## Body
+Parallelize when it improves throughput:
+- Split work into independent slices (API/UI/DB/tests) when coupling is low.
+- Respect the configured concurrency cap; batch overflow instead of over-assigning.
+
+---
+id: RULE.DELEGATION.PRIORITY_CHAIN
+title: Delegation Decision Priority Chain
+category: delegation
 blocking: false
 contexts:
-- context_window
-origins:
-- core
----
-
-# Context window anxiety management (CWAM)
-
-## Body
-Keep working methodically and protect context:
-- Prefer small, deterministic steps over rushing.
-- Avoid pasting large logs; summarize and reference artifacts by path.
-- If approaching limits, follow the project's compaction/recovery guidance.
-
----
-id: RULE.CONTEXT.NO_BIG_FILES
-title: Do not load big files unless necessary
-category: context
-blocking: false
-contexts: []
+- guidance
+- delegation
 origins:
 - core
 source:
-  file: guidelines/orchestrators/SESSION_WORKFLOW.md
+  file: guidelines/orchestrators/DELEGATION.md
 ---
 
-# Do not load big files unless necessary
+# Delegation Decision Priority Chain
 
 ## Body
-Avoid loading huge inputs:
-- Do not paste logs/build artefacts/large generated files into prompts.
-- Extract only the minimal relevant excerpt and reference the full artifact by path.
+Make delegation decisions deterministically using the configured priority chain:
+- User instruction → file pattern rules → task type rules → sub-agent defaults → tie-breakers.
+- Do not “shop” for models after selection; take the first deterministic match.
+- Stop and escalate if routing is ambiguous or config is missing.
 
-Reference: `guidelines/orchestrators/SESSION_WORKFLOW.md`
-
----
-id: RULE.CONTEXT.SNIPPET_ONLY
-title: Share snippets not whole files in prompts
-category: context
-blocking: false
-contexts: []
-origins:
-- core
-source:
-  file: guidelines/orchestrators/SESSION_WORKFLOW.md
----
-
-# Share snippets not whole files in prompts
-
-## Body
-Share snippets, not entire files:
-- Provide the minimal relevant function/component/section with small surrounding context.
-- Combine multiple small snippets when cross-references are required instead of dumping a full file.
-
-Reference: `guidelines/orchestrators/SESSION_WORKFLOW.md`
-
----
-id: RULE.CONTEXT7.POSTTRAINING_REQUIRED
-title: Context7 Required For Post-Training Packages
-category: context
-blocking: false
-contexts: []
-origins:
-- core
-source:
-  file: guidelines/shared/CONTEXT7.md
----
-
-# Context7 Required For Post-Training Packages
-
-## Body
-If work touches any configured post-training package:
-- Refresh up-to-date docs via Context7 BEFORE implementation decisions.
-- Use `edison config show context7 --format yaml` as the source of truth for what is “post-training”.
-
-Reference: `guidelines/shared/CONTEXT7.md`
+Reference: `guidelines/orchestrators/DELEGATION.md`
 
 ---
 > Source: [leeroybrun/happy-stacks](https://github.com/leeroybrun/happy-stacks) — distributed by [TomeVault](https://tomevault.io).
