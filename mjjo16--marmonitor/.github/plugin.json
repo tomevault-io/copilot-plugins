@@ -1,0 +1,9 @@
+{
+  "name": "mjjo16--marmonitor",
+  "displayName": "marmonitor",
+  "description": "tmux status bar monitor for AI coding agents \u2014 track Claude,\u00a0Codex, Gemini sessions in real time",
+  "version": "1.0.0",
+  "author": "mjjo16",
+  "homepage": "https://github.com/mjjo16/marmonitor",
+  "skills": []
+}
