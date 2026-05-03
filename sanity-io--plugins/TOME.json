@@ -1,0 +1,57 @@
+{
+  "name": "plugins",
+  "owner": "sanity-io",
+  "repo": "plugins",
+  "description": "This monorepo is the home for Sanity Studio plugins maintained by Sanity staff and the community. It provides a centralized place for developing, testing, and publishing plugins that extend Sanity Studio's functionality.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "turborepo",
+      "path": ".agents/skills/turborepo",
+      "github_url": "https://github.com/sanity-io/plugins/tree/main/.agents/skills/turborepo",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "path": ".agents/skills/vite",
+      "github_url": "https://github.com/sanity-io/plugins/tree/main/.agents/skills/vite",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sanity-io/plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:42:45Z"
+}
