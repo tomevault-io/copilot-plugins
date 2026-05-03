@@ -1,0 +1,9 @@
+{
+  "name": "matiaszanolli--sega-vr-disasm",
+  "displayName": "sega-vr-disasm",
+  "description": "Complete static recompilation of Virtua Racing for the Sega 32X (optimization in progress)",
+  "version": "1.0.0",
+  "author": "matiaszanolli",
+  "homepage": "https://github.com/matiaszanolli/sega-vr-disasm",
+  "skills": []
+}
