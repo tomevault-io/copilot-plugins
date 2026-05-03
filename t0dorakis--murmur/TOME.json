@@ -1,0 +1,111 @@
+{
+  "name": "murmur",
+  "owner": "t0dorakis",
+  "repo": "murmur",
+  "description": "The AI cron daemon. Schedule recurring agent sessions via HEARTBEAT.md prompt files.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-agents-architect",
+      "path": ".agents/skills/ai-agents-architect",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/ai-agents-architect",
+      "description": ""
+    },
+    {
+      "name": "code-review-expert",
+      "path": ".agents/skills/code-review-expert",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/code-review-expert",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "path": ".agents/skills/deep-research",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/deep-research",
+      "description": ""
+    },
+    {
+      "name": "effect-ts-patterns",
+      "path": ".agents/skills/effect-ts-patterns",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/effect-ts-patterns",
+      "description": ""
+    },
+    {
+      "name": "heartbeat-cron",
+      "path": ".agents/skills/heartbeat-cron",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/heartbeat-cron",
+      "description": ""
+    },
+    {
+      "name": "system-architect",
+      "path": ".agents/skills/system-architect",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/system-architect",
+      "description": ""
+    },
+    {
+      "name": "terminal-ui",
+      "path": ".agents/skills/terminal-ui",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/terminal-ui",
+      "description": ""
+    },
+    {
+      "name": "terminal-ui-design",
+      "path": ".agents/skills/terminal-ui-design",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/terminal-ui-design",
+      "description": ""
+    },
+    {
+      "name": "triage-issues",
+      "path": ".agents/skills/triage-issues",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/triage-issues",
+      "description": ""
+    },
+    {
+      "name": "ux-researcher-designer",
+      "path": ".agents/skills/ux-researcher-designer",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.agents/skills/ux-researcher-designer",
+      "description": ""
+    },
+    {
+      "name": "work-on-issues",
+      "path": ".claude/skills/work-on-issues",
+      "github_url": "https://github.com/t0dorakis/murmur/tree/main/.claude/skills/work-on-issues",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/t0dorakis/murmur",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:39:35Z"
+}
