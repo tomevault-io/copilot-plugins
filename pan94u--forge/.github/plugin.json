@@ -1,0 +1,14 @@
+{
+  "name": "pan94u--forge",
+  "displayName": "forge",
+  "description": " Ship software with AI that knows your codebase, your standards, and gets better every sprint. ",
+  "version": "1.0.0",
+  "author": "pan94u",
+  "homepage": "https://github.com/pan94u/forge",
+  "skills": [
+    {
+      "name": "ci-cd-patterns",
+      "description": ""
+    }
+  ]
+}
