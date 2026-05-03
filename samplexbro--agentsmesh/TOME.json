@@ -4,7 +4,7 @@
   "repo": "agentsmesh",
   "description": "One reliable canonical source for AI coding agent rules, commands, skills, MCP, hooks, and permissions \u2014 synced across AI coding assistants.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sampleXbro/agentsmesh",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T06:33:09Z"
+  "distributed_at": "2026-05-03T06:35:29Z"
 }
