@@ -1,0 +1,93 @@
+{
+  "name": "aidb",
+  "owner": "ai-debugger-inc",
+  "repo": "aidb",
+  "description": "A language-agnostic debugging interface for AI agents.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adapter-development",
+      "path": ".claude/skills/adapter-development",
+      "github_url": "https://github.com/ai-debugger-inc/aidb/tree/main/.claude/skills/adapter-development",
+      "description": ""
+    },
+    {
+      "name": "aidb-architecture",
+      "path": ".claude/skills/aidb-architecture",
+      "github_url": "https://github.com/ai-debugger-inc/aidb/tree/main/.claude/skills/aidb-architecture",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-workflows",
+      "path": ".claude/skills/ci-cd-workflows",
+      "github_url": "https://github.com/ai-debugger-inc/aidb/tree/main/.claude/skills/ci-cd-workflows",
+      "description": ""
+    },
+    {
+      "name": "code-reuse-enforcement",
+      "path": ".claude/skills/code-reuse-enforcement",
+      "github_url": "https://github.com/ai-debugger-inc/aidb/tree/main/.claude/skills/code-reuse-enforcement",
+      "description": ""
+    },
+    {
+      "name": "dap-protocol-guide",
+      "path": ".claude/skills/dap-protocol-guide",
+      "github_url": "https://github.com/ai-debugger-inc/aidb/tree/main/.claude/skills/dap-protocol-guide",
+      "description": ""
+    },
+    {
+      "name": "dev-cli-development",
+      "path": ".claude/skills/dev-cli-development",
+      "github_url": "https://github.com/ai-debugger-inc/aidb/tree/main/.claude/skills/dev-cli-development",
+      "description": ""
+    },
+    {
+      "name": "skill-developer",
+      "path": ".claude/skills/skill-developer",
+      "github_url": "https://github.com/ai-debugger-inc/aidb/tree/main/.claude/skills/skill-developer",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy",
+      "path": ".claude/skills/testing-strategy",
+      "github_url": "https://github.com/ai-debugger-inc/aidb/tree/main/.claude/skills/testing-strategy",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ai-debugger-inc/aidb",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:30:31Z"
+}
