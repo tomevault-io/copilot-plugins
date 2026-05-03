@@ -7,11 +7,11 @@ CEA computes the equilibrium composition of mixtures via free-energy minimizatio
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nasa/cea](https://github.com/nasa/cea).
+Original source: `CLAUDE.md` in [nasa/cea](https://github.com/nasa/cea).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
