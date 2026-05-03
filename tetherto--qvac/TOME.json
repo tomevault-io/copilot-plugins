@@ -4,7 +4,7 @@
   "repo": "qvac",
   "description": "QVAC - Local AI SDK and libraries for building private, cross-platform, peer-to-peer AI applications. Run LLMs, speech-to-text, translation, and more locally on Linux, macOS, Windows, Android, and iOS.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tetherto/qvac",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T22:10:07Z"
+  "distributed_at": "2026-05-03T01:03:58Z"
 }
