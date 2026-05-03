@@ -1,0 +1,9 @@
+{
+  "name": "modelguide--modelguide",
+  "displayName": "modelguide",
+  "description": "Open-source voice agent orchestration framework - build production voice AI pipelines without vendor lock-in",
+  "version": "1.0.0",
+  "author": "modelguide",
+  "homepage": "https://github.com/modelguide/modelguide",
+  "skills": []
+}
