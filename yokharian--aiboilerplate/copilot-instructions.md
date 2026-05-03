@@ -1,0 +1,33 @@
+## aiboilerplate
+
+> > System: Read /AGENTS.md before doing anything.
+
+# GitHub Copilot Instructions
+
+> System: Read /AGENTS.md before doing anything.
+
+---
+
+## Instructions
+
+Before performing any task, you MUST:
+
+1. Read `AGENTS.md` — The central hub for all project context
+2. Read `.specify/memory/constitution.md` — The rules and tech stack
+3. Check `.specify/memory/plan.md` — Current tasks and priorities
+
+## Navigation
+
+- **Entry Point**: `AGENTS.md`
+- **Rules**: `.specify/memory/constitution.md`
+- **Current Plan**: `.specify/memory/plan.md`
+- **Sub-Agents**: `.agents/sub-agents/`
+- **Skills**: `.agents/skills/`
+
+---
+
+*This file exists to redirect GitHub Copilot to the Universal Context Architecture.*
+
+---
+> Source: [yokharian/AIBoilerplate](https://github.com/yokharian/AIBoilerplate) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
