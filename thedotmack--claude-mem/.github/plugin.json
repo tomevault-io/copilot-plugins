@@ -1,0 +1,18 @@
+{
+  "name": "thedotmack--claude-mem",
+  "displayName": "claude-mem",
+  "description": "A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future ses",
+  "version": "1.0.0",
+  "author": "thedotmack",
+  "homepage": "https://github.com/thedotmack/claude-mem",
+  "skills": [
+    {
+      "name": "make-plan",
+      "description": ""
+    },
+    {
+      "name": "make-plan",
+      "description": ""
+    }
+  ]
+}
