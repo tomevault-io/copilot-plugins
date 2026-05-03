@@ -7,14 +7,14 @@ The open source multi-agent simulation from the Developer Keynote at Google Clou
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [GoogleCloudPlatform/race-condition](https://github.com/GoogleCloudPlatform/race-condition).
+Original source: `AGENTS.md` in [GoogleCloudPlatform/race-condition](https://github.com/GoogleCloudPlatform/race-condition).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [GoogleCloudPlatform/race-condition](https://github.com/GoogleCloudPlatform/race-condition) — a repo with 49+ stars on GitHub.
