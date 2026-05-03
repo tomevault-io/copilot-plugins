@@ -1,0 +1,9 @@
+{
+  "name": "tuist--condukt",
+  "displayName": "condukt",
+  "description": "An Elixir package for building agentic workflows",
+  "version": "1.0.0",
+  "author": "tuist",
+  "homepage": "https://github.com/tuist/condukt",
+  "skills": []
+}
