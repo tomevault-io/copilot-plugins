@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--ex-slop",
+  "displayName": "ex_slop",
+  "description": "Credo checks that catch AI-generated Elixir code slop",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/ex_slop",
+  "skills": []
+}
