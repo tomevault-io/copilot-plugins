@@ -1,0 +1,34 @@
+{
+  "name": "hiroro-work--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "AI instruction skills by hiroro-work",
+  "version": "1.0.0",
+  "author": "hiroro-work",
+  "homepage": "https://github.com/hiroro-work/claude-plugins",
+  "skills": [
+    {
+      "name": "ask-claude",
+      "description": ""
+    },
+    {
+      "name": "ask-codex",
+      "description": ""
+    },
+    {
+      "name": "ask-copilot",
+      "description": ""
+    },
+    {
+      "name": "ask-gemini",
+      "description": ""
+    },
+    {
+      "name": "extract-rules",
+      "description": ""
+    },
+    {
+      "name": "security-scanner",
+      "description": ""
+    }
+  ]
+}
