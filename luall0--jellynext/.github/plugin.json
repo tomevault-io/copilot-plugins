@@ -1,0 +1,9 @@
+{
+  "name": "luall0--jellynext",
+  "displayName": "jellynext",
+  "description": "A Jellyfin plugin that creates per-user virtual libraries for personalized Trakt recommendations and new seasons. Seamlessly integrates with Jellyseerr/Radarr/Sonarr/CustomWebhook to trigger one-click",
+  "version": "1.0.0",
+  "author": "luall0",
+  "homepage": "https://github.com/luall0/jellynext",
+  "skills": []
+}
