@@ -1,0 +1,14 @@
+{
+  "name": "jezweb--claude-skills",
+  "displayName": "claude-skills",
+  "description": "Skills for Claude Code CLI such as full stack dev Cloudflare, React, Tailwind v4, and AI integrations.",
+  "version": "1.0.0",
+  "author": "jezweb",
+  "homepage": "https://github.com/jezweb/claude-skills",
+  "skills": [
+    {
+      "name": "git-workflow",
+      "description": ""
+    }
+  ]
+}
