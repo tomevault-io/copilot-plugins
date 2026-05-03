@@ -1,0 +1,9 @@
+{
+  "name": "timoa--workflow-editor",
+  "displayName": "workflow-editor",
+  "description": "A VSCode extension providing a visual editor for GitHub Actions workflow files. Open a workflow (YAML), view jobs and steps as a diagram, edit job properties in a side panel, and save back to YAML.",
+  "version": "1.0.0",
+  "author": "timoa",
+  "homepage": "https://github.com/timoa/workflow-editor",
+  "skills": []
+}
