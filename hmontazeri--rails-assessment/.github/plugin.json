@@ -1,0 +1,9 @@
+{
+  "name": "hmontazeri--rails-assessment",
+  "displayName": "rails-assessment",
+  "description": "A mountable Rails 8 engine that lets you ship dynamic, themeable assessments without building CRUD back offices.",
+  "version": "1.0.0",
+  "author": "hmontazeri",
+  "homepage": "https://github.com/hmontazeri/rails-assessment",
+  "skills": []
+}
