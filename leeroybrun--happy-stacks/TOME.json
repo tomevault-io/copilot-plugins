@@ -4,7 +4,7 @@
   "repo": "happy-stacks",
   "description": "Run and manage the full Happy stack (server, daemon, UI) locally and expose them easily and securely over Tailscale for mobile access",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leeroybrun/happy-stacks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T03:50:13Z"
+  "distributed_at": "2026-05-03T14:05:37Z"
 }
