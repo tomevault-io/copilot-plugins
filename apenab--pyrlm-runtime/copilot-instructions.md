@@ -1,0 +1,58 @@
+## pyrlm-runtime
+
+> Minimal runtime for Recursive Language Models (RLMs). Python 3.12+, MIT license.
+
+# AGENTS.md - Project conventions for pyrlm-runtime
+
+## Project overview
+
+Minimal runtime for Recursive Language Models (RLMs). Python 3.12+, MIT license.
+
+## Commands
+
+- **Install deps**: `uv sync`
+- **Run all tests**: `uv run pytest`
+- **Run specific test file**: `uv run pytest tests/test_env_monty.py -v`
+- **Run single test**: `uv run pytest tests/test_file.py::TestClass::test_name -v`
+- **Lint**: `uv run ruff check src/ tests/`
+- **Format**: `uv run ruff format src/ tests/`
+- **Build**: `uv build`
+
+
+## Code style
+
+- Formatter/linter: **ruff** (line-length=100, target py312)
+- Quote style: double quotes
+- Type hints: use `from __future__ import annotations` in all files
+- Commit messages: conventional commits (`feat:`, `fix:`, `refactor:`, etc.)
+- **Never** add `Co-Authored-By` lines to commits
+- **Always run `uv run ruff check src/ tests/` before committing** — fix any errors before creating the commit
+
+## Testing conventions
+
+- Framework: **pytest**
+- Tests that require `pydantic-monty`: use `@pytest.mark.skipif(not MONTY_AVAILABLE, ...)`
+- Use `FakeAdapter` (from `pyrlm_runtime.adapters`) for RLM integration tests
+
+### Regression tests rule
+
+When fixing a bug or correcting a behavior, always add a regression test that would fail if the bug were reintroduced. Propose the test proactively without waiting for the user to ask.
+
+## REPL backends
+
+Two interchangeable backends via `REPLProtocol`:
+
+- `"python"` (default): PythonREPL using `exec()` with whitelist sandbox
+- `"monty"`: MontyREPL using pydantic-monty (Rust interpreter, secure)
+
+Both expose: `exec(code) -> ExecResult`, `get(name)`, `set(name, value)`
+
+## Key patterns
+
+- **Variable capture in MontyREPL**: AST-based detection of assignments, append capture dict, extract from result
+- **Object proxy for MontyREPL**: complex objects (e.g. Context) registered via `_register_object` -- methods become external functions with `{name}__{method}` naming, AST rewrites `ctx.method()` -> `ctx__method()`
+- Every change in the Architecture or core logic must be accompanied by updates to the documentation inside the /docs directory.
+
+---
+> Source: [apenab/pyrlm-runtime](https://github.com/apenab/pyrlm-runtime) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
