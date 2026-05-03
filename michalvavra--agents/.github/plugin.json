@@ -1,0 +1,34 @@
+{
+  "name": "michalvavra--agents",
+  "displayName": "agents",
+  "description": "Configuration for AI coding agents.",
+  "version": "1.0.0",
+  "author": "michalvavra",
+  "homepage": "https://github.com/michalvavra/agents",
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "asncli",
+      "description": ""
+    },
+    {
+      "name": "beads",
+      "description": ""
+    },
+    {
+      "name": "search-hexdocs",
+      "description": ""
+    },
+    {
+      "name": "snowcli",
+      "description": ""
+    }
+  ]
+}
