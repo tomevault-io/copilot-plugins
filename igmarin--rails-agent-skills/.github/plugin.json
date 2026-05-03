@@ -1,0 +1,9 @@
+{
+  "name": "igmarin--rails-agent-skills",
+  "displayName": "rails-agent-skills",
+  "description": "This is my personal configuration of skills as a Ruby on Rails Dev",
+  "version": "1.0.0",
+  "author": "igmarin",
+  "homepage": "https://github.com/igmarin/rails-agent-skills",
+  "skills": []
+}
