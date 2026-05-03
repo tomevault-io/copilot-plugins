@@ -1,0 +1,75 @@
+{
+  "name": "spec-driven-steroids",
+  "owner": "lindoelio",
+  "repo": "spec-driven-steroids",
+  "description": "Spec-Driven Steroids is a very simple toolkit designed to bring discipline to AI-powered software engineering. It injects high-standard workflows (SDD) directly into the native environments of your favorite AI tools.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "project-guidelines-writer",
+      "path": "packages/cli/templates/universal/skills/project-guidelines-writer",
+      "github_url": "https://github.com/lindoelio/spec-driven-steroids/tree/main/packages/cli/templates/universal/skills/project-guidelines-writer",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-requirements-writer",
+      "path": "packages/cli/templates/universal/skills/spec-driven-requirements-writer",
+      "github_url": "https://github.com/lindoelio/spec-driven-steroids/tree/main/packages/cli/templates/universal/skills/spec-driven-requirements-writer",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-task-decomposer",
+      "path": "packages/cli/templates/universal/skills/spec-driven-task-decomposer",
+      "github_url": "https://github.com/lindoelio/spec-driven-steroids/tree/main/packages/cli/templates/universal/skills/spec-driven-task-decomposer",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-task-implementer",
+      "path": "packages/cli/templates/universal/skills/spec-driven-task-implementer",
+      "github_url": "https://github.com/lindoelio/spec-driven-steroids/tree/main/packages/cli/templates/universal/skills/spec-driven-task-implementer",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-technical-designer",
+      "path": "packages/cli/templates/universal/skills/spec-driven-technical-designer",
+      "github_url": "https://github.com/lindoelio/spec-driven-steroids/tree/main/packages/cli/templates/universal/skills/spec-driven-technical-designer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lindoelio/spec-driven-steroids",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:43:58Z"
+}
