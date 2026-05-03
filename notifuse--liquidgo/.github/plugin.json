@@ -1,0 +1,9 @@
+{
+  "name": "notifuse--liquidgo",
+  "displayName": "liquidgo",
+  "description": "Golang full implementation of official Shopify Liquid templating engine",
+  "version": "1.0.0",
+  "author": "Notifuse",
+  "homepage": "https://github.com/Notifuse/liquidgo",
+  "skills": []
+}
