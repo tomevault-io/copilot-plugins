@@ -1,0 +1,69 @@
+{
+  "name": "marketplace",
+  "owner": "fundamental-physics",
+  "repo": "marketplace",
+  "description": "Plugins for astrophysics coding and analysis",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anesthetic",
+      "path": "plugins/core/skills/anesthetic",
+      "github_url": "https://github.com/fundamental-physics/marketplace/tree/main/plugins/core/skills/anesthetic",
+      "description": ""
+    },
+    {
+      "name": "arxiv",
+      "path": "plugins/core/skills/arxiv",
+      "github_url": "https://github.com/fundamental-physics/marketplace/tree/main/plugins/core/skills/arxiv",
+      "description": ""
+    },
+    {
+      "name": "science-skill-creator",
+      "path": "plugins/core/skills/science-skill-creator",
+      "github_url": "https://github.com/fundamental-physics/marketplace/tree/main/plugins/core/skills/science-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "zenodo",
+      "path": "plugins/core/skills/zenodo",
+      "github_url": "https://github.com/fundamental-physics/marketplace/tree/main/plugins/core/skills/zenodo",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fundamental-physics/marketplace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:35:16Z"
+}
