@@ -1,0 +1,44 @@
+{
+  "name": "din-studio",
+  "owner": "open-din",
+  "repo": "din-studio",
+  "description": "din-studio is a creative workspace for sound designers collaborating with creative technologists and motion designers on real-time audiovisual projects. Build patches visually, shape instruments and effects, and develop reactive sound systems for live, interactive, and immersive work.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/open-din/din-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T23:48:02Z"
+}
