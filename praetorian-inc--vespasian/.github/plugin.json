@@ -1,0 +1,9 @@
+{
+  "name": "praetorian-inc--vespasian",
+  "displayName": "vespasian",
+  "description": "API discovery tool that maps attack surfaces from captured traffic and generates specs for REST, GraphQL, SOAP, and WebSocket APIs",
+  "version": "1.0.0",
+  "author": "praetorian-inc",
+  "homepage": "https://github.com/praetorian-inc/vespasian",
+  "skills": []
+}
