@@ -1,0 +1,9 @@
+{
+  "name": "synacktiv--pike-agent",
+  "displayName": "pike-agent",
+  "description": "Experimental Linux strace LLM agent",
+  "version": "1.0.0",
+  "author": "synacktiv",
+  "homepage": "https://github.com/synacktiv/pike-agent",
+  "skills": []
+}
