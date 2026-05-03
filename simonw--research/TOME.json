@@ -1,0 +1,51 @@
+{
+  "name": "research",
+  "owner": "simonw",
+  "repo": "research",
+  "description": "Research projects",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "datasette-plugin-skill",
+      "path": "datasette-plugin-skill",
+      "github_url": "https://github.com/simonw/research/tree/main/datasette-plugin-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/simonw/research",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T22:51:17Z"
+}
