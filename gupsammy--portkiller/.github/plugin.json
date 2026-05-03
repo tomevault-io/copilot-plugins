@@ -1,0 +1,9 @@
+{
+  "name": "gupsammy--portkiller",
+  "displayName": "PortKiller",
+  "description": "Lightweight macOS menu bar app to monitor and kill processes on development ports",
+  "version": "1.0.0",
+  "author": "gupsammy",
+  "homepage": "https://github.com/gupsammy/PortKiller",
+  "skills": []
+}
