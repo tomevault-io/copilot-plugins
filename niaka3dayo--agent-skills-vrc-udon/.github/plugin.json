@@ -1,0 +1,9 @@
+{
+  "name": "niaka3dayo--agent-skills-vrc-udon",
+  "displayName": "agent-skills-vrc-udon",
+  "description": "Skills, rules, and validation hooks that teach AI coding agents to generate correct UdonSharp code",
+  "version": "1.0.0",
+  "author": "niaka3dayo",
+  "homepage": "https://github.com/niaka3dayo/agent-skills-vrc-udon",
+  "skills": []
+}
