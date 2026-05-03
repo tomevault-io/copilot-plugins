@@ -1,155 +1,153 @@
-## add-ocpp-handler
+## add-sensor
 
-> Rules for adding OCPP message handlers in coordinator
+> Rules for adding new sensors to the BMW Wallbox integration
 
 
-# Rules: Adding an OCPP Message Handler
+# Rules: Adding a New Sensor
 
 ## Documentation References
 
 **MANDATORY - Read these files BEFORE making changes:**
 
-1. `custom_components/bmw_wallbox/docs/OCPP_HANDLERS.md` - Complete handler templates, existing handlers, decorator usage
-2. `custom_components/bmw_wallbox/docs/DATA_SCHEMAS.md` - Coordinator data structure, OCPP message field mappings
-3. `custom_components/bmw_wallbox/docs/COORDINATOR.md` - WallboxChargePoint class, coordinator data flow
-4. `custom_components/bmw_wallbox/docs/PATTERNS.md` - Data update patterns, entity refresh triggers
-5. `custom_components/bmw_wallbox/docs/ARCHITECTURE.md` - Understanding message flow between wallbox and HA
+1. `custom_components/bmw_wallbox/docs/ENTITIES.md` - Complete entity templates and class hierarchy
+2. `custom_components/bmw_wallbox/docs/DATA_SCHEMAS.md` - Coordinator data structure and field types
+3. `custom_components/bmw_wallbox/docs/CONSTANTS.md` - Naming conventions for sensor constants
+4. `custom_components/bmw_wallbox/docs/COORDINATOR.md` - Where sensor data comes from (OCPP handlers)
+5. `custom_components/bmw_wallbox/docs/TESTING.md` - How to write tests for sensors
 
-**For handlers that provide new sensor data:**
-- Also read `.cursor/rules/add-sensor.mdc` for exposing data as entities
+**For energy-related sensors specifically:**
+- `custom_components/bmw_wallbox/docs/ENERGY_SENSORS.md` - Period counters, Energy Dashboard integration
 
 ## Files to Modify
 
-1. `custom_components/bmw_wallbox/coordinator.py` - `WallboxChargePoint` class
-
-## Handler Pattern
-
-```python
-# coordinator.py - in WallboxChargePoint class
-
-from ocpp.routing import on
-from ocpp.v201 import call_result
-
-@on("NewMessageType")
-async def on_new_message_type(
-    self,
-    required_param1,      # From OCPP spec
-    required_param2,      # From OCPP spec
-    **kwargs,             # Catch optional parameters
-):
-    """Handle NewMessageType from wallbox."""
-    _LOGGER.debug(
-        "NewMessageType received: %s, %s",
-        required_param1,
-        required_param2
-    )
-
-    # Extract and update coordinator data
-    self.coordinator.data["new_field"] = required_param1
-
-    # Extract from kwargs if optional
-    optional_val = kwargs.get("optional_param")
-    if optional_val:
-        self.coordinator.data["optional_field"] = optional_val
-
-    # ALWAYS trigger entity updates
-    self.coordinator.async_set_updated_data(self.coordinator.data)
-
-    # Return appropriate response
-    return call_result.NewMessageType(
-        response_param="value",
-    )
-```
+1. `custom_components/bmw_wallbox/const.py`
+2. `custom_components/bmw_wallbox/coordinator.py`
+3. `custom_components/bmw_wallbox/sensor.py`
+4. `tests/test_sensor.py`
 
 ## Step-by-Step Guide
 
-### Step 1: Add Data Fields (coordinator.py)
+### Step 1: Add Constant (const.py)
+
+```python
+# custom_components/bmw_wallbox/const.py
+SENSOR_NEW_METRIC: Final = "new_metric"
+```
+
+### Step 2: Add Data Field (coordinator.py)
 
 In `BMWWallboxCoordinator.__init__()`:
 
 ```python
 self.data: dict[str, Any] = {
     # ... existing fields ...
-    "new_field": None,
-    "optional_field": None,
+    "new_metric": None,  # Default value
 }
 ```
 
-### Step 2: Add Handler Method (coordinator.py)
+### Step 3: Extract Value from OCPP (coordinator.py)
 
-In `WallboxChargePoint` class, add the handler method.
-
-### Step 3: Create Entity (if needed)
-
-If this data should be exposed as an entity, follow `.cursor/rules/add-sensor.md`.
-
-## Critical Rules for Handlers
-
-1. **Use @on() decorator** - `@on("MessageType")` registers the handler
-2. **Include **kwargs** - Handles optional/unknown parameters
-3. **Always return call_result** - Return appropriate response type
-4. **Call async_set_updated_data()** - After modifying coordinator.data
-5. **Log received data** - Use `_LOGGER.debug()` for debugging
-
-## Common OCPP Messages
+In `WallboxChargePoint.on_transaction_event()`:
 
 ```python
-# Boot notification - device info
-@on("BootNotification")
-async def on_boot_notification(self, charging_station, reason, **kwargs):
-    # Extract device info
-    return call_result.BootNotification(...)
-
-# Status notification - connector status
-@on("StatusNotification")
-async def on_status_notification(self, timestamp, connector_status, evse_id, connector_id, **kwargs):
-    # Update status
-    return call_result.StatusNotification()
-
-# Heartbeat - keepalive
-@on("Heartbeat")
-async def on_heartbeat(self, **kwargs):
-    # Update connection status
-    return call_result.Heartbeat(...)
-
-# Transaction event - main data source
-@on("TransactionEvent")
-async def on_transaction_event(self, event_type, timestamp, trigger_reason, seq_no, transaction_info, **kwargs):
-    # Extract meter values and state
-    return call_result.TransactionEvent()
+# Inside meter_value processing loop
+elif measurand == "New.Metric.Name":
+    self.coordinator.data["new_metric"] = float(value)
 ```
 
-## Processing Meter Values
-
-For TransactionEvent with meter values:
+### Step 4: Create Sensor Class (sensor.py)
 
 ```python
-meter_value = kwargs.get("meter_value", [])
-if meter_value:
-    for mv in meter_value:
-        for sample in mv.get("sampled_value", []):
-            measurand = sample.get("measurand")
-            value = sample.get("value")
-            phase = sample.get("phase")
+from .const import SENSOR_NEW_METRIC
 
-            if measurand == "Power.Active.Import":
-                self.coordinator.data["power"] = float(value)
-            elif measurand == "Voltage":
-                if phase == "L1":
-                    self.coordinator.data["voltage_l1"] = float(value)
+class BMWWallboxNewMetricSensor(BMWWallboxSensorBase):
+    """Sensor for new metric."""
+
+    def __init__(self, coordinator: BMWWallboxCoordinator, entry: ConfigEntry) -> None:
+        super().__init__(
+            coordinator,
+            entry,
+            SENSOR_NEW_METRIC,
+            "New Metric"  # Display name
+        )
+        # Set sensor attributes
+        self._attr_device_class = SensorDeviceClass.POWER
+        self._attr_native_unit_of_measurement = UnitOfPower.WATT
+        self._attr_state_class = SensorStateClass.MEASUREMENT
+        self._attr_icon = "mdi:lightning-bolt"
+        self._attr_suggested_display_precision = 0
+
+    @property
+    def native_value(self) -> float | None:
+        """Return the sensor value."""
+        return self.coordinator.data.get("new_metric")
+```
+
+### Step 5: Register Sensor (sensor.py)
+
+In `async_setup_entry()`:
+
+```python
+async_add_entities([
+    # ... existing sensors ...
+    BMWWallboxNewMetricSensor(coordinator, entry),
+])
+```
+
+### Step 6: Add Tests (tests/test_sensor.py)
+
+```python
+async def test_new_metric_sensor(hass, mock_coordinator, mock_config_entry):
+    """Test new metric sensor."""
+    mock_coordinator.data["new_metric"] = 1500.0
+
+    sensor = BMWWallboxNewMetricSensor(mock_coordinator, mock_config_entry)
+
+    assert sensor.native_value == 1500.0
+    assert sensor.native_unit_of_measurement == "W"
+    assert sensor.device_class == "power"
+```
+
+## Critical Rules for Sensors
+
+1. **Always extend `BMWWallboxSensorBase`**
+2. **Set unique_id via base class** - `super().__init__(coordinator, entry, SENSOR_*, "Name")`
+3. **Read from coordinator.data** - Never store state in sensor
+4. **Include device_class and unit** - For proper HA integration
+5. **Return None for missing values** - Don't return 0 or empty string
+
+## Device Classes & Units
+
+Common combinations:
+
+```python
+# Power
+self._attr_device_class = SensorDeviceClass.POWER
+self._attr_native_unit_of_measurement = UnitOfPower.WATT
+
+# Energy
+self._attr_device_class = SensorDeviceClass.ENERGY
+self._attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
+
+# Current
+self._attr_device_class = SensorDeviceClass.CURRENT
+self._attr_native_unit_of_measurement = UnitOfElectricCurrent.AMPERE
+
+# Voltage
+self._attr_device_class = SensorDeviceClass.VOLTAGE
+self._attr_native_unit_of_measurement = UnitOfElectricPotential.VOLT
 ```
 
 ## Checklist
 
-- [ ] Data fields added to coordinator `__init__()`
-- [ ] Handler method added to `WallboxChargePoint` class
-- [ ] Decorated with `@on("MessageType")`
-- [ ] Includes **kwargs parameter
-- [ ] Returns appropriate `call_result` type
-- [ ] Calls `async_set_updated_data()`
-- [ ] Includes debug logging
-- [ ] Entity created (if exposing data)
-- [ ] Tested with actual wallbox messages
+- [ ] Constant added to `const.py`
+- [ ] Data field added to coordinator `__init__()` with default
+- [ ] Data extracted in appropriate OCPP handler
+- [ ] Sensor class created extending `BMWWallboxSensorBase`
+- [ ] Device class and unit set correctly
+- [ ] Sensor registered in `async_setup_entry()`
+- [ ] Test added to `tests/test_sensor.py`
+- [ ] Test passes: `pytest tests/test_sensor.py::test_new_metric_sensor -v`
 
 ---
 > Source: [JoaoPedroBelo/bmw-wallbox-ha](https://github.com/JoaoPedroBelo/bmw-wallbox-ha) — distributed by [TomeVault](https://tomevault.io).
