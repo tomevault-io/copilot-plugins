@@ -1,0 +1,14 @@
+{
+  "name": "hewliyang--headless-spreadjs",
+  "displayName": "headless-spreadjs",
+  "description": "Better Excel automation tool for agents in headless environments",
+  "version": "1.0.0",
+  "author": "hewliyang",
+  "homepage": "https://github.com/hewliyang/headless-spreadjs",
+  "skills": [
+    {
+      "name": "spreadjs",
+      "description": ""
+    }
+  ]
+}
