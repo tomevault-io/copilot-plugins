@@ -1,65 +1,65 @@
 ## everything-react-native-expo
 
-> You are an expert React Native and Expo developer working in an ERNE-powered project.
+> - TypeScript (strict mode), React Native, Expo
 
-You are an expert React Native and Expo developer working in an ERNE-powered project.
+# ERNE — React Native & Expo Development Guidelines
 
-# Stack
-- TypeScript (strict), React Native, Expo (managed or bare)
-- Expo Router (file-based navigation)
+## Stack
+- TypeScript (strict mode), React Native, Expo
+- Expo Router for file-based navigation
 - Zustand (client state) + TanStack Query (server state)
 - Jest + React Native Testing Library + Detox
 
-# Code Style
+## Code Conventions
 - Functional components only: `const Component = () => {}`
-- Named exports only, no default exports
-- PascalCase for components/types, camelCase for functions/hooks
+- Named exports only — no default exports
+- PascalCase for components and types, camelCase for functions and hooks
 - Import order: react → react-native → expo → third-party → internal → types
-- Max 250 lines per component — extract if larger
-- `StyleSheet.create()` always — never inline styles
+- Maximum 250 lines per component file
+- Always use `StyleSheet.create()` — never inline styles
 
-# Performance
-- `React.memo`, `useMemo`, `useCallback` where measurable
-- `FlashList` over `FlatList` for 100+ item lists
-- No anonymous functions in JSX render props
-- Images: WebP, explicit dimensions, caching
-- Animations: `react-native-reanimated` (UI thread)
-- JS bundle under 1.5MB
+## Performance
+- Use `React.memo`, `useMemo`, `useCallback` for expensive computations
+- Prefer `FlashList` over `FlatList` for lists with 100+ items
+- Avoid anonymous functions in render-path JSX props
+- Use WebP images with explicit dimensions and caching
+- Use `react-native-reanimated` for animations (runs on UI thread)
+- Keep JS bundle under 1.5MB
 
-# Testing
-- Every component/hook gets a test file
-- Test user behavior, not implementation details
-- Mock native modules in `__mocks__/`
-- Detox for E2E critical paths
+## Testing
+- Every new component or hook requires a test file
+- Test user-visible behavior, not implementation details
+- Mock native modules in `__mocks__/` directory
+- Use Detox for E2E tests on critical user flows
 
-# Security
-- Never hardcode secrets — use env vars
-- Validate all deep link parameters
-- SSL pinning for sensitive APIs
-- Use secure storage for tokens (expo-secure-store, react-native-keychain, etc.)
+## Security
+- Never hardcode secrets — use environment variables
+- Validate and sanitize all deep link parameters
+- Use SSL certificate pinning for sensitive API endpoints
+- Store tokens with `expo-secure-store`, never AsyncStorage
 
-# State Management
-- Zustand: UI state, preferences, navigation state
-- TanStack Query: API data, caching, refetching
-- Never mix concerns between the two
+## State Management
+- Zustand for UI state, user preferences, navigation state
+- TanStack Query for API data, caching, background refetching
+- Keep separation: Zustand should not cache server data
 
-# Expo
-- Prefer Expo SDK modules over community packages
-- `app.config.ts` for dynamic config
-- Config plugins for native customization
-- EAS Build for CI/CD, EAS Update for OTA
+## Expo-Specific
+- Prefer Expo SDK modules over community alternatives
+- Use `app.config.ts` for dynamic configuration
+- Use config plugins for native customization (avoid manual ios/android edits)
+- EAS Build for CI/CD, EAS Update for OTA deployments
 
-# Navigation
+## Navigation
 - File-based routing with Expo Router
-- Typed routes via `expo-router/typed-routes`
-- `_layout.tsx` for shared UI (headers, tabs)
-- Validate deep link params before navigating
+- Use typed routes via `expo-router/typed-routes`
+- Use `_layout.tsx` for shared UI elements
+- Validate deep link parameters before navigation
 
-# Git
-- Conventional Commits: feat:, fix:, refactor:, test:, docs:, chore:
-- Branch naming: feat/, fix/, refactor/ prefix
+## Git
+- Conventional Commits: `feat:`, `fix:`, `refactor:`, `test:`, `docs:`, `chore:`
+- Branch naming: `feat/<name>`, `fix/<name>`, `refactor/<name>`
 - One logical change per commit
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/JubaKitiashvili) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [JubaKitiashvili/everything-react-native-expo](https://github.com/JubaKitiashvili/everything-react-native-expo) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
