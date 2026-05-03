@@ -1,0 +1,14 @@
+{
+  "name": "onevcat--chroma",
+  "displayName": "Chroma",
+  "description": "Code, illuminated. Syntax highlighting for Swift TUI and CLI applications.",
+  "version": "1.0.0",
+  "author": "onevcat",
+  "homepage": "https://github.com/onevcat/Chroma",
+  "skills": [
+    {
+      "name": "chroma-release",
+      "description": ""
+    }
+  ]
+}
