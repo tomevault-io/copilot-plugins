@@ -1,0 +1,30 @@
+{
+  "name": "frizynn--gralph",
+  "displayName": "gralph",
+  "description": "A high-performance implementation of the Ralph autonomous loop. Orchestrates multi-agent execution across Claude Code and Cursor, utilizing Git worktree isolation to scale PRD-driven development.",
+  "version": "1.0.0",
+  "author": "frizynn",
+  "homepage": "https://github.com/frizynn/gralph",
+  "skills": [
+    {
+      "name": "merge-integrator",
+      "description": ""
+    },
+    {
+      "name": "parallel-safe-implementation",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "description": ""
+    },
+    {
+      "name": "semantic-reviewer",
+      "description": ""
+    }
+  ]
+}
