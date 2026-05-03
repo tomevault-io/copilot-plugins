@@ -1,30 +1,43 @@
-## 05-workflow-domain
+## 06-documentation
 
-> Workflow YAML domain, parsing, and types
+> Documentation and maintenance standards
 
 
-# Workflow Domain
+# Documentation Standards
 
-## Types
+## README Updates
 
-- **Workflow**: `name`, `run-name`, `on`, `env`, `jobs` (required). Optional fields via index signature. See `src/types/workflow.ts`.
-- **WorkflowJob**: `name`, `runs-on`, `needs`, `permissions`, `env`, `steps`, plus optional `container`, `services`, `if`.
-- **WorkflowStep**: `id`, `name`, `uses`, `run`, `with`, `env`, `shell`. Steps are ordered arrays.
+- **MANDATORY**: Update `README.md` whenever a new feature is added to the application.
+- New features must be documented in the "Features" section with a brief description.
+- Include any new keyboard shortcuts in the "Keyboard shortcuts" section.
+- Update screenshots if the UI changes significantly.
+- Examples of features that require README updates:
+  - New UI components (e.g., trigger nodes, source code dialog)
+  - New functionality (e.g., workflow linting, trigger editing)
+  - New file operations (e.g., export formats, import options)
+  - New validation features
+  - New keyboard shortcuts
 
-Reference: [GitHub Actions workflow syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions).
+## Feature Documentation Format
 
-## Parsing
+When documenting a new feature in the README:
 
-- **parseWorkflow(yamlContent: string)**: Returns `{ workflow: Workflow, errors: string[] }`. Never throws; invalid YAML or structure is reported in `errors`. Missing `jobs` yields an error and empty `workflow.jobs`. Use `YAML.parse` (e.g. `yaml` package) with `strict: false` if needed for compatibility.
-- Normalize jobs and steps: ensure `runs-on`, `steps` array, and step shape (uses, with, env, etc.) so the rest of the app can assume typed structures.
+1. Add a bullet point in the "Features" section describing what the feature does.
+2. Keep descriptions concise but informative (1-2 sentences).
+3. If the feature introduces new keyboard shortcuts, add them to the "Keyboard shortcuts" section.
+4. If applicable, mention any dependencies or requirements.
 
-## Serialization
+## Examples
 
-- **serializeWorkflow(workflow: Workflow)**: Returns a YAML string. Output must be parseable and round-trip with parseWorkflow for supported fields. Preserve key order where it matters for readability (e.g. `name`, `on`, `jobs`).
+- ✅ **Trigger editing**: Visual trigger nodes with editable properties panel for configuring workflow triggers (push, pull_request, schedule, etc.).
+- ✅ **Source code preview**: View and edit workflow YAML in a large dialog. Changes apply only when saved.
+- ✅ **Workflow linting**: Automatic validation of workflow syntax, trigger names, job dependencies, and circular dependencies.
 
-## Validation
+## Maintenance
 
-- Parsing collects structural errors (e.g. “jobs must be an object”). Semantic validation (e.g. valid `on` events, valid step `uses`) can be added later; keep validation results alongside or inside the same result object so the UI can show them.
+- Keep the README up-to-date with the current state of the application.
+- Remove references to deprecated features.
+- Update version numbers or compatibility notes if relevant.
 
 ---
 > Source: [timoa/workflow-editor](https://github.com/timoa/workflow-editor) — distributed by [TomeVault](https://tomevault.io).
