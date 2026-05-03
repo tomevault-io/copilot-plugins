@@ -1,0 +1,22 @@
+{
+  "name": "aicodingstack--aicodingstack-io",
+  "displayName": "aicodingstack.io",
+  "description": "AI Coding Stack - Your AI Coding Ecosystem Hub.",
+  "version": "1.0.0",
+  "author": "aicodingstack",
+  "homepage": "https://github.com/aicodingstack/aicodingstack.io",
+  "skills": [
+    {
+      "name": "benchmark-fetcher",
+      "description": ""
+    },
+    {
+      "name": "manifest-automation",
+      "description": ""
+    },
+    {
+      "name": "model-provider-setup",
+      "description": ""
+    }
+  ]
+}
