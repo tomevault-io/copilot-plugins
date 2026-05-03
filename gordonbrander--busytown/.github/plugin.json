@@ -1,0 +1,30 @@
+{
+  "name": "gordonbrander--busytown",
+  "displayName": "busytown",
+  "description": "Multi-agent factories coordinated over a SQLite queue",
+  "version": "1.0.0",
+  "author": "gordonbrander",
+  "homepage": "https://github.com/gordonbrander/busytown",
+  "skills": [
+    {
+      "name": "create-agent",
+      "description": ""
+    },
+    {
+      "name": "create-town",
+      "description": ""
+    },
+    {
+      "name": "events",
+      "description": ""
+    },
+    {
+      "name": "runner",
+      "description": ""
+    },
+    {
+      "name": "sr-eng-review",
+      "description": ""
+    }
+  ]
+}
