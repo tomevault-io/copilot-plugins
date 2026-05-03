@@ -1,0 +1,315 @@
+{
+  "name": "story-systems-template",
+  "owner": "bybren-llc",
+  "repo": "story-systems-template",
+  "description": "Creative project template for screenplays, novels, and film production. Multi-AI harness with upstream sync.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "action-description",
+      "path": ".gemini/skills/action-description",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/action-description",
+      "description": ""
+    },
+    {
+      "name": "action-description",
+      "path": ".claude/skills/action-description",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/action-description",
+      "description": ""
+    },
+    {
+      "name": "arc-check",
+      "path": ".gemini/skills/arc-check",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/arc-check",
+      "description": ""
+    },
+    {
+      "name": "arc-check",
+      "path": ".claude/skills/arc-check",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/arc-check",
+      "description": ""
+    },
+    {
+      "name": "character-arcs",
+      "path": ".gemini/skills/character-arcs",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/character-arcs",
+      "description": ""
+    },
+    {
+      "name": "character-arcs",
+      "path": ".claude/skills/character-arcs",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/character-arcs",
+      "description": ""
+    },
+    {
+      "name": "character-dialogue",
+      "path": ".gemini/skills/character-dialogue",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/character-dialogue",
+      "description": ""
+    },
+    {
+      "name": "character-dialogue",
+      "path": ".claude/skills/character-dialogue",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/character-dialogue",
+      "description": ""
+    },
+    {
+      "name": "character-interview",
+      "path": ".gemini/skills/character-interview",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/character-interview",
+      "description": ""
+    },
+    {
+      "name": "character-interview",
+      "path": ".claude/skills/character-interview",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/character-interview",
+      "description": ""
+    },
+    {
+      "name": "continuity-tracking",
+      "path": ".claude/skills/continuity-tracking",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/continuity-tracking",
+      "description": ""
+    },
+    {
+      "name": "dialogue-craft",
+      "path": ".claude/skills/dialogue-craft",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/dialogue-craft",
+      "description": ""
+    },
+    {
+      "name": "dialogue-craft",
+      "path": ".gemini/skills/dialogue-craft",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/dialogue-craft",
+      "description": ""
+    },
+    {
+      "name": "format-export",
+      "path": ".gemini/skills/format-export",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/format-export",
+      "description": ""
+    },
+    {
+      "name": "format-export",
+      "path": ".claude/skills/format-export",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/format-export",
+      "description": ""
+    },
+    {
+      "name": "fountain-syntax",
+      "path": ".claude/skills/fountain-syntax",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/fountain-syntax",
+      "description": ""
+    },
+    {
+      "name": "glossary-reference",
+      "path": ".claude/skills/glossary-reference",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/glossary-reference",
+      "description": ""
+    },
+    {
+      "name": "glossary-reference",
+      "path": ".gemini/skills/glossary-reference",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/glossary-reference",
+      "description": ""
+    },
+    {
+      "name": "logline",
+      "path": ".gemini/skills/logline",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/logline",
+      "description": ""
+    },
+    {
+      "name": "logline",
+      "path": ".claude/skills/logline",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/logline",
+      "description": ""
+    },
+    {
+      "name": "page-estimation",
+      "path": ".claude/skills/page-estimation",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/page-estimation",
+      "description": ""
+    },
+    {
+      "name": "page-estimation",
+      "path": ".gemini/skills/page-estimation",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/page-estimation",
+      "description": ""
+    },
+    {
+      "name": "pitch-worksheet",
+      "path": ".gemini/skills/pitch-worksheet",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/pitch-worksheet",
+      "description": ""
+    },
+    {
+      "name": "pitch-worksheet",
+      "path": ".claude/skills/pitch-worksheet",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/pitch-worksheet",
+      "description": ""
+    },
+    {
+      "name": "power-analysis",
+      "path": ".claude/skills/power-analysis",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/power-analysis",
+      "description": ""
+    },
+    {
+      "name": "power-analysis",
+      "path": ".gemini/skills/power-analysis",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/power-analysis",
+      "description": ""
+    },
+    {
+      "name": "rewriting-methodology",
+      "path": ".gemini/skills/rewriting-methodology",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/rewriting-methodology",
+      "description": ""
+    },
+    {
+      "name": "rewriting-methodology",
+      "path": ".claude/skills/rewriting-methodology",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/rewriting-methodology",
+      "description": ""
+    },
+    {
+      "name": "scene-analysis",
+      "path": ".claude/skills/scene-analysis",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/scene-analysis",
+      "description": ""
+    },
+    {
+      "name": "scene-headings",
+      "path": ".gemini/skills/scene-headings",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/scene-headings",
+      "description": ""
+    },
+    {
+      "name": "scene-headings",
+      "path": ".claude/skills/scene-headings",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/scene-headings",
+      "description": ""
+    },
+    {
+      "name": "story-check",
+      "path": ".gemini/skills/story-check",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/story-check",
+      "description": ""
+    },
+    {
+      "name": "story-check",
+      "path": ".claude/skills/story-check",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/story-check",
+      "description": ""
+    },
+    {
+      "name": "story-structure",
+      "path": ".claude/skills/story-structure",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/story-structure",
+      "description": ""
+    },
+    {
+      "name": "story-structure",
+      "path": ".gemini/skills/story-structure",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/story-structure",
+      "description": ""
+    },
+    {
+      "name": "synopsis",
+      "path": ".gemini/skills/synopsis",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/synopsis",
+      "description": ""
+    },
+    {
+      "name": "synopsis",
+      "path": ".claude/skills/synopsis",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/synopsis",
+      "description": ""
+    },
+    {
+      "name": "theme-discovery",
+      "path": ".gemini/skills/theme-discovery",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/theme-discovery",
+      "description": ""
+    },
+    {
+      "name": "theme-discovery",
+      "path": ".claude/skills/theme-discovery",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/theme-discovery",
+      "description": ""
+    },
+    {
+      "name": "title-page",
+      "path": ".claude/skills/title-page",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/title-page",
+      "description": ""
+    },
+    {
+      "name": "title-page",
+      "path": ".gemini/skills/title-page",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/title-page",
+      "description": ""
+    },
+    {
+      "name": "transitions",
+      "path": ".claude/skills/transitions",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/transitions",
+      "description": ""
+    },
+    {
+      "name": "transitions",
+      "path": ".gemini/skills/transitions",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/transitions",
+      "description": ""
+    },
+    {
+      "name": "writers-room",
+      "path": ".claude/skills/writers-room",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.claude/skills/writers-room",
+      "description": ""
+    },
+    {
+      "name": "writers-room",
+      "path": ".gemini/skills/writers-room",
+      "github_url": "https://github.com/bybren-llc/story-systems-template/tree/main/.gemini/skills/writers-room",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bybren-llc/story-systems-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:51:55Z"
+}
