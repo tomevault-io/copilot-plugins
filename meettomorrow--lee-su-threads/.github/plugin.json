@@ -1,0 +1,9 @@
+{
+  "name": "meettomorrow--lee-su-threads",
+  "displayName": "lee-su-threads",
+  "description": "Lee-Su-Threads \u4f60\u662f\u8ab0 (who are you) is a Chrome extension that extracts \"About this profile\" information from Threads.com without needing to visit each user's profile page.",
+  "version": "1.0.0",
+  "author": "meettomorrow",
+  "homepage": "https://github.com/meettomorrow/lee-su-threads",
+  "skills": []
+}
