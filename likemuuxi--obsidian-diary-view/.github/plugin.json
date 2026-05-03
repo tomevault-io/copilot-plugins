@@ -1,0 +1,9 @@
+{
+  "name": "likemuuxi--obsidian-diary-view",
+  "displayName": "obsidian-diary-view",
+  "description": "This plugin's notebook mood, diary-first interaction model, and page-turning presentation were inspired by Dear Diary:   https://github.com/thebuggeddev/dear-diary",
+  "version": "1.0.0",
+  "author": "likemuuxi",
+  "homepage": "https://github.com/likemuuxi/obsidian-diary-view",
+  "skills": []
+}
