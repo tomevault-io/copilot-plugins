@@ -1,0 +1,9 @@
+{
+  "name": "jf3tt--meshtastic-proxy",
+  "displayName": "meshtastic-proxy",
+  "description": "TCP proxy for Meshtastic LoRa nodes with multi-client multiplexing, mDNS discovery, and web dashboard",
+  "version": "1.0.0",
+  "author": "jf3tt",
+  "homepage": "https://github.com/jf3tt/meshtastic-proxy",
+  "skills": []
+}
