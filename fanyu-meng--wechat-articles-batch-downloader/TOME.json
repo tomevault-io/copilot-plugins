@@ -1,0 +1,44 @@
+{
+  "name": "WeChat-Articles-Batch-Downloader",
+  "owner": "fanyu-meng",
+  "repo": "WeChat-Articles-Batch-Downloader",
+  "description": "\u6279\u91cf\u4e0b\u8f7d\u516c\u4f17\u53f7\u6587\u7ae0",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fanyu-meng/WeChat-Articles-Batch-Downloader",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T19:06:40Z"
+}
