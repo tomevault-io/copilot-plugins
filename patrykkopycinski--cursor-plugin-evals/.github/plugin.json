@@ -1,0 +1,9 @@
+{
+  "name": "patrykkopycinski--cursor-plugin-evals",
+  "displayName": "cursor-plugin-evals",
+  "description": "The universal testing framework for Cursor plugins \u2014 static, unit, integration, LLM, skill layers with 23 evaluators, red-teaming, and more.",
+  "version": "1.0.0",
+  "author": "patrykkopycinski",
+  "homepage": "https://github.com/patrykkopycinski/cursor-plugin-evals",
+  "skills": []
+}
