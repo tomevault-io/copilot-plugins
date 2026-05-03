@@ -1,0 +1,99 @@
+{
+  "name": "ai-stack",
+  "owner": "joshp123",
+  "repo": "ai-stack",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/joshp123/ai-stack/tree/main/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "markdown-converter",
+      "path": "skills/markdown-converter",
+      "github_url": "https://github.com/joshp123/ai-stack/tree/main/skills/markdown-converter",
+      "description": ""
+    },
+    {
+      "name": "nanobanana",
+      "path": "skills/nanobanana",
+      "github_url": "https://github.com/joshp123/ai-stack/tree/main/skills/nanobanana",
+      "description": ""
+    },
+    {
+      "name": "pr-commit-workflow",
+      "path": "skills/pr-commit-workflow",
+      "github_url": "https://github.com/joshp123/ai-stack/tree/main/skills/pr-commit-workflow",
+      "description": ""
+    },
+    {
+      "name": "product-manager",
+      "path": "skills/product-manager",
+      "github_url": "https://github.com/joshp123/ai-stack/tree/main/skills/product-manager",
+      "description": ""
+    },
+    {
+      "name": "rfc-adr-authoring",
+      "path": "skills/rfc-adr-authoring",
+      "github_url": "https://github.com/joshp123/ai-stack/tree/main/skills/rfc-adr-authoring",
+      "description": ""
+    },
+    {
+      "name": "session-analyzer",
+      "path": "skills/session-analyzer",
+      "github_url": "https://github.com/joshp123/ai-stack/tree/main/skills/session-analyzer",
+      "description": ""
+    },
+    {
+      "name": "summarize-youtube",
+      "path": "skills/summarize-youtube",
+      "github_url": "https://github.com/joshp123/ai-stack/tree/main/skills/summarize-youtube",
+      "description": ""
+    },
+    {
+      "name": "trmnl-image-generator",
+      "path": "skills/trmnl-image-generator",
+      "github_url": "https://github.com/joshp123/ai-stack/tree/main/skills/trmnl-image-generator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joshp123/ai-stack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:39:56Z"
+}
