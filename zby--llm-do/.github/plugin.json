@@ -1,0 +1,14 @@
+{
+  "name": "zby--llm-do",
+  "displayName": "llm-do",
+  "description": "\"Extend with llm, stabilise with code\" - Prompts when you're exploring, Python when you're certain. Workers and tools form one function space\u2014refactor between them.",
+  "version": "1.0.0",
+  "author": "zby",
+  "homepage": "https://github.com/zby/llm-do",
+  "skills": [
+    {
+      "name": "decomplect-py",
+      "description": ""
+    }
+  ]
+}
