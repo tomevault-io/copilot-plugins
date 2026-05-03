@@ -1,0 +1,44 @@
+{
+  "name": "MCPGateway",
+  "owner": "abdullah1854",
+  "repo": "MCPGateway",
+  "description": "Open-source MCP server \u2014 progressive tool discovery, code execution, intelligent routing & token optimization across 50+ tools",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/abdullah1854/MCPGateway",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:52:38Z"
+}
