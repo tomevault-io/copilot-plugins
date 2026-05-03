@@ -1,0 +1,26 @@
+{
+  "name": "itsmostafa--llm-engineering-skills",
+  "displayName": "llm-engineering-skills",
+  "description": "LLM Engineering Claude Skills",
+  "version": "1.0.0",
+  "author": "itsmostafa",
+  "homepage": "https://github.com/itsmostafa/llm-engineering-skills",
+  "skills": [
+    {
+      "name": "context-engineering",
+      "description": ""
+    },
+    {
+      "name": "mlx",
+      "description": ""
+    },
+    {
+      "name": "pytorch",
+      "description": ""
+    },
+    {
+      "name": "transformers",
+      "description": ""
+    }
+  ]
+}
