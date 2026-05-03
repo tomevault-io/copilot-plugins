@@ -1,229 +1,286 @@
-## add-command
+## add-control
 
-> Rules for adding outgoing OCPP commands in coordinator
+> Rules for adding buttons, switches, or number controls
 
 
-# Rules: Adding an Outgoing OCPP Command
+# Rules: Adding a Button/Switch/Number Control
 
 ## Documentation References
 
 **MANDATORY - Read these files BEFORE making changes:**
 
-1. `custom_components/bmw_wallbox/docs/COORDINATOR.md` - Full coordinator API, existing methods, EVCC-style control
-2. `custom_components/bmw_wallbox/docs/OCPP_HANDLERS.md` - OCPP protocol details, message types
-3. `custom_components/bmw_wallbox/docs/PATTERNS.md` - Decision trees, command patterns, anti-patterns
-4. `custom_components/bmw_wallbox/docs/CONTEXT.md` - Critical rules (especially EVCC-style pause/resume)
-5. `custom_components/bmw_wallbox/docs/TROUBLESHOOTING.md` - Common command failures and solutions
+1. `custom_components/bmw_wallbox/docs/ENTITIES.md` - Complete templates for buttons, switches, numbers, base classes
+2. `custom_components/bmw_wallbox/docs/COORDINATOR.md` - Existing coordinator methods, how to add new commands
+3. `custom_components/bmw_wallbox/docs/PATTERNS.md` - UI patterns, loading states, availability conditions
+4. `custom_components/bmw_wallbox/docs/CONSTANTS.md` - Naming conventions for control entities
+5. `custom_components/bmw_wallbox/docs/TESTING.md` - How to test buttons, switches, numbers
 
-**CRITICAL:** Understand the EVCC-style control pattern before adding charging-related commands!
+**For controls that send OCPP commands:**
+- Also read `.cursor/rules/add-command.mdc` for command implementation details
 
 ## Files to Modify
 
-1. `custom_components/bmw_wallbox/coordinator.py` - `BMWWallboxCoordinator` class
+1. `custom_components/bmw_wallbox/const.py`
+2. `custom_components/bmw_wallbox/button.py` OR `switch.py` OR `number.py`
+3. `custom_components/bmw_wallbox/coordinator.py` (add command method if needed)
+4. `tests/test_button.py` OR `test_switch.py` OR `test_number.py`
 
-## Command Pattern with Full Error Handling
+---
+
+## Adding a Button
+
+### Step 1: Add Constant
 
 ```python
-# coordinator.py - in BMWWallboxCoordinator class
+# const.py
+BUTTON_NEW_ACTION: Final = "new_action"
+```
 
-async def async_new_command(self, param: int) -> dict:
-    """Send new command to wallbox.
+### Step 2: Add Coordinator Method (if needed)
 
-    Args:
-        param: Command parameter
+```python
+# coordinator.py
+async def async_new_action(self) -> dict:
+    """Perform new action."""
+    result = {"success": False, "message": ""}
 
-    Returns:
-        dict with keys: success (bool), message (str), action (str)
-    """
-    result = {
-        "success": False,
-        "message": "",
-        "action": "failed",
-    }
-
-    # ALWAYS check connection
     if not self.charge_point:
-        result["message"] = "Wallbox not connected"
-        _LOGGER.error("Cannot execute: no wallbox connected")
+        result["message"] = "Not connected"
         return result
-
-    # Check transaction if required for this command
-    if not self.current_transaction_id:
-        result["message"] = "No active charging session"
-        _LOGGER.error("Cannot execute: no transaction")
-        return result
-
-    _LOGGER.info("Sending NewCommand with param=%s", param)
 
     try:
-        # ALWAYS use timeout (15 seconds)
         response = await asyncio.wait_for(
-            self.charge_point.call(
-                call.NewCommand(
-                    param=param,
-                )
-            ),
+            self.charge_point.call(call.SomeCommand(...)),
             timeout=15.0
         )
-
-        _LOGGER.debug("NewCommand response: %s", response.status)
-
-        if response.status == "Accepted":
-            result["success"] = True
-            result["message"] = "Command accepted"
-            result["action"] = "completed"
-        else:
-            result["message"] = f"Rejected: {response.status}"
-            result["action"] = "rejected"
-
-        return result
-
-    except asyncio.TimeoutError:
-        result["message"] = "Command timed out - wallbox not responding"
-        _LOGGER.error("NewCommand timed out!")
+        result["success"] = True
+        result["message"] = "Action completed"
         return result
     except Exception as err:
-        result["message"] = f"Error: {str(err)}"
-        _LOGGER.error("NewCommand failed: %s", err)
+        result["message"] = str(err)
         return result
 ```
 
-## Common OCPP Commands
-
-### SetChargingProfile (Control Current)
+### Step 3: Create Button Class
 
 ```python
-from ocpp.v201.datatypes import (
-    ChargingProfileType,
-    ChargingScheduleType,
-    ChargingSchedulePeriodType,
-)
-from ocpp.v201.enums import (
-    ChargingProfileKindEnumType,
-    ChargingProfilePurposeEnumType,
-    ChargingRateUnitEnumType,
-)
+# button.py
+from .const import BUTTON_NEW_ACTION
 
-# Create schedule
-schedule = ChargingScheduleType(
-    id=1,
-    start_schedule=datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
-    charging_rate_unit=ChargingRateUnitEnumType.amps,
-    charging_schedule_period=[
-        ChargingSchedulePeriodType(start_period=0, limit=32.0)
-    ],
-)
+class BMWWallboxNewActionButton(BMWWallboxButtonBase):
+    """Button for new action."""
 
-# Create profile - REQUIRES transaction_id
-profile = ChargingProfileType(
-    id=999,
-    stack_level=1,
-    charging_profile_purpose=ChargingProfilePurposeEnumType.tx_profile,
-    charging_profile_kind=ChargingProfileKindEnumType.absolute,
-    charging_schedule=[schedule],
-    transaction_id=self.current_transaction_id,  # REQUIRED!
-)
+    def __init__(self, coordinator, entry, hass):
+        super().__init__(coordinator, entry, hass, BUTTON_NEW_ACTION)
+        self._attr_name = "New Action"
+        self._base_icon = "mdi:gesture-tap"
 
-response = await asyncio.wait_for(
-    self.charge_point.call(
-        call.SetChargingProfile(evse_id=1, charging_profile=profile)
-    ),
-    timeout=15.0
-)
+    async def async_press(self):
+        """Handle button press."""
+        await self._async_press_with_loading(self._do_action())
+
+    async def _do_action(self):
+        """Execute the action."""
+        result = await self.coordinator.async_new_action()
+        if result["success"]:
+            _LOGGER.info("Action successful")
+        else:
+            _LOGGER.warning("Action failed: %s", result["message"])
 ```
 
-### RequestStartTransaction
+### Step 4: Register Button
 
 ```python
-from ocpp.v201.datatypes import IdTokenType
-from ocpp.v201.enums import IdTokenEnumType
+# button.py - in async_setup_entry()
+async_add_entities([
+    # ... existing ...
+    BMWWallboxNewActionButton(coordinator, entry, hass),
+])
+```
 
-id_token = IdTokenType(
-    id_token=self.config.get("rfid_token", "04a125f2fc1194"),
-    type=IdTokenEnumType.local,
-)
+---
 
-response = await asyncio.wait_for(
-    self.charge_point.call(
-        call.RequestStartTransaction(
-            id_token=id_token,
-            remote_start_id=int(datetime.utcnow().timestamp()),
-            evse_id=1,
+## Adding a Switch
+
+### Step 1: Add Constant
+
+```python
+# const.py
+SWITCH_NEW_TOGGLE: Final = "new_toggle"
+```
+
+### Step 2: Create Switch Class
+
+```python
+# switch.py
+from .const import SWITCH_NEW_TOGGLE
+
+class BMWWallboxNewToggleSwitch(CoordinatorEntity, SwitchEntity):
+    """Switch for new toggle."""
+
+    def __init__(self, coordinator, entry):
+        super().__init__(coordinator)
+        self._attr_unique_id = f"{entry.entry_id}_{SWITCH_NEW_TOGGLE}"
+        self._attr_name = "New Toggle"
+        self._attr_icon = "mdi:toggle-switch"
+        self._attr_device_info = {
+            "identifiers": {(DOMAIN, entry.data["charge_point_id"])},
+            "name": "BMW Wallbox",
+            "manufacturer": coordinator.device_info.get("vendor", "BMW"),
+            "model": coordinator.device_info.get("model", "EIAW-E22KTSE6B04"),
+        }
+
+    @property
+    def is_on(self):
+        """Return true if switch is on."""
+        return self.coordinator.data.get("toggle_state", False)
+
+    async def async_turn_on(self, **kwargs):
+        """Turn the switch on."""
+        await self.coordinator.async_enable_toggle()
+
+    async def async_turn_off(self, **kwargs):
+        """Turn the switch off."""
+        await self.coordinator.async_disable_toggle()
+```
+
+---
+
+## Adding a Number
+
+### Step 1: Add Constant
+
+```python
+# const.py
+NUMBER_NEW_SETTING: Final = "new_setting"
+```
+
+### Step 2: Add Coordinator Method
+
+```python
+# coordinator.py
+async def async_set_new_setting(self, value: int) -> bool:
+    """Set new setting value."""
+    if not self.charge_point:
+        return False
+
+    try:
+        response = await asyncio.wait_for(
+            self.charge_point.call(call.SetVariables(...)),
+            timeout=15.0
         )
-    ),
-    timeout=15.0
-)
+        return response.status == "Accepted"
+    except Exception:
+        return False
 ```
 
-### SetVariables (Configure Settings)
+### Step 3: Create Number Class
 
 ```python
-from ocpp.v201.datatypes import (
-    SetVariableDataType,
-    ComponentType,
-    VariableType,
-)
-from ocpp.v201.enums import AttributeEnumType
+# number.py
+from homeassistant.components.number import NumberEntity, NumberMode
+from homeassistant.const import PERCENTAGE
 
-set_var = SetVariableDataType(
-    attribute_type=AttributeEnumType.actual,
-    attribute_value=str(value),  # Always string
-    component=ComponentType(name="ChargingStation"),
-    variable=VariableType(name="StatusLedBrightness"),
-)
+from .const import NUMBER_NEW_SETTING
 
-response = await asyncio.wait_for(
-    self.charge_point.call(
-        call.SetVariables(set_variable_data=[set_var])
-    ),
-    timeout=15.0
-)
+class BMWWallboxNewSettingNumber(CoordinatorEntity, NumberEntity):
+    """Number entity for new setting."""
+
+    def __init__(self, coordinator, entry):
+        super().__init__(coordinator)
+        self._attr_unique_id = f"{entry.entry_id}_{NUMBER_NEW_SETTING}"
+        self._attr_name = "New Setting"
+        self._attr_icon = "mdi:tune"
+        self._attr_native_unit_of_measurement = PERCENTAGE
+        self._attr_native_min_value = 0
+        self._attr_native_max_value = 100
+        self._attr_native_step = 1
+        self._attr_mode = NumberMode.SLIDER
+        self._attr_device_info = {
+            "identifiers": {(DOMAIN, entry.data["charge_point_id"])},
+            "name": "BMW Wallbox",
+        }
+
+    @property
+    def native_value(self):
+        """Return current value."""
+        return self.coordinator.data.get("new_setting", 50)
+
+    async def async_set_native_value(self, value: float):
+        """Update the value."""
+        success = await self.coordinator.async_set_new_setting(int(value))
+        if success:
+            self.coordinator.data["new_setting"] = int(value)
+            self.async_write_ha_state()
+        else:
+            raise HomeAssistantError("Failed to set value")
 ```
 
-### Reset (Reboot Wallbox)
+---
+
+## Button with Loading State
+
+The `BMWWallboxButtonBase` provides loading state:
 
 ```python
-from ocpp.v201.enums import ResetEnumType
-
-response = await asyncio.wait_for(
-    self.charge_point.call(
-        call.Reset(type=ResetEnumType.immediate)
-    ),
-    timeout=15.0
-)
+async def async_press(self):
+    """Handle button press."""
+    await self._async_press_with_loading(self._do_action())
 ```
 
-## Critical Rules for Commands
+This:
+1. Sets `_is_processing = True` (shows loading icon)
+2. Executes action
+3. Ensures minimum 1.5s loading time
+4. Sets `_is_processing = False`
 
-1. **ALWAYS use timeout** - `asyncio.wait_for(..., timeout=15.0)`
-2. **Check self.charge_point exists** - Wallbox may be disconnected
-3. **Check transaction if required** - SetChargingProfile needs transaction_id
-4. **Return dict with success/message** - For user feedback
-5. **Handle all exceptions** - TimeoutError and general Exception
-6. **Log command execution** - Use _LOGGER.info() and _LOGGER.error()
+---
 
-## Transaction Required Commands
+## Entity Availability
 
-These commands REQUIRE an active transaction:
-- SetChargingProfile (with tx_profile purpose)
+Control when entity is available:
 
-Check before sending:
 ```python
-if not self.current_transaction_id:
-    return {"success": False, "message": "No active transaction"}
+@property
+def available(self):
+    """Return True if entity is available."""
+    return (
+        super().available
+        and self.coordinator.data.get("connected", False)
+        and self.coordinator.current_transaction_id is not None
+    )
 ```
+
+---
 
 ## Checklist
 
-- [ ] Method added to `BMWWallboxCoordinator` class
-- [ ] Returns dict with `success`, `message`, `action` keys
-- [ ] Checks `self.charge_point` exists
-- [ ] Checks `self.current_transaction_id` if required
-- [ ] Uses `asyncio.wait_for()` with 15 second timeout
-- [ ] Handles `asyncio.TimeoutError` exception
-- [ ] Handles general `Exception`
-- [ ] Logs command execution and errors
-- [ ] Tested with actual wallbox
+### For Buttons:
+- [ ] Constant added to `const.py`
+- [ ] Coordinator method added (if needed)
+- [ ] Button class created extending `BMWWallboxButtonBase`
+- [ ] Uses `_async_press_with_loading()` pattern
+- [ ] Registered in `async_setup_entry()`
+- [ ] Test added
+
+### For Switches:
+- [ ] Constant added to `const.py`
+- [ ] Coordinator methods added (enable/disable)
+- [ ] Switch class created extending `CoordinatorEntity, SwitchEntity`
+- [ ] `is_on`, `async_turn_on`, `async_turn_off` implemented
+- [ ] Device info included
+- [ ] Registered in `async_setup_entry()`
+- [ ] Test added
+
+### For Numbers:
+- [ ] Constant added to `const.py`
+- [ ] Coordinator method added
+- [ ] Number class created extending `CoordinatorEntity, NumberEntity`
+- [ ] Min/max/step values set
+- [ ] `native_value` and `async_set_native_value` implemented
+- [ ] Device info included
+- [ ] Registered in `async_setup_entry()`
+- [ ] Test added
 
 ---
 > Source: [JoaoPedroBelo/bmw-wallbox-ha](https://github.com/JoaoPedroBelo/bmw-wallbox-ha) — distributed by [TomeVault](https://tomevault.io).
