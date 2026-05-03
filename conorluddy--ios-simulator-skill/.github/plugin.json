@@ -1,0 +1,14 @@
+{
+  "name": "conorluddy--ios-simulator-skill",
+  "displayName": "ios-simulator-skill",
+  "description": "An IOS Simulator Skill for ClaudeCode. Use it to optimise Claude's ability to build, run and interact with your apps. I mainly use it as an xcodebuild wrapper to save context.",
+  "version": "1.0.0",
+  "author": "conorluddy",
+  "homepage": "https://github.com/conorluddy/ios-simulator-skill",
+  "skills": [
+    {
+      "name": "ios-simulator-skill",
+      "description": ""
+    }
+  ]
+}
