@@ -1,0 +1,9 @@
+{
+  "name": "faratech--htop-win",
+  "displayName": "htop-win",
+  "description": "htop for Windows: inspired interactive process viewer for Windows, written in Rust",
+  "version": "1.0.0",
+  "author": "faratech",
+  "homepage": "https://github.com/faratech/htop-win",
+  "skills": []
+}
