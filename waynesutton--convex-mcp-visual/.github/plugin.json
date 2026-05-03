@@ -1,0 +1,14 @@
+{
+  "name": "waynesutton--convex-mcp-visual",
+  "displayName": "convex",
+  "description": "Schema visualizer and dashboard tools for exploring Convex databases. Opens interactive browser UIs alongside terminal output.",
+  "version": "1.0.0",
+  "author": "waynesutton",
+  "homepage": "https://github.com/waynesutton/convex-mcp-visual",
+  "skills": [
+    {
+      "name": "convex",
+      "description": ""
+    }
+  ]
+}
