@@ -1,0 +1,9 @@
+{
+  "name": "hypurrquant--perp-cli",
+  "displayName": "perp-cli",
+  "description": " Multi-DEX perpetual futures CLI + MCP server \u2014 Pacifica (Solana), Hyperliquid, Lighter (Ethereum). 18 MCP tools for AI-powered trading",
+  "version": "1.0.0",
+  "author": "hypurrquant",
+  "homepage": "https://github.com/hypurrquant/perp-cli",
+  "skills": []
+}
