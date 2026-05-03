@@ -1,0 +1,26 @@
+{
+  "name": "czlonkowski--n8n-skills",
+  "displayName": "n8n-skills",
+  "description": "n8n skillset for Claude Code to build flawless n8n workflows",
+  "version": "1.0.0",
+  "author": "czlonkowski",
+  "homepage": "https://github.com/czlonkowski/n8n-skills",
+  "skills": [
+    {
+      "name": "n8n-mcp-tools-expert",
+      "description": ""
+    },
+    {
+      "name": "n8n-node-configuration",
+      "description": ""
+    },
+    {
+      "name": "n8n-validation-expert",
+      "description": ""
+    },
+    {
+      "name": "n8n-workflow-patterns",
+      "description": ""
+    }
+  ]
+}
