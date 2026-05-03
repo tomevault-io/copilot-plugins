@@ -4,7 +4,7 @@
   "repo": "AIBoilerplate",
   "description": "Universal Context Architecture. One source of truth for Cursor, Claude Code, GitHub Copilot, Gemini, Amazon Q, and 19+ AI coding assistants.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yokharian/AIBoilerplate",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T19:38:55Z"
+  "distributed_at": "2026-05-03T19:49:54Z"
 }
