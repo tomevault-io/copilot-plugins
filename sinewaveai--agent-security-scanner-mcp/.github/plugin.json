@@ -1,0 +1,9 @@
+{
+  "name": "sinewaveai--agent-security-scanner-mcp",
+  "displayName": "agent-security-scanner-mcp",
+  "description": "Security scanner MCP server for AI coding agents. Prompt injection firewall, package hallucination detection (4.3M+ packages), 1000+ vulnerability rules with AST & taint analysis, auto-fix.",
+  "version": "1.0.0",
+  "author": "sinewaveai",
+  "homepage": "https://github.com/sinewaveai/agent-security-scanner-mcp",
+  "skills": []
+}
