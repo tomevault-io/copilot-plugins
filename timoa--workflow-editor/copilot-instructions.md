@@ -1,34 +1,30 @@
-## 04-react-flow
+## 05-workflow-domain
 
-> React Flow usage and workflow graph conventions
+> Workflow YAML domain, parsing, and types
 
 
-# React Flow
+# Workflow Domain
 
-## Library
+## Types
 
-- Use **@xyflow/react** (React Flow v12). Import components and styles: `import { ReactFlow, Background, Controls, MiniMap } from '@xyflow/react'` and `import '@xyflow/react/dist/style.css'`.
+- **Workflow**: `name`, `run-name`, `on`, `env`, `jobs` (required). Optional fields via index signature. See `src/types/workflow.ts`.
+- **WorkflowJob**: `name`, `runs-on`, `needs`, `permissions`, `env`, `steps`, plus optional `container`, `services`, `if`.
+- **WorkflowStep**: `id`, `name`, `uses`, `run`, `with`, `env`, `shell`. Steps are ordered arrays.
 
-## Workflow Graph Model
+Reference: [GitHub Actions workflow syntax](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions).
 
-- **Nodes**: One node per workflow job (key in `workflow.jobs`). Node `id` = job id. `data` holds job metadata (e.g. `label: job name or id`).
-- **Edges**: Job dependencies. For each job, if `needs` is present (string or array), create an edge from each needed job to this job. Edge `id`: e.g. `{neededJobId}-{currentJobId}`.
+## Parsing
 
-## Patterns
+- **parseWorkflow(yamlContent: string)**: Returns `{ workflow: Workflow, errors: string[] }`. Never throws; invalid YAML or structure is reported in `errors`. Missing `jobs` yields an error and empty `workflow.jobs`. Use `YAML.parse` (e.g. `yaml` package) with `strict: false` if needed for compatibility.
+- Normalize jobs and steps: ensure `runs-on`, `steps` array, and step shape (uses, with, env, etc.) so the rest of the app can assume typed structures.
 
-- Keep initial nodes/edges in state or derived from `Workflow` so the graph updates when workflow changes.
-- Use controlled mode: pass `nodes` and `edges` (and `onNodesChange`, `onEdgesChange` if editing). Prefer fitting view: `fitView` for initial layout.
-- Custom node types: define in `nodeTypes` when you need job-specific UI (e.g. step count, status placeholder). Default node type is fine for simple labels.
+## Serialization
 
-## Layout
+- **serializeWorkflow(workflow: Workflow)**: Returns a YAML string. Output must be parseable and round-trip with parseWorkflow for supported fields. Preserve key order where it matters for readability (e.g. `name`, `on`, `jobs`).
 
-- Position nodes explicitly or use a layout utility (e.g. dagre) for DAG layout based on `needs`. For a first version, manual or simple auto-layout is fine.
-- Store positions in node `position`; React Flow uses these for rendering and fitView.
+## Validation
 
-## Styling
-
-- Canvas: use Tailwind on the wrapper (e.g. `className="bg-slate-50"`). Background, controls, minimap are from the library; override via CSS or theme if needed.
-- Keep the flow inside a bounded container (e.g. `flex-1 overflow-hidden`) so it doesn’t break the page layout.
+- Parsing collects structural errors (e.g. “jobs must be an object”). Semantic validation (e.g. valid `on` events, valid step `uses`) can be added later; keep validation results alongside or inside the same result object so the UI can show them.
 
 ---
 > Source: [timoa/workflow-editor](https://github.com/timoa/workflow-editor) — distributed by [TomeVault](https://tomevault.io).
