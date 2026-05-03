@@ -1,0 +1,310 @@
+{
+  "name": "jpoutrin--product-forge",
+  "displayName": "product-forge",
+  "description": "Claude Code Marketplace Plugin to dev like a pro in a multi-agent fashion",
+  "version": "1.0.0",
+  "author": "jpoutrin",
+  "homepage": "https://github.com/jpoutrin/product-forge",
+  "skills": [
+    {
+      "name": "add-mcp-tool",
+      "description": ""
+    },
+    {
+      "name": "agent-tools",
+      "description": ""
+    },
+    {
+      "name": "ansible",
+      "description": ""
+    },
+    {
+      "name": "atlassian-attachments",
+      "description": ""
+    },
+    {
+      "name": "aws-cloud",
+      "description": ""
+    },
+    {
+      "name": "bl-init",
+      "description": ""
+    },
+    {
+      "name": "bl-record",
+      "description": ""
+    },
+    {
+      "name": "bl-stack",
+      "description": ""
+    },
+    {
+      "name": "bl-submit",
+      "description": ""
+    },
+    {
+      "name": "bl-sync",
+      "description": ""
+    },
+    {
+      "name": "bl-undo",
+      "description": ""
+    },
+    {
+      "name": "branchless-workflow",
+      "description": ""
+    },
+    {
+      "name": "chunking-strategies",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "console-debugging",
+      "description": ""
+    },
+    {
+      "name": "copy-agent",
+      "description": ""
+    },
+    {
+      "name": "copy-skill",
+      "description": ""
+    },
+    {
+      "name": "create-agent",
+      "description": ""
+    },
+    {
+      "name": "create-command",
+      "description": ""
+    },
+    {
+      "name": "create-persona",
+      "description": ""
+    },
+    {
+      "name": "create-plugin",
+      "description": ""
+    },
+    {
+      "name": "create-qa-test",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "description": ""
+    },
+    {
+      "name": "dbt",
+      "description": ""
+    },
+    {
+      "name": "dependency-alignment",
+      "description": ""
+    },
+    {
+      "name": "design-system",
+      "description": ""
+    },
+    {
+      "name": "direnv",
+      "description": ""
+    },
+    {
+      "name": "django-dev",
+      "description": ""
+    },
+    {
+      "name": "django-api",
+      "description": ""
+    },
+    {
+      "name": "documentation-research",
+      "description": ""
+    },
+    {
+      "name": "enrich-qa-test",
+      "description": ""
+    },
+    {
+      "name": "fastmcp",
+      "description": ""
+    },
+    {
+      "name": "fetch-youtube-transcript",
+      "description": ""
+    },
+    {
+      "name": "forge-help",
+      "description": ""
+    },
+    {
+      "name": "gcp-cloud",
+      "description": ""
+    },
+    {
+      "name": "git-commits",
+      "description": ""
+    },
+    {
+      "name": "install-chrome-devtools-mcp",
+      "description": ""
+    },
+    {
+      "name": "install-playwright-mcp",
+      "description": ""
+    },
+    {
+      "name": "list-qa-tests",
+      "description": ""
+    },
+    {
+      "name": "mcp-security",
+      "description": ""
+    },
+    {
+      "name": "mcp-setup",
+      "description": ""
+    },
+    {
+      "name": "mypy-setup",
+      "description": ""
+    },
+    {
+      "name": "network-inspection",
+      "description": ""
+    },
+    {
+      "name": "oauth",
+      "description": ""
+    },
+    {
+      "name": "parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "parallel-decompose",
+      "description": ""
+    },
+    {
+      "name": "parallel-execution",
+      "description": ""
+    },
+    {
+      "name": "parallel-integrate",
+      "description": ""
+    },
+    {
+      "name": "parallel-prompt-generator",
+      "description": ""
+    },
+    {
+      "name": "parallel-ready-django",
+      "description": ""
+    },
+    {
+      "name": "parallel-run",
+      "description": ""
+    },
+    {
+      "name": "parallel-setup",
+      "description": ""
+    },
+    {
+      "name": "parallel-task-format",
+      "description": ""
+    },
+    {
+      "name": "pattern-detection",
+      "description": ""
+    },
+    {
+      "name": "portman",
+      "description": ""
+    },
+    {
+      "name": "prd-management",
+      "description": ""
+    },
+    {
+      "name": "product-strategy",
+      "description": ""
+    },
+    {
+      "name": "python-mypy",
+      "description": ""
+    },
+    {
+      "name": "python-style",
+      "description": ""
+    },
+    {
+      "name": "qa-element-extraction",
+      "description": ""
+    },
+    {
+      "name": "qa-screenshot-management",
+      "description": ""
+    },
+    {
+      "name": "qa-screenshot-validation",
+      "description": ""
+    },
+    {
+      "name": "qa-test-management",
+      "description": ""
+    },
+    {
+      "name": "qa-testing-methodology",
+      "description": ""
+    },
+    {
+      "name": "quick-start",
+      "description": ""
+    },
+    {
+      "name": "rfc-specification",
+      "description": ""
+    },
+    {
+      "name": "setup-mcp-auth",
+      "description": ""
+    },
+    {
+      "name": "task-orchestration",
+      "description": ""
+    },
+    {
+      "name": "technical-specification",
+      "description": ""
+    },
+    {
+      "name": "tmux-init",
+      "description": ""
+    },
+    {
+      "name": "typescript-code-review",
+      "description": ""
+    },
+    {
+      "name": "typescript-import-style",
+      "description": ""
+    },
+    {
+      "name": "typescript-style",
+      "description": ""
+    },
+    {
+      "name": "zod",
+      "description": ""
+    }
+  ]
+}
