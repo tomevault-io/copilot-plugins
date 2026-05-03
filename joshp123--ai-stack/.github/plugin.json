@@ -1,0 +1,46 @@
+{
+  "name": "joshp123--ai-stack",
+  "displayName": "ai-stack",
+  "description": "ai-stack",
+  "version": "1.0.0",
+  "author": "joshp123",
+  "homepage": "https://github.com/joshp123/ai-stack",
+  "skills": [
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "markdown-converter",
+      "description": ""
+    },
+    {
+      "name": "nanobanana",
+      "description": ""
+    },
+    {
+      "name": "pr-commit-workflow",
+      "description": ""
+    },
+    {
+      "name": "product-manager",
+      "description": ""
+    },
+    {
+      "name": "rfc-adr-authoring",
+      "description": ""
+    },
+    {
+      "name": "session-analyzer",
+      "description": ""
+    },
+    {
+      "name": "summarize-youtube",
+      "description": ""
+    },
+    {
+      "name": "trmnl-image-generator",
+      "description": ""
+    }
+  ]
+}
