@@ -1,0 +1,38 @@
+{
+  "name": "goncalossilva---agents",
+  "displayName": ".agents",
+  "description": "Gon\u00e7alo's instructions and skills for agents",
+  "version": "1.0.0",
+  "author": "goncalossilva",
+  "homepage": "https://github.com/goncalossilva/.agents",
+  "skills": [
+    {
+      "name": "browser-tools",
+      "description": ""
+    },
+    {
+      "name": "git-clean-history",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "homeassistant-ops",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "description": ""
+    },
+    {
+      "name": "sentry",
+      "description": ""
+    },
+    {
+      "name": "web-design",
+      "description": ""
+    }
+  ]
+}
