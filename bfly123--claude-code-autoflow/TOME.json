@@ -1,0 +1,141 @@
+{
+  "name": "claude_code",
+  "owner": "bfly123",
+  "repo": "claude_code_autoflow",
+  "description": "AI instruction skills by bfly123",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "all-plan",
+      "path": "claude_skills/all-plan",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_skills/all-plan",
+      "description": ""
+    },
+    {
+      "name": "all-plan",
+      "path": "droid_skills/all-plan",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/droid_skills/all-plan",
+      "description": ""
+    },
+    {
+      "name": "all-plan",
+      "path": "codex_skills/all-plan",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/codex_skills/all-plan",
+      "description": ""
+    },
+    {
+      "name": "ask",
+      "path": "droid_skills/ask",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/droid_skills/ask",
+      "description": ""
+    },
+    {
+      "name": "ask",
+      "path": "claude_skills/ask",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_skills/ask",
+      "description": ""
+    },
+    {
+      "name": "ask",
+      "path": "codex_skills/ask",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/codex_skills/ask",
+      "description": ""
+    },
+    {
+      "name": "cping",
+      "path": "claude_skills/cping",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_skills/cping",
+      "description": ""
+    },
+    {
+      "name": "pend",
+      "path": "claude_skills/pend",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_skills/pend",
+      "description": ""
+    },
+    {
+      "name": "ping",
+      "path": "codex_skills/ping",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/codex_skills/ping",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "claude_skills/review",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_skills/review",
+      "description": ""
+    },
+    {
+      "name": "tp",
+      "path": "claude_skills/tp",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_skills/tp",
+      "description": ""
+    },
+    {
+      "name": "ask-codex",
+      "path": "claude_source/skills/ask-codex",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_source/skills/ask-codex",
+      "description": ""
+    },
+    {
+      "name": "tp",
+      "path": "claude_source/skills/tp",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_source/skills/tp",
+      "description": ""
+    },
+    {
+      "name": "dual-design",
+      "path": "claude_source/skills/dual-design",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_source/skills/dual-design",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "claude_source/skills/review",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_source/skills/review",
+      "description": ""
+    },
+    {
+      "name": "roles",
+      "path": "claude_source/skills/roles",
+      "github_url": "https://github.com/bfly123/claude_code_autoflow/tree/main/claude_source/skills/roles",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bfly123/claude_code_autoflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T22:47:14Z"
+}
