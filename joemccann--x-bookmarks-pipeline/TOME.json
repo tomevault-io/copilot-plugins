@@ -1,0 +1,44 @@
+{
+  "name": "x-bookmarks-pipeline",
+  "owner": "joemccann",
+  "repo": "x-bookmarks-pipeline",
+  "description": "A multi-LLM Python pipeline that fetches your X (Twitter) bookmarks, classifies them by category, extracts structured data from chart images, plans trading strategies or indicators for finance bookmarks, and generates executable TradingView Pine Script v6 \u2014 all automatically, in parallel, with SQLite caching so nothing is processed twice. ",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/joemccann/x-bookmarks-pipeline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T10:23:39Z"
+}
