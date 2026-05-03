@@ -4,7 +4,7 @@
   "repo": "Hegelion",
   "description": "Dialectical reasoning architecture for LLMs (Thesis \u2192 Antithesis \u2192 Synthesis)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hmbown/Hegelion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T00:46:23Z"
+  "distributed_at": "2026-05-03T16:20:31Z"
 }
