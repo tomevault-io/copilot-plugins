@@ -2,7 +2,7 @@
   "name": "AgentStack",
   "owner": "ssdeanx",
   "repo": "AgentStack",
-  "description": "",
+  "description": "AgentStack is a production-grade multi-agent framework built on Mastra, delivering 50+ enterprise tools, 25+ specialized agents, and A2A/MCP orchestration for scalable AI systems. Focuses on financial intelligence, RAG pipelines, observability, and secure governance. ACP Openclaw, Gemini CLI, Opencode ",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ssdeanx",
+  "source_url": "https://github.com/ssdeanx/AgentStack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T06:11:21Z"
+  "distributed_at": "2026-05-03T00:50:42Z"
 }
