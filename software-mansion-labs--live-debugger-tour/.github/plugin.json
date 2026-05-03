@@ -1,0 +1,9 @@
+{
+  "name": "software-mansion-labs--live-debugger-tour",
+  "displayName": "live-debugger-tour",
+  "description": "An interactive, step-by-step tutorial for LiveDebugger",
+  "version": "1.0.0",
+  "author": "software-mansion-labs",
+  "homepage": "https://github.com/software-mansion-labs/live-debugger-tour",
+  "skills": []
+}
