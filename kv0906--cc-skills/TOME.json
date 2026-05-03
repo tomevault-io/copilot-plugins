@@ -1,0 +1,69 @@
+{
+  "name": "cc-skills",
+  "owner": "kv0906",
+  "repo": "cc-skills",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ralph",
+      "path": "ralph",
+      "github_url": "https://github.com/kv0906/cc-skills/tree/main/ralph",
+      "description": ""
+    },
+    {
+      "name": "excalidraw",
+      "path": "excalidraw",
+      "github_url": "https://github.com/kv0906/cc-skills/tree/main/excalidraw",
+      "description": ""
+    },
+    {
+      "name": "advanced-frontend-skill",
+      "path": "advanced-frontend-skill",
+      "github_url": "https://github.com/kv0906/cc-skills/tree/main/advanced-frontend-skill",
+      "description": ""
+    },
+    {
+      "name": "svg-art-skill",
+      "path": "svg-art-skill",
+      "github_url": "https://github.com/kv0906/cc-skills/tree/main/svg-art-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kv0906/cc-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:53:16Z"
+}
