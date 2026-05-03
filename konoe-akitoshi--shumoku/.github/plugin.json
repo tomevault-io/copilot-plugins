@@ -1,0 +1,9 @@
+{
+  "name": "konoe-akitoshi--shumoku",
+  "displayName": "shumoku",
+  "description": "Generate network topology diagrams from YAML (diagram as code). SVG/HTML output with 900+ vendor icons. NetBox integration.",
+  "version": "1.0.0",
+  "author": "konoe-akitoshi",
+  "homepage": "https://github.com/konoe-akitoshi/shumoku",
+  "skills": []
+}
