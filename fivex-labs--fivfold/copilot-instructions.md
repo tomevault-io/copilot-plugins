@@ -1,30 +1,21 @@
-## fivfold-site
+## fivfold-skills-maintenance
 
-> FivFold docs site rules — Next.js, Tailwind v4, docs conventions
+> Mandatory skills.md maintenance when FivFold components or kits change
 
 
-# FivFold Docs Site
+# Skills Registry Maintenance
 
-When modifying the site package:
+When you add, remove, rename, or significantly change:
 
-- **Tech stack:** Next.js 14+ (App Router), React 18+, Tailwind v4, shadcn
-- **Styling:** Tailwind v4 only; use `@import "tailwindcss"`
-- **Conventions:** Follow Next.js and React best practices; reference the React best-practices skill when optimizing performance or data patterns
+- **Kits** (UI or API manifests)
+- **Skill bundles** (ui/skills/)
+- **Component structure** (new exports, new paths in templates)
 
-## SEO Requirements
+you **MUST** update [skills.md](../../skills.md) at the repo root.
 
-When adding or modifying pages in the site:
+Update the relevant table (FivFold Project Skills, Developer Project Skills, or Available Kits) and ensure the `npx @fivfold/ui skills` CLI can discover the new or changed skill.
 
-1. **New page:** Export `metadata` (or `generateMetadata`) with:
-   - `title` — unique, descriptive
-   - `description` — 120–160 chars, accurate to page content
-   - `openGraph` and `twitter` overrides when the page has distinct content
-
-2. **Client component pages:** If the page uses `"use client"`, add a `layout.tsx` in the same route segment that exports metadata. The layout wraps the client page.
-
-3. **Sitemap:** Add the new route to `site/app/sitemap.ts` with appropriate `priority` and `changeFrequency`.
-
-4. **When updating page content:** Update the page's `metadata` (title, description) to reflect the changes.
+See [AGENTS.md](../../AGENTS.md) Section 11 for the full rule.
 
 ---
 > Source: [Fivex-Labs/fivfold](https://github.com/Fivex-Labs/fivfold) — distributed by [TomeVault](https://tomevault.io).
