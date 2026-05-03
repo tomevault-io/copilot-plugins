@@ -1,0 +1,9 @@
+{
+  "name": "dstours--octoc2",
+  "displayName": "OctoC2",
+  "description": "GitHub-native Command & Control Framework. 11 covert channels. Zero infrastructure.",
+  "version": "1.0.0",
+  "author": "dstours",
+  "homepage": "https://github.com/dstours/OctoC2",
+  "skills": []
+}
