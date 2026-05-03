@@ -1,0 +1,9 @@
+{
+  "name": "regexp-lin--llm-wiki-agent",
+  "displayName": "llm-wiki-agent",
+  "description": "AI-powered wiki agent that ingests source documents, extracts knowledge, and builds a persistent, interlinked knowledge base with querying, linting, and graph visualization.",
+  "version": "1.0.0",
+  "author": "regexp-lin",
+  "homepage": "https://github.com/regexp-lin/llm-wiki-agent",
+  "skills": []
+}
