@@ -1,0 +1,9 @@
+{
+  "name": "opensearch-project--opensearch-agent-skills",
+  "displayName": "opensearch-agent-skills",
+  "description": "opensearch-agent-skills",
+  "version": "1.0.0",
+  "author": "opensearch-project",
+  "homepage": "https://github.com/opensearch-project/opensearch-agent-skills",
+  "skills": []
+}
