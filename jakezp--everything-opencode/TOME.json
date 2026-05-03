@@ -1,0 +1,63 @@
+{
+  "name": "everything-opencode",
+  "owner": "jakezp",
+  "repo": "everything-opencode",
+  "description": "AI instruction skills by jakezp",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "continuous-learning",
+      "path": "skills/continuous-learning",
+      "github_url": "https://github.com/jakezp/everything-opencode/tree/main/skills/continuous-learning",
+      "description": ""
+    },
+    {
+      "name": "frontend-ui-ux",
+      "path": "skills/frontend-ui-ux",
+      "github_url": "https://github.com/jakezp/everything-opencode/tree/main/skills/frontend-ui-ux",
+      "description": ""
+    },
+    {
+      "name": "lsp-validation",
+      "path": "skills/lsp-validation",
+      "github_url": "https://github.com/jakezp/everything-opencode/tree/main/skills/lsp-validation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jakezp/everything-opencode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:45:14Z"
+}
