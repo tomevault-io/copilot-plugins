@@ -1,0 +1,9 @@
+{
+  "name": "stone-yu--ai-draw",
+  "displayName": "ai-draw",
+  "description": "AI\u9a71\u52a8\u7684\u56fe\u8868\u521b\u4f5c\u5e73\u53f0\uff0c\u4e0eAI\u5bf9\u8bdd\uff0c\u8f7b\u677e\u4f7f\u7528Mermaid\u3001Excalidraw\u548cDraw.io\u7ed8\u56fe\uff0c\u652f\u6301docker\u79c1\u6709\u90e8\u7f72\u3001\u7ed8\u56fe\u6587\u4ef6\u5b58\u50a8\u548c\u7ba1\u7406\u3001\u672c\u5730\u548c\u4e91\u7aef\u4e24\u79cd\u4f7f\u7528\u6a21\u5f0f\u3001\u652f\u6301\u591a\u7528\u6237\u4f7f\u7528\u3002AI-driven diagram tool that lets you describe charts verbally and generates them automatically using Merma",
+  "version": "1.0.0",
+  "author": "stone-yu",
+  "homepage": "https://github.com/stone-yu/ai-draw",
+  "skills": []
+}
