@@ -1,161 +1,84 @@
-## new-tool-detection
+## post-run-analysis
 
 > >-
 
 
-# New Component Detection — Auto-Generate Tests
+# Post-Run Analysis — Auto-Diagnose and Fix
 
-When ANY new plugin component is added to the project, IMMEDIATELY write evaluation
-tests for it. Do NOT just suggest — write the YAML directly.
+When evaluation result files are created or updated, IMMEDIATELY analyze them and fix any issues found. Do NOT just report — implement fixes.
 
 ## What to Do
 
-### When a new MCP tool is created (`registerTool()` / `server.tool()`):
+1. **Read the result file** and compute:
+   - Overall pass rate
+   - Per-suite and per-evaluator pass rates
+   - Failure clustering (are multiple tests failing for the same reason?)
+   - Cost analysis (which tests are expensive?)
 
-1. **Read the tool** to understand its purpose, parameters, and required env vars
-2. **Check if tests exist** in `plugin-eval.yaml` for this tool
-3. **If no tests exist, WRITE THEM** — all 4 test types:
+2. **If pass rate < 80%**:
+   - Identify the root cause for each failing test
+   - If the test expectation is wrong (e.g., tool was renamed), fix the YAML
+   - If the evaluator threshold is too strict for the current maturity, adjust it
+   - If a tool genuinely fails, flag it as a real bug in the plugin
 
-**Unit test** — add to the registration test's `expected_tools` list:
-```yaml
-- name: new-tool-registers
-  check: registration
-  expected_tools: [new_tool_name]
-```
+3. **If regressions detected** (compared to fingerprint baseline):
+   - Identify which tests regressed and by how much
+   - Check if a recent code change caused the regression
+   - If the test expectation needs updating, update it
 
-**Integration test** — happy path with assertions:
-```yaml
-- name: new-tool-happy-path
-  tool: new_tool_name
-  difficulty: simple
-  args: {realistic args based on schema}
-  assert:
-    - field: content.0.text
-      op: exists
-```
+4. **Auto-fix these patterns**:
+   - Wrong tool name in `expected.tools` → correct it
+   - Overly strict threshold causing false failures → relax to 2 standard deviations from mean
+   - Missing evaluator causing incomplete scoring → add the evaluator
+   - Flaky test (passes sometimes, fails others) → increase `repetitions` to 3
 
-**LLM test** — natural language prompt:
-```yaml
-- name: new-tool-selection
-  difficulty: simple
-  prompt: "Natural language that should trigger this tool"
-  expected:
-    tools: [new_tool_name]
-  evaluators:
-    - tool-selection
-    - correctness
-    - mcp-protocol
-    - security
-```
+5. **After fixes, re-run** the failing suite to validate:
+   ```bash
+   npx cursor-plugin-evals run --suite FAILING_SUITE --verbose
+   ```
 
-**Negative test** — error handling:
-```yaml
-- name: new-tool-invalid-args
-  tool: new_tool_name
-  difficulty: moderate
-  args: {intentionally invalid args}
-  expect_error: true
-```
-
-### When a new Skill is created (`SKILL.md`):
-
-1. **Read the skill** — understand name, description, triggers, and what tools/commands it references
-2. **Write ALL of these tests:**
-
-**Static frontmatter test:**
-```yaml
-- name: skill-{name}-frontmatter
-  check: skill_frontmatter
-  components: [{skill-directory-name}]
-```
-
-**Skill activation test (positive — LLM layer):**
-```yaml
-- name: skill-{name}-activates
-  difficulty: simple
-  prompt: "{phrase that matches one of the skill's declared triggers}"
-  evaluators: [skill-trigger, content-quality, correctness]
-```
-
-**Skill activation test (negative — LLM layer):**
-```yaml
-- name: skill-{name}-no-false-activate
-  difficulty: moderate
-  prompt: "{related but off-topic phrase that should NOT activate this skill}"
-  evaluators: [skill-trigger, correctness]
-```
-
-**Cross-reference test:**
-```yaml
-- name: skill-{name}-cross-refs
-  check: cross_component_coherence
-  components: [{skill-directory-name}]
-```
-
-### When a new Rule is created (`.mdc`):
-
-1. **Read the rule** — understand description, alwaysApply/globs, and what it enforces
-2. **Write these tests:**
-
-**Static frontmatter test:**
-```yaml
-- name: rule-{name}-frontmatter
-  check: rule_frontmatter
-  components: [{rule-filename}]
-```
-
-**Content quality test:**
-```yaml
-- name: rule-{name}-content
-  check: rule_content_quality
-  components: [{rule-filename}]
-```
-
-### When a new Agent is created (`.md` in agents/):
-
-1. **Read the agent** — understand name, description, model, and what tools it should use
-2. **Write these tests:**
-
-**Static frontmatter test:**
-```yaml
-- name: agent-{name}-frontmatter
-  check: agent_frontmatter
-  components: [{agent-filename}]
-```
-
-**Behavior test (LLM layer):**
-```yaml
-- name: agent-{name}-behavior
-  difficulty: moderate
-  prompt: "{task that the agent is designed for}"
-  evaluators: [tool-selection, correctness, content-quality]
-```
-
-### When a new Command is created (`.md` in commands/):
-
-1. **Read the command** — understand name, description, argument-hint, and allowed-tools
-2. **Write these tests:**
-
-**Static frontmatter test:**
-```yaml
-- name: command-{name}-frontmatter
-  check: command_frontmatter
-  components: [{command-filename}]
-```
-
-**Execution test (LLM layer):**
-```yaml
-- name: command-{name}-executes
-  difficulty: simple
-  prompt: "{invocation of the command with expected arguments}"
-  evaluators: [task-completion, correctness]
-```
+6. **If content was modified** (skill scripts, SKILL.md, reference docs — not just eval YAML),
+   run a targeted content audit on the changed files before declaring done:
+   - Check blast radius: sibling copies of modified shared modules, referencing docs
+   - Classify findings by severity (CRITICAL/HIGH/MEDIUM/LOW/INFO)
+   - Fix all HIGH+ issues, re-check, repeat until no HIGH/MEDIUM remain (max 5 passes)
 
 ## When to Stay Silent
 
-- If the component already has eval tests covering all categories above
-- If the change is a minor edit to an existing component (description update, typo fix)
-- If only the body content changed but triggers/schema/frontmatter stayed the same
+- Don't re-analyze the same result file if no changes occurred
+
+## When Pass Rate is High — Calibrate Thresholds
+
+When pass rate is above 90%, **don't just say "all looks good"**. Analyze whether the
+CI thresholds are properly calibrated:
+
+1. **Compute headroom** for each CI gate:
+   - `headroom = actual_score - threshold`
+   - `headroom_pct = headroom / threshold * 100`
+
+2. **Flag over-generous thresholds**:
+   - Headroom > 20%: threshold is stale — **recommend bumping** to `actual - 5%`
+   - Headroom > 10%: threshold could be tighter — recommend review
+   - Headroom < 5%: well calibrated — leave alone
+
+3. **Identify weakest tests** dragging the average down:
+   - If suite average is 0.95 but one test scores 0.72, that test is the bottleneck
+   - Recommend fixing the weak test rather than keeping thresholds low to accommodate it
+
+4. **Check for always-perfect scores**:
+   - If a test scores 1.0 every time across 3+ runs, it may be too easy
+   - Consider increasing difficulty or adding more challenging variants
+
+5. **Report threshold calibration suggestions**:
+   ```
+   ## Threshold Calibration Suggestions
+   - score.avg: 0.80 → 0.89 (actual: 0.94, headroom was 17.5%)
+   - tool-selection.avg: 0.80 → 0.92 (actual: 0.97, headroom was 21.3%)
+   - Weakest test: esql-complex-query (0.72) — consider improving prompt
+   ```
+
+6. **Apply the suggestions autonomously** — update `plugin-eval.yaml` CI section,
+   re-run `--ci` to verify the tighter thresholds pass, then commit.
 
 ---
 > Source: [patrykkopycinski/cursor-plugin-evals](https://github.com/patrykkopycinski/cursor-plugin-evals) — distributed by [TomeVault](https://tomevault.io).
