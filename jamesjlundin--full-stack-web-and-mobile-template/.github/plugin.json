@@ -1,0 +1,54 @@
+{
+  "name": "jamesjlundin--full-stack-web-and-mobile-template",
+  "displayName": "full-stack-web-and-mobile-template",
+  "description": "Monorepo template for building full-stack web and mobile apps. Next.js 16 + React Native + Better Auth + PostgreSQL + Drizzle + AI streaming. Auth, database, email, CI/CD\u2014all wired up and ready to dep",
+  "version": "1.0.0",
+  "author": "jamesjlundin",
+  "homepage": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template",
+  "skills": [
+    {
+      "name": "api-endpoint-scaffold",
+      "description": ""
+    },
+    {
+      "name": "ci-fixer",
+      "description": ""
+    },
+    {
+      "name": "context-diet",
+      "description": ""
+    },
+    {
+      "name": "db-schema-change",
+      "description": ""
+    },
+    {
+      "name": "deploy-helper",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "description": ""
+    },
+    {
+      "name": "repo-navigator",
+      "description": ""
+    },
+    {
+      "name": "review-to-merge",
+      "description": ""
+    },
+    {
+      "name": "secrets-scanner",
+      "description": ""
+    },
+    {
+      "name": "swarm-workflow",
+      "description": ""
+    },
+    {
+      "name": "test-writer",
+      "description": ""
+    }
+  ]
+}
