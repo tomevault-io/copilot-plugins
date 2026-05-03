@@ -1,0 +1,9 @@
+{
+  "name": "spoorendonk--cptp",
+  "displayName": "cptp",
+  "description": "Branch-and-cut solver for the Capacitated Profitable Tour Problem (CPTP)",
+  "version": "1.0.0",
+  "author": "spoorendonk",
+  "homepage": "https://github.com/spoorendonk/cptp",
+  "skills": []
+}
