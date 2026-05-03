@@ -1,0 +1,9 @@
+{
+  "name": "stun7--account-research-manager",
+  "displayName": "Account_Research_Manager",
+  "description": "Paste a company URL \u2192 60-second GTM brief with buying signals, target personas, and 3 personalized cold-email openers. Built with Next.js + Apify + Ollama cloud.",
+  "version": "1.0.0",
+  "author": "stun7",
+  "homepage": "https://github.com/stun7/Account_Research_Manager",
+  "skills": []
+}
