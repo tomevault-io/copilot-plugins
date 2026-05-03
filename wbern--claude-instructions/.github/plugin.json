@@ -1,0 +1,14 @@
+{
+  "name": "wbern--claude-instructions",
+  "displayName": "claude-instructions",
+  "description": "Claude Instructions Repository",
+  "version": "1.0.0",
+  "author": "wbern",
+  "homepage": "https://github.com/wbern/claude-instructions",
+  "skills": [
+    {
+      "name": "tdd",
+      "description": ""
+    }
+  ]
+}
