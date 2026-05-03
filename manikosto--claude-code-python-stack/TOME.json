@@ -1,0 +1,69 @@
+{
+  "name": "claude-code-python-stack",
+  "owner": "manikosto",
+  "repo": "claude-code-python-stack",
+  "description": "Complete Python toolkit for Claude Code \u2014 20 skills, 11 agents, 11 commands for FastAPI, Django, SQLAlchemy, pytest, Allure, PostgreSQL, Redis, ClickHouse, Docker and more",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "django-security",
+      "path": "skills/django-security",
+      "github_url": "https://github.com/manikosto/claude-code-python-stack/tree/main/skills/django-security",
+      "description": ""
+    },
+    {
+      "name": "django-patterns",
+      "path": "skills/django-patterns",
+      "github_url": "https://github.com/manikosto/claude-code-python-stack/tree/main/skills/django-patterns",
+      "description": ""
+    },
+    {
+      "name": "django-tdd",
+      "path": "skills/django-tdd",
+      "github_url": "https://github.com/manikosto/claude-code-python-stack/tree/main/skills/django-tdd",
+      "description": ""
+    },
+    {
+      "name": "django-verification",
+      "path": "skills/django-verification",
+      "github_url": "https://github.com/manikosto/claude-code-python-stack/tree/main/skills/django-verification",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/manikosto/claude-code-python-stack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T03:31:31Z"
+}
