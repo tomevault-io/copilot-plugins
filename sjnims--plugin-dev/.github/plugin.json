@@ -1,0 +1,50 @@
+{
+  "name": "sjnims--plugin-dev",
+  "displayName": "plugin-dev",
+  "description": "Comprehensive toolkit for developing Claude Code plugins. Includes 8 expert skills covering hooks, MCP integration, commands, agents, and best practices.",
+  "version": "1.0.0",
+  "author": "sjnims",
+  "homepage": "https://github.com/sjnims/plugin-dev",
+  "skills": [
+    {
+      "name": "agent-development",
+      "description": ""
+    },
+    {
+      "name": "command-development",
+      "description": ""
+    },
+    {
+      "name": "hook-development",
+      "description": ""
+    },
+    {
+      "name": "lsp-integration",
+      "description": ""
+    },
+    {
+      "name": "marketplace-structure",
+      "description": ""
+    },
+    {
+      "name": "mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "plugin-dev-guide",
+      "description": ""
+    },
+    {
+      "name": "plugin-settings",
+      "description": ""
+    },
+    {
+      "name": "plugin-structure",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "description": ""
+    }
+  ]
+}
