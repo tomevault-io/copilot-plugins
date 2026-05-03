@@ -1,0 +1,9 @@
+{
+  "name": "dhayab--instafix-cloudflare",
+  "displayName": "instafix-cloudflare",
+  "description": "Rich OpenGraph / Twitter-Card previews for Instagram URLs, running on Cloudflare Workers.",
+  "version": "1.0.0",
+  "author": "dhayab",
+  "homepage": "https://github.com/dhayab/instafix-cloudflare",
+  "skills": []
+}
