@@ -1,0 +1,44 @@
+{
+  "name": "Portfolio-website-Lakhan-Pal",
+  "owner": "lakhanpal70",
+  "repo": "Portfolio-website-Lakhan-Pal",
+  "description": "Personal developer portfolio website of Lakhan Pal built to showcase full-stack projects, skills, and certifications.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lakhanpal70/Portfolio-website-Lakhan-Pal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T19:42:00Z"
+}
