@@ -1,0 +1,9 @@
+{
+  "name": "nicedreamzapp--narrateclaude",
+  "displayName": "NarrateClaude",
+  "description": "Hands-free on-device voice loop for macOS: Apple SFSpeechRecognizer + cloned-voice TTS, continuous listening, zero cloud. Originally built to drive claude-code-local.",
+  "version": "1.0.0",
+  "author": "nicedreamzapp",
+  "homepage": "https://github.com/nicedreamzapp/NarrateClaude",
+  "skills": []
+}
