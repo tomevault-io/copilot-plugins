@@ -4,7 +4,7 @@
   "repo": "bdui",
   "description": "Real-time Text User Interface for bd (beads) issue tracker with Kanban, Tree, Graph views, and notifications",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/assimelha/bdui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T23:01:05Z"
+  "distributed_at": "2026-05-03T14:08:15Z"
 }
