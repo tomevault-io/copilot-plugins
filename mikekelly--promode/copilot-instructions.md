@@ -1,0 +1,46 @@
+## promode
+
+> > Keep this file under 50 lines. This is a plugin repository - see plugins/promode/ for the actual plugin.
+
+> Keep this file under 50 lines. This is a plugin repository - see plugins/promode/ for the actual plugin.
+
+## What is Promode?
+
+Promode is a Claude Code plugin that enhances how Claude builds software. It provides:
+
+- **Skills** — Domain knowledge that loads just-in-time (managing CLAUDE.md files, installing skills)
+- **Agents** — Phase-specific subagents for planning, research, implementation, review, and debugging
+
+The core philosophy: TDD is non-negotiable, tests are the documentation, context is precious, and agents should delegate aggressively to conserve it.
+
+### Phase Agents
+
+Claude Code subagents do NOT inherit CLAUDE.md from the main conversation. This creates a problem: subagents spawned via the Task tool don't know project conventions, TDD practices, or behavioural-authority rules.
+
+**Solution**: Phase-specific agents in `plugins/promode/agents/` each have promode methodology baked in:
+
+| Agent | Purpose | Model |
+|-------|---------|-------|
+| `promode:implementer` | TDD workflow, write code | sonnet |
+| `promode:reviewer` | Code review, approve or request rework | sonnet/opus |
+| `promode:debugger` | Root cause analysis, reproduce with test, report findings (does NOT fix unless asked) | sonnet/opus |
+| `promode:tester` | Run tests, return AI-optimized results, critique quality | sonnet |
+| `promode:qa-expert` | Blackbox QA from outside-in, creates testing tools, flags slow tests | sonnet |
+| `promode:environment-manager` | Docker, services, health checks, env scripts | sonnet |
+| `promode:online-researcher` | Web search, date-aware research for fast-moving topics | sonnet |
+| `promode:product-design-expert` | Product decisions: UX, psychology, behavioural economics, growth. Maintains docs/product/ | sonnet |
+| `promode:agent-analyzer` | Analyze agent output files, answer questions about what agents did | sonnet |
+
+**Note**: Brainstorming, planning, plan reviews, and architectural decisions are done by the main agent (Opus 4.6) — never delegated to subagents. Use built-in `Explore` agents for codebase research.
+
+### Keeping Agents in Sync
+
+All phase agents share the same **principles and conventions** but have **phase-specific workflows**:
+- `plugins/promode/skills/managing-claude-code-meta/standard/MAIN_AGENT_CLAUDE.md` — main agent (orchestrates, converses with user)
+- `plugins/promode/agents/*.md` — phase agents (execute specific tasks, report back)
+
+When updating shared content (principles, TDD rules, behavioural-authority), update the main agent file and relevant phase agents.
+
+---
+> Source: [mikekelly/promode](https://github.com/mikekelly/promode) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
