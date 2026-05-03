@@ -1,0 +1,22 @@
+{
+  "name": "hyperb1iss--sibyl",
+  "displayName": "sibyl",
+  "description": "Collective intelligence runtime for AI agents. Knowledge graph + persistent memory.",
+  "version": "1.0.0",
+  "author": "hyperb1iss",
+  "homepage": "https://github.com/hyperb1iss/sibyl",
+  "skills": [
+    {
+      "name": "agent-orchestrate",
+      "description": ""
+    },
+    {
+      "name": "sandbox-init",
+      "description": ""
+    },
+    {
+      "name": "sibyl",
+      "description": ""
+    }
+  ]
+}
