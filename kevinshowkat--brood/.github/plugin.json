@@ -1,0 +1,9 @@
+{
+  "name": "kevinshowkat--brood",
+  "displayName": "brood",
+  "description": "Reference-first AI image editing desktop for developers (macOS, Tauri, Rust).",
+  "version": "1.0.0",
+  "author": "kevinshowkat",
+  "homepage": "https://github.com/kevinshowkat/brood",
+  "skills": []
+}
