@@ -1,90 +1,52 @@
-## auth9
+## project-overview
 
-> - `auth9-core/`: Rust backend (axum + tonic). Key code lives in `auth9-core/src/` with `api/`, `grpc/`, `service/`, `repository/`, `domain/`, `jwt/`, `cache/`, and `config/`.
+> Auth9 project overview - identity & access management service
 
-# Repository Guidelines
 
-## Project Structure & Module Organization
-- `auth9-core/`: Rust backend (axum + tonic). Key code lives in `auth9-core/src/` with `api/`, `grpc/`, `service/`, `repository/`, `domain/`, `jwt/`, `cache/`, and `config/`.
-- `auth9-portal/`: React Router 7 + TypeScript + Vite admin UI.
-- `docs/`: Architecture and design references.
-- `deploy/` and `docker-compose*.yml`: Deployment and local infra.
-- `scripts/`: Utility scripts for dev and ops.
+# Auth9 Project Overview
 
-## Skills
+Auth9 is a self-hosted identity and access management service designed to replace Auth0.
 
-Project skills are in `.agents/skills/`. Read the relevant skill file before executing related tasks:
-- `.agents/skills/ops/SKILL.md` - Running tests, Docker/K8s logs, troubleshooting
-- `.agents/skills/test-coverage/SKILL.md` - Coverage analysis, writing tests with mocks
-- `.agents/skills/reset-local-env/SKILL.md` - Resetting local development environment
-- `.agents/skills/qs-testing/SKILL.md` - QA testing, manual testing, verify feature functionality, or test specific modules.
-- `.agents/skills/auth9-grpc-regression/SKILL.md` - gRPC regression testing
+## Architecture
 
-## Build, Test, and Development Commands
-Backend:
-- `cd auth9-core && cargo build` — build backend.
-- `cd auth9-core && cargo test` — run all Rust tests (fast, no external deps).
-- `cd auth9-core && cargo clippy` — lint.
-- `cd auth9-core && cargo fmt` — format.
+| Component | Tech Stack | Purpose |
+|-----------|------------|---------|
+| **auth9-core** | Rust (axum, tonic, sqlx) | Backend API & gRPC services |
+| **auth9-portal** | Remix + TypeScript + Vite | Admin dashboard UI |
+| **Database** | TiDB (MySQL compatible) | Tenant, user, RBAC, credentials, OIDC state |
+| **Cache** | Redis | Session, token caching |
 
-Frontend:
-- `cd auth9-portal && npm install`
-- `cd auth9-portal && npm run dev` — dev server.
-- `cd auth9-portal && npm run build` — production build.
-- `cd auth9-portal && npm run test` — unit tests (Vitest).
-- `cd auth9-portal && npm run lint` — ESLint.
-- `cd auth9-portal && npm run typecheck` — TypeScript check.
+## Core Concepts
 
-Local infra:
-- `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d` — TiDB, Redis.
+- **Built-in OIDC**: auth9-core natively serves OIDC/OAuth 2.1 endpoints (`domains/identity/api/auth/`) and owns the credential / pending-action / verification stores (`identity_engine/`)
+- **Token Exchange**: Identity Token → Tenant Access Token with roles/permissions
+- **Multi-tenant**: Isolated tenants with custom settings and RBAC
 
-## Coding Style & Naming Conventions
-- Rust: `cargo fmt` for formatting, `cargo clippy` for linting.
-- TypeScript: ESLint (flat config) via `npm run lint`.
-- Tests: prefer clear, explicit names; keep handlers thin (API/gRPC), push logic into `service/`.
+## Key Directories
 
-## Testing Guidelines
-- No external dependencies for Rust tests: no Docker, no real DB/Redis.
-- Use `mockall` for repository traits and `wiremock` for HTTP mocking.
-Rust test locations:
-- Service tests: `auth9-core/src/service/*.rs` with `#[cfg(test)]`.
-- HTTP handler tests: `auth9-core/tests/api/http/*_http_test.rs`.
-- gRPC tests: `auth9-core/tests/grpc_*.rs`.
-- Frontend tests use `happy-dom` (required for React Router 7).
-- E2E: `npm run test:e2e` (frontend-only) and `npm run test:e2e:full` (full stack).
+```
+auth9-core/src/
+├── api/          # REST API handlers (axum)
+├── grpc/         # gRPC services (tonic)
+├── domain/       # Domain models
+├── repository/   # Data access layer (sqlx)
+├── service/      # Business logic
+├── identity_engine/ # Identity backend abstraction
+├── jwt/          # JWT signing & validation
+└── cache/        # Redis caching
 
-## Commit & Pull Request Guidelines
-- Recent commit history uses short, descriptive messages (often in Chinese) without strict prefixes. Keep it concise and action-focused.
-- PRs should include a clear summary and rationale, linked issues or context when available, and screenshots or recordings for UI changes.
+auth9-portal/app/
+├── routes/       # Remix file-system routes
+├── components/   # UI components
+├── services/     # API client layer
+└── lib/          # Utilities
+```
 
-## Security & Configuration Notes
-- `auth9-core` requires `DATABASE_URL` and `JWT_SECRET`. Use `.env.example` files as starting points.
-- OIDC/MFA is handled inside auth9-core (under `domains/identity/api/auth/` for the protocol endpoints and `identity_engine/` for the credential/session store); no external identity provider is required.
+## Performance Requirements
 
-## Authorization Model (Policy-First)
-- Central authorization lives in `auth9-core/src/policy/mod.rs`.
-- Use:
-  - `enforce(config, auth, input)` for stateless checks
-  - `enforce_with_state(state, auth, input)` for DB-aware checks
-- `PolicyInput` = `PolicyAction` + `ResourceScope`.
-- Tenant list visibility is resolved through `resolve_tenant_list_mode_with_state(...)`.
-
-### Mandatory Development Rules
-- New HTTP endpoints must define and use a `PolicyAction` before entering business logic.
-- Do not add handler-level `TokenType` branching for authorization decisions.
-- If a new permission rule is introduced, add/extend `PolicyAction` and update Policy tests.
-- Keep handler code focused on parsing/validation/response; authorization belongs to Policy.
-- New/changed HTTP endpoints must keep OpenAPI in sync:
-  - Add `#[utoipa::path(...)]` on handler functions.
-  - Register handlers in `auth9-core/src/openapi.rs` `paths(...)`.
-  - Ensure new request/response DTOs are `ToSchema` and registered in `components.schemas(...)` when needed.
-  - Validate with `cd auth9-core && cargo test openapi_spec -- --nocapture`.
-  - Manual check in non-production env: `/swagger-ui`, `/redoc`, `/api-docs/openapi.json`.
-
-### Test Expectations
-- Authorization changes must be covered by:
-  - Policy unit tests (action + scope + token combinations)
-  - HTTP regression tests for allow/deny paths
+- Token Exchange latency: < 20ms (use Redis cache)
+- Auth QPS: > 1000 requests/second
+- Availability: 99.9%
 
 ---
 > Source: [c9r-io/auth9](https://github.com/c9r-io/auth9) — distributed by [TomeVault](https://tomevault.io).
