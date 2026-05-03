@@ -1,0 +1,165 @@
+{
+  "name": "ai",
+  "owner": "sergio-bershadsky",
+  "repo": "ai",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "django-dev-ninja",
+      "path": "plugins/django-dev/skills/django-dev-ninja",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/django-dev/skills/django-dev-ninja",
+      "description": ""
+    },
+    {
+      "name": "django-dev-unfold",
+      "path": "plugins/django-dev/skills/django-dev-unfold",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/django-dev/skills/django-dev-unfold",
+      "description": ""
+    },
+    {
+      "name": "django-dev",
+      "path": "plugins/django-dev/skills/django-dev",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/django-dev/skills/django-dev",
+      "description": ""
+    },
+    {
+      "name": "django-dev-test",
+      "path": "plugins/django-dev/skills/django-dev-test",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/django-dev/skills/django-dev-test",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": "plugins/git/skills/commit",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/git/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "frappe-api",
+      "path": "plugins/frappe-dev/skills/frappe-api",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/frappe-dev/skills/frappe-api",
+      "description": ""
+    },
+    {
+      "name": "frappe-app",
+      "path": "plugins/frappe-dev/skills/frappe-app",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/frappe-dev/skills/frappe-app",
+      "description": ""
+    },
+    {
+      "name": "frappe-doctype",
+      "path": "plugins/frappe-dev/skills/frappe-doctype",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/frappe-dev/skills/frappe-doctype",
+      "description": ""
+    },
+    {
+      "name": "frappe-service",
+      "path": "plugins/frappe-dev/skills/frappe-service",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/frappe-dev/skills/frappe-service",
+      "description": ""
+    },
+    {
+      "name": "frappe-test",
+      "path": "plugins/frappe-dev/skills/frappe-test",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/frappe-dev/skills/frappe-test",
+      "description": ""
+    },
+    {
+      "name": "replit-plan",
+      "path": "plugins/replit-prompts/skills/replit-plan",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/replit-prompts/skills/replit-plan",
+      "description": ""
+    },
+    {
+      "name": "replit-prd",
+      "path": "plugins/replit-prompts/skills/replit-prd",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/replit-prompts/skills/replit-prd",
+      "description": ""
+    },
+    {
+      "name": "replit-prompt",
+      "path": "plugins/replit-prompts/skills/replit-prompt",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/replit-prompts/skills/replit-prompt",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-adr",
+      "path": "plugins/secondbrain/skills/secondbrain-adr",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/secondbrain/skills/secondbrain-adr",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-discussion",
+      "path": "plugins/secondbrain/skills/secondbrain-discussion",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/secondbrain/skills/secondbrain-discussion",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-freshness",
+      "path": "plugins/secondbrain/skills/secondbrain-freshness",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/secondbrain/skills/secondbrain-freshness",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-init",
+      "path": "plugins/secondbrain/skills/secondbrain-init",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/secondbrain/skills/secondbrain-init",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-note",
+      "path": "plugins/secondbrain/skills/secondbrain-note",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/secondbrain/skills/secondbrain-note",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-search",
+      "path": "plugins/secondbrain/skills/secondbrain-search",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/secondbrain/skills/secondbrain-search",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-task",
+      "path": "plugins/secondbrain/skills/secondbrain-task",
+      "github_url": "https://github.com/sergio-bershadsky/ai/tree/main/plugins/secondbrain/skills/secondbrain-task",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sergio-bershadsky/ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:47:52Z"
+}
