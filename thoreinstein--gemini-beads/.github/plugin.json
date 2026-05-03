@@ -1,0 +1,14 @@
+{
+  "name": "thoreinstein--gemini-beads",
+  "displayName": "gemini-beads",
+  "description": "A Gemini CLI extension for Beads (bd). Adds graph-based task management, dependency tracking, and context persistence to AI workflows.",
+  "version": "1.0.0",
+  "author": "thoreinstein",
+  "homepage": "https://github.com/thoreinstein/gemini-beads",
+  "skills": [
+    {
+      "name": "beads",
+      "description": ""
+    }
+  ]
+}
