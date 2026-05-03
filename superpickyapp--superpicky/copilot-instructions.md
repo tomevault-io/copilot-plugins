@@ -1,21 +1,30 @@
-## superpicky
+## superpicky-core-rules
 
-> Follow project rules in:
+> SuperPicky project guardrails (encoding, cross-platform, packaging, exiftool)
 
-# Cursor legacy rules file
 
-Follow project rules in:
+# SuperPicky Cursor Rules
 
-- `scripts_dev/AI_CODING_RULES.md`
-- `.cursor/rules/superpicky-core-rules.mdc`
+Follow `scripts_dev/AI_CODING_RULES.md`.
 
-Key constraints:
+## Non-negotiable
 
-- UTF-8 safety, avoid Chinese mojibake.
-- ExifTool non-ASCII metadata via UTF-8 temp-file redirection.
-- Cross-platform Windows/macOS compatibility.
-- Packaged CUDA issues: diagnose packaging/runtime first.
-- Keep Windows Torch/CUDA packaging with UPX disabled unless re-validated.
+- Use UTF-8 and avoid Chinese mojibake.
+- For ExifTool non-ASCII metadata writes, use UTF-8 temp-file redirect (`-Tag<=file`) instead of inline command value.
+- Preserve Windows + macOS compatibility in file paths and subprocess usage.
+- In threaded SQLite code, do not rely on `check_same_thread=False` alone; serialize shared-connection access or use per-thread connections.
+- Never bypass DB wrappers with direct private connection calls from business logic (e.g., `report_db._conn.*`).
+- Keep transaction handling synchronized and defensive (avoid mixed unsynchronized transaction styles; commit only when valid).
+- Ensure persistent processes are closed cleanly and idempotently.
+- For packaged-only CUDA errors, diagnose packaging/runtime first.
+- Keep Torch/CUDA Windows packaging with UPX disabled unless explicitly validated.
+
+## Validation
+
+- Run `py -3 -m py_compile` for changed Python files.
+- Validate metadata write/read-back when touching EXIF logic.
+- Run packaged-app smoke test when changing `.spec` or packaging logic.
+- Run a quick multi-thread DB stress check when changing DB/threading logic to catch transaction-state regressions.
 
 ---
 > Source: [superpickyapp/Superpicky](https://github.com/superpickyapp/Superpicky) — distributed by [TomeVault](https://tomevault.io).
