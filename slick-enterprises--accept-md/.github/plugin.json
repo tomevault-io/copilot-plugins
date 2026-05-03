@@ -1,0 +1,9 @@
+{
+  "name": "slick-enterprises--accept-md",
+  "displayName": "accept-md",
+  "description": "Serve clean Markdown representations of any SvelteKit or Next.js page when clients request Accept: text/markdown",
+  "version": "1.0.0",
+  "author": "slick-enterprises",
+  "homepage": "https://github.com/slick-enterprises/accept-md",
+  "skills": []
+}
