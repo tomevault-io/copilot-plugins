@@ -1,0 +1,159 @@
+{
+  "name": "ai-engineering-harness",
+  "owner": "adrielp",
+  "repo": "ai-engineering-harness",
+  "description": "Provides a harness for various different AI agent for harness context engineering",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "commit",
+      "path": "gemini/skills/commit",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": "claude/skills/commit",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/claude/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "create_plan",
+      "path": "gemini/skills/create_plan",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/create_plan",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "path": "claude/skills/debug",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/claude/skills/debug",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "path": "gemini/skills/debug",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/debug",
+      "description": ""
+    },
+    {
+      "name": "debug-k8s",
+      "path": "gemini/skills/debug-k8s",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/debug-k8s",
+      "description": ""
+    },
+    {
+      "name": "experimental_pr_workflow",
+      "path": "gemini/skills/experimental_pr_workflow",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/experimental_pr_workflow",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "path": "opencode/skills/git-commit-helper",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/opencode/skills/git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "path": "claude/skills/git-commit-helper",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/claude/skills/git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "git_commit_helper",
+      "path": "gemini/skills/git_commit_helper",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/git_commit_helper",
+      "description": ""
+    },
+    {
+      "name": "implement_plan",
+      "path": "claude/skills/implement_plan",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/claude/skills/implement_plan",
+      "description": ""
+    },
+    {
+      "name": "implement_plan",
+      "path": "gemini/skills/implement_plan",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/implement_plan",
+      "description": ""
+    },
+    {
+      "name": "init_harness",
+      "path": "gemini/skills/init_harness",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/init_harness",
+      "description": ""
+    },
+    {
+      "name": "init_harness",
+      "path": "claude/skills/init_harness",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/claude/skills/init_harness",
+      "description": ""
+    },
+    {
+      "name": "init_harness",
+      "path": "opencode/skills/init_harness",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/opencode/skills/init_harness",
+      "description": ""
+    },
+    {
+      "name": "pr_description_generator",
+      "path": "gemini/skills/pr_description_generator",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/pr_description_generator",
+      "description": ""
+    },
+    {
+      "name": "research_codebase",
+      "path": "claude/skills/research_codebase",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/claude/skills/research_codebase",
+      "description": ""
+    },
+    {
+      "name": "research_codebase",
+      "path": "gemini/skills/research_codebase",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/research_codebase",
+      "description": ""
+    },
+    {
+      "name": "validate_plan",
+      "path": "gemini/skills/validate_plan",
+      "github_url": "https://github.com/adrielp/ai-engineering-harness/tree/main/gemini/skills/validate_plan",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adrielp/ai-engineering-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T15:38:52Z"
+}
