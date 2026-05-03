@@ -4,7 +4,7 @@
   "repo": "rlmgw",
   "description": "Recursive Language Models Gateway build using rlm https://arxiv.org/abs/2512.24601v1 ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mitkox/rlmgw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T14:08:49Z"
+  "distributed_at": "2026-05-03T01:47:10Z"
 }
