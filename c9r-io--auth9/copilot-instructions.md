@@ -1,52 +1,99 @@
-## project-overview
+## remix-conventions
 
-> Auth9 project overview - identity & access management service
+> Remix/TypeScript conventions for auth9-portal
 
 
-# Auth9 Project Overview
+# Remix Conventions (auth9-portal)
 
-Auth9 is a self-hosted identity and access management service designed to replace Auth0.
+## Tech Stack
 
-## Architecture
+- **Framework**: Remix + Vite
+- **UI**: Radix UI + Tailwind CSS
+- **Validation**: Zod + Conform
+- **Testing**: Vitest (unit), Playwright (E2E)
+- **State**: Remix loader/action (server-first)
 
-| Component | Tech Stack | Purpose |
-|-----------|------------|---------|
-| **auth9-core** | Rust (axum, tonic, sqlx) | Backend API & gRPC services |
-| **auth9-portal** | Remix + TypeScript + Vite | Admin dashboard UI |
-| **Database** | TiDB (MySQL compatible) | Tenant, user, RBAC, credentials, OIDC state |
-| **Cache** | Redis | Session, token caching |
+## Apple-Style UI Design
 
-## Core Concepts
+```tsx
+// Design principles:
+// - Minimalism: generous whitespace, clean lines
+// - Glassmorphism: backdrop-filter: blur(), semi-transparent bg
+// - Large radius: rounded-2xl for cards, rounded-xl for buttons
+// - Subtle animations: hover/focus transitions (200-300ms)
+// - System fonts: font-sans (Inter/SF Pro Display)
+// - Restrained colors: neutral grays + single accent color
 
-- **Built-in OIDC**: auth9-core natively serves OIDC/OAuth 2.1 endpoints (`domains/identity/api/auth/`) and owns the credential / pending-action / verification stores (`identity_engine/`)
-- **Token Exchange**: Identity Token → Tenant Access Token with roles/permissions
-- **Multi-tenant**: Isolated tenants with custom settings and RBAC
-
-## Key Directories
-
-```
-auth9-core/src/
-├── api/          # REST API handlers (axum)
-├── grpc/         # gRPC services (tonic)
-├── domain/       # Domain models
-├── repository/   # Data access layer (sqlx)
-├── service/      # Business logic
-├── identity_engine/ # Identity backend abstraction
-├── jwt/          # JWT signing & validation
-└── cache/        # Redis caching
-
-auth9-portal/app/
-├── routes/       # Remix file-system routes
-├── components/   # UI components
-├── services/     # API client layer
-└── lib/          # Utilities
+// ✅ Example card
+<div className="rounded-2xl bg-white/80 backdrop-blur-xl 
+               shadow-sm border border-gray-100 p-6">
+  ...
+</div>
 ```
 
-## Performance Requirements
+## Route Structure
 
-- Token Exchange latency: < 20ms (use Redis cache)
-- Auth QPS: > 1000 requests/second
-- Availability: 99.9%
+```
+app/routes/
+├── _index.tsx          # Landing page
+├── login.tsx           # Login page
+├── dashboard.tsx       # Dashboard layout
+├── dashboard._index.tsx # Dashboard home
+├── tenants._index.tsx  # Tenant list
+└── tenants.$id.tsx     # Tenant detail
+```
+
+## Data Loading Pattern
+
+```tsx
+// ✅ Use loader for data fetching
+export async function loader({ request }: LoaderFunctionArgs) {
+  const tenants = await api.getTenants();
+  return json({ tenants });
+}
+
+// ✅ Use action for mutations
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const result = await api.createTenant(formData);
+  return redirect(`/tenants/${result.id}`);
+}
+```
+
+## Component Guidelines
+
+```tsx
+// ✅ Functional components only
+export function TenantCard({ tenant }: { tenant: Tenant }) {
+  return (
+    <Card className="hover:shadow-md transition-shadow duration-200">
+      <CardHeader>
+        <h3 className="text-lg font-semibold">{tenant.name}</h3>
+      </CardHeader>
+    </Card>
+  );
+}
+
+// ✅ Extract hooks for reusable logic
+function useTenantForm() {
+  const [isPending, startTransition] = useTransition();
+  // ...
+}
+```
+
+## API Service Layer
+
+```typescript
+// app/services/api.ts
+// Centralize API calls with proper typing
+export const api = {
+  async getTenants(): Promise<Tenant[]> {
+    const res = await fetch(`${API_URL}/api/v1/tenants`);
+    if (!res.ok) throw new Error('Failed to fetch tenants');
+    return res.json();
+  },
+};
+```
 
 ---
 > Source: [c9r-io/auth9](https://github.com/c9r-io/auth9) — distributed by [TomeVault](https://tomevault.io).
