@@ -1,37 +1,40 @@
-## veil
+## veil-project
 
-> - `bun run check` - Lint + format check
+> Veil GNOME Shell extension — structure, quality checks, and GNOME patterns
 
-# Veil - GNOME Shell Extension
 
-## Code Quality (run after every change)
-- `bun run check` - Lint + format check
-- `bun run check:types` - TypeScript type checking only
+# Veil (GNOME Shell extension)
 
-Do NOT run build commands - testing is done manually.
+## After code changes
 
-## Project Structure
-- `src/extension.ts` - Main entry point
-- `src/core/` - StateManager, PanelManager, AnimationManager
-- `src/components/indicator.ts` - Panel toggle button
-- `src/prefs/` - Preferences pages (GeneralPage, ItemsPage, AboutPage)
-- `src/schemas/` - GSettings schema (org.gnome.shell.extensions.veil.gschema.xml)
+- Run `bun run check` (lint + format).
+- Run `bun run check:types` for TypeScript only.
+- Do **not** run build commands; validation is manual in a VM.
 
-## VM Development
-- SSH tunnel required: `ssh -f -N -R 2222:localhost:22 user@host`
-- Setup with port: `bun setup -- -p 2222 jdev@localhost`
-- Generated script: `~/dev-veil.sh` mounts host directory
+## Layout
 
-## Key Patterns
-- GSettings keys defined in `src/schemas/org.gnome.shell.extensions.veil.gschema.xml`
-- UI built with Adwaita (libadwaita) via `.ui` templates in `src/ui/`
-- Panel manipulation via `MainPanel._rightBox` ( GNOME internals)
-- Animation uses Clutter transitions (slide + fade)
+- Entry: `src/extension.ts`
+- Core: `src/core/` — StateManager, PanelManager, AnimationManager
+- Indicator: `src/components/indicator.ts`
+- Prefs: `src/prefs/` — GeneralPage, ItemsPage, AboutPage
+- Schema: `src/schemas/org.gnome.shell.extensions.veil.gschema.xml`
 
-## Important Notes
-- No automated tests - manual testing in VM required
-- Build artifacts go to `build/` (gitignored)
-- `dist/` is also gitignored (compiled JS)
+## Patterns
+
+- GSettings keys: define in the gschema XML; keep keys and prefs UI in sync.
+- Preferences UI: Adwaita (libadwaita) via `.ui` in `src/ui/`.
+- Panel: manipulation via `MainPanel._rightBox` (GNOME Shell internals).
+- Animation: Clutter transitions (slide + fade).
+
+## VM development
+
+- SSH reverse tunnel example: `ssh -f -N -R 2222:localhost:22 user@host`
+- Setup: `bun setup -- -p 2222 jdev@localhost` — generated `~/dev-veil.sh` mounts the host tree.
+
+## Constraints
+
+- No automated tests — exercise changes manually in the VM.
+- `build/` and `dist/` are gitignored; do not treat them as source of truth.
 
 ---
 > Source: [dagimg-dot/veil](https://github.com/dagimg-dot/veil) — distributed by [TomeVault](https://tomevault.io).
