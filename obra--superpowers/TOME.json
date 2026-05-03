@@ -2,9 +2,9 @@
   "name": "superpowers",
   "owner": "obra",
   "repo": "superpowers",
-  "description": "AI instruction files for superpowers by obra",
+  "description": "An agentic skills framework & software development methodology that works.",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -109,9 +109,69 @@
       "path": "skills/writing-skills",
       "github_url": "https://github.com/obra/superpowers/tree/main/skills/writing-skills",
       "description": ""
+    },
+    {
+      "name": "executing-plans",
+      "path": "skills/executing-plans",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/executing-plans",
+      "description": ""
+    },
+    {
+      "name": "verification-before-completion",
+      "path": "skills/verification-before-completion",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/verification-before-completion",
+      "description": ""
+    },
+    {
+      "name": "finding-duplicate-functions",
+      "path": "skills/finding-duplicate-functions",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/finding-duplicate-functions",
+      "description": ""
+    },
+    {
+      "name": "mcp-cli",
+      "path": "skills/mcp-cli",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/mcp-cli",
+      "description": ""
+    },
+    {
+      "name": "slack-messaging",
+      "path": "skills/slack-messaging",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/slack-messaging",
+      "description": ""
+    },
+    {
+      "name": "using-tmux-for-interactive-commands",
+      "path": "skills/using-tmux-for-interactive-commands",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/using-tmux-for-interactive-commands",
+      "description": ""
+    },
+    {
+      "name": "browsing",
+      "path": "skills/browsing",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/browsing",
+      "description": ""
+    },
+    {
+      "name": "developing-claude-code-plugins",
+      "path": "skills/developing-claude-code-plugins",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/developing-claude-code-plugins",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "path": "examples/full-featured-plugin/skills/workflow",
+      "github_url": "https://github.com/obra/superpowers/tree/main/examples/full-featured-plugin/skills/workflow",
+      "description": ""
+    },
+    {
+      "name": "working-with-claude-code",
+      "path": "skills/working-with-claude-code",
+      "github_url": "https://github.com/obra/superpowers/tree/main/skills/working-with-claude-code",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/obra",
+  "source_url": "https://github.com/obra/superpowers",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T15:13:21Z"
+  "distributed_at": "2026-05-03T15:35:39Z"
 }
