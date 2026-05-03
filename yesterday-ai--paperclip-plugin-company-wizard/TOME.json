@@ -1,0 +1,44 @@
+{
+  "name": "paperclip-plugin-company-wizard",
+  "owner": "Yesterday-AI",
+  "repo": "paperclip-plugin-company-wizard",
+  "description": "Bootstrap AI agent companies from modular templates. ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Yesterday-AI/paperclip-plugin-company-wizard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T19:52:14Z"
+}
