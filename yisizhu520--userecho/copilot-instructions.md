@@ -1,260 +1,383 @@
-## 04-git-and-api
+## 05-security-performance
 
-> Git 提交规范和 RESTful API 设计指南
+> 安全规范和性能优化最佳实践
 
 
-# Git 提交规范
+# 安全与性能规范
 
-## Conventional Commits
+## 安全规范
 
-### 提交格式
+### 前端安全
 
-```
-<type>(<scope>): <subject>
+1. **数据存储安全**:
+   ```typescript
+   // ✅ 敏感信息使用 sessionStorage 或内存
+   import { useAccessToken } from '@vben/access';
+   
+   // 使用状态管理，不直接存储在 localStorage
+   const tokenStore = useAccessToken();
+   
+   // ❌ 避免
+   localStorage.setItem('token', token);  // 不安全
+   localStorage.setItem('password', pwd); // 绝对不要存密码
+   ```
 
-<body>
+2. **XSS 防护**:
+   ```vue
+   <template>
+     <!-- ✅ Vue 自动转义，安全 -->
+     <div>{{ userInput }}</div>
+     
+     <!-- ❌ 危险！避免使用 v-html -->
+     <div v-html="userInput"></div>
+     
+     <!-- ✅ 如果必须使用，先消毒 -->
+     <div v-html="sanitizedHtml"></div>
+   </template>
+   
+   <script setup lang="ts">
+   import DOMPurify from 'dompurify';
+   
+   const sanitizedHtml = computed(() => 
+     DOMPurify.sanitize(userInput.value)
+   );
+   </script>
+   ```
 
-<footer>
-```
+3. **CSRF 防护**:
+   ```typescript
+   // ✅ 在请求中添加 CSRF token
+   import axios from 'axios';
+   
+   axios.interceptors.request.use(config => {
+     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+     if (csrfToken) {
+       config.headers['X-CSRF-Token'] = csrfToken;
+     }
+     return config;
+   });
+   ```
 
-### Type 类型
+4. **路由守卫**:
+   ```typescript
+   // ✅ 验证权限
+   import { useAccessStore } from '@vben/access';
+   
+   router.beforeEach(async (to, from, next) => {
+     const accessStore = useAccessStore();
+     
+     // 检查登录状态
+     if (to.meta.requiresAuth && !accessStore.isLoggedIn) {
+       next('/login');
+       return;
+     }
+     
+     // 检查权限
+     if (to.meta.permission && !accessStore.hasPermission(to.meta.permission)) {
+       next('/403');
+       return;
+     }
+     
+     next();
+   });
+   ```
 
-| Type | 说明 | 示例 |
-|------|------|------|
-| `feat` | 新功能 | `feat(auth): 添加 OAuth2 登录` |
-| `fix` | 修复 bug | `fix(user): 修复用户头像上传失败问题` |
-| `docs` | 文档更新 | `docs(readme): 更新安装说明` |
-| `style` | 代码格式调整 | `style: 统一代码缩进为 2 空格` |
-| `refactor` | 重构 | `refactor(api): 重构用户认证逻辑` |
-| `perf` | 性能优化 | `perf(query): 优化用户列表查询性能` |
-| `test` | 测试相关 | `test(user): 添加用户注册单元测试` |
-| `chore` | 构建/工具链 | `chore(deps): 升级 Vue 到 3.4.0` |
-| `ci` | CI 配置 | `ci: 添加自动部署脚本` |
-| `revert` | 回滚 | `revert: 回滚 commit abc123` |
+### 后端安全
 
-### 提交示例
+1. **密码安全**:
+   ```python
+   from pwdlib import PasswordHash
+   
+   pwd_context = PasswordHash.recommended()
+   
+   # ✅ 密码加密
+   def hash_password(password: str) -> str:
+       return pwd_context.hash(password)
+   
+   # ✅ 密码验证
+   def verify_password(plain_password: str, hashed_password: str) -> bool:
+       return pwd_context.verify(plain_password, hashed_password)
+   
+   # ❌ 绝对不要明文存储密码
+   # user.password = plain_password  # 危险！
+   ```
 
-```bash
-# ✅ 好的提交
-feat(auth): 添加 JWT 刷新令牌功能
+2. **JWT 安全**:
+   ```python
+   from datetime import datetime, timedelta
+   from jose import jwt
+   
+   # ✅ 设置合理的过期时间
+   def create_access_token(data: dict) -> str:
+       to_encode = data.copy()
+       expire = datetime.utcnow() + timedelta(minutes=30)  # 短期 token
+       to_encode.update({'exp': expire})
+       return jwt.encode(to_encode, SECRET_KEY, algorithm='HS256')
+   
+   def create_refresh_token(data: dict) -> str:
+       to_encode = data.copy()
+       expire = datetime.utcnow() + timedelta(days=7)  # 长期 refresh token
+       to_encode.update({'exp': expire})
+       return jwt.encode(to_encode, SECRET_KEY, algorithm='HS256')
+   ```
 
-- 实现 refresh token 机制
-- 添加 token 过期时间配置
-- 更新相关文档
-- 添加单元测试
+3. **SQL 注入防护**:
+   ```python
+   from sqlalchemy import select
+   
+   # ✅ 使用 ORM 参数化查询
+   async def get_user_by_email(db: AsyncSession, email: str) -> User | None:
+       result = await db.execute(
+           select(User).where(User.email == email)  # 自动转义
+       )
+       return result.scalar_one_or_none()
+   
+   # ❌ 避免字符串拼接
+   # query = f"SELECT * FROM users WHERE email = '{email}'"  # 危险！
+   ```
 
-Closes #123
+4. **限流保护**:
+   ```python
+   from fastapi import APIRouter
+   from fastapi_limiter.depends import RateLimiter
+   
+   router = APIRouter()
+   
+   # ✅ 添加限流
+   @router.post('/login', dependencies=[Depends(RateLimiter(times=5, minutes=1))])
+   async def login(credentials: LoginSchema):
+       """登录接口，每分钟最多 5 次请求"""
+       pass
+   ```
 
-# ✅ 简单提交
-fix(ui): 修复按钮颜色错误
+5. **敏感数据保护**:
+   ```python
+   from pydantic import BaseModel, Field, field_serializer
+   
+   class UserResponse(BaseModel):
+       id: int
+       username: str
+       email: str
+       
+       # ✅ 序列化时隐藏敏感字段
+       @field_serializer('email')
+       def mask_email(self, email: str) -> str:
+           name, domain = email.split('@')
+           return f"{name[:2]}***@{domain}"
+   ```
 
-# ✅ Breaking Change
-feat(api)!: 重构用户 API 响应格式
+6. **日志安全**:
+   ```python
+   from loguru import logger
+   
+   # ✅ 不记录敏感信息
+   logger.info(f'用户登录: user_id={user.id}')
+   
+   # ❌ 避免记录敏感数据
+   # logger.info(f'用户登录: password={password}')  # 危险！
+   # logger.info(f'Token: {token}')  # 危险！
+   ```
 
-BREAKING CHANGE: 用户 API 响应结构已更改
-- 旧格式: { user: {...} }
-- 新格式: { data: { user: {...} } }
+## 性能优化
 
-# ❌ 不好的提交
-fix: bug修复
-update
-修改了一些东西
-```
+### 前端性能
 
-## API 设计规范
+1. **路由懒加载**:
+   ```typescript
+   // ✅ 路由级代码分割
+   const routes = [
+     {
+       path: '/users',
+       component: () => import('./views/Users.vue')
+     },
+     {
+       path: '/settings',
+       component: () => import('./views/Settings.vue')
+     }
+   ];
+   ```
 
-### RESTful 风格
+2. **组件懒加载**:
+   ```vue
+   <script setup lang="ts">
+   import { defineAsyncComponent } from 'vue';
+   
+   // ✅ 异步组件
+   const HeavyComponent = defineAsyncComponent(() => 
+     import('./HeavyComponent.vue')
+   );
+   </script>
+   ```
 
-| 方法 | 用途 | 示例 |
-|------|------|------|
-| GET | 获取资源 | `GET /api/v1/users` - 获取用户列表 |
-| POST | 创建资源 | `POST /api/v1/users` - 创建用户 |
-| PUT | 完整更新 | `PUT /api/v1/users/1` - 完整更新用户 |
-| PATCH | 部分更新 | `PATCH /api/v1/users/1` - 部分更新用户 |
-| DELETE | 删除资源 | `DELETE /api/v1/users/1` - 删除用户 |
+3. **列表优化**:
+   ```vue
+   <template>
+     <!-- ✅ 使用虚拟滚动处理长列表 -->
+     <VirtualList
+       :data="items"
+       :item-size="50"
+       :buffer="10"
+     >
+       <template #default="{ item }">
+         <UserItem :user="item" />
+       </template>
+     </VirtualList>
+     
+     <!-- ✅ 使用 key 优化渲染 -->
+     <div v-for="item in items" :key="item.id">
+       {{ item.name }}
+     </div>
+     
+     <!-- ✅ 使用 v-memo 缓存子树 -->
+     <div v-for="item in items" :key="item.id" v-memo="[item.id, item.updated_at]">
+       <ExpensiveChild :item="item" />
+     </div>
+   </template>
+   ```
 
-### URL 设计规范
+4. **防抖节流**:
+   ```typescript
+   import { useDebounceFn, useThrottleFn } from '@vueuse/core';
+   
+   // ✅ 搜索框防抖
+   const debouncedSearch = useDebounceFn((value: string) => {
+     performSearch(value);
+   }, 500);
+   
+   // ✅ 滚动事件节流
+   const throttledScroll = useThrottleFn(() => {
+     handleScroll();
+   }, 100);
+   ```
 
-```bash
-# ✅ 推荐
-GET    /api/v1/users              # 获取用户列表
-GET    /api/v1/users/1            # 获取单个用户
-POST   /api/v1/users              # 创建用户
-PUT    /api/v1/users/1            # 更新用户
-DELETE /api/v1/users/1            # 删除用户
+5. **图片优化**:
+   ```vue
+   <template>
+     <!-- ✅ 图片懒加载 -->
+     <img v-lazy="imageUrl" alt="description" />
+     
+     <!-- ✅ 响应式图片 -->
+     <img
+       :srcset="`${image_sm} 480w, ${image_md} 800w, ${image_lg} 1200w`"
+       :sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px"
+       :src="image_lg"
+       alt="description"
+     />
+   </template>
+   ```
 
-# 嵌套资源
-GET    /api/v1/users/1/posts      # 获取用户的文章
-POST   /api/v1/users/1/posts      # 为用户创建文章
+### 后端性能
 
-# 多词资源使用连字符
-GET    /api/v1/user-profiles      # 用户资料
-GET    /api/v1/article-comments   # 文章评论
+1. **数据库查询优化**:
+   ```python
+   from sqlalchemy import select
+   from sqlalchemy.orm import selectinload, joinedload
+   
+   # ✅ 使用索引
+   class User(Base):
+       __tablename__ = 'users'
+       
+       email = Column(String(255), unique=True, index=True)  # 添加索引
+       created_at = Column(DateTime, index=True)  # 常用于筛选的字段
+   
+   # ✅ 预加载关联数据，避免 N+1 查询
+   async def get_users_with_posts(db: AsyncSession) -> list[User]:
+       result = await db.execute(
+           select(User)
+           .options(selectinload(User.posts))  # 预加载关联
+           .limit(100)
+       )
+       return result.scalars().all()
+   
+   # ✅ 只查询需要的字段
+   async def get_user_names(db: AsyncSession) -> list[tuple[int, str]]:
+       result = await db.execute(
+           select(User.id, User.name)  # 只查询需要的字段
+       )
+       return result.all()
+   ```
 
-# 版本控制
-GET    /api/v1/users              # 版本 1
-GET    /api/v2/users              # 版本 2
+2. **Redis 缓存**:
+   ```python
+   from redis import Redis
+   import json
+   
+   redis_client = Redis(host='localhost', port=6379, decode_responses=True)
+   
+   # ✅ 缓存热点数据
+   async def get_user_with_cache(user_id: int) -> User | None:
+       cache_key = f'user:{user_id}'
+       
+       # 尝试从缓存获取
+       cached = redis_client.get(cache_key)
+       if cached:
+           return User(**json.loads(cached))
+       
+       # 从数据库获取
+       user = await get_user_from_db(user_id)
+       if user:
+           # 写入缓存，设置过期时间
+           redis_client.setex(
+               cache_key,
+               3600,  # 1 小时过期
+               json.dumps(user.dict())
+           )
+       return user
+   ```
 
-# ❌ 避免
-GET    /api/v1/getUsers           # 不要在 URL 中使用动词
-GET    /api/v1/user               # 使用复数形式
-GET    /api/v1/user_profiles      # 使用连字符而非下划线
-```
+3. **分页查询**:
+   ```python
+   # ✅ 使用分页，避免全表扫描
+   from fastapi_pagination import Page, paginate
+   from fastapi_pagination.ext.sqlalchemy import paginate as sqlalchemy_paginate
+   
+   async def get_users_paginated(
+       db: AsyncSession,
+       page: int = 1,
+       size: int = 20
+   ) -> Page[User]:
+       return await sqlalchemy_paginate(
+           db,
+           select(User).order_by(User.created_at.desc()),
+           params={'page': page, 'size': size}
+       )
+   ```
 
-### 响应格式规范
+4. **连接池配置**:
+   ```python
+   from sqlalchemy.ext.asyncio import create_async_engine
+   
+   # ✅ 配置连接池
+   engine = create_async_engine(
+       DATABASE_URL,
+       pool_size=20,        # 连接池大小
+       max_overflow=10,     # 最大溢出连接数
+       pool_pre_ping=True,  # 连接前检查
+       pool_recycle=3600,   # 连接回收时间
+   )
+   ```
 
-#### 成功响应
-
-```python
-# 标准成功响应
-{
-    "code": 200,
-    "msg": "Success",
-    "data": {
-        "id": 1,
-        "name": "张三",
-        "email": "zhang@example.com"
-    }
-}
-
-# 列表响应（带分页）
-{
-    "code": 200,
-    "msg": "Success",
-    "data": {
-        "items": [
-            {"id": 1, "name": "张三"},
-            {"id": 2, "name": "李四"}
-        ],
-        "total": 100,
-        "page": 1,
-        "size": 10,
-        "pages": 10
-    }
-}
-
-# 创建成功
-{
-    "code": 201,
-    "msg": "Created successfully",
-    "data": {
-        "id": 123,
-        "name": "新用户"
-    }
-}
-```
-
-#### 错误响应
-
-```python
-# 客户端错误 (4xx)
-{
-    "code": 400,
-    "msg": "参数错误",
-    "data": null,
-    "errors": [
-        {
-            "field": "email",
-            "message": "邮箱格式不正确"
-        }
-    ]
-}
-
-# 认证错误
-{
-    "code": 401,
-    "msg": "未授权，请先登录",
-    "data": null
-}
-
-# 权限错误
-{
-    "code": 403,
-    "msg": "无权限访问此资源",
-    "data": null
-}
-
-# 资源不存在
-{
-    "code": 404,
-    "msg": "用户不存在",
-    "data": null
-}
-
-# 服务器错误 (5xx)
-{
-    "code": 500,
-    "msg": "服务器内部错误",
-    "data": null
-}
-```
-
-### HTTP 状态码
-
-| 状态码 | 说明 | 使用场景 |
-|--------|------|----------|
-| 200 | OK | 成功获取/更新资源 |
-| 201 | Created | 成功创建资源 |
-| 204 | No Content | 成功删除资源 |
-| 400 | Bad Request | 请求参数错误 |
-| 401 | Unauthorized | 未认证 |
-| 403 | Forbidden | 无权限 |
-| 404 | Not Found | 资源不存在 |
-| 409 | Conflict | 资源冲突（如重复创建） |
-| 422 | Unprocessable Entity | 语义错误（如业务逻辑验证失败） |
-| 429 | Too Many Requests | 请求过多，限流 |
-| 500 | Internal Server Error | 服务器错误 |
-| 502 | Bad Gateway | 网关错误 |
-| 503 | Service Unavailable | 服务不可用 |
-
-### 查询参数规范
-
-```bash
-# 分页
-GET /api/v1/users?page=1&size=20
-
-# 排序
-GET /api/v1/users?sort=created_at&order=desc
-
-# 筛选
-GET /api/v1/users?status=active&role=admin
-
-# 搜索
-GET /api/v1/users?q=zhang
-
-# 字段过滤
-GET /api/v1/users?fields=id,name,email
-
-# 日期范围
-GET /api/v1/orders?start_date=2025-01-01&end_date=2025-12-31
-```
-
-### API 文档示例
-
-```python
-from fastapi import APIRouter, Depends, Query
-from typing import Annotated
-
-router = APIRouter(prefix='/api/v1/users', tags=['用户管理'])
-
-@router.get('', summary='获取用户列表')
-async def get_users(
-    page: Annotated[int, Query(ge=1, description='页码')] = 1,
-    size: Annotated[int, Query(ge=1, le=100, description='每页数量')] = 20,
-    status: Annotated[str | None, Query(description='状态筛选')] = None,
-    db: AsyncSession = Depends(get_db)
-) -> UserListResponse:
-    """
-    获取用户列表
-    
-    - **page**: 页码，从 1 开始
-    - **size**: 每页数量，范围 1-100
-    - **status**: 状态筛选，可选值: active, inactive, banned
-    
-    返回用户列表和分页信息
-    """
-    return await user_service.get_users(db, page, size, status)
-```
+5. **异步任务**:
+   ```python
+   from celery import Celery
+   
+   celery_app = Celery('userecho', broker='redis://localhost:6379/0')
+   
+   # ✅ 耗时操作使用异步任务
+   @celery_app.task
+   def send_email(to: str, subject: str, body: str):
+       """发送邮件异步任务"""
+       # 发送邮件逻辑
+       pass
+   
+   # 在 API 中调用
+   @router.post('/register')
+   async def register(user_data: UserCreate):
+       user = await create_user(user_data)
+       # 异步发送欢迎邮件
+       send_email.delay(user.email, '欢迎注册', '...')
+       return user
+   ```
 
 ---
 
