@@ -7,13 +7,13 @@ PI（π）—— When The Art of War Meets Cognitive Science for Ai
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [share-skills/pi](https://github.com/share-skills/pi).
+Original source: `CLAUDE.md` in [share-skills/pi](https://github.com/share-skills/pi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
