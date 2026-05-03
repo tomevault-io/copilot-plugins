@@ -1,0 +1,9 @@
+{
+  "name": "arcasilesgroup--ai-engineering",
+  "displayName": "ai-engineering",
+  "description": "Turn any repo into a governed AI workspace. Quality gates, security scanning, and risk management \u2014 enforced locally via git hooks. Works with Claude Code, GitHub Copilot, Cursor, Gemini & Codex.",
+  "version": "1.0.0",
+  "author": "arcasilesgroup",
+  "homepage": "https://github.com/arcasilesgroup/ai-engineering",
+  "skills": []
+}
