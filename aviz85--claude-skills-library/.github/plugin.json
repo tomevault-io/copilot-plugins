@@ -1,0 +1,62 @@
+{
+  "name": "aviz85--claude-skills-library",
+  "displayName": "claude-skills-library",
+  "description": "A collection of useful Claude Code skills",
+  "version": "1.0.0",
+  "author": "aviz85",
+  "homepage": "https://github.com/aviz85/claude-skills-library",
+  "skills": [
+    {
+      "name": "html-to-pdf",
+      "description": ""
+    },
+    {
+      "name": "music-generator",
+      "description": ""
+    },
+    {
+      "name": "whatsapp",
+      "description": ""
+    },
+    {
+      "name": "zoom-meeting",
+      "description": ""
+    },
+    {
+      "name": "aviz-skills-installer",
+      "description": ""
+    },
+    {
+      "name": "aviz-skills-installer",
+      "description": ""
+    },
+    {
+      "name": "calendar",
+      "description": ""
+    },
+    {
+      "name": "claudability-analyzer",
+      "description": ""
+    },
+    {
+      "name": "deep-interview",
+      "description": ""
+    },
+    {
+      "name": "find-my-project",
+      "description": ""
+    },
+    {
+      "name": "gmail",
+      "description": ""
+    },
+    {
+      "name": "learn",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-poster",
+      "description": ""
+    }
+  ]
+}
