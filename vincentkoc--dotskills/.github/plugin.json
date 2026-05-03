@@ -1,0 +1,38 @@
+{
+  "name": "vincentkoc--dotskills",
+  "displayName": "dotskills",
+  "description": "\ud83d\udc19 A curated set of Codex and OpenClaw skills for workflow automation, technical debugging, and agent-assisted development patterns.",
+  "version": "1.0.0",
+  "author": "vincentkoc",
+  "homepage": "https://github.com/vincentkoc/dotskills",
+  "skills": [
+    {
+      "name": "technical-documentation",
+      "description": ""
+    },
+    {
+      "name": "technical-deslop",
+      "description": ""
+    },
+    {
+      "name": "technical-integrations",
+      "description": ""
+    },
+    {
+      "name": "technical-skill-finder",
+      "description": ""
+    },
+    {
+      "name": "example-skill",
+      "description": ""
+    },
+    {
+      "name": "opik-integrations-auditor",
+      "description": ""
+    },
+    {
+      "name": "opik-optimizer",
+      "description": ""
+    }
+  ]
+}
