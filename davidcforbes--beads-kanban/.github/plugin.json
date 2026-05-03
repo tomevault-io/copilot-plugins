@@ -1,9 +1,9 @@
 {
   "name": "davidcforbes--beads-kanban",
   "displayName": "Beads-Kanban",
-  "description": "Beads-Kanban",
+  "description": "A VSCode extension built on top of steveyegge/Beads that provides a KanBan, Tableview, and record-level add/edit screens ",
   "version": "1.0.0",
   "author": "davidcforbes",
-  "homepage": "https://tomevault.io/claim/davidcforbes",
+  "homepage": "https://github.com/davidcforbes/Beads-Kanban",
   "skills": []
 }
