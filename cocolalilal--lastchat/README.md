@@ -7,11 +7,11 @@ A Fork of Rikkahub with an overhauled UI and feature additions
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Cocolalilal/LastChat](https://github.com/Cocolalilal/LastChat).
+Original source: `CLAUDE.md` in [Cocolalilal/LastChat](https://github.com/Cocolalilal/LastChat).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
