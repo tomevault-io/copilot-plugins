@@ -1,1717 +1,331 @@
-## part-3-autonomous-research-mode
-
-> Validates the topic submitter's choice to ensure it represents the best use of research resources.
-
-
-# Part 3 (Adding an Autonomous-Controlling Tier in Hierarchy Over Part 1 and 2) - Autonomous Research Mode Design Specification
-
-## Overview
-
-The Autonomous Research Mode is Part 3 of the MOTO Math Variant system. It is a self-directing three-tier research system that autonomously generates brainstorm topics, builds knowledge databases, produces complete mathematical research papers, and can synthesize a final answer based on a high-level research topic centered around the user prompt.
-
-**Example User Prompt**: "Solve the Langlands Bridge problem" or "Advance understanding of the Riemann Hypothesis"
-
-**Key Difference from Manual Modes**: 
-- Part 1 (Aggregator) requires user-provided topic prompts
-- Part 2 (Compiler) requires user-directed paper compilation prompts
-- Part 3 (Autonomous Research) self-directs topic selection, brainstorming, and paper generation
-
-**Three-Tier Architecture**:
-- **Tier 1**: Brainstorm aggregation databases (mathematical concept exploration)
-- **Tier 2**: Finished mathematical research papers (compiled from brainstorm databases)
-- **Tier 3**: Final answer synthesis (short-form answer or long-form volume from Tier 2 papers)
-
-## Design Philosophy
-
-**Self-Directing Research**: The AI autonomously identifies the most valuable research avenues based on the high-level goal prompt.
-
-**Basin Exploration**: Each brainstorm topic represents a "basin" of related mathematical concepts. The system explores each basin until sufficiently complete, then generates a paper.
-
-**Cumulative Knowledge**: All brainstorm databases and papers persist, building a comprehensive research library over time.
-
-**Model Weight Exploration**: Completion review uses SPECIAL SELF-VALIDATION MODE because only the same model can assess whether its own weights have been exhausted for a given topic.
-
-**External Verification Allowed**: The autonomous system may use the model's pre-trained mathematical knowledge, RAG context from prior work, user prompt, and external verification/search when the selected model/provider supports it. Internal AI-generated context remains non-authoritative and should be treated skeptically.
-
----
-
-## Integration Architecture
-
-### Part 1 Aggregator Integration (Tier 1)
-The autonomous coordinator USES actual Part 1 aggregator infrastructure for brainstorm aggregation:
-- Creates separate `Coordinator` instance per brainstorm topic
-- Configures with topic-specific database path (`data/auto_brainstorms/brainstorm_{topic_id}.txt`)
-- Runs configurable 1-10 submitters + 1 validator workflow (default 3 submitters)
-- Each submitter can have its own model, context window, and max output tokens for multi-model exploration
-- SINGLE validator maintains coherent Markov chain evolution (same constraint as Part 1)
-- Monitors acceptance count for completion triggers (every 10 acceptances)
-- Handles pruning (every 7 acceptances) automatically via aggregator
-- Uses global RAG lock to prevent collision with manual aggregator mode
-
-**Implementation Details**:
-- Temporarily overrides `system_config.shared_training_file` to point to brainstorm-specific database
-- Calls `shared_training_memory.reload_insights_from_current_path()` after path change to prevent data loss (without reload, old insights from rag_shared_training.txt would overwrite brainstorm file)
-- Sets WebSocket broadcaster to propagate aggregator events through autonomous coordinator
-- Monitors aggregator stats in real-time to track acceptances/rejections
-- Stops aggregator when completion review decides to write paper
-- **Phase enforcement**: Construction submitter must check current phase before declaring completion
-- **Premature decline rejection**: Coordinator rejects declines if required sections are missing based on current phase
-
-### Part 2 Compiler Integration (Tier 2)
-The autonomous coordinator USES actual Part 2 compiler infrastructure for paper compilation:
-- Creates separate `CompilerCoordinator` instance per paper
-- Configures with brainstorm database as high-priority optional source material
-- Adds selected reference papers to RAG context if selected (topic-cycle cap 3; Tier 3 short-form cap 6)
-- Monitors compiler progress to detect abstract completion (final section)
-- Extracts abstract from completed paper for metadata storage
-
-Compiler submitters may selectively use, synthesize beyond, or depart from brainstorm material when that better serves the user's prompt and remains rigorous. Validator must not reject solely for selective non-use of brainstorm/database material.
-
-**Critical Implementation Details**:
-- **system_config propagation (REQUIRED)**: Before creating `CompilerCoordinator`, autonomous mode MUST write all compiler context/token settings to `system_config` (e.g., `system_config.compiler_high_context_context_window = self._high_context_context`). Compiler modules read from `system_config` at init — the manual `/api/compiler/start` route does this, but autonomous mode bypasses that route and must do it explicitly. Applies to both `_compile_paper_from_brainstorm()` and `_compile_tier3_paper()`.
-- Constrains section order: Body → Conclusion → Introduction → Abstract
-- Paper is considered complete when abstract is detected in paper content
-- Uses regex patterns to detect and extract abstract section
-- Reference papers are RAG'ed with brainstorm having higher direct injection priority
-- Outline is ALWAYS fully injected (never RAGed) for structural framework integrity
-
----
-
-## Workflow Overview
-
-**Tier 1 → Tier 2 → Tier 3 Loop:**
-0. **Topic Exploration** — Mini-aggregation: collect 5 validated candidate brainstorm questions (submit→validate→accumulate loop with rejection feedback). Broadens exploration landscape before committing to a direction.
-1. **Topic Selection** (sees all 5 candidates + existing topics) → Validator → Pre-Brainstorm Reference Selection (if papers exist)
-2. **Brainstorm Aggregation** (1-10 submitters, 1 validator, pruning every 7, with reference papers)
-3. **Completion Review** every 10 acceptances (SPECIAL SELF-VALIDATION) → Continue or Write Paper
-4. If Write Paper: **Additional Reference Selection** → **Paper Title Exploration** (5 candidates) → **Paper Title Selection** → **Paper Compilation** (Body→Conclusion→Introduction→Abstract)
-5. **Paper Complete** → Log to Tier 2, cache brainstorm
-6. **Paper Redundancy Review** every 3 papers
-7. **Brainstorm Continuation Decision** (if papers < 3): write another paper or move on. If write another: new title → compilation with prior brainstorm papers as auto-refs → loop to step 5
-8. **Tier 3 Final Answer** every 5 papers (Certainty→Format→Short-form or Long-form volume)
-9. Loop back to Topic Selection (or STOP if Tier 3 complete)
-
----
-
-## PHASE 0: Topic Exploration (Pre-Selection Candidate Brainstorm)
-
-### Purpose
-Before committing to a brainstorm direction, the system runs a full aggregation using the Part 1 infrastructure that collects 5 validated candidate brainstorm questions. This broadens the exploration landscape using all configured submitters in parallel with batch validation.
-
-### Why This Exists (Top-p Exploration at Strategic Level)
-Without exploration, the topic selector samples from the model's highest-probability region — the most obvious topic. By forcing 5 distinct, validated candidate directions first, the system maps the exploration landscape before committing:
-- Breaks greedy single-sample selection
-- Validator enforces diversity (rejects redundant candidates)
-- Final selector sees the full landscape of options
-- Uses full Part 1 aggregator infrastructure (parallel submitters, batch validation up to 3)
-
-### Architecture
-- **Uses `AggregatorCoordinator`** from Part 1 — same parallel submitters + batch validator as normal brainstorms, but with **cleanup/pruning disabled** (`enable_cleanup_review=False`) since target is only 5 candidates
-- **Prompts** (`backend/autonomous/prompts/topic_exploration_prompts.py`): `build_exploration_user_prompt()` frames the aggregation task for candidate question generation
-- **Temp DB**: `exploration_candidates.txt` in brainstorms directory (cleaned up after phase)
-- **Target**: 5 accepted candidates per exploration cycle
-- **Safety valve**: 15 consecutive rejections → proceed with whatever candidates collected
-
-### Workflow
-1. Aggregator starts with all configured submitters running in parallel
-2. Submitters generate candidate brainstorm questions as standard submissions
-3. Validator batch-validates (up to 3 at a time) checking quality, relevance, and DIVERSITY
-4. Accepted candidates accumulate in temp exploration database
-5. Coordinator monitors aggregator stats, stops at 5 acceptances
-6. Reads exploration DB, formats as candidate list for topic selector
-
-### WebSocket Events
-Standard aggregator events (`submission_accepted`, `submission_rejected`) flow through during exploration.
-Additionally: `topic_exploration_started`, `topic_exploration_progress`, `topic_exploration_complete`
-
-### Crash Recovery
-On resume, exploration restarts fresh (short phase, no state to preserve).
-
-### Every Brainstorm Starts This Way
-Topic exploration runs before EVERY new topic selection cycle — no exceptions.
-
----
-
-## STARTING POINT A: Topic Selection
-
-### Purpose
-The autonomous topic submitter decides what to work on next. It can:
-1. **Generate a NEW topic**: Identify the next most valuable brainstorm avenue
-2. **Continue an EXISTING topic**: Resume work on an incomplete brainstorm
-3. **Combine EXISTING topics**: Merge multiple related brainstorms into a unified topic
-
-### Topic Submitter Context
-The submitter receives:
-- **5 validated candidate brainstorm questions** from Topic Exploration phase (direct injected)
-- User's high-level research prompt (PRIMARY context, always direct injected)
-- List of all existing brainstorm topics with metadata:
-  - Topic ID
-  - Topic prompt/question
-  - Status (in-progress / complete)
-  - Submission count (acceptance count)
-  - Last activity timestamp
-- All completed Tier 2 papers with metadata:
-  - Paper ID
-  - Paper title
-  - Abstract (full text)
-  - Word count
-  - Source brainstorm topic ID(s)
-- Topic selection rejection history (last 5)
-
-### Decision Criteria
-When choosing between new / continue / combine:
-- **New Topic**: When all existing topics are complete OR when a new mathematical avenue would provide more research value than continuing existing work
-- **Continue Existing**: When an incomplete brainstorm has more value to explore before starting something new
-- **Combine Topics**: When multiple existing brainstorms are related and would benefit from unified exploration
-
-JSON schema and examples defined in `json-prompt-design.mdc`. Fields: `action` (new_topic/continue_existing/combine_topics), `topic_id`, `topic_ids`, `topic_prompt`, `reasoning`.
-
----
-
-## Topic Validator
-
-### Purpose
-Validates the topic submitter's choice to ensure it represents the best use of research resources.
-
-### Context
-Receives the SAME context as the topic submitter:
-- User's high-level research prompt
-- All existing brainstorm topics with metadata
-- All completed Tier 2 papers with metadata (title, abstract, word count, source)
-- The topic submitter's proposed action
-
-### Validation Criteria
-
-**ACCEPT if**:
-1. New topic addresses a genuinely valuable mathematical avenue not yet covered
-2. Continue existing makes sense given the brainstorm's current state and mathematical depth
-3. Combine topics is justified by genuine mathematical connections
-4. Choice is relevant to the user's research goal
-5. Reasoning is sound and mathematically grounded
-
-**REJECT if**:
-1. New topic duplicates an existing brainstorm
-2. Continue existing on a brainstorm that should be marked complete
-3. Combine topics lacks clear mathematical justification
-4. Choice ignores more valuable research avenues
-5. Reasoning is flawed or lacks mathematical rigor
-
-JSON schema defined in `json-prompt-design.mdc`. Fields: `decision` (accept/reject), `reasoning`.
-
-### Rejection Feedback
-When rejected, the validator's reasoning is added to the topic submitter's rolling feedback cache (last 5 rejections), similar to aggregator submitter rejection logs.
-
-**File**: `data/auto_research_topic_rejections.txt`
-
----
-
-## Reference Paper Selection for Brainstorm (COMPOUNDING KNOWLEDGE)
-
-### Purpose - The Crucial Mechanism for Compounding Knowledge
-
-The autonomous research system's power comes from its ability to **compound knowledge across research cycles**. Each completed paper represents distilled mathematical insights that can inform and enhance future brainstorm explorations.
-
-By selecting reference papers BEFORE brainstorming begins, submitters can:
-- Build upon proven mathematical frameworks from prior papers
-- Avoid re-exploring territory already covered in depth
-- Identify novel connections between new topics and established results
-- Accelerate convergence on valuable insights by standing on prior work
-
-**This is the most crucial mechanism that allows database creativity to compound.**
-
-### Workflow
-
-**SKIP THIS STEP if no Tier 2 papers exist yet.**
-
-After topic selection is validated, the reference selector:
-1. Reviews ALL completed paper abstracts
-2. Requests expansion of papers that would be VERY USEFUL for brainstorm exploration
-3. Reviews full content of expanded papers
-4. Selects up to 3 papers to use as topic-cycle base context during brainstorming
-5. Selected papers are loaded into brainstorm aggregator as `user_files`
-
-### Why Outlines Are Included
-
-**Design Principle:** Paper outlines are displayed alongside abstracts in all reference selection phases.
-
-**Rationale - LLM Weight Activation:**
-- Paper outlines contain structural information about the paper's organization
-- Section headers, subsection names, and hierarchical structure activate relevant LLM weights
-- This helps the model better assess topical relevance without reading full content
-- Outlines provide "semantic anchors" that prime the model for recognizing connections
-- The model can identify mathematical concepts, proof structures, and methodological approaches from the outline alone
-
-**Context Handling:**
-- Outlines are fetched from `paper_{paper_id}_outline.txt`
-- If outline is unavailable, displays "[Not available]"
-- Outlines are included in BOTH abstract review (Step 1) AND full paper review (Step 2)
-- Paper titles shown during reference review and later selected-reference contexts include compact validator-review snapshots: initial system critique always, plus up to the latest 4 user-triggered critiques when available. Snapshot content is model ID + novelty/correctness/impact ratings only (no feedback text).
-
-### Two-Step Browsing Workflow
-
-**Step 1**: Review abstracts+outlines → Request expansion of promising papers  
-**Step 2**: Review full content → Final selection (max 3 papers)
-
-Context: Direct inject if fits (~40% budget), RAG if too large. No truncation.
-
----
-
-### Context for Pre-Brainstorm Reference Selection
-- User's high-level research prompt (direct injection)
-- Current brainstorm topic prompt (direct injection)
-- ALL Tier 2 paper titles + abstracts + outlines (direct injection if fits, RAG if too large)
-
-JSON schemas defined in `json-prompt-design.mdc`. Two-step: submitter requests paper expansions (`expand_papers`, `proceed_without_references`), then makes final selection (`selected_papers`). Max 3 papers total for the topic cycle.
-
-**Context Handling (DIRECT INJECTION FIRST, RAG SECOND):**
-
-- **Abstracts phase**: Always direct injected (small metadata - typically < 5000 tokens total)
-- **Full papers phase**: 
-  - If all papers fit in ~40% of context budget: Direct inject full content
-  - If papers exceed context budget: RAG retrieves most relevant sections from each paper
-  - Submitter ALWAYS sees either complete papers or highly-relevant RAG chunks
-  - No truncation is ever used
-
-**Key Features:**
-
-- Submitter BROWSES abstracts before committing to see full papers
-- Submitter CHOOSES which papers to expand (not automatic expansion of all papers)
-- Submitter makes FINAL selection after reviewing full content
-- System intelligently handles large papers via RAG when needed
-- Maximum 3 papers enforced across the topic-cycle selection modes
-
-### Context for Pre-Brainstorm Reference Selection
-- User's high-level research prompt (direct injection)
-- Current brainstorm topic prompt (direct injection)
-- ALL Tier 2 paper titles + abstracts (direct injection if fits, RAG if too large)
-- Instruction: "Select papers that would help inform and enhance exploration of this brainstorm topic"
-
-### Key Design Points
-- **Same references persist**: References selected here are used for BOTH brainstorming AND paper writing
-- **Additional selection later**: AI can select MORE references (up to 3 total) before paper writing
-- **No re-selection/removal**: Already-selected references remain selected throughout topic cycle
-
----
-
-## Brainstorm Aggregation Runtime
-
-Once a topic is validated and references selected, standard aggregation begins on that brainstorm topic.
-
-### Architecture
-- **3 Submitters**: Generate mathematical insights for the brainstorm topic
-- **1 Validator**: Validates submissions (mathematical rigor, novelty, relevance)
-- **Pruning**: Every 7 acceptances, cleanup review runs (same as Part 1)
-- **Same as Part 1 Aggregator**: Uses identical submitter/validator patterns, RAG cycling, etc.
-- **PARALLEL EXECUTION**: Submitters run in parallel regardless of boost status (boost is routing-only)
-
-### Batch Validation (Inherited from Part 1)
-The autonomous brainstorm aggregator inherits batch validation from Part 1 infrastructure:
-- **Validator processes up to 3 submissions at once**: Uses batch-specific prompts for 1, 2, or 3 submissions
-- **Independent assessment of each submission's value**: Each submission evaluated against existing database independently
-- **Intra-batch redundancy prevention**: If multiple submissions would be accepted but are redundant with each other, only the strongest is accepted
-- **Queue overflow handling**: If 10+ submissions queued, submitters are paused by the coordinator until queue drops below threshold
-- **Accelerated brainstorm exploration**: Batch validation increases throughput while maintaining quality through redundancy checks
-
-### Key Differences from Part 1 Aggregator
-1. **Topic-Specific Database**: Writes to `data/auto_brainstorms/brainstorm_{topic_id}.txt` instead of `rag_shared_training.txt`
-2. **No User-Provided Topic Prompt**: Uses the AI-generated brainstorm topic prompt
-3. **Completion Tracking**: Tracks acceptance count (including removals) for completion review trigger
-4. **Hard Limit**: 30 accepted submissions (FORCE transition to paper writing, no completion review)
-   - Purpose: Prevents runaway brainstorms from accumulating indefinitely
-   - Trigger: After each acceptance, check if count >= 30
-   - Behavior: Immediately transition to paper writing, skip completion review
-   - WebSocket event: `brainstorm_hard_limit_reached`
-5. **Rejection Hard Limit**: 10 consecutive rejections (with minimum 5 acceptances) FORCE transition to paper writing
-   - Purpose: Prevents infinite rejection loops when brainstorm is exhausted
-   - Trigger: After rejection, check if consecutive rejections >= 10 AND acceptances >= 5
-   - Behavior: Immediately transition to paper writing, skip completion review
-   - WebSocket event: `brainstorm_rejection_limit_reached`
-
-### Context for Submitters
-- User's high-level research prompt (direct injection)
-- Current brainstorm topic prompt (direct injection)
-- **Selected reference papers (user_files - enables compounding knowledge)**
-- Topic-specific database (RAG if large, direct injection if fits)
-- Local rejection logs (per submitter, last 5)
-- Completion feedback from prior completion reviews (last 5, topic-specific)
-
-### Context for Validator
-- User's high-level research prompt (direct injection)
-- Current brainstorm topic prompt (direct injection)
-- Topic-specific database (for REDUNDANCY check)
-- Submission under review (direct injection if fits, RAG if large)
-
----
-
-## Completion Review (SPECIAL SELF-VALIDATION MODE)
-
-### Regular Trigger
-Runs every 10 accepted submissions (includes both new acceptances AND pruning removals), AFTER the pruner has had its chance to run.
-
-**Hard Limit Override**: If brainstorm reaches 30 accepted submissions, completion review is SKIPPED and paper writing is forced.
-
-**Example trigger points**: 
-- Acceptances at 10, 20, 30, 40... trigger completion review
-- If prune removal happens at acceptance 9, the next acceptance (10th total) still triggers review
-- At 30 acceptances: Hard limit triggers, completion review skipped, paper writing forced
-
-### Manual Paper Writing Trigger (User Override)
-
-**Purpose**: Allow user to act as special submitter reviewer and manually force transition to paper writing.
-
-**Trigger**: User clicks "Force Paper Writing" button during active brainstorm (tier1_aggregation).
-
-**Workflow**:
-1. User sees current brainstorm progress (acceptance count, queue size, rejection count)
-2. User decides brainstorm is ready for paper writing (based on their assessment)
-3. User clicks "📝 Force Paper Writing" button in brainstorm status section
-4. Confirmation dialog appears: "Confirm Force Paper Writing" / "Cancel"
-5. On confirmation:
-   - API endpoint `/api/auto-research/force-paper-writing` is called
-   - Coordinator validates state (must be in tier1_aggregation)
-   - Brainstorm aggregator is stopped immediately
-   - Brainstorm is marked complete
-   - System transitions to paper compilation workflow (Tier 2)
-
-**API Endpoint**: `POST /api/auto-research/force-paper-writing`
-
-**Error Cases**:
-- 400: Autonomous research not running
-- 400: Not in tier1_aggregation (can only force during brainstorm)
-- 400: No active brainstorm found
-- 500: Transition failed
-
-**WebSocket Event**: `manual_paper_writing_triggered`
-
-**UI Location**: Within current brainstorm status section, appears only when tier1_aggregation is active
-
-**Design Rationale**:
-- User may have domain knowledge that brainstorm is sufficient before completion review interval
-- Saves time when user knows brainstorm has explored enough territory
-- Provides manual control over autonomous workflow
-- User acts as "special submitter reviewer" deciding when to proceed
-
-**Important Notes**:
-- Does NOT run completion review (bypassed entirely)
-- Does NOT require self-validation (user decision is final)
-- Brainstorm is marked complete regardless of acceptance count
-- Subsequent paper compilation proceeds normally with all selected reference papers
-- **Race condition guard**: `_brainstorm_aggregation_loop()` checks `_manual_paper_writing_triggered` before calling `start()` on the aggregator (catches override during async init). The monitoring loop also stops the aggregator before returning on manual override.
-
-### Purpose
-Assess whether the current brainstorm has been sufficiently explored relative to THIS MODEL'S internal knowledge (weights) and decide whether to continue brainstorming or begin writing a paper.
-
-### Special Self-Validation Mode
-
-**The submitter model MUST be its own validator for completion review.**
-
-**Reasoning**: A different model cannot validate the weight-exploration assessment of another model because:
-1. Each model has different training data and knowledge encoded in its weights
-2. Model A cannot know what Model B "knows" or has exhausted
-3. Only the same model can accurately assess whether its own knowledge basin is depleted for a brainstorm topic
-
-**Implementation**:
-- The completion review submitter generates an assessment
-- The SAME model instance then validates its own assessment
-- This is the ONLY place in the system where a submitter self-validates
-
-### Completion Review Flow
-
-1. **Submitter Assessment**: Model evaluates if it can think of anything extremely useful to add to the brainstorm
-2. **Self-Validation**: Same model validates: "Is this assessment accurate? Is this brainstorm truly exhausted or ready for paper writing?"
-3. **Decision**:
-   - If CONTINUE_BRAINSTORM: Add feedback to rolling cache, return to aggregation
-   - If WRITE_PAPER: Proceed to paper writing workflow (Tier 2)
-
-JSON schemas defined in `json-prompt-design.mdc`. Completion submitter: `decision` (continue_brainstorm/write_paper), `reasoning`, `suggested_additions`. Self-validator: `validated` (bool), `reasoning`.
-
-### Completion Review Context
-- User's high-level research prompt
-- Current brainstorm topic prompt
-- Full brainstorm database (all accepted submissions)
-- Brainstorm metadata (submission count, duration, etc.)
-- Prior completion feedback (last 5)
-
-### Feedback on Non-Completion
-If the decision is CONTINUE_BRAINSTORM, the `suggested_additions` field provides direction for future submissions. This feedback goes to a rolling cache (last 5) that is passed to the brainstorm aggregation submitters.
-
-**File**: `data/auto_brainstorms/completion_feedback_{topic_id}.txt`
-
----
-
-## Transition to Paper Writing
-
-Once completion review decides WRITE_PAPER (and self-validates), the system transitions to paper writing workflow.
-
-### Additional Reference Paper Selection (Pre-Paper Writing)
-
-**Purpose**: Allow AI to select ADDITIONAL references discovered to be relevant during brainstorming.
-
-**SKIP THIS STEP if**:
-- No Tier 2 papers exist yet, OR
-- Already at max capacity (3 papers selected during pre-brainstorm)
-
-**Context**:
-- Papers already selected for brainstorming (shown as "ALREADY SELECTED")
-- ALL other paper abstracts (papers not yet selected)
-- Completed brainstorm database (RAG) - provides insights from exploration
-
-**Key Differences from Pre-Brainstorm Selection**:
-- Shows which papers are ALREADY SELECTED (cannot be removed)
-- Only shows papers NOT YET selected for expansion
-- Maximum additional papers = 3 - (already selected count)
-- Benefits from brainstorm insights to identify newly-relevant papers
-
-### Two-Step Browsing Workflow (Additional Mode)
-
-Same two-step browsing workflow as pre-brainstorm selection (expand request → final selection). JSON schemas defined in `json-prompt-design.mdc`. Already-selected papers shown as context; submitter requests expansion of remaining papers, then selects additional ones. Already-selected papers cannot be removed.
-
-**Validator Role**: 
-- Topic validator reviews selection decisions
-- Rejects if reasoning is unsound or selection doesn't align with brainstorm content
-- Rejection feedback goes to rolling cache
-
-**Final Reference List**: Already-selected papers + newly-selected papers (max 3 total)
-
-### Paper Title Exploration (Pre-Title Candidate Brainstorm)
-
-**Purpose**: Before committing to a paper title, the system collects 5 validated candidate titles using the Part 1 aggregator infrastructure. The final title selection then chooses from candidates, synthesizes them, or proposes a new title with justification.
-
-**Architecture**: Uses `AggregatorCoordinator` from Part 1 — same parallel submitters + batch validator, but with **cleanup/pruning disabled** (`enable_cleanup_review=False`) since target is only 5 candidates.
-
-**Applies to EVERY paper creation**: Tier 2 papers (1/2/3 from brainstorm), Tier 3 short-form, Tier 3 gap/intro/conclusion chapters.
-
-**Workflow**:
-1. Aggregator starts with all configured submitters running in parallel
-2. Submitters generate candidate paper titles as standard submissions
-3. Validator checks quality, relevance, and DIVERSITY (rejects near-duplicates)
-4. Accepted candidates accumulate in temp title DB
-5. Coordinator stops at 5 acceptances (or 15 consecutive rejections safety valve)
-6. Reads title DB, formats as candidate list for final title selection
-
-**Temp DB**: `title_candidates_{topic_id}.txt` in brainstorms dir (cleaned up after phase)
-
-**WebSocket Events**: `paper_title_exploration_started`, `paper_title_exploration_progress`, `paper_title_exploration_complete`
-
-**Crash Recovery**: On resume, exploration restarts fresh (short phase, no state to preserve).
-
-**Prompts**: `paper_title_exploration_prompts.py` — `build_title_exploration_user_prompt()` frames the aggregation task for candidate title generation with context: user prompt, topic, brainstorm summary, existing papers, reference papers.
-
-### Paper Title Exploration (Pre-Title Candidate Brainstorm)
-
-**Purpose**: Before committing to a paper title, the system collects 5 validated candidate titles using the Part 1 aggregator infrastructure. The final title selection then chooses from candidates, synthesizes them, or proposes a new title with justification.
-
-**Architecture**: Uses `AggregatorCoordinator` from Part 1 — same parallel submitters + batch validator, but with **cleanup/pruning disabled** (`enable_cleanup_review=False`) since target is only 5 candidates.
-
-**Applies to EVERY paper creation**: Tier 2 papers (1/2/3 from brainstorm), Tier 3 short-form, Tier 3 gap/intro/conclusion chapters.
-
-**Workflow**:
-1. Aggregator starts with all configured submitters running in parallel
-2. Submitters generate candidate paper titles as standard submissions
-3. Validator checks quality, relevance, and DIVERSITY (rejects near-duplicates)
-4. Accepted candidates accumulate in temp title DB
-5. Coordinator stops at 5 acceptances (or 15 consecutive rejections safety valve)
-6. Reads title DB, formats as candidate list for final title selection
-
-**Temp DB**: `title_candidates_{topic_id}.txt` in brainstorms dir (cleaned up after phase)
-
-**WebSocket Events**: `paper_title_exploration_started`, `paper_title_exploration_progress`, `paper_title_exploration_complete`
-
-**Crash Recovery**: On resume, exploration restarts fresh (short phase, no state to preserve).
-
-**Prompts**: `paper_title_exploration_prompts.py` — `build_title_exploration_user_prompt()` frames the aggregation task for candidate title generation with context: user prompt, topic, brainstorm summary, existing papers, reference papers.
-
-### Paper Title Selection
-
-**Context**:
-- User's high-level research prompt
-- Current brainstorm summary (direct injection; no full brainstorm RAG in title selection)
-- Selected reference paper summaries (if any, direct injection)
-- ALL existing paper titles from THIS brainstorm topic (direct injection)
-- ALL existing paper abstracts from THIS brainstorm topic (if any, direct injection)
-- **5 validated candidate titles from Paper Title Exploration phase** (direct injection)
-
-**Purpose**: Choose a title for the paper that will be compiled from this brainstorm. The selector sees 5 pre-validated candidate titles and may select one, synthesize, or propose a new title with justification.
-
-JSON schema defined in `json-prompt-design.mdc`. Fields: `paper_title`, `reasoning`.
-
-**DISTINCTION FOR TITLE VALIDATION:**
-
-| Concept | Definition | Validation Behavior |
-|---------|------------|---------------------|
-| **Brainstorm Submissions** | Raw research insights in "BRAINSTORM SUMMARY" - the SOURCE MATERIAL for the paper | Title SHOULD reflect this content - that's expected! DO NOT reject for similarity to brainstorm submissions |
-| **Existing Papers from Brainstorm** | Previously completed Tier 2 papers listed in "EXISTING PAPERS FROM THIS BRAINSTORM" | ONLY reject if title is too similar to these existing papers |
-
-**Key Points:**
-- If "EXISTING PAPERS FROM THIS BRAINSTORM: None" → Nothing to differentiate from, accept if other criteria met
-- Title similarity to brainstorm content is CORRECT (captures source material)
-- Title similarity to existing papers is a rejection reason (creates redundancy)
-
-**Validator Role**:
-- Topic validator reviews title selection
-- Validator also sees selected reference paper summaries (if any) so acceptance/rejection reflects the intended paper scope
-- Rejects if title is too similar to **EXISTING COMPLETED PAPERS** from this brainstorm (NOT brainstorm submissions!)
-- Rejects if title doesn't align with brainstorm content
-- DO NOT reject simply because title reflects brainstorm submission content - that is INTENDED behavior
-- Rejection feedback is threaded into subsequent retries within the current title-selection loop (keeps last 5 attempts in local retry history)
-
----
-
-## Tier 2 - Paper Compilation
-
-Once paper title is selected and validated, paper compilation begins using the FULL Part 2 compiler workflow.
-
-### Retroactive Brainstorm Correction (Unified Workspace)
-
-During paper compilation, the compiler submitter sees both the paper AND the source brainstorm database simultaneously. On each construction turn, the submitter may optionally propose a brainstorm edit/delete/add alongside its paper operation.
-
-**Key design**: Submitter sees full workspace (paper + brainstorm). Validator sees ONLY the specific operation being validated (paper OR brainstorm, never both). Each operation must be independently justified.
-
-**Operations**: edit (correct entry), delete (remove entry), add (new insight). Each validated independently by the compiler validator with brainstorm-only context.
-
-**Independent acceptance**: Paper and brainstorm results are independent. Paper accepted + brainstorm rejected = valid. RAG refreshed after accepted brainstorm modifications.
-
-**Not available in manual Part 2 mode** — only during autonomous paper compilation where `_current_topic_id` is set.
-
-### Compilation Workflow
-
-**Uses existing Part 2 (Compiler) infrastructure**:
-- Sequential Markov chain workflow
-- High-context submitter (outline, construction, review modes)
-- High-parameter submitter (rigor mode)
-- Compiler validator (coherence, rigor, placement validation)
-- **Iterative outline creation** (submitter refines outline until satisfied or 15 iteration limit)
-
-**Sequential Writing Order**
-
-Unlike manual Part 2 mode (which writes "next best section"), autonomous mode writes sections in this SPECIFIC ORDER:
-
-1. **Outline Creation + Validation** (iterative refinement with validator feedback, max 15 iterations)
-2. **Body Sections** (write all body sections following outline order)
-3. **Conclusion** (write conclusion section)
-4. **Introduction** (write introduction section)
-5. **Abstract** (write abstract - FINAL section)
-
-**Paper Completion Condition**: Paper is considered COMPLETE when the abstract is written AND validated by the compiler validator.
-
-**REQUIRED SECTION STRUCTURE (MANDATORY)**:
-All outlines MUST include these exact sections with these exact names:
-
-| Section | Exact Name | Required | Position |
-|---------|-----------|----------|----------|
-| Abstract | "Abstract" | YES | First in outline/paper |
-| Introduction | "Introduction" or "I. Introduction" | YES | After Abstract |
-| Body | Flexible (II., III., etc.) | YES (at least 1) | Between Intro and Conclusion |
-| Conclusion | "Conclusion" or "N. Conclusion" | YES | Last content section |
-
-The validator will REJECT any outline missing these required sections or with incorrect section names.
-
-### Compiler Cycle Behavior
-
-**Full Part 2 cycle is used** (construction → outline_update → review → review → rigor), BUT with constrained section selection:
-
-**During Body Section Phase**:
-- Construction mode: Write next body section following outline order
-- Cannot skip to conclusion/introduction/abstract
-
-**Critique Phase (Post-Body, Pre-Conclusion)**:
-- **Maximum Rewrites**: 1 completed rewrite allowed. Rewrite counts as "completed" only after first successful body acceptance. After 1 completed rewrite, critique phase is skipped.
-- **Pre-Critique Snapshot**: Paper body snapshotted at critique phase start (for rewrite context)
-- **Triggered**: Automatically when body construction completes (unless rewrite_count >= 1 completed rewrites)
-- **Purpose**: Peer review body section before proceeding to conclusion
-- **Target**: 5 total attempts (accepted + rejected + declined)
-- **Decline Mechanism**: Submitter can assess "no critique needed" if body is academically acceptable (no mathematical errors, all outline requirements met, proper rigor)
-- **Skip Rewrite**: If 5 total attempts complete with 0 accepted critiques, skip rewrite phase and continue to conclusion
-- **Rewrite Decision**: If 5 total attempts reached with ≥1 acceptance, submitter decides: continue / partial_revision / total_rewrite
-- **Decision Options**:
-  - **CONTINUE**: Critiques minor/incorrect, proceed to conclusion
-  - **PARTIAL_REVISION**: **ITERATIVE** edits - proposes ONE edit at a time, validates, applies, sees result, then proposes next. Context includes pre-critique paper + current paper + accepted critiques.
-  - **TOTAL_REWRITE**: Clear entire body and rebuild from scratch (catastrophic flaws only). Receives pre-critique paper + accepted critiques for context.
-- **Accumulated History**: All critiques from all previous failed versions are provided to rewrite decision
-- **Context for Rewrites**: Pre-critique paper (shows what failed) + accepted critiques ONLY (rejected critiques NOT included)
-- **JSON Schema**: `{"critique_needed": true/false, "submission": "...", "reasoning": "..."}` for critiques; `{"decision": "continue|partial_revision|total_rewrite", "new_title": null, "new_outline": null, "reasoning": "..."}` for rewrite decision (note: edit_operations removed, now iterative)
-
-**Skip Critique Phase (User Override)**:
-- **Purpose**: Allow users to manually skip the critique/rewrite phase and proceed directly to conclusion
-- **API Endpoint**: `POST /api/auto-research/skip-critique`
-- **Availability**: Any time during Tier 2 paper writing
-- **Behavior**:
-  - If already in critique phase: immediately ends critique and transitions to conclusion
-  - If critique phase has not started yet: queues a pre-emptive skip and auto-skips when critique is reached
-- **Cannot be undone**: Once executed or queued, critique for the current paper version is bypassed
-- **Frontend**: The paper status banner supports both immediate skip and pre-emptive queued skip
-- **Error Conditions**: 400 if not running, 400 if not in Tier 2 paper writing
-
-**Outline Updates**: Outline can be updated at any time during the cycle (same as Part 2)
-
-**Review/Rigor**: These modes operate normally throughout all phases
-
-**Section Order Enforcement Mechanism (EXPLICIT COMPLETION SIGNALS)**:
-- Compiler operates in "autonomous mode" with phase tracking via `autonomous_section_phase`
-- Phase transitions triggered by EXPLICIT `section_complete: true` signals from submitter JSON
-- Each phase has a dedicated prompt function: `get_body_construction_system_prompt()`, `get_conclusion_construction_system_prompt()`, `get_introduction_construction_system_prompt()`, `get_abstract_construction_system_prompt()`
-- Submitter sets `section_complete: true` when current phase is done, coordinator advances to next phase
-- Replaces unreliable regex-based detection with explicit completion signals
-- Paper is complete when abstract phase receives `section_complete: true`
-- Abstract phase always sets section_complete=true when submitting abstract content - writing abstract completes the paper
-- Phase tracking prevents premature section writing (e.g., cannot write abstract until introduction phase complete)
-
-### Context Priority
-
-**Direct Injection Priority**:
-1. User's high-level research prompt (ALWAYS direct)
-2. Paper title (ALWAYS direct)
-3. Current outline (ALWAYS fully direct - never RAGed)
-4. Current paper progress (direct if fits, RAG if large)
-5. Brainstorm database (direct if fits, RAG if large)
-6. Referenced papers (RAG)
-
-**RAG Offload Priority** (when content doesn't fit):
-1. Referenced papers → RAG FIRST
-2. Brainstorm database → RAG SECOND
-3. Current paper progress → RAG LAST (only if extremely large)
-
-**Note**: Outline is always fully injected (never RAGed) for structural framework integrity.
-
-### Autonomous RAG Manager Implementation
-
-The autonomous RAG manager follows the same "no truncation" principle as Part 1 and Part 2. Content that doesn't fit in available context is offloaded to RAG semantic search, never truncated.
-
-**Context Handling Methods**:
-
-1. **`get_brainstorm_context(topic_id, max_tokens)`**:
-   - Direct injects if brainstorm database fits within max_tokens
-   - Falls back to RAG retrieval if exceeds budget
-   - Returns tuple: (context_text, used_rag_fallback: bool)
-
-2. **`get_reference_papers_context(paper_ids, max_tokens_per_paper)`**:
-   - ALWAYS uses RAG retrieval for reference papers
-   - Retrieves most relevant chunks from each paper
-   - No direct injection for reference papers (too large)
-
-3. **`prepare_compiler_context(topic_id, reference_paper_ids, outline, paper, context_budget)`**:
-   - Calculates budget allocation respecting priority order
-   - Direct injects outline (non-negotiable, no budget check)
-   - Direct injects brainstorm if fits, else RAG retrieval
-   - RAG retrieves reference papers (always)
-   - Direct injects current paper if fits after all above, else RAG retrieval
-
-**Prompt Size Validation** (all autonomous agents):
-- Topic selector: validates prompt size before LLM call
-- Topic validator: validates prompt size before LLM call
-- Completion reviewer: validates prompt size for both assessment and self-validation
-- Reference selector: validates prompt size for abstract review and expansion requests
-- Paper title selector: validates prompt size before LLM call
-- Returns None if prompt exceeds context window (triggers retry or error handling)
-
-**Error Handling**:
-- If prompt size exceeds context window even with full RAG offloading → raise ValueError with diagnostic info
-- If RAG retrieval fails → log error, return empty string (allows workflow to continue)
-- If content too large even for RAG → compress (preserves entities, removes redundancy)
-
-### Rejection Feedback
-
-Compiler validator rejections are logged to:
-- `data/auto_papers/paper_{paper_id}_last_10_rejections.txt`
-- Follows same structure as Part 2 compiler rejection logs
-
----
-
-## Tier 2 - Paper Completion Handling
-
-### Paper Finalization
-
-When abstract is written and validated, the paper is considered COMPLETE. Additionally, if the system switches to a new topic before abstract completion, the current paper is automatically saved.
-
-**Actions on Completion**:
-
-1. **Save Final Paper**:
-   - File: `data/auto_papers/paper_{paper_id}.txt`
-   - Contains: Full paper with all sections
-
-2. **Save Outline**:
-   - File: `data/auto_papers/paper_{paper_id}_outline.txt`
-   - Contains: Paper outline for structural reference
-
-3. **Extract and Save Abstract**:
-   - File: `data/auto_papers/paper_{paper_id}_abstract.txt`
-   - Contains: Abstract text only
-
-4. **Cache Brainstorm Database**:
-   - File: `data/auto_papers/paper_{paper_id}_source_brainstorm.txt`
-   - Contains: Complete brainstorm database that sourced this paper
-
-5. **Update Metadata**:
-   - File: `data/auto_research_metadata.json`
-   - Add paper entry with:
-     - paper_id
-     - paper_title
-     - abstract (full text)
-     - word_count
-     - source_brainstorm_id(s)
-     - creation_timestamp
-     - status: "complete"
-
-5. **Update Statistics**:
-   - Increment total_papers_completed
-   - Track papers per brainstorm
-   - Track average word counts
-
-6. **Auto-Generate Critique** (background task):
-   - Automatically generates validator critique for every completed Tier 2 paper
-   - Uses validator model from current session configuration
-   - Calculates average rating: `(novelty + correctness + impact) / 3`
-   - Saves critique to paper's critique storage
-   - If average rating ≥ 7.0, emits `high_score_critique` WebSocket event
-   - Frontend displays popup notification (max 3, FIFO queue)
-   - Non-blocking: errors logged but don't affect paper completion
-   - See "Auto-Critique Popup Notifications" section below for details
-
-### Paper Redundancy Review
-
-**Trigger**: Every 3 completed papers (total_papers_completed % 3 == 0)
-
-**Purpose**: Maintain quality of paper library by identifying redundant papers.
-
-**Tier 3 Protection**: Paper redundancy checks are disabled when Tier 3 is active (`_tier3_active = True`). This prevents accidentally purging papers that are being used in the final volume. The flag is set at the start of `_tier3_final_answer_workflow()` and reset in the finally block.
-
-**Workflow**:
-
-1. **Validator Review**:
-   - Context: ALL paper titles + abstracts (direct injection)
-   - User's high-level research prompt
-   - Instruction: "Review all papers and determine if ANY ONE paper should be REMOVED due to redundancy"
-
-JSON schema defined in `json-prompt-design.mdc`. Fields: `should_remove` (bool), `paper_id` (or null), `reasoning`.
-
-2. **Removal Criteria**:
-   - Paper is REDUNDANT with other papers (content fully covered elsewhere)
-   - Paper was MARGINALLY useful but other papers provide better coverage
-   - Paper's unique contributions are minimal compared to other papers
-
-4. **Conservative Approach**:
-   - When in doubt, DO NOT remove
-   - Only remove if CERTAIN the library would be better without it
-   - Maximum 1 removal per review cycle
-
-5. **Execution**:
-   - If removal validated: Move paper to `data/auto_papers/archive/`
-   - Update metadata to mark as "archived"
-   - Update statistics
-
-### Return to Topic Selection / Brainstorm Multi-Paper Continuation
-
-After paper completion and redundancy review, the system enters a **continuation decision loop** (max 3 papers per brainstorm):
-
-1. If `papers_from_brainstorm < 3`: Run continuation decision (submitter + topic validator)
-   - **write_another_paper**: New title selection + compilation (skip reference re-selection, auto-inject prior brainstorm papers)
-   - **move_on**: Proceed to Tier 3 check, then Topic Selection
-2. If 3 papers reached (hard limit): Skip decision, proceed to Tier 3 check
-
-**Continuation Decision Context**: User prompt + brainstorm topic + brainstorm DB + all prior papers (title/abstract/outline). Does NOT include cross-topic reference papers.
-
-**Prior Brainstorm Papers as References**: For paper 2/3, all prior papers from the same brainstorm are auto-loaded into compiler RAG as `is_user_file=True` (high priority). These are separate from the 6-paper cross-topic reference limit.
-
-**Reference Selection**: Runs ONCE per brainstorm cycle. Papers 2/3 reuse the same cross-topic references.
-
-**WebSocket Events**: `brainstorm_continuation_started`, `brainstorm_continuation_decided`, `brainstorm_paper_limit_reached`
-
-**Crash Recovery**: `brainstorm_paper_count` and `current_brainstorm_paper_ids` persisted in workflow state.
-
----
-
-## Tier 3 - Final Answer Generation
-
-### Overview
-
-Tier 3 synthesizes all accumulated research (Tier 2 papers) into a **final answer** to the user's original research prompt. This tier triggers every 5 completed papers and produces either:
-- **Short Form**: A single comprehensive paper directly answering the user's question
-- **Long Form**: A curated volume/collection of papers with Introduction and Conclusion papers
-
-### Key Design Principles
-
-1. **Context Isolation**: Tier 3 operates ONLY on Tier 2 papers, NOT on Tier 1 brainstorm databases
-2. **Independent Rejection Feedback**: Tier 3 has its own 10-rejection cache, separate from Tiers 1/2
-3. **System Termination**: Once the final answer is complete, the autonomous system stops
-4. **Modular Code Reuse**: Uses existing Tier 2 paper writing infrastructure (no duplicate code)
-
-### Trigger Condition
-
-- **Disabled by default**: `tier3_enabled` defaults to `False`. Tier 3 never triggers automatically unless the user enables it in Settings.
-- **Every 5 papers in library** (when enabled): Triggers when `actual_library_count - last_check >= 5`
-- Based on actual papers saved in the paper library, not internal counters
-- Uses `paper_library.count_papers()["active"]` to get the true count
-- Example trigger points: 5, 10, 15, 20 papers in library
-- **Force override**: The Force Tier 3 button bypasses the `tier3_enabled` gate but is hidden in the UI when Tier 3 is disabled
-
-### Phase 1: Certainty Assessment
-
-**Purpose**: Assess what can be answered WITH CERTAINTY from existing research papers.
-
-**Two-Step Paper Browsing** (same pattern as reference selection):
-
-1. **Abstract Review Phase**:
-   - Show all paper titles + abstracts + outlines
-   - AI requests expansion of relevant papers
-
-2. **Full Content Review Phase**:
-   - Show full content of expanded papers
-   - AI assesses "known certainties"
-
-**Certainty Levels**:
-| Level | Description |
-|-------|-------------|
-| `total_answer` | User's question can be FULLY answered with high confidence |
-| `partial_answer` | Question can be partially answered with certainty |
-| `no_answer_known` | Existing research doesn't provide an answer - MORE RESEARCH NEEDED |
-| `appears_impossible` | The question appears mathematically impossible |
-| `other` | Special cases |
-
-JSON schema defined in `json-prompt-design.mdc`. Fields: `certainty_level` (total_answer/partial_answer/no_answer_known/appears_impossible/other), `known_certainties_summary`, `reasoning`.
-
-**Special Case - `no_answer_known`**:
-- If certainty assessment returns `no_answer_known`, Tier 3 exits
-- System returns to normal research (Topic Selection)
-- More papers will be generated before next Tier 3 trigger
-
-**Validation**: Topic validator reviews certainty assessment (10-rejection feedback loop)
-
-### Phase 2: Format Selection
-
-**Purpose**: Select the format for the final answer based on certainty assessment.
-
-**Format Options**:
-
-| Format | Use Case |
-|--------|----------|
-| `short_form` | Answer can be presented coherently in single paper |
-| `long_form` | Answer requires curated collection, multiple perspectives |
-
-**Decision Factors**:
-- Complexity of user's question
-- Number and diversity of relevant papers
-- Whether single coherent narrative is possible
-- Whether papers naturally form a cohesive volume
-
-JSON schema defined in `json-prompt-design.mdc`. Fields: `answer_format` (short_form/long_form), `reasoning`.
-
-**Validation**: Topic validator reviews format selection (10-rejection feedback loop)
-
-### Phase 3A: Short Form Answer
-
-**Workflow**:
-
-1. **Reference Selection**: Browse all papers, select up to 6 for Tier 3 short-form context
-2. **Title Selection**: Title that directly answers user's prompt (uses existing `PaperTitleSelectorAgent`)
-3. **Paper Compilation**: Use existing Tier 2 compiler infrastructure
-   - Outline creation → Body → Conclusion → Introduction → Abstract
-   - Context: Selected reference papers (NO brainstorm databases - Tier 3 context isolation)
-4. **System Stops**: After abstract is written, autonomous research terminates
-
-**Paper Title Requirement**: Title must DIRECTLY and TRANSPARENTLY answer the user's question.
-
-JSON schema same as paper title selection (defined in `json-prompt-design.mdc`). Title must directly and transparently answer the user's question.
-
-### Phase 3B: Long Form Answer (Volume)
-
-**Volume Organization Workflow** (iterative refinement like outline creation):
-
-1. **Initial Organization**:
-   - AI selects which existing papers become body chapters
-   - AI identifies "gap papers" that need to be written
-   - AI creates volume structure with title and chapter order
-
-2. **Validation Loop**:
-   - Validator reviews volume organization
-   - If rejected, AI refines organization
-   - Continues until `outline_complete=true` AND validator accepts (max 15 iterations)
-
-**Chapter Types**:
-| Type | Description |
-|------|-------------|
-| `existing_paper` | Existing Tier 2 paper used as-is |
-| `gap_paper` | New paper to be written to fill content gap |
-| `introduction` | Introduction paper (frames the volume, written LAST) |
-| `conclusion` | Conclusion paper (synthesizes findings, written second-to-last) |
-
-JSON schema defined in `json-prompt-design.mdc`. Fields: `volume_title`, `chapters` (array with chapter_type/paper_id/title/order/description), `outline_complete`, `reasoning`.
-
-**Paper Writing Order (Long Form)**:
-1. **Gap Papers** (if any): Write in chapter order
-2. **Conclusion Paper**: Synthesizes all chapters, directly answers user's question
-3. **Introduction Paper**: Frames the volume, provides roadmap (written LAST)
-
-**Chapter Reference Scope**: Gap/introduction/conclusion chapter writing uses all `existing_paper` chapters chosen for the organized volume as references. There is no separate 6-paper selector inside long-form chapter writing.
-
-**Volume Assembly**: After all chapters are written:
-- Papers are combined into final volume
-- Displayed in "FINAL ANSWER" section of GUI
-- System stops after Introduction paper abstract is written
-
-### Model Tracking and Attribution
-
-The system implements **two tiers of model tracking**:
-1. **Per-Paper Tracking**: Tracks API calls for each individual paper (Tier 1 brainstorm + Tier 2 compilation)
-2. **Global Tier 3 Tracking**: Tracks all API calls during final answer generation
-
-#### Per-Paper Model Tracking
-
-**Purpose**: Each paper includes author attribution showing which AI models were used to create it.
-
-**Tracking Mechanism (Autonomous Mode - Part 3)**:
-- When brainstorm aggregation starts, a `PaperModelTracker` is initialized
-- A callback is set on `api_client_manager` that tracks every API call to the per-paper tracker
-- Same model used in multiple instances counts as ONE author, but all API calls are tallied
-- Model usage is stored in `PaperMetadata.model_usage` (Dict[str, int] mapping model_id to call count)
-- When Tier 3 is active, API calls are tracked to BOTH the per-paper tracker AND the global Tier 3 tracker
-
-**Tracking Mechanism (Manual Mode - Part 2)**:
-- When compiler initializes (not in autonomous mode), a `PaperModelTracker` is initialized
-- A callback is set on `api_client_manager` that tracks every API call during compilation
-- Model tracking data is included when saving the paper via `/api/compiler/save-paper`
-- No reference papers section in manual mode (manual mode doesn't have reference papers)
-
-**Per-Paper Author Attribution Section** (at beginning of each paper):
-```
-================================================================================
-AUTONOMOUS AI SOLUTION
-
-Disclaimer: This content is provided for informational and experimental purposes
-only. This paper was autonomously generated with the novelty-seeking MOTO
-harness without peer review or user oversight beyond the original prompt. It
-may contain incorrect, incomplete, misleading, or fabricated claims presented
-with high confidence. Use of this content is at your own risk. You are solely
-responsible for reviewing and independently verifying any output before relying
-on it, and the developers, operators, and contributors are not responsible for
-errors, omissions, decisions made from this content, or any resulting loss,
-damage, cost, or liability.
-
-User's Research Prompt: [user's original prompt here]
-
-Paper Title: [paper title]
-
-AI Model Authors: deepseek-r1:70b, qwen-2.5:32b
-
-Possible Models Used for Additional Reference:
-- DeepSeek (3)
-- Llama-3.1 (2)
-- Qwen-2.5 (1)
-
-Generated: 2026-01-02
-================================================================================
-```
-
-**Reference Paper Models Section**:
-- Lists models from all reference papers used in creating this paper
-- Models are listed **alphabetically** (case-insensitive)
-- If a model appears in multiple reference papers, count is shown: `ModelName (N)`
-- If a model appears in only one reference paper, no count is shown: `ModelName`
-- Helps track the complete lineage of AI contributions to each paper
-- Omitted for papers with no reference papers
-
-**Per-Paper Model Credits Section** (at end of each paper):
-```
-================================================================================
-MODEL CREDITS
-
-This autonomous solution attempt was generated with the Intrafere LLC AI Harness,
-MOTO, and the following model(s):
-
-- deepseek-r1:70b (85 API calls)
-- qwen-2.5:32b (23 API calls)
-
-Total AI Model API Calls: 108
-
-Wolfram Alpha Verifications: 3 queries
-================================================================================
-```
-
-**Wolfram Alpha Verification Tracking**:
-- Wolfram Alpha API calls are tracked separately from LLM API calls
-- Only ACCEPTED Wolfram verifications are counted (where result was added to paper via validated rigor submission)
-- Displayed in MODEL CREDITS section below LLM model list
-- Format: "Wolfram Alpha Verifications: N queries"
-- Tracking happens in `compiler_coordinator._submit_and_validate_rigor()` after validator acceptance
-- If no Wolfram calls made, this line is omitted from credits
-- **Graceful edge case handling**: Credits show even if only Wolfram calls exist (no model tracking data), or if only model calls exist (no Wolfram calls)
-
-**PaperMetadata Model Updates**:
-```python
-class PaperMetadata(BaseModel):
-    # ... existing fields ...
-    model_usage: Optional[Dict[str, int]] = None  # model_id -> API call count
-    generation_date: Optional[datetime] = None    # When paper was generated
-    wolfram_calls: Optional[int] = None           # Wolfram Alpha verification count
-```
-
-**PaperModelTracker Class** (`backend/autonomous/memory/paper_model_tracker.py`):
-- `track_call(model_id)`: Record an API call for a model
-- `track_wolfram_call(query)`: Record a Wolfram Alpha verification
-- `get_wolfram_call_count()`: Get total Wolfram queries
-- `has_tracking_data()`: Returns True if any model calls OR Wolfram calls exist (handles edge cases gracefully)
-- `get_models_dict()`: Get Dict[str, int] for metadata storage
-- `get_author_list()`: Get list of unique model IDs
-- `generate_author_attribution(...)`: Generate header text with reference models
-- `generate_model_credits()`: Generate footer text (includes Wolfram count if >0, handles edge case of Wolfram-only credits)
-- `generate_credits_for_existing_paper(model_usage, wolfram_calls)`: Includes Wolfram count for saved papers, gracefully handles missing model_usage
-- `aggregate_reference_models(paper_usages)`: Aggregate models from reference papers
-- `format_reference_models(models_dict)`: Format alphabetically with duplicate counts
-
-#### Global Tier 3 Model Tracking
-
-Tier 3 tracks all models used during final answer generation for author attribution and model credits.
-
-**Tracking Mechanism**:
-- When Tier 3 starts, model usage tracking is initialized via `final_answer_memory.initialize_model_tracking(user_prompt)`
-- A callback is set on `api_client_manager` that tracks every API call made during Tier 3
-- Same model used in multiple instances counts as ONE author, but all API calls are tallied
-- Tracking is automatically disabled when Tier 3 completes or fails
-- Per-paper tracking also occurs during Tier 3 for gap/intro/conclusion papers
-
-**Author Attribution Section** (at beginning of final answer):
-```
-================================================================================
-AUTONOMOUS AI SOLUTION
-
-Disclaimer: This content is provided for informational and experimental purposes
-only. This paper was autonomously generated with the novelty-seeking MOTO
-harness without peer review or user oversight beyond the original prompt. It
-may contain incorrect, incomplete, misleading, or fabricated claims presented
-with high confidence. Use of this content is at your own risk. You are solely
-responsible for reviewing and independently verifying any output before relying
-on it, and the developers, operators, and contributors are not responsible for
-errors, omissions, decisions made from this content, or any resulting loss,
-damage, cost, or liability.
-
-User's Research Prompt: [user's original prompt here]
-
-AI Model Authors: deepseek-r1:70b, qwen-2.5:32b, llama-3.1:70b
-
-Generated: 2025-12-31
-================================================================================
-```
-
-**Model Credits Section** (at end of final answer):
-```
-================================================================================
-MODEL CREDITS
-
-This autonomous solution attempt was generated with the Intrafere LLC AI Harness,
-MOTO, and the following model(s):
-
-- deepseek-r1:70b (127 API calls)
-- qwen-2.5:32b (43 API calls)
-- llama-3.1:70b (18 API calls)
-
-Total API Calls: 188
-================================================================================
-```
-
-**Key Design Points**:
-- Author section lists unique model IDs WITHOUT call counts
-- Credits section lists models WITH call counts, sorted by usage (descending)
-- Mid-generation volumes without tracking data gracefully skip these sections
-- Models used in parallel instances are counted as single author entries
-- Tracking includes all API calls: certainty assessment, format selection, volume organization, paper writing
-- Per-paper tracking runs SIMULTANEOUSLY with Tier 3 tracking for papers written during Tier 3
-
-### Tier 3 Data Persistence
-
-**Directory**: `data/auto_final_answer/` (or `auto_sessions/{session_id}/final_answer/`)
-
-| File | Purpose |
-|------|---------|
-| `final_answer_state.json` | Current Tier 3 state (for crash recovery), includes `model_usage` tracking |
-| `volume_organization.json` | Volume structure (long form) |
-| `tier3_rejections.txt` | Tier 3 rejection log (last 10, INDEPENDENT from Tiers 1/2) |
-| `chapter_{index}_paper.txt` | Gap/intro/conclusion papers |
-| `chapter_{index}_outline.txt` | Chapter outlines |
-| `final_volume.txt` | Assembled volume (long form) with author attribution and model credits |
-| `final_short_form_paper.txt` | Short form final answer with author attribution and model credits |
-| **`source_papers/`** | **NEW: Archived copies of all Tier 2 papers used in final answer** |
-| **`source_papers/paper_{id}.txt`** | **Paper content** |
-| **`source_papers/paper_{id}_abstract.txt`** | **Paper abstract** |
-| **`source_papers/paper_{id}_outline.txt`** | **Paper outline** |
-| **`source_papers/paper_{id}_metadata.json`** | **Paper metadata** |
-| **`source_brainstorms/`** | **NEW: Archived copies of all Tier 1 brainstorms that sourced those papers** |
-| **`source_brainstorms/brainstorm_{id}.txt`** | **Brainstorm database** |
-| **`source_brainstorms/brainstorm_{id}_metadata.json`** | **Brainstorm metadata** |
-
-### Research Lineage Archival
-
-When Tier 3 assembles a final answer (short-form or long-form), the system automatically archives the complete research lineage:
-
-1. **Paper Archival**: All Tier 2 papers referenced in the final answer are copied to `source_papers/`:
-   - Short-form: Copies all papers from `short_form_reference_papers` list
-   - Long-form: Copies all papers from `existing_paper` chapters in volume organization
-   - Includes: paper content, abstract, outline, and metadata
-
-2. **Brainstorm Archival**: All Tier 1 brainstorms that sourced those papers are copied to `source_brainstorms/`:
-   - Extracted from each paper's `source_brainstorm_ids` metadata field
-   - Automatically deduplicates (same brainstorm may source multiple papers)
-   - Includes: brainstorm database and metadata
-
-3. **Archive Statistics**: Logged at INFO level:
-   - Number of papers archived
-   - Number of brainstorms archived
-   - List of paper IDs and brainstorm IDs
-
-**Purpose**: Ensures the entire research journey from initial brainstorm → papers → final answer is preserved together for complete provenance and reproducibility.
-
-**Timing**: Archival happens BEFORE the final volume/paper is saved, ensuring consistency if the process crashes.
-
-**Access**: Archived resources are read-only copies. Deleting a paper from the main library does NOT affect archived copies in completed final answers.
-
-### Tier 3 API Endpoints
-
-#### GET /api/auto-research/tier3/status
-Returns: is_active, status, answer_format, certainty_assessment, volume progress, rejection counts.
-
-#### GET /api/auto-research/tier3/final-answer
-Returns: has_final_answer, format, title, content, word_count, status.
-
-#### GET /api/auto-research/tier3/volume-progress
-Returns: is_long_form, volume_title, outline_complete, current/total/completed chapters.
-
-### Tier 3 WebSocket Events
-
-| Event | Description |
-|-------|-------------|
-| `tier3_forced` | Manual override triggered to force Tier 3 |
-| `tier3_started` | Tier 3 final answer generation started |
-| `tier3_certainty_assessed` | Certainty assessment complete |
-| `tier3_format_selected` | Answer format selected (short/long) |
-| `tier3_volume_organized` | Volume organization complete (long form) |
-| `tier3_chapter_started` | Started writing a volume chapter |
-| `tier3_chapter_complete` | Completed writing a volume chapter |
-| `tier3_rejection` | Submission rejected in Tier 3 |
-| `tier3_complete` | Final answer complete - SYSTEM STOPS |
-
-### Tier 3 Frontend Components
-
-#### FinalAnswerView.jsx
-Main component for displaying Tier 3 status and content:
-- Status badge: "FINAL ANSWER IN PROGRESS" uses the active Tier 3 accent state; completion uses the green success state
-- Certainty assessment display
-- Format selection display
-- Volume organization with chapter status (long form)
-- Final answer content viewer
-
-**Tab Styling**:
-- When Tier 3 active: Tab pulses with highlight animation
-- When complete: Tab shows green "FINAL ANSWER ✓" indicator
-
-#### Archive Viewer UI
-
-**Access Point**: Discrete "View Research Archive" button in FinalAnswerView component (when viewing a specific final answer)
-
-**Display Format**: Modal overlay with two tabs:
-- **Papers Tab**: List all archived Tier 2 papers with metadata
-  - Click paper → view full content (paper, abstract, outline) in read-only format
-  - Clear "ARCHIVED - READ ONLY" badge
-  - Back button to return to list
-  
-- **Brainstorms Tab**: List all archived Tier 1 brainstorms with metadata
-  - Click brainstorm → view full database content in read-only format
-  - Clear "ARCHIVED - READ ONLY" badge
-  - Back button to return to list
-
-**API Endpoints**:
-- `GET /auto-research/final-answer/{answer_id}/archive/papers` - List archived papers
-- `GET /auto-research/final-answer/{answer_id}/archive/papers/{paper_id}` - Get paper details
-- `GET /auto-research/final-answer/{answer_id}/archive/brainstorms` - List archived brainstorms
-- `GET /auto-research/final-answer/{answer_id}/archive/brainstorms/{topic_id}` - Get brainstorm details
-
-**Design Principles**:
-- Non-intrusive: Button is discrete, not prominently displayed
-- Familiar interface: Looks similar to live BrainstormList/PaperLibrary components
-- Read-only: Clear visual indicators (badges, no action buttons)
-- Complete lineage: Shows entire research journey from brainstorms → papers → final answer
-
-### Tier 3 Critical Invariants
-
-1. **Tier 3 papers do NOT use brainstorm databases** - Only reference Tier 2 papers
-2. **Tier 3 rejection log is independent** - Separate from Tiers 1/2
-3. **System stops after final answer** - No more paper generation
-4. **Volume papers use standard Tier 2 compiler** - No duplicate paper-writing code
-5. **Crash recovery preserves Tier 3 state** - Can resume from any phase
-
----
-
-**The autonomous research cycle continues until Tier 3 produces a final answer and the system stops, OR until user manually stops the autonomous research mode.**
-
----
-
-## Data Persistence
-
-### Brainstorm Databases
-
-**File Pattern**: `data/auto_brainstorms/brainstorm_{topic_id}.txt`
-
-Each brainstorm has its own database file containing accepted submissions, formatted identically to Part 1's `rag_shared_training.txt`.
-
-**Metadata File**: `data/auto_brainstorms/brainstorm_{topic_id}_metadata.json` — Fields: topic_id, topic_prompt, status, submission_count, timestamps, papers_generated.
-
-### Paper Files
-
-**File Pattern**: `data/auto_papers/paper_{paper_id}.txt`
-
-Contains full paper content.
-
-**Abstract File**: `data/auto_papers/paper_{paper_id}_abstract.txt`
-
-Contains abstract only.
-
-**Source Brainstorm Cache**: `data/auto_papers/paper_{paper_id}_source_brainstorm.txt`
-
-Contains complete brainstorm database that sourced this paper.
-
-### Research Metadata File
-
-**File**: `data/auto_research_metadata.json`
-
-```
-
-### Workflow State File (Crash Recovery / Resume)
-
-**File**: `data/auto_workflow_state.json`
-
-This file persists the current workflow state to enable **automatic resume** after program restart or crash. The system automatically saves this state at key checkpoints:
-
-- After topic selection (starting brainstorm aggregation)
-- Periodically during brainstorm aggregation (every 5 acceptances)
-- When transitioning to paper compilation
-- During paper writing phases
-- **During Tier 3 final answer generation phases**
-
-On **clean stop** (user-initiated via stop button), this file is automatically cleared.
-
-On **restart/crash recovery**, if this file exists with `is_running: true`, the system detects an interrupted workflow and:
-1. Restores internal state (topic ID, acceptance counts, model config, etc.)
-2. Automatically resumes from the last known phase
-3. Broadcasts `auto_research_resumed` WebSocket event
-
-
-**Important Notes:**
-- The user research prompt is saved in `auto_research_metadata.json`, not the workflow state
-- Model configuration is saved to allow resuming with the same model settings
-- If the workflow state file is corrupted or missing, the system starts fresh
-- The `clear_all_data` API endpoint clears the workflow state along with all other data
-
----
-
-## Session-Based Folder Organization
-
-### Overview
-Each autonomous research session gets its own folder organized by the user's research prompt. This enables:
-- Easy navigation of past research sessions
-- Automatic data organization by topic
-- Crash recovery per-session
-- Export and archival of complete research sets
-
-```
-```
-
-### Session ID Format
-- Sanitized prompt (first 50 chars, special chars replaced with underscores)
-- Timestamp suffix: `YYYY-MM-DD_HH-MM`
-- Example: `solve_langlands_bridge_2025-01-15_14-30`
-
-### SessionManager Class (`backend/autonomous/memory/session_manager.py`)
-Singleton that manages session folder organization:
-- `initialize(user_prompt)`: Creates new session folder
-- `resume_session(session_id)`: Resumes existing session
-- `get_brainstorms_dir()`: Returns path to brainstorms subdirectory
-- `get_papers_dir()`: Returns path to papers subdirectory  
-- `get_final_answer_dir()`: Returns path to final_answer subdirectory
-- `list_all_sessions()`: Lists all sessions with metadata
-
-### Memory Module Integration
-All memory modules (`brainstorm_memory`, `paper_library`, `final_answer_memory`, `research_metadata`) support session-based paths via `set_session_manager()`:
-- When session manager is set, paths resolve to session subdirectories
-- Enables complete data isolation between sessions
-- Backward compatible with legacy flat structure
-
-### Dual-Path Storage Architecture
-
-The autonomous research system maintains backward compatibility through a dual-path architecture:
-
-**Legacy Paths (backward compatibility):**
-```
-backend/data/auto_brainstorms/      # Brainstorm databases
-backend/data/auto_papers/           # Completed papers  
-backend/data/auto_final_answer/     # Final answer files
-```
-
-**Session-Based Paths (preferred for new sessions):**
-```
-backend/data/auto_sessions/{session_id}/brainstorms/     # Session brainstorms
-backend/data/auto_sessions/{session_id}/papers/          # Session papers
-backend/data/auto_sessions/{session_id}/final_answer/    # Session final answers
-```
-
-**Path Resolution Priority:**
-1. Check for active session via `session_manager`
-2. If session active: use session-based paths
-3. If no session: fall back to legacy paths
-4. Memory modules handle path resolution automatically
-
-**Critique Storage Integration:**
-- Critiques are stored as JSON files inside the resolved legacy/session `papers/` or `final_answer/` directory
-- `critique_memory.py` accepts `base_dir` for session-aware storage and revalidates it against trusted roots before file access
-- When a paper or final answer is deleted, critiques are automatically cleaned up from the matching resolved storage location
-- Callers derive the directory from session-aware memory/path helpers before invoking critique storage
-
-**Important for New Features:**
-- Always use memory module methods (e.g., `paper_library.get_paper_path()`) to get paths
-- Never hardcode paths like `data/auto_papers/` directly
-- Pass resolved paths to any persistence layer that needs session awareness
-- Config paths (`system_config.auto_papers_dir`, etc.) are legacy-only references
-
----
-
-## Force Tier 3 Manual Override
-
-### Overview
-Users can force the transition to Tier 3 final answer generation at any time during autonomous research (when at least 1 paper exists). This provides manual control over when to synthesize results.
-
-### Trigger Conditions
-- Autonomous research must be running
-- At least 1 completed paper must exist
-- Not already in Tier 3 final answer generation
-
-### Two Modes
-
-**complete_current**: Complete current work first, then trigger Tier 3
-- If in Tier 1 (brainstorm): Forces paper writing completion, then Tier 3
-- If in Tier 2 (paper writing): Waits for current paper to complete, then Tier 3
-
-**skip_incomplete**: Skip incomplete work, proceed with completed papers only
-- **Stops main loop FIRST** (`_running = False`, `_stop_event.set()`) to prevent race conditions
-- Stops current aggregator/compiler unconditionally (without checking tier state)
-- Marks incomplete brainstorm as "complete" (schema doesn't support "abandoned")
-- **Resets execution flags for Tier 3** (`_running=True`, `_stop_event.clear()`) - allows chapter writing and paper compilation loops to run
-- **Runs Tier 3 synchronously** - no background task, returns result directly
-- **Resets flags back to stopped state after completion** (`_running=False`, `_stop_event.set()`)
-- Triggers Tier 3 with whatever papers are already complete
-
----
-
-## Frontend Components
-
-### AutonomousResearchInterface.jsx
-Main interface component:
-- User research prompt input
-- Start/Stop/Clear buttons
-- Current tier display (Tier 1 Brainstorm / Tier 2 Paper Writing)
-- Current brainstorm/paper progress
-- Live activity feed (topic selections, submissions, completions)
-
-### BrainstormList.jsx
-Brainstorm management component:
-- List of all brainstorm topics with status indicators
-- Expandable to show brainstorm database content
-- Status badges: In Progress uses the active accent state; Complete uses the green success state
-- Submission counts per brainstorm
-- Papers generated from each brainstorm
-- **Delete button**: Removes brainstorm and all associated files
-  - Shows confirmation dialog before deletion
-  - Displays count of associated papers that will be orphaned
-  - Prevents deletion of active brainstorm during aggregation
-  - Calls `DELETE /api/auto-research/brainstorm/{topic_id}?confirm=true`
-
-### PaperLibrary.jsx
-Paper library component:
-- Grid/list view of all completed papers
-- Paper cards showing title + abstract preview
-- Expandable to show full paper content
-- Word count, source brainstorm links
-- Download/export options:
-  - **Download PDF**: Generates PDF from rendered LaTeX content (same functionality as LivePaper and FinalAnswerView)
-  - **Download Raw**: Downloads raw text with outline
-- Search and filter functionality
-- **Delete button**: Removes paper and all associated files (shown when paper is expanded)
-  - Shows inline confirmation dialog before deletion
-  - Located after download buttons in paper actions
-  - Prevents deletion of active paper during compilation
-  - Calls `DELETE /api/auto-research/paper/{paper_id}?confirm=true`
-
-### CritiqueNotificationStack.jsx
-Persistent popup notification component for high-scoring paper critiques:
-- **Fixed position**: Bottom-right corner with z-index 999999
-- **Max 3 notifications**: FIFO queue (oldest removed when 4th arrives)
-- **Trigger condition**: Paper completed with validator critique avg rating ≥ 7.0
-- **Each notification displays**:
-  - Paper title (truncated to 2 lines)
-  - Average rating with color coding (green ≥8, blue ≥7)
-  - Star icon
-  - X button to dismiss
-  - "Click to view critique" hint
-- **Interactions**:
-  - Click anywhere (except X) → opens `PaperCritiqueModal` with full critique
-  - Click X → dismisses notification with slide-out animation
-- **Persistence**: Stays visible across all screens until dismissed (not saved to localStorage)
-- **Styling**: Purple gradient, compact design (~250px × ~80px), smooth animations
-- **WebSocket Integration**: Listens to `high_score_critique` event from backend
-
-**State Management** (in App.jsx):
-- `critiqueNotifications` array stores active notifications
-- `selectedCritiquePaper` tracks paper selected from notification click
-- `showCritiqueModal` toggles critique modal visibility
-
-### AutonomousResearchSettings.jsx
-Settings integrated into main Settings panel:
-- User research prompt (can update while running - takes effect on next topic selection)
-- Model selections:
-  - Brainstorm submitter model
-  - Validator model
-  - High-context submitter model (paper compilation)
-  - High-parameter submitter model (rigor)
-- Context window sizes (per model)
-- Max output tokens (per model)
-
-### AutonomousResearchLogs.jsx
-Metrics and logging component:
-- Real-time metrics:
-  - Total brainstorms (complete / in-progress)
-  - Total papers (complete / archived)
-  - Acceptance/rejection rates (brainstorm vs paper compilation)
-  - Average submissions per brainstorm
-  - Average words per paper
-- Graphs:
-  - Brainstorm acceptance rates over time
-  - Paper compilation acceptance rates over time
-  - Papers per brainstorm distribution
-- Event log with timestamps
-
-### LiveTier3Progress.jsx
-Real-time Tier 3 final answer display component (embedded in AutonomousResearchInterface):
-- **Purpose**: Shows Tier 3 paper/chapter content AS IT'S BEING WRITTEN (like LivePaperProgress does for Tier 2)
-- **Renders when**: `status.current_tier === 'tier3_final_answer'`
-- **Features**:
-  - Overall Tier 3 status (phase, format, certainty assessment)
-  - Status badges: Assessing Certainty, Selecting Format, Organizing Volume, Writing
-  - Format indicator: Short Form (📄) or Long Form Volume (📚)
-  - For long-form: Chapter list with progress (pending/writing/complete)
-  - Current writing indicator: Shows which chapter is being written
-  - Real-time paper content display via LatexRenderer
-  - Auto-scroll toggle
-  - Download options (Raw Text, PDF)
-- **Data Sources**:
-  - Uses `/api/auto-research/current-paper-progress` for in-progress content (same as Tier 2)
-  - Uses `/api/auto-research/tier3/volume-progress` for chapter status (long-form)
-- **WebSocket Events**: Listens to `tier3_chapter_started`, `tier3_chapter_complete`, `tier3_paper_started`, `tier3_phase_changed`, `tier3_format_selected`, `tier3_volume_organized`, `paper_updated`
-- **Distinction from FinalAnswerView.jsx**: LiveTier3Progress shows content DURING generation (embedded in main interface), while FinalAnswerView is a separate tab for viewing COMPLETED final answers
-
-### FinalAnswerView.jsx
-Tier 3 Final Answer display component (separate tab for completed/overall final answer status):
-- Status badge: "FINAL ANSWER IN PROGRESS" uses the active Tier 3 accent state; "FINAL ANSWER ✓" uses the green success state
-- Certainty assessment summary display
-- Format selection indicator (Short Form / Long Form)
-- Volume organization outline with chapter status (for long form):
-  - Chapter list with status badges (pending/writing/complete)
-  - Click to expand individual chapter content
-  - Progress indicator (X of Y chapters complete)
-- Final answer content viewer via **LatexRenderer with Rendered/Raw toggle (defaults to raw text for performance with large documents)**:
-  - Short form: Single paper display
-  - Long form: Volume with expandable chapters
-- Auto-scroll toggle for real-time updates
-- Export/download options (PDF with smart rendering, raw text download)
-
-**Tab Styling**:
-- Tab appears in "Final Answer" section of navigation
-- Active Tier 3 tab uses the in-progress highlight state with pulse animation
-- Green highlight with checkmark when complete
-
-
----
-
-## Integration Notes
-
-### Relationship to Part 1 (Aggregator)
-- Part 3 USES Part 1's aggregator infrastructure for Tier 1 brainstorm aggregation
-- Same configurable 1-10 submitters + 1 validator architecture (default 3 submitters)
-- Each submitter can have its own model, context window, and max output tokens
-- Single validator maintains coherent Markov chain evolution
-- Same pruning mechanism (every 7 acceptances)
-- Same RAG cycling for submitters (256 → 512 → 768 → 1024)
-- Same rejection feedback mechanisms
-- **DIFFERENCE**: AI-generated topic prompts instead of user-provided prompts
-
-### Relationship to Part 2 (Compiler)
-- Part 3 USES Part 2's compiler infrastructure for Tier 2 paper compilation
-- Same sequential Markov chain workflow
-- Same high-context + high-parameter submitter architecture
-- Same outline/construction/review/rigor modes
-- Same validator with coherence/rigor/placement checking
-- **DIFFERENCES**: 
-  - Constrained section order (body → conclusion → intro → abstract)
-  - AI-generated paper titles instead of user-provided prompts
-  - Reference paper selection workflow
-  - Brainstorm database as high-priority optional source material
-  - Selective non-use of brainstorm/database material is allowed when the resulting paper is stronger, rigorous, and aligned with the prompt
-
-### Running Modes
-- **Part 1, Part 2, and Part 3 remain user-selectable modes**
-- **Only ONE workflow mode may be active at a time** — Aggregator, Compiler, and Autonomous Research are now mutually exclusive at runtime
-- **Part 3 internally controls Part 1 and Part 2 components** during autonomous execution
-- Starting any mode while another mode is running must be blocked until the active mode is stopped
-
----
-
-## Prerequisites
-
-- Either an OpenRouter API key or at least one LM Studio model must be available to begin
-- LM Studio is highly recommended even with OpenRouter enabled because local embeddings/RAG are free and faster
-- User must provide high-level research prompt
-- No dependency on prior Part 1 or Part 2 usage
-- Fresh start with empty brainstorm/paper libraries
-
----
-
-## Error Handling
-
-### JSON Parse Failure (Topic Selection)
-- Retry indefinitely with rejection feedback (same as other agents)
-- Each retry includes prior failure context
-
-### JSON Parse Failure (Brainstorm Aggregation)
-- Same as Part 1 Aggregator: reject submission, feedback to submitter
-
-### JSON Parse Failure (Paper Compilation)
-- Same as Part 2 Compiler: reject submission, feedback to submitter
-
-### Model Timeout
-- 90 second timeout for topic selection
-- 60 second timeout for brainstorm aggregation submissions
-- 90 second timeout for paper compilation submissions
-- On timeout, retry once then log and continue
-
-### Completion Review Failure
-- If self-validation fails to parse, treat as "continue_brainstorm"
-- Log error and continue brainstorm aggregation
-
-### Paper Compilation Failure
-- Paper compilation is retried indefinitely until success or user stops - no skipping allowed
-- A completed brainstorm ALWAYS produces a paper; the system never abandons a brainstorm without writing its paper
-- Title selection retries indefinitely with rejection feedback threaded into each attempt
-
----
-
-## Configuration Defaults
-
-### Autonomous Research Mode
-- Brainstorm submitter context window: 131072 tokens
-- Validator context window: 131072 tokens
-- High-context submitter context window: 131072 tokens
-- High-parameter submitter context window: 131072 tokens
-- Brainstorm submitter max tokens: 25000
-- Validator max tokens: 25000
-- High-context submitter max tokens: 25000
-- High-parameter submitter max tokens: 25000
-- Completion review interval: 10 acceptances (includes removals)
-- Max brainstorms in parallel: 1 (sequential brainstorm → paper cycle)
-- Max reference papers for context: 6
-
-### Token Tracking & Research Timer
-- `token_tracker` singleton resets and starts timer on `autonomous_coordinator.start()`, stops on stop/finally
-- Cumulative input/output tokens tracked per model from every successful LLM completion call (6 code paths in `api_client_manager`)
-- `token_usage_updated` WebSocket event broadcast after each tracked call; `GET /api/token-stats` for initial fetch
-- Displayed in WorkflowPanel sidebar (timer, totals, expandable per-model breakdown)
-- Also activated for standalone aggregator/compiler via API route start/stop
-
----
-
-## Critical Invariants
-
-1. **User research prompt is ALWAYS direct injected** - Non-negotiable in all operations
-2. **Brainstorm database is ALWAYS saved with its produced paper** - Full cache for provenance
-3. **Outline is ALWAYS fully injected during paper compilation** - Never RAGed, structural framework integrity
-4. **Topic selection can ALWAYS choose to continue an existing brainstorm** - Not forced to create new topics
-5. **Paper is NOT complete until abstract is written AND validated** - Sequential order must complete
-6. **Same model MUST self-validate completion review decisions** - SPECIAL SELF-VALIDATION MODE
-7. **Completion review counts both acceptances and removals** - Pruning counts toward 10-acceptance trigger
-8. **Maximum 3 topic-cycle base reference papers total** - Applies across pre-brainstorm + additional selection for brainstorm/Tier 2 paper writing. Tier 3 short-form keeps its own 6-paper selection cap, and Tier 3 long-form chapter writing uses all selected `existing_paper` volume chapters as references.
-9. **Paper section order is FIXED**: Body → Conclusion → Introduction → Abstract - Cannot skip or reorder
-10. **Paper redundancy review is CONSERVATIVE** - Maximum 1 removal per cycle, when in doubt keep
-11. **Workflow state is ALWAYS persisted for crash recovery** - System auto-resumes from last checkpoint on restart
-12. **Reference papers selected before brainstorm PERSIST through topic cycle** - Same papers used for brainstorming AND paper writing, enabling compounding knowledge
-13. **Tier 3 papers do NOT use brainstorm databases** - Only reference Tier 2 completed papers (context isolation)
-14. **Tier 3 has INDEPENDENT rejection feedback** - Separate 10-rejection cache from Tiers 1/2
-15. **System STOPS after final answer is complete** - No more paper generation after Tier 3 completes
-16. **Tier 3 is DISABLED by default** — `tier3_enabled=False`; must be explicitly enabled in Settings. System stops at Tier 2 paper library by default.
-17. **Tier 3 triggers every 5 papers IN THE LIBRARY** (when enabled) - Based on actual `paper_library.count_papers()["active"]`, not internal counters
-18. **`no_answer_known` exits Tier 3** - Returns to normal research, more papers needed
-19. **Long-form volume writing order is FIXED** - Gap papers → Conclusion → Introduction (last)
-20. **Model tracking is ENABLED during Tier 3** - All API calls tracked for author attribution and model credits
-21. **Same model = single author** - Model used in multiple instances counts as ONE author entry, but all API calls tallied
-22. **Paper redundancy is DISABLED during Tier 3** - `_tier3_active` flag prevents redundancy checks from purging papers being used in the final volume
-23. **Brainstorm hard limit is 30 acceptances** - After 30 acceptances, paper writing is forced (no completion review)
-24. **Maximum 1 completed rewrite per paper** - Rewrite counts as "completed" only after first successful body acceptance; prevents infinite loops from failed rewrite attempts
-25. **Partial revision option available** - Allows targeted edits without full body rewrite
-26. **Total rewrite is last resort** - Only for catastrophic issues that can't be fixed with targeted edits
-27. **Rejection hard limit is 10 consecutive rejections (with 5+ acceptances)** - Prevents infinite rejection loops
-28. **Retroactive brainstorm corrections during Tier 2 paper compilation** - Submitter sees unified paper+brainstorm workspace; operations validated independently by validator (paper-only context for paper ops, brainstorm-only context for brainstorm ops); each operation must stand alone without requiring the other for correctness
-29. **Max 3 papers per brainstorm** - hard limit, continuation decision skipped after 3rd paper
-30. **Prior brainstorm papers ALWAYS auto-included** for paper 2/3 as `is_user_file=True` in RAG, separate from 6-paper cross-topic reference limit
-31. **Reference selection runs ONCE per brainstorm cycle** - papers 2/3 reuse same cross-topic references
-32. **Topic validator validates continuation decisions** - not self-validation (strategic decision, not weight assessment)
-33. **Tier 3 checks after brainstorm cycle completes** (move_on or hard limit), not between papers
-34. **No brainstorm re-opening during continuation** - strictly write_another_paper or move_on
-35. **Topic exploration runs before EVERY topic selection** — Uses full Part 1 aggregator with all submitters in parallel and batch validation to collect 5 candidate questions. No exceptions.
-36. **Topic exploration uses standard aggregator (cleanup disabled)** — Same parallel submitters, batch validation (up to 3), queue management as normal brainstorms. Cleanup/pruning is disabled because the phase is capped at 5 candidates and the temp DB is deleted afterwards.
-37. **Paper title exploration runs before EVERY title selection** — Uses full Part 1 aggregator to collect 5 candidate titles before every paper creation (Tier 2 papers 1/2/3, Tier 3 short-form, Tier 3 gap/intro/conclusion chapters). No exceptions.
-38. **Title exploration uses standard aggregator (cleanup disabled)** — Same parallel submitters, batch validation, queue management. Cleanup/pruning is disabled because the phase is capped at 5 candidates and the temp DB is deleted afterwards.
-39. **Final title selection sees candidate titles** — The 6th selection can choose a candidate, synthesize, or propose new. Must justify divergence from all candidates.
-
----
-
-## Comparison: Manual Modes vs Autonomous Mode
-
-| Aspect | Part 1 (Aggregator) | Part 2 (Compiler) | Part 3 (Autonomous Research) |
-|--------|---------------------|-------------------|------------------------------|
-| Topic Source | User provides prompt | User provides prompt | AI generates topics |
-| Database | Single shared DB | Outline + paper | Per-brainstorm DBs + paper library |
-| Completion | User stops manually | User stops manually | AI determines completion OR Tier 3 completes |
-| Paper Generation | N/A | User-directed compilation | AI-directed compilation |
-| Section Order | N/A | Next best section | Fixed: Body→Concl→Intro→Abstract |
-| Running | Independent | Independent | Autonomous (controls Part 1 & 2) |
-| Final Answer | N/A | N/A | Tier 3: Short-form paper OR Long-form volume |
-| System Termination | N/A | N/A | Tier 3 completion stops entire system |
-
----
-
-## Model Selection and Context Notes
-
-**All model selections and context windows are user-configurable via GUI settings** (same as Part 1 and Part 2).
-
-### OpenRouter Integration
-
-Each role in autonomous research mode supports OpenRouter model selection with host/provider choice:
-
-**Per-Role Configuration** (for each brainstorm submitter, validator, high-context, high-param, critique submitter):
-- **Provider Toggle**: "Use OpenRouter" button switches role to OpenRouter model selection
-- **OpenRouter Model Selector**: When OpenRouter enabled, dropdown shows available OpenRouter models
-- **Provider/Host Selector**: Specific provider selection (e.g., "Anthropic", "Google AI", "AWS Bedrock") or "Default (OpenRouter chooses)"
-- **LM Studio Fallback**: Optional fallback model if OpenRouter fails (credit exhaustion, errors)
-
-**Fallback Behavior**:
-- If OpenRouter is selected and has a fallback configured: Automatically falls back to LM Studio on credit exhaustion
-- If no LM Studio available: OpenRouter-only operation (system works without LM Studio)
-- Fallback is per-role and resettable via `POST /api/openrouter/reset-exhaustion` or by re-setting the API key
-
-## Other Notes
-
-Special Self-validation mode: The SPECIAL SELF-VALIDATION MODE for completion review is critical to the system's integrity. Do not attempt to use a different model for completion validation, as this would compromise the accuracy of the "knowledge exhaustion" assessment.
-
-Out-of-order paper writing: The sequential paper writing order (body → conclusion → intro → abstract) is designed to ensure the paper has substantive content before writing the introduction (which previews the content) and abstract (which summarizes the content). This order produces more coherent papers than writing introduction-first.
-
-**JSON Response Handling**:
-- All LLM responses preprocessed by `sanitize_json_response()` in `backend/shared/json_parser.py`
-- Handles reasoning tokens (`<think>...</think>`), markdown wrappers, control tokens
-- Extracts first complete JSON object when multiple present
-- Handles LaTeX escape sequences comprehensively: fixes invalid `\u{word}` patterns, fixes invalid `\uXXXX` non-hex escapes, **pre-escapes dangerous LaTeX commands BEFORE any json.loads() attempt** using `(?<!\\)` negative lookbehind (prevents `\to` becoming tab+o, `\text` becoming tab+ext, etc., while also preserving already-escaped `\\begin` from being double-corrupted) - dangerous commands include `\to`, `\text`, `\textbf`, `\times`, `\top`, `\tau`, `\theta`, `\triangle`, `\frac`, `\forall`, `\beta`, `\bar`, `\big*`, `\begin`, `\nu`, `\nabla`, `\neq`, `\not*`, `\rho`, `\right*`, `\rightarrow`, `\Rightarrow`, `\upsilon`, `\underline`, `\uparrow`
-- Agent-level array handling for models that return arrays instead of objects
+## program-directory-and-file-definitions
+
+> LM Studio and its pre-loaded models can be reached at "http://127.0.0.1:1234".
+
+## LM Studio Server Information
+LM Studio and its pre-loaded models can be reached at "http://127.0.0.1:1234".
+**NOTE:** The system works without LM Studio. If LM Studio is unavailable, users can configure OpenRouter for all roles.
+
+## Complete Project Directory Structure and File Descriptions
+project-root/
+├── .github/                            # GitHub community health files
+│   ├── ISSUE_TEMPLATE/                 # Public issue forms + security contact routing
+│   └── pull_request_template.md        # Default pull request template
+├── backend/
+│   ├── shared/                          # SHARED RESOURCES
+│   │   ├── __init__.py                  # Package initialization
+│   │   ├── config.py                    # RAGConfig, SystemConfig
+│   │   ├── models.py                    # Pydantic models (includes ModelConfig, BoostConfig, WorkflowTask)
+│   │   ├── lm_studio_client.py          # LM Studio HTTP API client
+│   │   ├── openrouter_client.py         # OpenRouter HTTP API client (credit exhaustion detection)
+│   │   ├── api_client_manager.py        # Unified API router (OpenRouter/LM Studio fallback + boost)
+│   │   ├── boost_manager.py             # Singleton boost manager (tracks boost modes: next-count, always-prefer, category)
+│   │   ├── boost_logger.py              # Boost API call logger (persists to boost_api_log.txt)
+│   │   ├── workflow_predictor.py        # Predicts next 20 API calls (mode-specific algorithms)
+│   │   ├── free_model_manager.py        # Free model rotation/cooldown singleton (looping + auto-selector backup)
+│   │   ├── rag_lock.py                  # Global RAG operation lock (prevents Aggregator/Compiler collision)
+│   │   ├── token_tracker.py             # Cumulative input/output token tracker singleton with per-model breakdown and research timer
+│   │   ├── wolfram_alpha_client.py      # Wolfram Alpha API client
+│   │   ├── utils.py                     # Common utilities
+│   │   ├── json_parser.py               # JSON parsing with sanitization for LLM quirks
+│   │   ├── critique_memory.py           # Paper critique persistence (saves up to 10 validator critiques per paper)
+│   │   ├── critique_prompts.py          # Default critique prompt and builder function for validator critiques
+│   │   ├── secret_store.py              # Secure API key persistence via OS keyring (OpenRouter, Wolfram Alpha)
+│   │   └── path_safety.py               # Safe path resolution helpers (realpath/normpath containment checks)
+│   ├── aggregator/                      # AGGREGATOR 
+│   │   ├── __init__.py
+│   │   ├── core/
+│   │   │   ├── __init__.py
+│   │   │   ├── rag_manager.py           # 4-stage RAG pipeline orchestrator
+│   │   │   ├── coordinator.py           # Manages 1-10 submitters + 1 validator (default 3, configurable per-submitter)
+│   │   │   ├── queue_manager.py         # Submission queue. Monitors queue size to trigger submitter pause when ≥10 submissions.
+│   │   │   └── context_allocator.py     # Direct injection vs RAG routing (tries direct first, offloads to RAG only when doesn't fit). Includes allocate_cleanup_review_context() which NEVER skips due to size - uses RAG when database too large.
+│   │   ├── ingestion/
+│   │   │   ├── __init__.py
+│   │   │   ├── chunker.py               # Multi-config chunking (256/512/768/1024)
+│   │   │   ├── pipeline.py              # Document ingestion pipeline
+│   │   │   ├── normalizer.py            # Text normalization
+│   │   │   └── metadata_extractor.py    # Extract metadata from chunks
+│   │   ├── validation/
+│   │   │   ├── __init__.py
+│   │   │   ├── contradiction_checker.py # Detect contradictions
+│   │   │   └── json_validator.py        # Validate JSON responses
+│   │   ├── memory/
+│   │   │   ├── __init__.py
+│   │   │   ├── shared_training.py       # Validator-distributed database (accepted submissions)
+│   │   │   ├── local_training.py        # Per-submitter rejection logs (last 5)
+│   │   │   └── event_log.py             # Persistent event log (acceptances, rejections, cleanup removals)
+│   │   ├── agents/
+│   │   │   ├── __init__.py
+│   │   │   ├── submitter.py             # Submitter agent (parallel, cyclic chunk sizes)
+│   │   │   └── validator.py             # Validator agent (sequential validation)
+│   │   └── prompts/
+│   │       ├── __init__.py
+│   │       ├── submitter_prompts.py     # Submitter system prompts + JSON schemas
+│   │       └── validator_prompts.py     # Validator system prompts + JSON schemas
+│   │
+│   ├── compiler/                        # COMPILER (Phase 2)
+│   │   ├── __init__.py                  # Package initialization
+│   │   ├── core/
+│   │   │   ├── __init__.py              # Package initialization
+│   │   │   ├── compiler_coordinator.py  # Orchestrates sequential Markov chain workflow
+│   │   │   └── compiler_rag_manager.py  # Compiler-specific RAG wrapper (user-configurable context per role)
+│   │   ├── agents/
+│   │   │   ├── __init__.py              # Package initialization
+│   │   │   ├── high_context_submitter.py # 3 modes: construction, outline, review
+│   │   │   ├── high_param_submitter.py   # Rigor enhancement mode
+│   │   │   └── critique_submitter.py    # Critique phase submitter (peer review)
+│   │   ├── validation/
+│   │   │   ├── __init__.py              # Package initialization
+│   │   │   └── compiler_validator.py    # Validates coherence, rigor, placement
+│   │   ├── prompts/
+│   │   │   ├── __init__.py              # Package initialization
+│   │   │   ├── outline_prompts.py       # Outline generation & update prompts
+│   │   │   ├── construction_prompts.py  # Paper construction prompts
+│   │   │   ├── review_prompts.py        # Paper review/cleanup prompts
+│   │   │   └── rigor_prompts.py         # Rigor enhancement prompts
+│   │   └── memory/
+│   │       ├── __init__.py              # Package initialization
+│   │       ├── outline_memory.py        # Current outline state (direct inject/RAG)
+│   │       ├── paper_memory.py          # Current paper state (direct inject/RAG)
+│   │       ├── critique_memory.py       # Accepted critiques database for peer review phase
+│   │       ├── critique_rejection_memory.py # Last 5 critique rejection feedback logs
+│   │       └── compiler_rejection_log.py # Last 10 rejections & acceptances
+│   │
+│   ├── autonomous/                      # AUTONOMOUS RESEARCH (Phase 3)
+│   │   ├── __init__.py                  # Package initialization
+│   │   ├── core/
+│   │   │   ├── __init__.py              # Package initialization
+│   │   │   ├── autonomous_coordinator.py # Orchestrates the Tier 1 → Tier 2 → Tier 3 autonomous workflow
+│   │   │   └── autonomous_rag_manager.py # Autonomous-specific RAG wrapper
+│   │   ├── agents/
+│   │   │   ├── __init__.py              # Package initialization
+│   │   │   ├── topic_selector.py        # Topic selection submitter (new/continue/combine)
+│   │   │   ├── topic_validator.py       # Topic selection validator
+│   │   │   ├── completion_reviewer.py   # Brainstorm completion review (SPECIAL SELF-VALIDATION)
+│   │   │   ├── reference_selector.py    # Reference paper selection workflow
+│   │   │   ├── paper_title_selector.py  # Paper title selection
+│   │   │   └── final_answer/            # TIER 3 - Final Answer Generation Agents
+│   │   │       ├── __init__.py          # Package initialization
+│   │   │       ├── certainty_assessor.py  # Assesses "known certainties" from Tier 2 papers
+│   │   │       ├── answer_format_selector.py # Selects short-form vs long-form answer
+│   │   │       └── volume_organizer.py  # Organizes volume structure (long-form)
+│   │   ├── validation/
+│   │   │   ├── __init__.py              # Package initialization
+│   │   │   └── paper_redundancy_checker.py # Paper library redundancy review
+│   │   ├── prompts/
+│   │   │   ├── __init__.py              # Package initialization
+│   │   │   ├── topic_prompts.py         # Topic selection & validation prompts
+│   │   │   ├── topic_exploration_prompts.py # Builds aggregator user prompt for topic exploration phase
+│   │   │   ├── completion_prompts.py    # Completion review & self-validation prompts
+│   │   │   ├── paper_reference_prompts.py # Reference selection prompts
+│   │   │   ├── paper_title_exploration_prompts.py # Builds aggregator user prompt for paper title exploration phase
+│   │   │   ├── paper_title_prompts.py   # Paper title selection prompts
+│   │   │   ├── paper_redundancy_prompts.py # Paper redundancy review prompts
+│   │   │   ├── paper_continuation_prompts.py # Brainstorm multi-paper continuation decision prompts
+│   │   │   └── final_answer_prompts.py  # TIER 3 - Final answer assessment/selection/volume prompts
+│   │   └── memory/
+│   │       ├── __init__.py              # Package initialization
+│   │       ├── brainstorm_memory.py     # Per-brainstorm database management (includes retroactive edit/remove/add during paper compilation)
+│   │       ├── paper_library.py         # Paper library management (Tier 2)
+│   │       ├── research_metadata.py     # Research metadata (brainstorms + papers associations)
+│   │       ├── autonomous_rejection_logs.py # Topic selection & completion feedback logs
+│   │       ├── topic_exploration_memory.py # In-memory candidate DB for topic exploration phase
+│   │       ├── paper_model_tracker.py   # Per-paper model usage tracking and author attribution
+│   │       ├── autonomous_api_logger.py # Autonomous API call logger singleton
+│   │       ├── final_answer_memory.py   # TIER 3 - Final answer state & volume management
+│   │       └── session_manager.py       # Prompt-based session folder organization
+│   │
+│   ├── scripts/                         # Temporary utility scripts
+│   │   └── cache_openrouter_models.py   # (Auto-deleted after use) Caches OpenRouter models with mapping display_name -> api_id
+│   │
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── main.py                      # FastAPI app entry point 
+│   │   ├── middleware.py                # CORS, error handling 
+│   │   └── routes/
+│   │       ├── __init__.py
+│   │       ├── aggregator.py            # Aggregator API endpoints (includes /events)
+│   │       ├── compiler.py              # Compiler API endpoints
+│   │       ├── autonomous.py            # Autonomous Research API endpoints
+│   │       ├── boost.py                 # Boost API endpoints (enable/disable/toggle/status)
+│   │       ├── workflow.py              # Workflow API endpoints (predictions/history)
+│   │       ├── download.py              # PDF generation endpoint via Playwright (POST /api/download/pdf)
+│   │       ├── openrouter.py            # OpenRouter API endpoints (global key, models, providers, LM Studio availability, **GET /api/model-cache** for model ID caching, **POST /api/openrouter/reset-exhaustion** to reset credit exhaustion mid-session)
+│   │       └── websocket.py             # WebSocket for real-time updates
+│   │
+│   ├── data/                            # Persistent data storage
+│   │   ├── user_uploads/                # User-uploaded files
+│   │   ├── model_cache.json             # **Auto-generated by cache script** - Maps display names to OpenRouter API IDs for profile system
+│   │   ├── rag_shared_training.txt      # Accepted submissions (aggregator output)
+│   │   ├── aggregator_event_log.txt     # Persistent event log (key events survive restarts)
+│   │   ├── aggregator_stats.json        # Persistent stats (acceptances, rejections, cleanup stats)
+│   │   ├── compiler_outline.txt         # Current paper outline
+│   │   ├── compiler_paper.txt           # Current paper being constructed
+│   │   ├── compiler_last_10_rejections.txt  # Last 10 compiler rejections
+│   │   ├── compiler_last_10_acceptances.txt # Last 10 compiler acceptances
+│   │   ├── Summary_Of_Last_5_Validator_Rejections_For_Submitter_*.txt  # Aggregator submitter rejections (1-10, dynamically created per submitter)
+│   │   ├── auto_brainstorms/            # Autonomous Research - Tier 1 (Brainstorm databases)
+│   │   │   ├── brainstorm_{topic_id}.txt                  # Per-brainstorm accepted submissions
+│   │   │   ├── brainstorm_{topic_id}_metadata.json        # Brainstorm metadata
+│   │   │   ├── brainstorm_{topic_id}_submitter_1_rejections.txt  # Per-brainstorm submitter rejections
+│   │   │   ├── brainstorm_{topic_id}_submitter_2_rejections.txt
+│   │   │   ├── brainstorm_{topic_id}_submitter_3_rejections.txt
+│   │   │   └── completion_feedback_{topic_id}.txt         # Completion review feedback (last 5)
+│   │   ├── auto_papers/                 # Autonomous Research - Tier 2 (Finished papers)
+│   │   │   ├── paper_{paper_id}.txt                       # Full paper content
+│   │   │   ├── paper_{paper_id}_abstract.txt              # Abstract only
+│   │   │   ├── paper_{paper_id}_source_brainstorm.txt     # Cached brainstorm database
+│   │   │   ├── paper_{paper_id}_last_10_rejections.txt    # Compiler rejections for this paper
+│   │   │   └── archive/                                   # Archived (redundant) papers
+│   │   │       └── paper_{paper_id}.txt
+│   │   ├── auto_final_answer/           # Autonomous Research - Tier 3 (LEGACY - replaced by auto_sessions)
+│   │   │   ├── final_answer_state.json                    # Tier 3 state (crash recovery)
+│   │   │   ├── volume_organization.json                   # Volume structure (long-form)
+│   │   │   ├── tier3_rejections.txt                       # Tier 3 rejection log (last 10)
+│   │   │   ├── chapter_{index}_paper.txt                  # Gap/intro/conclusion papers
+│   │   │   ├── chapter_{index}_outline.txt                # Chapter outlines
+│   │   │   └── final_volume.txt                           # Assembled volume (long-form)
+│   │   ├── auto_sessions/               # Autonomous Research - Session-based folder organization
+│   │   │   └── {sanitized_prompt}_{timestamp}/            # Per-session folder
+│   │   │       ├── brainstorms/                           # Tier 1 brainstorm databases
+│   │   │       ├── papers/                                # Tier 2 completed papers
+│   │   │       ├── final_answer/                          # Tier 3 final answer data
+│   │   │       ├── session_metadata.json                  # Session info (prompt, created_at, status)
+│   │   │       ├── session_stats.json                     # Session statistics
+│   │   │       └── workflow_state.json                    # Workflow state for crash recovery
+│   │   ├── auto_research_metadata.json  # Autonomous Research metadata (LEGACY - now in session folders)
+│   │   ├── auto_research_stats.json     # Autonomous Research statistics (LEGACY - now in session folders)
+│   │   ├── auto_workflow_state.json     # Autonomous Research workflow state (LEGACY - now in session folders)
+│   │   ├── auto_research_topic_rejections.txt  # Topic selection rejections (last 5)
+│   │   └── chroma_db/                   # ChromaDB persistent storage
+│   │
+│   └── logs/                            # Application logs
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── aggregator/              # AGGREGATOR
+│   │   │   │   ├── AggregatorInterface.jsx  # User prompt, file upload, start/stop
+│   │   │   │   ├── AggregatorSettings.jsx   # Model selection, context sizes
+│   │   │   │   ├── AggregatorLogs.jsx       # Metrics, acceptance rates, queue; loads persisted events on mount
+│   │   │   │   └── LiveResults.jsx          # Real-time accepted submissions view
+│   │   │   │
+│   │   │   ├── compiler/                # COMPILER
+│   │   │   │   ├── CompilerInterface.jsx    # Replace placeholder: prompt input, start/stop, status
+│   │   │   │   ├── CompilerSettings.jsx     # 3 model selections (validator, high-context, high-param)
+│   │   │   │   ├── CompilerLogs.jsx         # Metrics: construction vs rigor, miniscule edits
+│   │   │   │   └── LivePaper.jsx            # Real-time paper viewing, save draft, word count
+│   │   │   │
+│   │   │   └── autonomous/              # AUTONOMOUS RESEARCH
+│   │   │       ├── AutonomousResearchInterface.jsx  # Main control: research prompt, start/stop, current tier
+│   │   │       ├── AutonomousResearch.css     # Autonomous research styles
+│   │   │       ├── BrainstormList.jsx       # List all brainstorm topics with status
+│   │   │       ├── PaperLibrary.jsx         # Grid view of completed papers (title + abstract)
+│   │   │       ├── AutonomousResearchSettings.jsx  # Model configs for all roles
+│   │   │       ├── AutonomousResearchLogs.jsx      # Metrics, graphs, event log, combined API call logs
+│   │   │       ├── LivePaperProgress.jsx    # Real-time Tier 2 paper display (embedded in interface)
+│   │   │       ├── LiveTier3Progress.jsx    # Real-time Tier 3 final answer display (embedded in interface)
+│   │   │       ├── FinalAnswerView.jsx      # TIER 3 - Final answer tab (separate tab for completed answers)
+│   │   │       ├── FinalAnswerLibrary.jsx   # All sessions final answer library viewer
+│   │   │       ├── FinalAnswerLibrary.css   # Final answer library styles
+│   │   │       ├── ArchiveViewerModal.jsx   # Research lineage archive viewer (papers + brainstorms)
+│   │   │       └── ArchiveViewerModal.css   # Archive viewer styles
+│   │   │
+│   │   ├── StartupProviderSetupModal.jsx # Post-disclaimer startup chooser for OpenRouter vs LM Studio setup
+│   │   ├── OpenRouterApiKeyModal.jsx    # Modal for global OpenRouter API key configuration
+│   │   ├── PaperCritiqueModal.jsx       # Modal for displaying validator paper critiques (ratings, feedback, history)
+│   │   ├── CritiqueNotificationStack.jsx # Persistent popup notifications for high-scoring critiques (≥7.0 avg)
+│   │   ├── CreditExhaustionNotificationStack.jsx # Persistent red notifications for OpenRouter credit exhaustion with "Retry OpenRouter" reset button
+│   │   ├── HungConnectionNotificationStack.jsx # Persistent amber notifications for API calls exceeding 15 minutes (possible hung connections)
+│   │   ├── BoostControlModal.jsx        # Modal for boost configuration (next-X, category, always-prefer)
+│   │   ├── BoostControlModal.css        # Boost control modal styles
+│   │   ├── WorkflowPanel.jsx            # Boost controls panel (Boost Next X, Always Prefer, Category Boost, token stats, research timer)
+│   │   ├── WorkflowPanel.css            # Boost controls panel styles
+│   │   ├── TextFileUploader.jsx         # User file upload component
+│   │   ├── TextFileUploader.css         # File uploader styles
+│   │   ├── OpenRouterPrivacyWarningModal.jsx # Privacy policy error modal (OpenRouter data sharing)
+│   │   ├── settings-common.css          # Shared settings panel styles
+│   │   ├── critique-modal.css           # Paper critique modal styles
+│   │   │
+│   │   ├── services/
+│   │   │   ├── api.js                   # Backend API calls (includes openRouterAPI)
+│   │   │   └── websocket.js             # WebSocket connection 
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── downloadHelpers.js       # PDF/raw download helpers (Playwright backend PDF)
+│   │   │   ├── modelCache.js            # Frontend model cache utilities (display_name → api_id lookup)
+│   │   │   ├── autonomousProfiles.js    # Shared autonomous recommended-profile definitions and persistence helpers
+│   │   │   └── disclaimerHelper.js      # Frontend-only disclaimer injection for brainstorm/paper views
+│   │   │
+│   │   ├── App.jsx                      # Main app shell with top-level mode switch (Autonomous ASI S.T.E.M. / Advanced Manual ASI S.T.E.M.) and tab navigation
+│   │   ├── index.css                    # Styles
+│   │   └── index.jsx                    # React entry point
+│   │
+│   ├── package.json
+│   └── vite.config.js
+│
+├── requirements.txt                     # Python dependencies
+├── package.json                         # Root scripts
+├── SECURITY.md                          # Security policy and private vulnerability reporting
+├── Click To Launch MOTO.bat             # The user's one-click program launcher.
+└── _moto_internal_launcher.ps1          # Internal PowerShell launcher (not for direct user use)
+
+## File Purpose Descriptions
+
+### Shared Resources
+
+- `config.py`: RAGConfig, SystemConfig (context windows, chunk sizes, max output tokens)
+- `models.py`: Pydantic models (ModelConfig, BoostConfig, WorkflowTask, ModelUsageTracker, FinalAnswerState)
+- `lm_studio_client.py`: LM Studio HTTP client (completions, embeddings, model listing)
+- `openrouter_client.py`: OpenRouter HTTP client (credit exhaustion detection, fallback)
+- `api_client_manager.py`: Unified API router (OpenRouter/LM Studio fallback + boost + model tracking)
+- `boost_manager.py`: Singleton boost manager (three modes: Boost Next X Calls, Always Prefer Boost, Category Boost; broadcasts events)
+- `boost_logger.py`: Boost API call logger (persists boost-routed calls for the combined API log view)
+- `workflow_predictor.py`: Predicts next 20 API calls for internal boost routing (not displayed in UI)
+- `free_model_manager.py`: Free model rotation/cooldown singleton (looping, auto-selector `openrouter/free`, account exhaustion detection)
+- `wolfram_alpha_client.py`: Wolfram Alpha API client for rigor verification
+- `rag_lock.py`: Global RAG operation lock (prevents collision, retry logic for reads)
+- `token_tracker.py`: Cumulative input/output token tracker singleton with per-model breakdown and research timer. Reset on session start, timer start/stop tied to coordinator lifecycle. Stats broadcast via `token_usage_updated` WebSocket event after each successful LLM call.
+- `utils.py`: Token counting, text compression, file I/O
+- `json_parser.py`: JSON parsing with sanitization for LLM responses; sanitizes reasoning tokens, markdown blocks, control tokens, LaTeX escapes, control characters; **rejects truncated JSON** (raises ValueError with diagnostics) to prevent corrupted content from passing validation
+- `critique_memory.py`: Paper critique persistence (ratings, feedback, history, session-aware)
+- `critique_prompts.py`: Default critique prompt and builder function
+
+### Compiler Components
+
+- `compiler_coordinator.py`: Orchestrates Markov chain workflow, mode switching
+- `compiler_rag_manager.py`: Per-role context windows, direct→RAG priority
+- `outline_memory.py`, `paper_memory.py`, `compiler_rejection_log.py`: File I/O and logging
+- `critique_memory.py`: Accepted critiques database for peer review aggregation phase
+- `critique_rejection_memory.py`: Last 5 critique rejection feedback logs (helps critique submitter learn)
+- `high_context_submitter.py`, `high_param_submitter.py`, `critique_submitter.py`: Submitter agents
+- `compiler_validator.py`: Validates coherence, rigor, placement
+- Prompts: `outline_prompts.py`, `construction_prompts.py`, `review_prompts.py`, `rigor_prompts.py`, `critique_prompts.py`
+
+### Autonomous Research Components
+
+- `autonomous_coordinator.py`: Three-tier workflow orchestrator (Tier 1→2→3, triggers, crash recovery)
+- `autonomous_rag_manager.py`: Autonomous RAG wrapper
+- Agents: `topic_selector.py`, `topic_validator.py`, `completion_reviewer.py`, `reference_selector.py`, `paper_title_selector.py`
+- Tier 3 Agents: `certainty_assessor.py`, `answer_format_selector.py`, `volume_organizer.py`
+- `paper_redundancy_checker.py`: Library quality maintenance (every 3 papers)
+- Prompts: `topic_prompts.py`, `topic_exploration_prompts.py`, `completion_prompts.py`, `paper_reference_prompts.py`, `paper_title_exploration_prompts.py`, `paper_title_prompts.py`, `paper_redundancy_prompts.py`, `paper_continuation_prompts.py`, `final_answer_prompts.py`
+- Memory: `brainstorm_memory.py`, `paper_library.py`, `research_metadata.py`, `session_manager.py`, `autonomous_rejection_logs.py`, `topic_exploration_memory.py` (in-memory candidate DB), `paper_model_tracker.py` (per-paper model usage tracking and author attribution), `autonomous_api_logger.py` (API call logging singleton), `final_answer_memory.py` (model tracking, archival)
+
+### API Routes
+
+- `compiler.py`: Compiler control (start/stop/status), paper/outline access, critique management
+- `autonomous.py`: Autonomous research control (start/stop/clear/status), brainstorm/paper access, Tier 3 endpoints
+
+### Frontend Components
+
+- `App.jsx`: Top-level GUI shell. Default mode is `Autonomous ASI S.T.E.M.` for Part 3 screens; `Advanced Manual ASI S.T.E.M.` contains the manual Part 1 Aggregator + Part 2 Compiler workspace. Shared utility controls (Boost, OpenRouter, WorkflowPanel) remain global.
+- **Aggregator**: `AggregatorInterface.jsx`, `AggregatorSettings.jsx`, `AggregatorLogs.jsx`, `LiveResults.jsx`
+- **Compiler**: `CompilerInterface.jsx`, `CompilerSettings.jsx`, `CompilerLogs.jsx`, `LivePaper.jsx`
+- **Autonomous**: `AutonomousResearchInterface.jsx`, `BrainstormList.jsx`, `PaperLibrary.jsx`, `AutonomousResearchSettings.jsx`, `AutonomousResearchLogs.jsx`, `LivePaperProgress.jsx`, `LiveTier3Progress.jsx`, `FinalAnswerView.jsx`, `FinalAnswerLibrary.jsx`, `ArchiveViewerModal.jsx`
+- **Shared**: `StartupProviderSetupModal.jsx`, `OpenRouterApiKeyModal.jsx`, `PaperCritiqueModal.jsx`, `CritiqueNotificationStack.jsx`, `CreditExhaustionNotificationStack.jsx`, `HungConnectionNotificationStack.jsx`, `BoostControlModal.jsx`, `WorkflowPanel.jsx`, `TextFileUploader.jsx`, `OpenRouterPrivacyWarningModal.jsx`, `LatexRenderer.jsx` (dual view, KaTeX, theorem parsing), `LatexRenderer.css`
+- **Utils**: `downloadHelpers.js` (PDF/raw download), `modelCache.js` (display_name → api_id lookup), `autonomousProfiles.js` (shared recommended-profile definitions + persistence helpers), `disclaimerHelper.js` (frontend-only disclaimer injection), `api.js`, `websocket.js`
 
 ---
 > Source: [Intrafere/MOTO-Autonomous-ASI](https://github.com/Intrafere/MOTO-Autonomous-ASI) — distributed by [TomeVault](https://tomevault.io).
