@@ -1,0 +1,22 @@
+{
+  "name": "max-sixty--worktrunk",
+  "displayName": "worktrunk",
+  "description": "Worktrunk is a CLI for Git worktree management, designed for parallel AI agent workflows",
+  "version": "1.0.0",
+  "author": "max-sixty",
+  "homepage": "https://github.com/max-sixty/worktrunk",
+  "skills": [
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "worktrunk",
+      "description": ""
+    },
+    {
+      "name": "writing-user-outputs",
+      "description": ""
+    }
+  ]
+}
