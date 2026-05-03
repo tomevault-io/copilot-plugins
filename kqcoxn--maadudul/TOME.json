@@ -1,0 +1,44 @@
+{
+  "name": "MaaDuDuL",
+  "owner": "kqcoxn",
+  "repo": "MaaDuDuL",
+  "description": "\u561f\u561f\u8138\u6076\u4f5c\u5267\uff08Trickcal\uff09\u81ea\u52a8\u5316\u5c0f\u52a9\u624b\uff0c\u7531 MaaFramework \u5f3a\u529b\u9a71\u52a8\uff01",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kqcoxn/MaaDuDuL",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T07:47:18Z"
+}
