@@ -1,0 +1,9 @@
+{
+  "name": "timstewart-dynatrace--python-dtctl",
+  "displayName": "Python-dtctl",
+  "description": "kubectl-inspired CLI for managing Dynatrace platform resources from your terminal (ported from GO)",
+  "version": "1.0.0",
+  "author": "timstewart-dynatrace",
+  "homepage": "https://github.com/timstewart-dynatrace/Python-dtctl",
+  "skills": []
+}
