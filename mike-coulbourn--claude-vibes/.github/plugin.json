@@ -1,0 +1,74 @@
+{
+  "name": "mike-coulbourn--claude-vibes",
+  "displayName": "claude-vibes",
+  "description": "AI instruction skills by mike-coulbourn",
+  "version": "1.0.0",
+  "author": "mike-coulbourn",
+  "homepage": "https://github.com/mike-coulbourn/claude-vibes",
+  "skills": [
+    {
+      "name": "brand-color-psychology",
+      "description": ""
+    },
+    {
+      "name": "ai-writing-detection",
+      "description": ""
+    },
+    {
+      "name": "brand-naming-strategies",
+      "description": ""
+    },
+    {
+      "name": "visual-identity-direction",
+      "description": ""
+    },
+    {
+      "name": "brand-typography-systems",
+      "description": ""
+    },
+    {
+      "name": "brand-messaging-architecture",
+      "description": ""
+    },
+    {
+      "name": "brand-voice-development",
+      "description": ""
+    },
+    {
+      "name": "elevator-pitch-techniques",
+      "description": ""
+    },
+    {
+      "name": "tagline-creation-strategies",
+      "description": ""
+    },
+    {
+      "name": "brand-values-development",
+      "description": ""
+    },
+    {
+      "name": "jtbd-psychographic-research",
+      "description": ""
+    },
+    {
+      "name": "marketplace-builder",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "description": ""
+    },
+    {
+      "name": "slash-command-builder",
+      "description": ""
+    },
+    {
+      "name": "agent-builder",
+      "description": ""
+    },
+    {
+      "name": "midjourney-prompting",
+      "description": ""
+    }
+  ]
+}
