@@ -7,11 +7,11 @@ Automate the reverse-engineering of your codebase into structured OpenSpec speci
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [clay-good/spec-gen](https://github.com/clay-good/spec-gen).
+Original source: `CLAUDE.md` in [clay-good/spec-gen](https://github.com/clay-good/spec-gen).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
