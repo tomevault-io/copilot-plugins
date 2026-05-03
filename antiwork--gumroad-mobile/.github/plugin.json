@@ -1,9 +1,22 @@
 {
   "name": "antiwork--gumroad-mobile",
-  "displayName": "gumroad-mobile",
+  "displayName": "gumroad",
   "description": "Next-generation Gumroad mobile app built with Expo",
   "version": "1.0.0",
   "author": "antiwork",
   "homepage": "https://github.com/antiwork/gumroad-mobile",
-  "skills": []
+  "skills": [
+    {
+      "name": "create-issue",
+      "description": ""
+    },
+    {
+      "name": "pr-description",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "description": ""
+    }
+  ]
 }
