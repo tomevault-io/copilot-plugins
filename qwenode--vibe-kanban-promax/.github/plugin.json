@@ -1,0 +1,9 @@
+{
+  "name": "qwenode--vibe-kanban-promax",
+  "displayName": "vibe-kanban-promax",
+  "description": "A refined & improved fork of vibe\u2011kanban, with better UI, fixed usability issues, local-only mode, and no login required for a smoother experience.",
+  "version": "1.0.0",
+  "author": "qwenode",
+  "homepage": "https://github.com/qwenode/vibe-kanban-promax",
+  "skills": []
+}
