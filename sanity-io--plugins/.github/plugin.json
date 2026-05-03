@@ -1,0 +1,18 @@
+{
+  "name": "sanity-io--plugins",
+  "displayName": "plugins",
+  "description": "This monorepo is the home for Sanity Studio plugins maintained by Sanity staff and the community. It provides a centralized place for developing, testing, and publishing plugins that extend Sanity Stu",
+  "version": "1.0.0",
+  "author": "sanity-io",
+  "homepage": "https://github.com/sanity-io/plugins",
+  "skills": [
+    {
+      "name": "turborepo",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "description": ""
+    }
+  ]
+}
