@@ -4,7 +4,7 @@
   "repo": "openhuman",
   "description": "Your Personal AI super intelligence. Private, Simple and extremely powerful.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tinyhumansai/openhuman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T00:40:29Z"
+  "distributed_at": "2026-05-03T16:11:01Z"
 }
