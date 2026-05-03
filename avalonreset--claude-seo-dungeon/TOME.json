@@ -1,0 +1,44 @@
+{
+  "name": "claude-seo-dungeon",
+  "owner": "avalonreset",
+  "repo": "claude-seo-dungeon",
+  "description": "Gamified 16-bit dungeon crawler that turns SEO audits into boss battles. Powered by Claude Code with 23 SEO skills, up to 15 parallel subagents, and 13 animated demons. Fight your SEO issues, one critical boss at a time.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/avalonreset/claude-seo-dungeon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T01:09:30Z"
+}
