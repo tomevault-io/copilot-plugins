@@ -1,0 +1,87 @@
+{
+  "name": "feather",
+  "owner": "feather-lang",
+  "repo": "feather",
+  "description": "The core implementation of Feather",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "commit",
+      "path": ".claude/skills/commit",
+      "github_url": "https://github.com/feather-lang/feather/tree/main/.claude/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "define-usage",
+      "path": ".claude/skills/define-usage",
+      "github_url": "https://github.com/feather-lang/feather/tree/main/.claude/skills/define-usage",
+      "description": ""
+    },
+    {
+      "name": "remember",
+      "path": ".claude/skills/remember",
+      "github_url": "https://github.com/feather-lang/feather/tree/main/.claude/skills/remember",
+      "description": ""
+    },
+    {
+      "name": "review-documentation",
+      "path": ".claude/skills/review-documentation",
+      "github_url": "https://github.com/feather-lang/feather/tree/main/.claude/skills/review-documentation",
+      "description": ""
+    },
+    {
+      "name": "view-manual",
+      "path": ".claude/skills/view-manual",
+      "github_url": "https://github.com/feather-lang/feather/tree/main/.claude/skills/view-manual",
+      "description": ""
+    },
+    {
+      "name": "work-on-milestone",
+      "path": ".claude/skills/work-on-milestone",
+      "github_url": "https://github.com/feather-lang/feather/tree/main/.claude/skills/work-on-milestone",
+      "description": ""
+    },
+    {
+      "name": "work-toward-parity",
+      "path": ".claude/skills/work-toward-parity",
+      "github_url": "https://github.com/feather-lang/feather/tree/main/.claude/skills/work-toward-parity",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/feather-lang/feather",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:34:35Z"
+}
