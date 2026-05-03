@@ -1,0 +1,63 @@
+{
+  "name": "llmitm_v2",
+  "owner": "cybersharkvin",
+  "repo": "llmitm_v2",
+  "description": "Autonomous pentesting agent \u2014 Claude Code Hackathon (Feb 10-16, 2026). The LLM builds the automation that replaces itself.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anthropic-sdk",
+      "path": ".claude/skills/anthropic-sdk",
+      "github_url": "https://github.com/cybersharkvin/llmitm_v2/tree/main/.claude/skills/anthropic-sdk",
+      "description": ""
+    },
+    {
+      "name": "mitmproxy-reference",
+      "path": ".claude/skills/mitmproxy-reference",
+      "github_url": "https://github.com/cybersharkvin/llmitm_v2/tree/main/.claude/skills/mitmproxy-reference",
+      "description": ""
+    },
+    {
+      "name": "neo4j-reference",
+      "path": ".claude/skills/neo4j-reference",
+      "github_url": "https://github.com/cybersharkvin/llmitm_v2/tree/main/.claude/skills/neo4j-reference",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cybersharkvin/llmitm_v2",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T09:30:09Z"
+}
