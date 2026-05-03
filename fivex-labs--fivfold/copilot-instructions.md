@@ -1,16 +1,13 @@
-## fivfold-architecture
+## fivfold-docs
 
-> FivFold architecture rules for core, ui, api
+> FivFold documentation content conventions
 
 
-# FivFold CLI Architecture
+# FivFold Documentation Conventions
 
-When modifying core, ui, or api packages, follow [AGENTS.md](../../AGENTS.md).
-
-- **Existing files:** Use ts-morph AST, never regex/string replace
-- **New files:** Handlebars templates
-- **All writes:** Via VFS; stage then commit atomically
-- **Manifests:** Define Kits in manifests/*.kit.json; no hardcoded stack permutations
+- **Getting Started** (`site/app/docs/getting-started/`): Use generic language. Do not mention specific kit names, ORMs, or frameworks unless illustrating an example.
+- **Kit pages** (`site/app/docs/kits/`): Auth, Email, Kanban — may be detailed and stack-specific.
+- **API docs** (`site/app/docs/api/`): Setup, Express, NestJS — framework-specific content is appropriate.
 
 ---
 > Source: [Fivex-Labs/fivfold](https://github.com/Fivex-Labs/fivfold) — distributed by [TomeVault](https://tomevault.io).
