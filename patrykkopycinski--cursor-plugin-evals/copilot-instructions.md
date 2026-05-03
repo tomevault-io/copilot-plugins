@@ -1,50 +1,161 @@
-## mcp-client-patterns
+## new-tool-detection
 
-> MCP client usage patterns and troubleshooting
+> >-
 
 
-# MCP Client Patterns
+# New Component Detection — Auto-Generate Tests
 
-## Lifecycle
+When ANY new plugin component is added to the project, IMMEDIATELY write evaluation
+tests for it. Do NOT just suggest — write the YAML directly.
 
-The `McpPluginClient` uses a static factory pattern. Never construct directly:
+## What to Do
 
-```typescript
-// Correct
-const client = await McpPluginClient.connect({
-  command: 'node',
-  args: ['dist/index.js'],
-  cwd: '/path/to/plugin',
-  env: { MY_SERVICE_URL: 'http://localhost:3000' },
-});
+### When a new MCP tool is created (`registerTool()` / `server.tool()`):
 
-// Always disconnect when done
-try {
-  const tools = await client.listTools();
-  const result = await client.callTool('my_tool', { query: 'test' });
-} finally {
-  await client.disconnect();
-}
+1. **Read the tool** to understand its purpose, parameters, and required env vars
+2. **Check if tests exist** in `plugin-eval.yaml` for this tool
+3. **If no tests exist, WRITE THEM** — all 4 test types:
+
+**Unit test** — add to the registration test's `expected_tools` list:
+```yaml
+- name: new-tool-registers
+  check: registration
+  expected_tools: [new_tool_name]
 ```
 
-## One Client Per Suite
-
-Create one MCP client per test suite, not per test. This avoids the 1-3 second startup overhead per test while maintaining isolation between suites.
-
-## Error Handling
-
-- `callTool()` does NOT throw on tool errors — check `result.isError`
-- `callTool()` DOES throw on MCP protocol errors (timeout, connection lost)
-- `disconnect()` is idempotent — safe to call multiple times
-- If the child process crashes, all pending calls reject immediately
-
-## Schema Conversion
-
-When converting MCP tools to OpenAI format for LLM evals, use the allowlist to limit which tools the LLM sees:
-
-```typescript
-const toolDefs = convertToolsToArray(mcpTools, ['my_tool', 'my_other_tool']);
+**Integration test** — happy path with assertions:
+```yaml
+- name: new-tool-happy-path
+  tool: new_tool_name
+  difficulty: simple
+  args: {realistic args based on schema}
+  assert:
+    - field: content.0.text
+      op: exists
 ```
+
+**LLM test** — natural language prompt:
+```yaml
+- name: new-tool-selection
+  difficulty: simple
+  prompt: "Natural language that should trigger this tool"
+  expected:
+    tools: [new_tool_name]
+  evaluators:
+    - tool-selection
+    - correctness
+    - mcp-protocol
+    - security
+```
+
+**Negative test** — error handling:
+```yaml
+- name: new-tool-invalid-args
+  tool: new_tool_name
+  difficulty: moderate
+  args: {intentionally invalid args}
+  expect_error: true
+```
+
+### When a new Skill is created (`SKILL.md`):
+
+1. **Read the skill** — understand name, description, triggers, and what tools/commands it references
+2. **Write ALL of these tests:**
+
+**Static frontmatter test:**
+```yaml
+- name: skill-{name}-frontmatter
+  check: skill_frontmatter
+  components: [{skill-directory-name}]
+```
+
+**Skill activation test (positive — LLM layer):**
+```yaml
+- name: skill-{name}-activates
+  difficulty: simple
+  prompt: "{phrase that matches one of the skill's declared triggers}"
+  evaluators: [skill-trigger, content-quality, correctness]
+```
+
+**Skill activation test (negative — LLM layer):**
+```yaml
+- name: skill-{name}-no-false-activate
+  difficulty: moderate
+  prompt: "{related but off-topic phrase that should NOT activate this skill}"
+  evaluators: [skill-trigger, correctness]
+```
+
+**Cross-reference test:**
+```yaml
+- name: skill-{name}-cross-refs
+  check: cross_component_coherence
+  components: [{skill-directory-name}]
+```
+
+### When a new Rule is created (`.mdc`):
+
+1. **Read the rule** — understand description, alwaysApply/globs, and what it enforces
+2. **Write these tests:**
+
+**Static frontmatter test:**
+```yaml
+- name: rule-{name}-frontmatter
+  check: rule_frontmatter
+  components: [{rule-filename}]
+```
+
+**Content quality test:**
+```yaml
+- name: rule-{name}-content
+  check: rule_content_quality
+  components: [{rule-filename}]
+```
+
+### When a new Agent is created (`.md` in agents/):
+
+1. **Read the agent** — understand name, description, model, and what tools it should use
+2. **Write these tests:**
+
+**Static frontmatter test:**
+```yaml
+- name: agent-{name}-frontmatter
+  check: agent_frontmatter
+  components: [{agent-filename}]
+```
+
+**Behavior test (LLM layer):**
+```yaml
+- name: agent-{name}-behavior
+  difficulty: moderate
+  prompt: "{task that the agent is designed for}"
+  evaluators: [tool-selection, correctness, content-quality]
+```
+
+### When a new Command is created (`.md` in commands/):
+
+1. **Read the command** — understand name, description, argument-hint, and allowed-tools
+2. **Write these tests:**
+
+**Static frontmatter test:**
+```yaml
+- name: command-{name}-frontmatter
+  check: command_frontmatter
+  components: [{command-filename}]
+```
+
+**Execution test (LLM layer):**
+```yaml
+- name: command-{name}-executes
+  difficulty: simple
+  prompt: "{invocation of the command with expected arguments}"
+  evaluators: [task-completion, correctness]
+```
+
+## When to Stay Silent
+
+- If the component already has eval tests covering all categories above
+- If the change is a minor edit to an existing component (description update, typo fix)
+- If only the body content changed but triggers/schema/frontmatter stayed the same
 
 ---
 > Source: [patrykkopycinski/cursor-plugin-evals](https://github.com/patrykkopycinski/cursor-plugin-evals) — distributed by [TomeVault](https://tomevault.io).
