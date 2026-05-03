@@ -1,0 +1,122 @@
+## nelson-mcp
+
+> > Update this file after making nontrivial changes.
+
+# AGENTS.md — Quickstart cheatsheet for AI agents
+
+> [!IMPORTANT]
+> Update this file after making nontrivial changes.
+
+## Project
+
+**Nelson MCP** — LibreOffice extension (Python/UNO) exposing document tools via MCP server.
+
+## Where is what
+
+```
+plugin/main.py              Entry point, bootstrap
+plugin/version.py           Version (single source of truth)
+plugin/plugin.yaml          Global config schema
+plugin/_manifest.py         Generated — do not edit
+plugin/framework/           Core engine (services, tools, events, config, http, dialogs)
+plugin/modules/<name>/      Feature modules (module.yaml + __init__.py + tools/ + services/)
+extension/                  Static LO files (XCU, manifest, assets)
+scripts/                    Build & deploy scripts
+tests/                      Pytest suite (tests/legacy/ = old, may not pass)
+Makefile                    All build/dev targets
+install.ps1 / install.sh    Dev environment setup (installs bash, make, pyyaml, vendor deps)
+```
+
+## Setup & dev loop
+
+```bash
+./install.ps1               # Windows: installs deps (bash, make, pyyaml, vendor)
+./install.sh                # Linux/macOS equivalent
+make build                  # Build .oxt
+make deploy                 # Build + reinstall + restart LO + show log
+make log                    # Show ~/nelson.log
+make test                   # Pytest
+make set-config             # List all config keys
+make help                   # All targets
+```
+
+> **AI agent note:** `make deploy` takes 60–120 seconds (kills LO, reinstalls extension, restarts LO, waits for bootstrap). **Do not** pipe its output (`| tail`, `| grep`) — this causes buffering freezes. Run it plain with a long timeout (300s+). The `OSError: Address already in use` on port 8766 after repeated deploys is benign.
+
+## Release
+
+```bash
+# bump version in plugin/version.py + CHANGELOG.md, then:
+git add -A && git commit -m "v1.x.y: description"
+git push
+make build
+gh release create v1.x.y --target nelson --title "v1.x.y" --notes "changelog"
+gh release upload v1.x.y build/nelson.oxt
+```
+
+## Build pipeline
+
+```
+module.yaml -> generate_manifest.py -> _manifest.py + XCS/XCU + XDL
+icon.svg    -> magick (ImageMagick)  -> build/generated/assets/*.png
+extension/ + plugin/ + vendor/ + build/generated/ -> build_oxt.py -> .oxt
+```
+
+**Icons**: PNGs are generated from `extension/assets/icon.svg` into `build/generated/assets/` (requires ImageMagick `magick`). The Docker builder includes ImageMagick — use `make docker-build` if `magick` is not installed locally.
+
+## Module structure
+
+Each module in `plugin/modules/<name>/`:
+- `module.yaml` — deps, config schema, actions, menus
+- `__init__.py` — extends `ModuleBase`
+- `tools/` — extends `ToolBase`
+- `services/` — extends `ServiceBase`
+
+Auto-discovered at build time by `generate_manifest.py`.
+
+## Critical rules
+
+- **UNO context**: NEVER store `ctx` from `initialize()`. Use `get_ctx()` from `framework/uno_context.py`.
+- **Config**: Namespaced `"module.key"`, access via `ModuleConfigProxy`. Override: `NELSON_SET_CONFIG="key=val,..."`.
+- **Document scoping**: `self.xFrame.getController().getModel()` — never `desktop.getCurrentComponent()`.
+- **Sidebar**: Panels use programmatic layout (`plugin/framework/panel_layout.py`), not XDL. Use `create_panel_window()` + `add_control()` for new panels.
+- **Writer drawing layer**: `hasattr(model, "getDrawPages")` is True for Writer. Use `supportsService()`.
+- **Doc types**: `detect_doc_type()` returns `"writer"`, `"calc"`, `"impress"`, or `"draw"` (Impress and Draw are distinct). Use `doc_types = ["draw", "impress"]` for tools that work on both.
+- **Doc-type param namespacing**: Unified tools use nested objects (`"writer": {...}`, `"calc": {...}`) for doc-type-specific params. `_flatten_doc_type_params()` in `ToolRegistry` merges the matching block before `execute()`. Tool code stays flat.
+- **Draw page resolution**: Use `get_draw_page(ctx, page_index=, sheet_name=)` from `draw/bridge.py` — handles Writer (single page), Calc (per-sheet), Draw/Impress (multi-page).
+
+## Cross-renderer testing
+
+Sidebar panels use programmatic layout (no XDL) — test on multiple VCL backends to catch rendering issues:
+
+```bash
+SAL_USE_VCLPLUGIN=kf6 make deploy      # KDE/Qt6 (install: dnf install libreoffice-kf6)
+SAL_USE_VCLPLUGIN=gtk3 make deploy     # GNOME (default)
+SAL_USE_VCLPLUGIN=gtk4 make deploy     # GTK4
+SAL_USE_VCLPLUGIN=gen make deploy      # X11 pure
+```
+
+Check: sidebar controls visible and non-overlapping, resize works, settings dropdowns functional. If the backend is missing, LO silently falls back to default — verify visually.
+
+## HTTP API
+
+See [`API.md`](API.md) for the full HTTP API reference.
+
+Key endpoints on `http://localhost:8766`:
+- `GET /health` — health check (always on)
+- `GET /api/config?module=X` — read config (requires `http.enable_config_api = true`)
+- `POST /api/config` — write config (requires `http.enable_config_api = true`)
+- `POST /api/debug` — debug actions: eval, call_tool, trigger, services (requires `debug.enable_api = true`)
+
+> Both `/api/config` and `/api/debug` are **disabled by default**. Enable them in Options.
+
+## Debugging
+
+- `~/nelson.log` — plugin log (overwritten each session)
+- `~/soffice-debug.log` — LO internal errors
+- Symlinks exist in the project root (`./nelson.log`, `./soffice-debug.log`) for convenience
+- Empty log = `main.py` never loaded = extension not installed
+- `make check-ext` — verify install + manifest
+
+---
+> Source: [quazardous/nelson-mcp](https://github.com/quazardous/nelson-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-30 -->
