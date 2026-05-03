@@ -1,0 +1,9 @@
+{
+  "name": "nomadcxx--sysc-go",
+  "displayName": "sysc-Go",
+  "description": "Terminal animation library for Go. Pure Go animations ready to use in your TUI applications.",
+  "version": "1.0.0",
+  "author": "Nomadcxx",
+  "homepage": "https://github.com/Nomadcxx/sysc-Go",
+  "skills": []
+}
