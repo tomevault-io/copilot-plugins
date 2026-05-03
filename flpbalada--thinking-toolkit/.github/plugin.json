@@ -1,0 +1,14 @@
+{
+  "name": "flpbalada--thinking-toolkit",
+  "displayName": "thinking-toolkit",
+  "description": "Claude Code plugins for structured critical thinking \u2014 proven methodologies to analyze problems, challenge assumptions, and make better decisions",
+  "version": "1.0.0",
+  "author": "flpbalada",
+  "homepage": "https://github.com/flpbalada/thinking-toolkit",
+  "skills": [
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
