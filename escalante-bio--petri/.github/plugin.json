@@ -1,0 +1,14 @@
+{
+  "name": "escalante-bio--petri",
+  "displayName": "petri",
+  "description": "petri",
+  "version": "1.0.0",
+  "author": "escalante-bio",
+  "homepage": "https://github.com/escalante-bio/petri",
+  "skills": [
+    {
+      "name": "corgi",
+      "description": ""
+    }
+  ]
+}
