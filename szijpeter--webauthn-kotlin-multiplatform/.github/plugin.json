@@ -1,0 +1,22 @@
+{
+  "name": "szijpeter--webauthn-kotlin-multiplatform",
+  "displayName": "webauthn-kotlin-multiplatform",
+  "description": "WebAuthn Kotlin Multiplatform",
+  "version": "1.0.0",
+  "author": "szijpeter",
+  "homepage": "https://github.com/szijpeter/webauthn-kotlin-multiplatform",
+  "skills": [
+    {
+      "name": "webauthn-attestation-hardening",
+      "description": ""
+    },
+    {
+      "name": "webauthn-conformance-negative",
+      "description": ""
+    },
+    {
+      "name": "webauthn-spec-mapper",
+      "description": ""
+    }
+  ]
+}
