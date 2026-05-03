@@ -1,0 +1,190 @@
+{
+  "name": "bybren-llc--story-systems-template",
+  "displayName": "story-systems-template",
+  "description": "Creative project template for screenplays, novels, and film production. Multi-AI harness with upstream sync.",
+  "version": "1.0.0",
+  "author": "bybren-llc",
+  "homepage": "https://github.com/bybren-llc/story-systems-template",
+  "skills": [
+    {
+      "name": "action-description",
+      "description": ""
+    },
+    {
+      "name": "action-description",
+      "description": ""
+    },
+    {
+      "name": "arc-check",
+      "description": ""
+    },
+    {
+      "name": "arc-check",
+      "description": ""
+    },
+    {
+      "name": "character-arcs",
+      "description": ""
+    },
+    {
+      "name": "character-arcs",
+      "description": ""
+    },
+    {
+      "name": "character-dialogue",
+      "description": ""
+    },
+    {
+      "name": "character-dialogue",
+      "description": ""
+    },
+    {
+      "name": "character-interview",
+      "description": ""
+    },
+    {
+      "name": "character-interview",
+      "description": ""
+    },
+    {
+      "name": "continuity-tracking",
+      "description": ""
+    },
+    {
+      "name": "dialogue-craft",
+      "description": ""
+    },
+    {
+      "name": "dialogue-craft",
+      "description": ""
+    },
+    {
+      "name": "format-export",
+      "description": ""
+    },
+    {
+      "name": "format-export",
+      "description": ""
+    },
+    {
+      "name": "fountain-syntax",
+      "description": ""
+    },
+    {
+      "name": "glossary-reference",
+      "description": ""
+    },
+    {
+      "name": "glossary-reference",
+      "description": ""
+    },
+    {
+      "name": "logline",
+      "description": ""
+    },
+    {
+      "name": "logline",
+      "description": ""
+    },
+    {
+      "name": "page-estimation",
+      "description": ""
+    },
+    {
+      "name": "page-estimation",
+      "description": ""
+    },
+    {
+      "name": "pitch-worksheet",
+      "description": ""
+    },
+    {
+      "name": "pitch-worksheet",
+      "description": ""
+    },
+    {
+      "name": "power-analysis",
+      "description": ""
+    },
+    {
+      "name": "power-analysis",
+      "description": ""
+    },
+    {
+      "name": "rewriting-methodology",
+      "description": ""
+    },
+    {
+      "name": "rewriting-methodology",
+      "description": ""
+    },
+    {
+      "name": "scene-analysis",
+      "description": ""
+    },
+    {
+      "name": "scene-headings",
+      "description": ""
+    },
+    {
+      "name": "scene-headings",
+      "description": ""
+    },
+    {
+      "name": "story-check",
+      "description": ""
+    },
+    {
+      "name": "story-check",
+      "description": ""
+    },
+    {
+      "name": "story-structure",
+      "description": ""
+    },
+    {
+      "name": "story-structure",
+      "description": ""
+    },
+    {
+      "name": "synopsis",
+      "description": ""
+    },
+    {
+      "name": "synopsis",
+      "description": ""
+    },
+    {
+      "name": "theme-discovery",
+      "description": ""
+    },
+    {
+      "name": "theme-discovery",
+      "description": ""
+    },
+    {
+      "name": "title-page",
+      "description": ""
+    },
+    {
+      "name": "title-page",
+      "description": ""
+    },
+    {
+      "name": "transitions",
+      "description": ""
+    },
+    {
+      "name": "transitions",
+      "description": ""
+    },
+    {
+      "name": "writers-room",
+      "description": ""
+    },
+    {
+      "name": "writers-room",
+      "description": ""
+    }
+  ]
+}
