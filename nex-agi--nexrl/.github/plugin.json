@@ -1,0 +1,9 @@
+{
+  "name": "nex-agi--nexrl",
+  "displayName": "NexRL",
+  "description": "NexRL is an ultra-loosely-coupled LLM post-training framework.",
+  "version": "1.0.0",
+  "author": "nex-agi",
+  "homepage": "https://github.com/nex-agi/NexRL",
+  "skills": []
+}
