@@ -1,0 +1,1151 @@
+## langchain-go
+
+> 这是一个用 Go 重写 LangChain 1.2+ 和 LangGraph 1.0+ 的项目。
+
+# LangChain-Go & LangGraph-Go 重写项目 Cursor Rules
+
+## 项目概述
+
+这是一个用 Go 重写 LangChain 1.2+ 和 LangGraph 1.0+ 的项目。
+
+**核心目标：**
+- 实现 LangGraph 1.0+ 全部核心功能（StateGraph、Checkpointing、Human-in-the-Loop）
+- 实现 LangChain 核心抽象（Runnable、ChatModel、Tools）
+- 性能目标：并发性能提升 10x+，内存降低 50%+
+
+**技术栈：**
+- Go 1.22+ (需要泛型支持)
+- PostgreSQL/SQLite (Checkpointing)
+- 标准库优先（减少依赖）
+
+---
+
+## 代码规范
+
+### 1. 文件组织
+
+```
+每个包应包含：
+- interface.go: 接口定义
+- types.go: 类型定义
+- impl.go: 实现代码
+- options.go: 选项模式
+- xxx_test.go: 测试文件
+- doc.go: 包文档
+```
+
+### 2. 命名规范
+
+- **接口**: 使用名词，如 `Runnable`, `ChatModel`, `Saver`
+- **实现**: 使用形容词+名词，如 `PostgresSaver`, `OpenAIChatModel`
+- **函数**: 使用动词开头，如 `NewXxx`, `CreateAgent`, `ExecuteNode`
+- **私有字段**: 小写开头，如 `nodes`, `edges`
+
+### 3. 错误处理
+
+```go
+// 定义包级错误
+var (
+    ErrInvalidInput = errors.New("xxx: invalid input")
+    ErrNotFound     = errors.New("xxx: not found")
+)
+
+// 使用 fmt.Errorf 包装错误
+return fmt.Errorf("failed to execute node %s: %w", name, err)
+
+// 错误检查
+if err != nil {
+    return fmt.Errorf("xxx: %w", err)
+}
+```
+
+### 4. 泛型使用
+
+```go
+// 优先使用泛型提供类型安全
+type Runnable[I, O any] interface {
+    Invoke(ctx context.Context, input I) (O, error)
+}
+
+// 状态图使用泛型
+type StateGraph[S any] struct {
+    // ...
+}
+```
+
+### 5. 接口设计
+
+```go
+// 接口应该小而专注
+type Reader interface {
+    Read(p []byte) (n int, err error)
+}
+
+// 组合而非继承
+type ReadWriter interface {
+    Reader
+    Writer
+}
+```
+
+### 6. 选项模式
+
+```go
+// 使用函数选项模式
+type Option func(*Options)
+
+func WithTimeout(d time.Duration) Option {
+    return func(o *Options) {
+        o.Timeout = d
+    }
+}
+
+// 使用
+New(WithTimeout(5*time.Second), WithRetries(3))
+```
+
+### 7. Context 使用
+
+```go
+// 所有 I/O 操作必须接受 context
+func (s *Saver) Put(ctx context.Context, cp Checkpoint) error {
+    // 检查取消
+    select {
+    case <-ctx.Done():
+        return ctx.Err()
+    default:
+    }
+    
+    // 传递给下游
+    return s.db.ExecContext(ctx, query, args...)
+}
+```
+
+### 8. 并发安全
+
+```go
+// 使用 sync.Mutex 保护共享状态
+type SafeMap struct {
+    mu   sync.RWMutex
+    data map[string]any
+}
+
+func (m *SafeMap) Get(key string) (any, bool) {
+    m.mu.RLock()
+    defer m.mu.RUnlock()
+    val, ok := m.data[key]
+    return val, ok
+}
+```
+
+### 9. Channel 使用
+
+```go
+// 流式输出使用 channel
+func (r *Runnable) Stream(ctx context.Context, input I) (<-chan Event[O], error) {
+    out := make(chan Event[O], 100) // 带缓冲
+    
+    go func() {
+        defer close(out) // 必须关闭
+        
+        // 检查取消
+        select {
+        case <-ctx.Done():
+            return
+        case out <- event:
+        }
+    }()
+    
+    return out, nil
+}
+```
+
+---
+
+## 核心设计模式
+
+### 1. Runnable 接口
+
+```go
+// 所有可执行组件都实现此接口
+type Runnable[I, O any] interface {
+    Invoke(ctx context.Context, input I, opts ...Option) (O, error)
+    Batch(ctx context.Context, inputs []I, opts ...Option) ([]O, error)
+    Stream(ctx context.Context, input I, opts ...Option) (<-chan StreamEvent[O], error)
+}
+
+// 组合方式：Pipe
+func Pipe[A, B, C any](first Runnable[A, B], second Runnable[B, C]) Runnable[A, C] {
+    return &sequence[A, B, C]{first, second}
+}
+```
+
+### 2. StateGraph 模式
+
+```go
+// 声明式 API
+graph := state.NewStateGraph[MyState]("my-graph")
+
+graph.AddNode("agent", agentNode).
+    AddNode("tools", toolsNode).
+    SetEntryPoint("agent").
+    AddConditionalEdges("agent", routeFn, map[string]string{
+        "continue": "tools",
+        "end":      state.END,
+    }).
+    AddEdge("tools", "agent")
+
+compiled := graph.Compile()
+```
+
+### 3. Checkpointing 模式
+
+```go
+// 接口定义
+type Saver interface {
+    Put(ctx context.Context, config Config, cp Checkpoint) error
+    Get(ctx context.Context, config Config) (*Checkpoint, error)
+    List(ctx context.Context, config Config, opts ListOptions) ([]Checkpoint, error)
+}
+
+// 使用
+graph.WithCheckpointer(postgresaver).
+    WithDurability(durability.ModeSync)
+```
+
+### 4. Human-in-the-Loop 模式
+
+```go
+// 节点中触发中断
+func approvalNode(ctx context.Context, state State) (State, error) {
+    if state.RequiresApproval {
+        hitl.TriggerInterrupt(hitl.Interrupt{
+            Type:    hitl.InterruptApproval,
+            Message: "请审批此操作",
+        })
+    }
+    return state, nil
+}
+
+// 恢复执行
+result, err := executor.Resume(ctx, threadID, hitl.ResumeData{
+    Action: hitl.ActionApprove,
+})
+```
+
+### 5. Middleware 模式
+
+```go
+// 中间件接口
+type Middleware interface {
+    BeforeModel(ctx context.Context, state *State) (*State, error)
+    AfterModel(ctx context.Context, state *State, resp *Message) (*State, error)
+}
+
+// 中间件链
+agent := agents.CreateAgent(agents.Config{
+    Model: model,
+    Middleware: []Middleware{
+        logging.New(),
+        hitl.New(hitl.Config{...}),
+    },
+})
+```
+
+---
+
+## 测试规范
+
+### 1. 测试文件命名
+
+```
+file.go       -> file_test.go
+interface.go  -> interface_test.go
+```
+
+### 2. 测试函数命名
+
+```go
+// 基础测试
+func TestFunctionName(t *testing.T) {}
+
+// 表格驱动测试
+func TestFunctionName_Cases(t *testing.T) {
+    tests := []struct {
+        name    string
+        input   Input
+        want    Output
+        wantErr bool
+    }{
+        {"normal case", input1, output1, false},
+        {"error case", input2, nil, true},
+    }
+    
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            // ...
+        })
+    }
+}
+```
+
+### 3. Mock 使用
+
+```go
+// 使用接口进行 mock
+type MockSaver struct {
+    PutFunc func(ctx context.Context, config Config, cp Checkpoint) error
+}
+
+func (m *MockSaver) Put(ctx context.Context, config Config, cp Checkpoint) error {
+    if m.PutFunc != nil {
+        return m.PutFunc(ctx, config, cp)
+    }
+    return nil
+}
+```
+
+### 4. 必须测试的场景
+
+- ✅ 正常路径
+- ✅ 错误处理
+- ✅ 边界条件
+- ✅ 并发安全
+- ✅ Context 取消
+- ✅ 资源清理
+
+---
+
+## 文档规范
+
+### 1. 包文档 (doc.go)
+
+```go
+// Package graph 提供 LangGraph 状态图实现。
+//
+// StateGraph 是核心类型，用于定义有向图工作流：
+//
+//   g := graph.NewStateGraph[MyState]("example")
+//   g.AddNode("start", startNode)
+//   g.AddEdge("start", "end")
+//   compiled := g.Compile()
+//
+// 支持的功能：
+//   - 条件边和循环
+//   - 检查点持久化
+//   - Human-in-the-Loop
+//   - 流式输出
+//
+package graph
+```
+
+### 2. 类型文档
+
+```go
+// StateGraph 表示一个状态图工作流。
+//
+// StateGraph 使用泛型参数 S 表示状态类型，状态在节点间流转。
+//
+// 示例：
+//
+//   type MyState struct {
+//       Counter int
+//   }
+//
+//   g := NewStateGraph[MyState]("counter")
+//
+type StateGraph[S any] struct {
+    // ...
+}
+```
+
+### 3. 函数文档
+
+```go
+// AddNode 向图中添加一个节点。
+//
+// 参数：
+//   - name: 节点名称，必须唯一
+//   - fn: 节点函数，接收状态并返回新状态
+//
+// 返回：
+//   - *StateGraph[S]: 返回自身支持链式调用
+//
+// 如果节点名称已存在，会覆盖原有节点。
+//
+func (g *StateGraph[S]) AddNode(name string, fn NodeFunc[S]) *StateGraph[S] {
+    // ...
+}
+```
+
+### 4. 项目文档结构 ⭐
+
+**根目录必需文档**：
+```
+README.md              - 项目主页，第一印象（必读）
+CHANGELOG.md           - 完整的版本变更日志（Keep a Changelog 格式）
+CONTRIBUTING.md        - 贡献指南
+DOCUMENTATION_STRUCTURE.md - 文档结构说明
+QUICK_START.md        - 5 分钟快速开始
+TESTING.md            - 测试指南
+LICENSE               - 许可证
+```
+
+**docs/ 目录结构**：
+```
+docs/
+├── README.md                    # 文档索引
+├── releases/                    # 发布文档（集中管理）⭐
+│   ├── README.md               # 发布历史索引
+│   ├── RELEASE_NOTES_vX.X.X.md # 完整发布说明
+│   ├── GITHUB_RELEASE_vX.X.X.md # GitHub Release 公告
+│   ├── RELEASE_CHECKLIST_vX.X.X.md # 发布检查清单
+│   └── RELEASE_GUIDE_vX.X.X.md # 发布指南
+├── guides/                      # 使用指南
+│   ├── agents/
+│   ├── rag/
+│   └── tools/
+├── reference/                   # API 参考
+└── VX.X.X_*.md                 # 版本技术文档
+```
+
+**examples/ 目录**：
+- 每个示例包含 `main.go` + `README.md`
+- 按功能分类组织
+- 必须可运行
+
+### 5. Markdown 文档规范
+
+**通用要求**：
+- 使用 Markdown 格式
+- 中文为主，代码注释可中英混合
+- 清晰的标题层级（H1-H6）
+- 提供完整可运行的代码示例
+- 使用相对路径链接其他文档
+
+**README.md 必需内容**：
+```markdown
+# 项目名称
+
+徽章（版本、许可证、测试状态）
+
+## 简介（30 字内）
+
+## ✨ 核心特性（3-5 个亮点）
+
+## 🚀 快速开始
+### 安装
+### 30 秒上手代码
+
+## 📖 文档链接
+
+## 🤝 贡献
+
+## 📄 许可证
+```
+
+**示例 README.md 必需内容**：
+```markdown
+# 功能名称 - 示例
+
+简短说明
+
+## 功能演示
+
+## 运行示例
+
+## 核心概念
+
+## 使用示例
+
+## 相关文档
+```
+
+### 6. 文档国际化规范 ⭐
+
+**核心原则**：
+- 所有用户面向文档必须提供中英文双语版本
+- 保持中英文内容对等和一致性
+- 便于国际开发者社区访问和贡献
+
+#### 文件命名规范
+
+```
+基础文档.md          - 主要语言版本（中文）
+基础文档_EN.md       - 英文版本
+基础文档_ZH.md       - 中文版本（当原文为英文时）
+```
+
+**示例**：
+```
+README.md            - 中文主页
+README_EN.md         - 英文主页
+CONTRIBUTING.md      - 英文贡献指南（原版）
+CONTRIBUTING_ZH.md   - 中文贡献指南
+QUICK_START.md       - 中文快速开始
+QUICK_START_EN.md    - 英文快速开始
+```
+
+#### 语言切换标识
+
+**每个文档顶部必须添加统一格式的语言切换链接**：
+
+```markdown
+# 文档标题
+
+🌍 **Language**: 中文 | [English](文档名_EN.md)
+
+内容开始...
+```
+
+或
+
+```markdown
+# Document Title
+
+🌍 **Language**: [中文](文档名.md) | English
+
+Content starts...
+```
+
+**实现示例**：
+```markdown
+# LangChain-Go
+
+🌍 **Language**: 中文 | [English](README_EN.md)
+
+🎯 **生产就绪的 Go AI 开发框架**
+```
+
+#### 必需双语文档清单
+
+**根目录核心文档**（必须提供双语版本）：
+- [ ] README.md + README_EN.md
+- [ ] QUICK_START.md + QUICK_START_EN.md
+- [ ] CONTRIBUTING.md + CONTRIBUTING_ZH.md
+- [ ] TESTING.md + TESTING_EN.md
+- [ ] SECURITY.md + SECURITY_EN.md
+
+**可选双语文档**：
+- CHANGELOG.md（中文为主，重大版本提供英文摘要）
+- 技术文档（根据受众决定）
+
+#### 文档链接双语化
+
+在 README 等文档中引用其他文档时，提供双语链接：
+
+```markdown
+## 📖 文档
+
+- 📘 [快速开始](QUICK_START.md) | [Quick Start (EN)](QUICK_START_EN.md)
+- 📗 [贡献指南 (中文)](CONTRIBUTING_ZH.md) | [Contributing (EN)](CONTRIBUTING.md)
+- 📙 [测试指南](TESTING.md) | [Testing Guide (EN)](TESTING_EN.md)
+```
+
+#### 内容组织要求
+
+1. **结构一致性**：
+   - 中英文文档保持相同的章节结构
+   - 标题层级和编号对应
+   - 代码示例位置一致
+
+2. **技术术语处理**：
+   - API 名称、函数名保持原文
+   - 专有名词首次出现时可标注英文
+   - 代码注释优先使用英文
+
+3. **代码示例**：
+   - 代码保持完全一致
+   - 注释可以本地化
+   - 输出结果可以本地化
+
+**示例**：
+```go
+// 中文版
+// 创建 OpenAI 客户端
+model := openai.New(openai.Config{
+    APIKey: "your-api-key",
+})
+
+// 英文版
+// Create OpenAI client
+model := openai.New(openai.Config{
+    APIKey: "your-api-key",
+})
+```
+
+#### 维护规范
+
+1. **同步更新原则**：
+   - 更新任一语言版本时，必须同步更新对应版本
+   - 在 PR 中明确标注文档更新范围
+   - 提交信息中说明文档变更
+
+2. **质量保证**：
+   - 定期检查链接有效性
+   - 确保术语翻译一致性
+   - 代码示例保持可运行
+
+3. **社区贡献**：
+   - 欢迎改进翻译质量的 PR
+   - 可以添加更多语言版本
+   - 建立翻译审核流程
+
+#### 国际化检查清单
+
+**新增文档时**：
+- [ ] 确定是否需要国际化
+- [ ] 创建对应语言版本
+- [ ] 添加语言切换标识
+- [ ] 更新引用该文档的其他文档链接
+- [ ] 验证所有链接有效
+
+**更新文档时**：
+- [ ] 同步更新所有语言版本
+- [ ] 检查术语翻译一致性
+- [ ] 验证代码示例可运行
+- [ ] 更新修改日期/版本号
+
+**发布前检查**：
+- [ ] 所有核心文档有双语版本
+- [ ] 语言切换链接正确
+- [ ] 内容结构对等一致
+- [ ] 链接全部有效
+- [ ] 无遗漏的国际化标识
+
+---
+
+## 性能优化指南
+
+### 1. 避免不必要的分配
+
+```go
+// Bad: 每次调用都分配
+func process(items []string) []Result {
+    results := []Result{} // 初始容量为 0
+    for _, item := range items {
+        results = append(results, Result{})
+    }
+    return results
+}
+
+// Good: 预分配容量
+func process(items []string) []Result {
+    results := make([]Result, 0, len(items))
+    for _, item := range items {
+        results = append(results, Result{})
+    }
+    return results
+}
+```
+
+### 2. 使用 sync.Pool
+
+```go
+// 复用对象
+var bufferPool = sync.Pool{
+    New: func() any {
+        return new(bytes.Buffer)
+    },
+}
+
+func processData(data []byte) {
+    buf := bufferPool.Get().(*bytes.Buffer)
+    defer func() {
+        buf.Reset()
+        bufferPool.Put(buf)
+    }()
+    // 使用 buf
+}
+```
+
+### 3. 并发执行
+
+```go
+// Batch 方法并行执行
+func (r *Runnable[I, O]) Batch(ctx context.Context, inputs []I) ([]O, error) {
+    results := make([]O, len(inputs))
+    var wg sync.WaitGroup
+    var mu sync.Mutex
+    var firstErr error
+    
+    for i, input := range inputs {
+        wg.Add(1)
+        go func(idx int, in I) {
+            defer wg.Done()
+            result, err := r.Invoke(ctx, in)
+            mu.Lock()
+            defer mu.Unlock()
+            if err != nil && firstErr == nil {
+                firstErr = err
+            }
+            results[idx] = result
+        }(i, input)
+    }
+    
+    wg.Wait()
+    return results, firstErr
+}
+```
+
+---
+
+## 安全规范
+
+### 1. 输入验证
+
+```go
+// 总是验证输入
+func NewConfig(apiKey string) (*Config, error) {
+    if apiKey == "" {
+        return nil, ErrAPIKeyRequired
+    }
+    if len(apiKey) < 32 {
+        return nil, ErrInvalidAPIKey
+    }
+    return &Config{apiKey: apiKey}, nil
+}
+```
+
+### 2. 敏感信息处理
+
+```go
+// 不要在日志中输出敏感信息
+type Config struct {
+    apiKey string // 小写，不导出
+}
+
+// String 隐藏敏感信息
+func (c Config) String() string {
+    return fmt.Sprintf("Config{apiKey: ***%s}", c.apiKey[len(c.apiKey)-4:])
+}
+```
+
+### 3. 资源清理
+
+```go
+// 使用 defer 确保资源释放
+func process(filename string) error {
+    f, err := os.Open(filename)
+    if err != nil {
+        return err
+    }
+    defer f.Close() // 确保关闭
+    
+    // 处理文件
+    return nil
+}
+```
+
+---
+
+## 依赖管理
+
+### 1. 最小依赖原则
+
+```
+优先使用标准库，仅在必要时引入外部依赖：
+
+必需依赖：
+- github.com/jackc/pgx/v5  (PostgreSQL)
+- github.com/mattn/go-sqlite3 (SQLite)
+
+可选依赖：
+- github.com/stretchr/testify (测试)
+- github.com/google/uuid (UUID)
+```
+
+### 2. 版本固定
+
+```go
+// go.mod
+require (
+    github.com/jackc/pgx/v5 v5.5.0
+)
+```
+
+---
+
+## 提交规范
+
+### 1. Commit Message 格式
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+**类型 (type):**
+- `feat`: 新功能
+- `fix`: 修复 bug
+- `refactor`: 重构
+- `test`: 测试
+- `docs`: 文档
+- `chore`: 构建/工具
+
+**示例:**
+```
+feat(graph): implement StateGraph with conditional edges
+
+- Add StateGraph core structure
+- Support conditional edges
+- Add basic validation
+
+Refs: #M24
+```
+
+### 2. 分支策略
+
+```
+main          - 稳定版本
+develop       - 开发分支
+feature/M24   - 功能分支（按模块编号）
+fix/issue-123 - 修复分支
+```
+
+### 3. 提交时机规则 ⭐
+
+**重要：每次实现一个比较独立和完整的功能模块时，必须进行 git commit**
+
+#### 何时提交：
+
+1. **完成单个功能模块** - 当实现了一个完整的、可独立运行的功能模块时
+   - 示例：完成 `ChatModel` 实现
+   - 示例：完成 `StateGraph` 核心功能
+   - 示例：完成 `Milvus` 向量存储集成
+
+2. **完成相关功能组** - 当实现了一组紧密相关的功能时
+   - 示例：完成 Checkpoint 的 Memory、SQLite、Postgres 三个实现
+   - 示例：完成 Document Loaders + Text Splitters
+
+3. **重要里程碑** - 当完成一个阶段的所有功能时
+   - 示例：Phase 1 基础核心全部完成
+   - 示例：Phase 2 LangGraph 核心全部完成
+
+4. **文档更新** - 当完成重要文档编写或更新时
+   - 示例：完成某个模块的技术文档
+   - 示例：更新功能清单状态
+
+#### 何时不提交：
+
+- ❌ 功能只完成一半，还不能运行
+- ❌ 代码还有明显的编译错误或测试失败
+- ❌ 只是临时调试代码
+- ❌ 只修改了几行注释
+
+#### 提交标准：
+
+在提交前确保：
+- ✅ 代码可以编译通过
+- ✅ 相关测试已编写并通过
+- ✅ 功能可以独立运行（或作为整体的一部分工作）
+- ✅ 有清晰的提交信息说明本次实现的内容
+- ✅ 相关文档已同步更新
+
+#### 提交信息要求：
+
+```
+feat(<module>): <简短描述>
+
+## 实现内容
+- ✅ 功能点 1
+- ✅ 功能点 2
+- ✅ 功能点 3
+
+## 技术细节（可选）
+- 代码量: ~XXX 行
+- 测试覆盖: XX%
+- 核心特性: ...
+
+## 相关文档（可选）
+- 技术文档: docs/XXX.md
+- 使用示例: examples/XXX.go
+```
+
+#### 示例：
+
+**好的提交**：
+```bash
+# 完成了 Milvus 向量存储的完整实现
+git commit -m "feat(retrieval): 实现 Milvus 2.6+ 向量存储和 Hybrid Search
+
+- ✅ 基础 CRUD 操作
+- ✅ Hybrid Search (向量 + BM25)
+- ✅ RRF 和加权融合重排序
+- ✅ 完整测试覆盖
+
+代码量: ~1300 行（含测试）"
+```
+
+**不好的提交**：
+```bash
+# 太笼统，没有说明具体完成了什么
+git commit -m "update code"
+
+# 功能还没完成就提交
+git commit -m "feat: add milvus (WIP)"
+
+# 提交了半成品
+git commit -m "feat: milvus implementation (not tested)"
+```
+
+---
+
+## AI 辅助开发提示
+
+### 1. 请求代码生成时
+
+```markdown
+实现模块 M{ID}: {模块名称}
+
+设计文档：{从设计方案复制}
+
+依赖模块：{已实现的接口定义}
+
+要求：
+1. 遵循项目 .cursorrules 规范
+2. 包含完整错误处理
+3. 包含单元测试
+4. 添加详细注释
+```
+
+### 2. 代码审查检查项
+
+- [ ] 是否遵循命名规范
+- [ ] 是否有完整的错误处理
+- [ ] 是否有 Context 支持
+- [ ] 是否有并发安全保护
+- [ ] 是否有资源清理（defer）
+- [ ] 是否有输入验证
+- [ ] 是否有单元测试
+- [ ] 是否有文档注释
+
+### 3. 性能检查项
+
+- [ ] 是否预分配容量
+- [ ] 是否避免不必要的分配
+- [ ] 是否使用并发提升性能
+- [ ] 是否有内存泄漏风险
+- [ ] 是否有 goroutine 泄漏风险
+
+---
+
+## 版本发布规范 ⭐
+
+### 1. CHANGELOG.md 维护
+
+**格式要求**：
+- 遵循 [Keep a Changelog](https://keepachangelog.com/) 格式
+- 遵循 [语义化版本](https://semver.org/) 规范
+
+**版本结构**：
+```markdown
+## [Unreleased]
+
+## [X.X.X] - YYYY-MM-DD
+
+### 🎉 Added - 新功能描述
+
+#### 模块名称
+- **功能点** - 详细说明
+  - 子功能 1
+  - 子功能 2
+  - 性能数据
+
+### 📊 统计数据
+- 新增代码: ~X,XXX 行
+- 测试代码: ~X,XXX 行
+- 测试覆盖: XX%
+
+### 📝 Documentation
+- 新增文档列表
+
+### 🐛 Bug Fixes
+- 修复问题列表
+
+### ⚡ Performance
+- 性能优化项
+
+### 🔧 Infrastructure
+- 基础设施变更
+
+[X.X.X]: https://github.com/USER/REPO/compare/vX.X.X-1...vX.X.X
+```
+
+**每次发布必做**：
+1. ✅ 在 `[Unreleased]` 下添加新版本
+2. ✅ 填写发布日期
+3. ✅ 详细列出所有变更（Added, Changed, Fixed 等）
+4. ✅ 添加统计数据
+5. ✅ 更新版本对比链接
+
+### 2. 发布文档规范
+
+**每次发布需创建**：
+
+1. **RELEASE_NOTES_vX.X.X.md**（完整版）
+   - 位置：`docs/releases/`
+   - 内容：详细的功能说明、代码统计、使用示例、性能数据、升级指南
+   - 长度：500-1000 行
+
+2. **GITHUB_RELEASE_vX.X.X.md**（简洁版）
+   - 位置：`docs/releases/`
+   - 内容：适合复制到 GitHub Release 的简洁版本
+   - 长度：200-500 行
+   - 包含：核心功能、快速开始、统计数据
+
+3. **VX.X.X_USER_GUIDE.md**（用户指南）
+   - 位置：`docs/`
+   - 内容：完整的使用指南、API 参考、最佳实践
+   - 长度：根据功能复杂度
+
+4. **RELEASE_CHECKLIST_vX.X.X.md**（检查清单）
+   - 位置：`docs/releases/`
+   - 内容：发布前检查项、发布步骤、验证方法
+
+**发布文档模板结构**：
+```markdown
+# v0.X.X - 功能名称
+
+**发布日期**: YYYY-MM-DD
+**标签**: vX.X.X
+
+## 🌟 重大更新
+## ✨ 新功能
+## 📦 完整交付
+## 🚀 快速开始
+## 📊 性能与效果
+## 💪 核心优势
+## 📚 文档与示例
+## 🔄 升级指南
+## 📞 联系方式
+```
+
+### 3. 发布流程 ⭐
+
+**完整发布步骤**：
+
+```bash
+# 步骤 1: 完成开发和测试
+go test ./... -v                    # 所有测试通过
+go test ./... -cover                # 检查覆盖率
+
+# 步骤 2: 更新文档
+# - 更新 CHANGELOG.md
+# - 创建 docs/releases/RELEASE_NOTES_vX.X.X.md
+# - 创建 docs/releases/GITHUB_RELEASE_vX.X.X.md
+# - 创建 docs/VX.X.X_USER_GUIDE.md
+# - 更新 README.md（如有新功能）
+# - 更新 docs/releases/README.md
+
+# 步骤 3: 提交代码
+git add .
+git commit -m "docs: vX.X.X 发布准备"
+
+# 步骤 4: 创建 Git Tag
+git tag -a vX.X.X -m "Release vX.X.X - 功能名称
+
+核心功能：
+✅ 功能 1
+✅ 功能 2
+✅ 功能 3
+
+交付成果：
+• XX,XXX 行新增代码
+• XX 个新测试
+• XX 个示例程序
+
+详见 docs/releases/RELEASE_NOTES_vX.X.X.md"
+
+# 步骤 5: 推送到远程
+git push origin main
+git push origin vX.X.X
+
+# 步骤 6: 创建 GitHub Release
+# - 访问 https://github.com/USER/REPO/releases/new
+# - 选择 Tag: vX.X.X
+# - Title: vX.X.X - 功能名称
+# - 描述: 复制 docs/releases/GITHUB_RELEASE_vX.X.X.md
+# - 发布
+
+# 步骤 7: 验证发布
+go get github.com/USER/REPO@vX.X.X  # 测试安装
+```
+
+**发布时机**：
+- Major (X.0.0): 不兼容的 API 变更
+- Minor (0.X.0): 向后兼容的功能新增
+- Patch (0.0.X): 向后兼容的问题修正
+
+**发布前检查清单**：
+- [ ] 所有测试通过（100%）
+- [ ] 测试覆盖率达标（>70%）
+- [ ] 所有示例可运行
+- [ ] CHANGELOG.md 已更新
+- [ ] 发布文档已创建
+- [ ] README.md 已更新（如需要）
+- [ ] 版本号符合语义化版本
+- [ ] Git Tag 已创建
+- [ ] 提交信息清晰
+
+### 4. 版本号管理
+
+**语义化版本规范**：
+```
+vMAJOR.MINOR.PATCH
+
+MAJOR: 不兼容的 API 变更
+MINOR: 向后兼容的功能新增
+PATCH: 向后兼容的问题修正
+```
+
+**示例**：
+- v0.1.0 → v0.1.1: Bug 修复
+- v0.1.1 → v0.2.0: 新增功能
+- v0.2.0 → v1.0.0: API 重大变更
+
+**Pre-release 版本**：
+- v1.0.0-alpha.1
+- v1.0.0-beta.1
+- v1.0.0-rc.1
+
+---
+
+## 参考资源
+
+- 设计文档: `../LangChain-LangGraph-Go重写设计方案.md`
+- Python LangChain: https://github.com/langchain-ai/langchain
+- Python LangGraph: https://github.com/langchain-ai/langgraph
+- Go Code Review: https://github.com/golang/go/wiki/CodeReviewComments
+- Effective Go: https://go.dev/doc/effective_go
+- Keep a Changelog: https://keepachangelog.com/
+- Semantic Versioning: https://semver.org/
+- Markdown Guide: https://www.markdownguide.org/
+- 文档国际化: docs/archive/development/DOCUMENTATION_I18N_COMPLETE.md
+
+---
+
+## 当前进度跟踪
+
+```
+[✅] v0.1.0: 基础功能 (7种Agent, 38个工具, LangGraph)
+[✅] v0.1.1: 扩展功能 (4个向量存储, 3个LLM, 3个Loader, 高级RAG)
+[✅] v0.3.0: Multi-Agent 系统
+[✅] v0.4.0: Hybrid Search & Advanced RAG
+[✅] v0.4.1: GraphRAG (图增强检索)
+[✅] v0.4.2: Learning Retrieval (学习型检索)
+[✅] v0.5.0: 分布式部署 (集群管理, 负载均衡, 分布式缓存, 故障转移)
+[✅] v0.5.1: Agent Skills + Token 优化 (元工具模式, 三级加载, 70-79% 节省) ⭐
+[✅] v0.6.0: 企业级安全 (RBAC, 多租户隔离)
+[🚧] v0.6.1: 标准化协议 (MCP, A2A) ⭐⭐⭐
+[🚧] v0.7.0: 认知增强 + 生产就绪 (节点缓存, 延迟节点, 认知记忆, Circuit Breaker, LangGraph Store, Trustcall, 统一Agent API) - 核心模块已完成，收尾中
+```
+
+更新此文件底部的进度，标记已完成的版本。
+
+---
+> Source: [zhucl121/langchain-go](https://github.com/zhucl121/langchain-go) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
