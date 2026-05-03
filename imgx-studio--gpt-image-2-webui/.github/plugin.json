@@ -1,0 +1,9 @@
+{
+  "name": "imgx-studio--gpt-image-2-webui",
+  "displayName": "gpt-image-2-webui",
+  "description": " Self-hosted GPT Image / OpenAI-compatible WebUI for text-to-image, image editing, reference-based generation, and multilingual creative workflows.",
+  "version": "1.0.0",
+  "author": "imgx-studio",
+  "homepage": "https://github.com/imgx-studio/gpt-image-2-webui",
+  "skills": []
+}
