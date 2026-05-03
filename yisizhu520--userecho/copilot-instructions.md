@@ -1,261 +1,260 @@
-## 03-backend-standards
+## 04-git-and-api
 
-> 后端代码规范、命名约定和最佳实践
+> Git 提交规范和 RESTful API 设计指南
 
 
-# 后端代码规范
+# Git 提交规范
 
-## 伪三层架构详解
+## Conventional Commits
 
-### 架构层次
+### 提交格式
 
 ```
-api (controller) → schema (dto) → service → crud (dao) → model
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
 ```
 
-1. **API 层 (api/)**:
-   - 处理 HTTP 请求和响应
-   - 路由定义和参数验证
-   - 权限验证和错误处理
+### Type 类型
 
-2. **Schema 层 (schema/)**:
-   - Pydantic 数据传输对象
-   - 请求参数验证
-   - 响应数据序列化
-
-3. **Service 层 (service/)**:
-   - 业务逻辑处理
-   - 多个 CRUD 操作的组合
-   - 业务规则验证
-
-4. **CRUD 层 (crud/)**:
-   - 数据库操作封装
-   - 基础 CRUD 方法
-   - 复杂查询构建
-
-5. **Model 层 (model/)**:
-   - SQLAlchemy 数据模型
-   - 表结构定义
-   - 关系映射
-
-## 命名规范
-
-| 类型 | 规范 | 示例 |
+| Type | 说明 | 示例 |
 |------|------|------|
-| 文件、模块 | snake_case | `user_service.py`, `auth_utils.py` |
-| 类 | PascalCase | `UserService`, `TokenManager` |
-| 函数、方法 | snake_case | `get_user_by_id`, `validate_token` |
-| 常量 | UPPER_SNAKE_CASE | `MAX_LOGIN_ATTEMPTS`, `JWT_ALGORITHM` |
-| 私有方法 | `_` 前缀 | `_validate_password`, `_hash_token` |
-| 变量 | snake_case | `user_id`, `total_count` |
+| `feat` | 新功能 | `feat(auth): 添加 OAuth2 登录` |
+| `fix` | 修复 bug | `fix(user): 修复用户头像上传失败问题` |
+| `docs` | 文档更新 | `docs(readme): 更新安装说明` |
+| `style` | 代码格式调整 | `style: 统一代码缩进为 2 空格` |
+| `refactor` | 重构 | `refactor(api): 重构用户认证逻辑` |
+| `perf` | 性能优化 | `perf(query): 优化用户列表查询性能` |
+| `test` | 测试相关 | `test(user): 添加用户注册单元测试` |
+| `chore` | 构建/工具链 | `chore(deps): 升级 Vue 到 3.4.0` |
+| `ci` | CI 配置 | `ci: 添加自动部署脚本` |
+| `revert` | 回滚 | `revert: 回滚 commit abc123` |
 
-## 类型注解规范
+### 提交示例
 
-1. **函数类型注解**:
-   ```python
-   # ✅ 推荐 - 完整的类型注解
-   async def get_user_by_id(
-       db: AsyncSession,
-       user_id: int,
-       *,
-       include_deleted: bool = False
-   ) -> User | None:
-       """根据 ID 获取用户信息"""
-       pass
-   
-   # 使用 Python 3.10+ 新式类型
-   def get_user_list(
-       page: int = 1,
-       size: int = 10
-   ) -> list[User]:  # ✅ 使用 list[User] 而非 List[User]
-       pass
-   ```
+```bash
+# ✅ 好的提交
+feat(auth): 添加 JWT 刷新令牌功能
 
-2. **复杂类型定义**:
-   ```python
-   from typing import TypeAlias, Literal
-   
-   # 类型别名
-   UserId: TypeAlias = int
-   UserRole: TypeAlias = Literal['admin', 'user', 'guest']
-   
-   # 泛型类型
-   from typing import TypeVar, Generic
-   
-   T = TypeVar('T')
-   
-   class ApiResponse(Generic[T]):
-       code: int
-       msg: str
-       data: T | None
-   ```
+- 实现 refresh token 机制
+- 添加 token 过期时间配置
+- 更新相关文档
+- 添加单元测试
 
-## 异步编程规范
+Closes #123
 
-1. **数据库操作**:
-   ```python
-   # ✅ 推荐 - 使用异步
-   async def create_user(db: AsyncSession, user_data: UserCreate) -> User:
-       """创建用户"""
-       async with db.begin():
-           user = User(**user_data.model_dump())
-           db.add(user)
-           await db.flush()
-           await db.refresh(user)
-           return user
-   
-   # ✅ 使用 async with 管理会话
-   async def get_user_with_posts(user_id: int) -> User:
-       async with get_db_session() as db:
-           result = await db.execute(
-               select(User)
-               .options(selectinload(User.posts))
-               .where(User.id == user_id)
-           )
-           return result.scalar_one()
-   ```
+# ✅ 简单提交
+fix(ui): 修复按钮颜色错误
 
-2. **I/O 操作**:
-   ```python
-   # ✅ 使用异步库
-   import aiofiles
-   
-   async def read_file(path: str) -> str:
-       async with aiofiles.open(path, 'r') as f:
-           content = await f.read()
-           return content
-   ```
+# ✅ Breaking Change
+feat(api)!: 重构用户 API 响应格式
 
-## 错误处理规范
+BREAKING CHANGE: 用户 API 响应结构已更改
+- 旧格式: { user: {...} }
+- 新格式: { data: { user: {...} } }
 
-1. **自定义异常**:
-   ```python
-   # 定义异常类
-   class UserNotFoundError(Exception):
-       """用户不存在异常"""
-       pass
-   
-   class InvalidCredentialsError(Exception):
-       """认证失败异常"""
-       pass
-   ```
+# ❌ 不好的提交
+fix: bug修复
+update
+修改了一些东西
+```
 
-2. **API 层错误处理**:
-   ```python
-   from fastapi import HTTPException, status
-   
-   @router.get('/users/{user_id}')
-   async def get_user(
-       user_id: int,
-       db: AsyncSession = Depends(get_db)
-   ) -> UserResponse:
-       """获取用户信息"""
-       try:
-           user = await user_service.get_user_by_id(db, user_id)
-           if not user:
-               raise HTTPException(
-                   status_code=status.HTTP_404_NOT_FOUND,
-                   detail='用户不存在'
-               )
-           return user
-       except Exception as e:
-           logger.error(f'获取用户失败: {e}')
-           raise HTTPException(
-               status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-               detail='服务器错误'
-           )
-   ```
+## API 设计规范
 
-## 导入顺序
+### RESTful 风格
+
+| 方法 | 用途 | 示例 |
+|------|------|------|
+| GET | 获取资源 | `GET /api/v1/users` - 获取用户列表 |
+| POST | 创建资源 | `POST /api/v1/users` - 创建用户 |
+| PUT | 完整更新 | `PUT /api/v1/users/1` - 完整更新用户 |
+| PATCH | 部分更新 | `PATCH /api/v1/users/1` - 部分更新用户 |
+| DELETE | 删除资源 | `DELETE /api/v1/users/1` - 删除用户 |
+
+### URL 设计规范
+
+```bash
+# ✅ 推荐
+GET    /api/v1/users              # 获取用户列表
+GET    /api/v1/users/1            # 获取单个用户
+POST   /api/v1/users              # 创建用户
+PUT    /api/v1/users/1            # 更新用户
+DELETE /api/v1/users/1            # 删除用户
+
+# 嵌套资源
+GET    /api/v1/users/1/posts      # 获取用户的文章
+POST   /api/v1/users/1/posts      # 为用户创建文章
+
+# 多词资源使用连字符
+GET    /api/v1/user-profiles      # 用户资料
+GET    /api/v1/article-comments   # 文章评论
+
+# 版本控制
+GET    /api/v1/users              # 版本 1
+GET    /api/v2/users              # 版本 2
+
+# ❌ 避免
+GET    /api/v1/getUsers           # 不要在 URL 中使用动词
+GET    /api/v1/user               # 使用复数形式
+GET    /api/v1/user_profiles      # 使用连字符而非下划线
+```
+
+### 响应格式规范
+
+#### 成功响应
 
 ```python
-# 1. 标准库
-from typing import Annotated, Any
-from datetime import datetime
-import asyncio
+# 标准成功响应
+{
+    "code": 200,
+    "msg": "Success",
+    "data": {
+        "id": 1,
+        "name": "张三",
+        "email": "zhang@example.com"
+    }
+}
 
-# 2. 第三方库
-from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
-from pydantic import BaseModel, Field
+# 列表响应（带分页）
+{
+    "code": 200,
+    "msg": "Success",
+    "data": {
+        "items": [
+            {"id": 1, "name": "张三"},
+            {"id": 2, "name": "李四"}
+        ],
+        "total": 100,
+        "page": 1,
+        "size": 10,
+        "pages": 10
+    }
+}
 
-# 3. 本地导入 - 通用
-from backend.common.response import success_response
-from backend.common.exception import UserNotFoundError
-from backend.database.db import get_db
-
-# 4. 本地导入 - 应用
-from backend.app.user.model import User
-from backend.app.user.schema import UserCreate, UserUpdate
-from backend.app.user.service import UserService
-from backend.app.user.crud import user_crud
+# 创建成功
+{
+    "code": 201,
+    "msg": "Created successfully",
+    "data": {
+        "id": 123,
+        "name": "新用户"
+    }
+}
 ```
 
-## 最佳实践
+#### 错误响应
 
-1. **依赖注入**:
-   ```python
-   # ✅ 使用 FastAPI 依赖注入
-   from typing import Annotated
-   
-   CurrentUser = Annotated[User, Depends(get_current_user)]
-   DatabaseSession = Annotated[AsyncSession, Depends(get_db)]
-   
-   @router.post('/posts')
-   async def create_post(
-       post_data: PostCreate,
-       current_user: CurrentUser,
-       db: DatabaseSession
-   ) -> PostResponse:
-       return await post_service.create(db, post_data, current_user.id)
-   ```
+```python
+# 客户端错误 (4xx)
+{
+    "code": 400,
+    "msg": "参数错误",
+    "data": null,
+    "errors": [
+        {
+            "field": "email",
+            "message": "邮箱格式不正确"
+        }
+    ]
+}
 
-2. **数据库查询优化**:
-   ```python
-   # ✅ 使用 joinedload 避免 N+1 查询
-   from sqlalchemy.orm import selectinload, joinedload
-   
-   async def get_users_with_posts(db: AsyncSession) -> list[User]:
-       result = await db.execute(
-           select(User)
-           .options(selectinload(User.posts))  # 一对多使用 selectinload
-           .options(joinedload(User.profile))  # 一对一使用 joinedload
-       )
-       return result.scalars().all()
-   ```
+# 认证错误
+{
+    "code": 401,
+    "msg": "未授权，请先登录",
+    "data": null
+}
 
-3. **事务管理**:
-   ```python
-   # ✅ 显式事务控制
-   async def transfer_money(
-       db: AsyncSession,
-       from_user_id: int,
-       to_user_id: int,
-       amount: float
-   ) -> None:
-       async with db.begin():
-           # 所有操作在同一事务中
-           await deduct_balance(db, from_user_id, amount)
-           await add_balance(db, to_user_id, amount)
-           await create_transaction_log(db, from_user_id, to_user_id, amount)
-           # 如果任何操作失败，自动回滚
-   ```
+# 权限错误
+{
+    "code": 403,
+    "msg": "无权限访问此资源",
+    "data": null
+}
 
-4. **日志记录**:
-   ```python
-   from loguru import logger
-   
-   # ✅ 记录关键操作
-   async def delete_user(db: AsyncSession, user_id: int) -> None:
-       logger.info(f'开始删除用户: user_id={user_id}')
-       try:
-           await user_crud.delete(db, user_id)
-           logger.info(f'用户删除成功: user_id={user_id}')
-       except Exception as e:
-           logger.error(f'用户删除失败: user_id={user_id}, error={e}')
-           raise
-   ```
+# 资源不存在
+{
+    "code": 404,
+    "msg": "用户不存在",
+    "data": null
+}
+
+# 服务器错误 (5xx)
+{
+    "code": 500,
+    "msg": "服务器内部错误",
+    "data": null
+}
+```
+
+### HTTP 状态码
+
+| 状态码 | 说明 | 使用场景 |
+|--------|------|----------|
+| 200 | OK | 成功获取/更新资源 |
+| 201 | Created | 成功创建资源 |
+| 204 | No Content | 成功删除资源 |
+| 400 | Bad Request | 请求参数错误 |
+| 401 | Unauthorized | 未认证 |
+| 403 | Forbidden | 无权限 |
+| 404 | Not Found | 资源不存在 |
+| 409 | Conflict | 资源冲突（如重复创建） |
+| 422 | Unprocessable Entity | 语义错误（如业务逻辑验证失败） |
+| 429 | Too Many Requests | 请求过多，限流 |
+| 500 | Internal Server Error | 服务器错误 |
+| 502 | Bad Gateway | 网关错误 |
+| 503 | Service Unavailable | 服务不可用 |
+
+### 查询参数规范
+
+```bash
+# 分页
+GET /api/v1/users?page=1&size=20
+
+# 排序
+GET /api/v1/users?sort=created_at&order=desc
+
+# 筛选
+GET /api/v1/users?status=active&role=admin
+
+# 搜索
+GET /api/v1/users?q=zhang
+
+# 字段过滤
+GET /api/v1/users?fields=id,name,email
+
+# 日期范围
+GET /api/v1/orders?start_date=2025-01-01&end_date=2025-12-31
+```
+
+### API 文档示例
+
+```python
+from fastapi import APIRouter, Depends, Query
+from typing import Annotated
+
+router = APIRouter(prefix='/api/v1/users', tags=['用户管理'])
+
+@router.get('', summary='获取用户列表')
+async def get_users(
+    page: Annotated[int, Query(ge=1, description='页码')] = 1,
+    size: Annotated[int, Query(ge=1, le=100, description='每页数量')] = 20,
+    status: Annotated[str | None, Query(description='状态筛选')] = None,
+    db: AsyncSession = Depends(get_db)
+) -> UserListResponse:
+    """
+    获取用户列表
+    
+    - **page**: 页码，从 1 开始
+    - **size**: 每页数量，范围 1-100
+    - **status**: 状态筛选，可选值: active, inactive, banned
+    
+    返回用户列表和分页信息
+    """
+    return await user_service.get_users(db, page, size, status)
+```
 
 ---
 
