@@ -1,0 +1,81 @@
+{
+  "name": "cc-skills",
+  "owner": "chongdashu",
+  "repo": "cc-skills",
+  "description": "AI instruction skills by chongdashu",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nano-banana-builder",
+      "path": ".claude/skills/nano-banana-builder",
+      "github_url": "https://github.com/chongdashu/cc-skills/tree/main/.claude/skills/nano-banana-builder",
+      "description": ""
+    },
+    {
+      "name": "threejs-builder",
+      "path": ".claude/skills/threejs-builder",
+      "github_url": "https://github.com/chongdashu/cc-skills/tree/main/.claude/skills/threejs-builder",
+      "description": ""
+    },
+    {
+      "name": "favicon-generator",
+      "path": ".claude/skills/favicon-generator",
+      "github_url": "https://github.com/chongdashu/cc-skills/tree/main/.claude/skills/favicon-generator",
+      "description": ""
+    },
+    {
+      "name": "og-image-creator",
+      "path": ".claude/skills/og-image-creator",
+      "github_url": "https://github.com/chongdashu/cc-skills/tree/main/.claude/skills/og-image-creator",
+      "description": ""
+    },
+    {
+      "name": "site-metadata-generator",
+      "path": ".claude/skills/site-metadata-generator",
+      "github_url": "https://github.com/chongdashu/cc-skills/tree/main/.claude/skills/site-metadata-generator",
+      "description": ""
+    },
+    {
+      "name": "youtube-titles-thumbnails",
+      "path": ".claude/skills/youtube-titles-thumbnails",
+      "github_url": "https://github.com/chongdashu/cc-skills/tree/main/.claude/skills/youtube-titles-thumbnails",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/chongdashu/cc-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:40:00Z"
+}
