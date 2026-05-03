@@ -1,51 +1,50 @@
-## pipeline-runtime-debugger
+## presentation
 
-> 本规则用于在 AbilityKit 项目中进行 Pipeline runtime / debugger 相关修改时，保证一致性、可调试性与低运行时开销。
+> - 持续表现：走 Buff/Effect 的 `IGameplayEffectCue` 生命周期
 
 
-# Pipeline Runtime & Debugger 规则（Run-centric）
+# 表现（Presentation）规则
 
-本规则用于在 AbilityKit 项目中进行 Pipeline runtime / debugger 相关修改时，保证一致性、可调试性与低运行时开销。
+## 1) 架构原则
 
-## 1) 核心约束
+- **事件驱动表现**：
+  - 持续表现：走 Buff/Effect 的 `IGameplayEffectCue` 生命周期
+  - 瞬时表现：TriggerAction 发布 `presentation.play` / `presentation.stop`，表现层订阅处理
 
-- Pipeline 执行必须以 `IAbilityPipelineRun<TCtx>` 为中心，通过 `Tick(deltaTime)` 外部驱动推进。
-- Debug/Editor 逻辑必须包在 `#if UNITY_EDITOR` 内，避免运行时依赖与开销。
-- 阶段（phase）必须可复用：多次 run 之间不能发生状态串扰。
-  - 若 phase 内部有缓存/计时/列表等状态，务必在 `Reset()` 清理。
+## 2) 表现模板（Presentation Template）规则
 
-## 2) 运行时与图（Graph）的映射约定
+- 表现模板表：`presentation_templates`
+- 只存“静态默认值”：
+  - 资源 id、默认时长、附着方式、stack/stop policy、默认颜色/scale/offset 等
 
-- 图节点通过 `PipelineGraphNode.RuntimeKey` 与运行时绑定。
-- 对于 pipeline phases，默认约定：
-  - `RuntimeKey == PhaseId.ToString()`
-- `PhaseId` 需要稳定：不要每次启动随机生成，否则会导致 graph 同步后节点位置无法复用。
+## 3) Trigger 驱动表现（play_presentation）
 
-## 3) LiveRegistry / Trace 约束
+### 3.1 输入 args 约定
 
-- `AbilityPipelineLiveRegistry` 只在编辑器下启用（`UNITY_EDITOR`）。
-- 写入点建议：
-  - run 创建：`RegisterRun(...)` + `RunStart`
-  - 每 tick：`TouchRun(...)` + `Tick`
-  - phase 生命周期：`PhaseStart/PhaseComplete/PhaseError`
-  - run 结束：`UnregisterRun(...)` + `RunEnd`
+- `templateId` (int, 必填)
+- `targetMode` (int enum, 默认 Target)
+- `queryTemplateId` (int, 可选)
+- `target` (object, 可选显式目标)
+- `requestKey` (string, 可选，用于 stop/replace)
+- `durationMs` (int, 可选覆盖)
+- `posKey` (string) / `pos` (vec3)（可选，用于位置表现）
+- `stop` (bool, 可选；true=stop)
+- 动态覆盖：`scale`/`radius`/`color` ...
 
-- Trace 事件应遵循：
-  - 短文本、可搜索
-  - 保留关键字段（phaseId/state/message）
-  - 注意 ring buffer 容量，避免无意义高频噪声
+### 3.2 行为
 
-## 4) Composite 阶段扩展约束
+- 解析目标集合（actorIds 或 positions）
+- 发布事件：
+  - `presentation.play` 或 `presentation.stop`
+- 表现层订阅事件并实例化/停止实际表现资源
 
-- 新增 composite 阶段时：
-  - `IsComposite == true`
-  - `SubPhases` 或内部结构需要可被图同步工具识别（通常通过反射字段约定）。
-  - 明确分支/并行驱动策略，避免 current phase / state 更新不一致。
+### 3.3 事件契约
 
-## 5) 参考文档
-
-- `Unity/Packages/com.abilitykit.pipeline/Documentation~/PipelineRuntimeDesign.md`
-- `Unity/Packages/com.abilitykit.pipeline/Documentation~/PipelineRuntimeDebugger.md`
+- EventId：`presentation.play` / `presentation.stop`
+- args 必须携带：
+  - `templateId`
+  - `targets`（actorId list）或 `positions`（vec3 list）等能驱动表现的字段
+- `requestKey` 用于 stop/replace 定位（表现层自行实现策略）
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
