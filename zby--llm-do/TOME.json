@@ -1,0 +1,51 @@
+{
+  "name": "llm-do",
+  "owner": "zby",
+  "repo": "llm-do",
+  "description": "\"Extend with llm, stabilise with code\" - Prompts when you're exploring, Python when you're certain. Workers and tools form one function space\u2014refactor between them.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "decomplect-py",
+      "path": ".codex/skills/decomplect-py",
+      "github_url": "https://github.com/zby/llm-do/tree/main/.codex/skills/decomplect-py",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zby/llm-do",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:47:44Z"
+}
