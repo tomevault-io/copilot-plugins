@@ -1,0 +1,22 @@
+{
+  "name": "funfix--database",
+  "displayName": "database",
+  "description": "Database toolkit for the JVM",
+  "version": "1.0.0",
+  "author": "funfix",
+  "homepage": "https://github.com/funfix/database",
+  "skills": [
+    {
+      "name": "cats-effect-resource",
+      "description": ""
+    },
+    {
+      "name": "cats-mtl-typed-errors",
+      "description": ""
+    },
+    {
+      "name": "kotlin-java-library",
+      "description": ""
+    }
+  ]
+}
