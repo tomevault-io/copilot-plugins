@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--mcp-notify",
+  "displayName": "mcp-notify",
+  "description": "Monitor the Model Context Protocol (MCP) Registry for new, updated, and removed servers. Get real-time notifications via Discord, Slack, Email, Telegram, Microsoft Teams, Webhooks, or RSS feeds. Inclu",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/mcp-notify",
+  "skills": []
+}
