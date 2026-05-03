@@ -1,100 +1,269 @@
-## rust-conventions
+## testing-conventions
 
-> Rust coding conventions for auth9-core
+> TDD workflow and testing conventions for Auth9 project
 
 
-# Rust Conventions (auth9-core)
+# Testing Conventions
 
-## Tech Stack
+## TDD Development Workflow
 
-- **Web**: axum + Tower middleware
-- **gRPC**: tonic
-- **Database**: sqlx (compile-time SQL checking, MySQL/TiDB)
-- **Async**: tokio runtime
-- **Logging**: tracing (structured logs + distributed tracing)
-- **Serialization**: serde
-- **JWT**: jsonwebtoken
-- **Cache**: redis-rs
+When implementing features or fixing bugs, follow the Test-Driven Development (TDD) cycle:
 
-## Code Organization
-
-```rust
-// Module structure follows domain-driven design:
-// domain/   → Pure domain models with validation
-// service/  → Business logic (depends on repository traits)
-// repository/ → Data access (implements traits)
-// api/      → HTTP handlers (thin layer)
-// grpc/     → gRPC handlers (thin layer)
+```
+1. RED    → Write a failing test first
+2. GREEN  → Write minimal code to pass the test
+3. REFACTOR → Improve code while keeping tests green
 ```
 
-## Error Handling
+### TDD Rules
 
-```rust
-// ❌ BAD - swallowing errors
-let result = db.query().await.ok();
+- **Write tests BEFORE implementation code**
+- **One test at a time**: Don't write multiple failing tests
+- **Minimal implementation**: Only write enough code to pass the current test
+- **Refactor continuously**: Clean up after each green phase
 
-// ✅ GOOD - use Result with context
-let result = db.query()
-    .await
-    .context("Failed to query tenant")?;
+### Coverage Requirement
 
-// ✅ GOOD - use custom error types
-#[derive(thiserror::Error, Debug)]
-pub enum ServiceError {
-    #[error("Tenant not found: {0}")]
-    TenantNotFound(Uuid),
-    #[error("Database error: {0}")]
-    Database(#[from] sqlx::Error),
-}
+**Minimum test coverage: 90%**
+
+```bash
+# Rust - check coverage with llvm-cov (not tarpaulin)
+cargo llvm-cov --html
+
+# TypeScript - check coverage with vitest
+npm run test -- --coverage
 ```
 
-## Async Patterns
+Coverage targets by layer:
+| Layer | Target |
+|-------|--------|
+| Domain/Business logic | 95%+ |
+| Service layer | 90%+ |
+| API handlers | 80%+ |
+| gRPC handlers | 85%+ |
 
-```rust
-// ✅ Use tokio::spawn for background tasks
-tokio::spawn(async move {
-    cache.invalidate(&key).await;
-});
+## Test Pyramid
 
-// ✅ Use ? for error propagation in async
-async fn get_user(&self, id: Uuid) -> Result<User> {
-    let user = self.repo.find_by_id(id).await?;
-    Ok(user)
-}
+```
+        E2E Tests (few, critical flows)
+              /\
+             /  \
+        Unit Tests (service layer with mocks)
+           /      \
+          /        \
+     gRPC/Identity Engine Tests (wiremock, NoOpCache)
 ```
 
-## Testing
+## auth9-core (Rust)
+
+### Testing Strategy - NO EXTERNAL DEPENDENCIES
+
+All tests run fast (~1-2 seconds) with **no Docker or external services**:
+
+| Component | Testing Approach |
+|-----------|-----------------|
+| Repository layer | Mock traits with `mockall` |
+| Service layer | Unit tests with mock repositories |
+| gRPC services | `NoOpCacheManager` + mock repositories |
+| Identity Engine | `wiremock` HTTP mocking |
+
+### Prohibited
+
+- **No testcontainers** - tests must not start Docker containers
+- **No real database connections** - use mock repositories
+- **No real Redis connections** - use `NoOpCacheManager`
+- **No faker library** - construct test data directly
+
+### Unit Tests (Service Layer)
 
 ```rust
-// Unit tests: mock dependencies with mockall
+// Location: src/service/*.rs inside #[cfg(test)] module
+// Use mockall for mocking repository dependencies
+
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use crate::repository::tenant::MockTenantRepository;
     use mockall::predicate::*;
-    
+
     #[tokio::test]
-    async fn test_create_tenant() {
-        let mut mock_repo = MockTenantRepository::new();
-        mock_repo.expect_create()
-            .returning(|t| Ok(t));
-        // ...
+    async fn test_create_tenant_success() {
+        let mut mock = MockTenantRepository::new();
+
+        mock.expect_find_by_slug()
+            .with(eq("test-tenant"))
+            .returning(|_| Ok(None));
+
+        mock.expect_create()
+            .returning(|input| Ok(Tenant {
+                name: input.name.clone(),
+                ..Default::default()
+            }));
+
+        let service = TenantService::new(Arc::new(mock), None);
+        let result = service.create(input).await;
+        assert!(result.is_ok());
     }
 }
-
-// Integration tests: use testcontainers-rs
 ```
 
-## SQL with sqlx
+### gRPC Tests
 
 ```rust
-// ✅ Use query_as! for compile-time checking
-let tenant = sqlx::query_as!(
-    Tenant,
-    "SELECT * FROM tenants WHERE id = ?",
-    id
-)
-.fetch_one(&pool)
-.await?;
+// Location: tests/grpc_*.rs
+// Use NoOpCacheManager instead of real Redis
+
+use auth9_core::cache::NoOpCacheManager;
+
+fn create_test_cache() -> NoOpCacheManager {
+    NoOpCacheManager::new()
+}
+
+#[tokio::test]
+async fn test_token_exchange() {
+    let cache = create_test_cache();
+    let service = TokenExchangeService::new(
+        jwt_manager,
+        cache,  // No Redis connection needed
+        user_repo,
+        service_repo,
+        rbac_repo,
+    );
+    // ...
+}
 ```
+
+### Identity Engine Tests
+
+```rust
+// Use wiremock for HTTP mocking of identity backend calls
+
+use wiremock::{Mock, ResponseTemplate, matchers::{method, path}};
+
+#[tokio::test]
+async fn test_identity_engine_create_user() {
+    let mock_server = MockServer::start().await;
+
+    Mock::given(method("POST"))
+        .and(path("/api/users"))
+        .respond_with(ResponseTemplate::new(201))
+        .mount(&mock_server)
+        .await;
+
+    let engine = create_test_engine(&mock_server.uri());
+    let result = engine.create_user(&input).await;
+    assert!(result.is_ok());
+}
+```
+
+### HTTP Handler Tests (API Layer)
+
+HTTP handler tests use **Dependency Injection via `HasServices` trait** to test production code with mock repositories.
+
+**Architecture:**
+```
+Production:  AppState (impl HasServices) → build_router() → Handlers<AppState>
+Tests:       TestAppState (impl HasServices) → build_router() → Handlers<TestAppState>
+                                                    ↑
+                                          Same production handlers!
+```
+
+**Key Files:**
+| File | Purpose |
+|------|---------|
+| `src/state.rs` | `HasServices` trait definition |
+| `src/server/mod.rs` | `AppState` + `build_router<S: HasServices>()` |
+| `tests/api/http/mod.rs` | `TestAppState` + test helpers |
+| `tests/api/http/*_http_test.rs` | HTTP handler tests |
+
+**Handler Pattern - Always use generics:**
+```rust
+// src/api/tenant.rs - CORRECT
+pub async fn list<S: HasServices>(
+    State(state): State<S>,
+    Query(pagination): Query<PaginationQuery>,
+) -> Result<impl IntoResponse> {
+    let (tenants, total) = state
+        .tenant_service()  // Method from HasServices trait
+        .list(pagination.page, pagination.per_page)
+        .await?;
+    Ok(Json(PaginatedResponse::new(tenants, pagination.page, pagination.per_page, total)))
+}
+```
+
+**Test Example:**
+```rust
+// tests/api/http/tenant_http_test.rs
+use crate::api::http::{build_test_router, get_json, TestAppState};
+
+#[tokio::test]
+async fn test_list_tenants_returns_200() {
+    let state = TestAppState::new();
+    state.tenant_repo.seed_tenant(input).await;
+
+    let app = build_test_router(state);  // Uses production build_router()
+    let (status, body) = get_json(&app, "/api/v1/tenants").await;
+
+    assert_eq!(status, StatusCode::OK);
+}
+```
+
+**Important Rules:**
+1. **Always use `HasServices` trait** for new handlers - never use concrete `AppState`
+2. **Test production code** - `build_test_router()` uses `build_router(state)` from production
+3. **Mock identity backend with wiremock** when testing identity engine integration
+
+### Commands
+
+```bash
+cargo test              # All tests (fast, no Docker)
+cargo llvm-cov --html   # Coverage report
+```
+
+## auth9-portal (TypeScript)
+
+### Unit Tests (Vitest)
+
+```typescript
+// Location: tests/unit/*.test.ts
+import { describe, it, expect } from 'vitest';
+
+describe('utils', () => {
+  it('should format date correctly', () => {
+    expect(formatDate(new Date('2024-01-01'))).toBe('Jan 1, 2024');
+  });
+});
+```
+
+### E2E Tests (Playwright)
+
+```typescript
+// Location: tests/e2e/*.spec.ts
+import { test, expect } from '@playwright/test';
+
+test('login flow', async ({ page }) => {
+  await page.goto('/login');
+  await page.fill('[name="email"]', 'admin@example.com');
+  await page.click('button[type="submit"]');
+  await expect(page).toHaveURL('/dashboard');
+});
+```
+
+### Commands
+
+```bash
+npm run test           # Vitest unit tests
+npm run lint           # ESLint
+npm run typecheck      # TypeScript check
+npx playwright test    # E2E tests
+```
+
+## Test Data Conventions
+
+- Use descriptive names: `test_create_tenant_with_valid_data`
+- Keep test data minimal and focused
+- Construct test data directly (no faker)
+- Use `Default::default()` for domain types when possible
 
 ---
 > Source: [c9r-io/auth9](https://github.com/c9r-io/auth9) — distributed by [TomeVault](https://tomevault.io).
