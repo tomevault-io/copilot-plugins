@@ -1,0 +1,603 @@
+## go-genai-stack
+
+> This project adopts **Monorepo + Vibe Coding Friendly DDD** architecture:
+
+# Cursor AI Rules for Go-GenAI-Stack
+# These rules help Cursor AI better understand and assist with developing this project
+
+## Project Architecture
+
+This project adopts **Monorepo + Vibe Coding Friendly DDD** architecture:
+
+### Directory Structure
+- `backend/`    - Backend (Go + Hertz + Eino + DDD)
+- `frontend/`   - Frontend Monorepo
+  - `web/`      - React Web application
+  - `mobile/`   - React Native mobile application
+  - `shared/`   - Frontend shared code (types, utils, constants)
+- `scripts/`    - Project-level scripts
+- `docs/`       - Project documentation
+
+### Backend Architecture (Three-Layer DDD)
+
+- Domain-First: Vertically split by business domain (domains/task/, domains/chat/, domains/llm/)
+- Self-contained: Each domain contains model + service + repository + handlers + http + tests
+- Explicit Knowledge: Each domain has 6 required files (README.md, glossary.md, rules.md, events.md, usecases.yaml, ai-metadata.json)
+
+#### Three-Layer Architecture Details
+
+```
+domains/{domain}/
+├── model/                 # 【Domain Model Layer】
+│   └── {entity}.go        # Aggregate roots, entities, value objects
+│                          # Responsibility: Simple domain rules and state changes
+│
+├── service/               # 【Domain Service Layer】⭐ Core
+│   └── {domain}_service.go # Business logic implementation
+│                          # Responsibility: Implement business use cases, encapsulate complex flows
+│
+├── repository/            # 【Repository Layer】
+│   ├── interface.go       # Repository interface
+│   └── {entity}_repo.go   # Repository implementation (database/sql)
+│                          # Responsibility: Data persistence
+│
+├── handlers/              # 【HTTP Adapter Layer】
+│   ├── dependencies.go    # Handler dependency container (inject Service)
+│   └── {usecase}.handler.go # HTTP request handling
+│                          # Responsibility: HTTP → Domain Input → HTTP
+│
+├── http/                  # 【HTTP Interface Layer】
+│   ├── dto/              # Data Transfer Objects (close to API spec)
+│   └── router.go         # Route registration
+│
+└── tests/                # 【Tests】
+    └── {usecase}_test.go
+```
+
+**Dependency Direction**: Handler → Service → Repository → Database
+
+**Core Principles**:
+1. Handler layer (thin): Only HTTP adaptation, no business logic
+2. Service layer (thick): Implement business use cases, encapsulate complex flows
+3. Model layer: Simple domain rules and state changes
+4. Repository layer: Data access abstraction
+
+### Frontend Architecture
+
+- Feature-First: Organized by feature (features/chat/, features/llm/)
+- Domain Alignment: Frontend features align with backend domains (frontend/web/features/chat ← backend/domains/chat)
+- Cross-platform Sharing: Web and Mobile share types, utils, constants via pnpm workspace
+
+## Code Generation Rules
+
+### 1. Adding New Use Case ⭐ Important
+
+When the user requests to add a new business use case:
+
+**Steps (Three-Layer Architecture)**:
+
+1. **Read Explicit Knowledge**:
+   - domains/{domain}/usecases.yaml (check use case definition)
+   - domains/{domain}/README.md (understand domain boundaries)
+   - domains/{domain}/glossary.md (understand terminology)
+   - domains/{domain}/rules.md (understand business rules)
+   - domains/{domain}/events.md (understand domain events)
+
+2. **Generate Domain Service Layer** (core business logic):
+   - File: `domains/{domain}/service/{domain}_service.go`
+   - Method: Implement according to usecases.yaml steps order
+   - Input/Output: Define dedicated Input/Output structs
+   - Error handling: Use "ERROR_CODE: message" format
+   - Example:
+     ```go
+     // service/task_service.go
+     func (s *TaskService) CreateTask(ctx context.Context, input CreateTaskInput) (*CreateTaskOutput, error) {
+         // Step 1: ValidateInput
+         // Step 2: CreateTaskEntity
+         // Step 3: SaveTask
+         // Step 4: PublishEvent
+     }
+     ```
+
+3. **Generate Handler Layer** (HTTP adaptation):
+   - File: `domains/{domain}/handlers/{usecase}.handler.go`
+   - Responsibility: HTTP request → Domain Input → Call Service → HTTP response
+   - Example:
+     ```go
+     // handlers/create_task.handler.go
+     func (deps *HandlerDependencies) CreateTaskHandler(ctx context.Context, c *app.RequestContext) {
+         // 1. Parse HTTP request
+         var req dto.CreateTaskRequest
+         c.BindAndValidate(&req)
+         
+         // 2. Convert to Domain Input
+         input := service.CreateTaskInput{...}
+         
+         // 3. Call Domain Service
+         output, err := deps.taskService.CreateTask(ctx, input)
+         
+         // 4. Return HTTP response
+         c.JSON(200, dto.CreateTaskResponse{...})
+     }
+     ```
+
+4. **Generate DTO**:
+   - File: `domains/{domain}/http/dto/{usecase}.go`
+   - Include json tag, validation tag
+
+5. **Generate Tests**:
+   - File: `domains/{domain}/tests/{usecase}_test.go`
+   - Cover all steps
+   - Cover all error scenarios in errors list
+
+6. **Update Documentation**:
+   - Update README.md to add use case description
+
+**Key Principles**:
+- ✅ Business logic in Service layer
+- ✅ Handler layer only does HTTP adaptation (thin layer)
+- ✅ Each use case corresponds to one Service method
+- ✅ Service Input/Output are pure business concepts (no HTTP details)
+
+### 2. Frontend-Backend Type Sync (Monorepo)
+
+When the user requests "sync types" or "sync types {domain}":
+
+1. Read all Go structs under `backend/domains/{domain}/http/dto/*.go`
+2. Extract json tags as TypeScript field names
+3. Type mapping rules:
+   - `string` → `string`
+   - `int`, `int64`, `float64` → `number`
+   - `bool` → `boolean`
+   - `time.Time` → `string` (ISO 8601 format)
+   - `[]T` → `T[]`
+   - `map[string]T` → `Record<string, T>`
+   - `struct` → `interface`
+   - `*T` (pointer) → `T | undefined` or `T?` (optional)
+4. Generate/update `frontend/shared/types/domains/{domain}.ts`
+5. Add file header comment:
+   ```typescript
+   // Code generated from Go structs. DO NOT EDIT manually.
+   // Source: backend/domains/{domain}/http/dto
+   // Generated: {timestamp}
+   ```
+6. **Note**: Web and Mobile share type definitions via pnpm workspace
+
+**Quick Usage**:
+- User: "sync types chat" → Sync chat domain types to frontend/shared/types
+- User: "sync types all" → Sync all domain types
+- Web and Mobile import via `@go-genai-stack/types`
+
+### 3. HTTP Interface Design
+
+This project **does not use IDL (Thrift/Protobuf)**, adopts **Code-First** approach:
+
+- All HTTP DTOs defined in `domains/{domain}/http/dto/*.go`
+- Use Hertz native tags: `json`, `binding`, `query`, `form`
+- Example:
+  ```go
+  type SendMessageRequest struct {
+      UserID  string `json:"user_id" binding:"required"`
+      Message string `json:"message" binding:"required,max=10000"`
+      Model   string `json:"model" binding:"oneof=gpt-4o claude-3"`
+  }
+  ```
+
+**Do NOT** generate or suggest using:
+- ❌ `.thrift` files
+- ❌ `.proto` files
+- ❌ `hz new` or `hz update` commands
+- ❌ `kitex_gen/` directory
+
+### 4. Naming Conventions
+
+- **File names**: lowercase + underscore (`send_message.go`, `model_router_service.go`)
+- **Handler files**: `{usecase}.handler.go` (e.g., `send_message.handler.go`)
+- **Test files**: `{usecase}.test.go` (e.g., `send_message.test.go`)
+- **Interface naming**: PascalCase (`SendMessageRequest`, `ChatService`)
+- **Field naming**: PascalCase (Go struct), snake_case (json tag)
+- **Function naming**: PascalCase (public), camelCase (private)
+
+### 5. Error Handling
+
+- Use `domains/shared/errors` package to define errors
+- Error code naming: UPPERCASE + underscore (`MESSAGE_EMPTY`, `UNAUTHORIZED_ACCESS`)
+- Error wrapping: Use `fmt.Errorf("...: %w", err)` to preserve stack trace
+
+### 6. Test Writing
+
+#### Backend Tests (Go)
+
+- Each handler must have a corresponding test file
+- Use Table-Driven Tests pattern
+- Cover success path and all error scenarios
+- Mock external dependencies (repository, adapter)
+
+#### Frontend Tests (TypeScript/React) ⭐ Important
+
+**Mandatory Requirement**: Every time frontend code is updated, corresponding test cases must be updated or added.
+
+**Test Types**:
+
+1. **Unit Tests** (Vitest + React Testing Library):
+   - **Location**: `src/features/{domain}/__tests__/`
+   - **Coverage**:
+     - ✅ Hooks (`hooks/useXxx.test.ts`) - Highest priority, 90%+ coverage target
+     - ✅ Stores (`stores/{domain}.store.test.ts`) - 90%+ coverage target
+     - ✅ API (`api/{domain}.api.test.ts`) - 90%+ coverage target
+     - ✅ Components (`components/XxxComponent.test.tsx`) - 70%+ coverage target
+   - **Naming**: `{filename}.test.ts` or `{filename}.test.tsx`
+   - **Commands**:
+     ```bash
+     pnpm test              # Run all tests
+     pnpm test:watch        # Watch mode
+     pnpm test:coverage     # Generate coverage report
+     ```
+
+2. **E2E Tests** (Playwright):
+   - **Location**: `e2e/{domain}/{usecase}.spec.ts`
+   - **Coverage**:
+     - ✅ Complete user flows (login → operation → verification)
+     - ✅ Key business use cases (create, update, delete, etc.)
+     - ✅ Error scenarios (validation failure, network errors, etc.)
+   - **Naming**: `{usecase}.spec.ts`
+   - **Commands**:
+     ```bash
+     pnpm e2e:all           # One-click run (recommended)
+     pnpm e2e:ui             # UI mode
+     pnpm e2e:setup          # Start test environment
+     ```
+
+**Test Requirements When Updating Code**:
+
+- ✅ **New Feature**: Must add corresponding unit tests and E2E tests
+- ✅ **Modify Feature**: Must update corresponding test cases, ensure tests pass
+- ✅ **Fix Bug**: Must add regression tests to prevent bug recurrence
+- ✅ **Refactor Code**: Must ensure all existing tests pass, update tests if necessary
+
+**Test Examples**:
+
+```typescript
+// ✅ When adding Hook, must create corresponding test
+// features/task/hooks/useTaskCreate.ts
+export function useTaskCreateMutation() { ... }
+
+// features/task/__tests__/hooks/useTaskCreate.test.ts
+import { renderHook, waitFor } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
+import { useTaskCreateMutation } from '../hooks/useTaskCreate'
+
+describe('useTaskCreateMutation', () => {
+  it('should create task successfully', async () => {
+    // Test implementation
+  })
+})
+
+// ✅ When adding Component, must create corresponding test
+// features/task/components/TaskCreateDialog.tsx
+export function TaskCreateDialog() { ... }
+
+// features/task/__tests__/components/TaskCreateDialog.test.tsx
+import { render, screen } from '@testing-library/react'
+import { TaskCreateDialog } from '../components/TaskCreateDialog'
+
+describe('TaskCreateDialog', () => {
+  it('should render form fields', () => {
+    // Test implementation
+  })
+})
+
+// ✅ When adding use case, must create corresponding E2E test
+// e2e/task/create-task.spec.ts
+import { test, expect } from '@playwright/test'
+
+test('should create task successfully', async ({ page }) => {
+  // E2E test implementation
+})
+```
+
+**Test Coverage Requirements**:
+
+- **Core Business Logic** (Hooks, Stores, API): 90%+
+- **UI Components** (Components): 70%+
+- **Page Components** (Pages): 60%+
+- **Overall Coverage Target**: 70%+
+
+**Reference Documentation**:
+- Unit Testing Guide: `frontend/web/doc/unit-testing.md`
+- E2E Testing Guide: `frontend/web/doc/e2e-testing.md`
+
+### 7. E2E Test Selectors - data-test-id ⭐ Important
+
+**Mandatory Requirement**: All new frontend components and interactive elements MUST include `data-test-id` attributes to improve E2E test efficiency and success rate.
+
+**When to Add**:
+- ✅ All buttons, form inputs, interactive elements
+- ✅ List items with dynamic IDs: `task-edit-${taskId}`, `task-delete-${taskId}`
+- ❌ Optional for static text (use `getByText`/`getByRole`)
+
+**Naming Convention**: `{feature}-{action}-{element-type}` or `{feature}-{action}-{id}`
+
+Examples:
+```tsx
+// ✅ Good
+<Button data-test-id="task-create-button">Create</Button>
+<Input data-test-id="task-create-title-input" />
+<Button data-test-id={`task-edit-${taskId}`}>Edit</Button>
+
+// ❌ Bad: Too generic or inconsistent
+<Button data-test-id="button">Click</Button>
+<Button data-test-id="createTaskBtn">Create</Button>
+```
+
+**E2E Usage**:
+```typescript
+await page.locator('[data-test-id="task-create-button"]').click()
+await page.locator(`[data-test-id="task-edit-${taskId}"]`).click()
+```
+
+## Common Task Quick Commands
+
+### "Add export conversation feature"
+1. Check if domains/chat/usecases.yaml defines ExportConversation
+2. Generate domains/chat/handlers/export_conversation.handler.go
+3. Generate tests
+4. Update README.md
+
+### "sync types chat"
+1. Read backend/domains/chat/http/dto/*.go
+2. Generate frontend/src/types/domain/chat.ts
+
+### "Add new domain billing"
+1. Create directory structure:
+   ```
+   domains/billing/
+   ├── README.md
+   ├── glossary.md
+   ├── rules.md
+   ├── events.md
+   ├── usecases.yaml
+   ├── ai-metadata.json
+   ├── model/
+   ├── handlers/
+   ├── http/dto/
+   └── tests/
+   ```
+2. Fill template content for 6 required files
+
+## Code Style
+
+- Use `gofmt` for formatting
+- Every public function/type has comments
+- Comment format: `// FunctionName does something`
+- File responsibility described at top of each file
+- Example code in comments (Example:)
+
+## Database Access Rules ⭐ Important
+
+This project **unified use of database/sql**, no ORM:
+
+### ✅ Correct Approach
+
+1. **Database Connection**:
+   ```go
+   import "github.com/erweixin/go-genai-stack/backend/infrastructure/persistence/postgres"
+   
+   conn, err := postgres.NewConnection(ctx, config)
+   db := conn.DB()  // *sql.DB
+   ```
+
+2. **Repository Implementation**:
+   ```go
+   type MessageRepository struct {
+       db *sql.DB
+   }
+   
+   func (r *MessageRepository) Create(ctx context.Context, msg *model.Message) error {
+       query := `INSERT INTO messages (id, content, ...) VALUES ($1, $2, ...)`
+       _, err := r.db.ExecContext(ctx, query, msg.ID, msg.Content, ...)
+       return err
+   }
+   ```
+
+3. **Transaction Handling**:
+   ```go
+   import "github.com/erweixin/go-genai-stack/backend/infrastructure/persistence/postgres"
+   
+   err := postgres.WithTransaction(ctx, db, func(tx *sql.Tx) error {
+       // Execute multiple operations in transaction
+       _, err := tx.ExecContext(ctx, query1, ...)
+       _, err = tx.ExecContext(ctx, query2, ...)
+       return err  // Auto commit or rollback
+   })
+   ```
+
+4. **Schema Management**:
+   - Schema definition: `infrastructure/database/schema/schema.sql`
+   - Use Atlas to generate migrations: `./scripts/schema.sh diff my_change`
+   - Apply migrations: `./scripts/schema.sh apply`
+
+### ❌ Prohibited Practices
+
+- ❌ **Do NOT use GORM** (deleted `infrastructure/database/database.go`)
+  ```go
+  // ❌ Wrong
+  import "gorm.io/gorm"
+  db.Create(&model)
+  db.Where("id = ?", id).First(&model)
+  ```
+
+- ❌ **Do NOT use AutoMigrate**
+  ```go
+  // ❌ Wrong
+  db.AutoMigrate(&Model{})
+  ```
+
+- ❌ **Do NOT reference deleted files**
+  ```go
+  // ❌ Wrong
+  import "github.com/erweixin/go-genai-stack/backend/infrastructure/database"
+  ```
+
+### Why Not Use GORM?
+
+1. ✅ **Transparency**: Native SQL is clear and visible, AI can easily understand
+2. ✅ **Performance**: No ORM overhead, direct database operations
+3. ✅ **Control**: Full control over SQL statements, easy to optimize
+4. ✅ **Vibe-Coding Friendly**: Repository pattern already provides abstraction, no need for ORM
+5. ✅ **Maintainability**: SQL is clear at a glance, easier to debug and optimize
+
+### Reference Documentation
+
+- [Database Refactoring Migration Guide](docs/database-refactoring-guide.md) - Complete migration guide
+- [Postgres Connection](backend/infrastructure/persistence/postgres/connection.go) - Connection management
+- [Postgres Transaction](backend/infrastructure/persistence/postgres/transaction.go) - Transaction management
+
+---
+
+## Business Logic Layering Rules ⭐ Important
+
+### Handler Layer Responsibilities (Thin Layer)
+
+✅ **Should Do**:
+- Parse HTTP requests (BindAndValidate)
+- Convert HTTP DTO → Domain Input
+- Call Domain Service
+- Convert Domain Output → HTTP response
+- Handle error conversion (domain errors → HTTP status codes)
+
+❌ **Should NOT Do**:
+- Do not implement business logic
+- Do not directly call Repository
+- Do not include validation rules (should be in Service or Model)
+
+**Example**:
+```go
+// ✅ Good: Handler only does adaptation
+func (deps *HandlerDependencies) CreateTaskHandler(ctx context.Context, c *app.RequestContext) {
+    var req dto.CreateTaskRequest
+    c.BindAndValidate(&req)
+    
+    input := service.CreateTaskInput{...}  // Convert
+    output, err := deps.taskService.CreateTask(ctx, input)  // Call Service
+    
+    if err != nil {
+        handleDomainError(c, err)  // Error conversion
+        return
+    }
+    
+    c.JSON(200, toResponse(output))  // Response conversion
+}
+
+// ❌ Bad: Handler contains business logic
+func CreateTaskHandler(...) {
+    // Validate business rules
+    if task.Priority == "high" && !user.IsVIP() {
+        return errors.New("only VIP can create high priority tasks")
+    }
+    // These should be in Service layer!
+}
+```
+
+### Service Layer Responsibilities (Thick Layer)
+
+✅ **Should Do**:
+- Implement business use cases (corresponding to usecases.yaml)
+- Encapsulate complex business flows
+- Coordinate multiple Repositories
+- Validate complex business rules
+- Publish domain events
+- Manage transactions
+
+❌ **Should NOT Do**:
+- Do not handle HTTP requests/responses
+- Do not use HTTP-related types (e.g., app.RequestContext)
+- Do not implement simple domain rules (should be in Model)
+
+**Example**:
+```go
+// ✅ Good: Service implements business logic
+func (s *TaskService) CreateTask(ctx context.Context, input CreateTaskInput) (*CreateTaskOutput, error) {
+    // Business rule validation
+    if input.Title == "" {
+        return nil, fmt.Errorf("TASK_TITLE_EMPTY: task title cannot be empty")
+    }
+    
+    // Create domain object
+    task, err := model.NewTask(input.Title, input.Description, input.Priority)
+    
+    // Persist
+    if err := s.taskRepo.Create(ctx, task); err != nil {
+        return nil, fmt.Errorf("failed to save task: %w", err)
+    }
+    
+    // Publish event
+    // s.eventBus.Publish(ctx, TaskCreatedEvent{...})
+    
+    return &CreateTaskOutput{Task: task}, nil
+}
+```
+
+### Model Layer Responsibilities
+
+✅ **Should Do**:
+- Simple domain rules
+- State change logic
+- Invariant maintenance
+
+❌ **Should NOT Do**:
+- Do not contain data access logic
+- Do not contain complex business flows
+
+**Example**:
+```go
+// ✅ Good: Model contains simple domain rules
+func (t *Task) Complete() error {
+    if t.Status == StatusCompleted {
+        return ErrTaskAlreadyCompleted
+    }
+    t.Status = StatusCompleted
+    t.CompletedAt = timePtr(time.Now())
+    return nil
+}
+```
+
+## Prohibited Practices
+
+- ❌ **Do NOT write business logic in Handler** (should call Service layer)
+- ❌ **Do NOT directly call Repository in Handler** (should go through Service layer)
+- ❌ Do not directly call across domains (should use events or application service orchestration)
+- ❌ Do not include business logic in DTO (only data transfer)
+- ❌ Do not use global variables (use dependency injection)
+- ❌ Do not commit generated type files to Git (frontend/shared/types/domains/ should be ignored or marked as generated)
+- ❌ **Do NOT use GORM or any ORM** (unified use of database/sql)
+- ❌ **Do NOT use AutoMigrate** (use Atlas for Schema management)
+
+## AI-Assisted Development Best Practices
+
+1. **Read Explicit Knowledge Before Understanding Requirements**:
+   - Read domain README.md to understand boundaries
+   - Read glossary.md to understand terminology
+   - Read rules.md to understand constraints
+   - Read usecases.yaml to understand existing use cases
+
+2. **Maintain Consistency When Generating Code**:
+   - Reference existing code style within the same domain
+   - Use the same error handling patterns
+   - Maintain the same comment style
+
+3. **Test-Driven**:
+   - **Backend**: Generate tests along with code, ensure tests cover all branches
+   - **Frontend**: ⭐ **Mandatory** - Every time frontend code is updated, must update or add:
+     - Unit tests (Hooks, Stores, API, Components)
+     - E2E tests (key user flows)
+   - Ensure all tests pass before committing code
+
+4. **Documentation Sync**:
+   - Update related README.md after modifying code
+   - Update events.md after adding new events
+   - Update rules.md after adding new rules
+
+---
+> Source: [erweixin/Go-GenAI-Stack](https://github.com/erweixin/Go-GenAI-Stack) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
