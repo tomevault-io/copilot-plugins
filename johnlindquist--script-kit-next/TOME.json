@@ -1,0 +1,249 @@
+{
+  "name": "script-kit-next",
+  "owner": "johnlindquist",
+  "repo": "script-kit-next",
+  "description": "Script Kit rewritten in Rust using GPUI (Zed's UI framework)",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arboard",
+      "path": ".opencode/skill/arboard",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/arboard",
+      "description": ""
+    },
+    {
+      "name": "codex",
+      "path": ".opencode/skill/codex",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/codex",
+      "description": ""
+    },
+    {
+      "name": "dev-loop",
+      "path": ".claude/skills/dev-loop",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/dev-loop",
+      "description": ""
+    },
+    {
+      "name": "gpui",
+      "path": ".opencode/skill/gpui",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/gpui",
+      "description": ""
+    },
+    {
+      "name": "gpui-component",
+      "path": ".opencode/skill/gpui-component",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/gpui-component",
+      "description": ""
+    },
+    {
+      "name": "gpui-patterns",
+      "path": ".claude/skills/gpui-patterns",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/gpui-patterns",
+      "description": ""
+    },
+    {
+      "name": "gpui-testing",
+      "path": ".opencode/skill/gpui-testing",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/gpui-testing",
+      "description": ""
+    },
+    {
+      "name": "macos-accessibility",
+      "path": ".opencode/skill/macos-accessibility",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/macos-accessibility",
+      "description": ""
+    },
+    {
+      "name": "macos-app-bundle",
+      "path": ".opencode/skill/macos-app-bundle",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/macos-app-bundle",
+      "description": ""
+    },
+    {
+      "name": "macos-cocoa-objc",
+      "path": ".opencode/skill/macos-cocoa-objc",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/macos-cocoa-objc",
+      "description": ""
+    },
+    {
+      "name": "macos-core-frameworks",
+      "path": ".opencode/skill/macos-core-frameworks",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/macos-core-frameworks",
+      "description": ""
+    },
+    {
+      "name": "rusqlite",
+      "path": ".opencode/skill/rusqlite",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/rusqlite",
+      "description": ""
+    },
+    {
+      "name": "rust-async-channels",
+      "path": ".opencode/skill/rust-async-channels",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/rust-async-channels",
+      "description": ""
+    },
+    {
+      "name": "rust-error-handling",
+      "path": ".opencode/skill/rust-error-handling",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/rust-error-handling",
+      "description": ""
+    },
+    {
+      "name": "rust-smart-pointers",
+      "path": ".opencode/skill/rust-smart-pointers",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/rust-smart-pointers",
+      "description": ""
+    },
+    {
+      "name": "script-kit-actions-window",
+      "path": ".opencode/skill/script-kit-actions-window",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/script-kit-actions-window",
+      "description": ""
+    },
+    {
+      "name": "script-kit-agent-workflow",
+      "path": ".claude/skills/script-kit-agent-workflow",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/script-kit-agent-workflow",
+      "description": ""
+    },
+    {
+      "name": "script-kit-app-shell",
+      "path": ".opencode/skill/script-kit-app-shell",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/script-kit-app-shell",
+      "description": ""
+    },
+    {
+      "name": "script-kit-architecture",
+      "path": ".claude/skills/script-kit-architecture",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/script-kit-architecture",
+      "description": ""
+    },
+    {
+      "name": "script-kit-clipboard",
+      "path": ".opencode/skill/script-kit-clipboard",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/script-kit-clipboard",
+      "description": ""
+    },
+    {
+      "name": "script-kit-components",
+      "path": ".opencode/skill/script-kit-components",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/script-kit-components",
+      "description": ""
+    },
+    {
+      "name": "script-kit-hive",
+      "path": ".claude/skills/script-kit-hive",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/script-kit-hive",
+      "description": ""
+    },
+    {
+      "name": "script-kit-icons",
+      "path": ".opencode/skill/script-kit-icons",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/script-kit-icons",
+      "description": ""
+    },
+    {
+      "name": "script-kit-logging",
+      "path": ".claude/skills/script-kit-logging",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/script-kit-logging",
+      "description": ""
+    },
+    {
+      "name": "script-kit-menu-bar",
+      "path": ".opencode/skill/script-kit-menu-bar",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/script-kit-menu-bar",
+      "description": ""
+    },
+    {
+      "name": "script-kit-scripting",
+      "path": ".claude/skills/script-kit-scripting",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/script-kit-scripting",
+      "description": ""
+    },
+    {
+      "name": "script-kit-scripts",
+      "path": ".opencode/skill/script-kit-scripts",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/script-kit-scripts",
+      "description": ""
+    },
+    {
+      "name": "script-kit-testing",
+      "path": ".claude/skills/script-kit-testing",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/script-kit-testing",
+      "description": ""
+    },
+    {
+      "name": "script-kit-ui-testing",
+      "path": ".claude/skills/script-kit-ui-testing",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/script-kit-ui-testing",
+      "description": ""
+    },
+    {
+      "name": "script-kit-window-control",
+      "path": ".opencode/skill/script-kit-window-control",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/script-kit-window-control",
+      "description": ""
+    },
+    {
+      "name": "sysinfo",
+      "path": ".opencode/skill/sysinfo",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/sysinfo",
+      "description": ""
+    },
+    {
+      "name": "testing-skill",
+      "path": "testing-skill",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/testing-skill",
+      "description": ""
+    },
+    {
+      "name": "ureq",
+      "path": ".opencode/skill/ureq",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.opencode/skill/ureq",
+      "description": ""
+    },
+    {
+      "name": "visual-test",
+      "path": ".claude/skills/visual-test",
+      "github_url": "https://github.com/johnlindquist/script-kit-next/tree/main/.claude/skills/visual-test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/johnlindquist/script-kit-next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:50:44Z"
+}
