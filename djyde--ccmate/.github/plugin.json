@@ -1,0 +1,14 @@
+{
+  "name": "djyde--ccmate",
+  "displayName": "ccmate",
+  "description": "Configure your Claude Code without pain",
+  "version": "1.0.0",
+  "author": "djyde",
+  "homepage": "https://github.com/djyde/ccmate",
+  "skills": [
+    {
+      "name": "translate",
+      "description": ""
+    }
+  ]
+}
