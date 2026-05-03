@@ -1,0 +1,9 @@
+{
+  "name": "thecodewizard--multicastproxy",
+  "displayName": "MulticastProxy",
+  "description": "A Multicast Proxy for Dentadmin Cloud",
+  "version": "1.0.0",
+  "author": "thecodewizard",
+  "homepage": "https://github.com/thecodewizard/MulticastProxy",
+  "skills": []
+}
