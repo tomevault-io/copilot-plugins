@@ -1,0 +1,9 @@
+{
+  "name": "laravel--cloud-cli",
+  "displayName": "cloud-cli",
+  "description": "CLI utility for Laravel Cloud",
+  "version": "1.0.0",
+  "author": "laravel",
+  "homepage": "https://github.com/laravel/cloud-cli",
+  "skills": []
+}
