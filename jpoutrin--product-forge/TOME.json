@@ -1,0 +1,495 @@
+{
+  "name": "product-forge",
+  "owner": "jpoutrin",
+  "repo": "product-forge",
+  "description": "Claude Code Marketplace Plugin to dev like a pro in a multi-agent fashion",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-mcp-tool",
+      "path": "plugins/typescript-experts/skills/add-mcp-tool",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/typescript-experts/skills/add-mcp-tool",
+      "description": ""
+    },
+    {
+      "name": "agent-tools",
+      "path": "plugins/product-design/skills/agent-tools",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/agent-tools",
+      "description": ""
+    },
+    {
+      "name": "ansible",
+      "path": "plugins/devops-data/skills/ansible",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/devops-data/skills/ansible",
+      "description": ""
+    },
+    {
+      "name": "atlassian-attachments",
+      "path": "plugins/atlassian-integration/skills/atlassian-attachments",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/atlassian-integration/skills/atlassian-attachments",
+      "description": ""
+    },
+    {
+      "name": "aws-cloud",
+      "path": "plugins/devops-data/skills/aws-cloud",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/devops-data/skills/aws-cloud",
+      "description": ""
+    },
+    {
+      "name": "bl-init",
+      "path": "plugins/git-workflow/skills/bl-init",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/bl-init",
+      "description": ""
+    },
+    {
+      "name": "bl-record",
+      "path": "plugins/git-workflow/skills/bl-record",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/bl-record",
+      "description": ""
+    },
+    {
+      "name": "bl-stack",
+      "path": "plugins/git-workflow/skills/bl-stack",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/bl-stack",
+      "description": ""
+    },
+    {
+      "name": "bl-submit",
+      "path": "plugins/git-workflow/skills/bl-submit",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/bl-submit",
+      "description": ""
+    },
+    {
+      "name": "bl-sync",
+      "path": "plugins/git-workflow/skills/bl-sync",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/bl-sync",
+      "description": ""
+    },
+    {
+      "name": "bl-undo",
+      "path": "plugins/git-workflow/skills/bl-undo",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/bl-undo",
+      "description": ""
+    },
+    {
+      "name": "branchless-workflow",
+      "path": "plugins/git-workflow/skills/branchless-workflow",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/branchless-workflow",
+      "description": ""
+    },
+    {
+      "name": "chunking-strategies",
+      "path": "plugins/rag-cag/skills/chunking-strategies",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/rag-cag/skills/chunking-strategies",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "plugins/git-workflow/skills/code-review",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": "plugins/git-workflow/skills/commit",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "console-debugging",
+      "path": "plugins/product-design/skills/console-debugging",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/console-debugging",
+      "description": ""
+    },
+    {
+      "name": "copy-agent",
+      "path": "plugins/claude-code-dev/skills/copy-agent",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/copy-agent",
+      "description": ""
+    },
+    {
+      "name": "copy-skill",
+      "path": "plugins/claude-code-dev/skills/copy-skill",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/copy-skill",
+      "description": ""
+    },
+    {
+      "name": "create-agent",
+      "path": "plugins/claude-code-dev/skills/create-agent",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/create-agent",
+      "description": ""
+    },
+    {
+      "name": "create-command",
+      "path": "plugins/claude-code-dev/skills/create-command",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/create-command",
+      "description": ""
+    },
+    {
+      "name": "create-persona",
+      "path": "plugins/product-design/skills/create-persona",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/create-persona",
+      "description": ""
+    },
+    {
+      "name": "create-plugin",
+      "path": "plugins/claude-code-dev/skills/create-plugin",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/create-plugin",
+      "description": ""
+    },
+    {
+      "name": "create-qa-test",
+      "path": "plugins/product-design/skills/create-qa-test",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/create-qa-test",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "path": "plugins/claude-code-dev/skills/create-skill",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/create-skill",
+      "description": ""
+    },
+    {
+      "name": "dbt",
+      "path": "plugins/devops-data/skills/dbt",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/devops-data/skills/dbt",
+      "description": ""
+    },
+    {
+      "name": "dependency-alignment",
+      "path": "plugins/devops-data/skills/dependency-alignment",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/devops-data/skills/dependency-alignment",
+      "description": ""
+    },
+    {
+      "name": "design-system",
+      "path": "plugins/product-design/skills/design-system",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/design-system",
+      "description": ""
+    },
+    {
+      "name": "direnv",
+      "path": "plugins/devops-data/skills/direnv",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/devops-data/skills/direnv",
+      "description": ""
+    },
+    {
+      "name": "django-dev",
+      "path": "plugins/python-experts/skills/django-dev",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/python-experts/skills/django-dev",
+      "description": ""
+    },
+    {
+      "name": "django-api",
+      "path": "plugins/python-experts/skills/django-api",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/python-experts/skills/django-api",
+      "description": ""
+    },
+    {
+      "name": "documentation-research",
+      "path": "plugins/python-experts/skills/documentation-research",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/python-experts/skills/documentation-research",
+      "description": ""
+    },
+    {
+      "name": "enrich-qa-test",
+      "path": "plugins/product-design/skills/enrich-qa-test",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/enrich-qa-test",
+      "description": ""
+    },
+    {
+      "name": "fastmcp",
+      "path": "plugins/typescript-experts/skills/fastmcp",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/typescript-experts/skills/fastmcp",
+      "description": ""
+    },
+    {
+      "name": "fetch-youtube-transcript",
+      "path": "plugins/content-tools/skills/fetch-youtube-transcript",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/content-tools/skills/fetch-youtube-transcript",
+      "description": ""
+    },
+    {
+      "name": "forge-help",
+      "path": "plugins/product-design/skills/forge-help",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/forge-help",
+      "description": ""
+    },
+    {
+      "name": "gcp-cloud",
+      "path": "plugins/devops-data/skills/gcp-cloud",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/devops-data/skills/gcp-cloud",
+      "description": ""
+    },
+    {
+      "name": "git-commits",
+      "path": "plugins/git-workflow/skills/git-commits",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/git-workflow/skills/git-commits",
+      "description": ""
+    },
+    {
+      "name": "install-chrome-devtools-mcp",
+      "path": "plugins/product-design/skills/install-chrome-devtools-mcp",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/install-chrome-devtools-mcp",
+      "description": ""
+    },
+    {
+      "name": "install-playwright-mcp",
+      "path": "plugins/claude-code-dev/skills/install-playwright-mcp",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/install-playwright-mcp",
+      "description": ""
+    },
+    {
+      "name": "list-qa-tests",
+      "path": "plugins/product-design/skills/list-qa-tests",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/list-qa-tests",
+      "description": ""
+    },
+    {
+      "name": "mcp-security",
+      "path": "plugins/security-compliance/skills/mcp-security",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/security-compliance/skills/mcp-security",
+      "description": ""
+    },
+    {
+      "name": "mcp-setup",
+      "path": "plugins/claude-code-dev/skills/mcp-setup",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/mcp-setup",
+      "description": ""
+    },
+    {
+      "name": "mypy-setup",
+      "path": "plugins/python-experts/skills/mypy-setup",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/python-experts/skills/mypy-setup",
+      "description": ""
+    },
+    {
+      "name": "network-inspection",
+      "path": "plugins/product-design/skills/network-inspection",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/network-inspection",
+      "description": ""
+    },
+    {
+      "name": "oauth",
+      "path": "plugins/security-compliance/skills/oauth",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/security-compliance/skills/oauth",
+      "description": ""
+    },
+    {
+      "name": "parallel-agents",
+      "path": "plugins/product-design/skills/parallel-agents",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "parallel-decompose",
+      "path": "plugins/product-design/skills/parallel-decompose",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/parallel-decompose",
+      "description": ""
+    },
+    {
+      "name": "parallel-execution",
+      "path": "plugins/product-design/skills/parallel-execution",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/parallel-execution",
+      "description": ""
+    },
+    {
+      "name": "parallel-integrate",
+      "path": "plugins/product-design/skills/parallel-integrate",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/parallel-integrate",
+      "description": ""
+    },
+    {
+      "name": "parallel-prompt-generator",
+      "path": "plugins/product-design/skills/parallel-prompt-generator",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/parallel-prompt-generator",
+      "description": ""
+    },
+    {
+      "name": "parallel-ready-django",
+      "path": "plugins/python-experts/skills/parallel-ready-django",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/python-experts/skills/parallel-ready-django",
+      "description": ""
+    },
+    {
+      "name": "parallel-run",
+      "path": "plugins/product-design/skills/parallel-run",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/parallel-run",
+      "description": ""
+    },
+    {
+      "name": "parallel-setup",
+      "path": "plugins/product-design/skills/parallel-setup",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/parallel-setup",
+      "description": ""
+    },
+    {
+      "name": "parallel-task-format",
+      "path": "plugins/product-design/skills/parallel-task-format",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/parallel-task-format",
+      "description": ""
+    },
+    {
+      "name": "pattern-detection",
+      "path": "plugins/claude-code-dev/skills/pattern-detection",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/pattern-detection",
+      "description": ""
+    },
+    {
+      "name": "portman",
+      "path": "plugins/devops-data/skills/portman",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/devops-data/skills/portman",
+      "description": ""
+    },
+    {
+      "name": "prd-management",
+      "path": "plugins/product-design/skills/prd-management",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/prd-management",
+      "description": ""
+    },
+    {
+      "name": "product-strategy",
+      "path": "plugins/product-design/skills/product-strategy",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/product-strategy",
+      "description": ""
+    },
+    {
+      "name": "python-mypy",
+      "path": "plugins/python-experts/skills/python-mypy",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/python-experts/skills/python-mypy",
+      "description": ""
+    },
+    {
+      "name": "python-style",
+      "path": "plugins/python-experts/skills/python-style",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/python-experts/skills/python-style",
+      "description": ""
+    },
+    {
+      "name": "qa-element-extraction",
+      "path": "plugins/product-design/skills/qa-element-extraction",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/qa-element-extraction",
+      "description": ""
+    },
+    {
+      "name": "qa-screenshot-management",
+      "path": "plugins/product-design/skills/qa-screenshot-management",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/qa-screenshot-management",
+      "description": ""
+    },
+    {
+      "name": "qa-screenshot-validation",
+      "path": "plugins/product-design/skills/qa-screenshot-validation",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/qa-screenshot-validation",
+      "description": ""
+    },
+    {
+      "name": "qa-test-management",
+      "path": "plugins/product-design/skills/qa-test-management",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/qa-test-management",
+      "description": ""
+    },
+    {
+      "name": "qa-testing-methodology",
+      "path": "plugins/product-design/skills/qa-testing-methodology",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/qa-testing-methodology",
+      "description": ""
+    },
+    {
+      "name": "quick-start",
+      "path": "plugins/product-design/skills/quick-start",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/quick-start",
+      "description": ""
+    },
+    {
+      "name": "rfc-specification",
+      "path": "plugins/devops-data/skills/rfc-specification",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/devops-data/skills/rfc-specification",
+      "description": ""
+    },
+    {
+      "name": "setup-mcp-auth",
+      "path": "plugins/typescript-experts/skills/setup-mcp-auth",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/typescript-experts/skills/setup-mcp-auth",
+      "description": ""
+    },
+    {
+      "name": "task-orchestration",
+      "path": "plugins/product-design/skills/task-orchestration",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/product-design/skills/task-orchestration",
+      "description": ""
+    },
+    {
+      "name": "technical-specification",
+      "path": "plugins/devops-data/skills/technical-specification",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/devops-data/skills/technical-specification",
+      "description": ""
+    },
+    {
+      "name": "tmux-init",
+      "path": "plugins/claude-code-dev/skills/tmux-init",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/claude-code-dev/skills/tmux-init",
+      "description": ""
+    },
+    {
+      "name": "typescript-code-review",
+      "path": "plugins/frontend-experts/skills/typescript-code-review",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/frontend-experts/skills/typescript-code-review",
+      "description": ""
+    },
+    {
+      "name": "typescript-import-style",
+      "path": "plugins/typescript-experts/skills/typescript-import-style",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/typescript-experts/skills/typescript-import-style",
+      "description": ""
+    },
+    {
+      "name": "typescript-style",
+      "path": "plugins/frontend-experts/skills/typescript-style",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/frontend-experts/skills/typescript-style",
+      "description": ""
+    },
+    {
+      "name": "zod",
+      "path": "plugins/typescript-experts/skills/zod",
+      "github_url": "https://github.com/jpoutrin/product-forge/tree/main/plugins/typescript-experts/skills/zod",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jpoutrin/product-forge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T22:40:29Z"
+}
