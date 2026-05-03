@@ -1,0 +1,44 @@
+{
+  "name": "halolight",
+  "owner": "halolight",
+  "repo": "halolight",
+  "description": "\ud83d\udfe6 Next.js 15 \u4f01\u4e1a\u7ea7\u7ba1\u7406\u540e\u53f0 Admin Dashboard - App Router, React 19, TypeScript, RBAC \u6743\u9650, shadcn/ui, \u62d6\u62fd\u4eea\u8868\u76d8, 11 \u79cd\u4e3b\u9898 \u2192 halolight.h7ml.cn",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/halolight/halolight",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T13:37:50Z"
+}
