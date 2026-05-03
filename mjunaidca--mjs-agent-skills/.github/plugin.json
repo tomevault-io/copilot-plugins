@@ -1,0 +1,234 @@
+{
+  "name": "mjunaidca--mjs-agent-skills",
+  "displayName": "mjs-agent-skills",
+  "description": "A curated collection of Agent Skills \u2014 reusable units of intelligence that teach AI General Agents how to perform specific tasks autonomously.",
+  "version": "1.0.0",
+  "author": "mjunaidca",
+  "homepage": "https://github.com/mjunaidca/mjs-agent-skills",
+  "skills": [
+    {
+      "name": "aks-deployment-troubleshooter",
+      "description": ""
+    },
+    {
+      "name": "better-auth-setup",
+      "description": ""
+    },
+    {
+      "name": "better-auth-sso",
+      "description": ""
+    },
+    {
+      "name": "blueprint-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "browser-use",
+      "description": ""
+    },
+    {
+      "name": "browsing-with-playwright",
+      "description": ""
+    },
+    {
+      "name": "building-chat-interfaces",
+      "description": ""
+    },
+    {
+      "name": "building-chat-widgets",
+      "description": ""
+    },
+    {
+      "name": "building-chatgpt-apps",
+      "description": ""
+    },
+    {
+      "name": "building-mcp-servers",
+      "description": ""
+    },
+    {
+      "name": "building-nextjs-apps",
+      "description": ""
+    },
+    {
+      "name": "building-rag-systems",
+      "description": ""
+    },
+    {
+      "name": "chatkit-actions",
+      "description": ""
+    },
+    {
+      "name": "chatkit-integration",
+      "description": ""
+    },
+    {
+      "name": "chatkit-streaming",
+      "description": ""
+    },
+    {
+      "name": "cloud-deploy-blueprint",
+      "description": ""
+    },
+    {
+      "name": "configuring-better-auth",
+      "description": ""
+    },
+    {
+      "name": "containerize-apps",
+      "description": ""
+    },
+    {
+      "name": "context7-efficient",
+      "description": ""
+    },
+    {
+      "name": "creating-skills",
+      "description": ""
+    },
+    {
+      "name": "dapr-integration",
+      "description": ""
+    },
+    {
+      "name": "datetime-timezone",
+      "description": ""
+    },
+    {
+      "name": "fastapi-backend",
+      "description": ""
+    },
+    {
+      "name": "fetching-library-docs",
+      "description": ""
+    },
+    {
+      "name": "helm",
+      "description": ""
+    },
+    {
+      "name": "helm-charts",
+      "description": ""
+    },
+    {
+      "name": "installing-skill-tracker",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "description": ""
+    },
+    {
+      "name": "kafka",
+      "description": ""
+    },
+    {
+      "name": "kagent",
+      "description": ""
+    },
+    {
+      "name": "kubectl-ai",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-deployment-validator",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-essentials",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "memory-systems",
+      "description": ""
+    },
+    {
+      "name": "minikube",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-16",
+      "description": ""
+    },
+    {
+      "name": "nextjs-devtools",
+      "description": ""
+    },
+    {
+      "name": "nx-monorepo",
+      "description": ""
+    },
+    {
+      "name": "operating-production-services",
+      "description": ""
+    },
+    {
+      "name": "production-debugging",
+      "description": ""
+    },
+    {
+      "name": "researching-with-deepwiki",
+      "description": ""
+    },
+    {
+      "name": "scaffolding-fastapi-dapr",
+      "description": ""
+    },
+    {
+      "name": "scaffolding-openai-agents",
+      "description": ""
+    },
+    {
+      "name": "session-intelligence-harvester",
+      "description": ""
+    },
+    {
+      "name": "shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "sqlmodel-database",
+      "description": ""
+    },
+    {
+      "name": "streaming-llm-responses",
+      "description": ""
+    },
+    {
+      "name": "styling-with-shadcn",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "tool-design",
+      "description": ""
+    },
+    {
+      "name": "ux-evaluator",
+      "description": ""
+    },
+    {
+      "name": "working-with-documents",
+      "description": ""
+    }
+  ]
+}
