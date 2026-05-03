@@ -1,0 +1,9 @@
+{
+  "name": "yeya--wire-seek",
+  "displayName": "wire-seek",
+  "description": "A tiny tool to find the perfect MTU for your WireGuard tunnel in seconds.",
+  "version": "1.0.0",
+  "author": "yeya",
+  "homepage": "https://github.com/yeya/wire-seek",
+  "skills": []
+}
