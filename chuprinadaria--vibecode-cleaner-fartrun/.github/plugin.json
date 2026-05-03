@@ -1,0 +1,9 @@
+{
+  "name": "chuprinadaria--vibecode-cleaner-fartrun",
+  "displayName": "Vibecode-Cleaner-Fartrun",
+  "description": "Not another AI reviewing AI. Rust-powered code scanner that actually reads your codebase \u2014    zero extra tokens consumed. 29 MCP tools: security vulns, dead code, health checks, save  points, frozen f",
+  "version": "1.0.0",
+  "author": "ChuprinaDaria",
+  "homepage": "https://github.com/ChuprinaDaria/Vibecode-Cleaner-Fartrun",
+  "skills": []
+}
