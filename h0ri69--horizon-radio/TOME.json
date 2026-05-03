@@ -1,0 +1,44 @@
+{
+  "name": "Horizon-Radio",
+  "owner": "H0ri69",
+  "repo": "Horizon-Radio",
+  "description": "Transform YouTube Music into a live radio experience with AI-powered DJ voice-overs and professional transitions.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/H0ri69/Horizon-Radio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T16:02:19Z"
+}
