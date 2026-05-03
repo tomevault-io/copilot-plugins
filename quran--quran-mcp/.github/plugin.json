@@ -1,9 +1,46 @@
 {
   "name": "quran--quran-mcp",
-  "displayName": "quran-mcp",
+  "displayName": "quran",
   "description": "quran-mcp",
   "version": "1.0.0",
   "author": "quran",
   "homepage": "https://github.com/quran/quran-mcp",
-  "skills": []
+  "skills": [
+    {
+      "name": "agent-browser",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "generate-verified-docs",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "test-plan",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": ""
+    }
+  ]
 }
