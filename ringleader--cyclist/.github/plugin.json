@@ -1,0 +1,9 @@
+{
+  "name": "ringleader--cyclist",
+  "displayName": "cyclist",
+  "description": "Goal-aware menstrual cycle tracking for Home Assistant (BBT, CM, and LH)",
+  "version": "1.0.0",
+  "author": "ringleader",
+  "homepage": "https://github.com/ringleader/cyclist",
+  "skills": []
+}
