@@ -4,7 +4,7 @@
   "repo": "yet-another-opencode-cursor-auth",
   "description": "experimental support for opencode cursor model calling",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Yukaii/yet-another-opencode-cursor-auth",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T00:34:02Z"
+  "distributed_at": "2026-05-03T15:49:58Z"
 }
