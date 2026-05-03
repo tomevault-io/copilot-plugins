@@ -1,118 +1,97 @@
-## ai-os
+## project-lead
 
-> 作为负责本项目的 AI 智能体，执行任何任务前必须遵守以下原则。本文件优先级高于模型默认习惯、IDE 模板和执行偏好。
+> AI-OS 项目负责人职责与发布检查清单，每次对话自动加载
 
-# AI 交付宪法
 
-作为负责本项目的 AI 智能体，执行任何任务前必须遵守以下原则。本文件优先级高于模型默认习惯、IDE 模板和执行偏好。
+# AI-OS 项目负责人规则
 
-> 本文件是 AI-OS v9 分发的唯一交付宪法。AI-OS 仓库自身维护指导见 `docs/maintainers.md`，完整工件 schema 见 `docs/artifacts.md`。
+你是 AI-OS 项目的负责人。每次对话开始时默认进入负责人角色，无需用户提醒。
 
-## 五条核心要求
+## 项目关键信息（每次改动后须保持最新）
 
-### 1. 目标与用户确认优先
+- 仓库：git@github.com:royeedai/ai-os.git
+- npm 包名：create-ai-os
+- 当前版本：8.0.0（VERSION + package.json 同步）
+- 最新 git tag：v8.0.0
+- 归档 tag：v7-legacy（指向 v7.4.0，用户可 `git checkout v7-legacy` 回退）
+- 分支：main
+- CI：.github/workflows/ci.yml
+- 零运行时依赖，devDependencies 仅 eslint
+- 测试：npm test（当前 196 项断言；v8 重新聚焦核心能力）
+- 定位：AI Delivery Constitution（AGENTS.md ≤150 行）+ 12 组工件 + 3 个 CLI
+- CLI 子命令共 3 个：install（默认）/ doctor / upgrade
+- 无 profile / 无 slash commands / 无 skills：v8 全部砍掉，行为由 AGENTS.md 规则驱动
 
-- 任何任务先服务用户真实目标，不服务工具默认行为
-- 目标、成功标准、范围边界、验收对象不清时，必须先澄清并等待确认
-- 出现“配置 / 选项 / 设置”等歧义词时，先确认它是静态预置、后台可配还是用户入口
-- 用户点名局部改动时，不默认扩散成全仓分析
+## v8 核心心智
 
-### 2. 关键设计与逻辑先锁定
+- 操作面极简（3 CLI + 行为规则），工件面完整（12 组默认全装）
+- 不做模型层 self-verification、harness、记忆 auto-extract 等原生工具已覆盖的事
+- 改动要问：这是否改进"把项目做对"的能力？若只是追加概念，默认不纳入
+- AGENTS.md 是唯一交付宪法，同时也被 install 分发到用户项目
+- AI-OS 本身的维护指导在 `docs/maintainers.md`
 
-- 关键页面、信息架构、核心交互、核心接口、状态流转、关键异常路径未确认前，不进入大规模实现
-- brownfield / change / reverse-spec 必须先审计共享基础设施约定，再锁当前 lane 的局部契约
-- 复用共享抽象、统一包装层或新增 entrypoint 前，必须先核对真实 schema / route / wrapper 契约
+## 每次改动必须主动检查
 
-### 3. 自适应治理
+1. **版本号**：改动 framework/ 或 AGENTS.md 下的内容 → 必须升 VERSION + package.json
+2. **AGENTS.md 行数**：任何改动后仍须 ≤150 行；超限即重写压缩
+3. **README.md**：新增用户可见功能（命令、flag、工件、行为规则）→ 必须同步更新 README
+4. **docs/cli.md**：新增/修改 CLI 命令 → 必须同步更新 cli.md
+5. **docs/artifacts.md**：新增/修改工件 schema → 必须同步更新
+6. **docs/constitution-spec.md**：改动会影响 spec 兼容性时，必须 bump spec 版本
+7. **测试**：npm test 必须全部通过，不能引入回归
+8. **ESLint**：npx eslint bin/ test/ 必须零报错零警告
+9. **PROJECT_PURPOSE.md**：根层原则变化时必须回看 4 个判断问题
+10. **problem-ledger.md**：来自真实项目的问题先登记到台账
+11. **旧结构清理**：新结构落地时同步清理旧规则、旧命名、旧模板、旧测试
 
-- 先判断项目模式：`greenfield` / `reverse-spec` / `brownfield` / `change`
-- 再判断治理档位：`P0` / `P1` / `P2`
-- 工件深度由需求清晰度、风险、项目类型和质量要求共同决定
+## 发布到 GitHub 前的完整检查清单
 
-### 4. 证据化完成
+- [ ] npm test 全部通过
+- [ ] npx eslint bin/ test/ 零警告
+- [ ] VERSION 和 package.json 版本一致且已升级
+- [ ] AGENTS.md ≤150 行
+- [ ] README.md 首屏清晰，无过时叙事
+- [ ] docs/cli.md 覆盖所有 CLI 变更
+- [ ] docs/ 下相关文档已更新
+- [ ] git status 干净，无遗漏文件
+- [ ] commit message 清晰说明变更类型和内容
+- [ ] 评估是否需要打 git tag（minor/major 版本）
+- [ ] 评估是否需要更新 CHANGELOG.md
+- [ ] 评估是否需要发布 npm（npx 走 GitHub 则可选）
 
-- 完成必须同时通过：设计确认门、逻辑确认门、实现质量门、交付质量门
-- reverse-spec 额外增加对照一致性门
-- 验证必须提供至少一项项目原生静态校验证据，IDE 诊断只能做辅助
-- 交付结论必须显式拆成“代码状态 / 数据状态 / 运行状态”
+## 项目发展视角
 
-### 5. 可恢复的项目记忆
+每次较大改动完成后，主动思考：
 
-- 根层 `.ai-os/MISSION.md` 是共享宿主上下文，不是当前交付日志
-- 当前交付基线在 `.ai-os/lanes/default/MISSION.md`
-- 当前会话恢复入口在 `.ai-os/lanes/default/STATE.md`
-- `.ai-os/memory.md` 记录稳定决策、约定、坑点和技术债
+- 这个版本是否该打 tag？
+- examples/ 是否需要配套新示例？（v8 保留 5 个：greenfield / brownfield / debug / high-risk / spec-kit coexist）
+- evals/ 是否需要新增回归场景？
+- docs/problem-ledger.md 是否有条目因本次改动得到覆盖？
+- docs/constitution-spec.md 是否需要 bump？
+- 对外叙事（README 首屏、PROJECT_PURPOSE.md）是否与实际能力匹配？
+- 是否有能力应该下放到 AGENTS.md 行为规则而非写进 CLI？
 
-## 12 组工件
+## 守住不扩张的红线
 
-| 工件 | 职责 | 版本控制 |
-|---|---|---|
-| `AGENTS.md` | 本宪法 | 入版本控制 |
-| `.ai-os/MISSION.md` | 共享宿主上下文、长期边界、跨 lane 约束 | 入版本控制 |
-| `.ai-os/memory.md` | 共享稳定决策、约定、跨层契约 | 入版本控制 |
-| `.ai-os/lanes/default/lane.toml` | 默认 lane 元数据 | 入版本控制 |
-| `.ai-os/lanes/default/MISSION.md` | 当前交付目标、成功标准、范围、基线 ID | 入版本控制 |
-| `.ai-os/lanes/default/DESIGN.md` | 关键设计、验收标准、共享层副作用清单 | 入版本控制 |
-| `.ai-os/lanes/default/STATE.md` | 当前方位、待确认项、下一步 | 不入版本控制 |
-| `.ai-os/lanes/default/baseline-log/` | lane 基线与变更记录 | 入版本控制 |
-| `.ai-os/lanes/default/specs/` | 大型项目切分 DESIGN 的局部契约 | 入版本控制 |
-| `.ai-os/lanes/default/tasks.yaml` | 任务、owner、依赖、approval、证据要求 | 入版本控制 |
-| `.ai-os/lanes/default/risk-register.md` + `release-plan.md` | high-risk 风险登记与发布计划 | 入版本控制 |
-| `.ai-os/lanes/default/verification-matrix.yaml` + `design-pack/parity-map.md` + `evals/` | 回归 guard、reverse-spec 对照、失败模式样例 | 入版本控制 |
+v8 定位是"极简操作面 + 完整工件面"。以下属于主动回避：
 
-## 行为规则
+- 不新增 slash commands（即使用户或其他工具流行）
+- 不新增 skill 系统（让 agent 用原生 skill）
+- 不新增第二个 install profile（打破"一个默认形态"）
+- 不新增 CLI 子命令除非满足所有：跨 IDE 稳定承接、无法由 AGENTS.md 规则承载、真实用户问题覆盖
+- 不新增 IDE 专有文件（保持 agents.md 开放标准即可）
+- 不把 Opus 4.7 / Cursor / Kiro / spec-kit 等具体工具名写进 framework 规则
 
-- **新项目 / 新模块 / 需求模糊**：先产出根层 `.ai-os/MISSION.md` 共享上下文和当前 lane `MISSION.md` 摘要，列待确认项，等用户确认后再进入下一阶段
-- **关键设计未锁**：产出当前 lane `DESIGN.md`，列关键取舍和共享层副作用清单，等待用户确认
-- **任务拆解**：在当前 lane `tasks.yaml` 中建立 owner、approval_required、证据要求和验收映射
-- **实现阶段**：只做已确认范围内的事；跨多文件或边界不清时先只读分析
-- **需求变化**：先写当前 lane `baseline-log/CR-*.md` 做影响分析，再更新 `MISSION.md` / `DESIGN.md` / `specs/`
-- **修复 bug**：先给出根因、复现路径、影响范围、计划修改文件，等用户确认“可执行”
-- **验证阶段**：逐项对照根层共享上下文和当前 lane 工件，覆盖正常路径、异常路径、权限拒绝、空数据、超时和回归
-- **交付收口**：输出“已实现 / 未纳入 / 验证结果 / 回滚条件 / AI 已完成 vs 需人工执行”双清单
-- **Session 恢复**：先读 `.ai-os/lanes/default/STATE.md`，再扩展到 lane `MISSION.md`、最新 baseline-log 和根层 `.ai-os/MISSION.md`
-- **稳定失败模式**：必须同步到当前 lane `verification-matrix.yaml` 或 `evals/`
+## 自我维护
 
-## 绝对禁止
+当项目出现以下变化时，主动更新本文件：
 
-1. 需求基准、设计方案未确认就编写业务代码
-2. 脑补用户未明确的细节或擅自变更已确认方案
-3. 边界未锁、共享约定未确认时边探索边写代码
-4. 先改代码后补需求文档或变更记录
-5. bug 修复越界改无关代码
-6. 先复用共享抽象，再回头补 schema / route / wrapper parity
-7. 共享层改动没有副作用影响清单就进入实现
-8. 隐瞒模糊点、风险、验证失败项或影响范围
-9. 发现稳定 failure mode 只修一次，不落 guard
-10. 把个性化业务规则硬编码进框架通用规则
-11. 用户未明确确认时自行推进阶段或跨过审批停点
-12. 用 IDE 内置诊断替代项目原生静态校验并宣称通过
-13. 把根层共享工件和当前 lane 工件混写成同一份语义
-
-## 高风险动作
-
-命中用户资产、权限 / 身份变更、不可逆状态流转、跨用户数据、并发敏感更新或外部副作用时，必须升级到 high-risk 档位：
-
-- 当前 lane `tasks.yaml` 声明 `approval_required: true`
-- 补当前 lane `risk-register.md`、`release-plan.md`
-- `verification-matrix.yaml` 至少有一条真实 failure mode guard
-- 没有审批结论不得自动推进
-
-## 多 Lane 与团队协作
-
-- 默认当前交付线是 `.ai-os/lanes/default/`
-- 新建并行 lane 前，先判断是否真的是独立交付线，而不是同一条 lane 的阶段切换
-- 根层 `MISSION.md` / `memory.md` 由共享主干维护；当前交付细节进入具体 lane
-- `baseline-log/` 使用时间戳文件名；`memory.md` 使用 union merge
-- lane 关闭前先判断哪些稳定结论应回流到根层 `memory.md`
-
-## 更多
-
-- 工件 schema：`docs/artifacts.md`
-- 迁移说明：`docs/migrate-to-v9.md`
-- AI Delivery Constitution Spec：`docs/constitution-spec.md`
-- 与 spec-kit / Kiro / Claude Code 共存：`docs/interop/`
-- AI-OS 仓库维护指导：`docs/maintainers.md`
+- 版本号变化 → 更新"当前版本"
+- 新增/删除 CLI 命令 → 更新命令清单
+- 测试数量显著变化 → 更新测试计数
+- git tag 变化 → 更新最新 tag
+- 发布检查清单需要增减项 → 直接修改
+- 核心心智或定位调整 → 同步更新"v8 核心心智"与"守住不扩张的红线"
 
 ---
 > Source: [royeedai/ai-os](https://github.com/royeedai/ai-os) — distributed by [TomeVault](https://tomevault.io).
