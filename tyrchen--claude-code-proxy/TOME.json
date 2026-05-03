@@ -1,0 +1,81 @@
+{
+  "name": "claude",
+  "owner": "tyrchen",
+  "repo": "claude-code-proxy",
+  "description": "Allow claude code to run gemini 3",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-image",
+      "path": "ai-image",
+      "github_url": "https://github.com/tyrchen/claude-code-proxy/tree/main/ai-image",
+      "description": ""
+    },
+    {
+      "name": "cel",
+      "path": "cel",
+      "github_url": "https://github.com/tyrchen/claude-code-proxy/tree/main/cel",
+      "description": ""
+    },
+    {
+      "name": "codex-code-review",
+      "path": "codex-code-review",
+      "github_url": "https://github.com/tyrchen/claude-code-proxy/tree/main/codex-code-review",
+      "description": ""
+    },
+    {
+      "name": "design-guide",
+      "path": "design-guide",
+      "github_url": "https://github.com/tyrchen/claude-code-proxy/tree/main/design-guide",
+      "description": ""
+    },
+    {
+      "name": "kro-rgd",
+      "path": "kro-rgd",
+      "github_url": "https://github.com/tyrchen/claude-code-proxy/tree/main/kro-rgd",
+      "description": ""
+    },
+    {
+      "name": "surrealdb",
+      "path": "surrealdb",
+      "github_url": "https://github.com/tyrchen/claude-code-proxy/tree/main/surrealdb",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tyrchen/claude-code-proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:47:13Z"
+}
