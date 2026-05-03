@@ -1,0 +1,9 @@
+{
+  "name": "rahima-akter--festiko-event-planning-web-app-frontend",
+  "displayName": "festiko-event-planning-web-app-frontend",
+  "description": "A modern, full-featured event management and ticketing platform built with Next.js, React, and TypeScript. Festiko enables users to create events, manage participants, handle payments via Stripe, and ",
+  "version": "1.0.0",
+  "author": "Rahima-Akter",
+  "homepage": "https://github.com/Rahima-Akter/festiko-event-planning-web-app-frontend",
+  "skills": []
+}
