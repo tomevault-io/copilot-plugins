@@ -1,0 +1,9 @@
+{
+  "name": "aaronkwhite--pm-toolkit",
+  "displayName": "pm-toolkit",
+  "description": "Visual markdown editor and kanban boards for Cursor. WYSIWYG editing, slash commands, mermaid diagrams, and file viewers\u2014all in plain text.",
+  "version": "1.0.0",
+  "author": "aaronkwhite",
+  "homepage": "https://github.com/aaronkwhite/pm-toolkit",
+  "skills": []
+}
