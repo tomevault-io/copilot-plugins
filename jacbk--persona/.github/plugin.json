@@ -1,0 +1,9 @@
+{
+  "name": "jacbk--persona",
+  "displayName": "persona",
+  "description": "Persona is a drop in \"Kit\", \"Care Package\", or anything else you want to call it for your CLI (Claude Code, Codex, Gemini CLI, etc), that supports the setup, building, and deployment of your personal ",
+  "version": "1.0.0",
+  "author": "JacbK",
+  "homepage": "https://github.com/JacbK/persona",
+  "skills": []
+}
