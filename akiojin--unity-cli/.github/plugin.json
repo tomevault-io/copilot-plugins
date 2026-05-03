@@ -1,0 +1,34 @@
+{
+  "name": "akiojin--unity-cli",
+  "displayName": "unity",
+  "description": "Rust CLI for Unity Editor automation over Unity TCP protocol",
+  "version": "1.0.0",
+  "author": "akiojin",
+  "homepage": "https://github.com/akiojin/unity-cli",
+  "skills": [
+    {
+      "name": "unity-csharp-editing",
+      "description": ""
+    },
+    {
+      "name": "unity-development",
+      "description": ""
+    },
+    {
+      "name": "unity-editor-imgui-design",
+      "description": ""
+    },
+    {
+      "name": "unity-game-ugui-design",
+      "description": ""
+    },
+    {
+      "name": "unity-game-ui-toolkit-design",
+      "description": ""
+    },
+    {
+      "name": "unity-playmode-testing",
+      "description": ""
+    }
+  ]
+}
