@@ -1,0 +1,9 @@
+{
+  "name": "bun-ga--opendom",
+  "displayName": "opendom",
+  "description": "Multi-provider domain management from your terminal. No upsells, no popups, no cookie banners.",
+  "version": "1.0.0",
+  "author": "bun-ga",
+  "homepage": "https://github.com/bun-ga/opendom",
+  "skills": []
+}
