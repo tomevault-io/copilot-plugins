@@ -1,0 +1,50 @@
+{
+  "name": "wayne930242--reflexive-claude-code",
+  "displayName": "Reflexive-Claude-Code",
+  "description": "A skills-driven Agentic Context Engineering / Harness Engineering workflow for Claude Code.",
+  "version": "1.0.0",
+  "author": "wayne930242",
+  "homepage": "https://github.com/wayne930242/Reflexive-Claude-Code",
+  "skills": [
+    {
+      "name": "creating-plugins",
+      "description": ""
+    },
+    {
+      "name": "improving-skills",
+      "description": ""
+    },
+    {
+      "name": "initializing-projects",
+      "description": ""
+    },
+    {
+      "name": "migrating-agent-systems",
+      "description": ""
+    },
+    {
+      "name": "refactoring-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-claude-md",
+      "description": ""
+    },
+    {
+      "name": "writing-hooks",
+      "description": ""
+    },
+    {
+      "name": "writing-rules",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-subagents",
+      "description": ""
+    }
+  ]
+}
