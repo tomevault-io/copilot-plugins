@@ -1,0 +1,58 @@
+## cog-second-brain
+
+> COG exposes 17 skills via `.claude/skills/*/SKILL.md`. Each skill has a `name` and `description` in YAML frontmatter. Use AGENTS.md as the universal command reference.
+
+# COG Second Brain — Cursor Rules
+# This is the Cursor-compatible version of CLAUDE.md
+# COG: Cognition + Obsidian + Git — a self-evolving agentic second brain
+# Inspired by Garry Tan's gstack and gbrain patterns
+
+## Skills
+
+COG exposes 17 skills via `.claude/skills/*/SKILL.md`. Each skill has a `name` and `description` in YAML frontmatter. Use AGENTS.md as the universal command reference.
+
+## Worker Agents
+
+6 worker agents live in `.claude/agents/`. Workers handle data-heavy tasks; the lead session handles reasoning and synthesis.
+
+- worker-data-collector: Structured extraction from GitHub, Slack, Jira, Linear
+- worker-researcher: Web research with source citations
+- worker-file-ops: Vault file operations, metadata, profiles
+- worker-executor: Pre-approved mutations (Jira, Linear, APIs)
+- worker-publisher: Publishing to Slack, Confluence, Notion
+- brief-people-updater: Batch-update people profiles
+
+## Brain-First Protocol
+
+Before answering questions about people, projects, strategy, or decisions:
+1. Read relevant notes from `05-knowledge/` first
+2. If project-specific, read `04-projects/<project>/`
+3. Then synthesize an answer
+
+## Integration Preferences
+
+Check `00-inbox/MY-INTEGRATIONS.md` before using any external integration:
+- Active: use normally
+- Disabled: skip silently
+- Unknown: ask the user
+
+## Vault Structure
+
+```
+00-inbox/          — Profiles, interests, integrations
+01-daily/          — Briefs and check-ins
+02-personal/       — Personal braindumps (private)
+03-professional/   — Professional braindumps and strategy
+04-projects/       — Per-project tracking
+05-knowledge/      — Consolidated insights, people CRM, patterns
+06-templates/      — Document templates
+```
+
+## Citation Rule
+
+For factual statements in durable notes, include:
+`[Source: [[path/to/note]] | YYYY-MM-DD | confidence: high|medium|low]`
+
+---
+> Source: [huytieu/COG-second-brain](https://github.com/huytieu/COG-second-brain) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
