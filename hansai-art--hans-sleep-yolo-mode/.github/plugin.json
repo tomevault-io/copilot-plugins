@@ -1,0 +1,14 @@
+{
+  "name": "hansai-art--hans-sleep-yolo-mode",
+  "displayName": "hans-sleep-yolo-mode",
+  "description": "Claude Code \u81ea\u4e3b\u958b\u767c\u914d\u7f6e \u2014 \u8b93 AI \u5168\u81ea\u52d5\u57f7\u884c\uff0c\u6b0a\u9650\u5168\u958b\uff0c\u53ef\u4ee5\u5b89\u5fc3\u7761\u89ba",
+  "version": "1.0.0",
+  "author": "hansai-art",
+  "homepage": "https://github.com/hansai-art/hans-sleep-yolo-mode",
+  "skills": [
+    {
+      "name": "autonomous-skill",
+      "description": ""
+    }
+  ]
+}
