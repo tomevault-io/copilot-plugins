@@ -1,39 +1,35 @@
-## use-base-rules
+## ai-specs
 
-> Directs all AI agents to use the consolidated rules in base-standards.mdc
+> This document contains all development rules and guidelines for this project, applicable to all AI agents (Claude, Cursor, Codex, Gemini, etc.).
 
 
-# Use Base Development Rules
+## 1. Core Principles
 
-All AI agents working on this project must follow the comprehensive development rules and guidelines defined in:
+- **Small tasks, one at a time**: Always work in baby steps, one at a time. Never go forward more than one step.
+- **Test-Driven Development**: Start with failing tests for any new functionality (TDD), according to the task details.
+- **Type Safety**: All code must be fully typed.
+- **Clear Naming**: Use clear, descriptive names for all variables and functions.
+- **Incremental Changes**: Prefer incremental, focused changes over large, complex modifications.
+- **Question Assumptions**: Always question assumptions and inferences.
+- **Pattern Detection**: Detect and highlight repeated code patterns.
 
-**📋 [docs/base-standards.mdc](/Users/alvaromoya/projects/versiones ejercicios/AI4Devs-LTI/docs/base-standards.mdc)**
+## 2. Language Standards
+- **English Only**: All technical artifacts must always use English, including:
+    - Code (variables, functions, classes, comments, error messages, log messages)
+    - Documentation (README, guides, API docs)
+    - Jira tickets (titles, descriptions, comments)
+    - Data schemas and database names
+    - Configuration files and scripts
+    - Git commit messages
+    - Test names and descriptions
 
-## Key Directive
+## 3. Specific standards
 
-- **Single Source of Truth**: All development rules, coding standards, testing practices, and workflow requirements are maintained in `base-standards.mdc`
-- **No Rule Duplication**: Do not reference or follow other rule files - `base-standards.mdc` contains the complete and authoritative rule set
-- **Always Current**: `base-standards.mdc` is the actively maintained configuration - other rule files may be outdated
+For detailed standards and guidelines specific to different areas of the project, refer to:
 
-## What's Included in base-standards.mdc
-
-- **Core Principles**: Small tasks one at a time, Test-Driven Development (TDD), type safety, clear naming, incremental changes
-- **Language Standards**: English-only requirement for all technical artifacts
-- **Specific Standards**: Links to detailed standards for:
-  - Backend development (API, database patterns, testing, security)
-  - Frontend development (React components, UI/UX guidelines)
-  - Documentation (structure, formatting, maintenance)
-
-## Compliance
-
-Before starting any development work, agents must:
-1. Read and understand all rules in `base-standards.mdc`
-2. Follow the TDD process and core principles defined there
-3. Use the specified tools, testing frameworks, and standards
-4. Maintain the required code quality and type safety standards
-5. Refer to specific standards documents (backend, frontend, documentation) for detailed guidelines
-
-**Remember**: `base-standards.mdc` is the complete development rulebook for this project.
+- [Backend Standards](./backend-standards.mdc) - API development, database patterns, testing, security and backend best practices
+- [Frontend Standards](./frontend-standards.mdc) - React components, UI/UX guidelines, and frontend architecture
+- [Documentation Standards](./documentation-standards.mdc) - Technical documentation structure, formatting, and maintenance guidelines, including AI standards like this document
 
 ---
 > Source: [LIDR-academy/ai-specs](https://github.com/LIDR-academy/ai-specs) — distributed by [TomeVault](https://tomevault.io).
