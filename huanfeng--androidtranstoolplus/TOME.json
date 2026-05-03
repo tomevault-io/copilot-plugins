@@ -1,0 +1,44 @@
+{
+  "name": "AndroidTransToolPlus",
+  "owner": "huanfeng",
+  "repo": "AndroidTransToolPlus",
+  "description": "\u57fa\u4e8e Web \u524d\u7aef\u6280\u672f\u5b9e\u73b0\u7684\u5b89\u5353\u8d44\u6e90 AI \u7ffb\u8bd1\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/huanfeng/AndroidTransToolPlus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T13:39:49Z"
+}
