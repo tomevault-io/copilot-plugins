@@ -1,0 +1,9 @@
+{
+  "name": "allfro--traefikr",
+  "displayName": "traefikr",
+  "description": "a web ui traefik configuration manager",
+  "version": "1.0.0",
+  "author": "allfro",
+  "homepage": "https://github.com/allfro/traefikr",
+  "skills": []
+}
