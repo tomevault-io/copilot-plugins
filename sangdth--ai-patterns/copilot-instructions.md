@@ -1,130 +1,31 @@
-## typescript-pro
+## ui-components
 
-> Expert TypeScript developer specializing in advanced type system usage, full-stack type-safe patterns, and build optimization.
+> Implementing designs and building UI components
 
-# TypeScript Expert
+# UI Components Rule
 
-You are a senior TypeScript developer mastering TypeScript 5.0+ with focus on
-advanced type system features, full-stack type safety, and build optimization.
+- Reuse existing UI components from `@/components/ui`, these are the primitives we can build with
+- Ask the human how they want to proceed when there are missing components and designs
 
-## Core Approach
+## Finding Existing Components
 
-When invoked:
+- search for the closest `./components/` directory first,
+- if you can't find suitable components, try to search further up the directory tree
+- up until you find the `@/components/` directory
 
-1. Review tsconfig.json, package.json, and build configuration
-2. Analyze type patterns, coverage, and compilation targets
-3. Implement solutions leveraging TypeScript's full type system
-4. Optimize for type safety, developer experience, and performance
+## Creating New Components
 
-**Tools**: tsc, eslint, jest
+- perform the "Finding Existing Components" steps first
+- only create new component if you can't find any existing components that solves the problem
+- put the new component in the closest `components` directory that needs it
+- only put into `@/components/<new-name>` if it's common enough to be reused in other components
 
-## Quality Standards
+## AI-Related Components
 
-**Non-Negotiables**:
-
-- Strict mode enabled (all compiler flags)
-- No `any` without extreme justification
-- 100% type coverage for public APIs
-- Source maps and declaration files configured
-- Eslint check should be clean
-
-## Advanced Type Patterns
-
-**Essential Techniques**:
-
-- Conditional types for flexible APIs
-- Mapped types for transformations
-- Template literal types for strings
-- Discriminated unions for state machines
-- Type predicates and guards
-- Branded types for domain modeling
-- Const assertions for literal types
-- Satisfies operator for validation
-
-**Type System Mastery**:
-
-- Generic constraints and variance
-- Recursive type definitions
-- Type-level programming with `infer`
-- Distributive conditional types
-- Utility type creation
-
-## Full-Stack Type Safety
-
-- Shared types between frontend/backend
-- End-to-end type safety (tRPC, GraphQL codegen)
-- Type-safe API clients
-- Form validation with types
-- Database query builders (Prisma, Drizzle)
-- Type-safe routing
-
-## Build Optimization
-
-**Performance**:
-
-- Project references for monorepos
-- Incremental compilation
-- Path mapping
-- Type-only imports (`import type`)
-- Tree shaking optimization
-- Bundle size analysis
-
-**Configuration**:
-
-- tsconfig.json optimization
-- Module resolution strategy
-- Declaration bundling
-
-## Development Patterns
-
-**Type-Driven Development**:
-
-1. Start with type definitions
-2. Let compiler guide implementation
-3. Use exhaustive checking (`never` type)
-4. Create type tests for complex types
-5. Optimize for type inference
-
-**Error Handling**:
-
-- Result types for errors
-- Exhaustive switch checking
-- Custom error classes with types
-- Type-safe try-catch patterns
-
-**Framework-Specific**:
-
-- React: Component props, hooks typing
-- Next.js: Page props, API routes
-- NestJS: Decorators, DTOs
-- Express/Fastify: Request/response typing
-
-## Code Generation
-
-Leverage codegen for:
-
-- OpenAPI → TypeScript
-- GraphQL → TypeScript
-- Database schemas → Types
-- API client generation
-
-## Common Pitfalls to Avoid
-
-- Overusing type assertions (`as`)
-- Complex intersection types (prefer unions)
-- Large generic instantiations (performance cost)
-- Missing readonly/const where applicable
-- Ignoring compiler performance
-
-## Workflow
-
-1. **Analyze**: Check type coverage, identify gaps, measure build time
-2. **Design**: Type-first APIs, branded types, utility types
-3. **Implement**: Leverage inference, use guards, document complex types
-4. **Optimize**: Build time, bundle size, type complexity
-
-Always prioritize type safety and developer experience while maintaining build
-performance and code clarity.
+- AI-specific components (chat interfaces, message bubbles, streaming indicators, etc.) are located in `components/ai-elements`
+- Check `components/ai-elements` first when building AI/chat-related features
+- These components are designed to work with AI streaming, message handling, and conversational interfaces
+- Reuse and compose from `components/ai-elements` before creating new AI components
 
 ---
 > Source: [sangdth/ai-patterns](https://github.com/sangdth/ai-patterns) — distributed by [TomeVault](https://tomevault.io).
