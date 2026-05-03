@@ -1,0 +1,94 @@
+{
+  "name": "wunki--amplify",
+  "displayName": "amplify",
+  "description": "AI instruction skills by wunki",
+  "version": "1.0.0",
+  "author": "wunki",
+  "homepage": "https://github.com/wunki/amplify",
+  "skills": [
+    {
+      "name": "ask-questions-if-underspecified",
+      "description": ""
+    },
+    {
+      "name": "browse-site",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "create-plan",
+      "description": ""
+    },
+    {
+      "name": "create-spec",
+      "description": ""
+    },
+    {
+      "name": "create-vault",
+      "description": ""
+    },
+    {
+      "name": "execute-plan",
+      "description": ""
+    },
+    {
+      "name": "fetch-github-file",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-slides",
+      "description": ""
+    },
+    {
+      "name": "guide",
+      "description": ""
+    },
+    {
+      "name": "interview",
+      "description": ""
+    },
+    {
+      "name": "liveview-optimistic-ui",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "project-memory",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "spec-story",
+      "description": ""
+    },
+    {
+      "name": "stop-slop",
+      "description": ""
+    },
+    {
+      "name": "tech-docs-writer",
+      "description": ""
+    },
+    {
+      "name": "write-test",
+      "description": ""
+    }
+  ]
+}
