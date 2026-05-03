@@ -1,0 +1,114 @@
+{
+  "name": "github--gh-aw-actions",
+  "displayName": "gh-aw",
+  "description": "Shared Actions used with GitHub Agentic Workflows",
+  "version": "1.0.0",
+  "author": "github",
+  "homepage": "https://github.com/github/gh-aw-actions",
+  "skills": [
+    {
+      "name": "console-rendering",
+      "description": ""
+    },
+    {
+      "name": "custom-agents",
+      "description": ""
+    },
+    {
+      "name": "debugging-workflows",
+      "description": ""
+    },
+    {
+      "name": "developer",
+      "description": ""
+    },
+    {
+      "name": "dictation",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "error-messages",
+      "description": ""
+    },
+    {
+      "name": "error-pattern-safety",
+      "description": ""
+    },
+    {
+      "name": "gh-agent-session",
+      "description": ""
+    },
+    {
+      "name": "gh-agent-task",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-agent-tips-and-tricks",
+      "description": ""
+    },
+    {
+      "name": "github-discussion-query",
+      "description": ""
+    },
+    {
+      "name": "github-issue-query",
+      "description": ""
+    },
+    {
+      "name": "github-mcp-server",
+      "description": ""
+    },
+    {
+      "name": "github-pr-query",
+      "description": ""
+    },
+    {
+      "name": "github-script",
+      "description": ""
+    },
+    {
+      "name": "http-mcp-headers",
+      "description": ""
+    },
+    {
+      "name": "javascript-refactoring",
+      "description": ""
+    },
+    {
+      "name": "messages",
+      "description": ""
+    },
+    {
+      "name": "reporting",
+      "description": ""
+    },
+    {
+      "name": "skillz-integration",
+      "description": ""
+    },
+    {
+      "name": "temporary-id-safe-output",
+      "description": ""
+    },
+    {
+      "name": "awf-debug-tools",
+      "description": ""
+    },
+    {
+      "name": "awf-skill",
+      "description": ""
+    },
+    {
+      "name": "debugging-workflows",
+      "description": ""
+    },
+    {
+      "name": "recompile-workflows",
+      "description": ""
+    }
+  ]
+}
