@@ -7,11 +7,11 @@ Write your entire stack in Dart: React web apps, React Native mobile apps with E
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [MelbourneDeveloper/dart_node](https://github.com/MelbourneDeveloper/dart_node).
+Original source: `CLAUDE.md` in [MelbourneDeveloper/dart_node](https://github.com/MelbourneDeveloper/dart_node).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
