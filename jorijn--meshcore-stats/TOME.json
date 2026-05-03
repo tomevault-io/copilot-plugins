@@ -1,0 +1,63 @@
+{
+  "name": "meshcore-stats",
+  "owner": "jorijn",
+  "repo": "meshcore-stats",
+  "description": "AI instruction skills by jorijn",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-expert",
+      "path": ".codex/skills/frontend-expert",
+      "github_url": "https://github.com/jorijn/meshcore-stats/tree/main/.codex/skills/frontend-expert",
+      "description": ""
+    },
+    {
+      "name": "python-code-reviewer",
+      "path": ".codex/skills/python-code-reviewer",
+      "github_url": "https://github.com/jorijn/meshcore-stats/tree/main/.codex/skills/python-code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "test-engineer",
+      "path": ".codex/skills/test-engineer",
+      "github_url": "https://github.com/jorijn/meshcore-stats/tree/main/.codex/skills/test-engineer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jorijn/meshcore-stats",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:39:18Z"
+}
