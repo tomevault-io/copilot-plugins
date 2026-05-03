@@ -1,0 +1,14 @@
+{
+  "name": "acrognale--pasture",
+  "displayName": "pasture",
+  "description": "Pasture is a desktop GUI for Codex",
+  "version": "1.0.0",
+  "author": "acrognale",
+  "homepage": "https://github.com/acrognale/pasture",
+  "skills": [
+    {
+      "name": "codex-patches",
+      "description": ""
+    }
+  ]
+}
