@@ -1,0 +1,9 @@
+{
+  "name": "hungv47--meta-skills",
+  "displayName": "meta-skills",
+  "description": "7 process-layer skills for AI agents: preflight, plan-interviewer, task-breakdown, multi-lens, review-chain, artifact-status, skill-router",
+  "version": "1.0.0",
+  "author": "hungv47",
+  "homepage": "https://github.com/hungv47/meta-skills",
+  "skills": []
+}
