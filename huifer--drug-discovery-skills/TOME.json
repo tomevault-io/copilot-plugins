@@ -1,0 +1,111 @@
+{
+  "name": "drug-discovery-skills",
+  "owner": "huifer",
+  "repo": "drug-discovery-skills",
+  "description": "Drug Discovery Intelligence plugin for Claude Code. AI-powered target validation,  competitive intelligence, literature analysis & clinical trials insights.  Integrates Open Targets, ChEMBL, PubMed & 5+ databases.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "alert-system",
+      "path": ".claude/skills/drug-discovery/alert-system",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/alert-system",
+      "description": ""
+    },
+    {
+      "name": "clinical-intelligence",
+      "path": ".claude/skills/drug-discovery/clinical-intelligence",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/clinical-intelligence",
+      "description": ""
+    },
+    {
+      "name": "competitor-landscape",
+      "path": ".claude/skills/drug-discovery/competitor-landscape",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/competitor-landscape",
+      "description": ""
+    },
+    {
+      "name": "compound-profile",
+      "path": ".claude/skills/drug-discovery/compound-profile",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/compound-profile",
+      "description": ""
+    },
+    {
+      "name": "literature-search",
+      "path": ".claude/skills/drug-discovery/literature-search",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/literature-search",
+      "description": ""
+    },
+    {
+      "name": "market-analysis",
+      "path": ".claude/skills/drug-discovery/market-analysis",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/market-analysis",
+      "description": ""
+    },
+    {
+      "name": "pipeline-tracker",
+      "path": ".claude/skills/drug-discovery/pipeline-tracker",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/pipeline-tracker",
+      "description": ""
+    },
+    {
+      "name": "report-generator",
+      "path": ".claude/skills/drug-discovery/report-generator",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/report-generator",
+      "description": ""
+    },
+    {
+      "name": "target-profile",
+      "path": ".claude/skills/drug-discovery/target-profile",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/target-profile",
+      "description": ""
+    },
+    {
+      "name": "target-validation",
+      "path": ".claude/skills/drug-discovery/target-validation",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/target-validation",
+      "description": ""
+    },
+    {
+      "name": "virtual-screening",
+      "path": ".claude/skills/drug-discovery/virtual-screening",
+      "github_url": "https://github.com/huifer/drug-discovery-skills/tree/main/.claude/skills/drug-discovery/virtual-screening",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/huifer/drug-discovery-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:55:09Z"
+}
