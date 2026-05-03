@@ -1,0 +1,9 @@
+{
+  "name": "paramientos--proxypanther",
+  "displayName": "proxypanther",
+  "description": "ProxyPanther is an enterprise-grade reverse proxy and web application firewall (WAF) platform built for professionals who demand control, security, and performance. It brings Cloudflare-like capabilit",
+  "version": "1.0.0",
+  "author": "paramientos",
+  "homepage": "https://github.com/paramientos/proxypanther",
+  "skills": []
+}
