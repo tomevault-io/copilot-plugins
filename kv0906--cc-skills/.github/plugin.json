@@ -1,0 +1,26 @@
+{
+  "name": "kv0906--cc-skills",
+  "displayName": "cc-skills",
+  "description": "cc-skills",
+  "version": "1.0.0",
+  "author": "kv0906",
+  "homepage": "https://github.com/kv0906/cc-skills",
+  "skills": [
+    {
+      "name": "ralph",
+      "description": ""
+    },
+    {
+      "name": "excalidraw",
+      "description": ""
+    },
+    {
+      "name": "advanced-frontend-skill",
+      "description": ""
+    },
+    {
+      "name": "svg-art-skill",
+      "description": ""
+    }
+  ]
+}
