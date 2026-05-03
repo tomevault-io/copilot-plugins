@@ -1,0 +1,14 @@
+{
+  "name": "sveltejs--ai",
+  "displayName": "ai",
+  "description": "All things AI related...current home of the svelte LLM benchmark",
+  "version": "1.0.0",
+  "author": "sveltejs",
+  "homepage": "https://github.com/sveltejs/ai",
+  "skills": [
+    {
+      "name": "scenario-writer",
+      "description": ""
+    }
+  ]
+}
