@@ -1,23 +1,21 @@
-# claudekit-engineering
+# AI instruction files for claudekit-engineering
 
-> Tome by [kevinnguyen271090](https://github.com/kevinnguyen271090/claudekit-engineering) — distributed by [TomeVault](https://tomevault.io/claim/kevinnguyen271090)
+> Sourced from [kevinnguyen271090/claudekit-engineering](https://github.com/kevinnguyen271090/claudekit-engineering) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-AI instruction files for claudekit-engineering by kevinnguyen271090
+Claude Kit Engineering
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [kevinnguyen271090/claudekit-engineering](https://github.com/kevinnguyen271090/claudekit-engineering).
+Original source: `CLAUDE.md` in [kevinnguyen271090/claudekit-engineering](https://github.com/kevinnguyen271090/claudekit-engineering).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
-
-Browse all formats: [https://tomevault.io/claim/kevinnguyen271090](https://tomevault.io/claim/kevinnguyen271090)
 
 ## Bundled Skills (4)
 
@@ -26,7 +24,10 @@ Browse all formats: [https://tomevault.io/claim/kevinnguyen271090](https://tomev
 - [mcp-management](https://github.com/kevinnguyen271090/claudekit-engineering/tree/main/.claude/skills/mcp-management)
 - [ui-ux-pro-max](https://github.com/kevinnguyen271090/claudekit-engineering/tree/main/.claude/skills/ui-ux-pro-max)
 
+From [kevinnguyen271090/claudekit-engineering](https://github.com/kevinnguyen271090/claudekit-engineering) — a repo with 13+ stars on GitHub.
+
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/kevinnguyen271090) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-s -->
