@@ -1,0 +1,54 @@
+{
+  "name": "t0dorakis--murmur",
+  "displayName": "murmur",
+  "description": "The AI cron daemon. Schedule recurring agent sessions via HEARTBEAT.md prompt files.",
+  "version": "1.0.0",
+  "author": "t0dorakis",
+  "homepage": "https://github.com/t0dorakis/murmur",
+  "skills": [
+    {
+      "name": "ai-agents-architect",
+      "description": ""
+    },
+    {
+      "name": "code-review-expert",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "description": ""
+    },
+    {
+      "name": "effect-ts-patterns",
+      "description": ""
+    },
+    {
+      "name": "heartbeat-cron",
+      "description": ""
+    },
+    {
+      "name": "system-architect",
+      "description": ""
+    },
+    {
+      "name": "terminal-ui",
+      "description": ""
+    },
+    {
+      "name": "terminal-ui-design",
+      "description": ""
+    },
+    {
+      "name": "triage-issues",
+      "description": ""
+    },
+    {
+      "name": "ux-researcher-designer",
+      "description": ""
+    },
+    {
+      "name": "work-on-issues",
+      "description": ""
+    }
+  ]
+}
