@@ -1,0 +1,22 @@
+{
+  "name": "eduwxyz--orquestrator-agent",
+  "displayName": "orquestrator-agent",
+  "description": "Reposit\u00f3rio para armazenar o projeto de um agent orquestrator feito em live",
+  "version": "1.0.0",
+  "author": "eduwxyz",
+  "homepage": "https://github.com/eduwxyz/orquestrator-agent",
+  "skills": [
+    {
+      "name": "dev-workflow",
+      "description": ""
+    },
+    {
+      "name": "meta-agent-expert",
+      "description": ""
+    },
+    {
+      "name": "meta-command",
+      "description": ""
+    }
+  ]
+}
