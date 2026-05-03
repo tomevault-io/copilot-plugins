@@ -1,0 +1,9 @@
+{
+  "name": "skillpanel--maister",
+  "displayName": "maister",
+  "description": "Maister - Structured, standards-aware development workflows for Claude Code",
+  "version": "1.0.0",
+  "author": "SkillPanel",
+  "homepage": "https://github.com/SkillPanel/maister",
+  "skills": []
+}
