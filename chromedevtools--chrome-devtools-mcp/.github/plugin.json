@@ -1,0 +1,14 @@
+{
+  "name": "chromedevtools--chrome-devtools-mcp",
+  "displayName": "chrome-devtools-mcp",
+  "description": "Chrome DevTools for coding agents",
+  "version": "1.0.0",
+  "author": "ChromeDevTools",
+  "homepage": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+  "skills": [
+    {
+      "name": "troubleshooting",
+      "description": ""
+    }
+  ]
+}
