@@ -1,0 +1,9 @@
+{
+  "name": "mosaibah--oreilly-ingest",
+  "displayName": "oreilly-ingest",
+  "description": "Oreilly Downloader (PDF, EPUB, Markdown, JSON, Text)",
+  "version": "1.0.0",
+  "author": "Mosaibah",
+  "homepage": "https://github.com/Mosaibah/oreilly-ingest",
+  "skills": []
+}
