@@ -1,0 +1,9 @@
+{
+  "name": "parachord--parachord",
+  "displayName": "parachord",
+  "description": "Multi-source music player with cross-platform resolver support. The conceptual spawn of Tomahawk.",
+  "version": "1.0.0",
+  "author": "Parachord",
+  "homepage": "https://github.com/Parachord/parachord",
+  "skills": []
+}
