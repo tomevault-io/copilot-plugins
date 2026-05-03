@@ -1,0 +1,42 @@
+{
+  "name": "ai-debugger-inc--aidb",
+  "displayName": "aidb",
+  "description": "A language-agnostic debugging interface for AI agents.",
+  "version": "1.0.0",
+  "author": "ai-debugger-inc",
+  "homepage": "https://github.com/ai-debugger-inc/aidb",
+  "skills": [
+    {
+      "name": "adapter-development",
+      "description": ""
+    },
+    {
+      "name": "aidb-architecture",
+      "description": ""
+    },
+    {
+      "name": "ci-cd-workflows",
+      "description": ""
+    },
+    {
+      "name": "code-reuse-enforcement",
+      "description": ""
+    },
+    {
+      "name": "dap-protocol-guide",
+      "description": ""
+    },
+    {
+      "name": "dev-cli-development",
+      "description": ""
+    },
+    {
+      "name": "skill-developer",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy",
+      "description": ""
+    }
+  ]
+}
