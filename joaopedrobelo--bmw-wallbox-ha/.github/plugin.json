@@ -1,9 +1,9 @@
 {
   "name": "joaopedrobelo--bmw-wallbox-ha",
   "displayName": "bmw-wallbox-ha",
-  "description": "bmw-wallbox-ha",
+  "description": "Home Assistant integration for BMW Wallbox using OCPP 2.0.1 protocol",
   "version": "1.0.0",
   "author": "JoaoPedroBelo",
-  "homepage": "https://tomevault.io/claim/JoaoPedroBelo",
+  "homepage": "https://github.com/JoaoPedroBelo/bmw-wallbox-ha",
   "skills": []
 }
