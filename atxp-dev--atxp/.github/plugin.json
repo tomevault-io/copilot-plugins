@@ -1,0 +1,9 @@
+{
+  "name": "atxp-dev--atxp",
+  "displayName": "atxp",
+  "description": "Give your AI agent a wallet, email, phone number, and instant access to paid MCP tools \u2014 web search, image/video/music gen, X search, SMS, voice calls, code execution, and more. Works with Gemini CLI,",
+  "version": "1.0.0",
+  "author": "atxp-dev",
+  "homepage": "https://github.com/atxp-dev/atxp",
+  "skills": []
+}
