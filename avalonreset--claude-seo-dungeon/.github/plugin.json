@@ -1,0 +1,9 @@
+{
+  "name": "avalonreset--claude-seo-dungeon",
+  "displayName": "claude-seo-dungeon",
+  "description": "Gamified 16-bit dungeon crawler that turns SEO audits into boss battles. Powered by Claude Code with 23 SEO skills, up to 15 parallel subagents, and 13 animated demons. Fight your SEO issues, one crit",
+  "version": "1.0.0",
+  "author": "avalonreset",
+  "homepage": "https://github.com/avalonreset/claude-seo-dungeon",
+  "skills": []
+}
