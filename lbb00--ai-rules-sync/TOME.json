@@ -1,0 +1,69 @@
+{
+  "name": "ai-rules-sync",
+  "owner": "lbb00",
+  "repo": "ai-rules-sync",
+  "description": "Synchronize, manage, and share your ai rules, skills, commands, subagents (Cursor, Claude Code, Copilot, OpenCode, Trae AI, Codex, Gemini CLI, Warp) with ease.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "new-adapter",
+      "path": ".claude/skills/new-adapter",
+      "github_url": "https://github.com/lbb00/ai-rules-sync/tree/main/.claude/skills/new-adapter",
+      "description": ""
+    },
+    {
+      "name": "summarize-session",
+      "path": ".claude/skills/summarize-session",
+      "github_url": "https://github.com/lbb00/ai-rules-sync/tree/main/.claude/skills/summarize-session",
+      "description": ""
+    },
+    {
+      "name": "update-docs",
+      "path": ".claude/skills/update-docs",
+      "github_url": "https://github.com/lbb00/ai-rules-sync/tree/main/.claude/skills/update-docs",
+      "description": ""
+    },
+    {
+      "name": "update-knowledge-base",
+      "path": ".claude/skills/update-knowledge-base",
+      "github_url": "https://github.com/lbb00/ai-rules-sync/tree/main/.claude/skills/update-knowledge-base",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lbb00/ai-rules-sync",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:41:18Z"
+}
