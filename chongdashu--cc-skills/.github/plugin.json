@@ -1,0 +1,34 @@
+{
+  "name": "chongdashu--cc-skills",
+  "displayName": "cc-skills",
+  "description": "AI instruction skills by chongdashu",
+  "version": "1.0.0",
+  "author": "chongdashu",
+  "homepage": "https://github.com/chongdashu/cc-skills",
+  "skills": [
+    {
+      "name": "nano-banana-builder",
+      "description": ""
+    },
+    {
+      "name": "threejs-builder",
+      "description": ""
+    },
+    {
+      "name": "favicon-generator",
+      "description": ""
+    },
+    {
+      "name": "og-image-creator",
+      "description": ""
+    },
+    {
+      "name": "site-metadata-generator",
+      "description": ""
+    },
+    {
+      "name": "youtube-titles-thumbnails",
+      "description": ""
+    }
+  ]
+}
