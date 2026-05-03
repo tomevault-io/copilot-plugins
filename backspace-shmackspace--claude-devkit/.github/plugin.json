@@ -1,0 +1,9 @@
+{
+  "name": "backspace-shmackspace--claude-devkit",
+  "displayName": "claude-devkit",
+  "description": "claude-devkit - an agentic coding framework",
+  "version": "1.0.0",
+  "author": "backspace-shmackspace",
+  "homepage": "https://github.com/backspace-shmackspace/claude-devkit",
+  "skills": []
+}
