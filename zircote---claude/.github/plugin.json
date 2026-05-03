@@ -1,0 +1,38 @@
+{
+  "name": "zircote---claude",
+  "displayName": ".claude",
+  "description": "Claude Code dotfiles: agents, skills, commands & includes for AI-assisted development. Features domain-specific agents (backend, frontend, DevOps, security, data/ML), custom slash commands, and Opus 4",
+  "version": "1.0.0",
+  "author": "zircote",
+  "homepage": "https://github.com/zircote/.claude",
+  "skills": [
+    {
+      "name": "chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "datadog-entity-generator",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "github-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "notebooklm-skill",
+      "description": ""
+    },
+    {
+      "name": "python-deprecation-fixer",
+      "description": ""
+    },
+    {
+      "name": "python-project-skel",
+      "description": ""
+    }
+  ]
+}
