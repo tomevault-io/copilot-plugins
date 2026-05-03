@@ -1,0 +1,69 @@
+{
+  "name": "pynchy",
+  "owner": "crypdick",
+  "repo": "pynchy",
+  "description": "A modular alternative to Clawdbot / OpenClaw that runs in containers for security. Connects to WhatsApp, has memory, scheduled jobs, and runs directly on Anthropic's Agents SDK",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-gmail",
+      "path": "docs/_archive/old-nanoclaw-skills/add-gmail",
+      "github_url": "https://github.com/crypdick/pynchy/tree/main/docs/_archive/old-nanoclaw-skills/add-gmail",
+      "description": ""
+    },
+    {
+      "name": "docs-manager",
+      "path": ".claude/skills/docs-manager",
+      "github_url": "https://github.com/crypdick/pynchy/tree/main/.claude/skills/docs-manager",
+      "description": ""
+    },
+    {
+      "name": "pynchy-plugin-authoring",
+      "path": ".claude/skills/pynchy-plugin-authoring",
+      "github_url": "https://github.com/crypdick/pynchy/tree/main/.claude/skills/pynchy-plugin-authoring",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": "docs/_archive/old-nanoclaw-skills/setup",
+      "github_url": "https://github.com/crypdick/pynchy/tree/main/docs/_archive/old-nanoclaw-skills/setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/crypdick/pynchy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:44:35Z"
+}
