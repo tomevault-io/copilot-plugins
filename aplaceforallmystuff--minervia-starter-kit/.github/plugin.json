@@ -1,0 +1,22 @@
+{
+  "name": "aplaceforallmystuff--minervia-starter-kit",
+  "displayName": "minervia-starter-kit",
+  "description": "A co-operating system for human-led knowledge work",
+  "version": "1.0.0",
+  "author": "aplaceforallmystuff",
+  "homepage": "https://github.com/aplaceforallmystuff/minervia-starter-kit",
+  "skills": [
+    {
+      "name": "inbox-process",
+      "description": ""
+    },
+    {
+      "name": "minervia-update",
+      "description": ""
+    },
+    {
+      "name": "think-first",
+      "description": ""
+    }
+  ]
+}
