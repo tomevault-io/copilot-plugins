@@ -1,0 +1,9 @@
+{
+  "name": "senigami--audiobook-studio",
+  "displayName": "audiobook-studio",
+  "description": "Professional local-first AI production pipeline for long-form narration. Clone voices and generate studio-grade audiobooks (M4B/MP3) using Coqui XTTS-v2 and support for Voxtral (cloud)",
+  "version": "1.0.0",
+  "author": "senigami",
+  "homepage": "https://github.com/senigami/audiobook-studio",
+  "skills": []
+}
