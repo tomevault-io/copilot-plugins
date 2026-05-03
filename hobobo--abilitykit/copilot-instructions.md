@@ -1,100 +1,70 @@
-## framesync-prediction-rollback
+## origin-and-event-contract
 
-> 本文定义客户端帧同步体系中“预测/回滚/重演/对账（reconcile）/时间门控（idealFrame）”的工程级约束。
+> 任意 TriggerEvent 链式触发（skill -> effect -> damage -> buff -> projectile -> …），都能追溯到同一个 `origin.contextId`。
 
 
-# FrameSync Prediction / Rollback / Reconcile 规则
+# 事件溯源（Origin）与事件契约
 
-## 0. 目标
+## 1) 目标
 
-本文定义客户端帧同步体系中“预测/回滚/重演/对账（reconcile）/时间门控（idealFrame）”的工程级约束。
+任意 TriggerEvent 链式触发（skill -> effect -> damage -> buff -> projectile -> …），都能追溯到同一个 `origin.contextId`。
 
-适用代码主要分布：
+- `contextId` 是对外统一语义
+- `rootId` 仅为溯源模块内部概念（“无父即根”），不要写入 `origin.contextId`
 
-- `Unity/Packages/com.abilitykit.host.extension/Runtime/FrameSync/ClientPredictionDriverModule.cs`
-- `Unity/Packages/com.abilitykit.world.framesync/Runtime/FrameSync/Rollback/*`
--（时间门控/idealFrame 来源）`Unity/Packages/com.abilitykit.demo.moba.view.runtime/Runtime/Game/Flow/Battle/BattleSessionFeature.cs`
+## 2) Rule 1：禁止丢失溯源（No Lost Origin）
 
----
+任何会发布 TriggerEvent 的模块/系统/服务，必须保证事件携带溯源字段：
 
-## 1. 不允许吞异常（hard rule）
+- 根事件必须显式写入 `origin.*`
+- 非根事件必须继承（透传）上游的 `origin.*`
 
-- 预测/回滚/输入消费属于高风险路径。
-- **任何 catch 住的异常必须通过 `Log.Exception(...)` 或 `Log.Error(...)` 输出**，不得空 catch。
-- 不要在 runtime 代码里直接用 `UnityEngine.Debug.*`。
+## 3) Rule 2：继承发布必须使用统一入口（Recommended）
 
----
+当你从已有事件（存在 parentArgs）再发布新事件时，必须继承溯源字段。
 
-## 2. Determinism 与 Reconcile 的前置条件
+至少继承：
 
-- `computeHash(frame)` 必须是 deterministic：
-  - 相同输入序列 => 相同 hash。
-  - 随机数、浮点不确定性、遍历顺序等必须被规避或纳入回滚状态。
+- `origin.source` / `origin.target` / `origin.kind` / `origin.configId` / `origin.contextId`
 
-- authoritative hash 与 predicted hash 的 frame 必须对齐。
-  - 若 hash 不对齐，mismatch 统计会误导，rollback 会形成“风暴”。
+推荐使用统一 helper：`TriggerEventPublishExtensions.PublishInherited(...)`
 
----
+## 4) Rule 3：内部流水线事件必须带 Args（No args:null）
 
-## 3. Rollback provider 约束
+禁止发布 `args: null` 的 TriggerEvent（会导致溯源链路中断）。
 
-- 可回滚状态由 `IRollbackStateProvider` 负责。
-- **provider 必须做到 Export/Import 的双向一致**。
-- `RollbackRegistry` 在 runtime 使用前必须 `Seal()`，禁止运行中动态注册 provider。
+## 5) Rule 4：origin.kind 类型统一为 enum
 
----
+`origin.kind` 必须统一使用 `EffectSourceKind`（enum），禁止使用字符串。
 
-## 4. RingBuffer / Pooling 约束（performance + correctness）
+## 6) 统一实现
 
-- 所有历史结构（inputs/hash/snapshot）都应使用固定容量 ring buffer。
-- `RollbackSnapshotRingBuffer` 覆盖槽位时需要释放旧 entries（数组池）。
-- 高频路径避免：
-  - LINQ、闭包、临时 `List/Dictionary` 分配
-  - 每帧分配大 `byte[]`（provider payload 尽量可复用/可池化）
+统一使用 `EffectOriginArgsHelper`：
 
----
+- `EffectOriginArgsHelper.FillFromRegistry(args, sourceContextId, registry)`
+- `EffectOriginArgsHelper.FillFromServices(args, sourceContextId, services)`
 
-## 5. 多 World（multi-world）约束
+语义约束：
 
-- `ClientPredictionDriverModule` 的所有 state 必须按 `WorldId` 分离（字典/WorldContext）。
-- 统计接口必须能按 world 读取（例如 `TryGetIdealFrameStallStats`）。
-- 时间门控（idealFrame）可能按 world anchor 不同，需要在调用边界上显式传入 `WorldId`。
+- `origin.contextId` 永远写 `contextId`（snapshot.ContextId / sourceContextId）
+- `rootId` 只在溯源系统内部维护/使用
 
----
+## 7) EffectSource（溯源树）落地入口（推荐）
 
-## 6. idealFrame gate 的策略约束
+当你需要把“技能/效果/BUFF/飞行物”等运行时派生链路串成可追溯的树，并保证可回收/可排查时，请使用 `EffectSourceRegistry`。
 
-- idealFrame gate 不能作为“临时 hack”。应由正式 time sync + anchor 计算得到。
-- 推荐策略：
-  - **优先 window cap**：`effectiveWindow = min(rawWindow, max(0, idealLimit-confirmed))`
-  - stall 统计需要能清晰区分：
-    - 预测窗口 stall（window）
-    - 时间门控 stall（idealFrame）
+- 规则：`.windsurf/rules/effect_source.md`
+- 速查：`.windsurf/skills/ability-kit/effect_source.md`
 
----
+关键实现文件：
 
-## 7. 可观测性（debuggability）
+- `Unity/Packages/com.abilitykit.ability.runtime/Runtime/Ability/Share/Impl/Moba/EffectSource/EffectSourceRegistry.cs`
+- `Unity/Packages/com.abilitykit.ability.runtime/Runtime/Ability/Share/Impl/Moba/EffectSource/EffectSourceKeys.cs`
 
-- 每个 world 至少应暴露：
-  - `confirmed/predicted`
-  - backlog（raw + EWMA）
-  - prediction window（raw + effective）
-  - idealFrame limit + 是否被 cap/是否 stalled
-  - rollback 次数、restore failed、replay timeout、mismatch frame
+常用模式（建议）：
 
-- Editor 面板应能展示：
-  - `FrameSync/Prediction`：window/backlog/stalls/rollback/mismatch（per-world）
-  - `FrameSync/Time`：time sync/anchor/idealFrame raw-magin-limit（per-world）
-
----
-
-## 8. 文档要求
-
-对预测/回滚/对账相关改动，应同步更新以下文档（避免知识遗失）：
-
-- `Unity/Packages/com.abilitykit.host.extension/Runtime/FrameSync/README.md`
-- `Unity/Packages/com.abilitykit.world.framesync/Runtime/FrameSync/Rollback/README.md`
-- `Unity/Packages/com.abilitykit.world.framesync/Runtime/FrameSync/Rollback/Design.md`
+- root：在技能入口创建（例如 skill cast），并在流程逻辑结束处 End
+- child：在派生对象创建处创建，并在对象生命周期结束时 End
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
