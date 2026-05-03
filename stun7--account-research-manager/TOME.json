@@ -1,0 +1,44 @@
+{
+  "name": "Account_Research_Manager",
+  "owner": "stun7",
+  "repo": "Account_Research_Manager",
+  "description": "Paste a company URL \u2192 60-second GTM brief with buying signals, target personas, and 3 personalized cold-email openers. Built with Next.js + Apify + Ollama cloud.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/stun7/Account_Research_Manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T22:57:32Z"
+}
