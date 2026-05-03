@@ -7,11 +7,11 @@ WeChat-MCP: let Openclaw/Claude/ChatGPT and other AI assistants read and reply t
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [BiboyQG/WeChat-MCP](https://github.com/BiboyQG/WeChat-MCP).
+Original source: `CLAUDE.md` in [BiboyQG/WeChat-MCP](https://github.com/BiboyQG/WeChat-MCP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
