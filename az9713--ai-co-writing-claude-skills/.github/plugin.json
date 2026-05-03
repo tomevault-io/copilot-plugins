@@ -1,0 +1,22 @@
+{
+  "name": "az9713--ai-co-writing-claude-skills",
+  "displayName": "ai-co-writing-claude-skills",
+  "description": "AI Co-Writing System with Claude Skills - A complete Claude Code writing system for content creators based on context engineering principles. Inspired by Alex McFarland's Claude Code Masterclass.",
+  "version": "1.0.0",
+  "author": "az9713",
+  "homepage": "https://github.com/az9713/ai-co-writing-claude-skills",
+  "skills": [
+    {
+      "name": "business-profile-creator",
+      "description": ""
+    },
+    {
+      "name": "how-to-guide",
+      "description": ""
+    },
+    {
+      "name": "thought-leadership",
+      "description": ""
+    }
+  ]
+}
