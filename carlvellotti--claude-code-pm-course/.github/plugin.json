@@ -1,0 +1,14 @@
+{
+  "name": "carlvellotti--claude-code-pm-course",
+  "displayName": "claude-code-pm-course",
+  "description": "Interactive course teaching Product Managers how to use Claude Code effectively",
+  "version": "1.0.0",
+  "author": "carlvellotti",
+  "homepage": "https://github.com/carlvellotti/claude-code-pm-course",
+  "skills": [
+    {
+      "name": "pptx",
+      "description": ""
+    }
+  ]
+}
