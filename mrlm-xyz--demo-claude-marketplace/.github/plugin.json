@@ -1,0 +1,26 @@
+{
+  "name": "mrlm-xyz--demo-claude-marketplace",
+  "displayName": "demo-claude-marketplace",
+  "description": "Dummy and naive demonstration template of custom Claude Code plugins marketplace structure.",
+  "version": "1.0.0",
+  "author": "mrlm-xyz",
+  "homepage": "https://github.com/mrlm-xyz/demo-claude-marketplace",
+  "skills": [
+    {
+      "name": "etl",
+      "description": ""
+    },
+    {
+      "name": "openapi",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "description": ""
+    },
+    {
+      "name": "sql",
+      "description": ""
+    }
+  ]
+}
