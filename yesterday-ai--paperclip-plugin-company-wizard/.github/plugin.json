@@ -1,0 +1,9 @@
+{
+  "name": "yesterday-ai--paperclip-plugin-company-wizard",
+  "displayName": "paperclip-plugin-company-wizard",
+  "description": "Bootstrap AI agent companies from modular templates. ",
+  "version": "1.0.0",
+  "author": "Yesterday-AI",
+  "homepage": "https://github.com/Yesterday-AI/paperclip-plugin-company-wizard",
+  "skills": []
+}
