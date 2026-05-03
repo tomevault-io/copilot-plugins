@@ -1,0 +1,9 @@
+{
+  "name": "salesforcecommercecloud--b2c-developer-tooling",
+  "displayName": "b2c-developer-tooling",
+  "description": "B2C CLI, MCP, and Tooling SDK for Salesforce Agentforce Commerce B2C ",
+  "version": "1.0.0",
+  "author": "SalesforceCommerceCloud",
+  "homepage": "https://github.com/SalesforceCommerceCloud/b2c-developer-tooling",
+  "skills": []
+}
