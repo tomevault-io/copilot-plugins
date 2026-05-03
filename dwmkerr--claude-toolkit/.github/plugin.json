@@ -1,0 +1,70 @@
+{
+  "name": "dwmkerr--claude-toolkit",
+  "displayName": "claude",
+  "description": "Claude Code plugins toolkit for various engineering tasks.",
+  "version": "1.0.0",
+  "author": "dwmkerr",
+  "homepage": "https://github.com/dwmkerr/claude-toolkit",
+  "skills": [
+    {
+      "name": "agent-development",
+      "description": ""
+    },
+    {
+      "name": "anthropic-evaluations",
+      "description": ""
+    },
+    {
+      "name": "claude-code-hook-development",
+      "description": ""
+    },
+    {
+      "name": "claude-code-plugin-development",
+      "description": ""
+    },
+    {
+      "name": "claude-code-slash-commands",
+      "description": ""
+    },
+    {
+      "name": "claude-code-statusline-development",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "description": ""
+    },
+    {
+      "name": "release-please-development",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "shell-script-development",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "description": ""
+    },
+    {
+      "name": "ark-dashboard-test",
+      "description": ""
+    },
+    {
+      "name": "ark-devspace",
+      "description": ""
+    },
+    {
+      "name": "github-attach-images",
+      "description": ""
+    },
+    {
+      "name": "kind-setup",
+      "description": ""
+    }
+  ]
+}
