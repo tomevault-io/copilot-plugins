@@ -1,77 +1,112 @@
-## config-validation
+## elastic-stack-version
 
 > >-
 
 
-# Config Validation — Auto-Fix on Save
+# Elastic Stack Version — Always Latest
 
-When evaluation configuration files are modified, validate AND auto-fix issues.
+## Current Version
 
-## What to Check and Auto-Fix
+**`9.4.0-SNAPSHOT`** (update this when a new version is released)
 
-1. **YAML syntax errors**: Report the exact line and error. Cannot auto-fix.
+## Where It Applies
 
-2. **Missing required fields**:
-   - Test without `name` → generate a descriptive name from the test content
-   - Integration test without `tool`/`args` → flag as error (cannot guess)
-   - LLM test without `evaluators` → add default: `[tool-selection, correctness, mcp-protocol, security]`
-   - LLM test without `expected` → add `expected: { tools: [] }` as placeholder
+Every Docker image tag for Elastic components must use the current version:
 
-3. **Invalid evaluator names** (common typos):
-   - `tool_selection` → auto-fix to `tool-selection`
-   - `tool_args` → auto-fix to `tool-args`
-   - `tool_sequence` → auto-fix to `tool-sequence`
-   - `response_quality` → auto-fix to `response-quality`
-   - Any evaluator not in the 24 known evaluators → flag as error
+- `docker.elastic.co/elasticsearch/elasticsearch:9.4.0-SNAPSHOT`
+- `docker.elastic.co/kibana/kibana:9.4.0-SNAPSHOT`
+- `docker.elastic.co/apm/apm-server:9.4.0-SNAPSHOT`
+- `docker.elastic.co/beats/elastic-agent:9.4.0-SNAPSHOT`
+- `docker.elastic.co/beats/filebeat:9.4.0-SNAPSHOT`
+- `docker.elastic.co/beats/metricbeat:9.4.0-SNAPSHOT`
 
-4. **Invalid layer names**: Must be one of: `unit`, `static`, `integration`, `llm`, `performance`, `skill`
+## Files to Check
 
-5. **Missing CI thresholds**: If `ci:` section is absent, add default:
-   ```yaml
-   ci:
-     score:
-       avg: 0.80
-     evaluators:
-       security:
-         min: 1.0
-     requiredPass: [security, mcp-protocol]
-     firstTryPassRate: 0.75
-   ```
+When creating or modifying any of these files, ensure the version is current:
 
-6. **LLM tests without security evaluator**: Append `security` to the evaluators list
+| File | What to check |
+|------|--------------|
+| `docker/docker-compose.yml` | All `image:` tags |
+| `docker/docker-compose.lite.yml` | All `image:` tags |
+| `.github/workflows/*.yml` | Service container `image:` tags |
+| `examples/**/docker-compose.yml` | All `image:` tags |
+| `scripts/seed-test-data.sh` | Beat index name versions (e.g. `filebeat-9.4.0-SNAPSHOT-*`) |
 
-7. **Unreasonable thresholds**: Warn if timeout > 300000ms or score thresholds > 1.0
+## npm Client Package
 
-8. **camelCase field names** (CRITICAL — silently ignored by Zod):
-   - `expectedTools` → auto-fix to `expected_tools`
-   - `requireEnv` → auto-fix to `require_env`
-   - `expectError` → auto-fix to `expect_error`
-   - `minimalEnv` → auto-fix to `minimal_env`
-   - `buildCommand` → auto-fix to `build_command`
-   - `pluginRoot` → auto-fix to `plugin_root`
-   - `judgeModel` → auto-fix to `judge_model`
-   - `toolArgs` → auto-fix to `tool_args`
-   - `maxTurns` → auto-fix to `max_turns`
-   - `responseContains` → auto-fix to `response_contains`
-   - `responseNotContains` → auto-fix to `response_not_contains`
-   - `firstTryPassRate` → auto-fix to `first_try_pass_rate`
-   - `phaseGate` → auto-fix to `phase_gate`
+The `@elastic/elasticsearch` npm client must also track the current major version:
 
-9. **Bracket notation in assertion paths**: `content[0].text` → auto-fix to `content.0.text`
+**`^9.0.0`** (currently resolves to `9.3.4`)
 
-10. **Scoring weights > 1.0**: All `scoring.weights.*` values must be ≤ 1.0. Auto-fix by dividing by the max weight to normalize.
+| File | What to check |
+|------|--------------|
+| `packages/*/package.json` | `@elastic/elasticsearch` dependency version |
+| `examples/*/package.json` | `@elastic/elasticsearch` dependency version |
 
-11. **Bash-style env defaults**: `${VAR:-default}` → auto-fix to `${VAR}`. Defaults belong in `.env.test`.
+After updating, run `npm install` in the repo root to refresh the lockfile.
 
-12. **Orphan `adapter:` section**: The runner ignores `adapter:` — remove it and ensure `plugin.entry` is set instead.
+## What NOT to Change
 
-13. **Missing e2e infrastructure**: If `require_env` references service URLs (e.g., `ES_URL`, `DATABASE_URL`, `REDIS_URL`) but no `docker/docker-compose.yml` exists, warn that integration tests need infrastructure.
+- **Test fixture strings** in unit tests (e.g. `version: '8.17.0'` in mock data) —
+  these are test data, not infrastructure.
+- **Documentation examples** that reference specific historical versions for context.
 
-## When to Stay Silent
+## Auto-Fix
 
-- Minor whitespace or comment changes
-- Changes to non-eval YAML files
-- If the file is already valid and complete
+When you see an outdated Elastic stack Docker image version:
+1. Replace it with the current version
+2. Check ALL files in the list above — version drift across files is common
+3. If updating docker-compose, also run `docker compose down -v` to clear stale volumes
+   (older ES versions can't read data from newer ones and vice versa)
+
+## Pre-Upgrade Validation — MANDATORY
+
+Before changing the version, complete this checklist. Do NOT skip steps.
+
+### 1. Image Availability
+- SNAPSHOT images (`X.Y.Z-SNAPSHOT`) are built from `main` and may not be available for
+  all components (APM Server, Beats, Elastic Agent). Verify before assuming.
+- Check `docker.elastic.co` for the image tag. If it doesn't exist, consider using the
+  latest released version instead or note the risk.
+- ARM64 (Apple Silicon) images may lag behind x86_64 for SNAPSHOT builds.
+
+### 2. Breaking Changes
+- Read the [Elastic release notes](https://www.elastic.co/guide/en/elasticsearch/reference/current/release-notes.html)
+  for any breaking changes between the current and target version.
+- Check if index compatibility mode changed (ES won't read indices from incompatible versions).
+- Check if API endpoints were removed, renamed, or had default behavior changes.
+- Check if security defaults changed (e.g., security enabled by default in 8.x+).
+
+### 3. Client Compatibility
+- The `@elastic/elasticsearch` JS client must support the target server version.
+  Client 9.x supports ES 9.x; client 8.x supports ES 8.x. Cross-major is NOT guaranteed.
+- After upgrading, verify the client resolves to a compatible version in the lockfile.
+
+### 4. Test Data Compatibility
+- Beat index names include the version (e.g., `filebeat-9.4.0-SNAPSHOT-2024.01.15`).
+  Seed scripts must use the new version.
+- Index mappings may change between versions. Verify seed data schemas are still valid.
+- Data stream naming conventions may change.
+
+### 5. CI Pipeline Impact
+- CI service containers must use the same version as docker-compose.
+- SNAPSHOT images may not be cached on CI runners — builds may be slower.
+- Verify the CI runner has access to `docker.elastic.co` for the target image.
+
+### 6. Cross-Repo Sync
+After upgrading in one repo, check these sibling repos for version drift:
+- `~/Projects/elastic-cursor-plugin` — Docker, CI, examples, seed scripts
+- `~/Projects/cursor-plugin-evals` — Docker, CI, showcase examples
+- Any other repo with `docker.elastic.co` image references
+
+### 7. Post-Upgrade Verification
+After all files are updated:
+1. Run `npm install` and verify lockfile changes
+2. Run `tsc --noEmit` to catch type-level breaking changes
+3. Run `npm test` to catch runtime breaking changes
+4. If Docker is available, run `docker compose down -v && docker compose up -d` and verify
+   the cluster comes up healthy
+5. Verify the seed script runs without errors against the new version
 
 ---
 > Source: [patrykkopycinski/cursor-plugin-evals](https://github.com/patrykkopycinski/cursor-plugin-evals) — distributed by [TomeVault](https://tomevault.io).
