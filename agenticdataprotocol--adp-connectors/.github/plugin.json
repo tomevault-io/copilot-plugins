@@ -1,0 +1,9 @@
+{
+  "name": "agenticdataprotocol--adp-connectors",
+  "displayName": "adp-connectors",
+  "description": "ADP Connectors for LLM frameworks \u2014 MCP bridge, skills, and more",
+  "version": "1.0.0",
+  "author": "agenticdataprotocol",
+  "homepage": "https://github.com/agenticdataprotocol/adp-connectors",
+  "skills": []
+}
