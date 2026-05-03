@@ -7,11 +7,11 @@ Fast Rust-powered drop-in replacement for svelte-check (Svelte 5+)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pheuter/svelte-check-rs](https://github.com/pheuter/svelte-check-rs).
+Original source: `CLAUDE.md` in [pheuter/svelte-check-rs](https://github.com/pheuter/svelte-check-rs).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
