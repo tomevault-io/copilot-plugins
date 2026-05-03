@@ -1,0 +1,9 @@
+{
+  "name": "quarto-dev--q2",
+  "displayName": "q2",
+  "description": "q2 is the experimental implementation of Quarto 2 in Rust.",
+  "version": "1.0.0",
+  "author": "quarto-dev",
+  "homepage": "https://github.com/quarto-dev/q2",
+  "skills": []
+}
