@@ -1,0 +1,9 @@
+{
+  "name": "statico--meshtastic-cli",
+  "displayName": "meshtastic-cli",
+  "description": "\ud83c\udf0c Terminal UI for monitoring Meshtastic mesh networks - view packets, nodes, and chat in real-time",
+  "version": "1.0.0",
+  "author": "statico",
+  "homepage": "https://github.com/statico/meshtastic-cli",
+  "skills": []
+}
