@@ -1,0 +1,50 @@
+{
+  "name": "mastra-ai--mastra-agent-course",
+  "displayName": "mastra",
+  "description": "Source code and project files for the Build Your First AI Agent with Mastra course.",
+  "version": "1.0.0",
+  "author": "mastra-ai",
+  "homepage": "https://github.com/mastra-ai/mastra-agent-course",
+  "skills": [
+    {
+      "name": "api-design",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "customer-support",
+      "description": ""
+    },
+    {
+      "name": "e2e-tests-studio",
+      "description": ""
+    },
+    {
+      "name": "ralph-plan",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "smoke-test",
+      "description": ""
+    },
+    {
+      "name": "tailwind-best-practices",
+      "description": ""
+    },
+    {
+      "name": "mastra",
+      "description": ""
+    }
+  ]
+}
