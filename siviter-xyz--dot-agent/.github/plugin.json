@@ -1,0 +1,66 @@
+{
+  "name": "siviter-xyz--dot-agent",
+  "displayName": "dot-agent",
+  "description": "A curated collection of agent skills for coding agents designed to enhance the workflows of Software Engineers (and, let's be honest, me primarily).",
+  "version": "1.0.0",
+  "author": "siviter-xyz",
+  "homepage": "https://github.com/siviter-xyz/dot-agent",
+  "skills": [
+    {
+      "name": "create-skill",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "description": ""
+    },
+    {
+      "name": "cursor-best-practices",
+      "description": ""
+    },
+    {
+      "name": "software-engineer",
+      "description": ""
+    },
+    {
+      "name": "frontend-engineer",
+      "description": ""
+    },
+    {
+      "name": "backend-engineer",
+      "description": ""
+    },
+    {
+      "name": "create-agents-md",
+      "description": ""
+    },
+    {
+      "name": "semantic-git",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "description": ""
+    },
+    {
+      "name": "cli-building",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "psi",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "description": ""
+    }
+  ]
+}
