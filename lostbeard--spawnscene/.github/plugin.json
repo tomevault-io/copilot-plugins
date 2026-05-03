@@ -1,0 +1,9 @@
+{
+  "name": "lostbeard--spawnscene",
+  "displayName": "SpawnScene",
+  "description": "Create interactive 3D Gaussian Splat scenes from a single photo \u2014 entirely in your browser.",
+  "version": "1.0.0",
+  "author": "LostBeard",
+  "homepage": "https://github.com/LostBeard/SpawnScene",
+  "skills": []
+}
