@@ -4,7 +4,7 @@
   "repo": "ai-specs",
   "description": "This repository contains a comprehensive set of development rules, standards, and AI agent configurations designed to work seamlessly with multiple AI coding copilots. The setup is portable and can be imported into any project to provide consistent, high-quality AI-assisted development.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LIDR-academy/ai-specs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T00:47:19Z"
+  "distributed_at": "2026-05-03T19:12:37Z"
 }
