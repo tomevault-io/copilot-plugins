@@ -1,0 +1,146 @@
+{
+  "name": "johnlindquist--script-kit-next",
+  "displayName": "script-kit-next",
+  "description": "Script Kit rewritten in Rust using GPUI (Zed's UI framework)",
+  "version": "1.0.0",
+  "author": "johnlindquist",
+  "homepage": "https://github.com/johnlindquist/script-kit-next",
+  "skills": [
+    {
+      "name": "arboard",
+      "description": ""
+    },
+    {
+      "name": "codex",
+      "description": ""
+    },
+    {
+      "name": "dev-loop",
+      "description": ""
+    },
+    {
+      "name": "gpui",
+      "description": ""
+    },
+    {
+      "name": "gpui-component",
+      "description": ""
+    },
+    {
+      "name": "gpui-patterns",
+      "description": ""
+    },
+    {
+      "name": "gpui-testing",
+      "description": ""
+    },
+    {
+      "name": "macos-accessibility",
+      "description": ""
+    },
+    {
+      "name": "macos-app-bundle",
+      "description": ""
+    },
+    {
+      "name": "macos-cocoa-objc",
+      "description": ""
+    },
+    {
+      "name": "macos-core-frameworks",
+      "description": ""
+    },
+    {
+      "name": "rusqlite",
+      "description": ""
+    },
+    {
+      "name": "rust-async-channels",
+      "description": ""
+    },
+    {
+      "name": "rust-error-handling",
+      "description": ""
+    },
+    {
+      "name": "rust-smart-pointers",
+      "description": ""
+    },
+    {
+      "name": "script-kit-actions-window",
+      "description": ""
+    },
+    {
+      "name": "script-kit-agent-workflow",
+      "description": ""
+    },
+    {
+      "name": "script-kit-app-shell",
+      "description": ""
+    },
+    {
+      "name": "script-kit-architecture",
+      "description": ""
+    },
+    {
+      "name": "script-kit-clipboard",
+      "description": ""
+    },
+    {
+      "name": "script-kit-components",
+      "description": ""
+    },
+    {
+      "name": "script-kit-hive",
+      "description": ""
+    },
+    {
+      "name": "script-kit-icons",
+      "description": ""
+    },
+    {
+      "name": "script-kit-logging",
+      "description": ""
+    },
+    {
+      "name": "script-kit-menu-bar",
+      "description": ""
+    },
+    {
+      "name": "script-kit-scripting",
+      "description": ""
+    },
+    {
+      "name": "script-kit-scripts",
+      "description": ""
+    },
+    {
+      "name": "script-kit-testing",
+      "description": ""
+    },
+    {
+      "name": "script-kit-ui-testing",
+      "description": ""
+    },
+    {
+      "name": "script-kit-window-control",
+      "description": ""
+    },
+    {
+      "name": "sysinfo",
+      "description": ""
+    },
+    {
+      "name": "testing-skill",
+      "description": ""
+    },
+    {
+      "name": "ureq",
+      "description": ""
+    },
+    {
+      "name": "visual-test",
+      "description": ""
+    }
+  ]
+}
