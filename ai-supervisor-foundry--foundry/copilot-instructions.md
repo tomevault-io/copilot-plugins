@@ -1,14 +1,23 @@
-## always
+## contexts
 
-> 0. Be concise with your ending responses unless asked for elaboration.
+> Instructions for using context files
 
-0. Be concise with your ending responses unless asked for elaboration.
-1. Propose means suggest without edits.
-2. Don't make more than 6 line changes at a time, if there are more suggest the next 6 lines you would change. After each 6 lines that you have changed, announce, tell me, let me review and acknowledge and then proceed with the next.
-4. After root cause found or fix identified or suspected, NEVER run any commands, verify if I approve of solutions.
-5. Always check if you have MCP available before asking me.
-6. Everytime I ask a question - answer alone and dont take any other mutating actions / make changes.
-7. Even if you realize you made a mistake. Alert, inform me and halt, dont make changes.
+
+## Project Context Files (`contexts/`)
+
+1. Context files in `contexts/` provide detailed project documentation for agents with zero context.
+2. Read relevant context file before working on a project (e.g., `contexts/easeclassifieds/frontend.md` for FE work).
+3. Context files contain project structure, recent fixes, configuration, and common issues.
+4. Update context files when making significant changes to keep them current.
+5. Use context files to quickly onboard new agents or understand project state.
+
+## Supervisor Context Files (`supervisor-contexts/`)
+
+1. **Index**: Read `supervisor-contexts/CONTEXT.md` first (<100 lines). It links to section files (overview, architecture, validation, usage, etc.).
+2. **Section files**: Read specific files as needed (e.g., `validation.md`, `tool-contracts.md`).
+3. **Sliding Window**: Check `supervisor-contexts/windows/` for recent changes.
+4. **Usage**: Use when working on the supervisor system itself (not project tasks).
+5. **Updates**: Window files are manually maintained—do not auto-generate.
 
 ---
 > Source: [ai-supervisor-foundry/foundry](https://github.com/ai-supervisor-foundry/foundry) — distributed by [TomeVault](https://tomevault.io).
