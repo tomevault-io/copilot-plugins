@@ -1,0 +1,22 @@
+{
+  "name": "jorijn--meshcore-stats",
+  "displayName": "meshcore-stats",
+  "description": "AI instruction skills by jorijn",
+  "version": "1.0.0",
+  "author": "jorijn",
+  "homepage": "https://github.com/jorijn/meshcore-stats",
+  "skills": [
+    {
+      "name": "frontend-expert",
+      "description": ""
+    },
+    {
+      "name": "python-code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "test-engineer",
+      "description": ""
+    }
+  ]
+}
