@@ -1,0 +1,44 @@
+{
+  "name": "dujiaoka-next",
+  "owner": "myxiaoao",
+  "repo": "dujiaoka-next",
+  "description": "\ud83e\udd84 \u72ec\u89d2\u6570\u5361 NEXT(\u81ea\u52a8\u552e\u8d27\u7cfb\u7edf) - \u5f00\u6e90\u7ad9\u957f\u81ea\u52a8\u5316\u552e\u8d27\u89e3\u51b3\u65b9\u6848\u3001\u9ad8\u6548\u3001\u7a33\u5b9a\u3001\u5feb\u901f\uff01\ud83d\ude80\ud83d\ude80\ud83c\udf89\ud83c\udf89",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/myxiaoao/dujiaoka-next",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:55:07Z"
+}
