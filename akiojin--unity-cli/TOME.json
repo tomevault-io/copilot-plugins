@@ -1,0 +1,81 @@
+{
+  "name": "unity",
+  "owner": "akiojin",
+  "repo": "unity-cli",
+  "description": "Rust CLI for Unity Editor automation over Unity TCP protocol",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "unity-csharp-editing",
+      "path": ".claude-plugin/plugins/unity-mcp-server/skills/unity-csharp-editing",
+      "github_url": "https://github.com/akiojin/unity-cli/tree/main/.claude-plugin/plugins/unity-mcp-server/skills/unity-csharp-editing",
+      "description": ""
+    },
+    {
+      "name": "unity-development",
+      "path": ".claude-plugin/plugins/unity-mcp-server/skills/unity-development",
+      "github_url": "https://github.com/akiojin/unity-cli/tree/main/.claude-plugin/plugins/unity-mcp-server/skills/unity-development",
+      "description": ""
+    },
+    {
+      "name": "unity-editor-imgui-design",
+      "path": ".claude-plugin/plugins/unity-mcp-server/skills/unity-editor-imgui-design",
+      "github_url": "https://github.com/akiojin/unity-cli/tree/main/.claude-plugin/plugins/unity-mcp-server/skills/unity-editor-imgui-design",
+      "description": ""
+    },
+    {
+      "name": "unity-game-ugui-design",
+      "path": ".claude-plugin/plugins/unity-mcp-server/skills/unity-game-ugui-design",
+      "github_url": "https://github.com/akiojin/unity-cli/tree/main/.claude-plugin/plugins/unity-mcp-server/skills/unity-game-ugui-design",
+      "description": ""
+    },
+    {
+      "name": "unity-game-ui-toolkit-design",
+      "path": ".claude-plugin/plugins/unity-mcp-server/skills/unity-game-ui-toolkit-design",
+      "github_url": "https://github.com/akiojin/unity-cli/tree/main/.claude-plugin/plugins/unity-mcp-server/skills/unity-game-ui-toolkit-design",
+      "description": ""
+    },
+    {
+      "name": "unity-playmode-testing",
+      "path": ".claude-plugin/plugins/unity-mcp-server/skills/unity-playmode-testing",
+      "github_url": "https://github.com/akiojin/unity-cli/tree/main/.claude-plugin/plugins/unity-mcp-server/skills/unity-playmode-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/akiojin/unity-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:47:51Z"
+}
