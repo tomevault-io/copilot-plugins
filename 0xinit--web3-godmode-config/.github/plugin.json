@@ -1,0 +1,74 @@
+{
+  "name": "0xinit--web3-godmode-config",
+  "displayName": "web3-godmode-config",
+  "description": "my personal claude code config of a chad crypto engineer.",
+  "version": "1.0.0",
+  "author": "0xinit",
+  "homepage": "https://github.com/0xinit/web3-godmode-config",
+  "skills": [
+    {
+      "name": "arbitrum-dapp-skill",
+      "description": ""
+    },
+    {
+      "name": "web3-megaeth",
+      "description": ""
+    },
+    {
+      "name": "web3-polymarket",
+      "description": ""
+    },
+    {
+      "name": "rigorous-coding",
+      "description": ""
+    },
+    {
+      "name": "rust-patterns",
+      "description": ""
+    },
+    {
+      "name": "smart-contract-audit",
+      "description": ""
+    },
+    {
+      "name": "solidity-security",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web3-eip-reference",
+      "description": ""
+    },
+    {
+      "name": "web3-foundry",
+      "description": ""
+    },
+    {
+      "name": "web3-frontend",
+      "description": ""
+    },
+    {
+      "name": "web3-hardhat",
+      "description": ""
+    },
+    {
+      "name": "web3-monad",
+      "description": ""
+    },
+    {
+      "name": "web3-privy",
+      "description": ""
+    },
+    {
+      "name": "web3-solana-simd",
+      "description": ""
+    },
+    {
+      "name": "web3-solidity-patterns",
+      "description": ""
+    }
+  ]
+}
