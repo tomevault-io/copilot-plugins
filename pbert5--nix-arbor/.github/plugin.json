@@ -1,0 +1,9 @@
+{
+  "name": "pbert5--nix-arbor",
+  "displayName": "nix-arbor",
+  "description": "Inventory-driven NixOS host assembly from reusable behavior branches.",
+  "version": "1.0.0",
+  "author": "pbert5",
+  "homepage": "https://github.com/pbert5/nix-arbor",
+  "skills": []
+}
