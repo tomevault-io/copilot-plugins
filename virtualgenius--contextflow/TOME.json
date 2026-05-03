@@ -4,7 +4,7 @@
   "repo": "contextflow",
   "description": "Visual DDD context mapper with Flow and Strategic views for analyzing bounded contexts and their relationships",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/virtualgenius/contextflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T03:02:18Z"
+  "distributed_at": "2026-05-03T23:46:52Z"
 }
