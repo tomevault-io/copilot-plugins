@@ -1,0 +1,9 @@
+{
+  "name": "panmingxuan--react-admin-template",
+  "displayName": "react-admin-template",
+  "description": "\u57fa\u4e8e React 19 + Tailwind CSS v4 + TanStack Router + Zustand \u7684\u73b0\u4ee3\u5316\u7ba1\u7406\u540e\u53f0\u6a21\u677f\u3002Catalyst Design System Like UI\u98ce\u683c\uff0c\u7eafAI\u642d\u5efa\uff0c\u53ef\u4ee5\u53c2\u8003\u63d0\u793a\u8bcd\uff0c\u53ef\u4ee5\u76f4\u63a5\u4f7f\u7528\u6b64\u9879\u76ee\u642d\u5efaadmin\u9879\u76ee\u3002",
+  "version": "1.0.0",
+  "author": "panmingxuan",
+  "homepage": "https://github.com/panmingxuan/react-admin-template",
+  "skills": []
+}
