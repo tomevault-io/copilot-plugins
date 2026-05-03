@@ -1,0 +1,60 @@
+## pm-toolkit
+
+> PM Toolkit is a Cursor extension for visual markdown editing, kanban boards, and file viewing. Target users are product managers and non-developers.
+
+# PM Toolkit - Cursor Rules
+
+## Project Context
+
+PM Toolkit is a Cursor extension for visual markdown editing, kanban boards, and file viewing. Target users are product managers and non-developers.
+
+## Versioning
+
+Uses CalVer: `YYYY.MM.MICRO` (e.g., `2026.02.0`)
+- Bump MICRO for features/fixes within a month
+- Reset to `YYYY.MM.0` for first release of a new month
+- Version is in `package.json`
+
+## Architecture
+
+- `src/` - Extension code (Node.js, VS Code API)
+- `webview/` - Browser code (Tiptap, dnd-kit, Mermaid)
+- `tests/e2e/` - Playwright tests
+
+## Code Style
+
+- Conventional commits: `feat:`, `fix:`, `docs:`, `test:`, `chore:`
+- Support light/dark themes via `document.body.classList.contains('vscode-dark')`
+- Use Lucide icons
+- Inline styles when CSS doesn't work reliably in webviews
+- Write E2E tests for new features
+
+## Key Libraries
+
+- Tiptap (editor)
+- dnd-kit (drag-drop)
+- Mermaid (diagrams)
+- Lucide (icons)
+- Playwright (tests)
+
+## Important
+
+- Target Cursor, not VS Code
+- Keep data in plain markdown
+- User-focused documentation
+
+## Commands
+
+```bash
+npm run compile      # Build
+npm run watch        # Dev mode
+npm run test:e2e     # Run tests
+```
+
+## Repository
+
+https://github.com/aaronkwhite/pm-toolkit
+
+---
+> Source: [aaronkwhite/pm-toolkit](https://github.com/aaronkwhite/pm-toolkit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
