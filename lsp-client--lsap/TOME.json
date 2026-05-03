@@ -1,0 +1,51 @@
+{
+  "name": "LSAP",
+  "owner": "lsp-client",
+  "repo": "LSAP",
+  "description": "LSAP (Language Server Agent Protocol) is an open protocol that defines how AI coding agents interact with Language Servers",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lsap-api-design",
+      "path": ".agents/skills/lsap-api-design",
+      "github_url": "https://github.com/lsp-client/LSAP/tree/main/.agents/skills/lsap-api-design",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lsp-client/LSAP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T19:00:48Z"
+}
