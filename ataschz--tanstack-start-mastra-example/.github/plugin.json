@@ -1,0 +1,58 @@
+{
+  "name": "ataschz--tanstack-start-mastra-example",
+  "displayName": "tanstack-start-mastra-example",
+  "description": "AI-powered travel assistant built with Mastra, TanStack Start, and AI SDK. Features agent networks, real-time streaming, and dynamic UI for tool calls and reasoning.",
+  "version": "1.0.0",
+  "author": "ataschz",
+  "homepage": "https://github.com/ataschz/tanstack-start-mastra-example",
+  "skills": [
+    {
+      "name": "agent-development",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-ui",
+      "description": ""
+    },
+    {
+      "name": "better-auth",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-api",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-embeddings",
+      "description": ""
+    },
+    {
+      "name": "motion",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-review",
+      "description": ""
+    },
+    {
+      "name": "tailwind-patterns",
+      "description": ""
+    },
+    {
+      "name": "tailwind-v4-shadcn",
+      "description": ""
+    },
+    {
+      "name": "tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "tool-ui",
+      "description": ""
+    }
+  ]
+}
