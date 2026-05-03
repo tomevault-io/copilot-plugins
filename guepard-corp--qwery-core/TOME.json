@@ -4,7 +4,7 @@
   "repo": "qwery-core",
   "description": "The Boring query platform - Connect and query anything",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Guepard-Corp/qwery-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T00:36:27Z"
+  "distributed_at": "2026-05-03T16:26:53Z"
 }
