@@ -1,0 +1,165 @@
+{
+  "name": "agent-kit",
+  "owner": "graysurf",
+  "repo": "agent-kit",
+  "description": "agent-kit tracks AI agent setup to keep workflows consistent across machines. It contains prompt presets, custom skills, and local tooling. ",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-doc-init",
+      "path": "skills/tools/agent-doc-init",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/agent-doc-init",
+      "description": ""
+    },
+    {
+      "name": "api-test-runner",
+      "path": "skills/tools/testing/api-test-runner",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/testing/api-test-runner",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools-debug-companion",
+      "path": "skills/tools/browser/chrome-devtools-debug-companion",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/browser/chrome-devtools-debug-companion",
+      "description": ""
+    },
+    {
+      "name": "close-feature-pr",
+      "path": "skills/workflows/pr/feature/close-feature-pr",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/workflows/pr/feature/close-feature-pr",
+      "description": ""
+    },
+    {
+      "name": "create-plan",
+      "path": "skills/workflows/plan/create-plan",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/workflows/plan/create-plan",
+      "description": ""
+    },
+    {
+      "name": "create-project-skill",
+      "path": "skills/tools/skill-management/create-project-skill",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/skill-management/create-project-skill",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "path": "skills/tools/skill-management/create-skill",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/skill-management/create-skill",
+      "description": ""
+    },
+    {
+      "name": "find-and-fix-bugs",
+      "path": "skills/automation/find-and-fix-bugs",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/automation/find-and-fix-bugs",
+      "description": ""
+    },
+    {
+      "name": "gh-fix-ci",
+      "path": "skills/automation/gh-fix-ci",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/automation/gh-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "graphql-api-testing",
+      "path": "skills/tools/testing/graphql-api-testing",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/testing/graphql-api-testing",
+      "description": ""
+    },
+    {
+      "name": "macos-agent-ops",
+      "path": "skills/tools/macos-agent-ops",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/macos-agent-ops",
+      "description": ""
+    },
+    {
+      "name": "open-changed-files-review",
+      "path": "skills/tools/devex/open-changed-files-review",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/devex/open-changed-files-review",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "path": "skills/tools/browser/playwright",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/browser/playwright",
+      "description": ""
+    },
+    {
+      "name": "release-workflow",
+      "path": "skills/automation/release-workflow",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/automation/release-workflow",
+      "description": ""
+    },
+    {
+      "name": "remove-skill",
+      "path": "skills/tools/skill-management/remove-skill",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/skill-management/remove-skill",
+      "description": ""
+    },
+    {
+      "name": "rest-api-testing",
+      "path": "skills/tools/testing/rest-api-testing",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/testing/rest-api-testing",
+      "description": ""
+    },
+    {
+      "name": "screen-record",
+      "path": "skills/tools/media/screen-record",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/media/screen-record",
+      "description": ""
+    },
+    {
+      "name": "semantic-commit-autostage",
+      "path": "skills/automation/semantic-commit-autostage",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/automation/semantic-commit-autostage",
+      "description": ""
+    },
+    {
+      "name": "skill-governance",
+      "path": "skills/tools/skill-management/skill-governance",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/skill-management/skill-governance",
+      "description": ""
+    },
+    {
+      "name": "sql-mysql",
+      "path": "skills/tools/sql/sql-mysql",
+      "github_url": "https://github.com/graysurf/agent-kit/tree/main/skills/tools/sql/sql-mysql",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/graysurf/agent-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:35:54Z"
+}
