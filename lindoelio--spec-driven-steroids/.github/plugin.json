@@ -1,0 +1,30 @@
+{
+  "name": "lindoelio--spec-driven-steroids",
+  "displayName": "spec-driven-steroids",
+  "description": "Spec-Driven Steroids is a very simple toolkit designed to bring discipline to AI-powered software engineering. It injects high-standard workflows (SDD) directly into the native environments of your fa",
+  "version": "1.0.0",
+  "author": "lindoelio",
+  "homepage": "https://github.com/lindoelio/spec-driven-steroids",
+  "skills": [
+    {
+      "name": "project-guidelines-writer",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-requirements-writer",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-task-decomposer",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-task-implementer",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-technical-designer",
+      "description": ""
+    }
+  ]
+}
