@@ -1,0 +1,38 @@
+{
+  "name": "garden-co--jazz",
+  "displayName": "jazz",
+  "description": "A local-first relational database for the browser, React Native and your backend.",
+  "version": "1.0.0",
+  "author": "garden-co",
+  "homepage": "https://github.com/garden-co/jazz",
+  "skills": [
+    {
+      "name": "benchmarking",
+      "description": ""
+    },
+    {
+      "name": "jazz-performance",
+      "description": ""
+    },
+    {
+      "name": "jazz-permissions-security",
+      "description": ""
+    },
+    {
+      "name": "jazz-schema-design",
+      "description": ""
+    },
+    {
+      "name": "jazz-testing",
+      "description": ""
+    },
+    {
+      "name": "jazz-ui-development",
+      "description": ""
+    },
+    {
+      "name": "spec",
+      "description": ""
+    }
+  ]
+}
