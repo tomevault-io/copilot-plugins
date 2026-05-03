@@ -1,0 +1,159 @@
+{
+  "name": "navigator",
+  "owner": "alekspetrov",
+  "repo": "navigator",
+  "description": "Finish What You Start \u2014 Context engineering for Claude Code.         Sessions last 20+ exchanges instead of crashing at 7.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backend-endpoint",
+      "path": "skills/backend-endpoint",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/backend-endpoint",
+      "description": ""
+    },
+    {
+      "name": "backend-test",
+      "path": "skills/backend-test",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/backend-test",
+      "description": ""
+    },
+    {
+      "name": "frontend-component",
+      "path": "skills/frontend-component",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/frontend-component",
+      "description": ""
+    },
+    {
+      "name": "frontend-test",
+      "path": "skills/frontend-test",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/frontend-test",
+      "description": ""
+    },
+    {
+      "name": "nav-compact",
+      "path": "skills/nav-compact",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-compact",
+      "description": ""
+    },
+    {
+      "name": "nav-diagnose",
+      "path": "skills/nav-diagnose",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-diagnose",
+      "description": ""
+    },
+    {
+      "name": "nav-init",
+      "path": "skills/nav-init",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-init",
+      "description": ""
+    },
+    {
+      "name": "nav-multi",
+      "path": "skills/nav-multi",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-multi",
+      "description": ""
+    },
+    {
+      "name": "nav-onboard",
+      "path": "skills/nav-onboard",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-onboard",
+      "description": ""
+    },
+    {
+      "name": "nav-release",
+      "path": "skills/nav-release",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-release",
+      "description": ""
+    },
+    {
+      "name": "nav-simplify",
+      "path": "skills/nav-simplify",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-simplify",
+      "description": ""
+    },
+    {
+      "name": "nav-skill-creator",
+      "path": "skills/nav-skill-creator",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "nav-sop",
+      "path": "skills/nav-sop",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-sop",
+      "description": ""
+    },
+    {
+      "name": "nav-start",
+      "path": "skills/nav-start",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-start",
+      "description": ""
+    },
+    {
+      "name": "nav-task",
+      "path": "skills/nav-task",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-task",
+      "description": ""
+    },
+    {
+      "name": "nav-task-mode",
+      "path": "skills/nav-task-mode",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/nav-task-mode",
+      "description": ""
+    },
+    {
+      "name": "product-design",
+      "path": "skills/product-design",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/product-design",
+      "description": ""
+    },
+    {
+      "name": "social-media-post",
+      "path": "skills-local/social-media-post",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills-local/social-media-post",
+      "description": ""
+    },
+    {
+      "name": "visual-regression",
+      "path": "skills/visual-regression",
+      "github_url": "https://github.com/alekspetrov/navigator/tree/main/skills/visual-regression",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alekspetrov/navigator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T21:30:31Z"
+}
