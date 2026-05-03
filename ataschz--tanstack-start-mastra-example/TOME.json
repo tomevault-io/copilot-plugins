@@ -1,0 +1,117 @@
+{
+  "name": "tanstack-start-mastra-example",
+  "owner": "ataschz",
+  "repo": "tanstack-start-mastra-example",
+  "description": "AI-powered travel assistant built with Mastra, TanStack Start, and AI SDK. Features agent networks, real-time streaming, and dynamic UI for tool calls and reasoning.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-development",
+      "path": ".agents/skills/agent-development",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/agent-development",
+      "description": ""
+    },
+    {
+      "name": "ai-sdk-ui",
+      "path": ".agents/skills/ai-sdk-ui",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/ai-sdk-ui",
+      "description": ""
+    },
+    {
+      "name": "better-auth",
+      "path": ".agents/skills/better-auth",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/better-auth",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-api",
+      "path": ".agents/skills/google-gemini-api",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/google-gemini-api",
+      "description": ""
+    },
+    {
+      "name": "google-gemini-embeddings",
+      "path": ".agents/skills/google-gemini-embeddings",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/google-gemini-embeddings",
+      "description": ""
+    },
+    {
+      "name": "motion",
+      "path": ".agents/skills/motion",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/motion",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".agents/skills/skill-creator",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-review",
+      "path": ".agents/skills/skill-review",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/skill-review",
+      "description": ""
+    },
+    {
+      "name": "tailwind-patterns",
+      "path": ".agents/skills/tailwind-patterns",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/tailwind-patterns",
+      "description": ""
+    },
+    {
+      "name": "tailwind-v4-shadcn",
+      "path": ".agents/skills/tailwind-v4-shadcn",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/tailwind-v4-shadcn",
+      "description": ""
+    },
+    {
+      "name": "tanstack-query",
+      "path": ".agents/skills/tanstack-query",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agents/skills/tanstack-query",
+      "description": ""
+    },
+    {
+      "name": "tool-ui",
+      "path": ".agent/skills/tool-ui",
+      "github_url": "https://github.com/ataschz/tanstack-start-mastra-example/tree/main/.agent/skills/tool-ui",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ataschz/tanstack-start-mastra-example",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T15:30:17Z"
+}
