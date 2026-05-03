@@ -1,0 +1,9 @@
+{
+  "name": "hanzili--comet-mcp",
+  "displayName": "comet-mcp",
+  "description": "MCP Server connecting to Perplexity Comet browser",
+  "version": "1.0.0",
+  "author": "hanzili",
+  "homepage": "https://github.com/hanzili/comet-mcp",
+  "skills": []
+}
