@@ -1,0 +1,123 @@
+{
+  "name": "looplia-core",
+  "owner": "memorysaver",
+  "repo": "looplia-core",
+  "description": "Universal agentic workflow CLI \u2014 compose AI agents and skills for any task.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "content-documenter",
+      "path": "docs/writing-agent-example/writing-agent/.claude/skills/content-documenter",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/docs/writing-agent-example/writing-agent/.claude/skills/content-documenter",
+      "description": ""
+    },
+    {
+      "name": "content-documenter",
+      "path": "plugins/looplia-writer/skills/content-documenter",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/plugins/looplia-writer/skills/content-documenter",
+      "description": ""
+    },
+    {
+      "name": "idea-synthesis",
+      "path": "plugins/looplia-writer/skills/idea-synthesis",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/plugins/looplia-writer/skills/idea-synthesis",
+      "description": ""
+    },
+    {
+      "name": "looplia-e2e",
+      "path": ".claude/skills/looplia-e2e",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/.claude/skills/looplia-e2e",
+      "description": ""
+    },
+    {
+      "name": "media-reviewer",
+      "path": "plugins/looplia-writer/skills/media-reviewer",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/plugins/looplia-writer/skills/media-reviewer",
+      "description": ""
+    },
+    {
+      "name": "media-reviewer",
+      "path": "docs/writing-agent-example/writing-agent/.claude/skills/media-reviewer",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/docs/writing-agent-example/writing-agent/.claude/skills/media-reviewer",
+      "description": ""
+    },
+    {
+      "name": "registry-loader",
+      "path": "plugins/looplia-core/skills/registry-loader",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/plugins/looplia-core/skills/registry-loader",
+      "description": ""
+    },
+    {
+      "name": "skill-capability-matcher",
+      "path": "plugins/looplia-core/skills/skill-capability-matcher",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/plugins/looplia-core/skills/skill-capability-matcher",
+      "description": ""
+    },
+    {
+      "name": "version-bump",
+      "path": ".claude/skills/version-bump",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/.claude/skills/version-bump",
+      "description": ""
+    },
+    {
+      "name": "workflow-executor",
+      "path": "plugins/looplia-core/skills/workflow-executor",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/plugins/looplia-core/skills/workflow-executor",
+      "description": ""
+    },
+    {
+      "name": "workflow-schema-composer",
+      "path": "plugins/looplia-core/skills/workflow-schema-composer",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/plugins/looplia-core/skills/workflow-schema-composer",
+      "description": ""
+    },
+    {
+      "name": "workflow-validator",
+      "path": "plugins/looplia-core/skills/workflow-validator",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/plugins/looplia-core/skills/workflow-validator",
+      "description": ""
+    },
+    {
+      "name": "writing-kit-assembler",
+      "path": "plugins/looplia-writer/skills/writing-kit-assembler",
+      "github_url": "https://github.com/memorysaver/looplia-core/tree/main/plugins/looplia-writer/skills/writing-kit-assembler",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/memorysaver/looplia-core",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:35:47Z"
+}
