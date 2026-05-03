@@ -1,105 +1,100 @@
-## effect-source
+## framesync-prediction-rollback
 
-> 本规则补充并细化 `EffectSourceRegistry`（溯源树）相关的工程约束，用于保证：
-
-
-# EffectSource（事件溯源树）规则
-
-本规则补充并细化 `EffectSourceRegistry`（溯源树）相关的工程约束，用于保证：
-
-- 溯源链路可追踪（线上排查 / 工具可视化）
-- 生命周期可回收（root 可被 purge）
-- 低 GC / 无隐式强引用
-
-> 总体溯源契约请同时参考：`origin_and_event_contract.md`。
-
-## 1) 核心对象与术语
-
-- **Context**：溯源树上的一个节点，唯一标识 `ContextId`。
-- **Root**：一次顶层行为的根节点（例如一次 `SkillCast`），唯一标识 `RootId`。
-- **Parent**：派生来源节点 `ParentId`。
-
-### 快照字段（对外观测语义）
-
-每个节点至少应能被描述为：
-
-- `Kind`（`EffectSourceKind`）
-- `ConfigId`（推荐填可定位的配置/实例 id）
-- `SourceActorId` / `TargetActorId`
-- `CreatedFrame`
-- `EndedFrame` / `EndReason`
+> 本文定义客户端帧同步体系中“预测/回滚/重演/对账（reconcile）/时间门控（idealFrame）”的工程级约束。
 
 
-## 2) 生命周期规则（最重要）
+# FrameSync Prediction / Rollback / Reconcile 规则
 
-### Rule A：创建者负责 End（No leaked nodes）
+## 0. 目标
 
-- 创建 root 的地方必须负责在“技能流程逻辑结束”时 `End(rootContextId, frame, reason)`。
-- 创建 child 的地方必须在其生命周期结束时 `End(childContextId, frame, reason)`。
+本文定义客户端帧同步体系中“预测/回滚/重演/对账（reconcile）/时间门控（idealFrame）”的工程级约束。
 
-禁止：
+适用代码主要分布：
 
-- 在中间 phase/系统“兜底 CreateRoot”（容易漏 End，导致 root 永远无法 purge）。
+- `Unity/Packages/com.abilitykit.host.extension/Runtime/FrameSync/ClientPredictionDriverModule.cs`
+- `Unity/Packages/com.abilitykit.world.framesync/Runtime/FrameSync/Rollback/*`
+-（时间门控/idealFrame 来源）`Unity/Packages/com.abilitykit.demo.moba.view.runtime/Runtime/Game/Flow/Battle/BattleSessionFeature.cs`
 
-### Rule B：End 不等于删除（No breaking the chain）
+---
 
-- `End(...)` 仅记录结束帧与原因，不应立刻删除节点。
-- 删除由 `Purge(frame, keepEndedFrames)` 控制，并以 root 为单位回收整棵树。
+## 1. 不允许吞异常（hard rule）
 
-### Rule C：Purge 条件不得破坏
+- 预测/回滚/输入消费属于高风险路径。
+- **任何 catch 住的异常必须通过 `Log.Exception(...)` 或 `Log.Error(...)` 输出**，不得空 catch。
+- 不要在 runtime 代码里直接用 `UnityEngine.Debug.*`。
 
-root 可 purge 的条件（抽象语义）：
+---
 
-- `ActiveCount == 0`（root 下未 End 的 context 数为 0）
-- `ExternalRefCount == 0`（业务侧没有 retain）
-- `frame - LastTouchedFrame >= keepEndedFrames`
+## 2. Determinism 与 Reconcile 的前置条件
 
-因此：
+- `computeHash(frame)` 必须是 deterministic：
+  - 相同输入序列 => 相同 hash。
+  - 随机数、浮点不确定性、遍历顺序等必须被规避或纳入回滚状态。
 
-- 漏 End 会让 `ActiveCount` 永远不为 0。
-- 忘记 release 会让 `ExternalRefCount` 永远不为 0。
+- authoritative hash 与 predicted hash 的 frame 必须对齐。
+  - 若 hash 不对齐，mismatch 统计会误导，rollback 会形成“风暴”。
 
+---
 
-## 3) 引用与 GC 规则（避免隐式强引用）
+## 3. Rollback provider 约束
 
-### Rule D：默认不保存 origin 对象引用
+- 可回滚状态由 `IRollbackStateProvider` 负责。
+- **provider 必须做到 Export/Import 的双向一致**。
+- `RollbackRegistry` 在 runtime 使用前必须 `Seal()`，禁止运行中动态注册 provider。
 
-- 默认 `EffectSourceRegistry.StoreOriginObjects = false`。
-- `originSource/originTarget` 应尽量为轻量类型（`int/long/string`）。
-- 传入引用类型时会被规范化（例如退化为 actorId/fallback）。
+---
 
-只有在明确需要调试且可控时，才允许把 `StoreOriginObjects = true`。
+## 4. RingBuffer / Pooling 约束（performance + correctness）
 
+- 所有历史结构（inputs/hash/snapshot）都应使用固定容量 ring buffer。
+- `RollbackSnapshotRingBuffer` 覆盖槽位时需要释放旧 entries（数组池）。
+- 高频路径避免：
+  - LINQ、闭包、临时 `List/Dictionary` 分配
+  - 每帧分配大 `byte[]`（provider payload 尽量可复用/可池化）
 
-## 4) Root scope 数据（Blackboard）规则
+---
 
-- Root scope 数据用于“与 root 同生命周期”的轻量共享数据。
-- 推荐通过 `SetRootInt(rootId, IntKey key, int value)` / `TryGetRootInt(...)`。
-- 业务侧应集中定义 `IntKey` 常量（避免 magic number）。
+## 5. 多 World（multi-world）约束
 
+- `ClientPredictionDriverModule` 的所有 state 必须按 `WorldId` 分离（字典/WorldContext）。
+- 统计接口必须能按 world 读取（例如 `TryGetIdealFrameStallStats`）。
+- 时间门控（idealFrame）可能按 world anchor 不同，需要在调用边界上显式传入 `WorldId`。
 
-## 5) Debug/Editor 边界
+---
 
-- `EffectSourceLiveRegistry` 仅用于 `UNITY_EDITOR`，提供 editor 窗口获取运行时 registry 的入口。
-- Editor 窗口：`EffectSourceDebuggerWindow`（菜单：`Window/AbilityKit/Effect Source Debugger`）。
+## 6. idealFrame gate 的策略约束
 
+- idealFrame gate 不能作为“临时 hack”。应由正式 time sync + anchor 计算得到。
+- 推荐策略：
+  - **优先 window cap**：`effectiveWindow = min(rawWindow, max(0, idealLimit-confirmed))`
+  - stall 统计需要能清晰区分：
+    - 预测窗口 stall（window）
+    - 时间门控 stall（idealFrame）
 
-## 6) 常见问题（排错）
+---
 
-- **漏 End**：root 永远无法 purge，树持续膨胀。
-- **错误地 End root**：root End 表示“技能流程逻辑结束”，不等于 child 生命周期结束，child 仍必须各自 End。
-- **origin 强引用**：把大对象塞进 origin 造成 GC 压力或泄漏。
+## 7. 可观测性（debuggability）
 
+- 每个 world 至少应暴露：
+  - `confirmed/predicted`
+  - backlog（raw + EWMA）
+  - prediction window（raw + effective）
+  - idealFrame limit + 是否被 cap/是否 stalled
+  - rollback 次数、restore failed、replay timeout、mismatch frame
 
-## 7) 关键文件
+- Editor 面板应能展示：
+  - `FrameSync/Prediction`：window/backlog/stalls/rollback/mismatch（per-world）
+  - `FrameSync/Time`：time sync/anchor/idealFrame raw-magin-limit（per-world）
 
-- Runtime：
-  - `Unity/Packages/com.abilitykit.ability.runtime/Runtime/Ability/Share/Impl/Moba/EffectSource/EffectSourceRegistry.cs`
-  - `Unity/Packages/com.abilitykit.ability.runtime/Runtime/Ability/Share/Impl/Moba/EffectSource/EffectSourceSnapshot.cs`
-  - `Unity/Packages/com.abilitykit.ability.runtime/Runtime/Ability/Share/Impl/Moba/EffectSource/EffectSourceLiveRegistry.cs`
-  - `Unity/Packages/com.abilitykit.ability.runtime/Runtime/Ability/Share/Impl/Moba/EffectSource/EffectSourceKeys.cs`
-- Editor：
-  - `Unity/Packages/com.abilitykit.ability.runtime/Editor/EffectSource/EffectSourceDebuggerWindow.cs`
+---
+
+## 8. 文档要求
+
+对预测/回滚/对账相关改动，应同步更新以下文档（避免知识遗失）：
+
+- `Unity/Packages/com.abilitykit.host.extension/Runtime/FrameSync/README.md`
+- `Unity/Packages/com.abilitykit.world.framesync/Runtime/FrameSync/Rollback/README.md`
+- `Unity/Packages/com.abilitykit.world.framesync/Runtime/FrameSync/Rollback/Design.md`
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
