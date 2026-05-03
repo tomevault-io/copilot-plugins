@@ -1,0 +1,9 @@
+{
+  "name": "mrshu--zjctl",
+  "displayName": "zjctl",
+  "description": "Programmatic Zellij automation for humans, scripts, and agents alike",
+  "version": "1.0.0",
+  "author": "mrshu",
+  "homepage": "https://github.com/mrshu/zjctl",
+  "skills": []
+}
