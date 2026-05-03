@@ -4,7 +4,7 @@
   "repo": "aleph",
   "description": "Skill + MCP server to turn your agent into an RLM. Load context, iterate with search/code/think tools, converge on answers.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hmbown/aleph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T18:51:35Z"
+  "distributed_at": "2026-05-03T07:07:48Z"
 }
