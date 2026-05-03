@@ -1,35 +1,33 @@
 ## go
 
-> Go 安全，扩展通用规则
+> Go 编码风格，扩展通用规则
 
-# Go 安全
+# Go 编码风格
 
-> 本文件以 Go 特定内容扩展通用安全规则。
+> 本文件以 Go 特定内容扩展通用编码风格规则。
 
-## 密钥管理
+## 格式化
+
+- **gofmt** 和 **goimports** 是强制性的——没有风格争论
+
+## 设计原则
+
+- 接受接口，返回结构体
+- 保持接口小巧（1-3 个方法）
+
+## 错误处理
+
+始终用上下文包装错误：
 
 ```go
-apiKey := os.Getenv("OPENAI_API_KEY")
-if apiKey == "" {
-    log.Fatal("OPENAI_API_KEY 未配置")
+if err != nil {
+    return fmt.Errorf("failed to create user: %w", err)
 }
 ```
 
-## 安全扫描
+## 参考
 
-- 使用 **gosec** 进行静态安全分析：
-  ```bash
-  gosec ./...
-  ```
-
-## Context 与超时
-
-始终使用 `context.Context` 进行超时控制：
-
-```go
-ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
-defer cancel()
-```
+参见技能：`Go开发模式` 了解全面的 Go 惯用写法和模式。
 
 ---
 > Source: [nongjun/feishu-cursor-claw](https://github.com/nongjun/feishu-cursor-claw) — distributed by [TomeVault](https://tomevault.io).
