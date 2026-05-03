@@ -1,0 +1,9 @@
+{
+  "name": "octasoft-ltd--wsl-ui",
+  "displayName": "wsl-ui",
+  "description": "WSL2 Manager desktop application built with Tauri, Vite, React, and TypeScript",
+  "version": "1.0.0",
+  "author": "octasoft-ltd",
+  "homepage": "https://github.com/octasoft-ltd/wsl-ui",
+  "skills": []
+}
