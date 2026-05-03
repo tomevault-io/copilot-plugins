@@ -1,0 +1,9 @@
+{
+  "name": "pixelpaw-labs--codex-trace",
+  "displayName": "codex-trace",
+  "description": "Real-time viewer for Codex session logs \u2014 desktop app, web",
+  "version": "1.0.0",
+  "author": "PixelPaw-Labs",
+  "homepage": "https://github.com/PixelPaw-Labs/codex-trace",
+  "skills": []
+}
