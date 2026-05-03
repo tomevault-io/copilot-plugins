@@ -1,0 +1,9 @@
+{
+  "name": "rtk-ai--vox",
+  "displayName": "vox",
+  "description": "A universal AI toolkit for high-performance Speech-to-Text (STT) and Text-to-Speech (TTS) processing, designed for low-latency and easy model integration.",
+  "version": "1.0.0",
+  "author": "rtk-ai",
+  "homepage": "https://github.com/rtk-ai/vox",
+  "skills": []
+}
