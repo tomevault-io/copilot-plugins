@@ -1,0 +1,9 @@
+{
+  "name": "project-noemi--agents",
+  "displayName": "agents",
+  "description": "Central library for NewPush AI agent specifications, documentation, and shared tool usages.",
+  "version": "1.0.0",
+  "author": "project-noemi",
+  "homepage": "https://github.com/project-noemi/agents",
+  "skills": []
+}
