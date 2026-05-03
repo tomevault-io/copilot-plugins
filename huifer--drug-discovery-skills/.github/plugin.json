@@ -1,0 +1,54 @@
+{
+  "name": "huifer--drug-discovery-skills",
+  "displayName": "drug-discovery-skills",
+  "description": "Drug Discovery Intelligence plugin for Claude Code. AI-powered target validation,  competitive intelligence, literature analysis & clinical trials insights.  Integrates Open Targets, ChEMBL, PubMed & ",
+  "version": "1.0.0",
+  "author": "huifer",
+  "homepage": "https://github.com/huifer/drug-discovery-skills",
+  "skills": [
+    {
+      "name": "alert-system",
+      "description": ""
+    },
+    {
+      "name": "clinical-intelligence",
+      "description": ""
+    },
+    {
+      "name": "competitor-landscape",
+      "description": ""
+    },
+    {
+      "name": "compound-profile",
+      "description": ""
+    },
+    {
+      "name": "literature-search",
+      "description": ""
+    },
+    {
+      "name": "market-analysis",
+      "description": ""
+    },
+    {
+      "name": "pipeline-tracker",
+      "description": ""
+    },
+    {
+      "name": "report-generator",
+      "description": ""
+    },
+    {
+      "name": "target-profile",
+      "description": ""
+    },
+    {
+      "name": "target-validation",
+      "description": ""
+    },
+    {
+      "name": "virtual-screening",
+      "description": ""
+    }
+  ]
+}
