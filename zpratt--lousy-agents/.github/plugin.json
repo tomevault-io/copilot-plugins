@@ -1,0 +1,9 @@
+{
+  "name": "zpratt--lousy-agents",
+  "displayName": "lousy-agents",
+  "description": "Bootstrap projects with pre-configured instructions, tests, and linters that guide AI coding agents to produce reliable code",
+  "version": "1.0.0",
+  "author": "zpratt",
+  "homepage": "https://github.com/zpratt/lousy-agents",
+  "skills": []
+}
