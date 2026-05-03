@@ -1,0 +1,9 @@
+{
+  "name": "mfs-code--kontext",
+  "displayName": "Kontext",
+  "description": "Kubernetes-native control plane for running, governing, and observing AI agents as production workloads",
+  "version": "1.0.0",
+  "author": "MFS-code",
+  "homepage": "https://github.com/MFS-code/Kontext",
+  "skills": []
+}
