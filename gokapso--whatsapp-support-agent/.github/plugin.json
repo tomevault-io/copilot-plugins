@@ -1,0 +1,9 @@
+{
+  "name": "gokapso--whatsapp-support-agent",
+  "displayName": "whatsapp-support-agent",
+  "description": "Sample WhatsApp support AI agent",
+  "version": "1.0.0",
+  "author": "gokapso",
+  "homepage": "https://github.com/gokapso/whatsapp-support-agent",
+  "skills": []
+}
