@@ -1,0 +1,201 @@
+{
+  "name": "gh-aw",
+  "owner": "github",
+  "repo": "gh-aw-actions",
+  "description": "Shared Actions used with GitHub Agentic Workflows",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "console-rendering",
+      "path": "skills/console-rendering",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/console-rendering",
+      "description": ""
+    },
+    {
+      "name": "custom-agents",
+      "path": "skills/custom-agents",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/custom-agents",
+      "description": ""
+    },
+    {
+      "name": "debugging-workflows",
+      "path": ".github/skills/debugging-workflows",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/.github/skills/debugging-workflows",
+      "description": ""
+    },
+    {
+      "name": "developer",
+      "path": "skills/developer",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/developer",
+      "description": ""
+    },
+    {
+      "name": "dictation",
+      "path": "skills/dictation",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/dictation",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": ".github/skills/documentation",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/.github/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "error-messages",
+      "path": "skills/error-messages",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/error-messages",
+      "description": ""
+    },
+    {
+      "name": "error-pattern-safety",
+      "path": "skills/error-pattern-safety",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/error-pattern-safety",
+      "description": ""
+    },
+    {
+      "name": "gh-agent-session",
+      "path": "skills/gh-agent-session",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/gh-agent-session",
+      "description": ""
+    },
+    {
+      "name": "gh-agent-task",
+      "path": "skills/gh-agent-task",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/gh-agent-task",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-agent-tips-and-tricks",
+      "path": "skills/github-copilot-agent-tips-and-tricks",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/github-copilot-agent-tips-and-tricks",
+      "description": ""
+    },
+    {
+      "name": "github-discussion-query",
+      "path": "skills/github-discussion-query",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/github-discussion-query",
+      "description": ""
+    },
+    {
+      "name": "github-issue-query",
+      "path": "skills/github-issue-query",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/github-issue-query",
+      "description": ""
+    },
+    {
+      "name": "github-mcp-server",
+      "path": "skills/github-mcp-server",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/github-mcp-server",
+      "description": ""
+    },
+    {
+      "name": "github-pr-query",
+      "path": "skills/github-pr-query",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/github-pr-query",
+      "description": ""
+    },
+    {
+      "name": "github-script",
+      "path": "skills/github-script",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/github-script",
+      "description": ""
+    },
+    {
+      "name": "http-mcp-headers",
+      "path": "skills/http-mcp-headers",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/http-mcp-headers",
+      "description": ""
+    },
+    {
+      "name": "javascript-refactoring",
+      "path": "skills/javascript-refactoring",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/javascript-refactoring",
+      "description": ""
+    },
+    {
+      "name": "messages",
+      "path": "skills/messages",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/messages",
+      "description": ""
+    },
+    {
+      "name": "reporting",
+      "path": "skills/reporting",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/reporting",
+      "description": ""
+    },
+    {
+      "name": "skillz-integration",
+      "path": "skills/skillz-integration",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/skillz-integration",
+      "description": ""
+    },
+    {
+      "name": "temporary-id-safe-output",
+      "path": "skills/temporary-id-safe-output",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/skills/temporary-id-safe-output",
+      "description": ""
+    },
+    {
+      "name": "awf-debug-tools",
+      "path": ".claude/skills/awf-debug-tools",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/.claude/skills/awf-debug-tools",
+      "description": ""
+    },
+    {
+      "name": "awf-skill",
+      "path": ".claude/skills/awf-skill",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/.claude/skills/awf-skill",
+      "description": ""
+    },
+    {
+      "name": "debugging-workflows",
+      "path": ".github/skills/debugging-workflows",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/.github/skills/debugging-workflows",
+      "description": ""
+    },
+    {
+      "name": "recompile-workflows",
+      "path": ".claude/skills/recompile-workflows",
+      "github_url": "https://github.com/github/gh-aw-actions/tree/main/.claude/skills/recompile-workflows",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/github/gh-aw-actions",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:35:17Z"
+}
