@@ -4,7 +4,7 @@
   "repo": "veil",
   "description": "Veil - Modern successor to Hide Items. A cleaner, quieter GNOME panel.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dagimg-dot/veil",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T04:11:42Z"
+  "distributed_at": "2026-05-03T15:50:49Z"
 }
