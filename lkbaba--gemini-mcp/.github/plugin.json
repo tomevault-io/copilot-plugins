@@ -1,0 +1,9 @@
+{
+  "name": "lkbaba--gemini-mcp",
+  "displayName": "Gemini-mcp",
+  "description": "MCP server implementation for Google's Gemini API",
+  "version": "1.0.0",
+  "author": "LKbaba",
+  "homepage": "https://github.com/LKbaba/Gemini-mcp",
+  "skills": []
+}
