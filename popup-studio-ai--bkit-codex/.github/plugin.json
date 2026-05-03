@@ -1,0 +1,234 @@
+{
+  "name": "popup-studio-ai--bkit-codex",
+  "displayName": "bkit",
+  "description": "bkit Vibecoding Kit for OpenAI Codex - PDCA + Context Engineering for AI-native development",
+  "version": "1.0.0",
+  "author": "popup-studio-ai",
+  "homepage": "https://github.com/popup-studio-ai/bkit-codex",
+  "skills": [
+    {
+      "name": "bkend-auth",
+      "description": ""
+    },
+    {
+      "name": "bkend-cookbook",
+      "description": ""
+    },
+    {
+      "name": "bkend-data",
+      "description": ""
+    },
+    {
+      "name": "bkend-quickstart",
+      "description": ""
+    },
+    {
+      "name": "bkend-storage",
+      "description": ""
+    },
+    {
+      "name": "bkit-rules",
+      "description": ""
+    },
+    {
+      "name": "bkit-templates",
+      "description": ""
+    },
+    {
+      "name": "claude-code-learning",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "desktop-app",
+      "description": ""
+    },
+    {
+      "name": "development-pipeline",
+      "description": ""
+    },
+    {
+      "name": "dynamic",
+      "description": ""
+    },
+    {
+      "name": "enterprise",
+      "description": ""
+    },
+    {
+      "name": "mobile-app",
+      "description": ""
+    },
+    {
+      "name": "pdca",
+      "description": ""
+    },
+    {
+      "name": "phase-1-schema",
+      "description": ""
+    },
+    {
+      "name": "phase-2-convention",
+      "description": ""
+    },
+    {
+      "name": "phase-3-mockup",
+      "description": ""
+    },
+    {
+      "name": "phase-4-api",
+      "description": ""
+    },
+    {
+      "name": "phase-5-design-system",
+      "description": ""
+    },
+    {
+      "name": "phase-6-ui-integration",
+      "description": ""
+    },
+    {
+      "name": "phase-7-seo-security",
+      "description": ""
+    },
+    {
+      "name": "phase-8-review",
+      "description": ""
+    },
+    {
+      "name": "phase-9-deployment",
+      "description": ""
+    },
+    {
+      "name": "plan-plus",
+      "description": ""
+    },
+    {
+      "name": "starter",
+      "description": ""
+    },
+    {
+      "name": "zero-script-qa",
+      "description": ""
+    },
+    {
+      "name": "learn-claude-code",
+      "description": ""
+    },
+    {
+      "name": "setup-claude-code",
+      "description": ""
+    },
+    {
+      "name": "upgrade-claude-code",
+      "description": ""
+    },
+    {
+      "name": "bkend-auth",
+      "description": ""
+    },
+    {
+      "name": "bkend-cookbook",
+      "description": ""
+    },
+    {
+      "name": "bkend-data",
+      "description": ""
+    },
+    {
+      "name": "bkend-quickstart",
+      "description": ""
+    },
+    {
+      "name": "bkend-storage",
+      "description": ""
+    },
+    {
+      "name": "bkit-rules",
+      "description": ""
+    },
+    {
+      "name": "bkit-templates",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "codex-learning",
+      "description": ""
+    },
+    {
+      "name": "desktop-app",
+      "description": ""
+    },
+    {
+      "name": "development-pipeline",
+      "description": ""
+    },
+    {
+      "name": "dynamic",
+      "description": ""
+    },
+    {
+      "name": "enterprise",
+      "description": ""
+    },
+    {
+      "name": "mobile-app",
+      "description": ""
+    },
+    {
+      "name": "pdca",
+      "description": ""
+    },
+    {
+      "name": "phase-1-schema",
+      "description": ""
+    },
+    {
+      "name": "phase-2-convention",
+      "description": ""
+    },
+    {
+      "name": "phase-3-mockup",
+      "description": ""
+    },
+    {
+      "name": "phase-4-api",
+      "description": ""
+    },
+    {
+      "name": "phase-5-design-system",
+      "description": ""
+    },
+    {
+      "name": "phase-6-ui-integration",
+      "description": ""
+    },
+    {
+      "name": "phase-7-seo-security",
+      "description": ""
+    },
+    {
+      "name": "phase-8-review",
+      "description": ""
+    },
+    {
+      "name": "phase-9-deployment",
+      "description": ""
+    },
+    {
+      "name": "starter",
+      "description": ""
+    },
+    {
+      "name": "zero-script-qa",
+      "description": ""
+    }
+  ]
+}
