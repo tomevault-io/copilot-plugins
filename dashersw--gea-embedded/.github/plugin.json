@@ -1,0 +1,9 @@
+{
+  "name": "dashersw--gea-embedded",
+  "displayName": "gea-embedded",
+  "description": "A TSX-to-C embedded UI pipeline for ESP32 AMOLED apps and a browser-hosted WASM simulator.",
+  "version": "1.0.0",
+  "author": "dashersw",
+  "homepage": "https://github.com/dashersw/gea-embedded",
+  "skills": []
+}
