@@ -1,0 +1,81 @@
+{
+  "name": "raptor",
+  "owner": "gadievron",
+  "repo": "raptor",
+  "description": "Raptor turns Claude Code into a general-purpose AI offensive/defensive security agent. By using Claude.md and creating rules, sub-agents, and skills, and orchestrating security tool usage, we configure the agent for adversarial thinking, and perform research or attack/defense operations.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gcov-coverage",
+      "path": ".claude/skills/crash-analysis/gcov-coverage",
+      "github_url": "https://github.com/gadievron/raptor/tree/main/.claude/skills/crash-analysis/gcov-coverage",
+      "description": ""
+    },
+    {
+      "name": "github-archive",
+      "path": ".claude/skills/oss-forensics/github-archive",
+      "github_url": "https://github.com/gadievron/raptor/tree/main/.claude/skills/oss-forensics/github-archive",
+      "description": ""
+    },
+    {
+      "name": "github-commit-recovery",
+      "path": ".claude/skills/oss-forensics/github-commit-recovery",
+      "github_url": "https://github.com/gadievron/raptor/tree/main/.claude/skills/oss-forensics/github-commit-recovery",
+      "description": ""
+    },
+    {
+      "name": "github-evidence-kit",
+      "path": ".claude/skills/oss-forensics/github-evidence-kit",
+      "github_url": "https://github.com/gadievron/raptor/tree/main/.claude/skills/oss-forensics/github-evidence-kit",
+      "description": ""
+    },
+    {
+      "name": "github-wayback-recovery",
+      "path": ".claude/skills/oss-forensics/github-wayback-recovery",
+      "github_url": "https://github.com/gadievron/raptor/tree/main/.claude/skills/oss-forensics/github-wayback-recovery",
+      "description": ""
+    },
+    {
+      "name": "rr-debugger",
+      "path": ".claude/skills/crash-analysis/rr-debugger",
+      "github_url": "https://github.com/gadievron/raptor/tree/main/.claude/skills/crash-analysis/rr-debugger",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gadievron/raptor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T21:33:13Z"
+}
