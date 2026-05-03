@@ -1,10 +1,10 @@
 {
-  "name": "quran-mcp",
+  "name": "quran",
   "owner": "quran",
   "repo": "quran-mcp",
   "description": "",
-  "type": "config",
-  "source_format": "GEMINI.md",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,63 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "agent-browser",
+      "path": ".agents/skills/agent-browser",
+      "github_url": "https://github.com/quran/quran-mcp/tree/main/.agents/skills/agent-browser",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".agents/skills/frontend-design",
+      "github_url": "https://github.com/quran/quran-mcp/tree/main/.agents/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "generate-verified-docs",
+      "path": ".agents/quran/skills/generate-verified-docs",
+      "github_url": "https://github.com/quran/quran-mcp/tree/main/.agents/quran/skills/generate-verified-docs",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": ".agents/skills/pdf",
+      "github_url": "https://github.com/quran/quran-mcp/tree/main/.agents/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": ".agents/quran/skills/review",
+      "github_url": "https://github.com/quran/quran-mcp/tree/main/.agents/quran/skills/review",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".agents/skills/skill-creator",
+      "github_url": "https://github.com/quran/quran-mcp/tree/main/.agents/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "test-plan",
+      "path": ".agents/quran/skills/test-plan",
+      "github_url": "https://github.com/quran/quran-mcp/tree/main/.agents/quran/skills/test-plan",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": ".agents/skills/vercel-react-best-practices",
+      "github_url": "https://github.com/quran/quran-mcp/tree/main/.agents/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": ".agents/skills/web-design-guidelines",
+      "github_url": "https://github.com/quran/quran-mcp/tree/main/.agents/skills/web-design-guidelines",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/quran/quran-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T03:51:04Z"
+  "distributed_at": "2026-05-03T06:30:07Z"
 }
