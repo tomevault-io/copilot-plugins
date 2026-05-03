@@ -1,0 +1,30 @@
+{
+  "name": "mikekelly--promode",
+  "displayName": "promode",
+  "description": "AI instruction skills by mikekelly",
+  "version": "1.0.0",
+  "author": "mikekelly",
+  "homepage": "https://github.com/mikekelly/promode",
+  "skills": [
+    {
+      "name": "developing-skills",
+      "description": ""
+    },
+    {
+      "name": "managing-claude-code-meta",
+      "description": ""
+    },
+    {
+      "name": "managing-skills",
+      "description": ""
+    },
+    {
+      "name": "developing-opencode-meta",
+      "description": ""
+    },
+    {
+      "name": "managing-claude-code-meta",
+      "description": ""
+    }
+  ]
+}
