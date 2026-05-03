@@ -1,0 +1,9 @@
+{
+  "name": "yusukebe--workers-routes",
+  "displayName": "workers-routes",
+  "description": "A file-based routing framework for Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "yusukebe",
+  "homepage": "https://github.com/yusukebe/workers-routes",
+  "skills": []
+}
