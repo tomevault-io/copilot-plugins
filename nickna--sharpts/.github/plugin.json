@@ -1,0 +1,9 @@
+{
+  "name": "nickna--sharpts",
+  "displayName": "SharpTS",
+  "description": "Compile TypeScript to .NET IL; Use .NET classes in Typescript",
+  "version": "1.0.0",
+  "author": "nickna",
+  "homepage": "https://github.com/nickna/SharpTS",
+  "skills": []
+}
