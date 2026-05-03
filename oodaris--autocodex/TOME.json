@@ -1,0 +1,81 @@
+{
+  "name": "autocodex",
+  "owner": "oodaris",
+  "repo": "autocodex",
+  "description": "autocodex orchestrates a structured loop: ideate \u2192 plan \u2192 implement \u2192 review \u2192 test",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "eng-code-review-playbook",
+      "path": "skills/eng-code-review-playbook",
+      "github_url": "https://github.com/oodaris/autocodex/tree/main/skills/eng-code-review-playbook",
+      "description": ""
+    },
+    {
+      "name": "eng-go-cli-developer",
+      "path": "skills/eng-go-cli-developer",
+      "github_url": "https://github.com/oodaris/autocodex/tree/main/skills/eng-go-cli-developer",
+      "description": ""
+    },
+    {
+      "name": "eng-go-developer",
+      "path": "skills/eng-go-developer",
+      "github_url": "https://github.com/oodaris/autocodex/tree/main/skills/eng-go-developer",
+      "description": ""
+    },
+    {
+      "name": "eng-plugin-authoring",
+      "path": "skills/eng-plugin-authoring",
+      "github_url": "https://github.com/oodaris/autocodex/tree/main/skills/eng-plugin-authoring",
+      "description": ""
+    },
+    {
+      "name": "eng-smart-test-runner",
+      "path": "skills/eng-smart-test-runner",
+      "github_url": "https://github.com/oodaris/autocodex/tree/main/skills/eng-smart-test-runner",
+      "description": ""
+    },
+    {
+      "name": "eng-ui-vite-react",
+      "path": "skills/eng-ui-vite-react",
+      "github_url": "https://github.com/oodaris/autocodex/tree/main/skills/eng-ui-vite-react",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/oodaris/autocodex",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T15:36:27Z"
+}
