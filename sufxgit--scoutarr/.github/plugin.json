@@ -1,0 +1,9 @@
+{
+  "name": "sufxgit--scoutarr",
+  "displayName": "scoutarr",
+  "description": "Automate media upgrades in Radarr, Sonarr, Lidarr, and Readarr with smart filtering, scheduling, and a modern web UI.",
+  "version": "1.0.0",
+  "author": "SuFxGIT",
+  "homepage": "https://github.com/SuFxGIT/scoutarr",
+  "skills": []
+}
