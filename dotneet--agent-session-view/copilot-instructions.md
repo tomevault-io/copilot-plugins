@@ -1,4 +1,4 @@
-## agent-session-view
+## use-bun-instead-of-node-vite-npm-pnpm
 
 > This file provides guidance to AI Agent when working with code in this repository.
 
