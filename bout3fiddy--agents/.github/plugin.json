@@ -1,0 +1,18 @@
+{
+  "name": "bout3fiddy--agents",
+  "displayName": "agents",
+  "description": "agents",
+  "version": "1.0.0",
+  "author": "bout3fiddy",
+  "homepage": "https://github.com/bout3fiddy/agents",
+  "skills": [
+    {
+      "name": "coding",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
