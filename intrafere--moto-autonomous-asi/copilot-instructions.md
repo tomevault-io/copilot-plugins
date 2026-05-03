@@ -1,202 +1,190 @@
-## api-key-controls
+## latex-renderer
 
-> Enables OpenRouter integration with automatic LM Studio fallback, plus boost controls and research metrics in the workflow panel.
+> **DOMPurify sanitization MUST be active in LatexRenderer.jsx.** Processes untrusted LLM output — XSS risk without it.
 
-# API Key Controls & Workflow Management System
+# LaTeX Renderer System
+
+## 🔒 CRITICAL SECURITY REQUIREMENTS
+
+**DOMPurify sanitization MUST be active in LatexRenderer.jsx.** Processes untrusted LLM output — XSS risk without it.
+
+**Required implementation:**
+- `import DOMPurify from 'dompurify';` in LatexRenderer.jsx
+- `DOMPURIFY_CONFIG` constant defined (see below)
+- `renderedHtmlSmall` useMemo (single chunk) and per-chunk `renderedHtml` useMemo both call `DOMPurify.sanitize()` AFTER `renderLatexToHtml()`
+- `dangerouslySetInnerHTML` receives ONLY sanitized HTML
+
+### DOMPurify Configuration (REQUIRED)
+
+```javascript
+const DOMPURIFY_CONFIG = {
+  ALLOWED_TAGS: [
+    'div', 'span', 'p', 'br', 'hr', 'strong', 'b', 'em', 'i', 'u', 's', 'sub', 'sup', 'small',
+    'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'dl', 'dt', 'dd',
+    'table', 'thead', 'tbody', 'tr', 'th', 'td',
+    'math', 'semantics', 'mrow', 'mi', 'mo', 'mn', 'msup', 'msub', 'mfrac', 'mroot', 
+    'msqrt', 'mtext', 'mspace', 'mtable', 'mtr', 'mtd', 'annotation', 'annotation-xml',
+    'svg', 'path', 'line', 'rect', 'circle', 'g', 'use', 'defs', 'clippath',
+  ],
+  ALLOWED_ATTR: [
+    'class', 'id', 'title', 'style',
+    'mathvariant', 'encoding', 'xmlns', 'displaystyle', 'scriptlevel',
+    'columnalign', 'rowalign', 'columnspacing', 'rowspacing', 'stretchy',
+    'symmetric', 'fence', 'separator', 'lspace', 'rspace', 'accent',
+    'accentunder', 'movablelimits', 'minsize', 'maxsize', 'width', 'height',
+    'd', 'viewBox', 'preserveAspectRatio', 'fill', 'stroke', 'stroke-width',
+    'transform', 'x', 'y', 'dx', 'dy', 'x1', 'y1', 'x2', 'y2', 'r', 'cx', 'cy',
+    'href', 'xlink:href', 'clip-path',
+  ],
+  ALLOW_DATA_ATTR: false,
+  ALLOW_ARIA_ATTR: false,
+  FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form', 'input', 'button', 'textarea', 'select', 'option', 'link', 'style', 'base', 'meta'],
+  FORBID_ATTR: ['onerror', 'onclick', 'onload', 'onmouseover', 'onfocus', 'onblur', 'onchange', 'onsubmit', 'onkeydown', 'onkeyup', 'onmousedown', 'onmouseup'],
+  SANITIZE_DOM: true,
+};
+```
+
+### Sanitization Point (REQUIRED)
+
+DOMPurify sanitization occurs in two paths:
+- **Small documents** (single chunk): via `renderedHtmlSmall` useMemo in main component
+- **Chunked documents**: via per-chunk `renderedHtml` useMemo in each `RenderedChunk`
+
+Both paths call `DOMPurify.sanitize(rawHtml, DOMPURIFY_CONFIG)` after `renderLatexToHtml()`.
+
+---
 
 ## Overview
 
-Enables OpenRouter integration with automatic LM Studio fallback, plus boost controls and research metrics in the workflow panel.
+Dual rendering: **Rendered LaTeX View** (KaTeX math, dark theme on screen, white for PDFs) and **Raw Text View** (plain text, dark theme). All rendering flows through `LatexRenderer.jsx` (`frontend/src/components/LatexRenderer.jsx`). CSS in `LatexRenderer.css`. PDF generation via `downloadHelpers.js`.
 
-**Key Features:**
-- **Per-Role OpenRouter Selection**: Each role independently uses LM Studio or OpenRouter
-- **Global OpenRouter API Key**: Single key for all per-role OpenRouter selections. Boost can reuse it when no explicit boost-only override key is provided.
-- **LM Studio Fallback**: Optional fallback per role on credit exhaustion
-- **Free Model Cooldown Handling**: SERIAL BOTTLENECK pause, free model looping, and auto-selector backup (see below)
-- **Boost Mode**: Selective task acceleration via two modes, using either an explicit boost override key or the active global OpenRouter key:
-  - **Boost Next X Calls**: Counter-based, next X API calls regardless of task ID
-  - **Category Boost**: Role-based, boosts all calls for specific role categories (Aggregator and Compiler only; Autonomous agents inherit from their parent roles automatically)
-- **System works without LM Studio**: Defaults to OpenRouter when LM Studio unavailable
+**Performance Architecture**: For large documents (>~10K words), content is split into chunks at section boundaries. Each chunk renders independently via `IntersectionObserver`-gated `RenderedChunk` components — only chunks visible in the viewport (plus 600px margin) are LaTeX-rendered. Documents >50K chars auto-default to raw mode with a banner to switch. Content updates in rendered mode are debounced (1.5s) to prevent rapid re-rendering.
 
----
+### Props API
 
-## Architecture Components
-
-### Boost and Parallel Execution
-
-**Boost is a ROUTING decision, NOT a CONCURRENCY decision.**
-- Boost affects which API endpoint is used, NOT whether submitters run in parallel or serial
-- Aggregation submitters ALWAYS run in parallel regardless of boost status (unless single-model mode)
-- Single-model mode: triggered when all submitters AND validator use the SAME configured model ID. Boost routing does NOT trigger single-model mode.
-
-### Backend Core
-
-#### OpenRouterClient (`backend/shared/openrouter_client.py`)
-- Async HTTP client. Base URL: `https://openrouter.ai/api/v1`
-- App Attribution Headers: `HTTP-Referer: https://intrafere.com/moto-autonomous-home-ai/`, `X-Title: MOTO Deep Research Harness`
-- Credit exhaustion detection: HTTP 402 OR error messages containing "credit", "insufficient", "balance", "quota", "key limit", "limit exceeded"
-- Raises `CreditExhaustionError` on exhaustion (no retries). Retries transient errors (max 3).
-- Temperature=0.0 default. No stop sequences (removed — caused premature truncation with certain models).
-
-#### APIClientManager (`backend/shared/api_client_manager.py`)
-- Central router for all API calls: boost check → role's OpenRouter (with resettable fallback) → LM Studio
-- Tracks fallback state per role: `_role_fallback_state: Dict[str, str]`
-- `reset_openrouter_fallbacks()`: Resets all roles originally configured for OpenRouter back from LM Studio fallback. Called automatically on API key set, or manually via reset endpoint.
-- Lazy initialization: OpenRouter client initializes from `rag_config.openrouter_api_key` when first needed
-
-**CRITICAL REQUIREMENT - Role Configuration:**
-- **EVERY role calling `api_client_manager.generate_completion()` MUST be configured via `api_client_manager.configure_role()`**
-- This includes: aggregator submitters/validator, compiler submitters/validator/critique, autonomous agents, Tier 3 final answer agents
-
-**Boost Mode Priority** (`should_use_boost(task_id)`):
-1. Boost Next X: `boost_next_count > 0` → True
-2. Category Boost: `_extract_role_prefix(task_id) in boosted_categories` → True
-
-**Counter Decrement:** `boost_next_count` decrements ONLY on successful boost API calls. Failed/exhausted calls do NOT decrement.
-
-**Resettable Fallback:** When a role hits credit exhaustion, it falls back to LM Studio for subsequent calls. User can reset all fallen-back roles via `POST /api/openrouter/reset-exhaustion` or by re-setting the API key (auto-resets). Each role has independent fallback state. If no fallback configured: raises RuntimeError.
-
-**Categories from role_id:**
-- `aggregator_submitter_*` → "Aggregator Submitters"
-- `aggregator_validator` → "Aggregator Validator"
-- `compiler_high_context` → "Compiler High-Context"
-- `compiler_high_param` → "Compiler High-Param"
-- `compiler_validator` → "Compiler Validator"
-- `autonomous_*` → "Autonomous"
-
-#### BoostManager (`backend/shared/boost_manager.py`)
-- Singleton. Key methods: `set_boost_config`, `clear_boost`, `set_boost_next_count`, `toggle_category_boost`, `should_use_boost` (main check for coordinators), `consume_boost_count` (only after successful boost call)
-- Boost can use an **explicit override** OpenRouter API key, or it falls back to the active global OpenRouter key. A temporary `OpenRouterClient` is created per boosted task and closed immediately after.
-- **Autonomous agent task ID inheritance**: All autonomous orchestration agents use parent role task ID prefixes — Topic Selector/Completion Reviewer/Reference Selector/Paper Title Selector/Tier 3 agents use `agg_sub1_*`; Topic Validator/Redundancy Checker use `agg_val_*`. Boosting a parent role automatically covers all autonomous agents that run on that model.
-
-#### BoostLogger (`backend/shared/boost_logger.py`)
-- Singleton. Log file: `backend/data/boost_api_log.txt`
-- Methods: `log_api_call`, `get_logs(limit)`, `clear_logs`, `get_stats`
-- Boost logs are merged into the main API call log view; boost endpoints remain available for boost-only debugging.
-
-#### Workflow Task Generation (Internal Backend Tracking)
-Coordinators track task IDs internally for boost routing. The frontend does NOT display predicted task lists.
-- Aggregator: `agg_sub{N}_{seq:03d}`, `agg_val_{seq:03d}`
-- Compiler: `comp_hc_{seq:03d}`, `comp_hp_{seq:03d}`, `comp_val_{seq:03d}`
-- Autonomous: `auto_te_{seq:03d}`, `auto_tev_{seq:03d}`, `auto_ts_{seq:03d}`, `auto_tv_{seq:03d}`
+```javascript
+<LatexRenderer
+  content={string}       // Raw content to render
+  className={string}     // Optional CSS class
+  showToggle={boolean}   // Show Rendered/Raw toggle (default: true)
+  defaultRaw={boolean}   // Start in raw mode (default: false)
+  showLatex={boolean}    // External view mode control (optional)
+/>
+```
 
 ---
 
-## Coordinator Integration
+## Rendering Pipeline (CRITICAL ORDER)
 
-All coordinators track workflow via: `workflow_tasks`, `completed_task_ids`, `current_task_sequence`, `current_task_id`.
+Must execute in this exact order in `renderLatexToHtml()`:
 
-Key methods: `refresh_workflow_predictions()`, `get_next_task()`, `mark_task_completed(task_id)`, `mark_task_started(task_id)`.
+1. **`decodeHtmlEntities()`** — FIRST
+2. **`autoWrapMath()`** — Auto-wrap unwrapped math
+3. **`processTheoremEnvironments()`** — TikZ handling happens HERE (all three patterns: `\[...\]`, `$$...$$`, standalone)
+4. **`replaceSectionCommand()`** — Section headers
+5. **Text formatting, citations, footnotes, lists, tables, QED symbols**
+6. **KaTeX rendering** via `renderKatexSafely()` — `maxExpand: 5000`, skips HTML placeholder content
+7. **Line breaks/horizontal rules** (`\\` → `<br/>`, `\hrule` → `<hr/>`) — AFTER KaTeX
+8. **DOMPurify sanitization** — LAST
 
-Predictions refresh: after initialization, each task completion, mode switches, phase transitions.
+**Critical:** `\\` line break conversion MUST be after KaTeX (valid syntax in `aligned`, `matrix`, etc.)
 
----
+### Chunked Rendering Architecture
 
-## WebSocket Events
+**Chunking**: `splitIntoChunks()` splits content at section headers and double-newlines. Target chunk size ~3000 chars. Documents under target stay as single chunk (no overhead).
 
-**Workflow:** `workflow_updated` (mode), `token_usage_updated` (total_input, total_output, by_model, elapsed_seconds)
+**Virtualization**: Each chunk is a memoized `RenderedChunk` component. An `IntersectionObserver` (600px root margin) triggers LaTeX rendering only when the chunk scrolls near the viewport. Off-screen chunks show a height-estimated placeholder div.
 
-**Boost:** `boost_enabled` (model_id, provider, context_window, max_output_tokens), `boost_disabled`, `boost_next_count_updated` (count), `category_boost_toggled` (category, boosted), `boost_credits_exhausted` (task_id, message)
+**Debouncing**: `useDebouncedValue` hook delays rendered-mode processing by 1.5s during rapid content updates (WebSocket + polling). Raw mode is unaffected (instant updates).
 
-**Fallback:** `openrouter_fallback` (role_id, reason, message, fallback_model), `openrouter_fallback_failed` (role_id, reason, message), `openrouter_fallbacks_reset` (reset_roles, message)
+**Auto-threshold**: Documents >50K chars (`LARGE_DOC_THRESHOLD`) auto-default to raw mode with a banner offering to switch to rendered view.
 
-**Hung Connection:** `hung_connection_alert` (role_id, model, provider, elapsed_minutes, message) — fires after 15 minutes of no API response. Amber notification stack (bottom-left, offset from credit exhaustion stack). Auto-cleared on research stop and fallbacks reset.
-
-**Rate Limit:** `openrouter_rate_limit` (model, role_id, retry_after, message)
-
-**Privacy:** `openrouter_privacy_error` (error_type, model, role_id, message, solution_url)
-
----
-
-## API Endpoints
-
-### Boost (`backend/api/routes/boost.py`)
-- `POST /api/boost/enable` — Enable boost (BoostConfig body)
-- `POST /api/boost/disable` — Disable boost, clear all modes
-- `GET /api/boost/status` — Current config, counts, categories
-- `POST /api/boost/set-next-count` — Set Boost Next X counter `{ "count": int }`
-- `POST /api/boost/toggle-category/{category}` — Toggle category boost
-- `GET /api/boost/categories?mode=` — All categories (mode param ignored, always returns all)
-- `GET /api/boost/openrouter-models` — Fetch OpenRouter models (Bearer key header)
-- `GET /api/boost/model-providers?model_id=` — Providers for a model
-- `GET /api/boost/logs?limit=` — Recent boost-only logs (debug)
-- `POST /api/boost/clear-logs` — Clear logs
-
-### OpenRouter (`backend/api/routes/openrouter.py`)
-- `GET /api/openrouter/lm-studio-availability` — LM Studio availability check
-- `POST /api/openrouter/set-api-key` — Set and validate global OpenRouter key (auto-resets exhaustion flags)
-- `POST /api/openrouter/reset-exhaustion` — Reset all credit exhaustion flags + role fallback states mid-session
-- `DELETE /api/openrouter/api-key` — Clear key
-- `GET /api/openrouter/api-key-status` — `{ has_key, enabled }`
-- `GET /api/openrouter/models` — Available models (also caches free models for rotation)
-- `GET /api/openrouter/providers/{model_id}` — Providers for model
-- `GET /api/openrouter/free-model-settings` — `{ looping_enabled, auto_selector_enabled, ... }`
-- `POST /api/openrouter/free-model-settings` — Update free model settings (body: `FreeModelSettings`)
-- `POST /api/openrouter/test-connection` — Test key without storing
-- `GET /api/model-cache` — Cached model ID mapping (display_name → api_id)
-
-### Workflow (`backend/api/routes/workflow.py`)
-- `GET /api/workflow/predictions` — Current workflow mode (also returns tasks for internal use)
-- `GET /api/workflow/history?limit=` — Completed tasks
-- `GET /api/token-stats` — Cumulative token usage (total_input, total_output, by_model, elapsed_seconds)
+**Invariant**: Each chunk independently runs the full `renderLatexToHtml()` → `DOMPurify.sanitize()` pipeline. The pipeline order within each chunk is identical to the single-document path.
 
 ---
 
-## Error Handling
+## Download System (`frontend/src/utils/downloadHelpers.js`)
 
-**Credit Exhaustion:** HTTP 402 or keywords "credit"/"insufficient"/"balance"/"quota"/"key limit"/"limit exceeded" → `CreditExhaustionError` → LM Studio fallback for that role (or RuntimeError if no fallback). Fallback is resettable via `POST /api/openrouter/reset-exhaustion` or by re-setting the API key.
+**`downloadPDFViaBackend()`**: Frontend renders content to HTML using `renderLatexToHtml()` + `DOMPurify.sanitize()`, then POSTs the HTML body to `POST /api/download/pdf`. The backend (`backend/api/routes/download.py`) wraps it in a complete HTML document with KaTeX CSS (read from `frontend/node_modules/katex/dist/katex.min.css`) + LatexRenderer.css (both inlined — no CDN dependency), then uses **Playwright (headless Chromium)** to print to PDF via `asyncio.get_running_loop().run_in_executor` (non-blocking). Returns a `Response` with the PDF bytes. Frontend triggers browser download when response arrives. Button shows "Preparing PDF..." while request is in flight — UI stays fully interactive throughout.
 
-**Boost Exhaustion:** Falls back to primary for that task; boost stays enabled; counter NOT decremented.
+**`downloadRawText()`**: Combine outline + content → Blob (UTF-8) → browser download.
 
-**Rate Limits (Free Models):** HTTP 429 or "rate limit" keywords → 1-hour pause per `:free` model. Handled by Free Model Cooldown system (see below).
+**`sanitizeFilename()`**: Remove special chars, underscores for whitespace, truncate to 100 chars.
 
-**Privacy Policy Errors:** HTTP 404 + "data policy" message → `OpenRouterPrivacyPolicyError`. Role-based: falls back to LM Studio if configured; Boost: raises RuntimeError. Fix: https://openrouter.ai/settings/privacy → enable data sharing.
+**Backend PDF route**: `POST /api/download/pdf` — accepts `{html_body, title, word_count, date, models, outline, filename}`. Builds a standalone HTML document (KaTeX + LatexRenderer CSS both inlined from local filesystem + PDF print overrides that convert dark theme to light). `wait_until="load"` (no external requests). Runs `sync_playwright()` in `asyncio.get_running_loop().run_in_executor`. Returns `Response(content=pdf_bytes, media_type="application/pdf")`.
 
----
+**Playwright install**: `python -m playwright install chromium` — runs automatically in both launcher scripts after `pip install -r requirements.txt`. One-time ~150MB download of bundled Chromium (no system Chrome/Chromium required). Failure is non-fatal (warning shown, startup continues).
 
-## Free Model Cooldown & Rotation System
-
-**Singleton:** `free_model_manager` in `backend/shared/free_model_manager.py`. Two global settings (both default ON):
-- `looping_enabled` — rotate to next available free model on rate limit (highest context first)
-- `auto_selector_enabled` — fall back to `openrouter/free` (131072 context) when all free models exhausted
-
-**Rotation chain** (in `api_client_manager._try_free_model_rotation()` called from RateLimitError handler):
-1. If `looping_enabled`: **iterate through ALL** non-rate-limited free models (highest context first) using `tried_models` set to avoid re-trying. On each `RateLimitError`, refresh rate-limited dict and continue to next model. On `CreditExhaustionError`, stop looping.
-2. If all looping candidates exhausted and `auto_selector_enabled`: try `openrouter/free`
-3. If still failed: check LM Studio fallback (fall-through to LM Studio)
-4. If no fallback: raise `FreeModelExhaustedError(soonest_retry=...)`
-
-`get_alternative_free_model()` accepts optional `skip_models: set` parameter to skip already-tried models.
-
-**SERIAL BOTTLENECK:** When `FreeModelExhaustedError` propagates to coordinators:
-- Autonomous coordinator: caught INSIDE the `while` loop — sleeps until `soonest_retry`, broadcasts `serial_bottleneck_paused/resumed`, then the loop re-iterates naturally (research resumes)
-- Compiler coordinator: caught at workflow level — sleeps then spawns new `_main_workflow()` task via `asyncio.create_task()`
-- Aggregator submitters: per-submitter pause (others continue); validator loop pauses entire validator
-- Prevents infinite retry loops (the 2000+ attempt bug)
-
-**Account Exhaustion:** HTTP 402 on any `:free` model sets `_account_credits_exhausted` flag. All subsequent free model calls short-circuit immediately. Flag clears on next successful free model call, or via `POST /api/openrouter/reset-exhaustion`, or automatically when the API key is re-set.
-
-**Error Classes:**
-- `FreeModelExhaustedError` — all options exhausted, contains `soonest_retry` timestamp
-- Agents re-raise `FreeModelExhaustedError` through generic `except Exception` blocks
-
-**API Endpoints:**
-- `GET /api/openrouter/free-model-settings` — current looping/auto-selector state
-- `POST /api/openrouter/free-model-settings` — update settings `{looping_enabled, auto_selector_enabled}`
-
-**WebSocket Events:** `free_model_rotated`, `free_model_auto_selector_used`, `serial_bottleneck_paused`, `serial_bottleneck_resumed`, `all_free_models_exhausted`, `account_credits_exhausted`
-
-**Frontend:** Two checkboxes in all settings panels (Aggregator, Compiler, Autonomous) near "Show free models only". Both default checked, persist to localStorage, control same backend singleton.
+**Required dependency**: `playwright>=1.40.0` in `requirements.txt`.
 
 ---
 
-## Configuration Persistence
+## Component Integration
 
-**Secure backend storage (OS keyring):** OpenRouter global API key and Wolfram Alpha API key persist via `backend/shared/secret_store.py` using the OS keychain/keyring. Restored into backend memory on startup in `backend/api/main.py`.
+| Component | Location | PDF | Toggle | Disclaimer | Notes |
+|-----------|----------|-----|--------|------------|-------|
+| LivePaper.jsx | compiler/ | ✅ | ✅ | paper | Real-time paper viewing; auto-switches to raw >50K chars |
+| PaperLibrary.jsx | autonomous/ | ✅ | ✅ | baked-in | Paper library cards (backend embeds disclaimer at save) |
+| FinalAnswerView.jsx | autonomous/ | ✅ | ✅ | baked-in | Tier 3 final answer (defaults to raw for performance) |
+| FinalAnswerLibrary.jsx | autonomous/ | ✅ | ✅ | paper | Final answer library (all sessions) |
+| LivePaperProgress.jsx | autonomous/ | ✅ | ✅ | paper | Live Tier 2 paper in progress |
+| LiveTier3Progress.jsx | autonomous/ | ✅ | ✅ | paper | Live Tier 3 paper in progress |
+| LiveResults.jsx | aggregator/ | ❌ | ✅ | brainstorm | Aggregator submissions (defaults to raw) |
+| BrainstormList.jsx | autonomous/ | ❌ | ✅ | brainstorm | Brainstorm content viewer |
 
-**localStorage:** `workflow_panel_collapsed`, `aggregatorConfig`, `compiler_settings`, `autonomousConfig` (includes `freeModelLooping`, `freeModelAutoSelector`)
+### PDF Download Usage
 
-**Session (in-memory):** fallback state per role, boosted task IDs, boost next count, boosted categories, completed task IDs, free model manager state. Boost logs persist to file (`boost_api_log.txt`) and are merged into the main API call log view.
+```javascript
+// Pass raw text content — backend handles rendering and PDF generation
+// disclaimerType ('paper'|'brainstorm'|null) auto-prepends disclaimer if content lacks one
+await downloadPDFViaBackend(rawContent, metadata, sanitizeFilename(title), outline, onStart, onComplete, onError, 'paper');
+```
+
+---
+
+## Disclaimer Injection (`frontend/src/utils/disclaimerHelper.js`)
+
+**Purpose:** Hallucination/AI-generated-content disclaimers are shown on every brainstorm and paper view and included in every download — but NEVER injected into the model's context window.
+
+**Approach:** Frontend-only. `prependDisclaimer(content, type)` prepends a disclaimer block unless one already exists (detects both the backend-embedded `AUTONOMOUS AI SOLUTION` header on completed papers and the frontend `DISCLAIMER` header).
+
+**Two variants:** `PAPER_DISCLAIMER` (for papers) and `BRAINSTORM_DISCLAIMER` (for brainstorm/aggregator databases).
+
+**Completed papers** (`PaperLibrary`, `FinalAnswerView`) already carry a richer backend-embedded disclaimer with model attribution; the `hasDisclaimer()` check prevents double-prepending.
+
+**Download helpers** (`downloadRawText`, `downloadPDFViaBackend`) accept an optional `disclaimerType` param that triggers the same `prependDisclaimer` logic before writing.
+
+**Critical invariant:** Backend brainstorm files and in-progress paper files remain disclaimer-free so models never waste context tokens on disclaimer text.
+
+---
+
+## Paper Critique Modal (`PaperCritiqueModal.jsx`)
+
+Ratings: Novelty, Correctness, Impact (1-10 scale). Up to 10 history entries. Regeneration with custom prompt.
+
+**Integration localStorage keys:**
+- `autonomous_critique_custom_prompt` — PaperLibrary + FinalAnswerView
+- `compiler_critique_custom_prompt` — LivePaper
+
+---
+
+## System Invariants
+
+1. ALL model output MUST be sanitized — no exceptions
+2. DOMPurify MUST block scripts — never relax FORBID_TAGS
+3. Sanitization MUST occur AFTER LaTeX conversion (in both single-doc and per-chunk paths)
+4. HTML entities MUST be decoded before LaTeX processing (first step)
+5. TikZ environments MUST be pre-processed — KaTeX cannot render them; remove surrounding math delimiters (all three patterns)
+6. KaTeX maxExpand MUST be 5000
+7. Line break conversion MUST happen AFTER KaTeX — prevents SVG corruption
+8. Rendering pipeline order MUST be preserved (same order in each chunk)
+9. Raw text view never processes HTML — plain text only
+10. PDF generation captures sanitized content
+11. Chunks MUST split at safe boundaries (section headers, double-newlines) — never mid-math-environment
+12. IntersectionObserver root margin MUST be ≥600px — prevents visible pop-in
+13. Debounce delay applies ONLY to rendered mode — raw mode updates instantly
+14. Chunk `key` MUST include content hash (`simpleHash`) — prevents React reusing stale DOM on content change
+15. Disclaimer MUST appear on all brainstorm/paper display and download paths — injected at frontend layer only, never stored in backend files consumed by models
 
 ---
 > Source: [Intrafere/MOTO-Autonomous-ASI](https://github.com/Intrafere/MOTO-Autonomous-ASI) — distributed by [TomeVault](https://tomevault.io).
