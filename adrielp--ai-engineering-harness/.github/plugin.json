@@ -1,0 +1,86 @@
+{
+  "name": "adrielp--ai-engineering-harness",
+  "displayName": "ai-engineering-harness",
+  "description": "Provides a harness for various different AI agent for harness context engineering",
+  "version": "1.0.0",
+  "author": "adrielp",
+  "homepage": "https://github.com/adrielp/ai-engineering-harness",
+  "skills": [
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "create_plan",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "description": ""
+    },
+    {
+      "name": "debug",
+      "description": ""
+    },
+    {
+      "name": "debug-k8s",
+      "description": ""
+    },
+    {
+      "name": "experimental_pr_workflow",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "git_commit_helper",
+      "description": ""
+    },
+    {
+      "name": "implement_plan",
+      "description": ""
+    },
+    {
+      "name": "implement_plan",
+      "description": ""
+    },
+    {
+      "name": "init_harness",
+      "description": ""
+    },
+    {
+      "name": "init_harness",
+      "description": ""
+    },
+    {
+      "name": "init_harness",
+      "description": ""
+    },
+    {
+      "name": "pr_description_generator",
+      "description": ""
+    },
+    {
+      "name": "research_codebase",
+      "description": ""
+    },
+    {
+      "name": "research_codebase",
+      "description": ""
+    },
+    {
+      "name": "validate_plan",
+      "description": ""
+    }
+  ]
+}
