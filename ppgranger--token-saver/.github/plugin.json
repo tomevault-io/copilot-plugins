@@ -1,0 +1,9 @@
+{
+  "name": "ppgranger--token-saver",
+  "displayName": "token-saver",
+  "description": "Content-aware output compression for AI coding assistants. Replaces blind truncation with intelligent strategies per file type: structural summaries for code, schema extraction for configs, error-focu",
+  "version": "1.0.0",
+  "author": "ppgranger",
+  "homepage": "https://github.com/ppgranger/token-saver",
+  "skills": []
+}
