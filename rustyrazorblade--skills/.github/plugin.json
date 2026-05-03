@@ -1,0 +1,26 @@
+{
+  "name": "rustyrazorblade--skills",
+  "displayName": "skills",
+  "description": "Claude Code Cassandra Expert Skill",
+  "version": "1.0.0",
+  "author": "rustyrazorblade",
+  "homepage": "https://github.com/rustyrazorblade/skills",
+  "skills": [
+    {
+      "name": "data-model",
+      "description": ""
+    },
+    {
+      "name": "diagnose",
+      "description": ""
+    },
+    {
+      "name": "expert",
+      "description": ""
+    },
+    {
+      "name": "optimize",
+      "description": ""
+    }
+  ]
+}
