@@ -1,0 +1,57 @@
+{
+  "name": "oss",
+  "owner": "better-i18n",
+  "repo": "oss",
+  "description": "Official TypeScript SDKs for Better i18n \u2014 Next.js, React, Expo/React Native integrations with CLI, MCP server, and CDN-powered translation delivery",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "better-i18n",
+      "path": "skill",
+      "github_url": "https://github.com/better-i18n/oss/tree/main/skill",
+      "description": ""
+    },
+    {
+      "name": "better-i18n",
+      "path": "apps/landing/content/agent-skills/better-i18n",
+      "github_url": "https://github.com/better-i18n/oss/tree/main/apps/landing/content/agent-skills/better-i18n",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/better-i18n/oss",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:51:12Z"
+}
