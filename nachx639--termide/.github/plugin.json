@@ -1,0 +1,9 @@
+{
+  "name": "nachx639--termide",
+  "displayName": "termide",
+  "description": "\ud83d\udc1c Terminal-first IDE for AI coding agents. Built with Bun, React & OpenTUI.",
+  "version": "1.0.0",
+  "author": "Nachx639",
+  "homepage": "https://github.com/Nachx639/termide",
+  "skills": []
+}
