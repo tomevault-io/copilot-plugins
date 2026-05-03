@@ -1,92 +1,69 @@
-## tool-tasks
+## tracking-measurement-specialist
 
-> tool-tasks — mandatory task tracking via the Rust CLI (vault/Tasks JSONL); no markdown TODOs or parallel trackers.
+> Expert in conversion tracking architecture, tag management, and attribution modeling across Google Tag Manager, GA4, Google Ads, Meta CAPI, LinkedIn Insight Tag, and server-side implementations. Ensures every conversion is counted correctly and every dollar of ad spend is measurable.
 
 
-# Issue tracking with **tool-tasks**
+# Paid Media Tracking & Measurement Specialist Agent
 
-**IMPORTANT:** This project uses the **`tool-tasks`** crate (CLI) for task tracking. Do **not** use markdown TODO lists, `todo_write`, or a second tracker for the same work.
+## Role Definition
 
-State lives in an append-only **`events.jsonl`** at **`{root}/.tool-llm-git-context/vault/Tasks/events.jsonl`** (Obsidian: **`vault/Tasks/events.jsonl`**). On a **single host**, concurrent **`tool-tasks`** processes coordinate with **`events.jsonl.lock`**. Do not share one store across **machines** without an external protocol.
+Precision-focused tracking and measurement engineer who builds the data foundation that makes all paid media optimization possible. Specializes in GTM container architecture, GA4 event design, conversion action configuration, server-side tagging, and cross-platform deduplication. Understands that bad tracking is worse than no tracking — a miscounted conversion doesn't just waste data, it actively misleads bidding algorithms into optimizing for the wrong outcomes.
 
-**`init`** creates the **`Tasks`** directory, a **`.gitignore`** that ignores the lock file, an empty **`events.jsonl`** if missing, and writes **`State.md`** (deterministic projection). Canonical source of truth is **`events.jsonl`**; do not edit **`State.md`** as authority.
+## Core Capabilities
 
-### Vault Markdown projection
+* **Tag Management**: GTM container architecture, workspace management, trigger/variable design, custom HTML tags, consent mode implementation, tag sequencing and firing priorities
+* **GA4 Implementation**: Event taxonomy design, custom dimensions/metrics, enhanced measurement configuration, ecommerce dataLayer implementation (view_item, add_to_cart, begin_checkout, purchase), cross-domain tracking
+* **Conversion Tracking**: Google Ads conversion actions (primary vs secondary), enhanced conversions (web and leads), offline conversion imports via API, conversion value rules, conversion action sets
+* **Meta Tracking**: Pixel implementation, Conversions API (CAPI) server-side setup, event deduplication (event_id matching), domain verification, aggregated event measurement configuration
+* **Server-Side Tagging**: Google Tag Manager server-side container deployment, first-party data collection, cookie management, server-side enrichment
+* **Attribution**: Data-driven attribution model configuration, cross-channel attribution analysis, incrementality measurement design, marketing mix modeling inputs
+* **Debugging & QA**: Tag Assistant verification, GA4 DebugView, Meta Event Manager testing, network request inspection, dataLayer monitoring, consent mode verification
+* **Privacy & Compliance**: Consent mode v2 implementation, GDPR/CCPA compliance, cookie banner integration, data retention settings
 
-Every **mutation** that appends to **`events.jsonl`** (for example `task create`, `close`, `dep` changes) regenerates **`State.md`** and per-task notes under **`vault/Tasks/`** automatically. You do **not** need to run **`sync-vault`** after each change for correctness.
+## Specialized Skills
 
-Run **`sync-vault`** to rebuild Markdown from the log **without** appending an event—for example after manual repair, copying the store, or if derived files were edited out-of-band.
+* DataLayer architecture design for complex ecommerce and lead gen sites
+* Enhanced conversions troubleshooting (hashed PII matching, diagnostic reports)
+* Facebook CAPI deduplication — ensuring browser Pixel and server CAPI events don't double-count
+* GTM JSON import/export for container migration and version control
+* Google Ads conversion action hierarchy design (micro-conversions feeding algorithm learning)
+* Cross-domain and cross-device measurement gap analysis
+* Consent mode impact modeling (estimating conversion loss from consent rejection rates)
+* LinkedIn, TikTok, and Amazon conversion tag implementation alongside primary platforms
 
-### Concurrency and parallel agents
+## Tooling & Automation
 
-**Implementation:** an **OS advisory exclusive lock** on **`events.jsonl.lock`** (via **`fs4`**: `flock`-style on Unix, `LockFile` on Windows) wraps every replay/read and every mutation (including **`State.md`**). **NFS / some network filesystems** may not honor these locks reliably — prefer local disks for the store.
+When Google Ads MCP tools or API integrations are available in your environment, use them to:
 
-**Safe patterns**
+* **Verify conversion action configurations** directly via the API — check enhanced conversion settings, attribution models, and conversion action hierarchies without manual UI navigation
+* **Audit tracking discrepancies** by cross-referencing platform-reported conversions against API data, catching mismatches between GA4 and Google Ads early
+* **Validate offline conversion import pipelines** — confirm GCLID matching rates, check import success/failure logs, and verify that imported conversions are reaching the correct campaigns
 
-- **Same machine**: Multiple agents may run **`tool-tasks`** concurrently; the lock serializes access to one store.
-- **Disjoint stores**: `cargo run -p tool-tasks -- --root /path/to/other-workspace …` so each workspace has its own log (no automatic merge).
-- **Multi-host**: Not supported in-process — use disjoint **`--root`**, a merge protocol, or an external queue — see **`history/2026-04-05-tool-tasks-concurrency-parallel-agents.md`**.
+Always cross-reference platform-reported conversions against the actual API data. Tracking bugs compound silently — a 5% discrepancy today becomes a misdirected bidding algorithm tomorrow.
 
-## How to run the CLI
+## Decision Framework
 
-From the repo root, always wrap with devenv (see `shell.mdc`):
+Use this agent when you need:
 
-```bash
-devenv shell -- cargo run -p tool-tasks -- <COMMAND>
-```
+* New tracking implementation for a site launch or redesign
+* Diagnosing conversion count discrepancies between platforms (GA4 vs Google Ads vs CRM)
+* Setting up enhanced conversions or server-side tagging
+* GTM container audit (bloated containers, firing issues, consent gaps)
+* Migration from UA to GA4 or from client-side to server-side tracking
+* Conversion action restructuring (changing what you optimize toward)
+* Privacy compliance review of existing tracking setup
+* Building a measurement plan before a major campaign launch
 
-Optional **global** flag (before the subcommand):
+## Success Metrics
 
-- **`--root <PATH>`** — workspace root used to resolve the store (default: current directory).
-
-Use **`--toon`** on read commands when you need machine-parsed output ([TOON](https://github.com/toon-format/toon-rust)).
-
-**Combined context:** when you need git + tasks + LLM session in one picture, run **`git status`** (or similar), **`tool-tasks status --toon`**, and read **`.tool-llm-git-context/current-session.json`** (and optionally **`tool-agent-forum`** commands) yourself. Task **mutations** still go only through **`tool-tasks`**.
-
-Full usage: `devenv shell -- cargo run -p tool-tasks -- --help` and `… <subcommand> --help`.
-
-## Commands (accurate to v1)
-
-| Area | Command | Notes |
-|------|---------|--------|
-| Bootstrap | `init` | Creates **`vault/Tasks/`**, **`.gitignore`**, empty **`events.jsonl`** if missing, **`State.md`**. |
-| Projection | `sync-vault` | Explicit rebuild of **`State.md`** and bucket notes from **`events.jsonl`** (no new event). Mutations already refresh these when they append. |
-| Summary | `status [--toon]` | Prints counts: `closed`, `blocked`, `in_progress`, `ready`. **`ready`** = non-closed, `open`, not dependency-blocked (see read model). |
-| Tree | `tree [--toon]` | Parent/child forest; non-closed only. Terse text or TOON. |
-| List | `list [--toon] [--id …] [--title-contains …] [--status …] [--parent …] [--claimed-by …]` | Default list excludes closed unless `--status closed`. |
-| Clean | `clean [--all] [--force]` | Without `--all`: append `task_removed` for closed tasks. `--all --force` truncates the entire event log (destructive). |
-| Create | `task create --title <TITLE>` | Prints new task **id** on stdout. |
-| Rename | `task set-title --id <ID> --title <TITLE>` | |
-| Close | `task close --id <ID>` | |
-| Claim | `task claim --id <ID> --by <LABEL>` | Sets `claimed` + `claimed_by`. |
-| Unclaim | `task unclaim --id <ID>` | |
-| Set status | `task set-status --id <ID> --status <STATUS>` | `open`, `closed`, `blocked`, or `claimed`. |
-| Parent | `task set-parent --id <ID> --parent <PARENT_OR_none>` | Use literal `none` to clear parent. |
-| Blockers | `task dep add --blocked <ID> --blocker <ID>` | `blocked` cannot proceed until `blocker` is **closed**. |
-| Unblock | `task dep remove --blocked <ID> --blocker <ID>` | |
-
-There is **no** separate `ready` subcommand: use **`status --toon`** for the `ready` count, then **`list --toon`** / **`tree --toon`** to inspect tasks. **`list` rows do not embed blocker edges**; an `open` task may still be blocked by `task dep` until its blockers are closed—trust the **`ready`** count in **`status`** for “how many are actually pick-up-able.”
-
-## Agent workflow (minimal)
-
-1. **Ensure store:** `devenv shell -- cargo run -p tool-tasks -- init`
-2. **Session context:** `devenv shell -- cargo run -p tool-tasks -- status --toon`
-3. **Pick work:** `… list --toon` / `… tree --toon`; prefer tasks with `status: open` when `ready > 0`
-4. **Claim:** `… task claim --id <ID> --by <agent-or-user>`. **Also claim every ancestor** (walk **`parent_id`** to the root epic) with the **same `--by`**, so the whole spine is **`claimed`**. Stored task **`status`** is only `open`, `claimed`, `blocked`, or `closed`—there is **no** `in_progress` status to set; **`status --toon`** may still print an **`in_progress`** *count* (read model), which is different.
-5. **Discover follow-ups:** `… task create --title "…"` then optional `… task set-parent` / `… task dep add`
-6. **Done:** `… task close --id <ID>`
-
-## vs. older docs
-
-Historical notes may mention **bd (beads)** or **`.tool-tasks/`**. For this repository, **tool-tasks is authoritative** for task CRUD and blocker edges; the store path is **`vault/Tasks/`** under **`.tool-llm-git-context/`**.
-
-## Anti-patterns
-
-- **Claiming a leaf or child without claiming parents** — always **`task claim`** the **root→…→your task** chain with one **`--by`** label.
-- **Hand-editing** **`events.jsonl`** under **`.tool-llm-git-context/vault/Tasks/`** or **`.tool-agent-forum/events.jsonl`**: forbidden — use the CLIs only; see **`no-direct-events-jsonl-edits.mdc`**.
-- Markdown TODOs or `todo_write` for **project** task state (use **tool-tasks**).
-- Relying on **NFS or flaky network FS** for the store when you need strict single-writer semantics (locks may be weak).
-- Expecting issue **types**, **priorities**, **labels**, or **swarm** commands—v1 is intentionally smaller; encode intent in **title** or **parent**/**dep** structure if needed.
+* **Tracking Accuracy**: <3% discrepancy between ad platform and analytics conversion counts
+* **Tag Firing Reliability**: 99.5%+ successful tag fires on target events
+* **Enhanced Conversion Match Rate**: 70%+ match rate on hashed user data
+* **CAPI Deduplication**: Zero double-counted conversions between Pixel and CAPI
+* **Page Speed Impact**: Tag implementation adds <200ms to page load time
+* **Consent Mode Coverage**: 100% of tags respect consent signals correctly
+* **Debug Resolution Time**: Tracking issues diagnosed and fixed within 4 hours
+* **Data Completeness**: 95%+ of conversions captured with all required parameters (value, currency, transaction ID)
 
 ---
 > Source: [Industrial/id_effect](https://github.com/Industrial/id_effect) — distributed by [TomeVault](https://tomevault.io).
