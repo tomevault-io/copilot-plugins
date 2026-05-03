@@ -1,0 +1,63 @@
+{
+  "name": "dot-agents",
+  "owner": "colmarius",
+  "repo": "dot-agents",
+  "description": "AI-ready workspace for any project",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adapt",
+      "path": ".agents/skills/adapt",
+      "github_url": "https://github.com/colmarius/dot-agents/tree/main/.agents/skills/adapt",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "path": ".agents/skills/ralph",
+      "github_url": "https://github.com/colmarius/dot-agents/tree/main/.agents/skills/ralph",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": ".agents/skills/research",
+      "github_url": "https://github.com/colmarius/dot-agents/tree/main/.agents/skills/research",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/colmarius/dot-agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:32:32Z"
+}
