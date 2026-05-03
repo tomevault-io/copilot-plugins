@@ -1,0 +1,111 @@
+{
+  "name": "full-stack-web-and-mobile-template",
+  "owner": "jamesjlundin",
+  "repo": "full-stack-web-and-mobile-template",
+  "description": "Monorepo template for building full-stack web and mobile apps. Next.js 16 + React Native + Better Auth + PostgreSQL + Drizzle + AI streaming. Auth, database, email, CI/CD\u2014all wired up and ready to deploy on Vercel in minutes.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-endpoint-scaffold",
+      "path": ".claude/skills/api-endpoint-scaffold",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/api-endpoint-scaffold",
+      "description": ""
+    },
+    {
+      "name": "ci-fixer",
+      "path": ".claude/skills/ci-fixer",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/ci-fixer",
+      "description": ""
+    },
+    {
+      "name": "context-diet",
+      "path": ".claude/skills/context-diet",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/context-diet",
+      "description": ""
+    },
+    {
+      "name": "db-schema-change",
+      "path": ".claude/skills/db-schema-change",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/db-schema-change",
+      "description": ""
+    },
+    {
+      "name": "deploy-helper",
+      "path": ".claude/skills/deploy-helper",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/deploy-helper",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "path": ".claude/skills/pr-review",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/pr-review",
+      "description": ""
+    },
+    {
+      "name": "repo-navigator",
+      "path": ".claude/skills/repo-navigator",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/repo-navigator",
+      "description": ""
+    },
+    {
+      "name": "review-to-merge",
+      "path": ".claude/skills/review-to-merge",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/review-to-merge",
+      "description": ""
+    },
+    {
+      "name": "secrets-scanner",
+      "path": ".claude/skills/secrets-scanner",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/secrets-scanner",
+      "description": ""
+    },
+    {
+      "name": "swarm-workflow",
+      "path": ".claude/skills/swarm-workflow",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/swarm-workflow",
+      "description": ""
+    },
+    {
+      "name": "test-writer",
+      "path": ".claude/skills/test-writer",
+      "github_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template/tree/main/.claude/skills/test-writer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jamesjlundin/full-stack-web-and-mobile-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T21:33:52Z"
+}
