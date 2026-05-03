@@ -1,0 +1,9 @@
+{
+  "name": "axolotl-qa--axolotl",
+  "displayName": "Axolotl",
+  "description": "AI-powered QA agent for VS Code. Analyzes code changes, generates test plans, runs real browser tests, and delivers evidence-backed merge verdicts.",
+  "version": "1.0.0",
+  "author": "Axolotl-QA",
+  "homepage": "https://github.com/Axolotl-QA/Axolotl",
+  "skills": []
+}
