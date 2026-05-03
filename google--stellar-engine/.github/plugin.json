@@ -1,0 +1,9 @@
+{
+  "name": "google--stellar-engine",
+  "displayName": "stellar-engine",
+  "description": "Framework for management of compliant Google Cloud infrastructure and design patterns for Assured Workloads featuring best practices and documentation to accelerate accreditation efforts e.g., Federal",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/stellar-engine",
+  "skills": []
+}
