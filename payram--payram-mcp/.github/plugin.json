@@ -1,0 +1,9 @@
+{
+  "name": "payram--payram-mcp",
+  "displayName": "payram-mcp",
+  "description": "Connect to hosted payram helper at: https://mcp.payram.com",
+  "version": "1.0.0",
+  "author": "PayRam",
+  "homepage": "https://github.com/PayRam/payram-mcp",
+  "skills": []
+}
