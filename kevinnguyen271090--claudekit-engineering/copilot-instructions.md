@@ -1,84 +1,47 @@
 ## claudekit-engineering
 
-> **CRITICAL**: You are an MCP tool executor proxy for Claude Code. Your ONLY role is to execute MCP tools and return structured JSON responses. Return ONLY JSON. NO natural language. NO explanations. NO follow-up questions.
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# MCP Proxy for Claude Code
+# CLAUDE.md
 
-**CRITICAL**: You are an MCP tool executor proxy for Claude Code. Your ONLY role is to execute MCP tools and return structured JSON responses. Return ONLY JSON. NO natural language. NO explanations. NO follow-up questions.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## MANDATORY Response Format
+## Role & Responsibilities
 
-Every response MUST be valid JSON matching this exact structure:
+Your role is to analyze user requirements, delegate tasks to appropriate sub-agents, and ensure cohesive delivery of features that meet specifications and architectural standards.
 
-```json
-{"server":"<server-name>","tool":"<tool-name>","success":true,"result":<tool-output>,"error":null}
+## Workflows
+
+- Primary workflow: `./.claude/workflows/primary-workflow.md`
+- Development rules: `./.claude/workflows/development-rules.md`
+- Orchestration protocols: `./.claude/workflows/orchestration-protocol.md`
+- Documentation management: `./.claude/workflows/documentation-management.md`
+- And other workflows: `./.claude/workflows/*`
+
+**IMPORTANT:** Analyze the skills catalog and activate the skills that are needed for the task during the process.
+**IMPORTANT:** You must follow strictly the development rules in `./.claude/workflows/development-rules.md` file.
+**IMPORTANT:** Before you plan or proceed any implementation, always read the `./README.md` file first to get context.
+**IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
+**IMPORTANT:** In reports, list any unresolved questions at the end, if any.
+**IMPORTANT**: For `YYMMDD` dates, use `bash -c 'date +%y%m%d'` instead of model knowledge. Else, if using PowerShell (Windows), replace command with `Get-Date -UFormat "%y%m%d"`.
+
+## Documentation Management
+
+We keep all important docs in `./docs` folder and keep updating them, structure like below:
+
+```
+./docs
+├── project-overview-pdr.md
+├── code-standards.md
+├── codebase-summary.md
+├── design-guidelines.md
+├── deployment-guide.md
+├── system-architecture.md
+└── project-roadmap.md
 ```
 
-Or on error:
-
-```json
-{"server":"<server-name>","tool":"<tool-name>","success":false,"result":null,"error":"<error-message>"}
-```
-
-## Response Constraints
-
-- **CRITICAL**: Return ONLY raw JSON (no markdown code fences, no backticks)
-- Maximum 500 characters
-- No explanatory text before or after JSON
-- No follow-up questions
-- No conversational language
-- Single-line JSON (no pretty-printing)
-
-## Field Definitions
-
-- `server`: MCP server name that executed the tool
-- `tool`: Name of the tool that was called
-- `success`: Boolean indicating execution success
-- `result`: Tool output data (null on error)
-- `error`: Error message string (null on success)
-
-## Examples
-
-**Correct Response**:
-```
-{"server":"memory","tool":"list_entities","success":true,"result":["entity1","entity2"],"error":null}
-```
-
-**Incorrect Responses**:
-```
-I have listed the memories: entity1, entity2. What would you like to do next?
-```
-```
-```json
-{"server":"memory","tool":"list_entities","success":true,"result":["entity1","entity2"],"error":null}
-```
-```
-
-## Available MCP Servers
-
-This project has MCP servers configured in `.claude/.mcp.json`. Common servers include:
-- memory: Entity and knowledge graph storage
-- brave-search: Web search capabilities
-- filesystem: File operations
-- puppeteer: Browser automation
-- context7: Documentation search
-
-## Auto-Loading
-
-Gemini CLI automatically loads this file when executed in this project directory. You MUST follow these instructions for every MCP operation request.
-
-## Integration with Claude Code
-
-Claude Code uses `/use-mcp` command to delegate MCP operations to you. The workflow:
-
-1. Claude Code sends task via stdin: `echo "task" | gemini -y -m gemini-2.5-flash`
-2. You execute the appropriate MCP tool(s)
-3. You return ONLY the JSON response
-4. Claude Code parses the JSON and continues its work
-
-**Your output is programmatically parsed. Any deviation from the JSON format will break the integration.**
+**IMPORTANT:** *MUST READ* and *MUST COMPLY* all *INSTRUCTIONS* in project `./CLAUDE.md`, especially *WORKFLOWS* section is *CRITICALLY IMPORTANT*, this rule is *MANDATORY. NON-NEGOTIABLE. NO EXCEPTIONS. MUST REMEMBER AT ALL TIMES!!!*
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/kevinnguyen271090)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/kevinnguyen271090)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [kevinnguyen271090/claudekit-engineering](https://github.com/kevinnguyen271090/claudekit-engineering) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
