@@ -1,0 +1,14 @@
+{
+  "name": "frostant--awesome-claude-skills",
+  "displayName": "awesome-claude-skills",
+  "description": "Claude Skills \u5408\u96c6 - fork from ComposioHQ with Chinese docs and enhancements",
+  "version": "1.0.0",
+  "author": "frostant",
+  "homepage": "https://github.com/frostant/awesome-claude-skills",
+  "skills": [
+    {
+      "name": "ai-paper-reader",
+      "description": ""
+    }
+  ]
+}
