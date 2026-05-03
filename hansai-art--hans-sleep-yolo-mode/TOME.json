@@ -1,0 +1,51 @@
+{
+  "name": "hans-sleep-yolo-mode",
+  "owner": "hansai-art",
+  "repo": "hans-sleep-yolo-mode",
+  "description": "Claude Code \u81ea\u4e3b\u958b\u767c\u914d\u7f6e \u2014 \u8b93 AI \u5168\u81ea\u52d5\u57f7\u884c\uff0c\u6b0a\u9650\u5168\u958b\uff0c\u53ef\u4ee5\u5b89\u5fc3\u7761\u89ba",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "autonomous-skill",
+      "path": ".claude/skills/autonomous-skill",
+      "github_url": "https://github.com/hansai-art/hans-sleep-yolo-mode/tree/main/.claude/skills/autonomous-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hansai-art/hans-sleep-yolo-mode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:51:48Z"
+}
