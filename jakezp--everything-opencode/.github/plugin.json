@@ -1,0 +1,22 @@
+{
+  "name": "jakezp--everything-opencode",
+  "displayName": "everything-opencode",
+  "description": "AI instruction skills by jakezp",
+  "version": "1.0.0",
+  "author": "jakezp",
+  "homepage": "https://github.com/jakezp/everything-opencode",
+  "skills": [
+    {
+      "name": "continuous-learning",
+      "description": ""
+    },
+    {
+      "name": "frontend-ui-ux",
+      "description": ""
+    },
+    {
+      "name": "lsp-validation",
+      "description": ""
+    }
+  ]
+}
