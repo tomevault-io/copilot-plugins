@@ -1,0 +1,111 @@
+{
+  "name": "son-of-simon",
+  "owner": "spamsch",
+  "repo": "son-of-simon",
+  "description": "LLM-powered macOS automation agent. Control Mail, Calendar, Reminders via natural language using AppleScript. Telegram voice commands, browser automation, and 100+ LLM providers.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "browser_automation",
+      "path": "skills/browser_automation",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/browser_automation",
+      "description": ""
+    },
+    {
+      "name": "clawhub",
+      "path": "skills/clawhub",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/clawhub",
+      "description": ""
+    },
+    {
+      "name": "contacts_assistant",
+      "path": "skills/contacts_assistant",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/contacts_assistant",
+      "description": ""
+    },
+    {
+      "name": "data_app_creator",
+      "path": "skills/data_app_creator",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/data_app_creator",
+      "description": ""
+    },
+    {
+      "name": "downloads_organizer",
+      "path": "skills/downloads_organizer",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/downloads_organizer",
+      "description": ""
+    },
+    {
+      "name": "messages_assistant",
+      "path": "skills/messages_assistant",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/messages_assistant",
+      "description": ""
+    },
+    {
+      "name": "mindwtr",
+      "path": "skills/mindwtr",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/mindwtr",
+      "description": ""
+    },
+    {
+      "name": "notes_assistant",
+      "path": "skills/notes_assistant",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/notes_assistant",
+      "description": ""
+    },
+    {
+      "name": "safari_assistant",
+      "path": "skills/safari_assistant",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/safari_assistant",
+      "description": ""
+    },
+    {
+      "name": "spotlight_search",
+      "path": "skills/spotlight_search",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/spotlight_search",
+      "description": ""
+    },
+    {
+      "name": "whatsapp_assistant",
+      "path": "skills/whatsapp_assistant",
+      "github_url": "https://github.com/spamsch/son-of-simon/tree/main/skills/whatsapp_assistant",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/spamsch/son-of-simon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:38:50Z"
+}
