@@ -7,11 +7,11 @@ Wreck it Ralph Wiggum - My code is in danger!
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mikehostetler/wreckit](https://github.com/mikehostetler/wreckit).
+Original source: `CLAUDE.md` in [mikehostetler/wreckit](https://github.com/mikehostetler/wreckit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
