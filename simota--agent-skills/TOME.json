@@ -1,0 +1,243 @@
+{
+  "name": "agent-skills",
+  "owner": "simota",
+  "repo": "agent-skills",
+  "description": "100+ specialized AI agent skills for Claude Code / Codex CLI / Gemini CLI \u2014 prompt engineering assets covering development, security, design, FinOps, compliance, testing, and more",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "growth",
+      "path": "growth",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/growth",
+      "description": ""
+    },
+    {
+      "name": "voice",
+      "path": "voice",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/voice",
+      "description": ""
+    },
+    {
+      "name": "nexus",
+      "path": "nexus",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/nexus",
+      "description": ""
+    },
+    {
+      "name": "polyglot",
+      "path": "polyglot",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/polyglot",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "path": "showcase",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/showcase",
+      "description": ""
+    },
+    {
+      "name": "aether",
+      "path": "aether",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/aether",
+      "description": ""
+    },
+    {
+      "name": "anvil",
+      "path": "anvil",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/anvil",
+      "description": ""
+    },
+    {
+      "name": "architect",
+      "path": "architect",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/architect",
+      "description": ""
+    },
+    {
+      "name": "arena",
+      "path": "arena",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/arena",
+      "description": ""
+    },
+    {
+      "name": "artisan",
+      "path": "artisan",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/artisan",
+      "description": ""
+    },
+    {
+      "name": "builder",
+      "path": "builder",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/builder",
+      "description": ""
+    },
+    {
+      "name": "forge",
+      "path": "forge",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/forge",
+      "description": ""
+    },
+    {
+      "name": "gateway",
+      "path": "gateway",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/gateway",
+      "description": ""
+    },
+    {
+      "name": "gear",
+      "path": "gear",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/gear",
+      "description": ""
+    },
+    {
+      "name": "grove",
+      "path": "grove",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/grove",
+      "description": ""
+    },
+    {
+      "name": "guardian",
+      "path": "guardian",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/guardian",
+      "description": ""
+    },
+    {
+      "name": "harvest",
+      "path": "harvest",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/harvest",
+      "description": ""
+    },
+    {
+      "name": "judge",
+      "path": "judge",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/judge",
+      "description": ""
+    },
+    {
+      "name": "magi",
+      "path": "magi",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/magi",
+      "description": ""
+    },
+    {
+      "name": "muse",
+      "path": "muse",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/muse",
+      "description": ""
+    },
+    {
+      "name": "navigator",
+      "path": "navigator",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/navigator",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "path": "oracle",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/oracle",
+      "description": ""
+    },
+    {
+      "name": "radar",
+      "path": "radar",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/radar",
+      "description": ""
+    },
+    {
+      "name": "rally",
+      "path": "rally",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/rally",
+      "description": ""
+    },
+    {
+      "name": "reel",
+      "path": "reel",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/reel",
+      "description": ""
+    },
+    {
+      "name": "relay",
+      "path": "relay",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/relay",
+      "description": ""
+    },
+    {
+      "name": "rewind",
+      "path": "rewind",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/rewind",
+      "description": ""
+    },
+    {
+      "name": "scaffold",
+      "path": "scaffold",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/scaffold",
+      "description": ""
+    },
+    {
+      "name": "sigil",
+      "path": "sigil",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/sigil",
+      "description": ""
+    },
+    {
+      "name": "sketch",
+      "path": "sketch",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/sketch",
+      "description": ""
+    },
+    {
+      "name": "vision",
+      "path": "vision",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/vision",
+      "description": ""
+    },
+    {
+      "name": "voyager",
+      "path": "voyager",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/voyager",
+      "description": ""
+    },
+    {
+      "name": "port",
+      "path": "port",
+      "github_url": "https://github.com/simota/agent-skills/tree/main/port",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/simota/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:48:47Z"
+}
