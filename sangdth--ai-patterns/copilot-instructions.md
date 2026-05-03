@@ -1,86 +1,35 @@
-## avoid-use-effect
+## bad-practices
 
-> Avoid useEffect antipatterns
+> - Single-use wrapper / Trivial wrapper
 
 
-# Avoid useEffect at all cost
+# Bad practices to avoid at all costs
 
-[You Might Not Need `useEffect`](https://react.dev/learn/you-might-not-need-an-effect)
+## Premature Abstraction (or Over-abstraction)
 
-Instead of using `useEffect`, prefer:
+Also called:
 
-- Server actions
-- Ref callbacks
-- Event handlers with `flushSync`
-- CSS
-- `useSyncExternalStore`
-- `useSWR` or `react-query` if already in project
+- Single-use wrapper / Trivial wrapper
+- Unnecessary indirection
+- YAGNI violation ("You Aren't Gonna Need It")
 
-## Example: Event Handlers (Good)
+## Object Destructuring and Reconstruction (or Pointless Spread)
 
-```tsx
-// ✅ Good
-function ProductPage({ product, addToCart }) {
-  function buyProduct() {
-    addToCart(product);
-    showNotification(`Added ${product.name} to the shopping cart!`);
-  }
+Also called:
 
-  function handleBuyClick() {
-    buyProduct();
-  }
+- Redundant mapping
+- Identity transformation
+- No-op reshaping
+- Useless object reconstruction
 
-  function handleCheckoutClick() {
-    buyProduct();
-    navigateTo('/checkout');
-  }
-  // ...
-}
-```
+It's a form of unnecessary indirection where you're manually copying all properties when you could just return the object directly.
 
-## Example: State Updates (Bad)
+The reconstruction is only needed when:
 
-```tsx
-// ❌ Avoid
-function ProductPage({ product, addToCart }) {
-  useEffect(() => {
-    if (product.isInCart) {
-      showNotification(`Added ${product.name} to the shopping cart!`);
-    }
-  }, [product]);
-
-  function handleBuyClick() {
-    addToCart(product);
-  }
-  // ...
-}
-```
-
-## When useEffect IS Appropriate
-
-Only use `useEffect` for external system synchronization:
-
-```tsx
-// ✅ Good - Syncing with external system
-useEffect(() => {
-  const controller = new AbortController();
-
-  window.addEventListener(
-    'keydown',
-    (event: KeyboardEvent) => {
-      if (event.key !== 'Escape') return;
-      // do something based on escape key being pressed
-    },
-    { signal: controller.signal }
-  );
-
-  return () => {
-    controller.abort();
-  };
-}, []);
-```
-
-`useEffect` is not banned, but there are usually better ways to handle most cases.
+- You're omitting certain properties
+- You're transforming values
+- You're renaming keys
+- You're adding new properties
 
 ---
 > Source: [sangdth/ai-patterns](https://github.com/sangdth/ai-patterns) — distributed by [TomeVault](https://tomevault.io).
