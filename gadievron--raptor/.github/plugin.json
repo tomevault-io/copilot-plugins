@@ -1,0 +1,34 @@
+{
+  "name": "gadievron--raptor",
+  "displayName": "raptor",
+  "description": "Raptor turns Claude Code into a general-purpose AI offensive/defensive security agent. By using Claude.md and creating rules, sub-agents, and skills, and orchestrating security tool usage, we configur",
+  "version": "1.0.0",
+  "author": "gadievron",
+  "homepage": "https://github.com/gadievron/raptor",
+  "skills": [
+    {
+      "name": "gcov-coverage",
+      "description": ""
+    },
+    {
+      "name": "github-archive",
+      "description": ""
+    },
+    {
+      "name": "github-commit-recovery",
+      "description": ""
+    },
+    {
+      "name": "github-evidence-kit",
+      "description": ""
+    },
+    {
+      "name": "github-wayback-recovery",
+      "description": ""
+    },
+    {
+      "name": "rr-debugger",
+      "description": ""
+    }
+  ]
+}
