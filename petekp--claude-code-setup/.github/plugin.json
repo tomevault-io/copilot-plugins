@@ -1,0 +1,14 @@
+{
+  "name": "petekp--claude-code-setup",
+  "displayName": "claude-code-setup",
+  "description": "My forkable Claude Code setup with sync feature",
+  "version": "1.0.0",
+  "author": "petekp",
+  "homepage": "https://github.com/petekp/claude-code-setup",
+  "skills": [
+    {
+      "name": "deep-research",
+      "description": ""
+    }
+  ]
+}
