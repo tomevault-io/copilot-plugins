@@ -1,0 +1,78 @@
+{
+  "name": "markpitt--claude-skills",
+  "displayName": "claude-skills",
+  "description": "AI instruction skills by markpitt",
+  "version": "1.0.0",
+  "author": "markpitt",
+  "homepage": "https://github.com/markpitt/claude-skills",
+  "skills": [
+    {
+      "name": "blazor-expert",
+      "description": ""
+    },
+    {
+      "name": "azure-devops",
+      "description": ""
+    },
+    {
+      "name": "dotnet-aspire",
+      "description": ""
+    },
+    {
+      "name": "kiss-principle",
+      "description": ""
+    },
+    {
+      "name": "markdown-formatter",
+      "description": ""
+    },
+    {
+      "name": "microsoft-graph",
+      "description": ""
+    },
+    {
+      "name": "github-api",
+      "description": ""
+    },
+    {
+      "name": "gof-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "avalonia",
+      "description": ""
+    },
+    {
+      "name": "root-cause-analysis",
+      "description": ""
+    },
+    {
+      "name": "home-assistant-api",
+      "description": ""
+    },
+    {
+      "name": "azure-swa",
+      "description": ""
+    },
+    {
+      "name": "blazor-blog-feature",
+      "description": ""
+    },
+    {
+      "name": "freeagent-api",
+      "description": ""
+    },
+    {
+      "name": "agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "genaiscript",
+      "description": ""
+    }
+  ]
+}
