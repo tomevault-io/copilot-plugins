@@ -1,0 +1,14 @@
+{
+  "name": "410417122--ashare-ai",
+  "displayName": "ashare-ai",
+  "description": " A\u80a1\u91cf\u5316\u4ea4\u6613 Claude Code Skill - \u4f7f\u7528 Tushare Pro \u83b7\u53d6\u6570\u636e\uff0cBacktrader \u8fdb\u884c\u56de\u6d4b",
+  "version": "1.0.0",
+  "author": "410417122",
+  "homepage": "https://github.com/410417122/ashare-ai",
+  "skills": [
+    {
+      "name": "ashare",
+      "description": ""
+    }
+  ]
+}
