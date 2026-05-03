@@ -1,0 +1,171 @@
+{
+  "name": "amplify",
+  "owner": "wunki",
+  "repo": "amplify",
+  "description": "AI instruction skills by wunki",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ask-questions-if-underspecified",
+      "path": "skills/ask-questions-if-underspecified",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/ask-questions-if-underspecified",
+      "description": ""
+    },
+    {
+      "name": "browse-site",
+      "path": "skills/browse-site",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/browse-site",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "path": "skills/code-simplifier",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "create-plan",
+      "path": "skills/create-plan",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/create-plan",
+      "description": ""
+    },
+    {
+      "name": "create-spec",
+      "path": "skills/create-spec",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/create-spec",
+      "description": ""
+    },
+    {
+      "name": "create-vault",
+      "path": "skills/create-vault",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/create-vault",
+      "description": ""
+    },
+    {
+      "name": "execute-plan",
+      "path": "skills/execute-plan",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/execute-plan",
+      "description": ""
+    },
+    {
+      "name": "fetch-github-file",
+      "path": "skills/fetch-github-file",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/fetch-github-file",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-slides",
+      "path": "skills/frontend-slides",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/frontend-slides",
+      "description": ""
+    },
+    {
+      "name": "guide",
+      "path": "skills/guide",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/guide",
+      "description": ""
+    },
+    {
+      "name": "interview",
+      "path": "skills/interview",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/interview",
+      "description": ""
+    },
+    {
+      "name": "liveview-optimistic-ui",
+      "path": "skills/liveview-optimistic-ui",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/liveview-optimistic-ui",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "skills/mcp-builder",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "project-memory",
+      "path": "skills/project-memory",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/project-memory",
+      "description": ""
+    },
+    {
+      "name": "roadmap",
+      "path": "skills/roadmap",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/roadmap",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "spec-story",
+      "path": "skills/spec-story",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/spec-story",
+      "description": ""
+    },
+    {
+      "name": "stop-slop",
+      "path": "skills/stop-slop",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/stop-slop",
+      "description": ""
+    },
+    {
+      "name": "tech-docs-writer",
+      "path": "skills/tech-docs-writer",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/tech-docs-writer",
+      "description": ""
+    },
+    {
+      "name": "write-test",
+      "path": "skills/write-test",
+      "github_url": "https://github.com/wunki/amplify/tree/main/skills/write-test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wunki/amplify",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T15:37:56Z"
+}
