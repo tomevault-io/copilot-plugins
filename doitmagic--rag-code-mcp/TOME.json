@@ -1,0 +1,44 @@
+{
+  "name": "rag-code-mcp",
+  "owner": "doITmagic",
+  "repo": "rag-code-mcp",
+  "description": "Privacy-first semantic code navigation MCP server using RAG. Features deep AST multi-language support (Go, PHP/Laravel/WP, JS/TS/React, Python), 100% local LLMs (Ollama), and vector search (Qdrant) for AI IDEs like Cursor, Windsurf, Copilot, and Claude.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/doITmagic/rag-code-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T23:39:56Z"
+}
