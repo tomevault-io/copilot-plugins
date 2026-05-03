@@ -1,0 +1,51 @@
+{
+  "name": "claude-code-onboarding",
+  "owner": "kumaran-is",
+  "repo": "claude-code-onboarding",
+  "description": "\ud83e\udd16 Team onboarding kit for Claude Code AI coding assistant. Pre-configured with agents, skills, slash commands, and MCP integrations for Java 21/Spring Boot WebFlux, Angular, Flutter, PostgreSQL, and Firebase. Clone \u2192 install \u2192 start building.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deployment-ci-cd",
+      "path": ".claude/skills/deployment-ci-cd",
+      "github_url": "https://github.com/kumaran-is/claude-code-onboarding/tree/main/.claude/skills/deployment-ci-cd",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kumaran-is/claude-code-onboarding",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:52:20Z"
+}
