@@ -1,0 +1,9 @@
+{
+  "name": "tryretool--custom-component-gallery",
+  "displayName": "custom-component-gallery",
+  "description": "A community-driven gallery of custom components built for Retool",
+  "version": "1.0.0",
+  "author": "tryretool",
+  "homepage": "https://github.com/tryretool/custom-component-gallery",
+  "skills": []
+}
