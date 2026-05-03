@@ -1,0 +1,44 @@
+{
+  "name": "Vibecode-Cleaner-Fartrun",
+  "owner": "ChuprinaDaria",
+  "repo": "Vibecode-Cleaner-Fartrun",
+  "description": "Not another AI reviewing AI. Rust-powered code scanner that actually reads your codebase \u2014    zero extra tokens consumed. 29 MCP tools: security vulns, dead code, health checks, save  points, frozen files. Finds problems. Farts at you. Hasselhoff approves.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ChuprinaDaria/Vibecode-Cleaner-Fartrun",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T03:49:50Z"
+}
