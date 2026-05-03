@@ -1,0 +1,9 @@
+{
+  "name": "openscribbler--syllago",
+  "displayName": "syllago",
+  "description": "A content management system for AI coding tools. Convert between tools, bundle content into shareable loadouts, and install rules, skills, agents, hooks, and MCP configs to the right place.",
+  "version": "1.0.0",
+  "author": "OpenScribbler",
+  "homepage": "https://github.com/OpenScribbler/syllago",
+  "skills": []
+}
