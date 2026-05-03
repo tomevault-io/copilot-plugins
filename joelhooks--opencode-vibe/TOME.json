@@ -4,7 +4,7 @@
   "repo": "opencode-vibe",
   "description": "\ud83c\udfc4\u200d\u2642\ufe0f Next.js 16 web UI for OpenCode - real-time chat with streaming, SSE sync, and React Server Components",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joelhooks/opencode-vibe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T22:12:31Z"
+  "distributed_at": "2026-05-03T04:02:18Z"
 }
