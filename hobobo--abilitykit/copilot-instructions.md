@@ -1,84 +1,57 @@
-## state-handles-controllers
+## summon
 
-> - 适用于 `Unity/Packages/com.abilitykit.demo.*` 下的 **业务代码**（尤其是 Battle Flow / Session / View Runtime 相关）。
+> - `SpawnSummon` 运行时必须通过 Resolver 解析最终 Spec：
 
 
-# Session / Flow 业务代码规范：数据与处理行为分离（State / Handles / Controllers）+ 中文注释
+# 召唤（Spawn Summon）规则
 
-## 0. 适用范围
+## 1) 模板化召唤（spawn_summon_action_templates）
 
-- 适用于 `Unity/Packages/com.abilitykit.demo.*` 下的 **业务代码**（尤其是 Battle Flow / Session / View Runtime 相关）。
-- 适用于新写代码与重构代码（拆分文件、迁移字段、抽 controller/sub-feature 等）。
+- `SpawnSummon` 运行时必须通过 Resolver 解析最终 Spec：
+  - 从 `spawn_summon_action_templates` 读模板 DTO/MO
+  - 使用 trigger args 对模板字段做覆盖（overrides）
+  - Action 只负责执行（不负责解析复杂参数）
 
-## 1. 核心原则（强约束）
+## 2) TriggerStrong 层约束
 
-### 1.1 数据与行为分离
+- TriggerStrong 侧只存 Share 层枚举/数值
+- Runtime ActionDef 的 `args key` 必须保持兼容（老配置不破）
 
-- **State（纯数据）**
-  - 只存储状态（数值、标记、配置快照、统计等）。
-  - 不直接持有 Unity 对象、线程/调度器、网络连接、CTS、Task、IDisposable 等资源。
-  - 允许存储可序列化/可复制的数据结构。
+## 3) 配表与导出约束
 
-- **Handles（资源与引用）**
-  - 存储运行期资源/引用（session/runtime/world、dispatcher、net adapter、snapshot routing、cts/task 等）。
-  - 需要提供异常安全的兜底释放（例如 `Reset()`/`Dispose()`，内部 try/catch 记录异常）。
-  - 不承载业务状态机与规则判断（避免把逻辑塞进 handles）。
+- 必须存在：`Assets/Resources/moba/spawn_summon_action_templates.json`
+- 必须可被 `MobaConfigDatabase.LoadFromResources("moba")` 加载
+- ScriptableObject 表资产使用 `MobaConfigTableAssetSO` 子类接入统一导出器
 
-- **Controllers（行为）**
-  - 承载可测试的行为逻辑单元（plan、tick loop、replay、net adapter、events/dispatchers 等）。
-  - Controller 的依赖通过 **host ports（小接口）** 或显式参数注入。
-  - Controller 不得直接访问 Feature 内部的“杂散字段”；若需要访问资源/状态，优先通过窄 wrapper（accessors）或 host port。
+## 4) 实现步骤（模板化 TriggerAction 通用范式）
 
-- **SubFeatures（薄胶水）**
-  - 负责把 pipeline/hook 时机与 controller/feature wrapper 连接起来。
-  - 避免在 sub-feature 内实现大段业务逻辑（除非它本身就是一个独立系统）。
+输入：
 
-### 1.2 依赖方向
+- TriggerAction type string
+- Share 层 TriggerStrong RuntimeConfig + EditorConfig 字段
+- Impl 层 Action + Factory +（Parser/Resolver 如需）
+- MobaConfig 表（可选）
 
-- 行为逻辑（Controllers/SubFeatures）可以依赖 State/Handles（读写/调用），但 **State 不依赖行为**。
-- 资源释放/异常兜底尽量收敛到 Handles 或明确的 DisposeHelpers，避免分散。
+输出：
 
-## 2. 代码组织建议（推荐但可权衡）
+- TriggerStrong 可编辑、可编译为 ActionDef
+- 运行时 Action 通过 Factory 注册并可执行
+- 如用模板表：Resources 可加载、Editor 可导出
 
-- 大类（如 `BattleSessionFeature`）应保持为 **组合根/编排器**：
-  - 管生命周期边界（Attach/Detach/Start/Stop）
-  - 装配 controllers/sub-features
-  - 暴露窄 wrapper 与 host ports
+步骤规范：
 
-- 单文件职责过重时，优先拆分为 partial（一个文件一个职责域）：
-  - `*.SimTick.RemoteDriven.cs` / `*.SimTick.Confirmed.cs`
-  - `*.DisposeHelpers.View.cs` / `*.DisposeHelpers.Worlds.cs` 等
-
-## 3. 中文注释规范（强约束）
-
-### 3.1 文件头注释（必需）
-
-- 对业务代码文件（尤其是 Runtime 下），只要在一次改动中 **有实质性修改**（新增/移动/重构/逻辑调整），就必须在文件头添加或补齐中文注释，说明：
-  - 该文件的职责
-  - 关键边界（State/Handles/Controllers/SubFeatures/HostPorts 之一）
-  - 主要调用时机（Attach/Detach/PreTick/MainTick/OnFrame 等）
-
-> 文件头注释应简短（建议 3~8 行），避免写成设计文档。
-
-### 3.2 行内/块注释语言
-
-- 新增的注释统一使用 **中文**。
-- 允许出现必要的英文专有名词（类型名/协议名/字段名），但说明文字保持中文。
-
-### 3.3 例外（避免噪音）
-
-以下情况可以不强制补文件头注释或不改注释语言：
-
-- 第三方/自动生成代码
-- 纯 DTO/纯配置结构（字段名已足够清晰且无复杂语义）
-- 仅做机械迁移且该文件短期会被删除/替换（需在评审中明确，且不应长期保留）
-
-## 4. 重构时的执行顺序（建议流程）
-
-1. 先明确目标：要把什么字段迁移到 State/Handles，什么逻辑下沉到 Controller。
-2. 先加窄 wrapper/host port（保证调用点不直访内部字段）。
-3. 再做搬迁与拆分（每次小批量）。
-4. 每批次后执行 `dotnet build`（或 Unity CI 对应构建）验证。
+- 在 `TriggerActionTypes` 增加 type 字符串常量（例如 `spawn_summon`）
+- TriggerStrong：新增 `*ActionConfig : ActionRuntimeConfigBase`
+  - `Type => TriggerActionTypes.*`
+  - `ToActionDef()` 写入 args（key 命名稳定）
+- TriggerStrong：新增 `*ActionEditorConfig : ActionEditorConfigBase`
+  - 用 `[TriggerActionType(...)]` 注册 Odin 菜单
+  - `ToRuntimeStrong()` 产出 runtime config
+- Impl：Factory
+  - 在 Create(type)/注册表中注册新 Action
+- Impl：Action
+  - 不做复杂解析：只做执行与事件/服务调用
+  - 复杂参数交给 Resolver/Selection
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
