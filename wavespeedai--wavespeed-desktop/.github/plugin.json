@@ -1,0 +1,9 @@
+{
+  "name": "wavespeedai--wavespeed-desktop",
+  "displayName": "wavespeed-desktop",
+  "description": "A cross-platform desktop application for running AI models from [WaveSpeedAI](https://wavespeed.ai), as well as many free local AI models including Z-Image.",
+  "version": "1.0.0",
+  "author": "WaveSpeedAI",
+  "homepage": "https://github.com/WaveSpeedAI/wavespeed-desktop",
+  "skills": []
+}
