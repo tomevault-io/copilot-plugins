@@ -4,7 +4,7 @@
   "repo": "sendspin-cli",
   "description": "Synchronized audio player for Sendspin servers",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sendspin/sendspin-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T20:58:23Z"
+  "distributed_at": "2026-05-03T09:51:28Z"
 }
