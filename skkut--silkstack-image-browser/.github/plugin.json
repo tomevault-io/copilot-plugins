@@ -1,0 +1,9 @@
+{
+  "name": "skkut--silkstack-image-browser",
+  "displayName": "SilkStack-Image-Browser",
+  "description": "A beautiful image browser built specially for ComfyUI generated images.",
+  "version": "1.0.0",
+  "author": "skkut",
+  "homepage": "https://github.com/skkut/SilkStack-Image-Browser",
+  "skills": []
+}
