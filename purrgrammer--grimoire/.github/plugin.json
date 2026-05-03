@@ -1,0 +1,14 @@
+{
+  "name": "purrgrammer--grimoire",
+  "displayName": "grimoire",
+  "description": "a nostr client for magicians",
+  "version": "1.0.0",
+  "author": "purrgrammer",
+  "homepage": "https://github.com/purrgrammer/grimoire",
+  "skills": [
+    {
+      "name": "nostr",
+      "description": ""
+    }
+  ]
+}
