@@ -1,0 +1,9 @@
+{
+  "name": "artemxtech--claude-code-obsidian-starter",
+  "displayName": "claude-code-obsidian-starter",
+  "description": "Free starter kit: Claude Code + Obsidian. Pre-configured vault with skills for projects, tasks, clients, and daily routines. Just open and go.",
+  "version": "1.0.0",
+  "author": "ArtemXTech",
+  "homepage": "https://github.com/ArtemXTech/claude-code-obsidian-starter",
+  "skills": []
+}
