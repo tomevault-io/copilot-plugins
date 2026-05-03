@@ -1,0 +1,9 @@
+{
+  "name": "palewire--datawrapper-mcp",
+  "displayName": "datawrapper-mcp",
+  "description": "A Model Context Protocol (MCP) server and app for creating Datawrapper charts using AI assistants.",
+  "version": "1.0.0",
+  "author": "palewire",
+  "homepage": "https://github.com/palewire/datawrapper-mcp",
+  "skills": []
+}
