@@ -1,0 +1,63 @@
+{
+  "name": "orquestrator-agent",
+  "owner": "eduwxyz",
+  "repo": "orquestrator-agent",
+  "description": "Reposit\u00f3rio para armazenar o projeto de um agent orquestrator feito em live",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dev-workflow",
+      "path": ".claude/skills/dev-workflow",
+      "github_url": "https://github.com/eduwxyz/orquestrator-agent/tree/main/.claude/skills/dev-workflow",
+      "description": ""
+    },
+    {
+      "name": "meta-agent-expert",
+      "path": ".claude/skills/meta-agent-expert",
+      "github_url": "https://github.com/eduwxyz/orquestrator-agent/tree/main/.claude/skills/meta-agent-expert",
+      "description": ""
+    },
+    {
+      "name": "meta-command",
+      "path": ".claude/skills/meta-command",
+      "github_url": "https://github.com/eduwxyz/orquestrator-agent/tree/main/.claude/skills/meta-command",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/eduwxyz/orquestrator-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:34:00Z"
+}
