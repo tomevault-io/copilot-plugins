@@ -1,0 +1,141 @@
+{
+  "name": "claude-vibes",
+  "owner": "mike-coulbourn",
+  "repo": "claude-vibes",
+  "description": "AI instruction skills by mike-coulbourn",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "brand-color-psychology",
+      "path": "plugins/vibes/skills/brand-color-psychology",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/brand-color-psychology",
+      "description": ""
+    },
+    {
+      "name": "ai-writing-detection",
+      "path": "plugins/vibes/skills/ai-writing-detection",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/ai-writing-detection",
+      "description": ""
+    },
+    {
+      "name": "brand-naming-strategies",
+      "path": "plugins/vibes/skills/brand-naming-strategies",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/brand-naming-strategies",
+      "description": ""
+    },
+    {
+      "name": "visual-identity-direction",
+      "path": "plugins/vibes/skills/visual-identity-direction",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/visual-identity-direction",
+      "description": ""
+    },
+    {
+      "name": "brand-typography-systems",
+      "path": "plugins/vibes/skills/brand-typography-systems",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/brand-typography-systems",
+      "description": ""
+    },
+    {
+      "name": "brand-messaging-architecture",
+      "path": "plugins/vibes/skills/brand-messaging-architecture",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/brand-messaging-architecture",
+      "description": ""
+    },
+    {
+      "name": "brand-voice-development",
+      "path": "plugins/vibes/skills/brand-voice-development",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/brand-voice-development",
+      "description": ""
+    },
+    {
+      "name": "elevator-pitch-techniques",
+      "path": "plugins/vibes/skills/elevator-pitch-techniques",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/elevator-pitch-techniques",
+      "description": ""
+    },
+    {
+      "name": "tagline-creation-strategies",
+      "path": "plugins/vibes/skills/tagline-creation-strategies",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/tagline-creation-strategies",
+      "description": ""
+    },
+    {
+      "name": "brand-values-development",
+      "path": "plugins/vibes/skills/brand-values-development",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/brand-values-development",
+      "description": ""
+    },
+    {
+      "name": "jtbd-psychographic-research",
+      "path": "plugins/vibes/skills/jtbd-psychographic-research",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/jtbd-psychographic-research",
+      "description": ""
+    },
+    {
+      "name": "marketplace-builder",
+      "path": "plugins/vibes/skills/marketplace-builder",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/marketplace-builder",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "path": "plugins/vibes/skills/skill-builder",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/skill-builder",
+      "description": ""
+    },
+    {
+      "name": "slash-command-builder",
+      "path": "plugins/vibes/skills/slash-command-builder",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/slash-command-builder",
+      "description": ""
+    },
+    {
+      "name": "agent-builder",
+      "path": "plugins/vibes/skills/agent-builder",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/agent-builder",
+      "description": ""
+    },
+    {
+      "name": "midjourney-prompting",
+      "path": "plugins/vibes/skills/midjourney-prompting",
+      "github_url": "https://github.com/mike-coulbourn/claude-vibes/tree/main/plugins/vibes/skills/midjourney-prompting",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mike-coulbourn/claude-vibes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:36:33Z"
+}
