@@ -1,0 +1,14 @@
+{
+  "name": "apenab--pyrlm-runtime",
+  "displayName": "pyrlm-runtime",
+  "description": "Minimal runtime for Recursive Language Models (RLMs) inspired by the MIT CSAIL paper \"Recursive Language Models\".",
+  "version": "1.0.0",
+  "author": "apenab",
+  "homepage": "https://github.com/apenab/pyrlm-runtime",
+  "skills": [
+    {
+      "name": "rlm-development",
+      "description": ""
+    }
+  ]
+}
