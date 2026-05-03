@@ -1,0 +1,9 @@
+{
+  "name": "fgmacedo--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Skills for LLMs and coding assistants",
+  "version": "1.0.0",
+  "author": "fgmacedo",
+  "homepage": "https://github.com/fgmacedo/agent-skills",
+  "skills": []
+}
