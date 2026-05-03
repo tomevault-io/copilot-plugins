@@ -1,286 +1,155 @@
-## add-control
+## add-ocpp-handler
 
-> Rules for adding buttons, switches, or number controls
+> Rules for adding OCPP message handlers in coordinator
 
 
-# Rules: Adding a Button/Switch/Number Control
+# Rules: Adding an OCPP Message Handler
 
 ## Documentation References
 
 **MANDATORY - Read these files BEFORE making changes:**
 
-1. `custom_components/bmw_wallbox/docs/ENTITIES.md` - Complete templates for buttons, switches, numbers, base classes
-2. `custom_components/bmw_wallbox/docs/COORDINATOR.md` - Existing coordinator methods, how to add new commands
-3. `custom_components/bmw_wallbox/docs/PATTERNS.md` - UI patterns, loading states, availability conditions
-4. `custom_components/bmw_wallbox/docs/CONSTANTS.md` - Naming conventions for control entities
-5. `custom_components/bmw_wallbox/docs/TESTING.md` - How to test buttons, switches, numbers
+1. `custom_components/bmw_wallbox/docs/OCPP_HANDLERS.md` - Complete handler templates, existing handlers, decorator usage
+2. `custom_components/bmw_wallbox/docs/DATA_SCHEMAS.md` - Coordinator data structure, OCPP message field mappings
+3. `custom_components/bmw_wallbox/docs/COORDINATOR.md` - WallboxChargePoint class, coordinator data flow
+4. `custom_components/bmw_wallbox/docs/PATTERNS.md` - Data update patterns, entity refresh triggers
+5. `custom_components/bmw_wallbox/docs/ARCHITECTURE.md` - Understanding message flow between wallbox and HA
 
-**For controls that send OCPP commands:**
-- Also read `.cursor/rules/add-command.mdc` for command implementation details
+**For handlers that provide new sensor data:**
+- Also read `.cursor/rules/add-sensor.mdc` for exposing data as entities
 
 ## Files to Modify
 
-1. `custom_components/bmw_wallbox/const.py`
-2. `custom_components/bmw_wallbox/button.py` OR `switch.py` OR `number.py`
-3. `custom_components/bmw_wallbox/coordinator.py` (add command method if needed)
-4. `tests/test_button.py` OR `test_switch.py` OR `test_number.py`
+1. `custom_components/bmw_wallbox/coordinator.py` - `WallboxChargePoint` class
 
----
-
-## Adding a Button
-
-### Step 1: Add Constant
+## Handler Pattern
 
 ```python
-# const.py
-BUTTON_NEW_ACTION: Final = "new_action"
-```
+# coordinator.py - in WallboxChargePoint class
 
-### Step 2: Add Coordinator Method (if needed)
+from ocpp.routing import on
+from ocpp.v201 import call_result
 
-```python
-# coordinator.py
-async def async_new_action(self) -> dict:
-    """Perform new action."""
-    result = {"success": False, "message": ""}
+@on("NewMessageType")
+async def on_new_message_type(
+    self,
+    required_param1,      # From OCPP spec
+    required_param2,      # From OCPP spec
+    **kwargs,             # Catch optional parameters
+):
+    """Handle NewMessageType from wallbox."""
+    _LOGGER.debug(
+        "NewMessageType received: %s, %s",
+        required_param1,
+        required_param2
+    )
 
-    if not self.charge_point:
-        result["message"] = "Not connected"
-        return result
+    # Extract and update coordinator data
+    self.coordinator.data["new_field"] = required_param1
 
-    try:
-        response = await asyncio.wait_for(
-            self.charge_point.call(call.SomeCommand(...)),
-            timeout=15.0
-        )
-        result["success"] = True
-        result["message"] = "Action completed"
-        return result
-    except Exception as err:
-        result["message"] = str(err)
-        return result
-```
+    # Extract from kwargs if optional
+    optional_val = kwargs.get("optional_param")
+    if optional_val:
+        self.coordinator.data["optional_field"] = optional_val
 
-### Step 3: Create Button Class
+    # ALWAYS trigger entity updates
+    self.coordinator.async_set_updated_data(self.coordinator.data)
 
-```python
-# button.py
-from .const import BUTTON_NEW_ACTION
-
-class BMWWallboxNewActionButton(BMWWallboxButtonBase):
-    """Button for new action."""
-
-    def __init__(self, coordinator, entry, hass):
-        super().__init__(coordinator, entry, hass, BUTTON_NEW_ACTION)
-        self._attr_name = "New Action"
-        self._base_icon = "mdi:gesture-tap"
-
-    async def async_press(self):
-        """Handle button press."""
-        await self._async_press_with_loading(self._do_action())
-
-    async def _do_action(self):
-        """Execute the action."""
-        result = await self.coordinator.async_new_action()
-        if result["success"]:
-            _LOGGER.info("Action successful")
-        else:
-            _LOGGER.warning("Action failed: %s", result["message"])
-```
-
-### Step 4: Register Button
-
-```python
-# button.py - in async_setup_entry()
-async_add_entities([
-    # ... existing ...
-    BMWWallboxNewActionButton(coordinator, entry, hass),
-])
-```
-
----
-
-## Adding a Switch
-
-### Step 1: Add Constant
-
-```python
-# const.py
-SWITCH_NEW_TOGGLE: Final = "new_toggle"
-```
-
-### Step 2: Create Switch Class
-
-```python
-# switch.py
-from .const import SWITCH_NEW_TOGGLE
-
-class BMWWallboxNewToggleSwitch(CoordinatorEntity, SwitchEntity):
-    """Switch for new toggle."""
-
-    def __init__(self, coordinator, entry):
-        super().__init__(coordinator)
-        self._attr_unique_id = f"{entry.entry_id}_{SWITCH_NEW_TOGGLE}"
-        self._attr_name = "New Toggle"
-        self._attr_icon = "mdi:toggle-switch"
-        self._attr_device_info = {
-            "identifiers": {(DOMAIN, entry.data["charge_point_id"])},
-            "name": "BMW Wallbox",
-            "manufacturer": coordinator.device_info.get("vendor", "BMW"),
-            "model": coordinator.device_info.get("model", "EIAW-E22KTSE6B04"),
-        }
-
-    @property
-    def is_on(self):
-        """Return true if switch is on."""
-        return self.coordinator.data.get("toggle_state", False)
-
-    async def async_turn_on(self, **kwargs):
-        """Turn the switch on."""
-        await self.coordinator.async_enable_toggle()
-
-    async def async_turn_off(self, **kwargs):
-        """Turn the switch off."""
-        await self.coordinator.async_disable_toggle()
-```
-
----
-
-## Adding a Number
-
-### Step 1: Add Constant
-
-```python
-# const.py
-NUMBER_NEW_SETTING: Final = "new_setting"
-```
-
-### Step 2: Add Coordinator Method
-
-```python
-# coordinator.py
-async def async_set_new_setting(self, value: int) -> bool:
-    """Set new setting value."""
-    if not self.charge_point:
-        return False
-
-    try:
-        response = await asyncio.wait_for(
-            self.charge_point.call(call.SetVariables(...)),
-            timeout=15.0
-        )
-        return response.status == "Accepted"
-    except Exception:
-        return False
-```
-
-### Step 3: Create Number Class
-
-```python
-# number.py
-from homeassistant.components.number import NumberEntity, NumberMode
-from homeassistant.const import PERCENTAGE
-
-from .const import NUMBER_NEW_SETTING
-
-class BMWWallboxNewSettingNumber(CoordinatorEntity, NumberEntity):
-    """Number entity for new setting."""
-
-    def __init__(self, coordinator, entry):
-        super().__init__(coordinator)
-        self._attr_unique_id = f"{entry.entry_id}_{NUMBER_NEW_SETTING}"
-        self._attr_name = "New Setting"
-        self._attr_icon = "mdi:tune"
-        self._attr_native_unit_of_measurement = PERCENTAGE
-        self._attr_native_min_value = 0
-        self._attr_native_max_value = 100
-        self._attr_native_step = 1
-        self._attr_mode = NumberMode.SLIDER
-        self._attr_device_info = {
-            "identifiers": {(DOMAIN, entry.data["charge_point_id"])},
-            "name": "BMW Wallbox",
-        }
-
-    @property
-    def native_value(self):
-        """Return current value."""
-        return self.coordinator.data.get("new_setting", 50)
-
-    async def async_set_native_value(self, value: float):
-        """Update the value."""
-        success = await self.coordinator.async_set_new_setting(int(value))
-        if success:
-            self.coordinator.data["new_setting"] = int(value)
-            self.async_write_ha_state()
-        else:
-            raise HomeAssistantError("Failed to set value")
-```
-
----
-
-## Button with Loading State
-
-The `BMWWallboxButtonBase` provides loading state:
-
-```python
-async def async_press(self):
-    """Handle button press."""
-    await self._async_press_with_loading(self._do_action())
-```
-
-This:
-1. Sets `_is_processing = True` (shows loading icon)
-2. Executes action
-3. Ensures minimum 1.5s loading time
-4. Sets `_is_processing = False`
-
----
-
-## Entity Availability
-
-Control when entity is available:
-
-```python
-@property
-def available(self):
-    """Return True if entity is available."""
-    return (
-        super().available
-        and self.coordinator.data.get("connected", False)
-        and self.coordinator.current_transaction_id is not None
+    # Return appropriate response
+    return call_result.NewMessageType(
+        response_param="value",
     )
 ```
 
----
+## Step-by-Step Guide
+
+### Step 1: Add Data Fields (coordinator.py)
+
+In `BMWWallboxCoordinator.__init__()`:
+
+```python
+self.data: dict[str, Any] = {
+    # ... existing fields ...
+    "new_field": None,
+    "optional_field": None,
+}
+```
+
+### Step 2: Add Handler Method (coordinator.py)
+
+In `WallboxChargePoint` class, add the handler method.
+
+### Step 3: Create Entity (if needed)
+
+If this data should be exposed as an entity, follow `.cursor/rules/add-sensor.md`.
+
+## Critical Rules for Handlers
+
+1. **Use @on() decorator** - `@on("MessageType")` registers the handler
+2. **Include **kwargs** - Handles optional/unknown parameters
+3. **Always return call_result** - Return appropriate response type
+4. **Call async_set_updated_data()** - After modifying coordinator.data
+5. **Log received data** - Use `_LOGGER.debug()` for debugging
+
+## Common OCPP Messages
+
+```python
+# Boot notification - device info
+@on("BootNotification")
+async def on_boot_notification(self, charging_station, reason, **kwargs):
+    # Extract device info
+    return call_result.BootNotification(...)
+
+# Status notification - connector status
+@on("StatusNotification")
+async def on_status_notification(self, timestamp, connector_status, evse_id, connector_id, **kwargs):
+    # Update status
+    return call_result.StatusNotification()
+
+# Heartbeat - keepalive
+@on("Heartbeat")
+async def on_heartbeat(self, **kwargs):
+    # Update connection status
+    return call_result.Heartbeat(...)
+
+# Transaction event - main data source
+@on("TransactionEvent")
+async def on_transaction_event(self, event_type, timestamp, trigger_reason, seq_no, transaction_info, **kwargs):
+    # Extract meter values and state
+    return call_result.TransactionEvent()
+```
+
+## Processing Meter Values
+
+For TransactionEvent with meter values:
+
+```python
+meter_value = kwargs.get("meter_value", [])
+if meter_value:
+    for mv in meter_value:
+        for sample in mv.get("sampled_value", []):
+            measurand = sample.get("measurand")
+            value = sample.get("value")
+            phase = sample.get("phase")
+
+            if measurand == "Power.Active.Import":
+                self.coordinator.data["power"] = float(value)
+            elif measurand == "Voltage":
+                if phase == "L1":
+                    self.coordinator.data["voltage_l1"] = float(value)
+```
 
 ## Checklist
 
-### For Buttons:
-- [ ] Constant added to `const.py`
-- [ ] Coordinator method added (if needed)
-- [ ] Button class created extending `BMWWallboxButtonBase`
-- [ ] Uses `_async_press_with_loading()` pattern
-- [ ] Registered in `async_setup_entry()`
-- [ ] Test added
-
-### For Switches:
-- [ ] Constant added to `const.py`
-- [ ] Coordinator methods added (enable/disable)
-- [ ] Switch class created extending `CoordinatorEntity, SwitchEntity`
-- [ ] `is_on`, `async_turn_on`, `async_turn_off` implemented
-- [ ] Device info included
-- [ ] Registered in `async_setup_entry()`
-- [ ] Test added
-
-### For Numbers:
-- [ ] Constant added to `const.py`
-- [ ] Coordinator method added
-- [ ] Number class created extending `CoordinatorEntity, NumberEntity`
-- [ ] Min/max/step values set
-- [ ] `native_value` and `async_set_native_value` implemented
-- [ ] Device info included
-- [ ] Registered in `async_setup_entry()`
-- [ ] Test added
+- [ ] Data fields added to coordinator `__init__()`
+- [ ] Handler method added to `WallboxChargePoint` class
+- [ ] Decorated with `@on("MessageType")`
+- [ ] Includes **kwargs parameter
+- [ ] Returns appropriate `call_result` type
+- [ ] Calls `async_set_updated_data()`
+- [ ] Includes debug logging
+- [ ] Entity created (if exposing data)
+- [ ] Tested with actual wallbox messages
 
 ---
 > Source: [JoaoPedroBelo/bmw-wallbox-ha](https://github.com/JoaoPedroBelo/bmw-wallbox-ha) — distributed by [TomeVault](https://tomevault.io).
