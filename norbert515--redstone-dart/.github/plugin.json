@@ -1,0 +1,9 @@
+{
+  "name": "norbert515--redstone-dart",
+  "displayName": "redstone_dart",
+  "description": "Write Minecraft mods in Dart with hot reload",
+  "version": "1.0.0",
+  "author": "Norbert515",
+  "homepage": "https://github.com/Norbert515/redstone_dart",
+  "skills": []
+}
