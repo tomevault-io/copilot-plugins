@@ -1,0 +1,9 @@
+{
+  "name": "sortie-ai--sortie",
+  "displayName": "sortie",
+  "description": "Turn tracker tickets into agent sessions",
+  "version": "1.0.0",
+  "author": "sortie-ai",
+  "homepage": "https://github.com/sortie-ai/sortie",
+  "skills": []
+}
