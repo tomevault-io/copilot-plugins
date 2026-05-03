@@ -7,11 +7,11 @@ stay on top of your favorite blogs
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Hyaxia/blogwatcher](https://github.com/Hyaxia/blogwatcher).
+Original source: `CLAUDE.md` in [Hyaxia/blogwatcher](https://github.com/Hyaxia/blogwatcher).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
