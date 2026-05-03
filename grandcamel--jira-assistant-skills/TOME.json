@@ -1,0 +1,93 @@
+{
+  "name": "JIRA-Assistant-Skills",
+  "owner": "grandcamel",
+  "repo": "JIRA-Assistant-Skills",
+  "description": "Claude Code Skills for JIRA automation - modular skills for issue management, workflows, search, and collaboration",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jira-assistant",
+      "path": "skills/jira-assistant",
+      "github_url": "https://github.com/grandcamel/JIRA-Assistant-Skills/tree/main/skills/jira-assistant",
+      "description": ""
+    },
+    {
+      "name": "assistant-builder",
+      "path": "skills/assistant-builder",
+      "github_url": "https://github.com/grandcamel/JIRA-Assistant-Skills/tree/main/skills/assistant-builder",
+      "description": ""
+    },
+    {
+      "name": "demo-scaffolding",
+      "path": "skills/demo-scaffolding",
+      "github_url": "https://github.com/grandcamel/JIRA-Assistant-Skills/tree/main/skills/demo-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing",
+      "path": "skills/e2e-testing",
+      "github_url": "https://github.com/grandcamel/JIRA-Assistant-Skills/tree/main/skills/e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "landing-page",
+      "path": "skills/landing-page",
+      "github_url": "https://github.com/grandcamel/JIRA-Assistant-Skills/tree/main/skills/landing-page",
+      "description": ""
+    },
+    {
+      "name": "library-publisher",
+      "path": "skills/library-publisher",
+      "github_url": "https://github.com/grandcamel/JIRA-Assistant-Skills/tree/main/skills/library-publisher",
+      "description": ""
+    },
+    {
+      "name": "safe-mode",
+      "path": "skills/safe-mode",
+      "github_url": "https://github.com/grandcamel/JIRA-Assistant-Skills/tree/main/skills/safe-mode",
+      "description": ""
+    },
+    {
+      "name": "skills-optimizer",
+      "path": "skills/skills-optimizer",
+      "github_url": "https://github.com/grandcamel/JIRA-Assistant-Skills/tree/main/skills/skills-optimizer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/grandcamel/JIRA-Assistant-Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T19:00:11Z"
+}
