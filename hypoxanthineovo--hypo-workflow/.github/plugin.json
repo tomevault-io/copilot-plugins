@@ -1,0 +1,9 @@
+{
+  "name": "hypoxanthineovo--hypo-workflow",
+  "displayName": "Hypo-Workflow",
+  "description": "Serialized prompt execution engine for AI agents \u2014 TDD pipeline, self-review, interrupt recovery, multi-dimensional evaluation",
+  "version": "1.0.0",
+  "author": "HypoxanthineOvO",
+  "homepage": "https://github.com/HypoxanthineOvO/Hypo-Workflow",
+  "skills": []
+}
