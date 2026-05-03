@@ -1,7 +1,6 @@
-## basic-rule
+## shad-expo-studio
 
-> Basic instructions for everything in this repo
-
+> This file provides guidance to coding agent when working with code in this repository.
 
 This file provides guidance to coding agent when working with code in this repository.
 
