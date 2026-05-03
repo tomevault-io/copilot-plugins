@@ -1,0 +1,9 @@
+{
+  "name": "mholzi--beatify",
+  "displayName": "beatify",
+  "description": "\ud83c\udfb5 Music year-guessing party game for Home Assistant \u2014 scan a QR code, hear a song, guess the year. Runs on Music Assistant, Sonos & Alexa speakers.",
+  "version": "1.0.0",
+  "author": "mholzi",
+  "homepage": "https://github.com/mholzi/beatify",
+  "skills": []
+}
