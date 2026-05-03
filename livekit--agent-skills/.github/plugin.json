@@ -1,0 +1,14 @@
+{
+  "name": "livekit--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Reusable AI coding agent skills for building voice AI with LiveKit",
+  "version": "1.0.0",
+  "author": "livekit",
+  "homepage": "https://github.com/livekit/agent-skills",
+  "skills": [
+    {
+      "name": "livekit-agents",
+      "description": ""
+    }
+  ]
+}
