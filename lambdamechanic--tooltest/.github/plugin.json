@@ -1,0 +1,26 @@
+{
+  "name": "lambdamechanic--tooltest",
+  "displayName": "tooltest",
+  "description": "AI instruction skills by lambdamechanic",
+  "version": "1.0.0",
+  "author": "lambdamechanic",
+  "homepage": "https://github.com/lambdamechanic/tooltest",
+  "skills": [
+    {
+      "name": "bd-to-br-migration",
+      "description": ""
+    },
+    {
+      "name": "beads",
+      "description": ""
+    },
+    {
+      "name": "lambda-workflow",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    }
+  ]
+}
