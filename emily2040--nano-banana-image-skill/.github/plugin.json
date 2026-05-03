@@ -1,0 +1,9 @@
+{
+  "name": "emily2040--nano-banana-image-skill",
+  "displayName": "nano-banana-image-skill",
+  "description": "Production-grade, agent-portable image prompting skill for Nano Banana Pro and Nano Banana 2 in the Gemini image family",
+  "version": "1.0.0",
+  "author": "Emily2040",
+  "homepage": "https://github.com/Emily2040/nano-banana-image-skill",
+  "skills": []
+}
