@@ -7,13 +7,13 @@ Build AI-powered security tools. 50+ hands-on labs covering ML, LLMs, RAG, threa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [depalmar/ai_for_the_win](https://github.com/depalmar/ai_for_the_win).
+Original source: `CLAUDE.md` in [depalmar/ai_for_the_win](https://github.com/depalmar/ai_for_the_win).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
