@@ -1,0 +1,9 @@
+{
+  "name": "makotoarai-cn--ddddocr-webjs",
+  "displayName": "ddddocr-webjs",
+  "description": "\u57fa\u4e8e [ddddocr] \u7684\u6d4f\u89c8\u5668\u9a8c\u8bc1\u7801\u8bc6\u522b\u7a0b\u5e8f\uff0c\u4f7f\u7528 ONNX Runtime Web \u5728\u6d4f\u89c8\u5668\u4e2d\u5b8c\u6210\u79bb\u7ebf\u63a8\u7406\u3002",
+  "version": "1.0.0",
+  "author": "MakotoArai-CN",
+  "homepage": "https://github.com/MakotoArai-CN/ddddocr-webjs",
+  "skills": []
+}
