@@ -1,0 +1,26 @@
+{
+  "name": "kevinnguyen271090--claudekit-engineering",
+  "displayName": "claudekit-engineering",
+  "description": "Claude Kit Engineering",
+  "version": "1.0.0",
+  "author": "kevinnguyen271090",
+  "homepage": "https://github.com/kevinnguyen271090/claudekit-engineering",
+  "skills": [
+    {
+      "name": "ai-multimodal",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "mcp-management",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    }
+  ]
+}
