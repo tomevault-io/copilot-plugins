@@ -1,0 +1,9 @@
+{
+  "name": "google--ml-flashpoint",
+  "displayName": "ml-flashpoint",
+  "description": "A memory-first, lightning-fast, ready-to-use ML distributed checkpointing library.",
+  "version": "1.0.0",
+  "author": "google",
+  "homepage": "https://github.com/google/ml-flashpoint",
+  "skills": []
+}
