@@ -1,0 +1,18 @@
+{
+  "name": "better-i18n--oss",
+  "displayName": "oss",
+  "description": "Official TypeScript SDKs for Better i18n \u2014 Next.js, React, Expo/React Native integrations with CLI, MCP server, and CDN-powered translation delivery",
+  "version": "1.0.0",
+  "author": "better-i18n",
+  "homepage": "https://github.com/better-i18n/oss",
+  "skills": [
+    {
+      "name": "better-i18n",
+      "description": ""
+    },
+    {
+      "name": "better-i18n",
+      "description": ""
+    }
+  ]
+}
