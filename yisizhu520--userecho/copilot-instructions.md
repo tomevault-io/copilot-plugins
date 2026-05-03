@@ -1,417 +1,388 @@
-## 07-commands-env
+## 08-ai-guidelines
 
-> 常用命令和环境变量配置指南
+> AI 辅助开发指南和注意事项
 
 
-# 常用命令与环境变量
+# AI 辅助开发指南
 
-## 前端命令
+## 代码生成建议
 
-### 开发命令
+### 生成新功能
+
+当 AI 生成新功能时，应遵循以下原则：
+
+1. **明确需求**:
+   - 理解功能的完整需求和边界条件
+   - 询问不清楚的业务逻辑
+   - 确认输入输出格式
+
+2. **遵循架构**:
+   - 遵循项目的伪三层架构 (api → schema → service → crud → model)
+   - 将代码放在正确的目录
+   - 使用统一的命名规范
+
+3. **完整实现**:
+   ```python
+   # ✅ 完整的功能实现示例
+   
+   # 1. Model (backend/app/user/model.py)
+   class User(Base):
+       __tablename__ = 'users'
+       id = Column(Integer, primary_key=True)
+       username = Column(String(50), unique=True, nullable=False)
+       email = Column(String(255), unique=True, nullable=False)
+   
+   # 2. Schema (backend/app/user/schema.py)
+   class UserCreate(BaseModel):
+       username: str = Field(min_length=3, max_length=50)
+       email: EmailStr
+   
+   class UserResponse(BaseModel):
+       id: int
+       username: str
+       email: str
+   
+   # 3. CRUD (backend/app/user/crud.py)
+   class UserCRUD:
+       async def create(self, db: AsyncSession, user_data: UserCreate) -> User:
+           # 实现创建逻辑
+           pass
+   
+   # 4. Service (backend/app/user/service.py)
+   class UserService:
+       async def create_user(self, db: AsyncSession, user_data: UserCreate) -> User:
+           # 业务逻辑处理
+           # 包含验证、错误处理等
+           pass
+   
+   # 5. API (backend/app/user/api.py)
+   @router.post('/users', response_model=UserResponse)
+   async def create_user(
+       user_data: UserCreate,
+       db: AsyncSession = Depends(get_db)
+   ):
+       """创建用户 API"""
+       return await user_service.create_user(db, user_data)
+   ```
+
+4. **类型注解**:
+   - 所有函数添加完整的类型注解
+   - 使用准确的类型而非 `any`
+   - 包含返回值类型
+
+5. **错误处理**:
+   ```python
+   # ✅ 包含错误处理
+   async def get_user(user_id: int) -> User:
+       try:
+           user = await user_crud.get(db, user_id)
+           if not user:
+               raise HTTPException(
+                   status_code=404,
+                   detail='用户不存在'
+               )
+           return user
+       except SQLAlchemyError as e:
+           logger.error(f'数据库错误: {e}')
+           raise HTTPException(
+               status_code=500,
+               detail='服务器错误'
+           )
+   ```
+
+6. **添加注释**:
+   - 函数文档字符串
+   - 复杂逻辑的行内注释
+   - 参数和返回值说明
+
+### 重构代码
+
+重构时应注意：
+
+1. **保持功能不变**:
+   ```python
+   # 重构前
+   def get_active_users(db):
+       users = db.query(User).filter(User.is_active == True).all()
+       return users
+   
+   # ✅ 重构后 - 改进但功能相同
+   async def get_active_users(db: AsyncSession) -> list[User]:
+       """获取所有活跃用户"""
+       result = await db.execute(
+           select(User).where(User.is_active.is_(True))
+       )
+       return result.scalars().all()
+   ```
+
+2. **提升可读性**:
+   ```typescript
+   // 重构前
+   const u = data.filter(x => x.s === 'active').map(x => x.n);
+   
+   // ✅ 重构后 - 更清晰
+   const activeUserNames = users
+     .filter(user => user.status === 'active')
+     .map(user => user.name);
+   ```
+
+3. **遵循 SOLID 原则**:
+   ```python
+   # ❌ 违反单一职责原则
+   class UserService:
+       def create_user(self, data):
+           # 创建用户
+           # 发送邮件
+           # 记录日志
+           # 更新缓存
+           pass
+   
+   # ✅ 拆分职责
+   class UserService:
+       def __init__(self, email_service, cache_service):
+           self.email_service = email_service
+           self.cache_service = cache_service
+       
+       async def create_user(self, data: UserCreate) -> User:
+           user = await self.user_crud.create(data)
+           await self.email_service.send_welcome_email(user.email)
+           await self.cache_service.invalidate(f'user:{user.id}')
+           return user
+   ```
+
+4. **不破坏 API**:
+   - 保持公共接口不变
+   - 如需修改，提供向后兼容
+   - 使用弃用警告
+
+### 修复 Bug
+
+修复 Bug 时的步骤：
+
+1. **理解问题**:
+   - 仔细阅读错误信息
+   - 理解问题的根本原因
+   - 不要只修复症状
+
+2. **最小化修改**:
+   ```python
+   # ❌ 过度修改
+   # 修复一个小 bug 却重构了整个模块
+   
+   # ✅ 针对性修复
+   # 只修改导致 bug 的代码
+   ```
+
+3. **添加注释**:
+   ```python
+   # ✅ 说明修复原因
+   # 修复: 当用户名包含特殊字符时，正则匹配失败
+   # 原因: 正则表达式没有转义特殊字符
+   # 解决: 使用 re.escape() 转义用户输入
+   username_pattern = re.escape(username)
+   ```
+
+4. **考虑测试**:
+   ```python
+   # ✅ 添加测试防止回归
+   @pytest.mark.asyncio
+   async def test_special_chars_in_username():
+       """测试用户名包含特殊字符的情况"""
+       user = await create_user({'username': 'user@#$%'})
+       assert user.username == 'user@#$%'
+   ```
+
+## 提问建议
+
+向 AI 提问时，提供以下信息可以获得更好的帮助：
+
+### 1. 具体的错误信息
 
 ```bash
-# 安装依赖
-pnpm install
+# ✅ 好的提问
+我在运行 `pnpm dev:antd` 时遇到以下错误：
 
-# 开发模式 (Ant Design 版本)
-pnpm dev:antd
-
-# 开发其他版本
-pnpm dev:ele      # Element Plus 版本
-pnpm dev:naive    # Naive UI 版本
-
-# 开发文档
-pnpm dev:docs
-
-# 开发 Playground
-pnpm dev:play
+```
+Error: Cannot find module '@vben/types'
+  at Module._resolveFilename (node:internal/modules/cjs/loader:1048:15)
+  ...
 ```
 
-### 构建命令
+项目环境：
+- Node: v20.10.0
+- pnpm: 10.12.4
+- 操作系统: Windows 11
 
-```bash
-# 构建生产版本
-pnpm build:antd
-
-# 构建并分析包大小
-pnpm build:analyze
-
-# 构建 Docker 镜像
-pnpm build:docker
-
-# 构建所有应用
-pnpm build
+# ❌ 不好的提问
+前端启动不了，怎么办？
 ```
 
-### 代码质量
-
-```bash
-# 类型检查
-pnpm check:type
-
-# Lint 检查
-pnpm lint
-
-# 代码格式化
-pnpm format
-
-# 检查循环依赖
-pnpm check:circular
-
-# 检查依赖
-pnpm check:dep
-
-# 拼写检查
-pnpm check:cspell
-
-# 运行所有检查
-pnpm check
-```
-
-### 测试命令
-
-```bash
-# 运行单元测试
-pnpm test:unit
-
-# 运行单元测试（监听模式）
-pnpm test:unit --watch
-
-# 运行单元测试（覆盖率）
-pnpm test:unit --coverage
-
-# 运行 E2E 测试
-pnpm test:e2e
-
-# 运行 E2E 测试（UI 模式）
-pnpm test:e2e --ui
-```
-
-### 其他命令
-
-```bash
-# 预览构建结果
-pnpm preview
-
-# 清理缓存和构建产物
-pnpm clean
-
-# 重新安装依赖
-pnpm reinstall
-
-# 提交代码（使用 commitizen）
-pnpm commit
-
-# 更新依赖
-pnpm update:deps
-```
-
-## 后端命令
-
-### 开发命令
-
-```bash
-# 安装依赖
-uv sync
-
-# 或使用 pip
-pip install -r requirements.txt
-
-# 开发运行
-python backend/run.py
-
-# 使用 uvicorn 运行
-uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
-
-# 使用 granian 运行（生产环境推荐）
-granian --interface asgi backend.main:app --host 0.0.0.0 --port 8000
-```
-
-### 数据库迁移
-
-```bash
-# 升级到最新版本
-alembic upgrade head
-
-# 降级一个版本
-alembic downgrade -1
-
-# 创建新迁移
-alembic revision --autogenerate -m "描述信息"
-
-# 查看迁移历史
-alembic history
-
-# 查看当前版本
-alembic current
-
-# 迁移到指定版本
-alembic upgrade <revision_id>
-```
-
-### 测试命令
-
-```bash
-# 运行所有测试
-pytest
-
-# 运行指定测试文件
-pytest tests/test_user.py
-
-# 运行指定测试函数
-pytest tests/test_user.py::test_create_user
-
-# 运行测试（显示详细输出）
-pytest -v
-
-# 运行测试（显示 print 输出）
-pytest -s
-
-# 运行测试（覆盖率）
-pytest --cov=backend --cov-report=html
-
-# 运行测试（并行）
-pytest -n auto
-```
-
-### 代码质量
-
-```bash
-# 使用 prek 进行代码检查和格式化
-prek
-
-# 或手动使用 ruff
-ruff check backend/
-ruff format backend/
-
-# 类型检查（如果使用 mypy）
-mypy backend/
-```
-
-### Celery 命令
-
-```bash
-# 启动 Celery Worker
-celery -A backend.plugin.task.celery worker --loglevel=info
-
-# 启动 Celery Beat (定时任务)
-celery -A backend.plugin.task.celery beat --loglevel=info
-
-# 启动 Flower (监控界面)
-celery -A backend.plugin.task.celery flower --port=5555
-
-# 查看任务列表
-celery -A backend.plugin.task.celery inspect active
-
-# 清空任务队列
-celery -A backend.plugin.task.celery purge
-```
-
-### 其他命令
-
-```bash
-# 使用 CLI 工具
-fba --help
-
-# 创建超级用户
-fba create-superuser
-
-# 初始化数据库
-fba init-db
-```
-
-## 环境变量配置
-
-### 前端环境变量
-
-创建 `front/apps/web-antd/.env.local`：
-
-```bash
-# 应用标题
-VITE_APP_TITLE=UserEcho
-
-# API 地址
-VITE_API_URL=http://localhost:8000
-
-# 应用环境
-VITE_APP_ENV=development
-
-# 是否启用 Mock 数据
-VITE_USE_MOCK=false
-
-# WebSocket 地址
-VITE_WS_URL=ws://localhost:8000/ws
-
-# 上传文件大小限制 (MB)
-VITE_MAX_FILE_SIZE=10
-
-# 是否启用压缩
-VITE_BUILD_COMPRESS=gzip
-```
-
-环境变量使用：
+### 2. 相关代码片段
 
 ```typescript
-// 在代码中使用
-const apiUrl = import.meta.env.VITE_API_URL;
-const isDev = import.meta.env.DEV;
-const isProd = import.meta.env.PROD;
+// ✅ 好的提问
+我在尝试实现用户登录，但是 token 没有正确保存。以下是相关代码：
+
+// api.ts
+export async function login(credentials: LoginCredentials) {
+  const response = await axios.post('/api/auth/login', credentials);
+  // Token 在这里获取到了
+  console.log('Token:', response.data.token);
+  return response.data;
+}
+
+// useAuth.ts
+const { data } = await login(credentials);
+// 但是这里 data.token 是 undefined
+console.log('Data:', data);
+
+期望：data.token 应该包含 JWT token
+实际：data.token 是 undefined
+
+// ❌ 不好的提问
+登录功能有问题
 ```
 
-### 后端环境变量
+### 3. 已尝试的解决方案
 
-创建 `server/.env`：
+````markdown
+# ✅ 好的提问
+我在尝试修复一个数据库连接池耗尽的问题。
 
-```bash
-# ========== 应用配置 ==========
-APP_NAME=UserEcho
-APP_ENV=development
-APP_DEBUG=True
-APP_HOST=0.0.0.0
-APP_PORT=8000
+**问题描述**：
+运行一段时间后，应用报错 "TimeoutError: QueuePool limit of size 20 overflow 10 reached"
 
-# ========== 数据库配置 ==========
-# MySQL
-DATABASE_URL=mysql+asyncmy://root:password@localhost:3306/userecho?charset=utf8mb4
+**已尝试的方案**：
+1. 增加连接池大小到 50 - 只是延缓了问题
+2. 检查是否有未关闭的连接 - 使用了 async with 管理会话
+3. 查看日志 - 发现高峰期并发请求数超过 100
 
-# PostgreSQL
-# DATABASE_URL=postgresql+asyncpg://user:password@localhost:5432/userecho
-
-# 数据库连接池配置
-DB_POOL_SIZE=20
-DB_MAX_OVERFLOW=10
-DB_POOL_RECYCLE=3600
-
-# ========== Redis 配置 ==========
-REDIS_URL=redis://localhost:6379/0
-REDIS_PASSWORD=
-REDIS_TIMEOUT=5
-
-# ========== JWT 配置 ==========
-JWT_SECRET_KEY=your-secret-key-change-this-in-production
-JWT_ALGORITHM=HS256
-JWT_EXPIRE_MINUTES=1440  # 24 小时
-JWT_REFRESH_EXPIRE_DAYS=7
-
-# ========== CORS 配置 ==========
-CORS_ORIGINS=http://localhost:5173,http://localhost:3000
-
-# ========== 限流配置 ==========
-RATE_LIMIT_TIMES=60
-RATE_LIMIT_SECONDS=60
-
-# ========== 日志配置 ==========
-LOG_LEVEL=INFO
-LOG_DIR=logs
-
-# ========== 文件上传配置 ==========
-UPLOAD_DIR=uploads
-MAX_FILE_SIZE=10485760  # 10MB
-
-# ========== Celery 配置 ==========
-CELERY_BROKER_URL=redis://localhost:6379/1
-CELERY_RESULT_BACKEND=redis://localhost:6379/2
-
-# ========== 邮件配置 ==========
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-password
-SMTP_FROM=noreply@userecho.com
-
-# ========== 第三方服务 ==========
-# AWS S3
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_S3_BUCKET=
-
-# OpenTelemetry
-OTEL_ENABLED=false
-OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
-```
-
-环境变量使用：
-
+**相关代码**：
 ```python
-# backend/core/config.py
-from pydantic_settings import BaseSettings
-
-class Settings(BaseSettings):
-    app_name: str = 'UserEcho'
-    app_env: str = 'development'
-    database_url: str
-    redis_url: str
-    jwt_secret_key: str
-    
-    class Config:
-        env_file = '.env'
-        case_sensitive = False
-
-settings = Settings()
+engine = create_async_engine(
+    DATABASE_URL,
+    pool_size=20,
+    max_overflow=10,
+)
 ```
 
-## Docker 命令
+希望了解是否有更好的配置方案或架构优化建议。
 
-```bash
-# 构建镜像
-docker-compose build
+# ❌ 不好的提问
+数据库连接有问题，怎么解决？
+````
 
-# 启动服务
-docker-compose up -d
+### 4. 期望的行为
 
-# 停止服务
-docker-compose down
+```markdown
+# ✅ 好的提问
+我在实现文章列表的分页功能。
 
-# 查看日志
-docker-compose logs -f
+**当前行为**：
+- 第一页显示 20 条记录 ✓
+- 点击第二页时，返回相同的 20 条记录 ✗
 
-# 重启服务
-docker-compose restart
+**期望行为**：
+- 第一页显示前 20 条记录
+- 第二页显示第 21-40 条记录
 
-# 进入容器
-docker-compose exec backend bash
-docker-compose exec frontend sh
+**相关代码**：
+[贴上代码]
 
-# 查看运行状态
-docker-compose ps
+# ❌ 不好的提问
+分页不对
 ```
 
-## 生产部署命令
+## 代码审查清单
 
-### 前端部署
+在提交代码前，AI 和开发者都应检查：
 
-```bash
-# 构建生产版本
-pnpm build:antd
+### 基本检查
 
-# 预览构建结果
-pnpm preview
+- [ ] 代码符合项目规范（命名、格式、结构）
+- [ ] 类型注解完整且准确
+- [ ] 包含必要的注释和文档
+- [ ] 移除了所有 `console.log` / `print` 调试代码
+- [ ] 通过 Lint 检查 (`pnpm lint` / `prek`)
+- [ ] 通过类型检查 (`pnpm check:type` / `mypy`)
 
-# 使用 nginx 部署
-cp -r front/apps/web-antd/dist/* /var/www/html/
-```
+### 功能检查
 
-### 后端部署
+- [ ] 功能按照需求正确实现
+- [ ] 边界情况得到处理
+- [ ] 错误处理完善
+- [ ] 测试通过（如有）
 
-```bash
-# 使用 granian (推荐)
-granian --interface asgi backend.main:app \
-  --host 0.0.0.0 \
-  --port 8000 \
-  --workers 4 \
-  --threads 2
+### 安全检查
 
-# 使用 gunicorn + uvicorn
-gunicorn backend.main:app \
-  --workers 4 \
-  --worker-class uvicorn.workers.UvicornWorker \
-  --bind 0.0.0.0:8000
+- [ ] 没有硬编码的密码、密钥、token
+- [ ] 用户输入得到验证和清理
+- [ ] SQL 注入防护（使用参数化查询）
+- [ ] XSS 防护（正确转义输出）
+- [ ] 敏感操作有权限验证
 
-# 使用 systemd 管理服务
-sudo systemctl start userecho
-sudo systemctl enable userecho
-sudo systemctl status userecho
-```
+### 性能检查
+
+- [ ] 数据库查询优化（使用索引、避免 N+1）
+- [ ] 避免不必要的重复计算
+- [ ] 大数据量使用分页
+- [ ] 合理使用缓存
+
+## 特别注意事项
+
+### 禁止操作
+
+- ❌ 提交敏感信息（密码、API 密钥、token）
+- ❌ 提交依赖目录（node_modules、__pycache__、.venv）
+- ❌ 直接修改自动生成的文件（migrations、锁文件）
+- ❌ 绕过 Lint 和类型检查
+- ❌ 使用已弃用的 API 或库
+
+### 强制要求
+
+- ✅ 所有 API 接口必须有权限验证
+- ✅ 数据库操作必须有事务处理
+- ✅ 用户输入必须验证和清理
+- ✅ 错误必须有适当的日志记录
+- ✅ 公共 API 必须有完整文档
+
+### 最佳实践
+
+1. **渐进式开发**:
+   - 先实现核心功能
+   - 再添加边界情况处理
+   - 最后优化性能
+
+2. **保持简单**:
+   - 优先使用简单的解决方案
+   - 避免过度设计
+   - 不要过早优化
+
+3. **代码复用**:
+   - 提取公共逻辑到工具函数
+   - 使用组合而非继承
+   - 遵循 DRY 原则
+
+4. **可维护性**:
+   - 编写自解释的代码
+   - 添加必要的注释
+   - 保持函数简短
+
+## 参考资源
+
+### 官方文档
+
+- [FastAPI 文档](https://fastapi.tiangolo.com/) - 后端框架
+- [Vue 3 文档](https://cn.vuejs.org/) - 前端框架
+- [Vben Admin 文档](https://www.vben.pro/) - 管理后台框架
+- [Ant Design Vue](https://antdv.com/) - UI 组件库
+- [Pydantic 文档](https://docs.pydantic.dev/) - 数据验证
+- [SQLAlchemy 文档](https://docs.sqlalchemy.org/) - ORM
+
+### 社区资源
+
+- [FastAPI Best Architecture](https://github.com/fastapi-practices/fastapi_best_architecture)
+- [Vue Vben Admin](https://github.com/vbenjs/vue-vben-admin)
 
 ---
 
