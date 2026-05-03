@@ -1,0 +1,9 @@
+{
+  "name": "buildkite--skills",
+  "displayName": "skills",
+  "description": "Official Buildkite skills for Claude Code, Cursor, and other AI coding agents",
+  "version": "1.0.0",
+  "author": "buildkite",
+  "homepage": "https://github.com/buildkite/skills",
+  "skills": []
+}
