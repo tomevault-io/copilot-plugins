@@ -1,0 +1,9 @@
+{
+  "name": "ppf--agentsmonitor",
+  "displayName": "agentsmonitor",
+  "description": "Monitor AI Agents in Native MacOS app",
+  "version": "1.0.0",
+  "author": "ppf",
+  "homepage": "https://github.com/ppf/agentsmonitor",
+  "skills": []
+}
