@@ -1,0 +1,9 @@
+{
+  "name": "lgladysz--opencode-ignore",
+  "displayName": "opencode-ignore",
+  "description": "OpenCode plugin to restrict AI access to files and directories using .ignore patterns (gitignore-style).",
+  "version": "1.0.0",
+  "author": "lgladysz",
+  "homepage": "https://github.com/lgladysz/opencode-ignore",
+  "skills": []
+}
