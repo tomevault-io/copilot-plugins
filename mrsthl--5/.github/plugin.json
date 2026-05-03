@@ -1,0 +1,14 @@
+{
+  "name": "mrsthl--5",
+  "displayName": "5",
+  "description": "A meta-framework that guides feature implementation using a clear 5-phase process.",
+  "version": "1.0.0",
+  "author": "mrsthl",
+  "homepage": "https://github.com/mrsthl/5",
+  "skills": [
+    {
+      "name": "generate-readme",
+      "description": ""
+    }
+  ]
+}
