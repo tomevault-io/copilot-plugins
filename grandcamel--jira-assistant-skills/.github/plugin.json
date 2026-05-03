@@ -1,0 +1,42 @@
+{
+  "name": "grandcamel--jira-assistant-skills",
+  "displayName": "JIRA-Assistant-Skills",
+  "description": "Claude Code Skills for JIRA automation - modular skills for issue management, workflows, search, and collaboration",
+  "version": "1.0.0",
+  "author": "grandcamel",
+  "homepage": "https://github.com/grandcamel/JIRA-Assistant-Skills",
+  "skills": [
+    {
+      "name": "jira-assistant",
+      "description": ""
+    },
+    {
+      "name": "assistant-builder",
+      "description": ""
+    },
+    {
+      "name": "demo-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "landing-page",
+      "description": ""
+    },
+    {
+      "name": "library-publisher",
+      "description": ""
+    },
+    {
+      "name": "safe-mode",
+      "description": ""
+    },
+    {
+      "name": "skills-optimizer",
+      "description": ""
+    }
+  ]
+}
