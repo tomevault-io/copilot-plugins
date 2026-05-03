@@ -1,110 +1,253 @@
-## part-1-aggregator-tool-design-specifications
+## part-2-compiler-tool-design-specification
 
-> Description of entire rule: Main Architecture layout/design of the aggregator portion of the two-part aggregation-distillation LLM work flow.
+> Main Architecture layout/design of the distillation/compiler portion of the two-part aggregation-distillation LLM workflow.
 
 
-Description of entire rule: Main Architecture layout/design of the aggregator portion of the two-part aggregation-distillation LLM work flow.
+Main Architecture layout/design of the distillation/compiler portion of the two-part aggregation-distillation LLM workflow.
 
-# OVERVIEW
+## Workflow Compiler Note
+Compiler runs independently from aggregator (manual start via API only). Strict Markov-chain: one compiler-submitter runs, submits to validator, waits for validation result before resuming. Only 1 submission in queue at a time.
 
-## Workflow for Aggregator Note
-Submitters run in parallel; single validator reviews and updates the shared database sequentially. This ensures coherent Markov chain evolution and database alignment with user prompt.
+## Compile/Distillation Tool Outline
 
-## AI Node Clusters and Validator Structure
-Configurable 1-10 submitters + exactly 1 validator (default 3 submitters). Each submitter has its own model, context window, and max output tokens. First submitter labeled "Main Submitter" in UI.
+Reads aggregator database + user prompt, distills into a single coherent paper. 1 high-context submitter + 1 high-param submitter + 1 validator. Sequential workflow (no parallel submitters).
 
-**Single Validator Constraint**: Only one validator allowed — multiple validators would cause divergent database evolution, breaking coherent Markov chain alignment.
+Aggregator/brainstorm database material is high-priority optional source context, not a mandatory checklist. Compiler submitters may selectively use, synthesize beyond, or depart from database material when that better serves the user's prompt and remains rigorous. Validator must not reject solely for selective non-use of database material.
 
-Validator accepts a submission if adding it makes the training database more useful toward finding solutions. Validator-distributed accepted submissions database starts blank, grows as submissions are accepted. Distributor updates it to all submitters after each acceptance.
+**Context Anchors**:
+- **Paper Anchor**: `[HARD CODED END-OF-PAPER MARK -- ALL CONTENT SHOULD BE ABOVE THIS LINE]`
+- **Outline Anchor** (two lines): `[HARD CODED BRACKETED DESIGNATION THAT SHOWS END-OF-PAPER DESIGNATION MARK]` then `[HARD CODED END-OF-OUTLINE MARK -- ALL OUTLINE CONTENT SHOULD BE ABOVE THIS LINE]`
 
-## Queue Submissions and Overflow Behavior
+**Section Placeholders** (paper only):
+- `[HARD CODED PLACEHOLDER FOR THE ABSTRACT SECTION - TO BE WRITTEN AFTER THE INTRODUCTION IS COMPLETE]`
+- `[HARD CODED PLACEHOLDER FOR INTRODUCTION SECTION - TO BE WRITTEN AFTER THE CONCLUSION SECTION IS COMPLETE]`
+- `[HARD CODED PLACEHOLDER FOR THE CONCLUSION SECTION - TO BE WRITTEN AFTER THE BODY SECTION IS COMPLETE]`
 
-Validator processes up to 3 submissions at once (batch validation). Takes whatever is available (1, 2, or 3) without waiting.
+Placeholders are STRUCTURAL MARKERS ONLY. Submissions must never include them — any that appear will be silently stripped before validation.
 
-**Queue Overflow Threshold**: ≥10 submissions in queue → submitters paused until queue drops below 10.
+**Marker Integrity System (Automatic Repair)**:
+Before every `_pre_validate_exact_string_match()`, system calls `paper_memory.ensure_markers_intact()` (or `outline_memory.ensure_anchor_intact()` for outline_update). If markers were missing, they are added and document is re-fetched before validation. Mode-aware: paper operations check placeholders + anchor; outline operations check outline anchor only.
 
-## Batch Validation
+**Outline is ALWAYS fully injected (never RAGed)** into all compiler mode prompts.
 
-Validator processes 1, 2, or 3 submissions simultaneously using batch-specific prompts.
+**Provider Selection**: Each compiler role (validator, high-context, high-param, critique submitter) can independently use LM Studio or OpenRouter with optional host provider and LM Studio fallback.
 
-**Independent Assessment**: Each submission assessed INDEPENDENTLY against existing database — does THIS submission provide unique value?
+**Aggregator RAG refresh**: Every 10 accepted aggregator submissions (not immediate like aggregator).
 
-**Intra-Batch Redundancy Prevention**: After independent assessment, if multiple submissions would be accepted, check for redundancy between them. Keep only strongest; reject others as "Redundant with co-submitted submission X". Goal: maximize UNIQUE value per batch.
+**Enhanced Rejection Feedback Format** (`compiler_rejection_log.py`):
+- Header: "🚫 REJECTED BECAUSE: [Failure Reason]"
+- `validation_stage`: pre-validation (exact string check) or LLM validation (placement context)
+- Full validator reasoning + 300-char submission preview
+- "WHAT TO FIX" with specific instructions per failure type
+- Diagnostics: needle/haystack previews (first/last 200 chars) when exact match fails
 
-- 1 submission: standard validation
-- 2 submissions: independent + pairwise redundancy check
-- 3 submissions: independent + all-pairs check (1-2, 1-3, 2-3)
+Last 10 rejections and 10 acceptances: direct injected if fit, RAG only if too large.
 
-## Databases
+---
 
-**USER SHARED DATABASE** — User uploaded files + original prompt. Primary source for submitters.
+## Phase-Based Paper Construction
 
-**Validator-Distributed Database** — Accepted submissions (built by validator only; submitters have read-only access). Starts blank; distributed to all submitters on each acceptance.
+**PHASE ORDER (strictly enforced):** BODY → CONCLUSION → INTRODUCTION → ABSTRACT
 
-**Local Submitter Databases** — Per-submitter rejection log: last 5 rejections (validator summary ≤750 chars + submission preview ≤750 chars). File: `Summary_Of_Last_5_Validator_Rejections_For_Submitter_{N}.txt`. Reset if submitter gets >15 consecutive rejections.
+**Explicit completion signals**: Submitter sets `section_complete: true` when phase is done. Coordinator advances ONLY on explicit signal AND verifies section header exists via regex. Paper complete when abstract phase receives `section_complete: true`.
 
-**Submission context injection**: Direct inject if fits. If too large: RAG the submission as file, keep user prompt direct. If user prompt + RAG'd submission still too large: RAG all user-prompt files. If user prompt itself too large after all RAG: halt with error + diagnostic.
+**Implementation**:
+- Phase-specific prompt functions in `construction_prompts.py`
+- Phase tracking via `autonomous_section_phase` in `compiler_coordinator.py`
+- `CompilerSubmission` model includes `section_complete` field
+
+`needs_construction=true` requires non-empty `content`/`new_string` — contradictory pattern causes infinite rejection loops.
+
+**Section Placeholder System**:
+1. First body section accepted → `paper_memory.initialize_with_placeholders()` sets up all placeholders
+2. Each phase completion → `paper_memory.replace_placeholder()` replaces placeholder with validated content
+3. AI sees placeholders in CURRENT DOCUMENT PROGRESS = section not yet written
+
+**Placeholder Boundary Invariant**:
+```
+[ABSTRACT_PLACEHOLDER]
+[INTRO_PLACEHOLDER]
+II. Body Section 1        <-- Body content goes here
+[CONCLUSION_PLACEHOLDER]  <-- HARD BOUNDARY: Body content NEVER crosses this
+[PAPER_ANCHOR]
+```
+Body content is ALWAYS inserted BEFORE CONCLUSION_PLACEHOLDER. `_apply_edit()` auto-corrects: if old_string anchor falls after placeholder, automatically relocates insertion to just before it.
+
+**Paper state is ALWAYS shown** in all construction phases. Empty paper shows "(EMPTY - no content written yet)" so model uses `operation='full_content'`.
+
+| Phase | Paper Shown | Reason |
+|-------|-------------|--------|
+| BODY (first) | YES (EMPTY) | Must use full_content |
+| BODY (continuation) | YES | See existing sections |
+| CONCLUSION | YES | Summarize body |
+| INTRODUCTION | YES | Preview body+conclusion |
+| ABSTRACT | YES | Summarize entire paper |
+
+---
+
+## Submitter-Validator Cycle
+
+**Outline Creation (Phase 1 — Iterative):**
+1. HC submitter generates outline → validator reviews (accept/reject + feedback)
+2. If accepted: submitter decides outline_complete=true (lock) or false (refine further)
+3. Hard limit: 15 iterations; outline locked → fully injected into all future prompts
+
+**Construction Loop (repeating):**
+- 4× HC construction → validator
+- 1× HC outline update → validator *(skipped if body complete)*
+- 2× HC review → validator
+- 1× HP rigor → validator *(skipped if body complete)*
+
+**Rigor Mode (2-Step):**
+- Step 1 (unvalidated): HP model chooses mode (standard_enhancement, rewrite_focus, wolfram_verification) and target_section
+- Step 2 (with self-refusal): sees full paper + target_section reminder, can set `proceed=false` to refuse
+- Wolfram mode: system makes API call between steps, passes result to Step 2. Accepted Wolfram calls tracked in model credits separately.
+- Loop 2 ends on first rigor rejection/decline → return to Loop 1
+
+**Decline Mechanisms:**
+- `outline_update`: `needs_update: boolean`
+- `construction`: `needs_construction: boolean`
+- `review`: `needs_edit: boolean`
+- `rigor`: `needs_enhancement: boolean`
+
+Declines logged to `compiler_last_10_declines.txt`.
+
+---
+
+## Body-Only Modes
+
+Outline updates and rigor enhancements are skipped once body is complete:
+- **Autonomous mode**: `autonomous_section_phase == "body"`
+- **Manual mode**: Conclusion section exists in paper
+
+Detection via `_is_body_complete()` in `compiler_coordinator.py`.
+
+---
+
+## Critique Phase (Post-Body, Pre-Conclusion)
+
+**"5 total attempts"** = accepted + rejected + declined (not just accepted).
+
+**Max 1 completed rewrite**. Rewrite "completed" only after first successful body acceptance post-rewrite. After 1 completed rewrite, critique phase is skipped entirely.
+
+**Workflow:**
+1. If `rewrite_count >= 1` completed rewrites → skip critique, proceed to conclusion
+2. Critique aggregation: target 5 total attempts
+3. Pre-critique snapshot of paper body
+4. If 5 attempts with ≥1 accepted → rewrite decision; if 0 accepted → skip rewrite
+5. Decisions: **CONTINUE** (minor/incorrect critiques) | **PARTIAL_REVISION** (iterative one-edit-at-a-time loop until `more_edits_needed=false`) | **TOTAL_REWRITE** (catastrophic flaws only)
+
+Context for rewrites: pre-critique paper + accepted critiques only (rejected excluded) + accumulated history from prior failed versions.
+
+**Decline**: Submitter can assess "no critique needed" if body is academically acceptable (no errors, complete, meets rigor). If 0 accepted critiques at end of 5 attempts → skip rewrite.
+
+**Skip Critique (User Override)**: `POST /api/compiler/skip-critique` — available only during active critique phase (`in_critique_phase=True`). Immediately ends critique, transitions to conclusion, broadcasts `critique_phase_skipped` with `reason: "user_override"`. Irreversible.
+
+**WebSocket Events:** `critique_phase_started`, `critique_progress`, `critique_accepted`, `critique_rejected`, `critique_decline_accepted`, `critique_decline_rejected`, `critique_removed`, `critique_phase_ended`, `critique_phase_skipped`, `rewrite_decision_rejected`, `body_rewrite_started`, `phase_transition`, `phase_completion_signal`
+
+---
+
+## Required Section Structure (MANDATORY)
+
+| Section | Exact Name | Required | Position |
+|---------|-----------|----------|----------|
+| Abstract | "Abstract" | YES | First |
+| Introduction | "Introduction" or "I. Introduction" | YES | After Abstract |
+| Body | Flexible (II., III., etc.) | YES (at least 1) | Between Intro and Conclusion |
+| Conclusion | "Conclusion" or "N. Conclusion" | YES | Last content section |
+
+Writing order: Body → Conclusion → Introduction → Abstract. Final paper order: Abstract → Introduction → Body → Conclusion.
+
+---
+
+## Exact String Matching System
+
+Submission JSON: `operation`, `old_string` (exact, pre-validated), `new_string`.
+
+**Operations:** `replace` (find+replace), `insert_after` (find+insert after), `delete` (find+remove), `full_content` (new section, old_string empty).
+
+**Matching layers (in order):**
+1. Exact match
+2. Unicode hyphen normalization (en-dash, em-dash variants)
+3. Whitespace normalization (2+ spaces → single space)
+3b. All-whitespace normalization (collapses newlines/spaces/tabs → single space)
+4. Backslash normalization (`\\mathbb` → `\mathbb`)
+5. Consecutive fuzzy matching: 85% consecutive chars + last 5% exact tail anchor + unique (≥20 char minimum)
+
+Pre-validation rejects immediately if not found/not unique. LLM validator focuses on placement context, not string verification. Mode-aware: `outline_update` validates against outline; all other modes validate against paper.
+
+**Empty paper**: `full_content` operation is MANDATORY. Pre-validation rejects other operations on empty doc. Auto-correction fallback in `_apply_edit()` converts to `full_content` if needed.
+
+---
+
+## Placeholder Resume Repair (Critical for Crash Recovery)
+
+`paper_memory.ensure_placeholders_exist()` called when `is_resuming_paper=True` in `compiler_coordinator._main_workflow()`. Checks all 4 markers; if any missing, extracts body content and reconstructs paper with correct placeholder positions.
+
+**Placeholder Preservation Invariant (Bug Fix 2026-01-18):**
+Both `ensure_placeholders_exist()` and `ensure_markers_intact()` must PRESERVE existing placeholders. Repair only ADDs missing ones, never removes. If `has_*_content = False`, placeholder MUST exist. Failure causes infinite rejection loops in phase transitions.
+
+**Fake Placeholder Detection (Bug Fix 2026-01-22):**
+- Full content >300 chars → ALWAYS real
+- <300 chars WITH keywords ("will be replaced", "placeholder") → FAKE
+- <300 chars, no keywords, >50 chars → real
+
+Prevents models' fake placeholder text (e.g., "XI. Conclusion\n*placeholder*") from being treated as written sections.
+
+---
 
 ## Context Allocation
 
-User prompt ALWAYS direct injected. Use as much context as possible in every prompt.
+Per-role context windows (all user-configurable, default 131072):
+- Validator, High-Context Submitter, High-Parameter Submitter: 131072 tokens each
+- **Settings flow**: All compiler modules read from `system_config.compiler_*` at runtime. The caller that creates `CompilerCoordinator` MUST write settings to `system_config` before init (manual mode: `/api/compiler/start`; autonomous mode: `autonomous_coordinator.py` before `CompilerCoordinator()` creation).
+- Rigor mode dynamically adjusts RAG budget if outline + system prompts exceed available context
+- Construction mode (autonomous) dynamically adjusts RAG budget when brainstorm content is present: `rag_budget = max(5000, max_allowed - outline_tokens - paper_tokens - brainstorm_tokens - 5000_overhead)`. Brainstorm always direct-injected at full fidelity; RAG evidence scales to fit remaining budget.
 
-### CONTEXT DISTRIBUTION RULES
+**Context rules:** User prompt ALWAYS direct injected. Direct injection first; RAG only when doesn't fit. ~85% RAG retrieval, ~15% direct injections. Halt with error if user prompt exceeds context_window - minimum_RAG_allocation.
 
-Direct injection first; RAG only when doesn't fit. ~85% RAG retrieval, ~15% other direct injections (JSON, user files). Halt with error if user prompt exceeds (context_window - minimum_RAG_allocation).
+**Prompt Size Validation** (all submitters before LLM call):
+- `outline_create`, `outline_update`, `rigor`, `construction`, `review`: raises ValueError if exceeds
+- `validator`: rejects submission if exceeds
 
-No context carryover between prompts (only system-intended DB/submission transfers).
+**Rigor Mode context**: no aggregator database; outline fully injected; paper content RAG-retrieved. RAG excludes `compiler_outline.txt` (already direct-injected).
 
-**RAG Offload Priority — Submitter:** Shared Training DB → Local Submitter DB → Rejection Log → User Upload Files
+**RAG source exclusion (anti-duplication)**: All compiler RAG calls pass `exclude_sources` to skip chunks from content already direct-injected. Construction excludes outline + paper + brainstorm sources; outline_update excludes outline + paper; rigor excludes outline. See `rag-design-for-overall-program.mdc` for full table.
 
-**RAG Offload Priority — Validator:** Shared Training DB → User Upload Files (submission under review is always direct injected)
+---
 
-## Role Selection
+## Model Tracking (Manual Mode)
 
-User selects model per role. Multiple roles can share a model. Models load with user-set context sizes.
+`PaperModelTracker` initialized on compiler start (non-autonomous). Tracks API calls via callback on `api_client_manager`. Saved paper includes: Author Attribution Header → Paper Content → Model Credits Footer (models + API call counts + Wolfram Alpha verifications if any). Format in `paper_model_tracker.py`.
 
-## Single-Model Mode
-When ALL submitters AND validator use the same model → single-model mode:
-- Submitters run SEQUENTIALLY (S1 → S2 → ... → Sn)
-- Validator processes all queued submissions after each full submitter round
-- Prevents queue overflow from parallel tasks flooding when LLM completes
-- Boost does NOT affect single-model detection (routing only, not model config)
+---
 
-## Multi-Submitter Configuration
+## Retroactive Brainstorm Correction (Autonomous Mode Only)
 
-Per-submitter: provider (LM Studio / OpenRouter), model, OpenRouter host provider, LM Studio fallback, context window, max output tokens. UI: "Number of Submitters" selector (1-10), "Copy Main to All" button.
+During paper compilation in autonomous mode (Part 3), the compiler submitter sees both the paper AND the source brainstorm database as a unified editable workspace. The submitter may optionally propose a brainstorm operation alongside its paper operation each turn.
 
-Embeddings for RAG: LM Studio first, falls back to OpenRouter (`openai/text-embedding-3-small`) if LM Studio unavailable.
+**Brainstorm operations**: `edit` (correct submission content), `delete` (remove submission), `add` (new insight discovered during synthesis).
 
-## Database Management
+**Independent Validation Principle**: Paper and brainstorm operations are validated SEPARATELY. The validator sees ONLY the paper when validating paper edits, ONLY the brainstorm when validating brainstorm operations. Each must stand on its own merits. Neither can depend on the other for correctness.
 
-Accepted submissions database: never truncated. Live preview shows exact non-truncated log. Validator reasoning/results NOT included in the database (accepted submissions only).
+**Acceptance is independent**: Paper accepted + brainstorm rejected = valid state. Brainstorm accepted + paper rejected = valid state. No combination produces incoherence.
 
-## Database Cleanup Review
+**Brainstorm content**: Passed to construction prompts with full submission numbers. Submitter references entries by `#N` for edit/delete.
 
-Every 7th acceptance (`total_acceptances % 7 == 0`, minimum 7 before first review):
+**RAG refresh**: After accepted brainstorm modification, RAG is refreshed with updated brainstorm content so subsequent construction turns see corrected context.
 
-**Phase 1**: Validator reviews ALL accepted submissions, identifies AT MOST ONE for removal (redundant, contradicted, superseded, or provides no unique value).
+**Files**: `brainstorm_memory.py` (edit_submission, remove_submission, add_submission_retroactive), `compiler_validator.py` (validate_brainstorm_operation), `compiler_coordinator.py` (_handle_brainstorm_retroactive_operation), `construction_prompts.py` (brainstorm_operation JSON schema).
 
-**Phase 2** (only if removal proposed): Validator self-validates its removal proposal. Conservative default: if uncertain, reject removal. If validated: execute removal + full RAG rebuild (all shared-training sources are dropped and re-indexed from the post-removal file so deleted content is no longer retrievable).
+**WebSocket events**: `brainstorm_retroactive_accepted`, `brainstorm_retroactive_rejected`.
 
-**Cleanup toggle**: `enable_cleanup_review` (default True) can be set False at `Coordinator.initialize()` to disable cleanup for short-lived mini-brainstorm phases (topic exploration, title exploration).
+---
 
-**Critical selection rule**: When multiple submissions redundant, remove the WEAKEST (least unique value). Never remove a more complete submission.
+## Other Notes
 
-**Stats tracked**: `cleanup_reviews_performed`, `removals_proposed`, `removals_executed`
-
-**WebSocket events**: `cleanup_review_started`, `cleanup_removal_proposed`, `cleanup_submission_removed`, `cleanup_review_complete`, `cleanup_review_error`
-
-## RAG Refresh
-
-New submission acceptance → immediately RAG'd and added incrementally to existing RAG (no full re-RAG). Submitters see fresh context on next API call.
-
-## Validation
-
-JSON formatting used for all submission/validation communication. Submissions must be rooted in sound mathematical reasoning with no unfounded claims or logical fallacies.
-
-JSON validation failure: reject submission, send reason + content to submitter's local failure feedback memory.
+- JSON validation failure: reject submission, send reason to submitter's local failure feedback
+- User prompt always direct injected first (JSON schema only exception)
+- No context carryover between prompts (only system-intended DB/submission transfers)
+- Reputation queue penalty: linear displacement, max 1 full cycle; submitter never fully denied
 
 ---
 > Source: [Intrafere/MOTO-Autonomous-ASI](https://github.com/Intrafere/MOTO-Autonomous-ASI) — distributed by [TomeVault](https://tomevault.io).
