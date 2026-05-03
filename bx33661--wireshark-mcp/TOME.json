@@ -4,7 +4,7 @@
   "repo": "Wireshark-MCP",
   "description": "Wireshark-MCP\uff0cGive your AI assistant a packet analyzer. Drop a .pcap file, ask questions in plain English \u2014 get answers backed by real tshark data.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bx33661/Wireshark-MCP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:33:16Z"
+  "distributed_at": "2026-05-03T23:55:49Z"
 }
