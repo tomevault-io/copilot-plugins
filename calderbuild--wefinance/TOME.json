@@ -4,7 +4,7 @@
   "repo": "WeFinance",
   "description": "AI-Powered Personal Finance Assistant - Transforming bill images into intelligent financial insights with Vision LLM technology",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/calderbuild/WeFinance",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T01:04:10Z"
+  "distributed_at": "2026-05-03T16:37:40Z"
 }
