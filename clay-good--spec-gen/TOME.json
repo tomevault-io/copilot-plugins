@@ -4,7 +4,7 @@
   "repo": "spec-gen",
   "description": "Automate the reverse-engineering of your codebase into structured OpenSpec specifications using static analysis and LLM-powered generation to extract business logic, verify architectural accuracy, and maintain a living source of truth.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clay-good/spec-gen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T02:47:02Z"
+  "distributed_at": "2026-05-03T20:05:18Z"
 }
