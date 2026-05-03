@@ -1,0 +1,9 @@
+{
+  "name": "jacopone--antigravity-nix",
+  "displayName": "antigravity-nix",
+  "description": "Auto-updating Nix package for Google Antigravity agentic IDE. Updates 3x/week. FHS environment with overlay support for NixOS/Home Manager.",
+  "version": "1.0.0",
+  "author": "jacopone",
+  "homepage": "https://github.com/jacopone/antigravity-nix",
+  "skills": []
+}
