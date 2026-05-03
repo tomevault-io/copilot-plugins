@@ -1,0 +1,9 @@
+{
+  "name": "yzhao062--agent-config",
+  "displayName": "agent-config",
+  "description": "Personal agent configuration for Codex and Claude Code. Not intended for general use.",
+  "version": "1.0.0",
+  "author": "yzhao062",
+  "homepage": "https://github.com/yzhao062/agent-config",
+  "skills": []
+}
