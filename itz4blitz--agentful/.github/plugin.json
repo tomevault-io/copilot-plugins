@@ -1,0 +1,34 @@
+{
+  "name": "itz4blitz--agentful",
+  "displayName": "agentful",
+  "description": "Pre-configured AI agent toolkit",
+  "version": "1.0.0",
+  "author": "itz4blitz",
+  "homepage": "https://github.com/itz4blitz/agentful",
+  "skills": [
+    {
+      "name": "conversation",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "description": ""
+    },
+    {
+      "name": "product-planning",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "validation",
+      "description": ""
+    }
+  ]
+}
