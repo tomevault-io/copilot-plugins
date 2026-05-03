@@ -1,0 +1,63 @@
+{
+  "name": "database",
+  "owner": "funfix",
+  "repo": "database",
+  "description": "Database toolkit for the JVM",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cats-effect-resource",
+      "path": ".agents/skills/cats-effect-resource",
+      "github_url": "https://github.com/funfix/database/tree/main/.agents/skills/cats-effect-resource",
+      "description": ""
+    },
+    {
+      "name": "cats-mtl-typed-errors",
+      "path": ".agents/skills/cats-mtl-typed-errors",
+      "github_url": "https://github.com/funfix/database/tree/main/.agents/skills/cats-mtl-typed-errors",
+      "description": ""
+    },
+    {
+      "name": "kotlin-java-library",
+      "path": ".agents/skills/kotlin-java-library",
+      "github_url": "https://github.com/funfix/database/tree/main/.agents/skills/kotlin-java-library",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/funfix/database",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:34:40Z"
+}
