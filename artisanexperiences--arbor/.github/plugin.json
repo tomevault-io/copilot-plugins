@@ -1,0 +1,14 @@
+{
+  "name": "artisanexperiences--arbor",
+  "displayName": "arbor",
+  "description": "AI instruction skills by artisanexperiences",
+  "version": "1.0.0",
+  "author": "artisanexperiences",
+  "homepage": "https://github.com/artisanexperiences/arbor",
+  "skills": [
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
