@@ -1,17 +1,110 @@
-## main-rule-3-code-interaction-and-rule-interaction-rules
+## part-1-aggregator-tool-design-specifications
 
-> 1.) The code is a product actively in development but is LARGELY a perfectly functioning program. When making fixes, corrections, etc. DO NOT OVER BUILD, keep the code elegant, simple and optimized for future edits and readability. Always remove and cleanup old code, do not comment out code or leave broken/unused code in this program unless specifically directed by the user.
+> Description of entire rule: Main Architecture layout/design of the aggregator portion of the two-part aggregation-distillation LLM work flow.
 
 
-# Three Code and Rule Interaction Rules
+Description of entire rule: Main Architecture layout/design of the aggregator portion of the two-part aggregation-distillation LLM work flow.
 
-1.) The code is a product actively in development but is LARGELY a perfectly functioning program. When making fixes, corrections, etc. DO NOT OVER BUILD, keep the code elegant, simple and optimized for future edits and readability. Always remove and cleanup old code, do not comment out code or leave broken/unused code in this program unless specifically directed by the user.
+# OVERVIEW
 
-1.) Always obey the rules in regards to how the code should work. The only time you should deviate from the rules is if there is a fix required in the code or the user is requesting an edit that should change the code and any accompanying rules. The rules should always be brought back in line with the code however the rules should guide the code development and navigation.
+## Workflow for Aggregator Note
+Submitters run in parallel; single validator reviews and updates the shared database sequentially. This ensures coherent Markov chain evolution and database alignment with user prompt.
 
-2.) The rule(s) should always be updated if any code changes reflect on the rule(s).
+## AI Node Clusters and Validator Structure
+Configurable 1-10 submitters + exactly 1 validator (default 3 submitters). Each submitter has its own model, context window, and max output tokens. First submitter labeled "Main Submitter" in UI.
 
-3.) Any rule addition(s) and rule content addition(s) should be clear, very concise, very high level overview only. The rules are extensive and we must conserve token-count to maintain efficient direct injection usage. 
+**Single Validator Constraint**: Only one validator allowed — multiple validators would cause divergent database evolution, breaking coherent Markov chain alignment.
+
+Validator accepts a submission if adding it makes the training database more useful toward finding solutions. Validator-distributed accepted submissions database starts blank, grows as submissions are accepted. Distributor updates it to all submitters after each acceptance.
+
+## Queue Submissions and Overflow Behavior
+
+Validator processes up to 3 submissions at once (batch validation). Takes whatever is available (1, 2, or 3) without waiting.
+
+**Queue Overflow Threshold**: ≥10 submissions in queue → submitters paused until queue drops below 10.
+
+## Batch Validation
+
+Validator processes 1, 2, or 3 submissions simultaneously using batch-specific prompts.
+
+**Independent Assessment**: Each submission assessed INDEPENDENTLY against existing database — does THIS submission provide unique value?
+
+**Intra-Batch Redundancy Prevention**: After independent assessment, if multiple submissions would be accepted, check for redundancy between them. Keep only strongest; reject others as "Redundant with co-submitted submission X". Goal: maximize UNIQUE value per batch.
+
+- 1 submission: standard validation
+- 2 submissions: independent + pairwise redundancy check
+- 3 submissions: independent + all-pairs check (1-2, 1-3, 2-3)
+
+## Databases
+
+**USER SHARED DATABASE** — User uploaded files + original prompt. Primary source for submitters.
+
+**Validator-Distributed Database** — Accepted submissions (built by validator only; submitters have read-only access). Starts blank; distributed to all submitters on each acceptance.
+
+**Local Submitter Databases** — Per-submitter rejection log: last 5 rejections (validator summary ≤750 chars + submission preview ≤750 chars). File: `Summary_Of_Last_5_Validator_Rejections_For_Submitter_{N}.txt`. Reset if submitter gets >15 consecutive rejections.
+
+**Submission context injection**: Direct inject if fits. If too large: RAG the submission as file, keep user prompt direct. If user prompt + RAG'd submission still too large: RAG all user-prompt files. If user prompt itself too large after all RAG: halt with error + diagnostic.
+
+## Context Allocation
+
+User prompt ALWAYS direct injected. Use as much context as possible in every prompt.
+
+### CONTEXT DISTRIBUTION RULES
+
+Direct injection first; RAG only when doesn't fit. ~85% RAG retrieval, ~15% other direct injections (JSON, user files). Halt with error if user prompt exceeds (context_window - minimum_RAG_allocation).
+
+No context carryover between prompts (only system-intended DB/submission transfers).
+
+**RAG Offload Priority — Submitter:** Shared Training DB → Local Submitter DB → Rejection Log → User Upload Files
+
+**RAG Offload Priority — Validator:** Shared Training DB → User Upload Files (submission under review is always direct injected)
+
+## Role Selection
+
+User selects model per role. Multiple roles can share a model. Models load with user-set context sizes.
+
+## Single-Model Mode
+When ALL submitters AND validator use the same model → single-model mode:
+- Submitters run SEQUENTIALLY (S1 → S2 → ... → Sn)
+- Validator processes all queued submissions after each full submitter round
+- Prevents queue overflow from parallel tasks flooding when LLM completes
+- Boost does NOT affect single-model detection (routing only, not model config)
+
+## Multi-Submitter Configuration
+
+Per-submitter: provider (LM Studio / OpenRouter), model, OpenRouter host provider, LM Studio fallback, context window, max output tokens. UI: "Number of Submitters" selector (1-10), "Copy Main to All" button.
+
+Embeddings for RAG: LM Studio first, falls back to OpenRouter (`openai/text-embedding-3-small`) if LM Studio unavailable.
+
+## Database Management
+
+Accepted submissions database: never truncated. Live preview shows exact non-truncated log. Validator reasoning/results NOT included in the database (accepted submissions only).
+
+## Database Cleanup Review
+
+Every 7th acceptance (`total_acceptances % 7 == 0`, minimum 7 before first review):
+
+**Phase 1**: Validator reviews ALL accepted submissions, identifies AT MOST ONE for removal (redundant, contradicted, superseded, or provides no unique value).
+
+**Phase 2** (only if removal proposed): Validator self-validates its removal proposal. Conservative default: if uncertain, reject removal. If validated: execute removal + full RAG rebuild (all shared-training sources are dropped and re-indexed from the post-removal file so deleted content is no longer retrievable).
+
+**Cleanup toggle**: `enable_cleanup_review` (default True) can be set False at `Coordinator.initialize()` to disable cleanup for short-lived mini-brainstorm phases (topic exploration, title exploration).
+
+**Critical selection rule**: When multiple submissions redundant, remove the WEAKEST (least unique value). Never remove a more complete submission.
+
+**Stats tracked**: `cleanup_reviews_performed`, `removals_proposed`, `removals_executed`
+
+**WebSocket events**: `cleanup_review_started`, `cleanup_removal_proposed`, `cleanup_submission_removed`, `cleanup_review_complete`, `cleanup_review_error`
+
+## RAG Refresh
+
+New submission acceptance → immediately RAG'd and added incrementally to existing RAG (no full re-RAG). Submitters see fresh context on next API call.
+
+## Validation
+
+JSON formatting used for all submission/validation communication. Submissions must be rooted in sound mathematical reasoning with no unfounded claims or logical fallacies.
+
+JSON validation failure: reject submission, send reason + content to submitter's local failure feedback memory.
 
 ---
 > Source: [Intrafere/MOTO-Autonomous-ASI](https://github.com/Intrafere/MOTO-Autonomous-ASI) — distributed by [TomeVault](https://tomevault.io).
