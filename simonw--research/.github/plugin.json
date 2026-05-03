@@ -1,0 +1,14 @@
+{
+  "name": "simonw--research",
+  "displayName": "research",
+  "description": "Research projects",
+  "version": "1.0.0",
+  "author": "simonw",
+  "homepage": "https://github.com/simonw/research",
+  "skills": [
+    {
+      "name": "datasette-plugin-skill",
+      "description": ""
+    }
+  ]
+}
