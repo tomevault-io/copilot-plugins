@@ -1,19 +1,67 @@
-## zeitlich
+## commit-messages
 
-> **Zeitlich** is a TypeScript library (not a runnable application). Development commands are in `package.json` scripts; see `CONTRIBUTING.md` for details.
+> Enforces Conventional Commits format required by release-please for changelog generation and semantic versioning.
 
-# AGENTS.md
 
-## Cursor Cloud specific instructions
+# Commit Message Rules
 
-**Zeitlich** is a TypeScript library (not a runnable application). Development commands are in `package.json` scripts; see `CONTRIBUTING.md` for details.
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) and **release-please** for automated releases. Every commit message MUST follow this format.
 
-### Key caveats
+## Format
 
-- **Optional peer dependencies required for build**: `@google/genai`, `@langchain/core`, and `ioredis` are peer deps. The DTS build (`npm run build`) fails without `@google/genai` installed. Install all three with `npm install --no-save @google/genai @langchain/core ioredis` before building.
-- **Pre-commit hook**: Husky runs `npm run lint && npm run typecheck` on commit. Both must pass before committing.
-- **Tests**: `npx vitest run` — current tests are unit tests that don't require Redis or Temporal.
-- **Dev mode**: `npm run dev` starts tsup in watch mode for incremental rebuilds.
+```
+<type>(<optional scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+## Allowed Types
+
+| Type       | Purpose                  | Appears in changelog       |
+|------------|--------------------------|----------------------------|
+| `feat`     | New features             | **Features**               |
+| `fix`      | Bug fixes                | **Bug Fixes**              |
+| `perf`     | Performance improvements | **Performance Improvements** |
+| `refactor` | Code refactoring         | **Code Refactoring**       |
+| `docs`     | Documentation only       | **Documentation**          |
+| `chore`    | Maintenance / tooling    | Hidden                     |
+| `test`     | Adding or updating tests | Hidden                     |
+| `ci`       | CI/CD pipeline changes   | Hidden                     |
+| `style`    | Formatting, whitespace   | Hidden                     |
+| `build`    | Build system changes     | Hidden                     |
+
+## Rules
+
+1. **Type is mandatory** — always start with one of the allowed types above.
+2. **Scope is optional** — use parentheses: `feat(scheduler): add retry logic`.
+3. **Description** — imperative mood, lowercase first letter, no trailing period.
+4. **Breaking changes** — append `!` after the type/scope: `feat!: remove deprecated API`. Optionally include a `BREAKING CHANGE:` footer.
+5. **Keep the subject line under 72 characters.**
+6. **One logical change per commit** — atomic, focused commits.
+
+## Examples
+
+```
+feat: add support for streaming tool responses
+fix(cache): handle Redis connection timeout
+perf: reduce memory allocation in event loop
+docs: update API reference for createScheduler
+chore: bump dev dependencies
+refactor(temporal): simplify workflow signal handling
+feat!: drop Node 16 support
+
+BREAKING CHANGE: minimum Node version is now 18.
+```
+
+## Anti-patterns (do NOT use)
+
+- `Update files` — missing type prefix
+- `Feat: add feature` — type must be lowercase
+- `feat add something` — missing colon after type
+- `feat: Add Something.` — no capital letter, no trailing period
+- Mixing unrelated changes in a single commit
 
 ---
 > Source: [bead-ai/zeitlich](https://github.com/bead-ai/zeitlich) — distributed by [TomeVault](https://tomevault.io).
