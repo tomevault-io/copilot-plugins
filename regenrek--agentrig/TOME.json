@@ -1,0 +1,111 @@
+{
+  "name": "agent",
+  "owner": "regenrek",
+  "repo": "agentrig",
+  "description": "Build AI workflows once. Run them natively everywhere (Claude, Codex, Cursor)",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codex-analysis",
+      "path": "skills/codex-analysis",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/codex-analysis",
+      "description": ""
+    },
+    {
+      "name": "codex-sandbox",
+      "path": "skills/codex-sandbox",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/codex-sandbox",
+      "description": ""
+    },
+    {
+      "name": "create-new-static-website",
+      "path": "skills/create-new-static-website",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/create-new-static-website",
+      "description": ""
+    },
+    {
+      "name": "gh-repo-bootstrap",
+      "path": "skills/gh-repo-bootstrap",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/gh-repo-bootstrap",
+      "description": ""
+    },
+    {
+      "name": "git-safe-workflow",
+      "path": "skills/git-safe-workflow",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/git-safe-workflow",
+      "description": ""
+    },
+    {
+      "name": "gitwhat",
+      "path": "skills/gitwhat",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/gitwhat",
+      "description": ""
+    },
+    {
+      "name": "go-local-health",
+      "path": "skills/go-local-health",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/go-local-health",
+      "description": ""
+    },
+    {
+      "name": "pr-commiter",
+      "path": "skills/pr-commiter",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/pr-commiter",
+      "description": ""
+    },
+    {
+      "name": "redesign-my-landingpage",
+      "path": "skills/redesign-my-landingpage",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/redesign-my-landingpage",
+      "description": ""
+    },
+    {
+      "name": "security-leak-guardrails",
+      "path": "skills/security-leak-guardrails",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills/security-leak-guardrails",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "skills",
+      "github_url": "https://github.com/regenrek/agentrig/tree/main/skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/regenrek/agentrig",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:49:33Z"
+}
