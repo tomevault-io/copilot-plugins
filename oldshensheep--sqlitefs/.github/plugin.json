@@ -1,0 +1,9 @@
+{
+  "name": "oldshensheep--sqlitefs",
+  "displayName": "sqlitefs",
+  "description": "sqlitefs is an experimental SQLite-backed FUSE filesystem with snapshots, chunk-level deduplication, and configurable compression.",
+  "version": "1.0.0",
+  "author": "oldshensheep",
+  "homepage": "https://github.com/oldshensheep/sqlitefs",
+  "skills": []
+}
