@@ -1,0 +1,9 @@
+{
+  "name": "waterplanai--agentic-config",
+  "displayName": "agentic-config",
+  "description": "Project-agnostic, composable AI workflow automation via pi packages and Claude Code plugins.",
+  "version": "1.0.0",
+  "author": "WaterplanAI",
+  "homepage": "https://github.com/WaterplanAI/agentic-config",
+  "skills": []
+}
