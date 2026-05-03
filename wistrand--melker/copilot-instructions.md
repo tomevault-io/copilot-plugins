@@ -1,0 +1,201 @@
+## melker
+
+> Guidance for Claude Code when working with Melker.
+
+# CLAUDE.md
+
+Guidance for Claude Code when working with Melker.
+
+## Project Overview
+
+**Melker** - *Run text with meaning*
+
+Website: https://melker.sh
+
+Melker Engine is a Deno library for creating rich Terminal UI interfaces using an HTML-inspired document model. It renders component trees to ANSI terminals using a dual-buffer system.
+
+## Quick Reference
+
+| What                | Where                                                      |
+|---------------------|------------------------------------------------------------|
+| Getting started     | [getting-started.md](agent_docs/getting-started.md)        |
+| .melker file format | [melker-file-format.md](agent_docs/melker-file-format.md)  |
+| First app tutorial  | [tutorial.html](docs/tutorial.html)                        |
+| Examples            | [examples/](examples/) (basics, components, layout, canvas) |
+| **AI Agent Skill**  | [skills/creating-melker-apps/](skills/creating-melker-apps/) |
+| CLI reference       | [cli-reference.md](agent_docs/cli-reference.md)            |
+| Internals reference | [internals-reference.md](agent_docs/internals-reference.md) |
+
+## Reading Order
+
+New to Melker? Read in this order:
+
+1. [getting-started.md](agent_docs/getting-started.md) — install, hello world, critical rules
+2. [tutorial.html](docs/tutorial.html) — build your first app step by step
+3. [melker-file-format.md](agent_docs/melker-file-format.md) — full `.melker` syntax reference
+4. [dx-footguns.md](agent_docs/dx-footguns.md) — common mistakes to avoid
+5. [script_usage.md](agent_docs/script_usage.md) — `$melker` API and script lifecycle
+6. [component-reference.md](agent_docs/component-reference.md) — all 30+ components
+
+## Documentation Index
+
+### For App Developers
+
+| Topic                          | Doc                                                    |
+|--------------------------------|--------------------------------------------------------|
+| Script context ($melker, $app) | [script_usage.md](agent_docs/script_usage.md)                        |
+| State bindings (optional)      | [state-binding-architecture.md](agent_docs/state-binding-architecture.md) |
+| Selection binding              | [bind-selection-architecture.md](agent_docs/bind-selection-architecture.md) |
+| Selection ID system            | [selection-id-architecture.md](agent_docs/selection-id-architecture.md)     |
+| Graphics modes                 | [gfx-modes.md](agent_docs/gfx-modes.md)                              |
+| Debugging & logging            | [debugging.md](agent_docs/debugging.md)                              |
+| Common mistakes                | [dx-footguns.md](agent_docs/dx-footguns.md)                          |
+| AI assistant                   | [ai-accessibility.md](agent_docs/ai-accessibility.md)                |
+| I18n (internationalization)    | [i18n-architecture.md](agent_docs/i18n-architecture.md)              |
+
+### Component Reference
+
+| Component                                         | Doc                                                                            |
+|---------------------------------------------------|--------------------------------------------------------------------------------|
+| Filterable lists (combobox, select, autocomplete) | [filterable-list-architecture.md](agent_docs/filterable-list-architecture.md)  |
+| File browser                                      | [file-browser-architecture.md](agent_docs/file-browser-architecture.md)        |
+| Data table                                        | [data-table.md](agent_docs/data-table.md)                                      |
+| Data bars (charts)                                | [data-bars.md](agent_docs/data-bars.md)                                        |
+| Data boxplot                                      | [data-boxplot-architecture.md](agent_docs/data-boxplot-architecture.md)        |
+| Data heatmap                                      | [data-heatmap-architecture.md](agent_docs/data-heatmap-architecture.md)        |
+| Data tree                                         | [data-tree-architecture.md](agent_docs/data-tree-architecture.md)              |
+| Split pane                                        | [split-pane-architecture.md](agent_docs/split-pane-architecture.md)            |
+| Spinner                                           | [spinner-architecture.md](agent_docs/spinner-architecture.md)                  |
+| Toast notifications                               | [toast-architecture.md](agent_docs/toast-architecture.md)                      |
+| Tooltips                                          | [tooltip-architecture.md](agent_docs/tooltip-architecture.md)                  |
+| Mermaid diagrams in markdown                      | [mermaid-support.md](agent_docs/mermaid-support.md)                            |
+| Tile map                                          | [tile-map-architecture.md](agent_docs/tile-map-architecture.md)                |
+| SVG overlay (canvas/img/video/map)                | [svg-overlay-architecture.md](agent_docs/svg-overlay-architecture.md)          |
+
+### For Contributors (Internals)
+
+| Topic               | Doc                                                                  |
+|---------------------|----------------------------------------------------------------------|
+| Project structure   | [project-structure.md](agent_docs/project-structure.md)              |
+| Core architecture   | [architecture.md](agent_docs/architecture.md)                        |
+| Component reference | [component-reference.md](agent_docs/component-reference.md)          |
+| Embedded assets     | [embedded-assets-architecture.md](agent_docs/embedded-assets-architecture.md) |
+| Config system       | [config-architecture.md](agent_docs/config-architecture.md)          |
+| Policy system       | [policy-architecture.md](agent_docs/policy-architecture.md)          |
+| Server              | [server-architecture.md](agent_docs/server-architecture.md)          |
+| Keyboard & focus    | [keyboard-focus-navigation-architecture.md](agent_docs/keyboard-focus-navigation-architecture.md) |
+| Command element     | [command-element-architecture.md](agent_docs/command-element-architecture.md)                      |
+| DevTools            | [devtools-inspect-architecture.md](agent_docs/devtools-inspect-architecture.md)                    |
+| Graph/diagrams      | [graph-architecture.md](agent_docs/graph-architecture.md)            |
+| Graphics pipeline   | [graphics-architecture.md](agent_docs/graphics-architecture.md)      |
+| Isolines mode       | [isolines-architecture.md](agent_docs/isolines-architecture.md)      |
+| Sixel protocol      | [sixel-architecture.md](agent_docs/sixel-architecture.md)            |
+| Kitty protocol      | [kitty-architecture.md](agent_docs/kitty-architecture.md)            |
+| iTerm2 protocol     | [iterm2-architecture.md](agent_docs/iterm2-architecture.md)          |
+| Benchmarks          | [benchmark-architecture.md](agent_docs/benchmark-architecture.md)    |
+| Media queries       | [architecture-media-queries.md](agent_docs/architecture-media-queries.md) |
+| CSS & animations    | [css-animation-architecture.md](agent_docs/css-animation-architecture.md) |
+| Pseudo-classes & transitions | [css-pseudo-classes-transitions-architecture.md](agent_docs/css-pseudo-classes-transitions-architecture.md) |
+| Container queries   | [container-query-architecture.md](agent_docs/container-query-architecture.md) |
+| CSS variables        | [css-variables-architecture.md](agent_docs/css-variables-architecture.md) |
+| CSS themes           | [css-themes-architecture.md](agent_docs/css-themes-architecture.md)       |
+| CSS nesting         | [css-nesting-architecture.md](agent_docs/css-nesting-architecture.md) |
+| CSS opacity         | [opacity-support.md](agent_docs/opacity-support.md)                   |
+| JSR distribution    | [jsr.md](agent_docs/jsr.md)                                           |
+| Node compatibility  | [node-compatibility-architecture.md](agent_docs/node-compatibility-architecture.md) |
+
+### Deep Dives
+
+| Topic              | Doc                                                                  |
+|--------------------|----------------------------------------------------------------------|
+| Dirty row tracking | [dirty-row-tracking.md](agent_docs/dirty-row-tracking.md)            |
+| Fast input render  | [fast-input-render.md](agent_docs/fast-input-render.md)              |
+| Env permissions    | [env-permission-analysis.md](agent_docs/env-permission-analysis.md)  |
+| Layout engine      | [layout-engine-notes.md](agent_docs/layout-engine-notes.md)          |
+| Sandbox detection  | [sandbox-terminal-detection.md](agent_docs/sandbox-terminal-detection.md) |
+
+### Examples & Patterns
+
+| Example    | Doc                                        |
+|------------|--------------------------------------------|
+| Map viewer | [map-example.md](agent_docs/map-example.md) |
+
+### Doc Page Plans
+
+| Page                  | Plan                                                                                    |
+|-----------------------|-----------------------------------------------------------------------------------------|
+| Data Visualization    | [data-visualization-page-plan.md](agent_docs/data-visualization-page-plan.md)           |
+| Filterable Lists      | [filterable-lists-page-plan.md](agent_docs/filterable-lists-page-plan.md)               |
+| Rich Content          | [rich-content-page-plan.md](agent_docs/rich-content-page-plan.md)                       |
+| Graphics Pipeline     | [graphics-pipeline-page-plan.md](agent_docs/graphics-pipeline-page-plan.md)             |
+| Limits & Compatibility | [limits-page-plan.md](agent_docs/limits-page-plan.md)                                  |
+
+### Plans
+
+| Topic                   | Plan                                                                          |
+|-------------------------|-------------------------------------------------------------------------------|
+| Inline (partial-screen) | [inline-mode-plan.md](agent_docs/inline-mode-plan.md)                         |
+
+### Project
+
+| Topic            | Doc                                                                      |
+|------------------|--------------------------------------------------------------------------|
+| Timeline         | [project-timeline.md](agent_docs/project-timeline.md)                    |
+| Release scheme   | [calver-release.md](agent_docs/calver-release.md)                        |
+| TUI comparison   | [tui-comparison.md](agent_docs/tui-comparison.md)                        |
+| Unstable flags   | [unstable-flags-audit.md](agent_docs/unstable-flags-audit.md)            |
+
+## Technology Stack
+
+- **Runtime**: Deno 2.5+ (primary) or Node.js 25+ (experimental, `npm install -g @melker/melker`, binary: `melker-node`)
+- **Package**: @melker/melker
+- **Target**: ANSI-compatible terminals
+
+## Development Commands
+
+```bash
+deno task test         # Run tests
+deno task check        # Type check
+deno task build        # Build all (embedded assets, completions, skill zip, docs)
+```
+
+## Code Style
+
+2-space indent, single quotes, semicolons, 100 char width.
+
+## Branding
+
+The official name is **Melker Engine**. "Melker" alone is fine in most contexts. Use "Melker Engine" when followed by a descriptor like "framework", "library", "project", "platform", or when describing what it *is* ("Melker Engine is a Deno library for...").
+
+- Keep: "Melker apps", "Melker components", "Built with Melker", "Melker CLI"
+- Change: "Melker framework" → "Melker Engine", "Melker UI library" → "Melker Engine", "Melker is a Deno library" → "Melker Engine is a Deno library"
+- Never change: package name `@melker/melker`, import paths, file/directory names, class names, config key prefixes, URL paths
+
+## Documentation Style
+
+- **Use markdown links** for file references: `[doc.md](path/to/doc.md)` not `` `path/to/doc.md` ``
+- **Align table columns** by padding cells to consistent widths
+
+## Critical Rules
+
+1. **NO console.log in Melker source code** - When developing Melker itself (files in `src/`, `mod.ts`, `melker-*.ts`), **NEVER use `console.log()`**. Always use the logging system: `logger.debug()`, `logger.info()`, `logger.warn()`, `logger.error()`. Only app code (`.melker` files, examples) can use the overridden `console.log()` which redirects to the logger.
+2. **Console redirects to logger (app code only)** - In `.melker` app code, `console.log()` redirects to `$melker.logger.info()` (won't break TUI), but prefer explicit `$melker.logger.debug()` etc.
+3. **`alert()` shows a modal dialog** - Works like browser alert but as a TUI dialog (dismiss with OK button or Escape)
+4. **Button label** - Use `<button>Label</button>` or `label="Label"` (not `title`)
+5. **Don't add border to buttons** - Buttons render with `[ ]` brackets by default; adding border creates `[ [ Button ] ]`
+6. **Avoid specifying colors** - Let the theme engine handle colors for best appearance across themes
+7. **Input type is `'input'`** - Not `'text-input'`
+8. **Auto-render in .melker handlers** - Event handlers auto-render after completion (call `$melker.skipRender()` to skip)
+9. **Avoid emojis** - They break terminal layout
+10. **Update component props explicitly** - In .melker files, there are no reactive bindings like `${$app.var}` . To update props dynamically, use `$melker.getElementById('id').props.propName = value`
+11. **flex-direction is a style** - Use `style="flex-direction: row"` not `direction="row"`. Wrap select/combobox in row container to prevent cross-axis stretching.
+12. **Primitive exports are copied by value** - `$app.varName = value` modifies a copy, not the original. Use setter functions: `export function setVar(v) { varName = v; }`
+13. **Don't run `deno fmt` or `deno lint`** - User preference
+14. **Always use `deno task test`** - Never manually construct `deno test ...` commands
+15. **Never execute git add, commit or push commands**
+16. **Never edit `docs/examples/showcase/`** - These are build artifacts copied from `examples/showcase/` by `deno task build:docs`. Always edit the originals in `examples/showcase/`.
+17. **Never edit `docs/reference/agent_docs/`** or **`docs/reference/*.md`** - These are build artifacts copied from `agent_docs/`, `CLAUDE.md`, `README.md`, `MANIFESTO.md`, and `FAQ.md` by `deno task build:docs`. Always edit the originals.
+
+---
+> Source: [wistrand/melker](https://github.com/wistrand/melker) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
