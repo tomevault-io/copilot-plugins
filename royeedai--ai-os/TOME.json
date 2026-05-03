@@ -4,7 +4,7 @@
   "repo": "ai-os",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/royeedai/ai-os",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T12:11:29Z"
+  "distributed_at": "2026-05-03T16:07:09Z"
 }
