@@ -4,7 +4,7 @@
   "repo": "microcheck",
   "description": "\ud83e\uddea Lightweight health check utilities for Docker containers",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tarampampam/microcheck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T00:57:27Z"
+  "distributed_at": "2026-05-03T16:28:27Z"
 }
