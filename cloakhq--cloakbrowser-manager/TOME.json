@@ -1,0 +1,44 @@
+{
+  "name": "CloakBrowser-Manager",
+  "owner": "CloakHQ",
+  "repo": "CloakBrowser-Manager",
+  "description": "Web-based browser profile manager for CloakBrowser \u2014 create, launch, and manage isolated browser profiles with unique fingerprints. Free, self-hosted   Multilogin alternative",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CloakHQ/CloakBrowser-Manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T19:50:14Z"
+}
