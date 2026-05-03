@@ -7,11 +7,11 @@ Governance layer for AI coding: meta agents, workflow contract, meta-theory; can
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [KimYx0207/Meta_Kim](https://github.com/KimYx0207/Meta_Kim).
+Original source: `CLAUDE.md` in [KimYx0207/Meta_Kim](https://github.com/KimYx0207/Meta_Kim).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
