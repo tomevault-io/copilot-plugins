@@ -1,0 +1,57 @@
+{
+  "name": "claude-mem",
+  "owner": "thedotmack",
+  "repo": "claude-mem",
+  "description": "A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future sessions.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "make-plan",
+      "path": "openclaw/skills/make-plan",
+      "github_url": "https://github.com/thedotmack/claude-mem/tree/main/openclaw/skills/make-plan",
+      "description": ""
+    },
+    {
+      "name": "make-plan",
+      "path": "plugin/skills/make-plan",
+      "github_url": "https://github.com/thedotmack/claude-mem/tree/main/plugin/skills/make-plan",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thedotmack/claude-mem",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T22:46:06Z"
+}
