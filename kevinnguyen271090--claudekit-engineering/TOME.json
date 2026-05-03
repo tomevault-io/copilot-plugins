@@ -2,9 +2,9 @@
   "name": "claudekit-engineering",
   "owner": "kevinnguyen271090",
   "repo": "claudekit-engineering",
-  "description": "AI instruction files for claudekit-engineering by kevinnguyen271090",
+  "description": "Claude Kit Engineering",
   "type": "tome",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -63,7 +63,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/kevinnguyen271090",
+  "source_url": "https://github.com/kevinnguyen271090/claudekit-engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T15:06:23Z"
+  "distributed_at": "2026-05-03T00:34:19Z"
 }
