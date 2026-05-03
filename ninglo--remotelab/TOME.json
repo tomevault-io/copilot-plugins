@@ -4,7 +4,7 @@
   "repo": "remotelab",
   "description": "AI workbench for super-individuals \u2014 orchestrate agents, recover context, and ship agentic-native apps.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Ninglo/remotelab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T22:30:43Z"
+  "distributed_at": "2026-05-03T10:06:10Z"
 }
