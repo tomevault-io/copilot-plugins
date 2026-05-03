@@ -1,0 +1,9 @@
+{
+  "name": "d4551--baobuildbuddy",
+  "displayName": "baobuildbuddy",
+  "description": "BaoBuildBuddy is a Bun-first AI career assistant for the video game industry, combining job aggregation, resume and cover letter tools, interview prep, browser automation, and gamified progress tracki",
+  "version": "1.0.0",
+  "author": "d4551",
+  "homepage": "https://github.com/d4551/baobuildbuddy",
+  "skills": []
+}
