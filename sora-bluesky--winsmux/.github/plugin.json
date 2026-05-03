@@ -1,0 +1,9 @@
+{
+  "name": "sora-bluesky--winsmux",
+  "displayName": "winsmux",
+  "description": "Native Windows terminal multiplexer with cross-pane AI agent communication \u2014 no WSL2 required.",
+  "version": "1.0.0",
+  "author": "Sora-bluesky",
+  "homepage": "https://github.com/Sora-bluesky/winsmux",
+  "skills": []
+}
