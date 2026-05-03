@@ -4,7 +4,7 @@
   "repo": "luna.mbt",
   "description": "Experimental: Declarative UI Framework for Moonbit",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mizchi/luna.mbt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T19:01:08Z"
+  "distributed_at": "2026-05-03T07:46:08Z"
 }
