@@ -1,0 +1,54 @@
+{
+  "name": "spamsch--son-of-simon",
+  "displayName": "son-of-simon",
+  "description": "LLM-powered macOS automation agent. Control Mail, Calendar, Reminders via natural language using AppleScript. Telegram voice commands, browser automation, and 100+ LLM providers.",
+  "version": "1.0.0",
+  "author": "spamsch",
+  "homepage": "https://github.com/spamsch/son-of-simon",
+  "skills": [
+    {
+      "name": "browser_automation",
+      "description": ""
+    },
+    {
+      "name": "clawhub",
+      "description": ""
+    },
+    {
+      "name": "contacts_assistant",
+      "description": ""
+    },
+    {
+      "name": "data_app_creator",
+      "description": ""
+    },
+    {
+      "name": "downloads_organizer",
+      "description": ""
+    },
+    {
+      "name": "messages_assistant",
+      "description": ""
+    },
+    {
+      "name": "mindwtr",
+      "description": ""
+    },
+    {
+      "name": "notes_assistant",
+      "description": ""
+    },
+    {
+      "name": "safari_assistant",
+      "description": ""
+    },
+    {
+      "name": "spotlight_search",
+      "description": ""
+    },
+    {
+      "name": "whatsapp_assistant",
+      "description": ""
+    }
+  ]
+}
