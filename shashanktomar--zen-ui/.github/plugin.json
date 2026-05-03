@@ -1,0 +1,18 @@
+{
+  "name": "shashanktomar--zen-ui",
+  "displayName": "zen-ui",
+  "description": "A collection of UI cards for home assistant.",
+  "version": "1.0.0",
+  "author": "shashanktomar",
+  "homepage": "https://github.com/shashanktomar/zen-ui",
+  "skills": [
+    {
+      "name": "ha-sync",
+      "description": ""
+    },
+    {
+      "name": "label-issues",
+      "description": ""
+    }
+  ]
+}
