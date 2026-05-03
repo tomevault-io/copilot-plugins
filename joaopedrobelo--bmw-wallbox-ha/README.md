@@ -1,6 +1,8 @@
 # bmw-wallbox-ha
 
-> Tome by [JoaoPedroBelo](https://github.com/JoaoPedroBelo/bmw-wallbox-ha) — distributed by [TomeVault](https://tomevault.io/claim/JoaoPedroBelo)
+> Tome by [JoaoPedroBelo](https://github.com/JoaoPedroBelo/bmw-wallbox-ha) — distributed by [TomeVault](https://tomevault.io)
+
+Home Assistant integration for BMW Wallbox using OCPP 2.0.1 protocol
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [JoaoPedroBelo/bmw-wallbox-ha](https:/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/JoaoPedroBelo)
+From [JoaoPedroBelo/bmw-wallbox-ha](https://github.com/JoaoPedroBelo/bmw-wallbox-ha) — a repo with 9+ stars on GitHub.
 
 ---
 
