@@ -1,0 +1,9 @@
+{
+  "name": "provercoderai--docker-git",
+  "displayName": "docker-git",
+  "description": "docker-git",
+  "version": "1.0.0",
+  "author": "ProverCoderAI",
+  "homepage": "https://github.com/ProverCoderAI/docker-git",
+  "skills": []
+}
