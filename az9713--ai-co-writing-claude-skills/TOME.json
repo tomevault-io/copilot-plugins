@@ -1,0 +1,63 @@
+{
+  "name": "ai-co-writing-claude-skills",
+  "owner": "az9713",
+  "repo": "ai-co-writing-claude-skills",
+  "description": "AI Co-Writing System with Claude Skills - A complete Claude Code writing system for content creators based on context engineering principles. Inspired by Alex McFarland's Claude Code Masterclass.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "business-profile-creator",
+      "path": ".claude/skills/business-profile-creator",
+      "github_url": "https://github.com/az9713/ai-co-writing-claude-skills/tree/main/.claude/skills/business-profile-creator",
+      "description": ""
+    },
+    {
+      "name": "how-to-guide",
+      "path": ".claude/skills/how-to-guide",
+      "github_url": "https://github.com/az9713/ai-co-writing-claude-skills/tree/main/.claude/skills/how-to-guide",
+      "description": ""
+    },
+    {
+      "name": "thought-leadership",
+      "path": ".claude/skills/thought-leadership",
+      "github_url": "https://github.com/az9713/ai-co-writing-claude-skills/tree/main/.claude/skills/thought-leadership",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/az9713/ai-co-writing-claude-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T21:32:38Z"
+}
