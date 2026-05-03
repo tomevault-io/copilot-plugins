@@ -4,7 +4,7 @@
   "repo": "COG-second-brain",
   "description": "Self-evolving second brain with 17 AI skills, 6 worker agents, and people CRM \u2014 inspired by Garry Tan's gstack and gbrain. Works with Claude Code, Cursor, Kiro, Gemini CLI, Codex.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huytieu/COG-second-brain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T23:04:46Z"
+  "distributed_at": "2026-05-03T23:06:54Z"
 }
