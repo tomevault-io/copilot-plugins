@@ -1,0 +1,9 @@
+{
+  "name": "canonical--skills",
+  "displayName": "skills",
+  "description": "Agent Skills for Canonical products, teams and technologies.",
+  "version": "1.0.0",
+  "author": "canonical",
+  "homepage": "https://github.com/canonical/skills",
+  "skills": []
+}
