@@ -1,0 +1,50 @@
+{
+  "name": "dashed--claude-marketplace",
+  "displayName": "claude-marketplace",
+  "description": "A local marketplace for personal Claude Code skills and plugins.",
+  "version": "1.0.0",
+  "author": "dashed",
+  "homepage": "https://github.com/dashed/claude-marketplace",
+  "skills": [
+    {
+      "name": "conventional-commits",
+      "description": ""
+    },
+    {
+      "name": "design-principles",
+      "description": ""
+    },
+    {
+      "name": "fzf",
+      "description": ""
+    },
+    {
+      "name": "git-absorb",
+      "description": ""
+    },
+    {
+      "name": "git-chain",
+      "description": ""
+    },
+    {
+      "name": "jj",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "skill-reviewer",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "description": ""
+    },
+    {
+      "name": "zellij",
+      "description": ""
+    }
+  ]
+}
