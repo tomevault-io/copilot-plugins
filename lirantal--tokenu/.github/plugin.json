@@ -1,0 +1,9 @@
+{
+  "name": "lirantal--tokenu",
+  "displayName": "tokenu",
+  "description": "a unix-like du command line tool to count token usage per files and directories",
+  "version": "1.0.0",
+  "author": "lirantal",
+  "homepage": "https://github.com/lirantal/tokenu",
+  "skills": []
+}
