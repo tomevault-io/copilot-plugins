@@ -1,0 +1,9 @@
+{
+  "name": "elixir-vibe--reach",
+  "displayName": "reach",
+  "description": "Program dependence graph and architecture/code-flow analysis for BEAM projects",
+  "version": "1.0.0",
+  "author": "elixir-vibe",
+  "homepage": "https://github.com/elixir-vibe/reach",
+  "skills": []
+}
