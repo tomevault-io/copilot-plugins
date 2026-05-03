@@ -1,0 +1,9 @@
+{
+  "name": "awnist--slop-cop",
+  "displayName": "slop-cop",
+  "description": "AI text slop detection, 100% in browser",
+  "version": "1.0.0",
+  "author": "awnist",
+  "homepage": "https://github.com/awnist/slop-cop",
+  "skills": []
+}
