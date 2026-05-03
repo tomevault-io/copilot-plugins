@@ -1,0 +1,9 @@
+{
+  "name": "cosmic-markets--cinder",
+  "displayName": "cinder",
+  "description": "Rust terminal UI for Phoenix perpetuals on Solana: live charts, a merged on-chain spline + optional CLOB order book, market and wallet flows, and signed transactions from the shell.",
+  "version": "1.0.0",
+  "author": "cosmic-markets",
+  "homepage": "https://github.com/cosmic-markets/cinder",
+  "skills": []
+}
