@@ -1,0 +1,44 @@
+{
+  "name": "nengdou-ai-review-helper-web",
+  "owner": "yinuoguan",
+  "repo": "nengdou-ai-review-helper-web",
+  "description": "Vue3+Nest.js+Mongdb +Deepseek  \u4e13\u4e3a\u6559\u80b2\u9886\u57df\u8bbe\u8ba1\u7684\u667a\u80fdAI\u6279\u6539\u4f5c\u4e1a\u7cfb\u7edf\uff0c\u652f\u6301\u8bed\u6587\u82f1\u8bed\u6570\u5b66\u7b49\u591a\u79d1\u76ee\u4f5c\u4e1a\u81ea\u52a8\u6279\u6539\u4e0e\u53cd\u9988\uff0c\u63d0\u5347\u6559\u5b66\u6548\u7387\u3010web\u7aef\u3011\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yinuoguan/nengdou-ai-review-helper-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T23:38:00Z"
+}
