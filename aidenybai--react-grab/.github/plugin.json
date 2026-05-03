@@ -1,0 +1,14 @@
+{
+  "name": "aidenybai--react-grab",
+  "displayName": "react",
+  "description": "Select context for coding agents directly from your website",
+  "version": "1.0.0",
+  "author": "aidenybai",
+  "homepage": "https://github.com/aidenybai/react-grab",
+  "skills": [
+    {
+      "name": "animation-best-practices",
+      "description": ""
+    }
+  ]
+}
