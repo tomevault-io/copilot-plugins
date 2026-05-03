@@ -1,0 +1,117 @@
+{
+  "name": "next",
+  "owner": "vercel",
+  "repo": "next-devtools-mcp",
+  "description": "Next.js Development for Coding Agent",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "authoring-skills",
+      "path": ".agents/skills/authoring-skills",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/authoring-skills",
+      "description": ""
+    },
+    {
+      "name": "cache-components",
+      "path": ".claude-plugin/plugins/cache-components/skills/cache-components",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.claude-plugin/plugins/cache-components/skills/cache-components",
+      "description": ""
+    },
+    {
+      "name": "dce-edge",
+      "path": ".agents/skills/dce-edge",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/dce-edge",
+      "description": ""
+    },
+    {
+      "name": "flags",
+      "path": ".agents/skills/flags",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/flags",
+      "description": ""
+    },
+    {
+      "name": "pr-status-triage",
+      "path": ".agents/skills/pr-status-triage",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/pr-status-triage",
+      "description": ""
+    },
+    {
+      "name": "react-vendoring",
+      "path": ".agents/skills/react-vendoring",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/react-vendoring",
+      "description": ""
+    },
+    {
+      "name": "runtime-debug",
+      "path": ".agents/skills/runtime-debug",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/runtime-debug",
+      "description": ""
+    },
+    {
+      "name": "write-api-reference",
+      "path": ".agents/skills/write-api-reference",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/write-api-reference",
+      "description": ""
+    },
+    {
+      "name": "write-guide",
+      "path": ".agents/skills/write-guide",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/write-guide",
+      "description": ""
+    },
+    {
+      "name": "router-act",
+      "path": ".agents/skills/router-act",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/router-act",
+      "description": ""
+    },
+    {
+      "name": "v8-jit",
+      "path": ".agents/skills/v8-jit",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/.agents/skills/v8-jit",
+      "description": ""
+    },
+    {
+      "name": "next-forge",
+      "path": "skills/next-forge",
+      "github_url": "https://github.com/vercel/next-devtools-mcp/tree/main/skills/next-forge",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vercel/next-devtools-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T22:51:49Z"
+}
