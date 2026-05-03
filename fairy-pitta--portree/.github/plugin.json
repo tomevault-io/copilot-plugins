@@ -1,0 +1,9 @@
+{
+  "name": "fairy-pitta--portree",
+  "displayName": "portree",
+  "description": "Git Worktree Server Manager - manage multiple dev servers per git worktree with automatic port allocation and subdomain routing",
+  "version": "1.0.0",
+  "author": "fairy-pitta",
+  "homepage": "https://github.com/fairy-pitta/portree",
+  "skills": []
+}
