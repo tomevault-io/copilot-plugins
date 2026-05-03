@@ -1,0 +1,90 @@
+{
+  "name": "sergio-bershadsky--ai",
+  "displayName": "ai",
+  "description": "ai",
+  "version": "1.0.0",
+  "author": "sergio-bershadsky",
+  "homepage": "https://github.com/sergio-bershadsky/ai",
+  "skills": [
+    {
+      "name": "django-dev-ninja",
+      "description": ""
+    },
+    {
+      "name": "django-dev-unfold",
+      "description": ""
+    },
+    {
+      "name": "django-dev",
+      "description": ""
+    },
+    {
+      "name": "django-dev-test",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "frappe-api",
+      "description": ""
+    },
+    {
+      "name": "frappe-app",
+      "description": ""
+    },
+    {
+      "name": "frappe-doctype",
+      "description": ""
+    },
+    {
+      "name": "frappe-service",
+      "description": ""
+    },
+    {
+      "name": "frappe-test",
+      "description": ""
+    },
+    {
+      "name": "replit-plan",
+      "description": ""
+    },
+    {
+      "name": "replit-prd",
+      "description": ""
+    },
+    {
+      "name": "replit-prompt",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-adr",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-discussion",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-freshness",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-init",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-note",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-search",
+      "description": ""
+    },
+    {
+      "name": "secondbrain-task",
+      "description": ""
+    }
+  ]
+}
