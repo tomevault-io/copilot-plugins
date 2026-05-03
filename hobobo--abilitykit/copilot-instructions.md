@@ -1,29 +1,42 @@
-## config-and-editor
+## damage
 
-> - DTO：`TriggerDTO`（JSON）包含 `AllowExternal`
+> Damage 行为遵循 `Spec/Parser/Resolver` 拆分：
 
 
-# 配置 / Editor / DTO 规则
+# 伤害（Damage）规则
 
-## 1) 触发器 JSON / Editor / DTO
+## 1) 结构要求（Spec / Parser / Resolver）
 
-- DTO：`TriggerDTO`（JSON）包含 `AllowExternal`
-- Editor：`AbilityModuleSO.TriggerEditorConfig` 使用 Core: `TriggerHeaderDTO` 存头部字段
-- `AllowExternal` 必须写在 `TriggerHeaderDTO` 才能在 Inspector 序列化/展示
-- 导出：`AbilityTriggerJsonExporter` 负责把 EditorConfig 导出成 `TriggerDTO`
+Damage 行为遵循 `Spec/Parser/Resolver` 拆分：
 
-## 2) 新增表（MobaConfigDatabase / Registry）流程
+- `GiveDamageAction` / `TakeDamageAction`
+  - **不允许**在 Action 内直接硬编码大量目标/公式解析逻辑
+  - Action 只负责执行与调用服务应用伤害
 
-新增表必须同步做三件事：
+## 2) 目标选择
 
-- `MobaConfigPaths` 增加 File 常量
-- `MobaRuntimeConfigTableRegistry` 注册 DTO/MO
-- `Resources` 下补齐 `{file}.json`（或确保导出流程生成）
+目标选择抽到 `DamageTargetSelection`（或等价模块），并支持从以下来源取目标：
 
-Editor 导出统一走：
+- context Source/Target
+- 显式 target
+- `queryTemplateId` 查询
+- payload/vars
 
-- `MobaConfigJsonExporter`（菜单 + Inspector 按钮）
-- `MobaConfigTableAssetSO + IMobaConfigTableAsset` 自动发现
+## 3) 数值计算
+
+- Resolver 负责读取公式/参数并产出最终数值
+- Action 负责调用服务应用伤害
+
+## 4) 目标选择统一原则
+
+伤害与表现统一采用“Option1”思路：
+
+- 统一 `TargetMode`
+- 可选 `queryTemplateId`
+- 可选显式 target
+- 支持从 payload/vars 取目标
+
+目标：减少重复实现与分叉逻辑。
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
