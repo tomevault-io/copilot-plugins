@@ -1,0 +1,9 @@
+{
+  "name": "ceponatia--chatterbox",
+  "displayName": "chatterbox",
+  "description": "Roleplay chat application focused on long-running continuity and reliable LLM behavior.",
+  "version": "1.0.0",
+  "author": "ceponatia",
+  "homepage": "https://github.com/ceponatia/chatterbox",
+  "skills": []
+}
