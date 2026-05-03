@@ -1,0 +1,18 @@
+{
+  "name": "timothywarner-org--agents-pro",
+  "displayName": "agents-pro",
+  "description": "Teaching/learning resources for O'Reilly Live 'How to Create AI Agents Like a Pro': Microsoft Copilot Studio builds for customer service, onboarding, and document automation.",
+  "version": "1.0.0",
+  "author": "timothywarner-org",
+  "homepage": "https://github.com/timothywarner-org/agents-pro",
+  "skills": [
+    {
+      "name": "azure-cloud",
+      "description": ""
+    },
+    {
+      "name": "langgraph-tutor",
+      "description": ""
+    }
+  ]
+}
