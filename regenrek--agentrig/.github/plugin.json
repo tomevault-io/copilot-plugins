@@ -1,0 +1,54 @@
+{
+  "name": "regenrek--agentrig",
+  "displayName": "agent",
+  "description": "Build AI workflows once. Run them natively everywhere (Claude, Codex, Cursor)",
+  "version": "1.0.0",
+  "author": "regenrek",
+  "homepage": "https://github.com/regenrek/agentrig",
+  "skills": [
+    {
+      "name": "codex-analysis",
+      "description": ""
+    },
+    {
+      "name": "codex-sandbox",
+      "description": ""
+    },
+    {
+      "name": "create-new-static-website",
+      "description": ""
+    },
+    {
+      "name": "gh-repo-bootstrap",
+      "description": ""
+    },
+    {
+      "name": "git-safe-workflow",
+      "description": ""
+    },
+    {
+      "name": "gitwhat",
+      "description": ""
+    },
+    {
+      "name": "go-local-health",
+      "description": ""
+    },
+    {
+      "name": "pr-commiter",
+      "description": ""
+    },
+    {
+      "name": "redesign-my-landingpage",
+      "description": ""
+    },
+    {
+      "name": "security-leak-guardrails",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
