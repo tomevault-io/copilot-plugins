@@ -1,0 +1,22 @@
+{
+  "name": "intent-integrity-chain--kit",
+  "displayName": "kit",
+  "description": "Intent Integrity Kit - Closing the intent-to-code chasm",
+  "version": "1.0.0",
+  "author": "intent-integrity-chain",
+  "homepage": "https://github.com/intent-integrity-chain/kit",
+  "skills": [
+    {
+      "name": "iikit-00-constitution",
+      "description": ""
+    },
+    {
+      "name": "iikit-01-specify",
+      "description": ""
+    },
+    {
+      "name": "iikit-bugfix",
+      "description": ""
+    }
+  ]
+}
