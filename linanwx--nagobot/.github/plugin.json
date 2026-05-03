@@ -1,0 +1,18 @@
+{
+  "name": "linanwx--nagobot",
+  "displayName": "nagobot",
+  "description": "A lightweight, Go-based AI assistant",
+  "version": "1.0.0",
+  "author": "linanwx",
+  "homepage": "https://github.com/linanwx/nagobot",
+  "skills": [
+    {
+      "name": "currency",
+      "description": ""
+    },
+    {
+      "name": "macos-automation",
+      "description": ""
+    }
+  ]
+}
