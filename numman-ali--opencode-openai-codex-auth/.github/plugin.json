@@ -1,0 +1,9 @@
+{
+  "name": "numman-ali--opencode-openai-codex-auth",
+  "displayName": "open",
+  "description": "OAuth authentication plugin for personal coding assistance with ChatGPT Plus/Pro subscriptions - uses OpenAI's official authentication method",
+  "version": "1.0.0",
+  "author": "numman-ali",
+  "homepage": "https://github.com/numman-ali/opencode-openai-codex-auth",
+  "skills": []
+}
