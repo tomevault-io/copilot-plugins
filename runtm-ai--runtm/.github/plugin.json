@@ -1,0 +1,9 @@
+{
+  "name": "runtm-ai--runtm",
+  "displayName": "runtm",
+  "description": "Open-source sandboxes where coding agents build and deploy. Spin up isolated environments where Claude Code, Cursor, and other agents code and deploy software.",
+  "version": "1.0.0",
+  "author": "runtm-ai",
+  "homepage": "https://github.com/runtm-ai/runtm",
+  "skills": []
+}
