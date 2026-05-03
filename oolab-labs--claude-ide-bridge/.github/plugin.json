@@ -1,0 +1,9 @@
+{
+  "name": "oolab-labs--claude-ide-bridge",
+  "displayName": "claude-ide-bridge",
+  "description": "MCP bridge giving Claude Code full IDE integration \u2014 25+ tools for LSP, debugging, terminals, Git, GitHub, diagnostics, and more. Works with VS Code, Windsurf, Cursor, and Antigravity.",
+  "version": "1.0.0",
+  "author": "Oolab-labs",
+  "homepage": "https://github.com/Oolab-labs/claude-ide-bridge",
+  "skills": []
+}
