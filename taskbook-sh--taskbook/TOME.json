@@ -4,7 +4,7 @@
   "repo": "taskbook",
   "description": "tasks, boards & notes for the command-line habitat",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/taskbook-sh/taskbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T14:12:09Z"
+  "distributed_at": "2026-05-03T01:53:24Z"
 }
