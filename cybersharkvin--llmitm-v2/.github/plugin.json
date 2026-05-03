@@ -1,0 +1,22 @@
+{
+  "name": "cybersharkvin--llmitm-v2",
+  "displayName": "llmitm_v2",
+  "description": "Autonomous pentesting agent \u2014 Claude Code Hackathon (Feb 10-16, 2026). The LLM builds the automation that replaces itself.",
+  "version": "1.0.0",
+  "author": "cybersharkvin",
+  "homepage": "https://github.com/cybersharkvin/llmitm_v2",
+  "skills": [
+    {
+      "name": "anthropic-sdk",
+      "description": ""
+    },
+    {
+      "name": "mitmproxy-reference",
+      "description": ""
+    },
+    {
+      "name": "neo4j-reference",
+      "description": ""
+    }
+  ]
+}
