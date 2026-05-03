@@ -1,0 +1,9 @@
+{
+  "name": "alexei-led--ccgram",
+  "displayName": "ccgram",
+  "description": "Telegram \u2194 tmux bridge for Claude Code, Codex CLI, and Gemini CLI. Monitor output, respond to prompts, manage parallel sessions.  Control AI coding agents from your phone.",
+  "version": "1.0.0",
+  "author": "alexei-led",
+  "homepage": "https://github.com/alexei-led/ccgram",
+  "skills": []
+}
