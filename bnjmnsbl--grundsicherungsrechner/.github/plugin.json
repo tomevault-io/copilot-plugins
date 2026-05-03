@@ -1,0 +1,9 @@
+{
+  "name": "bnjmnsbl--grundsicherungsrechner",
+  "displayName": "grundsicherungsrechner",
+  "description": "Eligibility calculator for Grundsicherung im Alter (German social security benefits)",
+  "version": "1.0.0",
+  "author": "bnjmnsbl",
+  "homepage": "https://github.com/bnjmnsbl/grundsicherungsrechner",
+  "skills": []
+}
