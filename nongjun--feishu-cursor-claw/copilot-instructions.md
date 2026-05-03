@@ -1,40 +1,71 @@
 ## unnamed-skill
 
-> 全局基础规则
+> 新增或修改小助手/webhook机器人推送功能时，必须遵循的自动注册规范
 
 
-## 团队背景
+# 小助手统一注册规范
 
-本团队是瑞小美轻医美集团的高管团队，成员不懂代码，通过 vibe coding（自然语言指挥 AI 编写代码）方式开发产品。AI 是我们唯一的"程序员"。
+## 核心原则
 
-## 基础约束
+系统中所有 webhook 推送功能（告警、日报、提醒等）**必须**注册到门户系统的小助手配置中心，由门户统一管理 webhook URL 和开关。
 
-1. 始终使用中文回复
-2. 只要合理，就拆分为多个子 agent 并行执行
-3. 子 agent 全部强制使用 claude-4-opus 模型
-4. 所有的 Chat 以中文命名
-5. 命令和文档不写代码示例，充分信任大模型的理解能力
-6. 先策略后执行——复杂操作先输出方案，等用户确认后再动手
-7. 每次修改后自动审查是否引入了新问题
-8. 对外交付标准思考——不是"代码能跑"，而是"用户不会踩坑"
+## 新增小助手的标准流程
 
-## 团队习惯文件
+### 1. 在模块 main.py 的 MODULE_ASSISTANTS 中添加定义
 
-如果项目中存在 `文档/团队习惯.md`，在开始工作前先读取该文件，遵循团队已有的编码习惯和工作模式。该文件由 `/从Git提取团队习惯` 命令自动生成。
+```python
+MODULE_ASSISTANTS = [
+    # ... 现有定义 ...
+    {
+        "assistant_code": "your_new_assistant",  # 全局唯一，snake_case
+        "display_name": "你的新功能名称",
+        "description": "一句话描述推送内容和触发方式",
+        "module_code": "your_module",  # archive/quality/moment/contact 等
+        "schedule_config": {
+            "type": "cron",  # cron / interval / realtime
+            "times": ["09:00"],  # cron 类型填写
+            # "interval_minutes": 5,  # interval 类型填写
+            # "description": "事件触发",  # realtime 类型填写
+        },
+    },
+]
+```
 
-## Agent 自动路由
+模块启动时会通过 `register_assistants(MODULE_ASSISTANTS)` 自动向门户注册。
 
-以下场景无需用户手动调用，AI 自动调度对应 Agent：
+### 2. 通过 assistant_config_client 获取 webhook 配置
 
-| 场景 | 自动调用 |
-|------|---------|
-| 代码出现报错或异常行为 | → 调试专家 |
-| 代码变更后需要验证 | → 测试专家 |
-| 涉及用户输入、认证、API、敏感数据 | → 安全卫士 |
-| 构建失败或类型错误 | → 构建修复师 |
-| 需要验证完整用户流程 | → 端到端测试专家（多子 agent 并行 + 无头浏览器） |
-| 复杂功能需求 | → 先执行 /规划实施方案 |
-| 写完/改完代码 | → 先执行 /审查刚才的文件与操作 |
+```python
+from app.services.assistant_config_client import get_assistant_config
+
+config = await get_assistant_config("your_new_assistant")
+if not config.enabled or not config.webhook_key:
+    return  # 未启用或未配置则跳过
+
+# config.webhook_key 是完整的 webhook URL
+```
+
+### 3. 使用 build_payload 构建多平台消息
+
+```python
+from shared_backend.utils.webhook_platform import detect_platform, build_payload
+
+payload = build_payload(detect_platform(webhook_url), content, "markdown")
+```
+
+## 禁止事项
+
+- ❌ 不要在代码中硬编码 webhook URL
+- ❌ 不要直接从环境变量读取 webhook（仅作为降级回退）
+- ❌ 不要硬编码企微消息格式（使用 build_payload 适配多平台）
+- ❌ 不要在门户的 ASSISTANT_DEFINITIONS 中手动添加（由各模块自动注册）
+
+## 相关文件
+
+- 注册工具: `公共模块/shared_backend/utils/assistant_registry.py`
+- 平台适配: `公共模块/shared_backend/utils/webhook_platform.py`
+- 配置客户端: 各模块 `app/services/assistant_config_client.py`
+- 门户 API: `门户系统/后端服务/app/api/assistant.py`（/internal/register-batch）
 
 ---
 > Source: [nongjun/feishu-cursor-claw](https://github.com/nongjun/feishu-cursor-claw) — distributed by [TomeVault](https://tomevault.io).
