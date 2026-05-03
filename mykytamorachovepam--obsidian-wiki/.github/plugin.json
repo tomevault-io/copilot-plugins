@@ -1,0 +1,9 @@
+{
+  "name": "mykytamorachovepam--obsidian-wiki",
+  "displayName": "obsidian-wiki",
+  "description": "Insired by @karpathy . A personal knowledge base maintained by an LLM agent inside an Obsidian vault. Instead of retrieving from raw documents on every question (like traditional RAG), the LLM increme",
+  "version": "1.0.0",
+  "author": "MykytaMorachovEpam",
+  "homepage": "https://github.com/MykytaMorachovEpam/obsidian-wiki",
+  "skills": []
+}
