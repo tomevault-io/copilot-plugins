@@ -2,9 +2,9 @@
   "name": "prpm",
   "owner": "pr-pm",
   "repo": "prpm",
-  "description": "AI instruction skills by pr-pm",
+  "description": "The universal registry for AI coding tools",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -251,5 +251,5 @@
   ],
   "source_url": "https://github.com/pr-pm/prpm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T14:34:55Z"
+  "distributed_at": "2026-05-03T22:42:59Z"
 }
