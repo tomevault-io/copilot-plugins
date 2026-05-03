@@ -1,0 +1,9 @@
+{
+  "name": "dmarcguardhq--dmarcguard",
+  "displayName": "dmarcguard",
+  "description": "\ud83d\udee1\ufe0f A lightweight, self-hosted DMARC report parser with a beautiful Vue.js dashboard. Single-binary deployment with IMAP integration, SQLite storage, and RFC 7489 compliance. Built with Go and Vue 3 - ",
+  "version": "1.0.0",
+  "author": "dmarcguardhq",
+  "homepage": "https://github.com/dmarcguardhq/dmarcguard",
+  "skills": []
+}
