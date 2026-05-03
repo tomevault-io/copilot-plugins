@@ -1,0 +1,18 @@
+{
+  "name": "drewipson--claude-code-config",
+  "displayName": "claude-code-config",
+  "description": "AI instruction skills by drewipson",
+  "version": "1.0.0",
+  "author": "drewipson",
+  "homepage": "https://github.com/drewipson/claude-code-config",
+  "skills": [
+    {
+      "name": "yaml-frontmatter-parser",
+      "description": ""
+    },
+    {
+      "name": "vscode-extension-patterns",
+      "description": ""
+    }
+  ]
+}
