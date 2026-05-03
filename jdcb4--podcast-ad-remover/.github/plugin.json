@@ -1,0 +1,9 @@
+{
+  "name": "jdcb4--podcast-ad-remover",
+  "displayName": "podcast-ad-remover",
+  "description": "Podcast Ad Remover (AGPAR) - an AI-powered tool that automatically downloads podcasts, transcribes them (Whisper), detects ads (Gemini/GPT/Claude), and removes them",
+  "version": "1.0.0",
+  "author": "jdcb4",
+  "homepage": "https://github.com/jdcb4/podcast-ad-remover",
+  "skills": []
+}
