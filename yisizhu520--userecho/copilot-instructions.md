@@ -1,97 +1,188 @@
-## 01-project-overview
+## 02-frontend-standards
 
-> UserEcho（回响）项目概述、技术栈和项目结构
+> 前端代码规范、命名约定和最佳实践
 
 
-# UserEcho 项目概述
+# 前端代码规范
 
-## 项目简介
+## Vue 组件规范
 
-UserEcho（回响）是一个基于 FastAPI Best Architecture 和 Vben Admin 的全栈企业级应用。采用前后端分离架构，实现 RBAC 权限控制系统。
+1. **组件语法**:
+   - 优先使用 `<script setup>` 语法
+   - 使用 Composition API，避免 Options API
+   - 组件文件使用 PascalCase 命名 (如 `UserProfile.vue`)
+   - 使用 `defineProps`、`defineEmits` 进行类型定义
+   - Props 和 emits 必须添加 TypeScript 类型注解
 
-## 技术栈
+2. **组件示例**:
+   ```vue
+   <script setup lang="ts">
+   import { ref, computed } from 'vue';
+   
+   interface Props {
+     userId: string;
+     name?: string;
+   }
+   
+   interface Emits {
+     (e: 'update', value: string): void;
+     (e: 'delete'): void;
+   }
+   
+   const props = defineProps<Props>();
+   const emit = defineEmits<Emits>();
+   
+   const count = ref(0);
+   const displayName = computed(() => props.name || 'Anonymous');
+   </script>
+   ```
 
-### 前端 (front/)
+## TypeScript 规范
 
-- **框架**: Vue 3 (Composition API + `<script setup>`)
-- **语言**: TypeScript (严格模式)
-- **构建工具**: Vite 5+
-- **UI 框架**: Ant Design Vue
-- **状态管理**: Pinia
-- **路由**: Vue Router
-- **CSS**: Tailwind CSS + CSS Modules
-- **包管理**: pnpm (>=9.12.0)
-- **Node 版本**: >=20.10.0
+1. **类型系统**:
+   - 启用严格模式 (`strict: true`)
+   - 避免使用 `any`，优先使用具体类型或泛型
+   - 接口命名使用 PascalCase
+   - 类型文件放在 `packages/types` 或组件同级 `types.ts`
+   - 优先使用 `interface` 而非 `type`（除非需要联合类型）
 
-### 后端 (server/)
+2. **类型定义示例**:
+   ```typescript
+   // ✅ 推荐
+   interface User {
+     id: string;
+     name: string;
+     email: string;
+     role: 'admin' | 'user';
+   }
+   
+   // 联合类型使用 type
+   type Status = 'pending' | 'success' | 'error';
+   
+   // 泛型使用
+   interface ApiResponse<T> {
+     code: number;
+     msg: string;
+     data: T;
+   }
+   ```
 
-- **框架**: FastAPI (>=0.123.5)
-- **Python 版本**: >=3.10
-- **ORM**: SQLAlchemy 2.0+
-- **数据库**: MySQL 8.0+ / PostgreSQL 16.0+
-- **缓存**: Redis 7.1+
-- **异步任务**: Celery + celery-aio-pool
-- **数据验证**: Pydantic v2
-- **迁移工具**: Alembic
-- **认证**: JWT (python-jose)
-- **包管理**: uv / pip
+## 样式规范
 
-## 项目结构
+1. **CSS 优先级**:
+   - 优先使用 Tailwind CSS 工具类
+   - 复杂样式使用 CSS Modules 或 scoped style
+   - 避免内联样式，除非是动态计算的值
+   - 颜色、间距等使用设计 token
 
+2. **样式示例**:
+   ```vue
+   <template>
+     <!-- ✅ Tailwind 工具类 -->
+     <div class="flex items-center gap-4 p-4 bg-white rounded-lg shadow">
+       <button class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
+         提交
+       </button>
+     </div>
+   </template>
+   
+   <style scoped>
+   /* 复杂样式使用 scoped */
+   .custom-component {
+     background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+   }
+   </style>
+   ```
+
+## 导入顺序
+
+```typescript
+// 1. Vue 核心
+import { ref, computed, onMounted } from 'vue';
+
+// 2. 第三方库
+import { message } from 'ant-design-vue';
+import axios from 'axios';
+
+// 3. workspace 包
+import { useUserStore } from '@vben/stores';
+import { ACCESS_TOKEN_KEY } from '@vben/constants';
+
+// 4. 本地导入
+import { fetchUserData } from './api';
+import UserCard from './components/UserCard.vue';
+
+// 5. 类型导入
+import type { User, UserProfile } from './types';
 ```
-userecho/
-├── front/                          # 前端 monorepo
-│   ├── apps/
-│   │   └── web-antd/              # 主应用 (Ant Design)
-│   │       ├── src/
-│   │       │   ├── api/           # API 接口
-│   │       │   ├── router/        # 路由配置
-│   │       │   ├── store/         # 状态管理
-│   │       │   ├── views/         # 页面组件
-│   │       │   └── locales/       # 国际化
-│   ├── packages/                  # 共享包
-│   │   ├── @core/                 # 核心功能
-│   │   ├── constants/             # 常量
-│   │   ├── effects/               # 副作用/组件
-│   │   ├── stores/                # 共享状态
-│   │   ├── types/                 # 类型定义
-│   │   └── utils/                 # 工具函数
-│   └── internal/                  # 内部工具
-│       ├── lint-configs/          # Lint 配置
-│       └── vite-config/           # Vite 配置
-├── server/                         # 后端
-│   └── backend/
-│       ├── app/                   # 应用模块
-│       │   ├── api/               # API 路由
-│       │   ├── schema/            # Pydantic Schema
-│       │   ├── service/           # 业务逻辑
-│       │   ├── crud/              # 数据访问
-│       │   └── model/             # 数据模型
-│       ├── common/                # 公共模块
-│       ├── core/                  # 核心配置
-│       ├── database/              # 数据库配置
-│       ├── middleware/            # 中间件
-│       ├── utils/                 # 工具函数
-│       └── plugin/                # 插件
-└── .cursor/                       # Cursor 配置
-    └── rules/                     # 项目规则
-```
 
-## 架构模式
+## 命名规范
 
-### 后端伪三层架构
+| 类型 | 规范 | 示例 |
+|------|------|------|
+| 变量、函数 | camelCase | `getUserInfo`, `totalCount` |
+| 常量 | UPPER_SNAKE_CASE | `API_BASE_URL`, `MAX_RETRY` |
+| 组件 | PascalCase | `UserCard`, `DataTable` |
+| 组合式函数 | use 前缀 | `useAuth`, `useRequest` |
+| 类型/接口 | PascalCase | `UserProfile`, `ApiResponse` |
+| 文件名（组件） | PascalCase | `UserProfile.vue` |
+| 文件名（工具） | kebab-case | `user-utils.ts` |
 
-```
-api (controller) → schema (dto) → service → crud (dao) → model
-```
+## 最佳实践
 
-| 层级 | Java 对应 | UserEcho | 说明 |
-|------|-----------|-----------|------|
-| 视图层 | controller | api | 处理请求响应 |
-| 数据传输 | dto | schema | Pydantic 模型 |
-| 业务逻辑 | service + impl | service | 业务逻辑处理 |
-| 数据访问 | dao / mapper | crud | 数据库操作 |
-| 数据模型 | model / entity | model | SQLAlchemy 模型 |
+1. **响应式数据**:
+   ```typescript
+   // ✅ 推荐
+   const count = ref(0);
+   const user = reactive({ name: 'John', age: 30 });
+   
+   // ❌ 避免
+   let count = 0; // 非响应式
+   ```
+
+2. **计算属性 vs 方法**:
+   ```typescript
+   // ✅ 使用计算属性（有缓存）
+   const fullName = computed(() => `${user.firstName} ${user.lastName}`);
+   
+   // ❌ 避免在模板中使用方法
+   function getFullName() {
+     return `${user.firstName} ${user.lastName}`;
+   }
+   ```
+
+3. **组件通信**:
+   ```typescript
+   // ✅ Props down, Events up
+   // 父组件
+   const handleUpdate = (value: string) => {
+     // 处理更新
+   };
+   
+   // 子组件
+   emit('update', newValue);
+   ```
+
+4. **异步操作**:
+   ```typescript
+   // ✅ 推荐
+   const loading = ref(false);
+   const error = ref<Error | null>(null);
+   
+   async function fetchData() {
+     loading.value = true;
+     error.value = null;
+     try {
+       const data = await api.getData();
+       return data;
+     } catch (e) {
+       error.value = e as Error;
+       message.error('加载失败');
+     } finally {
+       loading.value = false;
+     }
+   }
+   ```
 
 ---
 
