@@ -1,0 +1,9 @@
+{
+  "name": "shintaro-sprech--agent-orchestrator-template",
+  "displayName": "agent-orchestrator-template",
+  "description": "A self-evolving subagent system for Claude Code",
+  "version": "1.0.0",
+  "author": "shintaro-sprech",
+  "homepage": "https://github.com/shintaro-sprech/agent-orchestrator-template",
+  "skills": []
+}
