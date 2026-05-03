@@ -1,43 +1,35 @@
-## projectile
+## skill
 
-> - **逻辑层**：`IProjectileService` / `ProjectileWorld` / `ProjectileService`
+> - **SkillExecutor / SkillPipelineRunner**：技能管线执行
 
 
-# 飞行物（Projectile）规则
+# Skill（技能）规则
 
-## 1) 核心模块
+## 1) 核心对象
 
-- **逻辑层**：`IProjectileService` / `ProjectileWorld` / `ProjectileService`
-- **Moba 适配**：`MobaProjectileService`（launcher + schedule emit）
-- **同步**：`MobaProjectileSyncSystem`（创建 bullet ActorEntity + link）
+- **SkillExecutor / SkillPipelineRunner**：技能管线执行
+- **MobaSkillTriggering**：派发 `skill.*` 事件（例如 `skill.cast.complete`）
+- **SkillCastRequest**：常见 payload，包含 `CasterActorId`/`TargetActorId`/...
 
-## 2) 配置表约定
+## 2) 被动技能（Passive Skills）
 
-- `ProjectileLauncherDTO`
-  - `DurationMs` / `IntervalMs` / `CountPerShot` / `FanAngleDeg` / `EmitterType`
-- `ProjectileDTO`
-  - `Speed` / `LifetimeMs` / `MaxDistance` / `HitPolicyKind` / `HitsRemaining` / ...
-  - `VfxId` / `OnSpawnVfxId` / `OnHitVfxId` / `OnExpireVfxId`
-  - `OnHitEffectId`
-- `VfxDTO`
-  - `Resource` / `DurationMs`
-  - 约束：表现层独立加载，不进 runtime config registry
+- **MobaPassiveSkillTriggerRegisterSystem**：按 `SkillLoadoutComponent.PassiveSkillRuntime.TriggerIds` 注册/反注册监听
+- **默认自过滤**：对“可判定来源 actorId 的事件”，外部事件只执行 `AllowExternal=true` 的 trigger entry
 
-## 3) 溯源链路
+## 3) 事件来源约定（用于 AllowExternal 过滤）
 
-- `ProjectileSpawnParams/events` 必须携带：
-  - `TemplateId`
-  - `LauncherActorId`
-  - `RootActorId`
+触发器若要支持“自身/外部”判定，事件必须在 `evt.Payload/evt.Args` 提供来源 actorId。
 
-## 4) 网络事件
+当前被动系统识别来源的 key：
 
-- `ProjectileEventSnapshot (4006)`：Spawn/Hit/Exit 的事件流（字段保持兼容）
+- `MobaSkillTriggering.Args.CasterActorId`（`"caster.actorId"`）
+- `EffectSourceKeys.SourceActorId`（`"effect.sourceActorId"`）
+- 或 payload 为 `SkillCastRequest`（优先读取 `CasterActorId`）
 
-## 5) 性能/池化注意
+## 4) AllowExternal 语义
 
-- schedule spawn 使用 list pool
-- 禁止高频 `new List` / LINQ 等（参考 `performance.md`）
+- `AllowExternal=false`（默认）：外部来源事件不会执行该 trigger
+- `AllowExternal=true`：允许处理外部来源事件（内部再通过条件判断关系/阵营等）
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
