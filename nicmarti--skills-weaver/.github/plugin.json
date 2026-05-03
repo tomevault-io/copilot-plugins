@@ -1,0 +1,26 @@
+{
+  "name": "nicmarti--skills-weaver",
+  "displayName": "skills-weaver",
+  "description": "A role-playing game that uses Claude Code Agent SDK",
+  "version": "1.0.0",
+  "author": "nicmarti",
+  "homepage": "https://github.com/nicmarti/skills-weaver",
+  "skills": [
+    {
+      "name": "character-generator",
+      "description": ""
+    },
+    {
+      "name": "image-generator",
+      "description": ""
+    },
+    {
+      "name": "monster-manual",
+      "description": ""
+    },
+    {
+      "name": "npc-generator",
+      "description": ""
+    }
+  ]
+}
