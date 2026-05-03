@@ -1,0 +1,9 @@
+{
+  "name": "sepivip--seekerclaw",
+  "displayName": "SeekerClaw",
+  "description": "Turn your Solana Seeker (or any Android phone) into a 24/7 personal AI agent",
+  "version": "1.0.0",
+  "author": "sepivip",
+  "homepage": "https://github.com/sepivip/SeekerClaw",
+  "skills": []
+}
