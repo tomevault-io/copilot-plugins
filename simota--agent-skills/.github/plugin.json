@@ -1,0 +1,142 @@
+{
+  "name": "simota--agent-skills",
+  "displayName": "agent-skills",
+  "description": "100+ specialized AI agent skills for Claude Code / Codex CLI / Gemini CLI \u2014 prompt engineering assets covering development, security, design, FinOps, compliance, testing, and more",
+  "version": "1.0.0",
+  "author": "simota",
+  "homepage": "https://github.com/simota/agent-skills",
+  "skills": [
+    {
+      "name": "growth",
+      "description": ""
+    },
+    {
+      "name": "voice",
+      "description": ""
+    },
+    {
+      "name": "nexus",
+      "description": ""
+    },
+    {
+      "name": "polyglot",
+      "description": ""
+    },
+    {
+      "name": "showcase",
+      "description": ""
+    },
+    {
+      "name": "aether",
+      "description": ""
+    },
+    {
+      "name": "anvil",
+      "description": ""
+    },
+    {
+      "name": "architect",
+      "description": ""
+    },
+    {
+      "name": "arena",
+      "description": ""
+    },
+    {
+      "name": "artisan",
+      "description": ""
+    },
+    {
+      "name": "builder",
+      "description": ""
+    },
+    {
+      "name": "forge",
+      "description": ""
+    },
+    {
+      "name": "gateway",
+      "description": ""
+    },
+    {
+      "name": "gear",
+      "description": ""
+    },
+    {
+      "name": "grove",
+      "description": ""
+    },
+    {
+      "name": "guardian",
+      "description": ""
+    },
+    {
+      "name": "harvest",
+      "description": ""
+    },
+    {
+      "name": "judge",
+      "description": ""
+    },
+    {
+      "name": "magi",
+      "description": ""
+    },
+    {
+      "name": "muse",
+      "description": ""
+    },
+    {
+      "name": "navigator",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "description": ""
+    },
+    {
+      "name": "radar",
+      "description": ""
+    },
+    {
+      "name": "rally",
+      "description": ""
+    },
+    {
+      "name": "reel",
+      "description": ""
+    },
+    {
+      "name": "relay",
+      "description": ""
+    },
+    {
+      "name": "rewind",
+      "description": ""
+    },
+    {
+      "name": "scaffold",
+      "description": ""
+    },
+    {
+      "name": "sigil",
+      "description": ""
+    },
+    {
+      "name": "sketch",
+      "description": ""
+    },
+    {
+      "name": "vision",
+      "description": ""
+    },
+    {
+      "name": "voyager",
+      "description": ""
+    },
+    {
+      "name": "port",
+      "description": ""
+    }
+  ]
+}
