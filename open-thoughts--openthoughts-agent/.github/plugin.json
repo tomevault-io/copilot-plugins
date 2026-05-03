@@ -1,0 +1,9 @@
+{
+  "name": "open-thoughts--openthoughts-agent",
+  "displayName": "OpenThoughts-Agent",
+  "description": "Data recipes and robust infrastructure for training AI agents",
+  "version": "1.0.0",
+  "author": "open-thoughts",
+  "homepage": "https://github.com/open-thoughts/OpenThoughts-Agent",
+  "skills": []
+}
