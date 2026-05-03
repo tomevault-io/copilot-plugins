@@ -1,0 +1,141 @@
+{
+  "name": "honeypot",
+  "owner": "orientpine",
+  "repo": "honeypot",
+  "description": "tool box for AI agent",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "chapter1-guide",
+      "path": "plugins/isd-generator/skills/chapter1-guide",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/isd-generator/skills/chapter1-guide",
+      "description": ""
+    },
+    {
+      "name": "chapter2-guide",
+      "path": "plugins/isd-generator/skills/chapter2-guide",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/isd-generator/skills/chapter2-guide",
+      "description": ""
+    },
+    {
+      "name": "chapter3-guide",
+      "path": "plugins/isd-generator/skills/chapter3-guide",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/isd-generator/skills/chapter3-guide",
+      "description": ""
+    },
+    {
+      "name": "chapter4-guide",
+      "path": "plugins/isd-generator/skills/chapter4-guide",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/isd-generator/skills/chapter4-guide",
+      "description": ""
+    },
+    {
+      "name": "chapter5-guide",
+      "path": "plugins/isd-generator/skills/chapter5-guide",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/isd-generator/skills/chapter5-guide",
+      "description": ""
+    },
+    {
+      "name": "core-resources",
+      "path": "plugins/isd-generator/skills/core-resources",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/isd-generator/skills/core-resources",
+      "description": ""
+    },
+    {
+      "name": "data-collection-guide",
+      "path": "plugins/isd-generator/skills/data-collection-guide",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/isd-generator/skills/data-collection-guide",
+      "description": ""
+    },
+    {
+      "name": "devil-advocate",
+      "path": "plugins/investments-portfolio/skills/devil-advocate",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/investments-portfolio/skills/devil-advocate",
+      "description": ""
+    },
+    {
+      "name": "field-keywords",
+      "path": "plugins/report-generator/skills/field-keywords",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/report-generator/skills/field-keywords",
+      "description": ""
+    },
+    {
+      "name": "figure-guide",
+      "path": "plugins/isd-generator/skills/figure-guide",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/isd-generator/skills/figure-guide",
+      "description": ""
+    },
+    {
+      "name": "four-step-pattern",
+      "path": "plugins/report-generator/skills/four-step-pattern",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/report-generator/skills/four-step-pattern",
+      "description": ""
+    },
+    {
+      "name": "image-reference-guide",
+      "path": "plugins/isd-generator/skills/image-reference-guide",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/isd-generator/skills/image-reference-guide",
+      "description": ""
+    },
+    {
+      "name": "paper-style-toolkit",
+      "path": "plugins/paper-style-generator/skills/paper-style-toolkit",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/paper-style-generator/skills/paper-style-toolkit",
+      "description": ""
+    },
+    {
+      "name": "slide-renderer",
+      "path": "plugins/visual-generator/skills/slide-renderer",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/visual-generator/skills/slide-renderer",
+      "description": ""
+    },
+    {
+      "name": "theme-pitch",
+      "path": "plugins/visual-generator/skills/theme-pitch",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/visual-generator/skills/theme-pitch",
+      "description": ""
+    },
+    {
+      "name": "web-search-verifier",
+      "path": "plugins/investments-portfolio/skills/web-search-verifier",
+      "github_url": "https://github.com/orientpine/honeypot/tree/main/plugins/investments-portfolio/skills/web-search-verifier",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/orientpine/honeypot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:46:24Z"
+}
