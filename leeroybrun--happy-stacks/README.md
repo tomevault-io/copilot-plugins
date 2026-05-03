@@ -7,13 +7,13 @@ Run and manage the full Happy stack (server, daemon, UI) locally and expose them
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [leeroybrun/happy-stacks](https://github.com/leeroybrun/happy-stacks).
+Original source: `.cursor/rules/*.mdc` in [leeroybrun/happy-stacks](https://github.com/leeroybrun/happy-stacks).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
