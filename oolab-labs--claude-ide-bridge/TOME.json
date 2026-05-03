@@ -1,0 +1,44 @@
+{
+  "name": "claude-ide-bridge",
+  "owner": "Oolab-labs",
+  "repo": "claude-ide-bridge",
+  "description": "MCP bridge giving Claude Code full IDE integration \u2014 25+ tools for LSP, debugging, terminals, Git, GitHub, diagnostics, and more. Works with VS Code, Windsurf, Cursor, and Antigravity.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Oolab-labs/claude-ide-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T06:35:06Z"
+}
