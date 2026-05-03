@@ -1,0 +1,14 @@
+{
+  "name": "sam-dumont--claude-skills",
+  "displayName": "claude-skills",
+  "description": "claude-skills",
+  "version": "1.0.0",
+  "author": "sam-dumont",
+  "homepage": "https://github.com/sam-dumont/claude-skills",
+  "skills": [
+    {
+      "name": "technical-blog-post",
+      "description": ""
+    }
+  ]
+}
