@@ -1,0 +1,9 @@
+{
+  "name": "dlt--pg-glimpse",
+  "displayName": "pg_glimpse",
+  "description": "\ud83d\udc18 Terminal-based PostgreSQL dashboard for monitoring queries, locks, replication, and   performance",
+  "version": "1.0.0",
+  "author": "dlt",
+  "homepage": "https://github.com/dlt/pg_glimpse",
+  "skills": []
+}
