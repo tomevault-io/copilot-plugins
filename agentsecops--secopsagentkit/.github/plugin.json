@@ -1,0 +1,9 @@
+{
+  "name": "agentsecops--secopsagentkit",
+  "displayName": "SecOpsAgentKit",
+  "description": "Security operations toolkit for AI coding agents. Give Claude Code 25+ skills to catch vulnerabilities, scan containers, detect secrets, and enforce policies automatically.",
+  "version": "1.0.0",
+  "author": "AgentSecOps",
+  "homepage": "https://github.com/AgentSecOps/SecOpsAgentKit",
+  "skills": []
+}
