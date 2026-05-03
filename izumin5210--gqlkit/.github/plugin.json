@@ -1,0 +1,22 @@
+{
+  "name": "izumin5210--gqlkit",
+  "displayName": "gqlkit",
+  "description": "Just types and functions \u2014 write TypeScript, generate GraphQL.",
+  "version": "1.0.0",
+  "author": "izumin5210",
+  "homepage": "https://github.com/izumin5210/gqlkit",
+  "skills": [
+    {
+      "name": "golden-test-reviewer",
+      "description": ""
+    },
+    {
+      "name": "test-pruning-advisor",
+      "description": ""
+    },
+    {
+      "name": "use-gunshi-cli",
+      "description": ""
+    }
+  ]
+}
