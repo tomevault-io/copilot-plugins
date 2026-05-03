@@ -1,98 +1,99 @@
-## remix-conventions
+## rust-conventions
 
-> Remix/TypeScript conventions for auth9-portal
+> Rust coding conventions for auth9-core
 
 
-# Remix Conventions (auth9-portal)
+# Rust Conventions (auth9-core)
 
 ## Tech Stack
 
-- **Framework**: Remix + Vite
-- **UI**: Radix UI + Tailwind CSS
-- **Validation**: Zod + Conform
-- **Testing**: Vitest (unit), Playwright (E2E)
-- **State**: Remix loader/action (server-first)
+- **Web**: axum + Tower middleware
+- **gRPC**: tonic
+- **Database**: sqlx (compile-time SQL checking, MySQL/TiDB)
+- **Async**: tokio runtime
+- **Logging**: tracing (structured logs + distributed tracing)
+- **Serialization**: serde
+- **JWT**: jsonwebtoken
+- **Cache**: redis-rs
 
-## Apple-Style UI Design
+## Code Organization
 
-```tsx
-// Design principles:
-// - Minimalism: generous whitespace, clean lines
-// - Glassmorphism: backdrop-filter: blur(), semi-transparent bg
-// - Large radius: rounded-2xl for cards, rounded-xl for buttons
-// - Subtle animations: hover/focus transitions (200-300ms)
-// - System fonts: font-sans (Inter/SF Pro Display)
-// - Restrained colors: neutral grays + single accent color
-
-// ✅ Example card
-<div className="rounded-2xl bg-white/80 backdrop-blur-xl 
-               shadow-sm border border-gray-100 p-6">
-  ...
-</div>
+```rust
+// Module structure follows domain-driven design:
+// domain/   → Pure domain models with validation
+// service/  → Business logic (depends on repository traits)
+// repository/ → Data access (implements traits)
+// api/      → HTTP handlers (thin layer)
+// grpc/     → gRPC handlers (thin layer)
 ```
 
-## Route Structure
+## Error Handling
 
-```
-app/routes/
-├── _index.tsx          # Landing page
-├── login.tsx           # Login page
-├── dashboard.tsx       # Dashboard layout
-├── dashboard._index.tsx # Dashboard home
-├── tenants._index.tsx  # Tenant list
-└── tenants.$id.tsx     # Tenant detail
-```
+```rust
+// ❌ BAD - swallowing errors
+let result = db.query().await.ok();
 
-## Data Loading Pattern
+// ✅ GOOD - use Result with context
+let result = db.query()
+    .await
+    .context("Failed to query tenant")?;
 
-```tsx
-// ✅ Use loader for data fetching
-export async function loader({ request }: LoaderFunctionArgs) {
-  const tenants = await api.getTenants();
-  return json({ tenants });
-}
-
-// ✅ Use action for mutations
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const result = await api.createTenant(formData);
-  return redirect(`/tenants/${result.id}`);
+// ✅ GOOD - use custom error types
+#[derive(thiserror::Error, Debug)]
+pub enum ServiceError {
+    #[error("Tenant not found: {0}")]
+    TenantNotFound(Uuid),
+    #[error("Database error: {0}")]
+    Database(#[from] sqlx::Error),
 }
 ```
 
-## Component Guidelines
+## Async Patterns
 
-```tsx
-// ✅ Functional components only
-export function TenantCard({ tenant }: { tenant: Tenant }) {
-  return (
-    <Card className="hover:shadow-md transition-shadow duration-200">
-      <CardHeader>
-        <h3 className="text-lg font-semibold">{tenant.name}</h3>
-      </CardHeader>
-    </Card>
-  );
-}
+```rust
+// ✅ Use tokio::spawn for background tasks
+tokio::spawn(async move {
+    cache.invalidate(&key).await;
+});
 
-// ✅ Extract hooks for reusable logic
-function useTenantForm() {
-  const [isPending, startTransition] = useTransition();
-  // ...
+// ✅ Use ? for error propagation in async
+async fn get_user(&self, id: Uuid) -> Result<User> {
+    let user = self.repo.find_by_id(id).await?;
+    Ok(user)
 }
 ```
 
-## API Service Layer
+## Testing
 
-```typescript
-// app/services/api.ts
-// Centralize API calls with proper typing
-export const api = {
-  async getTenants(): Promise<Tenant[]> {
-    const res = await fetch(`${API_URL}/api/v1/tenants`);
-    if (!res.ok) throw new Error('Failed to fetch tenants');
-    return res.json();
-  },
-};
+```rust
+// Unit tests: mock dependencies with mockall
+#[cfg(test)]
+mod tests {
+    use mockall::predicate::*;
+    
+    #[tokio::test]
+    async fn test_create_tenant() {
+        let mut mock_repo = MockTenantRepository::new();
+        mock_repo.expect_create()
+            .returning(|t| Ok(t));
+        // ...
+    }
+}
+
+// Integration tests: use testcontainers-rs
+```
+
+## SQL with sqlx
+
+```rust
+// ✅ Use query_as! for compile-time checking
+let tenant = sqlx::query_as!(
+    Tenant,
+    "SELECT * FROM tenants WHERE id = ?",
+    id
+)
+.fetch_one(&pool)
+.await?;
 ```
 
 ---
