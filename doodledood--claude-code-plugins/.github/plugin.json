@@ -1,0 +1,78 @@
+{
+  "name": "doodledood--claude-code-plugins",
+  "displayName": "claude-code-plugins",
+  "description": "A curated marketplace of Claude Code plugins for agentic development workflows, featuring tools for architecture, knowledge management, and development automation",
+  "version": "1.0.0",
+  "author": "doodledood",
+  "homepage": "https://github.com/doodledood/claude-code-plugins",
+  "skills": [
+    {
+      "name": "analyze-code",
+      "description": ""
+    },
+    {
+      "name": "ask",
+      "description": ""
+    },
+    {
+      "name": "build-review-persona",
+      "description": ""
+    },
+    {
+      "name": "compress-prompt",
+      "description": ""
+    },
+    {
+      "name": "craft-author-voice",
+      "description": ""
+    },
+    {
+      "name": "define-brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "define-customer-profile",
+      "description": ""
+    },
+    {
+      "name": "define-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "define-seo-strategy",
+      "description": ""
+    },
+    {
+      "name": "define-x-strategy",
+      "description": ""
+    },
+    {
+      "name": "explore-codebase",
+      "description": ""
+    },
+    {
+      "name": "human-writing",
+      "description": ""
+    },
+    {
+      "name": "investigate-bug",
+      "description": ""
+    },
+    {
+      "name": "research-web",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "update-claude-md",
+      "description": ""
+    },
+    {
+      "name": "write",
+      "description": ""
+    }
+  ]
+}
