@@ -1,0 +1,9 @@
+{
+  "name": "pedramnavid--petit",
+  "displayName": "petit",
+  "description": "Minimal lightweight task orchestrator in Rust",
+  "version": "1.0.0",
+  "author": "PedramNavid",
+  "homepage": "https://github.com/PedramNavid/petit",
+  "skills": []
+}
