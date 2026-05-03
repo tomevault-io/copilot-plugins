@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--plugin-delivery",
+  "displayName": "plugin.delivery",
+  "description": "AI plugin marketplace. SDK, gateway & developer tools for building function-calling plugins. OpenAPI compatible, multi-language support, Vercel edge deployment. Build chat plugins, AI tools & extensio",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/plugin.delivery",
+  "skills": []
+}
