@@ -1,0 +1,9 @@
+{
+  "name": "squarewavesystems--opcilloscope",
+  "displayName": "opcilloscope",
+  "description": "Browse and monitor OPC UA servers from your terminal. Lightweight, cross-platform, keyboard and mouse friendly.",
+  "version": "1.0.0",
+  "author": "SquareWaveSystems",
+  "homepage": "https://github.com/SquareWaveSystems/opcilloscope",
+  "skills": []
+}
