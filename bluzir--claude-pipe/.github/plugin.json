@@ -1,0 +1,9 @@
+{
+  "name": "bluzir--claude-pipe",
+  "displayName": "claude-pipe",
+  "description": "File-First Agent Orchestration. Readable agents. Inspectable state. Predictable costs.",
+  "version": "1.0.0",
+  "author": "bluzir",
+  "homepage": "https://github.com/bluzir/claude-pipe",
+  "skills": []
+}
