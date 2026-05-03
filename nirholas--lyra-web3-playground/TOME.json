@@ -1,0 +1,44 @@
+{
+  "name": "lyra-web3-playground",
+  "owner": "nirholas",
+  "repo": "lyra-web3-playground",
+  "description": "Free Solidity compiler & Web3 IDE with interactive tutorials. Learn blockchain development, deploy smart contracts to 8+ chains (Ethereum, Polygon, Base, Arbitrum, Solana). Templates for tokens, NFTs, DeFi, DAOs. Monaco Editor, AI assistance, WCAG accessible. Remix alternative. Gas optimization, MetaMask integration, open source. Beginner-friendly.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nirholas/lyra-web3-playground",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T19:51:53Z"
+}
