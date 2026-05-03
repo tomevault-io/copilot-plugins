@@ -1,0 +1,9 @@
+{
+  "name": "dirien--yet-another-agent-harness",
+  "displayName": "yet-another-agent-harness",
+  "description": "A Go agent harness for Claude Code \u2014 runtime hooks, MCP server, session tracking, middleware chains, and full config generation in one binary",
+  "version": "1.0.0",
+  "author": "dirien",
+  "homepage": "https://github.com/dirien/yet-another-agent-harness",
+  "skills": []
+}
