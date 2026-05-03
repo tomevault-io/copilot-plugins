@@ -1,0 +1,9 @@
+{
+  "name": "getditto-shared--pubsec-wireshark-dissectors",
+  "displayName": "pubsec-wireshark-dissectors",
+  "description": "pubsec-wireshark-dissectors",
+  "version": "1.0.0",
+  "author": "getditto-shared",
+  "homepage": "https://github.com/getditto-shared/pubsec-wireshark-dissectors",
+  "skills": []
+}
