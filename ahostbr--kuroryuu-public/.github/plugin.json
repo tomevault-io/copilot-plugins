@@ -1,0 +1,22 @@
+{
+  "name": "ahostbr--kuroryuu-public",
+  "displayName": "kuroryuu-public",
+  "description": "Kuroryuu - AI Agent Orchestration Platform with Desktop App, MCP Integration, and Docker Support",
+  "version": "1.0.0",
+  "author": "ahostbr",
+  "homepage": "https://github.com/ahostbr/kuroryuu-public",
+  "skills": [
+    {
+      "name": "find-skill-sh",
+      "description": ""
+    },
+    {
+      "name": "kuroryuu-patterns",
+      "description": ""
+    },
+    {
+      "name": "kuroryuu-playground",
+      "description": ""
+    }
+  ]
+}
