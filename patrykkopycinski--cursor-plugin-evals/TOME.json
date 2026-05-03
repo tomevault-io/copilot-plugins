@@ -1,0 +1,44 @@
+{
+  "name": "cursor-plugin-evals",
+  "owner": "patrykkopycinski",
+  "repo": "cursor-plugin-evals",
+  "description": "The universal testing framework for Cursor plugins \u2014 static, unit, integration, LLM, skill layers with 23 evaluators, red-teaming, and more.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/patrykkopycinski/cursor-plugin-evals",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T16:19:49Z"
+}
