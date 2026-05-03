@@ -1,0 +1,38 @@
+{
+  "name": "feather-lang--feather",
+  "displayName": "feather",
+  "description": "The core implementation of Feather",
+  "version": "1.0.0",
+  "author": "feather-lang",
+  "homepage": "https://github.com/feather-lang/feather",
+  "skills": [
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "define-usage",
+      "description": ""
+    },
+    {
+      "name": "remember",
+      "description": ""
+    },
+    {
+      "name": "review-documentation",
+      "description": ""
+    },
+    {
+      "name": "view-manual",
+      "description": ""
+    },
+    {
+      "name": "work-on-milestone",
+      "description": ""
+    },
+    {
+      "name": "work-toward-parity",
+      "description": ""
+    }
+  ]
+}
