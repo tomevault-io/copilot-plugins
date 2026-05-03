@@ -1,383 +1,417 @@
-## 05-security-performance
+## 07-commands-env
 
-> 安全规范和性能优化最佳实践
+> 常用命令和环境变量配置指南
 
 
-# 安全与性能规范
+# 常用命令与环境变量
 
-## 安全规范
+## 前端命令
 
-### 前端安全
+### 开发命令
 
-1. **数据存储安全**:
-   ```typescript
-   // ✅ 敏感信息使用 sessionStorage 或内存
-   import { useAccessToken } from '@vben/access';
-   
-   // 使用状态管理，不直接存储在 localStorage
-   const tokenStore = useAccessToken();
-   
-   // ❌ 避免
-   localStorage.setItem('token', token);  // 不安全
-   localStorage.setItem('password', pwd); // 绝对不要存密码
-   ```
+```bash
+# 安装依赖
+pnpm install
 
-2. **XSS 防护**:
-   ```vue
-   <template>
-     <!-- ✅ Vue 自动转义，安全 -->
-     <div>{{ userInput }}</div>
-     
-     <!-- ❌ 危险！避免使用 v-html -->
-     <div v-html="userInput"></div>
-     
-     <!-- ✅ 如果必须使用，先消毒 -->
-     <div v-html="sanitizedHtml"></div>
-   </template>
-   
-   <script setup lang="ts">
-   import DOMPurify from 'dompurify';
-   
-   const sanitizedHtml = computed(() => 
-     DOMPurify.sanitize(userInput.value)
-   );
-   </script>
-   ```
+# 开发模式 (Ant Design 版本)
+pnpm dev:antd
 
-3. **CSRF 防护**:
-   ```typescript
-   // ✅ 在请求中添加 CSRF token
-   import axios from 'axios';
-   
-   axios.interceptors.request.use(config => {
-     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
-     if (csrfToken) {
-       config.headers['X-CSRF-Token'] = csrfToken;
-     }
-     return config;
-   });
-   ```
+# 开发其他版本
+pnpm dev:ele      # Element Plus 版本
+pnpm dev:naive    # Naive UI 版本
 
-4. **路由守卫**:
-   ```typescript
-   // ✅ 验证权限
-   import { useAccessStore } from '@vben/access';
-   
-   router.beforeEach(async (to, from, next) => {
-     const accessStore = useAccessStore();
-     
-     // 检查登录状态
-     if (to.meta.requiresAuth && !accessStore.isLoggedIn) {
-       next('/login');
-       return;
-     }
-     
-     // 检查权限
-     if (to.meta.permission && !accessStore.hasPermission(to.meta.permission)) {
-       next('/403');
-       return;
-     }
-     
-     next();
-   });
-   ```
+# 开发文档
+pnpm dev:docs
 
-### 后端安全
+# 开发 Playground
+pnpm dev:play
+```
 
-1. **密码安全**:
-   ```python
-   from pwdlib import PasswordHash
-   
-   pwd_context = PasswordHash.recommended()
-   
-   # ✅ 密码加密
-   def hash_password(password: str) -> str:
-       return pwd_context.hash(password)
-   
-   # ✅ 密码验证
-   def verify_password(plain_password: str, hashed_password: str) -> bool:
-       return pwd_context.verify(plain_password, hashed_password)
-   
-   # ❌ 绝对不要明文存储密码
-   # user.password = plain_password  # 危险！
-   ```
+### 构建命令
 
-2. **JWT 安全**:
-   ```python
-   from datetime import datetime, timedelta
-   from jose import jwt
-   
-   # ✅ 设置合理的过期时间
-   def create_access_token(data: dict) -> str:
-       to_encode = data.copy()
-       expire = datetime.utcnow() + timedelta(minutes=30)  # 短期 token
-       to_encode.update({'exp': expire})
-       return jwt.encode(to_encode, SECRET_KEY, algorithm='HS256')
-   
-   def create_refresh_token(data: dict) -> str:
-       to_encode = data.copy()
-       expire = datetime.utcnow() + timedelta(days=7)  # 长期 refresh token
-       to_encode.update({'exp': expire})
-       return jwt.encode(to_encode, SECRET_KEY, algorithm='HS256')
-   ```
+```bash
+# 构建生产版本
+pnpm build:antd
 
-3. **SQL 注入防护**:
-   ```python
-   from sqlalchemy import select
-   
-   # ✅ 使用 ORM 参数化查询
-   async def get_user_by_email(db: AsyncSession, email: str) -> User | None:
-       result = await db.execute(
-           select(User).where(User.email == email)  # 自动转义
-       )
-       return result.scalar_one_or_none()
-   
-   # ❌ 避免字符串拼接
-   # query = f"SELECT * FROM users WHERE email = '{email}'"  # 危险！
-   ```
+# 构建并分析包大小
+pnpm build:analyze
 
-4. **限流保护**:
-   ```python
-   from fastapi import APIRouter
-   from fastapi_limiter.depends import RateLimiter
-   
-   router = APIRouter()
-   
-   # ✅ 添加限流
-   @router.post('/login', dependencies=[Depends(RateLimiter(times=5, minutes=1))])
-   async def login(credentials: LoginSchema):
-       """登录接口，每分钟最多 5 次请求"""
-       pass
-   ```
+# 构建 Docker 镜像
+pnpm build:docker
 
-5. **敏感数据保护**:
-   ```python
-   from pydantic import BaseModel, Field, field_serializer
-   
-   class UserResponse(BaseModel):
-       id: int
-       username: str
-       email: str
-       
-       # ✅ 序列化时隐藏敏感字段
-       @field_serializer('email')
-       def mask_email(self, email: str) -> str:
-           name, domain = email.split('@')
-           return f"{name[:2]}***@{domain}"
-   ```
+# 构建所有应用
+pnpm build
+```
 
-6. **日志安全**:
-   ```python
-   from loguru import logger
-   
-   # ✅ 不记录敏感信息
-   logger.info(f'用户登录: user_id={user.id}')
-   
-   # ❌ 避免记录敏感数据
-   # logger.info(f'用户登录: password={password}')  # 危险！
-   # logger.info(f'Token: {token}')  # 危险！
-   ```
+### 代码质量
 
-## 性能优化
+```bash
+# 类型检查
+pnpm check:type
 
-### 前端性能
+# Lint 检查
+pnpm lint
 
-1. **路由懒加载**:
-   ```typescript
-   // ✅ 路由级代码分割
-   const routes = [
-     {
-       path: '/users',
-       component: () => import('./views/Users.vue')
-     },
-     {
-       path: '/settings',
-       component: () => import('./views/Settings.vue')
-     }
-   ];
-   ```
+# 代码格式化
+pnpm format
 
-2. **组件懒加载**:
-   ```vue
-   <script setup lang="ts">
-   import { defineAsyncComponent } from 'vue';
-   
-   // ✅ 异步组件
-   const HeavyComponent = defineAsyncComponent(() => 
-     import('./HeavyComponent.vue')
-   );
-   </script>
-   ```
+# 检查循环依赖
+pnpm check:circular
 
-3. **列表优化**:
-   ```vue
-   <template>
-     <!-- ✅ 使用虚拟滚动处理长列表 -->
-     <VirtualList
-       :data="items"
-       :item-size="50"
-       :buffer="10"
-     >
-       <template #default="{ item }">
-         <UserItem :user="item" />
-       </template>
-     </VirtualList>
-     
-     <!-- ✅ 使用 key 优化渲染 -->
-     <div v-for="item in items" :key="item.id">
-       {{ item.name }}
-     </div>
-     
-     <!-- ✅ 使用 v-memo 缓存子树 -->
-     <div v-for="item in items" :key="item.id" v-memo="[item.id, item.updated_at]">
-       <ExpensiveChild :item="item" />
-     </div>
-   </template>
-   ```
+# 检查依赖
+pnpm check:dep
 
-4. **防抖节流**:
-   ```typescript
-   import { useDebounceFn, useThrottleFn } from '@vueuse/core';
-   
-   // ✅ 搜索框防抖
-   const debouncedSearch = useDebounceFn((value: string) => {
-     performSearch(value);
-   }, 500);
-   
-   // ✅ 滚动事件节流
-   const throttledScroll = useThrottleFn(() => {
-     handleScroll();
-   }, 100);
-   ```
+# 拼写检查
+pnpm check:cspell
 
-5. **图片优化**:
-   ```vue
-   <template>
-     <!-- ✅ 图片懒加载 -->
-     <img v-lazy="imageUrl" alt="description" />
-     
-     <!-- ✅ 响应式图片 -->
-     <img
-       :srcset="`${image_sm} 480w, ${image_md} 800w, ${image_lg} 1200w`"
-       :sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px"
-       :src="image_lg"
-       alt="description"
-     />
-   </template>
-   ```
+# 运行所有检查
+pnpm check
+```
 
-### 后端性能
+### 测试命令
 
-1. **数据库查询优化**:
-   ```python
-   from sqlalchemy import select
-   from sqlalchemy.orm import selectinload, joinedload
-   
-   # ✅ 使用索引
-   class User(Base):
-       __tablename__ = 'users'
-       
-       email = Column(String(255), unique=True, index=True)  # 添加索引
-       created_at = Column(DateTime, index=True)  # 常用于筛选的字段
-   
-   # ✅ 预加载关联数据，避免 N+1 查询
-   async def get_users_with_posts(db: AsyncSession) -> list[User]:
-       result = await db.execute(
-           select(User)
-           .options(selectinload(User.posts))  # 预加载关联
-           .limit(100)
-       )
-       return result.scalars().all()
-   
-   # ✅ 只查询需要的字段
-   async def get_user_names(db: AsyncSession) -> list[tuple[int, str]]:
-       result = await db.execute(
-           select(User.id, User.name)  # 只查询需要的字段
-       )
-       return result.all()
-   ```
+```bash
+# 运行单元测试
+pnpm test:unit
 
-2. **Redis 缓存**:
-   ```python
-   from redis import Redis
-   import json
-   
-   redis_client = Redis(host='localhost', port=6379, decode_responses=True)
-   
-   # ✅ 缓存热点数据
-   async def get_user_with_cache(user_id: int) -> User | None:
-       cache_key = f'user:{user_id}'
-       
-       # 尝试从缓存获取
-       cached = redis_client.get(cache_key)
-       if cached:
-           return User(**json.loads(cached))
-       
-       # 从数据库获取
-       user = await get_user_from_db(user_id)
-       if user:
-           # 写入缓存，设置过期时间
-           redis_client.setex(
-               cache_key,
-               3600,  # 1 小时过期
-               json.dumps(user.dict())
-           )
-       return user
-   ```
+# 运行单元测试（监听模式）
+pnpm test:unit --watch
 
-3. **分页查询**:
-   ```python
-   # ✅ 使用分页，避免全表扫描
-   from fastapi_pagination import Page, paginate
-   from fastapi_pagination.ext.sqlalchemy import paginate as sqlalchemy_paginate
-   
-   async def get_users_paginated(
-       db: AsyncSession,
-       page: int = 1,
-       size: int = 20
-   ) -> Page[User]:
-       return await sqlalchemy_paginate(
-           db,
-           select(User).order_by(User.created_at.desc()),
-           params={'page': page, 'size': size}
-       )
-   ```
+# 运行单元测试（覆盖率）
+pnpm test:unit --coverage
 
-4. **连接池配置**:
-   ```python
-   from sqlalchemy.ext.asyncio import create_async_engine
-   
-   # ✅ 配置连接池
-   engine = create_async_engine(
-       DATABASE_URL,
-       pool_size=20,        # 连接池大小
-       max_overflow=10,     # 最大溢出连接数
-       pool_pre_ping=True,  # 连接前检查
-       pool_recycle=3600,   # 连接回收时间
-   )
-   ```
+# 运行 E2E 测试
+pnpm test:e2e
 
-5. **异步任务**:
-   ```python
-   from celery import Celery
-   
-   celery_app = Celery('userecho', broker='redis://localhost:6379/0')
-   
-   # ✅ 耗时操作使用异步任务
-   @celery_app.task
-   def send_email(to: str, subject: str, body: str):
-       """发送邮件异步任务"""
-       # 发送邮件逻辑
-       pass
-   
-   # 在 API 中调用
-   @router.post('/register')
-   async def register(user_data: UserCreate):
-       user = await create_user(user_data)
-       # 异步发送欢迎邮件
-       send_email.delay(user.email, '欢迎注册', '...')
-       return user
-   ```
+# 运行 E2E 测试（UI 模式）
+pnpm test:e2e --ui
+```
+
+### 其他命令
+
+```bash
+# 预览构建结果
+pnpm preview
+
+# 清理缓存和构建产物
+pnpm clean
+
+# 重新安装依赖
+pnpm reinstall
+
+# 提交代码（使用 commitizen）
+pnpm commit
+
+# 更新依赖
+pnpm update:deps
+```
+
+## 后端命令
+
+### 开发命令
+
+```bash
+# 安装依赖
+uv sync
+
+# 或使用 pip
+pip install -r requirements.txt
+
+# 开发运行
+python backend/run.py
+
+# 使用 uvicorn 运行
+uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+
+# 使用 granian 运行（生产环境推荐）
+granian --interface asgi backend.main:app --host 0.0.0.0 --port 8000
+```
+
+### 数据库迁移
+
+```bash
+# 升级到最新版本
+alembic upgrade head
+
+# 降级一个版本
+alembic downgrade -1
+
+# 创建新迁移
+alembic revision --autogenerate -m "描述信息"
+
+# 查看迁移历史
+alembic history
+
+# 查看当前版本
+alembic current
+
+# 迁移到指定版本
+alembic upgrade <revision_id>
+```
+
+### 测试命令
+
+```bash
+# 运行所有测试
+pytest
+
+# 运行指定测试文件
+pytest tests/test_user.py
+
+# 运行指定测试函数
+pytest tests/test_user.py::test_create_user
+
+# 运行测试（显示详细输出）
+pytest -v
+
+# 运行测试（显示 print 输出）
+pytest -s
+
+# 运行测试（覆盖率）
+pytest --cov=backend --cov-report=html
+
+# 运行测试（并行）
+pytest -n auto
+```
+
+### 代码质量
+
+```bash
+# 使用 prek 进行代码检查和格式化
+prek
+
+# 或手动使用 ruff
+ruff check backend/
+ruff format backend/
+
+# 类型检查（如果使用 mypy）
+mypy backend/
+```
+
+### Celery 命令
+
+```bash
+# 启动 Celery Worker
+celery -A backend.plugin.task.celery worker --loglevel=info
+
+# 启动 Celery Beat (定时任务)
+celery -A backend.plugin.task.celery beat --loglevel=info
+
+# 启动 Flower (监控界面)
+celery -A backend.plugin.task.celery flower --port=5555
+
+# 查看任务列表
+celery -A backend.plugin.task.celery inspect active
+
+# 清空任务队列
+celery -A backend.plugin.task.celery purge
+```
+
+### 其他命令
+
+```bash
+# 使用 CLI 工具
+fba --help
+
+# 创建超级用户
+fba create-superuser
+
+# 初始化数据库
+fba init-db
+```
+
+## 环境变量配置
+
+### 前端环境变量
+
+创建 `front/apps/web-antd/.env.local`：
+
+```bash
+# 应用标题
+VITE_APP_TITLE=UserEcho
+
+# API 地址
+VITE_API_URL=http://localhost:8000
+
+# 应用环境
+VITE_APP_ENV=development
+
+# 是否启用 Mock 数据
+VITE_USE_MOCK=false
+
+# WebSocket 地址
+VITE_WS_URL=ws://localhost:8000/ws
+
+# 上传文件大小限制 (MB)
+VITE_MAX_FILE_SIZE=10
+
+# 是否启用压缩
+VITE_BUILD_COMPRESS=gzip
+```
+
+环境变量使用：
+
+```typescript
+// 在代码中使用
+const apiUrl = import.meta.env.VITE_API_URL;
+const isDev = import.meta.env.DEV;
+const isProd = import.meta.env.PROD;
+```
+
+### 后端环境变量
+
+创建 `server/.env`：
+
+```bash
+# ========== 应用配置 ==========
+APP_NAME=UserEcho
+APP_ENV=development
+APP_DEBUG=True
+APP_HOST=0.0.0.0
+APP_PORT=8000
+
+# ========== 数据库配置 ==========
+# MySQL
+DATABASE_URL=mysql+asyncmy://root:password@localhost:3306/userecho?charset=utf8mb4
+
+# PostgreSQL
+# DATABASE_URL=postgresql+asyncpg://user:password@localhost:5432/userecho
+
+# 数据库连接池配置
+DB_POOL_SIZE=20
+DB_MAX_OVERFLOW=10
+DB_POOL_RECYCLE=3600
+
+# ========== Redis 配置 ==========
+REDIS_URL=redis://localhost:6379/0
+REDIS_PASSWORD=
+REDIS_TIMEOUT=5
+
+# ========== JWT 配置 ==========
+JWT_SECRET_KEY=your-secret-key-change-this-in-production
+JWT_ALGORITHM=HS256
+JWT_EXPIRE_MINUTES=1440  # 24 小时
+JWT_REFRESH_EXPIRE_DAYS=7
+
+# ========== CORS 配置 ==========
+CORS_ORIGINS=http://localhost:5173,http://localhost:3000
+
+# ========== 限流配置 ==========
+RATE_LIMIT_TIMES=60
+RATE_LIMIT_SECONDS=60
+
+# ========== 日志配置 ==========
+LOG_LEVEL=INFO
+LOG_DIR=logs
+
+# ========== 文件上传配置 ==========
+UPLOAD_DIR=uploads
+MAX_FILE_SIZE=10485760  # 10MB
+
+# ========== Celery 配置 ==========
+CELERY_BROKER_URL=redis://localhost:6379/1
+CELERY_RESULT_BACKEND=redis://localhost:6379/2
+
+# ========== 邮件配置 ==========
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASSWORD=your-password
+SMTP_FROM=noreply@userecho.com
+
+# ========== 第三方服务 ==========
+# AWS S3
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_S3_BUCKET=
+
+# OpenTelemetry
+OTEL_ENABLED=false
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+```
+
+环境变量使用：
+
+```python
+# backend/core/config.py
+from pydantic_settings import BaseSettings
+
+class Settings(BaseSettings):
+    app_name: str = 'UserEcho'
+    app_env: str = 'development'
+    database_url: str
+    redis_url: str
+    jwt_secret_key: str
+    
+    class Config:
+        env_file = '.env'
+        case_sensitive = False
+
+settings = Settings()
+```
+
+## Docker 命令
+
+```bash
+# 构建镜像
+docker-compose build
+
+# 启动服务
+docker-compose up -d
+
+# 停止服务
+docker-compose down
+
+# 查看日志
+docker-compose logs -f
+
+# 重启服务
+docker-compose restart
+
+# 进入容器
+docker-compose exec backend bash
+docker-compose exec frontend sh
+
+# 查看运行状态
+docker-compose ps
+```
+
+## 生产部署命令
+
+### 前端部署
+
+```bash
+# 构建生产版本
+pnpm build:antd
+
+# 预览构建结果
+pnpm preview
+
+# 使用 nginx 部署
+cp -r front/apps/web-antd/dist/* /var/www/html/
+```
+
+### 后端部署
+
+```bash
+# 使用 granian (推荐)
+granian --interface asgi backend.main:app \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --workers 4 \
+  --threads 2
+
+# 使用 gunicorn + uvicorn
+gunicorn backend.main:app \
+  --workers 4 \
+  --worker-class uvicorn.workers.UvicornWorker \
+  --bind 0.0.0.0:8000
+
+# 使用 systemd 管理服务
+sudo systemctl start userecho
+sudo systemctl enable userecho
+sudo systemctl status userecho
+```
 
 ---
 
