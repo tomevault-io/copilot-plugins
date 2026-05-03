@@ -1,0 +1,9 @@
+{
+  "name": "llehouerou--waves",
+  "displayName": "waves",
+  "description": "Terminal music player with Soulseek integration, MusicBrainz tagging, Last.fm scrobbling, and radio mode. Built with Go and Bubble Tea.",
+  "version": "1.0.0",
+  "author": "llehouerou",
+  "homepage": "https://github.com/llehouerou/waves",
+  "skills": []
+}
