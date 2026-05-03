@@ -1,0 +1,9 @@
+{
+  "name": "paperfoot--autoresearch-cli",
+  "displayName": "autoresearch-cli",
+  "description": "Autonomous AI experiment loop CLI -- run research overnight with any coding agent",
+  "version": "1.0.0",
+  "author": "paperfoot",
+  "homepage": "https://github.com/paperfoot/autoresearch-cli",
+  "skills": []
+}
