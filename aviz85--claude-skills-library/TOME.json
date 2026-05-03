@@ -1,0 +1,123 @@
+{
+  "name": "claude-skills-library",
+  "owner": "aviz85",
+  "repo": "claude-skills-library",
+  "description": "A collection of useful Claude Code skills",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "html-to-pdf",
+      "path": "plugins/html-to-pdf/skills/html-to-pdf",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/html-to-pdf/skills/html-to-pdf",
+      "description": ""
+    },
+    {
+      "name": "music-generator",
+      "path": "plugins/music-generator/skills/music-generator",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/music-generator/skills/music-generator",
+      "description": ""
+    },
+    {
+      "name": "whatsapp",
+      "path": "plugins/whatsapp/skills/whatsapp",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/whatsapp/skills/whatsapp",
+      "description": ""
+    },
+    {
+      "name": "zoom-meeting",
+      "path": "plugins/zoom-meeting/skills/zoom-meeting",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/zoom-meeting/skills/zoom-meeting",
+      "description": ""
+    },
+    {
+      "name": "aviz-skills-installer",
+      "path": "plugin/skills/aviz-skills-installer",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugin/skills/aviz-skills-installer",
+      "description": ""
+    },
+    {
+      "name": "aviz-skills-installer",
+      "path": "skills/aviz-skills-installer",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/skills/aviz-skills-installer",
+      "description": ""
+    },
+    {
+      "name": "calendar",
+      "path": "plugins/calendar/skills/calendar",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/calendar/skills/calendar",
+      "description": ""
+    },
+    {
+      "name": "claudability-analyzer",
+      "path": "plugins/claudability-analyzer/skills/claudability-analyzer",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/claudability-analyzer/skills/claudability-analyzer",
+      "description": ""
+    },
+    {
+      "name": "deep-interview",
+      "path": "plugins/deep-interview/skills/deep-interview",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/deep-interview/skills/deep-interview",
+      "description": ""
+    },
+    {
+      "name": "find-my-project",
+      "path": "skills/find-my-project",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/skills/find-my-project",
+      "description": ""
+    },
+    {
+      "name": "gmail",
+      "path": "plugins/gmail/skills/gmail",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/gmail/skills/gmail",
+      "description": ""
+    },
+    {
+      "name": "learn",
+      "path": "plugins/learn/skills/learn",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/learn/skills/learn",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-poster",
+      "path": "plugins/nano-banana-poster/skills/nano-banana-poster",
+      "github_url": "https://github.com/aviz85/claude-skills-library/tree/main/plugins/nano-banana-poster/skills/nano-banana-poster",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aviz85/claude-skills-library",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:49:57Z"
+}
