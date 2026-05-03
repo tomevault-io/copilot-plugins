@@ -1,0 +1,9 @@
+{
+  "name": "ketankauntia--gsoc-orgs",
+  "displayName": "gsoc-orgs",
+  "description": "Making GSOC journey easier. Helping select orgs, projects, tech-stack for GSOC to increase you chances of getting selected.",
+  "version": "1.0.0",
+  "author": "ketankauntia",
+  "homepage": "https://github.com/ketankauntia/gsoc-orgs",
+  "skills": []
+}
