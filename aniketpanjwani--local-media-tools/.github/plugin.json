@@ -1,0 +1,26 @@
+{
+  "name": "aniketpanjwani--local-media-tools",
+  "displayName": "local_media_tools",
+  "description": "AI instruction skills by aniketpanjwani",
+  "version": "1.0.0",
+  "author": "aniketpanjwani",
+  "homepage": "https://github.com/aniketpanjwani/local_media_tools",
+  "skills": [
+    {
+      "name": "newsletter-events-add-source",
+      "description": ""
+    },
+    {
+      "name": "newsletter-events-list-sources",
+      "description": ""
+    },
+    {
+      "name": "newsletter-events-remove-source",
+      "description": ""
+    },
+    {
+      "name": "newsletter-events-research",
+      "description": ""
+    }
+  ]
+}
