@@ -1,0 +1,26 @@
+{
+  "name": "farra--dev-agent-backlog",
+  "displayName": "dev-agent-backlog",
+  "description": "Design doc, RFC, and task tracking system for humans + agents based on emacs org-mode",
+  "version": "1.0.0",
+  "author": "farra",
+  "homepage": "https://github.com/farra/dev-agent-backlog",
+  "skills": [
+    {
+      "name": "backlog-update",
+      "description": ""
+    },
+    {
+      "name": "claude-tasks-sync",
+      "description": ""
+    },
+    {
+      "name": "new-design-doc",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    }
+  ]
+}
