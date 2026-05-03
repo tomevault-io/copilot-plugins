@@ -1,0 +1,14 @@
+{
+  "name": "react-native-community--skills",
+  "displayName": "skills",
+  "description": "Agent skills for React Native Community",
+  "version": "1.0.0",
+  "author": "react-native-community",
+  "homepage": "https://github.com/react-native-community/skills",
+  "skills": [
+    {
+      "name": "upgrade-react-native",
+      "description": ""
+    }
+  ]
+}
