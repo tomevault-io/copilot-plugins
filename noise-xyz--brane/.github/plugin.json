@@ -1,0 +1,34 @@
+{
+  "name": "noise-xyz--brane",
+  "displayName": "brane",
+  "description": "The Modern Ethereum SDK for Java",
+  "version": "1.0.0",
+  "author": "noise-xyz",
+  "homepage": "https://github.com/noise-xyz/brane",
+  "skills": [
+    {
+      "name": "brane-code-review",
+      "description": ""
+    },
+    {
+      "name": "brane-debugging",
+      "description": ""
+    },
+    {
+      "name": "brane-docs",
+      "description": ""
+    },
+    {
+      "name": "brane-impact",
+      "description": ""
+    },
+    {
+      "name": "brane-research",
+      "description": ""
+    },
+    {
+      "name": "brane-ship",
+      "description": ""
+    }
+  ]
+}
