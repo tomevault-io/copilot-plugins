@@ -1,0 +1,9 @@
+{
+  "name": "portal-co--skills",
+  "displayName": "skills",
+  "description": "Portal Solutions Agent Skills",
+  "version": "1.0.0",
+  "author": "portal-co",
+  "homepage": "https://github.com/portal-co/skills",
+  "skills": []
+}
