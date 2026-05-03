@@ -1,0 +1,14 @@
+{
+  "name": "clerk--skills",
+  "displayName": "skills",
+  "description": "AI Skills to enhance working with Clerk",
+  "version": "1.0.0",
+  "author": "clerk",
+  "homepage": "https://github.com/clerk/skills",
+  "skills": [
+    {
+      "name": "clerk-vue-patterns",
+      "description": ""
+    }
+  ]
+}
