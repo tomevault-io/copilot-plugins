@@ -1,0 +1,98 @@
+{
+  "name": "obra--superpowers",
+  "displayName": "superpowers",
+  "description": "An agentic skills framework & software development methodology that works.",
+  "version": "1.0.0",
+  "author": "obra",
+  "homepage": "https://github.com/obra/superpowers",
+  "skills": [
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-superpowers",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    },
+    {
+      "name": "executing-plans",
+      "description": ""
+    },
+    {
+      "name": "verification-before-completion",
+      "description": ""
+    },
+    {
+      "name": "finding-duplicate-functions",
+      "description": ""
+    },
+    {
+      "name": "mcp-cli",
+      "description": ""
+    },
+    {
+      "name": "slack-messaging",
+      "description": ""
+    },
+    {
+      "name": "using-tmux-for-interactive-commands",
+      "description": ""
+    },
+    {
+      "name": "browsing",
+      "description": ""
+    },
+    {
+      "name": "developing-claude-code-plugins",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "description": ""
+    },
+    {
+      "name": "working-with-claude-code",
+      "description": ""
+    }
+  ]
+}
