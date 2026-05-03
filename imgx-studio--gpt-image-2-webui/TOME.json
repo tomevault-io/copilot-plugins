@@ -1,0 +1,44 @@
+{
+  "name": "gpt-image-2-webui",
+  "owner": "imgx-studio",
+  "repo": "gpt-image-2-webui",
+  "description": " Self-hosted GPT Image / OpenAI-compatible WebUI for text-to-image, image editing, reference-based generation, and multilingual creative workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/imgx-studio/gpt-image-2-webui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T09:54:23Z"
+}
