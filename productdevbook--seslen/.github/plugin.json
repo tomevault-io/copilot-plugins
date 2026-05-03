@@ -1,0 +1,9 @@
+{
+  "name": "productdevbook--seslen",
+  "displayName": "seslen",
+  "description": "Zero-dep, tree-shakeable Web Audio library with synthesised UI presets, buses + ducking, polyphony cap, throttle, jitter, fades, pan, sprites, OfflineAudioContext render-to-WAV, AnalyserNode tap, pref",
+  "version": "1.0.0",
+  "author": "productdevbook",
+  "homepage": "https://github.com/productdevbook/seslen",
+  "skills": []
+}
