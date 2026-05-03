@@ -1,33 +1,32 @@
-## go
+## python
 
-> Go 编码风格，扩展通用规则
+> Python 安全，扩展通用规则
 
-# Go 编码风格
+# Python 安全
 
-> 本文件以 Go 特定内容扩展通用编码风格规则。
+> 本文件以 Python 特定内容扩展通用安全规则。
 
-## 格式化
+## 密钥管理
 
-- **gofmt** 和 **goimports** 是强制性的——没有风格争论
+```python
+import os
+from dotenv import load_dotenv
 
-## 设计原则
+load_dotenv()
 
-- 接受接口，返回结构体
-- 保持接口小巧（1-3 个方法）
-
-## 错误处理
-
-始终用上下文包装错误：
-
-```go
-if err != nil {
-    return fmt.Errorf("failed to create user: %w", err)
-}
+api_key = os.environ["OPENAI_API_KEY"]  # 缺失时抛出 KeyError
 ```
+
+## 安全扫描
+
+- 使用 **bandit** 进行静态安全分析：
+  ```bash
+  bandit -r src/
+  ```
 
 ## 参考
 
-参见技能：`Go开发模式` 了解全面的 Go 惯用写法和模式。
+Django 项目可参考 Django 官方安全文档（如适用）。
 
 ---
 > Source: [nongjun/feishu-cursor-claw](https://github.com/nongjun/feishu-cursor-claw) — distributed by [TomeVault](https://tomevault.io).
