@@ -1,0 +1,18 @@
+{
+  "name": "daishiman--daishiman-skills",
+  "displayName": "daishiman-skills",
+  "description": "daishiman-skills",
+  "version": "1.0.0",
+  "author": "daishiman",
+  "homepage": "https://github.com/daishiman/daishiman-skills",
+  "skills": [
+    {
+      "name": "google-forms-generator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
