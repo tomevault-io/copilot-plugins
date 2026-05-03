@@ -1,0 +1,38 @@
+{
+  "name": "bobmatnyc--mcp-skillset",
+  "displayName": "mcp-skillset",
+  "description": "Dynamic RAG-powered skills service for code assistants via MCP - Vector + Knowledge Graph hybrid search for intelligent skill discovery",
+  "version": "1.0.0",
+  "author": "bobmatnyc",
+  "homepage": "https://github.com/bobmatnyc/mcp-skillset",
+  "skills": [
+    {
+      "name": "cloudflare-edge-ai",
+      "description": ""
+    },
+    {
+      "name": "fastapi-web-development",
+      "description": ""
+    },
+    {
+      "name": "observability-monitoring",
+      "description": ""
+    },
+    {
+      "name": "postgresql-optimization",
+      "description": ""
+    },
+    {
+      "name": "security-testing",
+      "description": ""
+    },
+    {
+      "name": "terraform-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "web3-blockchain",
+      "description": ""
+    }
+  ]
+}
