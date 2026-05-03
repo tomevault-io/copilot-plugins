@@ -1,0 +1,141 @@
+{
+  "name": "clicklens",
+  "owner": "ntk148v",
+  "repo": "clicklens",
+  "description": "ClickLens provides a comprehensive suite of tools for developers, analysts, and administrators to interact with their ClickHouse clusters efficiently.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "altinity-expert-clickhouse-caches",
+      "path": ".agent/skills/altinity-expert-clickhouse-caches",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-caches",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-dictionaries",
+      "path": ".agent/skills/altinity-expert-clickhouse-dictionaries",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-dictionaries",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-errors",
+      "path": ".agent/skills/altinity-expert-clickhouse-errors",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-errors",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-expert",
+      "path": ".agent/skills/altinity-expert-clickhouse-expert",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-expert",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-ingestion",
+      "path": ".agent/skills/altinity-expert-clickhouse-ingestion",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-ingestion",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-logs",
+      "path": ".agent/skills/altinity-expert-clickhouse-logs",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-logs",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-memory",
+      "path": ".agent/skills/altinity-expert-clickhouse-memory",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-memory",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-merges",
+      "path": ".agent/skills/altinity-expert-clickhouse-merges",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-merges",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-metrics",
+      "path": ".agent/skills/altinity-expert-clickhouse-metrics",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-metrics",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-mutations",
+      "path": ".agent/skills/altinity-expert-clickhouse-mutations",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-mutations",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-overview",
+      "path": ".agent/skills/altinity-expert-clickhouse-overview",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-overview",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-replication",
+      "path": ".agent/skills/altinity-expert-clickhouse-replication",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-replication",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-reporting",
+      "path": ".agent/skills/altinity-expert-clickhouse-reporting",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-reporting",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-schema",
+      "path": ".agent/skills/altinity-expert-clickhouse-schema",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-schema",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-storage",
+      "path": ".agent/skills/altinity-expert-clickhouse-storage",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-storage",
+      "description": ""
+    },
+    {
+      "name": "altinity-expert-clickhouse-text-log",
+      "path": ".agent/skills/altinity-expert-clickhouse-text-log",
+      "github_url": "https://github.com/ntk148v/clicklens/tree/main/.agent/skills/altinity-expert-clickhouse-text-log",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ntk148v/clicklens",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:45:31Z"
+}
