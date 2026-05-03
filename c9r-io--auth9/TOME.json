@@ -4,7 +4,7 @@
   "repo": "auth9",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/c9r-io/auth9",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T23:35:53Z"
+  "distributed_at": "2026-05-03T20:04:32Z"
 }
