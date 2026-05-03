@@ -1,0 +1,14 @@
+{
+  "name": "mneves75--ai-health-sync-ios",
+  "displayName": "ai-health-sync-ios",
+  "description": "Securely sync Apple HealthKit data from iPhone to Mac over local network",
+  "version": "1.0.0",
+  "author": "mneves75",
+  "homepage": "https://github.com/mneves75/ai-health-sync-ios",
+  "skills": [
+    {
+      "name": "healthkit-sync",
+      "description": ""
+    }
+  ]
+}
