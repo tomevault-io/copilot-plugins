@@ -1,0 +1,90 @@
+{
+  "name": "graysurf--agent-kit",
+  "displayName": "agent-kit",
+  "description": "agent-kit tracks AI agent setup to keep workflows consistent across machines. It contains prompt presets, custom skills, and local tooling. ",
+  "version": "1.0.0",
+  "author": "graysurf",
+  "homepage": "https://github.com/graysurf/agent-kit",
+  "skills": [
+    {
+      "name": "agent-doc-init",
+      "description": ""
+    },
+    {
+      "name": "api-test-runner",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools-debug-companion",
+      "description": ""
+    },
+    {
+      "name": "close-feature-pr",
+      "description": ""
+    },
+    {
+      "name": "create-plan",
+      "description": ""
+    },
+    {
+      "name": "create-project-skill",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "description": ""
+    },
+    {
+      "name": "find-and-fix-bugs",
+      "description": ""
+    },
+    {
+      "name": "gh-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "graphql-api-testing",
+      "description": ""
+    },
+    {
+      "name": "macos-agent-ops",
+      "description": ""
+    },
+    {
+      "name": "open-changed-files-review",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "release-workflow",
+      "description": ""
+    },
+    {
+      "name": "remove-skill",
+      "description": ""
+    },
+    {
+      "name": "rest-api-testing",
+      "description": ""
+    },
+    {
+      "name": "screen-record",
+      "description": ""
+    },
+    {
+      "name": "semantic-commit-autostage",
+      "description": ""
+    },
+    {
+      "name": "skill-governance",
+      "description": ""
+    },
+    {
+      "name": "sql-mysql",
+      "description": ""
+    }
+  ]
+}
