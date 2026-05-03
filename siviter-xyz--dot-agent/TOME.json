@@ -1,0 +1,129 @@
+{
+  "name": "dot-agent",
+  "owner": "siviter-xyz",
+  "repo": "dot-agent",
+  "description": "A curated collection of agent skills for coding agents designed to enhance the workflows of Software Engineers (and, let's be honest, me primarily).",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-skill",
+      "path": "skills/create-skill",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/create-skill",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "path": "skills/python",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/python",
+      "description": ""
+    },
+    {
+      "name": "cursor-best-practices",
+      "path": "skills/cursor-best-practices",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/cursor-best-practices",
+      "description": ""
+    },
+    {
+      "name": "software-engineer",
+      "path": "skills/software-engineer",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/software-engineer",
+      "description": ""
+    },
+    {
+      "name": "frontend-engineer",
+      "path": "skills/frontend-engineer",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/frontend-engineer",
+      "description": ""
+    },
+    {
+      "name": "backend-engineer",
+      "path": "skills/backend-engineer",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/backend-engineer",
+      "description": ""
+    },
+    {
+      "name": "create-agents-md",
+      "path": "skills/create-agents-md",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/create-agents-md",
+      "description": ""
+    },
+    {
+      "name": "semantic-git",
+      "path": "skills/semantic-git",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/semantic-git",
+      "description": ""
+    },
+    {
+      "name": "context-engineering",
+      "path": "skills/context-engineering",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/context-engineering",
+      "description": ""
+    },
+    {
+      "name": "cli-building",
+      "path": "skills/cli-building",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/cli-building",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "path": "skills/typescript",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/typescript",
+      "description": ""
+    },
+    {
+      "name": "psi",
+      "path": "skills/psi",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/psi",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "debugging",
+      "path": "skills/debugging",
+      "github_url": "https://github.com/siviter-xyz/dot-agent/tree/main/skills/debugging",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/siviter-xyz/dot-agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T15:37:07Z"
+}
