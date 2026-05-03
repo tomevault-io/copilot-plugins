@@ -1,0 +1,54 @@
+{
+  "name": "crathgeb--potato-cannon",
+  "displayName": "potato-cannon",
+  "description": "potato-cannon - multi-agent software engineering daemon",
+  "version": "1.0.0",
+  "author": "crathgeb",
+  "homepage": "https://github.com/crathgeb/potato-cannon",
+  "skills": [
+    {
+      "name": "persuasive-agents",
+      "description": ""
+    },
+    {
+      "name": "add-comment-to-task",
+      "description": ""
+    },
+    {
+      "name": "ask-question",
+      "description": ""
+    },
+    {
+      "name": "branding-components",
+      "description": ""
+    },
+    {
+      "name": "create-artifacts",
+      "description": ""
+    },
+    {
+      "name": "create-task",
+      "description": ""
+    },
+    {
+      "name": "create-ticket",
+      "description": ""
+    },
+    {
+      "name": "creating-modals",
+      "description": ""
+    },
+    {
+      "name": "get-task",
+      "description": ""
+    },
+    {
+      "name": "read-artifacts",
+      "description": ""
+    },
+    {
+      "name": "update-task-status",
+      "description": ""
+    }
+  ]
+}
