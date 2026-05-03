@@ -1,0 +1,14 @@
+{
+  "name": "mrocklin--rumpy",
+  "displayName": "rumpy",
+  "description": "rumpy",
+  "version": "1.0.0",
+  "author": "mrocklin",
+  "homepage": "https://github.com/mrocklin/rumpy",
+  "skills": [
+    {
+      "name": "numpy-api-stream",
+      "description": ""
+    }
+  ]
+}
