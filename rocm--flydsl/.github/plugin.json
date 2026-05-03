@@ -1,0 +1,9 @@
+{
+  "name": "rocm--flydsl",
+  "displayName": "FlyDSL",
+  "description": "FlyDSL is the Python front\u2011end of the project: Flexible LaYout DSL.",
+  "version": "1.0.0",
+  "author": "ROCm",
+  "homepage": "https://github.com/ROCm/FlyDSL",
+  "skills": []
+}
