@@ -1,0 +1,9 @@
+{
+  "name": "ashotn--opencode-relay",
+  "displayName": "OpenCode-Relay",
+  "description": "A plugin to integrate the OpenCode AI coding assistant into IntelliJ-based IDEs.",
+  "version": "1.0.0",
+  "author": "AshotN",
+  "homepage": "https://github.com/AshotN/OpenCode-Relay",
+  "skills": []
+}
