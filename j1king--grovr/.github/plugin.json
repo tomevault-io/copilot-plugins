@@ -1,0 +1,14 @@
+{
+  "name": "j1king--grovr",
+  "displayName": "grovr",
+  "description": "A native Git worktree manager for macOS",
+  "version": "1.0.0",
+  "author": "j1king",
+  "homepage": "https://github.com/j1king/grovr",
+  "skills": [
+    {
+      "name": "release",
+      "description": ""
+    }
+  ]
+}
