@@ -1,0 +1,9 @@
+{
+  "name": "omarshahine--homeclaw",
+  "displayName": "HomeClaw",
+  "description": "HomeKit smart home control via MCP \u2014 lights, locks, thermostats, and scenes for Claude Desktop, Claude Code, and OpenClaw",
+  "version": "1.0.0",
+  "author": "omarshahine",
+  "homepage": "https://github.com/omarshahine/HomeClaw",
+  "skills": []
+}
