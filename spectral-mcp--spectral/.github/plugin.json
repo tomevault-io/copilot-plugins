@@ -1,0 +1,9 @@
+{
+  "name": "spectral-mcp--spectral",
+  "displayName": "spectral",
+  "description": "Browse any app normally. Spectral captures the traffic, understands what each API call does, and generates MCP tools that AI agents can call directly.",
+  "version": "1.0.0",
+  "author": "spectral-mcp",
+  "homepage": "https://github.com/spectral-mcp/spectral",
+  "skills": []
+}
