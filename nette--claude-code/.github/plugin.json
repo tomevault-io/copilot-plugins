@@ -1,0 +1,34 @@
+{
+  "name": "nette--claude-code",
+  "displayName": "claude-code",
+  "description": "Official Claude Code plugins for Nette",
+  "version": "1.0.0",
+  "author": "nette",
+  "homepage": "https://github.com/nette/claude-code",
+  "skills": [
+    {
+      "name": "frontend-development",
+      "description": ""
+    },
+    {
+      "name": "nette-architecture",
+      "description": ""
+    },
+    {
+      "name": "nette-database",
+      "description": ""
+    },
+    {
+      "name": "nette-schema",
+      "description": ""
+    },
+    {
+      "name": "php-coding-standards",
+      "description": ""
+    },
+    {
+      "name": "php-doc",
+      "description": ""
+    }
+  ]
+}
