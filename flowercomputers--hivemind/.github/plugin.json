@@ -1,0 +1,22 @@
+{
+  "name": "flowercomputers--hivemind",
+  "displayName": "hivemind",
+  "description": "global agent memory and skill sharing",
+  "version": "1.0.0",
+  "author": "flowercomputers",
+  "homepage": "https://github.com/flowercomputers/hivemind",
+  "skills": [
+    {
+      "name": "hivemind-search",
+      "description": ""
+    },
+    {
+      "name": "hivemind-store",
+      "description": ""
+    },
+    {
+      "name": "hivemind-vote",
+      "description": ""
+    }
+  ]
+}
