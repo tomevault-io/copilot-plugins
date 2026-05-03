@@ -1,0 +1,69 @@
+{
+  "name": "llm-engineering-skills",
+  "owner": "itsmostafa",
+  "repo": "llm-engineering-skills",
+  "description": "LLM Engineering Claude Skills",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "context-engineering",
+      "path": "skills/context-engineering",
+      "github_url": "https://github.com/itsmostafa/llm-engineering-skills/tree/main/skills/context-engineering",
+      "description": ""
+    },
+    {
+      "name": "mlx",
+      "path": "skills/mlx",
+      "github_url": "https://github.com/itsmostafa/llm-engineering-skills/tree/main/skills/mlx",
+      "description": ""
+    },
+    {
+      "name": "pytorch",
+      "path": "skills/pytorch",
+      "github_url": "https://github.com/itsmostafa/llm-engineering-skills/tree/main/skills/pytorch",
+      "description": ""
+    },
+    {
+      "name": "transformers",
+      "path": "skills/transformers",
+      "github_url": "https://github.com/itsmostafa/llm-engineering-skills/tree/main/skills/transformers",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/itsmostafa/llm-engineering-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:53:53Z"
+}
