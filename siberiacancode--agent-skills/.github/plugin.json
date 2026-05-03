@@ -1,0 +1,14 @@
+{
+  "name": "siberiacancode--agent-skills",
+  "displayName": "agent-skills",
+  "description": "\ud83e\udd16 ai skills",
+  "version": "1.0.0",
+  "author": "siberiacancode",
+  "homepage": "https://github.com/siberiacancode/agent-skills",
+  "skills": [
+    {
+      "name": "juniors-best-practice",
+      "description": ""
+    }
+  ]
+}
