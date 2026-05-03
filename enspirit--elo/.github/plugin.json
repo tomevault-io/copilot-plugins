@@ -1,0 +1,9 @@
+{
+  "name": "enspirit--elo",
+  "displayName": "elo",
+  "description": "A purely functional expression language for No-Code tools",
+  "version": "1.0.0",
+  "author": "enspirit",
+  "homepage": "https://github.com/enspirit/elo",
+  "skills": []
+}
