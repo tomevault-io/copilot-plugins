@@ -1,251 +1,120 @@
-## proactive-coverage
+## yaml-conventions
 
 > >-
 
 
-# Proactive Eval Coverage — Default Behavior
+# plugin-eval.yaml Conventions — Mandatory
 
-## Prime Directive
+These conventions are NON-NEGOTIABLE. The eval framework's Zod schema validates
+BEFORE snake-to-camel conversion, so camelCase field names silently fail.
 
-When working in ANY repository that contains a Cursor plugin (`.cursor-plugin/plugin.json`), MCP server (`mcp.json`), or skill collection (`SKILL.md` files), the assistant MUST:
+## 1. Field Names: ALWAYS snake_case
 
-1. Ensure comprehensive evaluation coverage exists
-2. **Run the evals**
-3. **Fix any failures**
-4. **Re-run until all CI thresholds pass**
+The Zod config schema uses snake_case. After validation, a `snakeToCamel` pass converts
+them for the TypeScript runtime. If you write camelCase in YAML, Zod silently strips
+the unknown keys and the field has no effect.
 
-This is the DEFAULT behavior — not something the user needs to request. **The job is not done until BOTH:**
+| WRONG (camelCase) | CORRECT (snake_case) |
+|---|---|
+| `pluginRoot` | `plugin_root` |
+| `buildCommand` | `build_command` |
+| `judgeModel` | `judge_model` |
+| `expectedTools` | `expected_tools` |
+| `requireEnv` | `require_env` |
+| `expectError` | `expect_error` |
+| `minimalEnv` | `minimal_env` |
+| `responseContains` | `response_contains` |
+| `responseNotContains` | `response_not_contains` |
+| `toolArgs` | `tool_args` |
+| `maxTurns` | `max_turns` |
+| `firstTryPassRate` | `first_try_pass_rate` |
+| `phaseGate` | `phase_gate` |
 
-1. **`npx cursor-plugin-evals run --ci` exits 0** (eval convergence)
-2. **Content audit shows no HIGH/MEDIUM issues** after up to 5 iterative passes (content convergence)
+**Exception:** Keys inside `env:`, `args:`, and `assert.value` are pass-through — keep
+them in whatever case the target API expects.
 
-## When to Act
+## 2. Assertion Dot Paths: Use Dot Notation for Array Indices
 
-Act IMMEDIATELY and WITHOUT ASKING when ANY of these are true:
+The integration assertion `resolveDotPath` splits on `.` and handles numeric segments
+as array indices. Bracket notation `[N]` is also supported but dot notation is preferred.
 
-1. **No `plugin-eval.yaml` exists** → Generate a complete one, run it, fix failures until green
-2. **Coverage score < 75/100** → Fix all gaps, run evals, iterate until thresholds pass
-3. **New MCP tool added** → Write tests, run them, fix until they pass
-4. **New skill added** → Write frontmatter + activation + negative tests, run, fix until pass
-5. **New rule added** → Write frontmatter + content quality tests, run, fix until pass
-6. **New agent added** → Write frontmatter + behavior tests, run, fix until pass
-7. **New command added** → Write frontmatter + execution tests, run, fix until pass
-8. **Eval results show failures** → Diagnose, fix, re-run until green
-9. **CI thresholds missing** → Add them, run `--ci`, ensure exit 0
-10. **Security tests missing** → Add them, run them, fix until they pass
-11. **Performance tests missing** → Add benchmarks, run them, calibrate thresholds
-12. **Component has no tests at all** → Generate ALL required tests for that component type
-13. **Content fixes applied** → Run content audit convergence loop until no HIGH/MEDIUM remain
+| Preferred | Also valid |
+|---|---|
+| `content.0.text` | `content[0].text` |
+| `content.0.type` | `content[0].type` |
+| `hits.hits.0._source.name` | `hits.hits[0]._source.name` |
 
-## The Run → Fix → Converge Loop
+## 3. Scoring Weights: Must Be ≤ 1.0
 
-Every time you generate or modify eval config, you MUST run this loop:
+The Zod schema validates `scoring.weights.*` with `z.number().max(1)`. Values > 1.0
+cause a config validation error.
 
-```
-REPEAT (max 5 iterations per layer):
-  1. Run evals: `npx cursor-plugin-evals run [--layer X] --verbose`
-  2. If all pass → DONE for this layer, move to next
-  3. If failures:
-     a. Read failure details
-     b. Classify: config issue vs plugin bug vs infrastructure issue
-     c. For config issues → fix YAML immediately (assertions, expected, thresholds)
-     d. For plugin bugs → flag to user (don't modify plugin source)
-     e. For infra issues → add require_env/skip with reason
-  4. Go to step 1
+```yaml
+# WRONG — will fail validation
+scoring:
+  weights:
+    unit: 1.5
+    integration: 2.0
 
-AFTER all layers pass individually:
-  Run full CI: `npx cursor-plugin-evals run --ci`
-  If CI fails → identify which gate failed, fix, re-run
-  Repeat until exit 0
-```
-
-### Fix Strategies by Failure Type
-
-| Failure | Fix |
-|---------|-----|
-| Wrong expected tool name | Update `expected.tools` in YAML |
-| Tool not registered | Add to `expected_tools` or check conditional env |
-| Assertion mismatch | Update assertion to match actual response format |
-| Timeout | Increase test `timeout` value |
-| Missing env var | Add `require_env` to skip test when env absent |
-| LLM picks wrong tool | Make prompt more specific, add hints |
-| LLM wrong arguments | Update `expected.toolArgs` or relax matching |
-| Security test fails | Ensure test expectation is correct (should tools NOT trigger?) |
-| Flaky result | Increase `repetitions` to 3, or lower temperature |
-| Score below threshold | Fix individual test failures first; relax threshold last resort |
-
-### Convergence Safeguards
-
-- **Max 5 iterations per layer** — if still failing, report remaining issues
-- **Never remove tests** — skip with reason if infrastructure is missing
-- **Steady state detection** — if same tests fail with same scores 2x in a row, change approach
-- **Threshold relaxation is last resort** — fix the test first, only relax if genuinely too strict
-
-### Post-Convergence Threshold Calibration — MANDATORY
-
-After all CI thresholds pass, the job is NOT done. Evaluate whether the thresholds are
-properly calibrated. Lenient thresholds provide a false sense of quality and allow regressions
-to slip through.
-
-**Threshold tightening rules:**
-
-| Actual vs Threshold | Action |
-|---------------------|--------|
-| Actual > threshold + 20% | **MUST tighten** — bump threshold to `actual - 5%` |
-| Actual > threshold + 10% | **SHOULD tighten** — bump if stable across 2+ runs |
-| Actual > threshold + 5% | Well calibrated — leave as-is |
-| Actual ≈ threshold | Tight — leave, monitor flakiness |
-| `security.min = 1.0` | **NEVER lower** — security is absolute |
-
-**After tightening, re-run `--ci` to confirm the new thresholds still pass.** If they fail
-due to LLM variance, back off by 2% and re-run. The final committed thresholds should
-pass reliably with ~5% headroom.
-
-**Performance threshold calibration:**
-- Set p50 to `actual_p50 * 1.2` (20% buffer)
-- Set p95 to `actual_p95 * 1.3` (30% buffer for tail latency)
-- Never use static values (200ms, 1000ms) without measuring first
-
-### Content Audit Convergence — MANDATORY for Content Fixes
-
-When auditing or fixing **content** (skill scripts, SKILL.md files, reference docs, shared modules),
-a single scan pass is NEVER sufficient. You MUST iterate until no HIGH/MEDIUM issues remain.
-
-#### Audit Severity Classification
-
-| Severity | Convergence Rule | Examples |
-|----------|-----------------|----------|
-| CRITICAL | Must fix, blocks PR | Syntax errors, missing function calls, data loss, broken imports |
-| HIGH | Must fix before declaring done | API contract violations, resource leaks, security vulnerabilities, missing required headers |
-| MEDIUM | Must fix, triggers re-scan | NaN propagation, missing safety guards, copy drift between shared modules, broken doc references |
-| LOW | Fix if easy, do NOT re-loop for these alone | Style inconsistencies, missing optional frontmatter, orphaned test scripts |
-| INFO | Report only | Version notes, design observations, improvement suggestions |
-
-#### The Content Audit Loop
-
-```
-REPEAT (max 5 passes):
-  1. Deep scan: script logic, API contracts, cross-file drift, reference accuracy, security, docs
-     On pass 2+: focus on blast radius of previous fixes + sibling file copies
-  2. Classify all findings by severity
-  3. If ZERO HIGH/MEDIUM → DONE
-     If same findings 2x in a row → change approach or report as unresolvable
-     If pass >= 5 → report remaining issues
-  4. Fix all CRITICAL + HIGH + MEDIUM
-  5. Validate fixes: node --check, prettier --check, eslint
-  6. Go to step 1
+# CORRECT
+scoring:
+  weights:
+    static: 0.5
+    unit: 0.8
+    integration: 1.0
+    llm: 1.0
+    performance: 0.5
 ```
 
-#### Content Audit Safeguards
+## 4. Environment Variables: No Bash-Style Defaults
 
-- **Max 5 passes** — if HIGH/MEDIUM findings persist, report and stop
-- **Steady state detection** — same findings 2 consecutive passes → change approach
-- **Never delete findings** — if unfixable, document in PR body
-- **Validation gate** — every pass ends with syntax/lint checks; broken fixes are CRITICAL in the next pass
+The config interpolation does a simple `${VAR_NAME}` → `process.env[VAR_NAME]` lookup.
+It does NOT support bash-style defaults like `${VAR:-default}`.
 
-#### Dual Convergence Requirement
+```yaml
+# WRONG — throws "Unresolved environment variable: MY_URL:-http://localhost:9220"
+env:
+  MY_URL: "${MY_URL:-http://localhost:9220}"
 
-The job is not done until BOTH gates pass:
+# CORRECT — use plain env var references
+env:
+  MY_URL: "${MY_URL}"
+  MY_API_KEY: "${MY_API_KEY}"
+```
 
-| Gate | Criteria | Max Iterations |
-|------|----------|----------------|
-| Eval CI | `npx cursor-plugin-evals run --ci` exits 0 | 5 per layer |
-| Content Audit | No HIGH/MEDIUM findings in latest scan pass | 5 passes |
+Set actual defaults in `.env.test` instead and load it before running evals.
 
-## E2E Infrastructure — MANDATORY for Integration/Performance
+## 5. The `adapter` Section Is NOT Used
 
-When generating coverage for a plugin, you MUST also create the supporting infrastructure
-if it doesn't exist. This is NOT optional — integration and performance tests CANNOT run
-without it.
+The core runner ignores any top-level `adapter:` field. It constructs the MCP client
+from `plugin.entry`, `plugin.transport`, and `plugin.env`. Do not add an `adapter:`
+section — it has no effect and creates confusion.
 
-### Required Files
+## 6. Required Plugin Fields for Integration/Performance
 
-1. **`docker/docker-compose.yml`** — Backend services needed by the plugin (detect from source code)
-2. **`scripts/seed-test-data.sh`** — Domain-specific test data for the plugin's tools
-3. **`.env.test`** — Test credentials matching docker-compose
-4. **`scripts/run-evals.sh`** — Orchestration: docker up → seed → build → run evals
-5. **`.github/workflows/plugin-evals.yml`** — CI with service containers per layer
+For integration and performance layers to work, the plugin section MUST have:
 
-### Docker Compose Requirements
+```yaml
+plugin:
+  name: my-plugin
+  dir: .
+  entry: path/to/server.js     # REQUIRED for integration + performance
+  build_command: npm run build  # snake_case!
+  env:                          # Forwarded to the MCP server process
+    MY_SERVICE_URL: "${MY_SERVICE_URL}"
+```
 
-- Detect what backend the plugin connects to (Elasticsearch, Postgres, Redis, APIs, etc.)
-- Use non-standard ports to avoid conflicts with dev services
-- Include health checks so tests wait for services to be ready
-- Include a setup/seed container if the plugin needs test data
-- Named volumes for clean teardown via `docker compose down -v`
+## 7. Auto-Fix Checklist
 
-### Test Data Requirements
+When writing or reviewing ANY plugin-eval.yaml, automatically fix:
 
-Analyze the plugin's tools to understand what data they operate on, then seed accordingly:
-- Read each tool's description and input schema to understand the data domain
-- Create realistic test records that exercise the tool's query/filter/mutation logic
-- Cover both happy path data and edge cases (empty results, large datasets, special characters)
-- Ensure data is deterministic so assertions can be stable
-
-### YAML Convention Reminder
-
-ALL field names MUST be snake_case. Assertion paths use dot notation.
-See the `yaml-conventions` rule for the complete reference.
-
-## What "Comprehensive Coverage" Means
-
-A Cursor plugin has 6 component types. ALL must be tested:
-
-### MCP Tools (integration + LLM + unit + performance)
-Every tool MUST have tests in:
-- **Unit layer**: registration, schema validation, conditional registration
-- **Integration layer**: happy path with assertions, error handling
-- **LLM layer**: natural language prompts with tool-selection, correctness, security evaluators
-- **Performance layer**: latency benchmarks with p50/p95 thresholds
-
-### Skills (static + LLM)
-Every skill MUST have:
-- **Static layer**: frontmatter validation (name, description, triggers present)
-- **LLM layer**: positive activation test (prompt matching a trigger → skill activates)
-- **LLM layer**: negative activation test (related but off-topic prompt → skill does NOT activate)
-- **Static layer**: cross-reference check (tools/commands mentioned in body exist)
-
-### Rules (static)
-Every rule MUST have:
-- **Static layer**: frontmatter validation (description present, alwaysApply or globs set)
-- **Static layer**: content quality check (non-empty, actionable instructions)
-
-### Agents (static + LLM)
-Every agent MUST have:
-- **Static layer**: frontmatter validation (name, description present)
-- **LLM layer**: behavior test (task in agent's domain → uses correct tools, stays in scope)
-
-### Commands (static + LLM)
-Every command MUST have:
-- **Static layer**: frontmatter validation (name/description present)
-- **LLM layer**: execution test (invocation → expected workflow triggers)
-
-### Cross-Component Coherence (static)
-- Skills reference tools that actually exist in MCP config
-- Commands reference tools/skills that exist
-- Agent instructions reference available tools
-- No orphaned components (defined but never referenced)
-
-### Shared across all components
-- **Static layer**: manifest, mcp_config, component_references, naming_conventions
-- **Security layer**: prompt injection, privilege escalation, skill confusion, rule bypass
-- **CI quality gates** MUST include:
-  - `score.avg ≥ 0.80`
-  - `security.min = 1.0`
-  - `requiredPass: [security, tool-poisoning, mcp-protocol]`
-  - `firstTryPassRate ≥ 0.75`
-
-## Do NOT
-
-- Stop after writing YAML — you MUST run the evals
-- Accept failures without fixing — iterate until green
-- Ask "should I run tests?" — JUST RUN THEM
-- Ask "should I fix this?" — JUST FIX IT
-- Declare done while any threshold is failing
-- Remove failing tests — fix them or skip with documented reason
-- Give up after one failed attempt — iterate up to 5 times
-- **Silently work around framework limitations** — if the framework is the bottleneck (evaluator scores wrong, config can't express what's needed, adapter lacks context), STOP and propose a framework fix before continuing
-- **Stop after a single content audit pass** — content fixes expose new issues; iterate until no HIGH/MEDIUM remain (max 5 passes)
+1. ✅ Convert ALL camelCase keys to snake_case
+2. ✅ Convert ALL `content[0].text` paths to `content.0.text`
+3. ✅ Ensure all scoring weights are ≤ 1.0
+4. ✅ Remove any `${VAR:-default}` patterns — use plain `${VAR}`
+5. ✅ Remove any `adapter:` section
+6. ✅ Ensure `plugin.entry` exists (not just `plugin.build_command`)
+7. ✅ Ensure `ci:` section exists with at least `score.avg` and `required_pass`
 
 ---
 > Source: [patrykkopycinski/cursor-plugin-evals](https://github.com/patrykkopycinski/cursor-plugin-evals) — distributed by [TomeVault](https://tomevault.io).
