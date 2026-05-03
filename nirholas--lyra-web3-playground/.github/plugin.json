@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--lyra-web3-playground",
+  "displayName": "lyra-web3-playground",
+  "description": "Free Solidity compiler & Web3 IDE with interactive tutorials. Learn blockchain development, deploy smart contracts to 8+ chains (Ethereum, Polygon, Base, Arbitrum, Solana). Templates for tokens, NFTs,",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/lyra-web3-playground",
+  "skills": []
+}
