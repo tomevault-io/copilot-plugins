@@ -4,7 +4,7 @@
   "repo": "wortwildnis",
   "description": "The German Urban Dictionary. Powered by Phoenix & Ash",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/janwirth/wortwildnis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T23:49:18Z"
+  "distributed_at": "2026-05-03T13:11:09Z"
 }
