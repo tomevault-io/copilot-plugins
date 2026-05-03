@@ -1,0 +1,9 @@
+{
+  "name": "cloakhq--cloakbrowser-manager",
+  "displayName": "CloakBrowser-Manager",
+  "description": "Web-based browser profile manager for CloakBrowser \u2014 create, launch, and manage isolated browser profiles with unique fingerprints. Free, self-hosted   Multilogin alternative",
+  "version": "1.0.0",
+  "author": "CloakHQ",
+  "homepage": "https://github.com/CloakHQ/CloakBrowser-Manager",
+  "skills": []
+}
