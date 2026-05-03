@@ -7,11 +7,11 @@ nxv — Nix Version Index. A blazingly fast CLI for finding any version of any N
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [utensils/nxv](https://github.com/utensils/nxv).
+Original source: `CLAUDE.md` in [utensils/nxv](https://github.com/utensils/nxv).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
