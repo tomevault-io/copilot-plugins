@@ -1,61 +1,50 @@
-## framework-conventions
+## mcp-client-patterns
 
-> Conventions and best practices for the cursor-plugin-evals framework
+> MCP client usage patterns and troubleshooting
 
 
-# Cursor Plugin Evals — Development Conventions
+# MCP Client Patterns
 
-## Project Structure
+## Lifecycle
 
+The `McpPluginClient` uses a static factory pattern. Never construct directly:
+
+```typescript
+// Correct
+const client = await McpPluginClient.connect({
+  command: 'node',
+  args: ['dist/index.js'],
+  cwd: '/path/to/plugin',
+  env: { MY_SERVICE_URL: 'http://localhost:3000' },
+});
+
+// Always disconnect when done
+try {
+  const tools = await client.listTools();
+  const result = await client.callTool('my_tool', { query: 'test' });
+} finally {
+  await client.disconnect();
+}
 ```
-src/
-├── cli/          # CLI entry point and logger
-├── core/         # Types, config loader, test runner
-├── docker/       # Docker health checks and setup
-├── evaluators/   # Seven evaluator implementations
-├── fixtures/     # Fixture recording, storage, and replay
-├── layers/       # Three testing layers (unit, integration, llm)
-├── mcp/          # MCP client, schema converter, tool discovery
-├── reporting/    # Terminal, markdown, JSON, ES export
-└── tracing/      # Span management and exporters
+
+## One Client Per Suite
+
+Create one MCP client per test suite, not per test. This avoids the 1-3 second startup overhead per test while maintaining isolation between suites.
+
+## Error Handling
+
+- `callTool()` does NOT throw on tool errors — check `result.isError`
+- `callTool()` DOES throw on MCP protocol errors (timeout, connection lost)
+- `disconnect()` is idempotent — safe to call multiple times
+- If the child process crashes, all pending calls reject immediately
+
+## Schema Conversion
+
+When converting MCP tools to OpenAI format for LLM evals, use the allowlist to limit which tools the LLM sees:
+
+```typescript
+const toolDefs = convertToolsToArray(mcpTools, ['my_tool', 'my_other_tool']);
 ```
-
-## Code Style
-
-- ESM exclusively — all files use `import`/`export`, never `require`
-- All relative imports MUST use `.js` extension (ESM requirement)
-- TypeScript strict mode — no `any` without justification
-- Zod v4 for schemas — `z.record()` requires TWO arguments: `z.record(z.string(), z.valueType())`
-- Use `type` imports where only types are needed
-- Prefer `async/await` over `.then()` chains
-- Use `node:` prefix for built-in modules in new files
-
-## Testing
-
-- Tests use vitest with globals (no need to import describe/it/expect)
-- Test files are co-located: `foo.ts` → `foo.test.ts`
-- Use `vi.stubEnv()` for environment variable tests, not `process.env` mutation
-- Clean up temporary files in `afterEach` blocks
-- All tests should be deterministic — no dependence on live services
-
-## Adding New Evaluators
-
-1. Create `src/evaluators/<name>.ts` implementing the `Evaluator` interface
-2. Register in `src/evaluators/index.ts` (add to `EVALUATOR_NAMES` and `createEvaluator`)
-3. Add tests in `src/evaluators/<name>.test.ts`
-4. Document in plugin-eval.yaml comments
-
-## Adding New Layers
-
-Layers are independent modules in `src/layers/<name>/`. Each exports a `run<Name>Suite()` function. Wire into `src/core/runner.ts` switch statement.
-
-## Config Schema
-
-When modifying the config schema in `src/core/config.ts`:
-1. Update the Zod schema
-2. Update the `EvalConfig` type in `src/core/types.ts` to match
-3. Update plugin-eval.yaml example
-4. Update the `generate` CLI command template
 
 ---
 > Source: [patrykkopycinski/cursor-plugin-evals](https://github.com/patrykkopycinski/cursor-plugin-evals) — distributed by [TomeVault](https://tomevault.io).
