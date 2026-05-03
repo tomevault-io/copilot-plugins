@@ -4,7 +4,7 @@
   "repo": "nori-skillsets",
   "description": "System for managing collections of agent skills. Switch between skillsets seamlessly!",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tilework-tech/nori-skillsets",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T03:07:53Z"
+  "distributed_at": "2026-05-03T23:54:39Z"
 }
