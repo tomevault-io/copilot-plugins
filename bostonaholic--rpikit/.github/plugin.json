@@ -1,0 +1,58 @@
+{
+  "name": "bostonaholic--rpikit",
+  "displayName": "rpikit",
+  "description": "A Claude Code plugin implementing the Research-Plan-Implement (RPI) framework for disciplined software engineering.",
+  "version": "1.0.0",
+  "author": "bostonaholic",
+  "homepage": "https://github.com/bostonaholic/rpikit",
+  "skills": [
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "finishing-work",
+      "description": ""
+    },
+    {
+      "name": "git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "implementing-plans",
+      "description": ""
+    },
+    {
+      "name": "parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "researching-codebase",
+      "description": ""
+    },
+    {
+      "name": "reviewing-code",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    }
+  ]
+}
