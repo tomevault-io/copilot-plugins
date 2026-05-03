@@ -1,8 +1,9 @@
-## restart
+## secrets
 
-> When restarting anything.
+> Handling secrets or credentials
 
-1. Supervisor when updated and has to be restarted should follow lifecycle: Halt, stop. Rebuild. Restart. Resume.
+1. NEVER print any secret or credentials.
+2. Alwyas if you have to check, do a shell based length check.
 
 ---
 > Source: [ai-supervisor-foundry/foundry](https://github.com/ai-supervisor-foundry/foundry) — distributed by [TomeVault](https://tomevault.io).
