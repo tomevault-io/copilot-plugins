@@ -1,0 +1,44 @@
+{
+  "name": "seslen",
+  "owner": "productdevbook",
+  "repo": "seslen",
+  "description": "Zero-dep, tree-shakeable Web Audio library with synthesised UI presets, buses + ducking, polyphony cap, throttle, jitter, fades, pan, sprites, OfflineAudioContext render-to-WAV, AnalyserNode tap, prefers-reduced-motion + SSR-safe. Strict TypeScript.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/productdevbook/seslen",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T13:54:49Z"
+}
