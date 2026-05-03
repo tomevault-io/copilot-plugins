@@ -4,7 +4,7 @@
   "repo": "led.run",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/led-run/led.run",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-21T23:53:16Z"
+  "distributed_at": "2026-05-03T19:46:42Z"
 }
