@@ -1,0 +1,105 @@
+{
+  "name": "claude-marketplace",
+  "owner": "dashed",
+  "repo": "claude-marketplace",
+  "description": "A local marketplace for personal Claude Code skills and plugins.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "conventional-commits",
+      "path": "plugins/conventional-commits",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/conventional-commits",
+      "description": ""
+    },
+    {
+      "name": "design-principles",
+      "path": "plugins/design-principles",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/design-principles",
+      "description": ""
+    },
+    {
+      "name": "fzf",
+      "path": "plugins/fzf",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/fzf",
+      "description": ""
+    },
+    {
+      "name": "git-absorb",
+      "path": "plugins/git-absorb",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/git-absorb",
+      "description": ""
+    },
+    {
+      "name": "git-chain",
+      "path": "plugins/git-chain",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/git-chain",
+      "description": ""
+    },
+    {
+      "name": "jj",
+      "path": "plugins/jj",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/jj",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "path": "plugins/playwright",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/playwright",
+      "description": ""
+    },
+    {
+      "name": "skill-reviewer",
+      "path": "plugins/skill-reviewer",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/skill-reviewer",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "path": "plugins/tmux",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/tmux",
+      "description": ""
+    },
+    {
+      "name": "zellij",
+      "path": "plugins/zellij",
+      "github_url": "https://github.com/dashed/claude-marketplace/tree/main/plugins/zellij",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dashed/claude-marketplace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:31:48Z"
+}
