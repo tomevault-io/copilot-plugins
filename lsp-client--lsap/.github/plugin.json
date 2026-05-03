@@ -1,0 +1,14 @@
+{
+  "name": "lsp-client--lsap",
+  "displayName": "LSAP",
+  "description": "LSAP (Language Server Agent Protocol) is an open protocol that defines how AI coding agents interact with Language Servers",
+  "version": "1.0.0",
+  "author": "lsp-client",
+  "homepage": "https://github.com/lsp-client/LSAP",
+  "skills": [
+    {
+      "name": "lsap-api-design",
+      "description": ""
+    }
+  ]
+}
