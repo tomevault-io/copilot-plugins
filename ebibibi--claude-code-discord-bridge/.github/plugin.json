@@ -1,0 +1,9 @@
+{
+  "name": "ebibibi--claude-code-discord-bridge",
+  "displayName": "claude-code-discord-bridge",
+  "description": "Discord frontend for Claude Code CLI - chat with Claude Code via Discord threads",
+  "version": "1.0.0",
+  "author": "ebibibi",
+  "homepage": "https://github.com/ebibibi/claude-code-discord-bridge",
+  "skills": []
+}
