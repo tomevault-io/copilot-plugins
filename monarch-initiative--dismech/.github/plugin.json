@@ -1,0 +1,38 @@
+{
+  "name": "monarch-initiative--dismech",
+  "displayName": "dismech",
+  "description": "Disease Mechanisms KB",
+  "version": "1.0.0",
+  "author": "monarch-initiative",
+  "homepage": "https://github.com/monarch-initiative/dismech",
+  "skills": [
+    {
+      "name": "cancer-curator",
+      "description": ""
+    },
+    {
+      "name": "dismech-compliance",
+      "description": ""
+    },
+    {
+      "name": "dismech-references",
+      "description": ""
+    },
+    {
+      "name": "dismech-terms",
+      "description": ""
+    },
+    {
+      "name": "initiate-new-disorder-creation",
+      "description": ""
+    },
+    {
+      "name": "microbiome-curation",
+      "description": ""
+    },
+    {
+      "name": "projman",
+      "description": ""
+    }
+  ]
+}
