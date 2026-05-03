@@ -1,0 +1,9 @@
+{
+  "name": "elcritch--sarcophagus",
+  "displayName": "sarcophagus",
+  "description": "auth and other api helpers for mummy",
+  "version": "1.0.0",
+  "author": "elcritch",
+  "homepage": "https://github.com/elcritch/sarcophagus",
+  "skills": []
+}
