@@ -1,0 +1,9 @@
+{
+  "name": "clawland-ai--geneclaw",
+  "displayName": "Geneclaw",
+  "description": "Self-evolving AI agent framework with 5-layer safety gatekeeper. Agents observe failures, propose fixes, and safely apply them. Built on HKUDS/nanobot.",
+  "version": "1.0.0",
+  "author": "Clawland-AI",
+  "homepage": "https://github.com/Clawland-AI/Geneclaw",
+  "skills": []
+}
