@@ -1,0 +1,14 @@
+{
+  "name": "vincents-ai--engram",
+  "displayName": "engram",
+  "description": "A distributed memory system for AI agents that persists context, tasks, reasoning, and knowledge across sessions and teams.",
+  "version": "1.0.0",
+  "author": "vincents-ai",
+  "homepage": "https://github.com/vincents-ai/engram",
+  "skills": [
+    {
+      "name": "testing",
+      "description": ""
+    }
+  ]
+}
