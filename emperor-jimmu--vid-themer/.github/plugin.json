@@ -1,0 +1,9 @@
+{
+  "name": "emperor-jimmu--vid-themer",
+  "displayName": "vid-themer",
+  "description": "A command-line tool that recursively scans directories for video files and automatically extracts short thematic clips from each video. Perfect for creating preview thumbnails or theme videos for medi",
+  "version": "1.0.0",
+  "author": "emperor-jimmu",
+  "homepage": "https://github.com/emperor-jimmu/vid-themer",
+  "skills": []
+}
