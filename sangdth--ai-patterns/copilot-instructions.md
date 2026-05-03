@@ -1,86 +1,28 @@
-## context7
+## deepwiki
 
-> Get reliable snippets from official sources
+> Before starting any implementation, always perform a DeepWiki research phase.
 
-# Context7 Code Examples Guide
 
-Context7 queries technical documentation to find current code examples and
-best practices.
+# DeepWiki Research Rule
 
-## Two-Step Process
+Before starting any implementation, always perform a DeepWiki research phase.
 
-1. **Find Library ID**: Use `resolve-library-id` to get the unique identifier
-2. **Get Documentation**: Use `get-library-docs` to fetch examples
+## Process
 
-## Tools
+1. Identify all key topics/concepts in the request.
+2. Use the DeepWiki MCP tools in this order as needed:
+   - `read_wiki_structure`: Get the list of relevant documentation topics.
+   - `read_wiki_contents`: Retrieve detailed docs for those topics.
+   - `ask_question`: Clarify gaps or ambiguities with AI-grounded answers.
+3. Summarize findings clearly before writing any code or content.
+4. Base all implementation decisions on the research results.
+5. If DeepWiki is unavailable, notify the user before proceeding.
 
-### `resolve-library-id`
+This rule applies to all code, documentation, and content work.
 
-Converts common library names to Context7 IDs.
+## Coordination with Context7
 
-- **Input**: Library name (e.g., "express", "react")
-- **Output**: List of matching libraries with their Context7 IDs
-- **Use**: Required before fetching documentation
-
-### `get-library-docs`
-
-Retrieves documentation and code examples.
-
-- **Required**: `context7CompatibleLibraryID` (from resolve tool)
-- **Optional**: `topic` (narrows results to specific features)
-
-## Example: Express Hello World
-
-### Step 1: Get Library ID
-
-```txt
-resolve-library-id
-Input: "express"
-Output: /expressjs/express
-```
-
-### Step 2: Fetch Documentation
-
-```txt
-get-library-docs
-Input:
-  - context7CompatibleLibraryID: "/expressjs/express"
-  - topic: "hello world"
-```
-
-**Result**: Returns official Express.js documentation with working code:
-
-```javascript
-const express = require('express');
-const app = express();
-const port = 3000;
-
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.listen(port, () => {
-  console.info(`Example app listening on port ${port}`);
-});
-```
-
-## Best Practices
-
-- Use official library names ("react", not "react.js")
-- Use specific topics ("middleware", "routing", "authentication")
-- Refine topic searches if results aren't targeted enough
-- Repeat process for multiple libraries as needed
-
-## Coordination with DeepWiki
-
-### When to Use Context7 vs DeepWiki
-
-**Use Context7 when:**
-
-- You need specific code examples from libraries
-- You're implementing with a known library/framework
-- You need official documentation snippets
-- You're looking for implementation patterns
+### When to Use DeepWiki vs Context7
 
 **Use DeepWiki when:**
 
@@ -88,6 +30,13 @@ app.listen(port, () => {
 - You're exploring new technologies or approaches
 - You need AI-grounded answers and clarifications
 - You're doing broad research before narrowing down
+
+**Use Context7 when:**
+
+- You need specific code examples from libraries
+- You're implementing with a known library/framework
+- You need official documentation snippets
+- You're looking for implementation patterns
 
 ### Integrated Research Workflow
 
