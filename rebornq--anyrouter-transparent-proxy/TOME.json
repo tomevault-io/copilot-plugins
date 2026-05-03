@@ -4,7 +4,7 @@
   "repo": "AnyRouter-Transparent-Proxy",
   "description": "\u4e00\u4e2a\u57fa\u4e8e FastAPI \u7684\u8f7b\u91cf\u7ea7\u900f\u660e HTTP \u4ee3\u7406\u670d\u52a1\uff0c\u4e13\u4e3a\u89e3\u51b3 AnyRouter \u7684 Anthropic API \u5728 Claude Code for VS Code \u63d2\u4ef6\u4e2d\u62a5\u9519 500 \u7684\u95ee\u9898\u800c\u8bbe\u8ba1\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/RebornQ/AnyRouter-Transparent-Proxy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T02:30:08Z"
+  "distributed_at": "2026-05-03T19:07:48Z"
 }
