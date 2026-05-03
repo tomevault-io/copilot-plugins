@@ -4,7 +4,7 @@
   "repo": "Reframed",
   "description": "Screen recording on macOS, from capture to delivery, no detours. ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jkuri/Reframed",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T02:44:51Z"
+  "distributed_at": "2026-05-03T19:58:31Z"
 }
