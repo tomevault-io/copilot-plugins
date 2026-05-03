@@ -1,0 +1,9 @@
+{
+  "name": "deshraj--claud-ometer",
+  "displayName": "Claud-ometer",
+  "description": "A local-first analytics dashboard for Claude Code. Gives you full visibility into your usage, costs, sessions, and projects \u2014 no cloud, no telemetry, just your data.",
+  "version": "1.0.0",
+  "author": "deshraj",
+  "homepage": "https://github.com/deshraj/Claud-ometer",
+  "skills": []
+}
