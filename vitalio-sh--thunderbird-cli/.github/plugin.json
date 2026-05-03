@@ -1,0 +1,9 @@
+{
+  "name": "vitalio-sh--thunderbird-cli",
+  "displayName": "thunderbird-cli",
+  "description": "Give Claude full access to your email through Mozilla Thunderbird. CLI + MCP server for AI agents.",
+  "version": "1.0.0",
+  "author": "vitalio-sh",
+  "homepage": "https://github.com/vitalio-sh/thunderbird-cli",
+  "skills": []
+}
