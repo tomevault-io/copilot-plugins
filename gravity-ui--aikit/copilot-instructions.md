@@ -1,13 +1,34 @@
-## memorybank
+## aikit
 
-> AIKit Memory Bank — component, Storybook, Playwright, README conventions
+> For detailed guidelines on developing components in this project, refer to [MEMORYBANK.md](./MEMORYBANK.md).
 
+# AIKit Component Development Guidelines
 
-# Memory Bank (AIKit)
+For detailed guidelines on developing components in this project, refer to [MEMORYBANK.md](./MEMORYBANK.md).
 
-Canonical project guidelines live in **`MEMORYBANK.md`** at the repository root (Storybook templates, Playwright/Docker testing, README structure, English-only code comments and JSDoc).
+## Quick Reference
 
-When working on **components**, **`__stories__`**, **Playwright component tests**, or **component READMEs**, read `MEMORYBANK.md` and follow it unless the user explicitly overrides.
+- **Code language**: All comments, JSDoc, and documentation must be written in **English**
+- **Storybook**: Every component needs `__stories__/Docs.mdx` and `__stories__/ComponentName.stories.tsx`
+- **Tests**: Every component needs `__tests__/helpersPlaywright.tsx` and `__tests__/ComponentName.visual.spec.tsx`
+- **README**: Every component needs a README with Features, Usage, Props, and Styling sections
+
+## Running Tests
+
+```bash
+# Run all tests in Docker
+npm run playwright:docker
+
+# Run specific component tests
+npm run playwright:docker -- --grep "@ComponentName"
+
+# Update visual snapshots
+npm run playwright:docker:update
+```
+
+> **Important**: Always use Docker commands for Playwright tests to ensure consistency with CI/CD.
+
+See [MEMORYBANK.md](./MEMORYBANK.md) for full templates, examples, and best practices.
 
 ---
 > Source: [gravity-ui/aikit](https://github.com/gravity-ui/aikit) — distributed by [TomeVault](https://tomevault.io).
