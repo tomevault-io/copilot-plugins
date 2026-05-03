@@ -1,0 +1,147 @@
+{
+  "name": "claude-code-plugins",
+  "owner": "doodledood",
+  "repo": "claude-code-plugins",
+  "description": "A curated marketplace of Claude Code plugins for agentic development workflows, featuring tools for architecture, knowledge management, and development automation",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "analyze-code",
+      "path": "claude-plugins/consultant/skills/analyze-code",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/consultant/skills/analyze-code",
+      "description": ""
+    },
+    {
+      "name": "ask",
+      "path": "claude-plugins/consultant/skills/ask",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/consultant/skills/ask",
+      "description": ""
+    },
+    {
+      "name": "build-review-persona",
+      "path": "claude-plugins/vibe-extras/skills/build-review-persona",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/vibe-extras/skills/build-review-persona",
+      "description": ""
+    },
+    {
+      "name": "compress-prompt",
+      "path": "claude-plugins/prompt-engineering/skills/compress-prompt",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/prompt-engineering/skills/compress-prompt",
+      "description": ""
+    },
+    {
+      "name": "craft-author-voice",
+      "path": "claude-plugins/writing/skills/craft-author-voice",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/writing/skills/craft-author-voice",
+      "description": ""
+    },
+    {
+      "name": "define-brand-guidelines",
+      "path": "claude-plugins/solo-dev/skills/define-brand-guidelines",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/solo-dev/skills/define-brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "define-customer-profile",
+      "path": "claude-plugins/solo-dev/skills/define-customer-profile",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/solo-dev/skills/define-customer-profile",
+      "description": ""
+    },
+    {
+      "name": "define-design-guidelines",
+      "path": "claude-plugins/solo-dev/skills/define-design-guidelines",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/solo-dev/skills/define-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "define-seo-strategy",
+      "path": "claude-plugins/solo-dev/skills/define-seo-strategy",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/solo-dev/skills/define-seo-strategy",
+      "description": ""
+    },
+    {
+      "name": "define-x-strategy",
+      "path": "claude-plugins/solo-dev/skills/define-x-strategy",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/solo-dev/skills/define-x-strategy",
+      "description": ""
+    },
+    {
+      "name": "explore-codebase",
+      "path": "claude-plugins/vibe-extras/skills/explore-codebase",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/vibe-extras/skills/explore-codebase",
+      "description": ""
+    },
+    {
+      "name": "human-writing",
+      "path": "claude-plugins/writing/skills/human-writing",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/writing/skills/human-writing",
+      "description": ""
+    },
+    {
+      "name": "investigate-bug",
+      "path": "claude-plugins/consultant/skills/investigate-bug",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/consultant/skills/investigate-bug",
+      "description": ""
+    },
+    {
+      "name": "research-web",
+      "path": "claude-plugins/vibe-extras/skills/research-web",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/vibe-extras/skills/research-web",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "claude-plugins/consultant/skills/review",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/consultant/skills/review",
+      "description": ""
+    },
+    {
+      "name": "update-claude-md",
+      "path": "claude-plugins/vibe-extras/skills/update-claude-md",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/vibe-extras/skills/update-claude-md",
+      "description": ""
+    },
+    {
+      "name": "write",
+      "path": "claude-plugins/writing/skills/write",
+      "github_url": "https://github.com/doodledood/claude-code-plugins/tree/main/claude-plugins/writing/skills/write",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/doodledood/claude-code-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:41:12Z"
+}
