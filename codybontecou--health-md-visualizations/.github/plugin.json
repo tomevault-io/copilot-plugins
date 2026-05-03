@@ -1,0 +1,9 @@
+{
+  "name": "codybontecou--health-md-visualizations",
+  "displayName": "health-md-visualizations",
+  "description": "Obsidian plugin for rendering Apple Health data visualizations from daily JSON files",
+  "version": "1.0.0",
+  "author": "CodyBontecou",
+  "homepage": "https://github.com/CodyBontecou/health-md-visualizations",
+  "skills": []
+}
