@@ -7,11 +7,11 @@ ClamAV Desktop application ( GUI )
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [linx-systems/clamui](https://github.com/linx-systems/clamui).
+Original source: `CLAUDE.md` in [linx-systems/clamui](https://github.com/linx-systems/clamui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
