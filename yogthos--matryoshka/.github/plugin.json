@@ -1,0 +1,9 @@
+{
+  "name": "yogthos--matryoshka",
+  "displayName": "Matryoshka",
+  "description": "MCP server for token-efficient large document analysis via the use of REPL state",
+  "version": "1.0.0",
+  "author": "yogthos",
+  "homepage": "https://github.com/yogthos/Matryoshka",
+  "skills": []
+}
