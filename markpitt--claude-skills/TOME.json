@@ -1,0 +1,147 @@
+{
+  "name": "claude-skills",
+  "owner": "markpitt",
+  "repo": "claude-skills",
+  "description": "AI instruction skills by markpitt",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "blazor-expert",
+      "path": "skills/blazor-expert",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/blazor-expert",
+      "description": ""
+    },
+    {
+      "name": "azure-devops",
+      "path": "skills/azure-devops",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/azure-devops",
+      "description": ""
+    },
+    {
+      "name": "dotnet-aspire",
+      "path": "skills/dotnet-aspire",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/dotnet-aspire",
+      "description": ""
+    },
+    {
+      "name": "kiss-principle",
+      "path": "skills/kiss-principle",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/kiss-principle",
+      "description": ""
+    },
+    {
+      "name": "markdown-formatter",
+      "path": "skills/markdown-formatter",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/markdown-formatter",
+      "description": ""
+    },
+    {
+      "name": "microsoft-graph",
+      "path": "skills/microsoft-graph",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/microsoft-graph",
+      "description": ""
+    },
+    {
+      "name": "github-api",
+      "path": "skills/github-api",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/github-api",
+      "description": ""
+    },
+    {
+      "name": "gof-design-patterns",
+      "path": "skills/gof-design-patterns",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/gof-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "avalonia",
+      "path": "skills/avalonia",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/avalonia",
+      "description": ""
+    },
+    {
+      "name": "root-cause-analysis",
+      "path": "skills/root-cause-analysis",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/root-cause-analysis",
+      "description": ""
+    },
+    {
+      "name": "home-assistant-api",
+      "path": "skills/home-assistant-api",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/home-assistant-api",
+      "description": ""
+    },
+    {
+      "name": "azure-swa",
+      "path": "skills/azure-swa",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/azure-swa",
+      "description": ""
+    },
+    {
+      "name": "blazor-blog-feature",
+      "path": "skills/blazor-blog-feature",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/blazor-blog-feature",
+      "description": ""
+    },
+    {
+      "name": "freeagent-api",
+      "path": "skills/freeagent-api",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/freeagent-api",
+      "description": ""
+    },
+    {
+      "name": "agent-patterns",
+      "path": "skills/agent-patterns",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "genaiscript",
+      "path": "skills/genaiscript",
+      "github_url": "https://github.com/markpitt/claude-skills/tree/main/skills/genaiscript",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/markpitt/claude-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:34:55Z"
+}
