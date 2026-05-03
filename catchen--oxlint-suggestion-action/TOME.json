@@ -4,7 +4,7 @@
   "repo": "oxlint-suggestion-action",
   "description": "This GitHub Action runs Oxlint and provides inline feedback to the changes in a Pull Request.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/CatChen/oxlint-suggestion-action",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T15:55:59Z"
+  "distributed_at": "2026-05-03T16:38:31Z"
 }
