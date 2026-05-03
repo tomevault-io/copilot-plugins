@@ -1,0 +1,34 @@
+{
+  "name": "oodaris--autocodex",
+  "displayName": "autocodex",
+  "description": "autocodex orchestrates a structured loop: ideate \u2192 plan \u2192 implement \u2192 review \u2192 test",
+  "version": "1.0.0",
+  "author": "oodaris",
+  "homepage": "https://github.com/oodaris/autocodex",
+  "skills": [
+    {
+      "name": "eng-code-review-playbook",
+      "description": ""
+    },
+    {
+      "name": "eng-go-cli-developer",
+      "description": ""
+    },
+    {
+      "name": "eng-go-developer",
+      "description": ""
+    },
+    {
+      "name": "eng-plugin-authoring",
+      "description": ""
+    },
+    {
+      "name": "eng-smart-test-runner",
+      "description": ""
+    },
+    {
+      "name": "eng-ui-vite-react",
+      "description": ""
+    }
+  ]
+}
