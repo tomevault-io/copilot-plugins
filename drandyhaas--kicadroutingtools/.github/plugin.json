@@ -1,0 +1,9 @@
+{
+  "name": "drandyhaas--kicadroutingtools",
+  "displayName": "KiCadRoutingTools",
+  "description": "A set of Python/Rust tools to aid routing in KiCad",
+  "version": "1.0.0",
+  "author": "drandyhaas",
+  "homepage": "https://github.com/drandyhaas/KiCadRoutingTools",
+  "skills": []
+}
