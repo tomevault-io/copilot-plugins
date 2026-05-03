@@ -1,0 +1,9 @@
+{
+  "name": "knobby-mtg--knobby-mtg-life-counter",
+  "displayName": "knobby-mtg-life-counter",
+  "description": "This is a hobby project for a round ESP32 to create a life counter for trading card games like MTG",
+  "version": "1.0.0",
+  "author": "knobby-mtg",
+  "homepage": "https://github.com/knobby-mtg/knobby-mtg-life-counter",
+  "skills": []
+}
