@@ -1,0 +1,117 @@
+{
+  "name": "rpikit",
+  "owner": "bostonaholic",
+  "repo": "rpikit",
+  "description": "A Claude Code plugin implementing the Research-Plan-Implement (RPI) framework for disciplined software engineering.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "brainstorming",
+      "path": "skills/brainstorming",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "finishing-work",
+      "path": "skills/finishing-work",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/finishing-work",
+      "description": ""
+    },
+    {
+      "name": "git-worktrees",
+      "path": "skills/git-worktrees",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "implementing-plans",
+      "path": "skills/implementing-plans",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/implementing-plans",
+      "description": ""
+    },
+    {
+      "name": "parallel-agents",
+      "path": "skills/parallel-agents",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "receiving-code-review",
+      "path": "skills/receiving-code-review",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/receiving-code-review",
+      "description": ""
+    },
+    {
+      "name": "researching-codebase",
+      "path": "skills/researching-codebase",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/researching-codebase",
+      "description": ""
+    },
+    {
+      "name": "reviewing-code",
+      "path": "skills/reviewing-code",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/reviewing-code",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "path": "skills/security-review",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/security-review",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": "skills/systematic-debugging",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "skills/test-driven-development",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "skills/writing-plans",
+      "github_url": "https://github.com/bostonaholic/rpikit/tree/main/skills/writing-plans",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bostonaholic/rpikit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:55:53Z"
+}
