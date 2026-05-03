@@ -4,7 +4,7 @@
   "repo": "agent-session-view",
   "description": "A coding agent session viewer for browsing, viewing, and exporting conversation history from Claude Code and Codex CLI. Available as both a web interface and a terminal UI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dotneet/agent-session-view",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T03:37:29Z"
+  "distributed_at": "2026-05-03T22:58:47Z"
 }
