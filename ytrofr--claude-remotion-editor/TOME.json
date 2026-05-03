@@ -1,0 +1,87 @@
+{
+  "name": "claude",
+  "owner": "ytrofr",
+  "repo": "claude-remotion-editor",
+  "description": "SceneDirector: Interactive hand-path editor for Remotion video compositions. Draw, preview, and save animation paths with Lottie gestures.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "basic-memory-semantic-patterns-skill",
+      "path": "template/.claude/skills/basic-memory-semantic-patterns-skill",
+      "github_url": "https://github.com/ytrofr/claude-remotion-editor/tree/main/template/.claude/skills/basic-memory-semantic-patterns-skill",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e-skill",
+      "path": "skills-library/workflows/playwright-e2e-skill",
+      "github_url": "https://github.com/ytrofr/claude-remotion-editor/tree/main/skills-library/workflows/playwright-e2e-skill",
+      "description": ""
+    },
+    {
+      "name": "project-patterns-skill",
+      "path": "template/.claude/skills/starter/project-patterns-skill",
+      "github_url": "https://github.com/ytrofr/claude-remotion-editor/tree/main/template/.claude/skills/starter/project-patterns-skill",
+      "description": ""
+    },
+    {
+      "name": "session-start-protocol-skill",
+      "path": "template/.claude/skills/starter/session-start-protocol-skill",
+      "github_url": "https://github.com/ytrofr/claude-remotion-editor/tree/main/template/.claude/skills/starter/session-start-protocol-skill",
+      "description": ""
+    },
+    {
+      "name": "skill-maintenance-skill",
+      "path": "skills-library/workflows/skill-maintenance-skill",
+      "github_url": "https://github.com/ytrofr/claude-remotion-editor/tree/main/skills-library/workflows/skill-maintenance-skill",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting-decision-tree-skill",
+      "path": "template/.claude/skills/starter/troubleshooting-decision-tree-skill",
+      "github_url": "https://github.com/ytrofr/claude-remotion-editor/tree/main/template/.claude/skills/starter/troubleshooting-decision-tree-skill",
+      "description": ""
+    },
+    {
+      "name": "skill-template",
+      "path": "template/.claude/skills/skill-template",
+      "github_url": "https://github.com/ytrofr/claude-remotion-editor/tree/main/template/.claude/skills/skill-template",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ytrofr/claude-remotion-editor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T09:32:29Z"
+}
