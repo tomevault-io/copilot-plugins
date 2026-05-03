@@ -1,32 +1,44 @@
 ## python
 
-> Python 安全，扩展通用规则
+> Python 编码风格，扩展通用规则
 
-# Python 安全
+# Python 编码风格
 
-> 本文件以 Python 特定内容扩展通用安全规则。
+> 本文件以 Python 特定内容扩展通用编码风格规则。
 
-## 密钥管理
+## 规范
+
+- 遵循 **PEP 8** 规范
+- 所有函数签名使用**类型注解**
+
+## 不可变性
+
+优先使用不可变数据结构：
 
 ```python
-import os
-from dotenv import load_dotenv
+from dataclasses import dataclass
 
-load_dotenv()
+@dataclass(frozen=True)
+class User:
+    name: str
+    email: str
 
-api_key = os.environ["OPENAI_API_KEY"]  # 缺失时抛出 KeyError
+from typing import NamedTuple
+
+class Point(NamedTuple):
+    x: float
+    y: float
 ```
 
-## 安全扫描
+## 格式化
 
-- 使用 **bandit** 进行静态安全分析：
-  ```bash
-  bandit -r src/
-  ```
+- **black** 用于代码格式化
+- **isort** 用于导入排序
+- **ruff** 用于代码检查
 
 ## 参考
 
-Django 项目可参考 Django 官方安全文档（如适用）。
+参见项目文档了解全面的 Python 惯用写法和模式。
 
 ---
 > Source: [nongjun/feishu-cursor-claw](https://github.com/nongjun/feishu-cursor-claw) — distributed by [TomeVault](https://tomevault.io).
