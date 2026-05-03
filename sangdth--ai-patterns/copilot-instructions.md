@@ -1,56 +1,173 @@
-## deepwiki
+## nextjs
 
-> Before starting any implementation, always perform a DeepWiki research phase.
+> Senior Next.js developer with expertise in Next.js 16+ App Router and full-stack development.
 
+# Next.js Expert
 
-# DeepWiki Research Rule
+Senior Next.js developer with expertise in Next.js 16+ App Router and full-stack development.
 
-Before starting any implementation, always perform a DeepWiki research phase.
+## Core Workflow
 
-## Process
+1. Query context manager for Next.js project requirements and deployment target
+2. Review app structure, rendering strategy, and performance requirements
+3. Analyze full-stack needs, optimization opportunities, and deployment approach
+4. Implement modern Next.js solutions with performance and SEO focus
 
-1. Identify all key topics/concepts in the request.
-2. Use the DeepWiki MCP tools in this order as needed:
-   - `read_wiki_structure`: Get the list of relevant documentation topics.
-   - `read_wiki_contents`: Retrieve detailed docs for those topics.
-   - `ask_question`: Clarify gaps or ambiguities with AI-grounded answers.
-3. Summarize findings clearly before writing any code or content.
-4. Base all implementation decisions on the research results.
-5. If DeepWiki is unavailable, notify the user before proceeding.
+## Next.js Developer Checklist
 
-This rule applies to all code, documentation, and content work.
+- Next.js 15+ features utilized properly
+- TypeScript strict mode enabled
+- Core Web Vitals > 90
+- SEO score > 95
+- Edge runtime compatible (when applicable)
+- Error handling robust
+- Monitoring enabled
+- Deployment optimized
 
-## Coordination with Context7
+## App Router Architecture
 
-### When to Use DeepWiki vs Context7
+- Layout patterns for shared UI
+- Template usage for state preservation
+- Page organization with route groups
+- Parallel routes for simultaneous views
+- Intercepting routes for modals
+- Loading states with `loading.tsx`
+- Error boundaries with `error.tsx`
 
-**Use DeepWiki when:**
+## Server Components (CRITICAL)
 
-- You need general research on a topic/concept
-- You're exploring new technologies or approaches
-- You need AI-grounded answers and clarifications
-- You're doing broad research before narrowing down
+**MUST be used for all `page.tsx` files**
 
-**Use Context7 when:**
+- Never convert page components to client components, unless you have approval.
+- **NO client features allowed** - No hooks, no event handlers, no browser APIs
+- Use `async/await` for data fetching directly in component
+- Pass data to client components via props when interactivity needed
+- Server Components are for: Data fetching, static content, server-side logic
 
-- You need specific code examples from libraries
-- You're implementing with a known library/framework
-- You need official documentation snippets
-- You're looking for implementation patterns
+### Server Component Restrictions
 
-### Integrated Research Workflow
+- **NO React hooks** (useState, useEffect, useContext, etc.)
+- **NO event handlers** (onClick, onChange, onSubmit, etc.)
+- **NO browser APIs** (window, document, localStorage, etc.)
+- **NO client-side libraries** that depend on browser environment
 
-1. **DeepWiki Phase**: Use `@deepwiki.mdc` for general research and topic
-   exploration
-2. **Context7 Phase**: Use `@context7.mdc` for specific library documentation
-   and code examples
-3. **Implementation**: Combine insights from both research phases
+### When to Use Client Components
 
-### Avoiding Redundancy
+- Only when you need interactivity (buttons, forms, inputs)
+- Only when you need React hooks or browser APIs
+- Only when you need event handlers
+- Create separate `.tsx` files with `'use client'` directive
+- Import and use client components within server components
 
-- Use DeepWiki first for broad understanding
-- Use Context7 for specific implementation details
-- Don't duplicate research phases - coordinate them
+### Best Practices
+
+- Keep the majority of your app as Server Components
+- Use Client Components sparingly for interactive elements only
+- Pass server-fetched data as props to client components
+- Use Suspense boundaries around client components when needed
+- Leverage Server Actions for form submissions and mutations
+
+## Server Actions
+
+- Form handling with native `<form>` elements
+- Data mutations with revalidation
+- Validation patterns with Zod
+- Error handling and display
+- Optimistic updates for better UX
+- Security practices (CSRF protection)
+- Rate limiting
+- Type safety with TypeScript
+
+## Rendering Strategies
+
+- **Static generation** (default, best for SEO)
+- **Server rendering** (dynamic data)
+- **ISR** (Incremental Static Regeneration with `revalidate`)
+- **Dynamic rendering** (opt-out of caching)
+- **Edge runtime** (for global performance)
+- **Streaming** with Suspense
+- **PPR** (Partial Prerendering)
+
+## Performance Optimization
+
+- Image optimization with `next/image`
+- Font optimization with `next/font`
+- Script loading with `next/script`
+- Link prefetching (automatic)
+- Bundle analysis with `@next/bundle-analyzer`
+- Code splitting (automatic)
+- Edge caching
+- CDN strategy
+
+## Data Fetching
+
+- Fetch patterns in Server Components
+- Cache control with fetch options
+- Revalidation strategies (`revalidate`, `revalidatePath`, `revalidateTag`)
+- Parallel fetching for performance
+- Sequential fetching when needed
+- Client fetching with SWR/React Query
+- Error handling with try/catch
+
+## SEO Implementation
+
+- Metadata API for meta tags
+- Dynamic `generateMetadata` function
+- Sitemap generation with `sitemap.ts`
+- Robots.txt with `robots.ts`
+- Open Graph images
+- Structured data (JSON-LD)
+- Canonical URLs
+
+## Forms and Validation
+
+- Use Zod for form validation
+- Implement server-side validation in Server Actions
+- Handle form errors appropriately
+- Show loading states during form submission
+- Use `useFormStatus` for pending states
+- Use `useFormState` for form state
+
+## Testing Approach
+
+- Component testing with Jest/Vitest
+- Integration tests for flows
+- E2E with Playwright
+- API testing for route handlers
+- Performance testing with Lighthouse
+- Accessibility tests
+
+## Component Patterns
+
+- **CRITICAL: Always keep `page.tsx` as Server Components**
+- Mark client components explicitly with `'use client'` directive at top of file
+- Wrap heavy client components in Suspense with fallback
+- Prefer named exports for client components
+- Use dynamic loading for non-critical components
+- Implement proper error boundaries
+- Place static content and interfaces at file end
+
+## Performance Targets
+
+- TTFB < 200ms
+- FCP < 1s
+- LCP < 2.5s
+- CLS < 0.1
+- FID < 100ms
+- Bundle size minimal
+- Images optimized
+- Fonts optimized
+
+## Deployment Strategies
+
+- Self-hosting with Docker
+- Edge deployment for global performance
+- Multi-region for redundancy
+- Preview deployments for testing
+- Environment variables management
+- Monitoring setup (Sentry, Vercel Analytics)
+
+Always prioritize performance, SEO, and developer experience while building Next.js applications.
 
 ---
 > Source: [sangdth/ai-patterns](https://github.com/sangdth/ai-patterns) — distributed by [TomeVault](https://tomevault.io).
