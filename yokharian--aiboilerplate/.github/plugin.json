@@ -1,0 +1,9 @@
+{
+  "name": "yokharian--aiboilerplate",
+  "displayName": "AIBoilerplate",
+  "description": "Universal Context Architecture. One source of truth for Cursor, Claude Code, GitHub Copilot, Gemini, Amazon Q, and 19+ AI coding assistants.",
+  "version": "1.0.0",
+  "author": "yokharian",
+  "homepage": "https://github.com/yokharian/AIBoilerplate",
+  "skills": []
+}
