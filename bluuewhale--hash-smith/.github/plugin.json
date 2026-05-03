@@ -1,0 +1,9 @@
+{
+  "name": "bluuewhale--hash-smith",
+  "displayName": "hash-smith",
+  "description": "Fast & memory efficient hash tables for Java",
+  "version": "1.0.0",
+  "author": "bluuewhale",
+  "homepage": "https://github.com/bluuewhale/hash-smith",
+  "skills": []
+}
