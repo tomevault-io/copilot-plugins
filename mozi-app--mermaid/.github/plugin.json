@@ -1,0 +1,9 @@
+{
+  "name": "mozi-app--mermaid",
+  "displayName": "mermAId",
+  "description": "AI-agent-focused Mermaid editor for planning, with built-in MCP server and CLI tool",
+  "version": "1.0.0",
+  "author": "mozi-app",
+  "homepage": "https://github.com/mozi-app/mermAId",
+  "skills": []
+}
