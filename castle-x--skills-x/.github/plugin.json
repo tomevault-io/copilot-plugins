@@ -1,0 +1,30 @@
+{
+  "name": "castle-x--skills-x",
+  "displayName": "skills-x",
+  "description": "AI Agent Skills Repo",
+  "version": "1.0.0",
+  "author": "castle-x",
+  "homepage": "https://github.com/castle-x/skills-x",
+  "skills": [
+    {
+      "name": "baidu-speech-to-text",
+      "description": ""
+    },
+    {
+      "name": "go-embedded-spa",
+      "description": ""
+    },
+    {
+      "name": "go-i18n",
+      "description": ""
+    },
+    {
+      "name": "minimal-ui-design",
+      "description": ""
+    },
+    {
+      "name": "skills-x",
+      "description": ""
+    }
+  ]
+}
