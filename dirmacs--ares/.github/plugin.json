@@ -1,0 +1,9 @@
+{
+  "name": "dirmacs--ares",
+  "displayName": "ares",
+  "description": "Agentic AI server in Rust. Multi-provider LLM routing, tool calling, RAG, MCP, multi-tenant workflows.",
+  "version": "1.0.0",
+  "author": "dirmacs",
+  "homepage": "https://github.com/dirmacs/ares",
+  "skills": []
+}
