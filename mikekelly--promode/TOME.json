@@ -1,0 +1,75 @@
+{
+  "name": "promode",
+  "owner": "mikekelly",
+  "repo": "promode",
+  "description": "AI instruction skills by mikekelly",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "developing-skills",
+      "path": "plugins/promode/skills/developing-skills",
+      "github_url": "https://github.com/mikekelly/promode/tree/main/plugins/promode/skills/developing-skills",
+      "description": ""
+    },
+    {
+      "name": "managing-claude-code-meta",
+      "path": "plugins/promode/skills/managing-claude-code-meta",
+      "github_url": "https://github.com/mikekelly/promode/tree/main/plugins/promode/skills/managing-claude-code-meta",
+      "description": ""
+    },
+    {
+      "name": "managing-skills",
+      "path": "plugins/promode/skills/managing-skills",
+      "github_url": "https://github.com/mikekelly/promode/tree/main/plugins/promode/skills/managing-skills",
+      "description": ""
+    },
+    {
+      "name": "developing-opencode-meta",
+      "path": ".claude/skills/developing-opencode-meta",
+      "github_url": "https://github.com/mikekelly/promode/tree/main/.claude/skills/developing-opencode-meta",
+      "description": ""
+    },
+    {
+      "name": "managing-claude-code-meta",
+      "path": "promode-opencode/skills/managing-claude-code-meta",
+      "github_url": "https://github.com/mikekelly/promode/tree/main/promode-opencode/skills/managing-claude-code-meta",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mikekelly/promode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:42:33Z"
+}
