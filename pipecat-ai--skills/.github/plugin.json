@@ -1,0 +1,22 @@
+{
+  "name": "pipecat-ai--skills",
+  "displayName": "skills",
+  "description": "Skill library for building Pipecat bots with Claude Code",
+  "version": "1.0.0",
+  "author": "pipecat-ai",
+  "homepage": "https://github.com/pipecat-ai/skills",
+  "skills": [
+    {
+      "name": "deploy",
+      "description": ""
+    },
+    {
+      "name": "init",
+      "description": ""
+    },
+    {
+      "name": "talk",
+      "description": ""
+    }
+  ]
+}
