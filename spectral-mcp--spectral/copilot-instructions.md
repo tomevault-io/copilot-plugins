@@ -1,0 +1,158 @@
+## spectral
+
+> - **No code samples in documentation.** Documentation files should describe concepts in prose and tables, not paste code. The code lives in the code.
+
+# Spectral — Project Specification
+
+## Style preferences
+
+- **No code samples in documentation.** Documentation files should describe concepts in prose and tables, not paste code. The code lives in the code.
+- **Import convention.** All imports go at the top of the file (standard Python style). Internal CLI code (`cli/…`) is always imported at the top level — no lazy imports. Heavy external dependencies (e.g., `mitmproxy`, `yaml`, `pydantic_ai`) may be lazy-imported inside helper functions to keep `spectral --help` fast. Optional dependencies may use a lazy try/except with a user-friendly error. For mutable module-level state (e.g., `_model` in `llm/_client.py`), import the *module* at the top and access the attribute at call time to avoid stale references.
+- **Private function convention.** Every module should clearly separate its public API from internal helpers. Prefix internal functions with `_` (e.g. `_build_timeline_text`, `_resolve_url`). The public API of a module is the set of unprefixed functions and classes — only those should be imported by other packages. Tests may import private functions for unit testing, but production code in other packages should only depend on the public API.
+
+## Development environment
+
+- Package manager is **uv**. Use `uv run` to execute commands (no need to activate the venv):
+  - `uv run pytest tests/` — run tests
+  - `uv run spectral mcp analyze ...` — run the CLI
+  - `uv add <package>` — add a dependency (updates `pyproject.toml` + `uv.lock`)
+  - `uv add --dev <package>` — add a dev dependency
+- The LLM provider and API key are resolved from stored config at `~/.local/share/spectral/config.json` or created interactively on first use via `spectral config`. Supports Anthropic, OpenRouter, OpenAI, and Ollama. No `.env` file needed.
+- **Before finishing any code change**, run the full verification suite and fix any new errors:
+  - `uv run pytest tests/ -x -q` — all tests must pass
+  - `uv run ruff check` — zero lint errors (use `--fix` for auto-fixable import sorting)
+  - `uv run pyright` — zero new type errors (pre-existing errors in `proxy.py`, `test_proxy.py` are known)
+- **Shell completion scripts** (`cli/completions/spectral.bash` and `spectral.zsh`) are static — they must be updated manually whenever a CLI command, subcommand, or option is added, removed, or renamed.
+- **Conventional Commits** are mandatory. Every commit message must follow the format `type(scope): description` (e.g. `fix:`, `feat:`, `chore:`, `docs:`, `refactor:`, `test:`, `ci:`). This drives python-semantic-release: `fix:` bumps patch, `feat:` bumps minor, `BREAKING CHANGE:` bumps major. Use `chore:`/`docs:`/`refactor:`/`test:`/`ci:` for changes that should not trigger a release.
+
+## What this project is
+
+A four-stage pipeline that automatically discovers, documents, and exposes web application APIs:
+
+1. **Capture** — A Chrome Extension or MITM proxy records network traffic + UI actions while the user browses normally
+2. **Analyze** — A CLI tool correlates UI actions with API calls using an LLM. REST traces produce an OpenAPI 3.1 spec; GraphQL traces produce a typed SDL schema. Both are enriched with business semantics
+3. **Authenticate** — The CLI detects the app's auth flow and generates a login script. Run it once to obtain a session; the MCP server refreshes it automatically
+4. **Use** — Generated MCP tools let AI agents call the discovered API directly
+
+The key innovation is the **correlation of UI actions with network traffic** to understand the *business meaning* of each API call, not just its technical shape.
+
+## Project structure
+
+```
+spectral/
+├── extension/              # Chrome Extension (Manifest V3)
+│   ├── background/         # Service worker modules (background.js, network.js, websocket.js, graphql.js, capture.js, native.js)
+│   ├── content/            # UI context capture (content.js)
+│   └── popup/              # Extension popup UI
+├── cli/                    # Python CLI tool
+│   ├── main.py             # Entry point: wires command groups
+│   ├── commands/
+│   │   ├── openapi/        # REST analysis → OpenAPI 3.1 YAML
+│   │   ├── graphql/        # GraphQL analysis → SDL schema
+│   │   ├── mcp/            # MCP tool generation and stdio server
+│   │   ├── auth/           # Authentication management
+│   │   ├── capture/        # Bundle parsing, inspect, MITM proxy
+│   │   ├── extension/      # Chrome Native Messaging host (listen, install)
+│   │   ├── analyze/        # Shared analysis engine (pipeline, steps, correlator, protocol, schemas)
+│   │   └── android/        # Android APK tools (list, pull, patch, install, cert)
+│   ├── formats/            # Pydantic models (capture_bundle, mcp_tool, app_meta)
+│   └── helpers/            # Shared utilities (llm, storage, naming, console, http, auth_framework)
+├── tests/                  # Mirrors cli/ structure
+├── pyproject.toml
+└── README.md
+```
+
+## Data model convention
+
+| Pattern | Contents | Python construct |
+|---------|----------|-----------------|
+| `cli/formats/<name>.py` | Serialization models (external formats: capture bundle, API spec) | Pydantic `BaseModel` |
+| `cli/commands/<package>/types.py` | Internal types passed between modules | `@dataclass` |
+
+## Technology choices
+
+- **Extension**: Vanilla JS, Chrome Manifest V3, Chrome DevTools Protocol (via `chrome.debugger`), Chrome Native Messaging for capture transfer
+- **CLI**: Python 3.11+, Click for CLI, Pydantic for data models
+- **LLM**: Multi-provider support (Anthropic, OpenRouter, OpenAI, Ollama) for semantic analysis
+- **Packaging**: pyproject.toml with `[project.scripts]` entry point for `spectral`
+
+## CLI commands
+
+```bash
+# Analyze captures (requires spectral config)
+spectral mcp analyze <app>                          # → MCP tool definitions in storage
+spectral openapi analyze <app> -o <base>           # → <base>.yaml (OpenAPI 3.1)
+spectral graphql analyze <app> -o <base>            # → <base>.graphql (SDL schema)
+
+# Auth management
+spectral auth analyze <app>                         # detect auth, generate script
+spectral auth set <app> -H "Authorization: ..."     # manually set auth headers
+spectral auth set <app> -c "session=abc"            # set cookies
+spectral auth set <app> -b "userToken=eyJ..."       # set body params (POST-based auth)
+spectral auth login/logout <app>                    # interactive auth operations
+
+# Configuration
+spectral config                                     # configure API key and model
+
+# MCP server
+spectral mcp install [--target claude-desktop|claude-code]  # register MCP server
+spectral mcp stdio                                  # start MCP server on stdio
+
+# Capture management
+spectral capture list / show <app>                  # list apps / show captures
+spectral capture inspect <app> [--trace t_0001]     # inspect capture contents
+spectral capture proxy -a <app> [-d "pattern"]      # MITM proxy → managed storage
+spectral capture discover                           # log domains without MITM
+
+# Extension integration
+spectral extension install --extension-id <id>      # install native messaging host
+spectral extension listen                           # native host (called by Chrome)
+
+# Android APK tools
+spectral android list/pull/patch/install/cert       # APK manipulation + cert push
+```
+
+Default model is `claude-sonnet-4-5-20250929`, configurable via `spectral config`. Options: `--skip-enrich`, `--debug`.
+
+## Dependencies
+
+| Component | Dependencies |
+|-----------|-------------|
+| Extension | (no external dependencies) |
+| CLI | click, pydantic, pydantic-ai-slim[anthropic,openai], graphql-core, pyyaml, rich, requests, mitmproxy, jq, compact-json, mcp, questionary |
+| Dev | pytest, pytest-cov, pytest-asyncio (asyncio_mode="auto"), pyright, ruff, mkdocs-material |
+
+## Managed storage
+
+Layout under `~/.local/share/spectral/` (overridable with `SPECTRAL_HOME`):
+
+```
+config.json               # Config (provider, api_key, model, base_url, pricing)
+apps/<name>/
+├── app.json              # AppMeta (name, display_name, base_url, timestamps)
+├── auth_acquire.py       # Generated auth script (acquire_token, refresh_token)
+├── token.json            # TokenState (headers, body_params, refresh_token, expires_at)
+├── tools/<tool>.json     # ToolDefinition (name, description, parameters, request)
+└── captures/<timestamp>_<source>_<id-prefix>/
+    ├── manifest.json, traces/, ws/, contexts/, timeline.json
+```
+
+The storage layer (`cli/helpers/storage.py`) provides: `import_capture`, `store_capture`, `list_apps`, `list_captures`, `load_app_bundle` (load + merge all captures), `write_token` / `load_token` / `delete_token`, `write_tools` / `load_tools`, `auth_script_path`. Duplicate captures (same `capture_id`) are rejected.
+
+Bundle merging (`merge_bundles` in `cli/commands/capture/types.py`) prefixes IDs with a 3-digit capture index to avoid collisions across sessions (e.g. `t_0001` from capture 2 becomes `t_002_0001`).
+
+## Environment variables
+
+| Variable | Purpose |
+|----------|---------|
+| `SPECTRAL_HOME` | Override managed storage root (default: `~/.local/share/spectral`) |
+
+## Remaining work
+
+- Real-world testing with actual API keys
+- Prompt tuning for better enrichment quality
+- Privacy controls: exclude domains, redact headers/cookies
+
+---
+> Source: [spectral-mcp/spectral](https://github.com/spectral-mcp/spectral) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
