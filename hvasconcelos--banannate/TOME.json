@@ -1,0 +1,44 @@
+{
+  "name": "banannate",
+  "owner": "hvasconcelos",
+  "repo": "banannate",
+  "description": " The easiest way to generate images with Google Gemini from your Terminal. Fast, efficient, and 4K ready. \ud83d\ude4a\ud83d\ude48\ud83d\ude49",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hvasconcelos/banannate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T23:04:00Z"
+}
