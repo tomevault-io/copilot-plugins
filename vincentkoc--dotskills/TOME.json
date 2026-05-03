@@ -1,0 +1,87 @@
+{
+  "name": "dotskills",
+  "owner": "vincentkoc",
+  "repo": "dotskills",
+  "description": "\ud83d\udc19 A curated set of Codex and OpenClaw skills for workflow automation, technical debugging, and agent-assisted development patterns.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "technical-documentation",
+      "path": "skills/technical-documentation",
+      "github_url": "https://github.com/vincentkoc/dotskills/tree/main/skills/technical-documentation",
+      "description": ""
+    },
+    {
+      "name": "technical-deslop",
+      "path": "skills/technical-deslop",
+      "github_url": "https://github.com/vincentkoc/dotskills/tree/main/skills/technical-deslop",
+      "description": ""
+    },
+    {
+      "name": "technical-integrations",
+      "path": "skills/technical-integrations",
+      "github_url": "https://github.com/vincentkoc/dotskills/tree/main/skills/technical-integrations",
+      "description": ""
+    },
+    {
+      "name": "technical-skill-finder",
+      "path": "skills/technical-skill-finder",
+      "github_url": "https://github.com/vincentkoc/dotskills/tree/main/skills/technical-skill-finder",
+      "description": ""
+    },
+    {
+      "name": "example-skill",
+      "path": "skills/example-skill",
+      "github_url": "https://github.com/vincentkoc/dotskills/tree/main/skills/example-skill",
+      "description": ""
+    },
+    {
+      "name": "opik-integrations-auditor",
+      "path": "skills/opik-integrations-auditor",
+      "github_url": "https://github.com/vincentkoc/dotskills/tree/main/skills/opik-integrations-auditor",
+      "description": ""
+    },
+    {
+      "name": "opik-optimizer",
+      "path": "skills/opik-optimizer",
+      "github_url": "https://github.com/vincentkoc/dotskills/tree/main/skills/opik-optimizer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vincentkoc/dotskills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:40:21Z"
+}
