@@ -1,0 +1,9 @@
+{
+  "name": "montanaflynn--botctl",
+  "displayName": "botctl",
+  "description": "Manage persistent AI bots with a terminal dashboard, web UI, and declarative configuration.",
+  "version": "1.0.0",
+  "author": "montanaflynn",
+  "homepage": "https://github.com/montanaflynn/botctl",
+  "skills": []
+}
