@@ -1,0 +1,9 @@
+{
+  "name": "nimoh-digital-solutions--frontend-base-template",
+  "displayName": "frontend-base-template",
+  "description": "A modern React starter kit with TypeScript, Vite, SCSS, and comprehensive tooling for building scalable applications.",
+  "version": "1.0.0",
+  "author": "Nimoh-Digital-Solutions",
+  "homepage": "https://github.com/Nimoh-Digital-Solutions/frontend-base-template",
+  "skills": []
+}
