@@ -1,0 +1,44 @@
+{
+  "name": "octane-labs",
+  "owner": "theroger14",
+  "repo": "octane-labs",
+  "description": "Octane Labs \u2014 Portal web para venta de impresiones 3D con cat\u00e1logo (Shopify) y cotizador STL (subida de archivo + estimaci\u00f3n de material/tiempo/costo). Construido con Next.js para performance/SEO y backend serverless para cotizaciones.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/theroger14/octane-labs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T06:50:19Z"
+}
