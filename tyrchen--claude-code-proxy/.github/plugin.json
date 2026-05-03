@@ -1,0 +1,34 @@
+{
+  "name": "tyrchen--claude-code-proxy",
+  "displayName": "claude",
+  "description": "Allow claude code to run gemini 3",
+  "version": "1.0.0",
+  "author": "tyrchen",
+  "homepage": "https://github.com/tyrchen/claude-code-proxy",
+  "skills": [
+    {
+      "name": "ai-image",
+      "description": ""
+    },
+    {
+      "name": "cel",
+      "description": ""
+    },
+    {
+      "name": "codex-code-review",
+      "description": ""
+    },
+    {
+      "name": "design-guide",
+      "description": ""
+    },
+    {
+      "name": "kro-rgd",
+      "description": ""
+    },
+    {
+      "name": "surrealdb",
+      "description": ""
+    }
+  ]
+}
