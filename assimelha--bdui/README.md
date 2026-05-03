@@ -7,11 +7,11 @@ Real-time Text User Interface for bd (beads) issue tracker with Kanban, Tree, Gr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [assimelha/bdui](https://github.com/assimelha/bdui).
+Original source: `CLAUDE.md` in [assimelha/bdui](https://github.com/assimelha/bdui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
