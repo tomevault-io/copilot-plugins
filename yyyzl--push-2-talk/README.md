@@ -7,11 +7,11 @@ PushToTalk 是一个高性能的桌面语音输入工具。它不仅仅是一个
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [yyyzl/push-2-talk](https://github.com/yyyzl/push-2-talk).
+Original source: `CLAUDE.md` in [yyyzl/push-2-talk](https://github.com/yyyzl/push-2-talk).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
