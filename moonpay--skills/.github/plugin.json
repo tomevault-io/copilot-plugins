@@ -1,0 +1,9 @@
+{
+  "name": "moonpay--skills",
+  "displayName": "skills",
+  "description": "Skills for AI agents to move money \u2014 on-ramps, swaps, wallets, deposits, and more via the MoonPay CLI",
+  "version": "1.0.0",
+  "author": "moonpay",
+  "homepage": "https://github.com/moonpay/skills",
+  "skills": []
+}
