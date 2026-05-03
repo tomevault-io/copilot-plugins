@@ -1,0 +1,26 @@
+{
+  "name": "madsnorgaard--drupal-agent-resources",
+  "displayName": "drupal-agent-resources",
+  "description": "Reusable Claude Code resources for Drupal development - skills, agents, and commands",
+  "version": "1.0.0",
+  "author": "madsnorgaard",
+  "homepage": "https://github.com/madsnorgaard/drupal-agent-resources",
+  "skills": [
+    {
+      "name": "ddev-expert",
+      "description": ""
+    },
+    {
+      "name": "docker-local",
+      "description": ""
+    },
+    {
+      "name": "drupal-expert",
+      "description": ""
+    },
+    {
+      "name": "drupal-migration",
+      "description": ""
+    }
+  ]
+}
