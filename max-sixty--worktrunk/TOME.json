@@ -1,0 +1,63 @@
+{
+  "name": "worktrunk",
+  "owner": "max-sixty",
+  "repo": "worktrunk",
+  "description": "Worktrunk is a CLI for Git worktree management, designed for parallel AI agent workflows",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "release",
+      "path": ".claude/skills/release",
+      "github_url": "https://github.com/max-sixty/worktrunk/tree/main/.claude/skills/release",
+      "description": ""
+    },
+    {
+      "name": "worktrunk",
+      "path": "skills/worktrunk",
+      "github_url": "https://github.com/max-sixty/worktrunk/tree/main/skills/worktrunk",
+      "description": ""
+    },
+    {
+      "name": "writing-user-outputs",
+      "path": ".claude/skills/writing-user-outputs",
+      "github_url": "https://github.com/max-sixty/worktrunk/tree/main/.claude/skills/writing-user-outputs",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/max-sixty/worktrunk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T22:42:24Z"
+}
