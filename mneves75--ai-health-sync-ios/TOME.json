@@ -1,0 +1,51 @@
+{
+  "name": "ai-health-sync-ios",
+  "owner": "mneves75",
+  "repo": "ai-health-sync-ios",
+  "description": "Securely sync Apple HealthKit data from iPhone to Mac over local network",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "healthkit-sync",
+      "path": "skills/healthkit-sync",
+      "github_url": "https://github.com/mneves75/ai-health-sync-ios/tree/main/skills/healthkit-sync",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mneves75/ai-health-sync-ios",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:57:56Z"
+}
