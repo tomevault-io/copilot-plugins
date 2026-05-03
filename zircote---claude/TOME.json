@@ -1,0 +1,87 @@
+{
+  "name": ".claude",
+  "owner": "zircote",
+  "repo": ".claude",
+  "description": "Claude Code dotfiles: agents, skills, commands & includes for AI-assisted development. Features domain-specific agents (backend, frontend, DevOps, security, data/ML), custom slash commands, and Opus 4.5 optimizations.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "chrome-devtools",
+      "path": "skills/chrome-devtools",
+      "github_url": "https://github.com/zircote/.claude/tree/main/skills/chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "datadog-entity-generator",
+      "path": "skills/datadog-entity-generator",
+      "github_url": "https://github.com/zircote/.claude/tree/main/skills/datadog-entity-generator",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design",
+      "github_url": "https://github.com/zircote/.claude/tree/main/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "github-ecosystem",
+      "path": "skills/github-ecosystem",
+      "github_url": "https://github.com/zircote/.claude/tree/main/skills/github-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "notebooklm-skill",
+      "path": "skills/notebooklm-skill",
+      "github_url": "https://github.com/zircote/.claude/tree/main/skills/notebooklm-skill",
+      "description": ""
+    },
+    {
+      "name": "python-deprecation-fixer",
+      "path": "skills/python-deprecation-fixer",
+      "github_url": "https://github.com/zircote/.claude/tree/main/skills/python-deprecation-fixer",
+      "description": ""
+    },
+    {
+      "name": "python-project-skel",
+      "path": "skills/python-project-skel",
+      "github_url": "https://github.com/zircote/.claude/tree/main/skills/python-project-skel",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zircote/.claude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:39:19Z"
+}
