@@ -1,83 +1,203 @@
-## moto-autonomous-asi
+## api-key-controls
 
-> This describes additional architecture for the synergy between the part 1 database aggregator tool and part 2 aggregator-compiler tool.
+> Enables OpenRouter integration with automatic LM Studio fallback, plus boost controls and research metrics in the workflow panel.
 
+# API Key Controls & Workflow Management System
 
-## The Unified Mode Design:
+## Overview
 
- This describes additional architecture for the synergy between the part 1 database aggregator tool and part 2 aggregator-compiler tool.
+Enables OpenRouter integration with automatic LM Studio fallback, plus boost controls and research metrics in the workflow panel.
 
- NOTE: This is a continuously-running program that does not stop itself, the user selects the aggregator to start, then starts the compiler when they desire, and then the user choses when to turn off each selective mode by turning the off switch. There is no "solution stop token" as in normal AI solution generation.
- 
- 
- ## Aggregator start-up workflow
-1.) The aggregator runs initially with no compiler running.
-2.) The compiler does not begin running until the user starts it manually. Aggregator can run on its own for a head-start for as long as the operator would like. If the operator desires the aggregator can also run by itself without any compilation.
-
-## GUI Design
-
-The user should be able to save any mid-way progress of the aggregation database and the current compilation results separately as the program is still running.
-
-The live-constructing aggregation results should be viewable in one tab and also a save function that allows the user to save the whole current aggregation database to a .txt file. This aggregation database should be viewable in rea-time as the aggregation submittors write it.
-
-The live-constructing compiler-written paper should be viewable in one tab and also a save function that allows the user to save the whole current aggregation database to a .txt file. This paper should be viewable in real-time as the compiler constructs it.
-
-
-## Autonomous Research Mode (Part 3) - User Controls
-
-**Manual Paper Writing Trigger**: During active brainstorm aggregation (Tier 1), the user can manually force transition to paper writing by clicking "Force Paper Writing" in the UI. This bypasses the automatic completion review and allows the user to act as a special submitter reviewer, deciding when the brainstorm is sufficient for paper compilation.
-
-**How it works**:
-- Button appears in the brainstorm status section only when tier1_aggregation is active
-- Requires confirmation before executing (prevents accidental clicks)
-- Stops the brainstorm aggregator immediately upon confirmation
-- Marks brainstorm as complete
-- Transitions to paper compilation workflow (Tier 2) with all selected reference papers
-- Does NOT run completion review (bypassed entirely - user decision is final)
-
-**API Endpoint**: `POST /api/auto-research/force-paper-writing`
-
-**Use Case**: User may have domain knowledge that the brainstorm has explored sufficient territory before the automatic 10-acceptance interval, saving time and allowing manual control over the autonomous workflow.
-
-## Multi-Submitter Architecture (Aggregator Only)
-
-**Distinction**: Multiple submitters are only available for the Aggregator (Part 1 and Part 3 brainstorm aggregation). The Compiler (Part 2) uses a fixed single-submitter sequential Markov chain workflow.
-
-### Aggregator Multi-Submitter (Part 1 & Part 3)
-- Configurable 1-10 parallel submitters (default: 3)
-- Each submitter can have its own model, context window, and max output tokens
-- Enables multi-model exploration of different solution basins simultaneously
-- Single validator maintains coherent Markov chain evolution for database alignment
-- UI labels: "Submitter 1 (Main Submitter)", "Submitter 2", "Submitter 3", etc.
-- "Copy Main to All" button for quick configuration
-
-### Compiler Single-Submitter (Part 2)
-- Fixed 2-submitter architecture (NOT configurable):
-  - **High-Context Submitter**: Handles outline_create, outline_update, construction, review modes
-  - **High-Parameter Submitter**: Handles rigor enhancement mode
-- Sequential Markov chain workflow (only one submission at a time)
-- Each compiler submitter has its own model, context, and max token settings (separate from aggregator)
-- UI shows these as separate "High-Context Submitter" and "High-Parameter Submitter" sections
-
-**Why Single Validator?**: Multiple validators would cause divergent evolution of the database, breaking the coherent Markov chain required for solution alignment. The single validator ensures all submissions are evaluated against the same evolving database state.
-
-## Additional Traits Shared Between Aggregator-Submitters and Compiler-Submitters
-
-- The JSON of aggregator-subbmiters and compiler-submitters should include a "reasoning:" request below its "submission:" line. (This forces the submitter to explain the thoughts behind there reasoning and can also reveal deception for additional context for the validator.)
-
-## API Call Output Notes (User-Configurable)
-- **All `max_tokens` limits are user-configurable via GUI settings** (like context window sizes). Users can adjust these per model role based on their specific models' capabilities.
-- **Aggregator defaults**: submitter=25000 tokens, validator=25000 tokens (reasoning models need 15K-25K for internal reasoning + output)
-- **Compiler defaults**: validator=25000, high-context=25000 (for outline_create/outline_update/construction/review), high-param=25000 (for rigor mode)
-- **GUI tooltips** provide recommended minimums: Submitter "25000+ for reasoning models", Validator "25000+", High-context "25000+ (outline needs 15K+)", High-param "25000+"
-- Settings are passed through API routes and stored in `rag_config` (aggregator) and `system_config` (compiler)
-- **CRITICAL**: `system_config.compiler_*` settings (context windows, max output tokens) are the single source of truth for all compiler modules. ANY code that creates a `CompilerCoordinator` MUST write its context/token settings to `system_config` BEFORE init. The manual `/api/compiler/start` route does this; autonomous mode (`autonomous_coordinator.py`) must do it explicitly before each `CompilerCoordinator()` creation.
-- Reasoning models (e.g., those with `<think>` tags or separate `reasoning` fields) may use significant tokens on internal reasoning before generating JSON output
-
-## Other Notes
-
-IMPORTANT: When a JSON result for validation does not work you should reject the submission and alert the submitter the content and the reason isfor JSON rejection, this context should be sent to the submitters local failure feedback memory that we have defined in other areas.
+**Key Features:**
+- **Per-Role OpenRouter Selection**: Each role independently uses LM Studio or OpenRouter
+- **Global OpenRouter API Key**: Single key for all per-role OpenRouter selections. Boost can reuse it when no explicit boost-only override key is provided.
+- **LM Studio Fallback**: Optional fallback per role on credit exhaustion
+- **Free Model Cooldown Handling**: SERIAL BOTTLENECK pause, free model looping, and auto-selector backup (see below)
+- **Boost Mode**: Selective task acceleration via two modes, using either an explicit boost override key or the active global OpenRouter key:
+  - **Boost Next X Calls**: Counter-based, next X API calls regardless of task ID
+  - **Category Boost**: Role-based, boosts all calls for specific role categories (Aggregator and Compiler only; Autonomous agents inherit from their parent roles automatically)
+- **System works without LM Studio**: Defaults to OpenRouter when LM Studio unavailable
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Intrafere) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+
+## Architecture Components
+
+### Boost and Parallel Execution
+
+**Boost is a ROUTING decision, NOT a CONCURRENCY decision.**
+- Boost affects which API endpoint is used, NOT whether submitters run in parallel or serial
+- Aggregation submitters ALWAYS run in parallel regardless of boost status (unless single-model mode)
+- Single-model mode: triggered when all submitters AND validator use the SAME configured model ID. Boost routing does NOT trigger single-model mode.
+
+### Backend Core
+
+#### OpenRouterClient (`backend/shared/openrouter_client.py`)
+- Async HTTP client. Base URL: `https://openrouter.ai/api/v1`
+- App Attribution Headers: `HTTP-Referer: https://intrafere.com/moto-autonomous-home-ai/`, `X-Title: MOTO Deep Research Harness`
+- Credit exhaustion detection: HTTP 402 OR error messages containing "credit", "insufficient", "balance", "quota", "key limit", "limit exceeded"
+- Raises `CreditExhaustionError` on exhaustion (no retries). Retries transient errors (max 3).
+- Temperature=0.0 default. No stop sequences (removed — caused premature truncation with certain models).
+
+#### APIClientManager (`backend/shared/api_client_manager.py`)
+- Central router for all API calls: boost check → role's OpenRouter (with resettable fallback) → LM Studio
+- Tracks fallback state per role: `_role_fallback_state: Dict[str, str]`
+- `reset_openrouter_fallbacks()`: Resets all roles originally configured for OpenRouter back from LM Studio fallback. Called automatically on API key set, or manually via reset endpoint.
+- Lazy initialization: OpenRouter client initializes from `rag_config.openrouter_api_key` when first needed
+
+**CRITICAL REQUIREMENT - Role Configuration:**
+- **EVERY role calling `api_client_manager.generate_completion()` MUST be configured via `api_client_manager.configure_role()`**
+- This includes: aggregator submitters/validator, compiler submitters/validator/critique, autonomous agents, Tier 3 final answer agents
+
+**Boost Mode Priority** (`should_use_boost(task_id)`):
+1. Boost Next X: `boost_next_count > 0` → True
+2. Category Boost: `_extract_role_prefix(task_id) in boosted_categories` → True
+
+**Counter Decrement:** `boost_next_count` decrements ONLY on successful boost API calls. Failed/exhausted calls do NOT decrement.
+
+**Resettable Fallback:** When a role hits credit exhaustion, it falls back to LM Studio for subsequent calls. User can reset all fallen-back roles via `POST /api/openrouter/reset-exhaustion` or by re-setting the API key (auto-resets). Each role has independent fallback state. If no fallback configured: raises RuntimeError.
+
+**Categories from role_id:**
+- `aggregator_submitter_*` → "Aggregator Submitters"
+- `aggregator_validator` → "Aggregator Validator"
+- `compiler_high_context` → "Compiler High-Context"
+- `compiler_high_param` → "Compiler High-Param"
+- `compiler_validator` → "Compiler Validator"
+- `autonomous_*` → "Autonomous"
+
+#### BoostManager (`backend/shared/boost_manager.py`)
+- Singleton. Key methods: `set_boost_config`, `clear_boost`, `set_boost_next_count`, `toggle_category_boost`, `should_use_boost` (main check for coordinators), `consume_boost_count` (only after successful boost call)
+- Boost can use an **explicit override** OpenRouter API key, or it falls back to the active global OpenRouter key. A temporary `OpenRouterClient` is created per boosted task and closed immediately after.
+- **Autonomous agent task ID inheritance**: All autonomous orchestration agents use parent role task ID prefixes — Topic Selector/Completion Reviewer/Reference Selector/Paper Title Selector/Tier 3 agents use `agg_sub1_*`; Topic Validator/Redundancy Checker use `agg_val_*`. Boosting a parent role automatically covers all autonomous agents that run on that model.
+
+#### BoostLogger (`backend/shared/boost_logger.py`)
+- Singleton. Log file: `backend/data/boost_api_log.txt`
+- Methods: `log_api_call`, `get_logs(limit)`, `clear_logs`, `get_stats`
+- Boost logs are merged into the main API call log view; boost endpoints remain available for boost-only debugging.
+
+#### Workflow Task Generation (Internal Backend Tracking)
+Coordinators track task IDs internally for boost routing. The frontend does NOT display predicted task lists.
+- Aggregator: `agg_sub{N}_{seq:03d}`, `agg_val_{seq:03d}`
+- Compiler: `comp_hc_{seq:03d}`, `comp_hp_{seq:03d}`, `comp_val_{seq:03d}`
+- Autonomous: `auto_te_{seq:03d}`, `auto_tev_{seq:03d}`, `auto_ts_{seq:03d}`, `auto_tv_{seq:03d}`
+
+---
+
+## Coordinator Integration
+
+All coordinators track workflow via: `workflow_tasks`, `completed_task_ids`, `current_task_sequence`, `current_task_id`.
+
+Key methods: `refresh_workflow_predictions()`, `get_next_task()`, `mark_task_completed(task_id)`, `mark_task_started(task_id)`.
+
+Predictions refresh: after initialization, each task completion, mode switches, phase transitions.
+
+---
+
+## WebSocket Events
+
+**Workflow:** `workflow_updated` (mode), `token_usage_updated` (total_input, total_output, by_model, elapsed_seconds)
+
+**Boost:** `boost_enabled` (model_id, provider, context_window, max_output_tokens), `boost_disabled`, `boost_next_count_updated` (count), `category_boost_toggled` (category, boosted), `boost_credits_exhausted` (task_id, message)
+
+**Fallback:** `openrouter_fallback` (role_id, reason, message, fallback_model), `openrouter_fallback_failed` (role_id, reason, message), `openrouter_fallbacks_reset` (reset_roles, message)
+
+**Hung Connection:** `hung_connection_alert` (role_id, model, provider, elapsed_minutes, message) — fires after 15 minutes of no API response. Amber notification stack (bottom-left, offset from credit exhaustion stack). Auto-cleared on research stop and fallbacks reset.
+
+**Rate Limit:** `openrouter_rate_limit` (model, role_id, retry_after, message)
+
+**Privacy:** `openrouter_privacy_error` (error_type, model, role_id, message, solution_url)
+
+---
+
+## API Endpoints
+
+### Boost (`backend/api/routes/boost.py`)
+- `POST /api/boost/enable` — Enable boost (BoostConfig body)
+- `POST /api/boost/disable` — Disable boost, clear all modes
+- `GET /api/boost/status` — Current config, counts, categories
+- `POST /api/boost/set-next-count` — Set Boost Next X counter `{ "count": int }`
+- `POST /api/boost/toggle-category/{category}` — Toggle category boost
+- `GET /api/boost/categories?mode=` — All categories (mode param ignored, always returns all)
+- `GET /api/boost/openrouter-models` — Fetch OpenRouter models (Bearer key header)
+- `GET /api/boost/model-providers?model_id=` — Providers for a model
+- `GET /api/boost/logs?limit=` — Recent boost-only logs (debug)
+- `POST /api/boost/clear-logs` — Clear logs
+
+### OpenRouter (`backend/api/routes/openrouter.py`)
+- `GET /api/openrouter/lm-studio-availability` — LM Studio availability check
+- `POST /api/openrouter/set-api-key` — Set and validate global OpenRouter key (auto-resets exhaustion flags)
+- `POST /api/openrouter/reset-exhaustion` — Reset all credit exhaustion flags + role fallback states mid-session
+- `DELETE /api/openrouter/api-key` — Clear key
+- `GET /api/openrouter/api-key-status` — `{ has_key, enabled }`
+- `GET /api/openrouter/models` — Available models (also caches free models for rotation)
+- `GET /api/openrouter/providers/{model_id}` — Providers for model
+- `GET /api/openrouter/free-model-settings` — `{ looping_enabled, auto_selector_enabled, ... }`
+- `POST /api/openrouter/free-model-settings` — Update free model settings (body: `FreeModelSettings`)
+- `POST /api/openrouter/test-connection` — Test key without storing
+- `GET /api/model-cache` — Cached model ID mapping (display_name → api_id)
+
+### Workflow (`backend/api/routes/workflow.py`)
+- `GET /api/workflow/predictions` — Current workflow mode (also returns tasks for internal use)
+- `GET /api/workflow/history?limit=` — Completed tasks
+- `GET /api/token-stats` — Cumulative token usage (total_input, total_output, by_model, elapsed_seconds)
+
+---
+
+## Error Handling
+
+**Credit Exhaustion:** HTTP 402 or keywords "credit"/"insufficient"/"balance"/"quota"/"key limit"/"limit exceeded" → `CreditExhaustionError` → LM Studio fallback for that role (or RuntimeError if no fallback). Fallback is resettable via `POST /api/openrouter/reset-exhaustion` or by re-setting the API key.
+
+**Boost Exhaustion:** Falls back to primary for that task; boost stays enabled; counter NOT decremented.
+
+**Rate Limits (Free Models):** HTTP 429 or "rate limit" keywords → 1-hour pause per `:free` model. Handled by Free Model Cooldown system (see below).
+
+**Privacy Policy Errors:** HTTP 404 + "data policy" message → `OpenRouterPrivacyPolicyError`. Role-based: falls back to LM Studio if configured; Boost: raises RuntimeError. Fix: https://openrouter.ai/settings/privacy → enable data sharing.
+
+---
+
+## Free Model Cooldown & Rotation System
+
+**Singleton:** `free_model_manager` in `backend/shared/free_model_manager.py`. Two global settings (both default ON):
+- `looping_enabled` — rotate to next available free model on rate limit (highest context first)
+- `auto_selector_enabled` — fall back to `openrouter/free` (131072 context) when all free models exhausted
+
+**Rotation chain** (in `api_client_manager._try_free_model_rotation()` called from RateLimitError handler):
+1. If `looping_enabled`: **iterate through ALL** non-rate-limited free models (highest context first) using `tried_models` set to avoid re-trying. On each `RateLimitError`, refresh rate-limited dict and continue to next model. On `CreditExhaustionError`, stop looping.
+2. If all looping candidates exhausted and `auto_selector_enabled`: try `openrouter/free`
+3. If still failed: check LM Studio fallback (fall-through to LM Studio)
+4. If no fallback: raise `FreeModelExhaustedError(soonest_retry=...)`
+
+`get_alternative_free_model()` accepts optional `skip_models: set` parameter to skip already-tried models.
+
+**SERIAL BOTTLENECK:** When `FreeModelExhaustedError` propagates to coordinators:
+- Autonomous coordinator: caught INSIDE the `while` loop — sleeps until `soonest_retry`, broadcasts `serial_bottleneck_paused/resumed`, then the loop re-iterates naturally (research resumes)
+- Compiler coordinator: caught at workflow level — sleeps then spawns new `_main_workflow()` task via `asyncio.create_task()`
+- Aggregator submitters: per-submitter pause (others continue); validator loop pauses entire validator
+- Prevents infinite retry loops (the 2000+ attempt bug)
+
+**Account Exhaustion:** HTTP 402 on any `:free` model sets `_account_credits_exhausted` flag. All subsequent free model calls short-circuit immediately. Flag clears on next successful free model call, or via `POST /api/openrouter/reset-exhaustion`, or automatically when the API key is re-set.
+
+**Error Classes:**
+- `FreeModelExhaustedError` — all options exhausted, contains `soonest_retry` timestamp
+- Agents re-raise `FreeModelExhaustedError` through generic `except Exception` blocks
+
+**API Endpoints:**
+- `GET /api/openrouter/free-model-settings` — current looping/auto-selector state
+- `POST /api/openrouter/free-model-settings` — update settings `{looping_enabled, auto_selector_enabled}`
+
+**WebSocket Events:** `free_model_rotated`, `free_model_auto_selector_used`, `serial_bottleneck_paused`, `serial_bottleneck_resumed`, `all_free_models_exhausted`, `account_credits_exhausted`
+
+**Frontend:** Two checkboxes in all settings panels (Aggregator, Compiler, Autonomous) near "Show free models only". Both default checked, persist to localStorage, control same backend singleton.
+
+---
+
+## Configuration Persistence
+
+**Secure backend storage (OS keyring):** OpenRouter global API key and Wolfram Alpha API key persist via `backend/shared/secret_store.py` using the OS keychain/keyring. Restored into backend memory on startup in `backend/api/main.py`.
+
+**localStorage:** `workflow_panel_collapsed`, `aggregatorConfig`, `compiler_settings`, `autonomousConfig` (includes `freeModelLooping`, `freeModelAutoSelector`)
+
+**Session (in-memory):** fallback state per role, boosted task IDs, boost next count, boosted categories, completed task IDs, free model manager state. Boost logs persist to file (`boost_api_log.txt`) and are merged into the main API call log view.
+
+---
+> Source: [Intrafere/MOTO-Autonomous-ASI](https://github.com/Intrafere/MOTO-Autonomous-ASI) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
