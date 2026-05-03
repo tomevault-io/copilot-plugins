@@ -1,0 +1,105 @@
+{
+  "name": "mastra",
+  "owner": "mastra-ai",
+  "repo": "mastra-agent-course",
+  "description": "Source code and project files for the Build Your First AI Agent with Mastra course.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-design",
+      "path": "examples/unified-workspace/skills/api-design",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/examples/unified-workspace/skills/api-design",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "path": "examples/unified-workspace/docs-skills/brand-guidelines",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/examples/unified-workspace/docs-skills/brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "examples/unified-workspace/skills/code-review",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/examples/unified-workspace/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "customer-support",
+      "path": "examples/unified-workspace/skills/customer-support",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/examples/unified-workspace/skills/customer-support",
+      "description": ""
+    },
+    {
+      "name": "e2e-tests-studio",
+      "path": ".claude/skills/e2e-tests-studio",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/.claude/skills/e2e-tests-studio",
+      "description": ""
+    },
+    {
+      "name": "ralph-plan",
+      "path": ".claude/skills/ralph-plan",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/.claude/skills/ralph-plan",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": ".claude/skills/react-best-practices",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/.claude/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "smoke-test",
+      "path": ".claude/skills/smoke-test",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/.claude/skills/smoke-test",
+      "description": ""
+    },
+    {
+      "name": "tailwind-best-practices",
+      "path": ".claude/skills/tailwind-best-practices",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/.claude/skills/tailwind-best-practices",
+      "description": ""
+    },
+    {
+      "name": "mastra",
+      "path": "workshop-content/skills/common/mastra",
+      "github_url": "https://github.com/mastra-ai/mastra-agent-course/tree/main/workshop-content/skills/common/mastra",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mastra-ai/mastra-agent-course",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T09:30:48Z"
+}
