@@ -1,0 +1,9 @@
+{
+  "name": "gistajs--website",
+  "displayName": "website",
+  "description": "The bare minimum deployable Gista.js website. React Router v7 + Tailwind + daisyUI. No auth, no database \u2014 just push and deploy.",
+  "version": "1.0.0",
+  "author": "gistajs",
+  "homepage": "https://github.com/gistajs/website",
+  "skills": []
+}
