@@ -1,0 +1,9 @@
+{
+  "name": "entireio--external-agents",
+  "displayName": "external-agents",
+  "description": "This repository contains standalone external agent binaries that extend the Entire CLI with support for additional AI coding agents.",
+  "version": "1.0.0",
+  "author": "entireio",
+  "homepage": "https://github.com/entireio/external-agents",
+  "skills": []
+}
