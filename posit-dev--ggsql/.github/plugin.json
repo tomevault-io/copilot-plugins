@@ -1,0 +1,9 @@
+{
+  "name": "posit-dev--ggsql",
+  "displayName": "ggsql",
+  "description": "A SQL extension for declarative data visualisation based on the Grammar of Graphics.",
+  "version": "1.0.0",
+  "author": "posit-dev",
+  "homepage": "https://github.com/posit-dev/ggsql",
+  "skills": []
+}
