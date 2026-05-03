@@ -2,7 +2,7 @@
   "name": "MOTO-Autonomous-ASI",
   "owner": "Intrafere",
   "repo": "MOTO-Autonomous-ASI",
-  "description": "",
+  "description": "MOTO - Autonomous ASI Deep Research Harness by Intrafere - creative novelty-seeking researcher for S.T.E.M. users, run for days at a time once pressing start - no interaction needed! MOTO uses simultaneous agents working in parallel from either local host LM studio, OpenRouter, or both. No internet required! Star us - there's a lot more to come!",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Intrafere/MOTO-Autonomous-ASI",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T05:57:13Z"
+  "distributed_at": "2026-05-03T10:24:30Z"
 }
