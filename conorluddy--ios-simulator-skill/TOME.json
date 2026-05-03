@@ -1,0 +1,51 @@
+{
+  "name": "ios-simulator-skill",
+  "owner": "conorluddy",
+  "repo": "ios-simulator-skill",
+  "description": "An IOS Simulator Skill for ClaudeCode. Use it to optimise Claude's ability to build, run and interact with your apps. I mainly use it as an xcodebuild wrapper to save context.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ios-simulator-skill",
+      "path": "ios-simulator-skill",
+      "github_url": "https://github.com/conorluddy/ios-simulator-skill/tree/main/ios-simulator-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/conorluddy/ios-simulator-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T22:48:27Z"
+}
