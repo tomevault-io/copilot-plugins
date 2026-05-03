@@ -1,0 +1,9 @@
+{
+  "name": "popmechanic--vibesos",
+  "displayName": "VibesOS",
+  "description": "A GUI for Claude Code that makes it easy to vibe code simple, un-hackable apps",
+  "version": "1.0.0",
+  "author": "popmechanic",
+  "homepage": "https://github.com/popmechanic/VibesOS",
+  "skills": []
+}
