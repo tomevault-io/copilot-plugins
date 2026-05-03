@@ -1,10 +1,10 @@
 {
-  "name": "gumroad-mobile",
+  "name": "gumroad",
   "owner": "antiwork",
   "repo": "gumroad-mobile",
   "description": "Next-generation Gumroad mobile app built with Expo",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,27 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "create-issue",
+      "path": ".claude/skills/create-issue",
+      "github_url": "https://github.com/antiwork/gumroad-mobile/tree/main/.claude/skills/create-issue",
+      "description": ""
+    },
+    {
+      "name": "pr-description",
+      "path": ".claude/skills/pr-description",
+      "github_url": "https://github.com/antiwork/gumroad-mobile/tree/main/.claude/skills/pr-description",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "path": ".claude/skills/review-pr",
+      "github_url": "https://github.com/antiwork/gumroad-mobile/tree/main/.claude/skills/review-pr",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/antiwork/gumroad-mobile",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T15:53:35Z"
+  "distributed_at": "2026-05-03T18:30:27Z"
 }
