@@ -1,0 +1,9 @@
+{
+  "name": "basta--frameground",
+  "displayName": "frameground",
+  "description": "A Figma-like canvas for HTML, driven by AI coding agents",
+  "version": "1.0.0",
+  "author": "basta",
+  "homepage": "https://github.com/basta/frameground",
+  "skills": []
+}
