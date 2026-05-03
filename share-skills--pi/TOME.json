@@ -4,7 +4,7 @@
   "repo": "pi",
   "description": "PI\uff08\u03c0\uff09\u2014\u2014 When The Art of War Meets Cognitive Science for Ai",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/share-skills/pi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T22:34:22Z"
+  "distributed_at": "2026-05-03T06:50:43Z"
 }
