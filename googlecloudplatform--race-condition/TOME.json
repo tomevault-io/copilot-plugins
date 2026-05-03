@@ -4,7 +4,7 @@
   "repo": "race-condition",
   "description": "The open source multi-agent simulation from the Developer Keynote at Google Cloud Next '26. A deployable reference architecture for autonomous AI agents using Gemini and ADK.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GoogleCloudPlatform/race-condition",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T03:34:47Z"
+  "distributed_at": "2026-05-03T16:20:08Z"
 }
