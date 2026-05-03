@@ -1,35 +1,51 @@
-## performance
+## pipeline-runtime-debugger
 
-> - **性能优先**：默认战斗逻辑在高频路径（每帧/多实体/多技能），避免不必要的分配与反射。
+> 本规则用于在 AbilityKit 项目中进行 Pipeline runtime / debugger 相关修改时，保证一致性、可调试性与低运行时开销。
 
 
-# 性能与实现规范（强约束）
+# Pipeline Runtime & Debugger 规则（Run-centric）
 
-## 1) 总原则
+本规则用于在 AbilityKit 项目中进行 Pipeline runtime / debugger 相关修改时，保证一致性、可调试性与低运行时开销。
 
-- **性能优先**：默认战斗逻辑在高频路径（每帧/多实体/多技能），避免不必要的分配与反射。
-- **struct 优先**：短生命周期/频繁传递的数据优先用 struct。
+## 1) 核心约束
 
-## 2) 禁止项（高频路径）
+- Pipeline 执行必须以 `IAbilityPipelineRun<TCtx>` 为中心，通过 `Tick(deltaTime)` 外部驱动推进。
+- Debug/Editor 逻辑必须包在 `#if UNITY_EDITOR` 内，避免运行时依赖与开销。
+- 阶段（phase）必须可复用：多次 run 之间不能发生状态串扰。
+  - 若 phase 内部有缓存/计时/列表等状态，务必在 `Reset()` 清理。
 
-- 禁止在 `Update/Tick/Execute` 等高频路径产生 GC：
-  - `new List/Dictionary/HashSet`
-  - LINQ
-  - 闭包
-  - 装箱（object/接口传递导致）
+## 2) 运行时与图（Graph）的映射约定
 
-## 3) 池化与集合复用
+- 图节点通过 `PipelineGraphNode.RuntimeKey` 与运行时绑定。
+- 对于 pipeline phases，默认约定：
+  - `RuntimeKey == PhaseId.ToString()`
+- `PhaseId` 需要稳定：不要每次启动随机生成，否则会导致 graph 同步后节点位置无法复用。
 
-- Args：优先使用 `PooledTriggerArgs` / `PooledDefArgs`
-- 临时集合：优先使用项目内 Pools 提供的 pool（或复用已有对象），避免 new
+## 3) LiveRegistry / Trace 约束
 
-## 4) 参数合并策略
+- `AbilityPipelineLiveRegistry` 只在编辑器下启用（`UNITY_EDITOR`）。
+- 写入点建议：
+  - run 创建：`RegisterRun(...)` + `RunStart`
+  - 每 tick：`TouchRun(...)` + `Tick`
+  - phase 生命周期：`PhaseStart/PhaseComplete/PhaseError`
+  - run 结束：`UnregisterRun(...)` + `RunEnd`
 
-- 对只读合并参数，优先用“临时注入并恢复”或“overlay 视图”，避免复制整个 args 字典。
+- Trace 事件应遵循：
+  - 短文本、可搜索
+  - 保留关键字段（phaseId/state/message）
+  - 注意 ring buffer 容量，避免无意义高频噪声
 
-## 5) 生命周期约束
+## 4) Composite 阶段扩展约束
 
-- 不要在 Entitas `Cleanup()` 做一次性反注册；一次性逻辑应迁移到 `TearDown()`。
+- 新增 composite 阶段时：
+  - `IsComposite == true`
+  - `SubPhases` 或内部结构需要可被图同步工具识别（通常通过反射字段约定）。
+  - 明确分支/并行驱动策略，避免 current phase / state 更新不一致。
+
+## 5) 参考文档
+
+- `Unity/Packages/com.abilitykit.pipeline/Documentation~/PipelineRuntimeDesign.md`
+- `Unity/Packages/com.abilitykit.pipeline/Documentation~/PipelineRuntimeDebugger.md`
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
