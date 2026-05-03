@@ -1,0 +1,9 @@
+{
+  "name": "bruin-data--dac",
+  "displayName": "dac",
+  "description": "dac is a dashboard-as-code tool. Build interactive dashboards using YAML and JSX. Built-in semantic layer. Get your agents to build standardized, reviewable dashboards.",
+  "version": "1.0.0",
+  "author": "bruin-data",
+  "homepage": "https://github.com/bruin-data/dac",
+  "skills": []
+}
