@@ -4,7 +4,7 @@
   "repo": "untether",
   "description": "Code from anywhere \u2014 Telegram bridge for AI coding agents (Claude Code, Codex, OpenCode, Pi, Gemini CLI, Amp). Stream progress, approve actions, and send tasks by voice from your phone.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/littlebearapps/untether",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T13:39:04Z"
+  "distributed_at": "2026-05-03T13:44:15Z"
 }
