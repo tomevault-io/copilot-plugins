@@ -2,9 +2,9 @@
   "name": "everything-react-native-expo",
   "owner": "JubaKitiashvili",
   "repo": "everything-react-native-expo",
-  "description": "",
+  "description": "Complete AI coding agent harness for React Native and Expo development",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/JubaKitiashvili",
+  "source_url": "https://github.com/JubaKitiashvili/everything-react-native-expo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T00:42:12Z"
+  "distributed_at": "2026-05-03T06:46:06Z"
 }
