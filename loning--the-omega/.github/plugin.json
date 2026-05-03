@@ -1,0 +1,14 @@
+{
+  "name": "loning--the-omega",
+  "displayName": "the-omega",
+  "description": "AI instruction skills by loning",
+  "version": "1.0.0",
+  "author": "loning",
+  "homepage": "https://github.com/loning/the-omega",
+  "skills": [
+    {
+      "name": "scientific-writing",
+      "description": ""
+    }
+  ]
+}
