@@ -1,0 +1,9 @@
+{
+  "name": "oluciano--nexjob",
+  "displayName": "NexJob",
+  "description": "Lightweight background job scheduler for .NET \u2014 install, implement, run.",
+  "version": "1.0.0",
+  "author": "oluciano",
+  "homepage": "https://github.com/oluciano/NexJob",
+  "skills": []
+}
