@@ -7,11 +7,11 @@ Vimprove – an interactive Vim trainer in your browser. Improve your Vim skill 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Jerry-Terrasse/vimprove](https://github.com/Jerry-Terrasse/vimprove).
+Original source: `CLAUDE.md` in [Jerry-Terrasse/vimprove](https://github.com/Jerry-Terrasse/vimprove).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
