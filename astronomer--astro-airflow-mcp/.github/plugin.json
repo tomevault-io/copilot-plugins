@@ -1,0 +1,14 @@
+{
+  "name": "astronomer--astro-airflow-mcp",
+  "displayName": "astro-airflow-mcp",
+  "description": "MCP server for Apache Airflow instances. Runs standalone or as an Airflow plugin.",
+  "version": "1.0.0",
+  "author": "astronomer",
+  "homepage": "https://github.com/astronomer/astro-airflow-mcp",
+  "skills": [
+    {
+      "name": "airflow",
+      "description": ""
+    }
+  ]
+}
