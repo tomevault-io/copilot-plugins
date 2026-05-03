@@ -1,0 +1,9 @@
+{
+  "name": "timkoda--koda-stack",
+  "displayName": "koda-stack",
+  "description": "The Koda Creative Stack \u2014 10 creative agents for Claude Code that automate your full content pipeline from script to published reel. One line. Full creative team. Zero overhead.",
+  "version": "1.0.0",
+  "author": "timkoda",
+  "homepage": "https://github.com/timkoda/koda-stack",
+  "skills": []
+}
