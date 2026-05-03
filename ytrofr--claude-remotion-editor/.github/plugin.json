@@ -1,0 +1,38 @@
+{
+  "name": "ytrofr--claude-remotion-editor",
+  "displayName": "claude",
+  "description": "SceneDirector: Interactive hand-path editor for Remotion video compositions. Draw, preview, and save animation paths with Lottie gestures.",
+  "version": "1.0.0",
+  "author": "ytrofr",
+  "homepage": "https://github.com/ytrofr/claude-remotion-editor",
+  "skills": [
+    {
+      "name": "basic-memory-semantic-patterns-skill",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e-skill",
+      "description": ""
+    },
+    {
+      "name": "project-patterns-skill",
+      "description": ""
+    },
+    {
+      "name": "session-start-protocol-skill",
+      "description": ""
+    },
+    {
+      "name": "skill-maintenance-skill",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting-decision-tree-skill",
+      "description": ""
+    },
+    {
+      "name": "skill-template",
+      "description": ""
+    }
+  ]
+}
