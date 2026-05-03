@@ -1,0 +1,9 @@
+{
+  "name": "netresearch--jira-skill",
+  "displayName": "jira-skill",
+  "description": "AI agent plugin for Jira \u2014 CLI tools for issues, worklogs, sprints, and more | Server/DC & Cloud",
+  "version": "1.0.0",
+  "author": "netresearch",
+  "homepage": "https://github.com/netresearch/jira-skill",
+  "skills": []
+}
