@@ -1,0 +1,381 @@
+{
+  "name": "mjs-agent-skills",
+  "owner": "mjunaidca",
+  "repo": "mjs-agent-skills",
+  "description": "A curated collection of Agent Skills \u2014 reusable units of intelligence that teach AI General Agents how to perform specific tasks autonomously.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aks-deployment-troubleshooter",
+      "path": "docs/taskflow-vault/skills/engineering/aks-deployment-troubleshooter",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/aks-deployment-troubleshooter",
+      "description": ""
+    },
+    {
+      "name": "better-auth-setup",
+      "path": "docs/taskflow-vault/skills/engineering/better-auth-setup",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/better-auth-setup",
+      "description": ""
+    },
+    {
+      "name": "better-auth-sso",
+      "path": "docs/taskflow-vault/skills/engineering/better-auth-sso",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/better-auth-sso",
+      "description": ""
+    },
+    {
+      "name": "blueprint-skill-creator",
+      "path": "docs/taskflow-vault/skills/engineering/blueprint-skill-creator",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/blueprint-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "browser-use",
+      "path": "docs/panaversity-ri-vault/skills/browser-use",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/panaversity-ri-vault/skills/browser-use",
+      "description": ""
+    },
+    {
+      "name": "browsing-with-playwright",
+      "path": ".claude/skills/browsing-with-playwright",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/browsing-with-playwright",
+      "description": ""
+    },
+    {
+      "name": "building-chat-interfaces",
+      "path": ".claude/skills/building-chat-interfaces",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/building-chat-interfaces",
+      "description": ""
+    },
+    {
+      "name": "building-chat-widgets",
+      "path": ".claude/skills/building-chat-widgets",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/building-chat-widgets",
+      "description": ""
+    },
+    {
+      "name": "building-chatgpt-apps",
+      "path": ".claude/skills/building-chatgpt-apps",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/building-chatgpt-apps",
+      "description": ""
+    },
+    {
+      "name": "building-mcp-servers",
+      "path": ".claude/skills/building-mcp-servers",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/building-mcp-servers",
+      "description": ""
+    },
+    {
+      "name": "building-nextjs-apps",
+      "path": ".claude/skills/building-nextjs-apps",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/building-nextjs-apps",
+      "description": ""
+    },
+    {
+      "name": "building-rag-systems",
+      "path": ".claude/skills/building-rag-systems",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/building-rag-systems",
+      "description": ""
+    },
+    {
+      "name": "chatkit-actions",
+      "path": "docs/taskflow-vault/skills/engineering/chatkit-actions",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/chatkit-actions",
+      "description": ""
+    },
+    {
+      "name": "chatkit-integration",
+      "path": "docs/taskflow-vault/skills/engineering/chatkit-integration",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/chatkit-integration",
+      "description": ""
+    },
+    {
+      "name": "chatkit-streaming",
+      "path": "docs/taskflow-vault/skills/engineering/chatkit-streaming",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/chatkit-streaming",
+      "description": ""
+    },
+    {
+      "name": "cloud-deploy-blueprint",
+      "path": "docs/taskflow-vault/skills/engineering/cloud-deploy-blueprint",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/cloud-deploy-blueprint",
+      "description": ""
+    },
+    {
+      "name": "configuring-better-auth",
+      "path": ".claude/skills/configuring-better-auth",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/configuring-better-auth",
+      "description": ""
+    },
+    {
+      "name": "containerize-apps",
+      "path": "docs/taskflow-vault/skills/engineering/containerize-apps",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/containerize-apps",
+      "description": ""
+    },
+    {
+      "name": "context7-efficient",
+      "path": "docs/panaversity-ri-vault/skills/context7-efficient",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/panaversity-ri-vault/skills/context7-efficient",
+      "description": ""
+    },
+    {
+      "name": "creating-skills",
+      "path": ".claude/skills/creating-skills",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/creating-skills",
+      "description": ""
+    },
+    {
+      "name": "dapr-integration",
+      "path": "docs/taskflow-vault/skills/engineering/dapr-integration",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/dapr-integration",
+      "description": ""
+    },
+    {
+      "name": "datetime-timezone",
+      "path": "docs/taskflow-vault/skills/engineering/datetime-timezone",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/datetime-timezone",
+      "description": ""
+    },
+    {
+      "name": "fastapi-backend",
+      "path": "docs/taskflow-vault/skills/engineering/fastapi-backend",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/fastapi-backend",
+      "description": ""
+    },
+    {
+      "name": "fetching-library-docs",
+      "path": ".claude/skills/fetching-library-docs",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/fetching-library-docs",
+      "description": ""
+    },
+    {
+      "name": "helm",
+      "path": ".claude/skills/helm",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/helm",
+      "description": ""
+    },
+    {
+      "name": "helm-charts",
+      "path": "docs/taskflow-vault/skills/engineering/helm-charts",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/helm-charts",
+      "description": ""
+    },
+    {
+      "name": "installing-skill-tracker",
+      "path": ".claude/skills/installing-skill-tracker",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/installing-skill-tracker",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "path": ".claude/skills/internal-comms",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/internal-comms",
+      "description": ""
+    },
+    {
+      "name": "kafka",
+      "path": ".claude/skills/kafka",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/kafka",
+      "description": ""
+    },
+    {
+      "name": "kagent",
+      "path": "docs/taskflow-vault/skills/engineering/kagent",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/kagent",
+      "description": ""
+    },
+    {
+      "name": "kubectl-ai",
+      "path": "docs/taskflow-vault/skills/engineering/kubectl-ai",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/kubectl-ai",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "path": ".claude/skills/kubernetes",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/kubernetes",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-deployment-validator",
+      "path": "docs/taskflow-vault/skills/engineering/kubernetes-deployment-validator",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/kubernetes-deployment-validator",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-essentials",
+      "path": "docs/taskflow-vault/skills/engineering/kubernetes-essentials",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/kubernetes-essentials",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "docs/taskflow-vault/skills/engineering/mcp-builder",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "memory-systems",
+      "path": ".claude/skills/memory-systems",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/memory-systems",
+      "description": ""
+    },
+    {
+      "name": "minikube",
+      "path": "docs/taskflow-vault/skills/engineering/minikube",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/minikube",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-patterns",
+      "path": ".claude/skills/multi-agent-patterns",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/multi-agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-16",
+      "path": "docs/taskflow-vault/skills/engineering/nextjs-16",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/nextjs-16",
+      "description": ""
+    },
+    {
+      "name": "nextjs-devtools",
+      "path": ".claude/skills/nextjs-devtools",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/nextjs-devtools",
+      "description": ""
+    },
+    {
+      "name": "nx-monorepo",
+      "path": ".claude/skills/nx-monorepo",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/nx-monorepo",
+      "description": ""
+    },
+    {
+      "name": "operating-production-services",
+      "path": ".claude/skills/operating-production-services",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/operating-production-services",
+      "description": ""
+    },
+    {
+      "name": "production-debugging",
+      "path": "docs/taskflow-vault/skills/engineering/production-debugging",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/production-debugging",
+      "description": ""
+    },
+    {
+      "name": "researching-with-deepwiki",
+      "path": ".claude/skills/researching-with-deepwiki",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/researching-with-deepwiki",
+      "description": ""
+    },
+    {
+      "name": "scaffolding-fastapi-dapr",
+      "path": ".claude/skills/scaffolding-fastapi-dapr",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/scaffolding-fastapi-dapr",
+      "description": ""
+    },
+    {
+      "name": "scaffolding-openai-agents",
+      "path": ".claude/skills/scaffolding-openai-agents",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/scaffolding-openai-agents",
+      "description": ""
+    },
+    {
+      "name": "session-intelligence-harvester",
+      "path": "docs/taskflow-vault/skills/engineering/session-intelligence-harvester",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/session-intelligence-harvester",
+      "description": ""
+    },
+    {
+      "name": "shadcn-ui",
+      "path": "docs/taskflow-vault/skills/engineering/shadcn-ui",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/shadcn-ui",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "docs/taskflow-vault/skills/engineering/skill-creator",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "sqlmodel-database",
+      "path": "docs/taskflow-vault/skills/engineering/sqlmodel-database",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/sqlmodel-database",
+      "description": ""
+    },
+    {
+      "name": "streaming-llm-responses",
+      "path": ".claude/skills/streaming-llm-responses",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/streaming-llm-responses",
+      "description": ""
+    },
+    {
+      "name": "styling-with-shadcn",
+      "path": ".claude/skills/styling-with-shadcn",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/styling-with-shadcn",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": ".claude/skills/systematic-debugging",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "tool-design",
+      "path": ".claude/skills/tool-design",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/tool-design",
+      "description": ""
+    },
+    {
+      "name": "ux-evaluator",
+      "path": "docs/taskflow-vault/skills/engineering/ux-evaluator",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/docs/taskflow-vault/skills/engineering/ux-evaluator",
+      "description": ""
+    },
+    {
+      "name": "working-with-documents",
+      "path": ".claude/skills/working-with-documents",
+      "github_url": "https://github.com/mjunaidca/mjs-agent-skills/tree/main/.claude/skills/working-with-documents",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mjunaidca/mjs-agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:43:10Z"
+}
