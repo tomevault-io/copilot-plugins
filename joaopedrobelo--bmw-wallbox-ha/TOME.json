@@ -2,7 +2,7 @@
   "name": "bmw-wallbox-ha",
   "owner": "JoaoPedroBelo",
   "repo": "bmw-wallbox-ha",
-  "description": "",
+  "description": "Home Assistant integration for BMW Wallbox using OCPP 2.0.1 protocol",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/JoaoPedroBelo",
+  "source_url": "https://github.com/JoaoPedroBelo/bmw-wallbox-ha",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T06:43:57Z"
+  "distributed_at": "2026-05-03T23:37:37Z"
 }
