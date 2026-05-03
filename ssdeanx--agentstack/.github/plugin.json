@@ -1,9 +1,9 @@
 {
   "name": "ssdeanx--agentstack",
   "displayName": "AgentStack",
-  "description": "AgentStack",
+  "description": "AgentStack is a production-grade multi-agent framework built on Mastra, delivering 50+ enterprise tools, 25+ specialized agents, and A2A/MCP orchestration for scalable AI systems. Focuses on financial",
   "version": "1.0.0",
   "author": "ssdeanx",
-  "homepage": "https://tomevault.io/claim/ssdeanx",
+  "homepage": "https://github.com/ssdeanx/AgentStack",
   "skills": []
 }
