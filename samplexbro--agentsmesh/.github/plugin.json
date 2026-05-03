@@ -1,0 +1,9 @@
+{
+  "name": "samplexbro--agentsmesh",
+  "displayName": "agentsmesh",
+  "description": "One reliable canonical source for AI coding agent rules, commands, skills, MCP, hooks, and permissions \u2014 synced across AI coding assistants.",
+  "version": "1.0.0",
+  "author": "sampleXbro",
+  "homepage": "https://github.com/sampleXbro/agentsmesh",
+  "skills": []
+}
