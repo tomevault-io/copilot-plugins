@@ -1,0 +1,69 @@
+{
+  "name": "dev-agent-backlog",
+  "owner": "farra",
+  "repo": "dev-agent-backlog",
+  "description": "Design doc, RFC, and task tracking system for humans + agents based on emacs org-mode",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "backlog-update",
+      "path": "plugin/skills/backlog-update",
+      "github_url": "https://github.com/farra/dev-agent-backlog/tree/main/plugin/skills/backlog-update",
+      "description": ""
+    },
+    {
+      "name": "claude-tasks-sync",
+      "path": "plugin/skills/claude-tasks-sync",
+      "github_url": "https://github.com/farra/dev-agent-backlog/tree/main/plugin/skills/claude-tasks-sync",
+      "description": ""
+    },
+    {
+      "name": "new-design-doc",
+      "path": "plugin/skills/new-design-doc",
+      "github_url": "https://github.com/farra/dev-agent-backlog/tree/main/plugin/skills/new-design-doc",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": "plugin/skills/setup",
+      "github_url": "https://github.com/farra/dev-agent-backlog/tree/main/plugin/skills/setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/farra/dev-agent-backlog",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T15:31:39Z"
+}
