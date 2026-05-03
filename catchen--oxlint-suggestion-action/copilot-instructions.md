@@ -1,6 +1,7 @@
-## oxlint-suggestion-action
+## agent-workflow
 
-> These instructions apply to all coding agents in this repository (Cursor, Claude Code, Codex).
+> Setup and validation commands required for this repository.
+
 
 # Agent Instructions
 
