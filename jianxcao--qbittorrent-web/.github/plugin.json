@@ -1,7 +1,7 @@
 {
   "name": "jianxcao--qbittorrent-web",
   "displayName": "qbittorrent-web",
-  "description": "AI instruction skills by jianxcao",
+  "description": "A modern, feature-rich web interface for qBittorrent client management",
   "version": "1.0.0",
   "author": "jianxcao",
   "homepage": "https://github.com/jianxcao/qbittorrent-web",
