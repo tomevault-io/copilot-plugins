@@ -1,0 +1,14 @@
+{
+  "name": "christiananagnostou--skillbox",
+  "displayName": "skillbox",
+  "description": "Local-first, agent-agnostic skills manager.",
+  "version": "1.0.0",
+  "author": "christiananagnostou",
+  "homepage": "https://github.com/christiananagnostou/skillbox",
+  "skills": [
+    {
+      "name": "skillbox",
+      "description": ""
+    }
+  ]
+}
