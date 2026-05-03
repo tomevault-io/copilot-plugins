@@ -4,7 +4,7 @@
   "repo": "data-israel",
   "description": " AI agent network that connects to Israeli open data sources - ask questions in Hebrew, get answers grounded in real data with charts and sources.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LiorVainer/data-israel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T14:07:10Z"
+  "distributed_at": "2026-05-03T01:44:03Z"
 }
