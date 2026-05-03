@@ -1,0 +1,9 @@
+{
+  "name": "harshmandan--svelte-check-native",
+  "displayName": "svelte-check-native",
+  "description": "Blazing fast svelte-check built with Rust",
+  "version": "1.0.0",
+  "author": "harshmandan",
+  "homepage": "https://github.com/harshmandan/svelte-check-native",
+  "skills": []
+}
