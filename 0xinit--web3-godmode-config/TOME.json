@@ -1,0 +1,141 @@
+{
+  "name": "web3-godmode-config",
+  "owner": "0xinit",
+  "repo": "web3-godmode-config",
+  "description": "my personal claude code config of a chad crypto engineer.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arbitrum-dapp-skill",
+      "path": "skills/arbitrum-dapp-skill",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/arbitrum-dapp-skill",
+      "description": ""
+    },
+    {
+      "name": "web3-megaeth",
+      "path": "skills/web3-megaeth",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-megaeth",
+      "description": ""
+    },
+    {
+      "name": "web3-polymarket",
+      "path": "skills/web3-polymarket",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-polymarket",
+      "description": ""
+    },
+    {
+      "name": "rigorous-coding",
+      "path": "skills/rigorous-coding",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/rigorous-coding",
+      "description": ""
+    },
+    {
+      "name": "rust-patterns",
+      "path": "skills/rust-patterns",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/rust-patterns",
+      "description": ""
+    },
+    {
+      "name": "smart-contract-audit",
+      "path": "skills/smart-contract-audit",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/smart-contract-audit",
+      "description": ""
+    },
+    {
+      "name": "solidity-security",
+      "path": "skills/solidity-security",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/solidity-security",
+      "description": ""
+    },
+    {
+      "name": "vercel-react-best-practices",
+      "path": "skills/vercel-react-best-practices",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/vercel-react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "web3-eip-reference",
+      "path": "skills/web3-eip-reference",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-eip-reference",
+      "description": ""
+    },
+    {
+      "name": "web3-foundry",
+      "path": "skills/web3-foundry",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-foundry",
+      "description": ""
+    },
+    {
+      "name": "web3-frontend",
+      "path": "skills/web3-frontend",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-frontend",
+      "description": ""
+    },
+    {
+      "name": "web3-hardhat",
+      "path": "skills/web3-hardhat",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-hardhat",
+      "description": ""
+    },
+    {
+      "name": "web3-monad",
+      "path": "skills/web3-monad",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-monad",
+      "description": ""
+    },
+    {
+      "name": "web3-privy",
+      "path": "skills/web3-privy",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-privy",
+      "description": ""
+    },
+    {
+      "name": "web3-solana-simd",
+      "path": "skills/web3-solana-simd",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-solana-simd",
+      "description": ""
+    },
+    {
+      "name": "web3-solidity-patterns",
+      "path": "skills/web3-solidity-patterns",
+      "github_url": "https://github.com/0xinit/web3-godmode-config/tree/main/skills/web3-solidity-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/0xinit/web3-godmode-config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:30:25Z"
+}
