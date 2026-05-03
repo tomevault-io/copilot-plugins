@@ -1,0 +1,18 @@
+{
+  "name": "sergeknystautas--schmux",
+  "displayName": "schmux",
+  "description": "Smart Cognitive Hub on tmux - orchestrate multiple AI coding agents",
+  "version": "1.0.0",
+  "author": "sergeknystautas",
+  "homepage": "https://github.com/sergeknystautas/schmux",
+  "skills": [
+    {
+      "name": "generate-scenario-tests",
+      "description": ""
+    },
+    {
+      "name": "scenario",
+      "description": ""
+    }
+  ]
+}
