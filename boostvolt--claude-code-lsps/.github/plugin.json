@@ -1,0 +1,9 @@
+{
+  "name": "boostvolt--claude-code-lsps",
+  "displayName": "claude-code-lsps",
+  "description": "LSP plugins for Claude Code \u2014 Bash/Shell, C/C++/Objective-C, C#, Clojure, Dart/Flutter, Elixir, Gleam, Go, Java, Kotlin, Lua, Nix, OCaml, PHP, Python, Ruby, Rust, Swift, Terraform, TypeScript/JavaScri",
+  "version": "1.0.0",
+  "author": "boostvolt",
+  "homepage": "https://github.com/boostvolt/claude-code-lsps",
+  "skills": []
+}
