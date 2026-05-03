@@ -1,0 +1,63 @@
+{
+  "name": "skybridge",
+  "owner": "alpic-ai",
+  "repo": "skybridge",
+  "description": "Skybridge is a Full-Stack TypeScript framework for MCP Apps and ChatGPT Apps. Type-safe. React-powered. Platform-agnostic.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "chatgpt-app-builder",
+      "path": "skills/chatgpt-app-builder",
+      "github_url": "https://github.com/alpic-ai/skybridge/tree/main/skills/chatgpt-app-builder",
+      "description": ""
+    },
+    {
+      "name": "mcp-app-builder",
+      "path": "skills/mcp-app-builder",
+      "github_url": "https://github.com/alpic-ai/skybridge/tree/main/skills/mcp-app-builder",
+      "description": ""
+    },
+    {
+      "name": "skybridge",
+      "path": "skills/skybridge",
+      "github_url": "https://github.com/alpic-ai/skybridge/tree/main/skills/skybridge",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alpic-ai/skybridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T21:31:26Z"
+}
