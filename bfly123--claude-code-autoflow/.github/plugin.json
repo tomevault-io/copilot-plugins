@@ -1,0 +1,74 @@
+{
+  "name": "bfly123--claude-code-autoflow",
+  "displayName": "claude_code",
+  "description": "AI instruction skills by bfly123",
+  "version": "1.0.0",
+  "author": "bfly123",
+  "homepage": "https://github.com/bfly123/claude_code_autoflow",
+  "skills": [
+    {
+      "name": "all-plan",
+      "description": ""
+    },
+    {
+      "name": "all-plan",
+      "description": ""
+    },
+    {
+      "name": "all-plan",
+      "description": ""
+    },
+    {
+      "name": "ask",
+      "description": ""
+    },
+    {
+      "name": "ask",
+      "description": ""
+    },
+    {
+      "name": "ask",
+      "description": ""
+    },
+    {
+      "name": "cping",
+      "description": ""
+    },
+    {
+      "name": "pend",
+      "description": ""
+    },
+    {
+      "name": "ping",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "tp",
+      "description": ""
+    },
+    {
+      "name": "ask-codex",
+      "description": ""
+    },
+    {
+      "name": "tp",
+      "description": ""
+    },
+    {
+      "name": "dual-design",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "roles",
+      "description": ""
+    }
+  ]
+}
