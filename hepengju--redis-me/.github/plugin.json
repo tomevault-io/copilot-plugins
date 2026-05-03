@@ -1,0 +1,9 @@
+{
+  "name": "hepengju--redis-me",
+  "displayName": "redis-me",
+  "description": "Redis Desktop Manager based on Tauri",
+  "version": "1.0.0",
+  "author": "hepengju",
+  "homepage": "https://github.com/hepengju/redis-me",
+  "skills": []
+}
