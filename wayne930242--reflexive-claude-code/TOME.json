@@ -1,0 +1,105 @@
+{
+  "name": "Reflexive-Claude-Code",
+  "owner": "wayne930242",
+  "repo": "Reflexive-Claude-Code",
+  "description": "A skills-driven Agentic Context Engineering / Harness Engineering workflow for Claude Code.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "creating-plugins",
+      "path": "plugins/rcc/skills/creating-plugins",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/creating-plugins",
+      "description": ""
+    },
+    {
+      "name": "improving-skills",
+      "path": "plugins/rcc/skills/improving-skills",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/improving-skills",
+      "description": ""
+    },
+    {
+      "name": "initializing-projects",
+      "path": "plugins/rcc/skills/initializing-projects",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/initializing-projects",
+      "description": ""
+    },
+    {
+      "name": "migrating-agent-systems",
+      "path": "plugins/rcc/skills/migrating-agent-systems",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/migrating-agent-systems",
+      "description": ""
+    },
+    {
+      "name": "refactoring-skills",
+      "path": "plugins/rcc/skills/refactoring-skills",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/refactoring-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-claude-md",
+      "path": "plugins/rcc/skills/writing-claude-md",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/writing-claude-md",
+      "description": ""
+    },
+    {
+      "name": "writing-hooks",
+      "path": "plugins/rcc/skills/writing-hooks",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/writing-hooks",
+      "description": ""
+    },
+    {
+      "name": "writing-rules",
+      "path": "plugins/rcc/skills/writing-rules",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/writing-rules",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "plugins/rcc/skills/writing-skills",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/writing-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-subagents",
+      "path": "plugins/rcc/skills/writing-subagents",
+      "github_url": "https://github.com/wayne930242/Reflexive-Claude-Code/tree/main/plugins/rcc/skills/writing-subagents",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wayne930242/Reflexive-Claude-Code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T00:43:55Z"
+}
