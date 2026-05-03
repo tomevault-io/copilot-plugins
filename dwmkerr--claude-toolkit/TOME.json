@@ -1,0 +1,135 @@
+{
+  "name": "claude",
+  "owner": "dwmkerr",
+  "repo": "claude-toolkit",
+  "description": "Claude Code plugins toolkit for various engineering tasks.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-development",
+      "path": "plugins/toolkit/skills/agent-development",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/agent-development",
+      "description": ""
+    },
+    {
+      "name": "anthropic-evaluations",
+      "path": "plugins/toolkit/skills/anthropic-evaluations",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/anthropic-evaluations",
+      "description": ""
+    },
+    {
+      "name": "claude-code-hook-development",
+      "path": "plugins/toolkit/skills/claude-code-hook-development",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/claude-code-hook-development",
+      "description": ""
+    },
+    {
+      "name": "claude-code-plugin-development",
+      "path": "plugins/toolkit/skills/claude-code-plugin-development",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/claude-code-plugin-development",
+      "description": ""
+    },
+    {
+      "name": "claude-code-slash-commands",
+      "path": "plugins/toolkit/skills/claude-code-slash-commands",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/claude-code-slash-commands",
+      "description": ""
+    },
+    {
+      "name": "claude-code-statusline-development",
+      "path": "plugins/toolkit/skills/claude-code-statusline-development",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/claude-code-statusline-development",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "path": "plugins/dwmkerr/skills/project-setup",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/dwmkerr/skills/project-setup",
+      "description": ""
+    },
+    {
+      "name": "release-please-development",
+      "path": "plugins/toolkit/skills/release-please-development",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/release-please-development",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "plugins/toolkit/skills/research",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/research",
+      "description": ""
+    },
+    {
+      "name": "shell-script-development",
+      "path": "plugins/toolkit/skills/shell-script-development",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/shell-script-development",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "path": "plugins/toolkit/skills/skill-development",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/plugins/toolkit/skills/skill-development",
+      "description": ""
+    },
+    {
+      "name": "ark-dashboard-test",
+      "path": "examples/ark/plugin/skills/ark-dashboard-test",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/examples/ark/plugin/skills/ark-dashboard-test",
+      "description": ""
+    },
+    {
+      "name": "ark-devspace",
+      "path": "examples/ark/plugin/skills/ark-devspace",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/examples/ark/plugin/skills/ark-devspace",
+      "description": ""
+    },
+    {
+      "name": "github-attach-images",
+      "path": "examples/ark/plugin/skills/github-attach-images",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/examples/ark/plugin/skills/github-attach-images",
+      "description": ""
+    },
+    {
+      "name": "kind-setup",
+      "path": "examples/ark/plugin/skills/kind-setup",
+      "github_url": "https://github.com/dwmkerr/claude-toolkit/tree/main/examples/ark/plugin/skills/kind-setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dwmkerr/claude-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T18:56:38Z"
+}
