@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## yet-another-opencode-cursor-auth
 
 > Use Bun instead of Node.js, npm, pnpm, or vite.
 
