@@ -1,0 +1,9 @@
+{
+  "name": "djarvur--go-enumsafety",
+  "displayName": "go-enumsafety",
+  "description": "Linter to provide almost real enums experience in Golang",
+  "version": "1.0.0",
+  "author": "Djarvur",
+  "homepage": "https://github.com/Djarvur/go-enumsafety",
+  "skills": []
+}
