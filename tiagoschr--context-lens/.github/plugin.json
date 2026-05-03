@@ -1,0 +1,9 @@
+{
+  "name": "tiagoschr--context-lens",
+  "displayName": "context-lens",
+  "description": "CLI local que indexa projetos e monta contexto otimizado para Claude Code, Copilot e outros assistentes de IA \u2014 economia de 75-98% de tokens",
+  "version": "1.0.0",
+  "author": "TiagoSchr",
+  "homepage": "https://github.com/TiagoSchr/context-lens",
+  "skills": []
+}
