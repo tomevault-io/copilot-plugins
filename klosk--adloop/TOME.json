@@ -1,0 +1,44 @@
+{
+  "name": "adloop",
+  "owner": "kLOsk",
+  "repo": "adloop",
+  "description": "An MCP server that gives your AI assistant read + write access to Google Ads and GA4 \u2014 with safety guardrails that prevent accidental spend.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kLOsk/adloop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T16:01:55Z"
+}
