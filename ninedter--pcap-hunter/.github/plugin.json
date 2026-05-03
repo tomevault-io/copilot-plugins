@@ -1,0 +1,9 @@
+{
+  "name": "ninedter--pcap-hunter",
+  "displayName": "pcap-hunter",
+  "description": "PCAP Hunter is an AI threat hunting workbench. It uses Zeek and Tshark to analyze PCAPs, enriched by OSINT. Features include a world map, JA3 forensics, and C2 detection. It generates multi-language s",
+  "version": "1.0.0",
+  "author": "ninedter",
+  "homepage": "https://github.com/ninedter/pcap-hunter",
+  "skills": []
+}
