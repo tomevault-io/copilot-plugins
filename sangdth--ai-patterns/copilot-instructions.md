@@ -1,35 +1,107 @@
-## bad-practices
+## context7
 
-> - Single-use wrapper / Trivial wrapper
+> Get reliable snippets from official sources
 
+# Context7 Code Examples Guide
 
-# Bad practices to avoid at all costs
+Context7 queries technical documentation to find current code examples and
+best practices.
 
-## Premature Abstraction (or Over-abstraction)
+## Two-Step Process
 
-Also called:
+1. **Find Library ID**: Use `resolve-library-id` to get the unique identifier
+2. **Get Documentation**: Use `get-library-docs` to fetch examples
 
-- Single-use wrapper / Trivial wrapper
-- Unnecessary indirection
-- YAGNI violation ("You Aren't Gonna Need It")
+## Tools
 
-## Object Destructuring and Reconstruction (or Pointless Spread)
+### `resolve-library-id`
 
-Also called:
+Converts common library names to Context7 IDs.
 
-- Redundant mapping
-- Identity transformation
-- No-op reshaping
-- Useless object reconstruction
+- **Input**: Library name (e.g., "express", "react")
+- **Output**: List of matching libraries with their Context7 IDs
+- **Use**: Required before fetching documentation
 
-It's a form of unnecessary indirection where you're manually copying all properties when you could just return the object directly.
+### `get-library-docs`
 
-The reconstruction is only needed when:
+Retrieves documentation and code examples.
 
-- You're omitting certain properties
-- You're transforming values
-- You're renaming keys
-- You're adding new properties
+- **Required**: `context7CompatibleLibraryID` (from resolve tool)
+- **Optional**: `topic` (narrows results to specific features)
+
+## Example: Express Hello World
+
+### Step 1: Get Library ID
+
+```txt
+resolve-library-id
+Input: "express"
+Output: /expressjs/express
+```
+
+### Step 2: Fetch Documentation
+
+```txt
+get-library-docs
+Input:
+  - context7CompatibleLibraryID: "/expressjs/express"
+  - topic: "hello world"
+```
+
+**Result**: Returns official Express.js documentation with working code:
+
+```javascript
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.listen(port, () => {
+  console.info(`Example app listening on port ${port}`);
+});
+```
+
+## Best Practices
+
+- Use official library names ("react", not "react.js")
+- Use specific topics ("middleware", "routing", "authentication")
+- Refine topic searches if results aren't targeted enough
+- Repeat process for multiple libraries as needed
+
+## Coordination with DeepWiki
+
+### When to Use Context7 vs DeepWiki
+
+**Use Context7 when:**
+
+- You need specific code examples from libraries
+- You're implementing with a known library/framework
+- You need official documentation snippets
+- You're looking for implementation patterns
+
+**Use DeepWiki when:**
+
+- You need general research on a topic/concept
+- You're exploring new technologies or approaches
+- You need AI-grounded answers and clarifications
+- You're doing broad research before narrowing down
+
+### Integrated Research Workflow
+
+1. **DeepWiki Phase**: Use `@deepwiki.mdc` for general research and topic
+   exploration
+2. **Context7 Phase**: Use `@context7.mdc` for specific library documentation
+   and code examples
+3. **Implementation**: Combine insights from both research phases
+
+### Avoiding Redundancy
+
+- Use DeepWiki first for broad understanding
+- Use Context7 for specific implementation details
+- Don't duplicate research phases - coordinate them
 
 ---
 > Source: [sangdth/ai-patterns](https://github.com/sangdth/ai-patterns) — distributed by [TomeVault](https://tomevault.io).
