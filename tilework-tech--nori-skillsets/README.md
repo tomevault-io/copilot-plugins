@@ -7,11 +7,11 @@ System for managing collections of agent skills. Switch between skillsets seamle
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tilework-tech/nori-skillsets](https://github.com/tilework-tech/nori-skillsets).
+Original source: `CLAUDE.md` in [tilework-tech/nori-skillsets](https://github.com/tilework-tech/nori-skillsets).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
