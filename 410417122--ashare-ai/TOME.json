@@ -1,0 +1,51 @@
+{
+  "name": "ashare-ai",
+  "owner": "410417122",
+  "repo": "ashare-ai",
+  "description": " A\u80a1\u91cf\u5316\u4ea4\u6613 Claude Code Skill - \u4f7f\u7528 Tushare Pro \u83b7\u53d6\u6570\u636e\uff0cBacktrader \u8fdb\u884c\u56de\u6d4b",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ashare",
+      "path": "ashare-plugin/skills/ashare",
+      "github_url": "https://github.com/410417122/ashare-ai/tree/main/ashare-plugin/skills/ashare",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/410417122/ashare-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T15:40:16Z"
+}
