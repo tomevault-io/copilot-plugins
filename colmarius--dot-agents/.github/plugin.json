@@ -1,0 +1,22 @@
+{
+  "name": "colmarius--dot-agents",
+  "displayName": "dot-agents",
+  "description": "AI-ready workspace for any project",
+  "version": "1.0.0",
+  "author": "colmarius",
+  "homepage": "https://github.com/colmarius/dot-agents",
+  "skills": [
+    {
+      "name": "adapt",
+      "description": ""
+    },
+    {
+      "name": "ralph",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    }
+  ]
+}
