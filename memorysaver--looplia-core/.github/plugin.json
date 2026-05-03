@@ -1,0 +1,62 @@
+{
+  "name": "memorysaver--looplia-core",
+  "displayName": "looplia-core",
+  "description": "Universal agentic workflow CLI \u2014 compose AI agents and skills for any task.",
+  "version": "1.0.0",
+  "author": "memorysaver",
+  "homepage": "https://github.com/memorysaver/looplia-core",
+  "skills": [
+    {
+      "name": "content-documenter",
+      "description": ""
+    },
+    {
+      "name": "content-documenter",
+      "description": ""
+    },
+    {
+      "name": "idea-synthesis",
+      "description": ""
+    },
+    {
+      "name": "looplia-e2e",
+      "description": ""
+    },
+    {
+      "name": "media-reviewer",
+      "description": ""
+    },
+    {
+      "name": "media-reviewer",
+      "description": ""
+    },
+    {
+      "name": "registry-loader",
+      "description": ""
+    },
+    {
+      "name": "skill-capability-matcher",
+      "description": ""
+    },
+    {
+      "name": "version-bump",
+      "description": ""
+    },
+    {
+      "name": "workflow-executor",
+      "description": ""
+    },
+    {
+      "name": "workflow-schema-composer",
+      "description": ""
+    },
+    {
+      "name": "workflow-validator",
+      "description": ""
+    },
+    {
+      "name": "writing-kit-assembler",
+      "description": ""
+    }
+  ]
+}
