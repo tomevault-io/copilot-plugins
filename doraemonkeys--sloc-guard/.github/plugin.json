@@ -1,0 +1,22 @@
+{
+  "name": "doraemonkeys--sloc-guard",
+  "displayName": "sloc-guard",
+  "description": "\ud83d\udee1\ufe0f High-performance Rust CLI that enforces SLOC limits and directory structure rules to prevent code bloat \u2014 unlike counters, sloc-guard enforces them",
+  "version": "1.0.0",
+  "author": "doraemonkeys",
+  "homepage": "https://github.com/doraemonkeys/sloc-guard",
+  "skills": [
+    {
+      "name": "docs-maintenance",
+      "description": ""
+    },
+    {
+      "name": "task-implementation",
+      "description": ""
+    },
+    {
+      "name": "task-implementation",
+      "description": ""
+    }
+  ]
+}
