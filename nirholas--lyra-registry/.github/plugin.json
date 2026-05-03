@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--lyra-registry",
+  "displayName": "lyra-registry",
+  "description": "Lyra Registry is a standalone API + MCP service that catalogs, scores, and serves metadata for all tools in the Lyra ecosystem. It enables discovery, evaluation, and integration of 800+ crypto, blockc",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/lyra-registry",
+  "skills": []
+}
