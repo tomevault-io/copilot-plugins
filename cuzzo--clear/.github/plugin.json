@@ -1,0 +1,9 @@
+{
+  "name": "cuzzo--clear",
+  "displayName": "clear",
+  "description": "A Memory Safe Language with a Declarative Concurrency Model",
+  "version": "1.0.0",
+  "author": "cuzzo",
+  "homepage": "https://github.com/cuzzo/clear",
+  "skills": []
+}
