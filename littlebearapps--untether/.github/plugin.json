@@ -1,0 +1,9 @@
+{
+  "name": "littlebearapps--untether",
+  "displayName": "untether",
+  "description": "Code from anywhere \u2014 Telegram bridge for AI coding agents (Claude Code, Codex, OpenCode, Pi, Gemini CLI, Amp). Stream progress, approve actions, and send tasks by voice from your phone.",
+  "version": "1.0.0",
+  "author": "littlebearapps",
+  "homepage": "https://github.com/littlebearapps/untether",
+  "skills": []
+}
