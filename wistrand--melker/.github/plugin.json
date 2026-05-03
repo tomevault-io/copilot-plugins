@@ -1,0 +1,14 @@
+{
+  "name": "wistrand--melker",
+  "displayName": "melker",
+  "description": "melker",
+  "version": "1.0.0",
+  "author": "wistrand",
+  "homepage": "https://github.com/wistrand/melker",
+  "skills": [
+    {
+      "name": "creating-melker-apps",
+      "description": ""
+    }
+  ]
+}
