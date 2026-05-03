@@ -1,0 +1,9 @@
+{
+  "name": "huytieu--cog-second-brain",
+  "displayName": "COG-second-brain",
+  "description": "Self-evolving second brain with 17 AI skills, 6 worker agents, and people CRM \u2014 inspired by Garry Tan's gstack and gbrain. Works with Claude Code, Cursor, Kiro, Gemini CLI, Codex.",
+  "version": "1.0.0",
+  "author": "huytieu",
+  "homepage": "https://github.com/huytieu/COG-second-brain",
+  "skills": []
+}
