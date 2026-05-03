@@ -1,0 +1,22 @@
+{
+  "name": "jmanhype--speckit",
+  "displayName": "speckit",
+  "description": "Specification-Driven Development with Beads Integration - A comprehensive workflow system for AI-assisted software development",
+  "version": "1.0.0",
+  "author": "jmanhype",
+  "homepage": "https://github.com/jmanhype/speckit",
+  "skills": [
+    {
+      "name": "project-standards",
+      "description": ""
+    },
+    {
+      "name": "spec-kit-workflow",
+      "description": ""
+    },
+    {
+      "name": "spec-validation",
+      "description": ""
+    }
+  ]
+}
