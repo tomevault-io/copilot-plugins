@@ -1,0 +1,9 @@
+{
+  "name": "jodusnodus--opencode-chrome-annotation",
+  "displayName": "opencode-chrome-annotation",
+  "description": "Annotate any page in Chrome and send the screenshot, selected element metadata, and your instruction directly into OpenCode.",
+  "version": "1.0.0",
+  "author": "JodusNodus",
+  "homepage": "https://github.com/JodusNodus/opencode-chrome-annotation",
+  "skills": []
+}
