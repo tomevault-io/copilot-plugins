@@ -1,230 +1,230 @@
-## bmw-wallbox-ha
+## add-command
 
-> Debugging and troubleshooting guide for the BMW Wallbox integration
+> Rules for adding outgoing OCPP commands in coordinator
 
 
-# Rules: Debugging Issues
+# Rules: Adding an Outgoing OCPP Command
 
 ## Documentation References
 
-**MANDATORY - Read these files when debugging:**
+**MANDATORY - Read these files BEFORE making changes:**
 
-1. `custom_components/bmw_wallbox/docs/TROUBLESHOOTING.md` - Complete troubleshooting guide, common issues, solutions
-2. `custom_components/bmw_wallbox/docs/PATTERNS.md` - Anti-patterns to avoid, decision trees for debugging
-3. `custom_components/bmw_wallbox/docs/COORDINATOR.md` - Coordinator state, data flow, command patterns
-4. `custom_components/bmw_wallbox/docs/DATA_SCHEMAS.md` - Expected data types and field values
-5. `custom_components/bmw_wallbox/docs/ARCHITECTURE.md` - Component relationships, message flow diagrams
+1. `custom_components/bmw_wallbox/docs/COORDINATOR.md` - Full coordinator API, existing methods, EVCC-style control
+2. `custom_components/bmw_wallbox/docs/OCPP_HANDLERS.md` - OCPP protocol details, message types
+3. `custom_components/bmw_wallbox/docs/PATTERNS.md` - Decision trees, command patterns, anti-patterns
+4. `custom_components/bmw_wallbox/docs/CONTEXT.md` - Critical rules (especially EVCC-style pause/resume)
+5. `custom_components/bmw_wallbox/docs/TROUBLESHOOTING.md` - Common command failures and solutions
 
-**For connection/OCPP issues:**
-- `custom_components/bmw_wallbox/docs/OCPP_HANDLERS.md` - Message handler debugging
+**CRITICAL:** Understand the EVCC-style control pattern before adding charging-related commands!
 
-## Enable Debug Logging
+## Files to Modify
 
-Add to `configuration.yaml`:
+1. `custom_components/bmw_wallbox/coordinator.py` - `BMWWallboxCoordinator` class
 
-```yaml
-logger:
-  default: info
-  logs:
-    custom_components.bmw_wallbox: debug
-    ocpp: debug
-    websockets: debug
-```
+## Command Pattern with Full Error Handling
 
-Restart Home Assistant, then check logs in:
-- UI: Settings → System → Logs
-- Docker: `docker logs homeassistant -f | grep bmw_wallbox`
-
----
-
-## Common Issues Quick Reference
-
-### Entity Not Appearing
-
-**Check:**
-1. Entity registered in `async_setup_entry()`?
-2. Has unique_id?
-3. Platform in `PLATFORMS` list in `__init__.py`?
-4. Check logs for initialization errors
-
-**Fix:**
 ```python
-# In sensor.py (or other platform file)
-async_add_entities([
-    # ... existing ...
-    BMWWallboxNewSensor(coordinator, entry),  # Add here
-])
+# coordinator.py - in BMWWallboxCoordinator class
+
+async def async_new_command(self, param: int) -> dict:
+    """Send new command to wallbox.
+
+    Args:
+        param: Command parameter
+
+    Returns:
+        dict with keys: success (bool), message (str), action (str)
+    """
+    result = {
+        "success": False,
+        "message": "",
+        "action": "failed",
+    }
+
+    # ALWAYS check connection
+    if not self.charge_point:
+        result["message"] = "Wallbox not connected"
+        _LOGGER.error("Cannot execute: no wallbox connected")
+        return result
+
+    # Check transaction if required for this command
+    if not self.current_transaction_id:
+        result["message"] = "No active charging session"
+        _LOGGER.error("Cannot execute: no transaction")
+        return result
+
+    _LOGGER.info("Sending NewCommand with param=%s", param)
+
+    try:
+        # ALWAYS use timeout (15 seconds)
+        response = await asyncio.wait_for(
+            self.charge_point.call(
+                call.NewCommand(
+                    param=param,
+                )
+            ),
+            timeout=15.0
+        )
+
+        _LOGGER.debug("NewCommand response: %s", response.status)
+
+        if response.status == "Accepted":
+            result["success"] = True
+            result["message"] = "Command accepted"
+            result["action"] = "completed"
+        else:
+            result["message"] = f"Rejected: {response.status}"
+            result["action"] = "rejected"
+
+        return result
+
+    except asyncio.TimeoutError:
+        result["message"] = "Command timed out - wallbox not responding"
+        _LOGGER.error("NewCommand timed out!")
+        return result
+    except Exception as err:
+        result["message"] = f"Error: {str(err)}"
+        _LOGGER.error("NewCommand failed: %s", err)
+        return result
 ```
 
----
+## Common OCPP Commands
 
-### Coordinator Data Not Updating
+### SetChargingProfile (Control Current)
 
-**Check:**
-1. `async_set_updated_data()` called after data changes?
-2. Entity reading from `coordinator.data.get()`?
-3. OCPP messages being received?
-
-**Fix:**
 ```python
-# In OCPP handler
-self.coordinator.data["field"] = new_value
-self.coordinator.async_set_updated_data(self.coordinator.data)  # Required!
-```
+from ocpp.v201.datatypes import (
+    ChargingProfileType,
+    ChargingScheduleType,
+    ChargingSchedulePeriodType,
+)
+from ocpp.v201.enums import (
+    ChargingProfileKindEnumType,
+    ChargingProfilePurposeEnumType,
+    ChargingRateUnitEnumType,
+)
 
----
+# Create schedule
+schedule = ChargingScheduleType(
+    id=1,
+    start_schedule=datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+    charging_rate_unit=ChargingRateUnitEnumType.amps,
+    charging_schedule_period=[
+        ChargingSchedulePeriodType(start_period=0, limit=32.0)
+    ],
+)
 
-### OCPP Command Rejected
+# Create profile - REQUIRES transaction_id
+profile = ChargingProfileType(
+    id=999,
+    stack_level=1,
+    charging_profile_purpose=ChargingProfilePurposeEnumType.tx_profile,
+    charging_profile_kind=ChargingProfileKindEnumType.absolute,
+    charging_schedule=[schedule],
+    transaction_id=self.current_transaction_id,  # REQUIRED!
+)
 
-**Check:**
-1. Transaction active? (for SetChargingProfile)
-2. Correct EVSE ID? (usually 1)
-3. Valid parameter values?
-4. Wallbox in correct state?
-
-**Fix:**
-```python
-# Before sending SetChargingProfile
-if not self.current_transaction_id:
-    _LOGGER.error("No transaction - cannot set profile!")
-    return False
-```
-
----
-
-### SSL/Connection Failed
-
-**Check:**
-1. Certificate files exist and readable?
-2. Port accessible from wallbox?
-3. Correct OCPP URL on wallbox?
-4. Firewall not blocking?
-
-**Verify paths:**
-```python
-# Check in Home Assistant container
-ls -l /ssl/fullchain.pem
-ls -l /ssl/privkey.pem
-```
-
-**Correct URL format:**
-```
-wss://homeassistant-ip:9000/CHARGE_POINT_ID
-```
-
----
-
-### Stuck Transaction
-
-**Recovery:**
-```python
-# Option 1: Reset wallbox
-await coordinator.async_reset_wallbox()
-# Wait ~60 seconds for reboot
-
-# Option 2: Unplug cable, wait 10s, replug
-```
-
----
-
-### Command Timeout
-
-**Check:**
-1. Wallbox powered on and connected?
-2. Network connectivity?
-3. Check heartbeat in logs?
-
-**Increase timeout if needed:**
-```python
-# Default is 15 seconds
 response = await asyncio.wait_for(
-    self.charge_point.call(...),
-    timeout=30.0  # Increase if needed
+    self.charge_point.call(
+        call.SetChargingProfile(evse_id=1, charging_profile=profile)
+    ),
+    timeout=15.0
 )
 ```
 
----
-
-## Debugging Techniques
-
-### Print Coordinator Data
+### RequestStartTransaction
 
 ```python
-import json
-_LOGGER.debug("Coordinator data: %s", json.dumps(self.coordinator.data, default=str))
+from ocpp.v201.datatypes import IdTokenType
+from ocpp.v201.enums import IdTokenEnumType
+
+id_token = IdTokenType(
+    id_token=self.config.get("rfid_token", "04a125f2fc1194"),
+    type=IdTokenEnumType.local,
+)
+
+response = await asyncio.wait_for(
+    self.charge_point.call(
+        call.RequestStartTransaction(
+            id_token=id_token,
+            remote_start_id=int(datetime.utcnow().timestamp()),
+            evse_id=1,
+        )
+    ),
+    timeout=15.0
+)
 ```
 
-### Check OCPP Message Flow
-
-Enable ocpp debug logging to see all messages:
-
-```yaml
-logger:
-  logs:
-    ocpp: debug
-```
-
-### Verify Entity Registration
+### SetVariables (Configure Settings)
 
 ```python
-# In __init__.py after setup
-_LOGGER.info("Entities: %s", [e.entity_id for e in hass.states.async_all()])
+from ocpp.v201.datatypes import (
+    SetVariableDataType,
+    ComponentType,
+    VariableType,
+)
+from ocpp.v201.enums import AttributeEnumType
+
+set_var = SetVariableDataType(
+    attribute_type=AttributeEnumType.actual,
+    attribute_value=str(value),  # Always string
+    component=ComponentType(name="ChargingStation"),
+    variable=VariableType(name="StatusLedBrightness"),
+)
+
+response = await asyncio.wait_for(
+    self.charge_point.call(
+        call.SetVariables(set_variable_data=[set_var])
+    ),
+    timeout=15.0
+)
 ```
 
-### Test OCPP Command Manually
+### Reset (Reboot Wallbox)
 
 ```python
-# Create test script
-import asyncio
-from ocpp.v201 import call
+from ocpp.v201.enums import ResetEnumType
 
-async def test():
-    response = await charge_point.call(call.SomeCommand(...))
-    print(f"Response: {response}")
-
-asyncio.run(test())
+response = await asyncio.wait_for(
+    self.charge_point.call(
+        call.Reset(type=ResetEnumType.immediate)
+    ),
+    timeout=15.0
+)
 ```
 
----
+## Critical Rules for Commands
 
-## Error Messages Reference
+1. **ALWAYS use timeout** - `asyncio.wait_for(..., timeout=15.0)`
+2. **Check self.charge_point exists** - Wallbox may be disconnected
+3. **Check transaction if required** - SetChargingProfile needs transaction_id
+4. **Return dict with success/message** - For user feedback
+5. **Handle all exceptions** - TimeoutError and general Exception
+6. **Log command execution** - Use _LOGGER.info() and _LOGGER.error()
 
-| Error | Meaning | Solution |
-|-------|---------|----------|
-| "Wallbox not connected" | `charge_point` is None | Check network, wait for connection |
-| "No active charging session" | `transaction_id` is None | Start new transaction |
-| "Failed to start OCPP server" | Server won't bind | Check port, certificates |
-| "SetChargingProfile rejected" | Wallbox rejected command | Check transaction exists, valid limits |
-| "Command timed out" | No response in 15s | Check wallbox responding, network |
+## Transaction Required Commands
 
----
+These commands REQUIRE an active transaction:
+- SetChargingProfile (with tx_profile purpose)
 
-## Quick Diagnostic Checklist
+Check before sending:
+```python
+if not self.current_transaction_id:
+    return {"success": False, "message": "No active transaction"}
+```
 
-Run through this checklist:
+## Checklist
 
-- [ ] Debug logging enabled?
-- [ ] SSL certificates exist and readable?
-- [ ] Port accessible from wallbox?
-- [ ] Wallbox configured with correct OCPP URL?
-- [ ] WebSocket connection established? (check heartbeats in log)
-- [ ] Transaction active? (for SetChargingProfile)
-- [ ] Entity registered in `async_setup_entry()`?
-- [ ] Entity has unique_id?
-- [ ] `async_set_updated_data()` called after data changes?
-- [ ] Entity reading from `coordinator.data`?
-
----
-
-## Getting More Help
-
-1. **Check logs** - Most issues visible with debug logging
-2. **Review documentation** - See `docs/TROUBLESHOOTING.md` for detailed solutions
-3. **Check patterns** - See `docs/PATTERNS.md` for anti-patterns to avoid
-4. **Verify OCPP messages** - Enable ocpp debug logging
-5. **Test coordinator methods** - Use Python REPL or test script
+- [ ] Method added to `BMWWallboxCoordinator` class
+- [ ] Returns dict with `success`, `message`, `action` keys
+- [ ] Checks `self.charge_point` exists
+- [ ] Checks `self.current_transaction_id` if required
+- [ ] Uses `asyncio.wait_for()` with 15 second timeout
+- [ ] Handles `asyncio.TimeoutError` exception
+- [ ] Handles general `Exception`
+- [ ] Logs command execution and errors
+- [ ] Tested with actual wallbox
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/JoaoPedroBelo)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/JoaoPedroBelo)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [JoaoPedroBelo/bmw-wallbox-ha](https://github.com/JoaoPedroBelo/bmw-wallbox-ha) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-25 -->
