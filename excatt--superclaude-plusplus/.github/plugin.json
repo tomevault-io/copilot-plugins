@@ -1,0 +1,66 @@
+{
+  "name": "excatt--superclaude-plusplus",
+  "displayName": "superclaude-plusplus",
+  "description": "Extended Claude Code framework based on SuperClaude.",
+  "version": "1.0.0",
+  "author": "excatt",
+  "homepage": "https://github.com/excatt/superclaude-plusplus",
+  "skills": [
+    {
+      "name": "audit",
+      "description": ""
+    },
+    {
+      "name": "build-fix",
+      "description": ""
+    },
+    {
+      "name": "checkpoint",
+      "description": ""
+    },
+    {
+      "name": "composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "confidence-check",
+      "description": ""
+    },
+    {
+      "name": "eval-harness",
+      "description": ""
+    },
+    {
+      "name": "gap-analysis",
+      "description": ""
+    },
+    {
+      "name": "learn",
+      "description": ""
+    },
+    {
+      "name": "pytest-runner",
+      "description": ""
+    },
+    {
+      "name": "python-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "verify",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    }
+  ]
+}
