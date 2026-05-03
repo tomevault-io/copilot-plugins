@@ -1,0 +1,9 @@
+{
+  "name": "maxwell2732--paper-replicate-agent-demo",
+  "displayName": "paper-replicate-agent-demo",
+  "description": "A structured Claude Code workflow for empirically replicating published research using UK Biobank (UKB) data, created by Chen Zhu \u6731\u6668 | \u9057\u4f20\u793e\u79d1\u7814\u7a76.",
+  "version": "1.0.0",
+  "author": "maxwell2732",
+  "homepage": "https://github.com/maxwell2732/paper-replicate-agent-demo",
+  "skills": []
+}
