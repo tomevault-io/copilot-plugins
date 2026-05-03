@@ -1,0 +1,111 @@
+{
+  "name": "potato-cannon",
+  "owner": "crathgeb",
+  "repo": "potato-cannon",
+  "description": "potato-cannon - multi-agent software engineering daemon",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "persuasive-agents",
+      "path": ".claude/skills/persuasive-agents",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/.claude/skills/persuasive-agents",
+      "description": ""
+    },
+    {
+      "name": "add-comment-to-task",
+      "path": "apps/daemon/templates/marketplace/plugins/potato/skills/add-comment-to-task",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/apps/daemon/templates/marketplace/plugins/potato/skills/add-comment-to-task",
+      "description": ""
+    },
+    {
+      "name": "ask-question",
+      "path": "apps/daemon/templates/marketplace/plugins/potato/skills/ask-question",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/apps/daemon/templates/marketplace/plugins/potato/skills/ask-question",
+      "description": ""
+    },
+    {
+      "name": "branding-components",
+      "path": ".claude/skills/branding-components",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/.claude/skills/branding-components",
+      "description": ""
+    },
+    {
+      "name": "create-artifacts",
+      "path": "apps/daemon/templates/marketplace/plugins/potato/skills/create-artifacts",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/apps/daemon/templates/marketplace/plugins/potato/skills/create-artifacts",
+      "description": ""
+    },
+    {
+      "name": "create-task",
+      "path": "apps/daemon/templates/marketplace/plugins/potato/skills/create-task",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/apps/daemon/templates/marketplace/plugins/potato/skills/create-task",
+      "description": ""
+    },
+    {
+      "name": "create-ticket",
+      "path": "apps/daemon/templates/marketplace/plugins/potato/skills/create-ticket",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/apps/daemon/templates/marketplace/plugins/potato/skills/create-ticket",
+      "description": ""
+    },
+    {
+      "name": "creating-modals",
+      "path": ".claude/skills/creating-modals",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/.claude/skills/creating-modals",
+      "description": ""
+    },
+    {
+      "name": "get-task",
+      "path": "apps/daemon/templates/marketplace/plugins/potato/skills/get-task",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/apps/daemon/templates/marketplace/plugins/potato/skills/get-task",
+      "description": ""
+    },
+    {
+      "name": "read-artifacts",
+      "path": "apps/daemon/templates/marketplace/plugins/potato/skills/read-artifacts",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/apps/daemon/templates/marketplace/plugins/potato/skills/read-artifacts",
+      "description": ""
+    },
+    {
+      "name": "update-task-status",
+      "path": "apps/daemon/templates/marketplace/plugins/potato/skills/update-task-status",
+      "github_url": "https://github.com/crathgeb/potato-cannon/tree/main/apps/daemon/templates/marketplace/plugins/potato/skills/update-task-status",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/crathgeb/potato-cannon",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T12:33:06Z"
+}
