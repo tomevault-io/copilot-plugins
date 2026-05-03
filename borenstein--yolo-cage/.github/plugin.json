@@ -1,0 +1,9 @@
+{
+  "name": "borenstein--yolo-cage",
+  "displayName": "yolo-cage",
+  "description": "AI coding agents that can't exfiltrate secrets or merge their own PRs.",
+  "version": "1.0.0",
+  "author": "borenstein",
+  "homepage": "https://github.com/borenstein/yolo-cage",
+  "skills": []
+}
