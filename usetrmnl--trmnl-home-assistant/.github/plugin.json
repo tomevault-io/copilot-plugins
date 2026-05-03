@@ -1,0 +1,9 @@
+{
+  "name": "usetrmnl--trmnl-home-assistant",
+  "displayName": "trmnl-home-assistant",
+  "description": "Add-ons and plugins for Home Assistant designed for TRMNL e-ink displays.",
+  "version": "1.0.0",
+  "author": "usetrmnl",
+  "homepage": "https://github.com/usetrmnl/trmnl-home-assistant",
+  "skills": []
+}
