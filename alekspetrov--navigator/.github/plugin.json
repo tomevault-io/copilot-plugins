@@ -1,0 +1,86 @@
+{
+  "name": "alekspetrov--navigator",
+  "displayName": "navigator",
+  "description": "Finish What You Start \u2014 Context engineering for Claude Code.         Sessions last 20+ exchanges instead of crashing at 7.",
+  "version": "1.0.0",
+  "author": "alekspetrov",
+  "homepage": "https://github.com/alekspetrov/navigator",
+  "skills": [
+    {
+      "name": "backend-endpoint",
+      "description": ""
+    },
+    {
+      "name": "backend-test",
+      "description": ""
+    },
+    {
+      "name": "frontend-component",
+      "description": ""
+    },
+    {
+      "name": "frontend-test",
+      "description": ""
+    },
+    {
+      "name": "nav-compact",
+      "description": ""
+    },
+    {
+      "name": "nav-diagnose",
+      "description": ""
+    },
+    {
+      "name": "nav-init",
+      "description": ""
+    },
+    {
+      "name": "nav-multi",
+      "description": ""
+    },
+    {
+      "name": "nav-onboard",
+      "description": ""
+    },
+    {
+      "name": "nav-release",
+      "description": ""
+    },
+    {
+      "name": "nav-simplify",
+      "description": ""
+    },
+    {
+      "name": "nav-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "nav-sop",
+      "description": ""
+    },
+    {
+      "name": "nav-start",
+      "description": ""
+    },
+    {
+      "name": "nav-task",
+      "description": ""
+    },
+    {
+      "name": "nav-task-mode",
+      "description": ""
+    },
+    {
+      "name": "product-design",
+      "description": ""
+    },
+    {
+      "name": "social-media-post",
+      "description": ""
+    },
+    {
+      "name": "visual-regression",
+      "description": ""
+    }
+  ]
+}
