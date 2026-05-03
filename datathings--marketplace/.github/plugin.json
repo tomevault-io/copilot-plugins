@@ -1,0 +1,22 @@
+{
+  "name": "datathings--marketplace",
+  "displayName": "marketplace",
+  "description": "AI instruction skills by datathings",
+  "version": "1.0.0",
+  "author": "datathings",
+  "homepage": "https://github.com/datathings/marketplace",
+  "skills": [
+    {
+      "name": "greycat",
+      "description": ""
+    },
+    {
+      "name": "greycat-c",
+      "description": ""
+    },
+    {
+      "name": "llamacpp",
+      "description": ""
+    }
+  ]
+}
