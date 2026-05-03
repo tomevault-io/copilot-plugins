@@ -1,0 +1,44 @@
+{
+  "name": "E-commerce-Smart-Agent",
+  "owner": "Mr-ZeLong",
+  "repo": "E-commerce-Smart-Agent",
+  "description": "\u57fa\u4e8e LangGraph \u548c FastAPI \u7684\u7535\u5546 AI Agent \u6846\u67b6\u3002\u4ece RAG \u77e5\u8bc6\u5e93\u5230\u590d\u6742\u7684\u9000\u8d27\u4e1a\u52a1\u6d41\u7684\u667a\u80fd\u5ba2\u670d\u7cfb\u7edf\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mr-ZeLong/E-commerce-Smart-Agent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T16:00:38Z"
+}
