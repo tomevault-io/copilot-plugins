@@ -1,0 +1,44 @@
+{
+  "name": "ccblog",
+  "owner": "Mor-Li",
+  "repo": "ccblog",
+  "description": "\ud83d\ude80 Production-Ready Multi-Agent System for WeChat Article Generation - Automated pipeline that actually works! | \u771f\u6b63\u80fd\u7528\u7684\u5fae\u4fe1\u516c\u4f17\u53f7AI\u751f\u6210\u7cfb\u7edf\uff1a\u591aAgent\u534f\u540c\u3001\u81ea\u52a8\u5316\u5904\u7406\u3001\u901a\u4fd7\u6613\u61c2",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Mor-Li/ccblog",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T13:46:59Z"
+}
