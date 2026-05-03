@@ -1,0 +1,81 @@
+{
+  "name": "agentful",
+  "owner": "itz4blitz",
+  "repo": "agentful",
+  "description": "Pre-configured AI agent toolkit",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "conversation",
+      "path": "template/.claude/skills/conversation",
+      "github_url": "https://github.com/itz4blitz/agentful/tree/main/template/.claude/skills/conversation",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "path": "template/.claude/skills/deployment",
+      "github_url": "https://github.com/itz4blitz/agentful/tree/main/template/.claude/skills/deployment",
+      "description": ""
+    },
+    {
+      "name": "product-planning",
+      "path": "template/.claude/skills/product-planning",
+      "github_url": "https://github.com/itz4blitz/agentful/tree/main/template/.claude/skills/product-planning",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "template/.claude/skills/research",
+      "github_url": "https://github.com/itz4blitz/agentful/tree/main/template/.claude/skills/research",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "template/.claude/skills/testing",
+      "github_url": "https://github.com/itz4blitz/agentful/tree/main/template/.claude/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "validation",
+      "path": "template/.claude/skills/validation",
+      "github_url": "https://github.com/itz4blitz/agentful/tree/main/template/.claude/skills/validation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/itz4blitz/agentful",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-03T15:34:20Z"
+}
