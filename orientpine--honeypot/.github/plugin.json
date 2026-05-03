@@ -1,0 +1,74 @@
+{
+  "name": "orientpine--honeypot",
+  "displayName": "honeypot",
+  "description": "tool box for AI agent",
+  "version": "1.0.0",
+  "author": "orientpine",
+  "homepage": "https://github.com/orientpine/honeypot",
+  "skills": [
+    {
+      "name": "chapter1-guide",
+      "description": ""
+    },
+    {
+      "name": "chapter2-guide",
+      "description": ""
+    },
+    {
+      "name": "chapter3-guide",
+      "description": ""
+    },
+    {
+      "name": "chapter4-guide",
+      "description": ""
+    },
+    {
+      "name": "chapter5-guide",
+      "description": ""
+    },
+    {
+      "name": "core-resources",
+      "description": ""
+    },
+    {
+      "name": "data-collection-guide",
+      "description": ""
+    },
+    {
+      "name": "devil-advocate",
+      "description": ""
+    },
+    {
+      "name": "field-keywords",
+      "description": ""
+    },
+    {
+      "name": "figure-guide",
+      "description": ""
+    },
+    {
+      "name": "four-step-pattern",
+      "description": ""
+    },
+    {
+      "name": "image-reference-guide",
+      "description": ""
+    },
+    {
+      "name": "paper-style-toolkit",
+      "description": ""
+    },
+    {
+      "name": "slide-renderer",
+      "description": ""
+    },
+    {
+      "name": "theme-pitch",
+      "description": ""
+    },
+    {
+      "name": "web-search-verifier",
+      "description": ""
+    }
+  ]
+}
