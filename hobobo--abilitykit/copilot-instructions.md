@@ -1,70 +1,35 @@
-## origin-and-event-contract
+## performance
 
-> 任意 TriggerEvent 链式触发（skill -> effect -> damage -> buff -> projectile -> …），都能追溯到同一个 `origin.contextId`。
+> - **性能优先**：默认战斗逻辑在高频路径（每帧/多实体/多技能），避免不必要的分配与反射。
 
 
-# 事件溯源（Origin）与事件契约
+# 性能与实现规范（强约束）
 
-## 1) 目标
+## 1) 总原则
 
-任意 TriggerEvent 链式触发（skill -> effect -> damage -> buff -> projectile -> …），都能追溯到同一个 `origin.contextId`。
+- **性能优先**：默认战斗逻辑在高频路径（每帧/多实体/多技能），避免不必要的分配与反射。
+- **struct 优先**：短生命周期/频繁传递的数据优先用 struct。
 
-- `contextId` 是对外统一语义
-- `rootId` 仅为溯源模块内部概念（“无父即根”），不要写入 `origin.contextId`
+## 2) 禁止项（高频路径）
 
-## 2) Rule 1：禁止丢失溯源（No Lost Origin）
+- 禁止在 `Update/Tick/Execute` 等高频路径产生 GC：
+  - `new List/Dictionary/HashSet`
+  - LINQ
+  - 闭包
+  - 装箱（object/接口传递导致）
 
-任何会发布 TriggerEvent 的模块/系统/服务，必须保证事件携带溯源字段：
+## 3) 池化与集合复用
 
-- 根事件必须显式写入 `origin.*`
-- 非根事件必须继承（透传）上游的 `origin.*`
+- Args：优先使用 `PooledTriggerArgs` / `PooledDefArgs`
+- 临时集合：优先使用项目内 Pools 提供的 pool（或复用已有对象），避免 new
 
-## 3) Rule 2：继承发布必须使用统一入口（Recommended）
+## 4) 参数合并策略
 
-当你从已有事件（存在 parentArgs）再发布新事件时，必须继承溯源字段。
+- 对只读合并参数，优先用“临时注入并恢复”或“overlay 视图”，避免复制整个 args 字典。
 
-至少继承：
+## 5) 生命周期约束
 
-- `origin.source` / `origin.target` / `origin.kind` / `origin.configId` / `origin.contextId`
-
-推荐使用统一 helper：`TriggerEventPublishExtensions.PublishInherited(...)`
-
-## 4) Rule 3：内部流水线事件必须带 Args（No args:null）
-
-禁止发布 `args: null` 的 TriggerEvent（会导致溯源链路中断）。
-
-## 5) Rule 4：origin.kind 类型统一为 enum
-
-`origin.kind` 必须统一使用 `EffectSourceKind`（enum），禁止使用字符串。
-
-## 6) 统一实现
-
-统一使用 `EffectOriginArgsHelper`：
-
-- `EffectOriginArgsHelper.FillFromRegistry(args, sourceContextId, registry)`
-- `EffectOriginArgsHelper.FillFromServices(args, sourceContextId, services)`
-
-语义约束：
-
-- `origin.contextId` 永远写 `contextId`（snapshot.ContextId / sourceContextId）
-- `rootId` 只在溯源系统内部维护/使用
-
-## 7) EffectSource（溯源树）落地入口（推荐）
-
-当你需要把“技能/效果/BUFF/飞行物”等运行时派生链路串成可追溯的树，并保证可回收/可排查时，请使用 `EffectSourceRegistry`。
-
-- 规则：`.windsurf/rules/effect_source.md`
-- 速查：`.windsurf/skills/ability-kit/effect_source.md`
-
-关键实现文件：
-
-- `Unity/Packages/com.abilitykit.ability.runtime/Runtime/Ability/Share/Impl/Moba/EffectSource/EffectSourceRegistry.cs`
-- `Unity/Packages/com.abilitykit.ability.runtime/Runtime/Ability/Share/Impl/Moba/EffectSource/EffectSourceKeys.cs`
-
-常用模式（建议）：
-
-- root：在技能入口创建（例如 skill cast），并在流程逻辑结束处 End
-- child：在派生对象创建处创建，并在对象生命周期结束时 End
+- 不要在 Entitas `Cleanup()` 做一次性反注册；一次性逻辑应迁移到 `TearDown()`。
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
