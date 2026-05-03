@@ -1,0 +1,26 @@
+{
+  "name": "fundamental-physics--marketplace",
+  "displayName": "marketplace",
+  "description": "Plugins for astrophysics coding and analysis",
+  "version": "1.0.0",
+  "author": "fundamental-physics",
+  "homepage": "https://github.com/fundamental-physics/marketplace",
+  "skills": [
+    {
+      "name": "anesthetic",
+      "description": ""
+    },
+    {
+      "name": "arxiv",
+      "description": ""
+    },
+    {
+      "name": "science-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "zenodo",
+      "description": ""
+    }
+  ]
+}
