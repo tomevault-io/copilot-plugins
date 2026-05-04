@@ -1,0 +1,9 @@
+{
+  "name": "zevorn--tcg-rs",
+  "displayName": "tcg-rs",
+  "description": "Rust for QEMU TCG.",
+  "version": "1.0.0",
+  "author": "zevorn",
+  "homepage": "https://github.com/zevorn/tcg-rs",
+  "skills": []
+}
