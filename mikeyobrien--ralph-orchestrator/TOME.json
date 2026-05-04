@@ -1,0 +1,99 @@
+{
+  "name": "ralph-orchestrator",
+  "owner": "mikeyobrien",
+  "repo": "ralph-orchestrator",
+  "description": "An improved implementation of the Ralph Wiggum technique for autonomous AI agent orchestration",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-assist",
+      "path": ".claude/skills/code-assist",
+      "github_url": "https://github.com/mikeyobrien/ralph-orchestrator/tree/main/.claude/skills/code-assist",
+      "description": ""
+    },
+    {
+      "name": "code-task-generator",
+      "path": ".claude/skills/code-task-generator",
+      "github_url": "https://github.com/mikeyobrien/ralph-orchestrator/tree/main/.claude/skills/code-task-generator",
+      "description": ""
+    },
+    {
+      "name": "evaluate-presets",
+      "path": ".claude/skills/evaluate-presets",
+      "github_url": "https://github.com/mikeyobrien/ralph-orchestrator/tree/main/.claude/skills/evaluate-presets",
+      "description": ""
+    },
+    {
+      "name": "find-code-tasks",
+      "path": ".claude/skills/find-code-tasks",
+      "github_url": "https://github.com/mikeyobrien/ralph-orchestrator/tree/main/.claude/skills/find-code-tasks",
+      "description": ""
+    },
+    {
+      "name": "pdd",
+      "path": ".claude/skills/pdd",
+      "github_url": "https://github.com/mikeyobrien/ralph-orchestrator/tree/main/.claude/skills/pdd",
+      "description": ""
+    },
+    {
+      "name": "playwriter",
+      "path": ".claude/skills/playwriter",
+      "github_url": "https://github.com/mikeyobrien/ralph-orchestrator/tree/main/.claude/skills/playwriter",
+      "description": ""
+    },
+    {
+      "name": "pr-demo",
+      "path": ".claude/skills/pr-demo",
+      "github_url": "https://github.com/mikeyobrien/ralph-orchestrator/tree/main/.claude/skills/pr-demo",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": ".claude/skills/test-driven-development",
+      "github_url": "https://github.com/mikeyobrien/ralph-orchestrator/tree/main/.claude/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "tmux-terminal",
+      "path": ".claude/skills/tmux-terminal",
+      "github_url": "https://github.com/mikeyobrien/ralph-orchestrator/tree/main/.claude/skills/tmux-terminal",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mikeyobrien/ralph-orchestrator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T07:33:46Z"
+}
