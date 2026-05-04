@@ -1,0 +1,9 @@
+{
+  "name": "jame581--godotprompter",
+  "displayName": "GodotPrompter",
+  "description": "Agentic skills framework for Godot 4.x. Domain-specific skills for AI coding agents (Claude Code, Copilot, Gemini, Cursor)",
+  "version": "1.0.0",
+  "author": "jame581",
+  "homepage": "https://github.com/jame581/GodotPrompter",
+  "skills": []
+}
