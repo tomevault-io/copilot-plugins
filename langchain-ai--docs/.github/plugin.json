@@ -1,0 +1,18 @@
+{
+  "name": "langchain-ai--docs",
+  "displayName": "docs",
+  "description": "\ud83e\udd9c\ud83d\udd17 Docs for LangChain projects",
+  "version": "1.0.0",
+  "author": "langchain-ai",
+  "homepage": "https://github.com/langchain-ai/docs",
+  "skills": [
+    {
+      "name": "langgraph-docs",
+      "description": ""
+    },
+    {
+      "name": "langgraph-docs",
+      "description": ""
+    }
+  ]
+}
