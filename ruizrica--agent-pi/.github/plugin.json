@@ -1,0 +1,9 @@
+{
+  "name": "ruizrica--agent-pi",
+  "displayName": "agent-pi",
+  "description": "An extension suite that turns Pi into a multi-agent orchestration platform",
+  "version": "1.0.0",
+  "author": "ruizrica",
+  "homepage": "https://github.com/ruizrica/agent-pi",
+  "skills": []
+}
