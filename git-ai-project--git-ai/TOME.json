@@ -1,0 +1,63 @@
+{
+  "name": "git-ai",
+  "owner": "git-ai-project",
+  "repo": "git-ai",
+  "description": "A Git extension for tracking the AI-generated code in your repos",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ask",
+      "path": "skills/ask",
+      "github_url": "https://github.com/git-ai-project/git-ai/tree/main/skills/ask",
+      "description": ""
+    },
+    {
+      "name": "git-ai-search",
+      "path": "skills/git-ai-search",
+      "github_url": "https://github.com/git-ai-project/git-ai/tree/main/skills/git-ai-search",
+      "description": ""
+    },
+    {
+      "name": "prompt-analysis",
+      "path": "skills/prompt-analysis",
+      "github_url": "https://github.com/git-ai-project/git-ai/tree/main/skills/prompt-analysis",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/git-ai-project/git-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:45:38Z"
+}
