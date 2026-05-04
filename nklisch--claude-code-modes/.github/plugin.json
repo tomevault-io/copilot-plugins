@@ -1,0 +1,9 @@
+{
+  "name": "nklisch--claude-code-modes",
+  "displayName": "claude-code-modes",
+  "description": "CLI launcher for Claude Code with behaviorally-tuned system prompts \u2014 control agency, quality, and scope instead of fighting the defaults",
+  "version": "1.0.0",
+  "author": "nklisch",
+  "homepage": "https://github.com/nklisch/claude-code-modes",
+  "skills": []
+}
