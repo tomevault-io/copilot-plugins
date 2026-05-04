@@ -1,0 +1,14 @@
+{
+  "name": "vercel-labs--react-view-transitions-demo",
+  "displayName": "react-view-transitions-demo",
+  "description": "Next.js gallery app showcasing React View Transitions \u2014 shared element morphs, directional navigation, Suspense reveals, and more",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/react-view-transitions-demo",
+  "skills": [
+    {
+      "name": "react",
+      "description": ""
+    }
+  ]
+}
