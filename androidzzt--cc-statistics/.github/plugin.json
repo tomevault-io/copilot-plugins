@@ -1,0 +1,9 @@
+{
+  "name": "androidzzt--cc-statistics",
+  "displayName": "cc-statistics",
+  "description": "AI Coding stats dashboard \u2014 track costs, tokens, and efficiency across Claude Code / Gemini CLI / Codex / Cursor",
+  "version": "1.0.0",
+  "author": "androidZzT",
+  "homepage": "https://github.com/androidZzT/cc-statistics",
+  "skills": []
+}
