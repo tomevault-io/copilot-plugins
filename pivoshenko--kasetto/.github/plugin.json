@@ -1,0 +1,9 @@
+{
+  "name": "pivoshenko--kasetto",
+  "displayName": "kasetto",
+  "description": "\ud83d\udcfc A declarative AI agent environment manager, written in Rust",
+  "version": "1.0.0",
+  "author": "pivoshenko",
+  "homepage": "https://github.com/pivoshenko/kasetto",
+  "skills": []
+}
