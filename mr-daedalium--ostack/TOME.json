@@ -4,7 +4,7 @@
   "repo": "ostack",
   "description": "ostack \u2014 AI-powered engineering team for Claude Code. Fork of gstack by Garry Tan.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mr-daedalium/ostack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T08:43:52Z"
+  "distributed_at": "2026-05-04T10:47:23Z"
 }
