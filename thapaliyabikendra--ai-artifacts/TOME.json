@@ -1,0 +1,117 @@
+{
+  "name": "ai-artifacts",
+  "owner": "thapaliyabikendra",
+  "repo": "ai-artifacts",
+  "description": "AI instruction skills by thapaliyabikendra",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clean-code-dotnet",
+      "path": ".claude/skills/clean-code-dotnet",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/clean-code-dotnet",
+      "description": ""
+    },
+    {
+      "name": "abp-framework-patterns",
+      "path": ".claude/skills/abp-framework-patterns",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/abp-framework-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "path": ".claude/skills/api-design-principles",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "claude-artifact-creator",
+      "path": ".claude/skills/claude-artifact-creator",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/claude-artifact-creator",
+      "description": ""
+    },
+    {
+      "name": "docker-dotnet-containerize",
+      "path": ".claude/skills/docker-dotnet-containerize",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/docker-dotnet-containerize",
+      "description": ""
+    },
+    {
+      "name": "domain-modeling",
+      "path": ".claude/skills/domain-modeling",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/domain-modeling",
+      "description": ""
+    },
+    {
+      "name": "feature-development-workflow",
+      "path": ".claude/skills/feature-development-workflow",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/feature-development-workflow",
+      "description": ""
+    },
+    {
+      "name": "generate-tests",
+      "path": ".claude/skills/generate-tests",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/generate-tests",
+      "description": ""
+    },
+    {
+      "name": "markdown-optimization",
+      "path": ".claude/skills/markdown-optimization",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/markdown-optimization",
+      "description": ""
+    },
+    {
+      "name": "react-code-review-patterns",
+      "path": ".claude/skills/react-code-review-patterns",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/react-code-review-patterns",
+      "description": ""
+    },
+    {
+      "name": "requirements-engineering",
+      "path": ".claude/skills/requirements-engineering",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/requirements-engineering",
+      "description": ""
+    },
+    {
+      "name": "technical-design-patterns",
+      "path": ".claude/skills/technical-design-patterns",
+      "github_url": "https://github.com/thapaliyabikendra/ai-artifacts/tree/main/.claude/skills/technical-design-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/thapaliyabikendra/ai-artifacts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:47:29Z"
+}
