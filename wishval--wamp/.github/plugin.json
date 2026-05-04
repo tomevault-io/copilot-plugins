@@ -1,0 +1,9 @@
+{
+  "name": "wishval--wamp",
+  "displayName": "wamp",
+  "description": "Winamp inspired music player for MacOs",
+  "version": "1.0.0",
+  "author": "wishval",
+  "homepage": "https://github.com/wishval/wamp",
+  "skills": []
+}
