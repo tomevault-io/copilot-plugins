@@ -1,0 +1,34 @@
+{
+  "name": "netlify--context-and-tools",
+  "displayName": "context-and-tools",
+  "description": "AI instruction skills by netlify",
+  "version": "1.0.0",
+  "author": "netlify",
+  "homepage": "https://github.com/netlify/context-and-tools",
+  "skills": [
+    {
+      "name": "netlify-caching",
+      "description": ""
+    },
+    {
+      "name": "netlify-cli-and-deploy",
+      "description": ""
+    },
+    {
+      "name": "netlify-db",
+      "description": ""
+    },
+    {
+      "name": "netlify-forms",
+      "description": ""
+    },
+    {
+      "name": "netlify-frameworks",
+      "description": ""
+    },
+    {
+      "name": "netlify-functions",
+      "description": ""
+    }
+  ]
+}
