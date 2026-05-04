@@ -1,0 +1,9 @@
+{
+  "name": "dahlia--optique",
+  "displayName": "optique",
+  "description": "Type-safe combinatorial CLI parser for TypeScript",
+  "version": "1.0.0",
+  "author": "dahlia",
+  "homepage": "https://github.com/dahlia/optique",
+  "skills": []
+}
