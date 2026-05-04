@@ -1,0 +1,57 @@
+{
+  "name": "rslint",
+  "owner": "web-infra-dev",
+  "repo": "rslint",
+  "description": "\ud83d\ude80 Go Faster. Go Typed",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "debug-ci",
+      "path": "agents/debug-ci",
+      "github_url": "https://github.com/web-infra-dev/rslint/tree/main/agents/debug-ci",
+      "description": ""
+    },
+    {
+      "name": "port-rule",
+      "path": "agents/port-rule",
+      "github_url": "https://github.com/web-infra-dev/rslint/tree/main/agents/port-rule",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/web-infra-dev/rslint",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:54:41Z"
+}
