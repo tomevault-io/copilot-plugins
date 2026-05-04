@@ -1,0 +1,147 @@
+{
+  "name": "claude",
+  "owner": "anthropics",
+  "repo": "claude-agent-sdk-python",
+  "description": "AI instruction skills by anthropics",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "analyzing-financial-statements",
+      "path": "skills/custom_skills/analyzing-financial-statements",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/skills/custom_skills/analyzing-financial-statements",
+      "description": ""
+    },
+    {
+      "name": "applying-brand-guidelines",
+      "path": "skills/custom_skills/applying-brand-guidelines",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/skills/custom_skills/applying-brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "creating-financial-models",
+      "path": "skills/custom_skills/creating-financial-models",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/skills/custom_skills/creating-financial-models",
+      "description": ""
+    },
+    {
+      "name": "agent-development",
+      "path": "plugins/plugin-dev/skills/agent-development",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/plugin-dev/skills/agent-development",
+      "description": ""
+    },
+    {
+      "name": "claude-automation-recommender",
+      "path": "plugins/claude-code-setup/skills/claude-automation-recommender",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/claude-code-setup/skills/claude-automation-recommender",
+      "description": ""
+    },
+    {
+      "name": "command-development",
+      "path": "plugins/plugin-dev/skills/command-development",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/plugin-dev/skills/command-development",
+      "description": ""
+    },
+    {
+      "name": "example-skill",
+      "path": "plugins/example-plugin/skills/example-skill",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/example-plugin/skills/example-skill",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "plugins/frontend-design/skills/frontend-design",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/frontend-design/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "hook-development",
+      "path": "plugins/plugin-dev/skills/hook-development",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/plugin-dev/skills/hook-development",
+      "description": ""
+    },
+    {
+      "name": "mcp-integration",
+      "path": "plugins/plugin-dev/skills/mcp-integration",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/plugin-dev/skills/mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "plugin-settings",
+      "path": "plugins/plugin-dev/skills/plugin-settings",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/plugin-dev/skills/plugin-settings",
+      "description": ""
+    },
+    {
+      "name": "plugin-structure",
+      "path": "plugins/plugin-dev/skills/plugin-structure",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/plugin-dev/skills/plugin-structure",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "path": "plugins/plugin-dev/skills/skill-development",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/plugin-dev/skills/skill-development",
+      "description": ""
+    },
+    {
+      "name": "action-creator",
+      "path": "email-agent/agent/.claude/skills/action-creator",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/email-agent/agent/.claude/skills/action-creator",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "resume-generator/.claude/skills/docx",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/resume-generator/.claude/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "research-agent/.claude/skills/pdf",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/research-agent/.claude/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "configured-agent",
+      "path": "plugins/plugin-dev/skills/plugin-settings",
+      "github_url": "https://github.com/anthropics/claude-agent-sdk-python/tree/main/plugins/plugin-dev/skills/plugin-settings",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/anthropics/claude-agent-sdk-python",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:49:41Z"
+}
