@@ -1,0 +1,14 @@
+{
+  "name": "fradser--dotclaude",
+  "displayName": "dotclaude",
+  "description": "A comprehensive development environment with specialized AI agents for code review, security analysis, and technical leadership.",
+  "version": "1.0.0",
+  "author": "FradSer",
+  "homepage": "https://github.com/FradSer/dotclaude",
+  "skills": [
+    {
+      "name": "best-practices",
+      "description": ""
+    }
+  ]
+}
