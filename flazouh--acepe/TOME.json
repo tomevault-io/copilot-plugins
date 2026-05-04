@@ -4,7 +4,7 @@
   "repo": "acepe",
   "description": "The Agentic Developer Environment to orchestrate Claude Code, Codex, Copilot, Cursor, Opencode.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/flazouh/acepe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T09:04:51Z"
+  "distributed_at": "2026-05-04T14:09:39Z"
 }
