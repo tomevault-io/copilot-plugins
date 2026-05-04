@@ -1,0 +1,93 @@
+{
+  "name": "code-minions",
+  "owner": "willvelida",
+  "repo": "code-minions",
+  "description": "CLI tool to install reusable AI coding agent packages (agents, skills, prompts) into your repositories for consistent, enhanced AI-assisted development.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "creating-agent-skill",
+      "path": "packages/creating-agent-skill/skills/creating-agent-skill",
+      "github_url": "https://github.com/willvelida/code-minions/tree/main/packages/creating-agent-skill/skills/creating-agent-skill",
+      "description": ""
+    },
+    {
+      "name": "creating-agents",
+      "path": "packages/creating-agents/skills/creating-agents",
+      "github_url": "https://github.com/willvelida/code-minions/tree/main/packages/creating-agents/skills/creating-agents",
+      "description": ""
+    },
+    {
+      "name": "creating-devcontainers",
+      "path": "packages/creating-devcontainers/skills/creating-devcontainers",
+      "github_url": "https://github.com/willvelida/code-minions/tree/main/packages/creating-devcontainers/skills/creating-devcontainers",
+      "description": ""
+    },
+    {
+      "name": "creating-documentation",
+      "path": "packages/creating-documentation/skills/creating-documentation",
+      "github_url": "https://github.com/willvelida/code-minions/tree/main/packages/creating-documentation/skills/creating-documentation",
+      "description": ""
+    },
+    {
+      "name": "developer-mentor",
+      "path": "packages/developer-mentor/skills/developer-mentor",
+      "github_url": "https://github.com/willvelida/code-minions/tree/main/packages/developer-mentor/skills/developer-mentor",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "path": "packages/git-workflow/skills/git-workflow",
+      "github_url": "https://github.com/willvelida/code-minions/tree/main/packages/git-workflow/skills/git-workflow",
+      "description": ""
+    },
+    {
+      "name": "raise-pull-requests",
+      "path": "packages/raise-pull-requests/skills/raise-pull-requests",
+      "github_url": "https://github.com/willvelida/code-minions/tree/main/packages/raise-pull-requests/skills/raise-pull-requests",
+      "description": ""
+    },
+    {
+      "name": "threat-modelling",
+      "path": "packages/threat-modelling/skills/threat-modelling",
+      "github_url": "https://github.com/willvelida/code-minions/tree/main/packages/threat-modelling/skills/threat-modelling",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/willvelida/code-minions",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:38:20Z"
+}
