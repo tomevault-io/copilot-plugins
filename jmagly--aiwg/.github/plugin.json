@@ -1,0 +1,102 @@
+{
+  "name": "jmagly--aiwg",
+  "displayName": "aiwg",
+  "description": "Cognitive architecture for AI-augmented software development. Specialized agents, structured workflows, and multi-platform deployment. Claude Code \u00b7 Codex \u00b7 Copilot \u00b7 Cursor \u00b7 Factory \u00b7 Warp \u00b7 Windsur",
+  "version": "1.0.0",
+  "author": "jmagly",
+  "homepage": "https://github.com/jmagly/aiwg",
+  "skills": [
+    {
+      "name": "ai-pattern-detection",
+      "description": ""
+    },
+    {
+      "name": "doc-scraper",
+      "description": ""
+    },
+    {
+      "name": "doc-splitter",
+      "description": ""
+    },
+    {
+      "name": "eslint-checker",
+      "description": ""
+    },
+    {
+      "name": "flaky-detect",
+      "description": ""
+    },
+    {
+      "name": "flaky-fix",
+      "description": ""
+    },
+    {
+      "name": "generate-factory",
+      "description": ""
+    },
+    {
+      "name": "llms-txt-support",
+      "description": ""
+    },
+    {
+      "name": "mutation-test",
+      "description": ""
+    },
+    {
+      "name": "pdf-extractor",
+      "description": ""
+    },
+    {
+      "name": "pr-reviewer",
+      "description": ""
+    },
+    {
+      "name": "pytest-runner",
+      "description": ""
+    },
+    {
+      "name": "quality-checker",
+      "description": ""
+    },
+    {
+      "name": "repo-analyzer",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "description": ""
+    },
+    {
+      "name": "skill-enhancer",
+      "description": ""
+    },
+    {
+      "name": "skill-packager",
+      "description": ""
+    },
+    {
+      "name": "source-unifier",
+      "description": ""
+    },
+    {
+      "name": "tdd-enforce",
+      "description": ""
+    },
+    {
+      "name": "test-sync",
+      "description": ""
+    },
+    {
+      "name": "venv-manager",
+      "description": ""
+    },
+    {
+      "name": "vitest-runner",
+      "description": ""
+    },
+    {
+      "name": "voice-apply",
+      "description": ""
+    }
+  ]
+}
