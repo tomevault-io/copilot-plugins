@@ -1,0 +1,117 @@
+{
+  "name": "v10",
+  "owner": "videojs",
+  "repo": "v10",
+  "description": "[Beta] Video.js v10 - open source media player framework for Web and React.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api",
+      "path": ".claude/skills/api",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/api",
+      "description": ""
+    },
+    {
+      "name": "api-reference",
+      "path": ".claude/skills/api-reference",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/api-reference",
+      "description": ""
+    },
+    {
+      "name": "aria",
+      "path": ".claude/skills/aria",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/aria",
+      "description": ""
+    },
+    {
+      "name": "claude-update",
+      "path": ".claude/skills/claude-update",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/claude-update",
+      "description": ""
+    },
+    {
+      "name": "component",
+      "path": ".claude/skills/component",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/component",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "path": ".claude/skills/create-skill",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/create-skill",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": ".claude/skills/design",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/design",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "path": ".claude/skills/docs",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/docs",
+      "description": ""
+    },
+    {
+      "name": "gh-issue",
+      "path": ".claude/skills/gh-issue",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/gh-issue",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "path": ".claude/skills/git",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/git",
+      "description": ""
+    },
+    {
+      "name": "review-branch",
+      "path": ".claude/skills/review-branch",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/review-branch",
+      "description": ""
+    },
+    {
+      "name": "rfc",
+      "path": ".claude/skills/rfc",
+      "github_url": "https://github.com/videojs/v10/tree/main/.claude/skills/rfc",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/videojs/v10",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:37:28Z"
+}
