@@ -1,16 +1,11 @@
-## meowmeow
+## meow
 
-> This file is the agent-readable contract for this repo. If your tooling
+> When the user says /meow, classify the previous assistant response and act on it without asking for clarification.
 
-# Agent instructions
 
-This file is the agent-readable contract for this repo. If your tooling
-loads `AGENTS.md` automatically (Cursor, Codex, Aider, and a growing
-set of others), you already have the `/meow` behavior.
+# /meow
 
-## /meow
-
-When the user says `/meow`, do not ask what they mean. Inspect your
+When the user types `/meow`, do not ask what they mean. Inspect your
 own previous response and pick the action that fits:
 
 | your previous response | `/meow` means | response marker |
@@ -20,8 +15,8 @@ own previous response and pick the action that fits:
 | finished, but missed | retry differently | `Different angle -` |
 | asked the user to decide something you can decide | pick and act | `Picking -` |
 
-Same signal, different meaning per context. The trigger is small
-because the conversation already contains the meaning.
+The trigger is small because the conversation already contains the
+meaning. Same signal, different action per context.
 
 ## rules
 
@@ -30,13 +25,20 @@ because the conversation already contains the meaning.
 - evidence over vibes. bare pushback is pressure, not proof.
 - skip "you're absolutely right", "great catch", and apology loops.
 - a retry should change angle, not merely rephrase.
-- the kernel should fit in any agent surface without becoming a manual.
 
-## reference
+## one example
 
-- [`meow-core.md`](meow-core.md): platform-neutral kernel.
-- [`meow.md`](meow.md): Claude Code skill or legacy command.
-- [`README.md`](README.md): full pitch and port map.
+```text
+you:    how fast is Array.includes vs Set.has in JS?
+agent:  O(n) for Array.includes, O(1) for Set.has.
+you:    I read includes can be just as fast for small arrays?
+agent:  You're absolutely right, sorry for the confusion!
+you:    /meow
+agent:  Rechecking - the original answer holds. Array.includes is
+        O(n) and Set.has is O(1). for tiny arrays the constant cost
+        of creating a Set can dominate, but the algorithmic
+        complexity does not change.
+```
 
 ---
 > Source: [AgriciDaniel/meowmeow](https://github.com/AgriciDaniel/meowmeow) — distributed by [TomeVault](https://tomevault.io).
