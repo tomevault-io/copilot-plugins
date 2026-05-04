@@ -1,0 +1,9 @@
+{
+  "name": "elmisi--amenity-stuff",
+  "displayName": "amenity-stuff",
+  "description": "Terminal UI to auto organize files using a local LLM (via Ollama)",
+  "version": "1.0.0",
+  "author": "elmisi",
+  "homepage": "https://github.com/elmisi/amenity-stuff",
+  "skills": []
+}
