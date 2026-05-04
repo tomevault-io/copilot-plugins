@@ -1,0 +1,44 @@
+{
+  "name": "spaces-index",
+  "owner": "caojiaolong",
+  "repo": "spaces-index",
+  "description": "\u672c\u9879\u76ee\u81ea\u52a8\u6293\u53d6\u5e76\u7d22\u5f15\u79d1\u5b66\u7a7a\u95f4\u7684\u6587\u7ae0\u5143\u6570\u636e\uff0c\u6309\u7814\u7a76\u4e3b\u9898\u8fdb\u884c\u89c4\u5219\u5206\u7c7b\uff0c\u65b9\u4fbf\u5728 GitHub \u4e0a\u5feb\u901f\u6d4f\u89c8\u5e76\u8df3\u8f6c\u5230\u539f\u6587\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/caojiaolong/spaces-index",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T02:05:28Z"
+}
