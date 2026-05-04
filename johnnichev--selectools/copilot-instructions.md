@@ -1,56 +1,47 @@
-## selectools-development
+## selectools-docs
 
-> Selectools development conventions, testing requirements, and release process
+> Documentation standards for selectools docs and MkDocs site
 
 
-# Selectools Development Rules
+# Documentation Rules
 
-## Code Conventions
-- Python 3.9+, line length 100, Black + isort formatting
-- Explicit types everywhere, no `any` — mypy enforced on `src/`
-- No narration comments — only explain non-obvious intent
-- Source layout: `src/selectools/`, tests in `tests/`
-- Pre-commit hooks: black, isort, flake8, mypy, bandit, yaml check (--unsafe for mkdocs)
+## MkDocs Site Structure
+- Config: `mkdocs.yml` (Material theme, tab nav, emoji, code copy)
+- Landing page: `docs/index.md`
+- Module docs: `docs/modules/<NAME>.md`
+- Guides: `docs/QUICKSTART.md`, `docs/ARCHITECTURE.md`
+- Custom CSS: `docs/stylesheets/extra.css`
+- CHANGELOG.md is copied from root at build time (not tracked in docs/)
 
-## Testing Requirements
-- Every new feature needs unit tests + integration tests
-- Every bug fix needs a regression test in `tests/agent/test_regression.py`
-- Use mock providers for unit tests, never real API calls
-- Use `RecordingProvider` pattern to verify exact args passed to providers
-- E2E tests use `@pytest.mark.e2e` (skipped in CI)
-- Run `pytest tests/ -x -q` and confirm ALL pass before any commit
-- Update model count assertions when adding/removing models
+## Link Rules
+- Within docs/: use relative paths (`modules/AGENT.md`, `../ARCHITECTURE.md`)
+- To files outside docs/ (ROADMAP.md, examples/, notebooks/): use absolute GitHub URLs
+  Example: `https://github.com/johnnichev/selectools/blob/main/examples/01_hello_world.py`
+- Anchor format for MkDocs: `#heading-text` (lowercase, hyphens, no special chars)
+  `## Tool Policy & Human-in-the-Loop` → `#tool-policy-human-in-the-loop` (not double hyphen)
 
-## Feature Completeness Checklist
-Every feature MUST include ALL of:
-1. Source code in `src/selectools/`
-2. Public exports in `__init__.py`
-3. Unit tests in `tests/`
-4. Example script in `examples/NN_name.py`
-5. Module doc in `docs/modules/NAME.md`
-6. Section in `notebooks/getting_started.ipynb`
-7. Entry in `docs/index.md` feature table
-8. Navigation entry in `mkdocs.yml`
-9. Links from relevant existing docs
+## When Adding a New Feature
+1. Create `docs/modules/<FEATURE>.md` with full API reference and examples
+2. Add nav entry in `mkdocs.yml` under the appropriate tab
+3. Update `docs/index.md` feature table
+4. Update `docs/README.md` documentation index
+5. Update `docs/QUICKSTART.md` "next steps" table if user-facing
+6. Update `docs/ARCHITECTURE.md` if it adds a new system component
+7. Add section to `notebooks/getting_started.ipynb`
+8. Verify build: `cp CHANGELOG.md docs/CHANGELOG.md && mkdocs build`
 
-## Release Process
-1. Create feature branch: `git checkout -b feat/<name>`
-2. Implement + test + document (all checklist items above)
-3. Bump version in `__init__.py` + `pyproject.toml`
-4. Update: CHANGELOG.md, README.md ("What's New"), ROADMAP.md
-5. Update hardcoded counts (models, tests, examples) across ALL docs
-6. `mkdocs build` to verify no broken links
-7. Commit, push, PR, merge to main
-8. Tag: `git tag -a vX.Y.Z`
-9. Push tags, build, publish to PyPI
-10. Verify GitHub Pages auto-deploys
+## Hardcoded Counts
+These appear in multiple files and MUST be updated together:
+- **Model count** (currently 146): index.md, README.md, MODELS.md, QUICKSTART.md, ARCHITECTURE.md
+- **Test count**: README.md, index.md, CHANGELOG.md
+- **Example count**: README.md, index.md
+- **Tool count** (24): index.md, README.md, TOOLBOX.md
 
-## Common Pitfalls
-- Provider `stream()`/`astream()` MUST pass `tools` param
-- `ToolCall` objects must not be stringified in streaming
-- OpenAI newer models need `max_completion_tokens` not `max_tokens`
-- `response_msg.content` can be `None` — always use `or ""`
-- MkDocs links outside `docs/` must use absolute GitHub URLs
+## Style
+- Use admonitions (`!!! tip`, `!!! warning`) for callouts
+- Use tabbed content (`=== "Tab Name"`) for install/usage variants
+- Use Material icons (`:material-icon-name:`) for feature cards
+- Code examples should be complete and runnable
 
 ---
 > Source: [johnnichev/selectools](https://github.com/johnnichev/selectools) — distributed by [TomeVault](https://tomevault.io).
