@@ -1,0 +1,87 @@
+{
+  "name": "gaia",
+  "owner": "theexperiencecompany",
+  "repo": "gaia",
+  "description": "Your proactive personal AI assistant for daily work, inspired by Jarvis \ud83c\udf0e",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "audit-website",
+      "path": ".agents/skills/audit-website",
+      "github_url": "https://github.com/theexperiencecompany/gaia/tree/main/.agents/skills/audit-website",
+      "description": ""
+    },
+    {
+      "name": "backlink-analyzer",
+      "path": ".agents/skills/backlink-analyzer",
+      "github_url": "https://github.com/theexperiencecompany/gaia/tree/main/.agents/skills/backlink-analyzer",
+      "description": ""
+    },
+    {
+      "name": "emilkowal-animations",
+      "path": ".agents/skills/emilkowal-animations",
+      "github_url": "https://github.com/theexperiencecompany/gaia/tree/main/.agents/skills/emilkowal-animations",
+      "description": ""
+    },
+    {
+      "name": "landing-page-copywriter",
+      "path": ".agents/skills/landing-page-copywriter",
+      "github_url": "https://github.com/theexperiencecompany/gaia/tree/main/.agents/skills/landing-page-copywriter",
+      "description": ""
+    },
+    {
+      "name": "motion",
+      "path": ".agents/skills/motion",
+      "github_url": "https://github.com/theexperiencecompany/gaia/tree/main/.agents/skills/motion",
+      "description": ""
+    },
+    {
+      "name": "performance",
+      "path": ".agents/skills/performance",
+      "github_url": "https://github.com/theexperiencecompany/gaia/tree/main/.agents/skills/performance",
+      "description": ""
+    },
+    {
+      "name": "seo-geo",
+      "path": ".agents/skills/seo-geo",
+      "github_url": "https://github.com/theexperiencecompany/gaia/tree/main/.agents/skills/seo-geo",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/theexperiencecompany/gaia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:53:54Z"
+}
