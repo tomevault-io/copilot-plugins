@@ -1,0 +1,9 @@
+{
+  "name": "shadcnstudio--tanstack-dashboard-demo",
+  "displayName": "tanstack-dashboard-demo",
+  "description": "A admin dashboard build with tanstack-start and shadcn/ui",
+  "version": "1.0.0",
+  "author": "shadcnstudio",
+  "homepage": "https://github.com/shadcnstudio/tanstack-dashboard-demo",
+  "skills": []
+}
