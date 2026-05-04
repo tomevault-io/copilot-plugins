@@ -1,0 +1,26 @@
+{
+  "name": "eferro--augmented-lean-delivery",
+  "displayName": "augmented",
+  "description": "augmented-lean-delivery",
+  "version": "1.0.0",
+  "author": "eferro",
+  "homepage": "https://github.com/eferro/augmented-lean-delivery",
+  "skills": [
+    {
+      "name": "complexity-review",
+      "description": ""
+    },
+    {
+      "name": "hamburger-method",
+      "description": ""
+    },
+    {
+      "name": "micro-steps-coach",
+      "description": ""
+    },
+    {
+      "name": "story-splitting",
+      "description": ""
+    }
+  ]
+}
