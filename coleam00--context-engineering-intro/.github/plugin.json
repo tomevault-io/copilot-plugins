@@ -1,0 +1,14 @@
+{
+  "name": "coleam00--context-engineering-intro",
+  "displayName": "context-engineering-intro",
+  "description": "Context engineering is the new vibe coding - it's the way to actually make AI coding assistants work. Claude Code is the best for this so that's what this repo is centered around, but you can apply th",
+  "version": "1.0.0",
+  "author": "coleam00",
+  "homepage": "https://github.com/coleam00/context-engineering-intro",
+  "skills": [
+    {
+      "name": "build-with-agent-team",
+      "description": ""
+    }
+  ]
+}
