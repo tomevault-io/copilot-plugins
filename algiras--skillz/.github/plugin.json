@@ -1,0 +1,9 @@
+{
+  "name": "algiras--skillz",
+  "displayName": "skillz",
+  "description": "Self-extending MCP server - build and execute custom AI tools at runtime",
+  "version": "1.0.0",
+  "author": "Algiras",
+  "homepage": "https://github.com/Algiras/skillz",
+  "skills": []
+}
