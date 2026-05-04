@@ -1,0 +1,57 @@
+{
+  "name": "multigres",
+  "owner": "multigres",
+  "repo": "multigres",
+  "description": "Vitess for Postgres",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mt-dev",
+      "path": ".claude/skills/mt-dev",
+      "github_url": "https://github.com/multigres/multigres/tree/main/.claude/skills/mt-dev",
+      "description": ""
+    },
+    {
+      "name": "mt-local-cluster",
+      "path": ".claude/skills/mt-local-cluster",
+      "github_url": "https://github.com/multigres/multigres/tree/main/.claude/skills/mt-local-cluster",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/multigres/multigres",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:43:33Z"
+}
