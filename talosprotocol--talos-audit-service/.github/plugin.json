@@ -1,0 +1,9 @@
+{
+  "name": "talosprotocol--talos-audit-service",
+  "displayName": "talos-audit-service",
+  "description": "talos-audit-service",
+  "version": "1.0.0",
+  "author": "talosprotocol",
+  "homepage": "https://github.com/talosprotocol/talos-audit-service",
+  "skills": []
+}
