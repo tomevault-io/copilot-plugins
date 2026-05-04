@@ -1,0 +1,9 @@
+{
+  "name": "tamerlang--gh-actions-lsp-nvim",
+  "displayName": "gh-actions-lsp.nvim",
+  "description": "Neovim LSP plugin for GitHub Actions workflows. ",
+  "version": "1.0.0",
+  "author": "TamerlanG",
+  "homepage": "https://github.com/TamerlanG/gh-actions-lsp.nvim",
+  "skills": []
+}
