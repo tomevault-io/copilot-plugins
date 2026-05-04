@@ -1,0 +1,14 @@
+{
+  "name": "ramakay--claude-self-reflect",
+  "displayName": "claude-self-reflect",
+  "description": "Claude forgets everything. This fixes that. \ud83d\udd17 www.npmjs.com/package/claude-self-reflect",
+  "version": "1.0.0",
+  "author": "ramakay",
+  "homepage": "https://github.com/ramakay/claude-self-reflect",
+  "skills": [
+    {
+      "name": "conversation-analyzer",
+      "description": ""
+    }
+  ]
+}
