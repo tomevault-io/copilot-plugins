@@ -1,0 +1,18 @@
+{
+  "name": "davidcjones79--shelley-cli",
+  "displayName": "shelley-cli",
+  "description": "Terminal interface for Shelley coding agent. Fork of boldsoftware/shelley with CLI, file uploader, and /pick workflow.",
+  "version": "1.0.0",
+  "author": "davidcjones79",
+  "homepage": "https://github.com/davidcjones79/shelley-cli",
+  "skills": [
+    {
+      "name": "security-review-audit",
+      "description": ""
+    },
+    {
+      "name": "security-review-pr",
+      "description": ""
+    }
+  ]
+}
