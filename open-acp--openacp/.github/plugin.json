@@ -1,0 +1,9 @@
+{
+  "name": "open-acp--openacp",
+  "displayName": "OpenACP",
+  "description": "Self-hosted bridge that lets you interact with AI coding agents (Claude Code, Codex, etc.) from messaging platforms (Telegram, Discord, etc.) via the Agent Client Protocol (ACP).",
+  "version": "1.0.0",
+  "author": "Open-ACP",
+  "homepage": "https://github.com/Open-ACP/OpenACP",
+  "skills": []
+}
