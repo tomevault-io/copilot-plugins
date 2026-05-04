@@ -1,10 +1,34 @@
 ## kudu
 
-> Instructions for all AI sub-agents (Claude Code agents, worktree agents, etc.) working on this codebase.
+> A modern, open-source system cleaner for Windows, macOS, and Linux built with Electron.
 
-# Agents
+# Kudu
 
-Instructions for all AI sub-agents (Claude Code agents, worktree agents, etc.) working on this codebase.
+A modern, open-source system cleaner for Windows, macOS, and Linux built with Electron.
+
+## Releasing
+
+All releases are done via a single command:
+
+```
+npm run release -- patch|minor|major
+```
+
+This handles everything: version bump, changelog generation, commit, tag, push, and triggers CI to build and publish.
+
+## Testing
+
+```
+npm test              # run all tests once (vitest run)
+npm run test:watch    # run tests in watch mode
+npm run validate:rules # validate rule JSON files against schema
+```
+
+## Development
+
+```
+npm run dev
+```
 
 ## Commit Conventions
 
@@ -16,19 +40,14 @@ Always use [Conventional Commits](https://www.conventionalcommits.org/). Format:
 
 Types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`.
 
-Breaking changes must include `!` after the type/scope.
+Examples:
+- `feat(rules): add new browser cache cleaning rule`
+- `fix(scanner): handle missing registry keys on Windows`
+- `refactor(ui): extract settings panel into separate component`
+- `test(engine): add unit tests for file size calculation`
 
-## Before Committing
-
-- Run `npm test` to ensure all tests pass.
-- Run `npm run validate:rules` if rule JSON files were changed.
-
-## Code Style
-
-- Follow existing patterns in the codebase.
-- Keep PRs focused — one logical change per branch.
+Breaking changes must include `!` after the type/scope (e.g., `feat(api)!: redesign plugin interface`).
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/AdventDevInc)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/AdventDevInc)
-<!-- tomevault:4.0:copilot_instructions:2026-04-07 -->
+> Source: [AdventDevInc/kudu](https://github.com/AdventDevInc/kudu) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
