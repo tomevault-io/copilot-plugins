@@ -1,0 +1,44 @@
+{
+  "name": "PM-Solution-Design-Skills",
+  "owner": "StayerYao",
+  "repo": "PM-Solution-Design-Skills",
+  "description": "Stayer \u5b9a\u4e49\u7684 Claude Code Skills \u96c6\u5408",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/StayerYao/PM-Solution-Design-Skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T17:41:07Z"
+}
