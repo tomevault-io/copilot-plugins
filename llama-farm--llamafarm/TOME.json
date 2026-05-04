@@ -1,0 +1,159 @@
+{
+  "name": "llamafarm",
+  "owner": "llama-farm",
+  "repo": "llamafarm",
+  "description": "Deploy any AI model, agent, database, RAG, and pipeline locally or remotely in minutes",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "cli-skills",
+      "path": ".claude/skills/cli-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/cli-skills",
+      "description": ""
+    },
+    {
+      "name": "commit-push-pr",
+      "path": ".claude/skills/commit-push-pr",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/commit-push-pr",
+      "description": ""
+    },
+    {
+      "name": "common-skills",
+      "path": ".claude/skills/common-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/common-skills",
+      "description": ""
+    },
+    {
+      "name": "config-skills",
+      "path": ".claude/skills/config-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/config-skills",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "path": ".claude/skills/designer-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/designer-skills",
+      "description": ""
+    },
+    {
+      "name": "electron-skills",
+      "path": ".claude/skills/electron-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/electron-skills",
+      "description": ""
+    },
+    {
+      "name": "fix-ci",
+      "path": ".claude/skills/fix-ci",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/fix-ci",
+      "description": ""
+    },
+    {
+      "name": "generate-subsystem-skills",
+      "path": ".claude/skills/generate-subsystem-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/generate-subsystem-skills",
+      "description": ""
+    },
+    {
+      "name": "go-skills",
+      "path": ".claude/skills/go-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/go-skills",
+      "description": ""
+    },
+    {
+      "name": "python-skills",
+      "path": ".claude/skills/python-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/python-skills",
+      "description": ""
+    },
+    {
+      "name": "rag-skills",
+      "path": ".claude/skills/rag-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/rag-skills",
+      "description": ""
+    },
+    {
+      "name": "react-skills",
+      "path": ".claude/skills/react-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/react-skills",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "path": ".claude/skills/reflect",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/reflect",
+      "description": ""
+    },
+    {
+      "name": "runtime-skills",
+      "path": ".claude/skills/runtime-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/runtime-skills",
+      "description": ""
+    },
+    {
+      "name": "server-skills",
+      "path": ".claude/skills/server-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/server-skills",
+      "description": ""
+    },
+    {
+      "name": "temp-files",
+      "path": ".claude/skills/temp-files",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/temp-files",
+      "description": ""
+    },
+    {
+      "name": "typescript-skills",
+      "path": ".claude/skills/typescript-skills",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/typescript-skills",
+      "description": ""
+    },
+    {
+      "name": "wt",
+      "path": ".claude/skills/wt",
+      "github_url": "https://github.com/llama-farm/llamafarm/tree/main/.claude/skills/wt",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/llama-farm/llamafarm",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:50:56Z"
+}
