@@ -1,0 +1,75 @@
+{
+  "name": "paiml-mcp-agent-toolkit",
+  "owner": "paiml",
+  "repo": "paiml-mcp-agent-toolkit",
+  "description": "Pragmatic AI Labs MCP Agent Toolkit - An MCP Server designed to make code with agents more deterministic",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pmat-refactor",
+      "path": ".claude/skills/pmat-refactor",
+      "github_url": "https://github.com/paiml/paiml-mcp-agent-toolkit/tree/main/.claude/skills/pmat-refactor",
+      "description": ""
+    },
+    {
+      "name": "pmat-quality",
+      "path": ".claude/skills/pmat-quality",
+      "github_url": "https://github.com/paiml/paiml-mcp-agent-toolkit/tree/main/.claude/skills/pmat-quality",
+      "description": ""
+    },
+    {
+      "name": "pmat-context",
+      "path": ".claude/skills/pmat-context",
+      "github_url": "https://github.com/paiml/paiml-mcp-agent-toolkit/tree/main/.claude/skills/pmat-context",
+      "description": ""
+    },
+    {
+      "name": "pmat-multi-lang",
+      "path": ".claude/skills/pmat-multi-lang",
+      "github_url": "https://github.com/paiml/paiml-mcp-agent-toolkit/tree/main/.claude/skills/pmat-multi-lang",
+      "description": ""
+    },
+    {
+      "name": "pmat-tech-debt",
+      "path": ".claude/skills/pmat-tech-debt",
+      "github_url": "https://github.com/paiml/paiml-mcp-agent-toolkit/tree/main/.claude/skills/pmat-tech-debt",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/paiml/paiml-mcp-agent-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T23:34:02Z"
+}
