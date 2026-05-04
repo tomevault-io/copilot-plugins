@@ -1,0 +1,135 @@
+{
+  "name": "skills-market",
+  "owner": "daydreamsai",
+  "repo": "skills-market",
+  "description": "daydreams claude skills market for agentic commerce skills",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skills",
+      "path": "plugins/agent-factory/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/agent-factory/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/api-research/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/api-research/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/autonomous-lucid/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/autonomous-lucid/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/b2a-agents/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/b2a-agents/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/cult-film-curtis/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/cult-film-curtis/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/lucid-agent-creator/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/lucid-agent-creator/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/lucid-agent-editor/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/lucid-agent-editor/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/lucid-agents-sdk/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/lucid-agents-sdk/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/lucid-client-api/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/lucid-client-api/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/moltbook-promotion/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/moltbook-promotion/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/paid-agent/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/paid-agent/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/railway-deploy/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/railway-deploy/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/tig-innovator/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/tig-innovator/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/trend-discovery/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/trend-discovery/skills",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": "plugins/xgate-server/skills",
+      "github_url": "https://github.com/daydreamsai/skills-market/tree/main/plugins/xgate-server/skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/daydreamsai/skills-market",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:43:52Z"
+}
