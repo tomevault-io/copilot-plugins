@@ -1,0 +1,838 @@
+{
+  "name": "majesticlabs-dev--majestic-marketplace",
+  "displayName": "majestic-marketplace",
+  "description": "AI instruction skills by majesticlabs-dev",
+  "version": "1.0.0",
+  "author": "majesticlabs-dev",
+  "homepage": "https://github.com/majesticlabs-dev/majestic-marketplace",
+  "skills": [
+    {
+      "name": "aasm-coder",
+      "description": ""
+    },
+    {
+      "name": "action-mailer-coder",
+      "description": ""
+    },
+    {
+      "name": "action-policy-coder",
+      "description": ""
+    },
+    {
+      "name": "active-interaction-coder",
+      "description": ""
+    },
+    {
+      "name": "active-job-coder",
+      "description": ""
+    },
+    {
+      "name": "add-config-field",
+      "description": ""
+    },
+    {
+      "name": "aeo-scorecard",
+      "description": ""
+    },
+    {
+      "name": "agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "agent-teams",
+      "description": ""
+    },
+    {
+      "name": "analyst-positioning",
+      "description": ""
+    },
+    {
+      "name": "anomaly-detector",
+      "description": ""
+    },
+    {
+      "name": "ansible-coder",
+      "description": ""
+    },
+    {
+      "name": "anycable-coder",
+      "description": ""
+    },
+    {
+      "name": "anyway-config-coder",
+      "description": ""
+    },
+    {
+      "name": "attempt-ledger",
+      "description": ""
+    },
+    {
+      "name": "avo-coder",
+      "description": ""
+    },
+    {
+      "name": "backblaze-coder",
+      "description": ""
+    },
+    {
+      "name": "backlog-manager",
+      "description": ""
+    },
+    {
+      "name": "behavioral-seo",
+      "description": ""
+    },
+    {
+      "name": "blueprint-discovery",
+      "description": ""
+    },
+    {
+      "name": "blueprint-execution",
+      "description": ""
+    },
+    {
+      "name": "blueprint-research",
+      "description": ""
+    },
+    {
+      "name": "bofu-keywords",
+      "description": ""
+    },
+    {
+      "name": "bootstrapped-cfo",
+      "description": ""
+    },
+    {
+      "name": "brand-positioning",
+      "description": ""
+    },
+    {
+      "name": "brand-voice",
+      "description": ""
+    },
+    {
+      "name": "business-logic-coder",
+      "description": ""
+    },
+    {
+      "name": "buyer-journey-mapper",
+      "description": ""
+    },
+    {
+      "name": "calendar-optimization",
+      "description": ""
+    },
+    {
+      "name": "case-study-writer",
+      "description": ""
+    },
+    {
+      "name": "challenge-mode",
+      "description": ""
+    },
+    {
+      "name": "check-ci",
+      "description": ""
+    },
+    {
+      "name": "claude-headless-mode",
+      "description": ""
+    },
+    {
+      "name": "cloud-init-coder",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-coder",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-worker",
+      "description": ""
+    },
+    {
+      "name": "code-story",
+      "description": ""
+    },
+    {
+      "name": "community-strategy",
+      "description": ""
+    },
+    {
+      "name": "competitive-positioning",
+      "description": ""
+    },
+    {
+      "name": "competitive-positioning",
+      "description": ""
+    },
+    {
+      "name": "compound-learnings",
+      "description": ""
+    },
+    {
+      "name": "config-reader",
+      "description": ""
+    },
+    {
+      "name": "content-atomizer",
+      "description": ""
+    },
+    {
+      "name": "content-calendar",
+      "description": ""
+    },
+    {
+      "name": "content-optimizer",
+      "description": ""
+    },
+    {
+      "name": "content-writer",
+      "description": ""
+    },
+    {
+      "name": "conversion-optimization",
+      "description": ""
+    },
+    {
+      "name": "copy-editor",
+      "description": ""
+    },
+    {
+      "name": "create-adr",
+      "description": ""
+    },
+    {
+      "name": "csv-wrangler",
+      "description": ""
+    },
+    {
+      "name": "customer-discovery",
+      "description": ""
+    },
+    {
+      "name": "customer-expansion",
+      "description": ""
+    },
+    {
+      "name": "data-profiler",
+      "description": ""
+    },
+    {
+      "name": "data-quality",
+      "description": ""
+    },
+    {
+      "name": "data-validation",
+      "description": ""
+    },
+    {
+      "name": "dbt-coder",
+      "description": ""
+    },
+    {
+      "name": "decision-framework",
+      "description": ""
+    },
+    {
+      "name": "design-tool-picker",
+      "description": ""
+    },
+    {
+      "name": "devils-advocate",
+      "description": ""
+    },
+    {
+      "name": "devops-maintainability-checker",
+      "description": ""
+    },
+    {
+      "name": "devops-plan",
+      "description": ""
+    },
+    {
+      "name": "devops-platform-patterns",
+      "description": ""
+    },
+    {
+      "name": "devops-simplicity-checker",
+      "description": ""
+    },
+    {
+      "name": "dhh-coder",
+      "description": ""
+    },
+    {
+      "name": "dialog-patterns",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-coder",
+      "description": ""
+    },
+    {
+      "name": "direct-response-copy",
+      "description": ""
+    },
+    {
+      "name": "django-coder",
+      "description": ""
+    },
+    {
+      "name": "document-refinement",
+      "description": ""
+    },
+    {
+      "name": "document-review",
+      "description": ""
+    },
+    {
+      "name": "eeat-analyzer",
+      "description": ""
+    },
+    {
+      "name": "entity-triplets",
+      "description": ""
+    },
+    {
+      "name": "etl-core-patterns",
+      "description": ""
+    },
+    {
+      "name": "etl-incremental-patterns",
+      "description": ""
+    },
+    {
+      "name": "etl-patterns",
+      "description": ""
+    },
+    {
+      "name": "event-sourcing-coder",
+      "description": ""
+    },
+    {
+      "name": "fastapi-coder",
+      "description": ""
+    },
+    {
+      "name": "first-principles",
+      "description": ""
+    },
+    {
+      "name": "fix-decision-router",
+      "description": ""
+    },
+    {
+      "name": "fix-reporter",
+      "description": ""
+    },
+    {
+      "name": "fluff-detector",
+      "description": ""
+    },
+    {
+      "name": "founder-mode",
+      "description": ""
+    },
+    {
+      "name": "free-tool-arsenal",
+      "description": ""
+    },
+    {
+      "name": "frontend-css-patterns",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-philosophy",
+      "description": ""
+    },
+    {
+      "name": "gem-builder",
+      "description": ""
+    },
+    {
+      "name": "geo-content-optimizer",
+      "description": ""
+    },
+    {
+      "name": "git-worktree",
+      "description": ""
+    },
+    {
+      "name": "google-ads-strategy",
+      "description": ""
+    },
+    {
+      "name": "great-expectations",
+      "description": ""
+    },
+    {
+      "name": "gtm-strategy",
+      "description": ""
+    },
+    {
+      "name": "help-docs-writer",
+      "description": ""
+    },
+    {
+      "name": "hetzner-coder",
+      "description": ""
+    },
+    {
+      "name": "hierarchical-agents",
+      "description": ""
+    },
+    {
+      "name": "hook-writer",
+      "description": ""
+    },
+    {
+      "name": "hotwire-coder",
+      "description": ""
+    },
+    {
+      "name": "icp-discovery",
+      "description": ""
+    },
+    {
+      "name": "idea-generation",
+      "description": ""
+    },
+    {
+      "name": "industry-pulse",
+      "description": ""
+    },
+    {
+      "name": "inertia-coder",
+      "description": ""
+    },
+    {
+      "name": "infra-security-review",
+      "description": ""
+    },
+    {
+      "name": "init-agents-config",
+      "description": ""
+    },
+    {
+      "name": "irresistible-offer",
+      "description": ""
+    },
+    {
+      "name": "kamal-coder",
+      "description": ""
+    },
+    {
+      "name": "keyword-research",
+      "description": ""
+    },
+    {
+      "name": "landing-page-builder",
+      "description": ""
+    },
+    {
+      "name": "language",
+      "description": ""
+    },
+    {
+      "name": "launch-legal",
+      "description": ""
+    },
+    {
+      "name": "layered-rails",
+      "description": ""
+    },
+    {
+      "name": "lead-magnet",
+      "description": ""
+    },
+    {
+      "name": "lead-magnet-design",
+      "description": ""
+    },
+    {
+      "name": "linkedin-content",
+      "description": ""
+    },
+    {
+      "name": "litestream-coder",
+      "description": ""
+    },
+    {
+      "name": "llms-txt-builder",
+      "description": ""
+    },
+    {
+      "name": "market-research",
+      "description": ""
+    },
+    {
+      "name": "marketing-playbook",
+      "description": ""
+    },
+    {
+      "name": "marketing-strategy",
+      "description": ""
+    },
+    {
+      "name": "mermaid-builder",
+      "description": ""
+    },
+    {
+      "name": "minitest-coder",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-architecture",
+      "description": ""
+    },
+    {
+      "name": "narrative-builder",
+      "description": ""
+    },
+    {
+      "name": "newsletter",
+      "description": ""
+    },
+    {
+      "name": "objection-destroyer",
+      "description": ""
+    },
+    {
+      "name": "omtm-growth",
+      "description": ""
+    },
+    {
+      "name": "onepassword-cli-coder",
+      "description": ""
+    },
+    {
+      "name": "opentofu-coder",
+      "description": ""
+    },
+    {
+      "name": "outbound-sequences",
+      "description": ""
+    },
+    {
+      "name": "outreach-templates",
+      "description": ""
+    },
+    {
+      "name": "pandas-coder",
+      "description": ""
+    },
+    {
+      "name": "pandera-validation",
+      "description": ""
+    },
+    {
+      "name": "pareto",
+      "description": ""
+    },
+    {
+      "name": "parquet-coder",
+      "description": ""
+    },
+    {
+      "name": "pipeline-diagnostics",
+      "description": ""
+    },
+    {
+      "name": "pipeline-forecasting",
+      "description": ""
+    },
+    {
+      "name": "pipeline-reporting",
+      "description": ""
+    },
+    {
+      "name": "plan-builder",
+      "description": ""
+    },
+    {
+      "name": "plg-ai-funnel",
+      "description": ""
+    },
+    {
+      "name": "pm-assumption-mapping",
+      "description": ""
+    },
+    {
+      "name": "pm-customer-interviews",
+      "description": ""
+    },
+    {
+      "name": "pm-discovery",
+      "description": ""
+    },
+    {
+      "name": "pm-jobs-to-be-done",
+      "description": ""
+    },
+    {
+      "name": "pm-prioritization",
+      "description": ""
+    },
+    {
+      "name": "pmf-validation",
+      "description": ""
+    },
+    {
+      "name": "positioning-angles",
+      "description": ""
+    },
+    {
+      "name": "power-words",
+      "description": ""
+    },
+    {
+      "name": "pr-screenshot-docs",
+      "description": ""
+    },
+    {
+      "name": "press-release-aeo",
+      "description": ""
+    },
+    {
+      "name": "proposal-writer",
+      "description": ""
+    },
+    {
+      "name": "pydantic-validation",
+      "description": ""
+    },
+    {
+      "name": "pytest-coder",
+      "description": ""
+    },
+    {
+      "name": "python-coder",
+      "description": ""
+    },
+    {
+      "name": "python-debugger",
+      "description": ""
+    },
+    {
+      "name": "query-expansion-strategy",
+      "description": ""
+    },
+    {
+      "name": "rails-conventions",
+      "description": ""
+    },
+    {
+      "name": "rails-debugger",
+      "description": ""
+    },
+    {
+      "name": "rails-refactorer",
+      "description": ""
+    },
+    {
+      "name": "ralph-methodology",
+      "description": ""
+    },
+    {
+      "name": "react-coder",
+      "description": ""
+    },
+    {
+      "name": "react-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-testing",
+      "description": ""
+    },
+    {
+      "name": "readme-craft",
+      "description": ""
+    },
+    {
+      "name": "referral-program",
+      "description": ""
+    },
+    {
+      "name": "research-compound",
+      "description": ""
+    },
+    {
+      "name": "retention-system",
+      "description": ""
+    },
+    {
+      "name": "review-management",
+      "description": ""
+    },
+    {
+      "name": "rookie-mistakes",
+      "description": ""
+    },
+    {
+      "name": "rspec-coder",
+      "description": ""
+    },
+    {
+      "name": "rubocop-fixer",
+      "description": ""
+    },
+    {
+      "name": "ruby-coder",
+      "description": ""
+    },
+    {
+      "name": "sales-messaging",
+      "description": ""
+    },
+    {
+      "name": "sales-metrics",
+      "description": ""
+    },
+    {
+      "name": "sales-page",
+      "description": ""
+    },
+    {
+      "name": "sales-playbook",
+      "description": ""
+    },
+    {
+      "name": "seo-audit",
+      "description": ""
+    },
+    {
+      "name": "seo-content",
+      "description": ""
+    },
+    {
+      "name": "skill-archetypes",
+      "description": ""
+    },
+    {
+      "name": "skill-auditor",
+      "description": ""
+    },
+    {
+      "name": "skill-design-philosophy",
+      "description": ""
+    },
+    {
+      "name": "skill-first",
+      "description": ""
+    },
+    {
+      "name": "skill-linter",
+      "description": ""
+    },
+    {
+      "name": "skill-structure",
+      "description": ""
+    },
+    {
+      "name": "slogan-generator",
+      "description": ""
+    },
+    {
+      "name": "solid-cache-coder",
+      "description": ""
+    },
+    {
+      "name": "solid-queue-coder",
+      "description": ""
+    },
+    {
+      "name": "sql-patterns",
+      "description": ""
+    },
+    {
+      "name": "stimulus-coder",
+      "description": ""
+    },
+    {
+      "name": "store-model-coder",
+      "description": ""
+    },
+    {
+      "name": "strategic-planning",
+      "description": ""
+    },
+    {
+      "name": "structured-logging",
+      "description": ""
+    },
+    {
+      "name": "style-guide-builder",
+      "description": ""
+    },
+    {
+      "name": "tailwind-coder",
+      "description": ""
+    },
+    {
+      "name": "tailwind-styling",
+      "description": ""
+    },
+    {
+      "name": "task-coordinator",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "description": ""
+    },
+    {
+      "name": "test-fixture-generator",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "thread-builder",
+      "description": ""
+    },
+    {
+      "name": "topical-authority",
+      "description": ""
+    },
+    {
+      "name": "traffic-magnet",
+      "description": ""
+    },
+    {
+      "name": "ux-brief",
+      "description": ""
+    },
+    {
+      "name": "value-prop-sharpener",
+      "description": ""
+    },
+    {
+      "name": "viewcomponent-coder",
+      "description": ""
+    },
+    {
+      "name": "viral-content",
+      "description": ""
+    },
+    {
+      "name": "win-back",
+      "description": ""
+    },
+    {
+      "name": "wrangler-coder",
+      "description": ""
+    }
+  ]
+}
