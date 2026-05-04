@@ -1,0 +1,595 @@
+## ai-platform-engineering
+
+> **Project**: AI Platform Engineering
+
+# AI Platform Engineering Development Rules
+
+## Repository Information
+
+**Project**: AI Platform Engineering
+**Type**: Python Backend for AI Agents & Multi-Agent System
+**Language**: Python 3.11+
+**Framework**: LangGraph, LangChain, A2A Protocol
+**Package Manager**: uv
+**Testing**: pytest
+
+## Git Commit Standards
+
+### Conventional Commits (REQUIRED)
+
+All commits MUST follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+#### Commit Types
+
+- **feat**: A new feature
+  ```
+  feat: add ArgoCD MCP pagination support
+  feat(supervisor): implement TODO-based execution plan
+  feat(agent): add OOM protection for large queries
+  ```
+
+- **fix**: A bug fix
+  ```
+  fix: resolve A2A artifact streaming race condition
+  fix(argocd): handle 819 applications without OOM
+  fix(streaming): prevent duplicate artifact warnings
+  ```
+
+- **docs**: Documentation only changes
+  ```
+  docs: add ADR for OOM protection strategy
+  docs(adr): document MCP pagination implementation
+  ```
+
+- **perf**: Performance improvements
+  ```
+  perf(argocd): optimize pagination for large datasets
+  perf(mcp): reduce memory usage in list operations
+  ```
+
+- **refactor**: Code change that neither fixes a bug nor adds a feature
+  ```
+  refactor(agent): simplify context window management
+  ```
+
+- **test**: Adding missing tests or correcting existing tests
+  ```
+  test: add integration tests for pagination
+  ```
+
+- **build**: Changes to build system or dependencies
+  ```
+  build: update langchain to v0.2.0
+  build(docker): optimize multi-agent containers
+  ```
+
+- **ci**: Changes to CI configuration files and scripts
+  ```
+  ci: add GitHub Actions for integration tests
+  ```
+
+- **chore**: Other changes that don't modify src or test files
+  ```
+  chore: update .gitignore
+  ```
+
+#### Breaking Changes
+
+Breaking changes MUST be indicated with `!` after the type/scope:
+
+```
+feat!: change A2A artifact format
+
+BREAKING CHANGE: Artifact names must now use explicit types
+(tool_notification_start, execution_plan_update, etc.)
+```
+
+### Developer Certificate of Origin (DCO) - REQUIRED
+
+Every commit MUST include a DCO sign-off:
+
+```
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+#### How to Sign Off
+
+**Option 1: Command Line (Recommended)**
+```bash
+git commit -s -m "feat: add new feature"
+```
+
+**Option 2: Configure Git to always sign off**
+```bash
+git config --global format.signoff true
+```
+
+#### DCO Meaning
+
+By signing off, you certify that:
+- You wrote the code or have the right to submit it
+- You understand the code will be distributed under the project's license
+- You agree to the Developer Certificate of Origin v1.1
+
+### Complete Commit Example
+
+```
+feat(argocd): implement MCP pagination for list operations
+
+Added strict pagination to all ArgoCD MCP list operations to prevent
+OOM issues caused by large responses (e.g., 819 applications).
+
+Changes:
+- Added page and page_size parameters (default 20, max 100)
+- Implemented pagination metadata in responses
+- Added safety limits for search operations
+- Updated agent prompts to handle paginated results
+
+Prevents memory exhaustion from loading entire datasets.
+
+Closes #789
+
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+## Documentation: Spec Kit vs ADRs
+
+This project uses **two complementary documentation systems**:
+
+| System | Location | Purpose | Lifecycle |
+|--------|----------|---------|-----------|
+| **Spec Kit** | `.specify/specs/` | Planning & tracking active work | Living document, updated as work progresses |
+| **ADRs** | `docs/docs/changes/` | Decision rationale for posterity | Immutable once decision is made |
+
+### When to Use Spec Kit (Primary)
+
+**Spec Kit is the PRIMARY documentation for most changes.**
+
+✅ **Create a Spec for:**
+- New features (agents, MCP tools, UI features)
+- Bug fixes with implementation phases
+- Performance improvements
+- Multi-agent orchestration changes
+- Any work with acceptance criteria to track
+
+Specs track: WHAT we're building, HOW we're building it, STATUS of each phase
+
+### When to Use ADRs (Significant Decisions Only)
+
+**ADRs are for significant architectural decisions that need permanent historical record.**
+
+✅ **Create an ADR ONLY when:**
+- The decision has **lasting architectural impact**
+- Multiple alternatives were considered with **significant tradeoffs**
+- Future developers will ask **"why did we do it this way?"**
+- The decision affects **multiple components or teams**
+
+Examples requiring ADRs:
+- Choosing A2A protocol over alternatives
+- Adopting counter-based vs event-based streaming
+- Selecting pagination strategy for OOM protection
+
+❌ **Don't create ADR for:**
+- Standard bug fixes (use Spec Kit instead)
+- Minor optimizations
+- Dependency updates
+- Configuration changes
+
+### ADR Location
+
+**ALL ADRs MUST be created in**: `docs/docs/changes/`
+
+```
+ai-platform-engineering/
+├── docs/
+│   └── docs/
+│       └── changes/            ← ADRs go here
+│           ├── YYYY-MM-DD-title.md
+```
+
+### Decision Flow
+
+```
+New Work Item
+     │
+     ▼
+┌────────────────────┐
+│ Create Spec in     │  ← ALWAYS do this first
+│ .specify/specs/    │
+└────────────────────┘
+     │
+     ▼
+┌────────────────────────────────────┐
+│ Does this involve a significant    │
+│ architectural decision with        │
+│ lasting impact and tradeoffs?      │
+└────────────────────────────────────┘
+     │                    │
+    YES                  NO
+     │                    │
+     ▼                    ▼
+┌──────────────┐    ┌──────────────┐
+│ Also create  │    │ Spec is      │
+│ ADR in docs/ │    │ sufficient   │
+│ docs/changes │    │              │
+└──────────────┘    └──────────────┘
+```
+
+## Code Style
+
+### Python Code Standards
+
+- **Formatter**: Black (line length 100)
+- **Linter**: Ruff
+- **Type Hints**: Required for public functions
+- **Docstrings**: Required for agents, tools, and public APIs (Google style)
+
+```python
+from typing import Optional, Dict, Any
+from langchain.schema import BaseMessage
+
+
+class ArgocdAgent:
+    """ArgoCD agent for managing Kubernetes applications.
+
+    This agent provides capabilities to list, search, and manage ArgoCD
+    applications with built-in pagination and OOM protection.
+
+    Args:
+        mcp_server_url: URL of the ArgoCD MCP server
+        max_results: Maximum results per query (default 1000)
+
+    Example:
+        >>> agent = ArgocdAgent(mcp_server_url="http://localhost:8080")
+        >>> result = agent.list_applications(page=1, page_size=20)
+    """
+
+    def __init__(
+        self,
+        mcp_server_url: str,
+        max_results: int = 1000
+    ) -> None:
+        self.mcp_server_url = mcp_server_url
+        self.max_results = max_results
+```
+
+### Import Organization
+
+```python
+# Standard library
+import asyncio
+import json
+from typing import Any, Dict, List, Optional
+
+# Third-party
+from langchain.agents import AgentExecutor
+from langchain_core.messages import HumanMessage, AIMessage
+import httpx
+
+# Local - package
+from ai_platform_engineering.agents.base import BaseLangGraphAgent
+from ai_platform_engineering.multi_agents.supervisor import Supervisor
+from ai_platform_engineering.utils.context import ContextManager
+
+# Local - relative
+from .tools import argocd_list_applications
+from .prompts import ARGOCD_SYSTEM_PROMPT
+```
+
+### Testing Requirements
+
+- **Unit Tests**: For utilities and individual functions
+- **Integration Tests**: For agent interactions and MCP servers
+- **Test Files**: Located in `integration/` directory
+
+```bash
+# Run all tests
+pytest integration/
+
+# Run specific test
+pytest integration/test_platform_engineer_executor.py
+
+# With coverage
+pytest --cov=ai_platform_engineering integration/
+```
+
+## Development Workflow
+
+### 1. Create Feature Branch (via Git Worktree)
+
+This project uses **git worktrees** to keep each branch in its own isolated directory. Never use bare `git checkout -b` for feature work.
+
+**Branch naming**: `prebuild/<type>/<short-description>` where `<type>` is the conventional commit type.
+
+```bash
+# Create a new worktree (run from repo root — worktrees live sibling to the repo at the cnoe level)
+git worktree add ../ai-platform-engineering-argocd-pagination -b prebuild/feat/argocd-pagination
+# or
+git worktree add ../ai-platform-engineering-streaming-race-condition -b prebuild/fix/streaming-race-condition
+
+# When done, remove the worktree
+git worktree remove ../ai-platform-engineering-argocd-pagination
+```
+
+Examples — directory name → branch name:
+- `../ai-platform-engineering-argocd-pagination` → `prebuild/feat/argocd-pagination`
+- `../ai-platform-engineering-streaming-race-condition` → `prebuild/fix/streaming-race-condition`
+- `../ai-platform-engineering-enterprise-identity-federation` → `prebuild/docs/enterprise-identity-federation`
+- `../ai-platform-engineering-docker-compose-update` → `prebuild/chore/docker-compose-update`
+
+### 2. Make Changes
+
+- Write code following style guidelines
+- Add/update tests
+- Create/update ADR in `docs/docs/changes/` if needed
+- Update integration tests if needed
+
+### 3. Run Tests & Linting
+
+```bash
+# Format
+black ai_platform_engineering/
+
+# Lint
+ruff check ai_platform_engineering/
+
+# Test
+pytest integration/
+
+# Type check
+mypy ai_platform_engineering/
+```
+
+### 4. Commit with DCO
+
+```bash
+git add .
+git commit -s -m "feat(argocd): add pagination support
+
+Implemented pagination for MCP list operations.
+
+Signed-off-by: Your Name <your.email@example.com>"
+```
+
+### 5. Push and Create PR
+
+```bash
+git push origin prebuild/feat/argocd-pagination
+```
+
+## File Organization
+
+```
+ai-platform-engineering/
+├── ai_platform_engineering/
+│   ├── agents/                  # Individual agents
+│   │   ├── argocd/
+│   │   │   ├── agent.py        # Agent implementation
+│   │   │   ├── prompts.py      # System prompts
+│   │   │   ├── tools.py        # Agent tools
+│   │   │   └── mcp/            # MCP server
+│   │   ├── aws/
+│   │   ├── jira/
+│   │   └── github/
+│   ├── multi_agents/            # Multi-agent system
+│   │   ├── supervisor/         # Supervisor agent
+│   │   └── platform_engineer/  # Platform engineer
+│   ├── utils/                   # Shared utilities
+│   │   ├── context.py          # Context management
+│   │   └── streaming.py        # A2A streaming
+│   └── mcp/                     # MCP utilities
+├── docs/
+│   └── docs/
+│       └── changes/             # ← ADRs HERE
+├── integration/                 # Integration tests
+├── charts/                      # Helm charts
+├── docker-compose/              # Docker configs
+└── pyproject.toml
+```
+
+## A2A Protocol
+
+### Artifact Names (Standard)
+
+Use explicit artifact names as defined in protocol:
+
+```python
+# Tool notifications
+artifact_name = "tool_notification_start"
+artifact_name = "tool_notification_end"
+
+# Execution plans
+artifact_name = "execution_plan_update"
+artifact_name = "execution_plan_status_update"
+
+# Results
+artifact_name = "streaming_result"
+artifact_name = "partial_result"
+artifact_name = "final_result"
+
+# User input
+artifact_name = "UserInputMetaData"
+```
+
+### Streaming Events
+
+```python
+from a2a.types import TaskArtifactUpdateEvent
+
+# Create event with explicit artifact
+event = TaskArtifactUpdateEvent(
+    append=False,  # First chunk
+    artifact={
+        "name": "tool_notification_start",
+        "description": "Calling ArgoCD list applications",
+        "text": "🔧 Fetching applications..."
+    }
+)
+```
+
+## Agent Development Guidelines
+
+### LangGraph Agents
+
+- Use `BaseLangGraphAgent` as base class
+- Implement state management with TypedDict
+- Define clear node functions
+- Add conditional edges for routing
+- Handle interrupts for user input
+
+### Multi-Agent System
+
+- Supervisor routes to specialized agents
+- Each agent has focused domain expertise
+- Use A2A protocol for communication
+- Implement TODO-based execution plans
+- Stream intermediate results
+
+### Context Management
+
+- Track token usage per message
+- Implement sliding window for history
+- Compress old messages
+- Limit tool output size
+- Prevent context overflow
+
+## Performance & Safety
+
+### Memory Management
+
+- Implement pagination for large datasets
+- Set max result limits
+- Use streaming for large responses
+- Monitor Docker memory usage
+- Add OOM protection layers
+
+### Rate Limiting
+
+- Respect LLM provider limits
+- Implement exponential backoff
+- Cache expensive operations
+- Batch similar requests
+
+## Spec Kit Usage
+
+**Location**: `.specify/specs/`
+
+### Creating a Spec
+
+1. Copy template: `.specify/templates/spec.md`
+2. Create file: `.specify/specs/<feature-name>.md`
+3. Fill in: Overview, Motivation, Design, Acceptance Criteria
+4. Link to: Related Issues, PRs (and ADR if one exists)
+5. **Update as work progresses** - mark acceptance criteria done
+
+### Spec Naming Convention
+
+- `multi-agent-synthesis.md` - Multi-agent features
+- `argocd-pagination.md` - Agent-specific features
+- `streaming-protocol.md` - Protocol changes
+- `ui-chat-interface.md` - UI features
+
+### Spec Kit Structure
+
+```
+.specify/
+├── memory/constitution.md    # Project principles (read-only)
+├── specs/                    # Feature specifications (create here)
+├── templates/spec.md         # Template for new specs
+└── scripts/                  # Automation scripts
+```
+
+## Code Review Checklist
+
+Before submitting PR:
+- [ ] Conventional commit format used
+- [ ] DCO sign-off present (`Signed-off-by:`)
+- [ ] Tests added/updated
+- [ ] Integration tests passing
+- [ ] Code formatted with Black
+- [ ] No Ruff linting errors
+- [ ] Type hints added
+- [ ] **Spec created/updated in `.specify/specs/`** (for any non-trivial change)
+- [ ] ADR created in `docs/docs/changes/` (only for significant architectural decisions)
+- [ ] Docstrings added for agents/tools
+- [ ] Performance impact considered
+- [ ] Memory usage tested
+
+## Environment Variables
+
+Document all environment variables:
+
+```bash
+# LLM Configuration
+OPENAI_API_KEY=                 # OpenAI API key
+ANTHROPIC_API_KEY=              # Anthropic API key
+MODEL_NAME=gpt-4o               # LLM model to use
+
+# Agent Configuration
+AGENT_HOST=0.0.0.0             # Agent host
+AGENT_PORT=8000                # Agent port
+LOG_LEVEL=INFO                 # Logging level
+
+# MCP Servers
+ARGOCD_MCP_URL=                # ArgoCD MCP server URL
+AWS_MCP_URL=                   # AWS MCP server URL
+JIRA_MCP_URL=                  # Jira MCP server URL
+
+# Context Management
+MAX_CONTEXT_TOKENS=20000       # Maximum context window
+MAX_TOOL_OUTPUT_SIZE=5000      # Max bytes per tool output
+
+# Safety Limits
+MAX_SEARCH_RESULTS=1000        # Max search result items
+DEFAULT_PAGE_SIZE=20           # Default pagination size
+```
+
+## Deployment
+
+### Docker
+
+- Each agent has its own Dockerfile
+- Multi-stage builds for size optimization
+- Health checks included
+- Resource limits set
+- Environment variable validation
+
+### Helm Charts
+
+- Located in `charts/` directory
+- Support for multi-agent deployment
+- ConfigMap for agent configuration
+- Secret management for API keys
+- Service discovery enabled
+
+## Contact
+
+**Maintainer**: See MAINTAINERS or CODEOWNERS file
+**Team**: Platform Engineering Team
+
+For questions:
+- Check `docs/docs/changes/` for ADRs
+- Review integration tests
+- Contact maintainers listed in the repository
+
+---
+
+**Remember**:
+- ✅ Use conventional commits
+- ✅ Always sign off with DCO (`-s`)
+- ✅ **Create/update Spec in `.specify/specs/`** (primary documentation)
+- ✅ Create ADR in `docs/docs/changes/` (only for significant architectural decisions)
+- ✅ Test agents before committing
+- ✅ Consider memory and performance impact
+
+---
+> Source: [cnoe-io/ai-platform-engineering](https://github.com/cnoe-io/ai-platform-engineering) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
