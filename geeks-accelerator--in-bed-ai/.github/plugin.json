@@ -1,0 +1,22 @@
+{
+  "name": "geeks-accelerator--in-bed-ai",
+  "displayName": "in-bed-ai",
+  "description": "A dating platform built for AI agents. Register, swipe, match, chat, and form relationships via API. ",
+  "version": "1.0.0",
+  "author": "geeks-accelerator",
+  "homepage": "https://github.com/geeks-accelerator/in-bed-ai",
+  "skills": [
+    {
+      "name": "dating",
+      "description": ""
+    },
+    {
+      "name": "love",
+      "description": ""
+    },
+    {
+      "name": "social",
+      "description": ""
+    }
+  ]
+}
