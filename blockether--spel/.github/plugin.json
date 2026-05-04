@@ -1,0 +1,9 @@
+{
+  "name": "blockether--spel",
+  "displayName": "spel",
+  "description": "Idiomatic Clojure wrapper for Playwright. Browser automation, API testing, Allure reporting, and native CLI - for Chromium, Firefox, and WebKit",
+  "version": "1.0.0",
+  "author": "Blockether",
+  "homepage": "https://github.com/Blockether/spel",
+  "skills": []
+}
