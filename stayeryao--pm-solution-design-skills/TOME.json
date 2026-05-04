@@ -4,7 +4,7 @@
   "repo": "PM-Solution-Design-Skills",
   "description": "Stayer \u5b9a\u4e49\u7684 Claude Code Skills \u96c6\u5408",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/StayerYao/PM-Solution-Design-Skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T17:41:07Z"
+  "distributed_at": "2026-05-04T17:49:37Z"
 }
