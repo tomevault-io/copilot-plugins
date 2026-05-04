@@ -1,0 +1,9 @@
+{
+  "name": "rustfs--launcher",
+  "displayName": "launcher",
+  "description": "rustfs cross-platform launcher",
+  "version": "1.0.0",
+  "author": "rustfs",
+  "homepage": "https://github.com/rustfs/launcher",
+  "skills": []
+}
