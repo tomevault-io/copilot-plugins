@@ -1,0 +1,9 @@
+{
+  "name": "sheawinkler--contextlattice",
+  "displayName": "ContextLattice",
+  "description": "ContextLattice is the local-first control plane for long-horizon agent memory and coordination. ",
+  "version": "1.0.0",
+  "author": "sheawinkler",
+  "homepage": "https://github.com/sheawinkler/ContextLattice",
+  "skills": []
+}
