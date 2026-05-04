@@ -7,11 +7,11 @@ Turn noisy command output into a short, actionable first pass for coding agents.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bilalimamoglu/sift](https://github.com/bilalimamoglu/sift).
+Original source: `CLAUDE.md` in [bilalimamoglu/sift](https://github.com/bilalimamoglu/sift).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
