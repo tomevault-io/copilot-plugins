@@ -1,23 +1,23 @@
-## frontend-i18n
+## gitlab-token-source
 
-> Frontend internationalization requirements for web UI changes
+> Read GitLab token from local secrets.env
 
 
-# Frontend Internationalization
+# GitLab Token Source
 
-- Any user-facing copy in `web/src` must be localizable.
-- Add new strings to `web/src/i18n.ts` in both `en` and `zh`.
-- Do not hardcode labels, buttons, tooltips, empty states, errors, status text, or helper text directly inside components.
-- Use `t()` for UI strings and localized objects like `{ en, zh }` for catalog-style content.
-- When adding a feature, translate all supporting states too: loading, success, failure, empty, confirmation, logs, and hints.
-- Keep translation keys stable and grouped by feature prefix.
+When any task requires GitLab API authentication, always load the token from `local/secrets.env`.
 
-```tsx
-// ❌ BAD
-<button>Install</button>
+- Preferred source: `local/secrets.env` with `GITLAB_TOKEN="glpat-..."`
+- If `GITLAB_TOKEN` is unset, source `local/secrets.env` before running GitLab API or release upload commands.
+- Never hardcode, paste, or commit GitLab tokens in commands, code, docs, commit messages, or chat output.
+- Keep `local/secrets.env` local-only (gitignored).
 
-// ✅ GOOD
-<button>{t("aiApps.install")}</button>
+Example:
+
+```sh
+if [ -z "${GITLAB_TOKEN:-}" ] && [ -f "./local/secrets.env" ]; then
+  . "./local/secrets.env"
+fi
 ```
 
 ---
