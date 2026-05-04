@@ -1,0 +1,9 @@
+{
+  "name": "uitraworkers--claw-code-parity",
+  "displayName": "claw-code-parity",
+  "description": "claw-code Rust port parity work - it is temporary work while claw-code repo is doing migration. ultraworkers ",
+  "version": "1.0.0",
+  "author": "uItraworkers",
+  "homepage": "https://github.com/uItraworkers/claw-code-parity",
+  "skills": []
+}
