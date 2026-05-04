@@ -1,51 +1,31 @@
-## 08-e2e-test-selectors
+## 09-symfony-services
 
-> Stable selectors for e2e tests: data-test-id and data-test-class. Use when writing or changing e2e tests or UI templates/Stimulus code that are under e2e test.
+> Symfony service container, autowiring, config/services.yaml. Use when adding or changing services, interfaces, or DI configuration.
 
 
-# E2E Test Selectors
+# Symfony Services and Autowiring
 
-To keep e2e tests stable when look and feel changes (copy, styling, layout), we target **functionality and structure** via dedicated test attributes instead of roles, labels, or visible text.
+**Reference**: See [Symfony Autowiring](https://symfony.com/doc/current/service_container/autowiring.html).
 
-## Attributes
+## Interface Bindings
 
-- **`data-test-id="value"`** – Identifies a **unique** element on the page (same spirit as a CSS `id`). Use for one-off elements: page container, main heading, primary form, primary submit button, key inputs.
-- **`data-test-class="value"`** – Identifies a **category** of elements (same spirit as a CSS `class`). Use when multiple elements share the same test role: form fields, list items, error messages of the same type.
+**Do not add explicit interface → implementation bindings in `config/services.yaml` when:**
 
-Use kebab-case for values (e.g. `sign-in-page`, `project-list-heading`).
+- The interface has **exactly one** concrete implementation in the application, and
+- That implementation is in the autowired resource path (e.g. `App\` → `../src/`).
 
-## Where to add them
+Symfony's autowiring will automatically inject the single implementation when a type hint asks for the interface. Adding a redundant `InterfaceName: class: ImplementationName` entry is unnecessary and should be avoided.
 
-- **Templates (Twig):** Add `data-test-id` or `data-test-class` to the elements that e2e tests need to find or interact with (forms, inputs, buttons, headings, page/section containers).
-- **Stimulus / frontend (TypeScript):** Controllers live under `src/<Vertical>/Presentation/Resources/assets/controllers/` (see `docs/frontendbook.md`). When a Stimulus controller adds or renders DOM that e2e tests need to target (e.g. dynamic panels, buttons, inputs, or containers created in Twig where the controller is attached), add the same attributes there: in Twig alongside `stimulus_controller` / `stimulus_target` / `stimulus_action`, or in TypeScript when creating elements in the DOM. Any UI that is under e2e test and is rendered or controlled by Stimulus should carry test attributes so tests stay stable when copy or styles change.
-- Only add attributes for **UI that is (or will be) covered by e2e tests**. Avoid decorating every element.
+**Add explicit configuration only when:**
 
-## In the test code (Playwright)
+- The implementation lives outside the autowired resource (e.g. in a third-party bundle or vendor), or
+- You need to pass specific constructor arguments, or
+- There are multiple implementations and you must choose one (or use tags/compiler passes), or
+- You need an alias to a decorator or a specific service id.
 
-- **`data-test-id`:** Use `page.getByTestId("value")`. Playwright is configured with `testIdAttribute: "data-test-id"`.
-- **`data-test-class`:** Use `page.locator('[data-test-class="value"]')`. For multiple matches, use `.first()`, `.nth(i)`, or filter as needed.
+## When in Doubt
 
-Prefer these selectors over `getByRole`, `getByLabel`, or `getByText` for assertions and interactions that must survive copy or styling changes. Use roles/labels/text only when the test is explicitly about that visible content (e.g. accessibility or copy).
-
-## Examples
-
-```html
-<div data-test-id="sign-in-page">
-  <h1 data-test-id="sign-in-heading">Welcome back</h1>
-  <form data-test-id="sign-in-form">
-    <div data-test-class="form-field">
-      <input data-test-id="sign-in-email" type="email" />
-    </div>
-    <button type="submit" data-test-id="sign-in-submit">Continue</button>
-  </form>
-</div>
-```
-
-```ts
-await page.getByTestId("sign-in-email").fill("e2e@example.com");
-await page.getByTestId("sign-in-submit").click();
-await expect(page.getByTestId("project-list-heading")).toBeVisible();
-```
+Prefer omitting the binding and relying on autowiring; if the container fails with "multiple implementations" or "no service for interface", then add the minimal explicit configuration needed.
 
 ---
 > Source: [dx-tooling/sitebuilder-webapp](https://github.com/dx-tooling/sitebuilder-webapp) — distributed by [TomeVault](https://tomevault.io).
