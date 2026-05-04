@@ -4,7 +4,7 @@
   "repo": "structureclaw",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/structureclaw/structureclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T10:58:23Z"
+  "distributed_at": "2026-05-04T17:53:05Z"
 }
