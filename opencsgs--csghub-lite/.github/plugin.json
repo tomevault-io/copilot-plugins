@@ -1,0 +1,9 @@
+{
+  "name": "opencsgs--csghub-lite",
+  "displayName": "csghub-lite",
+  "description": "A lightweight tool for running large language models locally, powered by models from the [CSGHub](https://opencsg.com) platform.",
+  "version": "1.0.0",
+  "author": "OpenCSGs",
+  "homepage": "https://github.com/OpenCSGs/csghub-lite",
+  "skills": []
+}
