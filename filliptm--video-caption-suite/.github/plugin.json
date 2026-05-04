@@ -1,0 +1,9 @@
+{
+  "name": "filliptm--video-caption-suite",
+  "displayName": "Video-Caption-Suite",
+  "description": "Batch video captioning using Qwen3-VL-8B vision-language model",
+  "version": "1.0.0",
+  "author": "filliptm",
+  "homepage": "https://github.com/filliptm/Video-Caption-Suite",
+  "skills": []
+}
