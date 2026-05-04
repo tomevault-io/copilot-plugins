@@ -1,0 +1,34 @@
+{
+  "name": "speakeasy-api--gram",
+  "displayName": "gram",
+  "description": "Securely scale AI usage across your organization.  Control plane for building, securing and monitoring your agents, mcp and skills.",
+  "version": "1.0.0",
+  "author": "speakeasy-api",
+  "homepage": "https://github.com/speakeasy-api/gram",
+  "skills": [
+    {
+      "name": "clickhouse",
+      "description": ""
+    },
+    {
+      "name": "frontend",
+      "description": ""
+    },
+    {
+      "name": "golang",
+      "description": ""
+    },
+    {
+      "name": "gram-functions",
+      "description": ""
+    },
+    {
+      "name": "mise-tasks",
+      "description": ""
+    },
+    {
+      "name": "postgresql",
+      "description": ""
+    }
+  ]
+}
