@@ -1,0 +1,57 @@
+{
+  "name": "hltb-millennium-plugin",
+  "owner": "jcdoll",
+  "repo": "hltb-millennium-plugin",
+  "description": "HLTB for Steam Homebrew (Millennium)",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": ".claude/skills/code-review",
+      "github_url": "https://github.com/jcdoll/hltb-millennium-plugin/tree/main/.claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "new-release",
+      "path": ".claude/skills/new-release",
+      "github_url": "https://github.com/jcdoll/hltb-millennium-plugin/tree/main/.claude/skills/new-release",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jcdoll/hltb-millennium-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:48:51Z"
+}
