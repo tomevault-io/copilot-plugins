@@ -1,0 +1,78 @@
+{
+  "name": "anthropics--claude-agent-sdk-python",
+  "displayName": "claude",
+  "description": "AI instruction skills by anthropics",
+  "version": "1.0.0",
+  "author": "anthropics",
+  "homepage": "https://github.com/anthropics/claude-agent-sdk-python",
+  "skills": [
+    {
+      "name": "analyzing-financial-statements",
+      "description": ""
+    },
+    {
+      "name": "applying-brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "creating-financial-models",
+      "description": ""
+    },
+    {
+      "name": "agent-development",
+      "description": ""
+    },
+    {
+      "name": "claude-automation-recommender",
+      "description": ""
+    },
+    {
+      "name": "command-development",
+      "description": ""
+    },
+    {
+      "name": "example-skill",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "hook-development",
+      "description": ""
+    },
+    {
+      "name": "mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "plugin-settings",
+      "description": ""
+    },
+    {
+      "name": "plugin-structure",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "description": ""
+    },
+    {
+      "name": "action-creator",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "configured-agent",
+      "description": ""
+    }
+  ]
+}
