@@ -1,0 +1,58 @@
+{
+  "name": "thapaliyabikendra--ai-artifacts",
+  "displayName": "ai-artifacts",
+  "description": "AI instruction skills by thapaliyabikendra",
+  "version": "1.0.0",
+  "author": "thapaliyabikendra",
+  "homepage": "https://github.com/thapaliyabikendra/ai-artifacts",
+  "skills": [
+    {
+      "name": "clean-code-dotnet",
+      "description": ""
+    },
+    {
+      "name": "abp-framework-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "claude-artifact-creator",
+      "description": ""
+    },
+    {
+      "name": "docker-dotnet-containerize",
+      "description": ""
+    },
+    {
+      "name": "domain-modeling",
+      "description": ""
+    },
+    {
+      "name": "feature-development-workflow",
+      "description": ""
+    },
+    {
+      "name": "generate-tests",
+      "description": ""
+    },
+    {
+      "name": "markdown-optimization",
+      "description": ""
+    },
+    {
+      "name": "react-code-review-patterns",
+      "description": ""
+    },
+    {
+      "name": "requirements-engineering",
+      "description": ""
+    },
+    {
+      "name": "technical-design-patterns",
+      "description": ""
+    }
+  ]
+}
