@@ -1,0 +1,69 @@
+{
+  "name": "MassGen",
+  "owner": "massgen",
+  "repo": "MassGen",
+  "description": "\ud83d\ude80 MassGen is an open-source multi-agent scaling system that runs in your terminal, autonomously orchestrating frontier models and agents to collaborate, reason, and produce high-quality results. | Join us on Discord: discord.massgen.ai",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "massgen-config-creator",
+      "path": "massgen/skills/massgen-config-creator",
+      "github_url": "https://github.com/massgen/MassGen/tree/main/massgen/skills/massgen-config-creator",
+      "description": ""
+    },
+    {
+      "name": "massgen-develops-massgen",
+      "path": "massgen/skills/massgen-develops-massgen",
+      "github_url": "https://github.com/massgen/MassGen/tree/main/massgen/skills/massgen-develops-massgen",
+      "description": ""
+    },
+    {
+      "name": "massgen-log-analyzer",
+      "path": "massgen/skills/massgen-log-analyzer",
+      "github_url": "https://github.com/massgen/MassGen/tree/main/massgen/skills/massgen-log-analyzer",
+      "description": ""
+    },
+    {
+      "name": "massgen-release-documenter",
+      "path": "massgen/skills/massgen-release-documenter",
+      "github_url": "https://github.com/massgen/MassGen/tree/main/massgen/skills/massgen-release-documenter",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/massgen/MassGen",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:46:49Z"
+}
