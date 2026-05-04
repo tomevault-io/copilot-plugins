@@ -4,7 +4,7 @@
   "repo": "designStack",
   "description": "designStack is a collection of skills for people who have never written code or understand it well.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harshii0509/designStack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T00:41:28Z"
+  "distributed_at": "2026-05-04T22:16:59Z"
 }
