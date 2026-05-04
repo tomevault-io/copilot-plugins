@@ -1,0 +1,9 @@
+{
+  "name": "theicelandicguy--entity-manager",
+  "displayName": "entity-manager",
+  "description": "Home Assistant integration for managing disabled and enabled entities",
+  "version": "1.0.0",
+  "author": "TheIcelandicguy",
+  "homepage": "https://github.com/TheIcelandicguy/entity-manager",
+  "skills": []
+}
