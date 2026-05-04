@@ -1,0 +1,9 @@
+{
+  "name": "missdeer--codex-mcp-rs",
+  "displayName": "codex-mcp-rs",
+  "description": "codex-mcp-rs is a Rust-based MCP (Model Context Protocol) server that serves as a bridge for Codex CLI, enabling various AI coding assistants (such as Claude Code, Roo Code, KiloCode, etc.) to seamles",
+  "version": "1.0.0",
+  "author": "missdeer",
+  "homepage": "https://github.com/missdeer/codex-mcp-rs",
+  "skills": []
+}
