@@ -1,0 +1,57 @@
+{
+  "name": "opendevbrowser",
+  "owner": "freshtechbro",
+  "repo": "opendevbrowser",
+  "description": "Browser automation, annotation & DOM interaction tool for AI agents. Batteries included with CLI and Chrome extension.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "opendevbrowser-best-practices",
+      "path": "skills/opendevbrowser-best-practices",
+      "github_url": "https://github.com/freshtechbro/opendevbrowser/tree/main/skills/opendevbrowser-best-practices",
+      "description": ""
+    },
+    {
+      "name": "opendevbrowser-continuity-ledger",
+      "path": "skills/opendevbrowser-continuity-ledger",
+      "github_url": "https://github.com/freshtechbro/opendevbrowser/tree/main/skills/opendevbrowser-continuity-ledger",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/freshtechbro/opendevbrowser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:58:10Z"
+}
