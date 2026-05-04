@@ -1,64 +1,68 @@
-## code-quality
+## design-principles
 
-> Code quality — elegance check, file/function size limits, low cyclomatic complexity
+> Design — functional core, sinks not pipes, AI-ready architecture, SOLID
 
 
-# Code Quality
+# Design Principles
 
-## Demand Elegance (Balanced)
+## Functional Core / Imperative Shell
 
-Nontrivial changes: pause, ask "Is there more elegant way?"
-Hacky fix: "Knowing everything now, implement elegant solution."
-Skip for obvious fixes. Challenge own work before presenting.
+Pure `fn` handle logic. Side effects pushed to boundary.
+Immutability, referential transparency, delay effects to last stage.
 
 ```rust
-// GOOD — iterator chains, clear data flow
-fn process(events: &[Event]) -> Vec<Summary> {
-    events
-        .iter()
-        .filter(|e| e.is_valid())
-        .map(summarize)
-        .collect()
+// GOOD — pure core, no side effects
+fn calculate_total(items: &[Item]) -> u64 {
+    items.iter().map(|i| i.price).sum()
 }
 
-// BAD — nested conditionals + mutation
-fn process(events: &[Event]) -> Vec<Summary> {
-    let mut results = Vec::new();
-    for e in events {
-        if e.is_valid() {
-            let s = summarize(e);
-            results.push(s);
-        }
+// Imperative shell calls pure core at I/O boundary
+async fn handle_checkout(state: &State) -> Result<()> {
+    let total = calculate_total(&state.items);
+    db.save_order(total).await
+}
+
+// BAD — DB calls inside logic function
+async fn calculate_total(items: &[Item]) -> u64 {
+    let mut sum = 0;
+    for item in items {
+        let p = db.get_product(item.id).await.unwrap();
+        sum += p.price;
     }
-    results
+    sum
 }
 ```
 
-## Code Smell
+## Sinks, Not Pipes
 
-- Max 200 lines per file (including `.md` files)
-- Max 10 lines per function
-- No cyclomatic complexity — prefer iterator chains + `match`
-- Functional core: flatten logic, don't nest it
+Components receive input, do work, stop. No cascading side effects. Contained blast radius.
+Ref: https://ianbull.com/posts/software-architecture/
 
 ```rust
-// GOOD — small, single-purpose match arms
-fn apply_discount(order: &Order) -> Price {
-    match order.tier {
-        Tier::Vip => Price::ZERO,
-        Tier::Standard => order.price,
-    }
+// GOOD — contained, testable
+async fn send_welcome_email(user: &User) -> Result<()> {
+    mailer.deliver(welcome_email(user)).await
 }
 
-// BAD — fat function, deep branching
-fn apply_discount(order: &Order) -> Price {
-    if order.tier == Tier::Vip {
-        if order.price > 100 { ... } else { ... }
-    } else {
-        if order.seasonal_promo { ... } else { ... }
-    }
+// BAD — triggers invisible chain
+async fn create_user(attrs: Attrs) -> Result<User> {
+    let user = db.insert(user_from(attrs)).await?;
+    // implicitly enqueues job, sends email, updates analytics
+    user
 }
 ```
+
+## AI-Ready Architecture
+
+Module boundaries discoverable without reading internals.
+Public interfaces tell truth about what module does.
+Follow SOLID. Deep modules with honest interfaces.
+
+## Core Principles
+
+- **Simplicity First**: minimal code impact per change
+- **No Laziness**: find root causes, no workarounds
+- **Minimal Impact**: touch only necessary, avoid introducing bugs
 
 ---
 > Source: [marquesds/kaizen](https://github.com/marquesds/kaizen) — distributed by [TomeVault](https://tomevault.io).
