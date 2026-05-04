@@ -4,7 +4,7 @@
   "repo": "zapcode",
   "description": "TypeScript interpreter for AI agents. Written in Rust. 2\u00b5s cold start. Sandboxed. Alternative to MCP tool calling.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TheUncharted/zapcode",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:42:57Z"
+  "distributed_at": "2026-05-04T21:14:36Z"
 }
