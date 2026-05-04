@@ -1,0 +1,18 @@
+{
+  "name": "pgplex--pgschema",
+  "displayName": "pgschema",
+  "description": "Terraform-style, declarative schema migration CLI for Postgres. Agent friendly.",
+  "version": "1.0.0",
+  "author": "pgplex",
+  "homepage": "https://github.com/pgplex/pgschema",
+  "skills": [
+    {
+      "name": "fix_bug",
+      "description": ""
+    },
+    {
+      "name": "run_tests",
+      "description": ""
+    }
+  ]
+}
