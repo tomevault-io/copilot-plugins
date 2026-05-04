@@ -1,0 +1,9 @@
+{
+  "name": "rait-09--obsidian-agent-client",
+  "displayName": "obsidian-agent-client",
+  "description": "Bring AI agents into Obsidian via Agent Client Protocol (ACP), such as Claude Code, Codex and Gemini CLI.",
+  "version": "1.0.0",
+  "author": "RAIT-09",
+  "homepage": "https://github.com/RAIT-09/obsidian-agent-client",
+  "skills": []
+}
