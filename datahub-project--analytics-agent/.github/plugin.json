@@ -1,0 +1,9 @@
+{
+  "name": "datahub-project--analytics-agent",
+  "displayName": "analytics-agent",
+  "description": "DataHub Talk-to-Data analytics agent",
+  "version": "1.0.0",
+  "author": "datahub-project",
+  "homepage": "https://github.com/datahub-project/analytics-agent",
+  "skills": []
+}
