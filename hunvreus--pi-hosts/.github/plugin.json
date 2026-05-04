@@ -1,0 +1,9 @@
+{
+  "name": "hunvreus--pi-hosts",
+  "displayName": "pi-hosts",
+  "description": "Give the Pi coding agent access to your servers.",
+  "version": "1.0.0",
+  "author": "hunvreus",
+  "homepage": "https://github.com/hunvreus/pi-hosts",
+  "skills": []
+}
