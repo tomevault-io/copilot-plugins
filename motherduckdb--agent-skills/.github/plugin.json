@@ -1,0 +1,9 @@
+{
+  "name": "motherduckdb--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Opinionated AI agent skills for building applications with MotherDuck",
+  "version": "1.0.0",
+  "author": "motherduckdb",
+  "homepage": "https://github.com/motherduckdb/agent-skills",
+  "skills": []
+}
