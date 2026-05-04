@@ -1,0 +1,9 @@
+{
+  "name": "openpanel-dev--groupmq",
+  "displayName": "groupmq",
+  "description": "A fast, reliable Redis-backed per-group FIFO queue for Node + TypeScript with guaranteed job ordering and parallel processing across groups.",
+  "version": "1.0.0",
+  "author": "Openpanel-dev",
+  "homepage": "https://github.com/Openpanel-dev/groupmq",
+  "skills": []
+}
