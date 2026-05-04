@@ -1,0 +1,26 @@
+{
+  "name": "massgen--massgen",
+  "displayName": "MassGen",
+  "description": "\ud83d\ude80 MassGen is an open-source multi-agent scaling system that runs in your terminal, autonomously orchestrating frontier models and agents to collaborate, reason, and produce high-quality results. | Joi",
+  "version": "1.0.0",
+  "author": "massgen",
+  "homepage": "https://github.com/massgen/MassGen",
+  "skills": [
+    {
+      "name": "massgen-config-creator",
+      "description": ""
+    },
+    {
+      "name": "massgen-develops-massgen",
+      "description": ""
+    },
+    {
+      "name": "massgen-log-analyzer",
+      "description": ""
+    },
+    {
+      "name": "massgen-release-documenter",
+      "description": ""
+    }
+  ]
+}
