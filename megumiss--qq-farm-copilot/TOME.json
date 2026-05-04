@@ -4,7 +4,7 @@
   "repo": "qq-farm-copilot",
   "description": "\u57fa\u4e8e OpenCV \u89c6\u89c9\u8bc6\u522b\u7684 QQ \u7ecf\u5178\u519c\u573a\u81ea\u52a8\u5316\u5de5\u5177\uff0c\u652f\u6301PC\u7aefQQ\u548c\u5fae\u4fe1\u5e73\u53f0\uff0c\u652f\u6301\u591a\u5f00\u3001\u540e\u53f0\u8fd0\u884c\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/megumiss/qq-farm-copilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T05:02:55Z"
+  "distributed_at": "2026-05-04T02:52:30Z"
 }
