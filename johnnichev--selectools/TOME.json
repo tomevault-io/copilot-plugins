@@ -4,7 +4,7 @@
   "repo": "selectools",
   "description": "Production-ready Python framework for AI agents with built-in guardrails, audit logging, cost tracking, and hybrid RAG. Supports OpenAI, Anthropic, Gemini, Ollama. By NichevLabs.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/johnnichev/selectools",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T05:38:17Z"
+  "distributed_at": "2026-05-04T00:00:09Z"
 }
