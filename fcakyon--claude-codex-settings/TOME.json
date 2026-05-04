@@ -1,0 +1,105 @@
+{
+  "name": "claude-codex-settings",
+  "owner": "fcakyon",
+  "repo": "claude-codex-settings",
+  "description": "My personal Claude Code and OpenAI Codex setup with battle-tested skills, plugins, hooks and agents that I use daily.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azure-usage",
+      "path": "plugins/azure-tools/skills/azure-usage",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/azure-tools/skills/azure-usage",
+      "description": ""
+    },
+    {
+      "name": "commit-workflow",
+      "path": "plugins/github-dev/skills/commit-workflow",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/github-dev/skills/commit-workflow",
+      "description": ""
+    },
+    {
+      "name": "gcloud-usage",
+      "path": "plugins/gcloud-tools/skills/gcloud-usage",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/gcloud-tools/skills/gcloud-usage",
+      "description": ""
+    },
+    {
+      "name": "paper-search-usage",
+      "path": "plugins/paper-search-tools/skills/paper-search-usage",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/paper-search-tools/skills/paper-search-usage",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": "plugins/github-dev/skills/setup",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/github-dev/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": "plugins/azure-tools/skills/setup",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/azure-tools/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": "plugins/gcloud-tools/skills/setup",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/gcloud-tools/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": "plugins/paper-search-tools/skills/setup",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/paper-search-tools/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "path": "plugins/tavily-tools/skills/setup",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/tavily-tools/skills/setup",
+      "description": ""
+    },
+    {
+      "name": "tavily-usage",
+      "path": "plugins/tavily-tools/skills/tavily-usage",
+      "github_url": "https://github.com/fcakyon/claude-codex-settings/tree/main/plugins/tavily-tools/skills/tavily-usage",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fcakyon/claude-codex-settings",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:44:47Z"
+}
