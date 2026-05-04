@@ -7,11 +7,11 @@ OpenCMO: An open-source, multi-agent AI Chief Marketing Officer built with OpenA
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [study8677/OpenCMO](https://github.com/study8677/OpenCMO).
+Original source: `CLAUDE.md` in [study8677/OpenCMO](https://github.com/study8677/OpenCMO).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
