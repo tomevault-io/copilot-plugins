@@ -1,0 +1,9 @@
+{
+  "name": "meddelin--trusty",
+  "displayName": "trusty",
+  "description": "Unofficial Crossplatfrom GUI client for TrustTunnel VPN protocol",
+  "version": "1.0.0",
+  "author": "Meddelin",
+  "homepage": "https://github.com/Meddelin/trusty",
+  "skills": []
+}
