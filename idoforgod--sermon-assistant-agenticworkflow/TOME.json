@@ -4,7 +4,7 @@
   "repo": "Sermon-Assistant-AgenticWorkflow",
   "description": "\uc124\uad50 \ube44\uc11c AI \uc5d0\uc774\uc804\ud2b8 \uc6cc\ud06c\ud50c\ub85c\uc6b0 \u2014 AgenticWorkflow DNA \uae30\ubc18",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/idoforgod/Sermon-Assistant-AgenticWorkflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T03:39:34Z"
+  "distributed_at": "2026-05-04T22:20:27Z"
 }
