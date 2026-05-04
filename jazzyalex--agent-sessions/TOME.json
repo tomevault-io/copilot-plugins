@@ -1,0 +1,57 @@
+{
+  "name": "agent-sessions",
+  "owner": "jazzyalex",
+  "repo": "agent-sessions",
+  "description": "Session browser + Agent Cockpit +  Analytics + Limits tracker for Codex CLI,  Claude Code, OpenCode, Gemini CLI, Factory Droid , GitHub Copilot CLI & OpenClaw. Search/filter ALL past sessions,  archive sessions, resume instantly, see rate limits in real-time. Native macOS app.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-support-matrix",
+      "path": "skills/agent-support-matrix",
+      "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/skills/agent-support-matrix",
+      "description": ""
+    },
+    {
+      "name": "sc-skill",
+      "path": "skills/sc-skill",
+      "github_url": "https://github.com/jazzyalex/agent-sessions/tree/main/skills/sc-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jazzyalex/agent-sessions",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T07:32:25Z"
+}
