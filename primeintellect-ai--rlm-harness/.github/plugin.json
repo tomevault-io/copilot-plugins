@@ -1,0 +1,9 @@
+{
+  "name": "primeintellect-ai--rlm-harness",
+  "displayName": "rlm-harness",
+  "description": "Harness for RLM-style rollouts. Only for RL training",
+  "version": "1.0.0",
+  "author": "PrimeIntellect-ai",
+  "homepage": "https://github.com/PrimeIntellect-ai/rlm-harness",
+  "skills": []
+}
