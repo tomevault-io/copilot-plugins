@@ -1,0 +1,9 @@
+{
+  "name": "jonaschen--android-software",
+  "displayName": "Android-Software",
+  "description": "A Hierarchical AI Agent Skill Set for managing AOSP platform integration, built on an MMU-driven Memory Model. ",
+  "version": "1.0.0",
+  "author": "jonaschen",
+  "homepage": "https://github.com/jonaschen/Android-Software",
+  "skills": []
+}
