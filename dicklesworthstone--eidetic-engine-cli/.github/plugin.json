@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--eidetic-engine-cli",
+  "displayName": "eidetic_engine_cli",
+  "description": "Durable, local-first, explainable memory for coding agents. A Rust CLI memory substrate built on the franken-stack (Asupersync, FrankenSQLite, Frankensearch, FrankenNetworkX).",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/eidetic_engine_cli",
+  "skills": []
+}
