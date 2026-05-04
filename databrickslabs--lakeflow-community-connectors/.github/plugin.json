@@ -1,0 +1,26 @@
+{
+  "name": "databrickslabs--lakeflow-community-connectors",
+  "displayName": "lakeflow-community-connectors",
+  "description": "AI instruction skills by databrickslabs",
+  "version": "1.0.0",
+  "author": "databrickslabs",
+  "homepage": "https://github.com/databrickslabs/lakeflow-community-connectors",
+  "skills": [
+    {
+      "name": "create-connector-document",
+      "description": ""
+    },
+    {
+      "name": "implement-connector",
+      "description": ""
+    },
+    {
+      "name": "test-and-fix-connector",
+      "description": ""
+    },
+    {
+      "name": "write-back-testing",
+      "description": ""
+    }
+  ]
+}
