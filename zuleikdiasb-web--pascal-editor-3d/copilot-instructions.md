@@ -1,59 +1,96 @@
-## layers
+## node-schemas
 
-> Three.js layer conventions — which layer each object type lives on and why
+> Node type definitions, Zod schema pattern, and how to create nodes in the scene
 
 
-# Three.js Layers
+# Node Schemas
 
-Three.js `Layers` control which objects each camera and render pass sees. We use them to separate scene geometry, editor helpers, and zone overlays into distinct rendering buckets without duplicating scene structure.
+All node types are defined as Zod schemas in `packages/core/src/schema/nodes/`. Each schema extends `BaseNode` and exports both the schema and its inferred TypeScript type.
 
-## Layer Map
+**Sources**: @packages/core/src/schema/base.ts, @packages/core/src/schema/nodes/
 
-| Constant | Value | Package | Purpose |
-|---|---|---|---|
-| `SCENE_LAYER` | `0` | `@pascal-app/viewer` | Default Three.js layer — all regular scene geometry |
-| `EDITOR_LAYER` | `1` | `apps/editor` | Editor-only helpers: grid, tool previews, cursor meshes, snap guides |
-| `ZONE_LAYER` | `2` | `@pascal-app/viewer` | Zone floor fills and wall borders — composited in a separate post-processing pass |
+## BaseNode
 
-Import the constants from their owning packages:
+Every node shares these fields:
 
 ```ts
-// In viewer code
-import { SCENE_LAYER, ZONE_LAYER } from '@pascal-app/viewer'
-
-// In editor code
-import { EDITOR_LAYER } from '@/lib/constants'
+{
+  object: 'node'            // always literal 'node'
+  id: string                // typed ID e.g. "wall_abc123"
+  type: string              // node type discriminator e.g. "wall"
+  name?: string             // optional display name
+  parentId: string | null   // parent node ID; null = root
+  visible: boolean          // defaults to true
+  metadata: Record<string, unknown>  // arbitrary JSON, defaults to {}
+}
 ```
 
-## Why Separate Zones onto Layer 2
-
-Zones use semi-transparent, `depthTest: false` materials that must be composited *on top of* the scene without being fed into SSGI or TRAA. The post-processing pipeline in `post-processing.tsx` renders a dedicated `zonePass` with a `Layers` mask that enables only `ZONE_LAYER` (and disables `SCENE_LAYER`), then blends its output into the final composite manually:
+## Defining a New Node Type
 
 ```ts
-const zoneLayers = useMemo(() => {
-  const l = new Layers()
-  l.enable(ZONE_LAYER)
-  l.disable(SCENE_LAYER)
-  return l
-}, [])
+// packages/core/src/schema/nodes/my-node.ts
+import { z } from 'zod'
+import { BaseNode, objectId, nodeType } from '../base'
 
-zonePass.setLayers(zoneLayers)
+export const MyNode = BaseNode.extend({
+  id: objectId('my-node'),      // generates IDs like "my-node_abc123"
+  type: nodeType('my-node'),    // sets literal type discriminator
+  // add node-specific fields:
+  width: z.number().default(1),
+  label: z.string().optional(),
+}).describe('My node — one-line description of what it represents')
+
+export type MyNode = z.infer<typeof MyNode>
+export type MyNodeId = MyNode['id']
 ```
 
-This keeps zones out of the SSGI depth/normal buffers (which would produce incorrect AO on transparent surfaces) while still letting them appear correctly over the scene.
+Then add `MyNode` to the `AnyNode` union in `packages/core/src/schema/types.ts`.
 
-## Why Separate Editor Helpers onto Layer 1
+## Creating Nodes in Tools
 
-The editor camera enables `EDITOR_LAYER` so tools and helpers are visible during editing. The thumbnail generator disables `EDITOR_LAYER` so exports show clean geometry without snap lines or cursor spheres.
+Always use `.parse()` to validate and generate a proper typed ID. Never construct a plain object manually.
+
+```ts
+import { WallNode } from '@pascal-app/core'
+import { useScene } from '@pascal-app/core'
+
+// 1. Parse validates and fills defaults (including auto-generated id)
+const wall = WallNode.parse({ name: 'Wall 1', start: [0, 0], end: [5, 0] })
+
+// 2. createNode(node, parentId?) inserts it into the scene
+const { createNode } = useScene.getState()
+createNode(wall, levelId)
+```
+
+For batch creation:
+
+```ts
+const { createNodes } = useScene.getState()
+createNodes([
+  { node: WallNode.parse({ start: [0, 0], end: [5, 0] }), parentId: levelId },
+  { node: WallNode.parse({ start: [5, 0], end: [5, 4] }), parentId: levelId },
+])
+```
+
+## Updating Nodes
+
+```ts
+const { updateNode } = useScene.getState()
+updateNode(wall.id, { height: 2.8 })   // partial update, merges with existing
+```
+
+## Real Examples
+
+- **Simple geometry node**: @packages/core/src/schema/nodes/wall.ts — `start`, `end`, `thickness`, `height`
+- **Polygon node**: @packages/core/src/schema/nodes/slab.ts — `polygon: [number, number][]`, `holes`
+- **Positioned node**: @packages/core/src/schema/nodes/item.ts — `position`, `rotation`, `scale`, `asset`
 
 ## Rules
 
-- **Never hardcode layer numbers.** Always use the named constants.
-- **`SCENE_LAYER` and `ZONE_LAYER` belong in `@pascal-app/viewer`** — they are renderer concerns, not editor concerns.
-- **`EDITOR_LAYER` belongs in `apps/editor`** — the viewer must never import it; editor behaviour is injected via props/children.
-- **Zone meshes must set `layers={ZONE_LAYER}`** so they are picked up by `zonePass` and excluded from `scenePass` depth buffers.
-- **Editor helper meshes must set `layers={EDITOR_LAYER}`** so they are invisible to the thumbnail camera and the viewer's render passes.
-- **Do not add new layers without updating this rule** and the post-processing pipeline accordingly.
+- **Always use `.parse()`** — it generates the correct ID prefix and fills defaults. `WallNode.parse({...})` not `{ type: 'wall', id: '...' }`.
+- **Never hardcode IDs.** Let `objectId('type')` generate them.
+- **Add new node types to `AnyNode`** in `types.ts` or they won't be accepted by the store.
+- **Keep schemas in `packages/core`**, not in the viewer or editor — the schema is shared by all packages.
 
 ---
 > Source: [zuleikdiasb-web/pascal-editor-3d](https://github.com/zuleikdiasb-web/pascal-editor-3d) — distributed by [TomeVault](https://tomevault.io).
