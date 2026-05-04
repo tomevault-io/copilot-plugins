@@ -1,0 +1,9 @@
+{
+  "name": "bingfengfeifei--switcher",
+  "displayName": "switcher",
+  "description": "Key management tool for the Linux/MacOS/Windows environment to handle third-party API base URLs and secrets for services like Claude, Code, Codex, and Droid.",
+  "version": "1.0.0",
+  "author": "bingfengfeifei",
+  "homepage": "https://github.com/bingfengfeifei/switcher",
+  "skills": []
+}
