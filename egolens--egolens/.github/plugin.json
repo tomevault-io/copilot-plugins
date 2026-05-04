@@ -1,0 +1,9 @@
+{
+  "name": "egolens--egolens",
+  "displayName": "egolens",
+  "description": "Browser-based 3D perception explorer for Waymo, nuScenes, and Argoverse 2 ",
+  "version": "1.0.0",
+  "author": "egolens",
+  "homepage": "https://github.com/egolens/egolens",
+  "skills": []
+}
