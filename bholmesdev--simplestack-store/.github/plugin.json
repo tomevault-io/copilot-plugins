@@ -1,0 +1,14 @@
+{
+  "name": "bholmesdev--simplestack-store",
+  "displayName": "simple",
+  "description": "AI instruction skills by bholmesdev",
+  "version": "1.0.0",
+  "author": "bholmesdev",
+  "homepage": "https://github.com/bholmesdev/simplestack-store",
+  "skills": [
+    {
+      "name": "write-docs",
+      "description": ""
+    }
+  ]
+}
