@@ -4,7 +4,7 @@
   "repo": "yuanrong-datasystem",
   "description": "yuanrong-datasystem",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openyuanrong-project/yuanrong-datasystem",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T19:40:12Z"
+  "distributed_at": "2026-05-04T21:04:56Z"
 }
