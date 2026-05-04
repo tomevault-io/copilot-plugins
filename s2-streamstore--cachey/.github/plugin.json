@@ -1,0 +1,9 @@
+{
+  "name": "s2-streamstore--cachey",
+  "displayName": "cachey",
+  "description": "Read-through cache for object storage",
+  "version": "1.0.0",
+  "author": "s2-streamstore",
+  "homepage": "https://github.com/s2-streamstore/cachey",
+  "skills": []
+}
