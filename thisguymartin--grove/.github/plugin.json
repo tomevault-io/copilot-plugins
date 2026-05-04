@@ -1,0 +1,9 @@
+{
+  "name": "thisguymartin--grove",
+  "displayName": "grove",
+  "description": "AI-native terminal workspace. One command to launch colored Zellij tabs per git worktree, each with LazyGit + AI Agent + Workbench.",
+  "version": "1.0.0",
+  "author": "thisguymartin",
+  "homepage": "https://github.com/thisguymartin/grove",
+  "skills": []
+}
