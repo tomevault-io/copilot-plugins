@@ -7,11 +7,11 @@ Bootstrap projects from Figma, Linear, Notion & GitHub specs. The only AI ralph 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [multivmlabs/ralph-starter](https://github.com/multivmlabs/ralph-starter).
+Original source: `CLAUDE.md` in [multivmlabs/ralph-starter](https://github.com/multivmlabs/ralph-starter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
