@@ -1,0 +1,51 @@
+{
+  "name": "claude",
+  "owner": "severity1",
+  "repo": "claude-agent-sdk-go",
+  "description": "Unofficial Go SDK for Claude Code CLI integration. See the Claude Agent SDK documentation for more information. This project has been renamed from claude-code-sdk-go.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "prompt-improver",
+      "path": "skills/prompt-improver",
+      "github_url": "https://github.com/severity1/claude-agent-sdk-go/tree/main/skills/prompt-improver",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/severity1/claude-agent-sdk-go",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:43:56Z"
+}
