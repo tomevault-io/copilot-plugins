@@ -1,89 +1,59 @@
-## events
+## layers
 
-> Typed event bus — emitting and listening to node and grid events
+> Three.js layer conventions — which layer each object type lives on and why
 
 
-# Events
+# Three.js Layers
 
-The event bus (`emitter`) is a global `mitt` instance typed with `EditorEvents`. It decouples renderers (which emit) from selection managers and tools (which listen).
+Three.js `Layers` control which objects each camera and render pass sees. We use them to separate scene geometry, editor helpers, and zone overlays into distinct rendering buckets without duplicating scene structure.
 
-**Source**: @packages/core/src/events/bus.ts
+## Layer Map
 
-## Event Key Format
+| Constant | Value | Package | Purpose |
+|---|---|---|---|
+| `SCENE_LAYER` | `0` | `@pascal-app/viewer` | Default Three.js layer — all regular scene geometry |
+| `EDITOR_LAYER` | `1` | `apps/editor` | Editor-only helpers: grid, tool previews, cursor meshes, snap guides |
+| `ZONE_LAYER` | `2` | `@pascal-app/viewer` | Zone floor fills and wall borders — composited in a separate post-processing pass |
 
-```
-<nodeType>:<suffix>
-```
-
-Example keys: `wall:click`, `item:enter`, `door:double-click`, `grid:pointerdown`
-
-### Node Types
-`wall` `item` `site` `building` `level` `zone` `slab` `ceiling` `roof` `window` `door`
-
-### Suffixes
-```ts
-'click' | 'move' | 'enter' | 'leave' | 'pointerdown' | 'pointerup' | 'context-menu' | 'double-click'
-```
-
-The `grid:*` events fire when the user interacts with empty space (no node hit). They are **not** emitted by a mesh — `useGridEvents(gridY)` (@apps/editor/hooks/use-grid-events.ts) manually raycasts against a ground plane and calls `emitter.emit('grid:click', …)`. Mount it in any tool or editor component that needs empty-space interactions.
-
-## NodeEvent Shape
+Import the constants from their owning packages:
 
 ```ts
-interface NodeEvent<T extends AnyNode = AnyNode> {
-  node: T                                  // typed node that triggered the event
-  position: [number, number, number]       // world-space hit position
-  localPosition: [number, number, number]  // object-local hit position
-  normal?: [number, number, number]        // face normal, if available
-  stopPropagation: () => void
-  nativeEvent: ThreeEvent<PointerEvent>
-}
+// In viewer code
+import { SCENE_LAYER, ZONE_LAYER } from '@pascal-app/viewer'
+
+// In editor code
+import { EDITOR_LAYER } from '@/lib/constants'
 ```
 
-Grid events only carry `position` and `nativeEvent` (no `node`).
+## Why Separate Zones onto Layer 2
 
-## Emitting
-
-Renderers emit via `useNodeEvents` — never call `emitter.emit` directly in a renderer:
-
-```tsx
-// packages/viewer/src/hooks/use-node-events.ts
-const events = useNodeEvents(node, 'wall')
-return <mesh ref={ref} {...events} />
-```
-
-`useNodeEvents` converts R3F `ThreeEvent` into a `NodeEvent` and emits `wall:click`, `wall:enter`, etc. It suppresses events while the camera is dragging.
-
-## Listening
-
-Listen in a `useEffect`. Always clean up with `emitter.off` using the **same function reference**:
+Zones use semi-transparent, `depthTest: false` materials that must be composited *on top of* the scene without being fed into SSGI or TRAA. The post-processing pipeline in `post-processing.tsx` renders a dedicated `zonePass` with a `Layers` mask that enables only `ZONE_LAYER` (and disables `SCENE_LAYER`), then blends its output into the final composite manually:
 
 ```ts
-// Single event
-useEffect(() => {
-  const handler = (e: WallEvent) => { /* … */ }
-  emitter.on('wall:click', handler)
-  return () => emitter.off('wall:click', handler)
+const zoneLayers = useMemo(() => {
+  const l = new Layers()
+  l.enable(ZONE_LAYER)
+  l.disable(SCENE_LAYER)
+  return l
 }, [])
 
-// Multiple node types, same handler
-useEffect(() => {
-  const types = ['wall', 'slab', 'door'] as const
-  const handler = (e: NodeEvent) => { /* … */ }
-  types.forEach(t => emitter.on(`${t}:click`, handler as any))
-  return () => types.forEach(t => emitter.off(`${t}:click`, handler as any))
-}, [])
+zonePass.setLayers(zoneLayers)
 ```
 
-See @apps/editor/components/editor/selection-manager.tsx for a full multi-type listener example.
+This keeps zones out of the SSGI depth/normal buffers (which would produce incorrect AO on transparent surfaces) while still letting them appear correctly over the scene.
+
+## Why Separate Editor Helpers onto Layer 1
+
+The editor camera enables `EDITOR_LAYER` so tools and helpers are visible during editing. The thumbnail generator disables `EDITOR_LAYER` so exports show clean geometry without snap lines or cursor spheres.
 
 ## Rules
 
-- **Renderers only emit, never listen.** Listening belongs in selection managers, tools, or systems.
-- **Always clean up.** Forgetting `emitter.off` causes duplicate handlers and memory leaks.
-- **Use the same function reference** for `on` and `off`. Anonymous functions inside `useEffect` are fine as long as the ref is captured in the same scope.
-- **Don't use emitter for state.** It's for one-shot interaction events. Persistent state goes in `useScene`, `useViewer`, or `useEditor`.
-- **`stopPropagation`** prevents the event from being handled by overlapping listeners (e.g. a door on a wall). Call it when a handler should be the final consumer.
+- **Never hardcode layer numbers.** Always use the named constants.
+- **`SCENE_LAYER` and `ZONE_LAYER` belong in `@pascal-app/viewer`** — they are renderer concerns, not editor concerns.
+- **`EDITOR_LAYER` belongs in `apps/editor`** — the viewer must never import it; editor behaviour is injected via props/children.
+- **Zone meshes must set `layers={ZONE_LAYER}`** so they are picked up by `zonePass` and excluded from `scenePass` depth buffers.
+- **Editor helper meshes must set `layers={EDITOR_LAYER}`** so they are invisible to the thumbnail camera and the viewer's render passes.
+- **Do not add new layers without updating this rule** and the post-processing pipeline accordingly.
 
 ---
 > Source: [zuleikdiasb-web/pascal-editor-3d](https://github.com/zuleikdiasb-web/pascal-editor-3d) — distributed by [TomeVault](https://tomevault.io).
