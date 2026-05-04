@@ -1,0 +1,87 @@
+{
+  "name": "gemini",
+  "owner": "google-gemini",
+  "repo": "gemini-cli-action",
+  "description": "AI instruction skills by google-gemini",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "path": ".gemini/skills/code-reviewer",
+      "github_url": "https://github.com/google-gemini/gemini-cli-action/tree/main/.gemini/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "docs-changelog",
+      "path": ".gemini/skills/docs-changelog",
+      "github_url": "https://github.com/google-gemini/gemini-cli-action/tree/main/.gemini/skills/docs-changelog",
+      "description": ""
+    },
+    {
+      "name": "docs-writer",
+      "path": ".gemini/skills/docs-writer",
+      "github_url": "https://github.com/google-gemini/gemini-cli-action/tree/main/.gemini/skills/docs-writer",
+      "description": ""
+    },
+    {
+      "name": "greeter",
+      "path": "packages/cli/src/commands/extensions/examples/skills/skills/greeter",
+      "github_url": "https://github.com/google-gemini/gemini-cli-action/tree/main/packages/cli/src/commands/extensions/examples/skills/skills/greeter",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "path": ".gemini/skills/pr-creator",
+      "github_url": "https://github.com/google-gemini/gemini-cli-action/tree/main/.gemini/skills/pr-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "packages/core/src/skills/builtin/skill-creator",
+      "github_url": "https://github.com/google-gemini/gemini-cli-action/tree/main/packages/core/src/skills/builtin/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "gemini-api-dev",
+      "path": "skills/gemini-api-dev",
+      "github_url": "https://github.com/google-gemini/gemini-cli-action/tree/main/skills/gemini-api-dev",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/google-gemini/gemini-cli-action",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:53:07Z"
+}
