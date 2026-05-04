@@ -1,0 +1,22 @@
+{
+  "name": "flashinfer-ai--flashinfer-bench",
+  "displayName": "flashinfer-bench",
+  "description": "Building the Virtuous Cycle for AI-driven LLM Systems",
+  "version": "1.0.0",
+  "author": "flashinfer-ai",
+  "homepage": "https://github.com/flashinfer-ai/flashinfer-bench",
+  "skills": [
+    {
+      "name": "add-reference-tests",
+      "description": ""
+    },
+    {
+      "name": "clone-repos",
+      "description": ""
+    },
+    {
+      "name": "extract-kernel-definitions",
+      "description": ""
+    }
+  ]
+}
