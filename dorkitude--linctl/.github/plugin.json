@@ -1,0 +1,9 @@
+{
+  "name": "dorkitude--linctl",
+  "displayName": "linctl",
+  "description": "A Linear CLI tool built with agents in mind (but useful to humans too).  Implemented in Golang with Cobra.",
+  "version": "1.0.0",
+  "author": "dorkitude",
+  "homepage": "https://github.com/dorkitude/linctl",
+  "skills": []
+}
