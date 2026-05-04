@@ -1,0 +1,9 @@
+{
+  "name": "inbarr--tmax",
+  "displayName": "tmax",
+  "description": "Cross-platform multi-terminal app with tiling layouts, floating panels, and a keyboard-driven workflow",
+  "version": "1.0.0",
+  "author": "InbarR",
+  "homepage": "https://github.com/InbarR/tmax",
+  "skills": []
+}
