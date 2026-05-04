@@ -7,11 +7,11 @@ A collection of agent-optimized LangChain, LangGraph and LangSmith skills for AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Lubu-Labs/langchain-agent-skills](https://github.com/Lubu-Labs/langchain-agent-skills).
+Original source: `CLAUDE.md` in [Lubu-Labs/langchain-agent-skills](https://github.com/Lubu-Labs/langchain-agent-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
