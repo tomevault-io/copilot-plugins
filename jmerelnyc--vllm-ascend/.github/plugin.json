@@ -1,0 +1,9 @@
+{
+  "name": "jmerelnyc--vllm-ascend",
+  "displayName": "vllm-ascend",
+  "description": "Community-maintained vLLM hardware plugin for Ascend NPUs",
+  "version": "1.0.0",
+  "author": "jmerelnyc",
+  "homepage": "https://github.com/jmerelnyc/vllm-ascend",
+  "skills": []
+}
