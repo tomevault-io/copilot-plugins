@@ -1,60 +1,38 @@
-## documentation
+## feature-shipping-docs
 
-> Documentation — only document non-obvious intent, preconditions, and invariants
+> Ship user-facing features with reference docs, tutorial, and index updates
 
 
-# Documentation
+# Product documentation (user-facing)
 
-Document only non-obvious APIs. Explain preconditions, invariants, postconditions.
-Never narrate obvious code.
+When you add or materially change **user-facing** behavior, update docs in the same change (or immediately after), not “later.”
 
-```rust
-// GOOD — explains contract
-/// Broadcast event to all subscribers on session topic.
-///
-/// # Preconditions
-/// `session_id` must be registered before call.
-///
-/// # Postconditions
-/// All connected subscribers receive `SessionEvent`.
-///
-/// # Errors
-/// Returns `Err(BroadcastError)` if channel is closed.
-pub fn broadcast(session_id: SessionId, event: SessionEvent) -> Result<()> {
-    ...
-}
+## Triggers
 
-// BAD — narrates obvious
-/// Insert message into database
-pub fn create_message(attrs: Attrs) -> Result<Message> {
-    db.insert(attrs)
-}
-```
+Apply when you touch any of:
 
-## Architecture Docs
+- CLI subcommands, flags, or default behavior (`src/main.rs`, `src/shell/`)
+- MCP tools or tool parameters (`src/mcp/`)
+- Config schema, env vars, or merge rules (`src/core/config.rs`, `docs/config.md`)
+- Ingest paths, sync contract, or redaction expectations
+- Tutorial-relevant workflows (anything a user would try in [docs/tutorial/](docs/tutorial/))
 
-`docs/` — keep each doc under 200 lines.
+Rust `///` on private helpers stays governed by [documentation.mdc](documentation.mdc) (minimal, contract-only). This rule is for **markdown** and learning paths.
 
-### Core docs
+## Checklist
 
-- `docs/structure.md` — purpose, stack, directory layout
-- `docs/architecture.md` — module graph, data flow, external boundaries
-- `docs/datamodel.md` — entities, relationships, key invariants
-- `docs/config.md` — crate roles, config split, env vars
-- `docs/patterns.md` — design patterns, conventions, unusual choices
+1. **Reference** — Update the right doc: [docs/usage.md](docs/usage.md) for CLI; [docs/mcp.md](docs/mcp.md) for MCP tools; [docs/config.md](docs/config.md) for config/env; [docs/concepts.md](docs/concepts.md) or [docs/telemetry-journey.md](docs/telemetry-journey.md) when the mental model shifts.
+2. **Tutorial** — Extend the relevant part under [docs/tutorial/](docs/tutorial/) (or add a part + link it from [docs/tutorial/README.md](docs/tutorial/README.md)) so the feature appears in the learning path, not only in the reference.
+3. **Index** — Update [docs/README.md](docs/README.md) if you add a new doc or rename paths.
+4. **README** — Update the root [README.md](README.md) only when the change is **flagship** (new top-level capability or install impact).
+5. **Quint** — If behavior is model-checked, update [docs/quint-coverage.md](docs/quint-coverage.md) per the existing spec/test table.
 
-## Keep Docs Current
+## Accuracy
 
-| Change type | Update these docs |
-|---|---|
-| New dependency | `docs/config.md` |
-| New/changed data struct | `docs/datamodel.md` |
-| New module or crate | `docs/architecture.md` |
-| New env var | `docs/config.md` |
-| New pattern or decision | `docs/patterns.md` |
-| Directory layout change | `docs/structure.md` |
+- Do not claim **full MCP/CLI parity** unless every command is exposed; list **CLI-only** commands explicitly (see [docs/mcp.md](docs/mcp.md) and [docs/usage.md](docs/usage.md#kaizen-mcp)).
+- Keep [docs/README.md](docs/README.md) “Keep docs current” table aligned with this checklist.
 
-Stale docs worse than no docs — keep current or delete.
+Stale user docs are worse than missing ones — update or remove.
 
 ---
 > Source: [marquesds/kaizen](https://github.com/marquesds/kaizen) — distributed by [TomeVault](https://tomevault.io).
