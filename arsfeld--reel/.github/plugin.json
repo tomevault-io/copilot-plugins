@@ -1,0 +1,9 @@
+{
+  "name": "arsfeld--reel",
+  "displayName": "reel",
+  "description": "A modern GTK frontend for Plex and other media servers",
+  "version": "1.0.0",
+  "author": "arsfeld",
+  "homepage": "https://github.com/arsfeld/reel",
+  "skills": []
+}
