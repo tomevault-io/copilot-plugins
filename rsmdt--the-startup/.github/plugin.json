@@ -1,0 +1,98 @@
+{
+  "name": "rsmdt--the-startup",
+  "displayName": "the-startup",
+  "description": "The Agentic Startup - A collection of Claude Code commands, skills, and agents.",
+  "version": "1.0.0",
+  "author": "rsmdt",
+  "homepage": "https://github.com/rsmdt/the-startup",
+  "skills": [
+    {
+      "name": "analyze",
+      "description": ""
+    },
+    {
+      "name": "api-contract-design",
+      "description": ""
+    },
+    {
+      "name": "architecture-selection",
+      "description": ""
+    },
+    {
+      "name": "code-quality-review",
+      "description": ""
+    },
+    {
+      "name": "constitution",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "description": ""
+    },
+    {
+      "name": "feature-prioritization",
+      "description": ""
+    },
+    {
+      "name": "pattern-detection",
+      "description": ""
+    },
+    {
+      "name": "performance-analysis",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "description": ""
+    },
+    {
+      "name": "requirements-elicitation",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "security-assessment",
+      "description": ""
+    },
+    {
+      "name": "specify-meta",
+      "description": ""
+    },
+    {
+      "name": "specify-plan",
+      "description": ""
+    },
+    {
+      "name": "specify-requirements",
+      "description": ""
+    },
+    {
+      "name": "specify-solution",
+      "description": ""
+    },
+    {
+      "name": "technical-writing",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "user-research",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    }
+  ]
+}
