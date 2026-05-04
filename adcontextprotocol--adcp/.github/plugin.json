@@ -1,0 +1,22 @@
+{
+  "name": "adcontextprotocol--adcp",
+  "displayName": "adcp",
+  "description": "Docs and reference implementation for the Ad Context Protocol",
+  "version": "1.0.0",
+  "author": "adcontextprotocol",
+  "homepage": "https://github.com/adcontextprotocol/adcp",
+  "skills": [
+    {
+      "name": "adcp-creative",
+      "description": ""
+    },
+    {
+      "name": "adcp-media-buy",
+      "description": ""
+    },
+    {
+      "name": "adcp-signals",
+      "description": ""
+    }
+  ]
+}
