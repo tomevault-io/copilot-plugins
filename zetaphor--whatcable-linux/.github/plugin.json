@@ -1,0 +1,9 @@
+{
+  "name": "zetaphor--whatcable-linux",
+  "displayName": "whatcable-linux",
+  "description": "A linux/KDE port of whatcable, a tool to tell you what each USB connected cable can do",
+  "version": "1.0.0",
+  "author": "Zetaphor",
+  "homepage": "https://github.com/Zetaphor/whatcable-linux",
+  "skills": []
+}
