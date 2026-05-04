@@ -1,0 +1,9 @@
+{
+  "name": "nines-nine--gadgetexplorer",
+  "displayName": "GadgetExplorer",
+  "description": "GadgetExplorer is a .NET command-line tool for finding potential deserialization gadget chains in managed applications. It scans one or more assemblies, builds a reachability graph with dispatch and c",
+  "version": "1.0.0",
+  "author": "nines-nine",
+  "homepage": "https://github.com/nines-nine/GadgetExplorer",
+  "skills": []
+}
