@@ -1,0 +1,14 @@
+{
+  "name": "lillecarl--nix-csi",
+  "displayName": "nix-csi",
+  "description": "CSI driver for Nixxing Kubernetes, see develop branch!",
+  "version": "1.0.0",
+  "author": "Lillecarl",
+  "homepage": "https://github.com/Lillecarl/nix-csi",
+  "skills": [
+    {
+      "name": "jujutsu-version-control",
+      "description": ""
+    }
+  ]
+}
