@@ -1,0 +1,9 @@
+{
+  "name": "thomsonreuters--claude-forge",
+  "displayName": "claude-forge",
+  "description": "Developer toolkit for Claude Code: multi-model proxy routing, session management, policy engine, and skills architecture",
+  "version": "1.0.0",
+  "author": "thomsonreuters",
+  "homepage": "https://github.com/thomsonreuters/claude-forge",
+  "skills": []
+}
