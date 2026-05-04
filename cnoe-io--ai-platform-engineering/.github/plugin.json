@@ -1,0 +1,46 @@
+{
+  "name": "cnoe-io--ai-platform-engineering",
+  "displayName": "ai-platform-engineering",
+  "description": "CAIPE: Community AI Platform Engineering Multi-Agent Systems",
+  "version": "1.0.0",
+  "author": "cnoe-io",
+  "homepage": "https://github.com/cnoe-io/ai-platform-engineering",
+  "skills": [
+    {
+      "name": "check-deployment-status",
+      "description": ""
+    },
+    {
+      "name": "cluster-resource-health",
+      "description": ""
+    },
+    {
+      "name": "documentation-search",
+      "description": ""
+    },
+    {
+      "name": "incident-investigation",
+      "description": ""
+    },
+    {
+      "name": "oncall-handoff",
+      "description": ""
+    },
+    {
+      "name": "release-readiness-check",
+      "description": ""
+    },
+    {
+      "name": "review-open-pull-requests",
+      "description": ""
+    },
+    {
+      "name": "review-specific-pr",
+      "description": ""
+    },
+    {
+      "name": "security-vulnerability-report",
+      "description": ""
+    }
+  ]
+}
