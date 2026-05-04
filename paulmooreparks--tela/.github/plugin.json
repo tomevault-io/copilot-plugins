@@ -1,0 +1,9 @@
+{
+  "name": "paulmooreparks--tela",
+  "displayName": "tela",
+  "description": "FOSS remote-access and connectivity fabric \u2014 outbound-only tunnels, multiplexed TCP channels, zero-install client access",
+  "version": "1.0.0",
+  "author": "paulmooreparks",
+  "homepage": "https://github.com/paulmooreparks/tela",
+  "skills": []
+}
