@@ -1,0 +1,9 @@
+{
+  "name": "1password--scam",
+  "displayName": "SCAM",
+  "description": "SCAM - Security Comprehension Awareness Measure | Open-source benchmark that tests AI agents' security awareness during realistic, multi-turn workplace tasks.",
+  "version": "1.0.0",
+  "author": "1Password",
+  "homepage": "https://github.com/1Password/SCAM",
+  "skills": []
+}
