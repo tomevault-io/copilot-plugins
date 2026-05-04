@@ -4,7 +4,7 @@
   "repo": "signal",
   "description": "SIGNAL \u2014 Agent Skills: terse structured output (tiers, templates, checkpoints), git workflow skills (commit, push, PR, review, ckpt), Karpathy-inspired coding norms. Claude Code, Cursor, Gemini CLI, Codex & other Agent Skills hosts. ",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mattbaconz/signal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T01:46:40Z"
+  "distributed_at": "2026-05-04T18:25:04Z"
 }
