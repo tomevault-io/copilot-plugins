@@ -1,0 +1,9 @@
+{
+  "name": "nicobleiler--php-passphrase",
+  "displayName": "php-passphrase",
+  "description": "Passphrase generator with Laravel integration, inspired by Bitwarden. Uses the EFF long word list by default with support for custom wordlists.",
+  "version": "1.0.0",
+  "author": "nicobleiler",
+  "homepage": "https://github.com/nicobleiler/php-passphrase",
+  "skills": []
+}
