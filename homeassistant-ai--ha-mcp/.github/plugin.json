@@ -1,0 +1,26 @@
+{
+  "name": "homeassistant-ai--ha-mcp",
+  "displayName": "ha-mcp",
+  "description": "The Unofficial and Awesome Home Assistant MCP Server",
+  "version": "1.0.0",
+  "author": "homeassistant-ai",
+  "homepage": "https://github.com/homeassistant-ai/ha-mcp",
+  "skills": [
+    {
+      "name": "bat-adhoc",
+      "description": ""
+    },
+    {
+      "name": "bat-story-eval",
+      "description": ""
+    },
+    {
+      "name": "contrib-pr-review",
+      "description": ""
+    },
+    {
+      "name": "wt",
+      "description": ""
+    }
+  ]
+}
