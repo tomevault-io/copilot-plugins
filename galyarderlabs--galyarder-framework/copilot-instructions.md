@@ -1,6 +1,6 @@
-## product-marketing-context
+## profiling-threat-actor-groups
 
-> Create or update a reusable product marketing context document with positioning, audience, ICP, use cases, and messaging. Use at the start of a project to avoid repeating core marketing context across tasks.
+> >
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,247 +36,113 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# Product Marketing Context
+# Profiling Threat Actor Groups
 
-You are the Product Marketing Context Specialist at Galyarder Labs.
-You help users create and maintain a product marketing context document. This captures foundational positioning and messaging information that other marketing skills reference, so users don't repeat themselves.
-
+You are the Profiling Threat Actor Groups Specialist at Galyarder Labs.
 ## When to Use
 
-- Use when creating a reusable product, audience, and positioning context file.
-- Use at the start of a marketing project before more specialized marketing skills.
-- Use when the user wants to avoid re-explaining ICP, messaging, and product basics.
+Use this skill when:
+- Updating the organization's threat model with profiles of adversary groups recently observed targeting your sector
+- Preparing an executive briefing on APT groups that align with geopolitical events affecting your business
+- Enabling SOC analysts to understand attacker objectives and TTPs to improve detection tuning
 
-The document is stored at `.agents/product-marketing-context.md`.
+**Do not use** this skill for real-time incident attribution  attribution during active incidents should be deprioritized in favor of containment. Profile refinement occurs post-incident.
+
+## Prerequisites
+
+- Access to MITRE ATT&CK Groups database (https://attack.mitre.org/groups/)
+- Commercial threat intelligence subscription (Mandiant Advantage, CrowdStrike Falcon Intelligence, or Recorded Future)
+- Sector-specific ISAC membership for targeted intelligence (FS-ISAC, H-ISAC, E-ISAC)
+- Structured profile template (see workflow below)
 
 ## Workflow
 
-### Step 1: Check for Existing Context
+### Step 1: Identify Relevant Threat Actors
 
-First, check if `.agents/product-marketing-context.md` already exists. Also check `.claude/product-marketing-context.md` for older setups  if found there but not in `.agents/`, offer to move it.
+Cross-reference your organization's sector, geography, and technology stack against known adversary targeting patterns. Sources:
+- MITRE ATT&CK Groups: 130+ documented nation-state and criminal groups with TTP mappings
+- CrowdStrike Annual Threat Report: adversary naming by nation-state (BEAR=Russia, PANDA=China, KITTEN=Iran, CHOLLIMA=North Korea)
+- Mandiant M-Trends: annual report with sector-specific targeting statistics
+- CISA Known Exploited Vulnerabilities (KEV) catalog: identifies vulnerabilities actively exploited by specific threat actors
 
-**If it exists:**
-- Read it and summarize what's captured
-- Ask which sections they want to update
-- Only gather info for those sections
+Shortlist 510 groups most likely to target your organization based on sector alignment and recent activity.
 
-**If it doesn't exist, offer two options:**
+### Step 2: Collect Profile Data
 
-1. **Auto-draft from codebase** (recommended): You'll study the repoREADME, landing pages, marketing copy, package.json, etc.and draft a V1 of the context document. The user then reviews, corrects, and fills gaps. This is faster than starting from scratch.
+For each adversary, document across standard dimensions:
 
-2. **Start from scratch**: Walk through each section conversationally, gathering info one section at a time.
+**Identity**: ATT&CK Group ID (e.g., G0016 for APT29), aliases (Cozy Bear, The Dukes, Midnight Blizzard), suspected nation-state sponsor
 
-Most users prefer option 1. After presenting the draft, ask: "What needs correcting? What's missing?"
+**Motivations**: Espionage, financial gain, disruption, intellectual property theft
 
-### Step 2: Gather Information
+**Targeting**: Sectors, geographies, organization sizes, technology targets (OT/IT, cloud, supply chain)
 
-**If auto-drafting:**
-1. Read the codebase: README, landing pages, marketing copy, about pages, meta descriptions, package.json, any existing docs
-2. Draft all sections based on what you find
-3. Present the draft and ask what needs correcting or is missing
-4. Iterate until the user is satisfied
+**Capabilities**: Custom malware (e.g., APT29's SUNBURST, MiniDuke), exploitation of 0-days vs. known CVEs, supply chain attack capability
 
-**If starting from scratch:**
-Walk through each section below conversationally, one at a time. Don't dump all questions at once.
+**Campaign History**: Notable operations with dates (SolarWinds 2020, Exchange Server 2021, etc.)
 
-For each section:
-1. Briefly explain what you're capturing
-2. Ask relevant questions
-3. Confirm accuracy
-4. Move to the next
+**TTPs by ATT&CK Phase**: Document top 5 techniques per tactic phase
 
-Push for verbatim customer language  exact phrases are more valuable than polished descriptions because they reflect how customers actually think and speak, which makes copy more resonant.
+### Step 3: Map TTPs to ATT&CK
 
----
+Using mitreattack-python:
+```python
+from mitreattack.stix20 import MitreAttackData
 
-## Sections to Capture
+mitre = MitreAttackData("enterprise-attack.json")
+apt29 = mitre.get_object_by_attack_id("G0016", "groups")
+techniques = mitre.get_techniques_used_by_group(apt29)
 
-### 1. Product Overview
-- One-line description
-- What it does (2-3 sentences)
-- Product category (what "shelf" you sit onhow customers search for you)
-- Product type (SaaS, marketplace, e-commerce, service, etc.)
-- Business model and pricing
-
-### 2. Target Audience
-- Target company type (industry, size, stage)
-- Target decision-makers (roles, departments)
-- Primary use case (the main problem you solve)
-- Jobs to be done (2-3 things customers "hire" you for)
-- Specific use cases or scenarios
-
-### 3. Personas (B2B only)
-If multiple stakeholders are involved in buying, capture for each:
-- User, Champion, Decision Maker, Financial Buyer, Technical Influencer
-- What each cares about, their challenge, and the value you promise them
-
-### 4. Problems & Pain Points
-- Core challenge customers face before finding you
-- Why current solutions fall short
-- What it costs them (time, money, opportunities)
-- Emotional tension (stress, fear, doubt)
-
-### 5. Competitive Landscape
-- **Direct competitors**: Same solution, same problem (e.g., Calendly vs SavvyCal)
-- **Secondary competitors**: Different solution, same problem (e.g., Calendly vs Superhuman scheduling)
-- **Indirect competitors**: Conflicting approach (e.g., Calendly vs personal assistant)
-- How each falls short for customers
-
-### 6. Differentiation
-- Key differentiators (capabilities alternatives lack)
-- How you solve it differently
-- Why that's better (benefits)
-- Why customers choose you over alternatives
-
-### 7. Objections & Anti-Personas
-- Top 3 objections heard in sales and how to address them
-- Who is NOT a good fit (anti-persona)
-
-### 8. Switching Dynamics
-The JTBD Four Forces:
-- **Push**: What frustrations drive them away from current solution
-- **Pull**: What attracts them to you
-- **Habit**: What keeps them stuck with current approach
-- **Anxiety**: What worries them about switching
-
-### 9. Customer Language
-- How customers describe the problem (verbatim)
-- How they describe your solution (verbatim)
-- Words/phrases to use
-- Words/phrases to avoid
-- Glossary of product-specific terms
-
-### 10. Brand Voice
-- Tone (professional, casual, playful, etc.)
-- Communication style (direct, conversational, technical)
-- Brand personality (3-5 adjectives)
-
-### 11. Proof Points
-- Key metrics or results to cite
-- Notable customers/logos
-- Testimonial snippets
-- Main value themes and supporting evidence
-
-### 12. Goals
-- Primary business goal
-- Key conversion action (what you want people to do)
-- Current metrics (if known)
-
----
-
-## Step 3: Create the Document
-
-After gathering information, create `.agents/product-marketing-context.md` with this structure:
-
-```markdown
-# Product Marketing Context
-
-*Last updated: [date]*
-
-## Product Overview
-**One-liner:**
-**What it does:**
-**Product category:**
-**Product type:**
-**Business model:**
-
-## Target Audience
-**Target companies:**
-**Decision-makers:**
-**Primary use case:**
-**Jobs to be done:**
--
-**Use cases:**
--
-
-## Personas
-| Persona | Cares about | Challenge | Value we promise |
-|---------|-------------|-----------|------------------|
-| | | | |
-
-## Problems & Pain Points
-**Core problem:**
-**Why alternatives fall short:**
--
-**What it costs them:**
-**Emotional tension:**
-
-## Competitive Landscape
-**Direct:** [Competitor]  falls short because...
-**Secondary:** [Approach]  falls short because...
-**Indirect:** [Alternative]  falls short because...
-
-## Differentiation
-**Key differentiators:**
--
-**How we do it differently:**
-**Why that's better:**
-**Why customers choose us:**
-
-## Objections
-| Objection | Response |
-|-----------|----------|
-| | |
-
-**Anti-persona:**
-
-## Switching Dynamics
-**Push:**
-**Pull:**
-**Habit:**
-**Anxiety:**
-
-## Customer Language
-**How they describe the problem:**
-- "[verbatim]"
-**How they describe us:**
-- "[verbatim]"
-**Words to use:**
-**Words to avoid:**
-**Glossary:**
-| Term | Meaning |
-|------|---------|
-| | |
-
-## Brand Voice
-**Tone:**
-**Style:**
-**Personality:**
-
-## Proof Points
-**Metrics:**
-**Customers:**
-**Testimonials:**
-> "[quote]"  [who]
-**Value themes:**
-| Theme | Proof |
-|-------|-------|
-| | |
-
-## Goals
-**Business goal:**
-**Conversion action:**
-**Current metrics:**
+profile = {}
+for item in techniques:
+    tech = item["object"]
+    tid = tech["external_references"][0]["external_id"]
+    tactic = [p["phase_name"] for p in tech.get("kill_chain_phases", [])]
+    profile[tid] = {"name": tech["name"], "tactics": tactic}
 ```
 
----
+### Step 4: Assess Detection Coverage Against Profile
 
-## Step 4: Confirm and Save
+Compare the adversary's technique list against your detection coverage matrix (from ATT&CK Navigator layer). Identify:
+- Techniques used by this group where you have no detection (critical gaps)
+- Techniques where you have partial coverage (logging but no alerting)
+- Compensating controls where detection is not feasible (network segmentation as mitigation for lateral movement)
 
-- Show the completed document
-- Ask if anything needs adjustment
-- Save to `.agents/product-marketing-context.md`
-- Tell them: "Other marketing skills will now use this context automatically. Run `/product-marketing-context` anytime to update it."
+### Step 5: Package Profile for Distribution
 
----
+Structure the final profile for different audiences:
+- **Executive summary** (1 page): Who, motivation, recent campaigns, top risk to our organization, recommended priority actions
+- **SOC analyst brief** (35 pages): Full TTP list with detection status, IOC list, hunt hypotheses
+- **Technical appendix**: YARA rules, Sigma detections, STIX JSON object for TIP import
 
-## Tips
+Classify TLP:AMBER for internal distribution; seek ISAC approval before external sharing.
 
-- **Be specific**: Ask "What's the #1 frustration that brings them to you?" not "What problem do they solve?"
-- **Capture exact words**: Customer language beats polished descriptions
-- **Ask for examples**: "Can you give me an example?" unlocks better answers
-- **Validate as you go**: Summarize each section and confirm before moving on
-- **Skip what doesn't apply**: Not every product needs all sections (e.g., Personas for B2C)
+## Key Concepts
+
+| Term | Definition |
+|------|-----------|
+| **APT** | Advanced Persistent Threat  well-resourced, sophisticated adversary (typically nation-state or sophisticated criminal) conducting long-term targeted operations |
+| **TTPs** | Tactics, Techniques, Procedures  behavioral fingerprint of an adversary group, more durable than IOCs which change frequently |
+| **Aliases** | Threat actors receive different names from different vendors (APT29 = Cozy Bear = The Dukes = Midnight Blizzard = YTTRIUM) |
+| **Attribution** | Process of associating an attack with a specific threat actor; requires multiple independent corroborating data points and carries inherent uncertainty |
+| **Cluster** | A group of related intrusion activity that may or may not be attributable to a single actor; used when attribution is uncertain |
+| **Intrusion Set** | STIX SDO type representing a grouped set of adversarial behaviors with common objectives, even if actor identity is unknown |
+
+## Tools & Systems
+
+- **MITRE ATT&CK Groups**: Free, community-maintained database of 130+ documented adversary groups with referenced campaign reports
+- **Mandiant Advantage Threat Intelligence**: Commercial platform with detailed APT profiles, malware families, and campaign analysis
+- **CrowdStrike Falcon Intelligence**: Commercial feed with adversary-centric profiles and real-time attribution updates
+- **Recorded Future Threat Intelligence**: Combines OSINT, dark web, and technical intelligence for adversary profiling
+- **OpenCTI**: Graph-based visualization of threat actor relationships, tooling, and campaign linkages
+
+## Common Pitfalls
+
+- **IOC-centric profiles**: Building profiles around IP addresses and domains rather than TTPs means the profile becomes stale within weeks as infrastructure rotates.
+- **Vendor alias confusion**: Conflating two different threat actor groups due to shared malware or infrastructure leads to incorrect threat model assumptions.
+- **Binary attribution**: Treating attribution as certain when it is probabilistic. Always qualify attribution confidence level (Low/Medium/High).
+- **Neglecting insider and criminal groups**: Overemphasis on nation-state APTs while ignoring ransomware groups (Cl0p, LockBit, ALPHV) which represent higher probability threats for most organizations.
+- **Profile staleness**: Adversary TTPs evolve. Profiles not updated quarterly may miss technique changes, new malware, or targeting shifts.
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
