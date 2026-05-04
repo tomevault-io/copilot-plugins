@@ -1,0 +1,9 @@
+{
+  "name": "anmolgupta824--ai-native-agents",
+  "displayName": "ai-native-agents",
+  "description": "5-agent system for AI coding tools. Works with Claude Code, Cursor, Copilot, Gemini, and more. Clone it, customize it, ship faster.",
+  "version": "1.0.0",
+  "author": "anmolgupta824",
+  "homepage": "https://github.com/anmolgupta824/ai-native-agents",
+  "skills": []
+}
