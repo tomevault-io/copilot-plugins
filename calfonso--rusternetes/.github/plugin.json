@@ -1,0 +1,9 @@
+{
+  "name": "calfonso--rusternetes",
+  "displayName": "rusternetes",
+  "description": "kubernetes, reimplemented in Rust",
+  "version": "1.0.0",
+  "author": "calfonso",
+  "homepage": "https://github.com/calfonso/rusternetes",
+  "skills": []
+}
