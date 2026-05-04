@@ -1,6 +1,6 @@
-## receiving-code-review
+## recovering-deleted-files-with-photorec
 
-> Use when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation
+> Recover deleted files from disk images and storage media using PhotoRec's file signature-based carving engine regardless of file system damage.
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,215 +36,221 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# Code Review Reception
+# Recovering Deleted Files with PhotoRec
 
-You are the Receiving Code Review Specialist at Galyarder Labs.
-## Overview
+You are the Recovering Deleted Files With Photorec Specialist at Galyarder Labs.
+## When to Use
+- When recovering deleted files from a forensic disk image or storage device
+- When the file system is corrupted, formatted, or overwritten
+- During investigations requiring recovery of documents, images, videos, or databases
+- When file system metadata is unavailable but raw data sectors remain intact
+- For recovering files from memory cards, USB drives, and hard drives
 
-Code review requires technical evaluation, not emotional performance.
+## Prerequisites
+- PhotoRec installed (part of TestDisk suite)
+- Forensic disk image or direct device access (read-only)
+- Sufficient output storage space (potentially larger than source)
+- Write-blocker if working with original media
+- Root/sudo privileges for device access
+- Knowledge of target file types for focused recovery
 
-**Core principle:** Verify before implementing. Ask before assuming. Technical correctness over social comfort.
+## Workflow
 
-## The Response Pattern
+### Step 1: Install PhotoRec and Prepare the Environment
 
-```
-WHEN receiving code review feedback:
+```bash
+# Install TestDisk (includes PhotoRec) on Debian/Ubuntu
+sudo apt-get install testdisk
 
-1. READ: Complete feedback without reacting
-2. UNDERSTAND: Restate requirement in own words (or ask)
-3. VERIFY: Check against codebase reality
-4. EVALUATE: Technically sound for THIS codebase?
-5. RESPOND: Technical acknowledgment or reasoned pushback
-6. IMPLEMENT: One item at a time, test each
-```
+# On RHEL/CentOS
+sudo yum install testdisk
 
-## Forbidden Responses
+# On macOS
+brew install testdisk
 
-**NEVER:**
-- "You're absolutely right!" (explicit CLAUDE.md violation)
-- "Great point!" / "Excellent feedback!" (performative)
-- "Let me implement that now" (before verification)
+# Verify installation
+photorec --version
 
-**INSTEAD:**
-- Restate the technical requirement
-- Ask clarifying questions
-- Push back with technical reasoning if wrong
-- Just start working (actions > words)
+# Create output directory structure
+mkdir -p /cases/case-2024-001/recovered/{all,documents,images,databases}
 
-## Handling Unclear Feedback
-
-```
-IF any item is unclear:
-  STOP - do not implement anything yet
-  ASK for clarification on unclear items
-
-WHY: Items may be related. Partial understanding = wrong implementation.
+# Verify the forensic image
+file /cases/case-2024-001/images/evidence.dd
+ls -lh /cases/case-2024-001/images/evidence.dd
 ```
 
-**Example:**
-```
-your human partner: "Fix 1-6"
-You understand 1,2,3,6. Unclear on 4,5.
+### Step 2: Run PhotoRec in Interactive Mode
 
- WRONG: Implement 1,2,3,6 now, ask about 4,5 later
- RIGHT: "I understand items 1,2,3,6. Need clarification on 4 and 5 before proceeding."
-```
+```bash
+# Launch PhotoRec against a forensic image
+photorec /cases/case-2024-001/images/evidence.dd
 
-## Source-Specific Handling
+# Interactive menu steps:
+# 1. Select the disk image: evidence.dd
+# 2. Select partition table type: [Intel] for MBR, [EFI GPT] for GPT
+# 3. Select partition to scan (or "No partition" for whole disk)
+# 4. Select filesystem type: [ext2/ext3/ext4] or [Other] for NTFS/FAT
+# 5. Choose scan scope: [Free] (unallocated only) or [Whole] (entire partition)
+# 6. Select output directory: /cases/case-2024-001/recovered/all/
+# 7. Press C to confirm and begin recovery
 
-### From your human partner
-- **Trusted** - implement after understanding
-- **Still ask** if scope unclear
-- **No performative agreement**
-- **Skip to action** or technical acknowledgment
-
-### From External Reviewers
-```
-BEFORE implementing:
-  1. Check: Technically correct for THIS codebase?
-  2. Check: Breaks existing functionality?
-  3. Check: Reason for current implementation?
-  4. Check: Works on all platforms/versions?
-  5. Check: Does reviewer understand full context?
-
-IF suggestion seems wrong:
-  Push back with technical reasoning
-
-IF can't easily verify:
-  Say so: "I can't verify this without [X]. Should I [investigate/ask/proceed]?"
-
-IF conflicts with your human partner's prior decisions:
-  Stop and discuss with your human partner first
+# For direct device scanning (with write-blocker)
+sudo photorec /dev/sdb
 ```
 
-**your human partner's rule:** "External feedback - be skeptical, but check carefully"
+### Step 3: Run PhotoRec with Command-Line Options for Targeted Recovery
 
-## YAGNI Check for "Professional" Features
+```bash
+# Non-interactive mode with specific file types
+photorec /d /cases/case-2024-001/recovered/documents/ \
+   /cmd /cases/case-2024-001/images/evidence.dd \
+   partition_table,options,mode,fileopt,search
 
-```
-IF reviewer suggests "implementing properly":
-  grep codebase for actual usage
+# Recover only specific file types using photorec command mode
+photorec /d /cases/case-2024-001/recovered/documents/ \
+   /cmd /cases/case-2024-001/images/evidence.dd \
+   options,keep_corrupted_file,enable \
+   fileopt,everything,disable \
+   fileopt,doc,enable \
+   fileopt,docx,enable \
+   fileopt,pdf,enable \
+   fileopt,xlsx,enable \
+   search
 
-  IF unused: "This endpoint isn't called. Remove it (YAGNI)?"
-  IF used: Then implement properly
-```
+# Recover only image files
+photorec /d /cases/case-2024-001/recovered/images/ \
+   /cmd /cases/case-2024-001/images/evidence.dd \
+   fileopt,everything,disable \
+   fileopt,jpg,enable \
+   fileopt,png,enable \
+   fileopt,gif,enable \
+   fileopt,bmp,enable \
+   fileopt,tif,enable \
+   search
 
-**your human partner's rule:** "You and reviewer both report to me. If we don't need this feature, don't add it."
-
-## Implementation Order
-
-```
-FOR multi-item feedback:
-  1. Clarify anything unclear FIRST
-  2. Then implement in this order:
-     - Blocking issues (breaks, security)
-     - Simple fixes (typos, imports)
-     - Complex fixes (refactoring, logic)
-  3. Test each fix individually
-  4. Verify no regressions
-```
-
-## When To Push Back
-
-Push back when:
-- Suggestion breaks existing functionality
-- Reviewer lacks full context
-- Violates YAGNI (unused feature)
-- Technically incorrect for this stack
-- Legacy/compatibility reasons exist
-- Conflicts with your human partner's architectural decisions
-
-**How to push back:**
-- Use technical reasoning, not defensiveness
-- Ask specific questions
-- Reference working tests/code
-- Involve your human partner if architectural
-
-**Signal if uncomfortable pushing back out loud:** "Strange things are afoot at the Circle K"
-
-## Acknowledging Correct Feedback
-
-When feedback IS correct:
-```
- "Fixed. [Brief description of what changed]"
- "Good catch - [specific issue]. Fixed in [location]."
- [Just fix it and show in the code]
-
- "You're absolutely right!"
- "Great point!"
- "Thanks for catching that!"
- "Thanks for [anything]"
- ANY gratitude expression
+# Recover database files
+photorec /d /cases/case-2024-001/recovered/databases/ \
+   /cmd /cases/case-2024-001/images/evidence.dd \
+   fileopt,everything,disable \
+   fileopt,sqlite,enable \
+   fileopt,dbf,enable \
+   search
 ```
 
-**Why no thanks:** Actions speak. Just fix it. The code itself shows you heard the feedback.
+### Step 4: Organize and Catalog Recovered Files
 
-**If you catch yourself about to write "Thanks":** DELETE IT. State the fix instead.
+```bash
+# PhotoRec outputs files into recup_dir.1, recup_dir.2, etc.
+ls /cases/case-2024-001/recovered/all/
 
-## Gracefully Correcting Your Pushback
+# Count recovered files by type
+find /cases/case-2024-001/recovered/all/ -type f | \
+   sed 's/.*\.//' | sort | uniq -c | sort -rn > /cases/case-2024-001/recovered/file_type_summary.txt
 
-If you pushed back and were wrong:
-```
- "You were right - I checked [X] and it does [Y]. Implementing now."
- "Verified this and you're correct. My initial understanding was wrong because [reason]. Fixing."
+# Sort recovered files into directories by extension
+cd /cases/case-2024-001/recovered/all/
+for ext in jpg png pdf docx xlsx pptx zip sqlite; do
+   mkdir -p /cases/case-2024-001/recovered/sorted/$ext
+   find . -name "*.$ext" -exec cp {} /cases/case-2024-001/recovered/sorted/$ext/ \;
+done
 
- Long apology
- Defending why you pushed back
- Over-explaining
-```
+# Generate SHA-256 hashes for all recovered files
+find /cases/case-2024-001/recovered/all/ -type f -exec sha256sum {} \; \
+   > /cases/case-2024-001/recovered/recovered_hashes.txt
 
-State the correction factually and move on.
-
-## Common Mistakes
-
-| Mistake | Fix |
-|---------|-----|
-| Performative agreement | State requirement or just act |
-| Blind implementation | Verify against codebase first |
-| Batch without testing | One at a time, test each |
-| Assuming reviewer is right | Check if breaks things |
-| Avoiding pushback | Technical correctness > comfort |
-| Partial implementation | Clarify all items first |
-| Can't verify, proceed anyway | State limitation, ask for direction |
-
-## Real Examples
-
-**Performative Agreement (Bad):**
-```
-Reviewer: "Remove legacy code"
- "You're absolutely right! Let me remove that..."
+# Generate file listing with metadata
+find /cases/case-2024-001/recovered/all/ -type f \
+   -printf "%f\t%s\t%T+\t%p\n" | sort > /cases/case-2024-001/recovered/file_listing.txt
 ```
 
-**Technical Verification (Good):**
+### Step 5: Validate and Filter Recovered Files
+
+```bash
+# Verify file integrity using file signatures
+find /cases/case-2024-001/recovered/all/ -type f -exec file {} \; \
+   > /cases/case-2024-001/recovered/file_signatures.txt
+
+# Find files with mismatched extension/signature
+while IFS= read -r line; do
+   filepath=$(echo "$line" | cut -d: -f1)
+   filetype=$(echo "$line" | cut -d: -f2-)
+   ext="${filepath##*.}"
+   if [[ "$ext" == "jpg" ]] && ! echo "$filetype" | grep -qi "JPEG"; then
+      echo "MISMATCH: $filepath -> $filetype"
+   fi
+done < /cases/case-2024-001/recovered/file_signatures.txt > /cases/case-2024-001/recovered/mismatches.txt
+
+# Filter out known-good files using NSRL hash comparison
+hashdeep -r -c sha256 /cases/case-2024-001/recovered/all/ | \
+   grep -vFf /opt/nsrl/nsrl_sha256.txt > /cases/case-2024-001/recovered/unknown_files.txt
+
+# Remove zero-byte and corrupted files
+find /cases/case-2024-001/recovered/all/ -type f -empty -delete
+find /cases/case-2024-001/recovered/all/ -name "*.jpg" -exec jpeginfo -c {} \; 2>&1 | \
+   grep "ERROR" > /cases/case-2024-001/recovered/corrupted_images.txt
 ```
-Reviewer: "Remove legacy code"
- "Checking... build target is 10.15+, this API needs 13+. Need legacy for backward compat. Current impl has wrong bundle ID - fix it or drop pre-13 support?"
+
+## Key Concepts
+
+| Concept | Description |
+|---------|-------------|
+| File carving | Recovering files from raw data using file header/footer signatures |
+| File signatures | Magic bytes at the start of files identifying their type (e.g., FF D8 FF for JPEG) |
+| Unallocated space | Disk sectors not assigned to any active file; may contain deleted data |
+| Fragmented files | Files stored in non-contiguous sectors; harder to carve completely |
+| Cluster/Block size | Minimum allocation unit on a file system; affects carving granularity |
+| File footer | Byte sequence marking the end of a file (not all formats have footers) |
+| Data remanence | Residual data remaining after deletion until sectors are overwritten |
+| False positives | Carved artifacts that match signatures but contain corrupted or partial data |
+
+## Tools & Systems
+
+| Tool | Purpose |
+|------|---------|
+| PhotoRec | Open-source file carving tool supporting 300+ file formats |
+| TestDisk | Companion tool for partition recovery and repair |
+| Foremost | Alternative file carver originally developed by US Air Force OSI |
+| Scalpel | High-performance file carver based on Foremost |
+| hashdeep | Recursive hash computation and audit tool |
+| jpeginfo | JPEG file integrity verification |
+| file | Unix utility identifying file types by magic bytes |
+| exiftool | Extract metadata from recovered image and document files |
+
+## Common Scenarios
+
+**Scenario 1: Recovering Deleted Evidence from a Suspect's USB Drive**
+Image the USB drive with dcfldd, run PhotoRec targeting document and image formats, organize by file type, hash all recovered files, compare against known-bad hash sets, extract metadata from images for GPS and timestamp information.
+
+**Scenario 2: Formatted Hard Drive Recovery**
+Run PhotoRec in "Whole" mode against the entire formatted partition, recover all file types, expect higher false positive rate due to file fragmentation, validate recovered files with signature checking, catalog and hash for evidence chain.
+
+**Scenario 3: Memory Card from a Surveillance Camera**
+Recover deleted video files (AVI, MP4, MOV) from the memory card image, use targeted file type selection to speed recovery, verify video files are playable, extract frame timestamps, document recovery in case notes.
+
+**Scenario 4: Corrupted File System on Evidence Drive**
+When file system metadata is destroyed, PhotoRec bypasses the file system entirely and carves from raw sectors, recover maximum possible data, accept that file names and directory structure will be lost, rename files based on content during review.
+
+## Output Format
+
 ```
+PhotoRec Recovery Summary:
+  Source Image:     evidence.dd (500 GB)
+  Partition:        NTFS (Partition 2)
+  Scan Mode:        Free space only
 
-**YAGNI (Good):**
+  Files Recovered:  4,523
+    Documents:      234 (doc: 45, docx: 89, pdf: 67, xlsx: 33)
+    Images:         2,145 (jpg: 1,890, png: 198, gif: 57)
+    Videos:         34 (mp4: 22, avi: 12)
+    Archives:       67 (zip: 45, rar: 22)
+    Databases:      12 (sqlite: 8, dbf: 4)
+    Other:          2,031
+
+  Data Recovered:   12.4 GB
+  Corrupted Files:  312 (flagged for review)
+  Output Directory: /cases/case-2024-001/recovered/all/
+  Hash Manifest:    /cases/case-2024-001/recovered/recovered_hashes.txt
 ```
-Reviewer: "Implement proper metrics tracking with database, date filters, CSV export"
- "Grepped codebase - nothing calls this endpoint. Remove it (YAGNI)? Or is there usage I'm missing?"
-```
-
-**Unclear Item (Good):**
-```
-your human partner: "Fix items 1-6"
-You understand 1,2,3,6. Unclear on 4,5.
- "Understand 1,2,3,6. Need clarification on 4 and 5 before implementing."
-```
-
-## GitHub Thread Replies
-
-When replying to inline review comments on GitHub, reply in the comment thread (`gh api repos/{owner}/{repo}/pulls/{pr}/comments/{id}/replies`), not as a top-level PR comment.
-
-## The Bottom Line
-
-**External feedback = suggestions to evaluate, not orders to follow.**
-
-Verify. Question. Then implement.
-
-No performative agreement. Technical rigor always.
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
