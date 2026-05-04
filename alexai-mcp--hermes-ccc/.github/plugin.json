@@ -1,0 +1,9 @@
+{
+  "name": "alexai-mcp--hermes-ccc",
+  "displayName": "hermes-CCC",
+  "description": "Hermes Agent ported to Claude Code Channel \u2014 46 native skills, no OAuth, no external process",
+  "version": "1.0.0",
+  "author": "AlexAI-MCP",
+  "homepage": "https://github.com/AlexAI-MCP/hermes-CCC",
+  "skills": []
+}
