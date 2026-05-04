@@ -1,0 +1,9 @@
+{
+  "name": "verl-project--verl-omni",
+  "displayName": "verl-omni",
+  "description": "RL training framework for diffusion and omni-modality models",
+  "version": "1.0.0",
+  "author": "verl-project",
+  "homepage": "https://github.com/verl-project/verl-omni",
+  "skills": []
+}
