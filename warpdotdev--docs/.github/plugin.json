@@ -1,0 +1,14 @@
+{
+  "name": "warpdotdev--docs",
+  "displayName": "docs",
+  "description": "Open-source docs for Warp, the Agentic Development Environment.",
+  "version": "1.0.0",
+  "author": "warpdotdev",
+  "homepage": "https://github.com/warpdotdev/docs",
+  "skills": [
+    {
+      "name": "docs-update",
+      "description": ""
+    }
+  ]
+}
