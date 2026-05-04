@@ -1,89 +1,63 @@
-## caveman-writing
+## code-quality
 
-> Caveman writing style for all prose files and code documentation
+> Code quality — elegance check, file/function size limits, low cyclomatic complexity
 
 
-# Caveman Writing Style
+# Code Quality
 
-**Default** — applies in:
-- `.cursor/skills/`, `.cursor/rules/`, `AGENTS.md` (where not reader-facing), `CLAUDE.md`
-- `specs/`, internal notes, any `.md`/`.mdc` not under the exception below
-- Code doc comments (`///`, `//!`) when contract-style
-- Inline comments (`//`, `#`, `--`, etc.)
-- Plans, ADRs, task breakdowns, epic PRDs (unless publishing as public docs)
+## Demand Elegance (Balanced)
 
-**Reader-facing exception** — use full sentences and normal technical clarity (no article-dropping), same bar as a good engineering post:
-
-- `README.md` (repo root)
-- `docs/**/*.md` (published user and contributor reference in `docs/`)
-- `CONTRIBUTING.md`
-- User-facing `CHANGELOG.md` entries (what changed, not internal commit noise)
-
-Caveman stays default for skills, rules, Quint specs, and agent-to-agent brevity.
-
-## Rules
-
-- No articles (a, an, the)
-- No filler: just, really, basically, actually, simply, note that, please note
-- No pleasantries: sure, certainly, of course, happy to
-- No hedging: might want to, you should consider, it is recommended
-- Fragments OK — prefer over padded sentences
-- Short synonyms: "use" not "utilize", "show" not "demonstrate"
-- Technical terms exact — never simplify them
-- Tables > bullet lists when structure exists
-- Code itself unchanged — caveman only applies to prose/text
-
-## Examples
-
-```
-# BAD
-This document provides an overview of the architecture. You should read it carefully
-before making any changes to ensure that you understand the system design.
-
-# GOOD
-Architecture overview. Read before changing system design.
-```
-
-```
-# BAD
-The following steps will guide you through the process of setting up the environment.
-
-# GOOD
-Setup steps:
-```
-
-```
-# BAD
-It is important to note that the function must be called with a valid session.
-
-# GOOD
-Precondition: valid session required.
-```
+Nontrivial changes: pause, ask "Is there more elegant way?"
+Hacky fix: "Knowing everything now, implement elegant solution."
+Skip for obvious fixes. Challenge own work before presenting.
 
 ```rust
-// BAD doc comment
-/// This function is responsible for collecting telemetry events from all of the
-/// agent sessions that are currently active. Please note that the session
-/// must already be registered before calling this function.
+// GOOD — iterator chains, clear data flow
+fn process(events: &[Event]) -> Vec<Summary> {
+    events
+        .iter()
+        .filter(|e| e.is_valid())
+        .map(summarize)
+        .collect()
+}
 
-// GOOD doc comment
-/// Collect telemetry events for active agent sessions.
-///
-/// # Preconditions
-/// Session must be registered before call.
-///
-/// # Postconditions
-/// All active sessions emit telemetry event.
+// BAD — nested conditionals + mutation
+fn process(events: &[Event]) -> Vec<Summary> {
+    let mut results = Vec::new();
+    for e in events {
+        if e.is_valid() {
+            let s = summarize(e);
+            results.push(s);
+        }
+    }
+    results
+}
 ```
 
-```rust
-// BAD inline comment
-// This checks if the session is valid before we proceed with the operation
-if session.is_valid() {
+## Code Smell
 
-// GOOD inline comment
-// guard: invalid sessions rejected upstream
-if session.is_valid() {
+- Max 200 lines per file (including `.md` files)
+- Max 10 lines per function
+- No cyclomatic complexity — prefer iterator chains + `match`
+- Functional core: flatten logic, don't nest it
+
+```rust
+// GOOD — small, single-purpose match arms
+fn apply_discount(order: &Order) -> Price {
+    match order.tier {
+        Tier::Vip => Price::ZERO,
+        Tier::Standard => order.price,
+    }
+}
+
+// BAD — fat function, deep branching
+fn apply_discount(order: &Order) -> Price {
+    if order.tier == Tier::Vip {
+        if order.price > 100 { ... } else { ... }
+    } else {
+        if order.seasonal_promo { ... } else { ... }
+    }
+}
 ```
 
 ---
