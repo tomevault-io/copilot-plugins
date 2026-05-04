@@ -2,9 +2,9 @@
   "name": "EffectPatterns",
   "owner": "PaulJPhilp",
   "repo": "EffectPatterns",
-  "description": "",
+  "description": "A community-driven knowledge base of practical patterns for Effect-TS.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/PaulJPhilp",
+  "source_url": "https://github.com/PaulJPhilp/EffectPatterns",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T07:41:08Z"
+  "distributed_at": "2026-05-04T21:03:11Z"
 }
