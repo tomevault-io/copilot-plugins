@@ -1,0 +1,9 @@
+{
+  "name": "numanaral--vercel-deploy-source-downloader",
+  "displayName": "vercel-deploy-source-downloader",
+  "description": "Download source code from Vercel deployments - A CLI tool to backup and download source files from your Vercel projects",
+  "version": "1.0.0",
+  "author": "numanaral",
+  "homepage": "https://github.com/numanaral/vercel-deploy-source-downloader",
+  "skills": []
+}
