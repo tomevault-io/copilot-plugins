@@ -1,0 +1,9 @@
+{
+  "name": "ika-rwth-aachen--ros2-calib",
+  "displayName": "ros2_calib",
+  "description": "Make your calibration dreams come true. ros2_calib is a Multi-Sensor Calibration Tool using ROS2 mcap recordings with direct URDF export.",
+  "version": "1.0.0",
+  "author": "ika-rwth-aachen",
+  "homepage": "https://github.com/ika-rwth-aachen/ros2_calib",
+  "skills": []
+}
