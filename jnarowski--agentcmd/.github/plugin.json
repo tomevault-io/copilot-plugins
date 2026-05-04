@@ -1,0 +1,22 @@
+{
+  "name": "jnarowski--agentcmd",
+  "displayName": "agentcmd",
+  "description": "\u2728 AI Code Workflow Orchestration Platform",
+  "version": "1.0.0",
+  "author": "jnarowski",
+  "homepage": "https://github.com/jnarowski/agentcmd",
+  "skills": [
+    {
+      "name": "planning",
+      "description": ""
+    },
+    {
+      "name": "session-finder",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
