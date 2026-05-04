@@ -1,0 +1,9 @@
+{
+  "name": "zilisrikle--geo-audit-skill",
+  "displayName": "geo-audit-skill",
+  "description": "AI citability audit for ChatGPT, Perplexity & Google AI Overviews. 6 specialist agents + 6 zero-dep Python scripts.",
+  "version": "1.0.0",
+  "author": "zilisrikle",
+  "homepage": "https://github.com/zilisrikle/geo-audit-skill",
+  "skills": []
+}
