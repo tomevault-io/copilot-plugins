@@ -1,0 +1,22 @@
+{
+  "name": "tdimino--bg3se-macos",
+  "displayName": "bg3se-macos",
+  "description": "A replication of the Baldur's Gate 3 Script Extender for MacOS",
+  "version": "1.0.0",
+  "author": "tdimino",
+  "homepage": "https://github.com/tdimino/bg3se-macos",
+  "skills": [
+    {
+      "name": "bg3-steam-launcher",
+      "description": ""
+    },
+    {
+      "name": "bg3se-macos-ghidra",
+      "description": ""
+    },
+    {
+      "name": "osgrep-reference",
+      "description": ""
+    }
+  ]
+}
