@@ -1,0 +1,81 @@
+{
+  "name": "gram",
+  "owner": "speakeasy-api",
+  "repo": "gram",
+  "description": "Securely scale AI usage across your organization.  Control plane for building, securing and monitoring your agents, mcp and skills.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "clickhouse",
+      "path": ".agents/skills/clickhouse",
+      "github_url": "https://github.com/speakeasy-api/gram/tree/main/.agents/skills/clickhouse",
+      "description": ""
+    },
+    {
+      "name": "frontend",
+      "path": ".agents/skills/frontend",
+      "github_url": "https://github.com/speakeasy-api/gram/tree/main/.agents/skills/frontend",
+      "description": ""
+    },
+    {
+      "name": "golang",
+      "path": ".agents/skills/golang",
+      "github_url": "https://github.com/speakeasy-api/gram/tree/main/.agents/skills/golang",
+      "description": ""
+    },
+    {
+      "name": "gram-functions",
+      "path": ".agents/skills/gram-functions",
+      "github_url": "https://github.com/speakeasy-api/gram/tree/main/.agents/skills/gram-functions",
+      "description": ""
+    },
+    {
+      "name": "mise-tasks",
+      "path": ".agents/skills/mise-tasks",
+      "github_url": "https://github.com/speakeasy-api/gram/tree/main/.agents/skills/mise-tasks",
+      "description": ""
+    },
+    {
+      "name": "postgresql",
+      "path": ".agents/skills/postgresql",
+      "github_url": "https://github.com/speakeasy-api/gram/tree/main/.agents/skills/postgresql",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/speakeasy-api/gram",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:34:04Z"
+}
