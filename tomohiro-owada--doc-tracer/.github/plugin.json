@@ -1,0 +1,26 @@
+{
+  "name": "tomohiro-owada--doc-tracer",
+  "displayName": "doc-tracer",
+  "description": "\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3068\u30b3\u30fc\u30c9\u306e\u53cc\u65b9\u5411\u30c8\u30ec\u30fc\u30b5\u30d3\u30ea\u30c6\u30a3\u3092\u5b9f\u73fe\u3059\u308bCLI\u30c4\u30fc\u30eb",
+  "version": "1.0.0",
+  "author": "tomohiro-owada",
+  "homepage": "https://github.com/tomohiro-owada/doc-tracer",
+  "skills": [
+    {
+      "name": "doc-tracer-add-frontmatter",
+      "description": ""
+    },
+    {
+      "name": "doc-tracer-check",
+      "description": ""
+    },
+    {
+      "name": "doc-tracer-scan",
+      "description": ""
+    },
+    {
+      "name": "doc-tracer-update-docs",
+      "description": ""
+    }
+  ]
+}
