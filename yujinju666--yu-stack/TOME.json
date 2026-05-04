@@ -1,0 +1,44 @@
+{
+  "name": "yu-stack",
+  "owner": "yujinju666",
+  "repo": "yu-stack",
+  "description": "\ud83e\udde0 \u53ccAI\u667a\u80fd\u4f53\u534f\u4f5c\u7ec8\u7aef \u2014 187\u79cd\u4e13\u4e1a\u6280\u80fd\uff0c\u4e00\u4e2a\u7ec8\u7aef\u641e\u5b9a\u3002Hermes + Claude Code \u5206\u5c4f\u534f\u4f5c\uff0c\u9884\u88c5144\u4e2a\u4e13\u5bb6\u89d2\u8272+43\u4e2a\u5f00\u53d1\u5de5\u4f5c\u6d41",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yujinju666/yu-stack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:59:54Z"
+}
