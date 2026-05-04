@@ -4,7 +4,7 @@
   "repo": "lorebrain",
   "description": "Local-first AI knowledge layer with vector embeddings and retrieval",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jmerelnyc/lorebrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T03:31:45Z"
+  "distributed_at": "2026-05-04T08:03:18Z"
 }
