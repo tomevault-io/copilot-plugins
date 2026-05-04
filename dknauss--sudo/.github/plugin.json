@@ -1,0 +1,9 @@
+{
+  "name": "dknauss--sudo",
+  "displayName": "Sudo",
+  "description": "Sudo for WordPress! \ud83e\udd6a Risky actions \u2014 activating plugins, deleting users, changing key settings \u2014 are gated by a required reauthentication step, regardless of user role. Time-bounded sessions, 2FA sup",
+  "version": "1.0.0",
+  "author": "dknauss",
+  "homepage": "https://github.com/dknauss/Sudo",
+  "skills": []
+}
