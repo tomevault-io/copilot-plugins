@@ -1,96 +1,253 @@
-## 00-project-overview
+## 01-naming-conventions
 
-> This repository is a Turborepo monorepo using pnpm workspaces.
+> - **kebab-case** for all file names
 
-# Project Overview
+# Naming Conventions
 
-## Monorepo Structure
+## File Naming
 
-This repository is a Turborepo monorepo using pnpm workspaces.
+### General Rules
 
-### Applications
+- **kebab-case** for all file names
+- Use descriptive, clear names
+- Group related files in feature folders
 
-- `apps/api` (`@dukkani/api`): API surface for oRPC, OpenAPI, auth, and webhooks.
-- `apps/dashboard` (`@dukkani/dashboard`): Merchant/admin product for managing stores, orders, and settings.
-- `apps/storefront` (`@dukkani/storefront`): Customer-facing storefront experience for store catalogs and checkout.
-- `apps/web` (`@dukkani/web`): Public marketing/product website.
+### Examples
 
-### Packages
+```text
+✅ Correct:
+- use-orders.ts
+- orders-list.tsx
+- sign-in-form.tsx
+- store-service.ts
 
-- `packages/auth`: Better Auth server and shared auth utilities.
-- `packages/common`: Shared schemas, entities, and business-domain utilities.
-- `packages/config`: Shared TypeScript configuration presets.
-- `packages/core`: Core domain composition built on auth/db/env layers.
-- `packages/db`: Prisma schema, client generation, and database tooling.
-- `packages/env`: Centralized environment validation and typed env access.
-- `packages/logger`: Structured logging abstractions.
-- `packages/migrations`: CLI tooling for database/storage migrations.
-- `packages/orpc`: Shared oRPC routers, clients, and context wiring.
-- `packages/storage`: Storage services and media processing utilities.
-- `packages/tracing`: OpenTelemetry setup and instrumentation utilities.
-- `packages/ui`: Shared UI components and design primitives.
-- `packages/ci-tools`: CI-focused analysis and automation scripts.
-
-## Development Commands
-
-Run all commands from the repository root.
-
-### App development
-
-```bash
-pnpm run dev              # All apps via Turbo
-pnpm run dev:api          # API app
-pnpm run dev:dashboard    # Dashboard app
-pnpm run dev:web          # Marketing web app
-pnpm run dev:storefront   # Storefront app
-pnpm run dev:aw           # API + web
-pnpm run dev:ad           # API + dashboard
-pnpm run dev:as           # API + storefront
-pnpm run dev:all          # API + dashboard + storefront
+❌ Incorrect:
+- useOrders.ts (camelCase)
+- OrdersList.tsx (PascalCase)
+- sign_in_form.tsx (snake_case)
 ```
 
-### Database and migrations
+## TypeScript Files
 
-```bash
-pnpm run db:push
-pnpm run db:studio
-pnpm run db:generate
-pnpm run db:migrate
-pnpm run db:seed
-pnpm run db:reset
-pnpm run db:reset-and-seed
+### Components (React/Next.js)
+
+- **kebab-case** for file names
+- **PascalCase** for component names (exported)
+- File name should match component name (lowercase)
+
+```typescript
+// File: orders-list.tsx
+export default function OrdersList() { ... }
+
+// File: sign-in-form.tsx
+export function SignInForm() { ... }
 ```
 
-## Architecture
+### Hooks
 
-Both `apps/dashboard` and `apps/storefront` follow **Feature Sliced Design (FSD)**. Each app has a `src/shared/` layer organized into:
+- **kebab-case** with `use-` prefix
+- **camelCase** for hook function names
 
-- `shared/api/` — oRPC client, `appQueries`, `appMutations`, `handleAPIError`, auth client
-- `shared/config/` — type-safe routes, i18n helpers, constants
-- `shared/lib/{domain}/` — domain business logic (controller hooks, Zustand stores, utilities)
+```typescript
+// File: use-orders.ts
+export function useOrders(input: ListOrdersInput) { ... }
 
-Do not add `hooks/api/`, `lib/`, or `stores/` top-level directories to these apps; place new code in the appropriate `shared/` sub-layer instead.
+// File: use-dashboard-stats.ts
+export function useDashboardStats() { ... }
+```
 
-## Conventions
+**Dashboard / Storefront `shared/lib/` hooks:** domain logic lives under `shared/lib/{domain}/` with these suffixes:
+- `controller.hook.ts` — screen-level orchestration (composes Zustand store + `appQueries` + `appMutations`)
+- `.hook.ts` — domain-specific hooks (including **form field** hooks such as `variants-field.hook.ts` under `shared/lib/variant/` — not a `controller`)
+- `.util.ts` — pure utility functions
+- `.store.ts` — Zustand store definitions
 
-- Use package imports with the `@dukkani/*` namespace.
-- Use `@dukkani/env` for typed environment variables instead of direct `process.env` access.
-- Keep cross-package dependencies intentional and one-directional; avoid circular imports.
-- Prefer shared package utilities over duplicating logic inside apps.
+Queries and mutations are accessed via `appQueries` / `appMutations` from `shared/api/`, not via individual hook files. See `.cursor/rules/apps/dashboard.mdc` and `.cursor/rules/apps/storefront.mdc`.
 
-## Tooling
+### Utilities
 
-- Package manager: `pnpm`
-- Build/task orchestration: `turbo`
-- Linting/formatting: `biome`
-- API layer: `oRPC`
-- ORM: `prisma`
+- **kebab-case** for file names
+- **camelCase** for function names
 
-## Quality Checklist
+```typescript
+// File: format-currency.ts
+export function formatCurrency(amount: number): string { ... }
 
-- `pnpm run lint`
-- `pnpm run check-types`
-- `pnpm run build`
+// File: generate-id.ts
+export function generateId(): string { ... }
+```
+
+### Services
+
+- **kebab-case** for file names with `-service` suffix
+- **PascalCase** for class names with `Service` suffix
+- **camelCase** for static methods
+
+```typescript
+// File: store-service.ts
+export class StoreService {
+  static async getAllStores(userId: string) { ... }
+  static async getStoreById(id: string, userId: string) { ... }
+}
+```
+
+### Entities
+
+- **kebab-case** for folder names
+- **PascalCase** for class names with `Entity` or `Query` suffix
+- **camelCase** for methods
+
+```typescript
+// File: packages/common/src/entities/store/entity.ts
+export class StoreEntity {
+  static getSimpleRo(entity: StoreSimpleDbData): StoreSimpleOutput { ... }
+  static getRo(entity: StoreIncludeDbData): StoreIncludeOutput { ... }
+}
+
+// File: packages/common/src/entities/store/query.ts
+export class StoreQuery {
+  static getSimpleInclude() { ... }
+  static getInclude() { ... }
+}
+```
+
+### Schemas
+
+- **kebab-case** for folder names
+- **camelCase** for schema variable names with descriptive suffix
+- **PascalCase** for TypeScript types
+
+```typescript
+// File: packages/common/src/schemas/store/input.ts
+export const storeInputSchema = z.object({ ... });
+export const createStoreInputSchema = storeInputSchema.extend({ ... });
+export type StoreInput = z.infer<typeof storeInputSchema>;
+export type CreateStoreInput = z.infer<typeof createStoreInputSchema>;
+
+// File: packages/common/src/schemas/store/output.ts
+export const storeSimpleOutputSchema = z.object({ ... });
+export const storeIncludeOutputSchema = storeSimpleOutputSchema.extend({ ... });
+export type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
+export type StoreIncludeOutput = z.infer<typeof storeIncludeOutputSchema>;
+```
+
+### Routers
+
+- **kebab-case** for file names
+- **camelCase** for router object names with `Router` suffix
+- **camelCase** for procedure names
+
+```typescript
+// File: packages/orpc/src/routers/store.ts
+export const storeRouter = {
+  getAll: protectedProcedure.handler(async ({ context }) => { ... }),
+  getById: protectedProcedure.handler(async ({ input, context }) => { ... }),
+};
+```
+
+## Variable Naming
+
+### Constants
+
+- **UPPER_SNAKE_CASE** for environment variables and constants
+- **camelCase** for regular constants
+
+```typescript
+const DATABASE_URL = process.env.DATABASE_URL;
+const maxRetries = 3;
+```
+
+### Functions
+
+- **camelCase** for function names
+- Use descriptive verbs: `get`, `create`, `update`, `delete`, `find`, `list`
+
+```typescript
+function getAllStores(userId: string) { ... }
+function createOrder(input: CreateOrderInput) { ... }
+function updateOrderStatus(id: string, status: OrderStatus) { ... }
+```
+
+### Classes
+
+- **PascalCase** for class names
+- Use descriptive suffixes: `Entity`, `Service`, `Query`, `Router`
+
+```typescript
+class StoreEntity { ... }
+class StoreService { ... }
+class StoreQuery { ... }
+```
+
+### Types and Interfaces
+
+- **PascalCase** for type and interface names
+- Use descriptive suffixes: `Input`, `Output`, `SimpleOutput`, `IncludeOutput`, `DbData`
+
+```typescript
+type StoreInput = z.infer<typeof storeInputSchema>;
+type StoreSimpleOutput = z.infer<typeof storeSimpleOutputSchema>;
+type StoreIncludeDbData = Prisma.StoreGetPayload<{ ... }>;
+```
+
+## Folder Structure
+
+### Feature-Based Organization
+
+Group files by feature/domain, not by file type:
+
+```text
+✅ Correct:
+src/
+  components/
+    app/
+      orders/
+        orders-list.tsx
+      products/
+        products-list.tsx
+  shared/
+    api/
+      queries.ts         # appQueries — all domain query options
+      mutations.ts       # appMutations — all domain mutations
+    lib/
+      order/
+        controller.hook.ts
+        price.util.ts
+        store.ts
+      product/
+        controller.hook.ts
+        form.ts
+        store.ts
+      variant/
+        variants-form.util.ts
+        variants-field.hook.ts
+
+❌ Incorrect:
+src/
+  components/
+    OrdersList.tsx
+    ProductsList.tsx
+  hooks/
+    api/
+      useOrders.ts
+      useProducts.ts
+```
+
+## Route Groups (Next.js)
+
+- Use parentheses for route groups: `(auth)`, `(dashboard)`
+- Route groups don't appear in URL
+- Use for layout organization
+
+```text
+app/
+  (auth)/
+    login/
+      page.tsx
+  (dashboard)/
+    dashboard/
+      page.tsx
+```
 
 ---
 > Source: [FindMalek/dukkani](https://github.com/FindMalek/dukkani) — distributed by [TomeVault](https://tomevault.io).
