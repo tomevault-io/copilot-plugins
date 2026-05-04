@@ -1,0 +1,44 @@
+{
+  "name": "opensoul",
+  "owner": "NJX-njx",
+  "repo": "opensoul",
+  "description": "Your AI Soul Companion. Self-hosted AI agent across 30+ messaging channels It can not only serve as an emotional companion in daily life (such as a lover or friend), but also help you complete various complex tasks like coding\u3001training models through channels ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/NJX-njx/opensoul",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T17:41:57Z"
+}
