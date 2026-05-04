@@ -1,0 +1,105 @@
+{
+  "name": "godot-mcp",
+  "owner": "hhhh124hhhh",
+  "repo": "godot-mcp",
+  "description": "godot-mcp \u81ea\u7136\u8bed\u8a00\u6e38\u620f\u5f00\u53d1\u5229\u5668",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "godot-skills",
+      "path": ".claude/skills/godot-skills",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/.claude/skills/godot-skills",
+      "description": ""
+    },
+    {
+      "name": "chinese-dev-guide",
+      "path": ".claude/skills/godot-skills/sub-skills/chinese-dev-guide",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/.claude/skills/godot-skills/sub-skills/chinese-dev-guide",
+      "description": ""
+    },
+    {
+      "name": "chinese-dev-guide",
+      "path": "server/.claude/skills/chinese-dev-guide",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/server/.claude/skills/chinese-dev-guide",
+      "description": ""
+    },
+    {
+      "name": "context7-auto-research",
+      "path": "server/.claude/skills/context7-auto-research",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/server/.claude/skills/context7-auto-research",
+      "description": ""
+    },
+    {
+      "name": "context7-auto-research",
+      "path": ".claude/skills/godot-skills/sub-skills/context7-auto-research",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/.claude/skills/godot-skills/sub-skills/context7-auto-research",
+      "description": ""
+    },
+    {
+      "name": "gdscript-syntax-guide",
+      "path": ".claude/skills/godot-skills/sub-skills/gdscript-syntax-guide",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/.claude/skills/godot-skills/sub-skills/gdscript-syntax-guide",
+      "description": ""
+    },
+    {
+      "name": "godot-gameplay-developer",
+      "path": ".claude/skills/godot-skills/sub-skills/godot-gameplay-developer",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/.claude/skills/godot-skills/sub-skills/godot-gameplay-developer",
+      "description": ""
+    },
+    {
+      "name": "godot-test-debugger",
+      "path": ".claude/skills/godot-skills/sub-skills/godot-test-debugger",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/.claude/skills/godot-skills/sub-skills/godot-test-debugger",
+      "description": ""
+    },
+    {
+      "name": "godot-ui-designer",
+      "path": ".claude/skills/godot-skills/sub-skills/godot-ui-designer",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/.claude/skills/godot-skills/sub-skills/godot-ui-designer",
+      "description": ""
+    },
+    {
+      "name": "skill-creator_\u6280\u80fd\u521b\u5efa\u5668",
+      "path": ".claude/skills/godot-skills/sub-skills/skill-creator_\u6280\u80fd\u521b\u5efa\u5668",
+      "github_url": "https://github.com/hhhh124hhhh/godot-mcp/tree/main/.claude/skills/godot-skills/sub-skills/skill-creator_\u6280\u80fd\u521b\u5efa\u5668",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hhhh124hhhh/godot-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:35:37Z"
+}
