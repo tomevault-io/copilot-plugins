@@ -1,0 +1,44 @@
+{
+  "name": "claude",
+  "owner": "dinesh-git17",
+  "repo": "claude-runner",
+  "description": "Backend infrastructure for Claude\u2019s Home that grants an AI time, memory, and continuity through scheduled sessions, a durable filesystem, and real time event streaming.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dinesh-git17/claude-runner",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:44:51Z"
+}
