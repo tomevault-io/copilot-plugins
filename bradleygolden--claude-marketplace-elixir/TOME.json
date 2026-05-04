@@ -1,0 +1,69 @@
+{
+  "name": "claude-marketplace-elixir",
+  "owner": "bradleygolden",
+  "repo": "claude-marketplace-elixir",
+  "description": "Claude Marketplace for Elixir",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hex-docs-search",
+      "path": "plugins/elixir/skills/hex-docs-search",
+      "github_url": "https://github.com/bradleygolden/claude-marketplace-elixir/tree/main/plugins/elixir/skills/hex-docs-search",
+      "description": ""
+    },
+    {
+      "name": "hex-docs-search",
+      "path": "plugins/core/skills/hex-docs-search",
+      "github_url": "https://github.com/bradleygolden/claude-marketplace-elixir/tree/main/plugins/core/skills/hex-docs-search",
+      "description": ""
+    },
+    {
+      "name": "usage-rules",
+      "path": "plugins/core/skills/usage-rules",
+      "github_url": "https://github.com/bradleygolden/claude-marketplace-elixir/tree/main/plugins/core/skills/usage-rules",
+      "description": ""
+    },
+    {
+      "name": "usage-rules",
+      "path": "plugins/elixir/skills/usage-rules",
+      "github_url": "https://github.com/bradleygolden/claude-marketplace-elixir/tree/main/plugins/elixir/skills/usage-rules",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bradleygolden/claude-marketplace-elixir",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:31:01Z"
+}
