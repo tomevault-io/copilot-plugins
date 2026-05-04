@@ -1,0 +1,9 @@
+{
+  "name": "ansible-tmm--mcp-demo",
+  "displayName": "mcp-demo",
+  "description": "mcp demo for AAP",
+  "version": "1.0.0",
+  "author": "ansible-tmm",
+  "homepage": "https://github.com/ansible-tmm/mcp-demo",
+  "skills": []
+}
