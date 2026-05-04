@@ -1,0 +1,14 @@
+{
+  "name": "ambient-code--platform",
+  "displayName": "platform",
+  "description": "Vision/Mission https://ambient-code.ai : Virtual team management and collaboration platform. User guides: https://ambient-code.github.io/platform/",
+  "version": "1.0.0",
+  "author": "ambient-code",
+  "homepage": "https://github.com/ambient-code/platform",
+  "skills": [
+    {
+      "name": "dev-cluster",
+      "description": ""
+    }
+  ]
+}
