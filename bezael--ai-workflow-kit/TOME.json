@@ -4,7 +4,7 @@
   "repo": "ai-workflow-kit",
   "description": "ai-workflow-kit",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bezael/ai-workflow-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T04:32:56Z"
+  "distributed_at": "2026-05-04T04:42:58Z"
 }
