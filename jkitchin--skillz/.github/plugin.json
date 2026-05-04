@@ -1,0 +1,142 @@
+{
+  "name": "jkitchin--skillz",
+  "displayName": "skillz",
+  "description": "CLI tool for managing AI assistant skills and slash commands across multiple LLM platforms",
+  "version": "1.0.0",
+  "author": "jkitchin",
+  "homepage": "https://github.com/jkitchin/skillz",
+  "skills": [
+    {
+      "name": "citation-verifier",
+      "description": ""
+    },
+    {
+      "name": "claude-light",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "design-of-experiments",
+      "description": ""
+    },
+    {
+      "name": "elevenlabs",
+      "description": ""
+    },
+    {
+      "name": "eln",
+      "description": ""
+    },
+    {
+      "name": "emacs-lisp",
+      "description": ""
+    },
+    {
+      "name": "idaes",
+      "description": ""
+    },
+    {
+      "name": "image-generation",
+      "description": ""
+    },
+    {
+      "name": "literature-review",
+      "description": ""
+    },
+    {
+      "name": "materials-properties",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "description": ""
+    },
+    {
+      "name": "opentrons-heater-shaker",
+      "description": ""
+    },
+    {
+      "name": "opentrons-temperature-module",
+      "description": ""
+    },
+    {
+      "name": "phd-qualifier",
+      "description": ""
+    },
+    {
+      "name": "planning",
+      "description": ""
+    },
+    {
+      "name": "pymatgen",
+      "description": ""
+    },
+    {
+      "name": "python-ase",
+      "description": ""
+    },
+    {
+      "name": "python-best-practices",
+      "description": ""
+    },
+    {
+      "name": "python-jax",
+      "description": ""
+    },
+    {
+      "name": "python-multiobjective-optimization",
+      "description": ""
+    },
+    {
+      "name": "python-optimization",
+      "description": ""
+    },
+    {
+      "name": "python-plotting",
+      "description": ""
+    },
+    {
+      "name": "python-regression-statistics",
+      "description": ""
+    },
+    {
+      "name": "ralph-wiggum",
+      "description": ""
+    },
+    {
+      "name": "scientific-data-extraction",
+      "description": ""
+    },
+    {
+      "name": "scientific-reviewer",
+      "description": ""
+    },
+    {
+      "name": "scientific-writing",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "vasp",
+      "description": ""
+    },
+    {
+      "name": "version-control",
+      "description": ""
+    },
+    {
+      "name": "video-storytelling",
+      "description": ""
+    }
+  ]
+}
