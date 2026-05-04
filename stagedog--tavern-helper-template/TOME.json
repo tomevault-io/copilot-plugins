@@ -1,0 +1,44 @@
+{
+  "name": "tavern_helper_template",
+  "owner": "StageDog",
+  "repo": "tavern_helper_template",
+  "description": "https://github.com/N0VI028/JS-Slash-Runner \u914d\u5957\u7684\u524d\u7aef\u754c\u9762\u6216\u811a\u672c\u7f16\u5199\u6a21\u677f",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/StageDog/tavern_helper_template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T11:40:22Z"
+}
