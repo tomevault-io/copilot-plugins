@@ -1,0 +1,69 @@
+{
+  "name": "agentpack",
+  "owner": "liqiongyu",
+  "repo": "agentpack",
+  "description": "A declarative, safe control plane for deploying coding-agent assets across tools.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentpack-dev",
+      "path": ".codex/skills/agentpack-dev",
+      "github_url": "https://github.com/liqiongyu/agentpack/tree/main/.codex/skills/agentpack-dev",
+      "description": ""
+    },
+    {
+      "name": "agentpack-operator",
+      "path": "templates/claude/skills/agentpack-operator",
+      "github_url": "https://github.com/liqiongyu/agentpack/tree/main/templates/claude/skills/agentpack-operator",
+      "description": ""
+    },
+    {
+      "name": "agentpack-operator",
+      "path": "templates/codex/skills/agentpack-operator",
+      "github_url": "https://github.com/liqiongyu/agentpack/tree/main/templates/codex/skills/agentpack-operator",
+      "description": ""
+    },
+    {
+      "name": "example-skill",
+      "path": "docs/examples/minimal_repo/modules/skills/example-skill",
+      "github_url": "https://github.com/liqiongyu/agentpack/tree/main/docs/examples/minimal_repo/modules/skills/example-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/liqiongyu/agentpack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:56:47Z"
+}
