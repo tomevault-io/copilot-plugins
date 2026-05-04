@@ -1,0 +1,9 @@
+{
+  "name": "eniewold--comfyui-subworkflow",
+  "displayName": "ComfyUI-Subworkflow",
+  "description": "Use ComfyUI workflows as reusable subworkflows via Subworkflow Input, Subworkflow Output, and Subworkflow nodes",
+  "version": "1.0.0",
+  "author": "eniewold",
+  "homepage": "https://github.com/eniewold/ComfyUI-Subworkflow",
+  "skills": []
+}
