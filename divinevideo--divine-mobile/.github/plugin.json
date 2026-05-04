@@ -1,0 +1,26 @@
+{
+  "name": "divinevideo--divine-mobile",
+  "displayName": "divine",
+  "description": "AI instruction skills by divinevideo",
+  "version": "1.0.0",
+  "author": "divinevideo",
+  "homepage": "https://github.com/divinevideo/divine-mobile",
+  "skills": [
+    {
+      "name": "git-worktree-precommit-hook-flutter-failure",
+      "description": ""
+    },
+    {
+      "name": "github-issue",
+      "description": ""
+    },
+    {
+      "name": "plan",
+      "description": ""
+    },
+    {
+      "name": "review-before-commit",
+      "description": ""
+    }
+  ]
+}
