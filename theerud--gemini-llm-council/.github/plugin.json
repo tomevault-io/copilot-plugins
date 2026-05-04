@@ -1,0 +1,9 @@
+{
+  "name": "theerud--gemini-llm-council",
+  "displayName": "gemini-llm-council",
+  "description": "Multi-LLM consensus extension for Gemini CLI. Inspired by Andrej Karpathy's llm-council.",
+  "version": "1.0.0",
+  "author": "theerud",
+  "homepage": "https://github.com/theerud/gemini-llm-council",
+  "skills": []
+}
