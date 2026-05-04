@@ -4,7 +4,7 @@
   "repo": "fairtrail",
   "description": "The price trail airlines don't show you. Track flight prices over time with natural language search. Self-hosted, open source, bring your own LLM.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/affromero/fairtrail",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:33:00Z"
+  "distributed_at": "2026-05-04T18:22:15Z"
 }
