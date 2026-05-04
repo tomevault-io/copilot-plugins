@@ -1,47 +1,50 @@
-## selectools-docs
+## selectools-providers
 
-> Documentation standards for selectools docs and MkDocs site
+> Rules for working with LLM provider adapters in selectools
 
 
-# Documentation Rules
+# Provider Implementation Rules
 
-## MkDocs Site Structure
-- Config: `mkdocs.yml` (Material theme, tab nav, emoji, code copy)
-- Landing page: `docs/index.md`
-- Module docs: `docs/modules/<NAME>.md`
-- Guides: `docs/QUICKSTART.md`, `docs/ARCHITECTURE.md`
-- Custom CSS: `docs/stylesheets/extra.css`
-- CHANGELOG.md is copied from root at build time (not tracked in docs/)
+## Protocol Compliance
+Every provider must implement all methods from `providers/base.py`:
+- `complete()`, `acomplete()` — sync/async completion
+- `stream()`, `astream()` — sync/async streaming
+- `_format_messages()` — convert `Message` to provider format
 
-## Link Rules
-- Within docs/: use relative paths (`modules/AGENT.md`, `../ARCHITECTURE.md`)
-- To files outside docs/ (ROADMAP.md, examples/, notebooks/): use absolute GitHub URLs
-  Example: `https://github.com/johnnichev/selectools/blob/main/examples/01_hello_world.py`
-- Anchor format for MkDocs: `#heading-text` (lowercase, hyphens, no special chars)
-  `## Tool Policy & Human-in-the-Loop` → `#tool-policy-human-in-the-loop` (not double hyphen)
+## Critical: Tool Passing
+ALL methods (`complete`, `acomplete`, `stream`, `astream`) MUST:
+- Accept `tools: list[Tool] | None = None` parameter
+- Forward tools to the underlying API call
+- Map tools using `_map_tool_to_<provider>(t)` helper
 
-## When Adding a New Feature
-1. Create `docs/modules/<FEATURE>.md` with full API reference and examples
-2. Add nav entry in `mkdocs.yml` under the appropriate tab
-3. Update `docs/index.md` feature table
-4. Update `docs/README.md` documentation index
-5. Update `docs/QUICKSTART.md` "next steps" table if user-facing
-6. Update `docs/ARCHITECTURE.md` if it adds a new system component
-7. Add section to `notebooks/getting_started.ipynb`
-8. Verify build: `cp CHANGELOG.md docs/CHANGELOG.md && mkdocs build`
+## Critical: Streaming Return Types
+- `stream()` returns `Iterable[str]`
+- `astream()` returns `AsyncIterable[Union[str, ToolCall]]`
+- `astream()` must parse tool call chunks and yield `ToolCall` objects
+- Never stringify `ToolCall` objects
 
-## Hardcoded Counts
-These appear in multiple files and MUST be updated together:
-- **Model count** (currently 146): index.md, README.md, MODELS.md, QUICKSTART.md, ARCHITECTURE.md
-- **Test count**: README.md, index.md, CHANGELOG.md
-- **Example count**: README.md, index.md
-- **Tool count** (24): index.md, README.md, TOOLBOX.md
+## OpenAI-Specific
+- Use `_uses_max_completion_tokens(model)` to decide parameter name
+- GPT-5.x, o-series, GPT-4.1 need `max_completion_tokens`
+- Older models use `max_tokens`
 
-## Style
-- Use admonitions (`!!! tip`, `!!! warning`) for callouts
-- Use tabbed content (`=== "Tab Name"`) for install/usage variants
-- Use Material icons (`:material-icon-name:`) for feature cards
-- Code examples should be complete and runnable
+## FallbackProvider
+- `astream()` must include try/except with `_is_retriable` + circuit breaker
+- Use `_record_failure()` / `_record_success()` consistently
+- Call `on_fallback` callback when falling back
+
+## Message Formatting
+- `Role.TOOL` messages need provider-specific formatting:
+  - OpenAI: `{"role": "tool", "content": ..., "tool_call_id": ...}`
+  - Anthropic: `{"role": "user", "content": [{"type": "tool_result", ...}]}`
+  - Gemini: `{"role": "user", "parts": [{"function_response": ...}]}`
+  - Ollama: `{"role": "tool", "content": ..., "tool_call_id": ...}`
+
+## Testing
+- Use `RecordingProvider` to capture and assert exact args
+- Test `_format_messages` for TOOL role, ASSISTANT with tool_calls, images
+- Test `astream()` yields `ToolCall` objects (not just strings)
+- Test FallbackProvider failover, circuit breaker, and callback behavior
 
 ---
 > Source: [johnnichev/selectools](https://github.com/johnnichev/selectools) — distributed by [TomeVault](https://tomevault.io).
