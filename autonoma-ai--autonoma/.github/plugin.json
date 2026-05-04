@@ -1,0 +1,9 @@
+{
+  "name": "autonoma-ai--autonoma",
+  "displayName": "autonoma",
+  "description": "Open-source testing platform where AI agents navigate your app end-to-end and catch regressions on every PR. No test code required.",
+  "version": "1.0.0",
+  "author": "Autonoma-AI",
+  "homepage": "https://github.com/Autonoma-AI/autonoma",
+  "skills": []
+}
