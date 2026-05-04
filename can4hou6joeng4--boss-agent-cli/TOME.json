@@ -1,0 +1,44 @@
+{
+  "name": "boss-agent-cli",
+  "owner": "can4hou6joeng4",
+  "repo": "boss-agent-cli",
+  "description": "AI Agent \u4e13\u7528\u7684 BOSS \u76f4\u8058\u6c42\u804c CLI \u5de5\u5177 \u2014 \u641c\u7d22\u804c\u4f4d \u00b7 \u798f\u5229\u7b5b\u9009 \u00b7 \u4e2a\u6027\u5316\u63a8\u8350 \u00b7 \u81ea\u52a8\u6253\u62db\u547c \u00b7 \u5bfc\u51fa\u6570\u636e",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/can4hou6joeng4/boss-agent-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:52:55Z"
+}
