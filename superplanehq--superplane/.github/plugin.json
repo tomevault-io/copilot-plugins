@@ -1,0 +1,22 @@
+{
+  "name": "superplanehq--superplane",
+  "displayName": "superplane",
+  "description": "The open source control plane for platform engineering.",
+  "version": "1.0.0",
+  "author": "superplanehq",
+  "homepage": "https://github.com/superplanehq/superplane",
+  "skills": [
+    {
+      "name": "superplane-cli",
+      "description": ""
+    },
+    {
+      "name": "superplane-integration-research",
+      "description": ""
+    },
+    {
+      "name": "superplane-issue-logger",
+      "description": ""
+    }
+  ]
+}
