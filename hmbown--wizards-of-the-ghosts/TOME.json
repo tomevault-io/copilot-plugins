@@ -4,7 +4,7 @@
   "repo": "Wizards-of-the-Ghosts",
   "description": "Unofficial Hermes Agent skill pack built from fantasy spell and skill names",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Hmbown/Wizards-of-the-Ghosts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:51:46Z"
+  "distributed_at": "2026-05-04T22:12:20Z"
 }
