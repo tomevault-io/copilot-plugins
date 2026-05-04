@@ -1,0 +1,9 @@
+{
+  "name": "nickw444--ha-foxess-cloud",
+  "displayName": "ha-foxess-cloud",
+  "description": "FoxESS Cloud Integration for Home Assistant using Official API supporting read and write",
+  "version": "1.0.0",
+  "author": "nickw444",
+  "homepage": "https://github.com/nickw444/ha-foxess-cloud",
+  "skills": []
+}
