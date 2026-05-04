@@ -1,0 +1,34 @@
+{
+  "name": "mosif16--codex-skills",
+  "displayName": "codex",
+  "description": "codex-Skills",
+  "version": "1.0.0",
+  "author": "mosif16",
+  "homepage": "https://github.com/mosif16/codex-Skills",
+  "skills": [
+    {
+      "name": "build-macos-apps",
+      "description": ""
+    },
+    {
+      "name": "design-guide",
+      "description": ""
+    },
+    {
+      "name": "moai-lang-swift",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "xcode-shared-swiftui-workflow",
+      "description": ""
+    },
+    {
+      "name": "swift-6-paradigm-shift",
+      "description": ""
+    }
+  ]
+}
