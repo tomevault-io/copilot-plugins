@@ -1,0 +1,14 @@
+{
+  "name": "laulauland--jj-hunk",
+  "displayName": "jj-hunk",
+  "description": "Non-interactive hunk distribution in jj CLI",
+  "version": "1.0.0",
+  "author": "laulauland",
+  "homepage": "https://github.com/laulauland/jj-hunk",
+  "skills": [
+    {
+      "name": "jj-hunk",
+      "description": ""
+    }
+  ]
+}
