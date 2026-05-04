@@ -1,0 +1,14 @@
+{
+  "name": "pamelafox--office-hours-writeups",
+  "displayName": "office-hours-writeups",
+  "description": "office-hours-writeups",
+  "version": "1.0.0",
+  "author": "pamelafox",
+  "homepage": "https://github.com/pamelafox/office-hours-writeups",
+  "skills": [
+    {
+      "name": "discussion-commenter",
+      "description": ""
+    }
+  ]
+}
