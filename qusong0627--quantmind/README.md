@@ -7,11 +7,11 @@ QuantMind 开源版 是一款面向个人量化研究者的本地化金融量化
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [qusong0627/QuantMind](https://github.com/qusong0627/QuantMind).
+Original source: `CLAUDE.md` in [qusong0627/QuantMind](https://github.com/qusong0627/QuantMind).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
