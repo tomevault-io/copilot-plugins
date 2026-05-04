@@ -7,11 +7,11 @@ Open-source Claude Code plugins for multi-agent software delivery. Plan-first SD
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [closedloop-ai/claude-plugins](https://github.com/closedloop-ai/claude-plugins).
+Original source: `CLAUDE.md` in [closedloop-ai/claude-plugins](https://github.com/closedloop-ai/claude-plugins).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
