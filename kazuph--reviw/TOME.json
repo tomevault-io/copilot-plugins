@@ -1,0 +1,75 @@
+{
+  "name": "reviw",
+  "owner": "kazuph",
+  "repo": "reviw",
+  "description": "Human-in-the-loop review interface for AI coding workflows",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "artifact-proof",
+      "path": "plugin/skills/artifact-proof",
+      "github_url": "https://github.com/kazuph/reviw/tree/main/plugin/skills/artifact-proof",
+      "description": ""
+    },
+    {
+      "name": "backend-testing",
+      "path": "plugin/skills/backend-testing",
+      "github_url": "https://github.com/kazuph/reviw/tree/main/plugin/skills/backend-testing",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "plugin/skills/frontend-design",
+      "github_url": "https://github.com/kazuph/reviw/tree/main/plugin/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-testing",
+      "path": "plugin/skills/mobile-testing",
+      "github_url": "https://github.com/kazuph/reviw/tree/main/plugin/skills/mobile-testing",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": "plugin/skills/webapp-testing",
+      "github_url": "https://github.com/kazuph/reviw/tree/main/plugin/skills/webapp-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kazuph/reviw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:38:48Z"
+}
