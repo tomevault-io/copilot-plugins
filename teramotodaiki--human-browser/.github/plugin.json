@@ -1,0 +1,9 @@
+{
+  "name": "teramotodaiki--human-browser",
+  "displayName": "human-browser",
+  "description": "Logged-in Chrome automation for agents",
+  "version": "1.0.0",
+  "author": "teramotodaiki",
+  "homepage": "https://github.com/teramotodaiki/human-browser",
+  "skills": []
+}
