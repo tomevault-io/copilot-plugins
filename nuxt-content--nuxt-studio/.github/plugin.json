@@ -1,0 +1,14 @@
+{
+  "name": "nuxt-content--nuxt-studio",
+  "displayName": "nuxt-studio",
+  "description": "Edit your Markdown website, in production.",
+  "version": "1.0.0",
+  "author": "nuxt-content",
+  "homepage": "https://github.com/nuxt-content/nuxt-studio",
+  "skills": [
+    {
+      "name": "make-content-editable",
+      "description": ""
+    }
+  ]
+}
