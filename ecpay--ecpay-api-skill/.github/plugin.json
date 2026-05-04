@@ -1,0 +1,9 @@
+{
+  "name": "ecpay--ecpay-api-skill",
+  "displayName": "ECPay-API-Skill",
+  "description": "ECPay API Skill \u662f\u4e00\u500b API AI Skill \u5957\u4ef6\u2014\u2014\u5b89\u88dd\u5230 AI \u7a0b\u5f0f\u958b\u767c\u52a9\u624b\uff08Claude Code\u3001GitHub Copilot CLI\u3001OpenClaw\u3001OpenAI Custom GPTs \u7b49\uff09\u5f8c\uff0cAI \u5c31\u80fd\u6839\u64da\u4f60\u7684\u9700\u6c42\uff0c\u76f4\u63a5\u751f\u6210\u7da0\u754c API \u4e32\u63a5\u7a0b\u5f0f\u78bc\u3001\u8a3a\u65b7\u932f\u8aa4\u3001\u5f15\u5c0e\u5b8c\u6574\u4e32\u63a5\u6d41\u7a0b\u3002  \u4e0d\u9700\u8981\u81ea\u5df1\u7ffb\u6587\u4ef6\uff0c\u7528\u81ea\u7136\u8a9e\u8a00\u63cf\u8ff0\u9700\u6c42\u5373\u53ef\u3002",
+  "version": "1.0.0",
+  "author": "ECPay",
+  "homepage": "https://github.com/ECPay/ECPay-API-Skill",
+  "skills": []
+}
