@@ -1,0 +1,9 @@
+{
+  "name": "screenappai--meeting-bot",
+  "displayName": "meeting-bot",
+  "description": "Universal meeting  bot to record Google Meet, Zoom, and Microsoft Teams \u2014 with a single API. Runs in production. Free to use, extend, and scale.",
+  "version": "1.0.0",
+  "author": "screenappai",
+  "homepage": "https://github.com/screenappai/meeting-bot",
+  "skills": []
+}
