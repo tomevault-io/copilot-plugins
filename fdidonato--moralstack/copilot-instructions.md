@@ -1,42 +1,40 @@
-## dependency-management
+## documentation-enforcement
 
 > |
 
 
-# Dependency Management Rules
+# Documentation Enforcement
 
-## Adding a New Dependency
+## When Documentation Must Be Updated
 
-1. Add it to **pyproject.toml** (preferred) and/or **requirements.txt**.
-2. Document the rationale: why this dependency is needed and what it replaces (if anything).
-3. Update @INSTALL.md if the dependency affects installation instructions or environment setup.
-4. If the dependency is dev-only (testing, linting), add it under the `[dev]` extras group in pyproject.toml.
+| Change Type                        | Required Documentation Update                     |
+|------------------------------------|---------------------------------------------------|
+| Public API signature change        | @docs/architecture_spec.md (API contracts section) |
+| New module or subpackage           | @docs/modules/ (add or update relevant module doc) |
+| Schema change (Pydantic models)    | @docs/architecture_spec.md + module doc            |
+| New CLI option or entrypoint       | @README.md (Quickstart) + @INSTALL.md              |
+| Risk taxonomy or category change   | @docs/modules/risk_estimator.md                    |
+| Constitution schema change         | @docs/constitution.md                              |
+| Decision policy change             | @docs/decision_policy.md + @README.md              |
+| New dependency                     | @INSTALL.md + pyproject.toml                       |
+| Module config loader or env vars   | Module doc in @docs/modules/ + @INSTALL.md + @.env.template |
 
-## Upgrading Dependencies
+## Documentation Index
 
-- Pin versions explicitly in requirements.txt; use compatible ranges (`>=X.Y,<X+1`) in pyproject.toml.
-- After upgrading, verify tests pass: `pytest tests/`.
-- If upgrading changes behavior (e.g., pydantic v1→v2, ruamel.yaml API), update affected code and document the migration.
-
-## Key Dependencies (current)
-
-| Dependency     | Purpose                        |
-|----------------|--------------------------------|
-| openai         | LLM provider (OpenAI API)      |
-| pydantic       | Schema validation              |
-| python-dotenv  | .env loading at startup        |
-| ruamel.yaml    | YAML loading (constitution)    |
-| pytest         | Testing (dev)                  |
-| ruff           | Linting (dev)                  |
-| black          | Format check (dev)             |
-| mypy           | Type checking (dev, gradual)  |
-| pre-commit     | Git hooks automation (dev)    |
+- @README.md — project overview, decision model, quickstart
+- @INSTALL.md — installation and environment configuration
+- @docs/architecture_spec.md — engineering spec (components, contracts, flows, tests)
+- @docs/modules/ — per-module documentation (orchestrator, risk, policy, critic, simulator, hindsight, perspectives, constitution_store, benchmark)
+- @docs/constitution.md — constitution design and YAML format
+- @docs/decision_policy.md — formal SAFE_COMPLETE / NORMAL_COMPLETE / REFUSE policy
+- @docs/DEVELOPMENT.md — development workflow (pytest, ruff, CI)
+- @docs/limitations_and_tradeoffs.md — known limitations
 
 ## AI Instructions
 
-- When suggesting new imports, verify the package is already in dependencies. If not, remind to add it.
-- When adding dev tooling (e.g., pytest plugins, coverage), add to `[dev]` extras and update @docs/DEVELOPMENT.md.
-- Never introduce implicit dependencies (packages used but not declared).
+- After any structural edit, **check** which docs from the table above need updating.
+- Do not overwrite existing documentation patterns; extend them consistently.
+- If a new public function is added, ensure its docstring follows existing conventions and the relevant module doc in @docs/modules/ is updated.
 
 ---
 > Source: [fdidonato/moralstack](https://github.com/fdidonato/moralstack) — distributed by [TomeVault](https://tomevault.io).
