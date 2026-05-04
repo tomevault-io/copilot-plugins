@@ -1,0 +1,44 @@
+{
+  "name": "moralstack",
+  "owner": "fdidonato",
+  "repo": "moralstack",
+  "description": "MoralStack is a governance and safety layer for LLM applications. It analyzes user requests before generation, evaluates risk and intent, and decides whether the AI should answer normally, answer safely, or refuse. The goal is to make AI systems more auditable, controllable, and reliable in sensitive or regulated contexts.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fdidonato/moralstack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T14:28:21Z"
+}
