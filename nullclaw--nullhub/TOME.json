@@ -1,0 +1,44 @@
+{
+  "name": "nullhub",
+  "owner": "nullclaw",
+  "repo": "nullhub",
+  "description": "Management console for the Null ecosystem \u2014 install, configure, and monitor AI agents, orchestration workflows, task pipelines, and system health",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nullclaw/nullhub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T17:44:59Z"
+}
