@@ -1,0 +1,26 @@
+{
+  "name": "amiable-dev--llm-council",
+  "displayName": "llm-council",
+  "description": "The LLM Council works together to answer your hardest questions",
+  "version": "1.0.0",
+  "author": "amiable-dev",
+  "homepage": "https://github.com/amiable-dev/llm-council",
+  "skills": [
+    {
+      "name": "council-gate",
+      "description": ""
+    },
+    {
+      "name": "council-gate",
+      "description": ""
+    },
+    {
+      "name": "council-review",
+      "description": ""
+    },
+    {
+      "name": "council-verify",
+      "description": ""
+    }
+  ]
+}
