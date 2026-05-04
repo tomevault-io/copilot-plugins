@@ -1,0 +1,9 @@
+{
+  "name": "lthoangg--openagentd",
+  "displayName": "openagentd",
+  "description": "Self-hosted AI agent OS \u2014 streaming chat, tool use, persistent memory, and multi-agent teams. Runs entirely on your machine.",
+  "version": "1.0.0",
+  "author": "lthoangg",
+  "homepage": "https://github.com/lthoangg/openagentd",
+  "skills": []
+}
