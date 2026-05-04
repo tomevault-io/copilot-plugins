@@ -1,9 +1,9 @@
 {
   "name": "adventdevinc--kudu",
   "displayName": "kudu",
-  "description": "kudu",
+  "description": "Free Windows, Mac and Linux cleaner, scanner, and more.",
   "version": "1.0.0",
   "author": "AdventDevInc",
-  "homepage": "https://tomevault.io/claim/AdventDevInc",
+  "homepage": "https://github.com/AdventDevInc/kudu",
   "skills": []
 }
