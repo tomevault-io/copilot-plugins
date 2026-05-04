@@ -1,0 +1,9 @@
+{
+  "name": "echorgi--obsidian-visual-ui-editor",
+  "displayName": "obsidian-visual-ui-editor",
+  "description": "This plugin allows you to edit UI elements visually",
+  "version": "1.0.0",
+  "author": "eChorgi",
+  "homepage": "https://github.com/eChorgi/obsidian-visual-ui-editor",
+  "skills": []
+}
