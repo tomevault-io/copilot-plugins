@@ -1,0 +1,9 @@
+{
+  "name": "sunshinelixun--shipfullstack",
+  "displayName": "ShipFullStack",
+  "description": "A modern TypeScript stack that combines React, TanStack Start, Hono, ORPC,  Expo, and more.",
+  "version": "1.0.0",
+  "author": "sunshineLixun",
+  "homepage": "https://github.com/sunshineLixun/ShipFullStack",
+  "skills": []
+}
