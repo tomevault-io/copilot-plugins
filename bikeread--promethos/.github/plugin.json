@@ -1,0 +1,9 @@
+{
+  "name": "bikeread--promethos",
+  "displayName": "promethos",
+  "description": "A skills-first framework for agent-system design, governance, evaluation, and evolution across domains.",
+  "version": "1.0.0",
+  "author": "bikeread",
+  "homepage": "https://github.com/bikeread/promethos",
+  "skills": []
+}
