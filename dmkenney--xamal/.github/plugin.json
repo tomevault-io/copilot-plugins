@@ -1,0 +1,9 @@
+{
+  "name": "dmkenney--xamal",
+  "displayName": "xamal",
+  "description": "Deploy Elixir apps to bare metal servers. Like Kamal, but with native releases + Caddy instead of Docker.",
+  "version": "1.0.0",
+  "author": "dmkenney",
+  "homepage": "https://github.com/dmkenney/xamal",
+  "skills": []
+}
