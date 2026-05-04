@@ -1,0 +1,9 @@
+{
+  "name": "josipjelic--orchestrated-project-template",
+  "displayName": "orchestrated-project-template",
+  "description": "A Claude Code project template with pre-configured specialist agents, living documentation, Conventional Commits conventions, and placeholder-based structure \u2014 copy, fill, ship.",
+  "version": "1.0.0",
+  "author": "josipjelic",
+  "homepage": "https://github.com/josipjelic/orchestrated-project-template",
+  "skills": []
+}
