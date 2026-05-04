@@ -1,0 +1,9 @@
+{
+  "name": "ddong8--openclaw-kasmvnc",
+  "displayName": "openclaw-kasmvnc",
+  "description": "One-click deployment for OpenClaw + KasmVNC. Browser-based remote desktop with full container lifecycle management.",
+  "version": "1.0.0",
+  "author": "ddong8",
+  "homepage": "https://github.com/ddong8/openclaw-kasmvnc",
+  "skills": []
+}
