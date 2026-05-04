@@ -1,0 +1,9 @@
+{
+  "name": "michaelklishin--edp-rs",
+  "displayName": "edp-rs",
+  "description": "A Rust and Erlang, Elixir integration toolkit: provides Erlang External Term format and Erlang Distribution Protocol implementations plus a set of higher-level abstractions",
+  "version": "1.0.0",
+  "author": "michaelklishin",
+  "homepage": "https://github.com/michaelklishin/edp-rs",
+  "skills": []
+}
