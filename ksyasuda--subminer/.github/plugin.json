@@ -1,0 +1,9 @@
+{
+  "name": "ksyasuda--subminer",
+  "displayName": "SubMiner",
+  "description": "Turn mpv into your sentence mining workstation.  Lookup with Yomitan, mine, and track immersion stats - all without leaving your video",
+  "version": "1.0.0",
+  "author": "ksyasuda",
+  "homepage": "https://github.com/ksyasuda/SubMiner",
+  "skills": []
+}
