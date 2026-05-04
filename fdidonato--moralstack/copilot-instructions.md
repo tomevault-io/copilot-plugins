@@ -1,34 +1,39 @@
-## enforce-english-for-all-comments-and-project-documentation
+## policy-layer
 
 > |
 
 
-All comments and all project documentation must be written strictly in English.
+# Policy Layer Rules
 
-This rule applies to:
+## Constitution as Source of Truth
 
-- Inline comments
-- Block comments
-- Documentation comments (e.g., JSDoc, docstrings, XML comments, etc.)
-- README files
-- INSTALL.md / install.md files
-- CONTRIBUTING guides
-- API documentation
-- Configuration documentation
-- Any Markdown (.md), text, or documentation files
-- Any other form of written documentation within the project
+- The YAML constitution in `moralstack/constitution/data/` (core + overlays) is the **authoritative policy definition**.
+- Loading is **fail-fast**: invalid YAML, unknown fields, or missing required fields raise `ConstitutionLoadError` — no partial constitutions are allowed.
+- Schema validation is **Pydantic-only** (`extra="forbid"`), defined in `moralstack/constitution/schema.py`.
+- YAML loading uses **ruamel.yaml** (`typ="safe"`) via `moralstack/constitution/loader.py` — this is the single entry point for reading YAML.
+- Overlays may declare **`sensitive: true`** to signal regulated domains requiring enhanced governance. When active, the Controller applies a risk_score floor (`OVERLAY_SENSITIVE_RISK_FLOOR = 0.35`, defined in `moralstack/orchestration/overlay_policy.py`) and a CYCLES_EXHAUSTED → SAFE_COMPLETE fallback. See @docs/constitution.md §4.3 and @docs/decision_policy.md.
 
-Non-English content is not allowed under any circumstances.
+## Policy Evaluation
 
-If generating or modifying code or documentation:
+- All policy evaluation logic lives in `moralstack/constitution/store.py` — do NOT introduce alternative evaluation paths elsewhere.
+- Domain overlays must be registered in the constitution YAML; hardcoded domain lists in other modules are forbidden.
+- The SAFE_COMPLETE formal policy (trigger rules) is documented in @README.md and @docs/decision_policy.md — any change here must be reflected in both.
 
-1. Always write comments and documentation in clear, grammatically correct English.
-2. If existing comments or documentation are in another language, translate them fully into English.
-3. Do not mix languages within the same file or section.
-4. Use professional and technical terminology appropriate to the programming language and project context.
-5. Ensure README, install guides, and all documentation are written entirely in English, including headings, descriptions, and examples.
+## Modification Checklist
 
-Any violation of this rule must be corrected before finalizing the code or documentation.
+When modifying this layer:
+
+1. Update `moralstack/constitution/data/**/*.yaml` if policy content changes.
+2. Update `moralstack/constitution/schema.py` if the schema changes.
+3. Update @docs/constitution.md to reflect the change.
+4. If a new overlay or domain is introduced, document it in @README.md.
+5. If changing the `sensitive` flag on an overlay, verify alignment with `RegulatedDomains` in `safe_complete_policy.py` and update @docs/decision_policy.md.
+
+## AI Instructions
+
+- Before modifying policy-affected code, **read** @docs/constitution.md and `moralstack/constitution/data/core.yaml`.
+- Do NOT add new principle IDs, overlays, or domain definitions without explicitly documenting them.
+- Log policy evaluation failures instead of silently recovering.
 
 ---
 > Source: [fdidonato/moralstack](https://github.com/fdidonato/moralstack) — distributed by [TomeVault](https://tomevault.io).
