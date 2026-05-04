@@ -1,0 +1,9 @@
+{
+  "name": "roomsmith-games--neomud",
+  "displayName": "NeoMud",
+  "description": "A modern tribute to the MUDs of the '90s, 100% vibe-coded with AI \u2014 Kotlin multiplatform, Ktor WebSocket server, Jetpack Compose Android client",
+  "version": "1.0.0",
+  "author": "roomsmith-games",
+  "homepage": "https://github.com/roomsmith-games/NeoMud",
+  "skills": []
+}
