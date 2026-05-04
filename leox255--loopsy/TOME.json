@@ -4,7 +4,7 @@
   "repo": "loopsy",
   "description": "Cross-machine AI agent communication, plus a mobile app to control any terminal on your machine.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/leox255/loopsy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T12:51:21Z"
+  "distributed_at": "2026-05-04T14:45:25Z"
 }
