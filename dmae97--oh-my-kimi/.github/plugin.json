@@ -1,0 +1,9 @@
+{
+  "name": "dmae97--oh-my-kimi",
+  "displayName": "oh-my-kimi",
+  "description": "Production-ready multi-agent orchestration harness for Kimi Code CLI (K2.6): worktree team runtime, DAG/ensemble planning, MCP skill-hooks, quality gates, and local graph memory. | Kimi Code CLI(K2.6)",
+  "version": "1.0.0",
+  "author": "dmae97",
+  "homepage": "https://github.com/dmae97/oh-my-kimi",
+  "skills": []
+}
