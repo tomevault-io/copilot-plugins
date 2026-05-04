@@ -1,0 +1,9 @@
+{
+  "name": "adlio--tampermonkey-crawler",
+  "displayName": "tampermonkey-crawler",
+  "description": "Fully manual tampermonkey crawler",
+  "version": "1.0.0",
+  "author": "adlio",
+  "homepage": "https://github.com/adlio/tampermonkey-crawler",
+  "skills": []
+}
