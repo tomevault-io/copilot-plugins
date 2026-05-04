@@ -4,7 +4,7 @@
   "repo": "radon",
   "description": "Radon is a market-structure reconstruction system that detects institutional positioning and turns it into convex options trades using dark pool flow, volatility signals, and cross-asset positioning data.  Detects hidden positioning through dark pool, options flow, and cross-asset signals.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joemccann/radon",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T10:53:59Z"
+  "distributed_at": "2026-05-04T17:39:44Z"
 }
