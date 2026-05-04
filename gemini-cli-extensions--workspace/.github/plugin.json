@@ -1,0 +1,14 @@
+{
+  "name": "gemini-cli-extensions--workspace",
+  "displayName": "workspace",
+  "description": "Access Google Workspace when using Gemini CLI",
+  "version": "1.0.0",
+  "author": "gemini-cli-extensions",
+  "homepage": "https://github.com/gemini-cli-extensions/workspace",
+  "skills": [
+    {
+      "name": "code-reviewer",
+      "description": ""
+    }
+  ]
+}
