@@ -4,7 +4,7 @@
   "repo": "polysona",
   "description": "Polysona: Polygonal Persona, A Persona Layer for AI Agents. \u27b0\ufe0f Metacognition-driven multi-persona extraction and orchestration system.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LilMGenius/polysona",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:35:57Z"
+  "distributed_at": "2026-05-04T04:49:43Z"
 }
