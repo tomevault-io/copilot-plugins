@@ -1,45 +1,35 @@
-## refactoring
+## rules-self-maintenance
 
 > |
 
 
-# Refactoring Guardrails
+# Rules Self-Maintenance
 
-Rules for safe, reversible refactoring of the MoralStack codebase. No observable behavior change; one logical transformation per commit.
+The `.cursor/rules/*.mdc` files encode architectural invariants, module maps, policy constraints,
+and process checklists that **must stay aligned with the actual codebase**.
 
-## Mandatory Constraints
+## When to Update Rules
 
-1. **No observable behavior change** — Refactoring only. If you find bugs, annotate them (e.g. in `docs/refactoring_diary.md` or as TODO comments) but do **not** fix them in the same refactoring step.
+After completing a user-requested change, check whether it affects any of the following:
 
-2. **Atomic changes** — At most one logical transformation per commit (e.g. one rename, one extract function, one move). Avoid bundling unrelated edits.
+| Change Type                                  | Potentially Affected Rule(s)                         |
+|----------------------------------------------|------------------------------------------------------|
+| Module added, renamed, or removed            | `project-overview.mdc` (module map)                  |
+| Layer boundary or import constraint changed  | `architecture-guidelines.mdc`                        |
+| Constitution schema, loader, or overlay changed | `policy-layer.mdc`                                |
+| Documentation index or naming changed        | `documentation-enforcement.mdc`                      |
+| Dependency added, removed, or upgraded       | `dependency-management.mdc` (key dependencies table) |
+| Safety-critical file list changed            | `commit-hygiene.mdc`                                 |
+| Decision model changed (actions, routing)    | `project-overview.mdc`, `architecture-guidelines.mdc`|
+| New Cursor rule added or rule scope changed  | This file (`rules-self-maintenance.mdc`)             |
 
-3. **Pre-commit checks** — Before every commit run:
-   - `pytest -q` (or targeted tests for the touched area)
-   - `ruff check .`
-   - If formatting is applied: `ruff format .` or `ruff format --check .` as appropriate
+## AI Instructions
 
-4. **Reversibility** — Use a dedicated branch (e.g. `refactor/...`). Keep commits small with clear messages: `refactor: ... (no behavior change)`.
-
-5. **Separate formatting from logic** — Do not mix formatting-only commits (Ruff/Black) with logical refactoring in the same commit. One commit for format, separate commits for each refactor.
-
-6. **Ensure every line length at max 125 chars**
-every line of the code should be lower equal than 125 chars
-
-## Workflow Checklist
-
-- [ ] Create a refactoring branch from `main` (e.g. `refactor/scope-name`).
-- [ ] For each change:
-  1. Apply **only one** logical transformation (rename, extract, move, split, etc.).
-  2. Run `pytest -q` (or relevant tests) and `ruff check .`; fix any regressions or lint issues before committing.
-  3. Commit with a clear message: `refactor: <what> (no behavior change)`.
-  4. Do **not** mix format-only and logic changes in the same commit.
-- [ ] Document decisions and baseline in `docs/refactoring_diary.md` (baseline: date, branch, test/lint commands; log: what, why, risk, tests run, commit).
-
-## Reference
-
-- Baseline and decision log: `docs/refactoring_diary.md`
-- Development commands: `docs/DEVELOPMENT.md`
-- Safety-critical areas: `.cursor/rules/commit-hygiene.mdc`
+- After every structural or policy-impacting change, **review the table above** and update every affected `.mdc` file.
+- Rule updates must happen **in the same session** as the code change — do not defer them.
+- When updating a rule, preserve its existing format and style; make surgical edits, not rewrites.
+- If the user explicitly requests a change that contradicts a rule, **apply the change first**, then **update the rule** to reflect the new intent.
+- If unsure whether a rule is affected, read it (`@.cursor/rules/`) and verify before skipping.
 
 ---
 > Source: [fdidonato/moralstack](https://github.com/fdidonato/moralstack) — distributed by [TomeVault](https://tomevault.io).
