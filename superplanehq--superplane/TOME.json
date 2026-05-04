@@ -1,0 +1,63 @@
+{
+  "name": "superplane",
+  "owner": "superplanehq",
+  "repo": "superplane",
+  "description": "The open source control plane for platform engineering.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "superplane-cli",
+      "path": ".cursor/skills/superplane-cli",
+      "github_url": "https://github.com/superplanehq/superplane/tree/main/.cursor/skills/superplane-cli",
+      "description": ""
+    },
+    {
+      "name": "superplane-integration-research",
+      "path": ".cursor/skills/superplane-integration-research",
+      "github_url": "https://github.com/superplanehq/superplane/tree/main/.cursor/skills/superplane-integration-research",
+      "description": ""
+    },
+    {
+      "name": "superplane-issue-logger",
+      "path": ".cursor/skills/superplane-issue-logger",
+      "github_url": "https://github.com/superplanehq/superplane/tree/main/.cursor/skills/superplane-issue-logger",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/superplanehq/superplane",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T23:36:01Z"
+}
