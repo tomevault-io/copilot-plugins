@@ -1,0 +1,14 @@
+{
+  "name": "kmichels--multi-manus-planning",
+  "displayName": "multi-manus-planning",
+  "description": "Multi-project Manus-style planning with coordinator pattern for Claude Code",
+  "version": "1.0.0",
+  "author": "kmichels",
+  "homepage": "https://github.com/kmichels/multi-manus-planning",
+  "skills": [
+    {
+      "name": "multi-manus-planning",
+      "description": ""
+    }
+  ]
+}
