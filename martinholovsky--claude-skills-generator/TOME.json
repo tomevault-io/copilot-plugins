@@ -1,0 +1,315 @@
+{
+  "name": "claude-skills-generator",
+  "owner": "martinholovsky",
+  "repo": "claude-skills-generator",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ui-ux-expert",
+      "path": "skills/ui-ux-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/ui-ux-expert",
+      "description": ""
+    },
+    {
+      "name": "tauri",
+      "path": "skills/tauri",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/tauri",
+      "description": ""
+    },
+    {
+      "name": "tailwindcss",
+      "path": "skills/tailwindcss",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/tailwindcss",
+      "description": ""
+    },
+    {
+      "name": "windows-ui-automation",
+      "path": "skills/windows-ui-automation",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/windows-ui-automation",
+      "description": ""
+    },
+    {
+      "name": "rabbitmq-expert",
+      "path": "skills/rabbitmq-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/rabbitmq-expert",
+      "description": ""
+    },
+    {
+      "name": "webgl",
+      "path": "skills/webgl",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/webgl",
+      "description": ""
+    },
+    {
+      "name": "macos-accessibility",
+      "path": "skills/macos-accessibility",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/macos-accessibility",
+      "description": ""
+    },
+    {
+      "name": "celery-expert",
+      "path": "skills/celery-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/celery-expert",
+      "description": ""
+    },
+    {
+      "name": "web-audio-api",
+      "path": "skills/web-audio-api",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/web-audio-api",
+      "description": ""
+    },
+    {
+      "name": "applescript",
+      "path": "skills/applescript",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/applescript",
+      "description": ""
+    },
+    {
+      "name": "javascript-expert",
+      "path": "skills/javascript-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/javascript-expert",
+      "description": ""
+    },
+    {
+      "name": "cicd-expert",
+      "path": "skills/cicd-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/cicd-expert",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "path": "skills/typescript-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "api-expert",
+      "path": "skills/api-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/api-expert",
+      "description": ""
+    },
+    {
+      "name": "graph-database-expert",
+      "path": "skills/graph-database-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/graph-database-expert",
+      "description": ""
+    },
+    {
+      "name": "websocket",
+      "path": "skills/websocket",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/websocket",
+      "description": ""
+    },
+    {
+      "name": "wake-word-detection",
+      "path": "skills/wake-word-detection",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/wake-word-detection",
+      "description": ""
+    },
+    {
+      "name": "async-expert",
+      "path": "skills/async-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/async-expert",
+      "description": ""
+    },
+    {
+      "name": "fastapi-expert",
+      "path": "skills/fastapi-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/fastapi-expert",
+      "description": ""
+    },
+    {
+      "name": "speech-to-text",
+      "path": "skills/speech-to-text",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/speech-to-text",
+      "description": ""
+    },
+    {
+      "name": "appsec-expert",
+      "path": "skills/appsec-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/appsec-expert",
+      "description": ""
+    },
+    {
+      "name": "threejs-tresjs",
+      "path": "skills/threejs-tresjs",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/threejs-tresjs",
+      "description": ""
+    },
+    {
+      "name": "rust",
+      "path": "skills/rust",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/rust",
+      "description": ""
+    },
+    {
+      "name": "fastapi",
+      "path": "skills/fastapi",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/fastapi",
+      "description": ""
+    },
+    {
+      "name": "talos-os-expert",
+      "path": "skills/talos-os-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/talos-os-expert",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "path": "skills/prompt-engineering",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "vue-nuxt",
+      "path": "skills/vue-nuxt",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/vue-nuxt",
+      "description": ""
+    },
+    {
+      "name": "devsecops-expert",
+      "path": "skills/devsecops-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/devsecops-expert",
+      "description": ""
+    },
+    {
+      "name": "browser-automation",
+      "path": "skills/browser-automation",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/browser-automation",
+      "description": ""
+    },
+    {
+      "name": "llm-integration",
+      "path": "skills/llm-integration",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/llm-integration",
+      "description": ""
+    },
+    {
+      "name": "surrealdb-expert",
+      "path": "skills/surrealdb-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/surrealdb-expert",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "path": "skills/python",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/python",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "path": "skills/typescript",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/typescript",
+      "description": ""
+    },
+    {
+      "name": "graphql-expert",
+      "path": "skills/graphql-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/graphql-expert",
+      "description": ""
+    },
+    {
+      "name": "text-to-speech",
+      "path": "skills/text-to-speech",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/text-to-speech",
+      "description": ""
+    },
+    {
+      "name": "linux-at-spi2",
+      "path": "skills/linux-at-spi2",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/linux-at-spi2",
+      "description": ""
+    },
+    {
+      "name": "cloud-api-integration",
+      "path": "skills/cloud-api-integration",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/cloud-api-integration",
+      "description": ""
+    },
+    {
+      "name": "dbus",
+      "path": "skills/dbus",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/dbus",
+      "description": ""
+    },
+    {
+      "name": "kanidm-expert",
+      "path": "skills/kanidm-expert",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/kanidm-expert",
+      "description": ""
+    },
+    {
+      "name": "model-quantization",
+      "path": "skills/model-quantization",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/model-quantization",
+      "description": ""
+    },
+    {
+      "name": "ci-cd",
+      "path": "skills/ci-cd",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/ci-cd",
+      "description": ""
+    },
+    {
+      "name": "cross-platform-builds",
+      "path": "skills/cross-platform-builds",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/cross-platform-builds",
+      "description": ""
+    },
+    {
+      "name": "database-design",
+      "path": "skills/database-design",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/database-design",
+      "description": ""
+    },
+    {
+      "name": "sqlcipher",
+      "path": "skills/sqlcipher",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/sqlcipher",
+      "description": ""
+    },
+    {
+      "name": "sqlite",
+      "path": "skills/sqlite",
+      "github_url": "https://github.com/martinholovsky/claude-skills-generator/tree/main/skills/sqlite",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/martinholovsky/claude-skills-generator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:43:48Z"
+}
