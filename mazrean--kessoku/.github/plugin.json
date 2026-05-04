@@ -1,0 +1,14 @@
+{
+  "name": "mazrean--kessoku",
+  "displayName": "kessoku",
+  "description": "Next-generation google/wire with parallel dependency injection for Go",
+  "version": "1.0.0",
+  "author": "mazrean",
+  "homepage": "https://github.com/mazrean/kessoku",
+  "skills": [
+    {
+      "name": "kessoku-di",
+      "description": ""
+    }
+  ]
+}
