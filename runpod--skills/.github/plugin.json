@@ -1,0 +1,18 @@
+{
+  "name": "runpod--skills",
+  "displayName": "skills",
+  "description": "skills",
+  "version": "1.0.0",
+  "author": "runpod",
+  "homepage": "https://github.com/runpod/skills",
+  "skills": [
+    {
+      "name": "runpodctl",
+      "description": ""
+    },
+    {
+      "name": "flash",
+      "description": ""
+    }
+  ]
+}
