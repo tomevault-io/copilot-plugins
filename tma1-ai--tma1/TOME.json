@@ -4,7 +4,7 @@
   "repo": "tma1",
   "description": "Local-first observability for AI agents, with a built-in dashboard. Cost, sessions, anomalies, and conversation replay \u2014 all on your machine.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tma1-ai/tma1",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T08:46:05Z"
+  "distributed_at": "2026-05-04T11:00:31Z"
 }
