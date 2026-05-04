@@ -4,7 +4,7 @@
   "repo": "setupvibe",
   "description": "The ultimate cross-platform development environment setup script",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/promovaweb/setupvibe",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:35:15Z"
+  "distributed_at": "2026-05-04T00:00:29Z"
 }
