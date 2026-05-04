@@ -1,0 +1,14 @@
+{
+  "name": "kevinlin--cowork-z",
+  "displayName": "cowork-z",
+  "description": "A local-first AI workspace that keeps your work private, organized, and ready to run.",
+  "version": "1.0.0",
+  "author": "kevinlin",
+  "homepage": "https://github.com/kevinlin/cowork-z",
+  "skills": [
+    {
+      "name": "development-estimation",
+      "description": ""
+    }
+  ]
+}
