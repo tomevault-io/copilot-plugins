@@ -1,24 +1,35 @@
-## gitlab-token-source
+## go-conventions
 
-> Read GitLab token from local secrets.env
+> Go coding conventions for csghub-lite
 
 
-# GitLab Token Source
+# Go Conventions
 
-When any task requires GitLab API authentication, always load the token from `local/secrets.env`.
+## Project Structure
 
-- Preferred source: `local/secrets.env` with `GITLAB_TOKEN="glpat-..."`
-- If `GITLAB_TOKEN` is unset, source `local/secrets.env` before running GitLab API or release upload commands.
-- Never hardcode, paste, or commit GitLab tokens in commands, code, docs, commit messages, or chat output.
-- Keep `local/secrets.env` local-only (gitignored).
+- CLI commands: `internal/cli/` — one file per command, register in `root.go`
+- Config: `internal/config/` — app home is `~/.csghub-lite/`
+- Inference engine: `internal/inference/` — manages llama-server subprocess
+- Model management: `internal/model/` — local model storage and metadata
+- API server: `internal/server/` — HTTP handlers and routes
 
-Example:
+## CLI Commands
 
-```sh
-if [ -z "${GITLAB_TOKEN:-}" ] && [ -f "./local/secrets.env" ]; then
-  . "./local/secrets.env"
-fi
-```
+- Use `cobra.Command` for all CLI commands.
+- Each command file exports a `newXxxCmd()` function returning `*cobra.Command`.
+- Register new commands in `internal/cli/root.go` via `cmd.AddCommand()`.
+
+## Error Handling
+
+- Wrap errors with context: `fmt.Errorf("doing X: %w", err)`
+- CLI `RunE` functions return errors; cobra handles printing.
+- Never silently swallow errors unless intentional (document why).
+
+## Dependencies
+
+- Config is loaded via `config.Load()` (singleton with `sync.Once`).
+- Model operations go through `model.NewManager(cfg)`.
+- Inference via `inference.LoadEngineWithProgress()` or `newLlamaEngine()`.
 
 ---
 > Source: [OpenCSGs/csghub-lite](https://github.com/OpenCSGs/csghub-lite) — distributed by [TomeVault](https://tomevault.io).
