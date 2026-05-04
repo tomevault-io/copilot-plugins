@@ -4,7 +4,7 @@
   "repo": "homeassistant-claude-kit",
   "description": "AI-guided Home Assistant setup \u2014 automation templates, mobile-first React dashboard, and Claude Code skills for configuration management",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dcb/homeassistant-claude-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:42:32Z"
+  "distributed_at": "2026-05-04T05:07:25Z"
 }
