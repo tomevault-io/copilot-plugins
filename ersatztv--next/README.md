@@ -7,11 +7,11 @@ Transcode and stream your media as live TV channels.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ErsatzTV/next](https://github.com/ErsatzTV/next).
+Original source: `CLAUDE.md` in [ErsatzTV/next](https://github.com/ErsatzTV/next).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
