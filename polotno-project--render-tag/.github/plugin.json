@@ -1,0 +1,9 @@
+{
+  "name": "polotno-project--render-tag",
+  "displayName": "render-tag",
+  "description": "Render HTML string into canvas using 2d native API",
+  "version": "1.0.0",
+  "author": "polotno-project",
+  "homepage": "https://github.com/polotno-project/render-tag",
+  "skills": []
+}
