@@ -1,0 +1,9 @@
+{
+  "name": "fabiodalez-dev--faz-cookie-manager",
+  "displayName": "FAZ-Cookie-Manager",
+  "description": "Free, open-source WordPress cookie consent plugin (GPL-3.0). Cloud-free fork with browser-based cookie scanner, GDPR/ePrivacy compliance, GCM v2, IAB TCF v2.3.",
+  "version": "1.0.0",
+  "author": "fabiodalez-dev",
+  "homepage": "https://github.com/fabiodalez-dev/FAZ-Cookie-Manager",
+  "skills": []
+}
