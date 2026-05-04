@@ -1,6 +1,8 @@
 # InvestSkill
 
-> Tome by [yennanliu](https://github.com/yennanliu/InvestSkill) — distributed by [TomeVault](https://tomevault.io/claim/yennanliu)
+> Tome by [yennanliu](https://github.com/yennanliu/InvestSkill) — distributed by [TomeVault](https://tomevault.io)
+
+US stock analysis skills for Claude Code
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `GEMINI.md` in [yennanliu/InvestSkill](https://github.com/yenna
 - **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/yennanliu#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/yennanliu/InvestSkill](https://github.com/yennanliu/InvestSkill)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/yennanliu) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-q -->
