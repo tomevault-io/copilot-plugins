@@ -1,0 +1,9 @@
+{
+  "name": "fr0ster--llm-agent",
+  "displayName": "llm-agent",
+  "description": "Minimal LLM agent orchestrating MCP tools across multiple LLM providers",
+  "version": "1.0.0",
+  "author": "fr0ster",
+  "homepage": "https://github.com/fr0ster/llm-agent",
+  "skills": []
+}
