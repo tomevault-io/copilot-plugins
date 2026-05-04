@@ -1,0 +1,9 @@
+{
+  "name": "lifeart--fla-viewer",
+  "displayName": "fla-viewer",
+  "description": "Free online viewer for Adobe Animate & Flash FLA files. View, play, and export animations to MP4, WebM, GIF, PNG, and SVG directly in your browser. No installation required. ",
+  "version": "1.0.0",
+  "author": "lifeart",
+  "homepage": "https://github.com/lifeart/fla-viewer",
+  "skills": []
+}
