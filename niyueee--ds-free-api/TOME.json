@@ -4,7 +4,7 @@
   "repo": "ds-free-api",
   "description": "DeepSeek\u7f51\u9875\u7aefAPI\u4ee3\u7406\uff0c\u652f\u6301OpenAI\u517c\u5bb9\u63a5\u53e3 | OpenAI-compatible API proxy for DeepSeek web",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NIyueeE/ds-free-api",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T09:03:44Z"
+  "distributed_at": "2026-05-04T14:07:23Z"
 }
