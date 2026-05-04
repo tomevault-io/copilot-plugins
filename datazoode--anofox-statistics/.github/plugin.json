@@ -1,0 +1,9 @@
+{
+  "name": "datazoode--anofox-statistics",
+  "displayName": "anofox-statistics",
+  "description": "A DuckDB extension for statistical regression analysis, providing OLS, Ridge, WLS, and time-series regression capabilities with full diagnostics and inference directly in SQL.",
+  "version": "1.0.0",
+  "author": "DataZooDE",
+  "homepage": "https://github.com/DataZooDE/anofox-statistics",
+  "skills": []
+}
