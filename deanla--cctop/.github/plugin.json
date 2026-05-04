@@ -1,0 +1,9 @@
+{
+  "name": "deanla--cctop",
+  "displayName": "cctop",
+  "description": "Like htop, but for Claude Code. A live terminal dashboard for monitoring all your sessions at a glance.",
+  "version": "1.0.0",
+  "author": "DeanLa",
+  "homepage": "https://github.com/DeanLa/cctop",
+  "skills": []
+}
