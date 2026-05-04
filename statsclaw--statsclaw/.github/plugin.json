@@ -1,0 +1,9 @@
+{
+  "name": "statsclaw--statsclaw",
+  "displayName": "statsclaw",
+  "description": "A workflow framework for statistical package development",
+  "version": "1.0.0",
+  "author": "statsclaw",
+  "homepage": "https://github.com/statsclaw/statsclaw",
+  "skills": []
+}
