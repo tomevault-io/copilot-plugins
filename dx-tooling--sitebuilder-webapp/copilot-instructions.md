@@ -1,37 +1,51 @@
-## 00-rule-acknowledgment
+## 01-architecture-boundaries
 
-> Meta-rule: always state which rules from .cursor/rules apply at the start of each task. Relevant for every task.
+> Vertical slices (src/FeatureName/), facades for cross-vertical communication, and layer boundaries. Use when adding features or touching src/ structure.
 
 
-# Rule Acknowledgment
+# Architecture and Vertical Boundaries
 
-**CRITICAL**: Before starting any task, you MUST explicitly acknowledge which rules from this `.cursor/rules/` folder apply to the current work.
+**Reference**: See `docs/archbook.md` for complete architecture documentation.
 
-## Required Format
+## Vertical Structure
 
-At the start of your response, state:
+- Each feature is a **vertical** (top-level folder under `src/`)
+- Verticals contain layers: `Domain/`, `Facade/`, `Infrastructure/`, `Api/`, `Presentation/`
+- `Common/` is a shared vertical for cross-cutting concerns (excluded from boundary tests)
 
-```
-**Applying rules**: [list of rule file names that are relevant]
-```
+## Cross-Vertical Communication
 
-Examples:
-- `**Applying rules**: 00-rule-acknowledgment.md, 01-architecture-boundaries.md, 02-code-standards.md`
-- `**Applying rules**: 00-rule-acknowledgment.md, 03-type-safety.md, 05-frontend.md`
+**CRITICAL RULE**: Verticals can only communicate through **Facades**.
 
-## When to Acknowledge
+- ✅ **Allowed**: `App\Foo\Domain\Service` → uses `App\Bar\Facade\BarFacadeInterface`
+- ❌ **Forbidden**: `App\Foo\Domain\Service` → uses `App\Bar\Domain\Entity`
+- ❌ **Forbidden**: `App\Foo\Presentation\Controller` → uses `App\Bar\Domain\Service`
 
-- **Always** acknowledge at least `00-rule-acknowledgment.md` itself
-- Acknowledge all rules that are relevant to the task at hand
-- If unsure, err on the side of acknowledging more rules rather than fewer
-- Re-acknowledge when switching between different types of work (e.g., from backend to frontend)
+## Facade Usage
 
-## Purpose
+- Facades expose **interfaces** and **DTOs** in `Facade/` namespace
+- Facades are for **cross-vertical** use only
+- Within the same vertical, use Domain services directly
+- Facade implementations are thin orchestrators
 
-This rule ensures:
-1. You are aware of the applicable constraints
-2. The user can verify you're following the right guidelines
-3. Rule violations can be traced back to acknowledged rules
+## Layer Responsibilities
+
+- **Facade**: Interfaces + DTOs + orchestration for other verticals
+- **Domain**: Entities, enums, value objects, domain services, repositories (pure business logic)
+- **Infrastructure**: External integrations, adapters
+- **Api**: HTTP endpoints, serialization, request/response DTOs
+- **Presentation**: Controllers, UI services, Twig templates, UX components
+
+## When Creating New Features
+
+1. Create a new vertical: `src/FeatureName/`
+2. Add layers as needed (not all verticals need all layers)
+3. Only add a `Facade/` when another vertical needs to access this feature
+4. Keep `Common/` small and for truly cross-cutting concerns only
+
+## Boundary Enforcement
+
+The architecture test (`tests/Architecture/FeatureBoundariesArchTest.php`) enforces these rules. If you violate boundaries, the test will fail.
 
 ---
 > Source: [dx-tooling/sitebuilder-webapp](https://github.com/dx-tooling/sitebuilder-webapp) — distributed by [TomeVault](https://tomevault.io).
