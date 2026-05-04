@@ -4,7 +4,7 @@
   "repo": "meowmeow",
   "description": "a philosophy for talking to AI agents without getting glazed. one trigger, four meanings. /meow.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AgriciDaniel/meowmeow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T19:04:04Z"
+  "distributed_at": "2026-05-04T21:02:20Z"
 }
