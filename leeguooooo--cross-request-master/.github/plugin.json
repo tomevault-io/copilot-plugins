@@ -1,0 +1,14 @@
+{
+  "name": "leeguooooo--cross-request-master",
+  "displayName": "cross-request-master",
+  "description": "yapi browser plugin & yapi skill",
+  "version": "1.0.0",
+  "author": "leeguooooo",
+  "homepage": "https://github.com/leeguooooo/cross-request-master",
+  "skills": [
+    {
+      "name": "skill-template",
+      "description": ""
+    }
+  ]
+}
