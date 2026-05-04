@@ -1,0 +1,51 @@
+{
+  "name": "nuxt-studio",
+  "owner": "nuxt-content",
+  "repo": "nuxt-studio",
+  "description": "Edit your Markdown website, in production.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "make-content-editable",
+      "path": "skills/make-content-editable",
+      "github_url": "https://github.com/nuxt-content/nuxt-studio/tree/main/skills/make-content-editable",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/nuxt-content/nuxt-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T07:39:40Z"
+}
