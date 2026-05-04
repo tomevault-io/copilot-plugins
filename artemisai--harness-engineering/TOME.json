@@ -2,9 +2,9 @@
   "name": "Harness_Engineering",
   "owner": "ArtemisAI",
   "repo": "Harness_Engineering",
-  "description": "",
+  "description": "A template project for harness engineering and grounding long running agentic AI coding swarms of agents ",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ArtemisAI",
+  "source_url": "https://github.com/ArtemisAI/Harness_Engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T14:58:39Z"
+  "distributed_at": "2026-05-04T11:47:09Z"
 }
