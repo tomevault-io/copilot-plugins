@@ -1,0 +1,9 @@
+{
+  "name": "alvarosanchez--ocp",
+  "displayName": "ocp",
+  "description": "ocp (OpenCode Configuration Profiles) is a CLI to manage OpenCode config profiles stored in Git repositories.",
+  "version": "1.0.0",
+  "author": "alvarosanchez",
+  "homepage": "https://github.com/alvarosanchez/ocp",
+  "skills": []
+}
