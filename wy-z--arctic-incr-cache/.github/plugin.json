@@ -1,0 +1,9 @@
+{
+  "name": "wy-z--arctic-incr-cache",
+  "displayName": "arctic-incr-cache",
+  "description": "ArcticDB-backed time series cache with incremental updates \u2014 fetch once, upsert the gap.",
+  "version": "1.0.0",
+  "author": "wy-z",
+  "homepage": "https://github.com/wy-z/arctic-incr-cache",
+  "skills": []
+}
