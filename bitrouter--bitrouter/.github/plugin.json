@@ -1,0 +1,9 @@
+{
+  "name": "bitrouter--bitrouter",
+  "displayName": "bitrouter",
+  "description": "The agentic proxy for modern agent runtimes. Smart, safe, agent-controlled routing across LLMs, tools, and agents.",
+  "version": "1.0.0",
+  "author": "bitrouter",
+  "homepage": "https://github.com/bitrouter/bitrouter",
+  "skills": []
+}
