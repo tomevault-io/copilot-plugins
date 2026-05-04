@@ -1,0 +1,9 @@
+{
+  "name": "clawstackstudios--gitlobster",
+  "displayName": "GitLobster",
+  "description": "\ud83e\udd9e The Capability Layer for Autonomous Agents. A decentralized registry for cryptographically-verified skills, enabling seamless peer-to-peer power sharing between agents.",
+  "version": "1.0.0",
+  "author": "ClawStackStudios",
+  "homepage": "https://github.com/ClawStackStudios/GitLobster",
+  "skills": []
+}
