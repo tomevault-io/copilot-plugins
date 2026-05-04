@@ -1,0 +1,22 @@
+{
+  "name": "0xdarkmatter--claude-mods",
+  "displayName": "claude-mods",
+  "description": "Custom commands, skills, and agents for Claude Code",
+  "version": "1.0.0",
+  "author": "0xDarkMatter",
+  "homepage": "https://github.com/0xDarkMatter/claude-mods",
+  "skills": [
+    {
+      "name": "ci-cd-ops",
+      "description": ""
+    },
+    {
+      "name": "migrate-ops",
+      "description": ""
+    },
+    {
+      "name": "vue-ops",
+      "description": ""
+    }
+  ]
+}
