@@ -1,0 +1,44 @@
+{
+  "name": "uid_python_api",
+  "owner": "matiasandina",
+  "repo": "uid_python_api",
+  "description": "A repository with a real time tcp connection to UID Mouse Matrix devices used to trigger closed loop experiments",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/matiasandina/uid_python_api",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T04:31:16Z"
+}
