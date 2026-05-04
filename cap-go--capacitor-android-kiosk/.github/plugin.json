@@ -1,0 +1,9 @@
+{
+  "name": "cap-go--capacitor-android-kiosk",
+  "displayName": "capacitor-android-kiosk",
+  "description": "Capacitor plugin to create application with \"kiosk mode\". An app with this plugin can be set as an Android launcher.",
+  "version": "1.0.0",
+  "author": "Cap-go",
+  "homepage": "https://github.com/Cap-go/capacitor-android-kiosk",
+  "skills": []
+}
