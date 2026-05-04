@@ -1,0 +1,9 @@
+{
+  "name": "joemckenney--wake",
+  "displayName": "wake",
+  "description": "Wake records your terminal sessions so Claude Code can see what you've been doing.",
+  "version": "1.0.0",
+  "author": "joemckenney",
+  "homepage": "https://github.com/joemckenney/wake",
+  "skills": []
+}
