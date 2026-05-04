@@ -1,0 +1,26 @@
+{
+  "name": "aclinia--torchlight-of-building",
+  "displayName": "torchlight-of-building",
+  "description": "torchlight-of-building",
+  "version": "1.0.0",
+  "author": "aclinia",
+  "homepage": "https://github.com/aclinia/torchlight-of-building",
+  "skills": [
+    {
+      "name": "add-hero-trait",
+      "description": ""
+    },
+    {
+      "name": "adding-mod-parsers",
+      "description": ""
+    },
+    {
+      "name": "adding-support-mod-parsers",
+      "description": ""
+    },
+    {
+      "name": "implementing-game-skill-parsers",
+      "description": ""
+    }
+  ]
+}
