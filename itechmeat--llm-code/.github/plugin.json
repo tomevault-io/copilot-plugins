@@ -1,0 +1,106 @@
+{
+  "name": "itechmeat--llm-code",
+  "displayName": "llm-code",
+  "description": "Cross-tool AI assets: documentation-based skills for Copilot, Claude, Cursor, and other coding assistants",
+  "version": "1.0.0",
+  "author": "itechmeat",
+  "homepage": "https://github.com/itechmeat/llm-code",
+  "skills": [
+    {
+      "name": "react-testing-library",
+      "description": ""
+    },
+    {
+      "name": "social-writer",
+      "description": ""
+    },
+    {
+      "name": "skill-master",
+      "description": ""
+    },
+    {
+      "name": "project-creator",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "description": ""
+    },
+    {
+      "name": "base-ui",
+      "description": ""
+    },
+    {
+      "name": "mantine-dev",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "description": ""
+    },
+    {
+      "name": "coderabbit",
+      "description": ""
+    },
+    {
+      "name": "openapi",
+      "description": ""
+    },
+    {
+      "name": "fastapi",
+      "description": ""
+    },
+    {
+      "name": "postgresql",
+      "description": ""
+    },
+    {
+      "name": "refine-dev",
+      "description": ""
+    },
+    {
+      "name": "bun",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "description": ""
+    },
+    {
+      "name": "deps-dev",
+      "description": ""
+    },
+    {
+      "name": "open-meteo",
+      "description": ""
+    },
+    {
+      "name": "inworld",
+      "description": ""
+    },
+    {
+      "name": "qdrant",
+      "description": ""
+    },
+    {
+      "name": "beads",
+      "description": ""
+    },
+    {
+      "name": "k8s-cluster-api",
+      "description": ""
+    },
+    {
+      "name": "perplexity",
+      "description": ""
+    },
+    {
+      "name": "telegram",
+      "description": ""
+    },
+    {
+      "name": "vibekanban",
+      "description": ""
+    }
+  ]
+}
