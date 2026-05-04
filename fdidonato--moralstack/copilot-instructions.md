@@ -1,41 +1,42 @@
-## commit-hygiene
+## dependency-management
 
 > |
 
 
-# Commit and Change Hygiene
+# Dependency Management Rules
 
-## Pre-Commit Checklist
+## Adding a New Dependency
 
-Before every commit, verify:
+1. Add it to **pyproject.toml** (preferred) and/or **requirements.txt**.
+2. Document the rationale: why this dependency is needed and what it replaces (if anything).
+3. Update @INSTALL.md if the dependency affects installation instructions or environment setup.
+4. If the dependency is dev-only (testing, linting), add it under the `[dev]` extras group in pyproject.toml.
 
-- [ ] **Documentation updated?** — If the change touches public API, module structure, or decision logic, the corresponding doc in @docs/ must be updated (see @.cursor/rules/documentation-enforcement.mdc for the full mapping).
-- [ ] **Tests added/updated?** — New behavior requires new tests; modified behavior requires updated tests. Tests live in `tests/`.
-- [ ] **Public API affected?** — If a function signature, dataclass, or CLI option changed, ensure backward compatibility or document the breaking change.
+## Upgrading Dependencies
 
-## Safety-Critical Changes
+- Pin versions explicitly in requirements.txt; use compatible ranges (`>=X.Y,<X+1`) in pyproject.toml.
+- After upgrading, verify tests pass: `pytest tests/`.
+- If upgrading changes behavior (e.g., pydantic v1→v2, ruamel.yaml API), update affected code and document the migration.
 
-For changes touching any of the following, **extra review is mandatory**:
+## Key Dependencies (current)
 
-| Area                                | Files                                        |
-|-------------------------------------|----------------------------------------------|
-| Policy bounds / final_action       | `moralstack/runtime/decision/safe_complete_policy.py` |
-| Final action logic                  | `moralstack/orchestration/controller.py`     |
-| Risk classification                 | `moralstack/models/risk/`                    |
-| Orchestration flow                  | `moralstack/runtime/orchestrator.py`         |
-| Constitution evaluation             | `moralstack/constitution/store.py`           |
-| Safe refusal generation             | `moralstack/orchestration/safe_refusal_generator.py` |
-| Refusal assembly (deliberative)     | `moralstack/orchestration/response_assembler.py` |
-| Deliberation vote logic             | `moralstack/orchestration/deliberation_runner.py`, `moralstack/orchestration/convergence_evaluator.py` |
-
-These files affect **governance decisions** — changes must be small, explicit, and well-tested.
+| Dependency     | Purpose                        |
+|----------------|--------------------------------|
+| openai         | LLM provider (OpenAI API)      |
+| pydantic       | Schema validation              |
+| python-dotenv  | .env loading at startup        |
+| ruamel.yaml    | YAML loading (constitution)    |
+| pytest         | Testing (dev)                  |
+| ruff           | Linting (dev)                  |
+| black          | Format check (dev)             |
+| mypy           | Type checking (dev, gradual)  |
+| pre-commit     | Git hooks automation (dev)    |
 
 ## AI Instructions
 
-- After completing a code change, remind the user of the checklist above.
-- If a change is safety-critical (per the table), suggest targeted tests and documentation updates.
-- Prefer small, surgical commits over large refactors — one concern per commit.
-- Never silently change logic in safety-critical files without flagging it.
+- When suggesting new imports, verify the package is already in dependencies. If not, remind to add it.
+- When adding dev tooling (e.g., pytest plugins, coverage), add to `[dev]` extras and update @docs/DEVELOPMENT.md.
+- Never introduce implicit dependencies (packages used but not declared).
 
 ---
 > Source: [fdidonato/moralstack](https://github.com/fdidonato/moralstack) — distributed by [TomeVault](https://tomevault.io).
