@@ -1,9 +1,9 @@
 {
   "name": "yennanliu--investskill",
   "displayName": "InvestSkill",
-  "description": "InvestSkill",
+  "description": "US stock analysis skills for Claude Code",
   "version": "1.0.0",
   "author": "yennanliu",
-  "homepage": "https://tomevault.io/claim/yennanliu",
+  "homepage": "https://github.com/yennanliu/InvestSkill",
   "skills": []
 }
