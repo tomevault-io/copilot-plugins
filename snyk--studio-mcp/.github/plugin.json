@@ -1,0 +1,38 @@
+{
+  "name": "snyk--studio-mcp",
+  "displayName": "studio",
+  "description": "AI instruction skills by snyk",
+  "version": "1.0.0",
+  "author": "snyk",
+  "homepage": "https://github.com/snyk/studio-mcp",
+  "skills": [
+    {
+      "name": "ai-inventory",
+      "description": ""
+    },
+    {
+      "name": "container-security",
+      "description": ""
+    },
+    {
+      "name": "drift-detector",
+      "description": ""
+    },
+    {
+      "name": "iac-security",
+      "description": ""
+    },
+    {
+      "name": "sbom-analyzer",
+      "description": ""
+    },
+    {
+      "name": "secure-at-inception",
+      "description": ""
+    },
+    {
+      "name": "snyk-fix",
+      "description": ""
+    }
+  ]
+}
