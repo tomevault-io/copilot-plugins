@@ -1,0 +1,9 @@
+{
+  "name": "keepmind9--clibot",
+  "displayName": "clibot",
+  "description": "ACP-compatible AI CLI bridge to IM platforms. Connect Claude Code, Gemini,   OpenCode, and other ACP-enabled tools to Discord, Telegram, Feishu, DingTalk, Weixin, QQ. Control desktop AI assistants fro",
+  "version": "1.0.0",
+  "author": "keepmind9",
+  "homepage": "https://github.com/keepmind9/clibot",
+  "skills": []
+}
