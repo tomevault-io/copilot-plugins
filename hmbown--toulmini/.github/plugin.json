@@ -1,0 +1,9 @@
+{
+  "name": "hmbown--toulmini",
+  "displayName": "Toulmini",
+  "description": "Logic architecture inspired by Toulmin. Forces LLMs into structured, sequential reasoning through Toulmin's argumentation model. ",
+  "version": "1.0.0",
+  "author": "Hmbown",
+  "homepage": "https://github.com/Hmbown/Toulmini",
+  "skills": []
+}
