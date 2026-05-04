@@ -1,0 +1,9 @@
+{
+  "name": "duozokker--agent2",
+  "displayName": "agent2",
+  "description": "Turn domain experts into production AI agents.",
+  "version": "1.0.0",
+  "author": "duozokker",
+  "homepage": "https://github.com/duozokker/agent2",
+  "skills": []
+}
