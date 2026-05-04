@@ -1,0 +1,57 @@
+{
+  "name": "ccusage",
+  "owner": "ryoppippi",
+  "repo": "ccusage",
+  "description": "A CLI tool for analyzing Claude Code/Codex CLI usage from local JSONL files.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "byethrow",
+      "path": ".claude/skills/byethrow",
+      "github_url": "https://github.com/ryoppippi/ccusage/tree/main/.claude/skills/byethrow",
+      "description": ""
+    },
+    {
+      "name": "use-gunshi-cli",
+      "path": ".claude/skills/use-gunshi-cli",
+      "github_url": "https://github.com/ryoppippi/ccusage/tree/main/.claude/skills/use-gunshi-cli",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ryoppippi/ccusage",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T23:34:43Z"
+}
