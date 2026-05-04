@@ -1,0 +1,51 @@
+{
+  "name": "jj-hunk",
+  "owner": "laulauland",
+  "repo": "jj-hunk",
+  "description": "Non-interactive hunk distribution in jj CLI",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jj-hunk",
+      "path": "shared/.claude/skills/jj-hunk",
+      "github_url": "https://github.com/laulauland/jj-hunk/tree/main/shared/.claude/skills/jj-hunk",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/laulauland/jj-hunk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T17:03:32Z"
+}
