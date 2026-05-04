@@ -1,0 +1,63 @@
+{
+  "name": "bg3se-macos",
+  "owner": "tdimino",
+  "repo": "bg3se-macos",
+  "description": "A replication of the Baldur's Gate 3 Script Extender for MacOS",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bg3-steam-launcher",
+      "path": "tools/automation/skills/bg3-steam-launcher",
+      "github_url": "https://github.com/tdimino/bg3se-macos/tree/main/tools/automation/skills/bg3-steam-launcher",
+      "description": ""
+    },
+    {
+      "name": "bg3se-macos-ghidra",
+      "path": "tools/skills/bg3se-macos-ghidra",
+      "github_url": "https://github.com/tdimino/bg3se-macos/tree/main/tools/skills/bg3se-macos-ghidra",
+      "description": ""
+    },
+    {
+      "name": "osgrep-reference",
+      "path": "tools/skills/osgrep-reference",
+      "github_url": "https://github.com/tdimino/bg3se-macos/tree/main/tools/skills/osgrep-reference",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tdimino/bg3se-macos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:45:40Z"
+}
