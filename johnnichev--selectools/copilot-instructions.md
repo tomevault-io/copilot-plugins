@@ -1,50 +1,60 @@
-## selectools-providers
+## selectools-testing
 
-> Rules for working with LLM provider adapters in selectools
+> Testing conventions and patterns for selectools
 
 
-# Provider Implementation Rules
+# Testing Rules
 
-## Protocol Compliance
-Every provider must implement all methods from `providers/base.py`:
-- `complete()`, `acomplete()` — sync/async completion
-- `stream()`, `astream()` — sync/async streaming
-- `_format_messages()` — convert `Message` to provider format
+## Test Organization
+- `tests/test_<module>.py` — unit tests for each source module
+- `tests/agent/` — agent core, observer, batch, regression tests
+- `tests/providers/` — provider-specific, model registry, streaming, format tests
+- `tests/rag/` — RAG pipeline, chunking, hybrid search, vector store tests
+- `tests/integration/` — cross-module integration tests
+- `tests/tools/` — tool system tests
 
-## Critical: Tool Passing
-ALL methods (`complete`, `acomplete`, `stream`, `astream`) MUST:
-- Accept `tools: list[Tool] | None = None` parameter
-- Forward tools to the underlying API call
-- Map tools using `_map_tool_to_<provider>(t)` helper
+## Mock Provider Pattern
+```python
+class FakeProvider:
+    name = "fake"
+    supports_streaming = True
+    supports_async = True
 
-## Critical: Streaming Return Types
-- `stream()` returns `Iterable[str]`
-- `astream()` returns `AsyncIterable[Union[str, ToolCall]]`
-- `astream()` must parse tool call chunks and yield `ToolCall` objects
-- Never stringify `ToolCall` objects
+    def complete(self, *, model, system_prompt, messages, tools=None, **kw):
+        return Message(role=Role.ASSISTANT, content="response")
+```
+Always include `tools=None` in signature — missing it silently hides bugs.
 
-## OpenAI-Specific
-- Use `_uses_max_completion_tokens(model)` to decide parameter name
-- GPT-5.x, o-series, GPT-4.1 need `max_completion_tokens`
-- Older models use `max_tokens`
+## Recording Provider Pattern
+Use to verify exact args passed to provider methods:
+```python
+class RecordingProvider(FakeProvider):
+    def __init__(self):
+        self.calls = []
+    def complete(self, **kwargs):
+        self.calls.append(("complete", kwargs))
+        return Message(role=Role.ASSISTANT, content="ok")
+```
 
-## FallbackProvider
-- `astream()` must include try/except with `_is_retriable` + circuit breaker
-- Use `_record_failure()` / `_record_success()` consistently
-- Call `on_fallback` callback when falling back
+## Regression Tests
+- Go in `tests/agent/test_regression.py`
+- Each test class documents the specific bug it prevents
+- Name pattern: `TestXxxHandling` describing the failure mode
+- Include a docstring explaining what broke and when
 
-## Message Formatting
-- `Role.TOOL` messages need provider-specific formatting:
-  - OpenAI: `{"role": "tool", "content": ..., "tool_call_id": ...}`
-  - Anthropic: `{"role": "user", "content": [{"type": "tool_result", ...}]}`
-  - Gemini: `{"role": "user", "parts": [{"function_response": ...}]}`
-  - Ollama: `{"role": "tool", "content": ..., "tool_call_id": ...}`
+## Assertions
+- Model counts: update when adding/removing models
+- Observer events: verify run_id is passed to all events
+- Streaming: verify `ToolCall` objects are yielded (not strings)
+- Policy: verify deny actually blocks execution
+- Guardrails: verify block raises, rewrite modifies content
 
-## Testing
-- Use `RecordingProvider` to capture and assert exact args
-- Test `_format_messages` for TOOL role, ASSISTANT with tool_calls, images
-- Test `astream()` yields `ToolCall` objects (not just strings)
-- Test FallbackProvider failover, circuit breaker, and callback behavior
+## Running Tests
+```bash
+pytest tests/ -x -q                 # All tests, stop on first failure
+pytest tests/ -k "not e2e" -x -q    # Skip E2E (CI mode)
+pytest tests/agent/ -x -q           # Just agent tests
+```
 
 ---
 > Source: [johnnichev/selectools](https://github.com/johnnichev/selectools) — distributed by [TomeVault](https://tomevault.io).
