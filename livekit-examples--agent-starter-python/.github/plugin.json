@@ -1,0 +1,9 @@
+{
+  "name": "livekit-examples--agent-starter-python",
+  "displayName": "agent-starter-python",
+  "description": "A complete voice AI starter for LiveKit Agents with Python.",
+  "version": "1.0.0",
+  "author": "livekit-examples",
+  "homepage": "https://github.com/livekit-examples/agent-starter-python",
+  "skills": []
+}
