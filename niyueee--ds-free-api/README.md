@@ -7,11 +7,11 @@ DeepSeek网页端API代理，支持OpenAI兼容接口 | OpenAI-compatible API pr
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [NIyueeE/ds-free-api](https://github.com/NIyueeE/ds-free-api).
+Original source: `CLAUDE.md` in [NIyueeE/ds-free-api](https://github.com/NIyueeE/ds-free-api).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
