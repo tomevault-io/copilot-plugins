@@ -1,97 +1,108 @@
-## selection-managers
+## spatial-queries
 
-> Selection managers — two-layer architecture for viewer and editor selection
+> Placement validation for tools — canPlaceOnFloor, canPlaceOnWall, canPlaceOnCeiling
 
 
-# Selection Managers
+# Spatial Queries
 
-There are two selection managers. They are separate components, not the same component configured differently.
+`useSpatialQuery()` validates whether an item can be placed at a given position without overlapping existing items. Every placement tool must call it before committing a node to the scene.
 
-| Component | Location | Knows about |
-|---|---|---|
-| `SelectionManager` | `packages/viewer/src/components/viewer/selection-manager.tsx` | Viewer state only |
-| `SelectionManager` (editor) | `apps/editor/components/editor/selection-manager.tsx` | Phase, mode, tool state |
+**Source**: @packages/core/src/hooks/spatial-grid/use-spatial-query.ts
 
-The viewer's manager is the default. The editor mounts its own manager as a child of `<Viewer>`, overriding the default behaviour via the viewer-isolation pattern.
-
----
-
-## How Selection Works
-
-**Event flow:**
-
-```
-useNodeEvents(node, type) on a renderer mesh
-  → emitter.emit('wall:click', NodeEvent)
-  → SelectionManager listens via emitter.on(…)
-  → calls useViewer.setSelection(…)
-  → outliner sync re-runs → Three.js outline updates
-```
-
-`useNodeEvents` returns R3F pointer handlers. Spread them onto the mesh:
-
-```tsx
-const events = useNodeEvents(node, 'wall')
-return <mesh ref={ref} {...events} />
-```
-
-Events are suppressed during camera drag (`useViewer.getState().cameraDragging`).
-
----
-
-## Viewer Selection Manager
-
-Hierarchical path: **Building → Level → Zone → Elements**
-
-At each level, only the next tier is selectable. Clicking outside deselects. The path is stored in `useViewer`:
+## Hook
 
 ```ts
-type SelectionPath = {
-  buildingId: string | null
-  levelId: string | null
-  zoneId: string | null
-  selectedIds: string[]   // walls, items, slabs, etc.
-}
+const { canPlaceOnFloor, canPlaceOnWall, canPlaceOnCeiling } = useSpatialQuery()
 ```
 
-`setSelection` has a hierarchy guard: setting `levelId` without `buildingId` resets children. Use `resetSelection()` to clear everything.
-
-Multi-select: `Ctrl/Meta + click` toggles an ID in `selectedIds`. Regular click replaces it.
+All three methods return `{ valid: boolean; conflictIds: string[] }`.
+`canPlaceOnWall` additionally returns `adjustedY: number` (snapped height).
 
 ---
 
-## Editor Selection Manager
+## canPlaceOnFloor
 
-Extends selection with phase awareness from `useEditor`. The viewer's `SelectionManager` is **not** mounted in the editor; this one takes its place (injected as a child of `<Viewer>`).
-
+```ts
+canPlaceOnFloor(
+  levelId: string,
+  position: [number, number, number],
+  dimensions: [number, number, number],   // scaled width/height/depth
+  rotation: [number, number, number],
+  ignoreIds?: string[],                   // pass [draftItem.id] to exclude self
+): { valid: boolean; conflictIds: string[] }
 ```
-phase: 'site'      → selectable: buildings
-phase: 'structure' → selectable: walls, zones, slabs, ceilings, roofs, doors, windows
-  structureLayer: 'zones'    → only zones
-  structureLayer: 'elements' → all structure types
-phase: 'furnish'   → selectable: furniture items only
+
+**Usage in a tool:**
+```ts
+const pos: [number, number, number] = [x, 0, z]
+const { valid } = canPlaceOnFloor(levelId, pos, getScaledDimensions(item), item.rotation, [item.id])
+if (valid) createNode(item, levelId)
 ```
 
-Clicking a node of a different phase auto-switches the phase. Double-click drills into a context level.
+---
+
+## canPlaceOnWall
+
+```ts
+canPlaceOnWall(
+  levelId: string,
+  wallId: string,
+  localX: number,          // distance along wall from start
+  localY: number,          // height from floor
+  dimensions: [number, number, number],
+  attachType: 'wall' | 'wall-side',  // 'wall' needs clearance both sides; 'wall-side' only one
+  side?: 'front' | 'back',
+  ignoreIds?: string[],
+): { valid: boolean; conflictIds: string[]; adjustedY: number }
+```
+
+`adjustedY` contains the snapped Y so items sit flush on the slab — always use it instead of the raw `localY`:
+
+```ts
+const { valid, adjustedY } = canPlaceOnWall(levelId, wallId, x, y, dims, 'wall', undefined, [item.id])
+if (valid) updateNode(item.id, { wallT: x, wallY: adjustedY })
+```
+
+---
+
+## canPlaceOnCeiling
+
+```ts
+canPlaceOnCeiling(
+  ceilingId: string,
+  position: [number, number, number],
+  dimensions: [number, number, number],
+  rotation: [number, number, number],
+  ignoreIds?: string[],
+): { valid: boolean; conflictIds: string[] }
+```
+
+---
+
+## Slab Elevation
+
+When items rest on a slab (not flat ground), use these to get the correct Y:
+
+```ts
+import { spatialGridManager } from '@pascal-app/core'
+
+// Y at a single point
+const y = spatialGridManager.getSlabElevationAt(levelId, x, z)
+
+// Y considering the item's full footprint (highest slab point under item)
+const y = spatialGridManager.getSlabElevationForItem(levelId, position, dimensions, rotation)
+```
 
 ---
 
 ## Rules
 
-- **Never add selection logic to renderers.** Renderers spread `useNodeEvents` events and stop there. All selection decisions live in the selection manager.
-- **Never add editor phase logic to the viewer's SelectionManager.** Phase, mode, and tool awareness belong exclusively in the editor's selection manager.
-- **`useViewer` is the single source of truth for selection state.** Both managers read and write through `setSelection` / `resetSelection`. Nothing else should mutate `selection` directly.
-- **Outliner arrays are mutated in-place** (not replaced) for performance. Don't assign new arrays to `outliner.selectedObjects` or `outliner.hoveredObjects`.
-- **Hover is a separate scalar** (`hoveredId: string | null`), not part of `selectedIds`. Update it via `setHoveredId`.
+- **Always pass `[item.id]` in `ignoreIds`** when validating a draft item that already exists in the scene — otherwise it collides with itself.
+- **Use `adjustedY` from `canPlaceOnWall`** — don't use the raw cursor Y for wall-mounted items.
+- **Use `getScaledDimensions(item)`** (@packages/core/src/schema/nodes/item.ts) to account for item scale, not the raw `asset.dimensions`.
+- Validate on every pointer move for live feedback (highlight ghost red/green). Only `createNode` / `updateNode` on pointer up or click.
 
----
-
-## Adding Selectability to a New Node Type
-
-1. Add the type to `SelectableNodeType` in the viewer store / selection manager.
-2. Make sure its renderer calls `useNodeEvents(node, type)` and spreads the handlers.
-3. Add a case to whichever selection strategy needs it (viewer hierarchy level or editor phase).
-4. Ensure `useRegistry` is called in the renderer so the outliner can highlight it.
+See @apps/editor/components/tools/item/use-placement-coordinator.tsx for a full implementation.
 
 ---
 > Source: [zuleikdiasb-web/pascal-editor-3d](https://github.com/zuleikdiasb-web/pascal-editor-3d) — distributed by [TomeVault](https://tomevault.io).
