@@ -1,0 +1,9 @@
+{
+  "name": "kumihoio--construct-os",
+  "displayName": "construct-os",
+  "description": "Memory-native AI agent runtime: Rust gateway + React dashboard + Python Operator + Kumiho graph memory",
+  "version": "1.0.0",
+  "author": "KumihoIO",
+  "homepage": "https://github.com/KumihoIO/construct-os",
+  "skills": []
+}
