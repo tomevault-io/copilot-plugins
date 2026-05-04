@@ -1,0 +1,9 @@
+{
+  "name": "taishi-n--marp-theme-tmu-cs",
+  "displayName": "marp-theme-tmu-cs",
+  "description": "TMU-CS Marp theme with citeproc, code annotations, math annotations, and step expansion.",
+  "version": "1.0.0",
+  "author": "taishi-n",
+  "homepage": "https://github.com/taishi-n/marp-theme-tmu-cs",
+  "skills": []
+}
