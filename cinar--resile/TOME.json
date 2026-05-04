@@ -1,0 +1,44 @@
+{
+  "name": "resile",
+  "owner": "cinar",
+  "repo": "resile",
+  "description": "Resile is an ergonomic, type-safe execution resilience and retry library for Go. Inspired by Python\u2019s stamina, it features generic execution wrappers, AWS Full Jitter backoff, native Retry-After header support, and zero-dependency observability for distributed systems.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cinar/resile",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T07:48:15Z"
+}
