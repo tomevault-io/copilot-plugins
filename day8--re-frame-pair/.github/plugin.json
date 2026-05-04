@@ -1,0 +1,9 @@
+{
+  "name": "day8--re-frame-pair",
+  "displayName": "re-frame-pair",
+  "description": "A Skill for pair-programing with Claude Code on a re-frame app.",
+  "version": "1.0.0",
+  "author": "day8",
+  "homepage": "https://github.com/day8/re-frame-pair",
+  "skills": []
+}
