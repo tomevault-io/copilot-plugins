@@ -1,0 +1,51 @@
+{
+  "name": "gemini-skills",
+  "owner": "buildatscale-tv",
+  "repo": "gemini-skills",
+  "description": "A repository of skills for Gemini CLI",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nano-banana-pro",
+      "path": "skills/nano-banana-pro",
+      "github_url": "https://github.com/buildatscale-tv/gemini-skills/tree/main/skills/nano-banana-pro",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/buildatscale-tv/gemini-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T17:00:18Z"
+}
