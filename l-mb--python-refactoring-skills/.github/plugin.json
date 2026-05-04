@@ -1,0 +1,38 @@
+{
+  "name": "l-mb--python-refactoring-skills",
+  "displayName": "python-refactoring-skills",
+  "description": "Python refactoring \"skills\" for Claude Code and others",
+  "version": "1.0.0",
+  "author": "l-mb",
+  "homepage": "https://github.com/l-mb/python-refactoring-skills",
+  "skills": [
+    {
+      "name": "py-code-health",
+      "description": ""
+    },
+    {
+      "name": "py-complexity",
+      "description": ""
+    },
+    {
+      "name": "py-git-hooks",
+      "description": ""
+    },
+    {
+      "name": "py-modernize",
+      "description": ""
+    },
+    {
+      "name": "py-quality-setup",
+      "description": ""
+    },
+    {
+      "name": "py-refactor",
+      "description": ""
+    },
+    {
+      "name": "py-test-quality",
+      "description": ""
+    }
+  ]
+}
