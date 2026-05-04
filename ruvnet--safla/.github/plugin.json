@@ -1,0 +1,14 @@
+{
+  "name": "ruvnet--safla",
+  "displayName": "SAFLA",
+  "description": "Self-Aware Feedback Loop Algorithm (python)",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/SAFLA",
+  "skills": [
+    {
+      "name": "agent-safla-neural",
+      "description": ""
+    }
+  ]
+}
