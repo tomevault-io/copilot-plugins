@@ -7,11 +7,11 @@ ccstatusline 的中文汉化版 - Claude Code CLI 可定制状态栏格式化工
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [huangguang1999/ccstatusline-zh](https://github.com/huangguang1999/ccstatusline-zh).
+Original source: `CLAUDE.md` in [huangguang1999/ccstatusline-zh](https://github.com/huangguang1999/ccstatusline-zh).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
