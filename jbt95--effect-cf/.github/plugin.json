@@ -1,0 +1,14 @@
+{
+  "name": "jbt95--effect-cf",
+  "displayName": "effect-cf",
+  "description": "Typed Effect clients for Cloudflare Workers with schema validation.",
+  "version": "1.0.0",
+  "author": "jbt95",
+  "homepage": "https://github.com/jbt95/effect-cf",
+  "skills": [
+    {
+      "name": "cloudflare",
+      "description": ""
+    }
+  ]
+}
