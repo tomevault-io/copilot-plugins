@@ -1,0 +1,399 @@
+{
+  "name": "awesome-copilot",
+  "owner": "github",
+  "repo": "awesome-copilot",
+  "description": "Community-contributed instructions, agents, skills, and configurations to help you make the most of GitHub Copilot.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentic-eval",
+      "path": "skills/agentic-eval",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/agentic-eval",
+      "description": ""
+    },
+    {
+      "name": "appinsights-instrumentation",
+      "path": "skills/appinsights-instrumentation",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/appinsights-instrumentation",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": "skills/aspire",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/aspire",
+      "description": ""
+    },
+    {
+      "name": "azure-deployment-preflight",
+      "path": "skills/azure-deployment-preflight",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/azure-deployment-preflight",
+      "description": ""
+    },
+    {
+      "name": "azure-devops-cli",
+      "path": "skills/azure-devops-cli",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/azure-devops-cli",
+      "description": ""
+    },
+    {
+      "name": "azure-resource-visualizer",
+      "path": "skills/azure-resource-visualizer",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/azure-resource-visualizer",
+      "description": ""
+    },
+    {
+      "name": "azure-role-selector",
+      "path": "skills/azure-role-selector",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/azure-role-selector",
+      "description": ""
+    },
+    {
+      "name": "azure-static-web-apps",
+      "path": "skills/azure-static-web-apps",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/azure-static-web-apps",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "path": "skills/chrome-devtools",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "copilot-cli-quickstart",
+      "path": "skills/copilot-cli-quickstart",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/copilot-cli-quickstart",
+      "description": ""
+    },
+    {
+      "name": "excalidraw-diagram-generator",
+      "path": "skills/excalidraw-diagram-generator",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/excalidraw-diagram-generator",
+      "description": ""
+    },
+    {
+      "name": "fabric-lakehouse",
+      "path": "skills/fabric-lakehouse",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/fabric-lakehouse",
+      "description": ""
+    },
+    {
+      "name": "finnish-humanizer",
+      "path": "skills/finnish-humanizer",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/finnish-humanizer",
+      "description": ""
+    },
+    {
+      "name": "fluentui-blazor",
+      "path": "skills/fluentui-blazor",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/fluentui-blazor",
+      "description": ""
+    },
+    {
+      "name": "gh-cli",
+      "path": "skills/gh-cli",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/gh-cli",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "path": "skills/git-commit",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/git-commit",
+      "description": ""
+    },
+    {
+      "name": "github-issues",
+      "path": "skills/github-issues",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/github-issues",
+      "description": ""
+    },
+    {
+      "name": "image-manipulation-image-magick",
+      "path": "skills/image-manipulation-image-magick",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/image-manipulation-image-magick",
+      "description": ""
+    },
+    {
+      "name": "legacy-circuit-mockups",
+      "path": "skills/legacy-circuit-mockups",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/legacy-circuit-mockups",
+      "description": ""
+    },
+    {
+      "name": "make-repo-contribution",
+      "path": "skills/make-repo-contribution",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/make-repo-contribution",
+      "description": ""
+    },
+    {
+      "name": "make-skill-template",
+      "path": "skills/make-skill-template",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/make-skill-template",
+      "description": ""
+    },
+    {
+      "name": "markdown-to-html",
+      "path": "skills/markdown-to-html",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/markdown-to-html",
+      "description": ""
+    },
+    {
+      "name": "mcp-cli",
+      "path": "skills/mcp-cli",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/mcp-cli",
+      "description": ""
+    },
+    {
+      "name": "meeting-minutes",
+      "path": "skills/meeting-minutes",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/meeting-minutes",
+      "description": ""
+    },
+    {
+      "name": "microsoft-code-reference",
+      "path": "skills/microsoft-code-reference",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/microsoft-code-reference",
+      "description": ""
+    },
+    {
+      "name": "microsoft-skill-creator",
+      "path": "skills/microsoft-skill-creator",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/microsoft-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-pro-openrouter",
+      "path": "skills/nano-banana-pro-openrouter",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/nano-banana-pro-openrouter",
+      "description": ""
+    },
+    {
+      "name": "nuget-manager",
+      "path": "skills/nuget-manager",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/nuget-manager",
+      "description": ""
+    },
+    {
+      "name": "pdftk-server",
+      "path": "skills/pdftk-server",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/pdftk-server",
+      "description": ""
+    },
+    {
+      "name": "penpot-uiux-design",
+      "path": "skills/penpot-uiux-design",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/penpot-uiux-design",
+      "description": ""
+    },
+    {
+      "name": "plantuml-ascii",
+      "path": "skills/plantuml-ascii",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/plantuml-ascii",
+      "description": ""
+    },
+    {
+      "name": "polyglot-test-agent",
+      "path": "skills/polyglot-test-agent",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/polyglot-test-agent",
+      "description": ""
+    },
+    {
+      "name": "powerbi-modeling",
+      "path": "skills/powerbi-modeling",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/powerbi-modeling",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "path": "skills/prd",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/prd",
+      "description": ""
+    },
+    {
+      "name": "quasi-coder",
+      "path": "skills/quasi-coder",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/quasi-coder",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "path": "skills/refactor",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/refactor",
+      "description": ""
+    },
+    {
+      "name": "scoutqa-test",
+      "path": "skills/scoutqa-test",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/scoutqa-test",
+      "description": ""
+    },
+    {
+      "name": "snowflake-semanticview",
+      "path": "skills/snowflake-semanticview",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/snowflake-semanticview",
+      "description": ""
+    },
+    {
+      "name": "sponsor-finder",
+      "path": "skills/sponsor-finder",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/sponsor-finder",
+      "description": ""
+    },
+    {
+      "name": "terraform-azurerm-set-diff-analyzer",
+      "path": "skills/terraform-azurerm-set-diff-analyzer",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/terraform-azurerm-set-diff-analyzer",
+      "description": ""
+    },
+    {
+      "name": "transloadit-media-processing",
+      "path": "skills/transloadit-media-processing",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/transloadit-media-processing",
+      "description": ""
+    },
+    {
+      "name": "vscode-ext-commands",
+      "path": "skills/vscode-ext-commands",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/vscode-ext-commands",
+      "description": ""
+    },
+    {
+      "name": "vscode-ext-localization",
+      "path": "skills/vscode-ext-localization",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/vscode-ext-localization",
+      "description": ""
+    },
+    {
+      "name": "web-design-reviewer",
+      "path": "skills/web-design-reviewer",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/web-design-reviewer",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": "skills/webapp-testing",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "winapp-cli",
+      "path": "skills/winapp-cli",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/winapp-cli",
+      "description": ""
+    },
+    {
+      "name": "workiq-copilot",
+      "path": "skills/workiq-copilot",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/workiq-copilot",
+      "description": ""
+    },
+    {
+      "name": "msstore-cli",
+      "path": "skills/msstore-cli",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/msstore-cli",
+      "description": ""
+    },
+    {
+      "name": "project-workflow-analysis-blueprint-generator",
+      "path": "skills/project-workflow-analysis-blueprint-generator",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/project-workflow-analysis-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "technology-stack-blueprint-generator",
+      "path": "skills/technology-stack-blueprint-generator",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/technology-stack-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "code-exemplars-blueprint-generator",
+      "path": "skills/code-exemplars-blueprint-generator",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/code-exemplars-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "folder-structure-blueprint-generator",
+      "path": "skills/folder-structure-blueprint-generator",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/folder-structure-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "unit-test-vue-pinia",
+      "path": "skills/unit-test-vue-pinia",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/unit-test-vue-pinia",
+      "description": ""
+    },
+    {
+      "name": "next-intl-add-language",
+      "path": "skills/next-intl-add-language",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/next-intl-add-language",
+      "description": ""
+    },
+    {
+      "name": "javascript-typescript-jest",
+      "path": "skills/javascript-typescript-jest",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/javascript-typescript-jest",
+      "description": ""
+    },
+    {
+      "name": "quality-playbook",
+      "path": "skills/quality-playbook",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/quality-playbook",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "path": "skills/security-review",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/security-review",
+      "description": ""
+    },
+    {
+      "name": "typescript-mcp-server-generator",
+      "path": "skills/typescript-mcp-server-generator",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/typescript-mcp-server-generator",
+      "description": ""
+    },
+    {
+      "name": "python-mcp-server-generator",
+      "path": "skills/python-mcp-server-generator",
+      "github_url": "https://github.com/github/awesome-copilot/tree/main/skills/python-mcp-server-generator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/github/awesome-copilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:39:39Z"
+}
