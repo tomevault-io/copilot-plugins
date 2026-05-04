@@ -1,0 +1,69 @@
+{
+  "name": "torchlight-of-building",
+  "owner": "aclinia",
+  "repo": "torchlight-of-building",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-hero-trait",
+      "path": ".claude/skills/add-hero-trait",
+      "github_url": "https://github.com/aclinia/torchlight-of-building/tree/main/.claude/skills/add-hero-trait",
+      "description": ""
+    },
+    {
+      "name": "adding-mod-parsers",
+      "path": ".claude/skills/adding-mod-parsers",
+      "github_url": "https://github.com/aclinia/torchlight-of-building/tree/main/.claude/skills/adding-mod-parsers",
+      "description": ""
+    },
+    {
+      "name": "adding-support-mod-parsers",
+      "path": ".claude/skills/adding-support-mod-parsers",
+      "github_url": "https://github.com/aclinia/torchlight-of-building/tree/main/.claude/skills/adding-support-mod-parsers",
+      "description": ""
+    },
+    {
+      "name": "implementing-game-skill-parsers",
+      "path": ".claude/skills/implementing-game-skill-parsers",
+      "github_url": "https://github.com/aclinia/torchlight-of-building/tree/main/.claude/skills/implementing-game-skill-parsers",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aclinia/torchlight-of-building",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:30:21Z"
+}
