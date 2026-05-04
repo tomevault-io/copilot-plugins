@@ -1,0 +1,46 @@
+{
+  "name": "anshumanbh--securevibes",
+  "displayName": "securevibes",
+  "description": "A security system to protect your vibecoded apps",
+  "version": "1.0.0",
+  "author": "anshumanbh",
+  "homepage": "https://github.com/anshumanbh/securevibes",
+  "skills": [
+    {
+      "name": "agentic-security",
+      "description": ""
+    },
+    {
+      "name": "authorization-testing",
+      "description": ""
+    },
+    {
+      "name": "command-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "injection-testing",
+      "description": ""
+    },
+    {
+      "name": "nosql-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "sql-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "ssrf-testing",
+      "description": ""
+    },
+    {
+      "name": "xss-testing",
+      "description": ""
+    },
+    {
+      "name": "xxe-testing",
+      "description": ""
+    }
+  ]
+}
