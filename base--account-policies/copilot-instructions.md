@@ -1,0 +1,108 @@
+## solidity-testing
+
+> Foundry Solidity testing conventions (base harness, structure, stub-first)
+
+
+# Solidity Testing Conventions (Foundry)
+
+Applies to first-party tests under `test/` (do not modify dependency tests under `lib/`).
+
+## Directory structure (required)
+
+- `test/lib/`
+  - Base test harness contracts (shared fixtures + helpers)
+  - Shared mocks/utilities used across multiple suites
+- `test/unit/<Area>/`
+  - Unit tests scoped to a single contract/function/feature area
+  - Prefer one `.t.sol` per function or tightly-related group of functions unless contract is quite small (less than 4 testable functions)
+
+Recommended shape (examples):
+- `test/lib/PolicyManagerTestBase.sol`
+- `test/lib/mocks/MockCoinbaseSmartWallet.sol`
+- `test/unit/PolicyManager/executeWithInstall.t.sol`
+- `test/unit/policies/MorphoLoanProtectionPolicy/MorphoLoanProtectionPolicy.t.sol`
+
+## Base harness pattern (required)
+
+- Put shared deployment/setup/helpers in an `abstract contract <X>TestBase is Test` under `test/lib/`.
+- Child unit tests inherit the base and call a single base setup entrypoint from `setUp()`.
+  - Base setup entrypoint naming should be explicit (e.g. `setUpPolicyManagerBase()`, `setUpMorphoLoanProtectionBase()`).
+- Centralize “builders” and helpers in the base:
+  - Signature helpers (`_hashTypedData`, `_signInstall`, etc.)
+  - Common fixtures (accounts, deployed contracts, default configs)
+  - Fuzz bounds helpers (wrap `bound()` into semantically-named helpers)
+
+## Golden reference (recommended)
+
+- Use `test/unit/PolicyManager/execute.t.sol` as the canonical reference for:
+  - Fuzzing style (maximize meaningful fuzzing, avoid discarding by deriving offsets/seeds)
+  - Typed revert assertions and event expectations
+  - NatSpec on tests/helpers (including `@param` for all fuzz params)
+  - Helper layout inside a test file
+
+## Naming + organization
+
+- **Test file names**:
+  - Contract-scoped suites: `ContractName.t.sol`
+  - Function-scoped suites: `functionName.t.sol` (lower camelCase; matches the Solidity function name)
+- **Test contract names**:
+  - Contract-scoped suites: `ContractNameTest`
+  - Function-scoped suites: `FunctionNameTest` (CapWords, even when the file is lower camelCase like `install.t.sol`)
+- **Test function names**:
+  - If contract name already scopes the function, use `test_outcome_optionalContext`
+  - Otherwise use `test_functionName_outcome_optionalContext`
+
+Keep separation of concerns:
+- Core protocol tests separate from policy/hook tests.
+- Policy/hook suites focus on authorization, input validation, math/bounds, replay/nonce, lifecycle (install/execute/uninstall), and event emission.
+
+## NatSpec for tests (required)
+
+- Test functions MUST have a NatSpec `@notice` that describes the case being asserted.
+- Any fuzzed test function MUST NatSpec every parameter with `@param <name> ...` (no unnamed parameters).
+- Use `@dev` only when it adds durable clarity (e.g., expected typed error, important invariants, or why a bound/transform is used).
+
+## Reverts + events (preferred patterns)
+
+- Reverts:
+  - Prefer typed errors: `vm.expectRevert(SomeError.selector)`
+  - If args matter: `vm.expectRevert(abi.encodeWithSelector(SomeError.selector, ...))`
+- Events:
+  - Use `vm.expectEmit(...)` and emit the event with expected args immediately before the call.
+  - Give **each unique event emission** its own dedicated test (do not bundle event assertions with state/happy-path assertions, even if redundant).
+  - For “should not emit” cases, prefer `vm.recordLogs()` + scan for the signature.
+
+## Assertion scope (preferred)
+
+- Prefer **one thing per test**:
+  - A test should usually validate a single expected outcome (one revert, one event emission, or one state transition).
+  - Avoid packing multiple unrelated subcases into a single test.
+- Multiple assertions are fine when they are all part of probing the **same desired end state** (e.g., several state fields that jointly define correctness).
+
+## Fuzzing conventions (required)
+
+- Prefer `bound()` over `vm.assume()` when possible.
+- Define meaningful constants for fuzz bounds (no magic numbers).
+- Every fuzz parameter must be used (or be explicitly part of the stub-only phase; see below).
+- Keep assumptions minimal and targeted (e.g., inequality between two bounded addresses).
+
+## Stub-first workflow (required)
+
+When creating new coverage, **stub the full case matrix first** (tests compile, run, and are explicitly skipped), then implement bodies in a later pass.
+
+### Stub rule
+
+- A stub test MUST call `vm.skip(true);` to keep `forge test` green while the case is still being specified.
+- The stub’s NatSpec/docstring should clearly state the expected revert/event/state transitions (this is the “spec”).
+
+Example stub shape:
+
+```solidity
+function test_reverts_whenFooIsBar(uint256 x) public {
+    vm.skip(true);
+}
+```
+
+---
+> Source: [base/account-policies](https://github.com/base/account-policies) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-26 -->
