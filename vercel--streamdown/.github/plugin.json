@@ -1,0 +1,14 @@
+{
+  "name": "vercel--streamdown",
+  "displayName": "streamdown",
+  "description": "A drop-in replacement for react-markdown, designed for AI-powered streaming.",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/streamdown",
+  "skills": [
+    {
+      "name": "streamdown",
+      "description": ""
+    }
+  ]
+}
