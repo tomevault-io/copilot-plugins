@@ -4,7 +4,7 @@
   "repo": "anemll-flash-llama.cpp",
   "description": "Flash-MoE sidecar slot-bank runtime for large GGUF MoE models on Apple Silicon \u2014 llama.cpp fork",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Anemll/anemll-flash-llama.cpp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:52:24Z"
+  "distributed_at": "2026-05-04T07:43:55Z"
 }
