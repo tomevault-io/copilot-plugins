@@ -1,0 +1,51 @@
+{
+  "name": "software-agent-sdk",
+  "owner": "OpenHands",
+  "repo": "software-agent-sdk",
+  "description": "A clean, modular SDK for building AI agents with OpenHands V1.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "python-linting",
+      "path": "examples/05_skills_and_plugins/02_loading_plugins/example_plugins/code-quality/skills/linting",
+      "github_url": "https://github.com/OpenHands/software-agent-sdk/tree/main/examples/05_skills_and_plugins/02_loading_plugins/example_plugins/code-quality/skills/linting",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/OpenHands/software-agent-sdk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:40:21Z"
+}
