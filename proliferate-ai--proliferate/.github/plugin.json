@@ -1,0 +1,9 @@
+{
+  "name": "proliferate-ai--proliferate",
+  "displayName": "proliferate",
+  "description": "Run coding agents locally or in the cloud",
+  "version": "1.0.0",
+  "author": "proliferate-ai",
+  "homepage": "https://github.com/proliferate-ai/proliferate",
+  "skills": []
+}
