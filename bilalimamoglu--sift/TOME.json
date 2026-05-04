@@ -4,7 +4,7 @@
   "repo": "sift",
   "description": "Turn noisy command output into a short, actionable first pass for coding agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bilalimamoglu/sift",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:47:19Z"
+  "distributed_at": "2026-05-04T21:55:02Z"
 }
