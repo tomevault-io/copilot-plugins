@@ -1,0 +1,74 @@
+{
+  "name": "openai--openai-agents-js",
+  "displayName": "openai-agents",
+  "description": "A lightweight, powerful framework for multi-agent workflows and voice agents",
+  "version": "1.0.0",
+  "author": "openai",
+  "homepage": "https://github.com/openai/openai-agents-js",
+  "skills": [
+    {
+      "name": "code-change-verification",
+      "description": ""
+    },
+    {
+      "name": "docs-sync",
+      "description": ""
+    },
+    {
+      "name": "examples-auto-run",
+      "description": ""
+    },
+    {
+      "name": "final-release-review",
+      "description": ""
+    },
+    {
+      "name": "openai-knowledge",
+      "description": ""
+    },
+    {
+      "name": "pr-draft-summary",
+      "description": ""
+    },
+    {
+      "name": "test-coverage-improver",
+      "description": ""
+    },
+    {
+      "name": "changeset-validation",
+      "description": ""
+    },
+    {
+      "name": "code-change-verification",
+      "description": ""
+    },
+    {
+      "name": "docs-sync",
+      "description": ""
+    },
+    {
+      "name": "final-release-review",
+      "description": ""
+    },
+    {
+      "name": "integration-tests",
+      "description": ""
+    },
+    {
+      "name": "openai-knowledge",
+      "description": ""
+    },
+    {
+      "name": "pnpm-upgrade",
+      "description": ""
+    },
+    {
+      "name": "pr-draft-summary",
+      "description": ""
+    },
+    {
+      "name": "test-coverage-improver",
+      "description": ""
+    }
+  ]
+}
