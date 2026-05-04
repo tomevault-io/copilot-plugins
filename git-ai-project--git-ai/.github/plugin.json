@@ -1,0 +1,22 @@
+{
+  "name": "git-ai-project--git-ai",
+  "displayName": "git-ai",
+  "description": "A Git extension for tracking the AI-generated code in your repos",
+  "version": "1.0.0",
+  "author": "git-ai-project",
+  "homepage": "https://github.com/git-ai-project/git-ai",
+  "skills": [
+    {
+      "name": "ask",
+      "description": ""
+    },
+    {
+      "name": "git-ai-search",
+      "description": ""
+    },
+    {
+      "name": "prompt-analysis",
+      "description": ""
+    }
+  ]
+}
