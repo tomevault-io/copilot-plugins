@@ -4,7 +4,7 @@
   "repo": "aspens",
   "description": "Your CLAUDE.md stopped working at 200 lines. Generate scoped skill files from your import graph, auto-sync on every commit. Claude Code, Codex, Cursor.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/aspenkit/aspens",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:40:00Z"
+  "distributed_at": "2026-05-04T21:03:59Z"
 }
