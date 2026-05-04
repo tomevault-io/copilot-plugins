@@ -1,0 +1,54 @@
+{
+  "name": "mauromedda--agent-toolkit",
+  "displayName": "agent-toolkit",
+  "description": "Production-quality skills, tools, and patterns for AI-powered development workflows with Claude Code",
+  "version": "1.0.0",
+  "author": "mauromedda",
+  "homepage": "https://github.com/mauromedda/agent-toolkit",
+  "skills": [
+    {
+      "name": "bash",
+      "description": ""
+    },
+    {
+      "name": "design-patterns",
+      "description": ""
+    },
+    {
+      "name": "gemini-review",
+      "description": ""
+    },
+    {
+      "name": "golang",
+      "description": ""
+    },
+    {
+      "name": "improve-skill",
+      "description": ""
+    },
+    {
+      "name": "make",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "description": ""
+    },
+    {
+      "name": "scm",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-dev",
+      "description": ""
+    },
+    {
+      "name": "web-automation",
+      "description": ""
+    }
+  ]
+}
