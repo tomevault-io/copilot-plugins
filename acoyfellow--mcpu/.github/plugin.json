@@ -1,0 +1,9 @@
+{
+  "name": "acoyfellow--mcpu",
+  "displayName": "mcpu",
+  "description": "MCP control surface for a Cloudflare Artifacts repo. Bootstrap from GitHub, then edit, commit, and deploy on Cloudflare.",
+  "version": "1.0.0",
+  "author": "acoyfellow",
+  "homepage": "https://github.com/acoyfellow/mcpu",
+  "skills": []
+}
