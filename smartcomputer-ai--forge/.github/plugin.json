@@ -1,0 +1,9 @@
+{
+  "name": "smartcomputer-ai--forge",
+  "displayName": "forge",
+  "description": "Implementation of StrongDM's Attractor spec (https://github.com/strongdm/attractor) in Rust",
+  "version": "1.0.0",
+  "author": "smartcomputer-ai",
+  "homepage": "https://github.com/smartcomputer-ai/forge",
+  "skills": []
+}
