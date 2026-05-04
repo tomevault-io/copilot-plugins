@@ -1,0 +1,14 @@
+{
+  "name": "agentjido--req-llm",
+  "displayName": "req_llm",
+  "description": "Req plugin to query AI providers",
+  "version": "1.0.0",
+  "author": "agentjido",
+  "homepage": "https://github.com/agentjido/req_llm",
+  "skills": [
+    {
+      "name": "pr-review",
+      "description": ""
+    }
+  ]
+}
