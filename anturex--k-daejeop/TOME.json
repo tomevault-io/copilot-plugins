@@ -4,7 +4,7 @@
   "repo": "K-daejeop",
   "description": "\ud55c\uad6d \ub9db\uc9d1 \uacf5\uc720 \ub9f5\ub9ac\uc2a4\ud2b8",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Anturex/K-daejeop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T13:32:44Z"
+  "distributed_at": "2026-05-04T02:39:30Z"
 }
