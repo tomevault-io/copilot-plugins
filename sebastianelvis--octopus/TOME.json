@@ -1,0 +1,44 @@
+{
+  "name": "octopus",
+  "owner": "SebastianElvis",
+  "repo": "octopus",
+  "description": "The Claude Code frontend for ADHD developers. Dispatch board to run 50 sessions in parallel \u2014 from issue to merged PR, without leaving the app.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/SebastianElvis/octopus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T14:36:38Z"
+}
