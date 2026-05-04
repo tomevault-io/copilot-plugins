@@ -4,7 +4,7 @@
   "repo": "kaizen",
   "description": "Real-time, self-hostable agent observability: retros and experiments to improve your repo, across Cursor, Claude Code, and Codex. SQLite; redact before any sync you enable.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/marquesds/kaizen",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T22:35:56Z"
+  "distributed_at": "2026-05-04T21:12:57Z"
 }
