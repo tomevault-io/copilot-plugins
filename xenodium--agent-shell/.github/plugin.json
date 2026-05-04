@@ -1,0 +1,9 @@
+{
+  "name": "xenodium--agent-shell",
+  "displayName": "agent-shell",
+  "description": "A native Emacs buffer to interact with LLM agents powered by ACP",
+  "version": "1.0.0",
+  "author": "xenodium",
+  "homepage": "https://github.com/xenodium/agent-shell",
+  "skills": []
+}
