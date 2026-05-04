@@ -1,0 +1,9 @@
+{
+  "name": "hainrixz--the-architect",
+  "displayName": "the-architect",
+  "description": "The Architect \u2014 A Claude Code meta-agent that designs complete software blueprints. Describe what you want to build, get a self-contained .md file that Claude Code can build autonomously.",
+  "version": "1.0.0",
+  "author": "Hainrixz",
+  "homepage": "https://github.com/Hainrixz/the-architect",
+  "skills": []
+}
