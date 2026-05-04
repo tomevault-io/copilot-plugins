@@ -1,0 +1,14 @@
+{
+  "name": "aizhimou--pigeon-pod",
+  "displayName": "pigeon-pod",
+  "description": "Listen to YouTube & Bilibili. Anywhere.",
+  "version": "1.0.0",
+  "author": "aizhimou",
+  "homepage": "https://github.com/aizhimou/pigeon-pod",
+  "skills": [
+    {
+      "name": "requirements-analysis",
+      "description": ""
+    }
+  ]
+}
