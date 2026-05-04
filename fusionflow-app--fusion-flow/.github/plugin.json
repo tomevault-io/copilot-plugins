@@ -1,0 +1,9 @@
+{
+  "name": "fusionflow-app--fusion-flow",
+  "displayName": "fusion_flow",
+  "description": "High-performance workflow platform for real-time data orchestration. Scalable by design, fault-tolerant by nature, and built for complex business logic.",
+  "version": "1.0.0",
+  "author": "FusionFlow-app",
+  "homepage": "https://github.com/FusionFlow-app/fusion_flow",
+  "skills": []
+}
