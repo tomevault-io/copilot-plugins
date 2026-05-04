@@ -1,0 +1,9 @@
+{
+  "name": "lawgdev--worker-lb",
+  "displayName": "worker-lb",
+  "description": "An easy and composable load balancing layer for Cloudflare Workers",
+  "version": "1.0.0",
+  "author": "lawgdev",
+  "homepage": "https://github.com/lawgdev/worker-lb",
+  "skills": []
+}
