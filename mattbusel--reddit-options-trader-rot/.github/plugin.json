@@ -1,0 +1,9 @@
+{
+  "name": "mattbusel--reddit-options-trader-rot",
+  "displayName": "Reddit-Options-Trader-ROT-",
+  "description": "A modular research pipeline that turns trending Reddit discussions into structured market events and options trade ideas.",
+  "version": "1.0.0",
+  "author": "Mattbusel",
+  "homepage": "https://github.com/Mattbusel/Reddit-Options-Trader-ROT-",
+  "skills": []
+}
