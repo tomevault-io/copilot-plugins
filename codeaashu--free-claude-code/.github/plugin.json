@@ -1,0 +1,9 @@
+{
+  "name": "codeaashu--free-claude-code",
+  "displayName": "free-claude-code",
+  "description": "Use claude-code for free in the terminal, VSCode extension or via discord like openclaw",
+  "version": "1.0.0",
+  "author": "codeaashu",
+  "homepage": "https://github.com/codeaashu/free-claude-code",
+  "skills": []
+}
