@@ -1,0 +1,44 @@
+{
+  "name": "wallrice",
+  "owner": "nathanhoulamy",
+  "repo": "wallrice",
+  "description": "WallRice is a modern web app to transform your images with beautiful color palettes. Upload, select colors, and create stunning colorized wallpapers in seconds.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nathanhoulamy/wallrice",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T21:08:33Z"
+}
