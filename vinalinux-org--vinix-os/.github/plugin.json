@@ -1,0 +1,9 @@
+{
+  "name": "vinalinux-org--vinix-os",
+  "displayName": "Vinix-OS",
+  "description": "A reference operating system for embedded platforms, with initial bring-up on Beaglebone Black (ARM Cortex-A8).",
+  "version": "1.0.0",
+  "author": "Vinalinux-Org",
+  "homepage": "https://github.com/Vinalinux-Org/Vinix-OS",
+  "skills": []
+}
