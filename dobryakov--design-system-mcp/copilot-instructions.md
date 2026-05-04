@@ -1,0 +1,41 @@
+## specify-rules
+
+> Auto-generated from all feature plans. Last updated: 2025-11-13
+
+# design-system-mcp Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2025-11-13
+
+## Active Technologies
+- Node.js 20.x LTS, TypeScript 5.5.x (001-design-system-analyzer)
+- File system (JSON files in `designs/<site-name>/design-system.json` structure). Redis for BullMQ job storage. (001-design-system-analyzer)
+
+- Ruby 3.3.0, Rails 7.2.0 (001-design-system-analyzer)
+
+## Project Structure
+
+```text
+backend/
+frontend/
+tests/
+```
+
+## Commands
+
+# Add commands for Ruby 3.3.0, Rails 7.2.0
+
+## Code Style
+
+Ruby 3.3.0, Rails 7.2.0: Follow standard conventions
+
+## Recent Changes
+- 001-design-system-analyzer: Added Node.js 20.x LTS, TypeScript 5.5.x
+
+- 001-design-system-analyzer: Added Ruby 3.3.0, Rails 7.2.0
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
+
+---
+> Source: [dobryakov/design-system-mcp](https://github.com/dobryakov/design-system-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-26 -->
