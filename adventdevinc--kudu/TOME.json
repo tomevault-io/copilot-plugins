@@ -2,9 +2,9 @@
   "name": "kudu",
   "owner": "AdventDevInc",
   "repo": "kudu",
-  "description": "",
+  "description": "Free Windows, Mac and Linux cleaner, scanner, and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/AdventDevInc",
+  "source_url": "https://github.com/AdventDevInc/kudu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T21:09:16Z"
+  "distributed_at": "2026-05-04T11:08:26Z"
 }
