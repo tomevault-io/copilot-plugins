@@ -1,0 +1,18 @@
+{
+  "name": "tencentcloudbase--cloudbase-mcp",
+  "displayName": "CloudBase-MCP",
+  "description": "   CloudBase MCP - Connect CloudBase to your AI Agent.     Go from AI prompt to live app. ",
+  "version": "1.0.0",
+  "author": "TencentCloudBase",
+  "homepage": "https://github.com/TencentCloudBase/CloudBase-MCP",
+  "skills": [
+    {
+      "name": "git-workflows",
+      "description": ""
+    },
+    {
+      "name": "web-development",
+      "description": ""
+    }
+  ]
+}
