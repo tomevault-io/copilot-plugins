@@ -1,0 +1,135 @@
+{
+  "name": "agent-skills",
+  "owner": "metalagman",
+  "repo": "agent-skills",
+  "description": "Agent Skills. A collection of specialized expertise, workflows, and resources for LLM agents.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "beads",
+      "path": "beads",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/beads",
+      "description": ""
+    },
+    {
+      "name": "conventional-commits",
+      "path": "conventional-commits",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/conventional-commits",
+      "description": ""
+    },
+    {
+      "name": "gitflow",
+      "path": "gitflow",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/gitflow",
+      "description": ""
+    },
+    {
+      "name": "github-flow",
+      "path": "github-flow",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/github-flow",
+      "description": ""
+    },
+    {
+      "name": "go-adk",
+      "path": "go-adk",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-adk",
+      "description": ""
+    },
+    {
+      "name": "go-fx",
+      "path": "go-fx",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-fx",
+      "description": ""
+    },
+    {
+      "name": "go-google-best-practices",
+      "path": "go-google-best-practices",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-google-best-practices",
+      "description": ""
+    },
+    {
+      "name": "go-google-style-decisions",
+      "path": "go-google-style-decisions",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-google-style-decisions",
+      "description": ""
+    },
+    {
+      "name": "go-google-style-guide",
+      "path": "go-google-style-guide",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-google-style-guide",
+      "description": ""
+    },
+    {
+      "name": "go-goose",
+      "path": "go-goose",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-goose",
+      "description": ""
+    },
+    {
+      "name": "go-options-gen",
+      "path": "go-options-gen",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-options-gen",
+      "description": ""
+    },
+    {
+      "name": "go-oss-maintainer",
+      "path": "go-oss-maintainer",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-oss-maintainer",
+      "description": ""
+    },
+    {
+      "name": "go-senior-developer",
+      "path": "go-senior-developer",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-senior-developer",
+      "description": ""
+    },
+    {
+      "name": "go-uber-style-guide",
+      "path": "go-uber-style-guide",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/go-uber-style-guide",
+      "description": ""
+    },
+    {
+      "name": "skill-writer",
+      "path": "skill-writer",
+      "github_url": "https://github.com/metalagman/agent-skills/tree/main/skill-writer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/metalagman/agent-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:52:53Z"
+}
