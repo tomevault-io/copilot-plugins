@@ -1,0 +1,38 @@
+{
+  "name": "coder--mux",
+  "displayName": "mux",
+  "description": "A desktop app for isolated, parallel agentic development",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/mux",
+  "skills": [
+    {
+      "name": "deep-review",
+      "description": ""
+    },
+    {
+      "name": "dev-desktop-sandbox",
+      "description": ""
+    },
+    {
+      "name": "dev-server-sandbox",
+      "description": ""
+    },
+    {
+      "name": "pull-requests",
+      "description": ""
+    },
+    {
+      "name": "react-effects",
+      "description": ""
+    },
+    {
+      "name": "tbench",
+      "description": ""
+    },
+    {
+      "name": "tests",
+      "description": ""
+    }
+  ]
+}
