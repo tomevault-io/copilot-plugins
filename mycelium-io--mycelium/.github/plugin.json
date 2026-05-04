@@ -1,0 +1,9 @@
+{
+  "name": "mycelium-io--mycelium",
+  "displayName": "mycelium",
+  "description": "Multi-agent coordination + persistent memory, semantic negotiation, async rooms, and a shared knowledge graph",
+  "version": "1.0.0",
+  "author": "mycelium-io",
+  "homepage": "https://github.com/mycelium-io/mycelium",
+  "skills": []
+}
