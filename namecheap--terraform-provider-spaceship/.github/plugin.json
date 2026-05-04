@@ -1,0 +1,9 @@
+{
+  "name": "namecheap--terraform-provider-spaceship",
+  "displayName": "terraform-provider-spaceship",
+  "description": "spaceship terraform provider",
+  "version": "1.0.0",
+  "author": "namecheap",
+  "homepage": "https://github.com/namecheap/terraform-provider-spaceship",
+  "skills": []
+}
