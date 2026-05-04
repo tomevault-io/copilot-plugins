@@ -7,11 +7,11 @@ TypeScript-go enhanced with the Effect LSP experience
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Effect-TS/tsgo](https://github.com/Effect-TS/tsgo).
+Original source: `CLAUDE.md` in [Effect-TS/tsgo](https://github.com/Effect-TS/tsgo).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
