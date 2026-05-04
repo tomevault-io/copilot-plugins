@@ -1,0 +1,14 @@
+{
+  "name": "danielraffel--generous-corp-marketplace",
+  "displayName": "generous-corp-marketplace",
+  "description": "Official Claude Code plugin marketplace for Generous Corp plugins",
+  "version": "1.0.0",
+  "author": "danielraffel",
+  "homepage": "https://github.com/danielraffel/generous-corp-marketplace",
+  "skills": [
+    {
+      "name": "prompt-repetition-optimization",
+      "description": ""
+    }
+  ]
+}
