@@ -1,0 +1,44 @@
+{
+  "name": "geo-audit-skill",
+  "owner": "zilisrikle",
+  "repo": "geo-audit-skill",
+  "description": "AI citability audit for ChatGPT, Perplexity & Google AI Overviews. 6 specialist agents + 6 zero-dep Python scripts.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zilisrikle/geo-audit-skill",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T02:43:03Z"
+}
