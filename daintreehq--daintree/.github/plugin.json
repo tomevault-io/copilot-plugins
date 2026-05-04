@@ -1,0 +1,9 @@
+{
+  "name": "daintreehq--daintree",
+  "displayName": "daintree",
+  "description": "A delegation environment for orchestrating AI coding agents. Manage Claude, Gemini, and Codex sessions across git   worktrees with integrated terminals, context injection, and workflow automation.",
+  "version": "1.0.0",
+  "author": "daintreehq",
+  "homepage": "https://github.com/daintreehq/daintree",
+  "skills": []
+}
