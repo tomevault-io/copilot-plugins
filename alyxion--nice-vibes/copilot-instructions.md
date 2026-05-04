@@ -1,10 +1,10 @@
-## rules
+## nice-vibes
 
-> See [AGENTS.md](../../AGENTS.md) for complete project rules, commands, and conventions.
+> See [AGENTS.md](AGENTS.md) for complete project rules, commands, and conventions.
 
-# Windsurf Rules
+# Cursor Rules
 
-See [AGENTS.md](../../AGENTS.md) for complete project rules, commands, and conventions.
+See [AGENTS.md](AGENTS.md) for complete project rules, commands, and conventions.
 
 ---
 > Source: [Alyxion/nice-vibes](https://github.com/Alyxion/nice-vibes) — distributed by [TomeVault](https://tomevault.io).
