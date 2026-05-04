@@ -4,7 +4,7 @@
   "repo": "swoop",
   "description": "Search Google Flights programmatically. Real prices, typed results, no API key.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saraswatayu/swoop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:41:28Z"
+  "distributed_at": "2026-05-04T21:06:44Z"
 }
