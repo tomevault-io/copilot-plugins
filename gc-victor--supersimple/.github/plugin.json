@@ -1,0 +1,9 @@
+{
+  "name": "gc-victor--supersimple",
+  "displayName": "supersimple",
+  "description": "Lightweight OpenCode profile for routine dev work with focused agents, local skills, and conductor-based track management.",
+  "version": "1.0.0",
+  "author": "gc-victor",
+  "homepage": "https://github.com/gc-victor/supersimple",
+  "skills": []
+}
