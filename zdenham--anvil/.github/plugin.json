@@ -1,0 +1,9 @@
+{
+  "name": "zdenham--anvil",
+  "displayName": "anvil",
+  "description": "IDE for parallel agent work. Create worktrees in one click. Share plans between agents. Execute with parallelism + isolation.",
+  "version": "1.0.0",
+  "author": "zdenham",
+  "homepage": "https://github.com/zdenham/anvil",
+  "skills": []
+}
