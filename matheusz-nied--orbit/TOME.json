@@ -1,0 +1,44 @@
+{
+  "name": "orbit",
+  "owner": "matheusz-nied",
+  "repo": "orbit",
+  "description": "Orbit - P\u00e1gina inicial personalizada para seu navegador. Organize sites por categorias, pesquise com diferentes provedores, personalize com temas diversos. Sem contas, sem rastreamento, 100% local. R\u00e1pida, bonita e funcional.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/matheusz-nied/orbit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T14:24:58Z"
+}
