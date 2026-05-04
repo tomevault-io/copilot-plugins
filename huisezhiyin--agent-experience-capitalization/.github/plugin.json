@@ -1,0 +1,9 @@
+{
+  "name": "huisezhiyin--agent-experience-capitalization",
+  "displayName": "agent-experience-capitalization",
+  "description": "Project memory for coding agents: team-shareable engineering experience assets with Milvus semantic retrieval.",
+  "version": "1.0.0",
+  "author": "huisezhiyin",
+  "homepage": "https://github.com/huisezhiyin/agent-experience-capitalization",
+  "skills": []
+}
