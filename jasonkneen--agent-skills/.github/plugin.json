@@ -1,0 +1,14 @@
+{
+  "name": "jasonkneen--agent-skills",
+  "displayName": "agent-skills",
+  "description": "A collection of plugins and skills",
+  "version": "1.0.0",
+  "author": "jasonkneen",
+  "homepage": "https://github.com/jasonkneen/agent-skills",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
