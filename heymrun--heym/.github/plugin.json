@@ -1,0 +1,9 @@
+{
+  "name": "heymrun--heym",
+  "displayName": "heym",
+  "description": "Self-hosted AI workflow automation platform with visual canvas, agents, RAG, HITL, MCP, and observability in one runtime.",
+  "version": "1.0.0",
+  "author": "heymrun",
+  "homepage": "https://github.com/heymrun/heym",
+  "skills": []
+}
