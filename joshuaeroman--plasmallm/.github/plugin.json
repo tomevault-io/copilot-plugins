@@ -1,0 +1,9 @@
+{
+  "name": "joshuaeroman--plasmallm",
+  "displayName": "plasmallm",
+  "description": "A KDE Plasma plasmoid to add desktop chat with LLMs",
+  "version": "1.0.0",
+  "author": "joshuaeroman",
+  "homepage": "https://github.com/joshuaeroman/plasmallm",
+  "skills": []
+}
