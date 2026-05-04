@@ -1,0 +1,9 @@
+{
+  "name": "habitat-thinking--ai-literacy-superpowers",
+  "displayName": "ai-literacy-superpowers",
+  "description": "A set of Claude Code and GitHub Copilot plugins providing the AI Literacy framework's complete development workflow \u2014 harness engineering, agent orchestration, literate programming, CUPID code review,",
+  "version": "1.0.0",
+  "author": "Habitat-Thinking",
+  "homepage": "https://github.com/Habitat-Thinking/ai-literacy-superpowers",
+  "skills": []
+}
