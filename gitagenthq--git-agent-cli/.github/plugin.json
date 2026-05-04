@@ -1,0 +1,9 @@
+{
+  "name": "gitagenthq--git-agent-cli",
+  "displayName": "git-agent-cli",
+  "description": "AI-powered Git CLI that analyzes your staged and unstaged changes, splits them into atomic commits, and generates conventional commit messages via LLMs.",
+  "version": "1.0.0",
+  "author": "GitAgentHQ",
+  "homepage": "https://github.com/GitAgentHQ/git-agent-cli",
+  "skills": []
+}
