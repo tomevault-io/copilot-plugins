@@ -1,0 +1,57 @@
+{
+  "name": "winappCli",
+  "owner": "microsoft",
+  "repo": "winappCli",
+  "description": "winapp, the Windows App Development CLI, is a single command-line interface for managing Windows SDKs, packaging, generating app identity, manifests, certificates, and using build tools with any app framework. ",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "winapp-setup",
+      "path": ".github/plugin/skills/winapp-cli/setup",
+      "github_url": "https://github.com/microsoft/winappCli/tree/main/.github/plugin/skills/winapp-cli/setup",
+      "description": ""
+    },
+    {
+      "name": "winapp-frameworks",
+      "path": ".github/plugin/skills/winapp-cli/frameworks",
+      "github_url": "https://github.com/microsoft/winappCli/tree/main/.github/plugin/skills/winapp-cli/frameworks",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/winappCli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:40:53Z"
+}
