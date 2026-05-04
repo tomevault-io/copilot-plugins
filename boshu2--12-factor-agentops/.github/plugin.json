@@ -1,0 +1,9 @@
+{
+  "name": "boshu2--12-factor-agentops",
+  "displayName": "12-factor-agentops",
+  "description": "Operational patterns for AI agents and infrastructure from solo to enterprise scale. Applies DevOps + SRE principles to the intersection: infrastructure FOR AI + AI FOR infrastructure. Alpha framework",
+  "version": "1.0.0",
+  "author": "boshu2",
+  "homepage": "https://github.com/boshu2/12-factor-agentops",
+  "skills": []
+}
