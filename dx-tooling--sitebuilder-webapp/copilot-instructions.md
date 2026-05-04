@@ -1,64 +1,47 @@
-## 05-frontend
+## 06-database
 
-> TypeScript over JS, Stimulus controllers, assets, Tailwind, mise quality for frontend. Use when editing TS/JS/CSS or Twig.
+> Doctrine entities, migrations (make:migration only), DateAndTimeService, mb_* strings. Use when editing entities or migrations.
 
 
-# Frontend Development
+# Database Access Patterns
 
-**Reference**: See `docs/archbook.md` section on "Client-Side Organization", `docs/frontendbook.md` for Stimulus (build, integration, controller structure).
+**Reference**: See `docs/archbook.md` section on "Database access in Domain" and `docs/devbook.md` for migration workflow.
 
-## TypeScript Over JavaScript
+## Database Access in Domain Layer
 
-- **Always** prefer TypeScript over JavaScript
-- Use TypeScript's type system extensively
-- Generate `.ts` files, not `.js` files
-- Only use JavaScript when TypeScript is not available for a specific library
+- Database access is **allowed** in the Domain layer
+- Use raw SQL for complex queries
+- Use `EntityManager` for simple CRUD operations
+- **Never** hardcode table names; use entity class names and Doctrine's table mapping
 
-## Stimulus Controllers
+## Entity Management
 
-- Stimulus controllers are colocated with verticals: `src/FeatureName/Presentation/Resources/assets/controllers/`
-- Keep frontend code aligned with vertical boundaries
-- Use TypeScript for Stimulus controllers when possible
+- Model entities in `Domain/Entity/`
+- Use Doctrine ORM attributes for mapping
+- Entities are rich domain objects with behavior
+- Don't expose entities directly across vertical boundaries (use DTOs)
 
-## Asset Organization
+## Migrations
 
-- Frontend assets in `assets/` directory
-- Vendor assets managed through Symfony AssetMapper (importmaps)
-- See `docs/techbook.md` for dependency management details
+- **Never** write migrations manually
+- Create or edit entities
+- Run `mise run console make:migration` to generate migrations (see `docs/devbook.md`)
+- Migrations are auto-generated from entity changes
 
-## Code Quality
+## Date and Time
 
-- Run `mise quality` to check frontend code (Prettier, ESLint, TypeScript compiler)
-- All frontend code must pass ESLint and TypeScript type checking
-- Format code with Prettier (automatically runs in `mise quality`)
+- **Always** use `DateAndTimeService::getDateTimeImmutable()` instead of `new DateTimeImmutable()`
+- This ensures consistent time handling across the application
+- See `docs/archbook.md` for this requirement
 
-## Polling Pattern (Non-Overlapping)
+## String Handling
 
-**Always use `setTimeout` with scheduling after completion**, never `setInterval` for polling:
+- Use `mb_*` functions for multibyte-safe string operations
+- Be aware of encoding when working with user input or database data
 
-```ts
-// WRONG - requests can overlap if slow
-this.intervalId = setInterval(() => this.poll(), 1000);
+## Connection
 
-// CORRECT - next poll only after current completes
-private async poll(): Promise<void> {
-    try {
-        await fetch(this.url);
-    } finally {
-        if (this.isActive) {
-            this.timeoutId = setTimeout(() => this.poll(), 1000);
-        }
-    }
-}
-```
-
-This prevents request pile-up on slow connections and is more resilient to network latency.
-
-## Building Frontend
-
-- Use `mise run frontend` to build frontend assets (see `docs/devbook.md`)
-- Frontend builds are handled by Symfony AssetMapper and TailwindCSS
-- Don't manually edit built files in `public/assets/`
+- Use `mise run db` to connect to the local database (see `docs/devbook.md`)
 
 ---
 > Source: [dx-tooling/sitebuilder-webapp](https://github.com/dx-tooling/sitebuilder-webapp) — distributed by [TomeVault](https://tomevault.io).
