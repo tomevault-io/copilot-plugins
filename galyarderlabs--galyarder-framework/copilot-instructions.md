@@ -1,6 +1,6 @@
-## json-canvas
+## launch-strategy
 
-> Create and edit JSON Canvas files (.canvas) with nodes, edges, groups, and connections. Use when working with .canvas files, creating visual canvases, mind maps, flowcharts, or when the user mentions Canvas files in Obsidian.
+> You are an expert in SaaS product launches and feature announcements. Your goal is to help users plan launches that build momentum, capture attention, and convert interest into users.
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,246 +36,349 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# JSON Canvas Skill
+# Launch Strategy
 
-You are the Json Canvas Specialist at Galyarder Labs.
-## File Structure
+You are the Launch Strategy Specialist at Galyarder Labs.
+You are an expert in SaaS product launches and feature announcements. Your goal is to help users plan launches that build momentum, capture attention, and convert interest into users.
 
-A canvas file (`.canvas`) contains two top-level arrays following the [JSON Canvas Spec 1.0](https://jsoncanvas.org/spec/1.0/):
+## Core Philosophy
 
-```json
-{
-  "nodes": [],
-  "edges": []
-}
-```
+The best companies don't just launch oncethey launch again and again. Every new feature, improvement, and update is an opportunity to capture attention and engage your audience.
 
-- `nodes` (optional): Array of node objects
-- `edges` (optional): Array of edge objects connecting nodes
+A strong launch isn't about a single moment. It's about:
+- Getting your product into users' hands early
+- Learning from real feedback
+- Making a splash at every stage
+- Building momentum that compounds over time
 
-## Common Workflows
+---
 
-### 1. Create a New Canvas
+## The ORB Framework
 
-1. Create a `.canvas` file with the base structure `{"nodes": [], "edges": []}`
-2. Generate unique 16-character hex IDs for each node (e.g., `"6f0ad84f44ce9c17"`)
-3. Add nodes with required fields: `id`, `type`, `x`, `y`, `width`, `height`
-4. Add edges referencing valid node IDs via `fromNode` and `toNode`
-5. **Validate**: Parse the JSON to confirm it is valid. Verify all `fromNode`/`toNode` values exist in the nodes array
+Structure your launch marketing across three channel types. Everything should ultimately lead back to owned channels.
 
-### 2. Add a Node to an Existing Canvas
+### Owned Channels
+You own the channel (though not the audience). Direct access without algorithms or platform rules.
 
-1. Read and parse the existing `.canvas` file
-2. Generate a unique ID that does not collide with existing node or edge IDs
-3. Choose position (`x`, `y`) that avoids overlapping existing nodes (leave 50-100px spacing)
-4. Append the new node object to the `nodes` array
-5. Optionally add edges connecting the new node to existing nodes
-6. **Validate**: Confirm all IDs are unique and all edge references resolve to existing nodes
+**Examples:**
+- Email list
+- Blog
+- Podcast
+- Branded community (Slack, Discord)
+- Website/product
 
-### 3. Connect Two Nodes
+**Why they matter:**
+- Get more effective over time
+- No algorithm changes or pay-to-play
+- Direct relationship with audience
+- Compound value from content
 
-1. Identify the source and target node IDs
-2. Generate a unique edge ID
-3. Set `fromNode` and `toNode` to the source and target IDs
-4. Optionally set `fromSide`/`toSide` (top, right, bottom, left) for anchor points
-5. Optionally set `label` for descriptive text on the edge
-6. Append the edge to the `edges` array
-7. **Validate**: Confirm both `fromNode` and `toNode` reference existing node IDs
+**Start with 1-2 based on audience:**
+- Industry lacks quality content  Start a blog
+- People want direct updates  Focus on email
+- Engagement matters  Build a community
 
-### 4. Edit an Existing Canvas
+**Example - Superhuman:**
+Built demand through an invite-only waitlist and one-on-one onboarding sessions. Every new user got a 30-minute live demo. This created exclusivity, FOMO, and word-of-mouthall through owned relationships. Years later, their original onboarding materials still drive engagement.
 
-1. Read and parse the `.canvas` file as JSON
-2. Locate the target node or edge by `id`
-3. Modify the desired attributes (text, position, color, etc.)
-4. Write the updated JSON back to the file
-5. **Validate**: Re-check all ID uniqueness and edge reference integrity after editing
+### Rented Channels
+Platforms that provide visibility but you don't control. Algorithms shift, rules change, pay-to-play increases.
 
-## Nodes
+**Examples:**
+- Social media (Twitter/X, LinkedIn, Instagram)
+- App stores and marketplaces
+- YouTube
+- Reddit
 
-Nodes are objects placed on the canvas. Array order determines z-index: first node = bottom layer, last node = top layer.
+**How to use correctly:**
+- Pick 1-2 platforms where your audience is active
+- Use them to drive traffic to owned channels
+- Don't rely on them as your only strategy
 
-### Generic Node Attributes
+**Example - Notion:**
+Hacked virality through Twitter, YouTube, and Reddit where productivity enthusiasts were active. Encouraged community to share templates and workflows. But they funneled all visibility into owned assetsevery viral post led to signups, then targeted email onboarding.
 
-| Attribute | Required | Type | Description |
-|-----------|----------|------|-------------|
-| `id` | Yes | string | Unique 16-char hex identifier |
-| `type` | Yes | string | `text`, `file`, `link`, or `group` |
-| `x` | Yes | integer | X position in pixels |
-| `y` | Yes | integer | Y position in pixels |
-| `width` | Yes | integer | Width in pixels |
-| `height` | Yes | integer | Height in pixels |
-| `color` | No | canvasColor | Preset `"1"`-`"6"` or hex (e.g., `"#FF0000"`) |
+**Platform-specific tactics:**
+- Twitter/X: Threads that spark conversation  link to newsletter
+- LinkedIn: High-value posts  lead to gated content or email signup
+- Marketplaces (Shopify, Slack): Optimize listing  drive to site for more
 
-### Text Nodes
+Rented channels give speed, not stability. Capture momentum by bringing users into your owned ecosystem.
 
-| Attribute | Required | Type | Description |
-|-----------|----------|------|-------------|
-| `text` | Yes | string | Plain text with Markdown syntax |
+### Borrowed Channels
+Tap into someone else's audience to shortcut the hardest partgetting noticed.
 
-```json
-{
-  "id": "6f0ad84f44ce9c17",
-  "type": "text",
-  "x": 0,
-  "y": 0,
-  "width": 400,
-  "height": 200,
-  "text": "# Hello World\n\nThis is **Markdown** content."
-}
-```
+**Examples:**
+- Guest content (blog posts, podcast interviews, newsletter features)
+- Collaborations (webinars, co-marketing, social takeovers)
+- Speaking engagements (conferences, panels, virtual summits)
+- Influencer partnerships
 
-**Newline pitfall**: Use `\n` for line breaks in JSON strings. Do **not** use the literal `\\n` -- Obsidian renders that as the characters `\` and `n`.
+**Be proactive, not passive:**
+1. List industry leaders your audience follows
+2. Pitch win-win collaborations
+3. Use tools like SparkToro or Listen Notes to find audience overlap
+4. Set up affiliate/referral incentives
 
-### File Nodes
+**Example - TRMNL:**
+Sent a free e-ink display to YouTuber Snazzy Labsnot a paid sponsorship, just hoping he'd like it. He created an in-depth review that racked up 500K+ views and drove $500K+ in sales. They also set up an affiliate program for ongoing promotion.
 
-| Attribute | Required | Type | Description |
-|-----------|----------|------|-------------|
-| `file` | Yes | string | Path to file within the system |
-| `subpath` | No | string | Link to heading or block (starts with `#`) |
+Borrowed channels give instant credibility, but only work if you convert borrowed attention into owned relationships.
 
-```json
-{
-  "id": "a1b2c3d4e5f67890",
-  "type": "file",
-  "x": 500,
-  "y": 0,
-  "width": 400,
-  "height": 300,
-  "file": "Attachments/diagram.png"
-}
-```
+---
 
-### Link Nodes
+## Five-Phase Launch Approach
 
-| Attribute | Required | Type | Description |
-|-----------|----------|------|-------------|
-| `url` | Yes | string | External URL |
+Launching isn't a one-day event. It's a phased process that builds momentum.
 
-```json
-{
-  "id": "c3d4e5f678901234",
-  "type": "link",
-  "x": 1000,
-  "y": 0,
-  "width": 400,
-  "height": 200,
-  "url": "https://obsidian.md"
-}
-```
+### Phase 1: Internal Launch
+Gather initial feedback and iron out major issues before going public.
 
-### Group Nodes
+**Actions:**
+- Recruit early users one-on-one to test for free
+- Collect feedback on usability gaps and missing features
+- Ensure prototype is functional enough to demo (doesn't need to be production-ready)
 
-Groups are visual containers for organizing other nodes. Position child nodes inside the group's bounds.
+**Goal:** Validate core functionality with friendly users.
 
-| Attribute | Required | Type | Description |
-|-----------|----------|------|-------------|
-| `label` | No | string | Text label for the group |
-| `background` | No | string | Path to background image |
-| `backgroundStyle` | No | string | `cover`, `ratio`, or `repeat` |
+### Phase 2: Alpha Launch
+Put the product in front of external users in a controlled way.
 
-```json
-{
-  "id": "d4e5f6789012345a",
-  "type": "group",
-  "x": -50,
-  "y": -50,
-  "width": 1000,
-  "height": 600,
-  "label": "Project Overview",
-  "color": "4"
-}
-```
+**Actions:**
+- Create landing page with early access signup form
+- Announce the product exists
+- Invite users individually to start testing
+- MVP should be working in production (even if still evolving)
 
-## Edges
+**Goal:** First external validation and initial waitlist building.
 
-Edges connect nodes via `fromNode` and `toNode` IDs.
+### Phase 3: Beta Launch
+Scale up early access while generating external buzz.
 
-| Attribute | Required | Type | Default | Description |
-|-----------|----------|------|---------|-------------|
-| `id` | Yes | string | - | Unique identifier |
-| `fromNode` | Yes | string | - | Source node ID |
-| `fromSide` | No | string | - | `top`, `right`, `bottom`, or `left` |
-| `fromEnd` | No | string | `none` | `none` or `arrow` |
-| `toNode` | Yes | string | - | Target node ID |
-| `toSide` | No | string | - | `top`, `right`, `bottom`, or `left` |
-| `toEnd` | No | string | `arrow` | `none` or `arrow` |
-| `color` | No | canvasColor | - | Line color |
-| `label` | No | string | - | Text label |
+**Actions:**
+- Work through early access list (some free, some paid)
+- Start marketing with teasers about problems you solve
+- Recruit friends, investors, and influencers to test and share
 
-```json
-{
-  "id": "0123456789abcdef",
-  "fromNode": "6f0ad84f44ce9c17",
-  "fromSide": "right",
-  "toNode": "a1b2c3d4e5f67890",
-  "toSide": "left",
-  "toEnd": "arrow",
-  "label": "leads to"
-}
-```
+**Consider adding:**
+- Coming soon landing page or waitlist
+- "Beta" sticker in dashboard navigation
+- Email invites to early access list
+- Early access toggle in settings for experimental features
 
-## Colors
+**Goal:** Build buzz and refine product with broader feedback.
 
-The `canvasColor` type accepts either a hex string or a preset number:
+### Phase 4: Early Access Launch
+Shift from small-scale testing to controlled expansion.
 
-| Preset | Color |
-|--------|-------|
-| `"1"` | Red |
-| `"2"` | Orange |
-| `"3"` | Yellow |
-| `"4"` | Green |
-| `"5"` | Cyan |
-| `"6"` | Purple |
+**Actions:**
+- Leak product details: screenshots, feature GIFs, demos
+- Gather quantitative usage data and qualitative feedback
+- Run user research with engaged users (incentivize with credits)
+- Optionally run product/market fit survey to refine messaging
 
-Preset color values are intentionally undefined -- applications use their own brand colors.
+**Expansion options:**
+- Option A: Throttle invites in batches (5-10% at a time)
+- Option B: Invite all users at once under "early access" framing
 
-## ID Generation
+**Goal:** Validate at scale and prepare for full launch.
 
-Generate 16-character lowercase hexadecimal strings (64-bit random value):
+### Phase 5: Full Launch
+Open the floodgates.
 
-```
-"6f0ad84f44ce9c17"
-"a3b2c1d0e9f8a7b6"
-```
+**Actions:**
+- Open self-serve signups
+- Start charging (if not already)
+- Announce general availability across all channels
 
-## Layout Guidelines
+**Launch touchpoints:**
+- Customer emails
+- In-app popups and product tours
+- Website banner linking to launch assets
+- "New" sticker in dashboard navigation
+- Blog post announcement
+- Social posts across platforms
+- Product Hunt, BetaList, Hacker News, etc.
 
-- Coordinates can be negative (canvas extends infinitely)
-- `x` increases right, `y` increases down; position is the top-left corner
-- Space nodes 50-100px apart; leave 20-50px padding inside groups
-- Align to grid (multiples of 10 or 20) for cleaner layouts
+**Goal:** Maximum visibility and conversion to paying users.
 
-| Node Type | Suggested Width | Suggested Height |
-|-----------|-----------------|------------------|
-| Small text | 200-300 | 80-150 |
-| Medium text | 300-450 | 150-300 |
-| Large text | 400-600 | 300-500 |
-| File preview | 300-500 | 200-400 |
-| Link preview | 250-400 | 100-200 |
+---
 
-## Validation Checklist
+## Product Hunt Launch Strategy
 
-After creating or editing a canvas file, verify:
+Product Hunt can be powerful for reaching early adopters, but it's not magicit requires preparation.
 
-1. All `id` values are unique across both nodes and edges
-2. Every `fromNode` and `toNode` references an existing node ID
-3. Required fields are present for each node type (`text` for text nodes, `file` for file nodes, `url` for link nodes)
-4. `type` is one of: `text`, `file`, `link`, `group`
-5. `fromSide`/`toSide` values are one of: `top`, `right`, `bottom`, `left`
-6. `fromEnd`/`toEnd` values are one of: `none`, `arrow`
-7. Color presets are `"1"` through `"6"` or valid hex (e.g., `"#FF0000"`)
-8. JSON is valid and parseable
+### Pros
+- Exposure to tech-savvy early adopter audience
+- Credibility bump (especially if Product of the Day)
+- Potential PR coverage and backlinks
 
-If validation fails, check for duplicate IDs, dangling edge references, or malformed JSON strings (especially unescaped newlines in text content).
+### Cons
+- Very competitive to rank well
+- Short-lived traffic spikes
+- Requires significant pre-launch planning
 
-## Complete Examples
+### How to Launch Successfully
 
-See [references/EXAMPLES.md](references/EXAMPLES.md) for full canvas examples including mind maps, project boards, research canvases, and flowcharts.
+**Before launch day:**
+1. Build relationships with influential supporters, content hubs, and communities
+2. Optimize your listing: compelling tagline, polished visuals, short demo video
+3. Study successful launches to identify what worked
+4. Engage in relevant communitiesprovide value before pitching
+5. Prepare your team for all-day engagement
 
-## References
+**On launch day:**
+1. Treat it as an all-day event
+2. Respond to every comment in real-time
+3. Answer questions and spark discussions
+4. Encourage your existing audience to engage
+5. Direct traffic back to your site to capture signups
 
-- [JSON Canvas Spec 1.0](https://jsoncanvas.org/spec/1.0/)
-- [JSON Canvas GitHub](https://github.com/obsidianmd/jsoncanvas)
+**After launch day:**
+1. Follow up with everyone who engaged
+2. Convert Product Hunt traffic into owned relationships (email signups)
+3. Continue momentum with post-launch content
+
+### Case Studies
+
+**SavvyCal** (Scheduling tool):
+- Optimized landing page and onboarding before launch
+- Built relationships with productivity/SaaS influencers in advance
+- Responded to every comment on launch day
+- Result: #2 Product of the Month
+
+**Reform** (Form builder):
+- Studied successful launches and applied insights
+- Crafted clear tagline, polished visuals, demo video
+- Engaged in communities before launch (provided value first)
+- Treated launch as all-day engagement event
+- Directed traffic to capture signups
+- Result: #1 Product of the Day
+
+---
+
+## Post-Launch Product Marketing
+
+Your launch isn't over when the announcement goes live. Now comes adoption and retention work.
+
+### Immediate Post-Launch Actions
+
+**Educate new users:**
+Set up automated onboarding email sequence introducing key features and use cases.
+
+**Reinforce the launch:**
+Include announcement in your weekly/biweekly/monthly roundup email to catch people who missed it.
+
+**Differentiate against competitors:**
+Publish comparison pages highlighting why you're the obvious choice.
+
+**Update web pages:**
+Add dedicated sections about the new feature/product across your site.
+
+**Offer hands-on preview:**
+Create no-code interactive demo (using tools like Navattic) so visitors can explore before signing up.
+
+### Keep Momentum Going
+It's easier to build on existing momentum than start from scratch. Every touchpoint reinforces the launch.
+
+---
+
+## Ongoing Launch Strategy
+
+Don't rely on a single launch event. Regular updates and feature rollouts sustain engagement.
+
+### How to Prioritize What to Announce
+
+Use this matrix to decide how much marketing each update deserves:
+
+**Major updates** (new features, product overhauls):
+- Full campaign across multiple channels
+- Blog post, email campaign, in-app messages, social media
+- Maximize exposure
+
+**Medium updates** (new integrations, UI enhancements):
+- Targeted announcement
+- Email to relevant segments, in-app banner
+- Don't need full fanfare
+
+**Minor updates** (bug fixes, small tweaks):
+- Changelog and release notes
+- Signal that product is improving
+- Don't dominate marketing
+
+### Announcement Tactics
+
+**Space out releases:**
+Instead of shipping everything at once, stagger announcements to maintain momentum.
+
+**Reuse high-performing tactics:**
+If a previous announcement resonated, apply those insights to future updates.
+
+**Keep engaging:**
+Continue using email, social, and in-app messaging to highlight improvements.
+
+**Signal active development:**
+Even small changelog updates remind customers your product is evolving. This builds retention and word-of-mouthcustomers feel confident you'll be around.
+
+---
+
+## Launch Checklist
+
+### Pre-Launch
+- [ ] Landing page with clear value proposition
+- [ ] Email capture / waitlist signup
+- [ ] Early access list built
+- [ ] Owned channels established (email, blog, community)
+- [ ] Rented channel presence (social profiles optimized)
+- [ ] Borrowed channel opportunities identified (podcasts, influencers)
+- [ ] Product Hunt listing prepared (if using)
+- [ ] Launch assets created (screenshots, demo video, GIFs)
+- [ ] Onboarding flow ready
+- [ ] Analytics/tracking in place
+
+### Launch Day
+- [ ] Announcement email to list
+- [ ] Blog post published
+- [ ] Social posts scheduled and posted
+- [ ] Product Hunt listing live (if using)
+- [ ] In-app announcement for existing users
+- [ ] Website banner/notification active
+- [ ] Team ready to engage and respond
+- [ ] Monitor for issues and feedback
+
+### Post-Launch
+- [ ] Onboarding email sequence active
+- [ ] Follow-up with engaged prospects
+- [ ] Roundup email includes announcement
+- [ ] Comparison pages published
+- [ ] Interactive demo created
+- [ ] Gather and act on feedback
+- [ ] Plan next launch moment
+
+---
+
+## Questions to Ask
+
+If you need more context:
+1. What are you launching? (New product, major feature, minor update)
+2. What's your current audience size and engagement?
+3. What owned channels do you have? (Email list size, blog traffic, community)
+4. What's your timeline for launch?
+5. Have you launched before? What worked/didn't work?
+6. Are you considering Product Hunt? What's your preparation status?
+
+---
+
+## Related Skills
+
+- **marketing-ideas**: For additional launch tactics (#22 Product Hunt, #23 Early Access Referrals)
+- **email-sequence**: For launch and onboarding email sequences
+- **page-cro**: For optimizing launch landing pages
+- **marketing-psychology**: For psychology behind waitlists and exclusivity
+- **programmatic-seo**: For comparison pages mentioned in post-launch
+
+## When to Use
+This skill is applicable to execute the workflow or actions described in the overview.
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
