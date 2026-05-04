@@ -1,0 +1,286 @@
+## majestic-marketplace
+
+> Claude Code plugin marketplace. **Work in `plugins/*/` only.**
+
+# Majestic Marketplace
+
+Claude Code plugin marketplace. **Work in `plugins/*/` only.**
+
+**Quick Nav:** [Forbidden](#forbidden) · [Structure](#structure) · [Dependencies](#dependencies) · [Docs](#documentation) · [Search](#codebase-search-qmd) · [Rules](#key-rules) · [Release](#plugin-release-checklist)
+
+## FORBIDDEN
+
+NEVER modify `~/.claude/`. All plugin work goes in `majestic-marketplace/plugins/`.
+
+## Git Merge Operations
+
+- NEVER merge branches to master without explicit user approval
+- Always ask: "Ready to merge to master?" or create a PR for review
+- Merging to production is irreversible - requires conscious decision
+
+## Structure
+
+```
+plugins/{engineer,rails,python,react,marketing,sales,company,llm,tools,devops,experts}/
+```
+
+**Wiki repo**: `../majestic-marketplace.wiki/` (separate git repo, requires separate commit/push)
+
+## Dependencies
+
+| Plugin | Can Reference |
+|--------|--------------|
+| `engineer` | rails, python, react, llm, tools |
+| `rails`, `python`, `react` | engineer |
+| `marketing`, `sales`, `company`, `llm`, `tools`, `devops`, `experts` | (none) |
+
+## Documentation
+
+- [Naming](docs/plugin-architecture/NAMING-CONVENTIONS.md)
+- [Operations](docs/plugin-architecture/PLUGIN-OPERATIONS.md)
+- [Schemas](docs/plugin-architecture/JSON-SCHEMAS.md)
+- [Config](docs/plugin-architecture/CONFIG-SYSTEM.md)
+
+## Codebase Search (qmd)
+
+Use `qmd` to search indexed plugin docs, skills, agents, and architecture files (622 markdown files). Always add `--json` for structured output.
+
+| Need | Command |
+|------|---------|
+| Exact keyword | `qmd search "blueprint workflow" --json` |
+| Conceptual/semantic | `qmd vsearch "how does task tracking work" --json` |
+| Complex question | `qmd query "agent vs skill pattern" --json` |
+| Read a doc | `qmd get path/to/file.md --json` |
+| Batch read | `qmd multi-get "plugins/engineer/agents/**/*.md" --json` |
+
+- Collection: `majestic-marketplace` (restrict with `-c majestic-marketplace`)
+- Prefer `search` for known terms, `vsearch` for fuzzy/conceptual, `query` for best quality
+- Use before Glob/Grep when searching across plugin documentation or skill content
+- Re-index after major changes: `qmd collection remove majestic-marketplace && qmd collection add . --name majestic-marketplace && qmd embed`
+
+## Config Access
+
+```
+VARIABLE = config_read("field", "default")
+```
+
+`config_read(field, default)` is pseudocode for invoking the `config-reader` skill (reads `.agents.yml` with `.agents.local.yml` overrides, supports dot notation for nested fields).
+
+## Key Rules
+
+### Limits
+- Skills: <500 lines
+- Agents: <300 lines
+
+### Step Numbering Conventions
+
+**Apply on first draft, not after correction.**
+
+| Pattern | When to Use | Example |
+|---------|-------------|---------|
+| `1, 2, 3...` | Main sequential steps | Step 1, Step 2, Step 3 |
+| `1.1, 1.2` | Substeps or alternatives under a parent | Step 1.1, Step 1.2, Step 1.3 |
+
+**Rules:**
+- Start numbering at 1, never 0
+- Prefer adding new main steps over decimals (renumber if needed)
+- Never use: `0A`, `8.5`, `Step 0`, letter suffixes, `2.5`
+
+### File Locations
+- Skill references → `skills/*/references/`
+- Skill assets → `skills/*/assets/`
+- Skill scripts → `skills/*/scripts/`
+- Agent resources → `agents/**/resources/{agent-name}/`
+- Command resources → `commands/**/resources/{command-name}/`
+- Resources referenced via relative paths from the markdown file
+- No `.md` files in `commands/` (they become executable)
+- Templates in command resources must use `.txt` or `.yml` extensions
+
+**Resource file patterns:**
+- One primary concern per file (don't mix unrelated templates)
+- Keep shared content in parent folder, reference via relative path
+  - Example: email-nurture references `../email-sequences/subject-formulas.md`
+- Split files if they serve different purposes:
+  - Good: email-structure.md + re-engagement-copy.md
+  - Bad: email-copy-template.md (mixing everything)
+- Avoid duplication: If two agents need same resource, one file in shared location
+
+### Behaviors
+- Skills = knowledge (Claude MAY follow)
+- Hooks = enforcement (FORCES behavior)
+- Agents do autonomous work, not just advice
+- `name:` in frontmatter overrides path-based naming
+
+**Skill vs Agent:**
+
+| Type | Execution | Tools | Convert When |
+|------|-----------|-------|--------------|
+| Skill | Inline (main conversation) | Optional `allowed-tools` | N/A — default for guidance |
+| Agent | Subprocess (Task tool) | Own context | Autonomous multi-step workflow |
+
+Wrong: "Has tools → must be agent" · Right: "Does autonomous workflow → should be agent"
+
+### Agent/Skill Pairing Pattern
+When an agent invokes a skill:
+- AGENT responsibility: Workflow steps, validation, error handling, delivery
+  - Gather context → Validate inputs → Analyze situation → Invoke skill → Validate output
+- SKILL responsibility: Templates, frameworks, patterns
+  - Receives structured context from agent
+  - Does the actual work (writes, builds, creates)
+- RULE: Remove duplication — if agent contains the template, don't duplicate in skill
+
+### Command Naming
+- Bare names by default: `name: command-name` → invoked as `/command-name`
+- Choose self-descriptive verbs (`/commit`, `/migrate`, `/triage-prs`)
+- Add prefix only when bare loses meaning (workflow-starters like `start`, `new`):
+  - Plugin prefix for top-level entry points: `majestic-founder:start` → `/majestic-founder:start`
+  - Group prefix for subdirectory commands: `tasks:new` → `/tasks:new`
+- Never use `majestic:*` (legacy, refers to nonexistent plugin)
+- Never stack prefixes (`majestic-engineer:git:commit` — pick one)
+
+### Validation
+
+**New skills:** Run `skill-linter` before committing.
+
+**Modifying existing skills:**
+1. Read entire skill file first
+2. Make focused edits (one concern per Edit call)
+3. Run `skill-linter` on modified skill(s)
+4. Verify line count remains under 500
+
+**When to run skill-linter (precondition gate):**
+- Run ONLY when the diff contains `SKILL.md` files
+- Gate: `git diff --name-only HEAD | grep -E '^plugins/.*/skills/[^/]+/SKILL\.md$'`
+- If empty → skip lint entirely (no skills modified, nothing to validate)
+- Never point at plugin roots, repo roots, or arbitrary paths — `[FAIL] SKILL.md not found` is operator error, not a real signal
+- Do not run reflexive "smoke checks" to look thorough; lint exists to validate skills, nothing else
+
+**How to invoke `skill-linter`:** It is a **skill** at `.claude/skills/skill-linter/`, NOT an agent.
+- Correct: `Skill("skill-linter", args: "path/to/skill-dir")` — path must be a directory containing `SKILL.md`
+- Wrong: `Agent(subagent_type: "majestic-tools:skill-linter")` ← does not exist
+- Wrong: pointing at plugin root or repo root (no `SKILL.md` there)
+- Bash equivalent: `bash .claude/skills/skill-linter/scripts/validate-skill.sh path/to/skill-dir`
+- Batch over modified skills:
+  ```
+  git diff --name-only HEAD | grep -E '^plugins/.*/skills/[^/]+/SKILL\.md$' | xargs -n1 dirname | sort -u | \
+    xargs -I{} bash .claude/skills/skill-linter/scripts/validate-skill.sh {}
+  ```
+
+### Content Rules
+Skills = LLM instructions, not human docs. Must contain NEW info Claude doesn't know.
+
+| Exclude | Include |
+|-----------|-----------|
+| Attribution ("using X's framework") | Concrete limits, exact templates |
+| Source credits, decorative quotes | Project-specific patterns |
+| Persona statements ("You are an expert") | Names that define style (DHH, Warren Buffett) |
+| "Inspired by X" credibility signals | Stage/scope context ($0-$10M ARR, enterprise) |
+
+**Single test:** "Does this line improve LLM behavior?" If no, cut it.
+
+**Framing:** Use `**Audience:**` + `**Goal:**` instead of personas. "Explain X for audience Y" > "Act as persona Z"
+
+**Self-contained:** Document patterns you implement, not who inspired them. Credits go in separate section.
+
+### Agent Instruction Patterns
+- **Pseudocode format (not prose):**
+  - Good: `If X: do Y | Else: do Z`
+  - Good: `For each ITEM in LIST: process ITEM`
+  - Good: `While CONDITION: loop body`
+  - Bad: "Check if X exists, and if so, do Y" (prose)
+  - Bad: "This step is optional unless..." (conditional prose)
+- **Variables enable control flow (required, not optional):**
+  ```
+  RESULT = Task(...) → If RESULT.status == PASS: proceed
+  ITEMS = config_read("...", "[]") → For each I in ITEMS: invoke(I)
+  ```
+- **Schemas over examples:** Document I/O with YAML/JSON schemas
+  - Good: `task_id: string # T1, T2 (from header)`
+  - Bad: Markdown example blocks expecting agent to infer structure
+- **Command invocation:** `/command-name args` (direct slash syntax)
+- **Config reads:** `config_read("field", "default")` (invokes `config-reader` skill)
+- **Arrays for extensibility:** `methodology: [tdd]` not `methodology: tdd`
+
+### Agent/Command Doc Structure
+**Include:**
+- Purpose (1 line max)
+- Input Schema (YAML)
+- Workflow (pseudocode only)
+- Output Schema (YAML)
+- Error Handling (decision table)
+
+**Exclude:**
+- "How It Works" narratives
+- "Critical Rules" / "Notes" / "Safety" prose
+- "Monitoring" / "Examples" sections
+
+### Verification Phase Separation
+- **Quality Gate:** lint, typecheck, tests, security (standard checks)
+- **Acceptance Criteria:** task-specific behavior (file exists, endpoint returns X)
+- Don't include quality gate checks in AC (no "npm run typecheck passes")
+
+### Anti-Patterns
+- Do NOT hardcode language/framework-specific agents in generic orchestrators
+  - Bad: Putting "majestic-rails:auth-researcher" directly in blueprint.md
+  - Good: Use toolbox-resolver to discover stack-specific capabilities dynamically
+  - Reason: Multi-stack projects need flexible composition, not hard dependencies
+
+### Multi-Stack Projects
+- `tech_stack` in .agents.yml can be string or array
+- Example: `tech_stack: [rails, react]` is valid
+- Toolbox configs must support merging capabilities from multiple stacks
+- toolbox-resolver unions configs, not picks one stack
+
+### Version Bumping (Schema Changes)
+When modifying .agents.yml schema or adding config dependencies:
+- Bump `plugins/majestic-engineer/skills/init-agents-config/CONFIG_VERSION`
+- Update `docs/plugin-architecture/CONFIG-SYSTEM.md` version history
+- Bump plugin version in `.claude-plugin/plugin.json` for affected plugins
+- Update `.claude-plugin/marketplace.json` entries
+- All version bumps committed together with schema changes
+
+### Checkpoint Before Major Refactors
+When discovering incorrect patterns that require moving/restructuring files:
+1. Clarify the correct approach (present options)
+2. Wait for user confirmation before refactoring
+3. Don't assume path patterns - verify with user or docs
+
+**Content removal decision:**
+
+| Content Type | Action |
+|--------------|--------|
+| Persona/role description | Safe to remove |
+| Template/framework | Keep or move to `resources/` |
+| Stage/scope context | Keep (functional) |
+| Execution logic | Move to agent workflow |
+
+When in doubt: keep it, ask user. Don't assume "cleanup" is correct.
+
+### Plugin Architecture Decisions
+- For new orchestration systems (loops, workflows), create **separate plugins**
+- Don't add to existing feature plugins unless tightly coupled to that plugin's core domain
+- Separate plugins are easier to install/remove independently
+
+### State Files: Ephemeral vs Permanent
+- Session working files: Use `.local.` suffix (gitignored)
+- Example: `.claude/workflow-progress.local.yml` during iteration
+- Promote valuable patterns to permanent docs (AGENTS.md) at session end
+- Ephemeral files = working memory; Permanent docs = durable knowledge
+
+### Data Format Selection
+- For progress/state tracking, prefer YAML over markdown
+- YAML: structured, parseable, patterns accessible at top level
+- Markdown: patterns buried in narrative, harder to parse
+
+## Plugin Release Checklist
+
+1. Update version in **both** files (must match):
+   - `plugins/PLUGIN/.claude-plugin/plugin.json`
+   - `.claude-plugin/marketplace.json`
+2. Update internal references to new plugin namespace
+3. Commit registry + plugin files together
+4. README must include "What Makes This Different" section for new plugins
+
+---
+> Source: [majesticlabs-dev/majestic-marketplace](https://github.com/majesticlabs-dev/majestic-marketplace) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
