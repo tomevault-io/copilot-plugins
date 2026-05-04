@@ -1,0 +1,34 @@
+{
+  "name": "simon-he95--markstream-vue",
+  "displayName": "markstream-vue",
+  "description": "A Vue 3 renderer specifically built for AI-powered streaming Markdown: Monaco incremental, Mermaid progressive, and KaTeX formula speed, with real-time updates and no jitter, ready to use out of the b",
+  "version": "1.0.0",
+  "author": "Simon-He95",
+  "homepage": "https://github.com/Simon-He95/markstream-vue",
+  "skills": [
+    {
+      "name": "markstream-vue",
+      "description": ""
+    },
+    {
+      "name": "markstream-vue2",
+      "description": ""
+    },
+    {
+      "name": "markstream-vue2-cli",
+      "description": ""
+    },
+    {
+      "name": "markstream-vue2-vite",
+      "description": ""
+    },
+    {
+      "name": "markstream-nuxt",
+      "description": ""
+    },
+    {
+      "name": "markstream-install",
+      "description": ""
+    }
+  ]
+}
