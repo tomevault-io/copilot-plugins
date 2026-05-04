@@ -1,0 +1,9 @@
+{
+  "name": "shreeve--nexus",
+  "displayName": "nexus",
+  "description": "Generate a standalone Zig lexer + LR parser from one grammar file. Self-hosting, no runtime. ",
+  "version": "1.0.0",
+  "author": "shreeve",
+  "homepage": "https://github.com/shreeve/nexus",
+  "skills": []
+}
