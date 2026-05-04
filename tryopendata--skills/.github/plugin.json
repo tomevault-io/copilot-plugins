@@ -1,0 +1,9 @@
+{
+  "name": "tryopendata--skills",
+  "displayName": "skills",
+  "description": "Official Agent Skills for the OpenData platform",
+  "version": "1.0.0",
+  "author": "tryopendata",
+  "homepage": "https://github.com/tryopendata/skills",
+  "skills": []
+}
