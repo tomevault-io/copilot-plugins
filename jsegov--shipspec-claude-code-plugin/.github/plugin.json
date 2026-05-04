@@ -1,0 +1,30 @@
+{
+  "name": "jsegov--shipspec-claude-code-plugin",
+  "displayName": "shipspec-claude-code-plugin",
+  "description": "Spec Driven Development Plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "jsegov",
+  "homepage": "https://github.com/jsegov/shipspec-claude-code-plugin",
+  "skills": [
+    {
+      "name": "agent-prompts",
+      "description": ""
+    },
+    {
+      "name": "codebase-context",
+      "description": ""
+    },
+    {
+      "name": "prd-template",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "sdd-template",
+      "description": ""
+    }
+  ]
+}
