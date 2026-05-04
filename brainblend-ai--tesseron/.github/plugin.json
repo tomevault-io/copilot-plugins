@@ -1,0 +1,9 @@
+{
+  "name": "brainblend-ai--tesseron",
+  "displayName": "tesseron",
+  "description": "Expose typed web-app actions to MCP-compatible AI agents over WebSocket. TypeScript SDK + matching MCP gateway.",
+  "version": "1.0.0",
+  "author": "BrainBlend-AI",
+  "homepage": "https://github.com/BrainBlend-AI/tesseron",
+  "skills": []
+}
