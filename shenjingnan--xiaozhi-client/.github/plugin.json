@@ -1,0 +1,54 @@
+{
+  "name": "shenjingnan--xiaozhi-client",
+  "displayName": "xiaozhi-client",
+  "description": "\u5c0f\u667aAI\u5ba2\u6237\u7aef\uff0c\u76ee\u524d\u4e3b\u8981\u7528\u4e8eMCP\u7684\u5bf9\u63a5",
+  "version": "1.0.0",
+  "author": "shenjingnan",
+  "homepage": "https://github.com/shenjingnan/xiaozhi-client",
+  "skills": [
+    {
+      "name": "api-docs",
+      "description": ""
+    },
+    {
+      "name": "dev-workflow-checker",
+      "description": ""
+    },
+    {
+      "name": "docs-creator",
+      "description": ""
+    },
+    {
+      "name": "docs-updater",
+      "description": ""
+    },
+    {
+      "name": "fix-comment",
+      "description": ""
+    },
+    {
+      "name": "issue-hunter",
+      "description": ""
+    },
+    {
+      "name": "practical-development-validator",
+      "description": ""
+    },
+    {
+      "name": "test-cleaner",
+      "description": ""
+    },
+    {
+      "name": "test-creator",
+      "description": ""
+    },
+    {
+      "name": "test-fixer",
+      "description": ""
+    },
+    {
+      "name": "type-validator",
+      "description": ""
+    }
+  ]
+}
