@@ -1,23 +1,21 @@
-## api-swagger-sync
+## claude-oss-mirror
 
-> Keep Swagger/OpenAPI in sync with local API changes
+> Mirror Claude Code installers to StarHub OSS with versioned artifacts
 
 
-# API Swagger Sync
+# Claude OSS Mirror
 
-- Any change to local HTTP APIs must update Swagger/OpenAPI in the same task.
-- This applies to new, removed, or renamed `/api/*` and `/v1/*` routes, and to request/response shape changes on existing endpoints.
-- Update `openapi/local-api.json` whenever the route surface or schema changes.
-- Keep the embedded docs copy in sync when needed for local preview or committed static assets.
-- Run `go test ./internal/server` after API doc changes so route/doc drift is caught by `openapi_sync_test.go`.
-
-```go
-// If you add a route in internal/server/routes.go:
-mux.HandleFunc("GET /api/models/{namespace}/{name}/manifest", s.handleModelManifest)
-
-// You must also document it in:
-// openapi/local-api.json
-```
+- When working on Claude Code native installer distribution, use `scripts/sync-claude-code-oss.sh` as the canonical sync path.
+- Load OSS credentials only from `local/secrets.env` and keep them local-only. Use the `STARHUB_OSS_*` and `STARHUB_CLAUDE_*` variables already defined there.
+- Keep the public mirror layout versioned:
+  - `claude-code-releases/latest`
+  - `claude-code-releases/<version>/manifest.json`
+  - `claude-code-releases/<version>/<platform>/<binary>`
+- Mirror every platform published in the upstream manifest, including macOS, Linux, Linux musl, and Windows variants.
+- Use proxy only for upstream external downloads such as Anthropic/GCS. Upload to Alibaba OSS directly without proxy; `scripts/sync-claude-code-oss.sh` handles this split.
+- Do not update `latest` until all artifacts for that version, plus the rewritten `manifest.json`, have uploaded successfully.
+- Keep the mirrored `manifest.json` compatible with the Claude install scripts in `internal/apps/scripts/claude-code-install.sh` and `internal/apps/scripts/claude-code-install.ps1`.
+- If multiple Python versions are installed, run the sync script with a Python that can import `oss2`.
 
 ---
 > Source: [OpenCSGs/csghub-lite](https://github.com/OpenCSGs/csghub-lite) — distributed by [TomeVault](https://tomevault.io).
