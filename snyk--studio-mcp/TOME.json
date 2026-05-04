@@ -1,0 +1,87 @@
+{
+  "name": "studio",
+  "owner": "snyk",
+  "repo": "studio-mcp",
+  "description": "AI instruction skills by snyk",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-inventory",
+      "path": "command_directives/synchronous_remediation/skills/ai-inventory",
+      "github_url": "https://github.com/snyk/studio-mcp/tree/main/command_directives/synchronous_remediation/skills/ai-inventory",
+      "description": ""
+    },
+    {
+      "name": "container-security",
+      "path": "command_directives/synchronous_remediation/skills/container-security",
+      "github_url": "https://github.com/snyk/studio-mcp/tree/main/command_directives/synchronous_remediation/skills/container-security",
+      "description": ""
+    },
+    {
+      "name": "drift-detector",
+      "path": "command_directives/synchronous_remediation/skills/drift-detector",
+      "github_url": "https://github.com/snyk/studio-mcp/tree/main/command_directives/synchronous_remediation/skills/drift-detector",
+      "description": ""
+    },
+    {
+      "name": "iac-security",
+      "path": "command_directives/synchronous_remediation/skills/iac-security",
+      "github_url": "https://github.com/snyk/studio-mcp/tree/main/command_directives/synchronous_remediation/skills/iac-security",
+      "description": ""
+    },
+    {
+      "name": "sbom-analyzer",
+      "path": "command_directives/synchronous_remediation/skills/sbom-analyzer",
+      "github_url": "https://github.com/snyk/studio-mcp/tree/main/command_directives/synchronous_remediation/skills/sbom-analyzer",
+      "description": ""
+    },
+    {
+      "name": "secure-at-inception",
+      "path": "command_directives/synchronous_remediation/skills/secure-at-inception",
+      "github_url": "https://github.com/snyk/studio-mcp/tree/main/command_directives/synchronous_remediation/skills/secure-at-inception",
+      "description": ""
+    },
+    {
+      "name": "snyk-fix",
+      "path": "command_directives/synchronous_remediation/skills/snyk-fix",
+      "github_url": "https://github.com/snyk/studio-mcp/tree/main/command_directives/synchronous_remediation/skills/snyk-fix",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/snyk/studio-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:53:52Z"
+}
