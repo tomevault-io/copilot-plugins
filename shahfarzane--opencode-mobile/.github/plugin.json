@@ -1,0 +1,9 @@
+{
+  "name": "shahfarzane--opencode-mobile",
+  "displayName": "opencode-mobile",
+  "description": "Native iOS app for OpenCode AI coding agent \u2014 built with Expo & React Native. Real-time streaming, QR pairing, Face ID, terminal access, and git ops from your phone.",
+  "version": "1.0.0",
+  "author": "Shahfarzane",
+  "homepage": "https://github.com/Shahfarzane/opencode-mobile",
+  "skills": []
+}
