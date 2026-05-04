@@ -1,0 +1,9 @@
+{
+  "name": "jordanhubbard--nanolang",
+  "displayName": "nanolang",
+  "description": "A tiny experimental language designed to be targeted by coding LLMs ",
+  "version": "1.0.0",
+  "author": "jordanhubbard",
+  "homepage": "https://github.com/jordanhubbard/nanolang",
+  "skills": []
+}
