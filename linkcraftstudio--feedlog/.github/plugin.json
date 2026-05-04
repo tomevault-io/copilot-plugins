@@ -1,0 +1,9 @@
+{
+  "name": "linkcraftstudio--feedlog",
+  "displayName": "feedlog",
+  "description": "Open-source feedback & roadmap tool \u2014 feedback boards, public roadmap, AI-assisted changelog. Self-host on Cloudflare Workers, Vercel, or Docker.",
+  "version": "1.0.0",
+  "author": "linkcraftstudio",
+  "homepage": "https://github.com/linkcraftstudio/feedlog",
+  "skills": []
+}
