@@ -7,7 +7,7 @@ A modern TypeScript stack that combines React, TanStack Start, Hono, ORPC,  Expo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [sunshineLixun/ShipFullStack](https://github.com/sunshineLixun/ShipFullStack).
+Original source: `GEMINI.md` in [sunshineLixun/ShipFullStack](https://github.com/sunshineLixun/ShipFullStack).
 
 ## Also available for
 
@@ -15,7 +15,7 @@ Original source: `.windsurf/rules/*.md` in [sunshineLixun/ShipFullStack](https:/
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
-- **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [sunshineLixun/ShipFullStack](https://github.com/sunshineLixun/ShipFullStack) — a repo with 105+ stars on GitHub.
 
