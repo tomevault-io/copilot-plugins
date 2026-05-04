@@ -4,7 +4,7 @@
   "repo": "gemini-cli-hud",
   "description": "Real-time bottom-sticky HUD for Gemini CLI \u2014 model, context usage, tool calls, and more",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yideng-xl/gemini-cli-hud",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T03:34:08Z"
+  "distributed_at": "2026-05-04T08:40:52Z"
 }
