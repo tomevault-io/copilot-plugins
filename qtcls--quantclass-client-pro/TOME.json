@@ -1,0 +1,44 @@
+{
+  "name": "quantclass-client-pro",
+  "owner": "qtcls",
+  "repo": "quantclass-client-pro",
+  "description": "\u91cf\u5316\u5c0f\u8bb2\u5802\u80a1\u7968\u5b9e\u76d8\u5ba2\u6237\u7aef\u3002\u65b9\u4fbf\u7528\u6237\u4f7f\u7528\u53ef\u89c6\u5316\u9875\u9762\u914d\u7f6e\u7b56\u7565\u7684\u53c2\u6570\uff0c\u5e76\u4e14\u8c03\u7528\u6570\u636e\u3001\u7b56\u7565\u3001\u6267\u884c\u7684\u6e90\u4ee3\u7801\u5185\u6838\uff0c\u5b9e\u73b0\u81ea\u52a8\u5316",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/qtcls/quantclass-client-pro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T11:01:51Z"
+}
