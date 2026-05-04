@@ -1,0 +1,123 @@
+{
+  "name": "agents",
+  "owner": "inkeep",
+  "repo": "agents",
+  "description": "Create AI Agents in a No-Code Visual Builder or TypeScript SDK with full 2-way sync. For shipping AI assistants and multi-agent AI workflows.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility-checklist",
+      "path": ".agents/skills/accessibility-checklist",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/accessibility-checklist",
+      "description": ""
+    },
+    {
+      "name": "adding-env-variables",
+      "path": ".agents/skills/adding-env-variables",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/adding-env-variables",
+      "description": ""
+    },
+    {
+      "name": "api-logging-guidelines",
+      "path": ".agents/skills/api-logging-guidelines",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/api-logging-guidelines",
+      "description": ""
+    },
+    {
+      "name": "data-model-changes",
+      "path": ".agents/skills/data-model-changes",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/data-model-changes",
+      "description": ""
+    },
+    {
+      "name": "find-similar",
+      "path": ".agents/skills/find-similar",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/find-similar",
+      "description": ""
+    },
+    {
+      "name": "manage-database-usage",
+      "path": ".agents/skills/manage-database-usage",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/manage-database-usage",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "path": ".agents/skills/next-best-practices",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/next-best-practices",
+      "description": ""
+    },
+    {
+      "name": "next-cache-components",
+      "path": ".agents/skills/next-cache-components",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/next-cache-components",
+      "description": ""
+    },
+    {
+      "name": "next-upgrade",
+      "path": ".agents/skills/next-upgrade",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/next-upgrade",
+      "description": ""
+    },
+    {
+      "name": "product-surface-areas",
+      "path": ".agents/skills/product-surface-areas",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/product-surface-areas",
+      "description": ""
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "path": ".agents/skills/vercel-composition-patterns",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/vercel-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": ".agents/skills/web-design-guidelines",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "write-docs",
+      "path": ".agents/skills/write-docs",
+      "github_url": "https://github.com/inkeep/agents/tree/main/.agents/skills/write-docs",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/inkeep/agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T07:31:33Z"
+}
