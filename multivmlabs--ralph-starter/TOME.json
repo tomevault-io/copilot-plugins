@@ -4,7 +4,7 @@
   "repo": "ralph-starter",
   "description": "Bootstrap projects from Figma, Linear, Notion & GitHub specs. The only AI ralph with source integrations.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/multivmlabs/ralph-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T04:38:51Z"
+  "distributed_at": "2026-05-04T00:10:37Z"
 }
