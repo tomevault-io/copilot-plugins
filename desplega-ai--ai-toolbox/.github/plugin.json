@@ -1,0 +1,54 @@
+{
+  "name": "desplega-ai--ai-toolbox",
+  "displayName": "ai-toolbox",
+  "description": "AI toolbox, intended to be developed and used by agents!",
+  "version": "1.0.0",
+  "author": "desplega-ai",
+  "homepage": "https://github.com/desplega-ai/ai-toolbox",
+  "skills": [
+    {
+      "name": "planning",
+      "description": ""
+    },
+    {
+      "name": "swarm-expert",
+      "description": ""
+    },
+    {
+      "name": "implementing",
+      "description": ""
+    },
+    {
+      "name": "researching",
+      "description": ""
+    },
+    {
+      "name": "tdd-planning",
+      "description": ""
+    },
+    {
+      "name": "process-review",
+      "description": ""
+    },
+    {
+      "name": "wts-expert",
+      "description": ""
+    },
+    {
+      "name": "brain-expert",
+      "description": ""
+    },
+    {
+      "name": "file-review",
+      "description": ""
+    },
+    {
+      "name": "install",
+      "description": ""
+    },
+    {
+      "name": "remarkable-expert",
+      "description": ""
+    }
+  ]
+}
