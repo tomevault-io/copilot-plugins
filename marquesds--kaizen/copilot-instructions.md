@@ -1,27 +1,45 @@
-## session-budget
+## subagent-first
 
-> Non-optional. Read `.cursor/skills/session-budget/SKILL.md` when triggered.
+> Subagent-first rule — concrete spawn triggers and compression rationale
 
-# Session Budget
+# Subagent-First
 
-Non-optional. Read `.cursor/skills/session-budget/SKILL.md` when triggered.
+Spawn subagent when ANY condition met. No vague "use liberally".
 
-## Hard Limits
+## Spawn Triggers
 
-| Trigger | Response |
+| Condition | Type |
 |---|---|
-| 25 tool calls | Stop. Summarize. Decide: compact / spawn / split. |
-| Context >50% | Warn. Consider compact or subagent. |
-| 100 events | Hard stop. No new work without decision. |
-| Context >75% | Refuse new work unless user explicitly overrides. |
+| Explore 3+ files for answer | `explore` |
+| 5+ shell commands for one task | `shell` |
+| Task likely >15 turns | `explore` or `generalPurpose` |
+| Browser/MCP test >2 actions | `browser-use` |
+| Best-of-N experiment needed | `best-of-n-runner` |
+| Broad codebase orientation | `explore` |
+| Multi-file refactor | `generalPurpose` |
+
+## Why
+
+`explore` subagent: reads ~50k tokens → returns ~2k summary. 25× compression.
+Main context stays clean. Big sessions = big cost.
+
+## Subagent Types
+
+- `explore` — read-only codebase search, answers questions about structure
+- `shell` — git ops, build commands, sequential terminal tasks
+- `generalPurpose` — multi-step implementation, research
+- `browser-use` — UI testing, web automation
+- `best-of-n-runner` — isolated parallel experiments in git worktrees
 
 ## Anti-Patterns
 
-- Continuing past 75% context without deciding
-- Ignoring rising tool call count
-- Letting one session grow to 300+ events
+- Reading 5 files inline when `explore` would compress them
+- Running 10 shell commands in main context when `shell` subagent handles them
+- Keeping task context in main window past 15 turns
 
-Past $1/session = session design failure.
+## Default
+
+When in doubt: spawn. Cost of wrong subagent < cost of bloated main context.
 
 ---
 > Source: [marquesds/kaizen](https://github.com/marquesds/kaizen) — distributed by [TomeVault](https://tomevault.io).
