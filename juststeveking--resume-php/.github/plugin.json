@@ -1,0 +1,9 @@
+{
+  "name": "juststeveking--resume-php",
+  "displayName": "resume-php",
+  "description": "A PHP library for building and working with the JSON Resume schema.",
+  "version": "1.0.0",
+  "author": "JustSteveKing",
+  "homepage": "https://github.com/JustSteveKing/resume-php",
+  "skills": []
+}
