@@ -1,61 +1,89 @@
-## agent-workflow
+## caveman-writing
 
-> Agent workflow — plan mode, subagents, verification, autonomous bug fixing
+> Caveman writing style for all prose files and code documentation
 
 
-# Agent Workflow
+# Caveman Writing Style
 
-## Plan Mode Default
+**Default** — applies in:
+- `.cursor/skills/`, `.cursor/rules/`, `AGENTS.md` (where not reader-facing), `CLAUDE.md`
+- `specs/`, internal notes, any `.md`/`.mdc` not under the exception below
+- Code doc comments (`///`, `//!`) when contract-style
+- Inline comments (`//`, `#`, `--`, etc.)
+- Plans, ADRs, task breakdowns, epic PRDs (unless publishing as public docs)
 
-ANY task with 3+ steps or architectural decisions → plan mode.
-Goes sideways → STOP, re-plan immediately. No pushing through.
-Write specs upfront to reduce ambiguity.
+**Reader-facing exception** — use full sentences and normal technical clarity (no article-dropping), same bar as a good engineering post:
+
+- `README.md` (repo root)
+- `docs/**/*.md` (published user and contributor reference in `docs/`)
+- `CONTRIBUTING.md`
+- User-facing `CHANGELOG.md` entries (what changed, not internal commit noise)
+
+Caveman stays default for skills, rules, Quint specs, and agent-to-agent brevity.
+
+## Rules
+
+- No articles (a, an, the)
+- No filler: just, really, basically, actually, simply, note that, please note
+- No pleasantries: sure, certainly, of course, happy to
+- No hedging: might want to, you should consider, it is recommended
+- Fragments OK — prefer over padded sentences
+- Short synonyms: "use" not "utilize", "show" not "demonstrate"
+- Technical terms exact — never simplify them
+- Tables > bullet lists when structure exists
+- Code itself unchanged — caveman only applies to prose/text
+
+## Examples
+
+```
+# BAD
+This document provides an overview of the architecture. You should read it carefully
+before making any changes to ensure that you understand the system design.
+
+# GOOD
+Architecture overview. Read before changing system design.
+```
+
+```
+# BAD
+The following steps will guide you through the process of setting up the environment.
+
+# GOOD
+Setup steps:
+```
+
+```
+# BAD
+It is important to note that the function must be called with a valid session.
+
+# GOOD
+Precondition: valid session required.
+```
 
 ```rust
-// GOOD — pause before touching multiple modules:
-// Switch to plan mode, map trait changes + module
-// impact before writing any code
+// BAD doc comment
+/// This function is responsible for collecting telemetry events from all of the
+/// agent sessions that are currently active. Please note that the session
+/// must already be registered before calling this function.
 
-// BAD — jump straight into editing 5 files without
-// scoping the work first
+// GOOD doc comment
+/// Collect telemetry events for active agent sessions.
+///
+/// # Preconditions
+/// Session must be registered before call.
+///
+/// # Postconditions
+/// All active sessions emit telemetry event.
 ```
 
-## Subagent Strategy
+```rust
+// BAD inline comment
+// This checks if the session is valid before we proceed with the operation
+if session.is_valid() {
 
-Use subagents liberally. Keep main context window clean.
-Offload research, exploration, parallel analysis. One task per subagent.
-
-```
-# GOOD — parallel, focused subagents
-spawn subagent A → explore telemetry pipeline
-spawn subagent B → trace session event flow
-
-# BAD — pile all exploration into main context,
-# bloating it before starting actual work
-```
-
-## Verification Before Done
-
-Never mark complete without proving it works.
-Run full test suite. Ask: "Would staff engineer approve this?"
-
-```bash
-# GOOD
-cargo test && cargo clippy -- -D warnings && cargo fmt --check
-
-# BAD — visual check + "looks good" without running tests
-```
-
-## Autonomous Bug Fixing
-
-Bug report → fix it. No hand-holding. Run tests to find root cause.
-
-```bash
-# GOOD — trace failure, fix root cause, re-run
-cargo test
-
-# BAD — "Should I change the schema or the query?"
-# Find and fix root cause yourself
+// GOOD inline comment
+// guard: invalid sessions rejected upstream
+if session.is_valid() {
 ```
 
 ---
