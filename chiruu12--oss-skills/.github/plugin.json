@@ -1,0 +1,9 @@
+{
+  "name": "chiruu12--oss-skills",
+  "displayName": "OSS-Skills",
+  "description": "6 Claude Code skills that walk you through your first open source contribution. Built by a GSoC mentor.",
+  "version": "1.0.0",
+  "author": "chiruu12",
+  "homepage": "https://github.com/chiruu12/OSS-Skills",
+  "skills": []
+}
