@@ -1,0 +1,9 @@
+{
+  "name": "peixl--ifq-design-skills",
+  "displayName": "ifq-design-skills",
+  "description": "Agent-native design skill: ordinary prompts -> verified HTML-first prototypes, decks, dashboards, motion demos, and export-ready visuals.",
+  "version": "1.0.0",
+  "author": "peixl",
+  "homepage": "https://github.com/peixl/ifq-design-skills",
+  "skills": []
+}
