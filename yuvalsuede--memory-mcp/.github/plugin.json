@@ -1,0 +1,9 @@
+{
+  "name": "yuvalsuede--memory-mcp",
+  "displayName": "memory-mcp",
+  "description": "Persistent memory for Claude Code \u2014 never lose context between sessions",
+  "version": "1.0.0",
+  "author": "yuvalsuede",
+  "homepage": "https://github.com/yuvalsuede/memory-mcp",
+  "skills": []
+}
