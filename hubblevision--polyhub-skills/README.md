@@ -7,11 +7,11 @@ Control your Polymarket copy-trading account from any AI — Telegram, WeChat, C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HubbleVision/polyhub-skills](https://github.com/HubbleVision/polyhub-skills).
+Original source: `CLAUDE.md` in [HubbleVision/polyhub-skills](https://github.com/HubbleVision/polyhub-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
