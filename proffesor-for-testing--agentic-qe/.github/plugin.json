@@ -1,0 +1,298 @@
+{
+  "name": "proffesor-for-testing--agentic-qe",
+  "displayName": "agentic-qe",
+  "description": "Agentic QE Fleet is an open-source AI-powered QA/QE platform designed for use with Coding Agents (works best with Claude Code) featuring specialized agents and skills to support testing activities for",
+  "version": "1.0.0",
+  "author": "proffesor-for-testing",
+  "homepage": "https://github.com/proffesor-for-testing/agentic-qe",
+  "skills": [
+    {
+      "name": "a11y-ally",
+      "description": ""
+    },
+    {
+      "name": "accessibility-testing",
+      "description": ""
+    },
+    {
+      "name": "agentic-quality-engineering",
+      "description": ""
+    },
+    {
+      "name": "api-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "brutal-honesty-review",
+      "description": ""
+    },
+    {
+      "name": "bug-reporting-excellence",
+      "description": ""
+    },
+    {
+      "name": "chaos-engineering-resilience",
+      "description": ""
+    },
+    {
+      "name": "cicd-pipeline-qe-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "code-review-quality",
+      "description": ""
+    },
+    {
+      "name": "compatibility-testing",
+      "description": ""
+    },
+    {
+      "name": "compliance-testing",
+      "description": ""
+    },
+    {
+      "name": "consultancy-practices",
+      "description": ""
+    },
+    {
+      "name": "context-driven-testing",
+      "description": ""
+    },
+    {
+      "name": "contract-testing",
+      "description": ""
+    },
+    {
+      "name": "database-testing",
+      "description": ""
+    },
+    {
+      "name": "enterprise-integration-testing",
+      "description": ""
+    },
+    {
+      "name": "exploratory-testing-advanced",
+      "description": ""
+    },
+    {
+      "name": "holistic-testing-pact",
+      "description": ""
+    },
+    {
+      "name": "iterative-loop",
+      "description": ""
+    },
+    {
+      "name": "localization-testing",
+      "description": ""
+    },
+    {
+      "name": "middleware-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "mobile-testing",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "n8n-expression-testing",
+      "description": ""
+    },
+    {
+      "name": "n8n-integration-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "n8n-security-testing",
+      "description": ""
+    },
+    {
+      "name": "n8n-trigger-testing-strategies",
+      "description": ""
+    },
+    {
+      "name": "n8n-workflow-testing-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "observability-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "pentest-validation",
+      "description": ""
+    },
+    {
+      "name": "performance-testing",
+      "description": ""
+    },
+    {
+      "name": "qcsd-cicd-swarm",
+      "description": ""
+    },
+    {
+      "name": "qcsd-development-swarm",
+      "description": ""
+    },
+    {
+      "name": "qcsd-ideation-swarm",
+      "description": ""
+    },
+    {
+      "name": "qcsd-refinement-swarm",
+      "description": ""
+    },
+    {
+      "name": "qe-chaos-resilience",
+      "description": ""
+    },
+    {
+      "name": "qe-code-intelligence",
+      "description": ""
+    },
+    {
+      "name": "qe-coverage-analysis",
+      "description": ""
+    },
+    {
+      "name": "qe-defect-intelligence",
+      "description": ""
+    },
+    {
+      "name": "qe-iterative-loop",
+      "description": ""
+    },
+    {
+      "name": "qe-learning-optimization",
+      "description": ""
+    },
+    {
+      "name": "qe-quality-assessment",
+      "description": ""
+    },
+    {
+      "name": "qe-requirements-validation",
+      "description": ""
+    },
+    {
+      "name": "qe-test-execution",
+      "description": ""
+    },
+    {
+      "name": "qe-test-generation",
+      "description": ""
+    },
+    {
+      "name": "qe-visual-accessibility",
+      "description": ""
+    },
+    {
+      "name": "quality-metrics",
+      "description": ""
+    },
+    {
+      "name": "refactoring-patterns",
+      "description": ""
+    },
+    {
+      "name": "regression-testing",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "description": ""
+    },
+    {
+      "name": "risk-based-testing",
+      "description": ""
+    },
+    {
+      "name": "security-testing",
+      "description": ""
+    },
+    {
+      "name": "security-visual-testing",
+      "description": ""
+    },
+    {
+      "name": "sfdipot-product-factors",
+      "description": ""
+    },
+    {
+      "name": "sherlock-review",
+      "description": ""
+    },
+    {
+      "name": "shift-left-testing",
+      "description": ""
+    },
+    {
+      "name": "shift-right-testing",
+      "description": ""
+    },
+    {
+      "name": "six-thinking-hats",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "description": ""
+    },
+    {
+      "name": "tdd-london-chicago",
+      "description": ""
+    },
+    {
+      "name": "technical-writing",
+      "description": ""
+    },
+    {
+      "name": "test-automation-strategy",
+      "description": ""
+    },
+    {
+      "name": "test-data-management",
+      "description": ""
+    },
+    {
+      "name": "test-design-techniques",
+      "description": ""
+    },
+    {
+      "name": "test-environment-management",
+      "description": ""
+    },
+    {
+      "name": "test-idea-rewriting",
+      "description": ""
+    },
+    {
+      "name": "test-reporting-analytics",
+      "description": ""
+    },
+    {
+      "name": "testability-scoring",
+      "description": ""
+    },
+    {
+      "name": "verification-quality",
+      "description": ""
+    },
+    {
+      "name": "visual-testing-advanced",
+      "description": ""
+    },
+    {
+      "name": "wms-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "xp-practices",
+      "description": ""
+    }
+  ]
+}
