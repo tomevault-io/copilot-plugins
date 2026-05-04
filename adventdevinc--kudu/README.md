@@ -1,23 +1,26 @@
-# kudu
+# AI instruction files for kudu
 
-> Config by [AdventDevInc](https://github.com/AdventDevInc/kudu) — distributed by [TomeVault](https://tomevault.io/claim/AdventDevInc)
+> Sourced from [AdventDevInc/kudu](https://github.com/AdventDevInc/kudu) and converted for every major platform by [TomeVault](https://tomevault.io)
+
+Free Windows, Mac and Linux cleaner, scanner, and more.
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AdventDevInc/kudu](https://github.com/AdventDevInc/kudu).
+Original source: `CLAUDE.md` in [AdventDevInc/kudu](https://github.com/AdventDevInc/kudu).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Browse all formats: [https://tomevault.io/claim/AdventDevInc](https://tomevault.io/claim/AdventDevInc)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/AdventDevInc/kudu](https://github.com/AdventDevInc/kudu)
 
 ---
 
-Converted and distributed by [TomeVault](https://tomevault.io) — AI instruction files for every platform.
-Is this your repo? [Claim it](https://tomevault.io/claim/AdventDevInc) to manage distribution.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
+
+<!-- genome:a-c-p -->
