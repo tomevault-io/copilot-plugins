@@ -4,7 +4,7 @@
   "repo": "isanagent",
   "description": "Your always-on and autonomous ML engineer that works 24/7 to conduct research, generate datasets, train models, learn and evolve. Works on Colab, local GPU or over SSH. Zero infra needed",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/altaidevorg/isanagent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T22:05:36Z"
+  "distributed_at": "2026-05-04T21:10:19Z"
 }
