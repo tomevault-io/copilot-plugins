@@ -1,0 +1,53 @@
+## agents-at-scale-ark
+
+> MANDATORY: All commit messages and PR titles must follow conventional commit format:
+
+# Cursor Rules for ARK Project
+
+## Commit Message Format
+MANDATORY: All commit messages and PR titles must follow conventional commit format:
+- feat: new feature
+- fix: bug fix  
+- docs: documentation changes
+- chore: maintenance tasks
+- refactor: code refactoring
+- test: adding tests
+- ci: CI/CD changes
+- build: build system changes
+- perf: performance improvements
+
+Examples:
+- feat: add agent deployment workflow
+- fix: resolve memory leak in executor
+- docs: update installation guide
+
+Non-conventional commits will be rejected by automated checks.
+
+## Code Style
+- Follow existing patterns in the codebase
+- No comments unless explicitly requested
+- Use absolute paths for file operations
+- Prefer editing existing files over creating new ones
+
+## Pull Request Format
+When creating pull requests, use this simple format:
+```
+## Summary
+- Brief description of changes
+```
+
+DO NOT include "Test plan" sections in PR descriptions.
+
+## Personal/Experimental Files
+**MANDATORY**: All personal documentation, experimental tests, and working artifacts must be placed in the `vibe_artifacts/` directory at the repository root.
+
+- ✅ Correct: `vibe_artifacts/QUERY_DEEP_DIVE.md`
+- ✅ Correct: `vibe_artifacts/a2a-streaming-error-test/`
+- ❌ Incorrect: `QUERY_DEEP_DIVE.md` (root level)
+- ❌ Incorrect: `tests/a2a-streaming-error-test/` (unless it's an official test)
+
+The `vibe_artifacts/` folder is gitignored and is intended for personal working documents, experimental code, and temporary artifacts that don't need to be committed to the repository.
+
+---
+> Source: [mckinsey/agents-at-scale-ark](https://github.com/mckinsey/agents-at-scale-ark) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
