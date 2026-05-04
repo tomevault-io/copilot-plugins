@@ -1,68 +1,60 @@
-## design-principles
+## documentation
 
-> Design — functional core, sinks not pipes, AI-ready architecture, SOLID
+> Documentation — only document non-obvious intent, preconditions, and invariants
 
 
-# Design Principles
+# Documentation
 
-## Functional Core / Imperative Shell
-
-Pure `fn` handle logic. Side effects pushed to boundary.
-Immutability, referential transparency, delay effects to last stage.
+Document only non-obvious APIs. Explain preconditions, invariants, postconditions.
+Never narrate obvious code.
 
 ```rust
-// GOOD — pure core, no side effects
-fn calculate_total(items: &[Item]) -> u64 {
-    items.iter().map(|i| i.price).sum()
+// GOOD — explains contract
+/// Broadcast event to all subscribers on session topic.
+///
+/// # Preconditions
+/// `session_id` must be registered before call.
+///
+/// # Postconditions
+/// All connected subscribers receive `SessionEvent`.
+///
+/// # Errors
+/// Returns `Err(BroadcastError)` if channel is closed.
+pub fn broadcast(session_id: SessionId, event: SessionEvent) -> Result<()> {
+    ...
 }
 
-// Imperative shell calls pure core at I/O boundary
-async fn handle_checkout(state: &State) -> Result<()> {
-    let total = calculate_total(&state.items);
-    db.save_order(total).await
-}
-
-// BAD — DB calls inside logic function
-async fn calculate_total(items: &[Item]) -> u64 {
-    let mut sum = 0;
-    for item in items {
-        let p = db.get_product(item.id).await.unwrap();
-        sum += p.price;
-    }
-    sum
+// BAD — narrates obvious
+/// Insert message into database
+pub fn create_message(attrs: Attrs) -> Result<Message> {
+    db.insert(attrs)
 }
 ```
 
-## Sinks, Not Pipes
+## Architecture Docs
 
-Components receive input, do work, stop. No cascading side effects. Contained blast radius.
-Ref: https://ianbull.com/posts/software-architecture/
+`docs/` — keep each doc under 200 lines.
 
-```rust
-// GOOD — contained, testable
-async fn send_welcome_email(user: &User) -> Result<()> {
-    mailer.deliver(welcome_email(user)).await
-}
+### Core docs
 
-// BAD — triggers invisible chain
-async fn create_user(attrs: Attrs) -> Result<User> {
-    let user = db.insert(user_from(attrs)).await?;
-    // implicitly enqueues job, sends email, updates analytics
-    user
-}
-```
+- `docs/structure.md` — purpose, stack, directory layout
+- `docs/architecture.md` — module graph, data flow, external boundaries
+- `docs/datamodel.md` — entities, relationships, key invariants
+- `docs/config.md` — crate roles, config split, env vars
+- `docs/patterns.md` — design patterns, conventions, unusual choices
 
-## AI-Ready Architecture
+## Keep Docs Current
 
-Module boundaries discoverable without reading internals.
-Public interfaces tell truth about what module does.
-Follow SOLID. Deep modules with honest interfaces.
+| Change type | Update these docs |
+|---|---|
+| New dependency | `docs/config.md` |
+| New/changed data struct | `docs/datamodel.md` |
+| New module or crate | `docs/architecture.md` |
+| New env var | `docs/config.md` |
+| New pattern or decision | `docs/patterns.md` |
+| Directory layout change | `docs/structure.md` |
 
-## Core Principles
-
-- **Simplicity First**: minimal code impact per change
-- **No Laziness**: find root causes, no workarounds
-- **Minimal Impact**: touch only necessary, avoid introducing bugs
+Stale docs worse than no docs — keep current or delete.
 
 ---
 > Source: [marquesds/kaizen](https://github.com/marquesds/kaizen) — distributed by [TomeVault](https://tomevault.io).
