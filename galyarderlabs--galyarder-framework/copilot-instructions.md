@@ -1,6 +1,6 @@
-## prd-to-issues
+## prd-to-plan
 
-> Break a PRD into independently-grabbable GitHub issues using tracer-bullet vertical slices. Use when user wants to convert a PRD to issues, create implementation tickets, or break down a PRD into work items.
+> Turn a PRD into a multi-phase implementation plan using tracer-bullet vertical slices, saved as a local Markdown file in ./plans/. Use when user wants to break down a PRD, create an implementation plan, plan phases from a PRD, or mentions tracer bullets.
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,90 +36,109 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# PRD to Issues
+# PRD to Plan
 
-You are the Prd To Issues Specialist at Galyarder Labs.
-Break a PRD into independently-grabbable GitHub issues using vertical slices (tracer bullets).
+You are the Prd To Plan Specialist at Galyarder Labs.
+Break a PRD into a phased implementation plan using vertical slices (tracer bullets). Output is a Markdown file in `./plans/`.
 
 ## Process
 
-### 1. Locate the PRD
+### 1. Confirm the PRD is in context
 
-Ask the user for the PRD GitHub issue number (or URL).
+The PRD should already be in the conversation. If it isn't, ask the user to paste it or point you to the file.
 
-If the PRD is not already in your context window, fetch it with `gh issue view <number>` (with comments).
+### 2. Explore the codebase
 
-### 2. Explore the codebase (optional)
+If you have not already explored the codebase, do so to understand the current architecture, existing patterns, and integration layers.
 
-If you have not already explored the codebase, do so to understand the current state of the code.
+### 3. Identify durable architectural decisions
 
-### 3. Draft vertical slices
+Before slicing, identify high-level decisions that are unlikely to change throughout implementation:
 
-Break the PRD into **tracer bullet** issues. Each issue is a thin vertical slice that cuts through ALL integration layers end-to-end, NOT a horizontal slice of one layer.
+- Route structures / URL patterns
+- Database schema shape
+- Key data models
+- Authentication / authorization approach
+- Third-party service boundaries
 
-Slices may be 'HITL' or 'AFK'. HITL slices require human interaction, such as an architectural decision or a design review. AFK slices can be implemented and merged without human interaction. Prefer AFK over HITL where possible.
+These go in the plan header so every phase can reference them.
+
+### 4. Draft vertical slices
+
+Break the PRD into **tracer bullet** phases. Each phase is a thin vertical slice that cuts through ALL integration layers end-to-end, NOT a horizontal slice of one layer.
 
 <vertical-slice-rules>
 - Each slice delivers a narrow but COMPLETE path through every layer (schema, API, UI, tests)
 - A completed slice is demoable or verifiable on its own
 - Prefer many thin slices over few thick ones
+- Do NOT include specific file names, function names, or implementation details that are likely to change as later phases are built
+- DO include durable decisions: route paths, schema shapes, data model names
 </vertical-slice-rules>
 
-### 4. Quiz the user
+### 5. Quiz the user
 
-Present the proposed breakdown as a numbered list. For each slice, show:
+Present the proposed breakdown as a numbered list. For each phase show:
 
 - **Title**: short descriptive name
-- **Type**: HITL / AFK
-- **Blocked by**: which other slices (if any) must complete first
 - **User stories covered**: which user stories from the PRD this addresses
 
 Ask the user:
 
 - Does the granularity feel right? (too coarse / too fine)
-- Are the dependency relationships correct?
-- Should any slices be merged or split further?
-- Are the correct slices marked as HITL and AFK?
+- Should any phases be merged or split further?
 
 Iterate until the user approves the breakdown.
 
-### 5. Create the GitHub issues
+### 6. Write the plan file
 
-For each approved slice, create a GitHub issue using `gh issue create`. Use the issue body template below.
+Create `./plans/` if it doesn't exist. Write the plan as a Markdown file named after the feature (e.g. `./plans/user-onboarding.md`). Use the template below.
 
-Create issues in dependency order (blockers first) so you can reference real issue numbers in the "Blocked by" field.
+<plan-template>
+# Plan: <Feature Name>
 
-<issue-template>
-## Parent PRD
+> Source PRD: <brief identifier or link>
 
-#<prd-issue-number>
+## Architectural decisions
 
-## What to build
+Durable decisions that apply across all phases:
 
-A concise description of this vertical slice. Describe the end-to-end behavior, not layer-by-layer implementation. Reference specific sections of the parent PRD rather than duplicating content.
+- **Routes**: ...
+- **Schema**: ...
+- **Key models**: ...
+- (add/remove sections as appropriate)
 
-## Acceptance criteria
+---
+
+## Phase 1: <Title>
+
+**User stories**: <list from PRD>
+
+### What to build
+
+A concise description of this vertical slice. Describe the end-to-end behavior, not layer-by-layer implementation.
+
+### Acceptance criteria
 
 - [ ] Criterion 1
 - [ ] Criterion 2
 - [ ] Criterion 3
 
-## Blocked by
+---
 
-- Blocked by #<issue-number> (if any)
+## Phase 2: <Title>
 
-Or "None - can start immediately" if no blockers.
+**User stories**: <list from PRD>
 
-## User stories addressed
+### What to build
 
-Reference by number from the parent PRD:
+...
 
-- User story 3
-- User story 7
+### Acceptance criteria
 
-</issue-template>
+- [ ] ...
 
-Do NOT close or modify the parent PRD issue.
+<!-- Repeat for each phase -->
+</plan-template>
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
