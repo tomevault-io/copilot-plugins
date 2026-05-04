@@ -1,144 +1,50 @@
-## 07-workflow
+## 08-e2e-test-selectors
 
-> **Reference**: See `docs/devbook.md` for common development tasks.
+> Stable selectors for e2e tests: data-test-id and data-test-class. Use when writing or changing e2e tests or UI templates/Stimulus code that are under e2e test.
 
-# Development Workflow
 
-**Reference**: See `docs/devbook.md` for common development tasks.
+# E2E Test Selectors
 
-## Important: Always Use `mise run` Commands
+To keep e2e tests stable when look and feel changes (copy, styling, layout), we target **functionality and structure** via dedicated test attributes instead of roles, labels, or visible text.
 
-**NEVER run npm, composer, or php commands directly.** All commands must go through `mise run` to execute inside the Docker container with the correct environment.
+## Attributes
 
-```bash
-# WRONG - runs locally, may fail or use wrong environment
-npm test
-npm install
-php bin/console ...
+- **`data-test-id="value"`** – Identifies a **unique** element on the page (same spirit as a CSS `id`). Use for one-off elements: page container, main heading, primary form, primary submit button, key inputs.
+- **`data-test-class="value"`** – Identifies a **category** of elements (same spirit as a CSS `class`). Use when multiple elements share the same test role: form fields, list items, error messages of the same type.
 
-# CORRECT - runs inside the app container
-mise run npm test
-mise run tests:frontend
-mise run console ...
+Use kebab-case for values (e.g. `sign-in-page`, `project-list-heading`).
+
+## Where to add them
+
+- **Templates (Twig):** Add `data-test-id` or `data-test-class` to the elements that e2e tests need to find or interact with (forms, inputs, buttons, headings, page/section containers).
+- **Stimulus / frontend (TypeScript):** Controllers live under `src/<Vertical>/Presentation/Resources/assets/controllers/` (see `docs/frontendbook.md`). When a Stimulus controller adds or renders DOM that e2e tests need to target (e.g. dynamic panels, buttons, inputs, or containers created in Twig where the controller is attached), add the same attributes there: in Twig alongside `stimulus_controller` / `stimulus_target` / `stimulus_action`, or in TypeScript when creating elements in the DOM. Any UI that is under e2e test and is rendered or controlled by Stimulus should carry test attributes so tests stay stable when copy or styles change.
+- Only add attributes for **UI that is (or will be) covered by e2e tests**. Avoid decorating every element.
+
+## In the test code (Playwright)
+
+- **`data-test-id`:** Use `page.getByTestId("value")`. Playwright is configured with `testIdAttribute: "data-test-id"`.
+- **`data-test-class`:** Use `page.locator('[data-test-class="value"]')`. For multiple matches, use `.first()`, `.nth(i)`, or filter as needed.
+
+Prefer these selectors over `getByRole`, `getByLabel`, or `getByText` for assertions and interactions that must survive copy or styling changes. Use roles/labels/text only when the test is explicitly about that visible content (e.g. accessibility or copy).
+
+## Examples
+
+```html
+<div data-test-id="sign-in-page">
+  <h1 data-test-id="sign-in-heading">Welcome back</h1>
+  <form data-test-id="sign-in-form">
+    <div data-test-class="form-field">
+      <input data-test-id="sign-in-email" type="email" />
+    </div>
+    <button type="submit" data-test-id="sign-in-submit">Continue</button>
+  </form>
+</div>
 ```
 
-## Available Mise Tasks
-
-Run `mise tasks` to see all available tasks. Key tasks:
-
-| Task | Description |
-|------|-------------|
-| `mise run quality` | Run ALL quality checks (required before commit) |
-| `mise run tests` | Run PHP tests (architecture, unit, integration, application) |
-| `mise run tests:frontend` | Run frontend/TypeScript tests (vitest) |
-| `mise run frontend` | Build frontend assets (Tailwind + AssetMapper) |
-| `mise run console <cmd>` | Run Symfony console commands |
-| `mise run composer <cmd>` | Run Composer commands |
-| `mise run npm <cmd>` | Run NPM commands inside container |
-| `mise run db` | Connect to local database |
-
-## Quality Checks
-
-**Always run `mise run quality` before committing code.**
-
-This runs (in order):
-1. Doctrine schema validation
-2. PHP CS Fixer (auto-fixes formatting)
-3. Prettier (auto-fixes JS/TS/CSS/YAML formatting)
-4. ESLint
-5. TypeScript compiler (`tsc`)
-6. PHPStan
-
-Fix all issues before proceeding.
-
-## Testing
-
-### PHP Tests
-```bash
-mise run tests
-```
-Runs: architecture tests, unit tests, integration tests, application tests.
-
-### Frontend Tests (TypeScript/Vitest)
-```bash
-mise run tests:frontend            # Run once
-mise run tests:frontend --watch    # Watch mode
-mise run tests:frontend --coverage # With coverage
-```
-
-### Run Everything Before Commit
-```bash
-mise run quality && mise run tests && mise run tests:frontend
-```
-
-## Building Frontend
-
-```bash
-mise run frontend
-```
-
-This compiles:
-- TailwindCSS
-- TypeScript (via SWC)
-- Asset manifests
-
-## Database Operations
-
-### Migrations
-```bash
-# Generate migration after entity changes
-mise run console make:migration
-
-# Apply migrations
-mise run console doctrine:migrations:migrate --no-interaction
-```
-
-### Database Connection
-```bash
-mise run db
-```
-
-## Updating Dependencies
-
-```bash
-# PHP dependencies
-mise run composer update --with-dependencies
-
-# Node.js dependencies (inside container)
-mise run npm install
-mise run npm update
-
-# Update AssetMapper importmaps
-mise run console importmap:update
-```
-
-## Before Committing Checklist
-
-1. `mise run quality` - Fix all issues
-2. `mise run tests` - All PHP tests pass
-3. `mise run tests:frontend` - All frontend tests pass
-4. `mise run frontend` - Frontend builds successfully
-5. Verify architecture boundaries are respected
-6. Check that all type annotations are correct
-
-## Troubleshooting
-
-### "Module not found" errors in frontend tests
-The container may need npm dependencies installed:
-```bash
-mise run npm install
-```
-
-### Container not running
-```bash
-docker compose up -d
-```
-
-### Stale compiled assets
-Delete and rebuild:
-```bash
-rm -rf public/assets
-mise run frontend
+```ts
+await page.getByTestId("sign-in-email").fill("e2e@example.com");
+await page.getByTestId("sign-in-submit").click();
+await expect(page.getByTestId("project-list-heading")).toBeVisible();
 ```
 
 ---
