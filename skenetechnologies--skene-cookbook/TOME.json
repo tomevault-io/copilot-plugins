@@ -4,7 +4,7 @@
   "repo": "skene-cookbook",
   "description": "700+ AI skills for Claude and Cursor \u2014 PLG, marketing, security, DevEx, and more. One command to install.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SkeneTechnologies/skene-cookbook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T12:50:58Z"
+  "distributed_at": "2026-05-04T17:49:59Z"
 }
