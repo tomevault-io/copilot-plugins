@@ -1,0 +1,9 @@
+{
+  "name": "muness--roon-knob",
+  "displayName": "roon-knob",
+  "description": "Custom firmware to turn a Waveshare ESP32-S3 Knob into a dedicated Hifi controller",
+  "version": "1.0.0",
+  "author": "muness",
+  "homepage": "https://github.com/muness/roon-knob",
+  "skills": []
+}
