@@ -1,51 +1,47 @@
-## 01-architecture-boundaries
+## 02-code-standards
 
-> Vertical slices (src/FeatureName/), facades for cross-vertical communication, and layer boundaries. Use when adding features or touching src/ structure.
+> PHP standards: strict typing, PHP 8.4, PHP CS Fixer, SOLID, naming. Use when writing or modifying PHP.
 
 
-# Architecture and Vertical Boundaries
+# Code Standards
 
-**Reference**: See `docs/archbook.md` for complete architecture documentation.
+**Reference**: See `.cursorrules` and `.php-cs-fixer.dist.php` for complete standards.
 
-## Vertical Structure
+## PHP Standards
 
-- Each feature is a **vertical** (top-level folder under `src/`)
-- Verticals contain layers: `Domain/`, `Facade/`, `Infrastructure/`, `Api/`, `Presentation/`
-- `Common/` is a shared vertical for cross-cutting concerns (excluded from boundary tests)
+- **Strict typing**: Always use `declare(strict_types=1);` at the top of every PHP file
+- **PHP 8.4 features**: Use modern PHP features when appropriate
+- **Attributes over annotations**: Prefer PHP Attributes; only use annotations if no attribute exists
+- **No named arguments**: Never use named arguments when calling functions/methods
+- **Type system**: Use PHP's type system extensively (return types, parameter types, property types)
 
-## Cross-Vertical Communication
+## Code Formatting
 
-**CRITICAL RULE**: Verticals can only communicate through **Facades**.
+Follow PHP CS Fixer rules defined in `.php-cs-fixer.dist.php`:
+- Based on `@Symfony` standard
+- Custom rules: `ErickSkrauch/align_multiline_parameters`, `ErickSkrauch/blank_line_before_return`, `ErickSkrauch/multiline_if_statement_braces`
+- Always run `mise quality` before committing to ensure formatting compliance
 
-- ✅ **Allowed**: `App\Foo\Domain\Service` → uses `App\Bar\Facade\BarFacadeInterface`
-- ❌ **Forbidden**: `App\Foo\Domain\Service` → uses `App\Bar\Domain\Entity`
-- ❌ **Forbidden**: `App\Foo\Presentation\Controller` → uses `App\Bar\Domain\Service`
+## SOLID Principles
 
-## Facade Usage
+- **Dependency Injection**: Services injected via container; avoid static/global access
+- **Single Responsibility**: Each class has one clear purpose
+- **Open/Closed**: Extend through interfaces and composition
+- **Liskov Substitution**: Subtypes must be substitutable for their base types
+- **Interface Segregation**: Many specific interfaces over one general interface
+- **Dependency Inversion**: Depend on abstractions, not concretions
 
-- Facades expose **interfaces** and **DTOs** in `Facade/` namespace
-- Facades are for **cross-vertical** use only
-- Within the same vertical, use Domain services directly
-- Facade implementations are thin orchestrators
+## Naming Conventions
 
-## Layer Responsibilities
+- Use descriptive names; longer names are acceptable if they clarify meaning
+- Follow Symfony naming conventions for controllers, services, entities
+- Use clear, intention-revealing names for methods and variables
 
-- **Facade**: Interfaces + DTOs + orchestration for other verticals
-- **Domain**: Entities, enums, value objects, domain services, repositories (pure business logic)
-- **Infrastructure**: External integrations, adapters
-- **Api**: HTTP endpoints, serialization, request/response DTOs
-- **Presentation**: Controllers, UI services, Twig templates, UX components
+## Error Handling
 
-## When Creating New Features
-
-1. Create a new vertical: `src/FeatureName/`
-2. Add layers as needed (not all verticals need all layers)
-3. Only add a `Facade/` when another vertical needs to access this feature
-4. Keep `Common/` small and for truly cross-cutting concerns only
-
-## Boundary Enforcement
-
-The architecture test (`tests/Architecture/FeatureBoundariesArchTest.php`) enforces these rules. If you violate boundaries, the test will fail.
+- Use Symfony exceptions and validation facilities
+- Use logging for important events and errors
+- Never suppress errors silently
 
 ---
 > Source: [dx-tooling/sitebuilder-webapp](https://github.com/dx-tooling/sitebuilder-webapp) — distributed by [TomeVault](https://tomevault.io).
