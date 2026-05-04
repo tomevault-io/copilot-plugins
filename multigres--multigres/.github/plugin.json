@@ -1,0 +1,18 @@
+{
+  "name": "multigres--multigres",
+  "displayName": "multigres",
+  "description": "Vitess for Postgres",
+  "version": "1.0.0",
+  "author": "multigres",
+  "homepage": "https://github.com/multigres/multigres",
+  "skills": [
+    {
+      "name": "mt-dev",
+      "description": ""
+    },
+    {
+      "name": "mt-local-cluster",
+      "description": ""
+    }
+  ]
+}
