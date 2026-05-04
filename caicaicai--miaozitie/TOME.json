@@ -1,0 +1,44 @@
+{
+  "name": "miaozitie",
+  "owner": "caicaicai",
+  "repo": "miaozitie",
+  "description": "\u55b5\u5b57\u5e16 - \u5c0f\u5b66\u751f\u7b14\u753b\u7ec3\u5b57\u5e16\u751f\u6210\u5668  https://miaozitie.80wdb.com/",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/caicaicai/miaozitie",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T05:50:54Z"
+}
