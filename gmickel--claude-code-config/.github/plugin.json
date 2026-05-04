@@ -1,0 +1,18 @@
+{
+  "name": "gmickel--claude-code-config",
+  "displayName": "claude-code-config",
+  "description": "Some of my Claude Code config",
+  "version": "1.0.0",
+  "author": "gmickel",
+  "homepage": "https://github.com/gmickel/claude-code-config",
+  "skills": [
+    {
+      "name": "convex",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "description": ""
+    }
+  ]
+}
