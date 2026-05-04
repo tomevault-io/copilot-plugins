@@ -1,0 +1,75 @@
+{
+  "name": "vizra-adk",
+  "owner": "vizra-ai",
+  "repo": "vizra-adk",
+  "description": "Build, test, and deploy intelligent AI agents the Laravel way",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vizra-agent-creation",
+      "path": "resources/boost/skills/vizra-agent-creation",
+      "github_url": "https://github.com/vizra-ai/vizra-adk/tree/main/resources/boost/skills/vizra-agent-creation",
+      "description": ""
+    },
+    {
+      "name": "vizra-evaluation",
+      "path": "resources/boost/skills/vizra-evaluation",
+      "github_url": "https://github.com/vizra-ai/vizra-adk/tree/main/resources/boost/skills/vizra-evaluation",
+      "description": ""
+    },
+    {
+      "name": "vizra-memory",
+      "path": "resources/boost/skills/vizra-memory",
+      "github_url": "https://github.com/vizra-ai/vizra-adk/tree/main/resources/boost/skills/vizra-memory",
+      "description": ""
+    },
+    {
+      "name": "vizra-tool-creation",
+      "path": "resources/boost/skills/vizra-tool-creation",
+      "github_url": "https://github.com/vizra-ai/vizra-adk/tree/main/resources/boost/skills/vizra-tool-creation",
+      "description": ""
+    },
+    {
+      "name": "vizra-workflows",
+      "path": "resources/boost/skills/vizra-workflows",
+      "github_url": "https://github.com/vizra-ai/vizra-adk/tree/main/resources/boost/skills/vizra-workflows",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vizra-ai/vizra-adk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T23:37:17Z"
+}
