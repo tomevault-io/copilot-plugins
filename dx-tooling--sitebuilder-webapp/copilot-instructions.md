@@ -1,47 +1,58 @@
-## 02-code-standards
+## 03-type-safety
 
-> PHP standards: strict typing, PHP 8.4, PHP CS Fixer, SOLID, naming. Use when writing or modifying PHP.
+> PHPStan level 10, list<T> for arrays across boundaries, no mixed. Use when fixing types or PHPStan errors.
 
 
-# Code Standards
+# Type Safety and PHPStan
 
-**Reference**: See `.cursorrules` and `.php-cs-fixer.dist.php` for complete standards.
+**Reference**: See `phpstan.dist.neon` for PHPStan configuration (level 10).
 
-## PHP Standards
+## PHPStan Level 10
 
-- **Strict typing**: Always use `declare(strict_types=1);` at the top of every PHP file
-- **PHP 8.4 features**: Use modern PHP features when appropriate
-- **Attributes over annotations**: Prefer PHP Attributes; only use annotations if no attribute exists
-- **No named arguments**: Never use named arguments when calling functions/methods
-- **Type system**: Use PHP's type system extensively (return types, parameter types, property types)
+All code must pass PHPStan level 10 analysis. Run `mise quality` to verify.
 
-## Code Formatting
+## Array Types Across Boundaries
 
-Follow PHP CS Fixer rules defined in `.php-cs-fixer.dist.php`:
-- Based on `@Symfony` standard
-- Custom rules: `ErickSkrauch/align_multiline_parameters`, `ErickSkrauch/blank_line_before_return`, `ErickSkrauch/multiline_if_statement_braces`
-- Always run `mise quality` before committing to ensure formatting compliance
+**CRITICAL RULE**: When arrays cross class boundaries (method parameters, return types, DTO properties), use `list<T>` for simple indexed arrays, not `array` or `T[]`.
 
-## SOLID Principles
+- ✅ **Correct**: `@param list<string> $roles`, `@return list<string>`, `@var list<string>`
+- ❌ **Incorrect**: `@param string[] $roles`, `@param array<string> $roles`, `@return array`
 
-- **Dependency Injection**: Services injected via container; avoid static/global access
-- **Single Responsibility**: Each class has one clear purpose
-- **Open/Closed**: Extend through interfaces and composition
-- **Liskov Substitution**: Subtypes must be substitutable for their base types
-- **Interface Segregation**: Many specific interfaces over one general interface
-- **Dependency Inversion**: Depend on abstractions, not concretions
+**Rationale**: PHPStan's `noAssociativeArraysAcrossBoundaries` rule enforces this to prevent associative arrays from crossing boundaries. Use DTOs for complex data structures.
 
-## Naming Conventions
+## Type Annotations
 
-- Use descriptive names; longer names are acceptable if they clarify meaning
-- Follow Symfony naming conventions for controllers, services, entities
-- Use clear, intention-revealing names for methods and variables
+- Always provide PHPDoc type annotations for arrays, even when native types exist
+- Use `list<T>` for indexed arrays
+- Use specific DTO types for complex data structures
+- Never use `mixed` unless absolutely necessary (and document why)
 
-## Error Handling
+## Property Types
 
-- Use Symfony exceptions and validation facilities
-- Use logging for important events and errors
-- Never suppress errors silently
+- Use native property types (PHP 7.4+) whenever possible
+- Combine with PHPDoc annotations for complex types (arrays, generics)
+- Example: `private array $roles;` with `@var list<string>`
+
+## Return Types
+
+- Always declare return types on methods
+- Use `?Type` for nullable returns
+- Use `void` for methods that don't return values
+- Never omit return types
+
+## Parameter Types
+
+- Always type all parameters
+- Use union types (`Type1|Type2`) when appropriate (PHP 8.0+)
+- Use intersection types (`Type1&Type2`) when needed (PHP 8.1+)
+
+## When PHPStan Fails
+
+If PHPStan reports errors:
+1. Read the error message carefully
+2. Fix the type annotation (usually changing `array`/`T[]` to `list<T>`)
+3. Re-run `mise quality` to verify the fix
+4. Never suppress PHPStan errors with `@phpstan-ignore` unless absolutely necessary (and document why)
 
 ---
 > Source: [dx-tooling/sitebuilder-webapp](https://github.com/dx-tooling/sitebuilder-webapp) — distributed by [TomeVault](https://tomevault.io).
