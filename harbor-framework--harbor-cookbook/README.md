@@ -7,11 +7,11 @@ Realistic examples of building evals and optimizing agents with Harbor
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [harbor-framework/harbor-cookbook](https://github.com/harbor-framework/harbor-cookbook).
+Original source: `CLAUDE.md` in [harbor-framework/harbor-cookbook](https://github.com/harbor-framework/harbor-cookbook).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
