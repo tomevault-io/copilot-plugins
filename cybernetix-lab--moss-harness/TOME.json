@@ -4,7 +4,7 @@
   "repo": "moss-harness",
   "description": "A production-grade AI Agent Harness engineering template providing a reliable, observable, and recoverable Agent runtime environment.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cybernetix-lab/moss-harness",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:41:27Z"
+  "distributed_at": "2026-05-04T05:05:42Z"
 }
