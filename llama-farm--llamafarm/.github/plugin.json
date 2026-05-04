@@ -1,0 +1,86 @@
+{
+  "name": "llama-farm--llamafarm",
+  "displayName": "llamafarm",
+  "description": "Deploy any AI model, agent, database, RAG, and pipeline locally or remotely in minutes",
+  "version": "1.0.0",
+  "author": "llama-farm",
+  "homepage": "https://github.com/llama-farm/llamafarm",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "cli-skills",
+      "description": ""
+    },
+    {
+      "name": "commit-push-pr",
+      "description": ""
+    },
+    {
+      "name": "common-skills",
+      "description": ""
+    },
+    {
+      "name": "config-skills",
+      "description": ""
+    },
+    {
+      "name": "designer-skills",
+      "description": ""
+    },
+    {
+      "name": "electron-skills",
+      "description": ""
+    },
+    {
+      "name": "fix-ci",
+      "description": ""
+    },
+    {
+      "name": "generate-subsystem-skills",
+      "description": ""
+    },
+    {
+      "name": "go-skills",
+      "description": ""
+    },
+    {
+      "name": "python-skills",
+      "description": ""
+    },
+    {
+      "name": "rag-skills",
+      "description": ""
+    },
+    {
+      "name": "react-skills",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "description": ""
+    },
+    {
+      "name": "runtime-skills",
+      "description": ""
+    },
+    {
+      "name": "server-skills",
+      "description": ""
+    },
+    {
+      "name": "temp-files",
+      "description": ""
+    },
+    {
+      "name": "typescript-skills",
+      "description": ""
+    },
+    {
+      "name": "wt",
+      "description": ""
+    }
+  ]
+}
