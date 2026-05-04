@@ -1,0 +1,18 @@
+{
+  "name": "crafter-station--elements",
+  "displayName": "elements",
+  "description": "Full-stack shadcn/ui blocks for auth, payments, AI, logos, and more",
+  "version": "1.0.0",
+  "author": "crafter-station",
+  "homepage": "https://github.com/crafter-station/elements",
+  "skills": [
+    {
+      "name": "create-element",
+      "description": ""
+    },
+    {
+      "name": "tech-logos",
+      "description": ""
+    }
+  ]
+}
