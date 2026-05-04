@@ -1,0 +1,111 @@
+{
+  "name": "agents-at-scale-ark",
+  "owner": "mckinsey",
+  "repo": "agents-at-scale-ark",
+  "description": "Provider-agnostic operations for agentic resources. ARK codifies patterns and practices developed across dozens of agentic application projects.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "analysis",
+      "path": ".claude/skills/analysis",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/analysis",
+      "description": ""
+    },
+    {
+      "name": "architecture",
+      "path": ".claude/skills/architecture",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/architecture",
+      "description": ""
+    },
+    {
+      "name": "chainsaw",
+      "path": ".claude/skills/chainsaw",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/chainsaw",
+      "description": ""
+    },
+    {
+      "name": "ark-controller-development",
+      "path": ".claude/skills/ark-controller-development",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/ark-controller-development",
+      "description": ""
+    },
+    {
+      "name": "dashboard",
+      "path": ".claude/skills/dashboard",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/dashboard",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": ".claude/skills/documentation",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "issues",
+      "path": ".claude/skills/issues",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/issues",
+      "description": ""
+    },
+    {
+      "name": "pentest-issue-resolver",
+      "path": ".claude/skills/pentest-issue-resolver",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/pentest-issue-resolver",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": ".claude/skills/research",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/research",
+      "description": ""
+    },
+    {
+      "name": "ark-sdk-development",
+      "path": ".claude/skills/ark-sdk-development",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/ark-sdk-development",
+      "description": ""
+    },
+    {
+      "name": "vulnerability-fixer",
+      "path": ".claude/skills/vulnerability-fixer",
+      "github_url": "https://github.com/mckinsey/agents-at-scale-ark/tree/main/.claude/skills/vulnerability-fixer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mckinsey/agents-at-scale-ark",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T07:33:01Z"
+}
