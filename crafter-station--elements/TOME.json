@@ -1,0 +1,57 @@
+{
+  "name": "elements",
+  "owner": "crafter-station",
+  "repo": "elements",
+  "description": "Full-stack shadcn/ui blocks for auth, payments, AI, logos, and more",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-element",
+      "path": ".claude/skills/create-element",
+      "github_url": "https://github.com/crafter-station/elements/tree/main/.claude/skills/create-element",
+      "description": ""
+    },
+    {
+      "name": "tech-logos",
+      "path": ".claude/skills/tech-logos",
+      "github_url": "https://github.com/crafter-station/elements/tree/main/.claude/skills/tech-logos",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/crafter-station/elements",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:30:19Z"
+}
