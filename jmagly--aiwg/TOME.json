@@ -1,0 +1,183 @@
+{
+  "name": "aiwg",
+  "owner": "jmagly",
+  "repo": "aiwg",
+  "description": "Cognitive architecture for AI-augmented software development. Specialized agents, structured workflows, and multi-platform deployment. Claude Code \u00b7 Codex \u00b7 Copilot \u00b7 Cursor \u00b7 Factory \u00b7 Warp \u00b7 Windsurf.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-pattern-detection",
+      "path": "plugins/writing/skills/ai-pattern-detection",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/plugins/writing/skills/ai-pattern-detection",
+      "description": ""
+    },
+    {
+      "name": "doc-scraper",
+      "path": "agentic/code/addons/doc-intelligence/skills/doc-scraper",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/doc-intelligence/skills/doc-scraper",
+      "description": ""
+    },
+    {
+      "name": "doc-splitter",
+      "path": "agentic/code/addons/doc-intelligence/skills/doc-splitter",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/doc-intelligence/skills/doc-splitter",
+      "description": ""
+    },
+    {
+      "name": "eslint-checker",
+      "path": "agentic/code/frameworks/sdlc-complete/extensions/javascript/skills/eslint-checker",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/frameworks/sdlc-complete/extensions/javascript/skills/eslint-checker",
+      "description": ""
+    },
+    {
+      "name": "flaky-detect",
+      "path": "agentic/code/addons/testing-quality/skills/flaky-detect",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/testing-quality/skills/flaky-detect",
+      "description": ""
+    },
+    {
+      "name": "flaky-fix",
+      "path": "agentic/code/addons/testing-quality/skills/flaky-fix",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/testing-quality/skills/flaky-fix",
+      "description": ""
+    },
+    {
+      "name": "generate-factory",
+      "path": "agentic/code/addons/testing-quality/skills/generate-factory",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/testing-quality/skills/generate-factory",
+      "description": ""
+    },
+    {
+      "name": "llms-txt-support",
+      "path": "agentic/code/addons/doc-intelligence/skills/llms-txt-support",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/doc-intelligence/skills/llms-txt-support",
+      "description": ""
+    },
+    {
+      "name": "mutation-test",
+      "path": "agentic/code/addons/testing-quality/skills/mutation-test",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/testing-quality/skills/mutation-test",
+      "description": ""
+    },
+    {
+      "name": "pdf-extractor",
+      "path": "agentic/code/addons/doc-intelligence/skills/pdf-extractor",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/doc-intelligence/skills/pdf-extractor",
+      "description": ""
+    },
+    {
+      "name": "pr-reviewer",
+      "path": "agentic/code/frameworks/sdlc-complete/extensions/github/skills/pr-reviewer",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/frameworks/sdlc-complete/extensions/github/skills/pr-reviewer",
+      "description": ""
+    },
+    {
+      "name": "pytest-runner",
+      "path": "agentic/code/frameworks/sdlc-complete/extensions/python/skills/pytest-runner",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/frameworks/sdlc-complete/extensions/python/skills/pytest-runner",
+      "description": ""
+    },
+    {
+      "name": "quality-checker",
+      "path": "agentic/code/addons/skill-factory/skills/quality-checker",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/skill-factory/skills/quality-checker",
+      "description": ""
+    },
+    {
+      "name": "repo-analyzer",
+      "path": "agentic/code/frameworks/sdlc-complete/extensions/github/skills/repo-analyzer",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/frameworks/sdlc-complete/extensions/github/skills/repo-analyzer",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "path": "agentic/code/addons/skill-factory/skills/skill-builder",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/skill-factory/skills/skill-builder",
+      "description": ""
+    },
+    {
+      "name": "skill-enhancer",
+      "path": "agentic/code/addons/skill-factory/skills/skill-enhancer",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/skill-factory/skills/skill-enhancer",
+      "description": ""
+    },
+    {
+      "name": "skill-packager",
+      "path": "agentic/code/addons/skill-factory/skills/skill-packager",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/skill-factory/skills/skill-packager",
+      "description": ""
+    },
+    {
+      "name": "source-unifier",
+      "path": "agentic/code/addons/doc-intelligence/skills/source-unifier",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/doc-intelligence/skills/source-unifier",
+      "description": ""
+    },
+    {
+      "name": "tdd-enforce",
+      "path": "agentic/code/addons/testing-quality/skills/tdd-enforce",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/testing-quality/skills/tdd-enforce",
+      "description": ""
+    },
+    {
+      "name": "test-sync",
+      "path": "agentic/code/addons/testing-quality/skills/test-sync",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/addons/testing-quality/skills/test-sync",
+      "description": ""
+    },
+    {
+      "name": "venv-manager",
+      "path": "agentic/code/frameworks/sdlc-complete/extensions/python/skills/venv-manager",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/frameworks/sdlc-complete/extensions/python/skills/venv-manager",
+      "description": ""
+    },
+    {
+      "name": "vitest-runner",
+      "path": "agentic/code/frameworks/sdlc-complete/extensions/javascript/skills/vitest-runner",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/agentic/code/frameworks/sdlc-complete/extensions/javascript/skills/vitest-runner",
+      "description": ""
+    },
+    {
+      "name": "voice-apply",
+      "path": "plugins/voice/skills/voice-apply",
+      "github_url": "https://github.com/jmagly/aiwg/tree/main/plugins/voice/skills/voice-apply",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jmagly/aiwg",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:33:24Z"
+}
