@@ -1,0 +1,14 @@
+{
+  "name": "ourines--worktree-task-plugin",
+  "displayName": "worktree-task-plugin",
+  "description": "Claude Code plugin for managing large coding tasks using git worktrees and background sessions",
+  "version": "1.0.0",
+  "author": "ourines",
+  "homepage": "https://github.com/ourines/worktree-task-plugin",
+  "skills": [
+    {
+      "name": "worktree-task",
+      "description": ""
+    }
+  ]
+}
