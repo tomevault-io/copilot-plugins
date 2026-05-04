@@ -1,0 +1,9 @@
+{
+  "name": "abinesh-l--claude-crusts",
+  "displayName": "claude-crusts",
+  "description": "Analyze your Claude Code context window, detect wasted tokens, and get pasteable fix commands. Zero API calls",
+  "version": "1.0.0",
+  "author": "Abinesh-L",
+  "homepage": "https://github.com/Abinesh-L/claude-crusts",
+  "skills": []
+}
