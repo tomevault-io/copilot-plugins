@@ -1,0 +1,9 @@
+{
+  "name": "hotchpotch--sqlite-vaporetto",
+  "displayName": "sqlite-vaporetto",
+  "description": "SQLite FTS5 extension for fast Japanese full-text search with \ud83d\udee5Vaporetto / Vaporetto \u306b\u3088\u308b\u9ad8\u901f\u306a\u65e5\u672c\u8a9e\u5168\u6587\u691c\u7d22\u3092 SQLite FTS5 \u3067\u5b9f\u73fe\u3059\u308b\u62e1\u5f35\u6a5f\u80fd",
+  "version": "1.0.0",
+  "author": "hotchpotch",
+  "homepage": "https://github.com/hotchpotch/sqlite-vaporetto",
+  "skills": []
+}
