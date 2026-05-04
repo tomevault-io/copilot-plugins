@@ -1,0 +1,9 @@
+{
+  "name": "yogirk--agent-council",
+  "displayName": "agent-council",
+  "description": "A skill that convenes a panel of CLI-based AI agents (Claude Code, Codex, Gemini CLI) to deliberate on engineering problems through structured multi-stage discussion, peer review, and synthesis",
+  "version": "1.0.0",
+  "author": "yogirk",
+  "homepage": "https://github.com/yogirk/agent-council",
+  "skills": []
+}
