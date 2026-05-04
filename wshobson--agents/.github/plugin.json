@@ -1,0 +1,486 @@
+{
+  "name": "wshobson--agents",
+  "displayName": "agents",
+  "description": "Intelligent automation and multi-agent orchestration for Claude Code",
+  "version": "1.0.0",
+  "author": "wshobson",
+  "homepage": "https://github.com/wshobson/agents",
+  "skills": [
+    {
+      "name": "accessibility-compliance",
+      "description": ""
+    },
+    {
+      "name": "airflow-dag-patterns",
+      "description": ""
+    },
+    {
+      "name": "angular-migration",
+      "description": ""
+    },
+    {
+      "name": "anti-reversing-techniques",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "architecture-decision-records",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "async-python-patterns",
+      "description": ""
+    },
+    {
+      "name": "auth-implementation-patterns",
+      "description": ""
+    },
+    {
+      "name": "backtesting-frameworks",
+      "description": ""
+    },
+    {
+      "name": "bats-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "bazel-build-optimization",
+      "description": ""
+    },
+    {
+      "name": "binary-analysis-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-review-excellence",
+      "description": ""
+    },
+    {
+      "name": "competitive-landscape",
+      "description": ""
+    },
+    {
+      "name": "context-driven-development",
+      "description": ""
+    },
+    {
+      "name": "data-quality-frameworks",
+      "description": ""
+    },
+    {
+      "name": "database-migration",
+      "description": ""
+    },
+    {
+      "name": "dbt-transformation-patterns",
+      "description": ""
+    },
+    {
+      "name": "debugging-strategies",
+      "description": ""
+    },
+    {
+      "name": "defi-protocol-templates",
+      "description": ""
+    },
+    {
+      "name": "dependency-upgrade",
+      "description": ""
+    },
+    {
+      "name": "deployment-pipeline-design",
+      "description": ""
+    },
+    {
+      "name": "design-system-patterns",
+      "description": ""
+    },
+    {
+      "name": "dotnet-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "embedding-strategies",
+      "description": ""
+    },
+    {
+      "name": "employment-contract-templates",
+      "description": ""
+    },
+    {
+      "name": "error-handling-patterns",
+      "description": ""
+    },
+    {
+      "name": "event-store-design",
+      "description": ""
+    },
+    {
+      "name": "fastapi-templates",
+      "description": ""
+    },
+    {
+      "name": "gdpr-data-handling",
+      "description": ""
+    },
+    {
+      "name": "git-advanced-workflows",
+      "description": ""
+    },
+    {
+      "name": "github-actions-templates",
+      "description": ""
+    },
+    {
+      "name": "gitlab-ci-patterns",
+      "description": ""
+    },
+    {
+      "name": "gitops-workflow",
+      "description": ""
+    },
+    {
+      "name": "go-concurrency-patterns",
+      "description": ""
+    },
+    {
+      "name": "godot-gdscript-patterns",
+      "description": ""
+    },
+    {
+      "name": "grafana-dashboards",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "hybrid-search-implementation",
+      "description": ""
+    },
+    {
+      "name": "interaction-design",
+      "description": ""
+    },
+    {
+      "name": "istio-traffic-management",
+      "description": ""
+    },
+    {
+      "name": "javascript-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "k8s-manifest-generator",
+      "description": ""
+    },
+    {
+      "name": "kpi-dashboard-design",
+      "description": ""
+    },
+    {
+      "name": "langchain-architecture",
+      "description": ""
+    },
+    {
+      "name": "linkerd-patterns",
+      "description": ""
+    },
+    {
+      "name": "llm-evaluation",
+      "description": ""
+    },
+    {
+      "name": "market-sizing-analysis",
+      "description": ""
+    },
+    {
+      "name": "memory-safety-patterns",
+      "description": ""
+    },
+    {
+      "name": "microservices-patterns",
+      "description": ""
+    },
+    {
+      "name": "ml-pipeline-workflow",
+      "description": ""
+    },
+    {
+      "name": "mobile-android-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-ios-design",
+      "description": ""
+    },
+    {
+      "name": "modern-javascript-patterns",
+      "description": ""
+    },
+    {
+      "name": "multi-cloud-architecture",
+      "description": ""
+    },
+    {
+      "name": "multi-reviewer-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-app-router-patterns",
+      "description": ""
+    },
+    {
+      "name": "nodejs-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "on-call-handoff-patterns",
+      "description": ""
+    },
+    {
+      "name": "openapi-spec-generation",
+      "description": ""
+    },
+    {
+      "name": "parallel-debugging",
+      "description": ""
+    },
+    {
+      "name": "parallel-feature-development",
+      "description": ""
+    },
+    {
+      "name": "postgresql",
+      "description": ""
+    },
+    {
+      "name": "postmortem-writing",
+      "description": ""
+    },
+    {
+      "name": "prometheus-configuration",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-patterns",
+      "description": ""
+    },
+    {
+      "name": "protocol-reverse-engineering",
+      "description": ""
+    },
+    {
+      "name": "python-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-background-jobs",
+      "description": ""
+    },
+    {
+      "name": "python-code-style",
+      "description": ""
+    },
+    {
+      "name": "python-configuration",
+      "description": ""
+    },
+    {
+      "name": "python-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-error-handling",
+      "description": ""
+    },
+    {
+      "name": "python-observability",
+      "description": ""
+    },
+    {
+      "name": "python-packaging",
+      "description": ""
+    },
+    {
+      "name": "python-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "python-project-structure",
+      "description": ""
+    },
+    {
+      "name": "python-resilience",
+      "description": ""
+    },
+    {
+      "name": "python-resource-management",
+      "description": ""
+    },
+    {
+      "name": "python-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-type-safety",
+      "description": ""
+    },
+    {
+      "name": "rag-implementation",
+      "description": ""
+    },
+    {
+      "name": "react-modernization",
+      "description": ""
+    },
+    {
+      "name": "react-native-architecture",
+      "description": ""
+    },
+    {
+      "name": "react-native-design",
+      "description": ""
+    },
+    {
+      "name": "react-state-management",
+      "description": ""
+    },
+    {
+      "name": "responsive-design",
+      "description": ""
+    },
+    {
+      "name": "rust-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "sast-configuration",
+      "description": ""
+    },
+    {
+      "name": "screen-reader-testing",
+      "description": ""
+    },
+    {
+      "name": "security-requirement-extraction",
+      "description": ""
+    },
+    {
+      "name": "shellcheck-configuration",
+      "description": ""
+    },
+    {
+      "name": "slo-implementation",
+      "description": ""
+    },
+    {
+      "name": "solidity-security",
+      "description": ""
+    },
+    {
+      "name": "sql-optimization-patterns",
+      "description": ""
+    },
+    {
+      "name": "startup-financial-modeling",
+      "description": ""
+    },
+    {
+      "name": "startup-metrics-framework",
+      "description": ""
+    },
+    {
+      "name": "stride-analysis-patterns",
+      "description": ""
+    },
+    {
+      "name": "stripe-integration",
+      "description": ""
+    },
+    {
+      "name": "tailwind-design-system",
+      "description": ""
+    },
+    {
+      "name": "task-coordination-strategies",
+      "description": ""
+    },
+    {
+      "name": "team-communication-protocols",
+      "description": ""
+    },
+    {
+      "name": "team-composition-analysis",
+      "description": ""
+    },
+    {
+      "name": "team-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "temporal-python-testing",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-library",
+      "description": ""
+    },
+    {
+      "name": "threat-mitigation-mapping",
+      "description": ""
+    },
+    {
+      "name": "track-management",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "unity-ecs-patterns",
+      "description": ""
+    },
+    {
+      "name": "uv-package-manager",
+      "description": ""
+    },
+    {
+      "name": "visual-design-foundations",
+      "description": ""
+    },
+    {
+      "name": "wcag-audit-patterns",
+      "description": ""
+    },
+    {
+      "name": "web-component-design",
+      "description": ""
+    },
+    {
+      "name": "web3-testing",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestration-patterns",
+      "description": ""
+    },
+    {
+      "name": "workflow-patterns",
+      "description": ""
+    }
+  ]
+}
