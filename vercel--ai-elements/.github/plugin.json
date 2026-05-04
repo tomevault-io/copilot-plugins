@@ -1,0 +1,14 @@
+{
+  "name": "vercel--ai-elements",
+  "displayName": "ai-elements",
+  "description": "AI Elements is a component library and custom registry built on top of shadcn/ui to help you build AI-native applications faster.",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/ai-elements",
+  "skills": [
+    {
+      "name": "ai-elements",
+      "description": ""
+    }
+  ]
+}
