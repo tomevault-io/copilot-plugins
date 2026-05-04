@@ -1,0 +1,44 @@
+{
+  "name": "claude-mobile",
+  "owner": "zyh530",
+  "repo": "claude-mobile",
+  "description": "\u901a\u8fc7\u7f51\u9875\u8fdc\u7a0b\u63a7\u5236\u5f00\u53d1\u673a\u4e0a\u7684 Claude Agent\uff0c\u652f\u6301\u624b\u673a/\u5e73\u677f/\u7535\u8111\u591a\u7aef\u8bbf\u95ee",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/zyh530/claude-mobile",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:58:12Z"
+}
