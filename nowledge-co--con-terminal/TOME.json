@@ -4,7 +4,7 @@
   "repo": "con-terminal",
   "description": "The Native Terminal Emulator with a builtin AI Harness",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nowledge-co/con-terminal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T08:37:17Z"
+  "distributed_at": "2026-05-04T08:30:12Z"
 }
