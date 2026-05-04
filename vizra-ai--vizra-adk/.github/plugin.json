@@ -1,0 +1,30 @@
+{
+  "name": "vizra-ai--vizra-adk",
+  "displayName": "vizra-adk",
+  "description": "Build, test, and deploy intelligent AI agents the Laravel way",
+  "version": "1.0.0",
+  "author": "vizra-ai",
+  "homepage": "https://github.com/vizra-ai/vizra-adk",
+  "skills": [
+    {
+      "name": "vizra-agent-creation",
+      "description": ""
+    },
+    {
+      "name": "vizra-evaluation",
+      "description": ""
+    },
+    {
+      "name": "vizra-memory",
+      "description": ""
+    },
+    {
+      "name": "vizra-tool-creation",
+      "description": ""
+    },
+    {
+      "name": "vizra-workflows",
+      "description": ""
+    }
+  ]
+}
