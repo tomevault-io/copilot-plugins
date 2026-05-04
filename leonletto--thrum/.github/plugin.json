@@ -1,0 +1,14 @@
+{
+  "name": "leonletto--thrum",
+  "displayName": "thrum",
+  "description": "Thrum is the sound of agents working.",
+  "version": "1.0.0",
+  "author": "leonletto",
+  "homepage": "https://github.com/leonletto/thrum",
+  "skills": [
+    {
+      "name": "thrum",
+      "description": ""
+    }
+  ]
+}
