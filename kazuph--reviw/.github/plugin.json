@@ -1,0 +1,30 @@
+{
+  "name": "kazuph--reviw",
+  "displayName": "reviw",
+  "description": "Human-in-the-loop review interface for AI coding workflows",
+  "version": "1.0.0",
+  "author": "kazuph",
+  "homepage": "https://github.com/kazuph/reviw",
+  "skills": [
+    {
+      "name": "artifact-proof",
+      "description": ""
+    },
+    {
+      "name": "backend-testing",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-testing",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    }
+  ]
+}
