@@ -1,0 +1,9 @@
+{
+  "name": "mnemox-ai--agentrelay",
+  "displayName": "AgentRelay",
+  "description": "Verifiable microtask protocol for AI agent collaboration. Task lifecycle, validation engine, reputation system.",
+  "version": "1.0.0",
+  "author": "mnemox-ai",
+  "homepage": "https://github.com/mnemox-ai/AgentRelay",
+  "skills": []
+}
