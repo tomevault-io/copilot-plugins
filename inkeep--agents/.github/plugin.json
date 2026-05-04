@@ -1,0 +1,62 @@
+{
+  "name": "inkeep--agents",
+  "displayName": "agents",
+  "description": "Create AI Agents in a No-Code Visual Builder or TypeScript SDK with full 2-way sync. For shipping AI assistants and multi-agent AI workflows.",
+  "version": "1.0.0",
+  "author": "inkeep",
+  "homepage": "https://github.com/inkeep/agents",
+  "skills": [
+    {
+      "name": "accessibility-checklist",
+      "description": ""
+    },
+    {
+      "name": "adding-env-variables",
+      "description": ""
+    },
+    {
+      "name": "api-logging-guidelines",
+      "description": ""
+    },
+    {
+      "name": "data-model-changes",
+      "description": ""
+    },
+    {
+      "name": "find-similar",
+      "description": ""
+    },
+    {
+      "name": "manage-database-usage",
+      "description": ""
+    },
+    {
+      "name": "next-best-practices",
+      "description": ""
+    },
+    {
+      "name": "next-cache-components",
+      "description": ""
+    },
+    {
+      "name": "next-upgrade",
+      "description": ""
+    },
+    {
+      "name": "product-surface-areas",
+      "description": ""
+    },
+    {
+      "name": "vercel-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "write-docs",
+      "description": ""
+    }
+  ]
+}
