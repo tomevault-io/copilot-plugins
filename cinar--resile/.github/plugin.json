@@ -1,0 +1,9 @@
+{
+  "name": "cinar--resile",
+  "displayName": "resile",
+  "description": "Resile is an ergonomic, type-safe execution resilience and retry library for Go. Inspired by Python\u2019s stamina, it features generic execution wrappers, AWS Full Jitter backoff, native Retry-After heade",
+  "version": "1.0.0",
+  "author": "cinar",
+  "homepage": "https://github.com/cinar/resile",
+  "skills": []
+}
