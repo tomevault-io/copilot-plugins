@@ -1,0 +1,9 @@
+{
+  "name": "hessius--meticai",
+  "displayName": "MeticAI",
+  "description": "AIO LLM + MCP + web server container collection for Meticulous Espresso",
+  "version": "1.0.0",
+  "author": "hessius",
+  "homepage": "https://github.com/hessius/MeticAI",
+  "skills": []
+}
