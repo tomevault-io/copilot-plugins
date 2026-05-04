@@ -1,0 +1,81 @@
+{
+  "name": "markstream-vue",
+  "owner": "Simon-He95",
+  "repo": "markstream-vue",
+  "description": "A Vue 3 renderer specifically built for AI-powered streaming Markdown: Monaco incremental, Mermaid progressive, and KaTeX formula speed, with real-time updates and no jitter, ready to use out of the box.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "markstream-vue",
+      "path": ".agents/skills/markstream-vue",
+      "github_url": "https://github.com/Simon-He95/markstream-vue/tree/main/.agents/skills/markstream-vue",
+      "description": ""
+    },
+    {
+      "name": "markstream-vue2",
+      "path": ".agents/skills/markstream-vue2",
+      "github_url": "https://github.com/Simon-He95/markstream-vue/tree/main/.agents/skills/markstream-vue2",
+      "description": ""
+    },
+    {
+      "name": "markstream-vue2-cli",
+      "path": ".agents/skills/markstream-vue2-cli",
+      "github_url": "https://github.com/Simon-He95/markstream-vue/tree/main/.agents/skills/markstream-vue2-cli",
+      "description": ""
+    },
+    {
+      "name": "markstream-vue2-vite",
+      "path": ".agents/skills/markstream-vue2-vite",
+      "github_url": "https://github.com/Simon-He95/markstream-vue/tree/main/.agents/skills/markstream-vue2-vite",
+      "description": ""
+    },
+    {
+      "name": "markstream-nuxt",
+      "path": ".agents/skills/markstream-nuxt",
+      "github_url": "https://github.com/Simon-He95/markstream-vue/tree/main/.agents/skills/markstream-nuxt",
+      "description": ""
+    },
+    {
+      "name": "markstream-install",
+      "path": ".agents/skills/markstream-install",
+      "github_url": "https://github.com/Simon-He95/markstream-vue/tree/main/.agents/skills/markstream-install",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/Simon-He95/markstream-vue",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T23:54:53Z"
+}
