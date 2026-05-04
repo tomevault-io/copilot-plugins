@@ -1,0 +1,57 @@
+{
+  "name": "connectonion",
+  "owner": "openonion",
+  "repo": "connectonion",
+  "description": "The Best AI Agent Framework for Agent Collaboration. ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "commit",
+      "path": "connectonion/cli/co_ai/skills/builtin/commit",
+      "github_url": "https://github.com/openonion/connectonion/tree/main/connectonion/cli/co_ai/skills/builtin/commit",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "path": "connectonion/cli/co_ai/skills/builtin/review-pr",
+      "github_url": "https://github.com/openonion/connectonion/tree/main/connectonion/cli/co_ai/skills/builtin/review-pr",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openonion/connectonion",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:33:21Z"
+}
