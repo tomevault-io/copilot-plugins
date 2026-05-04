@@ -4,7 +4,7 @@
   "repo": "pg-workflows",
   "description": "Postgres workflows. Durable execution built on pg-boss. Like Temporal, Inngest, or Trigger, powered by Postgres.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/SokratisVidros/pg-workflows",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T18:32:14Z"
+  "distributed_at": "2026-05-04T04:36:30Z"
 }
