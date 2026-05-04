@@ -1,0 +1,46 @@
+{
+  "name": "mikeyobrien--ralph-orchestrator",
+  "displayName": "ralph-orchestrator",
+  "description": "An improved implementation of the Ralph Wiggum technique for autonomous AI agent orchestration",
+  "version": "1.0.0",
+  "author": "mikeyobrien",
+  "homepage": "https://github.com/mikeyobrien/ralph-orchestrator",
+  "skills": [
+    {
+      "name": "code-assist",
+      "description": ""
+    },
+    {
+      "name": "code-task-generator",
+      "description": ""
+    },
+    {
+      "name": "evaluate-presets",
+      "description": ""
+    },
+    {
+      "name": "find-code-tasks",
+      "description": ""
+    },
+    {
+      "name": "pdd",
+      "description": ""
+    },
+    {
+      "name": "playwriter",
+      "description": ""
+    },
+    {
+      "name": "pr-demo",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "tmux-terminal",
+      "description": ""
+    }
+  ]
+}
