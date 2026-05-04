@@ -1,0 +1,14 @@
+{
+  "name": "quests-org--quests",
+  "displayName": "quests",
+  "description": "The open-source app builder",
+  "version": "1.0.0",
+  "author": "quests-org",
+  "homepage": "https://github.com/quests-org/quests",
+  "skills": [
+    {
+      "name": "changelog",
+      "description": ""
+    }
+  ]
+}
