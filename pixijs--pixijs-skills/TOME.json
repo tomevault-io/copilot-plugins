@@ -4,7 +4,7 @@
   "repo": "pixijs-skills",
   "description": "Official AI skills for PixiJS. These skills teach AI coding agents how to correctly use PixiJS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pixijs/pixijs-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T05:07:23Z"
+  "distributed_at": "2026-05-04T04:41:44Z"
 }
