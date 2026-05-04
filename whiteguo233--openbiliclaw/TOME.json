@@ -4,7 +4,7 @@
   "repo": "OpenBiliClaw",
   "description": " B\u7ad9\u63a8\u8350\u7b97\u6cd5\u7684\u5f00\u6e90\u66ff\u4ee3\u54c1\u2014\u2014\u8dd1\u5728\u4f60\u81ea\u5df1\u7535\u8111\u4e0a\uff0c\u7528\u5fc3\u7406\u753b\u50cf\u800c\u4e0d\u662f\u70b9\u51fb\u8bb0\u5f55\u6765\u7406\u89e3\u4f60\uff0c\u4e3b\u52a8\u5e2e\u4f60\u53d1\u73b0\u4ece\u6ca1\u63a5\u89e6\u8fc7\u7684\u597d\u5185\u5bb9",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/whiteguo233/OpenBiliClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T12:58:24Z"
+  "distributed_at": "2026-05-04T22:18:13Z"
 }
