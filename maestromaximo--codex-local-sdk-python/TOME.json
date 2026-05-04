@@ -1,0 +1,63 @@
+{
+  "name": "codex-local-sdk-python",
+  "owner": "maestromaximo",
+  "repo": "codex-local-sdk-python",
+  "description": "OpenAi's Codex Python SDK",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codex-local-sdk",
+      "path": ".agents/skills/codex-local-sdk",
+      "github_url": "https://github.com/maestromaximo/codex-local-sdk-python/tree/main/.agents/skills/codex-local-sdk",
+      "description": ""
+    },
+    {
+      "name": "codex-local-sdk-usage",
+      "path": "codex-local-sdk-python/src/codex_sdk_python/data/skills/codex-local-sdk-usage",
+      "github_url": "https://github.com/maestromaximo/codex-local-sdk-python/tree/main/codex-local-sdk-python/src/codex_sdk_python/data/skills/codex-local-sdk-usage",
+      "description": ""
+    },
+    {
+      "name": "codex-local-sdk-usage",
+      "path": ".agents/skills/codex-local-sdk-usage",
+      "github_url": "https://github.com/maestromaximo/codex-local-sdk-python/tree/main/.agents/skills/codex-local-sdk-usage",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/maestromaximo/codex-local-sdk-python",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:34:31Z"
+}
