@@ -1,0 +1,9 @@
+{
+  "name": "omarvii--claude-alloy",
+  "displayName": "claude-alloy",
+  "description": "14-agent orchestration harness for Claude Code \u2014 pure config, no runtime, no wrapper",
+  "version": "1.0.0",
+  "author": "OMARVII",
+  "homepage": "https://github.com/OMARVII/claude-alloy",
+  "skills": []
+}
