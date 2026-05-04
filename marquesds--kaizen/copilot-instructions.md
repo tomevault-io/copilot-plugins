@@ -1,29 +1,62 @@
-## agent-parity
+## agent-workflow
 
-> Agent parity — AGENTS.md as source of truth, .cursor/rules/ extensions, skill placement
+> Agent workflow — plan mode, subagents, verification, autonomous bug fixing
 
 
-# Agent Parity
+# Agent Workflow
 
-Rules, skills, commands must be accessible to every agent: Cursor, Claude Code, Codex.
+## Plan Mode Default
 
-## Source of Truth
+ANY task with 3+ steps or architectural decisions → plan mode.
+Goes sideways → STOP, re-plan immediately. No pushing through.
+Write specs upfront to reduce ambiguity.
 
-- `AGENTS.md` canonical config. `CLAUDE.md` points to it.
-- `.cursor/rules/*.mdc` extend `AGENTS.md` with detailed rules.
-- `.cursor/skills/<name>/SKILL.md` contain workflow guides.
+```rust
+// GOOD — pause before touching multiple modules:
+// Switch to plan mode, map trait changes + module
+// impact before writing any code
 
-## When Adding Rules or Skills
+// BAD — jump straight into editing 5 files without
+// scoping the work first
+```
 
-1. Add universal rules to `AGENTS.md` (or reference there)
-2. Add Cursor-specific rules to `.cursor/rules/`
-3. Add new skills to `.cursor/skills/<name>/SKILL.md`
-4. Add skill to skills table in `AGENTS.md`
-5. Never edit `CLAUDE.md` — it points to `AGENTS.md`
+## Subagent Strategy
 
-## When in Doubt
+Use subagents liberally. Keep main context window clean.
+Offload research, exploration, parallel analysis. One task per subagent.
 
-Rule only in `.cursor/rules/` but benefits other agents → add reference to `AGENTS.md`.
+```
+# GOOD — parallel, focused subagents
+spawn subagent A → explore telemetry pipeline
+spawn subagent B → trace session event flow
+
+# BAD — pile all exploration into main context,
+# bloating it before starting actual work
+```
+
+## Verification Before Done
+
+Never mark complete without proving it works.
+Run full test suite. Ask: "Would staff engineer approve this?"
+
+```bash
+# GOOD
+cargo test && cargo clippy -- -D warnings && cargo fmt --check
+
+# BAD — visual check + "looks good" without running tests
+```
+
+## Autonomous Bug Fixing
+
+Bug report → fix it. No hand-holding. Run tests to find root cause.
+
+```bash
+# GOOD — trace failure, fix root cause, re-run
+cargo test
+
+# BAD — "Should I change the schema or the query?"
+# Find and fix root cause yourself
+```
 
 ---
 > Source: [marquesds/kaizen](https://github.com/marquesds/kaizen) — distributed by [TomeVault](https://tomevault.io).
