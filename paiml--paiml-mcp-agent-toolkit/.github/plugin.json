@@ -1,0 +1,30 @@
+{
+  "name": "paiml--paiml-mcp-agent-toolkit",
+  "displayName": "paiml-mcp-agent-toolkit",
+  "description": "Pragmatic AI Labs MCP Agent Toolkit - An MCP Server designed to make code with agents more deterministic",
+  "version": "1.0.0",
+  "author": "paiml",
+  "homepage": "https://github.com/paiml/paiml-mcp-agent-toolkit",
+  "skills": [
+    {
+      "name": "pmat-refactor",
+      "description": ""
+    },
+    {
+      "name": "pmat-quality",
+      "description": ""
+    },
+    {
+      "name": "pmat-context",
+      "description": ""
+    },
+    {
+      "name": "pmat-multi-lang",
+      "description": ""
+    },
+    {
+      "name": "pmat-tech-debt",
+      "description": ""
+    }
+  ]
+}
