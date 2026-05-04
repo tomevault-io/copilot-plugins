@@ -1,0 +1,9 @@
+{
+  "name": "bskimball--tanstack-hono",
+  "displayName": "tanstack-hono",
+  "description": "A simple example of using Tanstack Router SSR with Hono in a monolith",
+  "version": "1.0.0",
+  "author": "bskimball",
+  "homepage": "https://github.com/bskimball/tanstack-hono",
+  "skills": []
+}
