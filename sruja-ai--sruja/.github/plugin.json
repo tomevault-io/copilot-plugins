@@ -1,0 +1,14 @@
+{
+  "name": "sruja-ai--sruja",
+  "displayName": "sruja",
+  "description": "Context Engineering and Architecture Intelligence for the AI Era. Machine-readable, continuously validated architecture as code for AI-assisted development.",
+  "version": "1.0.0",
+  "author": "sruja-ai",
+  "homepage": "https://github.com/sruja-ai/sruja",
+  "skills": [
+    {
+      "name": "sruja-architecture",
+      "description": ""
+    }
+  ]
+}
