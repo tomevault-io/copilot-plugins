@@ -4,7 +4,7 @@
   "repo": "claudectl",
   "description": "Auto-pilot your Claude Code. Add a local LLM brain that learns from your actions and auto-approves/denies",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mercurialsolo/claudectl",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:51:18Z"
+  "distributed_at": "2026-05-04T05:51:18Z"
 }
