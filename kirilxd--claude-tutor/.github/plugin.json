@@ -1,0 +1,9 @@
+{
+  "name": "kirilxd--claude-tutor",
+  "displayName": "claude-tutor",
+  "description": "Turn Claude Code into your personal tutor \u2014 personalized learning plans, adaptive quizzes, SM-2 spaced repetition, and a web dashboard. Works with any topic.",
+  "version": "1.0.0",
+  "author": "kirilxd",
+  "homepage": "https://github.com/kirilxd/claude-tutor",
+  "skills": []
+}
