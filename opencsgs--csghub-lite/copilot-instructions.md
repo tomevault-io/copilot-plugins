@@ -1,64 +1,24 @@
-## cross-platform
+## frontend-i18n
 
-> Cross-platform compatibility rules for csghub-lite (macOS, Linux, Windows)
+> Frontend internationalization requirements for web UI changes
 
 
-# Cross-Platform Compatibility
+# Frontend Internationalization
 
-csghub-lite must run on **macOS, Linux, and Windows**. Every code change must consider all three platforms.
+- Any user-facing copy in `web/src` must be localizable.
+- Add new strings to `web/src/i18n.ts` in both `en` and `zh`.
+- Do not hardcode labels, buttons, tooltips, empty states, errors, status text, or helper text directly inside components.
+- Use `t()` for UI strings and localized objects like `{ en, zh }` for catalog-style content.
+- When adding a feature, translate all supporting states too: loading, success, failure, empty, confirmation, logs, and hints.
+- Keep translation keys stable and grouped by feature prefix.
 
-## File Paths
+```tsx
+// ❌ BAD
+<button>Install</button>
 
-- Always use `filepath.Join()`, never hardcode `/` or `\` separators.
-- Use `os.UserHomeDir()` instead of hardcoding `$HOME` or `%USERPROFILE%`.
-
-## Binary & Library Names
-
-- Binaries: `llama-server` on Unix, `llama-server.exe` on Windows. Use `exec.LookPath()` which handles this automatically.
-- Shared libraries differ per platform:
-  - macOS: `.dylib`
-  - Linux: `.so`, `.so.*`
-  - Windows: `.dll`
-- When scanning for libraries, always check all three suffixes using `runtime.GOOS`.
-
-## Process & Permission Management
-
-- `sudo` does not exist on Windows. Use `runtime.GOOS` to branch:
-  - Unix: `sudo` for privilege escalation
-  - Windows: `cmd /C` or prompt the user to run as Administrator
-- Signal handling: `syscall.SIGTERM`/`SIGINT` work differently on Windows.
-
-## Environment Variables
-
-- Library search paths differ:
-  - macOS: `DYLD_LIBRARY_PATH`
-  - Linux: `LD_LIBRARY_PATH`
-  - Windows: `PATH` (DLLs are found via PATH)
-- Use `os.PathListSeparator` (`:` on Unix, `;` on Windows), never hardcode.
-
-## Shell Scripts
-
-- `scripts/install.sh` covers macOS + Linux.
-- `scripts/install.ps1` covers Windows.
-- Changes to install/uninstall logic must update **both** scripts.
-
-## Default Install Locations
-
-| Platform | csghub-lite | llama-server |
-|----------|-------------|--------------|
-| macOS    | `/usr/local/bin` | same dir or `/opt/homebrew/bin` |
-| Linux    | `/usr/local/bin` | same dir |
-| Windows  | `$HOME\bin`      | same dir |
-
-## Testing Checklist
-
-When modifying platform-sensitive code, verify:
-
-1. Path construction uses `filepath.Join()`
-2. Binary/library lookups cover all three OS variants
-3. Permission escalation branches on `runtime.GOOS`
-4. Environment variable names are platform-appropriate
-5. Install script changes are reflected in both `.sh` and `.ps1`
+// ✅ GOOD
+<button>{t("aiApps.install")}</button>
+```
 
 ---
 > Source: [OpenCSGs/csghub-lite](https://github.com/OpenCSGs/csghub-lite) — distributed by [TomeVault](https://tomevault.io).
