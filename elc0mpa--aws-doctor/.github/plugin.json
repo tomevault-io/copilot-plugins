@@ -1,0 +1,9 @@
+{
+  "name": "elc0mpa--aws-doctor",
+  "displayName": "aws-doctor",
+  "description": "Powerful open-source CLI to audit security, costs, and best practices in AWS. \ud83e\ude7a \u2601\ufe0f",
+  "version": "1.0.0",
+  "author": "elC0mpa",
+  "homepage": "https://github.com/elC0mpa/aws-doctor",
+  "skills": []
+}
