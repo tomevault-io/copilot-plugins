@@ -1,0 +1,9 @@
+{
+  "name": "dx-tooling--sitebuilder-webapp",
+  "displayName": "sitebuilder-webapp",
+  "description": "SiteBuilder lets non-technical teams edit web content through chat while engineers keep Git workflows and code quality.",
+  "version": "1.0.0",
+  "author": "dx-tooling",
+  "homepage": "https://github.com/dx-tooling/sitebuilder-webapp",
+  "skills": []
+}
