@@ -1,0 +1,9 @@
+{
+  "name": "thagore-foundation--thagore",
+  "displayName": "thagore",
+  "description": "A robust, self-hosted systems programming language with manual memory management and LLVM backend.",
+  "version": "1.0.0",
+  "author": "thagore-foundation",
+  "homepage": "https://github.com/thagore-foundation/thagore",
+  "skills": []
+}
