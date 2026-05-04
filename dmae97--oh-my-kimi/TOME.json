@@ -1,0 +1,44 @@
+{
+  "name": "oh-my-kimi",
+  "owner": "dmae97",
+  "repo": "oh-my-kimi",
+  "description": "Production-ready multi-agent orchestration harness for Kimi Code CLI (K2.6): worktree team runtime, DAG/ensemble planning, MCP skill-hooks, quality gates, and local graph memory. | Kimi Code CLI(K2.6)\u5411\u3051\u672c\u756a\u5bfe\u5fdc\u30de\u30eb\u30c1\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u57fa\u76e4: worktree\u30c1\u30fc\u30e0\u5b9f\u884c\u3001DAG/ensemble\u8a08\u753b\u3001MCP/\u30b9\u30ad\u30eb\u30d5\u30c3\u30af\u3001\u54c1\u8cea\u30b2\u30fc\u30c8\u3001\u30ed\u30fc\u30ab\u30eb\u30b0\u30e9\u30d5\u8a18\u61b6\u3092\u63d0\u4f9b\u3002",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dmae97/oh-my-kimi",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T21:16:23Z"
+}
