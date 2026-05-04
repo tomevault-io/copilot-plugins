@@ -1,0 +1,14 @@
+{
+  "name": "iloom-ai--iloom-cli",
+  "displayName": "iloom-cli",
+  "description": "iloom: a developer workflow system delivered as a CLI and a VS Code extension for structured AI-assisted development. The CLI is the system of record, running tasks in isolated workflows and persistin",
+  "version": "1.0.0",
+  "author": "iloom-ai",
+  "homepage": "https://github.com/iloom-ai/iloom-cli",
+  "skills": [
+    {
+      "name": "version-iloom",
+      "description": ""
+    }
+  ]
+}
