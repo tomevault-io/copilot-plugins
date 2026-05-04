@@ -1,0 +1,87 @@
+{
+  "name": "mux",
+  "owner": "coder",
+  "repo": "mux",
+  "description": "A desktop app for isolated, parallel agentic development",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deep-review",
+      "path": ".mux/skills/deep-review",
+      "github_url": "https://github.com/coder/mux/tree/main/.mux/skills/deep-review",
+      "description": ""
+    },
+    {
+      "name": "dev-desktop-sandbox",
+      "path": ".mux/skills/dev-desktop-sandbox",
+      "github_url": "https://github.com/coder/mux/tree/main/.mux/skills/dev-desktop-sandbox",
+      "description": ""
+    },
+    {
+      "name": "dev-server-sandbox",
+      "path": ".mux/skills/dev-server-sandbox",
+      "github_url": "https://github.com/coder/mux/tree/main/.mux/skills/dev-server-sandbox",
+      "description": ""
+    },
+    {
+      "name": "pull-requests",
+      "path": ".mux/skills/pull-requests",
+      "github_url": "https://github.com/coder/mux/tree/main/.mux/skills/pull-requests",
+      "description": ""
+    },
+    {
+      "name": "react-effects",
+      "path": ".mux/skills/react-effects",
+      "github_url": "https://github.com/coder/mux/tree/main/.mux/skills/react-effects",
+      "description": ""
+    },
+    {
+      "name": "tbench",
+      "path": ".mux/skills/tbench",
+      "github_url": "https://github.com/coder/mux/tree/main/.mux/skills/tbench",
+      "description": ""
+    },
+    {
+      "name": "tests",
+      "path": ".mux/skills/tests",
+      "github_url": "https://github.com/coder/mux/tree/main/.mux/skills/tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/coder/mux",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:32:56Z"
+}
