@@ -1,0 +1,30 @@
+{
+  "name": "stacklok--toolhive-studio",
+  "displayName": "toolhive-studio",
+  "description": "ToolHive is an application that allows you to install, manage and run MCP servers and connect them to AI agents",
+  "version": "1.0.0",
+  "author": "stacklok",
+  "homepage": "https://github.com/stacklok/toolhive-studio",
+  "skills": [
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-editor",
+      "description": ""
+    },
+    {
+      "name": "testing-api-assertions",
+      "description": ""
+    },
+    {
+      "name": "testing-api-overrides",
+      "description": ""
+    },
+    {
+      "name": "testing-with-api-mocks",
+      "description": ""
+    }
+  ]
+}
