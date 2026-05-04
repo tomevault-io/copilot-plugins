@@ -1,49 +1,56 @@
-## selectools-agent-core
+## selectools-development
 
-> Rules for working with the agent core loop in selectools
+> Selectools development conventions, testing requirements, and release process
 
 
-# Agent Core Rules
+# Selectools Development Rules
 
-## Execution Flow (in order)
-1. Input guardrails validate/redact user message
-2. Memory loads history, provider called (or fallback chain)
-3. Cache checked — hit returns cached response
-4. Provider formats prompt + calls LLM, cache stores result
-5. Output guardrails validate LLM response
-6. Parser extracts TOOL_CALL, reasoning extracted
-7. Policy engine evaluates tool call (allow/review/deny)
-8. Coherence check verifies tool matches user intent
-9. Tool executes (parallel if multiple), output screening applied
-10. Trace records step, audit logger writes, usage tracks costs
-11. Loop continues or returns AgentResult
+## Code Conventions
+- Python 3.9+, line length 100, Black + isort formatting
+- Explicit types everywhere, no `any` — mypy enforced on `src/`
+- No narration comments — only explain non-obvious intent
+- Source layout: `src/selectools/`, tests in `tests/`
+- Pre-commit hooks: black, isort, flake8, mypy, bandit, yaml check (--unsafe for mkdocs)
 
-## AgentResult Always Contains
-- `.content` — final text response
-- `.trace` — AgentTrace with typed timeline
-- `.reasoning` — why agent chose tools
-- `.usage` — aggregated token/cost stats
+## Testing Requirements
+- Every new feature needs unit tests + integration tests
+- Every bug fix needs a regression test in `tests/agent/test_regression.py`
+- Use mock providers for unit tests, never real API calls
+- Use `RecordingProvider` pattern to verify exact args passed to providers
+- E2E tests use `@pytest.mark.e2e` (skipped in CI)
+- Run `pytest tests/ -x -q` and confirm ALL pass before any commit
+- Update model count assertions when adding/removing models
 
-## Integration Points for New Features
-When adding a feature that touches the agent loop:
-- Add config fields to `agent/config.py`
-- Add new `StepType` to `trace.py` if recording trace steps
-- Add observer events to `observer.py` if emitting lifecycle events
-- Guard observer calls with `if run_id:` for consistency
-- Use `_notify_observers()` helper, never call observer methods directly
-- Wrap observer calls in try/except to prevent crashing agent
+## Feature Completeness Checklist
+Every feature MUST include ALL of:
+1. Source code in `src/selectools/`
+2. Public exports in `__init__.py`
+3. Unit tests in `tests/`
+4. Example script in `examples/NN_name.py`
+5. Module doc in `docs/modules/NAME.md`
+6. Section in `notebooks/getting_started.ipynb`
+7. Entry in `docs/index.md` feature table
+8. Navigation entry in `mkdocs.yml`
+9. Links from relevant existing docs
 
-## Thread Safety
-- `FallbackProvider` observer wiring uses `threading.Lock` + refcount
-- `batch()` uses `ThreadPoolExecutor` — each thread gets isolated history
-- `abatch()` uses `asyncio.gather` with copied agent instances
-- Direct concurrent `arun()` on same agent shares `_history` (known limitation)
+## Release Process
+1. Create feature branch: `git checkout -b feat/<name>`
+2. Implement + test + document (all checklist items above)
+3. Bump version in `__init__.py` + `pyproject.toml`
+4. Update: CHANGELOG.md, README.md ("What's New"), ROADMAP.md
+5. Update hardcoded counts (models, tests, examples) across ALL docs
+6. `mkdocs build` to verify no broken links
+7. Commit, push, PR, merge to main
+8. Tag: `git tag -a vX.Y.Z`
+9. Push tags, build, publish to PyPI
+10. Verify GitHub Pages auto-deploys
 
-## Defensive Patterns
-- `response_msg.content or ""` — providers can return None content
-- `elif response_format is None:` — prevent parser intercepting structured output
-- `_memory_add_many()` — ensures on_memory_trim observers fire
-- `routing_only` path must still fire `on_iteration_end`
+## Common Pitfalls
+- Provider `stream()`/`astream()` MUST pass `tools` param
+- `ToolCall` objects must not be stringified in streaming
+- OpenAI newer models need `max_completion_tokens` not `max_tokens`
+- `response_msg.content` can be `None` — always use `or ""`
+- MkDocs links outside `docs/` must use absolute GitHub URLs
 
 ---
 > Source: [johnnichev/selectools](https://github.com/johnnichev/selectools) — distributed by [TomeVault](https://tomevault.io).
