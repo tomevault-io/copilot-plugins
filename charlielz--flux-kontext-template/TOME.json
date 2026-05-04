@@ -1,0 +1,44 @@
+{
+  "name": "flux-kontext-template",
+  "owner": "CharlieLZ",
+  "repo": "flux-kontext-template",
+  "description": "\u751f\u8d22\u6709\u672f\u7279\u4f9b\uff0cflux-kontext\u5f00\u6e90\u4ed3\u5e93\uff0c\u5957\u58f3\u6a21\u677f",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/CharlieLZ/flux-kontext-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T21:13:22Z"
+}
