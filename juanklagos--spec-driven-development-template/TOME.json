@@ -4,7 +4,7 @@
   "repo": "spec-driven-development-template",
   "description": "Operational SDD framework with AI guidance, GitHub Spec Kit workflows, and MCP support.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/juanklagos/spec-driven-development-template",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T04:40:34Z"
+  "distributed_at": "2026-05-04T04:53:00Z"
 }
