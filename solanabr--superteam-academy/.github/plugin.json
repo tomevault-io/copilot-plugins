@@ -1,0 +1,14 @@
+{
+  "name": "solanabr--superteam-academy",
+  "displayName": "superteam-academy",
+  "description": "Onchain learning platform for Solana builders.",
+  "version": "1.0.0",
+  "author": "solanabr",
+  "homepage": "https://github.com/solanabr/superteam-academy",
+  "skills": [
+    {
+      "name": "skills",
+      "description": ""
+    }
+  ]
+}
