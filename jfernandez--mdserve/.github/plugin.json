@@ -1,0 +1,14 @@
+{
+  "name": "jfernandez--mdserve",
+  "displayName": "mdserve",
+  "description": "Markdown preview server for AI coding agents.",
+  "version": "1.0.0",
+  "author": "jfernandez",
+  "homepage": "https://github.com/jfernandez/mdserve",
+  "skills": [
+    {
+      "name": "mdserve",
+      "description": ""
+    }
+  ]
+}
