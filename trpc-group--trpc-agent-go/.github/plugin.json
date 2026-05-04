@@ -1,0 +1,18 @@
+{
+  "name": "trpc-group--trpc-agent-go",
+  "displayName": "trpc-agent-go",
+  "description": "trpc-agent-go is a powerful Go framework for building intelligent agent systems using large language models (LLMs) and tools.",
+  "version": "1.0.0",
+  "author": "trpc-group",
+  "homepage": "https://github.com/trpc-group/trpc-agent-go",
+  "skills": [
+    {
+      "name": "demo-skill",
+      "description": ""
+    },
+    {
+      "name": "python_math",
+      "description": ""
+    }
+  ]
+}
