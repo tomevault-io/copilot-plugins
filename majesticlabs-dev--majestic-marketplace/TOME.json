@@ -1,0 +1,1287 @@
+{
+  "name": "majestic-marketplace",
+  "owner": "majesticlabs-dev",
+  "repo": "majestic-marketplace",
+  "description": "AI instruction skills by majesticlabs-dev",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aasm-coder",
+      "path": "plugins/majestic-rails/skills/aasm-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/aasm-coder",
+      "description": ""
+    },
+    {
+      "name": "action-mailer-coder",
+      "path": "plugins/majestic-rails/skills/action-mailer-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/action-mailer-coder",
+      "description": ""
+    },
+    {
+      "name": "action-policy-coder",
+      "path": "plugins/majestic-rails/skills/action-policy-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/action-policy-coder",
+      "description": ""
+    },
+    {
+      "name": "active-interaction-coder",
+      "path": "plugins/majestic-rails/skills/active-interaction-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/active-interaction-coder",
+      "description": ""
+    },
+    {
+      "name": "active-job-coder",
+      "path": "plugins/majestic-rails/skills/active-job-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/active-job-coder",
+      "description": ""
+    },
+    {
+      "name": "add-config-field",
+      "path": ".claude/skills/add-config-field",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/.claude/skills/add-config-field",
+      "description": ""
+    },
+    {
+      "name": "aeo-scorecard",
+      "path": "plugins/majestic-marketing/skills/aeo-scorecard",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/aeo-scorecard",
+      "description": ""
+    },
+    {
+      "name": "agent-sdk",
+      "path": "plugins/majestic-agent-sdk/skills/agent-sdk",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-agent-sdk/skills/agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "agent-teams",
+      "path": "plugins/majestic-tools/skills/agent-teams",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-tools/skills/agent-teams",
+      "description": ""
+    },
+    {
+      "name": "analyst-positioning",
+      "path": "plugins/majestic-marketing/skills/seo/analyst-positioning",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo/analyst-positioning",
+      "description": ""
+    },
+    {
+      "name": "anomaly-detector",
+      "path": "plugins/majestic-data/skills/anomaly-detector",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/anomaly-detector",
+      "description": ""
+    },
+    {
+      "name": "ansible-coder",
+      "path": "plugins/majestic-devops/skills/ansible-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/ansible-coder",
+      "description": ""
+    },
+    {
+      "name": "anycable-coder",
+      "path": "plugins/majestic-rails/skills/anycable-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/anycable-coder",
+      "description": ""
+    },
+    {
+      "name": "anyway-config-coder",
+      "path": "plugins/majestic-rails/skills/anyway-config-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/anyway-config-coder",
+      "description": ""
+    },
+    {
+      "name": "attempt-ledger",
+      "path": "plugins/majestic-engineer/skills/relay/attempt-ledger",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/relay/attempt-ledger",
+      "description": ""
+    },
+    {
+      "name": "avo-coder",
+      "path": "plugins/majestic-rails/skills/avo-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/avo-coder",
+      "description": ""
+    },
+    {
+      "name": "backblaze-coder",
+      "path": "plugins/majestic-devops/skills/backblaze-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/backblaze-coder",
+      "description": ""
+    },
+    {
+      "name": "backlog-manager",
+      "path": "plugins/majestic-engineer/skills/backlog-manager",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/backlog-manager",
+      "description": ""
+    },
+    {
+      "name": "behavioral-seo",
+      "path": "plugins/majestic-marketing/skills/seo/behavioral-seo",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo/behavioral-seo",
+      "description": ""
+    },
+    {
+      "name": "blueprint-discovery",
+      "path": "plugins/majestic-engineer/skills/blueprint-discovery",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/blueprint-discovery",
+      "description": ""
+    },
+    {
+      "name": "blueprint-execution",
+      "path": "plugins/majestic-engineer/skills/blueprint-execution",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/blueprint-execution",
+      "description": ""
+    },
+    {
+      "name": "blueprint-research",
+      "path": "plugins/majestic-engineer/skills/blueprint-research",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/blueprint-research",
+      "description": ""
+    },
+    {
+      "name": "bofu-keywords",
+      "path": "plugins/majestic-marketing/skills/bofu-keywords",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/bofu-keywords",
+      "description": ""
+    },
+    {
+      "name": "bootstrapped-cfo",
+      "path": "plugins/majestic-company/skills/bootstrapped-cfo",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/bootstrapped-cfo",
+      "description": ""
+    },
+    {
+      "name": "brand-positioning",
+      "path": "plugins/majestic-marketing/skills/brand-positioning",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/brand-positioning",
+      "description": ""
+    },
+    {
+      "name": "brand-voice",
+      "path": "plugins/majestic-marketing/skills/brand-voice",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/brand-voice",
+      "description": ""
+    },
+    {
+      "name": "business-logic-coder",
+      "path": "plugins/majestic-rails/skills/business-logic-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/business-logic-coder",
+      "description": ""
+    },
+    {
+      "name": "buyer-journey-mapper",
+      "path": "plugins/majestic-marketing/skills/seo/buyer-journey-mapper",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo/buyer-journey-mapper",
+      "description": ""
+    },
+    {
+      "name": "calendar-optimization",
+      "path": "plugins/majestic-founder/skills/calendar-optimization",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-founder/skills/calendar-optimization",
+      "description": ""
+    },
+    {
+      "name": "case-study-writer",
+      "path": "plugins/majestic-marketing/skills/case-study-writer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/case-study-writer",
+      "description": ""
+    },
+    {
+      "name": "challenge-mode",
+      "path": "plugins/majestic-founder/skills/challenge-mode",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-founder/skills/challenge-mode",
+      "description": ""
+    },
+    {
+      "name": "check-ci",
+      "path": "plugins/majestic-engineer/skills/check-ci",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/check-ci",
+      "description": ""
+    },
+    {
+      "name": "claude-headless-mode",
+      "path": ".claude/skills/claude-headless-mode",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/.claude/skills/claude-headless-mode",
+      "description": ""
+    },
+    {
+      "name": "cloud-init-coder",
+      "path": "plugins/majestic-devops/skills/cloud-init-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/cloud-init-coder",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-coder",
+      "path": "plugins/majestic-devops/skills/cloudflare-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/cloudflare-coder",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-worker",
+      "path": "plugins/majestic-engineer/skills/cloudflare-worker",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/cloudflare-worker",
+      "description": ""
+    },
+    {
+      "name": "code-story",
+      "path": "plugins/majestic-engineer/skills/code-story",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/code-story",
+      "description": ""
+    },
+    {
+      "name": "community-strategy",
+      "path": "plugins/majestic-marketing/skills/community-strategy",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/community-strategy",
+      "description": ""
+    },
+    {
+      "name": "competitive-positioning",
+      "path": "plugins/majestic-sales/skills/competitive-positioning",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/competitive-positioning",
+      "description": ""
+    },
+    {
+      "name": "competitive-positioning",
+      "path": "plugins/majestic-marketing/skills/competitive-positioning",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/competitive-positioning",
+      "description": ""
+    },
+    {
+      "name": "compound-learnings",
+      "path": "plugins/majestic-tools/skills/compound-learnings",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-tools/skills/compound-learnings",
+      "description": ""
+    },
+    {
+      "name": "config-reader",
+      "path": "plugins/majestic-engineer/skills/config-reader",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/config-reader",
+      "description": ""
+    },
+    {
+      "name": "content-atomizer",
+      "path": "plugins/majestic-marketing/skills/content-atomizer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/content-atomizer",
+      "description": ""
+    },
+    {
+      "name": "content-calendar",
+      "path": "plugins/majestic-marketing/skills/content-calendar",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/content-calendar",
+      "description": ""
+    },
+    {
+      "name": "content-optimizer",
+      "path": "plugins/majestic-marketing/skills/content-optimizer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/content-optimizer",
+      "description": ""
+    },
+    {
+      "name": "content-writer",
+      "path": "plugins/majestic-marketing/skills/content-writer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/content-writer",
+      "description": ""
+    },
+    {
+      "name": "conversion-optimization",
+      "path": "plugins/majestic-sales/skills/conversion-optimization",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/conversion-optimization",
+      "description": ""
+    },
+    {
+      "name": "copy-editor",
+      "path": "plugins/majestic-marketing/skills/copy-editor",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/copy-editor",
+      "description": ""
+    },
+    {
+      "name": "create-adr",
+      "path": "plugins/majestic-engineer/skills/create-adr",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/create-adr",
+      "description": ""
+    },
+    {
+      "name": "csv-wrangler",
+      "path": "plugins/majestic-data/skills/csv-wrangler",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/csv-wrangler",
+      "description": ""
+    },
+    {
+      "name": "customer-discovery",
+      "path": "plugins/majestic-marketing/skills/customer-discovery",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/customer-discovery",
+      "description": ""
+    },
+    {
+      "name": "customer-expansion",
+      "path": "plugins/majestic-sales/skills/customer-expansion",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/customer-expansion",
+      "description": ""
+    },
+    {
+      "name": "data-profiler",
+      "path": "plugins/majestic-data/skills/data-profiler",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/data-profiler",
+      "description": ""
+    },
+    {
+      "name": "data-quality",
+      "path": "plugins/majestic-data/skills/data-quality",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/data-quality",
+      "description": ""
+    },
+    {
+      "name": "data-validation",
+      "path": "plugins/majestic-data/skills/data-validation",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/data-validation",
+      "description": ""
+    },
+    {
+      "name": "dbt-coder",
+      "path": "plugins/majestic-data/skills/dbt-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/dbt-coder",
+      "description": ""
+    },
+    {
+      "name": "decision-framework",
+      "path": "plugins/majestic-company/skills/decision-framework",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/decision-framework",
+      "description": ""
+    },
+    {
+      "name": "design-tool-picker",
+      "path": "plugins/majestic-engineer/skills/design-tool-picker",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/design-tool-picker",
+      "description": ""
+    },
+    {
+      "name": "devils-advocate",
+      "path": "plugins/majestic-tools/skills/devils-advocate",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-tools/skills/devils-advocate",
+      "description": ""
+    },
+    {
+      "name": "devops-maintainability-checker",
+      "path": "plugins/majestic-devops/skills/devops-maintainability-checker",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/devops-maintainability-checker",
+      "description": ""
+    },
+    {
+      "name": "devops-plan",
+      "path": "plugins/majestic-devops/skills/devops-plan",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/devops-plan",
+      "description": ""
+    },
+    {
+      "name": "devops-platform-patterns",
+      "path": "plugins/majestic-devops/skills/devops-platform-patterns",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/devops-platform-patterns",
+      "description": ""
+    },
+    {
+      "name": "devops-simplicity-checker",
+      "path": "plugins/majestic-devops/skills/devops-simplicity-checker",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/devops-simplicity-checker",
+      "description": ""
+    },
+    {
+      "name": "dhh-coder",
+      "path": "plugins/majestic-rails/skills/dhh-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/dhh-coder",
+      "description": ""
+    },
+    {
+      "name": "dialog-patterns",
+      "path": "plugins/majestic-rails/skills/dialog-patterns",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/dialog-patterns",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-coder",
+      "path": "plugins/majestic-devops/skills/digitalocean-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/digitalocean-coder",
+      "description": ""
+    },
+    {
+      "name": "direct-response-copy",
+      "path": "plugins/majestic-marketing/skills/direct-response-copy",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/direct-response-copy",
+      "description": ""
+    },
+    {
+      "name": "django-coder",
+      "path": "plugins/majestic-python/skills/django-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-python/skills/django-coder",
+      "description": ""
+    },
+    {
+      "name": "document-refinement",
+      "path": "plugins/majestic-tools/skills/document-refinement",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-tools/skills/document-refinement",
+      "description": ""
+    },
+    {
+      "name": "document-review",
+      "path": "plugins/majestic-company/skills/document-review",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/document-review",
+      "description": ""
+    },
+    {
+      "name": "eeat-analyzer",
+      "path": "plugins/majestic-marketing/skills/seo/eeat-analyzer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo/eeat-analyzer",
+      "description": ""
+    },
+    {
+      "name": "entity-triplets",
+      "path": "plugins/majestic-marketing/skills/seo/entity-triplets",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo/entity-triplets",
+      "description": ""
+    },
+    {
+      "name": "etl-core-patterns",
+      "path": "plugins/majestic-data/skills/etl-core-patterns",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/etl-core-patterns",
+      "description": ""
+    },
+    {
+      "name": "etl-incremental-patterns",
+      "path": "plugins/majestic-data/skills/etl-incremental-patterns",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/etl-incremental-patterns",
+      "description": ""
+    },
+    {
+      "name": "etl-patterns",
+      "path": "plugins/majestic-data/skills/etl-patterns",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/etl-patterns",
+      "description": ""
+    },
+    {
+      "name": "event-sourcing-coder",
+      "path": "plugins/majestic-rails/skills/event-sourcing-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/event-sourcing-coder",
+      "description": ""
+    },
+    {
+      "name": "fastapi-coder",
+      "path": "plugins/majestic-python/skills/fastapi-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-python/skills/fastapi-coder",
+      "description": ""
+    },
+    {
+      "name": "first-principles",
+      "path": "plugins/majestic-company/skills/first-principles",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/first-principles",
+      "description": ""
+    },
+    {
+      "name": "fix-decision-router",
+      "path": "plugins/majestic-engineer/skills/fix-decision-router",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/fix-decision-router",
+      "description": ""
+    },
+    {
+      "name": "fix-reporter",
+      "path": "plugins/majestic-engineer/skills/fix-reporter",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/fix-reporter",
+      "description": ""
+    },
+    {
+      "name": "fluff-detector",
+      "path": ".claude/skills/fluff-detector",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/.claude/skills/fluff-detector",
+      "description": ""
+    },
+    {
+      "name": "founder-mode",
+      "path": "plugins/majestic-founder/skills/founder-mode",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-founder/skills/founder-mode",
+      "description": ""
+    },
+    {
+      "name": "free-tool-arsenal",
+      "path": "plugins/majestic-marketing/skills/free-tool-arsenal",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/free-tool-arsenal",
+      "description": ""
+    },
+    {
+      "name": "frontend-css-patterns",
+      "path": "plugins/majestic-engineer/skills/frontend-css-patterns",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/frontend-css-patterns",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "plugins/majestic-engineer/skills/frontend-design",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-philosophy",
+      "path": "plugins/majestic-engineer/skills/frontend-design-philosophy",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/frontend-design-philosophy",
+      "description": ""
+    },
+    {
+      "name": "gem-builder",
+      "path": "plugins/majestic-rails/skills/gem-builder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/gem-builder",
+      "description": ""
+    },
+    {
+      "name": "geo-content-optimizer",
+      "path": "plugins/majestic-marketing/skills/geo-content-optimizer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/geo-content-optimizer",
+      "description": ""
+    },
+    {
+      "name": "git-worktree",
+      "path": "plugins/majestic-engineer/skills/git-worktree",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/git-worktree",
+      "description": ""
+    },
+    {
+      "name": "google-ads-strategy",
+      "path": "plugins/majestic-marketing/skills/google-ads-strategy",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/google-ads-strategy",
+      "description": ""
+    },
+    {
+      "name": "great-expectations",
+      "path": "plugins/majestic-data/skills/great-expectations",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/great-expectations",
+      "description": ""
+    },
+    {
+      "name": "gtm-strategy",
+      "path": "plugins/majestic-sales/skills/gtm-strategy",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/gtm-strategy",
+      "description": ""
+    },
+    {
+      "name": "help-docs-writer",
+      "path": "plugins/majestic-marketing/skills/help-docs-writer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/help-docs-writer",
+      "description": ""
+    },
+    {
+      "name": "hetzner-coder",
+      "path": "plugins/majestic-devops/skills/hetzner-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/hetzner-coder",
+      "description": ""
+    },
+    {
+      "name": "hierarchical-agents",
+      "path": "plugins/majestic-engineer/skills/hierarchical-agents",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/hierarchical-agents",
+      "description": ""
+    },
+    {
+      "name": "hook-writer",
+      "path": "plugins/majestic-marketing/skills/hook-writer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/hook-writer",
+      "description": ""
+    },
+    {
+      "name": "hotwire-coder",
+      "path": "plugins/majestic-rails/skills/hotwire-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/hotwire-coder",
+      "description": ""
+    },
+    {
+      "name": "icp-discovery",
+      "path": "plugins/majestic-sales/skills/icp-discovery",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/icp-discovery",
+      "description": ""
+    },
+    {
+      "name": "idea-generation",
+      "path": "plugins/majestic-company/skills/idea-generation",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/idea-generation",
+      "description": ""
+    },
+    {
+      "name": "industry-pulse",
+      "path": "plugins/majestic-company/skills/industry-pulse",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/industry-pulse",
+      "description": ""
+    },
+    {
+      "name": "inertia-coder",
+      "path": "plugins/majestic-rails/skills/inertia-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/inertia-coder",
+      "description": ""
+    },
+    {
+      "name": "infra-security-review",
+      "path": "plugins/majestic-devops/skills/infra-security-review",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/infra-security-review",
+      "description": ""
+    },
+    {
+      "name": "init-agents-config",
+      "path": "plugins/majestic-engineer/skills/init-agents-config",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/init-agents-config",
+      "description": ""
+    },
+    {
+      "name": "irresistible-offer",
+      "path": "plugins/majestic-marketing/skills/irresistible-offer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/irresistible-offer",
+      "description": ""
+    },
+    {
+      "name": "kamal-coder",
+      "path": "plugins/majestic-rails/skills/kamal-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/kamal-coder",
+      "description": ""
+    },
+    {
+      "name": "keyword-research",
+      "path": "plugins/majestic-marketing/skills/keyword-research",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/keyword-research",
+      "description": ""
+    },
+    {
+      "name": "landing-page-builder",
+      "path": "plugins/majestic-marketing/skills/landing-page-builder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/landing-page-builder",
+      "description": ""
+    },
+    {
+      "name": "language",
+      "path": "plugins/majestic-marketing/skills/language",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/language",
+      "description": ""
+    },
+    {
+      "name": "launch-legal",
+      "path": "plugins/majestic-company/skills/launch-legal",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/launch-legal",
+      "description": ""
+    },
+    {
+      "name": "layered-rails",
+      "path": "plugins/majestic-rails/skills/layered-rails",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/layered-rails",
+      "description": ""
+    },
+    {
+      "name": "lead-magnet",
+      "path": "plugins/majestic-marketing/skills/lead-magnet",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/lead-magnet",
+      "description": ""
+    },
+    {
+      "name": "lead-magnet-design",
+      "path": "plugins/majestic-sales/skills/lead-magnet-design",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/lead-magnet-design",
+      "description": ""
+    },
+    {
+      "name": "linkedin-content",
+      "path": "plugins/majestic-marketing/skills/linkedin-content",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/linkedin-content",
+      "description": ""
+    },
+    {
+      "name": "litestream-coder",
+      "path": "plugins/majestic-rails/skills/litestream-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/litestream-coder",
+      "description": ""
+    },
+    {
+      "name": "llms-txt-builder",
+      "path": "plugins/majestic-marketing/skills/seo/llms-txt-builder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo/llms-txt-builder",
+      "description": ""
+    },
+    {
+      "name": "market-research",
+      "path": "plugins/majestic-marketing/skills/market-research",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/market-research",
+      "description": ""
+    },
+    {
+      "name": "marketing-playbook",
+      "path": "plugins/majestic-marketing/skills/marketing-playbook",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/marketing-playbook",
+      "description": ""
+    },
+    {
+      "name": "marketing-strategy",
+      "path": "plugins/majestic-marketing/skills/marketing-strategy",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/marketing-strategy",
+      "description": ""
+    },
+    {
+      "name": "mermaid-builder",
+      "path": "plugins/majestic-engineer/skills/mermaid-builder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/mermaid-builder",
+      "description": ""
+    },
+    {
+      "name": "minitest-coder",
+      "path": "plugins/majestic-rails/skills/minitest-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/minitest-coder",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-architecture",
+      "path": "plugins/majestic-tools/skills/multi-agent-architecture",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-tools/skills/multi-agent-architecture",
+      "description": ""
+    },
+    {
+      "name": "narrative-builder",
+      "path": "plugins/majestic-marketing/skills/narrative-builder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/narrative-builder",
+      "description": ""
+    },
+    {
+      "name": "newsletter",
+      "path": "plugins/majestic-marketing/skills/newsletter",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/newsletter",
+      "description": ""
+    },
+    {
+      "name": "objection-destroyer",
+      "path": "plugins/majestic-company/skills/objection-destroyer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/objection-destroyer",
+      "description": ""
+    },
+    {
+      "name": "omtm-growth",
+      "path": "plugins/majestic-company/skills/omtm-growth",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/omtm-growth",
+      "description": ""
+    },
+    {
+      "name": "onepassword-cli-coder",
+      "path": "plugins/majestic-devops/skills/onepassword-cli-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/onepassword-cli-coder",
+      "description": ""
+    },
+    {
+      "name": "opentofu-coder",
+      "path": "plugins/majestic-devops/skills/opentofu-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/opentofu-coder",
+      "description": ""
+    },
+    {
+      "name": "outbound-sequences",
+      "path": "plugins/majestic-sales/skills/outbound-sequences",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/outbound-sequences",
+      "description": ""
+    },
+    {
+      "name": "outreach-templates",
+      "path": "plugins/majestic-marketing/skills/outreach-templates",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/outreach-templates",
+      "description": ""
+    },
+    {
+      "name": "pandas-coder",
+      "path": "plugins/majestic-data/skills/pandas-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/pandas-coder",
+      "description": ""
+    },
+    {
+      "name": "pandera-validation",
+      "path": "plugins/majestic-data/skills/pandera-validation",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/pandera-validation",
+      "description": ""
+    },
+    {
+      "name": "pareto",
+      "path": "plugins/majestic-founder/skills/pareto",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-founder/skills/pareto",
+      "description": ""
+    },
+    {
+      "name": "parquet-coder",
+      "path": "plugins/majestic-data/skills/parquet-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/parquet-coder",
+      "description": ""
+    },
+    {
+      "name": "pipeline-diagnostics",
+      "path": "plugins/majestic-sales/skills/pipeline-diagnostics",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/pipeline-diagnostics",
+      "description": ""
+    },
+    {
+      "name": "pipeline-forecasting",
+      "path": "plugins/majestic-sales/skills/pipeline-forecasting",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/pipeline-forecasting",
+      "description": ""
+    },
+    {
+      "name": "pipeline-reporting",
+      "path": "plugins/majestic-sales/skills/pipeline-reporting",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/pipeline-reporting",
+      "description": ""
+    },
+    {
+      "name": "plan-builder",
+      "path": "plugins/majestic-engineer/skills/plan-builder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/plan-builder",
+      "description": ""
+    },
+    {
+      "name": "plg-ai-funnel",
+      "path": "plugins/majestic-marketing/skills/plg-ai-funnel",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/plg-ai-funnel",
+      "description": ""
+    },
+    {
+      "name": "pm-assumption-mapping",
+      "path": "plugins/majestic-company/skills/pm-assumption-mapping",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/pm-assumption-mapping",
+      "description": ""
+    },
+    {
+      "name": "pm-customer-interviews",
+      "path": "plugins/majestic-company/skills/pm-customer-interviews",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/pm-customer-interviews",
+      "description": ""
+    },
+    {
+      "name": "pm-discovery",
+      "path": "plugins/majestic-company/skills/pm-discovery",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/pm-discovery",
+      "description": ""
+    },
+    {
+      "name": "pm-jobs-to-be-done",
+      "path": "plugins/majestic-company/skills/pm-jobs-to-be-done",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/pm-jobs-to-be-done",
+      "description": ""
+    },
+    {
+      "name": "pm-prioritization",
+      "path": "plugins/majestic-company/skills/pm-prioritization",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/pm-prioritization",
+      "description": ""
+    },
+    {
+      "name": "pmf-validation",
+      "path": "plugins/majestic-company/skills/pmf-validation",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/pmf-validation",
+      "description": ""
+    },
+    {
+      "name": "positioning-angles",
+      "path": "plugins/majestic-marketing/skills/positioning-angles",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/positioning-angles",
+      "description": ""
+    },
+    {
+      "name": "power-words",
+      "path": "plugins/majestic-marketing/skills/power-words",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/power-words",
+      "description": ""
+    },
+    {
+      "name": "pr-screenshot-docs",
+      "path": "plugins/majestic-engineer/skills/pr-screenshot-docs",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/pr-screenshot-docs",
+      "description": ""
+    },
+    {
+      "name": "press-release-aeo",
+      "path": "plugins/majestic-marketing/skills/seo/press-release-aeo",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo/press-release-aeo",
+      "description": ""
+    },
+    {
+      "name": "proposal-writer",
+      "path": "plugins/majestic-sales/skills/proposal-writer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/proposal-writer",
+      "description": ""
+    },
+    {
+      "name": "pydantic-validation",
+      "path": "plugins/majestic-data/skills/pydantic-validation",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/pydantic-validation",
+      "description": ""
+    },
+    {
+      "name": "pytest-coder",
+      "path": "plugins/majestic-python/skills/pytest-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-python/skills/pytest-coder",
+      "description": ""
+    },
+    {
+      "name": "python-coder",
+      "path": "plugins/majestic-python/skills/python-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-python/skills/python-coder",
+      "description": ""
+    },
+    {
+      "name": "python-debugger",
+      "path": "plugins/majestic-python/skills/python-debugger",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-python/skills/python-debugger",
+      "description": ""
+    },
+    {
+      "name": "query-expansion-strategy",
+      "path": "plugins/majestic-marketing/skills/query-expansion-strategy",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/query-expansion-strategy",
+      "description": ""
+    },
+    {
+      "name": "rails-conventions",
+      "path": "plugins/majestic-rails/skills/rails-conventions",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/rails-conventions",
+      "description": ""
+    },
+    {
+      "name": "rails-debugger",
+      "path": "plugins/majestic-rails/skills/rails-debugger",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/rails-debugger",
+      "description": ""
+    },
+    {
+      "name": "rails-refactorer",
+      "path": "plugins/majestic-rails/skills/rails-refactorer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/rails-refactorer",
+      "description": ""
+    },
+    {
+      "name": "ralph-methodology",
+      "path": "plugins/majestic-ralph/skills/ralph-methodology",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-ralph/skills/ralph-methodology",
+      "description": ""
+    },
+    {
+      "name": "react-coder",
+      "path": "plugins/majestic-react/skills/react-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-react/skills/react-coder",
+      "description": ""
+    },
+    {
+      "name": "react-patterns",
+      "path": "plugins/majestic-react/skills/react-patterns",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-react/skills/react-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-testing",
+      "path": "plugins/majestic-react/skills/react-testing",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-react/skills/react-testing",
+      "description": ""
+    },
+    {
+      "name": "readme-craft",
+      "path": "plugins/majestic-engineer/skills/readme-craft",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/readme-craft",
+      "description": ""
+    },
+    {
+      "name": "referral-program",
+      "path": "plugins/majestic-sales/skills/referral-program",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/referral-program",
+      "description": ""
+    },
+    {
+      "name": "research-compound",
+      "path": "plugins/majestic-engineer/skills/research-compound",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/research-compound",
+      "description": ""
+    },
+    {
+      "name": "retention-system",
+      "path": "plugins/majestic-marketing/skills/retention-system",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/retention-system",
+      "description": ""
+    },
+    {
+      "name": "review-management",
+      "path": "plugins/majestic-marketing/skills/seo/review-management",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo/review-management",
+      "description": ""
+    },
+    {
+      "name": "rookie-mistakes",
+      "path": "plugins/majestic-founder/skills/rookie-mistakes",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-founder/skills/rookie-mistakes",
+      "description": ""
+    },
+    {
+      "name": "rspec-coder",
+      "path": "plugins/majestic-rails/skills/rspec-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/rspec-coder",
+      "description": ""
+    },
+    {
+      "name": "rubocop-fixer",
+      "path": "plugins/majestic-rails/skills/rubocop-fixer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/rubocop-fixer",
+      "description": ""
+    },
+    {
+      "name": "ruby-coder",
+      "path": "plugins/majestic-rails/skills/ruby-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/ruby-coder",
+      "description": ""
+    },
+    {
+      "name": "sales-messaging",
+      "path": "plugins/majestic-sales/skills/sales-messaging",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/sales-messaging",
+      "description": ""
+    },
+    {
+      "name": "sales-metrics",
+      "path": "plugins/majestic-sales/skills/sales-metrics",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/sales-metrics",
+      "description": ""
+    },
+    {
+      "name": "sales-page",
+      "path": "plugins/majestic-marketing/skills/sales-page",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/sales-page",
+      "description": ""
+    },
+    {
+      "name": "sales-playbook",
+      "path": "plugins/majestic-sales/skills/sales-playbook",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/sales-playbook",
+      "description": ""
+    },
+    {
+      "name": "seo-audit",
+      "path": "plugins/majestic-marketing/skills/seo-audit",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo-audit",
+      "description": ""
+    },
+    {
+      "name": "seo-content",
+      "path": "plugins/majestic-marketing/skills/seo-content",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo-content",
+      "description": ""
+    },
+    {
+      "name": "skill-archetypes",
+      "path": "plugins/majestic-tools/skills/skill-archetypes",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-tools/skills/skill-archetypes",
+      "description": ""
+    },
+    {
+      "name": "skill-auditor",
+      "path": ".claude/skills/skill-auditor",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/.claude/skills/skill-auditor",
+      "description": ""
+    },
+    {
+      "name": "skill-design-philosophy",
+      "path": "plugins/majestic-tools/skills/skill-design-philosophy",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-tools/skills/skill-design-philosophy",
+      "description": ""
+    },
+    {
+      "name": "skill-first",
+      "path": "plugins/majestic-tools/skills/skill-first",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-tools/skills/skill-first",
+      "description": ""
+    },
+    {
+      "name": "skill-linter",
+      "path": ".claude/skills/skill-linter",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/.claude/skills/skill-linter",
+      "description": ""
+    },
+    {
+      "name": "skill-structure",
+      "path": "plugins/majestic-tools/skills/skill-structure",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-tools/skills/skill-structure",
+      "description": ""
+    },
+    {
+      "name": "slogan-generator",
+      "path": "plugins/majestic-marketing/skills/slogan-generator",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/slogan-generator",
+      "description": ""
+    },
+    {
+      "name": "solid-cache-coder",
+      "path": "plugins/majestic-rails/skills/solid-cache-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/solid-cache-coder",
+      "description": ""
+    },
+    {
+      "name": "solid-queue-coder",
+      "path": "plugins/majestic-rails/skills/solid-queue-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/solid-queue-coder",
+      "description": ""
+    },
+    {
+      "name": "sql-patterns",
+      "path": "plugins/majestic-data/skills/sql-patterns",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/sql-patterns",
+      "description": ""
+    },
+    {
+      "name": "stimulus-coder",
+      "path": "plugins/majestic-rails/skills/stimulus-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/stimulus-coder",
+      "description": ""
+    },
+    {
+      "name": "store-model-coder",
+      "path": "plugins/majestic-rails/skills/store-model-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/store-model-coder",
+      "description": ""
+    },
+    {
+      "name": "strategic-planning",
+      "path": "plugins/majestic-company/skills/strategic-planning",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-company/skills/strategic-planning",
+      "description": ""
+    },
+    {
+      "name": "structured-logging",
+      "path": "plugins/majestic-engineer/skills/structured-logging",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/structured-logging",
+      "description": ""
+    },
+    {
+      "name": "style-guide-builder",
+      "path": "plugins/majestic-marketing/skills/style-guide-builder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/style-guide-builder",
+      "description": ""
+    },
+    {
+      "name": "tailwind-coder",
+      "path": "plugins/majestic-rails/skills/tailwind-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/tailwind-coder",
+      "description": ""
+    },
+    {
+      "name": "tailwind-styling",
+      "path": "plugins/majestic-react/skills/tailwind-styling",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-react/skills/tailwind-styling",
+      "description": ""
+    },
+    {
+      "name": "task-coordinator",
+      "path": "plugins/majestic-engineer/skills/task-coordinator",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/task-coordinator",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "path": "plugins/majestic-engineer/skills/tdd-workflow",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "path": "plugins/majestic-engineer/skills/technical-writer",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/technical-writer",
+      "description": ""
+    },
+    {
+      "name": "test-fixture-generator",
+      "path": "plugins/majestic-data/skills/test-fixture-generator",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/test-fixture-generator",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": "plugins/majestic-data/skills/testing-patterns",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-data/skills/testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "thread-builder",
+      "path": "plugins/majestic-marketing/skills/thread-builder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/thread-builder",
+      "description": ""
+    },
+    {
+      "name": "topical-authority",
+      "path": "plugins/majestic-marketing/skills/seo/topical-authority",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/seo/topical-authority",
+      "description": ""
+    },
+    {
+      "name": "traffic-magnet",
+      "path": "plugins/majestic-marketing/skills/traffic-magnet",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/traffic-magnet",
+      "description": ""
+    },
+    {
+      "name": "ux-brief",
+      "path": "plugins/majestic-engineer/skills/ux-brief",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-engineer/skills/ux-brief",
+      "description": ""
+    },
+    {
+      "name": "value-prop-sharpener",
+      "path": "plugins/majestic-marketing/skills/value-prop-sharpener",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/value-prop-sharpener",
+      "description": ""
+    },
+    {
+      "name": "viewcomponent-coder",
+      "path": "plugins/majestic-rails/skills/viewcomponent-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-rails/skills/viewcomponent-coder",
+      "description": ""
+    },
+    {
+      "name": "viral-content",
+      "path": "plugins/majestic-marketing/skills/viral-content",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-marketing/skills/viral-content",
+      "description": ""
+    },
+    {
+      "name": "win-back",
+      "path": "plugins/majestic-sales/skills/win-back",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-sales/skills/win-back",
+      "description": ""
+    },
+    {
+      "name": "wrangler-coder",
+      "path": "plugins/majestic-devops/skills/wrangler-coder",
+      "github_url": "https://github.com/majesticlabs-dev/majestic-marketplace/tree/main/plugins/majestic-devops/skills/wrangler-coder",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/majesticlabs-dev/majestic-marketplace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:39:27Z"
+}
