@@ -1,0 +1,14 @@
+{
+  "name": "agent-next--agent-ready",
+  "displayName": "agent-ready",
+  "description": "Codebase readiness scoring for autonomous agents \u2014 measurable operability standards beyond instructions.",
+  "version": "1.0.0",
+  "author": "agent-next",
+  "homepage": "https://github.com/agent-next/agent-ready",
+  "skills": [
+    {
+      "name": "agent-ready",
+      "description": ""
+    }
+  ]
+}
