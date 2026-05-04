@@ -1,0 +1,63 @@
+{
+  "name": "claude-code-training",
+  "owner": "kousen",
+  "repo": "claude-code-training",
+  "description": "Slides and demos for a training course on Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "api-documentation-skill",
+      "path": "skills-and-plugins/api-documentation-skill",
+      "github_url": "https://github.com/kousen/claude-code-training/tree/main/skills-and-plugins/api-documentation-skill",
+      "description": ""
+    },
+    {
+      "name": "security-review-skill",
+      "path": "skills-and-plugins/security-review-skill",
+      "github_url": "https://github.com/kousen/claude-code-training/tree/main/skills-and-plugins/security-review-skill",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skill",
+      "path": "skills-and-plugins/spring-boot-skill",
+      "github_url": "https://github.com/kousen/claude-code-training/tree/main/skills-and-plugins/spring-boot-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kousen/claude-code-training",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:41:32Z"
+}
