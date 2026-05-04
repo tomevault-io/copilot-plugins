@@ -7,11 +7,11 @@ Semgrep Pro Rules to ensure code using LLMs is following best practices
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [semgrep/ai-best-practices](https://github.com/semgrep/ai-best-practices).
+Original source: `CLAUDE.md` in [semgrep/ai-best-practices](https://github.com/semgrep/ai-best-practices).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
