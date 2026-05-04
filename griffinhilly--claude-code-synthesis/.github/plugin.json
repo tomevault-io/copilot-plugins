@@ -1,0 +1,9 @@
+{
+  "name": "griffinhilly--claude-code-synthesis",
+  "displayName": "claude-code-synthesis",
+  "description": "A synthesis of Claude Code best practices, aggregated from Twitter. ",
+  "version": "1.0.0",
+  "author": "griffinhilly",
+  "homepage": "https://github.com/griffinhilly/claude-code-synthesis",
+  "skills": []
+}
