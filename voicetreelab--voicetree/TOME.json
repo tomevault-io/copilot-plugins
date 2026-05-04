@@ -1,0 +1,51 @@
+{
+  "name": "voicetree",
+  "owner": "voicetreelab",
+  "repo": "voicetree",
+  "description": "The spatial IDE for recursive multi-agent orchestration. It's like an Obsidian graph-view that you work directly inside of. ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "playwright-debug",
+      "path": ".claude/skills/playwright-debug",
+      "github_url": "https://github.com/voicetreelab/voicetree/tree/main/.claude/skills/playwright-debug",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/voicetreelab/voicetree",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:42:45Z"
+}
