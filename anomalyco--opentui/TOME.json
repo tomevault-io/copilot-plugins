@@ -1,0 +1,51 @@
+{
+  "name": "open",
+  "owner": "anomalyco",
+  "repo": "opentui",
+  "description": "OpenTUI is a library for building terminal user interfaces (TUIs)",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agents-sdk",
+      "path": "packages/opencode/test/fixture/skills/agents-sdk",
+      "github_url": "https://github.com/anomalyco/opentui/tree/main/packages/opencode/test/fixture/skills/agents-sdk",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/anomalyco/opentui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:46:10Z"
+}
