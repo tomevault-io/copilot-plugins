@@ -1,0 +1,141 @@
+{
+  "name": "workout",
+  "owner": "alexanderop",
+  "repo": "workoutTracker",
+  "description": "AI instruction skills by alexanderop",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "vitest-mocking",
+      "path": ".claude/skills/vitest-mocking",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/vitest-mocking",
+      "description": ""
+    },
+    {
+      "name": "vue-composables",
+      "path": ".claude/skills/vue-composables",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/vue-composables",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": ".claude/skills/frontend-design",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "git-worktree",
+      "path": ".claude/skills/git-worktree",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/git-worktree",
+      "description": ""
+    },
+    {
+      "name": "improve-skill",
+      "path": ".claude/skills/improve-skill",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/improve-skill",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "path": ".claude/skills/mutation-testing",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "repository-pattern",
+      "path": ".claude/skills/repository-pattern",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/repository-pattern",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": ".claude/skills/systematic-debugging",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "testing-conventions",
+      "path": ".claude/skills/testing-conventions",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/testing-conventions",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-testing",
+      "path": ".claude/skills/vue-composable-testing",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/vue-composable-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-patterns",
+      "path": ".claude/skills/vue-patterns",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/vue-patterns",
+      "description": ""
+    },
+    {
+      "name": "vue-integration-testing",
+      "path": ".claude/skills/vue-integration-testing",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/vue-integration-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-testing",
+      "path": ".claude/skills/vue-composable-testing",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/vue-composable-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-composables",
+      "path": ".claude/skills/vue-composables",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/vue-composables",
+      "description": ""
+    },
+    {
+      "name": "vue-patterns",
+      "path": ".claude/skills/vue-patterns",
+      "github_url": "https://github.com/alexanderop/workoutTracker/tree/main/.claude/skills/vue-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alexanderop/workoutTracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:48:45Z"
+}
