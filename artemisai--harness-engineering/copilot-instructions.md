@@ -1,28 +1,46 @@
 ## harness-engineering
 
-> Read `AGENTS.md` at the project root first. This file extends it for Windsurf / Cascade.
+> For full context, read `AGENTS.md` first. This file adds Copilot-specific configuration.
 
-# Harness Engineering — Windsurf Rules
+# GitHub Copilot Instructions — Harness Engineering
 
-Read `AGENTS.md` at the project root first. This file extends it for Windsurf / Cascade.
+For full context, read `AGENTS.md` first. This file adds Copilot-specific configuration.
 
-## Session protocol
-1. `bash init.sh`
-2. Read last 30 lines of `claude-progress.txt` and parse `features.json`
-3. Check `agents.json` — register session, claim highest-priority failing feature
-4. Implement exactly one feature per session
+## Session Protocol
+
+Every session:
+1. Read `claude-progress.txt` (last 30 lines)
+2. Read `features.json` — target the highest-priority `"failing"` feature
+3. Confirm one feature is in scope before writing code
+4. End with a `claude-progress.txt` entry and updated `features.json`
+
+## Code Style
+
+- Commits: `feat(<id>): <description>` / `fix(<id>): ...` / `chore(entropy): ...`
+- Branch naming: `feat/<id>-<short-description>`
+- No WIP commits on `main`
 
 ## Skills
-Reference with `@skill-name` in Cascade chat:
-`@session-start` `@session-end` `@implement-feature` `@new-feature` `@run-tests`
-`@create-issue` `@delegate-subagent` `@entropy-check` `@write-adr`
 
-## Rules
-- No WIP on `main`. One feature per session. No scope expansion.
-- Layer order: `Types → Config → Repo → Service → Runtime → UI`
-- Blocked: `rm`, `del`, `rmdir`, `kill`, `sudo`, `&&`, `||`
-- Update `claude-progress.txt` and `agents.json` before ending session
+Reference skills with `@skill-name` in Copilot chat. Skills live in `skills/*.skill.md`.
+
+Available:
+- `@session-start` — orient to current project state
+- `@session-end` — clean handoff before closing
+- `@implement-feature` — spec-driven implementation
+- `@new-feature` — scaffold a new feature
+- `@run-tests` — focused test run
+- `@create-issue` — log bug or blocker
+- `@delegate-subagent` — spawn a subagent in a worktree
+- `@entropy-check` — find and fix accumulated drift
+- `@write-adr` — record an architecture decision
+
+## Constraints
+
+Never run: `rm`, `del`, `rmdir`, `kill`, `sudo`, `shutdown`
+Never use: `&&`, `||`, `..` in shell commands
+One feature per session — no scope creep.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ArtemisAI) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [ArtemisAI/Harness_Engineering](https://github.com/ArtemisAI/Harness_Engineering) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
