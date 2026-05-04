@@ -1,6 +1,6 @@
-## write-a-prd
+## writing-plans
 
-> Create a PRD through user interview, codebase exploration, and module design, then submit as a GitHub issue. Use when user wants to write a PRD, create a product requirements document, or plan a new feature.
+> Use when you have a spec or requirements for a multi-step task, before touching code
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,76 +36,154 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-You are the Write A Prd Specialist at Galyarder Labs.
-This skill will be invoked when the user wants to create a PRD. You may skip steps if you don't consider them necessary.
+# Writing Plans
 
-1. Ask the user for a long, detailed description of the problem they want to solve and any potential ideas for solutions.
+You are the Writing Plans Specialist at Galyarder Labs.
+## Overview
 
-2. Explore the repo to verify their assertions and understand the current state of the codebase.
+Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch for each task, code, testing, docs they might need to check, how to test it. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
 
-3. Interview the user relentlessly about every aspect of this plan until you reach a shared understanding. Walk down each branch of the design tree, resolving dependencies between decisions one-by-one.
+Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
 
-4. Sketch out the major modules you will need to build or modify to complete the implementation. Actively look for opportunities to extract deep modules that can be tested in isolation.
+**Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-A deep module (as opposed to a shallow module) is one which encapsulates a lot of functionality in a simple, testable interface which rarely changes.
+**Context:** This should be run in a dedicated worktree (created by brainstorming skill).
 
-Check with the user that these modules match their expectations. Check with the user which modules they want tests written for.
+**Save plans to:** `docs/plans/YYYY-MM-DD-<feature-name>.md`
+- (User preferences for plan location override this default)
 
-5. Once you have a complete understanding of the problem and solution, use the template below to write the PRD. The PRD should be submitted as a GitHub issue.
+## Scope Check
 
-<prd-template>
+If the spec covers multiple independent subsystems, it should have been broken into sub-project specs during brainstorming. If it wasn't, suggest breaking this into separate plans  one per subsystem. Each plan should produce working, testable software on its own.
 
-## Problem Statement
+## File Structure
 
-The problem that the user is facing, from the user's perspective.
+Before defining tasks, map out which files will be created or modified and what each one is responsible for. This is where decomposition decisions get locked in.
 
-## Solution
+- Design units with clear boundaries and well-defined interfaces. Each file should have one clear responsibility.
+- You reason best about code you can hold in context at once, and your edits are more reliable when files are focused. Prefer smaller, focused files over large ones that do too much.
+- Files that change together should live together. Split by responsibility, not by technical layer.
+- In existing codebases, follow established patterns. If the codebase uses large files, don't unilaterally restructure - but if a file you're modifying has grown unwieldy, including a split in the plan is reasonable.
 
-The solution to the problem, from the user's perspective.
+This structure informs the task decomposition. Each task should produce self-contained changes that make sense independently.
 
-## User Stories
+## Bite-Sized Task Granularity
 
-A LONG, numbered list of user stories. Each user story should be in the format of:
+**Each step is one action (2-5 minutes):**
+- "Write the failing test" - step
+- "Run it to make sure it fails" - step
+- "Implement the minimal code to make the test pass" - step
+- "Run the tests and make sure they pass" - step
+- "Commit" - step
 
-1. As an <actor>, I want a <feature>, so that <benefit>
+## Plan Document Header
 
-<user-story-example>
-1. As a mobile bank customer, I want to see balance on my accounts, so that I can make better informed decisions about my spending
-</user-story-example>
+**Every plan MUST start with this header:**
 
-This list of user stories should be extremely extensive and cover all aspects of the feature.
+```markdown
+# [Feature Name] Implementation Plan
 
-## Implementation Decisions
+> **For agentic workers:** REQUIRED SUB-SKILL: Use galyarder-framework:subagent-driven-development (recommended) or galyarder-framework:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-A list of implementation decisions that were made. This can include:
+**Goal:** [One sentence describing what this builds]
 
-- The modules that will be built/modified
-- The interfaces of those modules that will be modified
-- Technical clarifications from the developer
-- Architectural decisions
-- Schema changes
-- API contracts
-- Specific interactions
+**Architecture:** [2-3 sentences about approach]
 
-Do NOT include specific file paths or code snippets. They may end up being outdated very quickly.
+**Tech Stack:** [Key technologies/libraries]
 
-## Testing Decisions
+---
+```
 
-A list of testing decisions that were made. Include:
+## Task Structure
 
-- A description of what makes a good test (only test external behavior, not implementation details)
-- Which modules will be tested
-- Prior art for the tests (i.e. similar types of tests in the codebase)
+````markdown
+### Task N: [Component Name]
 
-## Out of Scope
+**Files:**
+- Create: `exact/path/to/file.py`
+- Modify: `exact/path/to/existing.py:123-145`
+- Test: `tests/exact/path/to/test.py`
 
-A description of the things that are out of scope for this PRD.
+- [ ] **Step 1: Write the failing test**
 
-## Further Notes
+```python
+def test_specific_behavior():
+    result = function(input)
+    assert result == expected
+```
 
-Any further notes about the feature.
+- [ ] **Step 2: Run test to verify it fails**
 
-</prd-template>
+Run: `pytest tests/path/test.py::test_name -v`
+Expected: FAIL with "function not defined"
+
+- [ ] **Step 3: Write minimal implementation**
+
+```python
+def function(input):
+    return expected
+```
+
+- [ ] **Step 4: Run test to verify it passes**
+
+Run: `pytest tests/path/test.py::test_name -v`
+Expected: PASS
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add tests/path/test.py src/path/file.py
+git commit -m "feat: add specific feature"
+```
+````
+
+## No Placeholders
+
+Every step must contain the actual content an engineer needs. These are **plan failures**  never write them:
+- "TBD", "TODO", "implement later", "fill in details"
+- "Add appropriate error handling" / "add validation" / "handle edge cases"
+- "Write tests for the above" (without actual test code)
+- "Similar to Task N" (repeat the code  the engineer may be reading tasks out of order)
+- Steps that describe what to do without showing how (code blocks required for code steps)
+- References to types, functions, or methods not defined in any task
+
+## Remember
+- Exact file paths always
+- Complete code in every step  if a step changes code, show the code
+- Exact commands with expected output
+- DRY, YAGNI, TDD, frequent commits
+
+## Self-Review
+
+After writing the complete plan, look at the spec with fresh eyes and check the plan against it. This is a checklist you run yourself  not a subagent dispatch.
+
+**1. Spec coverage:** Skim each section/requirement in the spec. Can you point to a task that implements it? List any gaps.
+
+**2. Placeholder scan:** Search your plan for red flags  any of the patterns from the "No Placeholders" section above. Fix them.
+
+**3. Type consistency:** Do the types, method signatures, and property names you used in later tasks match what you defined in earlier tasks? A function called `clearLayers()` in Task 3 but `clearFullLayers()` in Task 7 is a bug.
+
+If you find issues, fix them inline. No need to re-review  just fix and move on. If you find a spec requirement with no task, add the task.
+
+## Execution Handoff
+
+After saving the plan, offer execution choice:
+
+**"Plan complete and saved to `docs/plans/<filename>.md`. Two execution options:**
+
+**1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
+
+**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
+
+**Which approach?"**
+
+**If Subagent-Driven chosen:**
+- **REQUIRED SUB-SKILL:** Use galyarder-framework:subagent-driven-development
+- Fresh subagent per task + two-stage review
+
+**If Inline Execution chosen:**
+- **REQUIRED SUB-SKILL:** Use galyarder-framework:executing-plans
+- Batch execution with checkpoints for review
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
