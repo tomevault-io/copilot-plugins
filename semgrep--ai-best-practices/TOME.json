@@ -4,7 +4,7 @@
   "repo": "ai-best-practices",
   "description": "Semgrep Pro Rules to ensure code using LLMs is following best practices",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/semgrep/ai-best-practices",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T13:00:41Z"
+  "distributed_at": "2026-05-04T22:22:09Z"
 }
