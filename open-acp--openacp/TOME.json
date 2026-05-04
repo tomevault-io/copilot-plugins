@@ -1,0 +1,44 @@
+{
+  "name": "OpenACP",
+  "owner": "Open-ACP",
+  "repo": "OpenACP",
+  "description": "Self-hosted bridge that lets you interact with AI coding agents (Claude Code, Codex, etc.) from messaging platforms (Telegram, Discord, etc.) via the Agent Client Protocol (ACP).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Open-ACP/OpenACP",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T08:41:18Z"
+}
