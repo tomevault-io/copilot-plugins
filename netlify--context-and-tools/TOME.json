@@ -1,0 +1,81 @@
+{
+  "name": "context-and-tools",
+  "owner": "netlify",
+  "repo": "context-and-tools",
+  "description": "AI instruction skills by netlify",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "netlify-caching",
+      "path": "skills/netlify-caching",
+      "github_url": "https://github.com/netlify/context-and-tools/tree/main/skills/netlify-caching",
+      "description": ""
+    },
+    {
+      "name": "netlify-cli-and-deploy",
+      "path": "skills/netlify-cli-and-deploy",
+      "github_url": "https://github.com/netlify/context-and-tools/tree/main/skills/netlify-cli-and-deploy",
+      "description": ""
+    },
+    {
+      "name": "netlify-db",
+      "path": "skills/netlify-db",
+      "github_url": "https://github.com/netlify/context-and-tools/tree/main/skills/netlify-db",
+      "description": ""
+    },
+    {
+      "name": "netlify-forms",
+      "path": "skills/netlify-forms",
+      "github_url": "https://github.com/netlify/context-and-tools/tree/main/skills/netlify-forms",
+      "description": ""
+    },
+    {
+      "name": "netlify-frameworks",
+      "path": "skills/netlify-frameworks",
+      "github_url": "https://github.com/netlify/context-and-tools/tree/main/skills/netlify-frameworks",
+      "description": ""
+    },
+    {
+      "name": "netlify-functions",
+      "path": "skills/netlify-functions",
+      "github_url": "https://github.com/netlify/context-and-tools/tree/main/skills/netlify-functions",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/netlify/context-and-tools",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:48:05Z"
+}
