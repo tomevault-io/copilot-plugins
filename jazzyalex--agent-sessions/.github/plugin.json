@@ -1,0 +1,18 @@
+{
+  "name": "jazzyalex--agent-sessions",
+  "displayName": "agent-sessions",
+  "description": "Session browser + Agent Cockpit +  Analytics + Limits tracker for Codex CLI,  Claude Code, OpenCode, Gemini CLI, Factory Droid , GitHub Copilot CLI & OpenClaw. Search/filter ALL past sessions,  archiv",
+  "version": "1.0.0",
+  "author": "jazzyalex",
+  "homepage": "https://github.com/jazzyalex/agent-sessions",
+  "skills": [
+    {
+      "name": "agent-support-matrix",
+      "description": ""
+    },
+    {
+      "name": "sc-skill",
+      "description": ""
+    }
+  ]
+}
