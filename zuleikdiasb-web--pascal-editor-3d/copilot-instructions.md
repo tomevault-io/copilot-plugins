@@ -1,96 +1,70 @@
-## node-schemas
+## renderers
 
-> Node type definitions, Zod schema pattern, and how to create nodes in the scene
+> Node renderer pattern in packages/viewer
 
 
-# Node Schemas
+# Renderers
 
-All node types are defined as Zod schemas in `packages/core/src/schema/nodes/`. Each schema extends `BaseNode` and exports both the schema and its inferred TypeScript type.
+Renderers live in `packages/viewer/src/components/renderers/`. Each renderer is responsible for one node type's Three.js geometry and materials — nothing else.
 
-**Sources**: @packages/core/src/schema/base.ts, @packages/core/src/schema/nodes/
+## Dispatch Chain
 
-## BaseNode
+```
+<SceneRenderer>          — iterates rootNodeIds from useScene
+  └─ <NodeRenderer>      — switches on node.type, renders the matching component
+       └─ <WallRenderer> — (or SlabRenderer, DoorRenderer, …)
+```
 
-Every node shares these fields:
+See @packages/viewer/src/components/renderers/scene-renderer.tsx and @packages/viewer/src/components/renderers/node-renderer.tsx.
 
-```ts
-{
-  object: 'node'            // always literal 'node'
-  id: string                // typed ID e.g. "wall_abc123"
-  type: string              // node type discriminator e.g. "wall"
-  name?: string             // optional display name
-  parentId: string | null   // parent node ID; null = root
-  visible: boolean          // defaults to true
-  metadata: Record<string, unknown>  // arbitrary JSON, defaults to {}
+## Renderer Responsibilities
+
+A renderer **should**:
+- Read its node from `useScene` via the node's ID
+- Register its mesh(es) with `useRegistry()` so other systems can look them up
+- Subscribe to pointer events via `useNodeEvents()`
+- Render geometry and apply materials based on node properties
+
+A renderer **must not**:
+- Run geometry generation logic (that belongs in a System)
+- Import anything from `apps/editor`
+- Manage selection state directly (use `useViewer` for read, emit events for write)
+- Perform expensive per-frame calculations in the component body
+
+## Example — Minimal Renderer
+
+```tsx
+// packages/viewer/src/components/renderers/my-node/index.tsx
+import { useRegistry } from '@pascal-app/core'
+import { useNodeEvents } from '../../hooks/use-node-events'
+import { useScene } from '@pascal-app/core'
+
+export function MyNodeRenderer({ node }: { node: MyNode }) {
+  const ref = useRef<Mesh>(null!)
+  useRegistry(node.id, 'my-node', ref)   // 3 args: id, type, ref — no return value
+  const events = useNodeEvents(node, 'my-node')
+
+  return (
+    <mesh ref={ref} {...events}>
+      <boxGeometry args={[node.width, node.height, node.depth]} />
+      <meshStandardMaterial color={node.color} />
+    </mesh>
+  )
 }
 ```
 
-## Defining a New Node Type
+## Adding a New Node Type
 
-```ts
-// packages/core/src/schema/nodes/my-node.ts
-import { z } from 'zod'
-import { BaseNode, objectId, nodeType } from '../base'
+1. Create `packages/viewer/src/components/renderers/<type>/index.tsx`
+2. Add a case to `NodeRenderer` in `node-renderer.tsx`
+3. Add the corresponding system in `packages/core/src/systems/` if the node needs derived geometry
+4. Export from `packages/viewer/src/index.ts` if needed externally
 
-export const MyNode = BaseNode.extend({
-  id: objectId('my-node'),      // generates IDs like "my-node_abc123"
-  type: nodeType('my-node'),    // sets literal type discriminator
-  // add node-specific fields:
-  width: z.number().default(1),
-  label: z.string().optional(),
-}).describe('My node — one-line description of what it represents')
+## Performance Notes
 
-export type MyNode = z.infer<typeof MyNode>
-export type MyNodeId = MyNode['id']
-```
-
-Then add `MyNode` to the `AnyNode` union in `packages/core/src/schema/types.ts`.
-
-## Creating Nodes in Tools
-
-Always use `.parse()` to validate and generate a proper typed ID. Never construct a plain object manually.
-
-```ts
-import { WallNode } from '@pascal-app/core'
-import { useScene } from '@pascal-app/core'
-
-// 1. Parse validates and fills defaults (including auto-generated id)
-const wall = WallNode.parse({ name: 'Wall 1', start: [0, 0], end: [5, 0] })
-
-// 2. createNode(node, parentId?) inserts it into the scene
-const { createNode } = useScene.getState()
-createNode(wall, levelId)
-```
-
-For batch creation:
-
-```ts
-const { createNodes } = useScene.getState()
-createNodes([
-  { node: WallNode.parse({ start: [0, 0], end: [5, 0] }), parentId: levelId },
-  { node: WallNode.parse({ start: [5, 0], end: [5, 4] }), parentId: levelId },
-])
-```
-
-## Updating Nodes
-
-```ts
-const { updateNode } = useScene.getState()
-updateNode(wall.id, { height: 2.8 })   // partial update, merges with existing
-```
-
-## Real Examples
-
-- **Simple geometry node**: @packages/core/src/schema/nodes/wall.ts — `start`, `end`, `thickness`, `height`
-- **Polygon node**: @packages/core/src/schema/nodes/slab.ts — `polygon: [number, number][]`, `holes`
-- **Positioned node**: @packages/core/src/schema/nodes/item.ts — `position`, `rotation`, `scale`, `asset`
-
-## Rules
-
-- **Always use `.parse()`** — it generates the correct ID prefix and fills defaults. `WallNode.parse({...})` not `{ type: 'wall', id: '...' }`.
-- **Never hardcode IDs.** Let `objectId('type')` generate them.
-- **Add new node types to `AnyNode`** in `types.ts` or they won't be accepted by the store.
-- **Keep schemas in `packages/core`**, not in the viewer or editor — the schema is shared by all packages.
+- Use `useMemo` for geometry that depends on node properties — avoid recreating on every render.
+- For complex cutout or boolean geometry, delegate to a System (e.g. `WallCutout`).
+- Register one mesh per node ID; if a renderer spawns multiple meshes, use a group ref or pick the primary one for registry.
 
 ---
 > Source: [zuleikdiasb-web/pascal-editor-3d](https://github.com/zuleikdiasb-web/pascal-editor-3d) — distributed by [TomeVault](https://tomevault.io).
