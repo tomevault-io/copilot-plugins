@@ -1,0 +1,69 @@
+{
+  "name": "doc-tracer",
+  "owner": "tomohiro-owada",
+  "repo": "doc-tracer",
+  "description": "\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3068\u30b3\u30fc\u30c9\u306e\u53cc\u65b9\u5411\u30c8\u30ec\u30fc\u30b5\u30d3\u30ea\u30c6\u30a3\u3092\u5b9f\u73fe\u3059\u308bCLI\u30c4\u30fc\u30eb",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "doc-tracer-add-frontmatter",
+      "path": ".claude/skills/doc-tracer-add-frontmatter",
+      "github_url": "https://github.com/tomohiro-owada/doc-tracer/tree/main/.claude/skills/doc-tracer-add-frontmatter",
+      "description": ""
+    },
+    {
+      "name": "doc-tracer-check",
+      "path": ".claude/skills/doc-tracer-check",
+      "github_url": "https://github.com/tomohiro-owada/doc-tracer/tree/main/.claude/skills/doc-tracer-check",
+      "description": ""
+    },
+    {
+      "name": "doc-tracer-scan",
+      "path": ".claude/skills/doc-tracer-scan",
+      "github_url": "https://github.com/tomohiro-owada/doc-tracer/tree/main/.claude/skills/doc-tracer-scan",
+      "description": ""
+    },
+    {
+      "name": "doc-tracer-update-docs",
+      "path": ".claude/skills/doc-tracer-update-docs",
+      "github_url": "https://github.com/tomohiro-owada/doc-tracer/tree/main/.claude/skills/doc-tracer-update-docs",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tomohiro-owada/doc-tracer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:36:49Z"
+}
