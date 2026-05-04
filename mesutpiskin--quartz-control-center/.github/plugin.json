@@ -1,0 +1,9 @@
+{
+  "name": "mesutpiskin--quartz-control-center",
+  "displayName": "quartz-control-center",
+  "description": "Quartz Scheduler Management UI: Real-time monitoring and administration tool for Quartz jobs. Visualize triggers, edit schedules, and track execution history via a centralized dashboard.",
+  "version": "1.0.0",
+  "author": "mesutpiskin",
+  "homepage": "https://github.com/mesutpiskin/quartz-control-center",
+  "skills": []
+}
