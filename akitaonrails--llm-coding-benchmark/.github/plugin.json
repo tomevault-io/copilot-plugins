@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--llm-coding-benchmark",
+  "displayName": "llm-coding-benchmark",
+  "description": "Simple benchmark to test the most popular open source and commercial LLMs with automated OpenCode",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/llm-coding-benchmark",
+  "skills": []
+}
