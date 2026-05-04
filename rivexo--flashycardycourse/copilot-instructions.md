@@ -1,340 +1,312 @@
-## nextjs-server-patterns
+## shadcn-ui
 
-> This project follows strict patterns for data handling in Next.js using Server Components, Server Actions, and Zod validation.
+> This project uses **shadcn UI** exclusively for ALL UI elements and components.
 
-# Next.js Server Patterns & Data Validation
+# shadcn UI Usage Guide
 
-This project follows strict patterns for data handling in Next.js using Server Components, Server Actions, and Zod validation.
+This project uses **shadcn UI** exclusively for ALL UI elements and components.
 
-## Data Retrieval
+## ⚠️ CRITICAL REQUIREMENTS
 
-**All data retrieval must be done via Server Components.**
+### 🚫 ZERO CUSTOM UI COMPONENTS POLICY 🚫
 
-### ✅ CORRECT: Server Component with data fetching
+**THIS IS AN ABSOLUTE, NON-NEGOTIABLE REQUIREMENT:**
+
+**ABSOLUTELY NO CUSTOM UI COMPONENTS ARE ALLOWED IN THIS PROJECT. PERIOD.**
+
+Every single UI element, no matter how simple or complex, MUST use shadcn UI components. There are NO exceptions.
+
+### What This Means in Practice
+
+#### ❌ PROHIBITED ACTIONS (Never Do These):
+
+- **NEVER** create custom buttons, even if you think it's just a simple button
+- **NEVER** create custom inputs, textareas, or any form elements
+- **NEVER** create custom cards, containers, or layout components
+- **NEVER** create custom dialogs, modals, popovers, or overlays
+- **NEVER** create custom dropdowns, selects, or menus
+- **NEVER** create custom tabs, accordions, or collapsible sections
+- **NEVER** create custom tooltips, toasts, or alerts
+- **NEVER** create custom loading spinners or progress indicators
+- **NEVER** create custom badges, avatars, or status indicators
+- **NEVER** write Tailwind classes directly on `<div>`, `<button>`, `<input>`, etc. to build UI from scratch
+- **NEVER** create components in locations other than `src/components/ui/` (except for business logic components that compose shadcn components)
+- **NEVER** think "this is too simple for shadcn, I'll just create it myself"
+- **NEVER** bypass this rule because "it would be faster to create a custom component"
+
+#### ✅ REQUIRED ACTIONS (Always Do These):
+
+- **ALWAYS** use shadcn UI components for 100% of UI elements
+- **ALWAYS** check shadcn UI documentation FIRST before implementing ANY UI feature
+- **ALWAYS** install the required shadcn component if it doesn't exist in the project
+- **ALWAYS** compose shadcn components together for complex UI patterns
+- **ALWAYS** use shadcn's styling system and variants
+- **ALWAYS** import from `@/components/ui/` for all UI elements
+
+### The Workflow for ANY UI Implementation:
+
+1. **STOP**: Before writing any UI code, ask yourself "Does shadcn UI have this component?"
+2. **CHECK**: Visit https://ui.shadcn.com/docs/components and verify the component exists
+3. **INSTALL**: If not already installed, run `pnpm dlx shadcn@latest add <component-name>`
+4. **USE**: Import and use the shadcn component directly
+5. **NEVER**: Build a custom alternative, no matter the reason
+
+### Examples of Correct Usage
+
+✅ **Correct**: Using shadcn Button
+```typescript
+import { Button } from "@/components/ui/button";
+<Button>Click me</Button>
+```
+
+❌ **Wrong**: Creating custom button
+```typescript
+// NEVER DO THIS
+<button className="px-4 py-2 bg-blue-500 rounded">Click me</button>
+```
+
+✅ **Correct**: Using shadcn Card
+```typescript
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+<Card>
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+  </CardHeader>
+  <CardContent>Content</CardContent>
+</Card>
+```
+
+❌ **Wrong**: Creating custom card
+```typescript
+// NEVER DO THIS
+<div className="border rounded-lg shadow p-4">
+  <h2>Title</h2>
+  <p>Content</p>
+</div>
+```
+
+## Initialization
+
+If shadcn UI is not initialized in the project, use the following command:
+
+```bash
+pnpm dlx shadcn@latest init
+```
+
+## Adding Components
+
+When a particular component is not installed, use the following command format:
+
+```bash
+pnpm dlx shadcn@latest add <component-name>
+```
+
+### Example
+
+To install the button component:
+
+```bash
+pnpm dlx shadcn@latest add button
+```
+
+### Common Components
+
+Frequently used components you should install as needed:
+
+```bash
+pnpm dlx shadcn@latest add button
+pnpm dlx shadcn@latest add card
+pnpm dlx shadcn@latest add dialog
+pnpm dlx shadcn@latest add input
+pnpm dlx shadcn@latest add label
+pnpm dlx shadcn@latest add select
+pnpm dlx shadcn@latest add form
+pnpm dlx shadcn@latest add dropdown-menu
+pnpm dlx shadcn@latest add avatar
+pnpm dlx shadcn@latest add badge
+```
+
+## 🔐 Clerk Authentication Integration
+
+### 🚨 MANDATORY Clerk Implementation Pattern 🚨
+
+**THIS IS THE ONLY ACCEPTABLE WAY TO IMPLEMENT CLERK AUTHENTICATION:**
+
+Clerk authentication MUST be implemented using **shadcn UI Button** and **shadcn UI Dialog** components. The Clerk sign-in and sign-up forms must appear in MODAL dialogs, NOT on separate pages or embedded directly.
+
+### ✅ REQUIRED Implementation Pattern (The ONLY Way)
 
 ```typescript
-import { auth } from "@clerk/nextjs/server";
-import { db } from "@/db";
-import { decksTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { SignIn, SignUp } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
-export default async function DecksPage() {
-  const { userId } = await auth();
-  
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
-  
-  const decks = await db.select()
-    .from(decksTable)
-    .where(eq(decksTable.userId, userId));
-  
+// Sign In Modal - THIS IS THE ONLY ACCEPTABLE PATTERN
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Sign In</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <SignIn routing="virtual" />
+  </DialogContent>
+</Dialog>
+
+// Sign Up Modal - THIS IS THE ONLY ACCEPTABLE PATTERN
+<Dialog>
+  <DialogTrigger asChild>
+    <Button>Sign Up</Button>
+  </DialogTrigger>
+  <DialogContent>
+    <SignUp routing="virtual" />
+  </DialogContent>
+</Dialog>
+```
+
+### 🚫 PROHIBITED Clerk Patterns
+
+❌ **NEVER** use `<SignInButton>` from Clerk
+```typescript
+// WRONG - DO NOT USE CLERK'S BUTTONS
+import { SignInButton } from "@clerk/nextjs";
+<SignInButton /> // ❌ FORBIDDEN
+```
+
+❌ **NEVER** use `<SignUpButton>` from Clerk
+```typescript
+// WRONG - DO NOT USE CLERK'S BUTTONS
+import { SignUpButton } from "@clerk/nextjs";
+<SignUpButton /> // ❌ FORBIDDEN
+```
+
+❌ **NEVER** create custom buttons for authentication
+```typescript
+// WRONG - NO CUSTOM BUTTONS
+<button onClick={...}>Sign In</button> // ❌ FORBIDDEN
+<div className="..." onClick={...}>Sign Up</div> // ❌ FORBIDDEN
+```
+
+❌ **NEVER** use redirect routing for authentication
+```typescript
+// WRONG - MUST USE MODAL/VIRTUAL ROUTING
+<SignIn routing="path" /> // ❌ FORBIDDEN
+<SignUp routing="hash" /> // ❌ FORBIDDEN
+```
+
+### ✅ Key Requirements for Clerk Integration
+
+**MANDATORY REQUIREMENTS:**
+
+1. **Button Component**: Use ONLY `<Button>` from `@/components/ui/button` for all authentication triggers
+2. **Dialog Component**: Use ONLY `<Dialog>` from `@/components/ui/dialog` to display authentication forms in modals
+3. **Virtual Routing**: Set `routing="virtual"` on ALL Clerk `<SignIn>` and `<SignUp>` components
+4. **Modal Presentation**: Authentication forms MUST appear in modal dialogs, not as standalone pages
+5. **No Clerk Buttons**: NEVER import or use `SignInButton`, `SignUpButton`, or any pre-styled Clerk button components
+6. **No Custom Auth UI**: NEVER create custom buttons, forms, or UI elements for authentication
+
+### Complete Working Example
+
+```typescript
+import { SignIn, SignUp } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+
+export function AuthButtons() {
   return (
-    <div>
-      {decks.map(deck => (
-        <DeckCard key={deck.id} deck={deck} />
-      ))}
+    <div className="flex gap-2">
+      {/* Sign In Modal */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline">Sign In</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <SignIn routing="virtual" />
+        </DialogContent>
+      </Dialog>
+
+      {/* Sign Up Modal */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button>Sign Up</Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          <SignUp routing="virtual" />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
 ```
 
-### ❌ INCORRECT: Client-side data fetching
+### Why These Requirements Exist
 
-```typescript
-"use client"; // Don't fetch data in client components
+- **Consistency**: All UI elements use shadcn UI, including authentication
+- **Customization**: shadcn Button allows full control over styling and variants
+- **User Experience**: Modal dialogs provide better UX than redirecting to separate pages
+- **Maintainability**: Single source of truth for all UI components
 
-export default function DecksPage() {
-  const [decks, setDecks] = useState([]);
-  
-  useEffect(() => {
-    fetch('/api/decks').then(/* ... */); // Wrong approach
-  }, []);
-}
-```
+## Component Location
 
-## Data Mutations
+- All shadcn UI components are installed in `src/components/ui/` directory
+- Import components from `@/components/ui/component-name`
+- **NEVER** modify the installed components directly (they may be updated)
+- If customization is needed, compose or wrap the shadcn component, don't recreate it
 
-**All database updates, deletes, and inserts must be done via Server Actions.**
+## ⚖️ ENFORCEMENT & COMPLIANCE
 
-Server Actions should be defined in separate files and marked with `"use server"`.
+### 🔒 This Rule is ALWAYS APPLIED and ABSOLUTELY NON-NEGOTIABLE
 
-### ✅ CORRECT: Server Action for mutations
+**THIS IS NOT A SUGGESTION. THIS IS A MANDATORY REQUIREMENT.**
 
-```typescript
-"use server";
+- This rule applies to **EVERY SINGLE UI ELEMENT** in the project
+- This rule applies to **EVERY DEVELOPER** working on the project
+- This rule applies **100% OF THE TIME** with **ZERO EXCEPTIONS**
+- There is **NO CIRCUMSTANCE** where custom UI components are acceptable
+- There is **NO JUSTIFICATION** for bypassing this rule
 
-import { auth } from "@clerk/nextjs/server";
-import { db } from "@/db";
-import { decksTable } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
-import { z } from "zod";
-import { revalidatePath } from "next/cache";
+### 🛑 If You Find Yourself Writing Custom UI Code:
 
-// Define Zod schema
-const createDeckSchema = z.object({
-  name: z.string().min(1, "Name is required").max(100),
-  description: z.string().optional(),
-});
+1. **STOP IMMEDIATELY**
+2. **DELETE THE CUSTOM CODE**
+3. **CHECK** shadcn UI documentation for the appropriate component
+4. **INSTALL** the shadcn component if needed
+5. **USE** the shadcn component instead
 
-// Define TypeScript type from schema
-type CreateDeckInput = z.infer<typeof createDeckSchema>;
+### 🚨 Red Flags to Watch For:
 
-export async function createDeck(input: CreateDeckInput) {
-  const { userId } = await auth();
-  
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
-  
-  // Validate input with Zod
-  const validated = createDeckSchema.parse(input);
-  
-  const [deck] = await db.insert(decksTable)
-    .values({
-      ...validated,
-      userId,
-    })
-    .returning();
-  
-  revalidatePath("/decks");
-  return deck;
-}
+If you see ANY of these patterns in the code, they are VIOLATIONS:
 
-// Update example
-const updateDeckSchema = z.object({
-  id: z.number(),
-  name: z.string().min(1).max(100).optional(),
-  description: z.string().optional(),
-});
+- `<button className="...">` ← Should use `<Button>` from shadcn UI
+- `<input className="...">` ← Should use `<Input>` from shadcn UI
+- `<div className="border rounded-lg ...">` ← Probably should use `<Card>` from shadcn UI
+- Custom component files for basic UI elements
+- Styling HTML elements directly instead of using shadcn components
+- Importing `SignInButton` or `SignUpButton` from Clerk
 
-type UpdateDeckInput = z.infer<typeof updateDeckSchema>;
+### ✅ Code Review Checklist:
 
-export async function updateDeck(input: UpdateDeckInput) {
-  const { userId } = await auth();
-  
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
-  
-  const validated = updateDeckSchema.parse(input);
-  const { id, ...updates } = validated;
-  
-  await db.update(decksTable)
-    .set(updates)
-    .where(
-      and(
-        eq(decksTable.id, id),
-        eq(decksTable.userId, userId)
-      )
-    );
-  
-  revalidatePath("/decks");
-}
+Before committing any UI code, verify:
 
-// Delete example
-const deleteDeckSchema = z.object({
-  id: z.number(),
-});
+- [ ] Are you using ONLY shadcn UI components for all UI elements?
+- [ ] Have you avoided creating ANY custom UI components?
+- [ ] Are all buttons using `<Button>` from `@/components/ui/button`?
+- [ ] Are all dialogs/modals using `<Dialog>` from `@/components/ui/dialog`?
+- [ ] Are Clerk authentication forms displayed in shadcn Dialog modals?
+- [ ] Are you using shadcn Button components (NOT Clerk buttons) for auth triggers?
+- [ ] Have you checked shadcn UI documentation before implementing any UI feature?
 
-type DeleteDeckInput = z.infer<typeof deleteDeckSchema>;
+### ⚠️ Remember:
 
-export async function deleteDeck(input: DeleteDeckInput) {
-  const { userId } = await auth();
-  
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
-  
-  const validated = deleteDeckSchema.parse(input);
-  
-  await db.delete(decksTable)
-    .where(
-      and(
-        eq(decksTable.id, validated.id),
-        eq(decksTable.userId, userId)
-      )
-    );
-  
-  revalidatePath("/decks");
-}
-```
+**"Can I create a quick custom button for this?"** → **NO. Use shadcn Button.**
 
-### ❌ INCORRECT: Using FormData without proper typing
+**"This is too simple to need shadcn UI..."** → **NO. Use shadcn UI anyway.**
 
-```typescript
-"use server";
+**"It would be faster to just style a div..."** → **NO. Use the appropriate shadcn component.**
 
-// DON'T DO THIS - FormData is not type-safe
-export async function createDeck(formData: FormData) {
-  const name = formData.get("name"); // No type safety
-  // ...
-}
-```
-
-## Data Validation Requirements
-
-### 1. Always Use Zod for Validation
-
-Every Server Action must validate its input using Zod schemas:
-
-```typescript
-import { z } from "zod";
-
-const mySchema = z.object({
-  field1: z.string(),
-  field2: z.number(),
-  // ... define all fields with validation rules
-});
-```
-
-### 2. Always Define TypeScript Types
-
-Use `z.infer` to derive TypeScript types from Zod schemas:
-
-```typescript
-type MyInput = z.infer<typeof mySchema>;
-
-export async function myAction(input: MyInput) {
-  const validated = mySchema.parse(input);
-  // ... use validated data
-}
-```
-
-### 3. Validation Rules
-
-- **Required strings**: Use `.min(1)` to ensure non-empty
-- **Optional fields**: Use `.optional()`
-- **Numbers**: Validate ranges with `.min()` and `.max()`
-- **Emails**: Use `z.string().email()`
-- **Enums**: Use `z.enum([...])` for fixed sets of values
-- **Custom validation**: Use `.refine()` for complex rules
-
-## Client Components Calling Server Actions
-
-Client components should call server actions for mutations:
-
-```typescript
-"use client";
-
-import { createDeck } from "@/actions/deck-actions";
-import { useState } from "react";
-
-export function CreateDeckForm() {
-  const [isLoading, setIsLoading] = useState(false);
-  
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    const formData = new FormData(e.currentTarget);
-    
-    // Create properly typed object
-    const input = {
-      name: formData.get("name") as string,
-      description: formData.get("description") as string,
-    };
-    
-    try {
-      await createDeck(input);
-      // Handle success
-    } catch (error) {
-      // Handle error
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-  
-  return (
-    <form onSubmit={handleSubmit}>
-      <input name="name" required />
-      <textarea name="description" />
-      <button type="submit" disabled={isLoading}>
-        Create Deck
-      </button>
-    </form>
-  );
-}
-```
-
-## File Organization
-
-Organize server actions in a dedicated directory:
-
-```
-src/
-├── actions/
-│   ├── deck-actions.ts
-│   ├── card-actions.ts
-│   └── ...
-├── app/
-│   └── (routes)/
-└── ...
-```
-
-## Cache Revalidation
-
-After mutations, revalidate affected paths:
-
-```typescript
-import { revalidatePath } from "next/cache";
-
-export async function updateDeck(input: UpdateDeckInput) {
-  // ... perform update
-  
-  // Revalidate specific paths
-  revalidatePath("/decks");
-  revalidatePath(`/decks/${input.id}`);
-}
-```
-
-## Error Handling
-
-Server Actions should throw descriptive errors:
-
-```typescript
-export async function myAction(input: MyInput) {
-  const { userId } = await auth();
-  
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
-  
-  try {
-    const validated = mySchema.parse(input);
-    // ... perform operation
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      throw new Error(`Validation failed: ${error.message}`);
-    }
-    throw error;
-  }
-}
-```
-
-## Summary Checklist
-
-✅ **DO:**
-- Fetch data in Server Components
-- Use Server Actions for all mutations (insert/update/delete)
-- Validate all Server Action inputs with Zod
-- Define TypeScript types using `z.infer<typeof schema>`
-- Use properly typed objects (not FormData) as Server Action parameters
-- Revalidate cache after mutations
-
-❌ **DON'T:**
-- Fetch data in Client Components
-- Use API routes for database operations
-- Accept FormData as Server Action parameter type
-- Skip validation
-- Use untyped data
+**"Clerk has a built-in button component..."** → **NO. Use shadcn Button + Dialog.**
 
 ---
 
-**Related Guidelines:**
-- See [drizzle-database.mdc](mdc:.cursor/rules/drizzle-database.mdc) for database interaction patterns
-- See [clerk-auth.mdc](mdc:.cursor/rules/clerk-auth.mdc) for authentication and authorization requirements
+**IF YOU VIOLATE THIS RULE, THE CODE WILL BE REJECTED AND YOU WILL NEED TO REFACTOR IT TO USE SHADCN UI COMPONENTS.**
 
 ---
 > Source: [Rivexo/FlashyCardyCourse](https://github.com/Rivexo/FlashyCardyCourse) — distributed by [TomeVault](https://tomevault.io).
