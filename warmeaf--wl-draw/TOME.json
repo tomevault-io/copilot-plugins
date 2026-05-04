@@ -1,0 +1,57 @@
+{
+  "name": "wl-draw",
+  "owner": "warmeaf",
+  "repo": "wl-draw",
+  "description": "\u5f00\u6e90\u767d\u677f\u5e94\u7528\uff08\u5b66\u4e60\u63d2\u4ef6\u5316\u67b6\u6784\u548c leafer-ui \u7684\u5b9e\u8df5\u9879\u76ee\uff09",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": ".claude/skills/frontend-design",
+      "github_url": "https://github.com/warmeaf/wl-draw/tree/main/.claude/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "readability-report",
+      "path": ".claude/skills/readability-report",
+      "github_url": "https://github.com/warmeaf/wl-draw/tree/main/.claude/skills/readability-report",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/warmeaf/wl-draw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:46:56Z"
+}
