@@ -1,57 +1,41 @@
-## architecture-guidelines
+## commit-hygiene
 
 > |
 
 
-# Architectural Boundaries
+# Commit and Change Hygiene
 
-## Layer Isolation
+## Pre-Commit Checklist
 
-- **Risk layer** (`moralstack/models/risk/`) must NOT import from the **Constitution layer** (`moralstack/constitution/`).
-- Domain classification (domain overlays, regulated domains) must originate from the Constitution module — the Risk module only produces `risk_score`, `risk_category`, and structured signals.
-- The Orchestrator (`moralstack/runtime/orchestrator.py`) must only orchestrate; it must NOT contain parsing logic or policy inference.
+Before every commit, verify:
 
-## Controller Routing
+- [ ] **Documentation updated?** — If the change touches public API, module structure, or decision logic, the corresponding doc in @docs/ must be updated (see @.cursor/rules/documentation-enforcement.mdc for the full mapping).
+- [ ] **Tests added/updated?** — New behavior requires new tests; modified behavior requires updated tests. Tests live in `tests/`.
+- [ ] **Public API affected?** — If a function signature, dataclass, or CLI option changed, ensure backward compatibility or document the breaking change.
 
-- Controller routing logic in `moralstack/orchestration/controller.py` must conform to the documented decision model in @docs/decision_policy.md.
-- No ad-hoc action mapping — all routing must derive from the formal policy rules documented in @README.md (section "Policy formale SAFE_COMPLETE").
-- **Borderline REFUSE**: when `risk_score ∈ [risk_thresholds.medium, borderline_refuse_upper]`, a REFUSE decision enters the deliberative pipeline instead of early-fast refusal. This is controlled by `OrchestratorConfig.borderline_refuse_upper` (default `0.95`). See @docs/modules/orchestrator.md.
+## Safety-Critical Changes
 
-## Simulator & Semantic Harm
+For changes touching any of the following, **extra review is mandatory**:
 
-- The simulator contributes to votes in `_determine_decision` (deliberation_runner) via `semantic_expected_harm` and `dominant_harm_types`.
-- The simulator **can never produce REFUSE**; REFUSE comes only from hard violations, op_risk HIGH, misuse HIGH, or policy bounds.
+| Area                                | Files                                        |
+|-------------------------------------|----------------------------------------------|
+| Policy bounds / final_action       | `moralstack/runtime/decision/safe_complete_policy.py` |
+| Final action logic                  | `moralstack/orchestration/controller.py`     |
+| Risk classification                 | `moralstack/models/risk/`                    |
+| Orchestration flow                  | `moralstack/runtime/orchestrator.py`         |
+| Constitution evaluation             | `moralstack/constitution/store.py`           |
+| Safe refusal generation             | `moralstack/orchestration/safe_refusal_generator.py` |
+| Refusal assembly (deliberative)     | `moralstack/orchestration/response_assembler.py` |
+| Deliberation vote logic             | `moralstack/orchestration/deliberation_runner.py`, `moralstack/orchestration/convergence_evaluator.py` |
 
-## Parsing & Validation
-
-- LLM outputs must be parsed via the shared utility in `moralstack/utils/` — no per-module ad-hoc parsing.
-- Parsing, validation, and decision logic must remain separated (no merging into a single function).
-
-## Design Principles (from @docs/architecture_spec.md)
-
-- **Fail-Safe**: on error, refuse rather than respond unsafely.
-- **Latency-Aware**: dynamic gating avoids overhead for low-risk requests.
-- **Stateless Core**: each request is independent.
-- **Modular**: cognitive modules are replaceable and testable in isolation.
-- **Language-Agnostic**: see section below.
-
-## Language-Agnostic Invariant
-
-MoralStack MUST be completely independent from any specific natural language.
-
-- **No hardcoded strings in any natural language** for runtime logic: prompts, pattern matching, content checks, refusal stubs, and safety assertions must NEVER contain language-specific words or phrases (e.g. Italian, English, etc.).
-- **System prompts** sent to the LLM are in English as a lingua franca for the model, but they must instruct the LLM to reply in the user's language — they must NOT embed language-specific content used for detection, filtering, or decision-making.
-- **All safety checks** (content filtering, pattern detection, draft validation) must rely on structural or semantic signals, never on keyword matching tied to a specific language.
-- **Refusal and fallback messages** must be generated dynamically by the LLM in the user's language, or use language-neutral structural markers — never hardcoded natural-language sentences.
-- **Content purity**: Final response `content` must contain ONLY generative output; never critic rationale, revision_guidance, or meta-analysis text.
-- **Comments and docstrings** in code must be in English (see enforce-english-for-all-comments-and-project-documentation.mdc); runtime-visible strings must be language-agnostic.
+These files affect **governance decisions** — changes must be small, explicit, and well-tested.
 
 ## AI Instructions
 
-- Any structural change in these modules **requires** updating @docs/architecture_spec.md.
-- If a proposed change crosses a layer boundary listed above, **stop and flag it** before proceeding.
-- Never silently change logic related to `final_action`, risk classification, or orchestration order.
-- **Before adding any hardcoded natural-language string** to runtime logic (patterns, stubs, checks), **stop and flag it** — propose a language-agnostic alternative instead.
+- After completing a code change, remind the user of the checklist above.
+- If a change is safety-critical (per the table), suggest targeted tests and documentation updates.
+- Prefer small, surgical commits over large refactors — one concern per commit.
+- Never silently change logic in safety-critical files without flagging it.
 
 ---
 > Source: [fdidonato/moralstack](https://github.com/fdidonato/moralstack) — distributed by [TomeVault](https://tomevault.io).
