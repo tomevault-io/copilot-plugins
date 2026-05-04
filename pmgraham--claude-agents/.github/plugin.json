@@ -1,0 +1,14 @@
+{
+  "name": "pmgraham--claude-agents",
+  "displayName": "claude-agents",
+  "description": "Collection of specialized agent definitions for Claude Code",
+  "version": "1.0.0",
+  "author": "pmgraham",
+  "homepage": "https://github.com/pmgraham/claude-agents",
+  "skills": [
+    {
+      "name": "google-adk",
+      "description": ""
+    }
+  ]
+}
