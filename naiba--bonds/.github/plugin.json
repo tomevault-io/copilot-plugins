@@ -1,0 +1,9 @@
+{
+  "name": "naiba--bonds",
+  "displayName": "bonds",
+  "description": "A modern personal relationship manager \u2014 Go + React rewrite of Monica CRM",
+  "version": "1.0.0",
+  "author": "naiba",
+  "homepage": "https://github.com/naiba/bonds",
+  "skills": []
+}
