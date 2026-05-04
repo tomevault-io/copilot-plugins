@@ -1,0 +1,81 @@
+{
+  "name": "octocode-mcp",
+  "owner": "bgauryy",
+  "repo": "octocode-mcp",
+  "description": "MCP server for semantic code research and context generation on real-time using LLM patterns | Search naturally across public & private repos based on your permissions | Transform any accessible codebase/s into AI-optimized knowledge on simple and complex flows | Find real implementations and live docs from anywhere",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "octocode-documentation-writer",
+      "path": "skills/octocode-documentation-writer",
+      "github_url": "https://github.com/bgauryy/octocode-mcp/tree/main/skills/octocode-documentation-writer",
+      "description": ""
+    },
+    {
+      "name": "octocode-plan",
+      "path": "skills/octocode-plan",
+      "github_url": "https://github.com/bgauryy/octocode-mcp/tree/main/skills/octocode-plan",
+      "description": ""
+    },
+    {
+      "name": "octocode-prompt-optimizer",
+      "path": "skills/octocode-prompt-optimizer",
+      "github_url": "https://github.com/bgauryy/octocode-mcp/tree/main/skills/octocode-prompt-optimizer",
+      "description": ""
+    },
+    {
+      "name": "octocode-pull-request-reviewer",
+      "path": "skills/octocode-pull-request-reviewer",
+      "github_url": "https://github.com/bgauryy/octocode-mcp/tree/main/skills/octocode-pull-request-reviewer",
+      "description": ""
+    },
+    {
+      "name": "octocode-research",
+      "path": "skills/octocode-research",
+      "github_url": "https://github.com/bgauryy/octocode-mcp/tree/main/skills/octocode-research",
+      "description": ""
+    },
+    {
+      "name": "octocode-roast",
+      "path": "skills/octocode-roast",
+      "github_url": "https://github.com/bgauryy/octocode-mcp/tree/main/skills/octocode-roast",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bgauryy/octocode-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:36:45Z"
+}
