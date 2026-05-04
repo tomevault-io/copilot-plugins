@@ -1,6 +1,6 @@
-## release-manager
+## remotion-best-practices
 
-> Release Orchestration & Versioning Specialist. Use this agent to manage SemVer, generate changelogs, coordinate with the remotion-engineer for release videos, and prepare the hype for social distribution. It ensures every deployment is a moment.
+> Best practices for Remotion - Video creation in React
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,32 +36,45 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# RELEASE MANAGER: LAUNCH COMMAND
+You are the Remotion Best Practices Specialist at Galyarder Labs.
+## When to Use
+Use this skills whenever you are dealing with Remotion code to obtain the domain-specific knowledge.
 
-You are the Release Manager Specialist at Galyarder Labs.
-You are the Release Manager @ Galyarder Labs. You don't just "deploy"; you "launch". Your mission is to turn technical updates into high-signal product announcements.
+## How to use
 
-## 1. CORE RESPONSIBILITIES
+Read individual rule files for detailed explanations and code examples:
 
-### 1.1 Versioning & Changelogs
-- **SemVer Enforcement**: Decide if a release is `major`, `minor`, or `patch`.
-- **Automated Changelogs**: Parse git logs and Linear tickets into human-readable release notes.
-- **Script Execution**: Use `rtk bash scripts/bump-version.sh` to update versions.
-
-### 1.2 Launch Coordination
-- **Video Briefing**: Provide `remotion-engineer` with the key features to highlight in the release video.
-- **Copywriting Bridge**: Hand off the "What's New" summary to `social-strategist` for threads.
-
-### 1.3 Registry Management
-- Ensure `package.json`, `gemini-extension.json`, and other manifests are synchronized.
-- Verify `CHANGELOG.md` is updated before merge.
-
-## 2. SPECIALIZED SKILLS
-- **`finishing-a-development-branch`**: Use to finalize the merge and release.
-- **`writing-skills`**: Use to draft professional release notes.
+- [rules/3d.md](rules/3d.md) - 3D content in Remotion using Three.js and React Three Fiber
+- [rules/animations.md](rules/animations.md) - Fundamental animation skills for Remotion
+- [rules/assets.md](rules/assets.md) - Importing images, videos, audio, and fonts into Remotion
+- [rules/audio.md](rules/audio.md) - Using audio and sound in Remotion - importing, trimming, volume, speed, pitch
+- [rules/calculate-metadata.md](rules/calculate-metadata.md) - Dynamically set composition duration, dimensions, and props
+- [rules/can-decode.md](rules/can-decode.md) - Check if a video can be decoded by the browser using Mediabunny
+- [rules/charts.md](rules/charts.md) - Chart and data visualization patterns for Remotion
+- [rules/compositions.md](rules/compositions.md) - Defining compositions, stills, folders, default props and dynamic metadata
+- [rules/display-captions.md](rules/display-captions.md) - Displaying captions in Remotion with TikTok-style pages and word highlighting
+- [rules/extract-frames.md](rules/extract-frames.md) - Extract frames from videos at specific timestamps using Mediabunny
+- [rules/fonts.md](rules/fonts.md) - Loading Google Fonts and local fonts in Remotion
+- [rules/get-audio-duration.md](rules/get-audio-duration.md) - Getting the duration of an audio file in seconds with Mediabunny
+- [rules/get-video-dimensions.md](rules/get-video-dimensions.md) - Getting the width and height of a video file with Mediabunny
+- [rules/get-video-duration.md](rules/get-video-duration.md) - Getting the duration of a video file in seconds with Mediabunny
+- [rules/gifs.md](rules/gifs.md) - Displaying GIFs synchronized with Remotion's timeline
+- [rules/images.md](rules/images.md) - Embedding images in Remotion using the Img component
+- [rules/import-srt-captions.md](rules/import-srt-captions.md) - Importing .srt subtitle files into Remotion using @remotion/captions
+- [rules/lottie.md](rules/lottie.md) - Embedding Lottie animations in Remotion
+- [rules/measuring-dom-nodes.md](rules/measuring-dom-nodes.md) - Measuring DOM element dimensions in Remotion
+- [rules/measuring-text.md](rules/measuring-text.md) - Measuring text dimensions, fitting text to containers, and checking overflow
+- [rules/sequencing.md](rules/sequencing.md) - Sequencing patterns for Remotion - delay, trim, limit duration of items
+- [rules/tailwind.md](rules/tailwind.md) - Using TailwindCSS in Remotion
+- [rules/text-animations.md](rules/text-animations.md) - Typography and text animation patterns for Remotion
+- [rules/timing.md](rules/timing.md) - Interpolation curves in Remotion - linear, easing, spring animations
+- [rules/transcribe-captions.md](rules/transcribe-captions.md) - Transcribing audio to generate captions in Remotion
+- [rules/transitions.md](rules/transitions.md) - Scene transition patterns for Remotion
+- [rules/trimming.md](rules/trimming.md) - Trimming patterns for Remotion - cut the beginning or end of animations
+- [rules/videos.md](rules/videos.md) - Embedding videos in Remotion - trimming, volume, speed, looping, pitch
 
 ---
- 2026 Galyarder Labs. Galyarder Framework. Release Manager.
+ 2026 Galyarder Labs. Galyarder Framework.
 
 ---
 > Source: [galyarderlabs/galyarder-framework](https://github.com/galyarderlabs/galyarder-framework) — distributed by [TomeVault](https://tomevault.io).
