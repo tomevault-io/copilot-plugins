@@ -1,0 +1,44 @@
+{
+  "name": "aws-doctor",
+  "owner": "elC0mpa",
+  "repo": "aws-doctor",
+  "description": "Powerful open-source CLI to audit security, costs, and best practices in AWS. \ud83e\ude7a \u2601\ufe0f",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/elC0mpa/aws-doctor",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T08:02:56Z"
+}
