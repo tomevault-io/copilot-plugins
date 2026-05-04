@@ -1,0 +1,9 @@
+{
+  "name": "elastic--gemini-cli-elasticsearch",
+  "displayName": "gemini-cli-elasticsearch",
+  "description": "Official Elasticsearch extension for Gemini CLI",
+  "version": "1.0.0",
+  "author": "elastic",
+  "homepage": "https://github.com/elastic/gemini-cli-elasticsearch",
+  "skills": []
+}
