@@ -1,0 +1,9 @@
+{
+  "name": "doum1004--llmwiki-cli",
+  "displayName": "llmwiki-cli",
+  "description": "CLI tool for LLM agents to build and maintain personal knowledge bases",
+  "version": "1.0.0",
+  "author": "doum1004",
+  "homepage": "https://github.com/doum1004/llmwiki-cli",
+  "skills": []
+}
