@@ -1,0 +1,87 @@
+{
+  "name": "python-refactoring-skills",
+  "owner": "l-mb",
+  "repo": "python-refactoring-skills",
+  "description": "Python refactoring \"skills\" for Claude Code and others",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "py-code-health",
+      "path": "skills/py-code-health",
+      "github_url": "https://github.com/l-mb/python-refactoring-skills/tree/main/skills/py-code-health",
+      "description": ""
+    },
+    {
+      "name": "py-complexity",
+      "path": "skills/py-complexity",
+      "github_url": "https://github.com/l-mb/python-refactoring-skills/tree/main/skills/py-complexity",
+      "description": ""
+    },
+    {
+      "name": "py-git-hooks",
+      "path": "skills/py-git-hooks",
+      "github_url": "https://github.com/l-mb/python-refactoring-skills/tree/main/skills/py-git-hooks",
+      "description": ""
+    },
+    {
+      "name": "py-modernize",
+      "path": "skills/py-modernize",
+      "github_url": "https://github.com/l-mb/python-refactoring-skills/tree/main/skills/py-modernize",
+      "description": ""
+    },
+    {
+      "name": "py-quality-setup",
+      "path": "skills/py-quality-setup",
+      "github_url": "https://github.com/l-mb/python-refactoring-skills/tree/main/skills/py-quality-setup",
+      "description": ""
+    },
+    {
+      "name": "py-refactor",
+      "path": "skills/py-refactor",
+      "github_url": "https://github.com/l-mb/python-refactoring-skills/tree/main/skills/py-refactor",
+      "description": ""
+    },
+    {
+      "name": "py-test-quality",
+      "path": "skills/py-test-quality",
+      "github_url": "https://github.com/l-mb/python-refactoring-skills/tree/main/skills/py-test-quality",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/l-mb/python-refactoring-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:47:25Z"
+}
