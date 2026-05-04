@@ -4,7 +4,7 @@
   "repo": "ai-agent-camp",
   "description": "AI Agent Camp \u2014 non-engineer-friendly AI agent training curriculum. Lessons, skills, commands, and hooks for Claude Code, Cursor, and Codex.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/minicoohei/ai-agent-camp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T03:33:45Z"
+  "distributed_at": "2026-05-04T14:47:40Z"
 }
