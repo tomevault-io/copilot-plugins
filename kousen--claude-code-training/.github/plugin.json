@@ -1,0 +1,22 @@
+{
+  "name": "kousen--claude-code-training",
+  "displayName": "claude-code-training",
+  "description": "Slides and demos for a training course on Claude Code",
+  "version": "1.0.0",
+  "author": "kousen",
+  "homepage": "https://github.com/kousen/claude-code-training",
+  "skills": [
+    {
+      "name": "api-documentation-skill",
+      "description": ""
+    },
+    {
+      "name": "security-review-skill",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-skill",
+      "description": ""
+    }
+  ]
+}
