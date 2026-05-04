@@ -1,0 +1,14 @@
+{
+  "name": "openhands--software-agent-sdk",
+  "displayName": "software-agent-sdk",
+  "description": "A clean, modular SDK for building AI agents with OpenHands V1.",
+  "version": "1.0.0",
+  "author": "OpenHands",
+  "homepage": "https://github.com/OpenHands/software-agent-sdk",
+  "skills": [
+    {
+      "name": "python-linting",
+      "description": ""
+    }
+  ]
+}
