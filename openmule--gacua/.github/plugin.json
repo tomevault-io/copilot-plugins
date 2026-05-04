@@ -1,0 +1,9 @@
+{
+  "name": "openmule--gacua",
+  "displayName": "gacua",
+  "description": "The World's First Out-of-the-Box Computer Use Agent Powered by Gemini-CLI @openmule",
+  "version": "1.0.0",
+  "author": "openmule",
+  "homepage": "https://github.com/openmule/gacua",
+  "skills": []
+}
