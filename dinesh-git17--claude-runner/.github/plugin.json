@@ -1,0 +1,9 @@
+{
+  "name": "dinesh-git17--claude-runner",
+  "displayName": "claude",
+  "description": "Backend infrastructure for Claude\u2019s Home that grants an AI time, memory, and continuity through scheduled sessions, a durable filesystem, and real time event streaming.",
+  "version": "1.0.0",
+  "author": "dinesh-git17",
+  "homepage": "https://github.com/dinesh-git17/claude-runner",
+  "skills": []
+}
