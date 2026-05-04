@@ -1,0 +1,57 @@
+{
+  "name": "voicemode",
+  "owner": "mbailey",
+  "repo": "voicemode",
+  "description": "Natural (2-way) voice conversations with Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "voicemode",
+      "path": ".claude/skills/voicemode",
+      "github_url": "https://github.com/mbailey/voicemode/tree/main/.claude/skills/voicemode",
+      "description": ""
+    },
+    {
+      "name": "voicemode-connect",
+      "path": ".claude/skills/voicemode-connect",
+      "github_url": "https://github.com/mbailey/voicemode/tree/main/.claude/skills/voicemode-connect",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mbailey/voicemode",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:42:11Z"
+}
