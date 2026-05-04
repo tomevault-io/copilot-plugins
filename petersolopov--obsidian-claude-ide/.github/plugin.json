@@ -1,0 +1,9 @@
+{
+  "name": "petersolopov--obsidian-claude-ide",
+  "displayName": "obsidian-claude-ide",
+  "description": "Obsidian plugin \u2014 real-time editor context for Claude Code",
+  "version": "1.0.0",
+  "author": "petersolopov",
+  "homepage": "https://github.com/petersolopov/obsidian-claude-ide",
+  "skills": []
+}
