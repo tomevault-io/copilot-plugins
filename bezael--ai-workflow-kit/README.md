@@ -7,14 +7,14 @@ ai-workflow-kit
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [bezael/ai-workflow-kit](https://github.com/bezael/ai-workflow-kit).
+Original source: `GEMINI.md` in [bezael/ai-workflow-kit](https://github.com/bezael/ai-workflow-kit).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Gemini CLI** — `GEMINI.md`
+- **Cursor** — `project-config.mdc`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/bezael/ai-workflow-kit](https://github.com/bezael/ai-workflow-kit)
