@@ -4,7 +4,7 @@
   "repo": "nice-vibes",
   "description": "NiceVibes - Teach AI agents to build beautiful NiceGUI applications",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Alyxion/nice-vibes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T21:00:31Z"
+  "distributed_at": "2026-05-04T22:01:41Z"
 }
