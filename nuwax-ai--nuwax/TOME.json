@@ -1,0 +1,44 @@
+{
+  "name": "nuwax",
+  "owner": "nuwax-ai",
+  "repo": "nuwax",
+  "description": "Nuwax Agent OS - The world's first universal agent operating system, building your private vertical general-purpose agent.  \u901a\u7528\u667a\u80fd\u4f53\u64cd\u4f5c\u7cfb\u7edf\uff0c\u6253\u9020\u4f60\u79c1\u6709\u7684\u5782\u7c7b\u901a\u7528\u667a\u80fd\u4f53\u3002\u65b0\u4e00\u4ee3AI\u5e94\u7528\u8bbe\u8ba1\u3001\u5f00\u53d1\u3001\u5b9e\u8df5\u5e73\u53f0\uff0c\u65e0\u9700\u4ee3\u7801\uff0c\u8f7b\u677e\u521b\u5efa\uff0c\u9002\u5408\u5404\u7c7b\u4eba\u7fa4\uff0c\u652f\u6301\u591a\u79cd\u7aef\u53d1\u5e03\u53caAPI\uff0c\u63d0\u4f9b\u5b8c\u5584\u7684\u5de5\u4f5c\u6d41\u3001\u63d2\u4ef6\u4ee5\u53ca\u5e94\u7528\u5f00\u53d1\u80fd\u529b\uff0cRAG\u77e5\u8bc6\u5e93\u4e0e\u6570\u636e\u8868\u5b58\u50a8\u80fd\u529b\uff0cMCP\u63a5\u5165\u4ee5\u53ca\u5f00\u653e\u80fd\u529b\u3002",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nuwax-ai/nuwax",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T17:43:47Z"
+}
