@@ -4,7 +4,7 @@
   "repo": "pascal-editor-3d",
   "description": "Editor 3D para constru\u00e7\u00e3o civil - Fork Pascal Editor",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zuleikdiasb-web/pascal-editor-3d",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:31:15Z"
+  "distributed_at": "2026-05-04T14:45:03Z"
 }
