@@ -1,0 +1,9 @@
+{
+  "name": "frkdrgt--ferox",
+  "displayName": "ferox",
+  "description": "A blazing-fast PostgreSQL client built in Rust. No Electron. No JVM. No bloat.",
+  "version": "1.0.0",
+  "author": "frkdrgt",
+  "homepage": "https://github.com/frkdrgt/ferox",
+  "skills": []
+}
