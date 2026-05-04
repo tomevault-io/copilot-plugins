@@ -1,0 +1,9 @@
+{
+  "name": "pixaroma--comfyui-pixaroma",
+  "displayName": "ComfyUI-Pixaroma",
+  "description": "Pixaroma ComfyUI Nodes",
+  "version": "1.0.0",
+  "author": "pixaroma",
+  "homepage": "https://github.com/pixaroma/ComfyUI-Pixaroma",
+  "skills": []
+}
