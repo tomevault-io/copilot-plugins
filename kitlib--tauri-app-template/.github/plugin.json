@@ -1,0 +1,9 @@
+{
+  "name": "kitlib--tauri-app-template",
+  "displayName": "tauri-app-template",
+  "description": "Modern Desktop App Template: Tauri v2 + React 19 + TypeScript + shadcn/ui A high-performance, lightweight, and type-safe starter kit for cross-platform desktop development.",
+  "version": "1.0.0",
+  "author": "kitlib",
+  "homepage": "https://github.com/kitlib/tauri-app-template",
+  "skills": []
+}
