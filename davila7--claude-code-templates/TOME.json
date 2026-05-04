@@ -1,0 +1,3099 @@
+{
+  "name": "claude-code-templates",
+  "owner": "davila7",
+  "repo": "claude-code-templates",
+  "description": "CLI tool for configuring and monitoring Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "2d-games",
+      "path": "cli-tool/components/skills/creative-design/game-development/2d-games",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development/2d-games",
+      "description": ""
+    },
+    {
+      "name": "3d-games",
+      "path": "cli-tool/components/skills/creative-design/game-development/3d-games",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development/3d-games",
+      "description": ""
+    },
+    {
+      "name": "3d-web-experience",
+      "path": "cli-tool/components/skills/creative-design/3d-web-experience",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/3d-web-experience",
+      "description": ""
+    },
+    {
+      "name": "ab-test-setup",
+      "path": "cli-tool/components/skills/business-marketing/ab-test-setup",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/ab-test-setup",
+      "description": ""
+    },
+    {
+      "name": "accessibility",
+      "path": "cli-tool/components/skills/development/accessibility",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/accessibility",
+      "description": ""
+    },
+    {
+      "name": "accessibility-auditor",
+      "path": "cli-tool/components/skills/creative-design/accessibility-auditor",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/accessibility-auditor",
+      "description": ""
+    },
+    {
+      "name": "active-directory-attacks",
+      "path": "cli-tool/components/skills/security/active-directory-attacks",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/active-directory-attacks",
+      "description": ""
+    },
+    {
+      "name": "adaptyv",
+      "path": "cli-tool/components/skills/scientific/adaptyv",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/adaptyv",
+      "description": ""
+    },
+    {
+      "name": "address-github-comments",
+      "path": "cli-tool/components/skills/productivity/address-github-comments",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/address-github-comments",
+      "description": ""
+    },
+    {
+      "name": "aeon",
+      "path": "cli-tool/components/skills/scientific/aeon",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/aeon",
+      "description": ""
+    },
+    {
+      "name": "agent-evaluation",
+      "path": "cli-tool/components/skills/ai-research/agent-evaluation",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/agent-evaluation",
+      "description": ""
+    },
+    {
+      "name": "agent-development",
+      "path": "cli-tool/components/skills/development/agent-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/agent-development",
+      "description": ""
+    },
+    {
+      "name": "agent-manager-skill",
+      "path": "cli-tool/components/skills/ai-research/agent-manager-skill",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/agent-manager-skill",
+      "description": ""
+    },
+    {
+      "name": "agent-md-refactor",
+      "path": "cli-tool/components/skills/development/agent-md-refactor",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/agent-md-refactor",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-mcp",
+      "path": "cli-tool/components/skills/ai-research/agent-memory-mcp",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/agent-memory-mcp",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-systems",
+      "path": "cli-tool/components/skills/ai-research/agent-memory-systems",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/agent-memory-systems",
+      "description": ""
+    },
+    {
+      "name": "agent-tool-builder",
+      "path": "cli-tool/components/skills/ai-research/agent-tool-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/agent-tool-builder",
+      "description": ""
+    },
+    {
+      "name": "ai-agents-architect",
+      "path": "cli-tool/components/skills/ai-research/ai-agents-architect",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/ai-agents-architect",
+      "description": ""
+    },
+    {
+      "name": "ai-product",
+      "path": "cli-tool/components/skills/business-marketing/ai-product",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/ai-product",
+      "description": ""
+    },
+    {
+      "name": "ai-wrapper-product",
+      "path": "cli-tool/components/skills/business-marketing/ai-wrapper-product",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/ai-wrapper-product",
+      "description": ""
+    },
+    {
+      "name": "algolia-search",
+      "path": "cli-tool/components/skills/development/algolia-search",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/algolia-search",
+      "description": ""
+    },
+    {
+      "name": "alphafold-database",
+      "path": "cli-tool/components/skills/scientific/alphafold-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/alphafold-database",
+      "description": ""
+    },
+    {
+      "name": "analytics-tracking",
+      "path": "cli-tool/components/skills/business-marketing/analytics-tracking",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/analytics-tracking",
+      "description": ""
+    },
+    {
+      "name": "anndata",
+      "path": "cli-tool/components/skills/scientific/anndata",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/anndata",
+      "description": ""
+    },
+    {
+      "name": "api-documentation-generator",
+      "path": "cli-tool/components/skills/development/api-documentation-generator",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/api-documentation-generator",
+      "description": ""
+    },
+    {
+      "name": "api-fuzzing-bug-bounty",
+      "path": "cli-tool/components/skills/security/api-fuzzing-bug-bounty",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/api-fuzzing-bug-bounty",
+      "description": ""
+    },
+    {
+      "name": "api-integration-specialist",
+      "path": "cli-tool/components/skills/development/api-integration-specialist",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/api-integration-specialist",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "path": "cli-tool/components/skills/development/api-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/api-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-security-best-practices",
+      "path": "cli-tool/components/skills/security/api-security-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/api-security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "app-builder",
+      "path": "cli-tool/components/skills/business-marketing/app-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/app-builder",
+      "description": ""
+    },
+    {
+      "name": "app-store-optimization",
+      "path": "cli-tool/components/skills/business-marketing/app-store-optimization",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/app-store-optimization",
+      "description": ""
+    },
+    {
+      "name": "architecture",
+      "path": "cli-tool/components/skills/development/architecture",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/architecture",
+      "description": ""
+    },
+    {
+      "name": "astropy",
+      "path": "cli-tool/components/skills/scientific/astropy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/astropy",
+      "description": ""
+    },
+    {
+      "name": "agents-autogpt",
+      "path": "cli-tool/components/skills/ai-research/agents-autogpt",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/agents-autogpt",
+      "description": ""
+    },
+    {
+      "name": "autonomous-agent-patterns",
+      "path": "cli-tool/components/skills/ai-research/autonomous-agent-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/autonomous-agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "autonomous-agents",
+      "path": "cli-tool/components/skills/ai-research/autonomous-agents",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/autonomous-agents",
+      "description": ""
+    },
+    {
+      "name": "avalonia-layout-zafiro",
+      "path": "cli-tool/components/skills/development/avalonia-layout-zafiro",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/avalonia-layout-zafiro",
+      "description": ""
+    },
+    {
+      "name": "avalonia-viewmodels-zafiro",
+      "path": "cli-tool/components/skills/development/avalonia-viewmodels-zafiro",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/avalonia-viewmodels-zafiro",
+      "description": ""
+    },
+    {
+      "name": "avalonia-zafiro-development",
+      "path": "cli-tool/components/skills/development/avalonia-zafiro-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/avalonia-zafiro-development",
+      "description": ""
+    },
+    {
+      "name": "optimization-awq",
+      "path": "cli-tool/components/skills/ai-research/optimization-awq",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/optimization-awq",
+      "description": ""
+    },
+    {
+      "name": "aws-penetration-testing",
+      "path": "cli-tool/components/skills/security/aws-penetration-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/aws-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "aws-serverless",
+      "path": "cli-tool/components/skills/development/aws-serverless",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/aws-serverless",
+      "description": ""
+    },
+    {
+      "name": "azure-functions",
+      "path": "cli-tool/components/skills/development/azure-functions",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/azure-functions",
+      "description": ""
+    },
+    {
+      "name": "backend-dev-guidelines",
+      "path": "cli-tool/components/skills/development/backend-dev-guidelines",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/backend-dev-guidelines",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-backend-patterns",
+      "path": "cli-tool/components/skills/development/cc-skill-backend-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/cc-skill-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "backend-to-frontend-handoff-docs",
+      "path": "cli-tool/components/skills/enterprise-communication/backend-to-frontend-handoff-docs",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/backend-to-frontend-handoff-docs",
+      "description": ""
+    },
+    {
+      "name": "behavioral-modes",
+      "path": "cli-tool/components/skills/ai-research/behavioral-modes",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/behavioral-modes",
+      "description": ""
+    },
+    {
+      "name": "benchling-integration",
+      "path": "cli-tool/components/skills/scientific/benchling-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/benchling-integration",
+      "description": ""
+    },
+    {
+      "name": "best-practices",
+      "path": "cli-tool/components/skills/development/best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/best-practices",
+      "description": ""
+    },
+    {
+      "name": "biomni",
+      "path": "cli-tool/components/skills/scientific/biomni",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/biomni",
+      "description": ""
+    },
+    {
+      "name": "biopython",
+      "path": "cli-tool/components/skills/scientific/biopython",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/biopython",
+      "description": ""
+    },
+    {
+      "name": "biorxiv-database",
+      "path": "cli-tool/components/skills/scientific/biorxiv-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/biorxiv-database",
+      "description": ""
+    },
+    {
+      "name": "bioservices",
+      "path": "cli-tool/components/skills/scientific/bioservices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/bioservices",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "cli-tool/components/skills/productivity/brainstorming",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "brenda-database",
+      "path": "cli-tool/components/skills/scientific/brenda-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/brenda-database",
+      "description": ""
+    },
+    {
+      "name": "broken-authentication",
+      "path": "cli-tool/components/skills/security/broken-authentication",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/broken-authentication",
+      "description": ""
+    },
+    {
+      "name": "browser-automation",
+      "path": "cli-tool/components/skills/utilities/browser-automation",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/utilities/browser-automation",
+      "description": ""
+    },
+    {
+      "name": "browser-extension-builder",
+      "path": "cli-tool/components/skills/utilities/browser-extension-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/utilities/browser-extension-builder",
+      "description": ""
+    },
+    {
+      "name": "bullmq-specialist",
+      "path": "cli-tool/components/skills/development/bullmq-specialist",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/bullmq-specialist",
+      "description": ""
+    },
+    {
+      "name": "bun-development",
+      "path": "cli-tool/components/skills/development/bun-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/bun-development",
+      "description": ""
+    },
+    {
+      "name": "burp-suite-testing",
+      "path": "cli-tool/components/skills/security/burp-suite-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/burp-suite-testing",
+      "description": ""
+    },
+    {
+      "name": "c4-architecture",
+      "path": "cli-tool/components/skills/creative-design/c4-architecture",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/c4-architecture",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-project-guidelines-example",
+      "path": "cli-tool/components/skills/development/cc-skill-project-guidelines-example",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/cc-skill-project-guidelines-example",
+      "description": ""
+    },
+    {
+      "name": "ceo-advisor",
+      "path": "cli-tool/components/skills/business-marketing/ceo-advisor",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/ceo-advisor",
+      "description": ""
+    },
+    {
+      "name": "rag-chroma",
+      "path": "cli-tool/components/skills/ai-research/rag-chroma",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/rag-chroma",
+      "description": ""
+    },
+    {
+      "name": "cirq",
+      "path": "cli-tool/components/skills/scientific/cirq",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/cirq",
+      "description": ""
+    },
+    {
+      "name": "citation-management",
+      "path": "cli-tool/components/skills/scientific/citation-management",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/citation-management",
+      "description": ""
+    },
+    {
+      "name": "claude-code-guide",
+      "path": "cli-tool/components/skills/ai-research/claude-code-guide",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/claude-code-guide",
+      "description": ""
+    },
+    {
+      "name": "claude-opus-4-5-migration",
+      "path": "cli-tool/components/skills/development/claude-opus-4-5-migration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/claude-opus-4-5-migration",
+      "description": ""
+    },
+    {
+      "name": "clean-code",
+      "path": "cli-tool/components/skills/development/clean-code",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/clean-code",
+      "description": ""
+    },
+    {
+      "name": "clerk-auth",
+      "path": "cli-tool/components/skills/development/clerk-auth",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/clerk-auth",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-clickhouse-io",
+      "path": "cli-tool/components/skills/development/cc-skill-clickhouse-io",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/cc-skill-clickhouse-io",
+      "description": ""
+    },
+    {
+      "name": "clinical-decision-support",
+      "path": "cli-tool/components/skills/scientific/clinical-decision-support",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/clinical-decision-support",
+      "description": ""
+    },
+    {
+      "name": "clinical-reports",
+      "path": "cli-tool/components/skills/scientific/clinical-reports",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/clinical-reports",
+      "description": ""
+    },
+    {
+      "name": "clinicaltrials-database",
+      "path": "cli-tool/components/skills/scientific/clinicaltrials-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/clinicaltrials-database",
+      "description": ""
+    },
+    {
+      "name": "clinpgx-database",
+      "path": "cli-tool/components/skills/scientific/clinpgx-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/clinpgx-database",
+      "description": ""
+    },
+    {
+      "name": "clinvar-database",
+      "path": "cli-tool/components/skills/scientific/clinvar-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/clinvar-database",
+      "description": ""
+    },
+    {
+      "name": "multimodal-clip",
+      "path": "cli-tool/components/skills/ai-research/multimodal-clip",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/multimodal-clip",
+      "description": ""
+    },
+    {
+      "name": "cloud-penetration-testing",
+      "path": "cli-tool/components/skills/security/cloud-penetration-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/cloud-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-deploy",
+      "path": "cli-tool/components/skills/development/cloudflare-deploy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/cloudflare-deploy",
+      "description": ""
+    },
+    {
+      "name": "cocoindex",
+      "path": "cli-tool/components/skills/development/cocoindex",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/cocoindex",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "cli-tool/components/skills/sentry/code-review",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/sentry/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review-checklist",
+      "path": "cli-tool/components/skills/development/code-review-checklist",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/code-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "cli-tool/components/skills/development/code-reviewer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "codex",
+      "path": "cli-tool/components/skills/development/codex",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/codex",
+      "description": ""
+    },
+    {
+      "name": "codex-review",
+      "path": "cli-tool/components/skills/development/codex-review",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/codex-review",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-coding-standards",
+      "path": "cli-tool/components/skills/development/cc-skill-coding-standards",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/cc-skill-coding-standards",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "path": "cli-tool/components/skills/development/command-creator",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/command-creator",
+      "description": ""
+    },
+    {
+      "name": "command-development",
+      "path": "cli-tool/components/skills/development/command-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/command-development",
+      "description": ""
+    },
+    {
+      "name": "plugin-structure",
+      "path": "cli-tool/components/skills/development/plugin-structure",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/plugin-structure",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "path": "cli-tool/components/skills/sentry/commit",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/sentry/commit",
+      "description": ""
+    },
+    {
+      "name": "commit-work",
+      "path": "cli-tool/components/skills/productivity/commit-work",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/commit-work",
+      "description": ""
+    },
+    {
+      "name": "computer-use-agents",
+      "path": "cli-tool/components/skills/ai-research/computer-use-agents",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/computer-use-agents",
+      "description": ""
+    },
+    {
+      "name": "plugin-settings",
+      "path": "cli-tool/components/skills/development/plugin-settings",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/plugin-settings",
+      "description": ""
+    },
+    {
+      "name": "safety-alignment-constitutional-ai",
+      "path": "cli-tool/components/skills/ai-research/safety-alignment-constitutional-ai",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/safety-alignment-constitutional-ai",
+      "description": ""
+    },
+    {
+      "name": "context7-auto-research",
+      "path": "cli-tool/components/skills/ai-research/context7-auto-research",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/context7-auto-research",
+      "description": ""
+    },
+    {
+      "name": "copy-editing",
+      "path": "cli-tool/components/skills/business-marketing/copy-editing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/copy-editing",
+      "description": ""
+    },
+    {
+      "name": "core-components",
+      "path": "cli-tool/components/skills/development/core-components",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/core-components",
+      "description": ""
+    },
+    {
+      "name": "core-web-vitals",
+      "path": "cli-tool/components/skills/development/core-web-vitals",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/core-web-vitals",
+      "description": ""
+    },
+    {
+      "name": "cosmic-database",
+      "path": "cli-tool/components/skills/scientific/cosmic-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/cosmic-database",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": "cli-tool/components/skills/sentry/create-pr",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/sentry/create-pr",
+      "description": ""
+    },
+    {
+      "name": "crewai",
+      "path": "cli-tool/components/skills/ai-research/crewai",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/crewai",
+      "description": ""
+    },
+    {
+      "name": "agents-crewai",
+      "path": "cli-tool/components/skills/ai-research/agents-crewai",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/agents-crewai",
+      "description": ""
+    },
+    {
+      "name": "xss-html-injection",
+      "path": "cli-tool/components/skills/security/xss-html-injection",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/xss-html-injection",
+      "description": ""
+    },
+    {
+      "name": "claude-d3js-skill",
+      "path": "cli-tool/components/skills/creative-design/claude-d3js-skill",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/claude-d3js-skill",
+      "description": ""
+    },
+    {
+      "name": "daily-meeting-update",
+      "path": "cli-tool/components/skills/enterprise-communication/daily-meeting-update",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/daily-meeting-update",
+      "description": ""
+    },
+    {
+      "name": "data-privacy-compliance",
+      "path": "cli-tool/components/skills/enterprise-communication/data-privacy-compliance",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/data-privacy-compliance",
+      "description": ""
+    },
+    {
+      "name": "database-design",
+      "path": "cli-tool/components/skills/development/database-design",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/database-design",
+      "description": ""
+    },
+    {
+      "name": "database-schema-designer",
+      "path": "cli-tool/components/skills/development/database-schema-designer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/database-schema-designer",
+      "description": ""
+    },
+    {
+      "name": "datacommons-client",
+      "path": "cli-tool/components/skills/scientific/datacommons-client",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/datacommons-client",
+      "description": ""
+    },
+    {
+      "name": "datadog-cli",
+      "path": "cli-tool/components/skills/ai-research/datadog-cli",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/datadog-cli",
+      "description": ""
+    },
+    {
+      "name": "datamol",
+      "path": "cli-tool/components/skills/scientific/datamol",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/datamol",
+      "description": ""
+    },
+    {
+      "name": "denario",
+      "path": "cli-tool/components/skills/scientific/denario",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/denario",
+      "description": ""
+    },
+    {
+      "name": "dependency-updater",
+      "path": "cli-tool/components/skills/development/dependency-updater",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/dependency-updater",
+      "description": ""
+    },
+    {
+      "name": "deployment-procedures",
+      "path": "cli-tool/components/skills/development/deployment-procedures",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/deployment-procedures",
+      "description": ""
+    },
+    {
+      "name": "design-system-starter",
+      "path": "cli-tool/components/skills/development/design-system-starter",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/design-system-starter",
+      "description": ""
+    },
+    {
+      "name": "design-to-code",
+      "path": "cli-tool/components/skills/design-to-code",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/design-to-code",
+      "description": ""
+    },
+    {
+      "name": "deslop",
+      "path": "cli-tool/components/skills/sentry/deslop",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/sentry/deslop",
+      "description": ""
+    },
+    {
+      "name": "develop-web-game",
+      "path": "cli-tool/components/skills/creative-design/develop-web-game",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/develop-web-game",
+      "description": ""
+    },
+    {
+      "name": "devops-iac-engineer",
+      "path": "cli-tool/components/skills/development/devops-iac-engineer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/devops-iac-engineer",
+      "description": ""
+    },
+    {
+      "name": "diffdock",
+      "path": "cli-tool/components/skills/scientific/diffdock",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/diffdock",
+      "description": ""
+    },
+    {
+      "name": "difficult-workplace-conversations",
+      "path": "cli-tool/components/skills/enterprise-communication/difficult-workplace-conversations",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/difficult-workplace-conversations",
+      "description": ""
+    },
+    {
+      "name": "discord-bot-architect",
+      "path": "cli-tool/components/skills/enterprise-communication/discord-bot-architect",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/discord-bot-architect",
+      "description": ""
+    },
+    {
+      "name": "dnanexus-integration",
+      "path": "cli-tool/components/skills/scientific/dnanexus-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/dnanexus-integration",
+      "description": ""
+    },
+    {
+      "name": "doc",
+      "path": "cli-tool/components/skills/document-processing/doc",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/document-processing/doc",
+      "description": ""
+    },
+    {
+      "name": "docker-expert",
+      "path": "cli-tool/components/skills/development/docker-expert",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/docker-expert",
+      "description": ""
+    },
+    {
+      "name": "documentation-templates",
+      "path": "cli-tool/components/skills/document-processing/documentation-templates",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/document-processing/documentation-templates",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "cli-tool/components/skills/scientific/document-skills/docx",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/document-skills/docx",
+      "description": ""
+    },
+    {
+      "name": "domain-name-brainstormer",
+      "path": "cli-tool/components/skills/utilities/domain-name-brainstormer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/utilities/domain-name-brainstormer",
+      "description": ""
+    },
+    {
+      "name": "drugbank-database",
+      "path": "cli-tool/components/skills/scientific/drugbank-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/drugbank-database",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-dspy",
+      "path": "cli-tool/components/skills/ai-research/prompt-engineering-dspy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/prompt-engineering-dspy",
+      "description": ""
+    },
+    {
+      "name": "email-sequence",
+      "path": "cli-tool/components/skills/business-marketing/email-sequence",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/email-sequence",
+      "description": ""
+    },
+    {
+      "name": "email-systems",
+      "path": "cli-tool/components/skills/business-marketing/email-systems",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/email-systems",
+      "description": ""
+    },
+    {
+      "name": "ena-database",
+      "path": "cli-tool/components/skills/scientific/ena-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/ena-database",
+      "description": ""
+    },
+    {
+      "name": "ensembl-database",
+      "path": "cli-tool/components/skills/scientific/ensembl-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/ensembl-database",
+      "description": ""
+    },
+    {
+      "name": "environment-setup-guide",
+      "path": "cli-tool/components/skills/development/environment-setup-guide",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/environment-setup-guide",
+      "description": ""
+    },
+    {
+      "name": "esm",
+      "path": "cli-tool/components/skills/scientific/esm",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/esm",
+      "description": ""
+    },
+    {
+      "name": "ethical-hacking-methodology",
+      "path": "cli-tool/components/skills/security/ethical-hacking-methodology",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/ethical-hacking-methodology",
+      "description": ""
+    },
+    {
+      "name": "evaluation-bigcode-evaluation-harness",
+      "path": "cli-tool/components/skills/ai-research/evaluation-bigcode-evaluation-harness",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/evaluation-bigcode-evaluation-harness",
+      "description": ""
+    },
+    {
+      "name": "evaluation-lm-evaluation-harness",
+      "path": "cli-tool/components/skills/ai-research/evaluation-lm-evaluation-harness",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/evaluation-lm-evaluation-harness",
+      "description": ""
+    },
+    {
+      "name": "exa-search",
+      "path": "cli-tool/components/skills/web-development/exa-search",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/exa-search",
+      "description": ""
+    },
+    {
+      "name": "executing-marketing-campaigns",
+      "path": "cli-tool/components/skills/creative-design/executing-marketing-campaigns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/executing-marketing-campaigns",
+      "description": ""
+    },
+    {
+      "name": "exploratory-data-analysis",
+      "path": "cli-tool/components/skills/scientific/exploratory-data-analysis",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/exploratory-data-analysis",
+      "description": ""
+    },
+    {
+      "name": "rag-faiss",
+      "path": "cli-tool/components/skills/ai-research/rag-faiss",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/rag-faiss",
+      "description": ""
+    },
+    {
+      "name": "fastapi-endpoint",
+      "path": "cli-tool/components/skills/web-development/fastapi-endpoint",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/fastapi-endpoint",
+      "description": ""
+    },
+    {
+      "name": "fastmcp-server",
+      "path": "cli-tool/components/skills/development/fastmcp-server",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/fastmcp-server",
+      "description": ""
+    },
+    {
+      "name": "fda-consultant-specialist",
+      "path": "cli-tool/components/skills/enterprise-communication/fda-consultant-specialist",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/fda-consultant-specialist",
+      "description": ""
+    },
+    {
+      "name": "fda-database",
+      "path": "cli-tool/components/skills/scientific/fda-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/fda-database",
+      "description": ""
+    },
+    {
+      "name": "feature-design-assistant",
+      "path": "cli-tool/components/skills/development/feature-design-assistant",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/feature-design-assistant",
+      "description": ""
+    },
+    {
+      "name": "figma",
+      "path": "cli-tool/components/skills/creative-design/figma",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/figma",
+      "description": ""
+    },
+    {
+      "name": "figma-implement-design",
+      "path": "cli-tool/components/skills/creative-design/figma-implement-design",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/figma-implement-design",
+      "description": ""
+    },
+    {
+      "name": "file-path-traversal",
+      "path": "cli-tool/components/skills/security/file-path-traversal",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/file-path-traversal",
+      "description": ""
+    },
+    {
+      "name": "find-bugs",
+      "path": "cli-tool/components/skills/sentry/find-bugs",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/sentry/find-bugs",
+      "description": ""
+    },
+    {
+      "name": "firebase",
+      "path": "cli-tool/components/skills/development/firebase",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/firebase",
+      "description": ""
+    },
+    {
+      "name": "firecrawl-scraper",
+      "path": "cli-tool/components/skills/web-development/firecrawl-scraper",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/firecrawl-scraper",
+      "description": ""
+    },
+    {
+      "name": "fluidsim",
+      "path": "cli-tool/components/skills/scientific/fluidsim",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/fluidsim",
+      "description": ""
+    },
+    {
+      "name": "form-cro",
+      "path": "cli-tool/components/skills/business-marketing/form-cro",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/form-cro",
+      "description": ""
+    },
+    {
+      "name": "free-tool-strategy",
+      "path": "cli-tool/components/skills/business-marketing/free-tool-strategy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/free-tool-strategy",
+      "description": ""
+    },
+    {
+      "name": "frontend-dev-guidelines",
+      "path": "cli-tool/components/skills/development/frontend-dev-guidelines",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/frontend-dev-guidelines",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-frontend-patterns",
+      "path": "cli-tool/components/skills/development/cc-skill-frontend-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/cc-skill-frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "frontend-to-backend-requirements",
+      "path": "cli-tool/components/skills/enterprise-communication/frontend-to-backend-requirements",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/frontend-to-backend-requirements",
+      "description": ""
+    },
+    {
+      "name": "game-audio",
+      "path": "cli-tool/components/skills/creative-design/game-development/game-audio",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development/game-audio",
+      "description": ""
+    },
+    {
+      "name": "game-changing-features",
+      "path": "cli-tool/components/skills/productivity/game-changing-features",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/game-changing-features",
+      "description": ""
+    },
+    {
+      "name": "game-design",
+      "path": "cli-tool/components/skills/creative-design/game-development/game-design",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development/game-design",
+      "description": ""
+    },
+    {
+      "name": "game-development",
+      "path": "cli-tool/components/skills/creative-design/game-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development",
+      "description": ""
+    },
+    {
+      "name": "gcp-cloud-run",
+      "path": "cli-tool/components/skills/development/gcp-cloud-run",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/gcp-cloud-run",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "path": "cli-tool/components/skills/ai-research/gemini",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/gemini",
+      "description": ""
+    },
+    {
+      "name": "gene-database",
+      "path": "cli-tool/components/skills/scientific/gene-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/gene-database",
+      "description": ""
+    },
+    {
+      "name": "generate-image",
+      "path": "cli-tool/components/skills/scientific/generate-image",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/generate-image",
+      "description": ""
+    },
+    {
+      "name": "geniml",
+      "path": "cli-tool/components/skills/scientific/geniml",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/geniml",
+      "description": ""
+    },
+    {
+      "name": "geo-fundamentals",
+      "path": "cli-tool/components/skills/utilities/geo-fundamentals",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/utilities/geo-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "geopandas",
+      "path": "cli-tool/components/skills/scientific/geopandas",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/geopandas",
+      "description": ""
+    },
+    {
+      "name": "get-available-resources",
+      "path": "cli-tool/components/skills/scientific/get-available-resources",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/get-available-resources",
+      "description": ""
+    },
+    {
+      "name": "gget",
+      "path": "cli-tool/components/skills/scientific/gget",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/gget",
+      "description": ""
+    },
+    {
+      "name": "optimization-gguf",
+      "path": "cli-tool/components/skills/ai-research/optimization-gguf",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/optimization-gguf",
+      "description": ""
+    },
+    {
+      "name": "gh-address-comments",
+      "path": "cli-tool/components/skills/development/gh-address-comments",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/gh-address-comments",
+      "description": ""
+    },
+    {
+      "name": "gh-fix-ci",
+      "path": "cli-tool/components/skills/development/gh-fix-ci",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/gh-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "path": "cli-tool/components/skills/development/git-commit-helper",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "git-pushing",
+      "path": "cli-tool/components/skills/development/git-pushing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/git-pushing",
+      "description": ""
+    },
+    {
+      "name": "github-actions-creator",
+      "path": "cli-tool/components/skills/development/github-actions-creator",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/github-actions-creator",
+      "description": ""
+    },
+    {
+      "name": "github-workflow-automation",
+      "path": "cli-tool/components/skills/development/github-workflow-automation",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/github-workflow-automation",
+      "description": ""
+    },
+    {
+      "name": "google-analytics",
+      "path": "cli-tool/components/skills/analytics/google-analytics",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/analytics/google-analytics",
+      "description": ""
+    },
+    {
+      "name": "optimization-gptq",
+      "path": "cli-tool/components/skills/ai-research/optimization-gptq",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/optimization-gptq",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "path": "cli-tool/components/skills/development/graphql",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/graphql",
+      "description": ""
+    },
+    {
+      "name": "gtars",
+      "path": "cli-tool/components/skills/scientific/gtars",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/gtars",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-guidance",
+      "path": "cli-tool/components/skills/ai-research/prompt-engineering-guidance",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/prompt-engineering-guidance",
+      "description": ""
+    },
+    {
+      "name": "heygen-best-practices",
+      "path": "cli-tool/components/skills/development/heygen-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/heygen-best-practices",
+      "description": ""
+    },
+    {
+      "name": "histolab",
+      "path": "cli-tool/components/skills/scientific/histolab",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/histolab",
+      "description": ""
+    },
+    {
+      "name": "hook-development",
+      "path": "cli-tool/components/skills/development/hook-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/hook-development",
+      "description": ""
+    },
+    {
+      "name": "optimization-hqq",
+      "path": "cli-tool/components/skills/ai-research/optimization-hqq",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/optimization-hqq",
+      "description": ""
+    },
+    {
+      "name": "html-injection-testing",
+      "path": "cli-tool/components/skills/security/html-injection-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/html-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "hubspot-integration",
+      "path": "cli-tool/components/skills/development/hubspot-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/hubspot-integration",
+      "description": ""
+    },
+    {
+      "name": "distributed-training-accelerate",
+      "path": "cli-tool/components/skills/ai-research/distributed-training-accelerate",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/distributed-training-accelerate",
+      "description": ""
+    },
+    {
+      "name": "tokenization-huggingface-tokenizers",
+      "path": "cli-tool/components/skills/ai-research/tokenization-huggingface-tokenizers",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/tokenization-huggingface-tokenizers",
+      "description": ""
+    },
+    {
+      "name": "humanizer",
+      "path": "cli-tool/components/skills/productivity/humanizer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/humanizer",
+      "description": ""
+    },
+    {
+      "name": "hypogenic",
+      "path": "cli-tool/components/skills/scientific/hypogenic",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/hypogenic",
+      "description": ""
+    },
+    {
+      "name": "hypothesis-generation",
+      "path": "cli-tool/components/skills/scientific/hypothesis-generation",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/hypothesis-generation",
+      "description": ""
+    },
+    {
+      "name": "idor-testing",
+      "path": "cli-tool/components/skills/security/idor-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/idor-testing",
+      "description": ""
+    },
+    {
+      "name": "imagegen",
+      "path": "cli-tool/components/skills/creative-design/imagegen",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/imagegen",
+      "description": ""
+    },
+    {
+      "name": "model-architecture-litgpt",
+      "path": "cli-tool/components/skills/ai-research/model-architecture-litgpt",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/model-architecture-litgpt",
+      "description": ""
+    },
+    {
+      "name": "information-security-manager-iso27001",
+      "path": "cli-tool/components/skills/enterprise-communication/information-security-manager-iso27001",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/information-security-manager-iso27001",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-instructor",
+      "path": "cli-tool/components/skills/ai-research/prompt-engineering-instructor",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/prompt-engineering-instructor",
+      "description": ""
+    },
+    {
+      "name": "interactive-portfolio",
+      "path": "cli-tool/components/skills/creative-design/interactive-portfolio",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/interactive-portfolio",
+      "description": ""
+    },
+    {
+      "name": "internal-comms-community",
+      "path": "cli-tool/components/skills/enterprise-communication/internal-comms-community",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/internal-comms-community",
+      "description": ""
+    },
+    {
+      "name": "isms-audit-expert",
+      "path": "cli-tool/components/skills/enterprise-communication/isms-audit-expert",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/isms-audit-expert",
+      "description": ""
+    },
+    {
+      "name": "it-operations",
+      "path": "cli-tool/components/skills/development/it-operations",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/it-operations",
+      "description": ""
+    },
+    {
+      "name": "javascript-mastery",
+      "path": "cli-tool/components/skills/development/javascript-mastery",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/javascript-mastery",
+      "description": ""
+    },
+    {
+      "name": "json-canvas",
+      "path": "cli-tool/components/skills/document-processing/json-canvas",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/document-processing/json-canvas",
+      "description": ""
+    },
+    {
+      "name": "kaizen",
+      "path": "cli-tool/components/skills/productivity/kaizen",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/kaizen",
+      "description": ""
+    },
+    {
+      "name": "kegg-database",
+      "path": "cli-tool/components/skills/scientific/kegg-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/kegg-database",
+      "description": ""
+    },
+    {
+      "name": "emerging-techniques-knowledge-distillation",
+      "path": "cli-tool/components/skills/ai-research/emerging-techniques-knowledge-distillation",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/emerging-techniques-knowledge-distillation",
+      "description": ""
+    },
+    {
+      "name": "labarchive-integration",
+      "path": "cli-tool/components/skills/scientific/labarchive-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/labarchive-integration",
+      "description": ""
+    },
+    {
+      "name": "infrastructure-lambda-labs",
+      "path": "cli-tool/components/skills/ai-research/infrastructure-lambda-labs",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/infrastructure-lambda-labs",
+      "description": ""
+    },
+    {
+      "name": "lamindb",
+      "path": "cli-tool/components/skills/scientific/lamindb",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/lamindb",
+      "description": ""
+    },
+    {
+      "name": "agents-langchain",
+      "path": "cli-tool/components/skills/ai-research/agents-langchain",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/agents-langchain",
+      "description": ""
+    },
+    {
+      "name": "langfuse",
+      "path": "cli-tool/components/skills/ai-research/langfuse",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/langfuse",
+      "description": ""
+    },
+    {
+      "name": "langgraph",
+      "path": "cli-tool/components/skills/ai-research/langgraph",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/langgraph",
+      "description": ""
+    },
+    {
+      "name": "observability-langsmith",
+      "path": "cli-tool/components/skills/ai-research/observability-langsmith",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/observability-langsmith",
+      "description": ""
+    },
+    {
+      "name": "latchbio-integration",
+      "path": "cli-tool/components/skills/scientific/latchbio-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/latchbio-integration",
+      "description": ""
+    },
+    {
+      "name": "pptx-posters",
+      "path": "cli-tool/components/skills/scientific/pptx-posters",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pptx-posters",
+      "description": ""
+    },
+    {
+      "name": "latex-posters",
+      "path": "cli-tool/components/skills/scientific/latex-posters",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/latex-posters",
+      "description": ""
+    },
+    {
+      "name": "launch-strategy",
+      "path": "cli-tool/components/skills/business-marketing/launch-strategy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/launch-strategy",
+      "description": ""
+    },
+    {
+      "name": "lint-and-validate",
+      "path": "cli-tool/components/skills/development/lint-and-validate",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/lint-and-validate",
+      "description": ""
+    },
+    {
+      "name": "linux-privilege-escalation",
+      "path": "cli-tool/components/skills/security/linux-privilege-escalation",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/linux-privilege-escalation",
+      "description": ""
+    },
+    {
+      "name": "linux-shell-scripting",
+      "path": "cli-tool/components/skills/development/linux-shell-scripting",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/linux-shell-scripting",
+      "description": ""
+    },
+    {
+      "name": "literature-review",
+      "path": "cli-tool/components/skills/scientific/literature-review",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/literature-review",
+      "description": ""
+    },
+    {
+      "name": "inference-serving-llama-cpp",
+      "path": "cli-tool/components/skills/ai-research/inference-serving-llama-cpp",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/inference-serving-llama-cpp",
+      "description": ""
+    },
+    {
+      "name": "fine-tuning-llama-factory",
+      "path": "cli-tool/components/skills/ai-research/fine-tuning-llama-factory",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/fine-tuning-llama-factory",
+      "description": ""
+    },
+    {
+      "name": "safety-alignment-llamaguard",
+      "path": "cli-tool/components/skills/ai-research/safety-alignment-llamaguard",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/safety-alignment-llamaguard",
+      "description": ""
+    },
+    {
+      "name": "agents-llamaindex",
+      "path": "cli-tool/components/skills/ai-research/agents-llamaindex",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/agents-llamaindex",
+      "description": ""
+    },
+    {
+      "name": "multimodal-llava",
+      "path": "cli-tool/components/skills/ai-research/multimodal-llava",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/multimodal-llava",
+      "description": ""
+    },
+    {
+      "name": "llm-app-patterns",
+      "path": "cli-tool/components/skills/ai-research/llm-app-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/llm-app-patterns",
+      "description": ""
+    },
+    {
+      "name": "loki-mode",
+      "path": "cli-tool/components/skills/ai-research/loki-mode",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/loki-mode",
+      "description": ""
+    },
+    {
+      "name": "emerging-techniques-long-context",
+      "path": "cli-tool/components/skills/ai-research/emerging-techniques-long-context",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/emerging-techniques-long-context",
+      "description": ""
+    },
+    {
+      "name": "model-architecture-mamba",
+      "path": "cli-tool/components/skills/ai-research/model-architecture-mamba",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/model-architecture-mamba",
+      "description": ""
+    },
+    {
+      "name": "manim",
+      "path": "cli-tool/components/skills/video/manim",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/video/manim",
+      "description": ""
+    },
+    {
+      "name": "marketing-ideas",
+      "path": "cli-tool/components/skills/business-marketing/marketing-ideas",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/marketing-ideas",
+      "description": ""
+    },
+    {
+      "name": "marketing-psychology",
+      "path": "cli-tool/components/skills/business-marketing/marketing-psychology",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/marketing-psychology",
+      "description": ""
+    },
+    {
+      "name": "marketing-strategy-pmm",
+      "path": "cli-tool/components/skills/business-marketing/marketing-strategy-pmm",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/marketing-strategy-pmm",
+      "description": ""
+    },
+    {
+      "name": "markitdown",
+      "path": "cli-tool/components/skills/scientific/markitdown",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/markitdown",
+      "description": ""
+    },
+    {
+      "name": "marp-slide",
+      "path": "cli-tool/components/skills/creative-design/marp-slide",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/marp-slide",
+      "description": ""
+    },
+    {
+      "name": "mcp-integration",
+      "path": "cli-tool/components/skills/development/mcp-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "mdr-745-specialist",
+      "path": "cli-tool/components/skills/enterprise-communication/mdr-745-specialist",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/mdr-745-specialist",
+      "description": ""
+    },
+    {
+      "name": "medchem",
+      "path": "cli-tool/components/skills/scientific/medchem",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/medchem",
+      "description": ""
+    },
+    {
+      "name": "meme-factory",
+      "path": "cli-tool/components/skills/creative-design/meme-factory",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/meme-factory",
+      "description": ""
+    },
+    {
+      "name": "mermaid-diagrams",
+      "path": "cli-tool/components/skills/creative-design/mermaid-diagrams",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/mermaid-diagrams",
+      "description": ""
+    },
+    {
+      "name": "metabolomics-workbench-database",
+      "path": "cli-tool/components/skills/scientific/metabolomics-workbench-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/metabolomics-workbench-database",
+      "description": ""
+    },
+    {
+      "name": "metasploit-framework",
+      "path": "cli-tool/components/skills/security/metasploit-framework",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/metasploit-framework",
+      "description": ""
+    },
+    {
+      "name": "micro-saas-launcher",
+      "path": "cli-tool/components/skills/business-marketing/micro-saas-launcher",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/micro-saas-launcher",
+      "description": ""
+    },
+    {
+      "name": "ml-paper-writing",
+      "path": "cli-tool/components/skills/ai-research/ml-paper-writing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/ml-paper-writing",
+      "description": ""
+    },
+    {
+      "name": "mlops-mlflow",
+      "path": "cli-tool/components/skills/ai-research/mlops-mlflow",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/mlops-mlflow",
+      "description": ""
+    },
+    {
+      "name": "mobile-design",
+      "path": "cli-tool/components/skills/creative-design/mobile-design",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/mobile-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-games",
+      "path": "cli-tool/components/skills/creative-design/game-development/mobile-games",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development/mobile-games",
+      "description": ""
+    },
+    {
+      "name": "modal",
+      "path": "cli-tool/components/skills/scientific/modal",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/modal",
+      "description": ""
+    },
+    {
+      "name": "infrastructure-modal",
+      "path": "cli-tool/components/skills/ai-research/infrastructure-modal",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/infrastructure-modal",
+      "description": ""
+    },
+    {
+      "name": "emerging-techniques-model-merging",
+      "path": "cli-tool/components/skills/ai-research/emerging-techniques-model-merging",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/emerging-techniques-model-merging",
+      "description": ""
+    },
+    {
+      "name": "moodle-external-api-development",
+      "path": "cli-tool/components/skills/development/moodle-external-api-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/moodle-external-api-development",
+      "description": ""
+    },
+    {
+      "name": "motion-canvas",
+      "path": "cli-tool/components/skills/video/motion-canvas",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/video/motion-canvas",
+      "description": ""
+    },
+    {
+      "name": "move-code-quality",
+      "path": "cli-tool/components/skills/development/move-code-quality",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/move-code-quality",
+      "description": ""
+    },
+    {
+      "name": "mui",
+      "path": "cli-tool/components/skills/development/mui",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/mui",
+      "description": ""
+    },
+    {
+      "name": "multiplayer",
+      "path": "cli-tool/components/skills/creative-design/game-development/multiplayer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development/multiplayer",
+      "description": ""
+    },
+    {
+      "name": "n8n-code-javascript",
+      "path": "cli-tool/components/skills/workflow-automation/n8n/n8n-code-javascript",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/n8n/n8n-code-javascript",
+      "description": ""
+    },
+    {
+      "name": "n8n-code-python",
+      "path": "cli-tool/components/skills/workflow-automation/n8n/n8n-code-python",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/n8n/n8n-code-python",
+      "description": ""
+    },
+    {
+      "name": "n8n-expression-syntax",
+      "path": "cli-tool/components/skills/workflow-automation/n8n/n8n-expression-syntax",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/n8n/n8n-expression-syntax",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp-tools-expert",
+      "path": "cli-tool/components/skills/workflow-automation/n8n/n8n-mcp-tools-expert",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/n8n/n8n-mcp-tools-expert",
+      "description": ""
+    },
+    {
+      "name": "n8n-node-configuration",
+      "path": "cli-tool/components/skills/workflow-automation/n8n/n8n-node-configuration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/n8n/n8n-node-configuration",
+      "description": ""
+    },
+    {
+      "name": "n8n-validation-expert",
+      "path": "cli-tool/components/skills/workflow-automation/n8n/n8n-validation-expert",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/n8n/n8n-validation-expert",
+      "description": ""
+    },
+    {
+      "name": "n8n-workflow-patterns",
+      "path": "cli-tool/components/skills/workflow-automation/n8n/n8n-workflow-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/n8n/n8n-workflow-patterns",
+      "description": ""
+    },
+    {
+      "name": "model-architecture-nanogpt",
+      "path": "cli-tool/components/skills/ai-research/model-architecture-nanogpt",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/model-architecture-nanogpt",
+      "description": ""
+    },
+    {
+      "name": "data-processing-nemo-curator",
+      "path": "cli-tool/components/skills/ai-research/data-processing-nemo-curator",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/data-processing-nemo-curator",
+      "description": ""
+    },
+    {
+      "name": "evaluation-nemo-evaluator",
+      "path": "cli-tool/components/skills/ai-research/evaluation-nemo-evaluator",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/evaluation-nemo-evaluator",
+      "description": ""
+    },
+    {
+      "name": "safety-alignment-nemo-guardrails",
+      "path": "cli-tool/components/skills/ai-research/safety-alignment-nemo-guardrails",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/safety-alignment-nemo-guardrails",
+      "description": ""
+    },
+    {
+      "name": "neon-instagres",
+      "path": "cli-tool/components/skills/database/neon-instagres",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/database/neon-instagres",
+      "description": ""
+    },
+    {
+      "name": "nestjs-expert",
+      "path": "cli-tool/components/skills/development/nestjs-expert",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/nestjs-expert",
+      "description": ""
+    },
+    {
+      "name": "netlify-deploy",
+      "path": "cli-tool/components/skills/development/netlify-deploy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/netlify-deploy",
+      "description": ""
+    },
+    {
+      "name": "network-101",
+      "path": "cli-tool/components/skills/utilities/network-101",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/utilities/network-101",
+      "description": ""
+    },
+    {
+      "name": "networkx",
+      "path": "cli-tool/components/skills/scientific/networkx",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/networkx",
+      "description": ""
+    },
+    {
+      "name": "neurokit2",
+      "path": "cli-tool/components/skills/scientific/neurokit2",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/neurokit2",
+      "description": ""
+    },
+    {
+      "name": "neuropixels-analysis",
+      "path": "cli-tool/components/skills/scientific/neuropixels-analysis",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/neuropixels-analysis",
+      "description": ""
+    },
+    {
+      "name": "nextjs-best-practices",
+      "path": "cli-tool/components/skills/development/nextjs-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/nextjs-best-practices",
+      "description": ""
+    },
+    {
+      "name": "nextjs-supabase-auth",
+      "path": "cli-tool/components/skills/development/nextjs-supabase-auth",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/nextjs-supabase-auth",
+      "description": ""
+    },
+    {
+      "name": "nodejs-best-practices",
+      "path": "cli-tool/components/skills/development/nodejs-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/nodejs-best-practices",
+      "description": ""
+    },
+    {
+      "name": "nosql-expert",
+      "path": "cli-tool/components/skills/development/nosql-expert",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/nosql-expert",
+      "description": ""
+    },
+    {
+      "name": "notebooklm",
+      "path": "cli-tool/components/skills/productivity/notebooklm",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/notebooklm",
+      "description": ""
+    },
+    {
+      "name": "notion-meeting-intelligence",
+      "path": "cli-tool/components/skills/productivity/notion-meeting-intelligence",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/notion-meeting-intelligence",
+      "description": ""
+    },
+    {
+      "name": "notion-research-documentation",
+      "path": "cli-tool/components/skills/productivity/notion-research-documentation",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/notion-research-documentation",
+      "description": ""
+    },
+    {
+      "name": "notion-template-business",
+      "path": "cli-tool/components/skills/productivity/notion-template-business",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/notion-template-business",
+      "description": ""
+    },
+    {
+      "name": "obsidian-clipper-template-creator",
+      "path": "cli-tool/components/skills/productivity/obsidian-clipper-template-creator",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/obsidian-clipper-template-creator",
+      "description": ""
+    },
+    {
+      "name": "omero-integration",
+      "path": "cli-tool/components/skills/scientific/omero-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/omero-integration",
+      "description": ""
+    },
+    {
+      "name": "openai-docs",
+      "path": "cli-tool/components/skills/ai-research/openai-docs",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/openai-docs",
+      "description": ""
+    },
+    {
+      "name": "openalex-database",
+      "path": "cli-tool/components/skills/scientific/openalex-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/openalex-database",
+      "description": ""
+    },
+    {
+      "name": "openapi-to-typescript",
+      "path": "cli-tool/components/skills/development/openapi-to-typescript",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/openapi-to-typescript",
+      "description": ""
+    },
+    {
+      "name": "opentrons-integration",
+      "path": "cli-tool/components/skills/scientific/opentrons-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/opentrons-integration",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-outlines",
+      "path": "cli-tool/components/skills/ai-research/prompt-engineering-outlines",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/prompt-engineering-outlines",
+      "description": ""
+    },
+    {
+      "name": "paid-ads",
+      "path": "cli-tool/components/skills/business-marketing/paid-ads",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/paid-ads",
+      "description": ""
+    },
+    {
+      "name": "paper-2-web",
+      "path": "cli-tool/components/skills/scientific/paper-2-web",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/paper-2-web",
+      "description": ""
+    },
+    {
+      "name": "parallel-agents",
+      "path": "cli-tool/components/skills/ai-research/parallel-agents",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "pathml",
+      "path": "cli-tool/components/skills/scientific/pathml",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pathml",
+      "description": ""
+    },
+    {
+      "name": "paywall-upgrade-cro",
+      "path": "cli-tool/components/skills/business-marketing/paywall-upgrade-cro",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/paywall-upgrade-cro",
+      "description": ""
+    },
+    {
+      "name": "pc-games",
+      "path": "cli-tool/components/skills/creative-design/game-development/pc-games",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development/pc-games",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "cli-tool/components/skills/scientific/document-skills/pdf",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/document-skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf-processing",
+      "path": "cli-tool/components/skills/document-processing/pdf-processing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/document-processing/pdf-processing",
+      "description": ""
+    },
+    {
+      "name": "peer-review",
+      "path": "cli-tool/components/skills/scientific/peer-review",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/peer-review",
+      "description": ""
+    },
+    {
+      "name": "pennylane",
+      "path": "cli-tool/components/skills/scientific/pennylane",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pennylane",
+      "description": ""
+    },
+    {
+      "name": "pentest-checklist",
+      "path": "cli-tool/components/skills/security/pentest-checklist",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/pentest-checklist",
+      "description": ""
+    },
+    {
+      "name": "pentest-commands",
+      "path": "cli-tool/components/skills/security/pentest-commands",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/pentest-commands",
+      "description": ""
+    },
+    {
+      "name": "performance",
+      "path": "cli-tool/components/skills/development/performance",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/performance",
+      "description": ""
+    },
+    {
+      "name": "perplexity",
+      "path": "cli-tool/components/skills/ai-research/perplexity",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/perplexity",
+      "description": ""
+    },
+    {
+      "name": "perplexity-search",
+      "path": "cli-tool/components/skills/scientific/perplexity-search",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/perplexity-search",
+      "description": ""
+    },
+    {
+      "name": "personal-tool-builder",
+      "path": "cli-tool/components/skills/productivity/personal-tool-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/personal-tool-builder",
+      "description": ""
+    },
+    {
+      "name": "observability-phoenix",
+      "path": "cli-tool/components/skills/ai-research/observability-phoenix",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/observability-phoenix",
+      "description": ""
+    },
+    {
+      "name": "rag-pinecone",
+      "path": "cli-tool/components/skills/ai-research/rag-pinecone",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/rag-pinecone",
+      "description": ""
+    },
+    {
+      "name": "plaid-fintech",
+      "path": "cli-tool/components/skills/development/plaid-fintech",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/plaid-fintech",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "path": "cli-tool/components/skills/development/playwright",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/playwright",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e-builder",
+      "path": "cli-tool/components/skills/development/playwright-e2e-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/playwright-e2e-builder",
+      "description": ""
+    },
+    {
+      "name": "playwright-skill",
+      "path": "cli-tool/components/skills/utilities/playwright-skill",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/utilities/playwright-skill",
+      "description": ""
+    },
+    {
+      "name": "plotly",
+      "path": "cli-tool/components/skills/scientific/plotly",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/plotly",
+      "description": ""
+    },
+    {
+      "name": "plugin-forge",
+      "path": "cli-tool/components/skills/development/plugin-forge",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/plugin-forge",
+      "description": ""
+    },
+    {
+      "name": "polars",
+      "path": "cli-tool/components/skills/scientific/polars",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/polars",
+      "description": ""
+    },
+    {
+      "name": "postgres-schema-design",
+      "path": "cli-tool/components/skills/database/postgres-schema-design",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/database/postgres-schema-design",
+      "description": ""
+    },
+    {
+      "name": "pricing-strategy",
+      "path": "cli-tool/components/skills/business-marketing/pricing-strategy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/pricing-strategy",
+      "description": ""
+    },
+    {
+      "name": "prisma-expert",
+      "path": "cli-tool/components/skills/development/prisma-expert",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/prisma-expert",
+      "description": ""
+    },
+    {
+      "name": "privilege-escalation-methods",
+      "path": "cli-tool/components/skills/security/privilege-escalation-methods",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/privilege-escalation-methods",
+      "description": ""
+    },
+    {
+      "name": "product-manager-toolkit",
+      "path": "cli-tool/components/skills/business-marketing/product-manager-toolkit",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/product-manager-toolkit",
+      "description": ""
+    },
+    {
+      "name": "product-strategist",
+      "path": "cli-tool/components/skills/business-marketing/product-strategist",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/product-strategist",
+      "description": ""
+    },
+    {
+      "name": "production-code-audit",
+      "path": "cli-tool/components/skills/development/production-code-audit",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/production-code-audit",
+      "description": ""
+    },
+    {
+      "name": "professional-communication",
+      "path": "cli-tool/components/skills/enterprise-communication/professional-communication",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/professional-communication",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "path": "cli-tool/components/skills/ai-research/prompt-engineer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "path": "cli-tool/components/skills/ai-research/prompt-engineering",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "protocolsio-integration",
+      "path": "cli-tool/components/skills/scientific/protocolsio-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/protocolsio-integration",
+      "description": ""
+    },
+    {
+      "name": "pubchem-database",
+      "path": "cli-tool/components/skills/scientific/pubchem-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pubchem-database",
+      "description": ""
+    },
+    {
+      "name": "pubmed-database",
+      "path": "cli-tool/components/skills/scientific/pubmed-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pubmed-database",
+      "description": ""
+    },
+    {
+      "name": "pufferlib",
+      "path": "cli-tool/components/skills/scientific/pufferlib",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pufferlib",
+      "description": ""
+    },
+    {
+      "name": "pydeseq2",
+      "path": "cli-tool/components/skills/scientific/pydeseq2",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pydeseq2",
+      "description": ""
+    },
+    {
+      "name": "pydicom",
+      "path": "cli-tool/components/skills/scientific/pydicom",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pydicom",
+      "description": ""
+    },
+    {
+      "name": "pyhealth",
+      "path": "cli-tool/components/skills/scientific/pyhealth",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pyhealth",
+      "description": ""
+    },
+    {
+      "name": "pylabrobot",
+      "path": "cli-tool/components/skills/scientific/pylabrobot",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pylabrobot",
+      "description": ""
+    },
+    {
+      "name": "pymoo",
+      "path": "cli-tool/components/skills/scientific/pymoo",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pymoo",
+      "description": ""
+    },
+    {
+      "name": "pyopenms",
+      "path": "cli-tool/components/skills/scientific/pyopenms",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pyopenms",
+      "description": ""
+    },
+    {
+      "name": "pytdc",
+      "path": "cli-tool/components/skills/scientific/pytdc",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pytdc",
+      "description": ""
+    },
+    {
+      "name": "python-patterns",
+      "path": "cli-tool/components/skills/development/python-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/python-patterns",
+      "description": ""
+    },
+    {
+      "name": "pytorch-lightning",
+      "path": "cli-tool/components/skills/scientific/pytorch-lightning",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/pytorch-lightning",
+      "description": ""
+    },
+    {
+      "name": "distributed-training-pytorch-lightning",
+      "path": "cli-tool/components/skills/ai-research/distributed-training-pytorch-lightning",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/distributed-training-pytorch-lightning",
+      "description": ""
+    },
+    {
+      "name": "mechanistic-interpretability-pyvene",
+      "path": "cli-tool/components/skills/ai-research/mechanistic-interpretability-pyvene",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/mechanistic-interpretability-pyvene",
+      "description": ""
+    },
+    {
+      "name": "qa-test-planner",
+      "path": "cli-tool/components/skills/ai-research/qa-test-planner",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/qa-test-planner",
+      "description": ""
+    },
+    {
+      "name": "rag-qdrant",
+      "path": "cli-tool/components/skills/ai-research/rag-qdrant",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/rag-qdrant",
+      "description": ""
+    },
+    {
+      "name": "qiskit",
+      "path": "cli-tool/components/skills/scientific/qiskit",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/qiskit",
+      "description": ""
+    },
+    {
+      "name": "quality-documentation-manager",
+      "path": "cli-tool/components/skills/enterprise-communication/quality-documentation-manager",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/quality-documentation-manager",
+      "description": ""
+    },
+    {
+      "name": "quality-manager-qms-iso13485",
+      "path": "cli-tool/components/skills/enterprise-communication/quality-manager-qms-iso13485",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/quality-manager-qms-iso13485",
+      "description": ""
+    },
+    {
+      "name": "qutip",
+      "path": "cli-tool/components/skills/scientific/qutip",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/qutip",
+      "description": ""
+    },
+    {
+      "name": "rag-engineer",
+      "path": "cli-tool/components/skills/ai-research/rag-engineer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/rag-engineer",
+      "description": ""
+    },
+    {
+      "name": "database",
+      "path": "cli-tool/components/skills/railway/database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/database",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "path": "cli-tool/components/skills/railway/deploy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/deploy",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "path": "cli-tool/components/skills/railway/deployment",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/deployment",
+      "description": ""
+    },
+    {
+      "name": "railway-docs",
+      "path": "cli-tool/components/skills/railway/railway-docs",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/railway-docs",
+      "description": ""
+    },
+    {
+      "name": "environment",
+      "path": "cli-tool/components/skills/railway/environment",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/environment",
+      "description": ""
+    },
+    {
+      "name": "new",
+      "path": "cli-tool/components/skills/railway/new",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/new",
+      "description": ""
+    },
+    {
+      "name": "projects",
+      "path": "cli-tool/components/skills/railway/projects",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/projects",
+      "description": ""
+    },
+    {
+      "name": "service",
+      "path": "cli-tool/components/skills/railway/service",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/service",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "path": "cli-tool/components/skills/railway/status",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/status",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "path": "cli-tool/components/skills/railway/templates",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/railway/templates",
+      "description": ""
+    },
+    {
+      "name": "data-processing-ray-data",
+      "path": "cli-tool/components/skills/ai-research/data-processing-ray-data",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/data-processing-ray-data",
+      "description": ""
+    },
+    {
+      "name": "distributed-training-ray-train",
+      "path": "cli-tool/components/skills/ai-research/distributed-training-ray-train",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/distributed-training-ray-train",
+      "description": ""
+    },
+    {
+      "name": "rdkit",
+      "path": "cli-tool/components/skills/scientific/rdkit",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/rdkit",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "cli-tool/components/skills/web-development/react-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-dev",
+      "path": "cli-tool/components/skills/development/react-dev",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/react-dev",
+      "description": ""
+    },
+    {
+      "name": "react-patterns",
+      "path": "cli-tool/components/skills/development/react-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/react-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-ui-patterns",
+      "path": "cli-tool/components/skills/development/react-ui-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/react-ui-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-useeffect",
+      "path": "cli-tool/components/skills/development/react-useeffect",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/react-useeffect",
+      "description": ""
+    },
+    {
+      "name": "reactome-database",
+      "path": "cli-tool/components/skills/scientific/reactome-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/reactome-database",
+      "description": ""
+    },
+    {
+      "name": "red-team-tools",
+      "path": "cli-tool/components/skills/security/red-team-tools",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/red-team-tools",
+      "description": ""
+    },
+    {
+      "name": "reducing-entropy",
+      "path": "cli-tool/components/skills/productivity/reducing-entropy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/reducing-entropy",
+      "description": ""
+    },
+    {
+      "name": "referral-program",
+      "path": "cli-tool/components/skills/business-marketing/referral-program",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/referral-program",
+      "description": ""
+    },
+    {
+      "name": "regulatory-affairs-head",
+      "path": "cli-tool/components/skills/enterprise-communication/regulatory-affairs-head",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/regulatory-affairs-head",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "path": "cli-tool/components/skills/video/remotion",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/video/remotion",
+      "description": ""
+    },
+    {
+      "name": "remotion-best-practices",
+      "path": "cli-tool/components/skills/creative-design/remotion-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/remotion-best-practices",
+      "description": ""
+    },
+    {
+      "name": "render-deploy",
+      "path": "cli-tool/components/skills/development/render-deploy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/render-deploy",
+      "description": ""
+    },
+    {
+      "name": "research-lookup",
+      "path": "cli-tool/components/skills/scientific/research-lookup",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/research-lookup",
+      "description": ""
+    },
+    {
+      "name": "risk-management-specialist",
+      "path": "cli-tool/components/skills/enterprise-communication/risk-management-specialist",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/risk-management-specialist",
+      "description": ""
+    },
+    {
+      "name": "roier-seo",
+      "path": "cli-tool/components/skills/web-development/roier-seo",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/roier-seo",
+      "description": ""
+    },
+    {
+      "name": "writing-rules",
+      "path": "cli-tool/components/skills/productivity/writing-rules",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/writing-rules",
+      "description": ""
+    },
+    {
+      "name": "rust-cli-builder",
+      "path": "cli-tool/components/skills/development/rust-cli-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/rust-cli-builder",
+      "description": ""
+    },
+    {
+      "name": "model-architecture-rwkv",
+      "path": "cli-tool/components/skills/ai-research/model-architecture-rwkv",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/model-architecture-rwkv",
+      "description": ""
+    },
+    {
+      "name": "salesforce-development",
+      "path": "cli-tool/components/skills/development/salesforce-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/salesforce-development",
+      "description": ""
+    },
+    {
+      "name": "scientific-brainstorming",
+      "path": "cli-tool/components/skills/scientific/scientific-brainstorming",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/scientific-brainstorming",
+      "description": ""
+    },
+    {
+      "name": "scientific-critical-thinking",
+      "path": "cli-tool/components/skills/scientific/scientific-critical-thinking",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/scientific-critical-thinking",
+      "description": ""
+    },
+    {
+      "name": "scientific-schematics",
+      "path": "cli-tool/components/skills/scientific/scientific-schematics",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/scientific-schematics",
+      "description": ""
+    },
+    {
+      "name": "scientific-slides",
+      "path": "cli-tool/components/skills/scientific/scientific-slides",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/scientific-slides",
+      "description": ""
+    },
+    {
+      "name": "scientific-writing",
+      "path": "cli-tool/components/skills/scientific/scientific-writing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/scientific-writing",
+      "description": ""
+    },
+    {
+      "name": "scikit-learn",
+      "path": "cli-tool/components/skills/scientific/scikit-learn",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/scikit-learn",
+      "description": ""
+    },
+    {
+      "name": "scikit-survival",
+      "path": "cli-tool/components/skills/scientific/scikit-survival",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/scikit-survival",
+      "description": ""
+    },
+    {
+      "name": "screenshot",
+      "path": "cli-tool/components/skills/media/screenshot",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/media/screenshot",
+      "description": ""
+    },
+    {
+      "name": "screenshot-feature-extractor",
+      "path": "cli-tool/components/skills/development/screenshot-feature-extractor",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/screenshot-feature-extractor",
+      "description": ""
+    },
+    {
+      "name": "scroll-experience",
+      "path": "cli-tool/components/skills/creative-design/scroll-experience",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/scroll-experience",
+      "description": ""
+    },
+    {
+      "name": "scvi-tools",
+      "path": "cli-tool/components/skills/scientific/scvi-tools",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/scvi-tools",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "path": "cli-tool/components/skills/security/security-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "security-compliance",
+      "path": "cli-tool/components/skills/development/security-compliance",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/security-compliance",
+      "description": ""
+    },
+    {
+      "name": "security-ownership-map",
+      "path": "cli-tool/components/skills/security/security-ownership-map",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/security-ownership-map",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-security-review",
+      "path": "cli-tool/components/skills/development/cc-skill-security-review",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/cc-skill-security-review",
+      "description": ""
+    },
+    {
+      "name": "scanning-tools",
+      "path": "cli-tool/components/skills/security/scanning-tools",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/scanning-tools",
+      "description": ""
+    },
+    {
+      "name": "security-threat-model",
+      "path": "cli-tool/components/skills/security/security-threat-model",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/security-threat-model",
+      "description": ""
+    },
+    {
+      "name": "segment-cdp",
+      "path": "cli-tool/components/skills/web-development/segment-cdp",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/segment-cdp",
+      "description": ""
+    },
+    {
+      "name": "senior-architect",
+      "path": "cli-tool/components/skills/development/senior-architect",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-architect",
+      "description": ""
+    },
+    {
+      "name": "senior-backend",
+      "path": "cli-tool/components/skills/development/senior-backend",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-backend",
+      "description": ""
+    },
+    {
+      "name": "senior-computer-vision",
+      "path": "cli-tool/components/skills/development/senior-computer-vision",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-computer-vision",
+      "description": ""
+    },
+    {
+      "name": "senior-data-engineer",
+      "path": "cli-tool/components/skills/development/senior-data-engineer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-data-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-data-scientist",
+      "path": "cli-tool/components/skills/development/senior-data-scientist",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-data-scientist",
+      "description": ""
+    },
+    {
+      "name": "senior-devops",
+      "path": "cli-tool/components/skills/development/senior-devops",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-devops",
+      "description": ""
+    },
+    {
+      "name": "senior-frontend",
+      "path": "cli-tool/components/skills/development/senior-frontend",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-frontend",
+      "description": ""
+    },
+    {
+      "name": "senior-fullstack",
+      "path": "cli-tool/components/skills/development/senior-fullstack",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-fullstack",
+      "description": ""
+    },
+    {
+      "name": "senior-ml-engineer",
+      "path": "cli-tool/components/skills/development/senior-ml-engineer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-ml-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-prompt-engineer",
+      "path": "cli-tool/components/skills/development/senior-prompt-engineer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-qa",
+      "path": "cli-tool/components/skills/development/senior-qa",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-qa",
+      "description": ""
+    },
+    {
+      "name": "senior-secops",
+      "path": "cli-tool/components/skills/development/senior-secops",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-secops",
+      "description": ""
+    },
+    {
+      "name": "senior-security",
+      "path": "cli-tool/components/skills/development/senior-security",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/senior-security",
+      "description": ""
+    },
+    {
+      "name": "rag-sentence-transformers",
+      "path": "cli-tool/components/skills/ai-research/rag-sentence-transformers",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/rag-sentence-transformers",
+      "description": ""
+    },
+    {
+      "name": "seo-fundamentals",
+      "path": "cli-tool/components/skills/business-marketing/seo-fundamentals",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/seo-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "seo-optimizer",
+      "path": "cli-tool/components/skills/business-marketing/seo-optimizer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/seo-optimizer",
+      "description": ""
+    },
+    {
+      "name": "inference-serving-vllm",
+      "path": "cli-tool/components/skills/ai-research/inference-serving-vllm",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/inference-serving-vllm",
+      "description": ""
+    },
+    {
+      "name": "session-handoff",
+      "path": "cli-tool/components/skills/enterprise-communication/session-handoff",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/session-handoff",
+      "description": ""
+    },
+    {
+      "name": "inference-serving-sglang",
+      "path": "cli-tool/components/skills/ai-research/inference-serving-sglang",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/inference-serving-sglang",
+      "description": ""
+    },
+    {
+      "name": "shap",
+      "path": "cli-tool/components/skills/scientific/shap",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/shap",
+      "description": ""
+    },
+    {
+      "name": "ship-learn-next",
+      "path": "cli-tool/components/skills/productivity/ship-learn-next",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/ship-learn-next",
+      "description": ""
+    },
+    {
+      "name": "shodan-reconnaissance",
+      "path": "cli-tool/components/skills/security/shodan-reconnaissance",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/shodan-reconnaissance",
+      "description": ""
+    },
+    {
+      "name": "shopify-apps",
+      "path": "cli-tool/components/skills/web-development/shopify-apps",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/shopify-apps",
+      "description": ""
+    },
+    {
+      "name": "shopify-development",
+      "path": "cli-tool/components/skills/web-development/shopify-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/shopify-development",
+      "description": ""
+    },
+    {
+      "name": "simpy",
+      "path": "cli-tool/components/skills/scientific/simpy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/simpy",
+      "description": ""
+    },
+    {
+      "name": "skill-creation-guide",
+      "path": "cli-tool/components/skills/development/skill-creation-guide",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/skill-creation-guide",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "cli-tool/components/skills/productivity/skill-creator",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "path": "cli-tool/components/skills/development/skill-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/skill-development",
+      "description": ""
+    },
+    {
+      "name": "skill-installer",
+      "path": "cli-tool/components/skills/development/skill-installer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/skill-installer",
+      "description": ""
+    },
+    {
+      "name": "skill-judge",
+      "path": "cli-tool/components/skills/productivity/skill-judge",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/skill-judge",
+      "description": ""
+    },
+    {
+      "name": "slack-bot-builder",
+      "path": "cli-tool/components/skills/enterprise-communication/slack-bot-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/slack-bot-builder",
+      "description": ""
+    },
+    {
+      "name": "smtp-penetration-testing",
+      "path": "cli-tool/components/skills/security/smtp-penetration-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/smtp-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "social-content",
+      "path": "cli-tool/components/skills/business-marketing/social-content",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/social-content",
+      "description": ""
+    },
+    {
+      "name": "software-architecture",
+      "path": "cli-tool/components/skills/development/software-architecture",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/software-architecture",
+      "description": ""
+    },
+    {
+      "name": "sora",
+      "path": "cli-tool/components/skills/video/sora",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/video/sora",
+      "description": ""
+    },
+    {
+      "name": "emerging-techniques-speculative-decoding",
+      "path": "cli-tool/components/skills/ai-research/emerging-techniques-speculative-decoding",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/emerging-techniques-speculative-decoding",
+      "description": ""
+    },
+    {
+      "name": "speech",
+      "path": "cli-tool/components/skills/media/speech",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/media/speech",
+      "description": ""
+    },
+    {
+      "name": "spreadsheet",
+      "path": "cli-tool/components/skills/document-processing/spreadsheet",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/document-processing/spreadsheet",
+      "description": ""
+    },
+    {
+      "name": "sql-injection-testing",
+      "path": "cli-tool/components/skills/security/sql-injection-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/sql-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "sqlmap-database-pentesting",
+      "path": "cli-tool/components/skills/security/sqlmap-database-pentesting",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/sqlmap-database-pentesting",
+      "description": ""
+    },
+    {
+      "name": "ssh-penetration-testing",
+      "path": "cli-tool/components/skills/security/ssh-penetration-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/ssh-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "stable-baselines3",
+      "path": "cli-tool/components/skills/scientific/stable-baselines3",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/stable-baselines3",
+      "description": ""
+    },
+    {
+      "name": "statistical-analysis",
+      "path": "cli-tool/components/skills/scientific/statistical-analysis",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/statistical-analysis",
+      "description": ""
+    },
+    {
+      "name": "statsmodels",
+      "path": "cli-tool/components/skills/scientific/statsmodels",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/statsmodels",
+      "description": ""
+    },
+    {
+      "name": "string-database",
+      "path": "cli-tool/components/skills/scientific/string-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/string-database",
+      "description": ""
+    },
+    {
+      "name": "stripe-integration",
+      "path": "cli-tool/components/skills/development/stripe-integration",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/stripe-integration",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "path": "cli-tool/components/skills/ai-research/subagent-driven-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "path": "cli-tool/components/skills/database/supabase-postgres-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/database/supabase-postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "postgres-best-practices",
+      "path": "cli-tool/components/skills/development/postgres-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "sympy",
+      "path": "cli-tool/components/skills/scientific/sympy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/sympy",
+      "description": ""
+    },
+    {
+      "name": "tailwind-patterns",
+      "path": "cli-tool/components/skills/creative-design/tailwind-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/tailwind-patterns",
+      "description": ""
+    },
+    {
+      "name": "task-execution-engine",
+      "path": "cli-tool/components/skills/development/task-execution-engine",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/task-execution-engine",
+      "description": ""
+    },
+    {
+      "name": "tavily-web",
+      "path": "cli-tool/components/skills/web-development/tavily-web",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/tavily-web",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "path": "cli-tool/components/skills/development/tdd-workflow",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot-builder",
+      "path": "cli-tool/components/skills/development/telegram-bot-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/telegram-bot-builder",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot-builder",
+      "path": "cli-tool/components/skills/enterprise-communication/telegram-bot-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/telegram-bot-builder",
+      "description": ""
+    },
+    {
+      "name": "telegram-mini-app",
+      "path": "cli-tool/components/skills/enterprise-communication/telegram-mini-app",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/telegram-mini-app",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "path": "cli-tool/components/skills/business-marketing/app-builder/templates",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/app-builder/templates",
+      "description": ""
+    },
+    {
+      "name": "inference-serving-tensorrt-llm",
+      "path": "cli-tool/components/skills/ai-research/inference-serving-tensorrt-llm",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/inference-serving-tensorrt-llm",
+      "description": ""
+    },
+    {
+      "name": "test-fixing",
+      "path": "cli-tool/components/skills/development/test-fixing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/test-fixing",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": "cli-tool/components/skills/development/testing-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "top-web-vulnerabilities",
+      "path": "cli-tool/components/skills/security/top-web-vulnerabilities",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/top-web-vulnerabilities",
+      "description": ""
+    },
+    {
+      "name": "torch_geometric",
+      "path": "cli-tool/components/skills/scientific/torch_geometric",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/torch_geometric",
+      "description": ""
+    },
+    {
+      "name": "post-training-torchforge",
+      "path": "cli-tool/components/skills/ai-research/post-training-torchforge",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/post-training-torchforge",
+      "description": ""
+    },
+    {
+      "name": "transformers",
+      "path": "cli-tool/components/skills/scientific/transformers",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/transformers",
+      "description": ""
+    },
+    {
+      "name": "treatment-plans",
+      "path": "cli-tool/components/skills/scientific/treatment-plans",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/treatment-plans",
+      "description": ""
+    },
+    {
+      "name": "trigger-dev",
+      "path": "cli-tool/components/skills/workflow-automation/trigger-dev",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/trigger-dev",
+      "description": ""
+    },
+    {
+      "name": "twilio-communications",
+      "path": "cli-tool/components/skills/enterprise-communication/twilio-communications",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/twilio-communications",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "path": "cli-tool/components/skills/development/typescript-expert",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "ui-design-system",
+      "path": "cli-tool/components/skills/creative-design/ui-design-system",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/ui-design-system",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": "cli-tool/components/skills/creative-design/ui-ux-pro-max",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "uniprot-database",
+      "path": "cli-tool/components/skills/scientific/uniprot-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/uniprot-database",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "path": "cli-tool/components/skills/development/using-git-worktrees",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-neon",
+      "path": "cli-tool/components/skills/database/using-neon",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/database/using-neon",
+      "description": ""
+    },
+    {
+      "name": "using-superpowers",
+      "path": "cli-tool/components/skills/utilities/using-superpowers",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/utilities/using-superpowers",
+      "description": ""
+    },
+    {
+      "name": "using-superpowers",
+      "path": "cli-tool/components/skills/development/using-superpowers",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/using-superpowers",
+      "description": ""
+    },
+    {
+      "name": "uspto-database",
+      "path": "cli-tool/components/skills/scientific/uspto-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/uspto-database",
+      "description": ""
+    },
+    {
+      "name": "ux-researcher-designer",
+      "path": "cli-tool/components/skills/creative-design/ux-researcher-designer",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/ux-researcher-designer",
+      "description": ""
+    },
+    {
+      "name": "vaex",
+      "path": "cli-tool/components/skills/scientific/vaex",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/vaex",
+      "description": ""
+    },
+    {
+      "name": "venue-templates",
+      "path": "cli-tool/components/skills/scientific/venue-templates",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/venue-templates",
+      "description": ""
+    },
+    {
+      "name": "vercel-deploy",
+      "path": "cli-tool/components/skills/development/vercel-deploy",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/vercel-deploy",
+      "description": ""
+    },
+    {
+      "name": "vercel-deployment",
+      "path": "cli-tool/components/skills/development/vercel-deployment",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/vercel-deployment",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "cli-tool/components/skills/development/react-best-practices",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "post-training-verl",
+      "path": "cli-tool/components/skills/ai-research/post-training-verl",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/post-training-verl",
+      "description": ""
+    },
+    {
+      "name": "viral-generator-builder",
+      "path": "cli-tool/components/skills/business-marketing/viral-generator-builder",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/business-marketing/viral-generator-builder",
+      "description": ""
+    },
+    {
+      "name": "voice-agents",
+      "path": "cli-tool/components/skills/ai-research/voice-agents",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/voice-agents",
+      "description": ""
+    },
+    {
+      "name": "voice-ai-development",
+      "path": "cli-tool/components/skills/ai-research/voice-ai-development",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/voice-ai-development",
+      "description": ""
+    },
+    {
+      "name": "vr-ar",
+      "path": "cli-tool/components/skills/creative-design/game-development/vr-ar",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development/vr-ar",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "path": "cli-tool/components/skills/creative-design/web-design-guidelines",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "web-games",
+      "path": "cli-tool/components/skills/creative-design/game-development/web-games",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/creative-design/game-development/web-games",
+      "description": ""
+    },
+    {
+      "name": "web-performance-optimization",
+      "path": "cli-tool/components/skills/web-development/web-performance-optimization",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/web-development/web-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "web-quality-audit",
+      "path": "cli-tool/components/skills/development/web-quality-audit",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/web-quality-audit",
+      "description": ""
+    },
+    {
+      "name": "web-to-markdown",
+      "path": "cli-tool/components/skills/development/web-to-markdown",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/web-to-markdown",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": "cli-tool/components/skills/security/webapp-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "multimodal-whisper",
+      "path": "cli-tool/components/skills/ai-research/multimodal-whisper",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/ai-research/multimodal-whisper",
+      "description": ""
+    },
+    {
+      "name": "windows-privilege-escalation",
+      "path": "cli-tool/components/skills/security/windows-privilege-escalation",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/windows-privilege-escalation",
+      "description": ""
+    },
+    {
+      "name": "wireshark-analysis",
+      "path": "cli-tool/components/skills/security/wireshark-analysis",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/wireshark-analysis",
+      "description": ""
+    },
+    {
+      "name": "wordpress-penetration-testing",
+      "path": "cli-tool/components/skills/security/wordpress-penetration-testing",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/security/wordpress-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "workflow-automation",
+      "path": "cli-tool/components/skills/workflow-automation/workflow-automation",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/workflow-automation",
+      "description": ""
+    },
+    {
+      "name": "writing-clearly-and-concisely",
+      "path": "cli-tool/components/skills/enterprise-communication/writing-clearly-and-concisely",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/enterprise-communication/writing-clearly-and-concisely",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "cli-tool/components/skills/productivity/writing-plans",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "cli-tool/components/skills/productivity/writing-skills",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/productivity/writing-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "cli-tool/components/skills/development/writing-skills",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/development/writing-skills",
+      "description": ""
+    },
+    {
+      "name": "yeet",
+      "path": "cli-tool/components/skills/workflow-automation/yeet",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/yeet",
+      "description": ""
+    },
+    {
+      "name": "zapier-make-patterns",
+      "path": "cli-tool/components/skills/workflow-automation/zapier-make-patterns",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/workflow-automation/zapier-make-patterns",
+      "description": ""
+    },
+    {
+      "name": "zarr-python",
+      "path": "cli-tool/components/skills/scientific/zarr-python",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/zarr-python",
+      "description": ""
+    },
+    {
+      "name": "zinc-database",
+      "path": "cli-tool/components/skills/scientific/zinc-database",
+      "github_url": "https://github.com/davila7/claude-code-templates/tree/main/cli-tool/components/skills/scientific/zinc-database",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/davila7/claude-code-templates",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:31:46Z"
+}
