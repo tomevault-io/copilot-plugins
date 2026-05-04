@@ -4,7 +4,7 @@
   "repo": "ShipFullStack",
   "description": "A modern TypeScript stack that combines React, TanStack Start, Hono, ORPC,  Expo, and more.",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sunshineLixun/ShipFullStack",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T02:05:07Z"
+  "distributed_at": "2026-05-04T02:17:30Z"
 }
