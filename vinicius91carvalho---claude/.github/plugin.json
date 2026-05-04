@@ -1,0 +1,9 @@
+{
+  "name": "vinicius91carvalho---claude",
+  "displayName": ".claude",
+  "description": "Claude Workflow System \u2014 portable workflow with hooks, agents, skills, and enforcement.",
+  "version": "1.0.0",
+  "author": "vinicius91carvalho",
+  "homepage": "https://github.com/vinicius91carvalho/.claude",
+  "skills": []
+}
