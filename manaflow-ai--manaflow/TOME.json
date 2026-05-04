@@ -1,0 +1,57 @@
+{
+  "name": "manaflow",
+  "owner": "manaflow-ai",
+  "repo": "manaflow",
+  "description": "Open source Claude Code web/Codex Cloud/Devin/Ramp Inspect alternative",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cloudrouter",
+      "path": "packages/cloudrouter/npm/cloudrouter/.agents/skills/cloudrouter",
+      "github_url": "https://github.com/manaflow-ai/manaflow/tree/main/packages/cloudrouter/npm/cloudrouter/.agents/skills/cloudrouter",
+      "description": ""
+    },
+    {
+      "name": "cmux",
+      "path": "skills/cmux",
+      "github_url": "https://github.com/manaflow-ai/manaflow/tree/main/skills/cmux",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/manaflow-ai/manaflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:32:36Z"
+}
