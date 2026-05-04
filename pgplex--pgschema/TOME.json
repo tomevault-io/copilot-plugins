@@ -1,0 +1,57 @@
+{
+  "name": "pgschema",
+  "owner": "pgplex",
+  "repo": "pgschema",
+  "description": "Terraform-style, declarative schema migration CLI for Postgres. Agent friendly.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "fix_bug",
+      "path": ".claude/skills/fix_bug",
+      "github_url": "https://github.com/pgplex/pgschema/tree/main/.claude/skills/fix_bug",
+      "description": ""
+    },
+    {
+      "name": "run_tests",
+      "path": ".claude/skills/run_tests",
+      "github_url": "https://github.com/pgplex/pgschema/tree/main/.claude/skills/run_tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pgplex/pgschema",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:44:11Z"
+}
