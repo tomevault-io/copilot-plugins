@@ -4,7 +4,7 @@
   "repo": "pump-fun-sdk",
   "description": "Token creation launching, bonding curve trading, AMM migration, tiered fees, creator fee sharing, vanity keygen, MCP server, Telegram bot & live dashboards",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/pump-fun-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T11:02:51Z"
+  "distributed_at": "2026-05-04T18:05:51Z"
 }
