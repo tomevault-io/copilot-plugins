@@ -4,7 +4,7 @@
   "repo": "GTMbrain",
   "description": "Help you with GTM, based on lessons from myself and other yc founders",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kathrynwu/GTMbrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:43:38Z"
+  "distributed_at": "2026-05-04T05:40:03Z"
 }
