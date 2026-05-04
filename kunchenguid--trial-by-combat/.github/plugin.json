@@ -1,0 +1,9 @@
+{
+  "name": "kunchenguid--trial-by-combat",
+  "displayName": "trial-by-combat",
+  "description": "Two LLMs walk into a 9x9 grid. One walks out with the relic.",
+  "version": "1.0.0",
+  "author": "kunchenguid",
+  "homepage": "https://github.com/kunchenguid/trial-by-combat",
+  "skills": []
+}
