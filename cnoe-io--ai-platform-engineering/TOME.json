@@ -1,0 +1,99 @@
+{
+  "name": "ai-platform-engineering",
+  "owner": "cnoe-io",
+  "repo": "ai-platform-engineering",
+  "description": "CAIPE: Community AI Platform Engineering Multi-Agent Systems",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "check-deployment-status",
+      "path": "ui/src/skills/check-deployment-status",
+      "github_url": "https://github.com/cnoe-io/ai-platform-engineering/tree/main/ui/src/skills/check-deployment-status",
+      "description": ""
+    },
+    {
+      "name": "cluster-resource-health",
+      "path": "ui/src/skills/cluster-resource-health",
+      "github_url": "https://github.com/cnoe-io/ai-platform-engineering/tree/main/ui/src/skills/cluster-resource-health",
+      "description": ""
+    },
+    {
+      "name": "documentation-search",
+      "path": "ui/src/skills/documentation-search",
+      "github_url": "https://github.com/cnoe-io/ai-platform-engineering/tree/main/ui/src/skills/documentation-search",
+      "description": ""
+    },
+    {
+      "name": "incident-investigation",
+      "path": "ui/src/skills/incident-investigation",
+      "github_url": "https://github.com/cnoe-io/ai-platform-engineering/tree/main/ui/src/skills/incident-investigation",
+      "description": ""
+    },
+    {
+      "name": "oncall-handoff",
+      "path": "ui/src/skills/oncall-handoff",
+      "github_url": "https://github.com/cnoe-io/ai-platform-engineering/tree/main/ui/src/skills/oncall-handoff",
+      "description": ""
+    },
+    {
+      "name": "release-readiness-check",
+      "path": "ui/src/skills/release-readiness-check",
+      "github_url": "https://github.com/cnoe-io/ai-platform-engineering/tree/main/ui/src/skills/release-readiness-check",
+      "description": ""
+    },
+    {
+      "name": "review-open-pull-requests",
+      "path": "ui/src/skills/review-open-pull-requests",
+      "github_url": "https://github.com/cnoe-io/ai-platform-engineering/tree/main/ui/src/skills/review-open-pull-requests",
+      "description": ""
+    },
+    {
+      "name": "review-specific-pr",
+      "path": "ui/src/skills/review-specific-pr",
+      "github_url": "https://github.com/cnoe-io/ai-platform-engineering/tree/main/ui/src/skills/review-specific-pr",
+      "description": ""
+    },
+    {
+      "name": "security-vulnerability-report",
+      "path": "ui/src/skills/security-vulnerability-report",
+      "github_url": "https://github.com/cnoe-io/ai-platform-engineering/tree/main/ui/src/skills/security-vulnerability-report",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cnoe-io/ai-platform-engineering",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:37:29Z"
+}
