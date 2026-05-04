@@ -1,0 +1,9 @@
+{
+  "name": "sebastianelvis--octopus",
+  "displayName": "octopus",
+  "description": "The Claude Code frontend for ADHD developers. Dispatch board to run 50 sessions in parallel \u2014 from issue to merged PR, without leaving the app.",
+  "version": "1.0.0",
+  "author": "SebastianElvis",
+  "homepage": "https://github.com/SebastianElvis/octopus",
+  "skills": []
+}
