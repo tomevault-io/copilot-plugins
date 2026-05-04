@@ -1,0 +1,9 @@
+{
+  "name": "sorosora--arcade-statusline",
+  "displayName": "arcade-statusline",
+  "description": "\ud83d\udd79\ufe0fArcade-themed statusline for Claude Code \u2014 Pac-Man inspired chase game & Pikmin Bloom inspired flower trail",
+  "version": "1.0.0",
+  "author": "sorosora",
+  "homepage": "https://github.com/sorosora/arcade-statusline",
+  "skills": []
+}
