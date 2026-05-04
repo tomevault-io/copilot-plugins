@@ -1,0 +1,57 @@
+{
+  "name": "uzu",
+  "owner": "trymirai",
+  "repo": "uzu",
+  "description": "A high-performance inference engine for AI models",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "download-model",
+      "path": "agents/skills/download-model",
+      "github_url": "https://github.com/trymirai/uzu/tree/main/agents/skills/download-model",
+      "description": ""
+    },
+    {
+      "name": "metal-gpu-debug",
+      "path": "agents/skills/metal-gpu-debug",
+      "github_url": "https://github.com/trymirai/uzu/tree/main/agents/skills/metal-gpu-debug",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/trymirai/uzu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:49:03Z"
+}
