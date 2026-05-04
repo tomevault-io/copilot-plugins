@@ -1,0 +1,9 @@
+{
+  "name": "fdidonato--moralstack",
+  "displayName": "moralstack",
+  "description": "MoralStack is a governance and safety layer for LLM applications. It analyzes user requests before generation, evaluates risk and intent, and decides whether the AI should answer normally, answer safe",
+  "version": "1.0.0",
+  "author": "fdidonato",
+  "homepage": "https://github.com/fdidonato/moralstack",
+  "skills": []
+}
