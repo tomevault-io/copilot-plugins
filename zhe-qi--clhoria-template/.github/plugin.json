@@ -1,0 +1,18 @@
+{
+  "name": "zhe-qi--clhoria-template",
+  "displayName": "clhoria-template",
+  "description": "Production-ready Hono backend template that doubles as an AI agent harness \u2014 providing feedforward guides, feedback sensors, and progressive specialization to make AI coding agents reliably produce ar",
+  "version": "1.0.0",
+  "author": "zhe-qi",
+  "homepage": "https://github.com/zhe-qi/clhoria-template",
+  "skills": [
+    {
+      "name": "crud",
+      "description": ""
+    },
+    {
+      "name": "db-schema",
+      "description": ""
+    }
+  ]
+}
