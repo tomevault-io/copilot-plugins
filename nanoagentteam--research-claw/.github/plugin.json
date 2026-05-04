@@ -1,0 +1,9 @@
+{
+  "name": "nanoagentteam--research-claw",
+  "displayName": "research-claw",
+  "description": "A self-hosted AI assistant for academic research \u2014 manages your papers, searches literature, tracks deadlines, and answers you on the channels you already use.",
+  "version": "1.0.0",
+  "author": "nanoAgentTeam",
+  "homepage": "https://github.com/nanoAgentTeam/research-claw",
+  "skills": []
+}
