@@ -4,7 +4,7 @@
   "repo": "claude-plugins",
   "description": "Open-source Claude Code plugins for multi-agent software delivery. Plan-first SDLC workflow, code review, LLM quality judges, and self-learning \u2014 grounded in your codebase.  Bootstrap, Plan, & Ship.   ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/closedloop-ai/claude-plugins",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T10:55:05Z"
+  "distributed_at": "2026-05-04T17:42:23Z"
 }
