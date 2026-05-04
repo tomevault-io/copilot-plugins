@@ -1,0 +1,51 @@
+{
+  "name": "n8n-mcp",
+  "owner": "czlonkowski",
+  "repo": "n8n-mcp",
+  "description": "A MCP for Claude Desktop / Claude Code / Windsurf / Cursor to build n8n workflows for you ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "n8n-mcp-tools-expert",
+      "path": "skills/n8n-mcp-tools-expert",
+      "github_url": "https://github.com/czlonkowski/n8n-mcp/tree/main/skills/n8n-mcp-tools-expert",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/czlonkowski/n8n-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:56:24Z"
+}
