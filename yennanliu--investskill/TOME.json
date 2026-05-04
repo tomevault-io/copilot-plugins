@@ -2,7 +2,7 @@
   "name": "InvestSkill",
   "owner": "yennanliu",
   "repo": "InvestSkill",
-  "description": "",
+  "description": "US stock analysis skills for Claude Code",
   "type": "config",
   "source_format": "GEMINI.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/yennanliu",
+  "source_url": "https://github.com/yennanliu/InvestSkill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T08:12:14Z"
+  "distributed_at": "2026-05-04T10:49:08Z"
 }
