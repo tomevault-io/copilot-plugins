@@ -1,0 +1,111 @@
+{
+  "name": "agent-toolkit",
+  "owner": "mauromedda",
+  "repo": "agent-toolkit",
+  "description": "Production-quality skills, tools, and patterns for AI-powered development workflows with Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bash",
+      "path": "skills/bash",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/bash",
+      "description": ""
+    },
+    {
+      "name": "design-patterns",
+      "path": "skills/design-patterns",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/design-patterns",
+      "description": ""
+    },
+    {
+      "name": "gemini-review",
+      "path": "skills/gemini-review",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/gemini-review",
+      "description": ""
+    },
+    {
+      "name": "golang",
+      "path": "skills/golang",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/golang",
+      "description": ""
+    },
+    {
+      "name": "improve-skill",
+      "path": "skills/improve-skill",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/improve-skill",
+      "description": ""
+    },
+    {
+      "name": "make",
+      "path": "skills/make",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/make",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "path": "skills/python",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/python",
+      "description": ""
+    },
+    {
+      "name": "scm",
+      "path": "skills/scm",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/scm",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "spec-driven-dev",
+      "path": "skills/spec-driven-dev",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/spec-driven-dev",
+      "description": ""
+    },
+    {
+      "name": "web-automation",
+      "path": "skills/web-automation",
+      "github_url": "https://github.com/mauromedda/agent-toolkit/tree/main/skills/web-automation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mauromedda/agent-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:51:58Z"
+}
