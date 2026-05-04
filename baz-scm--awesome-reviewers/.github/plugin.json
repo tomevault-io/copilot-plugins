@@ -1,0 +1,50 @@
+{
+  "name": "baz-scm--awesome-reviewers",
+  "displayName": "awesome-reviewers",
+  "description": "Ready-to-use system prompts for Agentic Code Review.",
+  "version": "1.0.0",
+  "author": "baz-scm",
+  "homepage": "https://github.com/baz-scm/awesome-reviewers",
+  "skills": [
+    {
+      "name": "ai-assisted-development",
+      "description": ""
+    },
+    {
+      "name": "code-readability",
+      "description": ""
+    },
+    {
+      "name": "code-refactoring",
+      "description": ""
+    },
+    {
+      "name": "data-ml",
+      "description": ""
+    },
+    {
+      "name": "devops-cloud",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "full-stack-development",
+      "description": ""
+    },
+    {
+      "name": "secure-coding",
+      "description": ""
+    },
+    {
+      "name": "team-collaboration",
+      "description": ""
+    },
+    {
+      "name": "testing-debugging",
+      "description": ""
+    }
+  ]
+}
