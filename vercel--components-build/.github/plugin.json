@@ -1,0 +1,14 @@
+{
+  "name": "vercel--components-build",
+  "displayName": "components.build",
+  "description": "An open-source standard for building modern, composable and accessible UI components.",
+  "version": "1.0.0",
+  "author": "vercel",
+  "homepage": "https://github.com/vercel/components.build",
+  "skills": [
+    {
+      "name": "building-components",
+      "description": ""
+    }
+  ]
+}
