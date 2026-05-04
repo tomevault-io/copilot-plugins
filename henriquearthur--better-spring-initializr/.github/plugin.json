@@ -1,0 +1,9 @@
+{
+  "name": "henriquearthur--better-spring-initializr",
+  "displayName": "better-spring-initializr",
+  "description": "A better way to bootstrap Spring Boot projects with live preview, curated presets, and a smoother final handoff.",
+  "version": "1.0.0",
+  "author": "henriquearthur",
+  "homepage": "https://github.com/henriquearthur/better-spring-initializr",
+  "skills": []
+}
