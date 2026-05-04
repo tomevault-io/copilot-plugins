@@ -1,0 +1,14 @@
+{
+  "name": "binius-zk--binius64",
+  "displayName": "binius64",
+  "description": "Binary Proofs, Blazing Fast",
+  "version": "1.0.0",
+  "author": "binius-zk",
+  "homepage": "https://github.com/binius-zk/binius64",
+  "skills": [
+    {
+      "name": "binius-xyz-docs",
+      "description": ""
+    }
+  ]
+}
