@@ -1,0 +1,9 @@
+{
+  "name": "posthog--ai-plugin",
+  "displayName": "ai-plugin",
+  "description": "Official PostHog plugin for Claude Code, Cursor, Gemini, Codex and other AI coding tools",
+  "version": "1.0.0",
+  "author": "PostHog",
+  "homepage": "https://github.com/PostHog/ai-plugin",
+  "skills": []
+}
