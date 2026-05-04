@@ -4,7 +4,7 @@
   "repo": "guardian-agent",
   "description": "Security-first AI agent orchestration system. Built-in agents with predefined capabilities, strict guardrails on what they can and cannot do, and a four-layer defense system that enforces security at every stage of the message lifecycle.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Threat-Vector-Security/guardian-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T07:33:44Z"
+  "distributed_at": "2026-05-04T11:45:01Z"
 }
