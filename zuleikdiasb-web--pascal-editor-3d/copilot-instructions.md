@@ -1,81 +1,89 @@
-## creating-rules
+## events
 
-> How to create and maintain project rules
+> Typed event bus — emitting and listening to node and grid events
 
 
-# Creating Rules
+# Events
 
-Rules live in two places and are kept in sync via symlinks:
+The event bus (`emitter`) is a global `mitt` instance typed with `EditorEvents`. It decouples renderers (which emit) from selection managers and tools (which listen).
 
-- `.cursor/rules/<rule-name>.mdc` — source of truth (Cursor format)
-- `.claude/rules/<rule-name>.md` — symlink pointing to the cursor file
+**Source**: @packages/core/src/events/bus.ts
 
-## Workflow
-
-**1. Write the rule in `.cursor/rules/`**
+## Event Key Format
 
 ```
-.cursor/rules/my-rule.mdc
+<nodeType>:<suffix>
 ```
 
-**2. Create a symlink in `.claude/rules/`**
+Example keys: `wall:click`, `item:enter`, `door:double-click`, `grid:pointerdown`
 
-```bash
-ln -s ../../.cursor/rules/my-rule.mdc .claude/rules/my-rule.md
+### Node Types
+`wall` `item` `site` `building` `level` `zone` `slab` `ceiling` `roof` `window` `door`
+
+### Suffixes
+```ts
+'click' | 'move' | 'enter' | 'leave' | 'pointerdown' | 'pointerup' | 'context-menu' | 'double-click'
 ```
 
-The `../../` prefix is required because the symlink lives two levels deep.
+The `grid:*` events fire when the user interacts with empty space (no node hit). They are **not** emitted by a mesh — `useGridEvents(gridY)` (@apps/editor/hooks/use-grid-events.ts) manually raycasts against a ground plane and calls `emitter.emit('grid:click', …)`. Mount it in any tool or editor component that needs empty-space interactions.
 
-**3. Verify**
+## NodeEvent Shape
 
-```bash
-ls -la .claude/rules/my-rule.md
-# → .claude/rules/my-rule.md -> ../../.cursor/rules/my-rule.mdc
+```ts
+interface NodeEvent<T extends AnyNode = AnyNode> {
+  node: T                                  // typed node that triggered the event
+  position: [number, number, number]       // world-space hit position
+  localPosition: [number, number, number]  // object-local hit position
+  normal?: [number, number, number]        // face normal, if available
+  stopPropagation: () => void
+  nativeEvent: ThreeEvent<PointerEvent>
+}
 ```
 
-## Rule File Format
+Grid events only carry `position` and `nativeEvent` (no `node`).
 
-```markdown
----
-description: One-line summary of what this rule covers
-globs:
-alwaysApply: false
----
+## Emitting
 
-# Rule Title
+Renderers emit via `useNodeEvents` — never call `emitter.emit` directly in a renderer:
 
-Short intro paragraph.
-
-## Section
-
-Concrete guidance with examples.
+```tsx
+// packages/viewer/src/hooks/use-node-events.ts
+const events = useNodeEvents(node, 'wall')
+return <mesh ref={ref} {...events} />
 ```
 
-- Set `alwaysApply: true` only for rules that apply to every file in the project.
-- Use `globs` to scope a rule to specific paths (e.g. `packages/viewer/**`).
+`useNodeEvents` converts R3F `ThreeEvent` into a `NodeEvent` and emits `wall:click`, `wall:enter`, etc. It suppresses events while the camera is dragging.
 
-## Good Practices
+## Listening
 
-- Keep rules under 500 lines. Split large rules into smaller focused files.
-- Include concrete examples or reference real files with `@filename`.
-- Add a rule when the same mistake has been made more than once — not preemptively.
-- Prefer showing a correct example over listing prohibitions.
+Listen in a `useEffect`. Always clean up with `emitter.off` using the **same function reference**:
 
-## Existing Rules
+```ts
+// Single event
+useEffect(() => {
+  const handler = (e: WallEvent) => { /* … */ }
+  emitter.on('wall:click', handler)
+  return () => emitter.off('wall:click', handler)
+}, [])
 
-| Rule | Covers |
-|---|---|
-| `creating-rules` | This file — how to add rules |
-| `renderers` | Node renderer pattern in `packages/viewer` |
-| `systems` | Core and viewer systems architecture |
-| `tools` | Editor tools structure in `apps/editor` |
-| `viewer-isolation` | Keeping `@pascal-app/viewer` editor-agnostic |
-| `scene-registry` | Global node ID → Object3D map and `useRegistry` |
-| `selection-managers` | Two-layer selection (viewer + editor), events, outliner |
-| `events` | Typed event bus — emitting and listening to node and grid events |
-| `node-schemas` | Zod schema pattern for node types, createNode, updateNode |
-| `spatial-queries` | Placement validation (canPlaceOnFloor/Wall/Ceiling) for tools |
-| `layers` | Three.js layer constants, ownership, and rendering separation |
+// Multiple node types, same handler
+useEffect(() => {
+  const types = ['wall', 'slab', 'door'] as const
+  const handler = (e: NodeEvent) => { /* … */ }
+  types.forEach(t => emitter.on(`${t}:click`, handler as any))
+  return () => types.forEach(t => emitter.off(`${t}:click`, handler as any))
+}, [])
+```
+
+See @apps/editor/components/editor/selection-manager.tsx for a full multi-type listener example.
+
+## Rules
+
+- **Renderers only emit, never listen.** Listening belongs in selection managers, tools, or systems.
+- **Always clean up.** Forgetting `emitter.off` causes duplicate handlers and memory leaks.
+- **Use the same function reference** for `on` and `off`. Anonymous functions inside `useEffect` are fine as long as the ref is captured in the same scope.
+- **Don't use emitter for state.** It's for one-shot interaction events. Persistent state goes in `useScene`, `useViewer`, or `useEditor`.
+- **`stopPropagation`** prevents the event from being handled by overlapping listeners (e.g. a door on a wall). Call it when a handler should be the final consumer.
 
 ---
 > Source: [zuleikdiasb-web/pascal-editor-3d](https://github.com/zuleikdiasb-web/pascal-editor-3d) — distributed by [TomeVault](https://tomevault.io).
