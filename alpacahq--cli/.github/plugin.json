@@ -1,0 +1,9 @@
+{
+  "name": "alpacahq--cli",
+  "displayName": "cli",
+  "description": "CLI for Trading API",
+  "version": "1.0.0",
+  "author": "alpacahq",
+  "homepage": "https://github.com/alpacahq/cli",
+  "skills": []
+}
