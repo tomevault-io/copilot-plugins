@@ -4,7 +4,7 @@
   "repo": "claude-code-zh-cn",
   "description": "Claude Code \u4e2d\u6587\u672c\u5730\u5316\u63d2\u4ef6 \u2014 \u7b80\u4f53\u4e2d\u6587\u652f\u6301",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/taekchef/claude-code-zh-cn",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:46:55Z"
+  "distributed_at": "2026-05-04T05:44:51Z"
 }
