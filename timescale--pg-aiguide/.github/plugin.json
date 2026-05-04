@@ -1,0 +1,34 @@
+{
+  "name": "timescale--pg-aiguide",
+  "displayName": "pg-aiguide",
+  "description": "MCP server and Claude plugin for Postgres skills and documentation. Helps AI coding tools generate better PostgreSQL code.",
+  "version": "1.0.0",
+  "author": "timescale",
+  "homepage": "https://github.com/timescale/pg-aiguide",
+  "skills": [
+    {
+      "name": "design-postgres-tables",
+      "description": ""
+    },
+    {
+      "name": "find-hypertable-candidates",
+      "description": ""
+    },
+    {
+      "name": "migrate-postgres-tables-to-hypertables",
+      "description": ""
+    },
+    {
+      "name": "pgvector-semantic-search",
+      "description": ""
+    },
+    {
+      "name": "postgres-hybrid-text-search",
+      "description": ""
+    },
+    {
+      "name": "setup-timescaledb-hypertables",
+      "description": ""
+    }
+  ]
+}
