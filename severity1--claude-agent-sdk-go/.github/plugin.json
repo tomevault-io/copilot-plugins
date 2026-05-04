@@ -1,0 +1,14 @@
+{
+  "name": "severity1--claude-agent-sdk-go",
+  "displayName": "claude",
+  "description": "Unofficial Go SDK for Claude Code CLI integration. See the Claude Agent SDK documentation for more information. This project has been renamed from claude-code-sdk-go.",
+  "version": "1.0.0",
+  "author": "severity1",
+  "homepage": "https://github.com/severity1/claude-agent-sdk-go",
+  "skills": [
+    {
+      "name": "prompt-improver",
+      "description": ""
+    }
+  ]
+}
