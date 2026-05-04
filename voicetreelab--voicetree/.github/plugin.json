@@ -1,0 +1,14 @@
+{
+  "name": "voicetreelab--voicetree",
+  "displayName": "voicetree",
+  "description": "The spatial IDE for recursive multi-agent orchestration. It's like an Obsidian graph-view that you work directly inside of. ",
+  "version": "1.0.0",
+  "author": "voicetreelab",
+  "homepage": "https://github.com/voicetreelab/voicetree",
+  "skills": [
+    {
+      "name": "playwright-debug",
+      "description": ""
+    }
+  ]
+}
