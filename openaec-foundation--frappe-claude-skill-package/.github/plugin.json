@@ -1,0 +1,9 @@
+{
+  "name": "openaec-foundation--frappe-claude-skill-package",
+  "displayName": "Frappe_Claude_Skill_Package",
+  "description": "60 deterministic Claude AI skills for Frappe Framework & ERPNext v14-v16 development and operations",
+  "version": "1.0.0",
+  "author": "OpenAEC-Foundation",
+  "homepage": "https://github.com/OpenAEC-Foundation/Frappe_Claude_Skill_Package",
+  "skills": []
+}
