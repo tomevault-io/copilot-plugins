@@ -1,0 +1,9 @@
+{
+  "name": "nullclaw--nullhub",
+  "displayName": "nullhub",
+  "description": "Management console for the Null ecosystem \u2014 install, configure, and monitor AI agents, orchestration workflows, task pipelines, and system health",
+  "version": "1.0.0",
+  "author": "nullclaw",
+  "homepage": "https://github.com/nullclaw/nullhub",
+  "skills": []
+}
