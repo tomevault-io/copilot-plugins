@@ -1,0 +1,9 @@
+{
+  "name": "bokiko--openclaw-dashboard",
+  "displayName": "openClaw-dashboard",
+  "description": "OpenClaw AI Agent Swarm Dashboard",
+  "version": "1.0.0",
+  "author": "bokiko",
+  "homepage": "https://github.com/bokiko/openClaw-dashboard",
+  "skills": []
+}
