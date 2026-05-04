@@ -1,0 +1,69 @@
+{
+  "name": "lakeflow-community-connectors",
+  "owner": "databrickslabs",
+  "repo": "lakeflow-community-connectors",
+  "description": "AI instruction skills by databrickslabs",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-connector-document",
+      "path": ".claude/skills/create-connector-document",
+      "github_url": "https://github.com/databrickslabs/lakeflow-community-connectors/tree/main/.claude/skills/create-connector-document",
+      "description": ""
+    },
+    {
+      "name": "implement-connector",
+      "path": ".claude/skills/implement-connector",
+      "github_url": "https://github.com/databrickslabs/lakeflow-community-connectors/tree/main/.claude/skills/implement-connector",
+      "description": ""
+    },
+    {
+      "name": "test-and-fix-connector",
+      "path": ".claude/skills/test-and-fix-connector",
+      "github_url": "https://github.com/databrickslabs/lakeflow-community-connectors/tree/main/.claude/skills/test-and-fix-connector",
+      "description": ""
+    },
+    {
+      "name": "write-back-testing",
+      "path": ".claude/skills/write-back-testing",
+      "github_url": "https://github.com/databrickslabs/lakeflow-community-connectors/tree/main/.claude/skills/write-back-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/databrickslabs/lakeflow-community-connectors",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:33:38Z"
+}
