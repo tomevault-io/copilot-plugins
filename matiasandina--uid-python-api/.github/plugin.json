@@ -1,0 +1,9 @@
+{
+  "name": "matiasandina--uid-python-api",
+  "displayName": "uid_python_api",
+  "description": "A repository with a real time tcp connection to UID Mouse Matrix devices used to trigger closed loop experiments",
+  "version": "1.0.0",
+  "author": "matiasandina",
+  "homepage": "https://github.com/matiasandina/uid_python_api",
+  "skills": []
+}
