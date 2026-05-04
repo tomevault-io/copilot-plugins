@@ -1,0 +1,243 @@
+{
+  "name": "skillz",
+  "owner": "jkitchin",
+  "repo": "skillz",
+  "description": "CLI tool for managing AI assistant skills and slash commands across multiple LLM platforms",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "citation-verifier",
+      "path": "skills/citation-verifier",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/citation-verifier",
+      "description": ""
+    },
+    {
+      "name": "claude-light",
+      "path": "skills/programming/claude-light",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/claude-light",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": "skills/development/code-reviewer",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/development/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "design-of-experiments",
+      "path": "skills/scientific/design-of-experiments",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/scientific/design-of-experiments",
+      "description": ""
+    },
+    {
+      "name": "elevenlabs",
+      "path": "skills/creative/elevenlabs",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/creative/elevenlabs",
+      "description": ""
+    },
+    {
+      "name": "eln",
+      "path": "skills/research/eln",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/research/eln",
+      "description": ""
+    },
+    {
+      "name": "emacs-lisp",
+      "path": "skills/programming/emacs-lisp",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/emacs-lisp",
+      "description": ""
+    },
+    {
+      "name": "idaes",
+      "path": "skills/programming/idaes",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/idaes",
+      "description": ""
+    },
+    {
+      "name": "image-generation",
+      "path": "skills/creative/image-generation",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/creative/image-generation",
+      "description": ""
+    },
+    {
+      "name": "literature-review",
+      "path": "skills/research/literature-review",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/research/literature-review",
+      "description": ""
+    },
+    {
+      "name": "materials-properties",
+      "path": "skills/programming/materials-properties",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/materials-properties",
+      "description": ""
+    },
+    {
+      "name": "opentrons",
+      "path": "skills/laboratory/opentrons",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/laboratory/opentrons",
+      "description": ""
+    },
+    {
+      "name": "opentrons-heater-shaker",
+      "path": "skills/laboratory/opentrons-heater-shaker",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/laboratory/opentrons-heater-shaker",
+      "description": ""
+    },
+    {
+      "name": "opentrons-temperature-module",
+      "path": "skills/laboratory/opentrons-temperature-module",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/laboratory/opentrons-temperature-module",
+      "description": ""
+    },
+    {
+      "name": "phd-qualifier",
+      "path": "skills/academic/phd-qualifier",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/academic/phd-qualifier",
+      "description": ""
+    },
+    {
+      "name": "planning",
+      "path": "skills/productivity/planning",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/productivity/planning",
+      "description": ""
+    },
+    {
+      "name": "pymatgen",
+      "path": "skills/programming/pymatgen",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/pymatgen",
+      "description": ""
+    },
+    {
+      "name": "python-ase",
+      "path": "skills/programming/python-ase",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/python-ase",
+      "description": ""
+    },
+    {
+      "name": "python-best-practices",
+      "path": "skills/programming/python-best-practices",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/python-best-practices",
+      "description": ""
+    },
+    {
+      "name": "python-jax",
+      "path": "skills/programming/python-jax",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/python-jax",
+      "description": ""
+    },
+    {
+      "name": "python-multiobjective-optimization",
+      "path": "skills/programming/python-multiobjective-optimization",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/python-multiobjective-optimization",
+      "description": ""
+    },
+    {
+      "name": "python-optimization",
+      "path": "skills/programming/python-optimization",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/python-optimization",
+      "description": ""
+    },
+    {
+      "name": "python-plotting",
+      "path": "skills/programming/python-plotting",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/python-plotting",
+      "description": ""
+    },
+    {
+      "name": "python-regression-statistics",
+      "path": "skills/programming/python-regression-statistics",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/python-regression-statistics",
+      "description": ""
+    },
+    {
+      "name": "ralph-wiggum",
+      "path": "skills/development/ralph-wiggum",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/development/ralph-wiggum",
+      "description": ""
+    },
+    {
+      "name": "scientific-data-extraction",
+      "path": "skills/research/scientific-data-extraction",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/research/scientific-data-extraction",
+      "description": ""
+    },
+    {
+      "name": "scientific-reviewer",
+      "path": "skills/research/scientific-reviewer",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/research/scientific-reviewer",
+      "description": ""
+    },
+    {
+      "name": "scientific-writing",
+      "path": "skills/communication/scientific-writing",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/communication/scientific-writing",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": "skills/development/tdd",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/development/tdd",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting",
+      "path": "skills/technical/troubleshooting",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/technical/troubleshooting",
+      "description": ""
+    },
+    {
+      "name": "vasp",
+      "path": "skills/programming/vasp",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/programming/vasp",
+      "description": ""
+    },
+    {
+      "name": "version-control",
+      "path": "skills/development/version-control",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/development/version-control",
+      "description": ""
+    },
+    {
+      "name": "video-storytelling",
+      "path": "skills/creative/video-storytelling",
+      "github_url": "https://github.com/jkitchin/skillz/tree/main/skills/creative/video-storytelling",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jkitchin/skillz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:37:01Z"
+}
