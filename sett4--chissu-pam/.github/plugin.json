@@ -1,0 +1,9 @@
+{
+  "name": "sett4--chissu-pam",
+  "displayName": "chissu-pam",
+  "description": "chissu-pam is face-recognition PAM Module written in Rust, powered by Dlib",
+  "version": "1.0.0",
+  "author": "sett4",
+  "homepage": "https://github.com/sett4/chissu-pam",
+  "skills": []
+}
