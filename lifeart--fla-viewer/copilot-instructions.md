@@ -1,0 +1,736 @@
+## fla-viewer
+
+> FLA files (Adobe Animate/Flash Professional) are ZIP archives containing XML files in the XFL (XML-based FLA) format.
+
+# FLA Viewer - Agent Documentation
+
+## FLA/XFL Format Specification
+
+FLA files (Adobe Animate/Flash Professional) are ZIP archives containing XML files in the XFL (XML-based FLA) format.
+
+### Archive Structure
+
+```
+.fla (ZIP archive)
+├── DOMDocument.xml          # Main document definition
+├── PublishSettings.xml      # Export/publish configuration
+├── MobileSettings.xml       # Mobile platform settings
+├── META-INF/
+│   └── metadata.xml         # XMP metadata (creation date, tools, etc.)
+├── LIBRARY/                  # Symbol definitions
+│   ├── Symbol1.xml
+│   ├── Symbol2.xml
+│   └── ...
+└── bin/
+    └── SymDepend.cache      # Symbol dependency cache
+```
+
+### DOMDocument.xml Structure
+
+```xml
+<DOMDocument xmlns="http://ns.adobe.com/xfl/2008/"
+    width="1920"
+    height="1080"
+    frameRate="25"
+    backgroundColor="#BEEEFD"
+    currentTimeline="1">
+
+    <folders>...</folders>           <!-- Library folders -->
+    <media>...</media>               <!-- External media (video, audio) -->
+    <symbols>                        <!-- Symbol library references -->
+        <Include href="Symbol.xml" itemID="xxx" lastModified="timestamp"/>
+    </symbols>
+    <timelines>                      <!-- Main stage timeline -->
+        <DOMTimeline name="Scene 1">
+            <layers>...</layers>
+        </DOMTimeline>
+    </timelines>
+</DOMDocument>
+```
+
+### Layer Structure
+
+```xml
+<DOMLayer name="LayerName"
+    color="#FF4F4F"           <!-- Layer color in timeline UI -->
+    visible="true"            <!-- Layer visibility -->
+    locked="false"            <!-- Layer lock state -->
+    layerType="normal"        <!-- normal | guide | folder | mask | masked -->
+    parentLayerIndex="2">     <!-- Parent folder index (if in folder) -->
+
+    <frames>
+        <DOMFrame index="0" duration="10" keyMode="9728">
+            <elements>...</elements>
+        </DOMFrame>
+    </frames>
+</DOMLayer>
+```
+
+### Frame Types
+
+#### Static Frame
+```xml
+<DOMFrame index="0" duration="5" keyMode="9728">
+    <elements>
+        <DOMSymbolInstance libraryItemName="Symbol" symbolType="graphic">
+            <matrix><Matrix tx="100" ty="200"/></matrix>
+        </DOMSymbolInstance>
+    </elements>
+</DOMFrame>
+```
+
+#### Motion Tween Frame
+```xml
+<DOMFrame index="0" duration="10"
+    tweenType="motion"
+    keyMode="22017"
+    acceleration="-50">        <!-- -100 to 100: negative=ease-in, positive=ease-out -->
+
+    <tweens>
+        <Ease target="all" intensity="-50"/>
+        <!-- OR custom bezier easing -->
+        <CustomEase target="all">
+            <Point x="0" y="0"/>
+            <Point x="0.333" y="0.396"/>
+            <Point x="0.667" y="0.729"/>
+            <Point x="1" y="1"/>
+        </CustomEase>
+    </tweens>
+    <elements>...</elements>
+</DOMFrame>
+```
+
+### Matrix Transform
+
+2D affine transformation matrix: `[a c tx; b d ty; 0 0 1]`
+
+```xml
+<Matrix
+    a="1.0"    <!-- scale X (default: 1) -->
+    b="0.0"    <!-- skew Y (default: 0) -->
+    c="0.0"    <!-- skew X (default: 0) -->
+    d="1.0"    <!-- scale Y (default: 1) -->
+    tx="100"   <!-- translate X (default: 0) -->
+    ty="200"   <!-- translate Y (default: 0) -->
+/>
+```
+
+### Symbol Instance
+
+```xml
+<DOMSymbolInstance
+    libraryItemName="SymbolName"
+    symbolType="graphic"           <!-- graphic | movieclip | button -->
+    loop="loop"                    <!-- loop | play once | single frame -->
+    firstFrame="0"                 <!-- Starting frame for nested timeline -->
+    centerPoint3DX="100"           <!-- 3D center point for transforms -->
+    centerPoint3DY="200">
+
+    <matrix><Matrix .../></matrix>
+    <transformationPoint><Point x="0" y="0"/></transformationPoint>
+    <color>                        <!-- Optional color transform -->
+        <Color alphaMultiplier="0.5"/>
+    </color>
+</DOMSymbolInstance>
+```
+
+### Camera Layer (Ramka Pattern)
+
+Camera movement in FLA files is often simulated using a "ramka" (frame) layer:
+
+```xml
+<DOMLayer name="ramka" color="#9933CC" locked="true">
+    <frames>
+        <DOMFrame index="0" duration="10" tweenType="motion" keyMode="22017">
+            <elements>
+                <DOMSymbolInstance libraryItemName="Ramka" symbolType="graphic">
+                    <matrix>
+                        <!-- Camera position/zoom: scale for zoom, tx/ty for pan -->
+                        <Matrix a="1.0" d="1.0" tx="100" ty="50"/>
+                    </matrix>
+                </DOMSymbolInstance>
+            </elements>
+        </DOMFrame>
+    </frames>
+</DOMLayer>
+```
+
+The camera layer contains a symbol that represents the viewport. Detection criteria (ALL must be met):
+1. **Layer name** indicates camera: `ramka`, `camera`, `cam`, `viewport`, or contains "camera"/"viewport"
+2. **Layer is non-rendering**: `layerType="guide"` OR `visible="false"` OR `outline="true"`
+3. **Single symbol**: Layer contains exactly one symbol instance in its first frame
+4. **Centered transformation point**: Symbol's transformation point is near document center
+   - Uses **per-axis tolerances**: 15% of width for X, 15% of height for Y
+   - Important for non-square aspect ratios (e.g., 3840x1080 ultrawide)
+   - Example: For 3840x1080, toleranceX=576px, toleranceY=162px
+
+To render content from the camera's perspective:
+1. Detect camera layer using the criteria above
+2. Get the symbol's transform matrix at current frame (with tween interpolation)
+3. Apply the **inverse** transform to all other content
+
+### Video Instance
+
+```xml
+<DOMVideoItem name="video.flv"
+    itemID="xxx"
+    sourceExternalFilepath="./video.flv"
+    videoDataHRef="M 3 123456.dat"    <!-- Binary video data in bin folder -->
+    videoType="h263 media"
+    fps="25"
+    width="320"
+    height="240"
+    length="4.08"/>                   <!-- Duration in seconds -->
+
+<DOMVideoInstance
+    libraryItemName="video.flv"
+    frameRight="6400"                 <!-- Width in twips (÷20 for pixels) -->
+    frameBottom="4800">               <!-- Height in twips (÷20 for pixels) -->
+    <matrix><Matrix .../></matrix>
+</DOMVideoInstance>
+```
+
+### Group Element
+
+Groups contain multiple shapes or symbol instances as members:
+
+```xml
+<DOMGroup>
+    <members>
+        <DOMShape>...</DOMShape>
+        <DOMShape>...</DOMShape>
+        <DOMSymbolInstance>...</DOMSymbolInstance>
+        <DOMGroup>                    <!-- Groups can be nested -->
+            <members>...</members>
+        </DOMGroup>
+    </members>
+</DOMGroup>
+```
+
+### Shape Definition
+
+```xml
+<DOMShape isFloating="true">
+    <matrix><Matrix .../></matrix>
+
+    <fills>
+        <FillStyle index="1">
+            <SolidColor color="#FF6C00" alpha="1"/>
+        </FillStyle>
+        <FillStyle index="2">
+            <LinearGradient>
+                <matrix><Matrix .../></matrix>
+                <GradientEntry color="#FF0000" ratio="0"/>
+                <GradientEntry color="#0000FF" ratio="1"/>
+            </LinearGradient>
+        </FillStyle>
+    </fills>
+
+    <strokes>
+        <StrokeStyle index="1">
+            <SolidStroke weight="2" caps="round" joints="round">
+                <fill><SolidColor color="#000000"/></fill>
+            </SolidStroke>
+        </StrokeStyle>
+    </strokes>
+
+    <edges>
+        <Edge fillStyle0="1" fillStyle1="2" strokeStyle="1"
+              edges="!0 0|100 0[150 50 200 100!200 100"/>
+    </edges>
+</DOMShape>
+```
+
+### Edge Path Encoding
+
+Edge elements can have either `edges` attribute (quadratic curves) or `cubics` attribute (cubic bezier curves). When both are present, `cubics` is preferred as it provides higher fidelity.
+
+#### Quadratic Format (`edges` attribute)
+
+| Command | Syntax | Description |
+|---------|--------|-------------|
+| `!` | `!x y` | MoveTo (start new subpath) |
+| `\|` | `\|x y` | LineTo |
+| `[` | `[cx cy x y` | QuadraticCurveTo (control point + end point) |
+| `/` | `/` | ClosePath |
+| `S` | `Sn` | Style change indicator (followed by style index) |
+
+#### Cubic Format (`cubics` attribute)
+
+| Command | Syntax | Description |
+|---------|--------|-------------|
+| `!` | `!x y` | MoveTo (same as edges) |
+| `(;` | `(;c1x,c1y c2x,c2y ex,ey ...` | Start cubic segment |
+| *(coords)* | `c1x,c1y c2x,c2y ex,ey` | Cubic bezier (ctrl1, ctrl2, end) |
+| `q`/`Q` | `qx y` or `Qx y` | Quadratic approximation (ignored) |
+| `);` | `);` | End cubic segment |
+
+Example cubics string:
+```
+!-232 8085(;-251,8170 -267,8255 -281,8340q-232 8085Q-260 8212);
+```
+Decodes to:
+1. MoveTo(-232/20, 8085/20) = MoveTo(-11.6, 404.25)
+2. CubicCurveTo(c1: -251/20,8170/20, c2: -267/20,8255/20, end: -281/20,8340/20)
+3. (q/Q tokens are quadratic approximations, skipped when cubics data is available)
+
+#### Coordinate Encoding
+
+Coordinates can be:
+- **Decimal**: `100.5`, `-200.25` (in TWIPS, divide by 20 for pixels)
+- **Hex-encoded**: `#XX.YY` where XX is hex integer, YY is hex fraction
+  - Example: `#D0.3A` = 208 + (58/256) = 208.2265625
+  - Signed values use two's complement for values > 0x7FFF
+
+#### Example Edge String (quadratic)
+```
+!-226.5 229.5[-257.90625 #D0.3A -285 176!-285 176[-335 117 -341 40
+```
+Decodes to:
+1. MoveTo(-226.5, 229.5)
+2. QuadraticCurveTo(control: -257.90625, 208.23, end: -285, 176)
+3. MoveTo(-285, 176)
+4. QuadraticCurveTo(control: -335, 117, end: -341, 40)
+
+### Fill Styles in Edges
+
+- `fillStyle0`: Fill on the LEFT side of the edge direction
+- `fillStyle1`: Fill on the RIGHT side of the edge direction
+- Used for complex shapes with holes (winding rule)
+
+---
+
+## Completed Features
+
+- [x] **Camera Layer Support**: Simulated camera via viewport layer pattern
+  - Generic detection: non-rendering layer + single symbol + center transformation point
+  - Applies inverse transform for camera pan/zoom
+  - Supports motion tween interpolation for smooth camera movements
+
+- [x] **Video Instance Support**: Placeholder rendering for DOMVideoInstance
+  - Parses video dimensions and position
+  - Renders placeholder rectangle with play button icon
+
+- [x] **Group Support**: DOMGroup elements with nested members
+  - Recursive parsing of nested groups
+  - Shapes and symbols within groups
+  - Group matrix transforms applied to children
+
+- [x] **Cubic Bezier Edges**: Support for `cubics` attribute on Edge elements
+  - Parses cubic bezier curves with control points
+  - Supports both `(;...)` and `(anchor;...)` formats
+  - Preferred over `edges` (quadratic) when both present
+  - Ignores quadratic approximation data (q/Q tokens)
+
+- [x] **Stroke Rendering**: SolidStroke and DashedStroke support
+  - Parses stroke weight, color, caps, and joints
+  - Renders stroked paths after fills
+  - Supports stroke styles per edge
+
+- [x] **Edge Path Processing**: Advanced shape path building
+  - **Edge sorting algorithm**: Connects edges into proper chains for fill rendering
+  - **Segment splitting**: Splits edges at internal MoveTo commands to handle disconnected segments
+  - **Gap tolerance (EPSILON)**: 8px tolerance for edge connections (handles gaps in source data)
+  - **Loop closing detection**: Extended 24px tolerance to find closing contributions for loops
+  - **Auto-close paths**: Draws lineTo back to subpath start when chains don't close naturally
+  - Uses 'nonzero' fill rule for proper winding
+
+- [x] **Reference Layer Detection**: Automatic filtering of non-renderable layers
+  - Detects by layer type: `guide`, `folder`
+  - Detects by name: `ramka`, `camera`, `frame`, `cam`, `viewport`
+  - Detects by structure: locked layers with single symbol near document center
+  - Stores in `timeline.referenceLayers` (Set) for efficient lookup
+  - Skipped during rendering to avoid visual artifacts
+
+- [x] **3D Center Point**: centerPoint3DX/Y on symbol instances
+  - Parses 3D transformation center points
+  - Applies transforms around center point
+  - Interpolates center point during tweens
+
+- [x] **Bitmap Items**: DOMBitmapItem parsing from media section
+  - Parses bitmap dimensions and references
+  - Infrastructure for future BitmapFill support
+
+- [x] **Shape Tweening**: MorphShape interpolation between keyframes
+  - Parses `tweenType="shape"` frames with MorphShape data
+  - Interpolates MorphSegment paths (startPointA/B, controlPointA/B, anchorPointA/B)
+  - Supports both line and curve segments
+  - Uses fill/stroke indices from segments
+
+- [x] **Mask Layers**: Layer masking with clip paths
+  - Parses `layerType="mask"` and `layerType="masked"` attributes
+  - Applies clipping paths from mask layer shapes
+  - Supports animated masks via `maskLayerIndex` tracking
+  - Groups masked layers with their mask for proper rendering order
+
+- [x] **Filters**: Visual effects (blur, glow, drop shadow)
+  - Parses `<filters>` element on symbol instances and text
+  - BlurFilter: CSS blur via `ctx.filter`
+  - GlowFilter: Shadow-based glow effect with strength/color
+  - DropShadowFilter: Offset shadows with angle/distance
+  - Supports quality levels and alpha values
+
+- [x] **Color Transforms**: Symbol instance color effects
+  - Alpha multiplier/offset
+  - RGB multipliers/offsets (redMultiplier, greenMultiplier, blueMultiplier)
+  - Tint and brightness via CSS filter approximation
+  - Parses `<color><Color .../></color>` element
+
+- [x] **Blend Modes**: Layer and symbol blend modes
+  - Parses `blendMode` attribute on symbol instances
+  - Maps Flash blend modes to Canvas `globalCompositeOperation`
+  - Supports: normal, multiply, screen, overlay, darken, lighten, hardlight, add, subtract, difference, invert, alpha, erase
+
+- [x] **Bitmap Fills**: Shape fills with bitmap patterns
+  - Parses `<BitmapFill bitmapPath="...">` in FillStyle elements
+  - Applies bitmap as repeating pattern via `createPattern()`
+  - Supports matrix transform for position/scale
+  - Case-insensitive bitmap lookup in library
+
+- [x] **Video Items**: Enhanced video placeholder with metadata
+  - Parses `<DOMVideoItem>` from media section
+  - Stores video metadata: name, fps, duration, dimensions, videoType
+  - Displays metadata on video placeholders (name, resolution, fps, duration)
+  - VideoItem type added to FLADocument
+
+---
+
+## Remaining TODOs
+
+### Completed (Previously Listed as TODO)
+
+- [x] **Gradient Fills**: Gradient rendering with matrix transforms
+  - Linear gradients with matrix transform via `createLinearGradient()`
+  - Radial gradients with focal point via `createRadialGradient()`
+  - Proper coordinate mapping from Flash gradient space (-819.2 to 819.2)
+
+### Medium Priority
+
+- [ ] **9-Slice Scaling**: Support for scalable symbols
+  - Parse scale9Grid attribute
+  - Implement 9-slice rendering
+
+### Lower Priority
+
+- [x] **Text Fields**: Static and dynamic text
+  - Parse `<DOMStaticText>` and `<DOMDynamicText>`
+  - Font rendering with proper styling
+  - Text transforms and effects
+  - Word wrap, alignment, line spacing
+
+- [ ] **Buttons**: Interactive button symbols
+  - Up, Over, Down, Hit states
+  - Mouse event handling
+
+- [ ] **MovieClip Playback**: Independent nested timelines
+  - Each MovieClip instance has its own playhead
+  - Support `play()`, `stop()`, `gotoAndPlay()`
+
+- [ ] **ActionScript Labels**: Frame labels and scenes
+  - Parse frame labels for navigation
+  - Scene support
+
+- [x] **Sound**: Audio playback
+  - Parse audio references from media
+  - Sync sound to timeline (event, stream, start, stop)
+  - In/out points, loop count support
+
+- [x] **Video**: Embedded video support (placeholder rendering)
+  - Parse `<DOMVideoItem>` and `<DOMVideoInstance>` elements
+  - Renders placeholder rectangle with play button icon
+  - Full video playback requires FLV/H.263 decoder integration
+
+### Performance & UX
+
+- [ ] **Web Worker Parsing**: Move FLA parsing to web worker
+  - Prevent UI blocking on large files
+  - Progress reporting during load
+
+- [ ] **Symbol Caching**: Pre-render static symbols to off-screen canvas
+  - Cache symbols that don't animate
+  - Invalidate cache on color transform changes
+
+- [ ] **Layer Visibility Toggle**: UI to show/hide layers
+  - Layer panel with checkboxes
+  - Solo layer mode
+
+- [ ] **Zoom & Pan**: Canvas navigation
+  - Mouse wheel zoom
+  - Drag to pan
+  - Fit to window button
+
+- [ ] **Export**: Export rendered frames
+  - Export current frame as PNG
+  - Export animation as GIF/WebM
+  - Export sprite sheet
+
+- [ ] **Timeline UI**: Visual timeline editor
+  - Layer thumbnails
+  - Keyframe markers
+  - Onion skinning
+
+### Code Quality
+
+- [ ] **Error Handling**: Graceful degradation for unsupported features
+  - Log warnings for unimplemented elements
+  - Fallback rendering for complex features
+
+- [ ] **Unit Tests**: Test coverage for parser and renderer
+  - Edge decoder tests with known values
+  - Matrix transform tests
+  - Tween interpolation tests
+
+- [ ] **Documentation**: API documentation
+  - JSDoc comments for public methods
+  - Usage examples
+  - Browser compatibility notes
+
+---
+
+## Attribute Reference
+
+### Handled Attributes
+
+| Element | Attribute | Usage |
+|---------|-----------|-------|
+| DOMDocument | `width`, `height` | Canvas dimensions |
+| DOMDocument | `frameRate` | Playback speed |
+| DOMDocument | `backgroundColor` | Canvas background |
+| DOMLayer | `name`, `color`, `visible`, `locked` | Layer metadata |
+| DOMLayer | `layerType` | normal/guide/folder detection, reference layer filtering |
+| DOMLayer | `outline` | Camera layer detection |
+| DOMLayer | `parentLayerIndex` | Folder hierarchy |
+| DOMFrame | `index`, `duration`, `keyMode` | Frame timing |
+| DOMFrame | `tweenType`, `acceleration` | Motion tween |
+| DOMSymbolInstance | `libraryItemName`, `symbolType` | Symbol reference |
+| DOMSymbolInstance | `loop`, `firstFrame` | Playback mode |
+| DOMSymbolInstance | `centerPoint3DX`, `centerPoint3DY` | 3D transform center |
+| Matrix | `a`, `b`, `c`, `d`, `tx`, `ty` | 2D transforms |
+| Point | `x`, `y` | Coordinates |
+| Edge | `fillStyle0`, `fillStyle1`, `strokeStyle` | Style indices |
+| Edge | `edges` | Quadratic path data |
+| Edge | `cubics` | Cubic bezier path data |
+| FillStyle | `index` | Style reference |
+| SolidColor | `color`, `alpha` | Fill color |
+| LinearGradient | GradientEntry children | Gradient colors |
+| StrokeStyle | `index` | Style reference |
+| SolidStroke | `weight`, `caps`, `joints` | Stroke properties |
+| SolidStroke/fill | `SolidColor` | Stroke color |
+| DOMBitmapItem | `name`, `href`, `frameRight`, `frameBottom` | Bitmap metadata |
+| DOMVideoInstance | `libraryItemName`, `frameRight`, `frameBottom` | Video placeholder |
+
+### Ignored Attributes (intentionally skipped - editor state)
+
+| Element | Attribute | Reason |
+|---------|-----------|--------|
+| Include | `loadImmediate`, `itemIcon`, `lastModified` | Editor metadata |
+| DOMLayer | `autoNamed`, `current`, `isSelected`, `useOutlineView` | Editor state |
+| DOMShape | `isFloating`, `objectSpaceBounds`, `selected` | Editor state |
+| DOMShape | `isDrawingObject` | Drawing object mode (rare) |
+| DOMSymbolInstance | `selected` | Editor selection state |
+| DOMGroup | `selected` | Editor selection state |
+
+### Not Implemented (affects rendering)
+
+| Element | Attribute | Impact |
+|---------|-----------|--------|
+| DOMFrame | `motionTweenRotate`, `motionTweenScale` | Advanced tween rotation/scale |
+| DOMFrame | `motionTweenSnap` | Snapping (editor behavior) |
+| SolidStroke | `scaleMode` | Stroke scale mode |
+| DashedStroke | `scaleMode` | Dashed stroke scale mode |
+| DOMBitmapInstance | all | Bitmap instances (not in samples) |
+
+### Now Implemented
+
+| Element | Attribute | Status |
+|---------|-----------|--------|
+| filters | BlurFilter, GlowFilter, DropShadowFilter | ✓ Implemented |
+| blendMode | normal, multiply, screen, overlay, etc. | ✓ Implemented |
+| Color (transform) | alphaMultiplier, RGB multipliers/offsets | ✓ Implemented |
+| MorphShape | shape tweening via MorphSegments | ✓ Implemented |
+| layerType | mask, masked | ✓ Implemented |
+| BitmapFill | bitmapPath, matrix transform | ✓ Implemented |
+| DOMVideoItem | name, fps, duration, videoType, dimensions | ✓ Implemented |
+
+---
+
+## Internal Data Structures
+
+### Timeline
+```typescript
+interface Timeline {
+  name: string;
+  layers: Layer[];
+  totalFrames: number;
+  cameraLayerIndex?: number;      // Index of detected camera layer
+  referenceLayers: Set<number>;   // Indices of non-renderable layers (guide/folder/camera)
+}
+```
+
+### Edge Contribution (for fill path building)
+```typescript
+interface EdgeContribution {
+  commands: PathCommand[];
+  startX: number;
+  startY: number;
+  endX: number;
+  endY: number;
+}
+```
+
+Edge contributions are collected per fill style, then sorted into connected chains using:
+1. Greedy connection (find closest next segment within EPSILON)
+2. Loop closing (find segment that closes back to chain start with extended tolerance)
+3. Auto-close (draw lineTo back to start when chain doesn't close naturally)
+
+---
+
+## File References
+
+| File | Purpose |
+|------|---------|
+| `src/types.ts` | TypeScript interfaces for FLA data structures |
+| `src/fla-parser.ts` | ZIP extraction, XML parsing, reference layer detection |
+| `src/edge-decoder.ts` | XFL edge path format decoder (quadratic and cubic) |
+| `src/renderer.ts` | Canvas 2D rendering engine, edge sorting, path building |
+| `src/player.ts` | Timeline playback controller |
+| `src/main.ts` | Application entry point and UI |
+
+## External Resources
+
+- [XFL Format Reference (Adobe)](https://help.adobe.com/en_US/flash/cs/extend/WS5b3ccc516d4fbf351e63e3d118a9024f3f-7ff7CS5.html)
+- [SWF File Format Specification](https://www.adobe.com/content/dam/acom/en/devnet/pdf/swf-file-format-spec.pdf)
+- [Canvas 2D API (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D)
+
+
+## Adobe FLA Bitmap Format (.dat files in bin/)
+
+Reference: [JPEXS Free Flash Decompiler](https://github.com/jindrapetrik/jpexs-decompiler) source code
+- `libsrc/ffdec_lib/src/com/jpexs/decompiler/flash/xfl/ImageBinDataGenerator.java`
+- `libsrc/ffdec_lib/src/com/jpexs/decompiler/flash/xfl/LosslessImageBinDataReader.java`
+
+### File Types in bin/ Folder
+
+The bin/ folder can contain multiple file types identified by magic bytes:
+
+| Magic Bytes | Format | Description |
+|-------------|--------|-------------|
+| `03 05` | FLA Bitmap (32-bit) | Lossless ABGR with optional alpha |
+| `03 03` | FLA Bitmap (8-bit) | Palette-indexed |
+| `FF D8 FF` | JPEG | Raw JPEG image data |
+| `89 50 4E 47` | PNG | Raw PNG image data |
+| `FF FB` | MP3 | Audio data |
+
+### FLA Bitmap Header Structure (32-bit: 03 05)
+
+```
+Offset  Size  Type    Field           Description
+──────────────────────────────────────────────────────────────────────────
+0-1     2     bytes   magic           0x03 0x05 (32-bit lossless bitmap)
+2-3     2     UI16 LE rowSize         width × 4 (bytes per row)
+4-5     2     UI16 LE width           Image width in pixels
+6-7     2     UI16 LE height          Image height in pixels
+8-11    4     UI32 LE frameLeft       Always 0
+12-15   4     UI32 LE frameRight      Width in twips (÷20 = pixels)
+16-19   4     UI32 LE frameTop        Always 0
+20-23   4     UI32 LE frameBottom     Height in twips (÷20 = pixels)
+24      1     UI8     hasAlpha        0 = no alpha, 1 = has alpha channel
+25      1     UI8     variant         1 = chunked zlib compression
+26+     var           data            Chunked compressed pixel data
+```
+
+### Chunked Compression Format
+
+When `variant=1`, data is stored in chunks (max 2048 bytes each):
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ [UI16 LE: chunk1 length] [chunk1 deflate data]              │
+│ [UI16 LE: chunk2 length] [chunk2 deflate data]              │
+│ ...                                                         │
+│ [UI16 LE: 0x0000] ← terminator                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+The first chunk typically starts with zlib header `78 01` (deflate, no dictionary).
+
+### Pixel Format: ABGR (NOT ARGB!)
+
+32-bit pixels are stored as **ABGR** (Alpha, Blue, Green, Red):
+```
+Byte 0: Alpha (0-255)
+Byte 1: Blue  (0-255)  ← Note: Blue before Red!
+Byte 2: Green (0-255)
+Byte 3: Red   (0-255)
+```
+
+Canvas ImageData requires RGBA, so conversion is:
+```typescript
+// ABGR → RGBA conversion (per JPEXS source)
+rgba[dstIdx + 0] = abgr[srcIdx + 3];  // R ← byte 3
+rgba[dstIdx + 1] = abgr[srcIdx + 2];  // G ← byte 2
+rgba[dstIdx + 2] = abgr[srcIdx + 1];  // B ← byte 1
+rgba[dstIdx + 3] = abgr[srcIdx + 0];  // A ← byte 0
+```
+
+### Alpha Premultiplication
+
+Colors are stored **premultiplied** by alpha. When reading, unmultiply:
+
+```typescript
+// Writer (ImageBinDataGenerator.java):
+if (alpha != 0 && alpha != 255) {
+  alpha = alpha + 1;  // Adjustment for precision
+}
+color = Math.floor(color * alpha / 256);
+
+// Reader (LosslessImageBinDataReader.java):
+if (alpha > 0 && alpha < 255) {
+  color = Math.floor(color * 256 / alpha);
+}
+```
+
+### 8-bit Palette Mode (magic: 03 03)
+
+When first bytes are `03 03`, the format uses palette indexing:
+
+```
+Offset  Size  Field
+──────────────────────────────────────────
+0-1     2     magic (03 03)
+2-25    24    header (same structure as 32-bit)
+26-27   2     palette entry count (1-256) as UI16 LE
+28+     N×4   palette entries (ABGR, 4 bytes each)
+...     var   pixel data as palette indices (1 byte per pixel)
+```
+
+### Sample File Analysis
+
+```
+File: M 1 1635339689.dat (extracted2)
+03 05           magic (32-bit lossless)
+00 40           rowSize = 0x4000 = 16384 (4096 × 4 bytes)
+00 10           width = 0x1000 = 4096 pixels
+56 02           height = 0x0256 = 598 pixels
+00 00 00 00     frameLeft = 0
+00 40 01 00     frameRight = 0x00014000 = 81920 twips (4096 px)
+00 00 00 00     frameTop = 0
+b8 2e 00 00     frameBottom = 0x00002eb8 = 11960 twips (598 px)
+01              hasAlpha = 1 (true)
+01              variant = 1 (chunked compression)
+00 08           chunk length = 0x0800 = 2048 bytes
+78 01           zlib header (deflate, no dict)
+...             compressed ABGR pixel data
+```
+
+### Implementation Notes
+
+- Extra bytes beyond `width × height × 4` are trailing padding (truncate)
+- Some files require preset zlib dictionary (32KB zeros) for decompression
+- Chunked format: concatenate all chunks before inflating, or inflate incrementally
+- JPEG files in bin/ are passed through directly (no conversion needed)
+- Verify `rowSize == width * 4` for consistency check
+
+---
+> Source: [lifeart/fla-viewer](https://github.com/lifeart/fla-viewer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-01 -->
