@@ -1,0 +1,9 @@
+{
+  "name": "nebu1eto--sheetkit",
+  "displayName": "sheetkit",
+  "description": "High-Performance SpreadsheetML(.xlsx) Library for Rust and TypeScript",
+  "version": "1.0.0",
+  "author": "Nebu1eto",
+  "homepage": "https://github.com/Nebu1eto/sheetkit",
+  "skills": []
+}
