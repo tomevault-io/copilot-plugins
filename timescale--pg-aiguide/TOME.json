@@ -1,0 +1,81 @@
+{
+  "name": "pg-aiguide",
+  "owner": "timescale",
+  "repo": "pg-aiguide",
+  "description": "MCP server and Claude plugin for Postgres skills and documentation. Helps AI coding tools generate better PostgreSQL code.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "design-postgres-tables",
+      "path": "skills/design-postgres-tables",
+      "github_url": "https://github.com/timescale/pg-aiguide/tree/main/skills/design-postgres-tables",
+      "description": ""
+    },
+    {
+      "name": "find-hypertable-candidates",
+      "path": "skills/find-hypertable-candidates",
+      "github_url": "https://github.com/timescale/pg-aiguide/tree/main/skills/find-hypertable-candidates",
+      "description": ""
+    },
+    {
+      "name": "migrate-postgres-tables-to-hypertables",
+      "path": "skills/migrate-postgres-tables-to-hypertables",
+      "github_url": "https://github.com/timescale/pg-aiguide/tree/main/skills/migrate-postgres-tables-to-hypertables",
+      "description": ""
+    },
+    {
+      "name": "pgvector-semantic-search",
+      "path": "skills/pgvector-semantic-search",
+      "github_url": "https://github.com/timescale/pg-aiguide/tree/main/skills/pgvector-semantic-search",
+      "description": ""
+    },
+    {
+      "name": "postgres-hybrid-text-search",
+      "path": "skills/postgres-hybrid-text-search",
+      "github_url": "https://github.com/timescale/pg-aiguide/tree/main/skills/postgres-hybrid-text-search",
+      "description": ""
+    },
+    {
+      "name": "setup-timescaledb-hypertables",
+      "path": "skills/setup-timescaledb-hypertables",
+      "github_url": "https://github.com/timescale/pg-aiguide/tree/main/skills/setup-timescaledb-hypertables",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/timescale/pg-aiguide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:34:54Z"
+}
