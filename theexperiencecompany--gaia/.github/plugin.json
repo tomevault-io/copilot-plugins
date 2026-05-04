@@ -1,0 +1,38 @@
+{
+  "name": "theexperiencecompany--gaia",
+  "displayName": "gaia",
+  "description": "Your proactive personal AI assistant for daily work, inspired by Jarvis \ud83c\udf0e",
+  "version": "1.0.0",
+  "author": "theexperiencecompany",
+  "homepage": "https://github.com/theexperiencecompany/gaia",
+  "skills": [
+    {
+      "name": "audit-website",
+      "description": ""
+    },
+    {
+      "name": "backlink-analyzer",
+      "description": ""
+    },
+    {
+      "name": "emilkowal-animations",
+      "description": ""
+    },
+    {
+      "name": "landing-page-copywriter",
+      "description": ""
+    },
+    {
+      "name": "motion",
+      "description": ""
+    },
+    {
+      "name": "performance",
+      "description": ""
+    },
+    {
+      "name": "seo-geo",
+      "description": ""
+    }
+  ]
+}
