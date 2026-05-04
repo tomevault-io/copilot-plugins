@@ -1,38 +1,32 @@
-## feature-shipping-docs
+## quint-before-code
 
-> Ship user-facing features with reference docs, tutorial, and index updates
+> Quint in specs/ before Rust; wire specs with quint-connect
 
 
-# Product documentation (user-facing)
+# Quint Before Code
 
-When you add or materially change **user-facing** behavior, update docs in the same change (or immediately after), not “later.”
+Skip for trivial edits. Formal Quint before or alongside Rust when wrong behavior likely without explicit model.
 
-## Triggers
+## Use Quint First
 
-Apply when you touch any of:
+| Trigger | Examples |
+|--------|----------|
+| New feature or user-visible behavior | add or extend the relevant `specs/<topic>.qnt`; do not ship behavior-only changes without the spec moving with them |
+| State machine or protocol steps | ingest, session lifecycle, hooks |
+| Invariants, idempotency, ordering | duplicate events, replay, cursor rules |
+| Concurrent or multi-step lifecycle | transitions that must stay consistent |
 
-- CLI subcommands, flags, or default behavior (`src/main.rs`, `src/shell/`)
-- MCP tools or tool parameters (`src/mcp/`)
-- Config schema, env vars, or merge rules (`src/core/config.rs`, `docs/config.md`)
-- Ingest paths, sync contract, or redaction expectations
-- Tutorial-relevant workflows (anything a user would try in [docs/tutorial/](docs/tutorial/))
+Order: `specs/<topic>.qnt` (new or updated) → `tests/spec/` with **quint-connect** → Rust. For a new feature, treat the spec and its connect test as one change, not a follow-up.
 
-Rust `///` on private helpers stays governed by [documentation.mdc](documentation.mdc) (minimal, contract-only). This rule is for **markdown** and learning paths.
+**quint-connect:** Replay the spec from Rust under `tests/spec/` with `use quint_connect::*;` and `#[quint_run]` (or extend an existing spec test in that directory). `cargo test` for that test must pass; CI runs `scripts/check-quint-specs.sh` and the spec suite. For which spec maps to which test, see `docs/quint-coverage.md`—update that map when you add a new spec file or a new `tests/spec/*` entry.
 
-## Checklist
+## Skip Quint
 
-1. **Reference** — Update the right doc: [docs/usage.md](docs/usage.md) for CLI; [docs/mcp.md](docs/mcp.md) for MCP tools; [docs/config.md](docs/config.md) for config/env; [docs/concepts.md](docs/concepts.md) or [docs/telemetry-journey.md](docs/telemetry-journey.md) when the mental model shifts.
-2. **Tutorial** — Extend the relevant part under [docs/tutorial/](docs/tutorial/) (or add a part + link it from [docs/tutorial/README.md](docs/tutorial/README.md)) so the feature appears in the learning path, not only in the reference.
-3. **Index** — Update [docs/README.md](docs/README.md) if you add a new doc or rename paths.
-4. **README** — Update the root [README.md](README.md) only when the change is **flagship** (new top-level capability or install impact).
-5. **Quint** — If behavior is model-checked, update [docs/quint-coverage.md](docs/quint-coverage.md) per the existing spec/test table.
+Typos, formatting, mechanical rename, single-line obvious fix, copy-only UI, dependency bump with no behavior change.
 
-## Accuracy
+## Reference
 
-- Do not claim **full MCP/CLI parity** unless every command is exposed; list **CLI-only** commands explicitly (see [docs/mcp.md](docs/mcp.md) and [docs/usage.md](docs/usage.md#kaizen-mcp)).
-- Keep [docs/README.md](docs/README.md) “Keep docs current” table aligned with this checklist.
-
-Stale user docs are worse than missing ones — update or remove.
+Existing specs: `specs/*.qnt`. `quint-connect` crate: `quint_connect` in `tests/spec/`, vendored in `vendor/quint-connect/`. Cross-cutting sequence: `docs/impl-sequence.md`.
 
 ---
 > Source: [marquesds/kaizen](https://github.com/marquesds/kaizen) — distributed by [TomeVault](https://tomevault.io).
