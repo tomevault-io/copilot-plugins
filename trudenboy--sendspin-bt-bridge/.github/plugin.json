@@ -1,0 +1,9 @@
+{
+  "name": "trudenboy--sendspin-bt-bridge",
+  "displayName": "sendspin-bt-bridge",
+  "description": "Make any Bluetooth speaker smart. DIY multi-room audio with Music Assistant, Home Assistant AI automations & Sendspin protocol. Docker, HA addon, Raspberry Pi, Proxmox LXC. Free & open-source.",
+  "version": "1.0.0",
+  "author": "trudenboy",
+  "homepage": "https://github.com/trudenboy/sendspin-bt-bridge",
+  "skills": []
+}
