@@ -1,0 +1,9 @@
+{
+  "name": "mjakl--pi-subagent",
+  "displayName": "pi-subagent",
+  "description": "A lightweight subagent extension for the pi coding agent",
+  "version": "1.0.0",
+  "author": "mjakl",
+  "homepage": "https://github.com/mjakl/pi-subagent",
+  "skills": []
+}
