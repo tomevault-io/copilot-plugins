@@ -1,0 +1,14 @@
+{
+  "name": "basnijholt--agent-cli",
+  "displayName": "agent-cli",
+  "description": "A suite of local AI-powered command-line tools",
+  "version": "1.0.0",
+  "author": "basnijholt",
+  "homepage": "https://github.com/basnijholt/agent-cli",
+  "skills": [
+    {
+      "name": "agent-cli-dev",
+      "description": ""
+    }
+  ]
+}
