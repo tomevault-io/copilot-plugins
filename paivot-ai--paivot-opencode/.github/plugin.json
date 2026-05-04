@@ -1,0 +1,9 @@
+{
+  "name": "paivot-ai--paivot-opencode",
+  "displayName": "paivot-opencode",
+  "description": "Paivot implementation for OpenCode",
+  "version": "1.0.0",
+  "author": "paivot-ai",
+  "homepage": "https://github.com/paivot-ai/paivot-opencode",
+  "skills": []
+}
