@@ -1,0 +1,99 @@
+{
+  "name": "securevibes",
+  "owner": "anshumanbh",
+  "repo": "securevibes",
+  "description": "A security system to protect your vibecoded apps",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentic-security",
+      "path": "packages/core/securevibes/skills/threat-modeling/agentic-security",
+      "github_url": "https://github.com/anshumanbh/securevibes/tree/main/packages/core/securevibes/skills/threat-modeling/agentic-security",
+      "description": ""
+    },
+    {
+      "name": "authorization-testing",
+      "path": "packages/core/securevibes/skills/dast/authorization-testing",
+      "github_url": "https://github.com/anshumanbh/securevibes/tree/main/packages/core/securevibes/skills/dast/authorization-testing",
+      "description": ""
+    },
+    {
+      "name": "command-injection-testing",
+      "path": "packages/core/securevibes/skills/dast/command-injection-testing",
+      "github_url": "https://github.com/anshumanbh/securevibes/tree/main/packages/core/securevibes/skills/dast/command-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "injection-testing",
+      "path": "packages/core/securevibes/skills/dast/injection-testing",
+      "github_url": "https://github.com/anshumanbh/securevibes/tree/main/packages/core/securevibes/skills/dast/injection-testing",
+      "description": ""
+    },
+    {
+      "name": "nosql-injection-testing",
+      "path": "packages/core/securevibes/skills/dast/nosql-injection-testing",
+      "github_url": "https://github.com/anshumanbh/securevibes/tree/main/packages/core/securevibes/skills/dast/nosql-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "sql-injection-testing",
+      "path": "packages/core/securevibes/skills/dast/sql-injection-testing",
+      "github_url": "https://github.com/anshumanbh/securevibes/tree/main/packages/core/securevibes/skills/dast/sql-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "ssrf-testing",
+      "path": "packages/core/securevibes/skills/dast/ssrf-testing",
+      "github_url": "https://github.com/anshumanbh/securevibes/tree/main/packages/core/securevibes/skills/dast/ssrf-testing",
+      "description": ""
+    },
+    {
+      "name": "xss-testing",
+      "path": "packages/core/securevibes/skills/dast/xss-testing",
+      "github_url": "https://github.com/anshumanbh/securevibes/tree/main/packages/core/securevibes/skills/dast/xss-testing",
+      "description": ""
+    },
+    {
+      "name": "xxe-testing",
+      "path": "packages/core/securevibes/skills/dast/xxe-testing",
+      "github_url": "https://github.com/anshumanbh/securevibes/tree/main/packages/core/securevibes/skills/dast/xxe-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/anshumanbh/securevibes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:31:37Z"
+}
