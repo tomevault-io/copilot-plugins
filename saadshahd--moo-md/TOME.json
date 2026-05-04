@@ -1,0 +1,63 @@
+{
+  "name": "moo.md",
+  "owner": "saadshahd",
+  "repo": "moo.md",
+  "description": "Structured thinking for Claude Code \u2014 ask before building, search before writing, verify before shipping",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bond",
+      "path": "hope/skills/bond",
+      "github_url": "https://github.com/saadshahd/moo.md/tree/main/hope/skills/bond",
+      "description": ""
+    },
+    {
+      "name": "consult",
+      "path": "hope/skills/consult",
+      "github_url": "https://github.com/saadshahd/moo.md/tree/main/hope/skills/consult",
+      "description": ""
+    },
+    {
+      "name": "shape",
+      "path": "hope/skills/shape",
+      "github_url": "https://github.com/saadshahd/moo.md/tree/main/hope/skills/shape",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/saadshahd/moo.md",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:45:04Z"
+}
