@@ -1,0 +1,9 @@
+{
+  "name": "agent-lore--lithos",
+  "displayName": "lithos",
+  "description": "Obsidian for agents",
+  "version": "1.0.0",
+  "author": "agent-lore",
+  "homepage": "https://github.com/agent-lore/lithos",
+  "skills": []
+}
