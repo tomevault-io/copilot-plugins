@@ -1,0 +1,51 @@
+{
+  "name": "codex-1up",
+  "owner": "regenrek",
+  "repo": "codex-1up",
+  "description": "\ud83c\udf44 Give your Codex CLI an extra life",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "debug-lldb",
+      "path": "templates/skills/debug-lldb",
+      "github_url": "https://github.com/regenrek/codex-1up/tree/main/templates/skills/debug-lldb",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/regenrek/codex-1up",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T07:40:22Z"
+}
