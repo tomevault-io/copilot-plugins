@@ -1,0 +1,726 @@
+{
+  "name": "aj-geddes--useful-ai-prompts",
+  "displayName": "useful-ai-prompts",
+  "description": "A curated collection of useful AI prompts for various tasks and use cases",
+  "version": "1.0.0",
+  "author": "aj-geddes",
+  "homepage": "https://github.com/aj-geddes/useful-ai-prompts",
+  "skills": [
+    {
+      "name": "code-review-analysis",
+      "description": ""
+    },
+    {
+      "name": "ios-swift-development",
+      "description": ""
+    },
+    {
+      "name": "nodejs-express-server",
+      "description": ""
+    },
+    {
+      "name": "rest-api-design",
+      "description": ""
+    },
+    {
+      "name": "markdown-documentation",
+      "description": ""
+    },
+    {
+      "name": "android-kotlin-development",
+      "description": ""
+    },
+    {
+      "name": "responsive-web-design",
+      "description": ""
+    },
+    {
+      "name": "ansible-automation",
+      "description": ""
+    },
+    {
+      "name": "flutter-development",
+      "description": ""
+    },
+    {
+      "name": "architecture-diagrams",
+      "description": ""
+    },
+    {
+      "name": "nginx-configuration",
+      "description": ""
+    },
+    {
+      "name": "api-security-hardening",
+      "description": ""
+    },
+    {
+      "name": "user-story-writing",
+      "description": ""
+    },
+    {
+      "name": "mobile-app-testing",
+      "description": ""
+    },
+    {
+      "name": "aws-lambda-functions",
+      "description": ""
+    },
+    {
+      "name": "docker-containerization",
+      "description": ""
+    },
+    {
+      "name": "mobile-first-design",
+      "description": ""
+    },
+    {
+      "name": "wireframe-prototyping",
+      "description": ""
+    },
+    {
+      "name": "fastapi-development",
+      "description": ""
+    },
+    {
+      "name": "ruby-rails-application",
+      "description": ""
+    },
+    {
+      "name": "jenkins-pipeline",
+      "description": ""
+    },
+    {
+      "name": "api-contract-testing",
+      "description": ""
+    },
+    {
+      "name": "technical-specification",
+      "description": ""
+    },
+    {
+      "name": "flask-api-development",
+      "description": ""
+    },
+    {
+      "name": "access-control-rbac",
+      "description": ""
+    },
+    {
+      "name": "react-component-architecture",
+      "description": ""
+    },
+    {
+      "name": "color-accessibility",
+      "description": ""
+    },
+    {
+      "name": "gitlab-cicd-pipeline",
+      "description": ""
+    },
+    {
+      "name": "app-store-deployment",
+      "description": ""
+    },
+    {
+      "name": "mobile-app-debugging",
+      "description": ""
+    },
+    {
+      "name": "web-performance-audit",
+      "description": ""
+    },
+    {
+      "name": "business-case-development",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-automation",
+      "description": ""
+    },
+    {
+      "name": "push-notification-setup",
+      "description": ""
+    },
+    {
+      "name": "image-optimization",
+      "description": ""
+    },
+    {
+      "name": "websocket-implementation",
+      "description": ""
+    },
+    {
+      "name": "api-rate-limiting",
+      "description": ""
+    },
+    {
+      "name": "security-testing",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-deployment",
+      "description": ""
+    },
+    {
+      "name": "design-patterns-implementation",
+      "description": ""
+    },
+    {
+      "name": "static-code-analysis",
+      "description": ""
+    },
+    {
+      "name": "bundle-size-optimization",
+      "description": ""
+    },
+    {
+      "name": "mobile-offline-support",
+      "description": ""
+    },
+    {
+      "name": "database-schema-design",
+      "description": ""
+    },
+    {
+      "name": "github-actions-workflow",
+      "description": ""
+    },
+    {
+      "name": "terraform-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "requirements-gathering",
+      "description": ""
+    },
+    {
+      "name": "angular-module-design",
+      "description": ""
+    },
+    {
+      "name": "technical-debt-assessment",
+      "description": ""
+    },
+    {
+      "name": "api-authentication",
+      "description": ""
+    },
+    {
+      "name": "caching-strategy",
+      "description": ""
+    },
+    {
+      "name": "user-guide-creation",
+      "description": ""
+    },
+    {
+      "name": "accessibility-testing",
+      "description": ""
+    },
+    {
+      "name": "application-logging",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-application",
+      "description": ""
+    },
+    {
+      "name": "grpc-service-development",
+      "description": ""
+    },
+    {
+      "name": "oauth-implementation",
+      "description": ""
+    },
+    {
+      "name": "browser-debugging",
+      "description": ""
+    },
+    {
+      "name": "microservices-architecture",
+      "description": ""
+    },
+    {
+      "name": "database-backup-restore",
+      "description": ""
+    },
+    {
+      "name": "database-schema-documentation",
+      "description": ""
+    },
+    {
+      "name": "log-analysis",
+      "description": ""
+    },
+    {
+      "name": "react-native-app",
+      "description": ""
+    },
+    {
+      "name": "real-time-features",
+      "description": ""
+    },
+    {
+      "name": "cicd-pipeline-setup",
+      "description": ""
+    },
+    {
+      "name": "design-system-creation",
+      "description": ""
+    },
+    {
+      "name": "performance-testing",
+      "description": ""
+    },
+    {
+      "name": "deployment-automation",
+      "description": ""
+    },
+    {
+      "name": "payment-gateway-integration",
+      "description": ""
+    },
+    {
+      "name": "visual-regression-testing",
+      "description": ""
+    },
+    {
+      "name": "webhook-development",
+      "description": ""
+    },
+    {
+      "name": "api-error-handling",
+      "description": ""
+    },
+    {
+      "name": "developer-onboarding",
+      "description": ""
+    },
+    {
+      "name": "security-headers-configuration",
+      "description": ""
+    },
+    {
+      "name": "code-documentation",
+      "description": ""
+    },
+    {
+      "name": "azure-app-service",
+      "description": ""
+    },
+    {
+      "name": "api-gateway-configuration",
+      "description": ""
+    },
+    {
+      "name": "frontend-testing",
+      "description": ""
+    },
+    {
+      "name": "gcp-cloud-run",
+      "description": ""
+    },
+    {
+      "name": "prometheus-monitoring",
+      "description": ""
+    },
+    {
+      "name": "test-automation-framework",
+      "description": ""
+    },
+    {
+      "name": "api-response-optimization",
+      "description": ""
+    },
+    {
+      "name": "refactor-legacy-code",
+      "description": ""
+    },
+    {
+      "name": "sql-injection-prevention",
+      "description": ""
+    },
+    {
+      "name": "ab-test-analysis",
+      "description": ""
+    },
+    {
+      "name": "accessibility-compliance",
+      "description": ""
+    },
+    {
+      "name": "api-changelog-versioning",
+      "description": ""
+    },
+    {
+      "name": "api-filtering-sorting",
+      "description": ""
+    },
+    {
+      "name": "api-pagination",
+      "description": ""
+    },
+    {
+      "name": "api-reference-documentation",
+      "description": ""
+    },
+    {
+      "name": "api-versioning-strategy",
+      "description": ""
+    },
+    {
+      "name": "artifact-management",
+      "description": ""
+    },
+    {
+      "name": "aws-rds-database",
+      "description": ""
+    },
+    {
+      "name": "azure-functions",
+      "description": ""
+    },
+    {
+      "name": "blue-green-deployment",
+      "description": ""
+    },
+    {
+      "name": "canary-deployment",
+      "description": ""
+    },
+    {
+      "name": "changelog-maintenance",
+      "description": ""
+    },
+    {
+      "name": "cloud-migration-planning",
+      "description": ""
+    },
+    {
+      "name": "code-generation-template",
+      "description": ""
+    },
+    {
+      "name": "code-metrics-analysis",
+      "description": ""
+    },
+    {
+      "name": "concurrency-patterns",
+      "description": ""
+    },
+    {
+      "name": "configuration-management",
+      "description": ""
+    },
+    {
+      "name": "container-debugging",
+      "description": ""
+    },
+    {
+      "name": "container-registry-management",
+      "description": ""
+    },
+    {
+      "name": "continuous-testing",
+      "description": ""
+    },
+    {
+      "name": "correlation-analysis",
+      "description": ""
+    },
+    {
+      "name": "cpu-profiling",
+      "description": ""
+    },
+    {
+      "name": "cross-platform-compatibility",
+      "description": ""
+    },
+    {
+      "name": "data-migration-scripts",
+      "description": ""
+    },
+    {
+      "name": "database-indexing-strategy",
+      "description": ""
+    },
+    {
+      "name": "database-sharding",
+      "description": ""
+    },
+    {
+      "name": "deployment-documentation",
+      "description": ""
+    },
+    {
+      "name": "design-handoff",
+      "description": ""
+    },
+    {
+      "name": "disaster-recovery-testing",
+      "description": ""
+    },
+    {
+      "name": "django-application",
+      "description": ""
+    },
+    {
+      "name": "documentation-site-setup",
+      "description": ""
+    },
+    {
+      "name": "email-service-integration",
+      "description": ""
+    },
+    {
+      "name": "error-tracking",
+      "description": ""
+    },
+    {
+      "name": "feature-flag-system",
+      "description": ""
+    },
+    {
+      "name": "form-validation",
+      "description": ""
+    },
+    {
+      "name": "frontend-accessibility",
+      "description": ""
+    },
+    {
+      "name": "frontend-routing",
+      "description": ""
+    },
+    {
+      "name": "frontend-state-management",
+      "description": ""
+    },
+    {
+      "name": "gap-analysis",
+      "description": ""
+    },
+    {
+      "name": "gcp-cloud-functions",
+      "description": ""
+    },
+    {
+      "name": "git-hooks-setup",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-strategy",
+      "description": ""
+    },
+    {
+      "name": "graceful-shutdown",
+      "description": ""
+    },
+    {
+      "name": "graphql-implementation",
+      "description": ""
+    },
+    {
+      "name": "health-check-endpoints",
+      "description": ""
+    },
+    {
+      "name": "idempotency-handling",
+      "description": ""
+    },
+    {
+      "name": "information-architecture",
+      "description": ""
+    },
+    {
+      "name": "integration-testing",
+      "description": ""
+    },
+    {
+      "name": "interaction-design",
+      "description": ""
+    },
+    {
+      "name": "kpi-dashboard-design",
+      "description": ""
+    },
+    {
+      "name": "load-balancer-setup",
+      "description": ""
+    },
+    {
+      "name": "logging-best-practices",
+      "description": ""
+    },
+    {
+      "name": "memory-optimization",
+      "description": ""
+    },
+    {
+      "name": "ml-pipeline-automation",
+      "description": ""
+    },
+    {
+      "name": "mocking-stubbing",
+      "description": ""
+    },
+    {
+      "name": "model-deployment",
+      "description": ""
+    },
+    {
+      "name": "monorepo-management",
+      "description": ""
+    },
+    {
+      "name": "multi-cloud-strategy",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "natural-language-processing",
+      "description": ""
+    },
+    {
+      "name": "neural-network-design",
+      "description": ""
+    },
+    {
+      "name": "nosql-database-design",
+      "description": ""
+    },
+    {
+      "name": "penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "performance-regression-debugging",
+      "description": ""
+    },
+    {
+      "name": "process-mapping",
+      "description": ""
+    },
+    {
+      "name": "profiling-optimization",
+      "description": ""
+    },
+    {
+      "name": "progressive-web-app",
+      "description": ""
+    },
+    {
+      "name": "property-based-testing",
+      "description": ""
+    },
+    {
+      "name": "rate-limiting-implementation",
+      "description": ""
+    },
+    {
+      "name": "reactive-programming",
+      "description": ""
+    },
+    {
+      "name": "recommendation-engine",
+      "description": ""
+    },
+    {
+      "name": "release-planning",
+      "description": ""
+    },
+    {
+      "name": "risk-assessment",
+      "description": ""
+    },
+    {
+      "name": "runbook-creation",
+      "description": ""
+    },
+    {
+      "name": "secrets-rotation",
+      "description": ""
+    },
+    {
+      "name": "security-documentation",
+      "description": ""
+    },
+    {
+      "name": "server-side-rendering",
+      "description": ""
+    },
+    {
+      "name": "serverless-architecture",
+      "description": ""
+    },
+    {
+      "name": "session-management",
+      "description": ""
+    },
+    {
+      "name": "statistical-hypothesis-testing",
+      "description": ""
+    },
+    {
+      "name": "stress-testing",
+      "description": ""
+    },
+    {
+      "name": "synthetic-monitoring",
+      "description": ""
+    },
+    {
+      "name": "test-data-generation",
+      "description": ""
+    },
+    {
+      "name": "third-party-integration",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting-guide",
+      "description": ""
+    },
+    {
+      "name": "unit-testing-framework",
+      "description": ""
+    },
+    {
+      "name": "uptime-monitoring",
+      "description": ""
+    },
+    {
+      "name": "user-persona-creation",
+      "description": ""
+    },
+    {
+      "name": "user-research-analysis",
+      "description": ""
+    },
+    {
+      "name": "vue-application-structure",
+      "description": ""
+    },
+    {
+      "name": "web-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "webhook-integration",
+      "description": ""
+    },
+    {
+      "name": "xss-prevention",
+      "description": ""
+    },
+    {
+      "name": "zero-trust-architecture",
+      "description": ""
+    }
+  ]
+}
