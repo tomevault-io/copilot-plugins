@@ -1,0 +1,22 @@
+{
+  "name": "maestromaximo--codex-local-sdk-python",
+  "displayName": "codex-local-sdk-python",
+  "description": "OpenAi's Codex Python SDK",
+  "version": "1.0.0",
+  "author": "maestromaximo",
+  "homepage": "https://github.com/maestromaximo/codex-local-sdk-python",
+  "skills": [
+    {
+      "name": "codex-local-sdk",
+      "description": ""
+    },
+    {
+      "name": "codex-local-sdk-usage",
+      "description": ""
+    },
+    {
+      "name": "codex-local-sdk-usage",
+      "description": ""
+    }
+  ]
+}
