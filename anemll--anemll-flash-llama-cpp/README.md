@@ -7,11 +7,11 @@ Flash-MoE sidecar slot-bank runtime for large GGUF MoE models on Apple Silicon �
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Anemll/anemll-flash-llama.cpp](https://github.com/Anemll/anemll-flash-llama.cpp).
+Original source: `CLAUDE.md` in [Anemll/anemll-flash-llama.cpp](https://github.com/Anemll/anemll-flash-llama.cpp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
