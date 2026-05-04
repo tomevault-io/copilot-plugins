@@ -1,39 +1,75 @@
-## policy-layer
+## project-overview
 
 > |
 
 
-# Policy Layer Rules
+# MoralStack Project Overview
 
-## Constitution as Source of Truth
+- MoralStack is a **policy-aware reasoning runtime** for LLMs — it decides *if*, *how*, and *under what constraints* a response should be generated.
+- It is NOT a model or a simple filter; it is a **decision and governance layer** between the user and the language model.
 
-- The YAML constitution in `moralstack/constitution/data/` (core + overlays) is the **authoritative policy definition**.
-- Loading is **fail-fast**: invalid YAML, unknown fields, or missing required fields raise `ConstitutionLoadError` — no partial constitutions are allowed.
-- Schema validation is **Pydantic-only** (`extra="forbid"`), defined in `moralstack/constitution/schema.py`.
-- YAML loading uses **ruamel.yaml** (`typ="safe"`) via `moralstack/constitution/loader.py` — this is the single entry point for reading YAML.
-- Overlays may declare **`sensitive: true`** to signal regulated domains requiring enhanced governance. When active, the Controller applies a risk_score floor (`OVERLAY_SENSITIVE_RISK_FLOOR = 0.35`, defined in `moralstack/orchestration/overlay_policy.py`) and a CYCLES_EXHAUSTED → SAFE_COMPLETE fallback. See @docs/constitution.md §4.3 and @docs/decision_policy.md.
+## Core Decision Model
 
-## Policy Evaluation
+Every request produces an explicit **final_action** before text generation:
 
-- All policy evaluation logic lives in `moralstack/constitution/store.py` — do NOT introduce alternative evaluation paths elsewhere.
-- Domain overlays must be registered in the constitution YAML; hardcoded domain lists in other modules are forbidden.
-- The SAFE_COMPLETE formal policy (trigger rules) is documented in @README.md and @docs/decision_policy.md — any change here must be reflected in both.
+| Action             | Meaning                                              |
+|--------------------|------------------------------------------------------|
+| NORMAL_COMPLETE    | Direct, unconstrained response                       |
+| SAFE_COMPLETE      | Informative response with responsible framing         |
+| REFUSE             | Refusal with explanation and safe redirect            |
 
-## Modification Checklist
+SAFE_COMPLETE is an intentional governance choice, **not an error**.
 
-When modifying this layer:
+## Module Map
 
-1. Update `moralstack/constitution/data/**/*.yaml` if policy content changes.
-2. Update `moralstack/constitution/schema.py` if the schema changes.
-3. Update @docs/constitution.md to reflect the change.
-4. If a new overlay or domain is introduced, document it in @README.md.
-5. If changing the `sensitive` flag on an overlay, verify alignment with `RegulatedDomains` in `safe_complete_policy.py` and update @docs/decision_policy.md.
+| Package                        | Responsibility                                |
+|--------------------------------|-----------------------------------------------|
+| `moralstack/core/`             | Base types (Turn, UserContext, Violation), protocols (PolicyLLMProtocol, etc.), shared schema (RiskAssessmentSchema, StructuredDecision) |
+| `moralstack/runtime/`          | Orchestrator, deliberation loop; simulator includes semantic layer (harm_type, semantic_expected_harm) that influences deliberation; simulator module with config_loader for env (MORALSTACK_SIMULATOR_*); hindsight module with config_loader for env (MORALSTACK_HINDSIGHT_*); perspective module with config_loader for env (MORALSTACK_PERSPECTIVES_*); critic module with config_loader for env (MORALSTACK_CRITIC_*) |
+| `moralstack/runtime/decision/` | safe_complete_policy (single source of truth for action bounds, final_action) |
+| `moralstack/runtime/trace/`    | DecisionTrace, append_decision_trace, trace_stages (audit stage names); optional `stage_payload` on traces |
+| `moralstack/models/policy.py` | `OpenAIPolicy` (generate / rewrite / refuse); env `OPENAI_*`; optional `MORALSTACK_POLICY_REWRITE_MODEL` for deliberative `rewrite()` (defaults to primary model when unset) |
+| `moralstack/models/risk/`      | Risk estimation (schema, estimator with pooled mini-estimator `OpenAIPolicy` per model id, calibration, parse_result, config_loader for env) |
+| `moralstack/models/decision_explanation.py` | DecisionExplanation dataclass for explainability |
+| `moralstack/models/reason_codes.py` | ReasonCode enum and policy-to-reason mapping |
+| `moralstack/models/delib_context.py` | DelibContext dataclass for token optimization |
+| `moralstack/pipeline/`        | Context builder (build_context, compute_delta); shared deliberation stack factory (`deliberation_stack`) used by SDK bootstrap and CLI loader |
+| `moralstack/prompts/`          | Thin prompt builders (critic, perspectives, simulator, hindsight) |
+| `moralstack/orchestration/`    | Controller (thin) routing, path_router, overlay_policy, trace_lifecycle, decision_logger, safe refusal generation, config_loader for env (MORALSTACK_ORCHESTRATOR_*); `deliberation_runner` (risk-aware `critic_gated` vs `full_parallel` per cycle); guidance_builder, convergence_evaluator (conservative cycle-1 early convergence + `determine_decision(..., risk_estimation)`), language_resolver, persistence_helpers; `event_emitter` (`DefaultEventEmitter` / `NullEventEmitter`, observability emission); `refusal_handler` (REFUSE fast-path response assembly); `deliberation_override` (pure borderline REFUSE→SAFE_COMPLETE evaluation); `conversation_state` (`ConversationGovernanceState` foundation for future multi-turn); `orchestration_event_taxonomy` (stable orchestration_events event_type names; includes `AGGREGATED_GUIDANCE_EVALUATED`, `CONVERGENCE_EVALUATED`, `EARLY_CONVERGENCE_*`, `CONVERSATION_CONTEXT_ATTACHED`, `CONVERSATION_STATE_UPDATED`); `speculative_overlap` (lazy join of speculative generation with risk); `types.RequestAnalysisContext` (request-scoped principle retrieval reuse for deliberation) |
+| `moralstack/constitution/`     | Policy store, loader, schema (YAML-based); retriever reuses OpenAI HTTP clients per prefilter/agent instance |
+| `moralstack/persistence/`      | PersistencePort (protocol), NullPersistence, DefaultPersistence; SQLite (config, context, db, sink); `requests` optional conversation linkage (`conversation_id`, `turn_index`, `parent_request_id`); `orchestration_events` table + persist/read APIs; extended `llm_calls` metadata (`call_kind`, `call_outcome`, `cache_status`, `related_event_id`) |
+| `moralstack/utils/`            | Shared utilities (JSON parsing, `llm_parse_contract` parse metadata for risk/retrieval, etc.) |
+| `moralstack/sdk/`              | Python SDK (`govern()`, `GovernedClient`, `GovernanceConfig`, `GovernedResponse`); `GovernedClient.__init__` auto-initialises observability context (`run_id` via `set_current_run_id`, `init_db`/`create_run` for db modes); `GovernedCompletions.create()` flushes the observability write queue (`obs.flush()`) in a `try/finally` before returning |
+| `moralstack/cli/`              | CLI entrypoints (run, shell, loader, mocks, report, visualizer) |
+| `moralstack/reports/`          | RequestReport, renderer_markdown, benchmark_report_loader, orchestrator_observability (path-routing explainability from debug events), runtime_decisions (execution strategy / cycle cards / orchestration table view-models) |
+| `moralstack/ui/`               | FastAPI dashboard (moralstack-ui)              |
+| `scripts/`                     | CLI entrypoints                               |
+| `moralstack/constitution/data/`         | YAML constitution files (core + overlays)     |
+
+## Canonical Documentation
+
+- Architecture & API contracts: @docs/architecture_spec.md
+- Module docs: @docs/modules/
+- Constitution design: @docs/constitution.md
+- Decision policy: @docs/decision_policy.md
+- Installation: @INSTALL.md
+- Development workflow: @docs/DEVELOPMENT.md
+- Limitations: @docs/limitations_and_tradeoffs.md
+
+## Fundamental Invariants
+
+- **Language-Agnostic**: MoralStack is completely language-independent at runtime. No runtime logic may contain hardcoded natural-language strings. Fallback/error via LLM or structural markers.
+- **Content Purity**: Final response `content` contains ONLY generative output; never critic rationale, revision_guidance, or meta-analysis text. Policy overlay in metadata (`policy_overlay`, `meta_analysis`).
+
+See @.cursor/rules/architecture-guidelines.mdc for full details.
 
 ## AI Instructions
 
-- Before modifying policy-affected code, **read** @docs/constitution.md and `moralstack/constitution/data/core.yaml`.
-- Do NOT add new principle IDs, overlays, or domain definitions without explicitly documenting them.
-- Log policy evaluation failures instead of silently recovering.
+- Always consult the canonical docs above before proposing structural changes.
+- Do NOT alter architectural intent (decision model, module boundaries, final_action semantics) without updating the corresponding documentation.
+- After any structural change, check and update affected `.cursor/rules/*.mdc` files as required by @.cursor/rules/rules-self-maintenance.mdc.
+- **Never introduce hardcoded natural-language strings** in runtime code (patterns, stubs, filters). Flag and propose a language-agnostic alternative.
+- Respond in **Italian** when interacting with the user, per project convention.
 
 ---
 > Source: [fdidonato/moralstack](https://github.com/fdidonato/moralstack) — distributed by [TomeVault](https://tomevault.io).
