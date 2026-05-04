@@ -1,0 +1,69 @@
+{
+  "name": "llm-council",
+  "owner": "amiable-dev",
+  "repo": "llm-council",
+  "description": "The LLM Council works together to answer your hardest questions",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "council-gate",
+      "path": "src/llm_council/skills/bundled/council-gate",
+      "github_url": "https://github.com/amiable-dev/llm-council/tree/main/src/llm_council/skills/bundled/council-gate",
+      "description": ""
+    },
+    {
+      "name": "council-gate",
+      "path": ".github/skills/council-gate",
+      "github_url": "https://github.com/amiable-dev/llm-council/tree/main/.github/skills/council-gate",
+      "description": ""
+    },
+    {
+      "name": "council-review",
+      "path": "src/llm_council/skills/bundled/council-review",
+      "github_url": "https://github.com/amiable-dev/llm-council/tree/main/src/llm_council/skills/bundled/council-review",
+      "description": ""
+    },
+    {
+      "name": "council-verify",
+      "path": "src/llm_council/skills/bundled/council-verify",
+      "github_url": "https://github.com/amiable-dev/llm-council/tree/main/src/llm_council/skills/bundled/council-verify",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/amiable-dev/llm-council",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:35:12Z"
+}
