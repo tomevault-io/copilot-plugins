@@ -1,0 +1,190 @@
+{
+  "name": "martinholovsky--claude-skills-generator",
+  "displayName": "claude-skills-generator",
+  "description": "claude-skills-generator",
+  "version": "1.0.0",
+  "author": "martinholovsky",
+  "homepage": "https://github.com/martinholovsky/claude-skills-generator",
+  "skills": [
+    {
+      "name": "ui-ux-expert",
+      "description": ""
+    },
+    {
+      "name": "tauri",
+      "description": ""
+    },
+    {
+      "name": "tailwindcss",
+      "description": ""
+    },
+    {
+      "name": "windows-ui-automation",
+      "description": ""
+    },
+    {
+      "name": "rabbitmq-expert",
+      "description": ""
+    },
+    {
+      "name": "webgl",
+      "description": ""
+    },
+    {
+      "name": "macos-accessibility",
+      "description": ""
+    },
+    {
+      "name": "celery-expert",
+      "description": ""
+    },
+    {
+      "name": "web-audio-api",
+      "description": ""
+    },
+    {
+      "name": "applescript",
+      "description": ""
+    },
+    {
+      "name": "javascript-expert",
+      "description": ""
+    },
+    {
+      "name": "cicd-expert",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "api-expert",
+      "description": ""
+    },
+    {
+      "name": "graph-database-expert",
+      "description": ""
+    },
+    {
+      "name": "websocket",
+      "description": ""
+    },
+    {
+      "name": "wake-word-detection",
+      "description": ""
+    },
+    {
+      "name": "async-expert",
+      "description": ""
+    },
+    {
+      "name": "fastapi-expert",
+      "description": ""
+    },
+    {
+      "name": "speech-to-text",
+      "description": ""
+    },
+    {
+      "name": "appsec-expert",
+      "description": ""
+    },
+    {
+      "name": "threejs-tresjs",
+      "description": ""
+    },
+    {
+      "name": "rust",
+      "description": ""
+    },
+    {
+      "name": "fastapi",
+      "description": ""
+    },
+    {
+      "name": "talos-os-expert",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "vue-nuxt",
+      "description": ""
+    },
+    {
+      "name": "devsecops-expert",
+      "description": ""
+    },
+    {
+      "name": "browser-automation",
+      "description": ""
+    },
+    {
+      "name": "llm-integration",
+      "description": ""
+    },
+    {
+      "name": "surrealdb-expert",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "graphql-expert",
+      "description": ""
+    },
+    {
+      "name": "text-to-speech",
+      "description": ""
+    },
+    {
+      "name": "linux-at-spi2",
+      "description": ""
+    },
+    {
+      "name": "cloud-api-integration",
+      "description": ""
+    },
+    {
+      "name": "dbus",
+      "description": ""
+    },
+    {
+      "name": "kanidm-expert",
+      "description": ""
+    },
+    {
+      "name": "model-quantization",
+      "description": ""
+    },
+    {
+      "name": "ci-cd",
+      "description": ""
+    },
+    {
+      "name": "cross-platform-builds",
+      "description": ""
+    },
+    {
+      "name": "database-design",
+      "description": ""
+    },
+    {
+      "name": "sqlcipher",
+      "description": ""
+    },
+    {
+      "name": "sqlite",
+      "description": ""
+    }
+  ]
+}
