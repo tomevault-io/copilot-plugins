@@ -1,0 +1,9 @@
+{
+  "name": "jameesy--foundry-vault",
+  "displayName": "foundry-vault",
+  "description": "An agentic Obsidian vault: you curate, Claude compiles.",
+  "version": "1.0.0",
+  "author": "jameesy",
+  "homepage": "https://github.com/jameesy/foundry-vault",
+  "skills": []
+}
