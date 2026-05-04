@@ -1,46 +1,27 @@
-## read-hygiene
+## session-budget
 
-> Tiered read protocol — enforced by read-cap.sh beforeReadFile hook
+> Non-optional. Read `.cursor/skills/session-budget/SKILL.md` when triggered.
 
+# Session Budget
 
-# Read Hygiene
+Non-optional. Read `.cursor/skills/session-budget/SKILL.md` when triggered.
 
-`read-cap.sh` blocks unsliced reads >150 lines (>300 for `.md`/`.mdc`). Lockfiles exempt.
+## Hard Limits
 
-## Tier 1 — Signature Scan (always try first)
-
-Grep for function/struct signatures before reading full file.
-
-```
-Grep: pattern="pub fn " glob="**/*.rs"
-```
-
-## Tier 2 — Offset/Limit Slice
-
-Know section? Read only that region.
-
-```
-Read: path="src/collector.rs" offset=45 limit=30
-```
-
-## Tier 3 — Full Read (last resort)
-
-Only if file is small (<150 lines) or genuinely need whole thing.
-Large `.md`/`.mdc` docs: read by section with offset+limit.
-
-## Why
-
-Full reads on large files waste tokens and trigger hook block.
-Grep signatures + targeted slices deliver same context at 10–20× lower cost.
-
-## Hook Behaviour
-
-| Condition | Result |
+| Trigger | Response |
 |---|---|
-| content lines ≤ threshold | allow |
-| content lines > 150 (non-md) | deny with message |
-| content lines > 300 (md/mdc) | deny with message |
-| lockfile path | allow unconditionally |
+| 25 tool calls | Stop. Summarize. Decide: compact / spawn / split. |
+| Context >50% | Warn. Consider compact or subagent. |
+| 100 events | Hard stop. No new work without decision. |
+| Context >75% | Refuse new work unless user explicitly overrides. |
+
+## Anti-Patterns
+
+- Continuing past 75% context without deciding
+- Ignoring rising tool call count
+- Letting one session grow to 300+ events
+
+Past $1/session = session design failure.
 
 ---
 > Source: [marquesds/kaizen](https://github.com/marquesds/kaizen) — distributed by [TomeVault](https://tomevault.io).
