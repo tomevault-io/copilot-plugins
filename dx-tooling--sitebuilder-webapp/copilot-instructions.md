@@ -1,58 +1,63 @@
-## 03-type-safety
+## 04-dto-patterns
 
-> PHPStan level 10, list<T> for arrays across boundaries, no mixed. Use when fixing types or PHPStan errors.
+> DTOs for data transfer across verticals and layers: readonly DTOs, list<T>, no entities or associative arrays at boundaries. Use when creating or changing DTOs (Facade, Api, Presentation) or passing data between layers or verticals.
 
 
-# Type Safety and PHPStan
+# DTO Patterns
 
-**Reference**: See `phpstan.dist.neon` for PHPStan configuration (level 10).
+**Reference**: See `docs/archbook.md` section on "DTO-first data flow".
 
-## PHPStan Level 10
+## When to Use DTOs
 
-All code must pass PHPStan level 10 analysis. Run `mise quality` to verify.
+- **Always** use DTOs for data transfer across vertical boundaries (via Facades)
+- **Always** use DTOs for data transfer across layers within a vertical
+- **Never** use associative arrays (`array<string, mixed>`) for data transfer
+- **Never** pass entities directly across boundaries
 
-## Array Types Across Boundaries
+## DTO Structure
 
-**CRITICAL RULE**: When arrays cross class boundaries (method parameters, return types, DTO properties), use `list<T>` for simple indexed arrays, not `array` or `T[]`.
+DTOs should be:
+- **Readonly classes** when possible (PHP 8.2+)
+- Located in `Facade/Dto/` for facade DTOs
+- Located in appropriate layer folders for internal DTOs (e.g., `Api/Dto/`, `Presentation/Dto/`)
+- Simple data containers with typed properties
 
-- ✅ **Correct**: `@param list<string> $roles`, `@return list<string>`, `@var list<string>`
-- ❌ **Incorrect**: `@param string[] $roles`, `@param array<string> $roles`, `@return array`
+## DTO Properties
 
-**Rationale**: PHPStan's `noAssociativeArraysAcrossBoundaries` rule enforces this to prevent associative arrays from crossing boundaries. Use DTOs for complex data structures.
+- All properties must be typed
+- Use PHPDoc annotations for complex types (arrays, generics)
+- Use `list<T>` for array properties (see `03-type-safety.md`)
+- Avoid nested DTOs unless necessary (prefer flat structures when possible)
 
-## Type Annotations
+## Example Pattern
 
-- Always provide PHPDoc type annotations for arrays, even when native types exist
-- Use `list<T>` for indexed arrays
-- Use specific DTO types for complex data structures
-- Never use `mixed` unless absolutely necessary (and document why)
+```php
+readonly class AccountInfoDto
+{
+    public function __construct(
+        public string            $id,
+        public string            $email,
+        /** @var list<string> */
+        public array             $roles,
+        public DateTimeImmutable $createdAt,
+    ) {
+    }
+}
+```
 
-## Property Types
+## DTO vs Entity
 
-- Use native property types (PHP 7.4+) whenever possible
-- Combine with PHPDoc annotations for complex types (arrays, generics)
-- Example: `private array $roles;` with `@var list<string>`
+- **Entities** (`Domain/Entity/`): Rich domain objects with behavior, used within Domain layer
+- **DTOs** (`Facade/Dto/`, `Api/Dto/`, etc.): Simple data containers for transfer
+- **Never** return entities from facades; always convert to DTOs
+- **Never** accept entities as parameters in facades; use DTOs or primitives
 
-## Return Types
+## Conversion
 
-- Always declare return types on methods
-- Use `?Type` for nullable returns
-- Use `void` for methods that don't return values
-- Never omit return types
-
-## Parameter Types
-
-- Always type all parameters
-- Use union types (`Type1|Type2`) when appropriate (PHP 8.0+)
-- Use intersection types (`Type1&Type2`) when needed (PHP 8.1+)
-
-## When PHPStan Fails
-
-If PHPStan reports errors:
-1. Read the error message carefully
-2. Fix the type annotation (usually changing `array`/`T[]` to `list<T>`)
-3. Re-run `mise quality` to verify the fix
-4. Never suppress PHPStan errors with `@phpstan-ignore` unless absolutely necessary (and document why)
+When converting between entities and DTOs:
+- Create conversion methods in Facade implementations
+- Keep conversion logic simple and explicit
+- Handle null cases appropriately
 
 ---
 > Source: [dx-tooling/sitebuilder-webapp](https://github.com/dx-tooling/sitebuilder-webapp) — distributed by [TomeVault](https://tomevault.io).
