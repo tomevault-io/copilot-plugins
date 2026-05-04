@@ -1,0 +1,9 @@
+{
+  "name": "k-dense-ai--rowan-autosearch",
+  "displayName": "rowan-autosearch",
+  "description": "Agent-driven molecular optimization over chemical space, using Rowan for property scoring and RDKit for constraint-aware candidate design.",
+  "version": "1.0.0",
+  "author": "K-Dense-AI",
+  "homepage": "https://github.com/K-Dense-AI/rowan-autosearch",
+  "skills": []
+}
