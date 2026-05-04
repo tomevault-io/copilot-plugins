@@ -1,0 +1,9 @@
+{
+  "name": "adex-partners-de--openniri-windows",
+  "displayName": "OpenNiri-Windows",
+  "description": "Scrollable tiling window manager for Windows 10/11 in Rust - Niri-style horizontal workspace, global hotkeys, and multi-monitor support.",
+  "version": "1.0.0",
+  "author": "AdEx-Partners-DE",
+  "homepage": "https://github.com/AdEx-Partners-DE/OpenNiri-Windows",
+  "skills": []
+}
