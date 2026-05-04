@@ -1,6 +1,6 @@
-## using-git-worktrees
+## validating-backup-integrity-for-recovery
 
-> Use when starting feature work that needs isolation from current workspace or before executing implementation plans - creates isolated git worktrees with smart directory selection and safety verification
+> >-
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,220 +36,165 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# Using Git Worktrees
+# Validating Backup Integrity for Recovery
 
-You are the Using Git Worktrees Specialist at Galyarder Labs.
-## Overview
+You are the Validating Backup Integrity For Recovery Specialist at Galyarder Labs.
+## When to Use
 
-Git worktrees create isolated workspaces sharing the same repository, allowing work on multiple branches simultaneously without switching.
+Use this skill when:
+- Verifying backup integrity before relying on backups for ransomware recovery
+- Building automated backup validation pipelines that run after each backup job
+- Auditing backup infrastructure to confirm recoverability for compliance (SOC 2, ISO 27001, NIST CSF RC.RP-03)
+- Detecting silent data corruption (bit rot) in backup storage before a disaster occurs
+- Validating that immutable or air-gapped backups have not been tampered with
 
-**Core principle:** Systematic directory selection + safety verification = reliable isolation.
+**Do not use** for initial backup configuration or scheduling. This skill focuses on post-backup validation.
 
-**Announce at start:** "I'm using the using-git-worktrees skill to set up an isolated workspace."
+## Prerequisites
 
-## Directory Selection Process
+- Access to backup storage (local, NAS, S3, Azure Blob, GCS)
+- Python 3.9+ with `hashlib` (standard library)
+- Backup manifests or baseline hash files for comparison
+- Isolated restore environment for restore testing
+- Backup tool CLI access (restic, borgbackup, rclone, or vendor-specific)
 
-Follow this priority order:
+## Workflow
 
-### 1. Check Existing Directories
+### Step 1: Generate Baseline Hash Manifest
 
-```bash
-# Check in priority order
-ls -d .worktrees 2>/dev/null     # Preferred (hidden)
-ls -d worktrees 2>/dev/null      # Alternative
-```
-
-**If found:** Use that directory. If both exist, `.worktrees` wins.
-
-### 2. Check CLAUDE.md
-
-```bash
-grep -i "worktree.*director" CLAUDE.md 2>/dev/null
-```
-
-**If preference specified:** Use it without asking.
-
-### 3. Ask User
-
-If no directory exists and no CLAUDE.md preference:
-
-```
-No worktree directory found. Where should I create worktrees?
-
-1. .worktrees/ (project-local, hidden)
-2. ~/.config/worktrees/<project-name>/ (global location)
-
-Which would you prefer?
-```
-
-## Safety Verification
-
-### For Project-Local Directories (.worktrees or worktrees)
-
-**MUST verify directory is ignored before creating worktree:**
+Create a cryptographic fingerprint of every file at backup time:
 
 ```bash
-# Check if directory is ignored (respects local, global, and system gitignore)
-git check-ignore -q .worktrees 2>/dev/null || git check-ignore -q worktrees 2>/dev/null
+# Generate SHA-256 manifest for a directory
+find /data/production -type f -exec sha256sum {} \; > /manifests/prod_baseline_$(date +%Y%m%d).sha256
+
+# Verify manifest format
+head -5 /manifests/prod_baseline_20260319.sha256
+# e3b0c44298fc1c149afbf4c8996fb924...  /data/production/config.yaml
+# a7ffc6f8bf1ed76651c14756a061d662...  /data/production/database.sql
 ```
 
-**If NOT ignored:**
+### Step 2: Verify Backup Archive Integrity
 
-Per Jesse's rule "Fix broken things immediately":
-1. Add appropriate line to .gitignore
-2. Commit the change
-3. Proceed with worktree creation
-
-**Why critical:** Prevents accidentally committing worktree contents to repository.
-
-### For Global Directory (~/.config/worktrees)
-
-No .gitignore verification needed - outside project entirely.
-
-## Creation Steps
-
-### 1. Detect Project Name
+Check that the backup archive itself is not corrupted:
 
 ```bash
-project=$(basename "$(git rev-parse --show-toplevel)")
+# Restic: verify backup repository integrity
+restic -r s3:s3.amazonaws.com/backup-bucket check --read-data
+
+# Borg: verify backup archive
+borg check --verify-data /backup/repo::archive-2026-03-19
+
+# Tar with gzip: verify archive integrity
+gzip -t backup_20260319.tar.gz && echo "Archive OK" || echo "Archive CORRUPTED"
+
+# AWS S3: verify object checksums
+aws s3api head-object --bucket backup-bucket --key daily/2026-03-19.tar.gz \
+  --checksum-mode ENABLED
 ```
 
-### 2. Create Worktree
+### Step 3: Perform Restore Test to Isolated Environment
 
 ```bash
-# Determine full path
-case $LOCATION in
-  .worktrees|worktrees)
-    path="$LOCATION/$BRANCH_NAME"
-    ;;
-  ~/.config/worktrees/*)
-    path="~/.config/worktrees/$project/$BRANCH_NAME"
-    ;;
-esac
+# Restore to isolated test directory
+restic -r s3:s3.amazonaws.com/backup-bucket restore latest --target /restore-test/
 
-# Create worktree with new branch
-git worktree add "$path" -b "$BRANCH_NAME"
-cd "$path"
+# Generate hash manifest of restored data
+find /restore-test -type f -exec sha256sum {} \; > /manifests/restored_$(date +%Y%m%d).sha256
+
+# Compare baseline and restored manifests
+diff <(sort /manifests/prod_baseline_20260319.sha256) \
+     <(sort /manifests/restored_20260319.sha256)
 ```
 
-### 3. Run Project Setup
-
-Auto-detect and run appropriate setup:
+### Step 4: Validate Data Completeness
 
 ```bash
-# Node.js
-if [ -f package.json ]; then npm install; fi
+# Count files in original vs restored
+echo "Original: $(find /data/production -type f | wc -l) files"
+echo "Restored: $(find /restore-test -type f | wc -l) files"
 
-# Rust
-if [ -f Cargo.toml ]; then cargo build; fi
+# Check total size
+echo "Original: $(du -sh /data/production | cut -f1)"
+echo "Restored: $(du -sh /restore-test | cut -f1)"
 
-# Python
-if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-if [ -f pyproject.toml ]; then poetry install; fi
-
-# Go
-if [ -f go.mod ]; then go mod download; fi
+# Database consistency check after restore
+pg_restore --list backup.dump | wc -l  # Count objects in dump
+psql -c "SELECT schemaname, tablename FROM pg_tables WHERE schemaname='public';" restored_db
 ```
 
-### 4. Verify Clean Baseline
+### Step 5: Detect Ransomware Artifacts in Backups
 
-Run tests to ensure worktree starts clean:
+Before trusting a backup for recovery, scan for ransomware indicators:
 
 ```bash
-# Examples - use project-appropriate command
-npm test
-cargo test
-pytest
-go test ./...
+# Check for common ransomware file extensions
+find /restore-test -type f \( \
+  -name "*.encrypted" -o -name "*.locked" -o -name "*.crypt" \
+  -o -name "*.ransom" -o -name "*.pay" -o -name "*.wncry" \
+  -o -name "*.cerber" -o -name "*.locky" -o -name "*.zepto" \
+\) -print
+
+# Check for ransom notes
+find /restore-test -type f \( \
+  -name "README_TO_DECRYPT*" -o -name "HOW_TO_RECOVER*" \
+  -o -name "DECRYPT_INSTRUCTIONS*" -o -name "HELP_DECRYPT*" \
+\) -print
+
+# Check file entropy (high entropy = possible encryption)
+# Files with entropy > 7.9 out of 8.0 are likely encrypted
+python agent.py --entropy-scan /restore-test
 ```
 
-**If tests fail:** Report failures, ask whether to proceed or investigate.
+### Step 6: Automate and Schedule Validation
 
-**If tests pass:** Report ready.
-
-### 5. Report Location
-
-```
-Worktree ready at <full-path>
-Tests passing (<N> tests, 0 failures)
-Ready to implement <feature-name>
+```yaml
+# cron-based validation schedule
+# Run nightly after backup window
+0 4 * * * /opt/backup-validator/agent.py --validate-latest --notify-on-failure
+# Weekly full restore test
+0 6 * * 0 /opt/backup-validator/agent.py --full-restore-test --config /etc/backup-validator/config.json
 ```
 
-## Quick Reference
+## Key Concepts
 
-| Situation | Action |
-|-----------|--------|
-| `.worktrees/` exists | Use it (verify ignored) |
-| `worktrees/` exists | Use it (verify ignored) |
-| Both exist | Use `.worktrees/` |
-| Neither exists | Check CLAUDE.md  Ask user |
-| Directory not ignored | Add to .gitignore + commit |
-| Tests fail during baseline | Report failures + ask |
-| No package.json/Cargo.toml | Skip dependency install |
+| Term | Definition |
+|------|-----------|
+| **Hash Manifest** | File containing cryptographic hashes (SHA-256) for every file in a dataset, used as integrity baseline |
+| **Bit Rot** | Gradual data corruption on storage media that silently alters file contents |
+| **Immutable Backup** | Backup that cannot be modified or deleted for a defined retention period |
+| **Restore Test** | Process of recovering data from backup to an isolated environment to verify recoverability |
+| **File Entropy** | Measure of randomness in file contents; encrypted files have entropy near 8.0 bits/byte |
+| **3-2-1 Rule** | Keep 3 copies of data, on 2 different media types, with 1 offsite copy |
+| **Backup Chain** | Sequence of full and incremental backups that must all be intact for recovery |
 
-## Common Mistakes
+## Tools & Systems
 
-### Skipping ignore verification
+| Tool | Purpose |
+|------|---------|
+| Restic | Encrypted, deduplicated backup with built-in integrity verification |
+| BorgBackup | Deduplicating backup with archive verification |
+| Rclone | Cloud storage sync with checksum verification |
+| AWS S3 Object Lock | Immutable backup storage with WORM compliance |
+| Azure Immutable Blob | Tamper-proof backup storage for compliance |
+| sha256sum | Standard hash computation for file integrity |
+| pg_restore | PostgreSQL backup validation and restore testing |
 
-- **Problem:** Worktree contents get tracked, pollute git status
-- **Fix:** Always use `git check-ignore` before creating project-local worktree
+## Common Pitfalls
 
-### Assuming directory location
+- **Never testing restores**: The most common failure mode. Backups that are never restored are untested assumptions.
+- **Checking only archive integrity, not data integrity**: A valid tar.gz can contain corrupted file contents. Always hash individual files.
+- **Trusting last backup without scanning for ransomware**: Backups may contain encrypted files if the infection predates the backup.
+- **Ignoring incremental chain integrity**: A single corrupted incremental backup can break the entire restore chain.
+- **No alerting on validation failures**: Backup validation must be monitored with alerts, not just logged silently.
+- **Using MD5 for integrity**: MD5 is cryptographically broken. Use SHA-256 or SHA-3 for integrity verification.
 
-- **Problem:** Creates inconsistency, violates project conventions
-- **Fix:** Follow priority: existing > CLAUDE.md > ask
+## References
 
-### Proceeding with failing tests
-
-- **Problem:** Can't distinguish new bugs from pre-existing issues
-- **Fix:** Report failures, get explicit permission to proceed
-
-### Hardcoding setup commands
-
-- **Problem:** Breaks on projects using different tools
-- **Fix:** Auto-detect from project files (package.json, etc.)
-
-## Example Workflow
-
-```
-You: I'm using the using-git-worktrees skill to set up an isolated workspace.
-
-[Check .worktrees/ - exists]
-[Verify ignored - git check-ignore confirms .worktrees/ is ignored]
-[Create worktree: git worktree add .worktrees/auth -b feature/auth]
-[Run npm install]
-[Run npm test - 47 passing]
-
-Worktree ready at /home/myproject/.worktrees/auth
-Tests passing (47 tests, 0 failures)
-Ready to implement auth feature
-```
-
-## Red Flags
-
-**Never:**
-- Create worktree without verifying it's ignored (project-local)
-- Skip baseline test verification
-- Proceed with failing tests without asking
-- Assume directory location when ambiguous
-- Skip CLAUDE.md check
-
-**Always:**
-- Follow directory priority: existing > CLAUDE.md > ask
-- Verify directory is ignored for project-local
-- Auto-detect and run project setup
-- Verify clean test baseline
-
-## Integration
-
-**Called by:**
-- **brainstorming** (Phase 4) - REQUIRED when design is approved and implementation follows
-- **subagent-driven-development** - REQUIRED before executing any tasks
-- **executing-plans** - REQUIRED before executing any tasks
-- Any skill needing isolated workspace
-
-**Pairs with:**
-- **finishing-a-development-branch** - REQUIRED for cleanup after work complete
+- NIST SP 800-184: Guide for Cybersecurity Event Recovery
+- NIST CSF 2.0 RC.RP-03: Backup Integrity Verification
+- CIS Controls v8: Control 11 - Data Recovery
+- CISA Ransomware Guide: https://www.cisa.gov/stopransomware
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
