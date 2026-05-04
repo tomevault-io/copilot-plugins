@@ -4,7 +4,7 @@
   "repo": "knook",
   "description": "Find your pause - by Hanoa Studio",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/preetsuthar17/knook",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:57:53Z"
+  "distributed_at": "2026-05-04T07:53:13Z"
 }
