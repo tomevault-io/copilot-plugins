@@ -1,0 +1,9 @@
+{
+  "name": "jacobjmc--opencodemonitor",
+  "displayName": "OpenCodeMonitor",
+  "description": "OpenCode Monitor is a desktop app for monitoring and interacting with OpenCode agents across multiple workspaces.",
+  "version": "1.0.0",
+  "author": "jacobjmc",
+  "homepage": "https://github.com/jacobjmc/OpenCodeMonitor",
+  "skills": []
+}
