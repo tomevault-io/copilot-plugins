@@ -1,0 +1,9 @@
+{
+  "name": "azolfagharj--tmq",
+  "displayName": "tmq",
+  "description": "tmq is a lightweight, portable, cross-platform, and fully featured command-line TOML processor. Like jq for JSON and yq for YAML, tmq is for TOML.",
+  "version": "1.0.0",
+  "author": "azolfagharj",
+  "homepage": "https://github.com/azolfagharj/tmq",
+  "skills": []
+}
