@@ -1,63 +1,64 @@
-## 04-dto-patterns
+## 05-frontend
 
-> DTOs for data transfer across verticals and layers: readonly DTOs, list<T>, no entities or associative arrays at boundaries. Use when creating or changing DTOs (Facade, Api, Presentation) or passing data between layers or verticals.
+> TypeScript over JS, Stimulus controllers, assets, Tailwind, mise quality for frontend. Use when editing TS/JS/CSS or Twig.
 
 
-# DTO Patterns
+# Frontend Development
 
-**Reference**: See `docs/archbook.md` section on "DTO-first data flow".
+**Reference**: See `docs/archbook.md` section on "Client-Side Organization", `docs/frontendbook.md` for Stimulus (build, integration, controller structure).
 
-## When to Use DTOs
+## TypeScript Over JavaScript
 
-- **Always** use DTOs for data transfer across vertical boundaries (via Facades)
-- **Always** use DTOs for data transfer across layers within a vertical
-- **Never** use associative arrays (`array<string, mixed>`) for data transfer
-- **Never** pass entities directly across boundaries
+- **Always** prefer TypeScript over JavaScript
+- Use TypeScript's type system extensively
+- Generate `.ts` files, not `.js` files
+- Only use JavaScript when TypeScript is not available for a specific library
 
-## DTO Structure
+## Stimulus Controllers
 
-DTOs should be:
-- **Readonly classes** when possible (PHP 8.2+)
-- Located in `Facade/Dto/` for facade DTOs
-- Located in appropriate layer folders for internal DTOs (e.g., `Api/Dto/`, `Presentation/Dto/`)
-- Simple data containers with typed properties
+- Stimulus controllers are colocated with verticals: `src/FeatureName/Presentation/Resources/assets/controllers/`
+- Keep frontend code aligned with vertical boundaries
+- Use TypeScript for Stimulus controllers when possible
 
-## DTO Properties
+## Asset Organization
 
-- All properties must be typed
-- Use PHPDoc annotations for complex types (arrays, generics)
-- Use `list<T>` for array properties (see `03-type-safety.md`)
-- Avoid nested DTOs unless necessary (prefer flat structures when possible)
+- Frontend assets in `assets/` directory
+- Vendor assets managed through Symfony AssetMapper (importmaps)
+- See `docs/techbook.md` for dependency management details
 
-## Example Pattern
+## Code Quality
 
-```php
-readonly class AccountInfoDto
-{
-    public function __construct(
-        public string            $id,
-        public string            $email,
-        /** @var list<string> */
-        public array             $roles,
-        public DateTimeImmutable $createdAt,
-    ) {
+- Run `mise quality` to check frontend code (Prettier, ESLint, TypeScript compiler)
+- All frontend code must pass ESLint and TypeScript type checking
+- Format code with Prettier (automatically runs in `mise quality`)
+
+## Polling Pattern (Non-Overlapping)
+
+**Always use `setTimeout` with scheduling after completion**, never `setInterval` for polling:
+
+```ts
+// WRONG - requests can overlap if slow
+this.intervalId = setInterval(() => this.poll(), 1000);
+
+// CORRECT - next poll only after current completes
+private async poll(): Promise<void> {
+    try {
+        await fetch(this.url);
+    } finally {
+        if (this.isActive) {
+            this.timeoutId = setTimeout(() => this.poll(), 1000);
+        }
     }
 }
 ```
 
-## DTO vs Entity
+This prevents request pile-up on slow connections and is more resilient to network latency.
 
-- **Entities** (`Domain/Entity/`): Rich domain objects with behavior, used within Domain layer
-- **DTOs** (`Facade/Dto/`, `Api/Dto/`, etc.): Simple data containers for transfer
-- **Never** return entities from facades; always convert to DTOs
-- **Never** accept entities as parameters in facades; use DTOs or primitives
+## Building Frontend
 
-## Conversion
-
-When converting between entities and DTOs:
-- Create conversion methods in Facade implementations
-- Keep conversion logic simple and explicit
-- Handle null cases appropriately
+- Use `mise run frontend` to build frontend assets (see `docs/devbook.md`)
+- Frontend builds are handled by Symfony AssetMapper and TailwindCSS
+- Don't manually edit built files in `public/assets/`
 
 ---
 > Source: [dx-tooling/sitebuilder-webapp](https://github.com/dx-tooling/sitebuilder-webapp) — distributed by [TomeVault](https://tomevault.io).
