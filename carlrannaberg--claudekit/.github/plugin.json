@@ -1,0 +1,9 @@
+{
+  "name": "carlrannaberg--claudekit",
+  "displayName": "claudekit",
+  "description": "A toolkit of custom commands, hooks, and utilities for Claude Code",
+  "version": "1.0.0",
+  "author": "carlrannaberg",
+  "homepage": "https://github.com/carlrannaberg/claudekit",
+  "skills": []
+}
