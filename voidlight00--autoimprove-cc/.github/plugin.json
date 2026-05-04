@@ -1,0 +1,9 @@
+{
+  "name": "voidlight00--autoimprove-cc",
+  "displayName": "autoimprove-cc",
+  "description": "Claude Code version of skill-autoimprove \u2014 auto-improve any CLAUDE.md using Karpathy autoresearch loop",
+  "version": "1.0.0",
+  "author": "VoidLight00",
+  "homepage": "https://github.com/VoidLight00/autoimprove-cc",
+  "skills": []
+}
