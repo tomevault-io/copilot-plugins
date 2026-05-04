@@ -1,0 +1,9 @@
+{
+  "name": "papercomputeco--agentd",
+  "displayName": "agentd",
+  "description": "The StereOS agent management daemon.",
+  "version": "1.0.0",
+  "author": "papercomputeco",
+  "homepage": "https://github.com/papercomputeco/agentd",
+  "skills": []
+}
