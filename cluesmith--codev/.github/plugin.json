@@ -1,0 +1,26 @@
+{
+  "name": "cluesmith--codev",
+  "displayName": "codev",
+  "description": "Codev helps humans and agents co-develop both the context and the code of the project. ",
+  "version": "1.0.0",
+  "author": "cluesmith",
+  "homepage": "https://github.com/cluesmith/codev",
+  "skills": [
+    {
+      "name": "codev",
+      "description": ""
+    },
+    {
+      "name": "consult",
+      "description": ""
+    },
+    {
+      "name": "generate-image",
+      "description": ""
+    },
+    {
+      "name": "porch",
+      "description": ""
+    }
+  ]
+}
