@@ -1,0 +1,57 @@
+{
+  "name": "trpc-agent-go",
+  "owner": "trpc-group",
+  "repo": "trpc-agent-go",
+  "description": "trpc-agent-go is a powerful Go framework for building intelligent agent systems using large language models (LLMs) and tools.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "demo-skill",
+      "path": "examples/skillloadmode/skills/demo-skill",
+      "github_url": "https://github.com/trpc-group/trpc-agent-go/tree/main/examples/skillloadmode/skills/demo-skill",
+      "description": ""
+    },
+    {
+      "name": "python_math",
+      "path": "examples/skillrun/skills/python_math",
+      "github_url": "https://github.com/trpc-group/trpc-agent-go/tree/main/examples/skillrun/skills/python_math",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/trpc-group/trpc-agent-go",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T23:36:40Z"
+}
