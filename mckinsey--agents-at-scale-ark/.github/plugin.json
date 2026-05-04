@@ -1,0 +1,54 @@
+{
+  "name": "mckinsey--agents-at-scale-ark",
+  "displayName": "agents-at-scale-ark",
+  "description": "Provider-agnostic operations for agentic resources. ARK codifies patterns and practices developed across dozens of agentic application projects.",
+  "version": "1.0.0",
+  "author": "mckinsey",
+  "homepage": "https://github.com/mckinsey/agents-at-scale-ark",
+  "skills": [
+    {
+      "name": "analysis",
+      "description": ""
+    },
+    {
+      "name": "architecture",
+      "description": ""
+    },
+    {
+      "name": "chainsaw",
+      "description": ""
+    },
+    {
+      "name": "ark-controller-development",
+      "description": ""
+    },
+    {
+      "name": "dashboard",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "issues",
+      "description": ""
+    },
+    {
+      "name": "pentest-issue-resolver",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "ark-sdk-development",
+      "description": ""
+    },
+    {
+      "name": "vulnerability-fixer",
+      "description": ""
+    }
+  ]
+}
