@@ -1,0 +1,18 @@
+{
+  "name": "trymirai--uzu",
+  "displayName": "uzu",
+  "description": "A high-performance inference engine for AI models",
+  "version": "1.0.0",
+  "author": "trymirai",
+  "homepage": "https://github.com/trymirai/uzu",
+  "skills": [
+    {
+      "name": "download-model",
+      "description": ""
+    },
+    {
+      "name": "metal-gpu-debug",
+      "description": ""
+    }
+  ]
+}
