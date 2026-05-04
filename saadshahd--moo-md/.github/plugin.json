@@ -1,0 +1,22 @@
+{
+  "name": "saadshahd--moo-md",
+  "displayName": "moo.md",
+  "description": "Structured thinking for Claude Code \u2014 ask before building, search before writing, verify before shipping",
+  "version": "1.0.0",
+  "author": "saadshahd",
+  "homepage": "https://github.com/saadshahd/moo.md",
+  "skills": [
+    {
+      "name": "bond",
+      "description": ""
+    },
+    {
+      "name": "consult",
+      "description": ""
+    },
+    {
+      "name": "shape",
+      "description": ""
+    }
+  ]
+}
