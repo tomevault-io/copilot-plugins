@@ -1,0 +1,177 @@
+{
+  "name": "the-startup",
+  "owner": "rsmdt",
+  "repo": "the-startup",
+  "description": "The Agentic Startup - A collection of Claude Code commands, skills, and agents.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "analyze",
+      "path": "plugins/start/skills/analyze",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/analyze",
+      "description": ""
+    },
+    {
+      "name": "api-contract-design",
+      "path": "plugins/team/skills/development/api-contract-design",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/development/api-contract-design",
+      "description": ""
+    },
+    {
+      "name": "architecture-selection",
+      "path": "plugins/team/skills/development/architecture-selection",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/development/architecture-selection",
+      "description": ""
+    },
+    {
+      "name": "code-quality-review",
+      "path": "plugins/team/skills/quality/code-quality-review",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/quality/code-quality-review",
+      "description": ""
+    },
+    {
+      "name": "constitution",
+      "path": "plugins/start/skills/constitution",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/constitution",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "path": "plugins/start/skills/document",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/document",
+      "description": ""
+    },
+    {
+      "name": "feature-prioritization",
+      "path": "plugins/team/skills/cross-cutting/feature-prioritization",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/cross-cutting/feature-prioritization",
+      "description": ""
+    },
+    {
+      "name": "pattern-detection",
+      "path": "plugins/team/skills/cross-cutting/pattern-detection",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/cross-cutting/pattern-detection",
+      "description": ""
+    },
+    {
+      "name": "performance-analysis",
+      "path": "plugins/team/skills/quality/performance-analysis",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/quality/performance-analysis",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "path": "plugins/start/skills/refactor",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/refactor",
+      "description": ""
+    },
+    {
+      "name": "requirements-elicitation",
+      "path": "plugins/team/skills/cross-cutting/requirements-elicitation",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/cross-cutting/requirements-elicitation",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "plugins/start/skills/review",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/review",
+      "description": ""
+    },
+    {
+      "name": "security-assessment",
+      "path": "plugins/team/skills/quality/security-assessment",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/quality/security-assessment",
+      "description": ""
+    },
+    {
+      "name": "specify-meta",
+      "path": "plugins/start/skills/specify-meta",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/specify-meta",
+      "description": ""
+    },
+    {
+      "name": "specify-plan",
+      "path": "plugins/start/skills/specify-plan",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/specify-plan",
+      "description": ""
+    },
+    {
+      "name": "specify-requirements",
+      "path": "plugins/start/skills/specify-requirements",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/specify-requirements",
+      "description": ""
+    },
+    {
+      "name": "specify-solution",
+      "path": "plugins/start/skills/specify-solution",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/specify-solution",
+      "description": ""
+    },
+    {
+      "name": "technical-writing",
+      "path": "plugins/team/skills/development/technical-writing",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/development/technical-writing",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": "plugins/start/skills/test",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/test",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "plugins/team/skills/development/testing",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/development/testing",
+      "description": ""
+    },
+    {
+      "name": "user-research",
+      "path": "plugins/team/skills/design/user-research",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/team/skills/design/user-research",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "plugins/start/skills/writing-skills",
+      "github_url": "https://github.com/rsmdt/the-startup/tree/main/plugins/start/skills/writing-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rsmdt/the-startup",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:35:12Z"
+}
