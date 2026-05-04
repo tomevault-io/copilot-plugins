@@ -1,0 +1,14 @@
+{
+  "name": "daaain--claude-code-log",
+  "displayName": "claude-code-log",
+  "description": "A Python CLI tool that converts Claude Code transcript JSONL files into readable HTML format.",
+  "version": "1.0.0",
+  "author": "daaain",
+  "homepage": "https://github.com/daaain/claude-code-log",
+  "skills": [
+    {
+      "name": "tool-renderer",
+      "description": ""
+    }
+  ]
+}
