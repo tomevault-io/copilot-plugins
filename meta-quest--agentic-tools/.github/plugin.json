@@ -1,0 +1,9 @@
+{
+  "name": "meta-quest--agentic-tools",
+  "displayName": "agentic-tools",
+  "description": "Agent Tool and Skills for VR Development on Meta Quest ",
+  "version": "1.0.0",
+  "author": "meta-quest",
+  "homepage": "https://github.com/meta-quest/agentic-tools",
+  "skills": []
+}
