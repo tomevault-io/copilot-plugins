@@ -1,0 +1,62 @@
+{
+  "name": "dandye--ai-runbooks",
+  "displayName": "ai-runbooks",
+  "description": "ai-runbooks",
+  "version": "1.0.0",
+  "author": "dandye",
+  "homepage": "https://github.com/dandye/ai-runbooks",
+  "skills": [
+    {
+      "name": "audit-content",
+      "description": ""
+    },
+    {
+      "name": "close-case-artifact",
+      "description": ""
+    },
+    {
+      "name": "cluster-documents",
+      "description": ""
+    },
+    {
+      "name": "confirm-action",
+      "description": ""
+    },
+    {
+      "name": "design-metadata-schema",
+      "description": ""
+    },
+    {
+      "name": "document-in-case",
+      "description": ""
+    },
+    {
+      "name": "generate-taxonomy",
+      "description": ""
+    },
+    {
+      "name": "hunt-apt",
+      "description": ""
+    },
+    {
+      "name": "hunt-ioc",
+      "description": ""
+    },
+    {
+      "name": "hunt-threat",
+      "description": ""
+    },
+    {
+      "name": "respond-malware",
+      "description": ""
+    },
+    {
+      "name": "respond-phishing",
+      "description": ""
+    },
+    {
+      "name": "triage-suspicious-login",
+      "description": ""
+    }
+  ]
+}
