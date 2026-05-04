@@ -7,11 +7,11 @@ Local-first observability for AI agents, with a built-in dashboard. Cost, sessio
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tma1-ai/tma1](https://github.com/tma1-ai/tma1).
+Original source: `CLAUDE.md` in [tma1-ai/tma1](https://github.com/tma1-ai/tma1).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
