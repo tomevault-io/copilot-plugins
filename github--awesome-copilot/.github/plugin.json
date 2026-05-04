@@ -1,0 +1,246 @@
+{
+  "name": "github--awesome-copilot",
+  "displayName": "awesome-copilot",
+  "description": "Community-contributed instructions, agents, skills, and configurations to help you make the most of GitHub Copilot.",
+  "version": "1.0.0",
+  "author": "github",
+  "homepage": "https://github.com/github/awesome-copilot",
+  "skills": [
+    {
+      "name": "agentic-eval",
+      "description": ""
+    },
+    {
+      "name": "appinsights-instrumentation",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "description": ""
+    },
+    {
+      "name": "azure-deployment-preflight",
+      "description": ""
+    },
+    {
+      "name": "azure-devops-cli",
+      "description": ""
+    },
+    {
+      "name": "azure-resource-visualizer",
+      "description": ""
+    },
+    {
+      "name": "azure-role-selector",
+      "description": ""
+    },
+    {
+      "name": "azure-static-web-apps",
+      "description": ""
+    },
+    {
+      "name": "chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "copilot-cli-quickstart",
+      "description": ""
+    },
+    {
+      "name": "excalidraw-diagram-generator",
+      "description": ""
+    },
+    {
+      "name": "fabric-lakehouse",
+      "description": ""
+    },
+    {
+      "name": "finnish-humanizer",
+      "description": ""
+    },
+    {
+      "name": "fluentui-blazor",
+      "description": ""
+    },
+    {
+      "name": "gh-cli",
+      "description": ""
+    },
+    {
+      "name": "git-commit",
+      "description": ""
+    },
+    {
+      "name": "github-issues",
+      "description": ""
+    },
+    {
+      "name": "image-manipulation-image-magick",
+      "description": ""
+    },
+    {
+      "name": "legacy-circuit-mockups",
+      "description": ""
+    },
+    {
+      "name": "make-repo-contribution",
+      "description": ""
+    },
+    {
+      "name": "make-skill-template",
+      "description": ""
+    },
+    {
+      "name": "markdown-to-html",
+      "description": ""
+    },
+    {
+      "name": "mcp-cli",
+      "description": ""
+    },
+    {
+      "name": "meeting-minutes",
+      "description": ""
+    },
+    {
+      "name": "microsoft-code-reference",
+      "description": ""
+    },
+    {
+      "name": "microsoft-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-pro-openrouter",
+      "description": ""
+    },
+    {
+      "name": "nuget-manager",
+      "description": ""
+    },
+    {
+      "name": "pdftk-server",
+      "description": ""
+    },
+    {
+      "name": "penpot-uiux-design",
+      "description": ""
+    },
+    {
+      "name": "plantuml-ascii",
+      "description": ""
+    },
+    {
+      "name": "polyglot-test-agent",
+      "description": ""
+    },
+    {
+      "name": "powerbi-modeling",
+      "description": ""
+    },
+    {
+      "name": "prd",
+      "description": ""
+    },
+    {
+      "name": "quasi-coder",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "description": ""
+    },
+    {
+      "name": "scoutqa-test",
+      "description": ""
+    },
+    {
+      "name": "snowflake-semanticview",
+      "description": ""
+    },
+    {
+      "name": "sponsor-finder",
+      "description": ""
+    },
+    {
+      "name": "terraform-azurerm-set-diff-analyzer",
+      "description": ""
+    },
+    {
+      "name": "transloadit-media-processing",
+      "description": ""
+    },
+    {
+      "name": "vscode-ext-commands",
+      "description": ""
+    },
+    {
+      "name": "vscode-ext-localization",
+      "description": ""
+    },
+    {
+      "name": "web-design-reviewer",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "winapp-cli",
+      "description": ""
+    },
+    {
+      "name": "workiq-copilot",
+      "description": ""
+    },
+    {
+      "name": "msstore-cli",
+      "description": ""
+    },
+    {
+      "name": "project-workflow-analysis-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "technology-stack-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "code-exemplars-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "folder-structure-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "unit-test-vue-pinia",
+      "description": ""
+    },
+    {
+      "name": "next-intl-add-language",
+      "description": ""
+    },
+    {
+      "name": "javascript-typescript-jest",
+      "description": ""
+    },
+    {
+      "name": "quality-playbook",
+      "description": ""
+    },
+    {
+      "name": "security-review",
+      "description": ""
+    },
+    {
+      "name": "typescript-mcp-server-generator",
+      "description": ""
+    },
+    {
+      "name": "python-mcp-server-generator",
+      "description": ""
+    }
+  ]
+}
