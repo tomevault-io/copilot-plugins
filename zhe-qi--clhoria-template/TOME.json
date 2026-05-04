@@ -1,0 +1,57 @@
+{
+  "name": "clhoria-template",
+  "owner": "zhe-qi",
+  "repo": "clhoria-template",
+  "description": "Production-ready Hono backend template that doubles as an AI agent harness \u2014 providing feedforward guides, feedback sensors, and progressive specialization to make AI coding agents reliably produce architecture-conformant code./ \u53ef\u7528\u4e8e\u751f\u4ea7\u73af\u5883\u7684\u6a21\u677f\uff0c\u5185\u7f6e\u6743\u9650\u3001\u8ba4\u8bc1\u3001\u7f13\u5b58\u4e0e\u9650\u6d41\uff0c\u5f00\u7bb1\u5373\u7528\u3002",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "crud",
+      "path": ".claude/skills/crud",
+      "github_url": "https://github.com/zhe-qi/clhoria-template/tree/main/.claude/skills/crud",
+      "description": ""
+    },
+    {
+      "name": "db-schema",
+      "path": ".claude/skills/db-schema",
+      "github_url": "https://github.com/zhe-qi/clhoria-template/tree/main/.claude/skills/db-schema",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zhe-qi/clhoria-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T23:53:04Z"
+}
