@@ -1,0 +1,139 @@
+## efka
+
+> **EFKA Cicada** (Embed-Free Knowledge Agent) - No vector database needed, let Agent read your files directly. Built with Claude Agent SDK.
+
+# CLAUDE.md
+
+**EFKA Cicada** (Embed-Free Knowledge Agent) - No vector database needed, let Agent read your files directly. Built with Claude Agent SDK.
+
+## Core Architecture
+
+### Agent-First Design Philosophy
+- **No Embeddings**: Direct file system access via Grep/Glob/Read
+- **Agent Driven**: Let Claude intelligently search and combine information
+- **Business Logic in Prompts**: Not in code
+- **English First**: All code comments, logs, and documentation in English for global accessibility
+
+### Run Mode Configuration (v3.0)
+Single-channel mutual exclusivity model:
+- **standalone** (default): Pure Web, no IM integration
+- **wework/feishu/dingtalk/slack**: Enable specific IM channel
+
+```bash
+./scripts/start.sh              # standalone mode (default)
+./scripts/start.sh --mode wework  # WeChat Work mode
+RUN_MODE=wework ./scripts/start.sh  # via env var
+```
+
+### Dual Agent Architecture (v3.0)
+```
+┌─────────────────────────────────────────────────────────┐
+│  Frontend: Admin UI (3000) + User UI (3001)             │
+│  + IM Platforms (WeWork/Feishu/DingTalk)                │
+├─────────────────────────────────────────────────────────┤
+│  Backend (FastAPI 8000)                                 │
+│  ├─ Admin Agent: Doc management, batch notifications   │
+│  └─ User Agent: Q&A, expert routing                    │
+├─────────────────────────────────────────────────────────┤
+│  Channel Layer: BaseChannelAdapter + ChannelRouter     │
+│  WeWork (8081) / Feishu (8082) / DingTalk (8083)       │
+├─────────────────────────────────────────────────────────┤
+│  Infrastructure: Redis + ConversationStateManager      │
+│  + DomainExpertRouter + SharedKBAccess (file locks)    │
+└─────────────────────────────────────────────────────────┘
+```
+
+## Modules
+
+See CLAUDE.md in each directory for module details:
+- [`backend/CLAUDE.md`](backend/CLAUDE.md) - Backend services, API, design patterns
+- [`frontend/CLAUDE.md`](frontend/CLAUDE.md) - Frontend components
+- [`skills/CLAUDE.md`](skills/CLAUDE.md) - Agent Skills
+
+## Development Commands
+
+### Required: Activate Virtual Environment
+```bash
+source venv/bin/activate  # Must run before any Python commands
+```
+
+### Start/Stop
+```bash
+./scripts/start.sh   # Auto-detect and start all configured services
+./scripts/stop.sh    # Stop all services
+```
+
+## Environment Configuration
+
+Copy and configure `.env` from `.env.example`:
+
+**Required**:
+- `CLAUDE_API_KEY` or `ANTHROPIC_AUTH_TOKEN` + `ANTHROPIC_BASE_URL`
+- `KB_ROOT_PATH`: Knowledge base directory (default: ./knowledge_base)
+
+**Optional**:
+- `WEWORK_*`: WeChat Work configuration
+- `VISION_MODEL_*`: Image recognition model
+- `REDIS_*`: Redis configuration (has memory fallback)
+- `*_CLIENT_POOL_SIZE`: Concurrent client pool size
+
+## Troubleshooting
+
+**Port conflict**:
+```bash
+lsof -i :8000,:3000,:3001,:8081
+kill -9 <PID>
+```
+
+**View logs**:
+```bash
+tail -f logs/backend.log logs/wework.log logs/frontend.log
+```
+
+**Health check**:
+```bash
+curl http://localhost:8000/health
+```
+
+## Agent SDK Configuration
+
+### Working Directory (cwd) - Security Boundary
+
+When creating `ClaudeAgentOptions`, **always set `cwd` to restrict Agent's file access scope**:
+
+```python
+# kb_service_factory.py example
+options = ClaudeAgentOptions(
+    cwd=str(kb_path),  # Set to knowledge_base/, not project root
+    ...
+)
+```
+
+| Agent | cwd Setting | Rationale |
+|-------|-------------|-----------|
+| Admin Agent | `knowledge_base/` | Restrict to KB directory for doc management |
+| User Agent | `knowledge_base/` | Restrict to KB directory for Q&A |
+| Session Router | Project root | No tools (`allowed_tools=[]`), no file access |
+
+**Key Points**:
+- `cwd` determines the working directory for Read/Write/Grep/Glob/Bash tools
+- Combine with prompt-level security boundaries for defense in depth
+- Agents without file tools (like Session Router) don't need cwd restriction
+
+**Reference**: `backend/services/kb_service_factory.py:135,429`
+
+## Don'ts
+
+1. Don't run Python without activating venv
+2. Don't create specialized tools - let Agent use basic tools
+3. Don't import SDK before setting env vars
+4. Don't instantiate services directly - use singleton getters
+5. Don't modify Agent business logic in code - modify prompts
+6. Don't set `cwd` to project root for Agents with file access tools
+
+---
+**Version**: v3.0 | **Updated**: 2025-12-23 | **Docs**: `docs/CHANNELS.md`, `docs/DEPLOYMENT.md`
+
+---
+> Source: [Harryoung/efka](https://github.com/Harryoung/efka) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-21 -->
