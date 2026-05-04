@@ -1,94 +1,77 @@
-## systems
+## tools
 
-> Core and viewer systems architecture
+> Editor tools structure in apps/editor
 
 
-# Systems
+# Tools
 
-Systems own business logic, geometry generation, and constraints. They run in the Three.js frame loop and are never rendered directly.
+Tools are React components that capture user input (pointer, keyboard) and translate it into `useScene` mutations. They live exclusively in `apps/editor/components/tools/`.
 
-## Two Kinds of Systems
+## Lifecycle
 
-### Core Systems — `packages/core/src/systems/`
+`ToolManager` reads `useEditor` (phase + mode + tool) and mounts the active tool component. When the tool changes, the old component unmounts, cleaning up any transient state.
 
-Pure logic: no rendering, no Three.js objects. They read nodes from `useScene`, compute derived values (geometry, constraints), and write results back.
+See @apps/editor/components/tools/tool-manager.tsx.
 
-| System | Responsibility |
-|---|---|
-| `WallSystem` | Wall mitering, corner joints |
-| `SlabSystem` | Polygon-based floor/roof generation |
-| `CeilingSystem` | Polygon-based ceiling generation |
-| `RoofSystem` | Pitched roof shape |
-| `DoorSystem` | Placement constraints on walls |
-| `WindowSystem` | Placement constraints on walls |
-| `ItemSystem` | Item transforms, collision |
+## Tool Categories by Phase
 
-### Viewer Systems — `packages/viewer/src/systems/`
+**Site**
+- `site-boundary-editor` — draw/edit property boundary polygon
 
-Access Three.js objects (via `useRegistry`) and manage rendering side-effects.
+**Structure**
+- `wall-tool` — draw walls segment by segment
+- `slab-tool` + `slab-boundary-editor` + `slab-hole-editor`
+- `ceiling-tool` + `ceiling-boundary-editor` + `ceiling-hole-editor`
+- `roof-tool`
+- `door-tool` + `door-move-tool`
+- `window-tool` + `window-move-tool`
+- `item-tool` + `item-move-tool`
+- `zone-tool` + `zone-boundary-editor`
 
-| System | Responsibility |
-|---|---|
-| `LevelSystem` | Stacked / exploded / solo / manual level positions |
-| `WallCutout` | Cuts door/window holes in wall geometry |
-| `ZoneSystem` | Zone display and label placement |
-| `InteractiveSystem` | Item toggles and sliders in the scene |
-| `GuideSystem` | Temporary helper geometry |
-| `ScanSystem` | Point cloud rendering |
+**Furnish**
+- `item-tool` — place furniture
+
+**Shared utilities**
+- `polygon-editor` — reusable boundary/hole editing logic
+- `cursor-sphere` — 3D cursor visualisation
 
 ## Pattern
 
-Systems are React components that render nothing (`return null`) and use `useFrame` for per-frame logic.
-
 ```tsx
-// packages/core/src/systems/my-system.tsx
-import { useFrame } from '@react-three/fiber'
-import { useScene } from '../store/use-scene'
+// apps/editor/components/tools/my-tool/index.tsx
+import { useScene } from '@pascal-app/core'
+import { useEditor } from '../../store/use-editor'
 
-export function MySystem() {
-  const nodes = useScene(s => s.nodes)
+export function MyTool() {
+  const createNode = useScene(s => s.createNode)
+  const setTool = useEditor(s => s.setTool)
 
-  useFrame(() => {
-    // compute and write back derived state
-  })
+  // Pointer handlers mutate the scene store directly.
+  // No local geometry — use a renderer for any preview mesh.
 
-  return null
+  return (
+    <mesh onPointerDown={handleDown} onPointerMove={handleMove}>
+      {/* ghost / preview geometry only */}
+    </mesh>
+  )
 }
 ```
 
-Core and viewer systems are mounted inside `<Viewer>` alongside renderers. See @packages/viewer/src/components/viewer/index.tsx for the mount order.
-
-**Systems are a customization point.** Any consumer of `<Viewer>` — the editor app, an embed, a read-only preview — can inject its own systems as children. This is how editor-specific behaviour (space detection, tool feedback) is added without touching the viewer package.
-
 ## Rules
 
-- **Core systems must not import Three.js** — they work with plain data.
-- **Viewer systems must not contain business logic** — delegate to core if the rule is domain-level.
-- **Never duplicate logic** between a system and a renderer — if the renderer needs it, the system should compute and store it, and the renderer reads the result.
-- Systems should be **idempotent**: given the same nodes, they produce the same output.
-- Mark nodes as `dirty` in the scene store to signal that a system should re-run. Avoid running expensive logic every frame without a dirty check.
+- **Tools only mutate `useScene`** — they do not call Three.js APIs directly.
+- **No business logic in tools** — delegate geometry/constraint rules to core systems.
+- **Preview geometry is local** — transient meshes shown while a tool is active live in the tool component, not in the scene store.
+- **Clean up on unmount** — remove any pending/incomplete nodes when the tool unmounts.
+- **Tools must not import from `@pascal-app/viewer`** — use the scene store and core hooks only.
+- Each tool should handle a single, well-scoped interaction. Split complex tools (e.g. "draw + move") into separate components selected by `useEditor`.
 
-## Adding a New System
+## Adding a New Tool
 
-1. Decide the scope:
-   - **Domain logic** → `packages/core/src/systems/`
-   - **Viewer rendering side-effect** → `packages/viewer/src/systems/` — mount in `packages/viewer/src/components/viewer/index.tsx`
-   - **Editor-specific or integration-specific** → keep it in the consuming app (e.g. `apps/editor/components/systems/`) and inject it as a child of `<Viewer>`
-
-2. Create `<name>-system.tsx` in the appropriate directory.
-
-3. Mount it in the right place:
-   - Viewer-internal systems go in `packages/viewer/src/components/viewer/index.tsx`
-   - App-specific systems are injected as children from outside:
-     ```tsx
-     // apps/editor — editor injects its own systems without modifying the viewer
-     <Viewer>
-       <MyEditorSystem />
-       <ToolManager />
-     </Viewer>
-     ```
-
-4. **Mount order matters.** Most viewer systems run *after* renderers in the JSX tree — they consume `sceneRegistry` data that renderers populate on mount. Only place a system before renderers if it explicitly does not read the registry.
+1. Create `apps/editor/components/tools/<name>/index.tsx`.
+2. Register the tool in `ToolManager` under the correct phase and mode.
+3. Add the tool identifier to the `useEditor` tool union type.
+4. If the tool requires new node types, add schema + renderer + system first.
 
 ---
 > Source: [zuleikdiasb-web/pascal-editor-3d](https://github.com/zuleikdiasb-web/pascal-editor-3d) — distributed by [TomeVault](https://tomevault.io).
