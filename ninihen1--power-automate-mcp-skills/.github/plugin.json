@@ -1,0 +1,9 @@
+{
+  "name": "ninihen1--power-automate-mcp-skills",
+  "displayName": "power-automate-mcp-skills",
+  "description": "GitHub Copilot agent skills for Power Automate via FlowStudio MCP \u2014 build, debug, and operate cloud flows programmatically",
+  "version": "1.0.0",
+  "author": "ninihen1",
+  "homepage": "https://github.com/ninihen1/power-automate-mcp-skills",
+  "skills": []
+}
