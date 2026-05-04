@@ -1,0 +1,9 @@
+{
+  "name": "spirizeon--hackfish",
+  "displayName": "hackfish",
+  "description": "Using swarm intelligence to predict your next hackathon winning project",
+  "version": "1.0.0",
+  "author": "Spirizeon",
+  "homepage": "https://github.com/Spirizeon/hackfish",
+  "skills": []
+}
