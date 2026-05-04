@@ -1,0 +1,1119 @@
+{
+  "name": "useful-ai-prompts",
+  "owner": "aj-geddes",
+  "repo": "useful-ai-prompts",
+  "description": "A curated collection of useful AI prompts for various tasks and use cases",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review-analysis",
+      "path": "skills/code-review-analysis",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/code-review-analysis",
+      "description": ""
+    },
+    {
+      "name": "ios-swift-development",
+      "path": "skills/ios-swift-development",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/ios-swift-development",
+      "description": ""
+    },
+    {
+      "name": "nodejs-express-server",
+      "path": "skills/nodejs-express-server",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/nodejs-express-server",
+      "description": ""
+    },
+    {
+      "name": "rest-api-design",
+      "path": "skills/rest-api-design",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/rest-api-design",
+      "description": ""
+    },
+    {
+      "name": "markdown-documentation",
+      "path": "skills/markdown-documentation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/markdown-documentation",
+      "description": ""
+    },
+    {
+      "name": "android-kotlin-development",
+      "path": "skills/android-kotlin-development",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/android-kotlin-development",
+      "description": ""
+    },
+    {
+      "name": "responsive-web-design",
+      "path": "skills/responsive-web-design",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/responsive-web-design",
+      "description": ""
+    },
+    {
+      "name": "ansible-automation",
+      "path": "skills/ansible-automation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/ansible-automation",
+      "description": ""
+    },
+    {
+      "name": "flutter-development",
+      "path": "skills/flutter-development",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/flutter-development",
+      "description": ""
+    },
+    {
+      "name": "architecture-diagrams",
+      "path": "skills/architecture-diagrams",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/architecture-diagrams",
+      "description": ""
+    },
+    {
+      "name": "nginx-configuration",
+      "path": "skills/nginx-configuration",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/nginx-configuration",
+      "description": ""
+    },
+    {
+      "name": "api-security-hardening",
+      "path": "skills/api-security-hardening",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-security-hardening",
+      "description": ""
+    },
+    {
+      "name": "user-story-writing",
+      "path": "skills/user-story-writing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/user-story-writing",
+      "description": ""
+    },
+    {
+      "name": "mobile-app-testing",
+      "path": "skills/mobile-app-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/mobile-app-testing",
+      "description": ""
+    },
+    {
+      "name": "aws-lambda-functions",
+      "path": "skills/aws-lambda-functions",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/aws-lambda-functions",
+      "description": ""
+    },
+    {
+      "name": "docker-containerization",
+      "path": "skills/docker-containerization",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/docker-containerization",
+      "description": ""
+    },
+    {
+      "name": "mobile-first-design",
+      "path": "skills/mobile-first-design",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/mobile-first-design",
+      "description": ""
+    },
+    {
+      "name": "wireframe-prototyping",
+      "path": "skills/wireframe-prototyping",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/wireframe-prototyping",
+      "description": ""
+    },
+    {
+      "name": "fastapi-development",
+      "path": "skills/fastapi-development",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/fastapi-development",
+      "description": ""
+    },
+    {
+      "name": "ruby-rails-application",
+      "path": "skills/ruby-rails-application",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/ruby-rails-application",
+      "description": ""
+    },
+    {
+      "name": "jenkins-pipeline",
+      "path": "skills/jenkins-pipeline",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/jenkins-pipeline",
+      "description": ""
+    },
+    {
+      "name": "api-contract-testing",
+      "path": "skills/api-contract-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-contract-testing",
+      "description": ""
+    },
+    {
+      "name": "technical-specification",
+      "path": "skills/technical-specification",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/technical-specification",
+      "description": ""
+    },
+    {
+      "name": "flask-api-development",
+      "path": "skills/flask-api-development",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/flask-api-development",
+      "description": ""
+    },
+    {
+      "name": "access-control-rbac",
+      "path": "skills/access-control-rbac",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/access-control-rbac",
+      "description": ""
+    },
+    {
+      "name": "react-component-architecture",
+      "path": "skills/react-component-architecture",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/react-component-architecture",
+      "description": ""
+    },
+    {
+      "name": "color-accessibility",
+      "path": "skills/color-accessibility",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/color-accessibility",
+      "description": ""
+    },
+    {
+      "name": "gitlab-cicd-pipeline",
+      "path": "skills/gitlab-cicd-pipeline",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/gitlab-cicd-pipeline",
+      "description": ""
+    },
+    {
+      "name": "app-store-deployment",
+      "path": "skills/app-store-deployment",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/app-store-deployment",
+      "description": ""
+    },
+    {
+      "name": "mobile-app-debugging",
+      "path": "skills/mobile-app-debugging",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/mobile-app-debugging",
+      "description": ""
+    },
+    {
+      "name": "web-performance-audit",
+      "path": "skills/web-performance-audit",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/web-performance-audit",
+      "description": ""
+    },
+    {
+      "name": "business-case-development",
+      "path": "skills/business-case-development",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/business-case-development",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-automation",
+      "path": "skills/e2e-testing-automation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/e2e-testing-automation",
+      "description": ""
+    },
+    {
+      "name": "push-notification-setup",
+      "path": "skills/push-notification-setup",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/push-notification-setup",
+      "description": ""
+    },
+    {
+      "name": "image-optimization",
+      "path": "skills/image-optimization",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/image-optimization",
+      "description": ""
+    },
+    {
+      "name": "websocket-implementation",
+      "path": "skills/websocket-implementation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/websocket-implementation",
+      "description": ""
+    },
+    {
+      "name": "api-rate-limiting",
+      "path": "skills/api-rate-limiting",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-rate-limiting",
+      "description": ""
+    },
+    {
+      "name": "security-testing",
+      "path": "skills/security-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/security-testing",
+      "description": ""
+    },
+    {
+      "name": "kubernetes-deployment",
+      "path": "skills/kubernetes-deployment",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/kubernetes-deployment",
+      "description": ""
+    },
+    {
+      "name": "design-patterns-implementation",
+      "path": "skills/design-patterns-implementation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/design-patterns-implementation",
+      "description": ""
+    },
+    {
+      "name": "static-code-analysis",
+      "path": "skills/static-code-analysis",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/static-code-analysis",
+      "description": ""
+    },
+    {
+      "name": "bundle-size-optimization",
+      "path": "skills/bundle-size-optimization",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/bundle-size-optimization",
+      "description": ""
+    },
+    {
+      "name": "mobile-offline-support",
+      "path": "skills/mobile-offline-support",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/mobile-offline-support",
+      "description": ""
+    },
+    {
+      "name": "database-schema-design",
+      "path": "skills/database-schema-design",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/database-schema-design",
+      "description": ""
+    },
+    {
+      "name": "github-actions-workflow",
+      "path": "skills/github-actions-workflow",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/github-actions-workflow",
+      "description": ""
+    },
+    {
+      "name": "terraform-infrastructure",
+      "path": "skills/terraform-infrastructure",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/terraform-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "requirements-gathering",
+      "path": "skills/requirements-gathering",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/requirements-gathering",
+      "description": ""
+    },
+    {
+      "name": "angular-module-design",
+      "path": "skills/angular-module-design",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/angular-module-design",
+      "description": ""
+    },
+    {
+      "name": "technical-debt-assessment",
+      "path": "skills/technical-debt-assessment",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/technical-debt-assessment",
+      "description": ""
+    },
+    {
+      "name": "api-authentication",
+      "path": "skills/api-authentication",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-authentication",
+      "description": ""
+    },
+    {
+      "name": "caching-strategy",
+      "path": "skills/caching-strategy",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/caching-strategy",
+      "description": ""
+    },
+    {
+      "name": "user-guide-creation",
+      "path": "skills/user-guide-creation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/user-guide-creation",
+      "description": ""
+    },
+    {
+      "name": "accessibility-testing",
+      "path": "skills/accessibility-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/accessibility-testing",
+      "description": ""
+    },
+    {
+      "name": "application-logging",
+      "path": "skills/application-logging",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/application-logging",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-application",
+      "path": "skills/spring-boot-application",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/spring-boot-application",
+      "description": ""
+    },
+    {
+      "name": "grpc-service-development",
+      "path": "skills/grpc-service-development",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/grpc-service-development",
+      "description": ""
+    },
+    {
+      "name": "oauth-implementation",
+      "path": "skills/oauth-implementation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/oauth-implementation",
+      "description": ""
+    },
+    {
+      "name": "browser-debugging",
+      "path": "skills/browser-debugging",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/browser-debugging",
+      "description": ""
+    },
+    {
+      "name": "microservices-architecture",
+      "path": "skills/microservices-architecture",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/microservices-architecture",
+      "description": ""
+    },
+    {
+      "name": "database-backup-restore",
+      "path": "skills/database-backup-restore",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/database-backup-restore",
+      "description": ""
+    },
+    {
+      "name": "database-schema-documentation",
+      "path": "skills/database-schema-documentation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/database-schema-documentation",
+      "description": ""
+    },
+    {
+      "name": "log-analysis",
+      "path": "skills/log-analysis",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/log-analysis",
+      "description": ""
+    },
+    {
+      "name": "react-native-app",
+      "path": "skills/react-native-app",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/react-native-app",
+      "description": ""
+    },
+    {
+      "name": "real-time-features",
+      "path": "skills/real-time-features",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/real-time-features",
+      "description": ""
+    },
+    {
+      "name": "cicd-pipeline-setup",
+      "path": "skills/cicd-pipeline-setup",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/cicd-pipeline-setup",
+      "description": ""
+    },
+    {
+      "name": "design-system-creation",
+      "path": "skills/design-system-creation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/design-system-creation",
+      "description": ""
+    },
+    {
+      "name": "performance-testing",
+      "path": "skills/performance-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/performance-testing",
+      "description": ""
+    },
+    {
+      "name": "deployment-automation",
+      "path": "skills/deployment-automation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/deployment-automation",
+      "description": ""
+    },
+    {
+      "name": "payment-gateway-integration",
+      "path": "skills/payment-gateway-integration",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/payment-gateway-integration",
+      "description": ""
+    },
+    {
+      "name": "visual-regression-testing",
+      "path": "skills/visual-regression-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/visual-regression-testing",
+      "description": ""
+    },
+    {
+      "name": "webhook-development",
+      "path": "skills/webhook-development",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/webhook-development",
+      "description": ""
+    },
+    {
+      "name": "api-error-handling",
+      "path": "skills/api-error-handling",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-error-handling",
+      "description": ""
+    },
+    {
+      "name": "developer-onboarding",
+      "path": "skills/developer-onboarding",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/developer-onboarding",
+      "description": ""
+    },
+    {
+      "name": "security-headers-configuration",
+      "path": "skills/security-headers-configuration",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/security-headers-configuration",
+      "description": ""
+    },
+    {
+      "name": "code-documentation",
+      "path": "skills/code-documentation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/code-documentation",
+      "description": ""
+    },
+    {
+      "name": "azure-app-service",
+      "path": "skills/azure-app-service",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/azure-app-service",
+      "description": ""
+    },
+    {
+      "name": "api-gateway-configuration",
+      "path": "skills/api-gateway-configuration",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-gateway-configuration",
+      "description": ""
+    },
+    {
+      "name": "frontend-testing",
+      "path": "skills/frontend-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/frontend-testing",
+      "description": ""
+    },
+    {
+      "name": "gcp-cloud-run",
+      "path": "skills/gcp-cloud-run",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/gcp-cloud-run",
+      "description": ""
+    },
+    {
+      "name": "prometheus-monitoring",
+      "path": "skills/prometheus-monitoring",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/prometheus-monitoring",
+      "description": ""
+    },
+    {
+      "name": "test-automation-framework",
+      "path": "skills/test-automation-framework",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/test-automation-framework",
+      "description": ""
+    },
+    {
+      "name": "api-response-optimization",
+      "path": "skills/api-response-optimization",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-response-optimization",
+      "description": ""
+    },
+    {
+      "name": "refactor-legacy-code",
+      "path": "skills/refactor-legacy-code",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/refactor-legacy-code",
+      "description": ""
+    },
+    {
+      "name": "sql-injection-prevention",
+      "path": "skills/sql-injection-prevention",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/sql-injection-prevention",
+      "description": ""
+    },
+    {
+      "name": "ab-test-analysis",
+      "path": "skills/ab-test-analysis",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/ab-test-analysis",
+      "description": ""
+    },
+    {
+      "name": "accessibility-compliance",
+      "path": "skills/accessibility-compliance",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/accessibility-compliance",
+      "description": ""
+    },
+    {
+      "name": "api-changelog-versioning",
+      "path": "skills/api-changelog-versioning",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-changelog-versioning",
+      "description": ""
+    },
+    {
+      "name": "api-filtering-sorting",
+      "path": "skills/api-filtering-sorting",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-filtering-sorting",
+      "description": ""
+    },
+    {
+      "name": "api-pagination",
+      "path": "skills/api-pagination",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-pagination",
+      "description": ""
+    },
+    {
+      "name": "api-reference-documentation",
+      "path": "skills/api-reference-documentation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-reference-documentation",
+      "description": ""
+    },
+    {
+      "name": "api-versioning-strategy",
+      "path": "skills/api-versioning-strategy",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/api-versioning-strategy",
+      "description": ""
+    },
+    {
+      "name": "artifact-management",
+      "path": "skills/artifact-management",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/artifact-management",
+      "description": ""
+    },
+    {
+      "name": "aws-rds-database",
+      "path": "skills/aws-rds-database",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/aws-rds-database",
+      "description": ""
+    },
+    {
+      "name": "azure-functions",
+      "path": "skills/azure-functions",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/azure-functions",
+      "description": ""
+    },
+    {
+      "name": "blue-green-deployment",
+      "path": "skills/blue-green-deployment",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/blue-green-deployment",
+      "description": ""
+    },
+    {
+      "name": "canary-deployment",
+      "path": "skills/canary-deployment",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/canary-deployment",
+      "description": ""
+    },
+    {
+      "name": "changelog-maintenance",
+      "path": "skills/changelog-maintenance",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/changelog-maintenance",
+      "description": ""
+    },
+    {
+      "name": "cloud-migration-planning",
+      "path": "skills/cloud-migration-planning",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/cloud-migration-planning",
+      "description": ""
+    },
+    {
+      "name": "code-generation-template",
+      "path": "skills/code-generation-template",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/code-generation-template",
+      "description": ""
+    },
+    {
+      "name": "code-metrics-analysis",
+      "path": "skills/code-metrics-analysis",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/code-metrics-analysis",
+      "description": ""
+    },
+    {
+      "name": "concurrency-patterns",
+      "path": "skills/concurrency-patterns",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/concurrency-patterns",
+      "description": ""
+    },
+    {
+      "name": "configuration-management",
+      "path": "skills/configuration-management",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/configuration-management",
+      "description": ""
+    },
+    {
+      "name": "container-debugging",
+      "path": "skills/container-debugging",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/container-debugging",
+      "description": ""
+    },
+    {
+      "name": "container-registry-management",
+      "path": "skills/container-registry-management",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/container-registry-management",
+      "description": ""
+    },
+    {
+      "name": "continuous-testing",
+      "path": "skills/continuous-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/continuous-testing",
+      "description": ""
+    },
+    {
+      "name": "correlation-analysis",
+      "path": "skills/correlation-analysis",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/correlation-analysis",
+      "description": ""
+    },
+    {
+      "name": "cpu-profiling",
+      "path": "skills/cpu-profiling",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/cpu-profiling",
+      "description": ""
+    },
+    {
+      "name": "cross-platform-compatibility",
+      "path": "skills/cross-platform-compatibility",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/cross-platform-compatibility",
+      "description": ""
+    },
+    {
+      "name": "data-migration-scripts",
+      "path": "skills/data-migration-scripts",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/data-migration-scripts",
+      "description": ""
+    },
+    {
+      "name": "database-indexing-strategy",
+      "path": "skills/database-indexing-strategy",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/database-indexing-strategy",
+      "description": ""
+    },
+    {
+      "name": "database-sharding",
+      "path": "skills/database-sharding",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/database-sharding",
+      "description": ""
+    },
+    {
+      "name": "deployment-documentation",
+      "path": "skills/deployment-documentation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/deployment-documentation",
+      "description": ""
+    },
+    {
+      "name": "design-handoff",
+      "path": "skills/design-handoff",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/design-handoff",
+      "description": ""
+    },
+    {
+      "name": "disaster-recovery-testing",
+      "path": "skills/disaster-recovery-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/disaster-recovery-testing",
+      "description": ""
+    },
+    {
+      "name": "django-application",
+      "path": "skills/django-application",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/django-application",
+      "description": ""
+    },
+    {
+      "name": "documentation-site-setup",
+      "path": "skills/documentation-site-setup",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/documentation-site-setup",
+      "description": ""
+    },
+    {
+      "name": "email-service-integration",
+      "path": "skills/email-service-integration",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/email-service-integration",
+      "description": ""
+    },
+    {
+      "name": "error-tracking",
+      "path": "skills/error-tracking",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/error-tracking",
+      "description": ""
+    },
+    {
+      "name": "feature-flag-system",
+      "path": "skills/feature-flag-system",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/feature-flag-system",
+      "description": ""
+    },
+    {
+      "name": "form-validation",
+      "path": "skills/form-validation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/form-validation",
+      "description": ""
+    },
+    {
+      "name": "frontend-accessibility",
+      "path": "skills/frontend-accessibility",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/frontend-accessibility",
+      "description": ""
+    },
+    {
+      "name": "frontend-routing",
+      "path": "skills/frontend-routing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/frontend-routing",
+      "description": ""
+    },
+    {
+      "name": "frontend-state-management",
+      "path": "skills/frontend-state-management",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/frontend-state-management",
+      "description": ""
+    },
+    {
+      "name": "gap-analysis",
+      "path": "skills/gap-analysis",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/gap-analysis",
+      "description": ""
+    },
+    {
+      "name": "gcp-cloud-functions",
+      "path": "skills/gcp-cloud-functions",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/gcp-cloud-functions",
+      "description": ""
+    },
+    {
+      "name": "git-hooks-setup",
+      "path": "skills/git-hooks-setup",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/git-hooks-setup",
+      "description": ""
+    },
+    {
+      "name": "git-workflow-strategy",
+      "path": "skills/git-workflow-strategy",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/git-workflow-strategy",
+      "description": ""
+    },
+    {
+      "name": "graceful-shutdown",
+      "path": "skills/graceful-shutdown",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/graceful-shutdown",
+      "description": ""
+    },
+    {
+      "name": "graphql-implementation",
+      "path": "skills/graphql-implementation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/graphql-implementation",
+      "description": ""
+    },
+    {
+      "name": "health-check-endpoints",
+      "path": "skills/health-check-endpoints",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/health-check-endpoints",
+      "description": ""
+    },
+    {
+      "name": "idempotency-handling",
+      "path": "skills/idempotency-handling",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/idempotency-handling",
+      "description": ""
+    },
+    {
+      "name": "information-architecture",
+      "path": "skills/information-architecture",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/information-architecture",
+      "description": ""
+    },
+    {
+      "name": "integration-testing",
+      "path": "skills/integration-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/integration-testing",
+      "description": ""
+    },
+    {
+      "name": "interaction-design",
+      "path": "skills/interaction-design",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/interaction-design",
+      "description": ""
+    },
+    {
+      "name": "kpi-dashboard-design",
+      "path": "skills/kpi-dashboard-design",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/kpi-dashboard-design",
+      "description": ""
+    },
+    {
+      "name": "load-balancer-setup",
+      "path": "skills/load-balancer-setup",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/load-balancer-setup",
+      "description": ""
+    },
+    {
+      "name": "logging-best-practices",
+      "path": "skills/logging-best-practices",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/logging-best-practices",
+      "description": ""
+    },
+    {
+      "name": "memory-optimization",
+      "path": "skills/memory-optimization",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/memory-optimization",
+      "description": ""
+    },
+    {
+      "name": "ml-pipeline-automation",
+      "path": "skills/ml-pipeline-automation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/ml-pipeline-automation",
+      "description": ""
+    },
+    {
+      "name": "mocking-stubbing",
+      "path": "skills/mocking-stubbing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/mocking-stubbing",
+      "description": ""
+    },
+    {
+      "name": "model-deployment",
+      "path": "skills/model-deployment",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/model-deployment",
+      "description": ""
+    },
+    {
+      "name": "monorepo-management",
+      "path": "skills/monorepo-management",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/monorepo-management",
+      "description": ""
+    },
+    {
+      "name": "multi-cloud-strategy",
+      "path": "skills/multi-cloud-strategy",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/multi-cloud-strategy",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "path": "skills/mutation-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "natural-language-processing",
+      "path": "skills/natural-language-processing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/natural-language-processing",
+      "description": ""
+    },
+    {
+      "name": "neural-network-design",
+      "path": "skills/neural-network-design",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/neural-network-design",
+      "description": ""
+    },
+    {
+      "name": "nosql-database-design",
+      "path": "skills/nosql-database-design",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/nosql-database-design",
+      "description": ""
+    },
+    {
+      "name": "penetration-testing",
+      "path": "skills/penetration-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "performance-regression-debugging",
+      "path": "skills/performance-regression-debugging",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/performance-regression-debugging",
+      "description": ""
+    },
+    {
+      "name": "process-mapping",
+      "path": "skills/process-mapping",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/process-mapping",
+      "description": ""
+    },
+    {
+      "name": "profiling-optimization",
+      "path": "skills/profiling-optimization",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/profiling-optimization",
+      "description": ""
+    },
+    {
+      "name": "progressive-web-app",
+      "path": "skills/progressive-web-app",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/progressive-web-app",
+      "description": ""
+    },
+    {
+      "name": "property-based-testing",
+      "path": "skills/property-based-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/property-based-testing",
+      "description": ""
+    },
+    {
+      "name": "rate-limiting-implementation",
+      "path": "skills/rate-limiting-implementation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/rate-limiting-implementation",
+      "description": ""
+    },
+    {
+      "name": "reactive-programming",
+      "path": "skills/reactive-programming",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/reactive-programming",
+      "description": ""
+    },
+    {
+      "name": "recommendation-engine",
+      "path": "skills/recommendation-engine",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/recommendation-engine",
+      "description": ""
+    },
+    {
+      "name": "release-planning",
+      "path": "skills/release-planning",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/release-planning",
+      "description": ""
+    },
+    {
+      "name": "risk-assessment",
+      "path": "skills/risk-assessment",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/risk-assessment",
+      "description": ""
+    },
+    {
+      "name": "runbook-creation",
+      "path": "skills/runbook-creation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/runbook-creation",
+      "description": ""
+    },
+    {
+      "name": "secrets-rotation",
+      "path": "skills/secrets-rotation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/secrets-rotation",
+      "description": ""
+    },
+    {
+      "name": "security-documentation",
+      "path": "skills/security-documentation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/security-documentation",
+      "description": ""
+    },
+    {
+      "name": "server-side-rendering",
+      "path": "skills/server-side-rendering",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/server-side-rendering",
+      "description": ""
+    },
+    {
+      "name": "serverless-architecture",
+      "path": "skills/serverless-architecture",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/serverless-architecture",
+      "description": ""
+    },
+    {
+      "name": "session-management",
+      "path": "skills/session-management",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/session-management",
+      "description": ""
+    },
+    {
+      "name": "statistical-hypothesis-testing",
+      "path": "skills/statistical-hypothesis-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/statistical-hypothesis-testing",
+      "description": ""
+    },
+    {
+      "name": "stress-testing",
+      "path": "skills/stress-testing",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/stress-testing",
+      "description": ""
+    },
+    {
+      "name": "synthetic-monitoring",
+      "path": "skills/synthetic-monitoring",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/synthetic-monitoring",
+      "description": ""
+    },
+    {
+      "name": "test-data-generation",
+      "path": "skills/test-data-generation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/test-data-generation",
+      "description": ""
+    },
+    {
+      "name": "third-party-integration",
+      "path": "skills/third-party-integration",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/third-party-integration",
+      "description": ""
+    },
+    {
+      "name": "troubleshooting-guide",
+      "path": "skills/troubleshooting-guide",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/troubleshooting-guide",
+      "description": ""
+    },
+    {
+      "name": "unit-testing-framework",
+      "path": "skills/unit-testing-framework",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/unit-testing-framework",
+      "description": ""
+    },
+    {
+      "name": "uptime-monitoring",
+      "path": "skills/uptime-monitoring",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/uptime-monitoring",
+      "description": ""
+    },
+    {
+      "name": "user-persona-creation",
+      "path": "skills/user-persona-creation",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/user-persona-creation",
+      "description": ""
+    },
+    {
+      "name": "user-research-analysis",
+      "path": "skills/user-research-analysis",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/user-research-analysis",
+      "description": ""
+    },
+    {
+      "name": "vue-application-structure",
+      "path": "skills/vue-application-structure",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/vue-application-structure",
+      "description": ""
+    },
+    {
+      "name": "web-performance-optimization",
+      "path": "skills/web-performance-optimization",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/web-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "webhook-integration",
+      "path": "skills/webhook-integration",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/webhook-integration",
+      "description": ""
+    },
+    {
+      "name": "xss-prevention",
+      "path": "skills/xss-prevention",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/xss-prevention",
+      "description": ""
+    },
+    {
+      "name": "zero-trust-architecture",
+      "path": "skills/zero-trust-architecture",
+      "github_url": "https://github.com/aj-geddes/useful-ai-prompts/tree/main/skills/zero-trust-architecture",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aj-geddes/useful-ai-prompts",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:30:46Z"
+}
