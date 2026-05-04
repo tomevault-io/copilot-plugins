@@ -1,0 +1,9 @@
+{
+  "name": "tracebar-app--tracebar",
+  "displayName": "tracebar",
+  "description": "an mtr-like traceroute utility that lives in your MacOS menubar",
+  "version": "1.0.0",
+  "author": "tracebar-app",
+  "homepage": "https://github.com/tracebar-app/tracebar",
+  "skills": []
+}
