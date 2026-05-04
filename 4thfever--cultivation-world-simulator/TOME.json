@@ -2,9 +2,9 @@
   "name": "cultivation-world-simulator",
   "owner": "4thfever",
   "repo": "cultivation-world-simulator",
-  "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "description": "\u57fa\u4e8e AI Agent \u5de5\u4f5c\u6d41\u7684\u4fee\u4ed9\u4e16\u754c\u6a21\u62df\u5668\uff0c\u65e8\u5728\u8fd8\u539f\u667a\u80fd\u3001\u5f00\u653e\u7684\u4ed9\u4fa0\u4e16\u754c\u3002| An open-source Cultivation World Simulator using Agentic Workflow to create a dynamic, emerging Xianxia world. ",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/4thfever",
+  "skills": [
+    {
+      "name": "test-validate",
+      "path": ".cursor/skills/test-validate",
+      "github_url": "https://github.com/4thfever/cultivation-world-simulator/tree/main/.cursor/skills/test-validate",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/4thfever/cultivation-world-simulator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T08:33:25Z"
+  "distributed_at": "2026-05-04T10:39:04Z"
 }
