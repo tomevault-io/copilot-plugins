@@ -1,0 +1,9 @@
+{
+  "name": "kcsujeet--ilamy-calendar",
+  "displayName": "ilamy-calendar",
+  "description": "A modern, open-source Full Calendar alternative for React. Month, week, day, and year views with drag-and-drop, horizontal and vertical resource views, and RFC 5545 recurring events \u2014 all MIT licensed",
+  "version": "1.0.0",
+  "author": "kcsujeet",
+  "homepage": "https://github.com/kcsujeet/ilamy-calendar",
+  "skills": []
+}
