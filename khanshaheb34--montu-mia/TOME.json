@@ -1,0 +1,44 @@
+{
+  "name": "montu-mia",
+  "owner": "KhanShaheb34",
+  "repo": "montu-mia",
+  "description": "\u09ae\u09a8\u09cd\u099f\u09c1 \u09ae\u09bf\u09df\u09be\u0981\u09b0 \u09b8\u09be\u09a5\u09c7 \u09b2\u09cb\u09a1 \u09ac\u09cd\u09af\u09be\u09b2\u09c7\u09a8\u09cd\u09b8\u09bf\u0982 \u09b6\u09bf\u0996\u09c1\u09a8",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KhanShaheb34/montu-mia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:54:43Z"
+}
