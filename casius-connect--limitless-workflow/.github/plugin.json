@@ -1,0 +1,9 @@
+{
+  "name": "casius-connect--limitless-workflow",
+  "displayName": "limitless-workflow",
+  "description": "An understanding machine for Claude Code that turns research into tutoring, memory, and visible knowledge using Oracle  AI Database.",
+  "version": "1.0.0",
+  "author": "casius-connect",
+  "homepage": "https://github.com/casius-connect/limitless-workflow",
+  "skills": []
+}
