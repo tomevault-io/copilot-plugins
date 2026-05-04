@@ -1,0 +1,9 @@
+{
+  "name": "base--account-sdk",
+  "displayName": "account-sdk",
+  "description": "account-sdk",
+  "version": "1.0.0",
+  "author": "base",
+  "homepage": "https://github.com/base/account-sdk",
+  "skills": []
+}
