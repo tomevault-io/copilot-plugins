@@ -4,7 +4,7 @@
   "repo": "headroom-desktop",
   "description": "Unlock 2x more Claude Code usage",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/gglucass/headroom-desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T05:08:28Z"
+  "distributed_at": "2026-05-04T04:43:42Z"
 }
