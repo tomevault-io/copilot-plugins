@@ -1,0 +1,14 @@
+{
+  "name": "genlayer-foundation--points",
+  "displayName": "points",
+  "description": "GLF System to keep track of GenLayer's Testnet Asimov community contributions",
+  "version": "1.0.0",
+  "author": "genlayer-foundation",
+  "homepage": "https://github.com/genlayer-foundation/points",
+  "skills": [
+    {
+      "name": "sync-db",
+      "description": ""
+    }
+  ]
+}
