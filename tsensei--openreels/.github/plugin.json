@@ -1,0 +1,9 @@
+{
+  "name": "tsensei--openreels",
+  "displayName": "OpenReels",
+  "description": "Open-source AI pipeline that turns any topic into a publish-ready YouTube/Instagram/TikTok Short \u2014 research, script, voiceover, visuals, music, captions, and assembly in one command.",
+  "version": "1.0.0",
+  "author": "tsensei",
+  "homepage": "https://github.com/tsensei/OpenReels",
+  "skills": []
+}
