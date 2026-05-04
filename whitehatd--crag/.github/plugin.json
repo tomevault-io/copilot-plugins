@@ -1,0 +1,9 @@
+{
+  "name": "whitehatd--crag",
+  "displayName": "crag",
+  "description": "The bedrock layer for AI coding agents. One governance.md. Any project. Never stale. Universal skills + cross-agent compilation (Claude, Cursor, Codex, Gemini, Aider).",
+  "version": "1.0.0",
+  "author": "WhitehatD",
+  "homepage": "https://github.com/WhitehatD/crag",
+  "skills": []
+}
