@@ -1,0 +1,26 @@
+{
+  "name": "bradleygolden--claude-marketplace-elixir",
+  "displayName": "claude-marketplace-elixir",
+  "description": "Claude Marketplace for Elixir",
+  "version": "1.0.0",
+  "author": "bradleygolden",
+  "homepage": "https://github.com/bradleygolden/claude-marketplace-elixir",
+  "skills": [
+    {
+      "name": "hex-docs-search",
+      "description": ""
+    },
+    {
+      "name": "hex-docs-search",
+      "description": ""
+    },
+    {
+      "name": "usage-rules",
+      "description": ""
+    },
+    {
+      "name": "usage-rules",
+      "description": ""
+    }
+  ]
+}
