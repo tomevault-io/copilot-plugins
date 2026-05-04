@@ -1,0 +1,57 @@
+{
+  "name": "product-brain",
+  "owner": "digitarald",
+  "repo": "product-brain",
+  "description": "AI instruction skills by digitarald",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-slides",
+      "path": ".agents/skills/frontend-slides",
+      "github_url": "https://github.com/digitarald/product-brain/tree/main/.agents/skills/frontend-slides",
+      "description": ""
+    },
+    {
+      "name": "playwright-cli",
+      "path": ".agents/skills/playwright-cli",
+      "github_url": "https://github.com/digitarald/product-brain/tree/main/.agents/skills/playwright-cli",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/digitarald/product-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:31:00Z"
+}
