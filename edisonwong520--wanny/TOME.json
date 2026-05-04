@@ -4,7 +4,7 @@
   "repo": "wanny",
   "description": "A real Jarvis, connecting your appliances, AI controls everything in realworld. Wanny = nanny in Wechat",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/edisonwong520/wanny",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T02:31:51Z"
+  "distributed_at": "2026-05-04T05:48:04Z"
 }
