@@ -1,70 +1,82 @@
-## renderers
+## scene-registry
 
-> Node renderer pattern in packages/viewer
+> Scene registry pattern — mapping node IDs to live THREE.Object3D instances
 
 
-# Renderers
+# Scene Registry
 
-Renderers live in `packages/viewer/src/components/renderers/`. Each renderer is responsible for one node type's Three.js geometry and materials — nothing else.
+The scene registry is a global, mutable map that links node IDs to their live `THREE.Object3D` instances. It avoids tree traversal and lets systems and selection managers do O(1) lookups.
 
-## Dispatch Chain
+**Source**: @packages/core/src/hooks/scene-registry/scene-registry.ts
 
-```
-<SceneRenderer>          — iterates rootNodeIds from useScene
-  └─ <NodeRenderer>      — switches on node.type, renders the matching component
-       └─ <WallRenderer> — (or SlabRenderer, DoorRenderer, …)
-```
+## Structure
 
-See @packages/viewer/src/components/renderers/scene-renderer.tsx and @packages/viewer/src/components/renderers/node-renderer.tsx.
-
-## Renderer Responsibilities
-
-A renderer **should**:
-- Read its node from `useScene` via the node's ID
-- Register its mesh(es) with `useRegistry()` so other systems can look them up
-- Subscribe to pointer events via `useNodeEvents()`
-- Render geometry and apply materials based on node properties
-
-A renderer **must not**:
-- Run geometry generation logic (that belongs in a System)
-- Import anything from `apps/editor`
-- Manage selection state directly (use `useViewer` for read, emit events for write)
-- Perform expensive per-frame calculations in the component body
-
-## Example — Minimal Renderer
-
-```tsx
-// packages/viewer/src/components/renderers/my-node/index.tsx
-import { useRegistry } from '@pascal-app/core'
-import { useNodeEvents } from '../../hooks/use-node-events'
-import { useScene } from '@pascal-app/core'
-
-export function MyNodeRenderer({ node }: { node: MyNode }) {
-  const ref = useRef<Mesh>(null!)
-  useRegistry(node.id, 'my-node', ref)   // 3 args: id, type, ref — no return value
-  const events = useNodeEvents(node, 'my-node')
-
-  return (
-    <mesh ref={ref} {...events}>
-      <boxGeometry args={[node.width, node.height, node.depth]} />
-      <meshStandardMaterial color={node.color} />
-    </mesh>
-  )
+```ts
+export const sceneRegistry = {
+  nodes: new Map<string, THREE.Object3D>(),   // id → Object3D
+  byType: {
+    wall: new Set<string>(),
+    slab: new Set<string>(),
+    item: new Set<string>(),
+    // … one Set per node type
+  },
 }
 ```
 
-## Adding a New Node Type
+`nodes` is the primary lookup. `byType` lets systems iterate all objects of one type without scanning the whole map.
 
-1. Create `packages/viewer/src/components/renderers/<type>/index.tsx`
-2. Add a case to `NodeRenderer` in `node-renderer.tsx`
-3. Add the corresponding system in `packages/core/src/systems/` if the node needs derived geometry
-4. Export from `packages/viewer/src/index.ts` if needed externally
+## Registering in a Renderer
 
-## Performance Notes
+Every renderer must call `useRegistry` with a `ref` to its root mesh or group. Registration is synchronous (`useLayoutEffect`) so it's available before the first paint.
 
-- Use `useMemo` for geometry that depends on node properties — avoid recreating on every render.
-- For complex cutout or boolean geometry, delegate to a System (e.g. `WallCutout`).
-- Register one mesh per node ID; if a renderer spawns multiple meshes, use a group ref or pick the primary one for registry.
+```tsx
+import { useRegistry } from '@pascal-app/core'
+
+export function WallRenderer({ node }: { node: WallNode }) {
+  const ref = useRef<Mesh>(null!)
+  useRegistry(node.id, 'wall', ref)   // ← required in every renderer
+
+  return <mesh ref={ref} … />
+}
+```
+
+The hook handles both registration on mount and cleanup on unmount automatically.
+
+## Looking Up Objects
+
+Anywhere outside the renderer — in systems, selection managers, export logic:
+
+```ts
+// Single lookup
+const obj = sceneRegistry.nodes.get(nodeId)
+if (obj) { /* use obj */ }
+
+// Iterate all walls
+for (const id of sceneRegistry.byType.wall) {
+  const obj = sceneRegistry.nodes.get(id)
+}
+```
+
+## Rules
+
+- **One registration per node ID.** If a renderer spawns multiple meshes, register the outermost group (the one that represents the node).
+- **Never hold a stale reference.** Always read from `sceneRegistry.nodes.get(id)` at the time you need it — don't cache the result across frames.
+- **Don't mutate the registry manually.** Only `useRegistry` should add/remove entries. Systems and selection managers are read-only consumers.
+- **Core systems must not use the registry.** They work with plain node data. Only viewer systems and selection managers may do Three.js object lookups.
+
+## Outliner Sync
+
+The `outliner` in `useViewer` holds live `Object3D[]` arrays used by the post-processing outline pass. Selection managers sync them imperatively for performance (array mutation rather than new allocations):
+
+```ts
+outliner.selectedObjects.length = 0
+for (const id of selection.selectedIds) {
+  const obj = sceneRegistry.nodes.get(id)
+  if (obj) outliner.selectedObjects.push(obj)
+}
+```
+
+See @packages/viewer/src/components/viewer/selection-manager.tsx for the full sync pattern.
 
 ---
 > Source: [zuleikdiasb-web/pascal-editor-3d](https://github.com/zuleikdiasb-web/pascal-editor-3d) — distributed by [TomeVault](https://tomevault.io).
