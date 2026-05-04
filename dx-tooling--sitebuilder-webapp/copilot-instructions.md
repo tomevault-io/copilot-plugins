@@ -1,47 +1,145 @@
-## 06-database
+## 07-workflow
 
-> Doctrine entities, migrations (make:migration only), DateAndTimeService, mb_* strings. Use when editing entities or migrations.
+> **Reference**: See `docs/devbook.md` for common development tasks.
 
+# Development Workflow
 
-# Database Access Patterns
+**Reference**: See `docs/devbook.md` for common development tasks.
 
-**Reference**: See `docs/archbook.md` section on "Database access in Domain" and `docs/devbook.md` for migration workflow.
+## Important: Always Use `mise run` Commands
 
-## Database Access in Domain Layer
+**NEVER run npm, composer, or php commands directly.** All commands must go through `mise run` to execute inside the Docker container with the correct environment.
 
-- Database access is **allowed** in the Domain layer
-- Use raw SQL for complex queries
-- Use `EntityManager` for simple CRUD operations
-- **Never** hardcode table names; use entity class names and Doctrine's table mapping
+```bash
+# WRONG - runs locally, may fail or use wrong environment
+npm test
+npm install
+php bin/console ...
 
-## Entity Management
+# CORRECT - runs inside the app container
+mise run npm test
+mise run tests:frontend
+mise run console ...
+```
 
-- Model entities in `Domain/Entity/`
-- Use Doctrine ORM attributes for mapping
-- Entities are rich domain objects with behavior
-- Don't expose entities directly across vertical boundaries (use DTOs)
+## Available Mise Tasks
 
-## Migrations
+Run `mise tasks` to see all available tasks. Key tasks:
 
-- **Never** write migrations manually
-- Create or edit entities
-- Run `mise run console make:migration` to generate migrations (see `docs/devbook.md`)
-- Migrations are auto-generated from entity changes
+| Task | Description |
+|------|-------------|
+| `mise run quality` | Run ALL quality checks (required before commit) |
+| `mise run tests` | Run PHP tests (architecture, unit, integration, application) |
+| `mise run tests:frontend` | Run frontend/TypeScript tests (vitest) |
+| `mise run frontend` | Build frontend assets (Tailwind + AssetMapper) |
+| `mise run console <cmd>` | Run Symfony console commands |
+| `mise run composer <cmd>` | Run Composer commands |
+| `mise run npm <cmd>` | Run NPM commands inside container |
+| `mise run db` | Connect to local database |
 
-## Date and Time
+## Quality Checks
 
-- **Always** use `DateAndTimeService::getDateTimeImmutable()` instead of `new DateTimeImmutable()`
-- This ensures consistent time handling across the application
-- See `docs/archbook.md` for this requirement
+**Always run `mise run quality` before committing code.**
 
-## String Handling
+This runs (in order):
+1. Doctrine schema validation
+2. PHP CS Fixer (auto-fixes formatting)
+3. Prettier (auto-fixes JS/TS/CSS/YAML formatting)
+4. ESLint
+5. TypeScript compiler (`tsc`)
+6. PHPStan
 
-- Use `mb_*` functions for multibyte-safe string operations
-- Be aware of encoding when working with user input or database data
+Fix all issues before proceeding.
 
-## Connection
+## Testing
 
-- Use `mise run db` to connect to the local database (see `docs/devbook.md`)
+### PHP Tests
+```bash
+mise run tests
+```
+Runs: architecture tests, unit tests, integration tests, application tests.
+
+### Frontend Tests (TypeScript/Vitest)
+```bash
+mise run tests:frontend            # Run once
+mise run tests:frontend --watch    # Watch mode
+mise run tests:frontend --coverage # With coverage
+```
+
+### Run Everything Before Commit
+```bash
+mise run quality && mise run tests && mise run tests:frontend
+```
+
+## Building Frontend
+
+```bash
+mise run frontend
+```
+
+This compiles:
+- TailwindCSS
+- TypeScript (via SWC)
+- Asset manifests
+
+## Database Operations
+
+### Migrations
+```bash
+# Generate migration after entity changes
+mise run console make:migration
+
+# Apply migrations
+mise run console doctrine:migrations:migrate --no-interaction
+```
+
+### Database Connection
+```bash
+mise run db
+```
+
+## Updating Dependencies
+
+```bash
+# PHP dependencies
+mise run composer update --with-dependencies
+
+# Node.js dependencies (inside container)
+mise run npm install
+mise run npm update
+
+# Update AssetMapper importmaps
+mise run console importmap:update
+```
+
+## Before Committing Checklist
+
+1. `mise run quality` - Fix all issues
+2. `mise run tests` - All PHP tests pass
+3. `mise run tests:frontend` - All frontend tests pass
+4. `mise run frontend` - Frontend builds successfully
+5. Verify architecture boundaries are respected
+6. Check that all type annotations are correct
+
+## Troubleshooting
+
+### "Module not found" errors in frontend tests
+The container may need npm dependencies installed:
+```bash
+mise run npm install
+```
+
+### Container not running
+```bash
+docker compose up -d
+```
+
+### Stale compiled assets
+Delete and rebuild:
+```bash
+rm -rf public/assets
+mise run frontend
+```
 
 ---
 > Source: [dx-tooling/sitebuilder-webapp](https://github.com/dx-tooling/sitebuilder-webapp) — distributed by [TomeVault](https://tomevault.io).
