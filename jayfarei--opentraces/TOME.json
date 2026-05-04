@@ -4,7 +4,7 @@
   "repo": "opentraces",
   "description": "Open schema + CLI for repo-local agent trace capture, review, and upload to Hugging Face Hub.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/JayFarei/opentraces",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T07:07:48Z"
+  "distributed_at": "2026-05-04T08:10:20Z"
 }
