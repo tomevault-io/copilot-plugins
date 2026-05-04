@@ -1,0 +1,105 @@
+{
+  "name": "awesome-reviewers",
+  "owner": "baz-scm",
+  "repo": "awesome-reviewers",
+  "description": "Ready-to-use system prompts for Agentic Code Review.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-assisted-development",
+      "path": "_skills/ai-assisted-development",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/ai-assisted-development",
+      "description": ""
+    },
+    {
+      "name": "code-readability",
+      "path": "_skills/code-readability",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/code-readability",
+      "description": ""
+    },
+    {
+      "name": "code-refactoring",
+      "path": "_skills/code-refactoring",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/code-refactoring",
+      "description": ""
+    },
+    {
+      "name": "data-ml",
+      "path": "_skills/data-ml",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/data-ml",
+      "description": ""
+    },
+    {
+      "name": "devops-cloud",
+      "path": "_skills/devops-cloud",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/devops-cloud",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "_skills/documentation",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "full-stack-development",
+      "path": "_skills/full-stack-development",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/full-stack-development",
+      "description": ""
+    },
+    {
+      "name": "secure-coding",
+      "path": "_skills/secure-coding",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/secure-coding",
+      "description": ""
+    },
+    {
+      "name": "team-collaboration",
+      "path": "_skills/team-collaboration",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/team-collaboration",
+      "description": ""
+    },
+    {
+      "name": "testing-debugging",
+      "path": "_skills/testing-debugging",
+      "github_url": "https://github.com/baz-scm/awesome-reviewers/tree/main/_skills/testing-debugging",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/baz-scm/awesome-reviewers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:35:56Z"
+}
