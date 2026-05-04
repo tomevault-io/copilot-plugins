@@ -1,0 +1,9 @@
+{
+  "name": "hugr-lab--mssql-extension",
+  "displayName": "mssql-extension",
+  "description": "DuckDB extension for Microsoft SQL Server (TDS + TLS), with catalog integration and pushdown.",
+  "version": "1.0.0",
+  "author": "hugr-lab",
+  "homepage": "https://github.com/hugr-lab/mssql-extension",
+  "skills": []
+}
