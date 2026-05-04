@@ -1,0 +1,74 @@
+{
+  "name": "alexanderop--workouttracker",
+  "displayName": "workout",
+  "description": "AI instruction skills by alexanderop",
+  "version": "1.0.0",
+  "author": "alexanderop",
+  "homepage": "https://github.com/alexanderop/workoutTracker",
+  "skills": [
+    {
+      "name": "vitest-mocking",
+      "description": ""
+    },
+    {
+      "name": "vue-composables",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "git-worktree",
+      "description": ""
+    },
+    {
+      "name": "improve-skill",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "repository-pattern",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "testing-conventions",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-patterns",
+      "description": ""
+    },
+    {
+      "name": "vue-integration-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-composable-testing",
+      "description": ""
+    },
+    {
+      "name": "vue-composables",
+      "description": ""
+    },
+    {
+      "name": "vue-patterns",
+      "description": ""
+    }
+  ]
+}
