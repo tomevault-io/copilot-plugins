@@ -7,11 +7,11 @@ OpenVibeCoding is the command tower for AI engineering: plan, delegate, track, r
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xiaojiou176-open/OpenVibeCoding](https://github.com/xiaojiou176-open/OpenVibeCoding).
+Original source: `CLAUDE.md` in [xiaojiou176-open/OpenVibeCoding](https://github.com/xiaojiou176-open/OpenVibeCoding).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
