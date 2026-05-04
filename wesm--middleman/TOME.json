@@ -4,7 +4,7 @@
   "repo": "middleman",
   "description": "Local-first GitHub dashboard for maintainers to triage, review, and merge PRs and issues across repos without needing GitHub's built-in notification emails or dashboard",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wesm/middleman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T06:48:00Z"
+  "distributed_at": "2026-05-04T05:46:27Z"
 }
