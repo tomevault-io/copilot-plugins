@@ -4,7 +4,7 @@
   "repo": "optique",
   "description": "Type-safe combinatorial CLI parser for TypeScript",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dahlia/optique",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T10:56:44Z"
+  "distributed_at": "2026-05-04T11:11:56Z"
 }
