@@ -1,0 +1,34 @@
+{
+  "name": "bgauryy--octocode-mcp",
+  "displayName": "octocode-mcp",
+  "description": "MCP server for semantic code research and context generation on real-time using LLM patterns | Search naturally across public & private repos based on your permissions | Transform any accessible codeb",
+  "version": "1.0.0",
+  "author": "bgauryy",
+  "homepage": "https://github.com/bgauryy/octocode-mcp",
+  "skills": [
+    {
+      "name": "octocode-documentation-writer",
+      "description": ""
+    },
+    {
+      "name": "octocode-plan",
+      "description": ""
+    },
+    {
+      "name": "octocode-prompt-optimizer",
+      "description": ""
+    },
+    {
+      "name": "octocode-pull-request-reviewer",
+      "description": ""
+    },
+    {
+      "name": "octocode-research",
+      "description": ""
+    },
+    {
+      "name": "octocode-roast",
+      "description": ""
+    }
+  ]
+}
