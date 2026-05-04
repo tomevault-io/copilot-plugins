@@ -1,32 +1,46 @@
-## quint-before-code
+## read-hygiene
 
-> Quint in specs/ before Rust; wire specs with quint-connect
+> Tiered read protocol — enforced by read-cap.sh beforeReadFile hook
 
 
-# Quint Before Code
+# Read Hygiene
 
-Skip for trivial edits. Formal Quint before or alongside Rust when wrong behavior likely without explicit model.
+`read-cap.sh` blocks unsliced reads >150 lines (>300 for `.md`/`.mdc`). Lockfiles exempt.
 
-## Use Quint First
+## Tier 1 — Signature Scan (always try first)
 
-| Trigger | Examples |
-|--------|----------|
-| New feature or user-visible behavior | add or extend the relevant `specs/<topic>.qnt`; do not ship behavior-only changes without the spec moving with them |
-| State machine or protocol steps | ingest, session lifecycle, hooks |
-| Invariants, idempotency, ordering | duplicate events, replay, cursor rules |
-| Concurrent or multi-step lifecycle | transitions that must stay consistent |
+Grep for function/struct signatures before reading full file.
 
-Order: `specs/<topic>.qnt` (new or updated) → `tests/spec/` with **quint-connect** → Rust. For a new feature, treat the spec and its connect test as one change, not a follow-up.
+```
+Grep: pattern="pub fn " glob="**/*.rs"
+```
 
-**quint-connect:** Replay the spec from Rust under `tests/spec/` with `use quint_connect::*;` and `#[quint_run]` (or extend an existing spec test in that directory). `cargo test` for that test must pass; CI runs `scripts/check-quint-specs.sh` and the spec suite. For which spec maps to which test, see `docs/quint-coverage.md`—update that map when you add a new spec file or a new `tests/spec/*` entry.
+## Tier 2 — Offset/Limit Slice
 
-## Skip Quint
+Know section? Read only that region.
 
-Typos, formatting, mechanical rename, single-line obvious fix, copy-only UI, dependency bump with no behavior change.
+```
+Read: path="src/collector.rs" offset=45 limit=30
+```
 
-## Reference
+## Tier 3 — Full Read (last resort)
 
-Existing specs: `specs/*.qnt`. `quint-connect` crate: `quint_connect` in `tests/spec/`, vendored in `vendor/quint-connect/`. Cross-cutting sequence: `docs/impl-sequence.md`.
+Only if file is small (<150 lines) or genuinely need whole thing.
+Large `.md`/`.mdc` docs: read by section with offset+limit.
+
+## Why
+
+Full reads on large files waste tokens and trigger hook block.
+Grep signatures + targeted slices deliver same context at 10–20× lower cost.
+
+## Hook Behaviour
+
+| Condition | Result |
+|---|---|
+| content lines ≤ threshold | allow |
+| content lines > 150 (non-md) | deny with message |
+| content lines > 300 (md/mdc) | deny with message |
+| lockfile path | allow unconditionally |
 
 ---
 > Source: [marquesds/kaizen](https://github.com/marquesds/kaizen) — distributed by [TomeVault](https://tomevault.io).
