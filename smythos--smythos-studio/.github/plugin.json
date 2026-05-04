@@ -1,0 +1,9 @@
+{
+  "name": "smythos--smythos-studio",
+  "displayName": "smythos-studio",
+  "description": "SmythOS Studio: Open-Source Visual AI Agent Builder and deployable runtime stack from SmythOS. Start with an intuitive drag-and-drop workspace, extend with custom code, and deploy your agents anywhere",
+  "version": "1.0.0",
+  "author": "SmythOS",
+  "homepage": "https://github.com/SmythOS/smythos-studio",
+  "skills": []
+}
