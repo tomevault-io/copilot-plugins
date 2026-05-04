@@ -1,0 +1,9 @@
+{
+  "name": "msant77--iclf-parser",
+  "displayName": "iclf-parser",
+  "description": "Dart/Flutter Parser for Inline Chorded Lyrics Format Files",
+  "version": "1.0.0",
+  "author": "msant77",
+  "homepage": "https://github.com/msant77/iclf-parser",
+  "skills": []
+}
