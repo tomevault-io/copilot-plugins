@@ -1,0 +1,9 @@
+{
+  "name": "google-marketing-solutions--google-ads-mcp",
+  "displayName": "google_ads_mcp",
+  "description": "The Google Ads MCP Server is an implementation of the Model Context Protocol (MCP) that enables Large Language Models (LLMs), such as Gemini, to interact directly with the Google Ads API.",
+  "version": "1.0.0",
+  "author": "google-marketing-solutions",
+  "homepage": "https://github.com/google-marketing-solutions/google_ads_mcp",
+  "skills": []
+}
