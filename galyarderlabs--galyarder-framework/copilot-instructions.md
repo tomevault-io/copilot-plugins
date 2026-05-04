@@ -1,6 +1,6 @@
-## decision-logger
+## defuddle
 
-> Two-layer memory architecture for board meeting decisions. Manages raw transcripts (Layer 1) and approved decisions (Layer 2). Use when logging decisions after a board meeting, reviewing past decisions with /cs:decisions, or checking overdue action items with /cs:review. Invoked automatically by the board-meeting skill after Phase 5 founder approval.
+> Extract clean markdown content from web pages using Defuddle CLI, removing clutter and navigation to save tokens. Use instead of WebFetch when the user provides a URL to read or analyze, for online documentation, articles, blog posts, or any standard web page. Do NOT use for URLs ending in .md  those are already markdown, use WebFetch directly.
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,149 +36,43 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# Decision Logger
+# Defuddle
 
-You are the Decision Logger Specialist at Galyarder Labs.
-##  Galyarder Framework Operating Procedures (MANDATORY)
-When building your human partner's strategic memory:
-1. **Token Economy (RTK):** Use `rtk` to summarize long session histories before extracting the core decision.
-2. **Strategic Memory (Obsidian):** Every time a significant decision is made, log it immediately using the template at `[VAULT_ROOT]//Decision-Logs/Decision-Log-Template.md`.
-3. **Behavior:** If `[VAULT_ROOT]` is not set, ask your human partner for the location of their Obsidian vault.
+You are the Defuddle Specialist at Galyarder Labs.
+Use Defuddle CLI to extract clean readable content from web pages. Prefer over WebFetch for standard web pages  it removes navigation, ads, and clutter, reducing token usage.
 
-Two-layer memory system. Layer 1 stores everything. Layer 2 stores only what the founder approved. Future meetings read Layer 2 only  this prevents hallucinated consensus from past debates bleeding into new deliberations.
+If not installed: `npm install -g defuddle`
 
-## Keywords
-decision log, memory, approved decisions, action items, board minutes, /cs:decisions, /cs:review, conflict detection, DO_NOT_RESURFACE
+## Usage
 
-## Quick Start
+Always use `--md` for markdown output:
 
 ```bash
-python scripts/decision_tracker.py --demo             # See sample output
-python scripts/decision_tracker.py --summary          # Overview + overdue
-python scripts/decision_tracker.py --overdue          # Past-deadline actions
-python scripts/decision_tracker.py --conflicts        # Contradiction detection
-python scripts/decision_tracker.py --owner "CTO"      # Filter by owner
-python scripts/decision_tracker.py --search "pricing" # Search decisions
+defuddle parse <url> --md
 ```
 
----
+Save to file:
 
-## Commands
-
-| Command | Effect |
-|---------|--------|
-| `/cs:decisions` | Last 10 approved decisions |
-| `/cs:decisions --all` | Full history |
-| `/cs:decisions --owner CMO` | Filter by owner |
-| `/cs:decisions --topic pricing` | Search by keyword |
-| `/cs:review` | Action items due within 7 days |
-| `/cs:review --overdue` | Items past deadline |
-
----
-
-## Two-Layer Architecture
-
-### Layer 1  Raw Transcripts
-**Location:** `memory/board-meetings/YYYY-MM-DD-raw.md`
-- Full Phase 2 agent contributions, Phase 3 critique, Phase 4 synthesis
-- All debates, including rejected arguments
-- **NEVER auto-loaded.** Only on explicit founder request.
-- Archive after 90 days  `memory/board-meetings/archive/YYYY/`
-
-### Layer 2  Approved Decisions
-**Location:** `memory/board-meetings/decisions.md`
-- ONLY founder-approved decisions, action items, user corrections
-- **Loaded automatically in Phase 1 of every board meeting**
-- Append-only. Decisions are never deleted  only superseded.
-- Managed by Chief of Staff after Phase 5. Never written by agents directly.
-
----
-
-## Decision Entry Format
-
-```markdown
-## [YYYY-MM-DD]  [AGENDA ITEM TITLE]
-
-**Decision:** [One clear statement of what was decided.]
-**Owner:** [One person or role  accountable for execution.]
-**Deadline:** [YYYY-MM-DD]
-**Review:** [YYYY-MM-DD]
-**Rationale:** [Why this over alternatives. 1-2 sentences.]
-
-**User Override:** [If founder changed agent recommendation  what and why. Blank if not applicable.]
-
-**Rejected:**
-- [Proposal]  [reason] [DO_NOT_RESURFACE]
-
-**Action Items:**
-- [ ] [Action]  Owner: [name]  Due: [YYYY-MM-DD]  Review: [YYYY-MM-DD]
-
-**Supersedes:** [DATE of previous decision on same topic, if any]
-**Superseded by:** [Filled in retroactively if overridden later]
-**Raw transcript:** memory/board-meetings/[DATE]-raw.md
+```bash
+defuddle parse <url> --md -o content.md
 ```
 
----
+Extract specific metadata:
 
-## Conflict Detection
-
-Before logging, Chief of Staff checks for:
-1. **DO_NOT_RESURFACE violations**  new decision matches a rejected proposal
-2. **Topic contradictions**  two active decisions on same topic with different conclusions
-3. **Owner conflicts**  same action assigned to different people in different decisions
-
-When a conflict is found:
-```
- DECISION CONFLICT
-New: [text]
-Conflicts with: [DATE]  [existing text]
-
-Options: (1) Supersede old  (2) Merge  (3) Defer to founder
+```bash
+defuddle parse <url> -p title
+defuddle parse <url> -p description
+defuddle parse <url> -p domain
 ```
 
-**DO_NOT_RESURFACE enforcement:**
-```
- BLOCKED: "[Proposal]" was rejected on [DATE]. Reason: [reason].
-To reopen: founder must explicitly say "reopen [topic] from [DATE]".
-```
+## Output formats
 
----
-
-## Logging Workflow (Post Phase 5)
-
-1. Founder approves synthesis
-2. Write Layer 1 raw transcript  `YYYY-MM-DD-raw.md`
-3. Check conflicts against `decisions.md`
-4. Surface conflicts  wait for founder resolution
-5. Append approved entries to `decisions.md`
-6. Confirm: decisions logged, actions tracked, DO_NOT_RESURFACE flags added
-
----
-
-## Marking Actions Complete
-
-```markdown
-- [x] [Action]  Owner: [name]  Completed: [DATE]  Result: [one sentence]
-```
-
-Never delete completed items. The history is the record.
-
----
-
-## File Structure
-
-```
-memory/board-meetings/
- decisions.md       # Layer 2: append-only, founder-approved
- YYYY-MM-DD-raw.md  # Layer 1: full transcript per meeting
- archive/YYYY/      # Raw files after 90 days
-```
-
----
-
-## References
-- `templates/decision-entry.md`  single entry template with field rules
-- `scripts/decision_tracker.py`  CLI parser, overdue tracker, conflict detector
+| Flag | Format |
+|------|--------|
+| `--md` | Markdown (default choice) |
+| `--json` | JSON with both HTML and markdown |
+| (none) | HTML |
+| `-p <name>` | Specific metadata property |
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
