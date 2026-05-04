@@ -1,0 +1,9 @@
+{
+  "name": "zenitram--malla",
+  "displayName": "malla",
+  "description": "Malla is a web analyzer for Meshtastic networks based on MQTT data.",
+  "version": "1.0.0",
+  "author": "zenitraM",
+  "homepage": "https://github.com/zenitraM/malla",
+  "skills": []
+}
