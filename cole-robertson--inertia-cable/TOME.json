@@ -1,0 +1,93 @@
+{
+  "name": "inertia",
+  "owner": "cole-robertson",
+  "repo": "inertia-cable",
+  "description": "Seamless real-time updates for Inertia.js Rails apps using ActionCable",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "inertia-rails-auth",
+      "path": "skills/inertia-rails-auth",
+      "github_url": "https://github.com/cole-robertson/inertia-cable/tree/main/skills/inertia-rails-auth",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-best-practices",
+      "path": "skills/inertia-rails-best-practices",
+      "github_url": "https://github.com/cole-robertson/inertia-cable/tree/main/skills/inertia-rails-best-practices",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-cookbook",
+      "path": "skills/inertia-rails-cookbook",
+      "github_url": "https://github.com/cole-robertson/inertia-cable/tree/main/skills/inertia-rails-cookbook",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-forms",
+      "path": "skills/inertia-rails-forms",
+      "github_url": "https://github.com/cole-robertson/inertia-cable/tree/main/skills/inertia-rails-forms",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-performance",
+      "path": "skills/inertia-rails-performance",
+      "github_url": "https://github.com/cole-robertson/inertia-cable/tree/main/skills/inertia-rails-performance",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-setup",
+      "path": "skills/inertia-rails-setup",
+      "github_url": "https://github.com/cole-robertson/inertia-cable/tree/main/skills/inertia-rails-setup",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-ssr",
+      "path": "skills/inertia-rails-ssr",
+      "github_url": "https://github.com/cole-robertson/inertia-cable/tree/main/skills/inertia-rails-ssr",
+      "description": ""
+    },
+    {
+      "name": "inertia-rails-testing",
+      "path": "skills/inertia-rails-testing",
+      "github_url": "https://github.com/cole-robertson/inertia-cable/tree/main/skills/inertia-rails-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cole-robertson/inertia-cable",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T10:44:33Z"
+}
