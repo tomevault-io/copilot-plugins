@@ -1,0 +1,9 @@
+{
+  "name": "pinchbench--leaderboard",
+  "displayName": "leaderboard",
+  "description": "PinchBench is a benchmarking system for evaluating LLM models as OpenClaw coding agents. Made with \ud83e\udd80 by the humans at https://kilo.ai",
+  "version": "1.0.0",
+  "author": "pinchbench",
+  "homepage": "https://github.com/pinchbench/leaderboard",
+  "skills": []
+}
