@@ -7,11 +7,11 @@ AI-guided Home Assistant setup — automation templates, mobile-first React dash
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dcb/homeassistant-claude-kit](https://github.com/dcb/homeassistant-claude-kit).
+Original source: `CLAUDE.md` in [dcb/homeassistant-claude-kit](https://github.com/dcb/homeassistant-claude-kit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
