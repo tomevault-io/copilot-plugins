@@ -4,7 +4,7 @@
   "repo": "claude-code-remote",
   "description": "Claude Code Remote - Access Claude Code sessions from any device \ud83d\udcf1\ud83d\udcbb",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yazinsai/claude-code-remote",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T04:51:58Z"
+  "distributed_at": "2026-05-04T02:28:22Z"
 }
