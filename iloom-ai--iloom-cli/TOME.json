@@ -1,0 +1,51 @@
+{
+  "name": "iloom-cli",
+  "owner": "iloom-ai",
+  "repo": "iloom-cli",
+  "description": "iloom: a developer workflow system delivered as a CLI and a VS Code extension for structured AI-assisted development. The CLI is the system of record, running tasks in isolated workflows and persisting analysis, plans, and decisions to your issue tracker, while the VS Code extension exposes insights, assumptions, risks, and decisions in real time.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "version-iloom",
+      "path": ".claude/skills/version-iloom",
+      "github_url": "https://github.com/iloom-ai/iloom-cli/tree/main/.claude/skills/version-iloom",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/iloom-ai/iloom-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T07:42:13Z"
+}
