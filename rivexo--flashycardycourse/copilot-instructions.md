@@ -1,155 +1,79 @@
-## clerk-auth
+## drizzle-database
 
-> This project uses **Clerk** for authentication and authorization. All data access must be properly scoped to the authenticated user.
+> Database interaction guidelines using Drizzle ORM
 
 
-# Clerk Authentication & Authorization
+# Database Interaction Guidelines
 
-This project uses **Clerk** for authentication and authorization. All data access must be properly scoped to the authenticated user.
+This project uses **Drizzle ORM** for all database interactions. All database operations must follow these guidelines.
 
-## Critical Security Requirement
+## Schema Definition
 
-**Users must ONLY be able to access their own data.** Every database query that retrieves user-specific data must be filtered by the authenticated user's ID.
+The database schema is defined in [src/db/schema.ts](mdc:src/db/schema.ts) and includes:
 
-## Getting the Current User
+- **decksTable**: Stores flashcard decks with user associations
+- **cardsTable**: Stores individual flashcard cards linked to decks
 
-Use Clerk's authentication to get the current user:
+## Required Practices
+
+### 1. Always Import from Schema
 
 ```typescript
-import { auth } from "@clerk/nextjs/server";
-
-// In Server Components or Server Actions
-const { userId } = await auth();
-
-if (!userId) {
-  // Handle unauthenticated state
-  throw new Error("Unauthorized");
-}
+import { decksTable, cardsTable } from "@/db/schema";
 ```
 
-## Database Query Requirements
+### 2. Use Drizzle Query Methods
 
-### ✅ CORRECT: Always filter by userId
+All database queries must use Drizzle's query builder or ORM methods:
+
+- **SELECT**: Use `db.select()` or `db.query`
+- **INSERT**: Use `db.insert(table).values(...)`
+- **UPDATE**: Use `db.update(table).set(...).where(...)`
+- **DELETE**: Use `db.delete(table).where(...)`
+
+### 3. Never Use Raw SQL
+
+❌ **DO NOT** write raw SQL queries
+✅ **DO** use Drizzle's type-safe query builder
+
+### 4. Type Safety
+
+Leverage Drizzle's TypeScript integration for type-safe database operations. Use `InferSelectModel` and `InferInsertModel` for type definitions:
 
 ```typescript
-// When querying decks
-const userDecks = await db.select()
-  .from(decksTable)
-  .where(eq(decksTable.userId, userId));
+import { type InferSelectModel, type InferInsertModel } from "drizzle-orm";
 
-// When querying a specific deck
-const deck = await db.select()
-  .from(decksTable)
-  .where(
-    and(
-      eq(decksTable.id, deckId),
-      eq(decksTable.userId, userId)
-    )
-  );
-
-// When querying cards (through deck ownership)
-const cards = await db.select()
-  .from(cardsTable)
-  .innerJoin(decksTable, eq(cardsTable.deckId, decksTable.id))
-  .where(eq(decksTable.userId, userId));
+type Deck = InferSelectModel<typeof decksTable>;
+type NewDeck = InferInsertModel<typeof decksTable>;
 ```
 
-### ❌ INCORRECT: Never query without userId filter
+### 5. Relationships
+
+When working with relationships (e.g., cards belonging to decks), use Drizzle's relational queries or proper joins:
 
 ```typescript
-// SECURITY RISK: Returns all users' data
-const allDecks = await db.select().from(decksTable);
-
-// SECURITY RISK: No user verification
-const deck = await db.select()
-  .from(decksTable)
-  .where(eq(decksTable.id, deckId));
-```
-
-## Best Practices
-
-1. **Always authenticate first**: Check for `userId` before any data operation
-2. **Filter all queries**: Every query for user-specific data must include `userId` filter
-3. **Verify ownership**: When accessing related data (like cards), verify the parent resource (deck) belongs to the user
-4. **Fail securely**: If no `userId` exists, reject the request immediately
-5. **Never trust client input**: Always verify ownership server-side, even if the client claims ownership
-
-## Server Actions & API Routes
-
-All server actions and API routes must follow this pattern:
-
-```typescript
-"use server";
-
-import { auth } from "@clerk/nextjs/server";
-import { db } from "@/db";
-import { decksTable } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
-
-export async function getUserDecks() {
-  const { userId } = await auth();
-  
-  if (!userId) {
-    throw new Error("Unauthorized");
+// Example: Query cards with their deck
+db.query.cardsTable.findMany({
+  with: {
+    deck: true
   }
-  
-  return await db.select()
-    .from(decksTable)
-    .where(eq(decksTable.userId, userId));
-}
-
-export async function updateDeck(deckId: number, data: UpdateDeckData) {
-  const { userId } = await auth();
-  
-  if (!userId) {
-    throw new Error("Unauthorized");
-  }
-  
-  // Verify ownership before update
-  const deck = await db.select()
-    .from(decksTable)
-    .where(
-      and(
-        eq(decksTable.id, deckId),
-        eq(decksTable.userId, userId)
-      )
-    );
-  
-  if (deck.length === 0) {
-    throw new Error("Deck not found or unauthorized");
-  }
-  
-  return await db.update(decksTable)
-    .set(data)
-    .where(
-      and(
-        eq(decksTable.id, deckId),
-        eq(decksTable.userId, userId)
-      )
-    );
-}
-```
-
-## Schema Requirements
-
-All tables storing user-specific data must have a `userId` column referencing the Clerk user:
-
-```typescript
-export const decksTable = pgTable("decks", {
-  id: serial("id").primaryKey(),
-  userId: text("user_id").notNull(), // Clerk user ID
-  // ... other columns
 });
 ```
 
-## Related Guidelines
+## Database Connection
 
-- See [drizzle-database.mdc](mdc:.cursor/rules/drizzle-database.mdc) for database interaction patterns
-- Combine Clerk authentication with Drizzle's type-safe queries for secure data access
+Always use the configured database connection instance (typically imported from a db configuration file) rather than creating new connections.
+
+## Schema Updates
+
+When modifying the database schema:
+1. Update [src/db/schema.ts](mdc:src/db/schema.ts)
+2. Generate and run migrations using Drizzle Kit
+3. Never manually alter the database structure
 
 ---
 
-**REMEMBER**: Security is not optional. Every data access operation must verify user ownership.
+**Remember**: All database interactions must be type-safe, use the Drizzle schema, and leverage Drizzle's query builder methods.
 
 ---
 > Source: [Rivexo/FlashyCardyCourse](https://github.com/Rivexo/FlashyCardyCourse) — distributed by [TomeVault](https://tomevault.io).
