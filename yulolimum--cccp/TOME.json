@@ -1,0 +1,57 @@
+{
+  "name": "cccp",
+  "owner": "yulolimum",
+  "repo": "cccp",
+  "description": "A unified configuration repository that enables seamless collaboration between Cline and Claude Code AI assistants through shared memory banks and coding standards.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "generate-pr-description",
+      "path": ".claude/skills/generate-pr-description",
+      "github_url": "https://github.com/yulolimum/cccp/tree/main/.claude/skills/generate-pr-description",
+      "description": ""
+    },
+    {
+      "name": "typescript-script-developer",
+      "path": ".claude/skills/typescript-script-developer",
+      "github_url": "https://github.com/yulolimum/cccp/tree/main/.claude/skills/typescript-script-developer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yulolimum/cccp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:56:03Z"
+}
