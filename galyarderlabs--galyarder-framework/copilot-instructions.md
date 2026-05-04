@@ -1,6 +1,6 @@
-## financial-analyst
+## finishing-a-development-branch
 
-> Performs financial ratio analysis, DCF valuation, budget variance analysis, and rolling forecast construction for strategic decision-making. Use when analyzing financial statements, building valuation models, assessing budget variances, or constructing financial projections and forecasts. Also applicable when users mention financial modeling, cash flow analysis, company valuation, financial projections, or spreadsheet analysis.
+> Use when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,156 +36,202 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# Financial Analyst Skill
+# Finishing a Development Branch
 
-You are the Financial Analyst Specialist at Galyarder Labs.
-##  Galyarder Framework Operating Procedures (MANDATORY)
-When operating this skill for your human partner:
-1. **Token Economy (RTK):** Use `rtk gain` results to calculate the ROI of using the Galyarder Framework vs. raw agent calls.
-2. **Execution System (Linear):** Track budget targets and actual spend as Issues or Milestones in Linear.
-3. **Strategic Memory (Obsidian):** Submit burn rate, ROI analysis, and runway projections to the `finops-manager` for inclusion in the **Legal-Finance Report** at `[VAULT_ROOT]//Department-Reports/Legal-Finance/`.
-
+You are the Finishing A Development Branch Specialist at Galyarder Labs.
 ## Overview
 
-Production-ready financial analysis toolkit providing ratio analysis, DCF valuation, budget variance analysis, and rolling forecast construction. Designed for financial modeling, forecasting & budgeting, management reporting, business performance analysis, and investment analysis.
+Guide completion of development work by presenting clear options and handling chosen workflow.
 
-## 5-Phase Workflow
+**Core principle:** Verify tests  Present options  Execute choice  Clean up.
 
-### Phase 1: Scoping
-- Define analysis objectives and stakeholder requirements
-- Identify data sources and time periods
-- Establish materiality thresholds and accuracy targets
-- Select appropriate analytical frameworks
+**Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
 
-### Phase 2: Data Analysis & Modeling
-- Collect and validate financial data (income statement, balance sheet, cash flow)
-- **Validate input data completeness** before running ratio calculations (check for missing fields, nulls, or implausible values)
-- Calculate financial ratios across 5 categories (profitability, liquidity, leverage, efficiency, valuation)
-- Build DCF models with WACC and terminal value calculations; **cross-check DCF outputs against sanity bounds** (e.g., implied multiples vs. comparables)
-- Construct budget variance analyses with favorable/unfavorable classification
-- Develop driver-based forecasts with scenario modeling
+## The Process
 
-### Phase 3: Insight Generation
-- Interpret ratio trends and Standard against industry standards
-- Identify material variances and root causes
-- Assess valuation ranges through sensitivity analysis
-- Evaluate forecast scenarios (base/bull/bear) for decision support
+### Step 1: Verify Tests
 
-### Phase 4: Reporting
-- Generate executive summaries with key findings
-- Produce detailed variance reports by department and category
-- Deliver DCF valuation reports with sensitivity tables
-- Present rolling forecasts with trend analysis
-
-### Phase 5: Follow-up
-- Track forecast accuracy (target: +/-5% revenue, +/-3% expenses)
-- Monitor report delivery timeliness (target: 100% on time)
-- Update models with actuals as they become available
-- Refine assumptions based on variance analysis
-
-## Tools
-
-### 1. Ratio Calculator (`scripts/ratio_calculator.py`)
-
-Calculate and interpret financial ratios from financial statement data.
-
-**Ratio Categories:**
-- **Profitability:** ROE, ROA, Gross Margin, Operating Margin, Net Margin
-- **Liquidity:** Current Ratio, Quick Ratio, Cash Ratio
-- **Leverage:** Debt-to-Equity, Interest Coverage, DSCR
-- **Efficiency:** Asset Turnover, Inventory Turnover, Receivables Turnover, DSO
-- **Valuation:** P/E, P/B, P/S, EV/EBITDA, PEG Ratio
+**Before presenting options, verify tests pass:**
 
 ```bash
-python scripts/ratio_calculator.py sample_financial_data.json
-python scripts/ratio_calculator.py sample_financial_data.json --format json
-python scripts/ratio_calculator.py sample_financial_data.json --category profitability
+# Run project's test suite
+npm test / cargo test / pytest / go test ./...
 ```
 
-### 2. DCF Valuation (`scripts/dcf_valuation.py`)
+**If tests fail:**
+```
+Tests failing (<N> failures). Must fix before completing:
 
-Discounted Cash Flow enterprise and equity valuation with sensitivity analysis.
+[Show failures]
 
-**Features:**
-- WACC calculation via CAPM
-- Revenue and free cash flow projections (5-year default)
-- Terminal value via perpetuity growth and exit multiple methods
-- Enterprise value and equity value derivation
-- Two-way sensitivity analysis (discount rate vs growth rate)
+Cannot proceed with merge/PR until tests pass.
+```
+
+Stop. Don't proceed to Step 2.
+
+**If tests pass:** Continue to Step 2.
+
+### Step 2: Determine Base Branch
 
 ```bash
-python scripts/dcf_valuation.py valuation_data.json
-python scripts/dcf_valuation.py valuation_data.json --format json
-python scripts/dcf_valuation.py valuation_data.json --projection-years 7
+# Try common base branches
+git merge-base HEAD main 2>/dev/null || git merge-base HEAD master 2>/dev/null
 ```
 
-### 3. Budget Variance Analyzer (`scripts/budget_variance_analyzer.py`)
+Or ask: "This branch split from main - is that correct?"
 
-Analyze actual vs budget vs prior year performance with materiality filtering.
+### Step 3: Present Options
 
-**Features:**
-- Dollar and percentage variance calculation
-- Materiality threshold filtering (default: 10% or $50K)
-- Favorable/unfavorable classification with revenue/expense logic
-- Department and category breakdown
-- Executive summary generation
+Present exactly these 4 options:
+
+```
+Implementation complete. What would you like to do?
+
+1. Merge back to <base-branch> locally
+2. Push and create a Pull Request
+3. Keep the branch as-is (I'll handle it later)
+4. Discard this work
+
+Which option?
+```
+
+**Don't add explanation** - keep options concise.
+
+### Step 4: Execute Choice
+
+#### Option 1: Merge Locally
 
 ```bash
-python scripts/budget_variance_analyzer.py budget_data.json
-python scripts/budget_variance_analyzer.py budget_data.json --format json
-python scripts/budget_variance_analyzer.py budget_data.json --threshold-pct 5 --threshold-amt 25000
+# Switch to base branch
+git checkout <base-branch>
+
+# Pull latest
+git pull
+
+# Merge feature branch
+git merge <feature-branch>
+
+# Verify tests on merged result
+<test command>
+
+# If tests pass
+git branch -d <feature-branch>
 ```
 
-### 4. Forecast Builder (`scripts/forecast_builder.py`)
+Then: Cleanup worktree (Step 5)
 
-Driver-based revenue forecasting with rolling cash flow projection and scenario modeling.
-
-**Features:**
-- Driver-based revenue forecast model
-- 13-week rolling cash flow projection
-- Scenario modeling (base/bull/bear cases)
-- Trend analysis using simple linear regression (standard library)
+#### Option 2: Push and Create PR
 
 ```bash
-python scripts/forecast_builder.py forecast_data.json
-python scripts/forecast_builder.py forecast_data.json --format json
-python scripts/forecast_builder.py forecast_data.json --scenarios base,bull,bear
+# Push branch
+git push -u origin <feature-branch>
+
+# Create PR
+gh pr create --title "<title>" --body "$(cat <<'EOF'
+## Summary
+<2-3 bullets of what changed>
+
+## Test Plan
+- [ ] <verification steps>
+EOF
+)"
 ```
 
-## Knowledge Bases
+Then: Cleanup worktree (Step 5)
 
-| Reference | Purpose |
-|-----------|---------|
-| `references/financial-ratios-guide.md` | Ratio formulas, interpretation, industry Standards |
-| `references/valuation-methodology.md` | DCF methodology, WACC, terminal value, comps |
-| `references/forecasting-best-practices.md` | Driver-based forecasting, rolling forecasts, accuracy |
-| `references/industry-adaptations.md` | Sector-specific metrics and considerations (SaaS, Retail, Manufacturing, Financial Services, Healthcare) |
+#### Option 3: Keep As-Is
 
-## Templates
+Report: "Keeping branch <name>. Worktree preserved at <path>."
 
-| Template | Purpose |
-|----------|---------|
-| `assets/variance_report_template.md` | Budget variance report template |
-| `assets/dcf_analysis_template.md` | DCF valuation analysis template |
-| `assets/forecast_report_template.md` | Revenue forecast report template |
+**Don't cleanup worktree.**
 
-## Key Metrics & Targets
+#### Option 4: Discard
 
-| Metric | Target |
-|--------|--------|
-| Forecast accuracy (revenue) | +/-5% |
-| Forecast accuracy (expenses) | +/-3% |
-| Report delivery | 100% on time |
-| Model documentation | Complete for all assumptions |
-| Variance explanation | 100% of material variances |
+**Confirm first:**
+```
+This will permanently delete:
+- Branch <name>
+- All commits: <commit-list>
+- Worktree at <path>
 
-## Input Data Format
+Type 'discard' to confirm.
+```
 
-All scripts accept JSON input files. See `assets/sample_financial_data.json` for the complete input schema covering all four tools.
+Wait for exact confirmation.
 
-## Dependencies
+If confirmed:
+```bash
+git checkout <base-branch>
+git branch -D <feature-branch>
+```
 
-**None** - All scripts use Python standard library only (`math`, `statistics`, `json`, `argparse`, `datetime`). No numpy, pandas, or scipy required.
+Then: Cleanup worktree (Step 5)
+
+### Step 5: Cleanup Worktree
+
+**For Options 1, 2, 4:**
+
+Check if in worktree:
+```bash
+git worktree list | grep $(git branch --show-current)
+```
+
+If yes:
+```bash
+git worktree remove <worktree-path>
+```
+
+**For Option 3:** Keep worktree.
+
+## Quick Reference
+
+| Option | Merge | Push | Keep Worktree | Cleanup Branch |
+|--------|-------|------|---------------|----------------|
+| 1. Merge locally |  | - | - |  |
+| 2. Create PR | - |  |  | - |
+| 3. Keep as-is | - | - |  | - |
+| 4. Discard | - | - | - |  (force) |
+
+## Common Mistakes
+
+**Skipping test verification**
+- **Problem:** Merge broken code, create failing PR
+- **Fix:** Always verify tests before offering options
+
+**Open-ended questions**
+- **Problem:** "What should I do next?"  ambiguous
+- **Fix:** Present exactly 4 structured options
+
+**Automatic worktree cleanup**
+- **Problem:** Remove worktree when might need it (Option 2, 3)
+- **Fix:** Only cleanup for Options 1 and 4
+
+**No confirmation for discard**
+- **Problem:** Accidentally delete work
+- **Fix:** Require typed "discard" confirmation
+
+## Red Flags
+
+**Never:**
+- Proceed with failing tests
+- Merge without verifying tests on result
+- Delete work without confirmation
+- Force-push without explicit request
+
+**Always:**
+- Verify tests before offering options
+- Present exactly 4 options
+- Get typed confirmation for Option 4
+- Clean up worktree for Options 1 & 4 only
+
+## Integration
+
+**Called by:**
+- **subagent-driven-development** (Step 7) - After all tasks complete
+- **executing-plans** (Step 5) - After all batches complete
+
+**Pairs with:**
+- **using-git-worktrees** - Cleans up worktree created by that skill
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
