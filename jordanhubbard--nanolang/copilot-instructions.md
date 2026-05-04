@@ -1,0 +1,189 @@
+## nanolang
+
+> **CRITICAL**: At the start of every coding session, run:
+
+# Nanolang Cursor Rules
+
+## Session Start Protocol
+**CRITICAL**: At the start of every coding session, run:
+```bash
+~/.local/bin/bd ready --json
+```
+This command shows all open issues ready to be worked on. Use this to understand project priorities.
+
+**IMPORTANT**: Always use the full path `~/.local/bin/bd` to avoid conflicts with other `bd` executables (e.g., droid's `bd` command). Never use just `bd` in commands.
+
+## Project Management via Beads
+
+**DO NOT create markdown planning files.** Instead, use beads CLI:
+
+### Creating Issues
+```bash
+~/.local/bin/bd create --title "Issue title" --description "Details" --priority [0-4] --type [feature|bug|task|chore|epic] --labels "label1,label2"
+```
+
+### Viewing Work
+```bash
+~/.local/bin/bd ready --json          # Show ready-to-work issues
+~/.local/bin/bd list --json           # Show all issues  
+~/.local/bin/bd show <id>             # Show specific issue details
+```
+
+### Working on Issues
+```bash
+~/.local/bin/bd update <id> --status in_progress    # Start work
+~/.local/bin/bd update <id> --notes "Progress..."   # Add progress notes
+~/.local/bin/bd close <id> --reason "Done because..." # Complete issue
+```
+
+### Dependencies
+```bash
+~/.local/bin/bd link <child-id> --depends-on <parent-id>  # Child depends on parent
+~/.local/bin/bd link <blocker-id> --blocks <blocked-id>   # Blocker blocks another issue
+```
+
+## Code Standards
+
+### LLM-First Design (CRITICAL)
+**NanoLang is designed for LLM code generation. There is EXACTLY ONE canonical way to write each construct.**
+
+**Core Principle:** When LLMs see multiple equivalent forms, they guess wrong ~50% of the time.
+
+**MUST READ:**
+- `docs/CANONICAL_STYLE.md` - The One True Way™ to write NanoLang
+- `docs/LLM_CORE_SUBSET.md` - The 50-primitive subset to learn first
+
+**Key Rules for LLM Code Generation:**
+1. **ONE syntax per operation** - No alternatives, no sugar, no shortcuts
+2. **Prefix notation ONLY** - `(+ a b)` never `a + b`
+3. **Explicit types** - Always annotate, minimize inference
+4. **Core subset first** - Use advanced features only when asked
+5. **Canonical forms** - Always use `(+ str1 str2)` not `str_concat`
+
+**When generating code:**
+- ✅ Use `(cond ...)` for expressions
+- ✅ Use `(+ "a" "b")` for string concatenation
+- ✅ Use `(array_get arr i)` for array access
+- ❌ Never use `str_concat` (deprecated)
+- ❌ Never invent C-like syntax (`arr[i]`, `a + b`)
+
+### Development Rules
+1. **⚠️ Dual Implementation REQUIRED**: ALL language features must be implemented TWICE (C + NanoLang)
+2. **Compiled Language**: NanoLang transpiles to C for native performance
+3. **Warning-Free Code**: Compile with `-Wall -Wextra -Werror`
+4. **⚠️ Shadow Tests MANDATORY**: Required for ALL functions (including examples) - NO EXCEPTIONS except `extern`
+5. **Minimal Comments**: Code should be self-documenting
+6. **⚠️ LLM-First**: ONE canonical way per operation - see `docs/CANONICAL_STYLE.md`
+
+### Dual Implementation Constraint (CRITICAL)
+**Every language feature requires 2× implementation effort:**
+- C reference compiler: `src/lexer.c`, `src/parser_iterative.c`, `src/typechecker.c`, `src/transpiler_iterative_v3_twopass.c`
+- NanoLang self-hosted: `src_nano/compiler/lexer.nano`, `parser.nano`, `typecheck.nano`, `transpiler.nano`
+
+**Cost Analysis Example:**
+Adding `[Type; size]` syntax = 8 major changes (4 components × 2 implementations)
+
+**Design Philosophy:**
+- ✅ Library functions over new syntax
+- ✅ Simple, regular grammar
+- ✅ Explicit over implicit
+- ❌ Avoid syntax sugar requiring parser changes
+- ❌ Avoid complex type inference
+
+**Before proposing language features, ask:** Is it worth 2× the implementation cost?
+
+### Shadow Test Policy (CRITICAL)
+**Shadow tests are a CORE DESIGN PRINCIPLE of NanoLang.**
+
+ALL functions MUST have shadow tests:
+- ✅ Library functions
+- ✅ Application code
+- ✅ **Example code**
+- ✅ Utility functions
+- ✅ Demo programs
+- ❌ ONLY EXCEPTION: `extern` functions
+
+**"Missing shadow test" warnings are NOT false positives - they are TODOs that must be addressed.**
+
+When generating NanoLang code, ALWAYS include shadow tests. This is non-negotiable.
+
+### Testing
+```bash
+make test                                           # Run all tests (must be 100%)
+perl -e 'alarm 30; exec @ARGV' ./bin/nanoc file.nano -o bin/output   # Compile with timeout
+./bin/output                                         # Run compiled binary
+```
+
+**⚠️ CRITICAL: All compilations MUST use timeout to detect infinite loops!**
+
+The compiler can loop infinitely on errors, printing the same message repeatedly.
+Never use `head` or `tail` on compile output - they hide loops. Always:
+1. Use timeout (30-60s)
+2. Check for repeated identical errors (indicates loop)
+3. Verify binary creation, not just exit code
+
+### Key Resources
+- `MEMORY.md` - LLM reference for patterns and idioms
+- `spec.json` - Formal language specification
+- `CONTRIBUTING.md` - Development guidelines
+- `.factory/PROJECT_RULES.md` - Complete project rules
+
+## File Organization
+
+### Top-Level Files (Only These Allowed)
+- `README.md`, `CONTRIBUTING.md`, `CONTRIBUTORS.md`
+- `LICENSE`, `MEMORY.md`, `SPEC_AUDIT.md`
+
+### Everything Else
+- Code: `src/`, `src_nano/`, `tests/`
+- Docs: `docs/`
+- Examples: `examples/`
+- Modules: `modules/`
+- Legacy planning: `planning/` (read-only, create new issues as beads)
+
+## Git Workflow
+
+### Commits
+```bash
+git status && git diff                    # Review changes
+git add <files>
+git commit -m "type: brief description
+
+Detailed explanation of changes.
+Related to nanolang-XXX.
+
+Co-authored-by: factory-droid[bot] <138933559+factory-droid[bot]@users.noreply.github.com>"
+```
+
+### Commit Types
+- `feat`: New feature
+- `fix`: Bug fix
+- `refactor`: Code restructuring
+- `test`: Test additions/changes
+- `docs`: Documentation
+- `chore`: Maintenance
+
+## NanoLang Specific
+
+### Syntax
+- Prefix notation: `(+ a b)` not `a + b`
+- Mandatory shadow tests for all functions
+- Immutable by default: `let mut` for mutability
+- Static typing with inference
+
+### Common Patterns
+```nano
+fn add(a: int, b: int) -> int {
+    return (+ a b)
+}
+
+shadow add {
+    assert (== (add 2 3) 5)
+}
+```
+
+For complete language details, see `MEMORY.md` and `spec.json`.
+
+---
+> Source: [jordanhubbard/nanolang](https://github.com/jordanhubbard/nanolang) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
