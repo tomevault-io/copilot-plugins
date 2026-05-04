@@ -1,0 +1,189 @@
+{
+  "name": "llm-code",
+  "owner": "itechmeat",
+  "repo": "llm-code",
+  "description": "Cross-tool AI assets: documentation-based skills for Copilot, Claude, Cursor, and other coding assistants",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "react-testing-library",
+      "path": "skills/react-testing-library",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/react-testing-library",
+      "description": ""
+    },
+    {
+      "name": "social-writer",
+      "path": "skills/social-writer",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/social-writer",
+      "description": ""
+    },
+    {
+      "name": "skill-master",
+      "path": "skills/skill-master",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/skill-master",
+      "description": ""
+    },
+    {
+      "name": "project-creator",
+      "path": "skills/project-creator",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/project-creator",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "path": "skills/vitest",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/vitest",
+      "description": ""
+    },
+    {
+      "name": "base-ui",
+      "path": "skills/base-ui",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/base-ui",
+      "description": ""
+    },
+    {
+      "name": "mantine-dev",
+      "path": "skills/mantine-dev",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/mantine-dev",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "path": "skills/vite",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/vite",
+      "description": ""
+    },
+    {
+      "name": "coderabbit",
+      "path": "skills/coderabbit",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/coderabbit",
+      "description": ""
+    },
+    {
+      "name": "openapi",
+      "path": "skills/openapi",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/openapi",
+      "description": ""
+    },
+    {
+      "name": "fastapi",
+      "path": "skills/fastapi",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/fastapi",
+      "description": ""
+    },
+    {
+      "name": "postgresql",
+      "path": "skills/postgresql",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/postgresql",
+      "description": ""
+    },
+    {
+      "name": "refine-dev",
+      "path": "skills/refine-dev",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/refine-dev",
+      "description": ""
+    },
+    {
+      "name": "bun",
+      "path": "skills/bun",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/bun",
+      "description": ""
+    },
+    {
+      "name": "turso",
+      "path": "skills/turso",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/turso",
+      "description": ""
+    },
+    {
+      "name": "deps-dev",
+      "path": "skills/deps-dev",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/deps-dev",
+      "description": ""
+    },
+    {
+      "name": "open-meteo",
+      "path": "skills/open-meteo",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/open-meteo",
+      "description": ""
+    },
+    {
+      "name": "inworld",
+      "path": "skills/inworld",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/inworld",
+      "description": ""
+    },
+    {
+      "name": "qdrant",
+      "path": "skills/qdrant",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/qdrant",
+      "description": ""
+    },
+    {
+      "name": "beads",
+      "path": "skills/beads",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/beads",
+      "description": ""
+    },
+    {
+      "name": "k8s-cluster-api",
+      "path": "skills/k8s-cluster-api",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/k8s-cluster-api",
+      "description": ""
+    },
+    {
+      "name": "perplexity",
+      "path": "skills/perplexity",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/perplexity",
+      "description": ""
+    },
+    {
+      "name": "telegram",
+      "path": "skills/telegram",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/telegram",
+      "description": ""
+    },
+    {
+      "name": "vibekanban",
+      "path": "skills/vibekanban",
+      "github_url": "https://github.com/itechmeat/llm-code/tree/main/skills/vibekanban",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/itechmeat/llm-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:47:42Z"
+}
