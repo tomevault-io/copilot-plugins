@@ -7,11 +7,11 @@ Unlock 2x more Claude Code usage
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [gglucass/headroom-desktop](https://github.com/gglucass/headroom-desktop).
+Original source: `CLAUDE.md` in [gglucass/headroom-desktop](https://github.com/gglucass/headroom-desktop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
