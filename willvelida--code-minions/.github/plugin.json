@@ -1,0 +1,42 @@
+{
+  "name": "willvelida--code-minions",
+  "displayName": "code-minions",
+  "description": "CLI tool to install reusable AI coding agent packages (agents, skills, prompts) into your repositories for consistent, enhanced AI-assisted development.",
+  "version": "1.0.0",
+  "author": "willvelida",
+  "homepage": "https://github.com/willvelida/code-minions",
+  "skills": [
+    {
+      "name": "creating-agent-skill",
+      "description": ""
+    },
+    {
+      "name": "creating-agents",
+      "description": ""
+    },
+    {
+      "name": "creating-devcontainers",
+      "description": ""
+    },
+    {
+      "name": "creating-documentation",
+      "description": ""
+    },
+    {
+      "name": "developer-mentor",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "raise-pull-requests",
+      "description": ""
+    },
+    {
+      "name": "threat-modelling",
+      "description": ""
+    }
+  ]
+}
