@@ -1,9 +1,9 @@
 {
   "name": "artemisai--harness-engineering",
   "displayName": "Harness_Engineering",
-  "description": "Harness_Engineering",
+  "description": "A template project for harness engineering and grounding long running agentic AI coding swarms of agents ",
   "version": "1.0.0",
   "author": "ArtemisAI",
-  "homepage": "https://tomevault.io/claim/ArtemisAI",
+  "homepage": "https://github.com/ArtemisAI/Harness_Engineering",
   "skills": []
 }
