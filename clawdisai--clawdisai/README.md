@@ -7,11 +7,11 @@ Always on. Always local. Always listening. A personal AI assistant that lives on
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ClawdisAI/ClawdisAI](https://github.com/ClawdisAI/ClawdisAI).
+Original source: `CLAUDE.md` in [ClawdisAI/ClawdisAI](https://github.com/ClawdisAI/ClawdisAI).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
