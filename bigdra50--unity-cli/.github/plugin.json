@@ -1,0 +1,14 @@
+{
+  "name": "bigdra50--unity-cli",
+  "displayName": "unity-cli",
+  "description": "CLI tool for controlling Unity Editor via command line - Play Mode, console logs, tests, scenes, GameObjects and more",
+  "version": "1.0.0",
+  "author": "bigdra50",
+  "homepage": "https://github.com/bigdra50/unity-cli",
+  "skills": [
+    {
+      "name": "unity-ui",
+      "description": ""
+    }
+  ]
+}
