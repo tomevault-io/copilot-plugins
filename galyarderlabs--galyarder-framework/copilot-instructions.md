@@ -1,6 +1,6 @@
-## recovering-deleted-files-with-photorec
+## recovering-from-ransomware-attack
 
-> Recover deleted files from disk images and storage media using PhotoRec's file signature-based carving engine regardless of file system damage.
+> >
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,220 +36,290 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# Recovering Deleted Files with PhotoRec
+# Recovering from Ransomware Attack
 
-You are the Recovering Deleted Files With Photorec Specialist at Galyarder Labs.
+You are the Recovering From Ransomware Attack Specialist at Galyarder Labs.
 ## When to Use
-- When recovering deleted files from a forensic disk image or storage device
-- When the file system is corrupted, formatted, or overwritten
-- During investigations requiring recovery of documents, images, videos, or databases
-- When file system metadata is unavailable but raw data sectors remain intact
-- For recovering files from memory cards, USB drives, and hard drives
+
+- After ransomware has encrypted production systems and the decision has been made to recover from backups
+- When building or validating a ransomware recovery runbook before an actual incident
+- After receiving a decryption key (paid ransom or law enforcement provided) and needing to safely decrypt
+- When partial recovery is needed alongside decryption of remaining systems
+- Conducting a recovery drill to validate RTO commitments
+
+**Do not use** before completing containment and forensic scoping. Premature recovery without understanding the attacker's access and persistence mechanisms risks re-infection.
 
 ## Prerequisites
-- PhotoRec installed (part of TestDisk suite)
-- Forensic disk image or direct device access (read-only)
-- Sufficient output storage space (potentially larger than source)
-- Write-blocker if working with original media
-- Root/sudo privileges for device access
-- Knowledge of target file types for focused recovery
+
+- Incident declared and containment phase completed (all attacker access severed)
+- Forensic evidence preserved (disk images, memory dumps, network captures)
+- Backup integrity verified (immutable/air-gapped copies confirmed clean)
+- Clean build media available (OS installation media, golden images)
+- Recovery environment prepared (clean network segment isolated from compromised infrastructure)
+- Recovery priority list documented (Tier 1/2/3 systems in dependency order)
 
 ## Workflow
 
-### Step 1: Install PhotoRec and Prepare the Environment
+### Step 1: Establish Clean Recovery Environment
+
+Build recovery infrastructure isolated from the compromised network:
 
 ```bash
-# Install TestDisk (includes PhotoRec) on Debian/Ubuntu
-sudo apt-get install testdisk
+# Create isolated recovery VLAN
+# No connectivity to compromised network segments
+# Dedicated internet access for patch downloads only (via proxy)
 
-# On RHEL/CentOS
-sudo yum install testdisk
+# Recovery network architecture:
+# VLAN 999 (Recovery) - 10.99.0.0/24
+#   - Recovery workstations (10.99.0.10-20)
+#   - Recovered DCs (10.99.0.50-55)
+#   - Recovered servers (10.99.0.100+)
+#   - Proxy for internet (10.99.0.1) - patches and updates only
 
-# On macOS
-brew install testdisk
-
-# Verify installation
-photorec --version
-
-# Create output directory structure
-mkdir -p /cases/case-2024-001/recovered/{all,documents,images,databases}
-
-# Verify the forensic image
-file /cases/case-2024-001/images/evidence.dd
-ls -lh /cases/case-2024-001/images/evidence.dd
+# Firewall rules: DENY all from recovery VLAN to production VLANs
+# Allow: Recovery VLAN -> Internet (HTTPS only, via proxy)
+# Allow: Recovery VLAN -> Backup infrastructure (restore traffic only)
 ```
 
-### Step 2: Run PhotoRec in Interactive Mode
+### Step 2: Recover Identity Infrastructure First
 
-```bash
-# Launch PhotoRec against a forensic image
-photorec /cases/case-2024-001/images/evidence.dd
+Active Directory must be recovered before any domain-joined systems:
 
-# Interactive menu steps:
-# 1. Select the disk image: evidence.dd
-# 2. Select partition table type: [Intel] for MBR, [EFI GPT] for GPT
-# 3. Select partition to scan (or "No partition" for whole disk)
-# 4. Select filesystem type: [ext2/ext3/ext4] or [Other] for NTFS/FAT
-# 5. Choose scan scope: [Free] (unallocated only) or [Whole] (entire partition)
-# 6. Select output directory: /cases/case-2024-001/recovered/all/
-# 7. Press C to confirm and begin recovery
+```powershell
+# AD Recovery Procedure
+# Step 2a: Restore AD from known-good backup
+# Use DSRM (Directory Services Restore Mode) boot
 
-# For direct device scanning (with write-blocker)
-sudo photorec /dev/sdb
+# 1. Build clean Windows Server from ISO
+# 2. Promote as DC using AD restore
+# 3. Restore System State from immutable backup
+
+# Verify AD backup is pre-compromise
+# Check backup timestamp against earliest known compromise date
+wbadmin get versions -backuptarget:E: -machine:DC01
+
+# Restore system state in DSRM
+wbadmin start systemstaterecovery -version:02/15/2026-04:00 -backuptarget:E: -machine:DC01 -quiet
+
+# After restore, reset critical accounts
+# Reset krbtgt password TWICE (invalidates all Kerberos tickets)
+# This prevents Golden Ticket persistence
+Import-Module ActiveDirectory
+Set-ADAccountPassword -Identity krbtgt -Reset -NewPassword (ConvertTo-SecureString "NewKrbtgt2026!Complex#1" -AsPlainText -Force)
+# Wait for replication (minimum 12 hours), then reset again
+Set-ADAccountPassword -Identity krbtgt -Reset -NewPassword (ConvertTo-SecureString "NewKrbtgt2026!Complex#2" -AsPlainText -Force)
+
+# Reset all privileged account passwords
+$privilegedGroups = @("Domain Admins", "Enterprise Admins", "Schema Admins", "Administrators")
+foreach ($group in $privilegedGroups) {
+    Get-ADGroupMember -Identity $group -Recursive | ForEach-Object {
+        Set-ADAccountPassword -Identity $_.SamAccountName -Reset `
+            -NewPassword (ConvertTo-SecureString (New-Guid).Guid -AsPlainText -Force)
+        Set-ADUser -Identity $_.SamAccountName -ChangePasswordAtLogon $true
+    }
+}
+
+# Validate AD health
+dcdiag /v /c /d /e /s:DC01
+repadmin /showrepl
 ```
 
-### Step 3: Run PhotoRec with Command-Line Options for Targeted Recovery
+### Step 3: Validate Backup Integrity Before Restoration
 
 ```bash
-# Non-interactive mode with specific file types
-photorec /d /cases/case-2024-001/recovered/documents/ \
-   /cmd /cases/case-2024-001/images/evidence.dd \
-   partition_table,options,mode,fileopt,search
+# Scan backup files for ransomware artifacts before restoring
+# Use offline antivirus scanning on backup mount
 
-# Recover only specific file types using photorec command mode
-photorec /d /cases/case-2024-001/recovered/documents/ \
-   /cmd /cases/case-2024-001/images/evidence.dd \
-   options,keep_corrupted_file,enable \
-   fileopt,everything,disable \
-   fileopt,doc,enable \
-   fileopt,docx,enable \
-   fileopt,pdf,enable \
-   fileopt,xlsx,enable \
-   search
+# Mount backup as read-only
+mount -o ro,noexec /dev/backup_lv /mnt/backup_verify
 
-# Recover only image files
-photorec /d /cases/case-2024-001/recovered/images/ \
-   /cmd /cases/case-2024-001/images/evidence.dd \
-   fileopt,everything,disable \
-   fileopt,jpg,enable \
-   fileopt,png,enable \
-   fileopt,gif,enable \
-   fileopt,bmp,enable \
-   fileopt,tif,enable \
-   search
+# Scan with ClamAV
+clamscan -r --infected --log=/var/log/backup_scan.log /mnt/backup_verify
 
-# Recover database files
-photorec /d /cases/case-2024-001/recovered/databases/ \
-   /cmd /cases/case-2024-001/images/evidence.dd \
-   fileopt,everything,disable \
-   fileopt,sqlite,enable \
-   fileopt,dbf,enable \
-   search
+# Check for known ransomware indicators
+find /mnt/backup_verify -name "*.encrypted" -o -name "*.locked" \
+    -o -name "*.lockbit" -o -name "DECRYPT_*" -o -name "readme.txt" \
+    -o -name "RECOVER-*" -o -name "HOW_TO_*" | tee /var/log/ransomware_check.log
+
+# Verify database consistency (SQL Server example)
+# Restore database to temporary instance for validation
+RESTORE VERIFYONLY FROM DISK = '/mnt/backup_verify/databases/erp_db.bak'
+    WITH CHECKSUM
 ```
 
-### Step 4: Organize and Catalog Recovered Files
+### Step 4: Restore Systems in Priority Order
 
-```bash
-# PhotoRec outputs files into recup_dir.1, recup_dir.2, etc.
-ls /cases/case-2024-001/recovered/all/
+Follow dependency-based recovery sequence:
 
-# Count recovered files by type
-find /cases/case-2024-001/recovered/all/ -type f | \
-   sed 's/.*\.//' | sort | uniq -c | sort -rn > /cases/case-2024-001/recovered/file_type_summary.txt
+```
+Recovery Order:
+Phase 1 (Hours 0-4): Identity & Infrastructure
+  1. Domain Controllers (AD, DNS, DHCP)
+  2. Certificate Authority (if applicable)
+  3. Core network services (DHCP, NTP)
 
-# Sort recovered files into directories by extension
-cd /cases/case-2024-001/recovered/all/
-for ext in jpg png pdf docx xlsx pptx zip sqlite; do
-   mkdir -p /cases/case-2024-001/recovered/sorted/$ext
-   find . -name "*.$ext" -exec cp {} /cases/case-2024-001/recovered/sorted/$ext/ \;
-done
+Phase 2 (Hours 4-12): Critical Business Systems
+  4. Database servers (SQL, Oracle, PostgreSQL)
+  5. Core business applications (ERP, CRM)
+  6. Email (Exchange, M365 hybrid)
 
-# Generate SHA-256 hashes for all recovered files
-find /cases/case-2024-001/recovered/all/ -type f -exec sha256sum {} \; \
-   > /cases/case-2024-001/recovered/recovered_hashes.txt
+Phase 3 (Hours 12-24): Important Systems
+  7. File servers
+  8. Web applications
+  9. Monitoring and security tools (SIEM, EDR)
 
-# Generate file listing with metadata
-find /cases/case-2024-001/recovered/all/ -type f \
-   -printf "%f\t%s\t%T+\t%p\n" | sort > /cases/case-2024-001/recovered/file_listing.txt
+Phase 4 (Hours 24-48): Remaining Systems
+  10. Development environments
+  11. Archive systems
+  12. Non-critical applications
 ```
 
-### Step 5: Validate and Filter Recovered Files
+```powershell
+# Veeam Instant Recovery - fastest restore for VMware/Hyper-V
+# Boots VM directly from backup file, then migrates to production storage
 
-```bash
-# Verify file integrity using file signatures
-find /cases/case-2024-001/recovered/all/ -type f -exec file {} \; \
-   > /cases/case-2024-001/recovered/file_signatures.txt
+# Instant recovery for Tier 1 system
+Start-VBRInstantRecovery -RestorePoint (Get-VBRRestorePoint -Name "DC01" |
+    Sort-Object CreationTime -Descending | Select-Object -First 1) `
+    -VMName "DC01-Recovered" `
+    -Server (Get-VBRServer -Name "esxi01.recovery.local") `
+    -Datastore "recovery-datastore"
 
-# Find files with mismatched extension/signature
-while IFS= read -r line; do
-   filepath=$(echo "$line" | cut -d: -f1)
-   filetype=$(echo "$line" | cut -d: -f2-)
-   ext="${filepath##*.}"
-   if [[ "$ext" == "jpg" ]] && ! echo "$filetype" | grep -qi "JPEG"; then
-      echo "MISMATCH: $filepath -> $filetype"
-   fi
-done < /cases/case-2024-001/recovered/file_signatures.txt > /cases/case-2024-001/recovered/mismatches.txt
+# After validation, migrate to production storage
+Start-VBRQuickMigration -VM "DC01-Recovered" `
+    -Server (Get-VBRServer -Name "esxi01.prod.local") `
+    -Datastore "production-datastore"
+```
 
-# Filter out known-good files using NSRL hash comparison
-hashdeep -r -c sha256 /cases/case-2024-001/recovered/all/ | \
-   grep -vFf /opt/nsrl/nsrl_sha256.txt > /cases/case-2024-001/recovered/unknown_files.txt
+### Step 5: Validate Recovered Systems and Harden
 
-# Remove zero-byte and corrupted files
-find /cases/case-2024-001/recovered/all/ -type f -empty -delete
-find /cases/case-2024-001/recovered/all/ -name "*.jpg" -exec jpeginfo -c {} \; 2>&1 | \
-   grep "ERROR" > /cases/case-2024-001/recovered/corrupted_images.txt
+Before connecting recovered systems to production:
+
+```powershell
+# Check for persistence mechanisms
+# Scheduled Tasks
+Get-ScheduledTask | Where-Object {$_.State -ne "Disabled"} |
+    Select-Object TaskName, TaskPath, State, Author |
+    Export-Csv C:\recovery\scheduled_tasks.csv
+
+# Services
+Get-Service | Where-Object {$_.StartType -eq "Automatic"} |
+    Select-Object Name, DisplayName, StartType, Status |
+    Export-Csv C:\recovery\auto_services.csv
+
+# Startup items
+Get-CimInstance Win32_StartupCommand |
+    Select-Object Name, Command, Location, User |
+    Export-Csv C:\recovery\startup_items.csv
+
+# WMI event subscriptions (common persistence)
+Get-WmiObject -Namespace root\subscription -Class __EventFilter
+Get-WmiObject -Namespace root\subscription -Class __EventConsumer
+
+# Registry run keys
+Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce"
+Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
+
+# Verify no unauthorized admin accounts
+Get-LocalGroupMember -Group "Administrators"
+Get-ADGroupMember -Identity "Domain Admins"
+
+# Apply latest patches before connecting to production
+Install-WindowsUpdate -AcceptAll -AutoReboot
+```
+
+### Step 6: Phased Network Reconnection
+
+```
+Phase 1: Reconnect identity infrastructure
+  - DCs online in production VLAN
+  - Validate replication and authentication
+  - Monitor for suspicious authentication patterns
+
+Phase 2: Reconnect Tier 1 systems
+  - One system at a time
+  - Monitor EDR for 1 hour before proceeding to next
+  - Validate application functionality
+
+Phase 3: Reconnect remaining systems
+  - Groups of 5-10 systems
+  - Continue monitoring for re-infection indicators
+
+Throughout: SOC monitoring on high alert
+  - EDR in aggressive blocking mode
+  - All previous IOCs loaded in detection rules
+  - Canary files deployed on recovered systems
 ```
 
 ## Key Concepts
 
-| Concept | Description |
-|---------|-------------|
-| File carving | Recovering files from raw data using file header/footer signatures |
-| File signatures | Magic bytes at the start of files identifying their type (e.g., FF D8 FF for JPEG) |
-| Unallocated space | Disk sectors not assigned to any active file; may contain deleted data |
-| Fragmented files | Files stored in non-contiguous sectors; harder to carve completely |
-| Cluster/Block size | Minimum allocation unit on a file system; affects carving granularity |
-| File footer | Byte sequence marking the end of a file (not all formats have footers) |
-| Data remanence | Residual data remaining after deletion until sectors are overwritten |
-| False positives | Carved artifacts that match signatures but contain corrupted or partial data |
+| Term | Definition |
+|------|------------|
+| **DSRM** | Directory Services Restore Mode: special boot mode for domain controllers that allows AD database restoration |
+| **krbtgt Reset** | Resetting the krbtgt account password twice invalidates all Kerberos tickets, defeating Golden Ticket persistence |
+| **Instant Recovery** | Backup technology that boots a VM directly from backup storage for immediate availability while migrating data in background |
+| **Evidence Preservation** | Maintaining forensic images and logs before recovery begins, required for law enforcement and insurance claims |
+| **Clean Build** | Rebuilding systems from trusted installation media rather than attempting to clean infected systems |
+| **Dependency Chain** | The order in which systems must be recovered based on service dependencies (e.g., AD before domain members) |
 
 ## Tools & Systems
 
-| Tool | Purpose |
-|------|---------|
-| PhotoRec | Open-source file carving tool supporting 300+ file formats |
-| TestDisk | Companion tool for partition recovery and repair |
-| Foremost | Alternative file carver originally developed by US Air Force OSI |
-| Scalpel | High-performance file carver based on Foremost |
-| hashdeep | Recursive hash computation and audit tool |
-| jpeginfo | JPEG file integrity verification |
-| file | Unix utility identifying file types by magic bytes |
-| exiftool | Extract metadata from recovered image and document files |
+- **Veeam Instant Recovery**: Boots VMs directly from backup with near-zero RTO, then live-migrates to production
+- **Microsoft DSRM**: AD-specific recovery mode for restoring domain controllers from backup
+- **DSInternals PowerShell Module**: Validates AD database integrity and identifies compromised credentials post-recovery
+- **Rubrik Instant Recovery**: Mounts backup as live VM in seconds for rapid recovery validation
+- **ClamAV**: Open-source antivirus for scanning backup files before restoration
 
 ## Common Scenarios
 
-**Scenario 1: Recovering Deleted Evidence from a Suspect's USB Drive**
-Image the USB drive with dcfldd, run PhotoRec targeting document and image formats, organize by file type, hash all recovered files, compare against known-bad hash sets, extract metadata from images for GPS and timestamp information.
+### Scenario: Manufacturing Company Full Recovery After LockBit Attack
 
-**Scenario 2: Formatted Hard Drive Recovery**
-Run PhotoRec in "Whole" mode against the entire formatted partition, recover all file types, expect higher false positive rate due to file fragmentation, validate recovered files with signature checking, catalog and hash for evidence chain.
+**Context**: A manufacturer with 300 servers has 80% of infrastructure encrypted by LockBit. Immutable backups from 48 hours ago are verified clean. Production lines are down, costing $500K/day.
 
-**Scenario 3: Memory Card from a Surveillance Camera**
-Recover deleted video files (AVI, MP4, MOV) from the memory card image, use targeted file type selection to speed recovery, verify video files are playable, extract frame timestamps, document recovery in case notes.
+**Approach**:
+1. Establish recovery VLAN (10.99.0.0/24) isolated from compromised network
+2. Restore 2 domain controllers from immutable backup using Veeam Instant Recovery (2 hours)
+3. Reset krbtgt password twice with 12-hour gap, reset all admin passwords
+4. Validate AD with dcdiag, scan for Golden Ticket indicators with DSInternals
+5. Restore ERP database (SAP) and verify data consistency (4 hours)
+6. Restore MES (Manufacturing Execution System) and SCADA historians (3 hours)
+7. Bring production line controllers online in isolated OT network first
+8. Phased reconnection over 48 hours with continuous EDR monitoring
+9. Total recovery: 72 hours (within 96-hour RTO commitment)
 
-**Scenario 4: Corrupted File System on Evidence Drive**
-When file system metadata is destroyed, PhotoRec bypasses the file system entirely and carves from raw sectors, recover maximum possible data, accept that file names and directory structure will be lost, rename files based on content during review.
+**Pitfalls**:
+- Rushing to reconnect systems without validating absence of persistence mechanisms, causing re-infection
+- Restoring from the most recent backup without verifying it predates the compromise (attacker may have poisoned recent backups)
+- Not resetting the krbtgt password twice, allowing attackers to maintain Golden Ticket access
+- Restoring systems in the wrong order (application servers before their database dependencies)
 
 ## Output Format
 
 ```
-PhotoRec Recovery Summary:
-  Source Image:     evidence.dd (500 GB)
-  Partition:        NTFS (Partition 2)
-  Scan Mode:        Free space only
+## Ransomware Recovery Status Report
 
-  Files Recovered:  4,523
-    Documents:      234 (doc: 45, docx: 89, pdf: 67, xlsx: 33)
-    Images:         2,145 (jpg: 1,890, png: 198, gif: 57)
-    Videos:         34 (mp4: 22, avi: 12)
-    Archives:       67 (zip: 45, rar: 22)
-    Databases:      12 (sqlite: 8, dbf: 4)
-    Other:          2,031
+**Incident ID**: [ID]
+**Recovery Start**: [Timestamp]
+**Current Phase**: [1-4]
+**Estimated Completion**: [Timestamp]
 
-  Data Recovered:   12.4 GB
-  Corrupted Files:  312 (flagged for review)
-  Output Directory: /cases/case-2024-001/recovered/all/
-  Hash Manifest:    /cases/case-2024-001/recovered/recovered_hashes.txt
+### Recovery Progress
+| Phase | Systems | Status | Started | Completed | RTO Target |
+|-------|---------|--------|---------|-----------|------------|
+| 1 - Identity | DC01, DC02, DNS | Complete | HH:MM | HH:MM | 4 hours |
+| 2 - Critical | ERP, DB01, DB02 | In Progress | HH:MM | -- | 12 hours |
+| 3 - Important | FS01, Email, Web | Pending | -- | -- | 24 hours |
+| 4 - Remaining | Dev, Archive | Pending | -- | -- | 48 hours |
+
+### Validation Checklist
+- [ ] AD integrity verified (dcdiag, repadmin)
+- [ ] krbtgt password reset (2x with interval)
+- [ ] All admin passwords reset
+- [ ] Persistence mechanisms scanned
+- [ ] EDR deployed and active on recovered systems
+- [ ] IOCs loaded in detection rules
+- [ ] Canary files deployed
 ```
 
 ---
