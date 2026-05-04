@@ -1,0 +1,114 @@
+{
+  "name": "vfarcic--dot-ai",
+  "displayName": "dot-ai",
+  "description": "Intelligent dual-mode agent for deploying applications to ANY Kubernetes cluster through dynamic discovery and plain English governance",
+  "version": "1.0.0",
+  "author": "vfarcic",
+  "homepage": "https://github.com/vfarcic/dot-ai",
+  "skills": [
+    {
+      "name": "dot-ai-changelog-fragment",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-generate-cicd",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-generate-dockerfile",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-operate",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-close",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-create",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-done",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-next",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-start",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-update-decisions",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-update-progress",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prds-get",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-process-feature-request",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-query",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-query-dot-ai",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-recommend",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-remediate",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-request-dot-ai-feature",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-tag-release",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-version",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-worktree-prd",
+      "description": ""
+    },
+    {
+      "name": "infographic-generator",
+      "description": ""
+    },
+    {
+      "name": "publish-mock-server",
+      "description": ""
+    },
+    {
+      "name": "write-docs",
+      "description": ""
+    },
+    {
+      "name": "process-feature-request",
+      "description": ""
+    },
+    {
+      "name": "request-dot-ai-feature",
+      "description": ""
+    }
+  ]
+}
