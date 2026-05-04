@@ -1,0 +1,9 @@
+{
+  "name": "learning-bayesian-statistics--baygent-skills",
+  "displayName": "baygent-skills",
+  "description": "A set of skills to call your agent Bayes. Thomas Bayes.",
+  "version": "1.0.0",
+  "author": "Learning-Bayesian-Statistics",
+  "homepage": "https://github.com/Learning-Bayesian-Statistics/baygent-skills",
+  "skills": []
+}
