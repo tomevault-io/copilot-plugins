@@ -1,0 +1,44 @@
+{
+  "name": "wansan-studio",
+  "owner": "wansanai",
+  "repo": "wansan-studio",
+  "description": "A Local-First, AI-driven BI desktop app | \u4e00\u6b3e\u672c\u5730\u4f18\u5148\u7684\u667a\u80fd\u5546\u4e1a\u5206\u6790\u684c\u9762\u7aef\u3002Turn local data into professional charts privately via natural language.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wansanai/wansan-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T21:54:10Z"
+}
