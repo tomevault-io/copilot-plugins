@@ -1,0 +1,9 @@
+{
+  "name": "opentrace--opentrace",
+  "displayName": "opentrace",
+  "description": "OpenTrace is a knowledge graph platform that maps system architecture, code structure, and service relationships giving you a visual, queryable map of how your codebase and infrastructure connect.",
+  "version": "1.0.0",
+  "author": "opentrace",
+  "homepage": "https://github.com/opentrace/opentrace",
+  "skills": []
+}
