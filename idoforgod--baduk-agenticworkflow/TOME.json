@@ -4,7 +4,7 @@
   "repo": "baduk-AgenticWorkflow",
   "description": "Baduk (Go) Platform \u2014 KataGo AI \ub300\uad6d + \uc2e4\uc2dc\uac04 \ubd84\uc11d + Tauri 2.0 \ub370\uc2a4\ud06c\ud1b1 \uc571. AgenticWorkflow DNA \uae30\ubc18.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/idoforgod/baduk-AgenticWorkflow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-01T09:48:04Z"
+  "distributed_at": "2026-05-04T17:43:21Z"
 }
