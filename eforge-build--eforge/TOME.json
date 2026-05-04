@@ -4,7 +4,7 @@
   "repo": "eforge",
   "description": "Open source agentic build system - transforms specifications into verified source code with blind adversarial review",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eforge-build/eforge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T10:44:52Z"
+  "distributed_at": "2026-05-04T14:40:19Z"
 }
