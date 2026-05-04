@@ -1,0 +1,9 @@
+{
+  "name": "thejusticeman--obsidian-mobile-plugin",
+  "displayName": "obsidian-mobile-plugin",
+  "description": "Obsidian Mobile, reimagined. Quick capture FAB + Context-aware editing tools.",
+  "version": "1.0.0",
+  "author": "TheJusticeMan",
+  "homepage": "https://github.com/TheJusticeMan/obsidian-mobile-plugin",
+  "skills": []
+}
