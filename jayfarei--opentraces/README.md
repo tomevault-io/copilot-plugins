@@ -7,11 +7,11 @@ Open schema + CLI for repo-local agent trace capture, review, and upload to Hugg
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [JayFarei/opentraces](https://github.com/JayFarei/opentraces).
+Original source: `CLAUDE.md` in [JayFarei/opentraces](https://github.com/JayFarei/opentraces).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
