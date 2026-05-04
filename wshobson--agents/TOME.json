@@ -1,0 +1,759 @@
+{
+  "name": "agents",
+  "owner": "wshobson",
+  "repo": "agents",
+  "description": "Intelligent automation and multi-agent orchestration for Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility-compliance",
+      "path": "plugins/ui-design/skills/accessibility-compliance",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/accessibility-compliance",
+      "description": ""
+    },
+    {
+      "name": "airflow-dag-patterns",
+      "path": "plugins/data-engineering/skills/airflow-dag-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/data-engineering/skills/airflow-dag-patterns",
+      "description": ""
+    },
+    {
+      "name": "angular-migration",
+      "path": "plugins/framework-migration/skills/angular-migration",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/framework-migration/skills/angular-migration",
+      "description": ""
+    },
+    {
+      "name": "anti-reversing-techniques",
+      "path": "plugins/reverse-engineering/skills/anti-reversing-techniques",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/reverse-engineering/skills/anti-reversing-techniques",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "path": "plugins/backend-development/skills/api-design-principles",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/backend-development/skills/api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "architecture-decision-records",
+      "path": "plugins/documentation-generation/skills/architecture-decision-records",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/documentation-generation/skills/architecture-decision-records",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": "plugins/backend-development/skills/architecture-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/backend-development/skills/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "async-python-patterns",
+      "path": "plugins/python-development/skills/async-python-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/async-python-patterns",
+      "description": ""
+    },
+    {
+      "name": "auth-implementation-patterns",
+      "path": "plugins/developer-essentials/skills/auth-implementation-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/developer-essentials/skills/auth-implementation-patterns",
+      "description": ""
+    },
+    {
+      "name": "backtesting-frameworks",
+      "path": "plugins/quantitative-trading/skills/backtesting-frameworks",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/quantitative-trading/skills/backtesting-frameworks",
+      "description": ""
+    },
+    {
+      "name": "bats-testing-patterns",
+      "path": "plugins/shell-scripting/skills/bats-testing-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/shell-scripting/skills/bats-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "bazel-build-optimization",
+      "path": "plugins/developer-essentials/skills/bazel-build-optimization",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/developer-essentials/skills/bazel-build-optimization",
+      "description": ""
+    },
+    {
+      "name": "binary-analysis-patterns",
+      "path": "plugins/reverse-engineering/skills/binary-analysis-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/reverse-engineering/skills/binary-analysis-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-review-excellence",
+      "path": "plugins/developer-essentials/skills/code-review-excellence",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/developer-essentials/skills/code-review-excellence",
+      "description": ""
+    },
+    {
+      "name": "competitive-landscape",
+      "path": "plugins/startup-business-analyst/skills/competitive-landscape",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/startup-business-analyst/skills/competitive-landscape",
+      "description": ""
+    },
+    {
+      "name": "context-driven-development",
+      "path": "plugins/conductor/skills/context-driven-development",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/conductor/skills/context-driven-development",
+      "description": ""
+    },
+    {
+      "name": "data-quality-frameworks",
+      "path": "plugins/data-engineering/skills/data-quality-frameworks",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/data-engineering/skills/data-quality-frameworks",
+      "description": ""
+    },
+    {
+      "name": "database-migration",
+      "path": "plugins/framework-migration/skills/database-migration",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/framework-migration/skills/database-migration",
+      "description": ""
+    },
+    {
+      "name": "dbt-transformation-patterns",
+      "path": "plugins/data-engineering/skills/dbt-transformation-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/data-engineering/skills/dbt-transformation-patterns",
+      "description": ""
+    },
+    {
+      "name": "debugging-strategies",
+      "path": "plugins/developer-essentials/skills/debugging-strategies",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/developer-essentials/skills/debugging-strategies",
+      "description": ""
+    },
+    {
+      "name": "defi-protocol-templates",
+      "path": "plugins/blockchain-web3/skills/defi-protocol-templates",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/blockchain-web3/skills/defi-protocol-templates",
+      "description": ""
+    },
+    {
+      "name": "dependency-upgrade",
+      "path": "plugins/framework-migration/skills/dependency-upgrade",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/framework-migration/skills/dependency-upgrade",
+      "description": ""
+    },
+    {
+      "name": "deployment-pipeline-design",
+      "path": "plugins/cicd-automation/skills/deployment-pipeline-design",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/cicd-automation/skills/deployment-pipeline-design",
+      "description": ""
+    },
+    {
+      "name": "design-system-patterns",
+      "path": "plugins/ui-design/skills/design-system-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/design-system-patterns",
+      "description": ""
+    },
+    {
+      "name": "dotnet-backend-patterns",
+      "path": "plugins/dotnet-contribution/skills/dotnet-backend-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/dotnet-contribution/skills/dotnet-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing-patterns",
+      "path": "plugins/developer-essentials/skills/e2e-testing-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/developer-essentials/skills/e2e-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "embedding-strategies",
+      "path": "plugins/llm-application-dev/skills/embedding-strategies",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/llm-application-dev/skills/embedding-strategies",
+      "description": ""
+    },
+    {
+      "name": "employment-contract-templates",
+      "path": "plugins/hr-legal-compliance/skills/employment-contract-templates",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/hr-legal-compliance/skills/employment-contract-templates",
+      "description": ""
+    },
+    {
+      "name": "error-handling-patterns",
+      "path": "plugins/developer-essentials/skills/error-handling-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/developer-essentials/skills/error-handling-patterns",
+      "description": ""
+    },
+    {
+      "name": "event-store-design",
+      "path": "plugins/backend-development/skills/event-store-design",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/backend-development/skills/event-store-design",
+      "description": ""
+    },
+    {
+      "name": "fastapi-templates",
+      "path": "plugins/api-scaffolding/skills/fastapi-templates",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/api-scaffolding/skills/fastapi-templates",
+      "description": ""
+    },
+    {
+      "name": "gdpr-data-handling",
+      "path": "plugins/hr-legal-compliance/skills/gdpr-data-handling",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/hr-legal-compliance/skills/gdpr-data-handling",
+      "description": ""
+    },
+    {
+      "name": "git-advanced-workflows",
+      "path": "plugins/developer-essentials/skills/git-advanced-workflows",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/developer-essentials/skills/git-advanced-workflows",
+      "description": ""
+    },
+    {
+      "name": "github-actions-templates",
+      "path": "plugins/cicd-automation/skills/github-actions-templates",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/cicd-automation/skills/github-actions-templates",
+      "description": ""
+    },
+    {
+      "name": "gitlab-ci-patterns",
+      "path": "plugins/cicd-automation/skills/gitlab-ci-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/cicd-automation/skills/gitlab-ci-patterns",
+      "description": ""
+    },
+    {
+      "name": "gitops-workflow",
+      "path": "plugins/kubernetes-operations/skills/gitops-workflow",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/kubernetes-operations/skills/gitops-workflow",
+      "description": ""
+    },
+    {
+      "name": "go-concurrency-patterns",
+      "path": "plugins/systems-programming/skills/go-concurrency-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/systems-programming/skills/go-concurrency-patterns",
+      "description": ""
+    },
+    {
+      "name": "godot-gdscript-patterns",
+      "path": "plugins/game-development/skills/godot-gdscript-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/game-development/skills/godot-gdscript-patterns",
+      "description": ""
+    },
+    {
+      "name": "grafana-dashboards",
+      "path": "plugins/observability-monitoring/skills/grafana-dashboards",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/observability-monitoring/skills/grafana-dashboards",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-scaffolding",
+      "path": "plugins/kubernetes-operations/skills/helm-chart-scaffolding",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/kubernetes-operations/skills/helm-chart-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "hybrid-search-implementation",
+      "path": "plugins/llm-application-dev/skills/hybrid-search-implementation",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/llm-application-dev/skills/hybrid-search-implementation",
+      "description": ""
+    },
+    {
+      "name": "interaction-design",
+      "path": "plugins/ui-design/skills/interaction-design",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/interaction-design",
+      "description": ""
+    },
+    {
+      "name": "istio-traffic-management",
+      "path": "plugins/cloud-infrastructure/skills/istio-traffic-management",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/cloud-infrastructure/skills/istio-traffic-management",
+      "description": ""
+    },
+    {
+      "name": "javascript-testing-patterns",
+      "path": "plugins/javascript-typescript/skills/javascript-testing-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/javascript-typescript/skills/javascript-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "k8s-manifest-generator",
+      "path": "plugins/kubernetes-operations/skills/k8s-manifest-generator",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/kubernetes-operations/skills/k8s-manifest-generator",
+      "description": ""
+    },
+    {
+      "name": "kpi-dashboard-design",
+      "path": "plugins/business-analytics/skills/kpi-dashboard-design",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/business-analytics/skills/kpi-dashboard-design",
+      "description": ""
+    },
+    {
+      "name": "langchain-architecture",
+      "path": "plugins/llm-application-dev/skills/langchain-architecture",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/llm-application-dev/skills/langchain-architecture",
+      "description": ""
+    },
+    {
+      "name": "linkerd-patterns",
+      "path": "plugins/cloud-infrastructure/skills/linkerd-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/cloud-infrastructure/skills/linkerd-patterns",
+      "description": ""
+    },
+    {
+      "name": "llm-evaluation",
+      "path": "plugins/llm-application-dev/skills/llm-evaluation",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/llm-application-dev/skills/llm-evaluation",
+      "description": ""
+    },
+    {
+      "name": "market-sizing-analysis",
+      "path": "plugins/startup-business-analyst/skills/market-sizing-analysis",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/startup-business-analyst/skills/market-sizing-analysis",
+      "description": ""
+    },
+    {
+      "name": "memory-safety-patterns",
+      "path": "plugins/systems-programming/skills/memory-safety-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/systems-programming/skills/memory-safety-patterns",
+      "description": ""
+    },
+    {
+      "name": "microservices-patterns",
+      "path": "plugins/backend-development/skills/microservices-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/backend-development/skills/microservices-patterns",
+      "description": ""
+    },
+    {
+      "name": "ml-pipeline-workflow",
+      "path": "plugins/machine-learning-ops/skills/ml-pipeline-workflow",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/machine-learning-ops/skills/ml-pipeline-workflow",
+      "description": ""
+    },
+    {
+      "name": "mobile-android-design",
+      "path": "plugins/ui-design/skills/mobile-android-design",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/mobile-android-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-ios-design",
+      "path": "plugins/ui-design/skills/mobile-ios-design",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/mobile-ios-design",
+      "description": ""
+    },
+    {
+      "name": "modern-javascript-patterns",
+      "path": "plugins/javascript-typescript/skills/modern-javascript-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/javascript-typescript/skills/modern-javascript-patterns",
+      "description": ""
+    },
+    {
+      "name": "multi-cloud-architecture",
+      "path": "plugins/cloud-infrastructure/skills/multi-cloud-architecture",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/cloud-infrastructure/skills/multi-cloud-architecture",
+      "description": ""
+    },
+    {
+      "name": "multi-reviewer-patterns",
+      "path": "plugins/agent-teams/skills/multi-reviewer-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/agent-teams/skills/multi-reviewer-patterns",
+      "description": ""
+    },
+    {
+      "name": "nextjs-app-router-patterns",
+      "path": "plugins/frontend-mobile-development/skills/nextjs-app-router-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/frontend-mobile-development/skills/nextjs-app-router-patterns",
+      "description": ""
+    },
+    {
+      "name": "nodejs-backend-patterns",
+      "path": "plugins/javascript-typescript/skills/nodejs-backend-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/javascript-typescript/skills/nodejs-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "on-call-handoff-patterns",
+      "path": "plugins/incident-response/skills/on-call-handoff-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/incident-response/skills/on-call-handoff-patterns",
+      "description": ""
+    },
+    {
+      "name": "openapi-spec-generation",
+      "path": "plugins/documentation-generation/skills/openapi-spec-generation",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/documentation-generation/skills/openapi-spec-generation",
+      "description": ""
+    },
+    {
+      "name": "parallel-debugging",
+      "path": "plugins/agent-teams/skills/parallel-debugging",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/agent-teams/skills/parallel-debugging",
+      "description": ""
+    },
+    {
+      "name": "parallel-feature-development",
+      "path": "plugins/agent-teams/skills/parallel-feature-development",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/agent-teams/skills/parallel-feature-development",
+      "description": ""
+    },
+    {
+      "name": "postgresql",
+      "path": "plugins/database-design/skills/postgresql",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/database-design/skills/postgresql",
+      "description": ""
+    },
+    {
+      "name": "postmortem-writing",
+      "path": "plugins/incident-response/skills/postmortem-writing",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/incident-response/skills/postmortem-writing",
+      "description": ""
+    },
+    {
+      "name": "prometheus-configuration",
+      "path": "plugins/observability-monitoring/skills/prometheus-configuration",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/observability-monitoring/skills/prometheus-configuration",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-patterns",
+      "path": "plugins/llm-application-dev/skills/prompt-engineering-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/llm-application-dev/skills/prompt-engineering-patterns",
+      "description": ""
+    },
+    {
+      "name": "protocol-reverse-engineering",
+      "path": "plugins/reverse-engineering/skills/protocol-reverse-engineering",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/reverse-engineering/skills/protocol-reverse-engineering",
+      "description": ""
+    },
+    {
+      "name": "python-anti-patterns",
+      "path": "plugins/python-development/skills/python-anti-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-anti-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-background-jobs",
+      "path": "plugins/python-development/skills/python-background-jobs",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-background-jobs",
+      "description": ""
+    },
+    {
+      "name": "python-code-style",
+      "path": "plugins/python-development/skills/python-code-style",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-code-style",
+      "description": ""
+    },
+    {
+      "name": "python-configuration",
+      "path": "plugins/python-development/skills/python-configuration",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-configuration",
+      "description": ""
+    },
+    {
+      "name": "python-design-patterns",
+      "path": "plugins/python-development/skills/python-design-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-error-handling",
+      "path": "plugins/python-development/skills/python-error-handling",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-error-handling",
+      "description": ""
+    },
+    {
+      "name": "python-observability",
+      "path": "plugins/python-development/skills/python-observability",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-observability",
+      "description": ""
+    },
+    {
+      "name": "python-packaging",
+      "path": "plugins/python-development/skills/python-packaging",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-packaging",
+      "description": ""
+    },
+    {
+      "name": "python-performance-optimization",
+      "path": "plugins/python-development/skills/python-performance-optimization",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "python-project-structure",
+      "path": "plugins/python-development/skills/python-project-structure",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-project-structure",
+      "description": ""
+    },
+    {
+      "name": "python-resilience",
+      "path": "plugins/python-development/skills/python-resilience",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-resilience",
+      "description": ""
+    },
+    {
+      "name": "python-resource-management",
+      "path": "plugins/python-development/skills/python-resource-management",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-resource-management",
+      "description": ""
+    },
+    {
+      "name": "python-testing-patterns",
+      "path": "plugins/python-development/skills/python-testing-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "python-type-safety",
+      "path": "plugins/python-development/skills/python-type-safety",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/python-type-safety",
+      "description": ""
+    },
+    {
+      "name": "rag-implementation",
+      "path": "plugins/llm-application-dev/skills/rag-implementation",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/llm-application-dev/skills/rag-implementation",
+      "description": ""
+    },
+    {
+      "name": "react-modernization",
+      "path": "plugins/framework-migration/skills/react-modernization",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/framework-migration/skills/react-modernization",
+      "description": ""
+    },
+    {
+      "name": "react-native-architecture",
+      "path": "plugins/frontend-mobile-development/skills/react-native-architecture",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/frontend-mobile-development/skills/react-native-architecture",
+      "description": ""
+    },
+    {
+      "name": "react-native-design",
+      "path": "plugins/ui-design/skills/react-native-design",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/react-native-design",
+      "description": ""
+    },
+    {
+      "name": "react-state-management",
+      "path": "plugins/frontend-mobile-development/skills/react-state-management",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/frontend-mobile-development/skills/react-state-management",
+      "description": ""
+    },
+    {
+      "name": "responsive-design",
+      "path": "plugins/ui-design/skills/responsive-design",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/responsive-design",
+      "description": ""
+    },
+    {
+      "name": "rust-async-patterns",
+      "path": "plugins/systems-programming/skills/rust-async-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/systems-programming/skills/rust-async-patterns",
+      "description": ""
+    },
+    {
+      "name": "sast-configuration",
+      "path": "plugins/security-scanning/skills/sast-configuration",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/security-scanning/skills/sast-configuration",
+      "description": ""
+    },
+    {
+      "name": "screen-reader-testing",
+      "path": "plugins/accessibility-compliance/skills/screen-reader-testing",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/accessibility-compliance/skills/screen-reader-testing",
+      "description": ""
+    },
+    {
+      "name": "security-requirement-extraction",
+      "path": "plugins/security-scanning/skills/security-requirement-extraction",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/security-scanning/skills/security-requirement-extraction",
+      "description": ""
+    },
+    {
+      "name": "shellcheck-configuration",
+      "path": "plugins/shell-scripting/skills/shellcheck-configuration",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/shell-scripting/skills/shellcheck-configuration",
+      "description": ""
+    },
+    {
+      "name": "slo-implementation",
+      "path": "plugins/observability-monitoring/skills/slo-implementation",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/observability-monitoring/skills/slo-implementation",
+      "description": ""
+    },
+    {
+      "name": "solidity-security",
+      "path": "plugins/blockchain-web3/skills/solidity-security",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/blockchain-web3/skills/solidity-security",
+      "description": ""
+    },
+    {
+      "name": "sql-optimization-patterns",
+      "path": "plugins/developer-essentials/skills/sql-optimization-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/developer-essentials/skills/sql-optimization-patterns",
+      "description": ""
+    },
+    {
+      "name": "startup-financial-modeling",
+      "path": "plugins/startup-business-analyst/skills/startup-financial-modeling",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/startup-business-analyst/skills/startup-financial-modeling",
+      "description": ""
+    },
+    {
+      "name": "startup-metrics-framework",
+      "path": "plugins/startup-business-analyst/skills/startup-metrics-framework",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/startup-business-analyst/skills/startup-metrics-framework",
+      "description": ""
+    },
+    {
+      "name": "stride-analysis-patterns",
+      "path": "plugins/security-scanning/skills/stride-analysis-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/security-scanning/skills/stride-analysis-patterns",
+      "description": ""
+    },
+    {
+      "name": "stripe-integration",
+      "path": "plugins/payment-processing/skills/stripe-integration",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/payment-processing/skills/stripe-integration",
+      "description": ""
+    },
+    {
+      "name": "tailwind-design-system",
+      "path": "plugins/frontend-mobile-development/skills/tailwind-design-system",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/frontend-mobile-development/skills/tailwind-design-system",
+      "description": ""
+    },
+    {
+      "name": "task-coordination-strategies",
+      "path": "plugins/agent-teams/skills/task-coordination-strategies",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/agent-teams/skills/task-coordination-strategies",
+      "description": ""
+    },
+    {
+      "name": "team-communication-protocols",
+      "path": "plugins/agent-teams/skills/team-communication-protocols",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/agent-teams/skills/team-communication-protocols",
+      "description": ""
+    },
+    {
+      "name": "team-composition-analysis",
+      "path": "plugins/startup-business-analyst/skills/team-composition-analysis",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/startup-business-analyst/skills/team-composition-analysis",
+      "description": ""
+    },
+    {
+      "name": "team-composition-patterns",
+      "path": "plugins/agent-teams/skills/team-composition-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/agent-teams/skills/team-composition-patterns",
+      "description": ""
+    },
+    {
+      "name": "temporal-python-testing",
+      "path": "plugins/backend-development/skills/temporal-python-testing",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/backend-development/skills/temporal-python-testing",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-library",
+      "path": "plugins/cloud-infrastructure/skills/terraform-module-library",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/cloud-infrastructure/skills/terraform-module-library",
+      "description": ""
+    },
+    {
+      "name": "threat-mitigation-mapping",
+      "path": "plugins/security-scanning/skills/threat-mitigation-mapping",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/security-scanning/skills/threat-mitigation-mapping",
+      "description": ""
+    },
+    {
+      "name": "track-management",
+      "path": "plugins/conductor/skills/track-management",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/conductor/skills/track-management",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "path": "plugins/javascript-typescript/skills/typescript-advanced-types",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/javascript-typescript/skills/typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "unity-ecs-patterns",
+      "path": "plugins/game-development/skills/unity-ecs-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/game-development/skills/unity-ecs-patterns",
+      "description": ""
+    },
+    {
+      "name": "uv-package-manager",
+      "path": "plugins/python-development/skills/uv-package-manager",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/uv-package-manager",
+      "description": ""
+    },
+    {
+      "name": "visual-design-foundations",
+      "path": "plugins/ui-design/skills/visual-design-foundations",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/visual-design-foundations",
+      "description": ""
+    },
+    {
+      "name": "wcag-audit-patterns",
+      "path": "plugins/accessibility-compliance/skills/wcag-audit-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/accessibility-compliance/skills/wcag-audit-patterns",
+      "description": ""
+    },
+    {
+      "name": "web-component-design",
+      "path": "plugins/ui-design/skills/web-component-design",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/ui-design/skills/web-component-design",
+      "description": ""
+    },
+    {
+      "name": "web3-testing",
+      "path": "plugins/blockchain-web3/skills/web3-testing",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/blockchain-web3/skills/web3-testing",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestration-patterns",
+      "path": "plugins/backend-development/skills/workflow-orchestration-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/backend-development/skills/workflow-orchestration-patterns",
+      "description": ""
+    },
+    {
+      "name": "workflow-patterns",
+      "path": "plugins/conductor/skills/workflow-patterns",
+      "github_url": "https://github.com/wshobson/agents/tree/main/plugins/conductor/skills/workflow-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wshobson/agents",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:35:42Z"
+}
