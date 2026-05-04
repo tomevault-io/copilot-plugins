@@ -1,0 +1,9 @@
+{
+  "name": "harryoung--efka",
+  "displayName": "efka",
+  "description": "AI-powered knowledge management without vector embeddings. Built upon Claude Agent SDK, File system based, Agent driven. Maybe slower, but results are much more reliable!",
+  "version": "1.0.0",
+  "author": "Harryoung",
+  "homepage": "https://github.com/Harryoung/efka",
+  "skills": []
+}
