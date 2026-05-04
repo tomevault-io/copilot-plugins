@@ -1,0 +1,57 @@
+{
+  "name": "claude-code-config",
+  "owner": "gmickel",
+  "repo": "claude-code-config",
+  "description": "Some of my Claude Code config",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "convex",
+      "path": "skills/convex",
+      "github_url": "https://github.com/gmickel/claude-code-config/tree/main/skills/convex",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "path": "skills/oracle",
+      "github_url": "https://github.com/gmickel/claude-code-config/tree/main/skills/oracle",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/gmickel/claude-code-config",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:57:30Z"
+}
