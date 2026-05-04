@@ -1,0 +1,51 @@
+{
+  "name": "cross-request-master",
+  "owner": "leeguooooo",
+  "repo": "cross-request-master",
+  "description": "yapi browser plugin & yapi skill",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-template",
+      "path": "packages/yapi-mcp/skill-template",
+      "github_url": "https://github.com/leeguooooo/cross-request-master/tree/main/packages/yapi-mcp/skill-template",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/leeguooooo/cross-request-master",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:53:43Z"
+}
