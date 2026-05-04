@@ -1,0 +1,9 @@
+{
+  "name": "rygrams--xaui",
+  "displayName": "xaui",
+  "description": "Modern React Native UI library inspired by Flutter, built with Turborepo. Features smooth animations, Tailwind-inspired colors, and intuitive Flutter-like API.",
+  "version": "1.0.0",
+  "author": "rygrams",
+  "homepage": "https://github.com/rygrams/xaui",
+  "skills": []
+}
