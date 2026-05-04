@@ -1,0 +1,18 @@
+{
+  "name": "tfriedel--claude-office-skills",
+  "displayName": "claude-office-skills",
+  "description": "Office document creation and editing skills for Claude Code - PPTX, DOCX, XLSX, and PDF workflows with automation support",
+  "version": "1.0.0",
+  "author": "tfriedel",
+  "homepage": "https://github.com/tfriedel/claude-office-skills",
+  "skills": [
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    }
+  ]
+}
