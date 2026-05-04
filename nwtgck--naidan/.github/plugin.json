@@ -1,0 +1,9 @@
+{
+  "name": "nwtgck--naidan",
+  "displayName": "naidan",
+  "description": "A privacy-focused web UI for LLMs (OpenAI-compatible APIs and Ollama) designed to run directly from a portable directory on your filesystem.",
+  "version": "1.0.0",
+  "author": "nwtgck",
+  "homepage": "https://github.com/nwtgck/naidan",
+  "skills": []
+}
