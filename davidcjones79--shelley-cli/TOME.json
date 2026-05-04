@@ -1,0 +1,57 @@
+{
+  "name": "shelley-cli",
+  "owner": "davidcjones79",
+  "repo": "shelley-cli",
+  "description": "Terminal interface for Shelley coding agent. Fork of boldsoftware/shelley with CLI, file uploader, and /pick workflow.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "security-review-audit",
+      "path": "skills/security-review-audit",
+      "github_url": "https://github.com/davidcjones79/shelley-cli/tree/main/skills/security-review-audit",
+      "description": ""
+    },
+    {
+      "name": "security-review-pr",
+      "path": "skills/security-review-pr",
+      "github_url": "https://github.com/davidcjones79/shelley-cli/tree/main/skills/security-review-pr",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/davidcjones79/shelley-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:31:06Z"
+}
