@@ -1,0 +1,201 @@
+{
+  "name": "dot-ai",
+  "owner": "vfarcic",
+  "repo": "dot-ai",
+  "description": "Intelligent dual-mode agent for deploying applications to ANY Kubernetes cluster through dynamic discovery and plain English governance",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dot-ai-changelog-fragment",
+      "path": ".claude/skills/dot-ai-changelog-fragment",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-changelog-fragment",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-generate-cicd",
+      "path": ".claude/skills/dot-ai-generate-cicd",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-generate-cicd",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-generate-dockerfile",
+      "path": ".claude/skills/dot-ai-generate-dockerfile",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-generate-dockerfile",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-operate",
+      "path": ".claude/skills/dot-ai-operate",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-operate",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-close",
+      "path": ".claude/skills/dot-ai-prd-close",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-prd-close",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-create",
+      "path": ".claude/skills/dot-ai-prd-create",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-prd-create",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-done",
+      "path": ".claude/skills/dot-ai-prd-done",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-prd-done",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-next",
+      "path": ".claude/skills/dot-ai-prd-next",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-prd-next",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-start",
+      "path": ".claude/skills/dot-ai-prd-start",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-prd-start",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-update-decisions",
+      "path": ".claude/skills/dot-ai-prd-update-decisions",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-prd-update-decisions",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prd-update-progress",
+      "path": ".claude/skills/dot-ai-prd-update-progress",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-prd-update-progress",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-prds-get",
+      "path": ".claude/skills/dot-ai-prds-get",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-prds-get",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-process-feature-request",
+      "path": ".claude/skills/dot-ai-process-feature-request",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-process-feature-request",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-query",
+      "path": ".claude/skills/dot-ai-query",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-query",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-query-dot-ai",
+      "path": ".claude/skills/dot-ai-query-dot-ai",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-query-dot-ai",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-recommend",
+      "path": ".claude/skills/dot-ai-recommend",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-recommend",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-remediate",
+      "path": ".claude/skills/dot-ai-remediate",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-remediate",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-request-dot-ai-feature",
+      "path": ".claude/skills/dot-ai-request-dot-ai-feature",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-request-dot-ai-feature",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-tag-release",
+      "path": ".claude/skills/dot-ai-tag-release",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-tag-release",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-version",
+      "path": ".claude/skills/dot-ai-version",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-version",
+      "description": ""
+    },
+    {
+      "name": "dot-ai-worktree-prd",
+      "path": ".claude/skills/dot-ai-worktree-prd",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/dot-ai-worktree-prd",
+      "description": ""
+    },
+    {
+      "name": "infographic-generator",
+      "path": ".claude/skills/infographic-generator",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/infographic-generator",
+      "description": ""
+    },
+    {
+      "name": "publish-mock-server",
+      "path": ".claude/skills/publish-mock-server",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/publish-mock-server",
+      "description": ""
+    },
+    {
+      "name": "write-docs",
+      "path": ".claude/skills/write-docs",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/.claude/skills/write-docs",
+      "description": ""
+    },
+    {
+      "name": "process-feature-request",
+      "path": "process-feature-request",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/process-feature-request",
+      "description": ""
+    },
+    {
+      "name": "request-dot-ai-feature",
+      "path": "request-dot-ai-feature",
+      "github_url": "https://github.com/vfarcic/dot-ai/tree/main/request-dot-ai-feature",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vfarcic/dot-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T20:45:40Z"
+}
