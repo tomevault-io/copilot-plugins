@@ -1,0 +1,9 @@
+{
+  "name": "markifact--markifact-mcp",
+  "displayName": "markifact-mcp",
+  "description": "MCP server for Google Ads, Meta Ads, GA4, TikTok Ads, and LinkedIn Ads. Manage 300+ ad operations from Claude, ChatGPT, Gemini, Cursor, or any AI client. Human-in-the-loop on every write.",
+  "version": "1.0.0",
+  "author": "markifact",
+  "homepage": "https://github.com/markifact/markifact-mcp",
+  "skills": []
+}
