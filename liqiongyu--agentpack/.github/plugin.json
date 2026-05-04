@@ -1,0 +1,26 @@
+{
+  "name": "liqiongyu--agentpack",
+  "displayName": "agentpack",
+  "description": "A declarative, safe control plane for deploying coding-agent assets across tools.",
+  "version": "1.0.0",
+  "author": "liqiongyu",
+  "homepage": "https://github.com/liqiongyu/agentpack",
+  "skills": [
+    {
+      "name": "agentpack-dev",
+      "description": ""
+    },
+    {
+      "name": "agentpack-operator",
+      "description": ""
+    },
+    {
+      "name": "agentpack-operator",
+      "description": ""
+    },
+    {
+      "name": "example-skill",
+      "description": ""
+    }
+  ]
+}
