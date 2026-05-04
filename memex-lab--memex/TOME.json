@@ -4,7 +4,7 @@
   "repo": "memex",
   "description": "A local-first, AI-native personal knowledge management app built with Flutter. Capture thoughts through text, photos, and voice \u2014 a multi-agent system automatically organizes, extracts knowledge, and surfaces insights across your life's records. All data stays on your device. You own your mind.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/memex-lab/memex",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T10:52:54Z"
+  "distributed_at": "2026-05-04T17:11:30Z"
 }
