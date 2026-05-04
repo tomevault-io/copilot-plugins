@@ -1,0 +1,18 @@
+{
+  "name": "manaflow-ai--manaflow",
+  "displayName": "manaflow",
+  "description": "Open source Claude Code web/Codex Cloud/Devin/Ramp Inspect alternative",
+  "version": "1.0.0",
+  "author": "manaflow-ai",
+  "homepage": "https://github.com/manaflow-ai/manaflow",
+  "skills": [
+    {
+      "name": "cloudrouter",
+      "description": ""
+    },
+    {
+      "name": "cmux",
+      "description": ""
+    }
+  ]
+}
