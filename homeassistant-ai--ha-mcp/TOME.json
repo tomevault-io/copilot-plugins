@@ -1,0 +1,69 @@
+{
+  "name": "ha-mcp",
+  "owner": "homeassistant-ai",
+  "repo": "ha-mcp",
+  "description": "The Unofficial and Awesome Home Assistant MCP Server",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bat-adhoc",
+      "path": ".claude/skills/bat-adhoc",
+      "github_url": "https://github.com/homeassistant-ai/ha-mcp/tree/main/.claude/skills/bat-adhoc",
+      "description": ""
+    },
+    {
+      "name": "bat-story-eval",
+      "path": ".claude/skills/bat-story-eval",
+      "github_url": "https://github.com/homeassistant-ai/ha-mcp/tree/main/.claude/skills/bat-story-eval",
+      "description": ""
+    },
+    {
+      "name": "contrib-pr-review",
+      "path": ".claude/skills/contrib-pr-review",
+      "github_url": "https://github.com/homeassistant-ai/ha-mcp/tree/main/.claude/skills/contrib-pr-review",
+      "description": ""
+    },
+    {
+      "name": "wt",
+      "path": ".claude/skills/wt",
+      "github_url": "https://github.com/homeassistant-ai/ha-mcp/tree/main/.claude/skills/wt",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/homeassistant-ai/ha-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T01:36:22Z"
+}
