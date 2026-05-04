@@ -1,0 +1,9 @@
+{
+  "name": "profclaw--profclaw",
+  "displayName": "profclaw",
+  "description": "AI agent engine with 22 chat channels, 65 tools, and 15 skills. Self-hosted, local-first, works with any LLM provider.",
+  "version": "1.0.0",
+  "author": "profclaw",
+  "homepage": "https://github.com/profclaw/profclaw",
+  "skills": []
+}
