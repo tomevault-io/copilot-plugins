@@ -1,0 +1,75 @@
+{
+  "name": "shipspec-claude-code-plugin",
+  "owner": "jsegov",
+  "repo": "shipspec-claude-code-plugin",
+  "description": "Spec Driven Development Plugin for Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-prompts",
+      "path": "skills/agent-prompts",
+      "github_url": "https://github.com/jsegov/shipspec-claude-code-plugin/tree/main/skills/agent-prompts",
+      "description": ""
+    },
+    {
+      "name": "codebase-context",
+      "path": "skills/codebase-context",
+      "github_url": "https://github.com/jsegov/shipspec-claude-code-plugin/tree/main/skills/codebase-context",
+      "description": ""
+    },
+    {
+      "name": "prd-template",
+      "path": "skills/prd-template",
+      "github_url": "https://github.com/jsegov/shipspec-claude-code-plugin/tree/main/skills/prd-template",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "skills/research",
+      "github_url": "https://github.com/jsegov/shipspec-claude-code-plugin/tree/main/skills/research",
+      "description": ""
+    },
+    {
+      "name": "sdd-template",
+      "path": "skills/sdd-template",
+      "github_url": "https://github.com/jsegov/shipspec-claude-code-plugin/tree/main/skills/sdd-template",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jsegov/shipspec-claude-code-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T16:49:31Z"
+}
