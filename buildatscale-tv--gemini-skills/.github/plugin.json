@@ -1,0 +1,14 @@
+{
+  "name": "buildatscale-tv--gemini-skills",
+  "displayName": "gemini-skills",
+  "description": "A repository of skills for Gemini CLI",
+  "version": "1.0.0",
+  "author": "buildatscale-tv",
+  "homepage": "https://github.com/buildatscale-tv/gemini-skills",
+  "skills": [
+    {
+      "name": "nano-banana-pro",
+      "description": ""
+    }
+  ]
+}
