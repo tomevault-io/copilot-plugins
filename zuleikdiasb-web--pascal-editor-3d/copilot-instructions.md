@@ -1,108 +1,94 @@
-## spatial-queries
+## systems
 
-> Placement validation for tools — canPlaceOnFloor, canPlaceOnWall, canPlaceOnCeiling
+> Core and viewer systems architecture
 
 
-# Spatial Queries
+# Systems
 
-`useSpatialQuery()` validates whether an item can be placed at a given position without overlapping existing items. Every placement tool must call it before committing a node to the scene.
+Systems own business logic, geometry generation, and constraints. They run in the Three.js frame loop and are never rendered directly.
 
-**Source**: @packages/core/src/hooks/spatial-grid/use-spatial-query.ts
+## Two Kinds of Systems
 
-## Hook
+### Core Systems — `packages/core/src/systems/`
 
-```ts
-const { canPlaceOnFloor, canPlaceOnWall, canPlaceOnCeiling } = useSpatialQuery()
+Pure logic: no rendering, no Three.js objects. They read nodes from `useScene`, compute derived values (geometry, constraints), and write results back.
+
+| System | Responsibility |
+|---|---|
+| `WallSystem` | Wall mitering, corner joints |
+| `SlabSystem` | Polygon-based floor/roof generation |
+| `CeilingSystem` | Polygon-based ceiling generation |
+| `RoofSystem` | Pitched roof shape |
+| `DoorSystem` | Placement constraints on walls |
+| `WindowSystem` | Placement constraints on walls |
+| `ItemSystem` | Item transforms, collision |
+
+### Viewer Systems — `packages/viewer/src/systems/`
+
+Access Three.js objects (via `useRegistry`) and manage rendering side-effects.
+
+| System | Responsibility |
+|---|---|
+| `LevelSystem` | Stacked / exploded / solo / manual level positions |
+| `WallCutout` | Cuts door/window holes in wall geometry |
+| `ZoneSystem` | Zone display and label placement |
+| `InteractiveSystem` | Item toggles and sliders in the scene |
+| `GuideSystem` | Temporary helper geometry |
+| `ScanSystem` | Point cloud rendering |
+
+## Pattern
+
+Systems are React components that render nothing (`return null`) and use `useFrame` for per-frame logic.
+
+```tsx
+// packages/core/src/systems/my-system.tsx
+import { useFrame } from '@react-three/fiber'
+import { useScene } from '../store/use-scene'
+
+export function MySystem() {
+  const nodes = useScene(s => s.nodes)
+
+  useFrame(() => {
+    // compute and write back derived state
+  })
+
+  return null
+}
 ```
 
-All three methods return `{ valid: boolean; conflictIds: string[] }`.
-`canPlaceOnWall` additionally returns `adjustedY: number` (snapped height).
+Core and viewer systems are mounted inside `<Viewer>` alongside renderers. See @packages/viewer/src/components/viewer/index.tsx for the mount order.
 
----
-
-## canPlaceOnFloor
-
-```ts
-canPlaceOnFloor(
-  levelId: string,
-  position: [number, number, number],
-  dimensions: [number, number, number],   // scaled width/height/depth
-  rotation: [number, number, number],
-  ignoreIds?: string[],                   // pass [draftItem.id] to exclude self
-): { valid: boolean; conflictIds: string[] }
-```
-
-**Usage in a tool:**
-```ts
-const pos: [number, number, number] = [x, 0, z]
-const { valid } = canPlaceOnFloor(levelId, pos, getScaledDimensions(item), item.rotation, [item.id])
-if (valid) createNode(item, levelId)
-```
-
----
-
-## canPlaceOnWall
-
-```ts
-canPlaceOnWall(
-  levelId: string,
-  wallId: string,
-  localX: number,          // distance along wall from start
-  localY: number,          // height from floor
-  dimensions: [number, number, number],
-  attachType: 'wall' | 'wall-side',  // 'wall' needs clearance both sides; 'wall-side' only one
-  side?: 'front' | 'back',
-  ignoreIds?: string[],
-): { valid: boolean; conflictIds: string[]; adjustedY: number }
-```
-
-`adjustedY` contains the snapped Y so items sit flush on the slab — always use it instead of the raw `localY`:
-
-```ts
-const { valid, adjustedY } = canPlaceOnWall(levelId, wallId, x, y, dims, 'wall', undefined, [item.id])
-if (valid) updateNode(item.id, { wallT: x, wallY: adjustedY })
-```
-
----
-
-## canPlaceOnCeiling
-
-```ts
-canPlaceOnCeiling(
-  ceilingId: string,
-  position: [number, number, number],
-  dimensions: [number, number, number],
-  rotation: [number, number, number],
-  ignoreIds?: string[],
-): { valid: boolean; conflictIds: string[] }
-```
-
----
-
-## Slab Elevation
-
-When items rest on a slab (not flat ground), use these to get the correct Y:
-
-```ts
-import { spatialGridManager } from '@pascal-app/core'
-
-// Y at a single point
-const y = spatialGridManager.getSlabElevationAt(levelId, x, z)
-
-// Y considering the item's full footprint (highest slab point under item)
-const y = spatialGridManager.getSlabElevationForItem(levelId, position, dimensions, rotation)
-```
-
----
+**Systems are a customization point.** Any consumer of `<Viewer>` — the editor app, an embed, a read-only preview — can inject its own systems as children. This is how editor-specific behaviour (space detection, tool feedback) is added without touching the viewer package.
 
 ## Rules
 
-- **Always pass `[item.id]` in `ignoreIds`** when validating a draft item that already exists in the scene — otherwise it collides with itself.
-- **Use `adjustedY` from `canPlaceOnWall`** — don't use the raw cursor Y for wall-mounted items.
-- **Use `getScaledDimensions(item)`** (@packages/core/src/schema/nodes/item.ts) to account for item scale, not the raw `asset.dimensions`.
-- Validate on every pointer move for live feedback (highlight ghost red/green). Only `createNode` / `updateNode` on pointer up or click.
+- **Core systems must not import Three.js** — they work with plain data.
+- **Viewer systems must not contain business logic** — delegate to core if the rule is domain-level.
+- **Never duplicate logic** between a system and a renderer — if the renderer needs it, the system should compute and store it, and the renderer reads the result.
+- Systems should be **idempotent**: given the same nodes, they produce the same output.
+- Mark nodes as `dirty` in the scene store to signal that a system should re-run. Avoid running expensive logic every frame without a dirty check.
 
-See @apps/editor/components/tools/item/use-placement-coordinator.tsx for a full implementation.
+## Adding a New System
+
+1. Decide the scope:
+   - **Domain logic** → `packages/core/src/systems/`
+   - **Viewer rendering side-effect** → `packages/viewer/src/systems/` — mount in `packages/viewer/src/components/viewer/index.tsx`
+   - **Editor-specific or integration-specific** → keep it in the consuming app (e.g. `apps/editor/components/systems/`) and inject it as a child of `<Viewer>`
+
+2. Create `<name>-system.tsx` in the appropriate directory.
+
+3. Mount it in the right place:
+   - Viewer-internal systems go in `packages/viewer/src/components/viewer/index.tsx`
+   - App-specific systems are injected as children from outside:
+     ```tsx
+     // apps/editor — editor injects its own systems without modifying the viewer
+     <Viewer>
+       <MyEditorSystem />
+       <ToolManager />
+     </Viewer>
+     ```
+
+4. **Mount order matters.** Most viewer systems run *after* renderers in the JSX tree — they consume `sceneRegistry` data that renderers populate on mount. Only place a system before renderers if it explicitly does not read the registry.
 
 ---
 > Source: [zuleikdiasb-web/pascal-editor-3d](https://github.com/zuleikdiasb-web/pascal-editor-3d) — distributed by [TomeVault](https://tomevault.io).
