@@ -1,0 +1,50 @@
+{
+  "name": "fcakyon--claude-codex-settings",
+  "displayName": "claude-codex-settings",
+  "description": "My personal Claude Code and OpenAI Codex setup with battle-tested skills, plugins, hooks and agents that I use daily.",
+  "version": "1.0.0",
+  "author": "fcakyon",
+  "homepage": "https://github.com/fcakyon/claude-codex-settings",
+  "skills": [
+    {
+      "name": "azure-usage",
+      "description": ""
+    },
+    {
+      "name": "commit-workflow",
+      "description": ""
+    },
+    {
+      "name": "gcloud-usage",
+      "description": ""
+    },
+    {
+      "name": "paper-search-usage",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "setup",
+      "description": ""
+    },
+    {
+      "name": "tavily-usage",
+      "description": ""
+    }
+  ]
+}
