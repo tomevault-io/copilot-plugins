@@ -4,7 +4,7 @@
   "repo": "JanusLM",
   "description": "JanusLM is a Two-faced AI agent. One side reads, catalogs, connects. The other acts: writes documents, analyzes data, answers questions.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Lover0ne/JanusLM",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:04:26Z"
+  "distributed_at": "2026-05-04T11:42:31Z"
 }
