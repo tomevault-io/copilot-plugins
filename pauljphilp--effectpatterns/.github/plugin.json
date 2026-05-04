@@ -1,9 +1,9 @@
 {
   "name": "pauljphilp--effectpatterns",
   "displayName": "EffectPatterns",
-  "description": "EffectPatterns",
+  "description": "A community-driven knowledge base of practical patterns for Effect-TS.",
   "version": "1.0.0",
   "author": "PaulJPhilp",
-  "homepage": "https://tomevault.io/claim/PaulJPhilp",
+  "homepage": "https://github.com/PaulJPhilp/EffectPatterns",
   "skills": []
 }
