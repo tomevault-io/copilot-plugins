@@ -1,0 +1,63 @@
+{
+  "name": "adcp",
+  "owner": "adcontextprotocol",
+  "repo": "adcp",
+  "description": "Docs and reference implementation for the Ad Context Protocol",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adcp-creative",
+      "path": "skills/adcp-creative",
+      "github_url": "https://github.com/adcontextprotocol/adcp/tree/main/skills/adcp-creative",
+      "description": ""
+    },
+    {
+      "name": "adcp-media-buy",
+      "path": "skills/adcp-media-buy",
+      "github_url": "https://github.com/adcontextprotocol/adcp/tree/main/skills/adcp-media-buy",
+      "description": ""
+    },
+    {
+      "name": "adcp-signals",
+      "path": "skills/adcp-signals",
+      "github_url": "https://github.com/adcontextprotocol/adcp/tree/main/skills/adcp-signals",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/adcontextprotocol/adcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T13:30:17Z"
+}
