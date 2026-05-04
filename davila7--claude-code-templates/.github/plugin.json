@@ -1,0 +1,2046 @@
+{
+  "name": "davila7--claude-code-templates",
+  "displayName": "claude-code-templates",
+  "description": "CLI tool for configuring and monitoring Claude Code",
+  "version": "1.0.0",
+  "author": "davila7",
+  "homepage": "https://github.com/davila7/claude-code-templates",
+  "skills": [
+    {
+      "name": "2d-games",
+      "description": ""
+    },
+    {
+      "name": "3d-games",
+      "description": ""
+    },
+    {
+      "name": "3d-web-experience",
+      "description": ""
+    },
+    {
+      "name": "ab-test-setup",
+      "description": ""
+    },
+    {
+      "name": "accessibility",
+      "description": ""
+    },
+    {
+      "name": "accessibility-auditor",
+      "description": ""
+    },
+    {
+      "name": "active-directory-attacks",
+      "description": ""
+    },
+    {
+      "name": "adaptyv",
+      "description": ""
+    },
+    {
+      "name": "address-github-comments",
+      "description": ""
+    },
+    {
+      "name": "aeon",
+      "description": ""
+    },
+    {
+      "name": "agent-evaluation",
+      "description": ""
+    },
+    {
+      "name": "agent-development",
+      "description": ""
+    },
+    {
+      "name": "agent-manager-skill",
+      "description": ""
+    },
+    {
+      "name": "agent-md-refactor",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-mcp",
+      "description": ""
+    },
+    {
+      "name": "agent-memory-systems",
+      "description": ""
+    },
+    {
+      "name": "agent-tool-builder",
+      "description": ""
+    },
+    {
+      "name": "ai-agents-architect",
+      "description": ""
+    },
+    {
+      "name": "ai-product",
+      "description": ""
+    },
+    {
+      "name": "ai-wrapper-product",
+      "description": ""
+    },
+    {
+      "name": "algolia-search",
+      "description": ""
+    },
+    {
+      "name": "alphafold-database",
+      "description": ""
+    },
+    {
+      "name": "analytics-tracking",
+      "description": ""
+    },
+    {
+      "name": "anndata",
+      "description": ""
+    },
+    {
+      "name": "api-documentation-generator",
+      "description": ""
+    },
+    {
+      "name": "api-fuzzing-bug-bounty",
+      "description": ""
+    },
+    {
+      "name": "api-integration-specialist",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "app-builder",
+      "description": ""
+    },
+    {
+      "name": "app-store-optimization",
+      "description": ""
+    },
+    {
+      "name": "architecture",
+      "description": ""
+    },
+    {
+      "name": "astropy",
+      "description": ""
+    },
+    {
+      "name": "agents-autogpt",
+      "description": ""
+    },
+    {
+      "name": "autonomous-agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "autonomous-agents",
+      "description": ""
+    },
+    {
+      "name": "avalonia-layout-zafiro",
+      "description": ""
+    },
+    {
+      "name": "avalonia-viewmodels-zafiro",
+      "description": ""
+    },
+    {
+      "name": "avalonia-zafiro-development",
+      "description": ""
+    },
+    {
+      "name": "optimization-awq",
+      "description": ""
+    },
+    {
+      "name": "aws-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "aws-serverless",
+      "description": ""
+    },
+    {
+      "name": "azure-functions",
+      "description": ""
+    },
+    {
+      "name": "backend-dev-guidelines",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "backend-to-frontend-handoff-docs",
+      "description": ""
+    },
+    {
+      "name": "behavioral-modes",
+      "description": ""
+    },
+    {
+      "name": "benchling-integration",
+      "description": ""
+    },
+    {
+      "name": "best-practices",
+      "description": ""
+    },
+    {
+      "name": "biomni",
+      "description": ""
+    },
+    {
+      "name": "biopython",
+      "description": ""
+    },
+    {
+      "name": "biorxiv-database",
+      "description": ""
+    },
+    {
+      "name": "bioservices",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "brenda-database",
+      "description": ""
+    },
+    {
+      "name": "broken-authentication",
+      "description": ""
+    },
+    {
+      "name": "browser-automation",
+      "description": ""
+    },
+    {
+      "name": "browser-extension-builder",
+      "description": ""
+    },
+    {
+      "name": "bullmq-specialist",
+      "description": ""
+    },
+    {
+      "name": "bun-development",
+      "description": ""
+    },
+    {
+      "name": "burp-suite-testing",
+      "description": ""
+    },
+    {
+      "name": "c4-architecture",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-project-guidelines-example",
+      "description": ""
+    },
+    {
+      "name": "ceo-advisor",
+      "description": ""
+    },
+    {
+      "name": "rag-chroma",
+      "description": ""
+    },
+    {
+      "name": "cirq",
+      "description": ""
+    },
+    {
+      "name": "citation-management",
+      "description": ""
+    },
+    {
+      "name": "claude-code-guide",
+      "description": ""
+    },
+    {
+      "name": "claude-opus-4-5-migration",
+      "description": ""
+    },
+    {
+      "name": "clean-code",
+      "description": ""
+    },
+    {
+      "name": "clerk-auth",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-clickhouse-io",
+      "description": ""
+    },
+    {
+      "name": "clinical-decision-support",
+      "description": ""
+    },
+    {
+      "name": "clinical-reports",
+      "description": ""
+    },
+    {
+      "name": "clinicaltrials-database",
+      "description": ""
+    },
+    {
+      "name": "clinpgx-database",
+      "description": ""
+    },
+    {
+      "name": "clinvar-database",
+      "description": ""
+    },
+    {
+      "name": "multimodal-clip",
+      "description": ""
+    },
+    {
+      "name": "cloud-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-deploy",
+      "description": ""
+    },
+    {
+      "name": "cocoindex",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review-checklist",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "codex",
+      "description": ""
+    },
+    {
+      "name": "codex-review",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-coding-standards",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "description": ""
+    },
+    {
+      "name": "command-development",
+      "description": ""
+    },
+    {
+      "name": "plugin-structure",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "commit-work",
+      "description": ""
+    },
+    {
+      "name": "computer-use-agents",
+      "description": ""
+    },
+    {
+      "name": "plugin-settings",
+      "description": ""
+    },
+    {
+      "name": "safety-alignment-constitutional-ai",
+      "description": ""
+    },
+    {
+      "name": "context7-auto-research",
+      "description": ""
+    },
+    {
+      "name": "copy-editing",
+      "description": ""
+    },
+    {
+      "name": "core-components",
+      "description": ""
+    },
+    {
+      "name": "core-web-vitals",
+      "description": ""
+    },
+    {
+      "name": "cosmic-database",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "crewai",
+      "description": ""
+    },
+    {
+      "name": "agents-crewai",
+      "description": ""
+    },
+    {
+      "name": "xss-html-injection",
+      "description": ""
+    },
+    {
+      "name": "claude-d3js-skill",
+      "description": ""
+    },
+    {
+      "name": "daily-meeting-update",
+      "description": ""
+    },
+    {
+      "name": "data-privacy-compliance",
+      "description": ""
+    },
+    {
+      "name": "database-design",
+      "description": ""
+    },
+    {
+      "name": "database-schema-designer",
+      "description": ""
+    },
+    {
+      "name": "datacommons-client",
+      "description": ""
+    },
+    {
+      "name": "datadog-cli",
+      "description": ""
+    },
+    {
+      "name": "datamol",
+      "description": ""
+    },
+    {
+      "name": "denario",
+      "description": ""
+    },
+    {
+      "name": "dependency-updater",
+      "description": ""
+    },
+    {
+      "name": "deployment-procedures",
+      "description": ""
+    },
+    {
+      "name": "design-system-starter",
+      "description": ""
+    },
+    {
+      "name": "design-to-code",
+      "description": ""
+    },
+    {
+      "name": "deslop",
+      "description": ""
+    },
+    {
+      "name": "develop-web-game",
+      "description": ""
+    },
+    {
+      "name": "devops-iac-engineer",
+      "description": ""
+    },
+    {
+      "name": "diffdock",
+      "description": ""
+    },
+    {
+      "name": "difficult-workplace-conversations",
+      "description": ""
+    },
+    {
+      "name": "discord-bot-architect",
+      "description": ""
+    },
+    {
+      "name": "dnanexus-integration",
+      "description": ""
+    },
+    {
+      "name": "doc",
+      "description": ""
+    },
+    {
+      "name": "docker-expert",
+      "description": ""
+    },
+    {
+      "name": "documentation-templates",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "domain-name-brainstormer",
+      "description": ""
+    },
+    {
+      "name": "drugbank-database",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-dspy",
+      "description": ""
+    },
+    {
+      "name": "email-sequence",
+      "description": ""
+    },
+    {
+      "name": "email-systems",
+      "description": ""
+    },
+    {
+      "name": "ena-database",
+      "description": ""
+    },
+    {
+      "name": "ensembl-database",
+      "description": ""
+    },
+    {
+      "name": "environment-setup-guide",
+      "description": ""
+    },
+    {
+      "name": "esm",
+      "description": ""
+    },
+    {
+      "name": "ethical-hacking-methodology",
+      "description": ""
+    },
+    {
+      "name": "evaluation-bigcode-evaluation-harness",
+      "description": ""
+    },
+    {
+      "name": "evaluation-lm-evaluation-harness",
+      "description": ""
+    },
+    {
+      "name": "exa-search",
+      "description": ""
+    },
+    {
+      "name": "executing-marketing-campaigns",
+      "description": ""
+    },
+    {
+      "name": "exploratory-data-analysis",
+      "description": ""
+    },
+    {
+      "name": "rag-faiss",
+      "description": ""
+    },
+    {
+      "name": "fastapi-endpoint",
+      "description": ""
+    },
+    {
+      "name": "fastmcp-server",
+      "description": ""
+    },
+    {
+      "name": "fda-consultant-specialist",
+      "description": ""
+    },
+    {
+      "name": "fda-database",
+      "description": ""
+    },
+    {
+      "name": "feature-design-assistant",
+      "description": ""
+    },
+    {
+      "name": "figma",
+      "description": ""
+    },
+    {
+      "name": "figma-implement-design",
+      "description": ""
+    },
+    {
+      "name": "file-path-traversal",
+      "description": ""
+    },
+    {
+      "name": "find-bugs",
+      "description": ""
+    },
+    {
+      "name": "firebase",
+      "description": ""
+    },
+    {
+      "name": "firecrawl-scraper",
+      "description": ""
+    },
+    {
+      "name": "fluidsim",
+      "description": ""
+    },
+    {
+      "name": "form-cro",
+      "description": ""
+    },
+    {
+      "name": "free-tool-strategy",
+      "description": ""
+    },
+    {
+      "name": "frontend-dev-guidelines",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "frontend-to-backend-requirements",
+      "description": ""
+    },
+    {
+      "name": "game-audio",
+      "description": ""
+    },
+    {
+      "name": "game-changing-features",
+      "description": ""
+    },
+    {
+      "name": "game-design",
+      "description": ""
+    },
+    {
+      "name": "game-development",
+      "description": ""
+    },
+    {
+      "name": "gcp-cloud-run",
+      "description": ""
+    },
+    {
+      "name": "gemini",
+      "description": ""
+    },
+    {
+      "name": "gene-database",
+      "description": ""
+    },
+    {
+      "name": "generate-image",
+      "description": ""
+    },
+    {
+      "name": "geniml",
+      "description": ""
+    },
+    {
+      "name": "geo-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "geopandas",
+      "description": ""
+    },
+    {
+      "name": "get-available-resources",
+      "description": ""
+    },
+    {
+      "name": "gget",
+      "description": ""
+    },
+    {
+      "name": "optimization-gguf",
+      "description": ""
+    },
+    {
+      "name": "gh-address-comments",
+      "description": ""
+    },
+    {
+      "name": "gh-fix-ci",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "git-pushing",
+      "description": ""
+    },
+    {
+      "name": "github-actions-creator",
+      "description": ""
+    },
+    {
+      "name": "github-workflow-automation",
+      "description": ""
+    },
+    {
+      "name": "google-analytics",
+      "description": ""
+    },
+    {
+      "name": "optimization-gptq",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "description": ""
+    },
+    {
+      "name": "gtars",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-guidance",
+      "description": ""
+    },
+    {
+      "name": "heygen-best-practices",
+      "description": ""
+    },
+    {
+      "name": "histolab",
+      "description": ""
+    },
+    {
+      "name": "hook-development",
+      "description": ""
+    },
+    {
+      "name": "optimization-hqq",
+      "description": ""
+    },
+    {
+      "name": "html-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "hubspot-integration",
+      "description": ""
+    },
+    {
+      "name": "distributed-training-accelerate",
+      "description": ""
+    },
+    {
+      "name": "tokenization-huggingface-tokenizers",
+      "description": ""
+    },
+    {
+      "name": "humanizer",
+      "description": ""
+    },
+    {
+      "name": "hypogenic",
+      "description": ""
+    },
+    {
+      "name": "hypothesis-generation",
+      "description": ""
+    },
+    {
+      "name": "idor-testing",
+      "description": ""
+    },
+    {
+      "name": "imagegen",
+      "description": ""
+    },
+    {
+      "name": "model-architecture-litgpt",
+      "description": ""
+    },
+    {
+      "name": "information-security-manager-iso27001",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-instructor",
+      "description": ""
+    },
+    {
+      "name": "interactive-portfolio",
+      "description": ""
+    },
+    {
+      "name": "internal-comms-community",
+      "description": ""
+    },
+    {
+      "name": "isms-audit-expert",
+      "description": ""
+    },
+    {
+      "name": "it-operations",
+      "description": ""
+    },
+    {
+      "name": "javascript-mastery",
+      "description": ""
+    },
+    {
+      "name": "json-canvas",
+      "description": ""
+    },
+    {
+      "name": "kaizen",
+      "description": ""
+    },
+    {
+      "name": "kegg-database",
+      "description": ""
+    },
+    {
+      "name": "emerging-techniques-knowledge-distillation",
+      "description": ""
+    },
+    {
+      "name": "labarchive-integration",
+      "description": ""
+    },
+    {
+      "name": "infrastructure-lambda-labs",
+      "description": ""
+    },
+    {
+      "name": "lamindb",
+      "description": ""
+    },
+    {
+      "name": "agents-langchain",
+      "description": ""
+    },
+    {
+      "name": "langfuse",
+      "description": ""
+    },
+    {
+      "name": "langgraph",
+      "description": ""
+    },
+    {
+      "name": "observability-langsmith",
+      "description": ""
+    },
+    {
+      "name": "latchbio-integration",
+      "description": ""
+    },
+    {
+      "name": "pptx-posters",
+      "description": ""
+    },
+    {
+      "name": "latex-posters",
+      "description": ""
+    },
+    {
+      "name": "launch-strategy",
+      "description": ""
+    },
+    {
+      "name": "lint-and-validate",
+      "description": ""
+    },
+    {
+      "name": "linux-privilege-escalation",
+      "description": ""
+    },
+    {
+      "name": "linux-shell-scripting",
+      "description": ""
+    },
+    {
+      "name": "literature-review",
+      "description": ""
+    },
+    {
+      "name": "inference-serving-llama-cpp",
+      "description": ""
+    },
+    {
+      "name": "fine-tuning-llama-factory",
+      "description": ""
+    },
+    {
+      "name": "safety-alignment-llamaguard",
+      "description": ""
+    },
+    {
+      "name": "agents-llamaindex",
+      "description": ""
+    },
+    {
+      "name": "multimodal-llava",
+      "description": ""
+    },
+    {
+      "name": "llm-app-patterns",
+      "description": ""
+    },
+    {
+      "name": "loki-mode",
+      "description": ""
+    },
+    {
+      "name": "emerging-techniques-long-context",
+      "description": ""
+    },
+    {
+      "name": "model-architecture-mamba",
+      "description": ""
+    },
+    {
+      "name": "manim",
+      "description": ""
+    },
+    {
+      "name": "marketing-ideas",
+      "description": ""
+    },
+    {
+      "name": "marketing-psychology",
+      "description": ""
+    },
+    {
+      "name": "marketing-strategy-pmm",
+      "description": ""
+    },
+    {
+      "name": "markitdown",
+      "description": ""
+    },
+    {
+      "name": "marp-slide",
+      "description": ""
+    },
+    {
+      "name": "mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "mdr-745-specialist",
+      "description": ""
+    },
+    {
+      "name": "medchem",
+      "description": ""
+    },
+    {
+      "name": "meme-factory",
+      "description": ""
+    },
+    {
+      "name": "mermaid-diagrams",
+      "description": ""
+    },
+    {
+      "name": "metabolomics-workbench-database",
+      "description": ""
+    },
+    {
+      "name": "metasploit-framework",
+      "description": ""
+    },
+    {
+      "name": "micro-saas-launcher",
+      "description": ""
+    },
+    {
+      "name": "ml-paper-writing",
+      "description": ""
+    },
+    {
+      "name": "mlops-mlflow",
+      "description": ""
+    },
+    {
+      "name": "mobile-design",
+      "description": ""
+    },
+    {
+      "name": "mobile-games",
+      "description": ""
+    },
+    {
+      "name": "modal",
+      "description": ""
+    },
+    {
+      "name": "infrastructure-modal",
+      "description": ""
+    },
+    {
+      "name": "emerging-techniques-model-merging",
+      "description": ""
+    },
+    {
+      "name": "moodle-external-api-development",
+      "description": ""
+    },
+    {
+      "name": "motion-canvas",
+      "description": ""
+    },
+    {
+      "name": "move-code-quality",
+      "description": ""
+    },
+    {
+      "name": "mui",
+      "description": ""
+    },
+    {
+      "name": "multiplayer",
+      "description": ""
+    },
+    {
+      "name": "n8n-code-javascript",
+      "description": ""
+    },
+    {
+      "name": "n8n-code-python",
+      "description": ""
+    },
+    {
+      "name": "n8n-expression-syntax",
+      "description": ""
+    },
+    {
+      "name": "n8n-mcp-tools-expert",
+      "description": ""
+    },
+    {
+      "name": "n8n-node-configuration",
+      "description": ""
+    },
+    {
+      "name": "n8n-validation-expert",
+      "description": ""
+    },
+    {
+      "name": "n8n-workflow-patterns",
+      "description": ""
+    },
+    {
+      "name": "model-architecture-nanogpt",
+      "description": ""
+    },
+    {
+      "name": "data-processing-nemo-curator",
+      "description": ""
+    },
+    {
+      "name": "evaluation-nemo-evaluator",
+      "description": ""
+    },
+    {
+      "name": "safety-alignment-nemo-guardrails",
+      "description": ""
+    },
+    {
+      "name": "neon-instagres",
+      "description": ""
+    },
+    {
+      "name": "nestjs-expert",
+      "description": ""
+    },
+    {
+      "name": "netlify-deploy",
+      "description": ""
+    },
+    {
+      "name": "network-101",
+      "description": ""
+    },
+    {
+      "name": "networkx",
+      "description": ""
+    },
+    {
+      "name": "neurokit2",
+      "description": ""
+    },
+    {
+      "name": "neuropixels-analysis",
+      "description": ""
+    },
+    {
+      "name": "nextjs-best-practices",
+      "description": ""
+    },
+    {
+      "name": "nextjs-supabase-auth",
+      "description": ""
+    },
+    {
+      "name": "nodejs-best-practices",
+      "description": ""
+    },
+    {
+      "name": "nosql-expert",
+      "description": ""
+    },
+    {
+      "name": "notebooklm",
+      "description": ""
+    },
+    {
+      "name": "notion-meeting-intelligence",
+      "description": ""
+    },
+    {
+      "name": "notion-research-documentation",
+      "description": ""
+    },
+    {
+      "name": "notion-template-business",
+      "description": ""
+    },
+    {
+      "name": "obsidian-clipper-template-creator",
+      "description": ""
+    },
+    {
+      "name": "omero-integration",
+      "description": ""
+    },
+    {
+      "name": "openai-docs",
+      "description": ""
+    },
+    {
+      "name": "openalex-database",
+      "description": ""
+    },
+    {
+      "name": "openapi-to-typescript",
+      "description": ""
+    },
+    {
+      "name": "opentrons-integration",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-outlines",
+      "description": ""
+    },
+    {
+      "name": "paid-ads",
+      "description": ""
+    },
+    {
+      "name": "paper-2-web",
+      "description": ""
+    },
+    {
+      "name": "parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "pathml",
+      "description": ""
+    },
+    {
+      "name": "paywall-upgrade-cro",
+      "description": ""
+    },
+    {
+      "name": "pc-games",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "pdf-processing",
+      "description": ""
+    },
+    {
+      "name": "peer-review",
+      "description": ""
+    },
+    {
+      "name": "pennylane",
+      "description": ""
+    },
+    {
+      "name": "pentest-checklist",
+      "description": ""
+    },
+    {
+      "name": "pentest-commands",
+      "description": ""
+    },
+    {
+      "name": "performance",
+      "description": ""
+    },
+    {
+      "name": "perplexity",
+      "description": ""
+    },
+    {
+      "name": "perplexity-search",
+      "description": ""
+    },
+    {
+      "name": "personal-tool-builder",
+      "description": ""
+    },
+    {
+      "name": "observability-phoenix",
+      "description": ""
+    },
+    {
+      "name": "rag-pinecone",
+      "description": ""
+    },
+    {
+      "name": "plaid-fintech",
+      "description": ""
+    },
+    {
+      "name": "playwright",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e-builder",
+      "description": ""
+    },
+    {
+      "name": "playwright-skill",
+      "description": ""
+    },
+    {
+      "name": "plotly",
+      "description": ""
+    },
+    {
+      "name": "plugin-forge",
+      "description": ""
+    },
+    {
+      "name": "polars",
+      "description": ""
+    },
+    {
+      "name": "postgres-schema-design",
+      "description": ""
+    },
+    {
+      "name": "pricing-strategy",
+      "description": ""
+    },
+    {
+      "name": "prisma-expert",
+      "description": ""
+    },
+    {
+      "name": "privilege-escalation-methods",
+      "description": ""
+    },
+    {
+      "name": "product-manager-toolkit",
+      "description": ""
+    },
+    {
+      "name": "product-strategist",
+      "description": ""
+    },
+    {
+      "name": "production-code-audit",
+      "description": ""
+    },
+    {
+      "name": "professional-communication",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering",
+      "description": ""
+    },
+    {
+      "name": "protocolsio-integration",
+      "description": ""
+    },
+    {
+      "name": "pubchem-database",
+      "description": ""
+    },
+    {
+      "name": "pubmed-database",
+      "description": ""
+    },
+    {
+      "name": "pufferlib",
+      "description": ""
+    },
+    {
+      "name": "pydeseq2",
+      "description": ""
+    },
+    {
+      "name": "pydicom",
+      "description": ""
+    },
+    {
+      "name": "pyhealth",
+      "description": ""
+    },
+    {
+      "name": "pylabrobot",
+      "description": ""
+    },
+    {
+      "name": "pymoo",
+      "description": ""
+    },
+    {
+      "name": "pyopenms",
+      "description": ""
+    },
+    {
+      "name": "pytdc",
+      "description": ""
+    },
+    {
+      "name": "python-patterns",
+      "description": ""
+    },
+    {
+      "name": "pytorch-lightning",
+      "description": ""
+    },
+    {
+      "name": "distributed-training-pytorch-lightning",
+      "description": ""
+    },
+    {
+      "name": "mechanistic-interpretability-pyvene",
+      "description": ""
+    },
+    {
+      "name": "qa-test-planner",
+      "description": ""
+    },
+    {
+      "name": "rag-qdrant",
+      "description": ""
+    },
+    {
+      "name": "qiskit",
+      "description": ""
+    },
+    {
+      "name": "quality-documentation-manager",
+      "description": ""
+    },
+    {
+      "name": "quality-manager-qms-iso13485",
+      "description": ""
+    },
+    {
+      "name": "qutip",
+      "description": ""
+    },
+    {
+      "name": "rag-engineer",
+      "description": ""
+    },
+    {
+      "name": "database",
+      "description": ""
+    },
+    {
+      "name": "deploy",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "description": ""
+    },
+    {
+      "name": "railway-docs",
+      "description": ""
+    },
+    {
+      "name": "environment",
+      "description": ""
+    },
+    {
+      "name": "new",
+      "description": ""
+    },
+    {
+      "name": "projects",
+      "description": ""
+    },
+    {
+      "name": "service",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "description": ""
+    },
+    {
+      "name": "data-processing-ray-data",
+      "description": ""
+    },
+    {
+      "name": "distributed-training-ray-train",
+      "description": ""
+    },
+    {
+      "name": "rdkit",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "react-dev",
+      "description": ""
+    },
+    {
+      "name": "react-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-ui-patterns",
+      "description": ""
+    },
+    {
+      "name": "react-useeffect",
+      "description": ""
+    },
+    {
+      "name": "reactome-database",
+      "description": ""
+    },
+    {
+      "name": "red-team-tools",
+      "description": ""
+    },
+    {
+      "name": "reducing-entropy",
+      "description": ""
+    },
+    {
+      "name": "referral-program",
+      "description": ""
+    },
+    {
+      "name": "regulatory-affairs-head",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "description": ""
+    },
+    {
+      "name": "remotion-best-practices",
+      "description": ""
+    },
+    {
+      "name": "render-deploy",
+      "description": ""
+    },
+    {
+      "name": "research-lookup",
+      "description": ""
+    },
+    {
+      "name": "risk-management-specialist",
+      "description": ""
+    },
+    {
+      "name": "roier-seo",
+      "description": ""
+    },
+    {
+      "name": "writing-rules",
+      "description": ""
+    },
+    {
+      "name": "rust-cli-builder",
+      "description": ""
+    },
+    {
+      "name": "model-architecture-rwkv",
+      "description": ""
+    },
+    {
+      "name": "salesforce-development",
+      "description": ""
+    },
+    {
+      "name": "scientific-brainstorming",
+      "description": ""
+    },
+    {
+      "name": "scientific-critical-thinking",
+      "description": ""
+    },
+    {
+      "name": "scientific-schematics",
+      "description": ""
+    },
+    {
+      "name": "scientific-slides",
+      "description": ""
+    },
+    {
+      "name": "scientific-writing",
+      "description": ""
+    },
+    {
+      "name": "scikit-learn",
+      "description": ""
+    },
+    {
+      "name": "scikit-survival",
+      "description": ""
+    },
+    {
+      "name": "screenshot",
+      "description": ""
+    },
+    {
+      "name": "screenshot-feature-extractor",
+      "description": ""
+    },
+    {
+      "name": "scroll-experience",
+      "description": ""
+    },
+    {
+      "name": "scvi-tools",
+      "description": ""
+    },
+    {
+      "name": "security-best-practices",
+      "description": ""
+    },
+    {
+      "name": "security-compliance",
+      "description": ""
+    },
+    {
+      "name": "security-ownership-map",
+      "description": ""
+    },
+    {
+      "name": "cc-skill-security-review",
+      "description": ""
+    },
+    {
+      "name": "scanning-tools",
+      "description": ""
+    },
+    {
+      "name": "security-threat-model",
+      "description": ""
+    },
+    {
+      "name": "segment-cdp",
+      "description": ""
+    },
+    {
+      "name": "senior-architect",
+      "description": ""
+    },
+    {
+      "name": "senior-backend",
+      "description": ""
+    },
+    {
+      "name": "senior-computer-vision",
+      "description": ""
+    },
+    {
+      "name": "senior-data-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-data-scientist",
+      "description": ""
+    },
+    {
+      "name": "senior-devops",
+      "description": ""
+    },
+    {
+      "name": "senior-frontend",
+      "description": ""
+    },
+    {
+      "name": "senior-fullstack",
+      "description": ""
+    },
+    {
+      "name": "senior-ml-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-prompt-engineer",
+      "description": ""
+    },
+    {
+      "name": "senior-qa",
+      "description": ""
+    },
+    {
+      "name": "senior-secops",
+      "description": ""
+    },
+    {
+      "name": "senior-security",
+      "description": ""
+    },
+    {
+      "name": "rag-sentence-transformers",
+      "description": ""
+    },
+    {
+      "name": "seo-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "seo-optimizer",
+      "description": ""
+    },
+    {
+      "name": "inference-serving-vllm",
+      "description": ""
+    },
+    {
+      "name": "session-handoff",
+      "description": ""
+    },
+    {
+      "name": "inference-serving-sglang",
+      "description": ""
+    },
+    {
+      "name": "shap",
+      "description": ""
+    },
+    {
+      "name": "ship-learn-next",
+      "description": ""
+    },
+    {
+      "name": "shodan-reconnaissance",
+      "description": ""
+    },
+    {
+      "name": "shopify-apps",
+      "description": ""
+    },
+    {
+      "name": "shopify-development",
+      "description": ""
+    },
+    {
+      "name": "simpy",
+      "description": ""
+    },
+    {
+      "name": "skill-creation-guide",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "description": ""
+    },
+    {
+      "name": "skill-installer",
+      "description": ""
+    },
+    {
+      "name": "skill-judge",
+      "description": ""
+    },
+    {
+      "name": "slack-bot-builder",
+      "description": ""
+    },
+    {
+      "name": "smtp-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "social-content",
+      "description": ""
+    },
+    {
+      "name": "software-architecture",
+      "description": ""
+    },
+    {
+      "name": "sora",
+      "description": ""
+    },
+    {
+      "name": "emerging-techniques-speculative-decoding",
+      "description": ""
+    },
+    {
+      "name": "speech",
+      "description": ""
+    },
+    {
+      "name": "spreadsheet",
+      "description": ""
+    },
+    {
+      "name": "sql-injection-testing",
+      "description": ""
+    },
+    {
+      "name": "sqlmap-database-pentesting",
+      "description": ""
+    },
+    {
+      "name": "ssh-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "stable-baselines3",
+      "description": ""
+    },
+    {
+      "name": "statistical-analysis",
+      "description": ""
+    },
+    {
+      "name": "statsmodels",
+      "description": ""
+    },
+    {
+      "name": "string-database",
+      "description": ""
+    },
+    {
+      "name": "stripe-integration",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "supabase-postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "postgres-best-practices",
+      "description": ""
+    },
+    {
+      "name": "sympy",
+      "description": ""
+    },
+    {
+      "name": "tailwind-patterns",
+      "description": ""
+    },
+    {
+      "name": "task-execution-engine",
+      "description": ""
+    },
+    {
+      "name": "tavily-web",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot-builder",
+      "description": ""
+    },
+    {
+      "name": "telegram-bot-builder",
+      "description": ""
+    },
+    {
+      "name": "telegram-mini-app",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "description": ""
+    },
+    {
+      "name": "inference-serving-tensorrt-llm",
+      "description": ""
+    },
+    {
+      "name": "test-fixing",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "top-web-vulnerabilities",
+      "description": ""
+    },
+    {
+      "name": "torch_geometric",
+      "description": ""
+    },
+    {
+      "name": "post-training-torchforge",
+      "description": ""
+    },
+    {
+      "name": "transformers",
+      "description": ""
+    },
+    {
+      "name": "treatment-plans",
+      "description": ""
+    },
+    {
+      "name": "trigger-dev",
+      "description": ""
+    },
+    {
+      "name": "twilio-communications",
+      "description": ""
+    },
+    {
+      "name": "typescript-expert",
+      "description": ""
+    },
+    {
+      "name": "ui-design-system",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "uniprot-database",
+      "description": ""
+    },
+    {
+      "name": "using-git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "using-neon",
+      "description": ""
+    },
+    {
+      "name": "using-superpowers",
+      "description": ""
+    },
+    {
+      "name": "using-superpowers",
+      "description": ""
+    },
+    {
+      "name": "uspto-database",
+      "description": ""
+    },
+    {
+      "name": "ux-researcher-designer",
+      "description": ""
+    },
+    {
+      "name": "vaex",
+      "description": ""
+    },
+    {
+      "name": "venue-templates",
+      "description": ""
+    },
+    {
+      "name": "vercel-deploy",
+      "description": ""
+    },
+    {
+      "name": "vercel-deployment",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "post-training-verl",
+      "description": ""
+    },
+    {
+      "name": "viral-generator-builder",
+      "description": ""
+    },
+    {
+      "name": "voice-agents",
+      "description": ""
+    },
+    {
+      "name": "voice-ai-development",
+      "description": ""
+    },
+    {
+      "name": "vr-ar",
+      "description": ""
+    },
+    {
+      "name": "web-design-guidelines",
+      "description": ""
+    },
+    {
+      "name": "web-games",
+      "description": ""
+    },
+    {
+      "name": "web-performance-optimization",
+      "description": ""
+    },
+    {
+      "name": "web-quality-audit",
+      "description": ""
+    },
+    {
+      "name": "web-to-markdown",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "multimodal-whisper",
+      "description": ""
+    },
+    {
+      "name": "windows-privilege-escalation",
+      "description": ""
+    },
+    {
+      "name": "wireshark-analysis",
+      "description": ""
+    },
+    {
+      "name": "wordpress-penetration-testing",
+      "description": ""
+    },
+    {
+      "name": "workflow-automation",
+      "description": ""
+    },
+    {
+      "name": "writing-clearly-and-concisely",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    },
+    {
+      "name": "yeet",
+      "description": ""
+    },
+    {
+      "name": "zapier-make-patterns",
+      "description": ""
+    },
+    {
+      "name": "zarr-python",
+      "description": ""
+    },
+    {
+      "name": "zinc-database",
+      "description": ""
+    }
+  ]
+}
