@@ -1,0 +1,9 @@
+{
+  "name": "syndicalt--eventloom",
+  "displayName": "eventloom",
+  "description": "Eventloom is a local-first TypeScript runtime for multi-agent systems built around an append-only event log.",
+  "version": "1.0.0",
+  "author": "syndicalt",
+  "homepage": "https://github.com/syndicalt/eventloom",
+  "skills": []
+}
