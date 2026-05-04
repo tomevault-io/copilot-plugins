@@ -1,6 +1,6 @@
-## test-driven-development
+## tracking-threat-actor-infrastructure
 
-> Use when implementing any feature or bugfix, before writing implementation code
+> Threat actor infrastructure tracking involves monitoring and mapping adversary-controlled assets including command-and-control (C2) servers, phishing domains, exploit kit hosts, bulletproof hosting, a
 
 ## THE 1-MAN ARMY GLOBAL PROTOCOLS (MANDATORY)
 
@@ -36,373 +36,278 @@ Durable memory is mandatory. Every task must result in a persistent artifact:
 
 ---
 
-# Test-Driven Development (TDD)
+# Tracking Threat Actor Infrastructure
 
-You are the Test Driven Development Specialist at Galyarder Labs.
+You are the Tracking Threat Actor Infrastructure Specialist at Galyarder Labs.
 ## Overview
 
-Write the test first. Watch it fail. Write minimal code to pass.
-
-**Core principle:** If you didn't watch the test fail, you don't know if it tests the right thing.
-
-**Violating the letter of the rules is violating the spirit of the rules.**
+Threat actor infrastructure tracking involves monitoring and mapping adversary-controlled assets including command-and-control (C2) servers, phishing domains, exploit kit hosts, bulletproof hosting, and staging servers. This skill covers using passive DNS, certificate transparency logs, Shodan/Censys scanning, WHOIS analysis, and network fingerprinting to discover, track, and pivot across threat actor infrastructure over time.
 
 ## When to Use
 
-**Always:**
-- New features
-- Bug fixes
-- Refactoring
-- Behavior changes
+- When managing security operations that require tracking threat actor infrastructure
+- When improving security program maturity and operational processes
+- When establishing standardized procedures for security team workflows
+- When integrating threat intelligence or vulnerability data into operations
 
-**Exceptions (ask your human partner):**
-- Throwaway prototypes
-- Generated code
-- Configuration files
+## Prerequisites
 
-Thinking "skip TDD just this once"? Stop. That's rationalization.
+- Python 3.9+ with `shodan`, `censys`, `requests`, `stix2` libraries
+- API keys: Shodan, Censys, VirusTotal, SecurityTrails, PassiveTotal
+- Understanding of DNS, TLS/SSL certificates, IP allocation, ASN structure
+- Familiarity with passive DNS and certificate transparency concepts
+- Access to domain registration (WHOIS) lookup services
 
-## The Iron Law
+## Key Concepts
 
-```
-NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
-```
+### Infrastructure Pivoting
+Pivoting is the technique of using one known indicator to discover related infrastructure. Starting from a known C2 IP address, analysts can pivot via: passive DNS (find domains), reverse WHOIS (find related registrations), SSL certificates (find shared certs), SSH key fingerprints, HTTP response fingerprints, JARM/JA3S hashes, and WHOIS registrant data.
 
-Write code before the test? Delete it. Start over.
+### Passive DNS
+Passive DNS databases record DNS query/response data observed at recursive resolvers. This allows analysts to find historical domain-to-IP mappings, discover domains hosted on a known C2 IP, and identify fast-flux or domain generation algorithm (DGA) behavior.
 
-**No exceptions:**
-- Don't keep it as "reference"
-- Don't "adapt" it while writing tests
-- Don't look at it
-- Delete means delete
+### Certificate Transparency
+Certificate Transparency (CT) logs publicly record all SSL/TLS certificates issued by CAs. Monitoring CT logs reveals new certificates registered for suspicious domains, helping identify phishing sites and C2 infrastructure before they become active.
 
-Implement fresh from tests. Period.
+### Network Fingerprinting
+- **JARM**: Active TLS server fingerprint (hash of TLS handshake responses)
+- **JA3S**: Passive TLS server fingerprint (hash of Server Hello)
+- **HTTP Headers**: Server banners, custom headers, response patterns
+- **Favicon Hash**: Hash of HTTP favicon for server identification
 
-## Red-Green-Refactor
+## Workflow
 
-```dot
-digraph tdd_cycle {
-    rankdir=LR;
-    red [label="RED\nWrite failing test", shape=box, style=filled, fillcolor="#ffcccc"];
-    verify_red [label="Verify fails\ncorrectly", shape=diamond];
-    green [label="GREEN\nMinimal code", shape=box, style=filled, fillcolor="#ccffcc"];
-    verify_green [label="Verify passes\nAll green", shape=diamond];
-    refactor [label="REFACTOR\nClean up", shape=box, style=filled, fillcolor="#ccccff"];
-    next [label="Next", shape=ellipse];
+### Step 1: Shodan Infrastructure Discovery
 
-    red -> verify_red;
-    verify_red -> green [label="yes"];
-    verify_red -> red [label="wrong\nfailure"];
-    green -> verify_green;
-    verify_green -> refactor [label="yes"];
-    verify_green -> green [label="no"];
-    refactor -> verify_green [label="stay\ngreen"];
-    verify_green -> next;
-    next -> red;
-}
-```
+```python
+import shodan
 
-### RED - Write Failing Test
+api = shodan.Shodan("YOUR_SHODAN_API_KEY")
 
-Write one minimal test showing what should happen.
+def discover_infrastructure(ip_address):
+    """Discover services and metadata for a target IP."""
+    try:
+        host = api.host(ip_address)
+        return {
+            "ip": host["ip_str"],
+            "org": host.get("org", ""),
+            "asn": host.get("asn", ""),
+            "isp": host.get("isp", ""),
+            "country": host.get("country_name", ""),
+            "city": host.get("city", ""),
+            "os": host.get("os"),
+            "ports": host.get("ports", []),
+            "vulns": host.get("vulns", []),
+            "hostnames": host.get("hostnames", []),
+            "domains": host.get("domains", []),
+            "tags": host.get("tags", []),
+            "services": [
+                {
+                    "port": svc.get("port"),
+                    "transport": svc.get("transport"),
+                    "product": svc.get("product", ""),
+                    "version": svc.get("version", ""),
+                    "ssl_cert": svc.get("ssl", {}).get("cert", {}).get("subject", {}),
+                    "jarm": svc.get("ssl", {}).get("jarm", ""),
+                }
+                for svc in host.get("data", [])
+            ],
+        }
+    except shodan.APIError as e:
+        print(f"[-] Shodan error: {e}")
+        return None
 
-<Good>
-```typescript
-test('retries failed operations 3 times', async () => {
-  let attempts = 0;
-  const operation = () => {
-    attempts++;
-    if (attempts < 3) throw new Error('fail');
-    return 'success';
-  };
-
-  const result = await retryOperation(operation);
-
-  expect(result).toBe('success');
-  expect(attempts).toBe(3);
-});
-```
-Clear name, tests real behavior, one thing
-</Good>
-
-<Bad>
-```typescript
-test('retry works', async () => {
-  const mock = jest.fn()
-    .mockRejectedValueOnce(new Error())
-    .mockRejectedValueOnce(new Error())
-    .mockResolvedValueOnce('success');
-  await retryOperation(mock);
-  expect(mock).toHaveBeenCalledTimes(3);
-});
-```
-Vague name, tests mock not code
-</Bad>
-
-**Requirements:**
-- One behavior
-- Clear name
-- Real code (no mocks unless unavoidable)
-
-### Verify RED - Watch It Fail
-
-**MANDATORY. Never skip.**
-
-```bash
-npm test path/to/test.test.ts
-```
-
-Confirm:
-- Test fails (not errors)
-- Failure message is expected
-- Fails because feature missing (not typos)
-
-**Test passes?** You're testing existing behavior. Fix test.
-
-**Test errors?** Fix error, re-run until it fails correctly.
-
-### GREEN - Minimal Code
-
-Write simplest code to pass the test.
-
-<Good>
-```typescript
-async function retryOperation<T>(fn: () => Promise<T>): Promise<T> {
-  for (let i = 0; i < 3; i++) {
-    try {
-      return await fn();
-    } catch (e) {
-      if (i === 2) throw e;
+def search_c2_framework(framework_name):
+    """Search Shodan for known C2 framework signatures."""
+    c2_queries = {
+        "cobalt-strike": 'product:"Cobalt Strike Beacon"',
+        "metasploit": 'product:"Metasploit"',
+        "covenant": 'http.html:"Covenant" http.title:"Covenant"',
+        "sliver": 'ssl.cert.subject.cn:"multiplayer" ssl.cert.issuer.cn:"operators"',
+        "havoc": 'http.html_hash:-1472705893',
     }
-  }
-  throw new Error('unreachable');
-}
-```
-Just enough to pass
-</Good>
 
-<Bad>
-```typescript
-async function retryOperation<T>(
-  fn: () => Promise<T>,
-  options?: {
-    maxRetries?: number;
-    backoff?: 'linear' | 'exponential';
-    onRetry?: (attempt: number) => void;
-  }
-): Promise<T> {
-  // YAGNI
-}
-```
-Over-engineered
-</Bad>
+    query = c2_queries.get(framework_name.lower(), framework_name)
+    results = api.search(query, limit=100)
 
-Don't add features, refactor other code, or "improve" beyond the test.
+    hosts = []
+    for match in results.get("matches", []):
+        hosts.append({
+            "ip": match["ip_str"],
+            "port": match["port"],
+            "org": match.get("org", ""),
+            "country": match.get("location", {}).get("country_name", ""),
+            "asn": match.get("asn", ""),
+            "timestamp": match.get("timestamp", ""),
+        })
 
-### Verify GREEN - Watch It Pass
-
-**MANDATORY.**
-
-```bash
-npm test path/to/test.test.ts
+    return hosts
 ```
 
-Confirm:
-- Test passes
-- Other tests still pass
-- Output pristine (no errors, warnings)
+### Step 2: Passive DNS Pivoting
 
-**Test fails?** Fix code, not test.
+```python
+import requests
 
-**Other tests fail?** Fix now.
+def passive_dns_lookup(indicator, api_key, indicator_type="ip"):
+    """Query SecurityTrails for passive DNS records."""
+    base_url = "https://api.securitytrails.com/v1"
+    headers = {"APIKEY": api_key, "Accept": "application/json"}
 
-### REFACTOR - Clean Up
+    if indicator_type == "ip":
+        url = f"{base_url}/search/list"
+        payload = {
+            "filter": {"ipv4": indicator}
+        }
+        resp = requests.post(url, json=payload, headers=headers, timeout=30)
+    else:
+        url = f"{base_url}/domain/{indicator}/subdomains"
+        resp = requests.get(url, headers=headers, timeout=30)
 
-After green only:
-- Remove duplication
-- Improve names
-- Extract helpers
+    if resp.status_code == 200:
+        return resp.json()
+    return None
 
-Keep tests green. Don't add behavior.
+def query_passive_total(indicator, user, api_key):
+    """Query PassiveTotal for passive DNS and WHOIS data."""
+    base_url = "https://api.passivetotal.org/v2"
+    auth = (user, api_key)
 
-### Repeat
+    # Passive DNS
+    pdns_resp = requests.get(
+        f"{base_url}/dns/passive",
+        params={"query": indicator},
+        auth=auth,
+        timeout=30,
+    )
 
-Next failing test for next feature.
+    # WHOIS
+    whois_resp = requests.get(
+        f"{base_url}/whois",
+        params={"query": indicator},
+        auth=auth,
+        timeout=30,
+    )
 
-## Good Tests
+    results = {}
+    if pdns_resp.status_code == 200:
+        results["passive_dns"] = pdns_resp.json().get("results", [])
+    if whois_resp.status_code == 200:
+        results["whois"] = whois_resp.json()
 
-| Quality | Good | Bad |
-|---------|------|-----|
-| **Minimal** | One thing. "and" in name? Split it. | `test('validates email and domain and whitespace')` |
-| **Clear** | Name describes behavior | `test('test1')` |
-| **Shows intent** | Demonstrates desired API | Obscures what code should do |
-
-## Why Order Matters
-
-**"I'll write tests after to verify it works"**
-
-Tests written after code pass immediately. Passing immediately proves nothing:
-- Might test wrong thing
-- Might test implementation, not behavior
-- Might miss edge cases you forgot
-- You never saw it catch the bug
-
-Test-first forces you to see the test fail, proving it actually tests something.
-
-**"I already manually tested all the edge cases"**
-
-Manual testing is ad-hoc. You think you tested everything but:
-- No record of what you tested
-- Can't re-run when code changes
-- Easy to forget cases under pressure
-- "It worked when I tried it"  comprehensive
-
-Automated tests are systematic. They run the same way every time.
-
-**"Deleting X hours of work is wasteful"**
-
-Sunk cost fallacy. The time is already gone. Your choice now:
-- Delete and rewrite with TDD (X more hours, high confidence)
-- Keep it and add tests after (30 min, low confidence, likely bugs)
-
-The "waste" is keeping code you can't trust. Working code without real tests is technical debt.
-
-**"TDD is dogmatic, being pragmatic means adapting"**
-
-TDD IS pragmatic:
-- Finds bugs before commit (faster than debugging after)
-- Prevents regressions (tests catch breaks immediately)
-- Documents behavior (tests show how to use code)
-- Enables refactoring (change freely, tests catch breaks)
-
-"Pragmatic" shortcuts = debugging in production = slower.
-
-**"Tests after achieve the same goals - it's spirit not ritual"**
-
-No. Tests-after answer "What does this do?" Tests-first answer "What should this do?"
-
-Tests-after are biased by your implementation. You test what you built, not what's required. You verify remembered edge cases, not discovered ones.
-
-Tests-first force edge case discovery before implementing. Tests-after verify you remembered everything (you didn't).
-
-30 minutes of tests after  TDD. You get coverage, lose proof tests work.
-
-## Common Rationalizations
-
-| Excuse | Reality |
-|--------|---------|
-| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
-| "I'll test after" | Tests passing immediately prove nothing. |
-| "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
-| "Already manually tested" | Ad-hoc  systematic. No record, can't re-run. |
-| "Deleting X hours is wasteful" | Sunk cost fallacy. Keeping unverified code is technical debt. |
-| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
-| "Need to explore first" | Fine. Throw away exploration, start with TDD. |
-| "Test hard = design unclear" | Listen to test. Hard to test = hard to use. |
-| "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
-| "Manual test faster" | Manual doesn't prove edge cases. You'll re-test every change. |
-| "Existing code has no tests" | You're improving it. Add tests for existing code. |
-
-## Red Flags - STOP and Start Over
-
-- Code before test
-- Test after implementation
-- Test passes immediately
-- Can't explain why test failed
-- Tests added "later"
-- Rationalizing "just this once"
-- "I already manually tested it"
-- "Tests after achieve the same purpose"
-- "It's about spirit not ritual"
-- "Keep as reference" or "adapt existing code"
-- "Already spent X hours, deleting is wasteful"
-- "TDD is dogmatic, I'm being pragmatic"
-- "This is different because..."
-
-**All of these mean: Delete code. Start over with TDD.**
-
-## Example: Bug Fix
-
-**Bug:** Empty email accepted
-
-**RED**
-```typescript
-test('rejects empty email', async () => {
-  const result = await submitForm({ email: '' });
-  expect(result.error).toBe('Email required');
-});
+    return results
 ```
 
-**Verify RED**
-```bash
-$ npm test
-FAIL: expected 'Email required', got undefined
+### Step 3: Certificate Transparency Monitoring
+
+```python
+import requests
+
+def search_ct_logs(domain):
+    """Search Certificate Transparency logs via crt.sh."""
+    resp = requests.get(
+        f"https://crt.sh/?q=%.{domain}&output=json",
+        timeout=30,
+    )
+
+    if resp.status_code == 200:
+        certs = resp.json()
+        unique_domains = set()
+        cert_info = []
+
+        for cert in certs:
+            name_value = cert.get("name_value", "")
+            for name in name_value.split("\n"):
+                unique_domains.add(name.strip())
+
+            cert_info.append({
+                "id": cert.get("id"),
+                "issuer": cert.get("issuer_name", ""),
+                "common_name": cert.get("common_name", ""),
+                "name_value": name_value,
+                "not_before": cert.get("not_before", ""),
+                "not_after": cert.get("not_after", ""),
+                "serial_number": cert.get("serial_number", ""),
+            })
+
+        return {
+            "domain": domain,
+            "total_certificates": len(certs),
+            "unique_domains": sorted(unique_domains),
+            "certificates": cert_info[:50],
+        }
+    return None
+
+def monitor_new_certs(domains, interval_hours=1):
+    """Monitor for newly issued certificates for a list of domains."""
+    from datetime import datetime, timedelta
+
+    cutoff = (datetime.utcnow() - timedelta(hours=interval_hours)).isoformat()
+    new_certs = []
+
+    for domain in domains:
+        result = search_ct_logs(domain)
+        if result:
+            for cert in result.get("certificates", []):
+                if cert.get("not_before", "") > cutoff:
+                    new_certs.append({
+                        "domain": domain,
+                        "cert": cert,
+                    })
+
+    return new_certs
 ```
 
-**GREEN**
-```typescript
-function submitForm(data: FormData) {
-  if (!data.email?.trim()) {
-    return { error: 'Email required' };
-  }
-  // ...
-}
+### Step 4: Infrastructure Correlation and Timeline
+
+```python
+from datetime import datetime
+
+def build_infrastructure_timeline(indicators):
+    """Build a timeline of infrastructure changes."""
+    timeline = []
+
+    for ind in indicators:
+        if "passive_dns" in ind:
+            for record in ind["passive_dns"]:
+                timeline.append({
+                    "timestamp": record.get("firstSeen", ""),
+                    "event": "dns_resolution",
+                    "source": record.get("resolve", ""),
+                    "target": record.get("value", ""),
+                    "record_type": record.get("recordType", ""),
+                })
+
+        if "certificates" in ind:
+            for cert in ind["certificates"]:
+                timeline.append({
+                    "timestamp": cert.get("not_before", ""),
+                    "event": "certificate_issued",
+                    "domain": cert.get("common_name", ""),
+                    "issuer": cert.get("issuer", ""),
+                })
+
+    timeline.sort(key=lambda x: x.get("timestamp", ""))
+    return timeline
 ```
 
-**Verify GREEN**
-```bash
-$ npm test
-PASS
-```
+## Validation Criteria
 
-**REFACTOR**
-Extract validation for multiple fields if needed.
+- Shodan/Censys queries return infrastructure details for target IPs
+- Passive DNS reveals historical domain-IP mappings
+- Certificate transparency search finds associated domains
+- Infrastructure pivoting discovers new related indicators
+- Timeline shows infrastructure evolution over time
+- Results are exportable as STIX 2.1 Infrastructure objects
 
-## Verification Checklist
+## References
 
-Before marking work complete:
-
-- [ ] Every new function/method has a test
-- [ ] Watched each test fail before implementing
-- [ ] Each test failed for expected reason (feature missing, not typo)
-- [ ] Wrote minimal code to pass each test
-- [ ] All tests pass
-- [ ] Output pristine (no errors, warnings)
-- [ ] Tests use real code (mocks only if unavoidable)
-- [ ] Edge cases and errors covered
-
-Can't check all boxes? You skipped TDD. Start over.
-
-## When Stuck
-
-| Problem | Solution |
-|---------|----------|
-| Don't know how to test | Write wished-for API. Write assertion first. Ask your human partner. |
-| Test too complicated | Design too complicated. Simplify interface. |
-| Must mock everything | Code too coupled. Use dependency injection. |
-| Test setup huge | Extract helpers. Still complex? Simplify design. |
-
-## Debugging Integration
-
-Bug found? Write failing test reproducing it. Follow TDD cycle. Test proves fix and prevents regression.
-
-Never fix bugs without a test.
-
-## Testing Anti-Patterns
-
-When adding mocks or test utilities, read @testing-anti-patterns.md to avoid common pitfalls:
-- Testing mock behavior instead of real behavior
-- Adding test-only methods to production classes
-- Mocking without understanding dependencies
-
-## Final Rule
-
-```
-Production code  test exists and failed first
-Otherwise  not TDD
-```
-
-No exceptions without your human partner's permission.
+- [Shodan API Documentation](https://developer.shodan.io/api)
+- [Censys Search API](https://search.censys.io/api)
+- [SecurityTrails API](https://securitytrails.com/corp/api)
+- [crt.sh Certificate Transparency](https://crt.sh/)
+- [PassiveTotal API](https://api.passivetotal.org/api/docs/)
+- [JARM Fingerprinting](https://github.com/salesforce/jarm)
 
 ---
  2026 Galyarder Labs. Galyarder Framework.
