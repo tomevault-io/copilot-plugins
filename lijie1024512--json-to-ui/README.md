@@ -2,6 +2,8 @@
 
 > Source: [lijie1024512/json-to-ui](https://github.com/lijie1024512/json-to-ui) — distributed by [TomeVault](https://tomevault.io)
 
+生成式UI:formily.js+shadcn生成json
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [lijie1024512/json-to-ui](https://gith
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From [lijie1024512/json-to-ui](https://github.com/lijie1024512/json-to-ui) — a repo with 0+ stars on GitHub.
+From [lijie1024512/json-to-ui](https://github.com/lijie1024512/json-to-ui) — a repo with 8+ stars on GitHub.
 
 ---
 
