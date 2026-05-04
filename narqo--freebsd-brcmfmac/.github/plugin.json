@@ -1,0 +1,9 @@
+{
+  "name": "narqo--freebsd-brcmfmac",
+  "displayName": "freebsd-brcmfmac",
+  "description": "FreeBSD native WiFi driver for BCM4350 (MBP 2016), BCM43455 (RPi4) \u2014 in progress",
+  "version": "1.0.0",
+  "author": "narqo",
+  "homepage": "https://github.com/narqo/freebsd-brcmfmac",
+  "skills": []
+}
