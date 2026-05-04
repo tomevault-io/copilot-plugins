@@ -1,0 +1,9 @@
+{
+  "name": "jiangjingc--claude-to-im-plus",
+  "displayName": "claude-to-im-plus",
+  "description": "Claude-to-IM Plus: bridge Claude Code and Codex sessions to IM platforms",
+  "version": "1.0.0",
+  "author": "JiangJingC",
+  "homepage": "https://github.com/JiangJingC/claude-to-im-plus",
+  "skills": []
+}
