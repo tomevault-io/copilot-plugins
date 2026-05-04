@@ -1,0 +1,14 @@
+{
+  "name": "techwithanirudh--coolify-tweaks",
+  "displayName": "coolify-tweaks",
+  "description": "A userstyle that enhances Coolify's UI by applying opinionated tweaks, spacing, colors, and layout fixes, to make the UI more polished and user-friendly.",
+  "version": "1.0.0",
+  "author": "techwithanirudh",
+  "homepage": "https://github.com/techwithanirudh/coolify-tweaks",
+  "skills": [
+    {
+      "name": "create-changeset",
+      "description": ""
+    }
+  ]
+}
