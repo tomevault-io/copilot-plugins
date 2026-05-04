@@ -1,0 +1,75 @@
+{
+  "name": "toolhive-studio",
+  "owner": "stacklok",
+  "repo": "toolhive-studio",
+  "description": "ToolHive is an application that allows you to install, manage and run MCP servers and connect them to AI agents",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/stacklok/toolhive-studio/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-editor",
+      "path": ".claude/skills/skill-editor",
+      "github_url": "https://github.com/stacklok/toolhive-studio/tree/main/.claude/skills/skill-editor",
+      "description": ""
+    },
+    {
+      "name": "testing-api-assertions",
+      "path": ".claude/skills/testing-api-assertions",
+      "github_url": "https://github.com/stacklok/toolhive-studio/tree/main/.claude/skills/testing-api-assertions",
+      "description": ""
+    },
+    {
+      "name": "testing-api-overrides",
+      "path": ".claude/skills/testing-api-overrides",
+      "github_url": "https://github.com/stacklok/toolhive-studio/tree/main/.claude/skills/testing-api-overrides",
+      "description": ""
+    },
+    {
+      "name": "testing-with-api-mocks",
+      "path": ".claude/skills/testing-with-api-mocks",
+      "github_url": "https://github.com/stacklok/toolhive-studio/tree/main/.claude/skills/testing-with-api-mocks",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/stacklok/toolhive-studio",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T23:35:20Z"
+}
