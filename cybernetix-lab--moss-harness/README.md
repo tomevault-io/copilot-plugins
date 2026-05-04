@@ -7,11 +7,11 @@ A production-grade AI Agent Harness engineering template providing a reliable, o
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [cybernetix-lab/moss-harness](https://github.com/cybernetix-lab/moss-harness).
+Original source: `CLAUDE.md` in [cybernetix-lab/moss-harness](https://github.com/cybernetix-lab/moss-harness).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
