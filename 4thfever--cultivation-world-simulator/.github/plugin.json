@@ -1,9 +1,14 @@
 {
   "name": "4thfever--cultivation-world-simulator",
   "displayName": "cultivation-world-simulator",
-  "description": "cultivation-world-simulator",
+  "description": "\u57fa\u4e8e AI Agent \u5de5\u4f5c\u6d41\u7684\u4fee\u4ed9\u4e16\u754c\u6a21\u62df\u5668\uff0c\u65e8\u5728\u8fd8\u539f\u667a\u80fd\u3001\u5f00\u653e\u7684\u4ed9\u4fa0\u4e16\u754c\u3002| An open-source Cultivation World Simulator using Agentic Workflow to create a dynamic, emerging Xianxia world. ",
   "version": "1.0.0",
   "author": "4thfever",
-  "homepage": "https://tomevault.io/claim/4thfever",
-  "skills": []
+  "homepage": "https://github.com/4thfever/cultivation-world-simulator",
+  "skills": [
+    {
+      "name": "test-validate",
+      "description": ""
+    }
+  ]
 }
