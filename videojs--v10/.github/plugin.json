@@ -1,0 +1,58 @@
+{
+  "name": "videojs--v10",
+  "displayName": "v10",
+  "description": "[Beta] Video.js v10 - open source media player framework for Web and React.",
+  "version": "1.0.0",
+  "author": "videojs",
+  "homepage": "https://github.com/videojs/v10",
+  "skills": [
+    {
+      "name": "api",
+      "description": ""
+    },
+    {
+      "name": "api-reference",
+      "description": ""
+    },
+    {
+      "name": "aria",
+      "description": ""
+    },
+    {
+      "name": "claude-update",
+      "description": ""
+    },
+    {
+      "name": "component",
+      "description": ""
+    },
+    {
+      "name": "create-skill",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "gh-issue",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "description": ""
+    },
+    {
+      "name": "review-branch",
+      "description": ""
+    },
+    {
+      "name": "rfc",
+      "description": ""
+    }
+  ]
+}
