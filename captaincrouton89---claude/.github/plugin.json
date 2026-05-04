@@ -1,0 +1,14 @@
+{
+  "name": "captaincrouton89---claude",
+  "displayName": ".claude",
+  "description": "AI instruction skills by CaptainCrouton89",
+  "version": "1.0.0",
+  "author": "CaptainCrouton89",
+  "homepage": "https://github.com/CaptainCrouton89/.claude",
+  "skills": [
+    {
+      "name": "typescript-sdk-reference",
+      "description": ""
+    }
+  ]
+}
