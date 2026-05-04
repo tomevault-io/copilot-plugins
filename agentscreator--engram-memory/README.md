@@ -7,11 +7,11 @@ Agent memory platform. We're hiring contributors check HIRING.md
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Agentscreator/engram-memory](https://github.com/Agentscreator/engram-memory).
+Original source: `CLAUDE.md` in [Agentscreator/engram-memory](https://github.com/Agentscreator/engram-memory).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
