@@ -1,0 +1,22 @@
+{
+  "name": "kennedym-ds--copilot-orchestrator",
+  "displayName": "copilot_orchestrator",
+  "description": "Multi-agent orchestration system for GitHub Copilot with specialized agents, reusable    skills/prompts, and validation tooling.",
+  "version": "1.0.0",
+  "author": "kennedym-ds",
+  "homepage": "https://github.com/kennedym-ds/copilot_orchestrator",
+  "skills": [
+    {
+      "name": "documentation-style",
+      "description": ""
+    },
+    {
+      "name": "git-operations",
+      "description": ""
+    },
+    {
+      "name": "worktrees-ops",
+      "description": ""
+    }
+  ]
+}
