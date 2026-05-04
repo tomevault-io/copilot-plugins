@@ -7,11 +7,11 @@ Local-first GitHub dashboard for maintainers to triage, review, and merge PRs an
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [wesm/middleman](https://github.com/wesm/middleman).
+Original source: `CLAUDE.md` in [wesm/middleman](https://github.com/wesm/middleman).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
