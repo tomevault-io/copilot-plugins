@@ -1,0 +1,44 @@
+{
+  "name": "plaindoc",
+  "owner": "lifei6671",
+  "repo": "plaindoc",
+  "description": "PlainDoc \u4e00\u4e2a\u8f7b\u91cf\u7ea7\u7684\u5f00\u6e90\u4f01\u4e1a\u77e5\u8bc6\u5206\u4eab\u548c\u6587\u6863\u5728\u7ebf\u7ba1\u7406\u7cfb\u7edf\uff0c\u53ef\u7528\u4e8e\u5feb\u901f\u6784\u5efa\u4f01\u4e1a Wiki \u548c\u56e2\u961f\u77e5\u8bc6\u5206\u4eab\u5e73\u53f0\u3002\u90e8\u7f72\u65b9\u4fbf\uff0c\u4f7f\u7528\u7b80\u5355\uff0c\u5e2e\u52a9\u56e2\u961f\u6784\u5efa\u4e00\u4e2a\u4fe1\u606f\u5171\u4eab\u3001\u6587\u6863\u7ba1\u7406\u7684\u534f\u4f5c\u73af\u5883\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lifei6671/plaindoc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T22:31:59Z"
+}
