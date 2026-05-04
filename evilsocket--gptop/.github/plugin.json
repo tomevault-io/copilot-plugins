@@ -1,0 +1,9 @@
+{
+  "name": "evilsocket--gptop",
+  "displayName": "gptop",
+  "description": "A cross-platform GPU monitor TUI with support for both Apple Silicon and NVIDIA GPUs.",
+  "version": "1.0.0",
+  "author": "evilsocket",
+  "homepage": "https://github.com/evilsocket/gptop",
+  "skills": []
+}
