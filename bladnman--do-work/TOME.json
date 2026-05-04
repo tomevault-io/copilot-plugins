@@ -4,7 +4,7 @@
   "repo": "do-work",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bladnman/do-work",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T04:39:56Z"
+  "distributed_at": "2026-05-04T02:05:51Z"
 }
