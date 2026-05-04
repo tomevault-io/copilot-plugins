@@ -1,0 +1,9 @@
+{
+  "name": "atgreen--whistler",
+  "displayName": "Whistler",
+  "description": "A lisp that compiles to eBPF",
+  "version": "1.0.0",
+  "author": "atgreen",
+  "homepage": "https://github.com/atgreen/Whistler",
+  "skills": []
+}
