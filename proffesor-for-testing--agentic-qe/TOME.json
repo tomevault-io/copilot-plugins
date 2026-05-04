@@ -1,0 +1,477 @@
+{
+  "name": "agentic-qe",
+  "owner": "proffesor-for-testing",
+  "repo": "agentic-qe",
+  "description": "Agentic QE Fleet is an open-source AI-powered QA/QE platform designed for use with Coding Agents (works best with Claude Code) featuring specialized agents and skills to support testing activities for a product at any stage of the SDLC. Free to use, fork, build, and contribute. Based on the Agentic QE Framework created by Dragan Spiridonov.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "a11y-ally",
+      "path": ".claude/skills/a11y-ally",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/a11y-ally",
+      "description": ""
+    },
+    {
+      "name": "accessibility-testing",
+      "path": ".claude/skills/accessibility-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/accessibility-testing",
+      "description": ""
+    },
+    {
+      "name": "agentic-quality-engineering",
+      "path": ".claude/skills/agentic-quality-engineering",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/agentic-quality-engineering",
+      "description": ""
+    },
+    {
+      "name": "api-testing-patterns",
+      "path": ".claude/skills/api-testing-patterns",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/api-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "brutal-honesty-review",
+      "path": ".claude/skills/brutal-honesty-review",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/brutal-honesty-review",
+      "description": ""
+    },
+    {
+      "name": "bug-reporting-excellence",
+      "path": ".claude/skills/bug-reporting-excellence",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/bug-reporting-excellence",
+      "description": ""
+    },
+    {
+      "name": "chaos-engineering-resilience",
+      "path": ".claude/skills/chaos-engineering-resilience",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/chaos-engineering-resilience",
+      "description": ""
+    },
+    {
+      "name": "cicd-pipeline-qe-orchestrator",
+      "path": ".claude/skills/cicd-pipeline-qe-orchestrator",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/cicd-pipeline-qe-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "code-review-quality",
+      "path": ".claude/skills/code-review-quality",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/code-review-quality",
+      "description": ""
+    },
+    {
+      "name": "compatibility-testing",
+      "path": ".claude/skills/compatibility-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/compatibility-testing",
+      "description": ""
+    },
+    {
+      "name": "compliance-testing",
+      "path": ".claude/skills/compliance-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/compliance-testing",
+      "description": ""
+    },
+    {
+      "name": "consultancy-practices",
+      "path": ".claude/skills/consultancy-practices",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/consultancy-practices",
+      "description": ""
+    },
+    {
+      "name": "context-driven-testing",
+      "path": ".claude/skills/context-driven-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/context-driven-testing",
+      "description": ""
+    },
+    {
+      "name": "contract-testing",
+      "path": ".claude/skills/contract-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/contract-testing",
+      "description": ""
+    },
+    {
+      "name": "database-testing",
+      "path": ".claude/skills/database-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/database-testing",
+      "description": ""
+    },
+    {
+      "name": "enterprise-integration-testing",
+      "path": ".claude/skills/enterprise-integration-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/enterprise-integration-testing",
+      "description": ""
+    },
+    {
+      "name": "exploratory-testing-advanced",
+      "path": ".claude/skills/exploratory-testing-advanced",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/exploratory-testing-advanced",
+      "description": ""
+    },
+    {
+      "name": "holistic-testing-pact",
+      "path": ".claude/skills/holistic-testing-pact",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/holistic-testing-pact",
+      "description": ""
+    },
+    {
+      "name": "iterative-loop",
+      "path": ".claude/skills/iterative-loop",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/iterative-loop",
+      "description": ""
+    },
+    {
+      "name": "localization-testing",
+      "path": ".claude/skills/localization-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/localization-testing",
+      "description": ""
+    },
+    {
+      "name": "middleware-testing-patterns",
+      "path": ".claude/skills/middleware-testing-patterns",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/middleware-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "mobile-testing",
+      "path": ".claude/skills/mobile-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/mobile-testing",
+      "description": ""
+    },
+    {
+      "name": "mutation-testing",
+      "path": ".claude/skills/mutation-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/mutation-testing",
+      "description": ""
+    },
+    {
+      "name": "n8n-expression-testing",
+      "path": ".claude/skills/n8n-expression-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/n8n-expression-testing",
+      "description": ""
+    },
+    {
+      "name": "n8n-integration-testing-patterns",
+      "path": ".claude/skills/n8n-integration-testing-patterns",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/n8n-integration-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "n8n-security-testing",
+      "path": ".claude/skills/n8n-security-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/n8n-security-testing",
+      "description": ""
+    },
+    {
+      "name": "n8n-trigger-testing-strategies",
+      "path": ".claude/skills/n8n-trigger-testing-strategies",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/n8n-trigger-testing-strategies",
+      "description": ""
+    },
+    {
+      "name": "n8n-workflow-testing-fundamentals",
+      "path": ".claude/skills/n8n-workflow-testing-fundamentals",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/n8n-workflow-testing-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "observability-testing-patterns",
+      "path": ".claude/skills/observability-testing-patterns",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/observability-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "pentest-validation",
+      "path": ".claude/skills/pentest-validation",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/pentest-validation",
+      "description": ""
+    },
+    {
+      "name": "performance-testing",
+      "path": ".claude/skills/performance-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/performance-testing",
+      "description": ""
+    },
+    {
+      "name": "qcsd-cicd-swarm",
+      "path": ".claude/skills/qcsd-cicd-swarm",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qcsd-cicd-swarm",
+      "description": ""
+    },
+    {
+      "name": "qcsd-development-swarm",
+      "path": ".claude/skills/qcsd-development-swarm",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qcsd-development-swarm",
+      "description": ""
+    },
+    {
+      "name": "qcsd-ideation-swarm",
+      "path": ".claude/skills/qcsd-ideation-swarm",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qcsd-ideation-swarm",
+      "description": ""
+    },
+    {
+      "name": "qcsd-refinement-swarm",
+      "path": ".claude/skills/qcsd-refinement-swarm",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qcsd-refinement-swarm",
+      "description": ""
+    },
+    {
+      "name": "qe-chaos-resilience",
+      "path": ".claude/skills/qe-chaos-resilience",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-chaos-resilience",
+      "description": ""
+    },
+    {
+      "name": "qe-code-intelligence",
+      "path": ".claude/skills/qe-code-intelligence",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-code-intelligence",
+      "description": ""
+    },
+    {
+      "name": "qe-coverage-analysis",
+      "path": ".claude/skills/qe-coverage-analysis",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-coverage-analysis",
+      "description": ""
+    },
+    {
+      "name": "qe-defect-intelligence",
+      "path": ".claude/skills/qe-defect-intelligence",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-defect-intelligence",
+      "description": ""
+    },
+    {
+      "name": "qe-iterative-loop",
+      "path": ".claude/skills/qe-iterative-loop",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-iterative-loop",
+      "description": ""
+    },
+    {
+      "name": "qe-learning-optimization",
+      "path": ".claude/skills/qe-learning-optimization",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-learning-optimization",
+      "description": ""
+    },
+    {
+      "name": "qe-quality-assessment",
+      "path": ".claude/skills/qe-quality-assessment",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-quality-assessment",
+      "description": ""
+    },
+    {
+      "name": "qe-requirements-validation",
+      "path": ".claude/skills/qe-requirements-validation",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-requirements-validation",
+      "description": ""
+    },
+    {
+      "name": "qe-test-execution",
+      "path": ".claude/skills/qe-test-execution",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-test-execution",
+      "description": ""
+    },
+    {
+      "name": "qe-test-generation",
+      "path": ".claude/skills/qe-test-generation",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-test-generation",
+      "description": ""
+    },
+    {
+      "name": "qe-visual-accessibility",
+      "path": ".claude/skills/qe-visual-accessibility",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/qe-visual-accessibility",
+      "description": ""
+    },
+    {
+      "name": "quality-metrics",
+      "path": ".claude/skills/quality-metrics",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/quality-metrics",
+      "description": ""
+    },
+    {
+      "name": "refactoring-patterns",
+      "path": ".claude/skills/refactoring-patterns",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/refactoring-patterns",
+      "description": ""
+    },
+    {
+      "name": "regression-testing",
+      "path": ".claude/skills/regression-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/regression-testing",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "path": ".claude/skills/release",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/release",
+      "description": ""
+    },
+    {
+      "name": "risk-based-testing",
+      "path": ".claude/skills/risk-based-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/risk-based-testing",
+      "description": ""
+    },
+    {
+      "name": "security-testing",
+      "path": ".claude/skills/security-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/security-testing",
+      "description": ""
+    },
+    {
+      "name": "security-visual-testing",
+      "path": ".claude/skills/security-visual-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/security-visual-testing",
+      "description": ""
+    },
+    {
+      "name": "sfdipot-product-factors",
+      "path": ".claude/skills/sfdipot-product-factors",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/sfdipot-product-factors",
+      "description": ""
+    },
+    {
+      "name": "sherlock-review",
+      "path": ".claude/skills/sherlock-review",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/sherlock-review",
+      "description": ""
+    },
+    {
+      "name": "shift-left-testing",
+      "path": ".claude/skills/shift-left-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/shift-left-testing",
+      "description": ""
+    },
+    {
+      "name": "shift-right-testing",
+      "path": ".claude/skills/shift-right-testing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/shift-right-testing",
+      "description": ""
+    },
+    {
+      "name": "six-thinking-hats",
+      "path": ".claude/skills/six-thinking-hats",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/six-thinking-hats",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "path": ".claude/skills/skill-builder",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/skill-builder",
+      "description": ""
+    },
+    {
+      "name": "tdd-london-chicago",
+      "path": ".claude/skills/tdd-london-chicago",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/tdd-london-chicago",
+      "description": ""
+    },
+    {
+      "name": "technical-writing",
+      "path": ".claude/skills/technical-writing",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/technical-writing",
+      "description": ""
+    },
+    {
+      "name": "test-automation-strategy",
+      "path": ".claude/skills/test-automation-strategy",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/test-automation-strategy",
+      "description": ""
+    },
+    {
+      "name": "test-data-management",
+      "path": ".claude/skills/test-data-management",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/test-data-management",
+      "description": ""
+    },
+    {
+      "name": "test-design-techniques",
+      "path": ".claude/skills/test-design-techniques",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/test-design-techniques",
+      "description": ""
+    },
+    {
+      "name": "test-environment-management",
+      "path": ".claude/skills/test-environment-management",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/test-environment-management",
+      "description": ""
+    },
+    {
+      "name": "test-idea-rewriting",
+      "path": ".claude/skills/test-idea-rewriting",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/test-idea-rewriting",
+      "description": ""
+    },
+    {
+      "name": "test-reporting-analytics",
+      "path": ".claude/skills/test-reporting-analytics",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/test-reporting-analytics",
+      "description": ""
+    },
+    {
+      "name": "testability-scoring",
+      "path": ".claude/skills/testability-scoring",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/testability-scoring",
+      "description": ""
+    },
+    {
+      "name": "verification-quality",
+      "path": ".claude/skills/verification-quality",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/verification-quality",
+      "description": ""
+    },
+    {
+      "name": "visual-testing-advanced",
+      "path": ".claude/skills/visual-testing-advanced",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/visual-testing-advanced",
+      "description": ""
+    },
+    {
+      "name": "wms-testing-patterns",
+      "path": ".claude/skills/wms-testing-patterns",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/wms-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "xp-practices",
+      "path": ".claude/skills/xp-practices",
+      "github_url": "https://github.com/proffesor-for-testing/agentic-qe/tree/main/.claude/skills/xp-practices",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/proffesor-for-testing/agentic-qe",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-04T07:34:32Z"
+}
