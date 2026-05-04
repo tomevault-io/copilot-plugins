@@ -1,0 +1,9 @@
+{
+  "name": "seatedro--diffy",
+  "displayName": "diffy",
+  "description": "A Native, cross platform, VCS agnostic Diff tool",
+  "version": "1.0.0",
+  "author": "seatedro",
+  "homepage": "https://github.com/seatedro/diffy",
+  "skills": []
+}
