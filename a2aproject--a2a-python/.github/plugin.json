@@ -1,0 +1,9 @@
+{
+  "name": "a2aproject--a2a-python",
+  "displayName": "a2a-python",
+  "description": "Official Python SDK for the Agent2Agent (A2A) Protocol",
+  "version": "1.0.0",
+  "author": "a2aproject",
+  "homepage": "https://github.com/a2aproject/a2a-python",
+  "skills": []
+}
