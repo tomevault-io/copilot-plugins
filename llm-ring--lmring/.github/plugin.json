@@ -1,0 +1,9 @@
+{
+  "name": "llm-ring--lmring",
+  "displayName": "lmring",
+  "description": "Open-source, self-hostable LLM arena with model compare, voting, and leaderboards",
+  "version": "1.0.0",
+  "author": "llm-ring",
+  "homepage": "https://github.com/llm-ring/lmring",
+  "skills": []
+}
