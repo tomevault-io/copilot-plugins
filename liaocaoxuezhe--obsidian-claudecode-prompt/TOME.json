@@ -1,0 +1,69 @@
+{
+  "name": "Obsidian_ClaudeCode_Prompt",
+  "owner": "liaocaoxuezhe",
+  "repo": "Obsidian_ClaudeCode_Prompt",
+  "description": "\u8fd9\u4e2a\u4ed3\u5e93\u7528\u6765\u5b58\u50a8\u6f66\u8349\u5b66\u8005\u6587\u7ae0\u7684\u9644\u5f55\u6587\u4ef6\uff0c\u6b22\u8fce\u4e0b\u8f7d\u4f7f\u7528\u3002",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "json-canvas",
+      "path": "claude/skills/json-canvas",
+      "github_url": "https://github.com/liaocaoxuezhe/Obsidian_ClaudeCode_Prompt/tree/main/claude/skills/json-canvas",
+      "description": ""
+    },
+    {
+      "name": "obsidian-bases",
+      "path": "claude/skills/obsidian-bases",
+      "github_url": "https://github.com/liaocaoxuezhe/Obsidian_ClaudeCode_Prompt/tree/main/claude/skills/obsidian-bases",
+      "description": ""
+    },
+    {
+      "name": "obsidian-markdown",
+      "path": "claude/skills/obsidian-markdown",
+      "github_url": "https://github.com/liaocaoxuezhe/Obsidian_ClaudeCode_Prompt/tree/main/claude/skills/obsidian-markdown",
+      "description": ""
+    },
+    {
+      "name": "obsidian_templater_use",
+      "path": "claude/skills/obsidian_templater_use",
+      "github_url": "https://github.com/liaocaoxuezhe/Obsidian_ClaudeCode_Prompt/tree/main/claude/skills/obsidian_templater_use",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/liaocaoxuezhe/Obsidian_ClaudeCode_Prompt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:51:41Z"
+}
