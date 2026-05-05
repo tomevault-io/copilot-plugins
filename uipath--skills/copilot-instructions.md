@@ -1,15 +1,13 @@
-## skill-structure
+## token-optimization
 
-> Skill folder layout, SKILL.md frontmatter, and naming conventions
+> Terse documentation mode — strip fluff from skill docs and agent prose
 
 
-Every skill under `skills/uipath-<kebab-case>/` must have a `SKILL.md` with valid YAML frontmatter: `name` (matching folder name exactly) and `description` (under 1024 characters — repo cap; Claude Code's hard truncation for `description` + `when_to_use` is 1,536 chars).
+Skill docs and agent prose in this repo follow terse mode: drop articles, filler, hedging, preamble, and subject padding ("You should run" → "Run"). Keep technical terms exact, tables unchanged, numbered rules numbered, section headers for navigation. Strip code-block comments when surrounding prose already explains intent; keep comments on non-obvious behavior or in `assets/templates/`. Deduplicate format boilerplate (e.g. XAML `xmlns`) — include full once per file, then `<!-- standard xmlns omitted -->`.
 
-The `description` must front-load skill identity and unique file/domain signals (e.g. `.cs`, `.xaml`, `.flow`, `servo`) within the first ~100 characters. Use compact `→` redirects for commonly confused sibling skills (e.g. `For XAML→uipath-rpa`). Start with `[PREVIEW]` for unstable skills. Do NOT use verbose `TRIGGER when:` / `DO NOT TRIGGER when:` clauses or nest fields under `metadata:` — both cause Claude Code to drop the field.
+Full reference: `.claude/rules/token-optimization.md`.
 
-SKILL.md body order: Title → When to Use → Critical Rules (numbered) → Workflow/Quick Start → Reference Navigation → Anti-patterns. Reference files use kebab-case; guides end with `-guide.md`; templates end with `-template.md` or `-template.<ext>`. Skills must be self-contained — no cross-skill references.
-
-Full reference: `.claude/rules/skill-structure.md`.
+Does NOT apply to: user-project code, CLI commands, YAML frontmatter, commit messages. Safety override for security warnings, irreversible actions, multi-step sequences.
 
 ---
 > Source: [UiPath/skills](https://github.com/UiPath/skills) — distributed by [TomeVault](https://tomevault.io).
