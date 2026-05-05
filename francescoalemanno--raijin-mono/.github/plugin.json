@@ -1,0 +1,9 @@
+{
+  "name": "francescoalemanno--raijin-mono",
+  "displayName": "raijin-mono",
+  "description": "Raijin is an AI-powered terminal assistant in Go, with a fast TUI, multi-provider LLM support, and built-in tools and skills for coding workflows.",
+  "version": "1.0.0",
+  "author": "francescoalemanno",
+  "homepage": "https://github.com/francescoalemanno/raijin-mono",
+  "skills": []
+}
