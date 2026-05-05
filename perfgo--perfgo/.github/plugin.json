@@ -1,0 +1,9 @@
+{
+  "name": "perfgo--perfgo",
+  "displayName": "perfgo",
+  "description": "A CLI tool for running and profiling Go benchmark with Linux `perf` integration",
+  "version": "1.0.0",
+  "author": "perfgo",
+  "homepage": "https://github.com/perfgo/perfgo",
+  "skills": []
+}
