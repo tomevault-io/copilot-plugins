@@ -1,0 +1,62 @@
+{
+  "name": "dagster-io--erk",
+  "displayName": "erk",
+  "description": "erk is a tool for the orchestration and management of plan-oriented agentic engineering.",
+  "version": "1.0.0",
+  "author": "dagster-io",
+  "homepage": "https://github.com/dagster-io/erk",
+  "skills": [
+    {
+      "name": "ci-iteration",
+      "description": ""
+    },
+    {
+      "name": "cli-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "description": ""
+    },
+    {
+      "name": "dignified-code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "dignified-python",
+      "description": ""
+    },
+    {
+      "name": "erk-diff-analysis",
+      "description": ""
+    },
+    {
+      "name": "erk-exec",
+      "description": ""
+    },
+    {
+      "name": "erk-planning",
+      "description": ""
+    },
+    {
+      "name": "fake-driven-testing",
+      "description": ""
+    },
+    {
+      "name": "gh",
+      "description": ""
+    },
+    {
+      "name": "learned-docs",
+      "description": ""
+    },
+    {
+      "name": "objective",
+      "description": ""
+    },
+    {
+      "name": "session-inspector",
+      "description": ""
+    }
+  ]
+}
