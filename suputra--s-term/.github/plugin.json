@@ -1,0 +1,9 @@
+{
+  "name": "suputra--s-term",
+  "displayName": "s-term",
+  "description": "Firmware for the LilyGo T-Deck Pro to make it a notepad / ssh terminal",
+  "version": "1.0.0",
+  "author": "Suputra",
+  "homepage": "https://github.com/Suputra/s-term",
+  "skills": []
+}
