@@ -1,0 +1,51 @@
+{
+  "name": "ai-hero-cli",
+  "owner": "mattpocock",
+  "repo": "ai-hero-cli",
+  "description": "AI instruction skills by mattpocock",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "what-to-test",
+      "path": ".claude/skills/what-to-test",
+      "github_url": "https://github.com/mattpocock/ai-hero-cli/tree/main/.claude/skills/what-to-test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mattpocock/ai-hero-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T23:32:52Z"
+}
