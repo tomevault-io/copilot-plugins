@@ -1,0 +1,9 @@
+{
+  "name": "orta--keytrace",
+  "displayName": "keytrace",
+  "description": "The monorepo for a keybase on atproto",
+  "version": "1.0.0",
+  "author": "orta",
+  "homepage": "https://github.com/orta/keytrace",
+  "skills": []
+}
