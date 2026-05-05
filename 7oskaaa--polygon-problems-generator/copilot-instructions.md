@@ -1,10 +1,11 @@
-## polygon-problems-generator
+## 00-project
 
-> AI agent system for generating complete, Polygon-ready competitive programming problems from scratch — statement, validator, checker, solutions, and test generator.
+> Polygon Problems Generator — project overview, folder layout, and critical rules
+
 
 # Polygon Problems Generator
 
-AI agent system for generating complete, Polygon-ready competitive programming problems from scratch — statement, validator, checker, solutions, and test generator.
+AI agent system for generating complete, Polygon-ready competitive programming problems.
 
 ## Agents
 
@@ -47,35 +48,6 @@ problems/<name>/
 - Use `cpp17` for C++ and `java21` for Java
 - Use digit-separator constants: `100'000` not `100000`
 - All solution base names must be distinct: `acc`, `acc_java`, `brute`, `wa`
-
-## LaTeX Rules (statements and tutorials)
-
-- All variables in math mode: `$n$`, `$a_i$`, `$1 \leq i \leq n$`
-- Use `\leq` / `\geq` / `\neq` — never `<=`, `>=`, `!=`
-- Use `\times` for multiplication — never `\cdot`
-- Use `\ldots` for sequences: `$a_1, a_2, \ldots, a_n$`
-- Raw TeX only — no `\begin{document}` wrapper
-- Legend: short creative story (2–4 sentences), never name the algorithm
-
-## Validator Rules
-
-- Include `testlib.h`, call `registerValidation(argc, argv)`
-- Strict whitespace/newline checks: `readSpace`, `readEoln`, `readEof`
-- Named variables in all `inf.read*()` calls
-- End with `inf.readEof()`
-
-## Checker Rules
-
-- Prefer standard checkers: `wcmp`, `ncmp`, `nyesno`, `yesno`
-- Custom checkers use the `readAns` paradigm
-- No `freopen` — never
-
-## Generator Rules
-
-- Use `opt<>()` for CLI params, `rnd.next()` / `rnd.partition()` for randomness
-- Use `println()` output — avoids trailing spaces
-- FreeMarker script in comment block at the end
-- Executable name in the script must exactly match the `.cpp` file base name
 
 ---
 > Source: [7oSkaaa/polygon-problems-generator](https://github.com/7oSkaaa/polygon-problems-generator) — distributed by [TomeVault](https://tomevault.io).
