@@ -1,0 +1,44 @@
+{
+  "name": "SparkNoteAI",
+  "owner": "spark-ai-boy",
+  "repo": "SparkNoteAI",
+  "description": "SparkNoteAI | \u62fe\u5149\u5982 spark\uff0c\u6c89\u6dc0\u6210 note | \u6355\u6349\u7075\u611f\u7684\u788e\u7247\uff0c\u7f16\u7ec7\u77e5\u8bc6\u7684\u56fe\u8c31",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/spark-ai-boy/SparkNoteAI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T15:56:52Z"
+}
