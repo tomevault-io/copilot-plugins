@@ -1,0 +1,9 @@
+{
+  "name": "cesarandreslopez--sidekick-agent-hub",
+  "displayName": "sidekick-agent-hub",
+  "description": "Multi-provider AI coding assistant & agent session monitor for VS Code and the   terminal \u2014 inline completions, code transforms, and a full TUI dashboard for  Claude Code, OpenCode, and Codex. Switch ",
+  "version": "1.0.0",
+  "author": "cesarandreslopez",
+  "homepage": "https://github.com/cesarandreslopez/sidekick-agent-hub",
+  "skills": []
+}
