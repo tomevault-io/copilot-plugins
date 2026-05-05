@@ -1,0 +1,9 @@
+{
+  "name": "giraffe-tree--agent-base",
+  "displayName": "agent-base",
+  "description": "Agent Base is a source-level research project on coding agents. It compares Codex CLI, OpenCode, Gemini CLI, Kimi CLI, and SWE-agent across agent loops, tools, MCP integration, context/memory handling",
+  "version": "1.0.0",
+  "author": "giraffe-tree",
+  "homepage": "https://github.com/giraffe-tree/agent-base",
+  "skills": []
+}
