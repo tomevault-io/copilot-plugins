@@ -4,7 +4,7 @@
   "repo": "rigup.nix",
   "description": "AI agents and Nix: parametrable skills/instructions and tools, packaged together in a reproducible and modular fashion",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/YPares/rigup.nix",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T12:02:55Z"
+  "distributed_at": "2026-05-05T23:53:36Z"
 }
