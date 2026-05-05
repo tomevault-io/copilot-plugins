@@ -1,0 +1,9 @@
+{
+  "name": "sagents-ai--agents-demo",
+  "displayName": "agents_demo",
+  "description": "A demo Phoenix LiveView application showcasing the Sagents's multi-conversation agent architecture.",
+  "version": "1.0.0",
+  "author": "sagents-ai",
+  "homepage": "https://github.com/sagents-ai/agents_demo",
+  "skills": []
+}
