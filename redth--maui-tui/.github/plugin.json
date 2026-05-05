@@ -1,0 +1,9 @@
+{
+  "name": "redth--maui-tui",
+  "displayName": "Maui.TUI",
+  "description": "TUI (Terminal UI) Backend for .NET MAUI",
+  "version": "1.0.0",
+  "author": "Redth",
+  "homepage": "https://github.com/Redth/Maui.TUI",
+  "skills": []
+}
