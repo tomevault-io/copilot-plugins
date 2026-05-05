@@ -1,0 +1,9 @@
+{
+  "name": "automateyournetwork--geminicli-vision-extension",
+  "displayName": "GeminiCLI_Vision_Extension",
+  "description": "An Extension for Gemini-CLI that enables Webcam access including single frame capture and American Sign Language (ASL) modes",
+  "version": "1.0.0",
+  "author": "automateyournetwork",
+  "homepage": "https://github.com/automateyournetwork/GeminiCLI_Vision_Extension",
+  "skills": []
+}
