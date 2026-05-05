@@ -1,0 +1,9 @@
+{
+  "name": "clawland-ai--clawarm",
+  "displayName": "Clawarm",
+  "description": "Robotic arm controled via OpenClaw. Natural language to motion. Where Openclaw having arm",
+  "version": "1.0.0",
+  "author": "Clawland-AI",
+  "homepage": "https://github.com/Clawland-AI/Clawarm",
+  "skills": []
+}
