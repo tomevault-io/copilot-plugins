@@ -228,6 +228,5 @@ This prevents inconsistencies where:
 - Footer text
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ai-shifu)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/ai-shifu)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [ai-shifu/markdown-flow](https://github.com/ai-shifu/markdown-flow) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
