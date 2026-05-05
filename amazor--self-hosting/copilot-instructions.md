@@ -1,73 +1,74 @@
-## self-hosting
+## bash-bootstrap-scripts
 
-> This is a homelab IaC/documentation repo. There are no traditional package managers — Python scripts use only the standard library. The main tools are:
+> Bootstrap and deploy script conventions for VM provisioning
 
-# AGENTS.md
 
-## Cursor Cloud specific instructions
+# Bootstrap & Deploy Scripts
 
-### Overview
+## Architecture overview
 
-This is a homelab IaC/documentation repo. There are no traditional package managers — Python scripts use only the standard library. The main tools are:
+Bootstrap uses a **shared runner + per-stack config** pattern:
 
-- **Python 3** (stdlib only) — `deploy.py`, bootstrap framework, per-stack config modules
-- **Docker + Docker Compose v2** — all services run as containers
-- **`deploy.py`** — orchestrator: validates `.env`, runs bootstrap, creates symlinks/shell helpers, runs `docker compose up -d`
+- **`scripts/homelab_bootstrap.py`** — `BootstrapRunner` class: unified flow (parse args → load env → validate → run stack steps → wire observability → validate compose → optional bring-up → print summary).
+- **`scripts/homelab_logging.py`** — `StepTracker` class: numbered step progress (`[1/N] Step name...`) with verbose mode, warnings, and end-of-run summary.
+- **`scripts/homelab_common.py`** — shared helpers: env loading (`load_env`), placeholder checks (`is_placeholder`), Docker checks (`require_docker`), observability config (`setup_observability_config`), VM identity (`resolve_vm_identity`), chown helpers, logging setup.
+- **`docker_compose/<stack>/stack_config.py`** — per-stack config module consumed by `BootstrapRunner` and `deploy.py`.
+- **`docker_compose/<stack>/bootstrap.py`** — thin wrapper (~20 lines): adds repo root to `sys.path`, imports `stack_config`, runs `BootstrapRunner(stack_config).run()`.
+- **`deploy.py`** — top-level orchestrator: dynamically loads `stack_config` via `importlib.import_module()`, validates env, runs bootstrap, creates symlinks/shell helpers, runs `docker compose up -d`.
 
-### Python architecture
+## stack_config.py contract
 
-The codebase is structured as importable Python packages (`__init__.py` files throughout):
+Each stack's `stack_config.py` must define:
 
-- **`scripts/`** — shared framework (imported by all stacks):
-  - `homelab_common.py` — env loading, placeholder checks, Docker checks, observability config, VM identity helpers
-  - `homelab_bootstrap.py` — `BootstrapRunner` class (unified bootstrap flow), common compose/NFS/validation helpers
-  - `homelab_logging.py` — `StepTracker` class (step-based progress output with verbose mode)
-  - `setup_env.py` — post-clone helper that pre-fills `.env.example` with auto-detected values
-- **`docker_compose/<stack>/`** — per-stack modules:
-  - `stack_config.py` — stack identity, `REQUIRED_VARS`, `COMPOSE_OVERLAYS`, `bootstrap_steps()`, optional `post_deploy()`. This is the contract consumed by `BootstrapRunner` and `deploy.py`.
-  - `bootstrap.py` — thin wrapper (~20 lines): adds repo root to `sys.path`, imports `stack_config`, runs `BootstrapRunner(stack_config).run()`.
-  - `scripts/` — per-stack helper scripts (e.g. `setup_media_apps.py`, `gen_caddyfile.py`, `apply_authentik_blueprint.py`)
-- **`deploy.py`** — top-level orchestrator: dynamically imports `stack_config` modules via `importlib.import_module()`, runs env validation, invokes bootstrap, creates symlinks/shell helpers, runs `docker compose up -d`.
+| Attribute | Type | Purpose |
+|-----------|------|---------|
+| `STACK_NAME` | `str` | Human-readable stack name |
+| `SCRIPT_DIR` | `Path` | `Path(__file__).resolve().parent` |
+| `REQUIRED_VARS` | `list[str]` | Env vars that must be set (non-placeholder) |
+| `COMPOSE_OVERLAYS` | `list[tuple[str, str, str, str]]` | `(env_var, filename, default, label)` tuples for optional compose files |
+| `bootstrap_steps(env, config_base, args)` | returns `list[tuple[str, Callable]]` | `(step_name, fn(tracker))` pairs for stack-specific bootstrap steps |
 
-### Key commands
+Optional attributes: `REQUIRES_ROOT` (bool), `REQUIRES_DEBIAN` (bool), `REQUIRES_DOCKER` (bool), `SUPPORTS_UP` (bool), `COPIES_ENV_EXAMPLE` (bool), `POST_DEPLOY_ACTIONS` (list[str]), `post_deploy(env, config_base, tracker)`.
 
-| Task | Command |
-|------|---------|
-| Pre-fill `.env.example` | `python3 scripts/setup_env.py` |
-| Deploy a stack | `python3 deploy.py <stack> --force --init-env -y` |
-| Deploy all stacks | `python3 deploy.py all --force --init-env -y` |
-| Validate compose | `docker compose -f docker_compose/<stack>/compose.yml config` |
-| Lint Python | `python3 -m ruff check deploy.py scripts/ docker_compose/` |
-| Compile-check | `python3 -m py_compile <file>` |
+## Python script conventions
 
-### Docker-in-Docker caveats (Cloud Agent sandbox)
+- **Shebang:** `#!/usr/bin/env python3`.
+- **Stdlib only:** `argparse`, `logging`, `subprocess`, `pathlib`, `os`. No pip deps.
+- **Package imports:** The `docker_compose/` tree and `scripts/` are Python packages (have `__init__.py`). Import shared code via `from scripts.homelab_common import ...` or `from scripts.homelab_bootstrap import ...` after adding repo root to `sys.path`.
+- **Fail fast:** Use `raise SystemExit(1)` with a clear log message when prerequisites are missing.
+- **Idempotency:** Re-running must be safe (create dir if not exists, skip mount if already mounted, don't overwrite config files that already exist).
+- **No secrets in repo:** Do not commit `.env` or secrets.
+- **Logging:** Use `log` from `homelab_common` for messages. Use `StepTracker` (from `homelab_logging`) for structured step-based progress output in bootstrap steps: `tracker.detail()` for verbose-only, `tracker.success()` / `tracker.warn()` / `tracker.fail()` for outcomes.
 
-- **node-exporter** container will fail to start due to missing host mount propagation (`rslave` on `/`). This is expected and does not affect other services.
-- When running multiple stacks on the same host, **disable observability sidecars** on non-monitoring stacks to avoid container name conflicts (e.g. `ENABLE_OBSERVABILITY=0` in `.env`). In production, each stack runs on a separate VM so this is not an issue.
-- Docker daemon must be started manually: `sudo dockerd &>/tmp/dockerd.log &` then wait a few seconds before using Docker commands.
-- Use `--force` flag with `deploy.py` to skip `.env` placeholder validation (required in Cloud Agent since there are no real secrets/domains).
+## Per-stack directory layout
 
-### Stack deploy workflow
+```
+docker_compose/<stack>/
+  compose.yml          # Main stack definition
+  compose.*.yml        # Optional overlays (recyclarr, bazarr, exporters, etc.)
+  .env.example         # Required env vars (no secrets; copy to .env and fill)
+  bootstrap.py         # Thin wrapper: BootstrapRunner(stack_config).run()
+  stack_config.py      # Stack identity, required vars, overlays, bootstrap steps
+  scripts/             # Per-stack helper scripts (setup_media_apps.py, gen_caddyfile.py, etc.)
+    __init__.py
+```
 
-1. `python3 scripts/setup_env.py` (pre-fills auto-detectable values)
-2. `python3 deploy.py <stack> --force --init-env -y` (copies `.env.example` to `.env`, skips validation, runs bootstrap + compose up)
+## Bootstrap flow (BootstrapRunner)
 
-The `--init-env` flag auto-copies `.env.example` to `.env` when missing; `--force` skips placeholder guardrails; `-y` is non-interactive mode.
+1. Optional re-exec as root (if `REQUIRES_ROOT`).
+2. Optional Debian check (if `REQUIRES_DEBIAN`).
+3. Parse common args (`--force`, `--non-interactive/-y`, `--up`, `--verbose/-v`).
+4. Load and validate `.env` (required vars, placeholder checks).
+5. Run stack-specific bootstrap steps (from `stack_config.bootstrap_steps()`).
+6. Wire observability sidecars (when `ENABLE_OBSERVABILITY=1`).
+7. Validate compose (`docker compose config`).
+8. Optional bring-up (`--up` flag, only when not invoked by deploy).
+9. Print summary (overlays, warnings, post-deploy actions).
 
-### Stacks available for testing
+## Shell scripts (remaining)
 
-- **monitoring** — best for testing: self-contained, has Grafana UI on `:3000`, Prometheus on `:9090`, Loki on `:3100`, Uptime Kuma on `:3001`
-- **core** — Caddy, Authentik (SSO), dnsmasq, whoami; needs `ENABLE_OBSERVABILITY=0` if monitoring is already running
-- **media** — requires VPN credentials and NFS mounts; most complex to test locally
-- **accelerated** — Plex (GPU transcoding), requires NFS mounts and Plex claim token
-
-### No tests or CI
-
-This repo has no automated test suite or CI/CD pipeline. Validation is done through:
-- `py_compile` for syntax checking
-- `ruff` for linting (E402 warnings are expected — scripts use `sys.path` manipulation before importing local modules)
-- `docker compose config` for compose file validation
-- `BootstrapRunner` validates `.env` and compose files as part of its workflow
+- **proxmox/scripts/** — Run on the Proxmox host; create VMs, attach Cloud-Init. Use `qm` and minimal deps.
+- **docker_compose/core/update-caddyfile.sh** — Thin wrapper that calls `gen_caddyfile.py` and reloads Caddy.
 
 ---
 > Source: [amazor/Self-Hosting](https://github.com/amazor/Self-Hosting) — distributed by [TomeVault](https://tomevault.io).
