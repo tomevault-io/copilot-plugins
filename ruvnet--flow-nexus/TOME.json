@@ -1,0 +1,81 @@
+{
+  "name": "flow-nexus",
+  "owner": "ruvnet",
+  "repo": "flow-nexus",
+  "description": "Flow Nexus is the first competitive agentic platform built entirely on MCP. Deploy autonomous AI swarms, train   neural networks, and compete in coding challenges while earning rUv credits. Transform agentic engineering mastery into lived experience through gamified cloud development where agents spawn agents and systems improve themselves",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flow-nexus-neural",
+      "path": "v3/@claude-flow/cli/.claude/skills/flow-nexus-neural",
+      "github_url": "https://github.com/ruvnet/flow-nexus/tree/main/v3/@claude-flow/cli/.claude/skills/flow-nexus-neural",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-neural",
+      "path": ".agents/skills/flow-nexus-neural",
+      "github_url": "https://github.com/ruvnet/flow-nexus/tree/main/.agents/skills/flow-nexus-neural",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-swarm",
+      "path": "v3/@claude-flow/cli/.claude/skills/flow-nexus-swarm",
+      "github_url": "https://github.com/ruvnet/flow-nexus/tree/main/v3/@claude-flow/cli/.claude/skills/flow-nexus-swarm",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-swarm",
+      "path": ".agents/skills/flow-nexus-swarm",
+      "github_url": "https://github.com/ruvnet/flow-nexus/tree/main/.agents/skills/flow-nexus-swarm",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-neural",
+      "path": ".claude/skills/flow-nexus-neural",
+      "github_url": "https://github.com/ruvnet/flow-nexus/tree/main/.claude/skills/flow-nexus-neural",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-swarm",
+      "path": ".claude/skills/flow-nexus-swarm",
+      "github_url": "https://github.com/ruvnet/flow-nexus/tree/main/.claude/skills/flow-nexus-swarm",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ruvnet/flow-nexus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T23:34:39Z"
+}
