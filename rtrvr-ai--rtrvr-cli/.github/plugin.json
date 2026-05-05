@@ -1,0 +1,9 @@
+{
+  "name": "rtrvr-ai--rtrvr-cli",
+  "displayName": "rtrvr-cli",
+  "description": "CLI + SDK to automate, scrape, and extract from the web \u2014 for AI agents and humans. Cloud or local browser, one command.",
+  "version": "1.0.0",
+  "author": "rtrvr-ai",
+  "homepage": "https://github.com/rtrvr-ai/rtrvr-cli",
+  "skills": []
+}
