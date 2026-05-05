@@ -4,7 +4,7 @@
   "repo": "aperture",
   "description": "Open-source AI visibility monitoring and analytics. Track how your brand appears across ChatGPT, Perplexity, Google AI Overviews, and other LLMs. BYOK. Self-hosted. Free alternative to Profound and Peec AI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anyin-ai/aperture",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T03:30:08Z"
+  "distributed_at": "2026-05-05T00:19:10Z"
 }
