@@ -1,9 +1,14 @@
 {
   "name": "marcusgoll--spec-flow",
   "displayName": "Spec-Flow",
-  "description": "Spec-Flow",
+  "description": "Turn product ideas into production launches with Spec-Driven Development. Repeatable Claude Code workflows with quality gates, token budgets, and auditable artifacts.",
   "version": "1.0.0",
   "author": "marcusgoll",
-  "homepage": "https://tomevault.io/claim/marcusgoll",
-  "skills": []
+  "homepage": "https://github.com/marcusgoll/Spec-Flow",
+  "skills": [
+    {
+      "name": "git-workflow-enforcer",
+      "description": ""
+    }
+  ]
 }
