@@ -1,0 +1,9 @@
+{
+  "name": "rapidnative--reactnative-run",
+  "displayName": "reactnative-run",
+  "description": "Run React Native in your browser. Write, bundle, and preview with HMR, Expo Router, and npm support \u2014 all client-side.",
+  "version": "1.0.0",
+  "author": "RapidNative",
+  "homepage": "https://github.com/RapidNative/reactnative-run",
+  "skills": []
+}
