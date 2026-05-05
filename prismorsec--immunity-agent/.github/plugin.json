@@ -1,0 +1,9 @@
+{
+  "name": "prismorsec--immunity-agent",
+  "displayName": "immunity-agent",
+  "description": "Security for AI agents : Block dangerous commands,  prevent secret leaks, and enforce runtime policies across Claude, OpenClaw, Hermes, Antigravity, Codex,  Cursor and Windsurf",
+  "version": "1.0.0",
+  "author": "PrismorSec",
+  "homepage": "https://github.com/PrismorSec/immunity-agent",
+  "skills": []
+}
