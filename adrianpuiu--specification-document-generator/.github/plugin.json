@@ -1,0 +1,14 @@
+{
+  "name": "adrianpuiu--specification-document-generator",
+  "displayName": "specification-document-generator",
+  "description": "Six-Phase Architecture Framework: Verified Research \u2192 Blueprint \u2192 Requirements \u2192 Design \u2192 Tasks \u2192 Validation. Delivers complete requirements-to-implementation traceability with mandatory source verifi",
+  "version": "1.0.0",
+  "author": "adrianpuiu",
+  "homepage": "https://github.com/adrianpuiu/specification-document-generator",
+  "skills": [
+    {
+      "name": "specification-architect",
+      "description": ""
+    }
+  ]
+}
