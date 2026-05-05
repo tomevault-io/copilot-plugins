@@ -1,0 +1,9 @@
+{
+  "name": "ensingm2--ai-threat-modeling-rulesets",
+  "displayName": "AI-threat-modeling-rulesets",
+  "description": "A collection of rule and instruction sets for AI systems such as GitHub copilot and Cursor to perform generalized, structured, threat models based on a target set of documentation files.",
+  "version": "1.0.0",
+  "author": "ensingm2",
+  "homepage": "https://github.com/ensingm2/AI-threat-modeling-rulesets",
+  "skills": []
+}
