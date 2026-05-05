@@ -1,0 +1,9 @@
+{
+  "name": "peonping--openpeon",
+  "displayName": "openpeon",
+  "description": "Open standard for coding event sounds. CESP v1.0 \u2014 any agentic IDE can implement.",
+  "version": "1.0.0",
+  "author": "PeonPing",
+  "homepage": "https://github.com/PeonPing/openpeon",
+  "skills": []
+}
