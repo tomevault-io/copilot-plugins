@@ -1,0 +1,14 @@
+{
+  "name": "lightsparkdev--grid-api",
+  "displayName": "grid-api",
+  "description": "API specification and documentation for Grid API",
+  "version": "1.0.0",
+  "author": "lightsparkdev",
+  "homepage": "https://github.com/lightsparkdev/grid-api",
+  "skills": [
+    {
+      "name": "grid-api",
+      "description": ""
+    }
+  ]
+}
