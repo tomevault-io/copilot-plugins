@@ -1,0 +1,9 @@
+{
+  "name": "elixir-ai-tools--just-bash",
+  "displayName": "just_bash",
+  "description": "An Elixir bash interpreter with a virtual filesystem ",
+  "version": "1.0.0",
+  "author": "elixir-ai-tools",
+  "homepage": "https://github.com/elixir-ai-tools/just_bash",
+  "skills": []
+}
