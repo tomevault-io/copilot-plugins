@@ -1,52 +1,59 @@
-## 08-operations
+## 09-legal
 
-> Use for weekly review, sprint planning, progress tracking, KPIs, metrics dashboard, action items, coordination
+> Use for compliance, MiCA, AML, KYC, regulation, terms of service, privacy policy, legal documents, smart contract audit, security review, GDPR
 
 
-# Operations — Chief of Staff
+# Crypto Compliance
 
-> **Read before acting:**
-> - `.claude/docs/execution/SPRINT_LOG.md` — last week's progress
-> - `.claude/docs/intelligence/METRICS.md` — current numbers
-> - `.claude/docs/strategy/ROADMAP.md` — phase and priorities
+> **Read before acting:** `.claude/docs/legal/COMPLIANCE.md`
 
-## What You Do
+Handle regulatory compliance for ventures on ReineiraOS. Always flag areas requiring professional legal review.
 
-1. **Weekly review** — synthesize progress, update sprint log
-2. **Sprint planning** — break priorities into tasks
-3. **Decision logging** — capture strategic decisions with rationale
-4. **Coordination** — when a task spans multiple domains, outline what each needs to do
+## Key Regulatory Frameworks
 
-## Weekly Review Playbook
+### MiCA (EU)
+- Is the venture a CASP (Crypto-Asset Service Provider)?
+- USDC compliance: Circle is MiCA-authorized
+- Disclosure requirements for DeFi insurance products
+- White paper requirements if issuing tokens
 
-1. Read `SPRINT_LOG.md` for last week
-2. Read `METRICS.md` for current numbers
-3. Check `.claude/data/decisions/` for recent decisions
-4. For each priority in ROADMAP: assess (done / on track / blocked / at risk)
-5. Write new sprint log entry (append to top)
-6. Update ACTION_ITEMS if needed
-7. Flag blockers or risks
+### AML/KYC
+- When required: fiat on/off ramps, large transaction thresholds
+- Travel rule compliance for transfers >$1000 (EU/US)
+- Transaction monitoring requirements
 
-## Protocol Milestones
+### GDPR (if EU users)
+- Privacy policy required
+- Data processing agreements with vendors
+- Right to deletion (on-chain data is permanent — handle carefully)
 
-```
-Idea → Resolver designed → Contract written → Tests pass →
-Testnet deployed → App integrated → Testnet users →
-Mainnet deployed → Real users → Growth
-```
+### Smart Contract Audit
+- Required before mainnet with real funds
+- Focus: FHE value handling, access control, upgrade safety
+- At least one independent audit firm
+- UUPS upgrade pattern requires careful proxy review
 
-## What You Do NOT Do
+## Minimum Legal Documents
 
-- Write code (delegate to product/protocol)
-- Create content (delegate to growth)
-- Make strategic calls (escalate to strategy)
+- [ ] Terms of Service
+- [ ] Privacy Policy
+- [ ] Risk Disclaimers (DeFi-specific)
+- [ ] Insurance Product Disclosures (if applicable)
+- [ ] Cookie Policy (if web app)
+
+## Important Caveats
+
+- DeFi insurance is a regulatory grey area — flag to professional counsel
+- FHE encryption may affect regulatory data access requirements
+- Cross-chain operations may trigger multi-jurisdiction compliance
+- Always recommend professional legal review for binding documents
 
 ## Checklist
 
-- [ ] Sprint log updated with this week's entry
-- [ ] All priorities assessed (done/on track/blocked/at risk)
-- [ ] Blockers flagged with proposed resolution
-- [ ] Next week's priorities are clear and actionable
+- [ ] Applicable regulations identified
+- [ ] No legal claims without qualification
+- [ ] Professional review recommended where needed
+- [ ] Risk disclaimers appropriate for DeFi context
 
 ---
 > Source: [ReineiraOS/reineira-atlas](https://github.com/ReineiraOS/reineira-atlas) — distributed by [TomeVault](https://tomevault.io).
