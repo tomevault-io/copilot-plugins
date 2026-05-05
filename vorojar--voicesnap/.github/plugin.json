@@ -1,0 +1,9 @@
+{
+  "name": "vorojar--voicesnap",
+  "displayName": "VoiceSnap",
+  "description": "Open-source offline voice dictation \u2014 a free alternative to Typeless. 100% local, zero internet, ideal for air-gapped & classified environments. SenseVoice + DirectML GPU, ~34MB, hotkey-driven. \u7eaf\u79bb\u7ebf\u8bed\u97f3\u8f93",
+  "version": "1.0.0",
+  "author": "vorojar",
+  "homepage": "https://github.com/vorojar/VoiceSnap",
+  "skills": []
+}
