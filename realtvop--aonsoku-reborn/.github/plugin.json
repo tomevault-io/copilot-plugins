@@ -1,0 +1,9 @@
+{
+  "name": "realtvop--aonsoku-reborn",
+  "displayName": "aonsoku-reborn",
+  "description": "A modern desktop client for Navidrome/Subsonic servers built with React and Electron, with more features.",
+  "version": "1.0.0",
+  "author": "realtvop",
+  "homepage": "https://github.com/realtvop/aonsoku-reborn",
+  "skills": []
+}
