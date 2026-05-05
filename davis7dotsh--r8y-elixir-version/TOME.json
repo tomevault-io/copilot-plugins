@@ -1,0 +1,44 @@
+{
+  "name": "r8y-elixir-version",
+  "owner": "davis7dotsh",
+  "repo": "r8y-elixir-version",
+  "description": "r8y (internal channel management system) written in Elixir + Phoenix curtesy of Ralph",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/davis7dotsh/r8y-elixir-version",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T21:11:12Z"
+}
