@@ -4,7 +4,7 @@
   "repo": "circuit",
   "description": "Drag-and-drop agent workflow builder for orchestrating AI agents. Build multi-step pipelines to run Claude Code and OpenAI Codex, featuring real-time streaming, reference interpolation, and flexible control flow.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/smogili1/circuit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T01:07:04Z"
+  "distributed_at": "2026-05-05T11:57:57Z"
 }
