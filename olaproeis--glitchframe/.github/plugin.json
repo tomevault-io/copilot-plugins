@@ -1,0 +1,9 @@
+{
+  "name": "olaproeis--glitchframe",
+  "displayName": "Glitchframe",
+  "description": "Local, GPU-accelerated music video generator: upload a track, analyze it, align lyrics, generate stylized backgrounds, composite reactive shaders and kinetic type, and encode with ffmpeg (NVENC on NVI",
+  "version": "1.0.0",
+  "author": "OlaProeis",
+  "homepage": "https://github.com/OlaProeis/Glitchframe",
+  "skills": []
+}
