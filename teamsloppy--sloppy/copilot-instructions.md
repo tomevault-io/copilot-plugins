@@ -1,71 +1,93 @@
-## dashboard
+## router-pattern
 
-> Conventions for the React/Vite Dashboard in Dashboard/src/
+> Patterns and conventions for HTTP API routers in the Gateway layer
 
 
-# Dashboard Conventions
+# API Router Pattern
 
-The Dashboard is a React + Vite SPA in `Dashboard/`. Build command: `npm run build` (run inside `Dashboard/`).
+## Structure
 
-## API layer
+Every router is a `struct` conforming to `APIRouter`, holding a reference to `CoreService`:
 
-Two API modules:
-- `Dashboard/src/shared/api/coreApi.ts` — shared low-level fetch helpers and typed methods.
-- `Dashboard/src/api.ts` — higher-level API calls used directly by views.
+```swift
+import Foundation
+import Protocols
 
-Always add new API calls to `coreApi.ts` as typed async functions. Handle non-OK responses explicitly:
+struct XxxAPIRouter: APIRouter {
+    private let service: CoreService
 
-```ts
-export async function fetchXxx(id: string): Promise<XxxRecord> {
-  const res = await fetch(`/v1/xxx/${id}`);
-  if (!res.ok) throw new Error(`Failed to fetch xxx: ${res.status}`);
-  return res.json();
+    init(service: CoreService) {
+        self.service = service
+    }
+
+    func configure(on router: CoreRouterRegistrar) {
+        // register routes here
+    }
 }
 ```
 
-## Component style
+## Route registration
 
-- Function components only, no class components.
-- Named exports for all components and utilities.
-- Local state with `useState`; derived values with `useMemo`.
+Use `router.get/post/put/patch/delete` with `RouteMetadata`. All routes require metadata:
 
-```tsx
-export function XxxCard({ item }: { item: XxxRecord }) {
-  const label = useMemo(() => item.name.toUpperCase(), [item.name]);
-  return <div className="xxx-card">{label}</div>;
+```swift
+router.get("/v1/xxx/:id", metadata: RouteMetadata(
+    summary: "Get xxx",
+    description: "Returns a specific xxx by id",
+    tags: ["Xxx"]
+)) { request in
+    let id = request.pathParam("id") ?? ""
+    // ...
 }
 ```
 
-## CSS
+## Reading request data
 
-Each view or feature gets its own CSS file: `Dashboard/src/styles/xxx.css`. Import at the top of the component file. Use BEM-like class naming: `.xxx-card`, `.xxx-card__title`, `.xxx-card--active`.
+- Path params: `request.pathParam("name")`
+- Query params: `request.queryParam("name")`
+- Request body: `request.body` (returns `Data?`)
+- Decoding body: `CoreRouter.decode(body, as: XxxRequest.self)`
 
-Global styles: `Dashboard/src/styles/`.
-
-## Dropdown / select elements
-
-**Never use native `<select>` elements.** Always use the custom `.actor-team-search` dropdown pattern. See `ActorsView.jsx` and `Dashboard/src/styles/actors.css` for the reference implementation. This applies to all dropdowns across the dashboard.
-
-## File structure
-
-```
-Dashboard/src/
-  views/          # top-level page views (one file per route)
-  components/     # reusable UI components
-  shared/api/     # API layer
-  styles/         # CSS files
-  app/            # router/app shell
+```swift
+guard let body = request.body,
+      let payload = CoreRouter.decode(body, as: XxxRequest.self)
+else {
+    return CoreRouter.json(status: HTTPStatus.badRequest, payload: ["error": ErrorCode.invalidBody])
+}
 ```
 
-## Verification
+## Building responses
 
-After dashboard changes, always verify the build succeeds:
+- Encodable payload: `CoreRouter.encodable(status: .ok, payload: someEncodable)`
+- Raw JSON dict: `CoreRouter.json(status: .ok, payload: ["key": "value"])`
+- Domain errors: `CoreRouter.projectErrorResponse(error, fallback: ErrorCode.xxx)`
 
-```bash
-cd Dashboard && npm run build
+## Error handling
+
+Catch typed domain errors from `CoreService` before generic fallback:
+
+```swift
+do {
+    let result = try await service.doSomething(id: id)
+    return CoreRouter.encodable(status: .ok, payload: result)
+} catch let error as CoreService.XxxError {
+    return CoreRouter.projectErrorResponse(error, fallback: ErrorCode.xxxFailed)
+} catch {
+    return CoreRouter.json(status: .internalServerError, payload: ["error": ErrorCode.xxxFailed])
+}
 ```
 
-TypeScript errors and broken imports will surface here.
+## Registration
+
+After creating a new router, add it to `CoreRouter+HTTPRoutes.swift`:
+
+```swift
+// in Sources/sloppy/Gateway/Routers/CoreRouter+HTTPRoutes.swift
+var routers: [APIRouter] = [
+    // ...existing routers...
+    XxxAPIRouter(service: service),
+]
+```
 
 ---
 > Source: [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy) — distributed by [TomeVault](https://tomevault.io).
