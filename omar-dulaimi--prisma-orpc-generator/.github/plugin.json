@@ -1,0 +1,9 @@
+{
+  "name": "omar-dulaimi--prisma-orpc-generator",
+  "displayName": "prisma-orpc-generator",
+  "description": "Prisma generator that creates fully-featured oRPC routers",
+  "version": "1.0.0",
+  "author": "omar-dulaimi",
+  "homepage": "https://github.com/omar-dulaimi/prisma-orpc-generator",
+  "skills": []
+}
