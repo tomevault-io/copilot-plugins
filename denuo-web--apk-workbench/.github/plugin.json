@@ -1,0 +1,9 @@
+{
+  "name": "denuo-web--apk-workbench",
+  "displayName": "APK-Workbench",
+  "description": "Linux ARM64 Android tooling with Rust services, GTK UI, gRPC build orchestration, and support-oriented docs.",
+  "version": "1.0.0",
+  "author": "Denuo-Web",
+  "homepage": "https://github.com/Denuo-Web/APK-Workbench",
+  "skills": []
+}
