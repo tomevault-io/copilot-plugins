@@ -1,0 +1,9 @@
+{
+  "name": "leejuoh--claude-code-zero",
+  "displayName": "claude-code-zero",
+  "description": "Complete Claude Code plugin marketplace \u2014 agents, skills, hooks, commands, rules, MCPs.",
+  "version": "1.0.0",
+  "author": "LeeJuOh",
+  "homepage": "https://github.com/LeeJuOh/claude-code-zero",
+  "skills": []
+}
