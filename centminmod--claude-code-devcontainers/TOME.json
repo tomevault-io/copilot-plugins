@@ -1,0 +1,75 @@
+{
+  "name": "my-claude-code-setup",
+  "owner": "centminmod",
+  "repo": "claude-code-devcontainers",
+  "description": "Shared starter template configuration and CLAUDE.md memory bank system for Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-docs-consultant",
+      "path": ".claude/skills/claude-docs-consultant",
+      "github_url": "https://github.com/centminmod/claude-code-devcontainers/tree/main/.claude/skills/claude-docs-consultant",
+      "description": ""
+    },
+    {
+      "name": "consult-codex",
+      "path": ".claude/skills/consult-codex",
+      "github_url": "https://github.com/centminmod/claude-code-devcontainers/tree/main/.claude/skills/consult-codex",
+      "description": ""
+    },
+    {
+      "name": "consult-zai",
+      "path": ".claude/skills/consult-zai",
+      "github_url": "https://github.com/centminmod/claude-code-devcontainers/tree/main/.claude/skills/consult-zai",
+      "description": ""
+    },
+    {
+      "name": "ai-cross-verifier",
+      "path": ".claude/skills/ai-cross-verifier",
+      "github_url": "https://github.com/centminmod/claude-code-devcontainers/tree/main/.claude/skills/ai-cross-verifier",
+      "description": ""
+    },
+    {
+      "name": "git-pr-helper",
+      "path": ".claude/skills/git-pr-helper",
+      "github_url": "https://github.com/centminmod/claude-code-devcontainers/tree/main/.claude/skills/git-pr-helper",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/centminmod/claude-code-devcontainers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T02:32:34Z"
+}
