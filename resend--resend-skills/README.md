@@ -7,11 +7,11 @@ Agent Skills for working with Resend to send and receive emails.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [resend/resend-skills](https://github.com/resend/resend-skills).
+Original source: `CLAUDE.md` in [resend/resend-skills](https://github.com/resend/resend-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
