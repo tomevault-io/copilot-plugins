@@ -1,0 +1,9 @@
+{
+  "name": "ripeseed--rs-tunnel",
+  "displayName": "rs-tunnel",
+  "description": "A ngrok alternative",
+  "version": "1.0.0",
+  "author": "RipeSeed",
+  "homepage": "https://github.com/RipeSeed/rs-tunnel",
+  "skills": []
+}
