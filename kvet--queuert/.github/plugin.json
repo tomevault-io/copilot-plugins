@@ -1,0 +1,30 @@
+{
+  "name": "kvet--queuert",
+  "displayName": "queuert",
+  "description": "Control flow library for your persistency layer driven applications",
+  "version": "1.0.0",
+  "author": "kvet",
+  "homepage": "https://github.com/kvet/queuert",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "commit-message",
+      "description": ""
+    },
+    {
+      "name": "docs-check",
+      "description": ""
+    },
+    {
+      "name": "flaky-tests",
+      "description": ""
+    },
+    {
+      "name": "publish-review",
+      "description": ""
+    }
+  ]
+}
