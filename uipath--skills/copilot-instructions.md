@@ -1,44 +1,17 @@
-## skills
+## content-quality
 
-> This repository contains self-contained AI agent skills for UiPath automation development. Skills are installed as a Claude Code plugin and teach AI agents how to build, run, test, and deploy UiPath automations.
+> Writing standards for AI-agent-facing documentation in skills and references
 
-# UiPath Agent Skills — Project Rules
 
-This repository contains self-contained AI agent skills for UiPath automation development. Skills are installed as a Claude Code plugin and teach AI agents how to build, run, test, and deploy UiPath automations.
+Primary audience is AI coding agents, not humans. Be prescriptive ("Run X") not descriptive ("You could run X"). Include exact CLI commands with all required flags. Use `--output json` on any command whose output the agent parses. Specify what to do when a command fails, not just the happy path. Number rules — agents follow numbered lists more reliably than prose. Include anti-patterns — "what NOT to do" prevents the most expensive mistakes.
 
-## Architecture
+Markdown: ATX headers (`#`, `##`), no underline-style. Fenced code blocks with language identifiers (` ```bash `, ` ```yaml `, ` ```csharp `, ` ```json `). Tables for structured data. `>` blockquotes for warnings. Heading hierarchy must not skip levels.
 
-- **Skills are fully independent.** Each skill under `skills/` is self-contained. Skills cannot reference, import, or depend on other skills.
-- **SKILL.md is the contract.** Every skill folder must have a `SKILL.md` with valid YAML frontmatter. This is the only file the plugin system reads to discover and activate skills.
-- **No build system.** This repo contains only markdown documentation and shell scripts. There is no compilation or packaging step.
+CLI docs: use `<PLACEHOLDER>` (angle brackets, UPPER_SNAKE_CASE) for user-provided values. Specify required vs optional flags. Shell commands must use Unix syntax (never `del`/`dir`/`nul`); escape backslashes in Windows paths (`C:\\path\\file.txt`).
 
-## Contribution Rules
+Do NOT include: marketing language, version-specific facts that will go stale (link to latest docs instead), duplicate content across files, auto-generated `--help` output, images or binary files.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. Key rules:
-
-1. **Skill folder naming:** `uipath-<kebab-case>` under `skills/`
-2. **SKILL.md frontmatter is required:** must include `name` (matching folder name) and `description` (with TRIGGER/DO NOT TRIGGER conditions)
-3. **References use kebab-case filenames** with `-guide.md` and `-template.md` suffixes
-4. **Update CODEOWNERS** when adding or modifying skill ownership
-5. **No cross-skill references** — each skill must work in isolation
-6. **No secrets or personal paths** in committed files
-7. **CLI commands must use `--output json`** when output is parsed programmatically
-
-## File Conventions
-
-| File | Convention |
-|------|-----------|
-| `SKILL.md` | Required. Uppercase. YAML frontmatter + markdown body. |
-| `references/*.md` | Kebab-case. Guides end with `-guide.md`. |
-| `assets/templates/*` | Templates end with `-template.md` or `-template.<ext>`. |
-| `hooks/*.sh` | Must be cross-platform (Windows/macOS/Linux). |
-
-## When Reviewing or Editing Skills
-
-- Read the existing SKILL.md before making changes
-- Preserve the Critical Rules section — these prevent expensive agent mistakes
-- Validate YAML frontmatter — broken frontmatter breaks skill discovery
-- Ensure `description` field has both TRIGGER and DO NOT TRIGGER conditions
+Full reference: `.claude/rules/content-quality.md`.
 
 ---
 > Source: [UiPath/skills](https://github.com/UiPath/skills) — distributed by [TomeVault](https://tomevault.io).
