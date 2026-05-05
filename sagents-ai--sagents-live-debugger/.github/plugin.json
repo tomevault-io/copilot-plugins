@@ -1,0 +1,9 @@
+{
+  "name": "sagents-ai--sagents-live-debugger",
+  "displayName": "sagents_live_debugger",
+  "description": "A Phoenix LiveView dashboard for debugging and monitoring Sagents agents in real-time.",
+  "version": "1.0.0",
+  "author": "sagents-ai",
+  "homepage": "https://github.com/sagents-ai/sagents_live_debugger",
+  "skills": []
+}
