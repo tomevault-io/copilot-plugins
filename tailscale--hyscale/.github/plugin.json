@@ -1,0 +1,9 @@
+{
+  "name": "tailscale--hyscale",
+  "displayName": "hyscale",
+  "description": "Hytale on Tailscale Server Manager",
+  "version": "1.0.0",
+  "author": "tailscale",
+  "homepage": "https://github.com/tailscale/hyscale",
+  "skills": []
+}
