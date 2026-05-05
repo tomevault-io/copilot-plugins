@@ -1,0 +1,237 @@
+{
+  "name": "arkhe-claude-plugins",
+  "owner": "joaquimscosta",
+  "repo": "arkhe-claude-plugins",
+  "description": "Supercharge Claude Code with 109 specialized components \u2014 22 agents, 32 commands, 55 skills across 13 modular plugins. Deep reasoning, autonomous dev loops, DDD architecture, design system enforcement, git automation, and more.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "authoring-stitch-prompts",
+      "path": "plugins/google-stitch/skills/authoring-stitch-prompts",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/google-stitch/skills/authoring-stitch-prompts",
+      "description": ""
+    },
+    {
+      "name": "cleaning-up-branches",
+      "path": "plugins/git/skills/cleaning-up-branches",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/git/skills/cleaning-up-branches",
+      "description": ""
+    },
+    {
+      "name": "code-explanation",
+      "path": "plugins/doc/skills/code-explanation",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/doc/skills/code-explanation",
+      "description": ""
+    },
+    {
+      "name": "creating-branch",
+      "path": "plugins/git/skills/creating-branch",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/git/skills/creating-branch",
+      "description": ""
+    },
+    {
+      "name": "creating-commit",
+      "path": "plugins/git/skills/creating-commit",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/git/skills/creating-commit",
+      "description": ""
+    },
+    {
+      "name": "creating-pr",
+      "path": "plugins/git/skills/creating-pr",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/git/skills/creating-pr",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "path": "plugins/core/skills/deep-research",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/core/skills/deep-research",
+      "description": ""
+    },
+    {
+      "name": "design-intent-specialist",
+      "path": "plugins/design-intent/skills/design-intent-specialist",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/design-intent/skills/design-intent-specialist",
+      "description": ""
+    },
+    {
+      "name": "diagramming",
+      "path": "plugins/doc/skills/diagramming",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/doc/skills/diagramming",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "path": "plugins/doc/skills/doc-coauthoring",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/doc/skills/doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design",
+      "path": "plugins/spring-boot/skills/domain-driven-design",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/spring-boot/skills/domain-driven-design",
+      "description": ""
+    },
+    {
+      "name": "generating-changelog",
+      "path": "plugins/git/skills/generating-changelog",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/git/skills/generating-changelog",
+      "description": ""
+    },
+    {
+      "name": "generating-stitch-screens",
+      "path": "plugins/google-stitch/skills/generating-stitch-screens",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/google-stitch/skills/generating-stitch-screens",
+      "description": ""
+    },
+    {
+      "name": "listing-stale-branches",
+      "path": "plugins/git/skills/listing-stale-branches",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/git/skills/listing-stale-branches",
+      "description": ""
+    },
+    {
+      "name": "lyra",
+      "path": "plugins/ai/skills/lyra",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/ai/skills/lyra",
+      "description": ""
+    },
+    {
+      "name": "playwright-cli",
+      "path": "plugins/playwright/skills/playwright-cli",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/playwright/skills/playwright-cli",
+      "description": ""
+    },
+    {
+      "name": "plugin-release-checker",
+      "path": ".claude/skills/plugin-release-checker",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/.claude/skills/plugin-release-checker",
+      "description": ""
+    },
+    {
+      "name": "ralph-loop",
+      "path": "plugins/ralph/skills/ralph-loop",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/ralph/skills/ralph-loop",
+      "description": ""
+    },
+    {
+      "name": "ralph-prd",
+      "path": "plugins/ralph/skills/ralph-prd",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/ralph/skills/ralph-prd",
+      "description": ""
+    },
+    {
+      "name": "bash",
+      "path": "plugins/lang/skills/bash",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/lang/skills/bash",
+      "description": ""
+    },
+    {
+      "name": "sdlc-develop",
+      "path": "plugins/core/skills/sdlc-develop",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/core/skills/sdlc-develop",
+      "description": ""
+    },
+    {
+      "name": "skill-template",
+      "path": "templates/plugin-template/skills/skill-template",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/templates/plugin-template/skills/skill-template",
+      "description": ""
+    },
+    {
+      "name": "skill-validator",
+      "path": ".claude/skills/skill-validator",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/.claude/skills/skill-validator",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-data-ddd",
+      "path": "plugins/spring-boot/skills/spring-boot-data-ddd",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/spring-boot/skills/spring-boot-data-ddd",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-modulith",
+      "path": "plugins/spring-boot/skills/spring-boot-modulith",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/spring-boot/skills/spring-boot-modulith",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-scanner",
+      "path": "plugins/spring-boot/skills/spring-boot-scanner",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/spring-boot/skills/spring-boot-scanner",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-security",
+      "path": "plugins/spring-boot/skills/spring-boot-security",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/spring-boot/skills/spring-boot-security",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-testing",
+      "path": "plugins/spring-boot/skills/spring-boot-testing",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/spring-boot/skills/spring-boot-testing",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-verify",
+      "path": "plugins/spring-boot/skills/spring-boot-verify",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/spring-boot/skills/spring-boot-verify",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-web-api",
+      "path": "plugins/spring-boot/skills/spring-boot-web-api",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/spring-boot/skills/spring-boot-web-api",
+      "description": ""
+    },
+    {
+      "name": "stitch-to-react",
+      "path": "plugins/design-intent/skills/stitch-to-react",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/design-intent/skills/stitch-to-react",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestration",
+      "path": "plugins/core/skills/workflow-orchestration",
+      "github_url": "https://github.com/joaquimscosta/arkhe-claude-plugins/tree/main/plugins/core/skills/workflow-orchestration",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/joaquimscosta/arkhe-claude-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:34:35Z"
+}
