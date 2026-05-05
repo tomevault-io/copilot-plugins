@@ -1,0 +1,9 @@
+{
+  "name": "stevehuang0115--crewly",
+  "displayName": "crewly",
+  "description": "Build a team of Claude Code / Codex-CLI / Gemini-CLI for your work",
+  "version": "1.0.0",
+  "author": "stevehuang0115",
+  "homepage": "https://github.com/stevehuang0115/crewly",
+  "skills": []
+}
