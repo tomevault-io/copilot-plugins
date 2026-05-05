@@ -1,0 +1,9 @@
+{
+  "name": "sapientcoffee--scribe",
+  "displayName": "scribe",
+  "description": "Scribe is a Gemini CLI extension that facilitates a professional, multi-stage documentation pipeline (Research \u2192 Plan \u2192 Draft \u2192 Review \u2192 Polish). Ideally suited for creating PRDs,   Whitepapers, and T",
+  "version": "1.0.0",
+  "author": "sapientcoffee",
+  "homepage": "https://github.com/sapientcoffee/scribe",
+  "skills": []
+}
