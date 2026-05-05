@@ -1,0 +1,14 @@
+{
+  "name": "geekjourneyx--feishu-md2wechat",
+  "displayName": "feishu-md2wechat",
+  "description": "\u4e00\u952e\u5c06\u98de\u4e66\u6587\u6863\u8f6c\u6362\u4e3a\u7cbe\u7f8e\u7684\u516c\u4f17\u53f7\u6587\u7ae0\uff0c\u57fa\u4e8e \u6781\u7b80\u7f8e\u5b66\u6392\u7248\u795e\u5668 www.md2wechat.cn \u5f3a\u5927\u7684 API \u670d\u52a1\uff0c\u652f\u6301\u516d\u5927\u4e3b\u9898\u98ce\u683c\uff0c\u8ba9\u60a8\u7684\u5185\u5bb9\u53d1\u5e03\u66f4\u7b80\u5355\u3001\u66f4\u7f8e\u89c2\u3002",
+  "version": "1.0.0",
+  "author": "geekjourneyx",
+  "homepage": "https://github.com/geekjourneyx/feishu-md2wechat",
+  "skills": [
+    {
+      "name": "md2wechat",
+      "description": ""
+    }
+  ]
+}
