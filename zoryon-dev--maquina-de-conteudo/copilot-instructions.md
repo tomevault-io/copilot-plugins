@@ -1,343 +1,311 @@
-## queue-system
+## styling
 
-> Padrões e convenções para o sistema de filas (background jobs)
+> Padrões de estilização com Tailwind CSS e design system
 
 
-# Sistema de Filas (Background Jobs)
+# Padrões de Estilização
 
-## Arquitetura
+## Stack
 
-### Stack
-- **Queue**: Upstash Redis (HTTP REST API)
-- **Persistência**: PostgreSQL (tabela `jobs`)
-- **Workers**: API Routes (`/api/workers`) - Serverless-friendly
+- **Tailwind CSS**: v4
+- **shadcn/ui**: New York style
+- **Ícones**: Lucide React
+- **Animações**: Framer Motion + GSAP
 
-### Por que Serverless?
-- Não requer worker process contínuo
-- Escala automaticamente
-- Free tier generoso (500K requests/dia)
-- Zero infraestrutura adicional
+## Configuração
 
-## Estrutura de Arquivos
+### Tailwind CSS
+- **Config**: `postcss.config.mjs`
+- **CSS Global**: `src/app/globals.css`
+- **Theme**: Dark mode por padrão
 
+### shadcn/ui
+- **Config**: `components.json`
+- **Style**: New York
+- **Base Color**: Neutral
+- **CSS Variables**: Habilitado
+
+## Design System
+
+### Cores Principais
+
+```css
+/* Background */
+--background: 0 0% 98%        /* Light: quase branco */
+--background: 0 0% 4%          /* Dark: #0a0a0f */
+
+/* Primary (verde/amarelo) */
+--primary: 84 76% 55%
+--primary-foreground: 0 0% 15%
+
+/* Cards */
+--card: 0 0% 100%              /* Light */
+--card: 0 0% 18%              /* Dark: #1a1a2e */
 ```
-src/lib/queue/
-├── types.ts      # JobType, JobStatus, JobPayload types
-├── client.ts     # Redis client (enqueue, dequeue)
-└── jobs.ts       # CRUD de jobs (createJob, updateJobStatus)
-```
 
-## Tipos de Jobs
-
-### JobType Enum
+### Cores Customizadas
 
 ```typescript
-type JobType =
-  | "ai_text_generation"      // Geração de texto com IA
-  | "ai_image_generation"      // Geração de imagem com IA
-  | "carousel_creation"        // Criação de carrossel
-  | "scheduled_publish"        // Publicação agendada
-  | "web_scraping"             // Web scraping
+// Background principal
+bg-[#0a0a0f]
+
+// Glassmorphism
+bg-[#0a0a0f]/80 backdrop-blur-xl
+
+// Borders sutis
+border-white/10
+
+// Primary color
+text-primary
+bg-primary
 ```
 
-### JobStatus Enum
+## Padrões Visuais
+
+### Glassmorphism
 
 ```typescript
-type JobStatus =
-  | "pending"      // Aguardando processamento
-  | "processing"   // Em processamento
-  | "completed"    // Concluído com sucesso
-  | "failed"       // Falhou após tentativas
+// Header e cards principais
+className="bg-[#0a0a0f]/80 backdrop-blur-xl border-b border-white/10"
 ```
 
-### JobPayload Types
+### Containers
 
 ```typescript
-// Definidos em src/lib/queue/types.ts
-interface AITextGenerationPayload {
-  prompt: string
-  model: string
-  // ...
+// Container padrão (max-width + padding)
+className="max-w-6xl mx-auto px-4"
+
+// Main content (compensa header fixo)
+className="max-w-6xl mx-auto px-4 pt-24 pb-8"
+```
+
+### Spacing
+
+```typescript
+// Gaps comuns
+gap-6        // Entre elementos principais
+gap-4        // Entre elementos secundários
+gap-2        // Entre elementos pequenos
+
+// Padding
+p-4          // Padrão
+px-4         // Horizontal
+py-5         // Vertical (header)
+pt-24        // Top (compensa header fixo)
+pb-8         // Bottom
+```
+
+### Borders
+
+```typescript
+// Bordas sutis
+border border-white/10
+border-b border-white/10
+
+// Radius
+rounded-xl   // Cards principais
+rounded-lg   // Botões, inputs
+```
+
+## Componentes UI (shadcn/ui)
+
+### Variantes de Botão
+
+```typescript
+<Button variant="default">Padrão</Button>
+<Button variant="secondary">Secundário</Button>
+<Button variant="outline">Outline</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="destructive">Destrutivo</Button>
+```
+
+### Cards
+
+```typescript
+<Card>
+  <CardHeader>
+    <CardTitle>Título</CardTitle>
+    <CardDescription>Descrição</CardDescription>
+  </CardHeader>
+  <CardContent>
+    Conteúdo
+  </CardContent>
+</Card>
+```
+
+### Inputs
+
+```typescript
+<Input placeholder="Digite aqui..." />
+<Textarea placeholder="Mensagem..." />
+<Label>Nome</Label>
+```
+
+## Animações
+
+### Transições
+
+```typescript
+// Transições suaves
+transition-all
+transition-colors
+transition-opacity
+
+// Duração
+duration-200
+duration-300
+```
+
+### Hover Effects
+
+```typescript
+// Glow effect
+group-hover:opacity-100
+group-hover:from-primary/30
+group-hover:to-primary/10
+
+// Text color
+group-hover:text-primary
+```
+
+### Framer Motion
+
+```typescript
+import { motion } from "framer-motion"
+
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+>
+  Conteúdo animado
+</motion.div>
+```
+
+## Utilitário `cn()`
+
+### Uso
+
+```typescript
+import { cn } from "@/lib/utils"
+
+// Merge classes
+<div className={cn(
+  "base-class",
+  condition && "conditional-class",
+  anotherCondition ? "class-a" : "class-b"
+)} />
+```
+
+### Implementação
+
+```typescript
+// src/lib/utils.ts
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }
+```
 
-interface AIImageGenerationPayload {
-  prompt: string
-  model: string
-  // ...
+## Responsividade
+
+### Breakpoints Tailwind
+
+```typescript
+// Mobile first
+className="text-sm md:text-base lg:text-lg"
+
+// Grid responsivo
+className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+```
+
+### Hook Mobile
+
+```typescript
+import { useMobile } from "@/hooks/use-mobile"
+
+function Component() {
+  const isMobile = useMobile()
+  
+  return (
+    <div className={isMobile ? "flex-col" : "flex-row"}>
+      {/* ... */}
+    </div>
+  )
 }
 ```
 
-## Fluxo de Processamento
+## Ícones (Lucide React)
 
-### 1. Criação de Job
-
-```typescript
-// Client → POST /api/jobs
-import { createJob } from "@/lib/queue/jobs"
-
-const jobId = await createJob(userId, "ai_text_generation", {
-  prompt: "Write a blog post about...",
-  model: "openai/gpt-5.2"
-}, {
-  priority: 10, // Opcional
-  scheduledFor: new Date("2024-01-20") // Opcional
-})
-```
-
-**O que acontece:**
-1. Insere job no banco (status: `pending`)
-2. Se não agendado, enfileira no Redis (`enqueueJob`)
-3. Retorna `jobId`
-
-### 2. Enfileiramento (Redis)
+### Uso
 
 ```typescript
-// src/lib/queue/client.ts
-export async function enqueueJob(jobId: number, priority = 0) {
-  // Formato: priority:timestamp:jobId
-  const score = `${String(999999 - priority).padStart(6, "0")}:${Date.now()}:${jobId}`
-  await redis.lpush(JOB_QUEUE, score)
-}
+import { MessageSquare, Library, Calendar } from "lucide-react"
+
+<MessageSquare className="h-5 w-5" />
+<Library className="h-6 w-6 text-primary" />
 ```
 
-**Chaves Redis:**
-- `jobs:pending` - Fila de jobs pendentes
-- `jobs:processing` - Jobs em processamento
+### Tamanhos Comuns
 
-### 3. Processamento (Worker)
+- `h-4 w-4` - Pequeno (16px)
+- `h-5 w-5` - Médio (20px)
+- `h-6 w-6` - Grande (24px)
+
+### Props Úteis
 
 ```typescript
-// Agendador/Cron → POST /api/workers
-import { dequeueJob } from "@/lib/queue/client"
-import { getJob, updateJobStatus } from "@/lib/queue/jobs"
-
-// 1. Desenfileirar
-const jobId = await dequeueJob()
-
-// 2. Buscar job no banco
-const job = await getJob(jobId)
-
-// 3. Marcar como processando
-await markAsProcessing(jobId)
-await updateJobStatus(jobId, "processing")
-
-// 4. Processar (handlers por tipo)
-const handler = jobHandlers[job.type]
-const result = await handler(job.payload)
-
-// 5. Atualizar status
-await updateJobStatus(jobId, "completed", { result })
-await removeFromProcessing(jobId)
+<Icon
+  className="h-5 w-5"
+  strokeWidth={2.5}  // Espessura da linha
+  color="currentColor" // Herda cor do texto
+/>
 ```
 
-### 4. Handlers de Jobs
-
-```typescript
-// src/app/api/workers/route.ts
-const jobHandlers: Record<JobType, (payload: JobPayload) => Promise<unknown>> = {
-  ai_text_generation: async (payload) => {
-    // Chamar OpenRouter API
-    // Retornar texto gerado
-  },
-  ai_image_generation: async (payload) => {
-    // Chamar OpenRouter Image API
-    // Retornar URL da imagem
-  },
-  // ...
-}
-```
-
-## Funções Principais
-
-### Client (Redis)
-
-```typescript
-// src/lib/queue/client.ts
-
-// Enfileirar job
-enqueueJob(jobId: number, priority?: number): Promise<void>
-
-// Desenfileirar próximo job
-dequeueJob(): Promise<number | null>
-
-// Marcar como processando
-markAsProcessing(jobId: number): Promise<void>
-
-// Remover de processamento
-removeFromProcessing(jobId: number): Promise<void>
-
-// Tamanho da fila
-getQueueSize(): Promise<number>
-
-// Jobs em processamento
-getProcessingCount(): Promise<number>
-```
-
-### Jobs (Database)
-
-```typescript
-// src/lib/queue/jobs.ts
-
-// Criar job
-createJob<T extends JobPayload>(
-  userId: string,
-  type: JobType,
-  payload: T,
-  options?: {
-    priority?: number
-    scheduledFor?: Date
-    maxAttempts?: number
-  }
-): Promise<number>
-
-// Buscar job
-getJob(jobId: number): Promise<Job | null>
-
-// Atualizar status
-updateJobStatus(
-  jobId: number,
-  status: "processing" | "completed" | "failed",
-  data?: { result?: unknown; error?: string }
-): Promise<void>
-
-// Listar jobs do usuário
-listUserJobs(
-  userId: string,
-  options?: { limit?: number; offset?: number; status?: JobStatus }
-): Promise<Job[]>
-```
-
-## Retry Logic
+## Dark Mode
 
 ### Configuração
 
-```typescript
-// Ao criar job
-createJob(userId, type, payload, {
-  maxAttempts: 3 // Padrão: 3
-})
+- Dark mode é o padrão (`className="dark"` no `<html>`)
+- Cores definidas em `globals.css` com variáveis CSS
+- shadcn/ui gerencia automaticamente
 
-// No worker
-if (job.attempts < job.maxAttempts) {
-  // Re-enfileirar com prioridade reduzida
-  await enqueueJob(jobId, job.priority - 1)
-  await updateJobStatus(jobId, "pending", {
-    attempts: job.attempts + 1
-  })
-} else {
-  // Marcar como failed
-  await updateJobStatus(jobId, "failed", {
-    error: "Max attempts reached"
-  })
-}
-```
-
-## Agendamento
-
-### Jobs Agendados
+### Forçar Modo
 
 ```typescript
-// Criar job agendado
-const jobId = await createJob(userId, type, payload, {
-  scheduledFor: new Date("2024-01-20T10:00:00Z")
-})
-
-// Não enfileira imediatamente
-// Worker verifica jobs agendados antes de processar
+// Em src/app/layout.tsx
+<html lang="pt-BR" className="dark" suppressHydrationWarning>
 ```
 
-### Verificação de Agendamento
+## Acessibilidade
+
+### Contraste
+
+- Texto em `foreground` vs `background`
+- Botões com `primary-foreground` em `primary`
+- Verificar contraste mínimo (WCAG AA)
+
+### Focus States
 
 ```typescript
-// No worker, antes de processar:
-const scheduledJobs = await db
-  .select()
-  .from(jobs)
-  .where(
-    and(
-      eq(jobs.status, "pending"),
-      lte(jobs.scheduledFor, new Date())
-    )
-  )
-
-// Enfileirar jobs agendados que já passaram
-for (const job of scheduledJobs) {
-  await enqueueJob(job.id, job.priority)
-}
+// Focus visível
+focus:outline-none focus:ring-2 focus:ring-primary
 ```
 
-## Monitoramento
+## Performance
 
-### Métricas Úteis
+### Otimizações
 
-```typescript
-// Tamanho da fila
-const queueSize = await getQueueSize()
+- Usar classes Tailwind (não CSS customizado quando possível)
+- Evitar `@apply` excessivo
+- Usar `backdrop-blur-xl` com moderação (pode ser pesado)
 
-// Jobs em processamento
-const processingCount = await getProcessingCount()
+### Critical CSS
 
-// Jobs por status
-const pendingJobs = await db
-  .select({ count: sql<number>`count(*)` })
-  .from(jobs)
-  .where(eq(jobs.status, "pending"))
-```
-
-## Variáveis de Ambiente
-
-```env
-UPSTASH_REDIS_REST_URL=https://...
-UPSTASH_REDIS_REST_TOKEN=...
-WORKER_SECRET=... # Para autenticação de workers
-```
-
-## Padrões de Uso
-
-### Criar Job do Client
-
-```typescript
-// Componente Client
-const response = await fetch("/api/jobs", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    type: "ai_text_generation",
-    payload: { prompt: "..." },
-    priority: 10
-  })
-})
-
-const { jobId } = await response.json()
-```
-
-### Polling de Status (futuro)
-
-```typescript
-// Hook customizado (futuro)
-const { job, isLoading } = useJobStatus(jobId)
-
-// Ou polling manual
-const checkStatus = async () => {
-  const response = await fetch(`/api/jobs/${jobId}`)
-  const { job } = await response.json()
-  return job.status
-}
-```
-
-## Troubleshooting
-
-### Job não está sendo processado
-1. Verificar se está na fila: `getQueueSize()`
-2. Verificar se worker está sendo chamado
-3. Verificar logs do worker
-4. Verificar se há jobs em `processing` travados
-
-### Job falhando
-1. Verificar `job.error` no banco
-2. Verificar `job.attempts` vs `job.maxAttempts`
-3. Verificar logs do handler
-4. Verificar payload do job
+- Tailwind purga automaticamente classes não usadas
+- CSS é gerado apenas com classes utilizadas
 
 ---
 > Source: [zoryon-dev/maquina-de-conteudo](https://github.com/zoryon-dev/maquina-de-conteudo) — distributed by [TomeVault](https://tomevault.io).
