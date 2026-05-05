@@ -1,0 +1,9 @@
+{
+  "name": "keithrbennett--cov-loupe",
+  "displayName": "cov-loupe",
+  "description": "Refines Ruby Simplecov test coverage data as CLI, MCP server, and library",
+  "version": "1.0.0",
+  "author": "keithrbennett",
+  "homepage": "https://github.com/keithrbennett/cov-loupe",
+  "skills": []
+}
