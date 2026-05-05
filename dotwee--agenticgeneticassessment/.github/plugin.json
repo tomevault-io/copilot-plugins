@@ -1,0 +1,9 @@
+{
+  "name": "dotwee--agenticgeneticassessment",
+  "displayName": "AgenticGeneticAssessment",
+  "description": "A multi-agent workflow for genetics-informed health optimization, designed for use with Coding Agents.",
+  "version": "1.0.0",
+  "author": "dotWee",
+  "homepage": "https://github.com/dotWee/AgenticGeneticAssessment",
+  "skills": []
+}
