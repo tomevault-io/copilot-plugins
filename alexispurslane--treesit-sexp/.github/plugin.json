@@ -1,0 +1,9 @@
+{
+  "name": "alexispurslane--treesit-sexp",
+  "displayName": "treesit-sexp",
+  "description": "Tree-sitter based s-expression navigation",
+  "version": "1.0.0",
+  "author": "alexispurslane",
+  "homepage": "https://github.com/alexispurslane/treesit-sexp",
+  "skills": []
+}
