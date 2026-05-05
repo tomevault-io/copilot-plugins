@@ -1,0 +1,630 @@
+## arkhe-claude-plugins
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+**Arkhe Claude Plugins** is a collection of Claude Code plugins providing specialized agents, commands, and skills for documentation, AI engineering, code review, UI/UX design, git workflows, Google Stitch prompting, Design Intent, Domain-Driven Design, and language-specific programming.
+
+## Plugin Architecture
+
+This repository uses a **marketplace-based plugin system** where each plugin is independently installable and provides:
+- **Agents** - Specialized AI subagents with focused expertise
+- **Commands** - Slash commands for specific workflows
+- **Skills** - Auto-invoked capabilities triggered by context
+
+### Marketplace Structure
+
+```
+arkhe-claude-plugins/
+├── .claude-plugin/
+│   └── marketplace.json          # Marketplace catalog (13 plugins)
+├── plugins/                       # All 13 plugins
+│   ├── core/                      # Quality control and workflow orchestration
+│   ├── ai/                        # AI engineering and LLM development
+│   ├── doc/                       # Documentation generation
+│   ├── review/                    # Code review and quality
+│   ├── google-stitch/             # Google Stitch prompting toolkit
+│   ├── git/                       # Git workflow automation
+│   ├── design-intent/             # Design Intent for UI development
+│   ├── lang/                      # Language-specific programming skills
+│   ├── playwright/                # Browser automation via Playwright CLI
+│   ├── spring-boot/               # Domain-Driven Design with Spring Boot 4
+│   ├── ralph/                     # Autonomous development loop
+│   ├── roadmap/                   # PM, roadmap analysis, solution architecture
+│   ├── devtools/                  # Developer tooling and environment setup
+│   └── startup/                   # Startup idea validation pipeline
+├── docs/                          # Developer documentation
+├── templates/                     # Plugin templates
+└── assets/                        # Project assets
+```
+
+### Plugin Structure Pattern
+
+Each plugin follows this structure:
+
+```
+plugin-name/
+├── .claude-plugin/
+│   └── plugin.json               # Plugin metadata (name, version, author)
+├── agents/                        # Specialized AI subagents (*.md)
+│   └── agent-name.md
+├── commands/                      # Slash commands (*.md)
+│   └── command-name.md
+├── skills/                        # Auto-invoke skills
+│   └── skill-name/
+│       ├── SKILL.md              # Skill metadata and instructions
+│       ├── WORKFLOW.md           # Detailed steps
+│       ├── EXAMPLES.md           # Usage examples
+│       ├── TROUBLESHOOTING.md    # Error handling
+│       └── scripts/              # Executable Python scripts
+└── README.md                     # Plugin documentation
+```
+
+## Available Plugins
+
+### Core Plugin
+Quality control and workflow orchestration utilities.
+- **Agents**: `deep-think-partner`, `deep-researcher`, `code-explorer`, `code-architect`, `code-reviewer`, `systematic-debugger`
+- **Commands**: `/discuss`, `/double-check` (`--deep` for multi-agent review), `/develop`, `/debug` (`--deep` for agent-assisted), `/think`, `/research`
+- **Skills**: `sdlc-develop` (command-invoke), `deep-research` (auto-invoke), `workflow-orchestration` (auto-invoke)
+
+### AI Plugin
+AI engineering toolkit for production-ready LLM applications.
+- **Agents**: `ai-engineer`, `prompt-engineer`, `context-manager`
+- **Commands**: `/improve-agent`, `/multi-agent-optimize`
+- **Skills**: `lyra` (auto-invoked for AI prompt engineering)
+
+### Doc Plugin
+Multi-purpose documentation toolkit with RFC management and documentation health.
+- **Agents**: `rfc-critic`, `adr-critic`
+- **Skills**: `doc-coauthoring`, `diagramming`, `code-explanation`, `jd-docs`, `diataxis`, `adr`, `rfc`, `doc-freshness`, `research-frontmatter` (all auto-invoke)
+- **Commands**: `/code-explain`, `/diagram`, `/rfc`, `/health`
+- **Use**: Documentation generation, code explanation, Mermaid diagrams, Johnny.Decimal management, Diataxis framework (audit, classify, validate, scaffold), ADR management, RFC lifecycle (create, review, list, update), documentation health (freshness, links, drift, cross-doc consistency), research frontmatter validation (JD-aware path resolution, RD-rules)
+
+### Review Plugin
+Code quality review tools for development teams.
+- **Agents**: `pragmatic-code-review`, `design-review`, `false-positive-verifier`
+- **Skills**: `code-review` (command-invoke), `security-review` (command-invoke), `verify-findings` (auto-invoke, context: fork), `design-review` (command-invoke)
+
+### Google Stitch Plugin
+Claude + Google Stitch workflow toolkit with MCP integration.
+- **Commands**: `/prompt`, `/stitch-generate`, `/stitch-setup`
+- **Skills**: `authoring-stitch-prompts`, `generating-stitch-screens`
+- **Use**: Generate Stitch-ready prompts, automate screen generation via MCP
+
+### Git Plugin
+Git workflow automation for commits, pull requests, branching, changelog generation, releases, and Dependabot triage.
+- **Commands**: `/commit`, `/create-pr`, `/create-branch`, `/changelog`, `/release`, `/resolve-review`, `/stale-branches`, `/cleanup-branches`, `/worktree`
+- **Skills**: 10 skills (4 auto-invoke: `generating-changelog`, `listing-stale-branches`, `cleaning-up-branches`, `resolving-pr-issues`; 6 command-invoke: `creating-branch`, `creating-commit`, `creating-pr`, `creating-worktree`, `releasing`, `dependabot-review`)
+- **Use**: Git commits, PRs, branches, changelogs, semantic versioning releases, release pipeline scaffolding, Dependabot PR triage
+
+### Design Intent Plugin
+Design Intent for UI development that combines AI-assisted implementation with persistent pattern memory.
+- **Agents**: `design-reviewer`, `ui-architect`, `ui-explorer`
+- **Commands**: `/setup`, `/design-intent`, `/save-patterns`, `/diary`, `/prototype`
+- **Skills**: `design-intent-specialist` (auto-invoked), `stitch-to-react` (auto-invoked), `icon-forge` (command-invoke), `prototype` (command-invoke)
+- **Use**: Build React prototypes from Figma/screenshots, capture proven patterns, maintain design-intent diaries, generate brand icon assets
+
+### Lang Plugin
+Language-specific programming skills for production-grade code.
+- **Skills**: `scripting-bash` (auto-invoked for Bash scripting)
+- **Use**: Production-ready Bash scripting, defensive programming, CI/CD scripts
+
+### Playwright Plugin
+Browser automation via Playwright CLI for testing, screenshots, and interaction workflows.
+- **Commands**: `/playwright-setup`
+- **Skills**: `playwright-cli` (auto-invoked for browser automation)
+- **Use**: Navigate pages, interact with elements, capture screenshots, test web applications via CLI
+
+### Spring Boot Plugin
+Domain-Driven Design patterns with Spring Boot 4 implementation.
+- **Agents**: `spring-boot-reviewer`, `spring-boot-upgrade-verifier`
+- **Commands**: `/spring-review`, `/verify-upgrade`, `/spring-refresh`
+- **Skills**: `spring-boot-scanner`, `domain-driven-design`, `spring-boot-data-ddd`, `spring-boot-web-api`, `spring-boot-modulith`, `spring-boot-security`, `spring-boot-observability`, `spring-boot-testing`, `spring-boot-verify`, `flyway-consolidate` (all auto-invoked), `spring-refresh` (command-invoke)
+- **Use**: DDD architecture, Spring Data, REST APIs, Spring Modulith, Spring Security 7, observability, testing, skill content freshness tracking
+
+### Ralph Plugin
+Autonomous development loop with fresh context per iteration and Hat-lite builder/verifier system.
+- **Agents**: `ralph-agent`
+- **Commands**: `/ralph`, `/create-prd`
+- **Skills**: `ralph-loop` (command-invoke), `ralph-prd` (command-invoke)
+- **Use**: Greenfield development, POCs, focused features, test coverage campaigns, refactoring tasks
+
+### Roadmap Plugin
+Product management, roadmap analysis, and solution architecture with multi-agent orchestration.
+- **Agents**: `product-manager`, `system-architect`, `roadmap-critic`
+- **Skills**: `pm` (auto-invoke, `--deep` for multi-agent pipeline), `roadmap` (auto-invoke, `--deep` for cross-perspective analysis, `--incremental` for fast post-sprint update), `architect` (auto-invoke, `--deep` for adversarial review, now with Write permission), `refresh` (command-invoke)
+- **Use**: User stories, scope assessments, prioritization, project status, gap analysis, risk mapping, module design, API design, boundary analysis, plan lifecycle management. `--deep` mode adds: confidence scoring, Confession Pattern, cross-agent validation, adversarial architecture review
+
+### Devtools Plugin
+Developer tooling setup and management.
+- **Skills**: `sops-setup` (command-invoke), `sops-encrypt` (command-invoke), `sops-decrypt` (command-invoke), `sops-add-key` (command-invoke), `code-env-setup` (command-invoke), `quality-stack` (command-invoke), `taskfile-setup` (command-invoke)
+- **Use**: SOPS + age encryption for .env files, Claude Code environment setup wizard (Global CLAUDE.md, project scaffolding, MCP servers, hooks, custom agents, keybindings, settings), multi-ecosystem quality/testing tooling audit and setup (JVM, Node.js/TypeScript, Python), Taskfile task runner setup and audit
+
+### Startup Plugin
+Startup idea validation pipeline with 6-stage analysis, decision gates, and domain presets.
+- **Agents**: `market-validator`, `feasibility-analyst`, `product-designer`, `business-strategist`, `growth-strategist`, `execution-planner`, `validation-critic`
+- **Commands**: `/startup-validate`
+- **Skills**: `startup-validating` (command-invoke)
+- **Presets**: `fintech`, `cape-verde`, `saas`, `marketplace`
+- **Use**: Validate startup ideas through 6 sequential stages (market, feasibility, product, business model, go-to-market, execution), with decision gates, confidence scoring, composable domain presets, and `--deep` mode for parallel specialist analysis
+
+## Common Development Commands
+
+### Plugin Management
+
+```bash
+# Add marketplace from repository root
+/plugin marketplace add ./arkhe-claude-plugins
+
+# Install all plugins
+/plugin install core@arkhe-claude-plugins
+/plugin install ai@arkhe-claude-plugins
+/plugin install doc@arkhe-claude-plugins
+/plugin install review@arkhe-claude-plugins
+/plugin install design-intent@arkhe-claude-plugins
+/plugin install git@arkhe-claude-plugins
+/plugin install google-stitch@arkhe-claude-plugins
+/plugin install lang@arkhe-claude-plugins
+/plugin install playwright@arkhe-claude-plugins
+/plugin install spring-boot@arkhe-claude-plugins
+/plugin install ralph@arkhe-claude-plugins
+/plugin install roadmap@arkhe-claude-plugins
+/plugin install devtools@arkhe-claude-plugins
+/plugin install startup@arkhe-claude-plugins
+
+# Verify installation
+/plugin                    # View installed plugins
+/agents                    # View available agents
+/help                      # View available commands
+```
+
+### Testing Plugin Changes
+
+```bash
+# After modifying a plugin, reinstall to test
+/plugin uninstall plugin-name@arkhe-claude-plugins
+/plugin install plugin-name@arkhe-claude-plugins
+```
+
+## Plugin Component Guidelines
+
+### Agent Files (agents/*.md)
+
+Agents are specialized AI subagents with focused expertise. Each agent file uses YAML frontmatter:
+
+```markdown
+---
+name: agent-name
+description: When and why to use this agent
+tools: Read, Write, Grep, Glob, Bash  # Optional - omit to inherit all
+model: sonnet  # Optional - sonnet/opus/haiku or 'inherit'
+---
+
+System prompt defining the agent's role, capabilities, and approach.
+```
+
+**Agent Naming Convention**: Use lowercase with hyphens (e.g., `code-explorer`, `ai-engineer`)
+
+**Description Guidelines**:
+- Clearly state when to use the agent
+- Include trigger phrases like "Use PROACTIVELY" or "MUST BE USED" for automatic invocation
+- Keep under 1,024 characters
+
+### Command Files (commands/*.md)
+
+Commands are slash commands that expand to full prompts:
+
+```markdown
+---
+description: Brief description of what this command does
+---
+
+# Command Name
+
+Full prompt that Claude Code will execute when the command is invoked.
+Include specific instructions, context, and expected behavior.
+```
+
+**Command Naming Convention**: Use lowercase with hyphens (e.g., `/code-explain`, `/create-pr`)
+
+### Skill Files (skills/skill-name/SKILL.md)
+
+Skills are auto-invoked capabilities triggered by context. Use progressive disclosure:
+
+```markdown
+---
+name: Skill Name
+description: What it does. Use when [triggers].
+---
+
+# Quick Start
+Essential instructions only (<150 lines target)
+
+## Output Structure
+What the skill produces
+
+## Common Issues
+Quick fixes with references to TROUBLESHOOTING.md
+
+## Examples
+Brief examples with reference to EXAMPLES.md
+```
+
+**Critical Skill Guidelines**:
+- **SKILL.md**: <5,000 tokens (target: <1,000 tokens, ~150 lines)
+- **Supporting docs**: Unlimited size (WORKFLOW.md, EXAMPLES.md, TROUBLESHOOTING.md)
+- **Scripts**: Python 3.8+ with standard library only, executable (`chmod +x`)
+- **Description**: Include specific trigger keywords and use cases
+
+**Skill Execution Pattern**:
+1. User action/mention triggers skill (e.g., "changelog", editing CHANGELOG.md)
+2. SKILL.md loads with instructions
+3. Supporting docs load on-demand as needed
+4. Python scripts execute deterministic operations
+
+## Python Script Guidelines
+
+### Requirements
+- **Python Version**: 3.8+
+- **Libraries**: Standard library only (no pip install)
+- **Execution**: Must be executable (`chmod +x script.py`)
+- **Shebang**: Include `#!/usr/bin/env python3`
+
+### Security Constraints
+```python
+# ✅ ALLOWED
+import json, urllib.request, pathlib, re
+from pathlib import Path
+# Standard library operations
+
+# ❌ FORBIDDEN
+import requests  # Third-party package
+os.system("pip install package")  # Runtime installation
+eval(user_input)  # Code execution risks
+```
+
+### Example Script Structure
+
+```python
+#!/usr/bin/env python3
+"""
+Script description and usage.
+"""
+
+import json
+import sys
+from pathlib import Path
+
+# For sibling imports (shared utils across scripts in same directory)
+# sys.path.insert(0, str(Path(__file__).resolve().parent))
+# from shared_utils import normalize_slug, get_cache_dir
+
+def main():
+    """Main entry point."""
+    # Implementation
+    pass
+
+if __name__ == "__main__":
+    main()
+```
+
+## Token Optimization Strategy
+
+### Progressive Disclosure Architecture
+
+```
+Level 1: Metadata (Always Loaded)
+├── YAML frontmatter
+├── ~100 tokens
+└── Purpose: Skill discovery
+
+Level 2: Instructions (Loaded When Triggered)
+├── SKILL.md body
+├── <1,000 tokens target (<5,000 max)
+└── Purpose: Quick start
+
+Level 3+: Resources (Loaded As Needed)
+├── WORKFLOW.md, EXAMPLES.md, TROUBLESHOOTING.md
+├── Effectively unlimited
+└── Purpose: Deep dives
+```
+
+### Optimization Techniques
+
+**Extract detailed content**:
+```markdown
+<!-- ❌ Don't embed everything in SKILL.md -->
+## Detailed Workflow
+(200 lines of step-by-step instructions)
+
+<!-- ✅ Reference supporting docs -->
+## Workflow
+See [WORKFLOW.md](WORKFLOW.md) for detailed steps.
+```
+
+**Use references over embedding**:
+```markdown
+<!-- ❌ Don't embed all examples -->
+## Examples
+(150 lines of code and output)
+
+<!-- ✅ Reference examples file -->
+## Examples
+See [EXAMPLES.md](EXAMPLES.md) for complete examples.
+```
+
+## File Naming Conventions
+
+### Documentation Files
+- **UPPERCASE.md** - Documentation and instructions
+- **SKILL.md** - Required for skills
+- **WORKFLOW.md** - Detailed step-by-step (optional)
+- **EXAMPLES.md** - Usage examples (recommended)
+- **TROUBLESHOOTING.md** - Error handling (recommended)
+- **README.md** - Plugin overview
+
+### Script Files
+- **lowercase_with_underscores.py** - Python scripts
+- **main.py** or **extract.py** - Entry points
+- **module_name.py** - Modules and utilities
+
+### Plugin Metadata
+- **plugin.json** - Plugin manifest (in `.claude-plugin/`)
+- **marketplace.json** - Marketplace catalog (in root `.claude-plugin/`)
+
+## Plugin Development Workflow
+
+### Creating a New Plugin
+
+```bash
+# 1. Create plugin directory structure
+mkdir new-plugin
+cd new-plugin
+mkdir -p .claude-plugin agents commands skills
+
+# 2. Create plugin manifest
+cat > .claude-plugin/plugin.json << 'EOF'
+{
+  "name": "new-plugin",
+  "description": "Plugin description",
+  "version": "1.0.0",
+  "author": {
+    "name": "Your Name"
+  }
+}
+EOF
+
+# 3. Add agents, commands, or skills
+# See component guidelines above
+
+# 4. Register in marketplace
+# Edit ../arkhe-claude-plugins/.claude-plugin/marketplace.json
+```
+
+### Testing a New Plugin Locally
+
+```bash
+# From parent directory of arkhe-claude-plugins
+cd ..
+claude  # Start Claude Code
+
+# In Claude Code:
+/plugin marketplace add ./arkhe-claude-plugins
+/plugin install new-plugin@arkhe-claude-plugins
+
+# Test your components
+/agents     # Check if agents appear
+/help       # Check if commands appear
+# Test skill triggers
+```
+
+### Iterating on Plugin Changes
+
+```bash
+# After making changes:
+/plugin uninstall new-plugin@arkhe-claude-plugins
+/plugin install new-plugin@arkhe-claude-plugins
+
+# Test again
+```
+
+## Skill Development Best Practices
+
+### YAML Frontmatter
+
+**Required fields**:
+```yaml
+---
+name: Skill Name              # 64 chars max (20-40 recommended)
+description: What it does...  # 1,024 chars max (200-400 recommended)
+---
+```
+
+**Description template**:
+```
+[What it does]. Use when [trigger scenario 1], [trigger scenario 2], or [trigger scenario 3].
+```
+
+**Good description example**:
+> Create and edit Mermaid diagrams for flowcharts, sequence diagrams, ERDs, state machines, architecture diagrams, process flows, timelines, and more. Use when user mentions "diagram", "flowchart", "mermaid", "visualize", "sequence diagram", "ERD", "architecture diagram", or "process flow".
+
+**Why it works**:
+- Lists specific capabilities
+- Defines clear triggers
+- Includes use cases
+
+### Skill File Organization
+
+```
+skills/my-skill/
+├── SKILL.md                  # Main instructions (<150 lines)
+├── WORKFLOW.md              # Detailed steps (optional)
+├── EXAMPLES.md              # Usage examples (recommended)
+├── TROUBLESHOOTING.md       # Error handling (recommended)
+├── scripts/
+│   ├── main.py              # Entry point
+│   ├── module1.py
+│   ├── module2.py
+│   └── tools/               # Testing/analysis utilities
+└── templates/               # Output templates (optional)
+```
+
+### Pre-Publication Checklist
+
+**Structure**:
+- [ ] SKILL.md with YAML frontmatter
+- [ ] Name ≤ 64 characters
+- [ ] Description ≤ 1,024 characters
+- [ ] Description includes "what" and "when"
+- [ ] SKILL.md <5,000 tokens (target: <1,000)
+- [ ] Supporting docs created (EXAMPLES.md, TROUBLESHOOTING.md)
+
+**Code Quality**:
+- [ ] Scripts executable (`chmod +x`)
+- [ ] Shebang added (`#!/usr/bin/env python3`)
+- [ ] Standard library only
+- [ ] No runtime package installation
+- [ ] Secure authentication (if needed)
+
+**Documentation**:
+- [ ] Quick start examples
+- [ ] Output structure documented
+- [ ] Common issues listed
+- [ ] All file references valid
+
+## Common Pitfalls
+
+### ❌ Embedding Everything in SKILL.md
+
+**Problem**: SKILL.md becomes 500+ lines, consuming excessive tokens
+
+**Solution**: Split into multiple files with references
+```markdown
+# Quick Start
+(Essential steps only)
+
+## Workflow
+See [WORKFLOW.md](WORKFLOW.md) for detailed steps.
+
+## Examples
+See [EXAMPLES.md](EXAMPLES.md) for complete examples.
+
+## Troubleshooting
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for error handling.
+```
+
+### ❌ Broken Documentation References
+
+**Problem**: Moving/renaming files without updating references
+
+**Solution**: Search for references after any file operation
+```bash
+grep -r "old-filename.md" .
+# Update all references to new location
+```
+
+### ❌ Vague Descriptions
+
+**Problem**: `description: Processes data. Use when needed.`
+
+**Solution**: Include specific capabilities, triggers, and use cases
+```yaml
+description: Extract structured data from PDFs including tables, images, and form fields. Use when user provides PDF files, mentions extracting tables/forms from PDFs, or needs to convert PDF data to JSON/CSV.
+```
+
+### ❌ Non-Executable Scripts
+
+**Problem**: `bash: permission denied` when running scripts
+
+**Solution**:
+```bash
+chmod +x scripts/*.py
+# Add shebang to all scripts
+#!/usr/bin/env python3
+```
+
+## Key Documentation Files
+
+### Developer Resources
+
+**Skills Development** (most important for skill creation):
+- `docs/SKILL_DEVELOPMENT_BEST_PRACTICES.md` - **PRIMARY GUIDE**: Integrated best practices from official docs and real implementations (custom)
+- `docs/reference/SKILLS.md` - Practical guide to creating and managing Agent Skills in Claude Code (synced)
+- `docs/reference/BEST_PRACTICES.md` - Official best practices for Claude Code (synced)
+
+**Plugin System**:
+- `docs/reference/PLUGINS.md` - Plugin system documentation (synced)
+- `docs/reference/PLUGINS_REFERENCE.md` - Plugin manifest reference (synced)
+- `docs/reference/SUBAGENTS.md` - Agent configuration and usage guide (synced)
+- `docs/reference/HOOKS.md` - Event handling documentation (synced)
+- `docs/reference/SETTINGS.md` - Configuration and settings reference (synced)
+- `docs/reference/MCP.md` - MCP server integration guide (synced)
+
+**Development Tools**:
+- `docs/CLAUDE_CODE_GUIDE.md` - Curated practitioner's guide to Claude Code V4 (custom)
+
+### Automated Documentation Sync
+
+Synced documentation lives in `docs/reference/` (automated copies of official Claude Code documentation). Custom documentation stays in `docs/`.
+
+**To update synced documentation**:
+```bash
+cd docs/reference && ./update-claude-docs.sh
+```
+
+**Synced files** (in `docs/reference/`, 8 total):
+- SUBAGENTS.md, PLUGINS.md, HOOKS.md, SKILLS.md
+- SETTINGS.md, MCP.md, PLUGINS_REFERENCE.md, BEST_PRACTICES.md
+
+**Custom files** (in `docs/`, never overwritten):
+- SKILL_DEVELOPMENT_BEST_PRACTICES.md, CLAUDE_CODE_GUIDE.md, README.md
+
+**To add new documentation URLs**:
+1. Edit `docs/reference/update-claude-docs.sh` and add to `URL_MAPPINGS` array
+2. Run `./update-claude-docs.sh` to download
+3. Update README.md, CLAUDE.md, and docs/README.md to reference new file
+
+See [docs/README.md](docs/README.md) "Maintaining This Documentation" section for complete details.
+
+### Plugin Documentation
+- `*/README.md` - Plugin overview and usage examples
+- `skills/*/SKILL.md` - Skill instructions and quick start
+- `skills/*/WORKFLOW.md` - Detailed step-by-step procedures
+- `skills/*/EXAMPLES.md` - Comprehensive usage examples
+- `skills/*/TROUBLESHOOTING.md` - Error handling and solutions
+
+## Plugin Versions
+
+Plugin versions: core 2.1.0, ai 1.0.0, doc 1.12.0, design-intent 2.2.0, git 1.0.0, google-stitch 2.0.0, lang 1.0.0, playwright 1.0.0, spring-boot 1.2.0, ralph 2.0.0, roadmap 2.1.0, review 2.0.0, devtools 2.2.0, startup 1.0.0. When making breaking changes, increment the major version and update `plugin.json`.
+
+## Related Documentation
+
+For complete technical specifications:
+- **Plugin System**: `docs/reference/PLUGINS.md`
+- **Agent Configuration**: `docs/reference/SUBAGENTS.md`
+- **Skill Development**: `docs/SKILL_DEVELOPMENT_BEST_PRACTICES.md`
+- **Best Practices**: `docs/reference/BEST_PRACTICES.md`
+- **Installation Guide**: `INSTALLATION.md`
+- **Main README**: `README.md`
+- **Docs Health Action**: [`joaquimscosta/docs-health-action`](https://github.com/joaquimscosta/docs-health-action) — GitHub Action extracted from `doc-freshness` skill scripts. See its `SYNC.md` for script sync mapping.
+
+## External Resources
+
+**Official Documentation**:
+- **[Agent Skills Best Practices](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/best-practices.md)** - Comprehensive authoring guide covering core principles, YAML frontmatter, degrees of freedom, content guidelines, workflows, and evaluation
+- [Agent Skills Overview](https://docs.claude.com/en/docs/agents-and-tools/agent-skills) - Introduction to Agent Skills across Claude products
+- [Using Skills in Claude Code](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/using-skills) - Practical guide for creating and managing skills
+
+**Official Skill Examples**:
+- **[Anthropic Skills Repository](https://github.com/anthropics/skills)** - Official reference implementations of Agent Skills with real-world examples, architecture patterns, and best practices from Anthropic's engineering team
+- **[skill-creator Reference](https://github.com/anthropics/skills/tree/main/skill-creator)** - Exemplary official skill demonstrating best practices for YAML frontmatter, writing style (imperative/infinitive form), resource organization (scripts/references/assets), and progressive disclosure architecture. See detailed analysis in `docs/SKILL_DEVELOPMENT_BEST_PRACTICES.md`
+
+---
+> Source: [joaquimscosta/arkhe-claude-plugins](https://github.com/joaquimscosta/arkhe-claude-plugins) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
