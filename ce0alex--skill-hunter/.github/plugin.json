@@ -1,0 +1,9 @@
+{
+  "name": "ce0alex--skill-hunter",
+  "displayName": "skill-hunter",
+  "description": "Agent skill to analyze a repo and recommend a best-fit skill stack with verified sources",
+  "version": "1.0.0",
+  "author": "CE0Alex",
+  "homepage": "https://github.com/CE0Alex/skill-hunter",
+  "skills": []
+}
