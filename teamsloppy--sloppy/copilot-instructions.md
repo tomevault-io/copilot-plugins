@@ -1,94 +1,119 @@
-## tests
+## tool-pattern
 
-> Conventions for writing and running Swift tests in this project
+> Patterns and conventions for agent tools (CoreTool implementations)
 
 
-# Swift Testing Conventions
+# Agent Tool Pattern
 
-## Framework
+## Structure
 
-This project uses **Swift Testing** — not XCTest. Always import:
-
-```swift
-import Testing
-@testable import sloppy       // or the module under test
-@testable import Protocols
-```
-
-## Test declaration
+Every tool is a `struct` conforming to `CoreTool`. Place new tools in `Sources/sloppy/Tools/AgentTools/`:
 
 ```swift
-// Simple test function (no suite)
-@Test
-func projectRecordDefaultsToNotArchived() throws {
-    let record = ProjectRecord(id: "x", name: "X", description: "", channels: [], tasks: [])
-    #expect(record.isArchived == false)
-}
+import AnyLanguageModel
+import Foundation
+import Protocols
 
-// Grouped in a suite
-@Suite
-struct XxxTests {
-    @Test
-    func createsSuccessfully() async throws {
-        // arrange
-        let service = makeCoreService()
-        // act
-        let result = try await service.createXxx(request: .init(name: "test"))
-        // assert
-        #expect(result.name == "test")
+struct XxxTool: CoreTool {
+    let domain = "xxx"           // logical grouping, e.g. "files", "sessions", "projects"
+    let title = "Do xxx"         // human-readable name
+    let status = "fully_functional"  // or "experimental", "deprecated"
+    let name = "xxx.action"      // tool ID used by agents, dot-separated
+    let description = "Brief description of what this tool does."
+
+    var parameters: GenerationSchema {
+        .objectSchema([
+            .init(name: "param1", description: "...", schema: DynamicGenerationSchema(type: String.self)),
+            .init(name: "optParam", description: "...", schema: DynamicGenerationSchema(type: Int.self), isOptional: true),
+        ])
+    }
+
+    func invoke(arguments: [String: JSONValue], context: ToolContext) async -> ToolInvocationResult {
+        guard let value = arguments["param1"]?.asString, !value.isEmpty else {
+            return toolFailure(tool: name, code: "invalid_arguments", message: "`param1` is required.", retryable: false)
+        }
+        // ... do work ...
+        return toolSuccess(tool: name, data: .object(["result": .string("ok")]))
     }
 }
 ```
 
-## Assertion macros
+## ToolContext — available dependencies
 
 ```swift
-#expect(value == expected)
-#expect(throws: XxxError.notFound) { try doSomething() }
-#expect(collection.count == 3)
+context.agentID              // String — calling agent ID
+context.sessionID            // String — current session ID
+context.store                // any PersistenceStore — SQLite-backed store
+context.runtime              // RuntimeSystem — agent runtime facade
+context.projectService       // (any ProjectToolService)? — project operations
+context.skillsService        // (any SkillsToolService)? — skills registry
+context.workspaceRootURL     // URL — agent workspace root
+context.processRegistry      // SessionProcessRegistry
+context.mcpRegistry          // MCPClientRegistry
+context.logger               // Logger
 ```
 
-For async throwing code:
+## Result helpers
+
 ```swift
-await #expect(throws: CoreService.ProjectError.notFound) {
-    try await service.getProject(id: "missing")
+// Success
+toolSuccess(tool: name, data: .object(["key": .string("value")]))
+toolSuccess(tool: name, data: .array([.string("a"), .string("b")]))
+
+// Failure
+toolFailure(tool: name, code: "not_found", message: "Item not found.", retryable: false)
+toolFailure(tool: name, code: "store_error", message: "Persistence failed.", retryable: true)
+// Optional hint (what to try next); omit or pass nil when not needed
+toolFailure(tool: name, code: "permission_denied", message: "Access denied.", retryable: false, hint: "Check credentials or scope.")
+```
+
+## Errors: messages, codes, and file I/O
+
+- Use a **stable `code`** (snake_case) that reflects the failure class (`not_found`, `permission_denied`, `invalid_arguments`, …).
+- **`message`** should state what went wrong in plain language; avoid dumping raw system errors into `message`.
+- Set **`retryable`** to `false` when repeating the same call will not help without changed inputs (bad path, validation, permission).
+- Pass **`hint`** when a short next step helps the model or operator (verify path, fix permissions, free disk space, etc.).
+- For **filesystem reads/writes**, classify errors instead of a single generic failure: map Cocoa/POSIX errors via `FileSystemToolErrorMapping.describe` (see `Sources/sloppy/Tools/FileSystemToolErrorMapping.swift`). For paths that exist as directories, use `describePathIsDirectory` after `fileExists(atPath:isDirectory:)` so behavior is consistent across APIs.
+
+## JSONValue argument extraction
+
+```swift
+arguments["key"]?.asString     // String?
+arguments["key"]?.asInt        // Int?
+arguments["key"]?.asBool       // Bool?
+arguments["key"]?.asDouble     // Double?
+arguments["key"]?.asArray      // [JSONValue]?
+arguments["key"]?.asObject     // [String: JSONValue]?
+```
+
+## Session ID resolution
+
+When a tool accepts a session ID that agents may pass as "current" or "self", use:
+
+```swift
+let sessionID = resolveSessionID(arguments["sessionId"]?.asString, context: context)
+```
+
+## Registration
+
+Add the new tool to `ToolRegistry.makeDefault()` in `Sources/sloppy/Tools/ToolRegistry.swift`:
+
+```swift
+static func makeDefault() -> ToolRegistry {
+    ToolRegistry(tools: [
+        // ...existing tools...
+        XxxTool(),
+    ])
 }
 ```
 
-## Test file location
+## Tool aliases
 
-| Module under test | Test target |
-|---|---|
-| `Sources/sloppy/**` | `Tests/sloppyTests/` |
-| `Sources/AgentRuntime/**` | `Tests/AgentRuntimeTests/` |
-| `Sources/Protocols/**` | `Tests/ProtocolsTests/` |
+If a tool should respond to multiple IDs (e.g. for backward compat), override `toolAliases`:
 
-Name test files after the component they test: `XxxTests.swift`.
-
-## Running tests
-
-```bash
-# Run only a specific test suite
-swift test --filter sloppyTests.XxxTests
-
-# Run a single test by exact name
-swift test --filter sloppyTests.XxxTests.createsSuccessfully
-
-# Run a whole test group (e.g. all CoreTests)
-swift test --filter CoreTests
+```swift
+var toolAliases: [String] { ["old.tool.name"] }
 ```
-
-Never run `swift test` without `--filter` unless verifying the full suite — prefer targeted runs.
-
-## Test setup helpers
-
-A shared helper for creating a `CoreService` with in-memory stores lives in `Tests/sloppyTests/CoreConfig+Testing.swift`. Prefer reusing it over duplicating setup logic.
-
-## Test isolation
-
-- Each test must be independent — no shared mutable state between tests.
-- Use fresh service instances per test case.
-- Avoid `sleep` / `Task.sleep` in tests; prefer deterministic async flows.
 
 ---
 > Source: [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy) — distributed by [TomeVault](https://tomevault.io).
