@@ -1,0 +1,9 @@
+{
+  "name": "gumbarros--endpointhelpers",
+  "displayName": "EndpointHelpers",
+  "description": "EndpointHelpers is a Roslyn source generator that creates strongly-typed helpers for ASP.NET Core MVC URL generation.",
+  "version": "1.0.0",
+  "author": "gumbarros",
+  "homepage": "https://github.com/gumbarros/EndpointHelpers",
+  "skills": []
+}
