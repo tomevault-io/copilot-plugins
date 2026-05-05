@@ -1,224 +1,268 @@
-## components
+## database
 
-> Padrões e convenções para componentes React
+> Padrões e convenções para banco de dados e Drizzle ORM
 
 
-# Padrões de Componentes
+# Padrões de Banco de Dados
 
-## Estrutura de Componentes
+## Stack
 
-### Localização
-- **UI Base**: `src/components/ui/` - Componentes shadcn/ui
-- **Feature**: `src/components/[feature]/` - Componentes específicos
-- **Layout**: `src/components/app-layout.tsx` - Layout principal
-- **Auth**: `src/components/auth/` - Componentes de autenticação
+- **Database**: Neon PostgreSQL (serverless)
+- **ORM**: Drizzle ORM
+- **Adapter**: `drizzle-orm/neon-http` (HTTP adapter para serverless)
+- **Cliente**: `@neondatabase/serverless`
 
-## Server vs Client Components
+## Conexão
 
-### Regra Geral
-**Padrão**: Server Components (sem `"use client"`)
-
-### Quando Usar Client Component
-Use `"use client"` APENAS quando necessário:
-- ✅ Hooks do React (`useState`, `useEffect`, `useMemo`, etc)
-- ✅ Event handlers (`onClick`, `onChange`, etc)
-- ✅ Browser APIs (`window`, `document`, `localStorage`, etc)
-- ✅ Context API (`createContext`, `useContext`)
-- ✅ Bibliotecas que requerem client (`framer-motion`, `gsap`)
-
-### Quando NÃO Usar Client Component
-- ❌ Apenas para exibir dados
-- ❌ Apenas para estilização
-- ❌ Quando pode ser Server Component
-
-### Exemplo: Isolamento de Client Components
+### Arquivo: `src/db/index.ts`
 
 ```typescript
-// ✅ BOM: Server Component (padrão)
-export function UserProfile({ userId }: { userId: string }) {
-  const user = await getUser(userId) // Server Component pode fazer fetch
-  
-  return (
-    <div>
-      <h1>{user.name}</h1>
-      <InteractiveButton /> {/* Client Component isolado */}
-    </div>
-  )
-}
+import { neon } from "@neondatabase/serverless"
+import { drizzle } from "drizzle-orm/neon-http"
 
-// ✅ BOM: Client Component isolado e pequeno
-"use client"
-export function InteractiveButton() {
-  const [count, setCount] = useState(0)
-  return <button onClick={() => setCount(count + 1)}>{count}</button>
-}
+const sql = neon(process.env.DATABASE_URL!)
+export const db = drizzle({ client: sql })
 ```
 
-## Componente: AppLayout
+### Variável de Ambiente
+```env
+DATABASE_URL=postgresql://user:password@host/database?sslmode=require
+```
 
-**Arquivo**: `src/components/app-layout.tsx`
+## Schema
 
-### Estrutura
-- **Tipo**: Client Component (usa hooks e animações)
-- **Props**: `{ children, className? }`
-- **Responsabilidades**:
-  - Header fixo com glassmorphism
-  - Navbar animada (tubelight)
-  - Layout de conteúdo principal
+### Arquivo: `src/db/schema.ts`
 
-### Padrões Visuais
-- Header: `fixed top-0` com `z-40`
-- Glassmorphism: `bg-[#0a0a0f]/80 backdrop-blur-xl`
-- Padding vertical no header: `pt-5 pb-5`
-- Main content: `pt-24` (compensa header fixo)
+### Estrutura de Tabelas (8 Tabelas)
 
-### NavItems
+#### 1. users
+- **ID**: Clerk user ID (text)
+- **Campos**: email, name, avatarUrl, timestamps, deletedAt (soft delete)
+- **Índices**: email, created_at
+
+#### 2. chats
+- **Relacionamento**: belongsTo users
+- **Campos**: title, model (OpenRouter model), timestamps
+- **Índices**: user_id, created_at
+
+#### 3. messages
+- **Relacionamento**: belongsTo chats
+- **Campos**: role (user/assistant/system), content, createdAt
+- **Índices**: chat_id, created_at
+
+#### 4. library_items
+- **Relacionamento**: belongsTo users, hasMany scheduled_posts
+- **Campos**: type (enum), status (enum), title, content (JSON), mediaUrl, metadata, scheduledFor, publishedAt
+- **Índices**: user_id, status, type, scheduled_for
+
+#### 5. documents
+- **Relacionamento**: belongsTo users
+- **Campos**: title, content, sourceUrl, fileType, metadata
+- **Índices**: user_id, created_at
+
+#### 6. sources
+- **Relacionamento**: belongsTo users
+- **Campos**: name, url, type, config (JSON), lastScrapedAt, isActive
+- **Índices**: user_id, unique(user_id, url)
+
+#### 7. scheduled_posts
+- **Relacionamento**: belongsTo library_items
+- **Campos**: platform, scheduledFor, status, postedAt, platformPostId, error
+- **Índices**: scheduled_for, status
+
+#### 8. jobs
+- **Relacionamento**: belongsTo users
+- **Campos**: type (enum), status (enum), payload (JSONB), result (JSONB), error, priority, attempts, maxAttempts, timestamps
+- **Índices**: user_id, status, type, scheduled_for, created_at
+
+### Enums
+
 ```typescript
-const navItems = [
-  { name: "Chat", url: "/dashboard", icon: MessageSquare },
-  { name: "Biblioteca", url: "/library", icon: Library },
-  { name: "Calendário", url: "/calendar", icon: Calendar },
-  { name: "Fontes", url: "/sources", icon: Globe },
-  { name: "Configurações", url: "/settings", icon: Settings },
-]
+// Content Status
+"draft" | "scheduled" | "published" | "archived"
+
+// Post Type
+"text" | "image" | "carousel" | "video" | "story"
+
+// Job Type
+"ai_text_generation" | "ai_image_generation" | "carousel_creation" | "scheduled_publish" | "web_scraping"
+
+// Job Status
+"pending" | "processing" | "completed" | "failed"
 ```
 
-## Componentes de Autenticação
+### Relations (Drizzle)
 
-### SignInCard / SignUpCard
-- **Tipo**: Client Component
-- **Localização**: `src/components/auth/sign-in-card.tsx`
-- **Uso**: Páginas de autenticação customizadas
+Todas as tabelas têm relations definidas:
+- `usersRelations` - hasMany: chats, libraryItems, documents, sources, jobs
+- `chatsRelations` - belongsTo: user, hasMany: messages
+- `messagesRelations` - belongsTo: chat
+- `libraryItemsRelations` - belongsTo: user, hasMany: scheduledPosts
+- `documentsRelations` - belongsTo: user
+- `sourcesRelations` - belongsTo: user
+- `scheduledPostsRelations` - belongsTo: libraryItem
+- `jobsRelations` - belongsTo: user
 
-### UserMenu
-- **Tipo**: Client Component
-- **Localização**: `src/components/auth/user-menu.tsx`
-- **Uso**: Menu dropdown do usuário no header
-- **Componente**: `<UserButton />` do Clerk
+### Type Exports
 
-### OAuthButtons
-- **Tipo**: Client Component
-- **Localização**: `src/components/auth/oauth-buttons.tsx`
-- **Uso**: Botões de OAuth (Google, GitHub)
-
-## Componentes UI (shadcn/ui)
-
-### Padrão de Uso
-- **Import**: `import { Button } from "@/components/ui/button"`
-- **Estilo**: New York style (configurado em `components.json`)
-- **Customização**: Via props e className
-
-### Componentes Disponíveis
-- `button`, `card`, `input`, `textarea`, `label`
-- `dialog`, `dropdown-menu`, `tooltip`
-- `badge`, `alert`, `skeleton`, `spinner`
-- `separator`, `progress`, `switch`
-- `sidebar`, `menubar`, `radio-group`
-
-### Exemplo de Uso
 ```typescript
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-
-export function MyComponent() {
-  return (
-    <Card>
-      <Button variant="default">Clique aqui</Button>
-    </Card>
-  )
-}
+// Infer types from schema
+export type User = typeof users.$inferSelect
+export type NewUser = typeof users.$inferInsert
+// ... (para todas as tabelas)
 ```
 
-## Componentes de Feature
+## Queries
 
-### AnimatedAIChat
-- **Localização**: `src/components/dashboard/animated-ai-chat.tsx`
-- **Tipo**: Client Component (animações)
-- **Uso**: Interface de chat com IA
+### Padrão de Query
 
-### ModelSelector
-- **Localização**: `src/components/chat/model-selector.tsx`
-- **Tipo**: Client Component (interatividade)
-- **Uso**: Seletor de modelos de IA
-
-## Padrões de Estilização
-
-### Tailwind CSS
-- **Config**: Tailwind CSS 4
-- **Customização**: `src/app/globals.css`
-- **Tema**: Dark mode por padrão
-
-### Classes Comuns
-- **Container**: `max-w-6xl mx-auto px-4`
-- **Glassmorphism**: `bg-[#0a0a0f]/80 backdrop-blur-xl`
-- **Borders**: `border border-white/10`
-- **Spacing**: `gap-6`, `p-4`, `pt-24`
-
-### Utilitário `cn()`
 ```typescript
-import { cn } from "@/lib/utils"
+import { db } from "@/db"
+import { users, chats } from "@/db/schema"
+import { eq, desc, and } from "drizzle-orm"
 
-// Merge classes com tailwind-merge
-<div className={cn("base-class", condition && "conditional-class")} />
+// SELECT simples
+const user = await db.select().from(users).where(eq(users.id, userId)).limit(1)
+
+// SELECT com relacionamento
+const chatsWithUser = await db
+  .select()
+  .from(chats)
+  .innerJoin(users, eq(chats.userId, users.id))
+  .where(eq(chats.userId, userId))
+  .orderBy(desc(chats.createdAt))
+
+// INSERT
+const [newChat] = await db
+  .insert(chats)
+  .values({ userId, title, model })
+  .returning({ id: chats.id })
+
+// UPDATE
+await db
+  .update(chats)
+  .set({ title: "New Title" })
+  .where(eq(chats.id, chatId))
+
+// DELETE (soft delete)
+await db
+  .update(users)
+  .set({ deletedAt: new Date() })
+  .where(eq(users.id, userId))
 ```
 
-## Props e TypeScript
+### Operadores Comuns
 
-### Padrão de Props
 ```typescript
-// ✅ BOM: Interface explícita
-interface ComponentProps {
-  title: string
-  description?: string
-  children: React.ReactNode
-}
+import { eq, ne, gt, gte, lt, lte, like, and, or, not, inArray } from "drizzle-orm"
 
-export function Component({ title, description, children }: ComponentProps) {
-  // ...
-}
+// Igualdade
+eq(users.id, userId)
 
-// ❌ EVITAR: Props inline sem tipo
-export function Component(props: any) {
-  // ...
-}
+// Múltiplas condições
+and(eq(users.id, userId), eq(chats.status, "active"))
+
+// Ordenação
+orderBy(desc(chats.createdAt), asc(chats.title))
+
+// Limite e offset
+.limit(10).offset(20)
 ```
 
-### Props com Children
+## Migrations
+
+### Configuração: `drizzle.config.ts`
+
 ```typescript
-interface LayoutProps {
-  children: React.ReactNode
-  className?: string
-}
+export default defineConfig({
+  schema: "./src/db/schema.ts",
+  out: "./drizzle",
+  dialect: "postgresql",
+  dbCredentials: {
+    url: process.env.DATABASE_URL!,
+  },
+})
 ```
 
-## Hooks Customizados
+### Comandos
 
-### Localização
-- `src/hooks/use-mobile.ts` - Detecção de mobile
+```bash
+# Gerar migration baseada em mudanças no schema
+npm run db:generate
 
-### Padrão
-```typescript
-// Nome: use[Feature]
-export function useMobile() {
-  // ...
-}
+# Executar migrations
+npm run db:migrate
+
+# Push schema diretamente (sem migration)
+npm run db:push
+
+# Studio visual (UI do banco)
+npm run db:studio
+
+# Introspect (gerar schema a partir do banco)
+npm run db:pull
 ```
+
+### Workflow de Migration
+
+1. **Modificar schema** em `src/db/schema.ts`
+2. **Gerar migration**: `npm run db:generate`
+3. **Revisar** arquivos em `drizzle/`
+4. **Executar migration**: `npm run db:migrate`
+5. **Verificar** com `npm run db:studio`
+
+## Padrões de Dados
+
+### Soft Delete
+- Campos `deletedAt: timestamp("deleted_at")`
+- Não deletar fisicamente, apenas marcar como deletado
+- Filtrar em queries: `where(isNull(users.deletedAt))`
+
+### Timestamps
+- `createdAt`: `timestamp("created_at").defaultNow().notNull()`
+- `updatedAt`: `timestamp("updated_at").defaultNow().notNull()`
+- Atualizar `updatedAt` manualmente em updates
+
+### JSON Fields
+- **payload/result**: `jsonb("payload").$type<Record<string, unknown>>()`
+- **metadata**: `text("metadata")` (armazenar como JSON string)
+- **content**: `text("content")` (JSON string para conteúdo estruturado)
+
+### Foreign Keys
+- Sempre usar `references()` com `onDelete: "cascade"` quando apropriado
+- Índices em foreign keys para performance
 
 ## Performance
 
-### Otimizações
-- **React.memo()**: Para componentes que re-renderizam frequentemente
-- **useMemo()**: Para cálculos caros
-- **useCallback()**: Para funções passadas como props
+### Índices
+- Criar índices em:
+  - Foreign keys (`user_id`, `chat_id`, etc)
+  - Campos de filtro frequente (`status`, `type`, `scheduled_for`)
+  - Campos de ordenação (`created_at`)
 
-### Lazy Loading
-```typescript
-import dynamic from "next/dynamic"
+### Queries Otimizadas
+- Usar `select()` com campos específicos quando possível
+- Evitar `select().from()` sem `where()` em tabelas grandes
+- Usar `limit()` e `offset()` para paginação
 
-const HeavyComponent = dynamic(() => import("./heavy-component"), {
-  loading: () => <Skeleton />,
-})
-```
+### Connection Pooling
+- Neon gerencia pooling automaticamente
+- HTTP adapter é otimizado para serverless
+
+## Segurança
+
+### Row Level Security (RLS)
+- Implementar RLS no Neon quando necessário
+- Filtrar por `userId` em todas as queries de usuário
+
+### SQL Injection
+- Drizzle previne SQL injection automaticamente
+- Nunca concatenar strings em queries
+- Sempre usar operadores do Drizzle (`eq`, `and`, etc)
+
+### Validação
+- Validar dados antes de inserir/atualizar
+- Usar Zod ou similar para validação de schemas
 
 ---
 > Source: [zoryon-dev/maquina-de-conteudo](https://github.com/zoryon-dev/maquina-de-conteudo) — distributed by [TomeVault](https://tomevault.io).
