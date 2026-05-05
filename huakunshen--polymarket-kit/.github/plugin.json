@@ -1,0 +1,9 @@
+{
+  "name": "huakunshen--polymarket-kit",
+  "displayName": "polymarket-kit",
+  "description": "Fully typed polymarket sdk and proxy with openapi schema",
+  "version": "1.0.0",
+  "author": "HuakunShen",
+  "homepage": "https://github.com/HuakunShen/polymarket-kit",
+  "skills": []
+}
