@@ -1,17 +1,17 @@
-## professional-documentation
+## strong-typing
 
-> Enforce professional documentation and maintainability standards
+> Enforce strict typing and type-safe development practices
 
 
-# Professional Documentation Standards
+# Strong Typing Standards
 
-- Document public modules, classes, and non-trivial functions with concise purpose, inputs, outputs, and side effects.
-- Keep comments focused on intent and rationale, not obvious line-by-line narration.
-- Update docs together with behavior changes; stale documentation is a defect.
-- Add architecture notes for cross-cutting decisions and important trade-offs.
-- Maintain consistent terminology across code, docs, and API contracts.
-- Include usage examples for reusable components or developer-facing APIs.
-- Write clear commit and PR descriptions that explain why changes were made and how they were validated.
+- Prefer explicit domain types and value objects over primitive obsession.
+- Do not use `any` unless there is a documented and temporary migration exception.
+- Model external input as unknown/untrusted and validate before use.
+- Represent optionality and failure explicitly with union types or result objects.
+- Keep function signatures precise: typed parameters, typed returns, and typed errors where applicable.
+- Centralize shared contracts/types and avoid ad-hoc duplicate type declarations.
+- Favor immutable data structures and readonly types for safety.
 
 ---
 > Source: [fidelrojas-Assure/TaskMaster-Pro](https://github.com/fidelrojas-Assure/TaskMaster-Pro) — distributed by [TomeVault](https://tomevault.io).
