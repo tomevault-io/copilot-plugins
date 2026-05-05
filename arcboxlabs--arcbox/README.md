@@ -7,11 +7,11 @@ Run AI agents on real and isolated machines — own kernel, filesystem, and netw
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [arcboxlabs/arcbox](https://github.com/arcboxlabs/arcbox).
+Original source: `CLAUDE.md` in [arcboxlabs/arcbox](https://github.com/arcboxlabs/arcbox).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
