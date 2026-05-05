@@ -1,0 +1,513 @@
+{
+  "name": "amplihack",
+  "owner": "rysweet",
+  "repo": "amplihack",
+  "description": "Framework for agentic coding supporting many popular agent coding tools. ",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "lawyer-analyst",
+      "path": "amplifier-bundle/skills/lawyer-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/lawyer-analyst",
+      "description": ""
+    },
+    {
+      "name": "mermaid-diagram-generator",
+      "path": ".claude/skills/mermaid-diagram-generator",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/mermaid-diagram-generator",
+      "description": ""
+    },
+    {
+      "name": "psychologist-analyst",
+      "path": "amplifier-bundle/skills/psychologist-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/psychologist-analyst",
+      "description": ""
+    },
+    {
+      "name": "documentation-writing",
+      "path": "amplifier-bundle/skills/documentation-writing",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/documentation-writing",
+      "description": ""
+    },
+    {
+      "name": "computer-scientist-analyst",
+      "path": "amplifier-bundle/skills/computer-scientist-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/computer-scientist-analyst",
+      "description": ""
+    },
+    {
+      "name": "design-patterns-expert",
+      "path": "amplifier-bundle/skills/design-patterns-expert",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/design-patterns-expert",
+      "description": ""
+    },
+    {
+      "name": "microsoft-agent-framework",
+      "path": ".claude/skills/microsoft-agent-framework",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/microsoft-agent-framework",
+      "description": ""
+    },
+    {
+      "name": "novelist-analyst",
+      "path": "amplifier-bundle/skills/novelist-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/novelist-analyst",
+      "description": ""
+    },
+    {
+      "name": "pm-architect",
+      "path": ".claude/skills/pm-architect",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/pm-architect",
+      "description": ""
+    },
+    {
+      "name": "engineer-analyst",
+      "path": "amplifier-bundle/skills/engineer-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/engineer-analyst",
+      "description": ""
+    },
+    {
+      "name": "investigation-workflow",
+      "path": ".claude/skills/investigation-workflow",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/investigation-workflow",
+      "description": ""
+    },
+    {
+      "name": "journalist-analyst",
+      "path": "amplifier-bundle/skills/journalist-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/journalist-analyst",
+      "description": ""
+    },
+    {
+      "name": "code-visualizer",
+      "path": "amplifier-bundle/skills/code-visualizer",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/code-visualizer",
+      "description": ""
+    },
+    {
+      "name": "backlog-curator",
+      "path": ".claude/skills/backlog-curator",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/backlog-curator",
+      "description": ""
+    },
+    {
+      "name": "code-smell-detector",
+      "path": ".claude/skills/code-smell-detector",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/code-smell-detector",
+      "description": ""
+    },
+    {
+      "name": "knowledge-extractor",
+      "path": ".claude/skills/knowledge-extractor",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/knowledge-extractor",
+      "description": ""
+    },
+    {
+      "name": "learning-path-builder",
+      "path": "amplifier-bundle/skills/learning-path-builder",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/learning-path-builder",
+      "description": ""
+    },
+    {
+      "name": "urban-planner-analyst",
+      "path": "amplifier-bundle/skills/urban-planner-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/urban-planner-analyst",
+      "description": ""
+    },
+    {
+      "name": "chemist-analyst",
+      "path": "amplifier-bundle/skills/chemist-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/chemist-analyst",
+      "description": ""
+    },
+    {
+      "name": "environmentalist-analyst",
+      "path": "amplifier-bundle/skills/environmentalist-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/environmentalist-analyst",
+      "description": ""
+    },
+    {
+      "name": "anthropologist-analyst",
+      "path": "amplifier-bundle/skills/anthropologist-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/anthropologist-analyst",
+      "description": ""
+    },
+    {
+      "name": "pr-review-assistant",
+      "path": ".claude/skills/pr-review-assistant",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/pr-review-assistant",
+      "description": ""
+    },
+    {
+      "name": "socratic-review",
+      "path": ".claude/skills/socratic-review",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/socratic-review",
+      "description": ""
+    },
+    {
+      "name": "test-gap-analyzer",
+      "path": "amplifier-bundle/skills/test-gap-analyzer",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/test-gap-analyzer",
+      "description": ""
+    },
+    {
+      "name": "mcp-manager",
+      "path": ".claude/skills/mcp-manager",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/mcp-manager",
+      "description": ""
+    },
+    {
+      "name": "model-evaluation-benchmark",
+      "path": ".claude/skills/model-evaluation-benchmark",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/model-evaluation-benchmark",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "path": ".claude/skills/skill-builder",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/skill-builder",
+      "description": ""
+    },
+    {
+      "name": "goal-seeking-agent-pattern",
+      "path": ".claude/skills/goal-seeking-agent-pattern",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/goal-seeking-agent-pattern",
+      "description": ""
+    },
+    {
+      "name": "consensus-voting",
+      "path": ".claude/skills/consensus-voting",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/consensus-voting",
+      "description": ""
+    },
+    {
+      "name": "context-management",
+      "path": ".claude/skills/context-management",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/context-management",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "docs/claude/skills/docx",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "work-delegator",
+      "path": ".claude/skills/work-delegator",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/work-delegator",
+      "description": ""
+    },
+    {
+      "name": "ethicist-analyst",
+      "path": "amplifier-bundle/skills/ethicist-analyst",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/ethicist-analyst",
+      "description": ""
+    },
+    {
+      "name": "eval-recipes-runner",
+      "path": ".claude/skills/eval-recipes-runner",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/eval-recipes-runner",
+      "description": ""
+    },
+    {
+      "name": "module-spec-generator",
+      "path": ".claude/skills/module-spec-generator",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/module-spec-generator",
+      "description": ""
+    },
+    {
+      "name": "n-version-workflow",
+      "path": "docs/claude/skills/n-version-workflow",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/n-version-workflow",
+      "description": ""
+    },
+    {
+      "name": "outside-in-testing",
+      "path": ".claude/skills/outside-in-testing",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/outside-in-testing",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "amplifier-bundle/skills/pdf",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "philosophy-compliance-workflow",
+      "path": "docs/claude/skills/philosophy-compliance-workflow",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/philosophy-compliance-workflow",
+      "description": ""
+    },
+    {
+      "name": "default-workflow",
+      "path": ".claude/skills/default-workflow",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/default-workflow",
+      "description": ""
+    },
+    {
+      "name": "smart-test",
+      "path": ".claude/skills/smart-test",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/smart-test",
+      "description": ""
+    },
+    {
+      "name": "work-iq",
+      "path": ".claude/skills/work-iq",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/work-iq",
+      "description": ""
+    },
+    {
+      "name": "azure-devops",
+      "path": ".claude/skills/azure-devops",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/azure-devops",
+      "description": ""
+    },
+    {
+      "name": "dotnet-install",
+      "path": ".claude/skills/dotnet-install",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/dotnet-install",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-sdk",
+      "path": ".claude/skills/github-copilot-sdk",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/github-copilot-sdk",
+      "description": ""
+    },
+    {
+      "name": "architecting-solutions",
+      "path": "docs/claude/skills/development/architecting-solutions",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/development/architecting-solutions",
+      "description": ""
+    },
+    {
+      "name": "architecting-solutions",
+      "path": ".claude/skills/development/architecting-solutions",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/development/architecting-solutions",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "path": ".claude/skills/aspire",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/aspire",
+      "description": ""
+    },
+    {
+      "name": "authenticated-web-scraper",
+      "path": ".claude/skills/authenticated-web-scraper",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/authenticated-web-scraper",
+      "description": ""
+    },
+    {
+      "name": "awesome-copilot-sync",
+      "path": ".claude/skills/awesome-copilot-sync",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/awesome-copilot-sync",
+      "description": ""
+    },
+    {
+      "name": "context_management",
+      "path": "docs/claude/skills/context_management",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/context_management",
+      "description": ""
+    },
+    {
+      "name": "creating-pull-requests",
+      "path": "docs/claude/skills/collaboration/creating-pull-requests",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/collaboration/creating-pull-requests",
+      "description": ""
+    },
+    {
+      "name": "creating-pull-requests",
+      "path": "amplifier-bundle/skills/collaboration/creating-pull-requests",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/collaboration/creating-pull-requests",
+      "description": ""
+    },
+    {
+      "name": "default-workflow",
+      "path": "docs/claude/skills/default-workflow",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/default-workflow",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": ".claude/skills/docx",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "dotnet-exception-handling",
+      "path": ".claude/skills/dotnet-exception-handling",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/dotnet-exception-handling",
+      "description": ""
+    },
+    {
+      "name": "dotnet10-pack-tool",
+      "path": ".claude/skills/dotnet10-pack-tool",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/dotnet10-pack-tool",
+      "description": ""
+    },
+    {
+      "name": "gh-aw-adoption",
+      "path": ".claude/skills/gh-aw-adoption",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/gh-aw-adoption",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-cli",
+      "path": ".claude/skills/github-copilot-cli",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/github-copilot-cli",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-cli-expert",
+      "path": ".claude/skills/github-copilot-cli-expert",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/github-copilot-cli-expert",
+      "description": ""
+    },
+    {
+      "name": "goal-seeking-agent-pattern",
+      "path": "docs/claude/skills/goal-seeking-agent-pattern",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/goal-seeking-agent-pattern",
+      "description": ""
+    },
+    {
+      "name": "investigation-workflow",
+      "path": "docs/claude/skills/investigation-workflow",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/investigation-workflow",
+      "description": ""
+    },
+    {
+      "name": "knowledge-extractor",
+      "path": "docs/claude/skills/knowledge-extractor",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/knowledge-extractor",
+      "description": ""
+    },
+    {
+      "name": "markitdown",
+      "path": ".claude/skills/markitdown",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/markitdown",
+      "description": ""
+    },
+    {
+      "name": "multitask",
+      "path": ".claude/skills/multitask",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/multitask",
+      "description": ""
+    },
+    {
+      "name": "n-version-workflow",
+      "path": "amplifier-bundle/skills/n-version-workflow",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/n-version-workflow",
+      "description": ""
+    },
+    {
+      "name": "outside-in-testing",
+      "path": "amplifier-bundle/skills/outside-in-testing",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/outside-in-testing",
+      "description": ""
+    },
+    {
+      "name": "philosophy-compliance-workflow",
+      "path": ".claude/skills/philosophy-compliance-workflow",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/philosophy-compliance-workflow",
+      "description": ""
+    },
+    {
+      "name": "researching-topics",
+      "path": "docs/claude/skills/research/researching-topics",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/research/researching-topics",
+      "description": ""
+    },
+    {
+      "name": "researching-topics",
+      "path": "amplifier-bundle/skills/research/researching-topics",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/research/researching-topics",
+      "description": ""
+    },
+    {
+      "name": "reviewing-code",
+      "path": ".claude/skills/quality/reviewing-code",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/quality/reviewing-code",
+      "description": ""
+    },
+    {
+      "name": "reviewing-code",
+      "path": "docs/claude/skills/quality/reviewing-code",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/quality/reviewing-code",
+      "description": ""
+    },
+    {
+      "name": "setting-up-projects",
+      "path": ".claude/skills/development/setting-up-projects",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/development/setting-up-projects",
+      "description": ""
+    },
+    {
+      "name": "setting-up-projects",
+      "path": "docs/claude/skills/development/setting-up-projects",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/development/setting-up-projects",
+      "description": ""
+    },
+    {
+      "name": "shadow-testing",
+      "path": ".claude/skills/shadow-testing",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/shadow-testing",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "path": "amplifier-bundle/skills/skill-builder",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/amplifier-bundle/skills/skill-builder",
+      "description": ""
+    },
+    {
+      "name": "testing-code",
+      "path": ".claude/skills/quality/testing-code",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/.claude/skills/quality/testing-code",
+      "description": ""
+    },
+    {
+      "name": "testing-code",
+      "path": "docs/claude/skills/quality/testing-code",
+      "github_url": "https://github.com/rysweet/amplihack/tree/main/docs/claude/skills/quality/testing-code",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rysweet/amplihack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:35:38Z"
+}
