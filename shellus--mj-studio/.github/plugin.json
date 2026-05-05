@@ -1,0 +1,9 @@
+{
+  "name": "shellus--mj-studio",
+  "displayName": "mj-studio",
+  "description": "\u591a\u6a21\u578b AI \u7ed8\u56fe\u5de5\u4f5c\u53f0\uff0c\u652f\u6301 Midjourney\u3001Gemini\u3001Flux\u3001DALL-E\u3001GPT-4o\u3001Grok\u3001\u901a\u4e49\u4e07\u76f8\u7b49\u4e3b\u6d41\u56fe\u50cf\u751f\u6210\u6a21\u578b\u3002",
+  "version": "1.0.0",
+  "author": "shellus",
+  "homepage": "https://github.com/shellus/mj-studio",
+  "skills": []
+}
