@@ -1,93 +1,83 @@
-## router-pattern
+## sqlite-store
 
-> Patterns and conventions for HTTP API routers in the Gateway layer
+> Patterns for working with SQLiteStore — the SQLite persistence layer
 
 
-# API Router Pattern
+# SQLiteStore Pattern
 
-## Structure
+`Sources/sloppy/SQLiteStore.swift` is a `public actor SQLiteStore: PersistenceStore`. All reads and writes go through C SQLite3 API wrapped in `#if canImport(CSQLite3)` guards. Every method has an in-memory fallback for when SQLite is unavailable.
 
-Every router is a `struct` conforming to `APIRouter`, holding a reference to `CoreService`:
+## SQL execution pattern
 
 ```swift
-import Foundation
-import Protocols
+let sql = """
+    INSERT INTO xxx(id, name, created_at)
+    VALUES(?, ?, ?);
+    """
 
-struct XxxAPIRouter: APIRouter {
-    private let service: CoreService
+var statement: OpaquePointer?
 
-    init(service: CoreService) {
-        self.service = service
-    }
+guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else {
+    // fallback or return
+    return
+}
+defer { sqlite3_finalize(statement) }
 
-    func configure(on router: CoreRouterRegistrar) {
-        // register routes here
-    }
+sqlite3_bind_text(statement, 1, record.id, -1, sqliteTransient)
+sqlite3_bind_text(statement, 2, record.name, -1, sqliteTransient)
+sqlite3_bind_text(statement, 3, isoFormatter.string(from: record.createdAt), -1, sqliteTransient)
+
+sqlite3_step(statement)
+```
+
+## Reading rows
+
+```swift
+var results: [XxxRecord] = []
+while sqlite3_step(statement) == SQLITE_ROW {
+    let id = String(cString: sqlite3_column_text(statement, 0))
+    let name = String(cString: sqlite3_column_text(statement, 1))
+    results.append(XxxRecord(id: id, name: name))
 }
 ```
 
-## Route registration
+## Schema migrations
 
-Use `router.get/post/put/patch/delete` with `RouteMetadata`. All routes require metadata:
+All DDL lives in `CorePersistenceFactory.swift` (the `schemaSQL` string passed to `SQLiteStore.init`). To add a table or column:
+
+1. Add the `CREATE TABLE IF NOT EXISTS` or `ALTER TABLE ADD COLUMN IF NOT EXISTS` statement to the schema string in `CorePersistenceFactory.swift`.
+2. Add CRUD methods to `SQLiteStore.swift` inside the `#if canImport(CSQLite3)` guard.
+3. Add in-memory fallback (`fallbackXxx` dict/array) mirroring the same logic.
+4. Declare the method signature in `PersistenceStore` protocol (`Sources/sloppy/Stores/PersistenceStore.swift`).
+
+## Null safety
+
+`sqlite3_column_text` returns `UnsafePointer<UInt8>?`. Use the optional-safe form when a column can be NULL:
 
 ```swift
-router.get("/v1/xxx/:id", metadata: RouteMetadata(
-    summary: "Get xxx",
-    description: "Returns a specific xxx by id",
-    tags: ["Xxx"]
-)) { request in
-    let id = request.pathParam("id") ?? ""
-    // ...
+let maybeText: String?
+if let ptr = sqlite3_column_text(statement, 2) {
+    maybeText = String(cString: ptr)
+} else {
+    maybeText = nil
 }
 ```
 
-## Reading request data
+## Date handling
 
-- Path params: `request.pathParam("name")`
-- Query params: `request.queryParam("name")`
-- Request body: `request.body` (returns `Data?`)
-- Decoding body: `CoreRouter.decode(body, as: XxxRequest.self)`
+Always use `isoFormatter` (an `ISO8601DateFormatter` instance on the actor) for binding and reading dates:
 
 ```swift
-guard let body = request.body,
-      let payload = CoreRouter.decode(body, as: XxxRequest.self)
-else {
-    return CoreRouter.json(status: HTTPStatus.badRequest, payload: ["error": ErrorCode.invalidBody])
-}
+// bind
+sqlite3_bind_text(statement, 3, isoFormatter.string(from: date), -1, sqliteTransient)
+
+// read
+let date = isoFormatter.date(from: String(cString: sqlite3_column_text(statement, 3))) ?? Date()
 ```
 
-## Building responses
+## Actor isolation
 
-- Encodable payload: `CoreRouter.encodable(status: .ok, payload: someEncodable)`
-- Raw JSON dict: `CoreRouter.json(status: .ok, payload: ["key": "value"])`
-- Domain errors: `CoreRouter.projectErrorResponse(error, fallback: ErrorCode.xxx)`
-
-## Error handling
-
-Catch typed domain errors from `CoreService` before generic fallback:
-
-```swift
-do {
-    let result = try await service.doSomething(id: id)
-    return CoreRouter.encodable(status: .ok, payload: result)
-} catch let error as CoreService.XxxError {
-    return CoreRouter.projectErrorResponse(error, fallback: ErrorCode.xxxFailed)
-} catch {
-    return CoreRouter.json(status: .internalServerError, payload: ["error": ErrorCode.xxxFailed])
-}
-```
-
-## Registration
-
-After creating a new router, add it to `CoreRouter+HTTPRoutes.swift`:
-
-```swift
-// in Sources/sloppy/Gateway/Routers/CoreRouter+HTTPRoutes.swift
-var routers: [APIRouter] = [
-    // ...existing routers...
-    XxxAPIRouter(service: service),
-]
-```
+`SQLiteStore` is an `actor`. All callers must `await`. Never store `OpaquePointer` outside the actor boundary.
 
 ---
 > Source: [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy) — distributed by [TomeVault](https://tomevault.io).
