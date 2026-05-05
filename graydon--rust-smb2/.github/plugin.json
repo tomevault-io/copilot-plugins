@@ -1,0 +1,9 @@
+{
+  "name": "graydon--rust-smb2",
+  "displayName": "rust-smb2",
+  "description": "weird psychotherapy-inspired one-shot mutant smb server / even worse idea",
+  "version": "1.0.0",
+  "author": "graydon",
+  "homepage": "https://github.com/graydon/rust-smb2",
+  "skills": []
+}
