@@ -1,0 +1,9 @@
+{
+  "name": "robertoshimizu--session-graph",
+  "displayName": "session-graph",
+  "description": "Turn your scattered AI coding sessions into a queryable knowledge graph. Multi-platform (Claude Code, ChatGPT, DeepSeek, Grok, Warp), W3C ontology, Wikidata entity linking, SPARQL.",
+  "version": "1.0.0",
+  "author": "robertoshimizu",
+  "homepage": "https://github.com/robertoshimizu/session-graph",
+  "skills": []
+}
