@@ -1,0 +1,58 @@
+{
+  "name": "mahidalhan--claude-hacks",
+  "displayName": "claude-hacks",
+  "description": "give claude code a set of hacks, not vibes :)",
+  "version": "1.0.0",
+  "author": "mahidalhan",
+  "homepage": "https://github.com/mahidalhan/claude-hacks",
+  "skills": [
+    {
+      "name": "architecture-introspector",
+      "description": ""
+    },
+    {
+      "name": "ascii-explainer",
+      "description": ""
+    },
+    {
+      "name": "communication-coach",
+      "description": ""
+    },
+    {
+      "name": "exa-code-context",
+      "description": ""
+    },
+    {
+      "name": "explainer",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "mermaid-diagrams",
+      "description": ""
+    },
+    {
+      "name": "publish-skill",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "standup",
+      "description": ""
+    },
+    {
+      "name": "threaded-explainer",
+      "description": ""
+    },
+    {
+      "name": "xml-context-engineering",
+      "description": ""
+    }
+  ]
+}
