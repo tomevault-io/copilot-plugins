@@ -1,0 +1,9 @@
+{
+  "name": "binsnake--omill",
+  "displayName": "omill",
+  "description": "Binary lifter and deobfuscator using remill for x86_64 Windows binaries",
+  "version": "1.0.0",
+  "author": "binsnake",
+  "homepage": "https://github.com/binsnake/omill",
+  "skills": []
+}
