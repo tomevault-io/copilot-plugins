@@ -1,0 +1,9 @@
+{
+  "name": "geekgineer--motcpp",
+  "displayName": "motcpp",
+  "description": "A blazing-fast, modern C++ multi-object tracking library featuring SORT, ByteTrack, OC-SORT, BoostTrack, and more built for real-time performance, cross-platform deployment, and MOT benchmarks.",
+  "version": "1.0.0",
+  "author": "Geekgineer",
+  "homepage": "https://github.com/Geekgineer/motcpp",
+  "skills": []
+}
