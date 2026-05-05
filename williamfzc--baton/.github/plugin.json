@@ -1,0 +1,9 @@
+{
+  "name": "williamfzc--baton",
+  "displayName": "baton",
+  "description": "Intelligent agent bridge that connects IM channels with local ACP agents.",
+  "version": "1.0.0",
+  "author": "williamfzc",
+  "homepage": "https://github.com/williamfzc/baton",
+  "skills": []
+}
