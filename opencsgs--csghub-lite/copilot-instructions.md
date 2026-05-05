@@ -1,28 +1,20 @@
-## local-preview-port-11436
+## manual-local-release
 
-> Use only port 11435 for local preview and redeploys
+> Publish releases from local builds instead of GitHub Actions
 
 
-# Local Preview Port
+# Manual Local Release
 
-- Do not start a separate frontend dev server for this workspace.
-- For local preview, redeploy, and verification, use only `http://localhost:11435`.
-- Before any local preview or redeploy, stop the old preview process first.
-- Never keep multiple preview servers alive at the same time. If an older `csghub-lite` preview is still running, kill it and then start one fresh instance.
-- If frontend files change, rebuild `web`, sync `web/dist` into `internal/server/static`, and then restart the single backend preview on `:11435`.
-- Do not start or keep `5173` or any alternate preview port running unless the user explicitly asks for it.
-
-```sh
-# ✅ Preferred local workflow
-pid11435=$(lsof -tiTCP:11435 -sTCP:LISTEN 2>/dev/null || true)
-pid11436=$(lsof -tiTCP:11436 -sTCP:LISTEN 2>/dev/null || true)
-pids=$(printf '%s\n%s\n' "$pid11435" "$pid11436" | awk 'NF' | sort -u)
-if [ -n "$pids" ]; then kill $pids; fi
-cd web && npm run build
-cd ..
-cp -r web/dist/. internal/server/static/
-go run ./cmd/csghub-lite serve --listen :11435
-```
+- Do not rely on GitHub Actions tag workflows to publish releases for this repository.
+- Preferred release flow: push code and tag first, build release archives locally, then upload artifacts directly.
+- Build release packages from the target tag in a clean checkout or temporary worktree with `make package`.
+- Always build the web UI before packaging so release binaries embed `internal/server/static` instead of falling back to a missing local `web/dist`.
+- Publish GitHub releases manually with `gh release create` or `gh release upload` after local packaging.
+- Publish GitLab release assets manually or via `scripts/push.sh` with `--skip-build` after local packaging is complete.
+- Keep release notes concise: use 1-3 bullets that describe the actual user-visible fixes or changes in this version.
+- Follow repository network rules during release work:
+  - GitLab and other internal services: direct connection, no proxy
+  - GitHub and other external services: `source ~/.myshrc` before upload commands
 
 ---
 > Source: [OpenCSGs/csghub-lite](https://github.com/OpenCSGs/csghub-lite) — distributed by [TomeVault](https://tomevault.io).
