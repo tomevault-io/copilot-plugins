@@ -1,192 +1,181 @@
-## css-styling-architecture-rules
-
-> **Stack**: Tailwind CSS + CSS Variables + shadcn/ui
-
-
-# CSS & Styling Architecture Rules
-
-**Stack**: Tailwind CSS + CSS Variables + shadcn/ui
-**Audience**: Senior / Architecture-level developers
-
-These rules define how styling is structured, scaled, and governed in this project. They intentionally restrict freedom to ensure visual consistency, themeability, and long-term maintainability.
-
----
-
-## 1. Styling Philosophy
-
-- Styling is **system design**, not decoration.
-- Every visual decision must be:
-
-  - Token-driven
-  - Theme-aware
-  - Predictable across surfaces
-
-Avoid ad-hoc CSS, magic numbers, and one-off overrides.
-
----
-
-## 2. Tailwind Is the Only Styling Interface
-
-- Tailwind utility classes are the **primary and preferred** styling mechanism.
-- No custom CSS files for component styling.
-- Inline styles are forbidden except for:
-
-  - Truly dynamic runtime values (e.g., measured dimensions)
-
-If Tailwind cannot express a style, the design system is incomplete.
-
----
-
-## 3. CSS Variables Are the Design Tokens
-
-### Source of Truth
-
-- All colors, radii, spacing scales, and semantic tokens **must originate from CSS variables**.
-- Variables are defined at:
-
-  - `:root` for base theme
-  - `[data-theme]` or `.dark` for theme overrides
-
-Example intent (illustrative):
-
-- `--background`
-- `--foreground`
-- `--primary`
-- `--radius`
-
-Hardcoded hex values, rgba values, or raw HSL values in components are forbidden.
-
----
-
-## 4. Tailwind Configuration Rules
-
-- Tailwind `theme.extend` must reference **CSS variables**, not raw values.
-- Do not redefine Tailwind defaults unless there is a system-wide reason.
-
-Allowed:
-
-- Semantic tokens (`primary`, `muted`, `destructive`)
-- Layout primitives (container widths, breakpoints if justified)
-
-Avoid introducing overlapping or redundant utilities.
-
----
-
-## 5. shadcn/ui Is the Component Baseline
-
-- shadcn components are:
-
-  - The canonical UI primitives
-  - Locally owned and modifiable
-
-Rules:
-
-- Do not wrap shadcn components just to restyle them
-- Extend via:
-
-  - Props
-  - Variants
-  - Class composition
-
-Forking a shadcn component is acceptable **only** when behavior or structure must change.
-
----
-
-## 6. Variants Over Conditionals
-
-- Use `cva` / variant-based APIs for all component styling permutations.
-- Conditional class concatenation (`if/else` Tailwind strings) should be minimal.
-
-Every variant should map to a **design decision**, not a visual hack.
-
----
-
-## 7. Layout vs Component Responsibility
-
-### Layout Styling
-
-- Page and layout components control:
-
-  - Spacing
-  - Grid / flex structure
-  - Alignment
-
-### Component Styling
-
-- Components control:
-
-  - Internal spacing
-  - Visual identity
-  - States (hover, focus, disabled)
-
-Components must not assume where or how they are placed.
-
----
-
-## 8. Responsiveness Strategy
-
-- Mobile-first always.
-- Breakpoints represent **design shifts**, not device targeting.
-
-Rules:
-
-- Do not sprinkle responsive classes without intent
-- Avoid deeply nested breakpoint overrides
-
-If responsiveness becomes complex, revisit the layout architecture.
-
----
-
-## 9. Dark Mode and Theming
-
-- Dark mode is a **first-class requirement**, not an afterthought.
-- Themes are implemented via CSS variable overrides, not conditional classes.
-
-Tailwind `dark:` utilities are allowed **only** when they map directly to token usage.
-
----
-
-## 10. Animation and Transitions
-
-- Prefer Tailwind utilities for transitions and animations.
-- Custom keyframes must be:
-
-  - Token-aligned
-  - Reusable
-  - Purpose-driven
-
-Avoid gratuitous motion. Animation should communicate state change.
-
----
-
-## 11. What Is Explicitly Forbidden
-
-- Component-specific CSS files
-- Random `bg-[#xxxxxx]` usage
-- One-off spacing hacks (`mt-[37px]`)
-- Styling driven by JS conditionals instead of variants
-- Visual fixes that bypass the design token system
-
----
-
-## 12. Review Bar for Styling Changes
-
-Every styling change must answer:
-
-- Which design token does this rely on?
-- Does this survive theme changes?
-- Does this scale across screens and contexts?
-- Is this encoded as a variant or a one-off?
-
-If the answer is unclear, the styling change is rejected.
-
----
-
-## Final Principle
-
-> The UI should feel inevitable, not accidental.
-
-If styling decisions cannot be explained in system terms, they do not belong in the codebase.
+## folder-structure
+
+> ├── tailwind.config.js
+
+
+agentvis/
+├── README.md
+├── package.json
+├── tsconfig.json
+├── next.config.js
+├── tailwind.config.js
+├── .env.example
+├── .gitignore
+│
+├── public/
+│ ├── assets/
+│ │ ├── icons/
+│ │ └── images/
+│ └── mock-data/
+│ ├── agent-traces.json
+│ ├── swarm-topology.json
+│ ├── rag-vectors.json
+│ └── performance-metrics.json
+│
+├── src/
+│ ├── app/
+│ │ ├── layout.tsx
+│ │ ├── page.tsx
+│ │ ├── globals.css
+│ │ │
+│ │ ├── traceability/
+│ │ │ ├── page.tsx
+│ │ │ ├── layout.tsx
+│ │ │ ├── chain-of-thought/
+│ │ │ │ └── page.tsx
+│ │ │ ├── tree-of-thoughts/
+│ │ │ │ └── page.tsx
+│ │ │ └── async-timeline/
+│ │ │ └── page.tsx
+│ │ │
+│ │ ├── orchestration/
+│ │ │ ├── page.tsx
+│ │ │ ├── layout.tsx
+│ │ │ ├── swarm-network/
+│ │ │ │ └── page.tsx
+│ │ │ ├── conversation-sequence/
+│ │ │ │ └── page.tsx
+│ │ │ └── swimlanes/
+│ │ │ └── page.tsx
+│ │ │
+│ │ ├── memory/
+│ │ │ ├── page.tsx
+│ │ │ ├── layout.tsx
+│ │ │ ├── vector-space/
+│ │ │ │ └── page.tsx
+│ │ │ ├── context-window/
+│ │ │ │ └── page.tsx
+│ │ │ └── knowledge-graph/
+│ │ │ └── page.tsx
+│ │ │
+│ │ └── observability/
+│ │ ├── page.tsx
+│ │ ├── layout.tsx
+│ │ ├── latency-waterfall/
+│ │ │ └── page.tsx
+│ │ ├── risk-heatmap/
+│ │ │ └── page.tsx
+│ │ └── token-burndown/
+│ │ └── page.tsx
+│ │
+│ ├── components/
+│ │ ├── ui/
+│ │ │ ├── button.tsx
+│ │ │ ├── card.tsx
+│ │ │ ├── tabs.tsx
+│ │ │ ├── dialog.tsx
+│ │ │ ├── tooltip.tsx
+│ │ │ └── badge.tsx
+│ │ │
+│ │ ├── layout/
+│ │ │ ├── Navbar.tsx
+│ │ │ ├── Sidebar.tsx
+│ │ │ ├── Footer.tsx
+│ │ │ └── RouteGuard.tsx
+│ │ │
+│ │ ├── traceability/
+│ │ │ ├── ChainOfThoughtDAG.tsx
+│ │ │ ├── TreeOfThoughtsViz.tsx
+│ │ │ ├── AsyncTimeline.tsx
+│ │ │ ├── NodeInspector.tsx
+│ │ │ └── ThoughtCard.tsx
+│ │ │
+│ │ ├── orchestration/
+│ │ │ ├── SwarmNetworkGraph.tsx
+│ │ │ ├── SequenceDiagram.tsx
+│ │ │ ├── SwimlaneCanvas.tsx
+│ │ │ ├── AgentNode.tsx
+│ │ │ └── MessageFlow.tsx
+│ │ │
+│ │ ├── memory/
+│ │ │ ├── VectorSpacePlot.tsx
+│ │ │ ├── ContextTreemap.tsx
+│ │ │ ├── KnowledgeGraphViz.tsx
+│ │ │ ├── SemanticDistanceIndicator.tsx
+│ │ │ └── EntityCard.tsx
+│ │ │
+│ │ ├── observability/
+│ │ │ ├── LatencyWaterfallChart.tsx
+│ │ │ ├── RiskHeatmap.tsx
+│ │ │ ├── TokenBurndownChart.tsx
+│ │ │ ├── MetricCard.tsx
+│ │ │ └── AlertPanel.tsx
+│ │ │
+│ │ └── shared/
+│ │ ├── LoadingSpinner.tsx
+│ │ ├── ErrorBoundary.tsx
+│ │ ├── JsonViewer.tsx
+│ │ ├── SearchBar.tsx
+│ │ └── FilterPanel.tsx
+│ │
+│ ├── lib/
+│ │ ├── utils.ts
+│ │ ├── cn.ts
+│ │ ├── data-processing/
+│ │ │ ├── trace-parser.ts
+│ │ │ ├── graph-builder.ts
+│ │ │ ├── vector-transformer.ts
+│ │ │ └── metrics-calculator.ts
+│ │ │
+│ │ ├── visualization/
+│ │ │ ├── d3-helpers.ts
+│ │ │ ├── graph-layouts.ts
+│ │ │ ├── color-schemes.ts
+│ │ │ └── animation-configs.ts
+│ │ │
+│ │ └── mock-generators/
+│ │ ├── generate-traces.ts
+│ │ ├── generate-swarm-data.ts
+│ │ ├── generate-vectors.ts
+│ │ └── generate-metrics.ts
+│ │
+│ ├── hooks/
+│ │ ├── useAgentTrace.ts
+│ │ ├── useSwarmData.ts
+│ │ ├── useVectorSpace.ts
+│ │ ├── useMetrics.ts
+│ │ ├── useResizeObserver.ts
+│ │ └── useDebounce.ts
+│ │
+│ ├── types/
+│ │ ├── agent.types.ts
+│ │ ├── graph.types.ts
+│ │ ├── metrics.types.ts
+│ │ ├── visualization.types.ts
+│ │ └── index.ts
+│ │
+│ ├── constants/
+│ │ ├── routes.ts
+│ │ ├── visualization-configs.ts
+│ │ ├── color-palette.ts
+│ │ └── mock-data-config.ts
+│ │
+│ └── styles/
+│ ├── visualizations.css
+│ └── themes.css
+│
+├── docs/
+│ ├── ARCHITECTURE.md
+│ ├── VISUALIZATION_GUIDE.md
+│ ├── MOCK_DATA_STRUCTURE.md
+│ └── DEPLOYMENT.md
+│
+└── tests/
+├── unit/
+│ ├── utils.test.ts
+│ └── data-processing.test.ts
+└── integration/
+└── visualization-render.test.tsx
 
 ---
 > Source: [JaimeenMakavana/agent-vis](https://github.com/JaimeenMakavana/agent-vis) — distributed by [TomeVault](https://tomevault.io).
