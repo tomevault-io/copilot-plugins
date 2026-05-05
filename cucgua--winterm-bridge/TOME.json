@@ -1,0 +1,44 @@
+{
+  "name": "winterm-bridge",
+  "owner": "Cucgua",
+  "repo": "winterm-bridge",
+  "description": "\u57fa\u4e8etmux\u7684\u591a\u7aef\u4f1a\u8bdd\u7ba1\u7406",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Cucgua/winterm-bridge",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T15:28:02Z"
+}
