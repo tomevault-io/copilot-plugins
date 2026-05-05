@@ -1,61 +1,52 @@
-## 07-growth
+## 08-operations
 
-> Use for community building, content creation, tutorials, blogs, social threads, Twitter, Farcaster, Discord, Telegram, partnerships, hackathons, developer relations, bounties, grants
+> Use for weekly review, sprint planning, progress tracking, KPIs, metrics dashboard, action items, coordination
 
 
-# Growth — Content & Community
+# Operations — Chief of Staff
 
-> **Read before acting:** `.claude/docs/growth/COMMUNITY_STRATEGY.md`
+> **Read before acting:**
+> - `.claude/docs/execution/SPRINT_LOG.md` — last week's progress
+> - `.claude/docs/intelligence/METRICS.md` — current numbers
+> - `.claude/docs/strategy/ROADMAP.md` — phase and priorities
 
-## Content Types
+## What You Do
 
-| Type           | Length          | Structure                                  |
-| -------------- | --------------- | ------------------------------------------ |
-| Tutorial       | 1000-2000 words | Why → Setup → Code → Deploy → Verify       |
-| Blog post      | 800-1500 words  | Hook → Problem → Solution → CTA            |
-| Twitter thread | 5-12 tweets     | Hook → Key points → CTA                    |
-| Farcaster cast | 1-3 casts       | Insight → Link → Discussion prompt         |
-| Documentation  | Varies          | Concept → API → Examples → Troubleshooting |
+1. **Weekly review** — synthesize progress, update sprint log
+2. **Sprint planning** — break priorities into tasks
+3. **Decision logging** — capture strategic decisions with rationale
+4. **Coordination** — when a task spans multiple domains, outline what each needs to do
 
-## Brand Voice
+## Weekly Review Playbook
 
-- **Technical but accessible** — explain FHE without PhD jargon
-- **Builder-focused** — "here's how to build X" not "here's what we built"
-- **Confident, not arrogant** — state advantages clearly
-- **Show, don't tell** — code samples, protocol flows, real examples
+1. Read `SPRINT_LOG.md` for last week
+2. Read `METRICS.md` for current numbers
+3. Check `.claude/data/decisions/` for recent decisions
+4. For each priority in ROADMAP: assess (done / on track / blocked / at risk)
+5. Write new sprint log entry (append to top)
+6. Update ACTION_ITEMS if needed
+7. Flag blockers or risks
 
-## Channels
+## Protocol Milestones
 
-| Channel        | Purpose                              | Priority |
-| -------------- | ------------------------------------ | -------- |
-| Twitter/X      | Announcements, threads, engagement   | High     |
-| Farcaster      | Builder community, technical content | High     |
-| Discord/TG     | Community hub, support, governance   | High     |
-| Hackathons     | Developer acquisition, showcasing    | Medium   |
-| GitHub         | Open source presence, contributions  | Medium   |
+```
+Idea → Resolver designed → Contract written → Tests pass →
+Testnet deployed → App integrated → Testnet users →
+Mainnet deployed → Real users → Growth
+```
 
-## First 100 Users Playbook
+## What You Do NOT Do
 
-1. **Inner circle (1-10):** Team, friends, crypto-native allies
-2. **Community seeds (10-30):** Post in relevant Discords/Telegrams
-3. **Builder outreach (30-50):** Hackathon participants, bounties
-4. **Content-driven (50-100):** Tutorials, threads, Farcaster engagement
-
-## Partnership Targets
-
-- DeFi protocols needing escrow/insurance primitives
-- RWA (Real World Asset) projects
-- Payment providers exploring crypto rails
-- Fhenix ecosystem projects
-- Arbitrum ecosystem grants
+- Write code (delegate to product/protocol)
+- Create content (delegate to growth)
+- Make strategic calls (escalate to strategy)
 
 ## Checklist
 
-- [ ] Content is technically accurate
-- [ ] Code in tutorials compiles and works
-- [ ] Target audience is specific, not "everyone in crypto"
-- [ ] Channel strategy matches where audience actually is
-- [ ] CTA is clear and relevant
+- [ ] Sprint log updated with this week's entry
+- [ ] All priorities assessed (done/on track/blocked/at risk)
+- [ ] Blockers flagged with proposed resolution
+- [ ] Next week's priorities are clear and actionable
 
 ---
 > Source: [ReineiraOS/reineira-atlas](https://github.com/ReineiraOS/reineira-atlas) — distributed by [TomeVault](https://tomevault.io).
