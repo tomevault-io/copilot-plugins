@@ -1,0 +1,44 @@
+{
+  "name": "RemnaShop-Pro",
+  "owner": "ike-sh",
+  "repo": "RemnaShop-Pro",
+  "description": "\ud83d\ude80 RemnaShop-Pro: A high-performance Telegram bot for Remnawave panel. Features auto-selling, traffic visualization, QR code subscriptions, node monitoring, and automated maintenance. Built with Python & AsyncIO. \u4e13\u4e3a Remnawave \u6253\u9020\u7684\u4e13\u4e1a\u7ea7\u81ea\u52a8\u552e\u5356\u4e0e\u7ba1\u7406\u673a\u5668\u4eba\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ike-sh/RemnaShop-Pro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T03:57:15Z"
+}
