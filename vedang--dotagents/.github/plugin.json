@@ -1,0 +1,9 @@
+{
+  "name": "vedang--dotagents",
+  "displayName": "dotagents",
+  "description": "My Agent Harness Configuration. Clone to ~/.config/agents",
+  "version": "1.0.0",
+  "author": "vedang",
+  "homepage": "https://github.com/vedang/dotagents",
+  "skills": []
+}
