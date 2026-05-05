@@ -4,7 +4,7 @@
   "repo": "project-nodal",
   "description": "A local-first, infinite canvas that turns linear AI chats into a spatial knowledge graph.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yibie/project-nodal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T16:05:22Z"
+  "distributed_at": "2026-05-05T12:18:33Z"
 }
