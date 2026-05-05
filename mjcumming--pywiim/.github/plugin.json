@@ -1,0 +1,9 @@
+{
+  "name": "mjcumming--pywiim",
+  "displayName": "pywiim",
+  "description": "Python library for controlling WiiM and LinkPlay-based audio devices. Provides async HTTP API client, UPnP event subscriptions for real-time updates, device discovery tools, and comprehensive diagnost",
+  "version": "1.0.0",
+  "author": "mjcumming",
+  "homepage": "https://github.com/mjcumming/pywiim",
+  "skills": []
+}
