@@ -1,35 +1,25 @@
-## go-conventions
+## llama-cpp-version-lockstep
 
-> Go coding conventions for csghub-lite
+> Keep llama.cpp versions aligned across converter, gguf-py hints, and installers
 
 
-# Go Conventions
+# llama.cpp Version Lockstep
 
-## Project Structure
+When syncing or changing the bundled `llama.cpp` converter version, keep these aligned in the same task:
 
-- CLI commands: `internal/cli/` — one file per command, register in `root.go`
-- Config: `internal/config/` — app home is `~/.csghub-lite/`
-- Inference engine: `internal/inference/` — manages llama-server subprocess
-- Model management: `internal/model/` — local model storage and metadata
-- API server: `internal/server/` — HTTP handlers and routes
+- `internal/convert/bundled_converter.go` `BundledConverterLLamacppRef`
+- user-facing `gguf-py` install/download hints that reference a llama.cpp tag
+- installer defaults in `scripts/install.sh` and `scripts/install.ps1` for downloaded `llama-server`
 
-## CLI Commands
+Goal: users should get a consistent llama.cpp version for:
 
-- Use `cobra.Command` for all CLI commands.
-- Each command file exports a `newXxxCmd()` function returning `*cobra.Command`.
-- Register new commands in `internal/cli/root.go` via `cmd.AddCommand()`.
+- bundled `convert_hf_to_gguf.py`
+- matching `gguf-py`
+- downloaded `llama-server`
 
-## Error Handling
+Do not sync only the converter and leave installer defaults on an older tag.
 
-- Wrap errors with context: `fmt.Errorf("doing X: %w", err)`
-- CLI `RunE` functions return errors; cobra handles printing.
-- Never silently swallow errors unless intentional (document why).
-
-## Dependencies
-
-- Config is loaded via `config.Load()` (singleton with `sync.Once`).
-- Model operations go through `model.NewManager(cfg)`.
-- Inference via `inference.LoadEngineWithProgress()` or `newLlamaEngine()`.
+If an exact mirrored binary tag is unavailable, either mirror it as part of the task or explicitly choose the fallback tag and update all three surfaces together in the same change.
 
 ---
 > Source: [OpenCSGs/csghub-lite](https://github.com/OpenCSGs/csghub-lite) — distributed by [TomeVault](https://tomevault.io).
