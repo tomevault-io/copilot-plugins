@@ -1,0 +1,9 @@
+{
+  "name": "jonradoff--lastsaas",
+  "displayName": "lastsaas",
+  "description": "SaaS boilerplate/starter-kit in Go+React with Stripe integration, multi-tenant support, comprehensive features and AI-agent ready",
+  "version": "1.0.0",
+  "author": "jonradoff",
+  "homepage": "https://github.com/jonradoff/lastsaas",
+  "skills": []
+}
