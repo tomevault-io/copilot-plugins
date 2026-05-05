@@ -1,18 +1,15 @@
-## skill-review
+## skill-structure
 
-> Strict skill audit/review framework — use when user asks to review, audit, grade, or compare skills, or when reviewing PRs that add or substantially modify a skill
+> Skill folder layout, SKILL.md frontmatter, and naming conventions
 
 
-Score each skill on six dimensions (1–5 scale, 1 = failing, 3 = acceptable, 5 = excellent):
+Every skill under `skills/uipath-<kebab-case>/` must have a `SKILL.md` with valid YAML frontmatter: `name` (matching folder name exactly) and `description` (under 1024 characters — repo cap; Claude Code's hard truncation for `description` + `when_to_use` is 1,536 chars).
 
-1. **Structure** — SKILL.md frontmatter valid; `name` matches folder; `description` under 1024 chars, front-loads identity, includes `→` redirects; `[PREVIEW]` tag for unstable skills; body follows Title → When to Use → Critical Rules → Workflow → Reference Navigation → Anti-patterns; references use kebab-case + `-guide.md` / `-template.md` suffix; no orphaned files.
-2. **Consistency** — CLI uses `--output json` uniformly; `<UPPER_SNAKE_CASE>` placeholders; heading hierarchy doesn't skip; code blocks have language identifiers; terminology matches other skills.
-3. **Logic & Completeness** — workflows cover full lifecycle; error handling specified; edge cases addressed; CLI commands correct; steps in order; validation loops present; anti-patterns section covers real mistakes.
-4. **Duplication** — no copy-paste between SKILL.md and references; no redundant reference files; SKILL.md links to references instead of inlining; no instructions repeated verbatim in Critical Rules and workflow.
-5. **LLM Usability** — prescriptive not descriptive; numbered Critical Rules; explicit decision trees; copy-paste-ready CLI commands; clear stop conditions; information front-loaded; SKILL.md not excessively long (extract to `references/`).
-6. **Marketplace & Integration** — `description` detailed enough to match correctly but not over-broad; `→` redirects for sibling skills; passes `hooks/validate-skill-descriptions.sh`; no hardcoded personal paths; CODEOWNERS entry exists.
+The `description` must front-load skill identity and unique file/domain signals (e.g. `.cs`, `.xaml`, `.flow`, `servo`) within the first ~100 characters. Use compact `→` redirects for commonly confused sibling skills (e.g. `For XAML→uipath-rpa`). Start with `[PREVIEW]` for unstable skills. Do NOT use verbose `TRIGGER when:` / `DO NOT TRIGGER when:` clauses or nest fields under `metadata:` — both cause Claude Code to drop the field.
 
-Read everything — SKILL.md, every `references/` file, every `assets/` file. Cite file paths and line numbers. Provide exact, actionable fixes. Full rubric: `.claude/rules/skill-review.md`.
+SKILL.md body order: Title → When to Use → Critical Rules (numbered) → Workflow/Quick Start → Reference Navigation → Anti-patterns. Reference files use kebab-case; guides end with `-guide.md`; templates end with `-template.md` or `-template.<ext>`. Skills must be self-contained — no cross-skill references.
+
+Full reference: `.claude/rules/skill-structure.md`.
 
 ---
 > Source: [UiPath/skills](https://github.com/UiPath/skills) — distributed by [TomeVault](https://tomevault.io).
