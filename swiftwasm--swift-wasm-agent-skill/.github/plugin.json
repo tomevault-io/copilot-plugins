@@ -1,0 +1,9 @@
+{
+  "name": "swiftwasm--swift-wasm-agent-skill",
+  "displayName": "Swift-Wasm-Agent-Skill",
+  "description": "A collection of Agent Skills designed to help AI coding agents build and maintain Swift applications targeting WebAssembly.",
+  "version": "1.0.0",
+  "author": "swiftwasm",
+  "homepage": "https://github.com/swiftwasm/Swift-Wasm-Agent-Skill",
+  "skills": []
+}
