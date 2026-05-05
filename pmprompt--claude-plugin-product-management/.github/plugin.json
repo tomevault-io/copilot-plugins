@@ -1,0 +1,9 @@
+{
+  "name": "pmprompt--claude-plugin-product-management",
+  "displayName": "claude-plugin-product-management",
+  "description": "claude plugin for product managers",
+  "version": "1.0.0",
+  "author": "pmprompt",
+  "homepage": "https://github.com/pmprompt/claude-plugin-product-management",
+  "skills": []
+}
