@@ -1,0 +1,9 @@
+{
+  "name": "apresmoi--unpack",
+  "displayName": "unpack",
+  "description": "Turn AI research conversations into structured, buildable projects. Works with Claude Code and Codex.",
+  "version": "1.0.0",
+  "author": "apresmoi",
+  "homepage": "https://github.com/apresmoi/unpack",
+  "skills": []
+}
