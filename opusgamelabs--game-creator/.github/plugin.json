@@ -1,0 +1,9 @@
+{
+  "name": "opusgamelabs--game-creator",
+  "displayName": "game-creator",
+  "description": "Opinionated Claude Plugin to make 2D (Phaser) & 3D (ThreeJS) Games",
+  "version": "1.0.0",
+  "author": "OpusGameLabs",
+  "homepage": "https://github.com/OpusGameLabs/game-creator",
+  "skills": []
+}
