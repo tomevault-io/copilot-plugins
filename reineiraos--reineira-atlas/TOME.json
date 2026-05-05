@@ -4,7 +4,7 @@
   "repo": "reineira-atlas",
   "description": "AI agents for strategy, growth, compliance, and investor readiness, joined with Platform Modules for rapid development",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ReineiraOS/reineira-atlas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T22:41:39Z"
+  "distributed_at": "2026-05-05T21:42:18Z"
 }
