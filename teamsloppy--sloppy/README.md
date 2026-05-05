@@ -7,13 +7,13 @@ Your Agents Team is here!
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy).
+Original source: `.cursor/rules/*.mdc` in [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
