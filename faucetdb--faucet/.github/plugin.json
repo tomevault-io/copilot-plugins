@@ -1,0 +1,9 @@
+{
+  "name": "faucetdb--faucet",
+  "displayName": "faucet",
+  "description": "Faucet is an open-source, single-binary server that turns any SQL database into a secure, governed REST API with role-based access control and native MCP support for applications and AI agents.",
+  "version": "1.0.0",
+  "author": "faucetdb",
+  "homepage": "https://github.com/faucetdb/faucet",
+  "skills": []
+}
