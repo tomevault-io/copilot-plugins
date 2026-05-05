@@ -1,0 +1,44 @@
+{
+  "name": "Ktiseos-Nyx-Trainer",
+  "owner": "Ktiseos-Nyx",
+  "repo": "Ktiseos-Nyx-Trainer",
+  "description": "AI model trainer with SD-Scripts support, as well as standard auto-tagging, step calculator, and real-time training monitoring. Featuring Civitai model downloading, model merging and more. NextJS/React Based UI with Shadcn components.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ktiseos-Nyx/Ktiseos-Nyx-Trainer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T18:16:42Z"
+}
