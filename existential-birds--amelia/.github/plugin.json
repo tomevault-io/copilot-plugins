@@ -1,0 +1,14 @@
+{
+  "name": "existential-birds--amelia",
+  "displayName": "amelia",
+  "description": "AI-powered development orchestrator: Issue \u2192 Architect \u2192 Developer \u2192 Reviewer \u2192 Done. Supports multiple LLM backends and issue trackers",
+  "version": "1.0.0",
+  "author": "existential-birds",
+  "homepage": "https://github.com/existential-birds/amelia",
+  "skills": [
+    {
+      "name": "doc-research-improvements",
+      "description": ""
+    }
+  ]
+}
