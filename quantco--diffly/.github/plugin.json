@@ -1,0 +1,9 @@
+{
+  "name": "quantco--diffly",
+  "displayName": "diffly",
+  "description": "Utility package for comparing polars data frames. ",
+  "version": "1.0.0",
+  "author": "Quantco",
+  "homepage": "https://github.com/Quantco/diffly",
+  "skills": []
+}
