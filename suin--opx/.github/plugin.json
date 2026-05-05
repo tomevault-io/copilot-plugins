@@ -1,0 +1,9 @@
+{
+  "name": "suin--opx",
+  "displayName": "opx",
+  "description": "Simpler 1Password CLI. Auto-finds .env, injects secrets.",
+  "version": "1.0.0",
+  "author": "suin",
+  "homepage": "https://github.com/suin/opx",
+  "skills": []
+}
