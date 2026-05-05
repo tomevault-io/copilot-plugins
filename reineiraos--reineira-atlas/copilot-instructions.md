@@ -1,54 +1,77 @@
-## 04-product-backend
+## 05-product-integrator
 
-> Use for backend development — TypeScript API, endpoints, use cases, repositories, Clean Architecture, Vercel deployment
+> Use when wiring protocol to app, SDK integration, escrow flow, end-to-end connection, ZeroDev smart accounts, cofhejs encryption
 
 
-# Backend Developer
+# Integrator — Protocol to App
 
-> **Read before acting:** `.claude/docs/product/ARCHITECTURE.md`
+> **Read before acting:**
+> - `.claude/docs/product/PROTOCOL_INTEGRATION.md`
+> - `.claude/docs/product/ARCHITECTURE.md`
 
-Build the TypeScript backend for ventures on ReineiraOS using Clean Architecture.
+Wire the three repos together: reineira-code (contracts) → backend → frontend.
 
-## Architecture Layers
+## Integration Stack
 
-| Layer          | Path                  | Rule                                                |
-| -------------- | --------------------- | --------------------------------------------------- |
-| Domain         | `src/domain/`         | Business entities, value objects. No external deps.  |
-| Application    | `src/application/`    | Use cases, DTOs, mappers. Orchestrates domain.       |
-| Infrastructure | `src/infrastructure/` | Repository implementations, external clients.        |
-| Interface      | `src/interface/`      | API handlers. Thin — delegates to application.       |
-| Core           | `src/core/`           | Cross-cutting: logging, errors, config.              |
+```
+User → Frontend (React 19) → Backend (TypeScript) → Protocol (Arbitrum)
+                ↕                    ↕                  ↕
+        ZeroDev SDK          @reineira/sdk      ConfidentialEscrow
+        cofhejs (encrypt)    Business logic     Fhenix CoFHE
+```
 
-## API Conventions
+## SDK Usage
 
-- RESTful: `POST /api/{resource}`, `GET /api/{resource}/:id`
-- Validate all input at the boundary
-- Consistent errors: `{ error: string, details?: object }`
-- Use proper HTTP status codes
-- Structured logger, never console.log
+```typescript
+import { ReineiraSDK } from '@reineira-os/sdk';
 
-## Database
+const sdk = ReineiraSDK.create({
+  network: 'testnet',
+  privateKey: process.env.PRIVATE_KEY,
+});
+await sdk.initialize();
 
-- **DB-agnostic** — repository pattern in infrastructure layer
-- Swap Postgres, DynamoDB, Supabase, Turso, or any other store
-- Never import DB-specific code outside `src/infrastructure/`
+const escrow = await sdk.escrow
+  .build()
+  .amount(sdk.stablecoin(1000))
+  .owner('0xRecipient...')
+  .condition('0xYourResolver...', resolverData)
+  .create();
+```
 
-## Commands
+## Integration Checklist
 
-```bash
-npm run build          # Build TypeScript
-npm run test:unit      # Unit tests
-npm run test:coverage  # Coverage (80% threshold)
-npm run dev            # Local dev server
+### Frontend → Backend
+- [ ] Auth flow (JWT via authStore)
+- [ ] API service classes wrapping endpoints
+- [ ] Error handling with user-friendly messages
+
+### Backend → Protocol
+- [ ] SDK initialization with signer
+- [ ] Escrow creation endpoint
+- [ ] Escrow status polling / webhook
+- [ ] Proof submission endpoint (if zkTLS)
+
+### Frontend → Protocol (direct)
+- [ ] ZeroDev smart account for user operations
+- [ ] cofhejs for FHE encryption (client-side)
+- [ ] Passkey auth flow
+
+### Testing
+
+```
+1. Start backend: pnpm dev:backend
+2. Start frontend: pnpm dev:app
+3. Testnet: Arbitrum Sepolia
+4. Create escrow → trigger condition → verify release
 ```
 
 ## Checklist
 
-- [ ] Code compiles (`npm run build`)
-- [ ] Tests pass (`npm run test:unit`)
-- [ ] Input validation on all endpoints
-- [ ] No secrets in code (use env vars)
-- [ ] Error handling with proper status codes
+- [ ] Full flow works end-to-end on testnet
+- [ ] Error states handled at each boundary
+- [ ] Environment variables documented
+- [ ] No hardcoded addresses
 
 ---
 > Source: [ReineiraOS/reineira-atlas](https://github.com/ReineiraOS/reineira-atlas) — distributed by [TomeVault](https://tomevault.io).
