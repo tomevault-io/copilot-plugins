@@ -1,0 +1,44 @@
+{
+  "name": "agentic-delivery-os",
+  "owner": "juliusz-cwiakalski",
+  "repo": "agentic-delivery-os",
+  "description": "ADOS Turn AI into a repeatable, auditable SDLC: ticket \u2192 spec \u2192 plan \u2192 PR \u2192 quality gates \u2192 release. Agents, templates, skills, scripts, and reference workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/juliusz-cwiakalski/agentic-delivery-os",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T15:01:57Z"
+}
