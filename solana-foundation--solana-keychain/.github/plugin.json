@@ -1,0 +1,26 @@
+{
+  "name": "solana-foundation--solana-keychain",
+  "displayName": "solana",
+  "description": "Framework-agnostic Solana transaction signing with multiple backends. Unified trait interface, async-first design, and feature-gated compilation for minimal dependencies.",
+  "version": "1.0.0",
+  "author": "solana-foundation",
+  "homepage": "https://github.com/solana-foundation/solana-keychain",
+  "skills": [
+    {
+      "name": "create-page",
+      "description": ""
+    },
+    {
+      "name": "llms-txt-generator",
+      "description": ""
+    },
+    {
+      "name": "migrate-page",
+      "description": ""
+    },
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
