@@ -2,9 +2,9 @@
   "name": "frontx",
   "owner": "cyberfabric",
   "repo": "frontx",
-  "description": "",
+  "description": "FrontX - UI development kit for modern SaaS applications",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/cyberfabric",
+  "source_url": "https://github.com/cyberfabric/frontx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T11:45:28Z"
+  "distributed_at": "2026-05-05T17:58:24Z"
 }
