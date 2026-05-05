@@ -1,0 +1,42 @@
+{
+  "name": "stacklok--toolhive-cloud-ui",
+  "displayName": "toolhive",
+  "description": "ToolHive Cloud UI surfaces MCP servers running in your infrastructure, highlighting metadata, tool capabilities, and copy-ready endpoints for fast AI agent integrations.",
+  "version": "1.0.0",
+  "author": "stacklok",
+  "homepage": "https://github.com/stacklok/toolhive-cloud-ui",
+  "skills": [
+    {
+      "name": "deploy-otel",
+      "description": ""
+    },
+    {
+      "name": "deploying-vmcp-locally",
+      "description": ""
+    },
+    {
+      "name": "doc-review",
+      "description": ""
+    },
+    {
+      "name": "deploy-otel",
+      "description": ""
+    },
+    {
+      "name": "deploy-registry-server-with-cnpg",
+      "description": ""
+    },
+    {
+      "name": "deploy-registry-server-with-otel",
+      "description": ""
+    },
+    {
+      "name": "review-rfc",
+      "description": ""
+    },
+    {
+      "name": "write-rfc",
+      "description": ""
+    }
+  ]
+}
