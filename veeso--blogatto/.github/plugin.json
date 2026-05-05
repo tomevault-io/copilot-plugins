@@ -1,0 +1,9 @@
+{
+  "name": "veeso--blogatto",
+  "displayName": "blogatto",
+  "description": "A Gleam framework for building static blogs with Lustre and Markdown. Generates HTML pages, RSS feeds, sitemaps, and robots.txt from markdown files with frontmatter, with multilingual support.",
+  "version": "1.0.0",
+  "author": "veeso",
+  "homepage": "https://github.com/veeso/blogatto",
+  "skills": []
+}
