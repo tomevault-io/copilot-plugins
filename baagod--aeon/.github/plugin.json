@@ -1,0 +1,9 @@
+{
+  "name": "baagod--aeon",
+  "displayName": "aeon",
+  "description": "A Zero-Alloc Go Time Library That Treats Time as \"Container\" Rather Than \"Offsets\"",
+  "version": "1.0.0",
+  "author": "baagod",
+  "homepage": "https://github.com/baagod/aeon",
+  "skills": []
+}
