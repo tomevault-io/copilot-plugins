@@ -1,75 +1,36 @@
-## cai-agent
+## full-plan-autonomous-delivery
 
-> This is the low-token entry point for agent development in this repository.
+> 按开发计划全自动推进直至收尾；每功能后测试、文档、提交
 
-# AGENTS.md
 
-This is the low-token entry point for agent development in this repository.
+# 开发计划驱动：全自动交付循环
 
-## Read Order
+## 计划源（唯一执行顺序）
 
-1. Read `docs/NEXT_ACTIONS.zh-CN.md` first.
-2. Read only the source file, test file, or doc section named by that task.
-3. Use `docs/README.zh-CN.md` only as an index when the task is unclear.
-4. `README.md` / `README.zh-CN.md` are long user manuals (TOC first). Do not read full `README*`, `CHANGELOG*`, or large roadmap docs cover-to-cover unless the task is docs, release, or planning.
+- 以 **`docs/DEVELOPER_TODOS.zh-CN.md`** 为执行面；产品边界以 **`docs/PRODUCT_PLAN.zh-CN.md`**、**`docs/ROADMAP_EXECUTION.zh-CN.md`** §10 为准。
+- backlog 状态变更：**先改 `ROADMAP_EXECUTION.zh-CN.md` §10**，再同步 **`DEVELOPER_TODOS`**、**`docs/canvas/GAP_TRACKER.md`** 等与该 issue 相关的表。
+- 默认不做标记为 **`Explore`** 的项，除非用户明确要求立项。
 
-## Current Source Of Truth
+## 每个功能的标准循环（重复直到计划中无待办或用户喊停）
 
-- Current next work: `docs/NEXT_ACTIONS.zh-CN.md`
-- Developer TODO baseline: `docs/DEVELOPER_TODOS.zh-CN.md`
-- Test TODO baseline: `docs/TEST_TODOS.zh-CN.md`
-- Completed features changelog: `CHANGELOG.md` / `CHANGELOG.zh-CN.md`
-- Full product roadmap: `docs/PRODUCT_ROADMAP_FULL.zh-CN.md`
-- Current product roadmap: `docs/PRODUCT_ROADMAP_CURRENT.zh-CN.md`
-- Full development plan: `docs/DEVELOPMENT_PLAN_FULL.zh-CN.md`
-- Full test plan: `docs/TEST_PLAN_FULL.zh-CN.md`
-- Product gap rationale: `docs/PRODUCT_GAP_ANALYSIS.zh-CN.md`
-- Current capability snapshot: `docs/PRODUCT_PLAN.zh-CN.md`
-- Historical completion evidence: `docs/COMPLETED_TASKS_ARCHIVE.zh-CN.md`
-- Release history only: `CHANGELOG.md` / `CHANGELOG.zh-CN.md`
+1. **取下一项**：从 `DEVELOPER_TODOS` / `ROADMAP` §10 中取下一个 **`Ready`**（或已评审的 **`Design`** 实现项）；一次聚焦一条 issue，避免无关重构。
+2. **实现**：改代码；补 **`cai-agent/tests`** 中与该功能相关的用例；必要时更新 **`scripts/smoke_new_features.py`**。
+3. **测试**（在本机执行，不省略）：
+   - `python -m pytest -q cai-agent/tests`（仓库根，`PYTHONPATH` 含 `cai-agent/src` 若环境需要）
+   - `python scripts/smoke_new_features.py`
+   - 改动面大时：`QA_SKIP_LOG=1 python scripts/run_regression.py`
+4. **文档**（合入前至少覆盖与本功能相关的项，避免重复造新文档源）：
+   - **`CHANGELOG.md`** / **`CHANGELOG.zh-CN.md`**
+   - **`docs/PRODUCT_PLAN.zh-CN.md`**、**`docs/PRODUCT_GAP_ANALYSIS.zh-CN.md`**、**`docs/PARITY_MATRIX.zh-CN.md`**（若适用）
+   - **`docs/IMPLEMENTATION_STATUS.zh-CN.md`**、**`docs/ISSUE_BACKLOG.zh-CN.md`**（若适用）
+   - 若涉及 JSON 契约：**`docs/schema/README.zh-CN.md`**（或对应 schema 说明）
+5. **提交**：`git add` 相关文件 → **`git commit`** 使用完整句子说明「做了什么、为什么」→ 用户已授权远程时 **`git push origin`** 当前工作分支（默认 **`main`**）。
 
-## Project Map
+## 边界与安全
 
-- `cai-agent/src/cai_agent/__main__.py`: CLI command wiring and subcommands.
-- `cai-agent/src/cai_agent/tui.py`: Textual TUI, slash commands, model/status UI.
-- `cai-agent/src/cai_agent/config.py`: TOML/env settings and runtime configuration.
-- `cai-agent/src/cai_agent/context.py`: project context and git summary injection.
-- `cai-agent/src/cai_agent/doctor.py`: diagnostics and repair recommendations.
-- `cai-agent/src/cai_agent/feedback.py`: feedback reports, bundles, sanitization.
-- `cai-agent/src/cai_agent/command_registry.py`: command/template discovery.
-- `cai-agent/tests/`: pytest coverage; prefer narrow tests for narrow changes.
-- `scripts/smoke_new_features.py`: main smoke check for user-visible features.
-
-## Token Discipline
-
-- Prefer `rg` and targeted reads over broad file scans.
-- Read headings or tables first, then the relevant section.
-- Summarize large docs into the working plan instead of copying them into prompts.
-- Keep generated plans short and grounded in file paths plus verification commands.
-- If context grows, compact after a milestone, a failed tool loop, or before switching tasks.
-
-## NEXT_ACTIONS Freshness Rule
-
-`docs/NEXT_ACTIONS.zh-CN.md` must be updated in the same change whenever:
-
-- a task moves between `Now`, `Next`, `Blocked`, `Done`, `OOS`, or `Conditional`;
-- a new priority is added to `DEVELOPER_TODOS.zh-CN.md` or `TEST_TODOS.zh-CN.md`, or a completed feature is written into `CHANGELOG.md` / `CHANGELOG.zh-CN.md`;
-- a change updates product status, release notes, roadmap state, or acceptance evidence;
-- a developer finishes work and leaves a different best next step for the next session.
-
-Keep `NEXT_ACTIONS` short. Move detail to the full backlog docs and link it.
-
-## Completion Protocol
-
-When a task is actually finished, run verification, then run:
-
-```powershell
-uv run --project cai-agent python scripts/finalize_task.py --task-id <ID> --summary "<what changed>" --verification "<command: PASS>"
-```
-
-This removes the task from `NEXT_ACTIONS` current work, appends completion evidence
-to `COMPLETED_TASKS_ARCHIVE.zh-CN.md`, and writes a QA run note. Use `--push`
-only after the working tree contains the intended files and tests passed.
+- 不臆造密钥、不提交秘钥；需要凭据时停下来请用户配置。
+- 不擅自扩大范围（例如未在 roadmap 中的新平台、未评审的 API 形态）。
+- Windows：`PYTHONPATH` 用 `;` 分隔路径；PowerShell 设置环境变量示例：`$env:PYTHONPATH="d:\path\cai-agent\src"`。
 
 ---
 > Source: [caizizhen/Cai_Agent](https://github.com/caizizhen/Cai_Agent) — distributed by [TomeVault](https://tomevault.io).
