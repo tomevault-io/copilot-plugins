@@ -1,0 +1,9 @@
+{
+  "name": "ike-sh--remnashop-pro",
+  "displayName": "RemnaShop-Pro",
+  "description": "\ud83d\ude80 RemnaShop-Pro: A high-performance Telegram bot for Remnawave panel. Features auto-selling, traffic visualization, QR code subscriptions, node monitoring, and automated maintenance. Built with Python",
+  "version": "1.0.0",
+  "author": "ike-sh",
+  "homepage": "https://github.com/ike-sh/RemnaShop-Pro",
+  "skills": []
+}
