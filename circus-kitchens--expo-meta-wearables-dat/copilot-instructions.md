@@ -1,120 +1,171 @@
-## debugging
+## getting-started
 
-> Common issues, Developer Mode, version compatibility, state machine diagnosis
+> SDK setup, Gradle integration, AndroidManifest configuration, and first connection to Meta glasses
 
 
 
-# Debugging (Android)
+# Getting Started with DAT SDK (Android)
 
-Guide for diagnosing common issues with DAT SDK integrations.
+Guide for setting up the Meta Wearables Device Access Toolkit in an Android app.
 
-## Quick diagnosis
+## Prerequisites
 
-```
-Device not connecting?
-|
-+-- Is Developer Mode enabled? -> Enable in Meta AI app settings
-|
-+-- Is device registered? -> Check registrationState
-|
-+-- Is device in range? -> Bluetooth on, glasses powered on
-|
-+-- Did you call initialize()? -> Must call Wearables.initialize(context) first
-|
-+-- Stream not receiving frames? -> Check device connection state
-```
+- Android Studio, minSdk 26+
+- Meta AI companion app installed on test device
+- Ray-Ban Meta glasses or Meta Ray-Ban Display glasses (or use MockDeviceKit for development)
+- Developer Mode enabled in Meta AI app (Settings > Your glasses > Developer Mode)
+- GitHub personal access token with `read:packages` scope
 
-## Developer Mode
+## Step 1: Add the Maven repository
 
-Developer Mode must be enabled for 3P apps to access device features.
-
-### Enabling Developer Mode
-
-1. Open Meta AI app on phone
-2. Go to Settings -> (Your connected glasses)
-3. Find "Developer Mode" toggle
-4. Toggle ON
-5. Device may restart
-
-### Symptoms of Developer Mode disabled
-
-- Registration completes but device never connects
-- StreamSession stuck without streaming
-- Permission requests fail or never appear
-
-### Common gotchas
-
-- Developer Mode toggles **off** after firmware updates — re-enable it
-- Developer Mode is per-device — enable for each glasses pair
-- Some features need additional permissions beyond Developer Mode
-
-## StreamSession state issues
-
-### Expected flow
-
-```
-STARTING -> STARTED -> STREAMING -> STOPPING -> STOPPED -> CLOSED
-```
-
-### Not receiving frames
-
-- Check that `Wearables.initialize(context)` was called
-- Verify device is connected and in range
-- Ensure camera permission was granted
-- Check that the device selector matches an available device
-
-### Unexpected stop
-
-- Device disconnected (out of range, battery died)
-- Channel closed by device
-- Error in frame processing
-
-## Version compatibility
-
-Ensure compatible versions of SDK, Meta AI app, and glasses firmware:
-
-| SDK | Meta AI App | Ray-Ban Meta | Meta Ray-Ban Display |
-|-----|-------------|--------------|----------------------|
-| 0.5.0 | Check [version dependencies](https://wearables.developer.meta.com/docs/version-dependencies) | Check docs | Check docs |
-| 0.4.0 | V254 | V20 | V21 |
-| 0.3.0 | V249 | V20 | — |
-
-## Known issues
-
-| Issue | Workaround |
-|-------|-----------|
-| No internet -> registration fails | Internet required for registration |
-| Streams started with glasses doffed pause when donned | Unpause by tapping side of glasses |
-| `DeviceSession` unreliable with camera stream | Avoid using `DeviceSession` |
-
-## Adding debug logging
+In `settings.gradle.kts`:
 
 ```kotlin
-import android.util.Log
+val localProperties =
+    Properties().apply {
+        val localPropertiesPath = rootDir.toPath() / "local.properties"
+        if (localPropertiesPath.exists()) {
+            load(localPropertiesPath.inputStream())
+        }
+    }
 
-private const val TAG = "DATWearables"
-
-// In your streaming code:
-Log.d(TAG, "Stream state changed to: $state")
-Log.e(TAG, "Stream error", exception)
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven {
+            url = uri("https://maven.pkg.github.com/facebook/meta-wearables-dat-android")
+            credentials {
+                username = ""
+                password = System.getenv("GITHUB_TOKEN") ?: localProperties.getProperty("github_token")
+            }
+        }
+    }
+}
 ```
 
-## Checklist
+## Step 2: Declare dependencies
 
-- [ ] `Wearables.initialize(context)` called before any API use
-- [ ] Developer Mode enabled in Meta AI app
-- [ ] Meta AI app updated to compatible version
-- [ ] Glasses firmware updated to compatible version
-- [ ] Internet connection available for registration
-- [ ] Bluetooth permissions granted (`BLUETOOTH_CONNECT`)
-- [ ] Correct URL scheme in AndroidManifest.xml intent filter
-- [ ] `APPLICATION_ID` meta-data set in manifest
+In `libs.versions.toml`:
 
-## Links
+```toml
+[versions]
+mwdat = "0.5.0"
 
-- [Known issues](https://wearables.developer.meta.com/docs/knownissues)
-- [Version dependencies](https://wearables.developer.meta.com/docs/version-dependencies)
-- [Troubleshooting discussions](https://github.com/facebook/meta-wearables-dat-android/discussions)
+[libraries]
+mwdat-core = { group = "com.meta.wearable", name = "mwdat-core", version.ref = "mwdat" }
+mwdat-camera = { group = "com.meta.wearable", name = "mwdat-camera", version.ref = "mwdat" }
+mwdat-mockdevice = { group = "com.meta.wearable", name = "mwdat-mockdevice", version.ref = "mwdat" }
+```
+
+In `app/build.gradle.kts`:
+
+```kotlin
+dependencies {
+    implementation(libs.mwdat.core)
+    implementation(libs.mwdat.camera)
+    implementation(libs.mwdat.mockdevice)
+}
+```
+
+## Step 3: Configure AndroidManifest.xml
+
+```xml
+<manifest ...>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application ...>
+        <!-- Use 0 in Developer Mode; production apps get ID from Wearables Developer Center -->
+        <meta-data
+            android:name="com.meta.wearable.mwdat.APPLICATION_ID"
+            android:value="0" />
+
+        <activity android:name=".MainActivity" ...>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="myexampleapp" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
+```
+
+Replace `myexampleapp` with your app's URL scheme.
+
+## Step 4: Initialize the SDK
+
+```kotlin
+import com.meta.wearable.dat.core.Wearables
+
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        Wearables.initialize(this)
+    }
+}
+```
+
+Calling SDK APIs before initialization yields `WearablesError.NOT_INITIALIZED`.
+
+## Step 5: Register with Meta AI
+
+```kotlin
+fun startRegistration(context: Context) {
+    Wearables.startRegistration(context)
+}
+```
+
+Observe registration state:
+
+```kotlin
+lifecycleScope.launch {
+    Wearables.registrationState.collect { state ->
+        // Update UI based on registration state
+    }
+}
+```
+
+## Step 6: Start streaming
+
+```kotlin
+import com.meta.wearable.dat.camera.StreamSession
+import com.meta.wearable.dat.camera.types.StreamConfiguration
+import com.meta.wearable.dat.camera.types.VideoQuality
+import com.meta.wearable.dat.core.selectors.AutoDeviceSelector
+
+val session = Wearables.startStreamSession(
+    context = context,
+    deviceSelector = AutoDeviceSelector(),
+    streamConfiguration = StreamConfiguration(
+        videoQuality = VideoQuality.MEDIUM,
+        frameRate = 24,
+    ),
+)
+
+lifecycleScope.launch {
+    session.videoStream.collect { frame ->
+        // Display frame
+    }
+}
+
+lifecycleScope.launch {
+    session.state.collect { state ->
+        // Update UI based on stream state
+    }
+}
+```
+
+## Next steps
+
+- [Camera Streaming](camera-streaming.md) — Resolution, frame rate, photo capture
+- [MockDevice Testing](mockdevice-testing.md) — Test without hardware
+- [Session Lifecycle](session-lifecycle.md) — Handle pause/resume/stop
+- [Permissions](permissions-registration.md) — Camera permission flows
+- [Full documentation](https://wearables.developer.meta.com/docs/develop/)
 
 ---
 > Source: [circus-kitchens/expo-meta-wearables-dat](https://github.com/circus-kitchens/expo-meta-wearables-dat) — distributed by [TomeVault](https://tomevault.io).
