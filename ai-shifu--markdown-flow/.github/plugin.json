@@ -1,9 +1,9 @@
 {
   "name": "ai-shifu--markdown-flow",
   "displayName": "markdown-flow",
-  "description": "markdown-flow",
+  "description": "MarkdownFlow extends standard Markdown with AI to create personalized, interactive documents. Tagline: \"Write Once, Deliver Personally\"",
   "version": "1.0.0",
   "author": "ai-shifu",
-  "homepage": "https://tomevault.io/claim/ai-shifu",
+  "homepage": "https://github.com/ai-shifu/markdown-flow",
   "skills": []
 }
