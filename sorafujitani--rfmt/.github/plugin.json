@@ -1,0 +1,14 @@
+{
+  "name": "sorafujitani--rfmt",
+  "displayName": "rfmt",
+  "description": "A fast Ruby code formatter build in Rust",
+  "version": "1.0.0",
+  "author": "sorafujitani",
+  "homepage": "https://github.com/sorafujitani/rfmt",
+  "skills": [
+    {
+      "name": "deepwiki-ctx",
+      "description": ""
+    }
+  ]
+}
