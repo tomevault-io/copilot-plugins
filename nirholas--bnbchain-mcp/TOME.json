@@ -4,7 +4,7 @@
   "repo": "bnbchain-mcp",
   "description": "Developer tools for AI crypto agents  \ud83d\udee0\ufe0f Build apps with DeFi trading, DEX swaps, smart contract deployment, token operations, staking, bridging, wallet automation, honeypot detection, security analysis, price oracles, market data & protocol analytics on BSC and opBNB",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/bnbchain-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T15:57:56Z"
+  "distributed_at": "2026-05-05T12:00:08Z"
 }
