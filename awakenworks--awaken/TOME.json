@@ -4,7 +4,7 @@
   "repo": "awaken",
   "description": "AI agent runtime for Rust \u2014 type-safe state, multi-protocol serving, plugin extensibility.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/awakenworks/awaken",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T17:07:27Z"
+  "distributed_at": "2026-05-05T05:52:33Z"
 }
