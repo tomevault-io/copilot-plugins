@@ -4,7 +4,7 @@
   "repo": "gastown-gui",
   "description": "Web Graphical User Interface (GUI) for Gas Town multi-agent orchestrator - A companion interface for steveyegge/gastown",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/web3dev1337/gastown-gui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T00:56:59Z"
+  "distributed_at": "2026-05-05T11:43:51Z"
 }
