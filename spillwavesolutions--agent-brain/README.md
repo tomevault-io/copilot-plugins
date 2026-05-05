@@ -7,11 +7,11 @@ Private RAG system with semantic context ingestion to improve source of truth of
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [SpillwaveSolutions/agent-brain](https://github.com/SpillwaveSolutions/agent-brain).
+Original source: `CLAUDE.md` in [SpillwaveSolutions/agent-brain](https://github.com/SpillwaveSolutions/agent-brain).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
