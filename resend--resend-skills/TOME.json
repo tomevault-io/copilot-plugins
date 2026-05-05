@@ -4,7 +4,7 @@
   "repo": "resend-skills",
   "description": "Agent Skills for working with Resend to send and receive emails.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/resend/resend-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T22:25:20Z"
+  "distributed_at": "2026-05-05T09:23:03Z"
 }
