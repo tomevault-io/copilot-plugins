@@ -1,0 +1,9 @@
+{
+  "name": "sunriseapps--imagesorcery-mcp",
+  "displayName": "imagesorcery-mcp",
+  "description": "An MCP server providing tools for image processing operations",
+  "version": "1.0.0",
+  "author": "sunriseapps",
+  "homepage": "https://github.com/sunriseapps/imagesorcery-mcp",
+  "skills": []
+}
