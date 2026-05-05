@@ -1,100 +1,73 @@
-## astro-patterns
+## brand-theming
 
-> Astro 6 component and page patterns for this project
+> Brand and theming architecture for the small-business-starter template
 
 
-# Astro 6 Patterns
+# Brand & Theming
 
-## Image — always use `<Image />` from `astro:assets`
+## Two sources of truth
 
-```astro
----
-import { Image } from 'astro:assets';
-import myPhoto from '../assets/photo.jpg'; // local: auto-optimised
----
+### `src/config/brand.ts` — visual identity
+Colors, fonts, radius, tagline. Edit this file first, then cascade into `theme.css` and `astro.config.mjs`.
 
-<!-- Local image — dimensions inferred automatically -->
-<Image src={myPhoto} alt="Descriptive alt text" loading="lazy" />
+### `src/data/client.ts` — business data
+Name, phone, email, address, socials, domain. Imported by Header, Footer, Contact page, and Head/SEO.
 
-<!-- Remote image — width + height required to prevent CLS -->
-<Image src="https://example.com/photo.jpg" alt="…" width={800} height={600} loading="lazy" />
-
-<!-- Above-the-fold / LCP image — use loading="eager" -->
-<Image src={heroImg} alt="…" width={1200} height={630} loading="eager" decoding="async" />
-```
-
-Never use raw `<img>` tags. Always provide meaningful `alt` text.
+No component should hardcode a business name, phone number, or address.
 
 ---
 
-## Fonts — inject via `<Font />` in the layout only
+## Tailwind v4 tokens: `src/styles/theme.css`
 
-Fonts are declared in `astro.config.mjs` (`fonts` array). Inject them **once** in `src/layouts/Layout.astro`:
+Tokens are defined in the `@theme` block — **never** in a `tailwind.config.js`.
 
-```astro
----
-import { Font } from 'astro:assets';
----
-<Font cssVariable="--font-body"    preload />
-<Font cssVariable="--font-display" preload />
-```
-
-To change fonts: update `astro.config.mjs` AND `src/config/brand.ts` — both must stay in sync.
-
----
-
-## View Transitions — add `<ClientRouter />` in the layout head
-
-Astro 6 renamed `ViewTransitions` to `ClientRouter`.
-
-```astro
----
-import { ClientRouter } from 'astro:transitions';
----
-<ClientRouter />
-```
-
-Use `transition:name` on shared elements for morphing animations:
-
-```astro
-<!-- Page A -->
-<h1 transition:name="hero-heading">Title</h1>
-
-<!-- Page B (same name = morph between pages) -->
-<h1 transition:name="hero-heading">Other Title</h1>
-```
-
-Available directives: `transition:name`, `transition:animate`, `transition:persist`.
-
----
-
-## Layout usage
-
-Every page must use `Layout.astro`. Pass `title` and `description` as props:
-
-```astro
----
-import Layout from '../layouts/Layout.astro';
----
-<Layout title="Page title" description="SEO description">
-  <Header />
-  <main>…</main>
-  <Footer />
-</Layout>
-```
-
----
-
-## Component props — always use an interface
-
-```astro
----
-interface Props {
-  title: string;
-  variant?: 'primary' | 'secondary';
+```css
+@theme {
+  --color-primary:       #1B3A6B;
+  --color-primary-light: #2563EB;
+  --color-accent:        #F97316;
+  --text-h1:             clamp(2.25rem, 5vw, 3.5rem);
+  --spacing-section:     clamp(3.75rem, 7.82vw, 6.25rem);
 }
-const { title, variant = 'primary' } = Astro.props;
+```
+
+Font variables use `@theme inline` because they reference Astro runtime CSS vars:
+
+```css
+@theme inline {
+  --font-heading: var(--font-display), 'Oswald', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    var(--font-body), 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+```
+
 ---
+
+## Changing fonts
+
+1. Update `brand.fonts` in `src/config/brand.ts`
+2. Update the `fonts` array in `astro.config.mjs` — change the `name` values
+3. Update `@theme inline` fallbacks in `theme.css`
+
+The `cssVariable` names (`--font-body`, `--font-display`) must match between `astro.config.mjs` and `theme.css`.
+
+---
+
+## Changing colors
+
+1. Update `brand.colors` in `brand.ts`
+2. Update matching hex values in `theme.css` inside `@theme { … }`
+3. Use canonical Tailwind classes: `bg-primary`, `text-accent`, `text-text-muted`
+
+---
+
+## Do not use inline styles
+
+```astro
+<!-- ❌ Never -->
+<div style="color: #1B3A6B">
+
+<!-- ✅ Always use Tailwind token classes -->
+<div class="text-primary">
 ```
 
 ---
