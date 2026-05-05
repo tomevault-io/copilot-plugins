@@ -1,0 +1,44 @@
+{
+  "name": "paper-tracker",
+  "owner": "RainerSeventeen",
+  "repo": "paper-tracker",
+  "description": "Keyword-based academic paper tracker supporting arXiv & OpenAlex, with LLM-powered translation and multi-format output (JSON/Markdown/HTML). ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RainerSeventeen/paper-tracker",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T09:05:10Z"
+}
