@@ -1,0 +1,38 @@
+{
+  "name": "ethanolivertroy--compliance-trestle-skills",
+  "displayName": "compliance-trestle",
+  "description": "AI instruction skills by ethanolivertroy",
+  "version": "1.0.0",
+  "author": "ethanolivertroy",
+  "homepage": "https://github.com/ethanolivertroy/compliance-trestle-skills",
+  "skills": [
+    {
+      "name": "trestle-authoring-workflow",
+      "description": ""
+    },
+    {
+      "name": "trestle-compliance-pipeline",
+      "description": ""
+    },
+    {
+      "name": "trestle-control-implementation",
+      "description": ""
+    },
+    {
+      "name": "trestle-governance",
+      "description": ""
+    },
+    {
+      "name": "trestle-jinja-templating",
+      "description": ""
+    },
+    {
+      "name": "trestle-oscal-models",
+      "description": ""
+    },
+    {
+      "name": "trestle-validation",
+      "description": ""
+    }
+  ]
+}
