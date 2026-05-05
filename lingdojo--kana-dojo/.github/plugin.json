@@ -1,0 +1,9 @@
+{
+  "name": "lingdojo--kana-dojo",
+  "displayName": "kana-dojo",
+  "description": "Aesthetic, minimalist platform for learning Japanese inspired by Duolingo and Monkeytype, built with Next.js and sponsored by Vercel. Beginner-friendly with plenty of good first issues - all contribut",
+  "version": "1.0.0",
+  "author": "lingdojo",
+  "homepage": "https://github.com/lingdojo/kana-dojo",
+  "skills": []
+}
