@@ -1,0 +1,9 @@
+{
+  "name": "shiguredo--webrtc-rs",
+  "displayName": "webrtc-rs",
+  "description": "Rust bindings for libwebrtc",
+  "version": "1.0.0",
+  "author": "shiguredo",
+  "homepage": "https://github.com/shiguredo/webrtc-rs",
+  "skills": []
+}
