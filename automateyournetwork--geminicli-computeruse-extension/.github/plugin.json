@@ -1,0 +1,9 @@
+{
+  "name": "automateyournetwork--geminicli-computeruse-extension",
+  "displayName": "GeminiCLI_ComputerUse_Extension",
+  "description": "A Google Gemini-CLI extension than enables Gemini Computer Use from the CLI",
+  "version": "1.0.0",
+  "author": "automateyournetwork",
+  "homepage": "https://github.com/automateyournetwork/GeminiCLI_ComputerUse_Extension",
+  "skills": []
+}
