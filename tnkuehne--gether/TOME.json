@@ -4,7 +4,7 @@
   "repo": "gether",
   "description": "A collaborative content editor for markdown or static site generators without lock-in",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tnkuehne/gether",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T11:44:58Z"
+  "distributed_at": "2026-05-05T21:46:46Z"
 }
