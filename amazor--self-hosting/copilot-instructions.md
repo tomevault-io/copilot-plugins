@@ -1,42 +1,27 @@
-## proxmox-automation
+## trash-guides-bazarr
 
-> description: Proxmox scripts, Cloud-Init snippets, and VMID scheme
+> TRaSH Guides — Bazarr (subtitles) reference
 
----
-description: Proxmox scripts, Cloud-Init snippets, and VMID scheme
-globs: proxmox/**/*
-alwaysApply: false
----
 
-# Proxmox — Scripts, Snippets & VMID Scheme
+# TRaSH Guides — Bazarr
 
-Code under `proxmox/` automates template creation and Cloud-Init baseline. Stay consistent with the existing VMID scheme and Cloud-Init patterns.
+> **Agent:** TRaSH Guides are the **gold standard** for Bazarr. Follow them as well as possible. **Open the links** in this rule (or on [trash-guides.info](https://trash-guides.info/)) to get the correct, up-to-date guide when configuring or documenting Bazarr.
 
-## VMID Ranges
+**Source:** [TRaSH Guides – Bazarr](https://trash-guides.info/Bazarr/)
 
-- **9000–9099** — Templates (Cloud-Init base images). Do not run directly.
-- **100–199** — Core infrastructure (e.g. 110 = core).
-- **200–299** — Workload VMs (apps, media, accelerated). Use increments of 10 (210, 220, 230…) to allow insertion without renumbering.
-- **800–899** — Temporary / experiments / throwaway VMs.
+Subtitle automation for Sonarr/Radarr. Paths must match the same root (e.g. `/data`) so Bazarr can see media and *arr libraries.
 
-## Scripts (`proxmox/scripts/`)
+## After install (important)
 
-- Prefer **portable shell:** `#!/bin/sh` unless bash features are required.
-- **Template creation:** Use `qm create`, `qm set`, `qm importdisk`, etc. Accept VM_ID, VM_NAME, STORAGE as arguments or env with sensible defaults.
-- **Idempotency / safety:** Check if VM ID already exists before creating; exit with a clear message. Validate required tools (e.g. `qm`, `wget`).
-- **Cloud-Init:** Attach vendor snippet via `qm set $VM_ID --cicustom "vendor=local:snippets/cloud-init-config.yaml"`. Document that user must add SSH key and "Convert to Template" in the GUI when relevant.
+- Bazarr only searches for subtitles for **episodes and movies added after install** by default. For **existing** shows/movies you must set preferred languages: [After Install Configuration](https://trash-guides.info/Bazarr/) (official Bazarr guide).
 
-## Snippets (`proxmox/snippets/`)
+## Suggested scoring
 
-- **Format:** YAML `#cloud-config` for Cloud-Init.
-- **Contents:** User creation (sudo, docker group, lock_passwd), package_update/upgrade, Docker repo, essential packages (docker-ce, qemu-guest-agent, avahi-daemon, etc.), `write_files` for daemon config (e.g. Docker log rotation), `runcmd` for enable/start services and one-off setup (e.g. swap file).
-- **Naming:** Use descriptive filenames (e.g. `cloud-init-config.yaml`). Reference from scripts as `snippets/<name>.yaml`.
-- **Reproducibility:** Snippets should produce a generic Docker host baseline; no role-specific or VM-specific secrets in shared snippets.
+- [Suggested Scoring](https://trash-guides.info/Bazarr/Bazarr-suggested-scoring/) — Scores that work for the most common languages; with correct scoring, most downloaded subtitles should match the release.
 
-## Conventions
+## Other
 
-- Do not hardcode secrets in scripts or snippets; document where to set SSH keys and any secrets (e.g. Proxmox GUI).
-- Keep template creation and Cloud-Init in sync with the docs (Chapter 1, Chapter 2) so the written journey matches what the scripts do.
+- [Basic-Guide](https://trash-guides.info/Bazarr/) (external, official). [Scripts](https://trash-guides.info/Bazarr/Bazarr-scripts/) — use only for specific needs.
 
 ---
 > Source: [amazor/Self-Hosting](https://github.com/amazor/Self-Hosting) — distributed by [TomeVault](https://tomevault.io).
