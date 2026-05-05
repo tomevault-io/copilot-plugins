@@ -1,0 +1,63 @@
+{
+  "name": "claude-agent-sdk-ruby",
+  "owner": "ya-luotao",
+  "repo": "claude-agent-sdk-ruby",
+  "description": "Unofficial Ruby SDK for Claude Agent",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-agent-ruby",
+      "path": ".claude/skills/claude-agent-ruby",
+      "github_url": "https://github.com/ya-luotao/claude-agent-sdk-ruby/tree/main/.claude/skills/claude-agent-ruby",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk-ruby",
+      "path": "skills/claude-agent-sdk-ruby",
+      "github_url": "https://github.com/ya-luotao/claude-agent-sdk-ruby/tree/main/skills/claude-agent-sdk-ruby",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk-ruby",
+      "path": "claude-agent-sdk-ruby",
+      "github_url": "https://github.com/ya-luotao/claude-agent-sdk-ruby/tree/main/claude-agent-sdk-ruby",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ya-luotao/claude-agent-sdk-ruby",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:45:49Z"
+}
