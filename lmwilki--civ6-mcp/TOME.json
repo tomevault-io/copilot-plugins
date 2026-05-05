@@ -4,7 +4,7 @@
   "repo": "civ6-mcp",
   "description": "An MCP server that lets LLM agents play Civilization VI.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lmwilki/civ6-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T12:59:09Z"
+  "distributed_at": "2026-05-05T00:50:07Z"
 }
