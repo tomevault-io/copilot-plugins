@@ -1,27 +1,64 @@
-## blade-ui-style-enforcement
+## clarification-gate
 
-> Enforce Metronic 8.3.3 UI patterns in core Blade views
+> Require agent to restate goal, list assumptions, and ask ≤3 blocking questions before writing code on any non-trivial implement task. Applied in Agent mode automatically.
 
 
-# Blade UI Style Enforcement (Core)
+# Clarification Gate — Understand Before You Code
 
-- This rule applies to **core** Blade views under `resources/views/`. The **entire project** uses **Metronic 8.3.3** (Bootstrap 5).
-- For **new or migrated core views**, use Metronic patterns from **`public/html/`** (HTML reference) and **`public/assets/`** (assets). In Blade use `asset('assets/...')` for CSS, JS, media (see `ai/ui-components.md` and AGENTS.md Section 10).
-- For **legacy core views** that still use Bootstrap/AdminLTE or other old classes: when touching them, migrate to Metronic or preserve only if the task explicitly excludes migration.
-- Use only existing Metronic/Bootstrap 5 classes; do not invent new classes.
-- Match component structure for cards, forms, tables, widgets, nav, sidebar, and modals to the Metronic HTML in `public/html/`.
+**Applies to:** `implement`, multi-file, and any higher-risk task in Agent mode.
+**Skip for:** `tiny` (single-file, tightly scoped), `explain`, `investigate`, and when the user has already said "just implement," "go ahead," or equivalent.
 
-## Styling Constraints
+## Required output BEFORE the first file edit
 
-- Avoid inline styles in Blade unless explicitly requested.
-- Do not create parallel design systems or UI kits.
-- Core layouts load Metronic from `public/assets/` via `asset('assets/...')`.
+Output all three sections together in a single response, then **stop and wait** for user confirmation:
 
-## Validation Before Finishing
+### 1. Restate
+One or two sentences:
+- What does the user want (fix / feature / refactor)?
+- In which area of the codebase (module, page, flow)?
+- What does success look like?
 
-- Confirm a matching reference exists in `public/html/` for new or changed markup.
-- Confirm Blade markup uses only Metronic/Bootstrap 5 class patterns from `ai/ui-components.md`.
-- Confirm asset paths use `asset('assets/...')` and no invented or legacy theme classes were introduced.
+If ambiguous after reading the message and doing at most 2 targeted searches, state what you inferred and flag it as an assumption.
+
+### 2. Assumptions
+Bullet list of every default choice you are about to rely on. Examples:
+- "Web channel only; Telegram not in scope."
+- "No new DB migration required."
+- "Existing permission `aichat.manage` is used; no new role."
+- "Only the listed controller methods; shared Util is read-only."
+
+State these so the user can catch a wrong one before you write code.
+
+### 3. Blocking questions (max 3)
+Only questions where a wrong answer would change **which files you edit** or the **design direction**. Prefer:
+- Multiple-choice: `A: …  B: …  C: …`
+- Yes/No with default stated: `"Should X apply? (default: Yes)"`
+
+**Do NOT ask about things grep / semantic search can resolve** (e.g. "which controller handles this route?"). Look those up yourself.
+**Do NOT ask more than 3 questions.** Pick the blocking ones only.
+
+---
+
+## After confirmation
+
+Once the user says "looks right," "go ahead," answers the questions, or gives any green-light signal — proceed immediately without repeating the gate.
+
+---
+
+## Anti-patterns (violations of this rule)
+
+- Starting to write code without outputting the gate on a multi-file task.
+- Asking more than 3 questions at once.
+- Asking questions answerable from the codebase.
+- Skipping the gate and silently burying assumptions in code comments.
+- Running the gate on `tiny` single-file fixes or pure explanation turns.
+
+---
+
+## Reference
+
+Full policy: `AGENTS.md §0.2b`
+Fast summary: `AGENTS-FAST.md §3.1`
 
 ---
 > Source: [kunwaso/upos612-metro](https://github.com/kunwaso/upos612-metro) — distributed by [TomeVault](https://tomevault.io).
