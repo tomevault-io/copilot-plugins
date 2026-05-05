@@ -1,0 +1,14 @@
+{
+  "name": "runpod--flash-examples",
+  "displayName": "flash-examples",
+  "description": "flash-examples",
+  "version": "1.0.0",
+  "author": "runpod",
+  "homepage": "https://github.com/runpod/flash-examples",
+  "skills": [
+    {
+      "name": "flash",
+      "description": ""
+    }
+  ]
+}
