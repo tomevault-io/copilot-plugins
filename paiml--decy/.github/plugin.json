@@ -1,0 +1,9 @@
+{
+  "name": "paiml--decy",
+  "displayName": "decy",
+  "description": "Transpile C to Rust",
+  "version": "1.0.0",
+  "author": "paiml",
+  "homepage": "https://github.com/paiml/decy",
+  "skills": []
+}
