@@ -7,11 +7,11 @@ Secure, embedded, API-first tunneling with public URLs, acting as a lightweight 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ferro-labs/ferrotunnel](https://github.com/ferro-labs/ferrotunnel).
+Original source: `CLAUDE.md` in [ferro-labs/ferrotunnel](https://github.com/ferro-labs/ferrotunnel).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
