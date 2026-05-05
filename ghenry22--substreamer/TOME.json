@@ -4,7 +4,7 @@
   "repo": "substreamer",
   "description": "Substreamer - Subsonic Music Streamer",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ghenry22/substreamer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T04:06:10Z"
+  "distributed_at": "2026-05-05T08:53:02Z"
 }
