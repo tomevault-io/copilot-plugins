@@ -1,0 +1,9 @@
+{
+  "name": "acm-vit--conclave",
+  "displayName": "conclave",
+  "description": "Real-time meetings platform with web/mobile clients, SFU, and an apps SDK",
+  "version": "1.0.0",
+  "author": "ACM-VIT",
+  "homepage": "https://github.com/ACM-VIT/conclave",
+  "skills": []
+}
