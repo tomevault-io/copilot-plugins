@@ -7,13 +7,13 @@ This repository contains standalone external agent binaries that extend the Enti
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [entireio/external-agents](https://github.com/entireio/external-agents).
+Original source: `.cursor/rules/*.mdc` in [entireio/external-agents](https://github.com/entireio/external-agents).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
