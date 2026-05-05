@@ -1,0 +1,9 @@
+{
+  "name": "jianyu-li--thermostat-proxy",
+  "displayName": "thermostat-proxy",
+  "description": "Thermostat Proxy mirrors a physical Home Assistant climate device but lets you choose any remote temperature sensor as its \u201ccurrent\u201d reading. Set targets on the proxy, and it offsets the real thermost",
+  "version": "1.0.0",
+  "author": "jianyu-li",
+  "homepage": "https://github.com/jianyu-li/thermostat-proxy",
+  "skills": []
+}
