@@ -4,7 +4,7 @@
   "repo": "bagel",
   "description": "bagel, a CLI that inventories security-relevant metadata on developer workstations",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/boostsecurityio/bagel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T17:49:13Z"
+  "distributed_at": "2026-05-05T06:05:46Z"
 }
