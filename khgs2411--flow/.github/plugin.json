@@ -1,0 +1,38 @@
+{
+  "name": "khgs2411--flow",
+  "displayName": "flow",
+  "description": "Iterative development framework combining Domain-Driven Design with Agile philosophy",
+  "version": "1.0.0",
+  "author": "khgs2411",
+  "homepage": "https://github.com/khgs2411/flow",
+  "skills": [
+    {
+      "name": "flow-architect",
+      "description": ""
+    },
+    {
+      "name": "flow-builder",
+      "description": ""
+    },
+    {
+      "name": "flow-designer",
+      "description": ""
+    },
+    {
+      "name": "flow-documenter",
+      "description": ""
+    },
+    {
+      "name": "flow-initializer",
+      "description": ""
+    },
+    {
+      "name": "flow-navigator",
+      "description": ""
+    },
+    {
+      "name": "flow-planner",
+      "description": ""
+    }
+  ]
+}
