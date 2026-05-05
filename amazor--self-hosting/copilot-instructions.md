@@ -1,23 +1,30 @@
-## trash-guides-prowlarr
+## trash-guides-qbittorrent
 
-> TRaSH Guides — Prowlarr (indexers) reference
+> TRaSH Guides — qBittorrent paths and categories
 
 
-# TRaSH Guides — Prowlarr
+# TRaSH Guides — qBittorrent
 
-> **Agent:** TRaSH Guides are the **gold standard** for Prowlarr. Follow them as well as possible. **Open the links** in this rule (or on [trash-guides.info](https://trash-guides.info/)) to get the correct, up-to-date guide when configuring or documenting indexers or Prowlarr.
+> **Agent:** TRaSH Guides are the **gold standard** for qBittorrent in the media stack. Follow them as well as possible. **Open the links** in this rule (or on [trash-guides.info](https://trash-guides.info/)) to get the correct, up-to-date guide when configuring or documenting qBittorrent paths or categories.
 
-**Source:** [TRaSH Guides – Prowlarr](https://trash-guides.info/Prowlarr/)
+**Source:** [TRaSH Guides – qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/)
 
-Centralized indexer management for Radarr, Sonarr, Lidarr, etc.
+Paths must support [hardlinks and instant moves](https://trash-guides.info/File-and-Folder-Structure/Hardlinks-and-Instant-Moves/). **Pick one path layout for all apps** (e.g. `/data`); use the same root in qBittorrent and every *arr.
 
-## Key guides (follow in TRaSH)
+## Paths
 
-- **Proxy for certain indexers** — [How to set up proxy](https://trash-guides.info/Prowlarr/How-to-set-up-proxy-for-certain-indexers/) — Use VPN/proxy only for indexers that need it, not app-wide.
-- **FlareSolverr** — [Setup FlareSolverr](https://trash-guides.info/Prowlarr/How-to-set-up-flaresolverr/) for indexers behind Cloudflare or DDoS-GUARD.
-- **Indexers with limited API** — [Limited API setup](https://trash-guides.info/Prowlarr/How-to-set-up-indexers-with-limited-api/) — Avoid hitting API limits when using unpaid indexers as backup (trick to spread usage).
+- **Options → Downloads** — Set default save path (e.g. `/data/torrents`). Same path as in File and Folder Structure so completed downloads and media share one filesystem for hardlinks.
 
-When adding Prowlarr to `docker_compose/media/`: add FlareSolverr service if any indexers require it; document proxy only for indexers that need it.
+## Categories
+
+- Categories let Starr apps (Sonarr, Radarr) track downloads by category instead of watching every torrent.
+- **Add category:** Left panel → right-click or “Add category”. Set **Save path** to a subfolder name only (e.g. `tv`, `movies`) — it is relative to the default save path. Set **Category** to the same or a recognizable name (e.g. `sonarr`, `radarr`). You do **not** enter the full path under Save path; it uses **Options → Saving Management → Default Save Path**.
+- **Critical:** Set **Default Torrent Management Mode** to **Automatic**. Otherwise downloads can end up in `/data/torrents/` instead of `/data/torrents/tv` or `/data/torrents/movies`, breaking category-based paths and *arr tracking.
+
+## Other
+
+- **Port forwarding** — [Port forwarding](https://trash-guides.info/Downloaders/qBittorrent/Port-forwarding/) for VPN.
+- **Basic-Setup** — [Basic-Setup](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/) for common settings.
 
 ---
 > Source: [amazor/Self-Hosting](https://github.com/amazor/Self-Hosting) — distributed by [TomeVault](https://tomevault.io).
