@@ -1,0 +1,9 @@
+{
+  "name": "psychquant--che-ical-mcp",
+  "displayName": "che-ical-mcp",
+  "description": "macOS Calendar & Reminders MCP server with 28 tools - Native Swift EventKit integration for Claude AI. Attendee/organizer info, per-event timezone, undo/redo, --cli mode, --setup TCC, batch ops. Suppo",
+  "version": "1.0.0",
+  "author": "PsychQuant",
+  "homepage": "https://github.com/PsychQuant/che-ical-mcp",
+  "skills": []
+}
