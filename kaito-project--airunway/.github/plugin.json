@@ -1,0 +1,9 @@
+{
+  "name": "kaito-project--airunway",
+  "displayName": "airunway",
+  "description": "\u2708\ufe0f Kubernetes-native platform for deploying and managing AI inference across multiple providers.",
+  "version": "1.0.0",
+  "author": "kaito-project",
+  "homepage": "https://github.com/kaito-project/airunway",
+  "skills": []
+}
