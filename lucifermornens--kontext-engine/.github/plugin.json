@@ -1,0 +1,9 @@
+{
+  "name": "lucifermornens--kontext-engine",
+  "displayName": "kontext-engine",
+  "description": "Stop feeding your AI agent the entire codebase. Give it ctx instead. FIrst context engine for AI agents that actually works.",
+  "version": "1.0.0",
+  "author": "LuciferMornens",
+  "homepage": "https://github.com/LuciferMornens/kontext-engine",
+  "skills": []
+}
