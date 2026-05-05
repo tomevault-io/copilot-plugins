@@ -1,0 +1,203 @@
+## pywiim
+
+> **ALWAYS check this rules file FIRST before doing anything.** This file contains critical information about:
+
+# Cursor Rules for pywiim
+
+## FIRST: Read This File
+
+**ALWAYS check this rules file FIRST before doing anything.** This file contains critical information about:
+- Project structure (where files go)
+- Environment setup (how to run code)
+- Testing procedures (how to test)
+- Design patterns (how to implement)
+
+## MANDATORY: Before Implementing ANY Fix or Feature
+
+**STOP. Do NOT propose solutions until you complete this checklist:**
+
+1. ☐ **Read design docs FIRST** - Before suggesting ANY implementation approach:
+   - `docs/design/API_DESIGN_PATTERNS.md` - How we handle device variations
+   - `docs/design/DESIGN_PRINCIPLES.md` - Our architectural patterns
+   - `docs/design/ARCHITECTURE.md` - System structure and data flow
+   - `docs/design/adr/` - Architecture Decision Records (decisions we have committed to; check before changing behavior that might be covered)
+
+2. ☐ **Find similar patterns** - Search the codebase:
+   - How does existing code handle similar device variations?
+   - Is there a capability/profile pattern already handling this type of problem?
+   - What existing pattern should this follow?
+
+3. ☐ **Propose approach** - Discuss with user BEFORE coding:
+   - Explain which existing pattern applies
+   - Show how the fix follows established architecture
+   - Get user approval before implementation
+
+4. ☐ **Implement** - Only after steps 1-3 are complete
+
+**WHY THIS MATTERS:** Proposing solutions without reading design docs leads to:
+- Suggesting patterns that violate our architecture
+- Creating inconsistencies that need to be refactored later
+- Wasting time discussing approaches that don't fit
+
+## Core Principles
+
+1. **Check the rules file first** - Read this file before implementing, testing, or creating anything.
+
+2. **Follow the design guide** - Always check `docs/design/` for design patterns and API standards before implementing anything.
+
+3. **Follow the API standard** - Implement according to the documented API patterns, not made-up solutions.
+
+4. **Do as asked** - Implement exactly what the user requests, nothing more, nothing less.
+
+5. **Ask if uncertain** - If you don't know what to do or are uncertain about the approach, ASK THE USER before implementing anything.
+
+6. **No made-up solutions** - Do not invent complex logic or "solutions" that aren't explicitly requested. Stick to the design guide and API standards.
+
+7. **Stop and ask when things get complicated** - If something isn't working, doesn't make sense, or seems to require increasingly complex workarounds:
+   - **STOP** - Do not continue hacking together fixes
+   - **Do NOT create new files** as workarounds or "extra documentation"
+   - **Do NOT pile on hack after hack** to make broken code work
+   - **Instead**: Step back, review the design patterns, identify what's actually wrong, and ASK THE USER how to proceed
+   - If you find yourself writing convoluted logic or creating workaround files, that's a signal to stop and ask
+   - A simple question is always better than a complex hack
+   - **First check**: "How does similar working code handle this?" (See "Before Adding Special Cases" section)
+
+## When Implementing
+
+- Check the design guide first (`docs/design/API_DESIGN_PATTERNS.md` and related files)
+- Follow existing patterns in the codebase
+- If the design guide says "do X", do X - don't add extra complexity
+- If you're not sure, ask the user
+- **Significant decisions** (user-facing contracts, naming stability, compatibility promises): record in an ADR in `docs/design/adr/`; see `docs/design/adr/README.md` for format and when to write one
+
+## Testing Requirements
+
+**CRITICAL: New code MUST have tests.**
+
+1. **All new functionality requires tests**
+   - New methods/functions → Add unit tests in `tests/unit/`
+   - Bug fixes → Add regression test that would have caught the bug
+   - API format changes → Add integration test that verifies actual API behavior
+   - New normalization logic → Add parameterized tests covering all variations
+
+2. **Unit tests verify logic, not just that code runs**
+   - Mock external dependencies, but verify the VALUES passed to mocks
+   - Test edge cases and error paths
+   - Example: If testing `set_source()`, verify the EXACT string sent to the API
+
+3. **Integration tests verify real-world behavior**
+   - Tests in `tests/integration/` run against real devices
+   - Use `WIIM_TEST_DEVICE=<ip>` to enable
+   - Critical for API format verification (mocks can't catch wrong formats)
+
+4. **Run tests before considering work complete**
+   - `make test` - Run all unit tests
+   - `WIIM_TEST_DEVICE=<ip> pytest tests/integration/` - Run integration tests
+   - Fix any test failures before committing
+
+5. **Test coverage for bug fixes**
+   - Ask: "What test would have caught this bug?"
+   - Write that test FIRST, verify it fails, then fix the bug
+   - This prevents the same bug from recurring
+
+## Before Adding Special Cases or Fixes
+
+**CRITICAL: Always check existing patterns first before adding special cases or fixes.**
+
+1. **Question the problem statement** - Don't assume the problem description is correct
+   - If an issue says "X doesn't work", verify: "Is X using the wrong method/endpoint?"
+   - Check: "Are we using the same pattern that works elsewhere?"
+   - Example: If masters use capability-driven endpoints, slaves should too
+
+2. **Check how similar code paths handle it** - Look at existing working code
+   - Find similar functionality that works correctly
+   - Use the same pattern - don't invent a different approach
+   - Example: If masters use `get_player_status()` (capability-driven), check if slaves should too
+
+3. **Use capabilities consistently** - Capabilities are determined at device init
+   - If one code path uses capability-configured endpoints, similar paths should too
+   - Don't hard-code endpoints when capabilities already provide the right one
+   - Don't add device-specific checks - capabilities handle device differences
+
+4. **Don't add flags or special cases without checking** - Ask first:
+   - "Does the existing pattern already handle this?"
+   - "Why is this code path different from the working one?"
+   - "Can we use the same capability-driven approach?"
+
+5. **If you find yourself adding**:
+   - Device model checks → STOP: Use capabilities instead
+   - Endpoint string comparisons → STOP: Capabilities already provide the endpoint
+   - Special flags for device types → STOP: Check if capabilities already handle it
+   - Different logic for similar code paths → STOP: Make them consistent first
+
+## Role Detection
+
+- Follow the design guide: `docs/design/API_DESIGN_PATTERNS.md` section "Group Role Logic"
+- Use `get_device_group_info()` which follows: getStatus → check slave → getSlaveList
+- Do not add stability tracking, debouncing, or other complex logic unless explicitly requested
+
+## Environment Setup
+
+- **ALWAYS activate the Python virtual environment first**: `source .venv/bin/activate`
+- The project uses `.venv` for Python dependencies
+- When running Python scripts, use the venv: `source .venv/bin/activate && python3 script.py`
+
+## Network/API Testing
+
+- **HTTPS is the default** - devices use HTTPS, not HTTP
+- When using curl, either:
+  - Use `--insecure` or `-k` to disable certificate checking: `curl -k https://...`
+  - Or use proper certificate handling
+- When testing with Python/pywiim, the library handles HTTPS automatically
+- Remember: We've tested this many times - use HTTPS by default
+
+## Testing Against Real Devices
+
+- **If unsure about device or API behavior, ask to test against real-world devices**
+  - Don't assume behavior based on documentation or code alone
+  - Real devices may behave differently than expected
+  - When uncertain about how a device or API endpoint behaves, request testing against actual hardware
+  - This ensures accurate implementation and prevents incorrect assumptions
+
+## File Organization
+
+- **Test files go in `tests/` directory** - Never put test files in the root directory
+- **Scripts go in `scripts/` directory** - Check existing structure before creating files
+- **Check project structure** - Look at existing files to understand where things belong
+- **Don't create files in root** - Unless explicitly requested, files belong in appropriate subdirectories
+
+## Player vs Client Methods
+
+- **Player code MUST use player-level methods, not client methods directly**
+  - Player code (in `pywiim/player/`) should call `player.get_audio_output_status()`, not `player.client.get_audio_output_status()`
+  - Player-level methods automatically update the player's internal cache
+  - Client methods are low-level and do NOT update the cache
+  - **Exception**: The player method implementation itself (e.g., `player.audio.get_audio_output_status()`) may call client methods as part of its implementation
+  - **Exception**: Scripts, CLI tools, and test code may call client methods directly when appropriate
+  - **Why**: This ensures the player's cached state stays synchronized and properties work correctly
+
+## Date Format Rules
+
+- **CRITICAL: Always Use Actual Dates**
+  - When updating CHANGELOG.md or any date fields, **ALWAYS use the actual current date** in YYYY-MM-DD format
+  - **NEVER use placeholder dates** like "2025-01-XX", "2025-XX-XX", "2025-XX-13", or any date with "XX" or placeholders
+  - **How to get the correct date:** Use `date +%Y-%m-%d` and use the EXACT output from this command
+  - **Check existing format:** Look at previous changelog entries - format is always: `## [VERSION] - YYYY-MM-DD` (e.g., `## [1.0.7] - 2025-11-13`)
+  - **If unsure, check the system date first:** Run `date +%Y-%m-%d`
+  - **Why this matters:** Placeholder dates look unprofessional, require manual fixes, break automation, and confuse users reading the changelog
+  - **Remember: NO PLACEHOLDERS. EVER. ALWAYS USE THE ACTUAL DATE.**
+
+## Release Process Rules
+
+- **CRITICAL: Version in pyproject.toml MUST match release VERSION**
+  - When running `make release VERSION=X.Y.Z`, the version in `pyproject.toml` must be X.Y.Z
+  - The Makefile now automatically updates `pyproject.toml` if it doesn't match
+  - Version is verified again before tagging to prevent PyPI publish failures
+  - GitHub Actions workflow reads version from `pyproject.toml`, NOT from the tag name
+  - If versions don't match, PyPI will reject with "File already exists" error
+  - **Always use `make release VERSION=X.Y.Z`** - don't manually tag releases
+  - See `docs/RELEASE_PROCESS.md` for complete release workflow
+
+---
+> Source: [mjcumming/pywiim](https://github.com/mjcumming/pywiim) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
