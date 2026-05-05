@@ -1,304 +1,215 @@
-## api-routes
+## architecture
 
-> Padrões e convenções para API Routes do Next.js
+> Arquitetura e padrões arquiteturais do projeto
 
 
-# Padrões de API Routes
+# Arquitetura do Projeto
 
-## Estrutura
+## Padrão Arquitetural
 
-### Localização
-- `src/app/api/[route]/route.ts` - Rotas principais
-- `src/app/api/[route]/[id]/route.ts` - Rotas com parâmetros
+**Next.js App Router** com separação clara entre:
+- **Server Components** (padrão) - Data fetching, lógica de servidor
+- **Client Components** (apenas quando necessário) - Interatividade, hooks, browser APIs
 
-### Métodos HTTP Suportados
-- `GET` - Buscar dados
-- `POST` - Criar recursos ou ações
-- `PUT` / `PATCH` - Atualizar recursos
-- `DELETE` - Deletar recursos
+## Estrutura de Rotas
 
-## Autenticação
+### Rotas Públicas
+- `/` - Landing page (redireciona autenticados para `/dashboard`)
+- `/sign-in` - Login
+- `/sign-up` - Registro
+- `/api/webhooks/*` - Webhooks externos
 
-### Padrão com Clerk
+### Rotas Protegidas (Grupo `(app)`)
+Todas as rotas dentro de `src/app/(app)/` requerem autenticação:
+- `/dashboard` - Chat com IA
+- `/library` - Biblioteca de conteúdo
+- `/calendar` - Calendário de posts
+- `/sources` - Fontes de conteúdo
+- `/settings` - Configurações
 
-```typescript
-import { auth } from "@clerk/nextjs/server"
-import { NextResponse } from "next/server"
+**Proteção**: `src/app/(app)/layout.tsx` verifica `auth()` e redireciona não autenticados.
 
-export async function GET(request: Request) {
-  const { userId } = await auth()
-  
-  if (!userId) {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    )
-  }
-  
-  // Lógica da rota...
-}
-```
+## Middleware (Proteção de Rotas)
 
-### Autenticação por Secret (Workers)
+**Arquivo**: `src/proxy.ts`
 
 ```typescript
-const WORKER_SECRET = process.env.WORKER_SECRET
-
-export async function POST(request: Request) {
-  const authHeader = request.headers.get("authorization")
-  const secret = authHeader?.replace("Bearer ", "")
-  
-  if (secret !== WORKER_SECRET) {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    )
-  }
-  
-  // Lógica da rota...
-}
+// Usa clerkMiddleware() para proteger rotas
+// Redireciona usuários autenticados de "/" para "/dashboard"
+// Protege todas as rotas em (app)/
 ```
 
-## Respostas
+## Banco de Dados
 
-### Padrão de Resposta
+### Schema (8 Tabelas)
+
+1. **users** - Sincronizado com Clerk (id = Clerk user ID)
+2. **chats** - Threads de conversa com IA
+3. **messages** - Mensagens individuais (user/assistant/system)
+4. **library_items** - Biblioteca de conteúdo (text, image, carousel, etc)
+5. **documents** - Base de conhecimento (upload de arquivos)
+6. **sources** - Fontes de conteúdo para scraping
+7. **scheduled_posts** - Fila de publicação agendada
+8. **jobs** - Background jobs (geração de conteúdo, scraping, etc)
+
+### Conexão
+- **Neon Serverless** via `@neondatabase/serverless`
+- **Drizzle ORM** com adapter `drizzle-orm/neon-http`
+- Schema em `src/db/schema.ts`
+- Cliente em `src/db/index.ts`
+
+### Migrations
+- Gerar: `npm run db:generate`
+- Executar: `npm run db:migrate`
+- Studio: `npm run db:studio`
+
+## Sistema de Filas
+
+### Arquitetura Serverless
+- **Upstash Redis** (HTTP REST API) - Sem worker process contínuo
+- **Fila**: Lista Redis (`jobs:pending`)
+- **Workers**: API Routes (`/api/workers`) - Chamadas sob demanda
+- **Persistência**: Tabela `jobs` no PostgreSQL
+
+### Fluxo de Processamento
+
+```
+1. Client → POST /api/jobs
+   ↓
+2. Cria job no DB (status: pending)
+   ↓
+3. Enfileira no Redis (enqueueJob)
+   ↓
+4. Agendador/Cron → POST /api/workers
+   ↓
+5. Worker desenfileira (dequeueJob)
+   ↓
+6. Processa job (handlers por tipo)
+   ↓
+7. Atualiza DB (status: completed/failed)
+   ↓
+8. Remove da fila de processamento
+```
+
+### Tipos de Jobs
 
 ```typescript
-import { NextResponse } from "next/server"
-
-// Sucesso
-return NextResponse.json({
-  data: result,
-  message: "Success"
-})
-
-// Erro
-return NextResponse.json(
-  { error: "Error message" },
-  { status: 400 }
-)
+type JobType =
+  | "ai_text_generation"
+  | "ai_image_generation"
+  | "carousel_creation"
+  | "scheduled_publish"
+  | "web_scraping"
 ```
 
-### Status Codes
+### Estrutura de Arquivos
 
-- `200` - Sucesso (GET, PUT, PATCH)
-- `201` - Criado com sucesso (POST)
-- `400` - Bad Request (validação, dados inválidos)
-- `401` - Unauthorized (não autenticado)
-- `403` - Forbidden (sem permissão)
-- `404` - Not Found (recurso não existe)
-- `500` - Internal Server Error (erro do servidor)
+```
+src/lib/queue/
+├── types.ts      # JobType, JobStatus, JobPayload
+├── client.ts     # Redis client (enqueue, dequeue)
+└── jobs.ts       # CRUD de jobs (createJob, updateJobStatus)
+```
 
-## Validação de Input
+## Autenticação (Clerk)
 
-### Padrão
+### Configuração
+- **Provider**: `<ClerkProvider>` em `src/app/layout.tsx`
+- **Middleware**: `clerkMiddleware()` em `src/proxy.ts`
+- **Proteção**: `auth()` de `@clerk/nextjs/server` em layouts
 
+### Sincronização de Usuários
+- **Webhook**: `/api/webhooks/clerk`
+- Eventos: `user.created`, `user.updated`, `user.deleted`
+- Sincroniza com tabela `users` no banco
+
+### Componentes de Auth
+- `src/components/auth/sign-in-card.tsx`
+- `src/components/auth/sign-up-card.tsx`
+- `src/components/auth/user-menu.tsx`
+- `src/components/auth/oauth-buttons.tsx`
+
+## Componentes
+
+### Layout Principal
+- **AppLayout** (`src/components/app-layout.tsx`):
+  - Header fixo com glassmorphism
+  - Navbar animada (tubelight)
+  - Logo com hover effects
+  - UserMenu no canto direito
+
+### Componentes UI
+- Base: **shadcn/ui** (New York style)
+- Localização: `src/components/ui/`
+- Padrão: Server Components quando possível
+
+### Componentes de Feature
+- `src/components/dashboard/animated-ai-chat.tsx` - Chat com IA
+- `src/components/chat/model-selector.tsx` - Seletor de modelos
+
+## State Management
+
+### Zustand Stores
+- Localização: `src/stores/` (futuro)
+- Uso: Estado global do cliente (não server state)
+
+### Server State
+- **Data fetching**: Server Components com `async/await`
+- **Mutations**: Server Actions (futuro)
+- **Cache**: Next.js cache + revalidation
+
+## API Routes
+
+### Estrutura
+```
+src/app/api/
+├── jobs/
+│   ├── route.ts          # POST (criar), GET (listar)
+│   └── [id]/route.ts     # GET (detalhes), DELETE
+├── workers/
+│   └── route.ts          # POST (processar job)
+└── webhooks/
+    └── clerk/route.ts    # POST (webhook Clerk)
+```
+
+### Padrões
+- Autenticação: `auth()` de Clerk
+- Respostas: `NextResponse.json()`
+- Erros: Status codes apropriados (400, 401, 404, 500)
+
+## Modelos de IA (OpenRouter)
+
+### Configuração
+- **Arquivo**: `src/lib/models.ts`
+- **Provider**: OpenRouter (multi-modelo)
+- **Tipos**: Text e Image
+
+### Modelos Disponíveis
+- **Texto**: GPT 5.2, Claude Sonnet 4.5, Gemini 3, Grok 4.1
+- **Imagem**: GPT 5 Image, Flux 2 Pro, Riverflow V2
+
+### Uso
 ```typescript
-export async function POST(request: Request) {
-  try {
-    const body = await request.json()
-    const { type, payload } = body as {
-      type: JobType
-      payload: JobPayload
-    }
-    
-    // Validação
-    if (!type || !payload) {
-      return NextResponse.json(
-        { error: "Missing required fields: type, payload" },
-        { status: 400 }
-      )
-    }
-    
-    // Processar...
-  } catch (error) {
-    console.error("Error:", error)
-    return NextResponse.json(
-      { error: "Failed to process request" },
-      { status: 500 }
-    )
-  }
-}
+import { TEXT_MODELS, IMAGE_MODELS, getModelById } from "@/lib/models"
 ```
 
-### Query Parameters
+## Padrões de Código
 
-```typescript
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const limit = parseInt(searchParams.get("limit") || "20", 10)
-  const offset = parseInt(searchParams.get("offset") || "0", 10)
-  
-  // Validar
-  if (limit < 1 || limit > 100) {
-    return NextResponse.json(
-      { error: "Limit must be between 1 and 100" },
-      { status: 400 }
-    )
-  }
-  
-  // Processar...
-}
-```
+### Server vs Client Components
+- **Padrão**: Server Components
+- **"use client"**: Apenas quando necessário (hooks, eventos, browser APIs)
+- **Isolar**: Criar componentes clientes pequenos e específicos
 
-## Rotas Existentes
+### TypeScript
+- **Strict mode**: Habilitado
+- **Tipos**: Sempre tipar props, retornos, parâmetros
+- **Evitar**: `any` - usar `unknown` se necessário
 
-### `/api/jobs`
-
-#### POST - Criar Job
-```typescript
-// Body: { type, payload, priority?, scheduledFor? }
-// Response: { jobId, status, message }
-```
-
-#### GET - Listar Jobs
-```typescript
-// Query: ?limit=20&offset=0
-// Response: { jobs: [], pagination: { limit, offset } }
-```
-
-### `/api/jobs/[id]`
-
-#### GET - Detalhes do Job
-```typescript
-// Response: { job: {...} }
-```
-
-#### DELETE - Cancelar Job
-```typescript
-// Response: { message: "Job cancelled" }
-```
-
-### `/api/workers`
-
-#### POST - Processar Job
-```typescript
-// Auth: Bearer token (WORKER_SECRET) ou Clerk auth
-// Response: { processed: true, jobId, result? }
-```
-
-### `/api/webhooks/clerk`
-
-#### POST - Webhook do Clerk
-```typescript
-// Headers: svix-signature, svix-timestamp, svix-id
-// Body: Event payload do Clerk
-// Events: user.created, user.updated, user.deleted
-```
-
-## Error Handling
-
-### Padrão de Try-Catch
-
-```typescript
-export async function POST(request: Request) {
-  try {
-    // Lógica principal
-    const result = await processRequest()
-    return NextResponse.json({ success: true, data: result })
-  } catch (error) {
-    console.error("Error in POST /api/route:", error)
-    
-    // Erro conhecido
-    if (error instanceof ValidationError) {
-      return NextResponse.json(
-        { error: error.message },
-        { status: 400 }
-      )
-    }
-    
-    // Erro genérico
-    return NextResponse.json(
-      { error: "Failed to process request" },
-      { status: 500 }
-    )
-  }
-}
-```
-
-### Logging
-
-```typescript
-// Log de sucesso (opcional)
-console.log(`Job ${jobId} created successfully`)
-
-// Log de erro (sempre)
-console.error("Error creating job:", error)
-```
-
-## TypeScript
-
-### Tipos de Request/Response
-
-```typescript
-// Request body type
-interface CreateJobRequest {
-  type: JobType
-  payload: JobPayload
-  priority?: number
-  scheduledFor?: string
-}
-
-// Response type
-interface CreateJobResponse {
-  jobId: number
-  status: "pending"
-  message: string
-}
-
-export async function POST(request: Request) {
-  const body = await request.json() as CreateJobRequest
-  // ...
-  return NextResponse.json({...} as CreateJobResponse)
-}
-```
-
-## CORS (se necessário)
-
-```typescript
-export async function OPTIONS(request: Request) {
-  return new NextResponse(null, {
-    status: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-      "Access-Control-Allow-Headers": "Content-Type, Authorization",
-    },
-  })
-}
-```
-
-## Rate Limiting (futuro)
-
-Implementar rate limiting quando necessário:
-- Por usuário (Clerk userId)
-- Por IP
-- Por endpoint
-
-## Webhooks
-
-### Verificação de Assinatura (Clerk)
-
-```typescript
-import { Webhook } from "svix"
-
-const webhook = new Webhook(process.env.CLERK_WEBHOOK_SECRET!)
-
-export async function POST(request: Request) {
-  const headers = Object.fromEntries(request.headers.entries())
-  const payload = await request.text()
-  
-  try {
-    const event = webhook.verify(payload, headers) as ClerkWebhookEvent
-    // Processar evento...
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Invalid signature" },
-      { status: 400 }
-    )
-  }
-}
-```
+### Naming Conventions
+- Componentes: `PascalCase.tsx`
+- Utilitários: `kebab-case.ts`
+- Hooks: `usePascalCase.ts`
+- Types: `PascalCase.ts`
 
 ---
 > Source: [zoryon-dev/maquina-de-conteudo](https://github.com/zoryon-dev/maquina-de-conteudo) — distributed by [TomeVault](https://tomevault.io).
