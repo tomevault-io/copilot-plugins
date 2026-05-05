@@ -1,0 +1,38 @@
+{
+  "name": "rsicarelli--fakt",
+  "displayName": "fakt",
+  "description": "Your Fakes at compile-time. Type-safe test fake generation for Kotlin Multiplatform via FIR/IR compiler plugin.",
+  "version": "1.0.0",
+  "author": "rsicarelli",
+  "homepage": "https://github.com/rsicarelli/fakt",
+  "skills": [
+    {
+      "name": "bdd-test-runner",
+      "description": ""
+    },
+    {
+      "name": "behavior-analyzer-tester",
+      "description": ""
+    },
+    {
+      "name": "compiler-architecture-validator",
+      "description": ""
+    },
+    {
+      "name": "git-commit-guardian",
+      "description": ""
+    },
+    {
+      "name": "kotlin-api-consultant",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
