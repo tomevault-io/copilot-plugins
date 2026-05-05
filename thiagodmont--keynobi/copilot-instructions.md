@@ -1,91 +1,73 @@
-## keynobi
+## karpathy-guidelines
 
-> - **Framework**: Tauri 2.0 (Rust backend + WKWebView frontend)
+> Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
 
-# Agent Instructions
 
-## Tech Stack
+# Karpathy behavioral guidelines
 
-- **Framework**: Tauri 2.0 (Rust backend + WKWebView frontend)
-- **Frontend**: SolidJS + TypeScript + Vite
-- **Backend**: Rust (tokio async runtime)
-- **Parsing**: Tree-sitter (`tree-sitter-kotlin-ng`)
-- **Search**: ripgrep library crates (`grep-regex`, `grep-searcher`, `grep-matcher`)
-- **Language Intelligence**: JetBrains Kotlin/kotlin-lsp (download-on-demand)
-- **IPC Types**: `ts-rs` (Rust → TypeScript auto-generation)
-- **State Management**: SolidJS Stores (`createStore`, `produce`)
-- **Testing**: Vitest (frontend), Rust `#[test]` / `tokio::test` (backend), Criterion (benchmarks)
+Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
 
-## Before You Write Code
+**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
 
-1. Read `docs/BEST_PRACTICES.md` — architectural principles, security rules, performance targets, and the AI-first design philosophy.
-2. Read `docs/CODE_PATTERN.md` and `docs/DOMAIN_PATTERNS.md` — concrete conventions: file naming, store patterns, IPC patterns, testing patterns.
-3. Read `docs/USER_MANUAL.md` — understand what the user sees and does, so new features integrate naturally.
+## 1. Think Before Coding
 
-## Key Rules
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-- **Path security**: Every command that accepts a path must validate it against the project root using canonicalization (see `CODE_PATTERN.md` §Path Security). Never use raw `starts_with()` without canonicalization.
-- **Keybindings = Actions**: Use `registerKeyAndAction()` in `App.tsx`, never bare `registerKeybinding()`. Shortcuts that bypass the action registry are invisible in the command palette.
-- **Navigation**: All jump-to-location actions must call `openFileAtLocation()` from `project.service.ts`, not `setActiveFile()` directly. This populates the navigation history stack.
-- **IPC types**: Import from `@/bindings`, never redefine types that originate in Rust.
-- **Mutex discipline**: Lock Rust state, clone what you need, drop the lock, then do I/O. Never hold a Mutex across an `await`.
-- **Bounded collections**: Every in-memory collection that grows must have an explicit cap (see `BEST_PRACTICES.md`).
-- **No `unwrap()` in production Rust**: Use `?` or `.map_err(...)`. `expect()` is allowed only for programmer-error invariants.
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
 
-## Testing Instructions
+## 2. Simplicity First
 
-### Frontend
-```bash
-npm run test              # run all frontend tests once
-npm run test:watch        # watch mode during development
-npm run test:ui           # Vitest browser UI
-npm run lint              # Check lint rules
-npm run typescript:check  # Check typescript 
+**Minimum code that solves the problem. Nothing speculative.**
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+
+## 3. Surgical Changes
+
+**Touch only what you must. Clean up only your own mess.**
+
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it - don't delete it.
+
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
+
+The test: Every changed line should trace directly to the user's request.
+
+## 4. Goal-Driven Execution
+
+**Define success criteria. Loop until verified.**
+
+Transform tasks into verifiable goals:
+- "Add validation" → "Write tests for invalid inputs, then make them pass"
+- "Fix the bug" → "Write a test that reproduces it, then make it pass"
+- "Refactor X" → "Ensure tests pass before and after"
+
+For multi-step tasks, state a brief plan:
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
 ```
 
-**Design system / UI refactor PRs:** run `npm test && npm run typescript:check && npm run lint` before merge (see `docs/CODE_PATTERN.md` §Testing Patterns — verification gate).
+Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
-### Rust
-```bash
-cd src-tauri
-cargo test                 # run all Rust unit tests
-cargo bench                # run Criterion benchmarks (writes to target/criterion/)
-```
+---
 
-### Performance Metrics
-```bash
-npm run perf:collect       # capture current metrics snapshot
-npm run perf:report        # compare latest vs previous snapshot
-```
-
-### Regenerate TypeScript Bindings
-Run after any Rust model type change:
-```bash
-npm run generate:bindings
-```
-
-## Adding a New Feature
-
-1. **Rust model** (`src-tauri/src/models/`): Define the data type with `#[derive(Serialize, Deserialize, Clone, TS)]` and `#[serde(rename_all = "camelCase")]`.
-2. **Rust service** (`src-tauri/src/services/`): Implement business logic with no Tauri dependency.
-3. **Rust command** (`src-tauri/src/commands/`): Thin validation + delegation to service. Add path security if the command accepts file paths.
-4. **Register command** (`src-tauri/src/lib.rs`): Add to `invoke_handler!` and `.manage()` if a new state is needed.
-5. **Regenerate bindings**: `npm run generate:bindings`.
-6. **IPC wrapper** (`src/lib/tauri-api.ts`): Add a typed wrapper calling `invoke`.
-7. **Store** (`src/stores/{domain}.store.ts`): Add reactive state if the feature needs persistent UI state.
-8. **Component** (`src/components/{domain}/`): Build the UI reading from the store.
-9. **Action** (`src/App.tsx`): Register keyboard shortcut + command palette entry via `registerKeyAndAction`.
-10. **Tests**: Add Rust unit tests in the service's `#[cfg(test)]` module; add Vitest tests for the store.
-
-## Session Completion
-
-At the end of every development session:
-
-- Update `docs/CODE_PATTERN.md` and `docs/DOMAIN_PATTERNS.md` when a new code pattern is established.
-- Update `docs/BEST_PRACTICES.md` if foundational architecture or principles change.
-- Update `docs/USER_MANUAL.md` when new user-visible features or keyboard shortcuts are added.
-
-Human contributors: the same expectations are summarized for PRs in [CONTRIBUTING.md](CONTRIBUTING.md) (CI commands, bindings, and doc updates).
+**These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
 
 ---
 > Source: [thiagodmont/keynobi](https://github.com/thiagodmont/keynobi) — distributed by [TomeVault](https://tomevault.io).
