@@ -4,7 +4,7 @@
   "repo": "nanobrain",
   "description": "your second brain in markdown \u2014 a knowledge corpus that knows you, thinks like you, writes in your voice",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/siddsdixit/nanobrain",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T08:31:58Z"
+  "distributed_at": "2026-05-05T08:32:24Z"
 }
