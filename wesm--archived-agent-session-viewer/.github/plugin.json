@@ -1,0 +1,9 @@
+{
+  "name": "wesm--archived-agent-session-viewer",
+  "displayName": "archived-agent-session-viewer",
+  "description": "Browse, search, and revisit your AI coding sessions. ",
+  "version": "1.0.0",
+  "author": "wesm",
+  "homepage": "https://github.com/wesm/archived-agent-session-viewer",
+  "skills": []
+}
