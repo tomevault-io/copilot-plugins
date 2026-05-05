@@ -1,0 +1,9 @@
+{
+  "name": "crocswap--clawdbot-docker",
+  "displayName": "clawdbot-docker",
+  "description": "General harness to run Clawdbot with container isolation",
+  "version": "1.0.0",
+  "author": "CrocSwap",
+  "homepage": "https://github.com/CrocSwap/clawdbot-docker",
+  "skills": []
+}
