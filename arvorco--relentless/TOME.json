@@ -4,7 +4,7 @@
   "repo": "Relentless",
   "description": "Universal AI Agent Orchestrator - Run any AI coding agent (Claude Code, Amp, OpenCode, Codex, Droid, Gemini) repeatedly until all tasks are complete",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ArvorCo/Relentless",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T03:50:45Z"
+  "distributed_at": "2026-05-05T12:30:14Z"
 }
