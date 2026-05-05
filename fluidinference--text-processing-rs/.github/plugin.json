@@ -1,0 +1,9 @@
+{
+  "name": "fluidinference--text-processing-rs",
+  "displayName": "text-processing-rs",
+  "description": "Rust port of NVIDIA NeMo Text Processing for Inverse Text Normalization",
+  "version": "1.0.0",
+  "author": "FluidInference",
+  "homepage": "https://github.com/FluidInference/text-processing-rs",
+  "skills": []
+}
