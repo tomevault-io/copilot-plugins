@@ -1,0 +1,44 @@
+{
+  "name": "SDRPlusPlus_CommunityEdition",
+  "owner": "LunaeMons",
+  "repo": "SDRPlusPlus_CommunityEdition",
+  "description": "\ud83c\udfb5 SDR++CE Community Edition - Advanced SDR software with MPX analysis, cross-platform support for RTL-SDR, HackRF, LimeSDR, AirSpy, PlutoSDR and more. Features real-time FM broadcasting analysis, frequency scanning, and spectrum visualization.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LunaeMons/SDRPlusPlus_CommunityEdition",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T23:49:16Z"
+}
