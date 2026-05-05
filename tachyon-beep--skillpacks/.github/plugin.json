@@ -1,0 +1,118 @@
+{
+  "name": "tachyon-beep--skillpacks",
+  "displayName": "skillpacks",
+  "description": "AI instruction skills by tachyon-beep",
+  "version": "1.0.0",
+  "author": "tachyon-beep",
+  "homepage": "https://github.com/tachyon-beep/skillpacks",
+  "skills": [
+    {
+      "name": "cicd-pipeline-architecture",
+      "description": ""
+    },
+    {
+      "name": "design-and-build",
+      "description": ""
+    },
+    {
+      "name": "governance-and-risk",
+      "description": ""
+    },
+    {
+      "name": "implementation-planning",
+      "description": ""
+    },
+    {
+      "name": "lifecycle-adoption",
+      "description": ""
+    },
+    {
+      "name": "plan-review",
+      "description": ""
+    },
+    {
+      "name": "platform-integration",
+      "description": ""
+    },
+    {
+      "name": "quality-assurance",
+      "description": ""
+    },
+    {
+      "name": "sme-agent-protocol",
+      "description": ""
+    },
+    {
+      "name": "using-ai-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-deep-rl",
+      "description": ""
+    },
+    {
+      "name": "using-dynamic-architectures",
+      "description": ""
+    },
+    {
+      "name": "using-ml-production",
+      "description": ""
+    },
+    {
+      "name": "using-python-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-pytorch-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-quality-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-sdlc-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-security-architect",
+      "description": ""
+    },
+    {
+      "name": "using-simulation-tactics",
+      "description": ""
+    },
+    {
+      "name": "using-skillpack-maintenance",
+      "description": ""
+    },
+    {
+      "name": "using-software-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-system-archaeologist",
+      "description": ""
+    },
+    {
+      "name": "using-system-architect",
+      "description": ""
+    },
+    {
+      "name": "using-technical-writer",
+      "description": ""
+    },
+    {
+      "name": "using-training-optimization",
+      "description": ""
+    },
+    {
+      "name": "using-ux-designer",
+      "description": ""
+    },
+    {
+      "name": "using-web-backend",
+      "description": ""
+    }
+  ]
+}
