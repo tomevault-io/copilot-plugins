@@ -1,0 +1,9 @@
+{
+  "name": "zhuozhuocrayon--ai-workspace",
+  "displayName": "ai-workspace",
+  "description": "\u9762\u5411 Cursor / Codex / Claude \u7b49 Coding Agent \u7684\u901a\u7528\u5de5\u4f5c\u533a\u6a21\u677f\uff0c\u63d0\u4f9b\u591a\u4ed3\u9879\u76ee\u6ce8\u518c\u3001\u77e5\u8bc6\u5e93\u7d22\u5f15\u3001\u89c4\u5219\u6cbb\u7406\u4e0e\u6280\u80fd\u4f53\u7cfb\uff0c\u5e2e\u52a9\u56e2\u961f\u628a AI \u534f\u4f5c\u6d41\u7a0b\u6c89\u6dc0\u4e3a\u53ef\u590d\u7528\u5de5\u7a0b\u5b9e\u8df5\u3002",
+  "version": "1.0.0",
+  "author": "ZhuoZhuoCrayon",
+  "homepage": "https://github.com/ZhuoZhuoCrayon/ai-workspace",
+  "skills": []
+}
