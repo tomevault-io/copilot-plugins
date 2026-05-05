@@ -1,0 +1,9 @@
+{
+  "name": "islee23520--open-sidebar-terminal",
+  "displayName": "open-sidebar-terminal",
+  "description": "Automatically render OpenCode TUI in VS Code sidebar with full terminal support",
+  "version": "1.0.0",
+  "author": "islee23520",
+  "homepage": "https://github.com/islee23520/open-sidebar-terminal",
+  "skills": []
+}
