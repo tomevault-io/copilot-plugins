@@ -1,0 +1,9 @@
+{
+  "name": "senpi-ai--senpi-skills",
+  "displayName": "senpi-skills",
+  "description": "Agent Skills for autonomous crypto trading on Hyperliquid \u2014 trailing stops, market scanning, position management, and more.",
+  "version": "1.0.0",
+  "author": "Senpi-ai",
+  "homepage": "https://github.com/Senpi-ai/senpi-skills",
+  "skills": []
+}
