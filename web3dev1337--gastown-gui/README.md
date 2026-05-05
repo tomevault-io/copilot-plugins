@@ -7,11 +7,11 @@ Web Graphical User Interface (GUI) for Gas Town multi-agent orchestrator - A com
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [web3dev1337/gastown-gui](https://github.com/web3dev1337/gastown-gui).
+Original source: `CLAUDE.md` in [web3dev1337/gastown-gui](https://github.com/web3dev1337/gastown-gui).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
