@@ -1,0 +1,44 @@
+{
+  "name": "BrownDust2AutoScript",
+  "owner": "megumiss",
+  "repo": "BrownDust2AutoScript",
+  "description": "\u68d5\u8272\u5c18\u57c32\u811a\u672c\uff0c\u5f00\u53d1\u4e2d\uff0c\u5c1a\u4e0d\u652f\u6301\u4efb\u4f55\u529f\u80fd\uff0c\u4e5f\u4e0d\u786e\u5b9a\u662f\u5426\u4f1a\u5f00\u53d1\u4e0b\u53bb",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/megumiss/BrownDust2AutoScript",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T15:04:57Z"
+}
