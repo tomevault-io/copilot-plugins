@@ -1,0 +1,9 @@
+{
+  "name": "xang1234--stock-screener",
+  "displayName": "stock-screener",
+  "description": "Stock scanner with multiple fundamental and technical criteria. Features 80+ filters, AI chatbot (Groq/DeepSeek/Gemini),   theme discovery, and StockBee-style breadth indicators.",
+  "version": "1.0.0",
+  "author": "xang1234",
+  "homepage": "https://github.com/xang1234/stock-screener",
+  "skills": []
+}
