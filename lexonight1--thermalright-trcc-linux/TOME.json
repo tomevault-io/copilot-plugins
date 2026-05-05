@@ -1,0 +1,44 @@
+{
+  "name": "thermalright-trcc-linux",
+  "owner": "Lexonight1",
+  "repo": "thermalright-trcc-linux",
+  "description": "Native Linux port of Thermalright LCD Control Center (TRCC 2.1.2). Themes, video, overlays, RGB LED control. Supports SCSI, HID LCD, and HID LED devices.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lexonight1/thermalright-trcc-linux",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T08:44:06Z"
+}
