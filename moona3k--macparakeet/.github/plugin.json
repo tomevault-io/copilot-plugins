@@ -1,0 +1,9 @@
+{
+  "name": "moona3k--macparakeet",
+  "displayName": "macparakeet",
+  "description": "Fast, local-first voice app for Mac. Dictation and transcription powered by Parakeet TDT on the Neural Engine.",
+  "version": "1.0.0",
+  "author": "moona3k",
+  "homepage": "https://github.com/moona3k/macparakeet",
+  "skills": []
+}
