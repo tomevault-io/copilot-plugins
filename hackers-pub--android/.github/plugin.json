@@ -1,0 +1,9 @@
+{
+  "name": "hackers-pub--android",
+  "displayName": "android",
+  "description": "Android client for Hackers' Pub",
+  "version": "1.0.0",
+  "author": "hackers-pub",
+  "homepage": "https://github.com/hackers-pub/android",
+  "skills": []
+}
