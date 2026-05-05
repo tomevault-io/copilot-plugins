@@ -1,0 +1,9 @@
+{
+  "name": "elleryfamilia--terminal-mcp",
+  "displayName": "terminal-mcp",
+  "description": "A terminal emulator exposed via MCP for AI assistants",
+  "version": "1.0.0",
+  "author": "elleryfamilia",
+  "homepage": "https://github.com/elleryfamilia/terminal-mcp",
+  "skills": []
+}
