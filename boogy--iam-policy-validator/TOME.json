@@ -1,0 +1,69 @@
+{
+  "name": "iam-policy-validator",
+  "owner": "boogy",
+  "repo": "iam-policy-validator",
+  "description": "\u26a1 Stop IAM misconfigurations before they become breaches \u2014 Catch overprivileged permissions, dangerous wildcards, and policy errors before deployment.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-check",
+      "path": ".claude/skills/add-check",
+      "github_url": "https://github.com/boogy/iam-policy-validator/tree/main/.claude/skills/add-check",
+      "description": ""
+    },
+    {
+      "name": "fix-issue",
+      "path": ".claude/skills/fix-issue",
+      "github_url": "https://github.com/boogy/iam-policy-validator/tree/main/.claude/skills/fix-issue",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": ".claude/skills/review",
+      "github_url": "https://github.com/boogy/iam-policy-validator/tree/main/.claude/skills/review",
+      "description": ""
+    },
+    {
+      "name": "update-claude-md",
+      "path": ".claude/skills/update-claude-md",
+      "github_url": "https://github.com/boogy/iam-policy-validator/tree/main/.claude/skills/update-claude-md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/boogy/iam-policy-validator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:32:05Z"
+}
