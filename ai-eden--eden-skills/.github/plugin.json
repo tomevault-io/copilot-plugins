@@ -1,0 +1,9 @@
+{
+  "name": "ai-eden--eden-skills",
+  "displayName": "eden-skills",
+  "description": "Deterministic & Blazing-Fast Skills Manager for AI Agents (Claude Code, Cursor, Codex & More).",
+  "version": "1.0.0",
+  "author": "AI-Eden",
+  "homepage": "https://github.com/AI-Eden/eden-skills",
+  "skills": []
+}
