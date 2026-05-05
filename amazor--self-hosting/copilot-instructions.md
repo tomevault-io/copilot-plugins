@@ -1,60 +1,42 @@
-## homelab-context
+## proxmox-automation
 
-> Homelab project context, principles, and architecture
+> description: Proxmox scripts, Cloud-Init snippets, and VMID scheme
 
+---
+description: Proxmox scripts, Cloud-Init snippets, and VMID scheme
+globs: proxmox/**/*
+alwaysApply: false
+---
 
-# Homelab Project — Context & Principles
+# Proxmox — Scripts, Snippets & VMID Scheme
 
-This repo is a **field manual** and **source of truth** for a self-hosted homelab: part journal, part technical guide, part Infrastructure-as-Code.
+Code under `proxmox/` automates template creation and Cloud-Init baseline. Stay consistent with the existing VMID scheme and Cloud-Init patterns.
 
-## Mission
+## VMID Ranges
 
-Build a robust, scalable, automated home server hosting:
-- core infra (ingress, auth, DNS)
-- monitoring/observability
-- media automation pipelines
-- general apps
-- GPU workloads (transcoding/CV)
+- **9000–9099** — Templates (Cloud-Init base images). Do not run directly.
+- **100–199** — Core infrastructure (e.g. 110 = core).
+- **200–299** — Workload VMs (apps, media, accelerated). Use increments of 10 (210, 220, 230…) to allow insertion without renumbering.
+- **800–899** — Temporary / experiments / throwaway VMs.
 
-## Guiding Principles
+## Scripts (`proxmox/scripts/`)
 
-- **Boring Core, Flexible Workloads** — Access plane is stable and predictable; workloads can churn and be rebuilt.
-- **Cattle, Not Pets** — VMs are disposable. Redeploy from a known baseline instead of snowflake fixing.
-- **Decoupled Compute and Data** — Proxmox provides compute; NAS provides storage. Data survives VM rebuilds.
-- **Documentation-first** — Decisions include "why" notes so future-me and readers can follow the logic.
+- Prefer **portable shell:** `#!/bin/sh` unless bash features are required.
+- **Template creation:** Use `qm create`, `qm set`, `qm importdisk`, etc. Accept VM_ID, VM_NAME, STORAGE as arguments or env with sensible defaults.
+- **Idempotency / safety:** Check if VM ID already exists before creating; exit with a clear message. Validate required tools (e.g. `qm`, `wget`).
+- **Cloud-Init:** Attach vendor snippet via `qm set $VM_ID --cicustom "vendor=local:snippets/cloud-init-config.yaml"`. Document that user must add SSH key and "Convert to Template" in the GUI when relevant.
 
-## Tech Stack
+## Snippets (`proxmox/snippets/`)
 
-- **Hypervisor:** Proxmox VE
-- **Compute:** Beelink EQi13 (Debian Cloud-Init template, Docker host)
-- **Storage:** Synology NAS
-- **Workloads:** Docker Compose per-VM stacks
-- **Automation:** Cloud-Init + `deploy.py` orchestrator + `BootstrapRunner` framework (per-stack `stack_config.py` modules)
+- **Format:** YAML `#cloud-config` for Cloud-Init.
+- **Contents:** User creation (sudo, docker group, lock_passwd), package_update/upgrade, Docker repo, essential packages (docker-ce, qemu-guest-agent, avahi-daemon, etc.), `write_files` for daemon config (e.g. Docker log rotation), `runcmd` for enable/start services and one-off setup (e.g. swap file).
+- **Naming:** Use descriptive filenames (e.g. `cloud-init-config.yaml`). Reference from scripts as `snippets/<name>.yaml`.
+- **Reproducibility:** Snippets should produce a generic Docker host baseline; no role-specific or VM-specific secrets in shared snippets.
 
-## Repo Structure
+## Conventions
 
-- **docs/** — Journey chapters + reasoning (Chapter0, Chapter1, Chapter2, Chapter2a, Chapter2c, …)
-- **proxmox/** — Template automation: `scripts/`, `snippets/` (Cloud-Init)
-- **scripts/** — Shared Python framework: `homelab_common.py` (helpers), `homelab_bootstrap.py` (`BootstrapRunner`), `homelab_logging.py` (`StepTracker`), `setup_env.py`
-- **docker_compose/** — Per-VM stacks: `core/`, `monitoring/`, `media/`, `accelerated/` (each with `compose.yml`, `.env.example`, `bootstrap.py`, `stack_config.py`, and optional `scripts/` subdirectory)
-- **docker_compose/common/** — Shared compose overlays (e.g. `compose.observability.yml` symlinked into each stack)
-- **deploy.py** — Top-level orchestrator (validates env, runs bootstrap, creates symlinks/shell helpers, runs compose up)
-
-## Architecture Rules
-
-- **Only one VM is public** — Router forwards only 80/443 to `core`. Everything else is reachable via reverse proxy or Tailscale.
-- **VM boundaries = storage boundaries** — Each VM mounts only what it needs; mounts are scoped to subfolders/exports. `core` stays minimal and typically mounts nothing.
-- **Template stays boring** — Role-specific setup lives in per-VM bootstrap scripts, not in the golden image.
-
-## Planned additions (post–current implementation)
-
-Apps/services to add once the current implementation is done:
-
-- **Fail2ban** — Host/access-plane protection (e.g. rate limiting whoami, SSH, Caddy logs); likely on `core` or a dedicated security layer.
-- **PaperlessNGX** — Document management (scan, OCR, tag, search); planned for the `apps` VM.
-- **qui** — Enhanced qBittorrent web UI (single binary, by autobrr team) for the `media` VM. Lower priority — adds tracker reannounce, automation rules, orphan scan, cross-seeding, OIDC (Authentik), and a reverse proxy so *arr apps don't need direct qBit credentials. Nice-to-have once cleanuperr covers the critical stalled-torrent loop.
-
-When editing any part of this project, keep these principles and structure in mind.
+- Do not hardcode secrets in scripts or snippets; document where to set SSH keys and any secrets (e.g. Proxmox GUI).
+- Keep template creation and Cloud-Init in sync with the docs (Chapter 1, Chapter 2) so the written journey matches what the scripts do.
 
 ---
 > Source: [amazor/Self-Hosting](https://github.com/amazor/Self-Hosting) — distributed by [TomeVault](https://tomevault.io).
