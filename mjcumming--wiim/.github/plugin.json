@@ -1,0 +1,9 @@
+{
+  "name": "mjcumming--wiim",
+  "displayName": "wiim",
+  "description": "WiiM (LinkPlay) Audio Integration for Home Assistant with multiroom support",
+  "version": "1.0.0",
+  "author": "mjcumming",
+  "homepage": "https://github.com/mjcumming/wiim",
+  "skills": []
+}
