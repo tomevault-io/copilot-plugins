@@ -1,0 +1,9 @@
+{
+  "name": "barafu--irategoose",
+  "displayName": "IrateGoose",
+  "description": "A GUI to turn on the surround sound capability of Pipewire",
+  "version": "1.0.0",
+  "author": "Barafu",
+  "homepage": "https://github.com/Barafu/IrateGoose",
+  "skills": []
+}
