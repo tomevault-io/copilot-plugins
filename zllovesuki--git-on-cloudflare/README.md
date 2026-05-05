@@ -1,6 +1,8 @@
 # git-on-cloudflare
 
-> Tome by [zllovesuki](https://github.com/zllovesuki/git-on-cloudflare) — distributed by [TomeVault](https://tomevault.io/claim/zllovesuki)
+> Tome by [zllovesuki](https://github.com/zllovesuki/git-on-cloudflare) — distributed by [TomeVault](https://tomevault.io)
+
+A vibe-coded Git Smart HTTP v2 server on Cloudflare Workers with Durable Objects, R2, and a clean dark-mode UI.
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.windsurf/rules/*.md` in [zllovesuki/git-on-cloudflare](https:
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/zllovesuki)
+From [zllovesuki/git-on-cloudflare](https://github.com/zllovesuki/git-on-cloudflare) — a repo with 42+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/zllovesuki) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
