@@ -7,13 +7,13 @@ Don't just review the agent's code; put it through the gauntlet.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [Codagent-AI/agent-validator](https://github.com/Codagent-AI/agent-validator).
+Original source: `AGENTS.md` in [Codagent-AI/agent-validator](https://github.com/Codagent-AI/agent-validator).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
