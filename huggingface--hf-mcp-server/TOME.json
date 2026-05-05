@@ -1,0 +1,51 @@
+{
+  "name": "hf-mcp-server",
+  "owner": "huggingface",
+  "repo": "hf-mcp-server",
+  "description": "Hugging Face MCP Server",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hf-mcp",
+      "path": "hf-mcp/skills/hf-mcp",
+      "github_url": "https://github.com/huggingface/hf-mcp-server/tree/main/hf-mcp/skills/hf-mcp",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/huggingface/hf-mcp-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T00:01:48Z"
+}
