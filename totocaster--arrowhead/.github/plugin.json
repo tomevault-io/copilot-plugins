@@ -1,0 +1,14 @@
+{
+  "name": "totocaster--arrowhead",
+  "displayName": "arrowhead",
+  "description": "Fast Obsidian-aware search and discovery that makes AI agents or OpenClaw your true knowledge assistant.",
+  "version": "1.0.0",
+  "author": "totocaster",
+  "homepage": "https://github.com/totocaster/arrowhead",
+  "skills": [
+    {
+      "name": "arrowhead-cli-agent",
+      "description": ""
+    }
+  ]
+}
