@@ -1,0 +1,9 @@
+{
+  "name": "mblode--agent-skills",
+  "displayName": "agent-skills",
+  "description": "A minimal set of agent skills for high-quality UI and frontend work.",
+  "version": "1.0.0",
+  "author": "mblode",
+  "homepage": "https://github.com/mblode/agent-skills",
+  "skills": []
+}
