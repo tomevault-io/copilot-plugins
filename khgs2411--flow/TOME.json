@@ -1,0 +1,87 @@
+{
+  "name": "flow",
+  "owner": "khgs2411",
+  "repo": "flow",
+  "description": "Iterative development framework combining Domain-Driven Design with Agile philosophy",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "flow-architect",
+      "path": "framework/skills/flow-architect",
+      "github_url": "https://github.com/khgs2411/flow/tree/main/framework/skills/flow-architect",
+      "description": ""
+    },
+    {
+      "name": "flow-builder",
+      "path": "framework/skills/flow-builder",
+      "github_url": "https://github.com/khgs2411/flow/tree/main/framework/skills/flow-builder",
+      "description": ""
+    },
+    {
+      "name": "flow-designer",
+      "path": "framework/skills/flow-designer",
+      "github_url": "https://github.com/khgs2411/flow/tree/main/framework/skills/flow-designer",
+      "description": ""
+    },
+    {
+      "name": "flow-documenter",
+      "path": "framework/skills/flow-documenter",
+      "github_url": "https://github.com/khgs2411/flow/tree/main/framework/skills/flow-documenter",
+      "description": ""
+    },
+    {
+      "name": "flow-initializer",
+      "path": "framework/skills/flow-initializer",
+      "github_url": "https://github.com/khgs2411/flow/tree/main/framework/skills/flow-initializer",
+      "description": ""
+    },
+    {
+      "name": "flow-navigator",
+      "path": "framework/skills/flow-navigator",
+      "github_url": "https://github.com/khgs2411/flow/tree/main/framework/skills/flow-navigator",
+      "description": ""
+    },
+    {
+      "name": "flow-planner",
+      "path": "framework/skills/flow-planner",
+      "github_url": "https://github.com/khgs2411/flow/tree/main/framework/skills/flow-planner",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/khgs2411/flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:32:37Z"
+}
