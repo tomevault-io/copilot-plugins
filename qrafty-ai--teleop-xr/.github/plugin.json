@@ -1,0 +1,9 @@
+{
+  "name": "qrafty-ai--teleop-xr",
+  "displayName": "teleop_xr",
+  "description": "Transforms your VR/AR headset into a powerful, precise robot controller",
+  "version": "1.0.0",
+  "author": "qrafty-ai",
+  "homepage": "https://github.com/qrafty-ai/teleop_xr",
+  "skills": []
+}
