@@ -1,0 +1,9 @@
+{
+  "name": "rapidrabbit76--gptmock",
+  "displayName": "GPTMock",
+  "description": "Access OpenAI models programmatically through your ChatGPT subscription.",
+  "version": "1.0.0",
+  "author": "rapidrabbit76",
+  "homepage": "https://github.com/rapidrabbit76/GPTMock",
+  "skills": []
+}
