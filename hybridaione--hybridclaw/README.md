@@ -7,11 +7,11 @@ Enterprise-ready self-hosted AI assistant runtime with sandboxed execution, secu
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HybridAIOne/hybridclaw](https://github.com/HybridAIOne/hybridclaw).
+Original source: `CLAUDE.md` in [HybridAIOne/hybridclaw](https://github.com/HybridAIOne/hybridclaw).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
