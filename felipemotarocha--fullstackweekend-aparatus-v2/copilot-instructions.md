@@ -1,15 +1,11 @@
-## typescript
+## fullstackweekend-aparatus-v2
 
-> - Escreva um código limpo, conciso e fácil de manter, seguindo princípios do SOLID e Clean Code.
+> - SEMPRE use TODAS as regras que estão em @.cursor/rules:
 
+- SEMPRE use TODAS as regras que estão em @.cursor/rules:
 
-- Escreva um código limpo, conciso e fácil de manter, seguindo princípios do SOLID e Clean Code.
-- Use nomes de variáveis descritivos (exemplos: isLoading, hasError).
-- Use kebab-case para nomes de pastas e arquivos.
-- Sempre use TypeScript para escrever código.
-- DRY (Don't Repeat Yourself). Evite duplicidade de código. Quando necessário, crie funções/componentes reutilizáveis.
-- NUNCA escreva comentários no seu código.
-- NUNCA rode `npm run dev` para verificar se as mudanças estão funcionando.
+- @.cursor/rules/general.mdc
+- @.cursor/rules/typescript.mdc
 
 ---
 > Source: [felipemotarocha/fullstackweekend-aparatus-v2](https://github.com/felipemotarocha/fullstackweekend-aparatus-v2) — distributed by [TomeVault](https://tomevault.io).
