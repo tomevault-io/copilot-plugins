@@ -2,9 +2,9 @@
   "name": "AssemblyZero",
   "owner": "martymcenroe",
   "repo": "AssemblyZero",
-  "description": "",
+  "description": "Parameterized multi-agent orchestration framework for Claude Code and Gemini",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/martymcenroe",
+  "source_url": "https://github.com/martymcenroe/AssemblyZero",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T10:38:48Z"
+  "distributed_at": "2026-05-05T14:56:18Z"
 }
