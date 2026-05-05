@@ -1,0 +1,44 @@
+{
+  "name": "open-sidebar-terminal",
+  "owner": "islee23520",
+  "repo": "open-sidebar-terminal",
+  "description": "Automatically render OpenCode TUI in VS Code sidebar with full terminal support",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/islee23520/open-sidebar-terminal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T12:25:34Z"
+}
