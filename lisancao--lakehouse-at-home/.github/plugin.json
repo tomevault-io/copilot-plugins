@@ -1,0 +1,9 @@
+{
+  "name": "lisancao--lakehouse-at-home",
+  "displayName": "lakehouse-at-home",
+  "description": "A fully open-source, self-hostable data lakehouse for local development and testing of modern data workflows",
+  "version": "1.0.0",
+  "author": "lisancao",
+  "homepage": "https://github.com/lisancao/lakehouse-at-home",
+  "skills": []
+}
