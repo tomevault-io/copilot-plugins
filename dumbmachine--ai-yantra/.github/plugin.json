@@ -1,0 +1,9 @@
+{
+  "name": "dumbmachine--ai-yantra",
+  "displayName": "ai-yantra",
+  "description": "PostgreSQL backed filesystem to provide your AI SDK agents ability to interact with files. Without creating computer sandboxes",
+  "version": "1.0.0",
+  "author": "DumbMachine",
+  "homepage": "https://github.com/DumbMachine/ai-yantra",
+  "skills": []
+}
