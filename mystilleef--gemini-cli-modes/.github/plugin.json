@@ -1,0 +1,26 @@
+{
+  "name": "mystilleef--gemini-cli-modes",
+  "displayName": "gemini-cli-modes",
+  "description": "Plan, review, build, and implement modes for the Gemini CLI",
+  "version": "1.0.0",
+  "author": "mystilleef",
+  "homepage": "https://github.com/mystilleef/gemini-cli-modes",
+  "skills": [
+    {
+      "name": "implement-mode",
+      "description": ""
+    },
+    {
+      "name": "readonly-mode",
+      "description": ""
+    },
+    {
+      "name": "review-mode",
+      "description": ""
+    },
+    {
+      "name": "write-mode",
+      "description": ""
+    }
+  ]
+}
