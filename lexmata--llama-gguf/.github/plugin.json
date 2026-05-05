@@ -1,0 +1,9 @@
+{
+  "name": "lexmata--llama-gguf",
+  "displayName": "llama-gguf",
+  "description": "A high-performance Rust implementation of llama.cpp - LLM inference engine with full GGUF support",
+  "version": "1.0.0",
+  "author": "Lexmata",
+  "homepage": "https://github.com/Lexmata/llama-gguf",
+  "skills": []
+}
