@@ -1,268 +1,146 @@
-## database
+## project-overview
 
-> Padrões e convenções para banco de dados e Drizzle ORM
+> Visão geral do projeto Máquina de Conteúdo - Content Studio
 
 
-# Padrões de Banco de Dados
+# Máquina de Conteúdo - Content Studio
 
-## Stack
+## Visão Geral
 
-- **Database**: Neon PostgreSQL (serverless)
-- **ORM**: Drizzle ORM
-- **Adapter**: `drizzle-orm/neon-http` (HTTP adapter para serverless)
-- **Cliente**: `@neondatabase/serverless`
+Estúdio de conteúdo alimentado por IA que permite criar, editar e gerenciar posts para redes sociais usando agentes especialistas.
 
-## Conexão
+## Tech Stack Principal
 
-### Arquivo: `src/db/index.ts`
+- **Framework**: Next.js 16.1.1 (App Router)
+- **Linguagem**: TypeScript 5 (strict mode)
+- **Estilização**: Tailwind CSS 4 + shadcn/ui (New York style)
+- **Autenticação**: Clerk (@clerk/nextjs)
+- **Banco de Dados**: Neon PostgreSQL (serverless) + Drizzle ORM
+- **State Management**: Zustand
+- **LLM Provider**: OpenRouter (multi-modelo)
+- **Queue System**: Upstash Redis
+- **Ícones**: Lucide React
+- **Animações**: Framer Motion + GSAP
 
-```typescript
-import { neon } from "@neondatabase/serverless"
-import { drizzle } from "drizzle-orm/neon-http"
+## Estrutura de Diretórios
 
-const sql = neon(process.env.DATABASE_URL!)
-export const db = drizzle({ client: sql })
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (app)/             # Rotas protegidas (grupo de rotas)
+│   │   ├── dashboard/     # Chat com IA
+│   │   ├── library/       # Biblioteca de conteúdo
+│   │   ├── calendar/      # Calendário de posts
+│   │   ├── sources/       # Fontes de conteúdo
+│   │   └── settings/      # Configurações
+│   ├── api/               # API Routes
+│   │   ├── jobs/          # CRUD de jobs
+│   │   ├── workers/       # Worker para processar jobs
+│   │   └── webhooks/      # Webhooks (Clerk)
+│   ├── sign-in/           # Página de login
+│   ├── sign-up/           # Página de registro
+│   └── layout.tsx         # Root layout (ClerkProvider)
+├── components/
+│   ├── app-layout.tsx     # Layout principal (header + nav)
+│   ├── auth/              # Componentes de autenticação
+│   ├── ui/                # Componentes shadcn/ui
+│   └── dashboard/         # Componentes específicos do dashboard
+├── db/
+│   ├── index.ts           # Cliente Drizzle (Neon serverless)
+│   └── schema.ts          # Schema do banco (8 tabelas)
+├── lib/
+│   ├── queue/             # Sistema de filas (Upstash Redis)
+│   ├── models.ts          # Modelos de IA disponíveis
+│   └── utils.ts           # Utilitários (cn, etc)
+└── hooks/                 # React hooks customizados
 ```
 
-### Variável de Ambiente
+## Principais Funcionalidades
+
+### 1. Chat com IA
+- Interface conversacional para criar conteúdo
+- Multi-modelo via OpenRouter (GPT, Claude, Gemini, Grok)
+- Histórico de conversas persistido no banco
+
+### 2. Biblioteca de Conteúdo
+- Textos, imagens, carrosséis, vídeos, stories
+- Status: draft, scheduled, published, archived
+- Agendamento de publicação
+
+### 3. Sistema de Filas (Background Jobs)
+- Upstash Redis para processamento assíncrono
+- Tipos: geração de texto/imagem, criação de carrossel, scraping, publicação agendada
+- Workers via API routes (serverless-friendly)
+
+### 4. Base de Conhecimento
+- Upload de documentos
+- Indexação para RAG (futuro)
+- Consulta contextual
+
+### 5. Autenticação
+- Clerk com OAuth (Google, GitHub)
+- Middleware de proteção de rotas (`src/proxy.ts`)
+- Webhook para sincronização de usuários
+
+## Design System
+
+### Cores Principais
+- **Background**: `#0a0a0f` (dark)
+- **Cards**: Glassmorphism com `bg-[#0a0a0f]/80 backdrop-blur-xl`
+- **Borders**: `border-white/10`
+- **Primary**: HSL `84 76% 55%` (verde/amarelo)
+
+### Padrões Visuais
+- Glassmorphism em cards e header
+- Bordas sutis com opacidade
+- Glow effects em hover
+- Transições suaves
+
+### Componentes UI
+- shadcn/ui (New York style)
+- Componentes acessíveis (Radix UI)
+- Dark mode por padrão
+
+## Variáveis de Ambiente
+
 ```env
-DATABASE_URL=postgresql://user:password@host/database?sslmode=require
+# Database
+DATABASE_URL=postgresql://...
+
+# Clerk Auth
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_...
+CLERK_SECRET_KEY=sk_...
+CLERK_WEBHOOK_SECRET=whsec_...
+
+# APIs
+OPENROUTER_API_KEY=sk-or-...
+TAVILY_API_KEY=tvly-...
+FIRECRAWL_API_KEY=fc-...
+APIFY_API_KEY=apify-...
+
+# Queue System
+UPSTASH_REDIS_REST_URL=https://...
+UPSTASH_REDIS_REST_TOKEN=...
 ```
 
-## Schema
-
-### Arquivo: `src/db/schema.ts`
-
-### Estrutura de Tabelas (8 Tabelas)
-
-#### 1. users
-- **ID**: Clerk user ID (text)
-- **Campos**: email, name, avatarUrl, timestamps, deletedAt (soft delete)
-- **Índices**: email, created_at
-
-#### 2. chats
-- **Relacionamento**: belongsTo users
-- **Campos**: title, model (OpenRouter model), timestamps
-- **Índices**: user_id, created_at
-
-#### 3. messages
-- **Relacionamento**: belongsTo chats
-- **Campos**: role (user/assistant/system), content, createdAt
-- **Índices**: chat_id, created_at
-
-#### 4. library_items
-- **Relacionamento**: belongsTo users, hasMany scheduled_posts
-- **Campos**: type (enum), status (enum), title, content (JSON), mediaUrl, metadata, scheduledFor, publishedAt
-- **Índices**: user_id, status, type, scheduled_for
-
-#### 5. documents
-- **Relacionamento**: belongsTo users
-- **Campos**: title, content, sourceUrl, fileType, metadata
-- **Índices**: user_id, created_at
-
-#### 6. sources
-- **Relacionamento**: belongsTo users
-- **Campos**: name, url, type, config (JSON), lastScrapedAt, isActive
-- **Índices**: user_id, unique(user_id, url)
-
-#### 7. scheduled_posts
-- **Relacionamento**: belongsTo library_items
-- **Campos**: platform, scheduledFor, status, postedAt, platformPostId, error
-- **Índices**: scheduled_for, status
-
-#### 8. jobs
-- **Relacionamento**: belongsTo users
-- **Campos**: type (enum), status (enum), payload (JSONB), result (JSONB), error, priority, attempts, maxAttempts, timestamps
-- **Índices**: user_id, status, type, scheduled_for, created_at
-
-### Enums
-
-```typescript
-// Content Status
-"draft" | "scheduled" | "published" | "archived"
-
-// Post Type
-"text" | "image" | "carousel" | "video" | "story"
-
-// Job Type
-"ai_text_generation" | "ai_image_generation" | "carousel_creation" | "scheduled_publish" | "web_scraping"
-
-// Job Status
-"pending" | "processing" | "completed" | "failed"
-```
-
-### Relations (Drizzle)
-
-Todas as tabelas têm relations definidas:
-- `usersRelations` - hasMany: chats, libraryItems, documents, sources, jobs
-- `chatsRelations` - belongsTo: user, hasMany: messages
-- `messagesRelations` - belongsTo: chat
-- `libraryItemsRelations` - belongsTo: user, hasMany: scheduledPosts
-- `documentsRelations` - belongsTo: user
-- `sourcesRelations` - belongsTo: user
-- `scheduledPostsRelations` - belongsTo: libraryItem
-- `jobsRelations` - belongsTo: user
-
-### Type Exports
-
-```typescript
-// Infer types from schema
-export type User = typeof users.$inferSelect
-export type NewUser = typeof users.$inferInsert
-// ... (para todas as tabelas)
-```
-
-## Queries
-
-### Padrão de Query
-
-```typescript
-import { db } from "@/db"
-import { users, chats } from "@/db/schema"
-import { eq, desc, and } from "drizzle-orm"
-
-// SELECT simples
-const user = await db.select().from(users).where(eq(users.id, userId)).limit(1)
-
-// SELECT com relacionamento
-const chatsWithUser = await db
-  .select()
-  .from(chats)
-  .innerJoin(users, eq(chats.userId, users.id))
-  .where(eq(chats.userId, userId))
-  .orderBy(desc(chats.createdAt))
-
-// INSERT
-const [newChat] = await db
-  .insert(chats)
-  .values({ userId, title, model })
-  .returning({ id: chats.id })
-
-// UPDATE
-await db
-  .update(chats)
-  .set({ title: "New Title" })
-  .where(eq(chats.id, chatId))
-
-// DELETE (soft delete)
-await db
-  .update(users)
-  .set({ deletedAt: new Date() })
-  .where(eq(users.id, userId))
-```
-
-### Operadores Comuns
-
-```typescript
-import { eq, ne, gt, gte, lt, lte, like, and, or, not, inArray } from "drizzle-orm"
-
-// Igualdade
-eq(users.id, userId)
-
-// Múltiplas condições
-and(eq(users.id, userId), eq(chats.status, "active"))
-
-// Ordenação
-orderBy(desc(chats.createdAt), asc(chats.title))
-
-// Limite e offset
-.limit(10).offset(20)
-```
-
-## Migrations
-
-### Configuração: `drizzle.config.ts`
-
-```typescript
-export default defineConfig({
-  schema: "./src/db/schema.ts",
-  out: "./drizzle",
-  dialect: "postgresql",
-  dbCredentials: {
-    url: process.env.DATABASE_URL!,
-  },
-})
-```
-
-### Comandos
+## Comandos Úteis
 
 ```bash
-# Gerar migration baseada em mudanças no schema
-npm run db:generate
+# Desenvolvimento
+npm run dev
 
-# Executar migrations
-npm run db:migrate
+# Build
+npm run build
 
-# Push schema diretamente (sem migration)
-npm run db:push
+# Lint
+npm run lint
 
-# Studio visual (UI do banco)
-npm run db:studio
-
-# Introspect (gerar schema a partir do banco)
-npm run db:pull
+# Database
+npm run db:generate    # Gerar migration
+npm run db:migrate     # Executar migration
+npm run db:studio      # UI visual do banco
+npm run db:push        # Push schema (sem migration)
 ```
-
-### Workflow de Migration
-
-1. **Modificar schema** em `src/db/schema.ts`
-2. **Gerar migration**: `npm run db:generate`
-3. **Revisar** arquivos em `drizzle/`
-4. **Executar migration**: `npm run db:migrate`
-5. **Verificar** com `npm run db:studio`
-
-## Padrões de Dados
-
-### Soft Delete
-- Campos `deletedAt: timestamp("deleted_at")`
-- Não deletar fisicamente, apenas marcar como deletado
-- Filtrar em queries: `where(isNull(users.deletedAt))`
-
-### Timestamps
-- `createdAt`: `timestamp("created_at").defaultNow().notNull()`
-- `updatedAt`: `timestamp("updated_at").defaultNow().notNull()`
-- Atualizar `updatedAt` manualmente em updates
-
-### JSON Fields
-- **payload/result**: `jsonb("payload").$type<Record<string, unknown>>()`
-- **metadata**: `text("metadata")` (armazenar como JSON string)
-- **content**: `text("content")` (JSON string para conteúdo estruturado)
-
-### Foreign Keys
-- Sempre usar `references()` com `onDelete: "cascade"` quando apropriado
-- Índices em foreign keys para performance
-
-## Performance
-
-### Índices
-- Criar índices em:
-  - Foreign keys (`user_id`, `chat_id`, etc)
-  - Campos de filtro frequente (`status`, `type`, `scheduled_for`)
-  - Campos de ordenação (`created_at`)
-
-### Queries Otimizadas
-- Usar `select()` com campos específicos quando possível
-- Evitar `select().from()` sem `where()` em tabelas grandes
-- Usar `limit()` e `offset()` para paginação
-
-### Connection Pooling
-- Neon gerencia pooling automaticamente
-- HTTP adapter é otimizado para serverless
-
-## Segurança
-
-### Row Level Security (RLS)
-- Implementar RLS no Neon quando necessário
-- Filtrar por `userId` em todas as queries de usuário
-
-### SQL Injection
-- Drizzle previne SQL injection automaticamente
-- Nunca concatenar strings em queries
-- Sempre usar operadores do Drizzle (`eq`, `and`, etc)
-
-### Validação
-- Validar dados antes de inserir/atualizar
-- Usar Zod ou similar para validação de schemas
 
 ---
 > Source: [zoryon-dev/maquina-de-conteudo](https://github.com/zoryon-dev/maquina-de-conteudo) — distributed by [TomeVault](https://tomevault.io).
