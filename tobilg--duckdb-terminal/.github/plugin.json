@@ -1,0 +1,9 @@
+{
+  "name": "tobilg--duckdb-terminal",
+  "displayName": "duckdb-terminal",
+  "description": "A browser-based SQL Terminal for DuckDB powered by Ghostty terminal emulator.",
+  "version": "1.0.0",
+  "author": "tobilg",
+  "homepage": "https://github.com/tobilg/duckdb-terminal",
+  "skills": []
+}
