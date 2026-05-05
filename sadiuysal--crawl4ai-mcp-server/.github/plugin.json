@@ -1,0 +1,9 @@
+{
+  "name": "sadiuysal--crawl4ai-mcp-server",
+  "displayName": "crawl4ai-mcp-server",
+  "description": "\ud83d\udd77\ufe0f A lightweight Model Context Protocol (MCP) server that exposes Crawl4AI web scraping and crawling capabilities as tools for AI agents.  Similar to Firecrawl's API but self-hosted and free. Perfect ",
+  "version": "1.0.0",
+  "author": "sadiuysal",
+  "homepage": "https://github.com/sadiuysal/crawl4ai-mcp-server",
+  "skills": []
+}
