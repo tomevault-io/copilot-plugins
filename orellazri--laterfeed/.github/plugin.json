@@ -1,0 +1,9 @@
+{
+  "name": "orellazri--laterfeed",
+  "displayName": "laterfeed",
+  "description": "Self-hosted read-it-later service that serves your saved links as an Atom feed",
+  "version": "1.0.0",
+  "author": "orellazri",
+  "homepage": "https://github.com/orellazri/laterfeed",
+  "skills": []
+}
