@@ -1,90 +1,61 @@
-## 06-strategy
+## 07-growth
 
-> Use for business strategy, pricing, pivot decisions, business model, tokenomics, incentives, flywheel, TAM, market size, unit economics, revenue, LTV, CAC
+> Use for community building, content creation, tutorials, blogs, social threads, Twitter, Farcaster, Discord, Telegram, partnerships, hackathons, developer relations, bounties, grants
 
 
-# Strategy & Tokenomics
+# Growth — Content & Community
 
-> **Read before acting:**
-> - `.claude/docs/intelligence/METRICS.md` — ALWAYS check current numbers first
-> - `.claude/docs/strategy/BUSINESS_MODEL.md` — current revenue model
-> - `.claude/docs/strategy/ROADMAP.md` — current phase and priorities
-> - `.claude/docs/strategy/TOKENOMICS.md` — incentive design
+> **Read before acting:** `.claude/docs/growth/COMMUNITY_STRATEGY.md`
 
-## Decision Framework
+## Content Types
 
-For every strategic question:
+| Type           | Length          | Structure                                  |
+| -------------- | --------------- | ------------------------------------------ |
+| Tutorial       | 1000-2000 words | Why → Setup → Code → Deploy → Verify       |
+| Blog post      | 800-1500 words  | Hook → Problem → Solution → CTA            |
+| Twitter thread | 5-12 tweets     | Hook → Key points → CTA                    |
+| Farcaster cast | 1-3 casts       | Insight → Link → Discussion prompt         |
+| Documentation  | Varies          | Concept → API → Examples → Troubleshooting |
 
-1. **State the decision** — what exactly is being decided?
-2. **List options** — at least 2, ideally 3
-3. **Score each option:**
-   - Revenue impact (0-10)
-   - Effort required (0-10, lower = better)
-   - Risk level (0-10, lower = better)
-   - Protocol alignment (0-10) — does it leverage FHE/escrow advantages?
-4. **Recommend** — pick one, explain why
-5. **Flag irreversibility** — hard to reverse? Say so explicitly
+## Brand Voice
 
-## Protocol-Aware Strategy
+- **Technical but accessible** — explain FHE without PhD jargon
+- **Builder-focused** — "here's how to build X" not "here's what we built"
+- **Confident, not arrogant** — state advantages clearly
+- **Show, don't tell** — code samples, protocol flows, real examples
 
-Always consider:
-- **FHE moat** — what does encryption uniquely enable?
-- **Escrow economics** — fee per transaction, volume needed
-- **Insurance dynamics** — premiums vs claims, sustainability
-- **Cross-chain reach** — CCTP v2 expands addressable market
-- **Open economy** — can the venture attract LPs, operators, policy builders?
+## Channels
 
-## Revenue Model Patterns
+| Channel        | Purpose                              | Priority |
+| -------------- | ------------------------------------ | -------- |
+| Twitter/X      | Announcements, threads, engagement   | High     |
+| Farcaster      | Builder community, technical content | High     |
+| Discord/TG     | Community hub, support, governance   | High     |
+| Hackathons     | Developer acquisition, showcasing    | Medium   |
+| GitHub         | Open source presence, contributions  | Medium   |
 
-| Pattern                | Typical Fee      | Margin | Best For                   |
-| ---------------------- | ---------------- | ------ | -------------------------- |
-| Escrow fee             | 0.3-1% per trade | ~95%   | Any escrow-based venture   |
-| Insurance premium      | 1-5% of trade    | 70-90% | Ventures with dispute risk |
-| LP management fee      | 0.3-0.5% AUM/yr  | ~95%   | Pool-based ventures        |
-| Protocol fee on claims | 2-5% of payout   | ~100%  | Insurance ventures         |
-| API/white-label        | $2-8 per policy  | 85-90% | Platform play (Year 2+)    |
-| SaaS subscription      | $49-199/mo       | ~92%   | B2B with recurring use     |
+## First 100 Users Playbook
 
-## The Flywheel
+1. **Inner circle (1-10):** Team, friends, crypto-native allies
+2. **Community seeds (10-30):** Post in relevant Discords/Telegrams
+3. **Builder outreach (30-50):** Hackathon participants, bounties
+4. **Content-driven (50-100):** Tutorials, threads, Farcaster engagement
 
-```
-Builder writes accurate policy → Pool attaches it →
-Users purchase coverage → Premiums flow to pool →
-Stakers earn yield → More liquidity enters →
-More capacity → More coverage sold → More premium
-```
+## Partnership Targets
 
-## Fee Design Principles
-
-1. Fees must be value-proportional
-2. Keep it simple — complex fees confuse users
-3. Align incentives — everyone benefits from system working well
-4. Sustainability — premiums must exceed expected claims without subsidies
-
-## Stress Tests
-
-Before finalizing any recommendation:
-- What if this takes **2x longer** than expected?
-- What if the **market shifts** before we finish?
-- What if we're **wrong about the core assumption**?
-- What's the **cheapest way to test** before committing?
-
-## What You Must Not Do
-
-- Do not recommend spending money the brief says isn't available
-- Do not suggest features not in the current phase
-- Do not make technical architecture decisions (that's product's job)
-- Do not present options without a recommendation
-- Do not design token models as a substitute for real revenue
-- Do not recommend token launches at idea/MVP stage
+- DeFi protocols needing escrow/insurance primitives
+- RWA (Real World Asset) projects
+- Payment providers exploring crypto rails
+- Fhenix ecosystem projects
+- Arbitrum ecosystem grants
 
 ## Checklist
 
-- [ ] Checked METRICS.md for current numbers
-- [ ] Options scored with framework
-- [ ] Recommendation is clear and actionable
-- [ ] Protocol alignment considered
-- [ ] Strategic decision logged to `.claude/data/decisions/`
+- [ ] Content is technically accurate
+- [ ] Code in tutorials compiles and works
+- [ ] Target audience is specific, not "everyone in crypto"
+- [ ] Channel strategy matches where audience actually is
+- [ ] CTA is clear and relevant
 
 ---
 > Source: [ReineiraOS/reineira-atlas](https://github.com/ReineiraOS/reineira-atlas) — distributed by [TomeVault](https://tomevault.io).
