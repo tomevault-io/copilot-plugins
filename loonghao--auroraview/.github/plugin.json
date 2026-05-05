@@ -1,0 +1,9 @@
+{
+  "name": "loonghao--auroraview",
+  "displayName": "auroraview",
+  "description": "A blazingly fast, lightweight WebView framework for DCC (Digital Content Creation) software, built with Rust and Python bindings.",
+  "version": "1.0.0",
+  "author": "loonghao",
+  "homepage": "https://github.com/loonghao/auroraview",
+  "skills": []
+}
