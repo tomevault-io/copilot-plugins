@@ -4,7 +4,7 @@
   "repo": "keynobi",
   "description": "Your Android companion debug buddy",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/thiagodmont/keynobi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:30:43Z"
+  "distributed_at": "2026-05-05T03:13:47Z"
 }
