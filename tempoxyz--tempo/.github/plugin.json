@@ -1,0 +1,14 @@
+{
+  "name": "tempoxyz--tempo",
+  "displayName": "tempo",
+  "description": "the blockchain for payments",
+  "version": "1.0.0",
+  "author": "tempoxyz",
+  "homepage": "https://github.com/tempoxyz/tempo",
+  "skills": [
+    {
+      "name": "tempo",
+      "description": ""
+    }
+  ]
+}
