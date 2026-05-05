@@ -1,10 +1,10 @@
-## frontx
+## hai3
 
-> Always use the ./.ai/GUIDELINES.md
+> Use `.ai/GUIDELINES.md` as the single source of truth for HAI3 development guidelines.
 
 
-Always use the ./.ai/GUIDELINES.md
+Use `.ai/GUIDELINES.md` as the single source of truth for HAI3 development guidelines.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/cyberfabric) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [cyberfabric/frontx](https://github.com/cyberfabric/frontx) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
