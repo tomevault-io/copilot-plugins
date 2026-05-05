@@ -1,10 +1,10 @@
-## windows-npm
+## wrangler
 
-> 1. The development system is running Windows. Please run PowerShell compatible commands
+> 1. To add new variables/binding, first make changes in wrangler.jsonc, then run `npm run cf-typegen` to update `worker-configuration.d.ts`. The new bindings will be available via `Env`
 
 
-1. The development system is running Windows. Please run PowerShell compatible commands
-2. The available tools you have may not capture the status or output correctly. Try not to execute again or run it differently. Ask the user for help/confirm if you are having troubles or uncertain.
+1. To add new variables/binding, first make changes in wrangler.jsonc, then run `npm run cf-typegen` to update `worker-configuration.d.ts`. The new bindings will be available via `Env`
+2. Do not attempt to read `worker-configuration.d.ts` in full as it is auto-generated, and the line limit exceeds what your tool allows.
 
 ---
 > Source: [zllovesuki/git-on-cloudflare](https://github.com/zllovesuki/git-on-cloudflare) — distributed by [TomeVault](https://tomevault.io).
