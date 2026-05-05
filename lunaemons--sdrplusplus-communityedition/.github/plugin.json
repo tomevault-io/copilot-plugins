@@ -1,0 +1,9 @@
+{
+  "name": "lunaemons--sdrplusplus-communityedition",
+  "displayName": "SDRPlusPlus_CommunityEdition",
+  "description": "\ud83c\udfb5 SDR++CE Community Edition - Advanced SDR software with MPX analysis, cross-platform support for RTL-SDR, HackRF, LimeSDR, AirSpy, PlutoSDR and more. Features real-time FM broadcasting analysis, freq",
+  "version": "1.0.0",
+  "author": "LunaeMons",
+  "homepage": "https://github.com/LunaeMons/SDRPlusPlus_CommunityEdition",
+  "skills": []
+}
