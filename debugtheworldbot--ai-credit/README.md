@@ -7,11 +7,11 @@ A command-line tool to track and analyze AI coding assistants' contributions in 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [debugtheworldbot/ai-credit](https://github.com/debugtheworldbot/ai-credit).
+Original source: `CLAUDE.md` in [debugtheworldbot/ai-credit](https://github.com/debugtheworldbot/ai-credit).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
