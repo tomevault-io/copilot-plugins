@@ -1,0 +1,9 @@
+{
+  "name": "rsms--hophop",
+  "displayName": "hophop",
+  "description": "HopHop is a small systems programming language and reference compiler",
+  "version": "1.0.0",
+  "author": "rsms",
+  "homepage": "https://github.com/rsms/hophop",
+  "skills": []
+}
