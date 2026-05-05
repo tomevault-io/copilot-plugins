@@ -7,11 +7,11 @@ A local expert panel for questions, grounded in research papers🐙(Predates Kar
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [topherchris420/james_library](https://github.com/topherchris420/james_library).
+Original source: `CLAUDE.md` in [topherchris420/james_library](https://github.com/topherchris420/james_library).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
