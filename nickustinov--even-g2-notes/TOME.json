@@ -4,7 +4,7 @@
   "repo": "even-g2-notes",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nickustinov/even-g2-notes",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T16:33:52Z"
+  "distributed_at": "2026-05-05T02:48:27Z"
 }
