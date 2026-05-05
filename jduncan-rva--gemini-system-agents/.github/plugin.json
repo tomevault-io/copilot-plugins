@@ -1,0 +1,9 @@
+{
+  "name": "jduncan-rva--gemini-system-agents",
+  "displayName": "gemini-system-agents",
+  "description": "A curated collection of system prompt variants for the Gemini CLI. Transform your Gemini assistant into specialized agents with different personalities and expertise areas.",
+  "version": "1.0.0",
+  "author": "jduncan-rva",
+  "homepage": "https://github.com/jduncan-rva/gemini-system-agents",
+  "skills": []
+}
