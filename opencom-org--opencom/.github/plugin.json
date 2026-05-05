@@ -1,0 +1,9 @@
+{
+  "name": "opencom-org--opencom",
+  "displayName": "opencom",
+  "description": "Monorepo for Opencom - Open Source customer engagement platform. Self-host or use the hosted version. ",
+  "version": "1.0.0",
+  "author": "opencom-org",
+  "homepage": "https://github.com/opencom-org/opencom",
+  "skills": []
+}
