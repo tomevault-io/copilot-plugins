@@ -1,0 +1,30 @@
+{
+  "name": "ai4curation--curation-skills",
+  "displayName": "curation-skills",
+  "description": "Claude skills for a variety of curation and knowledge-based tasks. We currently have 3 skills included, but intend to grow this.",
+  "version": "1.0.0",
+  "author": "ai4curation",
+  "homepage": "https://github.com/ai4curation/curation-skills",
+  "skills": [
+    {
+      "name": "ai4curation-configuration",
+      "description": ""
+    },
+    {
+      "name": "dosdp-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "editing-obo-ontologies",
+      "description": ""
+    },
+    {
+      "name": "ontology-access-kit",
+      "description": ""
+    },
+    {
+      "name": "robot-obo-tool",
+      "description": ""
+    }
+  ]
+}
