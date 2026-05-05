@@ -1,0 +1,87 @@
+{
+  "name": "claude-plugins",
+  "owner": "jeffh",
+  "repo": "claude-plugins",
+  "description": "Humanlayer + other productivity plugins",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-skill",
+      "path": "pai/skills/create-skill",
+      "github_url": "https://github.com/jeffh/claude-plugins/tree/main/pai/skills/create-skill",
+      "description": ""
+    },
+    {
+      "name": "create-worktree",
+      "path": "humanlayer/skills/create-worktree",
+      "github_url": "https://github.com/jeffh/claude-plugins/tree/main/humanlayer/skills/create-worktree",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "path": "pai/skills/fabric",
+      "github_url": "https://github.com/jeffh/claude-plugins/tree/main/pai/skills/fabric",
+      "description": ""
+    },
+    {
+      "name": "prompting",
+      "path": "pai/skills/prompting",
+      "github_url": "https://github.com/jeffh/claude-plugins/tree/main/pai/skills/prompting",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "pai/skills/research",
+      "github_url": "https://github.com/jeffh/claude-plugins/tree/main/pai/skills/research",
+      "description": ""
+    },
+    {
+      "name": "spec-metadata",
+      "path": "humanlayer/skills/spec-metadata",
+      "github_url": "https://github.com/jeffh/claude-plugins/tree/main/humanlayer/skills/spec-metadata",
+      "description": ""
+    },
+    {
+      "name": "story-explanation",
+      "path": "pai/skills/story-explanation",
+      "github_url": "https://github.com/jeffh/claude-plugins/tree/main/pai/skills/story-explanation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jeffh/claude-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:36:28Z"
+}
