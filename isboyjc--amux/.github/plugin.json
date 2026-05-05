@@ -1,0 +1,9 @@
+{
+  "name": "isboyjc--amux",
+  "displayName": "amux",
+  "description": "Bidirectional LLM API adapter with IR pattern. Seamlessly convert between OpenAI, Anthropic, DeepSeek, and more. TypeScript, zero deps | \u57fa\u4e8e IR \u6a21\u5f0f\u7684\u53cc\u5411 LLM API \u9002\u914d\u5668\uff0c\u65e0\u7f1d\u8f6c\u6362 OpenAI\u3001Anthropic\u3001DeepSeek \u7b49\u591a\u4e2a\u63d0\u4f9b\u5546\u3002T",
+  "version": "1.0.0",
+  "author": "isboyjc",
+  "homepage": "https://github.com/isboyjc/amux",
+  "skills": []
+}
