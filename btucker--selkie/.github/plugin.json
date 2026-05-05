@@ -1,0 +1,9 @@
+{
+  "name": "btucker--selkie",
+  "displayName": "selkie",
+  "description": "A full Rust implementation of a mermaid diagram parser & renderer",
+  "version": "1.0.0",
+  "author": "btucker",
+  "homepage": "https://github.com/btucker/selkie",
+  "skills": []
+}
