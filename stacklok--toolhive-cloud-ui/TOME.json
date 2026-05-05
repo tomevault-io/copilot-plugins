@@ -1,0 +1,93 @@
+{
+  "name": "toolhive",
+  "owner": "stacklok",
+  "repo": "toolhive-cloud-ui",
+  "description": "ToolHive Cloud UI surfaces MCP servers running in your infrastructure, highlighting metadata, tool capabilities, and copy-ready endpoints for fast AI agent integrations.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "deploy-otel",
+      "path": ".claude/skills/deploy-otel",
+      "github_url": "https://github.com/stacklok/toolhive-cloud-ui/tree/main/.claude/skills/deploy-otel",
+      "description": ""
+    },
+    {
+      "name": "deploying-vmcp-locally",
+      "path": ".claude/skills/deploying-vmcp-locally",
+      "github_url": "https://github.com/stacklok/toolhive-cloud-ui/tree/main/.claude/skills/deploying-vmcp-locally",
+      "description": ""
+    },
+    {
+      "name": "doc-review",
+      "path": ".claude/skills/doc-review",
+      "github_url": "https://github.com/stacklok/toolhive-cloud-ui/tree/main/.claude/skills/doc-review",
+      "description": ""
+    },
+    {
+      "name": "deploy-otel",
+      "path": ".claude/skills/deploy-otel",
+      "github_url": "https://github.com/stacklok/toolhive-cloud-ui/tree/main/.claude/skills/deploy-otel",
+      "description": ""
+    },
+    {
+      "name": "deploy-registry-server-with-cnpg",
+      "path": ".claude/skills/deploy-registry-server-with-cnpg",
+      "github_url": "https://github.com/stacklok/toolhive-cloud-ui/tree/main/.claude/skills/deploy-registry-server-with-cnpg",
+      "description": ""
+    },
+    {
+      "name": "deploy-registry-server-with-otel",
+      "path": ".claude/skills/deploy-registry-server-with-otel",
+      "github_url": "https://github.com/stacklok/toolhive-cloud-ui/tree/main/.claude/skills/deploy-registry-server-with-otel",
+      "description": ""
+    },
+    {
+      "name": "review-rfc",
+      "path": ".claude/skills/review-rfc",
+      "github_url": "https://github.com/stacklok/toolhive-cloud-ui/tree/main/.claude/skills/review-rfc",
+      "description": ""
+    },
+    {
+      "name": "write-rfc",
+      "path": ".claude/skills/write-rfc",
+      "github_url": "https://github.com/stacklok/toolhive-cloud-ui/tree/main/.claude/skills/write-rfc",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/stacklok/toolhive-cloud-ui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:42:18Z"
+}
