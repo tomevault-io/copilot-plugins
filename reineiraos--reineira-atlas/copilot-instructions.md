@@ -1,69 +1,56 @@
-## 02-protocol-policy
+## 03-product-frontend
 
-> Use when discussing insurance policies, risk scores, disputes, underwriter, coverage, pools, liquidity, LP staking, IUnderwriterPolicy, FHE encryption
+> Use for frontend development — React 19, components, pages, UI, Zustand, Vite, TailwindCSS, ZeroDev wallet integration
 
 
-# Protocol — Underwriter Policies
+# Frontend Developer
 
-> **Read before acting:**
-> - `.claude/docs/product/PROTOCOL_INTEGRATION.md`
-> - `.claude/docs/strategy/TOKENOMICS.md`
+> **Read before acting:** `.claude/docs/product/ARCHITECTURE.md`
 
-Guide builders in designing IUnderwriterPolicy contracts that evaluate risk and judge disputes using FHE encryption. All return values MUST be FHE-encrypted.
+Build the React 19 frontend for ventures on ReineiraOS.
 
-## The Interface
+## Stack
 
-```solidity
-interface IUnderwriterPolicy {
-    function onPolicySet(uint256 coverageId, bytes calldata data) external;
-    function evaluateRisk(uint256 escrowId, bytes calldata riskProof)
-        external returns (euint64 riskScore);
-    function judge(uint256 coverageId, bytes calldata disputeProof)
-        external returns (ebool valid);
-}
+- **React 19** + TypeScript + **Vite** (port 4831)
+- **Zustand** — state management
+- **TanStack Router** — file-based routing with auth guards
+- **TanStack Query** — server state
+- **TailwindCSS** — styling
+- **Axios** — HTTP client with auto Bearer injection
+
+## Key Layers
+
+| Layer      | Path               | Purpose                                   |
+| ---------- | ------------------ | ----------------------------------------- |
+| Routes     | `src/routes/`      | TanStack Router, `_authenticated/` guard  |
+| Stores     | `src/stores/`      | authStore, walletStore, etc.              |
+| Services   | `src/services/`    | Static async classes wrapping Axios       |
+| Hooks      | `src/hooks/`       | useAuth, useBalance, useEscrowFlow        |
+| Components | `src/components/`  | ui/ primitives + features/ business       |
+| Providers  | `src/providers/`   | Wallet provider (ZeroDev, WalletConnect)  |
+
+## Web3 Integration
+
+- **Primary wallet:** ZeroDev — ERC-4337 smart accounts with passkey auth
+- User operations via bundler, not traditional transactions
+- Paymaster for sponsored (gasless) transactions
+- **Secondary wallets:** Any wallet via WalletConnect
+
+## Commands
+
+```bash
+pnpm dev      # Dev server on port 4831
+pnpm build    # Production build
+pnpm test     # Vitest
+pnpm lint     # All linters
 ```
-
-## FHE Pattern (MUST Follow Exactly)
-
-```solidity
-import { FHE, euint64, ebool } from "@fhenixprotocol/cofhe-contracts/FHE.sol";
-
-function evaluateRisk(uint256, bytes calldata) external returns (euint64) {
-    uint64 score = 500; // 5% premium
-    euint64 encrypted = FHE.asEuint64(score);
-    FHE.allowThis(encrypted);
-    FHE.allow(encrypted, msg.sender);
-    return encrypted;
-}
-```
-
-**Critical:** Without `FHE.allowThis()` + `FHE.allow()`, the value is unusable.
-
-## Risk Score Scale
-
-| Score (bps) | Premium | Use Case                           |
-| ----------- | ------- | ---------------------------------- |
-| 100         | 1%      | Low-risk, established counterparty |
-| 300         | 3%      | Standard risk                      |
-| 500         | 5%      | Elevated risk                      |
-| 1000        | 10%     | High-risk, new counterparty        |
-
-## Design Playbook
-
-1. **Define risk factors** — what makes a transaction risky?
-2. **Design scoring model** — how factors map to 0-10000 bps
-3. **Define dispute evidence** — what proof validates a claim?
-4. **Design judge logic** — how to evaluate dispute proof
-5. **Set boundaries** — min/max premiums, dispute windows
-6. **Consider pool economics** — premiums must exceed expected claims
 
 ## Checklist
 
-- [ ] FHE pattern followed exactly (allowThis + allow)
-- [ ] Risk score uses 0-10000 bps scale
-- [ ] ERC-165 supportsInterface implemented
-- [ ] Judge logic has clear evidence requirements
-- [ ] Pool economics are sustainable
+- [ ] Code compiles (`pnpm build`)
+- [ ] No lint violations
+- [ ] Follows existing patterns (read before writing)
+- [ ] Responsive on mobile and desktop
 
 ---
 > Source: [ReineiraOS/reineira-atlas](https://github.com/ReineiraOS/reineira-atlas) — distributed by [TomeVault](https://tomevault.io).
