@@ -4,7 +4,7 @@
   "repo": "copilot-money-mcp",
   "description": "MCP server for Copilot Money App - AI powered personal finance queries using local data",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ignaciohermosillacornejo/copilot-money-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T16:15:29Z"
+  "distributed_at": "2026-05-05T15:58:16Z"
 }
