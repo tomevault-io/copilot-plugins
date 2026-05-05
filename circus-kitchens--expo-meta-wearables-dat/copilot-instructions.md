@@ -1,83 +1,120 @@
-## dat-conventions
+## debugging
 
-> DAT SDK conventions for android development
+> Common issues, Developer Mode, version compatibility, state machine diagnosis
 
 
 
-# DAT SDK Conventions (Android)
+# Debugging (Android)
 
-## Architecture
+Guide for diagnosing common issues with DAT SDK integrations.
 
-The SDK is organized into three modules:
-- **mwdat-core**: Device discovery, registration, permissions, device selectors
-- **mwdat-camera**: StreamSession, VideoFrame, photo capture
-- **mwdat-mockdevice**: MockDeviceKit for testing without hardware
+## Quick diagnosis
 
-## Kotlin Patterns
-
-- Use `suspend` functions for async operations — no callbacks
-- Use `StateFlow` / `Flow` for observing state changes
-- Use `DatResult<T, E>` for error handling — not exceptions
-- Prefer immutable collections
-- Use `sealed interface` for state hierarchies
-
-## Error Handling
-
-The SDK uses `DatResult<T, E>` for type-safe error handling:
-
-```kotlin
-val result = Wearables.someOperation()
-result.fold(
-    onSuccess = { value -> /* handle success */ },
-    onFailure = { error -> /* handle error */ }
-)
-
-// Or partial handling:
-result.onSuccess { value -> /* handle success */ }
-result.onFailure { error -> /* handle error */ }
+```
+Device not connecting?
+|
++-- Is Developer Mode enabled? -> Enable in Meta AI app settings
+|
++-- Is device registered? -> Check registrationState
+|
++-- Is device in range? -> Bluetooth on, glasses powered on
+|
++-- Did you call initialize()? -> Must call Wearables.initialize(context) first
+|
++-- Stream not receiving frames? -> Check device connection state
 ```
 
-Do **not** use `getOrThrow()` — always handle both paths.
+## Developer Mode
 
-## Naming Conventions
+Developer Mode must be enabled for 3P apps to access device features.
 
-| Suffix | Purpose | Example |
-|--------|---------|---------|
-| `*Manager` | Long-lived resource management | `RegistrationManager` |
-| `*Session` | Short-lived flow component | `StreamSession` |
-| `*Result` | DatResult type aliases | `RegistrationResult` |
-| `*Error` | Error sealed interfaces | `WearablesError` |
+### Enabling Developer Mode
 
-Methods: `get*`, `set*`, `check*`, `request*`, `observe*`
+1. Open Meta AI app on phone
+2. Go to Settings -> (Your connected glasses)
+3. Find "Developer Mode" toggle
+4. Toggle ON
+5. Device may restart
 
-## Imports
+### Symptoms of Developer Mode disabled
 
-```kotlin
-import com.meta.wearable.dat.core.Wearables          // Entry point
-import com.meta.wearable.dat.camera.StreamSession     // Camera streaming
-import com.meta.wearable.dat.camera.types.*            // VideoFrame, PhotoData, etc.
+- Registration completes but device never connects
+- StreamSession stuck without streaming
+- Permission requests fail or never appear
+
+### Common gotchas
+
+- Developer Mode toggles **off** after firmware updates — re-enable it
+- Developer Mode is per-device — enable for each glasses pair
+- Some features need additional permissions beyond Developer Mode
+
+## StreamSession state issues
+
+### Expected flow
+
+```
+STARTING -> STARTED -> STREAMING -> STOPPING -> STOPPED -> CLOSED
 ```
 
-For testing:
+### Not receiving frames
+
+- Check that `Wearables.initialize(context)` was called
+- Verify device is connected and in range
+- Ensure camera permission was granted
+- Check that the device selector matches an available device
+
+### Unexpected stop
+
+- Device disconnected (out of range, battery died)
+- Channel closed by device
+- Error in frame processing
+
+## Version compatibility
+
+Ensure compatible versions of SDK, Meta AI app, and glasses firmware:
+
+| SDK | Meta AI App | Ray-Ban Meta | Meta Ray-Ban Display |
+|-----|-------------|--------------|----------------------|
+| 0.5.0 | Check [version dependencies](https://wearables.developer.meta.com/docs/version-dependencies) | Check docs | Check docs |
+| 0.4.0 | V254 | V20 | V21 |
+| 0.3.0 | V249 | V20 | — |
+
+## Known issues
+
+| Issue | Workaround |
+|-------|-----------|
+| No internet -> registration fails | Internet required for registration |
+| Streams started with glasses doffed pause when donned | Unpause by tapping side of glasses |
+| `DeviceSession` unreliable with camera stream | Avoid using `DeviceSession` |
+
+## Adding debug logging
+
 ```kotlin
-import com.meta.wearable.dat.mockdevice.MockDeviceKit  // MockDeviceKit
+import android.util.Log
+
+private const val TAG = "DATWearables"
+
+// In your streaming code:
+Log.d(TAG, "Stream state changed to: $state")
+Log.e(TAG, "Stream error", exception)
 ```
 
-## Key Types
+## Checklist
 
-- `Wearables` — SDK entry point. Call `Wearables.initialize(context)` at startup
-- `StreamSession` — Camera streaming session
-- `VideoFrame` — Individual video frame with bitmap data
-- `AutoDeviceSelector` — Auto-selects the best available device
-- `SpecificDeviceSelector` — Selects a specific device by identifier
-- `StreamConfiguration` — Configure video quality, frame rate
-- `MockDeviceKit` — Factory for creating simulated devices in tests
+- [ ] `Wearables.initialize(context)` called before any API use
+- [ ] Developer Mode enabled in Meta AI app
+- [ ] Meta AI app updated to compatible version
+- [ ] Glasses firmware updated to compatible version
+- [ ] Internet connection available for registration
+- [ ] Bluetooth permissions granted (`BLUETOOTH_CONNECT`)
+- [ ] Correct URL scheme in AndroidManifest.xml intent filter
+- [ ] `APPLICATION_ID` meta-data set in manifest
 
 ## Links
 
-- [Android API Reference](https://wearables.developer.meta.com/docs/reference/android/dat/0.5)
-- [Developer Documentation](https://wearables.developer.meta.com/docs/develop/)
-- [GitHub Repository](https://github.com/facebook/meta-wearables-dat-android)
+- [Known issues](https://wearables.developer.meta.com/docs/knownissues)
+- [Version dependencies](https://wearables.developer.meta.com/docs/version-dependencies)
+- [Troubleshooting discussions](https://github.com/facebook/meta-wearables-dat-android/discussions)
 
 ---
 > Source: [circus-kitchens/expo-meta-wearables-dat](https://github.com/circus-kitchens/expo-meta-wearables-dat) — distributed by [TomeVault](https://tomevault.io).
