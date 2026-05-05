@@ -1,0 +1,9 @@
+{
+  "name": "nanograph--nanograph",
+  "displayName": "nanograph",
+  "description": "On-device property graph database. Schema-as-code. One CLI \u2192 One Folder. No Server. Think: DuckDB for graphs.",
+  "version": "1.0.0",
+  "author": "nanograph",
+  "homepage": "https://github.com/nanograph/nanograph",
+  "skills": []
+}
