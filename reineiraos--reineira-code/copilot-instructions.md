@@ -1,57 +1,13 @@
-## 00-system
+## 01-resolver
 
-> Core system context for ReineiraOS plugin development — Solidity resolvers and policies on Arbitrum
+> Use when discussing condition resolvers, escrow release logic, isConditionMet, onConditionSet, zkTLS, Reclaim proofs, oracles, Chainlink, UMA, multi-signature, time lock, verification sources
 
 
-# ReineiraOS Plugin Development Environment
+# Protocol — Condition Resolvers
 
-You are building plugins for ReineiraOS — open settlement infrastructure on Arbitrum.
-Plugins extend the protocol through two Solidity interfaces.
+Guide for designing and implementing IConditionResolver contracts that control when escrows release funds.
 
-## Version
-
-- **Code version:** 0.1.0
-- **Platform version:** 0.1
-
-## What This Repo Is
-
-A Hardhat project for building and deploying:
-
-- **Condition resolvers** — contracts that control when escrows release funds
-- **Insurance policies** — contracts that evaluate risk and judge disputes using FHE
-
-## Ecosystem
-
-| Repo                 | Purpose                                                |
-| -------------------- | ------------------------------------------------------ |
-| **reineira-code**    | Smart contracts — Solidity resolvers, policies, tests  |
-| **reineira-atlas**   | Startup OS — strategy, ops, growth, compliance, agents |
-| **platform-modules** | App starters — backend, platform app, payment link     |
-
-## Project Layout
-
-```
-contracts/
-  interfaces/          — protocol interfaces (read-only reference)
-  resolvers/           — IConditionResolver implementations (you create these)
-  policies/            — IUnderwriterPolicy implementations (you create these)
-test/
-  resolvers/           — resolver test files
-  policies/            — policy test files
-scripts/
-  deploy.ts            — universal deploy script
-deployments/           — deployment records (auto-generated)
-```
-
-## Key Protocol Facts
-
-- **Stablecoin-agnostic** — ConfidentialEscrow uses `IFHERC20`, not hardcoded to any token
-- **Cross-chain** — CCTP v2 for USDC cross-chain transfers
-- **Contract addresses** — query from MCP or protocol docs, never hardcode
-
-## The Two Plugin Interfaces
-
-### IConditionResolver — "When should this escrow release?"
+## The Interface
 
 ```solidity
 interface IConditionResolver {
@@ -60,38 +16,85 @@ interface IConditionResolver {
 }
 ```
 
-### IUnderwriterPolicy — "How is risk evaluated? Is this dispute valid?"
+## Rules
+
+- `isConditionMet` MUST be `view` — no state changes, no gas surprises
+- `onConditionSet` runs once — validate inputs strictly, store config
+- Support ERC-165: `supportsInterface(type(IConditionResolver).interfaceId)`
+- One escrow ID -> one condition state (replay protection)
+- Keep `isConditionMet` gas under 50k — called on every redeem attempt
+
+## Storage Pattern
 
 ```solidity
-interface IUnderwriterPolicy {
-    function onPolicySet(uint256 coverageId, bytes calldata data) external;
-    function evaluateRisk(uint256 escrowId, bytes calldata riskProof) external returns (euint64 riskScore);
-    function judge(uint256 coverageId, bytes calldata disputeProof) external returns (ebool valid);
+mapping(uint256 => YourConfigStruct) public configs;
+
+function onConditionSet(uint256 escrowId, bytes calldata data) external {
+    YourConfigStruct memory config = abi.decode(data, (YourConfigStruct));
+    // validate config fields
+    configs[escrowId] = config;
+}
+
+function isConditionMet(uint256 escrowId) external view returns (bool) {
+    YourConfigStruct memory config = configs[escrowId];
+    // evaluate condition against config
+    return /* condition logic */;
 }
 ```
 
-## Solidity Conventions
+## ERC-165 Support
 
-- Pragma: `^0.8.24`
-- License: `SPDX-License-Identifier: MIT`
-- Compiler: solc 0.8.25, EVM target: cancun, optimizer: 200 runs
-- Imports: `@openzeppelin/contracts/` and `@fhenixprotocol/cofhe-contracts/`
-- Error handling: custom errors over require strings
-- Events: emit on state changes in `onConditionSet` and proof submission
-- ERC-165: required for both interfaces
+```solidity
+import { ERC165 } from '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 
-## Security Checklist (Summary)
+function supportsInterface(bytes4 interfaceId) public view override returns (bool) {
+    return interfaceId == type(IConditionResolver).interfaceId || super.supportsInterface(interfaceId);
+}
+```
 
-- `isConditionMet` must be `view` — no state changes
-- `onConditionSet` must validate all inputs
-- ERC-165 `supportsInterface` implemented
-- No reentrancy vectors
-- Replay protection for proof-based resolvers
-- External calls use known addresses, not user-supplied
-- Oracle freshness validated
-- FHE values always have `FHE.allowThis()` + `FHE.allow(value, msg.sender)`
-- No plaintext secrets on-chain
-- Gas of `isConditionMet` bounded (no unbounded loops)
+## Verification Data Sources
+
+### zkTLS (Reclaim Protocol)
+
+- Proves HTTPS endpoint returned expected data (PayPal, Stripe, bank APIs)
+- Proof verified on-chain via Reclaim verifier (address from MCP or protocol docs)
+- Pattern: buyer generates proof off-chain -> submits to resolver -> resolver verifies + marks fulfilled
+- Storage: `mapping(uint256 => bool) public fulfilled` + `mapping(bytes32 => bool) public usedProofs`
+
+### Oracle (Chainlink)
+
+- Reads price feeds deployed natively on Arbitrum
+- Feed addresses: query MCP or protocol docs (e.g. ETH/USD has 8 decimals)
+- `isConditionMet` calls `IChainlinkFeed.latestRoundData()` and checks threshold
+- Always validate staleness: `require(block.timestamp - updatedAt <= maxStaleness)`
+- Interface: `function latestRoundData() returns (uint80, int256 answer, uint256, uint256 updatedAt, uint80)`
+
+### Prediction Markets (UMA)
+
+- Resolves binary or numeric outcomes via Optimistic Oracle
+- UMA OO V3 address: query MCP or protocol docs
+- `isConditionMet` calls `hasPrice()` then `getPrice()` and compares to required outcome
+- Resolution values: `1e18` = YES, `0` = NO
+
+### Multi-Signature
+
+- N-of-M approval pattern
+- Storage: `mapping(uint256 => mapping(address => bool)) public approvals`
+- `isConditionMet` counts approvals >= threshold
+- `onConditionSet` stores signers array and threshold
+
+### Time Lock
+
+- Simplest pattern: `block.timestamp >= deadline`
+- `onConditionSet` stores deadline, validates it's in the future
+
+## Common Mistakes
+
+1. Making `isConditionMet` non-view — causes protocol revert
+2. Not validating `onConditionSet` inputs — permanently broken escrow
+3. Trusting user-supplied addresses in view calls — store and validate in `onConditionSet`
+4. No replay protection for proof-based resolvers — track `usedProofs[keccak256(proof)]`
+5. Unbounded gas in `isConditionMet` — no loops or multiple external calls
 
 ---
 > Source: [ReineiraOS/reineira-code](https://github.com/ReineiraOS/reineira-code) — distributed by [TomeVault](https://tomevault.io).
