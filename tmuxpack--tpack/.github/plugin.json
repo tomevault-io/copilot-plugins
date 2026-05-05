@@ -1,0 +1,9 @@
+{
+  "name": "tmuxpack--tpack",
+  "displayName": "tpack",
+  "description": "A drop-in replacement for tmux-plugin-manager (tpm) with a TUI. Written in Go.",
+  "version": "1.0.0",
+  "author": "tmuxpack",
+  "homepage": "https://github.com/tmuxpack/tpack",
+  "skills": []
+}
