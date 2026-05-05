@@ -1,0 +1,9 @@
+{
+  "name": "praetorian-inc--pius",
+  "displayName": "pius",
+  "description": "Organizational asset discovery tool with 20+ plugins covering certificate transparency, passive DNS, and all 5 Regional Internet Registries.",
+  "version": "1.0.0",
+  "author": "praetorian-inc",
+  "homepage": "https://github.com/praetorian-inc/pius",
+  "skills": []
+}
