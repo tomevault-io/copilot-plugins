@@ -1,0 +1,14 @@
+{
+  "name": "discourse--discourse-mcp",
+  "displayName": "discourse",
+  "description": "MCP client for Discourse sites",
+  "version": "1.0.0",
+  "author": "discourse",
+  "homepage": "https://github.com/discourse/discourse-mcp",
+  "skills": [
+    {
+      "name": "discourse-upcoming-changes",
+      "description": ""
+    }
+  ]
+}
