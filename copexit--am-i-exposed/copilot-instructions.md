@@ -1,0 +1,142 @@
+## am-i-exposed
+
+> - **Package manager:** pnpm (do not use npm or yarn)
+
+# CLAUDE.md - Project Instructions for AI Assistants
+
+## Build & Test
+
+- **Package manager:** pnpm (do not use npm or yarn)
+- **Dev server:** `pnpm dev`
+- **Build (static export):** `pnpm build`
+- **Lint:** `pnpm lint`
+
+## Code Style Rules
+
+### No em dashes
+
+Never use em dashes in any form:
+- No literal `---` (U+2014) characters
+- No `\u2014` unicode escapes
+- No `&mdash;` HTML entities
+
+Use a regular hyphen with spaces instead: ` - `
+
+This applies to all strings, comments, UI text, metadata, test descriptions, and documentation within `src/`.
+
+### Voice and tone in UI text
+
+- **Never use "we", "us", or "our"** in UI copy, metadata, FAQ answers, or any user-facing text. This tool is not a person, company, or group.
+- Use **passive voice** or refer to the tool by name ("am-i.exposed").
+- Data is never "transmitted to us" - say "transmitted to anyone" or specify the actual recipient (e.g., "mempool.space for blockchain data").
+- Correct: "Your addresses and transactions are never logged, stored, or transmitted to anyone except the mempool.space API (or your own instance)."
+- Wrong: "We don't store your data." / "Your data is never transmitted to us."
+
+### General
+
+- TypeScript strict mode, no `any` types
+- Tailwind CSS 4 for styling (use semantic tokens like `bg-surface-inset` over hardcoded hex values)
+- Use `motion/react` (not `framer-motion`) for animations
+- Next.js 16 with static export (`output: "export"`)
+- All Bitcoin amounts in satoshis (never BTC floats in logic)
+- Dark theme only - no light mode toggle
+- `"use client"` on all interactive pages/components (static export does not support RSC)
+
+### Bitcoin-specific
+
+- Support all mempool.space networks: mainnet, testnet4, signet
+- Address validation must be network-aware (bc1 for mainnet, tb1 for testnet/signet)
+- API: mempool.space only (no secondary/fallback APIs)
+- Never log or persist user addresses/txids
+
+### Severity levels
+
+Use these consistently for findings:
+- `critical` - red (#ef4444)
+- `high` - orange (#f97316)
+- `medium` - amber (#eab308)
+- `low` - blue (#3b82f6)
+- `good` - green (#28d065)
+
+## Boltzmann WASM
+
+The real Boltzmann Link Probability Matrix is implemented in Rust, compiled to WASM, and runs in a Web Worker.
+
+- **Rust crate**: `boltzmann-rs/` - 4-phase algorithm (subset sum, input decomposition, DFS enumeration, matrix finalization)
+- **Pre-built WASM**: `public/wasm/boltzmann/` - ~70KB `.wasm` + JS glue, committed to git
+- **Worker**: `public/workers/boltzmann.worker.js` - plain JS (not TypeScript), loads WASM via fetch+blob URL
+- **Hook**: `src/hooks/useBoltzmann.ts` - singleton worker, auto-compute for <=8x8 txs
+- **UI**: `src/components/viz/LinkabilityHeatmap.tsx` - heat map in Zone 11 of ResultsPanel
+
+### Rebuilding WASM
+
+Requires `rustup target add wasm32-unknown-unknown` and `cargo install wasm-pack`.
+
+```bash
+pnpm build:wasm          # Runs scripts/build-boltzmann-wasm.sh
+cd boltzmann-rs && cargo test   # Run Rust tests (23 test vectors)
+```
+
+After rebuilding, commit the updated files in `public/wasm/boltzmann/`. The worker JS in `public/workers/` is hand-written, not generated.
+
+### Key gotchas
+
+- Worker must be plain `.js` in `public/` - Next.js static export doesn't bundle `.ts` workers correctly
+- WASM JS glue uses `import.meta.url` internally but our worker overrides with explicit fetch+blob URL
+- `serde_wasm_bindgen` returns u64 as BigInt - worker converts to Number via `toNum()`
+- Matrix dimensions: `[nOut][nIn]` (outputs as rows, inputs as columns), sorted by value descending
+- CI builds WASM from source via `wasm-pack` (Rust deps cached)
+
+## Session Safety
+
+- **Always commit work before ending a session.** Uncommitted changes to tracked files can be lost between sessions (IDE auto-revert, git hooks, other processes). If work is in progress and not ready to commit to main, commit to a WIP branch. Never leave substantial uncommitted changes across a session boundary.
+
+## Deployment Rules
+
+- **NEVER deploy without explicit user permission.** Always ask first.
+- **NEVER git push without explicit user permission.** Commit freely, but always ask before pushing to remote.
+- **NEVER edit code directly on the VPS.** All changes happen locally, then commit, push, pull on server.
+- **NEVER commit feedback files** or any file containing real names of testers/collaborators. Use `.gitignore`.
+- **NEVER expose tester identities** in commit messages, code comments, or any pushed file.
+
+## Release Process
+
+- **Always run `pnpm test && pnpm lint && pnpm build` before pushing.** CI runs type-check and will fail on type errors that `pnpm test` alone does not catch. Do not push without verifying the build passes locally.
+- After removing or adding dependencies, always run `pnpm install` to sync `pnpm-lock.yaml`. CI uses `--frozen-lockfile` and will fail on mismatches.
+- Use `/deploy` command for the full pipeline: type-check, build, bump version, commit, push, GH Pages, Umbrel release.
+
+### Publish New Umbrel Release
+
+1. Run `pnpm lint && pnpm test && pnpm build` - all must pass
+2. Bump `version` in `package.json` (e.g. `0.35.5` -> `0.35.6`)
+3. Commit: `chore: bump version to X.Y.Z`
+4. Tag: `git tag vX.Y.Z`
+5. Push: `git push origin main --tags` - triggers CI to build both Docker images
+6. Update `~/copexit-umbrel-app-store/copexit-am-i-exposed/`:
+   - `docker-compose.yml`: bump both image tags to `vX.Y.Z`
+   - `umbrel-app.yml`: bump `version` to `X.Y.Z` (no `v` prefix), update `releaseNotes`
+7. Commit and push the app store: `git push origin master`
+8. Verify CI at `github.com/Copexit/am-i-exposed/actions` - main image takes 5-10 min (arm64 cross-compile)
+
+## Slash Commands
+
+- `/deploy [patch|minor|major]` - Full deploy pipeline
+- `/devserver [port]` - Kill and restart dev server (default: 3000)
+- `/feedback <folder>` - Parse feedback screenshots/audio into actionable markdown
+- `/audit-loop <end-time>` - Run expert audit + fix loop until specified time
+- `/translate [lang]` - Sync all i18n locale files
+
+## Documentation
+
+Project documentation lives in `docs/`. Before tackling new tasks, explore this folder for context. Key references:
+
+- **`docs/privacy-engine.md`** - Canonical heuristic reference (H1-H12), scoring model, threat model
+- **`docs/development-guide.md`** - Architecture, components, state machine, API endpoints
+- **`docs/testing-reference.md`** - Example transactions/addresses with expected grades
+- **`docs/research-boltzmann-entropy.md`** - Entropy math and implementation notes
+
+See `docs/README.md` for the full index including research, deployment guides, and feature specs.
+
+---
+> Source: [Copexit/am-i-exposed](https://github.com/Copexit/am-i-exposed) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
