@@ -1,0 +1,218 @@
+{
+  "name": "matteocervelli--llms",
+  "displayName": "llms",
+  "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+  "version": "1.0.0",
+  "author": "matteocervelli",
+  "homepage": "https://github.com/matteocervelli/llms",
+  "skills": [
+    {
+      "name": "accessibility-checker",
+      "description": ""
+    },
+    {
+      "name": "analysis",
+      "description": ""
+    },
+    {
+      "name": "analysis",
+      "description": ""
+    },
+    {
+      "name": "api-designer",
+      "description": ""
+    },
+    {
+      "name": "api-test-generator",
+      "description": ""
+    },
+    {
+      "name": "architecture-planner",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "coverage-analyzer",
+      "description": ""
+    },
+    {
+      "name": "data-modeler",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "design-synthesizer",
+      "description": ""
+    },
+    {
+      "name": "doc-analyzer",
+      "description": ""
+    },
+    {
+      "name": "doc-fetcher",
+      "description": ""
+    },
+    {
+      "name": "documentation-updater",
+      "description": ""
+    },
+    {
+      "name": "e2e-test-writer",
+      "description": ""
+    },
+    {
+      "name": "file-permission-test",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix-html",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix-react",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix-svelte",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix-vue",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-html",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-react",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-svelte",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-vue",
+      "description": ""
+    },
+    {
+      "name": "github-manage",
+      "description": ""
+    },
+    {
+      "name": "implementation",
+      "description": ""
+    },
+    {
+      "name": "implementation",
+      "description": ""
+    },
+    {
+      "name": "integration-test-writer",
+      "description": ""
+    },
+    {
+      "name": "jest-generator",
+      "description": ""
+    },
+    {
+      "name": "permission-test-skill",
+      "description": ""
+    },
+    {
+      "name": "planning-doc-generator",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "description": ""
+    },
+    {
+      "name": "pr-merge",
+      "description": ""
+    },
+    {
+      "name": "prp-generator",
+      "description": ""
+    },
+    {
+      "name": "pytest-generator",
+      "description": ""
+    },
+    {
+      "name": "python-quality-checker",
+      "description": ""
+    },
+    {
+      "name": "recursive-communicator",
+      "description": ""
+    },
+    {
+      "name": "requirements-extractor",
+      "description": ""
+    },
+    {
+      "name": "rust-quality-checker",
+      "description": ""
+    },
+    {
+      "name": "security-scanner",
+      "description": ""
+    },
+    {
+      "name": "answer-collector",
+      "description": ""
+    },
+    {
+      "name": "tech-stack-evaluator",
+      "description": ""
+    },
+    {
+      "name": "test-executor",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "description": ""
+    },
+    {
+      "name": "typescript-quality-checker",
+      "description": ""
+    },
+    {
+      "name": "unit-test-writer",
+      "description": ""
+    },
+    {
+      "name": "validation",
+      "description": ""
+    },
+    {
+      "name": "validation",
+      "description": ""
+    },
+    {
+      "name": "whitelist-bypass-skill",
+      "description": ""
+    }
+  ]
+}
