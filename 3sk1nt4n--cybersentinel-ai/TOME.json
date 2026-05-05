@@ -1,0 +1,44 @@
+{
+  "name": "cybersentinel-ai",
+  "owner": "3sk1nt4n",
+  "repo": "cybersentinel-ai",
+  "description": "Agentic-AI CyberSecurity Arsenal || 33 real tools, runs 100% locally and 100% Free",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/3sk1nt4n/cybersentinel-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T08:58:24Z"
+}
