@@ -1,0 +1,9 @@
+{
+  "name": "mikalaibarysevich--cleverswitch",
+  "displayName": "CleverSwitch",
+  "description": "A CLI tool to synchronize host switching across multiple Logitech devices.",
+  "version": "1.0.0",
+  "author": "MikalaiBarysevich",
+  "homepage": "https://github.com/MikalaiBarysevich/CleverSwitch",
+  "skills": []
+}
