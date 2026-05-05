@@ -2,9 +2,9 @@
   "name": "todoist-ai",
   "owner": "Doist",
   "repo": "todoist-ai",
-  "description": "",
+  "description": "A set of tools to connect to AI agents, to allow them to use Todoist on a user's behalf. Includes MCP support.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Doist",
+  "source_url": "https://github.com/Doist/todoist-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-13T07:35:17Z"
+  "distributed_at": "2026-05-05T00:04:09Z"
 }
