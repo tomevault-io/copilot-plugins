@@ -4,7 +4,7 @@
   "repo": "gitpretty",
   "description": "\ud83c\udfa8 Add unique emoji commits to every file in a repository",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/gitpretty",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T16:09:30Z"
+  "distributed_at": "2026-05-05T12:28:24Z"
 }
