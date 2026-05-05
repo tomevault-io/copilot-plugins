@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankenlibc",
+  "displayName": "frankenlibc",
+  "description": "Rust interposition layer for glibc: transparent safety membrane that incrementally replaces C library functions with memory-safe Rust implementations",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankenlibc",
+  "skills": []
+}
