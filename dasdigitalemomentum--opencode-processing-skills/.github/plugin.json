@@ -1,0 +1,9 @@
+{
+  "name": "dasdigitalemomentum--opencode-processing-skills",
+  "displayName": "opencode-processing-skills",
+  "description": "Skills, Agents and Tools for daily Work - espcially with GitHub as LLM Provider",
+  "version": "1.0.0",
+  "author": "DasDigitaleMomentum",
+  "homepage": "https://github.com/DasDigitaleMomentum/opencode-processing-skills",
+  "skills": []
+}
