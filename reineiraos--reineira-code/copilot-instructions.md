@@ -1,0 +1,98 @@
+## 00-system
+
+> Core system context for ReineiraOS plugin development — Solidity resolvers and policies on Arbitrum
+
+
+# ReineiraOS Plugin Development Environment
+
+You are building plugins for ReineiraOS — open settlement infrastructure on Arbitrum.
+Plugins extend the protocol through two Solidity interfaces.
+
+## Version
+
+- **Code version:** 0.1.0
+- **Platform version:** 0.1
+
+## What This Repo Is
+
+A Hardhat project for building and deploying:
+
+- **Condition resolvers** — contracts that control when escrows release funds
+- **Insurance policies** — contracts that evaluate risk and judge disputes using FHE
+
+## Ecosystem
+
+| Repo                 | Purpose                                                |
+| -------------------- | ------------------------------------------------------ |
+| **reineira-code**    | Smart contracts — Solidity resolvers, policies, tests  |
+| **reineira-atlas**   | Startup OS — strategy, ops, growth, compliance, agents |
+| **platform-modules** | App starters — backend, platform app, payment link     |
+
+## Project Layout
+
+```
+contracts/
+  interfaces/          — protocol interfaces (read-only reference)
+  resolvers/           — IConditionResolver implementations (you create these)
+  policies/            — IUnderwriterPolicy implementations (you create these)
+test/
+  resolvers/           — resolver test files
+  policies/            — policy test files
+scripts/
+  deploy.ts            — universal deploy script
+deployments/           — deployment records (auto-generated)
+```
+
+## Key Protocol Facts
+
+- **Stablecoin-agnostic** — ConfidentialEscrow uses `IFHERC20`, not hardcoded to any token
+- **Cross-chain** — CCTP v2 for USDC cross-chain transfers
+- **Contract addresses** — query from MCP or protocol docs, never hardcode
+
+## The Two Plugin Interfaces
+
+### IConditionResolver — "When should this escrow release?"
+
+```solidity
+interface IConditionResolver {
+    function isConditionMet(uint256 escrowId) external view returns (bool);
+    function onConditionSet(uint256 escrowId, bytes calldata data) external;
+}
+```
+
+### IUnderwriterPolicy — "How is risk evaluated? Is this dispute valid?"
+
+```solidity
+interface IUnderwriterPolicy {
+    function onPolicySet(uint256 coverageId, bytes calldata data) external;
+    function evaluateRisk(uint256 escrowId, bytes calldata riskProof) external returns (euint64 riskScore);
+    function judge(uint256 coverageId, bytes calldata disputeProof) external returns (ebool valid);
+}
+```
+
+## Solidity Conventions
+
+- Pragma: `^0.8.24`
+- License: `SPDX-License-Identifier: MIT`
+- Compiler: solc 0.8.25, EVM target: cancun, optimizer: 200 runs
+- Imports: `@openzeppelin/contracts/` and `@fhenixprotocol/cofhe-contracts/`
+- Error handling: custom errors over require strings
+- Events: emit on state changes in `onConditionSet` and proof submission
+- ERC-165: required for both interfaces
+
+## Security Checklist (Summary)
+
+- `isConditionMet` must be `view` — no state changes
+- `onConditionSet` must validate all inputs
+- ERC-165 `supportsInterface` implemented
+- No reentrancy vectors
+- Replay protection for proof-based resolvers
+- External calls use known addresses, not user-supplied
+- Oracle freshness validated
+- FHE values always have `FHE.allowThis()` + `FHE.allow(value, msg.sender)`
+- No plaintext secrets on-chain
+- Gas of `isConditionMet` bounded (no unbounded loops)
+
+---
+> Source: [ReineiraOS/reineira-code](https://github.com/ReineiraOS/reineira-code) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-29 -->
