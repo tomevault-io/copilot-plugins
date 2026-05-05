@@ -1,0 +1,26 @@
+{
+  "name": "akulkarni--0perator",
+  "displayName": "0perator",
+  "description": "AI instruction skills by akulkarni",
+  "version": "1.0.0",
+  "author": "akulkarni",
+  "homepage": "https://github.com/akulkarni/0perator",
+  "skills": [
+    {
+      "name": "add-backend-testing",
+      "description": ""
+    },
+    {
+      "name": "add-strict-checks",
+      "description": ""
+    },
+    {
+      "name": "create-app",
+      "description": ""
+    },
+    {
+      "name": "deploy-app",
+      "description": ""
+    }
+  ]
+}
