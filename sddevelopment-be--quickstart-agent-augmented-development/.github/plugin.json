@@ -1,0 +1,74 @@
+{
+  "name": "sddevelopment-be--quickstart-agent-augmented-development",
+  "displayName": "quickstart_agent-augmented-development",
+  "description": "A template repository containing a generic agentic set-up, to be configured/edited to fit your own project's needs",
+  "version": "1.0.0",
+  "author": "sddevelopment-be",
+  "homepage": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development",
+  "skills": [
+    {
+      "name": "agent-profile-handoff-patterns",
+      "description": ""
+    },
+    {
+      "name": "trunk-based-development",
+      "description": ""
+    },
+    {
+      "name": "automation-script",
+      "description": ""
+    },
+    {
+      "name": "decision-first-development",
+      "description": ""
+    },
+    {
+      "name": "delegate",
+      "description": ""
+    },
+    {
+      "name": "editor-revision",
+      "description": ""
+    },
+    {
+      "name": "fix-bug",
+      "description": ""
+    },
+    {
+      "name": "design-diagramming-incremental-detail",
+      "description": ""
+    },
+    {
+      "name": "iterate",
+      "description": ""
+    },
+    {
+      "name": "new-agent",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "description": ""
+    },
+    {
+      "name": "target-audience-fit",
+      "description": ""
+    },
+    {
+      "name": "test-readability-clarity-check",
+      "description": ""
+    },
+    {
+      "name": "tooling-setup-best-practices",
+      "description": ""
+    },
+    {
+      "name": "work-directory-orchestration",
+      "description": ""
+    }
+  ]
+}
