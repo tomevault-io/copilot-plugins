@@ -1,0 +1,9 @@
+{
+  "name": "ktiseos-nyx--ktiseos-nyx-trainer",
+  "displayName": "Ktiseos-Nyx-Trainer",
+  "description": "AI model trainer with SD-Scripts support, as well as standard auto-tagging, step calculator, and real-time training monitoring. Featuring Civitai model downloading, model merging and more. NextJS/Reac",
+  "version": "1.0.0",
+  "author": "Ktiseos-Nyx",
+  "homepage": "https://github.com/Ktiseos-Nyx/Ktiseos-Nyx-Trainer",
+  "skills": []
+}
