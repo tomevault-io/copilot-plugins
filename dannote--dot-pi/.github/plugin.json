@@ -1,0 +1,9 @@
+{
+  "name": "dannote--dot-pi",
+  "displayName": "dot-pi",
+  "description": "Extensions, skills, and rules for Pi coding agent",
+  "version": "1.0.0",
+  "author": "dannote",
+  "homepage": "https://github.com/dannote/dot-pi",
+  "skills": []
+}
