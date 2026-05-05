@@ -4,7 +4,7 @@
   "repo": "h2",
   "description": "An agent runner, messaging, and orchestration layer.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dcosson/h2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T17:50:20Z"
+  "distributed_at": "2026-05-05T06:09:41Z"
 }
