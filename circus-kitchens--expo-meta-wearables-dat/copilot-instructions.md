@@ -1,171 +1,141 @@
-## getting-started
+## mockdevice-testing
 
-> SDK setup, Gradle integration, AndroidManifest configuration, and first connection to Meta glasses
+> MockDeviceKit for testing without physical glasses hardware
 
 
 
-# Getting Started with DAT SDK (Android)
+# MockDevice Testing (Android)
 
-Guide for setting up the Meta Wearables Device Access Toolkit in an Android app.
+Guide for testing DAT SDK integrations without physical Meta glasses.
 
-## Prerequisites
+## Overview
 
-- Android Studio, minSdk 26+
-- Meta AI companion app installed on test device
-- Ray-Ban Meta glasses or Meta Ray-Ban Display glasses (or use MockDeviceKit for development)
-- Developer Mode enabled in Meta AI app (Settings > Your glasses > Developer Mode)
-- GitHub personal access token with `read:packages` scope
+MockDeviceKit simulates Meta glasses behavior for development and testing. It provides:
+- `MockDeviceKit` — Entry point for creating simulated devices
+- `MockRaybanMeta` — Simulated Ray-Ban Meta glasses
+- `MockCameraKit` — Simulated camera with configurable video feed and photo capture
 
-## Step 1: Add the Maven repository
+## Setup
 
-In `settings.gradle.kts`:
-
-```kotlin
-val localProperties =
-    Properties().apply {
-        val localPropertiesPath = rootDir.toPath() / "local.properties"
-        if (localPropertiesPath.exists()) {
-            load(localPropertiesPath.inputStream())
-        }
-    }
-
-dependencyResolutionManagement {
-    repositories {
-        google()
-        mavenCentral()
-        maven {
-            url = uri("https://maven.pkg.github.com/facebook/meta-wearables-dat-android")
-            credentials {
-                username = ""
-                password = System.getenv("GITHUB_TOKEN") ?: localProperties.getProperty("github_token")
-            }
-        }
-    }
-}
-```
-
-## Step 2: Declare dependencies
-
-In `libs.versions.toml`:
-
-```toml
-[versions]
-mwdat = "0.5.0"
-
-[libraries]
-mwdat-core = { group = "com.meta.wearable", name = "mwdat-core", version.ref = "mwdat" }
-mwdat-camera = { group = "com.meta.wearable", name = "mwdat-camera", version.ref = "mwdat" }
-mwdat-mockdevice = { group = "com.meta.wearable", name = "mwdat-mockdevice", version.ref = "mwdat" }
-```
-
-In `app/build.gradle.kts`:
+Add `mwdat-mockdevice` to your Gradle dependencies:
 
 ```kotlin
 dependencies {
-    implementation(libs.mwdat.core)
-    implementation(libs.mwdat.camera)
     implementation(libs.mwdat.mockdevice)
 }
 ```
 
-## Step 3: Configure AndroidManifest.xml
-
-```xml
-<manifest ...>
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application ...>
-        <!-- Use 0 in Developer Mode; production apps get ID from Wearables Developer Center -->
-        <meta-data
-            android:name="com.meta.wearable.mwdat.APPLICATION_ID"
-            android:value="0" />
-
-        <activity android:name=".MainActivity" ...>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="myexampleapp" />
-            </intent-filter>
-        </activity>
-    </application>
-</manifest>
-```
-
-Replace `myexampleapp` with your app's URL scheme.
-
-## Step 4: Initialize the SDK
+## Creating a mock device
 
 ```kotlin
-import com.meta.wearable.dat.core.Wearables
+import com.meta.wearable.dat.mockdevice.MockDeviceKit
 
-class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        Wearables.initialize(this)
+val mockDeviceKit = MockDeviceKit.getInstance(context)
+val device = mockDeviceKit.pairRaybanMeta()
+```
+
+## Simulating device states
+
+```kotlin
+// Simulate glasses lifecycle
+device.powerOn()
+device.unfold()
+device.don()    // Simulate wearing the glasses
+
+// Later...
+device.doff()   // Simulate removing
+device.fold()
+device.powerOff()
+```
+
+## Setting up mock camera feeds
+
+### Video streaming
+
+```kotlin
+val camera = device.getCameraKit()
+camera.setCameraFeed(videoUri)
+```
+
+### Photo capture
+
+```kotlin
+val camera = device.getCameraKit()
+camera.setCapturedImage(imageUri)
+```
+
+**Note**: Android doesn't transcode video automatically. Mock video files must be in h.265 format. Use FFmpeg to convert:
+
+```bash
+ffmpeg -hwaccel videotoolbox -i input.mp4 -c:v hevc_videotoolbox -c:a aac_at -tag:v hvc1 -vf "scale=540:960" output.mov
+```
+
+## Writing instrumentation tests
+
+Create a reusable test base class:
+
+```kotlin
+import android.content.Context
+import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.platform.app.InstrumentationRegistry
+import com.meta.wearable.dat.mockdevice.MockDeviceKit
+import com.meta.wearable.dat.mockdevice.api.MockDeviceKitInterface
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+
+open class MockDeviceKitTestCase<T : Any>(
+    private val activityClass: Class<T>
+) {
+    @get:Rule
+    val scenarioRule = ActivityScenarioRule(activityClass)
+
+    protected lateinit var mockDeviceKit: MockDeviceKitInterface
+    protected lateinit var targetContext: Context
+
+    @Before
+    open fun setUp() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        targetContext = instrumentation.targetContext
+        mockDeviceKit = MockDeviceKit.getInstance(targetContext)
+        grantRuntimePermissions()
+    }
+
+    @After
+    open fun tearDown() {
+        mockDeviceKit.reset()
+    }
+
+    private fun grantRuntimePermissions() {
+        val packageName = targetContext.packageName
+        val shell = InstrumentationRegistry.getInstrumentation().uiAutomation
+        shell.executeShellCommand("pm grant $packageName android.permission.BLUETOOTH_CONNECT")
+        shell.executeShellCommand("pm grant $packageName android.permission.CAMERA")
     }
 }
 ```
 
-Calling SDK APIs before initialization yields `WearablesError.NOT_INITIALIZED`.
+## Using MockDeviceKit in the CameraAccess sample
 
-## Step 5: Register with Meta AI
+The CameraAccess sample app includes a Debug menu for MockDeviceKit:
 
-```kotlin
-fun startRegistration(context: Context) {
-    Wearables.startRegistration(context)
-}
-```
+1. Tap the **Debug icon** to open the MockDeviceKit menu
+2. Tap **Pair RayBan Meta** to create a simulated device
+3. Use **PowerOn**, **Unfold**, **Don** to simulate glasses states
+4. Select video/image files for mock camera feeds
+5. Start streaming to see simulated frames
 
-Observe registration state:
+## Supported media formats
 
-```kotlin
-lifecycleScope.launch {
-    Wearables.registrationState.collect { state ->
-        // Update UI based on registration state
-    }
-}
-```
+| Type | Formats |
+|------|---------|
+| Video | h.264 (AVC), h.265 (HEVC) |
+| Image | JPEG, PNG |
 
-## Step 6: Start streaming
+## Links
 
-```kotlin
-import com.meta.wearable.dat.camera.StreamSession
-import com.meta.wearable.dat.camera.types.StreamConfiguration
-import com.meta.wearable.dat.camera.types.VideoQuality
-import com.meta.wearable.dat.core.selectors.AutoDeviceSelector
-
-val session = Wearables.startStreamSession(
-    context = context,
-    deviceSelector = AutoDeviceSelector(),
-    streamConfiguration = StreamConfiguration(
-        videoQuality = VideoQuality.MEDIUM,
-        frameRate = 24,
-    ),
-)
-
-lifecycleScope.launch {
-    session.videoStream.collect { frame ->
-        // Display frame
-    }
-}
-
-lifecycleScope.launch {
-    session.state.collect { state ->
-        // Update UI based on stream state
-    }
-}
-```
-
-## Next steps
-
-- [Camera Streaming](camera-streaming.md) — Resolution, frame rate, photo capture
-- [MockDevice Testing](mockdevice-testing.md) — Test without hardware
-- [Session Lifecycle](session-lifecycle.md) — Handle pause/resume/stop
-- [Permissions](permissions-registration.md) — Camera permission flows
-- [Full documentation](https://wearables.developer.meta.com/docs/develop/)
+- [Mock Device Kit overview](https://wearables.developer.meta.com/docs/mock-device-kit)
+- [Android testing guide](https://wearables.developer.meta.com/docs/testing-mdk-android)
 
 ---
 > Source: [circus-kitchens/expo-meta-wearables-dat](https://github.com/circus-kitchens/expo-meta-wearables-dat) — distributed by [TomeVault](https://tomevault.io).
