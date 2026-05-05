@@ -1,0 +1,9 @@
+{
+  "name": "thedecipherist--classpresso",
+  "displayName": "classpresso",
+  "description": "Build-time CSS class consolidation. Makes Tailwind render 50% faster by compressing repeated utility patterns. Perfect for AI-generated code.",
+  "version": "1.0.0",
+  "author": "TheDecipherist",
+  "homepage": "https://github.com/TheDecipherist/classpresso",
+  "skills": []
+}
