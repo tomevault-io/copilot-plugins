@@ -7,11 +7,11 @@ Free to use alternative zcacli for integrate Zalo with OpenClaw
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [darkamenosa/openzca](https://github.com/darkamenosa/openzca).
+Original source: `CLAUDE.md` in [darkamenosa/openzca](https://github.com/darkamenosa/openzca).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
