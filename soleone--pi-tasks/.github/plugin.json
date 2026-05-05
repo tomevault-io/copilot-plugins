@@ -1,0 +1,9 @@
+{
+  "name": "soleone--pi-tasks",
+  "displayName": "pi-tasks",
+  "description": "An extension for pi coding agent to manage tasks, via beads or alternative task backends.",
+  "version": "1.0.0",
+  "author": "Soleone",
+  "homepage": "https://github.com/Soleone/pi-tasks",
+  "skills": []
+}
