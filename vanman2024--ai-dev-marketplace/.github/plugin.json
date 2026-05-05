@@ -1,0 +1,450 @@
+{
+  "name": "vanman2024--ai-dev-marketplace",
+  "displayName": "ai-dev-marketplace",
+  "description": "AI instruction skills by vanman2024",
+  "version": "1.0.0",
+  "author": "vanman2024",
+  "homepage": "https://github.com/vanman2024/ai-dev-marketplace",
+  "skills": [
+    {
+      "name": "stt-integration",
+      "description": ""
+    },
+    {
+      "name": "react-email-templates",
+      "description": ""
+    },
+    {
+      "name": "pgvector-setup",
+      "description": ""
+    },
+    {
+      "name": "a2a-executor-patterns",
+      "description": ""
+    },
+    {
+      "name": "a2a-mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "a2a-patterns",
+      "description": ""
+    },
+    {
+      "name": "a2a-sdk-patterns",
+      "description": ""
+    },
+    {
+      "name": "a2a-server-config",
+      "description": ""
+    },
+    {
+      "name": "agent-card-templates",
+      "description": ""
+    },
+    {
+      "name": "agent-workflow-patterns",
+      "description": ""
+    },
+    {
+      "name": "agentic-platform-schema",
+      "description": ""
+    },
+    {
+      "name": "ai-content-generation",
+      "description": ""
+    },
+    {
+      "name": "api-authentication",
+      "description": ""
+    },
+    {
+      "name": "api-authentication",
+      "description": ""
+    },
+    {
+      "name": "astro-patterns",
+      "description": ""
+    },
+    {
+      "name": "auth-components",
+      "description": ""
+    },
+    {
+      "name": "auth-configs",
+      "description": ""
+    },
+    {
+      "name": "broker-configurations",
+      "description": ""
+    },
+    {
+      "name": "celery-config-patterns",
+      "description": ""
+    },
+    {
+      "name": "checkout-components",
+      "description": ""
+    },
+    {
+      "name": "checkpoint-patterns",
+      "description": ""
+    },
+    {
+      "name": "chunking-strategies",
+      "description": ""
+    },
+    {
+      "name": "component-integration",
+      "description": ""
+    },
+    {
+      "name": "deepeval-testing",
+      "description": ""
+    },
+    {
+      "name": "deployment-configs",
+      "description": ""
+    },
+    {
+      "name": "design-system-enforcement",
+      "description": ""
+    },
+    {
+      "name": "document-parsers",
+      "description": ""
+    },
+    {
+      "name": "example-projects",
+      "description": ""
+    },
+    {
+      "name": "expo-patterns",
+      "description": ""
+    },
+    {
+      "name": "fastapi-api-patterns",
+      "description": ""
+    },
+    {
+      "name": "fastapi-auth-patterns",
+      "description": ""
+    },
+    {
+      "name": "fastapi-deployment-config",
+      "description": ""
+    },
+    {
+      "name": "fastapi-project-structure",
+      "description": ""
+    },
+    {
+      "name": "framework-integrations",
+      "description": ""
+    },
+    {
+      "name": "generative-ui-patterns",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-configs",
+      "description": ""
+    },
+    {
+      "name": "google-file-search",
+      "description": ""
+    },
+    {
+      "name": "graph-patterns",
+      "description": ""
+    },
+    {
+      "name": "integration-helpers",
+      "description": ""
+    },
+    {
+      "name": "mem0-fastapi-integration",
+      "description": ""
+    },
+    {
+      "name": "memory-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "memory-optimization",
+      "description": ""
+    },
+    {
+      "name": "mobile-auth-patterns",
+      "description": ""
+    },
+    {
+      "name": "mobile-navigation",
+      "description": ""
+    },
+    {
+      "name": "model-routing-patterns",
+      "description": ""
+    },
+    {
+      "name": "monitoring-flower",
+      "description": ""
+    },
+    {
+      "name": "nextjs-integration",
+      "description": ""
+    },
+    {
+      "name": "observability-patterns",
+      "description": ""
+    },
+    {
+      "name": "openrouter-config-validator",
+      "description": ""
+    },
+    {
+      "name": "organization-management",
+      "description": ""
+    },
+    {
+      "name": "production-deployment",
+      "description": ""
+    },
+    {
+      "name": "promptfoo-config",
+      "description": ""
+    },
+    {
+      "name": "provider-config-validator",
+      "description": ""
+    },
+    {
+      "name": "provider-integration-templates",
+      "description": ""
+    },
+    {
+      "name": "queue-patterns",
+      "description": ""
+    },
+    {
+      "name": "rag-implementation",
+      "description": ""
+    },
+    {
+      "name": "responsive-design",
+      "description": ""
+    },
+    {
+      "name": "result-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "rls-templates",
+      "description": ""
+    },
+    {
+      "name": "schema-patterns",
+      "description": ""
+    },
+    {
+      "name": "schema-validation",
+      "description": ""
+    },
+    {
+      "name": "sdk-config-validator",
+      "description": ""
+    },
+    {
+      "name": "seo-2025-patterns",
+      "description": ""
+    },
+    {
+      "name": "session-management",
+      "description": ""
+    },
+    {
+      "name": "streaming-patterns",
+      "description": ""
+    },
+    {
+      "name": "stripe-patterns",
+      "description": ""
+    },
+    {
+      "name": "subscription-schemas",
+      "description": ""
+    },
+    {
+      "name": "supabase-clerk-sync",
+      "description": ""
+    },
+    {
+      "name": "supabase-cms",
+      "description": ""
+    },
+    {
+      "name": "supabase-integration",
+      "description": ""
+    },
+    {
+      "name": "tailwind-shadcn-setup",
+      "description": ""
+    },
+    {
+      "name": "task-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-validation",
+      "description": ""
+    },
+    {
+      "name": "validation-scripts",
+      "description": ""
+    },
+    {
+      "name": "webhook-security",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-schema-analyzer",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "auto-rollback-triggers",
+      "description": ""
+    },
+    {
+      "name": "breaking-change-detection",
+      "description": ""
+    },
+    {
+      "name": "build-manifest",
+      "description": ""
+    },
+    {
+      "name": "canary-deployment",
+      "description": ""
+    },
+    {
+      "name": "cicd-setup",
+      "description": ""
+    },
+    {
+      "name": "code-generation",
+      "description": ""
+    },
+    {
+      "name": "component-templates",
+      "description": ""
+    },
+    {
+      "name": "decision-tracking",
+      "description": ""
+    },
+    {
+      "name": "deployment-scripts",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-app-deployment",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-droplet-deployment",
+      "description": ""
+    },
+    {
+      "name": "doc-sync",
+      "description": ""
+    },
+    {
+      "name": "frontend-testing",
+      "description": ""
+    },
+    {
+      "name": "git-workflows",
+      "description": ""
+    },
+    {
+      "name": "health-checks",
+      "description": ""
+    },
+    {
+      "name": "mcp-configuration",
+      "description": ""
+    },
+    {
+      "name": "mcp-development",
+      "description": ""
+    },
+    {
+      "name": "newman-runner",
+      "description": ""
+    },
+    {
+      "name": "platform-detection",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e",
+      "description": ""
+    },
+    {
+      "name": "project-detection",
+      "description": ""
+    },
+    {
+      "name": "project-detection",
+      "description": ""
+    },
+    {
+      "name": "refactoring-patterns",
+      "description": ""
+    },
+    {
+      "name": "release-approval",
+      "description": ""
+    },
+    {
+      "name": "security-patterns",
+      "description": ""
+    },
+    {
+      "name": "spec-management",
+      "description": ""
+    },
+    {
+      "name": "spec-management",
+      "description": ""
+    },
+    {
+      "name": "task-layering",
+      "description": ""
+    },
+    {
+      "name": "vercel-deployment",
+      "description": ""
+    },
+    {
+      "name": "worktree-management",
+      "description": ""
+    }
+  ]
+}
