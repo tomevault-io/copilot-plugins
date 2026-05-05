@@ -1,0 +1,9 @@
+{
+  "name": "lahfir--agent-desktop",
+  "displayName": "agent-desktop",
+  "description": "Native desktop automation CLI for AI agents. Control any application through OS accessibility trees with structured JSON output and deterministic element refs.",
+  "version": "1.0.0",
+  "author": "lahfir",
+  "homepage": "https://github.com/lahfir/agent-desktop",
+  "skills": []
+}
