@@ -1,0 +1,201 @@
+{
+  "name": "nix",
+  "owner": "richardgill",
+  "repo": "nix",
+  "description": "AI instruction skills by richardgill",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "beeper",
+      "path": "built/ai-agents/ampcode/skills/beeper",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/ampcode/skills/beeper",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "path": "built/ai-agents/claude/skills/brainstorm",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/claude/skills/brainstorm",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "path": "built/ai-agents/ampcode/skills/brainstorm",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/ampcode/skills/brainstorm",
+      "description": ""
+    },
+    {
+      "name": "browser",
+      "path": "built/ai-agents/ampcode/skills/browser",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/ampcode/skills/browser",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "built/ai-agents/codex/skills/code-review",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/codex/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "built/ai-agents/claude/skills/code-review",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/claude/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "built/ai-agents/ampcode/skills/code-review",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/ampcode/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "built/ai-agents/pi/skills/code-review",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/pi/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "codebase-pattern-finder",
+      "path": "built/ai-agents/ampcode/skills/codebase-pattern-finder",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/ampcode/skills/codebase-pattern-finder",
+      "description": ""
+    },
+    {
+      "name": "codebase-pattern-finder",
+      "path": "built/ai-agents/pi/skills/codebase-pattern-finder",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/pi/skills/codebase-pattern-finder",
+      "description": ""
+    },
+    {
+      "name": "codebase-pattern-finder",
+      "path": "built/ai-agents/claude/skills/codebase-pattern-finder",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/claude/skills/codebase-pattern-finder",
+      "description": ""
+    },
+    {
+      "name": "gmail",
+      "path": "built/ai-agents/ampcode/skills/gmail",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/ampcode/skills/gmail",
+      "description": ""
+    },
+    {
+      "name": "google-calendar",
+      "path": "flake/modules/home-manager/dot-files/ai-agents/shared/skills/google-calendar",
+      "github_url": "https://github.com/richardgill/nix/tree/main/flake/modules/home-manager/dot-files/ai-agents/shared/skills/google-calendar",
+      "description": ""
+    },
+    {
+      "name": "issues",
+      "path": "built/ai-agents/ampcode/skills/issues",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/ampcode/skills/issues",
+      "description": ""
+    },
+    {
+      "name": "nvim",
+      "path": "flake/modules/home-manager/dot-files/ai-agents/shared/skills/nvim",
+      "github_url": "https://github.com/richardgill/nix/tree/main/flake/modules/home-manager/dot-files/ai-agents/shared/skills/nvim",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "path": "flake/modules/home-manager/dot-files/ai-agents/shared/skills/oracle",
+      "github_url": "https://github.com/richardgill/nix/tree/main/flake/modules/home-manager/dot-files/ai-agents/shared/skills/oracle",
+      "description": ""
+    },
+    {
+      "name": "review-post",
+      "path": "flake/modules/home-manager/dot-files/ai-agents/shared/skills/review-post",
+      "github_url": "https://github.com/richardgill/nix/tree/main/flake/modules/home-manager/dot-files/ai-agents/shared/skills/review-post",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "path": "flake/modules/home-manager/dot-files/ai-agents/shared/skills/review-pr",
+      "github_url": "https://github.com/richardgill/nix/tree/main/flake/modules/home-manager/dot-files/ai-agents/shared/skills/review-pr",
+      "description": ""
+    },
+    {
+      "name": "tmux-debug",
+      "path": ".claude/skills/tmux-debug",
+      "github_url": "https://github.com/richardgill/nix/tree/main/.claude/skills/tmux-debug",
+      "description": ""
+    },
+    {
+      "name": "upgrade-flake",
+      "path": ".claude/skills/upgrade-flake",
+      "github_url": "https://github.com/richardgill/nix/tree/main/.claude/skills/upgrade-flake",
+      "description": ""
+    },
+    {
+      "name": "upgrade-nixos",
+      "path": ".claude/skills/upgrade-nixos",
+      "github_url": "https://github.com/richardgill/nix/tree/main/.claude/skills/upgrade-nixos",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "path": "built/ai-agents/codex/skills/worktrees",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/codex/skills/worktrees",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "path": "built/ai-agents/opencode/skills/worktrees",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/opencode/skills/worktrees",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "path": "built/ai-agents/claude/skills/worktrees",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/claude/skills/worktrees",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "path": "built/ai-agents/pi/skills/worktrees",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/pi/skills/worktrees",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "path": "built/ai-agents/ampcode/skills/worktrees",
+      "github_url": "https://github.com/richardgill/nix/tree/main/built/ai-agents/ampcode/skills/worktrees",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/richardgill/nix",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:34:23Z"
+}
