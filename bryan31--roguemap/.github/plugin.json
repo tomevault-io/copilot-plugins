@@ -1,0 +1,9 @@
+{
+  "name": "bryan31--roguemap",
+  "displayName": "RogueMap",
+  "description": "RogueMap is a high-performance embedded storage engine that breaks through the JVM memory wall. Based on memory-mapped files, it provides four data structures: RogueMap (key-value store), RogueList (d",
+  "version": "1.0.0",
+  "author": "bryan31",
+  "homepage": "https://github.com/bryan31/RogueMap",
+  "skills": []
+}
