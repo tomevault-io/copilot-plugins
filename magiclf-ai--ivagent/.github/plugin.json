@@ -1,0 +1,9 @@
+{
+  "name": "magiclf-ai--ivagent",
+  "displayName": "IVAgent",
+  "description": "IVAgent (Intelligent Vulnerability Agent) \u662f\u4e00\u4e2a\u57fa\u4e8e\u5927\u8bed\u8a00\u6a21\u578b(LLM)\u7684\u667a\u80fd\u6f0f\u6d1e\u6316\u6398 Agent\uff0c\u652f\u6301\u591a\u79cd\u5206\u6790\u5f15\u64ce\u548c\u4e8c\u8fdb\u5236/\u6e90\u7801\u5206\u6790\u573a\u666f\u3002",
+  "version": "1.0.0",
+  "author": "magiclf-ai",
+  "homepage": "https://github.com/magiclf-ai/IVAgent",
+  "skills": []
+}
