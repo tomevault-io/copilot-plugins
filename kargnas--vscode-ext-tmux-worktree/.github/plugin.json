@@ -1,0 +1,9 @@
+{
+  "name": "kargnas--vscode-ext-tmux-worktree",
+  "displayName": "vscode-ext-tmux-worktree",
+  "description": "Let's work on 5 projects in parallels",
+  "version": "1.0.0",
+  "author": "kargnas",
+  "homepage": "https://github.com/kargnas/vscode-ext-tmux-worktree",
+  "skills": []
+}
