@@ -1,0 +1,9 @@
+{
+  "name": "pattern-zones-co--koine",
+  "displayName": "koine",
+  "description": "Claude Code as a service: HTTP gateway with TypeScript & Python SDKs",
+  "version": "1.0.0",
+  "author": "pattern-zones-co",
+  "homepage": "https://github.com/pattern-zones-co/koine",
+  "skills": []
+}
