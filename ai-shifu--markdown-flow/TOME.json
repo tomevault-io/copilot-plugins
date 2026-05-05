@@ -2,9 +2,9 @@
   "name": "markdown-flow",
   "owner": "ai-shifu",
   "repo": "markdown-flow",
-  "description": "",
+  "description": "MarkdownFlow extends standard Markdown with AI to create personalized, interactive documents. Tagline: \"Write Once, Deliver Personally\"",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ai-shifu",
+  "source_url": "https://github.com/ai-shifu/markdown-flow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T14:37:35Z"
+  "distributed_at": "2026-05-05T23:46:15Z"
 }
