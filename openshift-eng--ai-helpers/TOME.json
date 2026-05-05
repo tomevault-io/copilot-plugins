@@ -1,0 +1,279 @@
+{
+  "name": "ai-helpers",
+  "owner": "openshift-eng",
+  "repo": "ai-helpers",
+  "description": "Developer productivity tools for Claude Code & other AI assistants",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "codebase-impact-analysis",
+      "path": "plugins/compliance/skills/codebase-impact-analysis",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/compliance/skills/codebase-impact-analysis",
+      "description": ""
+    },
+    {
+      "name": "gaps",
+      "path": "plugins/test-coverage/skills/gaps",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/test-coverage/skills/gaps",
+      "description": ""
+    },
+    {
+      "name": "create-bug",
+      "path": "plugins/jira/skills/create-bug",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/create-bug",
+      "description": ""
+    },
+    {
+      "name": "create-epic",
+      "path": "plugins/jira/skills/create-epic",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/create-epic",
+      "description": ""
+    },
+    {
+      "name": "create-feature",
+      "path": "plugins/jira/skills/create-feature",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/create-feature",
+      "description": ""
+    },
+    {
+      "name": "create-feature-request",
+      "path": "plugins/jira/skills/create-feature-request",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/create-feature-request",
+      "description": ""
+    },
+    {
+      "name": "create-story",
+      "path": "plugins/jira/skills/create-story",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/create-story",
+      "description": ""
+    },
+    {
+      "name": "create-task",
+      "path": "plugins/jira/skills/create-task",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/create-task",
+      "description": ""
+    },
+    {
+      "name": "create-release-note",
+      "path": "plugins/jira/skills/create-release-note",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/create-release-note",
+      "description": ""
+    },
+    {
+      "name": "cve-intelligence-gathering",
+      "path": "plugins/compliance/skills/cve-intelligence-gathering",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/compliance/skills/cve-intelligence-gathering",
+      "description": ""
+    },
+    {
+      "name": "fetch-regression-details",
+      "path": "plugins/ci/skills/fetch-regression-details",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/ci/skills/fetch-regression-details",
+      "description": ""
+    },
+    {
+      "name": "fetch-releases",
+      "path": "plugins/ci/skills/fetch-releases",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/ci/skills/fetch-releases",
+      "description": ""
+    },
+    {
+      "name": "fetch-test-report",
+      "path": "plugins/ci/skills/fetch-test-report",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/ci/skills/fetch-test-report",
+      "description": ""
+    },
+    {
+      "name": "fetch-test-runs",
+      "path": "plugins/ci/skills/fetch-test-runs",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/ci/skills/fetch-test-runs",
+      "description": ""
+    },
+    {
+      "name": "get-release-dates",
+      "path": "plugins/teams/skills/get-release-dates",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/teams/skills/get-release-dates",
+      "description": ""
+    },
+    {
+      "name": "lang-go",
+      "path": "plugins/code-review/skills/lang-go",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/code-review/skills/lang-go",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-agent",
+      "path": "plugins/hcp/skills/hcp-create-agent",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/hcp/skills/hcp-create-agent",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-aws",
+      "path": "plugins/hcp/skills/hcp-create-aws",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/hcp/skills/hcp-create-aws",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-azure",
+      "path": "plugins/hcp/skills/hcp-create-azure",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/hcp/skills/hcp-create-azure",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-kubevirt",
+      "path": "plugins/hcp/skills/hcp-create-kubevirt",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/hcp/skills/hcp-create-kubevirt",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-openstack",
+      "path": "plugins/hcp/skills/hcp-create-openstack",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/hcp/skills/hcp-create-openstack",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-powervs",
+      "path": "plugins/hcp/skills/hcp-create-powervs",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/hcp/skills/hcp-create-powervs",
+      "description": ""
+    },
+    {
+      "name": "profile-hypershift",
+      "path": "plugins/code-review/skills/profile-hypershift",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/code-review/skills/profile-hypershift",
+      "description": ""
+    },
+    {
+      "name": "jira-doc-generator",
+      "path": "plugins/jira/skills/jira-doc-generator",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/jira-doc-generator",
+      "description": ""
+    },
+    {
+      "name": "jira-issues-by-component",
+      "path": "plugins/jira/skills/jira-issues-by-component",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/jira-issues-by-component",
+      "description": ""
+    },
+    {
+      "name": "extract-prs",
+      "path": "plugins/jira/skills/extract-prs",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/extract-prs",
+      "description": ""
+    },
+    {
+      "name": "jira-validate-blockers",
+      "path": "plugins/jira/skills/jira-validate-blockers",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/jira/skills/jira-validate-blockers",
+      "description": ""
+    },
+    {
+      "name": "logs-analysis",
+      "path": "plugins/sosreport/skills/logs-analysis",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/sosreport/skills/logs-analysis",
+      "description": ""
+    },
+    {
+      "name": "must-gather-analyzer",
+      "path": "plugins/must-gather/skills/must-gather-analyzer",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/must-gather/skills/must-gather-analyzer",
+      "description": ""
+    },
+    {
+      "name": "scripts",
+      "path": "plugins/node-tuning/skills/scripts",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/node-tuning/skills/scripts",
+      "description": ""
+    },
+    {
+      "name": "oc-auth",
+      "path": "plugins/ci/skills/oc-auth",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/ci/skills/oc-auth",
+      "description": ""
+    },
+    {
+      "name": "prow-job-analyze-install-failure",
+      "path": "plugins/ci/skills/prow-job-analyze-install-failure",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/ci/skills/prow-job-analyze-install-failure",
+      "description": ""
+    },
+    {
+      "name": "prow-job-analyze-metal-install-failure",
+      "path": "plugins/ci/skills/prow-job-analyze-metal-install-failure",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/ci/skills/prow-job-analyze-metal-install-failure",
+      "description": ""
+    },
+    {
+      "name": "prow-job-analyze-test-failure",
+      "path": "plugins/ci/skills/prow-job-analyze-test-failure",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/ci/skills/prow-job-analyze-test-failure",
+      "description": ""
+    },
+    {
+      "name": "prow-job-artifact-search",
+      "path": "plugins/ci/skills/prow-job-artifact-search",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/ci/skills/prow-job-artifact-search",
+      "description": ""
+    },
+    {
+      "name": "remediation-planning",
+      "path": "plugins/compliance/skills/remediation-planning",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/compliance/skills/remediation-planning",
+      "description": ""
+    },
+    {
+      "name": "suggest-reviewers",
+      "path": "plugins/git/skills/suggest-reviewers",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/git/skills/suggest-reviewers",
+      "description": ""
+    },
+    {
+      "name": "system-config-analysis",
+      "path": "plugins/sosreport/skills/system-config-analysis",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/sosreport/skills/system-config-analysis",
+      "description": ""
+    },
+    {
+      "name": "analyze",
+      "path": "plugins/test-coverage/skills/analyze",
+      "github_url": "https://github.com/openshift-eng/ai-helpers/tree/main/plugins/test-coverage/skills/analyze",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openshift-eng/ai-helpers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:43:23Z"
+}
