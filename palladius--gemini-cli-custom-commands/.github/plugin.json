@@ -1,0 +1,9 @@
+{
+  "name": "palladius--gemini-cli-custom-commands",
+  "displayName": "gemini-cli-custom-commands",
+  "description": "Ricc's golden custom commands",
+  "version": "1.0.0",
+  "author": "palladius",
+  "homepage": "https://github.com/palladius/gemini-cli-custom-commands",
+  "skills": []
+}
