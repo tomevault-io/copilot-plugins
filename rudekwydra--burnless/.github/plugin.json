@@ -1,0 +1,9 @@
+{
+  "name": "rudekwydra--burnless",
+  "displayName": "burnless",
+  "description": "Multi-turn agent loops cost O(N\u00b2). Burnless makes them O(N). 88% cheaper at turn 10. MIT, provider-agnostic.",
+  "version": "1.0.0",
+  "author": "Rudekwydra",
+  "homepage": "https://github.com/Rudekwydra/burnless",
+  "skills": []
+}
