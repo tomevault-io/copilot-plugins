@@ -1,0 +1,9 @@
+{
+  "name": "ncoevoet--facet",
+  "displayName": "facet",
+  "description": "Local AI photo scoring, culling, and gallery \u2014 score, organise, and explore your library with face recognition and semantic search. No cloud, no subscriptions.",
+  "version": "1.0.0",
+  "author": "ncoevoet",
+  "homepage": "https://github.com/ncoevoet/facet",
+  "skills": []
+}
