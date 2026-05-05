@@ -4,7 +4,7 @@
   "repo": "openkanban",
   "description": "TUI kanban board for orchestrating AI coding agents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TechDufus/openkanban",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T08:29:35Z"
+  "distributed_at": "2026-05-05T21:09:50Z"
 }
