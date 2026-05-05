@@ -1,0 +1,9 @@
+{
+  "name": "glauberlima--claude-code-statusline",
+  "displayName": "claude-code-statusline",
+  "description": "Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance \u2014 minimal setup, maximum insight.",
+  "version": "1.0.0",
+  "author": "glauberlima",
+  "homepage": "https://github.com/glauberlima/claude-code-statusline",
+  "skills": []
+}
