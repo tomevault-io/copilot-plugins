@@ -7,11 +7,11 @@ We're back! Now firing notebooks out of a t-shirt gun.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nteract/desktop](https://github.com/nteract/desktop).
+Original source: `CLAUDE.md` in [nteract/desktop](https://github.com/nteract/desktop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
