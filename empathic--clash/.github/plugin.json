@@ -1,0 +1,9 @@
+{
+  "name": "empathic--clash",
+  "displayName": "clash",
+  "description": "Command Line Agent Safety Harness. Stop babysitting your agents, go touch grass.",
+  "version": "1.0.0",
+  "author": "empathic",
+  "homepage": "https://github.com/empathic/clash",
+  "skills": []
+}
