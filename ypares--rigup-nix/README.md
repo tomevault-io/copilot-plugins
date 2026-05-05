@@ -7,11 +7,11 @@ AI agents and Nix: parametrable skills/instructions and tools, packaged together
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [YPares/rigup.nix](https://github.com/YPares/rigup.nix).
+Original source: `CLAUDE.md` in [YPares/rigup.nix](https://github.com/YPares/rigup.nix).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
