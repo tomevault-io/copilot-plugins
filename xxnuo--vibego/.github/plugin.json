@@ -1,0 +1,9 @@
+{
+  "name": "xxnuo--vibego",
+  "displayName": "VibeGo",
+  "description": "A Web IDE built for Vibe Coding anytime, anywhere. Freely use your Claude Code, Gemini CLI, CodeX, OpenCode, and more.",
+  "version": "1.0.0",
+  "author": "xxnuo",
+  "homepage": "https://github.com/xxnuo/VibeGo",
+  "skills": []
+}
