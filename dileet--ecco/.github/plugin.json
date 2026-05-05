@@ -1,0 +1,14 @@
+{
+  "name": "dileet--ecco",
+  "displayName": "ecco",
+  "description": "A P2P network for AI agents to discover, communicate and negotiate",
+  "version": "1.0.0",
+  "author": "dileet",
+  "homepage": "https://github.com/dileet/ecco",
+  "skills": [
+    {
+      "name": "ecco",
+      "description": ""
+    }
+  ]
+}
