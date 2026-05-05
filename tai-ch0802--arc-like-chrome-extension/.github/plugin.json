@@ -1,0 +1,9 @@
+{
+  "name": "tai-ch0802--arc-like-chrome-extension",
+  "displayName": "arc-like-chrome-extension",
+  "description": "A Chrome extension that mimics the vertical tabs of the Arc browser.",
+  "version": "1.0.0",
+  "author": "Tai-ch0802",
+  "homepage": "https://github.com/Tai-ch0802/arc-like-chrome-extension",
+  "skills": []
+}
