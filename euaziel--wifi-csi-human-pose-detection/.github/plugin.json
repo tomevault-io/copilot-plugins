@@ -1,0 +1,9 @@
+{
+  "name": "euaziel--wifi-csi-human-pose-detection",
+  "displayName": "WiFi-CSI-Human-Pose-Detection",
+  "description": "Human pose estimation using WiFi Channel State Information (CSI) and deep learning \u2014 enabling camera-free sensing through walls.",
+  "version": "1.0.0",
+  "author": "euaziel",
+  "homepage": "https://github.com/euaziel/WiFi-CSI-Human-Pose-Detection",
+  "skills": []
+}
