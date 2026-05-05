@@ -1,181 +1,211 @@
-## folder-structure
+## project-rultes
 
-> ├── tailwind.config.js
+> These rules define **non-negotiable architectural principles** for this Next.js codebase. They are written for experienced developers and architects. They assume fluency in React, modern JavaScript/TypeScript, and web platform fundamentals.
 
 
-agentvis/
-├── README.md
-├── package.json
-├── tsconfig.json
-├── next.config.js
-├── tailwind.config.js
-├── .env.example
-├── .gitignore
-│
-├── public/
-│ ├── assets/
-│ │ ├── icons/
-│ │ └── images/
-│ └── mock-data/
-│ ├── agent-traces.json
-│ ├── swarm-topology.json
-│ ├── rag-vectors.json
-│ └── performance-metrics.json
-│
-├── src/
-│ ├── app/
-│ │ ├── layout.tsx
-│ │ ├── page.tsx
-│ │ ├── globals.css
-│ │ │
-│ │ ├── traceability/
-│ │ │ ├── page.tsx
-│ │ │ ├── layout.tsx
-│ │ │ ├── chain-of-thought/
-│ │ │ │ └── page.tsx
-│ │ │ ├── tree-of-thoughts/
-│ │ │ │ └── page.tsx
-│ │ │ └── async-timeline/
-│ │ │ └── page.tsx
-│ │ │
-│ │ ├── orchestration/
-│ │ │ ├── page.tsx
-│ │ │ ├── layout.tsx
-│ │ │ ├── swarm-network/
-│ │ │ │ └── page.tsx
-│ │ │ ├── conversation-sequence/
-│ │ │ │ └── page.tsx
-│ │ │ └── swimlanes/
-│ │ │ └── page.tsx
-│ │ │
-│ │ ├── memory/
-│ │ │ ├── page.tsx
-│ │ │ ├── layout.tsx
-│ │ │ ├── vector-space/
-│ │ │ │ └── page.tsx
-│ │ │ ├── context-window/
-│ │ │ │ └── page.tsx
-│ │ │ └── knowledge-graph/
-│ │ │ └── page.tsx
-│ │ │
-│ │ └── observability/
-│ │ ├── page.tsx
-│ │ ├── layout.tsx
-│ │ ├── latency-waterfall/
-│ │ │ └── page.tsx
-│ │ ├── risk-heatmap/
-│ │ │ └── page.tsx
-│ │ └── token-burndown/
-│ │ └── page.tsx
-│ │
-│ ├── components/
-│ │ ├── ui/
-│ │ │ ├── button.tsx
-│ │ │ ├── card.tsx
-│ │ │ ├── tabs.tsx
-│ │ │ ├── dialog.tsx
-│ │ │ ├── tooltip.tsx
-│ │ │ └── badge.tsx
-│ │ │
-│ │ ├── layout/
-│ │ │ ├── Navbar.tsx
-│ │ │ ├── Sidebar.tsx
-│ │ │ ├── Footer.tsx
-│ │ │ └── RouteGuard.tsx
-│ │ │
-│ │ ├── traceability/
-│ │ │ ├── ChainOfThoughtDAG.tsx
-│ │ │ ├── TreeOfThoughtsViz.tsx
-│ │ │ ├── AsyncTimeline.tsx
-│ │ │ ├── NodeInspector.tsx
-│ │ │ └── ThoughtCard.tsx
-│ │ │
-│ │ ├── orchestration/
-│ │ │ ├── SwarmNetworkGraph.tsx
-│ │ │ ├── SequenceDiagram.tsx
-│ │ │ ├── SwimlaneCanvas.tsx
-│ │ │ ├── AgentNode.tsx
-│ │ │ └── MessageFlow.tsx
-│ │ │
-│ │ ├── memory/
-│ │ │ ├── VectorSpacePlot.tsx
-│ │ │ ├── ContextTreemap.tsx
-│ │ │ ├── KnowledgeGraphViz.tsx
-│ │ │ ├── SemanticDistanceIndicator.tsx
-│ │ │ └── EntityCard.tsx
-│ │ │
-│ │ ├── observability/
-│ │ │ ├── LatencyWaterfallChart.tsx
-│ │ │ ├── RiskHeatmap.tsx
-│ │ │ ├── TokenBurndownChart.tsx
-│ │ │ ├── MetricCard.tsx
-│ │ │ └── AlertPanel.tsx
-│ │ │
-│ │ └── shared/
-│ │ ├── LoadingSpinner.tsx
-│ │ ├── ErrorBoundary.tsx
-│ │ ├── JsonViewer.tsx
-│ │ ├── SearchBar.tsx
-│ │ └── FilterPanel.tsx
-│ │
-│ ├── lib/
-│ │ ├── utils.ts
-│ │ ├── cn.ts
-│ │ ├── data-processing/
-│ │ │ ├── trace-parser.ts
-│ │ │ ├── graph-builder.ts
-│ │ │ ├── vector-transformer.ts
-│ │ │ └── metrics-calculator.ts
-│ │ │
-│ │ ├── visualization/
-│ │ │ ├── d3-helpers.ts
-│ │ │ ├── graph-layouts.ts
-│ │ │ ├── color-schemes.ts
-│ │ │ └── animation-configs.ts
-│ │ │
-│ │ └── mock-generators/
-│ │ ├── generate-traces.ts
-│ │ ├── generate-swarm-data.ts
-│ │ ├── generate-vectors.ts
-│ │ └── generate-metrics.ts
-│ │
-│ ├── hooks/
-│ │ ├── useAgentTrace.ts
-│ │ ├── useSwarmData.ts
-│ │ ├── useVectorSpace.ts
-│ │ ├── useMetrics.ts
-│ │ ├── useResizeObserver.ts
-│ │ └── useDebounce.ts
-│ │
-│ ├── types/
-│ │ ├── agent.types.ts
-│ │ ├── graph.types.ts
-│ │ ├── metrics.types.ts
-│ │ ├── visualization.types.ts
-│ │ └── index.ts
-│ │
-│ ├── constants/
-│ │ ├── routes.ts
-│ │ ├── visualization-configs.ts
-│ │ ├── color-palette.ts
-│ │ └── mock-data-config.ts
-│ │
-│ └── styles/
-│ ├── visualizations.css
-│ └── themes.css
-│
-├── docs/
-│ ├── ARCHITECTURE.md
-│ ├── VISUALIZATION_GUIDE.md
-│ ├── MOCK_DATA_STRUCTURE.md
-│ └── DEPLOYMENT.md
-│
-└── tests/
-├── unit/
-│ ├── utils.test.ts
-│ └── data-processing.test.ts
-└── integration/
-└── visualization-render.test.tsx
+---
+
+## alwaysApply: true
+
+# Next.js Architecture Rules (Senior / Architect Level)
+
+These rules define **non-negotiable architectural principles** for this Next.js codebase. They are written for experienced developers and architects. They assume fluency in React, modern JavaScript/TypeScript, and web platform fundamentals.
+
+The goal is **long-term scalability, correctness, and operational clarity**, not developer convenience or tutorial-style patterns.
+
+---
+
+## 1. Architectural Philosophy
+
+- This is a **product-grade system**, not a demo or experiment.
+- Prefer **boring, explicit, and predictable** designs over clever abstractions.
+- Optimize for:
+
+  - Change isolation
+  - Testability
+  - Observability
+  - Failure containment
+
+Avoid patterns that trade short-term velocity for long-term entropy.
+
+---
+
+## 2. App Router Is the Default
+
+- Use the **Next.js App Router** exclusively unless explicitly justified otherwise.
+- Pages Router is considered legacy and must not be introduced.
+
+Key implications:
+
+- Server Components are the default
+- Client Components are opt-in and treated as a boundary
+
+---
+
+## 3. Server vs Client Boundary Discipline
+
+### Server Components
+
+- Contain:
+
+  - Data fetching
+  - Authorization decisions
+  - Feature gating
+  - Layout composition
+
+- Must remain **pure and side-effect free** (no browser APIs).
+
+### Client Components
+
+- Used only for:
+
+  - User interaction
+  - Browser-only APIs
+  - Local ephemeral state
+
+- Must be **explicitly marked** with `"use client"`
+- Should never fetch core domain data directly
+
+> If a component does not require browser APIs, it must not be a Client Component.
+
+---
+
+## 4. Data Access Architecture
+
+- Data fetching is a **server concern**.
+- Never call databases, internal services, or secrets from Client Components.
+
+Recommended structure:
+
+- `src/domain/` → business logic, entities, invariants
+- `src/infrastructure/` → DB, external APIs, adapters
+- `src/application/` → orchestration, use-cases
+- `src/app/` → delivery layer (routing, layouts, RSC composition)
+
+React components must not contain domain rules.
+
+---
+
+## 5. API Routes Are Integration Boundaries
+
+- Route handlers (`app/api/**/route.ts`) are:
+
+  - Integration points
+  - Not business logic containers
+
+Rules:
+
+- Validate input explicitly
+- Call application-layer use cases
+- Return normalized error contracts
+
+Never embed business rules directly in route handlers.
+
+---
+
+## 6. State Management Strategy
+
+- Prefer **server state** over client state.
+- URL state is preferred over global client stores.
+
+Client state libraries (Zustand, Redux, etc.):
+
+- Require architectural justification
+- Must be scoped, not global by default
+
+If state must survive reloads, question the architecture.
+
+---
+
+## 7. Side Effects and Mutations
+
+- All mutations must be:
+
+  - Explicit
+  - Auditable
+  - Idempotent where possible
+
+Use:
+
+- Server Actions for mutations
+- Clear command-style naming (`createOrder`, `cancelSubscription`)
+
+Avoid implicit side effects hidden inside components.
+
+---
+
+## 8. Error Handling and Failure Modes
+
+- Errors are part of system behavior, not edge cases.
+
+Rules:
+
+- Use `error.tsx` and `not-found.tsx` intentionally
+- Never swallow errors
+- Distinguish:
+
+  - User errors
+  - System errors
+  - Integration failures
+
+Design for partial failure.
+
+---
+
+## 9. Performance Is Architectural, Not Cosmetic
+
+- Rendering strategy (SSR, SSG, streaming) must be intentional.
+- Do not rely on memoization as a primary optimization.
+
+Rules:
+
+- Measure before optimizing
+- Avoid unnecessary client-side hydration
+- Treat bundle size as a first-class constraint
+
+---
+
+## 10. Testing Philosophy
+
+- Test behavior, not implementation.
+- Unit tests target domain and application layers.
+- Integration tests validate Next.js routing and data boundaries.
+
+Do not snapshot-test React trees without strong justification.
+
+---
+
+## 11. Dependency Governance
+
+- Every new dependency is an architectural decision.
+
+Rules:
+
+- Prefer platform and framework primitives
+- Avoid overlapping libraries
+- Justify any state, data, or form library
+
+Smaller dependency graphs are easier to reason about and secure.
+
+---
+
+## 12. Code Review Bar
+
+Every change must answer:
+
+- What boundary does this respect or introduce?
+- What future change does this make easier?
+- What failure mode does this handle explicitly?
+
+If these answers are unclear, the change is not ready.
+
+---
+
+## Final Principle
+
+> Architecture exists to make **the right things easy and the wrong things hard**.
+
+If this codebase feels permissive, unclear, or magical, the architecture has failed.
 
 ---
 > Source: [JaimeenMakavana/agent-vis](https://github.com/JaimeenMakavana/agent-vis) — distributed by [TomeVault](https://tomevault.io).
