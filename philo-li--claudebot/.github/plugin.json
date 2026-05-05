@@ -1,0 +1,9 @@
+{
+  "name": "philo-li--claudebot",
+  "displayName": "claudebot",
+  "description": "Use claude code anywhere.",
+  "version": "1.0.0",
+  "author": "Philo-Li",
+  "homepage": "https://github.com/Philo-Li/claudebot",
+  "skills": []
+}
