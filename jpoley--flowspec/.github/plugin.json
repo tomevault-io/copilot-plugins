@@ -1,0 +1,38 @@
+{
+  "name": "jpoley--flowspec",
+  "displayName": "flowspec",
+  "description": "flowspec is a deliberate implementation of spec-kit & backlog md with task memory",
+  "version": "1.0.0",
+  "author": "jpoley",
+  "homepage": "https://github.com/jpoley/flowspec",
+  "skills": [
+    {
+      "name": "architect",
+      "description": ""
+    },
+    {
+      "name": "context-extractor",
+      "description": ""
+    },
+    {
+      "name": "fuzzing-strategist",
+      "description": ""
+    },
+    {
+      "name": "patch-engineer",
+      "description": ""
+    },
+    {
+      "name": "pm-planner",
+      "description": ""
+    },
+    {
+      "name": "qa-validator",
+      "description": ""
+    },
+    {
+      "name": "sdd-methodology",
+      "description": ""
+    }
+  ]
+}
