@@ -1,0 +1,9 @@
+{
+  "name": "copilotkit--generative-ui-playground",
+  "displayName": "generative-ui-playground",
+  "description": "Interact with all three types of generative UI, all in one interface",
+  "version": "1.0.0",
+  "author": "CopilotKit",
+  "homepage": "https://github.com/CopilotKit/generative-ui-playground",
+  "skills": []
+}
