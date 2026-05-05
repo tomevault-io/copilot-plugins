@@ -1,0 +1,44 @@
+{
+  "name": "claude-code-statusline",
+  "owner": "glauberlima",
+  "repo": "claude-code-statusline",
+  "description": "Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance \u2014 minimal setup, maximum insight.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/glauberlima/claude-code-statusline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T18:34:46Z"
+}
