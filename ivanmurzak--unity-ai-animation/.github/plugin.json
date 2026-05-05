@@ -1,0 +1,9 @@
+{
+  "name": "ivanmurzak--unity-ai-animation",
+  "displayName": "Unity-AI-Animation",
+  "description": "AI-powered tools for Unity animation workflow. Create and modify AnimationClips and AnimatorControllers directly through natural language commands.",
+  "version": "1.0.0",
+  "author": "IvanMurzak",
+  "homepage": "https://github.com/IvanMurzak/Unity-AI-Animation",
+  "skills": []
+}
