@@ -1,0 +1,9 @@
+{
+  "name": "unicef--adt-studio",
+  "displayName": "adt-studio",
+  "description": "Mono repo of ADT apps",
+  "version": "1.0.0",
+  "author": "unicef",
+  "homepage": "https://github.com/unicef/adt-studio",
+  "skills": []
+}
