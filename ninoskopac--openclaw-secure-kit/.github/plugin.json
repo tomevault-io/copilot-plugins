@@ -1,0 +1,9 @@
+{
+  "name": "ninoskopac--openclaw-secure-kit",
+  "displayName": "openclaw-secure-kit",
+  "description": "Secure-by-default OpenClaw on Ubuntu, with a verifiable security report",
+  "version": "1.0.0",
+  "author": "NinoSkopac",
+  "homepage": "https://github.com/NinoSkopac/openclaw-secure-kit",
+  "skills": []
+}
