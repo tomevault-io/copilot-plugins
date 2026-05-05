@@ -1,0 +1,22 @@
+{
+  "name": "imaimai17468--imaimai-ui",
+  "displayName": "imaimai",
+  "description": "AI instruction skills by imaimai17468",
+  "version": "1.0.0",
+  "author": "imaimai17468",
+  "homepage": "https://github.com/imaimai17468/imaimai-ui",
+  "skills": [
+    {
+      "name": "coding-guidelines",
+      "description": ""
+    },
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "design-guidelines",
+      "description": ""
+    }
+  ]
+}
