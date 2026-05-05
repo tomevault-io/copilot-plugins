@@ -1,0 +1,123 @@
+{
+  "name": "erk",
+  "owner": "dagster-io",
+  "repo": "erk",
+  "description": "erk is a tool for the orchestration and management of plan-oriented agentic engineering.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ci-iteration",
+      "path": ".claude/skills/ci-iteration",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/ci-iteration",
+      "description": ""
+    },
+    {
+      "name": "cli-skill-creator",
+      "path": ".claude/skills/cli-skill-creator",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/cli-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "command-creator",
+      "path": ".claude/skills/command-creator",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/command-creator",
+      "description": ""
+    },
+    {
+      "name": "dignified-code-simplifier",
+      "path": ".claude/skills/dignified-code-simplifier",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/dignified-code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "dignified-python",
+      "path": ".claude/skills/dignified-python",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/dignified-python",
+      "description": ""
+    },
+    {
+      "name": "erk-diff-analysis",
+      "path": ".claude/skills/erk-diff-analysis",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/erk-diff-analysis",
+      "description": ""
+    },
+    {
+      "name": "erk-exec",
+      "path": ".claude/skills/erk-exec",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/erk-exec",
+      "description": ""
+    },
+    {
+      "name": "erk-planning",
+      "path": ".claude/skills/erk-planning",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/erk-planning",
+      "description": ""
+    },
+    {
+      "name": "fake-driven-testing",
+      "path": ".claude/skills/fake-driven-testing",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/fake-driven-testing",
+      "description": ""
+    },
+    {
+      "name": "gh",
+      "path": ".claude/skills/gh",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/gh",
+      "description": ""
+    },
+    {
+      "name": "learned-docs",
+      "path": ".claude/skills/learned-docs",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/learned-docs",
+      "description": ""
+    },
+    {
+      "name": "objective",
+      "path": ".claude/skills/objective",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/objective",
+      "description": ""
+    },
+    {
+      "name": "session-inspector",
+      "path": ".claude/skills/session-inspector",
+      "github_url": "https://github.com/dagster-io/erk/tree/main/.claude/skills/session-inspector",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dagster-io/erk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:31:42Z"
+}
