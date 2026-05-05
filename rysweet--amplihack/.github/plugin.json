@@ -1,0 +1,322 @@
+{
+  "name": "rysweet--amplihack",
+  "displayName": "amplihack",
+  "description": "Framework for agentic coding supporting many popular agent coding tools. ",
+  "version": "1.0.0",
+  "author": "rysweet",
+  "homepage": "https://github.com/rysweet/amplihack",
+  "skills": [
+    {
+      "name": "lawyer-analyst",
+      "description": ""
+    },
+    {
+      "name": "mermaid-diagram-generator",
+      "description": ""
+    },
+    {
+      "name": "psychologist-analyst",
+      "description": ""
+    },
+    {
+      "name": "documentation-writing",
+      "description": ""
+    },
+    {
+      "name": "computer-scientist-analyst",
+      "description": ""
+    },
+    {
+      "name": "design-patterns-expert",
+      "description": ""
+    },
+    {
+      "name": "microsoft-agent-framework",
+      "description": ""
+    },
+    {
+      "name": "novelist-analyst",
+      "description": ""
+    },
+    {
+      "name": "pm-architect",
+      "description": ""
+    },
+    {
+      "name": "engineer-analyst",
+      "description": ""
+    },
+    {
+      "name": "investigation-workflow",
+      "description": ""
+    },
+    {
+      "name": "journalist-analyst",
+      "description": ""
+    },
+    {
+      "name": "code-visualizer",
+      "description": ""
+    },
+    {
+      "name": "backlog-curator",
+      "description": ""
+    },
+    {
+      "name": "code-smell-detector",
+      "description": ""
+    },
+    {
+      "name": "knowledge-extractor",
+      "description": ""
+    },
+    {
+      "name": "learning-path-builder",
+      "description": ""
+    },
+    {
+      "name": "urban-planner-analyst",
+      "description": ""
+    },
+    {
+      "name": "chemist-analyst",
+      "description": ""
+    },
+    {
+      "name": "environmentalist-analyst",
+      "description": ""
+    },
+    {
+      "name": "anthropologist-analyst",
+      "description": ""
+    },
+    {
+      "name": "pr-review-assistant",
+      "description": ""
+    },
+    {
+      "name": "socratic-review",
+      "description": ""
+    },
+    {
+      "name": "test-gap-analyzer",
+      "description": ""
+    },
+    {
+      "name": "mcp-manager",
+      "description": ""
+    },
+    {
+      "name": "model-evaluation-benchmark",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "description": ""
+    },
+    {
+      "name": "goal-seeking-agent-pattern",
+      "description": ""
+    },
+    {
+      "name": "consensus-voting",
+      "description": ""
+    },
+    {
+      "name": "context-management",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "work-delegator",
+      "description": ""
+    },
+    {
+      "name": "ethicist-analyst",
+      "description": ""
+    },
+    {
+      "name": "eval-recipes-runner",
+      "description": ""
+    },
+    {
+      "name": "module-spec-generator",
+      "description": ""
+    },
+    {
+      "name": "n-version-workflow",
+      "description": ""
+    },
+    {
+      "name": "outside-in-testing",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "description": ""
+    },
+    {
+      "name": "philosophy-compliance-workflow",
+      "description": ""
+    },
+    {
+      "name": "default-workflow",
+      "description": ""
+    },
+    {
+      "name": "smart-test",
+      "description": ""
+    },
+    {
+      "name": "work-iq",
+      "description": ""
+    },
+    {
+      "name": "azure-devops",
+      "description": ""
+    },
+    {
+      "name": "dotnet-install",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-sdk",
+      "description": ""
+    },
+    {
+      "name": "architecting-solutions",
+      "description": ""
+    },
+    {
+      "name": "architecting-solutions",
+      "description": ""
+    },
+    {
+      "name": "aspire",
+      "description": ""
+    },
+    {
+      "name": "authenticated-web-scraper",
+      "description": ""
+    },
+    {
+      "name": "awesome-copilot-sync",
+      "description": ""
+    },
+    {
+      "name": "context_management",
+      "description": ""
+    },
+    {
+      "name": "creating-pull-requests",
+      "description": ""
+    },
+    {
+      "name": "creating-pull-requests",
+      "description": ""
+    },
+    {
+      "name": "default-workflow",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "dotnet-exception-handling",
+      "description": ""
+    },
+    {
+      "name": "dotnet10-pack-tool",
+      "description": ""
+    },
+    {
+      "name": "gh-aw-adoption",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-cli",
+      "description": ""
+    },
+    {
+      "name": "github-copilot-cli-expert",
+      "description": ""
+    },
+    {
+      "name": "goal-seeking-agent-pattern",
+      "description": ""
+    },
+    {
+      "name": "investigation-workflow",
+      "description": ""
+    },
+    {
+      "name": "knowledge-extractor",
+      "description": ""
+    },
+    {
+      "name": "markitdown",
+      "description": ""
+    },
+    {
+      "name": "multitask",
+      "description": ""
+    },
+    {
+      "name": "n-version-workflow",
+      "description": ""
+    },
+    {
+      "name": "outside-in-testing",
+      "description": ""
+    },
+    {
+      "name": "philosophy-compliance-workflow",
+      "description": ""
+    },
+    {
+      "name": "researching-topics",
+      "description": ""
+    },
+    {
+      "name": "researching-topics",
+      "description": ""
+    },
+    {
+      "name": "reviewing-code",
+      "description": ""
+    },
+    {
+      "name": "reviewing-code",
+      "description": ""
+    },
+    {
+      "name": "setting-up-projects",
+      "description": ""
+    },
+    {
+      "name": "setting-up-projects",
+      "description": ""
+    },
+    {
+      "name": "shadow-testing",
+      "description": ""
+    },
+    {
+      "name": "skill-builder",
+      "description": ""
+    },
+    {
+      "name": "testing-code",
+      "description": ""
+    },
+    {
+      "name": "testing-code",
+      "description": ""
+    }
+  ]
+}
