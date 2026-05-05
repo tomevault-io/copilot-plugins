@@ -1,0 +1,9 @@
+{
+  "name": "dodok8--gaji",
+  "displayName": "gaji",
+  "description": "Type-safe GitHub Actions workflows in TypeScript, GitHub Actions Justified Improvements",
+  "version": "1.0.0",
+  "author": "dodok8",
+  "homepage": "https://github.com/dodok8/gaji",
+  "skills": []
+}
