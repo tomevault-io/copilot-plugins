@@ -1,0 +1,42 @@
+{
+  "name": "shinpr--agentic-code",
+  "displayName": "agentic-code",
+  "description": "Agentic coding framework powered by AGENTS.md \u2014 systematic, test-first workflows with quality gates for Cursor, Codex, Gemini CLI, and AI coding agents.",
+  "version": "1.0.0",
+  "author": "shinpr",
+  "homepage": "https://github.com/shinpr/agentic-code",
+  "skills": [
+    {
+      "name": "ai-development-guide",
+      "description": ""
+    },
+    {
+      "name": "coding-rules",
+      "description": ""
+    },
+    {
+      "name": "documentation-criteria",
+      "description": ""
+    },
+    {
+      "name": "implementation-approach",
+      "description": ""
+    },
+    {
+      "name": "integration-e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "metacognition",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy",
+      "description": ""
+    }
+  ]
+}
