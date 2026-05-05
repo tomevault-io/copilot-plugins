@@ -2,9 +2,9 @@
   "name": "mockd",
   "owner": "getmockd",
   "repo": "mockd",
-  "description": "",
+  "description": "High-performance, multi-protocol mock server. HTTP, WebSocket, gRPC, MQTT, SSE, GraphQL, SOAP in one binary.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/getmockd",
+  "source_url": "https://github.com/getmockd/mockd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T20:35:53Z"
+  "distributed_at": "2026-05-05T06:14:41Z"
 }
