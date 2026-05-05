@@ -1,0 +1,9 @@
+{
+  "name": "doordash-oss--oapi-codegen-dd",
+  "displayName": "oapi-codegen-dd",
+  "description": "Generate Go models from OpenAPI spec",
+  "version": "1.0.0",
+  "author": "doordash-oss",
+  "homepage": "https://github.com/doordash-oss/oapi-codegen-dd",
+  "skills": []
+}
