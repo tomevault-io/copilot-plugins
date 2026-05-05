@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--vibe-cockpit",
+  "displayName": "vibe_cockpit",
+  "description": "Real-time monitoring dashboard for AI coding agent fleets: session health, output streaming, and observability across Claude, Codex, and Gemini",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/vibe_cockpit",
+  "skills": []
+}
