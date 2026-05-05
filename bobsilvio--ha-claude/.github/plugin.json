@@ -1,0 +1,9 @@
+{
+  "name": "bobsilvio--ha-claude",
+  "displayName": "ha-claude",
+  "description": "Home Assistant add-on: Claude Code, OpenAI/GPT, Gemini",
+  "version": "1.0.0",
+  "author": "Bobsilvio",
+  "homepage": "https://github.com/Bobsilvio/ha-claude",
+  "skills": []
+}
