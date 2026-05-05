@@ -1,0 +1,9 @@
+{
+  "name": "jonwiggins--xmloxide",
+  "displayName": "xmloxide",
+  "description": "A pure Rust reimplementation of libxml2",
+  "version": "1.0.0",
+  "author": "jonwiggins",
+  "homepage": "https://github.com/jonwiggins/xmloxide",
+  "skills": []
+}
