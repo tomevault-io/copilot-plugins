@@ -1,0 +1,14 @@
+{
+  "name": "mattpocock--ai-hero-cli",
+  "displayName": "ai-hero-cli",
+  "description": "AI instruction skills by mattpocock",
+  "version": "1.0.0",
+  "author": "mattpocock",
+  "homepage": "https://github.com/mattpocock/ai-hero-cli",
+  "skills": [
+    {
+      "name": "what-to-test",
+      "description": ""
+    }
+  ]
+}
