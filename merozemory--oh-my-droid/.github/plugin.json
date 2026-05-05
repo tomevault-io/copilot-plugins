@@ -1,0 +1,9 @@
+{
+  "name": "merozemory--oh-my-droid",
+  "displayName": "oh-my-droid",
+  "description": "Multi-agent orchestration plugin for Factory AI Droid CLI. 32 droids, 35+ skills, autopilot & ultrawork modes. Based on oh-my-claudecode.",
+  "version": "1.0.0",
+  "author": "MeroZemory",
+  "homepage": "https://github.com/MeroZemory/oh-my-droid",
+  "skills": []
+}
