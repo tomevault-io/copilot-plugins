@@ -1,0 +1,117 @@
+{
+  "name": "claude-hacks",
+  "owner": "mahidalhan",
+  "repo": "claude-hacks",
+  "description": "give claude code a set of hacks, not vibes :)",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architecture-introspector",
+      "path": "skills/architecture-introspector/skills/architecture-introspector",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/architecture-introspector/skills/architecture-introspector",
+      "description": ""
+    },
+    {
+      "name": "ascii-explainer",
+      "path": "skills/ascii-explainer/skills/ascii-explainer",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/ascii-explainer/skills/ascii-explainer",
+      "description": ""
+    },
+    {
+      "name": "communication-coach",
+      "path": "skills/communication-coach/skills/communication-coach",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/communication-coach/skills/communication-coach",
+      "description": ""
+    },
+    {
+      "name": "exa-code-context",
+      "path": "skills/exa-code-context/skills/exa-code-context",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/exa-code-context/skills/exa-code-context",
+      "description": ""
+    },
+    {
+      "name": "explainer",
+      "path": "skills/explainer/skills/explainer",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/explainer/skills/explainer",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "skills/frontend-design/skills/frontend-design",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/frontend-design/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "mermaid-diagrams",
+      "path": "skills/mermaid-diagrams/skills/mermaid-diagrams",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/mermaid-diagrams/skills/mermaid-diagrams",
+      "description": ""
+    },
+    {
+      "name": "publish-skill",
+      "path": "skills/publish-skill/skills/publish-skill",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/publish-skill/skills/publish-skill",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator/skills/skill-creator",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/skill-creator/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "standup",
+      "path": "skills/standup/skills/standup",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/standup/skills/standup",
+      "description": ""
+    },
+    {
+      "name": "threaded-explainer",
+      "path": "skills/threaded-explainer/skills/threaded-explainer",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/threaded-explainer/skills/threaded-explainer",
+      "description": ""
+    },
+    {
+      "name": "xml-context-engineering",
+      "path": "skills/xml-context-engineering/skills/xml-context-engineering",
+      "github_url": "https://github.com/mahidalhan/claude-hacks/tree/main/skills/xml-context-engineering/skills/xml-context-engineering",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mahidalhan/claude-hacks",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T02:36:48Z"
+}
