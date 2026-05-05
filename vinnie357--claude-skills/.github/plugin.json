@@ -1,0 +1,42 @@
+{
+  "name": "vinnie357--claude-skills",
+  "displayName": "claud",
+  "description": "claude code skills",
+  "version": "1.0.0",
+  "author": "vinnie357",
+  "homepage": "https://github.com/vinnie357/claude-skills",
+  "skills": [
+    {
+      "name": "agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "command-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "description": ""
+    },
+    {
+      "name": "project-discovery",
+      "description": ""
+    },
+    {
+      "name": "requirements",
+      "description": ""
+    },
+    {
+      "name": "research-methodology",
+      "description": ""
+    },
+    {
+      "name": "task-breakdown",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    }
+  ]
+}
