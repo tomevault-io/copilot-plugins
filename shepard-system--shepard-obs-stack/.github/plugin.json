@@ -1,0 +1,9 @@
+{
+  "name": "shepard-system--shepard-obs-stack",
+  "displayName": "shepard-obs-stack",
+  "description": "Self-hosted observability for AI coding agents. Clone. Configure. See.",
+  "version": "1.0.0",
+  "author": "shepard-system",
+  "homepage": "https://github.com/shepard-system/shepard-obs-stack",
+  "skills": []
+}
