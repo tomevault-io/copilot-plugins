@@ -1,0 +1,9 @@
+{
+  "name": "yofine--nexus",
+  "displayName": "Nexus",
+  "description": "Mexus is a local web console for managing multiple CLI AI Agent instances in parallel.",
+  "version": "1.0.0",
+  "author": "yofine",
+  "homepage": "https://github.com/yofine/Nexus",
+  "skills": []
+}
