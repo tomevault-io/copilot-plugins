@@ -1,0 +1,89 @@
+## navidash
+
+> - Main code lives in `src/`.
+
+# Repository Guidelines
+
+reply me in Chinese
+
+## Project Structure & Module Organization
+- Main code lives in `src/`.
+- App Router routes and API handlers: `src/app/` (for example `src/app/api/widgets/route.ts`).
+- UI and feature components: `src/components/` (`layout/`, `widgets/`, `settings/`, `ui/`).
+- Shared logic/utilities: `src/lib/`; state stores (Zustand): `src/store/`; shared types: `src/types/`.
+- Tests are colocated under `src/__tests__/` and use `*.test.ts` naming.
+- Static assets are in `public/`; localization messages are in `messages/`.
+
+## Build, Test, and Development Commands
+- `npm run dev`: start local Next.js dev server at `http://localhost:3000`.
+- `npm run build`: production build (also catches type issues in CI flow).
+- `npm run start`: run the built app.
+- `npm run lint`: run ESLint with `next/core-web-vitals` rules.
+- `npm test`: run Jest tests (`jest-environment-jsdom`).
+- Docker option: `docker-compose up -d` for containerized local run.
+
+## Coding Style & Naming Conventions
+- Language: TypeScript (`strict: true` in `tsconfig.json`).
+- Formatting (Prettier): 2-space indent, single quotes, semicolons, trailing commas (`es5`), `printWidth: 100`.
+- Components and files for React views use PascalCase (for example `WidgetPicker.tsx`); hooks/stores use camelCase with `use` prefix (for example `useWidgetStore.ts`).
+- Prefer path alias imports via `@/*` for `src/*`.
+
+## Minimal Development Guidelines
+- Keep changes small and local first. Prefer modifying existing modules over introducing new abstractions or rewriting files.
+- Add abstraction only after duplication or branching logic becomes clearly hard to maintain. Do not pre-abstract for possible future needs.
+- Page and route components should focus on composition and page structure. Shared business logic goes to `src/lib/`; shared state goes to `src/store/`.
+- Use local component state by default. Add Zustand only when state is shared across distant components, needs cross-widget coordination, or must survive view switching.
+- Keep API contracts, storage schema, import/export structures, and widget configuration data explicit and stable. When changing them, also consider compatibility and migration paths.
+- For user-visible UI work, prioritize typography, spacing, and layout hierarchy. Avoid adding decorative containers, unnecessary card layouts, or dashboard-style wrappers by default.
+- Add brief comments only for non-obvious constraints, compatibility branches, or tricky interaction logic. Do not comment obvious code.
+- When a change affects schema, store behavior, widget rendering, import/export, or cross-device layout behavior, add or update tests together with the implementation.
+- Before merging, the minimum bar is that `npm run lint`, `npm test`, and `npm run build` should be able to pass for the final state.
+- If a rule does not clearly improve readability, maintainability, or delivery speed, prefer not adding it.
+
+## Testing Guidelines
+- Framework: Jest + Testing Library (`jest.setup.js` loads `@testing-library/jest-dom`).
+- Put unit tests in `src/__tests__/` with `*.test.ts` suffix.
+- Add/adjust tests when changing schemas, store behavior, or widget rendering logic.
+- Run `npm test` locally before opening a PR.
+
+## Commit & Pull Request Guidelines
+- Follow Conventional Commit style used in history: `feat:`, `fix:`, `docs:`, `chore:`.
+- Keep commits scoped and descriptive (example: `feat: add links widget import validation`).
+- PRs should include:
+  - concise summary of behavior changes,
+  - linked issue (if applicable),
+  - screenshots or short GIFs for UI changes,
+  - confirmation that `npm run lint`, `npm run build`, and `npm test` pass.
+
+## Changelog Recording Rules
+- When adding a new feature, fixing a user-visible bug, completing an important optimization, or making a behavior/data-structure-affecting refactor, also record the change in the root `changelog.md`.
+- Record meaningful changes only. Do not add entries for trivial copy tweaks or minor style-only adjustments unless the user explicitly asks for them.
+- Keep entries concise and searchable. Focus on what changed, what areas were affected, and what remains to be done.
+- If `changelog.md` already exists, continue its existing style while preserving the requirements below.
+- If `changelog.md` does not exist, create it in Markdown format at the repository root.
+- Group entries by date using `## YYYY-MM-DD`.
+- Use one entry per meaningful change with a heading like `### feat: feature name`.
+- Preferred change types: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`.
+- Use this template for every entry:
+
+```md
+## YYYY-MM-DD
+
+### feat|fix|refactor|docs|test|chore: title
+- 做了什么：
+- 影响范围：
+- 涉及模块：
+- 是否有兼容性影响：
+- 后续待补充：
+```
+
+- After completing implementation work, the assistant should by default also provide or update the corresponding `changelog.md` entry unless the user explicitly says not to record it.
+- When the change is substantial, briefly align the changelog entry with the current development track, such as mobile adaptation, widgets, templates, or extensibility.
+
+## Security & Configuration Tips
+- Do not commit secrets. Start from `.env.example` for local config.
+- Runtime data is stored via server-side JSON/filesystem paths; verify write permissions when using Docker volumes.
+
+---
+> Source: [wtfllix/navidash](https://github.com/wtfllix/navidash) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
