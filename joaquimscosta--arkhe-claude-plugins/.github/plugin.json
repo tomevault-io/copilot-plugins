@@ -1,0 +1,138 @@
+{
+  "name": "joaquimscosta--arkhe-claude-plugins",
+  "displayName": "arkhe-claude-plugins",
+  "description": "Supercharge Claude Code with 109 specialized components \u2014 22 agents, 32 commands, 55 skills across 13 modular plugins. Deep reasoning, autonomous dev loops, DDD architecture, design system enforcement",
+  "version": "1.0.0",
+  "author": "joaquimscosta",
+  "homepage": "https://github.com/joaquimscosta/arkhe-claude-plugins",
+  "skills": [
+    {
+      "name": "authoring-stitch-prompts",
+      "description": ""
+    },
+    {
+      "name": "cleaning-up-branches",
+      "description": ""
+    },
+    {
+      "name": "code-explanation",
+      "description": ""
+    },
+    {
+      "name": "creating-branch",
+      "description": ""
+    },
+    {
+      "name": "creating-commit",
+      "description": ""
+    },
+    {
+      "name": "creating-pr",
+      "description": ""
+    },
+    {
+      "name": "deep-research",
+      "description": ""
+    },
+    {
+      "name": "design-intent-specialist",
+      "description": ""
+    },
+    {
+      "name": "diagramming",
+      "description": ""
+    },
+    {
+      "name": "doc-coauthoring",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design",
+      "description": ""
+    },
+    {
+      "name": "generating-changelog",
+      "description": ""
+    },
+    {
+      "name": "generating-stitch-screens",
+      "description": ""
+    },
+    {
+      "name": "listing-stale-branches",
+      "description": ""
+    },
+    {
+      "name": "lyra",
+      "description": ""
+    },
+    {
+      "name": "playwright-cli",
+      "description": ""
+    },
+    {
+      "name": "plugin-release-checker",
+      "description": ""
+    },
+    {
+      "name": "ralph-loop",
+      "description": ""
+    },
+    {
+      "name": "ralph-prd",
+      "description": ""
+    },
+    {
+      "name": "bash",
+      "description": ""
+    },
+    {
+      "name": "sdlc-develop",
+      "description": ""
+    },
+    {
+      "name": "skill-template",
+      "description": ""
+    },
+    {
+      "name": "skill-validator",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-data-ddd",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-modulith",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-scanner",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-security",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-testing",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-verify",
+      "description": ""
+    },
+    {
+      "name": "spring-boot-web-api",
+      "description": ""
+    },
+    {
+      "name": "stitch-to-react",
+      "description": ""
+    },
+    {
+      "name": "workflow-orchestration",
+      "description": ""
+    }
+  ]
+}
