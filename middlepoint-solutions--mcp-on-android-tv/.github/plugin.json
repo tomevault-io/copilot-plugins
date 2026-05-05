@@ -1,0 +1,9 @@
+{
+  "name": "middlepoint-solutions--mcp-on-android-tv",
+  "displayName": "mcp-on-android-tv",
+  "description": "A Model Context Protocol (MCP) community server running on Android TV with on-device ADB integration - Control your TV with natural language.",
+  "version": "1.0.0",
+  "author": "MiddlePoint-Solutions",
+  "homepage": "https://github.com/MiddlePoint-Solutions/mcp-on-android-tv",
+  "skills": []
+}
