@@ -1,7 +1,7 @@
 {
   "name": "tonyperkins--homeassistant-broadlink-manager-v2",
   "displayName": "homeassistant-broadlink-manager-v2",
-  "description": "homeassistant-broadlink-manager-v2",
+  "description": "VUE Based Broadlink Manager",
   "version": "1.0.0",
   "author": "tonyperkins",
   "homepage": "https://github.com/tonyperkins/homeassistant-broadlink-manager-v2",
