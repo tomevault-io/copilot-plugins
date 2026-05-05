@@ -1,0 +1,141 @@
+{
+  "name": "wookstar-claude-plugins",
+  "owner": "henkisdabro",
+  "repo": "wookstar-claude-plugins",
+  "description": "An opinionated Claude Code Plugin Pack. Skills, Agents, Hooks, MCPs. Examples: Email draft preview assistance & humanisation. Agents for Codex and Gemini \"outsourcing\". Skills for Google Analytics & Google Tag Manager, Shopify and much more",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "google-ads-scripts",
+      "path": "plugins/google-ads-scripts/skills/google-ads-scripts",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/google-ads-scripts/skills/google-ads-scripts",
+      "description": ""
+    },
+    {
+      "name": "create-ultimate-skill",
+      "path": "plugins/ultimate-skill-creator/skills/create-ultimate-skill",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/ultimate-skill-creator/skills/create-ultimate-skill",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "path": "plugins/developer/skills/devtools",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/developer/skills/devtools",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "plugins/documents/skills/docx",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/documents/skills/docx",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-cli",
+      "path": "plugins/ffmpeg/skills/ffmpeg-cli",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/ffmpeg/skills/ffmpeg-cli",
+      "description": ""
+    },
+    {
+      "name": "fifteen-factor-app",
+      "path": "plugins/developer/skills/fifteen-factor-app",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/developer/skills/fifteen-factor-app",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "path": "plugins/developer/skills/git-commit-helper",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/developer/skills/git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "git-worktrees",
+      "path": "plugins/git-worktrees/skills/git-worktrees",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/git-worktrees/skills/git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "google-analytics",
+      "path": "plugins/google-analytics/skills/google-analytics",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/google-analytics/skills/google-analytics",
+      "description": ""
+    },
+    {
+      "name": "google-apps-script",
+      "path": "plugins/google-apps-script/skills/google-apps-script",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/google-apps-script/skills/google-apps-script",
+      "description": ""
+    },
+    {
+      "name": "google-tagmanager",
+      "path": "plugins/google-tagmanager/skills/google-tagmanager",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/google-tagmanager/skills/google-tagmanager",
+      "description": ""
+    },
+    {
+      "name": "message",
+      "path": "plugins/message/skills/message",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/message/skills/message",
+      "description": ""
+    },
+    {
+      "name": "prp-generator",
+      "path": "plugins/developer/skills/prp-generator",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/developer/skills/prp-generator",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "path": "plugins/react-best-practices/skills/react-best-practices",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/react-best-practices/skills/react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "tampermonkey",
+      "path": "plugins/tampermonkey/skills/tampermonkey",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/tampermonkey/skills/tampermonkey",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": "plugins/developer/skills/webapp-testing",
+      "github_url": "https://github.com/henkisdabro/wookstar-claude-plugins/tree/main/plugins/developer/skills/webapp-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/henkisdabro/wookstar-claude-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:35:29Z"
+}
