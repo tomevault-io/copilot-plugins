@@ -1,0 +1,74 @@
+## nvim-gemini-companion
+
+> This file outlines the project structure and coding guidelines for the `nvim-gemini-companion` Neovim plugin.
+
+# nvim-gemini-companion
+
+This file outlines the project structure and coding guidelines for the `nvim-gemini-companion` Neovim plugin.
+
+## Directory Structure
+
+*   `lua/`: Contains the Lua modules for the plugin.
+    *   `lua/gemini/`: The main plugin code.
+    *   `lua/gemini/announcements/`: Release announcement markdown files shown to users on updates.
+*   `tests/`: Contains the test files for the plugin.
+*   `.github/workflows/`: Contains GitHub Actions workflows for continuous integration.
+*   `assets/`: Contains images and videos for the `README.md` and other documentation.
+*   `.stylua.toml`: Configuration for the `stylua` code formatter.
+*   `GEMINI.md`: This file, containing project guidelines for contributors.
+*   `README.md`: The main documentation for the plugin.
+
+## Coding Guidelines
+
+*   **Testing:** Run `XDG_CONFIG_HOME=$(pwd)/tests nvim --headless -c "PlenaryBustedDirectory tests"` to ensure all tests pass before committing changes.
+*   **Testing:** Use Lua for tests to ensure testability and a stable release process.
+*   **Formatting:** Auto-format all code with `stylua` before committing.
+*   **Naming:** Use camelCase for all naming (local variables, function names, files, etc.). Avoid snake_case for consistency.
+*   **Modern Lua:** Keep Lua modules modern and isolated. Use `require` for dependencies and avoid global variables.
+*   **No License Headers:** Do not add license headers to new files to keep them simple and minimal.
+*   **Function Documentation:** Add a comment on top of each function describing its inputs, outputs, and intent. Keep these comments updated when the function's interface or implementation changes.
+*   **Line Length:** Keep comments and code within 100 columns for better readability. Break long lines as needed.
+
+## Commit Messages
+
+All commit messages should follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. This creates a more readable and structured commit history.
+
+### Format
+
+Each commit message consists of a **header**, a **body**, and a **footer**.
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer]
+```
+
+*   **type**: Must be one of the following:
+    *   `feat`: A new feature
+    *   `fix`: A bug fix
+    *   `docs`: Documentation only changes
+    *   `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+    *   `refactor`: A code change that neither fixes a bug nor adds a feature
+    *   `perf`: A code change that improves performance
+    *   `test`: Adding missing tests or correcting existing tests
+    *   `chore`: Changes to the build process or auxiliary tools and libraries such as documentation generation
+*   **scope**: (Optional) A noun specifying the part of the codebase affected by the change (e.g., `sidebar`, `diff`, `mcp`).
+*   **description**: A concise description of the change in the present tense.
+*   **body**: (Optional) A longer description of the change, providing more context.
+*   **footer**: (Optional) Contains any information about breaking changes or references to issues.
+
+### Example
+
+```
+feat(sidebar): Add toggle functionality
+
+The new `toggle` function allows the user to open and close the sidebar
+with a single command. This improves user experience by reducing the
+number of commands needed to manage the sidebar.
+```
+
+---
+> Source: [gutsavgupta/nvim-gemini-companion](https://github.com/gutsavgupta/nvim-gemini-companion) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
