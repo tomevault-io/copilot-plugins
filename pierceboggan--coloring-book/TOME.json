@@ -1,0 +1,57 @@
+{
+  "name": "coloring-book",
+  "owner": "pierceboggan",
+  "repo": "coloring-book",
+  "description": "AI coloring book generator",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "frontend-design",
+      "path": ".github/skills/frontend-design",
+      "github_url": "https://github.com/pierceboggan/coloring-book/tree/main/.github/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "playwright-validation",
+      "path": ".github/skills/playwright-validation",
+      "github_url": "https://github.com/pierceboggan/coloring-book/tree/main/.github/skills/playwright-validation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pierceboggan/coloring-book",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:40:31Z"
+}
