@@ -1,0 +1,9 @@
+{
+  "name": "cevr--effect-machine",
+  "displayName": "effect-machine",
+  "description": "Schema-first state machines for Effect. Define once, derive everywhere, break nothing.",
+  "version": "1.0.0",
+  "author": "cevr",
+  "homepage": "https://github.com/cevr/effect-machine",
+  "skills": []
+}
