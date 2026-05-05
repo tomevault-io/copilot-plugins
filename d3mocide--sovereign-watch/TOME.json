@@ -4,7 +4,7 @@
   "repo": "Sovereign_Watch",
   "description": "Distributed Multi-INT Fusion Center designed for decentralized situational awareness.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/d3mocide/Sovereign_Watch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T17:59:13Z"
+  "distributed_at": "2026-05-05T06:24:57Z"
 }
