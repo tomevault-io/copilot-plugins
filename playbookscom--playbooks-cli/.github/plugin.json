@@ -1,0 +1,9 @@
+{
+  "name": "playbookscom--playbooks-cli",
+  "displayName": "playbooks-cli",
+  "description": "Add skills, MCPs, and context to your agents to make them smarter.",
+  "version": "1.0.0",
+  "author": "playbookscom",
+  "homepage": "https://github.com/playbookscom/playbooks-cli",
+  "skills": []
+}
