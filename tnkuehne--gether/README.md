@@ -7,11 +7,11 @@ A collaborative content editor for markdown or static site generators without lo
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [tnkuehne/gether](https://github.com/tnkuehne/gether).
+Original source: `CLAUDE.md` in [tnkuehne/gether](https://github.com/tnkuehne/gether).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
