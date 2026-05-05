@@ -4,7 +4,7 @@
   "repo": "agent-core",
   "description": "openJiuwen agent-core provides a complete set of SDK capabilities related to AI Agent development, running, optimization, and evolution.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openJiuwen-ai/agent-core",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T14:38:20Z"
+  "distributed_at": "2026-05-05T00:10:39Z"
 }
