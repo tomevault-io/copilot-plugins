@@ -4,7 +4,7 @@
   "repo": "desktop",
   "description": "We're back! Now firing notebooks out of a t-shirt gun.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nteract/desktop",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T21:50:38Z"
+  "distributed_at": "2026-05-05T08:42:21Z"
 }
