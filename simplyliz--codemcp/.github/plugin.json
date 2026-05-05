@@ -1,0 +1,9 @@
+{
+  "name": "simplyliz--codemcp",
+  "displayName": "CodeMCP",
+  "description": "Code intelligence for AI assistants - MCP server, CLI, and HTTP API with symbol navigation, impact analysis, and architecture mapping",
+  "version": "1.0.0",
+  "author": "SimplyLiz",
+  "homepage": "https://github.com/SimplyLiz/CodeMCP",
+  "skills": []
+}
