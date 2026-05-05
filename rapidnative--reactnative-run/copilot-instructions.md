@@ -1,0 +1,42 @@
+## reactnative-run
+
+> browser-metro is a browser-based JavaScript/TypeScript bundler with HMR support, mirroring Metro (React Native's bundler) in simplified form. It runs entirely in the browser using Web Workers.
+
+# CLAUDE.md
+
+## Project overview
+
+browser-metro is a browser-based JavaScript/TypeScript bundler with HMR support, mirroring Metro (React Native's bundler) in simplified form. It runs entirely in the browser using Web Workers.
+
+- `browser-metro/` -- the core bundler library (VirtualFS, Resolver, Bundler, IncrementalBundler, HMR runtime)
+- `reactnative-esm/` -- Express server that bundles npm packages on-demand via esbuild
+- `browser-metro/example/` -- Vite-based demo app with editor, preview iframes, and console
+
+## Key commands
+
+- `cd browser-metro && npm run build` -- compile the library (tsc). Required after editing `browser-metro/src/`.
+- `cd browser-metro/example && npm run dev` -- start the example app (Vite dev server on port 5201)
+- `cd reactnative-esm && npm start` -- start the package server on port 5200
+
+## Architecture documentation
+
+Detailed architecture docs live in `docs/architecture.md`. Key sections:
+- Data flow (project loading, VirtualFS, resolution, transformation, bundling)
+- Plugin system and transformer pipeline
+- HMR end-to-end flow and runtime
+- Expo Router HMR for dynamic route addition (split entry architecture, reverse deps updates, cache clearing order)
+- Expo API Routes (`+api.ts` files) -- separate API bundle with in-browser fetch interception
+- Source maps
+- npm package bundling via reactnative-esm
+
+## Important patterns
+
+- **VirtualFS**: All file operations go through the in-memory VirtualFS. The bundler never touches the real filesystem.
+- **EditorFS** (`example/src/editor-fs.ts`): Wraps VirtualFS with dirty tracking and debounced flushes to the bundler worker.
+- **Synthetic entry for expo-router**: When `package.json` has `"main": "expo-router/entry"`, the bundler generates `/__expo_ctx.js` (route map) and `/index.tsx` (entry). See `docs/architecture.md` "Expo Router: HMR for dynamic route addition" for details on why these are split.
+- **HMR Phase 5 cache clearing**: All module caches are cleared before any re-execution to prevent stale requires from ordering bugs (`hmr-runtime.ts`).
+- **API Routes**: Files ending with `+api.ts` under `/app/` are bundled separately and served in-browser via a fetch interceptor. They are excluded from the client route context. See `docs/architecture.md` "Expo API Routes".
+
+---
+> Source: [RapidNative/reactnative-run](https://github.com/RapidNative/reactnative-run) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
