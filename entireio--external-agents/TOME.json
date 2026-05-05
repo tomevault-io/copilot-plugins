@@ -4,7 +4,7 @@
   "repo": "external-agents",
   "description": "This repository contains standalone external agent binaries that extend the Entire CLI with support for additional AI coding agents.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/entireio/external-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T01:42:08Z"
+  "distributed_at": "2026-05-05T23:51:51Z"
 }
