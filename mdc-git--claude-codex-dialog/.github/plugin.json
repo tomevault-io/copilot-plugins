@@ -1,0 +1,9 @@
+{
+  "name": "mdc-git--claude-codex-dialog",
+  "displayName": "claude-codex-dialog",
+  "description": "Short CLAUDE.md/AGENTS.md snippet to enable Anthropic Claude Code, OpenAI Codex CLI, Google Gemini CLI and GitHub Copilot CLI to talk to eachother.",
+  "version": "1.0.0",
+  "author": "mdc-git",
+  "homepage": "https://github.com/mdc-git/claude-codex-dialog",
+  "skills": []
+}
