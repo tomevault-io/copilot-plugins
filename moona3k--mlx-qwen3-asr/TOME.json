@@ -4,7 +4,7 @@
   "repo": "mlx-qwen3-asr",
   "description": "Qwen3-ASR speech recognition on Apple Silicon via MLX",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/moona3k/mlx-qwen3-asr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T16:37:57Z"
+  "distributed_at": "2026-05-05T02:53:16Z"
 }
