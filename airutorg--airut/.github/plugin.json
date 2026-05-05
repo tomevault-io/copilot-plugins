@@ -1,0 +1,9 @@
+{
+  "name": "airutorg--airut",
+  "displayName": "airut",
+  "description": "Airut is a system for running Claude Code tasks from email and Slack. It handles workspace provisioning, container isolation, network sandboxing, session persistence, and cleanup \u2014 a secure foundation",
+  "version": "1.0.0",
+  "author": "airutorg",
+  "homepage": "https://github.com/airutorg/airut",
+  "skills": []
+}
