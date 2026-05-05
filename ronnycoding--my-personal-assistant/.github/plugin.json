@@ -1,0 +1,26 @@
+{
+  "name": "ronnycoding--my-personal-assistant",
+  "displayName": "my-personal-assistant",
+  "description": "Personal AI assistant supporting Claude Code and Gemini CLI - productivity automation, AppleScript skills, and custom workflows for macOS",
+  "version": "1.0.0",
+  "author": "ronnycoding",
+  "homepage": "https://github.com/ronnycoding/my-personal-assistant",
+  "skills": [
+    {
+      "name": "daily-briefing",
+      "description": ""
+    },
+    {
+      "name": "list-reminders",
+      "description": ""
+    },
+    {
+      "name": "scan-inbox",
+      "description": ""
+    },
+    {
+      "name": "tech-news-curator",
+      "description": ""
+    }
+  ]
+}
