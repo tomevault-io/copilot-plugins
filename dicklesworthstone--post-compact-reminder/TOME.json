@@ -1,0 +1,44 @@
+{
+  "name": "post_compact_reminder",
+  "owner": "Dicklesworthstone",
+  "repo": "post_compact_reminder",
+  "description": "Claude Code hook that detects context compaction and injects a reminder to re-read AGENTS.md, preventing post-compaction rule amnesia in long sessions",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dicklesworthstone/post_compact_reminder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T09:15:41Z"
+}
