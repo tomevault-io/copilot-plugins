@@ -1,0 +1,30 @@
+{
+  "name": "centminmod--claude-code-devcontainers",
+  "displayName": "my-claude-code-setup",
+  "description": "Shared starter template configuration and CLAUDE.md memory bank system for Claude Code",
+  "version": "1.0.0",
+  "author": "centminmod",
+  "homepage": "https://github.com/centminmod/claude-code-devcontainers",
+  "skills": [
+    {
+      "name": "claude-docs-consultant",
+      "description": ""
+    },
+    {
+      "name": "consult-codex",
+      "description": ""
+    },
+    {
+      "name": "consult-zai",
+      "description": ""
+    },
+    {
+      "name": "ai-cross-verifier",
+      "description": ""
+    },
+    {
+      "name": "git-pr-helper",
+      "description": ""
+    }
+  ]
+}
