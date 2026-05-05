@@ -1,0 +1,44 @@
+{
+  "name": "oneye",
+  "owner": "msitarzewski",
+  "repo": "oneye",
+  "description": "oneye exists because live video should not require permission. No sign-up forms. No terms of service. No content moderation team in a corporate office deciding what counts as news. You open a browser, you go live.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/msitarzewski/oneye",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T12:19:56Z"
+}
