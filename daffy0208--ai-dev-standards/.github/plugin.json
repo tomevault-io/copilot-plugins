@@ -1,0 +1,214 @@
+{
+  "name": "daffy0208--ai-dev-standards",
+  "displayName": "ai-dev-standards",
+  "description": "As Described in the name",
+  "version": "1.0.0",
+  "author": "daffy0208",
+  "homepage": "https://github.com/daffy0208/ai-dev-standards",
+  "skills": [
+    {
+      "name": "animation-designer",
+      "description": ""
+    },
+    {
+      "name": "brand-designer",
+      "description": ""
+    },
+    {
+      "name": "mobile-developer",
+      "description": ""
+    },
+    {
+      "name": "iot-developer",
+      "description": ""
+    },
+    {
+      "name": "design-system-architect",
+      "description": ""
+    },
+    {
+      "name": "audio-producer",
+      "description": ""
+    },
+    {
+      "name": "frontend-builder",
+      "description": ""
+    },
+    {
+      "name": "knowledge-base-manager",
+      "description": ""
+    },
+    {
+      "name": "customer-support-builder",
+      "description": ""
+    },
+    {
+      "name": "quality-auditor",
+      "description": ""
+    },
+    {
+      "name": "security-engineer",
+      "description": ""
+    },
+    {
+      "name": "supabase-developer",
+      "description": ""
+    },
+    {
+      "name": "testing-strategist",
+      "description": ""
+    },
+    {
+      "name": "api-integration-builder",
+      "description": ""
+    },
+    {
+      "name": "knowledge-graph-builder",
+      "description": ""
+    },
+    {
+      "name": "ux-designer",
+      "description": ""
+    },
+    {
+      "name": "visual-designer",
+      "description": ""
+    },
+    {
+      "name": "api-designer",
+      "description": ""
+    },
+    {
+      "name": "growth-experimenter",
+      "description": ""
+    },
+    {
+      "name": "livestream-engineer",
+      "description": ""
+    },
+    {
+      "name": "performance-optimizer",
+      "description": ""
+    },
+    {
+      "name": "accessibility-engineer",
+      "description": ""
+    },
+    {
+      "name": "copywriter",
+      "description": ""
+    },
+    {
+      "name": "prototype-designer",
+      "description": ""
+    },
+    {
+      "name": "usability-tester",
+      "description": ""
+    },
+    {
+      "name": "mvp-builder",
+      "description": ""
+    },
+    {
+      "name": "spatial-developer",
+      "description": ""
+    },
+    {
+      "name": "go-to-market-planner",
+      "description": ""
+    },
+    {
+      "name": "rag-implementer",
+      "description": ""
+    },
+    {
+      "name": "security-architect",
+      "description": ""
+    },
+    {
+      "name": "figma-developer",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-architect",
+      "description": ""
+    },
+    {
+      "name": "quality-assurance",
+      "description": ""
+    },
+    {
+      "name": "asset-manager",
+      "description": ""
+    },
+    {
+      "name": "codex-review-workflow",
+      "description": ""
+    },
+    {
+      "name": "bmad-method",
+      "description": ""
+    },
+    {
+      "name": "deployment-advisor",
+      "description": ""
+    },
+    {
+      "name": "task-breakdown-specialist",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "description": ""
+    },
+    {
+      "name": "product-strategist",
+      "description": ""
+    },
+    {
+      "name": "release-manager",
+      "description": ""
+    },
+    {
+      "name": "dark-matter-analyzer",
+      "description": ""
+    },
+    {
+      "name": "archon-manager",
+      "description": ""
+    },
+    {
+      "name": "capability-graph-builder",
+      "description": ""
+    },
+    {
+      "name": "context-preserver",
+      "description": ""
+    },
+    {
+      "name": "framework-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "orchestration-planner",
+      "description": ""
+    },
+    {
+      "name": "prp-generator",
+      "description": ""
+    },
+    {
+      "name": "manifest-generator",
+      "description": ""
+    },
+    {
+      "name": "skill-validator",
+      "description": ""
+    },
+    {
+      "name": "system-diagnostician",
+      "description": ""
+    }
+  ]
+}
