@@ -1,0 +1,9 @@
+{
+  "name": "tombelieber--claude-view",
+  "displayName": "claude-view",
+  "description": "10 Claude sessions running. What are they doing? Live dashboard \u2014 monitor, cost tracking, search, sub-agent visibility.",
+  "version": "1.0.0",
+  "author": "tombelieber",
+  "homepage": "https://github.com/tombelieber/claude-view",
+  "skills": []
+}
