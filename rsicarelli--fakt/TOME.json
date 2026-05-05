@@ -1,0 +1,87 @@
+{
+  "name": "fakt",
+  "owner": "rsicarelli",
+  "repo": "fakt",
+  "description": "Your Fakes at compile-time. Type-safe test fake generation for Kotlin Multiplatform via FIR/IR compiler plugin.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bdd-test-runner",
+      "path": ".claude/skills/bdd-test-runner",
+      "github_url": "https://github.com/rsicarelli/fakt/tree/main/.claude/skills/bdd-test-runner",
+      "description": ""
+    },
+    {
+      "name": "behavior-analyzer-tester",
+      "path": ".claude/skills/behavior-analyzer-tester",
+      "github_url": "https://github.com/rsicarelli/fakt/tree/main/.claude/skills/behavior-analyzer-tester",
+      "description": ""
+    },
+    {
+      "name": "compiler-architecture-validator",
+      "path": ".claude/skills/compiler-architecture-validator",
+      "github_url": "https://github.com/rsicarelli/fakt/tree/main/.claude/skills/compiler-architecture-validator",
+      "description": ""
+    },
+    {
+      "name": "git-commit-guardian",
+      "path": ".claude/skills/git-commit-guardian",
+      "github_url": "https://github.com/rsicarelli/fakt/tree/main/.claude/skills/git-commit-guardian",
+      "description": ""
+    },
+    {
+      "name": "kotlin-api-consultant",
+      "path": ".claude/skills/kotlin-api-consultant",
+      "github_url": "https://github.com/rsicarelli/fakt/tree/main/.claude/skills/kotlin-api-consultant",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "path": ".claude/skills/pr-creator",
+      "github_url": "https://github.com/rsicarelli/fakt/tree/main/.claude/skills/pr-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": ".claude/skills/skill-creator",
+      "github_url": "https://github.com/rsicarelli/fakt/tree/main/.claude/skills/skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rsicarelli/fakt",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T02:38:12Z"
+}
