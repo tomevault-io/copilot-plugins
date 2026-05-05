@@ -1,0 +1,334 @@
+{
+  "name": "enuno--claude-command-and-control",
+  "displayName": "claude-command-and-control",
+  "description": "Claude command & AI agent creation best practices and templates",
+  "version": "1.0.0",
+  "author": "enuno",
+  "homepage": "https://github.com/enuno/claude-command-and-control",
+  "skills": [
+    {
+      "name": "agent-client-protocol",
+      "description": ""
+    },
+    {
+      "name": "agent-communication-protocol",
+      "description": ""
+    },
+    {
+      "name": "agentkit",
+      "description": ""
+    },
+    {
+      "name": "agentskb",
+      "description": ""
+    },
+    {
+      "name": "ai-testcase-generator-mcp",
+      "description": ""
+    },
+    {
+      "name": "ansible",
+      "description": ""
+    },
+    {
+      "name": "aos-sqlite",
+      "description": ""
+    },
+    {
+      "name": "architect-role-skill",
+      "description": ""
+    },
+    {
+      "name": "artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "arweave-ao-cookbook",
+      "description": ""
+    },
+    {
+      "name": "arweave-standards",
+      "description": ""
+    },
+    {
+      "name": "astro",
+      "description": ""
+    },
+    {
+      "name": "bitcoin-mining",
+      "description": ""
+    },
+    {
+      "name": "braiins-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "braiins-manager",
+      "description": ""
+    },
+    {
+      "name": "braiins-os",
+      "description": ""
+    },
+    {
+      "name": "braiins-pool",
+      "description": ""
+    },
+    {
+      "name": "braiins-toolbox",
+      "description": ""
+    },
+    {
+      "name": "btcpayserver-doc",
+      "description": ""
+    },
+    {
+      "name": "builder-role-skill",
+      "description": ""
+    },
+    {
+      "name": "building-bitcoin-rust",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "description": ""
+    },
+    {
+      "name": "case-analyzer",
+      "description": ""
+    },
+    {
+      "name": "cc-mcp-executor-skill",
+      "description": ""
+    },
+    {
+      "name": "claude-mem",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-agents",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-ai-gateway",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-ai-search",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-pages",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-pulumi",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-r2",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers",
+      "description": ""
+    },
+    {
+      "name": "devops-role-skill",
+      "description": ""
+    },
+    {
+      "name": "docling",
+      "description": ""
+    },
+    {
+      "name": "documentation-update",
+      "description": ""
+    },
+    {
+      "name": "elizaos",
+      "description": ""
+    },
+    {
+      "name": "fastmcp",
+      "description": ""
+    },
+    {
+      "name": "file-categorization",
+      "description": ""
+    },
+    {
+      "name": "flyio",
+      "description": ""
+    },
+    {
+      "name": "geckoterminal-api",
+      "description": ""
+    },
+    {
+      "name": "gitbook",
+      "description": ""
+    },
+    {
+      "name": "github-actions-reference",
+      "description": ""
+    },
+    {
+      "name": "github-copilot",
+      "description": ""
+    },
+    {
+      "name": "github-pages",
+      "description": ""
+    },
+    {
+      "name": "google-structured-data",
+      "description": ""
+    },
+    {
+      "name": "ink",
+      "description": ""
+    },
+    {
+      "name": "langchainjs",
+      "description": ""
+    },
+    {
+      "name": "langflow",
+      "description": ""
+    },
+    {
+      "name": "langsmith-agent-builder",
+      "description": ""
+    },
+    {
+      "name": "language-server-protocol",
+      "description": ""
+    },
+    {
+      "name": "latex-manual",
+      "description": ""
+    },
+    {
+      "name": "lobe-chat",
+      "description": ""
+    },
+    {
+      "name": "lobe-cli-toolbox",
+      "description": ""
+    },
+    {
+      "name": "lobe-tts",
+      "description": ""
+    },
+    {
+      "name": "matomo-api",
+      "description": ""
+    },
+    {
+      "name": "mcp-registry",
+      "description": ""
+    },
+    {
+      "name": "model-context-protocol",
+      "description": ""
+    },
+    {
+      "name": "moonshot-ai",
+      "description": ""
+    },
+    {
+      "name": "neon",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "description": ""
+    },
+    {
+      "name": "passwordless-docs",
+      "description": ""
+    },
+    {
+      "name": "pict-test-designer",
+      "description": ""
+    },
+    {
+      "name": "playwright-typescript-enableedge",
+      "description": ""
+    },
+    {
+      "name": "researcher-role-skill",
+      "description": ""
+    },
+    {
+      "name": "scribe-role-skill",
+      "description": ""
+    },
+    {
+      "name": "sdk-sm",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-share",
+      "description": ""
+    },
+    {
+      "name": "software-architecture",
+      "description": ""
+    },
+    {
+      "name": "starlight",
+      "description": ""
+    },
+    {
+      "name": "tailwind-skill",
+      "description": ""
+    },
+    {
+      "name": "t4-stack",
+      "description": ""
+    },
+    {
+      "name": "terraform-best-practices",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "description": ""
+    },
+    {
+      "name": "turbo-sdk",
+      "description": ""
+    },
+    {
+      "name": "twilio-voice",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "venice-ai",
+      "description": ""
+    },
+    {
+      "name": "virtuals-protocol",
+      "description": ""
+    },
+    {
+      "name": "wao",
+      "description": ""
+    },
+    {
+      "name": "x402",
+      "description": ""
+    }
+  ]
+}
