@@ -1,0 +1,129 @@
+{
+  "name": "atris",
+  "owner": "atrislabs",
+  "repo": "atris",
+  "description": "a self improving operating system for intelligence",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "atris",
+      "path": "atris/skills/clawhub/atris",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/clawhub/atris",
+      "description": ""
+    },
+    {
+      "name": "backend",
+      "path": "atris/skills/backend",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/backend",
+      "description": ""
+    },
+    {
+      "name": "calendar",
+      "path": "atris/skills/calendar",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/calendar",
+      "description": ""
+    },
+    {
+      "name": "copy-editor",
+      "path": "atris/skills/copy-editor",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/copy-editor",
+      "description": ""
+    },
+    {
+      "name": "create-member",
+      "path": "atris/skills/create-member",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/create-member",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": "atris/skills/design",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/design",
+      "description": ""
+    },
+    {
+      "name": "drive",
+      "path": "atris/skills/drive",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/drive",
+      "description": ""
+    },
+    {
+      "name": "email-agent",
+      "path": "atris/skills/email-agent",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/email-agent",
+      "description": ""
+    },
+    {
+      "name": "meta",
+      "path": "atris/skills/meta",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/meta",
+      "description": ""
+    },
+    {
+      "name": "notion",
+      "path": "atris/skills/notion",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/notion",
+      "description": ""
+    },
+    {
+      "name": "skill-improver",
+      "path": "atris/skills/skill-improver",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/skill-improver",
+      "description": ""
+    },
+    {
+      "name": "slack",
+      "path": "atris/skills/slack",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/slack",
+      "description": ""
+    },
+    {
+      "name": "slides",
+      "path": "atris/skills/slides",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/slides",
+      "description": ""
+    },
+    {
+      "name": "writing",
+      "path": "atris/skills/writing",
+      "github_url": "https://github.com/atrislabs/atris/tree/main/atris/skills/writing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/atrislabs/atris",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:31:57Z"
+}
