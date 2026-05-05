@@ -1,0 +1,9 @@
+{
+  "name": "danbuhler--claude-code-ha",
+  "displayName": "claude-code-ha",
+  "description": "Use Claude code in Home Assistant to manage configuration and automations.",
+  "version": "1.0.0",
+  "author": "danbuhler",
+  "homepage": "https://github.com/danbuhler/claude-code-ha",
+  "skills": []
+}
