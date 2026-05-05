@@ -1,141 +1,121 @@
-## mockdevice-testing
+## permissions-registration
 
-> MockDeviceKit for testing without physical glasses hardware
+> App registration with Meta AI, camera permission flows
 
 
 
-# MockDevice Testing (Android)
+# Permissions & Registration (Android)
 
-Guide for testing DAT SDK integrations without physical Meta glasses.
+Guide for app registration and camera permission flows in the DAT SDK.
 
 ## Overview
 
-MockDeviceKit simulates Meta glasses behavior for development and testing. It provides:
-- `MockDeviceKit` — Entry point for creating simulated devices
-- `MockRaybanMeta` — Simulated Ray-Ban Meta glasses
-- `MockCameraKit` — Simulated camera with configurable video feed and photo capture
+The DAT SDK separates two concepts:
+1. **Registration** — Your app registers with Meta AI to become a permitted integration
+2. **Device permissions** — After registration, request specific device permissions (e.g., camera)
 
-## Setup
+All permission grants occur through the Meta AI companion app.
 
-Add `mwdat-mockdevice` to your Gradle dependencies:
+## Registration flow
 
-```kotlin
-dependencies {
-    implementation(libs.mwdat.mockdevice)
-}
-```
-
-## Creating a mock device
+### Start registration
 
 ```kotlin
-import com.meta.wearable.dat.mockdevice.MockDeviceKit
-
-val mockDeviceKit = MockDeviceKit.getInstance(context)
-val device = mockDeviceKit.pairRaybanMeta()
+Wearables.startRegistration(context)
 ```
 
-## Simulating device states
+This opens the Meta AI app where the user approves your app.
+
+### Observe registration state
 
 ```kotlin
-// Simulate glasses lifecycle
-device.powerOn()
-device.unfold()
-device.don()    // Simulate wearing the glasses
-
-// Later...
-device.doff()   // Simulate removing
-device.fold()
-device.powerOff()
-```
-
-## Setting up mock camera feeds
-
-### Video streaming
-
-```kotlin
-val camera = device.getCameraKit()
-camera.setCameraFeed(videoUri)
-```
-
-### Photo capture
-
-```kotlin
-val camera = device.getCameraKit()
-camera.setCapturedImage(imageUri)
-```
-
-**Note**: Android doesn't transcode video automatically. Mock video files must be in h.265 format. Use FFmpeg to convert:
-
-```bash
-ffmpeg -hwaccel videotoolbox -i input.mp4 -c:v hevc_videotoolbox -c:a aac_at -tag:v hvc1 -vf "scale=540:960" output.mov
-```
-
-## Writing instrumentation tests
-
-Create a reusable test base class:
-
-```kotlin
-import android.content.Context
-import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.platform.app.InstrumentationRegistry
-import com.meta.wearable.dat.mockdevice.MockDeviceKit
-import com.meta.wearable.dat.mockdevice.api.MockDeviceKitInterface
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-
-open class MockDeviceKitTestCase<T : Any>(
-    private val activityClass: Class<T>
-) {
-    @get:Rule
-    val scenarioRule = ActivityScenarioRule(activityClass)
-
-    protected lateinit var mockDeviceKit: MockDeviceKitInterface
-    protected lateinit var targetContext: Context
-
-    @Before
-    open fun setUp() {
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        targetContext = instrumentation.targetContext
-        mockDeviceKit = MockDeviceKit.getInstance(targetContext)
-        grantRuntimePermissions()
-    }
-
-    @After
-    open fun tearDown() {
-        mockDeviceKit.reset()
-    }
-
-    private fun grantRuntimePermissions() {
-        val packageName = targetContext.packageName
-        val shell = InstrumentationRegistry.getInstrumentation().uiAutomation
-        shell.executeShellCommand("pm grant $packageName android.permission.BLUETOOTH_CONNECT")
-        shell.executeShellCommand("pm grant $packageName android.permission.CAMERA")
+lifecycleScope.launch {
+    Wearables.registrationState.collect { state ->
+        when (state) {
+            is RegistrationState.Registered -> {
+                // App is registered, can request permissions
+            }
+            is RegistrationState.Unregistered -> {
+                // App is not registered
+            }
+        }
     }
 }
 ```
 
-## Using MockDeviceKit in the CameraAccess sample
+### Unregister
 
-The CameraAccess sample app includes a Debug menu for MockDeviceKit:
+```kotlin
+Wearables.startUnregistration(context)
+```
 
-1. Tap the **Debug icon** to open the MockDeviceKit menu
-2. Tap **Pair RayBan Meta** to create a simulated device
-3. Use **PowerOn**, **Unfold**, **Don** to simulate glasses states
-4. Select video/image files for mock camera feeds
-5. Start streaming to see simulated frames
+## Camera permissions
 
-## Supported media formats
+### Check permission status
 
-| Type | Formats |
-|------|---------|
-| Video | h.264 (AVC), h.265 (HEVC) |
-| Image | JPEG, PNG |
+```kotlin
+val status = Wearables.checkPermissionStatus(Permission.CAMERA)
+if (status == PermissionStatus.Granted) {
+    // Start streaming
+}
+```
+
+### Request permission
+
+Use the SDK's `RequestPermissionContract` with the Activity Result API:
+
+```kotlin
+private var permissionContinuation: CancellableContinuation<PermissionStatus>? = null
+private val permissionMutex = Mutex()
+
+private val permissionsResultLauncher =
+    registerForActivityResult(Wearables.RequestPermissionContract()) { result ->
+        permissionContinuation?.resume(result)
+        permissionContinuation = null
+    }
+
+suspend fun requestWearablesPermission(permission: Permission): PermissionStatus {
+    return permissionMutex.withLock {
+        suspendCancellableCoroutine { continuation ->
+            permissionContinuation = continuation
+            continuation.invokeOnCancellation { permissionContinuation = null }
+            permissionsResultLauncher.launch(permission)
+        }
+    }
+}
+```
+
+Users can choose:
+- **Allow once** — temporary, single-session grant
+- **Allow always** — persistent grant
+
+## Multi-device behavior
+
+Users can link multiple glasses to Meta AI. The SDK handles this transparently:
+- Permission granted on **any** linked device means your app has access
+- You don't need to track which device has permissions
+- If all devices disconnect, permissions become unavailable
+
+## Developer Mode vs Production
+
+| Mode | Registration behavior |
+|------|----------------------|
+| Developer Mode | Registration always allowed (use `APPLICATION_ID` = `0`) |
+| Production | Users must be in proper release channel |
+
+For production, get your `APPLICATION_ID` from the [Wearables Developer Center](https://wearables.developer.meta.com/).
+
+## Prerequisites
+
+- Registration requires an internet connection
+- Meta AI companion app must be installed
+- For Developer Mode: enable in Meta AI > Settings > Your glasses > Developer Mode
 
 ## Links
 
-- [Mock Device Kit overview](https://wearables.developer.meta.com/docs/mock-device-kit)
-- [Android testing guide](https://wearables.developer.meta.com/docs/testing-mdk-android)
+- [Permissions documentation](https://wearables.developer.meta.com/docs/permissions-requests)
+- [Getting started guide](https://wearables.developer.meta.com/docs/getting-started-toolkit)
+- [Manage projects](https://wearables.developer.meta.com/docs/manage-projects)
 
 ---
 > Source: [circus-kitchens/expo-meta-wearables-dat](https://github.com/circus-kitchens/expo-meta-wearables-dat) — distributed by [TomeVault](https://tomevault.io).
