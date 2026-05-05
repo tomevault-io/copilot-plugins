@@ -1,59 +1,69 @@
-## 09-legal
+## 10-pitch
 
-> Use for compliance, MiCA, AML, KYC, regulation, terms of service, privacy policy, legal documents, smart contract audit, security review, GDPR
+> Use for pitch prep, investor readiness, fundraising, pitch deck, fund intro, investor conversations, raise amount, use of funds
 
 
-# Crypto Compliance
+# Pitch Prep — Fund Intro Readiness
 
-> **Read before acting:** `.claude/docs/legal/COMPLIANCE.md`
+> **Read before acting:**
+> - `.claude/docs/strategy/BUSINESS_MODEL.md`
+> - `.claude/docs/strategy/ROADMAP.md`
+> - `.claude/docs/intelligence/METRICS.md`
 
-Handle regulatory compliance for ventures on ReineiraOS. Always flag areas requiring professional legal review.
+Prepare ventures for investor conversations and fund introductions.
 
-## Key Regulatory Frameworks
+## Readiness Criteria
 
-### MiCA (EU)
-- Is the venture a CASP (Crypto-Asset Service Provider)?
-- USDC compliance: Circle is MiCA-authorized
-- Disclosure requirements for DeFi insurance products
-- White paper requirements if issuing tokens
+| Criterion                            | Notes                                  |
+| ------------------------------------ | -------------------------------------- |
+| Working product (testnet or mainnet) | Deployed resolver/policy + working app |
+| Clear business model                 | Documented in BUSINESS_MODEL.md        |
+| Metrics tracking                     | Dashboard in METRICS.md                |
+| Team and vision articulated          | Founder story + market thesis          |
+| Pitch materials prepared             | Deck + one-pager                       |
 
-### AML/KYC
-- When required: fiat on/off ramps, large transaction thresholds
-- Travel rule compliance for transfers >$1000 (EU/US)
-- Transaction monitoring requirements
+## Pitch Deck Structure (10-12 slides)
 
-### GDPR (if EU users)
-- Privacy policy required
-- Data processing agreements with vendors
-- Right to deletion (on-chain data is permanent — handle carefully)
+1. Title — Name, one-liner, tagline
+2. Problem — What's broken, who suffers
+3. Solution — What you build, how FHE changes the game
+4. How It Works — Protocol flow, 3-5 steps
+5. Market — TAM/SAM/SOM with validation
+6. Traction — Metrics, testnet data, partnerships
+7. Business Model — Revenue streams, unit economics
+8. Competitive Advantage — FHE moat, feature comparison
+9. Roadmap — Phase plan with milestones
+10. Team — Backgrounds, relevant experience
+11. Ask — Raise amount, use of funds
+12. Appendix — Technical details, financials
 
-### Smart Contract Audit
-- Required before mainnet with real funds
-- Focus: FHE value handling, access control, upgrade safety
-- At least one independent audit firm
-- UUPS upgrade pattern requires careful proxy review
+## How to Position FHE
 
-## Minimum Legal Documents
+**For crypto-native investors:**
+- FHE = computation on encrypted data = privacy without trusted parties
+- Moat: competitors can't replicate without FHE infrastructure
 
-- [ ] Terms of Service
-- [ ] Privacy Policy
-- [ ] Risk Disclaimers (DeFi-specific)
-- [ ] Insurance Product Disclosures (if applicable)
-- [ ] Cookie Policy (if web app)
+**For non-crypto investors:**
+- "We process financial transactions where amounts and terms stay private"
+- Focus on business outcome, not cryptography
 
-## Important Caveats
+## Key Metrics Investors Want
 
-- DeFi insurance is a regulatory grey area — flag to professional counsel
-- FHE encryption may affect regulatory data access requirements
-- Cross-chain operations may trigger multi-jurisdiction compliance
-- Always recommend professional legal review for binding documents
+| Metric              | Why It Matters            |
+| ------------------- | ------------------------- |
+| GMV through escrows | Total economic activity   |
+| Active escrows      | Usage depth               |
+| Insurance purchased | Revenue proxy             |
+| Completion rate     | Product-market fit signal |
+| Pool liquidity      | Supply-side health        |
 
 ## Checklist
 
-- [ ] Applicable regulations identified
-- [ ] No legal claims without qualification
-- [ ] Professional review recommended where needed
-- [ ] Risk disclaimers appropriate for DeFi context
+- [ ] Readiness criteria assessed honestly
+- [ ] Materials clear for non-technical audience
+- [ ] Numbers are real, not projected (or clearly labeled)
+- [ ] FHE positioning is crisp and differentiated
+- [ ] Competitive analysis is fair and specific
 
 ---
 > Source: [ReineiraOS/reineira-atlas](https://github.com/ReineiraOS/reineira-atlas) — distributed by [TomeVault](https://tomevault.io).
