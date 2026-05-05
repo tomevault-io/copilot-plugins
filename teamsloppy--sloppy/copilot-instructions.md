@@ -1,74 +1,77 @@
-## agent-runtime
+## api-models
 
-> Guide for working with AgentRuntime — the actor-based orchestration core
+> Conventions for API request/response models in Sources/Protocols/APIModels.swift
 
 
-# AgentRuntime Guide
+# API Models Conventions
 
-`Sources/AgentRuntime/` is the orchestration core. All types are `actor`-based for concurrency safety.
+All wire models live in `Sources/Protocols/APIModels.swift`. This file is ~3200 lines; always add models in the appropriate domain section under the nearest `// MARK:` comment.
 
-## Component overview
-
-| File | Role |
-|---|---|
-| `RuntimeSystem.swift` | Facade — entry point for CoreService to start/stop sessions and workers |
-| `WorkerRuntime.swift` | Executes a single agent worker loop |
-| `ChannelRuntime.swift` | Manages a channel session lifecycle |
-| `BranchRuntime.swift` | Manages a branched sub-session |
-| `EventBus.swift` | Pub/sub event routing between runtime components |
-| `Visor.swift` | Observes and records runtime state snapshots |
-| `Compactor.swift` | Compresses long conversation history |
-| `MemoryStore.swift` | In-memory session state |
-
-## RuntimeSystem — primary interface
-
-`CoreService` accesses the runtime exclusively through `RuntimeSystem`:
+## Model declaration pattern
 
 ```swift
-// Start a session
-await runtime.startSession(agentID: agentID, sessionID: sessionID, config: config)
+// MARK: - Xxx
 
-// Stop a session
-await runtime.stopSession(sessionID: sessionID)
+public struct XxxCreateRequest: Codable, Sendable {
+    public var name: String
+    public var description: String?
 
-// Send a message into a channel
-await runtime.deliverMessage(channelID: channelID, message: message)
-```
+    public init(name: String, description: String? = nil) {
+        self.name = name
+        self.description = description
+    }
+}
 
-Do not reach into individual `WorkerRuntime` or `ChannelRuntime` actors directly from outside `AgentRuntime`.
+public struct XxxRecord: Codable, Sendable {
+    public var id: String
+    public var name: String
+    public var createdAt: Date
 
-## EventBus
-
-Inter-component communication uses `EventBus`. Publish typed events; subscribe with a handler closure:
-
-```swift
-// publish
-await eventBus.publish(SomeEvent(sessionID: sessionID, payload: data))
-
-// subscribe (within an actor)
-await eventBus.subscribe(to: SomeEvent.self) { event in
-    // handle
+    public init(id: String, name: String, createdAt: Date = Date()) {
+        self.id = id
+        self.name = name
+        self.createdAt = createdAt
+    }
 }
 ```
 
-## Visor
+## CodingKeys — when and how
 
-`Visor` periodically snapshots worker state. It is read-only from outside — `CoreService` calls `await runtime.visorSnapshot()` to get the current state. Do not write to Visor directly.
+Use `CodingKeys` only when the JSON field name must differ from the Swift property name:
 
-## Concurrency rules
+```swift
+public struct XxxRecord: Codable, Sendable {
+    public var channelId: String
 
-- All `AgentRuntime` actors use `async`/`await`. No locks, no `DispatchQueue`.
-- Data passed between actors must be `Sendable`. Use value types (`struct`) for all cross-actor payloads.
-- Never capture `actor`-isolated mutable state in a detached `Task` without re-isolating.
-
-## Testing AgentRuntime
-
-Tests in `Tests/AgentRuntimeTests/` instantiate `RuntimeSystem` directly with injected fakes. See `RuntimeFlowTests.swift` for the setup pattern.
-
-Run:
-```bash
-swift test --filter AgentRuntimeTests
+    enum CodingKeys: String, CodingKey {
+        case channelId = "channel_id"
+    }
+}
 ```
+
+For camelCase properties that map to camelCase JSON, no `CodingKeys` needed (default behavior).
+
+## Dynamic / untyped data
+
+For fields that carry arbitrary JSON, use `JSONValue` (defined in `Sources/Protocols/JSONValue.swift`):
+
+```swift
+public struct ToolInvocationResult: Codable, Sendable {
+    public var data: JSONValue?
+}
+```
+
+## Visibility
+
+All models must be `public` — this module is imported by other targets (`sloppy`, tests, `AgentRuntime`).
+
+## Date encoding
+
+All `Date` fields encode/decode as ISO 8601 strings. Encoders are configured at call sites; models themselves only need `var createdAt: Date`.
+
+## Sendable
+
+All models crossing actor or module boundaries must be `Sendable`. For `struct` with only `Sendable` stored properties, this is automatic. If a property is not `Sendable`, mark the conformance `@unchecked Sendable` and document why.
 
 ---
 > Source: [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy) — distributed by [TomeVault](https://tomevault.io).
