@@ -1,0 +1,54 @@
+{
+  "name": "lvndry--jazz",
+  "displayName": "jazz",
+  "description": "Your terminal. Your agent. Your rules.",
+  "version": "1.0.0",
+  "author": "lvndry",
+  "homepage": "https://github.com/lvndry/jazz",
+  "skills": [
+    {
+      "name": "boilerplate",
+      "description": ""
+    },
+    {
+      "name": "browser-use",
+      "description": ""
+    },
+    {
+      "name": "calendar",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "create-workflow",
+      "description": ""
+    },
+    {
+      "name": "decision-log",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "email",
+      "description": ""
+    },
+    {
+      "name": "journal",
+      "description": ""
+    },
+    {
+      "name": "obsidian",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    }
+  ]
+}
