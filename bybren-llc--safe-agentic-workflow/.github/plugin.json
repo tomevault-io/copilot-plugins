@@ -1,0 +1,130 @@
+{
+  "name": "bybren-llc--safe-agentic-workflow",
+  "displayName": "safe-agentic-workflow",
+  "description": "SAW \u2014 SAFe Agentic Workflow AI Agent Harness for Multi-Agent Team Workflows Built on SAFe methodology (Scaled Agile Framework), adapted for AI agent teams. Works for any team with repeatable processes",
+  "version": "1.0.0",
+  "author": "bybren-llc",
+  "homepage": "https://github.com/bybren-llc/safe-agentic-workflow",
+  "skills": [
+    {
+      "name": "agent-coordination",
+      "description": ""
+    },
+    {
+      "name": "agent-coordination",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "description": ""
+    },
+    {
+      "name": "confluence-docs",
+      "description": ""
+    },
+    {
+      "name": "confluence-docs",
+      "description": ""
+    },
+    {
+      "name": "deployment-sop",
+      "description": ""
+    },
+    {
+      "name": "deployment-sop",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "git-advanced",
+      "description": ""
+    },
+    {
+      "name": "git-advanced",
+      "description": ""
+    },
+    {
+      "name": "linear-sop",
+      "description": ""
+    },
+    {
+      "name": "linear-sop",
+      "description": ""
+    },
+    {
+      "name": "migration-patterns",
+      "description": ""
+    },
+    {
+      "name": "migration-patterns",
+      "description": ""
+    },
+    {
+      "name": "orchestration-patterns",
+      "description": ""
+    },
+    {
+      "name": "orchestration-patterns",
+      "description": ""
+    },
+    {
+      "name": "pattern-discovery",
+      "description": ""
+    },
+    {
+      "name": "pattern-discovery",
+      "description": ""
+    },
+    {
+      "name": "rls-patterns",
+      "description": ""
+    },
+    {
+      "name": "rls-patterns",
+      "description": ""
+    },
+    {
+      "name": "safe-workflow",
+      "description": ""
+    },
+    {
+      "name": "safe-workflow",
+      "description": ""
+    },
+    {
+      "name": "security-audit",
+      "description": ""
+    },
+    {
+      "name": "security-audit",
+      "description": ""
+    },
+    {
+      "name": "stripe-patterns",
+      "description": ""
+    },
+    {
+      "name": "stripe-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "description": ""
+    }
+  ]
+}
