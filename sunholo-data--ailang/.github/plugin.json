@@ -1,0 +1,122 @@
+{
+  "name": "sunholo-data--ailang",
+  "displayName": "ailang",
+  "description": "For humans, a language is a tool for expression. For AIs, it's a substrate for reasoning.",
+  "version": "1.0.0",
+  "author": "sunholo-data",
+  "homepage": "https://github.com/sunholo-data/ailang",
+  "skills": [
+    {
+      "name": "agent-inbox",
+      "description": ""
+    },
+    {
+      "name": "use-ailang",
+      "description": ""
+    },
+    {
+      "name": "post-release",
+      "description": ""
+    },
+    {
+      "name": "release-manager",
+      "description": ""
+    },
+    {
+      "name": "sprint-executor",
+      "description": ""
+    },
+    {
+      "name": "sprint-planner",
+      "description": ""
+    },
+    {
+      "name": "builtin-developer",
+      "description": ""
+    },
+    {
+      "name": "cli-doc-maintainer",
+      "description": ""
+    },
+    {
+      "name": "cloud-setup",
+      "description": ""
+    },
+    {
+      "name": "codebase-organizer",
+      "description": ""
+    },
+    {
+      "name": "collaboration-hub",
+      "description": ""
+    },
+    {
+      "name": "coordinator-helper",
+      "description": ""
+    },
+    {
+      "name": "design-doc-creator",
+      "description": ""
+    },
+    {
+      "name": "design-spec-auditor",
+      "description": ""
+    },
+    {
+      "name": "docs-sync",
+      "description": ""
+    },
+    {
+      "name": "eval-analyzer",
+      "description": ""
+    },
+    {
+      "name": "eval-gap-finder",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli-helper",
+      "description": ""
+    },
+    {
+      "name": "github-issue-triage",
+      "description": ""
+    },
+    {
+      "name": "headless-runner",
+      "description": ""
+    },
+    {
+      "name": "model-manager",
+      "description": ""
+    },
+    {
+      "name": "parser-developer",
+      "description": ""
+    },
+    {
+      "name": "perf-reviewer",
+      "description": ""
+    },
+    {
+      "name": "test-coverage-guardian",
+      "description": ""
+    },
+    {
+      "name": "trace-debugger",
+      "description": ""
+    },
+    {
+      "name": "ailang",
+      "description": ""
+    },
+    {
+      "name": "ailang-debug",
+      "description": ""
+    },
+    {
+      "name": "ailang-inbox",
+      "description": ""
+    }
+  ]
+}
