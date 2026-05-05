@@ -1,0 +1,9 @@
+{
+  "name": "johnfkoo951--agent-archives",
+  "displayName": "agent-archives",
+  "description": "Desktop app for browsing Claude Code and OpenCode session history",
+  "version": "1.0.0",
+  "author": "johnfkoo951",
+  "homepage": "https://github.com/johnfkoo951/agent-archives",
+  "skills": []
+}
