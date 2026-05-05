@@ -1,0 +1,9 @@
+{
+  "name": "currentf--sparse-vllm",
+  "displayName": "Sparse-vLLM",
+  "description": "Sparse-vLLM",
+  "version": "1.0.0",
+  "author": "CURRENTF",
+  "homepage": "https://github.com/CURRENTF/Sparse-vLLM",
+  "skills": []
+}
