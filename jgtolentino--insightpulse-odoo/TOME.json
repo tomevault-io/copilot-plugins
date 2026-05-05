@@ -1,0 +1,267 @@
+{
+  "name": "insightpulse-odoo",
+  "owner": "jgtolentino",
+  "repo": "insightpulse-odoo",
+  "description": "AI instruction skills by jgtolentino",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-capabilities",
+      "path": "tools/claude-plugin/skills/agent-capabilities",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/tools/claude-plugin/skills/agent-capabilities",
+      "description": ""
+    },
+    {
+      "name": "ai-agent-upskilling",
+      "path": "docs/claude-code-skills/community/ai-agent-upskilling",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/ai-agent-upskilling",
+      "description": ""
+    },
+    {
+      "name": "algorithmic-art",
+      "path": "docs/claude-code-skills/anthropic-official/algorithmic-art",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/algorithmic-art",
+      "description": ""
+    },
+    {
+      "name": "artifacts-builder",
+      "path": "docs/claude-code-skills/anthropic-official/artifacts-builder",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "audit-skill",
+      "path": "docs/claude-code-skills/audit-skill",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/audit-skill",
+      "description": ""
+    },
+    {
+      "name": "bir-tax-filing",
+      "path": "docs/claude-code-skills/community/bir-tax-filing",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/bir-tax-filing",
+      "description": ""
+    },
+    {
+      "name": "brand-guidelines",
+      "path": "docs/claude-code-skills/anthropic-official/brand-guidelines",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/brand-guidelines",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "path": "docs/claude-code-skills/anthropic-official/canvas-design",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/canvas-design",
+      "description": ""
+    },
+    {
+      "name": "cicd-audit-optimizer",
+      "path": "docs/claude-code-skills/community/cicd-audit-optimizer",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/cicd-audit-optimizer",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "path": "docs/claude-code-skills/anthropic-official/document-skills/docx",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/document-skills/docx",
+      "description": ""
+    },
+    {
+      "name": "filings-edgar-ingest",
+      "path": "docs/claude-code-skills/finance/filings-edgar-ingest",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/finance/filings-edgar-ingest",
+      "description": ""
+    },
+    {
+      "name": "iac-executor",
+      "path": "docs/claude-code-skills/community/iac-executor",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/iac-executor",
+      "description": ""
+    },
+    {
+      "name": "iac-planner",
+      "path": "docs/claude-code-skills/community/iac-planner",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/iac-planner",
+      "description": ""
+    },
+    {
+      "name": "iac-security-auditor",
+      "path": "docs/claude-code-skills/community/iac-security-auditor",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/iac-security-auditor",
+      "description": ""
+    },
+    {
+      "name": "insightpulse_connection_manager",
+      "path": "docs/claude-code-skills/community/insightpulse_connection_manager",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/insightpulse_connection_manager",
+      "description": ""
+    },
+    {
+      "name": "internal-comms",
+      "path": "docs/claude-code-skills/anthropic-official/internal-comms",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/internal-comms",
+      "description": ""
+    },
+    {
+      "name": "librarian-indexer",
+      "path": "docs/claude-code-skills/community/librarian-indexer",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/librarian-indexer",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "docs/claude-code-skills/anthropic-official/mcp-builder",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "mcp-complete-guide",
+      "path": "docs/claude-code-skills/community/mcp-complete-guide",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/mcp-complete-guide",
+      "description": ""
+    },
+    {
+      "name": "notion-knowledge-capture",
+      "path": "docs/claude-code-skills/notion/notion-knowledge-capture",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/notion/notion-knowledge-capture",
+      "description": ""
+    },
+    {
+      "name": "notion-meeting-intelligence",
+      "path": "docs/claude-code-skills/notion/notion-meeting-intelligence",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/notion/notion-meeting-intelligence",
+      "description": ""
+    },
+    {
+      "name": "notion-research-documentation",
+      "path": "docs/claude-code-skills/notion/notion-research-documentation",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/notion/notion-research-documentation",
+      "description": ""
+    },
+    {
+      "name": "notion-spec-to-implementation",
+      "path": "docs/claude-code-skills/notion/notion-spec-to-implementation",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/notion/notion-spec-to-implementation",
+      "description": ""
+    },
+    {
+      "name": "odoo-app-automator-final",
+      "path": "docs/claude-code-skills/community/odoo-app-automator-final",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/odoo-app-automator-final",
+      "description": ""
+    },
+    {
+      "name": "odoo-knowledge-agent",
+      "path": "docs/claude-code-skills/community/odoo-knowledge-agent",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/odoo-knowledge-agent",
+      "description": ""
+    },
+    {
+      "name": "odoo",
+      "path": "docs/claude-code-skills/odoo",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/odoo",
+      "description": ""
+    },
+    {
+      "name": "pdf",
+      "path": "docs/claude-code-skills/anthropic-official/document-skills/pdf",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/document-skills/pdf",
+      "description": ""
+    },
+    {
+      "name": "pmbok-project-management",
+      "path": "docs/claude-code-skills/community/pmbok-project-management",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/pmbok-project-management",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "docs/claude-code-skills/anthropic-official/skill-creator",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "slack-gif-creator",
+      "path": "docs/claude-code-skills/anthropic-official/slack-gif-creator",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/slack-gif-creator",
+      "description": ""
+    },
+    {
+      "name": "superset-chart-builder",
+      "path": "docs/claude-code-skills/community/superset-chart-builder",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/superset-chart-builder",
+      "description": ""
+    },
+    {
+      "name": "superset-dashboard-designer",
+      "path": "docs/claude-code-skills/community/superset-dashboard-designer",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/superset-dashboard-designer",
+      "description": ""
+    },
+    {
+      "name": "superset-sql-developer",
+      "path": "docs/claude-code-skills/community/superset-sql-developer",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/superset-sql-developer",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "path": "docs/claude-code-skills/anthropic-official/theme-factory",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/theme-factory",
+      "description": ""
+    },
+    {
+      "name": "travel-expense-management",
+      "path": "docs/claude-code-skills/community/travel-expense-management",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/community/travel-expense-management",
+      "description": ""
+    },
+    {
+      "name": "visual-regression-testing",
+      "path": "tools/claude-plugin/skills/visual-regression-testing",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/tools/claude-plugin/skills/visual-regression-testing",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": "docs/claude-code-skills/anthropic-official/webapp-testing",
+      "github_url": "https://github.com/jgtolentino/insightpulse-odoo/tree/main/docs/claude-code-skills/anthropic-official/webapp-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jgtolentino/insightpulse-odoo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T02:35:29Z"
+}
