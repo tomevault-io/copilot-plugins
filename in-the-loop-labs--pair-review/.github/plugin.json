@@ -1,0 +1,46 @@
+{
+  "name": "in-the-loop-labs--pair-review",
+  "displayName": "pair-review",
+  "description": "AI assisted code review with a human in the loop",
+  "version": "1.0.0",
+  "author": "in-the-loop-labs",
+  "homepage": "https://github.com/in-the-loop-labs/pair-review",
+  "skills": [
+    {
+      "name": "ai-critic",
+      "description": ""
+    },
+    {
+      "name": "analyze",
+      "description": ""
+    },
+    {
+      "name": "analyze",
+      "description": ""
+    },
+    {
+      "name": "local",
+      "description": ""
+    },
+    {
+      "name": "loop",
+      "description": ""
+    },
+    {
+      "name": "pr",
+      "description": ""
+    },
+    {
+      "name": "review-model-guidance",
+      "description": ""
+    },
+    {
+      "name": "review-requests",
+      "description": ""
+    },
+    {
+      "name": "user-critic",
+      "description": ""
+    }
+  ]
+}
