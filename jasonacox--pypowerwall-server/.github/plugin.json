@@ -1,0 +1,9 @@
+{
+  "name": "jasonacox--pypowerwall-server",
+  "displayName": "pypowerwall-server",
+  "description": "A pypowerwall based FastAPI server for monitoring and managing Tesla Solar and Powerwall systems with multi-gateway support, real-time data streaming, MQTT, and a web based console.",
+  "version": "1.0.0",
+  "author": "jasonacox",
+  "homepage": "https://github.com/jasonacox/pypowerwall-server",
+  "skills": []
+}
