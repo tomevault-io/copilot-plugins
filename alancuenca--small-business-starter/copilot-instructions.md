@@ -1,73 +1,127 @@
-## brand-theming
+## project-tooling
 
-> Brand and theming architecture for the small-business-starter template
+> Package manager, git hygiene, and project setup conventions
 
 
-# Brand & Theming
+# Project Tooling & Setup
 
-## Two sources of truth
+## Package manager — always pnpm
 
-### `src/config/brand.ts` — visual identity
-Colors, fonts, radius, tagline. Edit this file first, then cascade into `theme.css` and `astro.config.mjs`.
-
-### `src/data/client.ts` — business data
-Name, phone, email, address, socials, domain. Imported by Header, Footer, Contact page, and Head/SEO.
-
-No component should hardcode a business name, phone number, or address.
-
----
-
-## Tailwind v4 tokens: `src/styles/theme.css`
-
-Tokens are defined in the `@theme` block — **never** in a `tailwind.config.js`.
-
-```css
-@theme {
-  --color-primary:       #1B3A6B;
-  --color-primary-light: #2563EB;
-  --color-accent:        #F97316;
-  --text-h1:             clamp(2.25rem, 5vw, 3.5rem);
-  --spacing-section:     clamp(3.75rem, 7.82vw, 6.25rem);
-}
+```bash
+pnpm add <package>      # runtime dependency
+pnpm add -D <package>   # dev dependency
+pnpm remove <package>   # uninstall
+pnpm run build          # build
 ```
 
-Font variables use `@theme inline` because they reference Astro runtime CSS vars:
+❌ Never use `npm install`, `npm add`, or `yarn add` — this project uses pnpm exclusively.  
+✅ Commit `pnpm-lock.yaml`. The `.gitignore` already ignores `package-lock.json` and `yarn.lock`.
 
-```css
-@theme inline {
-  --font-heading: var(--font-display), 'Oswald', ui-sans-serif, system-ui, sans-serif;
-  --font-body:    var(--font-body), 'Inter', ui-sans-serif, system-ui, sans-serif;
-}
+### pnpm store — never inside the project root
+
+The pnpm content-addressable store must live in the global macOS home directory, **never** inside the project.
+
+```bash
+# ✅ Correct — pnpm resolves the global store automatically
+pnpm add <package>
+
+# ❌ Never — creates a .pnpm-store/ folder inside the project
+pnpm add --store-dir .pnpm-store <package>
+```
+
+If a `.pnpm-store/` folder appears in the project root:
+1. Delete it: `rm -rf .pnpm-store`
+2. It is already covered by `.gitignore` — it will not be committed
+3. pnpm will use `~/Library/pnpm/store/v10` (macOS default) automatically
+
+---
+
+## Environment variables
+
+```
+.env              ← never commit (real secrets/keys)
+.env.production   ← never commit
+.env.example      ← always commit (placeholder template so teammates know what vars exist)
+```
+
+When adding a new env variable:
+1. Add the real value to `.env` (gitignored)
+2. Add a blank/placeholder entry to `.env.example`
+
+---
+
+## Netlify
+
+Build config lives in `netlify.toml` at the project root — this IS committed.
+
+The `.netlify/` directory is auto-created by the Netlify CLI locally — it must NOT be committed:
+
+```
+.netlify/    ← gitignore this when using `netlify dev` or the Netlify CLI
 ```
 
 ---
 
-## Changing fonts
+## Cursor IDE (macOS)
 
-1. Update `brand.fonts` in `src/config/brand.ts`
-2. Update the `fonts` array in `astro.config.mjs` — change the `name` values
-3. Update `@theme inline` fallbacks in `theme.css`
+This project is developed exclusively in Cursor on macOS.
 
-The `cssVariable` names (`--font-body`, `--font-display`) must match between `astro.config.mjs` and `theme.css`.
+- `.cursor/rules/` — commit all rule files; they are shared project conventions
+- `.cursor/` other generated cache files — do not commit
+- `.DS_Store` — already gitignored; never commit macOS filesystem metadata
 
----
-
-## Changing colors
-
-1. Update `brand.colors` in `brand.ts`
-2. Update matching hex values in `theme.css` inside `@theme { … }`
-3. Use canonical Tailwind classes: `bg-primary`, `text-accent`, `text-text-muted`
+There is no `.vscode/` directory in this project. Do not create one.
 
 ---
 
-## Do not use inline styles
+## Baseline `.gitignore` for new projects (Astro + Tailwind v4 + pnpm + Netlify + macOS + Cursor)
 
-```astro
-<!-- ❌ Never -->
-<div style="color: #1B3A6B">
+Use this when initialising a fresh project with this stack:
 
-<!-- ✅ Always use Tailwind token classes -->
-<div class="text-primary">
+```gitignore
+# ── Build output ─────────────────────────────────────────────────────────────
+dist/
+.output/
+
+# ── Astro generated types ─────────────────────────────────────────────────────
+.astro/
+
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+
+# ── pnpm store (belongs in ~/Library/pnpm/store, not project root) ────────────
+.pnpm-store/
+
+# ── Lockfiles: keep pnpm-lock.yaml, ignore npm/yarn ──────────────────────────
+package-lock.json
+yarn.lock
+
+# ── Environment variables ─────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ── Netlify CLI cache ─────────────────────────────────────────────────────────
+.netlify/
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── Cursor IDE ────────────────────────────────────────────────────────────────
+# Commit .cursor/rules/ — do not commit generated cache
+.cursor/cache/
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+playwright-report/
+test-results/
 ```
 
 ---
