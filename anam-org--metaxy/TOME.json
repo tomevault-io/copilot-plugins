@@ -1,0 +1,87 @@
+{
+  "name": "metaxy",
+  "owner": "anam-org",
+  "repo": "metaxy",
+  "description": "Pluggable sample-level metadata versioning for incremental multimodal pipelines.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-improve-config",
+      "path": ".claude/skills/claude-improve-config",
+      "github_url": "https://github.com/anam-org/metaxy/tree/main/.claude/skills/claude-improve-config",
+      "description": ""
+    },
+    {
+      "name": "docs-page-frontmatter",
+      "path": ".claude/skills/docs-page-frontmatter",
+      "github_url": "https://github.com/anam-org/metaxy/tree/main/.claude/skills/docs-page-frontmatter",
+      "description": ""
+    },
+    {
+      "name": "hypothesis",
+      "path": ".claude/skills/hypothesis",
+      "github_url": "https://github.com/anam-org/metaxy/tree/main/.claude/skills/hypothesis",
+      "description": ""
+    },
+    {
+      "name": "metaxy",
+      "path": ".claude-plugin/skills/metaxy",
+      "github_url": "https://github.com/anam-org/metaxy/tree/main/.claude-plugin/skills/metaxy",
+      "description": ""
+    },
+    {
+      "name": "narwhals",
+      "path": ".claude/skills/narwhals",
+      "github_url": "https://github.com/anam-org/metaxy/tree/main/.claude/skills/narwhals",
+      "description": ""
+    },
+    {
+      "name": "sybil",
+      "path": ".claude/skills/sybil",
+      "github_url": "https://github.com/anam-org/metaxy/tree/main/.claude/skills/sybil",
+      "description": ""
+    },
+    {
+      "name": "syrupy",
+      "path": ".claude/skills/syrupy",
+      "github_url": "https://github.com/anam-org/metaxy/tree/main/.claude/skills/syrupy",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/anam-org/metaxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:31:09Z"
+}
