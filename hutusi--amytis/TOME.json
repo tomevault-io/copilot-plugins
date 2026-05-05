@@ -4,7 +4,7 @@
   "repo": "amytis",
   "description": "a static website generator built to create elegant, powerful, and Markdown-based digital gardens.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hutusi/amytis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T03:48:35Z"
+  "distributed_at": "2026-05-05T12:28:51Z"
 }
