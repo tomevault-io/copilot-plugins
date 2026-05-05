@@ -4,7 +4,7 @@
   "repo": "Self-Hosting",
   "description": "This repository documents my self-hosted homelab",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/amazor/Self-Hosting",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T16:25:11Z"
+  "distributed_at": "2026-05-05T05:43:30Z"
 }
