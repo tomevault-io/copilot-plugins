@@ -1,0 +1,9 @@
+{
+  "name": "pretzelai--stripe-no-webhooks",
+  "displayName": "stripe-no-webhooks",
+  "description": "stripe-no-webhooks",
+  "version": "1.0.0",
+  "author": "pretzelai",
+  "homepage": "https://github.com/pretzelai/stripe-no-webhooks",
+  "skills": []
+}
