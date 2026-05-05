@@ -1,0 +1,9 @@
+{
+  "name": "pixel-clover--sandopolis",
+  "displayName": "sandopolis",
+  "description": "A portable multi-system Sega emulator for Genesis, Master System, Game Gear, and SG-1000 \ud83c\udfae",
+  "version": "1.0.0",
+  "author": "pixel-clover",
+  "homepage": "https://github.com/pixel-clover/sandopolis",
+  "skills": []
+}
