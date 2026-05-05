@@ -1,0 +1,44 @@
+{
+  "name": "Hermit",
+  "owner": "yancyuu",
+  "repo": "Hermit",
+  "description": "\u57fa\u4e8e\u7f16\u7a0b\u578b Agent Runtime \u7684\u672c\u5730\u4f18\u5148 AI \u5de5\u7a0b\u56e2\u961f\u5de5\u4f5c\u53f0\u3002\u7528\u770b\u677f\u3001\u4efb\u52a1\u3001\u5ba1\u67e5\u3001Skills \u548c\u56e2\u961f\u6a21\u677f\uff0c\u628a\u6570\u5b57\u52b3\u52a8\u529b\u7ec4\u7ec7\u6210\u53ef\u7248\u672c\u5316\u3001\u53ef\u590d\u7528\u3001\u53ef\u534f\u540c\u7684\u4ea4\u4ed8\u7cfb\u7edf\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yancyuu/Hermit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T08:50:46Z"
+}
