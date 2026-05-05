@@ -1,17 +1,18 @@
-## pr-review
+## skill-review
 
-> Pull request review checklist for new skills, skill modifications, and hook changes — invoke when reviewing or creating a PR
+> Strict skill audit/review framework — use when user asks to review, audit, grade, or compare skills, or when reviewing PRs that add or substantially modify a skill
 
 
-**New skill checklist:** folder under `skills/uipath-<kebab-case>/`; `SKILL.md` present with valid YAML frontmatter; `name` matches folder name; `description` under 1024 chars; Critical Rules numbered; no cross-skill references; reference files kebab-case; all relative links resolve; CODEOWNERS updated; no secrets or personal paths committed.
+Score each skill on six dimensions (1–5 scale, 1 = failing, 3 = acceptable, 5 = excellent):
 
-**Existing skill modification checklist:** frontmatter still valid; Critical Rules not removed without justification in PR description; no new cross-skill dependencies; reference naming preserved; changes scoped to the skill being modified (no unrelated edits).
+1. **Structure** — SKILL.md frontmatter valid; `name` matches folder; `description` under 1024 chars, front-loads identity, includes `→` redirects; `[PREVIEW]` tag for unstable skills; body follows Title → When to Use → Critical Rules → Workflow → Reference Navigation → Anti-patterns; references use kebab-case + `-guide.md` / `-template.md` suffix; no orphaned files.
+2. **Consistency** — CLI uses `--output json` uniformly; `<UPPER_SNAKE_CASE>` placeholders; heading hierarchy doesn't skip; code blocks have language identifiers; terminology matches other skills.
+3. **Logic & Completeness** — workflows cover full lifecycle; error handling specified; edge cases addressed; CLI commands correct; steps in order; validation loops present; anti-patterns section covers real mistakes.
+4. **Duplication** — no copy-paste between SKILL.md and references; no redundant reference files; SKILL.md links to references instead of inlining; no instructions repeated verbatim in Critical Rules and workflow.
+5. **LLM Usability** — prescriptive not descriptive; numbered Critical Rules; explicit decision trees; copy-paste-ready CLI commands; clear stop conditions; information front-loaded; SKILL.md not excessively long (extract to `references/`).
+6. **Marketplace & Integration** — `description` detailed enough to match correctly but not over-broad; `→` redirects for sibling skills; passes `hooks/validate-skill-descriptions.sh`; no hardcoded personal paths; CODEOWNERS entry exists.
 
-**Hook changes checklist:** cross-platform (Windows, macOS, Linux); `bash` syntax (not cmd.exe or PowerShell); safe to run multiple times; appropriate timeout configured in `hooks.json`; no hardcoded OS-specific paths.
-
-**Conventions:** branches `feat/<description>`, `fix/<description>`, `docs/<description>`; commit messages imperative mood, describe "why" not just "what"; one logical change per PR.
-
-Full reference: `.claude/rules/pr-review.md`.
+Read everything — SKILL.md, every `references/` file, every `assets/` file. Cite file paths and line numbers. Provide exact, actionable fixes. Full rubric: `.claude/rules/skill-review.md`.
 
 ---
 > Source: [UiPath/skills](https://github.com/UiPath/skills) — distributed by [TomeVault](https://tomevault.io).
