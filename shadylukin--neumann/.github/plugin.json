@@ -1,0 +1,9 @@
+{
+  "name": "shadylukin--neumann",
+  "displayName": "Neumann",
+  "description": "A Rust runtime that unifies relational tables, graph relationships, and vector embeddings in a single tensor-based storage layer with distributed consensus and semantic search",
+  "version": "1.0.0",
+  "author": "Shadylukin",
+  "homepage": "https://github.com/Shadylukin/Neumann",
+  "skills": []
+}
