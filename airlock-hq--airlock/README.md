@@ -7,11 +7,11 @@ All slop must die. Airlock is where every git push turns into a slop-free PR.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [airlock-hq/airlock](https://github.com/airlock-hq/airlock).
+Original source: `CLAUDE.md` in [airlock-hq/airlock](https://github.com/airlock-hq/airlock).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
