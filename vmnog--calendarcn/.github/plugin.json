@@ -1,0 +1,9 @@
+{
+  "name": "vmnog--calendarcn",
+  "displayName": "calendarcn",
+  "description": "A beautifully crafted calendar component built with shadcn/ui and Tailwind CSS, inspired by Notion Calendar. Week view, dark mode, and more.",
+  "version": "1.0.0",
+  "author": "vmnog",
+  "homepage": "https://github.com/vmnog/calendarcn",
+  "skills": []
+}
