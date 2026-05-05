@@ -1,0 +1,9 @@
+{
+  "name": "rich-harris--toofer",
+  "displayName": "toofer",
+  "description": "Local-first, web-based two factor authenticator app",
+  "version": "1.0.0",
+  "author": "Rich-Harris",
+  "homepage": "https://github.com/Rich-Harris/toofer",
+  "skills": []
+}
