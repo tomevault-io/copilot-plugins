@@ -1,0 +1,9 @@
+{
+  "name": "brontoguana--ktop",
+  "displayName": "ktop",
+  "description": "Terminal system resource monitor for hybrid LLM workloads",
+  "version": "1.0.0",
+  "author": "brontoguana",
+  "homepage": "https://github.com/brontoguana/ktop",
+  "skills": []
+}
