@@ -1,0 +1,141 @@
+{
+  "name": "quickstart_agent-augmented-development",
+  "owner": "sddevelopment-be",
+  "repo": "quickstart_agent-augmented-development",
+  "description": "A template repository containing a generic agentic set-up, to be configured/edited to fit your own project's needs",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-profile-handoff-patterns",
+      "path": ".claude/skills/agent-profile-handoff-patterns",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/agent-profile-handoff-patterns",
+      "description": ""
+    },
+    {
+      "name": "trunk-based-development",
+      "path": ".claude/skills/trunk-based-development",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/trunk-based-development",
+      "description": ""
+    },
+    {
+      "name": "automation-script",
+      "path": ".claude/skills/automation-script",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/automation-script",
+      "description": ""
+    },
+    {
+      "name": "decision-first-development",
+      "path": ".claude/skills/decision-first-development",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/decision-first-development",
+      "description": ""
+    },
+    {
+      "name": "delegate",
+      "path": ".claude/skills/delegate",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/delegate",
+      "description": ""
+    },
+    {
+      "name": "editor-revision",
+      "path": ".claude/skills/editor-revision",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/editor-revision",
+      "description": ""
+    },
+    {
+      "name": "fix-bug",
+      "path": ".claude/skills/fix-bug",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/fix-bug",
+      "description": ""
+    },
+    {
+      "name": "design-diagramming-incremental-detail",
+      "path": ".claude/skills/design-diagramming-incremental-detail",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/design-diagramming-incremental-detail",
+      "description": ""
+    },
+    {
+      "name": "iterate",
+      "path": ".claude/skills/iterate",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/iterate",
+      "description": ""
+    },
+    {
+      "name": "new-agent",
+      "path": ".claude/skills/new-agent",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/new-agent",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": ".claude/skills/review",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/review",
+      "description": ""
+    },
+    {
+      "name": "status",
+      "path": ".claude/skills/status",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/status",
+      "description": ""
+    },
+    {
+      "name": "target-audience-fit",
+      "path": ".claude/skills/target-audience-fit",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/target-audience-fit",
+      "description": ""
+    },
+    {
+      "name": "test-readability-clarity-check",
+      "path": ".claude/skills/test-readability-clarity-check",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/test-readability-clarity-check",
+      "description": ""
+    },
+    {
+      "name": "tooling-setup-best-practices",
+      "path": ".claude/skills/tooling-setup-best-practices",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/tooling-setup-best-practices",
+      "description": ""
+    },
+    {
+      "name": "work-directory-orchestration",
+      "path": ".claude/skills/work-directory-orchestration",
+      "github_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development/tree/main/.claude/skills/work-directory-orchestration",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sddevelopment-be/quickstart_agent-augmented-development",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:41:15Z"
+}
