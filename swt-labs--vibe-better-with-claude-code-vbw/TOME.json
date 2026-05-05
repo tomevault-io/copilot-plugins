@@ -4,7 +4,7 @@
   "repo": "vibe-better-with-claude-code-vbw",
   "description": "Vibe Better With Claude Code - You're not an engineer anymore. You're a prompt jockey with commit access. At least do it properly.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/swt-labs/vibe-better-with-claude-code-vbw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T21:53:58Z"
+  "distributed_at": "2026-05-05T08:49:26Z"
 }
