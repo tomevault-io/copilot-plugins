@@ -1,169 +1,176 @@
-## core-development
+## project-context
 
-> Core development principles and standards for Evolution API development
+> Evolution API project-specific context and constraints
 
 
-# Evolution API Development Standards
+# Evolution API Project Context
 
 ## Cross-References
-- **Project Context**: @project-context.mdc for Evolution API-specific patterns
-- **Specialized Rules**: 
-  - @specialized-rules/service-rules.mdc for service layer patterns
-  - @specialized-rules/controller-rules.mdc for controller patterns
-  - @specialized-rules/dto-rules.mdc for DTO validation patterns
-  - @specialized-rules/guard-rules.mdc for authentication/authorization
-  - @specialized-rules/route-rules.mdc for router patterns
-  - @specialized-rules/type-rules.mdc for TypeScript definitions
-  - @specialized-rules/util-rules.mdc for utility functions
-  - @specialized-rules/validate-rules.mdc for validation schemas
-  - @specialized-rules/integration-channel-rules.mdc for channel integrations
-  - @specialized-rules/integration-chatbot-rules.mdc for chatbot integrations
-  - @specialized-rules/integration-storage-rules.mdc for storage integrations
-  - @specialized-rules/integration-event-rules.mdc for event integrations
-- **TypeScript/Node.js**: Node.js 20+ + TypeScript 5+ best practices
+- **Core Development**: @core-development.mdc for fundamental development principles
+- **Specialized Rules**: Reference specific specialized rules when working on:
+  - Services: @specialized-rules/service-rules.mdc
+  - Controllers: @specialized-rules/controller-rules.mdc
+  - DTOs: @specialized-rules/dto-rules.mdc
+  - Guards: @specialized-rules/guard-rules.mdc
+  - Routes: @specialized-rules/route-rules.mdc
+  - Types: @specialized-rules/type-rules.mdc
+  - Utils: @specialized-rules/util-rules.mdc
+  - Validation: @specialized-rules/validate-rules.mdc
+  - Channel Integrations: @specialized-rules/integration-channel-rules.mdc
+  - Chatbot Integrations: @specialized-rules/integration-chatbot-rules.mdc
+  - Storage Integrations: @specialized-rules/integration-storage-rules.mdc
+  - Event Integrations: @specialized-rules/integration-event-rules.mdc
+- **TypeScript/Node.js**: Node.js 20+ + TypeScript 5+ backend standards
 - **Express/Prisma**: Express.js + Prisma ORM patterns
-- **WhatsApp Integrations**: Baileys + Meta Business API patterns
+- **WhatsApp Integrations**: Baileys, Meta Business API, and other messaging platforms
 
-## Senior Engineer Context - Evolution API Platform
-- You are a senior software engineer working on a WhatsApp API platform
-- Focus on Node.js + TypeScript + Express.js full-stack development
-- Specialized in real-time messaging, WhatsApp integrations, and event-driven architecture
-- Apply scalable patterns for multi-tenant API platform
-- Consider WhatsApp integration workflow implications and performance at scale
+## Technology Stack
+- **Backend**: Node.js 20+ + TypeScript 5+ + Express.js
+- **Database**: Prisma ORM (PostgreSQL/MySQL support)
+- **Cache**: Redis + Node-cache for local fallback
+- **Queue**: RabbitMQ + Amazon SQS for message processing
+- **Real-time**: Socket.io for WebSocket connections
+- **Storage**: AWS S3 + Minio for file storage
+- **Validation**: JSONSchema7 for input validation
+- **Logging**: Pino for structured logging
+- **Architecture**: Multi-tenant API with WhatsApp integrations
 
-## Fundamental Principles
+## Project-Specific Patterns
 
-### Code Quality Standards
-- **Simplicity First**: Always prefer simple solutions over complex ones
-- **DRY Principle**: Avoid code duplication - check for existing similar functionality before implementing
-- **Single Responsibility**: Each function/class should have one clear purpose
-- **Readable Code**: Write code that tells a story - clear naming and structure
+### WhatsApp Integration Architecture
+- **MANDATORY**: All WhatsApp integrations must follow established patterns
+- **BAILEYS**: Use `whatsapp.baileys.service.ts` patterns for WhatsApp Web
+- **META BUSINESS**: Use `whatsapp.business.service.ts` for official API
+- **CONNECTION MANAGEMENT**: One connection per instance with proper lifecycle
+- **EVENT HANDLING**: Proper event listeners and error handling
 
-### Problem Resolution Approach
-- **Follow Existing Patterns**: Use established Service patterns, DTOs, and Integration patterns
-- **Event-Driven First**: Leverage EventEmitter2 for event publishing when adding new features
-- **Integration Pattern**: Follow existing WhatsApp integration patterns for new channels
-- **Conservative Changes**: Prefer extending existing services over creating new architecture
-- **Clean Migration**: Remove deprecated patterns when introducing new ones
-- **Incremental Changes**: Break large changes into smaller, testable increments with proper migrations
+### Multi-Database Architecture
+- **CRITICAL**: Support both PostgreSQL and MySQL
+- **SCHEMAS**: Use appropriate schema files (postgresql-schema.prisma / mysql-schema.prisma)
+- **MIGRATIONS**: Keep migrations synchronized between databases
+- **TYPES**: Use database-specific types (@db.JsonB vs @db.Json)
+- **COMPATIBILITY**: Ensure feature parity between databases
 
-### File and Function Organization - Node.js/TypeScript Structure
-- **Services**: Keep services focused and under 200 lines
-- **Controllers**: Keep controllers thin - only routing and validation
-- **DTOs**: Use JSONSchema7 for all input validation
-- **Integrations**: Follow `src/api/integrations/` structure for new integrations
-- **Utils**: Extract common functionality into well-named utilities
-- **Types**: Define clear TypeScript interfaces and types
+### API Integration Workflow
+- **CORE FEATURE**: REST API for WhatsApp communication
+- **COMPLEXITY**: High - involves webhook processing, message routing, and instance management
+- **COMPONENTS**: Instance management, message handling, media processing
+- **INTEGRATIONS**: Baileys, Meta Business API, Chatwoot, Typebot, OpenAI, Dify
 
-### Code Analysis and Reflection
-- After writing code, deeply reflect on scalability and maintainability
-- Provide 1-2 paragraph analysis of code changes
-- Suggest improvements or next steps based on reflection
-- Consider performance, security, and maintenance implications
+### Multi-Tenant Instance Architecture
+- **CRITICAL**: All operations must be scoped by instance
+- **ISOLATION**: Complete data isolation between instances
+- **SECURITY**: Validate instance ownership before operations
+- **SCALING**: Support thousands of concurrent instances
+- **AUTHENTICATION**: API key-based authentication per instance
 
-## Development Standards
+## Documentation Requirements
 
-### TypeScript Standards
-- **Strict Mode**: Always use TypeScript strict mode
-- **No Any**: Avoid `any` type - use proper typing
-- **Interfaces**: Define clear contracts with interfaces
-- **Enums**: Use enums for constants and status values
-- **Generics**: Use generics for reusable components
+### Implementation Documentation
+- **MANDATORY**: Document complex integration patterns
+- **LOCATION**: Use inline comments for business logic
+- **API DOCS**: Document all public endpoints
+- **WEBHOOK DOCS**: Document webhook payloads and signatures
 
-### Error Handling Standards
-- **HTTP Exceptions**: Use appropriate HTTP status codes
-- **Logging**: Structured logging with context
-- **Retry Logic**: Implement retry for external services
-- **Graceful Degradation**: Handle service failures gracefully
+### Change Documentation
+- **CHANGELOG**: Document breaking changes
+- **MIGRATION GUIDES**: Document database migrations
+- **INTEGRATION GUIDES**: Document new integration patterns
 
-### Security Standards
-- **Input Validation**: Validate all inputs with JSONSchema7
-- **Authentication**: Use API keys and JWT tokens
-- **Rate Limiting**: Implement rate limiting for APIs
-- **Data Sanitization**: Sanitize sensitive data in logs
+## Environment and Security
 
-### Performance Standards
-- **Caching**: Use Redis for frequently accessed data
-- **Database**: Optimize Prisma queries with proper indexing
-- **Memory**: Monitor memory usage and implement cleanup
-- **Async**: Use async/await properly with error handling
+### Environment Variables
+- **CRITICAL**: Never hardcode sensitive values
+- **VALIDATION**: Validate required environment variables on startup
+- **SECURITY**: Use secure defaults and proper encryption
+- **DOCUMENTATION**: Document all environment variables
 
-## Communication Standards
+### File Organization - Node.js/TypeScript Structure
+- **CONTROLLERS**: Organized by feature (`api/controllers/`)
+- **SERVICES**: Business logic in service classes (`api/services/`)
+- **INTEGRATIONS**: External integrations (`api/integrations/`)
+- **DTOS**: Data transfer objects (`api/dto/`)
+- **TYPES**: TypeScript types (`api/types/`)
+- **UTILS**: Utility functions (`utils/`)
+
+## Integration Points
+
+### WhatsApp Providers
+- **BAILEYS**: WhatsApp Web integration with QR code
+- **META BUSINESS**: Official WhatsApp Business API
+- **CLOUD API**: WhatsApp Cloud API integration
+- **WEBHOOK PROCESSING**: Proper webhook validation and processing
+
+### External Integrations
+- **CHATWOOT**: Customer support platform integration
+- **TYPEBOT**: Chatbot flow integration
+- **OPENAI**: AI-powered chat integration
+- **DIFY**: AI workflow integration
+- **STORAGE**: S3/Minio for media file storage
+
+### Event-Driven Communication
+- **EVENTEMITTER2**: Internal event system
+- **SOCKET.IO**: Real-time WebSocket communication
+- **RABBITMQ**: Message queue for async processing
+- **SQS**: Amazon SQS for cloud-based queuing
+- **WEBHOOKS**: Outbound webhook system
+
+## Development Constraints
 
 ### Language Requirements
-- **User Communication**: Always respond in Portuguese (PT-BR)
-- **Code Comments**: English for technical documentation
-- **API Documentation**: English for consistency
-- **Error Messages**: Portuguese for user-facing errors
+- **USER COMMUNICATION**: Always respond in Portuguese (PT-BR)
+- **CODE/COMMENTS**: English for code and technical documentation
+- **API RESPONSES**: English for consistency
+- **ERROR MESSAGES**: Portuguese for user-facing errors
 
-### Documentation Standards
-- **Code Comments**: Document complex business logic
-- **API Documentation**: Document all public endpoints
-- **README**: Keep project documentation updated
-- **Changelog**: Document breaking changes
+### Performance Constraints
+- **MEMORY**: Efficient memory usage for multiple instances
+- **DATABASE**: Optimized queries with proper indexing
+- **CACHE**: Strategic caching for frequently accessed data
+- **CONNECTIONS**: Proper connection pooling and management
 
-## Quality Assurance
+### Security Constraints
+- **AUTHENTICATION**: API key validation for all endpoints
+- **AUTHORIZATION**: Instance-based access control
+- **INPUT VALIDATION**: Validate all inputs with JSONSchema7
+- **RATE LIMITING**: Prevent abuse with rate limiting
+- **WEBHOOK SECURITY**: Validate webhook signatures
 
-### Testing Standards
-- **Unit Tests**: Test business logic in services
-- **Integration Tests**: Test API endpoints
-- **Mocks**: Mock external dependencies
-- **Coverage**: Aim for 70%+ test coverage
+## Quality Standards
+- **TYPE SAFETY**: Full TypeScript coverage with strict mode
+- **ERROR HANDLING**: Comprehensive error scenarios with proper logging
+- **TESTING**: Unit and integration tests for critical paths
+- **MONITORING**: Proper logging and error tracking
+- **DOCUMENTATION**: Clear API documentation and code comments
+- **PERFORMANCE**: Optimized for high-throughput message processing
+- **SECURITY**: Secure by default with proper validation
+- **SCALABILITY**: Design for horizontal scaling
 
-### Code Review Standards
-- **Peer Review**: All code must be reviewed
-- **Automated Checks**: ESLint, Prettier, TypeScript
-- **Security Review**: Check for security vulnerabilities
-- **Performance Review**: Check for performance issues
+## Evolution API Specific Development Patterns
 
-### Commit Standards (Conventional Commits)
-- **Format**: `type(scope): subject` (max 100 characters)
-- **Types**: 
-  - `feat` - New feature
-  - `fix` - Bug fix
-  - `docs` - Documentation changes
-  - `style` - Code style changes (formatting, etc)
-  - `refactor` - Code refactoring
-  - `perf` - Performance improvements
-  - `test` - Adding or updating tests
-  - `chore` - Maintenance tasks
-  - `ci` - CI/CD changes
-  - `build` - Build system changes
-  - `revert` - Reverting changes
-  - `security` - Security fixes
-- **Examples**:
-  - `feat(api): add WhatsApp message status endpoint`
-  - `fix(baileys): resolve connection timeout issue`
-  - `docs(readme): update installation instructions`
-  - `refactor(service): extract common message validation logic`
-- **Tools**: Use `npm run commit` (Commitizen) for guided commits
-- **Validation**: Enforced by commitlint on commit-msg hook
+### Instance Management
+- **LIFECYCLE**: Proper instance creation, connection, and cleanup
+- **STATE MANAGEMENT**: Track connection status and health
+- **RECOVERY**: Automatic reconnection and error recovery
+- **MONITORING**: Health checks and status reporting
 
-## Evolution API Specific Patterns
+### Message Processing
+- **QUEUE-BASED**: Use queues for message processing
+- **RETRY LOGIC**: Implement exponential backoff for failures
+- **MEDIA HANDLING**: Proper media upload and processing
+- **WEBHOOK DELIVERY**: Reliable webhook delivery with retries
 
-### WhatsApp Integration Patterns
-- **Connection Management**: One connection per instance
-- **Event Handling**: Proper event listeners for Baileys
-- **Message Processing**: Queue-based message processing
-- **Error Recovery**: Automatic reconnection logic
+### Integration Patterns
+- **SERVICE LAYER**: Business logic in service classes
+- **DTO VALIDATION**: Input validation with JSONSchema7
+- **ERROR HANDLING**: Consistent error responses
+- **LOGGING**: Structured logging with correlation IDs
 
-### Multi-Database Support
-- **Schema Compatibility**: Support PostgreSQL and MySQL
-- **Migration Sync**: Keep migrations synchronized
-- **Type Safety**: Use Prisma generated types
-- **Connection Pooling**: Proper database connection management
-
-### Cache Strategy
-- **Redis Primary**: Use Redis for distributed caching
-- **Local Fallback**: Node-cache for local fallback
-- **TTL Strategy**: Appropriate TTL for different data types
-- **Cache Invalidation**: Proper cache invalidation patterns
-
-### Event System
-- **EventEmitter2**: Use for internal events
-- **WebSocket**: Socket.io for real-time updates
-- **Queue Systems**: RabbitMQ/SQS for async processing
-- **Webhook Processing**: Proper webhook validation and processing
+### Database Patterns
+- **PRISMA**: Use Prisma ORM for all database operations
+- **TRANSACTIONS**: Use transactions for multi-step operations
+- **MIGRATIONS**: Proper migration management
+- **INDEXING**: Optimize queries with appropriate indexes
 
 ---
 > Source: [jepeloa/whats-app-api](https://github.com/jepeloa/whats-app-api) — distributed by [TomeVault](https://tomevault.io).
