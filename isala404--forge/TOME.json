@@ -4,7 +4,7 @@
   "repo": "forge",
   "description": "Rust framework that compiles entire infrastructure into one binary",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/isala404/forge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T07:58:17Z"
+  "distributed_at": "2026-05-05T18:29:28Z"
 }
