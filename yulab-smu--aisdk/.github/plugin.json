@@ -1,0 +1,9 @@
+{
+  "name": "yulab-smu--aisdk",
+  "displayName": "aisdk",
+  "description": "\ud83e\udd16 A production-grade framework for building AI-powered applications in R.",
+  "version": "1.0.0",
+  "author": "YuLab-SMU",
+  "homepage": "https://github.com/YuLab-SMU/aisdk",
+  "skills": []
+}
