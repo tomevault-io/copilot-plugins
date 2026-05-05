@@ -1,0 +1,9 @@
+{
+  "name": "emerge-elixir--emerge",
+  "displayName": "emerge",
+  "description": "Elxir UI toolkit that runs natively, backed by rust and skia",
+  "version": "1.0.0",
+  "author": "emerge-elixir",
+  "homepage": "https://github.com/emerge-elixir/emerge",
+  "skills": []
+}
