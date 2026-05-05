@@ -4,7 +4,7 @@
   "repo": "arcbox",
   "description": "Run AI agents on real and isolated machines \u2014 own kernel, filesystem, and network \u2014 with <200ms boot. Local first, OCI compatible, pure Rust.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/arcboxlabs/arcbox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T03:58:35Z"
+  "distributed_at": "2026-05-05T12:35:43Z"
 }
