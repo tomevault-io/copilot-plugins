@@ -1,0 +1,9 @@
+{
+  "name": "garagon--aguara",
+  "displayName": "aguara",
+  "description": "Security scanner for AI agent skills and MCP servers. Static analysis, incident response, no LLM. One binary.   Detection engine behind oktsec.",
+  "version": "1.0.0",
+  "author": "garagon",
+  "homepage": "https://github.com/garagon/aguara",
+  "skills": []
+}
