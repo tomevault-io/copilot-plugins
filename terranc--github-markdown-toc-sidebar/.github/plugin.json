@@ -1,0 +1,9 @@
+{
+  "name": "terranc--github-markdown-toc-sidebar",
+  "displayName": "github-markdown-toc-sidebar",
+  "description": "A Chrome extension that adds a floating table of contents sidebar for GitHub markdown files",
+  "version": "1.0.0",
+  "author": "terranc",
+  "homepage": "https://github.com/terranc/github-markdown-toc-sidebar",
+  "skills": []
+}
