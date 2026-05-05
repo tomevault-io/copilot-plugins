@@ -1,0 +1,114 @@
+{
+  "name": "basher83--lunar-claude",
+  "displayName": "lunar-claude",
+  "description": "Repo for my personal Claude Code configs",
+  "version": "1.0.0",
+  "author": "basher83",
+  "homepage": "https://github.com/basher83/lunar-claude",
+  "skills": [
+    {
+      "name": "adr-methodology",
+      "description": ""
+    },
+    {
+      "name": "agent-development",
+      "description": ""
+    },
+    {
+      "name": "ansible-error-handling",
+      "description": ""
+    },
+    {
+      "name": "ansible-fundamentals",
+      "description": ""
+    },
+    {
+      "name": "ansible-idempotency",
+      "description": ""
+    },
+    {
+      "name": "ansible-playbook-design",
+      "description": ""
+    },
+    {
+      "name": "ansible-testing",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "coderabbit",
+      "description": ""
+    },
+    {
+      "name": "command-development",
+      "description": ""
+    },
+    {
+      "name": "devtools-secrets",
+      "description": ""
+    },
+    {
+      "name": "git-workflow",
+      "description": ""
+    },
+    {
+      "name": "hook-development",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-composition",
+      "description": ""
+    },
+    {
+      "name": "omni-talos",
+      "description": ""
+    },
+    {
+      "name": "plugin-settings",
+      "description": ""
+    },
+    {
+      "name": "plugin-structure",
+      "description": ""
+    },
+    {
+      "name": "proxmox-infrastructure",
+      "description": ""
+    },
+    {
+      "name": "python-json-parsing",
+      "description": ""
+    },
+    {
+      "name": "python-uv-scripts",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-development",
+      "description": ""
+    },
+    {
+      "name": "skill-factory",
+      "description": ""
+    },
+    {
+      "name": "video-processor",
+      "description": ""
+    }
+  ]
+}
