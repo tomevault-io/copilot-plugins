@@ -1,0 +1,9 @@
+{
+  "name": "davidmonterocrespo24--esp32s3-arcade-3d",
+  "displayName": "esp32s3-arcade-3d",
+  "description": "An OutRun-style pseudo-3D racing game for the ESP32-S3 microcontroller with an ILI9341 320\u00d7240 SPI display. The same source compiles for both ESP32 hardware and Windows (via a Raylib-based emulator).",
+  "version": "1.0.0",
+  "author": "davidmonterocrespo24",
+  "homepage": "https://github.com/davidmonterocrespo24/esp32s3-arcade-3d",
+  "skills": []
+}
