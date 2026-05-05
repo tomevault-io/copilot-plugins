@@ -1,0 +1,9 @@
+{
+  "name": "marktoflow--marktoflow",
+  "displayName": "marktoflow",
+  "description": "Automation frameworks shouldn't fight you. Marktoflow is CLI-native automation with the power of AI agents. Write workflows in markdown+YAML, execute with Claude Code,    GitHub Copilot, Codex, or Ope",
+  "version": "1.0.0",
+  "author": "marktoflow",
+  "homepage": "https://github.com/marktoflow/marktoflow",
+  "skills": []
+}
