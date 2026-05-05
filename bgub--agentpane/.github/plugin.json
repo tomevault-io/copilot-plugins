@@ -1,0 +1,9 @@
+{
+  "name": "bgub--agentpane",
+  "displayName": "agentpane",
+  "description": "Web interface for AI coding agents",
+  "version": "1.0.0",
+  "author": "bgub",
+  "homepage": "https://github.com/bgub/agentpane",
+  "skills": []
+}
