@@ -1,0 +1,9 @@
+{
+  "name": "jchidley--helix-pi",
+  "displayName": "helix-pi",
+  "description": "Pi coding agent integration for [Helix](https://helix-editor.com/) via [Steel](https://github.com/mattwparas/steel) plugins.",
+  "version": "1.0.0",
+  "author": "jchidley",
+  "homepage": "https://github.com/jchidley/helix-pi",
+  "skills": []
+}
