@@ -1,0 +1,9 @@
+{
+  "name": "ecwilsonaz--mediasage",
+  "displayName": "mediasage",
+  "description": "Unofficial AI-powered Plex playlist generator with library awareness. Every track it suggests, you actually own.",
+  "version": "1.0.0",
+  "author": "ecwilsonaz",
+  "homepage": "https://github.com/ecwilsonaz/mediasage",
+  "skills": []
+}
