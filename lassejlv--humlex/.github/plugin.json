@@ -1,0 +1,9 @@
+{
+  "name": "lassejlv--humlex",
+  "displayName": "humlex",
+  "description": "A native macOS AI chat client built with SwiftUI",
+  "version": "1.0.0",
+  "author": "lassejlv",
+  "homepage": "https://github.com/lassejlv/humlex",
+  "skills": []
+}
