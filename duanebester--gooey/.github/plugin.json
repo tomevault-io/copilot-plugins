@@ -1,0 +1,9 @@
+{
+  "name": "duanebester--gooey",
+  "displayName": "gooey",
+  "description": "Gooey is a hybrid immediate/retained mode UI framework designed for building fast, GPU-rendered applications on macOS/Metal, WebAssembly/WebGPU, and Wayland/Vulkan",
+  "version": "1.0.0",
+  "author": "duanebester",
+  "homepage": "https://github.com/duanebester/gooey",
+  "skills": []
+}
