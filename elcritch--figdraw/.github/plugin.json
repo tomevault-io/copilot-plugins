@@ -1,0 +1,9 @@
+{
+  "name": "elcritch--figdraw",
+  "displayName": "figdraw",
+  "description": "2D GPU renderer library using SDFs for UI elements with fast shadows and text support! ",
+  "version": "1.0.0",
+  "author": "elcritch",
+  "homepage": "https://github.com/elcritch/figdraw",
+  "skills": []
+}
