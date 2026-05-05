@@ -1,22 +1,23 @@
-## trash-guides-gold-standard
+## trash-guides-guide-sync
 
-> TRaSH Guides — Gold standard; agent must follow and open links for correct guide
+> TRaSH Guides — Guide Sync tools (Recyclarr, Notifiarr, Configarr)
 
 
-# TRaSH Guides — Gold Standard
+# TRaSH Guides — Guide Sync
 
-When working on the media stack, downloaders, Plex, or related docs:
+> **Agent:** TRaSH Guides are the **gold standard** for syncing guide settings to *arrs. Follow them as well as possible. **Open the links** in this rule (or on [trash-guides.info](https://trash-guides.info/)) to get the correct, up-to-date guide when configuring or documenting Recyclarr, Notifiarr, or Configarr.
 
-1. **TRaSH Guides (https://trash-guides.info/) are the gold standard** for configuring Radarr, Sonarr, Prowlarr, Bazarr, Plex, qBittorrent, SABnzbd, and file/folder structure. Follow them as well as possible.
+**Source:** [TRaSH Guides – Guide Sync](https://trash-guides.info/Guide-Sync/)
 
-2. **Open the links** in the TRaSH rules (or on trash-guides.info) to get the **correct, up-to-date guide** whenever you are:
-   - Configuring or documenting one of these applications
-   - Defining paths, categories, naming, or quality settings
-   - Troubleshooting import, hardlinks, or download client integration
+Third-party tools that sync TRaSH Guide settings (Custom Formats, Quality Profiles, naming, quality definitions) to Radarr and Sonarr. Use when configuring **configuration discipline** (e.g. Recyclarr) in the media VM.
 
-3. Do not rely only on the embedded summary in the rules. Use the live TRaSH pages for exact steps, screenshots, and current recommendations.
+## Options
 
-4. When suggesting or writing configuration (compose, env, docs), align with TRaSH so the setup is correct and maintainable.
+- **Recyclarr** — CLI; config files to sync Custom Formats, scores, Quality Settings, Naming, Quality Profiles. No GUI. [Recyclarr](https://recyclarr.dev/).
+- **Notifiarr** — GUI, notifications, and TRaSH sync (Patron feature); predefined profiles, flowchart for Custom Formats. [Notifiarr](https://notifiarr.com/).
+- **Configarr** — For containerized/cron (Docker, Kubernetes); compatible with Recyclarr templates (pre v7.4.0); Custom Formats, Quality Profiles, Naming. [Configarr](https://github.com/Configarr/Configarr).
+
+When documenting or adding Recyclarr/Configarr in `docker_compose/media/`, point to [Guide Sync](https://trash-guides.info/Guide-Sync/) and the tool’s docs for syncing Custom Formats and profiles.
 
 ---
 > Source: [amazor/Self-Hosting](https://github.com/amazor/Self-Hosting) — distributed by [TomeVault](https://tomevault.io).
