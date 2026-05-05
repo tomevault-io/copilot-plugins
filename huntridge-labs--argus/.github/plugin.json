@@ -1,0 +1,9 @@
+{
+  "name": "huntridge-labs--argus",
+  "displayName": "argus",
+  "description": "Argus brings \u201ca hundred eyes\u201d to your project, combining leading open source security tools into a scalable, automated, continuous security pipeline.",
+  "version": "1.0.0",
+  "author": "huntridge-labs",
+  "homepage": "https://github.com/huntridge-labs/argus",
+  "skills": []
+}
