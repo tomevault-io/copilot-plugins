@@ -4,7 +4,7 @@
   "repo": "Polaris",
   "description": "Polaris \u662f\u4e00\u4e2a\u4e8b\u52a1\u9a71\u52a8\u7684 AI \u8f6f\u4ef6\u5de5\u5382\u5185\u6838\u3002\u5b83\u4e0d\u662f\u804a\u5929\u5f0f\u7f16\u7a0b\u52a9\u624b\u2014\u2014\u800c\u662f\u5c06 LLM \u964d\u7ea7\u4e3a\u53d7\u9650\u51b3\u7b56\u7ec4\u4ef6\uff0c\u7531\u7cfb\u7edf\u5185\u6838\u7edf\u4e00\u63a5\u7ba1\u6267\u884c\u3001\u5ba1\u8ba1\u3001\u9884\u7b97\u4e0e\u56de\u6eda\uff0c\u5b9e\u73b0\u4f01\u4e1a\u7ea7\u7684\u65e0\u4eba\u503c\u5b88\u3001\u53ef\u8ffd\u8d23\u3001\u53ef\u56de\u6eda\u8f6f\u4ef6\u4ea4\u4ed8\u6d41\u6c34\u7ebf\u3002\u5185\u7f6e PM / Architect / Director / QA \u89d2\u8272\u7684\u4e09\u7701\u516d\u90e8\u6743\u529b\u5206\u79bb\u67b6\u6784\uff0c\u4ee5\u53ca KernelOne \u5e95\u5ea7\u3001ContextOS \u4e09\u5c42\u8bb0\u5fc6\u3001EDA \u4efb\u52a1\u96c6\u5e02\u7b49\u6838\u5fc3\u80fd\u529b\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dainsiahtill-dev/Polaris",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T04:22:08Z"
+  "distributed_at": "2026-05-05T15:55:00Z"
 }
