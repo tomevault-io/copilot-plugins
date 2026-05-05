@@ -1,0 +1,9 @@
+{
+  "name": "rune-kit--rune",
+  "displayName": "rune",
+  "description": "Less skills. Deeper connections. A lean, interconnected skill ecosystem for Claude Code.",
+  "version": "1.0.0",
+  "author": "Rune-kit",
+  "homepage": "https://github.com/Rune-kit/rune",
+  "skills": []
+}
