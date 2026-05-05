@@ -1,0 +1,9 @@
+{
+  "name": "nevaaron--x-smart-read",
+  "displayName": "x-smart-read",
+  "description": "Give your AI agent smart, budget-optimised read access to X/Twitter. Official API, no scraping.",
+  "version": "1.0.0",
+  "author": "nevaaron",
+  "homepage": "https://github.com/nevaaron/x-smart-read",
+  "skills": []
+}
