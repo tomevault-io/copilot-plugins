@@ -1,0 +1,26 @@
+{
+  "name": "boogy--iam-policy-validator",
+  "displayName": "iam-policy-validator",
+  "description": "\u26a1 Stop IAM misconfigurations before they become breaches \u2014 Catch overprivileged permissions, dangerous wildcards, and policy errors before deployment.",
+  "version": "1.0.0",
+  "author": "boogy",
+  "homepage": "https://github.com/boogy/iam-policy-validator",
+  "skills": [
+    {
+      "name": "add-check",
+      "description": ""
+    },
+    {
+      "name": "fix-issue",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "update-claude-md",
+      "description": ""
+    }
+  ]
+}
