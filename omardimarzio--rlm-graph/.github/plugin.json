@@ -1,0 +1,9 @@
+{
+  "name": "omardimarzio--rlm-graph",
+  "displayName": "RLM-Graph",
+  "description": "RLM-Graph - a system based on Recursive Language Models but structured on a directed graph",
+  "version": "1.0.0",
+  "author": "omardimarzio",
+  "homepage": "https://github.com/omardimarzio/RLM-Graph",
+  "skills": []
+}
