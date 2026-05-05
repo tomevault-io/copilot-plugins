@@ -1,0 +1,9 @@
+{
+  "name": "booklib-ai--booklib",
+  "displayName": "booklib",
+  "description": "Detects what your AI doesn't know about your project and fixes it. Post-training gap detection, runtime context injection via MCP.",
+  "version": "1.0.0",
+  "author": "booklib-ai",
+  "homepage": "https://github.com/booklib-ai/booklib",
+  "skills": []
+}
