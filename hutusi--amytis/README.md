@@ -7,11 +7,11 @@ a static website generator built to create elegant, powerful, and Markdown-based
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hutusi/amytis](https://github.com/hutusi/amytis).
+Original source: `CLAUDE.md` in [hutusi/amytis](https://github.com/hutusi/amytis).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
