@@ -7,11 +7,11 @@ Encrypted Messaging for OpenClaw
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [slopus/murmur](https://github.com/slopus/murmur).
+Original source: `CLAUDE.md` in [slopus/murmur](https://github.com/slopus/murmur).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
