@@ -1,0 +1,87 @@
+{
+  "name": "flowspec",
+  "owner": "jpoley",
+  "repo": "flowspec",
+  "description": "flowspec is a deliberate implementation of spec-kit & backlog md with task memory",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "architect",
+      "path": "src/flowspec_cli/templates/skills/architect",
+      "github_url": "https://github.com/jpoley/flowspec/tree/main/src/flowspec_cli/templates/skills/architect",
+      "description": ""
+    },
+    {
+      "name": "context-extractor",
+      "path": "src/flowspec_cli/templates/skills/context-extractor",
+      "github_url": "https://github.com/jpoley/flowspec/tree/main/src/flowspec_cli/templates/skills/context-extractor",
+      "description": ""
+    },
+    {
+      "name": "fuzzing-strategist",
+      "path": ".claude/skills/fuzzing-strategist",
+      "github_url": "https://github.com/jpoley/flowspec/tree/main/.claude/skills/fuzzing-strategist",
+      "description": ""
+    },
+    {
+      "name": "patch-engineer",
+      "path": ".claude/skills/patch-engineer",
+      "github_url": "https://github.com/jpoley/flowspec/tree/main/.claude/skills/patch-engineer",
+      "description": ""
+    },
+    {
+      "name": "pm-planner",
+      "path": "src/flowspec_cli/templates/skills/pm-planner",
+      "github_url": "https://github.com/jpoley/flowspec/tree/main/src/flowspec_cli/templates/skills/pm-planner",
+      "description": ""
+    },
+    {
+      "name": "qa-validator",
+      "path": "src/flowspec_cli/templates/skills/qa-validator",
+      "github_url": "https://github.com/jpoley/flowspec/tree/main/src/flowspec_cli/templates/skills/qa-validator",
+      "description": ""
+    },
+    {
+      "name": "sdd-methodology",
+      "path": ".claude/skills/sdd-methodology",
+      "github_url": "https://github.com/jpoley/flowspec/tree/main/.claude/skills/sdd-methodology",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jpoley/flowspec",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:37:55Z"
+}
