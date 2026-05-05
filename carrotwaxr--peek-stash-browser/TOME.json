@@ -1,0 +1,75 @@
+{
+  "name": "peek-stash-browser",
+  "owner": "carrotwaxr",
+  "repo": "peek-stash-browser",
+  "description": "Media browser app for Stash with multiple users, playlists, and UI customization",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "release-workflow",
+      "path": ".claude/skills/release-workflow",
+      "github_url": "https://github.com/carrotwaxr/peek-stash-browser/tree/main/.claude/skills/release-workflow",
+      "description": ""
+    },
+    {
+      "name": "self-review",
+      "path": ".claude/skills/self-review",
+      "github_url": "https://github.com/carrotwaxr/peek-stash-browser/tree/main/.claude/skills/self-review",
+      "description": ""
+    },
+    {
+      "name": "updating-docs",
+      "path": ".claude/skills/updating-docs",
+      "github_url": "https://github.com/carrotwaxr/peek-stash-browser/tree/main/.claude/skills/updating-docs",
+      "description": ""
+    },
+    {
+      "name": "visual-style",
+      "path": ".claude/skills/visual-style",
+      "github_url": "https://github.com/carrotwaxr/peek-stash-browser/tree/main/.claude/skills/visual-style",
+      "description": ""
+    },
+    {
+      "name": "writing-tests",
+      "path": ".claude/skills/writing-tests",
+      "github_url": "https://github.com/carrotwaxr/peek-stash-browser/tree/main/.claude/skills/writing-tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/carrotwaxr/peek-stash-browser",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:34:01Z"
+}
