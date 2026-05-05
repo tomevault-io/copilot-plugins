@@ -7,11 +7,11 @@ The way AI coordinates and transacts. Routing and settlement layer for your agen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AgentlyHQ/use-agently](https://github.com/AgentlyHQ/use-agently).
+Original source: `CLAUDE.md` in [AgentlyHQ/use-agently](https://github.com/AgentlyHQ/use-agently).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
