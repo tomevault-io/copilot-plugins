@@ -1,0 +1,44 @@
+{
+  "name": "ndlocrlite-web",
+  "owner": "yuta1984",
+  "repo": "ndlocrlite-web",
+  "description": "NDLOCRLite Web: \u30d6\u30e9\u30a6\u30b6\u5b8c\u7d50\u578b\u65e5\u672c\u8a9eOCR\u30c4\u30fc\u30eb\uff08ONNX Web Runtime\u4f7f\u7528\uff09",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yuta1984/ndlocrlite-web",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T02:50:03Z"
+}
