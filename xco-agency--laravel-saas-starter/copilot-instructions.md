@@ -1,4 +1,4 @@
-## laravel-saas-starter
+## laravel-boost
 
 > <laravel-boost-guidelines>
 
