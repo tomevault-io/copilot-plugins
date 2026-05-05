@@ -1,0 +1,44 @@
+{
+  "name": "VoiceSnap",
+  "owner": "vorojar",
+  "repo": "VoiceSnap",
+  "description": "Open-source offline voice dictation \u2014 a free alternative to Typeless. 100% local, zero internet, ideal for air-gapped & classified environments. SenseVoice + DirectML GPU, ~34MB, hotkey-driven. \u7eaf\u79bb\u7ebf\u8bed\u97f3\u8f93\u5165\uff0cTypeless \u514d\u8d39\u5e73\u66ff\uff0c\u6570\u636e\u6c38\u4e0d\u51fa\u8bbe\u5907\uff0c\u9002\u5408\u515a\u653f\u673a\u5173\u7b49\u6d89\u5bc6\u573a\u666f\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/vorojar/VoiceSnap",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:54:04Z"
+}
