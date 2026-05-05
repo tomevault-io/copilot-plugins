@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--frankmega",
+  "displayName": "FrankMega",
+  "description": "Ruby on Rails file download service for Docker home servers",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/FrankMega",
+  "skills": []
+}
