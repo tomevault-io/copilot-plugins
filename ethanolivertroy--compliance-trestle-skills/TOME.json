@@ -1,0 +1,87 @@
+{
+  "name": "compliance-trestle",
+  "owner": "ethanolivertroy",
+  "repo": "compliance-trestle-skills",
+  "description": "AI instruction skills by ethanolivertroy",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "trestle-authoring-workflow",
+      "path": "skills/trestle-authoring-workflow",
+      "github_url": "https://github.com/ethanolivertroy/compliance-trestle-skills/tree/main/skills/trestle-authoring-workflow",
+      "description": ""
+    },
+    {
+      "name": "trestle-compliance-pipeline",
+      "path": "skills/trestle-compliance-pipeline",
+      "github_url": "https://github.com/ethanolivertroy/compliance-trestle-skills/tree/main/skills/trestle-compliance-pipeline",
+      "description": ""
+    },
+    {
+      "name": "trestle-control-implementation",
+      "path": "skills/trestle-control-implementation",
+      "github_url": "https://github.com/ethanolivertroy/compliance-trestle-skills/tree/main/skills/trestle-control-implementation",
+      "description": ""
+    },
+    {
+      "name": "trestle-governance",
+      "path": "skills/trestle-governance",
+      "github_url": "https://github.com/ethanolivertroy/compliance-trestle-skills/tree/main/skills/trestle-governance",
+      "description": ""
+    },
+    {
+      "name": "trestle-jinja-templating",
+      "path": "skills/trestle-jinja-templating",
+      "github_url": "https://github.com/ethanolivertroy/compliance-trestle-skills/tree/main/skills/trestle-jinja-templating",
+      "description": ""
+    },
+    {
+      "name": "trestle-oscal-models",
+      "path": "skills/trestle-oscal-models",
+      "github_url": "https://github.com/ethanolivertroy/compliance-trestle-skills/tree/main/skills/trestle-oscal-models",
+      "description": ""
+    },
+    {
+      "name": "trestle-validation",
+      "path": "skills/trestle-validation",
+      "github_url": "https://github.com/ethanolivertroy/compliance-trestle-skills/tree/main/skills/trestle-validation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ethanolivertroy/compliance-trestle-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:53:04Z"
+}
