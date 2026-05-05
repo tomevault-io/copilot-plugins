@@ -1,0 +1,9 @@
+{
+  "name": "default-anton--pi-librarian",
+  "displayName": "pi-librarian",
+  "description": "GitHub research subagent package for pi coding agent",
+  "version": "1.0.0",
+  "author": "default-anton",
+  "homepage": "https://github.com/default-anton/pi-librarian",
+  "skills": []
+}
