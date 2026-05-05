@@ -1,0 +1,9 @@
+{
+  "name": "tysonlabs--lazyide",
+  "displayName": "lazyide",
+  "description": "A full IDE experience anywhere you have a terminal. SSH into a server, run lazyide, and pair with your agentic coding tool.",
+  "version": "1.0.0",
+  "author": "TysonLabs",
+  "homepage": "https://github.com/TysonLabs/lazyide",
+  "skills": []
+}
