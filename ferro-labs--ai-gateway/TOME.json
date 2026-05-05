@@ -4,7 +4,7 @@
   "repo": "ai-gateway",
   "description": "One API for 25+ LLMs, OpenAI, Anthropic, Bedrock, Azure. Caching, guardrails & cost controls. Go-native LiteLLM & Kong AI Gateway alternative.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ferro-labs/ai-gateway",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T16:57:27Z"
+  "distributed_at": "2026-05-05T03:59:16Z"
 }
