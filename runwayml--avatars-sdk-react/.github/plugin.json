@@ -1,0 +1,9 @@
+{
+  "name": "runwayml--avatars-sdk-react",
+  "displayName": "avatars-sdk-react",
+  "description": "React SDK for real-time AI avatar interactions with GWM-1",
+  "version": "1.0.0",
+  "author": "runwayml",
+  "homepage": "https://github.com/runwayml/avatars-sdk-react",
+  "skills": []
+}
