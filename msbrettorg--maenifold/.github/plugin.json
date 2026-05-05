@@ -1,0 +1,26 @@
+{
+  "name": "msbrettorg--maenifold",
+  "displayName": "maenifold",
+  "description": "AI instruction skills by msbrettorg",
+  "version": "1.0.0",
+  "author": "msbrettorg",
+  "homepage": "https://github.com/msbrettorg/maenifold",
+  "skills": [
+    {
+      "name": "azure-cost-management",
+      "description": ""
+    },
+    {
+      "name": "finops-toolkit",
+      "description": ""
+    },
+    {
+      "name": "maenifold",
+      "description": ""
+    },
+    {
+      "name": "product-manager",
+      "description": ""
+    }
+  ]
+}
