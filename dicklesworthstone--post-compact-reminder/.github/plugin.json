@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--post-compact-reminder",
+  "displayName": "post_compact_reminder",
+  "description": "Claude Code hook that detects context compaction and injects a reminder to re-read AGENTS.md, preventing post-compaction rule amnesia in long sessions",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/post_compact_reminder",
+  "skills": []
+}
