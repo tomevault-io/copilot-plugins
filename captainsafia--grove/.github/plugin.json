@@ -1,0 +1,14 @@
+{
+  "name": "captainsafia--grove",
+  "displayName": "grove",
+  "description": "CLI tool for managing git worktree-based workflows",
+  "version": "1.0.0",
+  "author": "captainsafia",
+  "homepage": "https://github.com/captainsafia/grove",
+  "skills": [
+    {
+      "name": ".agents",
+      "description": ""
+    }
+  ]
+}
