@@ -1,0 +1,44 @@
+{
+  "name": "twisted",
+  "owner": "0xfffb",
+  "repo": "twisted",
+  "description": "\u9762\u5411\u6d4f\u89c8\u5668\u7684 JSVMP\uff1a\u5c06 JavaScript \u7f16\u8bd1\u4e3a\u81ea\u5b9a\u4e49\u5b57\u8282\u7801\uff0c\u7531\u6808\u5f0f\u865a\u62df\u673a\u89e3\u91ca\u6267\u884c\uff0c\u914d\u5957 IR \u6df7\u6dc6\u4e0e\u8fd0\u884c\u65f6\u6df7\u6dc6\u548c\u6253\u5305",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/0xfffb/twisted",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T18:00:42Z"
+}
