@@ -1,0 +1,14 @@
+{
+  "name": "huggingface--hf-mcp-server",
+  "displayName": "hf-mcp-server",
+  "description": "Hugging Face MCP Server",
+  "version": "1.0.0",
+  "author": "huggingface",
+  "homepage": "https://github.com/huggingface/hf-mcp-server",
+  "skills": [
+    {
+      "name": "hf-mcp",
+      "description": ""
+    }
+  ]
+}
