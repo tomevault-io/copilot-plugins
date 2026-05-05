@@ -1,80 +1,71 @@
-## core-service
+## dashboard
 
-> Guide for working in CoreService.swift — the main service actor (8500+ lines)
+> Conventions for the React/Vite Dashboard in Dashboard/src/
 
 
-# CoreService Guide
+# Dashboard Conventions
 
-`Sources/sloppy/CoreService.swift` is an `actor` (~8551 lines, 337 functions). It is the central business logic layer between the HTTP routers and the runtime/persistence layer.
+The Dashboard is a React + Vite SPA in `Dashboard/`. Build command: `npm run build` (run inside `Dashboard/`).
 
-## Architecture position
+## API layer
 
-```
-Transport (CoreHTTPServer)
-  → Router (CoreRouter / XxxAPIRouter)
-    → CoreService  ← you are here
-      → SQLiteStore (PersistenceStore)
-      → RuntimeSystem (AgentRuntime)
-```
+Two API modules:
+- `Dashboard/src/shared/api/coreApi.ts` — shared low-level fetch helpers and typed methods.
+- `Dashboard/src/api.ts` — higher-level API calls used directly by views.
 
-## Domain sections (MARK map)
+Always add new API calls to `coreApi.ts` as typed async functions. Handle non-OK responses explicitly:
 
-| Section | Approx. line |
-|---|---|
-| Gateway Plugin Lifecycle | ~455 |
-| Cron Tasks | ~943 |
-| Task Clarifications | ~1518 |
-| Skills | ~2255 |
-| Channel Plugins | ~2470 |
-| Review Flow | ~5344 |
-| Task Comments | ~5574 |
-| Task Activity | ~5643 |
-| Channel Access Approvals | ~7827 |
-| Channel Model | ~7903 |
-| InboundMessageReceiver | ~8059 |
-| ProjectToolService conformance | ~8339 |
-| Debug API | ~8387 |
-
-Use `swift test --filter` or editor search to jump directly to the relevant MARK section.
-
-## Adding a new method
-
-1. Find the correct domain section by MARK header.
-2. CoreService is an `actor` — all methods are implicitly `@isolated`. Call site must `await`.
-3. Access persistence via `store` (`any PersistenceStore`), runtime via `runtime` (`RuntimeSystem`).
-4. Throw typed domain errors, not generic ones:
-
-```swift
-enum XxxError: Error {
-    case notFound
-    case invalidState(String)
-}
-
-func getXxx(id: String) async throws -> XxxRecord {
-    guard let record = await store.fetchXxx(id: id) else {
-        throw XxxError.notFound
-    }
-    return record
+```ts
+export async function fetchXxx(id: string): Promise<XxxRecord> {
+  const res = await fetch(`/v1/xxx/${id}`);
+  if (!res.ok) throw new Error(`Failed to fetch xxx: ${res.status}`);
+  return res.json();
 }
 ```
 
-5. Do not add `public` unless the method is part of a protocol conformance declared in another module.
+## Component style
 
-## Protocols CoreService conforms to
+- Function components only, no class components.
+- Named exports for all components and utilities.
+- Local state with `useState`; derived values with `useMemo`.
 
-- `ProjectToolService` — project/task operations used by agent tools (see ~line 8339)
-- `RuntimeConfigToolService` — runtime config read/write
-- `SkillsToolService` — skills registry operations
-- `InboundMessageReceiver` — channel message delivery (~line 8059)
+```tsx
+export function XxxCard({ item }: { item: XxxRecord }) {
+  const label = useMemo(() => item.name.toUpperCase(), [item.name]);
+  return <div className="xxx-card">{label}</div>;
+}
+```
 
-When adding operations that tools need, add to the relevant protocol in `Sources/sloppy/Tools/AgentTools/CoreTool.swift`.
+## CSS
 
-## Do not read the whole file
+Each view or feature gets its own CSS file: `Dashboard/src/styles/xxx.css`. Import at the top of the component file. Use BEM-like class naming: `.xxx-card`, `.xxx-card__title`, `.xxx-card--active`.
 
-The file is too large to read in full. Use:
-- `rg "func methodName"` to jump to a function
-- `rg "// MARK:" Sources/sloppy/CoreService.swift` to see domain sections
-- Read only the relevant section (50–150 lines around the target)
+Global styles: `Dashboard/src/styles/`.
+
+## Dropdown / select elements
+
+**Never use native `<select>` elements.** Always use the custom `.actor-team-search` dropdown pattern. See `ActorsView.jsx` and `Dashboard/src/styles/actors.css` for the reference implementation. This applies to all dropdowns across the dashboard.
+
+## File structure
+
+```
+Dashboard/src/
+  views/          # top-level page views (one file per route)
+  components/     # reusable UI components
+  shared/api/     # API layer
+  styles/         # CSS files
+  app/            # router/app shell
+```
+
+## Verification
+
+After dashboard changes, always verify the build succeeds:
+
+```bash
+cd Dashboard && npm run build
+```
+
+TypeScript errors and broken imports will surface here.
 
 ---
 > Source: [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy) — distributed by [TomeVault](https://tomevault.io).
