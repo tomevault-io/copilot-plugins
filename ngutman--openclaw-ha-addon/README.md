@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ngutman/openclaw-ha-addon](https://github.com/ngutman/openclaw-ha-addon).
+Original source: `CLAUDE.md` in [ngutman/openclaw-ha-addon](https://github.com/ngutman/openclaw-ha-addon).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
