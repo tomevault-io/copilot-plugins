@@ -1,0 +1,57 @@
+{
+  "name": "opencode-gui",
+  "owner": "saffron-health",
+  "repo": "opencode-gui",
+  "description": "OpenCode GUI extension for VSCode",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "prompting",
+      "path": ".opencode/skill/prompting",
+      "github_url": "https://github.com/saffron-health/opencode-gui/tree/main/.opencode/skill/prompting",
+      "description": ""
+    },
+    {
+      "name": "technical-writing",
+      "path": ".opencode/skill/technical-writing",
+      "github_url": "https://github.com/saffron-health/opencode-gui/tree/main/.opencode/skill/technical-writing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/saffron-health/opencode-gui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T02:38:54Z"
+}
