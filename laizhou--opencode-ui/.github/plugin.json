@@ -1,0 +1,9 @@
+{
+  "name": "laizhou--opencode-ui",
+  "displayName": "OpenCode_UI",
+  "description": "A JetBrains IDE plugin that integrates OpenCode \u2014 the open-source AI coding agent \u2014 directly into your development workflow.",
+  "version": "1.0.0",
+  "author": "LaiZhou",
+  "homepage": "https://github.com/LaiZhou/OpenCode_UI",
+  "skills": []
+}
