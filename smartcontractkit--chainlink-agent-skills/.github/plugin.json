@@ -1,0 +1,9 @@
+{
+  "name": "smartcontractkit--chainlink-agent-skills",
+  "displayName": "chainlink-agent-skills",
+  "description": "[PUBLIC] Repository for Chainlink Skills that implement https://agentskills.io/specification",
+  "version": "1.0.0",
+  "author": "smartcontractkit",
+  "homepage": "https://github.com/smartcontractkit/chainlink-agent-skills",
+  "skills": []
+}
