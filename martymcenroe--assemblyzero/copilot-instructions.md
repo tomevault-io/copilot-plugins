@@ -1,150 +1,74 @@
 ## assemblyzero
 
-> **CRITICAL:** When a session begins:
+> Universal rules are in `C:\Users\mcwiz\Projects\CLAUDE.md` (auto-loaded for all projects).
 
-# Gemini Operational Protocols - AssemblyZero
+# CLAUDE.md - AssemblyZero
 
-## 1. Session Initialization (The Handshake)
+Universal rules are in `C:\Users\mcwiz\Projects\CLAUDE.md` (auto-loaded for all projects).
 
-**CRITICAL:** When a session begins:
-1. **Analyze:** Silently parse the provided `git status` or issue context.
-2. **Halt & Ask:** Your **FIRST** output must be exactly:
-   > "ACK. State determination complete. Please identify my model version."
-3. **Wait:** Do not proceed until the user replies (e.g., "3.0 Pro").
-4. **Update Identity:** Incorporate the version into your Metadata Tag for all future turns.
+AssemblyZero is the canonical source for core rules, tools, and workflow.
+Fix things in AssemblyZero, not in local project copies. Tools execute from `AssemblyZero/tools/`, not copied locally.
 
----
+## Running Workflows (CRITICAL)
 
-## 2. Core Rules
+All workflow scripts live in `tools/` and MUST be run from the AssemblyZero directory with `poetry run python`.
+Babysit protocol: read `docs/babysit-protocol.md` before running.
 
-**Read `CLAUDE.md` in this repository.** Those rules apply to ALL agents:
-- Bash command rules (no &&, |, ;)
-- Path format rules (Windows vs Unix)
-- Worktree isolation rules
-- Decision-making protocol
+### LLD Workflow (write an LLD for an issue)
 
----
+```bash
+cd /c/Users/mcwiz/Projects/AssemblyZero
+PYTHONUNBUFFERED=1 poetry run python tools/run_requirements_workflow.py \
+    --type lld --issue NUMBER --repo /c/Users/mcwiz/Projects/TARGET_REPO --yes
+```
 
-## 3. Execution Rules
+### Implementation Workflow (implement code from an LLD)
 
-- **Authority:** `docs/standards/0002-coding-standards.md` is the law for Git workflows.
-- **One Step Per Turn:** Provide one distinct step, then wait for confirmation.
-- **Check First:** Verify paths/content before changing them.
-- **Copy-Paste Ready:** No placeholders. Use heredocs for new files.
+```bash
+cd /c/Users/mcwiz/Projects/AssemblyZero
+PYTHONUNBUFFERED=1 poetry run python tools/run_implement_from_lld.py \
+    --issue NUMBER --repo /c/Users/mcwiz/Projects/TARGET_REPO 
+```
 
----
+### Common Gotchas
 
-## 4. AssemblyZero Context
+| Gotcha | Fix |
+|--------|-----|
+| No output in background runs | `PYTHONUNBUFFERED=1` — Python buffers stdout when not on a TTY |
+| Nested Claude sessions fail | `CLAUDECODE= PYTHONUNBUFFERED=1 poetry run ...` (empty string, NOT unset) |
+| `--yes` flag on implementation | Does NOT exist — only the LLD workflow has `--yes` |
+| Worktree already exists | ONLY if you have confirmed the stale worktree is archived/safe: use `--no-worktree` flag |
+| Workflow runs from wrong dir | ALWAYS `cd` to AssemblyZero first. The `--repo` flag points to the target |
 
-**Project:** AssemblyZero
-**Repository:** martymcenroe/AssemblyZero
-**Project Root (Windows):** `C:\Users\mcwiz\Projects\AssemblyZero`
-**Project Root (Unix):** `/c/Users/mcwiz/Projects/AssemblyZero`
+## Key Files
 
-This is the **framework repository**. Standards defined here apply to all projects.
+- `WORKFLOW.md` — Development workflow gates (worktrees, reviews, reports)
+- `tools/` — Shared tooling (merge, batch-workflow, gemini-model-check)
+- `docs/standards/` — Engineering standards (0001–0999)
 
----
+## Cascade Prevention
 
-## 5. Session Logging
+After completing a task, ask "What would you like to work on next?" as an open-ended question. Never offer numbered yes/no options or suggest continuing to the next issue unprompted.
 
-At session end, append a summary to `docs/session-logs/YYYY-MM-DD.md`:
-- **Day boundary:** 3:00 AM CT to following day 2:59 AM CT
-- **Include:** date/time, model name (from handshake), summary, files touched, state on exit
+## Merging PRs
 
----
+Follow root CLAUDE.md "Merging PRs (Universal)" with `--repo martymcenroe/AssemblyZero`.
 
-## 6. You Are Not Alone
+**Important: Archival must happen BEFORE creating the PR, inside the worktree.**
 
-Other agents (Claude, human orchestrators) work on this project. Check `docs/session-logs/` for recent context before starting work.
+```bash
+# Inside the worktree:
+poetry run python tools/archive_worktree_lineage.py --worktree . --issue {ID} --main-repo .
+git commit -m "chore: archive workflow lineage (Closes #{ID})"
+# Then push and create the PR
+```
 
----
-
-## 7. Anti-Auto-Approve Protocol
-
-**CRITICAL SAFETY RULE:** You are running in an environment with an **auto-approver** (automatically says "y" or "yes").
-
-When proposing a **NEW MAJOR TASK** (e.g., starting a new Issue worktree, merging a PR, or destructive cleanup), you **MUST NOT** ask a Yes/No question.
-
-**Protocol:**
-1.  **Require Specific Input:** Ask the user to type a unique string to confirm.
-2.  **Format:** "To proceed, please type: **'EXECUTE <TASK_ID>'**."
-3.  **Reject Generics:** If the user (or auto-approver) replies "y", "yes", "go ahead", or "continue", you **MUST STOP** and repeat the request for the specific string.
-
----
-
-## 8. The Perdita Protocol (Babysit Mode)
-
-**Shorthand:** "Babysit <IssueID>"
-
-When this command is issued, the agent operates in a high-autonomy, low-intervention mode governed by **Perdita X. Dream** (the watchful inner mind).
-
-### 8.1 Core Principles
-1.  **Isolation:** Always create a worktree `../AssemblyZero-{ID}` and branch `{ID}-fix`.
-2.  **Two-Strike Rule:** Enforce `MAX_FILE_RETRIES=2` and `max_iterations=3` globally. No "trying one more time."
-3.  **Mechanical Guardrails:** Every turn must be validated by non-LLM logic (e.g., File Size Safety Gate #587).
-4.  **Surgical Context:** For retries, prune context to only the LLD + the failing file's current content to save tokens.
-5.  **Halt-on-Stagnation:** If the same error occurs twice, or if `iteration_count` exceeds limits, the agent must **Halt and Plan**, saving a `recovery_plan.md` in the worktree.
-
-### 8.2 Operational Steps
-1.  **Initialize:** Create worktree and isolated branch.
-2.  **Execute:** Run the relevant workflow tools (TDD, LLD, or Issue).
-3.  **Monitor:** Watch the audit log (`workflow-audit.jsonl`) and cost budget.
-4.  **Cleanup:** Finalize the issue only when tests are Green, LLD is moved to `done/`, and the worktree is deleted.
+After merging the PR, simply delete the worktree and branch:
+```bash
+git worktree remove ../AssemblyZero-{ID}
+git branch -d {ID}-fix && git checkout main && git pull
+```
 
 ---
-
-## 9. Secret Protection (Mandatory)
-
-**Session transcripts capture all stdout in plaintext.** Secrets printed during a session are irrevocably exposed. The following categories are NEVER permitted.
-
-### Category A: Secret File Reads
-
-**NEVER** run `cat`, `head`, `tail`, `less`, `more`, `bat`, `view`, `vim`, or `python -c "open(...)"` on:
-- `.env`, `.env.*`, `.dev.vars`
-- `~/.aws/credentials`, `~/.aws/config`
-- Any file matching `*secret*`, `*credential*`, `*token*`, `*.pem`, `*.key`
-
-**Safe alternative:** Use `os.environ.get('VAR_NAME')` in Python to access secrets programmatically without printing them.
-
-### Category B: Environment Dumps
-
-**NEVER** run these commands standalone:
-- `env`, `printenv`, `set` (no args), `export -p`
-- `printenv GITHUB_TOKEN` (or any secret variable name)
-
-**Allowed:** `env VAR=val cmd`, `set -e`, `set -x`, `export MY_VAR=hello`, `printenv PATH`
-
-### Category C: Secret Variable Dereference
-
-**NEVER** output or dereference these variables in commands:
-- `$GITHUB_TOKEN`, `$GH_TOKEN`
-- `$AWS_SECRET_ACCESS_KEY`, `$AWS_SESSION_TOKEN`, `$AWS_ACCESS_KEY_ID`
-- `$OPENAI_API_KEY`, `$ANTHROPIC_API_KEY`
-- `$CLOUDFLARE_API_TOKEN`, `$CF_API_TOKEN`
-- `$NPM_TOKEN`, `$DOCKER_PASSWORD`
-- `$DATABASE_URL`, `$DB_PASSWORD`
-- `$SECRET_KEY`, `$PRIVATE_KEY`
-
-**Example violations:** `echo $GITHUB_TOKEN`, `curl -H "Authorization: $AWS_SECRET_ACCESS_KEY"`
-
-### Category D: CLI Credential Dumps
-
-**NEVER** run these commands:
-- `gh auth token` — prints GitHub PAT to stdout
-- `gh auth status --show-token` — embeds token in status output
-- `aws configure get aws_secret_access_key` (or `aws_session_token`, `aws_access_key_id`)
-- `aws sts get-session-token` — dumps temporary credentials
-- `aws ssm get-parameter --with-decryption` — dumps secrets from Parameter Store
-
-**Safe alternatives:** Use `boto3.client('sts')` or `os.environ.get()` in Python. Use `gh auth status` without `--show-token`.
-
-### If You Need a Secret Value
-
-1. Ask the user to provide it in their own terminal
-2. Use `os.environ.get()` in a Python script (value stays in-process, never hits stdout)
-3. **NEVER** print, echo, or cat a secret — even "just to check"
-
----
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/martymcenroe)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/martymcenroe)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [martymcenroe/AssemblyZero](https://github.com/martymcenroe/AssemblyZero) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
