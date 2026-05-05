@@ -1,0 +1,9 @@
+{
+  "name": "disnet--skyreader",
+  "displayName": "skyreader",
+  "description": "An RSS reader for the AT Protocol",
+  "version": "1.0.0",
+  "author": "disnet",
+  "homepage": "https://github.com/disnet/skyreader",
+  "skills": []
+}
