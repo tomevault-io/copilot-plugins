@@ -4,7 +4,7 @@
   "repo": "gpui-shell",
   "description": "Wayland desktop shell and status bar in Rust with GPUI, featuring a modular bar, launcher, and control center for Hyprland and Niri.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/andre-brandao/gpui-shell",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T18:00:20Z"
+  "distributed_at": "2026-05-05T06:26:37Z"
 }
