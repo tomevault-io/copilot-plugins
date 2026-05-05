@@ -1,0 +1,9 @@
+{
+  "name": "copexit--am-i-exposed",
+  "displayName": "am-i-exposed",
+  "description": "The bitcoin privacy scanner you were afraid to run.",
+  "version": "1.0.0",
+  "author": "Copexit",
+  "homepage": "https://github.com/Copexit/am-i-exposed",
+  "skills": []
+}
