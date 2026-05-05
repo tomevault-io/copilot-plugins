@@ -4,7 +4,7 @@
   "repo": "jsse",
   "description": "An agent-coded JS engine in Rust. I didn't touch a single line of code here. Not one. This repo is a write-only data store. I didn't even create this repo by hand -- my agent did that.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/pmatos/jsse",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T01:09:18Z"
+  "distributed_at": "2026-05-05T12:01:55Z"
 }
