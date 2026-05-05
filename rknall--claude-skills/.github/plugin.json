@@ -1,0 +1,50 @@
+{
+  "name": "rknall--claude-skills",
+  "displayName": "claude-skills",
+  "description": "Generic skills used in my daily work",
+  "version": "1.0.0",
+  "author": "rknall",
+  "homepage": "https://github.com/rknall/claude-skills",
+  "skills": [
+    {
+      "name": "svg-logo-designer",
+      "description": ""
+    },
+    {
+      "name": "newt-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "docker-validation",
+      "description": ""
+    },
+    {
+      "name": "config-generator",
+      "description": ""
+    },
+    {
+      "name": "stack-creator",
+      "description": ""
+    },
+    {
+      "name": "secrets-manager",
+      "description": ""
+    },
+    {
+      "name": "stack-validator",
+      "description": ""
+    },
+    {
+      "name": "python-architecture-review",
+      "description": ""
+    },
+    {
+      "name": "ui-design-review",
+      "description": ""
+    },
+    {
+      "name": "web-design-builder",
+      "description": ""
+    }
+  ]
+}
