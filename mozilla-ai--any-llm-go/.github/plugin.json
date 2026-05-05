@@ -1,0 +1,9 @@
+{
+  "name": "mozilla-ai--any-llm-go",
+  "displayName": "any-llm-go",
+  "description": "any-llm go",
+  "version": "1.0.0",
+  "author": "mozilla-ai",
+  "homepage": "https://github.com/mozilla-ai/any-llm-go",
+  "skills": []
+}
