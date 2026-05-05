@@ -1,0 +1,9 @@
+{
+  "name": "jinfanzheng--kode-sdk-csharp",
+  "displayName": "kode-sdk-csharp",
+  "description": "Kode Agent SDK for .NET - Event-driven AI Agent runtime supporting Anthropic Claude and OpenAI GPT models with tool calling, state management, and event streaming",
+  "version": "1.0.0",
+  "author": "JinFanZheng",
+  "homepage": "https://github.com/JinFanZheng/kode-sdk-csharp",
+  "skills": []
+}
