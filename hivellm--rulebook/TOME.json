@@ -1,0 +1,93 @@
+{
+  "name": "rulebook",
+  "owner": "hivellm",
+  "repo": "rulebook",
+  "description": "CLI tool to standardize AI-generated projects with templates, rules enforcement, and automation",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "rulebook-git-workflow",
+      "path": "skills/rulebook-git-workflow",
+      "github_url": "https://github.com/hivellm/rulebook/tree/main/skills/rulebook-git-workflow",
+      "description": ""
+    },
+    {
+      "name": "rulebook-mcp",
+      "path": "skills/rulebook-mcp",
+      "github_url": "https://github.com/hivellm/rulebook/tree/main/skills/rulebook-mcp",
+      "description": ""
+    },
+    {
+      "name": "rulebook-quality-gates",
+      "path": "skills/rulebook-quality-gates",
+      "github_url": "https://github.com/hivellm/rulebook/tree/main/skills/rulebook-quality-gates",
+      "description": ""
+    },
+    {
+      "name": "rulebook-task-management",
+      "path": "skills/rulebook-task-management",
+      "github_url": "https://github.com/hivellm/rulebook/tree/main/skills/rulebook-task-management",
+      "description": ""
+    },
+    {
+      "name": "rulebook-typescript",
+      "path": "skills/rulebook-typescript",
+      "github_url": "https://github.com/hivellm/rulebook/tree/main/skills/rulebook-typescript",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "path": "templates/skills/languages/typescript",
+      "github_url": "https://github.com/hivellm/rulebook/tree/main/templates/skills/languages/typescript",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "path": "templates/skills/frameworks/react-native",
+      "github_url": "https://github.com/hivellm/rulebook/tree/main/templates/skills/frameworks/react-native",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "templates/skills/frameworks/vue",
+      "github_url": "https://github.com/hivellm/rulebook/tree/main/templates/skills/frameworks/vue",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/hivellm/rulebook",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:33:42Z"
+}
