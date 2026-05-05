@@ -1,0 +1,51 @@
+{
+  "name": "ignite25",
+  "owner": "microsoft",
+  "repo": "ignite25-LAB511-build-agentic-knowledge-bases-next-level-rag-with-azure-ai-search",
+  "description": "AI instruction skills by microsoft",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "azure-ai",
+      "path": ".github/plugins/azure-skills/skills/azure-ai",
+      "github_url": "https://github.com/microsoft/ignite25-LAB511-build-agentic-knowledge-bases-next-level-rag-with-azure-ai-search/tree/main/.github/plugins/azure-skills/skills/azure-ai",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/microsoft/ignite25-LAB511-build-agentic-knowledge-bases-next-level-rag-with-azure-ai-search",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:42:15Z"
+}
