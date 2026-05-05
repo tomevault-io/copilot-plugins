@@ -1,0 +1,27 @@
+## dotguides
+
+> Dotguides is a library, CLI, and MCP server for automatically discovering LLM-friendly documentation for open source packages. It is written in TypeScript but is built to discover documentation in any language.
+
+Dotguides is a library, CLI, and MCP server for automatically discovering LLM-friendly documentation for open source packages. It is written in TypeScript but is built to discover documentation in any language.
+
+## Repo Structure
+
+- `src/lib`: main library code, all significant logic should be encapsulated here
+- `src/cli`: CLI code, leverages library code for logic
+- `src/mcp`: MCP server code, leverages library code for logic and started with `dotguides mcp` CLI command
+
+## Workflow
+
+- When starting a task, run `git status` to see if the git history is clean. If not, ask the user if they want to commit or start the task with dirty history.
+- After completing a task, formulate a git commit for your work with a sensible message following conventional commits form. Make sure to confirm with the user before committing.
+
+## General Guidance
+
+- Before completing a task, run `npm run test` to make sure tests are passing.
+- Add Vitest unit tests for behavior you add or change in `src/lib`, creating new test files as necessary.
+- When writing tests, prefer "table-style" tests with a `{desc, input, expect}[]` format to describe each test.
+- DO NOT DELETE TEST FILES after they pass. Tests are good, keep them around.
+
+---
+> Source: [google/dotguides](https://github.com/google/dotguides) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
