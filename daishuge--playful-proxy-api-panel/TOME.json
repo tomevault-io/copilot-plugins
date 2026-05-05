@@ -1,0 +1,44 @@
+{
+  "name": "playful-proxy-api-panel",
+  "owner": "daishuge",
+  "repo": "playful-proxy-api-panel",
+  "description": "CLIProxyAPI-compatible fork with restored usage statistics and open-source bundled management panel frontend.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/daishuge/playful-proxy-api-panel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T08:48:59Z"
+}
