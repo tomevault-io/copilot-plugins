@@ -1,0 +1,9 @@
+{
+  "name": "thelinuxlich--go-go-scope",
+  "displayName": "go-go-scope",
+  "description": "A companion lib to go-go-try, turbo-charging your code with easier structured concurrency!",
+  "version": "1.0.0",
+  "author": "thelinuxlich",
+  "homepage": "https://github.com/thelinuxlich/go-go-scope",
+  "skills": []
+}
