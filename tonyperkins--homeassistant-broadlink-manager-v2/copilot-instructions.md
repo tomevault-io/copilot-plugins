@@ -1,9 +1,9 @@
-## doc-segregation
+## nobrowseralert
 
-> When creating documentation for use in development keep that separate ( docs/development ) from end user facing documentation ( docs )
+> In general don't use browser based alert dialog.
 
 
-When creating documentation for use in development keep that separate ( docs/development ) from end user facing documentation ( docs )
+In general don't use browser based alert dialog.
 
 ---
 > Source: [tonyperkins/homeassistant-broadlink-manager-v2](https://github.com/tonyperkins/homeassistant-broadlink-manager-v2) — distributed by [TomeVault](https://tomevault.io).
