@@ -1,0 +1,9 @@
+{
+  "name": "willmeyers--window-art",
+  "displayName": "window-art",
+  "description": "A minimal Python library for live coding visual scenes using desktop windows.",
+  "version": "1.0.0",
+  "author": "willmeyers",
+  "homepage": "https://github.com/willmeyers/window-art",
+  "skills": []
+}
