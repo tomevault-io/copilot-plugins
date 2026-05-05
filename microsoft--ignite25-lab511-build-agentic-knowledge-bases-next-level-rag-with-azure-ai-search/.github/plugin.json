@@ -1,0 +1,14 @@
+{
+  "name": "microsoft--ignite25-lab511-build-agentic-knowledge-bases-next-level-rag-with-azure-ai-search",
+  "displayName": "ignite25",
+  "description": "AI instruction skills by microsoft",
+  "version": "1.0.0",
+  "author": "microsoft",
+  "homepage": "https://github.com/microsoft/ignite25-LAB511-build-agentic-knowledge-bases-next-level-rag-with-azure-ai-search",
+  "skills": [
+    {
+      "name": "azure-ai",
+      "description": ""
+    }
+  ]
+}
