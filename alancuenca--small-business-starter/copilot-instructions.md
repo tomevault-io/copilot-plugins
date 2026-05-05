@@ -1,128 +1,120 @@
-## project-tooling
+## tailwind-v4-classes
 
-> Package manager, git hygiene, and project setup conventions
+> When a CSS custom property is declared in the `@theme` block (`src/styles/theme.css`),
 
 
-# Project Tooling & Setup
+# Tailwind v4 Class Syntax
 
-## Package manager — always pnpm
+## The core rule
 
-```bash
-pnpm add <package>      # runtime dependency
-pnpm add -D <package>   # dev dependency
-pnpm remove <package>   # uninstall
-pnpm run build          # build
-```
+When a CSS custom property is declared in the `@theme` block (`src/styles/theme.css`),
+Tailwind v4 **auto-generates canonical utility classes** from it.
+Use the canonical class — never the `(--var)` or `[var(--var)]` form for these.
 
-❌ Never use `npm install`, `npm add`, or `yarn add` — this project uses pnpm exclusively.  
-✅ Commit `pnpm-lock.yaml`. The `.gitignore` already ignores `package-lock.json` and `yarn.lock`.
-
-### pnpm store — never inside the project root
-
-The pnpm content-addressable store must live in the global macOS home directory, **never** inside the project.
-
-```bash
-# ✅ Correct — pnpm resolves the global store automatically
-pnpm add <package>
-
-# ❌ Never — creates a .pnpm-store/ folder inside the project
-pnpm add --store-dir .pnpm-store <package>
-```
-
-If a `.pnpm-store/` folder appears in the project root:
-1. Delete it: `rm -rf .pnpm-store`
-2. It is already covered by `.gitignore` — it will not be committed
-3. pnpm will use `~/Library/pnpm/store/v10` (macOS default) automatically
+Only use `(--var)` for CSS variables that are **not** in `@theme`
+(e.g. runtime JS-injected values, third-party variables).
 
 ---
 
-## Environment variables
+## @theme namespace → utility mapping
 
-```
-.env              ← never commit (real secrets/keys)
-.env.production   ← never commit
-.env.example      ← always commit (placeholder template so teammates know what vars exist)
-```
+| `@theme` variable | Canonical utility | ❌ Never write |
+|---|---|---|
+| `--color-primary` | `bg-primary` `text-primary` `border-primary` | `bg-(--color-primary)` |
+| `--color-primary-light` | `text-primary-light` `bg-primary-light` | `text-(--color-primary-light)` |
+| `--color-primary-fg` | `text-primary-fg` | `text-(--color-primary-fg)` |
+| `--color-accent` | `bg-accent` `text-accent` | `bg-(--color-accent)` |
+| `--color-accent-fg` | `text-accent-fg` | `text-(--color-accent-fg)` |
+| `--color-background` | `bg-background` | `bg-(--color-background)` |
+| `--color-surface` | `bg-surface` | `bg-(--color-surface)` |
+| `--color-border` | `border-border` | `border-(--color-border)` |
+| `--color-text` | `text-text` | `text-(--color-text)` |
+| `--color-text-muted` | `text-text-muted` | `text-(--color-text-muted)` |
+| `--color-dark` | `bg-dark` `text-dark` | `bg-(--color-dark)` |
+| `--color-dark-surface` | `bg-dark-surface` | `bg-(--color-dark-surface)` |
+| `--radius-sm` | `rounded-sm` | `rounded-(--radius-sm)` |
+| `--radius-md` | `rounded-md` | `rounded-(--radius-md)` |
+| `--radius-lg` | `rounded-lg` | `rounded-(--radius-lg)` |
+| `--radius-full` | `rounded-full` | `rounded-(--radius-full)` |
+| `--text-topper` | `text-topper` | `text-(--text-topper)` |
+| `--text-lead` | `text-lead` | `text-(--text-lead)` |
+| `--text-h3` | `text-h3` | `text-(--text-h3)` |
+| `--text-h2` | `text-h2` | `text-(--text-h2)` |
+| `--text-h1` | `text-h1` | `text-(--text-h1)` |
+| `--text-display` | `text-display` | `text-(--text-display)` |
+| `--spacing-section` | `py-section` `pt-section` etc. | `py-(--spacing-section)` |
+| `--container-site` | `max-w-site` | `max-w-(--container-site)` |
 
-When adding a new env variable:
-1. Add the real value to `.env` (gitignored)
-2. Add a blank/placeholder entry to `.env.example`
-
----
-
-## Netlify
-
-Build config lives in `netlify.toml` at the project root — this IS committed.
-
-The `.netlify/` directory is auto-created by the Netlify CLI locally — it must NOT be committed:
-
-```
-.netlify/    ← gitignore this when using `netlify dev` or the Netlify CLI
-```
-
----
-
-## Cursor IDE (macOS)
-
-This project is developed exclusively in Cursor on macOS.
-
-- `.cursor/rules/` — commit all rule files; they are shared project conventions
-- `.cursor/` other generated cache files — do not commit
-- `.DS_Store` — already gitignored; never commit macOS filesystem metadata
-
-There is no `.vscode/` directory in this project. Do not create one.
+Opacity modifiers work the same way: `text-primary-fg/80` not `text-(--color-primary-fg)/80`.
 
 ---
 
-## Baseline `.gitignore` for new projects (Astro + Tailwind v4 + pnpm + Netlify + macOS + Cursor)
+## Gradients — v3 → v4 rename (common AI mistake)
 
-Use this when initialising a fresh project with this stack:
+Tailwind v4 renamed `bg-gradient-to-*` to `bg-linear-to-*`.
 
-```gitignore
-# ── Build output ─────────────────────────────────────────────────────────────
-dist/
-.output/
+| ❌ Tailwind v3 (never use) | ✅ Tailwind v4 (always use) |
+|---|---|
+| `bg-gradient-to-t` | `bg-linear-to-t` |
+| `bg-gradient-to-b` | `bg-linear-to-b` |
+| `bg-gradient-to-r` | `bg-linear-to-r` |
+| `bg-gradient-to-l` | `bg-linear-to-l` |
+| `bg-gradient-to-tr` | `bg-linear-to-tr` |
+| `bg-gradient-to-br` | `bg-linear-to-br` |
+| `bg-gradient-to-tl` | `bg-linear-to-tl` |
+| `bg-gradient-to-bl` | `bg-linear-to-bl` |
 
-# ── Astro generated types ─────────────────────────────────────────────────────
-.astro/
+`from-*`, `via-*`, and `to-*` stop utilities are **unchanged** between v3 and v4.
 
-# ── Dependencies ──────────────────────────────────────────────────────────────
-node_modules/
+```astro
+<!-- ❌ v3 — never -->
+<div class="bg-gradient-to-b from-primary to-transparent">
 
-# ── pnpm store (belongs in ~/Library/pnpm/store, not project root) ────────────
-.pnpm-store/
-
-# ── Lockfiles: keep pnpm-lock.yaml, ignore npm/yarn ──────────────────────────
-package-lock.json
-yarn.lock
-
-# ── Environment variables ─────────────────────────────────────────────────────
-.env
-.env.*
-!.env.example
-
-# ── Logs ─────────────────────────────────────────────────────────────────────
-*.log
-npm-debug.log*
-yarn-debug.log*
-pnpm-debug.log*
-
-# ── Netlify CLI cache ─────────────────────────────────────────────────────────
-.netlify/
-
-# ── macOS ─────────────────────────────────────────────────────────────────────
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# ── Cursor IDE ────────────────────────────────────────────────────────────────
-# Commit .cursor/rules/ — do not commit generated cache
-.cursor/cache/
-
-# ── Testing ───────────────────────────────────────────────────────────────────
-playwright-report/
-test-results/
+<!-- ✅ v4 — always -->
+<div class="bg-linear-to-b from-primary to-transparent">
 ```
+
+Radial and conic gradients also follow the new naming:
+`bg-radial`, `bg-conic` (not `bg-gradient-radial` / `bg-gradient-conic`).
+
+---
+
+## Three-tier hierarchy (most → least preferred)
+
+```astro
+<!-- 1. Canonical token class — always prefer this for @theme variables -->
+<div class="bg-primary text-text-muted rounded-md">
+
+<!-- 2. CSS variable shorthand — only for non-@theme variables -->
+<div class="bg-(--some-runtime-color)">
+
+<!-- 3. Arbitrary value — only for one-off values with no token -->
+<div class="bg-[#ff0099]">
+```
+
+---
+
+## Plain CSS inside `<style>` blocks
+
+In `<style>` blocks, always use `var()` — the shorthand syntax is for class attributes only:
+
+```astro
+<style>
+  /* ✅ correct in CSS */
+  .card { background: var(--color-surface); }
+
+  /* ❌ wrong — (--x) shorthand only works in Tailwind class strings */
+  .card { background: (--color-surface); }
+</style>
+```
+
+---
+
+## Adding a new design token
+
+1. Add variable to `@theme` in `src/styles/theme.css`
+2. Add matching value in `src/config/brand.ts`
+3. Use the auto-generated canonical class immediately — no extra config needed
 
 ---
 > Source: [alancuenca/small-business-starter](https://github.com/alancuenca/small-business-starter) — distributed by [TomeVault](https://tomevault.io).
