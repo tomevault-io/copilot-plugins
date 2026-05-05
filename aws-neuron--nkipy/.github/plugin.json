@@ -1,0 +1,14 @@
+{
+  "name": "aws-neuron--nkipy",
+  "displayName": "nkipy",
+  "description": "NKIPy: Rapid Prototyping on Trainium",
+  "version": "1.0.0",
+  "author": "aws-neuron",
+  "homepage": "https://github.com/aws-neuron/nkipy",
+  "skills": [
+    {
+      "name": "add-op",
+      "description": ""
+    }
+  ]
+}
