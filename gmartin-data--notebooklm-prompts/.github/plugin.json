@@ -1,0 +1,9 @@
+{
+  "name": "gmartin-data--notebooklm-prompts",
+  "displayName": "notebooklm-prompts",
+  "description": "A collection of NotebookLM prompt templates",
+  "version": "1.0.0",
+  "author": "GMartin-Data",
+  "homepage": "https://github.com/GMartin-Data/notebooklm-prompts",
+  "skills": []
+}
