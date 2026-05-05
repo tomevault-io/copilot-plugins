@@ -1,39 +1,24 @@
-## aperture
+## aperture-project
 
-> **Aperture** is open-source AI visibility infrastructure: it tracks how brands appear (or don’t) across ChatGPT, Perplexity, and other LLM-powered search engines. Self-hosted, bring your own API keys.
+> Aperture project context, stack, and code conventions
 
-# AGENTS.md — Context for AI Assistants
 
-**Aperture** is open-source AI visibility infrastructure: it tracks how brands appear (or don’t) across ChatGPT, Perplexity, and other LLM-powered search engines. Self-hosted, bring your own API keys.
+# Aperture — Project Rules
 
-## Stack
+**What it is:** Open-source AI visibility infrastructure. Tracks how brands appear in ChatGPT, Perplexity, and other LLM-powered search. Self-hosted, BYOK. FastAPI backend + React/TypeScript frontend.
 
-| Layer   | Tech |
-|--------|------|
-| Backend | Python 3, FastAPI, SQLAlchemy, Pydantic |
-| Frontend | TypeScript, React, Vite, Tailwind CSS |
-| Run     | Docker Compose (optional); can run backend/frontend locally |
+**Layout:**
+- `backend/app/` — FastAPI app: `main.py`, `database.py`, `models.py`, `schemas.py`, `routers/`, `services/` (including `services/llm/` for providers)
+- `backend/tests/` — pytest; add tests here for new backend functionality
+- `frontend/src/` — React app: `App.tsx`, `api/`, `components/`, `pages/`, `types/`
 
-## Where to Look
+**Backend (Python):** PEP 8, type hints throughout, docstrings for public functions. Small, focused functions. New LLM provider: add `backend/app/services/llm/<provider>_service.py`, wire in `audit_service.py` and `routers/audits.py`, then frontend in `Audits.tsx` and `Settings.tsx`.
 
-- **API & app entry:** `backend/app/main.py`
-- **DB models & schemas:** `backend/app/models.py`, `backend/app/schemas.py`
-- **API routes:** `backend/app/routers/` (brands, queries, audits, results, settings)
-- **Business logic:** `backend/app/services/` — `audit_service.py`, `analysis.py`, `services/llm/*.py` for each provider
-- **Tests:** `backend/tests/` (pytest)
-- **Frontend:** `frontend/src/` — `App.tsx`, `pages/`, `components/`, `api/`, `types/`
+**Frontend (TypeScript/React):** Strict mode, functional components + hooks only, Tailwind for styling, no inline styles. Keep components focused.
 
-## Run & Test
+**Commits:** Conventional — `feat:`, `fix:`, `docs:`, `test:`, `refactor:`, `chore:`.
 
-- **Full stack:** `docker compose up -d` → UI http://localhost:3000, API http://localhost:8000
-- **Backend dev:** `cd backend && pip install -r requirements.txt && uvicorn app.main:app --reload`
-- **Frontend dev:** `cd frontend && pnpm install && pnpm run dev`
-- **Backend tests:** `cd backend && pytest tests/ -v`
-- **Frontend build:** `cd frontend && pnpm run build`
-
-## Conventions
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for code style (PEP 8, type hints, docstrings; TS strict, functional components, Tailwind). See [DOCS.md](DOCS.md) for architecture and configuration.
+**Run:** `docker compose up -d` (UI :3000, API :8000). Dev: backend `uvicorn app.main:app --reload`, frontend `pnpm run dev`. Tests: `cd backend && pytest tests/ -v`. Build check: `cd frontend && pnpm run build`.
 
 ---
 > Source: [anyin-ai/aperture](https://github.com/anyin-ai/aperture) — distributed by [TomeVault](https://tomevault.io).
