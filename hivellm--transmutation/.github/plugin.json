@@ -1,0 +1,9 @@
+{
+  "name": "hivellm--transmutation",
+  "displayName": "transmutation",
+  "description": "Transmutation is a Rust-based document conversion module designed to transform various file formats into optimized text and image outputs suitable for LLM processing and vector embeddings. Built as a ",
+  "version": "1.0.0",
+  "author": "hivellm",
+  "homepage": "https://github.com/hivellm/transmutation",
+  "skills": []
+}
