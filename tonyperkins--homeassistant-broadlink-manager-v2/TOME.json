@@ -2,7 +2,7 @@
   "name": "homeassistant-broadlink-manager-v2",
   "owner": "tonyperkins",
   "repo": "homeassistant-broadlink-manager-v2",
-  "description": "",
+  "description": "VUE Based Broadlink Manager",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tonyperkins/homeassistant-broadlink-manager-v2",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:39:57Z"
+  "distributed_at": "2026-05-05T18:01:38Z"
 }
