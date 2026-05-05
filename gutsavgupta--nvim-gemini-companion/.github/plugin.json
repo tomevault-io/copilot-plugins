@@ -1,0 +1,9 @@
+{
+  "name": "gutsavgupta--nvim-gemini-companion",
+  "displayName": "nvim-gemini-companion",
+  "description": "A Neovim plugin to integrate Gemini CLI well (+ Qwen-code now)",
+  "version": "1.0.0",
+  "author": "gutsavgupta",
+  "homepage": "https://github.com/gutsavgupta/nvim-gemini-companion",
+  "skills": []
+}
