@@ -1,0 +1,44 @@
+{
+  "name": "marktoflow",
+  "owner": "marktoflow",
+  "repo": "marktoflow",
+  "description": "Automation frameworks shouldn't fight you. Marktoflow is CLI-native automation with the power of AI agents. Write workflows in markdown+YAML, execute with Claude Code,    GitHub Copilot, Codex, or OpenCode \u2014 no AI API keys required. 39 direct SDK integrations, visual designer UI, and full MCP compatibility. Simple to write, powerful to run.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/marktoflow/marktoflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T12:35:16Z"
+}
