@@ -1,44 +1,51 @@
-## 01-resolver
+## 02-policy
 
-> Use when discussing condition resolvers, escrow release logic, isConditionMet, onConditionSet, zkTLS, Reclaim proofs, oracles, Chainlink, UMA, multi-signature, time lock, verification sources
+> Use when discussing insurance policies, risk scores, disputes, FHE encryption, evaluateRisk, judge, euint64, ebool, underwriter, coverage, premium, basis points
 
 
-# Protocol — Condition Resolvers
+# Protocol — Insurance Policies
 
-Guide for designing and implementing IConditionResolver contracts that control when escrows release funds.
+Guide for designing and implementing IUnderwriterPolicy contracts that evaluate risk and judge disputes using FHE.
 
 ## The Interface
 
 ```solidity
-interface IConditionResolver {
-    function isConditionMet(uint256 escrowId) external view returns (bool);
-    function onConditionSet(uint256 escrowId, bytes calldata data) external;
+import { euint64, ebool } from '@fhenixprotocol/cofhe-contracts/FHE.sol';
+
+interface IUnderwriterPolicy {
+    function onPolicySet(uint256 coverageId, bytes calldata data) external;
+    function evaluateRisk(uint256 escrowId, bytes calldata riskProof) external returns (euint64 riskScore);
+    function judge(uint256 coverageId, bytes calldata disputeProof) external returns (ebool valid);
 }
 ```
 
 ## Rules
 
-- `isConditionMet` MUST be `view` — no state changes, no gas surprises
-- `onConditionSet` runs once — validate inputs strictly, store config
-- Support ERC-165: `supportsInterface(type(IConditionResolver).interfaceId)`
-- One escrow ID -> one condition state (replay protection)
-- Keep `isConditionMet` gas under 50k — called on every redeem attempt
+- Return values MUST be FHE-encrypted (`euint64`, `ebool`)
+- Always call `FHE.allowThis(value)` and `FHE.allow(value, msg.sender)` on return values
+- Support ERC-165: `supportsInterface(type(IUnderwriterPolicy).interfaceId)`
+- Risk score: 0-10000 basis points (100 = 1%, 500 = 5%, 1000 = 10%)
+- `judge()` receives arbitrary proof bytes — decode and validate them
 
-## Storage Pattern
+## FHE Pattern (MUST follow exactly)
 
 ```solidity
-mapping(uint256 => YourConfigStruct) public configs;
+import { FHE, euint64, ebool } from '@fhenixprotocol/cofhe-contracts/FHE.sol';
 
-function onConditionSet(uint256 escrowId, bytes calldata data) external {
-    YourConfigStruct memory config = abi.decode(data, (YourConfigStruct));
-    // validate config fields
-    configs[escrowId] = config;
+function evaluateRisk(uint256, bytes calldata) external returns (euint64) {
+    uint64 score = 500; // 5% premium
+    euint64 encrypted = FHE.asEuint64(score);
+    FHE.allowThis(encrypted); // allow this contract to use value
+    FHE.allow(encrypted, msg.sender); // allow caller (protocol) to use value
+    return encrypted;
 }
 
-function isConditionMet(uint256 escrowId) external view returns (bool) {
-    YourConfigStruct memory config = configs[escrowId];
-    // evaluate condition against config
-    return /* condition logic */;
+function judge(uint256, bytes calldata) external returns (ebool) {
+    bool isValid = true;
+    ebool encrypted = FHE.asEbool(isValid);
+    FHE.allowThis(encrypted);
+    FHE.allow(encrypted, msg.sender);
+    return encrypted;
 }
 ```
 
@@ -48,53 +55,22 @@ function isConditionMet(uint256 escrowId) external view returns (bool) {
 import { ERC165 } from '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 
 function supportsInterface(bytes4 interfaceId) public view override returns (bool) {
-    return interfaceId == type(IConditionResolver).interfaceId || super.supportsInterface(interfaceId);
+    return interfaceId == type(IUnderwriterPolicy).interfaceId || super.supportsInterface(interfaceId);
 }
 ```
 
-## Verification Data Sources
+## Design Guidelines
 
-### zkTLS (Reclaim Protocol)
-
-- Proves HTTPS endpoint returned expected data (PayPal, Stripe, bank APIs)
-- Proof verified on-chain via Reclaim verifier (address from MCP or protocol docs)
-- Pattern: buyer generates proof off-chain -> submits to resolver -> resolver verifies + marks fulfilled
-- Storage: `mapping(uint256 => bool) public fulfilled` + `mapping(bytes32 => bool) public usedProofs`
-
-### Oracle (Chainlink)
-
-- Reads price feeds deployed natively on Arbitrum
-- Feed addresses: query MCP or protocol docs (e.g. ETH/USD has 8 decimals)
-- `isConditionMet` calls `IChainlinkFeed.latestRoundData()` and checks threshold
-- Always validate staleness: `require(block.timestamp - updatedAt <= maxStaleness)`
-- Interface: `function latestRoundData() returns (uint80, int256 answer, uint256, uint256 updatedAt, uint80)`
-
-### Prediction Markets (UMA)
-
-- Resolves binary or numeric outcomes via Optimistic Oracle
-- UMA OO V3 address: query MCP or protocol docs
-- `isConditionMet` calls `hasPrice()` then `getPrice()` and compares to required outcome
-- Resolution values: `1e18` = YES, `0` = NO
-
-### Multi-Signature
-
-- N-of-M approval pattern
-- Storage: `mapping(uint256 => mapping(address => bool)) public approvals`
-- `isConditionMet` counts approvals >= threshold
-- `onConditionSet` stores signers array and threshold
-
-### Time Lock
-
-- Simplest pattern: `block.timestamp >= deadline`
-- `onConditionSet` stores deadline, validates it's in the future
+- Design a tiered risk model with at least 3 tiers
+- Document the basis-point scale (100 bps = 1%)
+- Design dispute validation with at least 3 rules (time window, proof presence, proof validity)
+- Use custom errors over require strings
 
 ## Common Mistakes
 
-1. Making `isConditionMet` non-view — causes protocol revert
-2. Not validating `onConditionSet` inputs — permanently broken escrow
-3. Trusting user-supplied addresses in view calls — store and validate in `onConditionSet`
-4. No replay protection for proof-based resolvers — track `usedProofs[keccak256(proof)]`
-5. Unbounded gas in `isConditionMet` — no loops or multiple external calls
+1. Forgetting `FHE.allowThis()` — transaction succeeds but value is unusable by protocol
+2. Returning plaintext instead of encrypted values — breaks the interface
+3. Not validating dispute proof structure in `judge()` — arbitrary bytes can cause unexpected behavior
 
 ---
 > Source: [ReineiraOS/reineira-code](https://github.com/ReineiraOS/reineira-code) — distributed by [TomeVault](https://tomevault.io).
