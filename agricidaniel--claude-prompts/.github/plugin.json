@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--claude-prompts",
+  "displayName": "claude-prompts",
+  "description": "AI prompt database and builder skill for Claude Code. 2,500+ curated prompts across 19 categories and 17 AI models.",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/claude-prompts",
+  "skills": []
+}
