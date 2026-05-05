@@ -1,0 +1,70 @@
+{
+  "name": "maragudk--skills",
+  "displayName": "skills",
+  "description": "Skills for AI agents.",
+  "version": "1.0.0",
+  "author": "maragudk",
+  "homepage": "https://github.com/maragudk/skills",
+  "skills": [
+    {
+      "name": "bluesky",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "collaboration",
+      "description": ""
+    },
+    {
+      "name": "datastar",
+      "description": ""
+    },
+    {
+      "name": "decisions",
+      "description": ""
+    },
+    {
+      "name": "design-doc",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "description": ""
+    },
+    {
+      "name": "go",
+      "description": ""
+    },
+    {
+      "name": "gomponents",
+      "description": ""
+    },
+    {
+      "name": "marimo",
+      "description": ""
+    },
+    {
+      "name": "nanobanana",
+      "description": ""
+    },
+    {
+      "name": "save-web-page",
+      "description": ""
+    },
+    {
+      "name": "sql",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "description": ""
+    }
+  ]
+}
