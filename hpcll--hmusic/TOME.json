@@ -1,0 +1,44 @@
+{
+  "name": "HMusic",
+  "owner": "hpcll",
+  "repo": "HMusic",
+  "description": "HMusic - \u667a\u80fd\u97f3\u4e50\u64ad\u653e\u5668\uff0c\u652f\u6301\u5c0f\u7c73 AI \u97f3\u7bb1\u76f4\u8fde\u6a21\u5f0f",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hpcll/HMusic",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T09:24:22Z"
+}
