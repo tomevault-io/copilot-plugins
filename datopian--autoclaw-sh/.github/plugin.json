@@ -1,0 +1,9 @@
+{
+  "name": "datopian--autoclaw-sh",
+  "displayName": "autoclaw.sh",
+  "description": "Open-Source Playbook for Agent (OpenClaw) Deployment",
+  "version": "1.0.0",
+  "author": "datopian",
+  "homepage": "https://github.com/datopian/autoclaw.sh",
+  "skills": []
+}
