@@ -1,0 +1,9 @@
+{
+  "name": "bolivian-peru--os-moda",
+  "displayName": "os-moda",
+  "description": "Your server fixes itself at 3am. You sleep. AI-native operating system built on NixOS.",
+  "version": "1.0.0",
+  "author": "bolivian-peru",
+  "homepage": "https://github.com/bolivian-peru/os-moda",
+  "skills": []
+}
