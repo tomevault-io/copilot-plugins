@@ -1,0 +1,9 @@
+{
+  "name": "fawdyinc--shellguard",
+  "displayName": "shellguard",
+  "description": "MCP server that gives LLM agents read-only shell access over SSH. Powers Fawdy (fawdy.com)",
+  "version": "1.0.0",
+  "author": "fawdyinc",
+  "homepage": "https://github.com/fawdyinc/shellguard",
+  "skills": []
+}
