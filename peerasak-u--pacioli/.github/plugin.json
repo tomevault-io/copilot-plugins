@@ -1,0 +1,14 @@
+{
+  "name": "peerasak-u--pacioli",
+  "displayName": "pacioli",
+  "description": "CLI tool for generating professional invoices, quotations, and receipts as PDF files for freelance work",
+  "version": "1.0.0",
+  "author": "peerasak-u",
+  "homepage": "https://github.com/peerasak-u/pacioli",
+  "skills": [
+    {
+      "name": "pacioli",
+      "description": ""
+    }
+  ]
+}
