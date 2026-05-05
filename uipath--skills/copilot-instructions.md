@@ -1,17 +1,17 @@
-## content-quality
+## pr-review
 
-> Writing standards for AI-agent-facing documentation in skills and references
+> Pull request review checklist for new skills, skill modifications, and hook changes — invoke when reviewing or creating a PR
 
 
-Primary audience is AI coding agents, not humans. Be prescriptive ("Run X") not descriptive ("You could run X"). Include exact CLI commands with all required flags. Use `--output json` on any command whose output the agent parses. Specify what to do when a command fails, not just the happy path. Number rules — agents follow numbered lists more reliably than prose. Include anti-patterns — "what NOT to do" prevents the most expensive mistakes.
+**New skill checklist:** folder under `skills/uipath-<kebab-case>/`; `SKILL.md` present with valid YAML frontmatter; `name` matches folder name; `description` under 1024 chars; Critical Rules numbered; no cross-skill references; reference files kebab-case; all relative links resolve; CODEOWNERS updated; no secrets or personal paths committed.
 
-Markdown: ATX headers (`#`, `##`), no underline-style. Fenced code blocks with language identifiers (` ```bash `, ` ```yaml `, ` ```csharp `, ` ```json `). Tables for structured data. `>` blockquotes for warnings. Heading hierarchy must not skip levels.
+**Existing skill modification checklist:** frontmatter still valid; Critical Rules not removed without justification in PR description; no new cross-skill dependencies; reference naming preserved; changes scoped to the skill being modified (no unrelated edits).
 
-CLI docs: use `<PLACEHOLDER>` (angle brackets, UPPER_SNAKE_CASE) for user-provided values. Specify required vs optional flags. Shell commands must use Unix syntax (never `del`/`dir`/`nul`); escape backslashes in Windows paths (`C:\\path\\file.txt`).
+**Hook changes checklist:** cross-platform (Windows, macOS, Linux); `bash` syntax (not cmd.exe or PowerShell); safe to run multiple times; appropriate timeout configured in `hooks.json`; no hardcoded OS-specific paths.
 
-Do NOT include: marketing language, version-specific facts that will go stale (link to latest docs instead), duplicate content across files, auto-generated `--help` output, images or binary files.
+**Conventions:** branches `feat/<description>`, `fix/<description>`, `docs/<description>`; commit messages imperative mood, describe "why" not just "what"; one logical change per PR.
 
-Full reference: `.claude/rules/content-quality.md`.
+Full reference: `.claude/rules/pr-review.md`.
 
 ---
 > Source: [UiPath/skills](https://github.com/UiPath/skills) — distributed by [TomeVault](https://tomevault.io).
