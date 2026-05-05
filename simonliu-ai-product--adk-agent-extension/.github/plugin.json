@@ -1,0 +1,9 @@
+{
+  "name": "simonliu-ai-product--adk-agent-extension",
+  "displayName": "adk-agent-extension",
+  "description": "This is the Google ADK Agent Application - Gemini CLI Extension Project.",
+  "version": "1.0.0",
+  "author": "simonliu-ai-product",
+  "homepage": "https://github.com/simonliu-ai-product/adk-agent-extension",
+  "skills": []
+}
