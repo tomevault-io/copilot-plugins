@@ -1,0 +1,9 @@
+{
+  "name": "mrded--ha-air-comfort-card",
+  "displayName": "ha-air-comfort-card",
+  "description": "A custom Home Assistant card that visualises indoor air comfort using temperature and humidity",
+  "version": "1.0.0",
+  "author": "mrded",
+  "homepage": "https://github.com/mrded/ha-air-comfort-card",
+  "skills": []
+}
