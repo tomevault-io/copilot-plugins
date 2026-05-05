@@ -1,0 +1,9 @@
+{
+  "name": "dl1683--latent-space-reasoning",
+  "displayName": "Latent-Space-Reasoning",
+  "description": "Teaching LLMs to reason in the Latent Space to precondition responses. ",
+  "version": "1.0.0",
+  "author": "dl1683",
+  "homepage": "https://github.com/dl1683/Latent-Space-Reasoning",
+  "skills": []
+}
