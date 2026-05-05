@@ -1,0 +1,9 @@
+{
+  "name": "soundblaster--xcodemcpwrapper",
+  "displayName": "XcodeMCPWrapper",
+  "description": "MCP that makes Xcode 26.3's MCP compatible with Cursor and other strict MCP-spec-compliant clients",
+  "version": "1.0.0",
+  "author": "SoundBlaster",
+  "homepage": "https://github.com/SoundBlaster/XcodeMCPWrapper",
+  "skills": []
+}
