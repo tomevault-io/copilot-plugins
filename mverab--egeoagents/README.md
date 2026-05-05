@@ -7,11 +7,11 @@ Generative Engine Optimization skills for AI agents. Optimize content for ChatGP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mverab/eGEOagents](https://github.com/mverab/eGEOagents).
+Original source: `CLAUDE.md` in [mverab/eGEOagents](https://github.com/mverab/eGEOagents).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
