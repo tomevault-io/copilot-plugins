@@ -1,0 +1,9 @@
+{
+  "name": "cparsell--sidenotes",
+  "displayName": "sidenotes",
+  "description": "Obsidian Sidenotes - a CSS snippet and a plugin that handles some things CSS can't",
+  "version": "1.0.0",
+  "author": "cparsell",
+  "homepage": "https://github.com/cparsell/sidenotes",
+  "skills": []
+}
