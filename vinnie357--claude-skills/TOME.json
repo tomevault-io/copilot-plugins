@@ -1,0 +1,93 @@
+{
+  "name": "claud",
+  "owner": "vinnie357",
+  "repo": "claude-skills",
+  "description": "claude code skills",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-patterns",
+      "path": "skills/agent-patterns",
+      "github_url": "https://github.com/vinnie357/claude-skills/tree/main/skills/agent-patterns",
+      "description": ""
+    },
+    {
+      "name": "command-patterns",
+      "path": "skills/command-patterns",
+      "github_url": "https://github.com/vinnie357/claude-skills/tree/main/skills/command-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "path": "skills/code-quality",
+      "github_url": "https://github.com/vinnie357/claude-skills/tree/main/skills/code-quality",
+      "description": ""
+    },
+    {
+      "name": "project-discovery",
+      "path": "skills/project-discovery",
+      "github_url": "https://github.com/vinnie357/claude-skills/tree/main/skills/project-discovery",
+      "description": ""
+    },
+    {
+      "name": "requirements",
+      "path": "skills/requirements",
+      "github_url": "https://github.com/vinnie357/claude-skills/tree/main/skills/requirements",
+      "description": ""
+    },
+    {
+      "name": "research-methodology",
+      "path": "skills/research-methodology",
+      "github_url": "https://github.com/vinnie357/claude-skills/tree/main/skills/research-methodology",
+      "description": ""
+    },
+    {
+      "name": "task-breakdown",
+      "path": "skills/task-breakdown",
+      "github_url": "https://github.com/vinnie357/claude-skills/tree/main/skills/task-breakdown",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "skills/documentation",
+      "github_url": "https://github.com/vinnie357/claude-skills/tree/main/skills/documentation",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vinnie357/claude-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:54:24Z"
+}
