@@ -1,0 +1,9 @@
+{
+  "name": "guyskk--claude-code-supervisor",
+  "displayName": "claude-code-supervisor",
+  "description": "Auto-review and iterate until quality work is delivered - a better alternative to ralph-claude-code. Switch between multiple Claude Code providers (Kimi, GLM, MiniMax, etc.) with a single command.",
+  "version": "1.0.0",
+  "author": "guyskk",
+  "homepage": "https://github.com/guyskk/claude-code-supervisor",
+  "skills": []
+}
