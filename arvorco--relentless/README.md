@@ -7,11 +7,11 @@ Universal AI Agent Orchestrator - Run any AI coding agent (Claude Code, Amp, Ope
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ArvorCo/Relentless](https://github.com/ArvorCo/Relentless).
+Original source: `CLAUDE.md` in [ArvorCo/Relentless](https://github.com/ArvorCo/Relentless).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
