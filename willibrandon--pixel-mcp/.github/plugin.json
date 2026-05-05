@@ -1,0 +1,9 @@
+{
+  "name": "willibrandon--pixel-mcp",
+  "displayName": "pixel",
+  "description": "MCP server for creating pixel art with Aseprite through AI assistants. Supports animation, retro palettes, dithering, shading, and spritesheet export.",
+  "version": "1.0.0",
+  "author": "willibrandon",
+  "homepage": "https://github.com/willibrandon/pixel-mcp",
+  "skills": []
+}
