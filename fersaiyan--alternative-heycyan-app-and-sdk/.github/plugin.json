@@ -1,0 +1,9 @@
+{
+  "name": "fersaiyan--alternative-heycyan-app-and-sdk",
+  "displayName": "Alternative-HeyCyan-App-and-SDK",
+  "description": "This repo is focused on an alternative HeyCyan app and SDK, since other repos dont have android versions that compile successfully",
+  "version": "1.0.0",
+  "author": "FerSaiyan",
+  "homepage": "https://github.com/FerSaiyan/Alternative-HeyCyan-App-and-SDK",
+  "skills": []
+}
