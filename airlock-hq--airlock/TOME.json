@@ -4,7 +4,7 @@
   "repo": "airlock",
   "description": "All slop must die. Airlock is where every git push turns into a slop-free PR.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/airlock-hq/airlock",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T14:59:57Z"
+  "distributed_at": "2026-05-05T00:48:54Z"
 }
