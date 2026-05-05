@@ -1,76 +1,124 @@
-## 02-policy
+## 03-testing
 
-> Use when discussing insurance policies, risk scores, disputes, FHE encryption, evaluateRisk, judge, euint64, ebool, underwriter, coverage, premium, basis points
+> Use when writing tests, test files, hardhat test, fixtures, loadFixture, cofhe initialization, time manipulation, ABI encoding for test data
 
 
-# Protocol — Insurance Policies
+# Testing Patterns
 
-Guide for designing and implementing IUnderwriterPolicy contracts that evaluate risk and judge disputes using FHE.
+## Resolver Tests (no FHE needed)
 
-## The Interface
+```typescript
+import hre from 'hardhat';
+import { expect } from 'chai';
+import { loadFixture } from '@nomicfoundation/hardhat-network-helpers';
+import { time } from '@nomicfoundation/hardhat-network-helpers';
 
-```solidity
-import { euint64, ebool } from '@fhenixprotocol/cofhe-contracts/FHE.sol';
+describe('MyResolver', function () {
+    async function deployFixture() {
+        const resolver = await hre.viem.deployContract('MyResolver');
+        return { resolver };
+    }
 
-interface IUnderwriterPolicy {
-    function onPolicySet(uint256 coverageId, bytes calldata data) external;
-    function evaluateRisk(uint256 escrowId, bytes calldata riskProof) external returns (euint64 riskScore);
-    function judge(uint256 coverageId, bytes calldata disputeProof) external returns (ebool valid);
-}
+    it('should store config on onConditionSet', async function () {
+        const { resolver } = await loadFixture(deployFixture);
+        const data = hre.viem.encodePacked(/* your config encoding */);
+        await resolver.write.onConditionSet([0n, data]);
+        // assert stored state
+    });
+
+    it('should return false before condition met', async function () {
+        const { resolver } = await loadFixture(deployFixture);
+        expect(await resolver.read.isConditionMet([0n])).to.equal(false);
+    });
+
+    it('should return true after condition met', async function () {
+        const { resolver } = await loadFixture(deployFixture);
+        // trigger condition
+        expect(await resolver.read.isConditionMet([0n])).to.equal(true);
+    });
+});
 ```
 
-## Rules
+## Policy Tests (FHE required)
 
-- Return values MUST be FHE-encrypted (`euint64`, `ebool`)
-- Always call `FHE.allowThis(value)` and `FHE.allow(value, msg.sender)` on return values
-- Support ERC-165: `supportsInterface(type(IUnderwriterPolicy).interfaceId)`
-- Risk score: 0-10000 basis points (100 = 1%, 500 = 5%, 1000 = 10%)
-- `judge()` receives arbitrary proof bytes — decode and validate them
+```typescript
+import hre from 'hardhat';
+import { ethers } from 'hardhat';
+import { expect } from 'chai';
 
-## FHE Pattern (MUST follow exactly)
+describe('MyPolicy', function () {
+    before(async function () {
+        // REQUIRED: initialize FHE mock backend
+        const [signer] = await ethers.getSigners();
+        await hre.cofhe.initializeWithHardhatSigner(signer);
+    });
 
-```solidity
-import { FHE, euint64, ebool } from '@fhenixprotocol/cofhe-contracts/FHE.sol';
+    it('should return encrypted risk score', async function () {
+        const policy = await hre.viem.deployContract('MyPolicy');
+        // evaluateRisk returns encrypted value — test that it doesn't revert
+        await policy.write.evaluateRisk([0n, '0x']);
+    });
 
-function evaluateRisk(uint256, bytes calldata) external returns (euint64) {
-    uint64 score = 500; // 5% premium
-    euint64 encrypted = FHE.asEuint64(score);
-    FHE.allowThis(encrypted); // allow this contract to use value
-    FHE.allow(encrypted, msg.sender); // allow caller (protocol) to use value
-    return encrypted;
-}
-
-function judge(uint256, bytes calldata) external returns (ebool) {
-    bool isValid = true;
-    ebool encrypted = FHE.asEbool(isValid);
-    FHE.allowThis(encrypted);
-    FHE.allow(encrypted, msg.sender);
-    return encrypted;
-}
+    it('should judge disputes', async function () {
+        const policy = await hre.viem.deployContract('MyPolicy');
+        const proof = ethers.AbiCoder.defaultAbiCoder().encode(
+            ['bool', 'uint256'],
+            [true, Math.floor(Date.now() / 1000)]
+        );
+        await policy.write.judge([0n, proof]);
+    });
+});
 ```
 
-## ERC-165 Support
+## Time Manipulation
 
-```solidity
-import { ERC165 } from '@openzeppelin/contracts/utils/introspection/ERC165.sol';
+```typescript
+import { time } from '@nomicfoundation/hardhat-network-helpers';
 
-function supportsInterface(bytes4 interfaceId) public view override returns (bool) {
-    return interfaceId == type(IUnderwriterPolicy).interfaceId || super.supportsInterface(interfaceId);
-}
+// Advance block timestamp
+await time.increaseTo(deadline);
+
+// Advance by duration
+await time.increase(86400); // 1 day
 ```
 
-## Design Guidelines
+## ABI Encoding for Resolver Data
 
-- Design a tiered risk model with at least 3 tiers
-- Document the basis-point scale (100 bps = 1%)
-- Design dispute validation with at least 3 rules (time window, proof presence, proof validity)
-- Use custom errors over require strings
+```typescript
+import { ethers } from 'hardhat';
 
-## Common Mistakes
+// Encode single value
+const data = ethers.AbiCoder.defaultAbiCoder().encode(['uint256'], [deadline]);
 
-1. Forgetting `FHE.allowThis()` — transaction succeeds but value is unusable by protocol
-2. Returning plaintext instead of encrypted values — breaks the interface
-3. Not validating dispute proof structure in `judge()` — arbitrary bytes can cause unexpected behavior
+// Encode struct-like data
+const data = ethers.AbiCoder.defaultAbiCoder().encode(
+    ['address', 'int256', 'bool', 'uint256'],
+    [feedAddress, threshold, aboveOrBelow, maxStaleness]
+);
+
+// Encode string
+const data = ethers.AbiCoder.defaultAbiCoder().encode(['string'], ['MERCHANT_ID_123']);
+```
+
+## Test Coverage Requirements
+
+### Resolver tests must cover:
+- Deployment succeeds
+- `supportsInterface` returns true for IConditionResolver
+- `onConditionSet` stores configuration correctly
+- `onConditionSet` reverts on invalid input (each validation)
+- `isConditionMet` returns false before condition met
+- `isConditionMet` returns true after condition met
+- If proof-based: `submitProof` works, reverts on replay, reverts on invalid proof
+
+### Policy tests must cover:
+- Deployment succeeds
+- `supportsInterface` returns true for IUnderwriterPolicy
+- `onPolicySet` stores configuration
+- `evaluateRisk` returns without reverting
+- `judge` returns without reverting with valid proof
+- `judge` handles invalid proof gracefully
+- `before()` hook with `hre.cofhe.initializeWithHardhatSigner(signer)`
 
 ---
 > Source: [ReineiraOS/reineira-code](https://github.com/ReineiraOS/reineira-code) — distributed by [TomeVault](https://tomevault.io).
