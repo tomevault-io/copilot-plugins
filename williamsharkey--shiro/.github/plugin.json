@@ -1,0 +1,9 @@
+{
+  "name": "williamsharkey--shiro",
+  "displayName": "shiro",
+  "description": "Browser-native cloud OS - Unix environment running entirely in the browser via WebAssembly and IndexedDB",
+  "version": "1.0.0",
+  "author": "williamsharkey",
+  "homepage": "https://github.com/williamsharkey/shiro",
+  "skills": []
+}
