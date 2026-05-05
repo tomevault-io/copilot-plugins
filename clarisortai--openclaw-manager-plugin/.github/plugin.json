@@ -1,0 +1,9 @@
+{
+  "name": "clarisortai--openclaw-manager-plugin",
+  "displayName": "openclaw-manager-plugin",
+  "description": "Claude Code plugin for intelligent OpenClaw installation, configuration, and management",
+  "version": "1.0.0",
+  "author": "ClariSortAi",
+  "homepage": "https://github.com/ClariSortAi/openclaw-manager-plugin",
+  "skills": []
+}
