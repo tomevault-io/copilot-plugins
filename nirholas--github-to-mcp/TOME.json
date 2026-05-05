@@ -4,7 +4,7 @@
   "repo": "github-to-mcp",
   "description": "Convert GitHub repositories to MCP servers automatically. Extract tools from OpenAPI, GraphQL & REST APIs for Claude Desktop, Cursor, Windsurf, Cline & VS Code. AI-powered code generation creates type-safe TypeScript/Python MCP servers. Zero config setup - just paste a repo URL. Built for AI assistants & LLM tool integration.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/github-to-mcp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T16:19:26Z"
+  "distributed_at": "2026-05-05T18:36:42Z"
 }
