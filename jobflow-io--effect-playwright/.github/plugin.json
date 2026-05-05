@@ -1,0 +1,9 @@
+{
+  "name": "jobflow-io--effect-playwright",
+  "displayName": "effect-playwright",
+  "description": "A Playwright library wrapper for effect-ts.",
+  "version": "1.0.0",
+  "author": "Jobflow-io",
+  "homepage": "https://github.com/Jobflow-io/effect-playwright",
+  "skills": []
+}
