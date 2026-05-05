@@ -1,0 +1,14 @@
+{
+  "name": "fletchgqc--agentbox",
+  "displayName": "agentbox",
+  "description": "A docker image for running AI agents in YOLO mode",
+  "version": "1.0.0",
+  "author": "fletchgqc",
+  "homepage": "https://github.com/fletchgqc/agentbox",
+  "skills": [
+    {
+      "name": "accessing-github",
+      "description": ""
+    }
+  ]
+}
