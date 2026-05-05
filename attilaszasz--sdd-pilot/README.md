@@ -7,11 +7,11 @@ Replace chaotic AI code generation with a disciplined, spec-driven workflow. SDD
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [attilaszasz/sdd-pilot](https://github.com/attilaszasz/sdd-pilot).
+Original source: `CLAUDE.md` in [attilaszasz/sdd-pilot](https://github.com/attilaszasz/sdd-pilot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
