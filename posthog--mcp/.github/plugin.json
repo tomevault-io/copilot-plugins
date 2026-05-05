@@ -1,0 +1,14 @@
+{
+  "name": "posthog--mcp",
+  "displayName": "mcp",
+  "description": "Official PostHog MCP Server \ud83e\udd94",
+  "version": "1.0.0",
+  "author": "PostHog",
+  "homepage": "https://github.com/PostHog/mcp",
+  "skills": [
+    {
+      "name": "implementing-mcp-tools",
+      "description": ""
+    }
+  ]
+}
