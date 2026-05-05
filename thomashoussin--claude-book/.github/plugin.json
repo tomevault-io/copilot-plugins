@@ -1,0 +1,9 @@
+{
+  "name": "thomashoussin--claude-book",
+  "displayName": "Claude-Book",
+  "description": "A Multi-Agent Framework for Writing Novels with Claude Code",
+  "version": "1.0.0",
+  "author": "ThomasHoussin",
+  "homepage": "https://github.com/ThomasHoussin/Claude-Book",
+  "skills": []
+}
