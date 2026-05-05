@@ -1,83 +1,94 @@
-## sqlite-store
+## tests
 
-> Patterns for working with SQLiteStore — the SQLite persistence layer
+> Conventions for writing and running Swift tests in this project
 
 
-# SQLiteStore Pattern
+# Swift Testing Conventions
 
-`Sources/sloppy/SQLiteStore.swift` is a `public actor SQLiteStore: PersistenceStore`. All reads and writes go through C SQLite3 API wrapped in `#if canImport(CSQLite3)` guards. Every method has an in-memory fallback for when SQLite is unavailable.
+## Framework
 
-## SQL execution pattern
+This project uses **Swift Testing** — not XCTest. Always import:
 
 ```swift
-let sql = """
-    INSERT INTO xxx(id, name, created_at)
-    VALUES(?, ?, ?);
-    """
-
-var statement: OpaquePointer?
-
-guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else {
-    // fallback or return
-    return
-}
-defer { sqlite3_finalize(statement) }
-
-sqlite3_bind_text(statement, 1, record.id, -1, sqliteTransient)
-sqlite3_bind_text(statement, 2, record.name, -1, sqliteTransient)
-sqlite3_bind_text(statement, 3, isoFormatter.string(from: record.createdAt), -1, sqliteTransient)
-
-sqlite3_step(statement)
+import Testing
+@testable import sloppy       // or the module under test
+@testable import Protocols
 ```
 
-## Reading rows
+## Test declaration
 
 ```swift
-var results: [XxxRecord] = []
-while sqlite3_step(statement) == SQLITE_ROW {
-    let id = String(cString: sqlite3_column_text(statement, 0))
-    let name = String(cString: sqlite3_column_text(statement, 1))
-    results.append(XxxRecord(id: id, name: name))
+// Simple test function (no suite)
+@Test
+func projectRecordDefaultsToNotArchived() throws {
+    let record = ProjectRecord(id: "x", name: "X", description: "", channels: [], tasks: [])
+    #expect(record.isArchived == false)
 }
-```
 
-## Schema migrations
-
-All DDL lives in `CorePersistenceFactory.swift` (the `schemaSQL` string passed to `SQLiteStore.init`). To add a table or column:
-
-1. Add the `CREATE TABLE IF NOT EXISTS` or `ALTER TABLE ADD COLUMN IF NOT EXISTS` statement to the schema string in `CorePersistenceFactory.swift`.
-2. Add CRUD methods to `SQLiteStore.swift` inside the `#if canImport(CSQLite3)` guard.
-3. Add in-memory fallback (`fallbackXxx` dict/array) mirroring the same logic.
-4. Declare the method signature in `PersistenceStore` protocol (`Sources/sloppy/Stores/PersistenceStore.swift`).
-
-## Null safety
-
-`sqlite3_column_text` returns `UnsafePointer<UInt8>?`. Use the optional-safe form when a column can be NULL:
-
-```swift
-let maybeText: String?
-if let ptr = sqlite3_column_text(statement, 2) {
-    maybeText = String(cString: ptr)
-} else {
-    maybeText = nil
+// Grouped in a suite
+@Suite
+struct XxxTests {
+    @Test
+    func createsSuccessfully() async throws {
+        // arrange
+        let service = makeCoreService()
+        // act
+        let result = try await service.createXxx(request: .init(name: "test"))
+        // assert
+        #expect(result.name == "test")
+    }
 }
 ```
 
-## Date handling
-
-Always use `isoFormatter` (an `ISO8601DateFormatter` instance on the actor) for binding and reading dates:
+## Assertion macros
 
 ```swift
-// bind
-sqlite3_bind_text(statement, 3, isoFormatter.string(from: date), -1, sqliteTransient)
-
-// read
-let date = isoFormatter.date(from: String(cString: sqlite3_column_text(statement, 3))) ?? Date()
+#expect(value == expected)
+#expect(throws: XxxError.notFound) { try doSomething() }
+#expect(collection.count == 3)
 ```
 
-## Actor isolation
+For async throwing code:
+```swift
+await #expect(throws: CoreService.ProjectError.notFound) {
+    try await service.getProject(id: "missing")
+}
+```
 
-`SQLiteStore` is an `actor`. All callers must `await`. Never store `OpaquePointer` outside the actor boundary.
+## Test file location
+
+| Module under test | Test target |
+|---|---|
+| `Sources/sloppy/**` | `Tests/sloppyTests/` |
+| `Sources/AgentRuntime/**` | `Tests/AgentRuntimeTests/` |
+| `Sources/Protocols/**` | `Tests/ProtocolsTests/` |
+
+Name test files after the component they test: `XxxTests.swift`.
+
+## Running tests
+
+```bash
+# Run only a specific test suite
+swift test --filter sloppyTests.XxxTests
+
+# Run a single test by exact name
+swift test --filter sloppyTests.XxxTests.createsSuccessfully
+
+# Run a whole test group (e.g. all CoreTests)
+swift test --filter CoreTests
+```
+
+Never run `swift test` without `--filter` unless verifying the full suite — prefer targeted runs.
+
+## Test setup helpers
+
+A shared helper for creating a `CoreService` with in-memory stores lives in `Tests/sloppyTests/CoreConfig+Testing.swift`. Prefer reusing it over duplicating setup logic.
+
+## Test isolation
+
+- Each test must be independent — no shared mutable state between tests.
+- Use fresh service instances per test case.
+- Avoid `sleep` / `Task.sleep` in tests; prefer deterministic async flows.
 
 ---
 > Source: [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy) — distributed by [TomeVault](https://tomevault.io).
