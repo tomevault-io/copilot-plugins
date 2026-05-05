@@ -1,0 +1,9 @@
+{
+  "name": "codingagentsystem--cas",
+  "displayName": "cas",
+  "description": "Multi-agent orchestration for Claude Code. Persistent memory, tasks, rules, and skills that make AI agents actually coordinate.",
+  "version": "1.0.0",
+  "author": "codingagentsystem",
+  "homepage": "https://github.com/codingagentsystem/cas",
+  "skills": []
+}
