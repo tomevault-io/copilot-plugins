@@ -7,11 +7,11 @@ openJiuwen agent-core provides a complete set of SDK capabilities related to AI 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [openJiuwen-ai/agent-core](https://github.com/openJiuwen-ai/agent-core).
+Original source: `CLAUDE.md` in [openJiuwen-ai/agent-core](https://github.com/openJiuwen-ai/agent-core).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
