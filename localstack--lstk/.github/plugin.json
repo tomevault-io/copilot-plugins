@@ -1,0 +1,9 @@
+{
+  "name": "localstack--lstk",
+  "displayName": "lstk",
+  "description": " \ud83d\udc7e lstk is a command-line interface for LocalStack built in Go with a modern terminal Ul, and native CLI experience for managing and interacting with LocalStack deployments.",
+  "version": "1.0.0",
+  "author": "localstack",
+  "homepage": "https://github.com/localstack/lstk",
+  "skills": []
+}
