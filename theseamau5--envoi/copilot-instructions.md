@@ -1,0 +1,349 @@
+## envoi
+
+> Envoi is a monorepo containing an SDK for building API-backed evaluation environments, a coding agent evaluation framework, and a unified CLI. It uses **uv workspaces** for Python package management.
+
+# AGENTS.md
+
+## Repository Overview
+
+Envoi is a monorepo containing an SDK for building API-backed evaluation environments, a coding agent evaluation framework, and a unified CLI. It uses **uv workspaces** for Python package management.
+
+### Packages
+
+| Package | Install name | What it does |
+|---------|-------------|--------------|
+| `packages/envoi/` | `envoi` | SDK for authoring evaluation environments (`@envoi.suite`, `@envoi.test`, `@envoi.setup`) |
+| `packages/code/` | `envoi-code` | Orchestrates coding agents against envoi environments, captures parquet traces |
+| `packages/cli/` | `envoi-cli` | Unified `envoi` CLI. Routes subcommands to the right packages |
+
+Dependency graph:
+
+```
+envoi-cli  ──→  envoi-code  ──→  envoi
+                                    ↑
+envoi-cli  ─────────────────────────┘
+```
+
+### Examples
+
+Examples live in `examples/<name>/` with colocated `task/` and `environment/` directories:
+
+```
+examples/
+├── c_compiler/
+│   ├── task/
+│   │   ├── task.py
+│   │   └── prompt.md
+│   └── environment/
+│       ├── main.py
+│       ├── Dockerfile
+│       ├── params.py
+│       └── tests/
+└── polish_notation/
+    └── environment/
+```
+
+## Vocabulary (Canonical)
+
+- `part`:
+  - Most granular observable unit in the trace.
+  - A meaningful assistant action: `reasoning`, `text`, `tool`, `tool_use`, `tool_result`, or `patch`.
+  - Global part index is the authoritative progress counter.
+  - Budgeting and limits are based on parts (`--max-parts`).
+- `turn`:
+  - One request/response loop in the orchestrator.
+  - A turn can contain many parts, one part, or zero meaningful parts.
+  - Turns are grouping metadata only, not budgeting/accounting units.
+- `step`:
+  - Forbidden term. Do not use in code/docs/logs/schema/flags/artifacts.
+- `cycle`:
+  - Forbidden term. Do not use in code/docs/logs/schema/flags/artifacts.
+  - Use `turn` for loop iterations and `part` for progress/accounting.
+
+## Why Parts Are The Source Of Truth
+
+- Parts are the highest-fidelity unit we can observe and count consistently across providers.
+- A very capable model can do huge work in one turn; turn-count budgets miss this entirely.
+- Part-level indexing gives better recovery and replay granularity than turn-only indexing.
+- Artifact and replay contracts are keyed to part indices (`checkout-part`, `part_to_commit`).
+
+## Architecture
+
+```
+envoi CLI (packages/cli/envoi_cli/main.py)
+  └─ envoi code
+       └─ modal run sandbox/modal/deploy.py
+            ├─ Orchestrator (packages/code/envoi_code/orchestrator.py)
+            ├─ AgentBackend (packages/code/envoi_code/agents/base.py)
+            │    ├─ CodexAgent (agents/codex.py) ── runs inside sandbox
+            │    └─ OpenCodeAgent (agents/opencode.py) ── runs inside sandbox
+            ├─ SandboxBackend (packages/code/envoi_code/sandbox/base.py)
+            │    ├─ ModalSandbox (sandbox/modal/backend.py)
+            │    └─ E2BSandbox (sandbox/e2b/backend.py)
+            ├─ envoi server (localhost:8000) ── test harness from environment/main.py
+            └─ MCP server (sandbox/mcp_server.py) ── bridges agent ↔ envoi
+```
+
+## Key Files
+
+### SDK (`packages/envoi/envoi/`)
+- `environment.py` — `@envoi.suite()`, `@envoi.test()`, `@envoi.setup()` decorators
+- `client.py` — `envoi.Client`, `envoi.connect()`, async session API
+- `runtime.py` — FastAPI server that hosts an environment
+- `logging.py` — shared structured logging context/callback/file sink
+- `deploy.py` — Docker-based local deployment
+- `constants.py` — Shared constants (ports, timeouts, image names)
+
+### Runner (`packages/code/envoi_code/`)
+- `orchestrator.py` — Main orchestrator. Runs inside Modal. Manages agent turns, git checkpoints, trace persistence, and session recovery.
+- `models.py` — Pydantic models: `PartRecord`, `TurnRecord`, `AgentTrace`, `SessionEnd`, `EnvoiCall`, `TestingState`, etc.
+- `agents/base.py` — `Agent` Protocol. Every agent implements this.
+- `sandbox/base.py` — `Sandbox` Protocol + `CommandResult`. Every sandbox implements this.
+- `scripts/trace.py` — CLI entrypoint. Launches orchestrator via Modal, handles auto-resume.
+- `utils/trace_parquet.py` — Parquet serialization: `agent_trace_to_rows()`, `parquet_to_trace_dict()`.
+- `utils/logs_parquet.py` — Structured logs parquet serialization.
+- `utils/storage.py` — S3 upload/download for trace and bundle artifacts.
+- `utils/git.py` — Git checkpoint operations inside the sandbox.
+- `utils/evaluation.py` — Concurrent commit evaluation against envoi.
+- `utils/parsing.py` — Parse agent responses into parts and envoi calls.
+- `utils/stream.py` — Real-time stream callback for part events.
+- `utils/solve.py` — `SolveTracker`: tracks which test paths have been solved.
+- `utils/helpers.py` — Small utilities: timestamps, text, tokens, file upload.
+
+### CLI (`packages/cli/envoi_cli/`)
+- `main.py` — Unified `envoi` command. `envoi deploy` always available; `envoi code *` available when `envoi-code` is installed.
+
+## Task Loading
+
+`orchestrator.py`'s `load_task(task_dir)` loads a task from a directory path.
+
+- **Canonical**: `task_dir/task.py` with `async def resolve_task(context)` → returns `ResolvedTask`
+- **Fallback**: `task_dir/prompt.md` only → static prompt (`task_params = {}`)
+- `en.md` is not a loader convention
+- Task prompt selection/generation is param-driven code in `task.py`
+
+Uses `importlib.util.spec_from_file_location` — task directories don't need to be Python packages.
+
+## Big Technical Decisions
+
+- **Parquet trace format**: One row per part, denormalized. Enables DuckDB cross-trace queries via S3 globbing. Nested objects stored as JSON strings.
+- **Git-first state capture**: Checkpoint commits happen only when files changed. Final `repo.bundle` makes full history portable.
+- **SDK isolation**: Agent scripts run inside the sandbox. The orchestrator talks to them via a JSON stdio surface, decoupled from agent SDK internals.
+- **Two Protocol abstractions**: `Agent` for agents, `Sandbox` for sandboxes. Swap implementations without touching the orchestrator.
+
+## ExecPlans
+
+Use an ExecPlan for any cross-package feature, significant refactor, schema or
+data-contract migration, or task with meaningful unknowns. The repo-wide
+ExecPlan contract lives in `PLANS.md`.
+
+Create or update a task-specific ExecPlan under
+`.codex/plans/<yyyy-mm-dd>-<slug>.md` when:
+
+- work spans more than one package or a package plus `examples/`,
+- work changes a public contract between `envoi`, `envoi-code`, `envoi-cli`,
+  `packages/web`, or the example environments,
+- work changes `trace.parquet`, `logs.parquet`, replay/checkpoint semantics, or
+  the canonical `part` / `turn` vocabulary,
+- work changes runtime data flow in the dashboard (`packages/web`), especially
+  S3, cache, and UI parity,
+- the task is large enough that milestones and verification need to survive
+  across multiple turns or sessions.
+
+ExecPlans are living documents. Keep `Progress`, `Decisions`, `Surprises`, and
+`Validation` current as you work. Do not treat the existing `plan.md` file as
+the repo-wide planning standard; unless a task explicitly references it, follow
+`PLANS.md`.
+
+## Monorepo Workflow
+
+Before editing:
+
+- identify the impacted package(s), downstream dependents, and any affected
+  example task/environment;
+- identify package-specific instruction files along the path;
+  `packages/web/AGENTS.md` adds stricter runtime and verification rules for the
+  dashboard;
+- write down the validation commands before changing code.
+
+Dependency-aware workflow rules:
+
+- `packages/cli` changes can affect both `packages/code` and `packages/envoi`;
+- `packages/code` changes can affect `packages/envoi` and any example
+  environment/task used for evaluation;
+- `packages/web` changes read S3/DuckDB/cache state and must respect the
+  runtime data rules in its local `AGENTS.md`;
+- `examples/` changes can invalidate assumptions in the SDK, runner, and web
+  surfaces that consume those artifacts.
+
+For non-trivial work, use multiple agents if available:
+
+- planner/tracker,
+- implementer(s) with disjoint write scopes,
+- adversarial verifier.
+
+The verifier's job is to prove the change wrong via contract drift, missing
+tests, stale docs, replay breakage, CLI routing regressions, or runtime
+S3/cache/UI mismatches.
+
+## Hard Requirements
+
+- Persist `trace.parquet` after every recorded part.
+- Create a git checkpoint immediately for any part that changed files.
+- Persist `logs.parquet` with structured logs for orchestrator/runtime/worker.
+- Flush logs periodically during run (`LOGS_FLUSH_INTERVAL_SECONDS`, `LOGS_FLUSH_BATCH_SIZE`) and force-flush on shutdown.
+
+## Code Style
+
+- Never use `# noqa` comments. Fix the underlying issue instead.
+- No leading-underscore function names. All functions are plain public names.
+- Do not use `@dataclass` for internal schemas/state containers. Use `pydantic.BaseModel` instead.
+- In TypeScript type/interface properties, always use optional syntax (`prop?: Type`) instead of union with undefined (`prop: Type | undefined`). The `| undefined` form should only appear where `?:` is not available (return types, standalone variables, function parameter types outside object literals).
+
+## Schema Policy
+
+- No deprecated fields, aliases, compatibility shims, or dual schemas.
+- If a schema or term changes, migrate and delete the old one.
+- Rule: fix or delete.
+
+## Trace Format (`trace.parquet`)
+
+One row per part, trajectory-level fields denormalized into every row.
+
+Each row records:
+- Identity: `part`, `timestamp`, `duration_ms`
+- Semantics: `role`, `part_type`, `item_type`, `summary`
+- Repository: `git_commit`, `repo_checkpoint` (commits, changed files, patch)
+- Testing: `envoi_calls` (test invocations), `testing_state` (solve progress)
+- Session end (null while in-progress): `session_end_reason`, `session_end_total_parts`
+
+`session_end_reason IS NULL` means in-progress; non-null means completed.
+
+## Artifact Contract (S3)
+
+For trajectory `<id>`:
+- `trajectories/<id>/trace.parquet` — Canonical trace (written after every part)
+- `trajectories/<id>/repo.bundle` — Full git history (uploaded at end-of-run)
+- `trajectories/<id>/logs.parquet` — Structured orchestrator/runtime/worker logs
+
+`repo.bundle` is the canonical source for repository reconstruction. `trace.parquet` maps each part to its commit via `git_commit` / `repo_checkpoint`.
+
+## CLI
+
+Command style rule:
+- Never tell this user to run `uv run envoi ...`; always use the direct CLI form `envoi ...`.
+
+Run a trajectory:
+
+```bash
+envoi code --task examples/c_compiler/task --env examples/c_compiler/environment
+envoi code --example examples/c_compiler
+```
+
+Common options:
+
+```bash
+envoi code --agent codex --max-parts 100 --task <path> --env <path>
+envoi code --agent opencode --model opencode/gpt-5-nano --task <path> --env <path>
+envoi code --sandbox e2b --task <path> --env <path>
+envoi code --preemptible --task <path> --env <path>
+envoi code --detach --task <path> --env <path>
+envoi code --timeout-seconds 10800 --task <path> --env <path>
+envoi code --test basics --task <path> --env <path>
+envoi code --test basics --test wacct/chapter_1 --task <path> --env <path>
+envoi code --test-timeout-seconds 10800 --task <path> --env <path>
+envoi code --example examples/c_compiler --param-target x86_64-linux --param-impl-lang rust --param-lang en --param-milestone M0
+envoi code --example examples/c_compiler --sandbox-cpu 8 --sandbox-memory-mb 16384
+```
+
+Run defaults:
+- `--max-parts` omitted => no part cap.
+- `--max-turns` omitted => no turn cap.
+- `--timeout-seconds` default is 7200.
+- Sandbox lifetime is `timeout + SHUTDOWN_GRACE_SECONDS` (default grace `300`) to allow end-of-run finalization.
+
+Evaluation defaults and selectors:
+- If `--test` is omitted, evaluation runs all tests (`session.test()`).
+- Repeat `--test` to evaluate multiple test paths.
+- `--test-timeout-seconds` applies to both async commit eval and blocking turn-end eval.
+- Turn-end feedback includes regression summary vs previous turn-end (`newly_broken`, `newly_fixed`, `passed_delta`).
+- Turn-end feedback includes up to 50 prioritized failed tests with full source.
+- Environment params can enable external advisor analysis in turn-end feedback.
+
+Evaluation lifecycle:
+- On each file-changing part/commit, commit eval is queued asynchronously.
+- At each turn end, a blocking workspace eval runs before the next turn prompt is built.
+- If any eval finds a winning commit (`passed == total`), the run latches to the first winner and stops.
+- On solved runs, trace/bundle outputs are projected to the winning commit (no post-win history retained).
+- On shutdown, async eval drain is bounded by `EVALUATOR_DRAIN_TIMEOUT_SECONDS` (default `30`); remaining queued/running evals are cancelled so closeout can complete.
+
+Deploy an environment locally:
+
+```bash
+envoi deploy examples/c_compiler/environment
+envoi deploy examples/c_compiler/environment --port 9000
+```
+
+Analyze:
+
+```bash
+envoi code graph <trajectory_id>
+envoi code graph <trajectory_id> --part 42 --checkout-dest ./repo_at_42
+```
+
+## How To Run
+
+```bash
+uv sync
+cp .env.example .env  # fill in credentials
+envoi code --example examples/c_compiler
+```
+
+## Validation Strategy
+
+Validate the narrowest changed surface and every downstream consumer of the
+touched contract.
+
+- `packages/envoi/`: `uv run pytest packages/envoi/tests` and, when types
+  changed, `uv run pyright -p packages/envoi/pyrightconfig.json`.
+- `packages/code/`: `uv run pytest packages/code/tests`; add targeted
+  orchestrator/trace/storage/parsing coverage when those contracts change.
+- `packages/cli/`: run the relevant `envoi ...` smoke path (at minimum
+  `envoi --help` or the changed subcommand) plus downstream tests for the
+  package it routes into.
+- `packages/web/`: `pnpm --dir packages/web lint`, `pnpm --dir packages/web test`,
+  and any live verifier required by `packages/web/AGENTS.md`.
+- `examples/` or environment/task changes: run the narrowest real
+  `envoi code ...` or `envoi deploy ...` command that exercises the changed
+  flow.
+
+Never claim success from one package's tests alone when a shared contract
+changed underneath another package.
+
+## Where To Edit What
+
+- Task prompt/task resolver: `examples/<name>/task/task.py` (canonical) or `examples/<name>/task/prompt.md` (fallback)
+- Environment harness: `examples/<name>/environment/main.py`
+- Environment runner params + optional `resolve_params(context)`: `examples/<name>/environment/params.py`
+- Test suites: `examples/<name>/environment/tests/*.py`
+- Fixture installation/provisioning: `examples/<name>/environment/Dockerfile`
+- Trace schema/capture: `packages/code/envoi_code/orchestrator.py` (main loop, `PartRecord`, `TurnRecord`)
+- Trace parquet serialization: `packages/code/envoi_code/utils/trace_parquet.py`
+- Logs parquet serialization: `packages/code/envoi_code/utils/logs_parquet.py`
+- Structured logging helpers: `packages/envoi/envoi/logging.py`
+- Agent integration: `packages/code/envoi_code/agents/codex.py`, `packages/code/envoi_code/agents/opencode.py`
+- Sandbox runtime: `packages/code/envoi_code/sandbox/modal/`, `packages/code/envoi_code/sandbox/mcp_server.py`
+- CLI launcher: `packages/code/envoi_code/scripts/trace.py`
+- Offline analysis: `packages/code/envoi_code/scripts/graph_trace.py`, `packages/code/envoi_code/scripts/offline_replay.py`
+
+## Important Gotchas
+
+- A turn may produce no new commit when files did not change.
+- `repo.bundle` is uploaded at end-of-run; if the run dies early, bundle may be missing.
+- On solved runs, `trace.parquet` is projected to the first winning commit part (no post-win parts are kept).
+- Full offline evaluation requires heavy fixtures at `/opt/tests/...`.
+- `--task` and `--env` are required path arguments — there are no defaults (unless using `--example`).
+
+---
+> Source: [TheSeamau5/envoi](https://github.com/TheSeamau5/envoi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
