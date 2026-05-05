@@ -1,97 +1,403 @@
-## architecture-essentials
+## dashboard-ui-design-principles
 
-> Essential architectural patterns and critical gotchas for RBIP duty list system
+> Design conventions for RBIP dashboard panels with flat hierarchy, progressive disclosure, and modern UX patterns.
 
+# Dashboard UI Design Principles
 
-# Architecture Essentials
+Design conventions for RBIP dashboard panels with flat hierarchy, progressive disclosure, and modern UX patterns.
 
-> **Purpose**: Critical architectural patterns and gotchas that new agents MUST know. For detailed changelog, see `CHANGELOG.md`.
+## Core Philosophy
 
-## Critical Gotchas (Top 10)
+- **Flat hierarchy**: Maximum 2 nesting levels (page → section/card)
+- **Progressive disclosure**: Show summary first, reveal details on interaction
+- **Clear confirmation**: Actions require explicit user confirmation, especially destructive ones
+- **Visual clarity**: Use spacing, dividers, and typography instead of nested borders
 
-1. **Database Type Safety (CRITICAL)**: Always use `lib/db/types.ts` utilities (`toDbLeaveType`, `programNamesToIds`, `normalizeFTE`) - TypeScript types are WIDER than database enums
-2. **staffOverrides is Single Source of Truth**: All staff modifications must update `staffOverrides`; algorithms read from it
-3. **`average_pca_per_team` / display Avg Can Change During Step 2**: The requirement-side target may change when Step 2 changes therapist distribution (Step 2.2/2.3) or special-program capacity (Step 2.0). Once Step 3/4 have been completed, any Step 2 change that alters this target must mark Steps 3/4 as **out of date** and require a rerun. For **what users see as “Avg PCA/team”** on the dashboard and Step 3.1, use the **unified projection** (`Step3ProjectionV2.displayTargetByTeam` / `getStep3AveragePcaDisplayTargets`) — do not mix ad-hoc `calculations` vs `step2Result` reads for that same label (see **Step 3 projection** below).
-4. **Bed Relieving Calculations**: Use `totalBedsEffectiveAllTeams` (after SHS/students deductions) consistently - using raw `totalBedsAllTeams` creates impossible positive global sums
-5. **Pending FTE Update Safety**: Always use `assignOneSlotAndUpdatePending()` for one-slot calls and `assignUpToPendingAndUpdatePending()` for global pending calls - never manually update `pendingFTE[team]` after calling wrappers
-6. **TypeScript Strict Mode**: Use `createEmptyTeamRecord<T>()` for Record initialization, guard clauses instead of `!`, `PromiseLike<any>[]` for Supabase queries in `Promise.all()`
-7. **Step 3 Wizard State**: Always clone state objects (`adjustedFTE`, `existingAllocations`) before modification; each mini-step progressively updates `currentPendingFTE` and `pcaAllocations`
-8. **Adjacent Slot Logic (Step 3.3)**: Only considers slots actually assigned by special programs, NOT Step 3.2 assignments
-9. **Bed Relieving Notes**: Stored in `staffOverrides.__bedRelieving` (within-day only, NOT copied across dates via copy schedule)
-10. **Snapshot Envelope**: Always use `buildBaselineSnapshotEnvelope()` before saving; always validate with `validateAndRepairBaselineSnapshot()` on load
+---
 
-## State Management Architecture
+## Layout & Hierarchy
 
-### Three-Layer State Pattern
-1. **Layer 1: Saved State** (from database) - `baseline_snapshot`, `staff_overrides`, `workflow_state`
-2. **Layer 2: Algorithm State** (generated from snapshot + overrides) - allocations, calculations
-3. **Layer 3: Override State** (user modifications) - `staffOverrides` (single source of truth)
+### Flat Structure
 
-### Key State Variables
-- **`staffOverrides`**: Single source of truth for all staff modifications
-  - `invalidSlots`: Array of `{ slot: number; timeRange: { start: string; end: string } }` (display-only)
-  - `amPmSelection`: `'AM' | 'PM'` for therapist FTE = 0.5 or 0.25
-  - `slotOverrides`: Manual slot transfers `{ slot1?, slot2?, slot3?, slot4? }`
-  - `substitutionFor`: Non-floating PCA substitution override
-  - `specialProgramOverrides`: Step 2.0 special program assignments
-  - `__bedCounts`: Schedule-level bed count overrides per team
-- **`pcaAllocations`**: `Record<Team, (PCAAllocation & { staff: Staff })[]>` - current PCA assignments
-- **`calculations`**: `Record<Team, ScheduleCalculations | null>` - metrics per team
-- **`baselineSnapshot`**: Frozen snapshot of dashboard state (per-date isolation)
+```tsx
+// ❌ Nested Card (bad)
+<Card>
+  <Card>
+    <CardHeader>Title</CardHeader>
+    <CardContent>Content</CardContent>
+  </Card>
+</Card>
 
-## Allocation Workflow (5 Steps)
+// ✅ Flat layout with dividers (good)
+<div className="space-y-6">
+  <section>
+    <h3 className="text-lg font-semibold">Section Title</h3>
+    <hr className="border-border my-4" />
+    <div>Content here</div>
+  </section>
+</div>
+```
 
-1. **Step 1**: Leave & FTE management → updates `staffOverrides`, calculates initial `average_pca_per_team` target
-2. **Step 2**: Therapist & Non-Floating PCA
-   - **2.0**: Special Program Overrides Dialog
-   - **Algorithm**: Therapist → Non-floating PCA → Special program PCA (except DRM) → Non-floating substitution
-   - **2.1**: Non-Floating PCA Substitution Dialog
-3. **Step 3**: Floating PCA wizard (3.0 → 3.1 → 3.2 → 3.3 → 3.4)
-   - **3.1**: Adjust pending FTE & team order
-   - **3.2**: Preferred slot reservation
-   - **3.3**: Adjacent slot assignment (from special program PCAs only)
-   - **3.4**: Final floating PCA algorithm
-4. **Step 4**: Bed relieving calculation
-5. **Step 5**: Review and finalization
+### Section Headers
 
-## Key Algorithm Rules
+- Use uppercase tracking for sub-section headers
+- Font: `text-xs font-semibold text-muted-foreground uppercase tracking-wide`
+- Margin: `mb-3` for headers, `mb-2` for helper text
 
-- **DRM Special Program**: DRM is NOT a special program requiring designated PCA staff. It only adds +0.4 FTE to DRO team's `average_pca_per_team`. Skip DRM during special program PCA allocation phase.
-- **Floating PCA Substitution**: Step 2 handles non-floating substitution; Step 3 should NOT assign to slots already covered by Step 2 substitutions.
-- **Rounding Consistency**: Use `roundToNearestQuarterWithMidpoint()` for pending FTE checks to prevent infinite loops.
+```tsx
+<h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">
+  SECTION HEADER
+</h4>
+```
 
-## Step 3 projection: Avg vs floating chain (essential)
+### Dividers
 
-**Full glossary (floating vs non-floating):** `docs/glossary/step3-floating-nonfloating.md`
+- Use `<hr className="border-border" />` for horizontal separation
+- Use `divide-y` or `divide-x` for lists
+- Avoid nested border containers
 
-- **`Step3ProjectionV2` / one builder:** Built when Step 2 is settled for Step 3 entry (controller); pass **one** reference into schedule page, `PCABlock`, `FloatingPCAConfigDialogV2`, etc. Do not recompute `computeStep3BootstrapSummary` in parallel with different args for the **same** dashboard vs Step 3.1 display numbers.
+---
 
-- **Display Avg (source of truth for the label):** `displayTargetByTeam` — raw average PCA per team for **every** “Avg PCA/team” style display (dashboard + Step 3.1). It is **not** the surplus-adjusted operational team total; editing Step 3.1 **fixed floating** does **not** change this display Avg.
+## Progressive Disclosure
 
-- **Non-floating FTE:** Reduces the floating gap; may use `nonFloatingFteBreakdownByTeam` / `computeStep3NonFloatingFteBreakdownByTeamFromAllocations` for engine truth while UI can still show friendly totals.
+### Collapsible Rank Groups
 
-- **Raw floating:** Continuous `Avg − non-floating` **before** quarter rounding. Surplus and slack math stay in **raw** space first; then apply quarter rules to floating layers.
+Use chevron icons with collapsible sections:
 
-- **Rounded floating at Step 3 open:** `fixedRoundedFloatingTargetByTeam` = `roundToNearestQuarterWithMidpoint(pendingByTeam)` from the **surplus-aware** bootstrap — **not** `round(displayTarget)` alone and **not** `roundedAdjustedTeamTargets` as the Step 3.1 quarter seed. After 3.1, **pending floating** in dialog state drives the allocator.
+```tsx
+// State
+const [collapsedRankGroups, setCollapsedRankGroups] = useState<Set<'therapists' | 'pca'>>(new Set(['pca']))
 
-- **Pending floating:** Set in Step 3.1 (order + ±); Steps 3.2–3.4 consume this until the user returns to 3.1.
+// Toggle handler
+const toggleRankGroup = (group: 'therapists' | 'pca') => {
+  setCollapsedRankGroups(prev => {
+    const next = new Set(prev)
+    if (next.has(group)) {
+      next.delete(group)
+    } else {
+      next.add(group)
+    }
+    return next
+  })
+}
 
-- **Assigned floating / remaining pending:** Assigned = floating FTE actually placed in 3.2–3.4; remaining pending = pending floating − assigned (quarters, clamp at ≥ 0).
+// Render
+<div className="flex items-center gap-2">
+  <button onClick={() => toggleRankGroup('therapists')}>
+    {collapsedRankGroups.has('therapists') ? (
+      <ChevronRight className="h-4 w-4" />
+    ) : (
+      <ChevronDown className="h-4 w-4" />
+    )}
+  </button>
+  <span className="text-sm font-medium">THERAPISTS</span>
+</div>
+```
 
-- **Extra coverage vs surplus:** Post-need **extra** assignments are a **separate** allocator/UI path; projection and surplus grants must not treat generic extra coverage as surplus authority.
+### Per-Item Expand/Collapse
 
-## PCA Total Values (Critical Distinction)
+For individual staff items within a group:
 
-- **`totalPCAOnDuty`**: STABLE - Sum of FTE from all on-duty PCAs (used for requirement calculations)
-- **`totalPCAFromAllocations`**: UNSTABLE - Sum of FTE from current allocations (reference/debugging only, NOT used in calculations)
+```tsx
+const [expandedStaffIds, setExpandedStaffIds] = useState<Set<string>>(new Set())
 
-**Key Rule**: Always use `totalPCAOnDuty` for requirement calculations. Never use `totalPCAFromAllocations` for calculations.
+// Toggle
+const toggleStaffExpand = (staffId: string) => {
+  setExpandedStaffIds(prev => {
+    const next = new Set(prev)
+    next.has(staffId) ? next.delete(staffId) : next.add(staffId)
+    return next
+  })
+}
 
-## Snapshot System
+// Render with chevron
+<div className="flex items-center gap-2">
+  <button onClick={() => toggleStaffExpand(id)}>
+    {expandedStaffIds.has(id) ? (
+      <ChevronDown className="h-4 w-4" />
+    ) : (
+      <ChevronRight className="h-4 w-4" />
+    )}
+  </button>
+  <span>{staffName}</span>
+</div>
+```
 
-- **Per-Date Isolation**: Each schedule date has isolated `baseline_snapshot` to prevent cross-date contamination
-- **Versioned Envelope**: Always wrap snapshots in envelope before saving (`buildBaselineSnapshotEnvelope`)
-- **Validation**: Always validate on load (`validateAndRepairBaselineSnapshot`) to handle corrupted data gracefully
+---
+
+## Checkbox Selection with Confirmation
+
+### Multi-Select Staff List
+
+```tsx
+const [staffIdsToAdd, setStaffIdsToAdd] = useState<Set<string>>(new Set())
+
+// Toggle selection
+const toggleStaffSelection = (staffId: string) => {
+  setStaffIdsToAdd(prev => {
+    const next = new Set(prev)
+    next.has(staffId) ? next.delete(staffId) : next.add(staffId)
+    return next
+  })
+}
+
+// Render checklist (filter inactive, separate regular/buffer)
+<div className="max-h-40 overflow-y-auto bg-muted/30 rounded p-2 pr-1 scrollbar-visible">
+  {regularStaff.map(s => (
+    <label key={s.id} className="flex items-center space-x-2 py-1 cursor-pointer hover:bg-muted/50 rounded px-1">
+      <input
+        type="checkbox"
+        checked={staffIdsToAdd.has(s.id)}
+        onChange={() => toggleStaffSelection(s.id)}
+      />
+      <span>{s.name} ({s.rank})</span>
+    </label>
+  ))}
+  {/* Divider before buffer staff */}
+  {bufferStaff.length > 0 && regularStaff.length > 0 && (
+    <hr className="border-border my-2" />
+  )}
+  {bufferStaff.map(s => (
+    <label key={s.id} className="flex items-center space-x-2 py-1 cursor-pointer hover:bg-muted/50 rounded px-1">
+      <input type="checkbox" checked={staffIdsToAdd.has(s.id)} onChange={() => toggleStaffSelection(s.id)} />
+      <span>{s.name} (Floating, Buffer)</span>
+    </label>
+  ))}
+</div>
+```
+
+### Confirmation Action Buttons
+
+```tsx
+{staffIdsToAdd.size > 0 && (
+  <div className="flex items-center gap-2 mt-3">
+    <Button
+      size="sm"
+      className="h-8 px-3 text-xs font-medium bg-[#0f172a] text-white rounded-md hover:bg-[#1e293b] transition-all"
+      onClick={async () => {
+        await handleAddStaffToProgram(programName, Array.from(staffIdsToAdd))
+        setStaffIdsToAdd(new Set())
+      }}
+    >
+      Add Selected ({staffIdsToAdd.size})
+    </Button>
+    <Button
+      size="sm"
+      variant="ghost"
+      className="h-8 px-3 text-xs font-medium text-slate-500 hover:bg-white hover:text-slate-900 border border-transparent hover:border-slate-200 rounded-md transition-all"
+      onClick={() => setStaffIdsToAdd(new Set())}
+    >
+      Clear
+    </Button>
+  </div>
+)}
+```
+
+---
+
+## Inline Delete Confirmation
+
+Show "Confirm?" button after clicking delete/trash icon:
+
+```tsx
+const [staffIdPendingDelete, setStaffIdPendingDelete] = useState<string | null>(null)
+
+// In render
+{staffIdPendingDelete === staffId ? (
+  <div className="flex items-center gap-1">
+    <Button
+      variant="destructive"
+      size="sm"
+      className="h-7 text-xs"
+      onClick={() => {
+        handleRemoveStaffFromProgram(programName, staffId)
+        setStaffIdPendingDelete(null)
+      }}
+    >
+      Confirm?
+    </Button>
+    <Button
+      variant="ghost"
+      size="sm"
+      className="h-7 text-xs"
+      onClick={() => setStaffIdPendingDelete(null)}
+    >
+      Cancel
+    </Button>
+  </div>
+) : (
+  <Button
+    variant="ghost"
+    size="icon"
+    className="h-7 w-7 text-muted-foreground hover:text-destructive"
+    onClick={() => setStaffIdPendingDelete(staffId)}
+  >
+    <Trash2 className="h-4 w-4" />
+  </Button>
+)}
+```
+
+---
+
+## Ghost Button Usage
+
+Use `variant="ghost"` for secondary actions, icons, and inline controls:
+
+```tsx
+// Icon buttons
+<Button variant="ghost" size="icon" className="h-8 w-8">
+  <Edit2 className="h-4 w-4" />
+</Button>
+
+// Text buttons
+<Button variant="ghost" size="sm" onClick={handleCancel}>
+  Cancel
+</Button>
+
+// Destructive ghost (on hover)
+<Button variant="ghost" className="text-destructive hover:text-destructive">
+  <Trash2 className="h-4 w-4" />
+</Button>
+```
+
+### Ghost Button Variants
+
+| Style | Use Case |
+|-------|----------|
+| Default ghost | Secondary actions, cancel, dismiss |
+| Ghost + icon | Edit, delete, expand/collapse |
+| Ghost + hover text color | Destructive actions |
+| Ghost + border on hover | "Clear" actions, unstyled alternative |
+
+---
+
+## Border & Pane Design
+
+### Card Styling
+
+- Use `border` sparingly - prefer spacing and dividers
+- When using Card: `className="p-4 border"` or `className="p-4 border-2"` for emphasis
+- Remove outer Card wrappers from dashboard panels
+
+### Form Panes
+
+- No border on edit forms inside panels
+- Use subtle background `bg-muted/30` for input areas
+- Rounded corners: `rounded` or `rounded-md`
+
+```tsx
+// Input area
+<div className="bg-muted/30 rounded p-3">
+  {/* form fields */}
+</div>
+
+// No border edit form
+<div className="space-y-4">
+  {/* form fields without border */}
+</div>
+```
+
+### Warning/Info Banners
+
+```tsx
+<div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded text-sm text-blue-800">
+  <p className="font-medium mb-1">Label:</p>
+  <p>Message content.</p>
+</div>
+```
+
+---
+
+## Typography & Spacing
+
+### Text Hierarchy
+
+| Element | Style |
+|---------|-------|
+| Page title | `text-xl font-semibold` |
+| Section header | `text-lg font-semibold` |
+| Subsection header | `text-sm font-medium` |
+| Labels | `text-sm text-muted-foreground` |
+| Helper text | `text-xs text-muted-foreground` |
+| Uppercase labels | `text-xs font-semibold uppercase tracking-wide` |
+
+### Spacing Scale
+
+| Context | Value |
+|---------|-------|
+| Panel padding | `pt-6 space-y-6` |
+| Section gap | `space-y-6` or `gap-6` |
+| Component internal | `p-3`, `p-4` |
+| Icon gaps | `gap-1`, `gap-2` |
+| Inline spacing | `space-x-2`, `space-x-4` |
+
+---
+
+## Icons (Lucide React)
+
+Always use lucide-react icons. Common patterns:
+
+```tsx
+import { 
+  ChevronRight,    // collapsed section
+  ChevronDown,     // expanded section
+  ChevronUp,      // collapse upward
+  Trash2,         // delete
+  Edit2,          // edit
+  Plus,           // add
+  X,              // close/cancel
+  Check,          // confirm
+} from 'lucide-react'
+```
+
+---
+
+## Quick Reference
+
+### Common Component Patterns
+
+```tsx
+// Section with header + divider
+<section>
+  <h3 className="text-lg font-semibold mb-4">Section Title</h3>
+  <hr className="border-border mb-4" />
+  <div>Content</div>
+</section>
+
+// Collapsible group header
+<div className="flex items-center gap-2 mb-3">
+  <button onClick={toggle}>
+    {isExpanded ? <ChevronDown /> : <ChevronRight />}
+  </button>
+  <span className="font-medium">GROUP NAME</span>
+</div>
+
+// Staff row with expand
+<div className="flex items-center justify-between py-2">
+  <div className="flex items-center gap-2">
+    <button onClick={toggleExpand}>
+      {isExpanded ? <ChevronDown /> : <ChevronRight />}
+    </button>
+    <span className="font-medium">{name}</span>
+    <span className="text-xs text-muted-foreground">({rank})</span>
+  </div>
+  {pendingDelete ? (
+    <ConfirmDeleteButtons />
+  ) : (
+    <GhostIconButton icon={<Trash2 />} onClick={() => setPendingDelete(id)} />
+  )}
+</div>
+```
+
+### Anti-Patterns to Avoid
+
+- ❌ Nested Card > 2 levels
+- ❌ Multiple border layers
+- ❌ Native `<select>` elements
+- ❌ Emoji as icons
+- ❌ No confirmation for destructive actions
+- ❌ All content visible (use progressive disclosure)
+- ❌ Duplicate titles in panels
 
 ---
 > Source: [alvin19921008-arch/RBIP-web-app](https://github.com/alvin19921008-arch/RBIP-web-app) — distributed by [TomeVault](https://tomevault.io).
