@@ -1,0 +1,44 @@
+{
+  "name": "ST-Manager",
+  "owner": "Dadihu123",
+  "repo": "ST-Manager",
+  "description": "\u9488\u5bf9sillytavern\u7684\u5404\u79cd\u8d44\u6e90\u8fdb\u884c\u53ef\u89c6\u5316\u7ba1\u7406\u7684\u7a0b\u5e8f\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dadihu123/ST-Manager",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T18:44:09Z"
+}
