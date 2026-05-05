@@ -1,0 +1,44 @@
+{
+  "name": "pypowerwall-server",
+  "owner": "jasonacox",
+  "repo": "pypowerwall-server",
+  "description": "A pypowerwall based FastAPI server for monitoring and managing Tesla Solar and Powerwall systems with multi-gateway support, real-time data streaming, MQTT, and a web based console.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jasonacox/pypowerwall-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T21:44:29Z"
+}
