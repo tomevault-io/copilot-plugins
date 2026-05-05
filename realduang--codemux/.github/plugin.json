@@ -1,0 +1,9 @@
+{
+  "name": "realduang--codemux",
+  "displayName": "codemux",
+  "description": "The first open-source GUI for GitHub Copilot CLI \u2014 a multi-engine AI coding client with zero-config secure remote access from any device.",
+  "version": "1.0.0",
+  "author": "realDuang",
+  "homepage": "https://github.com/realDuang/codemux",
+  "skills": []
+}
