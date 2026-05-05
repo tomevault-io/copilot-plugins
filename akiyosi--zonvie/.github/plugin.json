@@ -1,0 +1,9 @@
+{
+  "name": "akiyosi--zonvie",
+  "displayName": "zonvie",
+  "description": "\ud83e\udddf Zonvie is a Fast, feature-rich Neovim GUI built with Zig, native on macOS and Windows.",
+  "version": "1.0.0",
+  "author": "akiyosi",
+  "homepage": "https://github.com/akiyosi/zonvie",
+  "skills": []
+}
