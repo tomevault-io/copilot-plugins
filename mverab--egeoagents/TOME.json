@@ -4,7 +4,7 @@
   "repo": "eGEOagents",
   "description": "Generative Engine Optimization skills for AI agents. Optimize content for ChatGPT, Perplexity, Claude, and Gemini.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mverab/eGEOagents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T03:36:23Z"
+  "distributed_at": "2026-05-05T12:14:51Z"
 }
