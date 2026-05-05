@@ -1,0 +1,9 @@
+{
+  "name": "joshuadodds--ecoflow-power-management",
+  "displayName": "ecoflow-power-management",
+  "description": "A lightweight, MQTT-based power-aware shutdown system for heterogeneous environments (Linux, Windows, NAS)",
+  "version": "1.0.0",
+  "author": "JoshuaDodds",
+  "homepage": "https://github.com/JoshuaDodds/ecoflow-power-management",
+  "skills": []
+}
