@@ -1,0 +1,9 @@
+{
+  "name": "davis7dotsh--r8y-elixir-version",
+  "displayName": "r8y-elixir-version",
+  "description": "r8y (internal channel management system) written in Elixir + Phoenix curtesy of Ralph",
+  "version": "1.0.0",
+  "author": "davis7dotsh",
+  "homepage": "https://github.com/davis7dotsh/r8y-elixir-version",
+  "skills": []
+}
