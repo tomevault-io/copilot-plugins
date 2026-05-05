@@ -1,0 +1,166 @@
+{
+  "name": "openshift-eng--ai-helpers",
+  "displayName": "ai-helpers",
+  "description": "Developer productivity tools for Claude Code & other AI assistants",
+  "version": "1.0.0",
+  "author": "openshift-eng",
+  "homepage": "https://github.com/openshift-eng/ai-helpers",
+  "skills": [
+    {
+      "name": "codebase-impact-analysis",
+      "description": ""
+    },
+    {
+      "name": "gaps",
+      "description": ""
+    },
+    {
+      "name": "create-bug",
+      "description": ""
+    },
+    {
+      "name": "create-epic",
+      "description": ""
+    },
+    {
+      "name": "create-feature",
+      "description": ""
+    },
+    {
+      "name": "create-feature-request",
+      "description": ""
+    },
+    {
+      "name": "create-story",
+      "description": ""
+    },
+    {
+      "name": "create-task",
+      "description": ""
+    },
+    {
+      "name": "create-release-note",
+      "description": ""
+    },
+    {
+      "name": "cve-intelligence-gathering",
+      "description": ""
+    },
+    {
+      "name": "fetch-regression-details",
+      "description": ""
+    },
+    {
+      "name": "fetch-releases",
+      "description": ""
+    },
+    {
+      "name": "fetch-test-report",
+      "description": ""
+    },
+    {
+      "name": "fetch-test-runs",
+      "description": ""
+    },
+    {
+      "name": "get-release-dates",
+      "description": ""
+    },
+    {
+      "name": "lang-go",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-agent",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-aws",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-azure",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-kubevirt",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-openstack",
+      "description": ""
+    },
+    {
+      "name": "hcp-create-powervs",
+      "description": ""
+    },
+    {
+      "name": "profile-hypershift",
+      "description": ""
+    },
+    {
+      "name": "jira-doc-generator",
+      "description": ""
+    },
+    {
+      "name": "jira-issues-by-component",
+      "description": ""
+    },
+    {
+      "name": "extract-prs",
+      "description": ""
+    },
+    {
+      "name": "jira-validate-blockers",
+      "description": ""
+    },
+    {
+      "name": "logs-analysis",
+      "description": ""
+    },
+    {
+      "name": "must-gather-analyzer",
+      "description": ""
+    },
+    {
+      "name": "scripts",
+      "description": ""
+    },
+    {
+      "name": "oc-auth",
+      "description": ""
+    },
+    {
+      "name": "prow-job-analyze-install-failure",
+      "description": ""
+    },
+    {
+      "name": "prow-job-analyze-metal-install-failure",
+      "description": ""
+    },
+    {
+      "name": "prow-job-analyze-test-failure",
+      "description": ""
+    },
+    {
+      "name": "prow-job-artifact-search",
+      "description": ""
+    },
+    {
+      "name": "remediation-planning",
+      "description": ""
+    },
+    {
+      "name": "suggest-reviewers",
+      "description": ""
+    },
+    {
+      "name": "system-config-analysis",
+      "description": ""
+    },
+    {
+      "name": "analyze",
+      "description": ""
+    }
+  ]
+}
