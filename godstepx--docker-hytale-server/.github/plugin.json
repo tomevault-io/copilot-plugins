@@ -1,0 +1,9 @@
+{
+  "name": "godstepx--docker-hytale-server",
+  "displayName": "docker-hytale-server",
+  "description": "Dockerized Hytale server with auto-updates, configurable env vars, persistent storage, and optional authentication.",
+  "version": "1.0.0",
+  "author": "godstepx",
+  "homepage": "https://github.com/godstepx/docker-hytale-server",
+  "skills": []
+}
