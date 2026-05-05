@@ -1,0 +1,9 @@
+{
+  "name": "rainerseventeen--paper-tracker",
+  "displayName": "paper-tracker",
+  "description": "Keyword-based academic paper tracker supporting arXiv & OpenAlex, with LLM-powered translation and multi-format output (JSON/Markdown/HTML). ",
+  "version": "1.0.0",
+  "author": "RainerSeventeen",
+  "homepage": "https://github.com/RainerSeventeen/paper-tracker",
+  "skills": []
+}
