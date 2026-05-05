@@ -4,7 +4,7 @@
   "repo": "remnic",
   "description": "Local-first memory plugin for OpenClaw AI agents. LLM-powered extraction, plain markdown storage, hybrid search via QMD. Gives agents persistent long-term memory across conversations.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/joshuaswarren/remnic",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T22:19:45Z"
+  "distributed_at": "2026-05-05T09:14:41Z"
 }
