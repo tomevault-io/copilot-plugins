@@ -1,35 +1,28 @@
-## llama-cuda-gitlab-mirror
+## local-preview-port-11436
 
-> Sync and upload llama.cpp Ubuntu CUDA tarballs to GitLab correctly
+> Use only port 11435 for local preview and redeploys
 
 
-# llama.cpp Ubuntu CUDA Mirror
+# Local Preview Port
 
-- When mirroring `llama.cpp` Ubuntu CUDA tarballs to GitLab, first extract and compare the existing GitLab reference packages:
-  - `b8429/llama-b8429-bin-ubuntu-cuda-12.4-arm64.tar.gz`
-  - `b8429/llama-b8429-bin-ubuntu-cuda-12.4-x64.tar.gz`
-- Upstream `ggml-org/llama.cpp` does not publish Linux CUDA tarballs. First sync matching Ubuntu CUDA assets from `https://github.com/hybridgroup/llama-cpp-builder/releases/tag/<tag>` and reuse them for the GitLab mirror when available.
-- `hybridgroup/llama-cpp-builder` uses `llama-<tag>-bin-ubuntu-cuda-<arch>.tar.gz` for CUDA 12.9 and `llama-<tag>-bin-ubuntu-cuda-13-<arch>.tar.gz` for CUDA 13.0.88.
-- If `hybridgroup/llama-cpp-builder` does not have the target tag or architecture, build the missing tarball locally in Docker, then upload it to the GitLab generic package registry and add a release link.
-- When reusing `hybridgroup/llama-cpp-builder` assets, preserve their published names, verify the CUDA version/name mapping, and re-pack only when needed to match the reference layout.
-- Load `GITLAB_TOKEN` only from `local/secrets.env`. Use direct connection for GitLab API/package uploads; do not keep external proxy enabled for GitLab operations.
-- Build `arm64` and `x64` separately. Their tar layouts must match the GitLab reference:
-  - `arm64`: tar root `llama-<tag>-bin-ubuntu-cuda-12.4-arm64/` with only `bin/{llama-bench,llama-cli,llama-embedding,llama-quantize,llama-server}` plus `lib/` symlink chains for `libggml-base`, `libggml-cpu`, `libggml-cuda`, `libggml`, `libllama`, and `libmtmd`.
-  - `x64`: tar root contains `bin/` and `lib/` directly, with `llama-server` in `bin/` and the `libggml-cpu-*` backend variants plus `libggml-cuda.so` in `lib/`.
-- `arm64` build recipe:
-  - Use `BUILD_SHARED_LIBS=ON`, `GGML_CUDA=ON`, `GGML_BACKEND_DL=OFF`, `GGML_NATIVE=OFF`.
-  - Link and runtime checks need CUDA driver stubs inside the container: provide `libcuda.so.1 -> /usr/local/cuda/lib64/stubs/libcuda.so` and feed that stub directory to linker flags and `LD_LIBRARY_PATH`.
-  - Do not pass host proxy into `apt` for the arm64 container; `ports.ubuntu.com` may fail through `host.docker.internal:7890`.
-- `x64` build recipe:
-  - Use `BUILD_SHARED_LIBS=ON`, `GGML_CUDA=ON`, `GGML_BACKEND_DL=ON`, `GGML_CPU_ALL_VARIANTS=ON`.
-  - Never pass untyped `-DGGML_BACKEND_DIR=lib`; force it as `STRING` (or via a preload cache file) so CMake does not canonicalize it to `/lib` and install backends into the container root.
-- Before upload, re-pack on macOS to remove `._*` and `.DS_Store` entries while preserving symlinks.
-- Before upload, verify:
-  - tar layout matches the reference package for that architecture
-  - `libggml-cuda.so*` is present
-  - `file` reports the correct architecture
-  - `llama-server --version` runs in a container with the packaged `lib/` on `LD_LIBRARY_PATH` (use CUDA stubs if no real driver is present)
-- Upload the tarballs to `https://git-devops.opencsg.com/api/v4/projects/393/packages/generic/llama-cpp/<tag>/...`, then create matching release asset links for the same filenames.
+- Do not start a separate frontend dev server for this workspace.
+- For local preview, redeploy, and verification, use only `http://localhost:11435`.
+- Before any local preview or redeploy, stop the old preview process first.
+- Never keep multiple preview servers alive at the same time. If an older `csghub-lite` preview is still running, kill it and then start one fresh instance.
+- If frontend files change, rebuild `web`, sync `web/dist` into `internal/server/static`, and then restart the single backend preview on `:11435`.
+- Do not start or keep `5173` or any alternate preview port running unless the user explicitly asks for it.
+
+```sh
+# ✅ Preferred local workflow
+pid11435=$(lsof -tiTCP:11435 -sTCP:LISTEN 2>/dev/null || true)
+pid11436=$(lsof -tiTCP:11436 -sTCP:LISTEN 2>/dev/null || true)
+pids=$(printf '%s\n%s\n' "$pid11435" "$pid11436" | awk 'NF' | sort -u)
+if [ -n "$pids" ]; then kill $pids; fi
+cd web && npm run build
+cd ..
+cp -r web/dist/. internal/server/static/
+go run ./cmd/csghub-lite serve --listen :11435
+```
 
 ---
 > Source: [OpenCSGs/csghub-lite](https://github.com/OpenCSGs/csghub-lite) — distributed by [TomeVault](https://tomevault.io).
