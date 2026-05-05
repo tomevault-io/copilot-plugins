@@ -1,0 +1,9 @@
+{
+  "name": "semkoo--niko-table-registry",
+  "displayName": "niko-table-registry",
+  "description": "A comprehensive, production-ready DataTable component built with TanStack Table and Shadcn UI. Copy the code into your project, customize it to your needs, and ship with confidence.",
+  "version": "1.0.0",
+  "author": "Semkoo",
+  "homepage": "https://github.com/Semkoo/niko-table-registry",
+  "skills": []
+}
