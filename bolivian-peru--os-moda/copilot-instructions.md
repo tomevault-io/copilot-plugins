@@ -1,0 +1,657 @@
+## os-moda
+
+> Manages MCP server lifecycle: start, monitor, restart, configure. Generates OpenClaw MCP
+
+# CLAUDE.md — osModa
+
+## What this is
+
+osModa: NixOS distribution with AI-native system management.
+The agent runs via Claude Code SDK with full root-level access to the entire system via structured daemons.
+
+The agent has FULL system access. Root. All files. All processes. All APIs.
+The sandbox exists for UNTRUSTED third-party tools, not for the agent itself.
+
+## Architecture (3 trust tiers)
+
+```
+TIER 0: Claude Code + agentd (full system, root-equivalent)
+  ↓ grants capabilities to ↓
+TIER 1: Approved apps (sandboxed, declared capabilities)
+  ↓ even more restricted ↓
+TIER 2: Untrusted tools (max isolation, no network, minimal fs)
+```
+
+## Components
+
+1. **agentd** (Rust) — system bridge daemon. Unix socket API at `/run/osmoda/agentd.sock`.
+   Gives OpenClaw structured access to: processes, services, network, filesystem, NixOS config,
+   sysctl parameters, users, firewall. Append-only hash-chained event log in SQLite.
+   Memory system endpoints for ingest/recall/store.
+   Agent Card (EIP-8004) identity + capability discovery.
+   Structured receipts + incident workspaces for auditable troubleshooting.
+
+2. **osmoda-gateway** (TypeScript) — **Modular agent gateway** (v0.2+). HTTP+WS server on port 18789.
+   Always the systemd unit. Routes per-agent to a pluggable runtime driver:
+   - `claude-code` driver — wraps `claude` CLI (OAuth or API key)
+   - `openclaw` driver — spawns `openclaw` binary as child process per session
+   - Adding a driver = one file under `src/drivers/` (Codex, Bedrock, …)
+   Hot-reloadable config via `agents.json` (SIGHUP re-reads, in-flight sessions keep
+   their snapshot — zero WS drops). Encrypted credential store at
+   `/var/lib/osmoda/config/credentials.json.enc` (AES-256-GCM). REST `/config/*`
+   endpoints (Bearer-authed) let the dashboard edit runtime/credentials/model per
+   agent with no SSH or rebuild. Telegram webhook, WebSocket chat, 91 MCP tools.
+
+2b. **osmoda-bridge** (TypeScript) — Legacy OpenClaw plugin. Registers tools via
+   `api.registerTool()` factory pattern (91 tools): system_health, system_query,
+   system_discover, event_log, memory_store, memory_recall, shell_exec, file_read,
+   file_write, directory_list, service_status, journal_logs, network_info,
+   wallet_create, wallet_list, wallet_sign, wallet_send, wallet_delete, wallet_receipt,
+   wallet_build_tx,
+   safe_switch_begin, safe_switch_list, safe_switch_status, safe_switch_commit, safe_switch_rollback,
+   watcher_add, watcher_list, routine_add, routine_list, routine_trigger,
+   agent_card, receipt_list, incident_create, incident_step,
+   voice_status, voice_speak, voice_transcribe, voice_record, voice_listen,
+   backup_create, backup_list,
+   mesh_identity, mesh_invite_create, mesh_invite_accept, mesh_peers,
+   mesh_peer_send, mesh_peer_disconnect, mesh_health,
+   mesh_room_create, mesh_room_join, mesh_room_send, mesh_room_history,
+   mcp_servers, mcp_server_start, mcp_server_stop, mcp_server_restart,
+   teach_status, teach_observations, teach_patterns, teach_knowledge,
+   teach_knowledge_create, teach_context, teach_optimize_suggest, teach_optimize_apply,
+   teach_skill_candidates, teach_skill_generate, teach_skill_promote,
+   teach_observe_action, teach_skill_execution, teach_skill_detect,
+   approval_request, approval_pending, approval_approve, approval_check,
+   sandbox_exec, capability_mint,
+   fleet_propose, fleet_status, fleet_vote, fleet_rollback,
+   app_deploy, app_list, app_logs, app_stop, app_restart, app_remove,
+   safety_rollback, safety_status, safety_panic, safety_restart.
+
+3. **osmoda-egress** (Rust) — localhost-only HTTP CONNECT proxy. Domain allowlist
+   per capability token. Only path to internet for sandboxed tools.
+
+4. **osmoda-keyd** (Rust) — OS-native crypto wallet daemon. Unix socket at `/run/osmoda/keyd.sock`.
+   AES-256-GCM encrypted keys, policy-gated signing (daily limits), ETH + SOL wallets.
+   Runs with PrivateNetwork=true (zero network access). Keys never leave keyd.
+   SignerBackend trait allows future MPC/HSM/Vault integration.
+
+5. **osmoda-watch** (Rust) — SafeSwitch + autopilot watchers. Unix socket at `/run/osmoda/watch.sock`.
+   Deploy transactions with timer + health gates + auto-rollback.
+   Autopilot watchers: deterministic health checks with escalation (restart → rollback → notify).
+
+6. **osmoda-routines** (Rust) — background cron/event/webhook automation engine.
+   Unix socket at `/run/osmoda/routines.sock`.
+   Runs scheduled tasks between agent conversations (health checks, service monitors, log scans).
+   Default routines match HEARTBEAT.md cadences.
+
+7. **osmoda-voice** (Rust) — Local speech-to-text (whisper.cpp) + text-to-speech (piper).
+   Unix socket at `/run/osmoda/voice.sock`. All processing on-device. No cloud APIs.
+
+8. **osmoda-mesh** (Rust) — P2P encrypted agent-to-agent communication daemon. Unix socket at `/run/osmoda/mesh.sock`,
+   TCP listener at port 18800. Noise_XX (X25519/ChaChaPoly/BLAKE2s) + ML-KEM-768 hybrid post-quantum.
+   Invite-based pairing, no central server. Ed25519 identity signatures.
+
+9. **osmoda-mcpd** (Rust) — MCP server manager daemon. Unix socket at `/run/osmoda/mcpd.sock`.
+   Manages MCP server lifecycle: start, monitor, restart, configure. Generates OpenClaw MCP
+   config from NixOS options. Any MCP server becomes an OS capability via NixOS config.
+
+10. **osmoda-teachd** (Rust) — System learning & self-optimization daemon. Unix socket at `/run/osmoda/teachd.sock`.
+    OBSERVE loop (30s): collects CPU, memory, service, journal observations into SQLite.
+    LEARN loop (5m): detects patterns (recurring failures, resource trends, anomalies, correlations) → generates knowledge docs.
+    SKILLGEN loop (6h): detects repeated agent tool sequences across sessions → auto-generates SKILL.md files.
+    Agent action logger: records tool executions for skill learning.
+    TEACH API: context-aware knowledge injection for the agent.
+    Optimizer: suggests and applies system optimizations via SafeSwitch.
+
+11. **System Skills** (SKILL.md) — self-healing, morning-briefing, security-hardening,
+   natural-language-config, predictive-resources, drift-detection, generation-timeline,
+   flight-recorder, nix-optimizer, system-monitor, system-packages, system-config,
+   file-manager, network-manager, service-explorer, app-deployer, deploy-ai-agent,
+   swarm-predict, scaled-swarm-predict.
+
+12. **NixOS module** (osmoda.nix) — single module that wires everything as systemd services.
+   Generates gateway config from NixOS options (agents, bindings, channels).
+   Multi-agent routing: `osmoda` (Opus, full access, web default) + `mobile` (Sonnet, full access, Telegram/WhatsApp).
+   `cfg.gateway.runtime`: `"claude-code"` (default) or `"openclaw"` (legacy).
+
+13. **Multi-agent routing** — One gateway, multiple routed agents:
+   - `osmoda` (default): Claude Opus, all 91 tools, all 19 skills, full system access
+   - `mobile`: Claude Sonnet, all tools, concise phone-optimized responses, for Telegram/WhatsApp
+   Each agent has its own workspace and system prompt. Config at `/var/lib/osmoda/config/gateway.json`.
+   Bindings route Telegram/WhatsApp to mobile agent; web chat falls through to default (osmoda).
+   Both agents have full tool access; mobile agent uses concise, phone-optimized response style.
+
+## Repo layout
+
+```
+./CLAUDE.md                              # This file (canonical project doc)
+./flake.nix                              # Root flake (NixOS + Rust via crane)
+./Cargo.toml                             # Rust workspace root
+./nix/modules/osmoda.nix                 # NixOS module (THE core config file)
+./nix/hosts/dev-vm.nix                   # QEMU dev VM (Sway desktop)
+./nix/hosts/server.nix                   # Headless server config
+./nix/hosts/iso.nix                      # Installer ISO config
+./crates/agentd/                         # Rust: system bridge daemon
+  ├── Cargo.toml
+  └── src/
+      ├── main.rs                        # Entry + socket setup
+      ├── api/                           # HTTP handlers
+      │   ├── mod.rs
+      │   ├── health.rs                  # GET /health
+      │   ├── system.rs                  # POST /system/query
+      │   ├── events.rs                  # GET /events/log
+      │   ├── memory.rs                  # /memory/ingest, /memory/recall, /memory/store
+      │   ├── agent_card.rs              # GET /agent/card, POST /agent/card/generate
+      │   └── receipts.rs               # GET /receipts, /incident/* endpoints
+      ├── ledger.rs                      # SQLite event log + hash chain
+      ├── approval.rs                    # Approval gate for destructive ops (SQLite)
+      ├── sandbox.rs                     # Tier 1/Tier 2 bubblewrap sandbox + capability tokens
+      └── state.rs                       # Shared app state
+./crates/agentctl/                       # Rust: CLI (events, verify-ledger)
+  ├── Cargo.toml
+  └── src/main.rs
+./crates/osmoda-egress/                  # Rust: egress proxy
+  ├── Cargo.toml
+  └── src/main.rs
+./crates/osmoda-keyd/                    # Rust: crypto wallet daemon
+  ├── Cargo.toml
+  └── src/
+      ├── main.rs                        # Entry + socket setup
+      ├── signer.rs                      # SignerBackend trait + LocalKeyBackend (ETH + SOL)
+      ├── policy.rs                      # JSON policy engine (daily limits, allowlists)
+      ├── receipt.rs                     # Receipt logging to agentd ledger
+      ├── tx_eth.rs                      # EIP-1559 Ethereum transaction builder + RLP encoder
+      ├── tx_sol.rs                      # Solana transfer transaction builder
+      └── api.rs                         # Axum handlers (/wallet/*)
+./crates/osmoda-watch/                   # Rust: SafeSwitch + autopilot watchers
+  ├── Cargo.toml
+  └── src/
+      ├── main.rs                        # Entry + background loops
+      ├── switch.rs                      # SafeSwitch state machine + health checks
+      ├── watcher.rs                     # Autopilot watcher definitions + execution
+      ├── fleet.rs                       # Fleet-wide SafeSwitch coordinator + quorum voting
+      ├── fleet_api.rs                   # Axum handlers (/fleet/*)
+      ├── mesh_client.rs                 # HTTP-over-Unix-socket client for mesh daemon
+      └── api.rs                         # Axum handlers (/switch/*, /watcher/*)
+./crates/osmoda-routines/                # Rust: background automation engine
+  ├── Cargo.toml
+  └── src/
+      ├── main.rs                        # Entry + scheduler loop
+      ├── routine.rs                     # Routine definitions + action execution
+      ├── scheduler.rs                   # Cron parser + interval scheduler
+      └── api.rs                         # Axum handlers (/routine/*)
+./crates/osmoda-voice/                   # Rust: local voice (whisper.cpp + piper)
+  ├── Cargo.toml
+  └── src/
+      ├── main.rs                        # Entry + socket setup
+      ├── stt.rs                         # Speech-to-text (whisper.cpp)
+      ├── tts.rs                         # Text-to-speech (piper)
+      └── vad.rs                         # Voice activity detection
+./crates/osmoda-mesh/                    # Rust: P2P encrypted agent-to-agent mesh
+  ├── Cargo.toml
+  └── src/
+      ├── main.rs                        # Entry + TCP listener + background tasks
+      ├── identity.rs                    # Ed25519 + X25519 + ML-KEM-768 keypairs
+      ├── handshake.rs                   # Noise_XX + hybrid PQ key exchange
+      ├── transport.rs                   # Encrypted TCP connection lifecycle
+      ├── messages.rs                    # MeshMessage enum + wire framing
+      ├── invite.rs                      # Out-of-band invite codes (base64url)
+      ├── peers.rs                       # Peer storage + connection state
+      ├── room_store.rs                  # SQLite room persistence (rooms, members, messages)
+      ├── gossip.rs                      # Gossip protocol for room sync + message forwarding
+      ├── api.rs                         # Axum handlers (/invite/*, /peer/*, /identity, /health)
+      └── receipt.rs                     # Audit logging to agentd ledger
+./crates/osmoda-mcpd/                    # Rust: MCP server manager daemon
+  ├── Cargo.toml
+  └── src/
+      ├── main.rs                        # Entry + socket setup + manager loop
+      ├── server.rs                      # MCP server process management
+      ├── api.rs                         # Axum handlers (/health, /servers, /server/*)
+      └── receipt.rs                     # Audit logging to agentd ledger
+./crates/osmoda-teachd/                  # Rust: system learning & self-optimization
+  ├── Cargo.toml
+  └── src/
+      ├── main.rs                        # Entry + socket + background loops
+      ├── observer.rs                    # OBSERVE loop: collect metrics/events
+      ├── learner.rs                     # LEARN loop: pattern detection → knowledge docs
+      ├── teacher.rs                     # TEACH: context injection API
+      ├── optimizer.rs                   # Self-optimization suggestions + apply
+      ├── skillgen.rs                    # SKILLGEN: detect repeated tool sequences → auto-generate SKILL.md
+      ├── knowledge.rs                   # Knowledge document + agent action + skill candidate CRUD
+      ├── api.rs                         # Axum handlers (19 endpoints)
+      └── receipt.rs                     # Audit logging to agentd ledger
+./packages/osmoda-gateway/               # TypeScript: Claude Code SDK gateway
+  ├── package.json                       # deps: ws (Claude Code CLI spawned as subprocess)
+  ├── src/index.ts                       # HTTP+WS server (port 18789), Telegram webhook
+  ├── src/agent.ts                       # Claude Code CLI wrapper (--print --stream-json)
+  └── src/sessions.ts                    # Session management (30-min expiry)
+./packages/osmoda-mcp-bridge/            # TypeScript: MCP server (91 tools over stdio)
+  └── dist/
+      ├── index.js                       # MCP server entry + teachd auto-logging middleware
+      ├── tools.js                       # All 91 tool definitions + handlers
+      └── daemon-clients.js              # Unix socket HTTP clients for all daemons
+./packages/osmoda-bridge/                # TypeScript: OpenClaw plugin (legacy)
+  ├── package.json                       # OpenClaw plugin format (openclaw.extensions)
+  ├── openclaw.plugin.json               # Plugin manifest (id + kind)
+  ├── index.ts                           # Plugin entry — 91 tools via api.registerTool()
+  ├── keyd-client.ts                     # HTTP-over-Unix-socket client for keyd
+  ├── watch-client.ts                    # HTTP-over-Unix-socket client for watch
+  ├── routines-client.ts                 # HTTP-over-Unix-socket client for routines
+  ├── voice-client.ts                    # Voice daemon client
+  ├── mesh-client.ts                     # HTTP-over-Unix-socket client for mesh
+  ├── mcpd-client.ts                     # HTTP-over-Unix-socket client for mcpd
+  └── teachd-client.ts                   # HTTP-over-Unix-socket client for teachd
+./packages/osmoda-system-skills/         # Skill collection package
+./skills/
+  ├── self-healing/SKILL.md              # Detect + diagnose + auto-fix failures
+  ├── morning-briefing/SKILL.md          # Daily infrastructure health report
+  ├── security-hardening/SKILL.md        # Continuous security scoring + auto-fix
+  ├── natural-language-config/SKILL.md   # NixOS config from plain English
+  ├── predictive-resources/SKILL.md      # Resource exhaustion prediction
+  ├── drift-detection/SKILL.md           # Find imperative config drift
+  ├── generation-timeline/SKILL.md       # Time-travel debugging via generations
+  ├── flight-recorder/SKILL.md           # Server black box telemetry
+  ├── nix-optimizer/SKILL.md             # Smart Nix store management
+  ├── system-monitor/SKILL.md            # Real-time system monitoring
+  ├── system-packages/SKILL.md
+  ├── system-config/SKILL.md
+  ├── file-manager/SKILL.md
+  ├── network-manager/SKILL.md
+  ├── service-explorer/SKILL.md
+  ├── app-deployer/SKILL.md              # Deploy + manage user applications
+  ├── deploy-ai-agent/SKILL.md           # Deploy AI agent workloads (LangChain, CrewAI, etc.)
+  ├── swarm-predict/SKILL.md             # Multi-perspective risk analysis via persona debate
+  └── scaled-swarm-predict/SKILL.md     # Large-scale social simulation (50-200 agents on simulated Twitter/Reddit)
+./templates/
+  ├── AGENTS.md                          # "You manage the entire system" (main agent)
+  ├── SOUL.md                            # Calm, competent, omniscient (main agent)
+  ├── TOOLS.md                           # All agentd endpoints documented
+  ├── IDENTITY.md                        # Agent identity (name, role, trust model)
+  ├── USER.md                            # Learned user preferences template
+  ├── HEARTBEAT.md                       # Periodic task scheduling template
+  └── agents/
+      └── mobile/                        # Mobile agent (Sonnet, full access, concise)
+          ├── AGENTS.md                  # Full-access OS agent for mobile
+          └── SOUL.md                    # Concise, phone-optimized responses
+./scripts/
+  ├── install.sh                         # One-command installer (curl | bash)
+  └── deploy-hetzner.sh                  # Push deploy from local to Hetzner
+./docs/
+  ├── ARCHITECTURE.md                    # Architecture overview (all 9 daemons)
+  ├── STATUS.md                          # Honest maturity assessment per component
+  ├── DEMO-SCRIPT.md                     # Demo recording script
+  ├── GO-TO-MARKET.md                    # Launch strategy
+  └── planning/                          # Archived planning docs
+      ├── MASTER-PLAN.md
+      ├── MEMORY-SYSTEM.md
+      ├── MEMORY-LLM-INTEGRATION.md
+      └── TRENDABILITY-ANALYSIS.md
+```
+
+## Tech stack
+
+- **Rust**: agentd, agentctl, egress proxy, keyd, watch, routines, mesh (axum, rusqlite, tokio, sha2, clap, k256, ed25519-dalek, aes-gcm, sha3, snow, ml-kem)
+- **TypeScript**: osmoda-gateway (Claude Code SDK), osmoda-mcp-bridge (MCP server), osmoda-bridge (OpenClaw legacy)
+- **Nix**: flakes, crane (Rust builds), flake-utils (multi-system), nixos-generators
+- **NixOS**: systemd services, nftables, bubblewrap
+- **Desktop**: Sway (Wayland), kitty, Firefox
+- **Memory**: ZVEC (in-process vector DB), nomic-embed-text-v2-moe (768-dim), SQLite FTS5
+
+## Build + run
+
+```bash
+# Dev VM (the primary feedback loop)
+nix build .#nixosConfigurations.osmoda-dev.config.system.build.vm
+./result/bin/run-osmoda-dev-vm -m 4096 -smp 4
+
+# ISO
+nix build .#nixosConfigurations.osmoda-iso.config.system.build.isoImage
+
+# Validate
+nix flake check
+
+# Rust
+cargo check --workspace
+cargo test --workspace
+
+# agentd standalone (development)
+cargo run -p agentd -- --socket /tmp/agentd.sock --state-dir /tmp/osmoda
+```
+
+## Implementation order
+
+1. **flake.nix** — all inputs, nixosConfigurations for vm + iso
+2. **crates/agentd** — minimal: /health + /system/query(processes) + /events/log + hash chain
+3. **nix/modules/osmoda.nix** — agentd + gateway as systemd services
+4. **nix/hosts/dev-vm.nix** — Sway desktop, auto-login, gateway running
+5. **packages/osmoda-bridge** — register system_query + system_health as OpenClaw tools
+6. **skills/system-monitor/SKILL.md** — first skill
+7. **templates/** — agent identity
+8. **BUILD VM AND TEST END-TO-END** — don't proceed until this works
+9. Expand agentd: /system/mutate, /nix/rebuild, /nix/search
+10. More skills, sandbox, egress proxy, agentctl
+
+## agentd API reference
+
+```
+GET  /health              → { cpu, ram, disk, load, uptime }
+POST /system/query        { query: str, args: obj } → JSON result
+GET  /system/discover     → { found: [{ name, pid, port, detected_as, ... }], total_listening_ports, total_systemd_services }
+GET  /events/log          ?type=...&actor=...&limit=N → events[]
+POST /memory/ingest       { event: MemoryEvent } → { id }
+POST /memory/recall       { query: str, max_results: num, timeframe: str } → chunks[]
+POST /memory/store        { summary: str, detail: str, category: str, tags: str[] } → { id }
+GET  /memory/health       → { model_status, collection_size }
+GET  /agent/card           → AgentCard (EIP-8004)
+POST /agent/card/generate  { name, description, services[] } → AgentCard
+GET  /receipts             ?type=...&since=...&limit=N → Receipt[]
+POST /incident/create      { name } → IncidentWorkspace
+POST /incident/{id}/step   { action, result } → IncidentWorkspace
+GET  /incident/{id}        → IncidentWorkspace (with all steps)
+GET  /incidents            ?status=open → IncidentWorkspace[]
+POST /backup/create        → BackupCreateResponse { backup_id, path, size_bytes, created_at }
+GET  /backup/list          → BackupInfo[] { backup_id, path, size_bytes, created_at }
+POST /backup/restore       { backup_id } → BackupRestoreResponse { restored_from, status }
+POST /approval/request     { command, reason } → PendingApproval { id, status, expires_at }
+GET  /approval/pending     → PendingApproval[]
+POST /approval/{id}/approve → PendingApproval (approved)
+POST /approval/{id}/deny   → PendingApproval (denied)
+GET  /approval/{id}        → PendingApproval
+POST /sandbox/exec         { command, ring: 1|2, capabilities[], timeout_secs } → { stdout, stderr, exit_code }
+POST /capability/mint      { granted_to, permissions[], ttl_secs } → CapabilityToken
+POST /capability/verify    { token } → { valid: bool, granted_to, permissions[], expires_at }
+```
+
+## osmoda-keyd API reference (socket: /run/osmoda/keyd.sock)
+
+```
+POST /wallet/create       { chain: "ethereum"|"solana", label: str } → { id, chain, address }
+GET  /wallet/list          → WalletInfo[]
+POST /wallet/sign          { wallet_id, payload: hex } → { signature: hex } (policy-gated)
+POST /wallet/send          { wallet_id, to, amount } → { signed_tx: hex } (policy-gated, no broadcast)
+POST /wallet/build_tx      { wallet_id, chain, tx_type, to, amount, chain_params } → { signed_tx, tx_hash, estimated_fee }
+POST /wallet/delete        { wallet_id } → { deleted: wallet_id }
+GET  /health               → { wallet_count, policy_loaded }
+```
+
+## osmoda-watch API reference (socket: /run/osmoda/watch.sock)
+
+```
+POST /switch/begin         { plan, ttl_secs, health_checks[] } → { id, previous_generation }
+GET  /switch/list           → SwitchSession[] (all sessions, recent first)
+GET  /switch/status/{id}   → SwitchSession
+POST /switch/commit/{id}   → SwitchSession (committed)
+POST /switch/rollback/{id} → SwitchSession (rolled back)
+POST /watcher/add          { name, check: {type: "http_get"|"tcp_port"|"systemd_unit"|"command", ...}, interval_secs, actions[] } → Watcher
+GET  /watcher/list          → Watcher[]
+DEL  /watcher/remove/{id}  → { removed }
+POST /fleet/propose        { plan, peer_ids[], health_checks[], quorum_percent?, timeout_secs? } → FleetSwitchResponse
+GET  /fleet/status/{id}    → FleetSwitchResponse
+POST /fleet/vote/{id}      { peer_id, approve, reason? } → FleetSwitchResponse
+POST /fleet/rollback/{id}  → FleetSwitchResponse
+GET  /health               → { active_switches, watchers }
+```
+
+## osmoda-routines API reference (socket: /run/osmoda/routines.sock)
+
+```
+POST /routine/add          { name, trigger: {type: "interval", seconds: N}, action: {type: "health_check"|"service_monitor"|"log_scan"|"memory_maintenance"|"command"|"webhook", ...} } → Routine
+GET  /routine/list          → Routine[]
+DEL  /routine/remove/{id}  → { removed }
+POST /routine/trigger/{id} → { status, output }
+GET  /routine/history       → RoutineHistoryEntry[]
+GET  /health               → { routine_count, enabled_count }
+```
+
+## osmoda-voice API reference (socket: /run/osmoda/voice.sock)
+
+All processing is local. STT via whisper.cpp (MIT), TTS via piper-tts (MIT), audio via PipeWire.
+No data leaves the machine. No cloud APIs. No tracking.
+
+```
+GET  /voice/status          → { listening, whisper_model_loaded, piper_model_loaded }
+POST /voice/transcribe      { audio_path: "/path/to/file.wav" } → { text, duration_ms }
+POST /voice/speak           { text: "Hello" } → { audio_path, duration_ms } (plays via pw-play)
+POST /voice/record          { duration_secs?, transcribe? } → { audio_path, text?, transcribe_duration_ms? }
+POST /voice/listen          { enabled: bool } → { listening, previous }
+```
+
+## osmoda-mesh API reference (socket: /run/osmoda/mesh.sock, TCP: port 18800)
+
+P2P encrypted agent-to-agent communication. Noise_XX + X25519 + ML-KEM-768 (hybrid post-quantum).
+No central server. Invite-based pairing. Ed25519 identity signatures.
+
+```
+POST /invite/create        { ttl_secs?: u64 } → { invite_code, expires_at }
+POST /invite/accept        { invite_code } → { peer_id, status }
+GET  /peers                → PeerInfo[]
+GET  /peer/{id}            → PeerInfo (with connection detail)
+POST /peer/{id}/send       { message: MeshMessage } → { delivered: bool }
+DEL  /peer/{id}            → { disconnected: peer_id }
+POST /identity/rotate      → { new_instance_id, new_pubkeys }
+GET  /identity             → MeshPublicIdentity
+GET  /health               → { peer_count, connected_count, identity_ready }
+```
+
+## osmoda-mcpd API reference (socket: /run/osmoda/mcpd.sock)
+
+MCP server lifecycle management. Starts, monitors, restarts MCP servers.
+Generates OpenClaw MCP config from NixOS options.
+
+```
+GET  /health               → { server_count, running_count, servers: [{name, status, pid, uptime}] }
+GET  /servers              → ServerListEntry[]
+GET  /server/{name}        → ServerListEntry
+POST /server/{name}/start  → { status: "started", name }
+POST /server/{name}/stop   → { status: "stopped", name }
+POST /server/{name}/restart → { status: "restarted", name }
+POST /reload               → { status: "reloaded", removed, started, total }
+```
+
+## osmoda-teachd API reference (socket: /run/osmoda/teachd.sock)
+
+System learning, skill auto-creation & self-optimization daemon.
+OBSERVE loop (30s) collects metrics, LEARN loop (5m) detects patterns,
+SKILLGEN loop (6h) detects repeated tool sequences → auto-generates SKILL.md files,
+TEACH API injects knowledge, Optimizer applies fixes via SafeSwitch.
+
+```
+GET  /health                          → { observation_count, pattern_count, knowledge_count, optimization_count, action_count, skill_candidate_count, skill_execution_count, observer_running, learner_running, skillgen_running }
+GET  /observations                    ?source=...&since=...&limit=50 → Observation[]
+GET  /patterns                        ?type=...&min_confidence=0.5 → Pattern[]
+GET  /knowledge                       ?category=...&tag=...&limit=20 → KnowledgeDoc[]
+GET  /knowledge/{id}                  → KnowledgeDoc
+POST /knowledge/create                { title, category, content, tags } → KnowledgeDoc (manual creation)
+POST /knowledge/{id}/update           { content?, tags?, category? } → KnowledgeDoc
+POST /teach                           { context: str } → { relevant_docs: KnowledgeDoc[], injected_tokens: usize }
+POST /optimize/suggest                → Optimization[] (new suggestions)
+POST /optimize/approve/{id}           → Optimization (status → Approved)
+POST /optimize/apply/{id}             → Optimization (applies via SafeSwitch)
+GET  /optimizations                   ?status=...&limit=20 → Optimization[]
+POST /observe/action                  { tool, params?, result_summary?, context?, session_id?, success? } → AgentAction
+GET  /actions                         ?tool=...&session_id=...&since=...&limit=50 → AgentAction[]
+GET  /skills/candidates               ?status=...&limit=20 → SkillCandidate[]
+POST /skills/detect                   → { sequences_found, new_candidates, candidates[] } (manual trigger)
+POST /skills/generate/{id}            → SkillCandidate (writes SKILL.md, status → generated)
+POST /skills/promote/{id}             → SkillCandidate (activation → auto, status → promoted)
+POST /skills/execution                { skill_name, outcome, session_id?, notes? } → { execution, success_rate, total_executions }
+GET  /skills/executions               ?skill_name=...&limit=20 → SkillExecution[]
+```
+
+Future (M1+):
+```
+POST /system/mutate       { mutation: str, args: obj, reason: str } → result + event_id
+POST /nix/rebuild         { changes: str, dry_run: bool } → result + generation
+POST /nix/search          { query: str } → packages[]
+```
+
+## Event log schema (SQLite)
+
+```sql
+CREATE TABLE events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ts TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),
+  type TEXT NOT NULL,
+  actor TEXT NOT NULL,
+  payload TEXT NOT NULL,
+  prev_hash TEXT NOT NULL,
+  hash TEXT NOT NULL
+);
+-- hash = SHA-256(id|ts|type|actor|payload|prev_hash)   -- pipe-delimited
+```
+
+## Memory system (M0 — simplified ZVEC)
+
+### Engine
+- Single ZVEC collection (NOT three tiers — defer tiering to M2)
+- Single embedding model: nomic-embed-text-v2-moe (Q8_0, 512MB, 768-dim)
+- RRF (Reciprocal Rank Fusion) for hybrid merge — simpler than weighted scores
+- SQLite FTS5 alongside ZVEC for BM25 keyword search
+- Relevance score threshold for injection count (NOT hardcoded 6)
+- Token budget cap: max ~1500 tokens injected per prompt
+- Query embedding cache: LRU with 5-minute TTL
+- Contextual enrichment at ingestion (prepend context to chunks before embedding)
+
+### Binding strategy (M0)
+Node.js `@zvec/zvec` in the osmoda-bridge plugin. agentd handles ledger + watchers,
+the plugin handles vector search. No Rust FFI complexity.
+
+### Ground truth
+Markdown files remain source of truth (OpenClaw compatible).
+ZVEC indexes are derived — always rebuildable from files.
+Path: `/var/lib/osmoda/memory/`
+
+### Deferred to M2+
+- Second tier (Hot + Archive split)
+- Technical embedding model (nomic-embed-code)
+- System watchers (process, service, journal)
+- Watcher event summarization
+- Pattern detection and user model
+- Proactive alerts
+
+## Coding rules
+
+- Rust: axum + rusqlite + tokio + serde. Error handling: anyhow. Tests: `#[cfg(test)]`.
+- Nix: mkOption/mkIf/mkEnableOption. Flakes only. crane for Rust builds.
+- TypeScript: OpenClaw plugin conventions. `api.registerAgentTool()` for tools.
+- Skills: YAML frontmatter + markdown. Reference agentd tools. No secrets.
+- All system mutations go through agentd (never raw shell from OpenClaw).
+- Every mutation creates a hash-chained event.
+- `nix flake check` must pass at all times.
+- `cargo check --workspace` must pass at all times.
+
+## spawn.os.moda — Hosted Provisioning (gitignored, deployed via push.sh)
+
+Separate from the OS codebase. Lives in `apps/spawn/` (gitignored). Deployed via `bash push.sh` to the spawn server.
+
+### Heartbeat pipeline
+
+60-second heartbeat from each server collects data via Unix sockets and sends to spawn:
+- System health (CPU, RAM, disk, uptime) from agentd
+- Agent instances from OpenClaw dirs
+- Daemon health (10 daemons: active/pid)
+- Mesh identity + peers
+- Routines + routine history from routines daemon
+- Watchers from watch daemon
+- SafeSwitch sessions from watch daemon
+- NixOS generation from /nix/var/nix/profiles/system
+- Recent events (30) from agentd audit log
+- TeachD health + high-confidence patterns from teachd
+- MCP servers from mcpd
+
+### Dashboard orchestration cards
+
+Overview tab shows 4 new cards (conditional, only when data exists):
+- **Automation** — routines with interval/last-run, watchers with check-type/status
+- **Activity Feed** — 15 most recent agentd events
+- **Intelligence** — teachd stats + detected patterns with confidence
+- **Tool Servers** — MCP server list with status/uptime
+
+### v1 Programmatic API (x402 payment-gated)
+
+Agent-to-agent spawning. Coinbase x402 protocol (USDC on Base or Solana).
+
+```
+GET    /.well-known/agent-card.json   → A2A/ERC-8004 Agent Card (skills = plans, x402 pricing)
+GET    /api/v1/plans                  → Plan list with x402 info (free)
+POST   /api/v1/spawn/:planId          → Spawn server (x402-gated), returns osk_ API token
+                                        Honors Idempotency-Key header (16–128 chars, 24h cache)
+GET    /api/v1/status/:orderId        → Status (basic free, full with Bearer osk_)
+GET    /api/v1/tokens/:token_id       → Token metadata (Bearer, own-token only)
+DELETE /api/v1/tokens/:token_id       → Revoke token (Bearer, own-token only)
+WS     /api/v1/chat/:orderId          → WebSocket chat (auth via ?token=osk_)
+                                        30s heartbeat, 10m idle close (4003),
+                                        max 3 sessions/token, backpressure pause/resume
+GET    /api/v1/docs                   → OpenAPI 3.0.3 spec (v1.1.0, full schemas + examples)
+```
+
+Every response carries `X-Request-Id`. Errors use a uniform envelope:
+`{ code, message, detail?, request_id, error }` (the `error` field is a legacy alias for `code`).
+Rate-limited (429) responses include `Retry-After` in seconds. Per-token quotas: spawn 10/h,
+status 120/min — applied when a valid `Bearer osk_` token is present.
+
+Dependencies: `@x402/express`, `@x402/core`, `@x402/evm`. Graceful fallback if not installed.
+Token metadata persists in `apps/spawn/data/tokens.enc` (AES-256-GCM, same pattern as orders).
+
+### Spawn-time runtime + credentials
+
+`POST /api/v1/spawn/:planId` (and every spawn endpoint) accepts optional fields
+that pre-configure the server's agent engine:
+
+```json
+{
+  "region": "eu-central",
+  "runtime": "claude-code",                 // or "openclaw"
+  "default_model": "claude-opus-4-6",
+  "credentials": [
+    { "label": "My Claude Pro", "provider": "anthropic", "type": "oauth",
+      "secret": "sk-ant-oat01-…" }
+  ]
+}
+```
+
+Values are passed to cloud-init as `--runtime`, `--default-model`, and one
+`--credential` flag per credential. The new server boots with agents.json +
+credentials.json already populated — no SSH needed. Legacy `api_key` + `ai_provider`
+fields still work (auto-migrated into a credential).
+
+### Per-server modular config (SSH-free runtime switching)
+
+The spawn-app proxies `/config/*` to the customer server's gateway:
+
+```
+GET    /api/dashboard/servers/:id/config/drivers
+GET    /api/dashboard/servers/:id/config/agents
+PATCH  /api/dashboard/servers/:id/config/agents/:agentId
+PUT    /api/dashboard/servers/:id/config/agents
+DELETE /api/dashboard/servers/:id/config/agents/:agentId
+GET    /api/dashboard/servers/:id/config/credentials
+POST   /api/dashboard/servers/:id/config/credentials
+POST   /api/dashboard/servers/:id/config/credentials/:credId/test
+POST   /api/dashboard/servers/:id/config/credentials/:credId/default
+DELETE /api/dashboard/servers/:id/config/credentials/:credId
+```
+
+Proxy tunnels over SSH with `spawn_mgmt_ed25519` and curl's the customer
+server's `127.0.0.1:18789/config/*` using that server's gateway-token.
+
+Dashboard exposes this as the **Engine** tab on each server detail page:
+three sections — Credentials, Agents, Available engines — with add / test /
+set-default / runtime dropdown / credential dropdown / model dropdown. Save
+triggers SIGHUP on the customer gateway; in-flight chat sessions are
+unaffected.
+
+## Non-negotiables
+
+1. agentd runs as root (it IS the system)
+2. Every mutation logged with hash chain
+3. Destructive ops require user approval
+4. Third-party tools sandboxed (bubblewrap + egress proxy)
+5. NixOS config = source of truth (not imperative changes)
+6. VM must boot and work end-to-end before adding more features
+7. ISO buildable from flake
+8. Memory: markdown files are ground truth, ZVEC is derived index
+
+---
+> Source: [bolivian-peru/os-moda](https://github.com/bolivian-peru/os-moda) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
