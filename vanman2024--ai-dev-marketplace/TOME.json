@@ -1,0 +1,705 @@
+{
+  "name": "ai-dev-marketplace",
+  "owner": "vanman2024",
+  "repo": "ai-dev-marketplace",
+  "description": "AI instruction skills by vanman2024",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "stt-integration",
+      "path": "plugins/elevenlabs/skills/stt-integration",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/elevenlabs/skills/stt-integration",
+      "description": ""
+    },
+    {
+      "name": "react-email-templates",
+      "path": "plugins/resend/skills/react-email-templates",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/resend/skills/react-email-templates",
+      "description": ""
+    },
+    {
+      "name": "pgvector-setup",
+      "path": "plugins/supabase/skills/pgvector-setup",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/supabase/skills/pgvector-setup",
+      "description": ""
+    },
+    {
+      "name": "a2a-executor-patterns",
+      "path": "plugins/a2a-protocol/skills/a2a-executor-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/a2a-protocol/skills/a2a-executor-patterns",
+      "description": ""
+    },
+    {
+      "name": "a2a-mcp-integration",
+      "path": "plugins/a2a-protocol/skills/a2a-mcp-integration",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/a2a-protocol/skills/a2a-mcp-integration",
+      "description": ""
+    },
+    {
+      "name": "a2a-patterns",
+      "path": "plugins/google-adk/skills/a2a-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/google-adk/skills/a2a-patterns",
+      "description": ""
+    },
+    {
+      "name": "a2a-sdk-patterns",
+      "path": "plugins/a2a-protocol/skills/a2a-sdk-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/a2a-protocol/skills/a2a-sdk-patterns",
+      "description": ""
+    },
+    {
+      "name": "a2a-server-config",
+      "path": "plugins/a2a-protocol/skills/a2a-server-config",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/a2a-protocol/skills/a2a-server-config",
+      "description": ""
+    },
+    {
+      "name": "agent-card-templates",
+      "path": "plugins/a2a-protocol/skills/agent-card-templates",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/a2a-protocol/skills/agent-card-templates",
+      "description": ""
+    },
+    {
+      "name": "agent-workflow-patterns",
+      "path": "plugins/vercel-ai-sdk/skills/agent-workflow-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/vercel-ai-sdk/skills/agent-workflow-patterns",
+      "description": ""
+    },
+    {
+      "name": "agentic-platform-schema",
+      "path": "plugins/supabase/skills/agentic-platform-schema",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/supabase/skills/agentic-platform-schema",
+      "description": ""
+    },
+    {
+      "name": "ai-content-generation",
+      "path": "plugins/website-builder/skills/ai-content-generation",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/website-builder/skills/ai-content-generation",
+      "description": ""
+    },
+    {
+      "name": "api-authentication",
+      "path": "plugins/elevenlabs/skills/api-authentication",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/elevenlabs/skills/api-authentication",
+      "description": ""
+    },
+    {
+      "name": "api-authentication",
+      "path": "plugins/clerk/skills/api-authentication",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/clerk/skills/api-authentication",
+      "description": ""
+    },
+    {
+      "name": "astro-patterns",
+      "path": "plugins/website-builder/skills/astro-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/website-builder/skills/astro-patterns",
+      "description": ""
+    },
+    {
+      "name": "auth-components",
+      "path": "plugins/clerk/skills/auth-components",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/clerk/skills/auth-components",
+      "description": ""
+    },
+    {
+      "name": "auth-configs",
+      "path": "plugins/supabase/skills/auth-configs",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/supabase/skills/auth-configs",
+      "description": ""
+    },
+    {
+      "name": "broker-configurations",
+      "path": "plugins/celery/skills/broker-configurations",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/celery/skills/broker-configurations",
+      "description": ""
+    },
+    {
+      "name": "celery-config-patterns",
+      "path": "plugins/celery/skills/celery-config-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/celery/skills/celery-config-patterns",
+      "description": ""
+    },
+    {
+      "name": "checkout-components",
+      "path": "plugins/payments/skills/checkout-components",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/payments/skills/checkout-components",
+      "description": ""
+    },
+    {
+      "name": "checkpoint-patterns",
+      "path": "plugins/langgraph/skills/checkpoint-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/langgraph/skills/checkpoint-patterns",
+      "description": ""
+    },
+    {
+      "name": "chunking-strategies",
+      "path": "plugins/rag-pipeline/skills/chunking-strategies",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/rag-pipeline/skills/chunking-strategies",
+      "description": ""
+    },
+    {
+      "name": "component-integration",
+      "path": "plugins/website-builder/skills/component-integration",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/website-builder/skills/component-integration",
+      "description": ""
+    },
+    {
+      "name": "deepeval-testing",
+      "path": "plugins/llm-evals/skills/deepeval-testing",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/llm-evals/skills/deepeval-testing",
+      "description": ""
+    },
+    {
+      "name": "deployment-configs",
+      "path": "plugins/celery/skills/deployment-configs",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/celery/skills/deployment-configs",
+      "description": ""
+    },
+    {
+      "name": "design-system-enforcement",
+      "path": "plugins/nextjs-frontend/skills/design-system-enforcement",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/nextjs-frontend/skills/design-system-enforcement",
+      "description": ""
+    },
+    {
+      "name": "document-parsers",
+      "path": "plugins/rag-pipeline/skills/document-parsers",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/rag-pipeline/skills/document-parsers",
+      "description": ""
+    },
+    {
+      "name": "example-projects",
+      "path": "plugins/ml-training/skills/example-projects",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/ml-training/skills/example-projects",
+      "description": ""
+    },
+    {
+      "name": "expo-patterns",
+      "path": "plugins/mobile/skills/expo-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/mobile/skills/expo-patterns",
+      "description": ""
+    },
+    {
+      "name": "fastapi-api-patterns",
+      "path": "plugins/fastapi-backend/skills/fastapi-api-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/fastapi-backend/skills/fastapi-api-patterns",
+      "description": ""
+    },
+    {
+      "name": "fastapi-auth-patterns",
+      "path": "plugins/fastapi-backend/skills/fastapi-auth-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/fastapi-backend/skills/fastapi-auth-patterns",
+      "description": ""
+    },
+    {
+      "name": "fastapi-deployment-config",
+      "path": "plugins/fastapi-backend/skills/fastapi-deployment-config",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/fastapi-backend/skills/fastapi-deployment-config",
+      "description": ""
+    },
+    {
+      "name": "fastapi-project-structure",
+      "path": "plugins/fastapi-backend/skills/fastapi-project-structure",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/fastapi-backend/skills/fastapi-project-structure",
+      "description": ""
+    },
+    {
+      "name": "framework-integrations",
+      "path": "plugins/celery/skills/framework-integrations",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/celery/skills/framework-integrations",
+      "description": ""
+    },
+    {
+      "name": "generative-ui-patterns",
+      "path": "plugins/vercel-ai-sdk/skills/generative-ui-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/vercel-ai-sdk/skills/generative-ui-patterns",
+      "description": ""
+    },
+    {
+      "name": "google-cloud-configs",
+      "path": "plugins/ml-training/skills/google-cloud-configs",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/ml-training/skills/google-cloud-configs",
+      "description": ""
+    },
+    {
+      "name": "google-file-search",
+      "path": "plugins/rag-pipeline/skills/google-file-search",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/rag-pipeline/skills/google-file-search",
+      "description": ""
+    },
+    {
+      "name": "graph-patterns",
+      "path": "plugins/langgraph/skills/graph-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/langgraph/skills/graph-patterns",
+      "description": ""
+    },
+    {
+      "name": "integration-helpers",
+      "path": "plugins/ml-training/skills/integration-helpers",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/ml-training/skills/integration-helpers",
+      "description": ""
+    },
+    {
+      "name": "mem0-fastapi-integration",
+      "path": "plugins/fastapi-backend/skills/mem0-fastapi-integration",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/fastapi-backend/skills/mem0-fastapi-integration",
+      "description": ""
+    },
+    {
+      "name": "memory-design-patterns",
+      "path": "plugins/mem0/skills/memory-design-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/mem0/skills/memory-design-patterns",
+      "description": ""
+    },
+    {
+      "name": "memory-optimization",
+      "path": "plugins/mem0/skills/memory-optimization",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/mem0/skills/memory-optimization",
+      "description": ""
+    },
+    {
+      "name": "mobile-auth-patterns",
+      "path": "plugins/mobile/skills/mobile-auth-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/mobile/skills/mobile-auth-patterns",
+      "description": ""
+    },
+    {
+      "name": "mobile-navigation",
+      "path": "plugins/mobile/skills/mobile-navigation",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/mobile/skills/mobile-navigation",
+      "description": ""
+    },
+    {
+      "name": "model-routing-patterns",
+      "path": "plugins/openrouter/skills/model-routing-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/openrouter/skills/model-routing-patterns",
+      "description": ""
+    },
+    {
+      "name": "monitoring-flower",
+      "path": "plugins/celery/skills/monitoring-flower",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/celery/skills/monitoring-flower",
+      "description": ""
+    },
+    {
+      "name": "nextjs-integration",
+      "path": "plugins/clerk/skills/nextjs-integration",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/clerk/skills/nextjs-integration",
+      "description": ""
+    },
+    {
+      "name": "observability-patterns",
+      "path": "plugins/google-adk/skills/observability-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/google-adk/skills/observability-patterns",
+      "description": ""
+    },
+    {
+      "name": "openrouter-config-validator",
+      "path": "plugins/openrouter/skills/openrouter-config-validator",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/openrouter/skills/openrouter-config-validator",
+      "description": ""
+    },
+    {
+      "name": "organization-management",
+      "path": "plugins/clerk/skills/organization-management",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/clerk/skills/organization-management",
+      "description": ""
+    },
+    {
+      "name": "production-deployment",
+      "path": "plugins/elevenlabs/skills/production-deployment",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/elevenlabs/skills/production-deployment",
+      "description": ""
+    },
+    {
+      "name": "promptfoo-config",
+      "path": "plugins/llm-evals/skills/promptfoo-config",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/llm-evals/skills/promptfoo-config",
+      "description": ""
+    },
+    {
+      "name": "provider-config-validator",
+      "path": "plugins/vercel-ai-sdk/skills/provider-config-validator",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/vercel-ai-sdk/skills/provider-config-validator",
+      "description": ""
+    },
+    {
+      "name": "provider-integration-templates",
+      "path": "plugins/openrouter/skills/provider-integration-templates",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/openrouter/skills/provider-integration-templates",
+      "description": ""
+    },
+    {
+      "name": "queue-patterns",
+      "path": "plugins/bullmq/skills/queue-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/bullmq/skills/queue-patterns",
+      "description": ""
+    },
+    {
+      "name": "rag-implementation",
+      "path": "plugins/vercel-ai-sdk/skills/rag-implementation",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/vercel-ai-sdk/skills/rag-implementation",
+      "description": ""
+    },
+    {
+      "name": "responsive-design",
+      "path": "plugins/mobile/skills/responsive-design",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/mobile/skills/responsive-design",
+      "description": ""
+    },
+    {
+      "name": "result-backend-patterns",
+      "path": "plugins/celery/skills/result-backend-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/celery/skills/result-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "rls-templates",
+      "path": "plugins/supabase/skills/rls-templates",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/supabase/skills/rls-templates",
+      "description": ""
+    },
+    {
+      "name": "schema-patterns",
+      "path": "plugins/supabase/skills/schema-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/supabase/skills/schema-patterns",
+      "description": ""
+    },
+    {
+      "name": "schema-validation",
+      "path": "plugins/supabase/skills/schema-validation",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/supabase/skills/schema-validation",
+      "description": ""
+    },
+    {
+      "name": "sdk-config-validator",
+      "path": "plugins/claude-agent-sdk/skills/sdk-config-validator",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/claude-agent-sdk/skills/sdk-config-validator",
+      "description": ""
+    },
+    {
+      "name": "seo-2025-patterns",
+      "path": "plugins/nextjs-frontend/skills/seo-2025-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/nextjs-frontend/skills/seo-2025-patterns",
+      "description": ""
+    },
+    {
+      "name": "session-management",
+      "path": "plugins/clerk/skills/session-management",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/clerk/skills/session-management",
+      "description": ""
+    },
+    {
+      "name": "streaming-patterns",
+      "path": "plugins/google-adk/skills/streaming-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/google-adk/skills/streaming-patterns",
+      "description": ""
+    },
+    {
+      "name": "stripe-patterns",
+      "path": "plugins/payments/skills/stripe-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/payments/skills/stripe-patterns",
+      "description": ""
+    },
+    {
+      "name": "subscription-schemas",
+      "path": "plugins/payments/skills/subscription-schemas",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/payments/skills/subscription-schemas",
+      "description": ""
+    },
+    {
+      "name": "supabase-clerk-sync",
+      "path": "plugins/clerk/skills/supabase-clerk-sync",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/clerk/skills/supabase-clerk-sync",
+      "description": ""
+    },
+    {
+      "name": "supabase-cms",
+      "path": "plugins/website-builder/skills/supabase-cms",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/website-builder/skills/supabase-cms",
+      "description": ""
+    },
+    {
+      "name": "supabase-integration",
+      "path": "plugins/mem0/skills/supabase-integration",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/mem0/skills/supabase-integration",
+      "description": ""
+    },
+    {
+      "name": "tailwind-shadcn-setup",
+      "path": "plugins/nextjs-frontend/skills/tailwind-shadcn-setup",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/nextjs-frontend/skills/tailwind-shadcn-setup",
+      "description": ""
+    },
+    {
+      "name": "task-patterns",
+      "path": "plugins/celery/skills/task-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/celery/skills/task-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": "plugins/vercel-ai-sdk/skills/testing-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/vercel-ai-sdk/skills/testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-validation",
+      "path": "plugins/clerk/skills/testing-validation",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/clerk/skills/testing-validation",
+      "description": ""
+    },
+    {
+      "name": "validation-scripts",
+      "path": "plugins/ml-training/skills/validation-scripts",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/ml-training/skills/validation-scripts",
+      "description": ""
+    },
+    {
+      "name": "webhook-security",
+      "path": "plugins/payments/skills/webhook-security",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/payments/skills/webhook-security",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "path": ".archive/old-numbered-plugins/02-develop/skills/api-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/02-develop/skills/api-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-schema-analyzer",
+      "path": "plugins/quality/skills/api-schema-analyzer",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/quality/skills/api-schema-analyzer",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": "plugins/planning/skills/architecture-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/planning/skills/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": ".archive/old-numbered-plugins/03-planning/skills/architecture-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/03-planning/skills/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "auto-rollback-triggers",
+      "path": "plugins/deployment/skills/auto-rollback-triggers",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/deployment/skills/auto-rollback-triggers",
+      "description": ""
+    },
+    {
+      "name": "breaking-change-detection",
+      "path": "plugins/versioning/skills/breaking-change-detection",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/versioning/skills/breaking-change-detection",
+      "description": ""
+    },
+    {
+      "name": "build-manifest",
+      "path": "plugins/planning/skills/build-manifest",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/planning/skills/build-manifest",
+      "description": ""
+    },
+    {
+      "name": "canary-deployment",
+      "path": "plugins/deployment/skills/canary-deployment",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/deployment/skills/canary-deployment",
+      "description": ""
+    },
+    {
+      "name": "cicd-setup",
+      "path": "plugins/deployment/skills/cicd-setup",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/deployment/skills/cicd-setup",
+      "description": ""
+    },
+    {
+      "name": "code-generation",
+      "path": ".archive/old-numbered-plugins/02-develop/skills/code-generation",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/02-develop/skills/code-generation",
+      "description": ""
+    },
+    {
+      "name": "component-templates",
+      "path": ".archive/old-numbered-plugins/02-develop/skills/component-templates",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/02-develop/skills/component-templates",
+      "description": ""
+    },
+    {
+      "name": "decision-tracking",
+      "path": ".archive/old-numbered-plugins/03-planning/skills/decision-tracking",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/03-planning/skills/decision-tracking",
+      "description": ""
+    },
+    {
+      "name": "deployment-scripts",
+      "path": "plugins/deployment/skills/deployment-scripts",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/deployment/skills/deployment-scripts",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-app-deployment",
+      "path": "plugins/deployment/skills/digitalocean-app-deployment",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/deployment/skills/digitalocean-app-deployment",
+      "description": ""
+    },
+    {
+      "name": "digitalocean-droplet-deployment",
+      "path": "plugins/deployment/skills/digitalocean-droplet-deployment",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/deployment/skills/digitalocean-droplet-deployment",
+      "description": ""
+    },
+    {
+      "name": "doc-sync",
+      "path": "plugins/planning/skills/doc-sync",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/planning/skills/doc-sync",
+      "description": ""
+    },
+    {
+      "name": "frontend-testing",
+      "path": "plugins/testing/skills/frontend-testing",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/testing/skills/frontend-testing",
+      "description": ""
+    },
+    {
+      "name": "git-workflows",
+      "path": ".archive/old-numbered-plugins/01-core/skills/git-workflows",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/01-core/skills/git-workflows",
+      "description": ""
+    },
+    {
+      "name": "health-checks",
+      "path": "plugins/deployment/skills/health-checks",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/deployment/skills/health-checks",
+      "description": ""
+    },
+    {
+      "name": "mcp-configuration",
+      "path": "plugins/foundation/skills/mcp-configuration",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/foundation/skills/mcp-configuration",
+      "description": ""
+    },
+    {
+      "name": "mcp-development",
+      "path": ".archive/old-numbered-plugins/02-develop/skills/mcp-development",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/02-develop/skills/mcp-development",
+      "description": ""
+    },
+    {
+      "name": "newman-runner",
+      "path": "plugins/testing/skills/newman-runner",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/testing/skills/newman-runner",
+      "description": ""
+    },
+    {
+      "name": "platform-detection",
+      "path": "plugins/deployment/skills/platform-detection",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/deployment/skills/platform-detection",
+      "description": ""
+    },
+    {
+      "name": "playwright-e2e",
+      "path": "plugins/testing/skills/playwright-e2e",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/testing/skills/playwright-e2e",
+      "description": ""
+    },
+    {
+      "name": "project-detection",
+      "path": ".archive/old-numbered-plugins/01-core/skills/project-detection",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/01-core/skills/project-detection",
+      "description": ""
+    },
+    {
+      "name": "project-detection",
+      "path": "plugins/foundation/skills/project-detection",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/foundation/skills/project-detection",
+      "description": ""
+    },
+    {
+      "name": "refactoring-patterns",
+      "path": ".archive/old-numbered-plugins/04-iterate/skills/refactoring-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/04-iterate/skills/refactoring-patterns",
+      "description": ""
+    },
+    {
+      "name": "release-approval",
+      "path": "plugins/versioning/skills/release-approval",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/versioning/skills/release-approval",
+      "description": ""
+    },
+    {
+      "name": "security-patterns",
+      "path": "plugins/security/skills/security-patterns",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/security/skills/security-patterns",
+      "description": ""
+    },
+    {
+      "name": "spec-management",
+      "path": "plugins/planning/skills/spec-management",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/planning/skills/spec-management",
+      "description": ""
+    },
+    {
+      "name": "spec-management",
+      "path": ".archive/old-numbered-plugins/03-planning/skills/spec-management",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/03-planning/skills/spec-management",
+      "description": ""
+    },
+    {
+      "name": "task-layering",
+      "path": ".archive/agents/skills/task-layering",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/agents/skills/task-layering",
+      "description": ""
+    },
+    {
+      "name": "vercel-deployment",
+      "path": "plugins/deployment/skills/vercel-deployment",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/plugins/deployment/skills/vercel-deployment",
+      "description": ""
+    },
+    {
+      "name": "worktree-management",
+      "path": ".archive/old-numbered-plugins/04-iterate/skills/worktree-management",
+      "github_url": "https://github.com/vanman2024/ai-dev-marketplace/tree/main/.archive/old-numbered-plugins/04-iterate/skills/worktree-management",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vanman2024/ai-dev-marketplace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:44:20Z"
+}
