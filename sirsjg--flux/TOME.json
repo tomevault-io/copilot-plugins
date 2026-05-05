@@ -4,7 +4,7 @@
   "repo": "flux",
   "description": "Ship with less chaos. Flux is a fast, simple Kanban board with MCP integration so your LLMs can help run the show.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sirsjg/flux",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T04:15:25Z"
+  "distributed_at": "2026-05-05T15:34:09Z"
 }
