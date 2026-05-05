@@ -7,11 +7,11 @@ An agent-coded JS engine in Rust. I didn't touch a single line of code here. Not
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [pmatos/jsse](https://github.com/pmatos/jsse).
+Original source: `CLAUDE.md` in [pmatos/jsse](https://github.com/pmatos/jsse).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
