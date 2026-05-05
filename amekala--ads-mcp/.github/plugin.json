@@ -1,0 +1,9 @@
+{
+  "name": "amekala--ads-mcp",
+  "displayName": "ads-mcp",
+  "description": "MCP server for managing ad campaigns across Google Ads, Meta Ads, LinkedIn Ads, and TikTok Ads. 100+ tools for campaign creation, performance analysis, keyword research, and budget optimization. Works",
+  "version": "1.0.0",
+  "author": "amekala",
+  "homepage": "https://github.com/amekala/ads-mcp",
+  "skills": []
+}
