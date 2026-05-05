@@ -4,7 +4,7 @@
   "repo": "agent-validator",
   "description": "Don't just review the agent's code; put it through the gauntlet.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Codagent-AI/agent-validator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T16:00:18Z"
+  "distributed_at": "2026-05-05T18:49:37Z"
 }
