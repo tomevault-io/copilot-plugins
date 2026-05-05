@@ -1,0 +1,9 @@
+{
+  "name": "openrouterteam--spawn",
+  "displayName": "spawn",
+  "description": "Spawn any agent, on any cloud",
+  "version": "1.0.0",
+  "author": "OpenRouterTeam",
+  "homepage": "https://github.com/OpenRouterTeam/spawn",
+  "skills": []
+}
