@@ -1,0 +1,9 @@
+{
+  "name": "nikhilsitaram--claude-caliper",
+  "displayName": "claude-caliper",
+  "description": "A Claude workflow that measures twice and cuts once",
+  "version": "1.0.0",
+  "author": "nikhilsitaram",
+  "homepage": "https://github.com/nikhilsitaram/claude-caliper",
+  "skills": []
+}
