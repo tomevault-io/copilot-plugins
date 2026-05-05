@@ -4,7 +4,7 @@
   "repo": "expo-meta-wearables-dat",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/circus-kitchens/expo-meta-wearables-dat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T13:42:31Z"
+  "distributed_at": "2026-05-05T03:53:40Z"
 }
