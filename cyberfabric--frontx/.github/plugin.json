@@ -1,9 +1,9 @@
 {
   "name": "cyberfabric--frontx",
   "displayName": "frontx",
-  "description": "frontx",
+  "description": "FrontX - UI development kit for modern SaaS applications",
   "version": "1.0.0",
   "author": "cyberfabric",
-  "homepage": "https://tomevault.io/claim/cyberfabric",
+  "homepage": "https://github.com/cyberfabric/frontx",
   "skills": []
 }
