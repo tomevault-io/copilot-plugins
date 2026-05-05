@@ -1,0 +1,9 @@
+{
+  "name": "rishiskhare--parrot",
+  "displayName": "parrot",
+  "description": "A free, offline, private AI text-to-speech desktop app built on Rust \ud83e\udd9c",
+  "version": "1.0.0",
+  "author": "rishiskhare",
+  "homepage": "https://github.com/rishiskhare/parrot",
+  "skills": []
+}
