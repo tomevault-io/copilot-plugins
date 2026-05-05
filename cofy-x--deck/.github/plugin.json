@@ -1,0 +1,9 @@
+{
+  "name": "cofy-x--deck",
+  "displayName": "deck",
+  "description": "Open-source desktop cockpit for local AI sandboxes, coding workflows, and dev handoff.",
+  "version": "1.0.0",
+  "author": "cofy-x",
+  "homepage": "https://github.com/cofy-x/deck",
+  "skills": []
+}
