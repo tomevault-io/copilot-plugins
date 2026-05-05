@@ -1,77 +1,80 @@
-## api-models
+## core-service
 
-> Conventions for API request/response models in Sources/Protocols/APIModels.swift
+> Guide for working in CoreService.swift — the main service actor (8500+ lines)
 
 
-# API Models Conventions
+# CoreService Guide
 
-All wire models live in `Sources/Protocols/APIModels.swift`. This file is ~3200 lines; always add models in the appropriate domain section under the nearest `// MARK:` comment.
+`Sources/sloppy/CoreService.swift` is an `actor` (~8551 lines, 337 functions). It is the central business logic layer between the HTTP routers and the runtime/persistence layer.
 
-## Model declaration pattern
+## Architecture position
+
+```
+Transport (CoreHTTPServer)
+  → Router (CoreRouter / XxxAPIRouter)
+    → CoreService  ← you are here
+      → SQLiteStore (PersistenceStore)
+      → RuntimeSystem (AgentRuntime)
+```
+
+## Domain sections (MARK map)
+
+| Section | Approx. line |
+|---|---|
+| Gateway Plugin Lifecycle | ~455 |
+| Cron Tasks | ~943 |
+| Task Clarifications | ~1518 |
+| Skills | ~2255 |
+| Channel Plugins | ~2470 |
+| Review Flow | ~5344 |
+| Task Comments | ~5574 |
+| Task Activity | ~5643 |
+| Channel Access Approvals | ~7827 |
+| Channel Model | ~7903 |
+| InboundMessageReceiver | ~8059 |
+| ProjectToolService conformance | ~8339 |
+| Debug API | ~8387 |
+
+Use `swift test --filter` or editor search to jump directly to the relevant MARK section.
+
+## Adding a new method
+
+1. Find the correct domain section by MARK header.
+2. CoreService is an `actor` — all methods are implicitly `@isolated`. Call site must `await`.
+3. Access persistence via `store` (`any PersistenceStore`), runtime via `runtime` (`RuntimeSystem`).
+4. Throw typed domain errors, not generic ones:
 
 ```swift
-// MARK: - Xxx
-
-public struct XxxCreateRequest: Codable, Sendable {
-    public var name: String
-    public var description: String?
-
-    public init(name: String, description: String? = nil) {
-        self.name = name
-        self.description = description
-    }
+enum XxxError: Error {
+    case notFound
+    case invalidState(String)
 }
 
-public struct XxxRecord: Codable, Sendable {
-    public var id: String
-    public var name: String
-    public var createdAt: Date
-
-    public init(id: String, name: String, createdAt: Date = Date()) {
-        self.id = id
-        self.name = name
-        self.createdAt = createdAt
+func getXxx(id: String) async throws -> XxxRecord {
+    guard let record = await store.fetchXxx(id: id) else {
+        throw XxxError.notFound
     }
+    return record
 }
 ```
 
-## CodingKeys — when and how
+5. Do not add `public` unless the method is part of a protocol conformance declared in another module.
 
-Use `CodingKeys` only when the JSON field name must differ from the Swift property name:
+## Protocols CoreService conforms to
 
-```swift
-public struct XxxRecord: Codable, Sendable {
-    public var channelId: String
+- `ProjectToolService` — project/task operations used by agent tools (see ~line 8339)
+- `RuntimeConfigToolService` — runtime config read/write
+- `SkillsToolService` — skills registry operations
+- `InboundMessageReceiver` — channel message delivery (~line 8059)
 
-    enum CodingKeys: String, CodingKey {
-        case channelId = "channel_id"
-    }
-}
-```
+When adding operations that tools need, add to the relevant protocol in `Sources/sloppy/Tools/AgentTools/CoreTool.swift`.
 
-For camelCase properties that map to camelCase JSON, no `CodingKeys` needed (default behavior).
+## Do not read the whole file
 
-## Dynamic / untyped data
-
-For fields that carry arbitrary JSON, use `JSONValue` (defined in `Sources/Protocols/JSONValue.swift`):
-
-```swift
-public struct ToolInvocationResult: Codable, Sendable {
-    public var data: JSONValue?
-}
-```
-
-## Visibility
-
-All models must be `public` — this module is imported by other targets (`sloppy`, tests, `AgentRuntime`).
-
-## Date encoding
-
-All `Date` fields encode/decode as ISO 8601 strings. Encoders are configured at call sites; models themselves only need `var createdAt: Date`.
-
-## Sendable
-
-All models crossing actor or module boundaries must be `Sendable`. For `struct` with only `Sendable` stored properties, this is automatic. If a property is not `Sendable`, mark the conformance `@unchecked Sendable` and document why.
+The file is too large to read in full. Use:
+- `rg "func methodName"` to jump to a function
+- `rg "// MARK:" Sources/sloppy/CoreService.swift` to see domain sections
+- Read only the relevant section (50–150 lines around the target)
 
 ---
 > Source: [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy) — distributed by [TomeVault](https://tomevault.io).
