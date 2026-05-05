@@ -4,7 +4,7 @@
   "repo": "HIGLab",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/M1zz/HIGLab",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T08:32:11Z"
+  "distributed_at": "2026-05-05T03:02:55Z"
 }
