@@ -1,0 +1,207 @@
+{
+  "name": "skillpacks",
+  "owner": "tachyon-beep",
+  "repo": "skillpacks",
+  "description": "AI instruction skills by tachyon-beep",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cicd-pipeline-architecture",
+      "path": "plugins/axiom-devops-engineering/skills/cicd-pipeline-architecture",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-devops-engineering/skills/cicd-pipeline-architecture",
+      "description": ""
+    },
+    {
+      "name": "design-and-build",
+      "path": "plugins/axiom-sdlc-engineering/skills/design-and-build",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-sdlc-engineering/skills/design-and-build",
+      "description": ""
+    },
+    {
+      "name": "governance-and-risk",
+      "path": "plugins/axiom-sdlc-engineering/skills/governance-and-risk",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-sdlc-engineering/skills/governance-and-risk",
+      "description": ""
+    },
+    {
+      "name": "implementation-planning",
+      "path": "plugins/axiom-planning/skills/implementation-planning",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-planning/skills/implementation-planning",
+      "description": ""
+    },
+    {
+      "name": "lifecycle-adoption",
+      "path": "plugins/axiom-sdlc-engineering/skills/lifecycle-adoption",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-sdlc-engineering/skills/lifecycle-adoption",
+      "description": ""
+    },
+    {
+      "name": "plan-review",
+      "path": "plugins/axiom-planning/skills/plan-review",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-planning/skills/plan-review",
+      "description": ""
+    },
+    {
+      "name": "platform-integration",
+      "path": "plugins/axiom-sdlc-engineering/skills/platform-integration",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-sdlc-engineering/skills/platform-integration",
+      "description": ""
+    },
+    {
+      "name": "quality-assurance",
+      "path": "plugins/axiom-sdlc-engineering/skills/quality-assurance",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-sdlc-engineering/skills/quality-assurance",
+      "description": ""
+    },
+    {
+      "name": "sme-agent-protocol",
+      "path": "plugins/meta-sme-protocol/skills/sme-agent-protocol",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/meta-sme-protocol/skills/sme-agent-protocol",
+      "description": ""
+    },
+    {
+      "name": "using-ai-engineering",
+      "path": "plugins/yzmir-ai-engineering-expert/skills/using-ai-engineering",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/yzmir-ai-engineering-expert/skills/using-ai-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-deep-rl",
+      "path": "plugins/yzmir-deep-rl/skills/using-deep-rl",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/yzmir-deep-rl/skills/using-deep-rl",
+      "description": ""
+    },
+    {
+      "name": "using-dynamic-architectures",
+      "path": "plugins/yzmir-dynamic-architectures/skills/using-dynamic-architectures",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/yzmir-dynamic-architectures/skills/using-dynamic-architectures",
+      "description": ""
+    },
+    {
+      "name": "using-ml-production",
+      "path": "plugins/yzmir-ml-production/skills/using-ml-production",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/yzmir-ml-production/skills/using-ml-production",
+      "description": ""
+    },
+    {
+      "name": "using-python-engineering",
+      "path": "plugins/axiom-python-engineering/skills/using-python-engineering",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-python-engineering/skills/using-python-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-pytorch-engineering",
+      "path": "plugins/yzmir-pytorch-engineering/skills/using-pytorch-engineering",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/yzmir-pytorch-engineering/skills/using-pytorch-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-quality-engineering",
+      "path": "plugins/ordis-quality-engineering/skills/using-quality-engineering",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/ordis-quality-engineering/skills/using-quality-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-sdlc-engineering",
+      "path": "plugins/axiom-sdlc-engineering/skills/using-sdlc-engineering",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-sdlc-engineering/skills/using-sdlc-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-security-architect",
+      "path": "plugins/ordis-security-architect/skills/using-security-architect",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/ordis-security-architect/skills/using-security-architect",
+      "description": ""
+    },
+    {
+      "name": "using-simulation-tactics",
+      "path": "plugins/bravos-simulation-tactics/skills/using-simulation-tactics",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/bravos-simulation-tactics/skills/using-simulation-tactics",
+      "description": ""
+    },
+    {
+      "name": "using-skillpack-maintenance",
+      "path": "plugins/meta-skillpack-maintenance/skills/using-skillpack-maintenance",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/meta-skillpack-maintenance/skills/using-skillpack-maintenance",
+      "description": ""
+    },
+    {
+      "name": "using-software-engineering",
+      "path": "plugins/axiom-engineering-foundations/skills/using-software-engineering",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-engineering-foundations/skills/using-software-engineering",
+      "description": ""
+    },
+    {
+      "name": "using-system-archaeologist",
+      "path": "plugins/axiom-system-archaeologist/skills/using-system-archaeologist",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-system-archaeologist/skills/using-system-archaeologist",
+      "description": ""
+    },
+    {
+      "name": "using-system-architect",
+      "path": "plugins/axiom-system-architect/skills/using-system-architect",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-system-architect/skills/using-system-architect",
+      "description": ""
+    },
+    {
+      "name": "using-technical-writer",
+      "path": "plugins/muna-technical-writer/skills/using-technical-writer",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/muna-technical-writer/skills/using-technical-writer",
+      "description": ""
+    },
+    {
+      "name": "using-training-optimization",
+      "path": "plugins/yzmir-training-optimization/skills/using-training-optimization",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/yzmir-training-optimization/skills/using-training-optimization",
+      "description": ""
+    },
+    {
+      "name": "using-ux-designer",
+      "path": "plugins/lyra-ux-designer/skills/using-ux-designer",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/lyra-ux-designer/skills/using-ux-designer",
+      "description": ""
+    },
+    {
+      "name": "using-web-backend",
+      "path": "plugins/axiom-web-backend/skills/using-web-backend",
+      "github_url": "https://github.com/tachyon-beep/skillpacks/tree/main/plugins/axiom-web-backend/skills/using-web-backend",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tachyon-beep/skillpacks",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:42:58Z"
+}
