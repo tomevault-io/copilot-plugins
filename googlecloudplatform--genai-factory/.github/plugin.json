@@ -1,0 +1,9 @@
+{
+  "name": "googlecloudplatform--genai-factory",
+  "displayName": "genai-factory",
+  "description": "A collection of end-to-end infrastructure blueprints to deploy generative AI infrastructures in GCP, using IaC and following security best-practices.",
+  "version": "1.0.0",
+  "author": "GoogleCloudPlatform",
+  "homepage": "https://github.com/GoogleCloudPlatform/genai-factory",
+  "skills": []
+}
