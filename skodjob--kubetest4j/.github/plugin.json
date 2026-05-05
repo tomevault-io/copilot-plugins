@@ -1,0 +1,9 @@
+{
+  "name": "skodjob--kubetest4j",
+  "displayName": "kubetest4j",
+  "description": "Library for easy testing of kubernetes deployments and operators using fabric8 api.",
+  "version": "1.0.0",
+  "author": "skodjob",
+  "homepage": "https://github.com/skodjob/kubetest4j",
+  "skills": []
+}
