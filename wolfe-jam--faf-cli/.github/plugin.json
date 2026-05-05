@@ -1,0 +1,9 @@
+{
+  "name": "wolfe-jam--faf-cli",
+  "displayName": "faf-cli",
+  "description": "Persistent Project Context for AI \u2014 IANA-registered .faf format \u00b7 universal CLI",
+  "version": "1.0.0",
+  "author": "Wolfe-Jam",
+  "homepage": "https://github.com/Wolfe-Jam/faf-cli",
+  "skills": []
+}
