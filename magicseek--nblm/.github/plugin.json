@@ -1,0 +1,9 @@
+{
+  "name": "magicseek--nblm",
+  "displayName": "nblm",
+  "description": "Yet another awesome NotebookLM driver for Claude Code, Codex, OpenCode, Antigravity & more.",
+  "version": "1.0.0",
+  "author": "magicseek",
+  "homepage": "https://github.com/magicseek/nblm",
+  "skills": []
+}
