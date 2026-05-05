@@ -4,7 +4,7 @@
   "repo": "tui4j",
   "description": "TUI4J: Terminal User Interface library for Java that includes Bubble Tea ported from Go",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/WilliamAGH/tui4j",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T08:05:04Z"
+  "distributed_at": "2026-05-05T18:46:27Z"
 }
