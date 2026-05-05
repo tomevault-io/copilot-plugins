@@ -1,0 +1,357 @@
+{
+  "name": "llms",
+  "owner": "matteocervelli",
+  "repo": "llms",
+  "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "accessibility-checker",
+      "path": ".claude/skills/accessibility-checker",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/accessibility-checker",
+      "description": ""
+    },
+    {
+      "name": "analysis",
+      "path": "src/tools/skill_builder/templates/analysis",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/src/tools/skill_builder/templates/analysis",
+      "description": ""
+    },
+    {
+      "name": "analysis",
+      "path": ".claude/skills/analysis",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/analysis",
+      "description": ""
+    },
+    {
+      "name": "api-designer",
+      "path": ".claude/skills/api-designer",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/api-designer",
+      "description": ""
+    },
+    {
+      "name": "api-test-generator",
+      "path": ".claude/skills/api-test-generator",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/api-test-generator",
+      "description": ""
+    },
+    {
+      "name": "architecture-planner",
+      "path": ".claude/skills/architecture-planner",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/architecture-planner",
+      "description": ""
+    },
+    {
+      "name": "code-reviewer",
+      "path": ".claude/skills/code-reviewer",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/code-reviewer",
+      "description": ""
+    },
+    {
+      "name": "coverage-analyzer",
+      "path": ".claude/skills/coverage-analyzer",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/coverage-analyzer",
+      "description": ""
+    },
+    {
+      "name": "data-modeler",
+      "path": ".claude/skills/data-modeler",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/data-modeler",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": ".claude/skills/design",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/design",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": "src/tools/skill_builder/templates/design",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/src/tools/skill_builder/templates/design",
+      "description": ""
+    },
+    {
+      "name": "design-synthesizer",
+      "path": ".claude/skills/design-synthesizer",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/design-synthesizer",
+      "description": ""
+    },
+    {
+      "name": "doc-analyzer",
+      "path": ".claude/skills/doc-analyzer",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/doc-analyzer",
+      "description": ""
+    },
+    {
+      "name": "doc-fetcher",
+      "path": ".claude/skills/doc-fetcher",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/doc-fetcher",
+      "description": ""
+    },
+    {
+      "name": "documentation-updater",
+      "path": ".claude/skills/documentation-updater",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/documentation-updater",
+      "description": ""
+    },
+    {
+      "name": "e2e-test-writer",
+      "path": ".claude/skills/e2e-test-writer",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/e2e-test-writer",
+      "description": ""
+    },
+    {
+      "name": "file-permission-test",
+      "path": ".claude/skills/file-permission-test",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/file-permission-test",
+      "description": ""
+    },
+    {
+      "name": "frontend-design",
+      "path": "frontend-design-system/skills/frontend-design",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/frontend-design",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix",
+      "path": "frontend-design-system/skills/frontend-design-fix",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/frontend-design-fix",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix-html",
+      "path": "frontend-design-system/skills/_archive/frontend-design-fix-html",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/_archive/frontend-design-fix-html",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix-react",
+      "path": "frontend-design-system/skills/_archive/frontend-design-fix-react",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/_archive/frontend-design-fix-react",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix-svelte",
+      "path": "frontend-design-system/skills/_archive/frontend-design-fix-svelte",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/_archive/frontend-design-fix-svelte",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-fix-vue",
+      "path": "frontend-design-system/skills/_archive/frontend-design-fix-vue",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/_archive/frontend-design-fix-vue",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-html",
+      "path": "frontend-design-system/skills/_archive/frontend-design-html",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/_archive/frontend-design-html",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-react",
+      "path": "frontend-design-system/skills/_archive/frontend-design-react",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/_archive/frontend-design-react",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-svelte",
+      "path": "frontend-design-system/skills/_archive/frontend-design-svelte",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/_archive/frontend-design-svelte",
+      "description": ""
+    },
+    {
+      "name": "frontend-design-vue",
+      "path": "frontend-design-system/skills/_archive/frontend-design-vue",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/frontend-design-system/skills/_archive/frontend-design-vue",
+      "description": ""
+    },
+    {
+      "name": "github-manage",
+      "path": ".archive/skills/github-manage",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.archive/skills/github-manage",
+      "description": ""
+    },
+    {
+      "name": "implementation",
+      "path": "src/tools/skill_builder/templates/implementation",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/src/tools/skill_builder/templates/implementation",
+      "description": ""
+    },
+    {
+      "name": "implementation",
+      "path": ".claude/skills/implementation",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/implementation",
+      "description": ""
+    },
+    {
+      "name": "integration-test-writer",
+      "path": ".claude/skills/integration-test-writer",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/integration-test-writer",
+      "description": ""
+    },
+    {
+      "name": "jest-generator",
+      "path": ".claude/skills/jest-generator",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/jest-generator",
+      "description": ""
+    },
+    {
+      "name": "permission-test-skill",
+      "path": ".claude/skills/permission-test-skill",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/permission-test-skill",
+      "description": ""
+    },
+    {
+      "name": "planning-doc-generator",
+      "path": ".claude/skills/planning-doc-generator",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/planning-doc-generator",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "path": ".claude/skills/pr-creator",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/pr-creator",
+      "description": ""
+    },
+    {
+      "name": "pr-merge",
+      "path": ".claude/skills/pr-merge",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/pr-merge",
+      "description": ""
+    },
+    {
+      "name": "prp-generator",
+      "path": ".claude/skills/prp-generator",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/prp-generator",
+      "description": ""
+    },
+    {
+      "name": "pytest-generator",
+      "path": ".claude/skills/pytest-generator",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/pytest-generator",
+      "description": ""
+    },
+    {
+      "name": "python-quality-checker",
+      "path": ".claude/skills/python-quality-checker",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/python-quality-checker",
+      "description": ""
+    },
+    {
+      "name": "recursive-communicator",
+      "path": ".claude/skills/recursive-communicator",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/recursive-communicator",
+      "description": ""
+    },
+    {
+      "name": "requirements-extractor",
+      "path": ".claude/skills/requirements-extractor",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/requirements-extractor",
+      "description": ""
+    },
+    {
+      "name": "rust-quality-checker",
+      "path": ".claude/skills/rust-quality-checker",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/rust-quality-checker",
+      "description": ""
+    },
+    {
+      "name": "security-scanner",
+      "path": ".claude/skills/security-scanner",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/security-scanner",
+      "description": ""
+    },
+    {
+      "name": "answer-collector",
+      "path": ".claude/skills/answer-collector",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/answer-collector",
+      "description": ""
+    },
+    {
+      "name": "tech-stack-evaluator",
+      "path": ".claude/skills/tech-stack-evaluator",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/tech-stack-evaluator",
+      "description": ""
+    },
+    {
+      "name": "test-executor",
+      "path": ".claude/skills/test-executor",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/test-executor",
+      "description": ""
+    },
+    {
+      "name": "test-generator",
+      "path": ".claude/skills/test-generator",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/test-generator",
+      "description": ""
+    },
+    {
+      "name": "typescript-quality-checker",
+      "path": ".claude/skills/typescript-quality-checker",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/typescript-quality-checker",
+      "description": ""
+    },
+    {
+      "name": "unit-test-writer",
+      "path": ".claude/skills/unit-test-writer",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/unit-test-writer",
+      "description": ""
+    },
+    {
+      "name": "validation",
+      "path": "src/tools/skill_builder/templates/validation",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/src/tools/skill_builder/templates/validation",
+      "description": ""
+    },
+    {
+      "name": "validation",
+      "path": ".claude/skills/validation",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/validation",
+      "description": ""
+    },
+    {
+      "name": "whitelist-bypass-skill",
+      "path": ".claude/skills/whitelist-bypass-skill",
+      "github_url": "https://github.com/matteocervelli/llms/tree/main/.claude/skills/whitelist-bypass-skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/matteocervelli/llms",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:36:52Z"
+}
