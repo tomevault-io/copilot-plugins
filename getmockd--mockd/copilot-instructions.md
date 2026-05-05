@@ -1,18 +1,18 @@
 ## mockd
 
-> > Copy this file to `.cursor/rules/mockd.md` in your project root.
+> > Copy this to `.github/copilot-instructions.md` in your project root.
 
-# mockd Rules for Cursor
+# mockd Instructions for GitHub Copilot
 
-> Copy this file to `.cursor/rules/mockd.md` in your project root.
+> Copy this to `.github/copilot-instructions.md` in your project root.
 
-## mockd Overview
+## mockd Mock Server
 
-mockd is a multi-protocol API mock server (HTTP, GraphQL, gRPC, WebSocket, MQTT, SSE, SOAP). It runs as a single binary with an admin API.
+This project uses mockd for API mocking. mockd is a multi-protocol mock server supporting HTTP, GraphQL, gRPC, WebSocket, MQTT, SSE, and SOAP from a single binary.
 
-## MCP Integration
+### MCP Server
 
-mockd has an MCP server with 18 tools. Configure in `.cursor/mcp.json`:
+mockd includes an MCP server with 18 tools. Configure in `.github/copilot-mcp.json`:
 
 ```json
 {
@@ -25,43 +25,51 @@ mockd has an MCP server with 18 tools. Configure in `.cursor/mcp.json`:
 }
 ```
 
-The MCP server auto-starts a background daemon if no mockd server is running.
+MCP tools available:
 
-## Ports
+- `manage_mock` — Create, list, get, update, delete, or toggle mocks
+- `manage_context` — Get server context for current workspace
+- `manage_workspace` — Switch between named workspaces
+- `verify_mock` — Assert a mock was called N times
+- `get_mock_invocations` — See what requests hit a mock
+- `reset_verification` — Clear verification counters
+- `set_chaos_config` — Inject latency, errors, chaos profiles, stateful faults
+- `get_chaos_config` — View current chaos configuration
+- `reset_chaos_stats` — Reset chaos counters
+- `get_stateful_faults` — View circuit breaker / retry-after / degradation state
+- `manage_circuit_breaker` — Trip or reset circuit breakers
+- `get_request_logs` — View captured traffic
+- `clear_request_logs` — Clear request log history
+- `manage_state` — CRUD operations on stateful resources
+- `manage_custom_operation` — Manage custom operations for stateful resources
+- `import_mocks` — Import from OpenAPI, Postman, HAR, WireMock, cURL, WSDL, Mockoon
+- `export_mocks` — Export mocks as YAML/JSON
+- `get_server_status` — Check server health and version
 
-- Mock server: **4280** (never use 8080)
-- Admin API: **4290** (never use 8081)
+### Ports
 
-## Common Patterns
+- Mock server: **4280** (not 8080)
+- Admin API: **4290** (not 8081)
 
-### Create a mock endpoint
+### CLI Commands
+
 ```bash
-mockd add http --path /api/users --status 200 --body '{"users":[]}'
+mockd start                          # Start daemon
+mockd start -c mocks.yaml            # Start with config
+mockd stop                           # Stop daemon
+mockd engine start                   # Headless engine for CI
+mockd add http --path /api/users --status 200 --body '{"data":[]}'
+mockd add http --path /api/users --stateful   # Auto CRUD
+mockd list                           # List mocks
+mockd logs --requests                # View traffic
+mockd verify check <id> --exactly 3  # Assert call count
+mockd chaos apply flaky              # Inject errors
+mockd chaos disable                  # Stop chaos
+mockd import openapi.yaml            # Import specs
+mockd export --format yaml           # Export config
 ```
 
-### Create CRUD endpoints (auto-generates GET, POST, PUT, DELETE)
-```bash
-mockd add http --path /api/users --stateful
-```
-
-### Start with a config file
-```bash
-mockd start -c mocks.yaml
-```
-
-### Verify mocks in CI
-```bash
-mockd verify check <mock-id> --exactly 3 || exit 1
-```
-
-### Inject chaos for resilience testing
-```bash
-mockd chaos apply flaky    # 30% errors
-mockd chaos apply offline  # 100% 503
-mockd chaos disable
-```
-
-## Config Format
+### Config File (YAML)
 
 ```yaml
 mocks:
@@ -76,19 +84,9 @@ mocks:
         body: '[{"id":"{{uuid}}","name":"{{faker.name}}"}]'
 ```
 
-## Template Functions
+### Tables + Extend (Stateful Config)
 
-- `{{uuid}}` — UUID v4
-- `{{faker.name}}`, `{{faker.email}}`, `{{faker.phone}}` — Identity
-- `{{faker.creditCard}}`, `{{faker.iban}}`, `{{faker.price}}` — Finance
-- `{{now}}`, `{{timestamp}}` — Time
-- `{{request.Method}}`, `{{request.Path}}` — Echo request
-- `{{random.Int 1 100}}` — Random numbers
-- `{{faker.words(5)}}` — Parameterized
-
-## Tables + Extend (Stateful Config)
-
-The recommended way to add stateful CRUD to imported API specs in config files:
+The recommended way to add stateful CRUD to imported specs in config files:
 
 ```yaml
 version: "1.0"
@@ -98,6 +96,9 @@ imports:
 tables:
   - name: users
     idField: id
+    seedData:
+      - id: "1"
+        name: "Alice"
 extend:
   - { mock: api.ListUsers, table: users, action: list }
   - { mock: api.CreateUser, table: users, action: create }
@@ -106,15 +107,18 @@ extend:
 
 Tables are pure data stores (no routing, no basePath). Extend binds imported mocks to table CRUD actions. Custom operations use `action: custom` + `operation: OpName`.
 
-## Key Rules
+### Template Functions
 
-1. Ports 4280 (mock) and 4290 (admin) — never 8080
-2. `id` and `type` auto-generated if omitted in config
-3. Admin API: `POST /mocks` with `type` + protocol wrapper
-4. Stateful CRUD: `mockd add http --path /api/users --stateful` for quick prototyping, or tables+extend in config (recommended)
-5. Logs: `mockd logs --requests`
-6. Stop: `mockd stop`
+`{{uuid}}`, `{{faker.name}}`, `{{faker.email}}`, `{{faker.creditCard}}`, `{{faker.ipv4}}`, `{{now}}`, `{{random.Int 1 100}}`, `{{request.Method}}`, `{{request.Path}}`, `{{faker.words(5)}}`, `{{sequence("counter", 1)}}`
+
+### Key Rules
+
+1. Always use ports 4280/4290, never 8080
+2. `id` and `type` are auto-generated if omitted in config
+3. Use `mockd logs --requests` for request logs
+4. Use `mockd stop` to stop the daemon
+5. Stateful list responses default to `{"data": [...], "meta": {...}}` — response transforms can customize the envelope format
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/getmockd) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [getmockd/mockd](https://github.com/getmockd/mockd) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
