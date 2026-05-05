@@ -1,0 +1,9 @@
+{
+  "name": "arsenyinfo--nitpicker",
+  "displayName": "nitpicker",
+  "description": "Standalone Rust CLI that runs multiple LLM reviewers concurrently on a git repo and aggregates findings",
+  "version": "1.0.0",
+  "author": "arsenyinfo",
+  "homepage": "https://github.com/arsenyinfo/nitpicker",
+  "skills": []
+}
