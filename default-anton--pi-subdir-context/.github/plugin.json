@@ -1,0 +1,9 @@
+{
+  "name": "default-anton--pi-subdir-context",
+  "displayName": "pi-subdir-context",
+  "description": "Automatically load AGENTS.md context from subdirectories in pi coding agent",
+  "version": "1.0.0",
+  "author": "default-anton",
+  "homepage": "https://github.com/default-anton/pi-subdir-context",
+  "skills": []
+}
