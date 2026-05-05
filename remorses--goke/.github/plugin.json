@@ -1,0 +1,9 @@
+{
+  "name": "remorses--goke",
+  "displayName": "goke",
+  "description": "simple, type safe, elegant command line framework. CAC drop-in replacement",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/goke",
+  "skills": []
+}
