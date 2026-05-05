@@ -1,0 +1,9 @@
+{
+  "name": "lucifer1004--claude-skill-typst",
+  "displayName": "claude-skill-typst",
+  "description": "Typst skill for agents.",
+  "version": "1.0.0",
+  "author": "lucifer1004",
+  "homepage": "https://github.com/lucifer1004/claude-skill-typst",
+  "skills": []
+}
