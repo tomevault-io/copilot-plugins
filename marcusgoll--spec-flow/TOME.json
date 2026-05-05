@@ -2,9 +2,9 @@
   "name": "Spec-Flow",
   "owner": "marcusgoll",
   "repo": "Spec-Flow",
-  "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "description": "Turn product ideas into production launches with Spec-Driven Development. Repeatable Claude Code workflows with quality gates, token budgets, and auditable artifacts.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/marcusgoll",
+  "skills": [
+    {
+      "name": "git-workflow-enforcer",
+      "path": ".claude/skills/git-workflow-enforcer",
+      "github_url": "https://github.com/marcusgoll/Spec-Flow/tree/main/.claude/skills/git-workflow-enforcer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/marcusgoll/Spec-Flow",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T12:54:25Z"
+  "distributed_at": "2026-05-05T17:46:31Z"
 }
