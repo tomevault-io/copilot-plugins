@@ -4,7 +4,7 @@
   "repo": "quant-research-platform",
   "description": "quant research mcp backend",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhangjunmengyang/quant-research-platform",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T07:52:42Z"
+  "distributed_at": "2026-05-05T18:19:52Z"
 }
