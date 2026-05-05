@@ -4,7 +4,7 @@
   "repo": "Smart-Config-Kit",
   "description": "Clash Party / Clash Verge Rev / Mihomo Party / CMFA / FlClash / OpenClash / PassWall2 / Shadowrocket / Surge / Loon / Quantumult X / sing-box / Hiddify / v2rayN \u79d1\u5b66\u4e0a\u7f51\u5206\u6d41\u914d\u7f6e\u5206\u4eab",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/IvanSolis1989/Smart-Config-Kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T00:32:59Z"
+  "distributed_at": "2026-05-05T09:31:07Z"
 }
