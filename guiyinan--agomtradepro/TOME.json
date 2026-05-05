@@ -4,7 +4,7 @@
   "repo": "agomTradePro",
   "description": "AI-native macro investment research infrastructure with native MCP, terminal CLI, agent runtime, and disciplined decision workflows. \u4e00\u4e2a AI-native \u7684\u5b8f\u89c2\u6295\u8d44\u7814\u7a76\u57fa\u7840\u8bbe\u65bd\uff0c\u5185\u5efa\u539f\u751f MCP\u3001Terminal CLI\u3001Agent Runtime \u4e0e\u7eaa\u5f8b\u5316\u51b3\u7b56\u5de5\u4f5c\u6d41\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/guiyinan/agomTradePro",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T08:20:37Z"
+  "distributed_at": "2026-05-05T20:49:28Z"
 }
