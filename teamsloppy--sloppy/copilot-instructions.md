@@ -1,253 +1,74 @@
-## sloppy
+## agent-runtime
 
-> Guidance for coding agents working in this repository.
+> Guide for working with AgentRuntime — the actor-based orchestration core
 
-# AGENTS.md
 
-Guidance for coding agents working in this repository.
-Project type: Swift Package (Swift 6.x) + React/Vite dashboard.
+# AgentRuntime Guide
 
-## Scope and stack
+`Sources/AgentRuntime/` is the orchestration core. All types are `actor`-based for concurrency safety.
 
-- Package manager: SwiftPM (`Package.swift`)
-- Swift platform: macOS 14+
-- Executables: `sloppy`, `SloppyNode`
-- Libraries: `Protocols`, `PluginSDK`, `AgentRuntime`
-- Dashboard: `Dashboard/` (`react`, `vite`)
-- Persistence: SQLite (`sqlite3`)
-- Test framework: Swift Testing (`import Testing`, `@Test`, `#expect`)
+## Component overview
 
-## Build, lint, test, run
+| File | Role |
+|---|---|
+| `RuntimeSystem.swift` | Facade — entry point for CoreService to start/stop sessions and workers |
+| `WorkerRuntime.swift` | Executes a single agent worker loop |
+| `ChannelRuntime.swift` | Manages a channel session lifecycle |
+| `BranchRuntime.swift` | Manages a branched sub-session |
+| `EventBus.swift` | Pub/sub event routing between runtime components |
+| `Visor.swift` | Observes and records runtime state snapshots |
+| `Compactor.swift` | Compresses long conversation history |
+| `MemoryStore.swift` | In-memory session state |
 
-Run from repo root unless noted.
+## RuntimeSystem — primary interface
 
-### Resolve dependencies
+`CoreService` accesses the runtime exclusively through `RuntimeSystem`:
 
-- `swift package resolve`
+```swift
+// Start a session
+await runtime.startSession(agentID: agentID, sessionID: sessionID, config: config)
 
-### Build (Swift)
+// Stop a session
+await runtime.stopSession(sessionID: sessionID)
 
-- `swift build`
-- `swift build -c release`
-- `swift build -c release --product sloppy`
-- `swift build -c release --product SloppyNode`
+// Send a message into a channel
+await runtime.deliverMessage(channelID: channelID, message: message)
+```
 
-### Test (Swift)
+Do not reach into individual `WorkerRuntime` or `ChannelRuntime` actors directly from outside `AgentRuntime`.
 
-- Full suite: `swift test`
-- Parallel suite: `swift test --parallel`
-- List tests: `swift test list`
+## EventBus
 
-### Run a single Swift test (important)
+Inter-component communication uses `EventBus`. Publish typed events; subscribe with a handler closure:
 
-- By exact name:
-  - `swift test --filter CoreTests.postChannelMessageEndpoint`
-- By test group:
-  - `swift test --filter CoreTests`
-  - `swift test --filter AgentRuntimeTests`
-- Note: `swift test --list-tests` is deprecated; use `swift test list`.
+```swift
+// publish
+await eventBus.publish(SomeEvent(sessionID: sessionID, payload: data))
 
-### Run executables
+// subscribe (within an actor)
+await eventBus.subscribe(to: SomeEvent.self) { event in
+    // handle
+}
+```
 
-- `swift run sloppy`
-- `swift run SloppyNode`
+## Visor
 
-Useful `sloppy` flags:
+`Visor` periodically snapshots worker state. It is read-only from outside — `CoreService` calls `await runtime.visorSnapshot()` to get the current state. Do not write to Visor directly.
 
-- `swift run sloppy --oneshot`
-- `swift run sloppy --run-demo-request`
-- `swift run sloppy --config-path sloppy.json`
+## Concurrency rules
 
-### Dashboard commands (inside `Dashboard/`)
+- All `AgentRuntime` actors use `async`/`await`. No locks, no `DispatchQueue`.
+- Data passed between actors must be `Sendable`. Use value types (`struct`) for all cross-actor payloads.
+- Never capture `actor`-isolated mutable state in a detached `Task` without re-isolating.
 
-- `npm install`
-- `npm run dev`
-- `npm run build`
-- `npm run preview`
+## Testing AgentRuntime
 
-### Lint/format status
+Tests in `Tests/AgentRuntimeTests/` instantiate `RuntimeSystem` directly with injected fakes. See `RuntimeFlowTests.swift` for the setup pattern.
 
-No dedicated lint/format config is committed for SwiftLint, swift-format, ESLint, or Prettier.
-When changing code, preserve local style and validate with:
-
-- `swift test --parallel`
-- `swift build -c release --product sloppy`
-- `npm run build` (when dashboard files change)
-
-## CI parity checklist
-
-CI (`.github/workflows/ci.yml`) runs:
-
-- `swift test --parallel`
-- `swift build -c release --product sloppy`
-- `swift build -c release --product SloppyNode`
-- `npm install` + `npm run build` in `Dashboard/`
-Keep local changes green for the same command set.
-
-## Releases and install from GitHub
-
-Pushing a tag `v*` runs [`.github/workflows/release.yml`](.github/workflows/release.yml): Swift tests and release builds on Linux and macOS, Dashboard `npm run build` on both, tarballs uploaded to the GitHub Release together with `SHA256SUMS.txt` and `sloppy-version.json`, release notes from **GitHub auto-generated changelog** (`generate_release_notes: true`), prerelease when the version segment looks like alpha/beta/rc/preview/pre. The workflow then commits updated [`Casks/sloppy.rb`](Casks/sloppy.rb) (macOS) and [`Formula/sloppy.rb`](Formula/sloppy.rb) (Linuxbrew) on the repository default branch.
-
-Install prebuilt binaries without building: [`scripts/install.sh`](scripts/install.sh) `--release` (uses `SHA256SUMS.txt` from the release). Set `SLOPPY_RELEASE_REPO`, `SLOPPY_RELEASE_TAG`, or `SLOPPY_LOCAL_ROOT` as needed.
-
-## Code style guide
-
-### Swift: imports and formatting
-
-- Use 4-space indentation and no tabs.
-- Keep imports minimal; place `Foundation` first when used.
-- Follow existing multiline style and trailing commas.
-- Keep files focused; extract helpers instead of large monolith methods.
-
-### Swift: types and naming
-
-- `UpperCamelCase` for types; `lowerCamelCase` for vars/functions.
-- Prefer `struct` for DTO/protocol models; use `actor` for shared mutable state.
-- Mark cross-target API explicitly with `public`.
-- Add `Sendable` where values cross concurrency boundaries.
-- Use enums for constrained state/actions (`RouteAction`, `WorkerMode`, etc.).
-- For API-compatible values, use explicit raw values (snake_case when needed).
-
-### Swift: error handling and resilience
-
-- Use `throws` for recoverable boundary failures.
-- In router/http boundaries, convert invalid payloads to stable 4xx responses.
-- Prefer graceful fallback over crashing in runtime services.
-- Avoid force unwraps and `fatalError` in production paths.
-- Log operational failures with context and continue when safe.
-
-### Swift: concurrency and architecture
-
-- Prefer actor isolation to locking.
-- Keep orchestration async end-to-end (`async`/`await`).
-- Do not bypass actor boundaries with shared mutable globals.
-- Maintain separation: transport (`CoreHTTPServer`) -> routing (`CoreRouter`) -> service (`CoreService`) -> runtime (`AgentRuntime`) -> persistence (`SQLiteStore`).
-
-### Tests
-
-- Use Swift Testing macros (`@Test`, `#expect`).
-- Write behavior-focused tests with clear arrange/act/assert flow.
-- Keep tests deterministic and isolated.
-- For endpoint logic, test via router/service with realistic payloads.
-
-### Dashboard (React)
-
-- Use function components and hooks.
-- Use named exports for components/utilities.
-- Keep state local; derive computed values with `useMemo` when useful.
-- Use `async/await` and handle non-OK responses explicitly.
-- Match existing JS formatting: 2-space indent, semicolons, double quotes.
-- For dropdown/select UI, always use the custom `.actor-team-search` dropdown pattern (see `ActorsView.tsx` and `actors.css`) — never use native `<select>` elements.
-
-## Module map
-
-### Swift targets
-
-- `Sources/Protocols`
-  - Shared domain and wire models (`APIModels`, `RuntimeModels`, JSON helpers, envelopes).
-  - Base dependency for all runtime-facing modules.
-- `Sources/PluginSDK`
-  - Plugin contracts (`GatewayPlugin`, `ToolPlugin`, `MemoryPlugin`, `ModelProviderPlugin`).
-  - AnyLanguageModel bridge implementation.
-- `Sources/AgentRuntime`
-  - Runtime actors and orchestration core.
-  - Includes channel/worker/branch runtimes, compactor, visor, event bus, memory store, and `RuntimeSystem` facade.
-- `Sources/sloppy`
-  - Main backend executable and HTTP API server.
-  - Includes config loading, router, service layer, NIO transport, and SQLite persistence.
-- `Sources/Node` (product: `SloppyNode`)
-  - Node daemon executable for process execution.
-
-### Tests
-
-- `Tests/ProtocolsTests`: protocol/model coding and compatibility.
-- `Tests/AgentRuntimeTests`: routing and runtime flow.
-- `Tests/CoreTests`: API/router/config behaviors.
-
-### Client app (SloppyClient)
-
-- `Apps/Client/`: Apple client app built with AdaEngine/AdaUI (iOS, iPadOS, macOS, visionOS).
-- Project generated via `project.yml` (XcodeGen).
-- Depends on `SloppyClientCore`, `SloppyClientUI`, feature modules, and `AdaMCPPlugin`.
-
-### Debugging the client with AdaMCP
-
-The client embeds `AdaMCP` (`Vendor/AdaMCP`) — an MCP server that exposes the live AdaEngine runtime for inspection.
-When debugging UI or runtime issues in the client, use the `XcodeBuildMCP` and `AdaMCP` MCP servers:
-
-- `XcodeBuildMCP` — build, run, and read Xcode logs/diagnostics.
-- `AdaMCP` — inspect the running app: UI tree (`ui.get_tree`, `ui.find_nodes`, `ui.hit_test`), render capture (screenshots), world/entity/component/resource introspection, and safe UI actions (tap, scroll, focus traversal).
-
-Typical debugging flow:
-
-1. Build and launch the client via `XcodeBuildMCP`.
-2. Connect to the running app's MCP endpoint (default `127.0.0.1:2510/mcp`).
-3. Use AdaMCP tools to inspect the UI tree, capture screenshots, and locate the problem.
-4. Target nodes by `accessibilityIdentifier` for stable references.
-
-### Frontend/docs/support
-
-- `Dashboard/`: React dashboard for Core API.
-- `docs/specs/`: protocol/runtime specs.
-- `docs/adr/`: architecture decisions.
-- `Demos/`: quickstart/sample payloads.
-- `utils/docker/`: Dockerfiles and compose assets.
-
-## Common recipes
-
-### Add a new API endpoint
-
-1. **Model** — add `XxxRequest` / `XxxRecord` structs to `Sources/Protocols/APIModels.swift` under the relevant `// MARK:` section.
-2. **Service method** — add the method to `Sources/sloppy/CoreService.swift` in the correct domain section. Use a typed error enum.
-3. **Router** — add the route to the appropriate `XxxAPIRouter` in `Sources/sloppy/Gateway/Routers/`. If creating a new router, add it to `CoreRouter+HTTPRoutes.swift`.
-4. **Test** — add a test in `Tests/sloppyTests/` using Swift Testing macros (`@Test`, `#expect`).
-5. **Verify** — `swift test --filter sloppyTests.XxxTests` then `swift build -c release --product sloppy`.
-
-### Add a new agent tool
-
-1. **File** — create `Sources/sloppy/Tools/AgentTools/XxxTool.swift` conforming to `CoreTool`.
-2. **Implement** — define `name`, `domain`, `title`, `status`, `description`, `parameters`, and `invoke(arguments:context:)`.
-3. **Register** — add `XxxTool()` to the array in `ToolRegistry.makeDefault()` in `Sources/sloppy/Tools/ToolRegistry.swift`.
-4. **Test** — add a test in `Tests/sloppyTests/` using `ToolContext` with injected fakes.
-5. **Verify** — `swift test --filter sloppyTests.XxxTests` then `swift build -c release --product sloppy`.
-
-### Add a new SQLite table or column
-
-1. **Schema** — add `CREATE TABLE IF NOT EXISTS xxx (...)` or `ALTER TABLE xxx ADD COLUMN yyy TEXT` to the schema string in `Sources/sloppy/CorePersistenceFactory.swift`.
-2. **CRUD methods** — add the read/write methods to `Sources/sloppy/SQLiteStore.swift` inside the `#if canImport(CSQLite3)` guard with a matching in-memory fallback.
-3. **Protocol** — add the method signature to the `PersistenceStore` protocol in `Sources/sloppy/Stores/PersistenceStore.swift`.
-4. **Verify** — `swift test --filter sloppyTests` then `swift build -c release --product sloppy`.
-
-### Add a Dashboard view
-
-1. **Component** — create `Dashboard/src/views/XxxView.jsx` (function component, named export).
-2. **Route** — add the route in `Dashboard/src/App.tsx`.
-3. **API** — add the fetch function to `Dashboard/src/shared/api/coreApi.ts`.
-4. **CSS** — add `Dashboard/src/styles/xxx.css` and import it in the component.
-5. **Verify** — `cd Dashboard && npm run build`.
-
-## Cursor/Copilot rules status
-
-Contextual rules for specific file areas live in `.cursor/rules/`:
-
-- `router-pattern.mdc` — HTTP router structure and patterns
-- `tool-pattern.mdc` — agent tool implementation
-- `api-models.mdc` — APIModels.swift conventions
-- `core-service.mdc` — CoreService domain map and patterns
-- `sqlite-store.mdc` — SQLite C API patterns and migrations
-- `tests.mdc` — Swift Testing framework usage
-- `dashboard.mdc` — React/Vite dashboard conventions
-- `agent-runtime.mdc` — AgentRuntime actor architecture
-
-These rules are activated automatically when working with matching files and take precedence over the general guidance above.
-
-## Agent execution expectations
-
-- Make small, targeted edits aligned with existing module boundaries.
-- Avoid introducing new frameworks without strong justification.
-- Keep API behavior backward-compatible unless task explicitly allows breaking change.
-- Update/add tests when changing behavior.
-- Run the smallest relevant verification first, then CI-parity checks.
+Run:
+```bash
+swift test --filter AgentRuntimeTests
+```
 
 ---
 > Source: [TeamSloppy/Sloppy](https://github.com/TeamSloppy/Sloppy) — distributed by [TomeVault](https://tomevault.io).
