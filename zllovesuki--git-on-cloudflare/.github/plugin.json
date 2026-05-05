@@ -1,7 +1,7 @@
 {
   "name": "zllovesuki--git-on-cloudflare",
   "displayName": "git-on-cloudflare",
-  "description": "git-on-cloudflare",
+  "description": "A vibe-coded Git Smart HTTP v2 server on Cloudflare Workers with Durable Objects, R2, and a clean dark-mode UI.",
   "version": "1.0.0",
   "author": "zllovesuki",
   "homepage": "https://github.com/zllovesuki/git-on-cloudflare",
