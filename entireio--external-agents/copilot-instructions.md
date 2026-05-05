@@ -1,48 +1,40 @@
-## external-agents
+## entire-external-agent
 
-> This repository includes a skill that guides you through building standalone external agent binaries for the [Entire CLI](https://github.com/entireio/cli). The current testing split is:
+> Build standalone external agent binaries for the Entire CLI using E2E-first TDD
+
 
 # External Agent Builder
 
-This repository includes a skill that guides you through building standalone external agent binaries for the [Entire CLI](https://github.com/entireio/cli). The current testing split is:
+This repository includes a skill for building standalone external agent binaries that implement the Entire CLI's external agent protocol.
 
-- Protocol compliance in `external-agents-tests`
-- Lifecycle integration in this repo's `e2e/` harness
-- Agent-specific unit tests in each `agents/entire-agent-*` module
+## When to Activate
 
-## Available Commands
+Use this when the user asks to "build an external agent", "create an agent binary", "external agent plugin", or wants to research, scaffold, implement, or validate an Entire CLI external agent.
 
-| Command | Skill file | Description |
-|---------|-----------|-------------|
-| Full pipeline | `.claude/skills/entire-external-agent/SKILL.md` | Run all three phases sequentially |
-| Research | `.claude/skills/entire-external-agent/research.md` | Analyze the target agent's capabilities and map to the protocol |
-| Write tests | `.claude/skills/entire-external-agent/write-tests.md` | Scaffold the binary and wire protocol compliance plus lifecycle coverage |
-| Implement | `.claude/skills/entire-external-agent/implement.md` | Build the binary using protocol compliance first, lifecycle second, unit tests last |
+## Skill Files
 
-## How to Use
+Read these files for detailed procedures:
 
-When the user asks to "build an external agent", "create an agent binary", or "external agent plugin":
-
-1. Read `.claude/skills/entire-external-agent/SKILL.md` for the full pipeline overview
-2. Follow the three phases in order: research, write-tests, implement
-3. Each phase has a dedicated skill file with detailed instructions
-4. Keep reusable protocol checks out of this repo's `e2e/` directory. Add them to `external-agents-tests` instead.
-
-## Tool Mapping (Codex)
-
-The skill files reference Claude Code tool names. Map them to Codex equivalents:
-
-| Skill references | Codex equivalent |
-|-----------------|-----------------|
-| `TodoWrite` | `update_plan` |
-| `Task` / subagent launches | Codex's native subagent system |
-| `Skill` tool | Read the skill file directly |
-| `Read`, `Write`, `Edit`, `Glob`, `Grep`, `Bash` | Native Codex tools |
+- **Full pipeline:** `.claude/skills/entire-external-agent/SKILL.md` — runs all three phases sequentially
+- **Research:** `.claude/skills/entire-external-agent/research.md` — analyze the target agent
+- **Write tests:** `.claude/skills/entire-external-agent/write-tests.md` — scaffold binary + E2E harness
+- **Implement:** `.claude/skills/entire-external-agent/implement.md` — E2E-first TDD, unit tests last
 
 ## Protocol Spec
 
 The external agent protocol is defined at:
 `https://github.com/entireio/cli/blob/main/docs/architecture/external-agent-protocol.md`
+
+## Tool Mapping
+
+The skill files reference Claude Code tool names. Map them to Cursor equivalents:
+
+| Skill references | Cursor equivalent |
+|-----------------|-----------------|
+| `TodoWrite` | Cursor's task/plan tracking |
+| `Task` / subagent launches | Cursor's agent mode |
+| `Skill` tool | Read the skill file directly |
+| `Read`, `Write`, `Edit`, `Glob`, `Grep`, `Bash` | Native Cursor tools |
 
 ---
 > Source: [entireio/external-agents](https://github.com/entireio/external-agents) — distributed by [TomeVault](https://tomevault.io).
