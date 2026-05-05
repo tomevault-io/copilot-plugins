@@ -1,0 +1,346 @@
+{
+  "name": "lifangda--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "\u4e00\u6761\u547d\u4ee4\u5c31\u80fd\u5b89\u88c5\u7cbe\u5fc3\u6253\u78e8\u7684\u5de5\u4f5c\u6d41\u3001\u547d\u4ee4\u3001\u4ee3\u7406\u3001MCP\u670d\u52a1\u5668\u548c\u94a9\u5b50",
+  "version": "1.0.0",
+  "author": "lifangda",
+  "homepage": "https://github.com/lifangda/claude-plugins",
+  "skills": [
+    {
+      "name": "aeon",
+      "description": ""
+    },
+    {
+      "name": "alphafold-database",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "async-python-patterns",
+      "description": ""
+    },
+    {
+      "name": "benchling-integration",
+      "description": ""
+    },
+    {
+      "name": "biomni",
+      "description": ""
+    },
+    {
+      "name": "biopython",
+      "description": ""
+    },
+    {
+      "name": "biorxiv-database",
+      "description": ""
+    },
+    {
+      "name": "bioservices",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "description": ""
+    },
+    {
+      "name": "clinpgx-database",
+      "description": ""
+    },
+    {
+      "name": "scientific-context-initialization",
+      "description": ""
+    },
+    {
+      "name": "cosmic-database",
+      "description": ""
+    },
+    {
+      "name": "csv-summarizer",
+      "description": ""
+    },
+    {
+      "name": "datacommons-client",
+      "description": ""
+    },
+    {
+      "name": "datamol",
+      "description": ""
+    },
+    {
+      "name": "deployment-pipeline-design",
+      "description": ""
+    },
+    {
+      "name": "dnanexus-integration",
+      "description": ""
+    },
+    {
+      "name": "drugbank-database",
+      "description": ""
+    },
+    {
+      "name": "ensembl-database",
+      "description": ""
+    },
+    {
+      "name": "esm",
+      "description": ""
+    },
+    {
+      "name": "ffuf-fuzzing",
+      "description": ""
+    },
+    {
+      "name": "gardening-skills-wiki",
+      "description": ""
+    },
+    {
+      "name": "get-available-resources",
+      "description": ""
+    },
+    {
+      "name": "gget",
+      "description": ""
+    },
+    {
+      "name": "github-actions-templates",
+      "description": ""
+    },
+    {
+      "name": "gitops-workflow",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "histolab",
+      "description": ""
+    },
+    {
+      "name": "javascript-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "k8s-manifest-generator",
+      "description": ""
+    },
+    {
+      "name": "labarchive-integration",
+      "description": ""
+    },
+    {
+      "name": "langchain-architecture",
+      "description": ""
+    },
+    {
+      "name": "latchbio-integration",
+      "description": ""
+    },
+    {
+      "name": "literature-review",
+      "description": ""
+    },
+    {
+      "name": "llm-evaluation",
+      "description": ""
+    },
+    {
+      "name": "epub-reader",
+      "description": ""
+    },
+    {
+      "name": "markdown-to-epub-enhanced",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "medchem",
+      "description": ""
+    },
+    {
+      "name": "collaboration",
+      "description": ""
+    },
+    {
+      "name": "microservices-patterns",
+      "description": ""
+    },
+    {
+      "name": "modern-javascript-patterns",
+      "description": ""
+    },
+    {
+      "name": "multi-cloud-architecture",
+      "description": ""
+    },
+    {
+      "name": "neurokit2",
+      "description": ""
+    },
+    {
+      "name": "nodejs-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "omero-integration",
+      "description": ""
+    },
+    {
+      "name": "pathml",
+      "description": ""
+    },
+    {
+      "name": "polars",
+      "description": ""
+    },
+    {
+      "name": "preserving-productive-tensions",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-patterns",
+      "description": ""
+    },
+    {
+      "name": "pubchem-database",
+      "description": ""
+    },
+    {
+      "name": "pulling-updates-from-skills-repository",
+      "description": ""
+    },
+    {
+      "name": "pydeseq2",
+      "description": ""
+    },
+    {
+      "name": "pydicom",
+      "description": ""
+    },
+    {
+      "name": "pyhealth",
+      "description": ""
+    },
+    {
+      "name": "pylabrobot",
+      "description": ""
+    },
+    {
+      "name": "pymoo",
+      "description": ""
+    },
+    {
+      "name": "pyopenms",
+      "description": ""
+    },
+    {
+      "name": "pytdc",
+      "description": ""
+    },
+    {
+      "name": "python-packaging",
+      "description": ""
+    },
+    {
+      "name": "python-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "rag-implementation",
+      "description": ""
+    },
+    {
+      "name": "reactome-database",
+      "description": ""
+    },
+    {
+      "name": "remembering-conversations",
+      "description": ""
+    },
+    {
+      "name": "reportlab",
+      "description": ""
+    },
+    {
+      "name": "scvi-tools",
+      "description": ""
+    },
+    {
+      "name": "shap",
+      "description": ""
+    },
+    {
+      "name": "ship-learn-next",
+      "description": ""
+    },
+    {
+      "name": "solidity-security",
+      "description": ""
+    },
+    {
+      "name": "stripe-integration",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-library",
+      "description": ""
+    },
+    {
+      "name": "tooluniverse",
+      "description": ""
+    },
+    {
+      "name": "torch-geometric",
+      "description": ""
+    },
+    {
+      "name": "transformers",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "uspto-database",
+      "description": ""
+    },
+    {
+      "name": "uv-package-manager",
+      "description": ""
+    },
+    {
+      "name": "web3-testing",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    },
+    {
+      "name": "zarr-python",
+      "description": ""
+    }
+  ]
+}
