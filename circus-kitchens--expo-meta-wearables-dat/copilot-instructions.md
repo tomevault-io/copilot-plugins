@@ -1,121 +1,172 @@
-## permissions-registration
+## sample-app-guide
 
-> App registration with Meta AI, camera permission flows
+> Building a complete DAT app with camera streaming and photo capture
 
 
 
-# Permissions & Registration (Android)
+# Sample App Guide (Android)
 
-Guide for app registration and camera permission flows in the DAT SDK.
+Guide for building a complete DAT SDK app with camera streaming and photo capture.
 
 ## Overview
 
-The DAT SDK separates two concepts:
-1. **Registration** — Your app registers with Meta AI to become a permitted integration
-2. **Device permissions** — After registration, request specific device permissions (e.g., camera)
+This guide walks through building an Android app that connects to Meta glasses, streams video, and captures photos. Use it as a reference alongside the [CameraAccess sample](https://github.com/facebook/meta-wearables-dat-android/tree/main/samples).
 
-All permission grants occur through the Meta AI companion app.
+## Project setup
 
-## Registration flow
+1. Create a new Android Studio project (Compose Activity)
+2. Add the Maven repository in `settings.gradle.kts`
+3. Add `mwdat-core`, `mwdat-camera`, `mwdat-mockdevice` dependencies
+4. Configure `AndroidManifest.xml` (see [Getting Started](getting-started.md))
 
-### Start registration
+## App architecture
 
-```kotlin
-Wearables.startRegistration(context)
+A typical DAT app has these components:
+
+```
+app/src/main/java/com/example/myapp/
+├── MyApplication.kt                # Application class, SDK init
+├── MainActivity.kt                 # Registration, permission handling
+├── stream/
+│   └── StreamViewModel.kt          # Streaming, photo capture
+└── ui/
+    ├── RegistrationScreen.kt       # Registration UI
+    └── StreamScreen.kt             # Video preview, capture
 ```
 
-This opens the Meta AI app where the user approves your app.
-
-### Observe registration state
+## SDK initialization
 
 ```kotlin
-lifecycleScope.launch {
-    Wearables.registrationState.collect { state ->
-        when (state) {
-            is RegistrationState.Registered -> {
-                // App is registered, can request permissions
+import com.meta.wearable.dat.core.Wearables
+
+class MyApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        Wearables.initialize(this)
+    }
+}
+```
+
+## Stream ViewModel
+
+```kotlin
+import com.meta.wearable.dat.camera.types.StreamConfiguration
+import com.meta.wearable.dat.camera.types.StreamSessionState
+import com.meta.wearable.dat.camera.types.VideoQuality
+import com.meta.wearable.dat.core.Wearables
+import com.meta.wearable.dat.core.selectors.AutoDeviceSelector
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+
+class StreamViewModel : ViewModel() {
+    private val _streamState = MutableStateFlow<StreamSessionState?>(null)
+    val streamState = _streamState.asStateFlow()
+
+    private var session: StreamSession? = null
+
+    fun startStream(context: Context) {
+        val streamSession = Wearables.startStreamSession(
+            context = context,
+            deviceSelector = AutoDeviceSelector(),
+            streamConfiguration = StreamConfiguration(
+                videoQuality = VideoQuality.MEDIUM,
+                frameRate = 24,
+            ),
+        )
+        session = streamSession
+
+        viewModelScope.launch {
+            streamSession.state.collect { state ->
+                _streamState.value = state
             }
-            is RegistrationState.Unregistered -> {
-                // App is not registered
+        }
+
+        viewModelScope.launch {
+            streamSession.videoStream.collect { frame ->
+                // Update UI with frame
             }
         }
     }
-}
-```
 
-### Unregister
-
-```kotlin
-Wearables.startUnregistration(context)
-```
-
-## Camera permissions
-
-### Check permission status
-
-```kotlin
-val status = Wearables.checkPermissionStatus(Permission.CAMERA)
-if (status == PermissionStatus.Granted) {
-    // Start streaming
-}
-```
-
-### Request permission
-
-Use the SDK's `RequestPermissionContract` with the Activity Result API:
-
-```kotlin
-private var permissionContinuation: CancellableContinuation<PermissionStatus>? = null
-private val permissionMutex = Mutex()
-
-private val permissionsResultLauncher =
-    registerForActivityResult(Wearables.RequestPermissionContract()) { result ->
-        permissionContinuation?.resume(result)
-        permissionContinuation = null
+    fun stopStream() {
+        session?.stop()
+        session = null
     }
 
-suspend fun requestWearablesPermission(permission: Permission): PermissionStatus {
-    return permissionMutex.withLock {
-        suspendCancellableCoroutine { continuation ->
-            permissionContinuation = continuation
-            continuation.invokeOnCancellation { permissionContinuation = null }
-            permissionsResultLauncher.launch(permission)
+    fun capturePhoto() {
+        session?.capturePhoto()
+            ?.onSuccess { photoData ->
+                // Handle photo
+            }
+            ?.onFailure { error ->
+                // Handle error
+            }
+    }
+}
+```
+
+## Registration handling
+
+```kotlin
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycleScope.launch {
+            Wearables.registrationState.collect { state ->
+                // Update registration UI
+            }
+        }
+
+        lifecycleScope.launch {
+            Wearables.devices.collect { devices ->
+                // Update device list
+            }
         }
     }
+
+    fun register() {
+        Wearables.startRegistration(this)
+    }
+
+    fun unregister() {
+        Wearables.startUnregistration(this)
+    }
 }
 ```
 
-Users can choose:
-- **Allow once** — temporary, single-session grant
-- **Allow always** — persistent grant
+## Testing with MockDeviceKit
 
-## Multi-device behavior
+```kotlin
+import com.meta.wearable.dat.mockdevice.MockDeviceKit
 
-Users can link multiple glasses to Meta AI. The SDK handles this transparently:
-- Permission granted on **any** linked device means your app has access
-- You don't need to track which device has permissions
-- If all devices disconnect, permissions become unavailable
+fun setupMockDevice(context: Context) {
+    val mockDeviceKit = MockDeviceKit.getInstance(context)
+    val device = mockDeviceKit.pairRaybanMeta()
 
-## Developer Mode vs Production
+    device.powerOn()
+    device.unfold()
+    device.don()
 
-| Mode | Registration behavior |
-|------|----------------------|
-| Developer Mode | Registration always allowed (use `APPLICATION_ID` = `0`) |
-| Production | Users must be in proper release channel |
+    // Set up mock camera feed
+    val camera = device.getCameraKit()
+    camera.setCameraFeed(videoUri)
+}
+```
 
-For production, get your `APPLICATION_ID` from the [Wearables Developer Center](https://wearables.developer.meta.com/).
+## Allowed dependencies
 
-## Prerequisites
-
-- Registration requires an internet connection
-- Meta AI companion app must be installed
-- For Developer Mode: enable in Meta AI > Settings > Your glasses > Developer Mode
+Your DAT app should only depend on:
+- `mwdat-core` — always required
+- `mwdat-camera` — for camera streaming
+- `mwdat-mockdevice` — for testing
 
 ## Links
 
-- [Permissions documentation](https://wearables.developer.meta.com/docs/permissions-requests)
-- [Getting started guide](https://wearables.developer.meta.com/docs/getting-started-toolkit)
-- [Manage projects](https://wearables.developer.meta.com/docs/manage-projects)
+- [CameraAccess sample](https://github.com/facebook/meta-wearables-dat-android/tree/main/samples)
+- [Full integration guide](https://wearables.developer.meta.com/docs/build-integration-android)
+- [Developer documentation](https://wearables.developer.meta.com/docs/develop/)
 
 ---
 > Source: [circus-kitchens/expo-meta-wearables-dat](https://github.com/circus-kitchens/expo-meta-wearables-dat) — distributed by [TomeVault](https://tomevault.io).
