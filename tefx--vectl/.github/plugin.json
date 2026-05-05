@@ -1,0 +1,9 @@
+{
+  "name": "tefx--vectl",
+  "displayName": "vectl",
+  "description": "Execution control plane for AI agents",
+  "version": "1.0.0",
+  "author": "Tefx",
+  "homepage": "https://github.com/Tefx/vectl",
+  "skills": []
+}
