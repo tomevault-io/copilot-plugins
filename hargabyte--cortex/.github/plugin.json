@@ -1,0 +1,9 @@
+{
+  "name": "hargabyte--cortex",
+  "displayName": "cortex",
+  "description": "Code graph tool for AI assistants - understand codebase structure, dependencies, and impact",
+  "version": "1.0.0",
+  "author": "hargabyte",
+  "homepage": "https://github.com/hargabyte/cortex",
+  "skills": []
+}
