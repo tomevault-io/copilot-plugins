@@ -4,7 +4,7 @@
   "repo": "taibu",
   "description": "\ud83d\udd2e \u9ad8\u7cbe\u5ea6AI\u7b97\u547d\u5de5\u5177\uff0c\u6db5\u76d6\u516b\u5b57\u3001\u7d2b\u5fae\u6597\u6570\u3001\u516d\u723b\u3001\u6885\u82b1\u6613\u6570\u3001\u5947\u95e8\u9041\u7532\u3001\u5927\u516d\u58ec\u3001\u5c0f\u516d\u58ec\u3001\u5360\u661f\u672f\u3001\u592a\u4e59\u795e\u6570\u3001\u5854\u7f57\u3001MBTI\u3001\u9762\u76f8\u624b\u76f8\u3001\u5408\u76d8\u914d\u5bf9\u3001\u6bcf\u65e5/\u6bcf\u6708\u8fd0\u52bf\u3001\u5468\u516c\u89e3\u68a6\u7b49\u3002\u652f\u6301MCP\u670d\u52a1\u548cSkills",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hhszzzz/taibu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T03:40:49Z"
+  "distributed_at": "2026-05-05T12:21:48Z"
 }
