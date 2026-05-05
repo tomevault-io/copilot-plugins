@@ -4,7 +4,7 @@
   "repo": "sharp-gui",
   "description": "A Beautiful 3D Spark GUI for apple ml-sharp",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/lueluelue12138/sharp-gui",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T03:47:29Z"
+  "distributed_at": "2026-05-05T12:27:29Z"
 }
