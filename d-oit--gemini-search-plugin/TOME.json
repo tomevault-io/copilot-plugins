@@ -1,0 +1,75 @@
+{
+  "name": "gemini-search-plugin",
+  "owner": "d-oit",
+  "repo": "gemini-search-plugin",
+  "description": "Advanced Claude Code plugin for web search using Gemini CLI with caching, analytics, and validation. Includes comprehensive skills for plugin development.",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "github-repo-management",
+      "path": ".claude/skills/github-repo-management",
+      "github_url": "https://github.com/d-oit/gemini-search-plugin/tree/main/.claude/skills/github-repo-management",
+      "description": ""
+    },
+    {
+      "name": "plugin-creator",
+      "path": ".claude/skills/plugin-creator",
+      "github_url": "https://github.com/d-oit/gemini-search-plugin/tree/main/.claude/skills/plugin-creator",
+      "description": ""
+    },
+    {
+      "name": "shell-script-quality",
+      "path": ".claude/skills/shell-script-quality",
+      "github_url": "https://github.com/d-oit/gemini-search-plugin/tree/main/.claude/skills/shell-script-quality",
+      "description": ""
+    },
+    {
+      "name": "web-research",
+      "path": ".claude/skills/web-research",
+      "github_url": "https://github.com/d-oit/gemini-search-plugin/tree/main/.claude/skills/web-research",
+      "description": ""
+    },
+    {
+      "name": "web-search-patterns",
+      "path": "skills/web-search-patterns",
+      "github_url": "https://github.com/d-oit/gemini-search-plugin/tree/main/skills/web-search-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/d-oit/gemini-search-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:32:58Z"
+}
