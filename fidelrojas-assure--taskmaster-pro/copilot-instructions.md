@@ -1,17 +1,17 @@
-## clean-architecture
+## professional-documentation
 
-> Enforce Clean Architecture boundaries and dependency direction
+> Enforce professional documentation and maintainability standards
 
 
-# Clean Architecture
+# Professional Documentation Standards
 
-- Organize code by layers: `domain`, `application`, `infrastructure`, and `interface`.
-- Keep dependencies inward only: outer layers depend on inner layers, never the reverse.
-- Domain code contains business rules and must not import frameworks, UI, DB clients, or transport code.
-- Use interfaces (ports) in inner layers and provide implementations (adapters) in outer layers.
-- Keep use cases in the application layer and make them framework-agnostic.
-- Wire dependencies at composition boundaries (startup/DI), not inside domain logic.
-- Reject changes that couple business logic to framework-specific concerns.
+- Document public modules, classes, and non-trivial functions with concise purpose, inputs, outputs, and side effects.
+- Keep comments focused on intent and rationale, not obvious line-by-line narration.
+- Update docs together with behavior changes; stale documentation is a defect.
+- Add architecture notes for cross-cutting decisions and important trade-offs.
+- Maintain consistent terminology across code, docs, and API contracts.
+- Include usage examples for reusable components or developer-facing APIs.
+- Write clear commit and PR descriptions that explain why changes were made and how they were validated.
 
 ---
 > Source: [fidelrojas-Assure/TaskMaster-Pro](https://github.com/fidelrojas-Assure/TaskMaster-Pro) — distributed by [TomeVault](https://tomevault.io).
