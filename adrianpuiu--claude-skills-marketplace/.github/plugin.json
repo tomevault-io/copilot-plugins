@@ -1,0 +1,14 @@
+{
+  "name": "adrianpuiu--claude-skills-marketplace",
+  "displayName": "claude-skills-marketplace",
+  "description": "A comprehensive skill that establishes Claude as a Project Architect to generate detailed planning documents that serve as blueprints for AI-assisted software development.  ",
+  "version": "1.0.0",
+  "author": "adrianpuiu",
+  "homepage": "https://github.com/adrianpuiu/claude-skills-marketplace",
+  "skills": [
+    {
+      "name": "project-planner-skill",
+      "description": ""
+    }
+  ]
+}
