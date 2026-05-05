@@ -1,0 +1,225 @@
+{
+  "name": "safe-agentic-workflow",
+  "owner": "bybren-llc",
+  "repo": "safe-agentic-workflow",
+  "description": "SAW \u2014 SAFe Agentic Workflow AI Agent Harness for Multi-Agent Team Workflows Built on SAFe methodology (Scaled Agile Framework), adapted for AI agent teams. Works for any team with repeatable processes: Software, Marketing, Research, Legal, Operations.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-coordination",
+      "path": ".gemini/skills/agent-coordination",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/agent-coordination",
+      "description": ""
+    },
+    {
+      "name": "agent-coordination",
+      "path": ".claude/skills/agent-coordination",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/agent-coordination",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "path": ".claude/skills/api-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/api-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "path": ".gemini/skills/api-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/api-patterns",
+      "description": ""
+    },
+    {
+      "name": "confluence-docs",
+      "path": ".claude/skills/confluence-docs",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/confluence-docs",
+      "description": ""
+    },
+    {
+      "name": "confluence-docs",
+      "path": ".gemini/skills/confluence-docs",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/confluence-docs",
+      "description": ""
+    },
+    {
+      "name": "deployment-sop",
+      "path": ".claude/skills/deployment-sop",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/deployment-sop",
+      "description": ""
+    },
+    {
+      "name": "deployment-sop",
+      "path": ".gemini/skills/deployment-sop",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/deployment-sop",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "path": ".claude/skills/frontend-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "frontend-patterns",
+      "path": ".gemini/skills/frontend-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/frontend-patterns",
+      "description": ""
+    },
+    {
+      "name": "git-advanced",
+      "path": ".gemini/skills/git-advanced",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/git-advanced",
+      "description": ""
+    },
+    {
+      "name": "git-advanced",
+      "path": ".claude/skills/git-advanced",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/git-advanced",
+      "description": ""
+    },
+    {
+      "name": "linear-sop",
+      "path": ".claude/skills/linear-sop",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/linear-sop",
+      "description": ""
+    },
+    {
+      "name": "linear-sop",
+      "path": ".gemini/skills/linear-sop",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/linear-sop",
+      "description": ""
+    },
+    {
+      "name": "migration-patterns",
+      "path": ".claude/skills/migration-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/migration-patterns",
+      "description": ""
+    },
+    {
+      "name": "migration-patterns",
+      "path": ".gemini/skills/migration-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/migration-patterns",
+      "description": ""
+    },
+    {
+      "name": "orchestration-patterns",
+      "path": ".claude/skills/orchestration-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/orchestration-patterns",
+      "description": ""
+    },
+    {
+      "name": "orchestration-patterns",
+      "path": ".gemini/skills/orchestration-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/orchestration-patterns",
+      "description": ""
+    },
+    {
+      "name": "pattern-discovery",
+      "path": ".claude/skills/pattern-discovery",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/pattern-discovery",
+      "description": ""
+    },
+    {
+      "name": "pattern-discovery",
+      "path": ".gemini/skills/pattern-discovery",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/pattern-discovery",
+      "description": ""
+    },
+    {
+      "name": "rls-patterns",
+      "path": ".claude/skills/rls-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/rls-patterns",
+      "description": ""
+    },
+    {
+      "name": "rls-patterns",
+      "path": ".gemini/skills/rls-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/rls-patterns",
+      "description": ""
+    },
+    {
+      "name": "safe-workflow",
+      "path": ".claude/skills/safe-workflow",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/safe-workflow",
+      "description": ""
+    },
+    {
+      "name": "safe-workflow",
+      "path": ".gemini/skills/safe-workflow",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/safe-workflow",
+      "description": ""
+    },
+    {
+      "name": "security-audit",
+      "path": ".gemini/skills/security-audit",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/security-audit",
+      "description": ""
+    },
+    {
+      "name": "security-audit",
+      "path": ".claude/skills/security-audit",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/security-audit",
+      "description": ""
+    },
+    {
+      "name": "stripe-patterns",
+      "path": ".claude/skills/stripe-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/stripe-patterns",
+      "description": ""
+    },
+    {
+      "name": "stripe-patterns",
+      "path": ".gemini/skills/stripe-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/stripe-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": ".gemini/skills/testing-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.gemini/skills/testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "testing-patterns",
+      "path": ".claude/skills/testing-patterns",
+      "github_url": "https://github.com/bybren-llc/safe-agentic-workflow/tree/main/.claude/skills/testing-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bybren-llc/safe-agentic-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:32:50Z"
+}
