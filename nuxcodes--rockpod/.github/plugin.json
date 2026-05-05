@@ -1,0 +1,9 @@
+{
+  "name": "nuxcodes--rockpod",
+  "displayName": "rockpod",
+  "description": "Custom Rockbox firmware for iPod Classic & Video.",
+  "version": "1.0.0",
+  "author": "nuxcodes",
+  "homepage": "https://github.com/nuxcodes/rockpod",
+  "skills": []
+}
