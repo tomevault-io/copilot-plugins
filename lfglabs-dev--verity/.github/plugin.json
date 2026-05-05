@@ -1,0 +1,9 @@
+{
+  "name": "lfglabs-dev--verity",
+  "displayName": "verity",
+  "description": "Formally verified smart contracts gives mathematical certainty across all inputs and execution paths. We bet that agents will make full formal verification practical.",
+  "version": "1.0.0",
+  "author": "lfglabs-dev",
+  "homepage": "https://github.com/lfglabs-dev/verity",
+  "skills": []
+}
