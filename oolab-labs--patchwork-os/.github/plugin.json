@@ -1,0 +1,9 @@
+{
+  "name": "oolab-labs--patchwork-os",
+  "displayName": "patchwork-os",
+  "description": "MCP bridge between Claude Code and your IDE (170+ tools \u2014 LSP, debugger, terminal, git). Optional Patchwork OS layer adds recipes, approval queue, and oversight dashboard.",
+  "version": "1.0.0",
+  "author": "Oolab-labs",
+  "homepage": "https://github.com/Oolab-labs/patchwork-os",
+  "skills": []
+}
