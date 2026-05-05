@@ -7,11 +7,11 @@ Kaboom AI DevTools — Browser DevTools for AI coding assistants via MCP
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [brennhill/Kaboom-Browser-AI-Devtools-MCP](https://github.com/brennhill/Kaboom-Browser-AI-Devtools-MCP).
+Original source: `CLAUDE.md` in [brennhill/Kaboom-Browser-AI-Devtools-MCP](https://github.com/brennhill/Kaboom-Browser-AI-Devtools-MCP).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
