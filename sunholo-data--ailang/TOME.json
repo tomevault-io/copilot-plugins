@@ -1,0 +1,213 @@
+{
+  "name": "ailang",
+  "owner": "sunholo-data",
+  "repo": "ailang",
+  "description": "For humans, a language is a tool for expression. For AIs, it's a substrate for reasoning.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-inbox",
+      "path": ".claude/skills/agent-inbox",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/agent-inbox",
+      "description": ""
+    },
+    {
+      "name": "use-ailang",
+      "path": ".claude/skills/use-ailang",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/use-ailang",
+      "description": ""
+    },
+    {
+      "name": "post-release",
+      "path": ".claude/skills/post-release",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/post-release",
+      "description": ""
+    },
+    {
+      "name": "release-manager",
+      "path": ".claude/skills/release-manager",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/release-manager",
+      "description": ""
+    },
+    {
+      "name": "sprint-executor",
+      "path": ".claude/skills/sprint-executor",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/sprint-executor",
+      "description": ""
+    },
+    {
+      "name": "sprint-planner",
+      "path": ".claude/skills/sprint-planner",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/sprint-planner",
+      "description": ""
+    },
+    {
+      "name": "builtin-developer",
+      "path": ".claude/skills/builtin-developer",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/builtin-developer",
+      "description": ""
+    },
+    {
+      "name": "cli-doc-maintainer",
+      "path": ".claude/skills/cli-doc-maintainer",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/cli-doc-maintainer",
+      "description": ""
+    },
+    {
+      "name": "cloud-setup",
+      "path": ".claude/skills/cloud-setup",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/cloud-setup",
+      "description": ""
+    },
+    {
+      "name": "codebase-organizer",
+      "path": ".claude/skills/codebase-organizer",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/codebase-organizer",
+      "description": ""
+    },
+    {
+      "name": "collaboration-hub",
+      "path": ".claude/skills/collaboration-hub",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/collaboration-hub",
+      "description": ""
+    },
+    {
+      "name": "coordinator-helper",
+      "path": ".claude/skills/coordinator-helper",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/coordinator-helper",
+      "description": ""
+    },
+    {
+      "name": "design-doc-creator",
+      "path": ".claude/skills/design-doc-creator",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/design-doc-creator",
+      "description": ""
+    },
+    {
+      "name": "design-spec-auditor",
+      "path": ".claude/skills/design-spec-auditor",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/design-spec-auditor",
+      "description": ""
+    },
+    {
+      "name": "docs-sync",
+      "path": ".claude/skills/docs-sync",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/docs-sync",
+      "description": ""
+    },
+    {
+      "name": "eval-analyzer",
+      "path": ".claude/skills/eval-analyzer",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/eval-analyzer",
+      "description": ""
+    },
+    {
+      "name": "eval-gap-finder",
+      "path": ".claude/skills/eval-gap-finder",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/eval-gap-finder",
+      "description": ""
+    },
+    {
+      "name": "gemini-cli-helper",
+      "path": ".claude/skills/gemini-cli-helper",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/gemini-cli-helper",
+      "description": ""
+    },
+    {
+      "name": "github-issue-triage",
+      "path": ".claude/skills/github-issue-triage",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/github-issue-triage",
+      "description": ""
+    },
+    {
+      "name": "headless-runner",
+      "path": ".claude/skills/headless-runner",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/headless-runner",
+      "description": ""
+    },
+    {
+      "name": "model-manager",
+      "path": ".claude/skills/model-manager",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/model-manager",
+      "description": ""
+    },
+    {
+      "name": "parser-developer",
+      "path": ".claude/skills/parser-developer",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/parser-developer",
+      "description": ""
+    },
+    {
+      "name": "perf-reviewer",
+      "path": ".claude/skills/perf-reviewer",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/perf-reviewer",
+      "description": ""
+    },
+    {
+      "name": "test-coverage-guardian",
+      "path": ".claude/skills/test-coverage-guardian",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/test-coverage-guardian",
+      "description": ""
+    },
+    {
+      "name": "trace-debugger",
+      "path": ".claude/skills/trace-debugger",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/.claude/skills/trace-debugger",
+      "description": ""
+    },
+    {
+      "name": "ailang",
+      "path": "skills/ailang",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/skills/ailang",
+      "description": ""
+    },
+    {
+      "name": "ailang-debug",
+      "path": "skills/ailang-debug",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/skills/ailang-debug",
+      "description": ""
+    },
+    {
+      "name": "ailang-inbox",
+      "path": "skills/ailang-inbox",
+      "github_url": "https://github.com/sunholo-data/ailang/tree/main/skills/ailang-inbox",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sunholo-data/ailang",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:38:05Z"
+}
