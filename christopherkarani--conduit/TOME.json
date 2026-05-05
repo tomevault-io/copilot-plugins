@@ -4,7 +4,7 @@
   "repo": "Conduit",
   "description": " \ud83e\udd91 Unified Swift SDK for LLM inference across local and cloud providers",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/christopherkarani/Conduit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T07:48:13Z"
+  "distributed_at": "2026-05-05T18:09:29Z"
 }
