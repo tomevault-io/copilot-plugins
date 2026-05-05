@@ -1,0 +1,9 @@
+{
+  "name": "emacs-os--el-init",
+  "displayName": "el-init",
+  "description": "A statically compiled Emacs init (PID 1) patchset, Emacs Lisp-based service supervisor and core component of Emacs-OS.",
+  "version": "1.0.0",
+  "author": "emacs-os",
+  "homepage": "https://github.com/emacs-os/el-init",
+  "skills": []
+}
