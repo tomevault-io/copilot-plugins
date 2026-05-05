@@ -4,7 +4,7 @@
   "repo": "openlegion",
   "description": "Secure autonomous AI agent fleet platform \u2014 Docker-isolated, multi-provider, with built-in cost controls. OpenClaw alternative for production use.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/openlegion-ai/openlegion",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T14:58:49Z"
+  "distributed_at": "2026-05-05T00:40:42Z"
 }
