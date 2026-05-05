@@ -1,0 +1,9 @@
+{
+  "name": "maxgfr--csv-ai-analyzer",
+  "displayName": "csv-ai-analyzer",
+  "description": "A self-hosted, browser-based AI CSV analyzer",
+  "version": "1.0.0",
+  "author": "maxgfr",
+  "homepage": "https://github.com/maxgfr/csv-ai-analyzer",
+  "skills": []
+}
