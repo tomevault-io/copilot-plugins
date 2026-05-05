@@ -1,0 +1,18 @@
+{
+  "name": "weakincentives--weakincentives",
+  "displayName": "weakincentives",
+  "description": "Tools for developing and optimizing background agents.",
+  "version": "1.0.0",
+  "author": "weakincentives",
+  "homepage": "https://github.com/weakincentives/weakincentives",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "python-style",
+      "description": ""
+    }
+  ]
+}
