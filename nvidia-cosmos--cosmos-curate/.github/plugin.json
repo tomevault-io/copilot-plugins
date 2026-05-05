@@ -1,0 +1,9 @@
+{
+  "name": "nvidia-cosmos--cosmos-curate",
+  "displayName": "cosmos-curate",
+  "description": "Cosmos-Curate is a powerful video curation system that processes, analyzes, and organizes video content using advanced AI models and distributed computing.",
+  "version": "1.0.0",
+  "author": "nvidia-cosmos",
+  "homepage": "https://github.com/nvidia-cosmos/cosmos-curate",
+  "skills": []
+}
