@@ -1,0 +1,22 @@
+{
+  "name": "dacheng-gao--ai",
+  "displayName": "ai",
+  "description": "Learn AI, Use AI",
+  "version": "1.0.0",
+  "author": "dacheng-gao",
+  "homepage": "https://github.com/dacheng-gao/ai",
+  "skills": [
+    {
+      "name": "develop-feature",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "description": ""
+    },
+    {
+      "name": "review-code",
+      "description": ""
+    }
+  ]
+}
