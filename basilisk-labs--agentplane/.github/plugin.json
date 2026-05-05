@@ -1,0 +1,9 @@
+{
+  "name": "basilisk-labs--agentplane",
+  "displayName": "agentplane",
+  "description": "Governed CLI framework for deterministic, auditable AI agent workflows",
+  "version": "1.0.0",
+  "author": "basilisk-labs",
+  "homepage": "https://github.com/basilisk-labs/agentplane",
+  "skills": []
+}
