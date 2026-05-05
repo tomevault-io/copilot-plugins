@@ -4,7 +4,7 @@
   "repo": "eth2030",
   "description": "Ethereum execution client targeting the 2030 roadmap. 50 packages, 18K+ tests, 58 EIPs, 100% EF conformance.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jiayaoqijia/eth2030",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T14:53:17Z"
+  "distributed_at": "2026-05-05T00:34:10Z"
 }
