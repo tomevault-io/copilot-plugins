@@ -1,0 +1,44 @@
+{
+  "name": "counsel",
+  "owner": "jiangjiax",
+  "repo": "counsel",
+  "description": "\u591a\u667a\u80fd\u4f53 AI \u51b3\u7b56\u8f85\u52a9\u7cfb\u7edf\uff0c\u7528 Agent \u590d\u523b\u79c1\u8463\u4f1a\u5168\u6d41\u7a0b",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jiangjiax/counsel",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T09:32:27Z"
+}
