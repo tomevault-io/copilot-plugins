@@ -1,0 +1,9 @@
+{
+  "name": "datahaskell--sabela",
+  "displayName": "sabela",
+  "description": "A reactive notebook for Haskell",
+  "version": "1.0.0",
+  "author": "DataHaskell",
+  "homepage": "https://github.com/DataHaskell/sabela",
+  "skills": []
+}
