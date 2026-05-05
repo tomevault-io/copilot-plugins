@@ -1,0 +1,9 @@
+{
+  "name": "uipath--uipath-dev-python",
+  "displayName": "uipath-dev-python",
+  "description": "UiPath Developer Console - interactive application for building, testing, and debugging Python runtimes, agents, and automation scripts.",
+  "version": "1.0.0",
+  "author": "UiPath",
+  "homepage": "https://github.com/UiPath/uipath-dev-python",
+  "skills": []
+}
