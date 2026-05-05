@@ -1,0 +1,9 @@
+{
+  "name": "farhanaliraza--django-hawkeye",
+  "displayName": "django-hawkeye",
+  "description": "Django BM25 full-text search using PostgreSQL - a lightweight Elasticsearch alternative",
+  "version": "1.0.0",
+  "author": "FarhanAliRaza",
+  "homepage": "https://github.com/FarhanAliRaza/django-hawkeye",
+  "skills": []
+}
