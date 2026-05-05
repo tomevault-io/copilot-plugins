@@ -1,0 +1,14 @@
+{
+  "name": "kerim--claude-drafts-action-skill",
+  "displayName": "claude-drafts-action-skill",
+  "description": "A comprehensive Claude Code skill for creating and scripting actions in Drafts",
+  "version": "1.0.0",
+  "author": "kerim",
+  "homepage": "https://github.com/kerim/claude-drafts-action-skill",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
