@@ -1,0 +1,9 @@
+{
+  "name": "cablehead--pai-sho",
+  "displayName": "pai-sho",
+  "description": "dumbpipe, but multiple ports, and it reconnects",
+  "version": "1.0.0",
+  "author": "cablehead",
+  "homepage": "https://github.com/cablehead/pai-sho",
+  "skills": []
+}
