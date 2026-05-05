@@ -1,79 +1,69 @@
-## 01-protocol-resolver
+## 02-protocol-policy
 
-> Use when discussing condition resolvers, escrow release logic, isConditionMet, onConditionSet, zkTLS, Reclaim proofs, oracles, Chainlink, UMA, verification sources
+> Use when discussing insurance policies, risk scores, disputes, underwriter, coverage, pools, liquidity, LP staking, IUnderwriterPolicy, FHE encryption
 
 
-# Protocol — Condition Resolvers
+# Protocol — Underwriter Policies
 
-> **Read before acting:** `.claude/docs/product/PROTOCOL_INTEGRATION.md`
+> **Read before acting:**
+> - `.claude/docs/product/PROTOCOL_INTEGRATION.md`
+> - `.claude/docs/strategy/TOKENOMICS.md`
 
-Guide builders in designing IConditionResolver contracts that control when escrows release funds.
+Guide builders in designing IUnderwriterPolicy contracts that evaluate risk and judge disputes using FHE encryption. All return values MUST be FHE-encrypted.
 
 ## The Interface
 
 ```solidity
-interface IConditionResolver {
-    function isConditionMet(uint256 escrowId) external view returns (bool);
-    function onConditionSet(uint256 escrowId, bytes calldata data) external;
+interface IUnderwriterPolicy {
+    function onPolicySet(uint256 coverageId, bytes calldata data) external;
+    function evaluateRisk(uint256 escrowId, bytes calldata riskProof)
+        external returns (euint64 riskScore);
+    function judge(uint256 coverageId, bytes calldata disputeProof)
+        external returns (ebool valid);
 }
 ```
 
-## Verification Sources
+## FHE Pattern (MUST Follow Exactly)
 
-| Source            | Best For                                   |
-| ----------------- | ------------------------------------------ |
-| **Reclaim zkTLS** | Payment proofs (PayPal, Stripe, bank APIs) |
-| **Chainlink**     | Price thresholds, market data              |
-| **UMA Oracle**    | Binary/numeric outcome resolution          |
-| **Multi-sig**     | N-of-M human approval                      |
-| **Time lock**     | Deadline-based release                     |
+```solidity
+import { FHE, euint64, ebool } from "@fhenixprotocol/cofhe-contracts/FHE.sol";
+
+function evaluateRisk(uint256, bytes calldata) external returns (euint64) {
+    uint64 score = 500; // 5% premium
+    euint64 encrypted = FHE.asEuint64(score);
+    FHE.allowThis(encrypted);
+    FHE.allow(encrypted, msg.sender);
+    return encrypted;
+}
+```
+
+**Critical:** Without `FHE.allowThis()` + `FHE.allow()`, the value is unusable.
+
+## Risk Score Scale
+
+| Score (bps) | Premium | Use Case                           |
+| ----------- | ------- | ---------------------------------- |
+| 100         | 1%      | Low-risk, established counterparty |
+| 300         | 3%      | Standard risk                      |
+| 500         | 5%      | Elevated risk                      |
+| 1000        | 10%     | High-risk, new counterparty        |
 
 ## Design Playbook
 
-1. **Identify the condition** — what must be true for funds to release?
-2. **Select verification source** — which of the above fits?
-3. **Design the storage** — what does onConditionSet need to store?
-4. **Define the check** — what does isConditionMet evaluate?
-5. **Security review** — replay protection, input validation, gas bounds
-6. **Spec the output** — resolver name, struct layout, data encoding
+1. **Define risk factors** — what makes a transaction risky?
+2. **Design scoring model** — how factors map to 0-10000 bps
+3. **Define dispute evidence** — what proof validates a claim?
+4. **Design judge logic** — how to evaluate dispute proof
+5. **Set boundaries** — min/max premiums, dispute windows
+6. **Consider pool economics** — premiums must exceed expected claims
 
-## Storage Pattern
+## Checklist
 
-```solidity
-struct Config { /* fields from resolverData */ }
-mapping(uint256 => Config) public configs;
-mapping(uint256 => bool) public fulfilled;
-mapping(bytes32 => bool) public usedProofs;
-
-function onConditionSet(uint256 escrowId, bytes calldata data) external {
-    Config memory config = abi.decode(data, (Config));
-    configs[escrowId] = config;
-}
-
-function isConditionMet(uint256 escrowId) external view returns (bool) {
-    return fulfilled[escrowId];
-}
-```
-
-## Security Checklist
-
-- [ ] `isConditionMet` is `view` — no state changes
-- [ ] `isConditionMet` gas < 50k — no unbounded loops
-- [ ] `onConditionSet` validates all inputs
-- [ ] Replay protection: `usedProofs[keccak256(proof)]`
-- [ ] One escrow ID → one condition state (no overwriting)
-- [ ] External calls use known addresses, not user-supplied
-- [ ] Oracle data freshness validated
-- [ ] ERC-165 `supportsInterface` implemented
-- [ ] Events emitted on state changes
-
-## Implementation Path
-
-1. Design spec in Atlas
-2. Implement in `reineira-code/contracts/resolvers/`
-3. Test in `reineira-code/test/resolvers/`
-4. Deploy: `npx hardhat run scripts/deploy.ts --network arbitrumSepolia`
-5. Attach: `sdk.escrow.build().condition(resolverAddress, resolverData)`
+- [ ] FHE pattern followed exactly (allowThis + allow)
+- [ ] Risk score uses 0-10000 bps scale
+- [ ] ERC-165 supportsInterface implemented
+- [ ] Judge logic has clear evidence requirements
+- [ ] Pool economics are sustainable
 
 ---
 > Source: [ReineiraOS/reineira-atlas](https://github.com/ReineiraOS/reineira-atlas) — distributed by [TomeVault](https://tomevault.io).
