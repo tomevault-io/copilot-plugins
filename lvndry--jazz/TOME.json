@@ -1,0 +1,111 @@
+{
+  "name": "jazz",
+  "owner": "lvndry",
+  "repo": "jazz",
+  "description": "Your terminal. Your agent. Your rules.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "boilerplate",
+      "path": "skills/boilerplate",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/boilerplate",
+      "description": ""
+    },
+    {
+      "name": "browser-use",
+      "path": "skills/browser-use",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/browser-use",
+      "description": ""
+    },
+    {
+      "name": "calendar",
+      "path": "skills/calendar",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/calendar",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "create-workflow",
+      "path": "skills/create-workflow",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/create-workflow",
+      "description": ""
+    },
+    {
+      "name": "decision-log",
+      "path": "skills/decision-log",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/decision-log",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "skills/documentation",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "email",
+      "path": "skills/email",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/email",
+      "description": ""
+    },
+    {
+      "name": "journal",
+      "path": "skills/journal",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/journal",
+      "description": ""
+    },
+    {
+      "name": "obsidian",
+      "path": "skills/obsidian",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/obsidian",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills/skill-creator",
+      "github_url": "https://github.com/lvndry/jazz/tree/main/skills/skill-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lvndry/jazz",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:33:29Z"
+}
