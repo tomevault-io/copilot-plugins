@@ -1,0 +1,69 @@
+{
+  "name": "gemini-cli-modes",
+  "owner": "mystilleef",
+  "repo": "gemini-cli-modes",
+  "description": "Plan, review, build, and implement modes for the Gemini CLI",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "implement-mode",
+      "path": "skills/implement-mode",
+      "github_url": "https://github.com/mystilleef/gemini-cli-modes/tree/main/skills/implement-mode",
+      "description": ""
+    },
+    {
+      "name": "readonly-mode",
+      "path": "skills/readonly-mode",
+      "github_url": "https://github.com/mystilleef/gemini-cli-modes/tree/main/skills/readonly-mode",
+      "description": ""
+    },
+    {
+      "name": "review-mode",
+      "path": "skills/review-mode",
+      "github_url": "https://github.com/mystilleef/gemini-cli-modes/tree/main/skills/review-mode",
+      "description": ""
+    },
+    {
+      "name": "write-mode",
+      "path": "skills/write-mode",
+      "github_url": "https://github.com/mystilleef/gemini-cli-modes/tree/main/skills/write-mode",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mystilleef/gemini-cli-modes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:39:49Z"
+}
