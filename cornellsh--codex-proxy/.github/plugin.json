@@ -1,0 +1,9 @@
+{
+  "name": "cornellsh--codex-proxy",
+  "displayName": "codex-proxy",
+  "description": "OpenAI Responses API proxy.",
+  "version": "1.0.0",
+  "author": "cornellsh",
+  "homepage": "https://github.com/cornellsh/codex-proxy",
+  "skills": []
+}
