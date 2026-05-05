@@ -1,0 +1,9 @@
+{
+  "name": "nilcaream--copilot-stats",
+  "displayName": "copilot-stats",
+  "description": "An OpenCode plugin that tracks GitHub Copilot premium request usage",
+  "version": "1.0.0",
+  "author": "nilcaream",
+  "homepage": "https://github.com/nilcaream/copilot-stats",
+  "skills": []
+}
