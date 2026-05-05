@@ -1,9 +1,9 @@
 {
   "name": "getmockd--mockd",
   "displayName": "mockd",
-  "description": "mockd",
+  "description": "High-performance, multi-protocol mock server. HTTP, WebSocket, gRPC, MQTT, SSE, GraphQL, SOAP in one binary.",
   "version": "1.0.0",
   "author": "getmockd",
-  "homepage": "https://tomevault.io/claim/getmockd",
+  "homepage": "https://github.com/getmockd/mockd",
   "skills": []
 }
