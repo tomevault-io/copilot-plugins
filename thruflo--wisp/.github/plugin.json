@@ -1,0 +1,9 @@
+{
+  "name": "thruflo--wisp",
+  "displayName": "wisp",
+  "description": "Pure bash loop Ralph running in isolated Sprites.",
+  "version": "1.0.0",
+  "author": "thruflo",
+  "homepage": "https://github.com/thruflo/wisp",
+  "skills": []
+}
