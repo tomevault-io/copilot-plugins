@@ -1,0 +1,9 @@
+{
+  "name": "snakeo--claude-co-commands",
+  "displayName": "claude-co-commands",
+  "description": "Co-* planning, validation, and brainstorming commands for Claude Code via Codex MCP",
+  "version": "1.0.0",
+  "author": "SnakeO",
+  "homepage": "https://github.com/SnakeO/claude-co-commands",
+  "skills": []
+}
