@@ -1,0 +1,51 @@
+{
+  "name": "agency",
+  "owner": "tobias-walle",
+  "repo": "agency",
+  "description": "CLI Orchestrator for AI Agents",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agency",
+      "path": "skills/agency",
+      "github_url": "https://github.com/tobias-walle/agency/tree/main/skills/agency",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tobias-walle/agency",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:52:58Z"
+}
