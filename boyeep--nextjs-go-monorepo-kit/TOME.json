@@ -4,7 +4,7 @@
   "repo": "nextjs-go-monorepo-kit",
   "description": "Full-stack starter template with Next.js, Go, PostgreSQL, auth, dashboard patterns, Playwright, and AI-ready repo guidance.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Boyeep/nextjs-go-monorepo-kit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T10:03:54Z"
+  "distributed_at": "2026-05-05T03:17:04Z"
 }
