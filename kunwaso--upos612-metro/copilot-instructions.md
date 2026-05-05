@@ -1,18 +1,18 @@
-## migration-before-ui
+## projectauto-predefined-only
 
-> Ensure migration exists for every persisted form/settings field — no UI-first without DB columns
+> Projectauto workflows must use the predefined-only trigger/condition/action contract
 
 
-# Migration Before UI — Form & Settings
+# Projectauto Predefined-Only Rule
 
-When adding or changing **form fields or settings** that are saved to the database:
-
-1. **Do not** add the field to the Blade form, controller, or Util until a migration exists that adds or alters the corresponding column(s).
-2. **Order:** Implement migration first (or in the same change set), then model, Form Request, Util, controller, Blade.
-3. **Cross-check:** Every key in the Form Request `rules()` that is persisted to the model/table must have a column in the migration. Exclude file inputs, `_token`, and UI-only flags like `avatar_remove`.
-4. **Run:** Ensure the migration has been run (`php artisan migrate` or `php artisan module:migrate ModuleName`) before calling the feature done.
-
-See **AGENTS.md** Section 4 (build order), Section 4.1 Step 1, and Section 9 checklist (migration for every new persisted field).
+- Do not add free-form condition expression text inputs to Projectauto workflow wizard or builder UIs.
+- Do not add advanced JSON editors for Projectauto workflow node configuration.
+- Projectauto workflow creation must validate against the catalog in `Modules/Projectauto/Workflow/Support/PredefinedRuleCatalog.php`.
+- Condition nodes must use structured `config.condition_spec` metadata and may only compile the runtime expression from that spec.
+- Finite schema fields must stay finite in the UI and backend by honoring `options` / `enum` metadata instead of falling back to free text.
+- Workflow graphs must remain limited to one trigger, an optional `logic.if_else`, and cataloged action nodes.
+- If a condition node exists, the trigger must link to that node and must not link directly to action nodes.
+- If a new trigger or action is added, update the node registry, catalog metadata, validation, and docs together.
 
 ---
 > Source: [kunwaso/upos612-metro](https://github.com/kunwaso/upos612-metro) — distributed by [TomeVault](https://tomevault.io).
