@@ -1,0 +1,9 @@
+{
+  "name": "takeshy--obsidian-gemini-helper",
+  "displayName": "obsidian-gemini-helper",
+  "description": "AI assistant with chat, workflow automation, and semantic search (RAG). Powered by Gemini API or CLI tools.",
+  "version": "1.0.0",
+  "author": "takeshy",
+  "homepage": "https://github.com/takeshy/obsidian-gemini-helper",
+  "skills": []
+}
