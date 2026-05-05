@@ -1,11 +1,11 @@
-## git-on-cloudflare
+## decision-making
 
-> 1. When accessing or modifying the SQLite database within Durable Objects, do not access the database directly. Instead, add your function in `dal.ts`
+> 1. Always analyze the codebase as a whole before making suggestions or recommendations. The codebase may have nuanced behaviors hidden in a completely different part of the code that will affect the overall design.
 
 
-1. When accessing or modifying the SQLite database within Durable Objects, do not access the database directly. Instead, add your function in `dal.ts`
-2. Tests should use DAL functions whenever possible, unless it is absolutely necessary to have direct access (for example, checking for constraint violation enforcement).
+1. Always analyze the codebase as a whole before making suggestions or recommendations. The codebase may have nuanced behaviors hidden in a completely different part of the code that will affect the overall design.
+2. Respond only after you fully understand the codebase in its entirety.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/zllovesuki) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [zllovesuki/git-on-cloudflare](https://github.com/zllovesuki/git-on-cloudflare) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
