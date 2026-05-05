@@ -1,0 +1,9 @@
+{
+  "name": "wrsmith108--linear-claude-skill",
+  "displayName": "linear-claude-skill",
+  "description": "Agent skill for managing Linear issues, projects, and teams. MCP tools, SDK automation, GraphQL API patterns.",
+  "version": "1.0.0",
+  "author": "wrsmith108",
+  "homepage": "https://github.com/wrsmith108/linear-claude-skill",
+  "skills": []
+}
