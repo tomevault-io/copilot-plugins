@@ -1,0 +1,9 @@
+{
+  "name": "bgub--helm",
+  "displayName": "helm",
+  "description": "TypeScript AI \"code mode\" toolkit with permissions and search",
+  "version": "1.0.0",
+  "author": "bgub",
+  "homepage": "https://github.com/bgub/helm",
+  "skills": []
+}
