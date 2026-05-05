@@ -1,0 +1,9 @@
+{
+  "name": "boxpositron--envsitter-guard",
+  "displayName": "envsitter-guard",
+  "description": "OpenCode plugin that prevents agents/tools from reading or editing sensitive .env* files, while still allowing safe inspection via EnvSitter.",
+  "version": "1.0.0",
+  "author": "boxpositron",
+  "homepage": "https://github.com/boxpositron/envsitter-guard",
+  "skills": []
+}
