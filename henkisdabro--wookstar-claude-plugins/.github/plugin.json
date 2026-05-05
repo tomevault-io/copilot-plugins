@@ -1,0 +1,74 @@
+{
+  "name": "henkisdabro--wookstar-claude-plugins",
+  "displayName": "wookstar-claude-plugins",
+  "description": "An opinionated Claude Code Plugin Pack. Skills, Agents, Hooks, MCPs. Examples: Email draft preview assistance & humanisation. Agents for Codex and Gemini \"outsourcing\". Skills for Google Analytics & G",
+  "version": "1.0.0",
+  "author": "henkisdabro",
+  "homepage": "https://github.com/henkisdabro/wookstar-claude-plugins",
+  "skills": [
+    {
+      "name": "google-ads-scripts",
+      "description": ""
+    },
+    {
+      "name": "create-ultimate-skill",
+      "description": ""
+    },
+    {
+      "name": "devtools",
+      "description": ""
+    },
+    {
+      "name": "docx",
+      "description": ""
+    },
+    {
+      "name": "ffmpeg-cli",
+      "description": ""
+    },
+    {
+      "name": "fifteen-factor-app",
+      "description": ""
+    },
+    {
+      "name": "git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "git-worktrees",
+      "description": ""
+    },
+    {
+      "name": "google-analytics",
+      "description": ""
+    },
+    {
+      "name": "google-apps-script",
+      "description": ""
+    },
+    {
+      "name": "google-tagmanager",
+      "description": ""
+    },
+    {
+      "name": "message",
+      "description": ""
+    },
+    {
+      "name": "prp-generator",
+      "description": ""
+    },
+    {
+      "name": "react-best-practices",
+      "description": ""
+    },
+    {
+      "name": "tampermonkey",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "description": ""
+    }
+  ]
+}
