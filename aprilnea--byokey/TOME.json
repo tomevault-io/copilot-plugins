@@ -4,7 +4,7 @@
   "repo": "BYOKEY",
   "description": "Turn AI subscriptions into standard API endpoints. OpenAI & Anthropic compatible gateway \u2014 for Amp Code, Cursor, Factory CLI, and more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AprilNEA/BYOKEY",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T15:01:04Z"
+  "distributed_at": "2026-05-05T00:53:09Z"
 }
