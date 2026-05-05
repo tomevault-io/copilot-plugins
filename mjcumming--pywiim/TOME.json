@@ -1,0 +1,44 @@
+{
+  "name": "pywiim",
+  "owner": "mjcumming",
+  "repo": "pywiim",
+  "description": "Python library for controlling WiiM and LinkPlay-based audio devices. Provides async HTTP API client, UPnP event subscriptions for real-time updates, device discovery tools, and comprehensive diagnostics. Full type hints, error handling, and support for playback control, audio settings, groups, presets, and more.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mjcumming/pywiim",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T15:01:02Z"
+}
