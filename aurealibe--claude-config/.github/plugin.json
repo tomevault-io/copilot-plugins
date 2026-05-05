@@ -1,0 +1,9 @@
+{
+  "name": "aurealibe--claude-config",
+  "displayName": "claude-config",
+  "description": "Comprehensive Claude Code framework: 6 specialized agents, 7 workflow commands, audio notifications - stack agnostic",
+  "version": "1.0.0",
+  "author": "Aurealibe",
+  "homepage": "https://github.com/Aurealibe/claude-config",
+  "skills": []
+}
