@@ -1,0 +1,9 @@
+{
+  "name": "doiiarx--koishi-plugin-opencode",
+  "displayName": "koishi-plugin-opencode",
+  "description": "OpenCode SDK Koishi \u63d2\u4ef6",
+  "version": "1.0.0",
+  "author": "DoiiarX",
+  "homepage": "https://github.com/DoiiarX/koishi-plugin-opencode",
+  "skills": []
+}
