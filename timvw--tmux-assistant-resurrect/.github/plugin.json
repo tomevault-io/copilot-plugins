@@ -1,0 +1,9 @@
+{
+  "name": "timvw--tmux-assistant-resurrect",
+  "displayName": "tmux-assistant-resurrect",
+  "description": "Persist and restore AI coding assistant sessions (Claude Code, OpenCode, Codex CLI) across tmux restarts",
+  "version": "1.0.0",
+  "author": "timvw",
+  "homepage": "https://github.com/timvw/tmux-assistant-resurrect",
+  "skills": []
+}
