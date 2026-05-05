@@ -1,0 +1,9 @@
+{
+  "name": "sadopc--machscope",
+  "displayName": "machscope",
+  "description": "All-in-one macOS binary analysis: Mach-O parsing, ARM64 disassembly, code signatures, and debugging.",
+  "version": "1.0.0",
+  "author": "sadopc",
+  "homepage": "https://github.com/sadopc/machscope",
+  "skills": []
+}
