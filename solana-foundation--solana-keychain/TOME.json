@@ -1,0 +1,69 @@
+{
+  "name": "solana",
+  "owner": "solana-foundation",
+  "repo": "solana-keychain",
+  "description": "Framework-agnostic Solana transaction signing with multiple backends. Unified trait interface, async-first design, and feature-gated compilation for minimal dependencies.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "create-page",
+      "path": "apps/web/openspec/skills/create-page",
+      "github_url": "https://github.com/solana-foundation/solana-keychain/tree/main/apps/web/openspec/skills/create-page",
+      "description": ""
+    },
+    {
+      "name": "llms-txt-generator",
+      "path": "skills/llms-txt-generator",
+      "github_url": "https://github.com/solana-foundation/solana-keychain/tree/main/skills/llms-txt-generator",
+      "description": ""
+    },
+    {
+      "name": "migrate-page",
+      "path": "apps/web/openspec/skills/migrate-page",
+      "github_url": "https://github.com/solana-foundation/solana-keychain/tree/main/apps/web/openspec/skills/migrate-page",
+      "description": ""
+    },
+    {
+      "name": "skill",
+      "path": "skill",
+      "github_url": "https://github.com/solana-foundation/solana-keychain/tree/main/skill",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/solana-foundation/solana-keychain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:40:10Z"
+}
