@@ -1,0 +1,9 @@
+{
+  "name": "tiptop-robot--tiptop",
+  "displayName": "tiptop",
+  "description": "Official Repo for TiPToP: A Modular Open-Vocabulary Planning System for Robotic Manipulation",
+  "version": "1.0.0",
+  "author": "tiptop-robot",
+  "homepage": "https://github.com/tiptop-robot/tiptop",
+  "skills": []
+}
