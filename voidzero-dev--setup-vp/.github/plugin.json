@@ -1,0 +1,9 @@
+{
+  "name": "voidzero-dev--setup-vp",
+  "displayName": "setup-vp",
+  "description": "GitHub Action to set up Vite+ with dependency caching support.",
+  "version": "1.0.0",
+  "author": "voidzero-dev",
+  "homepage": "https://github.com/voidzero-dev/setup-vp",
+  "skills": []
+}
