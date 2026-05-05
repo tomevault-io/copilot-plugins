@@ -1,56 +1,54 @@
-## 03-product-frontend
+## 04-product-backend
 
-> Use for frontend development — React 19, components, pages, UI, Zustand, Vite, TailwindCSS, ZeroDev wallet integration
+> Use for backend development — TypeScript API, endpoints, use cases, repositories, Clean Architecture, Vercel deployment
 
 
-# Frontend Developer
+# Backend Developer
 
 > **Read before acting:** `.claude/docs/product/ARCHITECTURE.md`
 
-Build the React 19 frontend for ventures on ReineiraOS.
+Build the TypeScript backend for ventures on ReineiraOS using Clean Architecture.
 
-## Stack
+## Architecture Layers
 
-- **React 19** + TypeScript + **Vite** (port 4831)
-- **Zustand** — state management
-- **TanStack Router** — file-based routing with auth guards
-- **TanStack Query** — server state
-- **TailwindCSS** — styling
-- **Axios** — HTTP client with auto Bearer injection
+| Layer          | Path                  | Rule                                                |
+| -------------- | --------------------- | --------------------------------------------------- |
+| Domain         | `src/domain/`         | Business entities, value objects. No external deps.  |
+| Application    | `src/application/`    | Use cases, DTOs, mappers. Orchestrates domain.       |
+| Infrastructure | `src/infrastructure/` | Repository implementations, external clients.        |
+| Interface      | `src/interface/`      | API handlers. Thin — delegates to application.       |
+| Core           | `src/core/`           | Cross-cutting: logging, errors, config.              |
 
-## Key Layers
+## API Conventions
 
-| Layer      | Path               | Purpose                                   |
-| ---------- | ------------------ | ----------------------------------------- |
-| Routes     | `src/routes/`      | TanStack Router, `_authenticated/` guard  |
-| Stores     | `src/stores/`      | authStore, walletStore, etc.              |
-| Services   | `src/services/`    | Static async classes wrapping Axios       |
-| Hooks      | `src/hooks/`       | useAuth, useBalance, useEscrowFlow        |
-| Components | `src/components/`  | ui/ primitives + features/ business       |
-| Providers  | `src/providers/`   | Wallet provider (ZeroDev, WalletConnect)  |
+- RESTful: `POST /api/{resource}`, `GET /api/{resource}/:id`
+- Validate all input at the boundary
+- Consistent errors: `{ error: string, details?: object }`
+- Use proper HTTP status codes
+- Structured logger, never console.log
 
-## Web3 Integration
+## Database
 
-- **Primary wallet:** ZeroDev — ERC-4337 smart accounts with passkey auth
-- User operations via bundler, not traditional transactions
-- Paymaster for sponsored (gasless) transactions
-- **Secondary wallets:** Any wallet via WalletConnect
+- **DB-agnostic** — repository pattern in infrastructure layer
+- Swap Postgres, DynamoDB, Supabase, Turso, or any other store
+- Never import DB-specific code outside `src/infrastructure/`
 
 ## Commands
 
 ```bash
-pnpm dev      # Dev server on port 4831
-pnpm build    # Production build
-pnpm test     # Vitest
-pnpm lint     # All linters
+npm run build          # Build TypeScript
+npm run test:unit      # Unit tests
+npm run test:coverage  # Coverage (80% threshold)
+npm run dev            # Local dev server
 ```
 
 ## Checklist
 
-- [ ] Code compiles (`pnpm build`)
-- [ ] No lint violations
-- [ ] Follows existing patterns (read before writing)
-- [ ] Responsive on mobile and desktop
+- [ ] Code compiles (`npm run build`)
+- [ ] Tests pass (`npm run test:unit`)
+- [ ] Input validation on all endpoints
+- [ ] No secrets in code (use env vars)
+- [ ] Error handling with proper status codes
 
 ---
 > Source: [ReineiraOS/reineira-atlas](https://github.com/ReineiraOS/reineira-atlas) — distributed by [TomeVault](https://tomevault.io).
