@@ -1,0 +1,14 @@
+{
+  "name": "nyaomaru--is-kit",
+  "displayName": "is-kit",
+  "description": "Lightweight, zero-dependency toolkit for building `isFoo` style type guards in TypeScript. Runtime-safe \ud83d\udee1\ufe0f, composable \ud83e\udde9, and ergonomic \u2728. npm -> https://www.npmjs.com/package/is-kit",
+  "version": "1.0.0",
+  "author": "nyaomaru",
+  "homepage": "https://github.com/nyaomaru/is-kit",
+  "skills": [
+    {
+      "name": "prettier-format",
+      "description": ""
+    }
+  ]
+}
