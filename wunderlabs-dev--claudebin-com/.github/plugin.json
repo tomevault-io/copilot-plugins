@@ -1,0 +1,9 @@
+{
+  "name": "wunderlabs-dev--claudebin-com",
+  "displayName": "claudebin.com",
+  "description": "Claudebin is a minimalistic tool for publishing and sharing Claude coding sessions",
+  "version": "1.0.0",
+  "author": "wunderlabs-dev",
+  "homepage": "https://github.com/wunderlabs-dev/claudebin.com",
+  "skills": []
+}
