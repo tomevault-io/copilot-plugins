@@ -1,0 +1,9 @@
+{
+  "name": "hmbown--zmlx",
+  "displayName": "ZMLX",
+  "description": "Triton\u2011style kernel toolkit for MLX plus a small upstream incubator: prototype, benchmark, and upstream fusions for Apple Silicon",
+  "version": "1.0.0",
+  "author": "Hmbown",
+  "homepage": "https://github.com/Hmbown/ZMLX",
+  "skills": []
+}
