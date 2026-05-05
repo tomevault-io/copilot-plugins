@@ -1,215 +1,224 @@
-## architecture
+## components
 
-> Arquitetura e padrões arquiteturais do projeto
+> Padrões e convenções para componentes React
 
 
-# Arquitetura do Projeto
+# Padrões de Componentes
 
-## Padrão Arquitetural
+## Estrutura de Componentes
 
-**Next.js App Router** com separação clara entre:
-- **Server Components** (padrão) - Data fetching, lógica de servidor
-- **Client Components** (apenas quando necessário) - Interatividade, hooks, browser APIs
+### Localização
+- **UI Base**: `src/components/ui/` - Componentes shadcn/ui
+- **Feature**: `src/components/[feature]/` - Componentes específicos
+- **Layout**: `src/components/app-layout.tsx` - Layout principal
+- **Auth**: `src/components/auth/` - Componentes de autenticação
 
-## Estrutura de Rotas
+## Server vs Client Components
 
-### Rotas Públicas
-- `/` - Landing page (redireciona autenticados para `/dashboard`)
-- `/sign-in` - Login
-- `/sign-up` - Registro
-- `/api/webhooks/*` - Webhooks externos
+### Regra Geral
+**Padrão**: Server Components (sem `"use client"`)
 
-### Rotas Protegidas (Grupo `(app)`)
-Todas as rotas dentro de `src/app/(app)/` requerem autenticação:
-- `/dashboard` - Chat com IA
-- `/library` - Biblioteca de conteúdo
-- `/calendar` - Calendário de posts
-- `/sources` - Fontes de conteúdo
-- `/settings` - Configurações
+### Quando Usar Client Component
+Use `"use client"` APENAS quando necessário:
+- ✅ Hooks do React (`useState`, `useEffect`, `useMemo`, etc)
+- ✅ Event handlers (`onClick`, `onChange`, etc)
+- ✅ Browser APIs (`window`, `document`, `localStorage`, etc)
+- ✅ Context API (`createContext`, `useContext`)
+- ✅ Bibliotecas que requerem client (`framer-motion`, `gsap`)
 
-**Proteção**: `src/app/(app)/layout.tsx` verifica `auth()` e redireciona não autenticados.
+### Quando NÃO Usar Client Component
+- ❌ Apenas para exibir dados
+- ❌ Apenas para estilização
+- ❌ Quando pode ser Server Component
 
-## Middleware (Proteção de Rotas)
-
-**Arquivo**: `src/proxy.ts`
-
-```typescript
-// Usa clerkMiddleware() para proteger rotas
-// Redireciona usuários autenticados de "/" para "/dashboard"
-// Protege todas as rotas em (app)/
-```
-
-## Banco de Dados
-
-### Schema (8 Tabelas)
-
-1. **users** - Sincronizado com Clerk (id = Clerk user ID)
-2. **chats** - Threads de conversa com IA
-3. **messages** - Mensagens individuais (user/assistant/system)
-4. **library_items** - Biblioteca de conteúdo (text, image, carousel, etc)
-5. **documents** - Base de conhecimento (upload de arquivos)
-6. **sources** - Fontes de conteúdo para scraping
-7. **scheduled_posts** - Fila de publicação agendada
-8. **jobs** - Background jobs (geração de conteúdo, scraping, etc)
-
-### Conexão
-- **Neon Serverless** via `@neondatabase/serverless`
-- **Drizzle ORM** com adapter `drizzle-orm/neon-http`
-- Schema em `src/db/schema.ts`
-- Cliente em `src/db/index.ts`
-
-### Migrations
-- Gerar: `npm run db:generate`
-- Executar: `npm run db:migrate`
-- Studio: `npm run db:studio`
-
-## Sistema de Filas
-
-### Arquitetura Serverless
-- **Upstash Redis** (HTTP REST API) - Sem worker process contínuo
-- **Fila**: Lista Redis (`jobs:pending`)
-- **Workers**: API Routes (`/api/workers`) - Chamadas sob demanda
-- **Persistência**: Tabela `jobs` no PostgreSQL
-
-### Fluxo de Processamento
-
-```
-1. Client → POST /api/jobs
-   ↓
-2. Cria job no DB (status: pending)
-   ↓
-3. Enfileira no Redis (enqueueJob)
-   ↓
-4. Agendador/Cron → POST /api/workers
-   ↓
-5. Worker desenfileira (dequeueJob)
-   ↓
-6. Processa job (handlers por tipo)
-   ↓
-7. Atualiza DB (status: completed/failed)
-   ↓
-8. Remove da fila de processamento
-```
-
-### Tipos de Jobs
+### Exemplo: Isolamento de Client Components
 
 ```typescript
-type JobType =
-  | "ai_text_generation"
-  | "ai_image_generation"
-  | "carousel_creation"
-  | "scheduled_publish"
-  | "web_scraping"
+// ✅ BOM: Server Component (padrão)
+export function UserProfile({ userId }: { userId: string }) {
+  const user = await getUser(userId) // Server Component pode fazer fetch
+  
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      <InteractiveButton /> {/* Client Component isolado */}
+    </div>
+  )
+}
+
+// ✅ BOM: Client Component isolado e pequeno
+"use client"
+export function InteractiveButton() {
+  const [count, setCount] = useState(0)
+  return <button onClick={() => setCount(count + 1)}>{count}</button>
+}
 ```
 
-### Estrutura de Arquivos
+## Componente: AppLayout
 
-```
-src/lib/queue/
-├── types.ts      # JobType, JobStatus, JobPayload
-├── client.ts     # Redis client (enqueue, dequeue)
-└── jobs.ts       # CRUD de jobs (createJob, updateJobStatus)
-```
-
-## Autenticação (Clerk)
-
-### Configuração
-- **Provider**: `<ClerkProvider>` em `src/app/layout.tsx`
-- **Middleware**: `clerkMiddleware()` em `src/proxy.ts`
-- **Proteção**: `auth()` de `@clerk/nextjs/server` em layouts
-
-### Sincronização de Usuários
-- **Webhook**: `/api/webhooks/clerk`
-- Eventos: `user.created`, `user.updated`, `user.deleted`
-- Sincroniza com tabela `users` no banco
-
-### Componentes de Auth
-- `src/components/auth/sign-in-card.tsx`
-- `src/components/auth/sign-up-card.tsx`
-- `src/components/auth/user-menu.tsx`
-- `src/components/auth/oauth-buttons.tsx`
-
-## Componentes
-
-### Layout Principal
-- **AppLayout** (`src/components/app-layout.tsx`):
-  - Header fixo com glassmorphism
-  - Navbar animada (tubelight)
-  - Logo com hover effects
-  - UserMenu no canto direito
-
-### Componentes UI
-- Base: **shadcn/ui** (New York style)
-- Localização: `src/components/ui/`
-- Padrão: Server Components quando possível
-
-### Componentes de Feature
-- `src/components/dashboard/animated-ai-chat.tsx` - Chat com IA
-- `src/components/chat/model-selector.tsx` - Seletor de modelos
-
-## State Management
-
-### Zustand Stores
-- Localização: `src/stores/` (futuro)
-- Uso: Estado global do cliente (não server state)
-
-### Server State
-- **Data fetching**: Server Components com `async/await`
-- **Mutations**: Server Actions (futuro)
-- **Cache**: Next.js cache + revalidation
-
-## API Routes
+**Arquivo**: `src/components/app-layout.tsx`
 
 ### Estrutura
-```
-src/app/api/
-├── jobs/
-│   ├── route.ts          # POST (criar), GET (listar)
-│   └── [id]/route.ts     # GET (detalhes), DELETE
-├── workers/
-│   └── route.ts          # POST (processar job)
-└── webhooks/
-    └── clerk/route.ts    # POST (webhook Clerk)
-```
+- **Tipo**: Client Component (usa hooks e animações)
+- **Props**: `{ children, className? }`
+- **Responsabilidades**:
+  - Header fixo com glassmorphism
+  - Navbar animada (tubelight)
+  - Layout de conteúdo principal
 
-### Padrões
-- Autenticação: `auth()` de Clerk
-- Respostas: `NextResponse.json()`
-- Erros: Status codes apropriados (400, 401, 404, 500)
+### Padrões Visuais
+- Header: `fixed top-0` com `z-40`
+- Glassmorphism: `bg-[#0a0a0f]/80 backdrop-blur-xl`
+- Padding vertical no header: `pt-5 pb-5`
+- Main content: `pt-24` (compensa header fixo)
 
-## Modelos de IA (OpenRouter)
-
-### Configuração
-- **Arquivo**: `src/lib/models.ts`
-- **Provider**: OpenRouter (multi-modelo)
-- **Tipos**: Text e Image
-
-### Modelos Disponíveis
-- **Texto**: GPT 5.2, Claude Sonnet 4.5, Gemini 3, Grok 4.1
-- **Imagem**: GPT 5 Image, Flux 2 Pro, Riverflow V2
-
-### Uso
+### NavItems
 ```typescript
-import { TEXT_MODELS, IMAGE_MODELS, getModelById } from "@/lib/models"
+const navItems = [
+  { name: "Chat", url: "/dashboard", icon: MessageSquare },
+  { name: "Biblioteca", url: "/library", icon: Library },
+  { name: "Calendário", url: "/calendar", icon: Calendar },
+  { name: "Fontes", url: "/sources", icon: Globe },
+  { name: "Configurações", url: "/settings", icon: Settings },
+]
 ```
 
-## Padrões de Código
+## Componentes de Autenticação
 
-### Server vs Client Components
-- **Padrão**: Server Components
-- **"use client"**: Apenas quando necessário (hooks, eventos, browser APIs)
-- **Isolar**: Criar componentes clientes pequenos e específicos
+### SignInCard / SignUpCard
+- **Tipo**: Client Component
+- **Localização**: `src/components/auth/sign-in-card.tsx`
+- **Uso**: Páginas de autenticação customizadas
 
-### TypeScript
-- **Strict mode**: Habilitado
-- **Tipos**: Sempre tipar props, retornos, parâmetros
-- **Evitar**: `any` - usar `unknown` se necessário
+### UserMenu
+- **Tipo**: Client Component
+- **Localização**: `src/components/auth/user-menu.tsx`
+- **Uso**: Menu dropdown do usuário no header
+- **Componente**: `<UserButton />` do Clerk
 
-### Naming Conventions
-- Componentes: `PascalCase.tsx`
-- Utilitários: `kebab-case.ts`
-- Hooks: `usePascalCase.ts`
-- Types: `PascalCase.ts`
+### OAuthButtons
+- **Tipo**: Client Component
+- **Localização**: `src/components/auth/oauth-buttons.tsx`
+- **Uso**: Botões de OAuth (Google, GitHub)
+
+## Componentes UI (shadcn/ui)
+
+### Padrão de Uso
+- **Import**: `import { Button } from "@/components/ui/button"`
+- **Estilo**: New York style (configurado em `components.json`)
+- **Customização**: Via props e className
+
+### Componentes Disponíveis
+- `button`, `card`, `input`, `textarea`, `label`
+- `dialog`, `dropdown-menu`, `tooltip`
+- `badge`, `alert`, `skeleton`, `spinner`
+- `separator`, `progress`, `switch`
+- `sidebar`, `menubar`, `radio-group`
+
+### Exemplo de Uso
+```typescript
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+
+export function MyComponent() {
+  return (
+    <Card>
+      <Button variant="default">Clique aqui</Button>
+    </Card>
+  )
+}
+```
+
+## Componentes de Feature
+
+### AnimatedAIChat
+- **Localização**: `src/components/dashboard/animated-ai-chat.tsx`
+- **Tipo**: Client Component (animações)
+- **Uso**: Interface de chat com IA
+
+### ModelSelector
+- **Localização**: `src/components/chat/model-selector.tsx`
+- **Tipo**: Client Component (interatividade)
+- **Uso**: Seletor de modelos de IA
+
+## Padrões de Estilização
+
+### Tailwind CSS
+- **Config**: Tailwind CSS 4
+- **Customização**: `src/app/globals.css`
+- **Tema**: Dark mode por padrão
+
+### Classes Comuns
+- **Container**: `max-w-6xl mx-auto px-4`
+- **Glassmorphism**: `bg-[#0a0a0f]/80 backdrop-blur-xl`
+- **Borders**: `border border-white/10`
+- **Spacing**: `gap-6`, `p-4`, `pt-24`
+
+### Utilitário `cn()`
+```typescript
+import { cn } from "@/lib/utils"
+
+// Merge classes com tailwind-merge
+<div className={cn("base-class", condition && "conditional-class")} />
+```
+
+## Props e TypeScript
+
+### Padrão de Props
+```typescript
+// ✅ BOM: Interface explícita
+interface ComponentProps {
+  title: string
+  description?: string
+  children: React.ReactNode
+}
+
+export function Component({ title, description, children }: ComponentProps) {
+  // ...
+}
+
+// ❌ EVITAR: Props inline sem tipo
+export function Component(props: any) {
+  // ...
+}
+```
+
+### Props com Children
+```typescript
+interface LayoutProps {
+  children: React.ReactNode
+  className?: string
+}
+```
+
+## Hooks Customizados
+
+### Localização
+- `src/hooks/use-mobile.ts` - Detecção de mobile
+
+### Padrão
+```typescript
+// Nome: use[Feature]
+export function useMobile() {
+  // ...
+}
+```
+
+## Performance
+
+### Otimizações
+- **React.memo()**: Para componentes que re-renderizam frequentemente
+- **useMemo()**: Para cálculos caros
+- **useCallback()**: Para funções passadas como props
+
+### Lazy Loading
+```typescript
+import dynamic from "next/dynamic"
+
+const HeavyComponent = dynamic(() => import("./heavy-component"), {
+  loading: () => <Skeleton />,
+})
+```
 
 ---
 > Source: [zoryon-dev/maquina-de-conteudo](https://github.com/zoryon-dev/maquina-de-conteudo) — distributed by [TomeVault](https://tomevault.io).
