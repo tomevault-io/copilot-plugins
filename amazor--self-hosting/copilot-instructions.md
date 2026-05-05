@@ -1,30 +1,40 @@
-## trash-guides-qbittorrent
+## trash-guides-radarr
 
-> TRaSH Guides — qBittorrent paths and categories
+> TRaSH Guides — Radarr configuration reference
 
 
-# TRaSH Guides — qBittorrent
+# TRaSH Guides — Radarr
 
-> **Agent:** TRaSH Guides are the **gold standard** for qBittorrent in the media stack. Follow them as well as possible. **Open the links** in this rule (or on [trash-guides.info](https://trash-guides.info/)) to get the correct, up-to-date guide when configuring or documenting qBittorrent paths or categories.
+> **Agent:** TRaSH Guides are the **gold standard** for Radarr. Follow them as well as possible. **Open the links** in this rule (or on [trash-guides.info](https://trash-guides.info/)) to get the correct, up-to-date guide when configuring or documenting Radarr.
 
-**Source:** [TRaSH Guides – qBittorrent](https://trash-guides.info/Downloaders/qBittorrent/)
+**Source:** [TRaSH Guides – Radarr](https://trash-guides.info/Radarr/)
 
-Paths must support [hardlinks and instant moves](https://trash-guides.info/File-and-Folder-Structure/Hardlinks-and-Instant-Moves/). **Pick one path layout for all apps** (e.g. `/data`); use the same root in qBittorrent and every *arr.
+## Configuration order (after paths)
 
-## Paths
+1. **Quality Settings (File Size)** — Avoid low-quality/fake releases.
+2. **Recommended naming scheme** — Prevents download loops (see below).
+3. **Quality Profiles** — Custom Formats, ordering. Variants: [Anime](https://trash-guides.info/Radarr/Radarr-quality-profile-setup-anime/), [French](https://trash-guides.info/Radarr/Radarr-setup-quality-profile-french/), [German](https://trash-guides.info/Radarr/Radarr-setup-quality-profile-german/).
+4. **Custom Formats** — Import/update from guide; [Collection of Custom Formats](https://trash-guides.info/Radarr/Radarr-collection-of-custom-formats/).
 
-- **Options → Downloads** — Set default save path (e.g. `/data/torrents`). Same path as in File and Folder Structure so completed downloads and media share one filesystem for hardlinks.
+## Naming (why include “extra” info)
 
-## Categories
+- **Prevents duplicate downloads** and re-import issues. Media servers (Plex/Emby/Jellyfin) only need playable names; Radarr needs quality/source to avoid loops.
+- **Non-recoverable information** (must be in the filename): Repack/Proper, Edition (Director’s Cut, Theatrical, etc.), Release group, Quality source (HDTV, WEB-DL, Blu-ray, Remux).
+- In Radarr: enable **Show Advanced**, **Rename Movies**, and **Analyze video files** (Settings → Media Management).
 
-- Categories let Starr apps (Sonarr, Radarr) track downloads by category instead of watching every torrent.
-- **Add category:** Left panel → right-click or “Add category”. Set **Save path** to a subfolder name only (e.g. `tv`, `movies`) — it is relative to the default save path. Set **Category** to the same or a recognizable name (e.g. `sonarr`, `radarr`). You do **not** enter the full path under Save path; it uses **Options → Saving Management → Default Save Path**.
-- **Critical:** Set **Default Torrent Management Mode** to **Automatic**. Otherwise downloads can end up in `/data/torrents/` instead of `/data/torrents/tv` or `/data/torrents/movies`, breaking category-based paths and *arr tracking.
+## Standard movie format (Plex, TRaSH)
 
-## Other
+- `{Movie CleanTitle} {(Release Year)} - {{Edition Tags}} {[MediaInfo 3D]}{[Custom Formats]}{[Quality Full]}{[Mediainfo AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoDynamicRangeType]}{[Mediainfo VideoCodec]}{-Release Group}`
+- Example: `The Movie Title (2010) {edition-Ultimate Extended Edition} [Bluray-1080p Proper][DV HDR10][DTS 5.1][x264]-RlsGrp`
+- For Plex edition in UI use `{edition-{Edition Tags}}`; for one entry per movie when keeping multiple copies use `{Edition Tags}` only.
+- Folder: `{Movie CleanTitle} ({Release Year})` minimum; optional `{tmdb-{TmdbId}}` or `{imdb-{ImdbId}}` for Plex/Emby/Jellyfin.
 
-- **Port forwarding** — [Port forwarding](https://trash-guides.info/Downloaders/qBittorrent/Port-forwarding/) for VPN.
-- **Basic-Setup** — [Basic-Setup](https://trash-guides.info/Downloaders/qBittorrent/Basic-Setup/) for common settings.
+Full schemes (Plex/Emby/Jellyfin, IMDb/TMDb): [Recommended naming scheme](https://trash-guides.info/Radarr/Radarr-recommended-naming-scheme/).
+
+## Tips
+
+- **Remote Path Mappings** — When Radarr and download client see different paths (e.g. Docker).
+- Merge quality, order quality sources, rename root folders, language Custom Formats: [Radarr Tips](https://trash-guides.info/Radarr/).
 
 ---
 > Source: [amazor/Self-Hosting](https://github.com/amazor/Self-Hosting) — distributed by [TomeVault](https://tomevault.io).
