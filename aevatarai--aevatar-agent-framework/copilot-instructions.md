@@ -1,0 +1,768 @@
+## aevatar-agent-framework
+
+> Aevatar Agent Framework is a distributed agent system built on Actor Model principles, designed for massive-scale agent interactions with event-driven architecture. The framework supports horizontal scaling through Orleans and ProtoActor runtimes while maintaining a clean abstraction layer.
+
+# Aevatar Agent Framework Development Rules
+
+## 🌟 Framework Overview
+
+### Core Vision
+Aevatar Agent Framework is a distributed agent system built on Actor Model principles, designed for massive-scale agent interactions with event-driven architecture. The framework supports horizontal scaling through Orleans and ProtoActor runtimes while maintaining a clean abstraction layer.
+
+### Key Design Principles
+1. **Event-Driven Architecture**: All agent communication happens through events
+2. **Actor Model Encapsulation**: Agents run within actors for scalability
+3. **Stream-Based Communication**: Each agent has a stream for event propagation
+4. **Hierarchical Organization**: Parent-child relationships enable group coordination
+5. **Runtime Agnostic**: Same agent code works across Local, Orleans, and ProtoActor
+
+## 🚫 Port Policy
+
+- **禁止使用 5000 端口**：仓库内任何服务/示例/文档/默认配置都不要绑定或示例化 `:5000`（避免冲突与误导）。如需本地默认端口，优先使用 `:5678`（例如 sidecar）。
+
+## 📦 Core Concepts
+
+### GAgent (智能体 / Agent)
+- **Definition**: The core business logic unit that processes events and maintains state
+- **Base Classes**:
+  - `GAgentBase<TState>`: Basic agent with state management
+  - `GAgentBase<TState, TEvent>`: Agent with event type filtering
+  - `GAgentBase<TState, TEvent, TConfiguration>`: Configurable agent
+- **Responsibilities**:
+  - Define event handlers using `[EventHandler]` attributes
+  - Maintain internal state (must be Protobuf)
+  - Publish events through `PublishAsync()`
+  - Process incoming events automatically
+
+### GAgentActor (Actor包装器 / Actor Wrapper)
+- **Definition**: Actor model wrapper that enables agents to run in distributed environments
+- **Implementations**:
+  - `LocalGAgentActor`: In-memory execution
+  - `OrleansGAgentGrain`: Orleans runtime
+  - `ProtoActorGAgentActor`: ProtoActor runtime
+- **Responsibilities**:
+  - Manage agent lifecycle
+  - Provide stream infrastructure
+  - Handle event routing and propagation
+  - Maintain parent-child relationships
+  - Enable horizontal scaling
+
+### Relationship: GAgent ↔ GAgentActor
+```
+┌─────────────────────────────────────┐
+│         GAgentActor (Actor)         │
+│  ┌─────────────────────────────┐    │
+│  │      GAgent (Business)       │   │
+│  │  - Event Handlers            │   │
+│  │  - State Management          │   │
+│  │  - Business Logic            │   │
+│  └─────────────────────────────┘    │
+│  - Stream Management                 │
+│  - Event Routing                     │
+│  - Parent-Child Relations            │
+│  - Distribution Support              │
+└─────────────────────────────────────┘
+```
+
+## 🔴 CRITICAL: Protobuf Serialization Requirements
+
+### MANDATORY: All Serializable Types MUST Use Protocol Buffers
+
+**This is a non-negotiable framework requirement.** Any type that needs to be serialized or transmitted across runtime boundaries MUST be defined in a `.proto` file.
+
+#### Types That MUST Use Protobuf:
+
+1. **Agent State Types** (`TState` in `GAgentBase<TState>` or `GAgentBase<TState, TEvent>`)
+   - ❌ NEVER manually define state classes in C#
+   - ✅ ALWAYS define states in `.proto` files
+   - Example:
+     ```protobuf
+     message MyAgentState {
+         string id = 1;
+         int32 count = 2;
+         google.protobuf.Timestamp last_update = 3;
+     }
+     ```
+
+2. **Event Messages** (Any message sent through the streaming system)
+   - ❌ NEVER implement `IMessage` interface manually in C#
+   - ✅ ALWAYS define events in `.proto` files
+   - Example:
+     ```protobuf
+     message TaskAssignedEvent {
+         string task_id = 1;
+         string assigned_to = 2;
+         string description = 3;
+     }
+     ```
+
+3. **Event Sourcing Events** (State change events for persistence)
+   - Must be Protobuf messages for version compatibility
+   - Ensures events can be replayed after schema changes
+
+#### Why This Is Critical:
+
+1. **Orleans Streaming**: Uses `byte[]` for message transmission
+2. **Cross-Runtime Compatibility**: Ensures messages work across Local, Orleans, and ProtoActor
+3. **Version Compatibility**: Protobuf provides forward/backward compatibility
+4. **Performance**: Efficient binary serialization
+5. **Type Safety**: Generated code prevents serialization errors
+
+## 📝 Event Handler Development
+
+### Writing Event Handlers
+
+Event handlers are methods that process incoming events. The framework automatically discovers and invokes them based on attributes and conventions.
+
+#### 1. Specific Event Handler
+```csharp
+[EventHandler]
+public async Task HandleTaskAssigned(TaskAssignedEvent evt)
+{
+    // Process specific event type
+    State.MyTasks.Add(evt.TaskId);
+    await Task.CompletedTask;
+}
+```
+
+#### 2. All Events Handler
+```csharp
+[AllEventHandler]
+public async Task HandleAnyEvent(EventEnvelope envelope)
+{
+    // Process any event with full envelope context
+    Logger.LogInformation("Received event: {EventId}", envelope.Id);
+    await Task.CompletedTask;
+}
+```
+
+#### 3. Convention-Based Handler
+```csharp
+// No attribute needed if method name is HandleAsync or HandleEventAsync
+public async Task HandleAsync(MyCustomEvent evt)
+{
+    // Automatically discovered by convention
+    await ProcessCustomEvent(evt);
+}
+```
+
+### Event Handler Rules
+
+1. **Method Signature**:
+   - Must be `public` or `protected`
+   - Must return `Task` or `Task<T>`
+   - Must accept single parameter (event or EventEnvelope)
+
+2. **Priority**:
+   - Set via `Priority` property in attribute
+   - Lower numbers execute first
+   - Default priority is `int.MaxValue`
+
+3. **Self-Event Handling**:
+   - By default, agents don't process their own events
+   - Use `HandleSelfEvents = true` to override
+
+4. **Type Filtering**:
+   - Use `GAgentBase<TState, TEvent>` to filter at type level
+   - Only events assignable to `TEvent` are processed
+   - Reduces deserialization overhead
+
+## 🌊 Stream and Event Propagation
+
+### Stream Architecture
+
+Every GAgentActor maintains a stream that acts as an event broadcast channel:
+
+```
+Parent Stream
+    ├── Child 1 (subscribed) ← Receives broadcasts
+    ├── Child 2 (subscribed) ← Receives broadcasts
+    └── Child 3 (subscribed) ← Receives broadcasts
+```
+
+### Event Direction Pattern
+
+1. **UP (向上传播)**:
+   - Event published to parent's stream
+   - Parent's stream broadcasts to all siblings
+   - Creates group-wide communication
+   ```csharp
+   await PublishAsync(evt, EventDirection.Up);
+   // Child → Parent Stream → All Siblings
+   ```
+
+2. **DOWN (向下传播)**:
+   - Event published to own stream
+   - Own stream broadcasts to all children
+   ```csharp
+   await PublishAsync(evt, EventDirection.Down);
+   // Parent → Own Stream → All Children
+   ```
+
+3. **BOTH (双向传播)**:
+   - Publishes both UP and DOWN simultaneously
+   ```csharp
+   await PublishAsync(evt, EventDirection.Both);
+   // → Parent Stream AND Own Stream
+   ```
+
+### Parent-Child Relationship Implementation
+
+#### Establishing Relationships
+```csharp
+// Child side: Set parent and auto-subscribe to parent's stream
+await childActor.SetParentAsync(parentId);
+
+// Parent side: Add child reference
+await parentActor.AddChildAsync(childId);
+```
+
+#### What Happens Under the Hood:
+
+1. **SetParentAsync (Child)**:
+   - Stores parent ID reference
+   - Creates subscription to parent's stream
+   - Enables receiving parent's broadcasts
+   - Supports type filtering if using `GAgentBase<TState, TEvent>`
+
+2. **AddChildAsync (Parent)**:
+   - Stores child ID in children collection
+   - Gets reference to child's stream
+   - Enables broadcasting to child
+
+3. **Subscription Management**:
+   - Automatic cleanup on `ClearParentAsync()`
+   - Resume mechanism for reconnection
+   - Type-based filtering at subscription level
+
+## 🚀 Runtime Selection Guide
+
+### Local Runtime
+- **Use When**: Development, testing, single-node scenarios
+- **Characteristics**: In-memory, fast, no network overhead
+- **Limitations**: No distribution, single process only
+
+### Orleans Runtime
+- **Use When**: 
+  - Need virtual actors with automatic activation/deactivation
+  - Want built-in clustering and load balancing
+  - Prefer grain-based programming model
+  - Need persistent state with providers
+- **Characteristics**: 
+  - Virtual actors (grains)
+  - Automatic failover
+  - Location transparency
+  - Rich streaming support
+
+### ProtoActor Runtime
+- **Use When**:
+  - Need high-performance actor system
+  - Want fine-grained control over actor lifecycle
+  - Prefer lightweight actors
+  - Need cross-platform compatibility
+- **Characteristics**:
+  - Explicit actor lifecycle
+  - Lower overhead than Orleans
+  - Proto.Remote for clustering
+  - gRPC-based communication
+
+## 🤖 Future: AI Agent Integration
+
+### Planned Microsoft Semantic Kernel Integration
+
+The framework is designed to integrate with Microsoft's Semantic Kernel for AI capabilities:
+
+```csharp
+// Future API design
+public class AIGAgent<TState> : GAgentBase<TState>
+{
+    protected SemanticKernel Kernel { get; set; }
+    protected string SystemPrompt { get; set; }
+    protected List<AITool> Tools { get; set; }
+    
+    // AI-powered event handler
+    [AIEventHandler]
+    public async Task<IMessage> ProcessWithAI(EventEnvelope envelope)
+    {
+        var context = BuildContext(envelope);
+        var result = await Kernel.RunAsync(SystemPrompt, context, Tools);
+        return ParseAIResponse(result);
+    }
+}
+```
+
+### Design Considerations for AI Agents
+
+1. **Prompt Management**: Store prompts in configuration
+2. **Tool Registration**: Dynamic tool discovery and registration
+3. **Context Building**: Convert events to AI-friendly context
+4. **Response Parsing**: Convert AI outputs to events
+5. **Token Management**: Track and limit token usage
+6. **Caching**: Cache AI responses for similar inputs
+
+## 📁 Project Structure
+
+```
+src/
+  Aevatar.Agents.Abstractions/  # Core interfaces and protobuf definitions
+    messages.proto               # Framework messages (EventEnvelope, etc.)
+  Aevatar.Agents.Core/          # Shared implementations
+    GAgentBase.cs               # Agent base classes
+    GAgentActorBase.cs          # Actor wrapper base
+    EventRouting/               # Event routing logic
+  Aevatar.Agents.Orleans/       # Orleans runtime
+  Aevatar.Agents.ProtoActor/    # ProtoActor runtime  
+  Aevatar.Agents.Local/         # Local runtime
+examples/
+  Demo.Agents/
+    *.proto                     # Domain-specific message definitions
+    *Agent.cs                   # Agent implementations
+test/
+  *.Tests/                      # Runtime-specific tests
+```
+
+## ⚡ Performance Best Practices
+
+### Agent Design
+1. **Keep State Small**: Minimize state size for faster serialization
+2. **Batch Operations**: Group related events when possible
+3. **Use Type Filtering**: Leverage `GAgentBase<TState, TEvent>` to reduce overhead
+4. **Async All The Way**: Always use async/await patterns
+
+### Event Design
+1. **Event Granularity**: Balance between too many small events and large monolithic events
+2. **Event Versioning**: Plan for schema evolution from the start
+3. **Idempotency**: Design handlers to be idempotent when possible
+4. **Event Sourcing**: Consider event sourcing for critical state
+
+### Stream Optimization
+1. **Subscription Management**: Clean up unused subscriptions
+2. **Type Filtering**: Filter at subscription level when possible
+3. **Buffering**: Configure appropriate buffer sizes
+4. **Back-Pressure**: Implement back-pressure for high-volume scenarios
+
+## 🧪 Testing Requirements
+
+### Test Coverage Areas
+1. **Event Handling**:
+   - Verify handler discovery
+   - Test priority ordering
+   - Validate type filtering
+
+2. **Parent-Child Relations**:
+   - Test subscription/unsubscription
+   - Verify event propagation patterns
+   - Test orphan handling
+
+3. **Stream Behavior**:
+   - Test UP/DOWN/BOTH directions
+   - Verify broadcast patterns
+   - Test resume mechanism
+
+4. **Cross-Runtime Compatibility**:
+   - Ensure agents work across all runtimes
+   - Test runtime-specific features
+   - Verify failover scenarios
+
+### Testing Best Practices
+- **NEVER delete failing tests** [[memory:10605935]]
+- Fix compilation errors by updating tests
+- Use Protobuf messages in all tests
+- Test both happy and error paths
+- Include performance benchmarks
+
+## 🔍 Common Patterns
+
+### Supervisor Pattern
+```csharp
+public class SupervisorAgent : GAgentBase<SupervisorState>
+{
+    [EventHandler]
+    public async Task HandleWorkerError(WorkerErrorEvent evt)
+    {
+        // Restart, reassign, or escalate
+        await RestartWorker(evt.WorkerId);
+    }
+}
+```
+
+### Aggregator Pattern
+```csharp
+public class AggregatorAgent : GAgentBase<AggregatorState>
+{
+    [EventHandler]
+    public async Task HandleDataPoint(DataPointEvent evt)
+    {
+        State.DataPoints.Add(evt);
+        if (State.DataPoints.Count >= Threshold)
+        {
+            await PublishAsync(new AggregatedDataEvent { ... });
+        }
+    }
+}
+```
+
+### Saga Pattern
+```csharp
+public class SagaCoordinatorAgent : GAgentBase<SagaState>
+{
+    [EventHandler]
+    public async Task HandleStepCompleted(StepCompletedEvent evt)
+    {
+        State.CompletedSteps.Add(evt.StepId);
+        await StartNextStep();
+    }
+    
+    [EventHandler]
+    public async Task HandleStepFailed(StepFailedEvent evt)
+    {
+        await CompensatePreviousSteps();
+    }
+}
+```
+
+## 🚫 Common Mistakes to Avoid
+
+### Serialization Errors
+```csharp
+// ❌ WRONG - Manual C# class
+public class MyState 
+{
+    public string Name { get; set; }
+    public decimal Balance { get; set; } // decimal can't serialize!
+}
+
+// ✅ CORRECT - Proto definition
+message MyState {
+    string name = 1;
+    double balance = 2; // Use double for monetary values
+}
+```
+
+### Event Handler Mistakes
+```csharp
+// ❌ WRONG - Blocking call
+[EventHandler]
+public void HandleEvent(MyEvent evt) // Should return Task!
+{
+    Thread.Sleep(1000); // Never block!
+}
+
+// ✅ CORRECT - Async handler
+[EventHandler]
+public async Task HandleEvent(MyEvent evt)
+{
+    await Task.Delay(1000);
+}
+```
+
+### Parent-Child Setup
+```csharp
+// ❌ WRONG - Incomplete relationship
+await childActor.SetParentAsync(parentId);
+// Forgot to add child on parent side!
+
+// ✅ CORRECT - Both sides configured
+await childActor.SetParentAsync(parentId);
+await parentActor.AddChildAsync(childId);
+```
+
+## 📊 Monitoring and Observability
+
+### Built-in Metrics
+- Event processing latency
+- Event throughput
+- Handler execution time
+- Stream subscription count
+- Actor activation/deactivation
+
+### Logging Scopes
+- Automatic correlation ID propagation
+- Event type tracking
+- Agent ID in all logs
+- Parent-child relationship tracking
+
+### OpenTelemetry Integration
+- Distributed tracing support
+- Metrics export
+- Custom dimensions
+- Sampling configuration
+
+## 🔐 Security Considerations
+
+### Event Validation
+- Always validate event content
+- Implement rate limiting
+- Check event size limits
+- Validate sender authority
+
+### State Protection
+- Encrypt sensitive state
+- Implement access control
+- Audit state changes
+- Use event sourcing for compliance
+
+## 📈 Migration Guide
+
+### From Manual Classes to Protobuf
+1. Identify all state/event classes
+2. Create equivalent `.proto` definitions
+3. Update agent code to use generated types
+4. Update tests to use generated types
+5. Verify serialization/deserialization
+
+### Version Compatibility Rules
+- ✅ Can add new optional fields
+- ✅ Can delete fields (don't reuse numbers)
+- ❌ Cannot change field numbers
+- ❌ Cannot change field types
+- ⚠️ Be careful with required fields
+
+## 🎯 Quick Reference
+
+### Must Use Protobuf
+- Agent States (`TState`)
+- Event Messages
+- Any data crossing runtime boundaries
+- Event Sourcing events
+- Configuration objects
+
+### Can Use Regular C#
+- Internal helper classes
+- Local-only data structures
+- UI models (if not transmitted)
+- Test utilities (unless testing serialization)
+- Temporary computation results
+
+## 💡 Development Workflow
+
+### Creating a New Agent
+1. **Define Proto Messages**
+   ```bash
+   # Create proto file with state and events
+   vim my_agent.proto
+   ```
+
+2. **Build to Generate Code**
+   ```bash
+   dotnet build
+   ```
+
+3. **Implement Agent Class**
+   ```csharp
+   public class MyAgent : GAgentBase<MyAgentState>
+   {
+       [EventHandler]
+       public async Task HandleMyEvent(MyEvent evt) { ... }
+   }
+   ```
+
+4. **Register with Runtime**
+   ```csharp
+   var actor = await actorManager.CreateAndRegisterAsync<MyAgent>(id);
+   ```
+
+5. **Test Everything**
+   ```csharp
+   await actor.PublishEventAsync(new MyEvent { ... });
+   ```
+
+## 🔴 Enforcement
+
+**The framework will fail at runtime if non-Protobuf types are used for:**
+- State serialization
+- Event transmission
+- Stream messages
+- Configuration objects
+
+**Prevention is better than debugging serialization errors!**
+
+---
+
+Remember: 
+- **If it crosses a boundary, define it in proto.** 🔴
+- **GAgent is logic, GAgentActor is infrastructure.** 🏗️
+- **Streams are the nervous system of your agent network.** 🌊
+- **Every event is a ripple in the distributed consciousness.** 🌌
+
+## 🔧 Agent Implementation Guidelines
+
+### State Initialization Pattern
+
+#### ❌ WRONG - Attempting to Assign New State
+```csharp
+public override async Task OnActivateAsync(CancellationToken ct = default)
+{
+    await base.OnActivateAsync(ct);
+    
+    // ❌ WRONG - State property is read-only!
+    State = new MyAgentState 
+    {
+        Name = "Agent1",
+        Count = 0
+    };
+}
+```
+
+#### ✅ CORRECT - Modify Existing State Properties
+```csharp
+public override async Task OnActivateAsync(CancellationToken ct = default)
+{
+    await base.OnActivateAsync(ct);
+    
+    // ✅ CORRECT - State object already exists, modify its properties
+    State.Name = "Agent1";
+    State.Count = 0;
+    State.LastUpdate = Timestamp.FromDateTime(DateTime.UtcNow);
+}
+```
+
+### Agent Constructor Pattern
+
+#### ❌ WRONG - Constructor with Parameters
+```csharp
+public class MyAgent : GAgentBase<MyAgentState>
+{
+    // ❌ WRONG - Agents must have parameterless constructors for activation
+    public MyAgent(string name) : base()
+    {
+        State.Name = name; // Also wrong - State modification in constructor
+    }
+}
+```
+
+#### ✅ CORRECT - Parameterless Constructor
+```csharp
+public class MyAgent : GAgentBase<MyAgentState>
+{
+    // ✅ CORRECT - Parameterless constructor required
+    public MyAgent() : base()
+    {
+        // Don't modify State here
+    }
+    
+    public override async Task OnActivateAsync(CancellationToken ct = default)
+    {
+        await base.OnActivateAsync(ct);
+        // Initialize State properties here
+        State.Name = $"Agent_{Id.ToString("N").Substring(0, 8)}";
+    }
+}
+```
+
+### Event Handler Pattern
+
+#### ❌ WRONG - Blocking/Synchronous Handler
+```csharp
+[EventHandler]
+public void HandleMyEvent(MyEvent evt) // Wrong - should return Task
+{
+    Thread.Sleep(1000); // Never block!
+    State.Count++;
+}
+```
+
+#### ✅ CORRECT - Async Handler
+```csharp
+[EventHandler]
+public async Task HandleMyEvent(MyEvent evt)
+{
+    await Task.Delay(1000); // Use async methods
+    State.Count++;
+    await PublishAsync(new ResponseEvent { ... });
+}
+```
+
+### State Type Requirements
+
+#### ❌ WRONG - Non-Protobuf State
+```csharp
+// ❌ WRONG - Manual C# class
+public class MyAgentState 
+{
+    public string Name { get; set; }
+    public int Count { get; set; }
+}
+
+public class MyAgent : GAgentBase<MyAgentState> // Will fail at runtime!
+{
+}
+```
+
+#### ✅ CORRECT - Protobuf State
+```protobuf
+// my_agent.proto
+syntax = "proto3";
+
+message MyAgentState {
+    string name = 1;
+    int32 count = 2;
+    google.protobuf.Timestamp last_update = 3;
+}
+```
+
+```csharp
+// ✅ CORRECT - Using generated Protobuf class
+public class MyAgent : GAgentBase<MyAgentState> // MyAgentState from proto
+{
+    public MyAgent() : base() { }
+}
+```
+
+### Event Publishing Pattern
+
+#### ✅ Event Direction Usage
+```csharp
+// Publish to parent (up the hierarchy)
+await PublishAsync(reportEvent, EventDirection.Up);
+
+// Publish to children (down the hierarchy)
+await PublishAsync(commandEvent, EventDirection.Down);
+
+// Publish in both directions
+await PublishAsync(broadcastEvent, EventDirection.Both);
+```
+
+### Required Method Implementations
+
+Every agent MUST implement:
+
+```csharp
+public override Task<string> GetDescriptionAsync()
+{
+    return Task.FromResult($"Agent: {State.Name} (Count: {State.Count})");
+}
+```
+
+### Lifecycle Methods
+
+```csharp
+public class MyAgent : GAgentBase<MyAgentState>
+{
+    public override async Task OnActivateAsync(CancellationToken ct = default)
+    {
+        await base.OnActivateAsync(ct); // ALWAYS call base first
+        // Initialize state properties here
+    }
+    
+    public override async Task OnDeactivateAsync(CancellationToken ct = default)
+    {
+        // Cleanup logic here
+        await base.OnDeactivateAsync(ct); // ALWAYS call base last
+    }
+}
+```
+
+### Common Mistakes Summary
+
+1. **Never assign new State object** - Modify existing properties
+2. **Always use parameterless constructors** - Required for activation
+3. **Initialize state in OnActivateAsync** - Not in constructor
+4. **Always return Task from handlers** - Never use void or block
+5. **Use Protobuf for all state/events** - Never manual classes
+6. **Call base methods in lifecycle** - OnActivateAsync/OnDeactivateAsync
+7. **Implement GetDescriptionAsync** - Required abstract method
+
+---
+> Source: [aevatarAI/aevatar-agent-framework](https://github.com/aevatarAI/aevatar-agent-framework) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
