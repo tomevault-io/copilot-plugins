@@ -1,0 +1,9 @@
+{
+  "name": "jovaynetwork--jovay-examples",
+  "displayName": "jovay-examples",
+  "description": "A collection of example projects, smart contract templates, and tutorials to help developers build on the Jovay Network.",
+  "version": "1.0.0",
+  "author": "jovaynetwork",
+  "homepage": "https://github.com/jovaynetwork/jovay-examples",
+  "skills": []
+}
