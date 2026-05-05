@@ -1,0 +1,9 @@
+{
+  "name": "clouvet--sprite-mobile",
+  "displayName": "sprite-mobile",
+  "description": "A PWA chat UI for accessing Claude Code on a Sprite",
+  "version": "1.0.0",
+  "author": "clouvet",
+  "homepage": "https://github.com/clouvet/sprite-mobile",
+  "skills": []
+}
