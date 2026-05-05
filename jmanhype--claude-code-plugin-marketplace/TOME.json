@@ -1,0 +1,57 @@
+{
+  "name": "claude-code-plugin-marketplace",
+  "owner": "jmanhype",
+  "repo": "claude-code-plugin-marketplace",
+  "description": "Multi-agent trading, swarm intelligence, and GitHub automation plugins for Claude Code. 19 production-grade plugins built from 68+ specialized agents.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "generate-appworld-code",
+      "path": "plugins/ace-context-engineering/skills/generate-appworld-code",
+      "github_url": "https://github.com/jmanhype/claude-code-plugin-marketplace/tree/main/plugins/ace-context-engineering/skills/generate-appworld-code",
+      "description": ""
+    },
+    {
+      "name": "reflect-appworld-failure",
+      "path": "plugins/ace-context-engineering/skills/reflect-appworld-failure",
+      "github_url": "https://github.com/jmanhype/claude-code-plugin-marketplace/tree/main/plugins/ace-context-engineering/skills/reflect-appworld-failure",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jmanhype/claude-code-plugin-marketplace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:37:15Z"
+}
