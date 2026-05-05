@@ -1,0 +1,549 @@
+{
+  "name": "claude-plugins",
+  "owner": "lifangda",
+  "repo": "claude-plugins",
+  "description": "\u4e00\u6761\u547d\u4ee4\u5c31\u80fd\u5b89\u88c5\u7cbe\u5fc3\u6253\u78e8\u7684\u5de5\u4f5c\u6d41\u3001\u547d\u4ee4\u3001\u4ee3\u7406\u3001MCP\u670d\u52a1\u5668\u548c\u94a9\u5b50",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "aeon",
+      "path": "cli-tool/skills-library/scientific-computing/machine-learning/aeon",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/machine-learning/aeon",
+      "description": ""
+    },
+    {
+      "name": "alphafold-database",
+      "path": "cli-tool/skills-library/scientific-databases/alphafold-database",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-databases/alphafold-database",
+      "description": ""
+    },
+    {
+      "name": "api-design-principles",
+      "path": "cli-tool/skills-library/backend-development/api-design-principles",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/backend-development/api-design-principles",
+      "description": ""
+    },
+    {
+      "name": "architecture-patterns",
+      "path": "cli-tool/skills-library/backend-development/architecture-patterns",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/backend-development/architecture-patterns",
+      "description": ""
+    },
+    {
+      "name": "async-python-patterns",
+      "path": "cli-tool/skills-library/python-development/async-python-patterns",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/python-development/async-python-patterns",
+      "description": ""
+    },
+    {
+      "name": "benchling-integration",
+      "path": "cli-tool/skills-library/scientific-integrations/benchling-integration",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-integrations/benchling-integration",
+      "description": ""
+    },
+    {
+      "name": "biomni",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/biomni",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/biomni",
+      "description": ""
+    },
+    {
+      "name": "biopython",
+      "path": "cli-tool/skills-library/scientific-computing/bioinformatics/biopython",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/bioinformatics/biopython",
+      "description": ""
+    },
+    {
+      "name": "biorxiv-database",
+      "path": "cli-tool/skills-library/scientific-databases/biorxiv-database",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-databases/biorxiv-database",
+      "description": ""
+    },
+    {
+      "name": "bioservices",
+      "path": "cli-tool/skills-library/scientific-computing/bioinformatics/bioservices",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/bioinformatics/bioservices",
+      "description": ""
+    },
+    {
+      "name": "brainstorming",
+      "path": "cli-tool/skills-library/problem-solving/brainstorming",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/problem-solving/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "path": "cli-tool/skills-library/creative-ai/canvas-design",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/creative-ai/canvas-design",
+      "description": ""
+    },
+    {
+      "name": "clinpgx-database",
+      "path": "cli-tool/skills-library/scientific-databases/clinpgx-database",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-databases/clinpgx-database",
+      "description": ""
+    },
+    {
+      "name": "scientific-context-initialization",
+      "path": "cli-tool/skills-library/scientific-helpers/scientific-context-initialization",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-helpers/scientific-context-initialization",
+      "description": ""
+    },
+    {
+      "name": "cosmic-database",
+      "path": "cli-tool/skills-library/scientific-databases/cosmic-database",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-databases/cosmic-database",
+      "description": ""
+    },
+    {
+      "name": "csv-summarizer",
+      "path": "cli-tool/skills-library/data-analysis/csv-summarizer",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/data-analysis/csv-summarizer",
+      "description": ""
+    },
+    {
+      "name": "datacommons-client",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/datacommons-client",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/datacommons-client",
+      "description": ""
+    },
+    {
+      "name": "datamol",
+      "path": "cli-tool/skills-library/scientific-computing/cheminformatics/datamol",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/cheminformatics/datamol",
+      "description": ""
+    },
+    {
+      "name": "deployment-pipeline-design",
+      "path": "cli-tool/skills-library/cicd-automation/deployment-pipeline-design",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/cicd-automation/deployment-pipeline-design",
+      "description": ""
+    },
+    {
+      "name": "dnanexus-integration",
+      "path": "cli-tool/skills-library/scientific-integrations/dnanexus-integration",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-integrations/dnanexus-integration",
+      "description": ""
+    },
+    {
+      "name": "drugbank-database",
+      "path": "cli-tool/skills-library/scientific-databases/drugbank-database",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-databases/drugbank-database",
+      "description": ""
+    },
+    {
+      "name": "ensembl-database",
+      "path": "cli-tool/skills-library/scientific-databases/ensembl-database",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-databases/ensembl-database",
+      "description": ""
+    },
+    {
+      "name": "esm",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/esm",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/esm",
+      "description": ""
+    },
+    {
+      "name": "ffuf-fuzzing",
+      "path": "cli-tool/skills-library/security/ffuf-fuzzing",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/security/ffuf-fuzzing",
+      "description": ""
+    },
+    {
+      "name": "gardening-skills-wiki",
+      "path": "cli-tool/skills-library/meta-learning/gardening-skills-wiki",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/meta-learning/gardening-skills-wiki",
+      "description": ""
+    },
+    {
+      "name": "get-available-resources",
+      "path": "cli-tool/skills-library/scientific-helpers/get-available-resources",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-helpers/get-available-resources",
+      "description": ""
+    },
+    {
+      "name": "gget",
+      "path": "cli-tool/skills-library/scientific-computing/bioinformatics/gget",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/bioinformatics/gget",
+      "description": ""
+    },
+    {
+      "name": "github-actions-templates",
+      "path": "cli-tool/skills-library/cicd-automation/github-actions-templates",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/cicd-automation/github-actions-templates",
+      "description": ""
+    },
+    {
+      "name": "gitops-workflow",
+      "path": "cli-tool/skills-library/kubernetes-operations/gitops-workflow",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/kubernetes-operations/gitops-workflow",
+      "description": ""
+    },
+    {
+      "name": "helm-chart-scaffolding",
+      "path": "cli-tool/skills-library/kubernetes-operations/helm-chart-scaffolding",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/kubernetes-operations/helm-chart-scaffolding",
+      "description": ""
+    },
+    {
+      "name": "histolab",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/histolab",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/histolab",
+      "description": ""
+    },
+    {
+      "name": "javascript-testing-patterns",
+      "path": "cli-tool/skills-library/javascript-typescript/javascript-testing-patterns",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/javascript-typescript/javascript-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "k8s-manifest-generator",
+      "path": "cli-tool/skills-library/kubernetes-operations/k8s-manifest-generator",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/kubernetes-operations/k8s-manifest-generator",
+      "description": ""
+    },
+    {
+      "name": "labarchive-integration",
+      "path": "cli-tool/skills-library/scientific-integrations/labarchive-integration",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-integrations/labarchive-integration",
+      "description": ""
+    },
+    {
+      "name": "langchain-architecture",
+      "path": "cli-tool/skills-library/llm-application-dev/langchain-architecture",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/llm-application-dev/langchain-architecture",
+      "description": ""
+    },
+    {
+      "name": "latchbio-integration",
+      "path": "cli-tool/skills-library/scientific-integrations/latchbio-integration",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-integrations/latchbio-integration",
+      "description": ""
+    },
+    {
+      "name": "literature-review",
+      "path": "cli-tool/skills-library/scientific-thinking/literature-review",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-thinking/literature-review",
+      "description": ""
+    },
+    {
+      "name": "llm-evaluation",
+      "path": "cli-tool/skills-library/llm-application-dev/llm-evaluation",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/llm-application-dev/llm-evaluation",
+      "description": ""
+    },
+    {
+      "name": "epub-reader",
+      "path": "cli-tool/skills-library/media-processing/epub-reader",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/media-processing/epub-reader",
+      "description": ""
+    },
+    {
+      "name": "markdown-to-epub-enhanced",
+      "path": "cli-tool/skills-library/media-processing/markdown-to-epub-enhanced",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/media-processing/markdown-to-epub-enhanced",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "path": "cli-tool/skills-library/backend-development/mcp-builder",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/backend-development/mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "medchem",
+      "path": "cli-tool/skills-library/scientific-computing/cheminformatics/medchem",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/cheminformatics/medchem",
+      "description": ""
+    },
+    {
+      "name": "collaboration",
+      "path": "cli-tool/skills-library/collaboration",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/collaboration",
+      "description": ""
+    },
+    {
+      "name": "microservices-patterns",
+      "path": "cli-tool/skills-library/backend-development/microservices-patterns",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/backend-development/microservices-patterns",
+      "description": ""
+    },
+    {
+      "name": "modern-javascript-patterns",
+      "path": "cli-tool/skills-library/javascript-typescript/modern-javascript-patterns",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/javascript-typescript/modern-javascript-patterns",
+      "description": ""
+    },
+    {
+      "name": "multi-cloud-architecture",
+      "path": "cli-tool/skills-library/cloud-infrastructure/multi-cloud-architecture",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/cloud-infrastructure/multi-cloud-architecture",
+      "description": ""
+    },
+    {
+      "name": "neurokit2",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/neurokit2",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/neurokit2",
+      "description": ""
+    },
+    {
+      "name": "nodejs-backend-patterns",
+      "path": "cli-tool/skills-library/javascript-typescript/nodejs-backend-patterns",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/javascript-typescript/nodejs-backend-patterns",
+      "description": ""
+    },
+    {
+      "name": "omero-integration",
+      "path": "cli-tool/skills-library/scientific-integrations/omero-integration",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-integrations/omero-integration",
+      "description": ""
+    },
+    {
+      "name": "pathml",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/pathml",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/pathml",
+      "description": ""
+    },
+    {
+      "name": "polars",
+      "path": "cli-tool/skills-library/scientific-computing/data-visualization/polars",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/data-visualization/polars",
+      "description": ""
+    },
+    {
+      "name": "preserving-productive-tensions",
+      "path": "cli-tool/skills-library/architecture-patterns/preserving-productive-tensions",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/architecture-patterns/preserving-productive-tensions",
+      "description": ""
+    },
+    {
+      "name": "prompt-engineering-patterns",
+      "path": "cli-tool/skills-library/llm-application-dev/prompt-engineering-patterns",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/llm-application-dev/prompt-engineering-patterns",
+      "description": ""
+    },
+    {
+      "name": "pubchem-database",
+      "path": "cli-tool/skills-library/scientific-databases/pubchem-database",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-databases/pubchem-database",
+      "description": ""
+    },
+    {
+      "name": "pulling-updates-from-skills-repository",
+      "path": "cli-tool/skills-library/meta-learning/pulling-updates-from-skills-repository",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/meta-learning/pulling-updates-from-skills-repository",
+      "description": ""
+    },
+    {
+      "name": "pydeseq2",
+      "path": "cli-tool/skills-library/scientific-computing/bioinformatics/pydeseq2",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/bioinformatics/pydeseq2",
+      "description": ""
+    },
+    {
+      "name": "pydicom",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/pydicom",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/pydicom",
+      "description": ""
+    },
+    {
+      "name": "pyhealth",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/pyhealth",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/pyhealth",
+      "description": ""
+    },
+    {
+      "name": "pylabrobot",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/pylabrobot",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/pylabrobot",
+      "description": ""
+    },
+    {
+      "name": "pymoo",
+      "path": "cli-tool/skills-library/scientific-computing/machine-learning/pymoo",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/machine-learning/pymoo",
+      "description": ""
+    },
+    {
+      "name": "pyopenms",
+      "path": "cli-tool/skills-library/scientific-computing/proteomics/pyopenms",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/proteomics/pyopenms",
+      "description": ""
+    },
+    {
+      "name": "pytdc",
+      "path": "cli-tool/skills-library/scientific-computing/cheminformatics/pytdc",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/cheminformatics/pytdc",
+      "description": ""
+    },
+    {
+      "name": "python-packaging",
+      "path": "cli-tool/skills-library/python-development/python-packaging",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/python-development/python-packaging",
+      "description": ""
+    },
+    {
+      "name": "python-testing-patterns",
+      "path": "cli-tool/skills-library/python-development/python-testing-patterns",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/python-development/python-testing-patterns",
+      "description": ""
+    },
+    {
+      "name": "rag-implementation",
+      "path": "cli-tool/skills-library/llm-application-dev/rag-implementation",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/llm-application-dev/rag-implementation",
+      "description": ""
+    },
+    {
+      "name": "reactome-database",
+      "path": "cli-tool/skills-library/scientific-databases/reactome-database/reactome-database",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-databases/reactome-database/reactome-database",
+      "description": ""
+    },
+    {
+      "name": "remembering-conversations",
+      "path": "cli-tool/skills-library/collaboration/remembering-conversations",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/collaboration/remembering-conversations",
+      "description": ""
+    },
+    {
+      "name": "reportlab",
+      "path": "cli-tool/skills-library/scientific-computing/data-visualization/reportlab",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/data-visualization/reportlab",
+      "description": ""
+    },
+    {
+      "name": "scvi-tools",
+      "path": "cli-tool/skills-library/scientific-computing/bioinformatics/scvi-tools",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/bioinformatics/scvi-tools",
+      "description": ""
+    },
+    {
+      "name": "shap",
+      "path": "cli-tool/skills-library/scientific-computing/machine-learning/shap",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/machine-learning/shap",
+      "description": ""
+    },
+    {
+      "name": "ship-learn-next",
+      "path": "cli-tool/skills-library/utility-automation/ship-learn-next",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/utility-automation/ship-learn-next",
+      "description": ""
+    },
+    {
+      "name": "solidity-security",
+      "path": "cli-tool/skills-library/blockchain-web3/solidity-security",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/blockchain-web3/solidity-security",
+      "description": ""
+    },
+    {
+      "name": "stripe-integration",
+      "path": "cli-tool/skills-library/payment-processing/stripe-integration",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/payment-processing/stripe-integration",
+      "description": ""
+    },
+    {
+      "name": "terraform-module-library",
+      "path": "cli-tool/skills-library/cloud-infrastructure/terraform-module-library",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/cloud-infrastructure/terraform-module-library",
+      "description": ""
+    },
+    {
+      "name": "tooluniverse",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/tooluniverse",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/tooluniverse",
+      "description": ""
+    },
+    {
+      "name": "torch-geometric",
+      "path": "cli-tool/skills-library/scientific-computing/machine-learning/torch-geometric",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/machine-learning/torch-geometric",
+      "description": ""
+    },
+    {
+      "name": "transformers",
+      "path": "cli-tool/skills-library/scientific-computing/machine-learning/transformers",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/machine-learning/transformers",
+      "description": ""
+    },
+    {
+      "name": "typescript-advanced-types",
+      "path": "cli-tool/skills-library/javascript-typescript/typescript-advanced-types",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/javascript-typescript/typescript-advanced-types",
+      "description": ""
+    },
+    {
+      "name": "uspto-database",
+      "path": "cli-tool/skills-library/scientific-databases/uspto-database",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-databases/uspto-database",
+      "description": ""
+    },
+    {
+      "name": "uv-package-manager",
+      "path": "cli-tool/skills-library/python-development/uv-package-manager",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/python-development/uv-package-manager",
+      "description": ""
+    },
+    {
+      "name": "web3-testing",
+      "path": "cli-tool/skills-library/blockchain-web3/web3-testing",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/blockchain-web3/web3-testing",
+      "description": ""
+    },
+    {
+      "name": "webapp-testing",
+      "path": "cli-tool/skills-library/creative-ai/webapp-testing",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/creative-ai/webapp-testing",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "cli-tool/skills-library/planning-documentation/writing-skills",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/planning-documentation/writing-skills",
+      "description": ""
+    },
+    {
+      "name": "zarr-python",
+      "path": "cli-tool/skills-library/scientific-computing/other-packages/zarr-python",
+      "github_url": "https://github.com/lifangda/claude-plugins/tree/main/cli-tool/skills-library/scientific-computing/other-packages/zarr-python",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/lifangda/claude-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:38:42Z"
+}
