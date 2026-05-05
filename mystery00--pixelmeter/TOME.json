@@ -4,7 +4,7 @@
   "repo": "PixelMeter",
   "description": "Pixel Meter is a network speed monitor application designed specifically for Google Pixel and native Android devices.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Mystery00/PixelMeter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T16:00:39Z"
+  "distributed_at": "2026-05-05T17:59:13Z"
 }
