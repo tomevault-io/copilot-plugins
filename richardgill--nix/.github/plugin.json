@@ -1,0 +1,114 @@
+{
+  "name": "richardgill--nix",
+  "displayName": "nix",
+  "description": "AI instruction skills by richardgill",
+  "version": "1.0.0",
+  "author": "richardgill",
+  "homepage": "https://github.com/richardgill/nix",
+  "skills": [
+    {
+      "name": "beeper",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "description": ""
+    },
+    {
+      "name": "browser",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "codebase-pattern-finder",
+      "description": ""
+    },
+    {
+      "name": "codebase-pattern-finder",
+      "description": ""
+    },
+    {
+      "name": "codebase-pattern-finder",
+      "description": ""
+    },
+    {
+      "name": "gmail",
+      "description": ""
+    },
+    {
+      "name": "google-calendar",
+      "description": ""
+    },
+    {
+      "name": "issues",
+      "description": ""
+    },
+    {
+      "name": "nvim",
+      "description": ""
+    },
+    {
+      "name": "oracle",
+      "description": ""
+    },
+    {
+      "name": "review-post",
+      "description": ""
+    },
+    {
+      "name": "review-pr",
+      "description": ""
+    },
+    {
+      "name": "tmux-debug",
+      "description": ""
+    },
+    {
+      "name": "upgrade-flake",
+      "description": ""
+    },
+    {
+      "name": "upgrade-nixos",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "description": ""
+    }
+  ]
+}
