@@ -1,0 +1,105 @@
+{
+  "name": "claude-skills",
+  "owner": "rknall",
+  "repo": "claude-skills",
+  "description": "Generic skills used in my daily work",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "svg-logo-designer",
+      "path": "svg-logo-designer",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/svg-logo-designer",
+      "description": ""
+    },
+    {
+      "name": "newt-blueprint-generator",
+      "path": "newt-blueprint-generator",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/newt-blueprint-generator",
+      "description": ""
+    },
+    {
+      "name": "docker-validation",
+      "path": "docker-validation",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/docker-validation",
+      "description": ""
+    },
+    {
+      "name": "config-generator",
+      "path": "config-generator",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/config-generator",
+      "description": ""
+    },
+    {
+      "name": "stack-creator",
+      "path": "stack-creator",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/stack-creator",
+      "description": ""
+    },
+    {
+      "name": "secrets-manager",
+      "path": "secrets-manager",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/secrets-manager",
+      "description": ""
+    },
+    {
+      "name": "stack-validator",
+      "path": "stack-validator",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/stack-validator",
+      "description": ""
+    },
+    {
+      "name": "python-architecture-review",
+      "path": "python-architecture-review",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/python-architecture-review",
+      "description": ""
+    },
+    {
+      "name": "ui-design-review",
+      "path": "ui-design-review",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/ui-design-review",
+      "description": ""
+    },
+    {
+      "name": "web-design-builder",
+      "path": "web-design-builder",
+      "github_url": "https://github.com/rknall/claude-skills/tree/main/web-design-builder",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/rknall/claude-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:44:56Z"
+}
