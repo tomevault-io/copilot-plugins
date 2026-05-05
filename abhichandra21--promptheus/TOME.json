@@ -1,0 +1,44 @@
+{
+  "name": "Promptheus",
+  "owner": "abhichandra21",
+  "repo": "Promptheus",
+  "description": "Automated prompt engineering for efficient AI interactions | Interactive command-line interface | Multi-provider LLM integration (Gemini, Claude, OpenAI, Groq, Qwen, GLM) | Intelligent task-based refinement | Session history and iterative enhancement",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/abhichandra21/Promptheus",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T00:14:58Z"
+}
