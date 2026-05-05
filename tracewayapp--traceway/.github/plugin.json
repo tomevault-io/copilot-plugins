@@ -1,0 +1,9 @@
+{
+  "name": "tracewayapp--traceway",
+  "displayName": "traceway",
+  "description": "The only tool you need to know what is happening and how to fix it.",
+  "version": "1.0.0",
+  "author": "tracewayapp",
+  "homepage": "https://github.com/tracewayapp/traceway",
+  "skills": []
+}
