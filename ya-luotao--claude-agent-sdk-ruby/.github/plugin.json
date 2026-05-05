@@ -1,0 +1,22 @@
+{
+  "name": "ya-luotao--claude-agent-sdk-ruby",
+  "displayName": "claude-agent-sdk-ruby",
+  "description": "Unofficial Ruby SDK for Claude Agent",
+  "version": "1.0.0",
+  "author": "ya-luotao",
+  "homepage": "https://github.com/ya-luotao/claude-agent-sdk-ruby",
+  "skills": [
+    {
+      "name": "claude-agent-ruby",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk-ruby",
+      "description": ""
+    },
+    {
+      "name": "claude-agent-sdk-ruby",
+      "description": ""
+    }
+  ]
+}
