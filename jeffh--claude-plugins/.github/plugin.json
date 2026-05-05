@@ -1,0 +1,38 @@
+{
+  "name": "jeffh--claude-plugins",
+  "displayName": "claude-plugins",
+  "description": "Humanlayer + other productivity plugins",
+  "version": "1.0.0",
+  "author": "jeffh",
+  "homepage": "https://github.com/jeffh/claude-plugins",
+  "skills": [
+    {
+      "name": "create-skill",
+      "description": ""
+    },
+    {
+      "name": "create-worktree",
+      "description": ""
+    },
+    {
+      "name": "fabric",
+      "description": ""
+    },
+    {
+      "name": "prompting",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "spec-metadata",
+      "description": ""
+    },
+    {
+      "name": "story-explanation",
+      "description": ""
+    }
+  ]
+}
