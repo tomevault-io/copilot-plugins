@@ -1,0 +1,9 @@
+{
+  "name": "iam-brain--opencode-codex-auth",
+  "displayName": "opencode-codex-auth",
+  "description": "OpenCode OpenAI plugin for native Codex auth, multi-account rotation, and identity spoofing.",
+  "version": "1.0.0",
+  "author": "iam-brain",
+  "homepage": "https://github.com/iam-brain/opencode-codex-auth",
+  "skills": []
+}
