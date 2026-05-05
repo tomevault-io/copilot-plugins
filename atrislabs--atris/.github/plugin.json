@@ -1,0 +1,66 @@
+{
+  "name": "atrislabs--atris",
+  "displayName": "atris",
+  "description": "a self improving operating system for intelligence",
+  "version": "1.0.0",
+  "author": "atrislabs",
+  "homepage": "https://github.com/atrislabs/atris",
+  "skills": [
+    {
+      "name": "atris",
+      "description": ""
+    },
+    {
+      "name": "backend",
+      "description": ""
+    },
+    {
+      "name": "calendar",
+      "description": ""
+    },
+    {
+      "name": "copy-editor",
+      "description": ""
+    },
+    {
+      "name": "create-member",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "drive",
+      "description": ""
+    },
+    {
+      "name": "email-agent",
+      "description": ""
+    },
+    {
+      "name": "meta",
+      "description": ""
+    },
+    {
+      "name": "notion",
+      "description": ""
+    },
+    {
+      "name": "skill-improver",
+      "description": ""
+    },
+    {
+      "name": "slack",
+      "description": ""
+    },
+    {
+      "name": "slides",
+      "description": ""
+    },
+    {
+      "name": "writing",
+      "description": ""
+    }
+  ]
+}
