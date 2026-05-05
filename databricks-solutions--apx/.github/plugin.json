@@ -1,0 +1,14 @@
+{
+  "name": "databricks-solutions--apx",
+  "displayName": "apx",
+  "description": "apx - the toolkit for building Databricks Apps",
+  "version": "1.0.0",
+  "author": "databricks-solutions",
+  "homepage": "https://github.com/databricks-solutions/apx",
+  "skills": [
+    {
+      "name": "commiter",
+      "description": ""
+    }
+  ]
+}
