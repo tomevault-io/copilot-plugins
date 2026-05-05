@@ -1,0 +1,30 @@
+{
+  "name": "carrotwaxr--peek-stash-browser",
+  "displayName": "peek-stash-browser",
+  "description": "Media browser app for Stash with multiple users, playlists, and UI customization",
+  "version": "1.0.0",
+  "author": "carrotwaxr",
+  "homepage": "https://github.com/carrotwaxr/peek-stash-browser",
+  "skills": [
+    {
+      "name": "release-workflow",
+      "description": ""
+    },
+    {
+      "name": "self-review",
+      "description": ""
+    },
+    {
+      "name": "updating-docs",
+      "description": ""
+    },
+    {
+      "name": "visual-style",
+      "description": ""
+    },
+    {
+      "name": "writing-tests",
+      "description": ""
+    }
+  ]
+}
