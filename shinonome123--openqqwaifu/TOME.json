@@ -4,7 +4,7 @@
   "repo": "openqqwaifu",
   "description": "openqqwaifu \u662f\u4e00\u4e2a\u72ec\u7acb\u8fd0\u884c\u7684 QQ Waifu \u63a7\u5236\u53f0\u4e0e\u8fd0\u884c\u65f6\u3002  \u5b83\u628a\u89d2\u8272\u5361\u3001\u4f1a\u8bdd\u8bb0\u5fc6\u3001\u77e5\u8bc6\u5e93\u3001\u6210\u5458\u76ee\u5f55\u3001\u6280\u80fd\u7cfb\u7edf\u3001\u6a21\u578b\u63a5\u5165\u3001Web Console\uff0c\u4ee5\u53ca OpenClaw \u517c\u5bb9 skill runtime \u90fd\u6536\u655b\u5728\u540c\u4e00\u4e2a\u670d\u52a1\u91cc\uff1bNapCat / OneBot \u53ea\u8d1f\u8d23 QQ \u534f\u8bae\u548c\u6d88\u606f\u6536\u53d1\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/shinonome123/openqqwaifu",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T14:55:30Z"
+  "distributed_at": "2026-05-05T00:37:25Z"
 }
