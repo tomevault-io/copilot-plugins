@@ -1,0 +1,146 @@
+## obsidian-claudecode-prompt
+
+> 此文件为 Claude Code (claude.ai/code) 在处理此存储库中的代码时提供指导。
+
+# CLAUDE.md
+
+此文件为 Claude Code (claude.ai/code) 在处理此存储库中的代码时提供指导。
+
+## 概述
+
+这是一个 Obsidian 知识管理库，包含研究笔记、文章和个人知识库内容。该库采用受 Zettelkasten 启发的组织方式，并包含各种插件以增强功能。
+
+## Obsidian 配置
+
+### 启用的核心插件：
+
+- 文件浏览器
+- 全局搜索
+- 反向链接面板
+- 标签面板
+- 日记
+- 模板
+- 命令面板
+- 大纲
+- 字数统计
+- 画布
+- 属性
+
+### 安装的社区插件：
+
+- **obsidian-importer**：从各种来源导入内容
+- **templater-obsidian**：高级模板功能
+- **copilot**：AI 辅助笔记
+- **calendar**：日记日历视图
+- **recent-files-obsidian**：快速访问最近打开的文件
+- **obsidian-tasks-plugin**：任务管理
+- **obsidian-excalidraw-plugin**：图表绘制
+- **obsidian-view-mode-by-frontmatter**：自定义视图模式
+- **smart-connections**：AI 驱动的笔记连接
+- **obsidian-linter**：Markdown 语法检查和格式化
+- **open-in-new-tab**：在新标签页中打开笔记
+
+## 目录结构
+
+- `/Clippings/`：保存的网页内容和文章；
+- `/Excalidraw/`：图表和视觉笔记；
+- `/Notion/`：与 Notion 相关的内容和模板；
+-  `/Zettelkasten/`：卡片和笔记法中的 zettelkasten，用来存放原子笔记；
+- `/Reference/`：研究参考资料和收集的内容；
+- `/template/`：笔记模板；
+- `/Diary/`：Obsidian 的每日文件；
+-  `/Create/`：维护创作的内容；
+- `/BASE/`：存放了一些现有的 BASE 数据库；
+- `/Readwise/`：从 Readwise 同步果断的我阅读过的文章，和文章里的划线和批注；
+- `/Agentic_result/`： 用于存储在项目种深度检索的结果
+
+
+## 常见任务
+
+### 任务类型一、笔记创建流程
+
+#### 1. 选择模板
+- 使用 `/template/` 目录中的模板
+- 根据笔记类型选择合适的模板（读书笔记、项目笔记等）
+
+#### 2. 创建原子化笔记
+- 遵循 Zettelkasten 原则：每则笔记一个核心想法
+- 保持笔记简洁，聚焦单一主题
+- 使用有意义的文件名
+
+#### 3. 元数据管理
+- 利用 frontmatter 属性进行元数据管理
+- 标准属性：`title`, `created`, `tags`, `aliases`
+- 自定义属性根据笔记类型添加
+
+#### 4. 内容编写
+- 使用 Markdown 语法
+- 保持结构清晰：标题、列表、引用等
+- 添加相关链接和引用
+- 在写入文档时,要注意 UTF-8 的中文字符适配,多字节字符在编码转换时容易找到破坏.
+
+### 任务类型二、链接笔记系统
+Obsidian 的核心功能是链接笔记，创建知识网络：
+！！！重要提醒：如果你要关联文档，请先使用本地搜索工具搜索文档的名称，并确保这个文档存在，非常重要！！
+#### 基本链接语法
+- `[[笔记名称]]` - 创建内部链接
+- `[[笔记|显示文本]]` - 自定义链接显示文本
+- `[[笔记#标题]]` - 链接到特定标题
+- `[[笔记#^块标识]]` - 链接到特定文本块
+#### 高级链接功能
+- `![[文件]]` - 嵌入文件内容（图片、PDF等）
+- `[[^^搜索文本]]` - 搜索并链接到包含特定文本的块
+- `[[##标题]]` - 搜索并链接到包含特定文本的标题
+#### 链接最佳实践
+1. **双向链接**：创建有意义的双向关系
+2. **上下文链接**：在相关上下文中添加链接
+3. **标签系统**：使用标签进行分类和组织
+4. **反向链接**：利用反向链接面板发现新关联
+### 搜索文件或文档
+1. 当你需要在 Obsidian 文件夹里检索文件时，使用 fd 和 rg 的命令行来检索文件；
+2. 如果你要创建一个新的文档链接（像[[]]），请先搜索想要关联的文档，并确保这个文档存在。如果不存在，则不要关联。
+3. Obsidian 的很多文件都有 YAML 前置参数(Frontmatter)，这些内容应该也可以被检索；
+
+### 常用命令和工具
+#### 文件搜索命令
+- `fd "搜索内容"` - 使用 fd 工具搜索文件名
+- `rg "搜索内容"` - 使用 ripgrep 搜索文件内容
+- `fd -e md "关键词"` - 搜索特定扩展名的文件
+- `rg -i "关键词" --type md` - 不区分大小写搜索 Markdown 文件
+#### 文件管理
+- 使用 `fd` 和 `rg` 进行高效文件检索
+- 在创建文档链接前，务必先搜索确认目标文档存在
+- 支持搜索 YAML frontmatter 内容
+## 开发说明
+
+该库不包含传统的软件开发代码。主要内容是用于知识管理的 Markdown 文件。任何开发工作通常涉及：
+- 创建或修改 Obsidian Base 数据库
+- 创建或修改 Template 文件
+- 开发用于笔记处理的自定义脚本
+- 构建围绕知识管理工作流的自动化
+- 帮助我撰写和处理文档
+
+
+## 最佳实践
+1. 遵循原子化笔记(Zettelkasten)原则 - 每则笔记一个想法
+2. 在笔记之间建立有意义的联系
+3. 维护一致的 frontmatter 结构
+4. 定期审查和完善知识图谱
+5. 利用各种插件提高生产力
+
+## 回复风格
+1. 使用中文进行回复；
+
+
+## Subagent 使用指引
+1. 当需要检索某个主题或者关键词下面的文件时，使用“file-finder”这个 subagent 来检索；
+
+## Skills 使用指引
+1. 需要创建 base 数据库的时候，使用 obsidian_base_use 这个 skill；
+2. 当需要使用模板的时候，使用 obsidian_templater_use 这个 skill；
+3. 当需要创建 markdown文档的时候，使用 obsdiain_markdown 这个 skill；
+4. 当需要创建 canvas 画布的时候，使用 json-canvas 这个 skill
+
+---
+> Source: [liaocaoxuezhe/Obsidian_ClaudeCode_Prompt](https://github.com/liaocaoxuezhe/Obsidian_ClaudeCode_Prompt) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
