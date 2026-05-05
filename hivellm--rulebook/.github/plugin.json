@@ -1,0 +1,42 @@
+{
+  "name": "hivellm--rulebook",
+  "displayName": "rulebook",
+  "description": "CLI tool to standardize AI-generated projects with templates, rules enforcement, and automation",
+  "version": "1.0.0",
+  "author": "hivellm",
+  "homepage": "https://github.com/hivellm/rulebook",
+  "skills": [
+    {
+      "name": "rulebook-git-workflow",
+      "description": ""
+    },
+    {
+      "name": "rulebook-mcp",
+      "description": ""
+    },
+    {
+      "name": "rulebook-quality-gates",
+      "description": ""
+    },
+    {
+      "name": "rulebook-task-management",
+      "description": ""
+    },
+    {
+      "name": "rulebook-typescript",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "react-native",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    }
+  ]
+}
