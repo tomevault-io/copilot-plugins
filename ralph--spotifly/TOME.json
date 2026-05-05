@@ -4,7 +4,7 @@
   "repo": "Spotifly",
   "description": "Native Spotify client",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ralph/Spotifly",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T07:43:25Z"
+  "distributed_at": "2026-05-05T18:05:47Z"
 }
