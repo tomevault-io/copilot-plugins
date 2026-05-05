@@ -4,7 +4,7 @@
   "repo": "video-wizard",
   "description": "AI-powered video content analysis, viral clip identification, and subtitle generation platform.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/el-frontend/video-wizard",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T19:06:54Z"
+  "distributed_at": "2026-05-05T21:58:37Z"
 }
