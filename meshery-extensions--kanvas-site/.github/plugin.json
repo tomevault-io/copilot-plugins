@@ -1,0 +1,9 @@
+{
+  "name": "meshery-extensions--kanvas-site",
+  "displayName": "kanvas-site",
+  "description": "Website for Kanvas extension",
+  "version": "1.0.0",
+  "author": "meshery-extensions",
+  "homepage": "https://github.com/meshery-extensions/kanvas-site",
+  "skills": []
+}
