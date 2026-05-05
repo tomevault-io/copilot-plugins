@@ -1,0 +1,34 @@
+{
+  "name": "ruvnet--flow-nexus",
+  "displayName": "flow-nexus",
+  "description": "Flow Nexus is the first competitive agentic platform built entirely on MCP. Deploy autonomous AI swarms, train   neural networks, and compete in coding challenges while earning rUv credits. Transform ",
+  "version": "1.0.0",
+  "author": "ruvnet",
+  "homepage": "https://github.com/ruvnet/flow-nexus",
+  "skills": [
+    {
+      "name": "flow-nexus-neural",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-neural",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-swarm",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-swarm",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-neural",
+      "description": ""
+    },
+    {
+      "name": "flow-nexus-swarm",
+      "description": ""
+    }
+  ]
+}
