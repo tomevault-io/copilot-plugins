@@ -1,0 +1,351 @@
+{
+  "name": "ai-dev-standards",
+  "owner": "daffy0208",
+  "repo": "ai-dev-standards",
+  "description": "As Described in the name",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "animation-designer",
+      "path": "skills/animation-designer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/animation-designer",
+      "description": ""
+    },
+    {
+      "name": "brand-designer",
+      "path": "skills/brand-designer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/brand-designer",
+      "description": ""
+    },
+    {
+      "name": "mobile-developer",
+      "path": "skills/mobile-developer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/mobile-developer",
+      "description": ""
+    },
+    {
+      "name": "iot-developer",
+      "path": "skills/iot-developer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/iot-developer",
+      "description": ""
+    },
+    {
+      "name": "design-system-architect",
+      "path": "skills/design-system-architect",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/design-system-architect",
+      "description": ""
+    },
+    {
+      "name": "audio-producer",
+      "path": "skills/audio-producer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/audio-producer",
+      "description": ""
+    },
+    {
+      "name": "frontend-builder",
+      "path": "skills/frontend-builder",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/frontend-builder",
+      "description": ""
+    },
+    {
+      "name": "knowledge-base-manager",
+      "path": "skills/knowledge-base-manager",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/knowledge-base-manager",
+      "description": ""
+    },
+    {
+      "name": "customer-support-builder",
+      "path": "skills/customer-support-builder",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/customer-support-builder",
+      "description": ""
+    },
+    {
+      "name": "quality-auditor",
+      "path": "skills/quality-auditor",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/quality-auditor",
+      "description": ""
+    },
+    {
+      "name": "security-engineer",
+      "path": "skills/security-engineer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/security-engineer",
+      "description": ""
+    },
+    {
+      "name": "supabase-developer",
+      "path": "skills/supabase-developer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/supabase-developer",
+      "description": ""
+    },
+    {
+      "name": "testing-strategist",
+      "path": "skills/testing-strategist",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/testing-strategist",
+      "description": ""
+    },
+    {
+      "name": "api-integration-builder",
+      "path": "skills/api-integration-builder",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/api-integration-builder",
+      "description": ""
+    },
+    {
+      "name": "knowledge-graph-builder",
+      "path": "skills/knowledge-graph-builder",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/knowledge-graph-builder",
+      "description": ""
+    },
+    {
+      "name": "ux-designer",
+      "path": "skills/ux-designer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/ux-designer",
+      "description": ""
+    },
+    {
+      "name": "visual-designer",
+      "path": "skills/visual-designer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/visual-designer",
+      "description": ""
+    },
+    {
+      "name": "api-designer",
+      "path": "skills/api-designer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/api-designer",
+      "description": ""
+    },
+    {
+      "name": "growth-experimenter",
+      "path": "skills/growth-experimenter",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/growth-experimenter",
+      "description": ""
+    },
+    {
+      "name": "livestream-engineer",
+      "path": "skills/livestream-engineer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/livestream-engineer",
+      "description": ""
+    },
+    {
+      "name": "performance-optimizer",
+      "path": "skills/performance-optimizer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/performance-optimizer",
+      "description": ""
+    },
+    {
+      "name": "accessibility-engineer",
+      "path": "skills/accessibility-engineer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/accessibility-engineer",
+      "description": ""
+    },
+    {
+      "name": "copywriter",
+      "path": "skills/copywriter",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/copywriter",
+      "description": ""
+    },
+    {
+      "name": "prototype-designer",
+      "path": "skills/prototype-designer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/prototype-designer",
+      "description": ""
+    },
+    {
+      "name": "usability-tester",
+      "path": "skills/usability-tester",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/usability-tester",
+      "description": ""
+    },
+    {
+      "name": "mvp-builder",
+      "path": "skills/mvp-builder",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/mvp-builder",
+      "description": ""
+    },
+    {
+      "name": "spatial-developer",
+      "path": "skills/spatial-developer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/spatial-developer",
+      "description": ""
+    },
+    {
+      "name": "go-to-market-planner",
+      "path": "skills/go-to-market-planner",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/go-to-market-planner",
+      "description": ""
+    },
+    {
+      "name": "rag-implementer",
+      "path": "skills/rag-implementer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/rag-implementer",
+      "description": ""
+    },
+    {
+      "name": "security-architect",
+      "path": "skills/security-architect",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/security-architect",
+      "description": ""
+    },
+    {
+      "name": "figma-developer",
+      "path": "skills/figma-developer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/figma-developer",
+      "description": ""
+    },
+    {
+      "name": "multi-agent-architect",
+      "path": "skills/multi-agent-architect",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/multi-agent-architect",
+      "description": ""
+    },
+    {
+      "name": "quality-assurance",
+      "path": "skills/quality-assurance",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/quality-assurance",
+      "description": ""
+    },
+    {
+      "name": "asset-manager",
+      "path": "skills/asset-manager",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/asset-manager",
+      "description": ""
+    },
+    {
+      "name": "codex-review-workflow",
+      "path": "skills/codex-review-workflow",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/codex-review-workflow",
+      "description": ""
+    },
+    {
+      "name": "bmad-method",
+      "path": "skills/bmad-method",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/bmad-method",
+      "description": ""
+    },
+    {
+      "name": "deployment-advisor",
+      "path": "skills/deployment-advisor",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/deployment-advisor",
+      "description": ""
+    },
+    {
+      "name": "task-breakdown-specialist",
+      "path": "skills/task-breakdown-specialist",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/task-breakdown-specialist",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "path": "skills/technical-writer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/technical-writer",
+      "description": ""
+    },
+    {
+      "name": "product-strategist",
+      "path": "skills/product-strategist",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/product-strategist",
+      "description": ""
+    },
+    {
+      "name": "release-manager",
+      "path": "skills/release-manager",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/release-manager",
+      "description": ""
+    },
+    {
+      "name": "dark-matter-analyzer",
+      "path": "skills/dark-matter-analyzer",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/dark-matter-analyzer",
+      "description": ""
+    },
+    {
+      "name": "archon-manager",
+      "path": "skills/archon-manager",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/archon-manager",
+      "description": ""
+    },
+    {
+      "name": "capability-graph-builder",
+      "path": "skills/capability-graph-builder",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/capability-graph-builder",
+      "description": ""
+    },
+    {
+      "name": "context-preserver",
+      "path": "skills/context-preserver",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/context-preserver",
+      "description": ""
+    },
+    {
+      "name": "framework-orchestrator",
+      "path": "skills/framework-orchestrator",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/framework-orchestrator",
+      "description": ""
+    },
+    {
+      "name": "orchestration-planner",
+      "path": "skills/orchestration-planner",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/orchestration-planner",
+      "description": ""
+    },
+    {
+      "name": "prp-generator",
+      "path": "skills/prp-generator",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/prp-generator",
+      "description": ""
+    },
+    {
+      "name": "manifest-generator",
+      "path": "skills/manifest-generator",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/manifest-generator",
+      "description": ""
+    },
+    {
+      "name": "skill-validator",
+      "path": "skills/skill-validator",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/skill-validator",
+      "description": ""
+    },
+    {
+      "name": "system-diagnostician",
+      "path": "skills/system-diagnostician",
+      "github_url": "https://github.com/daffy0208/ai-dev-standards/tree/main/skills/system-diagnostician",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/daffy0208/ai-dev-standards",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T02:33:16Z"
+}
