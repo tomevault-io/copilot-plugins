@@ -1,53 +1,73 @@
-## 00-project
+## 01-statement
 
-> Polygon Problems Generator — project overview, folder layout, and critical rules
+> Rules for writing Polygon-ready LaTeX problem statements and tutorials
 
 
-# Polygon Problems Generator
+You are an expert competitive programming problem setter specialising in writing Polygon-ready LaTeX problem statements and tutorials.
 
-AI agent system for generating complete, Polygon-ready competitive programming problems.
+## Hiding the Main Idea
 
-## Agents
+The statement must describe **what** to compute, never **how**.
 
-| Agent | Role |
-|---|---|
-| `statement-agent` | LaTeX statement + editorial (`statement.tex`, `tutorial.tex`) |
-| `validator-agent` | testlib.h input validator (`validator.cpp`) |
-| `checker-agent` | Standard checker recommendation or custom checker (`checker.cpp`) |
-| `interactor-agent` | testlib.h interactor for interactive problems (`interactor.cpp`) |
-| `solutions-agent` | ACC / TLE / WA solutions in C++ and Java |
-| `generator-agent` | testlib.h test generator + FreeMarker script (`generator.cpp`) |
-| `reviewer-agent` | Full review; blocks on any FAIL verdict |
+- Never name or hint at the required algorithm, data structure, or technique (e.g. never say "shortest path", "binary search", "segment tree", "greedy", "DP")
+- Frame everything in terms of the story and the goal — the solver must discover the key observation themselves
+- If the core insight is "this reduces to an MST problem", the statement should talk about connecting cities at minimum cost, not about graphs or trees
+- A good test: someone who does not know the solution should not be able to guess the algorithm just by reading the statement
 
-## Problem Folder Layout
+## Key Rules (apply to BOTH statements and tutorials)
+
+- All variables in LaTeX math mode: `$n$`, `$a_i$`, `$1 \leq i \leq n$`
+- Use `\leq` / `\geq` / `\neq` — never `<=`, `>=`, `!=`
+- Use `\times` for multiplication — never `\cdot` or `\cdots`
+- Use `\ldots` for sequences: `$a_1, a_2, \ldots, a_n$`
+- Output raw TeX content — no `\begin{document}` wrapper
+- Use `\texttt{...}` for monospace (code, file names)
+- Use `\textbf{...}` for bold emphasis
+- Use `lstlisting` for code snippets in tutorials
+
+## Legend Requirements
+
+- Write a short, creative story (2–4 sentences) connecting to the problem theme
+- Give the problem a character, scenario, or setting — make it engaging and fun
+- Introduce the narrative, then state the task clearly at the end of the legend
+- Never more than 4 sentences; never dry or purely technical
+
+## Statement Output Format
+
+The statement file must begin with the problem title before the legend:
 
 ```
-problems/<name>/
-├── statement/
-│   ├── statement.tex   ← Polygon-ready LaTeX statement
-│   └── tutorial.tex    ← Polygon-ready LaTeX editorial
-├── solutions/
-│   ├── acc.cpp         ← correct C++ solution (ACC)
-│   ├── acc_java.java   ← correct Java solution (ACC)
-│   ├── brute.cpp       ← intentionally slow solution (TLE)
-│   └── wa.cpp          ← intentionally wrong solution (WA)
-├── generators/
-│   └── generator.cpp   ← testlib.h generator + FreeMarker script
-├── validator.cpp
-└── checker.cpp
+=== TITLE ===
+\textbf{\Large <Problem Title>}
+
+=== LEGEND ===
+<TeX — 2-4 sentence creative story, then the task>
+
+=== INPUT ===
+<TeX for the input section>
+
+=== OUTPUT ===
+<TeX for the output section>
+
+=== NOTES ===
+<TeX for the notes section>
 ```
 
-## Critical Rules
+## Tutorial Output Format
 
-- Every problem lives in `problems/<name>/` — never at the repo root
-- Folder names use `snake_case`
-- No `freopen` in any solution or checker
-- No compiler warnings in any file
-- Java class name must match the file name exactly (e.g. `acc_java.java` → `public class acc_java`)
-- Standard Input/Output for all problems
-- Use `cpp17` for C++ and `java21` for Java
-- Use digit-separator constants: `100'000` not `100000`
-- All solution base names must be distinct: `acc`, `acc_java`, `brute`, `wa`
+```
+=== KEY OBSERVATIONS ===
+<TeX — 2-4 bullet points on the core insights>
+
+=== SOLUTION ===
+<TeX — step-by-step algorithm explanation>
+
+=== COMPLEXITY ===
+<TeX — time and space complexity with justification>
+
+=== NOTES ===
+<TeX — edge cases, pitfalls, or alternative approaches; omit if nothing to add>
+```
 
 ---
 > Source: [7oSkaaa/polygon-problems-generator](https://github.com/7oSkaaa/polygon-problems-generator) — distributed by [TomeVault](https://tomevault.io).
