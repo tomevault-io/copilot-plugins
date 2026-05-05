@@ -1,0 +1,9 @@
+{
+  "name": "pabannier--pathcollab",
+  "displayName": "PathCollab",
+  "description": "A self-hosted collaborative digital pathology viewer with real-time cursor presence and overlays",
+  "version": "1.0.0",
+  "author": "PABannier",
+  "homepage": "https://github.com/PABannier/PathCollab",
+  "skills": []
+}
