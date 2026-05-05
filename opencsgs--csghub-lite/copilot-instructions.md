@@ -1,20 +1,34 @@
-## manual-local-release
+## network-proxy
 
-> Publish releases from local builds instead of GitHub Actions
+> Network proxy conventions for accessing GitHub (external) vs GitLab (internal)
 
 
-# Manual Local Release
+# Network & Proxy Conventions
 
-- Do not rely on GitHub Actions tag workflows to publish releases for this repository.
-- Preferred release flow: push code and tag first, build release archives locally, then upload artifacts directly.
-- Build release packages from the target tag in a clean checkout or temporary worktree with `make package`.
-- Always build the web UI before packaging so release binaries embed `internal/server/static` instead of falling back to a missing local `web/dist`.
-- Publish GitHub releases manually with `gh release create` or `gh release upload` after local packaging.
-- Publish GitLab release assets manually or via `scripts/push.sh` with `--skip-build` after local packaging is complete.
-- Keep release notes concise: use 1-3 bullets that describe the actual user-visible fixes or changes in this version.
-- Follow repository network rules during release work:
-  - GitLab and other internal services: direct connection, no proxy
-  - GitHub and other external services: `source ~/.myshrc` before upload commands
+The dev environment requires proxy for external sites but direct access for internal sites.
+
+## Rules
+
+- **GitHub / PyPI / external sites**: Run `source ~/.myshrc` first to enable proxy.
+- **GitLab (`git-devops.opencsg.com`) / internal sites**: Use direct connection. If proxy was previously enabled, run `unset https_proxy` before accessing.
+
+## Git Push Workflow
+
+When pushing to both remotes:
+
+1. Push to **GitLab** first (no proxy needed): `git push gitlab main`
+2. Then push to **GitHub** (proxy needed): `source ~/.myshrc && git push origin main`
+
+## Download / Upload Workflow
+
+- Downloading from GitHub releases: `source ~/.myshrc` then `curl` / `wget`
+- Uploading to GitLab: `unset https_proxy` then use GitLab API
+
+## GitLab API token (local only)
+
+- **`local/secrets.env`** (gitignored): set `GITLAB_TOKEN="glpat-..."` for `scripts/push.sh`.
+- Copy from `local/secrets.env.example`. **`scripts/push.sh` auto-sources `local/secrets.env`** when `GITLAB_TOKEN` is unset.
+- **Never commit** `local/secrets.env`. If a PAT was pasted in chat, **revoke and rotate** it in GitLab.
 
 ---
 > Source: [OpenCSGs/csghub-lite](https://github.com/OpenCSGs/csghub-lite) — distributed by [TomeVault](https://tomevault.io).
