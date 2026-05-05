@@ -2,7 +2,7 @@
   "name": "git-on-cloudflare",
   "owner": "zllovesuki",
   "repo": "git-on-cloudflare",
-  "description": "",
+  "description": "A vibe-coded Git Smart HTTP v2 server on Cloudflare Workers with Durable Objects, R2, and a clean dark-mode UI.",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -39,7 +39,6 @@
   ],
   "skills": [],
   "source_url": "https://github.com/zllovesuki/git-on-cloudflare",
-  "claim_url": "https://tomevault.io/claim/zllovesuki",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T11:33:10Z"
+  "distributed_at": "2026-05-05T23:38:02Z"
 }
