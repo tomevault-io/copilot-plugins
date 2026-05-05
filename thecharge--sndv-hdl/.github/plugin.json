@@ -1,0 +1,9 @@
+{
+  "name": "thecharge--sndv-hdl",
+  "displayName": "sndv-hdl",
+  "description": "A Typescript to SystemVerilog Compiler",
+  "version": "1.0.0",
+  "author": "thecharge",
+  "homepage": "https://github.com/thecharge/sndv-hdl",
+  "skills": []
+}
