@@ -1,0 +1,9 @@
+{
+  "name": "thinkenigmatic--polymarket-bot-arena",
+  "displayName": "polymarket-bot-arena",
+  "description": "Adaptive trading bot arena for Polymarket BTC 5-min markets",
+  "version": "1.0.0",
+  "author": "ThinkEnigmatic",
+  "homepage": "https://github.com/ThinkEnigmatic/polymarket-bot-arena",
+  "skills": []
+}
