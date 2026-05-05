@@ -1,0 +1,93 @@
+{
+  "name": "agentic-code",
+  "owner": "shinpr",
+  "repo": "agentic-code",
+  "description": "Agentic coding framework powered by AGENTS.md \u2014 systematic, test-first workflows with quality gates for Cursor, Codex, Gemini CLI, and AI coding agents.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-development-guide",
+      "path": ".agents/skills/ai-development-guide",
+      "github_url": "https://github.com/shinpr/agentic-code/tree/main/.agents/skills/ai-development-guide",
+      "description": ""
+    },
+    {
+      "name": "coding-rules",
+      "path": ".agents/skills/coding-rules",
+      "github_url": "https://github.com/shinpr/agentic-code/tree/main/.agents/skills/coding-rules",
+      "description": ""
+    },
+    {
+      "name": "documentation-criteria",
+      "path": ".agents/skills/documentation-criteria",
+      "github_url": "https://github.com/shinpr/agentic-code/tree/main/.agents/skills/documentation-criteria",
+      "description": ""
+    },
+    {
+      "name": "implementation-approach",
+      "path": ".agents/skills/implementation-approach",
+      "github_url": "https://github.com/shinpr/agentic-code/tree/main/.agents/skills/implementation-approach",
+      "description": ""
+    },
+    {
+      "name": "integration-e2e-testing",
+      "path": ".agents/skills/integration-e2e-testing",
+      "github_url": "https://github.com/shinpr/agentic-code/tree/main/.agents/skills/integration-e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "metacognition",
+      "path": ".agents/skills/metacognition",
+      "github_url": "https://github.com/shinpr/agentic-code/tree/main/.agents/skills/metacognition",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": ".agents/skills/testing",
+      "github_url": "https://github.com/shinpr/agentic-code/tree/main/.agents/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "testing-strategy",
+      "path": ".agents/skills/testing-strategy",
+      "github_url": "https://github.com/shinpr/agentic-code/tree/main/.agents/skills/testing-strategy",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/shinpr/agentic-code",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T20:39:20Z"
+}
