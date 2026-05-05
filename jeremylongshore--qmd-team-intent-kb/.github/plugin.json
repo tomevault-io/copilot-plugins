@@ -1,0 +1,9 @@
+{
+  "name": "jeremylongshore--qmd-team-intent-kb",
+  "displayName": "qmd-team-intent-kb",
+  "description": "A governed team memory platform for Claude Code powered by qmd",
+  "version": "1.0.0",
+  "author": "jeremylongshore",
+  "homepage": "https://github.com/jeremylongshore/qmd-team-intent-kb",
+  "skills": []
+}
