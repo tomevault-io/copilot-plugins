@@ -1,0 +1,9 @@
+{
+  "name": "superset-studio--majordomo-llm",
+  "displayName": "majordomo-llm",
+  "description": "majordomo-llm",
+  "version": "1.0.0",
+  "author": "superset-studio",
+  "homepage": "https://github.com/superset-studio/majordomo-llm",
+  "skills": []
+}
