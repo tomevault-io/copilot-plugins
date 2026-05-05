@@ -1,0 +1,9 @@
+{
+  "name": "rubencodeforges--ardudeck",
+  "displayName": "ardudeck",
+  "description": "One GCS to rule them all. ArduPilot, Betaflight, iNav - all in one app. Mission planning, PID tuning, OSD simulator, SITL with FlightGear. Cross-platform (Win/Mac/Linux)",
+  "version": "1.0.0",
+  "author": "rubenCodeforges",
+  "homepage": "https://github.com/rubenCodeforges/ardudeck",
+  "skills": []
+}
