@@ -1,0 +1,9 @@
+{
+  "name": "lerianstudio--tracer",
+  "displayName": "tracer",
+  "description": "Open-source, real-time transaction validation engine for fraud prevention \u2014 CEL-based rules, spending limits, and audit trails with sub-100ms decisions. Built in Go with hexagonal architecture.",
+  "version": "1.0.0",
+  "author": "LerianStudio",
+  "homepage": "https://github.com/LerianStudio/tracer",
+  "skills": []
+}
