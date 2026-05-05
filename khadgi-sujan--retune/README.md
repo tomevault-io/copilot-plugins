@@ -7,11 +7,11 @@ The visual layer for vibe coding
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [khadgi-sujan/retune](https://github.com/khadgi-sujan/retune).
+Original source: `CLAUDE.md` in [khadgi-sujan/retune](https://github.com/khadgi-sujan/retune).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
