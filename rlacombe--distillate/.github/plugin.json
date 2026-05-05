@@ -1,0 +1,9 @@
+{
+  "name": "rlacombe--distillate",
+  "displayName": "distillate",
+  "description": " AI research agent that reads papers, runs experiments, and tells you what worked!",
+  "version": "1.0.0",
+  "author": "rlacombe",
+  "homepage": "https://github.com/rlacombe/distillate",
+  "skills": []
+}
