@@ -1,0 +1,9 @@
+{
+  "name": "hjtenklooster--claude-file-recovery",
+  "displayName": "claude-file-recovery",
+  "description": "Recover files created and modified by Claude Code from JSONL session transcripts",
+  "version": "1.0.0",
+  "author": "hjtenklooster",
+  "homepage": "https://github.com/hjtenklooster/claude-file-recovery",
+  "skills": []
+}
