@@ -1,0 +1,51 @@
+{
+  "name": "amelia",
+  "owner": "existential-birds",
+  "repo": "amelia",
+  "description": "AI-powered development orchestrator: Issue \u2192 Architect \u2192 Developer \u2192 Reviewer \u2192 Done. Supports multiple LLM backends and issue trackers",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "doc-research-improvements",
+      "path": ".claude/skills/doc-research-improvements",
+      "github_url": "https://github.com/existential-birds/amelia/tree/main/.claude/skills/doc-research-improvements",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/existential-birds/amelia",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T00:00:38Z"
+}
