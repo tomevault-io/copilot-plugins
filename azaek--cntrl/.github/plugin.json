@@ -1,0 +1,9 @@
+{
+  "name": "azaek--cntrl",
+  "displayName": "cntrl",
+  "description": "A lightweight agent that turns your PC into a scriptable IoT device. Monitor stats, control media, and trigger automation from any device on your local network.",
+  "version": "1.0.0",
+  "author": "azaek",
+  "homepage": "https://github.com/azaek/cntrl",
+  "skills": []
+}
