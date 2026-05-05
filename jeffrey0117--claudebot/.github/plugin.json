@@ -1,0 +1,9 @@
+{
+  "name": "jeffrey0117--claudebot",
+  "displayName": "ClaudeBot",
+  "description": "Not a pipe to Claude. A command center on your phone. \u2014 Telegram bot for Claude Code CLI with plugin system, multi-bot, queue, streaming, and hot-reload.",
+  "version": "1.0.0",
+  "author": "Jeffrey0117",
+  "homepage": "https://github.com/Jeffrey0117/ClaudeBot",
+  "skills": []
+}
