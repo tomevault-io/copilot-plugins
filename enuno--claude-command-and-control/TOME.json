@@ -1,0 +1,531 @@
+{
+  "name": "claude-command-and-control",
+  "owner": "enuno",
+  "repo": "claude-command-and-control",
+  "description": "Claude command & AI agent creation best practices and templates",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-client-protocol",
+      "path": "skills-templates/agent-client-protocol",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/agent-client-protocol",
+      "description": ""
+    },
+    {
+      "name": "agent-communication-protocol",
+      "path": "skills-templates/agent-communication-protocol",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/agent-communication-protocol",
+      "description": ""
+    },
+    {
+      "name": "agentkit",
+      "path": "skills-templates/agentkit",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/agentkit",
+      "description": ""
+    },
+    {
+      "name": "agentskb",
+      "path": "skills-templates/agentskb",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/agentskb",
+      "description": ""
+    },
+    {
+      "name": "ai-testcase-generator-mcp",
+      "path": "skills-templates/testing/ai-testcase-generator-mcp",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/testing/ai-testcase-generator-mcp",
+      "description": ""
+    },
+    {
+      "name": "ansible",
+      "path": "skills-templates/development/ansible",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/development/ansible",
+      "description": ""
+    },
+    {
+      "name": "aos-sqlite",
+      "path": "skills-templates/aos-sqlite",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/aos-sqlite",
+      "description": ""
+    },
+    {
+      "name": "architect-role-skill",
+      "path": ".claude/skills/architect-role-skill",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/.claude/skills/architect-role-skill",
+      "description": ""
+    },
+    {
+      "name": "artifacts-builder",
+      "path": "skills-templates/artifacts-builder",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/artifacts-builder",
+      "description": ""
+    },
+    {
+      "name": "arweave-ao-cookbook",
+      "path": "skills-templates/arweave-ao-cookbook",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/arweave-ao-cookbook",
+      "description": ""
+    },
+    {
+      "name": "arweave-standards",
+      "path": "skills-templates/arweave-standards",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/arweave-standards",
+      "description": ""
+    },
+    {
+      "name": "astro",
+      "path": "skills-templates/astro",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/astro",
+      "description": ""
+    },
+    {
+      "name": "bitcoin-mining",
+      "path": "skills-templates/cryptocurrency/bitcoin-mining",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/cryptocurrency/bitcoin-mining",
+      "description": ""
+    },
+    {
+      "name": "braiins-ecosystem",
+      "path": "skills/braiins-ecosystem",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/braiins-ecosystem",
+      "description": ""
+    },
+    {
+      "name": "braiins-manager",
+      "path": "skills/braiins-manager",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/braiins-manager",
+      "description": ""
+    },
+    {
+      "name": "braiins-os",
+      "path": "skills/braiins-os",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/braiins-os",
+      "description": ""
+    },
+    {
+      "name": "braiins-pool",
+      "path": "skills/braiins-pool",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/braiins-pool",
+      "description": ""
+    },
+    {
+      "name": "braiins-toolbox",
+      "path": "skills/braiins-toolbox",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/braiins-toolbox",
+      "description": ""
+    },
+    {
+      "name": "btcpayserver-doc",
+      "path": "skills-templates/cryptocurrency/btcpayserver-doc",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/cryptocurrency/btcpayserver-doc",
+      "description": ""
+    },
+    {
+      "name": "builder-role-skill",
+      "path": ".claude/skills/builder-role-skill",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/.claude/skills/builder-role-skill",
+      "description": ""
+    },
+    {
+      "name": "building-bitcoin-rust",
+      "path": "skills-templates/development/building-bitcoin-rust",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/development/building-bitcoin-rust",
+      "description": ""
+    },
+    {
+      "name": "canvas-design",
+      "path": "skills-templates/canvas-design",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/canvas-design",
+      "description": ""
+    },
+    {
+      "name": "case-analyzer",
+      "path": "skills/case-analyzer",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/case-analyzer",
+      "description": ""
+    },
+    {
+      "name": "cc-mcp-executor-skill",
+      "path": "skills-templates/orchestration/cc-mcp-executor-skill",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/orchestration/cc-mcp-executor-skill",
+      "description": ""
+    },
+    {
+      "name": "claude-mem",
+      "path": "skills-templates/claude-mem",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/claude-mem",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-agents",
+      "path": "skills-templates/cloudflare-agents",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/cloudflare-agents",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-ai-gateway",
+      "path": "skills-templates/cloudflare-ai-gateway",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/cloudflare-ai-gateway",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-ai-search",
+      "path": "skills-templates/cloudflare-ai-search",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/cloudflare-ai-search",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-pages",
+      "path": "skills-templates/cloudflare-pages",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/cloudflare-pages",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-pulumi",
+      "path": "skills-templates/cloudflare-pulumi",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/cloudflare-pulumi",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-r2",
+      "path": "skills-templates/cloudflare-r2",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/cloudflare-r2",
+      "description": ""
+    },
+    {
+      "name": "cloudflare-workers",
+      "path": "skills-templates/cloudflare-workers",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/cloudflare-workers",
+      "description": ""
+    },
+    {
+      "name": "devops-role-skill",
+      "path": ".claude/skills/devops-role-skill",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/.claude/skills/devops-role-skill",
+      "description": ""
+    },
+    {
+      "name": "docling",
+      "path": "skills-templates/document-processing/docling",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/document-processing/docling",
+      "description": ""
+    },
+    {
+      "name": "documentation-update",
+      "path": ".claude/skills/documentation-update",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/.claude/skills/documentation-update",
+      "description": ""
+    },
+    {
+      "name": "elizaos",
+      "path": "skills-templates/elizaos",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/elizaos",
+      "description": ""
+    },
+    {
+      "name": "fastmcp",
+      "path": "skills/fastmcp",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/fastmcp",
+      "description": ""
+    },
+    {
+      "name": "file-categorization",
+      "path": ".claude/skills/file-categorization",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/.claude/skills/file-categorization",
+      "description": ""
+    },
+    {
+      "name": "flyio",
+      "path": "skills-templates/flyio",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/flyio",
+      "description": ""
+    },
+    {
+      "name": "geckoterminal-api",
+      "path": "skills-templates/geckoterminal-api",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/geckoterminal-api",
+      "description": ""
+    },
+    {
+      "name": "gitbook",
+      "path": "skills/gitbook",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/gitbook",
+      "description": ""
+    },
+    {
+      "name": "github-actions-reference",
+      "path": "skills/github-actions-reference",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/github-actions-reference",
+      "description": ""
+    },
+    {
+      "name": "github-copilot",
+      "path": "skills-templates/github-copilot",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/github-copilot",
+      "description": ""
+    },
+    {
+      "name": "github-pages",
+      "path": "skills/github-pages",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/github-pages",
+      "description": ""
+    },
+    {
+      "name": "google-structured-data",
+      "path": "skills/google-structured-data",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/google-structured-data",
+      "description": ""
+    },
+    {
+      "name": "ink",
+      "path": "skills-templates/ink",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/ink",
+      "description": ""
+    },
+    {
+      "name": "langchainjs",
+      "path": "skills-templates/langchainjs",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/langchainjs",
+      "description": ""
+    },
+    {
+      "name": "langflow",
+      "path": "skills-templates/ai-workflow/langflow",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/ai-workflow/langflow",
+      "description": ""
+    },
+    {
+      "name": "langsmith-agent-builder",
+      "path": "skills-templates/langsmith-agent-builder",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/langsmith-agent-builder",
+      "description": ""
+    },
+    {
+      "name": "language-server-protocol",
+      "path": "skills-templates/language-server-protocol",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/language-server-protocol",
+      "description": ""
+    },
+    {
+      "name": "latex-manual",
+      "path": "skills-templates/documentation/latex-manual",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/documentation/latex-manual",
+      "description": ""
+    },
+    {
+      "name": "lobe-chat",
+      "path": "skills-templates/lobe-chat",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/lobe-chat",
+      "description": ""
+    },
+    {
+      "name": "lobe-cli-toolbox",
+      "path": "skills-templates/lobe-cli-toolbox",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/lobe-cli-toolbox",
+      "description": ""
+    },
+    {
+      "name": "lobe-tts",
+      "path": "skills-templates/lobe-tts",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/lobe-tts",
+      "description": ""
+    },
+    {
+      "name": "matomo-api",
+      "path": "skills-templates/matomo-api",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/matomo-api",
+      "description": ""
+    },
+    {
+      "name": "mcp-registry",
+      "path": "skills-templates/mcp-registry",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/mcp-registry",
+      "description": ""
+    },
+    {
+      "name": "model-context-protocol",
+      "path": "skills-templates/model-context-protocol",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/model-context-protocol",
+      "description": ""
+    },
+    {
+      "name": "moonshot-ai",
+      "path": "skills-templates/moonshot-ai",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/moonshot-ai",
+      "description": ""
+    },
+    {
+      "name": "neon",
+      "path": "skills-templates/neon",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/neon",
+      "description": ""
+    },
+    {
+      "name": "opencode",
+      "path": "skills-templates/opencode",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/opencode",
+      "description": ""
+    },
+    {
+      "name": "passwordless-docs",
+      "path": "skills-templates/passwordless-docs",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/passwordless-docs",
+      "description": ""
+    },
+    {
+      "name": "pict-test-designer",
+      "path": "skills-templates/pict-test-designer",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/pict-test-designer",
+      "description": ""
+    },
+    {
+      "name": "playwright-typescript-enableedge",
+      "path": "skills-templates/testing/playwright-typescript-enableedge",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/testing/playwright-typescript-enableedge",
+      "description": ""
+    },
+    {
+      "name": "researcher-role-skill",
+      "path": ".claude/skills/researcher-role-skill",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/.claude/skills/researcher-role-skill",
+      "description": ""
+    },
+    {
+      "name": "scribe-role-skill",
+      "path": ".claude/skills/scribe-role-skill",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/.claude/skills/scribe-role-skill",
+      "description": ""
+    },
+    {
+      "name": "sdk-sm",
+      "path": "skills-templates/sdk-sm",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/sdk-sm",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "skills-templates/skill-creator",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "skill-share",
+      "path": "skills-templates/skill-share",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/skill-share",
+      "description": ""
+    },
+    {
+      "name": "software-architecture",
+      "path": "skills-templates/software-architecture",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/software-architecture",
+      "description": ""
+    },
+    {
+      "name": "starlight",
+      "path": "skills-templates/starlight",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/starlight",
+      "description": ""
+    },
+    {
+      "name": "tailwind-skill",
+      "path": "skills/tailwind-skill",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/tailwind-skill",
+      "description": ""
+    },
+    {
+      "name": "t4-stack",
+      "path": "skills-templates/t4-stack",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/t4-stack",
+      "description": ""
+    },
+    {
+      "name": "terraform-best-practices",
+      "path": "skills/terraform-best-practices",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/terraform-best-practices",
+      "description": ""
+    },
+    {
+      "name": "theme-factory",
+      "path": "skills-templates/theme-factory",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/theme-factory",
+      "description": ""
+    },
+    {
+      "name": "turbo-sdk",
+      "path": "skills/turbo-sdk",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/turbo-sdk",
+      "description": ""
+    },
+    {
+      "name": "twilio-voice",
+      "path": "skills-templates/communication/twilio-voice",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/communication/twilio-voice",
+      "description": ""
+    },
+    {
+      "name": "ui-ux-pro-max",
+      "path": "skills/ui-ux-pro-max",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills/ui-ux-pro-max",
+      "description": ""
+    },
+    {
+      "name": "venice-ai",
+      "path": "skills-templates/venice-ai",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/venice-ai",
+      "description": ""
+    },
+    {
+      "name": "virtuals-protocol",
+      "path": "skills-templates/virtuals-protocol",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/virtuals-protocol",
+      "description": ""
+    },
+    {
+      "name": "wao",
+      "path": "skills-templates/wao",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/wao",
+      "description": ""
+    },
+    {
+      "name": "x402",
+      "path": "skills-templates/x402",
+      "github_url": "https://github.com/enuno/claude-command-and-control/tree/main/skills-templates/x402",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/enuno/claude-command-and-control",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:48:11Z"
+}
