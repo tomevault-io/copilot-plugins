@@ -1,0 +1,236 @@
+## pixel-mcp
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+An MCP (Model Context Protocol) server implementation in Go that exposes Aseprite's pixel art and animation capabilities through programmatic access. The server integrates with Aseprite's command-line interface and Lua scripting API to enable AI assistants to create and manipulate sprites.
+
+## Build Commands
+
+```bash
+# Build the server binary
+make build
+# or: go build -o bin/pixel-mcp ./cmd/pixel-mcp
+
+# Run tests
+make test
+# or: go test -v -race -cover ./...
+
+# Run integration tests (requires real Aseprite)
+go test -tags=integration ./...
+
+# Generate test coverage report
+make test-coverage
+
+# Run linters
+make lint
+
+# Clean build artifacts
+make clean
+
+# Install binary
+make install
+```
+
+## Configuration Requirements
+
+**CRITICAL**: This project requires explicit configuration - no automatic discovery or environment variables.
+
+All operations require a configuration file at `~/.config/pixel-mcp/config.json`:
+```json
+{
+  "aseprite_path": "/absolute/path/to/aseprite",
+  "temp_dir": "/tmp/pixel-mcp",
+  "timeout": 30,
+  "log_level": "info",
+  "log_file": "",
+  "enable_timing": false
+}
+```
+
+Configuration fields:
+- `aseprite_path` (required): Absolute path to Aseprite executable
+- `temp_dir` (optional): Temporary directory, defaults to `/tmp/pixel-mcp`
+- `timeout` (optional): Command timeout in seconds, defaults to 30
+- `log_level` (optional): Verbosity level (`debug`, `info`, `warn`, `error`), defaults to `info`
+- `log_file` (optional): Path to persistent log file, empty means stderr only
+- `enable_timing` (optional): Enable request tracking/timing, defaults to `false`
+
+The `aseprite_path` MUST be an absolute path to a real Aseprite executable. The project does NOT:
+- Auto-discover Aseprite installations
+- Use environment variables for Aseprite path
+- Search system PATH for Aseprite
+
+## Testing Philosophy
+
+**ALL tests use real Aseprite** - no mocks, stubs, or fakes for Aseprite integration.
+
+- Unit tests require config file with real Aseprite path
+- Integration tests (tagged with `//go:build integration`) also use real Aseprite
+- Test utilities are in `internal/testutil/`
+- Use `testutil.LoadTestConfig(t)` to load test configuration
+- See `docs/TESTING.md` for detailed testing requirements
+
+## Architecture
+
+### High-Level Structure
+
+The server acts as a bridge between MCP clients (AI assistants) and Aseprite:
+
+```
+MCP Client → MCP Server (Go) → Lua Script Generation → Aseprite CLI (--batch --script)
+```
+
+### Package Organization
+
+- `cmd/pixel-mcp/` - Server entry point and initialization
+- `pkg/aseprite/` - Core Aseprite integration
+  - `client.go` - Command execution and Lua script execution
+  - `lua.go` - Lua script generation utilities (includes palette and dithering generators)
+  - `types.go` - Domain types (Color, Point, Rectangle, Pixel, etc.)
+  - `palette.go` - K-means palette extraction and color analysis
+  - `image_analysis.go` - Brightness maps, Sobel edge detection, composition analysis
+- `pkg/config/` - Configuration management (file-based only)
+- `pkg/server/` - MCP server implementation
+- `pkg/tools/` - MCP tool implementations organized by category:
+  - `canvas.go` - Sprite/layer/frame management (create_sprite, add_layer, add_frame, delete_layer with protection, delete_frame with protection, flatten_layers)
+  - `drawing.go` - Drawing primitives (pixels, lines, rectangles, circles, fill, contours for polylines/polygons)
+  - `selection.go` - Selection and clipboard operations (8 tools)
+  - `animation.go` - Animation and timeline operations (frame duration, tags, tag deletion, duplication, linked cels)
+  - `inspection.go` - Pixel data inspection and reading
+  - `analysis.go` - Reference image analysis (palette extraction, edge detection, composition)
+  - `dithering.go` - Dithering patterns for gradients and textures (16 patterns including Floyd-Steinberg)
+  - `quantization.go` - Color quantization (median_cut, k-means, octree algorithms)
+  - `auto_shading.go` - Automatic geometry-based shading with per-pixel normal calculations
+  - `palette_tools.go` - Palette management (set_palette, apply_shading, analyze_palette_harmonies)
+  - `transform.go` - Transform operations (flip, rotate, scale, crop, resize canvas, outline, downsampling)
+  - `export.go` - Export and import operations (export_sprite, export_spritesheet, import_image, save_as)
+- `internal/testutil/` - Testing utilities (no mocks)
+
+### Core Workflow
+
+1. MCP client sends tool request with parameters
+2. Server validates parameters via JSON schema
+3. Appropriate Lua script is generated from template
+4. Script written to temp file with restricted permissions (0600)
+5. Aseprite executed in batch mode: `aseprite --batch [sprite] --script [temp.lua]`
+6. Output parsed and returned to client
+7. Temp files cleaned up (always, even on error)
+
+### Key Design Constraints
+
+- **Stateless**: Each operation is independent, no shared state between requests
+- **Batch Mode Only**: All Aseprite operations run in headless `--batch` mode
+- **Lua-based**: Operations use Aseprite's Lua API, not GUI automation
+- **File-centric**: Operations work with sprite files on disk, not in-memory state
+- **Security**: Lua script injection prevention via proper escaping (see `EscapeString`)
+
+## Implementation Status
+
+Core functionality implemented and tested:
+- Canvas creation and management (RGB, Grayscale, Indexed)
+- Layer and frame operations (add, delete with last-layer/frame protection, flatten)
+- Drawing primitives (pixels, lines, rectangles, circles, fill) with optional palette-aware color snapping
+- Advanced drawing: Contour tool for drawing polylines and closed polygons with points arrays
+- **Selection and Clipboard Tools (8 tools):**
+  - Rectangular and elliptical selections with 4 modes (replace/add/subtract/intersect)
+  - Select all, deselect, move selection
+  - Cut, copy, paste operations
+  - **Persistence**: Selections stored in sprite.data as JSON, clipboard in __mcp_clipboard__ hidden layer
+- Animation tools (frame duration, tags, tag deletion, duplication, linked cels)
+- Inspection tools (pixel data reading with pagination for verification and analysis)
+- **Professional Pixel Art Tools:**
+  - Reference image analysis (k-means palette extraction, brightness maps, Sobel edge detection)
+  - Composition analysis (rule of thirds, focal points)
+  - Dithering with 16 patterns: Bayer matrices (2x2, 4x4, 8x8), Floyd-Steinberg error diffusion, checkerboard, and texture patterns (grass, water, stone, cloud, brick, dots, diagonal, cross, noise, horizontal_lines, vertical_lines)
+  - **Color Quantization (`quantize_palette`):** Reduce images to 2-256 colors using median_cut, k-means, or octree algorithms with optional Floyd-Steinberg dithering
+  - **Automatic Shading (`apply_auto_shading`):** Geometry-based shading with per-pixel normal calculations, 3 styles (cell/smooth/soft), 8 light directions, and adjustable intensity
+  - Image downsampling with box filter for pixel art conversion
+  - **Palette Management Tools (5 tools):**
+    - `get_palette`: Retrieve current palette as hex color array with size
+    - `set_palette`: Set entire palette with 1-256 colors
+    - `set_palette_color`: Modify specific palette index (0-255)
+    - `add_palette_color`: Add new color to palette (returns index)
+    - `sort_palette`: Sort by hue/saturation/brightness/luminance (ascending/descending)
+  - Palette-constrained shading (smooth, hard, pillow styles with 8 light directions)
+  - Palette harmony analysis (complementary, triadic, analogous relationships, color temperature)
+  - Palette-aware drawing: All drawing tools support `use_palette` flag to snap arbitrary colors to nearest palette color
+  - Antialiasing suggestions: Detect jagged diagonal edges and suggest intermediate colors to smooth curves (suggest_antialiasing tool with auto-apply option)
+  - **Transform & Filter Tools (6 tools):**
+    - `flip_sprite`: Flip horizontally/vertically (sprite/layer/cel targets)
+    - `rotate_sprite`: Rotate 90/180/270 degrees (sprite/layer/cel targets)
+    - `scale_sprite`: Scale with algorithm selection (nearest/bilinear/rotsprite), returns new dimensions
+    - `crop_sprite`: Crop to rectangular region
+    - `resize_canvas`: Resize canvas with anchor positioning (5 anchor points)
+    - `apply_outline`: Apply outline effect with color and thickness
+- **Export & Import Tools (4 tools):**
+  - `export_sprite`: Export to PNG/GIF/JPG/BMP formats
+  - `export_spritesheet`: Export animation frames as spritesheet with 5 layout options (horizontal/vertical/rows/columns/packed), configurable padding, and optional JSON metadata
+  - `import_image`: Import external images as layers with optional positioning
+  - `save_as`: Save sprite to new .aseprite file path
+- Metadata retrieval
+- **Example Implementations:**
+  - Basic client (examples/client/main.go): Comprehensive demo of all core features
+  - Palette quantization (examples/quantization/main.go): Color reduction with 3 algorithms and side-by-side comparison
+  - Automatic shading (examples/shading/main.go): Geometry-based shading with multiple styles, intensities, and light directions
+- Integration test suite with real Aseprite
+- Performance benchmarks (all targets exceeded)
+- Cross-platform CI with GitHub Actions
+
+## Code Style Guidelines
+
+Follow Go standard library conventions:
+- Use `gofmt` for formatting (enforced in `make lint`)
+- Pass `go vet` and `golangci-lint` with zero warnings
+- GoDoc comments on all exported types and functions
+- Table-driven tests with descriptive names
+- Error wrapping with `fmt.Errorf("%w", err)` for context
+
+Lua script generation:
+- Always use `EscapeString()` for user input in generated scripts
+- Wrap mutations in `app.transaction()` for atomicity
+- Include error checks in Lua: `if not spr then error("...") end`
+- Save sprite after mutations: `spr:saveAs(spr.filename)`
+- Selection operations save sprite to persist selection state in sprite.data
+
+## Common Pitfalls
+
+1. **Don't auto-discover Aseprite** - Always require explicit path in config file
+2. **Don't mock Aseprite** - All tests must use real executable
+3. **Don't forget Lua escaping** - User input MUST be escaped via `EscapeString()`
+4. **Don't leave temp files** - Always defer cleanup in Client methods
+5. **Don't skip transactions** - Wrap Lua mutations in `app.transaction()`
+6. **Don't assume sprite is open** - Check `app.activeSprite` in Lua scripts
+7. **Don't hardcode paths** - Use `filepath` package for cross-platform path handling
+8. **Don't delete last layer/frame** - Aseprite requires at least one layer and one frame; validate before deletion
+9. **Selections are persisted** - Selection state is stored in sprite.data as JSON and restored across operations
+10. **Clipboard uses hidden layer** - Clipboard content is stored in __mcp_clipboard__ hidden layer and persists across operations
+
+## Dependencies
+
+Core dependencies (see `go.mod` for versions):
+- `github.com/modelcontextprotocol/go-sdk` - Official MCP SDK
+- `github.com/willibrandon/mtlog` - Structured logging (Serilog-style for Go)
+
+Professional pixel art tools:
+- `github.com/lucasb-eyer/go-colorful` - Color space conversions (RGB, HSL, LAB)
+- `github.com/nfnt/resize` - Image scaling with box filter
+- `gonum.org/v1/gonum` - K-means clustering for palette extraction
+
+Aseprite requirement:
+- Minimum version: 1.3.0
+- Recommended: 1.3.10+
+
+## Documentation References
+
+- `docs/BENCHMARKS.md` - Performance benchmark results
+- `README.md` - Quick start guide and tool reference
+
+---
+> Source: [willibrandon/pixel-mcp](https://github.com/willibrandon/pixel-mcp) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-05 -->
