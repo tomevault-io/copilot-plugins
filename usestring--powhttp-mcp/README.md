@@ -7,11 +7,11 @@ MCP server enabling agents to debug HTTP requests better (using powhttp)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [usestring/powhttp-mcp](https://github.com/usestring/powhttp-mcp).
+Original source: `CLAUDE.md` in [usestring/powhttp-mcp](https://github.com/usestring/powhttp-mcp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
