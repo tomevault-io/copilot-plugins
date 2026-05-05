@@ -1,0 +1,9 @@
+{
+  "name": "lexonight1--thermalright-trcc-linux",
+  "displayName": "thermalright-trcc-linux",
+  "description": "Native Linux port of Thermalright LCD Control Center (TRCC 2.1.2). Themes, video, overlays, RGB LED control. Supports SCSI, HID LCD, and HID LED devices.",
+  "version": "1.0.0",
+  "author": "Lexonight1",
+  "homepage": "https://github.com/Lexonight1/thermalright-trcc-linux",
+  "skills": []
+}
