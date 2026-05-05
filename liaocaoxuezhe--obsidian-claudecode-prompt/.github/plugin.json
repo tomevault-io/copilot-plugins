@@ -1,0 +1,26 @@
+{
+  "name": "liaocaoxuezhe--obsidian-claudecode-prompt",
+  "displayName": "Obsidian_ClaudeCode_Prompt",
+  "description": "\u8fd9\u4e2a\u4ed3\u5e93\u7528\u6765\u5b58\u50a8\u6f66\u8349\u5b66\u8005\u6587\u7ae0\u7684\u9644\u5f55\u6587\u4ef6\uff0c\u6b22\u8fce\u4e0b\u8f7d\u4f7f\u7528\u3002",
+  "version": "1.0.0",
+  "author": "liaocaoxuezhe",
+  "homepage": "https://github.com/liaocaoxuezhe/Obsidian_ClaudeCode_Prompt",
+  "skills": [
+    {
+      "name": "json-canvas",
+      "description": ""
+    },
+    {
+      "name": "obsidian-bases",
+      "description": ""
+    },
+    {
+      "name": "obsidian-markdown",
+      "description": ""
+    },
+    {
+      "name": "obsidian_templater_use",
+      "description": ""
+    }
+  ]
+}
