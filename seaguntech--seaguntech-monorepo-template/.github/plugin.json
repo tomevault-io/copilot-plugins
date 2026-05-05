@@ -1,0 +1,9 @@
+{
+  "name": "seaguntech--seaguntech-monorepo-template",
+  "displayName": "seaguntech-monorepo-template",
+  "description": "\u269b\ufe0f Seaguntech monorepo with Turborepo, pnpm, and Tailwind v4",
+  "version": "1.0.0",
+  "author": "seaguntech",
+  "homepage": "https://github.com/seaguntech/seaguntech-monorepo-template",
+  "skills": []
+}
