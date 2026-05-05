@@ -1,0 +1,9 @@
+{
+  "name": "ninejuan--eks-sidecarless-service-networking",
+  "displayName": "eks-sidecarless-service-networking",
+  "description": "[For AWS Summit Seoul 26'] Reference architectures and demos for building sidecarless service networking on Amazon EKS using Amazon VPC Lattice, Cilium, and Kubernetes Gateway API. This repository foc",
+  "version": "1.0.0",
+  "author": "ninejuan",
+  "homepage": "https://github.com/ninejuan/eks-sidecarless-service-networking",
+  "skills": []
+}
