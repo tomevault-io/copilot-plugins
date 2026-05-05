@@ -1,0 +1,9 @@
+{
+  "name": "r9s-ai--open-next-router",
+  "displayName": "open-next-router",
+  "description": "A lightweight, DSL-driven LLM gateway for routing, patching provider quirks, and normalizing APIs across channels",
+  "version": "1.0.0",
+  "author": "r9s-ai",
+  "homepage": "https://github.com/r9s-ai/open-next-router",
+  "skills": []
+}
