@@ -1,34 +1,23 @@
-## network-proxy
+## platform-sensitive-files
 
-> Network proxy conventions for accessing GitHub (external) vs GitLab (internal)
+> Multi-platform requirements for Go and install script changes
 
 
-# Network & Proxy Conventions
+# Multi-Platform Support
 
-The dev environment requires proxy for external sites but direct access for internal sites.
+- Changes in Go, shell, or PowerShell must work on macOS, Linux, and Windows.
+- Never hardcode path separators, home directories, or binary suffixes; use `filepath.Join()`, `os.UserHomeDir()`, `exec.LookPath()`, `runtime.GOOS`, and `os.PathListSeparator`.
+- Do not assume `bash`, `sudo`, `/usr/local/bin`, or Unix-only commands exist on Windows.
+- If install or uninstall behavior changes, update both `scripts/install.sh` and `scripts/install.ps1`.
+- If the UI or docs show install commands, either provide platform-specific variants or clearly label them as previews or OS-specific examples.
 
-## Rules
+```go
+// ❌ BAD
+path := home + "/.csghub-lite/models"
 
-- **GitHub / PyPI / external sites**: Run `source ~/.myshrc` first to enable proxy.
-- **GitLab (`git-devops.opencsg.com`) / internal sites**: Use direct connection. If proxy was previously enabled, run `unset https_proxy` before accessing.
-
-## Git Push Workflow
-
-When pushing to both remotes:
-
-1. Push to **GitLab** first (no proxy needed): `git push gitlab main`
-2. Then push to **GitHub** (proxy needed): `source ~/.myshrc && git push origin main`
-
-## Download / Upload Workflow
-
-- Downloading from GitHub releases: `source ~/.myshrc` then `curl` / `wget`
-- Uploading to GitLab: `unset https_proxy` then use GitLab API
-
-## GitLab API token (local only)
-
-- **`local/secrets.env`** (gitignored): set `GITLAB_TOKEN="glpat-..."` for `scripts/push.sh`.
-- Copy from `local/secrets.env.example`. **`scripts/push.sh` auto-sources `local/secrets.env`** when `GITLAB_TOKEN` is unset.
-- **Never commit** `local/secrets.env`. If a PAT was pasted in chat, **revoke and rotate** it in GitLab.
+// ✅ GOOD
+path := filepath.Join(home, ".csghub-lite", "models")
+```
 
 ---
 > Source: [OpenCSGs/csghub-lite](https://github.com/OpenCSGs/csghub-lite) — distributed by [TomeVault](https://tomevault.io).
