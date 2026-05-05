@@ -1,0 +1,18 @@
+{
+  "name": "netease-lcap--wave-agent",
+  "displayName": "wave-agent",
+  "description": "Wave Agent Code and SDK",
+  "version": "1.0.0",
+  "author": "netease-lcap",
+  "homepage": "https://github.com/netease-lcap/wave-agent",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "test-skill",
+      "description": ""
+    }
+  ]
+}
