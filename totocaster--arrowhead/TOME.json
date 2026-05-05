@@ -1,0 +1,51 @@
+{
+  "name": "arrowhead",
+  "owner": "totocaster",
+  "repo": "arrowhead",
+  "description": "Fast Obsidian-aware search and discovery that makes AI agents or OpenClaw your true knowledge assistant.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "arrowhead-cli-agent",
+      "path": "skills/arrowhead-cli-agent",
+      "github_url": "https://github.com/totocaster/arrowhead/tree/main/skills/arrowhead-cli-agent",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/totocaster/arrowhead",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T02:42:32Z"
+}
