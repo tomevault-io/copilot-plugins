@@ -1,90 +1,192 @@
-## best-practices
+## css-styling-architecture-rules
 
-> 1. Core Architectural Principles
+> **Stack**: Tailwind CSS + CSS Variables + shadcn/ui
 
 
-1. Core Architectural Principles
-   Separation of Concerns (The "Server-Client" Boundary)
+# CSS & Styling Architecture Rules
 
-Pattern: Keep your data fetching logic in Server Components and your interactivity logic in Client Components.
+**Stack**: Tailwind CSS + CSS Variables + shadcn/ui
+**Audience**: Senior / Architecture-level developers
 
-Why: This separates "backend logic" (database calls, API secrets) from "frontend logic" (state, effects, browser APIs).
+These rules define how styling is structured, scaled, and governed in this project. They intentionally restrict freedom to ensure visual consistency, themeability, and long-term maintainability.
 
-Example: Create a UserDashboard (Server Component) that fetches data and passes it as props to UserProfile (Client Component) for editing.
+---
 
-DRY (Don't Repeat Yourself) with Layouts
+## 1. Styling Philosophy
 
-Pattern: Use layout.tsx files to define shared UI (navbars, sidebars, footers) for specific route segments.
+- Styling is **system design**, not decoration.
+- Every visual decision must be:
 
-Why: React doesn't re-render the layout when navigating between sibling pages, preserving state (like scroll position or search input) and reducing code duplication.
+  - Token-driven
+  - Theme-aware
+  - Predictable across surfaces
 
-Logic Extraction (Custom Hooks)
+Avoid ad-hoc CSS, magic numbers, and one-off overrides.
 
-Pattern: Never write complex useEffect or data manipulation logic directly inside your UI components. Extract them into custom hooks (e.g., useCart, useAuth).
+---
 
-Goal: Your component should just describe the UI, not calculate it.
+## 2. Tailwind Is the Only Styling Interface
 
-Refactor: If a component is >200 lines, it usually does too much.
+- Tailwind utility classes are the **primary and preferred** styling mechanism.
+- No custom CSS files for component styling.
+- Inline styles are forbidden except for:
 
-2. Next.js App Router Specifics
-   Colocation over Centralization
+  - Truly dynamic runtime values (e.g., measured dimensions)
 
-Practice: Instead of a giant /components folder, place components inside the route folder they belong to if they are only used there.
+If Tailwind cannot express a style, the design system is incomplete.
 
-Structure:
+---
 
-Plaintext
+## 3. CSS Variables Are the Design Tokens
 
-app/
-├── dashboard/
-│ ├── page.tsx
-│ ├── \_components/ <-- Components specific to dashboard
-│ │ ├── DashboardCard.tsx
-│ │ └── AnalyticsChart.tsx
-│ └── layout.tsx
-Note: Use an underscore (\_components) to exclude the folder from the router.
+### Source of Truth
 
-Server Actions for Mutations
+- All colors, radii, spacing scales, and semantic tokens **must originate from CSS variables**.
+- Variables are defined at:
 
-Practice: Replace traditional API Routes (pages/api/...) with Server Actions for form submissions and data mutations.
+  - `:root` for base theme
+  - `[data-theme]` or `.dark` for theme overrides
 
-Why: It keeps the mutation logic right next to the UI that triggers it, offers full type safety, and works without JavaScript (progressive enhancement).
+Example intent (illustrative):
 
-Route Groups for Organization
+- `--background`
+- `--foreground`
+- `--primary`
+- `--radius`
 
-Practice: Use (folderName) syntax to organize files logically without affecting the URL path.
+Hardcoded hex values, rgba values, or raw HSL values in components are forbidden.
 
-Example: app/(marketing)/page.tsx and app/(admin)/dashboard/page.tsx. This allows you to have different root layouts for "Marketing" pages vs. "Admin" pages.
+---
 
-3. Data & Performance
-   Fetch Data Where It's Needed
+## 4. Tailwind Configuration Rules
 
-Practice: Don't fetch all data in a parent and prop-drill it down 5 levels. Fetch data directly in the component that needs it (in Server Components). Next.js automatically deduplicates fetch requests, so calling the same API in multiple components is cheap/free.
+- Tailwind `theme.extend` must reference **CSS variables**, not raw values.
+- Do not redefine Tailwind defaults unless there is a system-wide reason.
 
-Term: This is often called "Request Memoization."
+Allowed:
 
-Use Suspense for Streaming
+- Semantic tokens (`primary`, `muted`, `destructive`)
+- Layout primitives (container widths, breakpoints if justified)
 
-Practice: Wrap slow-loading components (like a heavy chart or a feed) in a <Suspense> boundary with a fallback skeleton.
+Avoid introducing overlapping or redundant utilities.
 
-Why: This allows the rest of the page (header, sidebar) to load instantly while the heavy data streams in later, preventing the "blank white screen" effect.
+---
 
-Optimize Images & Fonts
+## 5. shadcn/ui Is the Component Baseline
 
-Practice: Always use next/image instead of <img> to prevent Layout Shifts (CLS) and automatically serve WebP/AVIF formats. Use next/font to self-host Google fonts automatically (zero layout shift).
+- shadcn components are:
 
-4. Code Quality & Security
-   Zod for Validation (The "Parse, Don't Validate" Mantra)
+  - The canonical UI primitives
+  - Locally owned and modifiable
 
-Practice: Do not trust data coming from anywhere (API, user input, URL params). Use Zod schema validation to ensure the data shape is exactly what you expect before your component tries to render it.
+Rules:
 
-Why: It prevents undefined errors crashing your app at runtime.
+- Do not wrap shadcn components just to restyle them
+- Extend via:
 
-Strict TypeScript
+  - Props
+  - Variants
+  - Class composition
 
-Practice: Avoid any at all costs. Use interface or type for all props.
+Forking a shadcn component is acceptable **only** when behavior or structure must change.
 
-Tip: Use the generic PropsWithChildren type or React.ReactNode for components that accept children.
+---
+
+## 6. Variants Over Conditionals
+
+- Use `cva` / variant-based APIs for all component styling permutations.
+- Conditional class concatenation (`if/else` Tailwind strings) should be minimal.
+
+Every variant should map to a **design decision**, not a visual hack.
+
+---
+
+## 7. Layout vs Component Responsibility
+
+### Layout Styling
+
+- Page and layout components control:
+
+  - Spacing
+  - Grid / flex structure
+  - Alignment
+
+### Component Styling
+
+- Components control:
+
+  - Internal spacing
+  - Visual identity
+  - States (hover, focus, disabled)
+
+Components must not assume where or how they are placed.
+
+---
+
+## 8. Responsiveness Strategy
+
+- Mobile-first always.
+- Breakpoints represent **design shifts**, not device targeting.
+
+Rules:
+
+- Do not sprinkle responsive classes without intent
+- Avoid deeply nested breakpoint overrides
+
+If responsiveness becomes complex, revisit the layout architecture.
+
+---
+
+## 9. Dark Mode and Theming
+
+- Dark mode is a **first-class requirement**, not an afterthought.
+- Themes are implemented via CSS variable overrides, not conditional classes.
+
+Tailwind `dark:` utilities are allowed **only** when they map directly to token usage.
+
+---
+
+## 10. Animation and Transitions
+
+- Prefer Tailwind utilities for transitions and animations.
+- Custom keyframes must be:
+
+  - Token-aligned
+  - Reusable
+  - Purpose-driven
+
+Avoid gratuitous motion. Animation should communicate state change.
+
+---
+
+## 11. What Is Explicitly Forbidden
+
+- Component-specific CSS files
+- Random `bg-[#xxxxxx]` usage
+- One-off spacing hacks (`mt-[37px]`)
+- Styling driven by JS conditionals instead of variants
+- Visual fixes that bypass the design token system
+
+---
+
+## 12. Review Bar for Styling Changes
+
+Every styling change must answer:
+
+- Which design token does this rely on?
+- Does this survive theme changes?
+- Does this scale across screens and contexts?
+- Is this encoded as a variant or a one-off?
+
+If the answer is unclear, the styling change is rejected.
+
+---
+
+## Final Principle
+
+> The UI should feel inevitable, not accidental.
+
+If styling decisions cannot be explained in system terms, they do not belong in the codebase.
 
 ---
 > Source: [JaimeenMakavana/agent-vis](https://github.com/JaimeenMakavana/agent-vis) — distributed by [TomeVault](https://tomevault.io).
