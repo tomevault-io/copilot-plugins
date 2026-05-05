@@ -1,61 +1,47 @@
-## docker-compose-stacks
+## docs-structure
 
-> Docker Compose per-VM stack layout and conventions
+> description: Documentation chapter structure and style for docs/
 
+---
+description: Documentation chapter structure and style for docs/
+globs: docs/**/*.md
+alwaysApply: false
+---
 
-# Docker Compose — Per-VM Stacks
+# Docs — Chapter Structure & Style
 
-The `docker_compose/` tree is a Python package (has `__init__.py`) with one sub-package per VM role. Each directory is self-contained: compose files, env example, bootstrap wrapper, and a `stack_config.py` module.
+Documentation in `docs/` is the homelab "journey": part journal, part technical guide. Keep it consistent and documentation-first (include "why").
 
-## Directory Layout (per VM)
+## File Naming
 
-```
-docker_compose/<vm>/
-  __init__.py        # Makes this a Python package
-  compose.yml        # Main stack definition
-  compose.*.yml      # Optional overlays (recyclarr, bazarr, exporters, etc.)
-  .env.example       # Required env vars (no secrets; copy to .env and fill)
-  bootstrap.py       # Thin wrapper: BootstrapRunner(stack_config).run()
-  stack_config.py    # Stack identity, required vars, overlays, bootstrap steps
-  scripts/           # Per-stack helper scripts
-    __init__.py
-```
+- **Chapters:** `ChapterN-topic.md` or `ChapterNX-topic.md` for sub-chapters.
+  - Examples: `Chapter0-hardware.md`, `Chapter1-proxmox.md`, `Chapter2-vms.md`, `Chapter2a-core.md`, `Chapter2c-media.md`
+- Use lowercase, hyphen-separated topic names. Sub-chapters use a letter after the number (2a, 2b, 2c, 2d).
 
-Shared compose overlays live in `docker_compose/common/` (e.g. `compose.observability.yml`).
+## Document Structure
 
-Active stacks: `core`, `monitoring`, `media`, `accelerated`. Future: `apps`.
+1. **Title** — Clear chapter title, optionally with emoji (e.g. `# Chapter 2: VM Overview — How the Lab is Separated (and Why)`).
+2. **Introduction** — What this chapter covers and why it matters.
+3. **Philosophy / reasoning blocks** — Use blockquotes for design notes and "why":
+   ```markdown
+   > ### 🧠 Philosophy: Short Title
+   > Explanation of the reasoning or tradeoff.
+   ```
+4. **Sections** — Use `##` for major sections, `###` for subsections. Use horizontal rules `---` to separate major blocks when it improves scanability.
+5. **Tables** — Use for inventories, quick reference, "what runs where", VMID mappings, app roles.
+6. **Steps** — Numbered lists for procedures (e.g. "Steps (Proxmox)", "Steps to Prepare"). Include verification commands where relevant.
 
-## compose.yml
+## Style
 
-- Use the Compose V2 format (prefer current stable).
-- One stack per VM; no cross-VM Compose dependencies. Cross-VM communication is via network (e.g. reverse proxy on core).
-- Prefer explicit image tags over `latest` for reproducibility.
-- Document any required env vars in comments or in `.env.example`.
-- Optional overlays are controlled via `COMPOSE_OVERLAYS` in `stack_config.py` and enabled/disabled via env vars (e.g. `ENABLE_RECYCLARR=1`).
+- Write for "future me" and readers: explain decisions, not just steps.
+- Prefer concise, scannable sections; put deep "why did I choose this app" in follow-up chapter files (2a, 2b, 2c).
+- Use **bold** for key terms in tables and lists. Keep quick-reference sections compact; expand in dedicated subsections.
+- Code blocks: use bash for shell commands, yaml for config snippets. Specify language when it helps.
 
-## .env.example
+## Cross-References
 
-- List every variable the stack needs, with placeholder or example values.
-- No real secrets. Use placeholders like `YOUR_TZ`, `YOUR_PUID`, or `CHANGE_ME`.
-- `scripts/setup_env.py` can pre-fill auto-detectable values (random secrets, LAN IP, UID/GID).
-
-## stack_config.py
-
-The contract for each stack — consumed by both `BootstrapRunner` (via `bootstrap.py`) and `deploy.py` (via `importlib.import_module`). Defines `STACK_NAME`, `REQUIRED_VARS`, `COMPOSE_OVERLAYS`, `bootstrap_steps()`, and optional hooks (`post_deploy`, `POST_DEPLOY_ACTIONS`). See the bootstrap scripts rule for the full contract.
-
-## bootstrap.py
-
-Thin wrapper (~20 lines): adds repo root to `sys.path`, imports the stack's `stack_config`, and runs `BootstrapRunner(stack_config).run()`. All stack-specific logic lives in `stack_config.py`, not here.
-
-## Storage & Boundaries
-
-- Each VM mounts only what it needs; never mount "the whole NAS" everywhere.
-- Mounts are scoped to subfolders/exports. `core` stays minimal and typically has no NFS mounts.
-- NFS mounts are env-driven (host/export/mount-point from `.env`), managed by `ensure_nfs_mount()` in `homelab_bootstrap.py`.
-
-## Naming and Consistency
-
-- Folder names = VM hostnames (lowercase, short). Keep compose service names and env var names consistent with docs and README.
+- Point to other chapters by name and file (e.g. "See Chapter 2A (`core`)", "Full bootstrap design lives in the Docker/Compose chapter (planned)").
+- Keep README as the map; docs chapters are the detailed narrative.
 
 ---
 > Source: [amazor/Self-Hosting](https://github.com/amazor/Self-Hosting) — distributed by [TomeVault](https://tomevault.io).
