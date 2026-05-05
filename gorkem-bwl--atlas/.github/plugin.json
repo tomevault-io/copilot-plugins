@@ -1,0 +1,9 @@
+{
+  "name": "gorkem-bwl--atlas",
+  "displayName": "atlas",
+  "description": "Self-hosted business platform with CRM, HRM, invoices, projects, contracts, documentation, task management, spreadsheets, file storage, and drawing tools. Alternative to Zoho and Odoo.",
+  "version": "1.0.0",
+  "author": "gorkem-bwl",
+  "homepage": "https://github.com/gorkem-bwl/atlas",
+  "skills": []
+}
