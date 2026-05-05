@@ -1,0 +1,44 @@
+{
+  "name": "transmutation",
+  "owner": "hivellm",
+  "repo": "transmutation",
+  "description": "Transmutation is a Rust-based document conversion module designed to transform various file formats into optimized text and image outputs suitable for LLM processing and vector embeddings. Built as a core component of the HiveLLM Vectorizer ecosystem, it leverages [Docling](https://github.com/docling-project) for advanced document understanding.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hivellm/transmutation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:57:27Z"
+}
