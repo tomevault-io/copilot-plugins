@@ -1,0 +1,9 @@
+{
+  "name": "jaredrummler--consoul",
+  "displayName": "consoul",
+  "description": "A beautiful terminal-based AI chat interface built with Textual and LangChain",
+  "version": "1.0.0",
+  "author": "jaredrummler",
+  "homepage": "https://github.com/jaredrummler/consoul",
+  "skills": []
+}
