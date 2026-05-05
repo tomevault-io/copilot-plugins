@@ -1,124 +1,90 @@
-## 03-testing
+## 04-deployment
 
-> Use when writing tests, test files, hardhat test, fixtures, loadFixture, cofhe initialization, time manipulation, ABI encoding for test data
+> Use when deploying contracts, verifying on Arbiscan, Arbitrum Sepolia deployment, environment variables, SDK integration, attaching resolvers to escrows
 
 
-# Testing Patterns
+# Deployment & Integration
 
-## Resolver Tests (no FHE needed)
+## Deploy
+
+```bash
+npx hardhat run scripts/deploy.ts --network arbitrumSepolia
+```
+
+The deploy script prompts for the contract name and saves to `deployments/arbitrumSepolia.json`.
+
+## Environment Variables (see `.env.example`)
+
+```
+PRIVATE_KEY=0x...
+ARBITRUM_SEPOLIA_RPC_URL=https://...
+ETHERSCAN_API_KEY=...           # for contract verification
+ESCROW_ADDRESS=...              # query from MCP or protocol docs
+POLICY_REGISTRY_ADDRESS=...     # query from MCP or protocol docs
+```
+
+## Verify on Arbiscan
+
+```bash
+npx hardhat verify --network arbitrumSepolia <address>
+
+# With constructor arguments:
+npx hardhat verify --network arbitrumSepolia <address> <arg1> <arg2>
+```
+
+Verified URL: `https://sepolia.arbiscan.io/address/<address>#code`
+
+## SDK Integration (after deployment)
+
+### Resolver — attach to escrow
 
 ```typescript
-import hre from 'hardhat';
-import { expect } from 'chai';
-import { loadFixture } from '@nomicfoundation/hardhat-network-helpers';
-import { time } from '@nomicfoundation/hardhat-network-helpers';
+import { ReineiraSDK } from '@reineira-os/sdk';
 
-describe('MyResolver', function () {
-    async function deployFixture() {
-        const resolver = await hre.viem.deployContract('MyResolver');
-        return { resolver };
-    }
-
-    it('should store config on onConditionSet', async function () {
-        const { resolver } = await loadFixture(deployFixture);
-        const data = hre.viem.encodePacked(/* your config encoding */);
-        await resolver.write.onConditionSet([0n, data]);
-        // assert stored state
-    });
-
-    it('should return false before condition met', async function () {
-        const { resolver } = await loadFixture(deployFixture);
-        expect(await resolver.read.isConditionMet([0n])).to.equal(false);
-    });
-
-    it('should return true after condition met', async function () {
-        const { resolver } = await loadFixture(deployFixture);
-        // trigger condition
-        expect(await resolver.read.isConditionMet([0n])).to.equal(true);
-    });
+const sdk = ReineiraSDK.create({
+    network: 'testnet',
+    privateKey: process.env.PRIVATE_KEY,
 });
-```
+await sdk.initialize();
 
-## Policy Tests (FHE required)
-
-```typescript
-import hre from 'hardhat';
-import { ethers } from 'hardhat';
-import { expect } from 'chai';
-
-describe('MyPolicy', function () {
-    before(async function () {
-        // REQUIRED: initialize FHE mock backend
-        const [signer] = await ethers.getSigners();
-        await hre.cofhe.initializeWithHardhatSigner(signer);
-    });
-
-    it('should return encrypted risk score', async function () {
-        const policy = await hre.viem.deployContract('MyPolicy');
-        // evaluateRisk returns encrypted value — test that it doesn't revert
-        await policy.write.evaluateRisk([0n, '0x']);
-    });
-
-    it('should judge disputes', async function () {
-        const policy = await hre.viem.deployContract('MyPolicy');
-        const proof = ethers.AbiCoder.defaultAbiCoder().encode(
-            ['bool', 'uint256'],
-            [true, Math.floor(Date.now() / 1000)]
-        );
-        await policy.write.judge([0n, proof]);
-    });
-});
-```
-
-## Time Manipulation
-
-```typescript
-import { time } from '@nomicfoundation/hardhat-network-helpers';
-
-// Advance block timestamp
-await time.increaseTo(deadline);
-
-// Advance by duration
-await time.increase(86400); // 1 day
-```
-
-## ABI Encoding for Resolver Data
-
-```typescript
-import { ethers } from 'hardhat';
-
-// Encode single value
-const data = ethers.AbiCoder.defaultAbiCoder().encode(['uint256'], [deadline]);
-
-// Encode struct-like data
-const data = ethers.AbiCoder.defaultAbiCoder().encode(
-    ['address', 'int256', 'bool', 'uint256'],
-    [feedAddress, threshold, aboveOrBelow, maxStaleness]
+const resolverData = ethers.AbiCoder.defaultAbiCoder().encode(
+    ['uint256'], // your resolver's expected data format
+    [1700000000] // your resolver's config values
 );
 
-// Encode string
-const data = ethers.AbiCoder.defaultAbiCoder().encode(['string'], ['MERCHANT_ID_123']);
+const escrow = await sdk.escrow
+    .build()
+    .amount(sdk.stablecoin(1000))
+    .owner('0xRecipient...')
+    .condition('0xYourDeployedResolver...', resolverData)
+    .create();
 ```
 
-## Test Coverage Requirements
+### Policy — register and add to pool
 
-### Resolver tests must cover:
-- Deployment succeeds
-- `supportsInterface` returns true for IConditionResolver
-- `onConditionSet` stores configuration correctly
-- `onConditionSet` reverts on invalid input (each validation)
-- `isConditionMet` returns false before condition met
-- `isConditionMet` returns true after condition met
-- If proof-based: `submitProof` works, reverts on replay, reverts on invalid proof
+```typescript
+// Register policy
+sdk.insurance.registerPolicy('0xYourDeployedPolicy...');
 
-### Policy tests must cover:
-- Deployment succeeds
-- `supportsInterface` returns true for IUnderwriterPolicy
-- `onPolicySet` stores configuration
-- `evaluateRisk` returns without reverting
-- `judge` returns without reverting with valid proof
-- `judge` handles invalid proof gracefully
-- `before()` hook with `hre.cofhe.initializeWithHardhatSigner(signer)`
+// Add to pool
+pool.addPolicy('0xYourDeployedPolicy...');
+
+// Purchase coverage
+sdk.insurance.purchaseCoverage({
+    pool,
+    policy: '0xYourDeployedPolicy...',
+    escrowId,
+    coverageAmount,
+    expiry,
+});
+```
+
+## Post-Deploy Checklist
+
+- [ ] Contract deployed and address recorded in `deployments/`
+- [ ] Contract verified on Arbiscan
+- [ ] For resolvers: test attachment to escrow via SDK
+- [ ] For policies: register with PolicyRegistry
 
 ---
 > Source: [ReineiraOS/reineira-code](https://github.com/ReineiraOS/reineira-code) — distributed by [TomeVault](https://tomevault.io).
