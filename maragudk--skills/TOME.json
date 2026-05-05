@@ -1,0 +1,135 @@
+{
+  "name": "skills",
+  "owner": "maragudk",
+  "repo": "skills",
+  "description": "Skills for AI agents.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "bluesky",
+      "path": "bluesky",
+      "github_url": "https://github.com/maragudk/skills/tree/main/bluesky",
+      "description": ""
+    },
+    {
+      "name": "brainstorm",
+      "path": "brainstorm",
+      "github_url": "https://github.com/maragudk/skills/tree/main/brainstorm",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "code-review",
+      "github_url": "https://github.com/maragudk/skills/tree/main/code-review",
+      "description": ""
+    },
+    {
+      "name": "collaboration",
+      "path": "collaboration",
+      "github_url": "https://github.com/maragudk/skills/tree/main/collaboration",
+      "description": ""
+    },
+    {
+      "name": "datastar",
+      "path": "datastar",
+      "github_url": "https://github.com/maragudk/skills/tree/main/datastar",
+      "description": ""
+    },
+    {
+      "name": "decisions",
+      "path": "decisions",
+      "github_url": "https://github.com/maragudk/skills/tree/main/decisions",
+      "description": ""
+    },
+    {
+      "name": "design-doc",
+      "path": "design-doc",
+      "github_url": "https://github.com/maragudk/skills/tree/main/design-doc",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "path": "git",
+      "github_url": "https://github.com/maragudk/skills/tree/main/git",
+      "description": ""
+    },
+    {
+      "name": "go",
+      "path": "go",
+      "github_url": "https://github.com/maragudk/skills/tree/main/go",
+      "description": ""
+    },
+    {
+      "name": "gomponents",
+      "path": "gomponents",
+      "github_url": "https://github.com/maragudk/skills/tree/main/gomponents",
+      "description": ""
+    },
+    {
+      "name": "marimo",
+      "path": "marimo",
+      "github_url": "https://github.com/maragudk/skills/tree/main/marimo",
+      "description": ""
+    },
+    {
+      "name": "nanobanana",
+      "path": "nanobanana",
+      "github_url": "https://github.com/maragudk/skills/tree/main/nanobanana",
+      "description": ""
+    },
+    {
+      "name": "save-web-page",
+      "path": "save-web-page",
+      "github_url": "https://github.com/maragudk/skills/tree/main/save-web-page",
+      "description": ""
+    },
+    {
+      "name": "sql",
+      "path": "sql",
+      "github_url": "https://github.com/maragudk/skills/tree/main/sql",
+      "description": ""
+    },
+    {
+      "name": "worktrees",
+      "path": "worktrees",
+      "github_url": "https://github.com/maragudk/skills/tree/main/worktrees",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/maragudk/skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:42:25Z"
+}
