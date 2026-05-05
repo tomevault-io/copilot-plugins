@@ -1,0 +1,14 @@
+{
+  "name": "tobias-walle--agency",
+  "displayName": "agency",
+  "description": "CLI Orchestrator for AI Agents",
+  "version": "1.0.0",
+  "author": "tobias-walle",
+  "homepage": "https://github.com/tobias-walle/agency",
+  "skills": [
+    {
+      "name": "agency",
+      "description": ""
+    }
+  ]
+}
