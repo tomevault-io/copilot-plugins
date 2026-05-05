@@ -1,0 +1,51 @@
+{
+  "name": "grove",
+  "owner": "captainsafia",
+  "repo": "grove",
+  "description": "CLI tool for managing git worktree-based workflows",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": ".agents",
+      "path": ".agents",
+      "github_url": "https://github.com/captainsafia/grove/tree/main/.agents",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/captainsafia/grove",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T17:53:38Z"
+}
