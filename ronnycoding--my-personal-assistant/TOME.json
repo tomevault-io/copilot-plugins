@@ -1,0 +1,69 @@
+{
+  "name": "my-personal-assistant",
+  "owner": "ronnycoding",
+  "repo": "my-personal-assistant",
+  "description": "Personal AI assistant supporting Claude Code and Gemini CLI - productivity automation, AppleScript skills, and custom workflows for macOS",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "daily-briefing",
+      "path": ".claude/skills/daily-briefing",
+      "github_url": "https://github.com/ronnycoding/my-personal-assistant/tree/main/.claude/skills/daily-briefing",
+      "description": ""
+    },
+    {
+      "name": "list-reminders",
+      "path": ".claude/skills/list-reminders",
+      "github_url": "https://github.com/ronnycoding/my-personal-assistant/tree/main/.claude/skills/list-reminders",
+      "description": ""
+    },
+    {
+      "name": "scan-inbox",
+      "path": ".claude/skills/scan-inbox",
+      "github_url": "https://github.com/ronnycoding/my-personal-assistant/tree/main/.claude/skills/scan-inbox",
+      "description": ""
+    },
+    {
+      "name": "tech-news-curator",
+      "path": ".claude/skills/tech-news-curator",
+      "github_url": "https://github.com/ronnycoding/my-personal-assistant/tree/main/.claude/skills/tech-news-curator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/ronnycoding/my-personal-assistant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T14:50:54Z"
+}
