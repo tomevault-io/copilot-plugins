@@ -1,0 +1,44 @@
+{
+  "name": "rtrvr-cli",
+  "owner": "rtrvr-ai",
+  "repo": "rtrvr-cli",
+  "description": "CLI + SDK to automate, scrape, and extract from the web \u2014 for AI agents and humans. Cloud or local browser, one command.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rtrvr-ai/rtrvr-cli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T03:22:17Z"
+}
