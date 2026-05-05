@@ -1,0 +1,9 @@
+{
+  "name": "mcs-cli--mcs",
+  "displayName": "mcs",
+  "description": "Managed Claude Stack - Reproducible AI infrastructure for Claude Code",
+  "version": "1.0.0",
+  "author": "mcs-cli",
+  "homepage": "https://github.com/mcs-cli/mcs",
+  "skills": []
+}
