@@ -1,0 +1,9 @@
+{
+  "name": "azu--launchd-ui",
+  "displayName": "launchd-ui",
+  "description": "A GUI application for managing macOS launchd agents and daemons. Built with Tauri.",
+  "version": "1.0.0",
+  "author": "azu",
+  "homepage": "https://github.com/azu/launchd-ui",
+  "skills": []
+}
