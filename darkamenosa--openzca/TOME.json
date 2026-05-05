@@ -4,7 +4,7 @@
   "repo": "openzca",
   "description": "Free to use alternative zcacli for integrate Zalo with OpenClaw",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/darkamenosa/openzca",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T21:35:06Z"
+  "distributed_at": "2026-05-05T06:31:39Z"
 }
