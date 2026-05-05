@@ -1,0 +1,51 @@
+{
+  "name": "feishu-md2wechat",
+  "owner": "geekjourneyx",
+  "repo": "feishu-md2wechat",
+  "description": "\u4e00\u952e\u5c06\u98de\u4e66\u6587\u6863\u8f6c\u6362\u4e3a\u7cbe\u7f8e\u7684\u516c\u4f17\u53f7\u6587\u7ae0\uff0c\u57fa\u4e8e \u6781\u7b80\u7f8e\u5b66\u6392\u7248\u795e\u5668 www.md2wechat.cn \u5f3a\u5927\u7684 API \u670d\u52a1\uff0c\u652f\u6301\u516d\u5927\u4e3b\u9898\u98ce\u683c\uff0c\u8ba9\u60a8\u7684\u5185\u5bb9\u53d1\u5e03\u66f4\u7b80\u5355\u3001\u66f4\u7f8e\u89c2\u3002",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "md2wechat",
+      "path": "skills/md2wechat",
+      "github_url": "https://github.com/geekjourneyx/feishu-md2wechat/tree/main/skills/md2wechat",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/geekjourneyx/feishu-md2wechat",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-05T23:32:17Z"
+}
