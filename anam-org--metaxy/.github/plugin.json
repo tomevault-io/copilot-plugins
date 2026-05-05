@@ -1,0 +1,38 @@
+{
+  "name": "anam-org--metaxy",
+  "displayName": "metaxy",
+  "description": "Pluggable sample-level metadata versioning for incremental multimodal pipelines.",
+  "version": "1.0.0",
+  "author": "anam-org",
+  "homepage": "https://github.com/anam-org/metaxy",
+  "skills": [
+    {
+      "name": "claude-improve-config",
+      "description": ""
+    },
+    {
+      "name": "docs-page-frontmatter",
+      "description": ""
+    },
+    {
+      "name": "hypothesis",
+      "description": ""
+    },
+    {
+      "name": "metaxy",
+      "description": ""
+    },
+    {
+      "name": "narwhals",
+      "description": ""
+    },
+    {
+      "name": "sybil",
+      "description": ""
+    },
+    {
+      "name": "syrupy",
+      "description": ""
+    }
+  ]
+}
