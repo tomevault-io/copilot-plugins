@@ -4,7 +4,7 @@
   "repo": "ferrotunnel",
   "description": "Secure, embedded, API-first tunneling with public URLs, acting as a lightweight ingress and HTTP proxy focused on low-latency forwarding",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ferro-labs/ferrotunnel",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T03:35:16Z"
+  "distributed_at": "2026-05-05T12:12:06Z"
 }
