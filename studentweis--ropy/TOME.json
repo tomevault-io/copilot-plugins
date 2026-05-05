@@ -4,7 +4,7 @@
   "repo": "ropy",
   "description": "Cross-platform, lightweight clipboard manager written in Rust and GPUI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/StudentWeis/ropy",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T08:31:48Z"
+  "distributed_at": "2026-05-05T21:30:17Z"
 }
