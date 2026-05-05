@@ -1,0 +1,9 @@
+{
+  "name": "ubaltaci--gemini-cli-proxy",
+  "displayName": "gemini-cli-proxy",
+  "description": "Use Gemini CodeAssist (Gemini CLI) through the OpenAI/Anthropic API interface",
+  "version": "1.0.0",
+  "author": "ubaltaci",
+  "homepage": "https://github.com/ubaltaci/gemini-cli-proxy",
+  "skills": []
+}
