@@ -1,0 +1,37 @@
+## pi-finder
+
+> - Keep this package dependency-light. Do not add runtime dependencies unless strictly necessary.
+
+## Invariants
+
+- Keep this package dependency-light. Do not add runtime dependencies unless strictly necessary.
+- `extensions/index.ts` is the only extension entrypoint; keep orchestration there.
+- Model routing policy lives locally in `extensions/model-selection.ts`; keep behavior deterministic and dependency-light.
+- Selection diagnostics contract lives in `extensions/finder-core.ts` (`subagentSelection`). Keep it tight: `reason`.
+
+## Required validation
+
+Run after changing code (not docs-only):
+
+```bash
+npm run pack:check
+```
+
+## Policy changes
+
+When changing model-selection behavior:
+
+1. Update README section `Model selection policy`.
+2. Keep fallback behavior explicit and deterministic.
+
+## Changelog
+
+- Any change that modifies behavior must include a `CHANGELOG.md` entry under **[Unreleased]** in the same change.
+
+## Release process
+
+For commit/push/tag/GitHub release/npm publish workflow, follow `docs/release-playbook.md`.
+
+---
+> Source: [default-anton/pi-finder](https://github.com/default-anton/pi-finder) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
