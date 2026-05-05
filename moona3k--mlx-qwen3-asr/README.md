@@ -7,11 +7,11 @@ Qwen3-ASR speech recognition on Apple Silicon via MLX
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [moona3k/mlx-qwen3-asr](https://github.com/moona3k/mlx-qwen3-asr).
+Original source: `CLAUDE.md` in [moona3k/mlx-qwen3-asr](https://github.com/moona3k/mlx-qwen3-asr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
