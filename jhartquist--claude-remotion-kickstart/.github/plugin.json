@@ -1,0 +1,9 @@
+{
+  "name": "jhartquist--claude-remotion-kickstart",
+  "displayName": "claude-remotion-kickstart",
+  "description": "Create videos programmatically with Claude Code and Remotion",
+  "version": "1.0.0",
+  "author": "jhartquist",
+  "homepage": "https://github.com/jhartquist/claude-remotion-kickstart",
+  "skills": []
+}
