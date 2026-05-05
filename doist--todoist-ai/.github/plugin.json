@@ -1,9 +1,9 @@
 {
   "name": "doist--todoist-ai",
   "displayName": "todoist-ai",
-  "description": "todoist-ai",
+  "description": "A set of tools to connect to AI agents, to allow them to use Todoist on a user's behalf. Includes MCP support.",
   "version": "1.0.0",
   "author": "Doist",
-  "homepage": "https://tomevault.io/claim/Doist",
+  "homepage": "https://github.com/Doist/todoist-ai",
   "skills": []
 }
