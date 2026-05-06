@@ -1,0 +1,18 @@
+{
+  "name": "cna-bootcamp--clauding-guide",
+  "displayName": "clauding-guide",
+  "description": "clauding-guide",
+  "version": "1.0.0",
+  "author": "cna-bootcamp",
+  "homepage": "https://github.com/cna-bootcamp/clauding-guide",
+  "skills": [
+    {
+      "name": "03-guidelines",
+      "description": ""
+    },
+    {
+      "name": "16-uiux-design",
+      "description": ""
+    }
+  ]
+}
