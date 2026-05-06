@@ -1,0 +1,9 @@
+{
+  "name": "wyseos--wyse-browser",
+  "displayName": "wyse-browser",
+  "description": "A scalable browser for building intelligent AI agents",
+  "version": "1.0.0",
+  "author": "WyseOS",
+  "homepage": "https://github.com/WyseOS/wyse-browser",
+  "skills": []
+}
