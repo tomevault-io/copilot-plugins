@@ -1,0 +1,9 @@
+{
+  "name": "logaretm--teley",
+  "displayName": "teley",
+  "description": "\ud83d\udd2d Open-source trace viewer for OpenTelemetry. Beautiful UI, real-time updates, runs locally. Your session debugger for distributed systems.",
+  "version": "1.0.0",
+  "author": "logaretm",
+  "homepage": "https://github.com/logaretm/teley",
+  "skills": []
+}
