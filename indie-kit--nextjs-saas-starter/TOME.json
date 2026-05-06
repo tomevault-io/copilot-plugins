@@ -2,9 +2,9 @@
   "name": "nextjs-saas-starter",
   "owner": "Indie-Kit",
   "repo": "nextjs-saas-starter",
-  "description": "",
+  "description": "Open Source version of Indie Kit Pro to launch your SaaS in minutes",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Indie-Kit/nextjs-saas-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T05:36:31Z"
+  "distributed_at": "2026-05-06T14:02:01Z"
 }
