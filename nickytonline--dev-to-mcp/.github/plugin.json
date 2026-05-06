@@ -1,0 +1,9 @@
+{
+  "name": "nickytonline--dev-to-mcp",
+  "displayName": "dev-to-mcp",
+  "description": "A remote Model Context Protocol (MCP) server for interacting with the dev.to public API without requiring authentication.",
+  "version": "1.0.0",
+  "author": "nickytonline",
+  "homepage": "https://github.com/nickytonline/dev-to-mcp",
+  "skills": []
+}
