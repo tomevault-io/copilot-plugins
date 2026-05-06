@@ -1,0 +1,14 @@
+{
+  "name": "sbusso--claude-workflow",
+  "displayName": "claude-workflow",
+  "description": "Claude Code configuration for SDLC guidance",
+  "version": "1.0.0",
+  "author": "sbusso",
+  "homepage": "https://github.com/sbusso/claude-workflow",
+  "skills": [
+    {
+      "name": "workflow",
+      "description": ""
+    }
+  ]
+}
