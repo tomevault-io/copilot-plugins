@@ -4,7 +4,7 @@
   "repo": "KMReader",
   "description": "A full-featured, native Komga client for iOS, macOS, and tvOS",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/everpcpc/KMReader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T16:08:46Z"
+  "distributed_at": "2026-05-06T03:38:43Z"
 }
