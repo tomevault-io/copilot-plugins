@@ -1,0 +1,9 @@
+{
+  "name": "sucotasch--imagus-mass-download-mod",
+  "displayName": "Imagus-Mass-Download-Mod",
+  "description": "This is a community-modified version of the Imagus extension for Google Chrome, based on https://github.com/Zren/chrome-extension-imagus and enhanced with powerful features for bulk downloading of med",
+  "version": "1.0.0",
+  "author": "Sucotasch",
+  "homepage": "https://github.com/Sucotasch/Imagus-Mass-Download-Mod",
+  "skills": []
+}
