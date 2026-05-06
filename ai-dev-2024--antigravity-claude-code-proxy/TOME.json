@@ -1,0 +1,44 @@
+{
+  "name": "Antigravity-Claude-Code-Proxy",
+  "owner": "ai-dev-2024",
+  "repo": "Antigravity-Claude-Code-Proxy",
+  "description": "\ud83d\ude80 Use Claude Code CLI with Gemini, GPT-5, Grok & 20+ AI models \u2014 Multi-account load balancing, real-time dashboard, per-window model switching",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ai-dev-2024/Antigravity-Claude-Code-Proxy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T10:45:39Z"
+}
