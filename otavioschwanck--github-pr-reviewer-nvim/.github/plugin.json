@@ -1,0 +1,9 @@
+{
+  "name": "otavioschwanck--github-pr-reviewer-nvim",
+  "displayName": "github-pr-reviewer.nvim",
+  "description": "Github review inside neovim with cool keybindings!",
+  "version": "1.0.0",
+  "author": "otavioschwanck",
+  "homepage": "https://github.com/otavioschwanck/github-pr-reviewer.nvim",
+  "skills": []
+}
