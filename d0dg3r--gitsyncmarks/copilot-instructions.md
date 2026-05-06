@@ -1,17 +1,18 @@
-## english-only-default
+## locale-translation-consistency
 
-> Use English by default for all project work
+> English-first locale workflow with runtime fallback
 
 
-# English-Only Default
+# Locale Translation Workflow
 
-Use English as the default language for all work in this repository.
+When editing locale files in `_locales/*/messages.json`:
 
-- Write code comments, docs, changelog text, and user-facing copy in English.
-- Use English for commit messages, PR titles, and PR descriptions.
-- Keep identifiers (variables, functions, classes, files) in English.
-- If a task starts in another language, still produce implementation artifacts in English unless explicitly requested otherwise.
-- Existing translated locale files may be edited, but new source/default text should be authored in English first.
+- Add new UI text keys in `_locales/en/messages.json` first.
+- Other locale files may temporarily miss new keys; runtime must fall back to English.
+- Translation completion for non-English locales can be done in a separate follow-up task.
+- Keep key names identical across all locale files.
+- Preserve valid JSON formatting and existing structure.
+- Before release, schedule or complete locale update work for newly introduced keys.
 
 ---
 > Source: [d0dg3r/GitSyncMarks](https://github.com/d0dg3r/GitSyncMarks) — distributed by [TomeVault](https://tomevault.io).
