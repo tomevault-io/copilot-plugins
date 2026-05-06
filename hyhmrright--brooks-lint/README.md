@@ -7,11 +7,11 @@ AI code reviews grounded in 12 classic engineering books — decay risk diagnost
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hyhmrright/brooks-lint](https://github.com/hyhmrright/brooks-lint).
+Original source: `CLAUDE.md` in [hyhmrright/brooks-lint](https://github.com/hyhmrright/brooks-lint).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
