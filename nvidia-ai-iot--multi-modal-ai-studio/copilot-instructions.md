@@ -1,93 +1,132 @@
-## multi-modal-ai-studio
+## backends
 
-> This rule defines where different types of documentation should be placed and what should be committed to version control.
+> When adding a new ASR/LLM/TTS backend:
 
-# Documentation Guidelines
+# Backend Implementation Rules
 
-## Purpose
-This rule defines where different types of documentation should be placed and what should be committed to version control.
+## Adding New Backends
 
-## Documentation Structure
+When adding a new ASR/LLM/TTS backend:
 
-### 1. Private Planning & Development Notes
-**Location**: `docs/cursor/` (gitignored)
+1. **Create file** in appropriate directory (`backends/asr/`, `backends/llm/`, `backends/tts/`)
+2. **Inherit from base class** (`ASRBackend`, `LLMBackend`, `TTSBackend`)
+3. **Implement all abstract methods**
+4. **Add configuration fields** to schema in `config/schema.py`
+5. **Register in factory** function
+6. **Update UI** to add tab in config panel
+7. **Add preset example** in `presets/` directory
+8. **Document** in `docs/api-backends.md`
 
-**Purpose**: Per-session notes, design decisions, and planning docs for AI/developer reference during active development.
+## Backend Types
 
-**Rules**:
-- Use ALL CAPS with underscores (e.g., `PLAN_FEATURE_X.md`, `UI_DESIGN.md`)
-- These files are for internal reference only and should NOT be committed
-- They are automatically ignored by git via `.gitignore`
+### Riva Backend (gRPC)
 
-**Examples**:
-- `docs/cursor/PLAN_MULTI_MODAL_AI_STUDIO.md`
-- `docs/cursor/UI_DESIGN.md`
-- `docs/cursor/IMPLEMENTATION_PHASES.md`
+- **Reuse code** from `live-riva-webui` (riva_bridge.py, riva_tts.py)
+- Handle gRPC **connection lifecycle** (connect, disconnect, reconnect)
+- Implement **proper error recovery** (transient vs permanent failures)
+- Support **streaming** for both ASR and TTS
 
-### 2. Public Documentation
-**Location**: `docs/` (committed to git)
+### OpenAI REST Backend
 
-**Purpose**: Documentation for fellow developers, users, and contributors.
+- Use **aiohttp** for async HTTP requests
+- Implement **chunking** for non-streaming APIs (Whisper)
+- Handle **rate limits** and implement exponential backoff
+- Support **retries** for transient failures
 
-**Rules**:
-- Use lowercase with hyphens (e.g., `session-management.md`, `api-reference.md`)
-- Must be useful for other developers or users
-- Should be maintained and kept up-to-date
-- Focus on "how to use" rather than "why we decided"
+### OpenAI Realtime Backend
 
-**Examples**:
-- `docs/SESSION_MANAGEMENT.md` - How session recording works
-- `docs/AUDIO_MODES.md` - Guide to audio device options
-- `docs/TIMELINE_DESIGN.md` - Timeline visualization concepts
+- Use **WebSocket** for bidirectional streaming
+- Handle **both ASR and TTS** in single connection
+- Implement **turn detection** (server-side VAD)
+- Manage **session state** and event handling
 
-### 3. Root-Level Temporary Docs
-**Location**: `./` (project root)
+### Azure Speech Backend (Future)
 
-**Rules**:
-- **DO NOT** create CAPITAL LETTER markdown files in the root directory for one-time development information
-- **DO NOT** commit files like `WEBUI_READY.md`, `PHASE1_PROGRESS.md`, `PROJECT_STATS.txt`, etc.
-- These types of notes should go in `docs/cursor/` instead
-- Exception: Standard project files like `README.md`, `LICENSE`, `CHANGELOG.md` are fine
+- Similar to OpenAI REST
+- Handle **Azure-specific auth** (subscription keys)
+- Support **custom neural voices**
 
-**Wrong** ❌:
+## Base Classes
+
+### ASRBackend
+
+```python
+class ASRBackend(ABC):
+    @abstractmethod
+    async def start_stream(self) -> None:
+        """Start streaming recognition"""
+        
+    @abstractmethod
+    async def send_audio(self, audio_chunk: bytes) -> None:
+        """Send audio chunk for recognition"""
+        
+    @abstractmethod
+    async def receive_results(self) -> AsyncIterator[ASRResult]:
+        """Yield recognition results (partial and final)"""
+        
+    @abstractmethod
+    async def stop_stream(self) -> None:
+        """Stop streaming recognition"""
 ```
-/PROJECT_SUMMARY.md
-/WEBUI_IMPROVEMENTS.md
-/SESSION_SUMMARY.md
-/UNIFIED_CHAT_PANEL_STRUCTURE.md
+
+### LLMBackend
+
+```python
+class LLMBackend(ABC):
+    @abstractmethod
+    async def generate_stream(
+        self, 
+        prompt: str, 
+        history: List[Dict]
+    ) -> AsyncIterator[str]:
+        """Generate response tokens"""
 ```
 
-**Right** ✅:
+### TTSBackend
+
+```python
+class TTSBackend(ABC):
+    @abstractmethod
+    async def synthesize_stream(
+        self, 
+        text: str
+    ) -> AsyncIterator[bytes]:
+        """Generate audio chunks"""
 ```
-/docs/cursor/PROJECT_SUMMARY.md
-/docs/cursor/WEBUI_IMPROVEMENTS.md
-/docs/cursor/SESSION_SUMMARY.md
-/docs/cursor/UNIFIED_CHAT_PANEL_STRUCTURE.md
-```
 
-### 4. Standard Root Files (Allowed)
-These are the only documentation files that should exist in the project root:
-- `README.md` - Project overview and quick start
-- `LICENSE` - License information
-- `CHANGELOG.md` - Version history and changes
-- `CONTRIBUTING.md` - Contribution guidelines (if needed)
+## Testing Backends
 
-## Git Workflow
+- **Unit tests** with mocked gRPC/HTTP responses
+- **Integration tests** with real services (optional, requires credentials)
+- **Error condition tests** (network failure, invalid API key, timeout)
+- **Performance tests** (latency, throughput)
 
-Before committing:
-1. Check for CAPITAL LETTER `.md` files in root: `ls *.md | grep -E '^[A-Z_]+\.md$'`
-2. Move any found files to `docs/cursor/` if they're development notes
-3. Delete them if they're no longer needed
-4. Only commit files from the approved list above
+## Error Handling
 
-## AI Assistant Behavior
+Each backend should handle:
 
-When creating documentation during development:
-- Always place development/planning notes in `docs/cursor/`
-- Ask before creating any new markdown files in the root directory
-- Suggest moving existing root markdown files to `docs/cursor/` when encountered
-- Only create user-facing docs in `docs/` when explicitly requested
+1. **Connection errors**: Retry with backoff
+2. **Authentication errors**: Clear message, fail fast
+3. **Rate limits**: Backoff and retry
+4. **Timeouts**: Configurable, with sensible defaults
+5. **Invalid input**: Validate before sending
+
+## Configuration
+
+Each backend config should include:
+
+- **Required fields**: Server, API key, model
+- **Optional fields**: Timeout, retry settings, advanced options
+- **Validation**: Check consistency, provide defaults
+- **Secrets handling**: Never log API keys
+
+## Performance Considerations
+
+- **Connection pooling**: Reuse HTTP/gRPC connections
+- **Buffering**: Batch small audio chunks when possible
+- **Streaming**: Prefer streaming over batch APIs
+- **Async**: Use async/await for all I/O operations
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/NVIDIA-AI-IOT) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [NVIDIA-AI-IOT/multi_modal_ai_studio](https://github.com/NVIDIA-AI-IOT/multi_modal_ai_studio) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
