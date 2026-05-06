@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--process-triage",
+  "displayName": "process_triage",
+  "description": "Bayesian process classifier that detects abandoned/zombie processes and recommends safe cleanup actions",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/process_triage",
+  "skills": []
+}
