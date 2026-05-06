@@ -1,49 +1,60 @@
-## invariants
+## quality-bar
 
-> Non-negotiable invariants — correctness, security, CLI behavior, event integrity
+> Quality expectations — when to spec, testing, anti-patterns, AI workflow
 
 
-# zsp — Invariants
+# zsp — Quality Bar
 
-These are non-negotiable. Violating any invariant is a bug.
+## When to Create a Feature Spec
 
-## Event Integrity
+Create a spec if the work:
 
-- Published events MUST conform to NIP-82 (kinds 32267, 30063, 3063) exactly.
-- APK SHA-256 in the asset event MUST match the actual downloaded file — computed locally, never trusted from remote.
-- `apk_certificate_hash` MUST be the SHA-256 of the DER-encoded signing certificate.
-- Events MUST be signed before publishing. Unsigned events must never reach a relay.
+- Adds a new APK source or metadata source
+- Changes signing or event publishing behavior
+- Modifies the publish workflow orchestration
+- Adds a new subcommand or significant flag
+- Touches APK selection/ranking logic
+- Could affect correctness of published events
 
-## Security
+**Skip the spec** if:
 
-- Private keys (`SIGN_WITH=nsec1...`) must never be logged, printed, or included in error messages.
-- Keystore passwords must never be logged.
-- `ui.SanitizeErrorMessage` must wrap all errors before printing to stderr.
+- UI copy or color changes
+- Adding a flag alias
+- Bug fix with obvious cause and fix
+- Dependency update with no API changes
 
-## CLI Behavior
+## Testing
 
-- Status output goes to stderr. Data output (JSON, event JSON) goes to stdout.
-- Exit 0 = success. Exit 1 = error. Exit 130 = Ctrl+C / context cancelled.
-- `--quiet` mode must produce no interactive prompts and no status output.
-- `--offline` mode must not make any network calls (no relay publish, no Blossom upload).
-- `--check` mode must exit 0 and print the package ID on success, exit 1 on failure.
+- Table-driven tests. Use `testdata/` for fixtures and example configs.
+- Test APK parsing against real fixture APKs where possible.
+- Source tests should mock HTTP — no real network calls in tests.
+- Test the happy path AND: missing files, bad URLs, cancelled context, malformed APKs.
 
-## APK Selection
+## Implementation Expectations
 
-- The selected APK MUST support `arm64-v8a` architecture (verified by `apkInfo.IsArm64()`).
-- `--check` must fail if the selected APK is not arm64-v8a.
+- Reference the nearest existing source/pattern before writing new code.
+- `internal/source/github.go` is the reference implementation for new sources.
+- Keep `main.go` thin — dispatch only, no business logic.
+- Prefer extending existing packages over creating new ones.
 
-## Context Cancellation
+## Anti-Patterns
 
-- All long-running operations must respect `context.Context`.
-- Ctrl+C must cleanly cancel in-progress downloads, relay connections, and browser sessions.
-- No goroutine leaks on cancellation.
+- Logging or printing private keys or passwords
+- Network calls in `--offline` mode
+- Blocking on context without a cancellation path
+- Swallowing errors with `_ = err`
+- Hardcoding relay or Blossom URLs (use env vars with defaults)
 
-## Error Handling
+## Working With AI
 
-- All errors must be wrapped with context: `fmt.Errorf("doing X: %w", err)`.
-- Errors must propagate up; never swallowed silently.
-- User-facing error messages must be actionable, not raw Go error strings.
+- Spec-first for new sources, workflow changes, and event format changes.
+- Work packets in `spec/work/` for non-trivial tasks.
+- If a spec conflicts with the NIP-82/NIP-C1 protocol specs, stop and report — do not guess.
+- Never modify `spec/guidelines/` without explicit permission.
+
+## Knowledge Entries
+
+After a work packet merges, promote non-obvious decisions to `spec/knowledge/DEC-XXX-*.md`. See `spec/knowledge/_TEMPLATE.md` for format and criteria.
 
 ---
 > Source: [zapstore/zsp](https://github.com/zapstore/zsp) — distributed by [TomeVault](https://tomevault.io).
