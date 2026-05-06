@@ -1,0 +1,44 @@
+{
+  "name": "harness-engineering-study",
+  "owner": "ly028716",
+  "repo": "harness-engineering-study",
+  "description": "\u4e00\u4e2a\u7cfb\u7edf\u5b66\u4e60\u548c\u5b9e\u8df5 Harness Engineering \u7684\u9879\u76ee\uff0c\u4ece\u7406\u8bba\u5230\u5b9e\u8df5\uff0c\u4ece\u7b80\u5355\u5230\u590d\u6742\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ly028716/harness-engineering-study",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T08:10:57Z"
+}
