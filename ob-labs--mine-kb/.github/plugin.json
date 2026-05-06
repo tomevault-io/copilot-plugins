@@ -1,0 +1,9 @@
+{
+  "name": "ob-labs--mine-kb",
+  "displayName": "mine-kb",
+  "description": "A local personal knowledge base on SeekDB.",
+  "version": "1.0.0",
+  "author": "ob-labs",
+  "homepage": "https://github.com/ob-labs/mine-kb",
+  "skills": []
+}
