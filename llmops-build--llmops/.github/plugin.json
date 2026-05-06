@@ -1,0 +1,9 @@
+{
+  "name": "llmops-build--llmops",
+  "displayName": "llmops",
+  "description": "A pluggable LLMOps toolkit for TypeScript applications.",
+  "version": "1.0.0",
+  "author": "llmops-build",
+  "homepage": "https://github.com/llmops-build/llmops",
+  "skills": []
+}
