@@ -4,7 +4,7 @@
   "repo": "applypilot",
   "description": "Self-hosted, AI-powered job search companion. Paste a job posting and five AI agents run an orchestrated pipeline \u2014 analyze the role, score your fit, research the company, rewrite your resume, and write a cover letter \u2014 in ~30 seconds. Application dashboard. Interview prep with mock sessions. Six career tools. BYOK Gemini key. Chrome extension.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eliornl/applypilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-23T05:32:36Z"
+  "distributed_at": "2026-05-06T08:06:46Z"
 }
