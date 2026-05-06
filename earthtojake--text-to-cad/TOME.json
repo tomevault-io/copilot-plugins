@@ -4,7 +4,7 @@
   "repo": "text-to-cad",
   "description": "An open source harness for generating CAD models",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/earthtojake/text-to-cad",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T20:30:02Z"
+  "distributed_at": "2026-05-06T08:05:00Z"
 }
