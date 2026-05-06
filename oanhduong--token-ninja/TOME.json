@@ -1,0 +1,44 @@
+{
+  "name": "token-ninja",
+  "owner": "oanhduong",
+  "repo": "token-ninja",
+  "description": "token-ninja routes deterministic shell commands locally \u2014 zero LLM calls, ~19\u00b5s latency. Works silently inside AI tools via MCP.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/oanhduong/token-ninja",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T22:53:37Z"
+}
