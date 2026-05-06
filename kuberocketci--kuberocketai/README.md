@@ -2,6 +2,8 @@
 
 > Source: [KubeRocketCI/kuberocketai](https://github.com/KubeRocketCI/kuberocketai) — distributed by [TomeVault](https://tomevault.io)
 
+Declarative agentic framework for AI-driven software development. Define, validate, and orchestrate AI agents as code—transparent, auditable, and CI/CD-ready. Run your SDLC as Code today
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
