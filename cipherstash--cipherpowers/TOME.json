@@ -1,0 +1,177 @@
+{
+  "name": "cipherpowers",
+  "owner": "cipherstash",
+  "repo": "cipherpowers",
+  "description": "AI instruction skills by cipherstash",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "brainstorming",
+      "path": "plugin/skills/brainstorming",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "conducting-code-review",
+      "path": "plugin/skills/conducting-code-review",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/conducting-code-review",
+      "description": ""
+    },
+    {
+      "name": "creating-research-packages",
+      "path": "plugin/skills/creating-research-packages",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/creating-research-packages",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "path": "plugin/skills/dispatching-parallel-agents",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "documenting-debugging-workflows",
+      "path": "plugin/skills/documenting-debugging-workflows",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/documenting-debugging-workflows",
+      "description": ""
+    },
+    {
+      "name": "dual-verification",
+      "path": "plugin/skills/dual-verification",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/dual-verification",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "path": "plugin/skills/finishing-a-development-branch",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "following-plans",
+      "path": "plugin/skills/following-plans",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/following-plans",
+      "description": ""
+    },
+    {
+      "name": "maintaining-docs-after-changes",
+      "path": "plugin/skills/maintaining-docs-after-changes",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/maintaining-docs-after-changes",
+      "description": ""
+    },
+    {
+      "name": "organizing-documentation",
+      "path": "plugin/skills/organizing-documentation",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/organizing-documentation",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "path": "plugin/skills/requesting-code-review",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "selecting-agents",
+      "path": "plugin/skills/selecting-agents",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/selecting-agents",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "path": "plugin/skills/subagent-driven-development",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "path": "plugin/skills/systematic-debugging",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "systematic-type-migration",
+      "path": "plugin/skills/systematic-type-migration",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/systematic-type-migration",
+      "description": ""
+    },
+    {
+      "name": "tdd-enforcement-algorithm",
+      "path": "plugin/skills/tdd-enforcement-algorithm",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/tdd-enforcement-algorithm",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "path": "plugin/skills/test-driven-development",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-skills-with-subagents",
+      "path": "plugin/skills/testing-skills-with-subagents",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/testing-skills-with-subagents",
+      "description": ""
+    },
+    {
+      "name": "using-cipherpowers",
+      "path": "plugin/skills/using-cipherpowers",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/using-cipherpowers",
+      "description": ""
+    },
+    {
+      "name": "validating-review-feedback",
+      "path": "plugin/skills/validating-review-feedback",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/validating-review-feedback",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "path": "plugin/skills/writing-plans",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "path": "plugin/skills/writing-skills",
+      "github_url": "https://github.com/cipherstash/cipherpowers/tree/main/plugin/skills/writing-skills",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cipherstash/cipherpowers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T02:30:11Z"
+}
