@@ -1,0 +1,9 @@
+{
+  "name": "fom-dev--company-in-a-box",
+  "displayName": "company-in-a-box",
+  "description": "A complete AI-powered organizational structure: 42 agents, 10 playbooks, one company.",
+  "version": "1.0.0",
+  "author": "fom-dev",
+  "homepage": "https://github.com/fom-dev/company-in-a-box",
+  "skills": []
+}
