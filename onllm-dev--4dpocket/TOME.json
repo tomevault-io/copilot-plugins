@@ -4,7 +4,7 @@
   "repo": "4DPocket",
   "description": "Self-hosted AI-powered personal knowledge base. Save content from 17+ platforms, auto-tag, summarize, and connect with semantic search.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/onllm-dev/4DPocket",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T00:47:41Z"
+  "distributed_at": "2026-05-06T11:36:46Z"
 }
