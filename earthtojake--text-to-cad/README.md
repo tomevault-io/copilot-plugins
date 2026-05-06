@@ -7,11 +7,11 @@ An open source harness for generating CAD models
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad).
+Original source: `CLAUDE.md` in [earthtojake/text-to-cad](https://github.com/earthtojake/text-to-cad).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
