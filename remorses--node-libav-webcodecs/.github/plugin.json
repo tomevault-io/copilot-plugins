@@ -1,0 +1,9 @@
+{
+  "name": "remorses--node-libav-webcodecs",
+  "displayName": "node-libav-webcodecs",
+  "description": "WebCodecs API polyfill for Node.js using libav",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/node-libav-webcodecs",
+  "skills": []
+}
