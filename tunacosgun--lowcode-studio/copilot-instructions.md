@@ -1,39 +1,44 @@
-## index
+## infra
 
-> │   Caddy   │  (reverse proxy, TLS)
+> Infrastructure — RTS, deployment (Docker/Helm/AWS), Keycloak SSO, CI scripts
 
-# Appsmith — Architecture Overview
+# Infrastructure & Deployment
 
-```
-                    ┌───────────┐
-                    │   Caddy   │  (reverse proxy, TLS)
-                    └─────┬─────┘
-                          │
-             ┌────────────┼────────────┐
-             │            │            │
-    ┌────────▼───┐  ┌─────▼─────┐  ┌──▼──────┐
-    │   Client   │  │  Server   │  │   RTS   │
-    │ React SPA  │  │ Spring    │  │ Node.js │
-    │ TypeScript │  │ Boot/Java │  │ Express │
-    └────────────┘  └─────┬─────┘  └─────────┘
-                          │
-             ┌────────────┼────────────┐
-             │            │            │
-        ┌────▼───┐  ┌────▼────┐  ┌───▼──────┐
-        │MongoDB │  │Postgres │  │ Temporal │
-        │/ Redis │  │         │  │(workflows)│
-        └────────┘  └─────────┘  └──────────┘
-```
+## RTS — Real-Time Server (`app/client/packages/rts/`)
 
-- **Client** (`app/client/`) — React + TypeScript SPA, Redux-Saga, Yarn monorepo
-- **Server** (`app/server/`) — Java 17, Spring Boot 3.x (Reactive WebFlux), Maven, MongoDB
-- **RTS** (`app/client/packages/rts/`) — Node.js Express real-time server, SCIM, workflow proxy
-- **Deploy** (`deploy/`) — Docker, Helm, AWS, Ansible, Caddy reverse proxy
-- **Orchestration** — supervisord in Docker, optional Keycloak (SSO)
+- **Stack:** TypeScript, Express.js (Node.js)
+- **Build:** Yarn (part of client workspaces), custom `build.sh`
+- **Entry point:** `src/server.ts`
+- **Purpose:** Real-time features, SCIM user provisioning, workflow proxying (Temporal), analytics
+- **Instrumentation:** OpenTelemetry, Sentry
+- **Key dirs:** `controllers/`, `routes/`, `services/`, `middlewares/`, `scim/`, `workflowProxy/`, `ce/`, `ee/`
 
-## EE vs CE Pattern
+## Deployment (`deploy/`)
 
-Enterprise and community edition code coexist in the same repo. Look for `ce/` and `ee/` directories within both `app/server` and `app/client`. Enterprise-specific logic extends or overrides CE implementations.
+| Subdirectory | Purpose |
+|---|---|
+| `docker/` | Main deployment — `docker-compose.yml`, Caddy, entrypoints, healthchecks, run scripts |
+| `helm/` | Kubernetes Helm chart |
+| `aws/` | AWS deployment scripts |
+| `aws_ami/` | AMI building configs |
+| `ansible/` | Ansible playbooks |
+| `heroku/` | Heroku config |
+| `digital_ocean/` | DigitalOcean deployment |
+| `packer/` | Machine image templates |
+
+**Caddy (reverse proxy):** Config in `deploy/docker/fs/opt/appsmith/`. `caddy-reconfigure.mjs` generates Caddyfile from env vars. `run-caddy.sh` starts Caddy.
+
+## Keycloak SSO (`app/keycloak-docker-config/`)
+
+Systemd service template for Keycloak 16.1.1 as identity provider (SSO/SAML/OIDC) in enterprise deployments.
+
+## CI/CD Scripts (`scripts/`)
+
+Key scripts: `deploy_preview.sh`, `build_dp_from_branch.sh`, `cleanup_dp.sh`, `health_check.sh`, `generate_info_json.sh`, `prepare_server_artifacts.sh`, `local_testing.sh`
+
+## Developer Docs (`contributions/`)
+
+Setup guides (`ClientSetup.md`, `ServerSetup.md`), contribution guidelines, widget development guide, custom JS library docs.
 
 ---
 > Source: [tunacosgun/lowcode-studio](https://github.com/tunacosgun/lowcode-studio) — distributed by [TomeVault](https://tomevault.io).
