@@ -1,0 +1,9 @@
+{
+  "name": "zkir--urbaneye3d",
+  "displayName": "UrbanEye3D",
+  "description": "A JOSM plugin to view buildings and other objects in 3D.",
+  "version": "1.0.0",
+  "author": "Zkir",
+  "homepage": "https://github.com/Zkir/UrbanEye3D",
+  "skills": []
+}
