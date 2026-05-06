@@ -1,0 +1,9 @@
+{
+  "name": "derailed-dash--adk-docs-ext",
+  "displayName": "adk-docs-ext",
+  "description": "Provides Gemini with up-to-date information about ADK. The documentation content is sourced from llms.txt - either from the official ADK-Docs repo, or one you supply.",
+  "version": "1.0.0",
+  "author": "derailed-dash",
+  "homepage": "https://github.com/derailed-dash/adk-docs-ext",
+  "skills": []
+}
