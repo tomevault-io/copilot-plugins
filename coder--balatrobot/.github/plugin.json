@@ -1,0 +1,14 @@
+{
+  "name": "coder--balatrobot",
+  "displayName": "balatro",
+  "description": "API for developing Balatro bots \ud83c\udccf",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/balatrobot",
+  "skills": [
+    {
+      "name": "balatrobot",
+      "description": ""
+    }
+  ]
+}
