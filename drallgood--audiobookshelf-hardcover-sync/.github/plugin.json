@@ -1,7 +1,7 @@
 {
   "name": "drallgood--audiobookshelf-hardcover-sync",
   "displayName": "audiobookshelf-hardcover-sync",
-  "description": "audiobookshelf-hardcover-sync",
+  "description": "Syncs Audiobookshelf to Hardcover",
   "version": "1.0.0",
   "author": "drallgood",
   "homepage": "https://github.com/drallgood/audiobookshelf-hardcover-sync",
