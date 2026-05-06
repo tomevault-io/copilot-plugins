@@ -1,0 +1,9 @@
+{
+  "name": "parfenovvs--lazylogcat",
+  "displayName": "lazylogcat",
+  "description": "LazyLogcat - TUI to view Android logs from adb logcat",
+  "version": "1.0.0",
+  "author": "parfenovvs",
+  "homepage": "https://github.com/parfenovvs/lazylogcat",
+  "skills": []
+}
