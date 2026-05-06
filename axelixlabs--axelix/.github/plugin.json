@@ -1,0 +1,9 @@
+{
+  "name": "axelixlabs--axelix",
+  "displayName": "axelix",
+  "description": "The source code of the Axelix, a Delta Force for your Spring Boot deployments",
+  "version": "1.0.0",
+  "author": "axelixlabs",
+  "homepage": "https://github.com/axelixlabs/axelix",
+  "skills": []
+}
