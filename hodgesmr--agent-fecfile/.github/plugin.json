@@ -1,0 +1,9 @@
+{
+  "name": "hodgesmr--agent-fecfile",
+  "displayName": "agent-fecfile",
+  "description": "A Claude Code plugin + Agent Skill + MCP Server for analyzing Federal Election Commission (FEC) campaign finance filings.",
+  "version": "1.0.0",
+  "author": "hodgesmr",
+  "homepage": "https://github.com/hodgesmr/agent-fecfile",
+  "skills": []
+}
