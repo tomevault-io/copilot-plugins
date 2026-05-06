@@ -1,0 +1,9 @@
+{
+  "name": "ayunis-core--ayunis-legal-mcp",
+  "displayName": "ayunis-legal-mcp",
+  "description": "An MCP server for German legal codes",
+  "version": "1.0.0",
+  "author": "ayunis-core",
+  "homepage": "https://github.com/ayunis-core/ayunis-legal-mcp",
+  "skills": []
+}
