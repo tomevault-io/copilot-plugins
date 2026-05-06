@@ -1,0 +1,9 @@
+{
+  "name": "wrathagom--ai-discord-bot",
+  "displayName": "ai-discord-bot",
+  "description": "A Discord bot that can interact with Claude Code and OpenAI Codex.",
+  "version": "1.0.0",
+  "author": "wrathagom",
+  "homepage": "https://github.com/wrathagom/ai-discord-bot",
+  "skills": []
+}
