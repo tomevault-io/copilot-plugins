@@ -1,0 +1,9 @@
+{
+  "name": "komapper--kova",
+  "displayName": "kova",
+  "description": "A type-safe Kotlin validation library that provides composable validators",
+  "version": "1.0.0",
+  "author": "komapper",
+  "homepage": "https://github.com/komapper/kova",
+  "skills": []
+}
