@@ -1,0 +1,111 @@
+{
+  "name": "sdd-mcp",
+  "owner": "yi-john-huang",
+  "repo": "sdd-mcp",
+  "description": "",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "sdd-commit",
+      "path": ".claude/skills/sdd-commit",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-commit",
+      "description": ""
+    },
+    {
+      "name": "sdd-design",
+      "path": ".claude/skills/sdd-design",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-design",
+      "description": ""
+    },
+    {
+      "name": "sdd-implement",
+      "path": ".claude/skills/sdd-implement",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-implement",
+      "description": ""
+    },
+    {
+      "name": "sdd-requirements",
+      "path": ".claude/skills/sdd-requirements",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-requirements",
+      "description": ""
+    },
+    {
+      "name": "sdd-review",
+      "path": ".claude/skills/sdd-review",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-review",
+      "description": ""
+    },
+    {
+      "name": "sdd-security-check",
+      "path": ".claude/skills/sdd-security-check",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-security-check",
+      "description": ""
+    },
+    {
+      "name": "sdd-steering",
+      "path": ".claude/skills/sdd-steering",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-steering",
+      "description": ""
+    },
+    {
+      "name": "sdd-steering-custom",
+      "path": ".claude/skills/sdd-steering-custom",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-steering-custom",
+      "description": ""
+    },
+    {
+      "name": "sdd-tasks",
+      "path": ".claude/skills/sdd-tasks",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-tasks",
+      "description": ""
+    },
+    {
+      "name": "sdd-test-gen",
+      "path": ".claude/skills/sdd-test-gen",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/sdd-test-gen",
+      "description": ""
+    },
+    {
+      "name": "simple-task",
+      "path": ".claude/skills/simple-task",
+      "github_url": "https://github.com/yi-john-huang/sdd-mcp/tree/main/.claude/skills/simple-task",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/yi-john-huang/sdd-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T10:32:51Z"
+}
