@@ -1,395 +1,140 @@
-## figma-design-system
+## screen-completion-guide
 
-> Rules for implementing Figma designs using the Figma MCP server. Covers component organization, styling conventions, design tokens, asset handling, and the required Figma-to-code workflow for this Flutter/Dart pet health monitoring app.
+> Screen-by-screen guide for Pet Circle. Phase 1 complete, Phase 2 in progress. Tracks navigation, role system, auth flow, remaining work, and feature backlog.
 
 
-# Pet Circle — Figma Design System Rules
+# Pet Circle -- Screen Completion Guide
 
-## Project Overview
+## Phase Status: Phase 1 COMPLETE, Phase 2 IN PROGRESS
 
-Pet Circle is a **Flutter/Dart** cross-platform app (iOS, Android, Web, Desktop) for pet health monitoring. It uses a **neumorphic design system** with centralized design tokens aligned to Figma variables. Typography is powered by **Google Fonts (Inter)**.
+Phase 2 adds Firebase Auth, Firestore persistence, and the full dual-layer role architecture.
 
-## Figma MCP Integration Rules
-
-These rules define how to translate Figma inputs into code for this project and must be followed for every Figma-driven change.
-
-### Required Flow (do not skip)
-
-1. Run `get_design_context` first to fetch the structured representation for the exact node(s)
-2. If the response is too large or truncated, run `get_metadata` to get the high-level node map, then re-fetch only the required node(s) with `get_design_context`
-3. Run `get_screenshot` for a visual reference of the node variant being implemented
-4. Only after you have both `get_design_context` and `get_screenshot`, download any assets needed and start implementation
-5. Translate the output (usually React + Tailwind) into **Flutter widgets and Dart code** using this project's conventions, tokens, and architecture
-6. Validate against Figma for 1:1 look and behavior before marking complete
-
-### Implementation Rules
-
-- IMPORTANT: Treat the Figma MCP output (React + Tailwind) as a **representation of design and behavior**, not as final code
-- IMPORTANT: Translate all React components to **Flutter StatelessWidget / StatefulWidget** classes
-- IMPORTANT: Replace Tailwind utility classes with the project's design tokens (`AppColors`, `AppSpacing`, `AppRadii`, `AppTextStyles`, `AppShadows`)
-- Reuse existing widgets from `lib/widgets/` instead of duplicating functionality
-- Use the project's color system, typography scale, and spacing tokens consistently
-- Respect existing routing (`app_routes.dart`), state management, and data-fetch patterns
-- Strive for 1:1 visual parity with the Figma design
-- Validate the final UI against the Figma screenshot for both look and behavior
-
----
-
-## Component Organization
-
-### Directory Structure
+## Navigation Structure
 
 ```
-lib/
-├── widgets/          # Reusable UI components (buttons, cards, inputs, etc.)
-├── screens/          # Screen-level components, organized by feature
-│   ├── auth/
-│   ├── dashboard/
-│   ├── measurement/
-│   ├── medication/
-│   ├── messages/
-│   ├── onboarding/
-│   ├── pet_detail/
-│   ├── settings/
-│   └── trends/
-├── models/           # Data models (Pet, User, Measurement, Medication, etc.)
-├── stores/           # ChangeNotifier stores (pet, measurement, note, medication, etc.)
-├── services/         # Business logic (auth_service, user_service)
-├── providers/        # State providers
-├── theme/            # Design tokens and theme configuration
-│   ├── app_theme.dart    # Colors, spacing, typography, shadows, radii
-│   └── app_assets.dart   # Asset path constants
-├── data/             # Mock/demo data
-└── l10n/             # Localization files (English, Hebrew)
+Auth flow (kEnableFirebase = true):
+  /auth-gate --> /welcome --> /role-selection --> /auth --> /verify-email --> /auth-gate --> /onboarding or /main-shell
+
+Auth flow (kEnableFirebase = false):
+  / (welcome) --> /role-selection --> /main-shell
+
+Bottom Nav: Home(0) | Trends(1) | Measure(2) | Medication(3)
+Trends: single unified view (stats + chart + history, no tabs)
+Notifications: bell icon drawer only (no dedicated tab)
+Medication: standalone screen at lib/screens/medication/medication_screen.dart
+Active pet: global via petStore.activePetIndex, switched from header pet chip
 ```
 
-### Placement Rules
+## Auth Screens
 
-- IMPORTANT: Place new **reusable UI components** in `lib/widgets/`
-- IMPORTANT: Place new **screen components** in `lib/screens/<feature>/`
-- Place new **data models** in `lib/models/`
-- Place new **services** in `lib/services/`
-- Place new **asset constants** in `lib/theme/app_assets.dart`
-
-### Existing Widgets (check before creating new ones)
-
-| Widget | File | Purpose |
+| Screen | File | Purpose |
 |--------|------|---------|
-| `PrimaryButton` | `lib/widgets/primary_button.dart` | Full-width button (filled/outlined variants) |
-| `RoundIconButton` | `lib/widgets/round_icon_button.dart` | Circular icon button |
-| `NeumorphicCard` | `lib/widgets/neumorphic_card.dart` | Card with neumorphic shadows |
-| `LabeledTextField` | `lib/widgets/labeled_text_field.dart` | Text field with label |
-| `BreedSearchField` | `lib/widgets/breed_search_field.dart` | Searchable breed dropdown (148 breeds, live filter) |
-| `AppDropdown` | `lib/widgets/app_dropdown.dart` | Label + dropdown selector with chevron |
-| `SettingsRow` | `lib/widgets/settings_row.dart` | Settings row (icon + title + trailing) |
-| `AppHeader` | `lib/widgets/app_header.dart` | Header with avatar, pet switcher chip, notification bell |
-| `BottomNavBar` | `lib/widgets/bottom_nav_bar.dart` | Tab bar: Home, Trends, Measure, Medication |
-| `StatusBadge` | `lib/widgets/status_badge.dart` | Colored status badge |
-| `TogglePill` | `lib/widgets/toggle_pill.dart` | Pill-shaped toggle |
-| `UserAvatar` | `lib/widgets/user_avatar.dart` | User avatar with fallback |
-| `DogPhoto` | `lib/widgets/dog_photo.dart` | Pet photo with fallback |
-| `AppImage` | `lib/widgets/app_image.dart` | Image with error handling |
-| `OnboardingShell` | `lib/widgets/onboarding_shell.dart` | Onboarding layout with Back/Next buttons |
-
----
-
-## Design Tokens
-
-All tokens are centralized in `lib/theme/app_theme.dart`. IMPORTANT: Never hardcode colors, spacing, or typography values — always use the token classes.
-
-### Colors — `AppColors` (9 Figma primitive tokens)
-
-```dart
-AppColors.white       // #FFFFFF — backgrounds, card surfaces
-AppColors.offWhite    // #F8F1E7 — warm background, scaffold
-AppColors.lightYellow // #FFECB7 — accent highlights
-AppColors.chocolate   // #402A24 — primary text, buttons
-AppColors.pink        // #FFC2B5 — soft accent, decorative
-AppColors.cherry      // #E64E60 — alerts, warnings, errors
-AppColors.lightBlue   // #75ACFF — info, secondary accent
-AppColors.blue        // #146FD9 — links, interactive elements
-AppColors.black       // #000000 — rare, inverted contexts
-```
-
-- IMPORTANT: **Never hardcode hex colors.** Always use `AppColors.<token>` or the theme-aware `AppColorsTheme.of(context).<token>`.
-- IMPORTANT: For **dark mode support**, always use `AppColorsTheme.of(context)` in widget `build()` methods:
-  ```dart
-  final c = AppColorsTheme.of(context);
-  // Then use: c.white, c.chocolate, c.lightBlue, etc.
-  ```
-- Deprecated aliases exist (`burgundy`, `textPrimary`, `accentBlue`, etc.) — do **not** use them in new code.
-
-### Spacing — `AppSpacing`
-
-```dart
-AppSpacing.xs  //  4.0
-AppSpacing.sm  //  8.0
-AppSpacing.md  // 16.0
-AppSpacing.lg  // 24.0
-AppSpacing.xl  // 32.0
-```
-
-- Use `EdgeInsets` with spacing tokens: `EdgeInsets.all(AppSpacing.md)`
-- Use `SizedBox(height: AppSpacing.sm)` for vertical gaps
-
-### Border Radius — `AppRadii`
-
-```dart
-AppRadii.xs      //  4px — progress bars, small indicators
-AppRadii.sm      //  8px — chips, small rounded containers
-AppRadii.small   // 12px — cards, input containers, badges
-AppRadii.medium  // 16px — section cards, settings cards
-AppRadii.large   // 20px — large containers, tab selectors
-AppRadii.full    // 100px — circular elements (avatars, round buttons)
-AppRadii.pill    // 999px — fully rounded (buttons, inputs, toggles)
-```
-
-- IMPORTANT: **Never use `BorderRadius.circular(N)` with a raw number.** Always use `const BorderRadius.all(AppRadii.<token>)`.
-- For partial radii: `const BorderRadius.vertical(top: AppRadii.medium)`
-
-### Typography — `AppTextStyles`
-
-```dart
-AppTextStyles.heading1   // 28px, w600, chocolate
-AppTextStyles.heading2   // 24px, w600, chocolate
-AppTextStyles.heading3   // 18px, w600, chocolate
-AppTextStyles.body       // 14px, w400, chocolate
-AppTextStyles.bodyMuted  // 14px, w400, chocolate (apply reduced opacity)
-AppTextStyles.caption    // 12px, w400, chocolate
-AppTextStyles.badge      // 12px, w600, white
-AppTextStyles.button     // 16px, w600, white
-```
-
-- Override color for dark mode: `AppTextStyles.heading1.copyWith(color: c.chocolate)`
-- For muted text: `.copyWith(color: c.chocolate.withValues(alpha: 0.5))`
-
-### Shadows — `AppShadows` (neumorphic)
-
-```dart
-AppShadows.neumorphicOuter  // raised card effect
-AppShadows.neumorphicInner  // inset/pressed effect
-```
-
-- Apply via `BoxDecoration(boxShadow: AppShadows.neumorphicOuter)`
-
----
-
-## Component Patterns
-
-### Widget Architecture
-
-- IMPORTANT: Prefer `StatelessWidget` unless local mutable state is required
-- IMPORTANT: All widgets must use `const` constructors with `super.key`
-- Use `final` for all widget fields
-- Mark required props with `required`; optional props use nullable types (`Type?`)
-
-```dart
-class MyWidget extends StatelessWidget {
-  const MyWidget({
-    super.key,
-    required this.label,
-    this.onTap,
-  });
-
-  final String label;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final c = AppColorsTheme.of(context);
-    // ...
-  }
-}
-```
-
-### Naming Conventions
-
-- **Files:** `snake_case.dart` (e.g., `primary_button.dart`)
-- **Classes:** `PascalCase` (e.g., `PrimaryButton`)
-- **Private helpers:** Prefix with `_` (e.g., `_NavItem`)
-- **Properties:** `camelCase` (e.g., `onPressed`, `backgroundColor`)
-
-### Composition
-
-- Prefer **composition over inheritance** — compose widgets from smaller widgets
-- Use private helper widgets (prefixed with `_`) for internal sub-components
-- One public widget per file; private helpers may coexist in the same file
-
-### Import Conventions
-
-- Use package imports: `import 'package:pet_circle/widgets/primary_button.dart';`
-- No barrel files — import each widget directly
-- Group imports: Flutter SDK, third-party packages, project imports
-
----
-
-## Styling Approach
-
-### Button System
-
-`PrimaryButton` supports two variants via `PrimaryButtonVariant`:
-
-```dart
-// Filled (default): chocolate bg, white text
-PrimaryButton(label: 'Sign up', onPressed: () {})
-
-// Outlined: white bg, chocolate text, subtle border
-PrimaryButton(label: 'Cancel', variant: PrimaryButtonVariant.outlined, onPressed: () {})
-
-// Smaller action buttons: adjust minHeight and borderRadius
-PrimaryButton(label: 'Measure', minHeight: 42, borderRadius: 100, onPressed: () {})
-```
-
-- IMPORTANT: Always use `PrimaryButton` for buttons — do not create custom `ElevatedButton` instances inline
-- Use `variant: PrimaryButtonVariant.filled` for primary actions, `.outlined` for secondary
-
-### Dropdown Pattern
-
-Use `AppDropdown` for labeled dropdown selectors (e.g., breed, role, diagnosis):
-
-```dart
-AppDropdown(
-  label: 'Breed',
-  value: selectedBreed,
-  onTap: _toggleDropdown,
-  isOpen: _isOpen,
-  chevronController: _chevronController,
-)
-```
-
-### Settings Row Pattern
-
-Use `SettingsRow` for settings-style list items with icon + title + trailing action:
-
-```dart
-SettingsRow(
-  iconAsset: 'assets/figma/settings_moon.svg',
-  title: 'Dark mode',
-  description: 'Toggle dark theme',
-  trailing: TogglePill(isOn: isDark),
-  onTap: toggleDarkMode,
-)
-```
-
-### Neumorphic Design System
-
-This project uses a custom **neumorphic** design language. Key characteristics:
-- Soft raised/inset shadows (`AppShadows.neumorphicOuter` / `neumorphicInner`)
-- Rounded corners (`AppRadii.medium` default for cards)
-- Warm color palette (off-white backgrounds, chocolate text)
-- Pill-shaped inputs and buttons (`AppRadii.pill`)
-
-### Applying Styles
-
-```dart
-Container(
-  padding: const EdgeInsets.all(AppSpacing.md),
-  decoration: BoxDecoration(
-    color: c.white,
-    borderRadius: const BorderRadius.all(AppRadii.medium),
-    boxShadow: AppShadows.neumorphicOuter,
-  ),
-  child: Text('Hello', style: AppTextStyles.body),
-)
-```
-
-### Global Theme
-
-- Light theme: `buildAppTheme()` in `app_theme.dart`
-- Dark theme: `buildDarkTheme()` in `app_theme.dart`
-- Font: Google Fonts **Inter** (via `google_fonts` package)
-- Input fields: Filled, pill-shaped, no visible border
-
-### Responsive Patterns
-
-- Use `LayoutBuilder` to calculate responsive grid columns based on available width
-- Use `MediaQuery.of(context)` for keyboard-aware layouts
-- No predefined breakpoints; responsive behavior is dynamic
-
----
-
-## Asset Handling
-
-### Asset Storage
-
-- SVG and image assets: `assets/figma/` directory
-- Asset path constants: `lib/theme/app_assets.dart` (`AppAssets` class)
-- Asset declaration: `pubspec.yaml` under `flutter.assets`
-
-### Using Assets
-
-```dart
-// SVG
-SvgPicture.asset(AppAssets.welcomeGraphic, width: 248, height: 248);
-
-// Raster image
-Image.asset(AppAssets.petPlaceholder, width: 64, height: 64, fit: BoxFit.cover);
-
-// Wrapped with error handling
-AppImage(assetPath: 'assets/figma/pet.png', width: 100, height: 100);
-```
-
-### Figma MCP Asset Rules
-
-- IMPORTANT: If the Figma MCP server returns a localhost source for an image or SVG, **use that source directly**
-- IMPORTANT: **DO NOT** import/add new icon packages — all assets should come from the Figma payload or existing `assets/figma/` directory
-- IMPORTANT: **DO NOT** use or create placeholders if a localhost source is provided
-- Store downloaded assets in `assets/figma/`
-- Add a constant in `AppAssets` for every new asset
-- Register new asset paths in `pubspec.yaml` if adding new asset directories
-
-### Icon System
-
-Two icon systems are in use:
-
-1. **SVG icons** (custom): Stored in `assets/figma/`, rendered with `flutter_svg`
-   - Navigation: `nav_home.svg`, `nav_heartbeat.svg`, `nav_heart.svg`, `nav_message.svg`
-   - Settings: `settings_chevron.svg`, `settings_configure.svg`, etc.
-
-2. **Material Icons** (built-in): Referenced via `Icons.<name>` or string constants in `AppAssets`
-   - Usage: `Icon(Icons.favorite_border, color: c.cherry)`
-
-- Prefer SVG icons from Figma for custom graphics; use Material Icons only for standard UI affordances
-
----
-
-## Localization
-
-- Localization files: `lib/l10n/` (ARB format)
-- Supported locales: English (`en`), Hebrew (`he`)
-- Access strings via `AppLocalizations.of(context)!.<key>`
-- IMPORTANT: All user-facing strings should use localization — do not hardcode display text
-
----
-
-## Project-Specific Conventions
-
-### State Management
-
-- Global `ChangeNotifier` stores for shared state (7 stores in `lib/stores/`)
-- `ValueNotifier` for global preferences (locale, dark mode)
-- `ListenableBuilder` for reactive UI rebuilds
-- See `state-management.mdc` for full patterns and store registry
-
-### Authentication
-
-- Firebase Auth is configured but **currently disabled** (`kEnableFirebase = false`)
-- Auth flows exist in `lib/screens/auth/` and `lib/providers/auth_provider.dart`
-
-### Routing
-
-- Route constants defined in `lib/app_routes.dart`
-- Navigation via `MaterialPageRoute` and `Navigator`
-
-### Charting
-
-- Uses `syncfusion_flutter_charts` for data visualization
-
-### Dark Mode
-
-- Fully supported via `AppColorsTheme` extension
-- IMPORTANT: Always use `AppColorsTheme.of(context)` for colors in widgets to ensure dark mode compatibility
-- Text styles may need `.copyWith(color: c.chocolate)` override for dark mode
+| AuthGate | `lib/screens/auth/auth_gate.dart` | Routes based on `AuthProvider.routeState`. Handles deep link invitation acceptance. |
+| WelcomeScreen | `lib/screens/welcome_screen.dart` | Sign Up / Sign In entry point |
+| RoleSelectionScreen | `lib/screens/auth/role_selection_screen.dart` | Vet / Pet Owner. Creates Firestore profile if user already authenticated. |
+| AuthScreen | `lib/screens/auth/auth_screen.dart` | Email/password + Google/Apple sign-in |
+| VerifyEmailScreen | `lib/screens/auth/verify_email_screen.dart` | Polls for verification, calls `authProvider.refresh()` |
+
+## Role System (Dual-Layer Architecture)
+
+**Layer 1 -- App-Level Roles** (selected at sign-up, stored in Firestore `/users/{uid}`):
+- **Owner**: Creates pets, manages care circles, takes measurements
+- **Vet**: Views vet dashboard, adds clinical notes, cannot create pets
+
+**Layer 2 -- Care Circle Roles** (per-pet, stored in `/pets/{petId}/careCircle`):
+- **Admin**: Full control (edit, delete, measure, manage circle). Auto-assigned to pet creator.
+- **Member**: Can measure, view, add notes. Cannot edit pet or manage circle.
+- **Viewer**: Read-only. Can view data and add notes. Cannot measure or edit.
+
+**Permission enforcement:**
+- `CareCirclePermissions` extension: `canMeasure`, `canEditPet`, `canManageCircle`, `canAddNotes`, `canDeletePet`
+- `PetStore.currentUserRoleFor(petName)` resolves user's role (matches on uid first, falls back to name)
+- Pet detail edit button: admin-only
+- Dashboard delete (long-press): admin-only
+- Dashboard measure button: hidden for viewers
+- Measurement screen: lock screen for viewers
+- Settings invite/remove: admin-only
+- Invite flow: offers Admin/Member/Viewer role selection
+
+## Shared Widgets
+
+| Widget | File | Used In |
+|--------|------|---------|
+| `BreedSearchField` | `lib/widgets/breed_search_field.dart` | Onboarding Step 1, Pet Detail edit sheet |
+| `OnboardingShell` | `lib/widgets/onboarding_shell.dart` | All 4 onboarding steps (Back/Next buttons) |
+| `BottomNavBar` | `lib/widgets/bottom_nav_bar.dart` | MainShell (Home, Trends, Measure, Medication) |
+
+## Remaining Work
+
+### Phase 2 -- Remaining Firebase/Data Work
+| Item | Details |
+|------|---------|
+| Push notifications | Current notification support is Firestore-backed in-app alerts; FCM is not yet integrated |
+| Firestore security rules | Repo-managed `firestore.rules` are deployed, and invitation acceptance now requires a trusted pet-side `pendingInvites` entry that the rules can verify |
+
+### Polish (Optional)
+| Item | Details |
+|------|---------|
+| VisionRR placeholder | `measurement_screen.dart` -- Phase 3 feature |
+| Care circle role change | Can remove members but can't change existing roles |
+| Care circle pending invites | No display of pending invitations in UI |
+| CSV file download | Export dialogs show preview but don't write actual files |
+
+## Feature Backlog
+
+| ID | Feature | Details | Priority |
+|----|---------|---------|----------|
+| FB-001 | Pet photo upload | Replace photo URL text field with image picker + Firebase Storage upload. Affects onboarding step 1, pet detail edit sheet, and pet card display. Uses `image_picker` (already in pubspec). Requires adding `firebase_storage` dependency and a `StorageService` for upload/download URLs. | Medium |
+| FB-002 | Invitation email delivery | Currently, care circle invitations generate a deep link copied to clipboard but no email is sent. Need to integrate an email delivery mechanism (Firebase Extensions "Trigger Email", a Cloud Function with SendGrid/Mailgun, or similar) so that when an invitation is created via `InvitationService.createInvitation()`, the invited person receives an email with the invite link, pet name, inviter name, and assigned role. Affects onboarding step 4 invites, Settings > Care Circle > Invite, and Settings > Share with Vet. | High |
+| FB-003 | Pet form validation | Add proper validation to pet onboarding and edit forms: required pet name (non-empty, max length), breed selection required, age validation (numeric, reasonable range), photo URL format check. Affects `onboarding_step1.dart`, `onboarding_step2.dart`, `pet_detail_screen.dart` edit sheet. Currently no fields are validated -- user can submit empty/invalid data. | Medium |
+| FB-004 | Invite abuse prevention | Add safeguards to care circle invitations: email format validation before sending, prevent duplicate invites to same email for same pet, rate-limit invitations per user (e.g., max 10 per day), cap care circle size (e.g., max 20 members per pet), show warning when re-inviting an email that already has a pending invitation. Affects `onboarding_step4.dart`, `settings_screen.dart` invite dialog, and `InvitationService`. Consider Firestore security rules for server-side enforcement. | Medium |
+| FB-005 | Diary view | Pet health diary for logging daily activities. Bottom nav adds a 5th "Diary" tab. Tapping opens a category picker sheet (Poop, Meal, Water, Weight, Vomit, Grooming, Mood, Custom) with color-coded icons. Each category opens a detail form with Date, Time, category-specific fields (e.g. Consistency/Color for Poop), optional Notes, and Save/Cancel. Requires new `DiaryEntry` model, `diary_store`, Firestore subcollection, diary list/timeline screen, and bottom nav update. Figma refs: `136-888`, `137-296`, `137-772`. | Low |
+| FB-006 | Verify email spam hint | Update the verify-email screen (`verify_email_screen.dart`) to inform users that the verification email may land in their spam/junk folder. Add a new l10n key (e.g. `checkSpamFolder`) to both `app_en.arb` and `app_he.arb`, and display it below the existing `clickLinkToVerify` text. | High |
+| FB-007 | Push notifications (FCM) | Integrate Firebase Cloud Messaging for real-time push notifications. Current notifications are Firestore-backed in-app alerts, and the settings toggle should be treated as an in-app preference until FCM exists. Requires: add `firebase_messaging` dependency, create device-token registration + permission prompts, store FCM tokens in Firestore user docs, implement Cloud Functions (or another trusted backend) to send notifications on events (new measurement, care circle invite accepted, medication reminder, SRR threshold alert), handle foreground/background notification display, wire settings toggle to enable/disable, and support notification tap routing to relevant screens. Affects `main.dart`, `notification_store.dart`, `settings_store.dart`, and new `lib/services/notification_service.dart`. | High |
+
+## Phase 2 Completion Checklist
+
+- [x] Firebase Auth enabled (kEnableFirebase = true)
+- [x] AuthGate routing (unauthenticated/needsRole/needsEmailVerification/authenticated)
+- [x] AuthProvider global singleton with routeState
+- [x] UserStore unified API (currentUserUid, seedFromAppUser, etc.)
+- [x] Firestore user profiles (UserService)
+- [x] Firestore pet CRUD (PetService)
+- [x] PetStore streams from Firestore (subscribeForUser)
+- [x] Onboarding creates pet in Firestore + adds owner as Admin
+- [x] Pet deletion via Firestore
+- [x] Care circle member removal via Firestore
+- [x] Invitation model + InvitationService
+- [x] Deep link handling (app_links)
+- [x] Invitation acceptance in AuthGate
+- [x] Settings invite dialog calls InvitationService
+- [x] Dual-layer role architecture enforced across all screens
+- [x] Shared pets visible on owner dashboard with role badge
+- [x] Subcollection operations wired to Firestore (measurements, notes, medications)
+- [x] Pet edit wired to Firestore
+- [x] Pet latest measurement snapshot synced to parent pet doc
+- [x] Settings/preferences persisted to Firestore
+- [x] In-app notifications persisted to Firestore
+- [ ] Push notifications (FCM)
+- [x] Production Firestore security rules deployed
+
+## Phase 1 Completion Checklist
+
+- [x] All data flows wired to stores
+- [x] All buttons functional
+- [x] Care circle role system (Admin/Member/Viewer)
+- [x] Role-aware UI (edit/delete/measure permissions)
+- [x] Multi-pet support (add, edit, delete, global switcher)
+- [x] User profile management
+- [x] Sign out
+- [x] Measurement lifecycle (add, view, filter by period, delete)
+- [x] Clinical notes persistence
+- [x] Medication management (add, edit, list, export)
+- [x] Unified health trends (single view, no tabs)
+- [x] Searchable breed dropdown (shared widget)
+- [x] Onboarding Back/Next with persistent state
+- [x] Dark mode + i18n (EN/HE, enforced)
+- [x] Design system tokens enforced via cursor rule
 
 ---
 > Source: [HiLuLiT/pet-circle](https://github.com/HiLuLiT/pet-circle) — distributed by [TomeVault](https://tomevault.io).
