@@ -1,0 +1,9 @@
+{
+  "name": "simg--radioscope",
+  "displayName": "radioscope",
+  "description": "Experimental wifi-packet to audio monitor",
+  "version": "1.0.0",
+  "author": "simg",
+  "homepage": "https://github.com/simg/radioscope",
+  "skills": []
+}
