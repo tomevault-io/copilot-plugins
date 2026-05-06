@@ -1,45 +1,31 @@
-## harness-engineering
+## harness
 
-> For full context, read `AGENTS.md` first. This file adds Copilot-specific configuration.
+> Harness Engineering — rules for all files
 
-# GitHub Copilot Instructions — Harness Engineering
 
-For full context, read `AGENTS.md` first. This file adds Copilot-specific configuration.
+Read `AGENTS.md` for the full project spec.
 
-## Session Protocol
+## Session rules
 
-Every session:
-1. Read `claude-progress.txt` (last 30 lines)
-2. Read `features.json` — target the highest-priority `"failing"` feature
-3. Confirm one feature is in scope before writing code
-4. End with a `claude-progress.txt` entry and updated `features.json`
+- Implement exactly one feature per session from `features.json`
+- Run `bash init.sh` first, then read `claude-progress.txt` and `features.json`
+- End every session with an updated `claude-progress.txt` entry and committed code
 
-## Code Style
+## Code rules
 
-- Commits: `feat(<id>): <description>` / `fix(<id>): ...` / `chore(entropy): ...`
-- Branch naming: `feat/<id>-<short-description>`
-- No WIP commits on `main`
+- Commits: `feat(<id>): ...` / `fix(<id>): ...` / `chore(entropy): ...`
+- No WIP on `main`. Every commit leaves the codebase buildable.
+- Layer order: `Types → Config → Repo → Service → Runtime → UI`
 
 ## Skills
 
-Reference skills with `@skill-name` in Copilot chat. Skills live in `skills/*.skill.md`.
+Reference with `@skill-name`. Available skills in `skills/*.skill.md`:
+`@session-start`, `@session-end`, `@implement-feature`, `@new-feature`, `@run-tests`,
+`@create-issue`, `@delegate-subagent`, `@entropy-check`, `@write-adr`, `@assign-agent`
 
-Available:
-- `@session-start` — orient to current project state
-- `@session-end` — clean handoff before closing
-- `@implement-feature` — spec-driven implementation
-- `@new-feature` — scaffold a new feature
-- `@run-tests` — focused test run
-- `@create-issue` — log bug or blocker
-- `@delegate-subagent` — spawn a subagent in a worktree
-- `@entropy-check` — find and fix accumulated drift
-- `@write-adr` — record an architecture decision
+## Never
 
-## Constraints
-
-Never run: `rm`, `del`, `rmdir`, `kill`, `sudo`, `shutdown`
-Never use: `&&`, `||`, `..` in shell commands
-One feature per session — no scope creep.
+`rm`, `del`, `rmdir`, `kill`, `sudo`, `&&`, `||`, path traversal `..`
 
 ---
 > Source: [ArtemisAI/Harness_Engineering](https://github.com/ArtemisAI/Harness_Engineering) — distributed by [TomeVault](https://tomevault.io).
