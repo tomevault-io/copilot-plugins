@@ -1,0 +1,9 @@
+{
+  "name": "karadul--karadul",
+  "displayName": "karadul",
+  "description": "Self-hosted, zero-dependency mesh VPN system written in Go.",
+  "version": "1.0.0",
+  "author": "karadul",
+  "homepage": "https://github.com/karadul/karadul",
+  "skills": []
+}
