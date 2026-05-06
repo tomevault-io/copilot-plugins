@@ -4,7 +4,7 @@
   "repo": "locus",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/weorbis/locus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T19:51:00Z"
+  "distributed_at": "2026-05-06T07:57:28Z"
 }
