@@ -1,0 +1,51 @@
+{
+  "name": "InAppKit",
+  "owner": "tddworks",
+  "repo": "InAppKit",
+  "description": " SwiftUI-native framework that simplifies StoreKit integration with a fluent, chainable API and feature-first approach",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "inappkit-integration",
+      "path": ".claude/skills/inappkit-integration",
+      "github_url": "https://github.com/tddworks/InAppKit/tree/main/.claude/skills/inappkit-integration",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/tddworks/InAppKit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T02:34:58Z"
+}
