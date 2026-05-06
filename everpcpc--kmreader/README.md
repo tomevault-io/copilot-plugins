@@ -7,11 +7,11 @@ A full-featured, native Komga client for iOS, macOS, and tvOS
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [everpcpc/KMReader](https://github.com/everpcpc/KMReader).
+Original source: `CLAUDE.md` in [everpcpc/KMReader](https://github.com/everpcpc/KMReader).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
