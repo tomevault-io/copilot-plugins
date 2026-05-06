@@ -1,0 +1,38 @@
+{
+  "name": "vichannnnn--ccstart",
+  "displayName": "ccstart",
+  "description": "Quick setup for projects or repositories using Claude Code with built-in agents, ticket system, and planning tools.",
+  "version": "1.0.0",
+  "author": "vichannnnn",
+  "homepage": "https://github.com/vichannnnn/ccstart",
+  "skills": [
+    {
+      "name": "commit",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "create-script",
+      "description": ""
+    },
+    {
+      "name": "create-ticket",
+      "description": ""
+    },
+    {
+      "name": "design-feature",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "update-claude-md",
+      "description": ""
+    }
+  ]
+}
