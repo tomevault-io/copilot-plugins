@@ -4,7 +4,7 @@
   "repo": "gobby",
   "description": "A local-first daemon to unify your AI coding tools. Session tracking and handoffs across Claude Code, Codex, Gemini CLI and Qwen. An MCP proxy that discovers tools without flooding context. Task management with dependencies, validation, and TDD expansion. Agent spawning and worktree orchestration. Persistent memory, extensible workflows, and hooks.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GobbyAI/gobby",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T21:56:40Z"
+  "distributed_at": "2026-05-06T19:40:40Z"
 }
