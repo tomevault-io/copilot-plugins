@@ -1,0 +1,26 @@
+{
+  "name": "partarstu--agentic-qa-framework",
+  "displayName": "agentic-qa-framework",
+  "description": "Agentic Framework which automates Software Testing Processes",
+  "version": "1.0.0",
+  "author": "partarstu",
+  "homepage": "https://github.com/partarstu/agentic-qa-framework",
+  "skills": [
+    {
+      "name": "adding-orchestrator-workflow",
+      "description": ""
+    },
+    {
+      "name": "creating-new-agent",
+      "description": ""
+    },
+    {
+      "name": "prepare-pr",
+      "description": ""
+    },
+    {
+      "name": "writing-unit-tests",
+      "description": ""
+    }
+  ]
+}
