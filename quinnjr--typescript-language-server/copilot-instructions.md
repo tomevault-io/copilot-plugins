@@ -1,97 +1,73 @@
-## git-workflow
+## no-verify
 
-> Git branching strategy and workflow conventions
+> Never bypass git hooks with --no-verify
 
 
-# Git Workflow
+# Git Hooks Policy
 
-This project uses **git-flow** for branch management.
+**NEVER use `--no-verify` flag with git commands.**
 
-## Branch Structure
+## Prohibited Commands
 
-| Branch | Purpose |
-|--------|---------|
-| `main` | Production-ready code, tagged releases only |
-| `develop` | Integration branch for features |
-| `feature/*` | New features (branch from `develop`) |
-| `release/*` | Release preparation (branch from `develop`) |
-| `hotfix/*` | Production fixes (branch from `main`) |
-| `bugfix/*` | Bug fixes (branch from `develop`) |
-
-## Branch Naming
-
-- `feature/short-description` - New features
-- `release/v1.2.0` - Release candidates
-- `hotfix/v1.2.1` - Production hotfixes
-- `bugfix/issue-123-description` - Bug fixes
-
-## Workflow Rules
-
-1. **Never commit directly to `main` or `develop`**
-2. All changes go through pull requests
-3. Feature branches merge into `develop`
-4. Release branches merge into both `main` and `develop`
-5. Hotfix branches merge into both `main` and `develop`
-
-## Commit Messages
-
-Use conventional commits format:
-
-```
-type(scope): description
-
-[optional body]
-
-[optional footer]
-```
-
-Types:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation
-- `style`: Formatting, no code change
-- `refactor`: Code restructuring
-- `perf`: Performance improvement
-- `test`: Adding tests
-- `chore`: Maintenance tasks
-- `ci`: CI/CD changes
-
-Examples:
-```
-feat(parser): add support for JSX fragments
-fix(completions): handle undefined symbol table
-docs(readme): update installation instructions
-chore(deps): update tree-sitter to v0.22
-```
-
-## Release Process
-
-1. Create release branch: `git flow release start v1.2.0`
-2. Update version numbers
-3. Update CHANGELOG
-4. Finish release: `git flow release finish v1.2.0`
-5. Push tags: `git push origin --tags`
-
-## Commands Reference
+The following patterns are strictly forbidden:
 
 ```bash
-# Start a feature
-git flow feature start my-feature
+# Never do these
+git commit --no-verify
+git commit -n
+git push --no-verify
+git merge --no-verify
+git rebase --no-verify
+git cherry-pick --no-verify
+```
 
-# Finish a feature (merges to develop)
-git flow feature finish my-feature
+## Why?
 
-# Start a release
-git flow release start v1.0.0
+This project uses git hooks to enforce:
+- Conventional commit message format
+- Git-flow branch naming
+- Code formatting checks
+- Protected branch rules
 
-# Finish a release (merges to main and develop, creates tag)
-git flow release finish v1.0.0
+Bypassing these hooks defeats the purpose of having them and can lead to:
+- Inconsistent commit history
+- Broken CI/CD pipelines
+- Merges to wrong branches
+- Unformatted code in the repository
 
-# Start a hotfix
-git flow hotfix start v1.0.1
+## If Hooks Fail
 
-# Finish a hotfix (merges to main and develop, creates tag)
-git flow hotfix finish v1.0.1
+Instead of bypassing hooks:
+
+1. **Commit message rejected?** → Fix the message format
+   ```bash
+   # Use conventional commits format
+   git commit -m "feat(parser): add JSX support"
+   ```
+
+2. **Branch naming rejected?** → Rename your branch
+   ```bash
+   git branch -m old-name feature/new-name
+   ```
+
+3. **Format check failed?** → Run the formatter
+   ```bash
+   cargo fmt
+   ```
+
+4. **Push to protected branch rejected?** → Create a PR instead
+   ```bash
+   git checkout -b feature/my-changes
+   git push -u origin feature/my-changes
+   # Then create a pull request
+   ```
+
+## Installing Hooks
+
+If hooks aren't working, install them:
+
+```bash
+./.githooks/install.sh
 ```
 
 ---
