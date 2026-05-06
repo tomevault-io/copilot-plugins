@@ -2,13 +2,12 @@
 
 > - Follow the Universal Project Coding & Management Guide found in `.ai-ley/shared/global-instructions.md`
 
-# GENERIC Instructions
+# GitHub Copilot Instructions
 
 ## General Guidelines
 
 - Follow the Universal Project Coding & Management Guide found in `.ai-ley/shared/global-instructions.md`
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/armoin2018)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/armoin2018)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [armoin2018/ai-ley](https://github.com/armoin2018/ai-ley) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
