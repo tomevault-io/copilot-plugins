@@ -4,7 +4,7 @@
   "repo": "TurboQuant",
   "description": "TurboQuant KV Cache Compression for llama.cpp \u2014 5.2x memory reduction with near-lossless quality |   Implementation of Google DeepMind's TurboQuant (ICLR 2026)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AmesianX/TurboQuant",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T20:37:57Z"
+  "distributed_at": "2026-05-06T11:01:49Z"
 }
