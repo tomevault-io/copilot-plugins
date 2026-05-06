@@ -7,13 +7,13 @@ The backend language for the htmx era
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [kilnx-org/kilnx](https://github.com/kilnx-org/kilnx).
+Original source: `CLAUDE.md` in [kilnx-org/kilnx](https://github.com/kilnx-org/kilnx).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
