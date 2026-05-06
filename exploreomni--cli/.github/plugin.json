@@ -1,0 +1,9 @@
+{
+  "name": "exploreomni--cli",
+  "displayName": "cli",
+  "description": "Omni CLI",
+  "version": "1.0.0",
+  "author": "exploreomni",
+  "homepage": "https://github.com/exploreomni/cli",
+  "skills": []
+}
