@@ -1,0 +1,9 @@
+{
+  "name": "sensorica--nondominium",
+  "displayName": "nondominium",
+  "description": "Nondominium built on REA + Valueflows + Holochain is a distributed multi-agent system for uncapturable resource flows",
+  "version": "1.0.0",
+  "author": "Sensorica",
+  "homepage": "https://github.com/Sensorica/nondominium",
+  "skills": []
+}
