@@ -1,25 +1,16 @@
-## tech-stack
+## testing
 
-> Project tech stack and architecture
+> Testing conventions — Vitest + happy-dom
 
 
-# Tech stack
+# Testing
 
-- **Astro 6.x** (SSR, `output: 'server'`), Node.js 24, port 4321
-- **Vanilla JS** only — zero client-side frameworks, no React/Vue/Svelte
-- **Tailwind CSS 4** — dark/light themes, mobile breakpoint at 768px
-- **ESLint 10** + typescript-eslint + eslint-plugin-astro
-
-# Architecture
-
-```
-Browser → vanilla JS fetch → /api/* (Astro SSR proxy) → NextDNS API
-```
-
-- API token stays server-side only (`.env`), never sent to browser
-- Two proxy endpoints: `GET /api/devices`, `GET /api/logs`
-- Whole page scrolls naturally (no internal scroll containers)
-- Docker: multi-stage build (`Dockerfile`), env via `--env-file .env`, port 4321
+- **Vitest 4.x** + **happy-dom** for DOM tests
+- Pragmatic — one `it()` covers a full scenario, not individual edge cases
+- Mock data in `tests/utils/mocks.ts` (17 fake logs, no real data)
+- Helpers in `tests/utils/` — test files contain only assertions
+- All UI text must be tested for both PL and EN key parity
+- Run: `npm test` (single), `npm run test:watch` (watch)
 
 ---
 > Source: [maciejaszex/ndexplorer](https://github.com/maciejaszex/ndexplorer) — distributed by [TomeVault](https://tomevault.io).
