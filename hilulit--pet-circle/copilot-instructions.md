@@ -1,140 +1,211 @@
-## screen-completion-guide
+## state-management
 
-> Screen-by-screen guide for Pet Circle. Phase 1 complete, Phase 2 in progress. Tracks navigation, role system, auth flow, remaining work, and feature backlog.
+> State management architecture for Pet Circle. Covers store patterns, access conventions, seeding from mock data, and how screens should read/write app state.
 
 
-# Pet Circle -- Screen Completion Guide
+# Pet Circle -- State Management Rules
 
-## Phase Status: Phase 1 COMPLETE, Phase 2 IN PROGRESS
+## Architecture Overview
 
-Phase 2 adds Firebase Auth, Firestore persistence, and the full dual-layer role architecture.
-
-## Navigation Structure
+Pet Circle uses **global `ChangeNotifier` stores** for all shared app state. Global preferences (locale, dark mode) use `ValueNotifier`. No third-party state management packages are required.
 
 ```
-Auth flow (kEnableFirebase = true):
-  /auth-gate --> /welcome --> /role-selection --> /auth --> /verify-email --> /auth-gate --> /onboarding or /main-shell
-
-Auth flow (kEnableFirebase = false):
-  / (welcome) --> /role-selection --> /main-shell
-
-Bottom Nav: Home(0) | Trends(1) | Measure(2) | Medication(3)
-Trends: single unified view (stats + chart + history, no tabs)
-Notifications: bell icon drawer only (no dedicated tab)
-Medication: standalone screen at lib/screens/medication/medication_screen.dart
-Active pet: global via petStore.activePetIndex, switched from header pet chip
+lib/stores/
+├── pet_store.dart            # Pet profiles, active pet, care circle ops
+├── measurement_store.dart    # SRR measurements per pet
+├── note_store.dart           # Clinical notes per pet
+├── medication_store.dart     # Medications per pet
+├── notification_store.dart   # In-app notifications
+├── user_store.dart           # Current user and role
+└── settings_store.dart       # Thresholds, preferences
 ```
 
-## Auth Screens
+## Store Pattern
 
-| Screen | File | Purpose |
-|--------|------|---------|
-| AuthGate | `lib/screens/auth/auth_gate.dart` | Routes based on `AuthProvider.routeState`. Handles deep link invitation acceptance. |
-| WelcomeScreen | `lib/screens/welcome_screen.dart` | Sign Up / Sign In entry point |
-| RoleSelectionScreen | `lib/screens/auth/role_selection_screen.dart` | Vet / Pet Owner. Creates Firestore profile if user already authenticated. |
-| AuthScreen | `lib/screens/auth/auth_screen.dart` | Email/password + Google/Apple sign-in |
-| VerifyEmailScreen | `lib/screens/auth/verify_email_screen.dart` | Polls for verification, calls `authProvider.refresh()` |
+Every store follows the same structure:
 
-## Role System (Dual-Layer Architecture)
+```dart
+import 'package:flutter/foundation.dart';
 
-**Layer 1 -- App-Level Roles** (selected at sign-up, stored in Firestore `/users/{uid}`):
-- **Owner**: Creates pets, manages care circles, takes measurements
-- **Vet**: Views vet dashboard, adds clinical notes, cannot create pets
+class ExampleStore extends ChangeNotifier {
+  List<Item> _items = [];
 
-**Layer 2 -- Care Circle Roles** (per-pet, stored in `/pets/{petId}/careCircle`):
-- **Admin**: Full control (edit, delete, measure, manage circle). Auto-assigned to pet creator.
-- **Member**: Can measure, view, add notes. Cannot edit pet or manage circle.
-- **Viewer**: Read-only. Can view data and add notes. Cannot measure or edit.
+  List<Item> get items => List.unmodifiable(_items);
 
-**Permission enforcement:**
-- `CareCirclePermissions` extension: `canMeasure`, `canEditPet`, `canManageCircle`, `canAddNotes`, `canDeletePet`
-- `PetStore.currentUserRoleFor(petName)` resolves user's role (matches on uid first, falls back to name)
-- Pet detail edit button: admin-only
-- Dashboard delete (long-press): admin-only
-- Dashboard measure button: hidden for viewers
-- Measurement screen: lock screen for viewers
-- Settings invite/remove: admin-only
-- Invite flow: offers Admin/Member/Viewer role selection
+  void addItem(Item item) {
+    _items.add(item);
+    notifyListeners();
+  }
 
-## Shared Widgets
+  void seed(List<Item> initial) {
+    _items = List.of(initial);
+    notifyListeners();
+  }
+}
+```
 
-| Widget | File | Used In |
-|--------|------|---------|
-| `BreedSearchField` | `lib/widgets/breed_search_field.dart` | Onboarding Step 1, Pet Detail edit sheet |
-| `OnboardingShell` | `lib/widgets/onboarding_shell.dart` | All 4 onboarding steps (Back/Next buttons) |
-| `BottomNavBar` | `lib/widgets/bottom_nav_bar.dart` | MainShell (Home, Trends, Measure, Medication) |
+### Rules
 
-## Remaining Work
+- IMPORTANT: Stores extend `ChangeNotifier`, **not** `ValueNotifier`
+- IMPORTANT: All public getters return **unmodifiable** views (`List.unmodifiable`, `Map.unmodifiable`)
+- IMPORTANT: Every mutation method MUST call `notifyListeners()` at the end
+- State fields are private (`_items`), exposed only through getters
+- Stores live in `lib/stores/`, one store per file, `snake_case.dart`
+- Each store has a `seed()` method for initialization from mock data
 
-### Phase 2 -- Remaining Firebase/Data Work
-| Item | Details |
-|------|---------|
-| Push notifications | Current notification support is Firestore-backed in-app alerts; FCM is not yet integrated |
-| Firestore security rules | Repo-managed `firestore.rules` are deployed, and invitation acceptance now requires a trusted pet-side `pendingInvites` entry that the rules can verify |
+## Global Store Instances
 
-### Polish (Optional)
-| Item | Details |
-|------|---------|
-| VisionRR placeholder | `measurement_screen.dart` -- Phase 3 feature |
-| Care circle role change | Can remove members but can't change existing roles |
-| Care circle pending invites | No display of pending invitations in UI |
-| CSV file download | Export dialogs show preview but don't write actual files |
+Each store file exports its own global singleton instance:
 
-## Feature Backlog
+```dart
+// In lib/stores/pet_store.dart:
+final petStore = PetStore();
 
-| ID | Feature | Details | Priority |
-|----|---------|---------|----------|
-| FB-001 | Pet photo upload | Replace photo URL text field with image picker + Firebase Storage upload. Affects onboarding step 1, pet detail edit sheet, and pet card display. Uses `image_picker` (already in pubspec). Requires adding `firebase_storage` dependency and a `StorageService` for upload/download URLs. | Medium |
-| FB-002 | Invitation email delivery | Currently, care circle invitations generate a deep link copied to clipboard but no email is sent. Need to integrate an email delivery mechanism (Firebase Extensions "Trigger Email", a Cloud Function with SendGrid/Mailgun, or similar) so that when an invitation is created via `InvitationService.createInvitation()`, the invited person receives an email with the invite link, pet name, inviter name, and assigned role. Affects onboarding step 4 invites, Settings > Care Circle > Invite, and Settings > Share with Vet. | High |
-| FB-003 | Pet form validation | Add proper validation to pet onboarding and edit forms: required pet name (non-empty, max length), breed selection required, age validation (numeric, reasonable range), photo URL format check. Affects `onboarding_step1.dart`, `onboarding_step2.dart`, `pet_detail_screen.dart` edit sheet. Currently no fields are validated -- user can submit empty/invalid data. | Medium |
-| FB-004 | Invite abuse prevention | Add safeguards to care circle invitations: email format validation before sending, prevent duplicate invites to same email for same pet, rate-limit invitations per user (e.g., max 10 per day), cap care circle size (e.g., max 20 members per pet), show warning when re-inviting an email that already has a pending invitation. Affects `onboarding_step4.dart`, `settings_screen.dart` invite dialog, and `InvitationService`. Consider Firestore security rules for server-side enforcement. | Medium |
-| FB-005 | Diary view | Pet health diary for logging daily activities. Bottom nav adds a 5th "Diary" tab. Tapping opens a category picker sheet (Poop, Meal, Water, Weight, Vomit, Grooming, Mood, Custom) with color-coded icons. Each category opens a detail form with Date, Time, category-specific fields (e.g. Consistency/Color for Poop), optional Notes, and Save/Cancel. Requires new `DiaryEntry` model, `diary_store`, Firestore subcollection, diary list/timeline screen, and bottom nav update. Figma refs: `136-888`, `137-296`, `137-772`. | Low |
-| FB-006 | Verify email spam hint | Update the verify-email screen (`verify_email_screen.dart`) to inform users that the verification email may land in their spam/junk folder. Add a new l10n key (e.g. `checkSpamFolder`) to both `app_en.arb` and `app_he.arb`, and display it below the existing `clickLinkToVerify` text. | High |
-| FB-007 | Push notifications (FCM) | Integrate Firebase Cloud Messaging for real-time push notifications. Current notifications are Firestore-backed in-app alerts, and the settings toggle should be treated as an in-app preference until FCM exists. Requires: add `firebase_messaging` dependency, create device-token registration + permission prompts, store FCM tokens in Firestore user docs, implement Cloud Functions (or another trusted backend) to send notifications on events (new measurement, care circle invite accepted, medication reminder, SRR threshold alert), handle foreground/background notification display, wire settings toggle to enable/disable, and support notification tap routing to relevant screens. Affects `main.dart`, `notification_store.dart`, `settings_store.dart`, and new `lib/services/notification_service.dart`. | High |
+// In lib/stores/measurement_store.dart:
+final measurementStore = MeasurementStore();
+```
 
-## Phase 2 Completion Checklist
+Stores are seeded in `main()` before `runApp()` via `_seedMockStores()` (only when `kEnableFirebase == false`). When Firebase is enabled, `PetStore` subscribes to Firestore streams via `subscribeForUser(uid)` in `AuthGate` and coordinates Firestore subcollection subscriptions for measurements, notes, and medications.
 
-- [x] Firebase Auth enabled (kEnableFirebase = true)
-- [x] AuthGate routing (unauthenticated/needsRole/needsEmailVerification/authenticated)
-- [x] AuthProvider global singleton with routeState
-- [x] UserStore unified API (currentUserUid, seedFromAppUser, etc.)
-- [x] Firestore user profiles (UserService)
-- [x] Firestore pet CRUD (PetService)
-- [x] PetStore streams from Firestore (subscribeForUser)
-- [x] Onboarding creates pet in Firestore + adds owner as Admin
-- [x] Pet deletion via Firestore
-- [x] Care circle member removal via Firestore
-- [x] Invitation model + InvitationService
-- [x] Deep link handling (app_links)
-- [x] Invitation acceptance in AuthGate
-- [x] Settings invite dialog calls InvitationService
-- [x] Dual-layer role architecture enforced across all screens
-- [x] Shared pets visible on owner dashboard with role badge
-- [x] Subcollection operations wired to Firestore (measurements, notes, medications)
-- [x] Pet edit wired to Firestore
-- [x] Pet latest measurement snapshot synced to parent pet doc
-- [x] Settings/preferences persisted to Firestore
-- [x] In-app notifications persisted to Firestore
-- [ ] Push notifications (FCM)
-- [x] Production Firestore security rules deployed
+## Accessing Stores in Widgets
 
-## Phase 1 Completion Checklist
+### Reading (rebuilds on change)
 
-- [x] All data flows wired to stores
-- [x] All buttons functional
-- [x] Care circle role system (Admin/Member/Viewer)
-- [x] Role-aware UI (edit/delete/measure permissions)
-- [x] Multi-pet support (add, edit, delete, global switcher)
-- [x] User profile management
-- [x] Sign out
-- [x] Measurement lifecycle (add, view, filter by period, delete)
-- [x] Clinical notes persistence
-- [x] Medication management (add, edit, list, export)
-- [x] Unified health trends (single view, no tabs)
-- [x] Searchable breed dropdown (shared widget)
-- [x] Onboarding Back/Next with persistent state
-- [x] Dark mode + i18n (EN/HE, enforced)
-- [x] Design system tokens enforced via cursor rule
+Use `ListenableBuilder` to rebuild a widget subtree when a store changes:
+
+```dart
+@override
+Widget build(BuildContext context) {
+  return ListenableBuilder(
+    listenable: petStore,
+    builder: (context, _) {
+      final pets = petStore.ownerPets;
+      return ListView(
+        children: pets.map((p) => PetCard(pet: p)).toList(),
+      );
+    },
+  );
+}
+```
+
+For multiple stores, use `Listenable.merge`:
+
+```dart
+ListenableBuilder(
+  listenable: Listenable.merge([petStore, measurementStore]),
+  builder: (context, _) {
+    // Rebuilds when either store changes
+  },
+)
+```
+
+### Writing (mutations)
+
+Call store methods directly -- no context needed:
+
+```dart
+onPressed: () {
+  measurementStore.addMeasurement(petStore.activePet!.id!, Measurement(
+    bpm: calculatedBpm,
+    recordedAt: DateTime.now(),
+  ));
+}
+```
+
+### One-time reads (no rebuild)
+
+Access store getters directly when you don't need reactive rebuilds:
+
+```dart
+final currentUser = userStore.currentUser;
+final activePet = petStore.activePet;
+```
+
+## Import Convention
+
+```dart
+import 'package:pet_circle/stores/pet_store.dart';
+import 'package:pet_circle/stores/measurement_store.dart';
+```
+
+The global instance (e.g. `petStore`) is exported from the store file itself, NOT from `main.dart`.
+
+## Store Registry
+
+| Store | Global | Key Methods |
+|-------|--------|-------------|
+| `PetStore` | `petStore` | `addPet`, `createPetWithFirestore`, `updatePet`, `updatePetWithFirestore`, `removePet`, `removePetWithFirestore`, `getPetByName`, `getPetById`, `activePet`, `activePetIndex`, `setActivePetIndex`, `currentUserRoleFor`, `removeCareCircleMember`, `removeCareCircleMemberWithFirestore`, `subscribeForUser`, `cancelSubscription` |
+| `MeasurementStore` | `measurementStore` | `addMeasurement`, `removeMeasurement`, `getMeasurements`, `latestForPet`, `countForPet`, `thisWeekCount`, `subscribeForPets`, `cancelSubscriptions` |
+| `NoteStore` | `noteStore` | `addNote`, `getNotes`, `subscribeForPets`, `cancelSubscriptions` |
+| `MedicationStore` | `medicationStore` | `addMedication`, `updateMedication`, `removeMedication`, `toggleMedication`, `getMedications`, `getActiveMedications`, `subscribeForPets`, `cancelSubscriptions` |
+| `NotificationStore` | `notificationStore` | `seed`, `reset`, `subscribeForUser`, `cancelSubscription`, `addNotification`, `markRead`, `markAllRead`, `unreadCount` |
+| `UserStore` | `userStore` | `seed`, `seedFromAppUser`, `setUser`, `setRole`, `currentUser`, `appUser`, `role`, `isVet`, `isOwner`, `currentUserUid`, `currentUserEmail`, `currentUserDisplayName`, `currentUserAvatarUrl` |
+| `SettingsStore` | `settingsStore` | `seedFromAppUser`, `reset`, `updateThresholds`, `setPushNotifications`, `togglePushNotifications`, `setEmergencyAlerts`, `toggleEmergencyAlerts`, `setVisionRREnabled`, `toggleVisionRR`, `setAutoExport`, `toggleAutoExport`, `classifyStatus` |
+
+## Providers
+
+| Provider | Global | Purpose |
+|----------|--------|---------|
+| `AuthProvider` | `authProvider` | Firebase Auth state. Exposes `routeState` (loading/unauthenticated/needsEmailVerification/needsRole/authenticated), `firebaseUser`, `appUser`, `isAuthenticated`, `isEmailVerified`. Listens to `AuthService.authStateChanges` + `UserService.streamUser`. |
+
+## Data Flow
+
+```
+When kEnableFirebase == false (mock mode):
+  MockData (seed) --> Stores (ChangeNotifier) --> Screens (ListenableBuilder)
+                           ^                            |
+                           +---- User Actions ----------+
+
+When kEnableFirebase == true (Firebase mode):
+  Firestore streams --> PetStore.subscribeForUser(uid) --> Pet/Measurement/Note/Medication stores --> Screens
+  AuthProvider --> AuthGate (routing) --> Screens
+  User Actions --> stores/services --> PetService/UserService --> Firestore
+```
+
+## Active Pet Pattern
+
+The active pet is tracked globally in `PetStore`:
+
+```dart
+final pet = petStore.activePet;          // Current active pet (or null)
+final idx = petStore.activePetIndex;      // Current index
+petStore.setActivePetIndex(newIndex);     // Switch pet (from header)
+```
+
+All data-driven screens (trends, measurement, medication) should read from `petStore.activePet` to stay in sync with the header pet switcher.
+
+## Firebase Integration (Phase 2 -- In Progress)
+
+`kEnableFirebase` in `main.dart` controls mock vs Firebase mode. Currently set to `true`.
+
+### What's wired to Firestore
+- `PetStore`: `subscribeForUser(uid)` streams all pets where user is in careCircle. `createPetWithFirestore()`, `removePetWithFirestore()`, `removeCareCircleMemberWithFirestore()` call `PetService` + `UserService`.
+- `PetStore.updatePetWithFirestore()`: persists editable pet fields via `PetService.updatePet()`.
+- `MeasurementStore`: keyed by `petId`, streams `/pets/{petId}/measurements`, writes via `PetService.addMeasurement()` / `deleteMeasurement()`.
+- `NoteStore`: keyed by `petId`, streams `/pets/{petId}/notes`, writes via `PetService.addNote()`.
+- `MedicationStore`: keyed by `petId`, streams `/pets/{petId}/medications`, writes via `PetService.addMedication()` / `updateMedication()` / `deleteMedication()`.
+- `PetService.addMeasurement()` / `deleteMeasurement()`: resync parent `/pets/{petId}.latestMeasurement` after subcollection writes.
+- `SettingsStore`: seeds from `AppUser.settings` and persists thresholds/toggles back to `/users/{uid}.settings`.
+- `NotificationStore`: streams `/users/{uid}/notifications` and persists read state / newly created in-app notifications.
+- `AuthProvider`: Listens to `AuthService.authStateChanges` + `UserService.streamUser`. Routes via `AuthGate`.
+- `InvitationService`: Creates/accepts invitations in `/invitations` collection.
+- `NotificationService`: Firestore CRUD for `/users/{uid}/notifications`.
+- `DeepLinkService`: Handles `petcircle://invite?token=XYZ` deep links.
+- Repo-managed Firestore rules now live in `firestore.rules` and are wired via `firebase.json`.
+
+### What's NOT yet wired to Firestore (local store only)
+- Push delivery is not wired yet; notifications are currently Firestore-backed in-app alerts only
+- Invitation email delivery still needs a trusted backend sender (Cloud Functions, Trigger Email, etc.)
+
+### Services
+
+| Service | File | Purpose |
+|---------|------|---------|
+| `AuthService` | `lib/services/auth_service.dart` | Firebase Auth (email, Google, Apple) |
+| `UserService` | `lib/services/user_service.dart` | Firestore CRUD for `/users/{uid}` |
+| `PetService` | `lib/services/pet_service.dart` | Firestore CRUD for `/pets/{petId}` + subcollections (measurements, notes, medications) |
+| `InvitationService` | `lib/services/invitation_service.dart` | Firestore CRUD for `/invitations/{token}` |
+| `DeepLinkService` | `lib/services/deep_link_service.dart` | Deep link parsing for invitation tokens |
 
 ---
 > Source: [HiLuLiT/pet-circle](https://github.com/HiLuLiT/pet-circle) — distributed by [TomeVault](https://tomevault.io).
