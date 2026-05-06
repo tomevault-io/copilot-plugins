@@ -1,0 +1,379 @@
+## ai-first-workspace-template
+
+> ⚠️ **TEMPLATE WORKSPACE - READ FIRST**
+
+⚠️ **TEMPLATE WORKSPACE - READ FIRST**
+
+> **🎯 Template Purpose**: This is the "AI First Workspace Template" - a comprehensive example of how to organize AI-assisted business operations across multiple departments. This template contains real examples from "Elly Analytics" to demonstrate best practices.
+> 
+> **👨‍💻 Created by**: Seva Ustinov, based on the Elly Analytics workspace - a real-world implementation of AI-assisted business operations across strategy, product, marketing, operations, and project management.
+
+## Template vs. Real Project Workflow
+
+### 🔧 **Template Mode** (Default State)
+When you first open this workspace, you are in **Template Mode**:
+- All content serves as examples and educational materials
+- Use this to explore structure, learn methodologies, and understand frameworks
+- All documents are marked with template notices and placeholder systems
+- Perfect for understanding how to organize your own business operations
+
+### 🚀 **Real Project Mode** (After Customization)
+Once you mention your real company/project details, I will:
+- **Switch to Real Project Mode** and help you customize this template
+- **Remove template notices** and replace placeholders with your actual information
+- **Adapt all frameworks** to your specific business context and industry
+- **Maintain the organizational structure** while making it yours
+
+### 🔄 **How to Transition**
+Simply tell me about your real project by saying something like:
+- "I want to adapt this for [Your Company Name]"
+- "Help me customize this template for my [industry/business type]"
+- "Let's replace the examples with my real project: [project details]"
+
+**I will then ask for your specific details and systematically help you transform this template into your actual business workspace.**
+
+---
+
+## 🎬 DEMO WORKSPACE
+**IMPORTANT**: This is a demonstration workspace for showcasing AI capabilities.
+
+### 🚀 Quick Demo Start:
+- **Demo Commands**: See `DEMO-QUICK-START.md` in workspace root
+- **Detailed Instructions**: `Docs/SalesAndMarketing/Media activities/Demo Templates/Demo-Workflow-Instructions.md`
+- **Use ready-made commands** for consistent results
+
+## Current Workspace Structure
+```
+AI First Workspace/
+├── .cursorrules              # AI assistant configuration (this file)
+├── README.md                 # Main documentation
+├── scripts/                  # 🔧 Utility scripts and tools
+│   ├── check_range.py        # Number range validation script
+│   └── README.md             # Scripts documentation
+└── Docs/                     # Department documentation
+    ├── Strategy/             # 🏗️ Strategic planning & competitive intel
+    ├── Product/              # 📱 Product roadmap & specifications
+    ├── SalesAndMarketing/    # 📊 Marketing campaigns & sales process
+    ├── Operations/           # ⚙️ Operational processes & metrics
+    │   └── Hiring/           # 👥 Hiring processes & recruitment
+    ├── Finance/              # 💰 Financial models & projections
+    └── Legal-HR/             # 📋 Contracts, policies & HR workflows
+```
+
+## 🚨 CRITICAL RULE: Number Range Validation
+
+**ALWAYS use the range checking script for numerical comparisons - NEVER do mental math for ranges:**
+
+When you need to check if any number falls within a range:
+1. **STOP** - Do not attempt to compare numbers mentally
+2. **USE THE SCRIPT**: `python3 scripts/check_range.py [value] [min] [max] [value] [min] [max] ...`
+3. **EXAMPLE**: `python3 scripts/check_range.py 185 125 200 92 70 100`
+4. **TRUST THE RESULT**: Use the script output, not your own calculation
+
+**Why this rule exists**: LLMs frequently make errors with numerical comparisons. The script provides 100% accurate mathematical results.
+
+**Common use cases**:
+- Health metrics (cholesterol, blood sugar, blood pressure)
+- Budget categories (spending within planned ranges)
+- Financial targets (investment performance ranges)
+- Any situation requiring "is X between Y and Z?"
+
+## General Guidelines
+- Help organize and manage personal projects and documentation
+- Maintain consistent structure and naming conventions  
+- Assist with content creation, research, and analysis
+- Provide helpful suggestions for workspace organization
+- Use web search when research is needed
+- Connect information across different areas (health, finance, learning, etc.)
+
+## File Management
+- Use clear, descriptive file and folder names
+- Maintain logical organization structure
+- Keep related materials grouped together
+- Regular cleanup and organization of outdated content
+- Always reference actual file paths when suggesting connections
+
+## AI Assistant Behavior
+- Be helpful and proactive in suggesting improvements
+- Ask clarifying questions when tasks are unclear
+- Provide context and explanations for recommendations
+- Respect user preferences and working style
+- **NEVER** perform numerical range comparisons without the script
+- Document sources when conducting research
+- Create cross-references between related content
+
+## Integration Rules
+- Link related information across Health, Finance, Learning, and Home categories
+- Use examples from actual files when providing guidance
+- Suggest automation opportunities with scripts
+- Maintain consistency in documentation format
+- Always verify numerical data with appropriate tools
+
+---
+
+# [COMPANY NAME] Workspace - Management & Department Switching
+
+> **📝 File Purpose**: This file contains ONLY workspace management and department switching logic relevant to everyone. Keep it as short as possible. Department-specific context, behaviors, procedures, and detailed rules belong in `Docs/[Department]/.cursorrules` files.
+
+## Workspace Overview
+You are working in the [COMPANY NAME] management workspace with access to multiple department repositories and AI context switching capabilities.
+
+## Workspace Structure
+- **Docs/Strategy/** - Company strategy, competitive intel, executive decisions [SEPARATE GIT REPO]
+- **Docs/Product/** - Product roadmap, specs, user research, technical planning [SEPARATE GIT REPO]
+- **Docs/SalesAndMarketing/** - Campaigns, content, sales process, go-to-market [SEPARATE GIT REPO]
+- **Docs/Operations/** - Operational processes & metrics [SEPARATE GIT REPO]
+- **Docs/Operations/Hiring/** - Hiring processes & recruitment workflows [SEPARATE GIT REPO]
+- **Docs/Finance/** - Financial models, projections [SEPARATE GIT REPO]
+- **Docs/Legal-HR/** - Contracts, policies, hiring [SEPARATE GIT REPO]
+- **Dev/[ProductName]/**, **Dev/[ProductName2]/**, **Dev/[ProductName3]/** - Technical codebases for reference [SEPARATE GIT REPOS]
+- **Projects/** - Client projects repository (container for per-client project repos) [SEPARATE GIT REPO]
+- **Presales/** - Presales materials and proposals [SEPARATE GIT REPO]
+
+### Important: Repository Structure
+Each department directory under `Docs/` is a **separate git repository**. When committing changes:
+- Navigate to the specific directory (e.g., `cd Docs/Strategy`)
+- Use git commands within that directory
+- The main SharedWorkspace `.gitignore` excludes Docs/ directories
+
+## Workspace Management & Updates
+
+- **"Update all"** = Run `bash setup/update-all.sh` to pull latest changes from all repositories
+- **Daily workflow**: Use update script every morning to sync all Docs/, Dev/, Projects/, and Presales repos
+
+## Department Context Switching
+
+### How Context Switching Works
+When user requests a department context, read the detailed cursorrules file from that department for complete context and behavioral guidelines:
+
+- **"Use strategy context"** → Read `Docs/Strategy/.cursorrules` for strategy focus, company context, and competitive positioning
+- **"Use product context"** → Read `Docs/Product/.cursorrules` for product development focus and technical context
+- **"Use marketing context"** → Read `Docs/SalesAndMarketing/.cursorrules` for go-to-market focus and campaign context
+- **"Use operations context"** → Read `Docs/Operations/.cursorrules` for operational focus
+- **"Use hiring context"** → Read `Docs/Operations/Hiring/.cursorrules` for hiring and recruitment focus
+- **"Use finance context"** → Read `Docs/Finance/.cursorrules` for financial focus
+- **"Use general context"** → Use general workspace guidelines without department-specific context
+
+### Current Active Context
+Remember and maintain the user's active department context until they explicitly switch to another department.
+
+### Department-Specific Behavior
+**ALWAYS read the relevant department's cursorrules file for complete context, detailed procedures, focus areas, and specific behavioral guidelines. This file contains only workspace management and switching logic.**
+
+## Cross-Department Collaboration
+
+### Universal Guidelines
+- Maintain your primary department perspective while understanding others' priorities
+- Reference relevant context from other departments as needed (most company data is transparent)
+- Suggest improvements that consider strategic business impact
+- Frame suggestions in terms of cross-departmental benefits
+- Respect client data privacy - only reference client-specific information when relevant to the project team
+
+### Language Policy
+- **Default language**: English (US) for all company-wide documentation
+- **New documents**: Create in English by default
+- **Existing documents**: Keep in their native language to not disrupt team workflow
+- **Conversion suggestions**: Only suggest converting to English when relevant to the task
+- **Follow explicit guidance**: User instructions, detailed rules, or document language preferences override defaults
+- **Team context**: Adapt language preferences based on your team's primary language and client base
+
+### File Reference Standards
+- Use relative paths when referencing other departments: `../Docs/Product/roadmap/`, `../Docs/Strategy/Competitors/`
+- Use `../Dev/` for technical codebase references, `../Projects/` for client work, `../Presales/` for sales materials
+- Reference Strategy department context for company-wide strategic messaging
+- Maintain consistent strategic messaging across all departments
+
+## Git Workflow Guidelines
+
+**For AI Assistant:**
+- **NEVER PUSH TO REPOSITORIES** - Always get explicit user confirmation before any `git push` command
+- **NEVER commit changes** until user indicates a logical piece of work is complete
+- **NEVER assume user emails** - Always ask for their GitHub email when setting up SSH keys
+- **NEVER edit root cursor rules (this file)** - unless user explicitly asks (the entire company uses this file, so we are extremely careful and diligent about changing anything here)
+- **Track user focus changes** - When user switches tasks/topics, suggest committing previous work first
+- **Suggest commits** when a coherent set of changes is ready (e.g., "Ready to commit these changes?")
+- **Suggest pushes** after completing work sessions, but wait for user approval
+- **Respect developer workflows** - Technical repositories (Dev/) follow branch/PR processes
+- **No direct changes to Dev/** - Technical repos require developer onboarding and review processes
+
+**For Users:**
+- **Control your commits** - You decide when changes are ready to commit locally
+- **Logical commit points** - Commit when completing a feature, fix, or coherent set of changes
+- **Review before committing** - Check `git status` and `git diff` to understand what you're committing
+- **Push regularly** to share work with team members after committing
+- **Coordinate pushes** for important changes that affect others
+- **Use `git push origin main`** (or appropriate branch) when ready to share
+
+## Information Architecture & Anti-Hallucination Rules
+
+### Core Principle
+Eliminate ambiguities, unnecessary duplicates, inconsistencies, and unclear sources while maintaining high accuracy.
+
+### 1. Canonical Definitions & Source Tracking [CANONICAL]
+**Core Rule**: Every statement must have a clear, traceable source.
+
+**Canonical Source System**:
+- **Single Source of Truth**: Each concept/definition has ONE canonical version in the most logical source document
+- **Mark Canonical**: Tag with `[CANONICAL]` in the source document where information is first established
+- **Reference Everywhere Else**: All other mentions must use `[REF: folder/filename.md#section]` pointing to canonical source
+- **Exact Reuse**: Use identical phrasing across documents when referencing canonical statements
+- **Explicit Adaptation**: If context requires changes, mark: `[ADAPTED from filename.md: "original" → "adapted"]`
+
+**Source Tracking Requirements**:
+- **No Orphan Statements**: Every claim, metric, or assertion must be traceable to its origin
+- **Clear Attribution**: Mark where information came from: team confirmation, external research, calculations, etc.
+- **Update Propagation**: When changing canonical version, search and update all `[REF:]` references
+- **Searchable References**: Use consistent `[REF:]` format to enable finding all dependencies
+
+### 2. Data Accuracy & Source Tracking
+- **[CANONICAL]**: The authoritative definition/data point in the knowledge base
+- **[CONFIRMED: source]**: Information directly verified or provided by reliable sources
+- **[PLACEHOLDER: owner]**: Information to be filled with clear ownership
+- **[REF: folder/filename.md#section]**: Cross-references for searchability
+
+### 3. Anti-Hallucination Rules
+- **Eliminate Hallucinated Content**: Remove any information not confirmed by reliable sources
+- **Use Real Data**: Specific metrics and examples from actual records
+- **Source Every Statement**: Every claim must be either `[CANONICAL]` (first mention) or `[REF:]` (pointing to canonical source)
+- **Mark Placeholders**: Clear ownership for missing information with `[PLACEHOLDER: owner]`
+- **Date Everything**: Include "Last Updated" timestamps
+- **Maintain Traceability**: When updating canonical information, find and update all references using search
+
+## Positioning Rules
+
+### Market Focus [CANONICAL]
+- **Primary Target**: [TARGET_MARKET] businesses spending >[THRESHOLD]/month on [PRIMARY_EXPENSE]
+- **Sweet Spot**: $[MIN]-[MAX]/month [SPEND_CATEGORY] companies seeking [VALUE_PROPOSITION] vs [ALTERNATIVE_PRICING_MODEL]
+- **Market Gap**: [TARGET_MARKET] businesses underserved by [COMPETITOR_FOCUS]-focused [CATEGORY] platforms
+- **Geographic Scope**: Primary focus [REGION_1] ([X]% of revenue), secondary markets in [REGION_2], select clients globally
+- **Core Differentiation**: [EXPERTISE_1] + [INNOVATION] ("[ANALOGY]") vs competitors' [LIMITATION] solutions
+- **Technology Position**: [INTERFACE_TYPE] for [USE_CASE] vs [COMPETITOR_APPROACH]
+
+### Competitive Messaging [REF: Competitors/competitive-landscape-summary.md#competitive-messaging]
+
+#### [PRODUCT_V1] Competition ([CATEGORY_1]) [REF: Competitors/competitive-landscape-summary.md#product-v1-competition]
+- **vs [CATEGORY_1] Platforms** ([COMPETITOR_A], [COMPETITOR_B]): [SPECIALIZATION] + [ADVANTAGE_1] + [ADVANTAGE_2]
+- **vs [CATEGORY_2] Tools** ([COMPETITOR_C], [COMPETITOR_D]): [FEATURE_1] + [FEATURE_2] + [INTEGRATION_DEPTH]
+- **vs [CATEGORY_3] Platforms**: [FOCUS_AREA] vs [COMPETITOR_FOCUS]
+
+#### [PRODUCT_V2] Competition ([CATEGORY_2]) [REF: Competitors/competitive-landscape-summary.md#product-v2-competition]
+- **vs [AUTOMATION_TYPE] Platforms** ([COMPETITOR_E], [COMPETITOR_F]): "[VISION_PHRASE]" [INTERFACE] across [X] core use cases vs [COMPETITOR_LIMITATION], [SCOPE] vs [COMPETITOR_SCOPE], [DATA_ADVANTAGE] vs [COMPETITOR_DATA_LIMITATION]
+- **Key Differentiators**: [FOUNDATION], [COVERAGE], "[ANALOGY]" [INTERFACE] vs [COMPETITOR_INTERFACE]
+- **Competitive Advantage**: Only [COMPREHENSIVE_SOLUTION] built on [EXPERTISE] and [DATA_DEPTH]
+
+#### Combined Positioning [REF: Competitors/competitive-landscape-summary.md#combined-positioning]
+- **Unique Advantage**: Only platform combining [EXPERTISE] with [COMPREHENSIVE_SOLUTION] across [X] core use cases
+- **Data Foundation**: [AUTOMATION] built on [DATA_TYPE], not just [COMPETITOR_DATA_TYPE]
+- **Market Gap**: [TARGET_MARKET] underserved by [COMPETITOR_FOCUS_1] and [FRAGMENTATION_ISSUE]
+- **Vision Advantage**: "[VISION_PHRASE]" - transform [INDUSTRY] from [CURRENT_STATE] to [FUTURE_STATE]
+
+## Competitor Analysis Process [CANONICAL]
+
+**Deep Research Required**: When user requests competitor analysis, conduct comprehensive research across multiple sources. Key areas to research: product pages, pricing pages, founder backgrounds, press releases, funding announcements, G2/Capterra reviews, case studies, use cases, performance claims, customer testimonials, and strategic partnerships. Use web search for funding rounds, founder LinkedIn profiles, industry coverage, and competitor comparisons.
+
+**Process**:
+1. **Research**: Conduct comprehensive research per requirements above
+2. **Create**: `[company-name]-analysis.md` using 11-section template (Company Overview → Bottom Line)
+3. **Classify**: [CATEGORY_1] ([EXAMPLE_A]) | [CATEGORY_2] ([EXAMPLE_B]) | [CATEGORY_3] ([EXAMPLE_C])
+4. **Update Summary**: Update `competitive-landscape-summary.md` with cross-references
+
+## Common Use Cases
+
+- **Pitch Deck Creation**: Pull from Company-Overview, Product/, Business-Model, Team, and Competitors Analysis
+- **Investor Due Diligence**: Focus on Market-Analysis, Business-Model, Financials, and Competitors
+- **Team Onboarding**: Use Company-Overview, Product, Team, and Competitors
+- **Strategic Planning**: Reference Market-Analysis, Business-Model, Investor-Updates, and Competitors
+- **Fundraising Materials**: Combine executive-summary.md with competitive analysis
+- **Competitive Analysis**: Deep dive into Competitors/ for threat assessment and positioning
+- **New Competitor Research**: Follow comprehensive analysis process and update competitive summary
+
+---
+
+# CURRENT STRATEGIC CONTEXT
+*[TEMPLATE EXAMPLE] - Replace with your company's actual strategic information*
+
+## Product Architecture [REF: Product/]
+
+### [PRODUCT_V1] - [FOUNDATION_PLATFORM] (Current Production) [REF: ...]
+- **Purpose**: [CORE_PLATFORM] with [FEATURE_1], [FEATURE_2], [FEATURE_3]
+- **Value Proposition**: Solve [PROBLEM] for [TARGET_MARKET] with [SOLUTION_APPROACH]
+- **Client Interface**: [REPORTING_TOOL] (version [X.Y]) with [CUSTOMIZATION_LEVEL] dashboards
+- **Key Features**: [FEATURE_1], [FEATURE_2], [FEATURE_3] to [PLATFORMS]
+- **Technology Stack**: [BACKEND_TECH], [DATABASE], [FRONTEND_TECH]
+- **Status**: Production platform serving all current clients with proven ROI
+
+### [PRODUCT_V2] - [AI_LAYER] (In Development) [REF: ...]
+- **Purpose**: [AI_PLATFORM] making "[VISION_PHRASE]" a reality and automating [X]% of [TARGET_ROLE]'s work
+- **Value Proposition**: "[ANALOGY]" - [INTERFACE_TYPE] across [X] core [USE_CASE_CATEGORY] use cases
+- **Client Interface**: [INTERFACE_TECH] for [COMPREHENSIVE_MANAGEMENT]
+- **Key Features**: [X] core use cases - [USE_CASE_1], [USE_CASE_2], [USE_CASE_3], [USE_CASE_4], [USE_CASE_5]
+- **Technology Stack**: [FRONTEND_STACK], connects to [PRODUCT_V1] foundation
+- **Status**: [X] weeks in development, first production feature launching in [TIMEFRAME] with [X] pilot clients
+
+### [PRODUCT_V2] Core Use Cases [REF: Product/product-v2-vision.md#core-use-cases]
+1. **[USE_CASE_1]**: [DESCRIPTION_1]
+2. **[USE_CASE_2]**: [DESCRIPTION_2]
+3. **[USE_CASE_3]**: [DESCRIPTION_3]
+4. **[USE_CASE_4]**: [DESCRIPTION_4]
+5. **[USE_CASE_5]**: [DESCRIPTION_5]
+
+### Combined Value Proposition [REF: Product/product-overview.md#future-state]
+- **Current State**: [PRODUCT_V1] provides [FOUNDATION] + [ANALYTICS] for [USE_CASE]
+- **Future State**: [PRODUCT_V2] creates comprehensive "[VISION_PHRASE]" platform across all [X] core use cases
+- **Unique Position**: [EXPERTISE] + [INTERFACE] + [COMPREHENSIVE_SOLUTION] vs competitors' [LIMITATION] solutions
+
+## Business Model [REF: Business-Model/]
+- **Pricing Philosophy**: [PRICING_TYPE], NOT [ALTERNATIVE_PRICING] (no [PERCENTAGE_MODEL])
+- **Base Price Range**: ~$[X]/month (varies by features selected)
+- **Integration Included**: [X]-[Y] weeks standard onboarding included in subscription
+- **Volume Threshold**: +[X]% markup only for >[THRESHOLD] [UNITS]/day
+- **Competitive Advantage**: Large clients love [ADVANTAGE] vs [COMPETITOR_MODEL] competitors
+
+## Team & Scale [REF: Team/]
+- **Total Headcount**: [X] people ([DATE])
+- **[FOCUS_AREA] Focus**: [X]% of team allocated to [STRATEGIC_INITIATIVE]
+- **Key People**: [FOUNDER_1] ([TITLE_1]), [FOUNDER_2] ([TITLE_2])
+- **Advisors**: [ADVISOR_1] ([EXPERTISE_1]), [ADVISOR_2] ([EXPERTISE_2])
+
+## Market Position [REF: Market-Analysis/, Competitors/]
+- **Target Market**: [TARGET_MARKET] spending >[THRESHOLD]/month on [EXPENSE_CATEGORY]
+- **Sweet Spot**: $[MIN]-[MAX]/month [EXPENSE_CATEGORY] companies
+- **Market Gap**: Most [CATEGORY] platforms focus on [COMPETITOR_FOCUS], leaving [TARGET_MARKET] underserved
+- **Key Differentiator**: Making "[VISION_PHRASE]" a reality through "[ANALOGY]" - [INTERFACE] across [X] core [CATEGORY] use cases
+- **Vision**: Transform [INDUSTRY] from [CURRENT_STATE] to [FUTURE_STATE] across [USE_CASE_LIST]
+
+## Competitive Landscape [REF: Competitors/]
+- **Major Threats**: [COMPETITOR_A] ($[X]M [METRIC]), [COMPETITOR_B] ($[Y]B [METRIC] managed)
+- **Key Advantages**: [ADVANTAGE_1], [ADVANTAGE_2], [ADVANTAGE_3]
+- **Product Structure**: [COMPONENT_1] + [COMPONENT_2] + [COMPONENT_3]
+
+---
+
+# FILE MANAGEMENT GUIDELINES
+
+### When Editing Files
+- **Proper Directory**: Always edit files in their proper directory (e.g., company info goes in Company-Overview/)
+- **Source Everything**: Use specific metrics and numbers with source tracking
+- **Reference Architecture**: Use `[REF:]` tags instead of duplicating content
+- **Mark Everything**: Clearly mark sources, assumptions, estimates, and dependencies
+- **Update Dependencies**: When changing source documents, update downstream files
+
+### Content Quality Standards
+1. **Eliminate Hallucinated Content**: Remove any information not confirmed by team
+2. **Use Real Data**: Specific metrics and examples from actual operations
+3. **Source Every Statement**: Every claim must be either `[CANONICAL]` (first mention) or `[REF:]` (pointing to canonical source)
+4. **Mark Placeholders**: Clear ownership for missing information with `[PLACEHOLDER: owner]`
+5. **Cross-reference**: Link between related documents using `[REF:]` format
+6. **Date Everything**: Include "Last Updated" timestamps
+7. **Maintain Traceability**: When updating canonical information, find and update all references using search
+
+### Template Key Files (Customize for Your Company)
+- **executive-summary.md**: One-page overview with competitive positioning
+- **Product/product-overview.md**: Complete product architecture and features
+- **Business-Model/pricing-model.md**: Comprehensive pricing structure and philosophy
+- **Competitors/competitive-landscape-summary.md**: Strategic competitive analysis
+- **Marketing-Sales/client-case-studies.md**: Client results and testimonials
+
+---
+> Source: [VsevolodUstinov/ai-first-workspace-template](https://github.com/VsevolodUstinov/ai-first-workspace-template) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
