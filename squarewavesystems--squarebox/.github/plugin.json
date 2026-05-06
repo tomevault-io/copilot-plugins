@@ -1,0 +1,9 @@
+{
+  "name": "squarewavesystems--squarebox",
+  "displayName": "squarebox",
+  "description": "Docker container for development, stuffed with modern CLI/TUI tools. Batteries included.",
+  "version": "1.0.0",
+  "author": "SquareWaveSystems",
+  "homepage": "https://github.com/SquareWaveSystems/squarebox",
+  "skills": []
+}
