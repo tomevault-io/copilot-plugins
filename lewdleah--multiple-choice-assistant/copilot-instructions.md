@@ -1,123 +1,90 @@
-## architecture
+## browser-testing
 
-> - `background/aid/api/` — one file per GraphQL query or mutation (never inline queries elsewhere)
+> After editing any file under `extension/`, test changes using Playwright MCP as the primary tool.
 
-# MCA Architecture
+# Browser Testing Procedure
 
-## Folder Conventions
+After editing any file under `extension/`, test changes using Playwright MCP as the primary tool.
 
-- `background/aid/api/` — one file per GraphQL query or mutation (never inline queries elsewhere)
-- `background/openrouter/api/` — one file per OpenRouter API call
-- `background/protocol.js` — single source of truth for all message types between popup, content, and background
-- `background/types.js` — all JSDoc typedefs live here, import via `@typedef {import('./types.js').TypeName}`
-- `background/storage.js` — all chrome.storage access goes through these helpers
-- `background/constants.js` — shared constants (API URLs, defaults). Background modules only — content scripts inline their own
+## Step 1: Reload the extension
 
-## Service Worker Rules
+Run from the project root after any edit to `extension/` files:
 
-- **Never store persistent state in module-scope variables.** Service workers go dormant after ~30s. Use `chrome.storage` via `storage.js`
-- **Register all listeners synchronously** at the top level of `background/index.js` (Chrome requirement)
-- **Message routing** lives in `background/index.js` as a switch statement. Import protocol constants, not raw strings
-- **Handler implementations** live in `background/handlers.js` — one exported function per message type
+```
+node dev/test.mjs setup
+```
 
-## Content Script Rules
+This reloads the extension, refreshes the AID tab (for fresh token), closes stale popup tabs, opens a new popup tab, and polls until it shows scenario data. Output includes JSON status.
 
-- Content scripts **cannot use ES module imports**. Inline any needed constants
-- Reference `background/protocol.js` in comments when using message type strings
-- Token extraction uses `window.postMessage` between `inject.js` (page context) and `index.js` (content script context)
+- Manifest changes require a manual `chrome://extensions` reload first
 
-## Error Handling
+## Step 2: Test with Playwright MCP (primary)
 
-- Async operations return `{ ok: boolean, value?, error? }` (the `Result` type from `types.js`)
-- GraphQL errors are caught in `gql.js` and thrown as standard Errors
-- Never let errors silently disappear — log with `[MCA]` prefix
+Playwright MCP tools are the primary way to inspect and interact with the popup.
 
-## Agent Workspace
+### Inspect the popup
 
-- `dev/agents/` contains markdown files for agents to track work across sessions
-- **Read before starting**: `session-notes.md` (what was done last), `decisions.md` (why things are the way they are)
-- **Update when done**: `session-notes.md` with what you did and what's next
-- **Record findings**: `investigations.md`, `api-testing.md`, `api-traffic.md`, `token-notes.md`
-- **Track issues**: `bugs.md`
-- **Create new files** for any topic that doesn't fit existing files, and update `README.md`
-- **Undocumented work is lost work** — the next agent starts from zero without notes
+1. `browser_tabs` (action: `list`) — find the popup tab
+2. `browser_tabs` (action: `select`, index) — switch to the popup tab
+3. `browser_snapshot` — read the full a11y tree (structure, text, element refs)
 
-## Popup Module Pattern
+### Interact with the popup
 
-- `popup.html` loads `popup.js` as `type="module"` — all popup files use ES module imports
-- `popup/helpers.js` — shared utilities (`$`, `send`, `setDot`, `filterBranches`), `ctx` (transient state), agent a11y helpers
-- `popup/render.js` — pure rendering functions (`makeField`, `renderPlotFields`, `buildCardItem`, `updateCardCount`, `setupCardsToggle`)
-- `popup/events.js` — optimistic UI event handlers (`mca:branch-added`, `mca:branch-deleted`, `mca:branch-renamed`, `mca:navigate`)
-- `popup/clone.js` — clone panel logic (self-contained, registers own event listeners at module load)
-- `popup/delete.js` — delete confirmation dialog + API call, dispatches `mca:branch-deleted` event
-- `popup/tree.js` — tree view navigation: lazy-loading hierarchy, expand/collapse, direct navigation via `mca:navigate`
-- `popup/popup.js` — entry point: init, navigation, branch list, delegation, broadcasts
-- **Cross-module state**: `ctx` from `helpers.js` holds `{ scenario, branches, state }` — all popup modules read/write it
-- **Cross-module signals**: Use `CustomEvent("mca:...")` to avoid circular imports. clone.js → `mca:branch-added`, delete.js → `mca:branch-deleted`, tree.js → `mca:navigate`, events.js listens and coordinates
-- **Test harness access**: popup.js exposes `ctx`, `openClonePanel`, `closeClonePanel`, `rebuildBranchList`, `deleteBranch` on `window`
-- **New features** (settings, generation, diff) each get one new popup module file — never bolt onto popup.js
-- Popup modules can import from `../background/constants.js` (both are ES modules in the same extension directory)
+- `browser_click` — click buttons, branches, links, toggles
+- `browser_type` / `browser_fill_form` — fill text inputs, textareas, selects
+- `browser_take_screenshot` — visual verification when a11y tree isn't enough
+- `browser_wait_for` — wait for text to appear/disappear after actions
 
-## Chat Module Pattern
+### Typical Playwright test cycle
 
-- `popup/chat/` — agent chat panel (conversation loop, rendering, state, tools, system prompt)
-- `chat.js` — conversation loop (`sendMessage`), event wiring, `initChat()`. Imports from `state.js` and `render.js`
-- `state.js` — all chat state (`messages`, `busy`, `aborted`, `contextLimit`), persistence (`saveHistory`/`loadHistory`/`clearHistory`), `setBusy`/`stopAgent`, LLM timeout wrapper, friendly error mapping, a11y updates
-- `render.js` — all DOM rendering: `renderMessage`, `renderToolCall`, `renderError`, `renderCompaction`, `renderThinking`/`updateThinking`/`removeThinking`, `appendAndScroll`, `renderAllMessages`
-- `system.js` — builds system prompt from `getDomain()` + `getGuidance()` (supports user overrides via `prompt.js`)
-- `prompt.js` — Agent/Prompt tab switcher, custom domain/guidance editing, save/defaults, persisted in `chrome.storage.local`
-- `compaction.js` — LLM-powered compaction (summarizes older messages when context exceeds 75% threshold)
-- `context.js` — tool result summarization + history pruning (fallback to compaction)
-- `tools/` — one file per tool (11 tools) + `index.js` barrel with `TOOL_DEFS` and `executeTool`
-- **State sharing**: `state.js` exports `let` bindings (ES module live bindings). `chat.js` reads them directly; mutation is via `.push()` on the array or `setMessages()` for replacement. Do NOT create a second `messages` variable in `chat.js`
+1. Edit extension files
+2. `node dev/test.mjs setup` — reload + open popup + verify loaded
+3. `browser_tabs list` → `browser_tabs select` (popup tab)
+4. `browser_snapshot` — read current state
+5. `browser_click` / `browser_type` — perform actions
+6. `browser_snapshot` — verify result
 
-## Agent-First Accessibility
+### Popup tab access via Playwright code
 
-The popup DOM is designed for agent consumption via Playwright accessibility snapshots (`browser_snapshot`) and CDP `Accessibility.getFullAXTree`. Every UI element must be self-describing to an agent reading the a11y tree.
+If `browser_tabs` doesn't show the popup, create one via CDP:
 
-### Semantic HTML (structure)
-- `<header>`, `<nav>`, `<main>`, `<section>` landmarks — agents see page structure
-- `<h1>`-`<h3>` heading hierarchy — section labels are `<h2>`, plot fields are `<h3>`
-- `<details>`/`<summary>` for collapsible sections (story cards) — native `[expanded]` state
-- `<dialog>` with `.showModal()`/`.close()` for overlays — native `[modal]` state, focus trapping, Escape to close
-- `hidden` attribute (not `style="display:none"`) — properly excluded from a11y tree
-- `role="status"` on connection indicators, `role="alert"` on errors, `role="log"` on progress
+```js
+async (page) => {
+  const client = await page.context().newCDPSession(page);
+  await client.send('Target.createTarget', {
+    url: 'chrome-extension://leahjenbcfenoojjdggddjldhiblkbje/popup/popup.html'
+  });
+  return 'Popup tab created';
+}
+```
 
-### Agent Metadata (from `helpers.js`)
-- **`describe(el, meta)`** — sets `aria-description` from key:value pairs. Agents see `[description="shortId:abc, cards:3"]`
-- **`agentRole(el, role)`** — sets `aria-roledescription`. Agents see `branch` instead of `listitem`, `story-card` instead of `group`
-- **`agentHint(parent, text)`** — creates visually-hidden `.agent-hint` text block. Invisible to humans, visible in a11y tree. Contains workflow instructions and context summaries
+Then select it via `browser_tabs`.
 
-### Labeling Rules
-- Every interactive element needs `aria-label` with **action + context**: "Clone Path of Embers" not just "Clone"
-- Decorative elements (chevrons, icons, dots) get `aria-hidden="true"` — removes noise from snapshots
-- `document.body` gets `describe()` with current view state: `view:parent-list, scenario:CTU, branches:4`
-- Branch items get `describe()` with shortId. Story cards get `describe()` with type and id
-- Each major view gets `agentHint()` summarizing available actions and how to perform them
+## Supplementary: `dev/test.mjs` commands
 
-### Testing Paths (both read the same a11y tree)
-- **Primary**: Playwright MCP — `browser_tabs select` to focus popup tab, `browser_snapshot` for tree, `browser_click` for interaction
-- **Fallback**: `dev/test.mjs` — CDP `Runtime.evaluate` with `window.ctx`, `window.openClonePanel()`, etc.
-- **Future**: `dev/test.mjs snap` using CDP `Accessibility.getFullAXTree` for the same tree without Playwright
+Use the CDP test harness for things Playwright can't do directly:
 
-## Code Style
+| Command | Use when... |
+|---------|-------------|
+| `setup` | Reloading extension + opening popup (always run first) |
+| `status` | Quick JSON check: token, scenario, branchCount, panel visibility |
+| `branches` | List branch names and shortIds |
+| `eval <expr>` | Run JS in popup context (access `window.ctx`, call `openClonePanel()`, etc.) |
+| `run <file.js>` | Execute a JS file in popup context (no shell quoting issues) |
+| `sw-eval <expr>` | Run JS in service worker context |
+| `sw-log` | Stream service worker console (debug background issues) |
+| `popup-log` | Stream popup tab console (debug popup issues) |
+| `snap` | Text dump of popup (quick check without Playwright) |
 
-- Small code files. **Ideal range: 150–250 lines.** Split before exceeding ~300 lines
-- No `state.js` in background/ — use `storage.js` helpers instead (popup uses `ctx` in helpers.js for transient state)
-- Constants are never duplicated across files
-- `PLOT_FIELDS` in `constants.js` is the canonical plot component list — shared between popup and background
-- Stubs are marked with `// TODO:` and their milestone number
-- All GraphQL queries/mutations are marked `// TODO: UNTESTED` until verified against live traffic
+## Rules
 
-## Optimistic UI Pattern
-
-AID's API has read-after-write inconsistency — `GET_SCENARIO` called immediately after a mutation (delete, clone) returns stale data. **Never re-fetch to update the branch list after a mutation.** Instead:
-
-- **Delete**: Filter the deleted `shortId` out of `ctx.branches` locally. In parent view, call `rebuildBranchList()`. In drill-down view, remove the `<li>` via `[data-shortid]` selector
-- **Clone (new branch)**: Dispatch `CustomEvent("mca:branch-added", { detail: { shortId, title } })`. popup.js handles it: pushes to `ctx.branches` in parent view, or appends `makeBranchItem()` to `$("branch-children-list")` in drill-down view
-- **Clone (to existing target)**: No branch list change — just close the panel
-- **Branch items** always have `data-shortid` attribute for direct DOM lookup by the optimistic handlers
-- **Future mutations** (rename, reorder) should follow the same pattern: mutate server, update local state/DOM, skip re-fetch
+- **Playwright MCP is primary** — use `browser_snapshot` + `browser_click` for all UI testing
+- **`test.mjs` is supplementary** — use for reload, service worker access, console streaming, and JS eval
+- **ALWAYS** run `node dev/test.mjs setup` after editing extension files (handles reload + popup creation)
+- **NEVER** call `browser_console_messages` on AID pages — too noisy, causes agent stalls
+- **NEVER** use `browser_navigate` or `page.goto()` to AID URLs — crashes MCP
+- Use `sw-log` to debug service worker issues instead of guessing
+- Extension ID is stable: `leahjenbcfenoojjdggddjldhiblkbje` (hardcoded key in manifest)
 
 ---
 > Source: [LewdLeah/Multiple-Choice-Assistant](https://github.com/LewdLeah/Multiple-Choice-Assistant) — distributed by [TomeVault](https://tomevault.io).
