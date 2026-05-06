@@ -1,74 +1,18 @@
-## nep
+## doc-check
 
-> Use these paths for **local development builds on Ed's machine**.
+> Before planning any code changes:
 
-# Local Build Commands for NEP
 
-## When to Use This Rule
-Use these paths for **local development builds on Ed's machine**. 
-For CI/GitHub Actions, different paths are used (see `.github/workflows/`).
-
-## Machine-Specific Dependency Paths
-- **HDF5**: `/usr/local/hdf5-2.0.0/`
-- **NetCDF-C**: `/usr/local/netcdf-c-4.10.0/`
-- **NetCDF-Fortran**: `/usr/local/netcdf-fortran/` (if Fortran enabled)
-- **CDF**: `/usr/local/cdf-3.9.1/` (if CDF enabled)
-- **GeoTIFF**: System packages (`libgeotiff-dev`, `libtiff-dev`)
-
-## Runtime Environment
-Before running tests or executables:
-```bash
-export LD_LIBRARY_PATH=/usr/local/hdf5-2.0.0/lib:/usr/local/netcdf-c-4.10.0/lib:/usr/local/netcdf-fortran/lib:/usr/local/cdf-3.9.1/lib:$LD_LIBRARY_PATH
-```
-
-## Build System Options
-
-### Autotools (Primary)
-Working directory: `/home/ed/NEP`
-
-**Common configure flags:**
-- `--enable-geotiff` - Enable GeoTIFF reader
-- `--enable-cdf` - Enable NASA CDF reader
-- `--disable-lz4` - Disable LZ4 compression
-- `--disable-bzip2` - Disable bzip2 compression
-- `--disable-fortran` - Disable Fortran wrapper library
-- `--disable-shared` - Build static libraries only
-
-**Full build command:**
-```bash
-autoreconf -i && \
-CFLAGS="-g -O0" \
-CPPFLAGS="-I/usr/local/hdf5-2.0.0/include -I/usr/local/netcdf-c-4.10.0/include -I/usr/local/netcdf-fortran/include -I/usr/local/cdf-3.9.1/include" \
-LDFLAGS="-L/usr/local/hdf5-2.0.0/lib -L/usr/local/netcdf-c-4.10.0/lib -L/usr/local/netcdf-fortran/lib -L/usr/local/cdf-3.9.1/lib -Wl,-rpath,/usr/local/hdf5-2.0.0/lib -Wl,-rpath,/usr/local/netcdf-c-4.10.0/lib -Wl,-rpath,/usr/local/netcdf-fortran/lib" \
-./configure --enable-geotiff --enable-cdf --disable-fortran --disable-shared --disable-bzip2 --disable-lz4 && \
-make clean && make -j$(nproc) && make check
-```
-
-### CMake (Alternative)
-**IMPORTANT**: All CMake builds must use the `build` directory, which is git-ignored.
-
-Working directory: `/home/ed/NEP`
-
-```bash
-cmake -S . -B build \
-  -DCMAKE_PREFIX_PATH="/usr/local/hdf5-2.0.0;/usr/local/netcdf-c-4.10.0;/usr/local/cdf-3.9.1" \
-  -DCMAKE_BUILD_TYPE=Debug \
-  -DENABLE_GEOTIFF=ON \
-  -DENABLE_CDF=ON \
-  -DENABLE_FORTRAN=OFF \
-  -DCMAKE_SHARED_LINKER_FLAGS="-L/usr/local/hdf5-2.0.0/lib -Wl,-rpath,/usr/local/hdf5-2.0.0/lib" \
-  -DCMAKE_EXE_LINKER_FLAGS="-L/usr/local/hdf5-2.0.0/lib -Wl,-rpath,/usr/local/hdf5-2.0.0/lib"
-make -j$(nproc) -C build && ctest --test-dir build
-```
-
-**Never create CMake build artifacts outside the `build` directory** to avoid cluttering the repository with untracked files.
-
-## Troubleshooting
-- **"library not found" errors**: Check `LD_LIBRARY_PATH` is set
-- **"header not found" errors**: Verify `CPPFLAGS` includes correct paths
-- **Link errors**: Ensure `LDFLAGS` includes all dependency lib directories
-- **Test failures**: Run `make check VERBOSE=1` for detailed output
+# Documentation Check Rule
+Before planning any code changes:
+1. **Review Architecture & Design**: Check [docs/design.md](../../../docs/design.md) for system architecture, component interactions, and technical specifications.
+2. **Verify Requirements**: Consult [docs/prd.md](../../../docs/prd.md) to ensure changes align with product requirements, API specifications, and feature definitions.
+3. **Understand User Impact**: Read [docs/prfaq.md](../../../docs/prfaq.md) to consider how changes affect users, compatibility, and use cases.
+4. **Check Version Compatibility**: Verify that changes maintain backward compatibility as specified in the documentation.
+5. **Consider Format Support**: For changes affecting file formats (NetCDF, CDF, GeoTIFF), ensure compliance with format specifications in the documentation.
+6. **Review Build Systems**: For build system changes, ensure both CMake and Autotools configurations are updated consistently.
+7. **Update Documentation**: Plan to update relevant documentation if implementing new features or changing existing behavior.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/Intelligent-Data-Design-Inc) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [Intelligent-Data-Design-Inc/NEP](https://github.com/Intelligent-Data-Design-Inc/NEP) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
