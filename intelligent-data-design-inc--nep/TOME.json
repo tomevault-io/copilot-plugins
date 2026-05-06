@@ -2,7 +2,7 @@
   "name": "NEP",
   "owner": "Intelligent-Data-Design-Inc",
   "repo": "NEP",
-  "description": "",
+  "description": "NetCDF Expansion Pack",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/Intelligent-Data-Design-Inc",
+  "source_url": "https://github.com/Intelligent-Data-Design-Inc/NEP",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T01:42:33Z"
+  "distributed_at": "2026-05-06T17:30:41Z"
 }
