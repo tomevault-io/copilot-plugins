@@ -4,7 +4,7 @@
   "repo": "extract-llms-docs",
   "description": "Extract documentation for AI agents from any site with llms.txt support. Features MCP server, REST API, batch processing, and multiple export formats.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nirholas/extract-llms-docs",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T19:37:50Z"
+  "distributed_at": "2026-05-06T00:35:57Z"
 }
