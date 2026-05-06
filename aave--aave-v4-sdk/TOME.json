@@ -3,8 +3,8 @@
   "owner": "aave",
   "repo": "aave-v4-sdk",
   "description": "The official SDK for Aave V4 \ud83d\udc7b.",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "type": "tome",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
+  "skills": [
+    {
+      "name": "schema-update",
+      "path": ".claude/skills/schema-update",
+      "github_url": "https://github.com/aave/aave-v4-sdk/tree/main/.claude/skills/schema-update",
+      "description": ""
+    }
+  ],
   "source_url": "https://github.com/aave/aave-v4-sdk",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T07:42:00Z"
+  "distributed_at": "2026-05-06T10:34:26Z"
 }
