@@ -1,0 +1,14 @@
+{
+  "name": "superegodev--superego",
+  "displayName": "superego",
+  "description": "Software That Fits You",
+  "version": "1.0.0",
+  "author": "superegodev",
+  "homepage": "https://github.com/superegodev/superego",
+  "skills": [
+    {
+      "name": "writing-browser-app-e2e-tests",
+      "description": ""
+    }
+  ]
+}
