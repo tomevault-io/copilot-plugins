@@ -1,0 +1,9 @@
+{
+  "name": "dreadnode--ares",
+  "displayName": "ares",
+  "description": "Ares is an autonomous security operations platform where LLM-driven red and blue team agents operate against each other on live infrastructure, enabling realistic evaluation of attack and defense.",
+  "version": "1.0.0",
+  "author": "dreadnode",
+  "homepage": "https://github.com/dreadnode/ares",
+  "skills": []
+}
