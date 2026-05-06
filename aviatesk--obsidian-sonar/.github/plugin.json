@@ -1,0 +1,14 @@
+{
+  "name": "aviatesk--obsidian-sonar",
+  "displayName": "obsidian-sonar",
+  "description": "Deep knowledge retrieval for Obsidian, completely offline.",
+  "version": "1.0.0",
+  "author": "aviatesk",
+  "homepage": "https://github.com/aviatesk/obsidian-sonar",
+  "skills": [
+    {
+      "name": "commit",
+      "description": ""
+    }
+  ]
+}
