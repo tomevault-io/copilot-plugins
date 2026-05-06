@@ -1,247 +1,230 @@
-## hooks
+## mcp-servers
 
-> - `use-projects.ts` - Project queries
+> Direct database operations without manual SQL in Supabase dashboard.
 
-# Hooks & Data Fetching
+# MCP Servers Available
 
-## Hook Organization
+## Supabase MCP
+Direct database operations without manual SQL in Supabase dashboard.
 
-### Location: `src/hooks/`
+### Common Operations
+```
+# List tables
+mcp_supabase_list_tables
 
-### Query Hooks (Data Fetching)
-- `use-projects.ts` - Project queries
-- `use-budget-items.ts` - Budget item queries
-- `use-vendors.ts` - Vendor queries
-- `use-dashboard.ts` - Dashboard aggregates
+# Execute SQL query
+mcp_supabase_execute_sql(query: "SELECT * FROM project_summary LIMIT 5")
 
-### Mutation Hooks (CRUD Operations)
-- `use-budget-item-mutations.ts` - Budget CRUD
-- `use-vendor-mutations.ts` - Vendor CRUD
-- `use-draw-mutations.ts` - Draw CRUD
-- `use-photo-mutations.ts` - Photo upload/delete
+# Apply migration
+mcp_supabase_apply_migration(name: "add_new_column", query: "ALTER TABLE...")
 
-### Utility Hooks
-- `use-auth.ts` - Authentication state
-- `use-mobile.ts` - Mobile detection
-- `use-sort-order.ts` - Drag & drop sorting
-- `use-realtime.ts` - Supabase subscriptions
-- `use-places-autocomplete.ts` - Google Places API
+# List migrations
+mcp_supabase_list_migrations
 
-## Query Hook Pattern
+# Generate TypeScript types
+mcp_supabase_generate_typescript_types
 
-```typescript
-// src/hooks/use-projects.ts
-import { useQuery } from '@tanstack/react-query';
-import { getSupabaseClient } from '@/lib/supabase/client';
-import type { ProjectSummary } from '@/types';
+# Get logs for debugging
+mcp_supabase_get_logs(service: "postgres" | "auth" | "storage")
 
-export function useProject(projectId: string) {
-  return useQuery({
-    queryKey: ['projects', projectId],
-    queryFn: async () => {
-      const supabase = getSupabaseClient();
-      const { data, error } = await supabase
-        .from('project_summary')  // Always use views
-        .select('*')
-        .eq('id', projectId)
-        .single();
-      if (error) throw error;
-      return data as ProjectSummary;
-    },
-    enabled: !!projectId,
-  });
-}
-
-export function useProjects() {
-  return useQuery({
-    queryKey: ['projects'],
-    queryFn: async () => {
-      const supabase = getSupabaseClient();
-      const { data, error } = await supabase
-        .from('project_summary')
-        .select('*')
-        .order('updated_at', { ascending: false });
-      if (error) throw error;
-      return data as ProjectSummary[];
-    },
-  });
-}
+# Security/performance advisors
+mcp_supabase_get_advisors(type: "security" | "performance")
 ```
 
-## Mutation Hook Pattern
+### Edge Functions
+```
+# List functions
+mcp_supabase_list_edge_functions
 
-```typescript
-// src/hooks/use-budget-item-mutations.ts
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { getSupabaseClient } from '@/lib/supabase/client';
-import { toast } from 'sonner';
-import type { BudgetItemInput, BudgetItem } from '@/types';
-
-export function useBudgetItemMutations(projectId: string) {
-  const queryClient = useQueryClient();
-
-  const createItem = useMutation({
-    mutationFn: async (item: Partial<BudgetItemInput>) => {
-      const supabase = getSupabaseClient();
-      const { data, error } = await supabase
-        .from('budget_items')
-        .insert({ ...item, project_id: projectId })
-        .select()
-        .single();
-      if (error) throw error;
-      return data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['budgetItems', projectId] });
-      queryClient.invalidateQueries({ queryKey: ['projects', projectId] });
-      toast.success('Item added');
-    },
-    onError: (error) => {
-      toast.error(error.message);
-    },
-  });
-
-  const updateItem = useMutation({
-    mutationFn: async ({ id, ...updates }: Partial<BudgetItem> & { id: string }) => {
-      const supabase = getSupabaseClient();
-      const { data, error } = await supabase
-        .from('budget_items')
-        .update(updates)
-        .eq('id', id)
-        .select()
-        .single();
-      if (error) throw error;
-      return data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['budgetItems', projectId] });
-      queryClient.invalidateQueries({ queryKey: ['projects', projectId] });
-    },
-  });
-
-  const deleteItem = useMutation({
-    mutationFn: async (id: string) => {
-      const supabase = getSupabaseClient();
-      const { error } = await supabase
-        .from('budget_items')
-        .delete()
-        .eq('id', id);
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['budgetItems', projectId] });
-      queryClient.invalidateQueries({ queryKey: ['projects', projectId] });
-      toast.success('Item deleted');
-    },
-  });
-
-  const bulkDelete = useMutation({
-    mutationFn: async (ids: string[]) => {
-      const supabase = getSupabaseClient();
-      const { error } = await supabase
-        .from('budget_items')
-        .delete()
-        .in('id', ids);
-      if (error) throw error;
-    },
-    onSuccess: (_, ids) => {
-      queryClient.invalidateQueries({ queryKey: ['budgetItems', projectId] });
-      queryClient.invalidateQueries({ queryKey: ['projects', projectId] });
-      toast.success(`${ids.length} items deleted`);
-    },
-  });
-
-  return { createItem, updateItem, deleteItem, bulkDelete };
-}
+# Deploy function
+mcp_supabase_deploy_edge_function(name: "my-function", files: [...])
 ```
 
-## Query Key Conventions
+### When to Use
+- Running migrations
+- Debugging database issues
+- Generating fresh TypeScript types
+- Checking for security issues after schema changes
 
-```typescript
-// Entity list
-['projects']
-['vendors']
-['budgetItems', projectId]
-['draws', projectId]
+---
 
-// Single entity
-['projects', projectId]
-['vendors', vendorId]
+## Vercel MCP
+Deployment and project management.
 
-// Related data
-['budgetCategories', projectId]
-['vendorTags']
-['vendorContacts', vendorId]
-['lineItemPhotos', lineItemId]
+### Common Operations
+```
+# Deploy current project
+mcp_vercel_deploy_to_vercel
 
-// Dashboard aggregates
-['portfolioSummary']
-['categoryTotals']
+# List projects
+mcp_vercel_list_projects(teamId: "...")
+
+# Get deployment logs
+mcp_vercel_get_deployment_build_logs(idOrUrl: "...", teamId: "...")
+
+# Check domain availability
+mcp_vercel_check_domain_availability_and_price(names: ["example.com"])
 ```
 
-## Cache Invalidation Strategy
+### When to Use
+- Deploying to production
+- Debugging failed deployments
+- Checking build logs
 
-When mutating data, invalidate related queries:
+---
 
-```typescript
-// After budget item change
-queryClient.invalidateQueries({ queryKey: ['budgetItems', projectId] });
-queryClient.invalidateQueries({ queryKey: ['projects', projectId] });  // Totals change
-queryClient.invalidateQueries({ queryKey: ['budgetCategories', projectId] });
+## Linear MCP
+Issue and project tracking.
 
-// After vendor change
-queryClient.invalidateQueries({ queryKey: ['vendors'] });
-queryClient.invalidateQueries({ queryKey: ['vendorPaymentSummary'] });
+### Common Operations
+```
+# List issues
+mcp_linear_list_issues(team: "...", assignee: "me")
 
-// After draw change
-queryClient.invalidateQueries({ queryKey: ['draws', projectId] });
-queryClient.invalidateQueries({ queryKey: ['projects', projectId] });
+# Create issue
+mcp_linear_create_issue(title: "...", team: "...", description: "...")
+
+# Update issue status
+mcp_linear_update_issue(id: "...", state: "done")
+
+# List projects
+mcp_linear_list_projects
+
+# Create comment
+mcp_linear_create_comment(issueId: "...", body: "...")
 ```
 
-## Optimistic Updates
+### When to Use
+- Creating tasks from development work
+- Updating issue status
+- Tracking bugs and features
 
-For instant UI feedback:
+---
 
-```typescript
-const updateItem = useMutation({
-  mutationFn: async ({ id, ...updates }) => {
-    // ... API call
-  },
-  onMutate: async (newData) => {
-    // Cancel outgoing refetches
-    await queryClient.cancelQueries({ queryKey: ['budgetItems', projectId] });
-    
-    // Snapshot previous value
-    const previous = queryClient.getQueryData(['budgetItems', projectId]);
-    
-    // Optimistically update
-    queryClient.setQueryData(['budgetItems', projectId], (old: BudgetItem[]) =>
-      old.map(item => item.id === newData.id ? { ...item, ...newData } : item)
-    );
-    
-    return { previous };
-  },
-  onError: (err, newData, context) => {
-    // Rollback on error
-    queryClient.setQueryData(['budgetItems', projectId], context?.previous);
-  },
-  onSettled: () => {
-    queryClient.invalidateQueries({ queryKey: ['budgetItems', projectId] });
-  },
-});
+## shadcn MCP
+Component registry for UI components.
+
+### Common Operations
+```
+# Search for components
+mcp_shadcn_search_items_in_registries(registries: ["@shadcn"], query: "button")
+
+# View component details
+mcp_shadcn_view_items_in_registries(items: ["@shadcn/button"])
+
+# Get usage examples
+mcp_shadcn_get_item_examples_from_registries(registries: ["@shadcn"], query: "button-demo")
+
+# Get install command
+mcp_shadcn_get_add_command_for_items(items: ["@shadcn/button", "@shadcn/card"])
 ```
 
-## Supabase Client Usage
+### When to Use
+- Adding new UI components
+- Finding component examples
+- Checking component APIs
 
-```typescript
-// Browser client (for client components)
-import { getSupabaseClient } from '@/lib/supabase/client';
-const supabase = getSupabaseClient();
+---
 
-// Server client (for Server Components/Route Handlers)
-import { createServerClient } from '@/lib/supabase/server';
-const supabase = await createServerClient();
+## Firecrawl MCP
+Web scraping and search.
+
+### Common Operations
 ```
+# Scrape a page
+mcp_firecrawl_firecrawl_scrape(url: "https://example.com", formats: ["markdown"])
+
+# Search the web
+mcp_firecrawl_firecrawl_search(query: "Next.js 15 new features", limit: 5)
+
+# Map a website (discover URLs)
+mcp_firecrawl_firecrawl_map(url: "https://docs.example.com")
+```
+
+### When to Use
+- Researching documentation
+- Finding code examples
+- Checking competitor features
+
+---
+
+## Browser MCP (cursor-ide-browser)
+Browser automation for testing.
+
+### Common Operations
+```
+# Navigate to URL
+mcp_cursor-ide-browser_browser_navigate(url: "http://localhost:3000")
+
+# Take snapshot (for element refs)
+mcp_cursor-ide-browser_browser_snapshot
+
+# Click element
+mcp_cursor-ide-browser_browser_click(element: "Add Project button", ref: "...")
+
+# Type text
+mcp_cursor-ide-browser_browser_type(element: "Address input", ref: "...", text: "123 Main St")
+
+# Take screenshot
+mcp_cursor-ide-browser_browser_take_screenshot(name: "dashboard")
+
+# Check console errors
+mcp_cursor-ide-browser_browser_console_messages
+```
+
+### Testing Flow
+1. Navigate to page
+2. Snapshot to get element refs
+3. Interact with elements
+4. Re-snapshot to verify changes
+5. Screenshot for visual verification
+
+---
+
+## Puppeteer MCP
+Alternative browser automation.
+
+### Common Operations
+```
+# Navigate
+mcp_puppeteer_puppeteer_navigate(url: "http://localhost:3000")
+
+# Screenshot
+mcp_puppeteer_puppeteer_screenshot(name: "test")
+
+# Click
+mcp_puppeteer_puppeteer_click(selector: ".button-class")
+
+# Fill form
+mcp_puppeteer_puppeteer_fill(selector: "input[name='address']", value: "123 Main St")
+
+# Execute JS
+mcp_puppeteer_puppeteer_evaluate(script: "document.title")
+```
+
+---
+
+## Workflow Examples
+
+### After Schema Changes
+1. `mcp_supabase_apply_migration` - Apply the migration
+2. `mcp_supabase_generate_typescript_types` - Update types
+3. `mcp_supabase_get_advisors(type: "security")` - Check for RLS issues
+
+### Adding New UI Component
+1. `mcp_shadcn_search_items_in_registries` - Find component
+2. `mcp_shadcn_get_item_examples_from_registries` - See examples
+3. `mcp_shadcn_get_add_command_for_items` - Get install command
+
+### Testing Feature
+1. `mcp_cursor-ide-browser_browser_navigate` - Go to page
+2. `mcp_cursor-ide-browser_browser_snapshot` - Get elements
+3. Interact and verify
+4. `mcp_cursor-ide-browser_browser_console_messages` - Check for errors
+
+### Deploy to Production
+1. `mcp_vercel_deploy_to_vercel` - Deploy
+2. `mcp_vercel_get_deployment_build_logs` - Check for errors
 
 ---
 > Source: [adamj-ops/rehab-budget-pro](https://github.com/adamj-ops/rehab-budget-pro) — distributed by [TomeVault](https://tomevault.io).
