@@ -1,0 +1,9 @@
+{
+  "name": "leaguetoolkit--league-mod",
+  "displayName": "league-mod",
+  "description": "Toolkit for creating, managing, and distributing League of Legends mods.",
+  "version": "1.0.0",
+  "author": "LeagueToolkit",
+  "homepage": "https://github.com/LeagueToolkit/league-mod",
+  "skills": []
+}
