@@ -1,0 +1,9 @@
+{
+  "name": "zendevve--antigravity-usage",
+  "displayName": "Antigravity-Usage",
+  "description": "vscode (antigravity) extension that tracks your usage limits of ai models",
+  "version": "1.0.0",
+  "author": "Zendevve",
+  "homepage": "https://github.com/Zendevve/Antigravity-Usage",
+  "skills": []
+}
