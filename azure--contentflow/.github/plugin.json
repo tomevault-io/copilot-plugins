@@ -1,0 +1,9 @@
+{
+  "name": "azure--contentflow",
+  "displayName": "contentflow",
+  "description": "Transform Content Into Connected Knowledge",
+  "version": "1.0.0",
+  "author": "Azure",
+  "homepage": "https://github.com/Azure/contentflow",
+  "skills": []
+}
