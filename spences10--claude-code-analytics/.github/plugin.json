@@ -1,0 +1,54 @@
+{
+  "name": "spences10--claude-code-analytics",
+  "displayName": "claude-code",
+  "description": "\ud83d\udc40 Local-first analytics and statusline for Claude Code - capture sessions, tool calls, costs, and performance into SQLite for fast, actionable insights.",
+  "version": "1.0.0",
+  "author": "spences10",
+  "homepage": "https://github.com/spences10/claude-code-analytics",
+  "skills": [
+    {
+      "name": "ecosystem-guide",
+      "description": ""
+    },
+    {
+      "name": "mcp-essentials",
+      "description": ""
+    },
+    {
+      "name": "orchestration",
+      "description": ""
+    },
+    {
+      "name": "plugin-dev",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "description": ""
+    },
+    {
+      "name": "analytics",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "description": ""
+    },
+    {
+      "name": "techdebt-finder",
+      "description": ""
+    },
+    {
+      "name": "terminal-optimization",
+      "description": ""
+    },
+    {
+      "name": "worktree-mastery",
+      "description": ""
+    }
+  ]
+}
