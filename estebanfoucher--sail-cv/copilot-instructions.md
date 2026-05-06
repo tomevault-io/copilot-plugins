@@ -1,65 +1,40 @@
-## project-overview
+## python-standards
 
-> Sail-CV is an embedded computer vision framework for quantitative measurement of sail aerodynamic performance. It contains two independent modules sharing infrastructure.
+> - Python 3.10+ (use X | Y union syntax, not Optional[X])
 
-# Sail-CV Project Overview
+# Python Standards
 
-Sail-CV is an embedded computer vision framework for quantitative measurement of sail aerodynamic performance. It contains two independent modules sharing infrastructure.
+## Style
+- Python 3.10+ (use X | Y union syntax, not Optional[X])
+- PEP 8 via ruff, line-length 88; run `make format-check lint-check` / `make typecheck` (or `make ci-lint`).
+- Ruff and mypy versions are pinned in pyproject.toml; same versions for local, pre-commit, and CI (see .pre-commit-config.yaml revs).
+- Double quotes for strings
+- Type hints on function signatures
+- Docstrings on public functions and classes (Google or NumPy style)
 
-## Repository Structure
+## Imports
+- Flat imports within each module (not from sailcv.reconstruction.xxx)
+- Reconstruction imports: from stereo.xxx import ..., from calibration.xxx import ..., from video import VideoReader
+- Tracking imports: from models import Detection, Track, from tracker_utils import ByteTracker
+- Use isort via ruff for import ordering
 
-- src/reconstruction/ - 3D stereo reconstruction (calibration, mast3r, triangulation)
-- src/tracking/ - Tell-tale detection and tracking (RT-DETR, ByteTracker, PCA)
-- mast3r/ - External MASt3R/Dust3R submodule (PYTHONPATH, not a package)
-- web_app/ - Gradio web interface for reconstruction
-- assets/reconstruction/ - Scenes, calibration images, checkerboard/charuco frames
-- assets/tracking/ - Tracking videos, raw detections, layouts, configs
-- checkpoints/ - Model weights (rt-detr.pt, yolo-s.pt, FastSAM-x.pt, MASt3R)
-- parameters/ - YAML config files for tracking
-- fixtures/ - Test fixtures (C1_fixture.mp4, C1_layout.json)
-- tests/ - Unified test suite (tests/reconstruction/, tests/tracking/)
-- docker/ - Separate Dockerfiles per service + docker-compose.yml
-- scripts/ - Dev scripts (format, lint, test, check-all)
+## CV/ML Practices
+- OpenCV (cv2) for image processing, NumPy for arrays
+- Pydantic for data models and validation
+- Loguru for logging (not stdlib logging)
+- Keep model loading separate from inference
+- Handle edge cases: empty frames, invalid detections, missing calibration
+- Use float32 for inference, uint8 for images
 
-## Key Conventions
+## Performance
+- Vectorized NumPy over Python loops
+- Profile real-time loop code
+- Consider memory for embedded systems (Jetson)
 
-- Package manager: uv (not pip)
-- Linter/Formatter: ruff (PEP 8, line-length 88)
-- Type checker: mypy (Python 3.10+)
-- Test runner: pytest
-- Build system: hatchling
-- Docker base: dustynv/l4t-pytorch:r36.4.0 (Jetson)
-- PYTHONPATH: src, mast3r, mast3r/dust3r, src/reconstruction, src/tracking
-
-## Module Independence
-
-The two modules do NOT share code at the source level currently. Each has its own video.py, models, and utilities. Keep them independent unless a clear shared pattern emerges.
-
-## Import Style
-
-Both modules use flat imports within their namespace:
-- Reconstruction: from stereo.triangulation import ..., from calibration import Scene
-- Tracking: from models import Detection, from tracker_utils import ByteTracker
-
-The pythonpath in pyproject.toml includes src, so src/reconstruction/ and src/tracking/ directories are importable roots when running within their respective context.
-
-## Path Resolution
-
-Project root from source files in src/reconstruction/ or src/tracking/:
-- `Path(__file__).resolve().parents[2]` (NOT `.parent.parent` which only reaches src/)
-
-Project root from test files in tests/reconstruction/ or tests/tracking/:
-- `Path(__file__).resolve().parents[2]`
-
-Project root from deeper test files (tests/reconstruction/stereo/, tests/tracking/dataset/):
-- `Path(__file__).resolve().parents[3]`
-
-Asset paths must include the module namespace:
-- Reconstruction: `project_root / "assets" / "reconstruction" / "scene_3" / ...`
-- Tracking: `project_root / "assets" / "tracking" / "2Ce-CKKCtV4.mp4"`
-- Checkpoints/fixtures/parameters are at project root: `project_root / "checkpoints" / "rt-detr.pt"`
-
-Do NOT use sys.path.append/insert in tests — pyproject.toml pythonpath handles everything.
+## Dependencies
+- Add to pyproject.toml (not requirements.txt)
+- Module-specific heavy deps go in optional extras ([reconstruction] or [tracking])
+- Pin versions for CV/ML libraries
 
 ---
 > Source: [estebanfoucher/Sail-CV](https://github.com/estebanfoucher/Sail-CV) — distributed by [TomeVault](https://tomevault.io).
