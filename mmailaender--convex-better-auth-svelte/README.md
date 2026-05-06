@@ -1,6 +1,6 @@
 # convex-better-auth-svelte
 
-> Tome by [mmailaender](https://github.com/mmailaender/convex-better-auth-svelte) — distributed by [TomeVault](https://tomevault.io/claim/mmailaender)
+> Tome by [mmailaender](https://github.com/mmailaender/convex-better-auth-svelte) — distributed by [TomeVault](https://tomevault.io)
 
 ## GitHub Copilot Config
 
@@ -15,10 +15,10 @@ Original source: `.windsurf/rules/*.md` in [mmailaender/convex-better-auth-svelt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/mmailaender#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/mmailaender/convex-better-auth-svelte](https://github.com/mmailaender/convex-better-auth-svelte)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/mmailaender) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-q -->
