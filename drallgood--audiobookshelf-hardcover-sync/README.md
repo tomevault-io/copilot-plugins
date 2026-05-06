@@ -2,6 +2,8 @@
 
 > Tome by [drallgood](https://github.com/drallgood/audiobookshelf-hardcover-sync) — distributed by [TomeVault](https://tomevault.io)
 
+Syncs Audiobookshelf to Hardcover
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
@@ -15,7 +17,7 @@ Original source: `.windsurf/rules/*.md` in [drallgood/audiobookshelf-hardcover-s
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From [drallgood/audiobookshelf-hardcover-sync](https://github.com/drallgood/audiobookshelf-hardcover-sync) — a repo with 0+ stars on GitHub.
+From [drallgood/audiobookshelf-hardcover-sync](https://github.com/drallgood/audiobookshelf-hardcover-sync) — a repo with 53+ stars on GitHub.
 
 ---
 
