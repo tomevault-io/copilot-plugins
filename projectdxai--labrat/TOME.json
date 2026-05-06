@@ -4,7 +4,7 @@
   "repo": "labrat",
   "description": "Autonomous multi-branch research lab. Branches compete for compute budget. The system converges on what works.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ProjectDXAI/labrat",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T20:08:58Z"
+  "distributed_at": "2026-05-06T07:54:26Z"
 }
