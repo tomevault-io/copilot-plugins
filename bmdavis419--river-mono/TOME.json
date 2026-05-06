@@ -2,7 +2,7 @@
   "name": "river-mono",
   "owner": "bmdavis419",
   "repo": "river-mono",
-  "description": "",
+  "description": "it's kinda like trpc, but for ai agents & streams",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/bmdavis419",
+  "source_url": "https://github.com/bmdavis419/river-mono",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T19:11:30Z"
+  "distributed_at": "2026-05-06T10:55:39Z"
 }
