@@ -1,0 +1,14 @@
+{
+  "name": "linkml--valuesets",
+  "displayName": "valuesets",
+  "description": "Common value sets (enums) for science, biomedicine, computing, and other areas",
+  "version": "1.0.0",
+  "author": "linkml",
+  "homepage": "https://github.com/linkml/valuesets",
+  "skills": [
+    {
+      "name": "pv-mapping",
+      "description": ""
+    }
+  ]
+}
