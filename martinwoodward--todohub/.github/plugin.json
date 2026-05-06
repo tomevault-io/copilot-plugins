@@ -1,0 +1,9 @@
+{
+  "name": "martinwoodward--todohub",
+  "displayName": "todohub",
+  "description": "iOS todo app backed by GitHub Issues",
+  "version": "1.0.0",
+  "author": "martinwoodward",
+  "homepage": "https://github.com/martinwoodward/todohub",
+  "skills": []
+}
