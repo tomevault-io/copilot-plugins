@@ -1,0 +1,44 @@
+{
+  "name": "swcc",
+  "owner": "ylxmf2005",
+  "repo": "swcc",
+  "description": "\ud83c\udde8\ud83c\uddf3 SWCC \u2014 Democratic Centralism Multi-Agent Orchestration for Claude Code (\u6c11\u4e3b\u96c6\u4e2d\u5236\u591a\u667a\u80fd\u4f53\u7f16\u6392)",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ylxmf2005/swcc",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T22:58:45Z"
+}
