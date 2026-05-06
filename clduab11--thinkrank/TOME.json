@@ -1,0 +1,44 @@
+{
+  "name": "thinkrank",
+  "owner": "clduab11",
+  "repo": "thinkrank",
+  "description": "Revolutionizing collaborative thinking and problem-solving through intelligent ranking systems and gamified AI research contribution. A hybrid gaming-educational mobile platform that combines engaging game mechanics with generative AI education and research.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/clduab11/thinkrank",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T22:48:23Z"
+}
