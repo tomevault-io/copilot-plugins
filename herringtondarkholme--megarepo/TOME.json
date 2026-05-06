@@ -2,9 +2,9 @@
   "name": "megarepo",
   "owner": "HerringtonDarkholme",
   "repo": "megarepo",
-  "description": "",
+  "description": "a repo with all ai setup",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HerringtonDarkholme/megarepo",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-22T00:13:28Z"
+  "distributed_at": "2026-05-06T02:38:14Z"
 }
