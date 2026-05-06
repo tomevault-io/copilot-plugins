@@ -1,0 +1,87 @@
+{
+  "name": "claude-code-workflows",
+  "owner": "dgalarza",
+  "repo": "claude-code-workflows",
+  "description": "Personal collection of Claude Code workflows",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "conventional-commits",
+      "path": "plugins/conventional-commits/skills/conventional-commits",
+      "github_url": "https://github.com/dgalarza/claude-code-workflows/tree/main/plugins/conventional-commits/skills/conventional-commits",
+      "description": ""
+    },
+    {
+      "name": "gridfinity-baseplate-planner",
+      "path": "plugins/gridfinity-planner/skills/gridfinity-baseplate-planner",
+      "github_url": "https://github.com/dgalarza/claude-code-workflows/tree/main/plugins/gridfinity-planner/skills/gridfinity-baseplate-planner",
+      "description": ""
+    },
+    {
+      "name": "linear-implement",
+      "path": "plugins/rails-toolkit/skills/linear-implement",
+      "github_url": "https://github.com/dgalarza/claude-code-workflows/tree/main/plugins/rails-toolkit/skills/linear-implement",
+      "description": ""
+    },
+    {
+      "name": "parallel-code-review",
+      "path": "plugins/parallel-code-review/skills/parallel-code-review",
+      "github_url": "https://github.com/dgalarza/claude-code-workflows/tree/main/plugins/parallel-code-review/skills/parallel-code-review",
+      "description": ""
+    },
+    {
+      "name": "process-meeting-transcript",
+      "path": "plugins/meeting-transcript/skills/process-meeting-transcript",
+      "github_url": "https://github.com/dgalarza/claude-code-workflows/tree/main/plugins/meeting-transcript/skills/process-meeting-transcript",
+      "description": ""
+    },
+    {
+      "name": "rspec-testing",
+      "path": "plugins/rails-toolkit/skills/rspec-testing",
+      "github_url": "https://github.com/dgalarza/claude-code-workflows/tree/main/plugins/rails-toolkit/skills/rspec-testing",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "path": "plugins/tdd-workflow/skills/tdd-workflow",
+      "github_url": "https://github.com/dgalarza/claude-code-workflows/tree/main/plugins/tdd-workflow/skills/tdd-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/dgalarza/claude-code-workflows",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:32:44Z"
+}
