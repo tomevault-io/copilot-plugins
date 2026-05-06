@@ -1,0 +1,9 @@
+{
+  "name": "dcatfly--weixin-claude-code",
+  "displayName": "weixin_claude_code",
+  "description": "WeChat Channel plugin for Claude Code \u2014 bidirectional messaging between WeChat and Claude Code via MCP protocol",
+  "version": "1.0.0",
+  "author": "Dcatfly",
+  "homepage": "https://github.com/Dcatfly/weixin_claude_code",
+  "skills": []
+}
