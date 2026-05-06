@@ -1,54 +1,57 @@
-## 01-backend
+## 02-frontend
 
-> Reglas para el backend Node.js/Express en /backend/src — aplican a rutas, controladores y servicios.
+> Reglas para el frontend React/Vite en /app/src — componentes, contextos y servicios.
 
 
-# Backend — Reglas de Arquitectura
+# Frontend — Reglas de Arquitectura React
 
-## Patrón Ruta → Controlador → Servicio
+## Servicios — Centralización de HTTP
+- Toda llamada al backend debe ir a través de los servicios en `app/src/services/`.
+  - `api.js` — cliente base para el backend Express (usa `get`, `post`, `patch`, `del`).
+  - `aiPlannerApi.js` — llamadas a la IA de planeación.
+  - `activityGeneratorApi.js` — generación de actividades evaluables.
+  - `gasApi.js` — llamadas a Google Apps Script (legacy, a deprecar gradualmente).
+  - `googlePicker.js` — encapsula el Google Picker para Drive.
+- **Un componente nunca hace `fetch` directamente.** Siempre delega a un servicio.
 
-### Routes (`*.routes.js`)
-- Solo declaran endpoints y aplican middlewares (`authMiddleware`, validadores Zod).
-- **No** contienen lógica de negocio ni consultas SQL.
-
-```js
+```jsx
 // ✅ Correcto
-router.post('/planning', authMiddleware, validateBody(planSchema), planningController.create);
+import { post } from '../services/api';
+const data = await post('/planning/ciclos', payload);
 
-// ❌ Incorrecto — lógica en la ruta
-router.post('/planning', async (req, res) => {
-  const result = await db.query('INSERT INTO ...');
-});
+// ❌ Incorrecto
+const res = await fetch('http://localhost:3001/planning/ciclos', { ... });
 ```
 
-### Controllers (`*.controller.js`)
-- Reciben la `req`, extraen y validan parámetros, delegan al servicio.
-- Devuelven respuestas JSON estandarizadas: `{ success: true, data: ... }` o `{ success: false, error: '...' }`.
-- Manejan los `try/catch` de la capa HTTP.
-- **No** conocen SQL ni llaman a APIs externas directamente.
+## Contextos
+- `AuthContext` — datos de sesión y perfil del usuario autenticado. No agregar estado ajeno a auth.
+- `CourseContext` — datos del curso activo. No agregar estado ajeno al curso.
+- Si un módulo (ej. Planeación, Evaluaciones) necesita estado compartido entre componentes, crear su propio contexto cerrado (ej. `PlanningContext`) en vez de polucionar el contexto global.
 
-### Services (`*.service.js`)
-- Contienen toda la lógica de negocio y consultas SQL.
-- **No** reciben `req` ni `res` — solo reciben parámetros planos.
-- Pueden llamar a otras APIs (Google Drive, Classroom, Gemini).
+## Componentes y UI
+- Usar **PrimeReact** para todos los elementos interactivos (Botones, Dialogs, Toasts, DataTable, etc.).
+- Usar **SweetAlert2** solo para confirmaciones de acciones destructivas (eliminar, sobreescribir).
+- Usar **PrimeFlex** para los layouts (grid, flex utilities).
+- No añadir librerías de UI adicionales sin consenso.
 
-## Base de Datos
-- Toda modificación estructural a la BD debe ir como migración numerada en `backend/database/migrations/`.
-  - Formato: `005_descripcion_corta.sql`
-- Nomenclatura de tablas: `snake_case` plural (ej. `ciclos_escolares`).
-- Usar siempre parámetros preparados con `mysql2` — nunca interpolación de strings en SQL.
+## Estilos
+- Vanilla CSS global en `app/src/assets/index.css`.
+- No usar estilos inline en componentes salvo posicionamiento dinámico calculado en JS.
+- No agregar Tailwind CSS.
 
-## Validación con Zod
-- Toda entrada de usuario (body, query, params) debe validarse con Zod **antes** de llegar al service.
-- Definir los schemas en archivos `*.schema.js` o al inicio del archivo de rutas.
+## Estructura de Carpetas de Módulos
+Cada módulo visual sigue esta estructura dentro de su carpeta:
+```
+/planeacion
+  ├── components/      # Componentes locales del módulo
+  ├── PlaneacionPage.jsx  # Página principal
+  └── (context opcional)
+```
 
-## Tokens de IA
-- Toda llamada a Gemini o cualquier IA **debe** descontar tokens de la tabla `perfiles` (`token_balance`, `total_consumed`).
-- Si el `token_balance` es 0 o menor, rechazar la petición con un error 402 antes de llamar a la IA.
-
-## Gestión de Google APIs
-- Los clientes de Google (`drive`, `classroom`, `docs`, `slides`) se inicializan en `/backend/src/clients/`.
-- No instanciar clientes de `googleapis` dentro de los servicios directamente.
+## Autenticación
+- `firebase` se usa únicamente para el flujo de autenticación de Google OAuth.
+- El token de sesión del backend (JWT) se guarda en `localStorage` con clave `session_token`.
+- Nunca almacenar en `localStorage` ni `sessionStorage` datos sensibles más allá del JWT.
 
 ---
 > Source: [MiguelAngelMondragonFernandez/Classroom-copilot](https://github.com/MiguelAngelMondragonFernandez/Classroom-copilot) — distributed by [TomeVault](https://tomevault.io).
