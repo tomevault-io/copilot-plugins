@@ -1,0 +1,9 @@
+{
+  "name": "luciuschen--lexdb",
+  "displayName": "lexdb",
+  "description": "Emacs dictionary lookup system with SQLite, multi-dict tabs, audio, and translation peek",
+  "version": "1.0.0",
+  "author": "LuciusChen",
+  "homepage": "https://github.com/LuciusChen/lexdb",
+  "skills": []
+}
