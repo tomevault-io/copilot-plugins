@@ -1,17 +1,14 @@
-## gitsyncmarks
+## doc-style-developer
 
-> i18n workflow — add new strings in English first, use key prefixes
+> Technical docs: developer perspective. User/contributor guides: welcoming, explanatory.
 
 
-# i18n Workflow
+# Documentation Style
 
-- **New user-facing strings:** Add to `_locales/en/messages.json` first.
-- **Key prefixes:** `help_` (Help tab), `options_` (options UI), `popup_` (popup), `sync_`, `api_`, etc.
-- **Other locales:** Can temporarily miss new keys; runtime falls back to English. Complete translations before release.
-- **Placeholders:** Keep `$1`, `$2` in correct positions; move them for grammar in translations.
-- **HTML in messages:** Use `data-i18n-html` for trusted content; keep `<code>`, `<a>`, etc. intact in translations.
+**Technical documentation** (ARCHITECTURE, DATA-FLOW, SYNC-LOGIC, IDEAS-*, I18N internals): Developer perspective. Factual, neutral. State what exists, how it works, where it lives. Avoid instructional tone.
+
+**User/contributor-facing docs** (TRANSLATING, CONTRIBUTING, README contributor section): Welcoming, explanatory. Step-by-step where helpful. "You can help", "Step by step" — appropriate for translators and contributors.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/d0dg3r)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/d0dg3r)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [d0dg3r/GitSyncMarks](https://github.com/d0dg3r/GitSyncMarks) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
