@@ -1,0 +1,9 @@
+{
+  "name": "bumpyclock--lsp-mcp",
+  "displayName": "lsp-mcp",
+  "description": "LSP MCP Server",
+  "version": "1.0.0",
+  "author": "BumpyClock",
+  "homepage": "https://github.com/BumpyClock/lsp-mcp",
+  "skills": []
+}
