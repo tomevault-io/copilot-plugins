@@ -1,0 +1,67 @@
+## ai-and-agile-future
+
+> 日本ソフトウェア科学会機械学習工学研究会 AIとアジャイルWG が発行する「2030年のAIとアジャイル」レポートのリポジトリ。
+
+# CLAUDE.md
+
+## プロジェクト概要
+
+日本ソフトウェア科学会機械学習工学研究会 AIとアジャイルWG が発行する「2030年のAIとアジャイル」レポートのリポジトリ。
+不定期（3ヶ月めど）で1つのレポートを継続的にアップデートし、CC BY-ND 4.0 で公開している。
+
+## 重要な設計原則
+
+- レポート本体（`report/`配下）は**常に1つのファイルを上書き更新**する。バージョンごとにファイルを分けない
+- 過去バージョンの参照は**Gitタグ経由**で行う（例: `blob/v1.0/report/main.md`）
+- 調査資料（`research/`配下）は**メジャーバージョンごとにフォルダを分けて蓄積**する（例: `research/v1/`, `research/v2/`）
+- バージョン番号は**メジャー.リビジョン**の2階層（v1.0, v1.1, v2.0, ...）
+  - **メジャー番号**（v1, v2, ...）: 定期アップデート（レポート内容の実質的な更新）
+  - **リビジョン**（.0, .1, .2, ...）: 同一メジャーバージョン内での追加・修正（スライド追加、英語版追加、誤字修正など）
+  - 初回リリースは常に `.0`（例: v1.0, v2.0）
+
+## 絶対にやってはいけないこと
+
+- **Gitタグを削除しない。** 過去バージョンへの参照URL、調査資料からのリンクが壊れる
+- **`report/` 配下にバージョン別のコピーを作らない。** Gitタグが過去版のアーカイブを担う
+- **LICENSEファイルを変更しない。** CC BY-ND 4.0 で公開済み
+
+## ディレクトリ構成
+
+```
+repo-root/
+├── README.md              # 表紙。最新バージョン・発行日・更新履歴テーブル
+├── LICENSE                # CC BY-ND 4.0
+├── CONTRIBUTING.md        # ブランチ運用・タグ運用ルール
+├── report/
+│   ├── main.md            # レポート本体（常に最新版）
+│   ├── slides.pdf         # スライド版
+│   ├── en/main.md         # 英語版
+│   └── figures/           # 図表
+├── research/              # 調査資料（バージョンごと）
+│   └── vN/
+├── changelog/             # 変更概要（人が書く背景・考察）
+│   └── vX-to-vY.md
+└── .github/workflows/     # CI（PDF生成）
+```
+
+## バージョン情報の管理場所
+
+バージョン・発行日は以下の**2箇所**を同時に更新する。
+
+1. `README.md` の冒頭（最新版表記）と更新履歴テーブル
+2. `report/main.md` のYAMLフロントマター（version, date）
+
+## PDF生成
+
+- Pandoc + LaTeX（日本語フォント対応）
+- GitHub Actionsで `v*` タグpush時に自動生成 → GitHub Releasesに添付
+- ローカルビルドが必要な場合は `pandoc` コマンドを使用（詳細は `.github/workflows/build-pdf.yml` を参照）
+
+## ブランチ運用
+
+- 執筆はブランチを切ってPRでmainにマージ
+- カジュアルな運用（承認必須ルールなし）
+
+---
+> Source: [mlse-jssst/ai-and-agile-future](https://github.com/mlse-jssst/ai-and-agile-future) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
