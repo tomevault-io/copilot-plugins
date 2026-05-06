@@ -1,15 +1,23 @@
-## go-dev
+## python-type-annotations
 
-> Go 开发环境规范
+> Python 变量显式类型注解偏好
 
 
-# Go 开发环境
+# Python 类型注解偏好
 
-## 0x01 版本管理
+在 Python 代码中，默认遵循以下偏好：
 
-- 系统安装了 gvm（Go Version Manager），当项目所需 Go 版本与系统默认版本不一致时，使用 `gvm` 切换到目标版本
-- 用法：`source ~/.gvm/scripts/gvm && gvm use <version>`，版本号从项目 `go.mod` 第一行读取
-- **禁止因版本不匹配就跳过编译或测试**，必须先尝试用 gvm 切换
+- 为局部变量添加显式类型注解（如 `x: int = 1`、`items: list[str] = []`）
+- 为中间变量（尤其是 `dict/list` 结构）补充类型，降低阅读和维护成本
+- 新增或修改代码时优先补齐类型注解，保持与既有风格一致
+
+示例：
+
+```python
+# Preferred
+query_list: list[dict[str, Any]] = super().to_unify_query_config()
+field_name: str | None = query.get("field_name")
+```
 
 ---
 > Source: [ZhuoZhuoCrayon/ai-workspace](https://github.com/ZhuoZhuoCrayon/ai-workspace) — distributed by [TomeVault](https://tomevault.io).
