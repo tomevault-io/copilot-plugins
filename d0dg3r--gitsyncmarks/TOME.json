@@ -2,7 +2,7 @@
   "name": "GitSyncMarks",
   "owner": "d0dg3r",
   "repo": "GitSyncMarks",
-  "description": "",
+  "description": "Browser extension for bidirectional bookmark sync with GitHub. Per-file storage (one JSON file per bookmark), three-way merge, auto-sync, multiple profiles. Works on Chrome and Firefox. Add bookmarks via Git, CLI, or GitHub Actions. No server \u2014 syncs directly via the GitHub API.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/d0dg3r",
+  "source_url": "https://github.com/d0dg3r/GitSyncMarks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-16T05:39:37Z"
+  "distributed_at": "2026-05-06T13:45:40Z"
 }
