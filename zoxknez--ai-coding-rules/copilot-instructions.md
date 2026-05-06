@@ -1,252 +1,367 @@
-## 66-stack-shadcn
+## 67-stack-nextjs15
 
-> USE WHEN: working with Shadcn UI, Tailwind CSS, Lucide icons, or Sonner toasts.
+> USE WHEN: working with Next.js 15 App Router, React Server Components, or Server Actions.
 
 
-# Shadcn UI Stack Rules
+# Next.js 15 App Router Rules
 
-## Installation
+> This module covers Next.js 15+ with App Router. For Pages Router, use general React rules.
 
-### Adding Components
-```bash
-# ✅ Use the CLI — never copy manually
-npx shadcn@latest add button
-npx shadcn@latest add card dialog
+## Component Strategy
 
-# Add multiple at once
-npx shadcn@latest add button card input label
+### Server vs Client Components
+
+| Type | Default | Directive | Use When |
+|------|---------|-----------|----------|
+| Server Component | ✅ Yes | None needed | Data fetching, no interactivity |
+| Client Component | No | `'use client'` | Hooks, events, browser APIs |
+
+### Decision Tree
+
+```
+Does this component need...
+├── useState/useEffect/useContext? → Client Component
+├── onClick/onChange/onSubmit? → Client Component  
+├── window/document/localStorage? → Client Component
+├── Only data fetching? → Server Component ✅
+└── Only rendering props? → Server Component ✅
 ```
 
-### Configuration
-Ensure `components.json` exists with proper settings:
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "default",
-  "rsc": true,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "src/styles/globals.css",
-    "baseColor": "neutral",
-    "cssVariables": true
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils"
-  }
+### Placement Rules
+
+```typescript
+// ✅ Server Component (default)
+// No directive needed
+async function UserProfile({ userId }: { userId: string }) {
+  const user = await getUser(userId); // Direct DB/API call
+  return <div>{user.name}</div>;
+}
+
+// ✅ Client Component (when needed)
+'use client';
+
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  return <button onClick={() => setCount(c => c + 1)}>{count}</button>;
 }
 ```
 
 ---
 
-## Class Name Management
+## Data Fetching
 
-### The cn() Helper (MANDATORY)
+### Parallel Fetching (CRITICAL)
+
 ```typescript
-// ✅ Always use cn() for conditional classes
-import { cn } from "@/lib/utils";
+// ❌ BAD: Waterfall — each awaits the previous
+async function Page() {
+  const user = await getUser();       // 100ms
+  const posts = await getPosts();     // 100ms
+  const comments = await getComments(); // 100ms
+  // Total: 300ms
+}
 
-<div className={cn(
-  "base-class",
-  condition && "conditional-class",
-  variant === "primary" && "bg-primary text-primary-foreground"
-)} />
-```
-
-### Implementation
-```typescript
-// lib/utils.ts
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
+// ✅ GOOD: Parallel — all run simultaneously
+async function Page() {
+  const [user, posts, comments] = await Promise.all([
+    getUser(),      // 100ms
+    getPosts(),     // 100ms  
+    getComments()   // 100ms
+  ]);
+  // Total: ~100ms
 }
 ```
 
-### Why cn()?
-- Resolves Tailwind class conflicts (e.g., `p-2` vs `p-4`)
-- Handles conditional classes cleanly
-- Supports arrays and objects
+### Streaming with Suspense
 
----
-
-## Theming
-
-### CSS Variables
-Define in `globals.css`:
-```css
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    /* ... other variables */
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    /* ... other variables */
-  }
-}
-```
-
-### Theme Switching
 ```typescript
-// Use next-themes or similar
-import { ThemeProvider } from "next-themes";
+import { Suspense } from 'react';
 
-<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-  {children}
-</ThemeProvider>
-```
-
-### Toggle Dark Mode
-Toggle `.dark` class on `<html>` element — CSS variables handle the rest.
-
----
-
-## Icons (Lucide)
-
-### Specifications
-- Default size: **24×24 px**
-- Stroke width: **2px**
-- Style: Rounded line icons
-
-### Usage
-```typescript
-import { ArrowRight, Check, X } from "lucide-react";
-
-// ✅ Consistent sizing
-<ArrowRight className="h-6 w-6" />
-
-// ✅ With button
-<Button>
-  Next <ArrowRight className="ml-2 h-4 w-4" />
-</Button>
-
-// ✅ Icon-only button (requires aria-label)
-<Button variant="ghost" size="icon" aria-label="Close">
-  <X className="h-4 w-4" />
-</Button>
-```
-
-### Naming Convention
-- Use **kebab-case** in imports when possible
-- Match Lucide naming: `arrow-right` → `ArrowRight`
-
----
-
-## Toasts (Sonner)
-
-### Setup
-```typescript
-// In layout or root
-import { Toaster } from "sonner";
-
-<Toaster position="bottom-right" richColors />
-```
-
-### Usage Patterns
-
-#### Basic Toast
-```typescript
-import { toast } from "sonner";
-
-// Types
-toast.success("Operation completed");
-toast.error("Something went wrong");
-toast.info("FYI...");
-toast.warning("Be careful");
-```
-
-#### Async Operations (RECOMMENDED)
-```typescript
-// ✅ Best practice for async actions
-toast.promise(asyncOperation(), {
-  loading: "Saving...",
-  success: "Saved successfully!",
-  error: "Failed to save"
-});
-
-// ✅ With data transformation
-toast.promise(fetchUser(id), {
-  loading: "Loading user...",
-  success: (data) => `Welcome, ${data.name}!`,
-  error: (err) => `Error: ${err.message}`
-});
-```
-
-### Rules
-- **Maximum 3 concurrent toasts** — avoid clutter
-- Use `toast.promise` for all async operations
-- Use appropriate toast types (success/error/info/warning)
-- Keep messages short and actionable
-
----
-
-## Component Patterns
-
-### Forms
-```typescript
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-
-<form onSubmit={handleSubmit}>
-  <div className="space-y-4">
-    <div className="space-y-2">
-      <Label htmlFor="email">Email</Label>
-      <Input id="email" type="email" placeholder="you@example.com" />
+async function Page() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      {/* Instantly visible */}
+      
+      <Suspense fallback={<LoadingSkeleton />}>
+        <SlowComponent />
+        {/* Streams in when ready */}
+      </Suspense>
     </div>
-    <Button type="submit">Submit</Button>
-  </div>
-</form>
+  );
+}
 ```
 
-### Dialogs
-```typescript
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+---
 
-<Dialog>
-  <DialogTrigger asChild>
-    <Button>Open</Button>
-  </DialogTrigger>
-  <DialogContent>
-    <DialogHeader>
-      <DialogTitle>Title</DialogTitle>
-      <DialogDescription>Description here.</DialogDescription>
-    </DialogHeader>
-    {/* Content */}
-  </DialogContent>
-</Dialog>
+## Server Actions
+
+### Form Mutations
+
+```typescript
+// app/actions.ts
+'use server';
+
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+
+export async function createPost(formData: FormData) {
+  const title = formData.get('title') as string;
+  const content = formData.get('content') as string;
+  
+  // Validation
+  if (!title || title.length < 3) {
+    return { error: 'Title must be at least 3 characters' };
+  }
+  
+  // Database operation
+  await db.insert(posts).values({ title, content });
+  
+  // Revalidate and redirect
+  revalidatePath('/posts');
+  redirect('/posts');
+}
 ```
 
-### Loading States
-```typescript
-import { Skeleton } from "@/components/ui/skeleton";
+### Using in Components
 
-// Always show skeleton before data loads
-{isLoading ? (
-  <div className="space-y-2">
-    <Skeleton className="h-4 w-[250px]" />
-    <Skeleton className="h-4 w-[200px]" />
-  </div>
-) : (
-  <ActualContent data={data} />
-)}
+```typescript
+// ✅ Form with Server Action
+import { createPost } from './actions';
+
+function CreatePostForm() {
+  return (
+    <form action={createPost}>
+      <input name="title" required minLength={3} />
+      <textarea name="content" required />
+      <button type="submit">Create Post</button>
+    </form>
+  );
+}
+```
+
+### With useFormState (Client Feedback)
+
+```typescript
+'use client';
+
+import { useFormState } from 'react-dom';
+import { createPost } from './actions';
+
+function CreatePostForm() {
+  const [state, formAction] = useFormState(createPost, null);
+  
+  return (
+    <form action={formAction}>
+      <input name="title" />
+      {state?.error && <p className="text-red-500">{state.error}</p>}
+      <button type="submit">Create</button>
+    </form>
+  );
+}
+```
+
+---
+
+## Caching & Revalidation
+
+### Cache Options
+
+```typescript
+// Default: Cached indefinitely (like getStaticProps)
+fetch(url);
+
+// Time-based revalidation (ISR)
+fetch(url, { next: { revalidate: 60 } }); // Refresh every 60s
+
+// No cache (like getServerSideProps)
+fetch(url, { cache: 'no-store' });
+
+// Tagged cache (for manual revalidation)
+fetch(url, { next: { tags: ['posts'] } });
+```
+
+### Manual Revalidation
+
+```typescript
+import { revalidatePath, revalidateTag } from 'next/cache';
+
+// Revalidate specific path
+revalidatePath('/posts');
+
+// Revalidate by tag
+revalidateTag('posts');
+
+// Revalidate layout and all child pages
+revalidatePath('/dashboard', 'layout');
+```
+
+---
+
+## File Conventions
+
+### Special Files
+
+| File | Purpose |
+|------|---------|
+| `page.tsx` | Route UI |
+| `layout.tsx` | Shared layout (persists across navigations) |
+| `loading.tsx` | Loading UI (automatic Suspense boundary) |
+| `error.tsx` | Error UI (automatic Error boundary) |
+| `not-found.tsx` | 404 UI |
+| `route.ts` | API endpoint |
+
+### Route Groups
+
+```
+app/
+├── (marketing)/     # Group: doesn't affect URL
+│   ├── about/
+│   └── contact/
+├── (dashboard)/     # Group: different layout
+│   ├── settings/
+│   └── profile/
+└── layout.tsx       # Root layout
+```
+
+### Dynamic Routes
+
+```
+app/
+├── posts/
+│   ├── [slug]/           # Dynamic: /posts/my-post
+│   │   └── page.tsx
+│   ├── [...slug]/        # Catch-all: /posts/a/b/c
+│   │   └── page.tsx
+│   └── [[...slug]]/      # Optional catch-all: /posts or /posts/a/b
+│       └── page.tsx
+```
+
+---
+
+## Asset Optimization
+
+### Images
+
+```typescript
+import Image from 'next/image';
+
+// ✅ Always use next/image
+<Image 
+  src="/hero.jpg"
+  alt="Hero image"
+  width={1200}
+  height={600}
+  priority // For above-the-fold images
+/>
+
+// Remote images (requires config)
+<Image 
+  src="https://example.com/image.jpg"
+  alt="Remote image"
+  width={400}
+  height={300}
+/>
+```
+
+### Fonts
+
+```typescript
+// app/layout.tsx
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap', // Prevent layout shift
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" className={inter.className}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+---
+
+## Metadata
+
+### Static Metadata
+
+```typescript
+// app/page.tsx
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Home | My App',
+  description: 'Welcome to my application',
+  openGraph: {
+    title: 'Home | My App',
+    description: 'Welcome to my application',
+    images: ['/og-image.jpg'],
+  },
+};
+```
+
+### Dynamic Metadata
+
+```typescript
+// app/posts/[slug]/page.tsx
+import type { Metadata } from 'next';
+
+export async function generateMetadata({ 
+  params 
+}: { 
+  params: { slug: string } 
+}): Promise<Metadata> {
+  const post = await getPost(params.slug);
+  
+  return {
+    title: post.title,
+    description: post.excerpt,
+  };
+}
+```
+
+---
+
+## Migration from Pages Router
+
+| Pages Router | App Router |
+|--------------|------------|
+| `pages/index.tsx` | `app/page.tsx` |
+| `pages/posts/[id].tsx` | `app/posts/[id]/page.tsx` |
+| `getServerSideProps` | Server Component + fetch |
+| `getStaticProps` | Server Component + fetch |
+| `getStaticPaths` | `generateStaticParams` |
+| `useRouter` (pages) | `useRouter` from `next/navigation` |
+| `_app.tsx` | `app/layout.tsx` |
+| `_document.tsx` | `app/layout.tsx` (html/body) |
+
+### Navigation
+
+```typescript
+// ✅ App Router navigation
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+
+function MyComponent() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  
+  // Navigate
+  router.push('/dashboard');
+  router.replace('/login');
+  router.back();
+  
+  // Read current state
+  console.log(pathname); // '/posts/123'
+  console.log(searchParams.get('q')); // 'search term'
+}
 ```
 
 ---
