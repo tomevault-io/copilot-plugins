@@ -1,0 +1,40 @@
+## vscode-acp-provider
+
+> - ALWAYS USE subagents for code explorations when they are AVAILABLE
+
+# AGENTS.md
+
+## Code Explorations
+
+- ALWAYS USE subagents for code explorations when they are AVAILABLE
+
+## Setup commands
+
+- Install deps: `npm install`
+- Compile: `npm run compile`
+
+## Update Tests
+
+- When user requests new test scenarios, update `src/testScenarios.ts` with the new scenarios as prompted by the user.
+
+## New Features
+
+- When adding new features, always make sure solutions are feasible based on vscode extension capabilities and proposed APIs.
+- When formulating solutions read through the files at https://github.com/microsoft/vscode/tree/main/src/vscode-dts to ensure proposed solutions are implementable.
+- Always take inspiration from existing popular extensions such as https://github.com/microsoft/vscode-copilot-chat.git by reading through their source code to understand how they implement similar features.
+
+## Specifications
+
+- ACP (Agent Client Protocol) : https://agentclientprotocol.com/protocol/schema
+- VSCode Extension API: https://code.visualstudio.com/api/references/vscode-api
+
+## ACP Agent Reference
+
+Following are implementations of ACP agents which can be used for exploring how agent's requests and responses looks like
+
+- [https://github.com/zed-industries/claude-agent-acp](https://github.com/zed-industries/claude-agent-acp)
+- [https://github.com/anomalyco/opencode](https://github.com/anomalyco/opencode)
+
+---
+> Source: [gayanper/vscode-acp-provider](https://github.com/gayanper/vscode-acp-provider) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
