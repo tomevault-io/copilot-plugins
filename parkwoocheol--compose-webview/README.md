@@ -7,11 +7,11 @@ A powerful, flexible, and feature-rich WebView wrapper for Jetpack Compose and C
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [parkwoocheol/compose-webview](https://github.com/parkwoocheol/compose-webview).
+Original source: `CLAUDE.md` in [parkwoocheol/compose-webview](https://github.com/parkwoocheol/compose-webview).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
