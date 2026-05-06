@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--giil",
+  "displayName": "giil",
+  "description": "Zero-setup bash CLI that downloads full-resolution images from iCloud/Dropbox/Google Photos share links, bridging iPhone screenshots to remote AI coding sessions",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/giil",
+  "skills": []
+}
