@@ -1,0 +1,9 @@
+{
+  "name": "thtskaran--claude-code-analysis",
+  "displayName": "claude-code-analysis",
+  "description": "We read all 512K lines of Claude Code's accidentally exposed source. 82 docs, 15 diagrams, every subsystem mapped \u2014 from the hidden YOLO safety classifier to multi-agent swarms.",
+  "version": "1.0.0",
+  "author": "thtskaran",
+  "homepage": "https://github.com/thtskaran/claude-code-analysis",
+  "skills": []
+}
