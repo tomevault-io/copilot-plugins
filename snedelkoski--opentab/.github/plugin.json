@@ -1,0 +1,9 @@
+{
+  "name": "snedelkoski--opentab",
+  "displayName": "opentab",
+  "description": "An open, end-to-end implementation of TabPFN-like foundation models, covering synthetic priors/data, training, and evaluation on TabArena.",
+  "version": "1.0.0",
+  "author": "snedelkoski",
+  "homepage": "https://github.com/snedelkoski/opentab",
+  "skills": []
+}
