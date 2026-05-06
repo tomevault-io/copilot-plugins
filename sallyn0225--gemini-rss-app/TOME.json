@@ -4,7 +4,7 @@
   "repo": "gemini-rss-app",
   "description": "RSS \u805a\u5408 + AI \u7ffb\u8bd1\u4e0e\u603b\u7ed3\u7684\u8d44\u8baf\u9605\u8bfb\u5668\uff0c\u652f\u6301\u591a\u6e90\u8ba2\u9605\u3001\u6309\u65e5\u603b\u7ed3\u4e0e\u5185\u5bb9\u5206\u7c7b\uff0c\u517c\u5bb9 OpenAI / Gemini / Anthropic \u7b49\u591a\u79cd AI API \u683c\u5f0f\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sallyn0225/gemini-rss-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T15:40:17Z"
+  "distributed_at": "2026-05-06T00:34:44Z"
 }
