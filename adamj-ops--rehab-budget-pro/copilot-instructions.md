@@ -1,214 +1,132 @@
-## components
+## database
 
-> Pre-built components using Radix UI + Tailwind:
+> - Main schema: `supabase/schema.sql`
 
-# Component Guidelines
+# Database Rules - Supabase/PostgreSQL
 
-## UI Component Library
+## Schema Location
+- Main schema: `supabase/schema.sql`
+- Migrations: `supabase/migrations/`
+- Seed data: `supabase/seed.sql`
 
-### shadcn/ui Components (src/components/ui/)
-Pre-built components using Radix UI + Tailwind:
-- `button.tsx` - Primary actions
-- `input.tsx`, `textarea.tsx` - Form inputs
-- `select.tsx` - Dropdowns
-- `sheet.tsx` - Slide-out panels (use for forms)
-- `dialog.tsx` - Modal dialogs
-- `alert-dialog.tsx` - Confirmations
-- `tabs.tsx` - Tab navigation
-- `table.tsx` - Data tables
-- `badge.tsx` - Status indicators
-- `card.tsx` - Content containers
-- `dropdown-menu.tsx` - Context menus
-- `popover.tsx` - Floating content
-- `tooltip.tsx` - Hover hints
-- `checkbox.tsx` - Boolean inputs
-- `progress.tsx` - Progress bars
+## Core Tables
 
-### Adding New shadcn Components
-```bash
-npx shadcn@latest add [component-name]
+### projects
+Property details, financials, status tracking
+```sql
+-- Key fields
+id, user_id, name, address, city, state, zip
+arv, purchase_price, closing_costs, holding_costs_monthly, hold_months
+selling_cost_percent, contingency_percent
+status (enum: lead, analyzing, under_contract, in_rehab, listed, sold, dead)
 ```
 
-## Icon Usage
-
-### Primary: Tabler Icons
-```tsx
-import { IconPlus, IconTrash, IconEdit } from '@tabler/icons-react';
-
-<IconPlus className="icon-sm" />  // 16px
-<IconEdit className="icon-md" />  // 20px
-<IconTrash className="icon-lg" /> // 24px
+### budget_items
+Three-column budget model with computed variances
+```sql
+-- Key fields
+id, project_id, vendor_id, category, item, description
+qty, unit, rate
+underwriting_amount, forecast_amount, actual_amount
+forecast_variance, actual_variance, total_variance (GENERATED)
+cost_type, status, priority, sort_order
 ```
 
-### Common Icons
-- Add: `IconPlus`
-- Edit: `IconPencil`, `IconEdit`
-- Delete: `IconTrash`
-- Save: `IconDeviceFloppy`
-- Cancel: `IconX`
-- Search: `IconSearch`
-- Filter: `IconFilter`
-- Sort: `IconArrowsSort`
-- Expand: `IconChevronDown`
-- Collapse: `IconChevronUp`
-- Menu: `IconDotsVertical`
-- Camera: `IconCamera`
-- Photo: `IconPhoto`
-- Upload: `IconUpload`
-- Download: `IconDownload`
-- Check: `IconCheck`
-- Warning: `IconAlertTriangle`
-- Info: `IconInfoCircle`
-
-## Project-Specific Components
-
-### Project Tabs (src/components/project/tabs/)
-- `deal-summary-tab.tsx` - Financials, ROI, MAO
-- `budget-detail-tab.tsx` - Three-column budget table
-- `vendors-tab.tsx` - Vendor directory
-- `draws-tab.tsx` - Payment tracking
-- `cost-reference-tab.tsx` - Minneapolis pricing
-
-### Form Sheets (Slide-out panels)
-- `vendor-form-sheet.tsx` - Add/edit vendors
-- `budget-item-form-sheet.tsx` - Add budget items
-- `draw-form-sheet.tsx` - Add/edit draws
-- `photo-upload-sheet.tsx` - Upload photos
-
-### Detail Sheets (Read-only views)
-- `vendor-detail-sheet.tsx` - Full vendor info
-
-## Dashboard Components (src/components/dashboard/)
-
-- `portfolio-health.tsx` - Hero metrics cards
-- `kanban-pipeline.tsx` - Drag-drop project board
-- `project-card.tsx` - Pipeline project cards
-- `stat-card.tsx` - Metric display card
-- `animated-number.tsx` - Counting animation
-
-## Component Patterns
-
-### Sheet Form Pattern
-```tsx
-interface FormSheetProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  item?: ItemType;  // If provided, edit mode
-  onSuccess?: () => void;
-}
-
-export function ItemFormSheet({ open, onOpenChange, item, onSuccess }: FormSheetProps) {
-  const isEditing = !!item;
-  const mutation = useItemMutation();
-  
-  const handleSubmit = async (data: ItemInput) => {
-    await mutation.mutateAsync(data);
-    onOpenChange(false);
-    onSuccess?.();
-  };
-  
-  return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>{isEditing ? 'Edit' : 'Add'} Item</SheetTitle>
-        </SheetHeader>
-        {/* Form content */}
-      </SheetContent>
-    </Sheet>
-  );
-}
+### vendors
+Global vendor directory (not project-specific)
+```sql
+-- Key fields
+id, user_id, name, trade, contact_name, phone, email
+licensed, insured, w9_on_file
+rating (1-5), reliability, price_level, status
 ```
 
-### Confirmation Dialog Pattern
-```tsx
-<AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle>Delete Item?</AlertDialogTitle>
-      <AlertDialogDescription>
-        This action cannot be undone.
-      </AlertDialogDescription>
-    </AlertDialogHeader>
-    <AlertDialogFooter>
-      <AlertDialogCancel>Cancel</AlertDialogCancel>
-      <AlertDialogAction onClick={handleDelete} className="bg-destructive">
-        Delete
-      </AlertDialogAction>
-    </AlertDialogFooter>
-  </AlertDialogContent>
-</AlertDialog>
+### draws
+Payment tracking with milestones
+```sql
+-- Key fields
+id, project_id, vendor_id, draw_number, milestone
+amount, status (pending, approved, paid)
+date_requested, date_paid, payment_method, reference_number
 ```
 
-### Data Table Pattern
-```tsx
-// Use TanStack Table for complex tables
-import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
-
-const table = useReactTable({
-  data,
-  columns,
-  getCoreRowModel: getCoreRowModel(),
-});
+### line_item_photos
+Photo storage metadata
+```sql
+-- Storage path format: project-photos/{project_id}/{line_item_id}/{uuid}.{ext}
+id, line_item_id, project_id, storage_path, photo_type, caption
 ```
 
-## CSS Utility Classes (from globals.css)
+## Important Views (USE THESE FOR READS)
 
-### Status Badges
-```tsx
-<span className="status-badge status-active">Active</span>
-<span className="status-badge status-pending">Pending</span>
-<span className="status-badge status-completed">Complete</span>
+### project_summary
+Projects with all calculated totals - ALWAYS use this for project queries
+```sql
+SELECT * FROM project_summary WHERE id = $1;
+-- Includes: underwriting_total, forecast_total, actual_total
+-- rehab_budget, rehab_actual, contingency_amount
+-- total_investment, gross_profit, mao, roi
 ```
 
-### Stat Cards
-```tsx
-<div className="stat-card">
-  <span className="stat-label">Total Budget</span>
-  <span className="stat-value">$125,000</span>
-</div>
+### budget_by_category
+Category aggregates with variances
+```sql
+SELECT * FROM budget_by_category WHERE project_id = $1;
+-- Includes: underwriting_total, forecast_total, actual_total per category
+-- completed_count, in_progress_count, not_started_count
 ```
 
-### Tables
-```tsx
-<thead className="table-header">
-<tr className="table-row-hover">
+### vendor_payment_summary
+Vendor totals across projects
+```sql
+SELECT * FROM vendor_payment_summary;
+-- Includes: projects_count, total_paid, pending_amount
 ```
 
-### Icons
-```tsx
-<IconPlus className="icon-sm" />  // 16px
-<IconPlus className="icon-md" />  // 20px
-<IconPlus className="icon-lg" />  // 24px
+## Key Calculations (Handled by Views)
+
+### Budget Item Amount
+```sql
+underwriting_amount = qty * rate (or manual entry)
+forecast_variance = forecast_amount - underwriting_amount
+actual_variance = actual_amount - forecast_amount
+total_variance = actual_amount - underwriting_amount
 ```
 
-### Animations
-```tsx
-<div className="fade-in">...</div>
-<div className="scale-in">...</div>
-<div className="slide-in-bottom">...</div>
+### Project Financials
+```sql
+rehab_budget = COALESCE(forecast_total, underwriting_total)
+contingency_amount = rehab_budget * contingency_percent
+rehab_budget_with_contingency = rehab_budget + contingency_amount
+selling_costs = arv * selling_cost_percent
+holding_costs_total = holding_costs_monthly * hold_months
+total_investment = purchase_price + closing_costs + holding_costs_total + rehab_budget_with_contingency
+gross_profit = arv - selling_costs - total_investment
+mao = arv * 0.7 - rehab_budget_with_contingency  -- 70% rule
 ```
 
-## Responsive Design
+## RLS Policies
 
-### Breakpoints (Tailwind v4)
-- `sm`: 640px
-- `md`: 768px
-- `lg`: 1024px
-- `xl`: 1280px
-- `2xl`: 1536px
+All tables have Row Level Security:
+- Users can only see/modify their own data
+- Filter by `user_id = auth.uid()`
 
-### Common Patterns
-```tsx
-// Mobile-first grid
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+**Note**: Authentication not yet implemented - `user_id` is currently null in inserts.
 
-// Hide on mobile
-<div className="hidden md:block">
+## Migration Best Practices
 
-// Stack on mobile, row on desktop
-<div className="flex flex-col md:flex-row">
-```
+1. Always create new migration files (don't modify existing)
+2. Name format: `YYYYMMDDHHMMSS_description.sql`
+3. Include both UP and DOWN (commented) migrations
+4. Test in Supabase SQL Editor before committing
+
+## Supabase Storage
+
+Bucket: `project-photos`
+- Max file size: 10MB
+- Accepted types: jpg, png, webp, pdf
+- Path format: `{project_id}/{line_item_id}/{uuid}.{ext}`
+- Use signed URLs for secure access
 
 ---
 > Source: [adamj-ops/rehab-budget-pro](https://github.com/adamj-ops/rehab-budget-pro) — distributed by [TomeVault](https://tomevault.io).
