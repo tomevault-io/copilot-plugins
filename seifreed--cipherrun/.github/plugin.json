@@ -1,0 +1,9 @@
+{
+  "name": "seifreed--cipherrun",
+  "displayName": "CipherRun",
+  "description": "A Fast, Modular, and Scalable TLS/SSL Security Scanner Written in Rust",
+  "version": "1.0.0",
+  "author": "seifreed",
+  "homepage": "https://github.com/seifreed/CipherRun",
+  "skills": []
+}
