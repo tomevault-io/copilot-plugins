@@ -1,0 +1,44 @@
+{
+  "name": "jmcomic-ai",
+  "owner": "hect0x7",
+  "repo": "jmcomic-ai",
+  "description": "AI \u539f\u751f JMComic \u52a9\u624b\uff1a\u901a\u8fc7 MCP \u4e0e Skills \u5c06 JMComic \u6ce8\u5165\u4f60\u7684 AI Agent. / AI-powered JMComic assistant for seamless integration with AI Agents via MCP & Skills.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hect0x7/jmcomic-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T00:29:18Z"
+}
