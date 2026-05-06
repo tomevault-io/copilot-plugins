@@ -4,7 +4,7 @@
   "repo": "fluent",
   "description": "The AI Language Learning Kit for Claude Code and others",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/m98/fluent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T16:02:58Z"
+  "distributed_at": "2026-05-06T03:28:52Z"
 }
