@@ -1,0 +1,9 @@
+{
+  "name": "amirlehmam--wmux",
+  "displayName": "wmux",
+  "description": "Windows terminal multiplexer for AI agents. Port of cmux.",
+  "version": "1.0.0",
+  "author": "amirlehmam",
+  "homepage": "https://github.com/amirlehmam/wmux",
+  "skills": []
+}
