@@ -1,0 +1,9 @@
+{
+  "name": "sagyam--linite",
+  "displayName": "linite",
+  "description": "A  bulk package installer and tracker for Linux distributions.",
+  "version": "1.0.0",
+  "author": "Sagyam",
+  "homepage": "https://github.com/Sagyam/linite",
+  "skills": []
+}
