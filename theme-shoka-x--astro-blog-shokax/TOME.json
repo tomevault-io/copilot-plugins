@@ -1,0 +1,44 @@
+{
+  "name": "astro-blog-shokax",
+  "owner": "theme-shoka-x",
+  "repo": "astro-blog-shokax",
+  "description": "Astro port of the Hexo theme ShokaX, featuring a clean design and modern blog experience.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/theme-shoka-x/astro-blog-shokax",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T20:16:47Z"
+}
