@@ -1,0 +1,9 @@
+{
+  "name": "whoopinc--snowflake-semantic-tools",
+  "displayName": "snowflake-semantic-tools",
+  "description": "Build and deploy Snowflake Semantic Views from your dbt project",
+  "version": "1.0.0",
+  "author": "WhoopInc",
+  "homepage": "https://github.com/WhoopInc/snowflake-semantic-tools",
+  "skills": []
+}
