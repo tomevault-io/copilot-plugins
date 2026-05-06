@@ -1,0 +1,9 @@
+{
+  "name": "tphakala--birda",
+  "displayName": "birda",
+  "description": "Fast CLI tool for bird species detection using BirdNET and Perch AI models",
+  "version": "1.0.0",
+  "author": "tphakala",
+  "homepage": "https://github.com/tphakala/birda",
+  "skills": []
+}
