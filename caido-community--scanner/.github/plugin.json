@@ -1,0 +1,14 @@
+{
+  "name": "caido-community--scanner",
+  "displayName": "scanner",
+  "description": "Vulnerability scanner for Caido",
+  "version": "1.0.0",
+  "author": "caido-community",
+  "homepage": "https://github.com/caido-community/scanner",
+  "skills": [
+    {
+      "name": "write-check-v2",
+      "description": ""
+    }
+  ]
+}
