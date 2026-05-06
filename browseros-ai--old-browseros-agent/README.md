@@ -1,21 +1,27 @@
-# old-browseros-agent — distributed by TomeVault
+# browseros
 
-> Originally from [browseros-ai/old-browseros-agent](https://github.com/browseros-ai/old-browseros-agent). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [browseros-ai/old-browseros-agent](https://github.com/browseros-ai/old-browseros-agent) — distributed by [TomeVault](https://tomevault.io)
+
+This is just the submodule of browserOS agent; MAIN REPO: https://github.com/browseros-ai/BrowserOS
 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [browseros-ai/old-browseros-agent](https://github.com/browseros-ai/old-browseros-agent).
+Original source: `CLAUDE.md` in [browseros-ai/old-browseros-agent](https://github.com/browseros-ai/old-browseros-agent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/browseros-ai)
+## Bundled Skills (1)
+
+- [write-docs](https://github.com/browseros-ai/old-browseros-agent/tree/main/.claude/skills/write-docs)
+
+From [browseros-ai/old-browseros-agent](https://github.com/browseros-ai/old-browseros-agent) — a repo with 72+ stars on GitHub.
 
 ---
 
