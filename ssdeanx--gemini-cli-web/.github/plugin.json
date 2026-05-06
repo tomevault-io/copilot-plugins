@@ -1,14 +1,9 @@
 {
   "name": "ssdeanx--gemini-cli-web",
   "displayName": "Gemini-CLI-Web",
-  "description": "AI instruction skills by ssdeanx",
+  "description": "Gemini CLI Web is an interface that allows you to use Gemini CLI in web browser.  Integrate CLI, Chat, Monaco, Spec Generation & more to come ",
   "version": "1.0.0",
   "author": "ssdeanx",
   "homepage": "https://github.com/ssdeanx/Gemini-CLI-Web",
-  "skills": [
-    {
-      "name": "gemini",
-      "description": ""
-    }
-  ]
+  "skills": []
 }
