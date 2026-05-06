@@ -1,0 +1,9 @@
+{
+  "name": "xinyuan-lilygo--lilygo-spark",
+  "displayName": "LILYGO-Spark",
+  "description": "A firmware hub and flashing tool for esp32 series boards \u2014 discover, share, and flash firmware with ease.",
+  "version": "1.0.0",
+  "author": "Xinyuan-LilyGO",
+  "homepage": "https://github.com/Xinyuan-LilyGO/LILYGO-Spark",
+  "skills": []
+}
