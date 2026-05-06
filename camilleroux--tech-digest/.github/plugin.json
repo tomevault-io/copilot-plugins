@@ -1,0 +1,9 @@
+{
+  "name": "camilleroux--tech-digest",
+  "displayName": "tech-digest",
+  "description": "Claude Code skill: daily tech digest from Hacker News, Lobste.rs and more. Zero dependencies, score-based filtering.",
+  "version": "1.0.0",
+  "author": "camilleroux",
+  "homepage": "https://github.com/camilleroux/tech-digest",
+  "skills": []
+}
