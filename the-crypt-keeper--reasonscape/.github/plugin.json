@@ -1,0 +1,14 @@
+{
+  "name": "the-crypt-keeper--reasonscape",
+  "displayName": "reasonscape",
+  "description": "Information Processing Evaluation for Large Language Models",
+  "version": "1.0.0",
+  "author": "the-crypt-keeper",
+  "homepage": "https://github.com/the-crypt-keeper/reasonscape",
+  "skills": [
+    {
+      "name": "context-clip",
+      "description": ""
+    }
+  ]
+}
