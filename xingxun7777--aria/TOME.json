@@ -1,0 +1,44 @@
+{
+  "name": "Aria",
+  "owner": "Xingxun7777",
+  "repo": "Aria",
+  "description": "Windows \u672c\u5730 AI \u8bed\u97f3\u8f93\u5165\u6cd5 \u2014 \u79bb\u7ebf\u8bed\u97f3\u8bc6\u522b\uff0c\u5c4f\u5e55\u611f\u77e5\u4e0a\u4e0b\u6587\uff0c\u70ed\u8bcd\u7ea0\u9519\uff0c\u8bed\u97f3\u6307\u4ee4\u64cd\u4f5c\u9009\u533a\u3002Local AI voice typing for Windows \u2014 offline speech-to-text with screen-aware context.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Xingxun7777/Aria",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T10:40:38Z"
+}
