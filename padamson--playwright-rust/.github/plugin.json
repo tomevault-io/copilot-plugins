@@ -1,0 +1,9 @@
+{
+  "name": "padamson--playwright-rust",
+  "displayName": "playwright-rust",
+  "description": "Rust language bindings for Microsoft Playwright",
+  "version": "1.0.0",
+  "author": "padamson",
+  "homepage": "https://github.com/padamson/playwright-rust",
+  "skills": []
+}
