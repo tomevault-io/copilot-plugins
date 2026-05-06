@@ -4,7 +4,7 @@
   "repo": "llm-agent",
   "description": "Minimal LLM agent orchestrating MCP tools across multiple LLM providers",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fr0ster/llm-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T07:50:44Z"
+  "distributed_at": "2026-05-06T10:59:08Z"
 }
