@@ -1,0 +1,9 @@
+{
+  "name": "schemen--embed-metadata",
+  "displayName": "embed-metadata",
+  "description": "A plugin which allows you to embed and render metadata into your notes.",
+  "version": "1.0.0",
+  "author": "schemen",
+  "homepage": "https://github.com/schemen/embed-metadata",
+  "skills": []
+}
