@@ -1,0 +1,9 @@
+{
+  "name": "aymanbagabas--go-nativeclipboard",
+  "displayName": "go-nativeclipboard",
+  "description": "A cross-platform clipboard library for Go that works without cgo",
+  "version": "1.0.0",
+  "author": "aymanbagabas",
+  "homepage": "https://github.com/aymanbagabas/go-nativeclipboard",
+  "skills": []
+}
