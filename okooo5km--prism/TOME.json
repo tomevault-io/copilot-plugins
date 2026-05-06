@@ -4,7 +4,7 @@
   "repo": "Prism",
   "description": "Prism is a SwiftUI menu bar companion that organizes Claude-compatible API services, whether they come from direct model providers or third-party Anthropic-compatible gateways.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/okooo5km/Prism",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T19:50:51Z"
+  "distributed_at": "2026-05-06T06:17:45Z"
 }
