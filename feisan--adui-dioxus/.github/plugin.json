@@ -1,0 +1,9 @@
+{
+  "name": "feisan--adui-dioxus",
+  "displayName": "adui-dioxus",
+  "description": "A UI component library for Dioxus that ports Ant Design 6.0.0 to Rust, providing rich components with Ant Design's design language and patterns.",
+  "version": "1.0.0",
+  "author": "feisan",
+  "homepage": "https://github.com/feisan/adui-dioxus",
+  "skills": []
+}
