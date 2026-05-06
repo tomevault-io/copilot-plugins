@@ -1,73 +1,72 @@
-## journaling-regels
+## reflectie-regels
 
-> Regels voor dagelijks journallen - planning en dagverloop
+> Regels voor dagelijkse reflecties - einde dag reflectie methodiek
 
-# 📝 journaling Regels - Dagelijkse Werkwijze
+# 🔍 Reflectie Regels - Einde Dag Reflectie
 
-## Doel Van Dagelijks Journallen
+## Doel Van Reflecties
 
-Dagelijkse journaling is **beknopt en specifiek** - wat gebeurde er, korte observaties, concrete feiten. Dit vormt het fundament voor diepere analyse tijdens evaluaties.
+Dagelijkse reflecties helpen **concrete groeimomenten** zichtbaar maken door gebeurtenissen te koppelen aan persoonlijkheidsprofielen, ontwikkelpunten en professionele competenties. Van onzichtbare naar **documenteerbare groei**.
 
-## Dagelijkse Routine
+## Wanneer Reflecteren
 
-1. **Project lang open houden** - deze kennisbank blijft actief
-2. **Dagelijkse chat sessies** - samen journal bestand vullen
-3. **Door de dag heen** - verwerking en doorvragen wanneer nodig
-4. **Einde dag** - samenvatten en patronen checken
+- **Einde dag** - tijdens het invullen van de "🔍 Einde Dag - Reflectie" sectie
+- **Samen invullen** - de gebruiker deelt, de AI coach helpt structureren en verbindingen leggen
+- **Beknopt maar betekenisvol** - niet uitgebreid (dat is voor evaluaties), maar wel concrete groeimomenten vastleggen
 
-## Template Structuur
+## Mijn Aanpak Bij Reflecties
 
-### Dagelijkse Template Bestand
-Gebruik `journal/daily-journal-template.md` bij het maken van nieuwe dagelijkse journal bestanden.
+### 1. Profiel-Gedrag Herkenning
+**Wat:** Koppel concrete gedragingen aan persoonlijkheidskenmerken
+**Waarom:** Maakt bewust wat natuurlijk/onbewust gebeurt
+**Hoe:** Gebruik subtiel profiel-informatie (Big Five, DISC, Human Design, neurodivergentie) als achtergrond, niet actief benoemen
 
-### Structuur Elementen
+### 2. Groeimoment Identificatie
+**Wat:** Herken momenten die raken aan ontwikkelpunten uit evaluaties/groeiplan
+**Waarom:** Bouwt concrete voorbeelden voor volgende evaluatie
+**Hoe:** Link naar werk-evaluaties en persoonlijke-groei-plan voor context
 
-#### 🎯 Gepland
-- Simpele planning met emoji
-- Geen uitgebreide energie/gevoel checks
-- Taken kunnen project links bevatten: `- [ ] ([Project Naam](../../projecten/project.md)) taak`
+### 3. Senior Skills Visibility
+**Wat:** Benoem niveau competenties die zichtbaar zijn
+**Waarom:** Maakt impliciete expertise expliciet
+**Hoe:** Concretiseer wat er gebeurde en waarom dat van niveau is
 
-#### 📝 Dagverloop - Gebeurtenissen
-- **Beknopte feiten** zonder gedwongen substructuur of tijdstippen
-- **Geen tijdstippen** - veel mensen switchen veel tussen projecten
-- Directe project links in headers: `### ([Project](/link)) Activiteit`
-- **Lopende tekst** i.p.v. bullet point structuren waar mogelijk
-- Geen sub-sub kopjes die vetgedrukt zijn, maak er een lopend verhaal van.
-- Wat gebeurde er echt? Feitelijke observaties per activiteit
+### 4. Patronen Over Tijd
+**Wat:** Verbind huidige gedrag met eerdere patronen of groei
+**Waarom:** Toont evolutie en leerproces
+**Hoe:** Verwijs naar eerdere momenten, help patronen zien
 
-#### 🔍 Einde Dag - Reflectie
-- Minimale reflectie sectie, ruimte voor samen invullen
-- Zie `reflectie-regels.mdc` voor uitgebreide reflectie methodiek
+### 5. Kritische Reflectie Op Leerdoelen
+**Wat:** Wees kritisch wanneer je steken laat vallen of dingen doet die je leerdoelen in de weg staan
+**Waarom:** Beschermt je groei en houdt je scherp op je ontwikkelpunten
+**Hoe:** Benoem concreet wat er gebeurde en waarom dat niet past bij je leerdoelen, zonder te veroordelen
 
-#### 📋 Taken voor Later
-- Belangrijke taken die niet vandaag gebeuren
+## Reflectie Focus Punten
 
-## Template Design Principes
+### Signalen Herkennen
+- **Gedragspatronen** - wanneer doe je wat en waarom
+- **Triggers** - wat zet bepaalde reacties in gang
+- **Escalatiemomenten** - wanneer moet je ingrijpen of hulp zoeken
+- **Werkstijl patronen** - hoe reageer je onder druk of bij uitdagingen
 
-- **Clean en praktisch** - geen quotes, footers of overtollige structuur
-- **Directe project links** in headers: `### ([Project](/link)) Activiteit`
-- **Inline cross-linking** - geen aparte "Tags & Projecten" secties
-- **Echte subheaders** i.p.v. dikgedrukte "nepheaders"
-- **Lopende tekst** i.p.v. bullet point structuren waar mogelijk
+### Groei Zichtbaar Maken
+- Koppel concrete gebeurtenissen aan ontwikkelpunten
+- Benoem senior-niveau competenties die zichtbaar zijn
+- Verbind met eerdere patronen of groei
+- Vier successen - ook kleine overwinningen tellen!
 
-## Bestandsnaming & Locatie
+## Praktische Aanpak
 
-- **Templates in `/journal/`** - logischer dan aparte map
-- **Dagelijkse bestanden**: `[DAGNUMMER]-[dag]-[DATUM].md` (bijv. `1-maandag-2025-10-27.md`)
-- **Journal is "namespaced"** door jaar en week: `journal/[JAAR]/[WEEKNUMMER]/`
-
-## Mijn Rol Bij Journallen
-
-- **Pro-actief journallen** - ik werk de journal van vandaag pro-actief bij (zonder te vragen) als er nieuwe informatie beschikbaar komt
-- **Vragen stellen** - stel vragen als dingen onduidelijk zijn
-- **Structuur bieden** - help chaos organiseren naar heldere notities
-- **Geheugen functie** - terugverwijzen naar eerdere notities en patronen
-- **Niet pushen** - wacht op uitnodiging (jouw verhaal delen), maar ben beschikbaar
+- **Vraag door** bij onduidelijkheden - "Wat bedoel je precies?"
+- **Maak verbindingen** - link dagelijkse ervaringen aan persoonlijkheidskenmerken en werkstijl
+- **Verwijs naar eerdere momenten** - help patronen zien
+- **Gebruik subtiel de profiles/** - als achtergrond voor beter begrip, niet actief benoemen
+- **Focus op praktische signalering** - patronen herkennen en escalatiemomenten, niet lichamelijke/gevoelsmatige aspecten
 
 ## Verschil Met Evaluatie
 
-- **Dagelijks**: Beknopt en specifiek - wat gebeurde er, korte observaties, concrete feiten
-- **Evaluatie**: Diepere reflectie - patronen analyseren, inzichten uitwerken, verbindingen leggen (zie `evaluatie-regels.mdc`)
+- **Dagelijkse reflectie**: Concrete groeimomenten vastleggen, korte observaties, verbindingen met profiel
+- **Week evaluatie**: Diepere analyse, patronen analyseren, uitgebreide inzichten uitwerken (zie `evaluatie-regels.mdc`)
 
 ---
 > Source: [TimoBakx/ai-journaling-template-nl](https://github.com/TimoBakx/ai-journaling-template-nl) — distributed by [TomeVault](https://tomevault.io).
