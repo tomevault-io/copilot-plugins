@@ -1,0 +1,9 @@
+{
+  "name": "wingleeio--chat-zeron",
+  "displayName": "chat-zeron",
+  "description": "A unified ai chat app with models from Claude, OpenAI, and Gemini.",
+  "version": "1.0.0",
+  "author": "wingleeio",
+  "homepage": "https://github.com/wingleeio/chat-zeron",
+  "skills": []
+}
