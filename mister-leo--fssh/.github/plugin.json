@@ -1,0 +1,9 @@
+{
+  "name": "mister-leo--fssh",
+  "displayName": "fssh",
+  "description": "fssh: The macOS SSH agent for managing keys with Touch ID and OTP. Secure your SSH private keys with biometric authentication and interactive shell completion.",
+  "version": "1.0.0",
+  "author": "Mister-leo",
+  "homepage": "https://github.com/Mister-leo/fssh",
+  "skills": []
+}
