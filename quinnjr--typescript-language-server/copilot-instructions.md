@@ -1,79 +1,98 @@
-## branch-scope
+## git-workflow
 
-> Always create new branches for out-of-scope work
+> Git branching strategy and workflow conventions
 
 
-# Branch Scope Policy
+# Git Workflow
 
-**Always create a new feature branch when work diverges from the current branch's original purpose.**
+This project uses **git-flow** for branch management.
 
-## Rule
+## Branch Structure
 
-If asked to perform work that is NOT directly related to the current branch's stated purpose:
+| Branch | Purpose |
+|--------|---------|
+| `main` | Production-ready code, tagged releases only |
+| `develop` | Integration branch for features |
+| `feature/*` | New features (branch from `develop`) |
+| `release/*` | Release preparation (branch from `develop`) |
+| `hotfix/*` | Production fixes (branch from `main`) |
+| `bugfix/*` | Bug fixes (branch from `develop`) |
 
-1. **Stop and acknowledge** the scope change
-2. **Create a new feature branch** from `develop` (or appropriate base)
-3. **Continue work** on the new branch
+## Branch Naming
 
-## Examples
+- `feature/short-description` - New features
+- `release/v1.2.0` - Release candidates
+- `hotfix/v1.2.1` - Production hotfixes
+- `bugfix/issue-123-description` - Bug fixes
 
-### Current branch: `feature/add-completions`
+## Workflow Rules
 
-✅ **In scope** (continue on current branch):
-- Adding completion triggers
-- Fixing completion bugs
-- Adding completion tests
+1. **Never commit directly to `main` or `develop`**
+2. All changes go through pull requests
+3. Feature branches merge into `develop`
+4. Release branches merge into both `main` and `develop`
+5. Hotfix branches merge into both `main` and `develop`
 
-❌ **Out of scope** (create new branch):
-- Fixing unrelated clippy warnings → `feature/fix-clippy-warnings`
-- Adding new LSP feature → `feature/add-hover-info`
-- Updating CI configuration → `chore/update-ci`
-- Fixing unrelated bug → `bugfix/fix-parser-crash`
+## Commit Messages
 
-### Workflow
+Use conventional commits format:
 
-```bash
-# When out-of-scope work is needed:
+```
+type(scope): description
 
-# 1. Commit or stash current work
-git stash  # or git commit
+[optional body]
 
-# 2. Switch to develop
-git checkout develop
-
-# 3. Create new branch with appropriate prefix
-git checkout -b feature/new-task-description
-# or
-git checkout -b bugfix/issue-description
-# or
-git checkout -b chore/maintenance-task
-
-# 4. Do the work
-
-# 5. Return to original branch if needed
-git checkout feature/original-branch
-git stash pop  # if stashed
+[optional footer]
 ```
 
-## Branch Prefixes
+Types:
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation
+- `style`: Formatting, no code change
+- `refactor`: Code restructuring
+- `perf`: Performance improvement
+- `test`: Adding tests
+- `chore`: Maintenance tasks
+- `ci`: CI/CD changes
 
-| Prefix | Use Case |
-|--------|----------|
-| `feature/` | New functionality |
-| `bugfix/` | Bug fixes |
-| `hotfix/` | Urgent production fixes |
-| `chore/` | Maintenance, deps, config |
-| `docs/` | Documentation only |
-| `refactor/` | Code restructuring |
-| `test/` | Test additions/fixes |
+Examples:
+```
+feat(parser): add support for JSX fragments
+fix(completions): handle undefined symbol table
+docs(readme): update installation instructions
+chore(deps): update tree-sitter to v0.22
+```
 
-## Rationale
+## Release Process
 
-- Keeps PRs focused and reviewable
-- Maintains clear git history
-- Enables parallel work streams
-- Follows git-flow methodology
-- Makes reverting changes easier
+1. Create release branch: `git flow release start v1.2.0`
+2. Update version numbers
+3. Update CHANGELOG
+4. Finish release: `git flow release finish v1.2.0`
+5. Push tags: `git push origin --tags`
+
+## Commands Reference
+
+```bash
+# Start a feature
+git flow feature start my-feature
+
+# Finish a feature (merges to develop)
+git flow feature finish my-feature
+
+# Start a release
+git flow release start v1.0.0
+
+# Finish a release (merges to main and develop, creates tag)
+git flow release finish v1.0.0
+
+# Start a hotfix
+git flow hotfix start v1.0.1
+
+# Finish a hotfix (merges to main and develop, creates tag)
+git flow hotfix finish v1.0.1
+```
 
 ---
 > Source: [quinnjr/typescript-language-server](https://github.com/quinnjr/typescript-language-server) — distributed by [TomeVault](https://tomevault.io).
