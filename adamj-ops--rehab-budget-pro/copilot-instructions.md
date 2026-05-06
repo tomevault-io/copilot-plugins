@@ -1,175 +1,135 @@
-## project
+## roadmap
 
-> Rehab Budget Pro is a fix & flip real estate project budget tracking application for managing property deals with:
+> > See `STATUS.md` in project root for the canonical implementation status.
 
-# Rehab Budget Pro - Cursor Rules
+# Development Roadmap
 
-## Project Overview
+> See `STATUS.md` in project root for the canonical implementation status.
+> This file provides quick reference for development planning.
 
-Rehab Budget Pro is a fix & flip real estate project budget tracking application for managing property deals with:
-- **Budget tracking** across 18 categories using a three-column model (Underwriting → Forecast → Actual)
-- **Vendor management** with tags, contact history, and CSV import/export
-- **Draw/payment tracking** with milestone-based workflow
-- **Photo uploads** for receipts and progress documentation
-- **Cost reference data** for Minneapolis metro area pricing
+## ✅ Completed Features
 
-## Tech Stack
+### Phase 1: Core Foundation
+- [x] Three-column budget model (underwriting/forecast/actual)
+- [x] Project creation with Google Places autocomplete
+- [x] 18 pre-seeded budget categories on project creation
+- [x] Budget display with inline editing
+- [x] Deal Summary tab with MAO calculations
+- [x] Cost Reference tab (Minneapolis pricing)
 
-- **Framework**: Next.js 15 (App Router) + React 19
-- **Database**: Supabase (PostgreSQL with RLS)
-- **Styling**: Tailwind CSS v4 + shadcn/ui (Mira theme)
-- **State**: React Query (server) + Zustand (client UI)
-- **Icons**: Tabler Icons (`@tabler/icons-react`)
-- **Animations**: Framer Motion + tailwindcss-animate
+### Phase 2: Full CRUD Operations
+- [x] Budget item add/edit/delete
+- [x] Bulk operations (select, status update, delete)
+- [x] Vendor CRUD with tags and contact history
+- [x] CSV import/export for vendors
+- [x] Draw management with status workflow
 
-## Critical Architecture Rules
+### Phase 3: Enhanced Features
+- [x] Photo upload per line item
+- [x] Photo gallery with type classification
+- [x] Kanban pipeline dashboard
+- [x] Portfolio health metrics
+- [x] Drag & drop project status changes
 
-### Data Flow Pattern
-```
-User Action → React Query Mutation → Supabase → Cache Invalidation → Re-render
-```
+## 🚧 In Progress
 
-### State Management Split
-- **React Query**: ALL database operations, caching, server state
-- **Zustand** (`src/lib/store.ts`): UI state only (modals, active tab, selections)
+### PDF Exports
+- [ ] Underwriting summary PDF
+- [ ] Full project report PDF
+- [ ] Draw request PDF with photos
 
-### Database Views for Computed Data
-NEVER calculate budget totals client-side. Always use views:
-- `project_summary` - Projects with calculated totals (rehab_budget, ROI, MAO)
-- `budget_by_category` - Category aggregates with variances
-- `vendor_payment_summary` - Vendor totals across projects
+### Drag & Drop Reordering
+- [ ] Reorder budget categories
+- [ ] Reorder line items within category
+- [ ] Persist sort_order to database
 
-### Type System
-- Import types from `@/types` (path alias → `src/`)
-- Database types mirror PostgreSQL schema exactly
-- Use `*Input` types for mutations (omit id, user_id, timestamps)
+## 📋 Planned Features
 
-## File Structure Conventions
+### High Priority
+1. **User Authentication**
+   - Supabase Auth integration
+   - Protected routes
+   - RLS policy enforcement
 
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── page.tsx           # Dashboard (Kanban pipeline)
-│   ├── projects/[id]/     # Project detail with tabs
-│   └── dashboard/         # Portfolio analytics
-├── components/
-│   ├── dashboard/         # Portfolio health, pipeline, analytics
-│   ├── project/           # Project-specific components
-│   │   └── tabs/          # Deal Summary, Budget, Vendors, Draws, Cost Ref
-│   ├── ui/                # shadcn/ui primitives
-│   └── vendor/            # Vendor management components
-├── hooks/                 # Custom React hooks
-│   ├── use-*-mutations.ts # CRUD operations per entity
-│   └── use-*.ts           # Query hooks
-├── lib/
-│   ├── supabase/          # Client (browser) and server clients
-│   ├── store.ts           # Zustand store
-│   └── utils.ts           # Utility functions (cn, formatters)
-└── types/
-    └── index.ts           # All TypeScript types and enums
-```
+2. **PDF Exports**
+   - Underwriting summary for lenders
+   - Investor packets
+   - Draw documentation
 
-## Code Patterns
+3. **Real-time Updates**
+   - Supabase subscriptions
+   - Live collaboration
 
-### React Query Mutations
-```typescript
-const mutation = useMutation({
-  mutationFn: async (data) => {
-    const supabase = getSupabaseClient();
-    const { error } = await supabase.from('table').insert(data);
-    if (error) throw error;
-  },
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ['key'] });
-    toast.success('Saved');
-  },
-});
-```
+### Medium Priority
+4. **Budget Templates**
+   - Save budget structure as template
+   - Apply template to new projects
+   - Share templates
 
-### Supabase Queries
-```typescript
-const { data, isLoading } = useQuery({
-  queryKey: ['projects', projectId],
-  queryFn: async () => {
-    const supabase = getSupabaseClient();
-    const { data, error } = await supabase
-      .from('project_summary')  // Use views for computed data
-      .select('*')
-      .eq('id', projectId)
-      .single();
-    if (error) throw error;
-    return data;
-  },
-});
-```
+5. **Advanced Analytics**
+   - Historical performance tracking
+   - Cost benchmarking
+   - Trend analysis
 
-## UI Guidelines
+6. **Mobile Optimization**
+   - Responsive budget table
+   - Touch-friendly interactions
+   - Offline capability
 
-### Use CSS Utility Classes from globals.css
-- Status badges: `.status-badge`, `.status-active`, `.status-pending`
-- Stat cards: `.stat-card`, `.stat-value`, `.stat-label`
-- Tables: `.table-header`, `.table-row-hover`
-- Forms: `.form-input`, `.inline-input`
-- Icons: `.icon-sm`, `.icon-md`, `.icon-lg`
+### Low Priority
+7. **Team Collaboration**
+   - Multi-user projects
+   - Role-based permissions
+   - Activity feed
 
-### Component Library
-- Use shadcn/ui components from `src/components/ui/`
-- Icons: `@tabler/icons-react` (NOT lucide-react for new code)
-- Sheets for forms (slide from right)
-- AlertDialog for confirmations
+8. **Integrations**
+   - QuickBooks sync
+   - Contractor bid requests
+   - Lender portals
 
-## Database Schema Key Points
+## Technical Debt
 
-### Three-Column Budget Model
-- `underwriting_amount`: Pre-deal estimate (acquisition analysis)
-- `forecast_amount`: Post-walkthrough/contractor bid estimate
-- `actual_amount`: Real spend during construction
+### Must Address
+- [ ] Error boundaries for all tabs
+- [ ] Loading skeletons for async operations
+- [ ] Form validation with error messages
+- [ ] Mobile responsive budget table
 
-### Project Status Flow
-`lead` → `analyzing` → `under_contract` → `in_rehab` → `listed` → `sold`
-(Can be marked `dead` at any point)
+### Should Address
+- [ ] Consolidate Zustand + React Query patterns
+- [ ] Add comprehensive error handling
+- [ ] Implement keyboard shortcuts
+- [ ] Add unit tests for calculations
 
-### 18 Budget Categories
-soft_costs, demo, structural, plumbing, hvac, electrical, insulation_drywall,
-interior_paint, flooring, tile, kitchen, bathrooms, doors_windows, interior_trim,
-exterior, landscaping, finishing, contingency
+### Nice to Have
+- [ ] Budget version history
+- [ ] Undo/redo for edits
+- [ ] Offline mode with sync
+- [ ] Advanced search/filtering
 
-## Current Implementation Status
+## Architecture Improvements
 
-### ✅ Completed
-- Three-column budget model with inline editing
-- Full CRUD for budget items, vendors, draws
-- Photo upload per line item
-- Vendor tags, contact history, CSV import/export
-- Kanban pipeline dashboard
-- Deal Summary with MAO calculations
+### Performance
+- [ ] Virtual scrolling for large budget lists
+- [ ] Lazy load tabs
+- [ ] Image optimization for photos
+- [ ] Query result caching
 
-### 🚧 In Progress
-- PDF exports (underwriting summary, investor packets)
-- Drag & drop reordering for budget items
+### Developer Experience
+- [ ] Storybook for components
+- [ ] E2E tests with Playwright
+- [ ] CI/CD pipeline
+- [ ] API documentation
 
-### ❌ Not Started
-- User authentication
-- Real-time updates via Supabase subscriptions
-- Budget templates (save/reuse structures)
+## Feature Requests (Backlog)
 
-## Common Tasks
-
-### Adding a Database Column
-1. Create migration in `supabase/migrations/`
-2. Add field to TypeScript type in `src/types/index.ts`
-3. Run migration in Supabase SQL Editor
-4. Update components
-
-### Adding a New UI Component
-1. Check if shadcn/ui has it: `npx shadcn@latest add [component]`
-2. Or create in `src/components/ui/`
-3. Use Radix UI primitives + Tailwind
-
-### Creating a Mutation Hook
-1. Create `src/hooks/use-[entity]-mutations.ts`
-2. Export useMutation hooks for create, update, delete
-3. Invalidate relevant query keys on success
+From user feedback:
+- Contractor bid comparison tool
+- Material cost tracking
+- Timeline/Gantt view for projects
+- Automated draw scheduling
+- Photo annotation
+- Receipt OCR
 
 ---
 > Source: [adamj-ops/rehab-budget-pro](https://github.com/adamj-ops/rehab-budget-pro) — distributed by [TomeVault](https://tomevault.io).
