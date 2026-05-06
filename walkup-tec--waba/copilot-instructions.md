@@ -1,15 +1,18 @@
-## context-autopick
+## frontend-ux-ui-standards
 
-> Auto-seleciona abordagem (backend, integrações, UX/UI) pelo contexto do pedido
+> UX/UI SaaS (HTML/CSS/JS) - clareza, responsividade e performance
 
 
-# Auto-direcionamento de abordagem
+# Frontend UX/UI SaaS
 
-Ao responder, escolha a abordagem conforme o contexto do pedido (sem que o usuário precise “ativar” manualmente):
+Ao modificar UI (especialmente `index.html`, `dist/**/*.html|css|js`), priorize:
 
-- Se o pedido envolver integração com APIs externas (bancos, CRMs, gateways, webhooks, HTTP via `fetch/axios`, SDKs de terceiros), aplique as diretrizes de integrações resilientes: adapters/client/gateway, retry com backoff+jitter, timeouts, logs sem segredos e tratamento de falhas com fallback quando necessário.
-- Se o pedido envolver criação/refatoração de endpoints e arquitetura backend (Express/rotas em TypeScript, controllers/services/repositories), aplique as diretrizes de Clean Architecture e segurança.
-- Se o pedido envolver UI/UX (HTML/CSS/JS, telas, layout, responsividade), aplique as diretrizes de UX/UI SaaS: clareza, acessibilidade e performance.
+- UX clara: hierarquia visual, textos objetivos e microinterações leves.
+- Responsividade: layout funcionando em desktop e telas menores.
+- Acessibilidade: foco visível, contraste adequado e navegação por teclado.
+- Performance: evite render pesado no thread principal; use carregamento progressivo quando fizer sentido.
+
+Se houver componente reutilizável, extraia para uma função/componente e documente o contrato de uso.
 
 ---
 > Source: [walkup-tec/waba](https://github.com/walkup-tec/waba) — distributed by [TomeVault](https://tomevault.io).
