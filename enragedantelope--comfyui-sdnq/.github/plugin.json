@@ -1,0 +1,9 @@
+{
+  "name": "enragedantelope--comfyui-sdnq",
+  "displayName": "comfyui-sdnq",
+  "description": "Load and run SDNQ quantized models in ComfyUI with 50-75% VRAM savings!",
+  "version": "1.0.0",
+  "author": "EnragedAntelope",
+  "homepage": "https://github.com/EnragedAntelope/comfyui-sdnq",
+  "skills": []
+}
