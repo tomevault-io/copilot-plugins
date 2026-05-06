@@ -1,0 +1,98 @@
+{
+  "name": "cipherstash--cipherpowers",
+  "displayName": "cipherpowers",
+  "description": "AI instruction skills by cipherstash",
+  "version": "1.0.0",
+  "author": "cipherstash",
+  "homepage": "https://github.com/cipherstash/cipherpowers",
+  "skills": [
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "conducting-code-review",
+      "description": ""
+    },
+    {
+      "name": "creating-research-packages",
+      "description": ""
+    },
+    {
+      "name": "dispatching-parallel-agents",
+      "description": ""
+    },
+    {
+      "name": "documenting-debugging-workflows",
+      "description": ""
+    },
+    {
+      "name": "dual-verification",
+      "description": ""
+    },
+    {
+      "name": "finishing-a-development-branch",
+      "description": ""
+    },
+    {
+      "name": "following-plans",
+      "description": ""
+    },
+    {
+      "name": "maintaining-docs-after-changes",
+      "description": ""
+    },
+    {
+      "name": "organizing-documentation",
+      "description": ""
+    },
+    {
+      "name": "requesting-code-review",
+      "description": ""
+    },
+    {
+      "name": "selecting-agents",
+      "description": ""
+    },
+    {
+      "name": "subagent-driven-development",
+      "description": ""
+    },
+    {
+      "name": "systematic-debugging",
+      "description": ""
+    },
+    {
+      "name": "systematic-type-migration",
+      "description": ""
+    },
+    {
+      "name": "tdd-enforcement-algorithm",
+      "description": ""
+    },
+    {
+      "name": "test-driven-development",
+      "description": ""
+    },
+    {
+      "name": "testing-skills-with-subagents",
+      "description": ""
+    },
+    {
+      "name": "using-cipherpowers",
+      "description": ""
+    },
+    {
+      "name": "validating-review-feedback",
+      "description": ""
+    },
+    {
+      "name": "writing-plans",
+      "description": ""
+    },
+    {
+      "name": "writing-skills",
+      "description": ""
+    }
+  ]
+}
