@@ -1,0 +1,54 @@
+{
+  "name": "bfollington--terma",
+  "displayName": "terma",
+  "description": "\u0f42\u0f4f\u0f7a\u0f62\u0f0b\u0f58",
+  "version": "1.0.0",
+  "author": "bfollington",
+  "homepage": "https://github.com/bfollington/terma",
+  "skills": [
+    {
+      "name": "shadertoy",
+      "description": ""
+    },
+    {
+      "name": "godot",
+      "description": ""
+    },
+    {
+      "name": "bevy",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design",
+      "description": ""
+    },
+    {
+      "name": "orient",
+      "description": ""
+    },
+    {
+      "name": "pattrns",
+      "description": ""
+    },
+    {
+      "name": "skill-improver",
+      "description": ""
+    },
+    {
+      "name": "skill-management",
+      "description": ""
+    },
+    {
+      "name": "sqlite-db",
+      "description": ""
+    },
+    {
+      "name": "sqlite-notes",
+      "description": ""
+    },
+    {
+      "name": "strudel",
+      "description": ""
+    }
+  ]
+}
