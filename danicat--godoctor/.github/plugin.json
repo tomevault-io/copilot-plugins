@@ -1,0 +1,9 @@
+{
+  "name": "danicat--godoctor",
+  "displayName": "godoctor",
+  "description": "A Model Context Protocol server for Go developers",
+  "version": "1.0.0",
+  "author": "danicat",
+  "homepage": "https://github.com/danicat/godoctor",
+  "skills": []
+}
