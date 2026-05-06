@@ -1,0 +1,9 @@
+{
+  "name": "datarobot-oss--datarobot-agent-skills",
+  "displayName": "datarobot-agent-skills",
+  "description": "datarobot-agent-skills",
+  "version": "1.0.0",
+  "author": "datarobot-oss",
+  "homepage": "https://github.com/datarobot-oss/datarobot-agent-skills",
+  "skills": []
+}
