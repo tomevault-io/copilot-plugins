@@ -1,0 +1,44 @@
+{
+  "name": "webhook-debugger-logger",
+  "owner": "ar27111994",
+  "repo": "webhook-debugger-logger",
+  "description": "Enterprise-grade webhook testing suite for developers. Capture, inspect, replay, forward, validate, and mock webhook traffic in real time without tunnels. Includes SSE live streaming, JSON Schema validation, and signature verification for Stripe, GitHub, Shopify, Slack, and custom HMAC workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ar27111994/webhook-debugger-logger",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:59:44Z"
+}
