@@ -1,0 +1,9 @@
+{
+  "name": "askdba--myvector",
+  "displayName": "myvector",
+  "description": "Vector Storage & Search Plugin for MySQL",
+  "version": "1.0.0",
+  "author": "askdba",
+  "homepage": "https://github.com/askdba/myvector",
+  "skills": []
+}
