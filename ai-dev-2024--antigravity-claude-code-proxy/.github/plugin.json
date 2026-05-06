@@ -1,0 +1,9 @@
+{
+  "name": "ai-dev-2024--antigravity-claude-code-proxy",
+  "displayName": "Antigravity-Claude-Code-Proxy",
+  "description": "\ud83d\ude80 Use Claude Code CLI with Gemini, GPT-5, Grok & 20+ AI models \u2014 Multi-account load balancing, real-time dashboard, per-window model switching",
+  "version": "1.0.0",
+  "author": "ai-dev-2024",
+  "homepage": "https://github.com/ai-dev-2024/Antigravity-Claude-Code-Proxy",
+  "skills": []
+}
