@@ -1,0 +1,87 @@
+{
+  "name": "ccstart",
+  "owner": "vichannnnn",
+  "repo": "ccstart",
+  "description": "Quick setup for projects or repositories using Claude Code with built-in agents, ticket system, and planning tools.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "commit",
+      "path": "template/claude/skills/commit",
+      "github_url": "https://github.com/vichannnnn/ccstart/tree/main/template/claude/skills/commit",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": "template/claude/skills/create-pr",
+      "github_url": "https://github.com/vichannnnn/ccstart/tree/main/template/claude/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "create-script",
+      "path": "template/claude/skills/create-script",
+      "github_url": "https://github.com/vichannnnn/ccstart/tree/main/template/claude/skills/create-script",
+      "description": ""
+    },
+    {
+      "name": "create-ticket",
+      "path": "template/claude/skills/create-ticket",
+      "github_url": "https://github.com/vichannnnn/ccstart/tree/main/template/claude/skills/create-ticket",
+      "description": ""
+    },
+    {
+      "name": "design-feature",
+      "path": "template/claude/skills/design-feature",
+      "github_url": "https://github.com/vichannnnn/ccstart/tree/main/template/claude/skills/design-feature",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "template/claude/skills/skill-creator",
+      "github_url": "https://github.com/vichannnnn/ccstart/tree/main/template/claude/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "update-claude-md",
+      "path": "template/claude/skills/update-claude-md",
+      "github_url": "https://github.com/vichannnnn/ccstart/tree/main/template/claude/skills/update-claude-md",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/vichannnnn/ccstart",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:36:35Z"
+}
