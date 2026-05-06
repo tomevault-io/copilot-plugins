@@ -1,0 +1,38 @@
+{
+  "name": "dgalarza--claude-code-workflows",
+  "displayName": "claude-code-workflows",
+  "description": "Personal collection of Claude Code workflows",
+  "version": "1.0.0",
+  "author": "dgalarza",
+  "homepage": "https://github.com/dgalarza/claude-code-workflows",
+  "skills": [
+    {
+      "name": "conventional-commits",
+      "description": ""
+    },
+    {
+      "name": "gridfinity-baseplate-planner",
+      "description": ""
+    },
+    {
+      "name": "linear-implement",
+      "description": ""
+    },
+    {
+      "name": "parallel-code-review",
+      "description": ""
+    },
+    {
+      "name": "process-meeting-transcript",
+      "description": ""
+    },
+    {
+      "name": "rspec-testing",
+      "description": ""
+    },
+    {
+      "name": "tdd-workflow",
+      "description": ""
+    }
+  ]
+}
