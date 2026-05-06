@@ -1,0 +1,9 @@
+{
+  "name": "lightinn--deepsearch",
+  "displayName": "deepsearch",
+  "description": "cli deep research tool using ollama (AI agent to reseach complexe query online)",
+  "version": "1.0.0",
+  "author": "LightInn",
+  "homepage": "https://github.com/LightInn/deepsearch",
+  "skills": []
+}
