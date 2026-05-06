@@ -1,0 +1,9 @@
+{
+  "name": "gemini-cli-extensions--observability",
+  "displayName": "observability",
+  "description": "Cloud Observability Gemini CLI Extension",
+  "version": "1.0.0",
+  "author": "gemini-cli-extensions",
+  "homepage": "https://github.com/gemini-cli-extensions/observability",
+  "skills": []
+}
