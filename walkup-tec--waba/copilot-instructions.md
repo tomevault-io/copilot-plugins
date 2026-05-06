@@ -1,19 +1,18 @@
-## ucp-docker
+## ucp-dockerfile
 
-> Boas práticas para Docker/Docker Compose no projeto
+> Dockerfile - segurança, tamanho e reprodutibilidade
 
 
-# Docker UCP
+# Dockerfile UCP
 
-Ao trabalhar com `Dockerfile` e `docker-compose.yml` (ou quando o pedido mencionar Docker/containers), priorize:
+Ao editar `Dockerfile`:
 
-- Segurança de build: use imagens base oficiais e mantenha tags específicas (evite `latest`).
-- Privilégios: rode como usuário não-root quando possível.
-- Multi-stage build: minimize tamanho final e tempo de build.
-- Segredos: nunca embuta tokens/chaves no Dockerfile; use `env var`/`secrets` do ambiente.
-- Configuração: mantenha `PORT`, `TZ` e variáveis sensíveis fora do repositório.
-- Persistência: defina volumes para dados necessários (ex.: Postgres, Supabase, n8n).
-- Saúde e resiliência: inclua `healthcheck` e estratégias de restart adequadas.
+- Use imagens base oficiais e fixe versões/tags.
+- Utilize build em múltiplas etapas (`multi-stage build`) para reduzir o tamanho final.
+- Evite rodar como `root`: prefira `USER` não-root quando possível.
+- Não copie segredos para a imagem: tokens/chaves devem ser fornecidos em runtime (env/secrets).
+- Garanta reprodutibilidade: evite comandos com comportamento não determinístico quando possível.
+- Minimizar camadas e cache: organize `COPY`/`RUN` para aproveitar cache do Docker.
 
 ---
 > Source: [walkup-tec/waba](https://github.com/walkup-tec/waba) — distributed by [TomeVault](https://tomevault.io).
