@@ -2,7 +2,7 @@
 
 > Sourced from [ssdeanx/Gemini-CLI-Web](https://github.com/ssdeanx/Gemini-CLI-Web) and converted for every major platform by [TomeVault](https://tomevault.io)
 
-AI instruction skills by ssdeanx
+Gemini CLI Web is an interface that allows you to use Gemini CLI in web browser.  Integrate CLI, Chat, Monaco, Spec Generation & more to come 
 
 ## GitHub Copilot Config
 
@@ -16,10 +16,6 @@ Original source: `.windsurf/rules/*.md` in [ssdeanx/Gemini-CLI-Web](https://gith
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
-
-## Bundled Skills (1)
-
-- [gemini](https://github.com/ssdeanx/Gemini-CLI-Web/tree/main/.github/skills/gemini)
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/ssdeanx/Gemini-CLI-Web](https://github.com/ssdeanx/Gemini-CLI-Web)
 
