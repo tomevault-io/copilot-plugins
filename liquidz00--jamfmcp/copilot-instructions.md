@@ -1,83 +1,62 @@
-## python-general-best-practices
+## sphinx-style-docstrings
 
-> Python best practices and patterns for modern software development with Flask and SQLite
+> Enforce Sphinx/reST (not Google or NumPy) style docstrings in all Python code. Use :param:, :type:, :return:, and :rtype: markup for every function and method. Apply this to all Python (*.py) files in the project.
 
 
-# Python Best Practices
+# Rule: Sphinx-Style Docstring Enforcement
 
-## Project Structure
-- Place tests in `tests/` directory parallel
-- Keep configuration in `config/` or as environment variables
-- Store requirements in `pyproject.toml`
-- Place static files in `static/` directory
-- Use `templates/` for Jinja2 templates
+- For every function and method, write the docstring in reStructuredText (Sphinx) style.
+- Always include `:param param_name: description` and `:type param_name: type` for *each* parameter.
+- If the function returns a value, document it using `:return: description` and `:rtype: type`.
+- If the function raises exceptions, document these using `:raises ExceptionType: description`.
+- Do NOT use Google, NumPy, or EpyText docstring formats.
+- Docstrings MUST always start and end on their own lines.
+- The opening """ MUST be on a new line immediately after the function or class definition.
+- Do not use single-line docstring formatting (`"""Docstring..."""`) even for short summaries.
 
-## Code Style
-- Follow Black code formatting
-- Use isort for import sorting
-- Follow PEP 8 naming conventions:
-  - snake_case for functions and variables
-  - PascalCase for classes
-  - UPPER_CASE for constants
-- Maximum line length of 100 characters
-- Use absolute imports over relative imports
-- Use proper response formats
+## Example (CORRECT)
 
-## Type Hints
-- Use type hints for all function parameters and returns
-- Use modern Python 3.10+ union syntax: `str | None` instead of `Optional[str]`
-- Use built-in generics: `list[str]`, `dict[str, int]`, `tuple[int, ...]`, `set[int]`
-- Import types from `typing` module for types not available as builtins (e.g., `TypedDict`, `TypeVar`, `Literal`, `Callable`, `Protocol`, `Any`)
-- Use `TypeVar` for generic types
-- Define custom types in `types.py`
-- Use `Protocol` for duck typing
+```python
+def divide(a, b):
+    """
+    Divide two numbers.
 
-## Testing
-- Use pytest for testing
-- Write tests for all routes
-- Use pytest-cov for coverage
-- Implement proper fixtures
-- Use proper mocking with pytest-mock
-- Test all error scenarios
+    :param a: Dividend
+    :type a: float
+    :param b: Divisor
+    :type b: float
+    :return: Quotient
+    :rtype: float
+    :raises ZeroDivisionError: If b is zero.
+    """
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero.")
+    return a / b
+```
 
-## Security
-- Sanitize all user inputs
-- Use proper session configuration
-- Implement proper logging
-- Follow OWASP guidelines
+## Example (INCORRECT - Google Style)
 
-## Error Handling
-- Create custom exception classes
-- Use proper try-except blocks
-- Implement proper logging
-- Return proper error responses
-- Handle edge cases properly
-- Use proper error messages
+```python
+def divide(a, b):
+    """
+    Divide two numbers.
 
-## Documentation
-- Use reStructuredText-style docstrings
-- Document all public APIs
-- Keep README.md updated
-- Use proper inline comments
-- Generate API documentation
-- Document environment setup
+    Args:
+        a (float): Dividend
+        b (float): Divisor
 
-## Development Workflow
-- Leverage `uv` for package management
-- Use virtual environments (venv)
-- Implement pre-commit hooks
-- Use proper Git workflow
-- Follow semantic versioning
-- Use proper CI/CD practices
-- Implement proper logging
+    Returns:
+        float: Quotient
 
-## Dependencies
-- Pin dependency versions
-- Use pyproject.toml for production
-- Separate dev dependencies
-- Use proper package versions
-- Regularly update dependencies
-- Check for security vulnerabilities
+    Raises:
+        ZeroDivisionError: If b is zero.
+    """
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero.")
+    return a / b
+```
+
+Only use Sphinx-style as showin in the CORRECT example above.
 
 ---
 > Source: [liquidz00/jamfmcp](https://github.com/liquidz00/jamfmcp) — distributed by [TomeVault](https://tomevault.io).
