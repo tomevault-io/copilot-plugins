@@ -1,0 +1,9 @@
+{
+  "name": "0xerwin1--dbflux",
+  "displayName": "dbflux",
+  "description": "A fast, keyboard-first database client built with Rust and GPUI.",
+  "version": "1.0.0",
+  "author": "0xErwin1",
+  "homepage": "https://github.com/0xErwin1/dbflux",
+  "skills": []
+}
