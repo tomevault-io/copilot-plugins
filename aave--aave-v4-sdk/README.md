@@ -7,15 +7,19 @@ The official SDK for Aave V4 👻.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [aave/aave-v4-sdk](https://github.com/aave/aave-v4-sdk).
+Original source: `AGENTS.md` in [aave/aave-v4-sdk](https://github.com/aave/aave-v4-sdk).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
+
+## Bundled Skills (1)
+
+- [schema-update](https://github.com/aave/aave-v4-sdk/tree/main/.claude/skills/schema-update)
 
 Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/aave/aave-v4-sdk](https://github.com/aave/aave-v4-sdk)
 
