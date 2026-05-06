@@ -1,0 +1,9 @@
+{
+  "name": "clawdbotatg--clawd-vesting",
+  "displayName": "clawd-vesting",
+  "description": "lock up $CLAWD and slowly drip it back to me",
+  "version": "1.0.0",
+  "author": "clawdbotatg",
+  "homepage": "https://github.com/clawdbotatg/clawd-vesting",
+  "skills": []
+}
