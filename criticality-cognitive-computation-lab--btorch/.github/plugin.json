@@ -1,0 +1,9 @@
+{
+  "name": "criticality-cognitive-computation-lab--btorch",
+  "displayName": "btorch",
+  "description": "Brain-inspired differentiable PyTorch toolkit for neuromorphic and computational neuroscience research",
+  "version": "1.0.0",
+  "author": "Criticality-Cognitive-Computation-Lab",
+  "homepage": "https://github.com/Criticality-Cognitive-Computation-Lab/btorch",
+  "skills": []
+}
