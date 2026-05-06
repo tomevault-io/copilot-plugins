@@ -1,0 +1,9 @@
+{
+  "name": "estebanfoucher--sail-cv",
+  "displayName": "Sail-CV",
+  "description": "Codebase leveraging computer vision for aerodynamics measurement on sailboats. Calibrated photogramometry based 3d sailshape reconstruction and video tracking of tell tales.",
+  "version": "1.0.0",
+  "author": "estebanfoucher",
+  "homepage": "https://github.com/estebanfoucher/Sail-CV",
+  "skills": []
+}
