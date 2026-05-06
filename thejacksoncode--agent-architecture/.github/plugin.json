@@ -1,0 +1,9 @@
+{
+  "name": "thejacksoncode--agent-architecture",
+  "displayName": "Agent-Architecture",
+  "description": "Visual multi-agent system designer for Claude Code. 28 agents, Five Minds Protocol, HITL gates, Live Simulation. Zero dependencies, single HTML file.",
+  "version": "1.0.0",
+  "author": "TheJacksonCode",
+  "homepage": "https://github.com/TheJacksonCode/Agent-Architecture",
+  "skills": []
+}
