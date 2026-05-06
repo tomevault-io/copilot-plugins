@@ -1,0 +1,9 @@
+{
+  "name": "kostyay--claude-status",
+  "displayName": "claude-status",
+  "description": "Customizable status line for Claude Code CLI - shows git status, GitHub CI, token usage, and task tracking (Claude tasks, kt, tk, beads)",
+  "version": "1.0.0",
+  "author": "kostyay",
+  "homepage": "https://github.com/kostyay/claude-status",
+  "skills": []
+}
