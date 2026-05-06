@@ -4,7 +4,7 @@
   "repo": "Gemini-CLI-Web",
   "description": "Gemini CLI Web is an interface that allows you to use Gemini CLI in web browser.  Integrate CLI, Chat, Monaco, Spec Generation & more to come ",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ssdeanx/Gemini-CLI-Web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T13:47:11Z"
+  "distributed_at": "2026-05-06T14:15:08Z"
 }
