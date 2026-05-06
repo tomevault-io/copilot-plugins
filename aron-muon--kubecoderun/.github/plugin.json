@@ -1,0 +1,9 @@
+{
+  "name": "aron-muon--kubecoderun",
+  "displayName": "KubeCodeRun",
+  "description": "A secure, open-source code interpreter API that provides sandboxed code execution in isolated Kubernetes pods. Compatible with LibreChat's Code Interpreter API.",
+  "version": "1.0.0",
+  "author": "aron-muon",
+  "homepage": "https://github.com/aron-muon/KubeCodeRun",
+  "skills": []
+}
