@@ -4,7 +4,7 @@
   "repo": "harness-skills",
   "description": "A collection of structured AI agent skills that   enable Claude Code, Cursor, GitHub Copilot, and   other AI coding assistants to create, operate,   debug, and govern Harness CI/CD workflows through   natural language.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/harness/harness-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:05:16Z"
+  "distributed_at": "2026-05-06T11:30:21Z"
 }
