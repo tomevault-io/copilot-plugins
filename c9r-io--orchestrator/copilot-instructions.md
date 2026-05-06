@@ -1,28 +1,35 @@
-## remix-conventions
+## rust-conventions
 
-> Frontend conventions (optional) for TypeScript/React portals
+> Rust coding conventions for service development
 
 
-# Frontend Conventions (Optional)
+# Rust Conventions (Service Development)
 
-Only apply these rules if the project has a TypeScript/React frontend under `portal/`.
+Apply these rules if the backend is Rust under `core/`.
 
-## General
+## Structure
 
-- Keep routes/pages thin; move logic into `portal/src/lib` or `portal/src/services`.
-- Prefer explicit typing at API boundaries.
-- Centralize network calls in a small API client module (do not scatter `fetch()`).
-- Treat UI state changes as data-flow: inputs -> validation -> action -> result.
-
-## Testing
-
-- Unit tests for pure functions and components with complex logic.
-- E2E tests only for critical user journeys (few, stable).
+- Keep HTTP/gRPC handlers thin.
+- Put business logic in `service/` with dependency injection via traits.
+- Keep domain models in `domain/` with validation and invariants.
+- Repositories provide persistence behind mockable traits.
 
 ## Error Handling
 
-- Show user-safe errors in UI.
-- Log developer-facing details in console only for dev builds.
+- Use typed errors for business logic (`thiserror`), and attach context at boundaries (`anyhow` or `eyre`).
+- Do not swallow errors (`ok()`/`unwrap()` in production paths).
+- Prefer returning `Result<T, E>` from functions instead of side effects.
+
+## Async
+
+- Avoid `tokio::spawn` unless you can explain lifecycle and error handling.
+- Prefer explicit timeouts at network boundaries.
+
+## Testing
+
+- Unit tests should not require Docker.
+- Mock repositories with `mockall` and mock HTTP dependencies with `wiremock`.
+- Integration/E2E tests can use docker-compose, but keep them separate from unit tests.
 
 ---
 > Source: [c9r-io/orchestrator](https://github.com/c9r-io/orchestrator) — distributed by [TomeVault](https://tomevault.io).
