@@ -1,0 +1,426 @@
+## ido
+
+> **Do NOT create/update documentation unless explicitly requested.** Only deliver code changes by default.
+
+# Project Rules
+
+## Critical Policies
+
+### Documentation Policy
+
+**Do NOT create/update documentation unless explicitly requested.** Only deliver code changes by default.
+
+### Language Policy
+
+All code comments and logs **must be in English**. Convert non-English comments to English when encountered.
+
+### Database Access Policy
+
+**Frontend MUST NOT directly access SQLite.** All database access goes through backend API handlers.
+
+```typescript
+// ❌ Wrong: Direct DB access
+const db = await Database.load('sqlite:ido.db')
+
+// ✅ Correct: Use API client
+import { getActivities } from '@/lib/client/apiClient'
+const activities = await getActivities({ limit: 50 })
+```
+
+## API Handler Policy
+
+### 1. Never Use `pyInvoke` Directly
+
+Always use auto-generated functions from `@/lib/client/apiClient` for type safety and automatic camelCase↔snake_case conversion.
+
+### 2. Always Define Structured Request/Response Models
+
+**CRITICAL RULE:** All handlers must use Pydantic models inheriting from `backend.models.base.BaseModel`.
+
+**NEVER use `Dict[str, Any]` as return type** - this prevents TypeScript type generation for the frontend.
+
+```python
+from backend.handlers import api_handler
+from backend.models.base import BaseModel, TimedOperationResponse
+
+# ❌ WRONG - Dict prevents TypeScript type generation
+@api_handler()
+async def bad_handler() -> Dict[str, Any]:
+    return {"success": True, "data": {...}}
+
+# ✅ CORRECT - Pydantic model enables TypeScript type generation
+class MyRequest(BaseModel):
+    user_input: str
+
+class MyResponse(TimedOperationResponse):
+    data: Optional[MyDataModel] = None
+
+@api_handler(body=MyRequest, method="POST", path="/endpoint", tags=["module"])
+async def good_handler(body: MyRequest) -> MyResponse:
+    return MyResponse(
+        success=True,
+        data=MyDataModel(...),
+        timestamp=datetime.now().isoformat()
+    )
+```
+
+**Available Base Response Models:**
+
+- `OperationResponse` - Basic response with success/message/error
+- `OperationDataResponse` - Adds optional `data` field
+- `TimedOperationResponse` - Adds `timestamp` field
+- Define custom models in `backend/models/responses.py` for complex data structures
+
+**After adding handlers:**
+
+1. Define response models in `backend/models/responses.py`
+2. Import models in your handler file
+3. Import handler in `backend/handlers/__init__.py`
+4. Run `pnpm setup-backend` to generate TypeScript types
+5. Use in frontend: `import { goodHandler } from '@/lib/client/apiClient'`
+
+## Platform Configuration Policy
+
+Platform-specific settings go in platform config files, NOT in `tauri.conf.json`.
+
+**Files (located in `src-tauri/` directory):**
+
+- `src-tauri/tauri.conf.json` - General (cross-platform)
+- `src-tauri/tauri.macos.conf.json` - macOS-specific
+- `src-tauri/tauri.windows.conf.json` - Windows-specific
+- `src-tauri/tauri.bundle.json` - Production builds
+
+**macOS Bundle Targets:**
+
+- `["app"]` - Development (fast, no DMG)
+- `["app", "dmg"]` - Production (used by `pnpm bundle`)
+
+**macOS permissions:** Use `src-tauri/Info.plist` for NSAppleEventsUsageDescription, etc.
+
+## Database Guidelines
+
+### SQL Query Management
+
+**All SQL queries go in `backend/core/sqls/queries.py`.** Never inline SQL in handlers.
+
+### Repository Pattern
+
+1. Use repository layer in `backend/core/db/`
+2. Expose interfaces through `core/protocols.py`
+3. Update `backend/core/sqls/schema.py` for schema changes
+4. Use `?` placeholders for parameterized queries
+5. Return typed data (TypedDict/Protocol)
+
+### Database Access Workflow
+
+When frontend needs data:
+
+1. Add SQL query to `backend/core/sqls/queries.py`
+2. Create repository method in `backend/core/db/`
+3. Create API handler in `backend/handlers/`
+4. Define Pydantic request/response models
+5. Run `pnpm setup-backend`
+6. Use auto-generated function in frontend
+
+## Tailwind CSS Guidelines
+
+**Auto-sorted by `prettier-plugin-tailwindcss` via `pnpm format`.**
+
+- Use canonical classes (e.g., `aspect-video` not `aspect-[16/9]`)
+- Never use hardcoded colors - use semantic CSS variables from `src/styles/theme-variables.css`
+- Examples: `bg-primary`, `text-primary-foreground`, `bg-muted`, `chart-1` through `chart-5`
+
+```typescript
+// ❌ Wrong
+<div className="bg-blue-500 text-white aspect-[16/9]">
+
+// ✅ Correct
+<div className="aspect-video bg-primary text-primary-foreground">
+```
+
+## Project Overview
+
+**Tech Stack:** React 19 + TypeScript 5 + Vite 6 + Tailwind CSS 4 + Python 3.14+ (PyTauri 0.8) + Tauri 2.x + SQLite + Zustand 5
+
+**Architecture:** Three-layer (Perception → Processing → Consumption)
+
+- Perception: Keyboard/Mouse/Screenshots
+- Processing: Event extraction (LLM) → Activity aggregation (10min cycle)
+- Consumption: AI analysis → Task recommendations
+
+**Key Timing:**
+
+- Screenshots: every 0.2s (5/sec/monitor)
+- Main loop: every 30s
+- LLM trigger: 20+ screenshots (~4s of activity)
+- Activity aggregation: every 10 minutes
+- Frontend polling: every 30s (incremental updates)
+
+**Data Flow:** RawRecords (60s memory) → Events (LLM) → Activities (10min aggregation) → Tasks (AI-generated)
+
+## Development Commands
+
+```bash
+# Setup
+pnpm setup              # macOS/Linux
+pnpm setup:win          # Windows
+
+# Development
+pnpm tauri:dev:gen-ts   # Full app with TS generation (recommended)
+pnpm dev                # Frontend only
+
+# Code Quality
+pnpm format             # Format code
+pnpm lint               # Check formatting
+pnpm check-i18n         # Validate translations
+uv run ty check         # Backend type checking (required before commit)
+pnpm tsc                # Frontend type checking (required before commit)
+
+# Build
+pnpm bundle             # Production (macOS/Linux)
+pnpm bundle:win         # Production (Windows)
+pnpm sign-macos         # Code signing (after bundle)
+```
+
+## Key Patterns
+
+### Adding API Handler
+
+```python
+# 1. backend/handlers/my_feature.py
+from backend.handlers import api_handler
+from backend.models.base import BaseModel
+
+class MyRequest(BaseModel):
+    user_input: str
+
+@api_handler(body=MyRequest, method="POST", path="/endpoint", tags=["module"])
+async def my_handler(body: MyRequest) -> dict:
+    return {"data": body.user_input}
+
+# 2. Import in backend/handlers/__init__.py
+# 3. Run: pnpm setup-backend
+# 4. Use: import { myHandler } from '@/lib/client/apiClient'
+```
+
+### Adding i18n
+
+```typescript
+// src/locales/en.ts
+export const en = { myFeature: { title: 'Title' } }
+
+// Use
+import { useTranslation } from 'react-i18next'
+const { t } = useTranslation()
+t('myFeature.title')
+```
+
+### Tauri Events
+
+**Events emitted:** `activity-deleted`, `event-deleted`, `activity-updated`, `agent-task-update`, `chat-message-chunk`, `bulk-update-completed`, `monitors-changed`
+
+**NOT emitted:** `activity-created`, `event-created` (use polling instead)
+
+```typescript
+import { useTauriEvents } from '@/hooks/useTauriEvents'
+
+useTauriEvents({
+  'activity-updated': (payload) => {
+    /* handle */
+  }
+})
+```
+
+## Project Structure
+
+```
+ido/
+├── src/                     # React frontend
+│   ├── views/              # Pages
+│   ├── components/         # UI components
+│   ├── lib/
+│   │   ├── stores/         # Zustand stores
+│   │   ├── client/         # Auto-generated API client
+│   │   └── types/          # TypeScript types
+│   ├── hooks/              # React hooks
+│   └── locales/            # i18n translations
+├── backend/                 # Python backend
+│   ├── handlers/           # API handlers
+│   ├── core/               # Core systems (coordinator, db, events)
+│   ├── models/             # Pydantic models
+│   ├── processing/         # Processing pipeline
+│   ├── perception/         # Perception layer
+│   ├── agents/             # AI agents
+│   └── llm/                # LLM integration
+├── src-tauri/              # Tauri app
+│   ├── python/ido_app/     # PyTauri entry
+│   └── src/                # Rust code
+└── scripts/                # Build scripts
+```
+
+## Important Files
+
+- `backend/core/coordinator.py` - Main orchestrator
+- `backend/core/sqls/queries.py` - All SQL queries
+- `backend/handlers/__init__.py` - Handler registry
+- `src/lib/client/apiClient.ts` - Auto-generated (DO NOT EDIT)
+- `src/lib/stores/activity.ts` - Activity state
+- `src-tauri/tauri.conf.json` - Base Tauri config
+- `src-tauri/tauri.macos.conf.json` - macOS config
+- `src-tauri/tauri.bundle.json` - Production bundle config
+
+## Common Scenarios
+
+### Frontend-only changes
+
+```bash
+pnpm dev
+```
+
+### Backend + Frontend changes
+
+```bash
+pnpm tauri:dev:gen-ts
+```
+
+### Adding Python handler
+
+```bash
+# 1. Create handler with @api_handler
+# 2. Import in backend/handlers/__init__.py
+pnpm setup-backend
+pnpm tauri:dev:gen-ts
+```
+
+### Debug backend independently
+
+```bash
+uvicorn app:app --reload  # http://localhost:8000/docs
+```
+
+## Database
+
+Default SQLite at `~/.config/ido/ido.db`, it may change by user settings in `~/.config/ido/config.toml`
+
+**Key Tables:** activities, events, tasks, llm_models, llm_token_usage, settings, raw_records
+
+**Repository pattern:** `backend/core/db/` + `core/protocols.py`
+
+## System Integration
+
+**LLM:** OpenAI-compatible APIs, configured in settings, stored in `llm_models` table
+
+**Permissions (macOS):** Accessibility, Screen Recording (via `backend/handlers/permissions.py`)
+
+**Configuration params:**
+
+```python
+monitoring.capture_interval = 0.2              # Screenshot frequency
+monitoring.processing_interval = 30             # Main loop
+processing.event_extraction_threshold = 20      # LLM trigger
+processing.activity_summary_interval = 600      # 10min aggregation
+```
+
+## Debugging
+
+- TypeScript not updating? → `pnpm setup-backend`
+- Activity not appearing? → Wait 10+ mins, check aggregation logs
+- i18n mismatch? → `pnpm check-i18n`
+- CamelCase issues? → Ensure models inherit from `BaseModel`
+
+## Platform Notes
+
+### macOS
+
+- Production: `pnpm bundle && pnpm sign-macos`
+- Output: `src-tauri/target/bundle-release/bundle/macos/`
+- DMG mount dialogs during build are normal
+
+### Windows
+
+- Use: `pnpm setup:win`, `pnpm bundle:win`
+- Scripts in `scripts/windows/`
+
+## Release Process
+
+### Automated Release Workflow
+
+The project uses an automated release workflow that creates tags on the main branch after PR merge:
+
+**1. Create Release PR**
+
+```bash
+pnpm release:pr              # Auto-detect version bump
+pnpm release:pr:patch        # Patch release (0.0.X)
+pnpm release:pr:minor        # Minor release (0.X.0)
+pnpm release:pr:major        # Major release (X.0.0)
+pnpm release:pr:dry-run      # Test without changes
+```
+
+**What happens:**
+
+- Creates a `release/vX.X.X` branch from main
+- Runs `standard-version` to:
+  - Bump version in `package.json`, `pyproject.toml`, and Tauri config files
+  - Generate/update `CHANGELOG.md` based on conventional commits
+  - Create a release commit
+- Pushes branch to remote (WITHOUT creating tag)
+- Creates a PR to main with `release` label
+
+**2. Review and Merge PR**
+
+- Review CHANGELOG.md and version changes
+- Ensure CI checks pass
+- Merge the PR to main
+
+**3. Automatic Tag Creation**
+
+- On PR merge, GitHub Actions (`auto-tag-release.yml`) automatically:
+  - Reads version from `package.json`
+  - Creates tag `vX.X.X` on the merge commit in main
+  - Pushes the tag to remote
+
+**4. Automatic Release Build**
+
+- Tag push triggers `release.yml` workflow:
+  - Builds for macOS (universal binary) and Windows
+  - Creates GitHub Release with auto-generated notes
+  - Uploads build artifacts (.dmg, .app, .msi)
+
+### Key Files
+
+- `scripts/release-pr.sh` - Release PR creation script
+- `.github/workflows/auto-tag-release.yml` - Auto-tag on PR merge
+- `.github/workflows/release.yml` - Release build workflow
+- `.versionrc.cjs` - standard-version configuration
+
+### Version Numbering
+
+Follows [Semantic Versioning](https://semver.org/):
+
+- **MAJOR**: Breaking changes
+- **MINOR**: New features (backward compatible)
+- **PATCH**: Bug fixes
+
+### Commit Message Format
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat(scope): description     # New feature
+fix(scope): description      # Bug fix
+perf(scope): description     # Performance improvement
+refactor(scope): description # Code refactoring
+docs(scope): description     # Documentation (hidden in changelog)
+chore(scope): description    # Maintenance (hidden in changelog)
+```
+
+### Troubleshooting
+
+- **Tag already exists**: Delete remote tag: `git push origin :refs/tags/vX.X.X`
+- **Wrong version bumped**: Edit PR branch and amend the commit
+- **CI build fails**: Check build logs in GitHub Actions
+
+---
+> Source: [UbiquantAI/IDO](https://github.com/UbiquantAI/IDO) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
