@@ -1,0 +1,9 @@
+{
+  "name": "mongrel-intelligence--cascade",
+  "displayName": "cascade",
+  "description": "Cascade orchestrates AI agents (Claude Code, Codex, opencode, LLMist) across your workflows in GitHub, Trello, Linear and Jira.",
+  "version": "1.0.0",
+  "author": "mongrel-intelligence",
+  "homepage": "https://github.com/mongrel-intelligence/cascade",
+  "skills": []
+}
