@@ -1,0 +1,111 @@
+{
+  "name": "terma",
+  "owner": "bfollington",
+  "repo": "terma",
+  "description": "\u0f42\u0f4f\u0f7a\u0f62\u0f0b\u0f58",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "shadertoy",
+      "path": "plugins/tsal/skills/shadertoy",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/tsal/skills/shadertoy",
+      "description": ""
+    },
+    {
+      "name": "godot",
+      "path": "plugins/tsal/skills/godot",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/tsal/skills/godot",
+      "description": ""
+    },
+    {
+      "name": "bevy",
+      "path": "plugins/tsal/skills/bevy",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/tsal/skills/bevy",
+      "description": ""
+    },
+    {
+      "name": "domain-driven-design",
+      "path": "plugins/tsal/skills/domain-driven-design",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/tsal/skills/domain-driven-design",
+      "description": ""
+    },
+    {
+      "name": "orient",
+      "path": "plugins/terma/skills/orient",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/terma/skills/orient",
+      "description": ""
+    },
+    {
+      "name": "pattrns",
+      "path": "plugins/tsal/skills/pattrns",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/tsal/skills/pattrns",
+      "description": ""
+    },
+    {
+      "name": "skill-improver",
+      "path": "plugins/terma/skills/skill-improver",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/terma/skills/skill-improver",
+      "description": ""
+    },
+    {
+      "name": "skill-management",
+      "path": "plugins/terma/skills/skill-management",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/terma/skills/skill-management",
+      "description": ""
+    },
+    {
+      "name": "sqlite-db",
+      "path": "plugins/notes/skills/sqlite-db",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/notes/skills/sqlite-db",
+      "description": ""
+    },
+    {
+      "name": "sqlite-notes",
+      "path": "plugins/notes/skills/sqlite-notes",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/notes/skills/sqlite-notes",
+      "description": ""
+    },
+    {
+      "name": "strudel",
+      "path": "plugins/tsal/skills/strudel",
+      "github_url": "https://github.com/bfollington/terma/tree/main/plugins/tsal/skills/strudel",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bfollington/terma",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:30:17Z"
+}
