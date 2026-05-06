@@ -1,9 +1,9 @@
 {
   "name": "d0dg3r--gitsyncmarks",
   "displayName": "GitSyncMarks",
-  "description": "GitSyncMarks",
+  "description": "Browser extension for bidirectional bookmark sync with GitHub. Per-file storage (one JSON file per bookmark), three-way merge, auto-sync, multiple profiles. Works on Chrome and Firefox. Add bookmarks ",
   "version": "1.0.0",
   "author": "d0dg3r",
-  "homepage": "https://tomevault.io/claim/d0dg3r",
+  "homepage": "https://github.com/d0dg3r/GitSyncMarks",
   "skills": []
 }
