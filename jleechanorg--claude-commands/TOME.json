@@ -1,0 +1,57 @@
+{
+  "name": "claude-commands",
+  "owner": "jleechanorg",
+  "repo": "claude-commands",
+  "description": "A collection of Claude commands and utilities",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "generalized-testing",
+      "path": ".claude/skills/generalized-testing",
+      "github_url": "https://github.com/jleechanorg/claude-commands/tree/main/.claude/skills/generalized-testing",
+      "description": ""
+    },
+    {
+      "name": "solid",
+      "path": ".claude/skills/solid",
+      "github_url": "https://github.com/jleechanorg/claude-commands/tree/main/.claude/skills/solid",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jleechanorg/claude-commands",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T10:31:32Z"
+}
