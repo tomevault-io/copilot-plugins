@@ -1,18 +1,38 @@
-## locale-translation-consistency
+## release-pre-check
 
-> English-first locale workflow with runtime fallback
+> Release readiness checklist — run automatically when asked to create a release or tag
 
 
-# Locale Translation Workflow
+# Release Pre-Check
 
-When editing locale files in `_locales/*/messages.json`:
+When the user asks to create a release, tag a version, or check release readiness, run through this checklist **before** any tagging or committing.
 
-- Add new UI text keys in `_locales/en/messages.json` first.
-- Other locale files may temporarily miss new keys; runtime must fall back to English.
-- Translation completion for non-English locales can be done in a separate follow-up task.
-- Keep key names identical across all locale files.
-- Preserve valid JSON formatting and existing structure.
-- Before release, schedule or complete locale update work for newly introduced keys.
+## Checklist
+
+1. **Version consistency** — `manifest.json`, `manifest.firefox.json`, `package.json` must all have the same `"version"`
+2. **CHANGELOG.md** — entry for the target version exists with date and content
+3. **docs/RELEASE.md** — Version History table includes the target version
+4. **Git state** — working tree clean, on `main`, up to date with `origin/main`
+5. **Tag not yet created** — `git tag -l vX.Y.Z` returns empty
+6. **Build** — `npm run build` succeeds (creates both Chrome and Firefox ZIPs)
+7. **Screenshots** — if UI changed: run CI workflow (Actions > Generate Screenshots > Run workflow on `main`) or locally (`npm run screenshots`); verify committed to `store-assets/`
+8. **E2E tests** (optional) — `npm run test:e2e:smoke` locally if available
+
+## Verification commands
+
+```bash
+grep '"version"' manifest.json manifest.firefox.json package.json
+git tag -l "vX.Y.Z"
+git status
+npm run build
+```
+
+## After all checks pass
+
+1. Ask user for approval before committing or tagging
+2. Tag: `git tag vX.Y.Z && git push origin vX.Y.Z`
+3. GitHub Actions (`release.yml`) builds ZIPs and creates the GitHub Release automatically
+4. Verify at `https://github.com/d0dg3r/GitSyncMarks/releases`
 
 ---
 > Source: [d0dg3r/GitSyncMarks](https://github.com/d0dg3r/GitSyncMarks) — distributed by [TomeVault](https://tomevault.io).
