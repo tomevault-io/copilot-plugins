@@ -1,0 +1,9 @@
+{
+  "name": "quinnjr--package-repository-server",
+  "displayName": "package-repository-server",
+  "description": "Multi-format package repository server supporting DEB, RPM, Arch, and Alpine packages with automatic indexing, GPG signing, and S3-compatible storage",
+  "version": "1.0.0",
+  "author": "quinnjr",
+  "homepage": "https://github.com/quinnjr/package-repository-server",
+  "skills": []
+}
