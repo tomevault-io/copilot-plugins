@@ -1,0 +1,9 @@
+{
+  "name": "reviews-kits-team--reviews-kits",
+  "displayName": "reviews-kits",
+  "description": "Open-source, self-hosted testimonial platform. Collect reviews via forms, moderate from a dashboard, and display them anywhere via REST API or SDK",
+  "version": "1.0.0",
+  "author": "reviews-kits-team",
+  "homepage": "https://github.com/reviews-kits-team/reviews-kits",
+  "skills": []
+}
