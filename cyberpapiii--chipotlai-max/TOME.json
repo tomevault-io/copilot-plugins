@@ -4,7 +4,7 @@
   "repo": "chipotlai-max",
   "description": "The AI coding agent that runs on stolen Chipotle compute \ud83c\udf2f Fork of OpenCode with Pepper AI as default model. Community project to add providers from Home Depot, Lowes, Target, Starbucks & more.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cyberpapiii/chipotlai-max",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T04:40:07Z"
+  "distributed_at": "2026-05-06T19:56:43Z"
 }
