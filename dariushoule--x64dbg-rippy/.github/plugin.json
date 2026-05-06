@@ -1,0 +1,9 @@
+{
+  "name": "dariushoule--x64dbg-rippy",
+  "displayName": "x64dbg-rippy",
+  "description": "AI reverse engineering assistant for x64dbg. Embeds a chat panel directly in the debugger with tool-use capabilities.",
+  "version": "1.0.0",
+  "author": "dariushoule",
+  "homepage": "https://github.com/dariushoule/x64dbg-rippy",
+  "skills": []
+}
