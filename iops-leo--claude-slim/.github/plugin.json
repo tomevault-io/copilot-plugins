@@ -1,0 +1,9 @@
+{
+  "name": "iops-leo--claude-slim",
+  "displayName": "claude-slim",
+  "description": "Reduce Claude Code token overhead in 60 seconds",
+  "version": "1.0.0",
+  "author": "iops-leo",
+  "homepage": "https://github.com/iops-leo/claude-slim",
+  "skills": []
+}
