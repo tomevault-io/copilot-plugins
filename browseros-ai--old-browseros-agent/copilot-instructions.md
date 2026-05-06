@@ -573,6 +573,5 @@ User Query → NxtScape.run() → BrowserAgent.execute()
 - `webpack.config.js` - Build configuration
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/browseros-ai)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/browseros-ai)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [browseros-ai/old-browseros-agent](https://github.com/browseros-ai/old-browseros-agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
