@@ -1,0 +1,9 @@
+{
+  "name": "zahidoverflow--shadowcam",
+  "displayName": "shadowcam",
+  "description": "Android virtual camera controller with root Camera1 sync and Compose UI",
+  "version": "1.0.0",
+  "author": "zahidoverflow",
+  "homepage": "https://github.com/zahidoverflow/shadowcam",
+  "skills": []
+}
