@@ -1,17 +1,18 @@
-## ucp-n8n-workflows-json
+## ucp-n8n
 
-> n8n workflows exportados (JSON) - idempotência e segurança
+> Boas práticas para N8n (webhooks, workflows e credenciais)
 
 
-# N8n Workflows JSON UCP
+# N8n UCP
 
-Ao editar workflows exportados em JSON:
+Ao projetar/ajustar `workflows`, `webhooks` e integração com N8n, aplique:
 
-- Valide triggers: garanta que o workflow seja tolerante a reprocessamentos (idempotência).
-- Dedupe eventos quando houver reenfileiramento/retry do provedor (ex.: `event_id`).
-- Não logue payloads com PII/segredos; revise campos que vão para `data`, `notes` ou `debug`.
-- Garanta que chamadas externas tenham retry controlado (quando fizer sentido) e timeouts.
-- Responda rápido quando o workflow for acionado via webhook (use 202 quando possível e processe o resto async).
+- Webhooks: valide assinatura quando existir, responda rapidamente (ex.: `202`) e processe pesado em fila/worker quando aplicável.
+- Idempotência: dedupe eventos (ex.: por `event_id`) para evitar processamento duplicado quando o provedor reenviar.
+- Credenciais: use mecanismos nativos do N8n (variáveis/credentials) e nunca logue segredos.
+- Robustez: trate falhas com retry/backs off controlados e mensagens de erro seguras.
+- Observabilidade: inclua `correlationId`/trace quando possível para rastrear do gatilho ao resultado.
+- Escalabilidade: use modos de execução/filas adequados para picos e evite fan-out excessivo.
 
 ---
 > Source: [walkup-tec/waba](https://github.com/walkup-tec/waba) — distributed by [TomeVault](https://tomevault.io).
