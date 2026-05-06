@@ -1,0 +1,9 @@
+{
+  "name": "limbicnation--comfyui-transparencybackgroundremover",
+  "displayName": "ComfyUI-TransparencyBackgroundRemover",
+  "description": "ComfyUI custom node for automatic background removal and transparency generation. Integrates TransparencyBackgroundRemover into ComfyUI workflows for seamless image processing with support for edge re",
+  "version": "1.0.0",
+  "author": "Limbicnation",
+  "homepage": "https://github.com/Limbicnation/ComfyUI-TransparencyBackgroundRemover",
+  "skills": []
+}
