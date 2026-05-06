@@ -1,0 +1,111 @@
+{
+  "name": "claude-code",
+  "owner": "spences10",
+  "repo": "claude-code-analytics",
+  "description": "\ud83d\udc40 Local-first analytics and statusline for Claude Code - capture sessions, tool calls, costs, and performance into SQLite for fast, actionable insights.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ecosystem-guide",
+      "path": "plugins/toolkit-skills/skills/ecosystem-guide",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/toolkit-skills/skills/ecosystem-guide",
+      "description": ""
+    },
+    {
+      "name": "mcp-essentials",
+      "path": "plugins/mcp-essentials",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/mcp-essentials",
+      "description": ""
+    },
+    {
+      "name": "orchestration",
+      "path": "plugins/claude-workflow/skills/orchestration",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/claude-workflow/skills/orchestration",
+      "description": ""
+    },
+    {
+      "name": "plugin-dev",
+      "path": "plugins/toolkit-skills/skills/plugin-dev",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/toolkit-skills/skills/plugin-dev",
+      "description": ""
+    },
+    {
+      "name": "reflect",
+      "path": "plugins/toolkit-skills/skills/reflect",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/toolkit-skills/skills/reflect",
+      "description": ""
+    },
+    {
+      "name": "research",
+      "path": "plugins/toolkit-skills/skills/research",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/toolkit-skills/skills/research",
+      "description": ""
+    },
+    {
+      "name": "analytics",
+      "path": "plugins/analytics",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/analytics",
+      "description": ""
+    },
+    {
+      "name": "skill-creator",
+      "path": "plugins/toolkit-skills/skills/skill-creator",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/toolkit-skills/skills/skill-creator",
+      "description": ""
+    },
+    {
+      "name": "techdebt-finder",
+      "path": "plugins/devops-skills/skills/techdebt-finder",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/devops-skills/skills/techdebt-finder",
+      "description": ""
+    },
+    {
+      "name": "terminal-optimization",
+      "path": "plugins/dev-environment/skills/terminal-optimization",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/dev-environment/skills/terminal-optimization",
+      "description": ""
+    },
+    {
+      "name": "worktree-mastery",
+      "path": "plugins/dev-environment/skills/worktree-mastery",
+      "github_url": "https://github.com/spences10/claude-code-analytics/tree/main/plugins/dev-environment/skills/worktree-mastery",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/spences10/claude-code-analytics",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T07:34:09Z"
+}
