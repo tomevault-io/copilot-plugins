@@ -1,60 +1,45 @@
-## commit-message
+## oss-paths
 
-> Enforce bilingual (EN/ZH) commit messages for LILYGO Spark project
+> OSS path mapping for Alibaba Cloud OSS (bucket: lilygo). Reference this when uploading files or modifying firmware_manifest.json.
 
 
-# Bilingual Commit Messages
+# OSS Path Mapping (Alibaba Cloud)
 
-When the user asks to commit (e.g. "做个提交", "commit"), generate a **bilingual commit message** with English first, then Chinese translation.
+Bucket: `lilygo`
+Domain: `lilygo.oss-accelerate.aliyuncs.com`
 
-## Format
+## Path Rules
 
+| Resource | OSS Path | HTTP URL |
+|----------|----------|----------|
+| **firmware_manifest.json** | `oss://lilygo/firmware_manifest.json` | `https://lilygo.oss-accelerate.aliyuncs.com/firmware_manifest.json` |
+| **Firmware ZIP files** | `oss://lilygo/firmware/{sha256_prefix}_{filename}.zip` | `https://lilygo.oss-accelerate.aliyuncs.com/firmware/{sha256_prefix}_{filename}.zip` |
+| **Firmware metadata** | `oss://lilygo/firmware/{sha256_prefix}_{filename}.json` | `https://lilygo.oss-accelerate.aliyuncs.com/firmware/{sha256_prefix}_{filename}.json` |
+
+## Critical Notes
+
+- `firmware_manifest.json` is at the **bucket root** (`oss://lilygo/firmware_manifest.json`), NOT under `firmware/` subdirectory.
+- Firmware binary ZIPs and metadata JSONs are under `oss://lilygo/firmware/` subdirectory.
+- The manifest URL is configured in `lilygo_config.json` → `firmware_manifest_url`.
+- The firmware download prefix is configured in `lilygo_config.json` → `oss_domain_prefix`.
+
+## ossutil Commands
+
+```bash
+# Upload manifest (to bucket root)
+ossutil cp -f firmware_manifest.json oss://lilygo/firmware_manifest.json
+
+# Upload firmware files (to firmware/ subdirectory)
+ossutil cp -f my_firmware.zip oss://lilygo/firmware/my_firmware.zip
+
+# List firmware files
+ossutil ls oss://lilygo/firmware/ --limited-num 20
 ```
-English summary line (imperative mood, max 72 chars)
 
-中文摘要行
+## Common Mistakes
 
-- English detail 1 / 英文细节1
-- English detail 2 / 英文细节2
-```
-
-## Example
-
-```
-Add unified logging system and fix update checker
-
-新增统一日志系统，修复更新检查器
-
-- Add logger module with file output, console interception, and IPC broadcast
-  新增日志模块，支持文件写入、console 劫持和 IPC 广播
-- Fix macOS updater to prefer arch-specific assets over universal
-  修复 macOS 更新器优先下载架构匹配的安装包
-- Add real-time log viewer in Settings > Developer Options
-  在设置页开发者选项中新增实时日志查看器
-```
-
-## Translation Rules
-
-| English prefix | Chinese prefix |
-|----------------|---------------|
-| Add            | 新增           |
-| Fix            | 修复           |
-| Improve        | 改进           |
-| Update         | 更新           |
-| Implement      | 实现           |
-| Refactor       | 重构           |
-| Remove         | 移除           |
-| Replace        | 替换           |
-| Rename         | 重命名         |
-| Clean up       | 清理           |
-
-## Rules
-
-- First line MUST be English (for `git log --oneline` readability)
-- Second paragraph is the Chinese translation of the first line
-- Detail bullets: English first, Chinese on next indented line or after space
-- Keep both languages concise and accurate
-- Do NOT skip the Chinese translation
+- **WRONG**: `oss://lilygo/firmware/firmware_manifest.json` (manifest is NOT under firmware/)
+- **RIGHT**: `oss://lilygo/firmware_manifest.json` (manifest is at bucket root)
 
 ---
 > Source: [Xinyuan-LilyGO/LILYGO-Spark](https://github.com/Xinyuan-LilyGO/LILYGO-Spark) — distributed by [TomeVault](https://tomevault.io).
