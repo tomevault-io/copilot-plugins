@@ -1,0 +1,18 @@
+{
+  "name": "licht1stein--brepl",
+  "displayName": "brepl",
+  "description": "Bracket-fixing Clojure REPL for Claude Code, ECA and other agents.",
+  "version": "1.0.0",
+  "author": "licht1stein",
+  "homepage": "https://github.com/licht1stein/brepl",
+  "skills": [
+    {
+      "name": "brepl",
+      "description": ""
+    },
+    {
+      "name": "brepl",
+      "description": ""
+    }
+  ]
+}
