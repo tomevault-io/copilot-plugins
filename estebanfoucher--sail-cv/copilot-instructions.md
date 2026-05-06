@@ -1,40 +1,33 @@
-## python-standards
+## reconstruction-module
 
-> - Python 3.10+ (use X | Y union syntax, not Optional[X])
+> Stereo-view 3D dense reconstruction using calibrated cameras and MASt3R AI model.
 
-# Python Standards
+# 3D Reconstruction Module
 
-## Style
-- Python 3.10+ (use X | Y union syntax, not Optional[X])
-- PEP 8 via ruff, line-length 88; run `make format-check lint-check` / `make typecheck` (or `make ci-lint`).
-- Ruff and mypy versions are pinned in pyproject.toml; same versions for local, pre-commit, and CI (see .pre-commit-config.yaml revs).
-- Double quotes for strings
-- Type hints on function signatures
-- Docstrings on public functions and classes (Google or NumPy style)
+## Overview
+Stereo-view 3D dense reconstruction using calibrated cameras and MASt3R AI model.
 
-## Imports
-- Flat imports within each module (not from sailcv.reconstruction.xxx)
-- Reconstruction imports: from stereo.xxx import ..., from calibration.xxx import ..., from video import VideoReader
-- Tracking imports: from models import Detection, Track, from tracker_utils import ByteTracker
-- Use isort via ruff for import ordering
+## Key Components
+- calibration/ (renamed from mv_utils): intrinsics/extrinsics calibration, scene management
+- stereo/: MASt3R integration, triangulation, point cloud processing
+- cameras/: camera parameter handling
+- video.py: VideoReader, StereoVideoReader, FFmpegVideoWriter (enhanced with EXIF)
+- unitaries/: SAM segmentation utilities
 
-## CV/ML Practices
-- OpenCV (cv2) for image processing, NumPy for arrays
-- Pydantic for data models and validation
-- Loguru for logging (not stdlib logging)
-- Keep model loading separate from inference
-- Handle edge cases: empty frames, invalid detections, missing calibration
-- Use float32 for inference, uint8 for images
+## External Dependency: MASt3R
+- Located at mast3r/ (project root), NOT inside the package
+- Must be on PYTHONPATH: mast3r, mast3r/dust3r
+- Do not modify files inside mast3r/ - treat as external
 
-## Performance
-- Vectorized NumPy over Python loops
-- Profile real-time loop code
-- Consider memory for embedded systems (Jetson)
+## Web App
+- Gradio-based interface at web_app/
+- Imports from src/reconstruction/ via PYTHONPATH
+- Has its own requirements.txt for web-specific deps
 
-## Dependencies
-- Add to pyproject.toml (not requirements.txt)
-- Module-specific heavy deps go in optional extras ([reconstruction] or [tracking])
-- Pin versions for CV/ML libraries
+## Testing
+- Tests in tests/reconstruction/
+- Run with: make test-reconstruction
+- Assets in assets/reconstruction/ and tests/reconstruction/cameras/test_assets/
 
 ---
 > Source: [estebanfoucher/Sail-CV](https://github.com/estebanfoucher/Sail-CV) — distributed by [TomeVault](https://tomevault.io).
