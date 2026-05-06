@@ -1,0 +1,14 @@
+{
+  "name": "femto--minion-code",
+  "displayName": "minion",
+  "description": "minion's implementation of Claude Code",
+  "version": "1.0.0",
+  "author": "femto",
+  "homepage": "https://github.com/femto/minion-code",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    }
+  ]
+}
