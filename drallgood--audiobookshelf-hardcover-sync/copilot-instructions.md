@@ -1,22 +1,12 @@
-## audiobookshelf-hardcover-sync
+## dependencies
 
-> Any time we're doing something with the hardcover API
+> 1. Always use our internal logging module, and don't import another one (e.g zerolog)
 
 
-1. Hardcover's API has a pretty strict rate limiting in place (currently: 60 requests per minute). so use the rate limit module we have
-2. Queries have a max timeout of 30 seconds.
-3. Most "user" APIs need to be filtered for the current user when queried. Write operations are user-scoped as far as I can tell
-4. The following queries are disabled:
-  - _like
-  - _nlike
-  - _ilike
-  - _niregex
-  - _nregex
-  - _iregex
-  - _regex
-  - _nsimilar
-  - _similar
+1. Always use our internal logging module, and don't import another one (e.g zerolog)
+2. Always use the hasura graphql client
+3. Don't reimplement rate limiting, we have a module for that
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/drallgood) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [drallgood/audiobookshelf-hardcover-sync](https://github.com/drallgood/audiobookshelf-hardcover-sync) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
