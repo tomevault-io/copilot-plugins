@@ -4,7 +4,7 @@
   "repo": "aster",
   "description": "\u661f\u5c18\u4e91\u67a2 - \u661f\u5c18\u6c47\u805a\uff0c\u667a\u80fd\u6210\u67a2\u3002\u751f\u4ea7\u7ea7 AI Agent \u5e73\u53f0\uff0c\u539f\u751f\u652f\u6301\u591a\u8bed\u8a00\u6267\u884c\uff08Python/TS/Bash\uff09\uff0cGo \u6027\u80fd\u57fa\u5e95\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/astercloud/aster",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T16:21:26Z"
+  "distributed_at": "2026-05-06T05:36:51Z"
 }
