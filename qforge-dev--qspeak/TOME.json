@@ -4,7 +4,7 @@
   "repo": "qspeak",
   "description": "qSpeak is a powerful voice transcription and AI assistant tool that helps you manage your workflow, answer questions, and maintain focus across all your applications.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/qforge-dev/qspeak",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T07:51:05Z"
+  "distributed_at": "2026-05-06T02:48:03Z"
 }
