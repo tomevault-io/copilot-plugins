@@ -1,18 +1,17 @@
-## ucp-n8n
+## ucp-supabase-migrations-sql
 
-> Boas práticas para N8n (webhooks, workflows e credenciais)
+> Supabase migrations SQL - RLS, idempotência e segurança
 
 
-# N8n UCP
+# Supabase Migrations SQL UCP
 
-Ao projetar/ajustar `workflows`, `webhooks` e integração com N8n, aplique:
+Ao editar `supabase/migrations/**/*.sql`:
 
-- Webhooks: valide assinatura quando existir, responda rapidamente (ex.: `202`) e processe pesado em fila/worker quando aplicável.
-- Idempotência: dedupe eventos (ex.: por `event_id`) para evitar processamento duplicado quando o provedor reenviar.
-- Credenciais: use mecanismos nativos do N8n (variáveis/credentials) e nunca logue segredos.
-- Robustez: trate falhas com retry/backs off controlados e mensagens de erro seguras.
-- Observabilidade: inclua `correlationId`/trace quando possível para rastrear do gatilho ao resultado.
-- Escalabilidade: use modos de execução/filas adequados para picos e evite fan-out excessivo.
+- Evite `DROP`/`ALTER` destrutivos sem estratégia (backups, janelas, migração reversível quando possível).
+- Preservar RLS: garanta que `Row Level Security` e policies continuem corretas após mudanças.
+- Use transações quando apropriado para manter consistência.
+- Padronize nomes de constraints/índices e crie índices alinhados a filtros comuns (incluindo `tenant_id` se existir).
+- Não introduza seeds com dados sensíveis.
 
 ---
 > Source: [walkup-tec/waba](https://github.com/walkup-tec/waba) — distributed by [TomeVault](https://tomevault.io).
