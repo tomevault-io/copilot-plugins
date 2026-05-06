@@ -1,0 +1,9 @@
+{
+  "name": "worldliberty--agentpay-sdk",
+  "displayName": "agentpay-sdk",
+  "description": "An open SDK for agentic payments. Let AI agents make payments, hold funds, and move money across chains with policy enforcement and human approval built in.",
+  "version": "1.0.0",
+  "author": "worldliberty",
+  "homepage": "https://github.com/worldliberty/agentpay-sdk",
+  "skills": []
+}
