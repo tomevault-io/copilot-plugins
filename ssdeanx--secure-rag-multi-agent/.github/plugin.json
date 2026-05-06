@@ -1,0 +1,9 @@
+{
+  "name": "ssdeanx--secure-rag-multi-agent",
+  "displayName": "secure-rag-multi-agent",
+  "description": "Secure Retrieval-Augmented Generation (RAG) with role-based access control using Mastra AI orchestration, with JWT Secure, also Deep Research built with Cedar & Next.js. Gemini, OpenAI, Openrouter, & ",
+  "version": "1.0.0",
+  "author": "ssdeanx",
+  "homepage": "https://github.com/ssdeanx/secure-rag-multi-agent",
+  "skills": []
+}
