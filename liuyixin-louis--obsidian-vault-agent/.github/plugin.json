@@ -1,0 +1,9 @@
+{
+  "name": "liuyixin-louis--obsidian-vault-agent",
+  "displayName": "obsidian-vault-agent",
+  "description": "A fork of obsidian-terminal with AI-focused enhancements for seamless integration with Claude Code, Codex, and other AI coding tools.",
+  "version": "1.0.0",
+  "author": "liuyixin-louis",
+  "homepage": "https://github.com/liuyixin-louis/obsidian-vault-agent",
+  "skills": []
+}
