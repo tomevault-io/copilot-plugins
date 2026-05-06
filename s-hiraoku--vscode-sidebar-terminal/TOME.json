@@ -1,0 +1,171 @@
+{
+  "name": "vscode-sidebar-terminal",
+  "owner": "s-hiraoku",
+  "repo": "vscode-sidebar-terminal",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "anthropic-skill-creator",
+      "path": ".agents/skills/anthropic-skill-creator",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.agents/skills/anthropic-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "brave-search-api",
+      "path": ".claude/skills/brave-search-api",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/brave-search-api",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "path": ".agents/skills/code-simplifier",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.agents/skills/code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "path": ".gemini/skills/code-simplifier",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.gemini/skills/code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "deepwiki-api",
+      "path": ".claude/skills/deepwiki-api",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/deepwiki-api",
+      "description": ""
+    },
+    {
+      "name": "doc-consistency",
+      "path": ".claude/skills/doc-consistency",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/doc-consistency",
+      "description": ""
+    },
+    {
+      "name": "firecrawl-api",
+      "path": ".claude/skills/firecrawl-api",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/firecrawl-api",
+      "description": ""
+    },
+    {
+      "name": "mcp-brave-search",
+      "path": ".claude/skills/mcp-brave-search",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/mcp-brave-search",
+      "description": ""
+    },
+    {
+      "name": "mcp-chrome-devtools",
+      "path": ".claude/skills/mcp-chrome-devtools",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/mcp-chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "mcp-deepwiki",
+      "path": ".claude/skills/mcp-deepwiki",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/mcp-deepwiki",
+      "description": ""
+    },
+    {
+      "name": "mcp-firecrawl",
+      "path": ".claude/skills/mcp-firecrawl",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/mcp-firecrawl",
+      "description": ""
+    },
+    {
+      "name": "mcp-playwright",
+      "path": ".claude/skills/mcp-playwright",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/mcp-playwright",
+      "description": ""
+    },
+    {
+      "name": "synapse-a2a",
+      "path": ".gemini/skills/synapse-a2a",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.gemini/skills/synapse-a2a",
+      "description": ""
+    },
+    {
+      "name": "synapse-reinst",
+      "path": ".agents/skills/synapse-reinst",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.agents/skills/synapse-reinst",
+      "description": ""
+    },
+    {
+      "name": "terminal-expert",
+      "path": ".claude/skills/terminal-expert",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/terminal-expert",
+      "description": ""
+    },
+    {
+      "name": "vscode-bug-hunter",
+      "path": ".claude/skills/vscode-bug-hunter",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/vscode-bug-hunter",
+      "description": ""
+    },
+    {
+      "name": "vscode-extension-debugger",
+      "path": ".claude/skills/vscode-extension-debugger",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/vscode-extension-debugger",
+      "description": ""
+    },
+    {
+      "name": "vscode-extension-expert",
+      "path": ".claude/skills/vscode-extension-expert",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/vscode-extension-expert",
+      "description": ""
+    },
+    {
+      "name": "vscode-extension-refactorer",
+      "path": ".claude/skills/vscode-extension-refactorer",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/vscode-extension-refactorer",
+      "description": ""
+    },
+    {
+      "name": "vscode-tdd-expert",
+      "path": ".claude/skills/vscode-tdd-expert",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/vscode-tdd-expert",
+      "description": ""
+    },
+    {
+      "name": "vscode-test-setup",
+      "path": ".claude/skills/vscode-test-setup",
+      "github_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal/tree/main/.claude/skills/vscode-test-setup",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/s-hiraoku/vscode-sidebar-terminal",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:38:13Z"
+}
