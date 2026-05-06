@@ -1,0 +1,123 @@
+{
+  "name": "dots",
+  "owner": "bdsqqq",
+  "repo": "dots",
+  "description": "AI instruction skills by bdsqqq",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "amp-voice",
+      "path": "user/agents/skills/amp-voice",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/amp-voice",
+      "description": ""
+    },
+    {
+      "name": "coordinate",
+      "path": "user/agents/skills/coordinate",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/coordinate",
+      "description": ""
+    },
+    {
+      "name": "dig",
+      "path": "user/agents/skills/dig",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/dig",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "path": "user/agents/skills/document",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/document",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "path": "user/agents/skills/git",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/git",
+      "description": ""
+    },
+    {
+      "name": "remember",
+      "path": "user/agents/skills/remember",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/remember",
+      "description": ""
+    },
+    {
+      "name": "report",
+      "path": "user/agents/skills/report",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/report",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "path": "user/agents/skills/review",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/review",
+      "description": ""
+    },
+    {
+      "name": "rounds",
+      "path": "user/agents/skills/rounds",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/rounds",
+      "description": ""
+    },
+    {
+      "name": "spar",
+      "path": "user/agents/skills/spar",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/spar",
+      "description": ""
+    },
+    {
+      "name": "spawn",
+      "path": "user/agents/skills/spawn",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/spawn",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "path": "user/agents/skills/tmux",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/tmux",
+      "description": ""
+    },
+    {
+      "name": "write",
+      "path": "user/agents/skills/write",
+      "github_url": "https://github.com/bdsqqq/dots/tree/main/user/agents/skills/write",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bdsqqq/dots",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T19:32:44Z"
+}
