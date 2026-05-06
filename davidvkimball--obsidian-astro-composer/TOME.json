@@ -1,0 +1,75 @@
+{
+  "name": "obsidian",
+  "owner": "davidvkimball",
+  "repo": "obsidian-astro-composer",
+  "description": "Turn your Obsidian notes into posts and pages for your Astro blog with automated content management features.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "obsidian-dev",
+      "path": "obsidian-dev",
+      "github_url": "https://github.com/davidvkimball/obsidian-astro-composer/tree/main/obsidian-dev",
+      "description": ""
+    },
+    {
+      "name": "obsidian-ref",
+      "path": "obsidian-ref",
+      "github_url": "https://github.com/davidvkimball/obsidian-astro-composer/tree/main/obsidian-ref",
+      "description": ""
+    },
+    {
+      "name": "obsidian-theme-dev",
+      "path": "obsidian-theme-dev",
+      "github_url": "https://github.com/davidvkimball/obsidian-astro-composer/tree/main/obsidian-theme-dev",
+      "description": ""
+    },
+    {
+      "name": "obsidian-ref",
+      "path": ".agent/skills/obsidian-ref",
+      "github_url": "https://github.com/davidvkimball/obsidian-astro-composer/tree/main/.agent/skills/obsidian-ref",
+      "description": ""
+    },
+    {
+      "name": "obsidian-theme-dev",
+      "path": ".agent/skills/obsidian-theme-dev",
+      "github_url": "https://github.com/davidvkimball/obsidian-astro-composer/tree/main/.agent/skills/obsidian-theme-dev",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/davidvkimball/obsidian-astro-composer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T10:33:47Z"
+}
