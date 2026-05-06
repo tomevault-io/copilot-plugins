@@ -1,0 +1,9 @@
+{
+  "name": "numaira-technology--weclaw-cua",
+  "displayName": "weclaw-cua",
+  "description": "WeClaw-CUA \u2014 A vision-based CLI tool that captures WeChat desktop messages, then generates structured reports. Works on macOS and Windows without decrypting WeChat's database.",
+  "version": "1.0.0",
+  "author": "Numaira-Technology",
+  "homepage": "https://github.com/Numaira-Technology/weclaw-cua",
+  "skills": []
+}
