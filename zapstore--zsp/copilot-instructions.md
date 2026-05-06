@@ -1,60 +1,35 @@
-## quality-bar
+## vision
 
-> Quality expectations — when to spec, testing, anti-patterns, AI workflow
+> Product vision — what zsp is, who uses it, what success means
 
 
-# zsp — Quality Bar
+# zsp — Vision
 
-## When to Create a Feature Spec
+## What zsp Is
 
-Create a spec if the work:
+`zsp` is the publishing tool for the Zapstore ecosystem. It takes an Android APK — from any source — and publishes it to Nostr relays as NIP-82 compliant software events.
 
-- Adds a new APK source or metadata source
-- Changes signing or event publishing behavior
-- Modifies the publish workflow orchestration
-- Adds a new subcommand or significant flag
-- Touches APK selection/ranking logic
-- Could affect correctness of published events
+It is used by app developers, CI pipelines, and the Zapstore indexer (`zindex`).
 
-**Skip the spec** if:
+## Who Uses It
 
-- UI copy or color changes
-- Adding a flag alias
-- Bug fix with obvious cause and fix
-- Dependency update with no API changes
+- App developers publishing their own apps to Zapstore
+- CI/CD pipelines automating releases (GitHub Actions, etc.)
+- `zindex` — the Zapstore batch indexer that runs `zsp` for hundreds of apps
 
-## Testing
+## What Success Means
 
-- Table-driven tests. Use `testdata/` for fixtures and example configs.
-- Test APK parsing against real fixture APKs where possible.
-- Source tests should mock HTTP — no real network calls in tests.
-- Test the happy path AND: missing files, bad URLs, cancelled context, malformed APKs.
+- A developer can publish their app in one command with minimal configuration
+- CI pipelines can publish reliably without interactive prompts (`-y`, `--quiet`)
+- Published events are always correct, verifiable, and relay-compatible
+- The wizard guides first-time users to a working config
 
-## Implementation Expectations
+## Non-Goals
 
-- Reference the nearest existing source/pattern before writing new code.
-- `internal/source/github.go` is the reference implementation for new sources.
-- Keep `main.go` thin — dispatch only, no business logic.
-- Prefer extending existing packages over creating new ones.
-
-## Anti-Patterns
-
-- Logging or printing private keys or passwords
-- Network calls in `--offline` mode
-- Blocking on context without a cancellation path
-- Swallowing errors with `_ = err`
-- Hardcoding relay or Blossom URLs (use env vars with defaults)
-
-## Working With AI
-
-- Spec-first for new sources, workflow changes, and event format changes.
-- Work packets in `spec/work/` for non-trivial tasks.
-- If a spec conflicts with the NIP-82/NIP-C1 protocol specs, stop and report — do not guess.
-- Never modify `spec/guidelines/` without explicit permission.
-
-## Knowledge Entries
-
-After a work packet merges, promote non-obvious decisions to `spec/knowledge/DEC-XXX-*.md`. See `spec/knowledge/_TEMPLATE.md` for format and criteria.
+- `zsp` does not manage app stores or catalogs (that's the relay + webapp)
+- `zsp` does not install apps (that's `zapstore` Flutter or `zapstore-cli`)
+- `zsp` does not handle app discovery or search
+- `zsp` does not support non-Android platforms
 
 ---
 > Source: [zapstore/zsp](https://github.com/zapstore/zsp) — distributed by [TomeVault](https://tomevault.io).
