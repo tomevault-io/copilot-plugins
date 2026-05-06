@@ -1,0 +1,9 @@
+{
+  "name": "smith-and-web--kindling",
+  "displayName": "kindling",
+  "description": "Free, open-source fiction writing software. Your outline stays visible while you draft. Import from Scrivener, Plottr, yWriter, or Obsidian. macOS, Windows & Linux.",
+  "version": "1.0.0",
+  "author": "smith-and-web",
+  "homepage": "https://github.com/smith-and-web/kindling",
+  "skills": []
+}
