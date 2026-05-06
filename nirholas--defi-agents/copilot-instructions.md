@@ -2,9 +2,13 @@
 
 > > DeFi agent definitions JSON API + MCP - Production-ready agents for Web3, crypto trading, portfolio management, and blockchain automation. MCP compatible.
 
-# defi-agents
+# defi-agents Development Guidelines
 
 > DeFi agent definitions JSON API + MCP - Production-ready agents for Web3, crypto trading, portfolio management, and blockchain automation. MCP compatible.
+
+## Project Overview
+
+defi-agents is built with TypeScript. See the README for full documentation.
 
 ### Terminal Management
 
@@ -14,7 +18,13 @@
 - In GitHub Codespaces, agent-spawned terminals may be hidden — they still work. Do not assume a terminal is broken if you cannot see it
 - If a terminal appears unresponsive, kill it and create a new one rather than retrying in the same terminal
 
+## Contributing
+
+- Follow the existing code style
+- Test changes before submitting PRs
+- Update documentation when adding features
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines
+
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/nirholas)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/nirholas)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [nirholas/defi-agents](https://github.com/nirholas/defi-agents) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
