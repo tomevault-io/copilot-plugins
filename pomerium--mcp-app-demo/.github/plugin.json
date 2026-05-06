@@ -1,0 +1,9 @@
+{
+  "name": "pomerium--mcp-app-demo",
+  "displayName": "mcp-app-demo",
+  "description": "Demo application showcasing how to build and secure MCP servers and clients with Pomerium using contextual access policies.",
+  "version": "1.0.0",
+  "author": "pomerium",
+  "homepage": "https://github.com/pomerium/mcp-app-demo",
+  "skills": []
+}
