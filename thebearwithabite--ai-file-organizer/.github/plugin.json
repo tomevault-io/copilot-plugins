@@ -1,0 +1,14 @@
+{
+  "name": "thebearwithabite--ai-file-organizer",
+  "displayName": "ai-file-organizer",
+  "description": "Intelligent file organization with computer vision, audio analysis, chunking, proactive AI-powered analysis, interactive classification, and adaptive learning.",
+  "version": "1.0.0",
+  "author": "thebearwithabite",
+  "homepage": "https://github.com/thebearwithabite/ai-file-organizer",
+  "skills": [
+    {
+      "name": "ai-organizer-ui-consolidation",
+      "description": ""
+    }
+  ]
+}
