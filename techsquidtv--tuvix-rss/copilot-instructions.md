@@ -1,0 +1,355 @@
+## tuvix-rss
+
+> TuvixRSS is a modern RSS reader with AI features, built on Cloudflare Workers.
+
+# TuvixRSS - Claude Code Guidelines
+
+TuvixRSS is a modern RSS reader with AI features, built on Cloudflare Workers.
+
+## Tech Stack
+
+- **API**: Hono (Cloudflare Workers), tRPC, Drizzle ORM, Cloudflare D1
+- **Frontend**: React, TanStack Router, TanStack Query, Tailwind CSS
+- **Auth**: Better Auth (email/password)
+- **Observability**: Sentry (errors, performance, metrics)
+- **Email**: Resend
+- **Monorepo**: pnpm workspaces (`packages/api`, `packages/app`, `packages/tricorder`)
+
+## Project Structure
+
+```
+packages/
+  api/          # Cloudflare Workers API (Hono + tRPC)
+    src/
+      routers/  # tRPC route handlers
+      services/ # Business logic (RSS fetching, email, etc.)
+      auth/     # Better Auth configuration
+      db/       # Drizzle schema and migrations
+  app/          # React frontend (Vite + TanStack)
+  tricorder/    # RSS/Atom feed discovery library
+```
+
+## Critical Rules
+
+### Production Database Operations
+
+**⛔ NEVER run production database migrations or modifications without explicit user permission.**
+
+This includes but is not limited to:
+
+- `wrangler d1 execute <db> --remote`
+- Any SQL migrations against production databases
+- Schema alterations on live systems
+- Data modifications in production
+
+**Required Process:**
+
+1. Generate migrations locally
+2. Show the user what will change
+3. Explain impact and safety
+4. **ASK FOR PERMISSION**
+5. Only after explicit approval, proceed
+
+**Rationale:** Production database operations are irreversible and can cause data loss, service disruption, or schema conflicts. Always give the user control over these decisions.
+
+**Exception:** Local/dev database operations (`--local`, `db:migrate:local`) are safe to run without asking.
+
+### Production Deployments
+
+**⛔ NEVER deploy to production. Only local development is allowed.**
+
+Deployment is explicitly forbidden and handled by CI/CD pipelines.
+
+### Staging Deployments
+
+**✅ Staging deployments are allowed via manual workflow dispatch.**
+
+Staging provides a production-like environment for testing PRs before they're merged to main.
+
+**How to Deploy to Staging:**
+
+1. Go to **Actions** → **Deploy to Staging** → **Run workflow**
+2. Select the branch/PR to deploy (default: `main`)
+3. Choose whether to seed test data (optional)
+4. Click **Run workflow**
+
+**What Happens:**
+
+- API and App are deployed to staging environment
+- **Staging database is wiped clean** (all data deleted)
+- Fresh migrations are applied from scratch
+- Optional test data seeding (if selected)
+
+**Key Points:**
+
+- Staging uses separate infrastructure (D1 database, Worker, Pages project)
+- Database starts fresh on every deployment (no migration conflicts)
+- Last deployment wins (concurrent deployments are cancelled)
+- Perfect for testing PRs in a production-like environment
+
+**Staging Secrets Required:**
+
+```
+STAGING_D1_DATABASE_ID              # Separate D1 database for staging
+STAGING_VITE_API_URL               # Staging API URL
+STAGING_CLOUDFLARE_PAGES_PROJECT_NAME  # Staging Pages project name
+```
+
+**When to Use Staging:**
+
+- Test PRs before merging to main
+- Verify database migrations work correctly
+- Integration testing with production-like infrastructure
+- Demo features to stakeholders
+
+**When NOT to Use Staging:**
+
+- Local development (use `pnpm dev` instead)
+- Quick iteration (too slow compared to local)
+- Testing that requires preserving data (staging wipes on each deploy)
+
+## Common Workflows
+
+### Database Changes
+
+1. Modify schema in `packages/api/src/db/schema.ts`
+2. Generate migration: `pnpm db:generate`
+3. Review generated SQL in `packages/api/drizzle/`
+4. Apply locally: `pnpm db:migrate:local`
+
+### Running Tests
+
+- API: `pnpm --filter @tuvixrss/api test`
+- App: `pnpm --filter @tuvixrss/app test`
+- All: `pnpm test`
+
+### Type Checking & Linting
+
+- `pnpm type-check` - Check all packages
+- `pnpm lint` - Lint all packages
+- `pnpm format` - Format with Prettier
+
+## Key Architecture Decisions
+
+- **Fire-and-forget emails**: Email sending doesn't block API responses; uses Sentry spans for tracking
+- **Admin dashboard**: User management at `packages/api/src/routers/admin.ts`
+- **Security audit logging**: All auth events logged to `security_audit_log` table
+- **Rate limiting**: Cloudflare Workers rate limit API per plan tier
+
+## AI Features Configuration
+
+TuvixRSS includes optional AI-powered features using OpenAI and the Vercel AI SDK.
+
+### Features
+
+- **AI Category Suggestions**: Automatically suggests feed categories based on feed metadata and recent articles
+- **Model**: GPT-4o-mini (via `@ai-sdk/openai`)
+- **Location**: `packages/api/src/services/ai-category-suggester.ts`
+
+### Feature Access Control
+
+AI features are **triple-gated** for security and cost control:
+
+1. **Global Setting**: `aiEnabled` flag in `global_settings` table (admin-controlled via admin dashboard)
+2. **User Plan**: Only Pro or Enterprise plan users have access
+3. **Environment**: `OPENAI_API_KEY` must be configured
+
+Access check: `packages/api/src/services/limits.ts:checkAiFeatureAccess()`
+
+### Configuration
+
+**Local Development (Docker/Node.js):**
+
+```env
+# Add to .env
+OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxx
+```
+
+**Cloudflare Workers (Production/Staging):**
+
+```bash
+# Use wrangler CLI to set secret
+cd packages/api
+npx wrangler secret put OPENAI_API_KEY
+# Enter: sk-proj-xxxxxxxxxxxxx
+```
+
+**GitHub Actions (CI/CD):**
+Add `OPENAI_API_KEY` to repository secrets for production deployments.
+
+### Sentry Instrumentation
+
+AI calls are automatically tracked by Sentry via the `vercelAIIntegration`:
+
+- **Token usage**: Tracked automatically by AI SDK telemetry
+- **Latency**: Per-call duration metrics
+- **Model info**: Model name and version
+- **Errors**: AI SDK errors and failures
+- **Input/Output**: Captured when `experimental_telemetry.recordInputs/recordOutputs` is enabled
+
+**Configuration:**
+
+- Node.js: `packages/api/src/entries/node.ts` (Sentry.init with vercelAIIntegration)
+- Cloudflare: `packages/api/src/entries/cloudflare.ts` (withSentry config)
+- AI calls: Include `experimental_telemetry` with `functionId` for better tracking
+
+**Example:**
+
+```typescript
+const result = await generateObject({
+  model: openai("gpt-4o-mini"),
+  // ... schema and prompts
+  experimental_telemetry: {
+    isEnabled: true,
+    functionId: "ai.suggestCategories",
+    recordInputs: true,
+    recordOutputs: true,
+  },
+});
+```
+
+### Best Practices
+
+1. **Always check access**: Use `checkAiFeatureAccess()` before calling AI services
+2. **Graceful degradation**: Return `undefined` if AI is unavailable (don't error)
+3. **Add telemetry**: Include `experimental_telemetry` in all AI SDK calls
+4. **Function IDs**: Use descriptive `functionId` for easier tracking in Sentry
+5. **Cost awareness**: AI features are gated to Pro/Enterprise to manage costs
+
+## Observability with Sentry
+
+TuvixRSS uses Sentry for comprehensive observability: error tracking, performance monitoring, and custom metrics.
+
+### When to Add Instrumentation
+
+Add Sentry instrumentation to:
+
+- **Database-heavy operations** - Complex queries, aggregations, bulk operations
+- **External API calls** - RSS fetching, email sending, favicon fetching
+- **Business-critical paths** - User registration, authentication, feed subscriptions
+- **Performance-sensitive endpoints** - Feed fetching, article retrieval
+
+### Instrumentation Tools
+
+Located in `packages/api/src/utils/metrics.ts`:
+
+#### 1. `withTiming` - Automatic Performance Tracking
+
+Wraps async functions to measure execution time and emit distribution metrics:
+
+```typescript
+import { withTiming } from "@/utils/metrics";
+
+.query(async ({ ctx, input }) => {
+  return withTiming(
+    'admin.getUserGrowth',
+    async () => {
+      // Your logic here
+      const data = await fetchData();
+      return data;
+    },
+    { days: input.days }  // Optional attributes for filtering
+  );
+})
+```
+
+**Automatically tracks:**
+
+- Execution duration (milliseconds)
+- Success/failure status
+- Distribution metrics (p50, p95, p99) in Sentry
+
+**Use for:** Database queries, API endpoints, external service calls
+
+#### 2. `Sentry.startSpan` - Detailed Trace Context
+
+Creates named spans for distributed tracing with nested operations:
+
+```typescript
+import * as Sentry from "@/utils/sentry";
+
+return Sentry.startSpan(
+  {
+    name: "auth.signup",
+    op: "auth.register",
+    attributes: {
+      "auth.method": "email_password",
+      "auth.has_username": !!input.username,
+    },
+  },
+  async (parentSpan) => {
+    // Main logic
+    const user = await createUser();
+
+    // Nested span
+    await Sentry.startSpan(
+      { name: "auth.send_welcome_email", op: "email.send" },
+      async () => {
+        await sendWelcomeEmail(user);
+      }
+    );
+
+    return user;
+  }
+);
+```
+
+**Use for:** Complex operations with multiple steps, distributed tracing
+
+#### 3. Custom Metrics
+
+Direct metric emission for counters, gauges, and distributions:
+
+```typescript
+import { emitCounter, emitGauge, emitDistribution } from "@/utils/metrics";
+
+// Count occurrences
+emitCounter("email.sent", 1, {
+  type: "verification",
+  status: "success",
+});
+
+// Track current state
+emitGauge("subscriptions.active", activeCount, {
+  plan: "free",
+});
+
+// Measure value distribution
+emitDistribution("rss.fetch_time", 150, "millisecond", {
+  format: "atom",
+  domain: "example.com",
+});
+```
+
+### Best Practices
+
+1. **Start simple** - Use `withTiming` for most cases
+2. **Add attributes** - Include contextual data (user plan, operation type, resource count)
+3. **Avoid over-instrumentation** - Focus on critical paths and performance bottlenecks
+4. **Low-volume endpoints** - Admin endpoints can use lighter instrumentation
+5. **High-volume endpoints** - Use sampling or metrics instead of full spans
+
+### Example Patterns
+
+**Database query timing:**
+
+```typescript
+return withTiming('feeds.getUserFeeds', async () => {
+  return await ctx.db.query.feeds.findMany({ where: ... });
+}, { userId: ctx.user.id });
+```
+
+**Multi-step operation:**
+
+```typescript
+return Sentry.startSpan({ name: "rss.fetch", op: "http.fetch" }, async () => {
+  const feed = await fetchFeed(url);
+  return await Sentry.startSpan({ name: "rss.parse" }, async () => {
+    return parseFeed(feed);
+  });
+});
+```
+
+---
+> Source: [TechSquidTV/Tuvix-RSS](https://github.com/TechSquidTV/Tuvix-RSS) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-22 -->
