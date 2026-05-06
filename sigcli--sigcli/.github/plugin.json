@@ -1,0 +1,9 @@
+{
+  "name": "sigcli--sigcli",
+  "displayName": "sigcli",
+  "description": "The authentication CLI & Proxy for AI agents. Give agents access, not your credentials.",
+  "version": "1.0.0",
+  "author": "sigcli",
+  "homepage": "https://github.com/sigcli/sigcli",
+  "skills": []
+}
