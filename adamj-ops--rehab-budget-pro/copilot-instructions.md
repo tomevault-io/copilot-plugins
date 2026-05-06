@@ -1,230 +1,175 @@
-## mcp-servers
+## project
 
-> Direct database operations without manual SQL in Supabase dashboard.
+> Rehab Budget Pro is a fix & flip real estate project budget tracking application for managing property deals with:
 
-# MCP Servers Available
+# Rehab Budget Pro - Cursor Rules
 
-## Supabase MCP
-Direct database operations without manual SQL in Supabase dashboard.
+## Project Overview
 
-### Common Operations
+Rehab Budget Pro is a fix & flip real estate project budget tracking application for managing property deals with:
+- **Budget tracking** across 18 categories using a three-column model (Underwriting → Forecast → Actual)
+- **Vendor management** with tags, contact history, and CSV import/export
+- **Draw/payment tracking** with milestone-based workflow
+- **Photo uploads** for receipts and progress documentation
+- **Cost reference data** for Minneapolis metro area pricing
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router) + React 19
+- **Database**: Supabase (PostgreSQL with RLS)
+- **Styling**: Tailwind CSS v4 + shadcn/ui (Mira theme)
+- **State**: React Query (server) + Zustand (client UI)
+- **Icons**: Tabler Icons (`@tabler/icons-react`)
+- **Animations**: Framer Motion + tailwindcss-animate
+
+## Critical Architecture Rules
+
+### Data Flow Pattern
 ```
-# List tables
-mcp_supabase_list_tables
-
-# Execute SQL query
-mcp_supabase_execute_sql(query: "SELECT * FROM project_summary LIMIT 5")
-
-# Apply migration
-mcp_supabase_apply_migration(name: "add_new_column", query: "ALTER TABLE...")
-
-# List migrations
-mcp_supabase_list_migrations
-
-# Generate TypeScript types
-mcp_supabase_generate_typescript_types
-
-# Get logs for debugging
-mcp_supabase_get_logs(service: "postgres" | "auth" | "storage")
-
-# Security/performance advisors
-mcp_supabase_get_advisors(type: "security" | "performance")
+User Action → React Query Mutation → Supabase → Cache Invalidation → Re-render
 ```
 
-### Edge Functions
+### State Management Split
+- **React Query**: ALL database operations, caching, server state
+- **Zustand** (`src/lib/store.ts`): UI state only (modals, active tab, selections)
+
+### Database Views for Computed Data
+NEVER calculate budget totals client-side. Always use views:
+- `project_summary` - Projects with calculated totals (rehab_budget, ROI, MAO)
+- `budget_by_category` - Category aggregates with variances
+- `vendor_payment_summary` - Vendor totals across projects
+
+### Type System
+- Import types from `@/types` (path alias → `src/`)
+- Database types mirror PostgreSQL schema exactly
+- Use `*Input` types for mutations (omit id, user_id, timestamps)
+
+## File Structure Conventions
+
 ```
-# List functions
-mcp_supabase_list_edge_functions
-
-# Deploy function
-mcp_supabase_deploy_edge_function(name: "my-function", files: [...])
-```
-
-### When to Use
-- Running migrations
-- Debugging database issues
-- Generating fresh TypeScript types
-- Checking for security issues after schema changes
-
----
-
-## Vercel MCP
-Deployment and project management.
-
-### Common Operations
-```
-# Deploy current project
-mcp_vercel_deploy_to_vercel
-
-# List projects
-mcp_vercel_list_projects(teamId: "...")
-
-# Get deployment logs
-mcp_vercel_get_deployment_build_logs(idOrUrl: "...", teamId: "...")
-
-# Check domain availability
-mcp_vercel_check_domain_availability_and_price(names: ["example.com"])
-```
-
-### When to Use
-- Deploying to production
-- Debugging failed deployments
-- Checking build logs
-
----
-
-## Linear MCP
-Issue and project tracking.
-
-### Common Operations
-```
-# List issues
-mcp_linear_list_issues(team: "...", assignee: "me")
-
-# Create issue
-mcp_linear_create_issue(title: "...", team: "...", description: "...")
-
-# Update issue status
-mcp_linear_update_issue(id: "...", state: "done")
-
-# List projects
-mcp_linear_list_projects
-
-# Create comment
-mcp_linear_create_comment(issueId: "...", body: "...")
+src/
+├── app/                    # Next.js App Router pages
+│   ├── page.tsx           # Dashboard (Kanban pipeline)
+│   ├── projects/[id]/     # Project detail with tabs
+│   └── dashboard/         # Portfolio analytics
+├── components/
+│   ├── dashboard/         # Portfolio health, pipeline, analytics
+│   ├── project/           # Project-specific components
+│   │   └── tabs/          # Deal Summary, Budget, Vendors, Draws, Cost Ref
+│   ├── ui/                # shadcn/ui primitives
+│   └── vendor/            # Vendor management components
+├── hooks/                 # Custom React hooks
+│   ├── use-*-mutations.ts # CRUD operations per entity
+│   └── use-*.ts           # Query hooks
+├── lib/
+│   ├── supabase/          # Client (browser) and server clients
+│   ├── store.ts           # Zustand store
+│   └── utils.ts           # Utility functions (cn, formatters)
+└── types/
+    └── index.ts           # All TypeScript types and enums
 ```
 
-### When to Use
-- Creating tasks from development work
-- Updating issue status
-- Tracking bugs and features
+## Code Patterns
 
----
-
-## shadcn MCP
-Component registry for UI components.
-
-### Common Operations
-```
-# Search for components
-mcp_shadcn_search_items_in_registries(registries: ["@shadcn"], query: "button")
-
-# View component details
-mcp_shadcn_view_items_in_registries(items: ["@shadcn/button"])
-
-# Get usage examples
-mcp_shadcn_get_item_examples_from_registries(registries: ["@shadcn"], query: "button-demo")
-
-# Get install command
-mcp_shadcn_get_add_command_for_items(items: ["@shadcn/button", "@shadcn/card"])
+### React Query Mutations
+```typescript
+const mutation = useMutation({
+  mutationFn: async (data) => {
+    const supabase = getSupabaseClient();
+    const { error } = await supabase.from('table').insert(data);
+    if (error) throw error;
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['key'] });
+    toast.success('Saved');
+  },
+});
 ```
 
-### When to Use
-- Adding new UI components
-- Finding component examples
-- Checking component APIs
-
----
-
-## Firecrawl MCP
-Web scraping and search.
-
-### Common Operations
-```
-# Scrape a page
-mcp_firecrawl_firecrawl_scrape(url: "https://example.com", formats: ["markdown"])
-
-# Search the web
-mcp_firecrawl_firecrawl_search(query: "Next.js 15 new features", limit: 5)
-
-# Map a website (discover URLs)
-mcp_firecrawl_firecrawl_map(url: "https://docs.example.com")
+### Supabase Queries
+```typescript
+const { data, isLoading } = useQuery({
+  queryKey: ['projects', projectId],
+  queryFn: async () => {
+    const supabase = getSupabaseClient();
+    const { data, error } = await supabase
+      .from('project_summary')  // Use views for computed data
+      .select('*')
+      .eq('id', projectId)
+      .single();
+    if (error) throw error;
+    return data;
+  },
+});
 ```
 
-### When to Use
-- Researching documentation
-- Finding code examples
-- Checking competitor features
+## UI Guidelines
 
----
+### Use CSS Utility Classes from globals.css
+- Status badges: `.status-badge`, `.status-active`, `.status-pending`
+- Stat cards: `.stat-card`, `.stat-value`, `.stat-label`
+- Tables: `.table-header`, `.table-row-hover`
+- Forms: `.form-input`, `.inline-input`
+- Icons: `.icon-sm`, `.icon-md`, `.icon-lg`
 
-## Browser MCP (cursor-ide-browser)
-Browser automation for testing.
+### Component Library
+- Use shadcn/ui components from `src/components/ui/`
+- Icons: `@tabler/icons-react` (NOT lucide-react for new code)
+- Sheets for forms (slide from right)
+- AlertDialog for confirmations
 
-### Common Operations
-```
-# Navigate to URL
-mcp_cursor-ide-browser_browser_navigate(url: "http://localhost:3000")
+## Database Schema Key Points
 
-# Take snapshot (for element refs)
-mcp_cursor-ide-browser_browser_snapshot
+### Three-Column Budget Model
+- `underwriting_amount`: Pre-deal estimate (acquisition analysis)
+- `forecast_amount`: Post-walkthrough/contractor bid estimate
+- `actual_amount`: Real spend during construction
 
-# Click element
-mcp_cursor-ide-browser_browser_click(element: "Add Project button", ref: "...")
+### Project Status Flow
+`lead` → `analyzing` → `under_contract` → `in_rehab` → `listed` → `sold`
+(Can be marked `dead` at any point)
 
-# Type text
-mcp_cursor-ide-browser_browser_type(element: "Address input", ref: "...", text: "123 Main St")
+### 18 Budget Categories
+soft_costs, demo, structural, plumbing, hvac, electrical, insulation_drywall,
+interior_paint, flooring, tile, kitchen, bathrooms, doors_windows, interior_trim,
+exterior, landscaping, finishing, contingency
 
-# Take screenshot
-mcp_cursor-ide-browser_browser_take_screenshot(name: "dashboard")
+## Current Implementation Status
 
-# Check console errors
-mcp_cursor-ide-browser_browser_console_messages
-```
+### ✅ Completed
+- Three-column budget model with inline editing
+- Full CRUD for budget items, vendors, draws
+- Photo upload per line item
+- Vendor tags, contact history, CSV import/export
+- Kanban pipeline dashboard
+- Deal Summary with MAO calculations
 
-### Testing Flow
-1. Navigate to page
-2. Snapshot to get element refs
-3. Interact with elements
-4. Re-snapshot to verify changes
-5. Screenshot for visual verification
+### 🚧 In Progress
+- PDF exports (underwriting summary, investor packets)
+- Drag & drop reordering for budget items
 
----
+### ❌ Not Started
+- User authentication
+- Real-time updates via Supabase subscriptions
+- Budget templates (save/reuse structures)
 
-## Puppeteer MCP
-Alternative browser automation.
+## Common Tasks
 
-### Common Operations
-```
-# Navigate
-mcp_puppeteer_puppeteer_navigate(url: "http://localhost:3000")
+### Adding a Database Column
+1. Create migration in `supabase/migrations/`
+2. Add field to TypeScript type in `src/types/index.ts`
+3. Run migration in Supabase SQL Editor
+4. Update components
 
-# Screenshot
-mcp_puppeteer_puppeteer_screenshot(name: "test")
+### Adding a New UI Component
+1. Check if shadcn/ui has it: `npx shadcn@latest add [component]`
+2. Or create in `src/components/ui/`
+3. Use Radix UI primitives + Tailwind
 
-# Click
-mcp_puppeteer_puppeteer_click(selector: ".button-class")
-
-# Fill form
-mcp_puppeteer_puppeteer_fill(selector: "input[name='address']", value: "123 Main St")
-
-# Execute JS
-mcp_puppeteer_puppeteer_evaluate(script: "document.title")
-```
-
----
-
-## Workflow Examples
-
-### After Schema Changes
-1. `mcp_supabase_apply_migration` - Apply the migration
-2. `mcp_supabase_generate_typescript_types` - Update types
-3. `mcp_supabase_get_advisors(type: "security")` - Check for RLS issues
-
-### Adding New UI Component
-1. `mcp_shadcn_search_items_in_registries` - Find component
-2. `mcp_shadcn_get_item_examples_from_registries` - See examples
-3. `mcp_shadcn_get_add_command_for_items` - Get install command
-
-### Testing Feature
-1. `mcp_cursor-ide-browser_browser_navigate` - Go to page
-2. `mcp_cursor-ide-browser_browser_snapshot` - Get elements
-3. Interact and verify
-4. `mcp_cursor-ide-browser_browser_console_messages` - Check for errors
-
-### Deploy to Production
-1. `mcp_vercel_deploy_to_vercel` - Deploy
-2. `mcp_vercel_get_deployment_build_logs` - Check for errors
+### Creating a Mutation Hook
+1. Create `src/hooks/use-[entity]-mutations.ts`
+2. Export useMutation hooks for create, update, delete
+3. Invalidate relevant query keys on success
 
 ---
 > Source: [adamj-ops/rehab-budget-pro](https://github.com/adamj-ops/rehab-budget-pro) — distributed by [TomeVault](https://tomevault.io).
