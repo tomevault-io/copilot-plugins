@@ -1,0 +1,9 @@
+{
+  "name": "mossipcams--autosnooze",
+  "displayName": "autosnooze",
+  "description": "Temporarily pause Home Assistant automations with automatic re-enabling",
+  "version": "1.0.0",
+  "author": "mossipcams",
+  "homepage": "https://github.com/mossipcams/autosnooze",
+  "skills": []
+}
