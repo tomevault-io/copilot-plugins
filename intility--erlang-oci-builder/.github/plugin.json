@@ -1,0 +1,9 @@
+{
+  "name": "intility--erlang-oci-builder",
+  "displayName": "erlang-oci-builder",
+  "description": "Build and publish OCI container images from the BEAM",
+  "version": "1.0.0",
+  "author": "intility",
+  "homepage": "https://github.com/intility/erlang-oci-builder",
+  "skills": []
+}
