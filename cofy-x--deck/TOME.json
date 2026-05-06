@@ -4,7 +4,7 @@
   "repo": "deck",
   "description": "Open-source desktop cockpit for local AI sandboxes, coding workflows, and dev handoff.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cofy-x/deck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T03:17:24Z"
+  "distributed_at": "2026-05-06T14:12:10Z"
 }
