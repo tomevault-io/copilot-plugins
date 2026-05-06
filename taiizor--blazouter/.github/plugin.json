@@ -1,0 +1,9 @@
+{
+  "name": "taiizor--blazouter",
+  "displayName": "Blazouter",
+  "description": "Blazouter brings modern, React Router-inspired routing to Blazor. It provides true nested routes, built\u2011in route guards, lazy loading, per-route layouts and rich transitions \u2014 all type-safe and compat",
+  "version": "1.0.0",
+  "author": "Taiizor",
+  "homepage": "https://github.com/Taiizor/Blazouter",
+  "skills": []
+}
