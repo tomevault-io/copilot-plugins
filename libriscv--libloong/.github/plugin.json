@@ -1,0 +1,9 @@
+{
+  "name": "libriscv--libloong",
+  "displayName": "libloong",
+  "description": "The fastest LoongArch sandbox",
+  "version": "1.0.0",
+  "author": "libriscv",
+  "homepage": "https://github.com/libriscv/libloong",
+  "skills": []
+}
