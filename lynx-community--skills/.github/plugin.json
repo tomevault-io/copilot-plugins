@@ -1,0 +1,9 @@
+{
+  "name": "lynx-community--skills",
+  "displayName": "skills",
+  "description": "A collection of Agent Skills for Lynx",
+  "version": "1.0.0",
+  "author": "lynx-community",
+  "homepage": "https://github.com/lynx-community/skills",
+  "skills": []
+}
