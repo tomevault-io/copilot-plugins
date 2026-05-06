@@ -1,0 +1,14 @@
+{
+  "name": "larsbrubaker--clipper2-rust",
+  "displayName": "clipper2-rust",
+  "description": "clipper2-rust",
+  "version": "1.0.0",
+  "author": "larsbrubaker",
+  "homepage": "https://github.com/larsbrubaker/clipper2-rust",
+  "skills": [
+    {
+      "name": "fix-test-failures",
+      "description": ""
+    }
+  ]
+}
