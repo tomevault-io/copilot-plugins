@@ -1,0 +1,51 @@
+{
+  "name": "valuesets",
+  "owner": "linkml",
+  "repo": "valuesets",
+  "description": "Common value sets (enums) for science, biomedicine, computing, and other areas",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "pv-mapping",
+      "path": ".claude/skills/pv-mapping",
+      "github_url": "https://github.com/linkml/valuesets/tree/main/.claude/skills/pv-mapping",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/linkml/valuesets",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T07:33:30Z"
+}
