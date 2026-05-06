@@ -1,0 +1,44 @@
+{
+  "name": "SubtitlePipeline",
+  "owner": "saaak",
+  "repo": "SubtitlePipeline",
+  "description": "\u5b57\u5e55\u751f\u6210\u6d41\u6c34\u7ebf \u2014\u2014 \u81ea\u52a8\u4e3a\u5a92\u4f53\u5e93\u4e2d\u7684\u6bcf\u4e2a\u89c6\u9891\u751f\u6210\u4e2d\u6587\u5b57\u5e55",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/saaak/SubtitlePipeline",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T11:09:05Z"
+}
