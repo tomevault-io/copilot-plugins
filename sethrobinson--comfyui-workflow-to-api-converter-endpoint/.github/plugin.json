@@ -1,0 +1,9 @@
+{
+  "name": "sethrobinson--comfyui-workflow-to-api-converter-endpoint",
+  "displayName": "comfyui-workflow-to-api-converter-endpoint",
+  "description": "A custom node that adds a global Workflow to Workflow \"API\" converter endpoint to ComfyUI",
+  "version": "1.0.0",
+  "author": "SethRobinson",
+  "homepage": "https://github.com/SethRobinson/comfyui-workflow-to-api-converter-endpoint",
+  "skills": []
+}
