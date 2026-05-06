@@ -4,7 +4,7 @@
   "repo": "session-orchestrator",
   "description": "Claude Code plugin for structured AI development sessions \u2014 5-wave execution, parallel agents, quality gates, VCS integration. Pure Markdown, no runtime code.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Kanevry/session-orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T08:19:54Z"
+  "distributed_at": "2026-05-06T13:57:35Z"
 }
