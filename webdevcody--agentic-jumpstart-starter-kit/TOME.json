@@ -1,0 +1,105 @@
+{
+  "name": "agentic-jumpstart",
+  "owner": "webdevcody",
+  "repo": "agentic-jumpstart-starter-kit",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agentic-jumpstart-architecture",
+      "path": ".claude/skills/agentic-jumpstart-architecture",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-architecture",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-backend",
+      "path": ".claude/skills/agentic-jumpstart-backend",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-backend",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-code-quality",
+      "path": ".claude/skills/agentic-jumpstart-code-quality",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-code-quality",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-database",
+      "path": ".claude/skills/agentic-jumpstart-database",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-database",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-dependency-management",
+      "path": ".claude/skills/agentic-jumpstart-dependency-management",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-dependency-management",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-frontend",
+      "path": ".claude/skills/agentic-jumpstart-frontend",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-frontend",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-performance",
+      "path": ".claude/skills/agentic-jumpstart-performance",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-performance",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-react",
+      "path": ".claude/skills/agentic-jumpstart-react",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-react",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-security",
+      "path": ".claude/skills/agentic-jumpstart-security",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-security",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-testing",
+      "path": ".claude/skills/agentic-jumpstart-testing",
+      "github_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit/tree/main/.claude/skills/agentic-jumpstart-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/webdevcody/agentic-jumpstart-starter-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T10:32:13Z"
+}
