@@ -2,9 +2,9 @@
   "name": "vx",
   "owner": "loonghao",
   "repo": "vx",
-  "description": "AI instruction files for vx by loonghao",
+  "description": "Universal Development Tool Manager",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -67,9 +67,27 @@
       "path": ".codebuddy/skills/vx-provider-creator",
       "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/vx-provider-creator",
       "description": ""
+    },
+    {
+      "name": "vx-provider-updater",
+      "path": ".codebuddy/skills/vx-provider-updater",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.codebuddy/skills/vx-provider-updater",
+      "description": ""
+    },
+    {
+      "name": "vx-usage",
+      "path": ".opencode/skills/vx-usage",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.opencode/skills/vx-usage",
+      "description": ""
+    },
+    {
+      "name": "vx-usage",
+      "path": ".claude/skills/vx-usage",
+      "github_url": "https://github.com/loonghao/vx/tree/main/.claude/skills/vx-usage",
+      "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/loonghao",
+  "source_url": "https://github.com/loonghao/vx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T15:07:29Z"
+  "distributed_at": "2026-05-06T22:31:28Z"
 }
