@@ -1,0 +1,9 @@
+{
+  "name": "keiver--tomotv",
+  "displayName": "tomotv",
+  "description": "Jellyfin media client for Apple TV",
+  "version": "1.0.0",
+  "author": "keiver",
+  "homepage": "https://github.com/keiver/tomotv",
+  "skills": []
+}
