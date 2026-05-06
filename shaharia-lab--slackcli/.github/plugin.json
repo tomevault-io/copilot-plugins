@@ -1,0 +1,9 @@
+{
+  "name": "shaharia-lab--slackcli",
+  "displayName": "slackcli",
+  "description": "Slack CLI - Command-line tool for interacting with Slack workspaces and channels. AI-friendly with structured output formats (JSON, table, text) designed for easy integration with AI tools and automat",
+  "version": "1.0.0",
+  "author": "shaharia-lab",
+  "homepage": "https://github.com/shaharia-lab/slackcli",
+  "skills": []
+}
