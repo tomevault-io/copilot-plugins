@@ -1,0 +1,9 @@
+{
+  "name": "nixos-uconsole--nixos-uconsole",
+  "displayName": "nixos-uconsole",
+  "description": "NixOS on ClockworkPi's uConsole (CM4)",
+  "version": "1.0.0",
+  "author": "nixos-uconsole",
+  "homepage": "https://github.com/nixos-uconsole/nixos-uconsole",
+  "skills": []
+}
