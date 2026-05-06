@@ -1,0 +1,9 @@
+{
+  "name": "aywengo--kafka-schema-reg-mcp",
+  "displayName": "kafka-schema-reg-mcp",
+  "description": "A comprehensive Message Control Protocol (MCP) server for Kafka Schema Registry.",
+  "version": "1.0.0",
+  "author": "aywengo",
+  "homepage": "https://github.com/aywengo/kafka-schema-reg-mcp",
+  "skills": []
+}
