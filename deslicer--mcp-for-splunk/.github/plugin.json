@@ -1,0 +1,9 @@
+{
+  "name": "deslicer--mcp-for-splunk",
+  "displayName": "mcp-for-splunk",
+  "description": "MCP Server for integrating with Splunk Enterprise",
+  "version": "1.0.0",
+  "author": "deslicer",
+  "homepage": "https://github.com/deslicer/mcp-for-splunk",
+  "skills": []
+}
