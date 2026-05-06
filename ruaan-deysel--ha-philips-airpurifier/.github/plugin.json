@@ -1,0 +1,9 @@
+{
+  "name": "ruaan-deysel--ha-philips-airpurifier",
+  "displayName": "ha-philips-airpurifier",
+  "description": "Philips Air Purifier Integration for Home Assistant",
+  "version": "1.0.0",
+  "author": "ruaan-deysel",
+  "homepage": "https://github.com/ruaan-deysel/ha-philips-airpurifier",
+  "skills": []
+}
