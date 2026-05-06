@@ -1,0 +1,9 @@
+{
+  "name": "airy10--gedcommcp",
+  "displayName": "GedcomMCP",
+  "description": "MCP Server to create or query GEDCOM files",
+  "version": "1.0.0",
+  "author": "airy10",
+  "homepage": "https://github.com/airy10/GedcomMCP",
+  "skills": []
+}
