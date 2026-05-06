@@ -1,131 +1,126 @@
-## backends
+## code-style
 
-> When adding a new ASR/LLM/TTS backend:
+> - **Type hints**: Use `typing` module for all function signatures
 
-# Backend Implementation Rules
+# Code Style Guidelines
 
-## Adding New Backends
+## Python Style
 
-When adding a new ASR/LLM/TTS backend:
+- **Type hints**: Use `typing` module for all function signatures
+- **Dataclasses**: Prefer `@dataclass` for configuration objects
+- **Async/await**: Use async for I/O operations (WebSocket, gRPC, HTTP)
+- **Logging**: Use Python `logging` module (not print statements)
+- **Docstrings**: Google-style docstrings for public APIs
+- **Line length**: 100 characters (configured in pyproject.toml)
 
-1. **Create file** in appropriate directory (`backends/asr/`, `backends/llm/`, `backends/tts/`)
-2. **Inherit from base class** (`ASRBackend`, `LLMBackend`, `TTSBackend`)
-3. **Implement all abstract methods**
-4. **Add configuration fields** to schema in `config/schema.py`
-5. **Register in factory** function
-6. **Update UI** to add tab in config panel
-7. **Add preset example** in `presets/` directory
-8. **Document** in `docs/api-backends.md`
-
-## Backend Types
-
-### Riva Backend (gRPC)
-
-- **Reuse code** from `live-riva-webui` (riva_bridge.py, riva_tts.py)
-- Handle gRPC **connection lifecycle** (connect, disconnect, reconnect)
-- Implement **proper error recovery** (transient vs permanent failures)
-- Support **streaming** for both ASR and TTS
-
-### OpenAI REST Backend
-
-- Use **aiohttp** for async HTTP requests
-- Implement **chunking** for non-streaming APIs (Whisper)
-- Handle **rate limits** and implement exponential backoff
-- Support **retries** for transient failures
-
-### OpenAI Realtime Backend
-
-- Use **WebSocket** for bidirectional streaming
-- Handle **both ASR and TTS** in single connection
-- Implement **turn detection** (server-side VAD)
-- Manage **session state** and event handling
-
-### Azure Speech Backend (Future)
-
-- Similar to OpenAI REST
-- Handle **Azure-specific auth** (subscription keys)
-- Support **custom neural voices**
-
-## Base Classes
-
-### ASRBackend
+## Example
 
 ```python
-class ASRBackend(ABC):
-    @abstractmethod
-    async def start_stream(self) -> None:
-        """Start streaming recognition"""
+from dataclasses import dataclass
+from typing import Optional, Literal, List
+import logging
+
+logger = logging.getLogger(__name__)
+
+@dataclass
+class ASRConfig:
+    """ASR configuration settings.
+    
+    Attributes:
+        scheme: Backend type (riva, openai, azure)
+        server: Server address for gRPC backends
+        model: Model identifier
+        language: Language code (e.g., en-US)
+    """
+    scheme: Literal["riva", "openai-rest", "openai-realtime", "azure"]
+    server: Optional[str] = None
+    model: str = "conformer"
+    language: str = "en-US"
+    
+    def validate(self) -> List[str]:
+        """Validate configuration consistency.
         
-    @abstractmethod
-    async def send_audio(self, audio_chunk: bytes) -> None:
-        """Send audio chunk for recognition"""
+        Returns:
+            List of warning messages (empty if valid)
+        """
+        warnings = []
         
-    @abstractmethod
-    async def receive_results(self) -> AsyncIterator[ASRResult]:
-        """Yield recognition results (partial and final)"""
+        if self.scheme == "riva" and not self.server:
+            warnings.append("Riva scheme requires server address")
         
-    @abstractmethod
-    async def stop_stream(self) -> None:
-        """Stop streaming recognition"""
+        if self.scheme.startswith("openai") and not self.server:
+            logger.info("Using default OpenAI server")
+        
+        return warnings
 ```
 
-### LLMBackend
+## File Organization
+
+- **One class per file** when classes are large (>200 lines)
+- **Group related small classes** in single file
+- **Keep `__init__.py` minimal** (imports only, no logic)
+- **Separate concerns**: Config from logic, UI from backend
+
+## Naming Conventions
+
+- **Classes**: PascalCase (`ASRBackend`, `SessionConfig`)
+- **Functions/methods**: snake_case (`get_session`, `validate_config`)
+- **Constants**: UPPER_SNAKE_CASE (`DEFAULT_PORT`, `MAX_RETRIES`)
+- **Private**: Leading underscore (`_internal_method`)
+
+## Import Order
 
 ```python
-class LLMBackend(ABC):
-    @abstractmethod
-    async def generate_stream(
-        self, 
-        prompt: str, 
-        history: List[Dict]
-    ) -> AsyncIterator[str]:
-        """Generate response tokens"""
+# 1. Standard library
+import asyncio
+import logging
+from pathlib import Path
+from typing import Optional
+
+# 2. Third-party packages
+import aiohttp
+import yaml
+from openai import OpenAI
+
+# 3. Local imports
+from multi_modal_ai_studio.config.schema import SessionConfig
+from multi_modal_ai_studio.backends.base import ASRBackend
 ```
-
-### TTSBackend
-
-```python
-class TTSBackend(ABC):
-    @abstractmethod
-    async def synthesize_stream(
-        self, 
-        text: str
-    ) -> AsyncIterator[bytes]:
-        """Generate audio chunks"""
-```
-
-## Testing Backends
-
-- **Unit tests** with mocked gRPC/HTTP responses
-- **Integration tests** with real services (optional, requires credentials)
-- **Error condition tests** (network failure, invalid API key, timeout)
-- **Performance tests** (latency, throughput)
 
 ## Error Handling
 
-Each backend should handle:
+- Use **specific exceptions** (ValueError, ConfigError, BackendError)
+- **Log before raising** exceptions
+- Provide **helpful error messages** with suggestions
 
-1. **Connection errors**: Retry with backoff
-2. **Authentication errors**: Clear message, fail fast
-3. **Rate limits**: Backoff and retry
-4. **Timeouts**: Configurable, with sensible defaults
-5. **Invalid input**: Validate before sending
+```python
+if not self.api_key:
+    logger.error("OpenAI API key not provided")
+    raise ConfigError(
+        "OpenAI API key is required. "
+        "Set OPENAI_API_KEY environment variable or pass --openai-api-key"
+    )
+```
 
-## Configuration
+## Testing
 
-Each backend config should include:
+- **Unit tests** for each module
+- **Fixtures** for mock data (audio, configs)
+- **Async tests** using pytest-asyncio
+- **Mocking** external services (gRPC, HTTP)
 
-- **Required fields**: Server, API key, model
-- **Optional fields**: Timeout, retry settings, advanced options
-- **Validation**: Check consistency, provide defaults
-- **Secrets handling**: Never log API keys
+## Comments
 
-## Performance Considerations
+- **Why, not what**: Explain reasoning, not obvious code
+- **TODO**: Mark future improvements
+- **FIXME**: Mark known issues
+- **XXX**: Mark workarounds or hacks
 
-- **Connection pooling**: Reuse HTTP/gRPC connections
-- **Buffering**: Batch small audio chunks when possible
-- **Streaming**: Prefer streaming over batch APIs
-- **Async**: Use async/await for all I/O operations
+```python
+# TODO: Add support for custom VAD models
+# FIXME: Handle edge case when audio buffer is empty
+# XXX: Temporary workaround for OpenAI API rate limits
+```
 
 ---
 > Source: [NVIDIA-AI-IOT/multi_modal_ai_studio](https://github.com/NVIDIA-AI-IOT/multi_modal_ai_studio) — distributed by [TomeVault](https://tomevault.io).
