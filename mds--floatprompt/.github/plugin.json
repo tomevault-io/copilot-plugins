@@ -1,0 +1,14 @@
+{
+  "name": "mds--floatprompt",
+  "displayName": "floatprompt",
+  "description": "The invisible OS for AI",
+  "version": "1.0.0",
+  "author": "mds",
+  "homepage": "https://github.com/mds/floatprompt",
+  "skills": [
+    {
+      "name": "float-context",
+      "description": ""
+    }
+  ]
+}
