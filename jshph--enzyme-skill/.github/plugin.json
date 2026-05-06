@@ -1,0 +1,9 @@
+{
+  "name": "jshph--enzyme-skill",
+  "displayName": "enzyme-skill",
+  "description": "Agent Skill for exploring Obsidian vaults with Enzyme \u2014 self-contained, cross-agent compatible",
+  "version": "1.0.0",
+  "author": "jshph",
+  "homepage": "https://github.com/jshph/enzyme-skill",
+  "skills": []
+}
