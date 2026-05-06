@@ -1,0 +1,9 @@
+{
+  "name": "permashipai--nexus",
+  "displayName": "nexus",
+  "description": "AI Command Center where specialized agents collaborate to create tasks and work on projects.",
+  "version": "1.0.0",
+  "author": "PermaShipAI",
+  "homepage": "https://github.com/PermaShipAI/nexus",
+  "skills": []
+}
