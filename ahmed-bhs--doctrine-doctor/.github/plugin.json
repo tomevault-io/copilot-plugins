@@ -1,0 +1,9 @@
+{
+  "name": "ahmed-bhs--doctrine-doctor",
+  "displayName": "doctrine-doctor",
+  "description": "\ud83e\ude7a\u26a1 Runtime Doctrine ORM analysis integrated into Symfony Web Profiler. Detect N+1 queries, security vulnerabilities, and performance issues during query execution.",
+  "version": "1.0.0",
+  "author": "ahmed-bhs",
+  "homepage": "https://github.com/ahmed-bhs/doctrine-doctor",
+  "skills": []
+}
