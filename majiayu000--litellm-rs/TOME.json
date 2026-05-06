@@ -1,0 +1,81 @@
+{
+  "name": "litellm-rs",
+  "owner": "majiayu000",
+  "repo": "litellm-rs",
+  "description": "A high-performance AI Gateway written in Rust \u2014 call 100+ LLM APIs using OpenAI format",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "a2a-protocol",
+      "path": ".claude/skills/a2a-protocol",
+      "github_url": "https://github.com/majiayu000/litellm-rs/tree/main/.claude/skills/a2a-protocol",
+      "description": ""
+    },
+    {
+      "name": "auth-architecture",
+      "path": ".claude/skills/auth-architecture",
+      "github_url": "https://github.com/majiayu000/litellm-rs/tree/main/.claude/skills/auth-architecture",
+      "description": ""
+    },
+    {
+      "name": "mcp-gateway",
+      "path": ".claude/skills/mcp-gateway",
+      "github_url": "https://github.com/majiayu000/litellm-rs/tree/main/.claude/skills/mcp-gateway",
+      "description": ""
+    },
+    {
+      "name": "provider-architecture",
+      "path": ".claude/skills/provider-architecture",
+      "github_url": "https://github.com/majiayu000/litellm-rs/tree/main/.claude/skills/provider-architecture",
+      "description": ""
+    },
+    {
+      "name": "provider-development",
+      "path": ".claude/skills/provider-development",
+      "github_url": "https://github.com/majiayu000/litellm-rs/tree/main/.claude/skills/provider-development",
+      "description": ""
+    },
+    {
+      "name": "routing-architecture",
+      "path": ".claude/skills/routing-architecture",
+      "github_url": "https://github.com/majiayu000/litellm-rs/tree/main/.claude/skills/routing-architecture",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/majiayu000/litellm-rs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:37:25Z"
+}
