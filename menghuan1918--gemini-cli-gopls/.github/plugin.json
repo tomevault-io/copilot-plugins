@@ -1,0 +1,9 @@
+{
+  "name": "menghuan1918--gemini-cli-gopls",
+  "displayName": "gemini-cli-gopls",
+  "description": "This extension integrates the official MCP of the Go language server (gopls) with Gemini CLI. ",
+  "version": "1.0.0",
+  "author": "Menghuan1918",
+  "homepage": "https://github.com/Menghuan1918/gemini-cli-gopls",
+  "skills": []
+}
