@@ -1,33 +1,35 @@
-## reconstruction-module
+## tracking-module
 
-> Stereo-view 3D dense reconstruction using calibrated cameras and MASt3R AI model.
+> PyTorch-based tell-tale tracker for aerodynamics monitoring. Uses fine-tuned RT-DETR detector + custom ByteTracker.
 
-# 3D Reconstruction Module
+# Tell-Tales Tracking Module
 
 ## Overview
-Stereo-view 3D dense reconstruction using calibrated cameras and MASt3R AI model.
+PyTorch-based tell-tale tracker for aerodynamics monitoring. Uses fine-tuned RT-DETR detector + custom ByteTracker.
 
 ## Key Components
-- calibration/ (renamed from mv_utils): intrinsics/extrinsics calibration, scene management
-- stereo/: MASt3R integration, triangulation, point cloud processing
-- cameras/: camera parameter handling
-- video.py: VideoReader, StereoVideoReader, FFmpegVideoWriter (enhanced with EXIF)
-- unitaries/: SAM segmentation utilities
+- detector.py: RT-DETR model wrapper for tell-tale detection
+- tracker.py + tracker_utils/byte_tracker.py: tracking pipeline
+- pipeline.py: Full processing pipeline (detect + track + PCA analysis + classification)
+- crop_module/: PCA-based crop analysis, background subtraction (OpenCV MOG2, VPI)
+- models/: Pydantic data models (Detection, Track, BoundingBox, Image, Layout, etc.)
+- classifyer/: Tell-tale state classification
+- video.py: VideoReader, FFmpegVideoWriter (simpler version, no stereo)
+- streamer.py: Frame streaming for real-time processing
 
-## External Dependency: MASt3R
-- Located at mast3r/ (project root), NOT inside the package
-- Must be on PYTHONPATH: mast3r, mast3r/dust3r
-- Do not modify files inside mast3r/ - treat as external
+## Model Checkpoints
+- Located at checkpoints/ (project root)
+- rt-detr.pt: RT-DETR fine-tuned detector
+- yolo-s.pt: YOLO-S alternative detector
 
-## Web App
-- Gradio-based interface at web_app/
-- Imports from src/reconstruction/ via PYTHONPATH
-- Has its own requirements.txt for web-specific deps
+## Configuration
+- YAML parameter files in parameters/
+- Layout definitions in assets/tracking/layouts/
 
 ## Testing
-- Tests in tests/reconstruction/
-- Run with: make test-reconstruction
-- Assets in assets/reconstruction/ and tests/reconstruction/cameras/test_assets/
+- Tests in tests/tracking/
+- Run with: make test-tracking
+- Fixtures in fixtures/ (project root)
 
 ---
 > Source: [estebanfoucher/Sail-CV](https://github.com/estebanfoucher/Sail-CV) — distributed by [TomeVault](https://tomevault.io).
