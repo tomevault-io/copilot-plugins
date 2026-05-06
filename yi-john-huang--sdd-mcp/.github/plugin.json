@@ -1,0 +1,54 @@
+{
+  "name": "yi-john-huang--sdd-mcp",
+  "displayName": "sdd-mcp",
+  "description": "sdd-mcp",
+  "version": "1.0.0",
+  "author": "yi-john-huang",
+  "homepage": "https://github.com/yi-john-huang/sdd-mcp",
+  "skills": [
+    {
+      "name": "sdd-commit",
+      "description": ""
+    },
+    {
+      "name": "sdd-design",
+      "description": ""
+    },
+    {
+      "name": "sdd-implement",
+      "description": ""
+    },
+    {
+      "name": "sdd-requirements",
+      "description": ""
+    },
+    {
+      "name": "sdd-review",
+      "description": ""
+    },
+    {
+      "name": "sdd-security-check",
+      "description": ""
+    },
+    {
+      "name": "sdd-steering",
+      "description": ""
+    },
+    {
+      "name": "sdd-steering-custom",
+      "description": ""
+    },
+    {
+      "name": "sdd-tasks",
+      "description": ""
+    },
+    {
+      "name": "sdd-test-gen",
+      "description": ""
+    },
+    {
+      "name": "simple-task",
+      "description": ""
+    }
+  ]
+}
