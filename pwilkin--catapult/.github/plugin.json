@@ -1,0 +1,9 @@
+{
+  "name": "pwilkin--catapult",
+  "displayName": "catapult",
+  "description": "A Tauri-based cross-platform launcher / updater / model manager for llama.cpp",
+  "version": "1.0.0",
+  "author": "pwilkin",
+  "homepage": "https://github.com/pwilkin/catapult",
+  "skills": []
+}
