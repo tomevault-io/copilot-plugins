@@ -1,0 +1,44 @@
+{
+  "name": "gtm-mcp",
+  "owner": "impecablemee",
+  "repo": "gtm-mcp",
+  "description": "Open-source B2B cold outreach pipeline for Claude Code. One /launch command: find companies (Apollo), classify with AI, extract contacts, write deeply personalized sequences, push to SmartLead. Zero LLM calls inside the server, all reasoning stays in Claude. Self-hosted.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/impecablemee/gtm-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T11:40:22Z"
+}
