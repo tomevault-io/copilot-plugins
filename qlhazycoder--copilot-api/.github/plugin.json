@@ -1,0 +1,9 @@
+{
+  "name": "qlhazycoder--copilot-api",
+  "displayName": "copilot-api",
+  "description": "Please read the README completely before use. Turn GitHub Copilot into OpenAI/OpenAI-Response/Anthropic/Gemini API compatible server. Usable with Claude Code Or Codex Or Opencode! Due to the old proje",
+  "version": "1.0.0",
+  "author": "QLHazyCoder",
+  "homepage": "https://github.com/QLHazyCoder/copilot-api",
+  "skills": []
+}
