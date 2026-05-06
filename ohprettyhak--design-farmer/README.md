@@ -7,11 +7,11 @@ Agent skill that turns design system quality from "best effort" into a repeatabl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ohprettyhak/design-farmer](https://github.com/ohprettyhak/design-farmer).
+Original source: `CLAUDE.md` in [ohprettyhak/design-farmer](https://github.com/ohprettyhak/design-farmer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
