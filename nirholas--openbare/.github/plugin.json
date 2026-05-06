@@ -1,9 +1,9 @@
 {
   "name": "nirholas--openbare",
   "displayName": "openbare",
-  "description": "openbare",
+  "description": "Decentralized web proxy network designed for censorship resistance, high availability. Deploy nodes on Vercel, Railway, Cloudflare Workers in seconds.  Use community-maintained public nodes. Features ",
   "version": "1.0.0",
   "author": "nirholas",
-  "homepage": "https://tomevault.io/claim/nirholas",
+  "homepage": "https://github.com/nirholas/openbare",
   "skills": []
 }
