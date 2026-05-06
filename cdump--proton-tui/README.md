@@ -7,14 +7,14 @@ A modern, unofficial ProtonVPN Terminal User Interface (TUI) for Linux, written 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [cdump/proton-tui](https://github.com/cdump/proton-tui).
+Original source: `AGENTS.md` in [cdump/proton-tui](https://github.com/cdump/proton-tui).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/cdump/proton-tui](https://github.com/cdump/proton-tui)
