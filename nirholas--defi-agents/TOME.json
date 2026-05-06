@@ -2,9 +2,9 @@
   "name": "defi-agents",
   "owner": "nirholas",
   "repo": "defi-agents",
-  "description": "",
+  "description": "DeFi agent definitions JSON API + MCP - Production-ready agents for Web3, crypto trading, portfolio management, and blockchain automation. MCP compatible.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/nirholas",
+  "source_url": "https://github.com/nirholas/defi-agents",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-11T12:39:05Z"
+  "distributed_at": "2026-05-06T14:22:30Z"
 }
