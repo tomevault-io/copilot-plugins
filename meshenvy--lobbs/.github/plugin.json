@@ -1,0 +1,9 @@
+{
+  "name": "meshenvy--lobbs",
+  "displayName": "lobbs",
+  "description": "BBS for Meshtastic right on the firmware",
+  "version": "1.0.0",
+  "author": "MeshEnvy",
+  "homepage": "https://github.com/MeshEnvy/lobbs",
+  "skills": []
+}
