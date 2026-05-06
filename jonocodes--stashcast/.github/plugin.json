@@ -1,0 +1,9 @@
+{
+  "name": "jonocodes--stashcast",
+  "displayName": "stashcast",
+  "description": "Save video and audio for later offline use and generate super-custom podcast feeds",
+  "version": "1.0.0",
+  "author": "jonocodes",
+  "homepage": "https://github.com/jonocodes/stashcast",
+  "skills": []
+}
