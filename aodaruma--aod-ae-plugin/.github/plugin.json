@@ -1,0 +1,9 @@
+{
+  "name": "aodaruma--aod-ae-plugin",
+  "displayName": "aod-AE-plugin",
+  "description": "Several Adobe After Effects plugin development projects, developed in Rust by Aodaruma",
+  "version": "1.0.0",
+  "author": "Aodaruma",
+  "homepage": "https://github.com/Aodaruma/aod-AE-plugin",
+  "skills": []
+}
