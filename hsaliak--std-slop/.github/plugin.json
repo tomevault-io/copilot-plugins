@@ -1,0 +1,9 @@
+{
+  "name": "hsaliak--std-slop",
+  "displayName": "std_slop",
+  "description": "STD::SLOP An Sqlite/C++ Code CLI",
+  "version": "1.0.0",
+  "author": "hsaliak",
+  "homepage": "https://github.com/hsaliak/std_slop",
+  "skills": []
+}
