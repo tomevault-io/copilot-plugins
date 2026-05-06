@@ -1,0 +1,9 @@
+{
+  "name": "paiml--ruchy-book",
+  "displayName": "ruchy-book",
+  "description": "The official book for the Ruchy language",
+  "version": "1.0.0",
+  "author": "paiml",
+  "homepage": "https://github.com/paiml/ruchy-book",
+  "skills": []
+}
