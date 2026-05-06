@@ -1,0 +1,30 @@
+{
+  "name": "cliftonc--drizzle-cube",
+  "displayName": "drizzle-cube",
+  "description": "An embeddable multi-dimensional semantic layer and self-service analytics module (built on Drizzle) - broadly compliant with cube-js concepts and semantic definitions.",
+  "version": "1.0.0",
+  "author": "cliftonc",
+  "homepage": "https://github.com/cliftonc/drizzle-cube",
+  "skills": [
+    {
+      "name": "add-query-mode",
+      "description": ""
+    },
+    {
+      "name": "dc-analysis-config",
+      "description": ""
+    },
+    {
+      "name": "dc-chart-config",
+      "description": ""
+    },
+    {
+      "name": "dc-cube-definition",
+      "description": ""
+    },
+    {
+      "name": "dc-query-building",
+      "description": ""
+    }
+  ]
+}
