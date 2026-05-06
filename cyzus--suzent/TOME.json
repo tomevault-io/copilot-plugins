@@ -1,0 +1,81 @@
+{
+  "name": "suzent",
+  "owner": "cyzus",
+  "repo": "suzent",
+  "description": "SUZENT: YOUR SOVEREIGN DIGITAL CO-WORKER",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "browser",
+      "path": "skills/browser",
+      "github_url": "https://github.com/cyzus/suzent/tree/main/skills/browser",
+      "description": ""
+    },
+    {
+      "name": "filesystem",
+      "path": "skills/filesystem",
+      "github_url": "https://github.com/cyzus/suzent/tree/main/skills/filesystem",
+      "description": ""
+    },
+    {
+      "name": "nodes",
+      "path": "skills/nodes",
+      "github_url": "https://github.com/cyzus/suzent/tree/main/skills/nodes",
+      "description": ""
+    },
+    {
+      "name": "notebook",
+      "path": "skills/notebook",
+      "github_url": "https://github.com/cyzus/suzent/tree/main/skills/notebook",
+      "description": ""
+    },
+    {
+      "name": "social",
+      "path": "skills/social",
+      "github_url": "https://github.com/cyzus/suzent/tree/main/skills/social",
+      "description": ""
+    },
+    {
+      "name": "speech",
+      "path": "skills/speech",
+      "github_url": "https://github.com/cyzus/suzent/tree/main/skills/speech",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cyzus/suzent",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:31:56Z"
+}
