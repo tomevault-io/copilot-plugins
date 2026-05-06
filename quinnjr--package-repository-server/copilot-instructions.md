@@ -1,240 +1,331 @@
-## angular
+## authentication
 
-> Guidelines for Angular webui development
+> Guidelines for authentication, SSO, and security in the project
 
 
-# Angular Frontend Development Rules
+# Authentication and SSO Rules
 
-## Tech Stack
-- **Angular 21** - Latest Angular framework
-- **TypeScript 5.9** - Strict type checking
-- **Tailwind CSS 4** - Utility-first CSS framework
-- **FontAwesome** - Icon library
-- **RxJS 7.8** - Reactive programming
-- **pnpm** - Package manager (required)
+## Overview
 
-## Package Management
-- **Always use `pnpm` instead of `npm` or `yarn`**
-- Use `pnpm install` to add dependencies
-- Keep `pnpm-lock.yaml` in version control
-- Update dependencies regularly for security patches
+The Package Repository Server supports two authentication methods:
+1. **API Key Authentication** - For service accounts, CI/CD, and automation
+2. **SSO Authentication** - OAuth 2.0 / OpenID Connect for user login
 
-## TypeScript
+Both can be enabled simultaneously or independently.
 
-### Type Safety
-- Use strict TypeScript configuration
-- Avoid `any` type - use `unknown` or proper types
-- Define interfaces for all data structures
-- Use type guards for runtime type checking
-- Enable strict null checks
+## SSO Architecture
 
-### Naming Conventions
-- Components: PascalCase (`PackageListComponent`)
-- Services: PascalCase with Service suffix (`PackageService`)
-- Interfaces: PascalCase (`Package`, `Repository`)
-- Variables/functions: camelCase (`packageList`, `uploadPackage`)
-- Constants: UPPER_SNAKE_CASE (`API_BASE_URL`)
-- Files: kebab-case (`package-list.component.ts`)
+### Backend (Rust)
 
-## Angular Components
+- **sso_config.rs** - SSO provider configuration and environment loading
+- **sso_session.rs** - JWT session management and user profiles
+- **sso_handlers.rs** - OAuth2/OIDC flow handlers (login, callback, validation)
 
-### Component Structure
-```typescript
-@Component({
-  selector: 'app-component-name',
-  templateUrl: './component-name.component.html',
-  styleUrls: ['./component-name.component.css'],
-  standalone: true,  // Prefer standalone components
-  imports: [...],
-})
-export class ComponentNameComponent implements OnInit, OnDestroy {
-  // Use signals for reactive state (Angular 21 feature)
-  count = signal(0);
+### Frontend (Angular)
 
-  // Inject dependencies in constructor
-  constructor(private service: SomeService) {}
+- **auth.service.ts** - Authentication state management
+- **auth.guard.ts** - Route protection
+- **auth.interceptor.ts** - HTTP interceptor for adding JWT tokens
+- **login.component** - SSO provider selection UI
+- **callback.component** - OAuth callback handler
 
-  ngOnInit(): void {
-    // Initialization logic
-  }
+## Supported SSO Providers
 
-  ngOnDestroy(): void {
-    // Cleanup subscriptions
-  }
-}
+- Google (Google Workspace)
+- GitHub
+- GitLab (SaaS and self-hosted)
+- Microsoft / Azure AD
+- Okta
+- Auth0
+- Keycloak
+- Generic OIDC (any compliant provider)
+
+## Backend Development
+
+### Adding a New SSO Provider
+
+1. Add provider type to `SsoProviderType` enum in `sso_config.rs`
+2. Implement default URLs in `SsoProviderConfig` methods
+3. Add provider parsing in `parse_user_profile()` in `sso_handlers.rs`
+4. Add environment variable loading in `SsoConfig::from_env()`
+5. Update documentation
+
+### JWT Token Management
+
+- Use `JwtManager` for all token operations
+- Never log JWT tokens or sensitive data
+- Use constant-time comparison for secrets
+- Set appropriate token expiration (default: 24 hours)
+- Validate tokens on every protected endpoint
+
+### OAuth2 Flow
+
+1. **Initiate Login** (`/auth/login/{provider}`)
+   - Build OAuth2 client
+   - Generate PKCE challenge (for security)
+   - Generate CSRF token (state parameter)
+   - Redirect user to provider
+
+2. **Handle Callback** (`/auth/callback/{provider}`)
+   - Validate CSRF token
+   - Exchange authorization code for access token
+   - Fetch user profile from provider
+   - Validate domain/email restrictions
+   - Generate JWT session token
+   - Return token to frontend
+
+3. **Validate Session** (`/auth/validate`)
+   - Extract JWT from Authorization header
+   - Validate signature and expiration
+   - Return user info
+
+### Security Best Practices
+
+#### Secrets Management
+
+- Store JWT secret securely (environment variable)
+- Never commit secrets to version control
+- Rotate JWT secrets regularly (invalidates sessions)
+- Use strong random secrets: `openssl rand -hex 32`
+
+#### Token Security
+
+- Use HTTPS only in production
+- Set secure cookie flags
+- Implement token expiration
+- Use PKCE for OAuth flows
+- Validate CSRF tokens
+
+#### Input Validation
+
+- Validate OAuth callback parameters
+- Check state parameter for CSRF protection
+- Validate email domains/patterns
+- Sanitize user profile data
+
+## Frontend Development
+
+### Authentication Service
+
+- Use Angular signals for reactive state (Angular 21+)
+- Store JWT in localStorage (or sessionStorage for higher security)
+- Check token expiration before each use
+- Clear state on logout
+- Validate session on app initialization
+
+### HTTP Interceptor
+
+- Add JWT to Authorization header for API requests
+- Exclude `/auth/*` endpoints from token injection
+- Handle 401 responses (redirect to login)
+- Handle token refresh (if implemented)
+
+### Route Guards
+
+- Use `authGuard` to protect authenticated routes
+- Store return URL for redirect after login
+- Check token validity, not just presence
+
+### Components
+
+#### Login Component
+
+- Display enabled SSO providers
+- Show provider icons and branding
+- Handle loading and error states
+- Redirect to OAuth provider on selection
+
+#### Callback Component
+
+- Handle OAuth redirect
+- Validate state parameter
+- Complete authentication flow
+- Show loading/success/error states
+- Redirect to return URL or home
+
+### UI/UX Best Practices
+
+- Use clear provider branding
+- Show loading indicators
+- Display meaningful error messages
+- Implement proper error handling
+- Support dark mode
+- Ensure accessibility (ARIA labels, keyboard navigation)
+
+## Configuration
+
+### Environment Variables
+
+All SSO configuration is done via environment variables:
+
+```bash
+# Enable SSO
+SSO_ENABLED=true
+SSO_JWT_SECRET=your-secret
+SSO_BASE_URL=https://packages.example.com
+
+# Enable specific provider
+SSO_GOOGLE_ENABLED=true
+SSO_GOOGLE_CLIENT_ID=...
+SSO_GOOGLE_CLIENT_SECRET=...
 ```
 
-### Component Best Practices
-- Keep components small and focused
-- Use standalone components (Angular 21 default)
-- Use signals for reactive state management
-- Implement OnDestroy for cleanup
-- Use ChangeDetection.OnPush when possible
-- Avoid complex logic in templates
+### Access Control
 
-## Services
-
-### Service Pattern
-```typescript
-@Injectable({
-  providedIn: 'root',  // Singleton service
-})
-export class PackageService {
-  private apiUrl = '/api/v1';
-
-  constructor(private http: HttpClient) {}
-
-  getPackages(): Observable<Package[]> {
-    return this.http.get<Package[]>(`${this.apiUrl}/packages`);
-  }
-}
-```
-
-### Service Best Practices
-- Use `providedIn: 'root'` for singleton services
-- Handle HTTP errors properly
-- Use RxJS operators for data transformation
-- Cache data when appropriate
-- Implement loading/error states
-
-## RxJS
-
-### Observable Patterns
-- Use async pipe in templates to auto-unsubscribe
-- Avoid nested subscriptions - use RxJS operators instead
-- Common operators: `map`, `filter`, `switchMap`, `catchError`, `shareReplay`
-- Unsubscribe from observables in ngOnDestroy
-
-### Example
-```typescript
-packages$ = this.packageService.getPackages().pipe(
-  map(packages => packages.filter(p => p.type === 'deb')),
-  catchError(error => {
-    console.error('Failed to load packages', error);
-    return of([]);
-  }),
-  shareReplay(1)
-);
-```
-
-## Styling
-
-### Tailwind CSS
-- Use Tailwind utility classes for styling
-- Avoid custom CSS when Tailwind utilities exist
-- Use Tailwind's responsive modifiers (`sm:`, `md:`, `lg:`, etc.)
-- Use Tailwind's dark mode support
-- Keep component-specific styles minimal
-
-### Prettier Configuration
-- Use project's Prettier config (defined in `package.json`)
-- Print width: 100 characters
-- Single quotes for strings
-- Angular parser for HTML templates
-- Run Prettier before committing
-
-## Forms
-- Use Reactive Forms over Template-driven forms
-- Implement proper form validation
-- Display validation errors clearly
-- Disable submit button while form is invalid
-- Handle form submission errors
-
-## Routing
-- Use lazy loading for feature modules
-- Implement route guards for protected routes
-- Use route resolvers for data pre-loading
-- Handle navigation errors
-
-## API Integration
-
-### HTTP Interceptors
-- Implement interceptor for API authentication
-- Add loading indicators via interceptors
-- Handle global error responses
-- Add request/response logging in development
-
-### Error Handling
-- Display user-friendly error messages
-- Log errors for debugging
-- Implement retry logic for transient failures
-- Show loading states during API calls
+- **Domain Restrictions**: `SSO_<PROVIDER>_ALLOWED_DOMAINS=company.com`
+- **Email Restrictions**: `SSO_<PROVIDER>_ALLOWED_EMAILS=*@company.com,admin@example.com`
+- **Auto-Registration**: `SSO_<PROVIDER>_AUTO_REGISTER=true` (default)
 
 ## Testing
 
-### Unit Testing
-- **Use Vitest for all TypeScript/JavaScript testing**
-- Test components with TestBed
-- Mock services and HTTP requests
-- Test user interactions
-- Aim for 80%+ code coverage
+### Unit Tests
 
-### Testing Best Practices
-- Write tests for business logic
-- Test error handling paths
-- Use descriptive test names
-- Keep tests isolated and independent
-- Mock external dependencies
+- Test JWT generation and validation
+- Test token expiration
+- Test user profile parsing
+- Test domain/email restrictions
+- Mock HTTP requests to providers
 
-## Performance
+### Integration Tests
 
-### Optimization
-- Use OnPush change detection strategy
-- Implement virtual scrolling for long lists
-- Lazy load routes and modules
-- Optimize images (use WebP, proper sizing)
-- Use trackBy with *ngFor
-- Avoid function calls in templates
+- Test full OAuth flow
+- Test callback handling
+- Test session validation
+- Test logout
+- Test with multiple providers
 
-### Bundle Size
-- Analyze bundle size regularly
-- Tree-shake unused code
-- Lazy load heavy dependencies
-- Use Angular's built-in optimizations
+### Manual Testing
 
-## Accessibility
-- Use semantic HTML elements
-- Add ARIA labels where needed
-- Ensure keyboard navigation works
-- Test with screen readers
-- Maintain proper heading hierarchy
-- Ensure sufficient color contrast
+```bash
+# List providers
+curl http://localhost:8080/auth/providers
 
-## Security
-- Sanitize user input
-- Use Angular's built-in XSS protection
-- Validate data from API
-- Implement proper authentication
-- Store API keys securely (never in frontend code)
-- Use HTTPS in production
-
-## Code Organization
-```
-webui/src/
-├── app/
-│   ├── components/          # Reusable components
-│   ├── services/            # Business logic services
-│   ├── models/              # TypeScript interfaces/types
-│   ├── guards/              # Route guards
-│   ├── interceptors/        # HTTP interceptors
-│   ├── pipes/               # Custom pipes
-│   └── pages/               # Page components
-├── assets/                  # Static assets
-└── environments/            # Environment configs
+# Validate token
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+  http://localhost:8080/auth/validate
 ```
 
-## Build and Development
-- Use `pnpm start` for development server
-- Use `pnpm build` for production build
-- Test production builds locally
-- Check bundle size after major changes
-- Enable source maps for debugging
+## Common Issues
 
-## Browser Support
-- Support modern browsers (Chrome, Firefox, Safari, Edge)
-- Use browserslist for target configuration
-- Test on different browsers
-- Use polyfills only when necessary
+### "SSO is not enabled"
+- Check `SSO_ENABLED=true`
+- Verify environment variables are loaded
+- Check server logs
+
+### OAuth redirect errors
+- Verify redirect URI matches provider configuration
+- Check `SSO_BASE_URL` is correct
+- Ensure HTTPS for production
+
+### Token validation fails
+- Check JWT secret hasn't changed
+- Verify token hasn't expired
+- Check clock sync on servers
+
+### Domain restrictions not working
+- Verify email domain extraction
+- Check case sensitivity
+- Review server logs
+
+## API Key Authentication
+
+### When to Use
+
+- CI/CD pipelines
+- Automated tools
+- Service accounts
+- Headless operations
+
+### Best Practices
+
+- Generate strong random keys: `openssl rand -hex 32`
+- Use separate keys per service
+- Rotate keys regularly
+- Store securely (secrets manager, encrypted vault)
+- Never log full API keys
+
+### Validation
+
+- Use constant-time comparison
+- Check key format and length
+- Log authentication failures
+- Rate limit failed attempts
+
+## Dual Authentication Mode
+
+The server can run in hybrid mode with both SSO and API keys:
+
+```bash
+SSO_ENABLED=true
+SSO_ALLOW_API_KEY_AUTH=true  # Allow both methods
+```
+
+Or SSO-only (API keys for configured services only):
+
+```bash
+SSO_ENABLED=true
+SSO_REQUIRE=true  # SSO required for users
+API_KEYS=service-key-1,service-key-2  # Only these work
+```
+
+## Migration Strategy
+
+### From API Keys to SSO
+
+1. Enable SSO alongside API keys
+2. Configure SSO providers
+3. Migrate users to SSO
+4. Rotate API keys to service-only keys
+5. Optionally disable user API keys
+
+### From SSO to API Keys
+
+1. Keep both enabled
+2. Generate API keys for automation
+3. Update CI/CD systems
+4. Disable SSO when ready
+
+## Monitoring and Logging
+
+### Log Authentication Events
+
+- Login attempts (success/failure)
+- Token validation failures
+- OAuth callback errors
+- Domain/email restriction violations
+- Logout events
+
+### Metrics to Track
+
+- Active sessions count
+- Login success rate
+- Failed authentication attempts by provider
+- Token expiration events
+- OAuth flow duration
+
+### Security Alerts
+
+- Multiple failed login attempts
+- Token validation failures (possible attack)
+- Unusual login patterns
+- Expired sessions still in use
+
+## Documentation
+
+When implementing authentication features:
+- Update SSO_CONFIGURATION.md
+- Update API documentation
+- Add configuration examples
+- Document provider-specific setup
+- Include troubleshooting steps
+- Update .env.example
+
+## References
+
+- OAuth 2.0: https://oauth.net/2/
+- OpenID Connect: https://openid.net/connect/
+- JWT Best Practices: https://tools.ietf.org/html/rfc8725
+- PKCE for OAuth: https://oauth.net/2/pkce/
 
 ---
 > Source: [quinnjr/package-repository-server](https://github.com/quinnjr/package-repository-server) — distributed by [TomeVault](https://tomevault.io).
