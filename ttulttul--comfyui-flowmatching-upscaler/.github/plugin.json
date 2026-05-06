@@ -1,0 +1,9 @@
+{
+  "name": "ttulttul--comfyui-flowmatching-upscaler",
+  "displayName": "ComfyUI-FlowMatching-Upscaler",
+  "description": "An upscaler node for flow-matching models like Qwen, applying the DemoFusion approach",
+  "version": "1.0.0",
+  "author": "ttulttul",
+  "homepage": "https://github.com/ttulttul/ComfyUI-FlowMatching-Upscaler",
+  "skills": []
+}
