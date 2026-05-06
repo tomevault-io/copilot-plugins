@@ -2,9 +2,13 @@
 
 > > Decentralized web proxy network designed for censorship resistance, high availability. Deploy nodes on Vercel, Railway, Cloudflare Workers in seconds.  Use community-maintained public nodes. Features automatic failover between nodes, <50ms edge latency, built-in health monitoring, full compatibility with Ultraviolet, other TompHTTP clients.
 
-# openbare
+# openbare Development Guidelines
 
 > Decentralized web proxy network designed for censorship resistance, high availability. Deploy nodes on Vercel, Railway, Cloudflare Workers in seconds.  Use community-maintained public nodes. Features automatic failover between nodes, <50ms edge latency, built-in health monitoring, full compatibility with Ultraviolet, other TompHTTP clients.
+
+## Project Overview
+
+openbare is built with JavaScript. See the README for full documentation.
 
 ### Terminal Management
 
@@ -14,7 +18,13 @@
 - In GitHub Codespaces, agent-spawned terminals may be hidden — they still work. Do not assume a terminal is broken if you cannot see it
 - If a terminal appears unresponsive, kill it and create a new one rather than retrying in the same terminal
 
+## Contributing
+
+- Follow the existing code style
+- Test changes before submitting PRs
+- Update documentation when adding features
+- See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines
+
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/nirholas)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/nirholas)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [nirholas/openbare](https://github.com/nirholas/openbare) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
