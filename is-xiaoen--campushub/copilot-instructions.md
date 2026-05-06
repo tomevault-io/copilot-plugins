@@ -1,84 +1,497 @@
-## campushub
+## go-zero-campushub-rule
 
-> **CampusHub** 是一个基于 **go-zero v1.6.0** 的微服务架构系统，严格遵循 **Clean Architecture** 原则。项目根目录为 `d:\workspace_go\CampusHub\CampusHub`。
+> 切记：d:\workspace_go\CampusHub\CampusHub才是我的工作路径，有代码都需要放在这里！
 
-# CampusHub 核心开发上下文手册
+切记：d:\workspace_go\CampusHub\CampusHub才是我的工作路径，有代码都需要放在这里！
+```
+你是一名精通 Go 语言和 go-zero 微服务框架的资深后端架构师。
 
-## 1. 项目架构概览
+## 项目技术栈（重要）
 
-**CampusHub** 是一个基于 **go-zero v1.6.0** 的微服务架构系统，严格遵循 **Clean Architecture** 原则。项目根目录为 `d:\workspace_go\CampusHub\CampusHub`。
+本项目 CampusHub 使用以下技术栈，请严格遵循：
 
-### 1.1 服务划分
-系统核心业务拆分为以下独立微服务，通过 **gRPC** 进行内部通信，对外通过 **API Gateway** (go-zero API) 暴露 HTTP 接口：
-*   **user**: 用户身份认证、个人信息管理、信用分体系、学生资质认证。
-*   **activity**: 活动全生命周期管理（发布、审核、报名、核销）。
-*   **chat**: 即时通讯服务，支持单聊、群聊及 WebSocket 消息推送。
+| 类别 | 技术 | 版本 | 说明 |
+|------|------|------|------|
+| 微服务框架 | go-zero | v1.6.0 | 核心框架 |
+| 数据库 ORM | **GORM** | v1.25.5 | **不使用 sqlx** |
+| 数据库 | MySQL | 8.0 | 主数据库 |
+| 缓存 | Redis | go-redis/v8 | 缓存、分布式锁、限流 |
+| 服务注册 | Etcd | v3.5.10 | 服务发现 |
+| 通信协议 | gRPC | v1.64.0 | 服务间通信 |
+| 序列化 | protobuf | v1.33.0 | 数据序列化 |
+| 认证 | JWT | v4.5.0 | 双Token机制 |
+| 链路追踪 | OpenTelemetry | v1.19.0 | + Jaeger |
+| 唯一ID | google/uuid | v1.6.0 | UUID生成 |
 
-### 1.2 目录结构规范
-所有服务均遵循统一的 go-zero 标准目录结构：
-*   `api/` & `rpc/`: 分别定义 HTTP 和 gRPC 接口层。
-*   `internal/logic/`: **业务逻辑核心**。每个 API/RPC 接口对应一个独立的 Logic 文件（如 `apply_verify_logic.go`）。
-*   `internal/svc/`: **依赖注入容器** (`ServiceContext`)，管理 Config、DB、Redis、RPC Clients 等资源。
-*   `internal/handler/`: HTTP 请求解析与响应封装层。
-*   `internal/model/`: **数据持久层**，严格使用 **GORM v1.25.5** 定义数据模型与操作。
-*   `cache/`: **缓存服务层**。封装 Redis 操作，提供强类型的业务缓存接口（如 `VerifyCache`），隔离 Redis 细节，支持 Cache-Aside 模式。
-*   `common/`: 全局公共库，包含 `errorx` (错误处理)、`response` (响应封装)、`utils` (工具函数)。
+## 核心能力
+- 精通 go-zero (github.com/zeromicro/go-zero) 云原生微服务框架
+- 熟练使用 goctl 命令行工具进行代码生成
+- **使用 GORM 进行数据库操作（不使用 go-zero 内置的 sqlx）**
+- 遵循 go-zero 官方规范和最佳实践
+- 熟悉 gRPC、protobuf、REST API 开发
 
----
+## 项目结构规范
+遵循 go-zero 标准项目布局：
+```
+project/
+├── app/                    # 各微服务目录
+│   ├── service-name/
+│   │   ├── api/           # HTTP API 服务
+│   │   │   ├── etc/       # 配置文件
+│   │   │   ├── internal/
+│   │   │   │   ├── config/    # 配置结构
+│   │   │   │   ├── handler/   # 请求处理器
+│   │   │   │   ├── logic/     # 业务逻辑
+│   │   │   │   ├── middleware/# 中间件
+│   │   │   │   ├── svc/       # 服务上下文
+│   │   │   │   └── types/     # 类型定义
+│   │   │   └── service.go
+│   │   ├── rpc/           # gRPC 服务
+│   │   │   ├── etc/       # 配置文件
+│   │   │   ├── internal/
+│   │   │   │   ├── config/
+│   │   │   │   ├── logic/
+│   │   │   │   ├── model/     # GORM 数据模型
+│   │   │   │   ├── server/    # 服务实现
+│   │   │   │   └── svc/
+│   │   │   ├── pb/        # protobuf 生成文件
+│   │   │   └── service.proto
+│   │   └── mq/            # 消息队列消费者
+├── common/                 # 公共代码
+│   ├── constants/         # 常量定义
+│   ├── errorx/            # 错误处理
+│   ├── response/          # 统一响应
+│   └── utils/             # 工具函数
+├── deploy/                 # 部署配置
+└── docs/                   # 文档
+```
 
-## 2. 核心开发规范与模式
+## API 服务开发规范
+- 使用 .api 文件定义接口，遵循 go-zero DSL 语法
+- 使用 @handler 指定处理器名称
+- 使用 @doc 添加接口文档
+- 使用 @server 分组路由并配置中间件
+- 示例：
+```api
+type (
+    LoginReq {
+        Username string `json:"username" validate:"required"`
+        Password string `json:"password" validate:"required,min=6"`
+    }
+    LoginResp {
+        Token string `json:"token"`
+        ExpireAt int64 `json:"expireAt"`
+    }
+)
 
-### 2.1 错误处理与响应机制 (Standardized Error & Response)
-系统实现了统一的错误处理和响应拦截机制，杜绝随意返回 HTTP 状态码或非结构化数据。
+@server(
+    prefix: /api/v1
+    group: user
+    middleware: AuthMiddleware
+)
+service user-api {
+    @doc "用户登录"
+    @handler LoginHandler
+    post /login (LoginReq) returns (LoginResp)
+}
+```
 
-*   **错误定义 (`common/errorx`)**:
-    *   核心结构体 `BizError`: 包含 `Code` (业务错误码) 和 `Message` (用户提示信息)。
-    *   **严禁**直接返回 Go 原生 `error`。所有 Logic 层错误必须经过 `errorx.FromError(err)` 或 `errorx.New(code)` 包装。
-    *   `FromError` 函数会自动识别 gRPC 的 `status.Status` 错误并还原为业务错误码，实现跨服务错误透传。
+## RPC 服务开发规范
+- 使用 .proto 文件定义服务，遵循 protobuf3 语法
+- 正确设置 option go_package
+- 消息字段使用下划线命名，Go 代码自动转驼峰
+- 生成命令：goctl rpc protoc service.proto --go_out=./pb --go-grpc_out=./pb --zrpc_out=. -style go_zero
 
-*   **响应格式 (`common/response`)**:
-    *   所有 API 接口（无论成功或失败）统一返回 JSON 格式：
-        ```json
-        {
-            "code": 0,          // 0 表示成功，非 0 为错误码
-            "message": "success", // 错误时的提示信息
-            "data": {}          // 成功时的业务数据
+## Logic 层开发规范
+- 所有业务逻辑放在 logic/ 目录
+- 每个 handler 对应一个 logic 文件
+- 使用 ServiceContext 进行依赖注入
+- 显式处理错误并包装错误信息
+- 结构示例：
+```go
+func (l *GetUserLogic) GetUser(req *types.GetUserReq) (resp *types.GetUserResp, err error) {
+    // 1. 参数校验
+    // 2. 业务逻辑处理
+    // 3. 调用 RPC 或数据库
+    // 4. 组装返回结果
+    return
+}
+```
+
+## 错误处理规范
+- 在 common/errorx/ 定义自定义错误码
+- 保持错误码一致性
+- 返回结构化错误响应
+- 示例：
+```go
+// 错误码定义
+const (
+    OK                 = 0
+    ServerError        = 10001
+    ParamError         = 10002
+    UserNotFound       = 20001
+    PasswordIncorrect  = 20002
+)
+```
+
+## 配置管理规范
+- 使用 YAML 格式配置文件
+- 配置文件放在 etc/ 目录
+- 区分环境配置（dev、test、prod）
+- 敏感信息不要提交到代码仓库
+- 使用 .yaml.example 作为配置模板
+
+## 数据库与 Model 规范（使用 GORM）
+
+**重要：本项目使用 GORM，不使用 go-zero 的 sqlx**
+
+### Model 实体定义
+```go
+// internal/model/item.go
+package model
+
+import (
+    "context"
+    "time"
+    "gorm.io/gorm"
+)
+
+// Item 数据实体
+type Item struct {
+    ID          int64          `gorm:"primaryKey;autoIncrement:false" json:"id"`
+    Name        string         `gorm:"size:100;not null" json:"name"`
+    Description string         `gorm:"size:500" json:"description"`
+    Status      int32          `gorm:"default:1" json:"status"`
+    CreatedAt   time.Time      `gorm:"autoCreateTime" json:"created_at"`
+    UpdatedAt   time.Time      `gorm:"autoUpdateTime" json:"updated_at"`
+    DeletedAt   gorm.DeletedAt `gorm:"index" json:"-"`
+}
+
+func (Item) TableName() string {
+    return "items"
+}
+```
+
+### Model 数据访问层
+```go
+// ItemModel 数据访问层
+type ItemModel struct {
+    db *gorm.DB
+}
+
+func NewItemModel(db *gorm.DB) *ItemModel {
+    return &ItemModel{db: db}
+}
+
+// FindByID 根据ID查询
+func (m *ItemModel) FindByID(ctx context.Context, id int64) (*Item, error) {
+    var item Item
+    err := m.db.WithContext(ctx).First(&item, id).Error
+    return &item, err
+}
+
+// Create 创建
+func (m *ItemModel) Create(ctx context.Context, item *Item) error {
+    return m.db.WithContext(ctx).Create(item).Error
+}
+```
+
+### ServiceContext 初始化 Model
+```go
+// internal/svc/servicecontext.go
+package svc
+
+import (
+    "gorm.io/driver/mysql"
+    "gorm.io/gorm"
+)
+
+type ServiceContext struct {
+    Config    config.Config
+    DB        *gorm.DB
+    ItemModel *model.ItemModel
+}
+
+func NewServiceContext(c config.Config) *ServiceContext {
+    db := initDB(c.MySQL.DataSource)
+    return &ServiceContext{
+        Config:    c,
+        DB:        db,
+        ItemModel: model.NewItemModel(db),
+    }
+}
+
+func initDB(dsn string) *gorm.DB {
+    db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
+        SkipDefaultTransaction: true,
+    })
+    if err != nil {
+        panic(err)
+    }
+    sqlDB, _ := db.DB()
+    sqlDB.SetMaxIdleConns(10)
+    sqlDB.SetMaxOpenConns(100)
+    return db
+}
+```
+
+### Logic 层调用 Model
+```go
+// internal/logic/get_item_logic.go
+func (l *GetItemLogic) GetItem(in *pb.GetItemRequest) (*pb.GetItemResponse, error) {
+    item, err := l.svcCtx.ItemModel.FindByID(l.ctx, in.Id)
+    if err != nil {
+        if err == gorm.ErrRecordNotFound {
+            return nil, errorx.ErrNotFound()
         }
-        ```
-    *   **Handler 实现**: 使用 `response.Success(w, data)` 或 `response.Fail(w, err)` 进行响应。`Fail` 方法会自动提取 `BizError` 中的 Code 和 Message。
+        return nil, errorx.ErrDBError(err)
+    }
+    return &pb.GetItemResponse{Item: convertToPb(item)}, nil
+}
+```
 
-### 2.2 数据持久层 (GORM Implementation)
-*   **约束**: 严禁使用 `sqlx` 或原生 SQL 拼接，必须使用 **GORM**。
-*   **Model 定义 (`internal/model`)**:
-    *   结构体必须包含 `gorm` tag，如 `gorm:"primaryKey;autoIncrement;column:user_id"`。
-    *   每个 Model 文件需提供接口定义（如 `IUserModel`）及其实现（`UserModel`），便于单元测试 Mock。
-    *   **依赖注入**: Model 实例在 `ServiceContext` 中初始化，并注入到 Logic 层。
-    *   **CRUD 规范**: 数据库操作必须传递 `context.Context` 以支持链路追踪和超时控制。
+## 中间件开发规范
+- 中间件放在 middleware/ 目录
+- 常用中间件：Auth、CORS、RateLimit、RequestID
+- 在路由中注册中间件
 
-### 2.3 缓存层策略 (Redis Cache-Aside)
-*   **客户端**: 使用 `go-redis/v8`。
-*   **模式**: **Cache-Aside** (旁路缓存)。
-    *   **读**: 先读 Cache -> Miss 则读 DB -> 回写 Cache。
-    *   **写**: 先写 DB -> 成功后**删除** Cache (而非更新)。
-*   **防护**: 必须处理缓存穿透（空值缓存）、击穿（SingleFlight/分布式锁）和雪崩（随机过期时间）。
+## 命名规范
+- 服务名：小写加连字符（user-service、order-api）
+- Go 文件：小写加下划线（get_user_logic.go）
+- Proto 包名：小写（user、order）
+- Handler 函数：大驼峰加 Handler 后缀（GetUserHandler）
+- 变量和函数：小驼峰（getUserById）
+- 常量：全大写加下划线（USER_NOT_FOUND）
 
-### 2.4 业务逻辑编排 (Logic Layer)
-*   **职责单一**: Logic 层只负责业务编排，不直接操作 HTTP Request/Response。
-*   **上下文获取**: 使用 `common/ctxdata` 包中的 `GetUserIDFromCtx(ctx)` 从 JWT 中提取当前用户 ID。
-*   **RPC 调用**:
-    *   API Logic 不直接操作数据库，而是通过 `l.svcCtx.XxxRpc` 调用后端 RPC 服务。
-    *   必须处理 RPC 调用失败的情况，并将其转换为 `errorx`。
-*   **数据转换**:
-    *   **API <-> RPC**: 需要显式转换 DTO (Data Transfer Object) 和 PB (Protobuf) 对象。
-    *   **RPC <-> Model**: 需要显式转换 PB 对象和 GORM Model。
-    *   **禁止**将 GORM Model 直接作为 API 或 RPC 的返回值。
+## 统一响应格式
+```json
+{
+    "code": 0,
+    "message": "success",
+    "data": {}
+}
+```
+
+## 代码风格
+- 遵循 effective Go 和 go-zero 规范
+- goctl 生成使用 go_zero 风格
+- 导出函数必须添加注释
+- 保持 logic 函数专注且可测试
+- 避免过长函数，单个函数不超过 80 行
+
+## 常用 goctl 命令
+```bash
+# 生成 API 代码
+goctl api go -api service.api -dir . -style go_zero
+
+# 生成 RPC 代码
+goctl rpc protoc service.proto --go_out=./pb --go-grpc_out=./pb --zrpc_out=. -style go_zero
+
+# 从 DDL 生成 Model
+goctl model mysql ddl -src="schema.sql" -dir="./model" -style go_zero
+
+# 从数据库生成 Model
+goctl model mysql datasource -url="user:password@tcp(localhost:3306)/dbname" -table="user" -dir="./model" -style go_zero
+
+# 格式化 API 文件
+goctl api format --dir .
+```
+
+## 性能优化
+- 使用 go-zero 内置熔断器
+- 实现限流保护
+- 使用连接池
+- API 启用 gzip 压缩
+
+## 安全规范
+- 校验所有输入参数
+- 使用 JWT 进行身份认证
+- 实现 RBAC 权限控制
+- 使用参数化查询防止 SQL 注入
+
+## 可观测性
+- 使用 go-zero 内置 metrics
+- 使用 logx 进行结构化日志
+- 集成 OpenTelemetry 链路追踪
+- 使用 Prometheus/Grafana 监控
+
+## 测试规范
+- 为 logic 层编写单元测试
+- 使用表驱动测试
+- Mock 外部依赖
+- 运行测试：go test -v ./...
+
+## Redis 缓存规范
+
+### 缓存策略
+- 使用 Cache-Aside 模式（旁路缓存）
+- 防止缓存穿透：布隆过滤器或空值缓存
+- 防止缓存击穿：singleflight 或分布式锁
+- 防止缓存雪崩：随机过期时间
+
+### Redis 使用示例
+```go
+import "github.com/go-redis/redis/v8"
+
+// 缓存读取
+func (l *Logic) GetWithCache(ctx context.Context, id int64) (*Item, error) {
+    key := fmt.Sprintf("item:%d", id)
+    
+    // 1. 先查缓存
+    val, err := l.svcCtx.Redis.Get(ctx, key).Result()
+    if err == nil {
+        var item Item
+        json.Unmarshal([]byte(val), &item)
+        return &item, nil
+    }
+    
+    // 2. 缓存未命中，查数据库
+    item, err := l.svcCtx.ItemModel.FindByID(ctx, id)
+    if err != nil {
+        return nil, err
+    }
+    
+    // 3. 写入缓存（随机过期防雪崩）
+    data, _ := json.Marshal(item)
+    expire := time.Hour + time.Duration(rand.Intn(300))*time.Second
+    l.svcCtx.Redis.Set(ctx, key, data, expire)
+    
+    return item, nil
+}
+```
+
+### 分布式锁
+```go
+import "github.com/go-redis/redis/v8"
+
+func acquireLock(ctx context.Context, rdb *redis.Client, key string, ttl time.Duration) bool {
+    ok, _ := rdb.SetNX(ctx, key, "1", ttl).Result()
+    return ok
+}
+
+func releaseLock(ctx context.Context, rdb *redis.Client, key string) {
+    rdb.Del(ctx, key)
+}
+```
+
+## JWT 双Token 规范
+
+本项目使用 AccessToken + RefreshToken 双Token机制：
+- AccessToken: 15分钟过期，用于接口鉴权
+- RefreshToken: 7天过期，用于刷新 AccessToken
+
+```go
+import "github.com/golang-jwt/jwt/v4"
+
+// Token 生成
+func GenerateTokens(userId int64, secret string) (accessToken, refreshToken string, err error) {
+    // AccessToken - 15分钟
+    accessClaims := jwt.MapClaims{
+        "user_id": userId,
+        "exp":     time.Now().Add(15 * time.Minute).Unix(),
+        "type":    "access",
+    }
+    accessToken, _ = jwt.NewWithClaims(jwt.SigningMethodHS256, accessClaims).SignedString([]byte(secret))
+    
+    // RefreshToken - 7天
+    refreshClaims := jwt.MapClaims{
+        "user_id": userId,
+        "exp":     time.Now().Add(7 * 24 * time.Hour).Unix(),
+        "type":    "refresh",
+    }
+    refreshToken, _ = jwt.NewWithClaims(jwt.SigningMethodHS256, refreshClaims).SignedString([]byte(secret))
+    
+    return
+}
+```
+
+## Proto 与 Model 转换规范
+
+Proto Message 和 GORM Model 是独立的，需要显式转换：
+
+```go
+// Proto: 网络传输用（可包含计算字段）
+// Model: 数据库存储用（只存原始数据）
+
+// Model -> Proto 转换
+func convertItemToPb(item *model.Item) *pb.Item {
+    if item == nil {
+        return nil
+    }
+    return &pb.Item{
+        Id:          item.ID,
+        Name:        item.Name,
+        Description: item.Description,
+        Status:      item.Status,
+        CreatedAt:   item.CreatedAt.Unix(),  // 时间戳转换
+        UpdatedAt:   item.UpdatedAt.Unix(),
+    }
+}
+
+// Proto -> Model 转换
+func convertPbToItem(pb *pb.CreateItemRequest) *model.Item {
+    return &model.Item{
+        ID:          snowflake.GenID(),  // 使用雪花ID
+        Name:        pb.Name,
+        Description: pb.Description,
+    }
+}
+```
+
+## 服务间通信规范
+
+### RPC 调用示例
+```go
+// 在 Activity 服务中调用 User 服务
+type ServiceContext struct {
+    Config     config.Config
+    UserRpc    userclient.User  // User RPC 客户端
+}
+
+func NewServiceContext(c config.Config) *ServiceContext {
+    return &ServiceContext{
+        Config:  c,
+        UserRpc: userclient.NewUser(zrpc.MustNewClient(c.UserRpc)),
+    }
+}
+
+// Logic 中调用
+func (l *Logic) CheckUserCredit(userId int64) error {
+    resp, err := l.svcCtx.UserRpc.CanParticipate(l.ctx, &user.CanParticipateReq{
+        UserId: userId,
+    })
+    if err != nil {
+        return err
+    }
+    if !resp.Allowed {
+        return errorx.NewWithMsg(errorx.Forbidden, resp.Reason)
+    }
+    return nil
+}
+```
+
+## 服务端口规范
+
+| 服务 | 端口 | 说明 |
+|------|------|------|
+| Gateway API | 8080 | HTTP 入口 |
+| User RPC | 9001 | 用户服务 |
+| Activity RPC | 9002 | 活动服务 |
+| Chat RPC | 9003 | 消息服务 |
+| Demo RPC | 9100 | 示例服务 |
+
+## 重要提醒
+
+1. **数据库操作必须使用 GORM**，不要使用 sqlx
+2. **Model 放在 internal/model/ 目录**
+3. **Model 在 ServiceContext 中初始化**
+4. **Proto Message 和 Model 需要手动转换**
+5. **查看 app/demo/ 目录作为开发参考**
+
+始终优先考虑代码可读性、可维护性，并遵循 go-zero 最佳实践。
+```
 
 ---
-
-## 3. 全局注意事项
-1.  **环境感知**: 敏感配置（如 DB 密码）严禁硬编码，必须通过 `.yaml` 配置文件管理，生产环境使用 K8s ConfigMap/Secret。
-2.  **链路追踪**: 所有跨层调用（API->RPC->DB/Redis）必须透传 `context.Context`，以确保 TraceID 贯穿全链路。
-3.  **代码生成**: 修改 `.api` 或 `.proto` 文件后，必须执行 `goctl` 命令重新生成代码，严禁手动修改生成的 `*.pb.go` 文件。
 
 ---
 > Source: [is-Xiaoen/CampusHub](https://github.com/is-Xiaoen/CampusHub) — distributed by [TomeVault](https://tomevault.io).
