@@ -1,0 +1,30 @@
+{
+  "name": "testomatio--explorbot",
+  "displayName": "explorbot",
+  "description": "AI Agent for Exploratory Browser Testing",
+  "version": "1.0.0",
+  "author": "testomatio",
+  "homepage": "https://github.com/testomatio/explorbot",
+  "skills": [
+    {
+      "name": "changelog",
+      "description": ""
+    },
+    {
+      "name": "explorbot-debug",
+      "description": ""
+    },
+    {
+      "name": "image-processing",
+      "description": ""
+    },
+    {
+      "name": "prompt-audit",
+      "description": ""
+    },
+    {
+      "name": "xpath-testing",
+      "description": ""
+    }
+  ]
+}
