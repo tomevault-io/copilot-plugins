@@ -1,0 +1,9 @@
+{
+  "name": "rafaelgorski--problem-based-srs",
+  "displayName": "Problem-Based-SRS",
+  "description": "An Agent Skill to use Problem-Based Software Requirements Specification (SRS) method in your software project.",
+  "version": "1.0.0",
+  "author": "RafaelGorski",
+  "homepage": "https://github.com/RafaelGorski/Problem-Based-SRS",
+  "skills": []
+}
