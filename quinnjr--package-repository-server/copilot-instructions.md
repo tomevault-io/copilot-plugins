@@ -1,276 +1,356 @@
-## infrastructure
+## package-processing
 
-> Guidelines for Docker, Kubernetes, Terraform, and deployment
+> Guidelines for handling DEB, RPM, Arch, and Alpine packages
 
 
-# Infrastructure and DevOps Rules
+# Package Processing Rules
 
-## Docker
+## General Package Handling
 
-### Dockerfile Best Practices
-- Use multi-stage builds to minimize image size
-- Use specific base image versions (not `latest`)
-- Run as non-root user when possible
-- Minimize number of layers
-- Use `.dockerignore` to exclude unnecessary files
-- Pin dependency versions
-- Scan images for vulnerabilities regularly
+### Architecture Support
+- Support **x86_64** (amd64) and **ARM64** (aarch64) architectures
+- Use correct architecture identifiers per format:
+  - DEB: `amd64`, `arm64`
+  - RPM: `x86_64`, `aarch64`
+  - Arch: `x86_64`, `aarch64`
+  - Alpine: `x86_64`, `aarch64`
+- Create separate repository paths per architecture
+- Test packages on both architectures when possible
 
-### Docker Compose
-- Use version 3.x format
-- Define health checks for services
-- Use named volumes for persistence
-- Set resource limits
-- Use environment files for configuration
-- Document required environment variables
+### Package Validation
+- Verify package format before processing
+- Check package signatures when present
+- Validate package metadata
+- Reject corrupted or invalid packages
+- Check for required fields in package metadata
+- Validate version numbers and naming conventions
 
-### Image Tagging
-- Tag with semantic versions (`1.0.0`)
-- Use `latest` tag for most recent stable
-- Include git commit SHA in CI builds
-- Tag images with architecture (`amd64`, `arm64`)
+### Error Handling
+- Provide clear error messages for validation failures
+- Log all package processing errors
+- Clean up partial uploads on failure
+- Return appropriate HTTP status codes
+- Don't leave repository in inconsistent state
 
-## Kubernetes
+## DEB (Debian/Ubuntu) Packages
 
-### Manifest Organization
-- Separate manifests by resource type
-- Use namespaces for logical separation
-- Apply consistent labels across resources
-- Use resource requests and limits
-- Implement readiness and liveness probes
+### Package Structure
+- Understand control file format
+- Parse control fields correctly
+- Handle multi-line control fields
+- Support all required control fields:
+  - Package name
+  - Version
+  - Architecture
+  - Maintainer
+  - Description
+  - Dependencies
 
-### Resource Naming
-- Use kebab-case for resource names
-- Include component/tier in names
-- Keep names descriptive but concise
-- Use consistent naming across environments
+### Repository Structure
+```
+deb/
+├── dists/
+│   └── stable/
+│       └── main/
+│           ├── binary-amd64/
+│           │   └── Packages(.gz)
+│           ├── binary-arm64/
+│           │   └── Packages(.gz)
+│           ├── Release
+│           └── Release.gpg
+└── pool/
+    └── main/
+        └── <first-letter>/
+            └── <package-name>/
+                └── <package>.deb
+```
 
-### ConfigMaps and Secrets
-- Store configuration in ConfigMaps
-- Use Secrets for sensitive data
-- Never commit secrets to version control
-- Use external secret management in production
-- Rotate secrets regularly
+### Metadata Files
+- **Packages**: List of all packages with metadata
+- **Packages.gz**: Compressed version
+- **Release**: Repository metadata with checksums
+- **Release.gpg**: GPG signature of Release file
+- **InRelease**: Combined signed Release file (optional)
 
-### Security
-- Use Pod Security Standards/Policies
-- Run containers as non-root
-- Use read-only root filesystems when possible
-- Implement network policies
-- Scan images before deployment
-- Keep Kubernetes version up to date
+### APT Repository Generation
+- Create Packages file with proper format
+- Include all required fields in Packages file
+- Generate correct checksums (MD5, SHA1, SHA256)
+- Compress Packages file with gzip
+- Sign Release file with GPG
+- Update Release file with correct checksums
+- Support component structure (main, contrib, non-free)
 
 ### Best Practices
-- Set resource requests and limits for all containers
-- Use rolling updates with proper health checks
-- Implement horizontal pod autoscaling
-- Use persistent volumes for stateful data
-- Configure pod disruption budgets
-- Enable RBAC and follow principle of least privilege
+- Follow Debian package naming: `<name>_<version>_<arch>.deb`
+- Store packages in pool directory by first letter
+- Maintain consistent directory structure
+- Support multiple distributions if needed
+- Handle package dependencies correctly
 
-## Helm
+## RPM (RHEL/Fedora/Rocky) Packages
 
-### Chart Structure
+### Repository Structure
 ```
-helm/package-repo/
-├── Chart.yaml           # Chart metadata
-├── values.yaml          # Default values
-├── values-dev.yaml      # Environment-specific
-├── values-prod.yaml
-├── templates/           # Kubernetes manifests
-│   ├── deployment.yaml
-│   ├── service.yaml
-│   ├── ingress.yaml
-│   ├── configmap.yaml
-│   └── _helpers.tpl
-└── README.md
-```
-
-### Chart Best Practices
-- Use semantic versioning for charts
-- Include comprehensive values.yaml documentation
-- Validate templates with `helm lint`
-- Test chart installation in clean environment
-- Use template functions for consistent formatting
-- Implement proper NOTES.txt for post-install info
-- Use `.helmignore` to exclude unnecessary files
-
-### Values Files
-- Provide sensible defaults in values.yaml
-- Document all values with comments
-- Use nested structure for organization
-- Support multiple environments
-- Make resource limits configurable
-
-### Templates
-- Use `_helpers.tpl` for common template functions
-- Keep templates DRY (Don't Repeat Yourself)
-- Use proper indentation
-- Add comments for complex logic
-- Use helm hooks for lifecycle management
-
-## Terraform
-
-### Code Organization
-```
-terraform/
-├── aws/                # Provider-specific modules
-├── gcp/
-├── azure/
-├── digitalocean/
-├── vultr/
-└── modules/            # Reusable modules
-    ├── networking/
-    ├── compute/
-    └── storage/
+rpm/
+├── x86_64/
+│   ├── Packages/
+│   │   └── *.rpm
+│   └── repodata/
+│       ├── repomd.xml
+│       ├── repomd.xml.asc
+│       ├── primary.xml.gz
+│       ├── filelists.xml.gz
+│       └── other.xml.gz
+└── aarch64/
+    └── (same structure)
 ```
 
-### Terraform Best Practices
-- **Always run `terraform fmt` before committing**
-- Use modules for reusable components
-- Pin provider versions
-- Use remote state with locking
-- Never commit `.tfstate` files
-- Use `.tfvars` files for environment configs
-- Run `terraform validate` before applying
-- Use meaningful resource names
-- Tag all resources consistently
+### Metadata Files
+- **repomd.xml**: Repository metadata index
+- **repomd.xml.asc**: GPG signature
+- **primary.xml.gz**: Package metadata
+- **filelists.xml.gz**: File listings
+- **other.xml.gz**: Additional package info
 
-### Variables
-- Define all variables in `variables.tf`
-- Provide descriptions for all variables
-- Set appropriate types (string, number, bool, list, map)
-- Use validation rules when appropriate
-- Provide sensible defaults when possible
-- Document required vs optional variables
+### YUM/DNF Repository Generation
+- Use `createrepo_c` for repository creation
+- Generate repomd.xml with checksums
+- Create primary, filelists, and other metadata
+- Sign repomd.xml with GPG
+- Update repository atomically
+- Support repository groups (optional)
 
-### Outputs
-- Export important resource IDs and endpoints
-- Document output values
-- Use outputs to chain modules
-- Include helpful information for next steps
+### Best Practices
+- Follow RPM naming: `<name>-<version>-<release>.<arch>.rpm`
+- Parse RPM headers correctly
+- Handle epoch versions properly
+- Support weak dependencies (Recommends, Suggests)
+- Test with both YUM and DNF clients
 
-### State Management
-- Use remote backend (S3, GCS, Azure Blob)
-- Enable state locking
-- Use separate state files per environment
-- Back up state files regularly
-- Use workspaces for environment separation
+### RPM-Specific Considerations
+- Handle %pre, %post, %preun, %postun scripts
+- Check for file conflicts
+- Validate RPM signature if present
+- Handle package obsoletes correctly
 
-### Security
-- Use variables for sensitive data (API keys, passwords)
-- Never commit sensitive data in `.tf` files
-- Use secrets management services
-- Enable encryption for state files
-- Implement proper IAM/RBAC policies
-- Use security scanning tools (tfsec, checkov)
+## Arch Linux Packages
 
-### Cloud Provider Best Practices
+### Repository Structure
+```
+arch/
+├── x86_64/
+│   ├── *.pkg.tar.zst
+│   ├── custom.db
+│   ├── custom.db.tar.gz
+│   └── custom.files
+└── aarch64/
+    └── (same structure)
+```
 
-#### AWS
-- Use AWS Organizations for multi-account setup
-- Implement proper VPC design
-- Use security groups restrictively
-- Enable CloudWatch logging
-- Use IAM roles instead of access keys
-- Enable encryption at rest and in transit
+### Metadata Files
+- **custom.db**: Package database (symlink to custom.db.tar.gz)
+- **custom.db.tar.gz**: Compressed package database
+- **custom.files**: File listing database
+- **.PKGINFO**: Package metadata inside package
 
-#### GCP
-- Use GCP Projects for resource isolation
-- Implement proper VPC design
-- Use service accounts with minimal permissions
-- Enable Cloud Logging and Monitoring
-- Use encryption at rest and in transit
+### Pacman Repository Generation
+- Extract .PKGINFO from package
+- Create database entries for each package
+- Update *.db and *.files databases
+- Create symlinks for database versioning
+- Maintain database consistency
 
-#### Azure
-- Use Resource Groups for organization
-- Implement proper VNet design
-- Use Managed Identities
-- Enable Azure Monitor
-- Use encryption at rest and in transit
+### Best Practices
+- Follow Arch naming: `<name>-<version>-<release>-<arch>.pkg.tar.zst`
+- Handle package compression formats (.zst, .xz, .gz)
+- Parse PKGINFO correctly
+- Support split packages
+- Handle package groups
+- Validate package signatures
 
-#### DigitalOcean
-- Use VPC for network isolation
-- Enable monitoring and alerts
-- Use managed databases when possible
-- Implement proper firewall rules
+### Arch-Specific Considerations
+- Support makedepends and checkdepends
+- Handle optdepends correctly
+- Support provides/conflicts/replaces
+- Maintain proper database format
 
-#### Vultr
-- Use VPC 2.0 for network isolation
-- Enable monitoring
-- Use managed services when available
-- Implement proper firewall rules
+## Alpine Linux Packages
 
-## CI/CD Integration
+### Repository Structure
+```
+alpine/
+├── v3.19/
+│   └── main/
+│       ├── x86_64/
+│       │   ├── *.apk
+│       │   ├── APKINDEX.tar.gz
+│       │   └── APKINDEX.tar.gz.asc
+│       └── aarch64/
+│           └── (same structure)
+```
 
-### GitHub Actions
-- Use official actions when available
-- Pin action versions with SHA
-- Store secrets in GitHub Secrets
-- Use matrix builds for multi-architecture
-- Implement proper caching
-- Run tests before deployment
+### Metadata Files
+- **APKINDEX.tar.gz**: Package index
+- **APKINDEX.tar.gz.asc**: GPG signature (detached)
+- **.PKGINFO**: Package metadata inside .apk
 
-### GitLab CI
-- Use official Docker images
-- Define stages logically (build, test, deploy)
-- Use artifacts for build outputs
-- Implement proper CI/CD variables
-- Use rules for conditional execution
+### APK Repository Generation
+- Extract package metadata from .apk files
+- Create APKINDEX with all packages
+- Compress APKINDEX with gzip
+- Sign APKINDEX.tar.gz with GPG (detached signature)
+- Organize by Alpine version and architecture
 
-### General CI/CD Best Practices
-- Run linting and formatting checks
-- Execute all tests automatically
-- Build Docker images on successful tests
-- Tag images with version and commit SHA
-- Deploy to staging automatically
-- Require approval for production deploys
-- Implement rollback procedures
-- Monitor deployments
+### Best Practices
+- Follow APK naming: `<name>-<version>-r<release>.<arch>.apk`
+- Support version-specific repositories (v3.19, v3.20, etc.)
+- Handle package signing correctly
+- Parse .PKGINFO format
+- Support origin and maintainer fields
 
-## Monitoring and Observability
+### APK-Specific Considerations
+- Handle Alpine versioning scheme
+- Support install_if dependencies
+- Handle triggers correctly
+- Maintain version-specific repositories
+
+## Automatic Indexing
+
+### Upload Process
+1. Receive package file via API
+2. Validate package format and metadata
+3. Extract package information
+4. Move package to correct location
+5. Update repository metadata
+6. Sign metadata files
+7. Return success response
+
+### Index Updates
+- Update indexes **immediately** after upload
+- Make updates atomic (tmp files + rename)
+- Verify index integrity after update
+- Keep previous index as backup
+- Log all index operations
+
+### Concurrency
+- Handle concurrent uploads safely
+- Use file locking for index updates
+- Implement retry logic for conflicts
+- Queue updates if necessary
+- Ensure repository consistency
+
+## GPG Signing
+
+### Key Management
+- Auto-generate GPG key on first run
+- Use RSA 4096-bit keys minimum
+- Store keys in secure location (`/data/gpg`)
+- Backup keys securely
+- Document key recovery process
+
+### Signing Process
+- Sign all repository metadata files
+- Create detached signatures where appropriate
+- Embed signatures in metadata when required (DEB InRelease)
+- Verify signatures after creation
+- Re-sign metadata after any update
+
+### Public Key Distribution
+- Serve public key at `/repo.gpg`
+- Provide key fingerprint in documentation
+- Support key download via setup scripts
+- Document key import procedures
+
+## Package Deletion
+
+### Safe Deletion
+- Remove package file from repository
+- Update repository metadata
+- Regenerate index files
+- Re-sign metadata
+- Verify repository consistency
+- Log deletion operations
+
+### Considerations
+- Check for package dependencies before deletion
+- Warn if package is referenced by others
+- Support force deletion if needed
+- Keep audit trail of deletions
+
+## Repository Rebuild
+
+### Manual Rebuild
+- Scan all packages in repository
+- Regenerate all metadata from scratch
+- Re-sign all metadata files
+- Verify repository integrity
+- Useful for corruption recovery
+
+### When to Rebuild
+- After repository corruption
+- After GPG key rotation
+- When adding new repository features
+- For consistency verification
+
+## Testing Package Repositories
+
+### Test Each Package Type
+- Install package using native package manager
+- Verify package contents
+- Test package upgrade
+- Test package removal
+- Verify dependencies are resolved
+- Check GPG signature verification
+
+### Test Repository Metadata
+- Validate metadata format
+- Verify checksums
+- Check GPG signatures
+- Test with client tools (apt, dnf, pacman, apk)
+
+### Integration Testing
+- Test full upload-to-install workflow
+- Test multi-architecture scenarios
+- Test concurrent uploads
+- Test error conditions
+- Test repository rebuild
+
+## Performance Optimization
+
+### Indexing Performance
+- Use efficient parsers for package formats
+- Cache extracted metadata when possible
+- Use parallel processing for batch operations
+- Optimize file I/O operations
+- Use streaming for large files
+
+### Storage Optimization
+- Use compression for metadata files
+- Implement deduplication if needed
+- Clean up temporary files promptly
+- Monitor disk space usage
+
+## Monitoring and Debugging
 
 ### Logging
-- Use structured logging (JSON format)
-- Include correlation IDs for request tracing
-- Set appropriate log levels
-- Centralize logs (ELK stack, Loki, CloudWatch)
-- Set up log retention policies
+- Log all package operations
+- Include package name, version, and arch in logs
+- Log processing times
+- Log errors with full context
 
 ### Metrics
-- Expose Prometheus-compatible metrics
-- Monitor application-specific metrics
-- Set up dashboards (Grafana)
-- Alert on critical metrics
-- Track SLIs/SLOs
+- Track upload rates
+- Monitor processing times
+- Track repository size
+- Monitor index generation time
+- Alert on failures
 
-### Tracing
-- Implement distributed tracing
-- Use correlation IDs across services
-- Monitor request latency
-- Identify performance bottlenecks
-
-## Backup and Disaster Recovery
-- Automate backups for persistent data
-- Test backup restoration regularly
-- Store backups in separate location/region
-- Document recovery procedures
-- Implement point-in-time recovery
-- Set backup retention policies
-
-## Environment Management
-- Maintain separate environments (dev, staging, prod)
-- Keep environments as similar as possible
-- Automate environment provisioning
-- Use infrastructure as code for all environments
-- Implement proper access controls per environment
-
-## Documentation
-- Document deployment procedures
-- Maintain runbooks for common operations
-- Document troubleshooting steps
-- Keep infrastructure diagrams updated
-- Document emergency procedures
+### Debugging
+- Provide verbose logging option
+- Include package checksums in logs
+- Log external command output
+- Save problematic packages for analysis
 
 ---
 > Source: [quinnjr/package-repository-server](https://github.com/quinnjr/package-repository-server) — distributed by [TomeVault](https://tomevault.io).
