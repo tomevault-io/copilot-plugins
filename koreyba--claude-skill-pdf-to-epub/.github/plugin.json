@@ -1,0 +1,9 @@
+{
+  "name": "koreyba--claude-skill-pdf-to-epub",
+  "displayName": "Claude-Skill-pdf-to-epub",
+  "description": "Contains clause skills that can be installed to AI agents.",
+  "version": "1.0.0",
+  "author": "koreyba",
+  "homepage": "https://github.com/koreyba/Claude-Skill-pdf-to-epub",
+  "skills": []
+}
