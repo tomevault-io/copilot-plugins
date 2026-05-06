@@ -1,0 +1,9 @@
+{
+  "name": "paduh--ag-ui-swift",
+  "displayName": "ag-ui-swift",
+  "description": "The AG-UI Swift SDK is a Swift library for building AI agent user interfaces that implement the Agent User Interaction Protocol (AG-UI). It provides real-time streaming communication between Swift app",
+  "version": "1.0.0",
+  "author": "paduh",
+  "homepage": "https://github.com/paduh/ag-ui-swift",
+  "skills": []
+}
