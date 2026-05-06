@@ -1,0 +1,9 @@
+{
+  "name": "manifesto-ai--core",
+  "displayName": "core",
+  "description": "Semantic layer for deterministic domain state",
+  "version": "1.0.0",
+  "author": "manifesto-ai",
+  "homepage": "https://github.com/manifesto-ai/core",
+  "skills": []
+}
