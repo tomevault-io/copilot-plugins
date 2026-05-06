@@ -1,0 +1,9 @@
+{
+  "name": "botnadzor--extension",
+  "displayName": "extension",
+  "description": "Botnadzor's browser extension for highlighting fake accounts on vk.com",
+  "version": "1.0.0",
+  "author": "botnadzor",
+  "homepage": "https://github.com/botnadzor/extension",
+  "skills": []
+}
