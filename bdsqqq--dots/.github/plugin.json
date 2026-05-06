@@ -1,0 +1,62 @@
+{
+  "name": "bdsqqq--dots",
+  "displayName": "dots",
+  "description": "AI instruction skills by bdsqqq",
+  "version": "1.0.0",
+  "author": "bdsqqq",
+  "homepage": "https://github.com/bdsqqq/dots",
+  "skills": [
+    {
+      "name": "amp-voice",
+      "description": ""
+    },
+    {
+      "name": "coordinate",
+      "description": ""
+    },
+    {
+      "name": "dig",
+      "description": ""
+    },
+    {
+      "name": "document",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "description": ""
+    },
+    {
+      "name": "remember",
+      "description": ""
+    },
+    {
+      "name": "report",
+      "description": ""
+    },
+    {
+      "name": "review",
+      "description": ""
+    },
+    {
+      "name": "rounds",
+      "description": ""
+    },
+    {
+      "name": "spar",
+      "description": ""
+    },
+    {
+      "name": "spawn",
+      "description": ""
+    },
+    {
+      "name": "tmux",
+      "description": ""
+    },
+    {
+      "name": "write",
+      "description": ""
+    }
+  ]
+}
