@@ -1,0 +1,9 @@
+{
+  "name": "tensor4all--tensor4all-rs",
+  "displayName": "tensor4all-rs",
+  "description": "Rust port of tensor4all tensor network ecosystem with C-API",
+  "version": "1.0.0",
+  "author": "tensor4all",
+  "homepage": "https://github.com/tensor4all/tensor4all-rs",
+  "skills": []
+}
