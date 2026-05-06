@@ -1,0 +1,9 @@
+{
+  "name": "compozy--codex-loop",
+  "displayName": "codex-loop",
+  "description": "Keep Codex tasks running until they meet a time or round-based completion target.",
+  "version": "1.0.0",
+  "author": "compozy",
+  "homepage": "https://github.com/compozy/codex-loop",
+  "skills": []
+}
