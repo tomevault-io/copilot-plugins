@@ -1,0 +1,9 @@
+{
+  "name": "javisoto--copilot-money-cli",
+  "displayName": "copilot-money-cli",
+  "description": "Unofficial CLI + API client for Copilot Money",
+  "version": "1.0.0",
+  "author": "JaviSoto",
+  "homepage": "https://github.com/JaviSoto/copilot-money-cli",
+  "skills": []
+}
