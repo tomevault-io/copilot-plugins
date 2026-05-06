@@ -1,0 +1,57 @@
+{
+  "name": "jido",
+  "owner": "agentjido",
+  "repo": "jido_action",
+  "description": "Browser automation actions for Jido AI agents",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "hex-release",
+      "path": ".agents/skills/hex-release",
+      "github_url": "https://github.com/agentjido/jido_action/tree/main/.agents/skills/hex-release",
+      "description": ""
+    },
+    {
+      "name": "pr-review",
+      "path": ".agents/skills/pr-review",
+      "github_url": "https://github.com/agentjido/jido_action/tree/main/.agents/skills/pr-review",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/agentjido/jido_action",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T22:30:12Z"
+}
