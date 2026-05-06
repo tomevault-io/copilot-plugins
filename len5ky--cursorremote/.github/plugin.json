@@ -1,0 +1,9 @@
+{
+  "name": "len5ky--cursorremote",
+  "displayName": "CursorRemote",
+  "description": "Remote control for your local Cursor AI agent \u2014 monitor sessions, approve steps, and send tasks from your phone or Telegram while Cursor runs on your machine.",
+  "version": "1.0.0",
+  "author": "len5ky",
+  "homepage": "https://github.com/len5ky/CursorRemote",
+  "skills": []
+}
