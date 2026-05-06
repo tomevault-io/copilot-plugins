@@ -1,0 +1,9 @@
+{
+  "name": "galpratama--agent-cli",
+  "displayName": "agent-cli",
+  "description": "A beautiful Terminal UI for launching multiple AI providers from a single command",
+  "version": "1.0.0",
+  "author": "galpratama",
+  "homepage": "https://github.com/galpratama/agent-cli",
+  "skills": []
+}
