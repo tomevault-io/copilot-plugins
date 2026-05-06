@@ -1,0 +1,71 @@
+## paxos
+
+> Multi-Paxos consensus library with signed proposals. TLA+ specification in `spec/MultiPaxos.tla`.
+
+
+# Paxos Crate Rules
+
+Multi-Paxos consensus library with signed proposals. TLA+ specification in `spec/MultiPaxos.tla`.
+
+## Architecture: Pure Core + Async Runtime
+
+State machines are pure (no I/O, no async):
+- `AcceptorCore` - pure acceptor state transitions
+- `ProposerCore` - pure proposer phase tracking
+
+Async runtime wraps the pure cores:
+- `AcceptorHandler` / `run_acceptor` - network I/O for acceptors
+- `Proposer` / `QuorumTracker` - network I/O for proposers
+
+This separation enables model checking with Stateright using the same logic.
+
+## Safety Invariants
+
+These MUST be maintained (verified by TLA+ spec):
+
+1. **Agreement**: At most one value learned per round
+2. **Quorum**: Strict majority required: `n/2 + 1` acceptors
+3. **Proposal ordering**: `(round, attempt, node_id)` lexicographic comparison
+4. **Promise integrity**: An acceptor's promise is always >= any accepted proposal
+5. **Strict Prepare-before-Accept**: No leader optimization - each Accept requires a prior Prepare for that exact proposal
+
+## No Leadership Optimization
+
+This implementation does **not** use Multi-Paxos leader optimization. Every round requires:
+1. Phase 1 (Prepare) - proposer gets promises from a quorum
+2. Phase 2 (Accept) - proposer sends Accept only for the promised proposal
+
+Accept is rejected unless the exact proposal was previously promised. This prevents a "leader" from sending Accept for new rounds without first running Prepare.
+
+## AcceptorStateStore Requirements
+
+Implementations of `AcceptorStateStore` MUST:
+
+1. **Atomicity**: `promise()` and `accept()` must be atomic per-round
+2. **Persistence before returning**: Persist state BEFORE returning success (use fsync)
+3. **Reject if not promised**: Accept only succeeds if `current_promised == proposal`
+4. **Reject dominated accepts**: Reject if a higher proposal was already accepted
+5. **Crash recovery**: Reload state before accepting new requests after restart
+
+```rust
+// Accept requires exact promise match
+let not_promised = current_promised.is_none_or(|p| *p != proposal);
+let dominated = current_accepted.proposal > proposal;
+if not_promised || dominated { reject }
+```
+
+## Quorum Tracking
+
+Use `QuorumTracker` to detect when quorum is reached. Quorum = `n/2 + 1`.
+
+## Proposal Keys
+
+Proposals are compared by `ProposalKey<P>` which orders by `(round, attempt, node_id)`. Never compare proposals directly - use `.key()`.
+
+## Testing
+
+Use Stateright for model checking Paxos invariants against the TLA+ spec.
+
+---
+> Source: [conradludgate/filament](https://github.com/conradludgate/filament) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
