@@ -1,0 +1,9 @@
+{
+  "name": "803--skills-supply",
+  "displayName": "skills-supply",
+  "description": "Manage AI agent skills across Claude Code, Codex, OpenCode, and others using agents.toml",
+  "version": "1.0.0",
+  "author": "803",
+  "homepage": "https://github.com/803/skills-supply",
+  "skills": []
+}
