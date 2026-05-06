@@ -2,9 +2,9 @@
   "name": "ai-ley",
   "owner": "armoin2018",
   "repo": "ai-ley",
-  "description": "",
+  "description": "Level the AI playing field with robust AI Evolving Personas, Instruction Sets, Commands for Git Copilot, Claude-Code, Gemini, Windsurf, Cursor, Metis, and others",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/armoin2018",
+  "source_url": "https://github.com/armoin2018/ai-ley",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T05:38:46Z"
+  "distributed_at": "2026-05-06T07:42:26Z"
 }
