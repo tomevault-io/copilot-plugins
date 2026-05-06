@@ -1,0 +1,9 @@
+{
+  "name": "makeusabrew--audiotee",
+  "displayName": "audiotee",
+  "description": "Capture system audio output on macOS using Apple's Core Audio taps API.",
+  "version": "1.0.0",
+  "author": "makeusabrew",
+  "homepage": "https://github.com/makeusabrew/audiotee",
+  "skills": []
+}
