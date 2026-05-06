@@ -1,0 +1,9 @@
+{
+  "name": "getstackit--stackit",
+  "displayName": "stackit",
+  "description": "Stackit is a Go-based CLI tool for managing stacked changes in Git repositories. It helps developers work with dependent branches (a \"stack\") by tracking branch relationships, automating rebases acros",
+  "version": "1.0.0",
+  "author": "getstackit",
+  "homepage": "https://github.com/getstackit/stackit",
+  "skills": []
+}
