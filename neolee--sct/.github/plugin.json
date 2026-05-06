@@ -1,0 +1,9 @@
+{
+  "name": "neolee--sct",
+  "displayName": "sct",
+  "description": "A native macOS GUI application for configuring the Squirrel input method",
+  "version": "1.0.0",
+  "author": "neolee",
+  "homepage": "https://github.com/neolee/sct",
+  "skills": []
+}
