@@ -4,7 +4,7 @@
   "repo": "orchestrator",
   "description": "Harness Engineering control plane for agent-first software delivery. Orchestrate Claude Code, Codex, OpenCode, and shell-native agents via declarative workflows.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/c9r-io/orchestrator",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T03:28:52Z"
+  "distributed_at": "2026-05-06T14:19:38Z"
 }
