@@ -4,7 +4,7 @@
   "repo": "ocp",
   "description": "Turn your Claude Pro/Max subscription into an OpenAI-compatible API. One proxy, multiple IDEs, LAN sharing for the whole family. $0 extra cost.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/dtzp555-max/ocp",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T04:54:58Z"
+  "distributed_at": "2026-05-06T20:26:55Z"
 }
