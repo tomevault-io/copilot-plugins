@@ -1,9 +1,9 @@
 {
   "name": "nirholas--defi-agents",
   "displayName": "defi-agents",
-  "description": "defi-agents",
+  "description": "DeFi agent definitions JSON API + MCP - Production-ready agents for Web3, crypto trading, portfolio management, and blockchain automation. MCP compatible.",
   "version": "1.0.0",
   "author": "nirholas",
-  "homepage": "https://tomevault.io/claim/nirholas",
+  "homepage": "https://github.com/nirholas/defi-agents",
   "skills": []
 }
