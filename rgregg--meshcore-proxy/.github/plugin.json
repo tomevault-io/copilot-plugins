@@ -1,0 +1,9 @@
+{
+  "name": "rgregg--meshcore-proxy",
+  "displayName": "meshcore-proxy",
+  "description": "TCP proxy for MeshCore companion radios connected via USB Serial or BLE",
+  "version": "1.0.0",
+  "author": "rgregg",
+  "homepage": "https://github.com/rgregg/meshcore-proxy",
+  "skills": []
+}
