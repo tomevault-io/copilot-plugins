@@ -1,11 +1,11 @@
-## ucp-docker-compose-yaml
+## ucp-docker-compose-yml
 
-> docker-compose.yaml - portas, volumes, saúde e rede segura
+> docker-compose.yml - portas, volumes, saúde e rede segura
 
 
 # Docker Compose UCP
 
-Ao editar `docker-compose*.yaml`:
+Ao editar `docker-compose*.yml`:
 
 - Não expor segredos em `environment`/`volumes` no repositório; use `env_file` e/ou `.env` fora do commit.
 - Defina `healthcheck` quando houver dependências (DB, Supabase, serviços externos).
