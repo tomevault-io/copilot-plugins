@@ -1,0 +1,75 @@
+## docker-nixuser
+
+> NOTE: Keep it updated with the most useful non-trivial dev info. Keep it minimal.
+
+# Development Guide
+
+NOTE: Keep it updated with the most useful non-trivial dev info. Keep it minimal.
+
+## Multi-Platform CI Builds
+
+The CI workflow builds Docker images for:
+- `linux/amd64` (x86_64)
+- `linux/arm64` (aarch64)
+
+Multi-platform images use Docker manifests. Platform-specific images are tagged as:
+- `ghcr.io/grigio/docker-nixuser:TAG-amd64`
+- `ghcr.io/grigio/docker-nixuser:TAG-arm64`
+
+## Flake Auto-Update
+
+The `flake-update-check.yml` workflow runs weekly (Sunday 2 AM UTC) and:
+1. Checks if `flake.lock` is up to date
+2. Updates GitHub status check
+3. Automatically creates a pull request if updates are available
+
+## Docker Image
+
+The project creates a Docker image with Nix package manager running as non-root user `nixuser`.
+
+### Build
+```bash
+nix --extra-experimental-features 'nix-command flakes' build .#default
+```
+
+### Load Image
+```bash
+docker load < result
+```
+
+### Run Container
+```bash
+docker run -it nix-nixuser:latest
+```
+
+### Test Nix Installation
+```bash
+docker run --rm nix-nixuser:latest sh -c 'whoami && nix profile add nixpkgs#hello && hello'
+```
+Expected output:
+```
+nixuser
+Hello, world!
+```
+
+
+## Development Commands
+
+- Build: `nix --extra-experimental-features 'nix-command flakes' build .#default`
+- Load: `docker load < result`
+- Test: `docker run --rm nix-nixuser:latest sh -c 'whoami && nix --version'`
+- Test package installation: `docker run --rm nix-nixuser:latest sh -c 'whoami && nix profile add nixpkgs#hello && hello'`
+
+## Container Configuration Details
+- User: `nixuser` (UID/GID: 1000)
+- Working directory: `/home/nixuser`
+- Environment variables:
+  - `TMPDIR=/home/nixuser/.cache`
+  - `SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt`
+  - `NIX_REMOTE_TRUSTED_PUBLIC_KEYS=cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=`
+- Entrypoint sets up proper directory permissions before switching to nixuser
+- Note: Home directory ownership issue resolved by setting HOME=/tmp in environment, allowing Nix to fall back to the properly owned /home/nixuser without warnings.
+
+---
+> Source: [grigio/docker-nixuser](https://github.com/grigio/docker-nixuser) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
