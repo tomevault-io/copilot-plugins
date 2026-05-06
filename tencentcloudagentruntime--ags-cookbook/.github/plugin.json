@@ -1,0 +1,9 @@
+{
+  "name": "tencentcloudagentruntime--ags-cookbook",
+  "displayName": "ags-cookbook",
+  "description": "ags-cookbook",
+  "version": "1.0.0",
+  "author": "TencentCloudAgentRuntime",
+  "homepage": "https://github.com/TencentCloudAgentRuntime/ags-cookbook",
+  "skills": []
+}
