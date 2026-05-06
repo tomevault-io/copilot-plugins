@@ -1,0 +1,9 @@
+{
+  "name": "sdkasper--lean-obsidian-terminal",
+  "displayName": "lean-obsidian-terminal",
+  "description": "Embedded terminal for Obsidian powered by xterm.js and node-pty",
+  "version": "1.0.0",
+  "author": "sdkasper",
+  "homepage": "https://github.com/sdkasper/lean-obsidian-terminal",
+  "skills": []
+}
