@@ -1,0 +1,9 @@
+{
+  "name": "livekit-examples--agent-starter-node",
+  "displayName": "agent-starter-node",
+  "description": "A complete voice AI starter app for LiveKit Agents with Node.js",
+  "version": "1.0.0",
+  "author": "livekit-examples",
+  "homepage": "https://github.com/livekit-examples/agent-starter-node",
+  "skills": []
+}
