@@ -1,133 +1,741 @@
-## async-migrations
+## cypress-tests
 
-> - Long-running schema changes (e.g. index creation on very large tables modifications)
+> Writing and updating cypress integration tests
 
-# Async Migrations Best Practices
+## Cypress Test Generation Rules for Label Studio
 
-## When to Use Async Migrations
-- Long-running schema changes (e.g. index creation on very large tables modifications)
-- Operations that risk exceeding CI/CD migration timeouts (e.g. > 5 minutes)
-- DDL (Data Definition Language - it's a subset of SQL statements used to define and modify the structure of a database) that blocks writes if run normally (concurrent index builds, data backfills)
-- To avoid production downtime during heavy migrations or data migrations
+### Project Structure and Organization
 
-## Why Can't We Use Simple Django Migrations with Concurrency?
+**Test File Structure:**
+- Tests should be placed in `web/libs/editor/tests/integration/e2e/` with semantic folder organization
+- Follow the existing folder structure: `core/`, `image_segmentation/`, `control_tags/`, `audio/`, `video/`, `timeseries/`, `relations/`, `outliner/`, `bulk_mode/`, `config/`, `drafts/`, `linking_modes/`, `ner/`, `sync/`, `view_all/`
+- Test files should end with `.cy.ts` extension
+- Test data should be placed in `web/libs/editor/tests/integration/data/` following the same folder structure
 
-Even though Django provides `AddIndexConcurrently` and similar operations, they still cause deployment problems:
+**File Naming Convention:**
+- Use descriptive names that reflect the feature being tested
+- Use kebab-case for file names (e.g., `audio-regions.cy.ts`, `image-segmentation.cy.ts`)
+- Group related tests in logical folders
 
-**The Migration Runner Problem:**
-- Django's migration runner is fundamentally **synchronous** 
-- It waits for each operation to complete before marking the migration as "Applied"
-- Even `AddIndexConcurrently` blocks the **CI/CD pipeline** until the index finishes building (the database itself is not blocked)
-- Large tables (100M+ rows) can take **hours** to build indexes, far exceeding CI/CD timeouts (usually 5-15 minutes)
+### Import Standards
 
-**What Happens During Deployment:**
-```python
-# This STILL blocks the CI/CD deployment process
-operations = [
-    AddIndexConcurrently(
-        model_name="task", 
-        index=BrinIndex(fields=["updated_at"])
-    )
-]
-# ↑ CI/CD pipeline waits here until index creation completes
-# Database writes are NOT blocked, but deployment fails if it takes longer than timeout
+**Required Imports:**
+Always import helpers from the centralized helper library:
+```typescript
+import { LabelStudio, ImageView, Sidebar, Labels, Hotkeys } from "@humansignal/frontend-test/helpers/LSF";
 ```
 
-## How Async Migrations Work
-- Mark the migration `atomic = False` to disable wrapping in a transaction
-- In migration, a custom operation enqueues the real DDL via `start_job_async_or_sync` that is running as asyncronios rqworker job
-- DDL uses `CREATE INDEX CONCURRENTLY ...` (or `DROP INDEX CONCURRENTLY`) for non-blocking behavior
-- Track progress in a table (e.g. `AsyncMigrationStatus`) before and after execution
-- Background workers (RQ, Celery) execute the migration job independently of the main process
-- **Migration completes immediately** after queuing the job, allowing deployment to proceed
+**Test Data Imports:**
+Import test data from the data folder with relative paths:
+```typescript
+import { configName, dataName, resultName } from "../../data/folder_name/file_name";
+```
 
-## Example Template
-```python
-from django.db import migrations, connection
-from django.conf import settings
-from core.redis import start_job_async_or_sync
-from core.models import AsyncMigrationStatus
-import logging
+**Available Helpers:**
+- `LabelStudio` - Core initialization and control
+- `ImageView` - Image interaction and drawing
+- `VideoView` - Video playback and interaction  
+- `AudioView` - Audio playback and regions
+- `Sidebar` - Outliner and region management
+- `Labels` - Label selection and management
+- `Hotkeys` - Cross-platform keyboard shortcuts (Mac/PC compatibility)
+- `Taxonomy`, `Choices`, `DateTime`, `Number`, `Rating`, `Textarea` - Control tag helpers
+- `Relations` - Relationship management
+- `ToolBar` - Toolbar interactions
+- `Modals` - Modal dialog handling
+- `Tooltip` - Tooltip verification
 
-logger = logging.getLogger(__name__)
-migration_name = '0054_add_brin_index_updated_at'
+### Test Structure Standards
 
-# Actual DDL to run
-def forward_migration(migration_name):
-    migration = AsyncMigrationStatus.objects.create(
-        name=migration_name,
-        status=AsyncMigrationStatus.STATUS_STARTED,
-    )
-    logger.debug(f'Start async migration {migration_name}')
+**Basic Test Structure:**
+```typescript
+describe("Feature Name - Specific Area", () => {
+  it("should perform specific action", () => {
+    // Test implementation
+  });
+});
+```
+
+**Nested Describes:**
+Use nested describe blocks for logical grouping:
+```typescript
+describe("Image Segmentation", () => {
+  describe("Rectangle Tool", () => {
+    it("should draw rectangle", () => {
+      // Test implementation
+    });
+  });
+});
+```
+
+### LabelStudio Initialization Patterns
+
+**Simple Initialization:**
+```typescript
+LabelStudio.init({
+  config: configString,
+  task: {
+    id: 1,
+    annotations: [{ id: 1001, result: [] }],
+    predictions: [],
+    data: { image: "url" },
+  },
+});
+```
+
+**Fluent API Initialization (Preferred):**
+```typescript
+LabelStudio.params()
+  .config(configString)
+  .data(dataObject)
+  .withResult(expectedResult)
+  .init();
+```
+
+**With Additional Parameters:**
+```typescript
+LabelStudio.params()
+  .config(config)
+  .data(data)
+  .withResult([])
+  .withInterface("panel")
+  .withEventListener("eventName", handlerFunction)
+  .withParam("customParam", value)
+  .init();
+```
+
+### Required Test Preparation Steps
+
+**Always Include:**
+1. LabelStudio initialization
+2. Wait for objects ready: `LabelStudio.waitForObjectsReady();`
+3. (optional, usually waitForObjectsReady is enough) Wait for media loading (for image/video/audio): `ImageView.waitForImage();`
+4. Initial state verification: `Sidebar.hasNoRegions();`
+5. (optional, if possible) Some state verification after actions, for example: `Sidebar.hasRegions(count);`
+
+### Interaction Patterns
+
+**Image Interactions:**
+```typescript
+// Wait for image to load
+ImageView.waitForImage();
+
+// Select tools
+ImageView.selectRectangleToolByButton();
+ImageView.selectPolygonToolByButton();
+
+// Drawing operations
+ImageView.drawRect(x, y, width, height);
+ImageView.drawRectRelative(0.1, 0.1, 0.4, 0.8); // Preferred
+
+// Click interactions
+ImageView.clickAt(x, y);
+ImageView.clickAtRelative(0.5, 0.5); // Preferred
+
+// Screenshot comparisons
+ImageView.capture("screenshot_name");
+ImageView.canvasShouldChange("screenshot_name", threshold);
+```
+
+**Label Management:**
+```typescript
+// Select labels before drawing
+Labels.select("Label Name");
+
+// Verify label selection
+Labels.isSelected("Label Name");
+```
+
+**Sidebar Operations:**
+```typescript
+// Region verification
+Sidebar.hasRegions(count);
+Sidebar.hasNoRegions();
+Sidebar.hasSelectedRegions(count);
+
+// Region manipulation
+Sidebar.toggleRegionVisibility(index);
+Sidebar.toggleRegionSelection(index);
+```
+
+### Assertion Patterns
+
+**Standard Cypress Assertions:**
+```typescript
+cy.get(selector).should("be.visible");
+cy.get(selector).should("have.text", "expected text");
+cy.get(selector).should("have.class", "class-name");
+```
+
+**Custom Helper Assertions:**
+```typescript
+Sidebar.hasRegions(expectedCount);
+Sidebar.hasSelectedRegions(expectedCount);
+ImageView.canvasShouldChange("screenshot", threshold);
+```
+
+**Window Object Access:**
+```typescript
+cy.window().then((win) => {
+  expect(win.Htx.annotationStore.selected.names.get("image")).to.exist;
+});
+```
+
+### Test Data Structure
+
+**Configuration Format:**
+```typescript
+export const configName = `
+  <View>
+    <Image name="img" value="$image"/>
+    <RectangleLabels name="tag" toName="img">
+      <Label value="Planet"/>
+      <Label value="Moonwalker" background="blue"/>
+    </RectangleLabels>
+  </View>
+`;
+```
+
+**Data Format:**
+```typescript
+export const dataName = {
+  image: "https://htx-pub.s3.us-east-1.amazonaws.com/examples/images/example.jpg",
+  text: "Sample text for processing",
+};
+```
+
+**Result Format:**
+```typescript
+export const resultName = [
+  {
+    id: "unique_id",
+    type: "rectanglelabels",
+    value: {
+      x: 10.5,
+      y: 15.2,
+      width: 25.8,
+      height: 30.1,
+      rectanglelabels: ["Planet"]
+    },
+    origin: "manual",
+    to_name: "img",
+    from_name: "tag",
+  }
+];
+```
+
+### Feature Flag Management
+
+**Setting Feature Flags:**
+```typescript
+// Before navigation
+LabelStudio.setFeatureFlagsOnPageLoad({
+  featureName: true,
+});
+
+// After navigation (usually not needed)
+LabelStudio.setFeatureFlags({
+  featureName: true,
+});
+
+// Verification
+LabelStudio.featureFlag("featureName").should("be.true");
+```
+
+### Error Handling and Retry Strategies
+
+**For Flaky Tests:**
+```typescript
+const suiteConfig = {
+  retries: {
+    runMode: 3,
+    openMode: 0,
+  },
+};
+
+describe("Test Suite Name", suiteConfig, () => {
+  // Tests here
+});
+```
+
+### Logging and Debugging
+
+**Always Include Descriptive Logs:**
+```typescript
+cy.log("Initialize LSF with image segmentation config");
+cy.log("Draw rectangle at relative position");
+cy.log("Verify region was created");
+```
+
+### Performance Considerations
+
+**Use Relative Coordinates:**
+- Prefer `*Relative()` methods over absolute coordinates
+- Use `ImageView.drawRectRelative()` instead of `ImageView.drawRect()`
+
+**Efficient Waiting:**
+- Use `LabelStudio.waitForObjectsReady()` for initialization checks
+- Use UI state checks to be sure action has completed and UI is ready for the next action
+- **AVOID `cy.wait(milliseconds)` - use event-based or state-based waiting instead**
+
+**Waiting Best Practices:**
+
+```typescript
+// ❌ WRONG - Arbitrary time waits are unreliable and slow
+cy.wait(500); // Don't know if action is actually complete
+cy.wait(300); // May be too short on slow machines, too long on fast ones
+
+// ✅ CORRECT - Wait for specific UI state changes
+Sidebar.hasRegions(1); // Wait for region to appear
+Labels.isSelected("Label Name"); // Wait for label selection
+cy.get(".loading-spinner").should("not.exist"); // Wait for loading to finish
+
+// ✅ CORRECT - Wait for element state changes
+cy.get("[data-testid='submit-button']").should("be.enabled");
+cy.get(".htx-timeseries-channel svg").should("be.visible");
+cy.get(".region").should("have.class", "selected");
+
+// ✅ CORRECT - Wait for network requests (when necessary)
+cy.intercept("POST", "/api/annotations").as("saveAnnotation");
+cy.get("[data-testid='save-button']").click();
+cy.wait("@saveAnnotation"); // Wait for specific network call
+
+// ✅ CORRECT - Wait for animations to complete
+cy.get(".modal").should("have.class", "fade-in-complete");
+cy.get(".tooltip").should("be.visible").and("not.have.class", "animating");
+```
+
+**When time-based waits might be acceptable:**
+- Very short waits (50ms or less) for UI debouncing
+- Single animation frame waits (16-32ms) for fast re-renders
+- Waiting for CSS animations when no completion event is available
+- Working around known browser timing issues (document as temporary fix)
+
+**Use constants instead of magic numbers:**
+
+```typescript
+// Import timing constants
+import { SINGLE_FRAME_TIMEOUT, TWO_FRAMES_TIMEOUT } from "../utils/constants";
+
+// ✅ CORRECT - Use constants for frame timing
+cy.wait(SINGLE_FRAME_TIMEOUT); // Wait for single animation frame (60fps)
+cy.wait(TWO_FRAMES_TIMEOUT); // Wait for 1-2 animation frames for fast but more complex re-renders
+
+// ❌ WRONG - Magic numbers are unclear
+cy.wait(16); // What is 16? Why 16?
+cy.wait(32); // What is 32? Why 32?
+
+// ✅ CORRECT - Use constants with clear intent
+ImageView.clickAt(100, 100);
+cy.wait(SINGLE_FRAME_TIMEOUT); // Allow canvas to complete redraw
+
+// Acceptable for other timing needs with documentation
+cy.wait(50); // Allow debounced input to settle
+cy.wait(100); // TODO: Replace with proper animation completion check
+```
+
+**Screenshot Comparisons:**
+```typescript
+// Capture before action
+ImageView.capture("before_action");
+
+// Perform action
+Labels.select("Label");
+ImageView.drawRectRelative(0.2, 0.2, 0.6, 0.6);
+
+// Verify visual change
+ImageView.canvasShouldChange("before_action", 0.1);
+```
+- Use only when necessary, as they can slow down tests
+
+### Common Test Patterns
+
+**Basic Drawing Test:**
+```typescript
+it("should draw a rectangle region", () => {
+  LabelStudio.params()
+    .config(imageConfig)
+    .data(imageData)
+    .withResult([])
+    .init();
+
+  LabelStudio.waitForObjectsReady();
+  ImageView.waitForImage();
+  Sidebar.hasNoRegions();
+
+  Labels.select("Label Name");
+  ImageView.drawRectRelative(0.1, 0.1, 0.4, 0.8);
+
+  Sidebar.hasRegions(1);
+});
+```
+
+**Control Tag Interaction Test:**
+```typescript
+it("should select taxonomy options", () => {
+  LabelStudio.params()
+    .config(taxonomyConfig)
+    .data(simpleData)
+    .withResult([])
+    .init();
+
+  Taxonomy.open();
+  Taxonomy.findItem("Choice 1").click();
+  Taxonomy.hasSelected("Choice 1");
+});
+```
+
+**State Verification Test:**
+```typescript
+it("should maintain state after interaction", () => {
+  LabelStudio.params()
+    .config(config)
+    .data(data)
+    .withResult(existingResult)
+    .init();
+
+  LabelStudio.waitForObjectsReady();
+  Sidebar.hasRegions(1);
+
+  // Perform action
+  cy.contains("button", "Update").click();
+
+  // Verify state
+  LabelStudio.serialize().then((results) => {
+    expect(results).to.have.length(1);
+    expect(results[0].value).to.deep.equal(expectedValue);
+  });
+});
+```
+
+### Accessibility and User Experience
+
+**Include Proper ARIA Labels:**
+```typescript
+cy.get('[aria-label="rectangle-tool"]').click();
+```
+
+**Test Keyboard Interactions:**
+```typescript
+// ALWAYS prefer using Hotkeys helper for cross-platform compatibility
+Hotkeys.undo(); // Automatically handles Ctrl+Z/Cmd+Z
+Hotkeys.redo(); // Automatically handles Ctrl+Shift+Z/Cmd+Shift+Z
+Hotkeys.deleteRegion(); // Backspace
+Hotkeys.deleteAllRegions(); // Ctrl+Backspace/Cmd+Backspace
+Hotkeys.unselectAllRegions(); // Escape
+
+// Other specific helpers when available
+ImageView.zoomIn(); // Zoom in
+Labels.selectWithHotkey("1"); // Select label by hotkey
+
+// Direct Cypress commands (AVOID in most cases - use only as last resort)
+cy.get("body").type("{esc}"); // ❌ Prefer Hotkeys.unselectAllRegions()
+cy.get("body").type("{ctrl}{+}"); // ❌ Not cross-platform, prefer helpers
+cy.get("body").type("{cmd}{+}"); // ❌ Platform-specific, prefer helpers
+```
+
+**Important:** In most cases, you should **AVOID** direct Cypress keyboard commands (`cy.get("body").type()`). Use helpers instead because:
+- `Hotkeys` helper automatically handles Mac (Cmd) vs PC (Ctrl) differences
+- Helpers provide better abstraction and are more maintainable
+- Helpers are less prone to cross-platform issues
+- Only use direct commands if no helper exists and you need a very specific keyboard interaction
+
+### Creating New Helpers
+
+**Helper Architecture Patterns:**
+
+Label Studio uses two main patterns for creating helpers:
+
+1. **Static Object Pattern** (for singleton components):
+```typescript
+export const ComponentName = {
+  get root() {
+    return cy.get(".component-selector");
+  },
+  
+  get subElement() {
+    return this.root.find(".sub-element");
+  },
+  
+  performAction() {
+    cy.log("Performing action on ComponentName");
+    this.root.click();
+  },
+  
+  assertState(expectedValue: string) {
+    this.subElement.should("contain.text", expectedValue);
+  }
+};
+```
+
+2. **Class-based Pattern** (for parameterizable components):
+```typescript
+class ComponentHelper {
+  private get _baseRootSelector() {
+    return ".component-base";
+  }
+  
+  private _rootSelector: string;
+  
+  constructor(rootSelector: string) {
+    this._rootSelector = rootSelector.replace(/^\&/, this._baseRootSelector);
+  }
+  
+  get root() {
+    return cy.get(this._rootSelector);
+  }
+  
+  performAction() {
+    cy.log(`Performing action on ${this._rootSelector}`);
+    this.root.click();
+  }
+}
+
+// Export both singleton and factory
+const ComponentName = new ComponentHelper("&:eq(0)");
+const useComponentName = (rootSelector: string) => {
+  return new ComponentHelper(rootSelector);
+};
+
+export { ComponentName, useComponentName };
+```
+
+**Helper Creation Rules:**
+
+1. **File Placement:**
+   - Place UI helpers in `web/libs/frontend-test/src/helpers/LSF/`
+   - Place utility functions in `web/libs/frontend-test/src/helpers/utils/`
+   - Use PascalCase for file names (e.g., `MyComponent.ts`)
+
+2. **Utility vs Helper Decision:**
+   - **Extract to `utils/`** if function:
+     - Does NOT use Cypress commands (`cy.*`)
+     - Is NOT specific to any UI component
+     - Performs generic calculations, parsing, or data manipulation
+     - Could be unit tested independently
+   - **Keep in helper class** if function:
+     - Uses Cypress commands for UI interaction
+     - Is specific to a UI component
+     - Manages element state or user interactions
+
+```typescript
+// ✅ CORRECT - Extract to utils/SVGTransformUtils.ts
+export class SVGTransformUtils {
+  static parseTransformString(transformStr: string): DOMMatrix {
+    // Pure utility - no Cypress, no UI dependency
+    const matrix = new DOMMatrix();
+    // ... implementation
+    return matrix;
+  }
+}
+
+// ❌ WRONG - Don't put utilities in UI helpers
+class TimeSeriesHelper {
+  // This should be in utilities
+  private parseTransformString(transformStr: string): DOMMatrix { ... }
+}
+```
+
+3. **Naming Conventions:**
+   - Use descriptive names that match the UI component
+   - Prefix parameterizable helpers with `use` (e.g., `useChoices`)
+   - Use consistent method naming:
+     - `get propertyName()` for element getters
+     - `performAction()` for actions
+     - `assertState()` for assertions
+     - `hasState()` for boolean checks
+
+4. **Helper Content Guidelines:**
+   - **SHOULD contain**: Reusable UI interactions, element getters, simple state verification
+   - **SHOULD NOT contain**: Complex multi-step scenarios, complete test workflows, one-time business logic
+
+5. **Required Elements:**
+   - Always include `get root()` as the main element getter
+   - Use semantic sub-element getters (e.g., `get submitButton()`)
+   - Include descriptive logging with `cy.log()`
+
+6. **Selector Best Practices:**
+   - Use ARIA attributes over other methods when possible
+
+7. **Method Types:**
+   - **Getters**: Return Cypress elements for further chaining
+   - **Actions**: Perform user interactions (click, type, etc.)
+   - **Assertions**: Verify expected states with `.should()`
+   - **Simple utilities**: Helper methods for specific UI operations (not generic utilities)
+
+**Example Complete Helper:**
+
+```typescript
+import TriggerOptions = Cypress.TriggerOptions;
+
+class NewComponentHelper {
+  private get _baseRootSelector() {
+    return ".lsf-new-component";
+  }
+  
+  private _rootSelector: string;
+  
+  constructor(rootSelector: string) {
+    this._rootSelector = rootSelector.replace(/^\&/, this._baseRootSelector);
+  }
+  
+  get root() {
+    return cy.get(this._rootSelector);
+  }
+  
+  get input() {
+    return this.root.find('input[type="text"]');
+  }
+  
+  get submitButton() {
+    return this.root.find('[aria-label="submit"]');
+  }
+  
+  get items() {
+    return this.root.find('.item');
+  }
+  
+  fillInput(text: string) {
+    cy.log(`Fill input with: ${text}`);
+    this.input.clear().type(text);
+  }
+  
+  selectItem(index: number) {
+    cy.log(`Select item at index: ${index}`);
+    this.items.eq(index).click();
+  }
+  
+  findItem(text: string) {
+    return this.items.contains(text);
+  }
+  
+  submit() {
+    cy.log("Submit form");
+    this.submitButton.click();
+  }
+  
+  hasItem(text: string) {
+    this.findItem(text).should("be.visible");
+  }
+  
+  hasNoItems() {
+    this.items.should("not.exist");
+  }
+  
+  hasSelectedItem(text: string) {
+    this.findItem(text).should("have.class", "selected");
+  }
+}
+
+// Export patterns
+const NewComponent = new NewComponentHelper("&:eq(0)");
+const useNewComponent = (rootSelector: string) => {
+  return new NewComponentHelper(rootSelector);
+};
+
+export { NewComponent, useNewComponent };
+```
+
+**Adding Helper to Index:**
+
+After creating a helper, add it to the index file:
+
+```typescript
+// In web/libs/frontend-test/src/helpers/LSF/index.ts
+export { NewComponent, useNewComponent } from "./NewComponent";
+```
+
+**Advanced Patterns:**
+
+1. **Feature Flag Integration:**
+```typescript
+import { LabelStudio } from "./LabelStudio";
+import { FF_FEATURE_NAME } from "../../../../editor/src/utils/feature-flags";
+
+export const ConditionalComponent = {
+  get root() {
+    return LabelStudio.getFeatureFlag(FF_FEATURE_NAME).then((isEnabled) => {
+      if (isEnabled) {
+        return cy.get(".new-component");
+      }
+      return cy.get(".old-component");
+    });
+  }
+};
+```
+
+2. **Complex Interactions:**
+```typescript
+drawComplexShape(points: [number, number][], options = {}) {
+  cy.log(`Drawing complex shape with ${points.length} points`);
+  
+  const drawingArea = this.root.scrollIntoView();
+  
+  points.forEach((point, index) => {
+    const [x, y] = point;
+    const isFirst = index === 0;
+    const isLast = index === points.length - 1;
     
-    # Check database backend and use appropriate SQL
-    if connection.vendor == 'postgresql':
-        # PostgreSQL: Use CONCURRENTLY and specific index types (BRIN, GIN, etc.)
-        sql = '''
-        CREATE INDEX CONCURRENTLY IF NOT EXISTS "task_updated_at_brin_idx" 
-        ON "task" USING BRIN ("updated_at");
-        '''
-    else:
-        # SQLite/Other: Fallback to standard B-tree index
-        sql = '''
-        CREATE INDEX IF NOT EXISTS "task_updated_at_brin_idx" 
-        ON "task" ("updated_at");
-        '''
+    if (isFirst) {
+      drawingArea.trigger("mousedown", x, y, { 
+        eventConstructor: "MouseEvent", 
+        buttons: 1,
+        ...options 
+      });
+    }
     
-    with connection.cursor() as cursor:
-        cursor.execute(sql)
+    drawingArea.trigger("mousemove", x, y, { 
+      eventConstructor: "MouseEvent", 
+      buttons: 1,
+      ...options 
+    });
     
-    migration.status = AsyncMigrationStatus.STATUS_FINISHED
-    migration.save()
-    logger.debug(f'Async migration {migration_name} complete')
+    if (isLast) {
+      drawingArea.trigger("mouseup", x, y, { 
+        eventConstructor: "MouseEvent", 
+        buttons: 1,
+        ...options 
+      });
+    }
+  });
+}
+```
 
-# Reverse DDL
-def reverse_migration(migration_name):
-    migration = AsyncMigrationStatus.objects.create(
-        name=migration_name,
-        status=AsyncMigrationStatus.STATUS_STARTED,
-    )
-    logger.debug(f'Start async migration rollback {migration_name}')
-    
-    # Drop index (handle database differences)
-    if connection.vendor == 'postgresql':
-        sql = 'DROP INDEX CONCURRENTLY IF EXISTS "task_updated_at_brin_idx";'
-    else:
-        sql = 'DROP INDEX IF EXISTS "task_updated_at_brin_idx";'
-    
-    with connection.cursor() as cursor:
-        cursor.execute(sql)
-    
-    migration.status = AsyncMigrationStatus.STATUS_FINISHED
-    migration.save()
-    logger.debug(f'Async migration rollback {migration_name} complete')
+3. **Screenshot Helpers:**
+```typescript
+captureState(name: string) {
+  cy.log(`Capturing component state: ${name}`);
+  return this.root.captureScreenshot(name);
+}
 
-# Hook into Django migration
-def forwards(apps, schema_editor):
-    start_job_async_or_sync(forward_migration, migration_name=migration_name)
+shouldChangeVisually(name: string, threshold = 0.1) {
+  return this.root.compareScreenshot(name, "shouldChange", { threshold });
+}
+```
 
-def backwards(apps, schema_editor):
-    start_job_async_or_sync(reverse_migration, migration_name=migration_name)
 
-class Migration(migrations.Migration):
-    atomic = False
-    dependencies = [
-        ('tasks', '0053_annotation_bulk_created'),
-    ]
-    operations = [
-        migrations.RunPython(forwards, backwards),
-    ]
-```  
 
-## Other Important Points
-- Label Studio uses two databases: SQLite and Postgres. All migrations should be designed for both of 
-- Always use `CREATE INDEX CONCURRENTLY` and `DROP INDEX CONCURRENTLY` for non-blocking index operations in Postgres
-- Check `connection.vendor` to handle database differences (PostgreSQL vs SQLite/others)
-- SQLite doesn't support CONCURRENTLY, BRIN, GIN, or other PostgreSQL-specific features
-- Ensure `atomic = False` so the concurrent DDL can run outside a transaction
-- Monitor and retry async jobs on failure; ensure your worker pool is healthy
-- Test async migrations in a staging environment with realistic data volumes
-- Clean up completed migrations and maintain migration history for on-prem rollouts
+### Best Practices Summary
+
+1. **Always use semantic folder organization**
+2. **Import helpers from centralized location**
+3. **Use fluent API for LabelStudio initialization**
+4. **Include proper waiting mechanisms**
+5. **Use relative coordinates for responsive tests**
+6. **Add descriptive logging**
+7. **Structure test data separately**
+8. **Include both positive and negative test cases**
+9. **Use helper methods instead of raw Cypress commands when available**
+10. **AVOID direct Cypress keyboard commands - use `Hotkeys` helper for cross-platform compatibility**
+11. **Follow existing naming conventions**
+12. **Create reusable helpers for common UI patterns**
+13. **Use class-based patterns for parameterizable components**
+14. **Include comprehensive error handling in helpers**
+15. **Document complex helper methods with JSDoc comments**
+16. **Test your helpers before using them in production tests**
+17. **Extract utility functions to separate utils files when they don't use Cypress**
+18. **Keep complex test scenarios in test files, not in helpers - helpers should be simple and reusable**
+19. **AVOID cy.wait(time) - use event-based or state-based waiting for more reliable tests** 
 
 ---
 > Source: [cycle123582/label-studio-Chinese](https://github.com/cycle123582/label-studio-Chinese) — distributed by [TomeVault](https://tomevault.io).
