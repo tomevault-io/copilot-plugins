@@ -1,0 +1,9 @@
+{
+  "name": "edgee-ai--edgee",
+  "displayName": "edgee",
+  "description": "Open-source AI gateway written in Rust, with token compression for Claude Code, Codex... and any other LLM client.",
+  "version": "1.0.0",
+  "author": "edgee-ai",
+  "homepage": "https://github.com/edgee-ai/edgee",
+  "skills": []
+}
