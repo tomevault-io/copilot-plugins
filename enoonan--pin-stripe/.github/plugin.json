@@ -1,0 +1,9 @@
+{
+  "name": "enoonan--pin-stripe",
+  "displayName": "pin_stripe",
+  "description": "A minimalist Stripe integration for Elixir.",
+  "version": "1.0.0",
+  "author": "enoonan",
+  "homepage": "https://github.com/enoonan/pin_stripe",
+  "skills": []
+}
