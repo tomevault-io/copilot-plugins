@@ -4,7 +4,7 @@
   "repo": "obzorarr",
   "description": "Obzorarr is a \"Wrapped for Plex\" application that syncs viewing history from your Plex Media Server and generates yearly statistics with an animated slideshow presentation - similar to Spotify Wrapped.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/engels74/obzorarr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T21:47:00Z"
+  "distributed_at": "2026-05-06T14:10:37Z"
 }
