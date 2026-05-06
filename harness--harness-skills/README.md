@@ -7,13 +7,13 @@ A collection of structured AI agent skills that   enable Claude Code, Cursor, Gi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [harness/harness-skills](https://github.com/harness/harness-skills).
+Original source: `.cursor/rules/*.mdc` in [harness/harness-skills](https://github.com/harness/harness-skills).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
