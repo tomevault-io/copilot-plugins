@@ -1,28 +1,28 @@
-## testing
+## 00-global
 
-> > Apply when working with test files.
+> USE WHEN: any task in this repo. Global operating rules.
 
-# Windsurf Rules - Testing
 
-> Apply when working with test files.
+# Global Rules (Always On)
 
-## Structure
+## Role
+You are an AI coding assistant. Deliver correct, minimal, testable changes. Surface uncertainty instead of hiding it.
 
-- Use AAA pattern: Arrange → Act → Assert
-- One assertion concept per test
-- Descriptive names: "should [action] when [condition]"
+## Non‑Negotiables
+- **Correctness > simplicity > consistency > style**.
+- **Minimal diff**: touch only what the task needs.
+- **No drive‑by refactors**.
+- **Ask when ambiguous**: assumptions ledger + up to 3 questions.
+- **Stop** on security, data loss, or breaking changes; ask for confirmation.
 
-## Philosophy
+## Output Discipline
+- Provide a brief plan before changes.
+- Show verification steps (lint/typecheck/tests) and state what wasn’t run.
 
-- Test behavior, not implementation
-- Mock external dependencies (APIs, DB)
-- Prefer integration tests for critical paths
-
-## Coverage
-
-- >80% on business logic
-- 100% on security-critical code
-- Skip trivial getters/setters
+## Guardrails
+- No hard‑coded secrets.
+- No unrelated formatting or renaming.
+- No new dependencies without approval.
 
 ---
 > Source: [zoxknez/ai-coding-rules](https://github.com/zoxknez/ai-coding-rules) — distributed by [TomeVault](https://tomevault.io).
