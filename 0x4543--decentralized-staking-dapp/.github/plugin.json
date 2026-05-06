@@ -1,0 +1,9 @@
+{
+  "name": "0x4543--decentralized-staking-dapp",
+  "displayName": "decentralized-staking-dapp",
+  "description": "Decentralized Staking DApp built with Scaffold-ETH 2 (Hardhat + Next.js)",
+  "version": "1.0.0",
+  "author": "0x4543",
+  "homepage": "https://github.com/0x4543/decentralized-staking-dapp",
+  "skills": []
+}
