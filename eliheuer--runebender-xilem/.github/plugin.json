@@ -1,0 +1,9 @@
+{
+  "name": "eliheuer--runebender-xilem",
+  "displayName": "runebender-xilem",
+  "description": "A port of Runebender from Druid to Xilem",
+  "version": "1.0.0",
+  "author": "eliheuer",
+  "homepage": "https://github.com/eliheuer/runebender-xilem",
+  "skills": []
+}
