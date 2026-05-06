@@ -1,0 +1,44 @@
+{
+  "name": "AI-rss-newsletter-saas-openai-mongodb-prisma-clerk-nextjs-16",
+  "owner": "sonnysangha",
+  "repo": "AI-rss-newsletter-saas-openai-mongodb-prisma-clerk-nextjs-16",
+  "description": "AI-powered newsletter generator for content creators. Transform RSS feeds into professionally curated newsletters in seconds with GPT-4. Features intelligent caching, real-time streaming, and article deduplication. Built with Next.js 16, MongoDB, Prisma, Clerk auth, and OpenAI. Perfect for maintaining consistent publishing schedules without burnout",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/sonnysangha/AI-rss-newsletter-saas-openai-mongodb-prisma-clerk-nextjs-16",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T06:02:53Z"
+}
