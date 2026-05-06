@@ -1,0 +1,9 @@
+{
+  "name": "ralfbecher--orionbelt-ontology-builder",
+  "displayName": "orionbelt-ontology-builder",
+  "description": "A Streamlit-based application for building, editing, and managing OWL ontologies",
+  "version": "1.0.0",
+  "author": "ralfbecher",
+  "homepage": "https://github.com/ralfbecher/orionbelt-ontology-builder",
+  "skills": []
+}
