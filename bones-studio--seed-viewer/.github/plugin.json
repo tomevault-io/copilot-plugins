@@ -1,0 +1,9 @@
+{
+  "name": "bones-studio--seed-viewer",
+  "displayName": "seed-viewer",
+  "description": "A web application for browsing and viewing the BONES-SEED motion capture dataset",
+  "version": "1.0.0",
+  "author": "bones-studio",
+  "homepage": "https://github.com/bones-studio/seed-viewer",
+  "skills": []
+}
