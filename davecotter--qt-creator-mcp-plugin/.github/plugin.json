@@ -1,0 +1,9 @@
+{
+  "name": "davecotter--qt-creator-mcp-plugin",
+  "displayName": "Qt-Creator-MCP-Plugin",
+  "description": "A plugin for Qt Creator that implements Model Context Protocol, allowing AI to talk to the IDE",
+  "version": "1.0.0",
+  "author": "davecotter",
+  "homepage": "https://github.com/davecotter/Qt-Creator-MCP-Plugin",
+  "skills": []
+}
