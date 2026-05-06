@@ -1,0 +1,9 @@
+{
+  "name": "grigio--docker-nixuser",
+  "displayName": "docker-nixuser",
+  "description": "A lightweight Docker image providing a full Nix package manager environment for non-root users. Perfect for testing Nix packages in an isolated sandbox",
+  "version": "1.0.0",
+  "author": "grigio",
+  "homepage": "https://github.com/grigio/docker-nixuser",
+  "skills": []
+}
