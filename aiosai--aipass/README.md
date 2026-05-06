@@ -7,11 +7,11 @@ A local multi-agent framework where your AI agents keep their memory, work toget
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [AIOSAI/AIPass](https://github.com/AIOSAI/AIPass).
+Original source: `CLAUDE.md` in [AIOSAI/AIPass](https://github.com/AIOSAI/AIPass).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
