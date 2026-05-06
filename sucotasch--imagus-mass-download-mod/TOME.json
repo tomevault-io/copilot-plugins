@@ -1,0 +1,44 @@
+{
+  "name": "Imagus-Mass-Download-Mod",
+  "owner": "Sucotasch",
+  "repo": "Imagus-Mass-Download-Mod",
+  "description": "This is a community-modified version of the Imagus extension for Google Chrome, based on https://github.com/Zren/chrome-extension-imagus and enhanced with powerful features for bulk downloading of media from web pages.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Sucotasch/Imagus-Mass-Download-Mod",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T02:46:53Z"
+}
