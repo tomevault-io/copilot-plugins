@@ -1,13 +1,51 @@
-## doc-style-developer
+## documentation-sync
 
-> Technical docs: developer perspective. User/contributor guides: welcoming, explanatory.
+> Keep all docs in sync with code — README, architecture, store assets, screenshots, in-app help
 
 
-# Documentation Style
+# Documentation Sync
 
-**Technical documentation** (ARCHITECTURE, DATA-FLOW, SYNC-LOGIC, IDEAS-*, I18N internals): Developer perspective. Factual, neutral. State what exists, how it works, where it lives. Avoid instructional tone.
+**Always update documentation as part of every code change.** Do not wait for the user to ask. Fixes, features, and UI changes must be documented in the same step as the implementation.
 
-**User/contributor-facing docs** (TRANSLATING, CONTRIBUTING, README contributor section): Welcoming, explanatory. Step-by-step where helpful. "You can help", "Step by step" — appropriate for translators and contributors.
+## When to Update
+
+- **Every change** — document fixes, features, and UI changes immediately
+- Before release (tag, version bump)
+- When adding/removing features, lib modules, UI tabs, or wizard steps
+- When changing sync logic, permissions, or manifest
+- When you notice docs drifting from code
+
+## Checklist by Change Type
+
+| Change | Update |
+|--------|--------|
+| **New feature / UI** | README features, `store-assets/chrome-en.md`, `firefox-en.md`, Help tab in `options.html`, `_locales/en/messages.json` (`help_*` keys) |
+| **New options tab / wizard step** | `scripts/generate-screenshots.js` (OPTIONS_TABS, WIZARD_STEPS_FOR_SCREENSHOTS), `store-assets/chrome-meta.md` checklist |
+| **New lib module** | `docs/ARCHITECTURE.md` (component list, file structure) |
+| **Sync / API / generated files** | `docs/ARCHITECTURE.md`, `docs/SYNC-LOGIC.md`, `docs/DATA-FLOW.md` |
+| **Bug fix / behavior change** | `CHANGELOG.md`, relevant docs (DATA-FLOW, README, etc.) |
+| **New permission** | `store-assets/chrome-meta.md`, `store-assets/firefox-meta.md` (Permission Justifications) |
+| **Release** | `CHANGELOG.md`, `docs/RELEASE.md` version history; run `npm run screenshots` if UI changed |
+
+## In-App Help
+
+- Help content: `options.html` (Help tab) with `data-i18n="help_*"`
+- Add keys to `_locales/en/messages.json` first; other locales fall back to English
+- Keep Help aligned with README and store descriptions
+
+## Store Assets
+
+- 12 languages: en, de, fr, es, pt_BR, it, ja, zh_CN, ko, ru, tr, pl
+- Update `chrome-en.md` and `firefox-en.md` for new features; other locales before release
+- Screenshots: `npm run screenshots` (or `npm run build:chrome && npm run generate-screenshots`)
+
+## Release Pre-Check
+
+Review and update all docs above; regenerate screenshots if UI changed; update CHANGELOG and version history.
+
+## Version Assignment
+
+When unsure which version a change belongs to: check `git tag -l` and `git describe` — released tags (e.g. `v2.5.1`) are fixed; changes in the current branch belong to the next version (e.g. `develop/2.5.2` → 2.5.2).
 
 ---
 > Source: [d0dg3r/GitSyncMarks](https://github.com/d0dg3r/GitSyncMarks) — distributed by [TomeVault](https://tomevault.io).
