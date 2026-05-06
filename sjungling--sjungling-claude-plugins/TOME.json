@@ -1,0 +1,75 @@
+{
+  "name": "sjungling-claude-plugins",
+  "owner": "sjungling",
+  "repo": "sjungling-claude-plugins",
+  "description": "personal collection of Claude Code plugins",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "cli-ux-designer",
+      "path": "plugins/cli-developer/skills/cli-ux-designer",
+      "github_url": "https://github.com/sjungling/sjungling-claude-plugins/tree/main/plugins/cli-developer/skills/cli-ux-designer",
+      "description": ""
+    },
+    {
+      "name": "ios-swift-expert",
+      "path": "plugins/swift-engineer/skills/ios-swift-expert",
+      "github_url": "https://github.com/sjungling/sjungling-claude-plugins/tree/main/plugins/swift-engineer/skills/ios-swift-expert",
+      "description": ""
+    },
+    {
+      "name": "obsidian-vault-manager",
+      "path": "plugins/technical-writer/skills/obsidian-vault-manager",
+      "github_url": "https://github.com/sjungling/sjungling-claude-plugins/tree/main/plugins/technical-writer/skills/obsidian-vault-manager",
+      "description": ""
+    },
+    {
+      "name": "structured-logging",
+      "path": "plugins/data-tools/skills/structured-logging",
+      "github_url": "https://github.com/sjungling/sjungling-claude-plugins/tree/main/plugins/data-tools/skills/structured-logging",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "path": "plugins/technical-writer/skills/technical-writer",
+      "github_url": "https://github.com/sjungling/sjungling-claude-plugins/tree/main/plugins/technical-writer/skills/technical-writer",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/sjungling/sjungling-claude-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T02:31:12Z"
+}
