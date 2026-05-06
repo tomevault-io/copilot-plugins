@@ -4,7 +4,7 @@
   "repo": "ai-coding-rules",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zoxknez/ai-coding-rules",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T15:58:21Z"
+  "distributed_at": "2026-05-06T17:29:43Z"
 }
