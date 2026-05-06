@@ -1,0 +1,9 @@
+{
+  "name": "makabakaxy--mcp2cli",
+  "displayName": "mcp2cli",
+  "description": "MCP -> CLI + SKILLs. Maintain SKILL pararllel with MCP Server.",
+  "version": "1.0.0",
+  "author": "makabakaxy",
+  "homepage": "https://github.com/makabakaxy/mcp2cli",
+  "skills": []
+}
