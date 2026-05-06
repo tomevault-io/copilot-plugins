@@ -1,0 +1,14 @@
+{
+  "name": "jmagar--unraid-mcp",
+  "displayName": "unraid-mcp",
+  "description": "Query, monitor, and manage Unraid servers via GraphQL API through MCP tools. Supports system info, Docker, VMs, array/parity, notifications, plugins, rclone, and live telemetry.",
+  "version": "1.0.0",
+  "author": "jmagar",
+  "homepage": "https://github.com/jmagar/unraid-mcp",
+  "skills": [
+    {
+      "name": "unraid",
+      "description": ""
+    }
+  ]
+}
