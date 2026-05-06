@@ -7,11 +7,11 @@ A powerful MCP (Model Context Protocol) service aggregator that combines multipl
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [vtxf/mcp-all-in-one](https://github.com/vtxf/mcp-all-in-one).
+Original source: `CLAUDE.md` in [vtxf/mcp-all-in-one](https://github.com/vtxf/mcp-all-in-one).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
