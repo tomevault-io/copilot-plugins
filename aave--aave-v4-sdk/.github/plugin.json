@@ -1,0 +1,9 @@
+{
+  "name": "aave--aave-v4-sdk",
+  "displayName": "aave-v4-sdk",
+  "description": "The official SDK for Aave V4 \ud83d\udc7b.",
+  "version": "1.0.0",
+  "author": "aave",
+  "homepage": "https://github.com/aave/aave-v4-sdk",
+  "skills": []
+}
