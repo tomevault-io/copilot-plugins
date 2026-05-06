@@ -1,0 +1,38 @@
+{
+  "name": "wiggitywhitney--commit-story",
+  "displayName": "commit-story",
+  "description": "Commit Story is designed to automatically generate engineering journal entries within a code repository. The journal captures technical progress and decision-making context.",
+  "version": "1.0.0",
+  "author": "wiggitywhitney",
+  "homepage": "https://github.com/wiggitywhitney/commit-story",
+  "skills": [
+    {
+      "name": "add-telemetry",
+      "description": ""
+    },
+    {
+      "name": "prd-create",
+      "description": ""
+    },
+    {
+      "name": "prd-next",
+      "description": ""
+    },
+    {
+      "name": "prd-next-telemetry-powered",
+      "description": ""
+    },
+    {
+      "name": "prd-update-decisions",
+      "description": ""
+    },
+    {
+      "name": "prd-update-progress",
+      "description": ""
+    },
+    {
+      "name": "prds-get",
+      "description": ""
+    }
+  ]
+}
