@@ -7,11 +7,11 @@ Open-source marketing skills for founders. Keyword research, growth strategy, so
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ScaleBrick/founder-marketing-skills](https://github.com/ScaleBrick/founder-marketing-skills).
+Original source: `CLAUDE.md` in [ScaleBrick/founder-marketing-skills](https://github.com/ScaleBrick/founder-marketing-skills).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
