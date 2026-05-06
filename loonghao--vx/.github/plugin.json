@@ -1,0 +1,42 @@
+{
+  "name": "loonghao--vx",
+  "displayName": "vx",
+  "description": "Universal Development Tool Manager",
+  "version": "1.0.0",
+  "author": "loonghao",
+  "homepage": "https://github.com/loonghao/vx",
+  "skills": [
+    {
+      "name": "llms-txt-generator",
+      "description": ""
+    },
+    {
+      "name": "project-analyze",
+      "description": ""
+    },
+    {
+      "name": "remotion",
+      "description": ""
+    },
+    {
+      "name": "rfc-creator",
+      "description": ""
+    },
+    {
+      "name": "vx-provider-creator",
+      "description": ""
+    },
+    {
+      "name": "vx-provider-updater",
+      "description": ""
+    },
+    {
+      "name": "vx-usage",
+      "description": ""
+    },
+    {
+      "name": "vx-usage",
+      "description": ""
+    }
+  ]
+}
