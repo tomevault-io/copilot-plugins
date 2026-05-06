@@ -1,0 +1,9 @@
+{
+  "name": "esimkowitz--printers-js",
+  "displayName": "printers-js",
+  "description": "Cross-runtime printer library for Node.js, Deno, and Bun",
+  "version": "1.0.0",
+  "author": "esimkowitz",
+  "homepage": "https://github.com/esimkowitz/printers-js",
+  "skills": []
+}
