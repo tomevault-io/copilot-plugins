@@ -1,45 +1,157 @@
-## deck
+## git-pr-workflow
 
-> This file guides AI coding agents to the project context documents.
+> Git commit and GitHub PR workflow using gh CLI
 
-# AI Agent Entry Point
+# Git Commit and PR Workflow
 
-This file guides AI coding agents to the project context documents.
+When creating commits and pull requests, follow this standardized workflow.
 
-## Getting Started
+## Commit Message Format
 
-Read the documents in the `.x/` directory in the following order:
+Follow Conventional Commits format:
 
-1. **[.x/README.md](.x/README.md)** — Document index and navigation guide.
-2. **[.x/project-overview.md](.x/project-overview.md)** — Monorepo structure, directory map, workspace managers, build commands.
-3. **[.x/coding-standards.md](.x/coding-standards.md)** — Coding rules, language conventions, git workflow.
+```
+<type>(<scope>): <subject>
 
-## Before Working on Specific Areas
+<body>
+```
 
-| Area | Read |
-| :--- | :--- |
-| Shared React/TS frontend patterns (`apps/client`, `apps/dashboard`) | [.x/guide-frontend.md](.x/guide-frontend.md) |
-| `apps/client` (Tauri desktop) | [.x/guide-client.md](.x/guide-client.md) |
-| `apps/client` chat retry / attachment compatibility | [docs/design/client-chat-retry.md](docs/design/client-chat-retry.md) |
-| `apps/client` remote OpenCode web auth bridge | [docs/design/client-remote-opencode-web-auth.md](docs/design/client-remote-opencode-web-auth.md) |
-| `apps/api` (NestJS BFF) | [.x/guide-api.md](.x/guide-api.md) |
-| `apps/dashboard` (React web admin) | [.x/guide-dashboard.md](.x/guide-dashboard.md) |
-| `apps/landing` (marketing website) | [.x/guide-landing.md](.x/guide-landing.md) |
-| `apps/pilot/*` (Pilot suite) | [.x/guide-pilot.md](.x/guide-pilot.md) |
-| `apps/pilot/*` architecture and flows | [docs/design/pilot/README.md](docs/design/pilot/README.md), [docs/design/pilot/host.md](docs/design/pilot/host.md), [docs/design/pilot/bridge.md](docs/design/pilot/bridge.md), [docs/design/pilot/server.md](docs/design/pilot/server.md) |
-| `apps/server-py` and `packages/core-py` | [.x/guide-python.md](.x/guide-python.md) |
-| Shared packages (`packages/core-*`, `client-daemon-*`) | [.x/guide-packages.md](.x/guide-packages.md) |
-| `apps/cli`, `packages/daemon`, `packages/computer-use` | [.x/guide-runtime-go.md](.x/guide-runtime-go.md), [apps/cli/README.md](apps/cli/README.md) |
-| Daemon / sandbox containers | [docs/design/daemon.md](docs/design/daemon.md), [docker/desktop/sandbox-ai/README.md](docker/desktop/sandbox-ai/README.md), [docker/cli/README.md](docker/cli/README.md) |
-| Module lifecycle / status map | [.x/module-status.md](.x/module-status.md) |
-| v0.1 feature specs (historical-only context) | [.x/v0.1/README.md](.x/v0.1/README.md) |
+**Common types:**
+- `feat`: New feature
+- `fix`: Bug fix
+- `refactor`: Code refactoring
+- `docs`: Documentation changes
+- `ci`: CI/CD configuration changes
+- `chore`: Maintenance tasks
+- `test`: Test changes
 
-## Key Rules
+**Examples from this repo:**
+```
+ci: enable auto-trigger for client-build and docker-desktop-images workflows
+fix(client): improve sandbox cold-start reliability and project sync
+feat(client): add sandbox image pull progress and cancel support
+```
 
-- All code, comments, and variable names must be in **English**.
-- Follow **Conventional Commits** for commit messages.
-- Reusable logic must live in `packages/`, not duplicated across `apps/`.
-- Verify paths against the actual directory structure before creating files.
+## Git + PR Workflow Steps
+
+### 1. Check Status (Parallel)
+
+Run these commands in parallel to understand current state:
+
+```bash
+git status
+git diff
+git log -5 --oneline
+```
+
+### 2. Create Branch and Commit
+
+```bash
+git checkout -b <branch-name>
+git add <files>
+git commit -m "$(cat <<'EOF'
+<type>(<scope>): <subject>
+
+<detailed description>
+EOF
+)"
+```
+
+**Branch naming:**
+- `feat/<feature-name>` - New features
+- `fix/<bug-name>` - Bug fixes
+- `ci/<change-name>` - CI/CD changes
+- `docs/<doc-name>` - Documentation
+- `refactor/<refactor-name>` - Refactoring
+
+### 3. Push Branch
+
+```bash
+git push -u origin HEAD
+```
+
+### 4. Create PR with gh CLI
+
+```bash
+gh pr create \
+  --title "<type>(<scope>): <subject>" \
+  --body "$(cat <<'EOF'
+## Summary
+
+- Bullet point summary of changes
+
+## Changes
+
+### Component/File 1
+- Change description
+
+### Component/File 2
+- Change description
+
+## Test Plan
+
+- [ ] Test item 1
+- [ ] Test item 2
+
+EOF
+)"
+```
+
+### 5. Handle gh CLI Issues
+
+If `gh` CLI fails due to SSH alias in remote URL:
+
+1. Check if branch is already on GitHub:
+   ```bash
+   gh api repos/cofy-x/deck/branches/<branch-name> --jq '.name'
+   ```
+
+2. Create PR using API directly:
+   ```bash
+   gh api repos/cofy-x/deck/pulls \
+     -f title="<title>" \
+     -f head="<branch-name>" \
+     -f base="main" \
+     -f body="<body>" \
+     --jq '.html_url'
+   ```
+
+3. Check if PR already exists:
+   ```bash
+   gh api repos/cofy-x/deck/pulls \
+     --jq '.[] | select(.head.ref == "<branch-name>") | {number, title, html_url, state}'
+   ```
+
+## CHANGELOG Updates
+
+**Do NOT update CHANGELOG for:**
+- CI/CD workflow changes
+- Internal tooling updates
+- Development process improvements
+
+**DO update CHANGELOG for:**
+- User-facing features
+- Bug fixes
+- Breaking changes
+- API changes
+
+## Sequential Operations
+
+Always use `&&` to chain dependent operations:
+
+```bash
+git checkout -b branch && git add . && git commit -m "message" && git push -u origin HEAD
+```
+
+## Verification After Merge
+
+After PR is merged, verify:
+
+```bash
+git checkout main
+git pull
+git status
+```
 
 ---
 > Source: [cofy-x/deck](https://github.com/cofy-x/deck) — distributed by [TomeVault](https://tomevault.io).
