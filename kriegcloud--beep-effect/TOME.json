@@ -1,0 +1,81 @@
+{
+  "name": "beep-effect",
+  "owner": "kriegcloud",
+  "repo": "beep-effect",
+  "description": "AI instruction skills by kriegcloud",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "command-executor",
+      "path": ".claude/skills/command-executor",
+      "github_url": "https://github.com/kriegcloud/beep-effect/tree/main/.claude/skills/command-executor",
+      "description": ""
+    },
+    {
+      "name": "parallel-explore",
+      "path": ".claude/skills/parallel-explore",
+      "github_url": "https://github.com/kriegcloud/beep-effect/tree/main/.claude/skills/parallel-explore",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "path": ".agents/skills/turborepo",
+      "github_url": "https://github.com/kriegcloud/beep-effect/tree/main/.agents/skills/turborepo",
+      "description": ""
+    },
+    {
+      "name": "typeclass-design",
+      "path": ".claude/skills/typeclass-design",
+      "github_url": "https://github.com/kriegcloud/beep-effect/tree/main/.claude/skills/typeclass-design",
+      "description": ""
+    },
+    {
+      "name": "wide-events",
+      "path": ".claude/skills/wide-events",
+      "github_url": "https://github.com/kriegcloud/beep-effect/tree/main/.claude/skills/wide-events",
+      "description": ""
+    },
+    {
+      "name": "writing-laws",
+      "path": ".claude/skills/writing-laws",
+      "github_url": "https://github.com/kriegcloud/beep-effect/tree/main/.claude/skills/writing-laws",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kriegcloud/beep-effect",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T13:32:07Z"
+}
