@@ -1,0 +1,14 @@
+{
+  "name": "circlemind-ai--smooth-sdk",
+  "displayName": "smooth-sdk",
+  "description": "Smooth is an SDK and a CLI for AI browser automation",
+  "version": "1.0.0",
+  "author": "circlemind-ai",
+  "homepage": "https://github.com/circlemind-ai/smooth-sdk",
+  "skills": [
+    {
+      "name": "smooth-browser",
+      "description": ""
+    }
+  ]
+}
