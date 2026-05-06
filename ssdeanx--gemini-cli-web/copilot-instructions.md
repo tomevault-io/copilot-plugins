@@ -1,56 +1,66 @@
-## api-openapi
+## frontend
 
-> Treat the OpenAPI spec as source of truth and keep server, client, and docs aligned. Glob: documentation/API/**, server/**, src/utils/api.js - Scope: Schema-first REST; client/server sync
+> - Glob: src/**/*.{js,jsx,ts,tsx}
 
 
-# API & OpenAPI Rules (Model Decision + Glob)
+# Frontend Rules (Glob)
 
-- Activation: Model Decision
-- Glob: documentation/API/**, server/**, src/utils/api.js
-- Scope: Schema-first REST; client/server sync
+- Activation: Glob
+- Glob: src/**/*.{js,jsx,ts,tsx}
+- Scope: React 18 + Vite + Tailwind + Editors
 - Size budget: ≤ ~12k chars/file
 
-Treat the OpenAPI spec as source of truth and keep server, client, and docs aligned.
+Keep UI responsive, modular, and aligned with API contracts.
 
-## Schema-First Contract
+## Architecture
 
-- Update [documentation/API/openapi.yaml](cci:7://file:///home/sam/Gemini-CLI/documentation/API/openapi.yaml:0:0-0:0) for every API change (paths, params, bodies, responses, errors).
-- Keep [documentation/API/route-catalog.md](cci:7://file:///home/sam/Gemini-CLI/documentation/API/route-catalog.md:0:0-0:0) in sync with concise examples.
-- Reject unknown fields and validate types/bounds server-side.
+- Entry: [src/main.jsx](cci:7://file:///home/sam/Gemini-CLI/src/main.jsx:0:0-0:0) → [src/App.jsx](cci:7://file:///home/sam/Gemini-CLI/src/App.jsx:0:0-0:0). Centralize providers (Auth, WS).
+- Separate view vs. data hooks. Keep side-effects in hooks, not render paths.
+- Reuse UI primitives; avoid one-off styles when Tailwind utility can express them.
 
-## Implementation Rules (Server)
+## Data & API
 
-- Define/verify request/response shapes against the spec.
-- Return structured errors consistently: `{ error, details? }`.
-- Ensure all protected routes enforce `Authorization: Bearer <token>`.
+- Use [src/utils/api.js](cci:7://file:///home/sam/Gemini-CLI/src/utils/api.js:0:0-0:0) for HTTP; align shapes with [documentation/API/openapi.yaml](cci:7://file:///home/sam/Gemini-CLI/documentation/API/openapi.yaml:0:0-0:0).
+- Handle auth errors (401/403) centrally; trigger re-login when needed.
+- Prefer SWR-like patterns (cache, dedupe) for frequently-read endpoints.
 
-## Client Rules (Frontend)
+## WebSocket
 
-- Centralize fetches in [src/utils/api.js](cci:7://file:///home/sam/Gemini-CLI/src/utils/api.js:0:0-0:0); align request/response shapes with the spec.
-- Surface actionable errors; avoid leaking internals to UI toasts.
-- For binary endpoints (e.g., files content), use appropriate response types.
+- Put WS logic in [src/utils/websocket.js](cci:7://file:///home/sam/Gemini-CLI/src/utils/websocket.js:0:0-0:0) (one place). Expose status + events.
+- Token via `GET /api/config` then `/ws?token=...`. Reconnect with backoff.
 
-## Change Workflow
+## Performance
 
-1) Edit [openapi.yaml](cci:7://file:///home/sam/Gemini-CLI/documentation/API/openapi.yaml:0:0-0:0) first.
-2) Implement/adjust server handlers under `server/**`.
-3) Update [src/utils/api.js](cci:7://file:///home/sam/Gemini-CLI/src/utils/api.js:0:0-0:0) and consuming components.
-4) Refresh [route-catalog.md](cci:7://file:///home/sam/Gemini-CLI/documentation/API/route-catalog.md:0:0-0:0) with method, path, request/response, and notable errors.
+- Lazy-load heavy editors/panels (Monaco/CodeMirror). Code-split routes/panels.
+- Avoid large synchronous renders; memoize expensive subtrees.
+- Keep initial JS bundle reasonable; tree-shake and avoid large dependencies.
 
-## Verification
+## UX & Accessibility
 
-- In dev, perform lightweight fetch checks after changes (auth, happy-path, common errors).
-- If drift is detected, update the spec immediately or revert the code.
+- Use semantic HTML; label inputs; announce async states where applicable.
+- Show concise errors; avoid leaking server internals.
+- Keyboard navigability for core flows (chat, files, git).
 
-## WebSocket Note
+## Styling
 
-- Document WS payloads and events in [route-catalog.md](cci:7://file:///home/sam/Gemini-CLI/documentation/API/route-catalog.md:0:0-0:0) under “WebSocket”.
-- Keep client parsing in sync when payloads change.
+- Tailwind preferred. Abstract repeated patterns into components or class utils.
+- Keep dark/light compatibility in mind; avoid hard-coded colors outside theme.
+
+## State
+
+- Local component state for UI; context or lightweight store for cross-cutting state (auth/user, WS status).
+- Avoid deep prop drilling; hoist or use context thoughtfully.
+
+## Testing & Dev
+
+- Minimal checks for critical user journeys (auth, file open/save, git status).
+- In dev, show WS connection indicator unobtrusively.
 
 ## Project-Specific Anchors
 
-- Existing endpoints in [openapi.yaml](cci:7://file:///home/sam/Gemini-CLI/documentation/API/openapi.yaml:0:0-0:0) cover auth, projects, sessions, files, git, MCP.
-- File API requires absolute paths; document and enforce consistently.
+- File APIs require absolute paths. Editors must handle large files gracefully.
+- Image viewer uses `GET /api/projects/:projectName/files/content?path=abs`.
+- Components mapping lives in the Component–API memory; keep it updated when refactoring.
 
 ---
 > Source: [ssdeanx/Gemini-CLI-Web](https://github.com/ssdeanx/Gemini-CLI-Web) — distributed by [TomeVault](https://tomevault.io).
