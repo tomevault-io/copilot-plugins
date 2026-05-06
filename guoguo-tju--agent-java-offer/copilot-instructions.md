@@ -1,0 +1,106 @@
+## agent-java-offer
+
+> - **项目名**：Agent Offer（`agent_java_offer`）
+
+# 项目配置
+
+## 项目概览
+
+- **项目名**：Agent Offer（`agent_java_offer`）
+- **项目类型**：公开文档仓库（面试复习与项目口述资料）
+- **核心目标**：把分散笔记重组为适合复习、口述、追问展开的结构化资料库
+- **目标人群**：后端面试准备者、后端转 AI Agent 工程方向学习者
+- **当前状态**：第一版结构化迁移已完成，持续补充中
+
+## 核心文档入口
+
+@README.md
+@docs/interview_prep/README.md
+@docs/interview_prep/00_导航/README.md
+@docs/interview_prep/00_导航/总索引.md
+@docs/interview_prep/00_导航/复习路线图.md
+@docs/interview_prep/00_导航/原目录映射表.md
+@DISCLAIMER.md
+@LICENSE
+
+## 技术栈与运行形态
+
+- **内容载体**：Markdown 文档
+- **主要语言**：中文内容 + 英文技术术语
+- **框架/运行时**：待确认（当前仓库未发现 `package.json`、`src`、`Makefile`）
+- **UI/前端**：无（非应用型项目）
+- **后端/数据库/认证**：无（非服务型项目）
+- **部署方式**：待确认（当前形态为 Git 仓库文档发布）
+- **许可证**：CC BY-NC 4.0（见 `LICENSE`）
+
+## 核心目录结构
+
+- `README.md`：仓库首页与总导航
+- `docs/interview_prep/`：主资料区（所有公开复习内容）
+  - `00_导航/`：总索引、复习路线图、原目录映射
+  - `01_AI/`：Agent、RAG、上下文工程、评测、安全、工程化、追加补充
+  - `02_后端/`：MySQL、Redis、Kafka、并发、JVM、Spring、RPC 等
+  - `03_系统设计/`：估算、高并发、缓存、MQ、交易风控等
+  - `04_算法/`：按题型聚合的高频题单
+  - `05_项目表达/`：项目口述与场景化追问
+- `docs/superpowers/plans/`：迁移计划与执行记录（维护文档，不是复习主内容）
+
+## 常用命令
+
+> 当前仓库是纯文档项目，工程化命令多数为“待确认/不适用”。
+
+| 类别 | 命令 | 用途 | 状态 |
+|---|---|---|---|
+| 安装（install） | 待确认 | 当前无依赖清单 | 待确认 |
+| 开发（dev） | 不适用 | 无本地服务启动需求 | 不适用 |
+| 构建（build） | 不适用 | 无构建产物 | 不适用 |
+| 检查（check） | `git diff -- docs/interview_prep` | 检查资料区改动 | 可用 |
+| 测试（test） | 待确认 | 当前未配置自动化测试/校验 | 待确认 |
+
+## 开发规范（Claude Code / Codex）
+
+### 内容组织规范
+
+- 严格遵守三层结构：**方向 -> 主题 -> `01_核心问答.md`**。
+- 优先在主题内扩展，不新增“高频题/口述版/追问版”等并列重复文件。
+- 新增主题时，必须同步更新所在方向 `README.md` 与导航入口。
+
+### 文档编辑规范
+
+- 使用相对路径链接，禁止本机绝对路径。
+- 不编造信息；无法确认的事实必须标注“待确认”。
+- 保持公开表达与匿名化边界，不引入敏感或非公开信息。
+- 小步提交，单次改动聚焦一个目标（结构调整或内容补充）。
+
+### Git 规范
+
+- 分支命名建议：`feature/<topic>`、`docs/<topic>`、`fix/<topic>`。
+- Commit message 使用英文且简洁，建议 Conventional Commits（`docs: ...`、`fix: ...`）。
+- 未经明确指令，不执行 `git push`。
+
+## 修改代码/文档时的注意事项
+
+- 开改前先读：
+  1. `README.md`
+  2. `docs/interview_prep/README.md`
+  3. `docs/interview_prep/00_导航/总索引.md`
+  4. `docs/interview_prep/00_导航/复习路线图.md`
+- 涉及重命名或移动目录时，先全局检查引用再修改，避免导航断链。
+- `DISCLAIMER.md` 与 `LICENSE` 属于边界文件，非必要不改。
+- `docs/superpowers/` 是过程文档区，避免与公开复习内容混用。
+
+## 输出风格要求（面向后续 AI 协作）
+
+- 默认中文回答，先给结论再给理由。
+- 讨论技术决策时，必须说明“为什么”和“对用户的影响”。
+- 修改建议需落到具体文件路径，避免空泛话术。
+- 对不确定信息明确标注“待确认”，并给出最短验证路径。
+- 回答保持精简，优先给可执行下一步。
+
+---
+
+**最后更新**：2026-04-20
+
+---
+> Source: [guoguo-tju/agent_java_offer](https://github.com/guoguo-tju/agent_java_offer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
