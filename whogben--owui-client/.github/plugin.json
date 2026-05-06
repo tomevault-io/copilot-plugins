@@ -1,0 +1,9 @@
+{
+  "name": "whogben--owui-client",
+  "displayName": "owui_client",
+  "description": "Unofficial Python client for the complete Open WebUI API.",
+  "version": "1.0.0",
+  "author": "whogben",
+  "homepage": "https://github.com/whogben/owui_client",
+  "skills": []
+}
