@@ -1,0 +1,9 @@
+{
+  "name": "themoah--klag",
+  "displayName": "klag",
+  "description": "new kafka lag exporter: lightweight and extendable.",
+  "version": "1.0.0",
+  "author": "themoah",
+  "homepage": "https://github.com/themoah/klag",
+  "skills": []
+}
