@@ -1,0 +1,9 @@
+{
+  "name": "lefticus--cppstdmd",
+  "displayName": "cppstdmd",
+  "description": "Converter for C++ Standard Latex into Human Readable Markdown",
+  "version": "1.0.0",
+  "author": "lefticus",
+  "homepage": "https://github.com/lefticus/cppstdmd",
+  "skills": []
+}
