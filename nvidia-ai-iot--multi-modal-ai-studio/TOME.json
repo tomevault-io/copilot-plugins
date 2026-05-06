@@ -2,7 +2,7 @@
   "name": "multi_modal_ai_studio",
   "owner": "NVIDIA-AI-IOT",
   "repo": "multi_modal_ai_studio",
-  "description": "",
+  "description": "Voice and Vision enabled AI studio with Riva/OpenAI backends",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/NVIDIA-AI-IOT/multi_modal_ai_studio",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T00:20:39Z"
+  "distributed_at": "2026-05-06T14:27:59Z"
 }
