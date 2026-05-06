@@ -1,0 +1,9 @@
+{
+  "name": "steffenpharai--jarvis",
+  "displayName": "Jarvis",
+  "description": "Fully offline Iron Man J.A.R.V.I.S. on Jetson Orin Nano (8GB) \u2014 voice + vision + 3D holograms + health monitoring. No cloud. No API keys.",
+  "version": "1.0.0",
+  "author": "steffenpharai",
+  "homepage": "https://github.com/steffenpharai/Jarvis",
+  "skills": []
+}
