@@ -1,0 +1,9 @@
+{
+  "name": "impecablemee--gtm-mcp",
+  "displayName": "gtm-mcp",
+  "description": "Open-source B2B cold outreach pipeline for Claude Code. One /launch command: find companies (Apollo), classify with AI, extract contacts, write deeply personalized sequences, push to SmartLead. Zero L",
+  "version": "1.0.0",
+  "author": "impecablemee",
+  "homepage": "https://github.com/impecablemee/gtm-mcp",
+  "skills": []
+}
