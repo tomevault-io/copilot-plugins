@@ -1,0 +1,9 @@
+{
+  "name": "clintgallivan--ai-enabled-nodejs-microservices-starter",
+  "displayName": "ai-enabled-nodejs-microservices-starter",
+  "description": "\ud83d\ude80 Production-ready Node.js/TypeScript starter with complete JWT authentication,   microservices architecture, and developer tooling. Includes email service, database   cleanup, testing, Postman collec",
+  "version": "1.0.0",
+  "author": "clintgallivan",
+  "homepage": "https://github.com/clintgallivan/ai-enabled-nodejs-microservices-starter",
+  "skills": []
+}
