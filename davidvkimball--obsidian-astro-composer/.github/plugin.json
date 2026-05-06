@@ -1,0 +1,30 @@
+{
+  "name": "davidvkimball--obsidian-astro-composer",
+  "displayName": "obsidian",
+  "description": "Turn your Obsidian notes into posts and pages for your Astro blog with automated content management features.",
+  "version": "1.0.0",
+  "author": "davidvkimball",
+  "homepage": "https://github.com/davidvkimball/obsidian-astro-composer",
+  "skills": [
+    {
+      "name": "obsidian-dev",
+      "description": ""
+    },
+    {
+      "name": "obsidian-ref",
+      "description": ""
+    },
+    {
+      "name": "obsidian-theme-dev",
+      "description": ""
+    },
+    {
+      "name": "obsidian-ref",
+      "description": ""
+    },
+    {
+      "name": "obsidian-theme-dev",
+      "description": ""
+    }
+  ]
+}
