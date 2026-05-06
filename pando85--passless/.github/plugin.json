@@ -1,0 +1,9 @@
+{
+  "name": "pando85--passless",
+  "displayName": "passless",
+  "description": "Virtual FIDO2 device and client FIDO 2 utility",
+  "version": "1.0.0",
+  "author": "pando85",
+  "homepage": "https://github.com/pando85/passless",
+  "skills": []
+}
