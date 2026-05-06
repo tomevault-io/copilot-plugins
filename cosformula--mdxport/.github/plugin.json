@@ -1,0 +1,9 @@
+{
+  "name": "cosformula--mdxport",
+  "displayName": "mdxport",
+  "description": "Markdown to PDF/Cards/Slides, Perfect Typesetting, Powered by Typst.",
+  "version": "1.0.0",
+  "author": "cosformula",
+  "homepage": "https://github.com/cosformula/mdxport",
+  "skills": []
+}
