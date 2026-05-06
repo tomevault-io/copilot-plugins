@@ -1,0 +1,9 @@
+{
+  "name": "climax-tools--skillset",
+  "displayName": "skillset",
+  "description": "A CLI for managing AI skill packages ",
+  "version": "1.0.0",
+  "author": "climax-tools",
+  "homepage": "https://github.com/climax-tools/skillset",
+  "skills": []
+}
