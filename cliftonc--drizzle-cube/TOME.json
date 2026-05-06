@@ -1,0 +1,75 @@
+{
+  "name": "drizzle-cube",
+  "owner": "cliftonc",
+  "repo": "drizzle-cube",
+  "description": "An embeddable multi-dimensional semantic layer and self-service analytics module (built on Drizzle) - broadly compliant with cube-js concepts and semantic definitions.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-query-mode",
+      "path": ".claude/skills/add-query-mode",
+      "github_url": "https://github.com/cliftonc/drizzle-cube/tree/main/.claude/skills/add-query-mode",
+      "description": ""
+    },
+    {
+      "name": "dc-analysis-config",
+      "path": "skills/dc-analysis-config",
+      "github_url": "https://github.com/cliftonc/drizzle-cube/tree/main/skills/dc-analysis-config",
+      "description": ""
+    },
+    {
+      "name": "dc-chart-config",
+      "path": "skills/dc-chart-config",
+      "github_url": "https://github.com/cliftonc/drizzle-cube/tree/main/skills/dc-chart-config",
+      "description": ""
+    },
+    {
+      "name": "dc-cube-definition",
+      "path": "skills/dc-cube-definition",
+      "github_url": "https://github.com/cliftonc/drizzle-cube/tree/main/skills/dc-cube-definition",
+      "description": ""
+    },
+    {
+      "name": "dc-query-building",
+      "path": "skills/dc-query-building",
+      "github_url": "https://github.com/cliftonc/drizzle-cube/tree/main/skills/dc-query-building",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cliftonc/drizzle-cube",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T02:34:24Z"
+}
