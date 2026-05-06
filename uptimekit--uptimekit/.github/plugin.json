@@ -1,0 +1,9 @@
+{
+  "name": "uptimekit--uptimekit",
+  "displayName": "uptimekit",
+  "description": "Uptimekit provides an admin dashboard and public status pages",
+  "version": "1.0.0",
+  "author": "uptimekit",
+  "homepage": "https://github.com/uptimekit/uptimekit",
+  "skills": []
+}
