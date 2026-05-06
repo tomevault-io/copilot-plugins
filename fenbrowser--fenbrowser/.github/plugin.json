@@ -1,0 +1,9 @@
+{
+  "name": "fenbrowser--fenbrowser",
+  "displayName": "fenbrowser",
+  "description": "Fen Browser is an independent browser engine focused on correctness and clean architecture. It builds its own rendering and layout systems and is not yet intended for daily use.",
+  "version": "1.0.0",
+  "author": "FENBROWSER",
+  "homepage": "https://github.com/FENBROWSER/fenbrowser",
+  "skills": []
+}
