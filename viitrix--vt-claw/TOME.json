@@ -1,0 +1,44 @@
+{
+  "name": "vt-claw",
+  "owner": "viitrix",
+  "repo": "vt-claw",
+  "description": "\u4ee5\u786c\u4ef6\u6280\u80fd\u4e3a\u6838\u5fc3\u3001\u9762\u5411\u884c\u4e1a\u7528\u6237\u7684 Claw \u8f6f\u4ef6 \u2014 \u5b89\u5168\u9694\u79bb \u00b7 \u900f\u660e\u53ef\u63a7 \u00b7 \u4e3b\u52a8\u667a\u80fd",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/viitrix/vt-claw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T17:40:57Z"
+}
