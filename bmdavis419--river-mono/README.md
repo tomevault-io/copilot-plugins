@@ -1,6 +1,8 @@
 # river-mono
 
-> Tome by [bmdavis419](https://github.com/bmdavis419/river-mono) — distributed by [TomeVault](https://tomevault.io/claim/bmdavis419)
+> Tome by [bmdavis419](https://github.com/bmdavis419/river-mono) — distributed by [TomeVault](https://tomevault.io)
+
+it's kinda like trpc, but for ai agents & streams
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [bmdavis419/river-mono](https://github
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/bmdavis419)
+From [bmdavis419/river-mono](https://github.com/bmdavis419/river-mono) — a repo with 8+ stars on GitHub.
 
 ---
 
