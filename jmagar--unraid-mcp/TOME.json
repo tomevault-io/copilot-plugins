@@ -1,0 +1,51 @@
+{
+  "name": "unraid-mcp",
+  "owner": "jmagar",
+  "repo": "unraid-mcp",
+  "description": "Query, monitor, and manage Unraid servers via GraphQL API through MCP tools. Supports system info, Docker, VMs, array/parity, notifications, plugins, rclone, and live telemetry.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "unraid",
+      "path": "skills/unraid",
+      "github_url": "https://github.com/jmagar/unraid-mcp/tree/main/skills/unraid",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/jmagar/unraid-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T19:35:52Z"
+}
