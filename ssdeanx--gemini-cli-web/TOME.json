@@ -2,8 +2,8 @@
   "name": "Gemini-CLI-Web",
   "owner": "ssdeanx",
   "repo": "Gemini-CLI-Web",
-  "description": "AI instruction skills by ssdeanx",
-  "type": "tome",
+  "description": "Gemini CLI Web is an interface that allows you to use Gemini CLI in web browser.  Integrate CLI, Chat, Monaco, Spec Generation & more to come ",
+  "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
     {
@@ -37,15 +37,8 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [
-    {
-      "name": "gemini",
-      "path": ".github/skills/gemini",
-      "github_url": "https://github.com/ssdeanx/Gemini-CLI-Web/tree/main/.github/skills/gemini",
-      "description": ""
-    }
-  ],
+  "skills": [],
   "source_url": "https://github.com/ssdeanx/Gemini-CLI-Web",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T14:36:53Z"
+  "distributed_at": "2026-05-06T13:40:11Z"
 }
