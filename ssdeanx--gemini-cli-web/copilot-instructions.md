@@ -1,60 +1,57 @@
-## gemini-cli-web
+## api-openapi
 
-> WebSocket Realtime Rules: Keep realtime robust, authenticated, and aligned between server and client. - Glob: server/**, src/utils/websocket.js, src/**/useWebSocket*.{js,ts,jsx,tsx} - Scope: WS auth, resiliency, message schema alignment
+> Treat the OpenAPI spec as source of truth and keep server, client, and docs aligned. Glob: documentation/API/**, server/**, src/utils/api.js - Scope: Schema-first REST; client/server sync
 
 
-# WebSocket Realtime Rules (Model Decision + Glob)
+# API & OpenAPI Rules (Model Decision + Glob)
 
 - Activation: Model Decision
-- Glob: server/**, src/utils/websocket.js, src/**/useWebSocket*.{js,ts,jsx,tsx}
-- Scope: WS auth, resiliency, message schema alignment
+- Glob: documentation/API/**, server/**, src/utils/api.js
+- Scope: Schema-first REST; client/server sync
 - Size budget: ≤ ~12k chars/file
 
-Keep realtime robust, authenticated, and aligned between server and client.
+Treat the OpenAPI spec as source of truth and keep server, client, and docs aligned.
 
-## Auth & Connect
+## Schema-First Contract
 
-- Derive WS URL via `GET /api/config` then connect to `/ws?token=<JWT>`.
-- Validate JWT server-side at handshake and on reconnect. Expired → prompt re-login.
-- Never log full tokens; mask in errors/diagnostics.
+- Update [documentation/API/openapi.yaml](cci:7://file:///home/sam/Gemini-CLI/documentation/API/openapi.yaml:0:0-0:0) for every API change (paths, params, bodies, responses, errors).
+- Keep [documentation/API/route-catalog.md](cci:7://file:///home/sam/Gemini-CLI/documentation/API/route-catalog.md:0:0-0:0) in sync with concise examples.
+- Reject unknown fields and validate types/bounds server-side.
 
-## Reconnect & Backoff
+## Implementation Rules (Server)
 
-- Implement jittered exponential backoff with max cap (e.g., base 500ms, factor 2, max 30s).
-- Reset backoff on successful connect; pause when tab hidden if appropriate.
-- Detect network offline/online; try immediate reconnect on `online`.
+- Define/verify request/response shapes against the spec.
+- Return structured errors consistently: `{ error, details? }`.
+- Ensure all protected routes enforce `Authorization: Bearer <token>`.
 
-## Heartbeats & Liveness
+## Client Rules (Frontend)
 
-- If server supports pings, respond/track latency; otherwise, client-side idle timeout + periodic keepalive message negotiated with server.
-- Close and reconnect on prolonged silence or protocol errors.
+- Centralize fetches in [src/utils/api.js](cci:7://file:///home/sam/Gemini-CLI/src/utils/api.js:0:0-0:0); align request/response shapes with the spec.
+- Surface actionable errors; avoid leaking internals to UI toasts.
+- For binary endpoints (e.g., files content), use appropriate response types.
 
-## Message Schema
+## Change Workflow
 
-- Document events in [documentation/API/route-catalog.md](cci:7://file:///home/sam/Gemini-CLI/documentation/API/route-catalog.md:0:0-0:0) under “WebSocket”.
-- Maintain a types module (TS) or JSDoc typedefs for event payloads.
-- On server payload changes, update client parsing and docs in the same PR.
+1) Edit [openapi.yaml](cci:7://file:///home/sam/Gemini-CLI/documentation/API/openapi.yaml:0:0-0:0) first.
+2) Implement/adjust server handlers under `server/**`.
+3) Update [src/utils/api.js](cci:7://file:///home/sam/Gemini-CLI/src/utils/api.js:0:0-0:0) and consuming components.
+4) Refresh [route-catalog.md](cci:7://file:///home/sam/Gemini-CLI/documentation/API/route-catalog.md:0:0-0:0) with method, path, request/response, and notable errors.
 
-## Throttling & Dedup
+## Verification
 
-- Coalesce rapid-fire identical updates (e.g., file tree refresh) with a short debounce.
-- Use ids/timestamps to deduplicate late or out-of-order messages.
+- In dev, perform lightweight fetch checks after changes (auth, happy-path, common errors).
+- If drift is detected, update the spec immediately or revert the code.
 
-## Error Handling
+## WebSocket Note
 
-- Map WS close codes to concise UI messages; avoid leaking server internals.
-- Auto-retry on transient errors; hard-stop on auth/permission errors and guide user.
-
-## Testing & Dev
-
-- In dev, surface connection status (connected/reconnecting/error) unobtrusively.
-- Add a minimal test or manual check to verify auth + one event end-to-end.
+- Document WS payloads and events in [route-catalog.md](cci:7://file:///home/sam/Gemini-CLI/documentation/API/route-catalog.md:0:0-0:0) under “WebSocket”.
+- Keep client parsing in sync when payloads change.
 
 ## Project-Specific Anchors
 
-- Current event: `projects_updated` → `{ type, projects, timestamp, changeType, changedFile }`.
-- Client hook: [src/utils/websocket.js](cci:7://file:///home/sam/Gemini-CLI/src/utils/websocket.js:0:0-0:0) (or equivalent). Keep token handling and reconnect logic centralized.
+- Existing endpoints in [openapi.yaml](cci:7://file:///home/sam/Gemini-CLI/documentation/API/openapi.yaml:0:0-0:0) cover auth, projects, sessions, files, git, MCP.
+- File API requires absolute paths; document and enforce consistently.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ssdeanx) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-13 -->
+> Source: [ssdeanx/Gemini-CLI-Web](https://github.com/ssdeanx/Gemini-CLI-Web) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
