@@ -1,0 +1,44 @@
+{
+  "name": "QStockAI",
+  "owner": "Defeng11",
+  "repo": "QStockAI",
+  "description": "\u6b64\u9879\u76ee\u4e3a\u5229\u7528AI agent\u8fdb\u884c\u6269\u5c55\u80a1\u7968\u7b5b\u9009\u3001\u80a1\u7968\u5206\u6790\u3001\u80a1\u7968\u4e70\u5356\u4ea4\u6613\u70b9\u3001\u56de\u6d4b\u7b49\u7b49\u3002",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Defeng11/QStockAI",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T05:35:38Z"
+}
