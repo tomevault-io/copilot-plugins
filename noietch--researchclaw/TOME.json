@@ -4,7 +4,7 @@
   "repo": "ResearchClaw",
   "description": "AI-Powered Research Desktop App",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Noietch/ResearchClaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T05:25:16Z"
+  "distributed_at": "2026-05-06T23:36:05Z"
 }
