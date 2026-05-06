@@ -1,0 +1,9 @@
+{
+  "name": "theacharya--xlkit",
+  "displayName": "XLKit",
+  "description": "A modern Swift library for creating Excel (.xlsx) files on macOS with image embedding",
+  "version": "1.0.0",
+  "author": "TheAcharya",
+  "homepage": "https://github.com/TheAcharya/XLKit",
+  "skills": []
+}
