@@ -1,0 +1,9 @@
+{
+  "name": "vietanhdev--thinkutils",
+  "displayName": "ThinkUtils",
+  "description": "A powerful native desktop app for ThinkPad users on Linux. Control fan speeds, optimize battery health, tune CPU performance, and monitor system resources\u2014all in one sleek interface built with Tauri.",
+  "version": "1.0.0",
+  "author": "vietanhdev",
+  "homepage": "https://github.com/vietanhdev/ThinkUtils",
+  "skills": []
+}
