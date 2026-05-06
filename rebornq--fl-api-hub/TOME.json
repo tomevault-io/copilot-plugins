@@ -1,0 +1,44 @@
+{
+  "name": "fl_api_hub",
+  "owner": "RebornQ",
+  "repo": "fl_api_hub",
+  "description": "Flutter \u4e00\u7ad9\u5f0f AI API \u4e2d\u8f6c\u7ad9\u7ba1\u7406\u5de5\u5177\uff0c\u7edf\u4e00\u7ba1\u7406\u591a\u5e73\u53f0\u8d26\u53f7\u3001\u4f59\u989d\u3001\u5bc6\u94a5\u4e0e\u5feb\u901f\u7b7e\u5230",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/RebornQ/fl_api_hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T03:38:20Z"
+}
