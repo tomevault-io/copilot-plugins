@@ -1,0 +1,14 @@
+{
+  "name": "chrisvanbuskirk--appshot",
+  "displayName": "appshot",
+  "description": "CLI for App Store Screenshots",
+  "version": "1.0.0",
+  "author": "chrisvanbuskirk",
+  "homepage": "https://github.com/chrisvanbuskirk/appshot",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
