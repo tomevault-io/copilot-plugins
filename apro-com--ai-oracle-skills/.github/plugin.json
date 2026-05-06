@@ -1,0 +1,9 @@
+{
+  "name": "apro-com--ai-oracle-skills",
+  "displayName": "ai-oracle-skills",
+  "description": "agents can use these skills to query ai-oracle apis and generate the api calling codes.",
+  "version": "1.0.0",
+  "author": "APRO-com",
+  "homepage": "https://github.com/APRO-com/ai-oracle-skills",
+  "skills": []
+}
