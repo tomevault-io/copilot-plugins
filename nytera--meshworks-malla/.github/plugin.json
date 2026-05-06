@@ -1,0 +1,9 @@
+{
+  "name": "nytera--meshworks-malla",
+  "displayName": "meshworks-malla",
+  "description": "Malla is a web analyzer for Meshtastic networks based on MQTT data.",
+  "version": "1.0.0",
+  "author": "nytera",
+  "homepage": "https://github.com/nytera/meshworks-malla",
+  "skills": []
+}
