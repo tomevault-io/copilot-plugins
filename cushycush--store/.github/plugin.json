@@ -1,0 +1,9 @@
+{
+  "name": "cushycush--store",
+  "displayName": "store",
+  "description": "`store` manages symlinks for your dotfiles without requiring mirrored directory structures. Each \"store\" is a directory in your repository that gets symlinked to a t",
+  "version": "1.0.0",
+  "author": "cushycush",
+  "homepage": "https://github.com/cushycush/store",
+  "skills": []
+}
