@@ -4,7 +4,7 @@
   "repo": "Classifarr",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cloudbyday90/Classifarr",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T21:54:19Z"
+  "distributed_at": "2026-05-06T17:28:13Z"
 }
