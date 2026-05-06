@@ -1,0 +1,14 @@
+{
+  "name": "tddworks--inappkit",
+  "displayName": "InAppKit",
+  "description": " SwiftUI-native framework that simplifies StoreKit integration with a fluent, chainable API and feature-first approach",
+  "version": "1.0.0",
+  "author": "tddworks",
+  "homepage": "https://github.com/tddworks/InAppKit",
+  "skills": [
+    {
+      "name": "inappkit-integration",
+      "description": ""
+    }
+  ]
+}
