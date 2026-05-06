@@ -1,54 +1,42 @@
-## frontend-conventions
+## known-good-patterns
 
-> Frontend React conventions — TanStack Query, api-client, shared components
+> Validated patterns that must be preserved — consult before structural changes
 
 
-# Frontend Conventions
+# Known-Good Patterns
 
-## Data fetching — always use TanStack Query
+Validated in production. Do not revert without a documented reason.
 
-Never use raw `axios` or manual `useEffect` + `useState` for data fetching. All server state goes through TanStack Query hooks in `src/hooks/`.
+## Domain purity
+Domain files import only `shared/kernel/`, stdlib, pydantic. Zero infrastructure.
 
-```jsx
-// ❌ BAD
-const [data, setData] = useState([]);
-useEffect(() => {
-  axios.get('/api/withdrawals').then(r => setData(r.data));
-}, []);
+## Unit of Work — contextvar ambient transactions
+`transaction()` stores the transactional connection in `_tx_conn` ContextVar. `get_connection()` returns it inside a transaction block; repos call it directly and automatically join the ambient transaction. Nested `transaction()` calls reuse the existing connection.
 
-// ✅ GOOD
-const { data = [] } = useWithdrawals();
-```
+asyncpg + FastAPI + asyncio is exactly the environment contextvars were designed for — each request is an isolated asyncio task. This is correct. Do not thread `conn` through function signatures.
 
-If no hook exists for an endpoint, create one in the appropriate `src/hooks/use*.js` file using `api-client.js`.
+## Domain events
+`@on(EventType)` / `await dispatch(event)` — handler registry in `shared/infrastructure/domain_events.py`. Typed event classes in `shared/kernel/`. Register handlers in `startup.py` by importing handler modules. Every mutation visible to users must dispatch a typed event — this is the auditability and real-time push mechanism.
 
-## API calls — always use api-client
+`event_hub.emit()` is called only from `shared/infrastructure/ws_bridge.py`. Never call it directly.
 
-All API calls go through `src/lib/api-client.js`. Never import `axios` directly in components or pages.
+## InvoicingGateway port
+Only true port-and-adapter pair. Reference implementation. Do not create new ports unless all three criteria are met (see backend-conventions.mdc).
 
-```jsx
-// ❌ BAD — direct axios import in a component
-import axios from "axios";
-const res = await axios.get(`${API}/chat/status`);
+## Auth provider abstraction
+`shared/api/auth_provider.py` is the only place JWT claims are extracted. Provider is auto-selected: supabase in production, internal in dev/test. All three auth paths call `resolve_claims(payload)`. Adding a provider = one new branch in that file only.
 
-// ✅ GOOD
-import api from "@/lib/api-client";
-const data = await api.chat.status();
-```
+## Org isolation
+Every write scoped to `org_id` from `get_org_id()` (ambient contextvar set by auth middleware). `Entity.organization_id` has no default — every domain entity must be constructed with an explicit org_id. `DEFAULT_ORG_ID = "default"` exists only for seed scripts and test fixtures.
 
-## Shared components
+## Structured logging
+Module-level `logger = logging.getLogger(__name__)` everywhere. Mutations log at INFO with `extra={"org_id": ..., "<entity>_id": ..., "action": ...}`. No `print()`.
 
-Use existing shared components before creating new ones:
-- `StatusBadge` / `StockBadge` from `@/components/StatusBadge`
-- `Panel` / `SectionHead` from `@/components/Panel`
-- `DataTable` from `@/components/DataTable`
-- `ViewToolbar` from `@/components/ViewToolbar`
+## External call resilience
+Xero, Anthropic, OpenRouter: explicit timeouts, log failures at ERROR with `exc_info=True`, do not commit the local transaction if the external call fails.
 
-Never define a local copy of a shared component inside a page or modal.
-
-## Page components
-
-Page components orchestrate; they do not implement. Extract sub-components when a page exceeds ~300 lines.
+## Cross-context reads
+`catalog/application/queries.py`, `operations/application/queries.py`, `purchasing/application/queries.py`. Never import from another context's `infrastructure/`.
 
 ---
 > Source: [albusOS/sku-ops](https://github.com/albusOS/sku-ops) — distributed by [TomeVault](https://tomevault.io).
