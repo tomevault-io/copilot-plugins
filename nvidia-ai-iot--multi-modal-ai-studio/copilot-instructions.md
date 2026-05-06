@@ -1,126 +1,44 @@
-## code-style
+## project
 
-> - **Type hints**: Use `typing` module for all function signatures
+> A next-generation voice/text/video AI interface designed for analyzing and optimizing conversational AI systems.
 
-# Code Style Guidelines
+# Project Overview
 
-## Python Style
+## Multi-modal AI Studio
 
-- **Type hints**: Use `typing` module for all function signatures
-- **Dataclasses**: Prefer `@dataclass` for configuration objects
-- **Async/await**: Use async for I/O operations (WebSocket, gRPC, HTTP)
-- **Logging**: Use Python `logging` module (not print statements)
-- **Docstrings**: Google-style docstrings for public APIs
-- **Line length**: 100 characters (configured in pyproject.toml)
+A next-generation voice/text/video AI interface designed for analyzing and optimizing conversational AI systems.
 
-## Example
+## Core Goals
 
-```python
-from dataclasses import dataclass
-from typing import Optional, Literal, List
-import logging
+1. **Multi-modal Support**: Voice, text, video inputs and outputs
+2. **Multi-backend**: Riva gRPC, OpenAI REST/Realtime, Azure Speech
+3. **Session Management**: Save/load complete configurations with chat history and timeline data
+4. **Performance Analysis**: Real-time timeline visualization and latency metrics
+5. **Flexible Deployment**: WebUI or headless CLI mode
 
-logger = logging.getLogger(__name__)
+## Design Principles
 
-@dataclass
-class ASRConfig:
-    """ASR configuration settings.
-    
-    Attributes:
-        scheme: Backend type (riva, openai, azure)
-        server: Server address for gRPC backends
-        model: Model identifier
-        language: Language code (e.g., en-US)
-    """
-    scheme: Literal["riva", "openai-rest", "openai-realtime", "azure"]
-    server: Optional[str] = None
-    model: str = "conformer"
-    language: str = "en-US"
-    
-    def validate(self) -> List[str]:
-        """Validate configuration consistency.
-        
-        Returns:
-            List of warning messages (empty if valid)
-        """
-        warnings = []
-        
-        if self.scheme == "riva" and not self.server:
-            warnings.append("Riva scheme requires server address")
-        
-        if self.scheme.startswith("openai") and not self.server:
-            logger.info("Using default OpenAI server")
-        
-        return warnings
-```
+- **Reuse proven code** from live-riva-webui where applicable
+- **Extensible architecture** for adding new backends easily
+- **Config-first design** - everything is configurable and exportable
+- **Accessibility** - support text-only, voice-only, or mixed interaction modes
+- **Developer-focused** - designed for analyzing and optimizing voice AI systems
 
-## File Organization
+## Key Differentiators vs Live RIVA WebUI
 
-- **One class per file** when classes are large (>200 lines)
-- **Group related small classes** in single file
-- **Keep `__init__.py` minimal** (imports only, no logic)
-- **Separate concerns**: Config from logic, UI from backend
+1. **Session persistence**: Save complete configs + timeline data for offline analysis
+2. **Multi-backend**: Not just Riva, but OpenAI and other APIs
+3. **Comparison mode**: Compare multiple sessions side-by-side
+4. **Preset system**: Quick-start with pre-configured setups
+5. **Headless mode**: Run without WebUI for automation/production
+6. **Timeline playback**: Replay recorded sessions (not just live monitoring)
 
-## Naming Conventions
+## Target Users
 
-- **Classes**: PascalCase (`ASRBackend`, `SessionConfig`)
-- **Functions/methods**: snake_case (`get_session`, `validate_config`)
-- **Constants**: UPPER_SNAKE_CASE (`DEFAULT_PORT`, `MAX_RETRIES`)
-- **Private**: Leading underscore (`_internal_method`)
-
-## Import Order
-
-```python
-# 1. Standard library
-import asyncio
-import logging
-from pathlib import Path
-from typing import Optional
-
-# 2. Third-party packages
-import aiohttp
-import yaml
-from openai import OpenAI
-
-# 3. Local imports
-from multi_modal_ai_studio.config.schema import SessionConfig
-from multi_modal_ai_studio.backends.base import ASRBackend
-```
-
-## Error Handling
-
-- Use **specific exceptions** (ValueError, ConfigError, BackendError)
-- **Log before raising** exceptions
-- Provide **helpful error messages** with suggestions
-
-```python
-if not self.api_key:
-    logger.error("OpenAI API key not provided")
-    raise ConfigError(
-        "OpenAI API key is required. "
-        "Set OPENAI_API_KEY environment variable or pass --openai-api-key"
-    )
-```
-
-## Testing
-
-- **Unit tests** for each module
-- **Fixtures** for mock data (audio, configs)
-- **Async tests** using pytest-asyncio
-- **Mocking** external services (gRPC, HTTP)
-
-## Comments
-
-- **Why, not what**: Explain reasoning, not obvious code
-- **TODO**: Mark future improvements
-- **FIXME**: Mark known issues
-- **XXX**: Mark workarounds or hacks
-
-```python
-# TODO: Add support for custom VAD models
-# FIXME: Handle edge case when audio buffer is empty
-# XXX: Temporary workaround for OpenAI API rate limits
-```
+- **Voice AI Developers**: Optimize latency and accuracy
+- **Researchers**: Analyze turn-taking dynamics and conversation patterns
+- **Product Teams**: Demo and showcase voice AI capabilities
+- **DevOps/MLOps**: Automated testing and monitoring in headless mode
 
 ---
 > Source: [NVIDIA-AI-IOT/multi_modal_ai_studio](https://github.com/NVIDIA-AI-IOT/multi_modal_ai_studio) — distributed by [TomeVault](https://tomevault.io).
