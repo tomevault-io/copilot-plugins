@@ -1,0 +1,9 @@
+{
+  "name": "ar27111994--webhook-debugger-logger",
+  "displayName": "webhook-debugger-logger",
+  "description": "Enterprise-grade webhook testing suite for developers. Capture, inspect, replay, forward, validate, and mock webhook traffic in real time without tunnels. Includes SSE live streaming, JSON Schema vali",
+  "version": "1.0.0",
+  "author": "ar27111994",
+  "homepage": "https://github.com/ar27111994/webhook-debugger-logger",
+  "skills": []
+}
