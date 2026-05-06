@@ -1,55 +1,50 @@
-## 03-database
+## 04-ai-integrations
 
-> Reglas para cambios en la base de datos MySQL — migraciones, nomenclatura y relaciones.
+> Reglas para integración con IA (Gemini) y APIs de Google (Classroom y Drive).
 
 
-# Base de Datos — Reglas MySQL
+# Integraciones IA y Google APIs
 
-## Migraciones
-- **Obligatorio:** Cualquier cambio estructural (nueva tabla, columna, índice, tipo de dato) debe crearse como un archivo SQL numerado y secuencial en `backend/database/migrations/`.
-  - Formato del nombre: `NNN_descripcion_corta.sql` (ej. `005_add_orden_to_temarios.sql`)
-  - El número debe ser secuencial respecto al último archivo existente.
-- Nunca modificar archivos de migración existentes — solo agregar nuevos.
-- Nunca alterar la base de datos productiva directamente fuera de una migración.
+## Gemini / IA — Reglas de consumo
 
-## Nomenclatura
-- Tablas: `snake_case`, plural (ej. `ciclos_escolares`, `dias_inhabiles`).
-- Columnas: `snake_case` (ej. `fecha_inicio`, `token_balance`).
-- FK: `{tabla_referenciada_singular}_id` (ej. `user_id`, `ciclo_id`).
-- Índices: `idx_{columnas}` (ej. `idx_user_course`).
+### Control de tokens
+1. **Antes** de llamar a Gemini, verificar que `perfiles.token_balance > 0`.
+2. **Después** de una respuesta exitosa, descontar el costo estimado:
+   - Actualizar `token_balance = token_balance - costo`
+   - Actualizar `total_consumed = total_consumed + costo`
+3. Si el saldo es insuficiente, responder con `HTTP 402` y mensaje claro al usuario.
 
-## Tablas principales y sus relaciones
-```
-perfiles (docente)
-└── ciclos_escolares (periodo semestral/anual)
-    └── ciclos (unidades temáticas → topics en Classroom)
-        └── temarios (temas individuales)
-    └── planeacion_detallada (clase por clase, temporal)
-    └── dias_inhabiles
-
-perfiles
-└── materiales_generados (docs/slides en Drive)
-└── actividades_evaluables (assignments con rubrica JSON)
-└── horarios
-└── unidades_fechas
-```
-
-## Reglas de borrado
-- Al eliminar un `ciclo_escolar` → borrar en cascada sus `ciclos`, `planeacion_detallada`, y `dias_inhabiles`.
-- Al eliminar un `ciclo` (unidad) → borrar su `classroom_topic_id` de Google Classroom y sus `temarios`.
-- Al eliminar una `actividad_evaluable` → eliminar el `courseWork` en Google Classroom.
-- Usar `ON DELETE CASCADE` en FK donde aplique, y lógica explícita en el servicio para operaciones en Google APIs.
-
-## SQL en servicios
-- Usar **siempre** parámetros preparados de `mysql2`:
 ```js
-// ✅ Correcto
-await db.query('SELECT * FROM perfiles WHERE google_id = ?', [googleId]);
+// Ejemplo de flujo en un service
+const perfil = await getPerfil(userId);
+if (perfil.token_balance <= 0) throw new Error('Saldo de tokens insuficiente');
 
-// ❌ Incorrecto — inyección SQL
-await db.query(`SELECT * FROM perfiles WHERE google_id = '${googleId}'`);
+const result = await gemini.generateContent(prompt);
+
+await deductTokens(userId, estimatedCost);
+return result;
 ```
-- Usar transacciones (`BEGIN` / `COMMIT` / `ROLLBACK`) para operaciones que involucren múltiples escrituras.
+
+### Prompts
+- Definir prompts del sistema en constantes o archivos `.js` separados dentro del módulo `ai`.
+- Nunca construir prompts concatenando directamente datos del usuario sin sanitizar.
+- Proporcionar ejemplos de formato esperado en el prompt cuando la respuesta sea JSON estructurado.
+
+## Google Classroom API
+- Toda interacción con Classroom (`courses`, `topics`, `courseWork`, `announcements`) ocurre **exclusivamente** en el backend a través del cliente en `/backend/src/clients/`.
+- Al crear un **topic** en Classroom, guardar el `classroom_topic_id` en la tabla correspondiente (`ciclos`).
+- Al crear un **courseWork** (actividad), guardar el `course_work_id` en `actividades_evaluables`.
+- Al eliminar un nodo en la BD, propagar la eliminación a Classroom con manejo explícito de errores (anotado en logs, no silenciado).
+
+## Google Drive API
+- Los archivos generados (Docs, Slides) se crean y comparten a través de Drive API en el backend.
+- Guardar siempre `drive_file_id` y `drive_url` en `materiales_generados` tras la creación.
+- Para selección de archivos desde el cliente, usar únicamente `googlePicker.js` — nunca llamar a Drive API desde el frontend directamente.
+
+## Gestión de errores en APIs externas
+- Envolver todas las llamadas a Google APIs y Gemini en `try/catch` con logging a Pino.
+- Si una llamada externa falla, **no** dejar un registro a medias en la BD — usar transacciones o rollback.
+- Propagar al frontend un error descriptivo (nunca exponer el detalle interno de Google o Gemini).
 
 ---
 > Source: [MiguelAngelMondragonFernandez/Classroom-copilot](https://github.com/MiguelAngelMondragonFernandez/Classroom-copilot) — distributed by [TomeVault](https://tomevault.io).
