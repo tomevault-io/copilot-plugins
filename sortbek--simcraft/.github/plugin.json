@@ -1,0 +1,9 @@
+{
+  "name": "sortbek--simcraft",
+  "displayName": "simcraft",
+  "description": "SimulationCraft web app + desktop app. Simulate your World of Warcraft character's DPS, find best gear, and optimize stat weights.",
+  "version": "1.0.0",
+  "author": "sortbek",
+  "homepage": "https://github.com/sortbek/simcraft",
+  "skills": []
+}
