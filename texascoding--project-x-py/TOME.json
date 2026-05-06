@@ -4,7 +4,7 @@
   "repo": "project-x-py",
   "description": "A high-performance Python SDK for the ProjectX Trading Platform Gateway API. This library enables developers to build sophisticated trading strategies and applications by providing comprehensive access to futures trading operations, historical market data, real-time streaming, technical analysis, and advanced market microstructure tools",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "GEMINI.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TexasCoding/project-x-py",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-06T16:48:33Z"
+  "distributed_at": "2026-05-06T16:52:23Z"
 }
