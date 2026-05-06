@@ -1,0 +1,9 @@
+{
+  "name": "songjiayang--photo-studio-skill",
+  "displayName": "photo-studio-skill",
+  "description": "A ClaudeCode skill example with OpenCode",
+  "version": "1.0.0",
+  "author": "songjiayang",
+  "homepage": "https://github.com/songjiayang/photo-studio-skill",
+  "skills": []
+}
