@@ -1,0 +1,9 @@
+{
+  "name": "fuergaosi233--cc-usage-elink",
+  "displayName": "cc-usage-elink",
+  "description": "Claude Code usage dashboard on a BLE tri-color e-ink display (\u84dd\u7b7e EDP-42000DDF)",
+  "version": "1.0.0",
+  "author": "fuergaosi233",
+  "homepage": "https://github.com/fuergaosi233/cc-usage-elink",
+  "skills": []
+}
