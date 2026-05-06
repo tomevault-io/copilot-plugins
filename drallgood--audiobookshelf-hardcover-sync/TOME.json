@@ -2,7 +2,7 @@
   "name": "audiobookshelf-hardcover-sync",
   "owner": "drallgood",
   "repo": "audiobookshelf-hardcover-sync",
-  "description": "",
+  "description": "Syncs Audiobookshelf to Hardcover",
   "type": "config",
   "source_format": ".windsurf/rules/*.md",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/drallgood/audiobookshelf-hardcover-sync",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-20T20:38:33Z"
+  "distributed_at": "2026-05-06T22:37:25Z"
 }
