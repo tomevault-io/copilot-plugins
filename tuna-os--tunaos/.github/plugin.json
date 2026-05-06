@@ -1,0 +1,9 @@
+{
+  "name": "tuna-os--tunaos",
+  "displayName": "tunaOS",
+  "description": "Bringing a modern cloud-native experience to the Enterprise Linux Desktop",
+  "version": "1.0.0",
+  "author": "tuna-os",
+  "homepage": "https://github.com/tuna-os/tunaOS",
+  "skills": []
+}
