@@ -1,0 +1,44 @@
+{
+  "name": "package-repository-server",
+  "owner": "quinnjr",
+  "repo": "package-repository-server",
+  "description": "Multi-format package repository server supporting DEB, RPM, Arch, and Alpine packages with automatic indexing, GPG signing, and S3-compatible storage",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/quinnjr/package-repository-server",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T03:29:46Z"
+}
