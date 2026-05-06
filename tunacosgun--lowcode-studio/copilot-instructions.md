@@ -1,38 +1,53 @@
-## backend
+## frontend
 
-> Java backend — Spring Boot server, Maven modules, key packages, entry points, and build commands
+> React frontend — TypeScript SPA, monorepo packages, Redux-Saga, key directories, testing, and build commands
 
-# Backend — `app/server/`
+# Frontend — `app/client/`
 
-- **Stack:** Java 17, Spring Boot 3.x (Reactive WebFlux), MongoDB
-- **Build:** Maven (`pom.xml`) — run with `mvn` or `./mvnw`
-- **Entry point:** `appsmith-server/src/main/java/com/appsmith/server/ServerApplication.java`
+- **Stack:** TypeScript, React, Redux, Redux-Saga
+- **Build:** Yarn 3.5.1 (workspaces monorepo), Webpack
+- **Entry point:** `src/index.tsx`
+- **Node:** v20.11.1
 
-## Maven Modules
+## Monorepo Packages (`packages/`)
 
-| Module | Purpose |
+| Package | Purpose |
 |---|---|
-| `appsmith-server` | Core app — controllers, services, domains, repositories, migrations, Git, exports/imports |
-| `appsmith-interfaces` | Shared DTOs, models, constants, plugin interfaces (contract layer) |
-| `appsmith-plugins` | ~28 datasource plugins (Postgres, Mongo, MySQL, REST API, GraphQL, S3, Snowflake, Redis, Oracle, Google Sheets, OpenAI, Anthropic, etc.) |
-| `appsmith-git` | Git integration — file handlers, converters, services for app version control |
-| `appsmith-ai` | AI features module |
-| `reactive-caching` | Custom reactive caching library |
+| `design-system` | Component library (`ads`, `ads-old`, `headless`, `theming`, `widgets`, `widgets-old`) |
+| `ast` | JS AST parser utilities for binding expressions |
+| `dsl` | DSL schema/transformers for app JSON |
+| `icons` | Icon library |
+| `utils` | Shared utility functions |
 
-## Key Packages
+## Key `src/` Directories
 
-`controllers/`, `services/`, `domains/`, `repositories/`, `dtos/`, `configurations/`, `git/`, `authentication/`, `exports/`, `imports/`, `workflows/`, `modules/`, `migrations/`
+`pages/`, `widgets/`, `sagas/`, `reducers/`, `actions/`, `selectors/`, `components/`, `IDE/`, `git/`, `layoutSystems/`, `plugins/`, `ce/`, `ee/`, `enterprise/`
 
 ## EE Pattern
 
-Community and enterprise code coexist. Look for `ce/` and `ee/` sub-packages within each module. Enterprise logic extends or overrides CE implementations.
+Look for `ce/`, `ee/`, and `enterprise/` directories under `src/`. Enterprise logic extends or overrides CE implementations.
 
 ## Testing
 
-- **Framework:** JUnit
-- **Unit tests:** `**/*Test.java`
-- **Integration tests:** `**/*IntegrationTest.java`
-- **Style check:** Spotless (`./mvnw spotlessCheck`)
+- **Unit:** Jest — `yarn run test:unit`
+- **E2E:** Cypress — `yarn cypress run --browser chrome --headless --spec {fileName}` (run from `app/client/`)
+- **Lint check:** ESLint + Prettier — `yarn run lint`
+- **Prettier check:** `yarn run prettier`
+- **Types:** `yarn run check-types`
+
+## Auto-fix Lint & Prettier (run from `app/client/`)
+
+```bash
+# Fix all Prettier formatting issues
+npx prettier --write ./src ./cypress
+
+# Fix all auto-fixable ESLint errors
+npx eslint --fix --cache ./src && npx eslint --fix -c ./cypress/.eslintrc.json --cache ./cypress
+```
+
+## Dev Proxy
+
+Nginx in `nginx/` for local dev. Caddy (`start-caddy.sh`) exists but WIP.
 
 ---
 > Source: [tunacosgun/lowcode-studio](https://github.com/tunacosgun/lowcode-studio) — distributed by [TomeVault](https://tomevault.io).
