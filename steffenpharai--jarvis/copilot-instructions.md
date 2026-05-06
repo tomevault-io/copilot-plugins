@@ -1,29 +1,16 @@
-## jarvis-automation
+## jarvis-python
 
-> Jarvis project – full automation, YOLO mode, E2E, Jetson Orin 2026+
+> Python standards for Jarvis (audio, voice, LLM, vision)
 
 
-# Jarvis – Autonomous Cursor Behavior
+# Jarvis Python Conventions
 
-## REQUIRED: Run, Don’t Just Write
-
-**Unacceptable:** Making code or doc changes without running the corresponding build/test/lint commands. Do not consider any task done after only editing files or adding documentation.
-
-**Required after code changes:** You MUST run the relevant commands and fix any failures before marking the task complete.
-
-- **Python**: After editing Python or adding tests: run `ruff check .`, `pytest` (or `pytest tests/unit/` / `pytest tests/e2e/ -m e2e` as appropriate), and `python main.py --help` (or the relevant entrypoint). Fix lint and test failures.
-- **Node/npm**: After editing JS/TS or package.json: run `npm install` if deps changed, then `npm run build` (or `npm test` / whatever the project’s scripts are). Fix build/test failures.
-- **Mixed or new code**: Run both Python and Node validation if both are touched. Run full suite (lint + unit tests; E2E where applicable) and fix failures.
-
-Only ask before running when the action is truly ambiguous or destructive (e.g. overwriting production data). Otherwise execute without asking.
-
----
-
-- **YOLO mode**: Prefer executing changes (run tests, apply fixes, install deps) without asking. Only ask when truly ambiguous or destructive.
-- **Full automation**: Complete full flows (config → code → tests → **run commands**). Validation is not optional.
-- **E2E first**: For each phase (voice loop, LLM, vision), add or extend E2E tests in `tests/e2e/`. Prefer pytest with markers (e.g. `@pytest.mark.e2e`) and run unit vs e2e separately when needed.
-- **2026+ Jetson Orin Nano 8GB**: Target JetPack 6.x, L4T R36.x; TensorRT .engine built on-device; RAM budget <7.5 GB; MAXN_SUPER + jetson_clocks for perf. Use Ultralytics YOLOv8n → engine, INT8/FP16 when appropriate; prefer native Python 3.10 venv over Docker unless specified.
-- **Engine files**: Never delete or stop tracking the TensorRT engine files we created (e.g. `models/yoloe26n.engine`, `models/yolov8n.engine`). Do not add `*.engine` or these paths to `.gitignore`. Keep them in the repo and in scripts/docs.
+- **Validate after edits**: After changing Python code, run `ruff check .` and `pytest` (and fix failures). See jarvis-automation rule—do not leave changes unvalidated.
+- **Structure**: Follow plan layout: `config/`, `audio/`, `voice/`, `llm/`, `vision/`, `utils/`. One clear responsibility per module.
+- **Async/threading**: Use threading for wake-word + vision so STT/LLM don't block capture. Prefer `asyncio` for I/O-bound LLM/TTS where it simplifies code.
+- **Resource limits**: Check RAM (e.g. via `utils/power.py`) before loading large models; cap Piper/Ollama concurrency. Log and degrade (smaller model, lower res) on OOM.
+- **Jetson**: Prefer `sounddevice`/`pyaudio` for device selection; TensorRT inference in `vision/` with .engine built on Orin; no hardcoded paths—use `config/settings.py`.
+- **Testing**: Unit tests in `tests/unit/`, E2E in `tests/e2e/`. Mock Ollama, Piper, and camera in unit tests; E2E can use `--e2e` or env to enable real hardware.
 
 ---
 > Source: [steffenpharai/Jarvis](https://github.com/steffenpharai/Jarvis) — distributed by [TomeVault](https://tomevault.io).
