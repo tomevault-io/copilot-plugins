@@ -1,0 +1,38 @@
+{
+  "name": "reussir-lang--reussir",
+  "displayName": "reussir",
+  "description": "A programming language with region-based memory management",
+  "version": "1.0.0",
+  "author": "reussir-lang",
+  "homepage": "https://github.com/reussir-lang/reussir",
+  "skills": [
+    {
+      "name": "check-env",
+      "description": ""
+    },
+    {
+      "name": "compilation",
+      "description": ""
+    },
+    {
+      "name": "elaboration",
+      "description": ""
+    },
+    {
+      "name": "integration-test",
+      "description": ""
+    },
+    {
+      "name": "parser-tree",
+      "description": ""
+    },
+    {
+      "name": "run-repl",
+      "description": ""
+    },
+    {
+      "name": "unit-test",
+      "description": ""
+    }
+  ]
+}
