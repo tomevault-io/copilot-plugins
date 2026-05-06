@@ -1,18 +1,17 @@
-## ucp-dockerfile
+## ucp-n8n-workflows-json
 
-> Dockerfile - segurança, tamanho e reprodutibilidade
+> n8n workflows exportados (JSON) - idempotência e segurança
 
 
-# Dockerfile UCP
+# N8n Workflows JSON UCP
 
-Ao editar `Dockerfile`:
+Ao editar workflows exportados em JSON:
 
-- Use imagens base oficiais e fixe versões/tags.
-- Utilize build em múltiplas etapas (`multi-stage build`) para reduzir o tamanho final.
-- Evite rodar como `root`: prefira `USER` não-root quando possível.
-- Não copie segredos para a imagem: tokens/chaves devem ser fornecidos em runtime (env/secrets).
-- Garanta reprodutibilidade: evite comandos com comportamento não determinístico quando possível.
-- Minimizar camadas e cache: organize `COPY`/`RUN` para aproveitar cache do Docker.
+- Valide triggers: garanta que o workflow seja tolerante a reprocessamentos (idempotência).
+- Dedupe eventos quando houver reenfileiramento/retry do provedor (ex.: `event_id`).
+- Não logue payloads com PII/segredos; revise campos que vão para `data`, `notes` ou `debug`.
+- Garanta que chamadas externas tenham retry controlado (quando fizer sentido) e timeouts.
+- Responda rápido quando o workflow for acionado via webhook (use 202 quando possível e processe o resto async).
 
 ---
 > Source: [walkup-tec/waba](https://github.com/walkup-tec/waba) — distributed by [TomeVault](https://tomevault.io).
