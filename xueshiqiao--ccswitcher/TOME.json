@@ -4,7 +4,7 @@
   "repo": "CCSwitcher",
   "description": "Switch you Claude Code accounts with a click",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/XueshiQiao/CCSwitcher",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T01:55:00Z"
+  "distributed_at": "2026-05-06T16:57:01Z"
 }
