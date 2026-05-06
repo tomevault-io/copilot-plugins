@@ -1,0 +1,18 @@
+{
+  "name": "rejot-dev--fragno",
+  "displayName": "fragno",
+  "description": "Fragno is a toolkit for building (and integrating) full-stack libraries: frontend, backend, database all-in-one.",
+  "version": "1.0.0",
+  "author": "rejot-dev",
+  "homepage": "https://github.com/rejot-dev/fragno",
+  "skills": [
+    {
+      "name": "fragno",
+      "description": ""
+    },
+    {
+      "name": "fragno-author",
+      "description": ""
+    }
+  ]
+}
