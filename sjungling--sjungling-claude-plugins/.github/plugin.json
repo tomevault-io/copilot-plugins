@@ -1,0 +1,30 @@
+{
+  "name": "sjungling--sjungling-claude-plugins",
+  "displayName": "sjungling-claude-plugins",
+  "description": "personal collection of Claude Code plugins",
+  "version": "1.0.0",
+  "author": "sjungling",
+  "homepage": "https://github.com/sjungling/sjungling-claude-plugins",
+  "skills": [
+    {
+      "name": "cli-ux-designer",
+      "description": ""
+    },
+    {
+      "name": "ios-swift-expert",
+      "description": ""
+    },
+    {
+      "name": "obsidian-vault-manager",
+      "description": ""
+    },
+    {
+      "name": "structured-logging",
+      "description": ""
+    },
+    {
+      "name": "technical-writer",
+      "description": ""
+    }
+  ]
+}
