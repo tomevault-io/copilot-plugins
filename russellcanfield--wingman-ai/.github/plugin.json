@@ -1,0 +1,9 @@
+{
+  "name": "russellcanfield--wingman-ai",
+  "displayName": "wingman-ai",
+  "description": "A distributed platform for AI Agents. Supports multiple LLMs, orchestration/subagents, long term memory, dynamic UI and more.",
+  "version": "1.0.0",
+  "author": "RussellCanfield",
+  "homepage": "https://github.com/RussellCanfield/wingman-ai",
+  "skills": []
+}
