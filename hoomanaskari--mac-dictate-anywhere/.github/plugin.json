@@ -1,0 +1,9 @@
+{
+  "name": "hoomanaskari--mac-dictate-anywhere",
+  "displayName": "mac-dictate-anywhere",
+  "description": "A native macOS app for voice dictation anywhere. Press and hold Fn (or a custom shortcut) to dictate text directly into any app using on-device speech recognition.",
+  "version": "1.0.0",
+  "author": "hoomanaskari",
+  "homepage": "https://github.com/hoomanaskari/mac-dictate-anywhere",
+  "skills": []
+}
