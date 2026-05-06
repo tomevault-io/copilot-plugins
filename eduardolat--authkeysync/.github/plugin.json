@@ -1,0 +1,9 @@
+{
+  "name": "eduardolat--authkeysync",
+  "displayName": "authkeysync",
+  "description": "\ud83d\udd10 Lightweight CLI utility designed to synchronize SSH public keys from remote URLs into local authorized_keys files",
+  "version": "1.0.0",
+  "author": "eduardolat",
+  "homepage": "https://github.com/eduardolat/authkeysync",
+  "skills": []
+}
