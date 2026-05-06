@@ -1,0 +1,9 @@
+{
+  "name": "nimblesite--dataprovider",
+  "displayName": "DataProvider",
+  "description": "Lambda Query Language: A functional pipeline-style DSL that transpiles to SQL and DataProvider: a C# source generator that creates compile-time safe extension methods for database operations from SQL ",
+  "version": "1.0.0",
+  "author": "Nimblesite",
+  "homepage": "https://github.com/Nimblesite/DataProvider",
+  "skills": []
+}
