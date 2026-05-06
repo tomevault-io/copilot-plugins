@@ -1,0 +1,9 @@
+{
+  "name": "lalinsky--dusty",
+  "displayName": "dusty",
+  "description": "HTTP client/server library for Zig",
+  "version": "1.0.0",
+  "author": "lalinsky",
+  "homepage": "https://github.com/lalinsky/dusty",
+  "skills": []
+}
