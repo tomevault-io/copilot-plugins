@@ -1,0 +1,9 @@
+{
+  "name": "juanpablogila--hono-react-boilerplate",
+  "displayName": "hono-react-boilerplate",
+  "description": "This is a boilerplate for react, postgres, hono, drizzle, ai, better-auth, tanstack-query, tanstack-router, shadcn and tailwind.",
+  "version": "1.0.0",
+  "author": "JuanPabloGilA",
+  "homepage": "https://github.com/JuanPabloGilA/hono-react-boilerplate",
+  "skills": []
+}
