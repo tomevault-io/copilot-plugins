@@ -1,0 +1,9 @@
+{
+  "name": "holtwick--bx-mac",
+  "displayName": "bx-mac",
+  "description": "Sandbox any macOS app \u2014 only your project directory stays accessible",
+  "version": "1.0.0",
+  "author": "holtwick",
+  "homepage": "https://github.com/holtwick/bx-mac",
+  "skills": []
+}
