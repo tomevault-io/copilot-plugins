@@ -1,0 +1,14 @@
+{
+  "name": "letsrevel--revel-backend",
+  "displayName": "revel-backend",
+  "description": "The Django backend of the Revel event platform project",
+  "version": "1.0.0",
+  "author": "letsrevel",
+  "homepage": "https://github.com/letsrevel/revel-backend",
+  "skills": [
+    {
+      "name": "updating-deps",
+      "description": ""
+    }
+  ]
+}
