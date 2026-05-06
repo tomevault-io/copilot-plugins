@@ -1,157 +1,214 @@
-## budget-model
+## components
 
-> The budget system uses three columns to track costs through the project lifecycle:
+> Pre-built components using Radix UI + Tailwind:
 
-# Three-Column Budget Model
+# Component Guidelines
 
-## Overview
+## UI Component Library
 
-The budget system uses three columns to track costs through the project lifecycle:
+### shadcn/ui Components (src/components/ui/)
+Pre-built components using Radix UI + Tailwind:
+- `button.tsx` - Primary actions
+- `input.tsx`, `textarea.tsx` - Form inputs
+- `select.tsx` - Dropdowns
+- `sheet.tsx` - Slide-out panels (use for forms)
+- `dialog.tsx` - Modal dialogs
+- `alert-dialog.tsx` - Confirmations
+- `tabs.tsx` - Tab navigation
+- `table.tsx` - Data tables
+- `badge.tsx` - Status indicators
+- `card.tsx` - Content containers
+- `dropdown-menu.tsx` - Context menus
+- `popover.tsx` - Floating content
+- `tooltip.tsx` - Hover hints
+- `checkbox.tsx` - Boolean inputs
+- `progress.tsx` - Progress bars
 
-1. **Underwriting** (`underwriting_amount`)
-   - Pre-deal estimate during acquisition analysis
-   - Used for MAO calculations and deal evaluation
-   - Set during initial project creation
-
-2. **Forecast** (`forecast_amount`)
-   - Post-walkthrough or contractor bid estimate
-   - Updated after property inspection
-   - More accurate than underwriting
-
-3. **Actual** (`actual_amount`)
-   - Real spend during/after construction
-   - Updated as work is completed
-   - Used for final profit calculations
-
-## Variance Calculations
-
-Computed columns in database (don't calculate client-side):
-
-```sql
-forecast_variance = forecast_amount - underwriting_amount
--- Positive = scope creep, Negative = under estimate
-
-actual_variance = actual_amount - forecast_amount
--- Positive = over budget, Negative = under budget
-
-total_variance = actual_amount - underwriting_amount
--- Overall variance from initial estimate
+### Adding New shadcn Components
+```bash
+npx shadcn@latest add [component-name]
 ```
 
-## Budget Flow
+## Icon Usage
 
-```
-Project Creation → Underwriting amounts set (qty × rate)
-     ↓
-Property Walkthrough → Forecast amounts updated
-     ↓
-Construction → Actual amounts recorded
-     ↓
-Project Complete → Final variance analysis
-```
-
-## UI Display
-
-### Budget Detail Tab
-```
-Category / Item          | Underwriting | Forecast | Actual | Variance
-─────────────────────────────────────────────────────────────────────
-Kitchen                  |    $12,000   |  $13,500 | $14,200|  +$2,200
-  └─ Cabinets           |     $5,000   |   $5,500 |  $5,800|    +$800
-  └─ Countertops        |     $4,000   |   $4,500 |  $4,900|    +$900
-  └─ Appliances         |     $3,000   |   $3,500 |  $3,500|    +$500
-```
-
-### Color Coding
-- **Green**: Under budget (negative variance)
-- **Red**: Over budget (positive variance)
-- **Gray**: No variance or no actual yet
-
-### Summary Cards
+### Primary: Tabler Icons
 ```tsx
-<div className="grid grid-cols-4 gap-4">
-  <StatCard label="Underwriting" value={underwritingTotal} />
-  <StatCard label="Forecast" value={forecastTotal} />
-  <StatCard label="Actual" value={actualTotal} />
-  <StatCard 
-    label="Total Variance" 
-    value={totalVariance}
-    variant={totalVariance > 0 ? 'destructive' : 'success'}
-  />
+import { IconPlus, IconTrash, IconEdit } from '@tabler/icons-react';
+
+<IconPlus className="icon-sm" />  // 16px
+<IconEdit className="icon-md" />  // 20px
+<IconTrash className="icon-lg" /> // 24px
+```
+
+### Common Icons
+- Add: `IconPlus`
+- Edit: `IconPencil`, `IconEdit`
+- Delete: `IconTrash`
+- Save: `IconDeviceFloppy`
+- Cancel: `IconX`
+- Search: `IconSearch`
+- Filter: `IconFilter`
+- Sort: `IconArrowsSort`
+- Expand: `IconChevronDown`
+- Collapse: `IconChevronUp`
+- Menu: `IconDotsVertical`
+- Camera: `IconCamera`
+- Photo: `IconPhoto`
+- Upload: `IconUpload`
+- Download: `IconDownload`
+- Check: `IconCheck`
+- Warning: `IconAlertTriangle`
+- Info: `IconInfoCircle`
+
+## Project-Specific Components
+
+### Project Tabs (src/components/project/tabs/)
+- `deal-summary-tab.tsx` - Financials, ROI, MAO
+- `budget-detail-tab.tsx` - Three-column budget table
+- `vendors-tab.tsx` - Vendor directory
+- `draws-tab.tsx` - Payment tracking
+- `cost-reference-tab.tsx` - Minneapolis pricing
+
+### Form Sheets (Slide-out panels)
+- `vendor-form-sheet.tsx` - Add/edit vendors
+- `budget-item-form-sheet.tsx` - Add budget items
+- `draw-form-sheet.tsx` - Add/edit draws
+- `photo-upload-sheet.tsx` - Upload photos
+
+### Detail Sheets (Read-only views)
+- `vendor-detail-sheet.tsx` - Full vendor info
+
+## Dashboard Components (src/components/dashboard/)
+
+- `portfolio-health.tsx` - Hero metrics cards
+- `kanban-pipeline.tsx` - Drag-drop project board
+- `project-card.tsx` - Pipeline project cards
+- `stat-card.tsx` - Metric display card
+- `animated-number.tsx` - Counting animation
+
+## Component Patterns
+
+### Sheet Form Pattern
+```tsx
+interface FormSheetProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  item?: ItemType;  // If provided, edit mode
+  onSuccess?: () => void;
+}
+
+export function ItemFormSheet({ open, onOpenChange, item, onSuccess }: FormSheetProps) {
+  const isEditing = !!item;
+  const mutation = useItemMutation();
+  
+  const handleSubmit = async (data: ItemInput) => {
+    await mutation.mutateAsync(data);
+    onOpenChange(false);
+    onSuccess?.();
+  };
+  
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>{isEditing ? 'Edit' : 'Add'} Item</SheetTitle>
+        </SheetHeader>
+        {/* Form content */}
+      </SheetContent>
+    </Sheet>
+  );
+}
+```
+
+### Confirmation Dialog Pattern
+```tsx
+<AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Delete Item?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction onClick={handleDelete} className="bg-destructive">
+        Delete
+      </AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+### Data Table Pattern
+```tsx
+// Use TanStack Table for complex tables
+import { useReactTable, getCoreRowModel, flexRender } from '@tanstack/react-table';
+
+const table = useReactTable({
+  data,
+  columns,
+  getCoreRowModel: getCoreRowModel(),
+});
+```
+
+## CSS Utility Classes (from globals.css)
+
+### Status Badges
+```tsx
+<span className="status-badge status-active">Active</span>
+<span className="status-badge status-pending">Pending</span>
+<span className="status-badge status-completed">Complete</span>
+```
+
+### Stat Cards
+```tsx
+<div className="stat-card">
+  <span className="stat-label">Total Budget</span>
+  <span className="stat-value">$125,000</span>
 </div>
 ```
 
-## MAO Calculation
-
-Maximum Allowable Offer uses underwriting budget:
-
-```sql
-mao = arv * 0.7 - rehab_budget_with_contingency
-
--- Where:
-rehab_budget = COALESCE(forecast_total, underwriting_total)
-contingency_amount = rehab_budget * contingency_percent
-rehab_budget_with_contingency = rehab_budget + contingency_amount
+### Tables
+```tsx
+<thead className="table-header">
+<tr className="table-row-hover">
 ```
 
-## Active Scenario Logic
-
-The "active" budget phase depends on data availability:
-
-```typescript
-function getActiveScenario(project: ProjectSummary) {
-  if (project.actual_total > 0) return 'actual';
-  if (project.forecast_total > 0) return 'forecast';
-  return 'underwriting';
-}
+### Icons
+```tsx
+<IconPlus className="icon-sm" />  // 16px
+<IconPlus className="icon-md" />  // 20px
+<IconPlus className="icon-lg" />  // 24px
 ```
 
-## Profit/ROI by Scenario
-
-Calculate profit for each budget phase:
-
-```typescript
-function calculateProfit(project: ProjectSummary, scenario: 'underwriting' | 'forecast' | 'actual') {
-  const rehabBudget = {
-    underwriting: project.underwriting_total,
-    forecast: project.forecast_total || project.underwriting_total,
-    actual: project.actual_total || project.forecast_total || project.underwriting_total,
-  }[scenario];
-  
-  const contingency = rehabBudget * project.contingency_percent;
-  const totalRehab = rehabBudget + contingency;
-  const holdingCosts = project.holding_costs_monthly * project.hold_months;
-  const sellingCosts = project.arv * project.selling_cost_percent;
-  
-  const totalInvestment = project.purchase_price + project.closing_costs + holdingCosts + totalRehab;
-  const grossProfit = project.arv - sellingCosts - totalInvestment;
-  const roi = (grossProfit / totalInvestment) * 100;
-  
-  return { grossProfit, roi, totalInvestment };
-}
+### Animations
+```tsx
+<div className="fade-in">...</div>
+<div className="scale-in">...</div>
+<div className="slide-in-bottom">...</div>
 ```
 
-## Database Schema
+## Responsive Design
 
-```sql
--- budget_items table
-underwriting_amount DECIMAL(12,2) NOT NULL DEFAULT 0,
-forecast_amount DECIMAL(12,2) NOT NULL DEFAULT 0,
-actual_amount DECIMAL(12,2),
+### Breakpoints (Tailwind v4)
+- `sm`: 640px
+- `md`: 768px
+- `lg`: 1024px
+- `xl`: 1280px
+- `2xl`: 1536px
 
--- Generated columns (computed automatically)
-forecast_variance DECIMAL(12,2) GENERATED ALWAYS AS (forecast_amount - underwriting_amount) STORED,
-actual_variance DECIMAL(12,2) GENERATED ALWAYS AS (actual_amount - forecast_amount) STORED,
-total_variance DECIMAL(12,2) GENERATED ALWAYS AS (actual_amount - underwriting_amount) STORED,
+### Common Patterns
+```tsx
+// Mobile-first grid
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+
+// Hide on mobile
+<div className="hidden md:block">
+
+// Stack on mobile, row on desktop
+<div className="flex flex-col md:flex-row">
 ```
-
-## Best Practices
-
-1. **Always set underwriting first** - Required for MAO calculations
-2. **Update forecast after walkthrough** - More accurate than initial estimates
-3. **Record actual as work completes** - Don't wait until project end
-4. **Use views for totals** - Never sum client-side
-5. **Show all three columns** - Transparency in budget evolution
 
 ---
 > Source: [adamj-ops/rehab-budget-pro](https://github.com/adamj-ops/rehab-budget-pro) — distributed by [TomeVault](https://tomevault.io).
