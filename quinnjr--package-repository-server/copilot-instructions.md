@@ -1,144 +1,261 @@
-## rust
+## security
 
-> Guidelines for Rust backend development
+> Security guidelines and requirements for the project
 
 
-# Rust Backend Development Rules
+# Security Best Practices
 
-## Toolchain
-- Use stable Rust channel (configured in `rust-toolchain.toml`)
-- Keep Rust toolchain up to date for security patches
+## Authentication and Authorization
 
-## Code Quality
-
-### Formatting
-- **Always run `cargo fmt` before committing**
-- Use default rustfmt configuration
-- No custom formatting rules
-
-### Linting
-- **Run `cargo clippy` and fix all warnings**
-- Treat clippy warnings as errors in CI
-- Use `#[allow(clippy::xxx)]` sparingly and only with justification
-
-### Error Handling
-- Use `Result<T, E>` for fallible operations
-- Avoid `.unwrap()` in production code
-- Use `.expect()` only when panic is truly appropriate with clear message
-- Prefer `?` operator for error propagation
-- Use `anyhow` for application errors
-- Use `thiserror` for library errors
-
-### Documentation
-- Write doc comments (`///`) for all public functions, structs, and modules
-- Include examples in doc comments when appropriate
-- Document panics with `# Panics` section
-- Document errors with `# Errors` section
-
-## Dependencies
-
-### Crate Selection
-- Prefer well-maintained crates with active communities
-- Check crate security advisories before adding dependencies
-- Keep dependencies up to date
-
-### Key Dependencies
-- `actix-web` - Web framework for API server
-- `actix-multipart` - File upload handling
-- `tokio` - Async runtime
-- `serde` / `serde_json` - Serialization
-- `aws-sdk-s3` - S3 storage backend
-- `tracing` - Logging and instrumentation
-
-## Testing
-
-### Unit Tests
-- Write unit tests in the same file using `#[cfg(test)]` module
-- Use descriptive test names: `test_should_parse_deb_package_metadata`
-- Test both success and failure cases
-- Use `#[tokio::test]` for async tests
-
-### Integration Tests
-- Place integration tests in `/server/tests`
-- Use `actix-test` for API endpoint testing
-- Use `serial_test` for tests that share state
-
-### Benchmarks
-- Add benchmarks to `/server/benches` using Criterion
-- Run benchmarks before and after performance changes
-
-## Async/Await
-- Use async/await for I/O operations
-- Prefer `tokio::spawn` for concurrent tasks
-- Use `tokio::fs` for file system operations
-- Use `tokio::process` for external command execution
-
-## Security
-
-### Input Validation
-- Sanitize all user input, especially filenames
-- Validate file types before processing
-- Check file sizes to prevent DoS
-- Use `sanitize-filename` crate for filename sanitization
-
-### Authentication
-- Use secure API key comparison (constant-time)
-- Never log API keys
+### API Keys
+- Generate cryptographically secure API keys (minimum 32 bytes)
+- Use `openssl rand -hex 32` or equivalent
 - Support multiple API keys for key rotation
+- Implement constant-time comparison for API keys
+- Never log API keys (full or partial)
+- Rotate API keys regularly
+- Revoke compromised keys immediately
+- Document API key management procedures
 
-### Cryptography
-- Use `sha2` for SHA-256 hashing
-- Use `sha1` only when required by package formats
-- Properly verify GPG signatures
+### Key Storage
+- Store API keys as environment variables
+- Never commit keys to version control
+- Use secrets management systems (HashiCorp Vault, AWS Secrets Manager, etc.)
+- Encrypt keys at rest
+- Use separate keys per environment
+- Implement key backup and recovery procedures
 
-## Package Processing
+### Access Control
+- Implement role-based access control (RBAC) where applicable
+- Follow principle of least privilege
+- Separate read and write permissions
+- Audit access logs regularly
+- Implement IP allowlisting when appropriate
 
-### Architecture Support
-- Support both x86_64 (amd64) and ARM64 (aarch64)
-- Handle architecture-specific paths correctly
-- Test on both architectures when possible
+## Data Security
 
-### Package Types
-When working with package-specific code:
-- **DEB**: Use proper Debian package structure, handle control files correctly
-- **RPM**: Parse RPM headers, maintain proper YUM/DNF metadata
-- **Arch**: Handle `.pkg.tar.zst` format, maintain pacman database
-- **Alpine**: Handle APK format, maintain APKINDEX
+### Encryption
+
+#### In Transit
+- **Use HTTPS/TLS in production** (required)
+- Use TLS 1.2 or higher
+- Use strong cipher suites
+- Implement HSTS headers
+- Use Let's Encrypt for automatic certificates
+- Renew certificates before expiration
+
+#### At Rest
+- Encrypt sensitive data at rest
+- Use platform encryption (S3 SSE, disk encryption)
+- Protect GPG private keys
+- Encrypt database backups
+- Use encrypted volumes for sensitive data
 
 ### GPG Signing
-- Auto-generate GPG keys on first run if not present
+- Auto-generate GPG keys on first run
+- Use strong key sizes (4096-bit RSA minimum)
+- Protect private keys with filesystem permissions (600)
+- Backup GPG keys securely
+- Document key recovery procedures
 - Sign all repository metadata
-- Store GPG keys securely in `/data/gpg`
+- Verify signatures during package installation
 
-## Performance
-- Use release builds for benchmarking
-- Enable LTO in release profile
-- Profile code before optimizing
-- Cache frequently accessed data
-- Use streaming for large file operations
+## Input Validation
 
-## Logging
-- Use `tracing` crate for structured logging
-- Log levels:
-  - `error!` - Unrecoverable errors
-  - `warn!` - Recoverable errors or concerning situations
-  - `info!` - Important state changes
-  - `debug!` - Detailed debugging information
-  - `trace!` - Very verbose debugging
-- Include context in log messages (package name, operation, etc.)
+### File Uploads
+- Validate file types before processing
+- Check file extensions and MIME types
+- Limit file sizes to prevent DoS attacks
+- Sanitize filenames to prevent path traversal
+- Scan uploaded files for malware (when possible)
+- Validate package metadata before indexing
 
-## API Design
-- Follow RESTful conventions
-- Use appropriate HTTP status codes
-- Return JSON responses with consistent structure
-- Version API endpoints (`/api/v1/...`)
-- Document endpoints in code comments
+### Filename Sanitization
+- Use `sanitize-filename` crate in Rust
+- Remove directory traversal sequences (`..`, `/`, `\`)
+- Remove special characters that could cause issues
+- Limit filename length
+- Validate against expected patterns
 
-## Database/Storage
-- Support both local filesystem and S3-compatible storage
-- Use environment variables for configuration
-- Handle storage errors gracefully
-- Implement retry logic for S3 operations
+### API Input Validation
+- Validate all API inputs
+- Use type-safe parsing (avoid string manipulation)
+- Implement rate limiting
+- Validate content-type headers
+- Reject requests with invalid parameters
+- Implement request size limits
+
+## Dependency Security
+
+### Rust Dependencies
+- Run `cargo audit` regularly
+- Subscribe to RustSec advisory feed
+- Update dependencies for security patches
+- Review dependencies before adding
+- Minimize dependency count
+- Pin dependency versions in Cargo.lock
+
+### Node.js Dependencies
+- Run `pnpm audit` regularly
+- Update dependencies for security patches
+- Review dependencies before adding
+- Use `pnpm audit fix` to auto-fix vulnerabilities
+- Keep pnpm-lock.yaml in version control
+- Use Dependabot or similar for automated updates
+
+### Container Images
+- Use official base images from trusted sources
+- Scan images with Trivy, Snyk, or similar tools
+- Update base images regularly
+- Pin base image versions
+- Remove unnecessary packages from images
+- Use minimal base images (Alpine, distroless)
+
+## Secrets Management
+
+### Environment Variables
+- Use environment variables for all secrets
+- Never hardcode secrets in code
+- Document required environment variables
+- Use `.env.example` files (without actual secrets)
+- Add `.env` to `.gitignore`
+
+### CI/CD Secrets
+- Use CI/CD platform's secret management
+- Rotate CI/CD secrets regularly
+- Limit secret access to necessary workflows
+- Audit secret usage
+- Use short-lived credentials when possible
+
+### Kubernetes Secrets
+- Use Kubernetes Secrets for sensitive data
+- Consider external secrets management (External Secrets Operator)
+- Enable encryption at rest for etcd
+- Implement RBAC for secret access
+- Rotate secrets regularly
+
+## Container Security
+
+### Runtime Security
+- Run containers as non-root user
+- Use read-only root filesystem when possible
+- Drop unnecessary Linux capabilities
+- Use security contexts in Kubernetes
+- Implement Pod Security Standards
+- Use AppArmor or SELinux profiles
+
+### Network Security
+- Implement network policies in Kubernetes
+- Restrict egress and ingress traffic
+- Use service mesh for mutual TLS (optional)
+- Segment networks appropriately
+- Monitor network traffic
+
+## Logging and Auditing
+
+### Secure Logging
+- **Never log sensitive data** (passwords, API keys, tokens)
+- Sanitize logs before outputting
+- Log authentication attempts
+- Log authorization failures
+- Log administrative actions
+- Implement log integrity protection
+
+### Audit Trail
+- Maintain audit logs for:
+  - Package uploads/deletions
+  - API key usage
+  - Administrative actions
+  - Authentication failures
+- Set log retention policies
+- Protect audit logs from tampering
+- Review audit logs regularly
+
+## Vulnerability Management
+
+### Scanning
+- Scan code with static analysis tools:
+  - Rust: `cargo clippy`, `cargo audit`
+  - TypeScript: ESLint with security rules
+  - Terraform: `tfsec`, `checkov`
+  - Docker: `trivy`, `snyk`
+- Implement automated scanning in CI/CD
+- Fix critical vulnerabilities immediately
+- Prioritize high and medium severity issues
+
+### Penetration Testing
+- Perform regular security assessments
+- Test authentication and authorization
+- Test input validation and sanitization
+- Check for common vulnerabilities (OWASP Top 10)
+- Document and fix findings
+
+## Incident Response
+
+### Preparation
+- Document incident response procedures
+- Define security incident severity levels
+- Identify incident response team
+- Establish communication channels
+- Maintain contact information
+
+### Detection and Response
+- Monitor for security incidents
+- Set up alerts for suspicious activity
+- Investigate security events promptly
+- Contain incidents quickly
+- Document all incidents
+- Conduct post-incident reviews
+
+### Security Updates
+- Monitor security advisories for dependencies
+- Apply security patches promptly
+- Test patches in staging before production
+- Document security updates
+- Notify users of critical security updates
+
+## Compliance and Standards
+
+### Best Practices
+- Follow OWASP guidelines
+- Implement defense in depth
+- Regular security training for team
+- Keep security documentation updated
+- Perform security reviews for major changes
+
+### Data Privacy
+- Handle user data responsibly
+- Implement data retention policies
+- Provide data deletion mechanisms
+- Document data handling practices
+- Comply with relevant regulations (GDPR, etc.)
+
+## Security Checklist for New Features
+
+Before deploying new features, verify:
+- [ ] All inputs are validated and sanitized
+- [ ] Authentication/authorization is properly implemented
+- [ ] Sensitive data is not logged
+- [ ] Secrets are not hardcoded
+- [ ] Dependencies are up to date and scanned
+- [ ] Code is reviewed for security issues
+- [ ] TLS is used for data in transit
+- [ ] Error messages don't leak sensitive information
+- [ ] Rate limiting is implemented where needed
+- [ ] Security testing is performed
+
+## Security Contacts
+- Report security vulnerabilities privately
+- Do not disclose vulnerabilities publicly before fix
+- Provide detailed vulnerability reports
+- Allow reasonable time for fixes before disclosure
+
+## Regular Security Tasks
+- Weekly: Review security logs
+- Monthly: Update dependencies
+- Quarterly: Security assessment
+- Annually: Comprehensive security audit
+- Ongoing: Monitor security advisories
 
 ---
 > Source: [quinnjr/package-repository-server](https://github.com/quinnjr/package-repository-server) — distributed by [TomeVault](https://tomevault.io).
