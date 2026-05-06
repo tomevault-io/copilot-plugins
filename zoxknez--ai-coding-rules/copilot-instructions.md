@@ -1,138 +1,150 @@
-## 91-api-routes
+## 92-database
 
-> Rules for API route/endpoint development
+> Rules for database schema and migrations
 
 
-# 🔌 API Routes Rules
+# 🗃️ Database Rules
 
-> Auto-activated for files in `/api/` or `/routes/` directories.
+> Auto-activated for Prisma, Drizzle, and SQL files.
 
-## Route Structure
+## Schema Design
 
+### 1. Naming Conventions
+```prisma
+// ✅ GOOD
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")  // snake_case table name
+}
+
+// ✅ Relations: explicit names
+model Post {
+  author   User   @relation("PostAuthor", fields: [authorId], references: [id])
+  authorId String @map("author_id")
+}
 ```
-api/
-├── users/
-│   ├── route.ts          # Next.js App Router
-│   ├── [id]/route.ts     # Dynamic route
-│   └── schema.ts         # Zod validation
-├── middleware.ts         # Auth, rate limiting
-└── types.ts              # Shared types
+
+### 2. Required Fields (STRICT)
+Every table MUST have:
+- `id` — Primary key (cuid or uuid preferred)
+- `created_at` — Creation timestamp
+- `updated_at` — Last update timestamp
+
+For multi-tenant apps:
+- `tenant_id` — Tenant isolation (CRITICAL)
+
+### 3. Indexes
+```prisma
+// ✅ Index frequently queried fields
+model Order {
+  id        String @id
+  userId    String
+  status    String
+  createdAt DateTime
+
+  @@index([userId])           // FK queries
+  @@index([status, createdAt]) // Filtered queries
+}
 ```
 
-## Rules
+## Migration Rules (STRICT)
 
-### 1. Input Validation (STRICT)
+### 1. Never Edit Existing Migrations
+```bash
+# ❌ NEVER modify deployed migrations
+# ✅ Create new migration for changes
+npx prisma migrate dev --name fix_user_email
+```
+
+### 2. Reversible Migrations
+```sql
+-- ✅ Always provide rollback
+-- Migration: add_status_column
+ALTER TABLE orders ADD COLUMN status VARCHAR(20) DEFAULT 'pending';
+
+-- Rollback:
+-- ALTER TABLE orders DROP COLUMN status;
+```
+
+### 3. Data Migrations Separate
+```
+migrations/
+├── 001_add_status_column.sql  # Schema only
+└── 001_backfill_status.ts     # Data migration (separate)
+```
+
+## Query Patterns
+
+### 1. Parameterized Queries (STRICT)
 ```typescript
-// ✅ ALWAYS validate all inputs
-import { z } from 'zod';
-
-const CreateUserSchema = z.object({
-  email: z.string().email(),
-  name: z.string().min(2).max(100),
-  age: z.number().int().positive().optional(),
+// ✅ ALWAYS use parameterized queries
+const user = await prisma.user.findUnique({
+  where: { email: sanitizedEmail }
 });
 
-export async function POST(request: Request) {
-  const body = await request.json();
-  const result = CreateUserSchema.safeParse(body);
-  
-  if (!result.success) {
-    return Response.json({ error: result.error.flatten() }, { status: 400 });
-  }
-  
-  // Use result.data (validated)
-}
+// ❌ NEVER concatenate SQL
+const query = `SELECT * FROM users WHERE email = '${email}'`; // SQL INJECTION!
 ```
 
-### 2. Error Handling (STRICT)
+### 2. Select Only Needed Fields
 ```typescript
-// ✅ Consistent error envelope
-interface ApiResponse<T> {
-  data?: T;
-  error?: {
-    code: string;
-    message: string;
-    details?: unknown;
-  };
-}
-
-// ✅ Proper status codes
-// 200 - Success
-// 201 - Created
-// 400 - Bad Request (validation failed)
-// 401 - Unauthorized
-// 403 - Forbidden
-// 404 - Not Found
-// 500 - Internal Server Error
-```
-
-### 3. Authentication (STRICT)
-```typescript
-// ✅ ALWAYS check auth before processing
-export async function GET(request: Request) {
-  const session = await getServerSession(authOptions);
-  
-  if (!session) {
-    return Response.json({ error: { code: 'UNAUTHORIZED' } }, { status: 401 });
-  }
-  
-  // Check authorization (permissions)
-  if (!hasPermission(session.user, 'users:read')) {
-    return Response.json({ error: { code: 'FORBIDDEN' } }, { status: 403 });
-  }
-  
-  // Process request...
-}
-```
-
-### 4. Rate Limiting
-```typescript
-// ✅ Apply rate limiting for public endpoints
-import { rateLimit } from '@/lib/rate-limit';
-
-const limiter = rateLimit({
-  interval: 60 * 1000, // 1 minute
-  uniqueTokenPerInterval: 500,
+// ✅ GOOD: Select specific fields
+const users = await prisma.user.findMany({
+  select: { id: true, email: true, name: true }
 });
 
-export async function POST(request: Request) {
-  try {
-    await limiter.check(5, 'API_ROUTE_NAME'); // 5 requests per minute
-  } catch {
-    return Response.json({ error: { code: 'RATE_LIMITED' } }, { status: 429 });
+// ❌ BAD: Select all (may include sensitive data)
+const users = await prisma.user.findMany();
+```
+
+### 3. Tenant Isolation (STRICT)
+```typescript
+// ✅ ALWAYS filter by tenant
+const orders = await prisma.order.findMany({
+  where: { 
+    tenantId: session.tenantId,  // CRITICAL
+    status: 'pending'
   }
-}
+});
 ```
 
 ## Forbidden Patterns
 
 ```typescript
-// ❌ NEVER: No validation
-export async function POST(req: Request) {
-  const body = await req.json();
-  await db.user.create({ data: body }); // SQL injection risk!
-}
+// ❌ NEVER: Raw queries with interpolation
+await prisma.$queryRaw`SELECT * FROM users WHERE id = ${userId}`;
+// ✅ USE: Prisma.sql for safe interpolation
+await prisma.$queryRaw(Prisma.sql`SELECT * FROM users WHERE id = ${userId}`);
 
-// ❌ NEVER: Expose stack traces
-catch (error) {
-  return Response.json({ error: error.message }); // Info leak!
-}
+// ❌ NEVER: Cascade delete without confirmation
+await prisma.user.delete({ where: { id } }); // May delete related data!
 
-// ❌ NEVER: No auth check
-export async function DELETE(req: Request) {
-  await db.user.delete({ where: { id } }); // Anyone can delete!
-}
+// ❌ NEVER: Skip tenant check
+await prisma.order.findMany({ where: { status: 'pending' } }); // Cross-tenant leak!
 ```
 
-## Required Headers
+## Seeding
 
 ```typescript
-// ✅ Security headers
-const headers = {
-  'Content-Type': 'application/json',
-  'X-Content-Type-Options': 'nosniff',
-  'X-Frame-Options': 'DENY',
-};
+// seed.ts - for development only
+async function seed() {
+  // Clear existing data (dev only!)
+  if (process.env.NODE_ENV === 'development') {
+    await prisma.user.deleteMany();
+  }
+  
+  // Create test data
+  await prisma.user.create({
+    data: {
+      email: 'test@example.com',
+      name: 'Test User',
+    }
+  });
+}
 ```
 
 ---
