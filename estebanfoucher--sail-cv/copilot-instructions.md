@@ -1,28 +1,65 @@
-## git-workflow
+## project-overview
 
-> **NEVER commit or push code changes.** The user maintains full control over git operations.
+> Sail-CV is an embedded computer vision framework for quantitative measurement of sail aerodynamic performance. It contains two independent modules sharing infrastructure.
 
-# Git Workflow Rules
+# Sail-CV Project Overview
 
-## Critical Restrictions
+Sail-CV is an embedded computer vision framework for quantitative measurement of sail aerodynamic performance. It contains two independent modules sharing infrastructure.
 
-**NEVER commit or push code changes.** The user maintains full control over git operations.
+## Repository Structure
 
-- Do NOT run `git add`, `git commit`, `git push`, or any other git write operations
-- Do NOT use git flags like `--no-verify`, `--no-gpg-sign`, `--force`, etc.
-- Do NOT run destructive git commands (reset --hard, push --force, branch -D, etc.)
-- Read-only git operations are allowed: `git status`, `git log`, `git diff`, `git show`, `git branch -l`
+- src/reconstruction/ - 3D stereo reconstruction (calibration, mast3r, triangulation)
+- src/tracking/ - Tell-tale detection and tracking (RT-DETR, ByteTracker, PCA)
+- mast3r/ - External MASt3R/Dust3R submodule (PYTHONPATH, not a package)
+- web_app/ - Gradio web interface for reconstruction
+- assets/reconstruction/ - Scenes, calibration images, checkerboard/charuco frames
+- assets/tracking/ - Tracking videos, raw detections, layouts, configs
+- checkpoints/ - Model weights (rt-detr.pt, yolo-s.pt, FastSAM-x.pt, MASt3R)
+- parameters/ - YAML config files for tracking
+- fixtures/ - Test fixtures (C1_fixture.mp4, C1_layout.json)
+- tests/ - Unified test suite (tests/reconstruction/, tests/tracking/)
+- docker/ - Separate Dockerfiles per service + docker-compose.yml
+- scripts/ - Dev scripts (format, lint, test, check-all)
 
-## User Control
+## Key Conventions
 
-The user will review all changes and decide when to commit and push. Your role is to:
-- Make code changes via edit tools
-- Explain what was changed and why
-- Let the user handle git operations
+- Package manager: uv (not pip)
+- Linter/Formatter: ruff (PEP 8, line-length 88)
+- Type checker: mypy (Python 3.10+)
+- Test runner: pytest
+- Build system: hatchling
+- Docker base: dustynv/l4t-pytorch:r36.4.0 (Jetson)
+- PYTHONPATH: src, mast3r, mast3r/dust3r, src/reconstruction, src/tracking
 
-## Exception
+## Module Independence
 
-Only perform git operations if the user explicitly instructs you to do so with a direct command like "commit these changes" or "push to remote".
+The two modules do NOT share code at the source level currently. Each has its own video.py, models, and utilities. Keep them independent unless a clear shared pattern emerges.
+
+## Import Style
+
+Both modules use flat imports within their namespace:
+- Reconstruction: from stereo.triangulation import ..., from calibration import Scene
+- Tracking: from models import Detection, from tracker_utils import ByteTracker
+
+The pythonpath in pyproject.toml includes src, so src/reconstruction/ and src/tracking/ directories are importable roots when running within their respective context.
+
+## Path Resolution
+
+Project root from source files in src/reconstruction/ or src/tracking/:
+- `Path(__file__).resolve().parents[2]` (NOT `.parent.parent` which only reaches src/)
+
+Project root from test files in tests/reconstruction/ or tests/tracking/:
+- `Path(__file__).resolve().parents[2]`
+
+Project root from deeper test files (tests/reconstruction/stereo/, tests/tracking/dataset/):
+- `Path(__file__).resolve().parents[3]`
+
+Asset paths must include the module namespace:
+- Reconstruction: `project_root / "assets" / "reconstruction" / "scene_3" / ...`
+- Tracking: `project_root / "assets" / "tracking" / "2Ce-CKKCtV4.mp4"`
+- Checkpoints/fixtures/parameters are at project root: `project_root / "checkpoints" / "rt-detr.pt"`
+
+Do NOT use sys.path.append/insert in tests — pyproject.toml pythonpath handles everything.
 
 ---
 > Source: [estebanfoucher/Sail-CV](https://github.com/estebanfoucher/Sail-CV) — distributed by [TomeVault](https://tomevault.io).
