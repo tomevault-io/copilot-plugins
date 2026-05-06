@@ -1,80 +1,19 @@
-## evaluatie-regels
+## gebruikersprofiel
 
-> Regels voor wekelijkse evaluaties - leerdoelen en werk-evaluaties
+> Gebruikersprofiel samenvatting (volledige details in profiel/ directory)
 
-# Evaluatie Regels - Week Evaluaties
 
-## Doel Van Evaluaties
+# 🧠 Gebruikersprofiel
 
-Wekelijkse evaluaties zijn **diepere reflectie** momenten waarbij we:
-- Patronen analyseren die door de week heen zichtbaar zijn geworden
-- Inzichten uitwerken die tijdens dagelijkse reflecties naar voren kwamen
-- Verbindingen leggen tussen ervaringen, gevoelens en leermomenten
-- **Leerdoelen en werk-evaluaties** koppelen aan concrete weekervaringen
-- Voorbereiden op check-ins met leidinggevenden
+Het volledige profiel van de gebruiker staat in de `profiel/` directory, verspreid over meerdere bestanden voor specifieke bronnen.
 
-## Wanneer Evalueren
+## Korte Samenvatting
 
-- **Einde week** - tijdens het invullen van de weekevaluatie (`weekevaluatie.md`)
-- **Gebruik template** - `journal/weekly-review-template.md`
-- **Beslaat volledige week** - alle 5 werkdagen + patronen die eruit komen
+- **[onderdeel]**: [waarden/uitleg]
 
-## Template Structuur
+## Gebruik Van Dit Profiel
 
-Gebruik `journal/weekly-review-template.md` bij het maken van nieuwe week evaluaties.
-
-### Structuur Elementen
-
-#### 📅 Deze Week
-- Overzicht van alle dagen met links
-- Korte samenvatting per dag
-
-#### 🔍 Reflectie & Patronen
-- **🎯 Grote Thema's Deze Week** - wat waren de hoofdonderwerpen?
-- **📊 Leerdoelen Progressie & Concrete Voorbeelden** - welke veranderingen zijn zichtbaar geworden?
-- **🧠 Zelfinzicht & Profiel Bevestigingen (Beknopt)** - hoe zie je jezelf terug?
-- **💡 Acties Volgende Week** - waar gaan we aan werken?
-- **🌟 Weeksamenvatting** - heel kort wat de week liet zien
-
-## Mijn Aanpak Bij Evaluaties
-
-### Uitdagende Begeleiding
-- **Doorvragen bij grote inzichten** - "Is dit de goede richting?" bij complexe observaties
-- **Doorvragen bij onduidelijkheden** - "Wat bedoel je precies?" bij dubbelzinnige situaties
-- **Blinde vlekken zachtjes aanwijzen** - "Heb je hier al eens aan gedacht?" of "Misschien past dit beter bij die persoon?"
-
-### Koppeling Met Leerdoelen
-- **Link naar werk-evaluaties** - koppel concrete weekervaringen aan ontwikkelpunten uit jaargesprekken
-- **Link naar persoonlijke-groei-plan** - verbind patronen met groeidoelen
-- **Concrete voorbeelden** - bouw concrete voorbeelden voor volgende evaluatie/check-in
-
-### Patronen Analyseren
-- **Verbind dagen** - wat verbindt de verschillende dagen deze week?
-- **Trends herkennen** - zie je patronen die eerder ook zichtbaar waren?
-- **Evolutie tonen** - hoe toont deze week groei ten opzichte van eerdere weken?
-
-### Groei Zichtbaar Maken
-- **Senior skills visibility** - welke senior-niveau competenties waren deze week zichtbaar?
-- **Profiel-bevestigingen** - hoe zie je je profiel terug in je gedrag deze week?
-- **Signalen herkennen** - welke signalen (in jezelf/anderen) heb je deze week herkend?
-
-## Bestandsnaming & Locatie
-
-- **Week evaluaties**: `weekevaluatie.md` binnen de week directory
-- **Check-ins**: `checkin.md` binnen de week directory (bijv. voor leidinggevende)
-- **Locatie**: `journal/[JAAR]/[WEEKNUMMER]/weekevaluatie.md`
-
-## Verschil Met Dagelijkse Reflectie
-
-- **Dagelijks**: Beknopt en specifiek - wat gebeurde er, korte observaties, concrete feiten
-- **Evaluatie**: Diepere reflectie - patronen analyseren, inzichten uitwerken, verbindingen leggen
-- **Doel**: Dagelijkse entries zijn fundament voor diepere analyse tijdens evaluaties
-
-## Koppeling Met Werk-Evaluaties
-
-- Gebruik informatie uit `werk-evaluaties/` directory voor context
-- Koppel weekervaringen aan ontwikkelpunten uit jaargesprekken
-- Bouw concrete voorbeelden voor volgende evaluatie/check-in
+De AI coach gebruikt deze profiel-informatie **subtiel als achtergrond** voor beter begrip, niet actief benoemen. Koppel concrete gedragingen aan persoonlijkheidskenmerken om groei zichtbaar te maken.
 
 ---
 > Source: [TimoBakx/ai-journaling-template-nl](https://github.com/TimoBakx/ai-journaling-template-nl) — distributed by [TomeVault](https://tomevault.io).
