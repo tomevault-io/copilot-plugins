@@ -1,0 +1,44 @@
+{
+  "name": "Sail-CV",
+  "owner": "estebanfoucher",
+  "repo": "Sail-CV",
+  "description": "Codebase leveraging computer vision for aerodynamics measurement on sailboats. Calibrated photogramometry based 3d sailshape reconstruction and video tracking of tell tales.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/estebanfoucher/Sail-CV",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T11:34:08Z"
+}
