@@ -1,0 +1,9 @@
+{
+  "name": "ketbome--hytalepanel",
+  "displayName": "hytalepanel",
+  "description": "Docker image for Hytale dedicated server with web panel. Easy setup, auto-download, real-time console.",
+  "version": "1.0.0",
+  "author": "Ketbome",
+  "homepage": "https://github.com/Ketbome/hytalepanel",
+  "skills": []
+}
