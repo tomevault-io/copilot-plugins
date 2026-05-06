@@ -1,66 +1,90 @@
-## frontend
+## security
 
-> - Glob: src/**/*.{js,jsx,ts,tsx}
+> - Activation: Always On
 
 
-# Frontend Rules (Glob)
+# Security Rules (Always On)
 
-- Activation: Glob
-- Glob: src/**/*.{js,jsx,ts,tsx}
-- Scope: React 18 + Vite + Tailwind + Editors
+- Activation: Always On
+- Scope: Repository-wide (frontend `src/**`, backend `server/**`, docs)
 - Size budget: ≤ ~12k chars/file
 
-Keep UI responsive, modular, and aligned with API contracts.
+Security is everyone’s job. Default to least privilege, explicit validation, and clear, non-sensitive errors.
 
-## Architecture
+## AuthN/Z
 
-- Entry: [src/main.jsx](cci:7://file:///home/sam/Gemini-CLI/src/main.jsx:0:0-0:0) → [src/App.jsx](cci:7://file:///home/sam/Gemini-CLI/src/App.jsx:0:0-0:0). Centralize providers (Auth, WS).
-- Separate view vs. data hooks. Keep side-effects in hooks, not render paths.
-- Reuse UI primitives; avoid one-off styles when Tailwind utility can express them.
+- All protected HTTP endpoints must require `Authorization: Bearer <token>`. Verify on server.
+- WebSocket connects via `/ws?token=<JWT>`; validate token at handshake and on reconnect.
+- Never echo tokens in logs, commit messages, PRs, or UI. Mask if unavoidable.
+- Enforce role/scope checks server-side for sensitive operations (git, filesystem).
 
-## Data & API
+## Secrets & PII
 
-- Use [src/utils/api.js](cci:7://file:///home/sam/Gemini-CLI/src/utils/api.js:0:0-0:0) for HTTP; align shapes with [documentation/API/openapi.yaml](cci:7://file:///home/sam/Gemini-CLI/documentation/API/openapi.yaml:0:0-0:0).
-- Handle auth errors (401/403) centrally; trigger re-login when needed.
-- Prefer SWR-like patterns (cache, dedupe) for frequently-read endpoints.
+- Never log credentials, API keys, JWTs, or PII. Redact on server logs and UI toasts.
+- Keep secrets out of VCS; reference via env vars and document in [README.md](cci:7://file:///home/sam/Gemini-CLI/README.md:0:0-0:0) (no values).
+- Avoid storing tokens in localStorage if possible; if used, namespace, rotate, and clear on logout.
 
-## WebSocket
+## Filesystem Safety
 
-- Put WS logic in [src/utils/websocket.js](cci:7://file:///home/sam/Gemini-CLI/src/utils/websocket.js:0:0-0:0) (one place). Expose status + events.
-- Token via `GET /api/config` then `/ws?token=...`. Reconnect with backoff.
+- File APIs must use absolute paths. Do not accept relative traversal (e.g., `..`).
+- Normalize and validate paths on server; restrict to allowed project roots.
+- Return precise but non-revealing errors (e.g., “invalid path” instead of full filesystem paths).
 
-## Performance
+## Git Operations
 
-- Lazy-load heavy editors/panels (Monaco/CodeMirror). Code-split routes/panels.
-- Avoid large synchronous renders; memoize expensive subtrees.
-- Keep initial JS bundle reasonable; tree-shake and avoid large dependencies.
+- Validate project path and repo state before running git commands.
+- Surface actionable errors without leaking sensitive environment details.
+- For push/pull, handle network/credentials/fast-forward conflicts gracefully; do not dump full remotes.
 
-## UX & Accessibility
+## Input Validation
 
-- Use semantic HTML; label inputs; announce async states where applicable.
-- Show concise errors; avoid leaking server internals.
-- Keyboard navigability for core flows (chat, files, git).
+- Validate all request bodies, query params, and headers (shape + type + bounds).
+- Prefer schema-first contracts; reject unknown fields. Sanitize strings for logs/UI.
 
-## Styling
+## Transport & Browser
 
-- Tailwind preferred. Abstract repeated patterns into components or class utils.
-- Keep dark/light compatibility in mind; avoid hard-coded colors outside theme.
+- Prefer HTTPS in production for both API and WS.
+- Set CORS deliberately (origins, headers, methods). Avoid `*` in production.
+- Avoid caching authenticated responses; control via headers and service worker logic.
 
-## State
+## Logging & Diagnostics
 
-- Local component state for UI; context or lightweight store for cross-cutting state (auth/user, WS status).
-- Avoid deep prop drilling; hoist or use context thoughtfully.
+- Use structured logs on server with event, path, project, and error codes.
+- Gate verbose logs behind `NODE_ENV !== 'production'` or flags.
+- Never log file contents, secrets, or large diffs by default.
 
-## Testing & Dev
+## Dependency & Supply Chain
 
-- Minimal checks for critical user journeys (auth, file open/save, git status).
-- In dev, show WS connection indicator unobtrusively.
+- Pin or range-pin critical deps; document upgrade flow.
+- Run security scans periodically; track advisories and patch promptly.
+
+## Terminal & Auto-exec
+
+- Treat commands as unsafe by default. Use Allow/Deny lists for auto-exec.
+- Never auto-run destructive commands (e.g., git push --force, rm, chmod).
+- Avoid `cd`; set explicit CWD in tool calls. Limit output to essentials.
+
+## MCP & External Tools
+
+- Enable only necessary MCP servers/tools. Review scopes and endpoints.
+- Keep `~/.codeium/windsurf/mcp_config.json` free of secrets; reference env vars where needed.
+- Rate-limit/timeout external calls; validate inputs to MCP tools.
+
+## Error Messages
+
+- Be specific enough for remediation, but do not leak secrets, file system layout, or stack traces in production.
+- Map server errors to concise UI messages; include a “details” toggle for dev only.
 
 ## Project-Specific Anchors
 
-- File APIs require absolute paths. Editors must handle large files gracefully.
-- Image viewer uses `GET /api/projects/:projectName/files/content?path=abs`.
-- Components mapping lives in the Component–API memory; keep it updated when refactoring.
+- Absolute path enforcement for File APIs is mandatory; do not weaken.
+- All backend routes under `server/**` must verify JWT before access.
+- WS auth: call `GET /api/config` to derive WS URL if needed; connect with `?token=`.
+
+## Incident Hygiene
+
+- On suspected leak, rotate tokens/keys and invalidate sessions.
+- Add a brief postmortem to `documentation/` with root cause and fix.
 
 ---
 > Source: [ssdeanx/Gemini-CLI-Web](https://github.com/ssdeanx/Gemini-CLI-Web) — distributed by [TomeVault](https://tomevault.io).
