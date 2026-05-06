@@ -1,0 +1,44 @@
+{
+  "name": "SeaTunnelX",
+  "owner": "LeonYoah",
+  "repo": "SeaTunnelX",
+  "description": "Seatunnel\u4e00\u7ad9\u5f0f\u8fd0\u7ef4\u7ba1\u7406\u5e73\u53f0\uff0c\u5305\u542b\u81ea\u52a8\u5316\u90e8\u7f72\u3001\u63d0\u4ea4\u4efb\u52a1\u3001\u5de1\u68c0\u3001\u63d2\u4ef6\u5e02\u573a\u7b49\u529f\u80fd",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/LeonYoah/SeaTunnelX",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T17:46:35Z"
+}
