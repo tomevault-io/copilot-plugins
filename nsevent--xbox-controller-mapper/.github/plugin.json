@@ -1,0 +1,9 @@
+{
+  "name": "nsevent--xbox-controller-mapper",
+  "displayName": "xbox-controller-mapper",
+  "description": "Map Xbox and DualSense controllers to keyboard shortcuts, mouse, and scroll on macOS. Perfect for vibe coding and couch computing.",
+  "version": "1.0.0",
+  "author": "NSEvent",
+  "homepage": "https://github.com/NSEvent/xbox-controller-mapper",
+  "skills": []
+}
