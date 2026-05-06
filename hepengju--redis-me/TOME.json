@@ -4,7 +4,7 @@
   "repo": "redis-me",
   "description": "Redis Desktop Manager based on Tauri",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hepengju/redis-me",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T13:42:14Z"
+  "distributed_at": "2026-05-06T05:59:24Z"
 }
