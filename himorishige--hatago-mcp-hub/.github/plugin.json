@@ -1,0 +1,9 @@
+{
+  "name": "himorishige--hatago-mcp-hub",
+  "displayName": "hatago-mcp-hub",
+  "description": "Hatago MCP Hub is a lightweight hub server that provides unified management for multiple MCP servers.",
+  "version": "1.0.0",
+  "author": "himorishige",
+  "homepage": "https://github.com/himorishige/hatago-mcp-hub",
+  "skills": []
+}
