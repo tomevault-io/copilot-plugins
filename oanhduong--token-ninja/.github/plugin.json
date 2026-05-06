@@ -1,0 +1,9 @@
+{
+  "name": "oanhduong--token-ninja",
+  "displayName": "token-ninja",
+  "description": "token-ninja routes deterministic shell commands locally \u2014 zero LLM calls, ~19\u00b5s latency. Works silently inside AI tools via MCP.",
+  "version": "1.0.0",
+  "author": "oanhduong",
+  "homepage": "https://github.com/oanhduong/token-ninja",
+  "skills": []
+}
