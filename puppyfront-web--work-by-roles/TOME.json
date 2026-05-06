@@ -1,0 +1,44 @@
+{
+  "name": "work-by-roles",
+  "owner": "puppyfront-web",
+  "repo": "work-by-roles",
+  "description": "\u8f7b\u91cf\u7ea7\u7684\u865a\u62df\u56e2\u961f\u5f15\u64ce\uff0c\u901a\u8fc7\u89d2\u8272\u8fb9\u754c\u548c\u5de5\u4f5c\u6d41\u9636\u6bb5\u6765\u89c4\u8303\u5f00\u53d1\u6d41\u7a0b\uff0c\u652f\u6301SOP\u8f6c\u5316\u6807\u51c6agent skills,\u751f\u6210\u667a\u80fd\u5316\u865a\u62df\u56e2\u961f",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/puppyfront-web/work-by-roles",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T20:16:23Z"
+}
