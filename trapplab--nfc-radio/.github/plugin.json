@@ -1,0 +1,9 @@
+{
+  "name": "trapplab--nfc-radio",
+  "displayName": "NFC-Radio",
+  "description": "This flutter project is a music player app that can be controlled by any NFC tag.",
+  "version": "1.0.0",
+  "author": "trapplab",
+  "homepage": "https://github.com/trapplab/NFC-Radio",
+  "skills": []
+}
