@@ -1,0 +1,44 @@
+{
+  "name": "wechat-bot",
+  "owner": "byteD-x",
+  "repo": "wechat-bot",
+  "description": "\u57fa\u4e8e wxauto \u7684\u5fae\u4fe1 PC \u7aef AI \u81ea\u52a8\u56de\u590d\u673a\u5668\u4eba\uff0c\u652f\u6301\u591a\u6a21\u578b API \u4e0e\u5404\u79cdoauth\uff08OpenAI/DeepSeek/\u8c46\u5305\u7b49\uff09\uff0c\u652f\u6301\u5404\u79cdcoding plan (Kimi\uff0cGLM\uff0ccodex team\u7b49)\uff0c\u5185\u7f6e\u8bb0\u5fc6\u3001\u60c5\u611f\u8bc6\u522b\u4e0e Electron \u53ef\u89c6\u5316\u754c\u9762\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/byteD-x/wechat-bot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T11:06:50Z"
+}
