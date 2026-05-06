@@ -1,30 +1,28 @@
-## docker-infra
+## git-workflow
 
-> - docker/base.Dockerfile: shared base (l4t-pytorch, uv, ffmpeg)
+> **NEVER commit or push code changes.** The user maintains full control over git operations.
 
-# Docker and Infrastructure
+# Git Workflow Rules
 
-## Docker Setup
-- docker/base.Dockerfile: shared base (l4t-pytorch, uv, ffmpeg)
-- docker/reconstruction.Dockerfile: adds mast3r, croco extensions, gradio
-- docker/tracking.Dockerfile: adds VPI (NVIDIA Vision Programming Interface)
-- docker/docker-compose.yml: multi-service (reconstruction + tracking)
+## Critical Restrictions
 
-## Target Hardware
-- NVIDIA Jetson (tested on Jetson Nano)
-- Base image: dustynv/l4t-pytorch:r36.4.0
-- NVIDIA runtime with GPU access
+**NEVER commit or push code changes.** The user maintains full control over git operations.
 
-## Build Commands
-- make docker-build: build all images
-- make docker-build-reconstruction: build reconstruction only
-- make docker-build-tracking: build tracking only
-- make docker-up / make docker-down: start/stop services
+- Do NOT run `git add`, `git commit`, `git push`, or any other git write operations
+- Do NOT use git flags like `--no-verify`, `--no-gpg-sign`, `--force`, etc.
+- Do NOT run destructive git commands (reset --hard, push --force, branch -D, etc.)
+- Read-only git operations are allowed: `git status`, `git log`, `git diff`, `git show`, `git branch -l`
 
-## Important
-- Non-root user (app_user, uid 1000) for security
-- Volumes mount src/, assets/, checkpoints/ for development
-- PYTHONPATH must include mast3r and mast3r/dust3r for reconstruction
+## User Control
+
+The user will review all changes and decide when to commit and push. Your role is to:
+- Make code changes via edit tools
+- Explain what was changed and why
+- Let the user handle git operations
+
+## Exception
+
+Only perform git operations if the user explicitly instructs you to do so with a direct command like "commit these changes" or "push to remote".
 
 ---
 > Source: [estebanfoucher/Sail-CV](https://github.com/estebanfoucher/Sail-CV) — distributed by [TomeVault](https://tomevault.io).
