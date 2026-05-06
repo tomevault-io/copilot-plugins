@@ -1,0 +1,14 @@
+{
+  "name": "hivellm--vectorizer",
+  "displayName": "vectorizer",
+  "description": "A high-performance, in-memory vector database written in Rust, designed for semantic search and top-k nearest neighbor queries in AI-driven applications, with binary file persistence for durability.",
+  "version": "1.0.0",
+  "author": "hivellm",
+  "homepage": "https://github.com/hivellm/vectorizer",
+  "skills": [
+    {
+      "name": "generate-code-documentation",
+      "description": ""
+    }
+  ]
+}
