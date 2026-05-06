@@ -1,0 +1,9 @@
+{
+  "name": "rr3s1--auraaesthetics",
+  "displayName": "auraaesthetics",
+  "description": "A management system for an aesthetics clinic built with using Next.js, Appwrite, TypeScript, and TailwindCSS. Key features include patient registration, appointment booking, admin management of appoin",
+  "version": "1.0.0",
+  "author": "rr3s1",
+  "homepage": "https://github.com/rr3s1/auraaesthetics",
+  "skills": []
+}
