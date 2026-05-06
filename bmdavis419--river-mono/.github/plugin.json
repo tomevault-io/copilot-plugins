@@ -1,9 +1,9 @@
 {
   "name": "bmdavis419--river-mono",
   "displayName": "river-mono",
-  "description": "river-mono",
+  "description": "it's kinda like trpc, but for ai agents & streams",
   "version": "1.0.0",
   "author": "bmdavis419",
-  "homepage": "https://tomevault.io/claim/bmdavis419",
+  "homepage": "https://github.com/bmdavis419/river-mono",
   "skills": []
 }
