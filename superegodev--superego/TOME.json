@@ -1,0 +1,51 @@
+{
+  "name": "superego",
+  "owner": "superegodev",
+  "repo": "superego",
+  "description": "Software That Fits You",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "writing-browser-app-e2e-tests",
+      "path": ".agents/skills/writing-browser-app-e2e-tests",
+      "github_url": "https://github.com/superegodev/superego/tree/main/.agents/skills/writing-browser-app-e2e-tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/superegodev/superego",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:40:40Z"
+}
