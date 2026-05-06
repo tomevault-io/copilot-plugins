@@ -1,0 +1,9 @@
+{
+  "name": "pixelworxio--livewire-workflows",
+  "displayName": "livewire-workflows",
+  "description": "Build multi-step workflows in Laravel / Livewire with zero boilerplate",
+  "version": "1.0.0",
+  "author": "pixelworxio",
+  "homepage": "https://github.com/pixelworxio/livewire-workflows",
+  "skills": []
+}
