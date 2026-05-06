@@ -1,247 +1,127 @@
-## 070-gitlab-ops
+## session-orchestrator
 
-> When working with GitLab or GitHub — issues, merge requests, pull requests, CI pipelines, labels
+> Claude Code plugin for session-level orchestration. This is a **plugin repo** — not an application.
 
+# Session Orchestrator Plugin
 
-# VCS Operations Reference (GitLab & GitHub)
+Claude Code plugin for session-level orchestration. This is a **plugin repo** — not an application.
 
-Single source of truth for all VCS CLI commands, label taxonomy, issue templates, and project resolution.
+## Structure
 
-## VCS Auto-Detection
+- `skills/` — 16 skills (bootstrap, session-start, session-plan, wave-executor, session-end, claude-md-drift-check, ecosystem-health, gitlab-ops, quality-gates, discovery, plan, evolve, vault-sync, vault-mirror, daily, docs-orchestrator)
+- `commands/` — 7 commands (/session, /go, /close, /discovery, /plan, /evolve, /bootstrap)
+- `agents/` — 7 agents (code-implementer, test-writer, ui-developer, db-specialist, security-reviewer, session-reviewer, docs-writer)
+- `hooks/` — 6 event matchers covering 7 hook handlers: SessionStart (banner + init), PreToolUse/Edit|Write (scope enforcement), PreToolUse/Bash (destructive-command guard + enforce-commands), PostToolUse (edit validation), Stop (session events), SubagentStop (agent events)
+- `.orchestrator/policy/` — runtime policy files (e.g. `blocked-commands.json`, 13 rules for destructive-command guard)
+- `.claude/rules/` — always-on contributor rules (e.g. `parallel-sessions.md`)
 
-Detect which platform the current repo uses:
+## Development
 
-```bash
-REMOTE_URL=$(git remote get-url origin 2>/dev/null)
-if echo "$REMOTE_URL" | grep -q "github.com"; then
-  VCS=github    # use `gh`
-else
-  VCS=gitlab    # use `glab`
-fi
+Edit skills directly. Test by running `/session feature` in any project repo.
+
+Skills are loaded by Claude Code from the plugin directory — no build step needed.
+
+## Destructive-Command Guard
+
+`hooks/pre-bash-destructive-guard.mjs` blocks destructive shell commands in the main session (alongside subagent waves). Policy lives in `.orchestrator/policy/blocked-commands.json` (13 rules). Bypass per-session via Session Config:
+
+```yaml
+allow-destructive-ops: true
 ```
 
-Session Config overrides:
-- `vcs: github|gitlab` -- force a specific platform
-- `gitlab-host: <host>` -- override auto-detected GitLab host
+Rule source of truth: `.claude/rules/parallel-sessions.md` (PSA-003). See issue #155.
 
-## Dynamic Project Resolution
+## Rules
 
-Never hardcode project IDs. Resolve at runtime.
+- `.claude/rules/parallel-sessions.md` — PSA-001/002/003/004 parallel-session discipline. Vendored to all consumer repos via bootstrap (issue #155).
 
-### Current Project
+## Key Conventions
 
-```bash
-# GitLab — numeric project ID
-glab repo view --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['id'])"
+- Skills use Markdown with YAML frontmatter
+- Commands use `$ARGUMENTS` for user input
+- Agent definitions need `<example>` blocks in description
+- Hooks use the Claude Code hooks.json format
 
-# GitHub — owner/name
-gh repo view --json nameWithOwner -q '.nameWithOwner'
-```
+## Agent Authoring Rules
 
-### Cross-Project Queries
+Agent files live in `agents/` as Markdown with YAML frontmatter. Required fields:
 
-```bash
-# GitLab — resolve by name
-glab api "projects?search=<project-name>" | python3 -c "import json,sys; [print(p['id'], p['path_with_namespace']) for p in json.load(sys.stdin)]"
-
-# GitHub — resolve repo details
-gh api "repos/<owner>/<name>" --jq '.full_name'
-```
-
+```yaml
 ---
-
-## Common CLI Commands
-
-### GitLab (glab)
-
-```bash
-# Issues
-glab issue list --per-page 50                              # All open issues
-glab issue list --label "status:ready" --per-page 10       # Filtered by label
-glab issue list --label "priority:high" --per-page 10      # High priority
-glab issue list --closed --per-page 10                     # Recently closed
-glab issue view <IID>                                      # View issue details
-glab issue view <IID> --comments                           # With comments
-glab issue create --title "title" --label "priority:high,status:ready"
-glab issue update <IID> --label "status:in-progress"
-glab issue close <IID>
-glab issue note <IID> -m "Comment text"                    # Add comment
-
-# MRs
-glab mr list                                               # Open MRs
-glab mr create --fill --draft                              # Create draft MR
-glab mr merge <MR_IID>                                     # Merge MR
-
-# Pipelines
-glab pipeline list --per-page 5                            # Recent pipelines
-glab pipeline status <ID>                                  # Pipeline details
-
-# API (reads host from git remote automatically)
-PROJECT_ID=$(glab repo view --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['id'])")
-glab api "projects/$PROJECT_ID/issues?state=opened&per_page=50"
-glab api "projects/$PROJECT_ID/milestones?state=active"
-```
-
-### GitHub (gh)
-
-```bash
-# Issues
-gh issue list --limit 50                                   # All open issues
-gh issue list --label "status:ready" --limit 10            # Filtered by label
-gh issue list --label "priority:high" --limit 10           # High priority
-gh issue list --state closed --limit 10                    # Recently closed
-gh issue view <NUMBER>                                     # View issue details
-gh issue view <NUMBER> --comments                          # With comments
-gh issue create --title "title" --label "priority:high,status:ready"
-gh issue edit <NUMBER> --add-label "status:in-progress"
-gh issue close <NUMBER>
-gh issue comment <NUMBER> --body "Comment text"            # Add comment
-
-# PRs
-gh pr list --state open                                    # Open PRs
-gh pr create --fill --draft                                # Create draft PR
-gh pr merge <NUMBER>                                       # Merge PR
-
-# Workflows (CI)
-gh run list --limit 5                                      # Recent workflow runs
-gh run view <RUN_ID>                                       # Run details
-
-# API
-gh api "repos/{owner}/{repo}/issues?state=open&per_page=50"
-gh api "repos/{owner}/{repo}/milestones?state=open"
-```
-
+name: kebab-case-name          # 3-50 chars, lowercase + hyphens only
+description: Use this agent when [conditions]. <example>Context: ... user: "..." assistant: "..." <commentary>Why this agent is appropriate</commentary></example>
+model: inherit                 # inherit | sonnet | opus | haiku
+color: blue                    # blue | cyan | green | yellow | magenta | red
+tools: Read, Grep, Glob, Bash  # COMMA-SEPARATED STRING, not JSON array!
 ---
-
-## glab CLI Quirks
-
-These are known differences from `gh` that cause frequent mistakes:
-
-| Quirk | Correct | Wrong |
-|-------|---------|-------|
-| Listing closed issues | `glab issue list --closed` | `glab issue list --state closed` |
-| Confirmations | glab has NO `--yes` flag | Do not pass `--yes` |
-| Comprehensive listing | `glab issue list --per-page 100` | Default per-page is small |
-| Pagination flag | `--per-page N` (glab) | `--limit N` (that is gh syntax) |
-
----
-
-## Label Taxonomy
-
-### Priority Labels
-- `priority:critical` -- blocking production or users
-- `priority:high` -- important, schedule this sprint
-- `priority:medium` -- plan for next sprint
-- `priority:low` -- backlog, nice-to-have
-
-### Status Labels
-- `status:ready` -- defined, ready to pick up
-- `status:in-progress` -- actively being worked on
-- `status:review` -- MR/PR created, awaiting review
-- `status:blocked` -- waiting on external dependency
-
-### Area Labels
-- `area:frontend` | `area:backend` | `area:database`
-- `area:ai` | `area:security` | `area:testing`
-- `area:ci` | `area:infrastructure` | `area:compliance`
-
-### Type Labels
-- `bug` | `feature` | `enhancement` | `refactor`
-- `chore` | `documentation` | `epic` | `discovery`
-
----
-
-## Issue Templates
-
-### Bug
-
-```markdown
-## Description
-What happens vs. what should happen.
-
-## Steps to Reproduce
-1.
-2.
-
-## Root Cause (if known)
-
-## Acceptance Criteria
-- [ ]
 ```
 
-### Feature
+**Critical pitfalls** (cause "agents: Invalid input" validation failure):
+- `tools` MUST be a comma-separated string (`Read, Edit, Write`), NOT a JSON array (`["Read", "Edit"]`)
+- `description` MUST be a single-line inline string, NOT a YAML block scalar (`>` or `|`). Put `<example>` blocks inline.
+- All 4 fields (name, description, model, color) are required. `tools` is optional.
 
-```markdown
-## Goal
-What should be achieved and why.
+Reference: https://github.com/anthropics/claude-code/blob/main/plugins/plugin-dev/skills/agent-development/SKILL.md
 
-## Tasks
-- [ ]
+## v3.0 Migration
 
-## Acceptance Criteria
-- [ ]
+Bash → Node.js migration for native Windows support. Epic #124 complete:
+foundation (#125–#130, #132), hooks (#137–#142), tests (#143–#145), and legacy
+cleanup (#151). Legacy `.sh` scripts under `hooks/`, `scripts/lib/` (except
+`common.sh`, retained for install tooling), and `scripts/test/` have been
+removed. Entry point is `scripts/parse-config.mjs`.
 
-## Session Type
-[housekeeping|feature|deep]
-```
+Development prerequisite: **Node 20+**. Run `npm ci` after cloning. Test with
+`npm test` (vitest). Lint: `npm run lint`.
 
-### Carryover (from /close)
+## v2.0 Features
 
-```markdown
-## [Carryover] Original Task Description
+- Session persistence via STATE.md + session memory files
+- Scope & command enforcement hooks (PreToolUse)
+- Circuit breaker: maxTurns limit + spiral detection
+- Worktree isolation for parallel agent execution
+- 5 new Session Config fields (persistence, enforcement, circuit breaker, worktrees, ecosystem-health)
+- Session metrics tracking with historical trends (sessions.jsonl)
+- Coordinator snapshots: pre-dispatch `git stash create` refs under `refs/so-snapshots/` for crash recovery (#196)
+- CWD-drift guard: `restoreCoordinatorCwd` after every worktree-isolated Agent dispatch (#219)
+- Harness audit scorecard: deterministic 7-category rubric (RUBRIC_VERSION pinned), JSON to stdout + JSONL trend in `.orchestrator/metrics/audit.jsonl`, `/discovery audit` probe, `/harness-audit` command (#210)
+- Docs-orchestrator skill + docs-writer agent: audience-split (User/Dev/Vault) doc generation within sessions. Opt-in via `docs-orchestrator.enabled`. Source-cited only (diff/git-log/session-memory/affected-files); sourceless sections get `<!-- REVIEW: source needed -->`. Canonical four source types with hard abort when ALL absent. Three hook points: session-start Phase 2.5 (audience detection + AskUserQuestion, #233), session-plan Step 1.5/1.8 (Docs role classification + docs-writer auto-match + machine-readable `### Docs Tasks` SSOT emission, #234), session-end Phase 3.2 (per-task ok/partial/gap verification, mode warn/strict/off, #235). Config schema fields documented at `docs/session-config-reference.md § Docs Orchestrator` (#236). Umbrella #229 + foundation #230.
+- Isolation:none default for new-directory waves (#243): `wave-executor/wave-loop.md` Pre-Dispatch New-Directory Detection inspects each agent's file scope — if ANY agent's target parent directory doesn't exist AND `configIsolation: 'auto'`, forces `isolation: 'none'` (NOT worktree). Avoids the Claude Code Agent-tool merge-back regression where new-dir writes silently fail to sync back. Enforcement auto-promotes `warn` → `strict` to keep the scope hook hard. Explicit `isolation: 'worktree'` overrides are honored with a `⚠` warning. 3rd-consecutive-session learning (conf 0.90).
+- Vault-staleness discovery probes: `/discovery vault` activates two `.mjs` probes — `vault-staleness` flags 01-projects with `lastSync` age > 24h; `vault-narrative-staleness` flags `context.md`/`decisions.md`/`people.md` by tier thresholds (top=30d, active=60d, archived=180d). JSONL under `.orchestrator/metrics/vault-*.jsonl` (#232)
+- Vault-backfill CLI (#241): `scripts/vault-backfill.mjs` scans configured GitLab groups (`vault-integration.gitlab-groups`), dry-run by default, `--apply` generates canonical `.vault.yaml` from projects-baseline template per repo, `--yes <manifest>` skips confirmation. Surfaced as `/plan retro` sub-mode via `skills/plan/mode-retro.md` Phase 1.6 (vault-backfill path). Umbrella #229.
+- Session-end Phase 2.3 vault staleness check (#242): opt-in via `vault-staleness.enabled: true`; runs both `vault-staleness` + `vault-narrative-staleness` probes via Node import at close time. `mode: warn` surfaces findings in the Phase 6 Final Report Docs Health line; `mode: strict` blocks session-end with AskUserQuestion override. Umbrella #229.
+- Adaptive wave sizing based on complexity scoring
+- Cross-session learning system with confidence-based intelligence
+- Intelligent agent dispatch: project agents > plugin agents > general-purpose
+- Agent-mapping Session Config for explicit role-to-agent binding
+- Model selection matrix (haiku/sonnet/opus per task type)
 
-### What was completed
-- [completed items]
+## Session Config
 
-### What remains
-- [ ] [remaining task 1]
-- [ ] [remaining task 2]
-
-### Context for next session
-[relevant context, file paths, decisions made]
-
-### Original Issue
-Relates to #ORIGINAL_IID
-```
-
-### Discovery Finding
-
-```markdown
-## [Discovery] <finding title>
-
-**Probe:** <probe_name>
-**Severity:** <priority:critical|high|medium|low>
-**Category:** <code|infra|ui|arch|session>
-
-### Finding
-<description of the problem>
-
-### Evidence
-- **File:** `<file_path>`
-- **Line:** <line_number>
-- **Code:**
-  ```
-  <matched_text with surrounding context>
-  ```
-
-### Impact
-<why this matters>
-
-### Recommended Fix
-<concrete fix suggestion>
-
-### Acceptance Criteria
-- [ ] <specific, verifiable condition>
-- [ ] Quality gates pass after fix
-```
-
-Labels for discovery findings: `type:discovery`, `priority:<level>`, `area:<inferred>`, `status:ready`
-
-
-
----
-
-CI pipeline commands are listed in the Common CLI Commands section above (Pipelines/Workflows). Interpret: green=passed, red=failed (investigate before proceeding), pending=in progress.
+persistence: true
+enforcement: warn
+recent-commits: 20
+test-command: npm test
+typecheck-command: npm run typecheck
+lint-command: npm run lint
+stale-branch-days: 7
+plugin-freshness-days: 30
+plan-baseline-path: ~/Projects/projects-baseline
+plan-prd-location: docs/prd
+plan-retro-location: docs/retro
+plan-default-visibility: internal
+vcs: gitlab
+docs-orchestrator:
+  enabled: false           # opt-in; when true, session-start Phase 2.5 runs + docs-writer agent available
+  audiences: [user, dev, vault]
+  mode: warn               # warn | strict | off
+vault-staleness:
+  enabled: false           # opt-in vault-drift probes (runs in /discovery vault)
+  thresholds:
+    top: 30                # days — tier=top narrative staleness threshold
+    active: 60             # days — tier=active
+    archived: 180          # days — tier=archived
+  mode: warn               # warn | strict | off
 
 ---
 > Source: [Kanevry/session-orchestrator](https://github.com/Kanevry/session-orchestrator) — distributed by [TomeVault](https://tomevault.io).
