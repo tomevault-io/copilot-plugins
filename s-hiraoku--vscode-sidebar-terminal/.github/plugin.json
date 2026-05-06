@@ -1,0 +1,94 @@
+{
+  "name": "s-hiraoku--vscode-sidebar-terminal",
+  "displayName": "vscode-sidebar-terminal",
+  "description": "vscode-sidebar-terminal",
+  "version": "1.0.0",
+  "author": "s-hiraoku",
+  "homepage": "https://github.com/s-hiraoku/vscode-sidebar-terminal",
+  "skills": [
+    {
+      "name": "anthropic-skill-creator",
+      "description": ""
+    },
+    {
+      "name": "brave-search-api",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "code-simplifier",
+      "description": ""
+    },
+    {
+      "name": "deepwiki-api",
+      "description": ""
+    },
+    {
+      "name": "doc-consistency",
+      "description": ""
+    },
+    {
+      "name": "firecrawl-api",
+      "description": ""
+    },
+    {
+      "name": "mcp-brave-search",
+      "description": ""
+    },
+    {
+      "name": "mcp-chrome-devtools",
+      "description": ""
+    },
+    {
+      "name": "mcp-deepwiki",
+      "description": ""
+    },
+    {
+      "name": "mcp-firecrawl",
+      "description": ""
+    },
+    {
+      "name": "mcp-playwright",
+      "description": ""
+    },
+    {
+      "name": "synapse-a2a",
+      "description": ""
+    },
+    {
+      "name": "synapse-reinst",
+      "description": ""
+    },
+    {
+      "name": "terminal-expert",
+      "description": ""
+    },
+    {
+      "name": "vscode-bug-hunter",
+      "description": ""
+    },
+    {
+      "name": "vscode-extension-debugger",
+      "description": ""
+    },
+    {
+      "name": "vscode-extension-expert",
+      "description": ""
+    },
+    {
+      "name": "vscode-extension-refactorer",
+      "description": ""
+    },
+    {
+      "name": "vscode-tdd-expert",
+      "description": ""
+    },
+    {
+      "name": "vscode-test-setup",
+      "description": ""
+    }
+  ]
+}
