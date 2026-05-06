@@ -1,0 +1,75 @@
+{
+  "name": "claude",
+  "owner": "axivo",
+  "repo": "claude",
+  "description": "Scalable collaboration platform with specialized profiles, persistent memory, and systematic methodologies.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "brainstorming",
+      "path": "plugins/brainstorming/skills/brainstorming",
+      "github_url": "https://github.com/axivo/claude/tree/main/plugins/brainstorming/skills/brainstorming",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "path": "plugins/code-review/skills/code-review",
+      "github_url": "https://github.com/axivo/claude/tree/main/plugins/code-review/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "conversation-log",
+      "path": "plugins/conversation-log/skills/conversation-log",
+      "github_url": "https://github.com/axivo/claude/tree/main/plugins/conversation-log/skills/conversation-log",
+      "description": ""
+    },
+    {
+      "name": "framework-initialization",
+      "path": "plugins/framework/skills/framework-initialization",
+      "github_url": "https://github.com/axivo/claude/tree/main/plugins/framework/skills/framework-initialization",
+      "description": ""
+    },
+    {
+      "name": "framework-methodology",
+      "path": "plugins/framework/skills/framework-methodology",
+      "github_url": "https://github.com/axivo/claude/tree/main/plugins/framework/skills/framework-methodology",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/axivo/claude",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T19:31:57Z"
+}
