@@ -1,43 +1,43 @@
-## documentation-standards
+## testing-ai-components
 
-> **Activation Mode**: Glob
+> **Activation Mode**: Model Decision
 
-# Documentation Standards
+# Testing Guidelines for AI Components
 
-**Activation Mode**: Glob
-**Pattern**: `**/*.md`
+**Activation Mode**: Model Decision
+**Description**: Apply when working on test files, discussing testing strategies, or implementing AI component testing
 
-<documentation_requirements>
-- Update README.md when adding significant AI functionality or features
-- Document AI service setup and configuration steps clearly
-- Include examples of AI integrations and usage patterns
-- Maintain consistency with existing documentation style and structure
-- Document environment variable requirements for AI services
-</documentation_requirements>
+<ai_testing_strategy>
+- Include tests for AI service integrations when source code exists
+- Test error scenarios including API failures, rate limits, and invalid responses
+- Mock AI services for consistent testing environments and CI/CD pipelines
+- Include integration tests for AI service connections and authentication
+- Test with various input scenarios and edge cases for AI functionality
+</ai_testing_strategy>
 
-<ai_documentation_specifics>
-- Document all AI model dependencies and version requirements
-- Include prompt engineering decisions and template explanations
-- Explain AI service rate limiting and quota management approaches
-- Provide troubleshooting guides for common AI integration issues
-- Document performance considerations and optimization strategies
-</ai_documentation_specifics>
+<test_patterns>
+- Use Jest or Vitest for testing framework when package.json exists
+- Mock AI API responses to ensure predictable test outcomes
+- Test loading states and user feedback for AI operations
+- Validate error handling and user experience during AI service failures
+- Include performance tests for AI API response times when applicable
+</test_patterns>
 
-<code_documentation>
-- Include JSDoc comments for AI-related functions and complex algorithms
-- Document API endpoints with clear request/response examples
-- Explain AI service authentication and configuration patterns
-- Include usage examples for AI utility functions and client libraries
-- Document data flow and processing pipelines for AI features
-</code_documentation>
+<mock_ai_services>
+- Create comprehensive mocks for AI service responses and errors
+- Test both successful and failed AI API interactions
+- Include tests for rate limiting and quota management scenarios
+- Mock streaming responses for real-time AI interactions
+- Ensure tests work without requiring actual AI service API keys
+</mock_ai_services>
 
-<maintenance_guidelines>
-- Keep documentation up to date with AI service API changes
-- Document breaking changes and migration guides for AI integrations
-- Include version compatibility information for AI service SDKs
-- Maintain examples that work with current AI service APIs
-- Document known limitations and workarounds for AI services
-</maintenance_guidelines>
+<validation_testing>
+- Test AI response validation and sanitization logic
+- Verify proper handling of malformed or unexpected AI responses
+- Include tests for prompt engineering and template generation
+- Test AI model switching and configuration management
+- Validate caching strategies and cache invalidation for AI responses
+</validation_testing>
 
 ---
 > Source: [HerringtonDarkholme/megarepo](https://github.com/HerringtonDarkholme/megarepo) — distributed by [TomeVault](https://tomevault.io).
