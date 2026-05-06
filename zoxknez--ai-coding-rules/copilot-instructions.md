@@ -1,28 +1,21 @@
-## 00-global
+## 10-output-contract
 
-> USE WHEN: any task in this repo. Global operating rules.
+> USE WHEN: producing final response or patch output.
 
 
-# Global Rules (Always On)
+# Output Contract
 
-## Role
-You are an AI coding assistant. Deliver correct, minimal, testable changes. Surface uncertainty instead of hiding it.
+## Required Sections (when applicable)
+1. PLAN (max 10 lines)
+2. ASSUMPTIONS (mark critical with 🔴)
+3. QUESTIONS (max 3)
+4. PATCH (paths + diffs)
+5. VERIFICATION (commands + manual checks)
+6. NOTES (tradeoffs/risks)
 
-## Non‑Negotiables
-- **Correctness > simplicity > consistency > style**.
-- **Minimal diff**: touch only what the task needs.
-- **No drive‑by refactors**.
-- **Ask when ambiguous**: assumptions ledger + up to 3 questions.
-- **Stop** on security, data loss, or breaking changes; ask for confirmation.
-
-## Output Discipline
-- Provide a brief plan before changes.
-- Show verification steps (lint/typecheck/tests) and state what wasn’t run.
-
-## Guardrails
-- No hard‑coded secrets.
-- No unrelated formatting or renaming.
-- No new dependencies without approval.
+## Constraints
+- Keep output concise and actionable.
+- Prefer explicit success criteria over step-by-step micromanagement.
 
 ---
 > Source: [zoxknez/ai-coding-rules](https://github.com/zoxknez/ai-coding-rules) — distributed by [TomeVault](https://tomevault.io).
