@@ -1,0 +1,34 @@
+{
+  "name": "cyzus--suzent",
+  "displayName": "suzent",
+  "description": "SUZENT: YOUR SOVEREIGN DIGITAL CO-WORKER",
+  "version": "1.0.0",
+  "author": "cyzus",
+  "homepage": "https://github.com/cyzus/suzent",
+  "skills": [
+    {
+      "name": "browser",
+      "description": ""
+    },
+    {
+      "name": "filesystem",
+      "description": ""
+    },
+    {
+      "name": "nodes",
+      "description": ""
+    },
+    {
+      "name": "notebook",
+      "description": ""
+    },
+    {
+      "name": "social",
+      "description": ""
+    },
+    {
+      "name": "speech",
+      "description": ""
+    }
+  ]
+}
