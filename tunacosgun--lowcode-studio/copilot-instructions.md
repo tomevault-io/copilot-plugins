@@ -1,53 +1,39 @@
-## frontend
+## index
 
-> React frontend — TypeScript SPA, monorepo packages, Redux-Saga, key directories, testing, and build commands
+> │   Caddy   │  (reverse proxy, TLS)
 
-# Frontend — `app/client/`
+# Appsmith — Architecture Overview
 
-- **Stack:** TypeScript, React, Redux, Redux-Saga
-- **Build:** Yarn 3.5.1 (workspaces monorepo), Webpack
-- **Entry point:** `src/index.tsx`
-- **Node:** v20.11.1
-
-## Monorepo Packages (`packages/`)
-
-| Package | Purpose |
-|---|---|
-| `design-system` | Component library (`ads`, `ads-old`, `headless`, `theming`, `widgets`, `widgets-old`) |
-| `ast` | JS AST parser utilities for binding expressions |
-| `dsl` | DSL schema/transformers for app JSON |
-| `icons` | Icon library |
-| `utils` | Shared utility functions |
-
-## Key `src/` Directories
-
-`pages/`, `widgets/`, `sagas/`, `reducers/`, `actions/`, `selectors/`, `components/`, `IDE/`, `git/`, `layoutSystems/`, `plugins/`, `ce/`, `ee/`, `enterprise/`
-
-## EE Pattern
-
-Look for `ce/`, `ee/`, and `enterprise/` directories under `src/`. Enterprise logic extends or overrides CE implementations.
-
-## Testing
-
-- **Unit:** Jest — `yarn run test:unit`
-- **E2E:** Cypress — `yarn cypress run --browser chrome --headless --spec {fileName}` (run from `app/client/`)
-- **Lint check:** ESLint + Prettier — `yarn run lint`
-- **Prettier check:** `yarn run prettier`
-- **Types:** `yarn run check-types`
-
-## Auto-fix Lint & Prettier (run from `app/client/`)
-
-```bash
-# Fix all Prettier formatting issues
-npx prettier --write ./src ./cypress
-
-# Fix all auto-fixable ESLint errors
-npx eslint --fix --cache ./src && npx eslint --fix -c ./cypress/.eslintrc.json --cache ./cypress
+```
+                    ┌───────────┐
+                    │   Caddy   │  (reverse proxy, TLS)
+                    └─────┬─────┘
+                          │
+             ┌────────────┼────────────┐
+             │            │            │
+    ┌────────▼───┐  ┌─────▼─────┐  ┌──▼──────┐
+    │   Client   │  │  Server   │  │   RTS   │
+    │ React SPA  │  │ Spring    │  │ Node.js │
+    │ TypeScript │  │ Boot/Java │  │ Express │
+    └────────────┘  └─────┬─────┘  └─────────┘
+                          │
+             ┌────────────┼────────────┐
+             │            │            │
+        ┌────▼───┐  ┌────▼────┐  ┌───▼──────┐
+        │MongoDB │  │Postgres │  │ Temporal │
+        │/ Redis │  │         │  │(workflows)│
+        └────────┘  └─────────┘  └──────────┘
 ```
 
-## Dev Proxy
+- **Client** (`app/client/`) — React + TypeScript SPA, Redux-Saga, Yarn monorepo
+- **Server** (`app/server/`) — Java 17, Spring Boot 3.x (Reactive WebFlux), Maven, MongoDB
+- **RTS** (`app/client/packages/rts/`) — Node.js Express real-time server, SCIM, workflow proxy
+- **Deploy** (`deploy/`) — Docker, Helm, AWS, Ansible, Caddy reverse proxy
+- **Orchestration** — supervisord in Docker, optional Keycloak (SSO)
 
-Nginx in `nginx/` for local dev. Caddy (`start-caddy.sh`) exists but WIP.
+## EE vs CE Pattern
+
+Enterprise and community edition code coexist in the same repo. Look for `ce/` and `ee/` directories within both `app/server` and `app/client`. Enterprise-specific logic extends or overrides CE implementations.
 
 ---
 > Source: [tunacosgun/lowcode-studio](https://github.com/tunacosgun/lowcode-studio) — distributed by [TomeVault](https://tomevault.io).
