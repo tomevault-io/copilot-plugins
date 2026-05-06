@@ -1,9 +1,14 @@
 {
   "name": "browseros-ai--old-browseros-agent",
-  "displayName": "old-browseros-agent",
-  "description": "old-browseros-agent",
+  "displayName": "browseros",
+  "description": "This is just the submodule of browserOS agent; MAIN REPO: https://github.com/browseros-ai/BrowserOS",
   "version": "1.0.0",
   "author": "browseros-ai",
-  "homepage": "https://tomevault.io/claim/browseros-ai",
-  "skills": []
+  "homepage": "https://github.com/browseros-ai/old-browseros-agent",
+  "skills": [
+    {
+      "name": "write-docs",
+      "description": ""
+    }
+  ]
 }
