@@ -1,0 +1,44 @@
+{
+  "name": "Agentic-Marketing-Campaign-Generator",
+  "owner": "jpantsjoha",
+  "repo": "Agentic-Marketing-Campaign-Generator",
+  "description": "AI Marketing Campaign Post Generator is an **AI-powered marketing campaign generator** that transforms business ideas into professional marketing campaigns using Google's Advanced Development Kit (ADK) Framework and Gemini API.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jpantsjoha/Agentic-Marketing-Campaign-Generator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T22:50:37Z"
+}
