@@ -1,0 +1,14 @@
+{
+  "name": "nokonoko1203--claude-code-settings",
+  "displayName": "claude-code-settings",
+  "description": "Best Practices for Claude Code Configuration",
+  "version": "1.0.0",
+  "author": "nokonoko1203",
+  "homepage": "https://github.com/nokonoko1203/claude-code-settings",
+  "skills": [
+    {
+      "name": "kill-dev-process",
+      "description": ""
+    }
+  ]
+}
