@@ -1,0 +1,9 @@
+{
+  "name": "umc-product--umc-product-server",
+  "displayName": "umc-product-server",
+  "description": "\ud504\ub85c\ub355\ud2b8\ud300\uc744 \uc704\ud55c SpringBoot \ud83c\udf31 \ubc31\uc5d4\ub4dc \uc11c\ube44\uc2a4",
+  "version": "1.0.0",
+  "author": "UMC-PRODUCT",
+  "homepage": "https://github.com/UMC-PRODUCT/umc-product-server",
+  "skills": []
+}
