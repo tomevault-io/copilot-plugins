@@ -1,0 +1,9 @@
+{
+  "name": "geiserx--lynxprompt",
+  "displayName": "LynxPrompt",
+  "description": "Self-hosted & federated platform for AI IDE/Tools Rules and Commands via WebUI & CLI - Generate, browse, store, share AGENTS.md, CLAUDE.md, and more",
+  "version": "1.0.0",
+  "author": "GeiserX",
+  "homepage": "https://github.com/GeiserX/LynxPrompt",
+  "skills": []
+}
