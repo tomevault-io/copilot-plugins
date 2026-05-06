@@ -1,163 +1,191 @@
-## api-integration
+## enum-usage
 
-> **File**: [config/interface.ts](mdc:config/interface.ts)
+> **File**: [config/enum.ts](mdc:config/enum.ts)
 
-# Quy trình tích hợp API
+# Quy ước sử dụng Enum
 
-## 1. Định nghĩa interface
+## 1. Định nghĩa enum
 
-**File**: [config/interface.ts](mdc:config/interface.ts)
+**File**: [config/enum.ts](mdc:config/enum.ts)
 
-- Tạo interface cho request parameters (VD: `CreditListParams`)
-- Tạo interface cho response data (VD: `Credit`, `CreditListResponse`)
-- Sử dụng nested interfaces cho object phức tạp (VD: `CustomerInfo`, `PaymentSchedule`)
-- Interface response luôn có format:
-  ```typescript
-  export interface ApiResponse<T = any> {
-    success?: boolean;
-    data?: T;
-    message?: string;
-    code?: string;
-  }
-  ```
+### Quy tắc đặt tên:
 
-## 2. Tạo API function
+- Tên enum: PascalCase (VD: `CreditStatus`)
+- Giá trị enum: UPPER_SNAKE_CASE (VD: `OVERDUE`)
+- Value: snake_case giống API (VD: `"overdue"`)
 
-**File**: [lib/api/[module-name].ts](mdc:lib/api/)
-
-- Import axios helper từ [lib/axios-instance.ts](mdc:lib/axios-instance.ts)
-- Sử dụng `sendGet`, `sendPost`, `sendPut`, `sendDelete`
-- Export object chứa các API methods:
-  ```typescript
-  export const moduleApi = {
-    getList: async (
-      params: ParamsInterface
-    ): Promise<ApiResponse<ResponseInterface>> => {
-      return await sendGet('/endpoint', params);
-    },
-  };
-  ```
-
-## 3. Tích hợp với React Query
-
-**Provider**: Đã được setup trong [components/query-provider.tsx](mdc:components/query-provider.tsx)
-
-### Trong component:
+### Format enum:
 
 ```typescript
-import { useQuery } from '@tanstack/react-query';
-import { moduleApi } from '@/lib/api/module-name';
-
-// Sử dụng trong component
-const {
-  data: responseData,
-  isLoading,
-  error,
-  refetch,
-} = useQuery({
-  queryKey: ['module-name', params],
-  queryFn: () => moduleApi.getList(params),
-  staleTime: 30 * 1000, // 30 seconds
-});
-```
-
-### Query key naming convention:
-
-- Format: `['resource-name', ...params]`
-- VD: `['credits', { status: 'active', page: 1 }]`
-
-## 4. Xử lý states trong component
-
-### Loading state:
-
-```typescript
-if (isLoading) {
-  return <LoadingSpinner />;
+export enum EntityStatus {
+  ACTIVE = "active",
+  INACTIVE = "inactive",
+  MAINTENANCE = "maintenance",
 }
 ```
 
-### Error state:
+## 2. Các enum được định nghĩa
+
+### Core Status Enums:
+
+- `CreditStatus`: active, overdue, paid, defaulted, cancelled
+- `PaymentStatus`: pending, paid, overdue, failed, partial
+- `CollectionStatus`: new, in_progress, resolved, written_off
+- `CustomerStatus`: active, inactive, blacklisted
+- `UserRole`: admin, collector, supervisor, auditor
+- `Language`: vi, en, ja
+
+### Type/Category Enums:
+
+- `CreditType`: personal, business, mortgage, installment
+- `PaymentMethod`: cash, bank_transfer, digital_wallet, installment
+- `CollectionMethod`: phone_call, sms, email, personal_visit, legal_action
+- `RiskLevel`: low, medium, high, critical
+- `DocumentType`: id_card, passport, contract, proof_of_income
+
+## 3. Sử dụng enum trong code
+
+### ✅ ĐÚNG:
 
 ```typescript
-if (error) {
-  return (
-    <ErrorMessage
-      message="Có lỗi xảy ra khi tải dữ liệu"
-      onRetry={() => refetch()}
-    />
-  );
+import { CreditStatus } from "@/config/enum";
+
+// So sánh status
+if (credit.status === CreditStatus.OVERDUE) {
+  // logic
+}
+
+// Array filter
+const statusFilter = [
+  CreditStatus.ACTIVE,
+  CreditStatus.OVERDUE,
+];
+
+// Switch case
+switch (credit.status) {
+  case CreditStatus.ACTIVE:
+    return "admin.credits.statusOptions.active";
+  case CreditStatus.OVERDUE:
+    return "admin.credits.statusOptions.overdue";
+  default:
+    return "admin.credits.statusOptions.unknown";
 }
 ```
 
-### Data handling:
+### ❌ SAI:
 
 ```typescript
-const items = responseData?.data?.items || [];
-const total = responseData?.data?.total || 0;
+// Hardcode string - KHÔNG BAO GIỜ LÀM ĐIỀU NÀY
+if (credit.status === "overdue") {
+}
+if (credit.status === "active") {
+}
+
+// Magic string trong array
+const statusFilter = ["active", "overdue"];
 ```
 
-## 5. Pagination & Filtering
+## 4. Enum trong API interfaces
+
+### Interface definition:
+
+```typescript
+export interface Credit {
+  id: string;
+  status: CreditStatus; // Sử dụng enum type
+  type: CreditType;
+  // ...
+}
+```
 
 ### API params:
 
 ```typescript
-const apiParams = {
-  skip: (currentPage - 1) * itemsPerPage,
-  limit: itemsPerPage,
-  ...(searchTerm && { keyword: searchTerm }),
-  ...(filter && { status: [filter] }),
-};
+export interface CreditListParams {
+  status?: CreditStatus[]; // Array of enum values
+  // ...
+}
 ```
 
-### Pagination component:
+## 5. Enum với i18n
+
+### Mapping enum sang i18n key:
 
 ```typescript
-<Pagination
-  currentPage={currentPage}
-  totalPages={Math.ceil(total / itemsPerPage)}
-  onPageChange={setCurrentPage}
-  totalItems={total}
-  itemsPerPage={itemsPerPage}
-/>
-```
-
-## 6. Data transformation
-
-Tạo helper functions để transform data từ API:
-
-```typescript
-const getDisplayStatus = (apiStatus: string) => {
-  switch (apiStatus) {
-    case 'active':
-      return 'Đang hoạt động';
-    case 'overdue':
-      return 'Quá hạn';
-    case 'paid':
-      return 'Đã thanh toán';
+const getStatusI18nKey = (status: CreditStatus): string => {
+  switch (status) {
+    case CreditStatus.ACTIVE:
+      return "admin.credits.statusOptions.active";
+    case CreditStatus.OVERDUE:
+      return "admin.credits.statusOptions.overdue";
     default:
-      return 'Không xác định';
+      return "admin.credits.statusOptions.unknown";
   }
 };
+
+// Sử dụng trong component
+const statusText = t(getStatusI18nKey(credit.status));
 ```
 
-## 7. i18n Integration
+## 6. Enum trong select options
 
-- Sử dụng `useTranslation()` hook
-- Tất cả text đều phải dùng `t(key)` function
-- Thêm key mới vào [i18n/resources.ts](mdc:i18n/resources.ts) nếu thiếu
-- Quy ước key: `admin.[module].[section].[field]`
+```typescript
+const statusOptions = [
+  { value: "all", label: t("admin.credits.statusOptions.label") },
+  {
+    value: CreditStatus.ACTIVE,
+    label: t("admin.credits.statusOptions.active"),
+  },
+  {
+    value: CreditStatus.OVERDUE,
+    label: t("admin.credits.statusOptions.overdue"),
+  },
+  // ...
+];
+```
 
-## 8. Checklist tích hợp API
+## 7. Thêm enum mới
 
-- [ ] Interface được định nghĩa trong `config/interface.ts`
-- [ ] API function trong `lib/api/[module].ts`
-- [ ] Import `useQuery` từ `@tanstack/react-query`
-- [ ] Xử lý loading và error states
-- [ ] Data transformation nếu cần
-- [ ] Pagination setup đúng
-- [ ] i18n cho tất cả text
-- [ ] Query key có format đúng
-- [ ] Type safety cho TypeScript
+### Khi thêm value mới:
+
+1. Thêm vào enum trong `config/enum.ts`
+2. Cập nhật mapping functions (nếu có)
+3. Thêm i18n key tương ứng vào `i18n/resources.ts`
+4. Cập nhật TypeScript interfaces nếu cần
+
+### Khi thêm enum mới:
+
+1. Đặt tên theo quy ước PascalCase
+2. Group theo chức năng (Status, Type, Category, etc.)
+3. Sử dụng value snake_case giống API
+4. Export từ `config/enum.ts`
+
+## 8. Validation với enum
+
+```typescript
+// Kiểm tra enum value hợp lệ
+const isValidStatus = (status: string): status is CreditStatus => {
+  return Object.values(CreditStatus).includes(
+    status as CreditStatus
+  );
+};
+
+// Type guard
+if (isValidStatus(apiStatus)) {
+  // status có type là CreditStatus
+  credit.status = apiStatus;
+}
+```
+
+## 9. Best practices
+
+- **LUÔN** sử dụng enum thay vì string literals
+- **KHÔNG BAO GIỜ** hardcode status/type values
+- Import enum ở đầu file khi sử dụng
+- Sử dụng enum làm type cho TypeScript interfaces
+- Mapping enum sang i18n key thay vì hardcode text
+- Group enum theo chức năng trong file
+- Value của enum phải match với API response format
 
 ---
 > Source: [HiuNT-Tech/backlog-clone-fe](https://github.com/HiuNT-Tech/backlog-clone-fe) — distributed by [TomeVault](https://tomevault.io).
