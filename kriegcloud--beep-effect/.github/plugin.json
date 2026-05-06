@@ -1,0 +1,34 @@
+{
+  "name": "kriegcloud--beep-effect",
+  "displayName": "beep-effect",
+  "description": "AI instruction skills by kriegcloud",
+  "version": "1.0.0",
+  "author": "kriegcloud",
+  "homepage": "https://github.com/kriegcloud/beep-effect",
+  "skills": [
+    {
+      "name": "command-executor",
+      "description": ""
+    },
+    {
+      "name": "parallel-explore",
+      "description": ""
+    },
+    {
+      "name": "turborepo",
+      "description": ""
+    },
+    {
+      "name": "typeclass-design",
+      "description": ""
+    },
+    {
+      "name": "wide-events",
+      "description": ""
+    },
+    {
+      "name": "writing-laws",
+      "description": ""
+    }
+  ]
+}
