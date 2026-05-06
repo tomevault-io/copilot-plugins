@@ -1,13 +1,15 @@
-## git-workflow
+## i18n
 
-> Git workflow — never run git add, commit or push automatically
+> Bilingual UI — Polish and English
 
 
-# Git workflow
+# i18n
 
-- **Never** run `git add`, `git commit` or `git push` yourself.
-- Always let the user decide when to stage, commit and push.
-- You may suggest commit messages and provide commands to run, but **never execute them**.
+- Two languages: **PL** (default) and **EN**
+- Translations in `src/i18n/translations.js` — `t(key)` returns current language string
+- HTML attributes: `data-i18n` (textContent), `data-i18n-placeholder`, `data-i18n-aria`
+- Language stored in `localStorage` key `ndexplorer-lang`
+- When adding new UI text, always add both PL and EN keys
 
 ---
 > Source: [maciejaszex/ndexplorer](https://github.com/maciejaszex/ndexplorer) — distributed by [TomeVault](https://tomevault.io).
