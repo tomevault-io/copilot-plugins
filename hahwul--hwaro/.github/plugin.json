@@ -1,0 +1,9 @@
+{
+  "name": "hahwul--hwaro",
+  "displayName": "hwaro",
+  "description": "Hwaro (\ud654\ub85c) is a lightweight and fast Static Site Generator(SSG) written in Crystal.",
+  "version": "1.0.0",
+  "author": "hahwul",
+  "homepage": "https://github.com/hahwul/hwaro",
+  "skills": []
+}
