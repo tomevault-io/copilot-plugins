@@ -1,0 +1,9 @@
+{
+  "name": "tashisleepy--knowledge-engine",
+  "displayName": "knowledge-engine",
+  "description": "The bridge between human-readable wikis and machine-speed memory. Built on Karpathys LLM Wiki pattern + Memvid.",
+  "version": "1.0.0",
+  "author": "tashisleepy",
+  "homepage": "https://github.com/tashisleepy/knowledge-engine",
+  "skills": []
+}
