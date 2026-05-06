@@ -1,0 +1,9 @@
+{
+  "name": "icyoung--blackhole",
+  "displayName": "Blackhole",
+  "description": "Remote terminal system with Horizon (host), Voyager (client), and Wormhole (relay)",
+  "version": "1.0.0",
+  "author": "Icyoung",
+  "homepage": "https://github.com/Icyoung/Blackhole",
+  "skills": []
+}
