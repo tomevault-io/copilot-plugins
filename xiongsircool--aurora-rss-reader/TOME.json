@@ -4,7 +4,7 @@
   "repo": "aurora-rss-reader",
   "description": " Aurora RSS Reader - AI \u589e\u5f3a\u7684\u8de8\u5e73\u53f0\u684c\u9762 RSS \u9605\u8bfb\u5668\uff0c\u652f\u6301\u591a\u8bed\u8a00\u7ffb\u8bd1\u3001\u667a\u80fd\u6458\u8981\u548c\u73b0\u4ee3\u5316\u9605\u8bfb\u4f53\u9a8c.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xiongsircool/aurora-rss-reader",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T16:00:40Z"
+  "distributed_at": "2026-05-06T03:25:35Z"
 }
