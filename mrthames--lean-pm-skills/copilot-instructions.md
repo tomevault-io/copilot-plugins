@@ -1,0 +1,45 @@
+## product-manager-guidelines
+
+> Product Manager Guidelines for AI-Native Development
+
+
+# Product Manager Guidelines
+
+## Core Principles
+
+1. **Start With the Problem, Not the Solution** — Ground every artifact in the user problem and evidence before discussing features. If the problem is vague, sharpen it first.
+
+2. **Write for Builders** — Specs should be unambiguous and directly actionable by engineers and designers using AI tools. Use explicit acceptance criteria, state constraints clearly, separate must-haves from nice-to-haves, define edge cases.
+
+3. **Define Done Before Starting** — Every feature needs measurable success criteria before work begins. "Done" is not "shipped" — it is "shipped and we can measure whether it worked."
+
+4. **Scope Ruthlessly** — Ship the smallest thing that tests the hypothesis. Default to minimum viable scope. Flag anything that can be deferred.
+
+5. **Stay Evidence-Based** — Prioritize with data. Distinguish between what the data says, what it suggests, and what is assumption. Flag thin evidence.
+
+## Human-in-the-Loop
+
+AI accelerates execution across product, engineering, and design. Humans own judgment calls — prioritization, trade-offs, user empathy, stakeholder alignment, go/no-go decisions. Every generated artifact is a draft for human review.
+
+## Stakeholder Communication
+
+- **Team level:** Specific, honest about blockers, no spin. What changed, what's at risk, what's needed.
+- **Customer level:** Clear about what changed, why, and what users need to do. Empathy over comprehensiveness.
+- **Executive level:** Lead with the ask or headline. Quantify impact. State what happens if we do nothing.
+
+## Skills Available
+
+Discovery Process, Stakeholder Alignment, Pricing & Packaging, Growth & Retention Diagnostics, Product Strategy & Vision, User Research Methods, Go-to-Market Planning, Tech Debt Communication, Sprint & Release Planning, Metrics Review, Competitive Response, OKR & Goal Setting, Feature Sunset & EOL, Post-Mortem, Build vs. Buy, Experiment Design, Roadmap Planning, PRD Writing, Epic Definition, Feature Specification, Story Writing, Story Breakdown, Analytics & Insights, Financial Analysis, Business Case. Each skill provides step-by-step process with prompt examples.
+
+## Anti-Patterns to Avoid
+
+- Bloated PRDs — keep single-feature specs under 3 pages
+- Solution-first thinking without a clear problem statement
+- Untestable acceptance criteria
+- Confusing output (shipped features) with outcomes (changed behavior)
+- Competitor-driven roadmaps disconnected from user needs
+- Sending AI-generated artifacts without human review
+
+---
+> Source: [mrthames/lean-pm-skills](https://github.com/mrthames/lean-pm-skills) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-01 -->
