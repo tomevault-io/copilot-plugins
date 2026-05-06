@@ -1,10 +1,10 @@
 {
-  "name": "old-browseros-agent",
+  "name": "browseros",
   "owner": "browseros-ai",
   "repo": "old-browseros-agent",
-  "description": "",
-  "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "description": "This is just the submodule of browserOS agent; MAIN REPO: https://github.com/browseros-ai/BrowserOS",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -37,8 +37,15 @@
       "platform": "Windsurf"
     }
   ],
-  "skills": [],
-  "claim_url": "https://tomevault.io/claim/browseros-ai",
+  "skills": [
+    {
+      "name": "write-docs",
+      "path": ".claude/skills/write-docs",
+      "github_url": "https://github.com/browseros-ai/old-browseros-agent/tree/main/.claude/skills/write-docs",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/browseros-ai/old-browseros-agent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T00:40:29Z"
+  "distributed_at": "2026-05-06T13:32:55Z"
 }
