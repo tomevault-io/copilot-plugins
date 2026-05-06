@@ -4,7 +4,7 @@
   "repo": "ralph-to-ralph",
   "description": "Autonomous Product Cloning Loop \u2014 Give it any URL, it inspects, builds, tests, and deploys a working clone",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/namuh-eng/ralph-to-ralph",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T20:31:10Z"
+  "distributed_at": "2026-05-06T08:19:58Z"
 }
