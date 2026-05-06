@@ -1,21 +1,24 @@
-## 10-output-contract
+## 20-security-privacy
 
-> USE WHEN: producing final response or patch output.
+> USE WHEN: handling auth, secrets, PII, input validation, or security-sensitive code.
 
 
-# Output Contract
+# Security & Privacy Rules
 
-## Required Sections (when applicable)
-1. PLAN (max 10 lines)
-2. ASSUMPTIONS (mark critical with 🔴)
-3. QUESTIONS (max 3)
-4. PATCH (paths + diffs)
-5. VERIFICATION (commands + manual checks)
-6. NOTES (tradeoffs/risks)
+## Secrets & Credentials
+- Never hard‑code API keys, passwords, or tokens.
+- Use environment variables or secret managers.
 
-## Constraints
-- Keep output concise and actionable.
-- Prefer explicit success criteria over step-by-step micromanagement.
+## Input Validation
+- Validate all external input (Zod/Pydantic or equivalent).
+- Reject/normalize unexpected fields.
+
+## Logging
+- Never log PII or secrets.
+- Scrub sensitive values before logging.
+
+## Safety Stops
+- If a change can cause data loss or a breaking change, stop and ask.
 
 ---
 > Source: [zoxknez/ai-coding-rules](https://github.com/zoxknez/ai-coding-rules) — distributed by [TomeVault](https://tomevault.io).
