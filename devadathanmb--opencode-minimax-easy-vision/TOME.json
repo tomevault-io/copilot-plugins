@@ -1,0 +1,44 @@
+{
+  "name": "opencode-minimax-easy-vision",
+  "owner": "devadathanmb",
+  "repo": "opencode-minimax-easy-vision",
+  "description": "Restore the \u201cpaste and ask\u201d vision workflow for your MiniMax sessions in OpenCode \u26a1",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/devadathanmb/opencode-minimax-easy-vision",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T02:55:02Z"
+}
