@@ -7,13 +7,13 @@ Minimal LLM agent orchestrating MCP tools across multiple LLM providers
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [fr0ster/llm-agent](https://github.com/fr0ster/llm-agent).
+Original source: `.cursor/rules/*.mdc` in [fr0ster/llm-agent](https://github.com/fr0ster/llm-agent).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
