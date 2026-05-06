@@ -1,0 +1,44 @@
+{
+  "name": "kipi-system",
+  "owner": "assafkip",
+  "repo": "kipi-system",
+  "description": "A portable founder operating system for Claude Code. Interactive setup wizard, morning briefings, conversation debriefs, social engagement, relationship tracking, content pipeline, lead sourcing, and AUDHD executive function mode.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/assafkip/kipi-system",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T17:03:34Z"
+}
