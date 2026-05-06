@@ -1,0 +1,9 @@
+{
+  "name": "maciejaszex--ndexplorer",
+  "displayName": "ndexplorer",
+  "description": "Fast, localhost-only NextDNS log explorer with filtering, infinite scroll, and bilingual UI (PL/EN). Built with Astro + Tailwind CSS.",
+  "version": "1.0.0",
+  "author": "maciejaszex",
+  "homepage": "https://github.com/maciejaszex/ndexplorer",
+  "skills": []
+}
