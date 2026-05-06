@@ -7,11 +7,11 @@ Turn your Claude Pro/Max subscription into an OpenAI-compatible API. One proxy, 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dtzp555-max/ocp](https://github.com/dtzp555-max/ocp).
+Original source: `CLAUDE.md` in [dtzp555-max/ocp](https://github.com/dtzp555-max/ocp).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
