@@ -1,0 +1,44 @@
+{
+  "name": "ai-enabled-nodejs-microservices-starter",
+  "owner": "clintgallivan",
+  "repo": "ai-enabled-nodejs-microservices-starter",
+  "description": "\ud83d\ude80 Production-ready Node.js/TypeScript starter with complete JWT authentication,   microservices architecture, and developer tooling. Includes email service, database   cleanup, testing, Postman collections, AI development setup (Claude/Cursor), Docker   deployment, and quality tools. Skip the boilerplate!",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/clintgallivan/ai-enabled-nodejs-microservices-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T02:40:41Z"
+}
