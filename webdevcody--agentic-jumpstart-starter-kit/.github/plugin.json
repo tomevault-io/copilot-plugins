@@ -1,0 +1,50 @@
+{
+  "name": "webdevcody--agentic-jumpstart-starter-kit",
+  "displayName": "agentic-jumpstart",
+  "description": "agentic-jumpstart-starter-kit",
+  "version": "1.0.0",
+  "author": "webdevcody",
+  "homepage": "https://github.com/webdevcody/agentic-jumpstart-starter-kit",
+  "skills": [
+    {
+      "name": "agentic-jumpstart-architecture",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-backend",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-code-quality",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-database",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-dependency-management",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-frontend",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-performance",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-react",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-security",
+      "description": ""
+    },
+    {
+      "name": "agentic-jumpstart-testing",
+      "description": ""
+    }
+  ]
+}
