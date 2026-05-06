@@ -1,0 +1,9 @@
+{
+  "name": "siray-ai--siray-comfyui",
+  "displayName": "siray-comfyui",
+  "description": "Siray ComfyUI Nodes",
+  "version": "1.0.0",
+  "author": "siray-ai",
+  "homepage": "https://github.com/siray-ai/siray-comfyui",
+  "skills": []
+}
