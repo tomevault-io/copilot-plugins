@@ -1,0 +1,9 @@
+{
+  "name": "emzod--speak-turbo",
+  "displayName": "Speak-Turbo",
+  "description": "Ultra-fast local TTS for AI agents. ~90ms to first sound.",
+  "version": "1.0.0",
+  "author": "EmZod",
+  "homepage": "https://github.com/EmZod/Speak-Turbo",
+  "skills": []
+}
