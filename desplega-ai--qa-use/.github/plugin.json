@@ -1,0 +1,14 @@
+{
+  "name": "desplega-ai--qa-use",
+  "displayName": "qa-use",
+  "description": "Agent-first E2E testing CLI",
+  "version": "1.0.0",
+  "author": "desplega-ai",
+  "homepage": "https://github.com/desplega-ai/qa-use",
+  "skills": [
+    {
+      "name": "qa-use",
+      "description": ""
+    }
+  ]
+}
