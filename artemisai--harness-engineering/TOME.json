@@ -4,7 +4,7 @@
   "repo": "Harness_Engineering",
   "description": "A template project for harness engineering and grounding long running agentic AI coding swarms of agents ",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ArtemisAI/Harness_Engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T11:47:09Z"
+  "distributed_at": "2026-05-06T11:32:17Z"
 }
