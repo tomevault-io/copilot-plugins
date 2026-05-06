@@ -1,0 +1,9 @@
+{
+  "name": "subev--sibling-jump-nvim",
+  "displayName": "sibling-jump.nvim",
+  "description": "Navigate between sibling nodes in your code using Tree-sitter",
+  "version": "1.0.0",
+  "author": "subev",
+  "homepage": "https://github.com/subev/sibling-jump.nvim",
+  "skills": []
+}
