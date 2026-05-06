@@ -1,0 +1,9 @@
+{
+  "name": "markmcd--gemini-docs-ext",
+  "displayName": "gemini-docs-ext",
+  "description": "Gemini CLI extension that adds Gemini API docs and MCP",
+  "version": "1.0.0",
+  "author": "markmcd",
+  "homepage": "https://github.com/markmcd/gemini-docs-ext",
+  "skills": []
+}
