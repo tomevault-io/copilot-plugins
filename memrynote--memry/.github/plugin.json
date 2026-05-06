@@ -1,0 +1,9 @@
+{
+  "name": "memrynote--memry",
+  "displayName": "memry",
+  "description": "Private, offline-first, local-first workspace for inbox, notes, journals & tasks, end-to-end encrypted sync across all your devices. Zero-knowledge server. Your thoughts stay yours.",
+  "version": "1.0.0",
+  "author": "memrynote",
+  "homepage": "https://github.com/memrynote/memry",
+  "skills": []
+}
