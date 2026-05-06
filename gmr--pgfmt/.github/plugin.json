@@ -1,0 +1,9 @@
+{
+  "name": "gmr--pgfmt",
+  "displayName": "pgfmt",
+  "description": "A PostgreSQL specific SQL statement formatter",
+  "version": "1.0.0",
+  "author": "gmr",
+  "homepage": "https://github.com/gmr/pgfmt",
+  "skills": []
+}
