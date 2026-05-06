@@ -1,0 +1,44 @@
+{
+  "name": "rebirth-in-the-qin-dynasty",
+  "owner": "justjavac",
+  "repo": "rebirth-in-the-qin-dynasty",
+  "description": "AI \u723d\u6587\uff1a\u300a\u91cd\u751f\u4e4b\u6211\u5728\u5927\u79e6\u641e\u57fa\u5efa\u300b",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/justjavac/rebirth-in-the-qin-dynasty",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:45:43Z"
+}
