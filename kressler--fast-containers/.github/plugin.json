@@ -1,0 +1,9 @@
+{
+  "name": "kressler--fast-containers",
+  "displayName": "fast-containers",
+  "description": "Performance focused header-only container library. Currently primarily contains a fast B+Tree implementation.",
+  "version": "1.0.0",
+  "author": "kressler",
+  "homepage": "https://github.com/kressler/fast-containers",
+  "skills": []
+}
