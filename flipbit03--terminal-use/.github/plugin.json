@@ -1,0 +1,9 @@
+{
+  "name": "flipbit03--terminal-use",
+  "displayName": "terminal-use",
+  "description": "Headless virtual terminal for AI agents. Spawn apps, read the screen, send keystrokes.",
+  "version": "1.0.0",
+  "author": "flipbit03",
+  "homepage": "https://github.com/flipbit03/terminal-use",
+  "skills": []
+}
