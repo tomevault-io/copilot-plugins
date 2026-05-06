@@ -1,15 +1,16 @@
-## i18n
+## security
 
-> Bilingual UI — Polish and English
+> Read-only security — only GET requests allowed
 
 
-# i18n
+# Security — read-only
 
-- Two languages: **PL** (default) and **EN**
-- Translations in `src/i18n/translations.js` — `t(key)` returns current language string
-- HTML attributes: `data-i18n` (textContent), `data-i18n-placeholder`, `data-i18n-aria`
-- Language stored in `localStorage` key `ndexplorer-lang`
-- When adding new UI text, always add both PL and EN keys
+- App is **strictly read-only**. It must NEVER modify anything in NextDNS.
+- The **only allowed HTTP method is GET**. No POST, PUT, PATCH or DELETE.
+- Only two NextDNS endpoints are used:
+  - `GET /profiles/:id/logs`
+  - `GET /profiles/:id/analytics/devices`
+- API token (`NEXTDNS_API_KEY`) must **never** reach the browser.
 
 ---
 > Source: [maciejaszex/ndexplorer](https://github.com/maciejaszex/ndexplorer) — distributed by [TomeVault](https://tomevault.io).
