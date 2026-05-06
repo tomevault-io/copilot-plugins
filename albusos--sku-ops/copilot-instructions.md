@@ -1,19 +1,54 @@
-## domain-knowledge
+## frontend-conventions
 
-> Domain concepts — read this before auditing or reasoning about business entities
+> Frontend React conventions — TanStack Query, api-client, shared components
 
 
-# Domain Knowledge
+# Frontend Conventions
 
-## billing_entity is a customer account, not SaaS billing
+## Data fetching — always use TanStack Query
 
-`BillingEntity` in this app is a **contractor/customer billing account** — the entity a job or withdrawal gets billed to. It has nothing to do with billing the app's operator (there is no in-app SaaS billing).
+Never use raw `axios` or manual `useEffect` + `useState` for data fetching. All server state goes through TanStack Query hooks in `src/hooks/`.
 
-`billing_entity_id` on `ContractorContext`, `Withdrawal`, `Job`, `Payment`, etc. refers to this customer account FK.
+```jsx
+// ❌ BAD
+const [data, setData] = useState([]);
+useEffect(() => {
+  axios.get('/api/withdrawals').then(r => setData(r.data));
+}, []);
 
-`CurrentUser` does NOT have `billing_entity_id` — that field belongs to contractor user records in the `operations` context, not on the JWT-derived user identity. A contractor's `billing_entity_id` is resolved from their DB record, not from the token.
+// ✅ GOOD
+const { data = [] } = useWithdrawals();
+```
 
-Do not conflate these concepts when auditing auth, CurrentUser, or financial flows.
+If no hook exists for an endpoint, create one in the appropriate `src/hooks/use*.js` file using `api-client.js`.
+
+## API calls — always use api-client
+
+All API calls go through `src/lib/api-client.js`. Never import `axios` directly in components or pages.
+
+```jsx
+// ❌ BAD — direct axios import in a component
+import axios from "axios";
+const res = await axios.get(`${API}/chat/status`);
+
+// ✅ GOOD
+import api from "@/lib/api-client";
+const data = await api.chat.status();
+```
+
+## Shared components
+
+Use existing shared components before creating new ones:
+- `StatusBadge` / `StockBadge` from `@/components/StatusBadge`
+- `Panel` / `SectionHead` from `@/components/Panel`
+- `DataTable` from `@/components/DataTable`
+- `ViewToolbar` from `@/components/ViewToolbar`
+
+Never define a local copy of a shared component inside a page or modal.
+
+## Page components
+
+Page components orchestrate; they do not implement. Extract sub-components when a page exceeds ~300 lines.
 
 ---
 > Source: [albusOS/sku-ops](https://github.com/albusOS/sku-ops) — distributed by [TomeVault](https://tomevault.io).
