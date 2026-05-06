@@ -1,43 +1,80 @@
-## rule-for-react
+## rust-webapp-rule
 
-> Here’s a rewritten and clearer version of your **React Development Guidelines**, along with a few proposed additions to strengthen consistency, performance, and developer experience.
+> Here’s an improved and expanded version of your **Rust Web Application Development Rule**, with refinements for clarity, consistency, and completeness. I’ve also added several **recommended practices** based on real-world Rust web development experience and modern ecosystem trends:
 
-Here’s a rewritten and clearer version of your **React Development Guidelines**, along with a few proposed additions to strengthen consistency, performance, and developer experience.
+Here’s an improved and expanded version of your **Rust Web Application Development Rule**, with refinements for clarity, consistency, and completeness. I’ve also added several **recommended practices** based on real-world Rust web development experience and modern ecosystem trends:
 
 ---
 
-# **React Development Guidelines**
+# 📦 Rust Web Application Development Guidelines
 
-## 🔌 API Types & Interfaces
+## 📁 Project Structure
 
-* **Always use API types/interfaces**: Use defined types from the backend or API wherever possible for component props, state, and other logic. This ensures strong typing and reduces maintenance overhead.
+Follow a modular, domain-driven architecture with clearly separated concerns:
 
-## 🎨 Design & Theming
+```
+app/
+├── src/
+│   ├── main.rs              # App entry point: initialize server, tracing, config
+│   ├── router.rs            # Centralized routing logic
+│   ├── handler/             # HTTP request handlers per domain
+│   ├── service/             # Business logic and application services per domain
+│   ├── models/              # Database models (input/output structs, schema use)
+│   ├── extensions/          # Middlewares, extractors, guards, utils
+│   └── config.rs            # Typed configuration loading/validation
+├── migrations/              # Diesel migrations (organized per domain if needed)
+├── crates/                  # Workspace crates (e.g., shared types, db schemas)
+│   └── database_schema/     
+│       └── enum_definitions.rs  # Shared enums used in DB layer
+└── .env                     # Environment variables
+```
 
-* **Use theme colors**: Never hardcode color values. Always use colors defined in the theme system.
-* **Create new colors only when necessary**: Extend the theme thoughtfully—only add new colors if existing ones don’t fulfill the design need.
-* **Minimize unnecessary effects**: Avoid excessive hover effects or visual noise. Simplicity over flash.
-* **Design inspiration**: When in doubt, follow the minimal, modern aesthetics of **Vercel**, **Supabase**, or **Postman**.
+## ✅ Compilation and Linting
 
-## ⚛️ React-Specific Best Practices
+* All code **must compile** without warnings or errors (linter errors)
+* Prefer `cargo fix` for resolving simple compiler suggestions
 
-* **Avoid unnecessary `useEffect`**: Only use `useEffect` when side effects (like API calls or subscriptions) are absolutely required.
-* **Use `react-router` instead of `react-router-dom`**: Prefer `react-router` for cleaner routing logic and modern API usage. NEVER USE `react-router-dom`
+## 🗃️ Database & ORM
 
-## ✅ Code Quality
+* Use **Diesel** for type-safe SQL and **diesel\_async** for async queries (`RunQueryDsl` trait)
+* For complex queries or batch operations, consider **SeaQuery**
+* Use **domain-specific services** (in `service/`) to encapsulate DB logic
+* Migrations:
 
-* **Consistent naming conventions**: Name files, components, hooks, and utilities clearly (e.g., `useAuthToken.ts`, `ProfileCard.tsx`).
-* **No anonymous components**: Always use named components for better debugging and clarity.
-* **Enforce linting and formatting**: Use strict ESLint rules and Prettier—no formatting exceptions.
+  * Use `diesel_migrations`
+  * Separate logical concerns across migration files
+* Never accept `created_at`, `updated_at`, `tenant_id` in user input models — they are:
 
+  * Auto-generated in DB
+  * Tenant ID is inserted via the connection pool for row-level security
+* Enum definitions must live in `crates/database_schema/enum_definitions.rs` and be shared via workspace crates
 
-## 🧠 Code Logic & Structure
+## ❗ Error Handling
 
-* **Keep it DRY**: Reuse logic through custom hooks or shared utility functions to avoid repetition.
-* **Split large components**: Break down overly complex components into smaller, modular parts—even across multiple files if necessary.
-* **Use or create generic components**: Check if a component already exists before building a new one. Create shared components when patterns repeat.
-* **Strict linting and formatting**: Enforce rules via ESLint and Prettier. No exceptions.
-* **Group by feature, not type**: Organize files by feature domain (e.g., `/features/auth/`, `/features/dashboard/`) instead of by file type.
+* Define a centralized `AppError` type (implement `std::error::Error`, `Display`, `From`)
+* Use a type alias `pub type AppResult<T> = Result<T, AppError>;`
+* Never use `unwrap()` or `expect()` in production code — prefer `?`
+* Map errors to meaningful HTTP status codes in route handlers
+* Log errors with structured tracing before returning to client
+
+## 🔐 Row-Level Security
+
+* `tenant_id` must not be manually inserted
+* Inject `tenant_id` automatically into queries using a custom connection wrapper or Diesel helper
+
+## ⚙️ Configuration Management
+
+* Use `dotenv` crate for layered configuration
+* Define strongly-typed config structs and validate them on startup
+* Use [`secrecy::Secret<T>`](mdc:https:/docs.rs/secrecy) for sensitive fields like passwords or API keys
+* Fail fast on invalid or missing configuration
+
+## 🧪 Testing and Observability
+
+* Organize tests:
+
+  * Unit tests in the same file as module
+  * Integration tests in `tests/` folder
 
 ---
 > Source: [jmerelnyc/elkar-tasks](https://github.com/jmerelnyc/elkar-tasks) — distributed by [TomeVault](https://tomevault.io).
