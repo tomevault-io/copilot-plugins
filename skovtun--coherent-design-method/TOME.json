@@ -4,7 +4,7 @@
   "repo": "coherent-design-method",
   "description": "AI-powered design system generator \u2014 once designed, consistent UI everywhere.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/skovtun/coherent-design-method",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-05T15:18:35Z"
+  "distributed_at": "2026-05-06T20:12:35Z"
 }
