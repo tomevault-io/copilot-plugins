@@ -1,0 +1,9 @@
+{
+  "name": "bartei--wiregui",
+  "displayName": "wiregui",
+  "description": "Firezone Inspired Wireguard VPN Server and nftables Firewall",
+  "version": "1.0.0",
+  "author": "bartei",
+  "homepage": "https://github.com/bartei/wiregui",
+  "skills": []
+}
