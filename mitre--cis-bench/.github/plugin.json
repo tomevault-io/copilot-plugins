@@ -1,0 +1,9 @@
+{
+  "name": "mitre--cis-bench",
+  "displayName": "cis-bench",
+  "description": "CLI tool for fetching, managing, and exporting CIS benchmarks from CIS WorkBench",
+  "version": "1.0.0",
+  "author": "mitre",
+  "homepage": "https://github.com/mitre/cis-bench",
+  "skills": []
+}
