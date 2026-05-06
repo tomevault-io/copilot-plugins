@@ -5,11 +5,11 @@
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [liuzhengdongfortest/CodeStable](https://github.com/liuzhengdongfortest/CodeStable).
+Original source: `CLAUDE.md` in [liuzhengdongfortest/CodeStable](https://github.com/liuzhengdongfortest/CodeStable).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
