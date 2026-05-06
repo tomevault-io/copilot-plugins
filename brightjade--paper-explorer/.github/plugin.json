@@ -1,0 +1,9 @@
+{
+  "name": "brightjade--paper-explorer",
+  "displayName": "paper-explorer",
+  "description": "Crawl accepted papers and citation data from ML/DL/NLP/CV/Robotics/Security/SE conferences",
+  "version": "1.0.0",
+  "author": "brightjade",
+  "homepage": "https://github.com/brightjade/paper-explorer",
+  "skills": []
+}
