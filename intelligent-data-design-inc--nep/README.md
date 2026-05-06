@@ -1,6 +1,8 @@
-# NEP — distributed by TomeVault
+# NEP
 
-> Originally from [Intelligent-Data-Design-Inc/NEP](https://github.com/Intelligent-Data-Design-Inc/NEP). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [Intelligent-Data-Design-Inc/NEP](https://github.com/Intelligent-Data-Design-Inc/NEP) — distributed by [TomeVault](https://tomevault.io)
+
+NetCDF Expansion Pack
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.windsurf/rules/*.md` in [Intelligent-Data-Design-Inc/NEP](htt
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-Quality verified by TomeVault's automated analysis pipeline. [View quality report](https://tomevault.io/claim/Intelligent-Data-Design-Inc#quality)
+Quality verified by TomeVault's automated analysis pipeline. Source: [github.com/Intelligent-Data-Design-Inc/NEP](https://github.com/Intelligent-Data-Design-Inc/NEP)
 
 ---
 
