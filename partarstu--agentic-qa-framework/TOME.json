@@ -1,0 +1,69 @@
+{
+  "name": "agentic-qa-framework",
+  "owner": "partarstu",
+  "repo": "agentic-qa-framework",
+  "description": "Agentic Framework which automates Software Testing Processes",
+  "type": "tome",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "adding-orchestrator-workflow",
+      "path": ".agent/skills/adding-orchestrator-workflow",
+      "github_url": "https://github.com/partarstu/agentic-qa-framework/tree/main/.agent/skills/adding-orchestrator-workflow",
+      "description": ""
+    },
+    {
+      "name": "creating-new-agent",
+      "path": ".agent/skills/creating-new-agent",
+      "github_url": "https://github.com/partarstu/agentic-qa-framework/tree/main/.agent/skills/creating-new-agent",
+      "description": ""
+    },
+    {
+      "name": "prepare-pr",
+      "path": ".agent/skills/prepare-pr",
+      "github_url": "https://github.com/partarstu/agentic-qa-framework/tree/main/.agent/skills/prepare-pr",
+      "description": ""
+    },
+    {
+      "name": "writing-unit-tests",
+      "path": ".agent/skills/writing-unit-tests",
+      "github_url": "https://github.com/partarstu/agentic-qa-framework/tree/main/.agent/skills/writing-unit-tests",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/partarstu/agentic-qa-framework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:33:38Z"
+}
