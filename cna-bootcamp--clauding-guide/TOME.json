@@ -1,0 +1,57 @@
+{
+  "name": "clauding-guide",
+  "owner": "cna-bootcamp",
+  "repo": "clauding-guide",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "03-guidelines",
+      "path": ".claude/skills/03-guidelines",
+      "github_url": "https://github.com/cna-bootcamp/clauding-guide/tree/main/.claude/skills/03-guidelines",
+      "description": ""
+    },
+    {
+      "name": "16-uiux-design",
+      "path": ".claude/skills/16-uiux-design",
+      "github_url": "https://github.com/cna-bootcamp/clauding-guide/tree/main/.claude/skills/16-uiux-design",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/cna-bootcamp/clauding-guide",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:31:12Z"
+}
