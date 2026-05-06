@@ -5,5 +5,10 @@
   "version": "1.0.0",
   "author": "aave",
   "homepage": "https://github.com/aave/aave-v4-sdk",
-  "skills": []
+  "skills": [
+    {
+      "name": "schema-update",
+      "description": ""
+    }
+  ]
 }
