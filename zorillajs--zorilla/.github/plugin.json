@@ -1,0 +1,9 @@
+{
+  "name": "zorillajs--zorilla",
+  "displayName": "zorilla",
+  "description": "Zorilla is a modular plugin framework that extends Puppeteer and Playwright with additional functionality through a clean plugin architecture. Build powerful browser automation with composable plugins",
+  "version": "1.0.0",
+  "author": "zorillajs",
+  "homepage": "https://github.com/zorillajs/zorilla",
+  "skills": []
+}
