@@ -1,0 +1,44 @@
+{
+  "name": "textbook-notes",
+  "owner": "copper0722",
+  "repo": "textbook-notes",
+  "description": "Multi-textbook KEY TAKEAWAYS + Marp slides \u2014 Daugirdas Handbook of Dialysis 6e / Harrison's Principles of Internal Medicine 22e / Campbell Biology 13e / Brenner & Rector's The Kidney 12e. Auto-synced from author's vault via textbook-share-sync.py (publish: true gated).",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/copper0722/textbook-notes",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T08:08:51Z"
+}
