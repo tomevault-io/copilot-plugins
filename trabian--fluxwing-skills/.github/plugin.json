@@ -1,0 +1,22 @@
+{
+  "name": "trabian--fluxwing-skills",
+  "displayName": "fluxwing-skills",
+  "description": "Claude skills for generating ASCII components and screens for humans to review, and AI to build from. ",
+  "version": "1.0.0",
+  "author": "trabian",
+  "homepage": "https://github.com/trabian/fluxwing-skills",
+  "skills": [
+    {
+      "name": "fluxwing-component-creator",
+      "description": ""
+    },
+    {
+      "name": "fluxwing-screen-scaffolder",
+      "description": ""
+    },
+    {
+      "name": "fluxwing-screenshot-importer",
+      "description": ""
+    }
+  ]
+}
