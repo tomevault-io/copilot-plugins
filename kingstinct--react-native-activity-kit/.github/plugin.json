@@ -1,0 +1,14 @@
+{
+  "name": "kingstinct--react-native-activity-kit",
+  "displayName": "react-native",
+  "description": "React Native Bindings for ActivityKit",
+  "version": "1.0.0",
+  "author": "kingstinct",
+  "homepage": "https://github.com/kingstinct/react-native-activity-kit",
+  "skills": [
+    {
+      "name": "on-device-ai",
+      "description": ""
+    }
+  ]
+}
