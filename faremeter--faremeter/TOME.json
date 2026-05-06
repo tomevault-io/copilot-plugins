@@ -1,0 +1,63 @@
+{
+  "name": "faremeter",
+  "owner": "faremeter",
+  "repo": "faremeter",
+  "description": "A universal framework designed to allow agents and other utilities to transparently make machine payments using web infrastructure.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-review",
+      "path": "skills/code-review",
+      "github_url": "https://github.com/faremeter/faremeter/tree/main/skills/code-review",
+      "description": ""
+    },
+    {
+      "name": "debug-test-harness",
+      "path": "skills/debug-test-harness",
+      "github_url": "https://github.com/faremeter/faremeter/tree/main/skills/debug-test-harness",
+      "description": ""
+    },
+    {
+      "name": "run-examples",
+      "path": "skills/run-examples",
+      "github_url": "https://github.com/faremeter/faremeter/tree/main/skills/run-examples",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/faremeter/faremeter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T19:33:41Z"
+}
