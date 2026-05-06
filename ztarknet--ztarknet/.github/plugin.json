@@ -1,0 +1,9 @@
+{
+  "name": "ztarknet--ztarknet",
+  "displayName": "ztarknet",
+  "description": "Starknet-based L2 on ZCash",
+  "version": "1.0.0",
+  "author": "Ztarknet",
+  "homepage": "https://github.com/Ztarknet/ztarknet",
+  "skills": []
+}
