@@ -1,35 +1,50 @@
-## rust-conventions
+## testing-conventions
 
-> Rust coding conventions for service development
+> Testing workflow and conventions (platform)
 
 
-# Rust Conventions (Service Development)
+# Testing Conventions
 
-Apply these rules if the backend is Rust under `core/`.
+## TDD Loop (Preferred)
 
-## Structure
+1. RED: write a failing test for the next behavior.
+2. GREEN: implement the smallest change to pass.
+3. REFACTOR: improve design while keeping tests green.
 
-- Keep HTTP/gRPC handlers thin.
-- Put business logic in `service/` with dependency injection via traits.
-- Keep domain models in `domain/` with validation and invariants.
-- Repositories provide persistence behind mockable traits.
+## Test Pyramid (Platform Guidance)
 
-## Error Handling
+- Unit tests: most of the coverage; fast; no Docker.
+- Integration tests: limited; validate boundaries (DB, external APIs) when needed.
+- E2E tests: few; validate critical user journeys.
+- Performance tests: targeted benchmarks for latency/throughput regressions.
 
-- Use typed errors for business logic (`thiserror`), and attach context at boundaries (`anyhow` or `eyre`).
-- Do not swallow errors (`ok()`/`unwrap()` in production paths).
-- Prefer returning `Result<T, E>` from functions instead of side effects.
+## Practical Rules
 
-## Async
+- Every feature plan must include: test plan + acceptance criteria.
+- After implementation, generate QA docs under `docs/qa/` and treat them as the reproducible acceptance spec.
+- Failures discovered in QA become tickets under `docs/ticket/` with steps + evidence + expected/actual.
 
-- Avoid `tokio::spawn` unless you can explain lifecycle and error handling.
-- Prefer explicit timeouts at network boundaries.
+## Coverage Targets (Guidance, Not Law)
 
-## Testing
+- Aim for high coverage in business logic (80%+).
+- Prefer meaningful assertions over chasing percentages.
 
-- Unit tests should not require Docker.
-- Mock repositories with `mockall` and mock HTTP dependencies with `wiremock`.
-- Integration/E2E tests can use docker-compose, but keep them separate from unit tests.
+## Suggested Commands (Project-Specific)
+
+The exact commands depend on the generated project. Common patterns:
+
+```bash
+# Unit tests
+cargo test
+npm test
+
+# Coverage (if configured)
+cargo llvm-cov --html
+npm run test -- --coverage
+
+# E2E (if configured)
+npx playwright test
+```
 
 ---
 > Source: [c9r-io/orchestrator](https://github.com/c9r-io/orchestrator) — distributed by [TomeVault](https://tomevault.io).
