@@ -1,0 +1,9 @@
+{
+  "name": "codingstark-dev--backupmail",
+  "displayName": "backupmail",
+  "description": "Universal email backup and migration TUI & CLI tool for Gmail, SpaceMail, and IMAP servers - Built with Bun!",
+  "version": "1.0.0",
+  "author": "codingstark-dev",
+  "homepage": "https://github.com/codingstark-dev/backupmail",
+  "skills": []
+}
