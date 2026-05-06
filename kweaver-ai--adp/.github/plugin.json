@@ -1,0 +1,9 @@
+{
+  "name": "kweaver-ai--adp",
+  "displayName": "adp",
+  "description": "ADP is an intelligent data platform that bridges the gap between heterogeneous data sources and AI agents. It abstracts data complexity through business knowledge networks, provides unified data acces",
+  "version": "1.0.0",
+  "author": "kweaver-ai",
+  "homepage": "https://github.com/kweaver-ai/adp",
+  "skills": []
+}
