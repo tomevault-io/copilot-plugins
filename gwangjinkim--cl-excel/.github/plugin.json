@@ -1,0 +1,9 @@
+{
+  "name": "gwangjinkim--cl-excel",
+  "displayName": "cl-excel",
+  "description": "Read and write Excel files in Common Lisp.",
+  "version": "1.0.0",
+  "author": "gwangjinkim",
+  "homepage": "https://github.com/gwangjinkim/cl-excel",
+  "skills": []
+}
