@@ -1,0 +1,280 @@
+## expo-react-native-starter-kit
+
+> - **Framework**: Expo SDK 54 with React Native 0.81
+
+# Expo React Native Starter Kit - Cursor Rules
+
+## Tech Stack
+
+- **Framework**: Expo SDK 54 with React Native 0.81
+- **Routing**: expo-router (file-based routing)
+- **Styling**: NativeWind 4 (Tailwind CSS for React Native)
+- **State Management**: Zustand for global state, TanStack Query for server state
+- **Forms**: TanStack Form with pre-bound field components
+- **UI Primitives**: @rn-primitives (accessible, unstyled components)
+- **Component Variants**: class-variance-authority (cva)
+- **Language**: TypeScript (strict mode)
+
+## Project Structure
+
+```
+app/                    # Expo Router screens (file = route)
+├── _layout.tsx         # Root Stack navigator
+├── index.tsx           # Entry point
+├── (tabs)/             # Tab navigator group
+│   ├── _layout.tsx     # Tab bar configuration
+│   ├── index.tsx       # Home tab (default)
+│   ├── explore.tsx     # Explore tab
+│   └── profile.tsx     # Profile tab
+├── +not-found.tsx      # 404 screen
+└── dev/                # Development screens
+    └── index.tsx       # /dev
+
+components/             # Reusable components
+├── ui/                 # Base UI components (Button, Text, Input, etc.)
+├── form/               # Form field components
+│   └── fields/         # Field implementations
+├── general/            # Shared generic components
+└── dev/                # Dev screen components
+
+hooks/                  # Custom React hooks
+services/               # API services (AuthService, DataService, etc.)
+lib/                    # Utilities, contexts, stores, config
+├── stores/             # Zustand stores
+├── contexts/           # React contexts
+├── form/               # Form configuration (useAppForm)
+├── icons/              # Icon utilities
+├── theme/              # Theme constants
+├── api/                # API client, token management
+└── utils/              # Utility functions
+
+utils/                  # Pure utility functions
+providers/              # Provider components (AppProvider)
+test-utils/             # Testing utilities and setup
+```
+
+## Routing Conventions (expo-router)
+
+- Files in `app/` become routes automatically
+- `_layout.tsx` files define navigation structure (Stack, Tabs)
+- `(group)` folders create route groups without affecting URL
+- `index.tsx` is the default route for a folder
+- Use `useRouter()` hook for navigation, NOT the `router` export
+- New screens must be added to the appropriate `_layout.tsx`
+
+## Import Rules
+
+**Always use absolute imports with `~/` alias:**
+
+```typescript
+// ✅ Correct
+
+// ❌ Wrong - relative imports with ../ are forbidden
+import { Button } from "../../components/ui";
+import { Button } from "~/components/ui";
+import { useAppForm } from "~/lib/form/useAppForm";
+```
+
+## UI Components
+
+### Typography
+
+Prefer semantic typography components over setting variants on Text:
+
+```typescript
+import { H1, H2, H3, H4, P, Large, Small, Text } from "~/components/ui";
+
+// ✅ Preferred - use semantic components
+<H1>Page Title</H1>
+<H2>Section Heading</H2>
+<P>Body text</P>
+
+// ❌ Avoid - setting variant on Text
+<Text variant="h1">Page Title</Text>
+```
+
+Typography styles are defined in `~/components/ui/text.tsx`.
+
+### Buttons
+
+```typescript
+import { Button } from "~/components/ui";
+
+// Variants: default, secondary, outline, ghost, link, destructive
+// Sizes: default, sm, icon
+<Button variant="secondary" size="sm">
+  <Text>Click me</Text>
+</Button>
+```
+
+### Styling
+
+Use NativeWind classes. For simple conditionals, prefer ternary string literals:
+
+```typescript
+// ✅ Preferred - ternary for simple conditionals
+<Text className={isActive ? "text-neutral-900" : "text-neutral-600"} />
+
+// Use cn() only when merging multiple conditional classes
+import { cn } from "~/lib/tailwindUtils";
+
+<View className={cn("p-4", isActive && "bg-primary-600", isLarge && "text-lg")} />
+```
+
+## Color System
+
+Use semantic color tokens from the theme (CSS variables via Tailwind):
+
+- `primary-50` through `primary-900`
+- `secondary-50` through `secondary-900`
+- `tertiary`, `blue`, `purple`, `gold`, `neutral` scales
+- `base-white`, `base-black`, `base-red`, `base-teal`
+
+**Never use raw hex colors** - always use theme tokens.
+
+## Component Patterns
+
+### Creating Variant Components
+
+Use `cva` (class-variance-authority) for components with variants:
+
+```typescript
+import { cva, type VariantProps } from "class-variance-authority";
+
+const cardVariants = cva("rounded-lg p-4", {
+  variants: {
+    variant: {
+      default: "bg-card",
+      elevated: "bg-card shadow-lg",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+```
+
+### Service Pattern
+
+Services are namespaced objects, not classes:
+
+```typescript
+export const MyService = {
+  fetchData: async () => { ... },
+  updateData: async (data) => { ... },
+};
+```
+
+## Data Fetching
+
+Use TanStack Query hooks. Define query keys in the hook file:
+
+```typescript
+export const queryKeys = {
+  all: ["myData"] as const,
+  list: () => [...queryKeys.all, "list"] as const,
+  detail: (id: string) => [...queryKeys.all, "detail", id] as const,
+};
+
+export function useMyData() {
+  return useQuery({
+    queryKey: queryKeys.list(),
+    queryFn: MyService.fetchData,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+```
+
+## Forms
+
+Use TanStack Form with `useAppForm` and `withForm` from `~/lib/form/useAppForm`.
+
+### Form Components with `withForm`
+
+For components that receive a form as a prop, use the `withForm` HOC pattern. This provides proper TypeScript inference:
+
+```typescript
+import { withForm } from "~/lib/form/useAppForm";
+
+export const MyFormComponent = withForm({
+  // Define the form shape - this provides type inference
+  defaultValues: {
+    firstName: "",
+    lastName: "",
+    items: [] as string[], // Use type assertion for arrays
+  },
+  // Define additional props the component receives
+  props: {
+    onContinue: () => {},
+    isSubmitting: false,
+  },
+  // Render function receives form + props with full type safety
+  render: function Render({ form, onContinue, isSubmitting }) {
+    return (
+      <View>
+        <form.AppField
+          name="firstName"
+          children={(field) => (
+            <field.TextInput
+              label="First Name"
+              placeholder="Enter name"
+            />
+          )}
+        />
+      </View>
+    );
+  },
+});
+```
+
+### Parent Form Controller Pattern
+
+When forms need to persist across tab switches or be shared between components, create forms in the parent and pass them down:
+
+```typescript
+// Parent screen
+const personalForm = useAppForm({
+  defaultValues: { firstName: "", lastName: "" },
+});
+
+// Pass to child component created with withForm
+<PersonalInfoTab form={personalForm} isSubmitting={false} />
+```
+
+Field implementations live in `~/components/form/fields/`.
+
+### Type Safety Rules
+
+**Never use `any` type or eslint-disable comments for form types.** The `withForm` pattern provides full type inference. If you're struggling with form types, you're likely not using the correct pattern.
+
+## Error Handling
+
+Use the Logger utility for consistent logging:
+
+```typescript
+import { Logger } from "~/utils/logger";
+
+Logger.debug("Debug info", data);
+Logger.error("Error occurred:", error);
+```
+
+## Testing
+
+- Test files go next to source files: `Component.test.tsx`
+- **Never add test files in the `app/` directory** - expo-router treats all files as routes
+- Import test utilities from `~/test-utils`, not directly from testing libraries
+- Use MSW for API mocking
+
+## Code Style
+
+- TypeScript strict mode enabled
+- ESLint + Prettier for formatting
+- Run `npm run lint` to fix issues
+- Run `npm run typecheck` for type checking
+- **Avoid using `any` type** - find the correct type or pattern instead
+- **Never use eslint-disable comments** to suppress type errors - fix the underlying issue
+- **Minimal comments** - only add comments when necessary (complex logic, non-obvious behavior, TODOs). Avoid section separator comments in JSX/TSX. Let the code speak for itself.
+
+---
+> Source: [jacob-williams14/expo-react-native-starter-kit](https://github.com/jacob-williams14/expo-react-native-starter-kit) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
