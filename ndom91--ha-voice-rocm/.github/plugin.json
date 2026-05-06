@@ -1,0 +1,9 @@
+{
+  "name": "ndom91--ha-voice-rocm",
+  "displayName": "ha-voice-rocm",
+  "description": "Experimental support for many TTS/STT LLMs wrapped in a Wyoming API for consumption via Homeassistant",
+  "version": "1.0.0",
+  "author": "ndom91",
+  "homepage": "https://github.com/ndom91/ha-voice-rocm",
+  "skills": []
+}
