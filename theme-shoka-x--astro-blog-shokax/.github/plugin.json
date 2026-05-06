@@ -1,0 +1,9 @@
+{
+  "name": "theme-shoka-x--astro-blog-shokax",
+  "displayName": "astro-blog-shokax",
+  "description": "Astro port of the Hexo theme ShokaX, featuring a clean design and modern blog experience.",
+  "version": "1.0.0",
+  "author": "theme-shoka-x",
+  "homepage": "https://github.com/theme-shoka-x/astro-blog-shokax",
+  "skills": []
+}
