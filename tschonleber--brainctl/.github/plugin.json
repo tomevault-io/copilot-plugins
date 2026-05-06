@@ -1,0 +1,9 @@
+{
+  "name": "tschonleber--brainctl",
+  "displayName": "brainctl",
+  "description": "A cognitive memory system for AI agents. Single SQLite file. MCP server included.",
+  "version": "1.0.0",
+  "author": "TSchonleber",
+  "homepage": "https://github.com/TSchonleber/brainctl",
+  "skills": []
+}
