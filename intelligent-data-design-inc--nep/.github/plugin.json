@@ -1,9 +1,9 @@
 {
   "name": "intelligent-data-design-inc--nep",
   "displayName": "NEP",
-  "description": "NEP",
+  "description": "NetCDF Expansion Pack",
   "version": "1.0.0",
   "author": "Intelligent-Data-Design-Inc",
-  "homepage": "https://tomevault.io/claim/Intelligent-Data-Design-Inc",
+  "homepage": "https://github.com/Intelligent-Data-Design-Inc/NEP",
   "skills": []
 }
