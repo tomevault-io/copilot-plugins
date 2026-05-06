@@ -1,0 +1,34 @@
+{
+  "name": "majiayu000--litellm-rs",
+  "displayName": "litellm-rs",
+  "description": "A high-performance AI Gateway written in Rust \u2014 call 100+ LLM APIs using OpenAI format",
+  "version": "1.0.0",
+  "author": "majiayu000",
+  "homepage": "https://github.com/majiayu000/litellm-rs",
+  "skills": [
+    {
+      "name": "a2a-protocol",
+      "description": ""
+    },
+    {
+      "name": "auth-architecture",
+      "description": ""
+    },
+    {
+      "name": "mcp-gateway",
+      "description": ""
+    },
+    {
+      "name": "provider-architecture",
+      "description": ""
+    },
+    {
+      "name": "provider-development",
+      "description": ""
+    },
+    {
+      "name": "routing-architecture",
+      "description": ""
+    }
+  ]
+}
