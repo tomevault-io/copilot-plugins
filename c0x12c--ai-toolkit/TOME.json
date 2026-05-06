@@ -4,7 +4,7 @@
   "repo": "ai-toolkit",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/c0x12c/ai-toolkit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T01:52:43Z"
+  "distributed_at": "2026-05-06T16:47:06Z"
 }
