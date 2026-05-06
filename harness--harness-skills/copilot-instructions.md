@@ -1,4 +1,4 @@
-## harness-skills
+## harness
 
 > Use when a user wants to deploy a new service to Harness. Follow this exact order:
 
