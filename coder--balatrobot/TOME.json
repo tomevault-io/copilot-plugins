@@ -1,0 +1,51 @@
+{
+  "name": "balatro",
+  "owner": "coder",
+  "repo": "balatrobot",
+  "description": "API for developing Balatro bots \ud83c\udccf",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "balatrobot",
+      "path": ".claude/skills/balatrobot",
+      "github_url": "https://github.com/coder/balatrobot/tree/main/.claude/skills/balatrobot",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/coder/balatrobot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:41:57Z"
+}
