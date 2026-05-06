@@ -1,115 +1,109 @@
-## enum-usage
+## i18n
 
-> **File**: [config/enum.ts](mdc:config/enum.ts)
+> - Thư mục cấu hình: [i18n/index.ts](mdc:i18n/index.ts)
 
-# Quy ước sử dụng Enum
+### Quy ước i18n cho dự án Credit Management
 
-## 1. Định nghĩa enum
+- Thư mục cấu hình: [i18n/index.ts](mdc:i18n/index.ts)
+- Nguồn bản dịch chính: [i18n/resources.ts](mdc:i18n/resources.ts)
+- File ngôn ngữ riêng:
+  - Tiếng Việt: [i18n/locales/vi.ts](mdc:i18n/locales/vi.ts)
+  - Tiếng Anh: [i18n/locales/en.ts](mdc:i18n/locales/en.ts)
+  - Tiếng Nhật: [i18n/locales/ja.ts](mdc:i18n/locales/ja.ts)
+- Provider: [components/i18n-provider.tsx](mdc:components/i18n-provider.tsx)
 
-**File**: [config/enum.ts](mdc:config/enum.ts)
+#### Sử dụng
 
-### Quy tắc đặt tên:
+- Import hook trong component client:
 
-- Tên enum: PascalCase (VD: `CreditStatus`)
-- Giá trị enum: UPPER_SNAKE_CASE (VD: `OVERDUE`)
-- Value: snake_case giống API (VD: `"overdue"`)
+```ts
+import { useTranslation } from "react-i18next";
+const { t, i18n } = useTranslation();
+```
 
-### Format enum:
+- Lấy chuỗi dịch:
 
-```typescript
-export enum EntityStatus {
-  ACTIVE = "active",
-  INACTIVE = "inactive",
-  MAINTENANCE = "maintenance",
+```tsx
+<h1>{t("app.title")}</h1>
+```
+
+- Đổi ngôn ngữ runtime (vi | en | ja):
+
+```ts
+i18n.changeLanguage("en");
+```
+
+- Lưu ngôn ngữ: Provider tự lưu vào localStorage key `lng` và đồng bộ `document.documentElement.lang`.
+
+#### Quy ước key
+
+- Chung: `app.*`, `header.*`, `sidebar.*`
+- Auth: `login.*`, `forgot.*`, `otp.*`
+- Khu vực admin:
+  - Từ vựng chung: `admin.common.*`
+  - Tài khoản: `admin.accounts.*`
+  - Khách hàng: `admin.*`
+  - Khoản vay: `admin.credits.*`
+  - Thu nợ: `admin.collections.*`
+  - Báo cáo: `admin.reports.*`
+  - Cài đặt: `admin.settings.*`
+
+Ví dụ tham số hóa:
+
+```tsx
+{
+  t("admin.pagination.rangeOf", { from: 1, to: 15, total: 124 });
 }
 ```
 
-## 2. Các enum được định nghĩa
+#### Component hỗ trợ
 
-### Core Status Enums:
+- Chọn ngôn ngữ: [components/ui/language-selector.tsx](mdc:components/ui/language-selector.tsx) (tự gọi `i18n.changeLanguage` nếu không truyền `onChange`).
 
-- `CreditStatus`: active, overdue, paid, defaulted, cancelled
-- `PaymentStatus`: pending, paid, overdue, failed, partial
-- `CollectionStatus`: new, in_progress, resolved, written_off
-- `CustomerStatus`: active, inactive, blacklisted
-- `UserRole`: admin, collector, supervisor, auditor
-- `Language`: vi, en, ja
+#### Quy tắc bắt buộc - NGHIÊM CẤM hardcode text
 
-### Type/Category Enums:
+**🚫 NGHIÊM CẤM:**
 
-- `CreditType`: personal, business, mortgage, installment
-- `PaymentMethod`: cash, bank_transfer, digital_wallet, installment
-- `CollectionMethod`: phone_call, sms, email, personal_visit, legal_action
-- `RiskLevel`: low, medium, high, critical
-- `DocumentType`: id_card, passport, contract, proof_of_income
+- Hardcode text tiếng Việt, tiếng Anh, tiếng Nhật trong component/function
+- Magic strings cho status, type, category (phải dùng enum)
+- Text literals trong return statements
+- Hardcode error messages, success messages
+- Hardcode labels, placeholders, tooltips
 
-## 3. Sử dụng enum trong code
+**❌ CÁC VÍ DỤ SAI:**
 
-### ✅ ĐÚNG:
+```tsx
+// SAI - hardcode text
+<h1>Danh sách khoản vay</h1>
+return "Đang thu nợ";
+placeholder="Nhập từ khóa tìm kiếm"
+console.log("Có lỗi xảy ra");
 
-```typescript
-import { CreditStatus } from "@/config/enum";
-
-// So sánh status
-if (credit.status === CreditStatus.OVERDUE) {
-  // logic
-}
-
-// Array filter
-const statusFilter = [
-  CreditStatus.ACTIVE,
-  CreditStatus.OVERDUE,
-];
-
-// Switch case
-switch (credit.status) {
-  case CreditStatus.ACTIVE:
-    return "admin.credits.statusOptions.active";
-  case CreditStatus.OVERDUE:
-    return "admin.credits.statusOptions.overdue";
-  default:
-    return "admin.credits.statusOptions.unknown";
-}
+// SAI - hardcode status/enum values
+if (status === "active") {}
+case "overdue": return "Quá hạn";
 ```
 
-### ❌ SAI:
+**✅ ĐÚNG:**
 
-```typescript
-// Hardcode string - KHÔNG BAO GIỜ LÀM ĐIỀU NÀY
-if (credit.status === "overdue") {
-}
-if (credit.status === "active") {
-}
+```tsx
+// ĐÚNG - dùng i18n
+<h1>{t("admin.credits.title")}</h1>
+return t("admin.credits.statusOptions.overdue");
+placeholder={t("admin.credits.searchPlaceholder")}
+console.log(t("admin.common.errorOccurred"));
 
-// Magic string trong array
-const statusFilter = ["active", "overdue"];
+// ĐÚNG - dùng enum + i18n
+if (status === CreditStatus.ACTIVE) {}
+case CreditStatus.OVERDUE: return t("admin.credits.statusOptions.overdue");
 ```
 
-## 4. Enum trong API interfaces
+#### Xử lý text cần hiển thị
 
-### Interface definition:
-
-```typescript
-export interface Credit {
-  id: string;
-  status: CreditStatus; // Sử dụng enum type
-  type: CreditType;
-  // ...
-}
-```
-
-### API params:
-
-```typescript
-export interface CreditListParams {
-  status?: CreditStatus[]; // Array of enum values
-  // ...
-}
-```
-
-## 5. Enum với i18n
-
-### Mapping enum sang i18n key:
+1. **Tất cả text** phải qua `t(key)` function
+2. **Status/enum values** phải dùng enum từ [config/enum.ts](mdc:config/enum.ts)
+3. **Thêm key mới** vào các file ngôn ngữ tương ứng trong [i18n/locales/](mdc:i18n/locales/)
+4. **Helper functions** để map enum sang i18n key:
 
 ```typescript
 const getStatusI18nKey = (status: CreditStatus): string => {
@@ -122,70 +116,65 @@ const getStatusI18nKey = (status: CreditStatus): string => {
       return "admin.credits.statusOptions.unknown";
   }
 };
-
-// Sử dụng trong component
-const statusText = t(getStatusI18nKey(credit.status));
 ```
 
-## 6. Enum trong select options
+#### Cấu trúc file i18n
+
+**File chính** [i18n/resources.ts](mdc:i18n/resources.ts):
 
 ```typescript
-const statusOptions = [
-  { value: "all", label: t("admin.credits.statusOptions.label") },
-  {
-    value: CreditStatus.ACTIVE,
-    label: t("admin.credits.statusOptions.active"),
-  },
-  {
-    value: CreditStatus.OVERDUE,
-    label: t("admin.credits.statusOptions.overdue"),
-  },
-  // ...
-];
+import vi from "./locales/vi";
+import en from "./locales/en";
+import ja from "./locales/ja";
+
+const resources = {
+  vi,
+  en,
+  ja,
+} as const;
+
+export default resources;
 ```
 
-## 7. Thêm enum mới
-
-### Khi thêm value mới:
-
-1. Thêm vào enum trong `config/enum.ts`
-2. Cập nhật mapping functions (nếu có)
-3. Thêm i18n key tương ứng vào `i18n/resources.ts`
-4. Cập nhật TypeScript interfaces nếu cần
-
-### Khi thêm enum mới:
-
-1. Đặt tên theo quy ước PascalCase
-2. Group theo chức năng (Status, Type, Category, etc.)
-3. Sử dụng value snake_case giống API
-4. Export từ `config/enum.ts`
-
-## 8. Validation với enum
+**File ngôn ngữ** [i18n/locales/{lang}.ts](mdc:i18n/locales/):
 
 ```typescript
-// Kiểm tra enum value hợp lệ
-const isValidStatus = (status: string): status is CreditStatus => {
-  return Object.values(CreditStatus).includes(
-    status as CreditStatus
-  );
-};
+const vi = {
+  translation: {
+    admin: {
+      common: {
+        loading: "Đang tải...",
+        errorLoadingData: "Có lỗi xảy ra khi tải dữ liệu",
+        retry: "Thử lại",
+        minutes: "phút",
+      },
+      credits: {
+        title: "Quản lý khoản vay",
+        statusOptions: {
+          unknown: "Không xác định",
+        },
+      },
+    },
+  },
+} as const;
 
-// Type guard
-if (isValidStatus(apiStatus)) {
-  // status có type là CreditStatus
-  credit.status = apiStatus;
-}
+export default vi;
 ```
 
-## 9. Best practices
+#### Thêm key mới
 
-- **LUÔN** sử dụng enum thay vì string literals
-- **KHÔNG BAO GIỜ** hardcode status/type values
-- Import enum ở đầu file khi sử dụng
-- Sử dụng enum làm type cho TypeScript interfaces
-- Mapping enum sang i18n key thay vì hardcode text
-- Group enum theo chức năng trong file
-- Value của enum phải match với API response format
+1. **Xác định ngôn ngữ**: Thêm key vào tất cả file ngôn ngữ (vi, en, ja)
+2. **Cấu trúc key**: Theo quy ước `admin.[module].[section].[field]`
+3. **Consistent naming**: Đảm bảo key giống nhau trong tất cả ngôn ngữ
+4. **Export**: File tự động export, không cần thay đổi [i18n/resources.ts](mdc:i18n/resources.ts)
+
+#### Lưu ý
+
+- **Component server**: truyền text đã dịch từ client hoặc chuyển sang client component
+- **Console logs**: dùng `t(key)` hoặc comment tiếng Anh cho debug
+- **Type annotations**: có thể dùng tiếng Anh trong comments/types
+- **Enum values**: phải match API format (snake_case)
+- **File structure**: Mỗi ngôn ngữ có file riêng, import vào resources.ts
 
 ---
 > Source: [HiuNT-Tech/backlog-clone-fe](https://github.com/HiuNT-Tech/backlog-clone-fe) — distributed by [TomeVault](https://tomevault.io).
