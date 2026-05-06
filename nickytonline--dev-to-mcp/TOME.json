@@ -1,0 +1,44 @@
+{
+  "name": "dev-to-mcp",
+  "owner": "nickytonline",
+  "repo": "dev-to-mcp",
+  "description": "A remote Model Context Protocol (MCP) server for interacting with the dev.to public API without requiring authentication.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/nickytonline/dev-to-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T13:59:14Z"
+}
