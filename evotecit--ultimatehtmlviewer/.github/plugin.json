@@ -1,0 +1,9 @@
+{
+  "name": "evotecit--ultimatehtmlviewer",
+  "displayName": "UltimateHtmlViewer",
+  "description": "SPFx web part for hosting HTML dashboards in modern SharePoint pages, with deep-link navigation, inline rendering, security controls, and deployment automation.",
+  "version": "1.0.0",
+  "author": "EvotecIT",
+  "homepage": "https://github.com/EvotecIT/UltimateHtmlViewer",
+  "skills": []
+}
