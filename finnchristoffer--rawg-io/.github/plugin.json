@@ -1,0 +1,9 @@
+{
+  "name": "finnchristoffer--rawg-io",
+  "displayName": "RAWG.IO",
+  "description": "Modern iOS Reference Project showcasing Clean Architecture, Modularization (Tuist), SwiftUI, and robust CI/CD pipelines (GitHub Actions, Danger, Periphery).",
+  "version": "1.0.0",
+  "author": "finnchristoffer",
+  "homepage": "https://github.com/finnchristoffer/RAWG.IO",
+  "skills": []
+}
