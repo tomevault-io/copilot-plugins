@@ -1,0 +1,87 @@
+{
+  "name": "commit-story",
+  "owner": "wiggitywhitney",
+  "repo": "commit-story",
+  "description": "Commit Story is designed to automatically generate engineering journal entries within a code repository. The journal captures technical progress and decision-making context.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "add-telemetry",
+      "path": ".claude/skills/add-telemetry",
+      "github_url": "https://github.com/wiggitywhitney/commit-story/tree/main/.claude/skills/add-telemetry",
+      "description": ""
+    },
+    {
+      "name": "prd-create",
+      "path": ".claude/skills/prd-create",
+      "github_url": "https://github.com/wiggitywhitney/commit-story/tree/main/.claude/skills/prd-create",
+      "description": ""
+    },
+    {
+      "name": "prd-next",
+      "path": ".claude/skills/prd-next",
+      "github_url": "https://github.com/wiggitywhitney/commit-story/tree/main/.claude/skills/prd-next",
+      "description": ""
+    },
+    {
+      "name": "prd-next-telemetry-powered",
+      "path": ".claude/skills/prd-next-telemetry-powered",
+      "github_url": "https://github.com/wiggitywhitney/commit-story/tree/main/.claude/skills/prd-next-telemetry-powered",
+      "description": ""
+    },
+    {
+      "name": "prd-update-decisions",
+      "path": ".claude/skills/prd-update-decisions",
+      "github_url": "https://github.com/wiggitywhitney/commit-story/tree/main/.claude/skills/prd-update-decisions",
+      "description": ""
+    },
+    {
+      "name": "prd-update-progress",
+      "path": ".claude/skills/prd-update-progress",
+      "github_url": "https://github.com/wiggitywhitney/commit-story/tree/main/.claude/skills/prd-update-progress",
+      "description": ""
+    },
+    {
+      "name": "prds-get",
+      "path": ".claude/skills/prds-get",
+      "github_url": "https://github.com/wiggitywhitney/commit-story/tree/main/.claude/skills/prds-get",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/wiggitywhitney/commit-story",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T02:32:31Z"
+}
