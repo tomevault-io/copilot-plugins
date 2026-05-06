@@ -1,0 +1,9 @@
+{
+  "name": "ero-cat--hr-push",
+  "displayName": "hr_push",
+  "description": "An all-platform VRChat heart rate broadcasting tool developed with Flutter.",
+  "version": "1.0.0",
+  "author": "Ero-Cat",
+  "homepage": "https://github.com/Ero-Cat/hr_push",
+  "skills": []
+}
