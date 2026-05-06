@@ -1,51 +1,17 @@
-## documentation-sync
+## english-only-default
 
-> Keep all docs in sync with code — README, architecture, store assets, screenshots, in-app help
+> Use English by default for all project work
 
 
-# Documentation Sync
+# English-Only Default
 
-**Always update documentation as part of every code change.** Do not wait for the user to ask. Fixes, features, and UI changes must be documented in the same step as the implementation.
+Use English as the default language for all work in this repository.
 
-## When to Update
-
-- **Every change** — document fixes, features, and UI changes immediately
-- Before release (tag, version bump)
-- When adding/removing features, lib modules, UI tabs, or wizard steps
-- When changing sync logic, permissions, or manifest
-- When you notice docs drifting from code
-
-## Checklist by Change Type
-
-| Change | Update |
-|--------|--------|
-| **New feature / UI** | README features, `store-assets/chrome-en.md`, `firefox-en.md`, Help tab in `options.html`, `_locales/en/messages.json` (`help_*` keys) |
-| **New options tab / wizard step** | `scripts/generate-screenshots.js` (OPTIONS_TABS, WIZARD_STEPS_FOR_SCREENSHOTS), `store-assets/chrome-meta.md` checklist |
-| **New lib module** | `docs/ARCHITECTURE.md` (component list, file structure) |
-| **Sync / API / generated files** | `docs/ARCHITECTURE.md`, `docs/SYNC-LOGIC.md`, `docs/DATA-FLOW.md` |
-| **Bug fix / behavior change** | `CHANGELOG.md`, relevant docs (DATA-FLOW, README, etc.) |
-| **New permission** | `store-assets/chrome-meta.md`, `store-assets/firefox-meta.md` (Permission Justifications) |
-| **Release** | `CHANGELOG.md`, `docs/RELEASE.md` version history; run `npm run screenshots` if UI changed |
-
-## In-App Help
-
-- Help content: `options.html` (Help tab) with `data-i18n="help_*"`
-- Add keys to `_locales/en/messages.json` first; other locales fall back to English
-- Keep Help aligned with README and store descriptions
-
-## Store Assets
-
-- 12 languages: en, de, fr, es, pt_BR, it, ja, zh_CN, ko, ru, tr, pl
-- Update `chrome-en.md` and `firefox-en.md` for new features; other locales before release
-- Screenshots: `npm run screenshots` (or `npm run build:chrome && npm run generate-screenshots`)
-
-## Release Pre-Check
-
-Review and update all docs above; regenerate screenshots if UI changed; update CHANGELOG and version history.
-
-## Version Assignment
-
-When unsure which version a change belongs to: check `git tag -l` and `git describe` — released tags (e.g. `v2.5.1`) are fixed; changes in the current branch belong to the next version (e.g. `develop/2.5.2` → 2.5.2).
+- Write code comments, docs, changelog text, and user-facing copy in English.
+- Use English for commit messages, PR titles, and PR descriptions.
+- Keep identifiers (variables, functions, classes, files) in English.
+- If a task starts in another language, still produce implementation artifacts in English unless explicitly requested otherwise.
+- Existing translated locale files may be edited, but new source/default text should be authored in English first.
 
 ---
 > Source: [d0dg3r/GitSyncMarks](https://github.com/d0dg3r/GitSyncMarks) — distributed by [TomeVault](https://tomevault.io).
