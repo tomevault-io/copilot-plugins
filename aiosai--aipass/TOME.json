@@ -4,7 +4,7 @@
   "repo": "AIPass",
   "description": "A local multi-agent framework where your AI agents keep their memory, work together, and never ask you to re-explain context",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/AIOSAI/AIPass",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T05:06:35Z"
+  "distributed_at": "2026-05-06T23:00:27Z"
 }
