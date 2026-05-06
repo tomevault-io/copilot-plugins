@@ -1,0 +1,9 @@
+{
+  "name": "texascoding--project-x-py",
+  "displayName": "project-x-py",
+  "description": "A high-performance Python SDK for the ProjectX Trading Platform Gateway API. This library enables developers to build sophisticated trading strategies and applications by providing comprehensive acces",
+  "version": "1.0.0",
+  "author": "TexasCoding",
+  "homepage": "https://github.com/TexasCoding/project-x-py",
+  "skills": []
+}
