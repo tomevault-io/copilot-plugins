@@ -1,0 +1,9 @@
+{
+  "name": "techsquidtv--tuvix-rss",
+  "displayName": "Tuvix-RSS",
+  "description": "A self-hostable RSS aggregator for the masses",
+  "version": "1.0.0",
+  "author": "TechSquidTV",
+  "homepage": "https://github.com/TechSquidTV/Tuvix-RSS",
+  "skills": []
+}
