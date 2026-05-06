@@ -1,180 +1,207 @@
-## i18n
+## static-method-confirm
 
-> - Thư mục cấu hình: [i18n/index.ts](mdc:i18n/index.ts)
+> **File chính**: [components/modal/static-method-confirm.tsx](mdc:components/modal/static-method-confirm.tsx)
 
-### Quy ước i18n cho dự án Credit Management
+# Quy ước sử dụng Static Method Confirm
 
-- Thư mục cấu hình: [i18n/index.ts](mdc:i18n/index.ts)
-- Nguồn bản dịch chính: [i18n/resources.ts](mdc:i18n/resources.ts)
-- File ngôn ngữ riêng:
-  - Tiếng Việt: [i18n/locales/vi.ts](mdc:i18n/locales/vi.ts)
-  - Tiếng Anh: [i18n/locales/en.ts](mdc:i18n/locales/en.ts)
-  - Tiếng Nhật: [i18n/locales/ja.ts](mdc:i18n/locales/ja.ts)
-- Provider: [components/i18n-provider.tsx](mdc:components/i18n-provider.tsx)
+## 1. File và Location
 
-#### Sử dụng
+**File chính**: [components/modal/static-method-confirm.tsx](mdc:components/modal/static-method-confirm.tsx)
 
-- Import hook trong component client:
+Static method confirm được sử dụng để hiển thị modal xác nhận với API đơn giản, không cần quản lý state trong component.
 
-```ts
-import { useTranslation } from "react-i18next";
-const { t, i18n } = useTranslation();
+## 2. Import và sử dụng
+
+### Import:
+
+```typescript
+import { showConfirm } from '@/components/modal/static-method-confirm';
 ```
 
-- Lấy chuỗi dịch:
+### Sử dụng cơ bản:
 
-```tsx
-<h1>{t("app.title")}</h1>
+```typescript
+showConfirm({
+  title: 'Xác nhận xóa',
+  content: 'Bạn có chắc chắn muốn xóa item này không?',
+  onConfirm: () => {
+    // Logic xử lý khi confirm
+    console.log('Confirmed');
+  },
+  onCancel: () => {
+    // Logic xử lý khi cancel (optional)
+    console.log('Cancelled');
+  },
+});
 ```
 
-- Đổi ngôn ngữ runtime (vi | en | ja):
+## 3. API Interface
 
-```ts
-i18n.changeLanguage("en");
-```
-
-- Lưu ngôn ngữ: Provider tự lưu vào localStorage key `lng` và đồng bộ `document.documentElement.lang`.
-
-#### Quy ước key
-
-- Chung: `app.*`, `header.*`, `sidebar.*`
-- Auth: `login.*`, `forgot.*`, `otp.*`
-- Khu vực admin:
-  - Từ vựng chung: `admin.common.*`
-  - Tài khoản: `admin.accounts.*`
-  - Khách hàng: `admin.*`
-  - Khoản vay: `admin.credits.*`
-  - Thu nợ: `admin.collections.*`
-  - Báo cáo: `admin.reports.*`
-  - Cài đặt: `admin.settings.*`
-
-Ví dụ tham số hóa:
-
-```tsx
-{
-  t("admin.pagination.rangeOf", { from: 1, to: 15, total: 124 });
+```typescript
+interface ConfirmOptions {
+  title: string; // Tiêu đề modal
+  content: string; // Nội dung thông báo
+  onConfirm: () => void; // Callback khi nhấn confirm
+  onCancel?: () => void; // Callback khi nhấn cancel (optional)
+  confirmText?: string; // Text cho button confirm (default: "Xác nhận")
+  cancelText?: string; // Text cho button cancel (default: "Hủy bỏ")
+  type?: 'warning' | 'danger' | 'info'; // Loại modal (default: 'warning')
 }
 ```
 
-#### Component hỗ trợ
+## 4. Các trường hợp sử dụng
 
-- Chọn ngôn ngữ: [components/ui/language-selector.tsx](mdc:components/ui/language-selector.tsx) (tự gọi `i18n.changeLanguage` nếu không truyền `onChange`).
-
-#### Quy tắc bắt buộc - NGHIÊM CẤM hardcode text
-
-**🚫 NGHIÊM CẤM:**
-
-- Hardcode text tiếng Việt, tiếng Anh, tiếng Nhật trong component/function
-- Magic strings cho status, type, category (phải dùng enum)
-- Text literals trong return statements
-- Hardcode error messages, success messages
-- Hardcode labels, placeholders, tooltips
-
-**❌ CÁC VÍ DỤ SAI:**
-
-```tsx
-// SAI - hardcode text
-<h1>Danh sách khoản vay</h1>
-return "Đang thu nợ";
-placeholder="Nhập từ khóa tìm kiếm"
-console.log("Có lỗi xảy ra");
-
-// SAI - hardcode status/enum values
-if (status === "active") {}
-case "overdue": return "Quá hạn";
-```
-
-**✅ ĐÚNG:**
-
-```tsx
-// ĐÚNG - dùng i18n
-<h1>{t("admin.credits.title")}</h1>
-return t("admin.credits.statusOptions.overdue");
-placeholder={t("admin.credits.searchPlaceholder")}
-console.log(t("admin.common.errorOccurred"));
-
-// ĐÚNG - dùng enum + i18n
-if (status === CreditStatus.ACTIVE) {}
-case CreditStatus.OVERDUE: return t("admin.credits.statusOptions.overdue");
-```
-
-#### Xử lý text cần hiển thị
-
-1. **Tất cả text** phải qua `t(key)` function
-2. **Status/enum values** phải dùng enum từ [config/enum.ts](mdc:config/enum.ts)
-3. **Thêm key mới** vào các file ngôn ngữ tương ứng trong [i18n/locales/](mdc:i18n/locales/)
-4. **Helper functions** để map enum sang i18n key:
+### Xóa item:
 
 ```typescript
-const getStatusI18nKey = (status: CreditStatus): string => {
-  switch (status) {
-    case CreditStatus.ACTIVE:
-      return "admin.credits.statusOptions.active";
-    case CreditStatus.OVERDUE:
-      return "admin.credits.statusOptions.overdue";
-    default:
-      return "admin.credits.statusOptions.unknown";
-  }
+const handleDelete = (itemId: string, itemName: string) => {
+  showConfirm({
+    title: t('admin.common.confirmDelete'),
+    content: t('admin.common.confirmDeleteMessage', { name: itemName }),
+    type: 'danger',
+    onConfirm: () => {
+      // Call delete API
+      deleteItem(itemId);
+    },
+  });
 };
 ```
 
-#### Cấu trúc file i18n
-
-**File chính** [i18n/resources.ts](mdc:i18n/resources.ts):
+### Bulk actions:
 
 ```typescript
-import vi from "./locales/vi";
-import en from "./locales/en";
-import ja from "./locales/ja";
-
-const resources = {
-  vi,
-  en,
-  ja,
-} as const;
-
-export default resources;
-```
-
-**File ngôn ngữ** [i18n/locales/{lang}.ts](mdc:i18n/locales/):
-
-```typescript
-const vi = {
-  translation: {
-    admin: {
-      common: {
-        loading: "Đang tải...",
-        errorLoadingData: "Có lỗi xảy ra khi tải dữ liệu",
-        retry: "Thử lại",
-        minutes: "phút",
-      },
-      credits: {
-        title: "Quản lý khoản vay",
-        statusOptions: {
-          unknown: "Không xác định",
-        },
-      },
+const handleBulkUpdate = () => {
+  showConfirm({
+    title: t('admin.credits.bulkActions.collectionModal.title'),
+    content: t('admin.credits.bulkActions.collectionModal.content', {
+      count: selectedItems.length,
+    }),
+    onConfirm: () => {
+      // Call bulk update API
+      updateCreditsStatus(selectedItems, 'collection');
     },
-  },
-} as const;
-
-export default vi;
+  });
+};
 ```
 
-#### Thêm key mới
+### Status change:
 
-1. **Xác định ngôn ngữ**: Thêm key vào tất cả file ngôn ngữ (vi, en, ja)
-2. **Cấu trúc key**: Theo quy ước `admin.[module].[section].[field]`
-3. **Consistent naming**: Đảm bảo key giống nhau trong tất cả ngôn ngữ
-4. **Export**: File tự động export, không cần thay đổi [i18n/resources.ts](mdc:i18n/resources.ts)
+```typescript
+const handleStatusChange = (itemId: string, newStatus: string) => {
+  showConfirm({
+    title: t('admin.common.confirmStatusChange'),
+    content: t('admin.common.confirmStatusChangeMessage', {
+      status: newStatus,
+    }),
+    onConfirm: () => {
+      // Call status update API
+      updateStatus(itemId, newStatus);
+    },
+  });
+};
+```
 
-#### Lưu ý
+## 5. i18n Integration
 
-- **Component server**: truyền text đã dịch từ client hoặc chuyển sang client component
-- **Console logs**: dùng `t(key)` hoặc comment tiếng Anh cho debug
-- **Type annotations**: có thể dùng tiếng Anh trong comments/types
-- **Enum values**: phải match API format (snake_case)
-- **File structure**: Mỗi ngôn ngữ có file riêng, import vào resources.ts
+Luôn sử dụng i18n cho title và content:
+
+```typescript
+// ✅ ĐÚNG
+showConfirm({
+  title: t('admin.machines.deleteModal.title'),
+  content: t('admin.machines.deleteModal.content', { name: machineName }),
+  onConfirm: () => deleteMachine(machineId),
+});
+
+// ❌ SAI - hardcode text
+showConfirm({
+  title: 'Xóa máy giặt',
+  content: 'Bạn có chắc chắn muốn xóa máy giặt này?',
+  onConfirm: () => deleteMachine(machineId),
+});
+```
+
+## 6. Quy tắc đặt tên i18n key
+
+### Cho modal confirm:
+
+- `admin.[module].deleteModal.title`
+- `admin.[module].deleteModal.content`
+- `admin.[module].bulkActions.[action]Modal.title`
+- `admin.[module].bulkActions.[action]Modal.content`
+
+### Ví dụ:
+
+```typescript
+// File i18n
+{
+  admin: {
+    credits: {
+      deleteModal: {
+        title: "Xác nhận xóa khoản vay",
+        content: "Bạn có chắc chắn muốn xóa khoản vay {{name}} không?"
+      },
+      bulkActions: {
+        collectionModal: {
+          title: "Xác nhận chuyển thu nợ",
+          content: "Bạn có chắc chắn muốn chuyển {{count}} khoản vay sang thu nợ không?"
+        }
+      }
+    }
+  }
+}
+```
+
+## 7. Best Practices
+
+### ✅ NÊN:
+
+- Sử dụng cho các action quan trọng (delete, status change, bulk actions)
+- Luôn dùng i18n cho text
+- Truyền parameters vào i18n để dynamic content
+- Sử dụng type phù hợp ('danger' cho delete, 'warning' cho update)
+- Handle cả onConfirm và onCancel nếu cần
+
+### ❌ KHÔNG NÊN:
+
+- Hardcode text trong title/content
+- Sử dụng cho action không quan trọng
+- Quên handle loading state trong onConfirm
+- Nest nhiều modal confirm
+
+## 8. Ví dụ hoàn chỉnh
+
+```typescript
+// Component
+import { showConfirm } from '@/components/modal/static-method-confirm';
+
+const handleDeleteCredit = (creditId: string, creditCode: string) => {
+  showConfirm({
+    title: t('admin.credits.deleteModal.title'),
+    content: t('admin.credits.deleteModal.content', { name: creditCode }),
+    type: 'danger',
+    confirmText: t('admin.common.delete'),
+    cancelText: t('admin.common.cancel'),
+    onConfirm: async () => {
+      try {
+        await deleteCreditApi(creditId);
+        toastHelpers.success({ title: t('admin.credits.deleteSuccess') });
+        refetch(); // Refresh data
+      } catch (error) {
+        toastHelpers.error({ title: t('admin.common.errorOccurred') });
+      }
+    },
+  });
+};
+```
+
+## 9. Lưu ý
+
+- Static method không cần quản lý state trong component
+- Modal sẽ tự động close sau khi confirm/cancel
+- Có thể customize button text và icon theo type
+- Support async operations trong onConfirm callback
+- Tự động focus vào button confirm khi mở modal
 
 ---
 > Source: [HiuNT-Tech/backlog-clone-fe](https://github.com/HiuNT-Tech/backlog-clone-fe) — distributed by [TomeVault](https://tomevault.io).
