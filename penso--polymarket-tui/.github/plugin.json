@@ -1,0 +1,9 @@
+{
+  "name": "penso--polymarket-tui",
+  "displayName": "polymarket-tui",
+  "description": "TUI interface for Polymarket",
+  "version": "1.0.0",
+  "author": "penso",
+  "homepage": "https://github.com/penso/polymarket-tui",
+  "skills": []
+}
