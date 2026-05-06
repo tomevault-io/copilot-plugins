@@ -7,13 +7,13 @@ Self-hosted, AI-powered job search companion. Paste a job posting and five AI ag
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [eliornl/applypilot](https://github.com/eliornl/applypilot).
+Original source: `CLAUDE.md` in [eliornl/applypilot](https://github.com/eliornl/applypilot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
