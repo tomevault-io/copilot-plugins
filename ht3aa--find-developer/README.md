@@ -2,6 +2,8 @@
 
 > Tome by [ht3aa](https://github.com/ht3aa/find-developer) — distributed by [TomeVault](https://tomevault.io)
 
+A website to find the right developer that you need in your company
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
