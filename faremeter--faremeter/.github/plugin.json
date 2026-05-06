@@ -1,0 +1,22 @@
+{
+  "name": "faremeter--faremeter",
+  "displayName": "faremeter",
+  "description": "A universal framework designed to allow agents and other utilities to transparently make machine payments using web infrastructure.",
+  "version": "1.0.0",
+  "author": "faremeter",
+  "homepage": "https://github.com/faremeter/faremeter",
+  "skills": [
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "debug-test-harness",
+      "description": ""
+    },
+    {
+      "name": "run-examples",
+      "description": ""
+    }
+  ]
+}
