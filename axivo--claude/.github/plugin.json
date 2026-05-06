@@ -1,0 +1,30 @@
+{
+  "name": "axivo--claude",
+  "displayName": "claude",
+  "description": "Scalable collaboration platform with specialized profiles, persistent memory, and systematic methodologies.",
+  "version": "1.0.0",
+  "author": "axivo",
+  "homepage": "https://github.com/axivo/claude",
+  "skills": [
+    {
+      "name": "brainstorming",
+      "description": ""
+    },
+    {
+      "name": "code-review",
+      "description": ""
+    },
+    {
+      "name": "conversation-log",
+      "description": ""
+    },
+    {
+      "name": "framework-initialization",
+      "description": ""
+    },
+    {
+      "name": "framework-methodology",
+      "description": ""
+    }
+  ]
+}
