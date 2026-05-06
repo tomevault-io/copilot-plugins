@@ -1,0 +1,44 @@
+{
+  "name": "adk-docs-ext",
+  "owner": "derailed-dash",
+  "repo": "adk-docs-ext",
+  "description": "Provides Gemini with up-to-date information about ADK. The documentation content is sourced from llms.txt - either from the official ADK-Docs repo, or one you supply.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/derailed-dash/adk-docs-ext",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T05:33:05Z"
+}
