@@ -1,0 +1,9 @@
+{
+  "name": "liquidz00--jamfmcp",
+  "displayName": "jamfmcp",
+  "description": "An async MCP server for Jamf Pro integration providing computer health analysis",
+  "version": "1.0.0",
+  "author": "liquidz00",
+  "homepage": "https://github.com/liquidz00/jamfmcp",
+  "skills": []
+}
