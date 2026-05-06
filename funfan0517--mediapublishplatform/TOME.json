@@ -1,0 +1,44 @@
+{
+  "name": "MediaPublishPlatform",
+  "owner": "funfan0517",
+  "repo": "MediaPublishPlatform",
+  "description": "MPP (MediaPublishPlatform) \u662f\u4e00\u4e2a\u529f\u80fd\u5f3a\u5927\u7684\u81ea\u5a92\u4f53\u53d1\u5e03\u5e73\u53f0\uff0c\u652f\u6301\u591a\u4e2a\u5e73\u53f0\u4e00\u952e\u6279\u91cf\u4e0a\u4f20\u4e0e\u5b9a\u65f6\u53d1\u5e03\u56fe\u6587\u548c\u89c6\u9891\u5185\u5bb9\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/funfan0517/MediaPublishPlatform",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T00:18:25Z"
+}
