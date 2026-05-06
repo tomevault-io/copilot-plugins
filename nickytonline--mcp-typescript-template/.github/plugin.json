@@ -1,0 +1,9 @@
+{
+  "name": "nickytonline--mcp-typescript-template",
+  "displayName": "mcp-typescript-template",
+  "description": "TypeScript template for building MCP servers",
+  "version": "1.0.0",
+  "author": "nickytonline",
+  "homepage": "https://github.com/nickytonline/mcp-typescript-template",
+  "skills": []
+}
