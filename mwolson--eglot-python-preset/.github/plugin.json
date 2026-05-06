@@ -1,0 +1,9 @@
+{
+  "name": "mwolson--eglot-python-preset",
+  "displayName": "eglot-python-preset",
+  "description": "Configure Python LSP support for Emacs using Eglot",
+  "version": "1.0.0",
+  "author": "mwolson",
+  "homepage": "https://github.com/mwolson/eglot-python-preset",
+  "skills": []
+}
