@@ -1,0 +1,9 @@
+{
+  "name": "sajmani--birdsync",
+  "displayName": "birdsync",
+  "description": "Sync eBird observations and photos to iNaturalist",
+  "version": "1.0.0",
+  "author": "Sajmani",
+  "homepage": "https://github.com/Sajmani/birdsync",
+  "skills": []
+}
