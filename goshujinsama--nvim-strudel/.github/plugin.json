@@ -1,0 +1,9 @@
+{
+  "name": "goshujinsama--nvim-strudel",
+  "displayName": "nvim-strudel",
+  "description": "Live code music in Neovim with [Strudel](https://strudel.cc/)",
+  "version": "1.0.0",
+  "author": "Goshujinsama",
+  "homepage": "https://github.com/Goshujinsama/nvim-strudel",
+  "skills": []
+}
