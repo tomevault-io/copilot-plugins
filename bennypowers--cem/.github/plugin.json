@@ -1,0 +1,14 @@
+{
+  "name": "bennypowers--cem",
+  "displayName": "cem",
+  "description": "The standards-based toolkit for Web Components. Generate Custom Elements Manifests, Dev Server, LSP, and MCP for your app or design system",
+  "version": "1.0.0",
+  "author": "bennypowers",
+  "homepage": "https://github.com/bennypowers/cem",
+  "skills": [
+    {
+      "name": "vue",
+      "description": ""
+    }
+  ]
+}
