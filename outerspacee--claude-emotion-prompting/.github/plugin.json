@@ -1,0 +1,9 @@
+{
+  "name": "outerspacee--claude-emotion-prompting",
+  "displayName": "claude-emotion-prompting",
+  "description": "Research-backed prompting toolkit for Claude. System prompts, CLAUDE.md configs, and templates grounded in  Anthropic's 2026 emotion vectors paper.",
+  "version": "1.0.0",
+  "author": "OuterSpacee",
+  "homepage": "https://github.com/OuterSpacee/claude-emotion-prompting",
+  "skills": []
+}
