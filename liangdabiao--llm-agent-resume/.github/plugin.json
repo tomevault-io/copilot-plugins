@@ -1,0 +1,9 @@
+{
+  "name": "liangdabiao--llm-agent-resume",
+  "displayName": "LLM-Agent-Resume",
+  "description": "\u5b9e\u6218\u6848\u4f8b\uff1a\u4ece 0 \u5230 1 \u642d\u5efa LLM \u667a\u80fd\u7b80\u5386\u7b5b\u9009 Agent \u7cfb\u7edf\uff08\u8bbe\u8ba1+\u5b9e\u73b0\uff09- code by claude code + kimi",
+  "version": "1.0.0",
+  "author": "liangdabiao",
+  "homepage": "https://github.com/liangdabiao/LLM-Agent-Resume",
+  "skills": []
+}
