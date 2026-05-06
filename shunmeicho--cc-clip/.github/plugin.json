@@ -1,0 +1,9 @@
+{
+  "name": "shunmeicho--cc-clip",
+  "displayName": "cc-clip",
+  "description": "Paste images into remote Claude Code & Codex CLI over SSH \u2014 clipboard bridging for macOS and Windows.",
+  "version": "1.0.0",
+  "author": "ShunmeiCho",
+  "homepage": "https://github.com/ShunmeiCho/cc-clip",
+  "skills": []
+}
