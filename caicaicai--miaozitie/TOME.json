@@ -4,7 +4,7 @@
   "repo": "miaozitie",
   "description": "\u55b5\u5b57\u5e16 - \u5c0f\u5b66\u751f\u7b14\u753b\u7ec3\u5b57\u5e16\u751f\u6210\u5668  https://miaozitie.80wdb.com/",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/caicaicai/miaozitie",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T05:50:54Z"
+  "distributed_at": "2026-05-06T08:13:48Z"
 }
