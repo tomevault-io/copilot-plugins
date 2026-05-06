@@ -1,0 +1,44 @@
+{
+  "name": "STS2-MoreEnchantStandalone",
+  "owner": "Miooowo",
+  "repo": "STS2-MoreEnchantStandalone",
+  "description": "\u3010\u6740\u622e\u5c16\u58542\u3011\u66f4\u591a\u9644\u9b54MOD",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Miooowo/STS2-MoreEnchantStandalone",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T11:04:35Z"
+}
