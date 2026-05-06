@@ -1,0 +1,9 @@
+{
+  "name": "madeye--meow",
+  "displayName": "meow",
+  "description": "Meow - A Clash/mihomo Android client with Flutter UI, powered by mihomo-rust and netstack-smoltcp tun2socks",
+  "version": "1.0.0",
+  "author": "madeye",
+  "homepage": "https://github.com/madeye/meow",
+  "skills": []
+}
