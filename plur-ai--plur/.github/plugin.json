@@ -1,0 +1,9 @@
+{
+  "name": "plur-ai--plur",
+  "displayName": "plur",
+  "description": "Shared memory for AI agents",
+  "version": "1.0.0",
+  "author": "plur-ai",
+  "homepage": "https://github.com/plur-ai/plur",
+  "skills": []
+}
