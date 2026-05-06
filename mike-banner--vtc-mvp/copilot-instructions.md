@@ -1,14 +1,13 @@
-## ai-memory-protocol
+## docs-protocol
 
-> Tri-mémoire: format minimal `.ai_memory/*`
+> Docs: discipline minimale (architecture/flows/db/security)
 
-<!-- /home/mike/projects/vtc/vtc_mvp/.cursor/rules/ai-memory-protocol.mdc -->
+<!-- /home/mike/projects/vtc/vtc_mvp/.cursor/rules/docs-protocol.mdc -->
 
-## Règles d’édition `.ai_memory/*` (token-min)
-- 1 changement = 1 bullet, pas de paragraphe.
-- `HISTORY.md`: faits datés (`YYYY-MM-DD`) + 1 ligne max.
-- `EVOLUTION.md`: uniquement futur/backlog, 1 ligne max.
-- `PLAN_ARCHITECTURE.md`: phases + cases `[x]/[ ]` uniquement, pas de prose.
+## Règles d’édition `docs/*` (token-min)
+- Changements **réels** uniquement (aligné prod), pas de “drafts”.
+- Si un flow change: update `docs/flows.md`.
+- Si une décision change: update `docs/decisions.md` (1 section, concis).
 
 ---
 > Source: [mike-banner/VTC_MVP](https://github.com/mike-banner/VTC_MVP) — distributed by [TomeVault](https://tomevault.io).
