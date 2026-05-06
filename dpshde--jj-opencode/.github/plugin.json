@@ -1,0 +1,9 @@
+{
+  "name": "dpshde--jj-opencode",
+  "displayName": "jj-opencode",
+  "description": "OpenCode plugin enforcing JJ define-before-implement workflow",
+  "version": "1.0.0",
+  "author": "dpshde",
+  "homepage": "https://github.com/dpshde/jj-opencode",
+  "skills": []
+}
