@@ -1,0 +1,9 @@
+{
+  "name": "bitjaru--codesyncer",
+  "displayName": "codesyncer",
+  "description": "Claude forgets everything when the session ends. CodeSyncer makes it remember.",
+  "version": "1.0.0",
+  "author": "bitjaru",
+  "homepage": "https://github.com/bitjaru/codesyncer",
+  "skills": []
+}
