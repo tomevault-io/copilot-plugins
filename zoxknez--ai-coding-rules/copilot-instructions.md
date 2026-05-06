@@ -1,34 +1,41 @@
-## 71-git-workflow
+## 72-refactoring
 
-> USE WHEN: working with Git operations, commits, branches
+> USE WHEN: refactoring existing code
 
 
-# Git Workflow Rules
+# Refactoring Rules
 
-## Commit Messages
-- Use conventional commits: `type(scope): message`
-- Types: feat, fix, docs, style, refactor, test, chore
-- Keep subject line <72 characters
-- Add body for complex changes
+## Pre-Refactor Checklist
+- [ ] Tests exist for current behavior
+- [ ] All tests are passing
+- [ ] You understand the code's purpose
+- [ ] Changes are approved (if >200 LOC)
 
-## Branch Naming
-- `feature/` - new features
-- `fix/` - bug fixes
-- `refactor/` - code improvements
-- `docs/` - documentation only
+## Principles
+- Make it work → Make it right → Make it fast
+- One refactor type per commit
+- Keep behavior unchanged (unless fixing bugs)
+- Run tests after each step
 
-## Best Practices
-- Commit early and often (checkpoints)
-- Never commit secrets or credentials
-- Don't commit generated files
-- Keep commits atomic (one logical change)
-- Write meaningful commit messages
+## Common Refactors
+1. **Extract Function** - Split large functions
+2. **Rename** - Clarify intent
+3. **Extract Variable** - Explain complex expressions
+4. **Inline** - Remove unnecessary indirection
+5. **Move** - Better file organization
 
-## Pull Requests
-- Reference related issues
-- Include testing instructions
-- Keep PRs focused and reviewable
-- Request reviews from relevant team members
+## Anti-Patterns to Fix
+- Magic numbers → Named constants
+- Nested conditionals → Early returns
+- Long functions → Extract helpers
+- Duplicate code → DRY it up
+- God objects → Single responsibility
+
+## When NOT to Refactor
+- Under time pressure (unless blocking)
+- Without tests
+- Without understanding the code
+- When it's "good enough"
 
 ---
 > Source: [zoxknez/ai-coding-rules](https://github.com/zoxknez/ai-coding-rules) — distributed by [TomeVault](https://tomevault.io).
