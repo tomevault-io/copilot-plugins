@@ -1,0 +1,9 @@
+{
+  "name": "lanternops--breeze",
+  "displayName": "breeze",
+  "description": "Open-source Remote Monitoring & Management (RMM) platform for MSPs and IT teams",
+  "version": "1.0.0",
+  "author": "LanternOps",
+  "homepage": "https://github.com/LanternOps/breeze",
+  "skills": []
+}
