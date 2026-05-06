@@ -1,0 +1,221 @@
+## audioteejs
+
+> We're creating a TypeScript npm package that wraps the AudioTee Swift binary to provide a clean Node.js interface for capturing macOS system audio. AudioTee is a command-line tool that captures system audio and outputs raw PCM data to stdout, with logs going to stderr.
+
+# AudioTee NPM Wrapper Development Guide
+
+## Project Overview
+
+We're creating a TypeScript npm package that wraps the AudioTee Swift binary to provide a clean Node.js interface for capturing macOS system audio. AudioTee is a command-line tool that captures system audio and outputs raw PCM data to stdout, with logs going to stderr.
+
+## What We're Building
+
+A TypeScript npm package that:
+
+- Wraps the AudioTee Swift binary (600KB universal binary for macOS)
+- Provides an EventEmitter-style API for real-time audio capture
+- Handles binary execution, argument parsing, and stream processing
+- Offers strong TypeScript types for all audio data and options
+
+## Current Project Structure
+
+```
+audiotee-node/
+├── src/
+│   ├── index.ts              # Main entry point (exports)
+│   ├── types.ts              # TypeScript type definitions
+│   └── audiotee.ts           # Main wrapper class (TO BE CREATED)
+├── bin/
+│   └── audiotee              # Swift universal binary (600KB)
+├── dist/                     # Generated TypeScript output
+├── package.json              # ESM-first, Node 18+, tsup bundler
+├── tsconfig.json             # Modern config with NodeNext resolution
+├── tsup.config.ts            # Modern bundler config
+└── .gitignore
+```
+
+## Key Technical Decisions Made
+
+- **ESM-first package** (`"type": "module"` in package.json)
+- **Composition over inheritance** for EventEmitter functionality
+- **Universal binary bundling** (600KB is acceptable for npm distribution)
+- **tsup for bundling** (faster than tsc, better DX than rollup)
+- **Node 20+ minimum** (using modern features)
+
+## AudioTee Binary Behavior
+
+The Swift binary we're wrapping:
+
+- Captures macOS system audio using Core Audio taps API
+- Outputs **raw PCM audio data to stdout** in configurable chunks
+- Sends **all logs/metadata to stderr** (clean separation)
+- Supports sample rate conversion, process filtering, chunk duration control
+- Requires macOS 14.2+ and audio recording permissions
+
+### Command Line Interface
+
+```bash
+# Basic usage
+./audiotee > output.pcm
+
+# With options
+./audiotee --sample-rate 16000 --chunk-duration 0.1 --mute
+
+# Process filtering
+./audiotee --include-processes 1234 5678
+./audiotee --exclude-processes 9012
+```
+
+### Audio Output Format
+
+- **Format**: Raw PCM audio data
+- **Channels**: Always mono (1 channel)
+- **Sample rate**: Device default (usually 48kHz) or converted
+- **Bit depth**: 32-bit float (default) or 16-bit (when converted)
+- **Chunk timing**: 200ms default, configurable 0.0-5.0s
+
+## Implementation Task: AudioTee Wrapper Class
+
+### File: `src/audiotee.ts`
+
+Create a class that:
+
+1. **Manages the binary process lifecycle**
+
+   - Spawns the AudioTee binary with proper arguments
+   - Handles process startup, shutdown, and error conditions
+   - Builds command-line arguments from options object
+
+2. **Provides EventEmitter interface via composition**
+
+   - `private events = new EventEmitter()`
+   - Expose `on()`, `once()`, `off()`, `removeAllListeners()` methods
+   - Private `emit()` method for internal use
+
+3. **Processes binary streams**
+
+   - Parse stdout as raw PCM audio chunks
+   - Parse stderr for logs and error messages
+   - Emit structured events with proper TypeScript types
+
+4. **Handles macOS-specific concerns**
+   - Permission detection and user guidance
+   - Process lifecycle management
+   - Binary path resolution
+
+### Expected Event Interface
+
+```typescript
+interface AudioTeeEvents {
+  data: (chunk: AudioChunk) => void // Raw PCM audio data
+  start: () => void // Recording started
+  stop: () => void // Recording stopped
+  error: (error: Error) => void // Process/system errors
+  log: (message: string, level: LogLevel) => void // Binary logs
+  'permission-required': () => void // macOS permission prompt
+}
+```
+
+### AudioChunk Structure
+
+Each audio data event should provide:
+
+```typescript
+interface AudioChunk {
+  data: Buffer // Raw PCM audio bytes
+  // open for expansion
+}
+```
+
+### Log message structure
+
+All messages received via stderr **should** be a JSON payload as follows:
+
+```typescript
+interface LogMessage {
+  timestamp: Date
+  message_type: 'metadata' | 'stream_start' | 'stream_stop' | 'info' | 'error' | 'debug'
+  data: {
+    message: string
+  }
+}
+```
+
+### Implementation Hints
+
+1. **Binary path resolution:**
+
+   ```typescript
+   const binaryPath = join(__dirname, '..', 'bin', 'audiotee')
+   ```
+
+2. **Argument building:**
+   Map options object to command-line flags systematically
+
+3. **Stream processing:**
+
+   - stdout = raw PCM audio data → emit as `AudioChunk`
+   - stderr = logs/errors → parse and emit as `log` events
+   - Detect permission issues in stderr content
+
+4. **Process management:**
+
+   - Use `spawn()` not `exec()` for streaming data
+   - Handle SIGTERM for clean shutdown
+   - Track running state to prevent double-start
+
+5. **Error handling:**
+   - Process exit codes
+   - Permission denied scenarios
+   - Binary not found or corrupted
+
+## Usage Example (Target API)
+
+```typescript
+import { AudioTee } from 'audiotee'
+
+const audiotee = new AudioTee({
+  sampleRate: 16000,
+  chunkDurationMs: 100,
+  mute: true,
+})
+
+audiotee.on('data', (chunk) => {
+  // Process raw PCM audio
+  console.log(`${chunk.data.length} bytes at ${chunk.sampleRate}Hz`)
+})
+
+audiotee.on('log', (message) => {})
+
+audiotee.start()
+// Audio chunks will flow via 'data' events
+audiotee.stop()
+```
+
+## Development Workflow
+
+1. **Implement the wrapper class** in `src/audiotee.ts`
+2. **Update exports** in `src/index.ts`
+3. **Test locally** with `npm run build && node dist/index.js`
+4. **Verify binary execution** and stream processing
+5. **Handle edge cases** (permissions, process crashes, etc.)
+
+## Testing Strategy
+
+- **Unit tests**: Mock child_process for argument building, event emission
+- **Integration tests**: Use actual binary with test audio scenarios
+- **Permission tests**: Verify behavior when audio permissions missing
+- **Error tests**: Binary missing, invalid arguments, process crashes
+
+## Distribution Notes
+
+- Binary ships with npm package (included in `files` array)
+- Package size: ~1MB total (600KB binary + ~400KB TypeScript/deps)
+- Platform restriction: macOS-only (enforce in package.json)
+- Node version: 18+ required for modern features
+
+This wrapper transforms a command-line audio tool into a modern Node.js streaming interface, handling all the complexity of process management, stream parsing, and platform-specific concerns.
+
+---
+> Source: [makeusabrew/audioteejs](https://github.com/makeusabrew/audioteejs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
