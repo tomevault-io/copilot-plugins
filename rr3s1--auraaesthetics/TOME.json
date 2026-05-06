@@ -1,0 +1,44 @@
+{
+  "name": "auraaesthetics",
+  "owner": "rr3s1",
+  "repo": "auraaesthetics",
+  "description": "A management system for an aesthetics clinic built with using Next.js, Appwrite, TypeScript, and TailwindCSS. Key features include patient registration, appointment booking, admin management of appointments, SMS notifications, file uploads.",
+  "type": "config",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/rr3s1/auraaesthetics",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T22:40:27Z"
+}
