@@ -1,0 +1,123 @@
+{
+  "name": "devs",
+  "owner": "codename-co",
+  "repo": "devs",
+  "description": "Delegate complex tasks to AI teams with this browser-based orchestration platform that reproduces real organizational methodologies.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-definition",
+      "path": ".github/skills/agent-definition",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/agent-definition",
+      "description": ""
+    },
+    {
+      "name": "connector-generation",
+      "path": ".github/skills/connector-generation",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/connector-generation",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing",
+      "path": ".github/skills/e2e-testing",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "feature-development",
+      "path": ".github/skills/feature-development",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/feature-development",
+      "description": ""
+    },
+    {
+      "name": "i18n-translation",
+      "path": ".github/skills/i18n-translation",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/i18n-translation",
+      "description": ""
+    },
+    {
+      "name": "indexeddb-operations",
+      "path": ".github/skills/indexeddb-operations",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/indexeddb-operations",
+      "description": ""
+    },
+    {
+      "name": "knowledge-base-management",
+      "path": ".github/skills/knowledge-base-management",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/knowledge-base-management",
+      "description": ""
+    },
+    {
+      "name": "llm-service-integration",
+      "path": ".github/skills/llm-service-integration",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/llm-service-integration",
+      "description": ""
+    },
+    {
+      "name": "orchestration-workflow",
+      "path": ".github/skills/orchestration-workflow",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/orchestration-workflow",
+      "description": ""
+    },
+    {
+      "name": "react-component-development",
+      "path": ".github/skills/react-component-development",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/react-component-development",
+      "description": ""
+    },
+    {
+      "name": "tdd-testing",
+      "path": ".github/skills/tdd-testing",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/tdd-testing",
+      "description": ""
+    },
+    {
+      "name": "tool-generation",
+      "path": ".github/skills/tool-generation",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/tool-generation",
+      "description": ""
+    },
+    {
+      "name": "zustand-store-development",
+      "path": ".github/skills/zustand-store-development",
+      "github_url": "https://github.com/codename-co/devs/tree/main/.github/skills/zustand-store-development",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/codename-co/devs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T13:30:19Z"
+}
