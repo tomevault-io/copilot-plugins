@@ -1,17 +1,18 @@
-## ucp-supabase-migrations-sql
+## ucp-supabase
 
-> Supabase migrations SQL - RLS, idempotência e segurança
+> Boas práticas para Supabase (RLS, chaves, migrations e supabase-js)
 
 
-# Supabase Migrations SQL UCP
+# Supabase UCP
 
-Ao editar `supabase/migrations/**/*.sql`:
+Ao integrar com Supabase (Auth, Postgres, Storage) e usar `@supabase/supabase-js`, aplique:
 
-- Evite `DROP`/`ALTER` destrutivos sem estratégia (backups, janelas, migração reversível quando possível).
-- Preservar RLS: garanta que `Row Level Security` e policies continuem corretas após mudanças.
-- Use transações quando apropriado para manter consistência.
-- Padronize nomes de constraints/índices e crie índices alinhados a filtros comuns (incluindo `tenant_id` se existir).
-- Não introduza seeds com dados sensíveis.
+- Chaves/segredos: nunca exponha `SERVICE_ROLE_KEY` no frontend; use no backend apenas. Nunca logue chaves/tokens.
+- RLS: ative e modele `Row Level Security` para isolar dados por tenant/usuário. No backend, aplique as checagens de permissão.
+- Migrations: mudanças de schema via migrations/versionamento; evite `ALTER` ad-hoc sem controle.
+- Queries: selecione colunas necessárias, pagine resultados e evite `select *`.
+- Consistência: trate erros de query explicitamente e retorne mensagens seguras.
+- Resiliência: em integrações críticas, implemente retry apenas para erros transitórios; preserve timeouts.
 
 ---
 > Source: [walkup-tec/waba](https://github.com/walkup-tec/waba) — distributed by [TomeVault](https://tomevault.io).
