@@ -1,0 +1,9 @@
+{
+  "name": "woyken--huckleberry-homeassistant",
+  "displayName": "huckleberry-homeassistant",
+  "description": "Home Assistant integration for Huckleberry baby tracker app - monitor sleep, feeding, diapers, and growth tracking",
+  "version": "1.0.0",
+  "author": "Woyken",
+  "homepage": "https://github.com/Woyken/huckleberry-homeassistant",
+  "skills": []
+}
