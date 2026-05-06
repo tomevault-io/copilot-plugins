@@ -4,7 +4,7 @@
   "repo": "respira",
   "description": "Controller Software for the Brother PP-1 SKiTCH embroidery machine.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/jhbruhn/respira",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T15:42:33Z"
+  "distributed_at": "2026-05-06T00:36:21Z"
 }
