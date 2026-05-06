@@ -1,57 +1,55 @@
-## 02-frontend
+## 03-database
 
-> Reglas para el frontend React/Vite en /app/src — componentes, contextos y servicios.
+> Reglas para cambios en la base de datos MySQL — migraciones, nomenclatura y relaciones.
 
 
-# Frontend — Reglas de Arquitectura React
+# Base de Datos — Reglas MySQL
 
-## Servicios — Centralización de HTTP
-- Toda llamada al backend debe ir a través de los servicios en `app/src/services/`.
-  - `api.js` — cliente base para el backend Express (usa `get`, `post`, `patch`, `del`).
-  - `aiPlannerApi.js` — llamadas a la IA de planeación.
-  - `activityGeneratorApi.js` — generación de actividades evaluables.
-  - `gasApi.js` — llamadas a Google Apps Script (legacy, a deprecar gradualmente).
-  - `googlePicker.js` — encapsula el Google Picker para Drive.
-- **Un componente nunca hace `fetch` directamente.** Siempre delega a un servicio.
+## Migraciones
+- **Obligatorio:** Cualquier cambio estructural (nueva tabla, columna, índice, tipo de dato) debe crearse como un archivo SQL numerado y secuencial en `backend/database/migrations/`.
+  - Formato del nombre: `NNN_descripcion_corta.sql` (ej. `005_add_orden_to_temarios.sql`)
+  - El número debe ser secuencial respecto al último archivo existente.
+- Nunca modificar archivos de migración existentes — solo agregar nuevos.
+- Nunca alterar la base de datos productiva directamente fuera de una migración.
 
-```jsx
+## Nomenclatura
+- Tablas: `snake_case`, plural (ej. `ciclos_escolares`, `dias_inhabiles`).
+- Columnas: `snake_case` (ej. `fecha_inicio`, `token_balance`).
+- FK: `{tabla_referenciada_singular}_id` (ej. `user_id`, `ciclo_id`).
+- Índices: `idx_{columnas}` (ej. `idx_user_course`).
+
+## Tablas principales y sus relaciones
+```
+perfiles (docente)
+└── ciclos_escolares (periodo semestral/anual)
+    └── ciclos (unidades temáticas → topics en Classroom)
+        └── temarios (temas individuales)
+    └── planeacion_detallada (clase por clase, temporal)
+    └── dias_inhabiles
+
+perfiles
+└── materiales_generados (docs/slides en Drive)
+└── actividades_evaluables (assignments con rubrica JSON)
+└── horarios
+└── unidades_fechas
+```
+
+## Reglas de borrado
+- Al eliminar un `ciclo_escolar` → borrar en cascada sus `ciclos`, `planeacion_detallada`, y `dias_inhabiles`.
+- Al eliminar un `ciclo` (unidad) → borrar su `classroom_topic_id` de Google Classroom y sus `temarios`.
+- Al eliminar una `actividad_evaluable` → eliminar el `courseWork` en Google Classroom.
+- Usar `ON DELETE CASCADE` en FK donde aplique, y lógica explícita en el servicio para operaciones en Google APIs.
+
+## SQL en servicios
+- Usar **siempre** parámetros preparados de `mysql2`:
+```js
 // ✅ Correcto
-import { post } from '../services/api';
-const data = await post('/planning/ciclos', payload);
+await db.query('SELECT * FROM perfiles WHERE google_id = ?', [googleId]);
 
-// ❌ Incorrecto
-const res = await fetch('http://localhost:3001/planning/ciclos', { ... });
+// ❌ Incorrecto — inyección SQL
+await db.query(`SELECT * FROM perfiles WHERE google_id = '${googleId}'`);
 ```
-
-## Contextos
-- `AuthContext` — datos de sesión y perfil del usuario autenticado. No agregar estado ajeno a auth.
-- `CourseContext` — datos del curso activo. No agregar estado ajeno al curso.
-- Si un módulo (ej. Planeación, Evaluaciones) necesita estado compartido entre componentes, crear su propio contexto cerrado (ej. `PlanningContext`) en vez de polucionar el contexto global.
-
-## Componentes y UI
-- Usar **PrimeReact** para todos los elementos interactivos (Botones, Dialogs, Toasts, DataTable, etc.).
-- Usar **SweetAlert2** solo para confirmaciones de acciones destructivas (eliminar, sobreescribir).
-- Usar **PrimeFlex** para los layouts (grid, flex utilities).
-- No añadir librerías de UI adicionales sin consenso.
-
-## Estilos
-- Vanilla CSS global en `app/src/assets/index.css`.
-- No usar estilos inline en componentes salvo posicionamiento dinámico calculado en JS.
-- No agregar Tailwind CSS.
-
-## Estructura de Carpetas de Módulos
-Cada módulo visual sigue esta estructura dentro de su carpeta:
-```
-/planeacion
-  ├── components/      # Componentes locales del módulo
-  ├── PlaneacionPage.jsx  # Página principal
-  └── (context opcional)
-```
-
-## Autenticación
-- `firebase` se usa únicamente para el flujo de autenticación de Google OAuth.
-- El token de sesión del backend (JWT) se guarda en `localStorage` con clave `session_token`.
-- Nunca almacenar en `localStorage` ni `sessionStorage` datos sensibles más allá del JWT.
+- Usar transacciones (`BEGIN` / `COMMIT` / `ROLLBACK`) para operaciones que involucren múltiples escrituras.
 
 ---
 > Source: [MiguelAngelMondragonFernandez/Classroom-copilot](https://github.com/MiguelAngelMondragonFernandez/Classroom-copilot) — distributed by [TomeVault](https://tomevault.io).
