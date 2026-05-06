@@ -1,0 +1,14 @@
+{
+  "name": "kernel--cli",
+  "displayName": "cli",
+  "description": "Kernel CLI",
+  "version": "1.0.0",
+  "author": "kernel",
+  "homepage": "https://github.com/kernel/cli",
+  "skills": [
+    {
+      "name": "kernel-cli",
+      "description": ""
+    }
+  ]
+}
