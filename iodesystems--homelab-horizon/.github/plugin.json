@@ -1,0 +1,9 @@
+{
+  "name": "iodesystems--homelab-horizon",
+  "displayName": "homelab-horizon",
+  "description": "Homelab VPN, Service Routing, and Horizon DNS for your network device",
+  "version": "1.0.0",
+  "author": "IodeSystems",
+  "homepage": "https://github.com/IodeSystems/homelab-horizon",
+  "skills": []
+}
