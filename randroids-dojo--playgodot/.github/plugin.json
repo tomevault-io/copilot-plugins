@@ -1,0 +1,9 @@
+{
+  "name": "randroids-dojo--playgodot",
+  "displayName": "PlayGodot",
+  "description": "Playwright for Godot game engine. A Godot plugin for headless test automation.",
+  "version": "1.0.0",
+  "author": "Randroids-Dojo",
+  "homepage": "https://github.com/Randroids-Dojo/PlayGodot",
+  "skills": []
+}
