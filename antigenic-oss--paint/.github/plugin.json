@@ -1,0 +1,9 @@
+{
+  "name": "antigenic-oss--paint",
+  "displayName": "pAInt",
+  "description": "pAInt is a visual editor for localhost web projects. It helps you inspect elements, edit styles, manage CSS variables, and export changelogs for Claude Code.",
+  "version": "1.0.0",
+  "author": "Antigenic-OSS",
+  "homepage": "https://github.com/Antigenic-OSS/pAInt",
+  "skills": []
+}
