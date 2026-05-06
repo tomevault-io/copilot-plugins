@@ -1,0 +1,9 @@
+{
+  "name": "bobrware--bobrchat",
+  "displayName": "bobrchat",
+  "description": "A fast, minimal AI chat interface with support for multiple models",
+  "version": "1.0.0",
+  "author": "bobrware",
+  "homepage": "https://github.com/bobrware/bobrchat",
+  "skills": []
+}
