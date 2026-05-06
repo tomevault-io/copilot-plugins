@@ -1,479 +1,267 @@
 ## video-agent-skill
 
-> **⚠️ ALWAYS start with FREE tests before ANY paid content generation**
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# Development Guidelines for AI Content Generation
+# CLAUDE.md
 
-## CRITICAL: Cost Protection First
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**⚠️ ALWAYS start with FREE tests before ANY paid content generation**
+## Git Workflow Commands
 
-Every development workflow must begin with:
-1. **FREE environment tests** (`test_setup.py`)
-2. **FREE API connection tests** (`test_api_only.py` for video)
-3. **Only then proceed** to paid generation with explicit user confirmation
-
-## Project Architecture
-
-### Multi-Platform AI Content Generation
-This project provides comprehensive AI content generation capabilities:
-
-1. **Video Generation** (Google Veo + FAL AI Dual-Model)
-2. **Avatar Generation** (FAL AI Triple-Mode with lip-sync)
-3. **Text-to-Image Generation** (FAL AI Quad-Model)
-4. **Text-to-Speech Generation** (ElevenLabs TTS Package with modular architecture)
-
-### Directory Structure Standards
-```
-<content_type>_<platform>/
-├── <platform>_<content_type>_generator.py  # Main generator class
-├── demo.py                                 # Cost-conscious interactive demo
-├── test_setup.py                          # FREE environment validation
-├── test_<specific>.py                     # PAID generation tests
-├── requirements.txt                       # Dependencies
-├── .env                                   # API configuration
-├── README.md                              # Complete documentation
-├── output/                                # Generated content
-└── test_output/                           # Test-generated content
-```
-
-### Implementation Standards
-
-#### Generator Class Architecture
-All generator classes follow consistent patterns:
-```python
-class <Platform><ContentType>Generator:
-    def __init__(self, api_key: Optional[str] = None):
-        """Initialize with API key from .env or parameter"""
-        
-    def generate_<content_type>(self, **kwargs) -> Dict[str, Any]:
-        """Universal generation method with model/mode selection"""
-        
-    def generate_<content_type>_with_<specific_model>(self, **kwargs) -> Dict[str, Any]:
-        """Model-specific optimized methods"""
-        
-    def test_connection(self) -> bool:
-        """FREE API connectivity test"""
-```
-
-#### Cost-Conscious Testing Framework
-Every module must include:
-1. **FREE Tests**: Environment, dependencies, API connectivity
-2. **PAID Tests**: Actual content generation with cost warnings
-3. **Official Examples**: Documentation compliance (for avatar generation)
-4. **Interactive Demos**: User-friendly testing with cost confirmations
-
-## Implementation Patterns
-
-### FAL AI Video Generation (Dual-Model)
-**Location**: `fal_video_generation/`
-**Models**: MiniMax Hailuo-02, Kling Video 2.1
-**Key Features**: 
-- Universal methods with model selection
-- Model-specific optimization methods
-- Prompt optimization (Hailuo), CFG scale and negative prompts (Kling)
-
-```python
-# Universal interface with model selection
-generator.generate_video_from_image(
-    prompt="Description",
-    image_url="path/to/image.jpg",
-    model="hailuo",  # or "kling"
-    duration="6"
-)
-
-# Model-specific optimization
-generator.generate_video_with_hailuo(prompt_optimizer=True)
-generator.generate_video_with_kling(cfg_scale=0.7, negative_prompt="blur")
-```
-
-### FAL AI Avatar Generation (Triple-Mode)
-**Location**: `fal_avatar_generation/`
-**Modes**: Text-to-Speech, Audio-to-Avatar, Multi-Audio Conversation
-**Key Features**:
-- 20 voice options with official example compliance
-- Natural lip-sync and expression generation
-- Conversation support with seamless transitions
-- Official FAL AI example reproduction
-
-```python
-# Text-to-Speech Mode (20 voices available)
-generator.generate_avatar_video(
-    image_url="path/to/image.jpg",
-    text_input="Your text here",
-    voice="Bill",  # Official example default
-    num_frames=136,  # Official example frames
-    seed=42,  # Official example seed
-    turbo=True
-)
-
-# Audio-to-Avatar Mode
-generator.generate_avatar_from_audio(
-    image_url="path/to/image.jpg",
-    audio_url="path/to/audio.mp3",
-    num_frames=145  # Default for audio mode
-)
-
-# Multi-Audio Conversation Mode
-generator.generate_multi_avatar_conversation(
-    image_url="path/to/image.jpg",
-    first_audio_url="path/to/person1.mp3",
-    second_audio_url="path/to/person2.mp3",
-    num_frames=181  # Default for multi-audio mode
-)
-
-# Official Example Reproduction
-generator.generate_official_example()  # Exact documentation compliance
-```
-
-### FAL AI Text-to-Image Generation (Quad-Model)
-**Location**: `fal_text_to_image/`
-**Models**: Imagen4, Seedream, FLUX Schnell, FLUX Dev
-**Key Features**:
-- Batch generation with multiple models
-- Cost-conscious design with confirmation prompts
-- Dragon generation for testing scenarios
-
-```python
-# Single model generation
-generator.generate_image(
-    prompt="A beautiful dragon",
-    model="imagen4",
-    negative_prompt="blur, artifacts"
-)
-
-# Batch generation with multiple models
-generator.batch_generate(
-    prompt="A magical forest",
-    models=["imagen4", "flux_schnell"],
-    auto_confirm=False  # Cost confirmation required
-)
-```
-
-### ElevenLabs Text-to-Speech Generation (Modular Package)
-**Location**: `text_to_speech/`
-**Features**: Professional modular architecture, 3000+ voices, AI content pipeline
-**Key Benefits**: Clean imports, comprehensive TTS capabilities, OpenRouter AI integration
-
-```python
-# Professional modular imports
-from text_to_speech import ElevenLabsTTSController, VoiceSettings
-from text_to_speech.pipeline.core import OpenRouterTTSPipeline
-from text_to_speech.models.common import ElevenLabsModel
-
-# Basic TTS usage
-controller = ElevenLabsTTSController()
-result = controller.text_to_speech_with_timing_control(
-    text="Hello! This demonstrates voice and timing control.",
-    voice_name="rachel",
-    speed=1.0,
-    output_file="hello.mp3"
-)
-
-# AI content pipeline usage
-pipeline = OpenRouterTTSPipeline()
-result = pipeline.generate_content_and_speech(
-    person_description="A tech expert explaining AI",
-    desired_length_minutes=2,
-    model="claude_sonnet_4",
-    voice="rachel"
-)
-
-# Multi-speaker dialogue
-dialogue_result = controller.generate_dialogue([
-    {"text": "[cheerfully] Hello, how are you?", "voice": "aria"},
-    {"text": "[stuttering] I'm... I'm doing well", "voice": "paul"}
-])
-```
-
-### Google Veo Video Generation
-**Location**: `veo3_video_generation/`
-**Features**: High-resolution, complex setup with automated permission fixes
-**Key Benefit**: Automated permission configuration via `fix_permissions.py`
-
-## Cost Management Development Practices
-
-### Required Cost Protection Implementation
-
-#### 1. FREE Test Validation
-Every module MUST include comprehensive FREE tests:
-```python
-def test_environment_setup():
-    """Test dependencies, .env, and basic configuration - FREE"""
-    
-def test_api_connection():
-    """Test API connectivity without generation - FREE"""
-    
-def test_generator_initialization():
-    """Test class initialization and methods - FREE"""
-```
-
-#### 2. Cost-Conscious Paid Tests
-All paid content generation MUST include:
-```python
-def test_with_cost_warning():
-    """Always display cost warnings before paid operations"""
-    print("⚠️ WARNING: This test costs ~$X.XX")
-    confirm = input("Continue? (y/N): ")
-    if confirm.lower() != 'y':
-        return
-```
-
-#### 3. Model/Mode-Specific Testing
-Provide granular testing to minimize costs:
+**Always run after each successful implementation:**
 ```bash
-# Video Generation
-python test_fal_ai.py --hailuo     # Single model only
-python test_fal_ai.py --kling      # Single model only
-
-# Avatar Generation  
-python test_generation.py --voice Bill    # Single voice only
-python test_generation.py --audio         # Single mode only
-python test_generation.py --multi         # Single mode only
-
-# Text-to-Image Generation
-python test_generation.py --imagen4       # Single model only
-python test_generation.py --dragon        # Specific scenario only
+git add .
+git commit -m "descriptive commit message"
+git push origin main
 ```
 
-#### 4. Official Example Compliance (Avatar Generation)
-Avatar generation MUST include official example testing:
-```python
-def test_official_example():
-    """Test exact FAL AI documentation example for compliance"""
-    # Uses exact parameters from FAL AI documentation
-    # Ensures compatibility and reference implementation
-```
+## Project Overview
 
-## File Naming and Organization Standards
+This is the **AI Content Pipeline** - a unified Python package for multi-modal AI content generation.
 
-### Consistent File Naming
-- **Main Generator**: `<platform>_<content_type>_generator.py`
-- **FREE Tests**: `test_setup.py`
-- **Paid Tests**: `test_generation.py` or `test_<specific>.py`
-- **Official Examples**: `test_official_example.py` (avatar only)
-- **API-Only Tests**: `test_api_only.py` (video only)
-- **Interactive Demo**: `demo.py`
-- **Documentation**: `README.md`
+- **Unified Interface**: Single package with console commands `ai-content-pipeline` and `aicp`
+- **73 AI models across 12 categories** — see [Models Reference](docs/reference/models.md)
+- **Central Model Registry**: Single source of truth in `registry.py` + `registry_data.py`
+- **Click-based CLI**: All commands use Click framework, vimax available as `aicp vimax` subgroup
+- **Unix-style flags**: `--json`, `--quiet`, `--stream`, `--input` for scripting and CI
+- **YAML Configuration**: Multi-step content generation workflows
+- **Parallel Execution**: 2-3x speedup with `PIPELINE_PARALLEL_ENABLED=true`
 
-### Directory Organization
-Each platform/content type gets its own directory:
-```
-veo3/
-├── fal_video_generation/      # FAL AI video (dual-model)
-├── fal_avatar_generation/     # FAL AI avatar (triple-mode)  
-├── fal_text_to_image/         # FAL AI text-to-image (quad-model)
-├── text_to_speech/            # ElevenLabs TTS package (modular architecture)
-├── veo3_video_generation/     # Google Veo video
-└── video_tools/               # Video processing utilities with .gitignore
-```
+## Environment Setup
 
-## API Design Standards
-
-### Response Structure Consistency
-All generators return consistent response structures:
-```python
-{
-    'content': {                    # 'video', 'image', etc.
-        'url': 'https://...',
-        'file_name': 'output.ext',
-        'file_size': 1234567
-    },
-    'generation_time': 15.42,       # Generation duration in seconds
-    'parameters': {                 # Original generation parameters
-        'prompt': '...',
-        'model': '...',             # or 'voice', 'mode', etc.
-        # ... other parameters
-    },
-    'local_path': 'output/file.ext' # If downloaded locally
-}
-```
-
-### Error Handling Standards
-Implement comprehensive error handling:
-```python
-try:
-    result = generate_content(**params)
-except APIKeyError:
-    logger.error("Invalid or missing API key")
-    return None
-except ValidationError as e:
-    logger.error(f"Parameter validation failed: {e}")
-    return None
-except NetworkError as e:
-    logger.error(f"Network error: {e}")
-    # Implement retry logic
-except Exception as e:
-    logger.error(f"Unexpected error: {e}")
-    return None
-```
-
-## Interactive Demo Standards
-
-### Required Demo Features
-Every demo must include:
-1. **Cost warnings** displayed prominently
-2. **Model/mode selection** with cost estimates
-3. **Confirmation prompts** before paid operations
-4. **Official example options** (for avatar generation)
-5. **User-friendly menus** with clear cost indicators
-
-### Demo Menu Template
-```python
-def display_menu():
-    print(f"🎬 {PLATFORM} {CONTENT_TYPE} Generation Demo")
-    print(f"💰 COST WARNING: Each generation costs ~$X.XX")
-    print("=" * 50)
-    print("1. Option 1 (~$X.XX)")
-    print("2. Option 2 (~$X.XX)")
-    print("3. Comparison (~$X.XX) ⚠️ EXPENSIVE")
-    print("4. Official Example (~$X.XX) 📋 RECOMMENDED")  # Avatar only
-    print("5. Exit")
-```
-
-## Testing Strategy Development
-
-### Test Suite Architecture
-Each module follows a consistent testing hierarchy:
-
-1. **Level 1 - FREE Setup Tests** (`test_setup.py`)
-   - Environment validation
-   - Dependency checking
-   - API connectivity (no generation)
-   - Class initialization
-
-2. **Level 2 - Official Example Tests** (`test_official_example.py` - avatar only)
-   - Exact documentation compliance
-   - Reference implementation validation
-   - Parameter verification
-
-3. **Level 3 - Single Model/Mode Tests** (`test_generation.py` with flags)
-   - Individual model/mode testing
-   - Cost-conscious generation
-   - Parameter validation
-
-4. **Level 4 - Comparison Tests** (expensive, use sparingly)
-   - Multi-model/mode comparison
-   - Higher costs, explicit confirmation required
-
-### Development Testing Workflow
+### Python Virtual Environment (Required)
 ```bash
-# 1. Always start with FREE tests
-python test_setup.py
+# Create and activate virtual environment (run from project root)
+python3 -m venv venv
+source venv/bin/activate  # Linux/Mac
+# or venv\Scripts\activate  # Windows
 
-# 2. For avatar generation, test official examples
-python test_official_example.py  # With user confirmation
-
-# 3. Test individual models/modes  
-python test_generation.py --<specific_flag>  # With user confirmation
-
-# 4. Only use comparison tests when specifically needed
-python test_generation.py --compare  # With explicit cost warnings
+# Install all dependencies from root
+pip install -e .
+# or: pip install -r requirements.txt
 ```
 
-## Documentation Standards
+**Memory**: Virtual environment at project root `venv/`. Always activate before running scripts (`venv\Scripts\activate` on Windows, `source venv/bin/activate` on Linux/Mac).
 
-### README.md Requirements
-Every module README must include:
-1. **Feature overview** with supported models/modes
-2. **Quick start** with official examples
-3. **Cost information** with detailed pricing
-4. **FREE testing instructions** prominently featured
-5. **API reference** with code examples
-6. **Cost protection warnings** throughout
+## Common Commands
 
-### Code Documentation Standards
-```python
-def generate_content(
-    prompt: str,
-    model: str = "default",
-    **kwargs
-) -> Dict[str, Any]:
-    """
-    Generate content using specified model
-    
-    Args:
-        prompt: Text description of desired content
-        model: Model to use for generation  
-        **kwargs: Additional model-specific parameters
-        
-    Returns:
-        Dictionary containing content URL, metadata, and local path
-        
-    Cost:
-        ~$X.XX per generation
-        
-    Example:
-        >>> result = generator.generate_content("A beautiful sunset")
-        >>> print(result['content']['url'])
-    """
+### CLI Commands
+```bash
+# List available AI models
+aicp list-models
+
+# Generate single image
+aicp generate-image --text "A beautiful sunset" --model flux_dev
+
+# Create video from text (text -> image -> video)
+aicp create-video --text "A beautiful sunset"
+
+# Run pipeline from YAML config
+aicp run-chain --config input/pipelines/config.yaml
+
+# Run with parallel execution (2-3x speedup)
+PIPELINE_PARALLEL_ENABLED=true aicp run-chain --config config.yaml
+
+# Analyze video with AI (Gemini 3 Pro via FAL)
+aicp analyze-video -i video.mp4
+
+# Generate avatar with lip-sync
+aicp generate-avatar --image-url "https://..." --audio-url "https://..."
+
+# Transcribe audio
+aicp transcribe --input audio.mp3
+
+# Generate image grid
+aicp generate-grid --text "mountain landscape" --layout 2x2
+
+# Upscale image
+aicp upscale-image --image photo.png --upscale 2
+
+# Transfer motion from video to image
+aicp transfer-motion --image-url "https://..." --video-url "https://..."
+
+# Novel-to-video pipeline (vimax subgroup)
+aicp vimax idea2video --idea "A samurai's journey at sunrise"
+aicp vimax novel2movie --novel novel.txt --storyboard-only
+
+# JSON output for scripting
+aicp list-models --json | jq '.text_to_video[]'
 ```
 
-## Performance and Optimization Guidelines
+See [CLI Reference](docs/reference/cli-commands.md) for full command documentation.
 
-### Content Generation Optimization
-1. **Use model-specific methods** for optimized parameters
-2. **Implement caching** to avoid regeneration
-3. **Batch operations** when supported
-4. **Appropriate timeouts** for generation requests (2-5 minutes)
-5. **Local download and storage** for repeated access
+### Testing Commands
+```bash
+# Run full pytest suite (~844 tests)
+python -m pytest tests/ -v
 
-### Development Performance
-1. **Always start with FREE tests** to avoid unnecessary costs
-2. **Use single model/mode flags** during development
-3. **Cache test results** to avoid repeated generation
-4. **Monitor API rate limits** and implement backoff
+# Registry tests only
+python -m pytest tests/test_registry.py tests/test_registry_data.py tests/test_auto_discovery.py -v
 
-### Cost Optimization Strategies
-1. **Minimize comparison testing** during development
-2. **Use official examples** as starting points
-3. **Test parameter ranges** with single generations first
-4. **Implement cost tracking** in development workflows
+# Click CLI tests
+python -m pytest tests/test_click_app.py tests/test_main_cli_flags.py -v
 
-## Quality Assurance Standards
+# Quick smoke tests
+python tests/test_core.py
 
-### Code Quality Requirements
-1. **Type hints** for all public methods
-2. **Comprehensive error handling** with specific exceptions
-3. **Logging** for debugging and monitoring
-4. **Unit tests** for utility functions
-5. **Integration tests** with cost protection
+# Validate registry consistency
+python scripts/validate_registry.py
+```
 
-### Content Quality Validation
-1. **Generated content verification** (file size, format, accessibility)
-2. **Parameter validation** before API calls
-3. **Response structure validation**
-4. **Error recovery mechanisms**
+## Architecture
 
-### User Experience Standards
-1. **Clear cost communication** throughout interfaces
-2. **Intuitive model/mode selection**
-3. **Helpful error messages** with resolution guidance
-4. **Progress indicators** for long-running operations
-5. **Cancellation options** before charges occur
+### Package Structure
+```
+ai-content-pipeline/
+├── packages/
+│   ├── core/
+│   │   ├── ai_content_pipeline/     # Main pipeline + central registry + Click CLI
+│   │   │   ├── registry.py          # ModelDefinition + ModelRegistry (source of truth)
+│   │   │   ├── registry_data.py     # All 73 model registrations
+│   │   │   ├── _version.py          # Single source of truth for version
+│   │   │   └── cli/                 # Click CLI (click_app.py + commands/)
+│   │   └── ai_content_platform/     # Platform framework + vimax subgroup (aicp vimax)
+│   ├── providers/
+│   │   ├── google/veo/              # Google Veo integration
+│   │   └── fal/                     # FAL AI services
+│   │       ├── text-to-image/       # Image generation (8 models)
+│   │       ├── image-to-image/      # Image transformation (8 models)
+│   │       ├── text-to-video/       # Video generation (10 models)
+│   │       ├── image-to-video/      # Image-to-video (15 models)
+│   │       ├── video-to-video/      # Video-to-video (4 models)
+│   │       ├── avatar-generation/   # Avatar creation (10 models)
+│   │       └── speech-to-text/      # Speech transcription (1 model)
+│   └── services/
+│       ├── text-to-speech/          # ElevenLabs TTS
+│       └── video-tools/             # Video processing
+├── scripts/                         # Validation scripts
+├── input/                           # Configuration files
+├── output/                          # Generated content
+├── tests/                           # Test suites (pytest, ~844 tests)
+├── docs/                            # Documentation (see docs/index.md)
+└── setup.py                         # Package installation
+```
 
-## Deployment and Production Considerations
+See [Architecture Overview](docs/reference/architecture.md) and [Package Structure](docs/reference/package-structure.md) for details.
 
-### Environment Configuration
-1. **Secure API key management** (.env files, environment variables)
-2. **Proper dependency isolation** (requirements.txt, virtual environments)
-3. **Configuration validation** on startup
-4. **Graceful degradation** when services unavailable
+### Key Architecture Points
+- **Central Model Registry**: `registry.py` + `registry_data.py` — single source of truth for all model metadata
+- **Auto-Discovery**: Generator classes use `MODEL_KEY` class attributes for automatic model registration
+- **Click CLI**: Root group in `cli/click_app.py`, commands in `cli/commands/` (6 modules, ~19 commands + vimax)
+- **Version**: Single source of truth in `_version.py`, read by both `setup.py` and `__init__.py`
 
-### Production Monitoring
-1. **Cost tracking** and alerting
-2. **API rate limit monitoring**
-3. **Generation success/failure rates**
-4. **Performance metrics** (generation times, file sizes)
+## Configuration Requirements
 
-### Scaling Considerations
-1. **Async processing** for multiple generations
-2. **Queue management** for batch operations
-3. **Storage management** for generated content
-4. **Load balancing** across API endpoints
+### Package Installation
+```bash
+pip install -e .
+```
 
-This comprehensive development framework ensures consistent, cost-conscious, and user-friendly AI content generation across all platforms and content types.
+### Environment Variables
+Configure a single root `.env` file:
+```
+FAL_KEY=your_fal_api_key                    # Required for most models
+GEMINI_API_KEY=your_gemini_api_key          # Image understanding, video analysis
+OPENROUTER_API_KEY=your_openrouter_api_key  # Prompt generation, ViMax LLM calls
+ELEVENLABS_API_KEY=your_elevenlabs_api_key  # TTS and speech-to-text
+```
+
+### Google Cloud Setup (for Veo models only)
+```bash
+gcloud auth login
+gcloud auth application-default login
+gcloud config set project your-project-id
+```
+
+## Testing Strategy
+
+### Test Structure
+- **`tests/test_registry.py`** - Central registry unit tests
+- **`tests/test_registry_data.py`** - Registry data validation tests
+- **`tests/test_auto_discovery.py`** - Model auto-discovery tests
+- **`tests/test_click_app.py`** - Click CLI tests
+- **`tests/test_main_cli_flags.py`** - Unix-style flag tests
+- **`tests/test_t2v_cli_click.py`** - Text-to-video Click CLI tests
+- **`tests/test_i2v_cli_click.py`** - Image-to-video Click CLI tests
+- **`tests/test_core.py`** - Quick smoke tests
+- **`tests/test_integration.py`** - Comprehensive integration tests
+- **`tests/unit/`** - Unit tests for pipeline, vimax, and utilities
+
+## Documentation
+
+Detailed documentation lives in `docs/`. Key references:
+- [Models Reference](docs/reference/models.md) - All 73 AI models with pricing
+- [CLI Reference](docs/reference/cli-commands.md) - Full command documentation
+- [Cost Management](docs/guides/optimization/cost-management.md) - Pricing and optimization
+- [YAML Pipelines](docs/guides/pipelines/yaml-pipelines.md) - Custom workflow configuration
+- [Full Documentation Index](docs/index.md) - Complete docs sitemap
+
+## Project Development Guidelines
+
+### Code Structure & Modularity
+- **Never create a file longer than 500 lines of code.** If a file approaches this limit, refactor by splitting it into modules or helper files.
+- **Organize code into clearly separated modules**, grouped by feature or responsibility.
+  For agents this looks like:
+    - `agent.py` - Main agent definition and execution logic
+    - `tools.py` - Tool functions used by the agent
+    - `prompts.py` - System prompts
+- **Use clear, consistent imports** (prefer relative imports within packages).
+- **Use python_dotenv and load_env()** for environment variables.
+
+### Testing & Reliability
+- **Always create Pytest unit tests for new features** (functions, classes, routes, etc).
+- **After updating any logic**, check whether existing unit tests need to be updated. If so, do it.
+- **Tests should live in a `/tests` folder** mirroring the main app structure.
+  - Include at least:
+    - 1 test for expected use
+    - 1 edge case
+    - 1 failure case
+- **Write ONE test file per task** focusing on core functionality only.
+- **Test only the most critical features** - avoid over-testing edge cases.
+- **Keep tests simple and fast** - complex integration tests slow development.
+
+### PyPI Publishing
+- **Build package**: `python -m build` (creates dist/ folder)
+- **Check quality**: `twine check dist/*`
+- **Publish to PyPI**: `twine upload dist/* --username __token__ --password $PYPI_API_TOKEN`
+- **Version**: Update in `packages/core/ai_content_pipeline/ai_content_pipeline/_version.py`
+- **Install published**: `pip install video-ai-studio`
+- **PyPI URL**: https://pypi.org/project/video-ai-studio/
+
+### Task Completion
+- Track tasks via GitHub Issues and PRs.
+- Add new sub-tasks or TODOs discovered during development as GitHub issues.
+
+### Style & Conventions
+- **Use Python** as the primary language.
+- **Follow PEP8**, use type hints, and format with `black`.
+- **Use `pydantic` for data validation**.
+- Use `FastAPI` for APIs and `SQLAlchemy` or `SQLModel` for ORM if applicable.
+- Write **docstrings for every function** using the Google style:
+  ```python
+  def example():
+      """
+      Brief summary.
+
+      Args:
+          param1 (type): Description.
+
+      Returns:
+          type: Description.
+      """
+  ```
+
+### Documentation & Explainability
+- **Update `README.md`** when new features are added, dependencies change, or setup steps are modified.
+- **Comment non-obvious code** and ensure everything is understandable to a mid-level developer.
+- When writing complex logic, **add an inline `# Reason:` comment** explaining the why, not just the what.
+
+### AI Behavior Rules
+- **Never assume missing context. Ask questions if uncertain.**
+- **Never hallucinate libraries or functions** – only use known, verified Python packages.
+- **Always confirm file paths and module names** exist before referencing them in code or tests.
+- **Never delete or overwrite existing code** unless explicitly instructed to.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/donghaozhang) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [donghaozhang/video-agent-skill](https://github.com/donghaozhang/video-agent-skill) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-06 -->
