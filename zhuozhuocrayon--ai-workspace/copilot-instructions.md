@@ -1,23 +1,15 @@
-## git
+## go-dev
 
-> Git 提交规范
+> Go 开发环境规范
 
 
-# Git 提交规范
+# Go 开发环境
 
-## 0x01 Commit Message 格式
+## 0x01 版本管理
 
-- 遵循 Conventional Commits。
-- Scope 使用工作区约定：`knowledge`、`skill`、`project`、`issue`、`rules`。
-
-## 0x02 提交策略
-
-- 当用户说"提交工作区变更"时，默认按变更主题拆分多个 commit，而不是合并成一个 commit。
-- 分类优先按"为什么要改"分组，例如：`docs/rules`、`feat/skill`、`ci/tooling`、`chore/workspace`。
-- 若工作区内存在来自不同会话的改动，但用户明确要求一起提交，可继续分类提交；否则先确认范围。
-- 提交前先查看 `git status`、`git diff HEAD`、`git log`，再起草分组方案和 commit message。
-- 同一 commit 只保留一个明确主题，避免把规则、脚本、知识文档和配置混在一起。
-- 若某一组改动不足以单独成 commit，可并入最接近主题的一组，但不能跨主题硬拼。
+- 系统安装了 gvm（Go Version Manager），当项目所需 Go 版本与系统默认版本不一致时，使用 `gvm` 切换到目标版本
+- 用法：`source ~/.gvm/scripts/gvm && gvm use <version>`，版本号从项目 `go.mod` 第一行读取
+- **禁止因版本不匹配就跳过编译或测试**，必须先尝试用 gvm 切换
 
 ---
 > Source: [ZhuoZhuoCrayon/ai-workspace](https://github.com/ZhuoZhuoCrayon/ai-workspace) — distributed by [TomeVault](https://tomevault.io).
