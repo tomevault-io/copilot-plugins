@@ -4,7 +4,7 @@
   "repo": "codex-tax-man",
   "description": "Runloop's AI TaxMan Project: an agent development starter that uses Codex & W&B Weave to process tax forms. Watch YouTube series: https://youtu.be/an7OMH_i8DU",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/runloopai/codex-tax-man",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T22:12:48Z"
+  "distributed_at": "2026-05-06T23:37:20Z"
 }
