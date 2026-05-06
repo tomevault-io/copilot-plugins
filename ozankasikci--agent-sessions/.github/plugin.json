@@ -1,0 +1,9 @@
+{
+  "name": "ozankasikci--agent-sessions",
+  "displayName": "agent-sessions",
+  "description": "Agent Sessions is a desktop app for managing multiple AI agent sessions at once, written in Rust.",
+  "version": "1.0.0",
+  "author": "ozankasikci",
+  "homepage": "https://github.com/ozankasikci/agent-sessions",
+  "skills": []
+}
