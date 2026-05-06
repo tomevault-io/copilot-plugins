@@ -1,25 +1,15 @@
-## backend-saas-api-standards
+## context-autopick
 
-> Padrões de APIs backend (Clean Architecture + segurança + tenant_id quando aplicável)
+> Auto-seleciona abordagem (backend, integrações, UX/UI) pelo contexto do pedido
 
 
-# Backend SaaS API Standards
+# Auto-direcionamento de abordagem
 
-Ao trabalhar com rotas/handlers HTTP e lógica de backend em TypeScript (Express ou similar), siga Clean Architecture:
+Ao responder, escolha a abordagem conforme o contexto do pedido (sem que o usuário precise “ativar” manualmente):
 
-- `controller`: valida/normaliza input e monta resposta; chama `service`.
-- `service`: regra de negócio, autorizações, transações e orquestração.
-- `repository`: acesso a dados (queries/ORM) sem lógica de negócio.
-
-Segurança e robustez:
-
-- Trate erros corretamente (400/401/403/404/409/500) e nunca exponha detalhes sensíveis.
-- Valide todas as entradas antes de chamar `service`/`repository`.
-
-Multi-tenant (se existir `tenant_id` no domínio):
-
-- Propague `tenant_id` do controller para service e repository.
-- Garanta isolamento: todas leituras/escritas devem filtrar por `tenant_id` ou validar pertencimento antes de mutar.
+- Se o pedido envolver integração com APIs externas (bancos, CRMs, gateways, webhooks, HTTP via `fetch/axios`, SDKs de terceiros), aplique as diretrizes de integrações resilientes: adapters/client/gateway, retry com backoff+jitter, timeouts, logs sem segredos e tratamento de falhas com fallback quando necessário.
+- Se o pedido envolver criação/refatoração de endpoints e arquitetura backend (Express/rotas em TypeScript, controllers/services/repositories), aplique as diretrizes de Clean Architecture e segurança.
+- Se o pedido envolver UI/UX (HTML/CSS/JS, telas, layout, responsividade), aplique as diretrizes de UX/UI SaaS: clareza, acessibilidade e performance.
 
 ---
 > Source: [walkup-tec/waba](https://github.com/walkup-tec/waba) — distributed by [TomeVault](https://tomevault.io).
