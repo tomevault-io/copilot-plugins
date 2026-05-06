@@ -1,0 +1,14 @@
+{
+  "name": "cazala--party",
+  "displayName": "party",
+  "description": "webgpu particle system and physics engine with realtime playground",
+  "version": "1.0.0",
+  "author": "cazala",
+  "homepage": "https://github.com/cazala/party",
+  "skills": [
+    {
+      "name": "skill",
+      "description": ""
+    }
+  ]
+}
