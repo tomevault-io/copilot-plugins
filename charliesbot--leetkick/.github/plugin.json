@@ -1,0 +1,9 @@
+{
+  "name": "charliesbot--leetkick",
+  "displayName": "leetkick",
+  "description": "A modern TypeScript CLI tool for scaffolding LeetCode exercises with language-specific testing setups.",
+  "version": "1.0.0",
+  "author": "charliesbot",
+  "homepage": "https://github.com/charliesbot/leetkick",
+  "skills": []
+}
