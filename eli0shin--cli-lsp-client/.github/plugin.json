@@ -1,0 +1,14 @@
+{
+  "name": "eli0shin--cli-lsp-client",
+  "displayName": "cli-lsp-client",
+  "description": "CLI tool for getting LSP diagnostics via background daemon",
+  "version": "1.0.0",
+  "author": "eli0shin",
+  "homepage": "https://github.com/eli0shin/cli-lsp-client",
+  "skills": [
+    {
+      "name": "changeset",
+      "description": ""
+    }
+  ]
+}
