@@ -7,11 +7,11 @@ Prism is a SwiftUI menu bar companion that organizes Claude-compatible API servi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [okooo5km/Prism](https://github.com/okooo5km/Prism).
+Original source: `CLAUDE.md` in [okooo5km/Prism](https://github.com/okooo5km/Prism).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
