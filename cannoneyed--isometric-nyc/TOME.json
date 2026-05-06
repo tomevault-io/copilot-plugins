@@ -4,7 +4,7 @@
   "repo": "isometric-nyc",
   "description": "AI-generated isometric pixel art map of NYC",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/cannoneyed/isometric-nyc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-26T15:49:19Z"
+  "distributed_at": "2026-05-06T02:42:18Z"
 }
