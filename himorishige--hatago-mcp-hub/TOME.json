@@ -1,0 +1,44 @@
+{
+  "name": "hatago-mcp-hub",
+  "owner": "himorishige",
+  "repo": "hatago-mcp-hub",
+  "description": "Hatago MCP Hub is a lightweight hub server that provides unified management for multiple MCP servers.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/himorishige/hatago-mcp-hub",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T10:42:32Z"
+}
