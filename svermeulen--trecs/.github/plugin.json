@@ -1,0 +1,9 @@
+{
+  "name": "svermeulen--trecs",
+  "displayName": "trecs",
+  "description": "ECS framework for Unity with full game state serialization, input recording/playback, and Burst/Jobs support",
+  "version": "1.0.0",
+  "author": "svermeulen",
+  "homepage": "https://github.com/svermeulen/trecs",
+  "skills": []
+}
