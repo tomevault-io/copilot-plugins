@@ -1,0 +1,9 @@
+{
+  "name": "agent-field--plandb",
+  "displayName": "plandb",
+  "description": "The issue tracker your AI agents are missing. Think Linear or Jira, but for your Claude Code..",
+  "version": "1.0.0",
+  "author": "Agent-Field",
+  "homepage": "https://github.com/Agent-Field/plandb",
+  "skills": []
+}
