@@ -1,0 +1,9 @@
+{
+  "name": "nex-agi--nexau",
+  "displayName": "NexAU",
+  "description": "NexAU (AU for Agent Universe), a general-purpose agent framework for building intelligent agents with tool capabilities.",
+  "version": "1.0.0",
+  "author": "nex-agi",
+  "homepage": "https://github.com/nex-agi/NexAU",
+  "skills": []
+}
