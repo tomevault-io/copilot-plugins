@@ -1,0 +1,14 @@
+{
+  "name": "modelcontextprotocol--conformance",
+  "displayName": "conformance",
+  "description": "Conformance Tests for MCP",
+  "version": "1.0.0",
+  "author": "modelcontextprotocol",
+  "homepage": "https://github.com/modelcontextprotocol/conformance",
+  "skills": [
+    {
+      "name": "mcp-sdk-tier-audit",
+      "description": ""
+    }
+  ]
+}
