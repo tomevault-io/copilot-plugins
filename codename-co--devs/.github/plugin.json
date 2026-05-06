@@ -1,0 +1,62 @@
+{
+  "name": "codename-co--devs",
+  "displayName": "devs",
+  "description": "Delegate complex tasks to AI teams with this browser-based orchestration platform that reproduces real organizational methodologies.",
+  "version": "1.0.0",
+  "author": "codename-co",
+  "homepage": "https://github.com/codename-co/devs",
+  "skills": [
+    {
+      "name": "agent-definition",
+      "description": ""
+    },
+    {
+      "name": "connector-generation",
+      "description": ""
+    },
+    {
+      "name": "e2e-testing",
+      "description": ""
+    },
+    {
+      "name": "feature-development",
+      "description": ""
+    },
+    {
+      "name": "i18n-translation",
+      "description": ""
+    },
+    {
+      "name": "indexeddb-operations",
+      "description": ""
+    },
+    {
+      "name": "knowledge-base-management",
+      "description": ""
+    },
+    {
+      "name": "llm-service-integration",
+      "description": ""
+    },
+    {
+      "name": "orchestration-workflow",
+      "description": ""
+    },
+    {
+      "name": "react-component-development",
+      "description": ""
+    },
+    {
+      "name": "tdd-testing",
+      "description": ""
+    },
+    {
+      "name": "tool-generation",
+      "description": ""
+    },
+    {
+      "name": "zustand-store-development",
+      "description": ""
+    }
+  ]
+}
