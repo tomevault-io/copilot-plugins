@@ -1,57 +1,38 @@
-## agent-behavior
+## backend
 
-> Agent workflow orchestration, task management, and core principles for all interactions
+> Java backend — Spring Boot server, Maven modules, key packages, entry points, and build commands
 
+# Backend — `app/server/`
 
-# Agent Behavior
+- **Stack:** Java 17, Spring Boot 3.x (Reactive WebFlux), MongoDB
+- **Build:** Maven (`pom.xml`) — run with `mvn` or `./mvnw`
+- **Entry point:** `appsmith-server/src/main/java/com/appsmith/server/ServerApplication.java`
 
-## Workflow Orchestration
-### 1. Plan Node Default
-- Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
-- If something goes sideways, STOP and re-plan immediately - don't keep pushing
-- Use plan mode for verification steps, not just building
-- Use subagents to build in plan mode when tasks are independent
-- Write detailed specs upfront to reduce ambiguity
-### 2. Subagent Strategy
-- Use subagents liberally to keep main context window clean
-- Offload research, exploration, and parallel analysis to subagents
-- For complex problems, throw more compute at it via subagents
-- One tack per subagent for focused execution
-### 3. Self-Improvement Loop
-- After ANY correction from the user: update `.cursor/lessons.md` with the pattern
-- Add the learning in `.claude/lessons.md` incrementally
-- Write rules for yourself that prevent the same mistake
-- Ruthlessly iterate on these lessons until mistake rate drops
-- Review lessons at session start for relevant project
-### 4. Verification Before Done
-- Never mark a task complete without proving it works
-- Diff behavior between main and your changes when relevant
-- Ask yourself: "Would a staff engineer approve this?"
-- Run tests, check logs, demonstrate correctness
-### 5. Demand Elegance (Balanced)
-- For non-trivial changes: pause and ask "is there a more elegant way?"
-- If a fix feels hacky: "Knowing everything I know now, implement the elegant solution"
-- Skip this for simple, obvious fixes - don't over-engineer
-- Challenge your own work before presenting it
-### 6. Autonomous Bug Fixing
-- When given a bug report: just fix it. Don't ask for hand-holding
-- Point at logs, errors, failing tests - then resolve them
-- Zero context switching required from the user
-- Go fix failing CI tests without being told how
-### 7. Optimize tokens
-- Use Programmatic tool calling liberally wherever possible (i.e. code execution)
-## Task Management
-1. **Plan First**: Write plan to `.cursor/todo.md` with checkable items
-2. **Verify Plan**: Check in before starting implementation
-3. **Track Progress**: Mark items complete as you go
-4. **Explain Changes**: High-level summary at each step
-5. **Document Results**: Add review section to `.cursor/todo.md`
-6. **Capture Lessons**: Update `.cursor/lessons.md` after corrections
-## Core Principles
-- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
-- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
-- **No Trigger Happy**: Don't start write actions and long plans without confirming intent from user explicitly
-- **Minimat Impact**: Changes should only touch what's necessary. Avoid introducing bugs.
+## Maven Modules
+
+| Module | Purpose |
+|---|---|
+| `appsmith-server` | Core app — controllers, services, domains, repositories, migrations, Git, exports/imports |
+| `appsmith-interfaces` | Shared DTOs, models, constants, plugin interfaces (contract layer) |
+| `appsmith-plugins` | ~28 datasource plugins (Postgres, Mongo, MySQL, REST API, GraphQL, S3, Snowflake, Redis, Oracle, Google Sheets, OpenAI, Anthropic, etc.) |
+| `appsmith-git` | Git integration — file handlers, converters, services for app version control |
+| `appsmith-ai` | AI features module |
+| `reactive-caching` | Custom reactive caching library |
+
+## Key Packages
+
+`controllers/`, `services/`, `domains/`, `repositories/`, `dtos/`, `configurations/`, `git/`, `authentication/`, `exports/`, `imports/`, `workflows/`, `modules/`, `migrations/`
+
+## EE Pattern
+
+Community and enterprise code coexist. Look for `ce/` and `ee/` sub-packages within each module. Enterprise logic extends or overrides CE implementations.
+
+## Testing
+
+- **Framework:** JUnit
+- **Unit tests:** `**/*Test.java`
+- **Integration tests:** `**/*IntegrationTest.java`
+- **Style check:** Spotless (`./mvnw spotlessCheck`)
 
 ---
 > Source: [tunacosgun/lowcode-studio](https://github.com/tunacosgun/lowcode-studio) — distributed by [TomeVault](https://tomevault.io).
