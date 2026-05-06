@@ -1,0 +1,22 @@
+{
+  "name": "basher83--zammad-mcp",
+  "displayName": "Zammad-MCP",
+  "description": "A Model Context Protocol (MCP) server for Zammad integration, enabling AI assistants to interact with tickets, users, and organizations.",
+  "version": "1.0.0",
+  "author": "basher83",
+  "homepage": "https://github.com/basher83/Zammad-MCP",
+  "skills": [
+    {
+      "name": "git-commit-helper",
+      "description": ""
+    },
+    {
+      "name": "mcp-builder",
+      "description": ""
+    },
+    {
+      "name": "zammad-mcp-quality",
+      "description": ""
+    }
+  ]
+}
