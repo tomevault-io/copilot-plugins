@@ -1,0 +1,81 @@
+{
+  "name": "review-and-assessment-powered-by-intelligent-documentation",
+  "owner": "aws-samples",
+  "repo": "review-and-assessment-powered-by-intelligent-documentation",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "build-and-format",
+      "path": ".claude/skills/build-and-format",
+      "github_url": "https://github.com/aws-samples/review-and-assessment-powered-by-intelligent-documentation/tree/main/.claude/skills/build-and-format",
+      "description": ""
+    },
+    {
+      "name": "deploy-cdk-stack",
+      "path": ".claude/skills/deploy-cdk-stack",
+      "github_url": "https://github.com/aws-samples/review-and-assessment-powered-by-intelligent-documentation/tree/main/.claude/skills/deploy-cdk-stack",
+      "description": ""
+    },
+    {
+      "name": "modify-agent-prompts",
+      "path": ".claude/skills/modify-agent-prompts",
+      "github_url": "https://github.com/aws-samples/review-and-assessment-powered-by-intelligent-documentation/tree/main/.claude/skills/modify-agent-prompts",
+      "description": ""
+    },
+    {
+      "name": "plan-backend-frontend",
+      "path": ".claude/skills/plan-backend-frontend",
+      "github_url": "https://github.com/aws-samples/review-and-assessment-powered-by-intelligent-documentation/tree/main/.claude/skills/plan-backend-frontend",
+      "description": ""
+    },
+    {
+      "name": "test-database-feature",
+      "path": ".claude/skills/test-database-feature",
+      "github_url": "https://github.com/aws-samples/review-and-assessment-powered-by-intelligent-documentation/tree/main/.claude/skills/test-database-feature",
+      "description": ""
+    },
+    {
+      "name": "ui-css-patterns",
+      "path": ".claude/skills/ui-css-patterns",
+      "github_url": "https://github.com/aws-samples/review-and-assessment-powered-by-intelligent-documentation/tree/main/.claude/skills/ui-css-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/aws-samples/review-and-assessment-powered-by-intelligent-documentation",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T19:35:05Z"
+}
