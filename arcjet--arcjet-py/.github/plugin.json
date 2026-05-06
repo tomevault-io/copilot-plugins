@@ -1,0 +1,9 @@
+{
+  "name": "arcjet--arcjet-py",
+  "displayName": "arcjet-py",
+  "description": "Arcjet Python SDK. Stop bots and automated attacks from burning your AI budget, leaking data, or misusing tools with Arcjet's AI security building blocks.",
+  "version": "1.0.0",
+  "author": "arcjet",
+  "homepage": "https://github.com/arcjet/arcjet-py",
+  "skills": []
+}
