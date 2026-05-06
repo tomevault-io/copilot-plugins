@@ -4,7 +4,7 @@
   "repo": "go-agent-skills",
   "description": "Curated AI agent skills for Go projects.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/eduardo-sl/go-agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T08:09:31Z"
+  "distributed_at": "2026-05-06T11:07:17Z"
 }
