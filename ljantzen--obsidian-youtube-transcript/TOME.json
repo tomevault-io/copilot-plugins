@@ -4,7 +4,7 @@
   "repo": "obsidian-youtube-transcript",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ljantzen/obsidian-youtube-transcript",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T19:54:52Z"
+  "distributed_at": "2026-05-06T10:54:14Z"
 }
