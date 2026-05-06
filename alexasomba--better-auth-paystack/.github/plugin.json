@@ -1,0 +1,9 @@
+{
+  "name": "alexasomba--better-auth-paystack",
+  "displayName": "better-auth-paystack",
+  "description": "A TypeScript-first plugin that integrates Paystack into Better Auth, enabling seamless customer creation, secure checkout, webhook verification, and native subscription flows. Designed for modern fram",
+  "version": "1.0.0",
+  "author": "alexasomba",
+  "homepage": "https://github.com/alexasomba/better-auth-paystack",
+  "skills": []
+}
