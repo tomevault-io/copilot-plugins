@@ -1,0 +1,22 @@
+{
+  "name": "shawnduggan--nova",
+  "displayName": "nova",
+  "description": "Nova - AI plugin for Obsidian that edits your documents directly through natural conversation. Stop copying from chat, start collaborating with AI.",
+  "version": "1.0.0",
+  "author": "shawnduggan",
+  "homepage": "https://github.com/shawnduggan/nova",
+  "skills": [
+    {
+      "name": "nova-codebase",
+      "description": ""
+    },
+    {
+      "name": "nova-patterns",
+      "description": ""
+    },
+    {
+      "name": "obsidian",
+      "description": ""
+    }
+  ]
+}
