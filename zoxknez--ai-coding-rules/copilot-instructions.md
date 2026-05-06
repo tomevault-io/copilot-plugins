@@ -1,49 +1,59 @@
-## 73-error-handling
+## 74-api-design
 
-> USE WHEN: handling errors, exceptions, or error states
+> USE WHEN: implementing API endpoints or consuming external APIs
 
 
-# Error Handling Rules
+# API Design Rules
 
-## Philosophy
-- Fail fast, fail loud
-- Errors are values (not just exceptions)
-- Never swallow errors silently
-- Log with context
+## RESTful Conventions
+- GET: Retrieve resources (idempotent)
+- POST: Create resources
+- PUT: Replace resources (idempotent)
+- PATCH: Partial update
+- DELETE: Remove resources (idempotent)
 
-## Patterns
+## URL Design
+- Use nouns for resources: `/users`, `/orders`
+- Use hyphens for readability: `/order-items`
+- Nest for relationships: `/users/:id/orders`
+- Version your API: `/v1/users`
 
-### TypeScript/JavaScript
+## Request/Response
 ```typescript
-// Prefer Result types for expected failures
-type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
+// Consistent error shape
+interface ApiError {
+  code: string;        // "USER_NOT_FOUND"
+  message: string;     // User-friendly message
+  details?: unknown;   // Additional context
+}
 
-// Use try-catch for unexpected failures
-try {
-  await riskyOperation();
-} catch (error) {
-  logger.error('Operation failed', { error, context });
-  throw new AppError('USER_FRIENDLY_MESSAGE', { cause: error });
+// Paginated response
+interface PaginatedResponse<T> {
+  data: T[];
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+  };
 }
 ```
 
-### Python
-```python
-# Use specific exceptions
-try:
-    risky_operation()
-except SpecificError as e:
-    logger.error("Operation failed", exc_info=True)
-    raise AppError("User message") from e
-```
+## Status Codes
+- 200: Success
+- 201: Created
+- 204: No Content (DELETE)
+- 400: Bad Request (validation)
+- 401: Unauthorized (authn)
+- 403: Forbidden (authz)
+- 404: Not Found
+- 422: Unprocessable Entity
+- 500: Internal Server Error
 
 ## Best Practices
-- Create custom error classes
-- Include error codes for programmatic handling
-- Separate user-facing from developer messages
-- Add correlation IDs for tracing
-- Never expose stack traces to users
-- Log at appropriate levels (error vs warn vs info)
+- Validate inputs at the boundary
+- Use rate limiting
+- Add request IDs for tracing
+- Document with OpenAPI/Swagger
 
 ---
 > Source: [zoxknez/ai-coding-rules](https://github.com/zoxknez/ai-coding-rules) — distributed by [TomeVault](https://tomevault.io).
