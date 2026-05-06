@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--chat-shared-conversation-to-file",
+  "displayName": "chat_shared_conversation_to_file",
+  "description": "CLI tool that converts public share links from ChatGPT, Gemini, Grok, and Claude into clean Markdown and static HTML transcripts with GitHub Pages publishing",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/chat_shared_conversation_to_file",
+  "skills": []
+}
