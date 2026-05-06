@@ -1,0 +1,44 @@
+{
+  "name": "label-studio-Chinese",
+  "owner": "cycle123582",
+  "repo": "label-studio-Chinese",
+  "description": "label-studio 1.23\u793e\u533a\u7248\u6c49\u5316 \u4f7f\u7528i18n\u914d\u7f6e\u6587\u4ef6",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cycle123582/label-studio-Chinese",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T05:44:22Z"
+}
