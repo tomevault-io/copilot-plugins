@@ -1,10 +1,10 @@
 {
   "name": "donghaozhang--video-agent-skill",
   "displayName": "video-agent-skill",
-  "description": "AI instruction files for video-agent-skill by donghaozhang",
+  "description": "First Python Package for Video Cli Generation and Processing",
   "version": "1.0.0",
   "author": "donghaozhang",
-  "homepage": "https://tomevault.io/claim/donghaozhang",
+  "homepage": "https://github.com/donghaozhang/video-agent-skill",
   "skills": [
     {
       "name": "ai-content-pipeline",
