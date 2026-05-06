@@ -1,0 +1,9 @@
+{
+  "name": "tetratensor--realtime-ai-web-console",
+  "displayName": "Realtime-AI-Web-Console",
+  "description": "Experimental web console for real-time multimodal AI interactions (voice/video) using Gemini 2.0 Live API and NijiVoice. Next.js (TypeScript, Tailwind) frontend and FastAPI backend communicate over We",
+  "version": "1.0.0",
+  "author": "tetratensor",
+  "homepage": "https://github.com/tetratensor/Realtime-AI-Web-Console",
+  "skills": []
+}
