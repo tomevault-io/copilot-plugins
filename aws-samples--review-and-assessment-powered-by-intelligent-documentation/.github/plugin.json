@@ -1,0 +1,34 @@
+{
+  "name": "aws-samples--review-and-assessment-powered-by-intelligent-documentation",
+  "displayName": "review-and-assessment-powered-by-intelligent-documentation",
+  "description": "review-and-assessment-powered-by-intelligent-documentation",
+  "version": "1.0.0",
+  "author": "aws-samples",
+  "homepage": "https://github.com/aws-samples/review-and-assessment-powered-by-intelligent-documentation",
+  "skills": [
+    {
+      "name": "build-and-format",
+      "description": ""
+    },
+    {
+      "name": "deploy-cdk-stack",
+      "description": ""
+    },
+    {
+      "name": "modify-agent-prompts",
+      "description": ""
+    },
+    {
+      "name": "plan-backend-frontend",
+      "description": ""
+    },
+    {
+      "name": "test-database-feature",
+      "description": ""
+    },
+    {
+      "name": "ui-css-patterns",
+      "description": ""
+    }
+  ]
+}
