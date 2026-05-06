@@ -1,200 +1,172 @@
-## neverthrow
+## tailwindcss
 
-> When handling errors, use the `neverthrow` library to handle errors.
+> When writing code for tailwind css make sure to do the following.
 
 
-neverthrow — Condensed API (Core surface, minimal examples)
+# Tailwind CSS v4
 
-Top‑Level Exports
+## Core Changes
 
-- ok, err, Ok, Err, Result, ResultAsync
-- okAsync, errAsync
-- fromThrowable, fromAsyncThrowable, fromPromise, fromSafePromise, safeTry
+- **CSS-first configuration**: Configuration is now done in CSS instead of JavaScript
+  - Use `@theme` directive in CSS instead of `tailwind.config.js`
+  - Example:
 
-Core Concepts
+    ```css
+    @import 'tailwindcss';
 
-- Result<T, E>: synchronous success/error container
-- ResultAsync<T, E>: async version resolving to Result<T, E>
-- Combinators never execute callbacks on the non-matching variant (short-circuit)
-- Prefer map/andThen over try/catch; mapErr/orElse to standardize and recover errors
+    @theme {
+    	--font-display: 'Satoshi', 'sans-serif';
+    	--breakpoint-3xl: 1920px;
+    	--color-avocado-500: oklch(0.84 0.18 117.33);
+    	--ease-fluid: cubic-bezier(0.3, 0, 0, 1);
+    }
+    ```
 
-Result<T, E>
+- Legacy `tailwind.config.js` files can still be imported using the `@config` directive:
+  ```css
+  @import 'tailwindcss';
+  @config "../../tailwind.config.js";
+  ```
+- **CSS import syntax**: Use `@import "tailwindcss"` instead of `@tailwind` directives
+  - Old: `@tailwind base; @tailwind components; @tailwind utilities;`
+  - New: `@import "tailwindcss";`
 
-Constructors
+- **Package changes**:
+  - PostCSS plugin is now `@tailwindcss/postcss` (not `tailwindcss`)
+  - CLI is now `@tailwindcss/cli`
+  - Vite plugin is `@tailwindcss/vite`
+  - No need for `postcss-import` or `autoprefixer` anymore
 
-```ts
-ok<T, E = never>(value: T): Ok<T, E>
-err<T = never, E = unknown>(error: E): Err<T, E>
-```
+- **Native CSS cascade layers**: Uses real CSS `@layer` instead of Tailwind's custom implementation
 
-Introspection
+## Theme Configuration
 
-```ts
-isOk(): boolean
-isErr(): boolean
-```
+- **CSS theme variables**: All design tokens are available as CSS variables
+  - Namespace format: `--category-name` (e.g., `--color-blue-500`, `--font-sans`)
+  - Access in CSS: `var(--color-blue-500)`
+  - Available namespaces:
+    - `--color-*` : Color utilities like `bg-red-500` and `text-sky-300`
+    - `--font-*` : Font family utilities like `font-sans`
+    - `--text-*` : Font size utilities like `text-xl`
+    - `--font-weight-*` : Font weight utilities like `font-bold`
+    - `--tracking-*` : Letter spacing utilities like `tracking-wide`
+    - `--leading-*` : Line height utilities like `leading-tight`
+    - `--breakpoint-*` : Responsive breakpoint variants like `sm:*`
+    - `--container-*` : Container query variants like `@sm:*` and size utilities like `max-w-md`
+    - `--spacing-*` : Spacing and sizing utilities like `px-4` and `max-h-16`
+    - `--radius-*` : Border radius utilities like `rounded-sm`
+    - `--shadow-*` : Box shadow utilities like `shadow-md`
+    - `--inset-shadow-*` : Inset box shadow utilities like `inset-shadow-xs`
+    - `--drop-shadow-*` : Drop shadow filter utilities like `drop-shadow-md`
+    - `--blur-*` : Blur filter utilities like `blur-md`
+    - `--perspective-*` : Perspective utilities like `perspective-near`
+    - `--aspect-*` : Aspect ratio utilities like `aspect-video`
+    - `--ease-*` : Transition timing function utilities like `ease-out`
+    - `--animate-*` : Animation utilities like `animate-spin`
 
-Transformations
+- **Simplified theme configuration**: Many utilities no longer need theme configuration
+  - Utilities like `grid-cols-12`, `z-40`, and `opacity-70` work without configuration
+  - Data attributes like `data-selected:opacity-100` don't need configuration
 
-```ts
-map<U>(fn: (value: T) => U): Result<U, E>
-mapErr<F>(fn: (error: E) => F): Result<T, F>
-unwrapOr(defaultValue: T): T
-match<A, B = A>(okFn: (v: T) => A, errFn: (e: E) => B): A | B
-```
+- **Dynamic spacing scale**: Derived from a single spacing value
+  - Default: `--spacing: 0.25rem`
+  - Every multiple of the base value is available (e.g., `mt-21` works automatically)
 
-Control flow / chaining
+- **Overriding theme namespaces**:
+  - Override entire namespace: `--font-*: initial;`
+  - Override entire theme: `--*: initial;`
 
-```ts
-andThen<U, F>(fn: (value: T) => Result<U, F>): Result<U, E | F>
-asyncAndThen<U, F>(fn: (value: T) => ResultAsync<U, F>): ResultAsync<U, E | F>
-asyncMap<U>(fn: (value: T) => Promise<U>): ResultAsync<U, E>
-orElse<U, A>(fn: (error: E) => Result<U, A>): Result<U | T, A>
-```
+## New Features
 
-Side‑effect helpers
+- **Container query support**: Built-in now, no plugin needed
+  - `@container` for container context
+  - `@sm:`, `@md:`, etc. for container-based breakpoints
+  - `@max-md:` for max-width container queries
+  - Combine with `@min-md:@max-xl:hidden` for ranges
 
-```ts
-andTee(cb: (value: T) => unknown): Result<T, E>           // pass-through side effects on Ok
-orTee(cb: (error: E) => unknown): Result<T, E>            // pass-through side effects on Err
-andThrough<F>(cb: (value: T) => Result<unknown, F>): Result<T, E | F>
-asyncAndThrough<F>(cb: (value: T) => ResultAsync<unknown, F>): ResultAsync<T, E | F>
-```
+- **3D transforms**:
+  - `transform-3d` enables 3D transforms
+  - `rotate-x-*`, `rotate-y-*`, `rotate-z-*` for 3D rotation
+  - `scale-z-*` for z-axis scaling
+  - `translate-z-*` for z-axis translation
+  - `perspective-*` utilities (`perspective-near`, `perspective-distant`, etc.)
+  - `perspective-origin-*` utilities
+  - `backface-visible` and `backface-hidden`
 
-Statics on Result
+- **Gradient enhancements**:
+  - Linear gradient angles: `bg-linear-45` (renamed from `bg-gradient-*`)
+  - Gradient interpolation: `bg-linear-to-r/oklch`, `bg-linear-to-r/srgb`
+  - Conic and radial gradients: `bg-conic`, `bg-radial-[at_25%_25%]`
 
-```ts
-Result.fromThrowable<A, E>(fn: (...args: any[]) => A, mapError?: (u: unknown) => E): (...args: any[]) => Result<A, E>
-Result.combine<T, E>(list: Result<T, E>[]): Result<T[], E>
-Result.combine<T1, T2, E1, E2>(tuple: [Result<T1, E1>, Result<T2, E2>]): Result<[T1, T2], E1 | E2>
-Result.combineWithAllErrors<T, E>(list: Result<T, E>[]): Result<T[], E[]>
-```
+- **Shadow enhancements**:
+  - `inset-shadow-*` and `inset-ring-*` utilities
+  - Can be composed with regular `shadow-*` and `ring-*`
 
-ResultAsync<T, E>
+- **New CSS property utilities**:
+  - `field-sizing-content` for auto-resizing textareas
+  - `scheme-light`, `scheme-dark` for `color-scheme` property
+  - `font-stretch-*` utilities for variable fonts
 
-Constructors
+## New Variants
 
-```ts
-okAsync<T, E = never>(value: T): ResultAsync<T, E>
-errAsync<T = never, E = unknown>(error: E): ResultAsync<T, E>
-```
+- **Composable variants**: Chain variants together
+  - Example: `group-has-data-potato:opacity-100`
 
-Introspection (via awaiting or .then): resolves to Result<T, E>
+- **New variants**:
+  - `starting` variant for `@starting-style` transitions
+  - `not-*` variant for `:not()` pseudo-class
+  - `inert` variant for `inert` attribute
+  - `nth-*` variants (`nth-3:`, `nth-last-5:`, `nth-of-type-4:`, `nth-last-of-type-6:`)
+  - `in-*` variant (like `group-*` but without adding `group` class)
+  - `open` variant now supports `:popover-open`
+  - `**` variant for targeting all descendants
 
-Transformations
+## Custom Extensions
 
-```ts
-map<U>(fn: (value: T) => U | Promise<U>): ResultAsync<U, E>
-mapErr<F>(fn: (error: E) => F | Promise<F>): ResultAsync<T, F>
-unwrapOr(defaultValue: T): Promise<T>
-match<A, B = A>(okFn: (v: T) => A, errFn: (e: E) => B): Promise<A | B>
-```
+- **Custom utilities**: Use `@utility` directive
 
-Control flow / chaining
+  ```css
+  @utility tab-4 {
+  	tab-size: 4;
+  }
+  ```
 
-```ts
-andThen<U, F>(fn: (value: T) => Result<U, F> | ResultAsync<U, F>): ResultAsync<U, E | F>
-orElse<U, A>(fn: (error: E) => Result<U, A> | ResultAsync<U, A>): ResultAsync<U | T, A>
-```
+- **Custom variants**: Use `@variant` directive
 
-Side‑effect helpers
+  ```css
+  @variant pointer-coarse (@media (pointer: coarse));
+  @variant theme-midnight (&:where([data-theme="midnight"] *));
+  ```
 
-```ts
-andTee(cb: (value: T) => unknown): ResultAsync<T, E>
-orTee(cb: (error: E) => unknown): ResultAsync<T, E>
-andThrough<F>(cb: (value: T) => Result<unknown, F> | ResultAsync<unknown, F>): ResultAsync<T, E | F>
-```
+- **Plugins**: Use `@plugin` directive
+  ```css
+  @plugin "@tailwindcss/typography";
+  ```
 
-Statics on ResultAsync
+## Breaking Changes
 
-```ts
-ResultAsync.fromThrowable<A, E>(fn: (...args: any[]) => Promise<A>, mapError?: (u: unknown) => E): (...args: any[]) => ResultAsync<A, E>
-ResultAsync.fromPromise<A, E>(p: PromiseLike<A>, mapError: (u: unknown) => E): ResultAsync<A, E>
-ResultAsync.fromSafePromise<A, E = never>(p: PromiseLike<A>): ResultAsync<A, E>
-ResultAsync.combine<T, E>(list: ResultAsync<T, E>[]): ResultAsync<T[], E>
-ResultAsync.combineWithAllErrors<T, E>(list: ResultAsync<T, E>[]): ResultAsync<T[], E[]>
-```
+- **Removed deprecated utilities**:
+  - `bg-opacity-*` → Use `bg-black/50` instead
+  - `text-opacity-*` → Use `text-black/50` instead
+  - And others: `border-opacity-*`, `divide-opacity-*`, etc.
 
-Utilities
+- **Renamed utilities**:
+  - `shadow-sm` → `shadow-xs` (and `shadow` → `shadow-sm`)
+  - `drop-shadow-sm` → `drop-shadow-xs` (and `drop-shadow` → `drop-shadow-sm`)
+  - `blur-sm` → `blur-xs` (and `blur` → `blur-sm`)
+  - `rounded-sm` → `rounded-xs` (and `rounded` → `rounded-sm`)
+  - `outline-none` → `outline-hidden` (for the old behavior)
 
-fromThrowable / fromAsyncThrowable
+- **Default style changes**:
+  - Default border color is now `currentColor` (was `gray-200`)
+  - Default `ring` width is now 1px (was 3px)
+  - Placeholder text now uses current color at 50% opacity (was `gray-400`)
+  - Hover styles only apply on devices that support hover (`@media (hover: hover)`)
 
-- Wrap throwy sync/async functions into functions returning Result / ResultAsync
-- Always provide mapError to normalize unknown to a typed E when possible
-
-fromPromise / fromSafePromise
-
-- fromPromise: wrap an existing promise, map rejection reason (unknown) to typed E
-- fromSafePromise: same but assumes it won’t throw; no error handler; be certain
-
-safeTry
-
-- Write linear code over multiple Result/ResultAsync operations without manual unwrap
-- Generator-based; yield\* short-circuits on Err; returns Ok on success
-
-```ts
-const result = safeTry<number, string>(function* () {
-	const a = yield* mayFail1();
-	const b = yield* mayFail2();
-	return ok(a + b);
-});
-```
-
-Common Patterns and Guidance
-
-- Prefer map for pure value transforms; prefer andThen when the next step may fail
-- Use mapErr to re-map low-level errors to domain errors early at boundaries
-- Use orElse to recover by providing an alternative successful value/flow
-- Use match at the boundary to unwrap to plain values or perform side effects
-- Use combine to all-or-nothing aggregate lists of Results; combineWithAllErrors to collect all errors
-- Use andTee/orTee for logging/metrics that shouldn’t affect the main flow
-- asyncMap (on Result) is a convenience to bridge into async pipelines; subsequent steps use ResultAsync APIs
-- Favor small, typed error unions; avoid throwing—prefer returning Err
-
-Type Cheatsheet
-
-```ts
-// Ok / Err shapes
-class Ok<T, E> {
-	readonly value: T;
-	isOk(): true;
-	isErr(): false;
-}
-class Err<T, E> {
-	readonly error: E;
-	isOk(): false;
-	isErr(): true;
-}
-
-type Result<T, E> = Ok<T, E> | Err<T, E>;
-// ResultAsync<T, E> awaits to Result<T, E>
-```
-
-Deprecations
-
-- safeUnwrap(): deprecated; use match/unwrapOr/safeTry instead
-
-Minimal Usage Sketches
-
-```ts
-// Sync pipeline
-const value: Result<number, DomainError> = parse(input)
-	.map(normalize)
-	.andThen(validate)
-	.map(compute);
-
-// Async pipeline
-const resAsync = build(params).andThen(saveAsync).andThen(notifyAsync);
-
-// Aggregation
-const combined = Result.combine([step1(), step2(), step3()]);
-```
-
-Notes
-
-- Do not mix Result and ResultAsync in the same combine call; convert first
-- Dependencies are functional; results are immutable—no mutation of inner state
-- Keep mapping functions pure; perform side effects via andTee/orTee or at match boundaries
+- **Syntax changes**:
+  - CSS variables in arbitrary values: `bg-(--brand-color)` instead of `bg-[--brand-color]`
+  - Stacked variants now apply left-to-right (not right-to-left)
+  - Use CSS variables instead of `theme()` function
 
 ---
 > Source: [bmdavis419/river-mono](https://github.com/bmdavis419/river-mono) — distributed by [TomeVault](https://tomevault.io).
