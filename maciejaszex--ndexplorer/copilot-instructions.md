@@ -1,16 +1,25 @@
-## security
+## tech-stack
 
-> Read-only security — only GET requests allowed
+> Project tech stack and architecture
 
 
-# Security — read-only
+# Tech stack
 
-- App is **strictly read-only**. It must NEVER modify anything in NextDNS.
-- The **only allowed HTTP method is GET**. No POST, PUT, PATCH or DELETE.
-- Only two NextDNS endpoints are used:
-  - `GET /profiles/:id/logs`
-  - `GET /profiles/:id/analytics/devices`
-- API token (`NEXTDNS_API_KEY`) must **never** reach the browser.
+- **Astro 6.x** (SSR, `output: 'server'`), Node.js 24, port 4321
+- **Vanilla JS** only — zero client-side frameworks, no React/Vue/Svelte
+- **Tailwind CSS 4** — dark/light themes, mobile breakpoint at 768px
+- **ESLint 10** + typescript-eslint + eslint-plugin-astro
+
+# Architecture
+
+```
+Browser → vanilla JS fetch → /api/* (Astro SSR proxy) → NextDNS API
+```
+
+- API token stays server-side only (`.env`), never sent to browser
+- Two proxy endpoints: `GET /api/devices`, `GET /api/logs`
+- Whole page scrolls naturally (no internal scroll containers)
+- Docker: multi-stage build (`Dockerfile`), env via `--env-file .env`, port 4321
 
 ---
 > Source: [maciejaszex/ndexplorer](https://github.com/maciejaszex/ndexplorer) — distributed by [TomeVault](https://tomevault.io).
