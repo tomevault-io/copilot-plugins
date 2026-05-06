@@ -1,9 +1,9 @@
 {
   "name": "10xchengtu--mux0",
-  "displayName": "Mux0",
-  "description": "A native macOS terminal built on libghostty. Workspaces, tabs, and split panes for your repos \u2014 with live status for every Claude Code, OpenCode, and Codex session you run.",
+  "displayName": "MUX0",
+  "description": "MUX0",
   "version": "1.0.0",
   "author": "10xChengTu",
-  "homepage": "https://github.com/10xChengTu/Mux0",
+  "homepage": "https://github.com/10xChengTu/MUX0",
   "skills": []
 }
