@@ -1,0 +1,75 @@
+{
+  "name": "explorbot",
+  "owner": "testomatio",
+  "repo": "explorbot",
+  "description": "AI Agent for Exploratory Browser Testing",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "changelog",
+      "path": ".claude/skills/changelog",
+      "github_url": "https://github.com/testomatio/explorbot/tree/main/.claude/skills/changelog",
+      "description": ""
+    },
+    {
+      "name": "explorbot-debug",
+      "path": ".claude/skills/explorbot-debug",
+      "github_url": "https://github.com/testomatio/explorbot/tree/main/.claude/skills/explorbot-debug",
+      "description": ""
+    },
+    {
+      "name": "image-processing",
+      "path": ".claude/skills/image-processing",
+      "github_url": "https://github.com/testomatio/explorbot/tree/main/.claude/skills/image-processing",
+      "description": ""
+    },
+    {
+      "name": "prompt-audit",
+      "path": ".claude/skills/prompt-audit",
+      "github_url": "https://github.com/testomatio/explorbot/tree/main/.claude/skills/prompt-audit",
+      "description": ""
+    },
+    {
+      "name": "xpath-testing",
+      "path": ".claude/skills/xpath-testing",
+      "github_url": "https://github.com/testomatio/explorbot/tree/main/.claude/skills/xpath-testing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/testomatio/explorbot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-06T16:35:47Z"
+}
