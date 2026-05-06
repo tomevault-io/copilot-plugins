@@ -4,7 +4,7 @@
   "repo": "ada",
   "description": "locally hosted neural net chat framework with biomimetic RAG (cc0) (by luna+ada) (<3)",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/luna-system/ada",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T21:47:24Z"
+  "distributed_at": "2026-05-06T19:43:26Z"
 }
