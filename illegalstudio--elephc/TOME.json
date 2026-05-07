@@ -4,7 +4,7 @@
   "repo": "elephc",
   "description": "A PHP-to-native compiler. Takes a subset of PHP and compiles it directly to native assembly, producing standalone binaries for the currently supported targets: macOS ARM64, Linux ARM64, and Linux x86_64. No interpreter, no VM, no runtime dependencies.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/illegalstudio/elephc",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T04:17:03Z"
+  "distributed_at": "2026-05-07T23:33:58Z"
 }
