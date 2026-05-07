@@ -1,0 +1,9 @@
+{
+  "name": "ugorange--vibemux",
+  "displayName": "vibemux",
+  "description": "VibeMux \u2013 Orchestrate parallel Claude Code agents in a single TUI",
+  "version": "1.0.0",
+  "author": "UgOrange",
+  "homepage": "https://github.com/UgOrange/vibemux",
+  "skills": []
+}
