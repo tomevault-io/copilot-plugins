@@ -1,47 +1,75 @@
-## task-centered-workflow
+## skilllite
 
-> Execute substantial work through task-centered workflow
+> Use the same rule semantics as Cursor, but follow Claude's file conventions.
 
+# Claude Project Instructions
 
-# Task-Centered Execution Rule
+Use the same rule semantics as Cursor, but follow Claude's file conventions.
 
-For non-trivial work, use `tasks/` as the source of execution truth.
+## Source of Truth
+
+- **Verification integrity (highest priority)**: `spec/verification-integrity.md`
+- Task artifact language policy: `spec/task-artifact-language.md`
+- Spec routing and enforcement: `spec/README.md`
+- Architecture constraints: `spec/architecture-boundaries.md`
+- Rust coding conventions: `spec/rust-conventions.md`
+- Security constraints: `spec/security-nonnegotiables.md`
+- Testing policy: `spec/testing-policy.md`
+- Docs sync policy: `spec/docs-sync.md`
+- Structured-signal-first policy: `spec/structured-signal-first.md`
+- Task workflow: `tasks/README.md`
+- Task board: `tasks/board.md`
+
+Do not duplicate rule content in this file. Follow the referenced files directly.
 
 ## Contribution Modes
 
-- External/community contribution (lightweight mode):
-  - Task folder is optional.
-  - `Task ID: N/A` is allowed for small fixes/docs/issues.
-  - Keep PR summary, validation evidence, and regression notes clear.
-- Core/maintainer contribution (strict mode):
-  - Use full task-centered workflow for non-trivial changes.
+- External/community contribution (lightweight):
+  - `Task ID: N/A` is acceptable for small fixes/docs/issues.
+  - Creating `tasks/TASK-.../` is optional.
+  - Validation evidence and regression notes are still required in PR.
+- Core/maintainer contribution (strict):
+  - Use full `tasks/TASK-.../` lifecycle for non-trivial work.
 
-## Required Behavior
+## Required Workflow
 
-1. If work spans multiple files/subsystems or requires review traceability:
-   - create or reuse a `tasks/TASK-.../` folder.
-2. Before implementation starts, ensure design baseline exists:
-   - `TASK.md` has scope + acceptance criteria.
-   - `PRD.md` is drafted (or explicitly marked `N/A` with reason).
-   - `CONTEXT.md` is drafted (or explicitly marked `N/A` with reason).
-3. Keep these files updated during execution:
-   - `TASK.md` (scope, acceptance, risks, validation, regression scope)
-   - `PRD.md` (what/why decisions and requirement changes)
-   - `CONTEXT.md` (technical boundaries, constraints, compatibility notes)
-   - `STATUS.md` (progress and blockers)
-   - `REVIEW.md` (findings and merge readiness)
-4. Update `tasks/board.md` whenever status changes.
-5. Keep strategic discussion in `todo/*.md`, execution details in `tasks/`.
+1. Determine task type and inject specs using `spec/README.md`.
+2. For non-trivial work, create/reuse a task folder in `tasks/TASK-.../`.
+3. Before implementation starts, ensure baseline task artifacts are ready:
+   - `TASK.md` scoped with acceptance criteria
+   - `PRD.md` drafted (or explicitly `N/A` with reason)
+   - `CONTEXT.md` drafted (or explicitly `N/A` with reason)
+4. Keep task artifacts updated:
+   - `TASK.md`
+   - `PRD.md`
+   - `CONTEXT.md`
+   - `STATUS.md`
+   - `REVIEW.md`
+   - Keep task artifacts in English per `spec/task-artifact-language.md`
+5. Keep `tasks/board.md` in sync with real status.
+6. For any Rust code change, enforce `spec/rust-conventions.md` and `spec/testing-policy.md`.
+7. For behavior/command/env/doc/release changes, enforce `spec/docs-sync.md`.
+
+## Task Creation
+
+Prefer the standard task bootstrap script:
+
+```bash
+bash scripts/new_task.sh "<slug>" "<Title>" [P0|P1|P2] [owner]
+```
 
 ## Completion Gate
 
-Before declaring work complete:
+Before marking work complete:
 
-- acceptance criteria in `TASK.md` are checked or explicitly deferred,
-- `PRD.md` and `CONTEXT.md` reflect the implemented reality (or are explicitly `N/A`),
-- validation evidence is recorded,
+- `spec/verification-integrity.md` checklist is completed (anti-hallucination, anti-false-positive),
+- injected specs are listed and followed,
+- `PRD.md` and `CONTEXT.md` are updated to final implementation state (or explicit `N/A`),
+- validation evidence exists (commands actually run, outputs inspected — not just model assertions),
 - regression scope is reviewed,
+- task artifacts are updated,
 - `tasks/board.md` is updated AND re-read to confirm the status change landed.
+- When `tasks/TASK-.../` files change, `python3 scripts/validate_tasks.py` passes (see `spec/task-artifact-language.md` for required `STATUS.md` / `REVIEW.md` shape).
 
 ---
 > Source: [EXboys/skilllite](https://github.com/EXboys/skilllite) — distributed by [TomeVault](https://tomevault.io).
