@@ -1,52 +1,37 @@
-## no-secrets-in-commits
+## proxy-not-middleware
 
-> Prevent committing secrets, credentials, and private info to git
+> Prefer Next.js rewrites/proxy in next.config.ts over custom middleware.ts for routing, proxying, and request forwarding
 
 
-# No Secrets in Git Commits
+# Use Proxy Rewrites, Not Middleware
 
-Before every `git add` or `git commit`, verify that **no secrets or private information** are included.
+This project handles routing, proxying, and request forwarding through Next.js `rewrites` in `next.config.ts` — **not** through `middleware.ts`.
 
-## Pre-Commit Checklist
+## Rules
 
-1. **Never commit `.env` files** (only `.env.example` with empty values is allowed).
-2. **Never commit files containing**:
-   - API keys, tokens, or passwords (e.g. `WORKOS_API_KEY=sk_live_...`, `GITHUB_TOKEN=ghp_...`)
-   - Private keys or certificates (`*.pem`, `*.key`, `*.p12`, `*.pfx`)
-   - Cookie secrets or session passwords
-   - OAuth client secrets
-   - Database connection strings with credentials
-3. **Scan staged files** before committing — run `git diff --cached` and look for:
-   - Strings matching `sk_`, `ghp_`, `gho_`, `Bearer `, `token`, `password`, `secret`, `apikey`, `api_key`
-   - Base64-encoded blobs that look like credentials
-   - Hardcoded URLs with embedded credentials (`https://user:pass@...`)
-4. **Never hardcode secrets in source files** — always use `process.env.VARIABLE_NAME`.
-5. **Check `.gitignore`** covers: `.env`, `.env.local`, `.env*.local`, `*.pem`, `*.key`.
-
-## If You Find a Secret
-
-- **Do NOT commit it.** Remove it from the staged files immediately.
-- If a secret was already committed, warn the user and suggest rotating the credential.
-- Replace the value with a reference to an environment variable.
-
-## Safe Patterns
+- **Never create or modify `middleware.ts`** for proxying, redirecting, or forwarding requests. Use `rewrites` (or `redirects`) in `next.config.ts` instead.
+- If you need to proxy an external API, add a `rewrites()` entry in `next.config.ts`:
 
 ```ts
-// ✅ GOOD — reads from environment
-const token = process.env.GITHUB_TOKEN
-
-// ❌ BAD — hardcoded secret
-const token = "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+async rewrites() {
+  return [
+    {
+      source: '/api/proxy/:path*',
+      destination: 'https://external-api.example.com/:path*',
+    },
+  ]
+}
 ```
 
-```gitignore
-# ✅ These must be in .gitignore
-.env
-.env.local
-.env*.local
-*.pem
-*.key
-```
+- For auth-gated or IP-restricted routes, use **API route handlers** (`app/api/*/route.ts`) with server-side checks, not middleware interception.
+- Security headers belong in `next.config.ts` via the `headers()` function, not middleware.
+- CORS handling should use `headers()` in `next.config.ts` or per-route API handler logic.
+
+## Why
+
+- `middleware.ts` runs on the Edge Runtime with limited Node.js API support, making it fragile for complex logic.
+- `rewrites` are declarative, easier to audit, and handled at the routing layer before code executes.
+- Keeping proxy/routing config in `next.config.ts` provides a single source of truth for all request routing.
 
 ---
 > Source: [OpenKnots/code-editor](https://github.com/OpenKnots/code-editor) — distributed by [TomeVault](https://tomevault.io).
