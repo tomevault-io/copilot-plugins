@@ -1,0 +1,9 @@
+{
+  "name": "r00s--addon-tellstick-local",
+  "displayName": "addon-tellstick-local",
+  "description": "Tellstick without Telldus Live - Home Assistant Add-on by R00S, copilot fixes",
+  "version": "1.0.0",
+  "author": "R00S",
+  "homepage": "https://github.com/R00S/addon-tellstick-local",
+  "skills": []
+}
