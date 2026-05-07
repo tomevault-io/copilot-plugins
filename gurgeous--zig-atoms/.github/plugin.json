@@ -1,0 +1,9 @@
+{
+  "name": "gurgeous--zig-atoms",
+  "displayName": "zig-atoms",
+  "description": "A collection of high quality, single-file libraries that can be dropped into any Zig project",
+  "version": "1.0.0",
+  "author": "gurgeous",
+  "homepage": "https://github.com/gurgeous/zig-atoms",
+  "skills": []
+}
