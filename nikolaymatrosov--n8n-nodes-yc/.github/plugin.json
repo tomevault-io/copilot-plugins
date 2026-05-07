@@ -1,0 +1,9 @@
+{
+  "name": "nikolaymatrosov--n8n-nodes-yc",
+  "displayName": "n8n-nodes-yc",
+  "description": "n8n community nodes for Yandex Cloud services integration",
+  "version": "1.0.0",
+  "author": "nikolaymatrosov",
+  "homepage": "https://github.com/nikolaymatrosov/n8n-nodes-yc",
+  "skills": []
+}
