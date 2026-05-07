@@ -1,0 +1,9 @@
+{
+  "name": "pi0--mdzilla",
+  "displayName": "mdzilla",
+  "description": " \ud83e\udd96 Markdown browser for humans and agents.  Browse docs from local directories, GitHub repos, and remote websites \u2014 all from your terminal.",
+  "version": "1.0.0",
+  "author": "pi0",
+  "homepage": "https://github.com/pi0/mdzilla",
+  "skills": []
+}
