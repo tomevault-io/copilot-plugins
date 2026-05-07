@@ -1,384 +1,254 @@
-## rust-2024
+## sql-safety
 
-> Rust 2024 Edition best practices and code conventions for the Prax ORM project
+> This project handles user-provided data that becomes part of SQL queries. **Never allow SQL injection vulnerabilities.**
 
+# SQL Safety & Security
 
-# Rust 2024 Edition Guidelines
+This project handles user-provided data that becomes part of SQL queries. **Never allow SQL injection vulnerabilities.**
 
-This project uses **Rust 2024 edition** (requires Rust 1.85+). Follow these guidelines for idiomatic, safe, and performant code.
+## Core Principles
 
-## Edition 2024 Specifics
+### 1. Always Use Parameterized Queries
 
-### RPIT Lifetime Capture Rules
-- Rust 2024 changes `impl Trait` return type lifetime capture behavior
-- Use explicit `+ use<'a>` syntax when you need specific lifetime capture:
-  ```rust
-  fn process<'a>(data: &'a str) -> impl Iterator<Item = &'a str> + use<'a> {
-      data.split(',')
-  }
-  ```
+**NEVER concatenate user input directly into SQL strings.**
 
-### `gen` Blocks (Experimental)
-- Use `gen` blocks for generator-based iterators when stabilized
-- Prefer standard iterators for now unless generators provide clear benefits
-
-### New Reserved Keywords
-- `gen` is now a reserved keyword - avoid as identifier
-
-## Code Style
-
-### Formatting
-- Always run `cargo fmt` before committing (enforced by pre-commit hook)
-- Use default rustfmt settings
-- Maximum line width: 100 characters
-
-### Naming Conventions
 ```rust
-// Types: PascalCase
-struct QueryBuilder;
-trait AsyncExecutor;
-enum FilterOperator;
+// ✅ Good: Parameterized query
+let filter = Filter::Equals("email".into(), FilterValue::String(user_email.into()));
+let (sql, params) = filter.to_sql(0);
+// sql = "email = $1", params = [user_email]
 
-// Functions, methods, variables: snake_case
-fn execute_query() {}
-let user_count = 0;
+// ✅ Good: Using SqlBuilder
+let mut builder = SqlBuilder::postgres();
+builder.push("SELECT * FROM users WHERE email = ");
+builder.push_param(FilterValue::String(user_email.into()));
 
-// Constants: SCREAMING_SNAKE_CASE
-const MAX_CONNECTIONS: usize = 100;
+// ❌ DANGEROUS: String concatenation
+let sql = format!("SELECT * FROM users WHERE email = '{}'", user_email);
 
-// Type parameters: single uppercase or descriptive PascalCase
-fn process<T, Item>(data: T) {}
-
-// Lifetimes: short lowercase, descriptive when needed
-fn parse<'src>(input: &'src str) {}
+// ❌ DANGEROUS: Direct interpolation
+let sql = format!("SELECT * FROM users WHERE id = {}", user_id);
 ```
 
-### Imports
+### 2. Validate Identifiers
+
+Table names, column names, and other identifiers cannot be parameterized. **Always validate them.**
+
 ```rust
-// Group imports: std, external crates, internal modules
-use std::collections::HashMap;
-use std::sync::Arc;
+// ✅ Good: Whitelist allowed identifiers
+const ALLOWED_COLUMNS: &[&str] = &["id", "name", "email", "created_at"];
 
-use tokio::sync::RwLock;
-use tracing::{debug, error, info};
-
-use crate::query::QueryBuilder;
-use crate::schema::Model;
-```
-
-## Async Code
-
-### Use `async`/`await` Idiomatically
-```rust
-// Good: Use async blocks for lazy futures
-let future = async {
-    let result = fetch_data().await?;
-    process(result).await
-};
-
-// Good: Avoid unnecessary async when not needed
-fn sync_operation() -> Result<()> {
-    // No await needed, don't make it async
-}
-
-// Good: Use async traits (stabilized in 2024)
-trait Repository {
-    async fn find(&self, id: i64) -> Result<Option<Model>>;
-    async fn save(&self, model: &Model) -> Result<()>;
-}
-```
-
-### Concurrency Patterns
-```rust
-// Good: Use tokio::spawn for concurrent tasks
-let handles: Vec<_> = ids
-    .into_iter()
-    .map(|id| tokio::spawn(async move { fetch(id).await }))
-    .collect();
-
-let results = futures::future::join_all(handles).await;
-
-// Good: Use select! for racing futures
-tokio::select! {
-    result = operation() => handle(result),
-    _ = tokio::time::sleep(timeout) => return Err(Error::Timeout),
-}
-
-// Good: Prefer RwLock over Mutex when reads dominate
-let cache: Arc<RwLock<HashMap<K, V>>> = Arc::new(RwLock::new(HashMap::new()));
-```
-
-### Cancellation Safety
-```rust
-// Document cancellation safety for public async functions
-/// Fetches user data from the database.
-///
-/// # Cancellation Safety
-///
-/// This function is cancellation safe. If cancelled, no partial
-/// writes will occur.
-pub async fn fetch_user(id: i64) -> Result<User> {
-    // ...
-}
-```
-
-## Error Handling
-
-### Use `thiserror` for Library Errors
-```rust
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-pub enum QueryError {
-    #[error("connection failed: {0}")]
-    Connection(#[from] tokio_postgres::Error),
-
-    #[error("query timeout after {0:?}")]
-    Timeout(std::time::Duration),
-
-    #[error("invalid filter: {field} {message}")]
-    InvalidFilter { field: String, message: String },
-}
-```
-
-### Use `?` Operator
-```rust
-// Good: Propagate errors with ?
-async fn execute(&self) -> Result<Vec<Row>, QueryError> {
-    let conn = self.pool.get().await?;
-    let rows = conn.query(&self.sql, &self.params).await?;
-    Ok(rows)
-}
-
-// Avoid: Manual match for simple propagation
-// let conn = match self.pool.get().await {
-//     Ok(c) => c,
-//     Err(e) => return Err(e.into()),
-// };
-```
-
-### Provide Context
-```rust
-use anyhow::Context;
-
-// Good: Add context to errors
-let config = std::fs::read_to_string(path)
-    .with_context(|| format!("failed to read config from {}", path.display()))?;
-```
-
-## Type System
-
-### Use Type Aliases for Complex Types
-```rust
-// Good: Simplify complex types
-pub type QueryResult<T> = Result<T, QueryError>;
-pub type BoxFuture<'a, T> = Pin<Box<dyn Future<Output = T> + Send + 'a>>;
-```
-
-### Leverage Associated Types
-```rust
-// Good: Use associated types in traits
-trait Database {
-    type Connection: Connection;
-    type Error: std::error::Error;
-
-    async fn connect(&self) -> Result<Self::Connection, Self::Error>;
-}
-```
-
-### Generic Constraints
-```rust
-// Good: Use impl Trait in argument position for cleaner APIs
-pub fn where_clause(filter: impl Into<Filter>) -> Self {
-    // ...
-}
-
-// Good: Use where clauses for complex bounds
-fn execute<T, E>(query: T) -> Result<E::Output>
-where
-    T: Query + Send + Sync,
-    E: Executor<Query = T>,
-{
-    // ...
-}
-```
-
-## Performance
-
-### Avoid Unnecessary Allocations
-```rust
-// Good: Use references and slices
-fn process(data: &[u8]) -> &str { ... }
-
-// Good: Use Cow for conditional ownership
-use std::borrow::Cow;
-fn normalize(s: &str) -> Cow<'_, str> {
-    if needs_normalization(s) {
-        Cow::Owned(s.to_lowercase())
+pub fn sort_by(column: &str) -> Result<String> {
+    if ALLOWED_COLUMNS.contains(&column) {
+        Ok(format!("ORDER BY {}", column))
     } else {
-        Cow::Borrowed(s)
+        Err(Error::InvalidColumn(column.to_string()))
     }
 }
 
-// Good: Reuse buffers
-let mut buf = String::with_capacity(1024);
-for item in items {
-    buf.clear();
-    write!(&mut buf, "{}", item)?;
-    process(&buf);
+// ✅ Good: Use enums for allowed values
+pub enum SortColumn {
+    Id,
+    Name,
+    Email,
+    CreatedAt,
+}
+
+impl SortColumn {
+    pub fn as_sql(&self) -> &'static str {
+        match self {
+            SortColumn::Id => "id",
+            SortColumn::Name => "name",
+            SortColumn::Email => "email",
+            SortColumn::CreatedAt => "created_at",
+        }
+    }
+}
+
+// ❌ DANGEROUS: Accepting arbitrary identifiers
+pub fn sort_by(column: &str) -> String {
+    format!("ORDER BY {}", column) // SQL injection possible!
 }
 ```
 
-### Use Iterators
+### 3. Quote Identifiers When Dynamic
+
+If you must use dynamic identifiers, properly quote them:
+
 ```rust
-// Good: Chain iterator methods
-let active_users: Vec<_> = users
-    .iter()
-    .filter(|u| u.is_active)
-    .map(|u| &u.name)
-    .collect();
-
-// Good: Use collect with type inference
-let map: HashMap<_, _> = pairs.into_iter().collect();
-```
-
-### Smart Pointers
-```rust
-// Use Arc for shared ownership across threads
-let shared: Arc<Config> = Arc::new(config);
-
-// Use Box for heap allocation and trait objects
-let handler: Box<dyn Handler> = Box::new(MyHandler);
-
-// Avoid Rc in async code (not Send)
-```
-
-## Documentation
-
-### Document Public APIs
-```rust
-/// A type-safe query builder for database operations.
-///
-/// # Examples
-///
-/// ```rust
-/// let users = client
-///     .user()
-///     .find_many()
-///     .where_(user::active::equals(true))
-///     .exec()
-///     .await?;
-/// ```
-///
-/// # Panics
-///
-/// Panics if called without a valid connection.
-///
-/// # Errors
-///
-/// Returns `QueryError::Connection` if the database is unreachable.
-pub struct QueryBuilder<T> { ... }
-```
-
-### Use `#[must_use]` for Important Return Values
-```rust
-#[must_use = "queries do nothing until executed"]
-pub fn where_(self, filter: Filter) -> Self { ... }
-
-#[must_use]
-pub fn build(self) -> Query { ... }
-```
-
-## Testing
-
-### Unit Tests
-```rust
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_filter_equals() {
-        let filter = user::id::equals(1);
-        assert_eq!(filter.to_sql(), "id = $1");
-    }
-
-    #[tokio::test]
-    async fn test_async_operation() {
-        let result = async_fn().await;
-        assert!(result.is_ok());
-    }
+// ✅ Good: Quoted identifier (PostgreSQL style)
+pub fn quote_identifier(name: &str) -> String {
+    // Escape any embedded double quotes
+    let escaped = name.replace('"', "\"\"");
+    format!("\"{}\"", escaped)
 }
+
+// Usage
+let safe_column = quote_identifier(user_provided_column);
+let sql = format!("SELECT {} FROM users", safe_column);
 ```
 
-### Use `#[should_panic]` and `#[ignore]`
+## Filter Building Rules
+
+### Use the Type System
+
+The `Filter` and `FilterValue` types enforce parameterization:
+
+```rust
+// ✅ Good: Type-safe filter construction
+let filter = Filter::and(vec![
+    Filter::Equals("status".into(), FilterValue::String("active".into())),
+    Filter::Gte("age".into(), FilterValue::Int(18)),
+    Filter::Contains("email".into(), FilterValue::String(search_term.into())),
+]);
+
+// The to_sql() method ensures all values become parameters
+let (where_clause, params) = filter.to_sql(0);
+// where_clause = "(status = $1 AND age >= $2 AND email LIKE $3)"
+// params = ["active", 18, "%search_term%"]
+```
+
+### Escape LIKE Patterns
+
+When using `Contains`, `StartsWith`, `EndsWith`, the ORM handles escaping:
+
+```rust
+// ✅ Good: ORM escapes LIKE wildcards in user input
+let filter = Filter::Contains("name".into(), FilterValue::String(user_search.into()));
+// If user_search = "test%", it becomes "test\%" in the LIKE pattern
+
+// ❌ Bad: Manual LIKE without escaping
+let pattern = format!("%{}%", user_search); // user_search = "%" breaks query
+```
+
+## Raw SQL Safety
+
+### Minimize Raw SQL
+
+Prefer the query builder. When raw SQL is necessary:
+
+```rust
+// ✅ Good: Raw SQL with parameterized values
+use prax_query::raw::Sql;
+
+let sql = Sql::new("SELECT * FROM users WHERE email = $1 AND status = $2")
+    .bind(FilterValue::String(email.into()))
+    .bind(FilterValue::String("active".into()));
+
+// ✅ Good: Raw SQL with safe interpolation for identifiers only
+let table = validate_table_name(user_table)?; // whitelist check
+let sql = Sql::new(&format!("SELECT * FROM {} WHERE id = $1", table))
+    .bind(FilterValue::Int(id));
+
+// ❌ DANGEROUS: Raw SQL with user values in string
+let sql = Sql::new(&format!("SELECT * FROM users WHERE email = '{}'", email));
+```
+
+### Review All `format!` Calls in SQL Context
+
+Every `format!` that produces SQL should be audited:
+
+```rust
+// Questions to ask:
+// 1. Are all user-provided values going through push_param()?
+// 2. Are identifiers validated against a whitelist?
+// 3. Could a malicious input change the query structure?
+```
+
+## JSON/JSONB Safety
+
+When working with JSON queries:
+
+```rust
+// ✅ Good: JSON value as parameter
+builder.push("WHERE metadata @> ");
+builder.push_param(FilterValue::Json(serde_json::json!({"role": role})));
+
+// ✅ Good: JSON path with validated keys
+const ALLOWED_KEYS: &[&str] = &["role", "status", "type"];
+if ALLOWED_KEYS.contains(&key) {
+    builder.push(&format!("WHERE metadata->>'{}' = ", key));
+    builder.push_param(FilterValue::String(value.into()));
+}
+
+// ❌ DANGEROUS: Unvalidated JSON path
+builder.push(&format!("WHERE metadata->>'{}' = ", user_key)); // injection risk
+```
+
+## Multi-Tenancy Security
+
+### Always Include Tenant Filter
+
+```rust
+// ✅ Good: Tenant filter added at ORM level
+let filter = Filter::and(vec![
+    Filter::Equals("tenant_id".into(), FilterValue::Int(current_tenant)),
+    user_provided_filter,
+]);
+
+// ✅ Good: PostgreSQL RLS handles it
+// SET app.current_tenant = $1; -- set at connection level
+// CREATE POLICY tenant_isolation ON users USING (tenant_id = current_setting('app.current_tenant')::int);
+
+// ❌ DANGEROUS: Trusting user to provide tenant filter
+let filter = user_provided_filter; // Could query other tenants!
+```
+
+## Testing for SQL Injection
+
+### Include Injection Tests
+
 ```rust
 #[test]
-#[should_panic(expected = "invalid input")]
-fn test_panics_on_invalid_input() {
-    parse("invalid");
+fn test_sql_injection_in_filter_value() {
+    let malicious = "'; DROP TABLE users; --";
+    let filter = Filter::Equals("name".into(), FilterValue::String(malicious.into()));
+    let (sql, params) = filter.to_sql(0);
+
+    // Value should be a parameter, not in SQL string
+    assert_eq!(sql, "name = $1");
+    assert!(!sql.contains("DROP"));
+    assert!(matches!(&params[0], FilterValue::String(s) if s == malicious));
 }
 
 #[test]
-#[ignore = "requires database connection"]
-fn test_integration() {
-    // ...
+fn test_sql_injection_in_like_pattern() {
+    let malicious = "test%' OR '1'='1";
+    let filter = Filter::Contains("name".into(), FilterValue::String(malicious.into()));
+    let (sql, params) = filter.to_sql(0);
+
+    assert_eq!(sql, "name LIKE $1");
+    // Pattern should be escaped and parameterized
+}
+
+#[test]
+fn test_identifier_validation() {
+    let malicious = "id; DROP TABLE users; --";
+    let result = validate_column_name(malicious);
+    assert!(result.is_err());
 }
 ```
 
-## Safety
+## Code Review Checklist
 
-### Minimize `unsafe`
-- Avoid `unsafe` unless absolutely necessary
-- Document safety invariants for any `unsafe` code
-- Isolate `unsafe` in small, well-tested modules
+When reviewing SQL-related code:
 
-```rust
-/// # Safety
-///
-/// The caller must ensure that `ptr` is valid and properly aligned.
-unsafe fn raw_operation(ptr: *mut u8) {
-    // ...
-}
-```
+- [ ] All user values go through `FilterValue` or `push_param()`
+- [ ] All dynamic identifiers are validated against whitelist
+- [ ] No string concatenation for SQL with user input
+- [ ] LIKE patterns are properly escaped
+- [ ] Raw SQL is minimized and justified
+- [ ] Multi-tenant queries always include tenant filter
+- [ ] Tests include SQL injection attempts
 
-### Use `#[non_exhaustive]` for Extensibility
-```rust
-#[non_exhaustive]
-pub enum FilterOp {
-    Equals,
-    NotEquals,
-    Contains,
-    // Can add variants without breaking changes
-}
-```
+## Summary
 
-## Clippy
-
-All code must pass `cargo clippy` with no warnings. Key lints enforced:
-
-```rust
-#![deny(
-    clippy::all,
-    clippy::pedantic,
-    clippy::unwrap_used,
-    clippy::expect_used,
-)]
-#![allow(
-    clippy::module_name_repetitions,
-    clippy::must_use_candidate,
-)]
-```
-
-## Commit Messages
-
-Follow Conventional Commits (enforced by commit-msg hook):
-- `feat(query):` - New features
-- `fix(postgres):` - Bug fixes
-- `docs:` - Documentation
-- `refactor:` - Code refactoring
-- `test:` - Test changes
-- `perf:` - Performance improvements
+1. **Use parameterized queries** - Always use `FilterValue` and `push_param()`
+2. **Validate identifiers** - Whitelist table/column names, or use enums
+3. **Quote when necessary** - Properly escape dynamic identifiers
+4. **Test for injection** - Include malicious input in test cases
+5. **Review `format!`** - Audit all SQL string formatting
+6. **Defense in depth** - Combine ORM safety with database-level controls (RLS)
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
