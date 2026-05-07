@@ -1,0 +1,9 @@
+{
+  "name": "helger-it--phoss-peppol-mcp",
+  "displayName": "phoss-peppol-mcp",
+  "description": "phoss Peppol MCP server",
+  "version": "1.0.0",
+  "author": "Helger-IT",
+  "homepage": "https://github.com/Helger-IT/phoss-peppol-mcp",
+  "skills": []
+}
