@@ -1,0 +1,9 @@
+{
+  "name": "evanbacon--create-xcode",
+  "displayName": "create-xcode",
+  "description": "Create Xcode projects from the command line",
+  "version": "1.0.0",
+  "author": "EvanBacon",
+  "homepage": "https://github.com/EvanBacon/create-xcode",
+  "skills": []
+}
