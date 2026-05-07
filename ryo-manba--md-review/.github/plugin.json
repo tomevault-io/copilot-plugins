@@ -1,0 +1,9 @@
+{
+  "name": "ryo-manba--md-review",
+  "displayName": "md-review",
+  "description": "CLI tool for reviewing Markdown files with inline comments",
+  "version": "1.0.0",
+  "author": "ryo-manba",
+  "homepage": "https://github.com/ryo-manba/md-review",
+  "skills": []
+}
