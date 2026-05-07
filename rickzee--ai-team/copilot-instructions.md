@@ -1,34 +1,41 @@
-## security-requirements
+## testing-standards
 
-> Security requirements for tools and guardrails
+> Testing standards and structure for ai-team
 
 
-# Mandatory Security Practices
+# Test Requirements
 
-1. **Path traversal prevention**: Validate paths against whitelist; no `..`; resolve symlinks before access.
-2. **Code execution sandboxing**: Subprocess with timeouts and resource limits; never `eval()` or `exec()` on untrusted input.
-3. **PII detection**: Scan output for emails, phone numbers, SSNs, credit cards, API keys.
-4. **Secret detection**: Scan for AWS keys, GitHub tokens, passwords, connection strings, JWT secrets.
-5. **Prompt injection defense**: Validate external inputs for instruction override attempts.
-6. **Dangerous pattern blocking**: Block `eval`, `exec`, `os.system`, `subprocess.call(shell=True)`, `__import__`, `pickle.loads`, `yaml.load` without SafeLoader.
-7. **Audit logging**: Log file operations, code executions, and tool invocations with timestamps.
+- **Unit coverage**: ≥90% for `src/ai_team/`
+- **Integration**: all crew handoffs and tool chains
+- **Guardrails**: adversarial tests with known-bad inputs
+- **Pydantic models**: validation, serialization, edge cases
 
-# Security Guardrail Integration
+# File Naming
 
-Wrap tool operations: pre-execution validate inputs (run_security_guardrails); on fail raise SecurityViolation; post-execution scan output for secrets and redact if needed.
+- Unit: `tests/unit/test_{module}.py`
+- Integration: `tests/integration/test_{feature}_integration.py`
+- E2E: `tests/e2e/test_end_to_end.py`
+- Performance: `tests/performance/test_benchmarks.py`
+
+# Fixtures
+
+Use `tests/conftest.py`: `mock_ollama`, `sample_project_description`, `sample_requirements_doc`, `sample_code_files`.
+
+# Test Structure
+
+Use class-based tests and parametrize for variants:
 
 ```python
-def secure_tool_wrapper(func):
-    def wrapper(*args, **kwargs):
-        security_result = run_security_guardrails(args, kwargs)
-        if security_result.status == "fail":
-            raise SecurityViolation(security_result.message)
-        result = func(*args, **kwargs)
-        output_scan = scan_output_for_secrets(result)
-        if output_scan.has_findings:
-            result = redact_secrets(result)
-        return result
-    return wrapper
+class TestSecurityGuardrails:
+    def test_detects_eval_in_code(self, security_guardrail):
+        result = security_guardrail.code_safety_guardrail("x = eval(user_input)")
+        assert result.status == "fail"
+        assert "eval" in result.message
+
+    @pytest.mark.parametrize("dangerous_code", ["eval('1+1')", "__builtins__['eval']('1+1')"])
+    def test_detects_eval_variants(self, security_guardrail, dangerous_code):
+        result = security_guardrail.code_safety_guardrail(dangerous_code)
+        assert result.status == "fail"
 ```
 
 ---
