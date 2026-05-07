@@ -1,0 +1,44 @@
+{
+  "name": "convex-cloudflare-workers-solid-tanstack-spa-betterauth-D1-KV",
+  "owner": "jhomra21",
+  "repo": "convex-cloudflare-workers-solid-tanstack-spa-betterauth-D1-KV",
+  "description": "Gen AI Canvas using Convex and Solid",
+  "type": "config",
+  "source_format": ".windsurf/rules/*.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/jhomra21/convex-cloudflare-workers-solid-tanstack-spa-betterauth-D1-KV",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T22:46:10Z"
+}
