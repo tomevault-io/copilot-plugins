@@ -1,0 +1,9 @@
+{
+  "name": "aginies--virtui-manager",
+  "displayName": "virtui-manager",
+  "description": "terminal-based interface to manage virtual machines using libvirt",
+  "version": "1.0.0",
+  "author": "aginies",
+  "homepage": "https://github.com/aginies/virtui-manager",
+  "skills": []
+}
