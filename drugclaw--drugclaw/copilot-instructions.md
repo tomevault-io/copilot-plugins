@@ -1,194 +1,99 @@
 ## drugclaw
 
-> DrugClaw is a Rust multi-channel agent runtime for Telegram, Discord, and Web.
+> AI Research Assistant for Accelerated Drug Discovery
 
-# AGENTS.md
+# DrugClaw
 
-## Project overview
-
-DrugClaw is a Rust multi-channel agent runtime for Telegram, Discord, and Web.
-It shares one channel-agnostic agent loop (`src/agent_engine.rs`) and one provider-agnostic LLM layer (`src/llm.rs`), with channel adapters for ingress/egress.
-
-Core capabilities:
-- Tool-using chat agent loop (multi-step tool calls)
-- Session resume and context compaction
-- Scheduled tasks + background scheduler
-- File memory (`AGENTS.md`) + structured SQLite memory
-- Memory reflector, quality gate, and observability metrics
-- Skills + MCP tool federation
-- ClawHub skill registry integration (search/install/lockfile)
+AI Research Assistant for Accelerated Drug Discovery
 
 ## Tech stack
 
-- Language: Rust (edition 2021)
-- CLI args: clap
-- Async runtime: Tokio
-- Telegram: teloxide
-- Discord: serenity
-- Web API/UI: axum + React (in `web/`)
-- Database: SQLite (rusqlite)
-- LLM runtime: provider abstraction with native Anthropic and OpenAI-compatible providers
+Rust 2021, Tokio, teloxide 0.17, serenity 0.12, provider-agnostic LLM runtime (Anthropic + OpenAI-compatible), SQLite (rusqlite bundled), cron crate for scheduling.
 
-## Source index (`src/` + `crates/`)
+## Directory overview
 
-Main orchestration files in `src/`:
-- `main.rs`: CLI entry (`start`, `setup`, etc.)
-- `runtime.rs`: app wiring (`AppState`), provider/tool initialization, channel boot
-- `agent_engine.rs`: shared agent loop (`process_with_agent`), explicit-memory fast path, compaction, tool loop
-- `hooks.rs`: hooks discovery/runtime/CLI (`hooks list/info/enable/disable`)
-- `llm.rs`: provider implementations + stream handling + format translation
-- `otlp.rs`: OTLP metrics exporter (HTTP/protobuf)
-- `web.rs`: Web API router, shared web state, stream APIs, config endpoints
-- `web/auth.rs`: auth handlers (session login/logout, password, API key lifecycle)
-- `web/config.rs`: config read/update + config self-check handlers
-- `web/sessions.rs`: session/history/reset/delete/fork/tree handlers
-- `web/metrics.rs`: metrics snapshot/history handlers
-- `web/stream.rs`: streaming send/status/SSE handlers
-- `scheduler.rs`: scheduled-task runner + memory reflector loop
-- `skills.rs`: skill discovery/activation
-- `mcp.rs`: MCP server/tool integration
-- `gateway.rs`: event stream / request lifecycle infra
-- `setup.rs`: interactive setup wizard and provider presets
-- `doctor.rs`: environment diagnostics
-- `channels/*.rs`: concrete channel adapters (Telegram/Discord/Slack/Feishu)
-- `tools/*.rs`: built-in tool implementations and registry assembly
+- `gui/` -- Rust Tauri GUI
+- `src/` -- Rust source for the bot binary
+- `web/` -- Built-in Web UI (React + Vite). Compiled to `web/dist/` and embedded into the Rust binary via `include_dir!`. This is the chat interface and settings panel served by drugclaw itself at runtime.
+- `website/` -- **Separate git repository** (landing page + documentation site). Not part of the drugclaw binary. Contains the public-facing marketing site and docs. Changes here have no effect on the bot.
 
-Modularized crates in `crates/`:
-- `drugclaw-core`: shared error/types/text (`error`, `llm_types`, `text`)
-- `drugclaw-storage`: SQLite DB, memory domain, usage report assembly
-- `drugclaw-tools`: tool runtime primitives, sandbox, path guards, web/todo helpers
-- `drugclaw-channels`: channel abstractions (`channel`, `channel_adapter`, delivery boundary)
-- `drugclaw-app`: app-level support modules (logging, builtin skills, transcribe)
+## Project layout
 
-## Tool system
+- `crates/drugclaw-core/` -- shared error/types/text modules (`error`, `llm_types`, `text`)
+- `crates/drugclaw-storage/` -- SQLite DB schema/query layer + memory/usage domain modules
+- `crates/drugclaw-tools/` -- tool runtime primitives (trait/auth/risk/schema/path) + sandbox
+- `crates/drugclaw-channels/` -- channel abstraction and delivery boundary modules
+- `crates/drugclaw-app/` -- app-level support modules (logging, builtin skills, transcribe)
+- `src/main.rs` -- entry point, CLI
+- `src/runtime.rs` -- app wiring (`AppState`), provider/tool initialization, channel boot
+- `src/agent_engine.rs` -- shared agent loop (`process_with_agent`)
+- `src/llm.rs` -- provider implementations + format translation
+- `src/web.rs` -- web API routes and streaming
+- `src/memory.rs` -- file-memory manager (`runtime/groups/.../AGENTS.md`)
+- `src/scheduler.rs` -- background scheduler + memory reflector loops
+- `src/channels/*.rs` -- Telegram/Discord/Slack/Feishu adapters
+- `src/tools/*.rs` -- concrete built-in tools; registry assembly in `src/tools/mod.rs`
 
-`src/tools/mod.rs` assembles built-in tools, while shared runtime primitives live in `drugclaw-tools::runtime`:
-- `Tool` trait (`name`, `definition`, `execute`)
-- `ToolRegistry` dispatch and auth context injection
-- risk/approval gate for high-risk tools in sensitive contexts
+## Key patterns
 
-Current built-in tools are generated from code to avoid drift:
-- `docs/generated/tools.md`
-- `website/docs/generated-tools.md`
+- **Agentic loop** in `agent_engine.rs:process_with_agent`: call provider -> if tool_use -> execute -> loop (up to `max_tool_iterations`)
+- **Session resume**: full `Vec<Message>` (including tool_use/tool_result blocks) persisted in `sessions` table; on next invocation, loaded and appended with new user messages. `/reset` clears session.
+- **Context compaction**: when session messages exceed `max_session_messages`, older messages are summarized and replaced with a compact summary + recent messages kept verbatim
+- **Sub-agent**: `sub_agent` tool spawns a fresh agentic loop with 9 restricted tools (no send_message, write_memory, schedule, or recursive sub_agent)
+- **Tool trait**: `name()`, `definition()` (JSON Schema), `execute(serde_json::Value) -> ToolResult`
+- **Shared state**: `AppState` in `Arc`, tools hold `Bot` / `Arc<Database>` as needed
+- **Group catch-up**: `db.get_messages_since_last_bot_response()` loads all messages since bot's last reply
+- **Scheduler**: `tokio::spawn` loop, polls DB for due tasks, calls `process_with_agent` with `override_prompt`
+- **Typing**: spawned task sends typing action every 4s, aborted when response is ready
+- **Path guard**: sensitive paths (.ssh, .aws, .env, credentials, etc.) are blocked in file tools via `path_guard` module
+- **Platform-extensible core**: Telegram/Discord/Slack/Feishu/Web adapters reuse `process_with_agent`; new platforms integrate through the same core loop
+- **SOUL.md**: optional personality file injected into system prompt. Loaded from `soul_path` config, `data_dir/SOUL.md`, or `./SOUL.md`. Per-chat overrides via `data_dir/runtime/groups/{chat_id}/SOUL.md`
 
-Regenerate docs artifacts with:
-```sh
-node scripts/generate_docs_artifacts.mjs
-```
-
-## Skills Storage
-
-- Default skills dir: `<data_dir>/skills` (default `data_dir` is `~/.drugclaw`)
-- Config override: `skills_dir` in `drugclaw.config.yaml` (e.g. `~/.drugclaw/skills`)
-- Compatibility policy: existing configured `data_dir` / `skills_dir` / `working_dir` keep working; new defaults apply only when unset
-- ClawHub lockfile: `~/.drugclaw/clawhub.lock.json`
-
-## Agent loop (high level)
-
-`process_with_agent` flow:
-1. Optional explicit-memory fast path (`remember ...`/`记住...`) writes structured memory directly
-2. Load resumable session from `sessions`, or rebuild from chat history
-3. Build system prompt from file memory + structured memory context + skills catalog
-4. Compact old context if session exceeds limits
-5. Call provider with tool schemas
-6. If `tool_use`: execute tool(s), append results, loop
-7. If `end_turn`: persist session and return text
-
-## Memory architecture
-
-Two layers:
-
-1. File memory:
-- Global: `runtime/groups/AGENTS.md`
-- Chat: `runtime/groups/{chat_id}/AGENTS.md`
-
-2. Structured memory (`memories` table):
-- category, confidence, source, last_seen, archived lifecycle
-- explicit remember fast path
-- reflector extraction from conversation history
-- dedup/supersede handling with `memory_supersede_edges`
-
-Observability tables:
-- `memory_reflector_runs`
-- `memory_injection_logs`
-
-Surfaces:
-- `/api/usage` summary block
-- `/api/memory_observability` time-window series API
-- Web Usage Panel trends/cards
-
-## Database
-
-`drugclaw-storage::db` includes:
-- schema creation + schema-version migrations (`db_meta`, `schema_migrations`)
-- chat/message/session/task persistence
-- structured memory CRUD + archive/supersede
-- auth/session/api-key persistence (scopes, expiry, rotation)
-- audit log persistence (`audit_logs`)
-- usage and memory observability queries
-- metrics history persistence (`metrics_history`)
-
-## Web/API
-
-`web.rs` routes include:
-- chat send/send_stream + SSE stream replay
-- auth APIs (`/api/auth/*`) with session cookie + API key scopes
-- sessions/history/reset/delete/fork/tree
-- config read/update + self-check (`/api/config/self_check`)
-- audit query (`/api/audit`)
-- metrics APIs (`/api/metrics`, `/api/metrics/summary`, `/api/metrics/history`)
-- usage text report (`/api/usage`)
-- memory observability series (`/api/memory_observability`)
-
-## Hooks
-
-Hook assets and spec:
-- runtime hook dirs: `hooks/<name>/HOOK.md`
-- hook spec doc: `docs/hooks/HOOK.md`
-- sample hooks: `hooks/block-bash/`, `hooks/redact-tool-output/`
-
-Hook runtime supports:
-- events: `BeforeLLMCall`, `BeforeToolCall`, `AfterToolCall`
-- outcomes: `allow`, `block`, `modify` (structured fields only)
-
-## ClawHub
-
-- local doc: `docs/clawhub/overview.md`
-- web doc: `website/docs/clawhub.md`
-
-## Observability Docs
-
-- metrics docs: `docs/observability/metrics.md`
-- operations runbook: `docs/operations/runbook.md`
-- PR/release checklist: `docs/releases/pr-release-checklist.md`
-- upgrade guide: `docs/releases/upgrade-guide.md`
-- regression/stability reports: `docs/reports/*.md`
-
-OTLP exporter supports bounded queue + retry backoff tuning:
-- `otlp_queue_capacity`
-- `otlp_retry_max_attempts`
-- `otlp_retry_base_ms`
-- `otlp_retry_max_ms`
-
-## Build and test
+## Build & run
 
 ```sh
 cargo build
-cargo test
-npm --prefix web run build
-npm --prefix website run build
+cargo run -- start    # requires config.yaml with at least one enabled channel plus model credentials
+cargo run -- setup    # interactive setup wizard to create config.yaml
+cargo run -- help
 ```
 
-Docs drift guard (CI + local):
-```sh
-node scripts/generate_docs_artifacts.mjs --check
-```
+## Configuration
 
-## Collaboration conventions
+DrugClaw uses `drugclaw.config.yaml` (or `.yml`) for configuration. Override the path with `MICROCLAW_CONFIG` env var. See `drugclaw.config.example.yaml` for all available fields.
 
-- For the separate `website` repository (`drugclaw.github.io`), do not open a PR by default; commit/push directly unless explicitly requested otherwise.
+## Soul (personality customization)
+
+DrugClaw supports a `SOUL.md` file that defines the bot's personality, voice, values, and working style. The file content is injected into the system prompt, replacing the default "helpful AI assistant" identity.
+
+**Loading priority** (first match wins):
+1. `soul_path` in config (explicit path)
+2. `<data_dir>/SOUL.md`
+3. `./SOUL.md` (project root, ships with the repo as the default soul)
+
+**Per-chat override**: place a `SOUL.md` at `<data_dir>/runtime/groups/<chat_id>/SOUL.md` to give a specific chat a different personality.
+
+**Implementation**: `load_soul_content()` and `build_system_prompt()` in `src/agent_engine.rs`. The soul content is wrapped in `<soul>` XML tags in the system prompt.
+
+## Adding a tool
+
+1. Create `src/tools/my_tool.rs` implementing the `Tool` trait
+2. Add `pub mod my_tool;` to `src/tools/mod.rs`
+3. Register in `ToolRegistry::new()` with `Box::new(my_tool::MyTool::new(...))`
+
+## Database
+
+Core persistence is provided by `drugclaw-storage` (`Database` wrapper over SQLite). Runtime state and observability tables are managed through versioned migrations.
+
+## Important conventions
+
+- All timestamps are ISO 8601 / RFC 3339 strings
+- Cron expressions use 6-field format (sec min hour dom month dow)
+- Messages are stored for all chats regardless of whether bot responds
+- In groups, bot only responds to @mentions
+- Consecutive same-role messages are merged before sending to the configured LLM provider
+- Responses > 4096 chars are split at newline boundaries (Telegram), > 2000 chars for Discord, > 4000 chars for Slack/Feishu
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/DrugClaw)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/DrugClaw)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [DrugClaw/DrugClaw](https://github.com/DrugClaw/DrugClaw) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
