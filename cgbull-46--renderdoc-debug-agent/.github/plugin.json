@@ -1,0 +1,9 @@
+{
+  "name": "cgbull-46--renderdoc-debug-agent",
+  "displayName": "Renderdoc-Debug-Agent",
+  "description": "A Agent can use renderdoc to debug rendering problem for you.",
+  "version": "1.0.0",
+  "author": "CGbull-46",
+  "homepage": "https://github.com/CGbull-46/Renderdoc-Debug-Agent",
+  "skills": []
+}
