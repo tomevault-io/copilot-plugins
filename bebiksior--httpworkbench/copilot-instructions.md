@@ -1,83 +1,22 @@
-## components
+## lint-rules
 
-> Vue component guidelines
+> - Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly
 
-# Components
 
-1. Use Primevue components for all UI components.
-1. Use `<script setup lang="ts">` for all components.
+# Most common mistakes that lead to lint error
 
-## Props and Events
-
-Always inline the type definition in `defineProps<>` and `defineEmits<>`.
-Avoid creating a separate type just for props.
-
-  - Good
-
-    ```typescript
-    defineProps<{ x: string; y: number }>();
-    defineEmits<{ (e: 'update:modelValue', value: string): void }>();
-    ```
-
-  - Bad
-
-    ```typescript
-    type Props = { x: string; y: number };
-    type Emits = { (e: 'update:modelValue', value: string): void };
-    defineProps<Props>();
-    defineEmits<Emits>();
-    ```
-
-## Destructuring Props
-
-Destructure props with `toRefs` for better reactivity and clarity. Avoid directly accessing props in function calls.
-
-  - Good
-
-    ```typescript
-    const props = defineProps<{ myProp: string }>();
-    const { myProp } = toRefs(props);
-    useForm({ myProp });
-    ```
-
-  - Bad
-
-    ```typescript
-    const props = defineProps<{ myProp: string }>();
-    useForm(props.myProp);
-    ```
-
-## Structure
-
-Use the following layout for every component to keep imports and growth consistent:
-
-```text
-ComponentName/
-  ├─ index.ts           # Re-export (single public entry)
-  ├─ Container.vue      # Main component implementation
-  ├─ useForm.ts         # Optional: composable when logic grows (e.g. forms)
-  └─ DependentComponent.vue
+- Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly
+this one we prevent when comparing strings instead doing
+```
+if (!str) {}
+```
+we do
+```
+if (str !== undefined) {}
 ```
 
-ComponentName/index.ts
-```ts
-export { default as ComponentName } from "./Container.vue";
-```
 
-When a child piece becomes complex or needs its own hook, use the same pattern as the parent:
-
-```text
-ComponentName/
-  └─ DependentComponent/
-       ├─ index.ts
-       └─ Container.vue
-```
-
-## Styling
-
-1. Use Tailwind CSS for all styling:
-   - Apply utility classes directly in templates for layout and styling.
-   - Avoid custom CSS unless absolutely necessary for reusable or complex styles.
+- Once you are done, ALWAYS run linter, typecheck and knip to ensure clean code
 
 ---
 > Source: [bebiksior/httpworkbench](https://github.com/bebiksior/httpworkbench) — distributed by [TomeVault](https://tomevault.io).
