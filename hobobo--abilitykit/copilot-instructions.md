@@ -1,60 +1,120 @@
-## build-verification
+## chinese-multi-line-comments
 
-> Build verification - always run dotnet build after writing code
+> **所有新编写的代码文件（.cs）必须包含中文注释。** 使用 `///` XML 文档注释格式，便于外部工具（如 IDE、DocFX）查看和生成文档。
 
+# 中文注释规范
 
-# Build Verification Rule
+## 重要
 
-## Important
+**所有新编写的代码文件（.cs）必须包含中文注释。** 使用 `///` XML 文档注释格式，便于外部工具（如 IDE、DocFX）查看和生成文档。
 
-**After writing any new code or making changes to C# files, always run `dotnet build` to verify compilation.** This ensures all code compiles correctly before considering the task complete.
+## 格式要求
 
-## Workflow
+### 文件级注释
 
-1. Write or modify C# code
-2. Immediately run `dotnet build` to check for compilation errors
-3. If errors occur:
-   - Read the error messages carefully
-   - Fix all compilation errors
-   - Re-run `dotnet build` to verify fixes
-4. Only mark task as complete when `dotnet build` succeeds with no errors
+每个 .cs 文件开头必须有文件级注释：
 
-## Why This Matters
-
-- Catches type mismatches early
-- Prevents API breakage from spreading
-- Ensures refactoring changes are consistent across the codebase
-- Maintains code quality and integration health
-
-## Examples
-
-### Good: Always verify after writing code
-
-```bash
-# After creating a new file
-Write: "Unity/Packages/example/MyClass.cs"
-# Immediately run build
-dotnet build Unity/Packages/example/example.csproj
-# Fix any errors if they appear
+```csharp
+/// <summary>
+/// 文件名称: [文件名]
+/// 
+/// 功能描述: [简要描述这个文件的功能]
+/// 
+/// 创建日期: [YYYY-MM-DD]
+/// 修改日期: [YYYY-MM-DD]
+/// </summary>
 ```
 
-### Bad: Skip verification
+### 关键类型注释
 
-```bash
-# Writing code but not verifying
-Write: "Unity/Packages/example/MyClass.cs"
-# User later finds compilation errors
+public/protected 类、结构体、接口需要 Summary 注释：
+
+```csharp
+/// <summary>
+/// [简要描述类的功能和职责，一两句话即可]
+/// </summary>
+public class XXX
 ```
 
-## Summary
+### 方法注释
 
-| Step | Action |
-|------|--------|
-| 1 | Write/modify C# code |
-| 2 | Run `dotnet build` |
-| 3 | Fix any errors found |
-| 4 | Repeat until build succeeds |
-| 5 | Task complete |
+public/protected 方法需要注释：
+
+```csharp
+/// <summary>
+/// [方法功能描述]
+/// </summary>
+/// <param name="paramName">参数说明</param>
+/// <returns>返回值说明</returns>
+public void DoSomething()
+```
+
+### 不需要的注释
+
+- ❌ 单行 `// xxx` 用于类/方法（改用 `///`）
+- ❌ 过于详细的注释（逐行解释代码在做什么）
+- ❌ 明显的废话注释（如 `// 设置值: field = value`）
+- ❌ getter/setter 属性的逐条注释（除非有特殊业务含义）
+
+## 注释风格
+
+1. **使用 `///` 格式**：标准 XML 文档注释，工具友好
+2. **简洁为主**：描述清楚"是什么"和"为什么"，不必解释"怎么做"
+3. **关键信息优先**：把最重要的信息放在前面
+4. **中文为主**：团队项目保持语言一致
+
+## 正确示例
+
+```csharp
+/// <summary>
+/// 战斗会话的核心特性类，管理战斗生命周期。
+/// 采用 SubFeature 模式分离关注点。
+/// </summary>
+public sealed class BattleSessionFeature : Feature
+{
+    /// <summary>
+    /// 当前战斗状态
+    /// </summary>
+    public BattleState State { get; private set; }
+    
+    /// <summary>
+    /// 初始化战斗会话
+    /// </summary>
+    /// <param name="config">战斗配置</param>
+    public void Initialize(BattleConfig config) { }
+}
+```
+
+## 错误示例
+
+```csharp
+/*
+ * BattleSessionFeature
+ * 
+ * 功能描述:
+ *     战斗会话的核心特性类...
+ */
+public sealed class BattleSessionFeature
+{
+    // 战斗状态属性
+    public BattleState State { get; private set; }
+    
+    // 设置战斗状态
+    private void SetState(BattleState state) { }
+}
+```
+
+## 总结
+
+| 元素 | 要求 |
+|-----|-----|
+| 文件头 | 必填，含文件名、功能描述、日期 |
+| 类/结构体 | 必填，一两句话概括即可 |
+| public 方法 | 必填，含参数和返回值说明 |
+| 属性/字段 | 简单的不需要注释 |
+| 注释语言 | 中文 |
+| 注释格式 | `///` XML 格式 |
+| 详细程度 | 简洁，只写必要信息 |
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
