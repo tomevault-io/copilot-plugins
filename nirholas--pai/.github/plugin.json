@@ -1,0 +1,9 @@
+{
+  "name": "nirholas--pai",
+  "displayName": "PAI",
+  "description": "A complete private computer on a USB stick. PAI is a bootable Debian 12 Linux distro that runs Ollama locally on any x86_64 or ARM64 machine \u2014 full desktop, local AI, hardened networking, all in RAM. ",
+  "version": "1.0.0",
+  "author": "nirholas",
+  "homepage": "https://github.com/nirholas/PAI",
+  "skills": []
+}
