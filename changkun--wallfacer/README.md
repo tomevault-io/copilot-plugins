@@ -7,11 +7,11 @@ Chat, specs, tasks, and code. An autonomous engineering platform. Full autonomy 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [changkun/wallfacer](https://github.com/changkun/wallfacer).
+Original source: `CLAUDE.md` in [changkun/wallfacer](https://github.com/changkun/wallfacer).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
