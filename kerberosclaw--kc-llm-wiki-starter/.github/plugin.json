@@ -1,0 +1,9 @@
+{
+  "name": "kerberosclaw--kc-llm-wiki-starter",
+  "displayName": "kc_llm_wiki_starter",
+  "description": "Production-ready starter template for LLM-maintained wikis. Karpathy's 2026-04 three-tier pattern (raw/wiki/schema) + journal extension + lint hygiene. Clone, feed docs, let the LLM do bookkeeping.",
+  "version": "1.0.0",
+  "author": "KerberosClaw",
+  "homepage": "https://github.com/KerberosClaw/kc_llm_wiki_starter",
+  "skills": []
+}
