@@ -1,0 +1,9 @@
+{
+  "name": "meganoob1337--noobscribe",
+  "displayName": "NoobScribe",
+  "description": "NoobScribe is a Whisper-compatible transcription API and Web UI for recording meetings, transcribing audio, and remembering speakers across sessions with diarization and speaker memory.",
+  "version": "1.0.0",
+  "author": "meganoob1337",
+  "homepage": "https://github.com/meganoob1337/NoobScribe",
+  "skills": []
+}
