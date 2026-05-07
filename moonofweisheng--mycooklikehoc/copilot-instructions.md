@@ -1,91 +1,32 @@
-## styling
+## ui-library
 
-> 1. 主配置在 [uno.config.ts](mdc:uno.config.ts)
+> 1. 优先使用 `src/components/` 目录下的项目组件
 
-# 样式开发规则
+# 组件化开发规则
 
-## UnoCSS使用规范
+## 组件使用优先级
+1. 优先使用 `src/components/` 目录下的项目组件
+2. 其次使用 `wot-design-uni` 组件库组件
+3. 最后考虑原生 uni-app 组件
+4. Toast、Loading和MessageBox交互使用 `src/components/` 目录下提供的全局GlobalToast、GlobalLoading、GlobalMessage组件实现
 
-### 基础配置
-1. 主配置在 [uno.config.ts](mdc:uno.config.ts)
-2. 使用 `@uni-helper/unocss-preset-uni` 预设支持uni-app
-3. 支持图标、响应式设计和主题切换
+## wot-design-uni 组件库
+1. 组件库文档:https://wot-design-uni.cn/llms-full.txt
+2. 优先使用组件库提供的主题和样式
+3. 遵循组件库的最佳实践和 API 规范
 
-### 样式优先级
-1. **首选**: UnoCSS原子化类名
-2. **次选**: wot-design-uni组件自带样式
-3. **最后**: 自定义CSS/SCSS
+## 自定义组件开发
+1. 通用组件放在 `src/components/`
+2. 业务组件放在 `src/business/`
+3. 组件要支持主题切换和多端适配
+4. 提供完整的 TypeScript 类型定义
 
-### 主题系统
-主题配置在 [src/theme.json](mdc:src/theme.json)：
-```json
-{
-  "light": {
-    "bgColor": "#F8F8F8",
-    "navBgColor": "#FFF",
-    "tabSelectedColor": "#0165FF"
-  },
-  "dark": {
-    "bgColor": "#000",
-    "navBgColor": "#000000",
-    "tabSelectedColor": "#0165FF"
-  }
-}
-```
+## 组件命名
+1. 自定义组件使用 PascalCase
+2. 组件文件名使用 kebab-case
 
-### 深色模式支持
-```html
-<!-- 使用dark:前缀实现深色模式 -->
-<view class="bg-white dark:bg-black text-black dark:text-white">
-  内容
-</view>
-```
-
-### 响应式设计
-```html
-<!-- 响应式布局 -->
-<view class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
-  响应式内容
-</view>
-```
-
-### 图标使用
-1. 配置 `presetIcons` 支持图标集
-2. 推荐使用 Carbon 图标集：
-```html
-<view class="i-carbon-home text-24"></view>
-```
-
-### 自定义样式变体
-在 [uno.config.ts](mdc:uno.config.ts) 中配置自定义变体：
-```typescript
-variants: [
-  // 深色模式变体
-  (matcher) => {
-    if (matcher.startsWith('dark')) {
-      return {
-        matcher: matcher.slice(5),
-        selector: (s) => `.wot-theme-dark ${s}`,
-      }
-    }
-  },
-]
-```
-
-### 最佳实践
-1. 优先使用UnoCSS原子化类名
-2. 保持样式的一致性和可维护性
-3. 合理使用响应式设计适配不同屏幕
-4. 充分利用主题系统支持深色模式
-5. 避免内联样式，使用类名方式
-
-### 常用类名参考
-- 间距：`m-4 p-2 mx-auto my-4`
-- 布局：`flex items-center justify-center`
-- 尺寸：`w-full h-100 min-h-screen`
-- 文字：`text-16 font-bold text-center`
-- 颜色：`text-blue bg-gray-100`
-- 圆角：`rounded-4 rounded-full`
+## 样式
+使用 unocss 编写样式
 
 ---
 > Source: [Moonofweisheng/MyCookLikeHOC](https://github.com/Moonofweisheng/MyCookLikeHOC) — distributed by [TomeVault](https://tomevault.io).
