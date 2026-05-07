@@ -1,0 +1,44 @@
+{
+  "name": "next-ai-blog-cms",
+  "owner": "fcppddl",
+  "repo": "next-ai-blog-cms",
+  "description": "\u57fa\u4e8e Next.js App Router \u7684\u535a\u5ba2\u4e0e\u540e\u53f0\u4e00\u4f53\u5316\u9879\u76ee\uff1a\u516c\u5f00\u524d\u53f0\u3001\u7ba1\u7406\u5458 CMS\u3001AI \u5199\u4f5c\u52a9\u624b\uff0c\u4ee5\u53ca\u57fa\u4e8e\u5411\u91cf\u68c0\u7d22\uff08RAG\uff09\u7684\u7ad9\u5185\u667a\u80fd\u95ee\u7b54\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/fcppddl/next-ai-blog-cms",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T17:34:14Z"
+}
