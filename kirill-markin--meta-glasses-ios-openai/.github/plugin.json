@@ -1,0 +1,9 @@
+{
+  "name": "kirill-markin--meta-glasses-ios-openai",
+  "displayName": "meta-glasses-ios-openai",
+  "description": "iOS app for Meta smart glasses with OpenAI Realtime API voice assistant. SwiftUI + Bluetooth HFP + GPT realtime voice.",
+  "version": "1.0.0",
+  "author": "kirill-markin",
+  "homepage": "https://github.com/kirill-markin/meta-glasses-ios-openai",
+  "skills": []
+}
