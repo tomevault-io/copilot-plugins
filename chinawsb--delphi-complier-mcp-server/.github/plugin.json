@@ -1,0 +1,9 @@
+{
+  "name": "chinawsb--delphi-complier-mcp-server",
+  "displayName": "delphi-complier-mcp-server",
+  "description": "Delphi Complier MCP Server for AI agent, Used for compile project and file to check ai code result.",
+  "version": "1.0.0",
+  "author": "chinawsb",
+  "homepage": "https://github.com/chinawsb/delphi-complier-mcp-server",
+  "skills": []
+}
