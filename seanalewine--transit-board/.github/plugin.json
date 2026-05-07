@@ -1,0 +1,9 @@
+{
+  "name": "seanalewine--transit-board",
+  "displayName": "transit-board",
+  "description": "ESPHome powered Live CTA Train Position Map",
+  "version": "1.0.0",
+  "author": "seanalewine",
+  "homepage": "https://github.com/seanalewine/transit-board",
+  "skills": []
+}
