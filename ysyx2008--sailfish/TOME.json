@@ -1,0 +1,44 @@
+{
+  "name": "SailFish",
+  "owner": "ysyx2008",
+  "repo": "SailFish",
+  "description": "\u9f99\u867e\u90e8\u7f72\u590d\u6742\uff0c\u4e0d\u5982\u8bd5\u8bd5\u6478\u9c7c\uff1f",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ysyx2008/SailFish",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T14:49:00Z"
+}
