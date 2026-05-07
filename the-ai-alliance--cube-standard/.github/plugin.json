@@ -1,0 +1,9 @@
+{
+  "name": "the-ai-alliance--cube-standard",
+  "displayName": "cube-standard",
+  "description": "Standardize benchmark wrapping so the community can wrap various otherwise-incompatible benchmarks uniformly and use them everywhere. ",
+  "version": "1.0.0",
+  "author": "The-AI-Alliance",
+  "homepage": "https://github.com/The-AI-Alliance/cube-standard",
+  "skills": []
+}
