@@ -1,0 +1,38 @@
+{
+  "name": "getty104--claude-code-marketplace",
+  "displayName": "claude-code-marketplace",
+  "description": "AI instruction skills by getty104",
+  "version": "1.0.0",
+  "author": "getty104",
+  "homepage": "https://github.com/getty104/claude-code-marketplace",
+  "skills": [
+    {
+      "name": "check-library",
+      "description": ""
+    },
+    {
+      "name": "create-issue",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "description": ""
+    },
+    {
+      "name": "exec-issue",
+      "description": ""
+    },
+    {
+      "name": "read-github-issue",
+      "description": ""
+    },
+    {
+      "name": "resolve-pr-comments",
+      "description": ""
+    },
+    {
+      "name": "update-issue",
+      "description": ""
+    }
+  ]
+}
