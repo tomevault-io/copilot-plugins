@@ -1,0 +1,9 @@
+{
+  "name": "gnomesofzurich--scxml",
+  "displayName": "scxml",
+  "description": "SCXML - State Chart XML (State Machine Notation for Control Abstraction)",
+  "version": "1.0.0",
+  "author": "GnomesOfZurich",
+  "homepage": "https://github.com/GnomesOfZurich/scxml",
+  "skills": []
+}
