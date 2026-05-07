@@ -1,98 +1,72 @@
-## overview
+## project-structure
 
-> 这是一个基于 uni-app + Vue 3 + TypeScript 的跨平台应用项目，使用 wot-design-uni 组件库构建现代化的移动应用界面。
+> 本项目是基于 uni-app + Vue 3 + TypeScript 的跨平台应用，使用 wot-design-uni 组件库构建。
 
-# wot-starter 项目开发指南
+# 项目结构规则
 
 ## 项目概述
-这是一个基于 uni-app + Vue 3 + TypeScript 的跨平台应用项目，使用 wot-design-uni 组件库构建现代化的移动应用界面。
+本项目是基于 uni-app + Vue 3 + TypeScript 的跨平台应用，使用 wot-design-uni 组件库构建。
 
-## 规则文档索引
+## 核心技术栈
+- **框架**: uni-app (Vue 3 + TypeScript)
+- **UI组件库**: wot-design-uni
+- **请求库**: alova
+- **路由**: uni-mini-router + @uni-helper/vite-plugin-uni-pages (文件路由)
+- **状态管理**: pinia
+- **样式**: UnoCSS + @uni-helper/unocss-preset-uni
+- **构建工具**: Vite
+- **代码规范**: ESLint + Prettier + husky
 
-### 🏗️ [项目结构规则](mdc:.cursor/rules/project-structure.mdc)
-- 项目整体架构和目录结构规范
-- 核心技术栈介绍
-- 文件组织和命名规范
+## 目录结构规范
 
-### 🛣️ [路由开发规则](mdc:.cursor/rules/route.mdc)
+### src/api/ - API管理
+- `core/` - Alova核心配置
+  - [instance.ts](mdc:src/api/core/instance.ts) - Alova实例配置
+  - [handlers.ts](mdc:src/api/core/handlers.ts) - 请求处理器
+  - [middleware.ts](mdc:src/api/core/middleware.ts) - 中间件
+- `mock/` - Mock数据
+  - `modules/` - 按模块分类的Mock数据
+  - `utils/` - Mock工具函数
+- [createApis.ts](mdc:src/api/createApis.ts) - API生成配置
+- [index.ts](mdc:src/api/index.ts) - API导出
+
+### src/components/ - 全局组件
+- 全局通用组件目录
+- 包含 GlobalToast、GlobalLoading、GlobalMessage 等全局交互组件
+
+### src/composables/ - 组合式函数
+- 可复用的逻辑函数
+- 命名格式: `use[功能名称].ts`
+
+### src/layouts/ - 布局模板
+- [default.vue](mdc:src/layouts/default.vue) - 默认布局
+- [tabbar.vue](mdc:src/layouts/tabbar.vue) - 底部导航布局
+
+### src/pages/ - 页面文件
 - 基于文件的路由系统
-- 布局框架使用
-- 路由跳转方法
+- 每个页面目录包含 `index.vue` 文件
+- 支持 `<route>` 自定义块配置路由元数据
 
-### 🎨 [UI组件开发规则](mdc:.cursor/rules/ui-library.mdc)
-- 组件使用优先级
-- wot-design-uni 组件库使用
-- 自定义组件开发规范
+### src/store/ - 状态管理
+- Pinia store 文件
+- [persist.ts](mdc:src/store/persist.ts) - 持久化配置
 
-### 🌐 [API开发规则](mdc:.cursor/rules/api-development.mdc)
-- Alova 请求库使用规范
-- Mock数据管理
-- API生成和配置
+### src/utils/ - 工具函数
+- 通用工具函数库
 
-### 💄 [样式开发规则](mdc:.cursor/rules/styling.mdc)
-- UnoCSS 使用规范
-- 主题系统和深色模式
-- 响应式设计
+## 配置文件
+- [pages.config.ts](mdc:pages.config.ts) - 页面和tabbar配置
+- [alova.config.ts](mdc:alova.config.ts) - Alova配置
+- [uno.config.ts](mdc:uno.config.ts) - UnoCSS配置
+- [theme.json](mdc:src/theme.json) - 主题配置
+- [vite.config.ts](mdc:vite.config.ts) - Vite构建配置
 
-### 📦 [状态管理规则](mdc:.cursor/rules/state-management.mdc)
-- Pinia Store 使用规范
-- 持久化配置
-- 最佳实践
-
-### ⚡ [开发工作流规则](mdc:.cursor/rules/development-workflow.mdc)
-- 开发环境配置
-- 代码规范和Git工作流
-- 构建部署流程
-
-## 快速开始
-
-### 开发环境启动
-```bash
-# 安装依赖
-pnpm install
-
-# 启动H5开发
-pnpm dev
-
-# 启动微信小程序开发
-pnpm dev:mp-weixin
-```
-
-### 常用命令
-```bash
-# 代码检查和修复
-pnpm lint:fix
-
-# 生成API接口
-pnpm alova-gen
-
-# 规范化提交
-pnpm commit
-```
-
-## 核心特性
-- ✅ 跨平台支持 (H5/小程序/App)
-- ✅ TypeScript 全面支持
-- ✅ 基于文件的路由系统
-- ✅ 组件化开发
-- ✅ 响应式设计和主题切换
-- ✅ 状态管理和持久化
-- ✅ Mock数据和API管理
-- ✅ 代码规范和自动化工作流
-
-## 开发原则
-1. **类型安全**: 全面使用 TypeScript
-2. **组件化**: 优先复用，合理抽象
-3. **响应式**: 适配多端和多主题
-4. **规范化**: 遵循代码规范和提交规范
-5. **性能优先**: 关注加载速度和用户体验
-
-## 技术支持
-- [uni-app 官网](mdc:https:/uniapp.dcloud.net.cn)
-- [wot-design-uni 文档](mdc:https:/wot-design-uni.cn)
-- [Vue 3 文档](mdc:https:/vuejs.org)
-- [UnoCSS 文档](mdc:https:/unocss.dev)
-- [Alova 文档](mdc:https:/alova.js.org)
+## 开发规范
+1. 页面文件必须放在 `src/pages/` 目录下
+2. 组件按通用性分类存放在 `src/components/` 或 `src/business/`
+3. API 接口使用 Alova 生成，通过 `pnpm alova-gen` 命令生成
+4. 样式优先使用 UnoCSS，支持响应式设计和主题切换
+5. 使用 TypeScript 提供完整的类型定义
 
 ---
 > Source: [Moonofweisheng/MyCookLikeHOC](https://github.com/Moonofweisheng/MyCookLikeHOC) — distributed by [TomeVault](https://tomevault.io).
