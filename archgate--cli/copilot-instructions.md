@@ -1,0 +1,32 @@
+## archgate-governance
+
+> Archgate ADR governance — enforces architecture decision records
+
+
+# Archgate Governance
+
+This project uses Archgate to enforce Architecture Decision Records (ADRs).
+
+## Before writing code
+
+- Use the `review_context` MCP tool to get applicable ADR briefings for changed files
+- Review the Decision and Do's/Don'ts sections of each applicable ADR
+
+## After writing code
+
+- Run the `check` MCP tool to validate compliance with all ADR rules
+- Fix any violations before considering work complete
+
+## ADR commands
+
+- `list_adrs` — List all active ADRs with metadata
+- `check` — Run automated compliance checks (use `staged: true` for pre-commit)
+- `review_context` — Get changed files grouped by domain with ADR briefings
+
+## Key principle
+
+Architectural decisions are enforced, not suggested. If `check` reports violations, they must be fixed.
+
+---
+> Source: [archgate/cli](https://github.com/archgate/cli) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
