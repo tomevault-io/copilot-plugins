@@ -1,0 +1,9 @@
+{
+  "name": "blas0--unseveredmemory",
+  "displayName": "UnseveredMemory",
+  "description": "Simple, organic, lightweight yet purposeful memory system for Claude Code.",
+  "version": "1.0.0",
+  "author": "blas0",
+  "homepage": "https://github.com/blas0/UnseveredMemory",
+  "skills": []
+}
