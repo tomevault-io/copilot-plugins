@@ -1,0 +1,9 @@
+{
+  "name": "api7--aisix",
+  "displayName": "aisix",
+  "description": "An open source, Native AI Gateway and LLM proxy built in Rust",
+  "version": "1.0.0",
+  "author": "api7",
+  "homepage": "https://github.com/api7/aisix",
+  "skills": []
+}
