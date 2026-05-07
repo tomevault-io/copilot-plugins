@@ -1,187 +1,54 @@
-## plans
+## react
 
-> Plan file structure and agent coordination
+> React component architecture and patterns
 
 
-# Plan Files
+# React Architecture
 
-## Location & Naming
+## State Management (Zustand-First)
 
-| Type | Location |
-|------|----------|
-| Plans | `.cursor/plans/{name}.plan.md` |
-| Reports | `.cursor/plans/{name}-report.md` or project root `{AGENT}_REPORT.md` |
+> **See `zustand.mdc` for complete Zustand patterns and slice creation.**
 
-### Path Rules (CRITICAL)
+| Scope | Tool | Example |
+|-------|------|---------|
+| Component UI | `useState` | modal open, input value |
+| Shared/Global | `usePDMStore` | user, files, settings |
+| Server cache | React Query | when implemented |
 
-**Correct paths** (relative to workspace root):
-- `.cursor/plans/feature.plan.md`
-- `.cursor/plans/multi-agent.plan.md`
+**Prop Drilling: Max 2 levels. Beyond that → Zustand selector.**
 
-**NEVER use these locations:**
-- `~/.cursor/plans/` or `C:\Users\{user}\.cursor\plans\` (user home)
-- `~/.cursor/projects/` (Cursor's internal folder)
-- Any absolute path outside the repository
+```typescript
+// ✅ GOOD: grab what you need from store
+const files = usePDMStore(state => state.files)
 
-### Other Rules
-- Multi-agent work: **ONE plan file** (`{feature}-agents.plan.md`), not separate files per agent
+// ❌ BAD: passing props through 3+ components
+<Parent files={files}> → <Child files={files}> → <GrandChild files={files}>
 
----
-
-## Multi-Agent Plan Structure
-
-All agents for a feature belong in a single plan file. This keeps coordination, boundaries, and handoffs visible in one place.
-
-```markdown
-# {Feature} Multi-Agent Plan
-
-## Objective
-What the combined work achieves.
-
-## Agent Overview
-| Agent | Responsibility | Owns | Dependencies |
-|-------|---------------|------|--------------|
-| Agent 1 | Core foundation | src/lib/core/* | None |
-| Agent 2 | UI components | src/features/x/* | None |
-| Agent 3 | Integration | src/lib/api/* | Agent 1 |
-
-## Shared Files
-| File | Owner | Rule |
-|------|-------|------|
-| src/types/index.ts | Agent 3 | Others append to their section |
-| src/stores/index.ts | Agent 1 | Agent 2 requests additions |
-
----
-
-## Agent 1: {Name}
-
-### Prompt
-> {Copy-paste ready prompt — see template below}
-
-### Boundary
-- **OWNS (exclusive write):** `src/lib/core/*`, `src/types/core.ts`
-- **READS (no modify):** `src/types/index.ts`
-
-### Tasks
-- [ ] Task 1
-- [ ] Task 2
-
-### Deliverables
-What this agent produces for others to consume.
-
----
-
-## Agent 2: {Name}
-... (same structure for each agent)
+// ❌ NEVER select entire store
+const store = usePDMStore()  // Re-renders on ANY state change
 ```
 
----
+**Adding state? → Create a slice**, not a new store. See `zustand.mdc`.
 
-## Agent Boundaries
+## Component Rules
 
-Clear boundaries prevent agents from stepping on each other's work.
+- Single responsibility: one reason to change
+- Composition over configuration: small, composable pieces
+- Props interface: explicit types, no `any`
+- Named export, one primary component per file
 
-### Ownership Rules
+## Styling (Tailwind Only)
 
-1. **Exclusive ownership** — Each agent OWNS specific files/directories and has sole write access
-2. **Read-only access** — Agents can read other agents' files but must not modify them
-3. **Shared files** — Designate one owner; others either append to designated sections or request the owner to make changes
+- Theme tokens: `pdm-bg`, `pdm-fg`, `pdm-accent`, `pdm-border`
+- Status: `pdm-success`, `pdm-warning`, `pdm-error`, `pdm-info`
+- Sidebar text: always `text-left`
+- No inline styles, no CSS modules
 
-### Handling Conflicts
+## Import Order
 
-If an agent MUST touch another agent's file:
-
-- Document why in the plan before starting
-- Coordinate timing — wait until the owner completes their work
-- Limit changes to specific lines or functions, not broad edits
-
----
-
-## Code Quality Expectations
-
-All agent prompts should emphasize **enterprise-level code quality and organization**:
-
-- Clean, readable, well-documented code
-- Proper error handling and edge cases
-- Consistent naming conventions and file organization
-- Type safety — no `any` types, proper interfaces
-- Follow existing patterns in the codebase
-- No shortcuts or "quick fixes" that create tech debt
-
-Include this expectation in every agent prompt.
-
----
-
-## Agent Prompt Template
-
-Each agent's prompt must be **copy-paste ready** with clear scope, boundaries, and deliverables:
-
-```markdown
-### Prompt
-> Implement {feature} for BluePLM with enterprise-level code quality.
->
-> **Scope:**
-> - Create `src/features/x/` with components A, B, C
-> - Add slice to `src/stores/slices/xSlice.ts`
-> - Follow existing patterns and conventions
->
-> **Boundaries:**
-> - OWNS: `src/features/x/*`, `src/stores/slices/xSlice.ts`
-> - Do NOT modify: `src/stores/pdmStore.ts`, `src/types/`
->
-> **Quality Requirements:**
-> - Enterprise-level code quality and organization
-> - Proper TypeScript types (no `any`)
-> - Error handling and edge cases covered
-> - Clean, readable, documented code
->
-> **Deliverables:**
-> - Working feature with exports from index.ts
-> - Report in `X_AGENT_REPORT.md`
->
-> **When complete:** Run `npm run typecheck` and report results.
-```
-
----
-
-## Report Structure
-
-Each agent should submit a completion report:
-
-```markdown
-# {Agent Name} Report
-
-## Summary
-Brief description of what was accomplished.
-
-## Changes Made
-| File | Change |
-|------|--------|
-| `src/lib/x.ts` | Added function Y |
-| `src/features/x/index.ts` | Created with exports |
-
-## Verification
-- [ ] Typecheck passes (`npm run typecheck`)
-- [ ] Tests pass (if applicable)
-- [ ] Manual verification completed
-
-## Quality Checklist
-- [ ] No `any` types introduced
-- [ ] Error handling in place
-- [ ] Follows existing code patterns
-
-## Handoff Notes
-What the next agent or user needs to know before continuing.
-```
-
----
-
-## Cleanup
-
-When a plan is fully complete and verified:
-
-- Prepend `COMPLETE-` to the filename, or
-- Move to `.cursor/plans/completed/` subfolder
+1. External (`react`, `zustand`)
+2. Internal (`@/lib`, `@/stores`, `@/components`)
+3. Relative (`./`, `../`)
 
 ---
 > Source: [bluerobotics/bluePLM](https://github.com/bluerobotics/bluePLM) — distributed by [TomeVault](https://tomevault.io).
