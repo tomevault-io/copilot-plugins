@@ -1,0 +1,9 @@
+{
+  "name": "db-lyon--ue-mcp",
+  "displayName": "ue-mcp",
+  "description": "Complete Unreal Engine development toolkit exposed as MCP tools.",
+  "version": "1.0.0",
+  "author": "db-lyon",
+  "homepage": "https://github.com/db-lyon/ue-mcp",
+  "skills": []
+}
