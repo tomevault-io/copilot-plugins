@@ -1,0 +1,93 @@
+{
+  "name": "ai-kit",
+  "owner": "keboola",
+  "repo": "ai-kit",
+  "description": "Keboola prompt repository for sharing, co creating and improving AI agentic workloads. Both customer's and developers",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "dataapp-dev",
+      "path": "plugins/dataapp-developer/skills/dataapp-dev",
+      "github_url": "https://github.com/keboola/ai-kit/tree/main/plugins/dataapp-developer/skills/dataapp-dev",
+      "description": ""
+    },
+    {
+      "name": "debug-component",
+      "path": "plugins/component-developer/skills/debug-component",
+      "github_url": "https://github.com/keboola/ai-kit/tree/main/plugins/component-developer/skills/debug-component",
+      "description": ""
+    },
+    {
+      "name": "get-started",
+      "path": "plugins/component-developer/skills/get-started",
+      "github_url": "https://github.com/keboola/ai-kit/tree/main/plugins/component-developer/skills/get-started",
+      "description": ""
+    },
+    {
+      "name": "gh-process-review",
+      "path": "plugins/developer/skills/gh-process-review",
+      "github_url": "https://github.com/keboola/ai-kit/tree/main/plugins/developer/skills/gh-process-review",
+      "description": ""
+    },
+    {
+      "name": "keboola-cli",
+      "path": "plugins/keboola-cli",
+      "github_url": "https://github.com/keboola/ai-kit/tree/main/plugins/keboola-cli",
+      "description": ""
+    },
+    {
+      "name": "keboola-config",
+      "path": "plugins/keboola-cli/skills/keboola-config",
+      "github_url": "https://github.com/keboola/ai-kit/tree/main/plugins/keboola-cli/skills/keboola-config",
+      "description": ""
+    },
+    {
+      "name": "test-component",
+      "path": "plugins/component-developer/skills/test-component",
+      "github_url": "https://github.com/keboola/ai-kit/tree/main/plugins/component-developer/skills/test-component",
+      "description": ""
+    },
+    {
+      "name": "build-component-ui",
+      "path": "plugins/component-developer/skills/build-component-ui",
+      "github_url": "https://github.com/keboola/ai-kit/tree/main/plugins/component-developer/skills/build-component-ui",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/keboola/ai-kit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T10:33:59Z"
+}
