@@ -1,0 +1,9 @@
+{
+  "name": "holgern--pydrime",
+  "displayName": "pydrime",
+  "description": "PyDrime is a Python command-line tool and API client for uploading, downloading, and managing files on Drime Cloud.",
+  "version": "1.0.0",
+  "author": "holgern",
+  "homepage": "https://github.com/holgern/pydrime",
+  "skills": []
+}
