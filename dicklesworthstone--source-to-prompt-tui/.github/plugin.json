@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--source-to-prompt-tui",
+  "displayName": "source_to_prompt_tui",
+  "description": "TUI for combining source code files into LLM-ready prompts: tree explorer, syntax preview, token estimation, and structured XML output",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/source_to_prompt_tui",
+  "skills": []
+}
