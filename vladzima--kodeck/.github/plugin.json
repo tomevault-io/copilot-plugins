@@ -1,0 +1,9 @@
+{
+  "name": "vladzima--kodeck",
+  "displayName": "kodeck",
+  "description": "Open-source IDE for Claude Code. Multi-project workspace with chat, terminals, and git worktree management \u2014 all in your browser.",
+  "version": "1.0.0",
+  "author": "vladzima",
+  "homepage": "https://github.com/vladzima/kodeck",
+  "skills": []
+}
