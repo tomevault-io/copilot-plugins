@@ -1,121 +1,91 @@
-## state-management
+## styling
 
-> import { defineStore } from 'pinia'
+> 1. 主配置在 [uno.config.ts](mdc:uno.config.ts)
 
-# 状态管理规则
+# 样式开发规则
 
-## Pinia使用规范
+## UnoCSS使用规范
 
-### Store定义
-```typescript
-// 定义store
-import { defineStore } from 'pinia'
+### 基础配置
+1. 主配置在 [uno.config.ts](mdc:uno.config.ts)
+2. 使用 `@uni-helper/unocss-preset-uni` 预设支持uni-app
+3. 支持图标、响应式设计和主题切换
 
-export const useUserStore = defineStore('user', {
-  state: () => ({
-    userInfo: null,
-    isLogin: false,
-  }),
+### 样式优先级
+1. **首选**: UnoCSS原子化类名
+2. **次选**: wot-design-uni组件自带样式
+3. **最后**: 自定义CSS/SCSS
 
-  getters: {
-    userName: (state) => state.userInfo?.name || '',
+### 主题系统
+主题配置在 [src/theme.json](mdc:src/theme.json)：
+```json
+{
+  "light": {
+    "bgColor": "#F8F8F8",
+    "navBgColor": "#FFF",
+    "tabSelectedColor": "#0165FF"
   },
-
-  actions: {
-    async login(credentials) {
-      // 登录逻辑
-    },
-    logout() {
-      // 登出逻辑
-    }
+  "dark": {
+    "bgColor": "#000",
+    "navBgColor": "#000000",
+    "tabSelectedColor": "#0165FF"
   }
-})
-```
-
-### 持久化配置
-使用配置在 [src/store/persist.ts](mdc:src/store/persist.ts) 的持久化选项：
-```typescript
-export const useUserStore = defineStore('user', {
-  // store定义...
-}, {
-  persist: {
-    key: 'user-store',
-    storage: 'localStorage', // 或 'sessionStorage'
-    paths: ['userInfo', 'isLogin'] // 指定需要持久化的字段
-  }
-})
-```
-
-### Store使用
-```vue
-<script setup lang="ts">
-// 在组件中使用
-const userStore = useUserStore()
-
-// 响应式解构
-const { userInfo, isLogin } = storeToRefs(userStore)
-
-// 调用actions
-const handleLogin = () => {
-  userStore.login(credentials)
 }
-</script>
 ```
 
-### 组合式Store
-```typescript
-// 组合式写法
-export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const doubleCount = computed(() => count.value * 2)
-
-  function increment() {
-    count.value++
-  }
-
-  return { count, doubleCount, increment }
-})
+### 深色模式支持
+```html
+<!-- 使用dark:前缀实现深色模式 -->
+<view class="bg-white dark:bg-black text-black dark:text-white">
+  内容
+</view>
 ```
 
-### Store分类规范
-1. **用户状态**: `useUserStore` - 用户信息、登录状态
-2. **应用配置**: `useAppStore` - 主题、语言、系统设置
-3. **业务数据**: `useBusinessStore` - 具体业务相关状态
-4. **临时状态**: 使用 `ref`/`reactive` 或组件内部状态
+### 响应式设计
+```html
+<!-- 响应式布局 -->
+<view class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+  响应式内容
+</view>
+```
 
-### 最佳实践
-1. Store命名使用 `use[Name]Store` 格式
-2. 合理拆分Store，避免单个Store过大
-3. 使用 TypeScript 提供完整类型定义
-4. 重要数据配置持久化存储
-5. Actions中处理异步逻辑和副作用
-6. 使用 `storeToRefs` 解构响应式数据
-7. 避免在Store中直接操作DOM
+### 图标使用
+1. 配置 `presetIcons` 支持图标集
+2. 推荐使用 Carbon 图标集：
+```html
+<view class="i-carbon-home text-24"></view>
+```
 
-### 与API集成
+### 自定义样式变体
+在 [uno.config.ts](mdc:uno.config.ts) 中配置自定义变体：
 ```typescript
-export const useUserStore = defineStore('user', {
-  state: () => ({
-    userInfo: null,
-    loading: false,
-  }),
-
-  actions: {
-    async fetchUserInfo() {
-      this.loading = true
-      try {
-        // 使用Alova API
-        const response = await Apis.user.getUserInfo()
-        this.userInfo = response
-      } catch (error) {
-        console.error('获取用户信息失败:', error)
-      } finally {
-        this.loading = false
+variants: [
+  // 深色模式变体
+  (matcher) => {
+    if (matcher.startsWith('dark')) {
+      return {
+        matcher: matcher.slice(5),
+        selector: (s) => `.wot-theme-dark ${s}`,
       }
     }
-  }
-})
+  },
+]
 ```
+
+### 最佳实践
+1. 优先使用UnoCSS原子化类名
+2. 保持样式的一致性和可维护性
+3. 合理使用响应式设计适配不同屏幕
+4. 充分利用主题系统支持深色模式
+5. 避免内联样式，使用类名方式
+
+### 常用类名参考
+- 间距：`m-4 p-2 mx-auto my-4`
+- 布局：`flex items-center justify-center`
+- 尺寸：`w-full h-100 min-h-screen`
+- 文字：`text-16 font-bold text-center`
+- 颜色：`text-blue bg-gray-100`
+- 圆角：`rounded-4 rounded-full`
 
 ---
 > Source: [Moonofweisheng/MyCookLikeHOC](https://github.com/Moonofweisheng/MyCookLikeHOC) — distributed by [TomeVault](https://tomevault.io).
