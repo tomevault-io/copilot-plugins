@@ -1,0 +1,9 @@
+{
+  "name": "sirmews--claude-hook-advisor",
+  "displayName": "claude-hook-advisor",
+  "description": "Suggest alternatives based on matching keywords so Claude stops doing dumb things.",
+  "version": "1.0.0",
+  "author": "sirmews",
+  "homepage": "https://github.com/sirmews/claude-hook-advisor",
+  "skills": []
+}
