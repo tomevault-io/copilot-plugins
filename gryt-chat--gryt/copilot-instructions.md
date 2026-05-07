@@ -1,23 +1,56 @@
-## icons
+## lint-conventions
 
-> Icon library conventions — use react-icons (Material Design) only
+> Follow the project ESLint config (import order, unused vars/imports, React hooks)
 
 
-# Icons: react-icons/md only
+# Lint conventions
 
-- **Use `react-icons/md`** (Material Design icons) for all icons.
-- **Never use `lucide-react`**, `@heroicons`, `@phosphor-icons`, or other icon libraries.
-- Always set an explicit `size` prop on every icon (e.g. `<MdRefresh size={16} />`).
+The project enforces these rules via ESLint. Follow them in every code change.
 
-```tsx
-// BAD
-import { RotateCw } from "lucide-react";
-<RotateCw size={14} />
+## Import sorting (`simple-import-sort`)
 
-// GOOD
-import { MdRefresh } from "react-icons/md";
-<MdRefresh size={14} />
+**Client** uses `simple-import-sort`. Group and sort imports in this order:
+
+1. Side-effect imports (`import "./foo"`)
+2. Node / external packages (`react`, `zustand`, `socket.io-client`, …)
+3. Internal aliases / project imports (`@/…`, `../…`, `./…`)
+
+Within each group, sort alphabetically. Exports must also be sorted.
+
+```ts
+// Good
+import { useEffect, useState } from "react";
+import { create } from "zustand";
+
+import { useSocket } from "../hooks/useSocket";
+import { Button } from "./Button";
 ```
+
+## No unused imports or variables
+
+- Remove any import that is not referenced in the file (`unused-imports/no-unused-imports`).
+- Remove or use every declared variable (`@typescript-eslint/no-unused-vars`).
+- Prefix intentionally unused **function parameters** with `_` (e.g. `_event`, `_index`). This satisfies the `argsIgnorePattern: "^_"` setting.
+
+```ts
+// Good – unused param prefixed
+server.on("connection", (_socket, request) => { … });
+
+// Bad – unused param without prefix
+server.on("connection", (socket, request) => { … });
+//                       ^^^^^^ lint error if not used
+```
+
+## React hooks (`react-hooks/recommended`)
+
+- Never call hooks conditionally or inside loops.
+- List all reactive values in dependency arrays for `useEffect`, `useCallback`, and `useMemo`.
+- Do not ignore the `exhaustive-deps` warning; restructure code instead.
+
+## React Refresh (`react-refresh/only-export-components`)
+
+- A file that exports a React component should **only** export components (and constants via `allowConstantExport`).
+- Move non-component exports (types, utils, helpers) to separate files.
 
 ---
 > Source: [Gryt-chat/gryt](https://github.com/Gryt-chat/gryt) — distributed by [TomeVault](https://tomevault.io).
