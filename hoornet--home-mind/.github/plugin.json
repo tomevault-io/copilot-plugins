@@ -1,0 +1,9 @@
+{
+  "name": "hoornet--home-mind",
+  "displayName": "home-mind",
+  "description": "AI assistant for Home Assistant with cognitive memory. Supports Anthropic, OpenAI, and Ollama (local inference). Adds learning, persistent memory, and voice control to your smart home.",
+  "version": "1.0.0",
+  "author": "hoornet",
+  "homepage": "https://github.com/hoornet/home-mind",
+  "skills": []
+}
