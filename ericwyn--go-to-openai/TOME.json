@@ -1,0 +1,44 @@
+{
+  "name": "go-to-openai",
+  "owner": "Ericwyn",
+  "repo": "go-to-openai",
+  "description": "\u4e00\u4e2a\u4f7f\u7528 golang \u5b9e\u73b0\u7684 HTTPS \u4ee3\u7406\uff0c\u914d\u5408 tls \u52ab\u6301\uff0c\u53ef\u4ee5\u5728\u672c\u5730\u63a5\u7ba1\u6765\u81ea https://api.openai.com \u6216\u5176\u4ed6\u7279\u5b9a\u5730\u5740\u7684\u8bf7\u6c42\u5e76\u8f6c\u53d1\u5230\u6307\u5b9a\u7684\u4e0a\u6e38",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ericwyn/go-to-openai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T18:37:44Z"
+}
