@@ -1,0 +1,9 @@
+{
+  "name": "archgate--cli",
+  "displayName": "cli",
+  "description": "Enforce Architecture Decision Records as executable rules \u2014 for both humans and AI agents",
+  "version": "1.0.0",
+  "author": "archgate",
+  "homepage": "https://github.com/archgate/cli",
+  "skills": []
+}
