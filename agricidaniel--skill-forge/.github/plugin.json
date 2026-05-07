@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--skill-forge",
+  "displayName": "skill-forge",
+  "description": "Ultimate Claude Code skill creator \u2014 design, scaffold, build, review, evolve, and publish production-grade AI agent skills",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/skill-forge",
+  "skills": []
+}
