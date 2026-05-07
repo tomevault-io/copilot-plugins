@@ -1,53 +1,48 @@
-## ui-color-prefer-non-purple-primary
+## use-pnpm-with-yarn-fallback-for-nodejs-dependency-manager
 
-> Prefer non-purple as primary UI color; purple only as accent/secondary unless brand requires it
+> Enforces use of pnpm with yarn fallback for Node.js dependency management
 
 
-# UI Color Palette Preference
+# Node.js Package Manager Standards
 
-## Overview
+## Required Package Managers
 
-**MANDATORY**: Prefer non-purple as the primary UI color. Use purple only as a secondary/accent.
+**MANDATORY**: Use `pnpm` as the primary package manager, with `yarn` as fallback only if pnpm doesn't exist or encounters errors. Never use `npm` or `bun`.
 
-### Palette Priorities
+### Preferred Order
+1. **pnpm** - Efficient disk usage, strict dependency resolution, fast performance
+2. **yarn** - Fallback option when pnpm is unavailable or fails
 
-- Primary (preferred): blue, teal, cyan, green, neutral/gray
-- Secondary: orange, amber, slate
-- Accent only (low priority): purple/violet/fuchsia
+### Installation Commands
 
-### Common Patterns
+```bash
+# Using pnpm (preferred)
+pnpm install
+pnpm add <package>
+pnpm remove <package>
+pnpm run <script>
 
-```css
-:root {
-  /* Good: primary not purple */
-  --color-primary: #0ea5e9;   /* blue-500 */
-  --color-secondary: #a855f7; /* violet-500 (accent) */
-}
-
-/* Bad: purple as primary */
-:root {
-  --color-primary: #8b5cf6; /* violet-500 */
-}
+# Using yarn (fallback only)
+yarn install
+yarn add <package>
+yarn remove <package>
+yarn run <script>
 ```
 
-```tsx
-// Good (React/Tailwind example)
-<button className="bg-sky-600 hover:bg-sky-700 text-white">Action</button>
+### Project Detection
 
-// Bad
-<button className="bg-purple-600 hover:bg-purple-700 text-white">Action</button>
-```
+- If `pnpm-lock.yaml` exists, use `pnpm`
+- If `yarn.lock` exists and pnpm is unavailable, use `yarn`
+- Always try `pnpm` first, fallback to `yarn` only on error
+- Never generate `package-lock.json` or `bun.lock`
 
-### Additional Guidelines
+### Script Execution
 
-- Do not set purple as the default brand color or primary theme token
-- Purple may be used for highlights, badges, or low-emphasis accents
-- Prefer accessible contrast: meet WCAG AA at minimum for text and UI controls
-- If brand guidelines mandate purple as primary, explicitly note the exception in the PR
+Always use the detected package manager for running scripts:
+- `pnpm dev` (preferred)
+- `yarn dev` (fallback only)
 
-### Rationale
-
-This ensures consistent visual identity aligned with the requested preference while allowing purple as a tasteful accent when needed.
+This ensures consistent dependency resolution with pnpm's superior performance and disk efficiency, while maintaining yarn as a reliable fallback option.
 
 ---
 > Source: [uratmangun/kiro-starter-pack](https://github.com/uratmangun/kiro-starter-pack) — distributed by [TomeVault](https://tomevault.io).
