@@ -4,7 +4,7 @@
   "repo": "zerostarter",
   "description": "A modern, type-safe, and high-performance SaaS starter template built with a monorepo architecture.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nrjdalal/zerostarter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T00:06:45Z"
+  "distributed_at": "2026-05-07T19:13:43Z"
 }
