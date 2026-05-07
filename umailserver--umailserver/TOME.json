@@ -4,7 +4,7 @@
   "repo": "uMailServer",
   "description": "",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/uMailServer/uMailServer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T03:48:45Z"
+  "distributed_at": "2026-05-07T15:33:09Z"
 }
