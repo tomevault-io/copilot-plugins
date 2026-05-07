@@ -1,28 +1,26 @@
-## general
+## web-rules
 
-> An open-source platform for managing and testing AI prompts with support for multiple LLM providers (OpenAI, Anthropic, Google Gemini).
+> We use different types of authorization depending on the instance type:
 
-# Genum Project
 
-An open-source platform for managing and testing AI prompts with support for multiple LLM providers (OpenAI, Anthropic, Google Gemini).
+## Tech stack
 
-## Project Structure
+- React v18
+- React router v7
 
-```
-apps/core        		# Backend API server (Node.js/Express/TypeScript)
-apps/web         		# Frontend React application (Vite/TypeScript)
-packages/shared/ 		# Shared packages
-docker-compose.*.yml  # Docker Compose files for different environments
-```
+## API for frontend
 
-## Tech Stack
+We use different types of authorization depending on the instance type:
+- local instance uses http cookies
+- cloud instance uses auth0 SPA
 
-**Backend (apps/core):** Node.js, TypeScript, Express.js, Prisma ORM, PostgreSQL, ClickHouse
-**Frontend (apps/web):** React 18, TypeScript, Vite, Radix UI, Tailwind CSS, Monaco Editor, Zustand
+## Styling
 
-## Package Manager
+- We use Tailwind CSS
 
-**Always use `pnpm` for all package management operations.** Never use npm or yarn. This is a pnpm workspace monorepo managed by Turbo.
+## Environment
+
+- We use Runtime Configuration System. DO NOT import env as meta.env. Use [runtime-config.ts](mdc:apps/web/src/lib/runtime-config.ts)
 
 ---
 > Source: [GenumAI/genum](https://github.com/GenumAI/genum) — distributed by [TomeVault](https://tomevault.io).
