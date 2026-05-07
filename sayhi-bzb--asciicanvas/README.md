@@ -7,11 +7,11 @@ The native visual interface for LLMs. Infinite canvas, multi-byte support, copy-
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Sayhi-bzb/AsciiCanvas](https://github.com/Sayhi-bzb/AsciiCanvas).
+Original source: `CLAUDE.md` in [Sayhi-bzb/AsciiCanvas](https://github.com/Sayhi-bzb/AsciiCanvas).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
