@@ -1,24 +1,46 @@
-## modular-code
+## strict-types-lint
 
-> Keep files short, modular, and DRY
+> Do not bypass lint/type errors; use real types
 
 
-# Modular code & DRY
+# Strict typing and linting (no bypasses)
 
-- **Max ~400 lines per file.** If a file grows beyond that, split it into smaller, focused modules.
-- **Extract reusable components.** Repeated UI patterns, logic blocks, or layout wrappers should become their own components/hooks.
-- **Don't repeat yourself.** If the same logic or markup appears in two or more places, extract it into a shared helper, hook, or component.
-- **One concern per file.** A component file should own one component (plus small private helpers). Move large sub-trees into separate files.
-- **Colocate related code.** Keep a component, its types, and its hook(s) close together in the directory tree rather than scattering across distant folders.
+- Fix lint/type errors **properly**. Do not “silence” them.
+- **Never introduce `any`**. Use the platform/library types (DOM/WebRTC/React/Node) or project types.
+- **Do not use double-casts** like `as unknown as X` to force a type.
+- **Do not disable rules** (no `eslint-disable`, no “turn off” pragmas) to make lint pass.
+- When a type parameter is required (e.g. React module augmentation), reference it via correct `extends` / proper declarations rather than suppressing unused warnings.
 
-## Refactoring checklist
+## Examples
 
-When editing a file that already exceeds ~400 lines:
+### Timers
 
-1. Identify self-contained sections (sub-components, hooks, utils).
-2. Move each into its own file with a clear name.
-3. Re-export from an `index.ts` barrel if it helps the consumer.
-4. Verify no circular imports were introduced.
+Prefer:
+
+```ts
+const t = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+```
+
+Avoid:
+
+```ts
+const t = useRef<number | null>(null);
+t.current = window.setTimeout(fn, 1000) as unknown as number;
+```
+
+### WebRTC stats
+
+Prefer:
+
+```ts
+const s = stat as RTCIceCandidateStats;
+```
+
+Avoid:
+
+```ts
+const s = stat as any;
+```
 
 ---
 > Source: [Gryt-chat/gryt](https://github.com/Gryt-chat/gryt) — distributed by [TomeVault](https://tomevault.io).
