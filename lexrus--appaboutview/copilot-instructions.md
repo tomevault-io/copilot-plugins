@@ -1,26 +1,35 @@
-## project-overview
+## resources
 
-> AppAboutView is a SwiftUI package that provides a reusable "About" view component for macOS and iOS apps. It displays app information, handles user interactions (feedback, ratings, coffee tips), and showcases other apps by the developer.
+> All resources are located in `Sources/Resources/`
 
 
-# AppAboutView Project Rules
+# Resource Management Rules
 
-## Project Overview
-AppAboutView is a SwiftUI package that provides a reusable "About" view component for macOS and iOS apps. It displays app information, handles user interactions (feedback, ratings, coffee tips), and showcases other apps by the developer.
+## Resource Files Location
+All resources are located in `Sources/Resources/`
 
-## Core Principles
-- Multi-platform support (macOS and iOS)
-- SwiftUI-first architecture
-- Localization support (7 languages)
-- Service-based data management
-- Resource bundling for app showcase
+## Key Resource Files
 
-## File Structure Rules
-- Never create files unless absolutely necessary
-- Always prefer editing existing files over creating new ones
-- Never proactively create documentation files (*.md) or README files
-- Only create documentation if explicitly requested
-- Please ignore CLAUDE.md since it's made for Claude Code
+### App Data
+- `apps.json`: JSON data containing showcase app information
+- Contains app metadata, descriptions, and platform information
+
+### Assets
+- `Assets.xcassets/`: App icons for showcase apps
+- Individual `.imageset/` folders for each app icon
+- Icons include: liveextractor, regexplus, sharptooth, swiftymenu
+
+### Localization Files
+- Language-specific `.lproj/` folders
+- Each contains `Localizable.strings` file
+- 7 supported languages total
+
+## Resource Guidelines
+- Icons should be properly sized and optimized
+- JSON data must be valid and properly structured
+- Localization files must be consistent across languages
+- Resource loading should include fallback mechanisms
+- Bundle references use `.module` for proper package context
 
 ---
 > Source: [lexrus/AppAboutView](https://github.com/lexrus/AppAboutView) — distributed by [TomeVault](https://tomevault.io).
