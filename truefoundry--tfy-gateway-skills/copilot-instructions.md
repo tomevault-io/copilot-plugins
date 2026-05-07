@@ -1,51 +1,40 @@
-## gateway
+## security
 
-> TrueFoundry AI Gateway configuration rules
+> Security rules for TrueFoundry Gateway operations
 
 
-# TrueFoundry Gateway Configuration Rules
+# TrueFoundry Security Rules
 
-These rules apply when working with AI Gateway configuration.
+These rules ALWAYS apply, regardless of context. They are non-negotiable safety measures.
 
-## Model Routing
+## Deletion Protection
 
-Virtual models support multiple routing strategies:
-- **Weight-based**: distribute traffic by percentage across providers
-- **Latency-based**: route to the fastest responding provider
-- **Priority-based**: use primary provider, failover to secondary
-- **Sticky routing**: route same user to same provider for consistency
+NEVER delete any TrueFoundry resource via API or CLI. This includes gateway configs, model routes, guardrails, MCP servers, workspaces, secrets, and any other resource.
 
-Always confirm the routing strategy with the user before configuring.
+If a user asks to delete something, respond with:
+> To delete [resource], go to your TrueFoundry dashboard at `$TFY_BASE_URL`, navigate to [specific path], and delete it from the UI.
 
-## Rate Limiting
+This prevents accidental deletions through automation.
 
-- Rate limits are configured per Virtual Access Token (VAT)
-- Available dimensions: requests per minute (RPM), tokens per minute (TPM)
-- Budget controls cap total spend per token over a time period
-- Always show the rate limit configuration to the user before applying
+## Secret Management
 
-## Guardrail Configuration
+- NEVER put raw credentials, API keys, passwords, or tokens in configuration YAML files
+- NEVER log or echo secret values in shell commands
+- NEVER commit `.env` files or files containing credentials
+- Always use `tfy-secret://tenant:group:key` references for sensitive values
+- Create secrets via the TrueFoundry secrets API before referencing them in configs
 
-Before applying any guardrail:
-1. Confirm which guardrail providers to use (PII, content moderation, prompt injection, custom)
-2. Set the enforcing strategy: `enforce`, `audit`, or `enforce_but_ignore_on_error`
-3. Define conditions: which models, users, teams, or MCP tools the guardrail applies to
-4. Choose operation type: `validate` (block) or `mutate` (modify content)
+## Credential Handling
 
-## MCP Server Registration
+- Verify `TFY_API_KEY` is set before making API calls, but never print its value
+- Use `${TFY_API_KEY:+(set)}` pattern to confirm presence without exposing the value
+- Never pass API keys as CLI arguments (they appear in process listings)
 
-- Remote MCP servers require a valid endpoint URL
-- Virtual (composite) servers aggregate multiple MCP servers
-- OpenAPI-to-MCP wrapping requires an OpenAPI spec URL
-- Always verify connectivity after registration
+## Workspace Safety
 
-## Environment Variables for API Calls
-
-```bash
-export TFY_HOST="${TFY_HOST:-${TFY_BASE_URL%/}}"
-```
-
-Always set `TFY_HOST` before running any `tfy` CLI commands.
+- NEVER auto-select a workspace, even if only one exists
+- Always list available workspaces and require explicit user confirmation
+- This prevents accidental changes to production environments
 
 ---
 > Source: [truefoundry/tfy-gateway-skills](https://github.com/truefoundry/tfy-gateway-skills) — distributed by [TomeVault](https://tomevault.io).
