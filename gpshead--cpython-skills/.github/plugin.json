@@ -1,0 +1,26 @@
+{
+  "name": "gpshead--cpython-skills",
+  "displayName": "cpython-skills",
+  "description": "A Claude Code marketplace and skill for working in the cpython repo.",
+  "version": "1.0.0",
+  "author": "gpshead",
+  "homepage": "https://github.com/gpshead/cpython-skills",
+  "skills": [
+    {
+      "name": "build",
+      "description": ""
+    },
+    {
+      "name": "dev",
+      "description": ""
+    },
+    {
+      "name": "docs",
+      "description": ""
+    },
+    {
+      "name": "style",
+      "description": ""
+    }
+  ]
+}
