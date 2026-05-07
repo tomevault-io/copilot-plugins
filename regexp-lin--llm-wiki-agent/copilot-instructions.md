@@ -1,34 +1,37 @@
-## wiki-conventions
+## wiki-source-code
 
-> LLM Wiki — base conventions for wiki structure and naming
+> LLM Wiki Agent — TypeScript source code conventions
 
 
-# Wiki Base Conventions
+# TypeScript Source Code Conventions
 
-## Schema
-Read `WIKI_SCHEMA.md` at the project root for the full wiki data model.
+## Project Stack
 
-## Immutability
-- `raw/` is immutable — never modify source documents
-- `wiki/` is agent-owned — only the agent writes here
-- `graph/` is auto-generated output
+- **Runtime**: Node.js 22.16.0 + TypeScript (ESM)
+- **LLM**: Anthropic Claude via `@anthropic-ai/sdk`
+- **Graph**: graphology + graphology-communities-louvain + vis.js
+- **CLI**: commander
+- **Package manager**: pnpm
 
-## Naming
-- Source pages: `wiki/sources/<kebab-case>.md`
-- Entity pages: `wiki/entities/<TitleCase>.md`
-- Concept pages: `wiki/concepts/<TitleCase>.md`
-- Use `[[PageName]]` wikilinks to cross-reference
+## Architecture
 
-## Index & Log
-- Update `wiki/index.md` on every content change
-- Append to `wiki/log.md` with format: `## [YYYY-MM-DD] <op> | <title>`
+```
+src/
+├── shared/        # Shared modules (types, constants, utils)
+├── workflows/     # Four core workflows (ingest, query, lint, graph)
+└── cli/           # CLI entry points (thin wrappers over workflows)
+```
 
-## Available Workflows
-Use the corresponding skill by saying one of these triggers:
-- **Ingest**: `ingest <file>` or `ingest` (batch) — ingest source documents
-- **Query**: `query: <question>` — search the knowledge base
-- **Lint**: `lint` — health-check the wiki
-- **Graph**: `build graph` — build the knowledge graph
+- Business logic lives in `src/workflows/`, CLI parsing lives in `src/cli/`.
+- Shared utilities in `src/shared/` — do not duplicate code across workflows.
+- All imports use `.js` extension (ESM requirement).
+- Model names are centralized in `src/shared/constants.ts`.
+
+## Quality
+
+- Run `pnpm typecheck` before committing.
+- Run `pnpm lint` and `pnpm format` to check code standards.
+- TypeScript strict mode is enabled — no `any` types unless absolutely necessary.
 
 ---
 > Source: [regexp-lin/llm-wiki-agent](https://github.com/regexp-lin/llm-wiki-agent) — distributed by [TomeVault](https://tomevault.io).
