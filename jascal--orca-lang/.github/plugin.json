@@ -1,0 +1,9 @@
+{
+  "name": "jascal--orca-lang",
+  "displayName": "orca-lang",
+  "description": "Orca (Orchestrated State Machine Language) \u2014 an LLM-native code generation target",
+  "version": "1.0.0",
+  "author": "jascal",
+  "homepage": "https://github.com/jascal/orca-lang",
+  "skills": []
+}
