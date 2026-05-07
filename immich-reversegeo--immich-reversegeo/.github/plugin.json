@@ -1,0 +1,9 @@
+{
+  "name": "immich-reversegeo--immich-reversegeo",
+  "displayName": "immich-reversegeo",
+  "description": "Improved location names for Immich photo libraries",
+  "version": "1.0.0",
+  "author": "immich-reversegeo",
+  "homepage": "https://github.com/immich-reversegeo/immich-reversegeo",
+  "skills": []
+}
