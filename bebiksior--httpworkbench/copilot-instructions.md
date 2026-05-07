@@ -1,113 +1,83 @@
-## bun
+## components
 
-> Use Bun instead of Node.js, npm, pnpm, or vite.
+> Vue component guidelines
 
+# Components
 
-Default to using Bun instead of Node.js.
+1. Use Primevue components for all UI components.
+1. Use `<script setup lang="ts">` for all components.
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Bun automatically loads .env, so don't use dotenv.
+## Props and Events
 
-## APIs
+Always inline the type definition in `defineProps<>` and `defineEmits<>`.
+Avoid creating a separate type just for props.
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+  - Good
 
-## Testing
+    ```typescript
+    defineProps<{ x: string; y: number }>();
+    defineEmits<{ (e: 'update:modelValue', value: string): void }>();
+    ```
 
-Use `bun test` to run tests.
+  - Bad
 
-```ts#index.test.ts
-import { test, expect } from "bun:test";
+    ```typescript
+    type Props = { x: string; y: number };
+    type Emits = { (e: 'update:modelValue', value: string): void };
+    defineProps<Props>();
+    defineEmits<Emits>();
+    ```
 
-test("hello world", () => {
-  expect(1).toBe(1);
-});
+## Destructuring Props
+
+Destructure props with `toRefs` for better reactivity and clarity. Avoid directly accessing props in function calls.
+
+  - Good
+
+    ```typescript
+    const props = defineProps<{ myProp: string }>();
+    const { myProp } = toRefs(props);
+    useForm({ myProp });
+    ```
+
+  - Bad
+
+    ```typescript
+    const props = defineProps<{ myProp: string }>();
+    useForm(props.myProp);
+    ```
+
+## Structure
+
+Use the following layout for every component to keep imports and growth consistent:
+
+```text
+ComponentName/
+  ├─ index.ts           # Re-export (single public entry)
+  ├─ Container.vue      # Main component implementation
+  ├─ useForm.ts         # Optional: composable when logic grows (e.g. forms)
+  └─ DependentComponent.vue
 ```
 
-## Frontend
-
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
-
-Server:
-
-```ts#index.ts
-import index from "./index.html"
-
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
+ComponentName/index.ts
+```ts
+export { default as ComponentName } from "./Container.vue";
 ```
 
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
+When a child piece becomes complex or needs its own hook, use the same pattern as the parent:
 
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
+```text
+ComponentName/
+  └─ DependentComponent/
+       ├─ index.ts
+       └─ Container.vue
 ```
 
-With the following `frontend.tsx`:
+## Styling
 
-```tsx#frontend.tsx
-import React from "react";
-
-// import .css files directly and it works
-import './index.css';
-
-import { createRoot } from "react-dom/client";
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
-
-root.render(<Frontend />);
-```
-
-Then, run index.ts
-
-```sh
-bun --hot ./index.ts
-```
-
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
+1. Use Tailwind CSS for all styling:
+   - Apply utility classes directly in templates for layout and styling.
+   - Avoid custom CSS unless absolutely necessary for reusable or complex styles.
 
 ---
 > Source: [bebiksior/httpworkbench](https://github.com/bebiksior/httpworkbench) — distributed by [TomeVault](https://tomevault.io).
