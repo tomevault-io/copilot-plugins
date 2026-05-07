@@ -1,0 +1,9 @@
+{
+  "name": "arthur-ficial--apfelpad",
+  "displayName": "apfelpad",
+  "description": "A formula notepad for thinking \u2014 on-device AI as a first-class function, like =SUM but for language. Native macOS, built on apfel.",
+  "version": "1.0.0",
+  "author": "Arthur-Ficial",
+  "homepage": "https://github.com/Arthur-Ficial/apfelpad",
+  "skills": []
+}
