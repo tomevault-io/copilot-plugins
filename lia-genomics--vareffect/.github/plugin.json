@@ -1,0 +1,9 @@
+{
+  "name": "lia-genomics--vareffect",
+  "displayName": "vareffect",
+  "description": "Variant consequence prediction and HGVS notation, concordant with Ensembl VEP.",
+  "version": "1.0.0",
+  "author": "LIA-Genomics",
+  "homepage": "https://github.com/LIA-Genomics/vareffect",
+  "skills": []
+}
