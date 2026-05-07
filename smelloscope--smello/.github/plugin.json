@@ -1,0 +1,9 @@
+{
+  "name": "smelloscope--smello",
+  "displayName": "smello",
+  "description": "A developer tool that captures outgoing HTTP requests from your code and displays them in a local web dashboard",
+  "version": "1.0.0",
+  "author": "smelloscope",
+  "homepage": "https://github.com/smelloscope/smello",
+  "skills": []
+}
