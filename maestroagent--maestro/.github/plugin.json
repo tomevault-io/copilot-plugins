@@ -1,0 +1,9 @@
+{
+  "name": "maestroagent--maestro",
+  "displayName": "maestro",
+  "description": "Multi-agent orchestration platform. Deploy any AI agent to any interface.",
+  "version": "1.0.0",
+  "author": "MaestroAgent",
+  "homepage": "https://github.com/MaestroAgent/maestro",
+  "skills": []
+}
