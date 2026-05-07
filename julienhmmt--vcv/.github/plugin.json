@@ -1,0 +1,9 @@
+{
+  "name": "julienhmmt--vcv",
+  "displayName": "vcv",
+  "description": "VaultCertsViewer is a Go application to list and manage certs in Vault, the easiest possible for SRE.",
+  "version": "1.0.0",
+  "author": "julienhmmt",
+  "homepage": "https://github.com/julienhmmt/vcv",
+  "skills": []
+}
