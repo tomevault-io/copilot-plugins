@@ -1,0 +1,9 @@
+{
+  "name": "rootly-ai-labs--rootly-graphify-importer",
+  "displayName": "rootly-graphify-importer",
+  "description": "Turn Rootly incidents, alerts, and teams into a queryable knowledge graph. Visualize service dependencies, on-call coverage gaps, and cross-incident patterns.",
+  "version": "1.0.0",
+  "author": "Rootly-AI-Labs",
+  "homepage": "https://github.com/Rootly-AI-Labs/rootly-graphify-importer",
+  "skills": []
+}
