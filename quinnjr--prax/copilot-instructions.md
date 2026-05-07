@@ -1,303 +1,161 @@
-## multi-tenancy
+## no-skip-hooks
 
-> This project provides multi-tenancy support with multiple isolation strategies. Follow these guidelines for secure and performant tenant isolation.
+> Never bypass git hooks - fix the underlying issues instead
 
-# Multi-Tenancy Guidelines
 
-This project provides multi-tenancy support with multiple isolation strategies. Follow these guidelines for secure and performant tenant isolation.
+# Never Skip Git Hooks
 
-## Isolation Strategies
+**CRITICAL**: Never use `--no-verify` or `-n` flags to bypass git hooks. Always fix the underlying issue.
 
-### Row-Level Security (RLS) - Recommended
+## Forbidden Commands
 
-Most efficient for shared-table tenancy:
+```bash
+# ❌ NEVER DO THIS
+git commit --no-verify
+git commit -n
+git push --no-verify
+git merge --no-verify
 
-```rust
-use prax_query::tenant::{RlsManager, RlsConfig};
-
-// Configure RLS
-let rls = RlsManager::new(
-    RlsConfig::new("tenant_id")
-        .with_session_variable("app.current_tenant")
-        .add_tables(["users", "orders", "products"])
-);
-
-// Apply to connection
-rls.set_tenant(&conn, tenant_id).await?;
-
-// All queries automatically filtered by tenant_id
-let users = client.user().find_many().exec().await?;
-// SQL: SELECT * FROM users WHERE tenant_id = current_setting('app.current_tenant')
+# ❌ ALSO NEVER DO THIS
+HUSKY=0 git commit
+HUSKY_SKIP_HOOKS=1 git commit
 ```
 
-### Schema-Based Isolation
+## Why This Matters
 
-For stronger isolation with separate schemas:
+The git hooks enforce:
+- **pre-commit**: Code formatting (`cargo fmt`) and linting (`cargo clippy`)
+- **pre-push**: Full test suite passes
+- **commit-msg**: Conventional commit format
 
-```rust
-use prax_query::tenant::{TenantPoolManager, SchemaIsolation};
+Bypassing these hooks:
+- Introduces unformatted code to the repository
+- Allows linting errors into the codebase
+- Breaks CI/CD pipelines
+- Creates inconsistent commit history
+- Causes problems for other contributors
 
-let manager = TenantPoolManager::new(base_pool)
-    .with_isolation(SchemaIsolation::Schema);
+## What to Do Instead
 
-// Get tenant-specific pool
-let pool = manager.get_pool(tenant_id).await?;
-// Queries run against schema_{tenant_id}.users
+### Hook: pre-commit (format/lint issues)
+
+```bash
+# Fix formatting
+cargo fmt --all
+
+# Fix clippy warnings
+cargo clippy --fix --allow-dirty --allow-staged
+
+# Then commit normally
+git commit -m "feat: your message"
 ```
 
-### Database-Based Isolation
+### Hook: pre-push (test failures)
 
-Maximum isolation with separate databases:
+```bash
+# Run tests and fix failures
+cargo test --all-features
 
-```rust
-let manager = TenantPoolManager::new(base_pool)
-    .with_isolation(SchemaIsolation::Database);
+# Check specific failing test
+cargo test test_name -- --nocapture
 
-// Each tenant has own database
-let pool = manager.get_pool(tenant_id).await?;
-// Connects to tenant_{tenant_id} database
+# Fix the issue, then push
+git push
 ```
 
-## Context Propagation
+### Hook: commit-msg (message format)
 
-### Use Task-Local Context (Zero Allocation)
+```bash
+# Use correct format: type(scope): description
+git commit -m "feat(query): add nested filter support"
+git commit -m "fix(postgres): handle connection timeout"
+git commit -m "docs: update README examples"
 
-```rust
-use prax_query::tenant::task_local::with_tenant;
-
-// Set tenant context for async block
-with_tenant("tenant-123", async {
-    // All queries in this block use tenant-123
-    let users = client.user().find_many().exec().await?;
-    let orders = client.order().find_many().exec().await?;
-    Ok(())
-}).await?;
-
-// ❌ Bad: Manual tenant filter on each query
-let users = client.user()
-    .find_many()
-    .where_(user::tenant_id::equals(tenant_id)) // Easy to forget!
-    .exec()
-    .await?;
+# Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
 ```
 
-### Thread-Local for Sync Code
+## Common Issues and Solutions
 
-```rust
-use prax_query::tenant::thread_local::{set_tenant, get_tenant};
+### "Formatting check failed"
 
-// In request handler
-set_tenant(tenant_id);
-
-// Deep in call stack
-let current = get_tenant().expect("tenant not set");
+```bash
+# Problem: Code not formatted
+cargo fmt --all
+git add -u
+git commit -m "your message"
 ```
 
-## Security Rules
+### "Clippy found issues"
 
-### Never Trust Client-Provided Tenant ID
-
-```rust
-// ✅ Good: Extract tenant from authenticated session
-async fn handler(session: Session, req: Request) -> Response {
-    let tenant_id = session.tenant_id(); // From verified JWT/session
-
-    with_tenant(tenant_id, async {
-        // Process request
-    }).await
-}
-
-// ❌ DANGEROUS: Accept tenant from request
-async fn handler(req: Request) -> Response {
-    let tenant_id = req.header("X-Tenant-ID"); // Attacker can set this!
-    // ...
-}
+```bash
+# Problem: Linting warnings
+cargo clippy --all-targets --all-features
+# Read the warnings and fix them, then:
+git add -u
+git commit -m "your message"
 ```
 
-### Validate Cross-Tenant References
+### "Tests failed"
 
-```rust
-// ✅ Good: Validate foreign key belongs to same tenant
-async fn create_order(tenant_id: TenantId, user_id: UserId) -> Result<Order> {
-    // Verify user belongs to tenant
-    let user = client.user()
-        .find_unique(user::id::equals(user_id))
-        .exec()
-        .await?
-        .ok_or(Error::NotFound)?;
-
-    if user.tenant_id != tenant_id {
-        return Err(Error::CrossTenantAccess);
-    }
-
-    // Proceed with order creation
-}
+```bash
+# Problem: Tests don't pass
+cargo test --all-features
+# Fix failing tests, then:
+git add -u
+git commit -m "your message"
+git push
 ```
 
-### Enable RLS at Database Level
+### "Invalid commit message"
 
-```sql
--- PostgreSQL RLS setup
-ALTER TABLE users ENABLE ROW LEVEL SECURITY;
+```bash
+# Problem: Wrong format
+# Instead of: "fixed the bug"
+# Use: "fix(module): resolve specific issue"
 
-CREATE POLICY tenant_isolation ON users
-    USING (tenant_id = current_setting('app.current_tenant')::int);
-
--- Force RLS even for table owners
-ALTER TABLE users FORCE ROW LEVEL SECURITY;
+git commit --amend -m "fix(postgres): handle null values in query results"
 ```
 
-## Performance Patterns
+### "I need to commit work-in-progress"
 
-### Use Statement Caching
-
-```rust
-use prax_query::tenant::cache::StatementCache;
-
-// Global mode: Share prepared statements across tenants (with RLS)
-let cache = StatementCache::global();
-
-// Per-tenant mode: Separate caches for schema-based isolation
-let cache = StatementCache::per_tenant(1000); // LRU size per tenant
+```bash
+# Use a WIP branch instead of bypassing hooks
+git stash
+# or
+git checkout -b wip/my-feature
+# Make a proper commit when ready
 ```
 
-### Use Tenant Cache with TTL
+## Emergency Situations
 
-```rust
-use prax_query::tenant::cache::ShardedTenantCache;
+If you genuinely believe you need to bypass hooks (you almost certainly don't):
 
-// High-concurrency tenant cache
-let cache = ShardedTenantCache::high_concurrency(10_000);
+1. **Stop and ask**: Is this really necessary?
+2. **Document why**: Create an issue explaining the situation
+3. **Get approval**: Discuss with the team first
+4. **Fix immediately**: The next commit must fix what you bypassed
 
-// With TTL
-cache.insert(tenant_id, config, Duration::from_secs(300));
+**There is virtually never a legitimate reason to skip hooks in this project.**
 
-// Get or load
-let config = cache.get_or_insert(tenant_id, || {
-    load_tenant_config(tenant_id)
-}).await?;
+## For AI Assistants
+
+When a user asks to bypass git hooks or encounters hook failures:
+
+1. **Never suggest** `--no-verify`, `-n`, or similar flags
+2. **Diagnose the actual problem** by reading the error message
+3. **Provide the fix** for the underlying issue
+4. **Explain why** hooks exist and why bypassing is harmful
+
+Example response:
 ```
+I see the pre-commit hook failed due to formatting issues.
+Let me fix that:
 
-### Warm Up Tenant Pools
+cargo fmt --all
 
-```rust
-// Pre-warm pools for known active tenants
-let active_tenants = get_active_tenant_ids().await?;
-manager.warmup(&active_tenants).await?;
-
-// Lazy pools for less active tenants
-// Created on first access, evicted after idle timeout
+Now the commit should succeed. Never use --no-verify
+as it bypasses important quality checks.
 ```
-
-## Testing Multi-Tenancy
-
-### Test Tenant Isolation
-
-```rust
-#[tokio::test]
-async fn test_tenant_isolation() {
-    let tenant_a = create_test_tenant().await;
-    let tenant_b = create_test_tenant().await;
-
-    // Create data for tenant A
-    with_tenant(tenant_a.id, async {
-        client.user().create(user::create! { name: "Alice" }).exec().await?;
-        Ok::<_, Error>(())
-    }).await?;
-
-    // Verify tenant B cannot see tenant A's data
-    with_tenant(tenant_b.id, async {
-        let users = client.user().find_many().exec().await?;
-        assert!(users.is_empty(), "Tenant B should not see Tenant A's users");
-        Ok::<_, Error>(())
-    }).await?;
-}
-
-#[tokio::test]
-async fn test_cross_tenant_access_denied() {
-    let tenant_a = create_test_tenant().await;
-    let tenant_b = create_test_tenant().await;
-
-    // Create user in tenant A
-    let user = with_tenant(tenant_a.id, async {
-        client.user().create(user::create! { name: "Alice" }).exec().await
-    }).await?;
-
-    // Try to access from tenant B
-    let result = with_tenant(tenant_b.id, async {
-        client.user().find_unique(user::id::equals(user.id)).exec().await
-    }).await?;
-
-    assert!(result.is_none(), "Should not find user from different tenant");
-}
-```
-
-### Test Context Propagation
-
-```rust
-#[tokio::test]
-async fn test_tenant_context_propagation() {
-    with_tenant("test-tenant", async {
-        // Spawn tasks
-        let handles: Vec<_> = (0..10)
-            .map(|_| tokio::spawn(async {
-                // Context should be available in spawned tasks
-                let tenant = get_current_tenant();
-                assert_eq!(tenant, Some("test-tenant"));
-            }))
-            .collect();
-
-        futures::future::join_all(handles).await;
-        Ok::<_, Error>(())
-    }).await?;
-}
-```
-
-## Common Patterns
-
-### Tenant Middleware
-
-```rust
-// Axum middleware example
-async fn tenant_middleware(
-    session: Session,
-    mut request: Request,
-    next: Next,
-) -> Response {
-    let tenant_id = session.tenant_id();
-
-    // Set tenant context
-    with_tenant(tenant_id, async {
-        next.run(request).await
-    }).await
-}
-```
-
-### Multi-Tenant Migrations
-
-```rust
-// Run migration for all tenants
-async fn migrate_all_tenants(migration: &Migration) -> Result<()> {
-    let tenants = list_all_tenants().await?;
-
-    for tenant in tenants {
-        let pool = manager.get_pool(tenant.id).await?;
-        migration.run(&pool).await?;
-    }
-
-    Ok(())
-}
-```
-
-## Summary
-
-1. **Use RLS** for shared-table multi-tenancy (most efficient)
-2. **Use task-local context** for zero-allocation tenant propagation
-3. **Never trust client-provided tenant IDs** - extract from authenticated session
-4. **Validate cross-tenant references** before creating relationships
-5. **Enable database-level RLS** as defense in depth
-6. **Cache per-tenant data** with TTL for performance
-7. **Test isolation thoroughly** - both positive and negative cases
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
