@@ -7,14 +7,14 @@ Modern, open-source Android kiosk application designed to transform tablets into
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [andrew-malitchuk/kite-aos](https://github.com/andrew-malitchuk/kite-aos).
+Original source: `CLAUDE.md` in [andrew-malitchuk/kite-aos](https://github.com/andrew-malitchuk/kite-aos).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/andrew-malitchuk/kite-aos](https://github.com/andrew-malitchuk/kite-aos)
