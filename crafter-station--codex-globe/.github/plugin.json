@@ -1,0 +1,9 @@
+{
+  "name": "crafter-station--codex-globe",
+  "displayName": "codex-globe",
+  "description": "Interactive 3D globe mapping Codex Ambassadors worldwide",
+  "version": "1.0.0",
+  "author": "crafter-station",
+  "homepage": "https://github.com/crafter-station/codex-globe",
+  "skills": []
+}
