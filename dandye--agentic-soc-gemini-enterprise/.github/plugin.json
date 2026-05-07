@@ -1,0 +1,9 @@
+{
+  "name": "dandye--agentic-soc-gemini-enterprise",
+  "displayName": "agentic_soc_gemini_enterprise",
+  "description": "Deploy custom SOC Agents to Gemini Enterprise Agent Platform",
+  "version": "1.0.0",
+  "author": "dandye",
+  "homepage": "https://github.com/dandye/agentic_soc_gemini_enterprise",
+  "skills": []
+}
