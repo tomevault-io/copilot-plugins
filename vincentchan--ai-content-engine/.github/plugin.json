@@ -1,0 +1,9 @@
+{
+  "name": "vincentchan--ai-content-engine",
+  "displayName": "AI-Content-Engine",
+  "description": "Claude Code powered content engine for research, ideation, and drafting. Based on Dan Koe's content framework.",
+  "version": "1.0.0",
+  "author": "vincentchan",
+  "homepage": "https://github.com/vincentchan/AI-Content-Engine",
+  "skills": []
+}
