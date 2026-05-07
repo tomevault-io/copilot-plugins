@@ -1,30 +1,28 @@
-## scripts-architecture
+## scripts-structure
 
-> This project uses a modular scripts directory structure for maintainability and clear separation of concerns.
+> This project uses an optimized, modular scripts directory structure for better maintainability and clear separation of concerns.
 
-# Scripts Directory Architecture Guide
+# Scripts Directory Structure Guide
 
-This project uses a modular scripts directory structure for maintainability and clear separation of concerns.
+This project uses an optimized, modular scripts directory structure for better maintainability and clear separation of concerns.
 
-## 📁 Directory Structure
+## 📁 Directory Structure Overview
+
+The [scripts/](mdc:scripts) directory is organized into the following modules:
 
 ### Core Module (`scripts/core/`)
-- **[scripts/core/constants.ts](mdc:scripts/core/constants.ts)** - Central configuration, paths, and constants
-- **[scripts/core/model.ts](mdc:scripts/core/model.ts)** - OpenAI model configuration and API calls
+- **[scripts/core/constants.ts](mdc:scripts/core/constants.ts)** - Central configuration and constants
+- **[scripts/core/model.ts](mdc:scripts/core/model.ts)** - OpenAI model configuration
 
 ### Utility Modules (`scripts/utils/`)
 - **[scripts/utils/file.ts](mdc:scripts/utils/file.ts)** - File operations (read, write, directory management)
 - **[scripts/utils/common.ts](mdc:scripts/utils/common.ts)** - General utility functions (string processing, arrays)
-- **[scripts/utils/logger.ts](mdc:scripts/utils/logger.ts)** - Custom logging system with structured output
 
 ### Processing Modules
 - **[scripts/parsers/agent-parser.ts](mdc:scripts/parsers/agent-parser.ts)** - Parse Agent configuration files
 - **[scripts/processors/category-processor.ts](mdc:scripts/processors/category-processor.ts)** - AI-powered category assignment
-- **[scripts/processors/i18n-processor.ts](mdc:scripts/processors/i18n-processor.ts)** - Translation and internationalization
-
-### Validation Modules
+- **[scripts/processors/i18n-processor.ts](mdc:scripts/processors/i18n-processor.ts)** - Internationalization and translation
 - **[scripts/validators/agent-validator.ts](mdc:scripts/validators/agent-validator.ts)** - Schema validation and formatting
-- **[scripts/validators/language-validator.ts](mdc:scripts/validators/language-validator.ts)** - Language detection and validation using @yutengjing/eld
 
 ### Build System
 - **[scripts/builders/agent-builder.ts](mdc:scripts/builders/agent-builder.ts)** - Build all language versions of Agent files
@@ -37,47 +35,65 @@ This project uses a modular scripts directory structure for maintainability and 
 - **[scripts/commands/test-locale.ts](mdc:scripts/commands/test-locale.ts)** - Multi-language validation
 - **[scripts/commands/update-awesome.ts](mdc:scripts/commands/update-awesome.ts)** - Update README
 - **[scripts/commands/auto-submit.ts](mdc:scripts/commands/auto-submit.ts)** - GitHub automation
-- **[scripts/commands/validate-language.ts](mdc:scripts/commands/validate-language.ts)** - Language validation command
 
 ### Schema Definitions (`scripts/schema/`)
 - **[scripts/schema/agentMeta.ts](mdc:scripts/schema/agentMeta.ts)** - Agent metadata schema definitions
 - **[scripts/schema/llm.ts](mdc:scripts/schema/llm.ts)** - LLM-related type definitions
 
-## 🔄 Import Patterns
+## 🔄 Common Workflows
 
+### Adding New Functionality
+1. **Core logic**: Add to appropriate module in `processors/`, `validators/`, or `builders/`
+2. **Utilities**: Add to `utils/file.ts` or `utils/common.ts`
+3. **CLI commands**: Create new command in `commands/` directory
+4. **Types**: Update schemas in `schema/` directory
+
+### Import Patterns
 ```typescript
-// Core configurations - Always import from constants first
+// Core configurations
 import { config, agentsDir } from '../core/constants';
 import { model } from '../core/model';
 
-// Utilities - File operations and common functions
+// Utilities
 import { writeJSON, checkDir } from '../utils/file';
 import { split, findDuplicates } from '../utils/common';
-import { Logger } from '../utils/logger';
 
-// Processing modules
+// Processing
 import { AgentParser } from '../parsers/agent-parser';
 import { addCategory } from '../processors/category-processor';
-import { translateJSON } from '../processors/i18n-processor';
 import { formatAgentJSON } from '../validators/agent-validator';
 ```
 
-## 📝 Architectural Principles
+### Running Commands
+Use the npm scripts defined in [package.json](mdc:package.json):
+- `pnpm run build` - Build all Agent files
+- `pnpm run format` - Format Agent configurations
+- `pnpm run test` - Run validation tests
+- `pnpm run test:locale` - Test multi-language files
 
-### Single Responsibility
-- Each module has one clear purpose and responsibility
-- Commands depend on builders/formatters, which depend on processors/validators
-- Shared utilities are centralized in `utils/`
+## 📝 Code Standards
 
-### Dependency Direction
-- Commands → Builders/Formatters → Processors/Validators → Utils → Core
-- Never import upwards in the dependency chain
-- Core modules should have minimal dependencies
+### Comments
+- All functions have comprehensive Chinese comments
+- Parameter types and return values are documented
+- Business logic is explained in detail
 
-### File Naming Conventions
+### Module Responsibilities
+- **Single Responsibility**: Each module has one clear purpose
+- **Dependency Direction**: Commands depend on builders/formatters, which depend on processors/validators
+- **Shared Utilities**: Common functions are centralized in utils/
+
+### File Naming
 - Use kebab-case for file names
 - Include module type in name (e.g., `agent-parser.ts`, `category-processor.ts`)
 - Commands are simple action names (e.g., `build.ts`, `format.ts`)
+
+## 🚨 Important Notes
+
+- Always import from the correct module - utilities are split between `utils/file.ts` and `utils/common.ts`
+- Constants and configuration should always come from `core/constants.ts`
+- Schema definitions are in `schema/` - update these when changing data structures
+- All command-line tools are in `commands/` directory and are executable
 
 ---
 > Source: [nirholas/defi-agents](https://github.com/nirholas/defi-agents) — distributed by [TomeVault](https://tomevault.io).
