@@ -1,6 +1,8 @@
-# everything-game-dev-code — distributed by TomeVault
+# everything-game-dev-code
 
-> Originally from [MRCalderon3D/everything-game-dev-code](https://github.com/MRCalderon3D/everything-game-dev-code). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [MRCalderon3D/everything-game-dev-code](https://github.com/MRCalderon3D/everything-game-dev-code) — distributed by [TomeVault](https://tomevault.io)
+
+A universal scaffold for AI-assisted game development. 42 agents, 51 commands, 86 skills. Multi-engine (Unity, Unreal, Godot, HTML). Multi-harness (Claude Code, Codex, Cursor, OpenCode, Kiro).
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [MRCalderon3D/everything-game-dev-code
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/MRCalderon3D)
+From [MRCalderon3D/everything-game-dev-code](https://github.com/MRCalderon3D/everything-game-dev-code) — a repo with 26+ stars on GitHub.
 
 ---
 
@@ -23,6 +25,6 @@ Install this config instantly:
 ```
 npx tomevault install MRCalderon3D/everything-game-dev-code
 ```
-Or browse all formats at [https://tomevault.io/claim/MRCalderon3D](https://tomevault.io/claim/MRCalderon3D).
+Source: [github.com/MRCalderon3D/everything-game-dev-code](https://github.com/MRCalderon3D/everything-game-dev-code).
 
 <!-- genome:d-i-s -->
