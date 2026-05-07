@@ -1,0 +1,9 @@
+{
+  "name": "wiedymi--text-shaper",
+  "displayName": "text-shaper",
+  "description": "Pure TypeScript text shaping engine.",
+  "version": "1.0.0",
+  "author": "wiedymi",
+  "homepage": "https://github.com/wiedymi/text-shaper",
+  "skills": []
+}
