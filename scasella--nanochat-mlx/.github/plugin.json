@@ -1,0 +1,9 @@
+{
+  "name": "scasella--nanochat-mlx",
+  "displayName": "nanochat-mlx",
+  "description": "Train your own ChatGPT on Apple Silicon \u2014 MLX port of nanochat",
+  "version": "1.0.0",
+  "author": "scasella",
+  "homepage": "https://github.com/scasella/nanochat-mlx",
+  "skills": []
+}
