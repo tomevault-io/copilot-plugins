@@ -1,120 +1,236 @@
-## chinese-multi-line-comments
+## cross-platform-development
 
-> **所有新编写的代码文件（.cs）必须包含中文注释。** 使用 `///` XML 文档注释格式，便于外部工具（如 IDE、DocFX）查看和生成文档。
+> **Runtime 目录的代码必须能在服务器环境编译运行。**
 
-# 中文注释规范
+# AbilityKit 跨平台开发规范
 
-## 重要
+## 核心原则
 
-**所有新编写的代码文件（.cs）必须包含中文注释。** 使用 `///` XML 文档注释格式，便于外部工具（如 IDE、DocFX）查看和生成文档。
+**Runtime 目录的代码必须能在服务器环境编译运行。**
 
-## 格式要求
+服务器环境特征：
+- 无 Unity 引擎
+- 无 MonoBehaviour
+- 无 GameObject/Transform
+- 无 Unity 物理/碰撞
+- 无 Unity 资源加载 API
 
-### 文件级注释
+## Unity 依赖检测与替换
 
-每个 .cs 文件开头必须有文件级注释：
+### 禁止的模式
 
 ```csharp
-/// <summary>
-/// 文件名称: [文件名]
-/// 
-/// 功能描述: [简要描述这个文件的功能]
-/// 
-/// 创建日期: [YYYY-MM-DD]
-/// 修改日期: [YYYY-MM-DD]
-/// </summary>
+// ❌ 禁止 - Unity 日志
+UnityEngine.Debug.Log("message");
+UnityEngine.Debug.LogWarning("message");
+UnityEngine.Debug.LogError("message");
+
+// ❌ 禁止 - Unity 随机数
+UnityEngine.Random.Range(min, max);
+
+// ❌ 禁止 - Unity 时间
+UnityEngine.Time.time;
+UnityEngine.Time.deltaTime;
+
+// ❌ 禁止 - Unity 数学
+UnityEngine.Mathf.*;
+
+// ❌ 禁止 - Unity 平台宏
+#if UNITY_EDITOR
 ```
 
-### 关键类型注释
+### 替代方案
 
-public/protected 类、结构体、接口需要 Summary 注释：
+| Unity API | 跨平台替代 |
+|-----------|-----------|
+| `UnityEngine.Debug.Log` | `AbilityKit.Core.Common.Log.Log.Info()` |
+| `UnityEngine.Random.Range` | `CrossPlatformRandom.Range()` |
+| `UnityEngine.Time.time` | 注入 `ITimeService` 或外部时钟 |
+| `UnityEngine.Mathf` | `System.Math` 或 `MathF` (C# 9+) |
 
-```csharp
-/// <summary>
-/// [简要描述类的功能和职责，一两句话即可]
-/// </summary>
-public class XXX
-```
+## 日志系统使用规范
 
-### 方法注释
-
-public/protected 方法需要注释：
+### 使用 Core 包的 Log 系统
 
 ```csharp
-/// <summary>
-/// [方法功能描述]
-/// </summary>
-/// <param name="paramName">参数说明</param>
-/// <returns>返回值说明</returns>
-public void DoSomething()
-```
+using AbilityKit.Core.Common.Log;
 
-### 不需要的注释
-
-- ❌ 单行 `// xxx` 用于类/方法（改用 `///`）
-- ❌ 过于详细的注释（逐行解释代码在做什么）
-- ❌ 明显的废话注释（如 `// 设置值: field = value`）
-- ❌ getter/setter 属性的逐条注释（除非有特殊业务含义）
-
-## 注释风格
-
-1. **使用 `///` 格式**：标准 XML 文档注释，工具友好
-2. **简洁为主**：描述清楚"是什么"和"为什么"，不必解释"怎么做"
-3. **关键信息优先**：把最重要的信息放在前面
-4. **中文为主**：团队项目保持语言一致
-
-## 正确示例
-
-```csharp
-/// <summary>
-/// 战斗会话的核心特性类，管理战斗生命周期。
-/// 采用 SubFeature 模式分离关注点。
-/// </summary>
-public sealed class BattleSessionFeature : Feature
+namespace AbilityKit.Example
 {
-    /// <summary>
-    /// 当前战斗状态
-    /// </summary>
-    public BattleState State { get; private set; }
-    
-    /// <summary>
-    /// 初始化战斗会话
-    /// </summary>
-    /// <param name="config">战斗配置</param>
-    public void Initialize(BattleConfig config) { }
+    public class MyService
+    {
+        public void DoSomething()
+        {
+            Log.Info("Operation started");
+            Log.Warning("Resource low");
+            Log.Error("Operation failed");
+        }
+    }
 }
 ```
 
-## 错误示例
+### 日志级别约定
+
+| 级别 | 使用场景 |
+|------|----------|
+| `Log.Info` | 正常流程信息、调试提示 |
+| `Log.Warning` | 可恢复的异常、潜在问题 |
+| `Log.Error` | 操作失败、需要关注的问题 |
+
+## 随机数使用规范
+
+### 使用跨平台随机数类
 
 ```csharp
-/*
- * BattleSessionFeature
- * 
- * 功能描述:
- *     战斗会话的核心特性类...
- */
-public sealed class BattleSessionFeature
+using AbilityKit.Triggering.Runtime.Executable;
+
+namespace AbilityKit.Example
 {
-    // 战斗状态属性
-    public BattleState State { get; private set; }
-    
-    // 设置战斗状态
-    private void SetState(BattleState state) { }
+    public class DiceRoller
+    {
+        public int RollD6()
+        {
+            return CrossPlatformRandom.Range(1, 7); // [1, 6]
+        }
+    }
 }
 ```
 
-## 总结
+### 预置随机数方法
 
-| 元素 | 要求 |
-|-----|-----|
-| 文件头 | 必填，含文件名、功能描述、日期 |
-| 类/结构体 | 必填，一两句话概括即可 |
-| public 方法 | 必填，含参数和返回值说明 |
-| 属性/字段 | 简单的不需要注释 |
-| 注释语言 | 中文 |
-| 注释格式 | `///` XML 格式 |
-| 详细程度 | 简洁，只写必要信息 |
+```csharp
+// 整数随机 [0, maxValue)
+CrossPlatformRandom.Range(10);
+
+// 浮点随机 [0, maxValue)
+CrossPlatformRandom.Range(5.0f);
+
+// 浮点随机 [minValue, maxValue)
+CrossPlatformRandom.Range(1.0f, 10.0f);
+```
+
+## 时间系统使用规范
+
+### 禁止直接使用 Unity 时间
+
+```csharp
+// ❌ 禁止
+var dt = UnityEngine.Time.deltaTime;
+var t = UnityEngine.Time.time;
+```
+
+### 推荐：注入时间服务
+
+```csharp
+public interface ITimeService
+{
+    float DeltaTime { get; }
+    float TotalTime { get; }
+    long CurrentTimestamp { get; }
+}
+
+public class MySystem
+{
+    private readonly ITimeService _time;
+    
+    public MySystem(ITimeService time)
+    {
+        _time = time;
+    }
+    
+    public void Update()
+    {
+        var dt = _time.DeltaTime;
+    }
+}
+```
+
+### 临时方案：ServerTime
+
+```csharp
+public static class ServerTime
+{
+    private static long _startTimestamp;
+    
+    public static void Initialize()
+    {
+        _startTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+    }
+    
+    public static float TotalSeconds 
+        => (DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - _startTimestamp) / 1000f;
+}
+```
+
+## 数学库使用规范
+
+### Unity.Mathf vs System.Math
+
+```csharp
+// ❌ 避免
+UnityEngine.Mathf.Clamp(value, min, max);
+UnityEngine.Mathf.Lerp(a, b, t);
+UnityEngine.Mathf.Sqrt(value);
+
+// ✅ 推荐
+System.Math.Clamp(value, min, max);
+System.MathF.Lerp(a, b, t);  // C# 9+
+System.Math.Sqrt(value);
+```
+
+### 常用对应关系
+
+| UnityEngine.Mathf | System.Math / MathF |
+|-------------------|---------------------|
+| `Mathf.Clamp` | `Math.Clamp` |
+| `Mathf.Lerp` | `MathF.Lerp` |
+| `Mathf.Sqrt` | `Math.Sqrt` |
+| `Mathf.Abs` | `Math.Abs` |
+| `Mathf.Max` | `Math.Max` |
+| `Mathf.Min` | `Math.Min` |
+| `Mathf.Pow` | `Math.Pow` |
+| `Mathf.Sin` | `MathF.Sin` |
+| `Mathf.Cos` | `MathF.Cos` |
+| `Mathf.PI` | `MathF.PI` |
+
+## 条件编译使用规范
+
+### 允许的条件编译
+
+```csharp
+// 允许 - 平台区分（Runtime 仍需编译）
+#if NETSTANDARD2_1_OR_GREATER
+    // .NET Standard 2.1+ 代码
+#endif
+
+// 允许 - 服务器专用代码
+#if SERVER
+    // 服务器专用逻辑
+#endif
+```
+
+### 禁止的条件编译
+
+```csharp
+// ❌ 禁止 - 将 Runtime 代码移到 Editor
+#if UNITY_EDITOR
+    // Runtime 目录禁止
+#endif
+```
+
+## 代码审查检查清单
+
+新增或修改 Runtime 目录代码时，检查：
+
+- [ ] 没有 `using UnityEngine;`
+- [ ] 没有 `using UnityEditor;`
+- [ ] 没有 `UnityEngine.Debug`
+- [ ] 没有 `UnityEngine.Random`
+- [ ] 没有 `UnityEngine.Time`
+- [ ] 没有 `#if UNITY_EDITOR`
+- [ ] 日志使用 `AbilityKit.Core.Common.Log.Log`
+- [ ] 随机数使用 `CrossPlatformRandom`
+- [ ] 编译通过（`dotnet build`）
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
