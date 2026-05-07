@@ -4,7 +4,7 @@
   "repo": "langclaw",
   "description": "Langchain + Openclaw = Langclaw",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/tisu19021997/langclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:46:13Z"
+  "distributed_at": "2026-05-07T05:44:40Z"
 }
