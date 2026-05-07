@@ -1,0 +1,75 @@
+{
+  "name": "mcporter",
+  "owner": "openclaw",
+  "repo": "mcporter",
+  "description": "Call MCPs via TypeScript, masquerading as simple TypeScript API. Or package them as cli.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "mcporter",
+      "path": "skills/mcporter",
+      "github_url": "https://github.com/openclaw/mcporter/tree/main/skills/mcporter",
+      "description": ""
+    },
+    {
+      "name": "mcporter",
+      "path": "skills/steipete/mcporter",
+      "github_url": "https://github.com/openclaw/mcporter/tree/main/skills/steipete/mcporter",
+      "description": ""
+    },
+    {
+      "name": "mcporter-railway-query-repo",
+      "path": "skills/lancenas/mcporter-railway-query-repo",
+      "github_url": "https://github.com/openclaw/mcporter/tree/main/skills/lancenas/mcporter-railway-query-repo",
+      "description": ""
+    },
+    {
+      "name": "mcporter-skill",
+      "path": "skills/livvux/mcporter-skill",
+      "github_url": "https://github.com/openclaw/mcporter/tree/main/skills/livvux/mcporter-skill",
+      "description": ""
+    },
+    {
+      "name": "mcporter-railway-query",
+      "path": "skills/lancenas/mcporter-railway-query",
+      "github_url": "https://github.com/openclaw/mcporter/tree/main/skills/lancenas/mcporter-railway-query",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/mcporter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T03:32:08Z"
+}
