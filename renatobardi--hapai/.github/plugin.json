@@ -1,0 +1,9 @@
+{
+  "name": "renatobardi--hapai",
+  "displayName": "hapai",
+  "description": "Deterministic guardrails for AI coding assistants. Enforce rules via Bash hooks before execution\u2014not probabilistic prompts. v1.7.0: Dashboard reform, audit dedup, CORS validation, release automation.",
+  "version": "1.0.0",
+  "author": "renatobardi",
+  "homepage": "https://github.com/renatobardi/hapai",
+  "skills": []
+}
