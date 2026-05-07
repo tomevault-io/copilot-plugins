@@ -1,0 +1,44 @@
+{
+  "name": "maaend-website",
+  "owner": "MaaEnd",
+  "repo": "maaend-website",
+  "description": "MaaEnd \u7ec8\u672b\u5730\u5c0f\u52a9\u624b - \u5b98\u65b9\u7f51\u7ad9",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MaaEnd/maaend-website",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T02:07:58Z"
+}
