@@ -1,16 +1,16 @@
-## packet-alignment-rules
+## reference-lookup-rules
 
-> Keep packet work aligned to packet_ver 23
+> Prefer Ref sources for implementation details
 
 
-# Packet Alignment Rules
+# Reference Lookup Rules
 
-- Always review `PACKET_VERSION_ALIGNMENT.md` before making packet-related decisions.
-- The rebuilt client targets `packet_ver 23` for packet behavior and client-send packet alignment.
-- Do not assume the decompiled client under `Ref` uses the same packet version as this rebuilt client.
-- When packet version, opcode mapping, payload layout, or server expectations are in question, prefer `Ref/eAthena_src_2011` and `Ref/RunningServer` over raw client behavior from `Ref`.
-- Use `Ref` for broader client behavior and implementation context, but treat packet-version-specific details as potentially different unless they match packet alignment documentation and server references.
-- If the packet alignment document and reference sources disagree, call out the mismatch explicitly and follow the source matching the `packet_ver 23` target.
+- When additional implementation detail is needed, check the `Ref` folder before guessing.
+- Use `Ref` as the decompiled original client reference when recreating client behavior.
+- Use `Ref/eAthena_src_2011` and `Ref/RunningServer` when verifying server-side packet logic, protocol behavior, or emulator expectations.
+- Use `Ref/GRF-Content` when verifying unpacked GRF asset names, paths, or data layout.
+- Prefer conclusions grounded in these reference sources over unsupported assumptions.
+- If reference sources disagree, call out the mismatch explicitly and explain which source is being followed.
 
 ---
 > Source: [Sziadan/open-midgard](https://github.com/Sziadan/open-midgard) — distributed by [TomeVault](https://tomevault.io).
