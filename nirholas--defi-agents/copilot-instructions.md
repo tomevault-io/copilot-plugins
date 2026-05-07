@@ -1,29 +1,115 @@
-## defi-agents
+## development-workflow
 
-> > DeFi agent definitions JSON API + MCP - Production-ready agents for Web3, crypto trading, portfolio management, and blockchain automation. MCP compatible.
+> This project uses pnpm for package management and has a structured set of scripts for different development tasks.
 
-# defi-agents Development Guidelines
+# Development Workflow Guide
 
-> DeFi agent definitions JSON API + MCP - Production-ready agents for Web3, crypto trading, portfolio management, and blockchain automation. MCP compatible.
+This project uses pnpm for package management and has a structured set of scripts for different development tasks.
 
-## Project Overview
+## 🔧 NPM Scripts
 
-defi-agents is built with TypeScript. See the README for full documentation.
+### Core Commands
+Located in [package.json](mdc:package.json):
 
-### Terminal Management
+```bash
+# Build and format agents
+pnpm run build          # Build all Agent files
+pnpm run format         # Format Agent configurations (triggers translation)
 
-- **Always use background terminals** (`isBackground: true`) for every command so a terminal ID is returned
-- **Always kill the terminal** after the command completes, whether it succeeds or fails — never leave terminals open
-- Do not reuse foreground shell sessions — stale sessions block future terminal operations in Codespaces
-- In GitHub Codespaces, agent-spawned terminals may be hidden — they still work. Do not assume a terminal is broken if you cannot see it
-- If a terminal appears unresponsive, kill it and create a new one rather than retrying in the same terminal
+# Validation and testing
+pnpm run test           # Run validation tests
+pnpm run test:locale    # Test multi-language files
+pnpm run type-check     # TypeScript type checking
 
-## Contributing
+# Language validation
+pnpm run validate:lang              # Validate all translation files
+pnpm run validate:lang --delete     # Validate and clean invalid files
+pnpm run clean:lang                 # Shorthand for validate with delete
 
-- Follow the existing code style
-- Test changes before submitting PRs
-- Update documentation when adding features
-- See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines
+# Maintenance
+pnpm run update:awesome             # Update README file
+```
+
+### Translation Workflow
+The main translation process is triggered by:
+```bash
+pnpm run format
+```
+
+This command:
+1. Calls [scripts/commands/format.ts](mdc:scripts/commands/format.ts)
+2. Executes `formatAgents()` function
+3. Processes each agent through [scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts)
+4. Performs incremental translation detection
+5. Validates language accuracy
+6. Saves formatted and translated files
+
+## 🚀 Development Best Practices
+
+### Before Making Changes
+1. Run `pnpm run type-check` to ensure TypeScript correctness
+2. Test changes with a small subset of agents first
+3. Use incremental translation to avoid unnecessary API calls
+
+### Code Quality Checks
+- **TypeScript**: Use strict type checking
+- **ESLint**: Follow project linting rules
+- **Prettier**: Code formatting is handled automatically
+
+### Testing Translation Changes
+```bash
+# Test specific language
+pnpm run test:locale
+
+# Validate a single file
+pnpm run validate:lang path/to/agent.en-US.json
+
+# Clean up invalid translations
+pnpm run clean:lang
+```
+
+## 📁 File Structure Patterns
+
+### Agent Configuration Files
+- Source files: `src/agent-name.json`
+- Translations: `locales/agent-name/agent-name.locale.json`
+
+### Script Organization
+- Commands in `scripts/commands/` - executable entry points
+- Core logic in processors, validators, builders
+- Utilities in `scripts/utils/`
+- Schemas in `scripts/schema/`
+
+## 🛠️ Debugging and Troubleshooting
+
+### Common Issues
+1. **Translation API Errors**: Check OpenAI API key and rate limits
+2. **Language Validation Failures**: Review [scripts/validators/language-validator.ts](mdc:scripts/validators/language-validator.ts) mapping
+3. **Type Errors**: Run `pnpm run type-check` for detailed error messages
+
+### Debug Mode
+Set `DEBUG=true` environment variable for verbose logging:
+```bash
+DEBUG=true pnpm run validate:lang
+```
+
+### Log Analysis
+All operations use [scripts/utils/logger.ts](mdc:scripts/utils/logger.ts) for structured logging:
+- Progress bars show operation status
+- Statistics summaries provide overview
+- Error messages include context and suggestions
+
+## 🔄 Continuous Integration
+
+### Pre-commit Checks
+- Type checking with TypeScript
+- Linting with ESLint
+- Language validation for translations
+
+### Automated Workflows
+- [scripts/commands/auto-submit.ts](mdc:scripts/commands/auto-submit.ts) handles GitHub automation
+- Batch processing with controlled concurrency
+- Error handling and recovery mechanisms
 
 ---
 > Source: [nirholas/defi-agents](https://github.com/nirholas/defi-agents) — distributed by [TomeVault](https://tomevault.io).
