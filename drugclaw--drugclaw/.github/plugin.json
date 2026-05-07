@@ -1,9 +1,9 @@
 {
   "name": "drugclaw--drugclaw",
   "displayName": "DrugClaw",
-  "description": "DrugClaw",
+  "description": "\ud83d\udc8a AI Research Assistant for Accelerated Drug Discovery. \ud83e\udd9e",
   "version": "1.0.0",
   "author": "DrugClaw",
-  "homepage": "https://tomevault.io/claim/DrugClaw",
+  "homepage": "https://github.com/DrugClaw/DrugClaw",
   "skills": []
 }
