@@ -1,0 +1,57 @@
+{
+  "name": "deep-research-client",
+  "owner": "monarch-initiative",
+  "repo": "deep-research-client",
+  "description": "A simple Python wrapper for multiple deep research tools including OpenAI Deep Research, FutureHouse Falcon, and Perplexity AI.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "gene-set-enrichment",
+      "path": ".claude/skills/gene-set-enrichment",
+      "github_url": "https://github.com/monarch-initiative/deep-research-client/tree/main/.claude/skills/gene-set-enrichment",
+      "description": ""
+    },
+    {
+      "name": "run-deep-research",
+      "path": ".claude/skills/run-deep-research",
+      "github_url": "https://github.com/monarch-initiative/deep-research-client/tree/main/.claude/skills/run-deep-research",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/monarch-initiative/deep-research-client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T07:39:05Z"
+}
