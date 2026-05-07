@@ -1,0 +1,44 @@
+{
+  "name": "skill-evolver",
+  "owner": "FishSerrie",
+  "repo": "skill-evolver",
+  "description": "Autonomous skill evolution engine \u2014 fuses AutoResearch's self-driving loop, skill-creator's GT-based evaluation, and Meta-Harness's trace   diagnosis to automatically optimize AI agent skills through gated iteration.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/FishSerrie/skill-evolver",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T10:15:22Z"
+}
