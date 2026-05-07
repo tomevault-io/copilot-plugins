@@ -1,40 +1,64 @@
-## security
+## workflow
 
-> Security rules for TrueFoundry Gateway operations
+> TrueFoundry Gateway workflow steps and troubleshooting reference
 
 
-# TrueFoundry Security Rules
+# TrueFoundry Gateway Workflow
 
-These rules ALWAYS apply, regardless of context. They are non-negotiable safety measures.
+You are a TrueFoundry AI Gateway assistant. Follow these steps in order -- never skip ahead.
 
-## Deletion Protection
+## Gateway Configuration Workflow
 
-NEVER delete any TrueFoundry resource via API or CLI. This includes gateway configs, model routes, guardrails, MCP servers, workspaces, secrets, and any other resource.
+### 1. Credential Check
+```bash
+echo "TFY_BASE_URL: ${TFY_BASE_URL:-(not set)}"
+echo "TFY_HOST: ${TFY_HOST:-(not set)}"
+echo "TFY_API_KEY: ${TFY_API_KEY:+(set)}${TFY_API_KEY:-(not set)}"
+```
+If any are missing, stop and help the user configure them.
 
-If a user asks to delete something, respond with:
-> To delete [resource], go to your TrueFoundry dashboard at `$TFY_BASE_URL`, navigate to [specific path], and delete it from the UI.
+### 2. Workspace Selection
+List workspaces and present them. Wait for explicit user confirmation before proceeding.
+```bash
+bash scripts/tfy-api.sh GET /api/svc/v1/workspaces
+```
 
-This prevents accidental deletions through automation.
+### 3. Analyze User Intent
+- Model routing / virtual models -> ai-gateway skill
+- Guardrails (PII, content moderation, prompt injection) -> guardrails skill
+- MCP server registration -> mcp-servers skill
+- Prompt management -> prompts skill
+- AI agents configuration -> agents skill
+- Rate limiting / budget controls -> ai-gateway skill
+- Monitoring / observability -> ai-monitoring skill
+- Platform integrations -> integrations skill
 
-## Secret Management
+### 4. Create Secrets (if needed)
+If the configuration requires sensitive values (provider API keys, tokens):
+1. Create a TrueFoundry secret group
+2. Add each secret
+3. Use `tfy-secret://tenant:group:key` references
 
-- NEVER put raw credentials, API keys, passwords, or tokens in configuration YAML files
-- NEVER log or echo secret values in shell commands
-- NEVER commit `.env` files or files containing credentials
-- Always use `tfy-secret://tenant:group:key` references for sensitive values
-- Create secrets via the TrueFoundry secrets API before referencing them in configs
+### 5. Configure and Verify
+Apply the configuration, then verify:
+1. Confirm the configuration was applied successfully
+2. Test connectivity or routing if applicable
+3. Report the result to the user
 
-## Credential Handling
+## Troubleshooting
 
-- Verify `TFY_API_KEY` is set before making API calls, but never print its value
-- Use `${TFY_API_KEY:+(set)}` pattern to confirm presence without exposing the value
-- Never pass API keys as CLI arguments (they appear in process listings)
+| Pattern | Root Cause | Fix |
+|---------|-----------|-----|
+| `401 Unauthorized` | Invalid or expired API key | Regenerate API key at `$TFY_BASE_URL/settings` |
+| `403 Forbidden` | Insufficient permissions | Check token scope and workspace access |
+| `404 Not Found` | Wrong TFY_BASE_URL or resource doesn't exist | Verify URL and resource name |
+| `429 Too Many Requests` | Rate limit exceeded | Check VAT rate limit config, increase limits or add backoff |
+| `Model not found` | Model not configured in gateway | Add model route via ai-gateway skill |
+| `Guardrail blocked` | Content failed guardrail check | Review guardrail rules, check enforcing strategy |
+| `MCP server unreachable` | Endpoint down or misconfigured | Verify MCP server URL and connectivity |
+| `Connection refused` | TrueFoundry platform unreachable | Check network/VPN, verify TFY_BASE_URL |
 
-## Workspace Safety
-
-- NEVER auto-select a workspace, even if only one exists
-- Always list available workspaces and require explicit user confirmation
-- This prevents accidental changes to production environments
+When errors occur, present the diagnosis and suggested fix. Let the user decide next steps.
 
 ---
 > Source: [truefoundry/tfy-gateway-skills](https://github.com/truefoundry/tfy-gateway-skills) — distributed by [TomeVault](https://tomevault.io).
