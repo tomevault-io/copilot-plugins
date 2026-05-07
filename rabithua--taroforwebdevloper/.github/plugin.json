@@ -1,0 +1,9 @@
+{
+  "name": "rabithua--taroforwebdevloper",
+  "displayName": "TaroForWebDevloper",
+  "description": "A simple template build with taro + bun + vite + tailwindcssV4 + react + pocketbase + reduxToolkit",
+  "version": "1.0.0",
+  "author": "Rabithua",
+  "homepage": "https://github.com/Rabithua/TaroForWebDevloper",
+  "skills": []
+}
