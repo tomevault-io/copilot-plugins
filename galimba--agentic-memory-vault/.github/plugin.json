@@ -1,0 +1,9 @@
+{
+  "name": "galimba--agentic-memory-vault",
+  "displayName": "agentic-memory-vault",
+  "description": "Agent-first memory vault boilerplate. Clone, initialize, and give your AI agents a structured knowledge base they can read, write, and reason over.",
+  "version": "1.0.0",
+  "author": "galimba",
+  "homepage": "https://github.com/galimba/agentic-memory-vault",
+  "skills": []
+}
