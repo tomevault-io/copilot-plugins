@@ -1,0 +1,177 @@
+{
+  "name": "sindri",
+  "owner": "pacphi",
+  "repo": "sindri-legacy",
+  "description": "This repository contains everything you need to set up a secure, cost-optimized remote development environment running a curated toolset for AI-powered designs, builds, testing, and deployment that's completely customizable on Fly.io infrastructure.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-algorithmic-art/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-algorithmic-art/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-canvas-design/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-canvas-design/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-chrome-devtools/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-chrome-devtools/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-comfyui/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-comfyui/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-docx/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-docx/resources",
+      "description": ""
+    },
+    {
+      "name": "extension-guide",
+      "path": ".claude/skills/extension-guide",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/.claude/skills/extension-guide",
+      "description": ""
+    },
+    {
+      "name": "extension-guide-v2",
+      "path": ".claude/skills/extension-guide-v2",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/.claude/skills/extension-guide-v2",
+      "description": ""
+    },
+    {
+      "name": "extension-guide-v3",
+      "path": ".claude/skills/extension-guide-v3",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/.claude/skills/extension-guide-v3",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-imagemagick/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-imagemagick/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-import-to-ontology/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-import-to-ontology/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-kicad/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-kicad/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-latex-documents/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-latex-documents/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-mcp-builder/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-mcp-builder/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-ontology-enrich/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-ontology-enrich/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/pal-mcp-server/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/pal-mcp-server/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-pdf/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-pdf/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-perplexity/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-perplexity/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-playwright-mcp/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-playwright-mcp/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-qgis/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-qgis/resources",
+      "description": ""
+    },
+    {
+      "name": "sindri-extension-guide",
+      "path": ".claude/skills/sindri-extension-guide",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/.claude/skills/sindri-extension-guide",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-web-summary/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-web-summary/resources",
+      "description": ""
+    },
+    {
+      "name": "resources",
+      "path": "v2/docker/lib/extensions/vf-webapp-testing/resources",
+      "github_url": "https://github.com/pacphi/sindri-legacy/tree/main/v2/docker/lib/extensions/vf-webapp-testing/resources",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/pacphi/sindri-legacy",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T16:30:21Z"
+}
