@@ -7,11 +7,11 @@ DeepAgent 기반 Research(연구) Multi Agent System 구축 - Context Engineerin
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [HyunjunJeon/Deepagent-research-context-engineering](https://github.com/HyunjunJeon/Deepagent-research-context-engineering).
+Original source: `CLAUDE.md` in [HyunjunJeon/Deepagent-research-context-engineering](https://github.com/HyunjunJeon/Deepagent-research-context-engineering).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
