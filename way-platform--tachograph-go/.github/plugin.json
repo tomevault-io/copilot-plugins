@@ -1,0 +1,9 @@
+{
+  "name": "way-platform--tachograph-go",
+  "displayName": "tachograph-go",
+  "description": "Go SDK for tachograph (.DDD) files",
+  "version": "1.0.0",
+  "author": "way-platform",
+  "homepage": "https://github.com/way-platform/tachograph-go",
+  "skills": []
+}
