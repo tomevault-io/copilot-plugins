@@ -1,0 +1,9 @@
+{
+  "name": "evolution-foundation--evo-ai",
+  "displayName": "evo-ai",
+  "description": "Evo AI is an open-source platform for creating and managing AI agents, enabling integration with different AI models and services.",
+  "version": "1.0.0",
+  "author": "evolution-foundation",
+  "homepage": "https://github.com/evolution-foundation/evo-ai",
+  "skills": []
+}
