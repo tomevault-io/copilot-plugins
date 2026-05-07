@@ -1,7 +1,7 @@
 {
   "name": "lexrus--appaboutview",
   "displayName": "AppAboutView",
-  "description": "AppAboutView",
+  "description": "A drop in micro-framework for \"About\" views in your next macOS/iOS/visionOS/tvOS app",
   "version": "1.0.0",
   "author": "lexrus",
   "homepage": "https://github.com/lexrus/AppAboutView",
