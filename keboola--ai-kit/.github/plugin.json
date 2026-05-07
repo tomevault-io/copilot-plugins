@@ -1,0 +1,42 @@
+{
+  "name": "keboola--ai-kit",
+  "displayName": "ai-kit",
+  "description": "Keboola prompt repository for sharing, co creating and improving AI agentic workloads. Both customer's and developers",
+  "version": "1.0.0",
+  "author": "keboola",
+  "homepage": "https://github.com/keboola/ai-kit",
+  "skills": [
+    {
+      "name": "dataapp-dev",
+      "description": ""
+    },
+    {
+      "name": "debug-component",
+      "description": ""
+    },
+    {
+      "name": "get-started",
+      "description": ""
+    },
+    {
+      "name": "gh-process-review",
+      "description": ""
+    },
+    {
+      "name": "keboola-cli",
+      "description": ""
+    },
+    {
+      "name": "keboola-config",
+      "description": ""
+    },
+    {
+      "name": "test-component",
+      "description": ""
+    },
+    {
+      "name": "build-component-ui",
+      "description": ""
+    }
+  ]
+}
