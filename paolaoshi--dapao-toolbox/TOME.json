@@ -1,0 +1,44 @@
+{
+  "name": "Dapao-Toolbox",
+  "owner": "paolaoshi",
+  "repo": "Dapao-Toolbox",
+  "description": "comfyui\u5927\u70ae\u5de5\u5177\u7bb1\uff0c\u96c6\u5408\u5e38\u7528\u5de5\u5177\uff0c\u65b9\u4fbf\u65e5\u5e38\u4f7f\u7528",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/paolaoshi/Dapao-Toolbox",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T19:16:43Z"
+}
