@@ -1,0 +1,16 @@
+## globalrules
+
+> AI instruction file for ovsjs by alamhubb
+
+
+## 请你不要修改业务逻辑的代码，除非和我确认，允许你修改你在修改，修改前和我展示你的修改计划
+## 当前在在windows环境中，使用的是powershell，你使用命令式要考虑不要使用powershell不支持的命令
+## 仔细确认需求是否还有漏洞还有不清晰的地方，主要是逻辑部分，确认整体逻辑正确，是否是最优雅最合理最正确最简洁的实现方式
+## 对于防御性编程的措施，守卫式提前返回，要快速失败型防御编程（Fail-Fast - Guard Clause，应该直接报错
+## 在每行有逻辑的代码上面都加上注释，方法名上加注释不要加的太复杂太啰嗦一大段
+## 不要自动生成文档
+## 有点难度的问题可以先从网上搜索普遍的解决方案是什么样的
+
+---
+> Source: [alamhubb/ovsjs](https://github.com/alamhubb/ovsjs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
