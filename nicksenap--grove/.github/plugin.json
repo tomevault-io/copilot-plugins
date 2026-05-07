@@ -1,0 +1,9 @@
+{
+  "name": "nicksenap--grove",
+  "displayName": "grove",
+  "description": "Git worktree workspace orchestrator. One command creates a workspace folder with worktrees from multiple repos on the same branch.",
+  "version": "1.0.0",
+  "author": "nicksenap",
+  "homepage": "https://github.com/nicksenap/grove",
+  "skills": []
+}
