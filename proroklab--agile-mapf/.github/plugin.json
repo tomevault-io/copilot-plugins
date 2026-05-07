@@ -1,0 +1,9 @@
+{
+  "name": "proroklab--agile-mapf",
+  "displayName": "agile-mapf",
+  "description": "Concrete Multi-Agent Path Planning Enabling Kinodynamically Aggressive Maneuvers (npj Robotics 2026)",
+  "version": "1.0.0",
+  "author": "proroklab",
+  "homepage": "https://github.com/proroklab/agile-mapf",
+  "skills": []
+}
