@@ -1,0 +1,9 @@
+{
+  "name": "apt-bundle--apt-bundle",
+  "displayName": "apt-bundle",
+  "description": "A declarative, Brewfile-like wrapper for apt, inspired by brew bundle \u2014 not a full config management system.",
+  "version": "1.0.0",
+  "author": "apt-bundle",
+  "homepage": "https://github.com/apt-bundle/apt-bundle",
+  "skills": []
+}
