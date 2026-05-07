@@ -1,0 +1,70 @@
+{
+  "name": "bodangren--git-workflow",
+  "displayName": "git-workflow",
+  "description": "Spec-Driven Git Workflow plugin for Claude Code - Comprehensive development workflow with GitHub integration, sprint management, and brownfield migration support",
+  "version": "1.0.0",
+  "author": "bodangren",
+  "homepage": "https://github.com/bodangren/git-workflow",
+  "skills": [
+    {
+      "name": "agent-integrator",
+      "description": ""
+    },
+    {
+      "name": "change-integrator",
+      "description": ""
+    },
+    {
+      "name": "change-integrator",
+      "description": ""
+    },
+    {
+      "name": "doc-indexer",
+      "description": ""
+    },
+    {
+      "name": "doc-validator",
+      "description": ""
+    },
+    {
+      "name": "issue-executor",
+      "description": ""
+    },
+    {
+      "name": "issue-executor",
+      "description": ""
+    },
+    {
+      "name": "prd-authoring",
+      "description": ""
+    },
+    {
+      "name": "prd-authoring",
+      "description": ""
+    },
+    {
+      "name": "project-init",
+      "description": ""
+    },
+    {
+      "name": "project-migrate",
+      "description": ""
+    },
+    {
+      "name": "skill-lister",
+      "description": ""
+    },
+    {
+      "name": "spec-authoring",
+      "description": ""
+    },
+    {
+      "name": "sprint-manager",
+      "description": ""
+    },
+    {
+      "name": "sprint-planner",
+      "description": ""
+    }
+  ]
+}
