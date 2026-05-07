@@ -1,0 +1,9 @@
+{
+  "name": "kaldown--ccpm",
+  "displayName": "ccpm",
+  "description": "Claude code plugin manager",
+  "version": "1.0.0",
+  "author": "kaldown",
+  "homepage": "https://github.com/kaldown/ccpm",
+  "skills": []
+}
