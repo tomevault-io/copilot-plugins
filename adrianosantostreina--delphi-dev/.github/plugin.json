@@ -1,0 +1,9 @@
+{
+  "name": "adrianosantostreina--delphi-dev",
+  "displayName": "delphi-dev",
+  "description": "Delphi development expert plugin for Claude Code \u2014 automatically applies Delphi Style Guide, Clean Code and SOLID patterns",
+  "version": "1.0.0",
+  "author": "adrianosantostreina",
+  "homepage": "https://github.com/adrianosantostreina/delphi-dev",
+  "skills": []
+}
