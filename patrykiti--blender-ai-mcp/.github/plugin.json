@@ -1,0 +1,9 @@
+{
+  "name": "patrykiti--blender-ai-mcp",
+  "displayName": "blender-ai-mcp",
+  "description": "Production-shaped MCP server for Blender with goal-first routing, curated tools, deterministic verification, and vision-assisted 3D modeling workflows.",
+  "version": "1.0.0",
+  "author": "PatrykIti",
+  "homepage": "https://github.com/PatrykIti/blender-ai-mcp",
+  "skills": []
+}
