@@ -1,0 +1,9 @@
+{
+  "name": "deniedworks--synty-godot-converter",
+  "displayName": "synty-godot-converter",
+  "description": "Convert Synty POLYGON asset packs to Godot 4.6+ with proper materials and custom shaders",
+  "version": "1.0.0",
+  "author": "DeniedWorks",
+  "homepage": "https://github.com/DeniedWorks/synty-godot-converter",
+  "skills": []
+}
