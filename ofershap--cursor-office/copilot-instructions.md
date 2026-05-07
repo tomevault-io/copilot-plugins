@@ -1,58 +1,68 @@
-## cursor-office
+## extension-architecture
 
-> - 6 columns x 3 rows, each tile 32px. Landscape layout for Cursor's bottom panel.
+> 1. `esbuild` for extension host (`src/extension.ts` → `dist/extension.js`, Node context)
 
-# Coordinate System & Z-Ordering
+# Extension Architecture
 
-## Grid
-- 6 columns x 3 rows, each tile 32px. Landscape layout for Cursor's bottom panel.
-- Positions use fractional tile coords (e.g., `col: 2.8, row: 1.4`).
-- Row 0 = back wall. Higher row = closer to viewer.
+## Build Pipeline
+Two separate builds:
+1. `esbuild` for extension host (`src/extension.ts` → `dist/extension.js`, Node context)
+2. `esbuild` for webview (`webview/index.ts` → `dist/webview.js`, browser context)
 
-## Scaling & Centering
-- `scale = Math.min(viewportW / (6*32), viewportH / (3*32))` - fits the smaller axis.
-- Scene is centered with `offsetX` and `offsetY`. All mouse events MUST subtract these offsets.
-- Canvas size = full viewport. Scene size = `6*32*scale` x `3*32*scale`.
+These are DIFFERENT runtimes. The extension host has Node + VS Code API. The webview has DOM + Canvas.
+They communicate only via `postMessage` / `onDidReceiveMessage`.
 
-## Z-Ordering (past bug source)
-- Objects use UNSCALED `zY` values: `(row + offset) * TILE_SIZE` (no `* scale`).
-- Character zY in office.ts: `(position.row + 1) * TILE_SIZE` (also unscaled).
-- Both MUST be in the same coordinate space or sorting breaks silently.
-- Objects with lower `zY` render first (behind). The `sortable` array in `office.ts` handles this.
+## Webview Security
+CSP requires `script-src 'nonce-...'`. The nonce is generated per webview instance in the extension host.
+The webview HTML template injects the nonce into the script tag.
+No inline scripts, no eval, no external CDN scripts.
 
-## Object Positions
-Current layout (col, row) for `createDefaultObjects()`:
-- Rug: 1.5, 1.4
-- Lamp: 0.5, 0 (ceiling)
-- Window: 3.8, 0.15 (back wall, between desk and bookshelf)
-- Desk: 1.5, 0.6
-- Chair: 1.8, 1.3
-- Phone: 1.6, 0.88 (on desk surface, left of keyboard)
-- Coffee mug: 3, 0.85
-- Bookshelf: 5.1, 0.2
-- Water cooler: 4.5, 1.5
-- Arcade: 0, 0.8
-- Plant: 5.2, 2
-- Cat: 3, 1.8
+## Agent Detection — Two Modes
 
-## Placing Objects ON the Desk
-The desk sprite (64x44px) starts at (1.5, 0.6). Desk surface is at sprite rows 23-28.
-To place an object on the desk surface: `row ≈ 0.6 + (surface_y - obj_height) / 32`.
-Phone (16x14px) sits at row 0.88, to the left of the monitor. Mug at row 0.85.
-Keep spacing from the monitor stand (centered at sprite x=30-33).
+### Mode 1: Transcript Parsing (fallback)
+- Cursor stores transcripts at `~/.cursor/projects/<workspace-hash>/agent-transcripts/`.
+- `cursorWatcher.ts` scans `~/.cursor/projects/*/agent-transcripts/` with glob.
+- Each JSONL line is `{ role, content }`. Last few lines → heuristic activity inference.
+- User line after assistant lines → immediate idle. 8-second silence → idle.
 
-## Waypoint Positions
-Character waypoints in `character.ts` must align with object positions.
-"In front of" means HIGHER row (closer to viewer), facing 'back'.
-`OBJECT_POSITIONS` map and `IDLE_WAYPOINTS` array must stay in sync with `createDefaultObjects()`.
+### Mode 2: Cursor Hooks (preferred)
+Cursor has a hooks API (`~/.cursor/hooks.json`) that fires shell scripts on agent events.
 
-## Key Character Positions
-- `DESK_COL = 1.9, DESK_ROW = 1.05` — character walks here when working. Chair is at (1.8, 1.3).
-- `PHONE_COL = 1.6, PHONE_ROW = 1.05` — character walks here when phoning (near left side of desk).
-- `IDLE_COL = 3, IDLE_ROW = 1.8` — center of room, default idle position.
-- `CELEBRATE_COL = 3, CELEBRATE_ROW = 1.8` — same as idle center.
-- `isAtDesk()` and `isAtPhone()` both use 0.5 tile tolerance.
+**Hook events we use:**
+- `preToolUse` — tool_name maps to activity: Read/Glob → reading, Write/StrReplace → editing, Shell → running, Grep/SemanticSearch → searching, Task → phoning
+- `stop` — `status: "completed"|"aborted"|"error"`. Completed + did work → celebrate. Error → error reaction. Aborted → idle.
+- `beforeSubmitPrompt` — user sent message → idle
+- `subagentStart` → phoning (character picks up desk phone)
+- `subagentStop` → back to previous work activity
+
+**Files involved:**
+- `hooks/cursor-office-hook.sh` — shell script bundled with extension. Writes JSON to `/tmp/cursor-office-state.json`.
+- `src/hooksInstaller.ts` — installs/removes hooks from `~/.cursor/hooks.json`. Merges gently: checks for `cursor-office-hook` marker, only adds our entries, preserves existing hooks.
+- `cursorWatcher.ts` — on startup checks if hooks state file exists. If yes, watches it instead of transcripts.
+
+**Commands:**
+- `Cursor Office: Enable Hooks` — installs hooks, tells user to restart Cursor.
+- `Cursor Office: Disable Hooks` — removes only our hook entries, leaves others intact.
+
+**Hook installation pattern** (learned from Honcho/LangSmith):
+1. Check if `hooks.json` exists
+2. If exists, parse JSON, check for our marker
+3. If already installed, skip
+4. If not, merge our hooks into existing arrays
+5. If removing and arrays become empty, delete file
+
+## Extension Registration
+- `WebviewViewProvider` registered for view ID `agentArcade.officeView`.
+- Contributes to `panel` viewContainer (bottom panel in Cursor).
+- `package.json` must declare the view under `contributes.views.panel`.
+- Two commands registered: `cursor-office.enableHooks` and `cursor-office.disableHooks`.
+
+## Packaging
+```bash
+npm run build:webview && npm run compile && npx vsce package --no-dependencies
+```
+Produces `.vsix` file. Install with `code --install-extension agent-arcade-*.vsix` (or `cursor` CLI).
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ofershap) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [ofershap/cursor-office](https://github.com/ofershap/cursor-office) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
