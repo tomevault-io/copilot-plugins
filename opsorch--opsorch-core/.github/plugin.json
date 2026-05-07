@@ -1,0 +1,9 @@
+{
+  "name": "opsorch--opsorch-core",
+  "displayName": "opsorch-core",
+  "description": "OpsOrch Core is a stateless, orchestration layer that unifies incidents, logs, metrics, tickets, and dashboards behind one pluggable API",
+  "version": "1.0.0",
+  "author": "OpsOrch",
+  "homepage": "https://github.com/OpsOrch/opsorch-core",
+  "skills": []
+}
