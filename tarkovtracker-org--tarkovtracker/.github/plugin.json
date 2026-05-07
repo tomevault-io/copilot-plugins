@@ -1,0 +1,9 @@
+{
+  "name": "tarkovtracker-org--tarkovtracker",
+  "displayName": "TarkovTracker",
+  "description": "Rewrite of TarkovTracker.org in Nuxt.",
+  "version": "1.0.0",
+  "author": "tarkovtracker-org",
+  "homepage": "https://github.com/tarkovtracker-org/TarkovTracker",
+  "skills": []
+}
