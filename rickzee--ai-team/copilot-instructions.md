@@ -1,33 +1,32 @@
-## agent-roles-and-routing
+## ai-team-core
 
-> Agent roles and flow routing reference
+> Project identity and tech stack for ai-team (CrewAI multi-agent system)
 
 
-# Agent Role Reference
+# AI-Team Project Context
 
-| Agent | Role | Model | Process Role | Key Tools |
-|-------|------|-------|--------------|-----------|
-| Manager | Engineering Manager / Coordinator | qwen3 | manager_agent (hierarchical) | task_delegation, status_reporting |
-| Product Owner | Requirements Analyst | qwen3 | PlanningCrew member | requirements_parser, user_story_generator |
-| Architect | Solutions Architect / Tech Lead | deepseek-r1 | PlanningCrew + DevelopmentCrew manager | architecture_designer, technology_selector |
-| Backend Dev | Backend Developer | deepseek-coder-v2 | DevelopmentCrew member | code_generation, api_implementation |
-| Frontend Dev | Frontend Developer | qwen2.5-coder | DevelopmentCrew member | component_generator, api_client_generator |
-| DevOps | DevOps / SRE Engineer | qwen2.5-coder | DevelopmentCrew + DeploymentCrew | dockerfile_generator, ci_pipeline_generator |
-| Cloud Engineer | Cloud Infrastructure Engineer | qwen2.5-coder | DeploymentCrew member | terraform_generator, iam_policy_generator |
-| QA Engineer | QA / Test Automation | qwen3 | TestingCrew member | test_generator, test_runner, coverage_analyzer |
+You are working on **ai-team**, an autonomous multi-agent software development system built with CrewAI. The system simulates a complete engineering organization with 7+ specialized AI agents (Manager, Product Owner, Architect, Backend/Frontend Developers, DevOps, Cloud Engineer, QA Engineer) that accept natural language project descriptions and autonomously deliver working, tested, deployable code.
 
-# Flow Routing
+This is a portfolio-grade capstone project. All code must be production-quality, well-documented, and security-conscious.
 
-INTAKE → PLANNING → DEVELOPMENT → TESTING → DEPLOYMENT → COMPLETE, with HUMAN_FEEDBACK, RETRY_DEVELOPMENT (max 3x), HUMAN_ESCALATION.
+## Technology Stack
 
-- **Planning → Development**: requirements AND architecture both complete
-- **Planning → Human Feedback**: requirements ambiguous (e.g. confidence < 0.7)
-- **Development → Testing**: code files generated successfully
-- **Testing → Deployment**: all tests pass, coverage ≥ threshold
-- **Testing → Retry Development**: tests failed, retries remaining (with feedback)
-- **Testing → Human Escalation**: retries exhausted or critical failures
-- **Deployment → Complete**: packaging successful
-- **Any phase → Error**: unrecoverable error with state preservation
+- **Python** 3.11+ (minimum)
+- **CrewAI** (>=0.80.0), **CrewAI Tools** (>=0.14.0), **LangChain-Ollama** (>=0.2.0)
+- **Pydantic** (>=2.7.0), **Pydantic-Settings** (>=2.2.0)
+- **Streamlit** (>=1.35.0), **structlog** (>=24.1.0)
+- **ChromaDB** (>=0.5.0), **SQLAlchemy** (>=2.0.0), **GitPython** (>=3.1.0), **httpx** (>=0.27.0), **tenacity** (>=8.2.0)
+- **pytest** (>=8.0.0), **ruff** (>=0.3.0), **mypy** (>=1.9.0), **black** (>=24.3.0)
+- **Poetry** for dependency management
+
+**Ollama models**: qwen3 (management, PO), deepseek-r1 (architecture), qwen2.5-coder (frontend, devops), deepseek-coder-v2 (backend).
+
+## Project Structure (abbreviated)
+
+- `src/ai_team/` — config (settings, agents.yaml, tasks.yaml), agents/, crews/, flows/, tools/, guardrails/, memory/, models/, utils/
+- `tests/` — unit/, integration/, e2e/, performance/, fixtures/
+- `src/ai_team/ui/` — Gradio app, Rich TUI, FastAPI + Vite web dashboard
+- `docs/`, `scripts/`, `demos/`, `docker/`, `.github/`
 
 ---
 > Source: [RickZee/ai-team](https://github.com/RickZee/ai-team) — distributed by [TomeVault](https://tomevault.io).
