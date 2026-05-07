@@ -1,0 +1,9 @@
+{
+  "name": "bearly-hodling--claude-canvas",
+  "displayName": "claude-canvas",
+  "description": "TUI toolkit for Claude Code - fork with iTerm2 and Apple Terminal support",
+  "version": "1.0.0",
+  "author": "BEARLY-HODLING",
+  "homepage": "https://github.com/BEARLY-HODLING/claude-canvas",
+  "skills": []
+}
