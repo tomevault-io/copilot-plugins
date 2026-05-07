@@ -7,11 +7,11 @@ AI-powered SDK for Software Development
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Synthesys-Lab/agentize](https://github.com/Synthesys-Lab/agentize).
+Original source: `CLAUDE.md` in [Synthesys-Lab/agentize](https://github.com/Synthesys-Lab/agentize).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
