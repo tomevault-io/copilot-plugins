@@ -1,0 +1,9 @@
+{
+  "name": "moezakura--mux-pod",
+  "displayName": "mux-pod",
+  "description": "A mobile-first tmux client over SSH. Control your terminal sessions from your phone.",
+  "version": "1.0.0",
+  "author": "moezakura",
+  "homepage": "https://github.com/moezakura/mux-pod",
+  "skills": []
+}
