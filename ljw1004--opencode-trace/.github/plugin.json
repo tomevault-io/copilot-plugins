@@ -1,0 +1,9 @@
+{
+  "name": "ljw1004--opencode-trace",
+  "displayName": "opencode-trace",
+  "description": "Trace raw LLM requests+responses from opencode",
+  "version": "1.0.0",
+  "author": "ljw1004",
+  "homepage": "https://github.com/ljw1004/opencode-trace",
+  "skills": []
+}
