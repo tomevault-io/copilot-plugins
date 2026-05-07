@@ -1,123 +1,56 @@
-## frontend-react-conventions
+## project-overview
 
-> 前端 React/TS 规范：API 调用、状态管理、TanStack Query、ShadcnUI 使用模式
+> Clash Config Store 项目整体架构、目录结构和开发约定
 
 
-# 前端代码规范
+# Clash Config Store — 项目总览
 
-## API 调用模式
+## 架构
 
-```typescript
-// src/api/providers.ts — 每个资源一个文件
-import { apiClient } from './client'
-import type { Provider } from '@/types'
-
-export const providersApi = {
-  list: () => apiClient.get<Provider[]>('/providers').then(r => r.data.data),
-  create: (data: Partial<Provider>) => apiClient.post<Provider>('/providers', data).then(r => r.data.data),
-  update: (id: number, data: Partial<Provider>) => apiClient.put<Provider>(`/providers/${id}`, data).then(r => r.data.data),
-  delete: (id: number) => apiClient.delete(`/providers/${id}`),
-}
+```
+clash-config-store/
+├── backend/          # Go 1.25, Gin, GORM (SQLite/MySQL)
+│   ├── cmd/server/main.go         # 入口，路由注册
+│   └── internal/
+│       ├── config/config.go       # 环境变量加载
+│       ├── model/                 # GORM 数据模型
+│       ├── handler/               # HTTP 处理器（薄层，只做请求/响应）
+│       ├── service/               # 业务逻辑层
+│       ├── middleware/auth.go     # JWT 认证中间件
+│       ├── repository/db.go       # DB 初始化，暴露 repository.DB
+│       └── util/                  # jwt / geoip / token / yaml 工具函数
+└── frontend/         # React 18, TypeScript, Vite, ShadcnUI, Tailwind
+    └── src/
+        ├── api/       # axios API 模块（每个资源一个文件）
+        ├── store/     # Zustand (auth.ts / theme.ts)
+        ├── components/ui/     # ShadcnUI 组件
+        ├── components/layout/ # AppLayout + Sidebar
+        ├── pages/             # 路由页面
+        └── i18n/              # 中英文翻译
 ```
 
-## TanStack Query 模式
+## 核心数据模型
 
-```tsx
-// 查询列表
-const { data: providers = [], isLoading } = useQuery({
-  queryKey: ['providers'],
-  queryFn: providersApi.list,
-})
+| 模型 | 说明 |
+|------|------|
+| User | 用户（email 唯一索引） |
+| UserAgent | 可复用 UA 字符串库 |
+| Provider | 上游订阅源（带缓存字段） |
+| CustomConfig | 用户自定义 proxies/proxy-groups/rules（YAML 文本） |
+| Subscription | 输出订阅（token、启用的 providers、关联规则集） |
+| AccessRestriction | 订阅访问限制（IP/CIDR/Country/City + allow/deny） |
+| AccessLog | 订阅访问日志 |
 
-// 变更（创建/更新/删除）
-const queryClient = useQueryClient()
-const createMutation = useMutation({
-  mutationFn: providersApi.create,
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ['providers'] })
-    toast.success(t('common.createSuccess'))
-    setDialogOpen(false)
-  },
-  onError: (err: Error) => toast.error(err.message),
-})
-```
+## 关键约定
 
-## 状态管理
-
-```typescript
-// 认证状态
-const { user, token, setAuth, logout } = useAuthStore()
-
-// 主题
-const { theme, setTheme } = useThemeStore()
-```
-
-## i18n 使用
-
-```tsx
-const { t } = useTranslation()
-// 使用翻译键，不直接写中文
-<Button>{t('common.save')}</Button>
-<CardTitle>{t('providers.title')}</CardTitle>
-```
-
-## ShadcnUI 组件导入
-
-```tsx
-// 从 @/components/ui/* 导入
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { toast } from 'sonner'  // 全局 Toast，不用 useToast
-```
-
-## 表单错误提示规范
-
-**优先使用 shadcn/ui 现成组件，不要自己写 div/p 样式组件。**
-
-```tsx
-// 字段级错误（input 下方红字）：
-// 1. Input 加 border-destructive + aria-invalid
-<Input
-  className={errors.field ? 'border-destructive' : ''}
-  aria-invalid={!!errors.field}
-/>
-// 2. shadcn/ui Label + 错误文案段落
-{errors.field && <p className="text-sm text-destructive">{errors.field}</p>}
-
-// 表单级（服务端/网络错误）：用 Alert 组件，不弹 toast
-// toast 只用于操作成功反馈，不用于表单校验错误
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { AlertCircle } from 'lucide-react'
-
-{errors.form && (
-  <Alert variant="destructive">
-    <AlertCircle className="h-4 w-4" />
-    <AlertDescription>{errors.form}</AlertDescription>
-  </Alert>
-)}
-```
-
-> **原则**：表单输入错误（含 API 返回的字段错误）一律在表单内展示，避免弹 toast 导致 Input 失焦。
-> toast 仅用于操作成功（如保存成功、删除成功）或与当前表单无关的全局通知。
-
-## 删除确认模式
-
-```tsx
-const [deleteId, setDeleteId] = useState<number | null>(null)
-
-// Dialog 确认
-<Dialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
-  <DialogContent>
-    <DialogHeader><DialogTitle>{t('common.confirmDelete')}</DialogTitle></DialogHeader>
-    <DialogFooter>
-      <Button variant="outline" onClick={() => setDeleteId(null)}>{t('common.cancel')}</Button>
-      <Button variant="destructive" onClick={() => deleteMutation.mutate(deleteId!)}>{t('common.delete')}</Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
-```
+- 所有代码注释使用**中文**，保持简洁
+- Handler 只做请求绑定/响应，业务逻辑放 service 层
+- 统一响应：`handler.OK(c, data)` / `handler.Fail(c, httpCode, msg)`
+- 当前用户 ID：`middleware.CurrentUserID(c)`
+- 数据库：`repository.DB`（GORM，已自动迁移）
+- 订阅链接格式：`{BASE_URL}/sub/{token}`
+- `CustomConfig` 的三个字段（Proxies/ProxyGroups/Rules）存储为 YAML 文本字符串
+- `Subscription.EnabledProviderIDs` 存储为 JSON 文本 `[]uint`
 
 ---
 > Source: [PrintNow/clash-config-store](https://github.com/PrintNow/clash-config-store) — distributed by [TomeVault](https://tomevault.io).
