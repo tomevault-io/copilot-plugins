@@ -1,0 +1,9 @@
+{
+  "name": "abdelstark--turboquant",
+  "displayName": "turboquant",
+  "description": "Rust implementation of Google's TurboQuant algorithm for vector quantization",
+  "version": "1.0.0",
+  "author": "AbdelStark",
+  "homepage": "https://github.com/AbdelStark/turboquant",
+  "skills": []
+}
