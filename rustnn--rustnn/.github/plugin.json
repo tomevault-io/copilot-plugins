@@ -1,0 +1,9 @@
+{
+  "name": "rustnn--rustnn",
+  "displayName": "rustnn",
+  "description": "Rust Implementation for WebNN",
+  "version": "1.0.0",
+  "author": "rustnn",
+  "homepage": "https://github.com/rustnn/rustnn",
+  "skills": []
+}
