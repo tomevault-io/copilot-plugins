@@ -7,11 +7,11 @@ Pane is a Terminal-first AI agent manager. The same way Superhuman is an email c
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [dcouple/Pane](https://github.com/dcouple/Pane).
+Original source: `CLAUDE.md` in [dcouple/Pane](https://github.com/dcouple/Pane).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
