@@ -1,0 +1,9 @@
+{
+  "name": "sharno--zagel",
+  "displayName": "zagel",
+  "description": "A native API client that uses .http and .env files as file formats",
+  "version": "1.0.0",
+  "author": "sharno",
+  "homepage": "https://github.com/sharno/zagel",
+  "skills": []
+}
