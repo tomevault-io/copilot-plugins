@@ -1,0 +1,9 @@
+{
+  "name": "erickj3--lazyfile",
+  "displayName": "lazyfile",
+  "description": "lazyfile: terminal UI for browsing cloud storage via rclone",
+  "version": "1.0.0",
+  "author": "ErickJ3",
+  "homepage": "https://github.com/ErickJ3/lazyfile",
+  "skills": []
+}
