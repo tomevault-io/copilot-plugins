@@ -1,0 +1,9 @@
+{
+  "name": "printnow--clash-config-store",
+  "displayName": "clash-config-store",
+  "description": "Clash Config Store \u662f\u4f7f\u7528 Go + React \u6784\u5efa\u7684\u4e00\u4e2a\u9762\u5411 Mihomo/Clash \u7684\u8ba2\u9605\u7f16\u6392\u4e0e\u5206\u53d1\u5e73\u53f0\uff1a \u628a\u591a\u4e2a\u4e0a\u6e38\u4ee3\u7406\u8ba2\u9605\u3001\u89c4\u5219\u96c6\u548c\u81ea\u5b9a\u4e49\u914d\u7f6e\u7edf\u4e00\u7ba1\u7406\uff0c\u6700\u7ec8\u751f\u6210\u53ef\u76f4\u63a5\u4e0b\u53d1\u7684\u5b8c\u6574 YAML\u3002",
+  "version": "1.0.0",
+  "author": "PrintNow",
+  "homepage": "https://github.com/PrintNow/clash-config-store",
+  "skills": []
+}
