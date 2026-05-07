@@ -1,0 +1,9 @@
+{
+  "name": "bhcodelink1--obsidian-remarkdoc",
+  "displayName": "obsidian-remarkdoc",
+  "description": "Obsidian plugin that enables export to word, html, google doc, and pdf using remark-rehype",
+  "version": "1.0.0",
+  "author": "bhcodelink1",
+  "homepage": "https://github.com/bhcodelink1/obsidian-remarkdoc",
+  "skills": []
+}
