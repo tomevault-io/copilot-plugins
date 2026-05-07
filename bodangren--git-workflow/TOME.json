@@ -1,0 +1,135 @@
+{
+  "name": "git-workflow",
+  "owner": "bodangren",
+  "repo": "git-workflow",
+  "description": "Spec-Driven Git Workflow plugin for Claude Code - Comprehensive development workflow with GitHub integration, sprint management, and brownfield migration support",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-integrator",
+      "path": ".claude/skills/agent-integrator",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/agent-integrator",
+      "description": ""
+    },
+    {
+      "name": "change-integrator",
+      "path": "skills/change-integrator",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/skills/change-integrator",
+      "description": ""
+    },
+    {
+      "name": "change-integrator",
+      "path": ".claude/skills/change-integrator",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/change-integrator",
+      "description": ""
+    },
+    {
+      "name": "doc-indexer",
+      "path": ".claude/skills/doc-indexer",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/doc-indexer",
+      "description": ""
+    },
+    {
+      "name": "doc-validator",
+      "path": ".claude/skills/doc-validator",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/doc-validator",
+      "description": ""
+    },
+    {
+      "name": "issue-executor",
+      "path": "skills/issue-executor",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/skills/issue-executor",
+      "description": ""
+    },
+    {
+      "name": "issue-executor",
+      "path": ".claude/skills/issue-executor",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/issue-executor",
+      "description": ""
+    },
+    {
+      "name": "prd-authoring",
+      "path": ".claude/skills/prd-authoring",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/prd-authoring",
+      "description": ""
+    },
+    {
+      "name": "prd-authoring",
+      "path": "skills/prd-authoring",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/skills/prd-authoring",
+      "description": ""
+    },
+    {
+      "name": "project-init",
+      "path": ".claude/skills/project-init",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/project-init",
+      "description": ""
+    },
+    {
+      "name": "project-migrate",
+      "path": ".claude/skills/project-migrate",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/project-migrate",
+      "description": ""
+    },
+    {
+      "name": "skill-lister",
+      "path": ".claude/skills/skill-lister",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/skill-lister",
+      "description": ""
+    },
+    {
+      "name": "spec-authoring",
+      "path": ".claude/skills/spec-authoring",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/spec-authoring",
+      "description": ""
+    },
+    {
+      "name": "sprint-manager",
+      "path": "skills/sprint-manager",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/skills/sprint-manager",
+      "description": ""
+    },
+    {
+      "name": "sprint-planner",
+      "path": ".claude/skills/sprint-planner",
+      "github_url": "https://github.com/bodangren/git-workflow/tree/main/.claude/skills/sprint-planner",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/bodangren/git-workflow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T07:32:31Z"
+}
