@@ -1,0 +1,9 @@
+{
+  "name": "gitpod-io--memo",
+  "displayName": "memo",
+  "description": "Memo \u2014 a Notion-style note-taking app, built entirely by AI agents",
+  "version": "1.0.0",
+  "author": "gitpod-io",
+  "homepage": "https://github.com/gitpod-io/memo",
+  "skills": []
+}
