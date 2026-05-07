@@ -1,0 +1,9 @@
+{
+  "name": "linfree--software-guard",
+  "displayName": "software_guard",
+  "description": "   SoftwareGuard - \u4f01\u4e1a\u5185\u90e8\u8f6f\u4ef6\u5206\u53d1\u7ba1\u7406\u5e73\u53f0    \u4e00\u4e2a\u529f\u80fd\u5b8c\u5584\u7684\u5185\u90e8\u8f6f\u4ef6\u4e0b\u8f7d\u7ad9\uff0c\u652f\u6301\u8f6f\u4ef6\u7248\u672c\u7ba1\u7406\u3001\u6f0f\u6d1e\u8ffd\u8e2a\u3001\u4e0b\u8f7d\u7edf\u8ba1\u548c\u6743\u9650\u63a7\u5236\u3002",
+  "version": "1.0.0",
+  "author": "linfree",
+  "homepage": "https://github.com/linfree/software_guard",
+  "skills": []
+}
