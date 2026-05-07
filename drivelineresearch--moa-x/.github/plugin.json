@@ -1,0 +1,9 @@
+{
+  "name": "drivelineresearch--moa-x",
+  "displayName": "moa-x",
+  "description": "Mixture-of-Agents-X - utilizing the MoA framework in agentic coding tools.",
+  "version": "1.0.0",
+  "author": "drivelineresearch",
+  "homepage": "https://github.com/drivelineresearch/moa-x",
+  "skills": []
+}
