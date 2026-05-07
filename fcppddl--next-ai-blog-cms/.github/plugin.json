@@ -1,0 +1,9 @@
+{
+  "name": "fcppddl--next-ai-blog-cms",
+  "displayName": "next-ai-blog-cms",
+  "description": "\u57fa\u4e8e Next.js App Router \u7684\u535a\u5ba2\u4e0e\u540e\u53f0\u4e00\u4f53\u5316\u9879\u76ee\uff1a\u516c\u5f00\u524d\u53f0\u3001\u7ba1\u7406\u5458 CMS\u3001AI \u5199\u4f5c\u52a9\u624b\uff0c\u4ee5\u53ca\u57fa\u4e8e\u5411\u91cf\u68c0\u7d22\uff08RAG\uff09\u7684\u7ad9\u5185\u667a\u80fd\u95ee\u7b54\u3002",
+  "version": "1.0.0",
+  "author": "fcppddl",
+  "homepage": "https://github.com/fcppddl/next-ai-blog-cms",
+  "skills": []
+}
