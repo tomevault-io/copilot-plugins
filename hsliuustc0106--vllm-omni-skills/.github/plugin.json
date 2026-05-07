@@ -1,0 +1,9 @@
+{
+  "name": "hsliuustc0106--vllm-omni-skills",
+  "displayName": "vllm-omni-skills",
+  "description": "a collection of skills for vllm-omni",
+  "version": "1.0.0",
+  "author": "hsliuustc0106",
+  "homepage": "https://github.com/hsliuustc0106/vllm-omni-skills",
+  "skills": []
+}
