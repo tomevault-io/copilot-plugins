@@ -1,0 +1,9 @@
+{
+  "name": "zaffre001--unity-claude-template",
+  "displayName": "unity-claude-template",
+  "description": "A Unity project template wired for parallel development with Claude Code agents: CLAUDE.md, RULES.md, skills, git-worktree scripts, and an assembly skeleton.",
+  "version": "1.0.0",
+  "author": "zaffre001",
+  "homepage": "https://github.com/zaffre001/unity-claude-template",
+  "skills": []
+}
