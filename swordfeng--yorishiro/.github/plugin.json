@@ -1,0 +1,9 @@
+{
+  "name": "swordfeng--yorishiro",
+  "displayName": "yorishiro",
+  "description": "Yorishiro: Extract character souls from films/novels, generate SOUL.md for AI roleplay. Dual-layer memory (SOUL.md + RAG), knowledge boundary filtering, split-persona support, MCP-ready. Works with cl",
+  "version": "1.0.0",
+  "author": "swordfeng",
+  "homepage": "https://github.com/swordfeng/yorishiro",
+  "skills": []
+}
