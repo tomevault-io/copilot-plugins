@@ -1,0 +1,9 @@
+{
+  "name": "nimo1987--atomic-knowledge",
+  "displayName": "atomic-knowledge",
+  "description": "Markdown-first work-memory protocol for existing agents, with maintained knowledge, candidate notes, evals, and an example KB.",
+  "version": "1.0.0",
+  "author": "Nimo1987",
+  "homepage": "https://github.com/Nimo1987/atomic-knowledge",
+  "skills": []
+}
