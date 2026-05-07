@@ -1,0 +1,81 @@
+{
+  "name": "dx-toolkit",
+  "owner": "youdotcom-oss",
+  "repo": "dx-toolkit",
+  "description": "Open-source toolkit enabling developers to integrate You.com's AI capabilities into their workflows",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ai-sdk-plugin-patterns",
+      "path": ".agents/skills/ai-sdk-plugin-patterns",
+      "github_url": "https://github.com/youdotcom-oss/dx-toolkit/tree/main/.agents/skills/ai-sdk-plugin-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "path": ".agents/skills/api-patterns",
+      "github_url": "https://github.com/youdotcom-oss/dx-toolkit/tree/main/.agents/skills/api-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-documentation",
+      "path": ".agents/skills/code-documentation",
+      "github_url": "https://github.com/youdotcom-oss/dx-toolkit/tree/main/.agents/skills/code-documentation",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": ".agents/skills/documentation",
+      "github_url": "https://github.com/youdotcom-oss/dx-toolkit/tree/main/.agents/skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "mcp-patterns",
+      "path": ".agents/skills/mcp-patterns",
+      "github_url": "https://github.com/youdotcom-oss/dx-toolkit/tree/main/.agents/skills/mcp-patterns",
+      "description": ""
+    },
+    {
+      "name": "teams-anthropic-patterns",
+      "path": ".agents/skills/teams-anthropic-patterns",
+      "github_url": "https://github.com/youdotcom-oss/dx-toolkit/tree/main/.agents/skills/teams-anthropic-patterns",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/youdotcom-oss/dx-toolkit",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T10:33:13Z"
+}
