@@ -4,7 +4,7 @@
   "repo": "everything-game-dev-code",
   "description": "A universal scaffold for AI-assisted game development. 42 agents, 51 commands, 86 skills. Multi-engine (Unity, Unreal, Godot, HTML). Multi-harness (Claude Code, Codex, Cursor, OpenCode, Kiro).",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/MRCalderon3D/everything-game-dev-code",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T19:33:12Z"
+  "distributed_at": "2026-05-07T19:36:24Z"
 }
