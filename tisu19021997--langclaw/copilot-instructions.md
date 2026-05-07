@@ -1,28 +1,56 @@
-## testing
+## langclaw
 
-> Testing conventions for langclaw
+> Multi-channel AI agent **framework** (not an app) built on LangChain, LangGraph, and deepagents. Developers `pip install langclaw` and build on top of it — think Flask/FastAPI for agentic systems. Python 3.11+.
 
+# Langclaw
 
-# Testing
+Multi-channel AI agent **framework** (not an app) built on LangChain, LangGraph, and deepagents. Developers `pip install langclaw` and build on top of it — think Flask/FastAPI for agentic systems. Python 3.11+.
 
-## Setup
+## Package Map
 
-- Framework: pytest + pytest-asyncio (`asyncio_mode = "auto"` — no need for `@pytest.mark.asyncio`)
-- Run: `uv run pytest tests/ -v`
+| Package | Purpose |
+|---|---|
+| `app.py` | `Langclaw` class — developer's primary interface (decorators, lifecycle, wiring) |
+| `agents/` | LangGraph agent construction, tool wiring, subagent delegation |
+| `gateway/` | Channel orchestration (`GatewayManager`), command routing, message dispatch |
+| `bus/` | Message bus abstraction — asyncio (dev), RabbitMQ, Kafka (prod) |
+| `middleware/` | Request pipeline: RBAC, rate limit, content filter, PII redaction |
+| `config/` | Pydantic Settings with `LANGCLAW__` env var prefix (nested `__` delimiter) |
+| `cron/` | Scheduled jobs via APScheduler v4 |
+| `session/` | Maps (channel, user, context) → LangGraph thread IDs |
+| `checkpointer/` | Conversation state persistence — SQLite (dev), Postgres (prod) |
+| `providers/` | LLM model resolution via `init_chat_model` |
+| `cli/` | Typer CLI: `langclaw gateway`, `langclaw agent`, `langclaw cron`, `langclaw status` |
 
-## Patterns
+## Development
 
-- Use `monkeypatch.setenv()` for env var overrides — never mutate `os.environ` directly
-- Use factory functions (`make_message_bus`, `make_checkpointer_backend`) for integration tests
-- Class-based grouping for related tests (e.g. `TestSplitMessage`, `TestIsAllowed`)
-- Prefer real implementations over mocks when the component is fast and deterministic (buses, config)
-- For async tests, just define `async def test_...` — the auto mode handles the rest
+```bash
+uv sync --group dev                    # Install all deps
+uv run pytest tests/ -v                # Run tests
+uv run ruff check . && uv run ruff format .  # Lint + format
+uv run pre-commit run --all-files      # Full pre-commit suite
+```
 
-## Assertions
+## Architecture
 
-- Assert tool error responses with `assert result == {"error": ...}`
-- For bus tests, use `async with bus:` and break after first consumed message
-- For config tests, use `monkeypatch.setenv("LANGCLAW__...", value)` then call `load_config()`
+Read `docs/ARCHITECTURE.md` for design principles and rationale. Critical invariants:
+
+- **Message flow:** Channel → `InboundMessage` → Bus → `GatewayManager` → Middleware → Agent → `OutboundMessage` → Channel
+- **Commands** (`/start`, `/reset`, `/help`) bypass the bus and LLM — handled by `CommandRouter` in `gateway/commands.py`
+- **Cron jobs** publish `InboundMessage` to the same bus, flowing through the identical agent pipeline
+- **Pluggable backends** always follow: abstract `base.py` + factory function (`make_message_bus`, `make_checkpointer_backend`)
+- **Middleware order matters** — see `agents/builder.py` for the stack composition
+- **Explicit registration** over auto-discovery — tools, channels, middleware are registered on the `Langclaw` app object
+
+## Conventions
+
+- `from __future__ import annotations` in every module
+- `TYPE_CHECKING` guard for import-only types
+- Modern type syntax: `list[T]`, `dict[K, V]`, `str | None` — never `typing.List`, `Optional`
+- `loguru.logger` for all application logging (not stdlib `logging`)
+- Google-style docstrings (Args/Returns/Raises)
+- Tools return `{"error": "..."}` dicts on failure — never raise into the agent
+- Ruff handles formatting and linting — see `[tool.ruff]` in `pyproject.toml`
 
 ---
 > Source: [tisu19021997/langclaw](https://github.com/tisu19021997/langclaw) — distributed by [TomeVault](https://tomevault.io).
