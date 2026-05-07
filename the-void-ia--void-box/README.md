@@ -7,11 +7,11 @@ Composable agent runtime with enforced isolation boundaries
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [the-void-ia/void-box](https://github.com/the-void-ia/void-box).
+Original source: `CLAUDE.md` in [the-void-ia/void-box](https://github.com/the-void-ia/void-box).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
