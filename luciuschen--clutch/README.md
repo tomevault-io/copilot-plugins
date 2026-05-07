@@ -7,11 +7,11 @@ Interactive database client for Emacs — MySQL, PostgreSQL, SQLite (pure Elisp)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LuciusChen/clutch](https://github.com/LuciusChen/clutch).
+Original source: `CLAUDE.md` in [LuciusChen/clutch](https://github.com/LuciusChen/clutch).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
