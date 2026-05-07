@@ -1,128 +1,151 @@
-## code-style
+## implementation-order
 
-> Code style and formatting rules
+> Implementation order for new features - one class at a time
 
 
-# Code Style Rules
+# Implementation Order: One Class at a Time
 
-## General Rules
+## "One Class at a Time" Principle
 
-1. **Comments**: Write all code comments **ONLY in English**
-2. **User responses**: Respond in Russian unless user requests otherwise
-3. **Empty line at end of file**: Always add an empty line at the end of new files
-4. **No em dashes**: Never use —, use - instead
-5. **No colons in lists**: Never use : except for list enumeration
-6. **No curly quotes**: Never use «», use regular quotes ""
+When adding new functionality, follow **"one class at a time"** principle, starting from lower architecture layers.
 
-## Code Formatting
+## Architecture Layers (from lowest to highest)
 
-### Ruff and Black
-- Use `ruff` for linting and formatting
-- Line length: **120 characters** (configured in `ruff.toml`)
-- Follow rules from `ruff.toml`
+1. **Layer 1: Platform Adapters** (`coddy/adapters/`)
+2. **Layer 2: AI Agent Interface** (`coddy/agents/`)
+3. **Layer 3: Core Services** (`coddy/services/`)
+4. **Layer 4: Webhook Server** (`coddy/webhook/`)
+5. **Layer 5: Application Entry Point** (`coddy/`)
 
-### Imports
-- Use `isort` for import sorting
-- Group imports: standard library → third-party → local
-- One import per line for long lists
+See @architecture.mdc for detailed layer descriptions.
 
-### Type Hints
-- **Mandatory**: Use type hints for all functions and methods
-- Use `Optional[T]` instead of `T | None` for compatibility
-- Use `Union[A, B]` for complex types
-- Use `Dict[str, Any]` instead of `dict` for explicitness
-- Use `List[T]` instead of `list[T]` for compatibility
+## Implementation Steps
 
-### Docstrings
-- Use docstrings in Google style format
-- All docstrings in **English**
-- Must document:
-  - Public classes and methods
-  - Complex business logic
-  - Parameters and return values
-  - Exceptions raised
+### 1. Determine Layer
+Determine which layer the new functionality belongs to (see @architecture.mdc)
 
-Example:
+### 2. Implement Class
+- Create class with minimal implementation
+- Use type hints
+- Add docstrings in English
+- Follow rules from @code-style.mdc
+- Implement abstract base class if needed
+
+### 3. Write Tests
+- Create test file `tests/test_<module_name>.py`
+- Write minimal unit tests for class
+- Make sure tests pass
+- Follow rules from @testing.mdc
+
+### 4. Move to Next Layer
+Only after lower layer class is ready and tested, move to upper layer classes.
+
+## Example: Adding New Git Platform Adapter
+
+### Step 1: Define Abstract Interface (if needed)
 ```python
-def create_branch(self, repo: str, branch_name: str) -> None:
-    """
-    Create a new branch in the repository.
-
-    Args:
-        repo: Repository name in format owner/repo
-        branch_name: Name of the branch to create
-
-    Raises:
-        GitPlatformError: If branch creation fails
-    """
+# coddy/adapters/base.py
+class GitPlatformAdapter(ABC):
+    @abstractmethod
+    def create_branch(self, repo: str, branch_name: str) -> None:
+        pass
 ```
 
-## File Structure
+### Step 2: Write Tests for New Adapter
+```python
+# tests/test_adapters/test_gitlab.py
+def test_gitlab_create_branch():
+    adapter = GitLabAdapter(token="test")
+    adapter.create_branch("owner/repo", "feature-1")
+    # Assertions
+```
 
-### Element Order in File
-1. Module docstring
-2. Imports (standard library → third-party → local)
-3. Constants
-4. Types and exceptions
-5. Classes and functions
+### Step 3: Implement Adapter (Layer 1)
+```python
+# coddy/adapters/gitlab.py
+class GitLabAdapter(GitPlatformAdapter):
+    def create_branch(self, repo: str, branch_name: str) -> None:
+        """Create branch in GitLab repository."""
+        # Implementation
+```
 
-### Naming
-- **Classes**: PascalCase (`GitHubAdapter`, `CodeGenerator`)
-- **Functions and methods**: snake_case (`create_branch`, `process_issue`)
-- **Constants**: UPPER_SNAKE_CASE (`MAX_RETRIES`, `DEFAULT_TIMEOUT`)
-- **Private methods**: start with `_` (`_internal_method`)
-- **Types**: PascalCase (`Issue`, `PullRequest`, `CodeChanges`)
-- **Modules**: snake_case (`issue_monitor.py`, `code_generator.py`)
+### Step 4: Integration Tests
+```python
+# tests/test_services/test_code_generator.py
+def test_code_generator_with_gitlab():
+    adapter = GitLabAdapter(...)
+    generator = CodeGenerator(adapter=adapter)
+    # Test integration
+```
 
-## Error Handling
+### Step 5: Use in Services (Layer 3)
+Only after adapter is ready and tested:
+```python
+# coddy/services/code_generator.py
+class CodeGenerator:
+    def __init__(self, adapter: GitPlatformAdapter):
+        self.adapter = adapter
+```
 
-- Use specific exceptions, not generic `Exception`
-- Create custom exceptions for business logic (`GitPlatformError`, `AgentError`)
-- Always include informative error messages
-- Use `Optional` for values that may be missing
-- Define exception hierarchy:
-  - `CoddyError` - Base exception
-  - `GitPlatformError` - Git platform related errors
-  - `AgentError` - AI agent related errors
-  - `ConfigurationError` - Configuration errors
+## Example: Adding New AI Agent
 
-## Performance
+### Step 1: Define Abstract Interface (if needed)
+```python
+# coddy/agents/base.py
+class AIAgent(ABC):
+    @abstractmethod
+    def generate_code(self, task: Task) -> CodeChanges:
+        pass
+```
 
-- **Always** use hash indexes (dict) instead of loops for search
-- Avoid repeated API calls - cache results when appropriate
-- Use generators for large collections
-- Respect rate limits for Git platform APIs
-- Use async/await for I/O operations when possible
+### Step 2: Write Tests
+```python
+# tests/test_agents/test_custom_agent.py
+def test_custom_agent_generate_code():
+    agent = CustomAgent()
+    result = agent.generate_code(task)
+    assert result is not None
+```
 
-## Testing
+### Step 3: Implement Agent (Layer 2)
+```python
+# coddy/agents/custom_agent.py
+class CustomAgent(AIAgent):
+    def generate_code(self, task: Task) -> CodeChanges:
+        """Generate code using custom agent."""
+        # Implementation
+```
 
-- Each new class must have unit tests
-- Tests should be in `tests/` directory
-- Test file name: `test_<module_name>.py`
-- Use pytest fixtures for data preparation
-- Use mocks for external dependencies (Git platform APIs, AI agents)
-- Aim for code coverage >90%
+### Step 4: Use in Services (Layer 3)
+```python
+# coddy/services/code_generator.py
+class CodeGenerator:
+    def __init__(self, agent: AIAgent):
+        self.agent = agent
+```
 
-## Configuration
+## Forbidden
 
-- Load configuration from environment variables (highest priority)
-- Fall back to configuration file
-- Use default values as last resort
-- Validate configuration on startup
-- Use type hints for configuration classes
+❌ Implement multiple classes simultaneously
+❌ Move to upper layers before lower ones are ready
+❌ Skip writing tests
+❌ Implement functionality without understanding architecture
+❌ Depend on upper layers from lower layers
 
-## Logging
+## Allowed
 
-- Use Python `logging` module
-- Log levels: DEBUG, INFO, WARNING, ERROR
-- Include context in log messages (issue number, PR number, etc.)
-- Log all external API calls
-- Log errors with full traceback
+✅ Implement one class at a time
+✅ Write tests immediately before class
+✅ Use stubs for dependencies
+✅ Refactor after basic functionality works
+✅ Create abstract base classes first
+✅ Use factory pattern for creating instances
 
 ## References
 
-@ruff.toml
-@pytest.ini
+@architecture.mdc
+@code-style.mdc
+@testing.mdc
 
 ---
 > Source: [coddy-project/coddy-bot](https://github.com/coddy-project/coddy-bot) — distributed by [TomeVault](https://tomevault.io).
