@@ -1,0 +1,9 @@
+{
+  "name": "ja-818--houston",
+  "displayName": "houston",
+  "description": "Open source platform for AI-native products. Pre-built AI agents with real tools and 1000+ integrations, in a Rust engine + Tauri desktop app. Free forever.",
+  "version": "1.0.0",
+  "author": "ja-818",
+  "homepage": "https://github.com/ja-818/houston",
+  "skills": []
+}
