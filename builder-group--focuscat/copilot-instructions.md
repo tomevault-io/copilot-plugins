@@ -1,44 +1,193 @@
-## focuscat
+## comments
 
-> 1. **Think first, then act** - Read the codebase for relevant files before making changes.
+> Comment guidelines for clear, valuable code documentation
 
-# Codex Instructions
 
-## Behavior
+# Comment Guidelines
 
-1. **Think first, then act** - Read the codebase for relevant files before making changes.
+The goal is balance: enough signposts to navigate, not so many that they become noise.
 
-2. **Check in before major changes** - Before making any significant changes, check in with me and I will verify the plan.
+## Core Principles
 
-3. **Explain as you go** - Every step of the way, give me a high-level explanation of what changes you made.
+- **Value-Driven** - Always ask "Does this help the next reader?"
+- **Long-Term** - Comments should still be useful in weeks or months. Prefer explaining *what exists and why* (constraints, tradeoffs, environment). Avoid comments that only make sense during the current task or refactor.
+- **Balanced** - Never over-comment obvious code, never under-comment complex logic.
+- **Context over history** - Document the design and its reasons, not the change you just made or alternatives you rejected (unless that explains a non-obvious constraint).
 
-4. **Keep it simple (KISS)** - Make every task and code change as simple as possible. Avoid massive or complex changes. Every change should impact as little code as possible. Everything is about simplicity.
+## What TO Comment
 
-5. **No speculation** - Never speculate about code you have not opened. If I reference a specific file, you MUST read it before answering. Investigate and read relevant files BEFORE answering questions about the codebase. Never make claims about code before investigating unless certain - give grounded, hallucination-free answers.
+### Section Headers
+Short labels to help readers skim longer functions.
 
-## Project
+✅ Good:
+```rust
+// Validate input
+...
 
-Tauri desktop apps for productivity and activity tracking.
+// Process data
+...
 
-**Tech Stack:**
+// Save results
+...
+```
 
-- Rust + Swift (backend, `crates/`)
-- TypeScript + React (frontend, `apps/`)
-- SQLite (database)
-- tauri-specta (type-safe IPC)
+❌ Bad:
+```rust
+// This section validates the input by checking all required fields
+...
+```
 
-**Key Commands:**
+### WHY Comments
+Explain non-obvious constraints or tradeoffs. Place them next to the code they explain (e.g. above the function or block), not floating near unrelated declarations. Use "do X so that Y" (what the code does and what problem it solves), not "we chose X over Y."
 
-- `pnpm start:dev` - Start development
-- `pnpm build` - Build all
-- `pnpm test` - Run all tests
-- `cargo test -p mado` - Test mado crate
+✅ Good (states the reason something is done):
+```rust
+// Validate here; caller may be untrusted.
+let input = parse(raw)?;
+```
 
-**Important Directories:**
+✅ Good (constraint or tradeoff):
+```typescript
+// Process in batches so we stay under the rate limit.
+for (const chunk of chunks(data, 100)) {
+  await submit(chunk);
+}
+```
 
-- `crates/mado/` - Window monitoring library (Swift + Rust FFI)
-- `apps/desktop/` - FocusCat desktop app (pomodoro + cat widget)
-- `apps/web/` - FocusCat and PomodoroCat website (focuscat.app + pomodorocat.com)
+❌ Bad (restates the operation, no why):
+```rust
+// Insert into database
+db.insert(...).await;
+```
+
+### Domain Logic
+Explain business rules that need context.
+
+✅ Good:
+```rust
+// Overtime = time beyond planned (base + extensions)
+let overtime = actual.saturating_sub(planned + extended);
+```
+
+### Thresholds and Config Values
+Explain what a value means, not its literal value. Document on props/parameters.
+
+✅ Good:
+```typescript
+interface TProps {
+    /** Minimum size (px) for element to be visible */
+    minSizePx?: number;
+}
+```
+
+❌ Bad:
+```typescript
+interface TProps {
+    minSizePx?: number; // 8
+}
+```
+
+### Data State Documentation
+Document non-obvious data states.
+
+✅ Good:
+```rust
+/// Insert new record (ended_at is NULL until complete).
+pub async fn insert(...) -> Result<i64>
+```
+
+❌ Bad:
+```rust
+/// Insert a new record into the database.
+pub async fn insert(...) -> Result<i64>
+```
+
+## What NOT TO Comment
+
+### Restating Code
+Never restate what the code literally does.
+
+✅ Good - Intent helps readers skim:
+```typescript
+if (current == null || current.id !== id) {
+    // Start new group
+    ...
+} else {
+    // Extend current group
+    ...
+}
+```
+
+❌ Bad - Restates mechanics:
+```rust
+// Get the timer
+let timer = state.lock();
+
+// Loop through items
+for item in items {
+
+// Check if null or id different
+if (current == null || current.id !== id) {
+```
+
+### Session Rationale and Bloat
+Never document design choices that only matter during the current refactor or agent session. Comments that explain "what we changed," "what we didn't use," or "why we chose X over Y" (without a lasting constraint) become noise once the change is done.
+
+❌ Bad (documents what's NOT there):
+```typescript
+// We don't validate here; that's done in the parent.
+```
+
+❌ Bad (only relevant during this refactor/session):
+```typescript
+// Changed from string to enum for type safety
+```
+
+❌ Bad (choice without lasting reason; doesn't help in 6 months):
+```typescript
+// We use a queue here because we tried direct calls but had race conditions.
+```
+Rewrite to state the lasting reason only.
+
+✅ Good (what exists and why, long-term):
+```typescript
+// Use a queue so events are processed in order and we avoid races.
+```
+
+### Em Dashes
+Never use em dashes (—) in comments. Use commas, semicolons, or plain sentences instead.
+
+### Type Information
+Never restate what types already document.
+
+✅ Good:
+```rust
+// Unix timestamp in seconds
+let timestamp: i64 = row.get("created_at");
+```
+
+❌ Bad:
+```rust
+// The ID as an integer
+let id: i64 = row.get("id");
+```
+
+## Before Adding a Comment
+
+- **Would a reader in 6 months benefit?** If the comment only explains "what we changed" or "what we considered," rewrite it to describe *what the code does and why* (constraint, tradeoff, rule), or omit it.
+- **Is it next to the code it explains?** WHY and context comments belong above the block or function they describe, not on unrelated fields or earlier in the file.
+
+## Language Specifics
+
+### Rust
+- `//` for inline comments
+- `///` for doc comments (only when adding value)
+- `// MARK: -` for IDE navigation (sparingly)
+
+### TypeScript
+- `//` for inline comments
+- `/** */` for JSDoc (only when adding value)
+- `// MARK: -` for IDE navigation (sparingly)
 
 ---
 > Source: [builder-group/focuscat](https://github.com/builder-group/focuscat) — distributed by [TomeVault](https://tomevault.io).
