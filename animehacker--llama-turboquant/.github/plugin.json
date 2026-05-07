@@ -1,0 +1,9 @@
+{
+  "name": "animehacker--llama-turboquant",
+  "displayName": "llama-turboquant",
+  "description": "TurboQuant for GGML: 4.57x KV Cache Compression with 72K+ Context for Llama-3.3-70B on Consumer GPUs.                                                          ",
+  "version": "1.0.0",
+  "author": "animehacker",
+  "homepage": "https://github.com/animehacker/llama-turboquant",
+  "skills": []
+}
