@@ -1,0 +1,9 @@
+{
+  "name": "mattdevy--pi-extensions",
+  "displayName": "pi-extensions",
+  "description": "A set of pi-extensions, including pi-continuous-learning that continually improves you pi coding agent experience",
+  "version": "1.0.0",
+  "author": "MattDevy",
+  "homepage": "https://github.com/MattDevy/pi-extensions",
+  "skills": []
+}
