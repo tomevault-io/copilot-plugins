@@ -1,0 +1,9 @@
+{
+  "name": "pmeenan--waterfall-tools",
+  "displayName": "waterfall-tools",
+  "description": "Tools for parsing and visualizing network waterfalls",
+  "version": "1.0.0",
+  "author": "pmeenan",
+  "homepage": "https://github.com/pmeenan/waterfall-tools",
+  "skills": []
+}
