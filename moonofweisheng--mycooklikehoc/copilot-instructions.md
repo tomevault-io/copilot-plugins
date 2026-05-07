@@ -1,72 +1,27 @@
-## project-structure
+## route
 
-> 本项目是基于 uni-app + Vue 3 + TypeScript 的跨平台应用，使用 wot-design-uni 组件库构建。
+> 1. 本项目基于@uni-helper/vite-plugin-uni-pages在uni-app 上实现基于文件的路由系统。
 
-# 项目结构规则
+# 路由开发规则
 
-## 项目概述
-本项目是基于 uni-app + Vue 3 + TypeScript 的跨平台应用，使用 wot-design-uni 组件库构建。
+## 基于文件的路由
+1. 本项目基于@uni-helper/vite-plugin-uni-pages在uni-app 上实现基于文件的路由系统。
+2. 使用SFC 自定义块用于路由数据，通过添加一个 <route> 块到 SFC 中来添加路由元数据。这将会在路由生成后直接添加到路由中，并且会覆盖。
+3. 在 `pages.config.ts` 文件中可以配置 `tabbar` 等全局配置。
 
-## 核心技术栈
-- **框架**: uni-app (Vue 3 + TypeScript)
-- **UI组件库**: wot-design-uni
-- **请求库**: alova
-- **路由**: uni-mini-router + @uni-helper/vite-plugin-uni-pages (文件路由)
-- **状态管理**: pinia
-- **样式**: UnoCSS + @uni-helper/unocss-preset-uni
-- **构建工具**: Vite
-- **代码规范**: ESLint + Prettier + husky
+## 布局框架
+1. 本项目基于@uni-helper/vite-plugin-uni-layouts实现 uni-app 的可定制布局框架。
+2. 可以结合 vite-plugin-uni-pages 的 route-block 实现指定页面布局。
 
-## 目录结构规范
 
-### src/api/ - API管理
-- `core/` - Alova核心配置
-  - [instance.ts](mdc:src/api/core/instance.ts) - Alova实例配置
-  - [handlers.ts](mdc:src/api/core/handlers.ts) - 请求处理器
-  - [middleware.ts](mdc:src/api/core/middleware.ts) - 中间件
-- `mock/` - Mock数据
-  - `modules/` - 按模块分类的Mock数据
-  - `utils/` - Mock工具函数
-- [createApis.ts](mdc:src/api/createApis.ts) - API生成配置
-- [index.ts](mdc:src/api/index.ts) - API导出
-
-### src/components/ - 全局组件
-- 全局通用组件目录
-- 包含 GlobalToast、GlobalLoading、GlobalMessage 等全局交互组件
-
-### src/composables/ - 组合式函数
-- 可复用的逻辑函数
-- 命名格式: `use[功能名称].ts`
-
-### src/layouts/ - 布局模板
-- [default.vue](mdc:src/layouts/default.vue) - 默认布局
-- [tabbar.vue](mdc:src/layouts/tabbar.vue) - 底部导航布局
-
-### src/pages/ - 页面文件
-- 基于文件的路由系统
-- 每个页面目录包含 `index.vue` 文件
-- 支持 `<route>` 自定义块配置路由元数据
-
-### src/store/ - 状态管理
-- Pinia store 文件
-- [persist.ts](mdc:src/store/persist.ts) - 持久化配置
-
-### src/utils/ - 工具函数
-- 通用工具函数库
-
-## 配置文件
-- [pages.config.ts](mdc:pages.config.ts) - 页面和tabbar配置
-- [alova.config.ts](mdc:alova.config.ts) - Alova配置
-- [uno.config.ts](mdc:uno.config.ts) - UnoCSS配置
-- [theme.json](mdc:src/theme.json) - 主题配置
-- [vite.config.ts](mdc:vite.config.ts) - Vite构建配置
-
-## 开发规范
-1. 页面文件必须放在 `src/pages/` 目录下
-2. 组件按通用性分类存放在 `src/components/` 或 `src/business/`
-3. API 接口使用 Alova 生成，通过 `pnpm alova-gen` 命令生成
-4. 样式优先使用 UnoCSS，支持响应式设计和主题切换
-5. 使用 TypeScript 提供完整的类型定义
+## 路由跳转
+1. 本项目使用uni-mini-router实现路由跳转。
+2. uni-mini-router 提供2个hooks: `useRouter` 和 `useRoute`。
+3. push方法 `router.push(target:RouteLocationRaw): void` 保留当前页面，跳转到应用内的某个页面，相当于使用 `uni.navigateTo(OBJECT)`。
+4. pushTab方法 `router.pushTab(target:RouteLocationRaw): void` 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面，相当于使用 `uni.switchTab(OBJECT)`。
+5. replace方法 `router.replace(target:RouteLocationRaw): void` 关闭当前页面，跳转到应用内的某个页面，相当于使用 `uni.redirectTo(OBJECT)`。
+6. replaceAll方法 `router.replaceAll(target:RouteLocationRaw): void` 关闭所有页面，打开到应用内的某个页面，相当于使用 `uni.reLaunch(OBJECT)`。
+7. back方法 `router.back(level?: number): void` 关闭当前页面，返回上一页面或多级页面，相当于使用 `uni.navigateBack(OBJECT)`。
 
 ---
 > Source: [Moonofweisheng/MyCookLikeHOC](https://github.com/Moonofweisheng/MyCookLikeHOC) — distributed by [TomeVault](https://tomevault.io).
