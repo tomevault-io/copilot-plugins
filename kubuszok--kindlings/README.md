@@ -7,11 +7,11 @@ Hearth fire starter
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kubuszok/kindlings](https://github.com/kubuszok/kindlings).
+Original source: `CLAUDE.md` in [kubuszok/kindlings](https://github.com/kubuszok/kindlings).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
