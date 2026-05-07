@@ -4,7 +4,7 @@
   "repo": "phase",
   "description": "A Magic: The Gathering rules engine and game client \u2014 Rust + WASM + React",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/phase-rs/phase",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T08:48:47Z"
+  "distributed_at": "2026-05-07T03:45:42Z"
 }
