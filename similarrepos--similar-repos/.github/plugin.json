@@ -1,0 +1,9 @@
+{
+  "name": "similarrepos--similar-repos",
+  "displayName": "similar-repos",
+  "description": "A browser extension that use the power of AI to automatically recommend similar and interesting repositories directly on any GitHub page you visit.",
+  "version": "1.0.0",
+  "author": "SimilarRepos",
+  "homepage": "https://github.com/SimilarRepos/similar-repos",
+  "skills": []
+}
