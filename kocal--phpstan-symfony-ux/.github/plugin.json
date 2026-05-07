@@ -1,0 +1,9 @@
+{
+  "name": "kocal--phpstan-symfony-ux",
+  "displayName": "phpstan-symfony-ux",
+  "description": "PHPStan rules for Symfony UX",
+  "version": "1.0.0",
+  "author": "Kocal",
+  "homepage": "https://github.com/Kocal/phpstan-symfony-ux",
+  "skills": []
+}
