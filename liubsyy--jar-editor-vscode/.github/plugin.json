@@ -1,0 +1,9 @@
+{
+  "name": "liubsyy--jar-editor-vscode",
+  "displayName": "jar-editor-vscode",
+  "description": "VSCode extension for browsing and editing JAR files directly in Explorer. ",
+  "version": "1.0.0",
+  "author": "Liubsyy",
+  "homepage": "https://github.com/Liubsyy/jar-editor-vscode",
+  "skills": []
+}
