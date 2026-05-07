@@ -1,0 +1,9 @@
+{
+  "name": "wantpinow--convex-sandbox",
+  "displayName": "convex-sandbox",
+  "description": "Persistent bash sandboxes using just-bash and Convex file storage. No VMs.",
+  "version": "1.0.0",
+  "author": "wantpinow",
+  "homepage": "https://github.com/wantpinow/convex-sandbox",
+  "skills": []
+}
