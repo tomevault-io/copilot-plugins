@@ -1,0 +1,9 @@
+{
+  "name": "daoflow-dev--daoflow",
+  "displayName": "DaoFlow",
+  "description": "Instead of AWS wrapper, we're building bare metal  / VM wrappers for you. Open source alternative to AWS/Vercel/Heroku. Hosting your flow, from Vibe Coding to IPO.",
+  "version": "1.0.0",
+  "author": "DaoFlow-dev",
+  "homepage": "https://github.com/DaoFlow-dev/DaoFlow",
+  "skills": []
+}
