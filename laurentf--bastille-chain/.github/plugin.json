@@ -1,0 +1,9 @@
+{
+  "name": "laurentf--bastille-chain",
+  "displayName": "bastille-chain",
+  "description": "A post-quantum blockchain in Elixir/OTP with \"1789...\" addresses, 14-decimal Bastille tokens, and Blake3 Proof-of-Work mining.",
+  "version": "1.0.0",
+  "author": "laurentf",
+  "homepage": "https://github.com/laurentf/bastille-chain",
+  "skills": []
+}
