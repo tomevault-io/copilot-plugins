@@ -1,79 +1,122 @@
-## backend-go-conventions
+## frontend-react-conventions
 
-> 后端 Go 代码规范：handler/service 分层、响应格式、错误处理、GORM 模式
+> 前端 React/TS 规范：API 调用、状态管理、TanStack Query、ShadcnUI 使用模式
 
 
-# 后端 Go 代码规范
+# 前端代码规范
 
-## Handler 规范
+## API 调用模式
 
-```go
-// ✅ 正确：handler 只做绑定 + 调用 service + 返回响应
-func CreateFoo(c *gin.Context) {
-    var req struct {
-        Name string `json:"name" binding:"required"`
-    }
-    if err := c.ShouldBindJSON(&req); err != nil {
-        handler.BindFail(c, err)
-        return
-    }
-    userID := middleware.CurrentUserID(c)
-    result, err := service.CreateFoo(userID, req.Name)
-    if err != nil {
-        handler.Fail(c, http.StatusInternalServerError, err.Error())
-        return
-    }
-    handler.OK(c, result)
+```typescript
+// src/api/providers.ts — 每个资源一个文件
+import { apiClient } from './client'
+import type { Provider } from '@/types'
+
+export const providersApi = {
+  list: () => apiClient.get<Provider[]>('/providers').then(r => r.data.data),
+  create: (data: Partial<Provider>) => apiClient.post<Provider>('/providers', data).then(r => r.data.data),
+  update: (id: number, data: Partial<Provider>) => apiClient.put<Provider>(`/providers/${id}`, data).then(r => r.data.data),
+  delete: (id: number) => apiClient.delete(`/providers/${id}`),
 }
 ```
 
-## 响应格式
+## TanStack Query 模式
 
-```go
-handler.OK(c, data)                          // {code:0, message:"success", data:...}
-handler.OKMsg(c, "操作成功", data)
-handler.Fail(c, http.StatusBadRequest, "msg") // {code:400, message:"msg"}
-handler.BindFail(c, err)                      // 参数绑定失败
+```tsx
+// 查询列表
+const { data: providers = [], isLoading } = useQuery({
+  queryKey: ['providers'],
+  queryFn: providersApi.list,
+})
+
+// 变更（创建/更新/删除）
+const queryClient = useQueryClient()
+const createMutation = useMutation({
+  mutationFn: providersApi.create,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['providers'] })
+    toast.success(t('common.createSuccess'))
+    setDialogOpen(false)
+  },
+  onError: (err: Error) => toast.error(err.message),
+})
 ```
 
-## 所有权验证（防越权）
+## 状态管理
 
-```go
-// ✅ 必须同时过滤 user_id
-var item model.Foo
-if err := repository.DB.Where("id = ? AND user_id = ?", id, userID).First(&item).Error; err != nil {
-    handler.Fail(c, http.StatusNotFound, "资源不存在")
-    return
-}
+```typescript
+// 认证状态
+const { user, token, setAuth, logout } = useAuthStore()
+
+// 主题
+const { theme, setTheme } = useThemeStore()
 ```
 
-## GORM 惯例
+## i18n 使用
 
-```go
-// 创建
-repository.DB.Create(&item)
-
-// 更新（只更新非零值字段用 Updates map）
-repository.DB.Model(&item).Updates(map[string]interface{}{"name": name, "url": url})
-
-// 软删除
-repository.DB.Delete(&item)
-
-// 预加载关联
-repository.DB.Preload("UserAgent").Where(...).Find(&items)
+```tsx
+const { t } = useTranslation()
+// 使用翻译键，不直接写中文
+<Button>{t('common.save')}</Button>
+<CardTitle>{t('providers.title')}</CardTitle>
 ```
 
-## JSON 字段处理（EnabledProviderIDs 等）
+## ShadcnUI 组件导入
 
-```go
-// 序列化
-ids := []uint{1, 2, 3}
-b, _ := json.Marshal(ids)
-sub.EnabledProviderIDs = string(b)
+```tsx
+// 从 @/components/ui/* 导入
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { toast } from 'sonner'  // 全局 Toast，不用 useToast
+```
 
-// 反序列化
-var ids []uint
-_ = json.Unmarshal([]byte(sub.EnabledProviderIDs), &ids)
+## 表单错误提示规范
+
+**优先使用 shadcn/ui 现成组件，不要自己写 div/p 样式组件。**
+
+```tsx
+// 字段级错误（input 下方红字）：
+// 1. Input 加 border-destructive + aria-invalid
+<Input
+  className={errors.field ? 'border-destructive' : ''}
+  aria-invalid={!!errors.field}
+/>
+// 2. shadcn/ui Label + 错误文案段落
+{errors.field && <p className="text-sm text-destructive">{errors.field}</p>}
+
+// 表单级（服务端/网络错误）：用 Alert 组件，不弹 toast
+// toast 只用于操作成功反馈，不用于表单校验错误
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { AlertCircle } from 'lucide-react'
+
+{errors.form && (
+  <Alert variant="destructive">
+    <AlertCircle className="h-4 w-4" />
+    <AlertDescription>{errors.form}</AlertDescription>
+  </Alert>
+)}
+```
+
+> **原则**：表单输入错误（含 API 返回的字段错误）一律在表单内展示，避免弹 toast 导致 Input 失焦。
+> toast 仅用于操作成功（如保存成功、删除成功）或与当前表单无关的全局通知。
+
+## 删除确认模式
+
+```tsx
+const [deleteId, setDeleteId] = useState<number | null>(null)
+
+// Dialog 确认
+<Dialog open={deleteId !== null} onOpenChange={() => setDeleteId(null)}>
+  <DialogContent>
+    <DialogHeader><DialogTitle>{t('common.confirmDelete')}</DialogTitle></DialogHeader>
+    <DialogFooter>
+      <Button variant="outline" onClick={() => setDeleteId(null)}>{t('common.cancel')}</Button>
+      <Button variant="destructive" onClick={() => deleteMutation.mutate(deleteId!)}>{t('common.delete')}</Button>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
 ```
 
 ---
