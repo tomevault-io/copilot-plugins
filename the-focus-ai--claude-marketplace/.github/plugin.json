@@ -1,0 +1,9 @@
+{
+  "name": "the-focus-ai--claude-marketplace",
+  "displayName": "claude-marketplace",
+  "description": "Claude Code marketplace with skills for Focus.AI integration, theming, and development workflows",
+  "version": "1.0.0",
+  "author": "The-Focus-AI",
+  "homepage": "https://github.com/The-Focus-AI/claude-marketplace",
+  "skills": []
+}
