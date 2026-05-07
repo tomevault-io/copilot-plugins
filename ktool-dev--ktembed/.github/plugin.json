@@ -1,0 +1,9 @@
+{
+  "name": "ktool-dev--ktembed",
+  "displayName": "ktembed",
+  "description": "Tool for embedding static resources into a Kotlin applciation",
+  "version": "1.0.0",
+  "author": "ktool-dev",
+  "homepage": "https://github.com/ktool-dev/ktembed",
+  "skills": []
+}
