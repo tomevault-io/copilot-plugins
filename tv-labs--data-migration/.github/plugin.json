@@ -1,0 +1,9 @@
+{
+  "name": "tv-labs--data-migration",
+  "displayName": "data-migration",
+  "description": "Data Migration runner for Elixir",
+  "version": "1.0.0",
+  "author": "tv-labs",
+  "homepage": "https://github.com/tv-labs/data-migration",
+  "skills": []
+}
