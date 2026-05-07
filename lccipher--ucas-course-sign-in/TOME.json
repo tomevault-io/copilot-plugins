@@ -1,0 +1,44 @@
+{
+  "name": "UCAS-Course-Sign-in",
+  "owner": "lccipher",
+  "repo": "UCAS-Course-Sign-in",
+  "description": "UCAS | \u56fd\u79d1\u5927 | \u679c\u58f3 | \u8bfe\u7a0b\u67e5\u8be2\u4e0e\u7b7e\u5230\u4e8c\u7ef4\u7801\u751f\u6210\u5de5\u5177",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/lccipher/UCAS-Course-Sign-in",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T15:16:54Z"
+}
