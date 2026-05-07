@@ -1,0 +1,9 @@
+{
+  "name": "kuluruvineeth--openbeam",
+  "displayName": "openbeam",
+  "description": "The open source Glean alternative. Enterprise search + AI agents across SaaS, IoT, and industrial data. 25+ connectors, sub-200ms hybrid search, RAG, self-hostable.",
+  "version": "1.0.0",
+  "author": "kuluruvineeth",
+  "homepage": "https://github.com/kuluruvineeth/openbeam",
+  "skills": []
+}
