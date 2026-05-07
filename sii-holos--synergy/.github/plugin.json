@@ -1,0 +1,9 @@
+{
+  "name": "sii-holos--synergy",
+  "displayName": "synergy",
+  "description": "A next-generation general-purpose agent for the Open Agentic Web.",
+  "version": "1.0.0",
+  "author": "SII-Holos",
+  "homepage": "https://github.com/SII-Holos/synergy",
+  "skills": []
+}
