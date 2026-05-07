@@ -1,71 +1,79 @@
-## ffi
+## fuzzing
 
-> FFI (Foreign Function Interface) guidelines for skia-rs-ffi
+> Fuzzing setup and guidelines for skia-rs
 
 
-# FFI Guidelines
+# Fuzzing
 
-## C API Design
+## Setup
 
-- All FFI functions in `skia-rs-ffi`
-- Use opaque pointers for complex types
-- Follow Skia's C API naming: `sk_{type}_{method}`
-- Always check for null pointers
-
-```rust
-// skia-rs-ffi/src/lib.rs
-
-/// Create a new paint object.
-///
-/// # Safety
-/// Returns a valid pointer that must be freed with `sk_paint_delete`.
-#[no_mangle]
-pub unsafe extern "C" fn sk_paint_new() -> *mut Paint {
-    Box::into_raw(Box::new(Paint::new()))
-}
-
-/// Delete a paint object.
-///
-/// # Safety
-/// `paint` must be a valid pointer returned by `sk_paint_new`.
-#[no_mangle]
-pub unsafe extern "C" fn sk_paint_delete(paint: *mut Paint) {
-    if !paint.is_null() {
-        drop(Box::from_raw(paint));
-    }
-}
-
-/// Set the paint color.
-///
-/// # Safety
-/// `paint` must be a valid pointer.
-#[no_mangle]
-pub unsafe extern "C" fn sk_paint_set_color(paint: *mut Paint, color: u32) {
-    if let Some(p) = paint.as_mut() {
-        p.set_color32(Color(color));
-    }
-}
+```bash
+# Install nightly toolchain and cargo-fuzz
+rustup install nightly
+cargo install cargo-fuzz
 ```
 
-## Type Mappings
+## Running Fuzz Tests
 
-| Skia C++ | Rust | C FFI |
-|----------|------|-------|
-| `SkScalar` | `Scalar` (f32) | `float` |
-| `SkPoint` | `Point` | `sk_point_t` |
-| `SkRect` | `Rect` | `sk_rect_t` |
-| `SkColor` | `Color` | `uint32_t` |
-| `SkMatrix` | `Matrix` | `sk_matrix_t` |
-| `SkPath*` | `*mut Path` | `sk_path_t*` |
-| `SkPaint*` | `*mut Paint` | `sk_paint_t*` |
-| `SkCanvas*` | `*mut Canvas` | `sk_canvas_t*` |
+```bash
+# Run a fuzz target
+cd fuzz
+cargo +nightly fuzz run fuzz_point
 
-## Safety Requirements
+# Run with time limit
+cargo +nightly fuzz run fuzz_matrix -- -max_total_time=60
 
-- All FFI functions must be marked `unsafe`
-- Document safety requirements in doc comments
-- Check for null pointers before dereferencing
-- Use `#[repr(C)]` for all FFI-visible structs
+# List all targets
+cargo +nightly fuzz list
+```
+
+## Available Fuzz Targets
+
+- `fuzz_point` - Point operations
+- `fuzz_rect` - Rectangle operations
+- `fuzz_matrix` - Matrix transformations
+- `fuzz_color` - Color conversions
+- `fuzz_path` - Path construction
+- `fuzz_path_builder` - PathBuilder shapes
+- `fuzz_paint` - Paint configuration
+- `fuzz_canvas` - Canvas operations
+
+## Writing Fuzz Targets
+
+```rust
+#![no_main]
+
+use arbitrary::Arbitrary;
+use libfuzzer_sys::fuzz_target;
+
+#[derive(Debug, Arbitrary)]
+struct MyInput {
+    value: f32,
+    flag: bool,
+}
+
+fuzz_target!(|input: MyInput| {
+    // Skip invalid inputs early
+    if !input.value.is_finite() {
+        return;
+    }
+
+    // Test code that should not panic
+    let result = my_function(input.value);
+
+    // Assert invariants
+    assert!(result.is_valid());
+});
+```
+
+## Best Practices
+
+- Use `Arbitrary` derive for structured input
+- Validate and skip invalid inputs early
+- Limit resource usage (iteration counts, sizes)
+- Assert invariants, not expected failures
+- Keep fuzz targets focused on specific functionality
+- The `fuzz` crate uses `edition = "2021"` due to `libfuzzer-sys` requirements
 
 ---
 > Source: [quinnjr/skia-rs](https://github.com/quinnjr/skia-rs) — distributed by [TomeVault](https://tomevault.io).
