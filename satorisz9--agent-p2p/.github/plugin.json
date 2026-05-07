@@ -1,0 +1,9 @@
+{
+  "name": "satorisz9--agent-p2p",
+  "displayName": "agent-p2p",
+  "description": "Peer-to-peer data transfer protocol for autonomous agents",
+  "version": "1.0.0",
+  "author": "satorisz9",
+  "homepage": "https://github.com/satorisz9/agent-p2p",
+  "skills": []
+}
