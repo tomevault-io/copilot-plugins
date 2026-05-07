@@ -1,0 +1,9 @@
+{
+  "name": "owenlamont--aiomoto",
+  "displayName": "aiomoto",
+  "description": "Moto but for aiobotocore / aioboto3 (and sync boto3).",
+  "version": "1.0.0",
+  "author": "owenlamont",
+  "homepage": "https://github.com/owenlamont/aiomoto",
+  "skills": []
+}
