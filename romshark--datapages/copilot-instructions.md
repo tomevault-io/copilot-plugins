@@ -1,13 +1,13 @@
-## datastar
+## datapages
 
-> Datastar HTML attribute and action reference for templates
+> Datapages framework guide for writing application code and using the CLI
 
 
-When working with Datastar templates, read and follow these files:
+When working with Datapages application code, read and follow these files:
 
-- `.skills/datastar/SKILL.md` — Datastar HTML attribute and action reference.
-- `.skills/datapages/SKILL.md` — Datapages-specific rules for actions and URLs
-  (never hardcode URLs, use generated `action` and `href` packages).
+- `.skills/datapages/SKILL.md` — step-by-step guide for writing Datapages apps and using
+  the CLI.
+- `SPECIFICATION.md` — full parameter, return type, and configuration reference.
 
 ---
 > Source: [romshark/datapages](https://github.com/romshark/datapages) — distributed by [TomeVault](https://tomevault.io).
