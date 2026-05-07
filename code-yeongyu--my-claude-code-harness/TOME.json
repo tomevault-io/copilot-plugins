@@ -1,0 +1,63 @@
+{
+  "name": "my-claude-code-harness",
+  "owner": "code-yeongyu",
+  "repo": "my-claude-code-harness",
+  "description": "I'm confident this setup will become deprecated and outdated in less than 3 months",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "git-committer",
+      "path": "skills/git-committer",
+      "github_url": "https://github.com/code-yeongyu/my-claude-code-harness/tree/main/skills/git-committer",
+      "description": ""
+    },
+    {
+      "name": "pr-context-retrieval",
+      "path": "skills/pr-context-retrieval",
+      "github_url": "https://github.com/code-yeongyu/my-claude-code-harness/tree/main/skills/pr-context-retrieval",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "path": "skills/pr-creator",
+      "github_url": "https://github.com/code-yeongyu/my-claude-code-harness/tree/main/skills/pr-creator",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/code-yeongyu/my-claude-code-harness",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T07:34:09Z"
+}
