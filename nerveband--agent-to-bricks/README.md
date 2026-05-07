@@ -7,11 +7,11 @@ AI-powered element generation for Bricks Builder (WordPress)
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nerveband/agent-to-bricks](https://github.com/nerveband/agent-to-bricks).
+Original source: `CLAUDE.md` in [nerveband/agent-to-bricks](https://github.com/nerveband/agent-to-bricks).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
