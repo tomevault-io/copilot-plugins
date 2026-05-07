@@ -1,0 +1,9 @@
+{
+  "name": "ccpk1--firewalla-local-ha",
+  "displayName": "firewalla-local-ha",
+  "description": "\ud83d\udd25 Native Home Assistant control for Firewalla. 100% local data, zero latency, and no cloud middleman.",
+  "version": "1.0.0",
+  "author": "ccpk1",
+  "homepage": "https://github.com/ccpk1/firewalla-local-ha",
+  "skills": []
+}
