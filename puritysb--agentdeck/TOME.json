@@ -4,7 +4,7 @@
   "repo": "AgentDeck",
   "description": "Physical controller & multi-surface dashboard for AI coding agents \u2014 Stream Deck+, Android, iOS/macOS, ESP32 displays, TUI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/puritysb/AgentDeck",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T05:44:51Z"
+  "distributed_at": "2026-05-07T07:51:46Z"
 }
