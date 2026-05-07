@@ -1,0 +1,9 @@
+{
+  "name": "amigameow--puppy-stardew-server",
+  "displayName": "puppy-stardew-server",
+  "description": "  Dockerized Stardew Valley multiplayer server with web panel, save management, mod workflows, backups, and one-command deployment.",
+  "version": "1.0.0",
+  "author": "AmigaMeow",
+  "homepage": "https://github.com/AmigaMeow/puppy-stardew-server",
+  "skills": []
+}
