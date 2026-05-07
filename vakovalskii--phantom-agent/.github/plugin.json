@@ -1,0 +1,9 @@
+{
+  "name": "vakovalskii--phantom-agent",
+  "displayName": "phantom-agent",
+  "description": "Autonomous AI agent for BitGN PAC1 Challenge \u2014 ~86% score with 12 hot-reloadable skills, live dashboard, and self-correcting classification",
+  "version": "1.0.0",
+  "author": "vakovalskii",
+  "homepage": "https://github.com/vakovalskii/phantom-agent",
+  "skills": []
+}
