@@ -1,116 +1,84 @@
-## api-design
+## architecture
 
-> API design principles and patterns for skia-rs
+> Project architecture and crate structure for skia-rs
 
 
-# API Design Principles
+# Skia-RS Architecture
 
-## Skia API Compatibility
+Skia-RS is a 100% Rust implementation of Google's Skia 2D graphics library, designed for API compatibility with the original C++ Skia library. The project provides both a native Rust API and C FFI bindings for cross-language interoperability.
 
-The primary goal is API compatibility with Skia. When implementing a feature:
+## Workspace Structure
 
-1. **Reference the original**: Check `skia/` submodule for the C++ implementation
-2. **Match signatures**: Function names and parameter order should match Skia
-3. **Match semantics**: Behavior should be identical to Skia
-4. **Document differences**: If Rust requires a different approach, document it
-
-## Builder Pattern
-
-Use builders for complex object construction:
-
-```rust
-pub struct PathBuilder {
-    path: Path,
-    last_move: Option<Point>,
-}
-
-impl PathBuilder {
-    pub fn new() -> Self { ... }
-    pub fn move_to(&mut self, x: Scalar, y: Scalar) -> &mut Self { ... }
-    pub fn line_to(&mut self, x: Scalar, y: Scalar) -> &mut Self { ... }
-    pub fn build(self) -> Path { ... }
-}
+```
+skia-rs/
+├── crates/
+│   ├── skia-rs-core/     # Foundation: Scalar, Point, Rect, Color, Matrix, ImageInfo
+│   ├── skia-rs-path/     # Path geometry: Path, PathBuilder, PathOps, PathEffects
+│   ├── skia-rs-paint/    # Styling: Paint, Shaders, BlendModes, Filters
+│   ├── skia-rs-canvas/   # Drawing: Canvas, Surface, Picture recording
+│   ├── skia-rs-text/     # Typography: Font loading, text shaping, layout
+│   ├── skia-rs-gpu/      # GPU backends: Vulkan, OpenGL, WebGPU
+│   ├── skia-rs-codec/    # Image I/O: PNG, JPEG, GIF, WebP
+│   ├── skia-rs-svg/      # SVG support: parsing and rendering
+│   ├── skia-rs-pdf/      # PDF generation
+│   ├── skia-rs-ffi/      # C API bindings for FFI
+│   ├── skia-rs-safe/     # High-level ergonomic Rust API
+│   └── skia-rs-bench/    # Performance benchmarks
+├── fuzz/                 # Fuzz testing with cargo-fuzz/libFuzzer
+├── skia/                 # Official Skia submodule (reference)
+└── TODO.md              # Development roadmap
 ```
 
-## Method Chaining
+## Crate Dependencies
 
-Support fluent interfaces where appropriate:
-
-```rust
-impl Paint {
-    pub fn set_color(&mut self, color: Color4f) -> &mut Self {
-        self.color = color;
-        self
-    }
-
-    pub fn set_style(&mut self, style: Style) -> &mut Self {
-        self.style = style;
-        self
-    }
-}
-
-// Usage:
-paint.set_color(Color4f::RED)
-     .set_style(Style::Stroke)
-     .set_stroke_width(2.0);
+```
+skia-rs-core (no internal deps)
+    ↓
+skia-rs-path (depends on: core)
+    ↓
+skia-rs-paint (depends on: core, path)
+    ↓
+skia-rs-canvas (depends on: core, path, paint)
+    ↓
+skia-rs-text (depends on: core, path, paint)
+    ↓
+skia-rs-gpu (depends on: core, path, paint, canvas)
+skia-rs-codec (depends on: core)
+skia-rs-svg (depends on: core, path, paint, canvas)
+skia-rs-pdf (depends on: core, path, paint, canvas, text)
+    ↓
+skia-rs-ffi (depends on: all above)
+skia-rs-safe (depends on: all above, re-exports)
 ```
 
-## Const Correctness
+## File Organization
 
-- Use `const fn` where possible
-- Define common constants as associated constants
+Each crate should follow this structure:
 
-```rust
-impl Rect {
-    pub const EMPTY: Self = Self { left: 0.0, top: 0.0, right: 0.0, bottom: 0.0 };
-
-    #[inline]
-    pub const fn new(left: Scalar, top: Scalar, right: Scalar, bottom: Scalar) -> Self {
-        Self { left, top, right, bottom }
-    }
-}
+```
+crates/skia-rs-{name}/
+├── Cargo.toml
+├── src/
+│   ├── lib.rs          # Module declarations and re-exports
+│   ├── {feature}.rs    # Feature implementations
+│   └── ...
 ```
 
-## Common Patterns
+## Re-exports
 
-### Cloning vs Referencing
-
-- Prefer references for read-only access
-- Clone only when ownership transfer is needed
-- Use `Cow<T>` when clone-on-write is beneficial
-
-### Option Patterns
+- `lib.rs` should re-export all public types
+- Use `pub use module::*;` for complete re-exports
+- Group related items in modules
 
 ```rust
-// Skia-style: return Option for fallible operations
-pub fn invert(&self) -> Option<Matrix> {
-    let det = self.determinant();
-    if det == 0.0 {
-        return None;
-    }
-    Some(self.compute_inverse(det))
-}
-```
+// lib.rs
+pub mod color;
+pub mod geometry;
+pub mod matrix;
 
-### Iteration
-
-```rust
-// Provide iterators for collections
-impl Path {
-    pub fn iter(&self) -> PathIter<'_> {
-        PathIter { path: self, index: 0 }
-    }
-}
-
-// Make types iterable
-impl<'a> IntoIterator for &'a Path {
-    type Item = PathElement;
-    type IntoIter = PathIter<'a>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.iter()
-    }
-}
+pub use color::*;
+pub use geometry::*;
+pub use matrix::*;
 ```
 
 ---
