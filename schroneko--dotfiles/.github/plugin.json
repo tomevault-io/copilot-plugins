@@ -1,0 +1,9 @@
+{
+  "name": "schroneko--dotfiles",
+  "displayName": "dotfiles",
+  "description": "My dotfiles managed by chezmoi",
+  "version": "1.0.0",
+  "author": "schroneko",
+  "homepage": "https://github.com/schroneko/dotfiles",
+  "skills": []
+}
