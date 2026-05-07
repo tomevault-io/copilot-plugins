@@ -1,0 +1,9 @@
+{
+  "name": "liekzejaws--rushlight",
+  "displayName": "rushlight",
+  "description": "Rushlight \u2014 Offline survival computer. OsmAnd fork with local LLM, offline Wikipedia, P2P sharing, and morse code comms.",
+  "version": "1.0.0",
+  "author": "liekzejaws",
+  "homepage": "https://github.com/liekzejaws/rushlight",
+  "skills": []
+}
