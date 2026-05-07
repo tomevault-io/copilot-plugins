@@ -1,100 +1,64 @@
-## code-style
+## commands
 
-> Rust code style and conventions for skia-rs
+> Common workspace commands for skia-rs development
 
 
-# Code Style & Conventions
+# Workspace Commands
 
-## Rust Edition & Version
+## Development
 
-- **Edition**: 2024
-- **MSRV**: 1.85
-- All code must compile on stable Rust
+```bash
+# Check all crates
+cargo check --workspace
 
-## Naming Conventions
+# Build debug
+cargo build --workspace
 
-- Follow Skia's naming where possible for API compatibility
-- Use `snake_case` for functions and variables
-- Use `PascalCase` for types and traits
-- Prefix internal/private items with underscore only when necessary
-- Crate names: `skia-rs-{module}` (hyphenated)
-- Module imports: `skia_rs_{module}` (underscored)
+# Build release
+cargo build --release --workspace
 
-## Type Aliases
+# Run tests
+cargo test --workspace
 
-```rust
-// Core type alias - matches Skia's SkScalar
-pub type Scalar = f32;
+# Run benchmarks
+cargo bench -p skia-rs-bench
+
+# Generate docs
+cargo doc --workspace --no-deps --open
+
+# Format code
+cargo fmt --all
+
+# Lint
+cargo clippy --workspace -- -D warnings
 ```
 
-## Documentation
+## Git Workflow
 
-- All public items MUST have doc comments
-- Use `//!` for module-level documentation
-- Include examples in doc comments for complex APIs
-- Reference corresponding Skia types/functions in docs
+- Keep the `skia/` submodule updated for reference
+- Commit messages should reference Skia types/functions being implemented
+- Use feature branches for new implementations
+- Update `TODO.md` as features are completed
 
-```rust
-/// A 2D point with floating-point coordinates.
-///
-/// Corresponds to Skia's `SkPoint`.
-///
-/// # Examples
-/// ```
-/// use skia_rs_core::Point;
-/// let p = Point::new(10.0, 20.0);
-/// assert_eq!(p.length(), (500.0_f32).sqrt());
-/// ```
-#[derive(Debug, Clone, Copy, PartialEq, Default)]
-#[repr(C)]
-pub struct Point {
-    pub x: Scalar,
-    pub y: Scalar,
-}
+## Conventional Commits
+
+Commit messages must follow Conventional Commits:
+
+```
+feat(core): add Matrix inversion
+fix(path): correct cubic curve bounds calculation
+docs: update API documentation
+refactor(canvas): simplify save/restore stack
+test(paint): add property tests for color conversion
 ```
 
-## Error Handling
+## Pre-commit Hooks
 
-- Use `thiserror` for error types
-- Prefer `Option<T>` over `Result<T, E>` for simple failure cases (matching Skia patterns)
-- Never panic in library code except for invariant violations
-- Use `debug_assert!` for development-time checks
+The project uses `cargo-husky` for git hooks:
 
-## Memory & Performance
-
-- Use `#[repr(C)]` for FFI-compatible structs
-- Derive `bytemuck::{Pod, Zeroable}` for types that need zero-copy operations
-- Use `SmallVec` for small, stack-allocated collections
-- Prefer `&self` over `&mut self` where possible
-- Avoid allocations in hot paths
-
-```rust
-use bytemuck::{Pod, Zeroable};
-
-#[derive(Debug, Clone, Copy, Pod, Zeroable)]
-#[repr(C)]
-pub struct Color(pub u32);
-```
-
-## Inline Hints
-
-- Use `#[inline]` for small, frequently-called methods
-- Use `#[inline(always)]` sparingly, only for critical hot paths
-- Let the compiler decide for complex functions
-
-```rust
-impl Point {
-    #[inline]
-    pub const fn new(x: Scalar, y: Scalar) -> Self {
-        Self { x, y }
-    }
-
-    #[inline]
-    pub fn length(&self) -> Scalar {
-        (self.x * self.x + self.y * self.y).sqrt()
-    }
-}
-```
+- **pre-commit**: Runs `cargo fmt --check` and `cargo clippy`
+- **pre-push**: Runs full test suite
+- **commit-msg**: Validates Conventional Commits format
 
 ---
 > Source: [quinnjr/skia-rs](https://github.com/quinnjr/skia-rs) — distributed by [TomeVault](https://tomevault.io).
