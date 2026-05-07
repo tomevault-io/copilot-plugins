@@ -1,0 +1,9 @@
+{
+  "name": "p1-103n1x--bab-ilu",
+  "displayName": "bab-ilu",
+  "description": "A self-growing LLM-Wiki with pre-installed discipline-specific lenses. Forked from skyllwt/OmegaWiki v0.1.0.",
+  "version": "1.0.0",
+  "author": "P1-103n1x",
+  "homepage": "https://github.com/P1-103n1x/bab-ilu",
+  "skills": []
+}
