@@ -1,0 +1,9 @@
+{
+  "name": "option-k--opencode-plugin-mempalace",
+  "displayName": "opencode-plugin-mempalace",
+  "description": "MemPalace lifetime memory integration for OpenCode AI terminal assistant",
+  "version": "1.0.0",
+  "author": "option-K",
+  "homepage": "https://github.com/option-K/opencode-plugin-mempalace",
+  "skills": []
+}
