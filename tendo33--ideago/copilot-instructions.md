@@ -1,16 +1,15 @@
-## frontend-react-typescript-vite-tailwind
+## project-development-standards
 
-> Default frontend stack and implementation standards for this project.
+> Project-wide engineering contract across backend and frontend work.
 
-- **Follow `ai_docs/FRONTEND_STANDARDS.md` for full frontend conventions.**
-- Fixed stack: **pnpm** + React + TypeScript + Vite + Tailwind CSS + **shadcn/ui**.
-- Use shadcn/ui as the component library; customise via Tailwind and CSS variables.
-- Build reusable UI primitives in `frontend/src/components/ui`.
-- Organize business logic in `frontend/src/features/*`.
-- Utilities and API wrappers go in `frontend/src/lib`.
-- Use strict typing and avoid `any` except for documented edge cases.
-- Prefer semantic HTML, keyboard accessibility, and visible focus states.
-- Run `pnpm --prefix frontend lint`, `typecheck`, `test`, and `build` before completion.
+- **Read `ai_docs/` for project standards.** `ai_docs/AI_TOOLING_STANDARDS.md` has the full index.
+- Backend: `ai_docs/BACKEND_STANDARDS.md`. Frontend: `ai_docs/FRONTEND_STANDARDS.md`.
+- Scripts (rename/version): `ai_docs/SCRIPTS_GUIDE.md`.
+- Plan first, implement minimal changes, and verify before completion.
+- Backend default: Python 3.10+, uv, ruff, pytest.
+- Frontend default: pnpm + React + TypeScript + Vite + Tailwind CSS + shadcn/ui.
+- Keep functions typed, explicit, and testable.
+- Handle failures explicitly; avoid silent exception swallowing.
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
