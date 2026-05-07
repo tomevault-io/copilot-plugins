@@ -1,0 +1,9 @@
+{
+  "name": "agricidaniel--claude-shorts",
+  "displayName": "claude-shorts",
+  "description": "Interactive longform-to-shortform video creator \u2014 Claude Code skill with Remotion-rendered animated captions, AI segment scoring, cursor tracking, and audio-aware boundary snapping",
+  "version": "1.0.0",
+  "author": "AgriciDaniel",
+  "homepage": "https://github.com/AgriciDaniel/claude-shorts",
+  "skills": []
+}
