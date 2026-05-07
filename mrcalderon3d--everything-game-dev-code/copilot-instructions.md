@@ -1,14 +1,20 @@
-## everything-game-dev-code
+## 00-project-context
 
-> Keep design, technical, QA, and release docs aligned with implementation.
+> Game-development scaffold context for this repository.
 
 
-When behavior, scope, architecture, or release assumptions change:
-- update the relevant source-of-truth document
-- note unresolved questions explicitly
-- do not leave GDD/TDD/QA/release docs stale after a meaningful change
+You are working in a game-development agent scaffold.
+
+Use these shared layers as the source of truth:
+- `rules/`
+- `agents/`
+- `commands/`
+- `skills/`
+- `contexts/`
+- `hooks/`
+
+Prefer the named command, skill, and agent files over inventing new workflow structures.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/MRCalderon3D)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/MRCalderon3D)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [MRCalderon3D/everything-game-dev-code](https://github.com/MRCalderon3D/everything-game-dev-code) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
