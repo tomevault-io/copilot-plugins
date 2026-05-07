@@ -1,0 +1,9 @@
+{
+  "name": "anycap-ai--anycap",
+  "displayName": "anycap",
+  "description": "The capability harness for AI agents. Skills over SDKs.",
+  "version": "1.0.0",
+  "author": "anycap-ai",
+  "homepage": "https://github.com/anycap-ai/anycap",
+  "skills": []
+}
