@@ -1,0 +1,201 @@
+{
+  "name": "agent_template_public",
+  "owner": "matsuni-kk",
+  "repo": "agent_template_public",
+  "description": "Agent Template Framework for Domain-Specific Agent Generation - Public Version",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent-deploy",
+      "path": ".codex/skills/agent-deploy",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.codex/skills/agent-deploy",
+      "description": ""
+    },
+    {
+      "name": "agent-deploy",
+      "path": ".claude/skills/agent-deploy",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.claude/skills/agent-deploy",
+      "description": ""
+    },
+    {
+      "name": "agent-deploy",
+      "path": ".github/skills/agent-deploy",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.github/skills/agent-deploy",
+      "description": ""
+    },
+    {
+      "name": "agent-deploy",
+      "path": ".cursor/skills/agent-deploy",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.cursor/skills/agent-deploy",
+      "description": ""
+    },
+    {
+      "name": "agent-discovery",
+      "path": ".cursor/skills/agent-discovery",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.cursor/skills/agent-discovery",
+      "description": ""
+    },
+    {
+      "name": "core-rule-maintenance",
+      "path": ".cursor/skills/core-rule-maintenance",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.cursor/skills/core-rule-maintenance",
+      "description": ""
+    },
+    {
+      "name": "domain-skills-generate",
+      "path": ".codex/skills/domain-skills-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.codex/skills/domain-skills-generate",
+      "description": ""
+    },
+    {
+      "name": "domain-skills-generate",
+      "path": ".github/skills/domain-skills-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.github/skills/domain-skills-generate",
+      "description": ""
+    },
+    {
+      "name": "domain-skills-generate",
+      "path": ".claude/skills/domain-skills-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.claude/skills/domain-skills-generate",
+      "description": ""
+    },
+    {
+      "name": "domain-skills-generate",
+      "path": ".cursor/skills/domain-skills-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.cursor/skills/domain-skills-generate",
+      "description": ""
+    },
+    {
+      "name": "post-deploy-cleanup",
+      "path": ".cursor/skills/post-deploy-cleanup",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.cursor/skills/post-deploy-cleanup",
+      "description": ""
+    },
+    {
+      "name": "rule-validation",
+      "path": ".github/skills/rule-validation",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.github/skills/rule-validation",
+      "description": ""
+    },
+    {
+      "name": "rule-validation",
+      "path": ".codex/skills/rule-validation",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.codex/skills/rule-validation",
+      "description": ""
+    },
+    {
+      "name": "rule-validation",
+      "path": ".cursor/skills/rule-validation",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.cursor/skills/rule-validation",
+      "description": ""
+    },
+    {
+      "name": "rule-validation",
+      "path": ".claude/skills/rule-validation",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.claude/skills/rule-validation",
+      "description": ""
+    },
+    {
+      "name": "skeleton-generate",
+      "path": ".cursor/skills/skeleton-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.cursor/skills/skeleton-generate",
+      "description": ""
+    },
+    {
+      "name": "skeleton-generate",
+      "path": ".codex/skills/skeleton-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.codex/skills/skeleton-generate",
+      "description": ""
+    },
+    {
+      "name": "skeleton-generate",
+      "path": ".claude/skills/skeleton-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.claude/skills/skeleton-generate",
+      "description": ""
+    },
+    {
+      "name": "skeleton-generate",
+      "path": ".github/skills/skeleton-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.github/skills/skeleton-generate",
+      "description": ""
+    },
+    {
+      "name": "skill-maintenance",
+      "path": ".codex/skills/skill-maintenance",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.codex/skills/skill-maintenance",
+      "description": ""
+    },
+    {
+      "name": "skill-maintenance",
+      "path": ".claude/skills/skill-maintenance",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.claude/skills/skill-maintenance",
+      "description": ""
+    },
+    {
+      "name": "subagent-generate",
+      "path": ".codex/skills/subagent-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.codex/skills/subagent-generate",
+      "description": ""
+    },
+    {
+      "name": "subagent-generate",
+      "path": ".github/skills/subagent-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.github/skills/subagent-generate",
+      "description": ""
+    },
+    {
+      "name": "subagent-generate",
+      "path": ".cursor/skills/subagent-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.cursor/skills/subagent-generate",
+      "description": ""
+    },
+    {
+      "name": "subagent-generate",
+      "path": ".claude/skills/subagent-generate",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.claude/skills/subagent-generate",
+      "description": ""
+    },
+    {
+      "name": "subagent-maintenance",
+      "path": ".codex/skills/subagent-maintenance",
+      "github_url": "https://github.com/matsuni-kk/agent_template_public/tree/main/.codex/skills/subagent-maintenance",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/matsuni-kk/agent_template_public",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T10:31:23Z"
+}
