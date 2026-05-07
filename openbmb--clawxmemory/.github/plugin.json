@@ -1,0 +1,9 @@
+{
+  "name": "openbmb--clawxmemory",
+  "displayName": "ClawXMemory",
+  "description": "ClawXMemory: A Multi-Level Memory Plugin for OpenClaw with Long-Term Context",
+  "version": "1.0.0",
+  "author": "OpenBMB",
+  "homepage": "https://github.com/OpenBMB/ClawXMemory",
+  "skills": []
+}
