@@ -1,18 +1,18 @@
-## python-backend
+## react-frontend
 
-> Python backend coding standards for moldgen/ files
+> React/TypeScript frontend coding standards for frontend/ files
 
 
-# Python Backend Standards
+# React Frontend Standards
 
-- Python 3.11+, use `from __future__ import annotations` in all files
-- Ruff: line-length=100, target=py311
-- Type hints on all function signatures
-- Use `StrEnum` for enums, `dataclass` for data containers, Pydantic `BaseModel` for API schemas
-- Async preferred for API handlers and AI calls
-- Singleton pattern via `__new__` for ToolRegistry, AIServiceManager, AgentMemoryManager
-- Logging: `logger = logging.getLogger(__name__)` at module level
-- Config: access via `moldgen.config.get_config()`, never hardcode values
+- Functional components only, named exports
+- Zustand stores: `create<StateType>((set) => ({...}))`, flat structure
+- API hooks: `useQuery` for GET, `useMutation` for POST/PUT/DELETE
+- Styling: Tailwind utility classes, `cn()` for conditional. Theme vars: `bg-bg-panel`, `text-text-primary`, etc.
+- Animation: Framer Motion `<motion.div>`, `<AnimatePresence>`
+- Icons: Lucide React — import individual icons
+- No `any` type except in legacy code. Use `unknown` + type guards.
+- All user-facing text in Chinese
 
 ---
 > Source: [S0mbraD/3DPrint_MoldGen](https://github.com/S0mbraD/3DPrint_MoldGen) — distributed by [TomeVault](https://tomevault.io).
