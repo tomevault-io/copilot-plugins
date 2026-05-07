@@ -1,85 +1,59 @@
-## architecture
+## benchmarking
 
-> Project architecture and crate structure for skia-rs
+> Benchmarking guidelines for skia-rs performance testing
 
 
-# Skia-RS Architecture
+# Benchmarking
 
-Skia-RS is a 100% Rust implementation of Google's Skia 2D graphics library, designed for API compatibility with the original C++ Skia library. The project provides both a native Rust API and C FFI bindings for cross-language interoperability.
+## Using the Benchmark System
 
-## Workspace Structure
+```bash
+# Run all benchmarks
+cargo bench -p skia-rs-bench
 
-```
-skia-rs/
-├── crates/
-│   ├── skia-rs-core/     # Foundation: Scalar, Point, Rect, Color, Matrix, ImageInfo
-│   ├── skia-rs-path/     # Path geometry: Path, PathBuilder, PathOps, PathEffects
-│   ├── skia-rs-paint/    # Styling: Paint, Shaders, BlendModes, Filters
-│   ├── skia-rs-canvas/   # Drawing: Canvas, Surface, Picture recording
-│   ├── skia-rs-text/     # Typography: Font loading, text shaping, layout
-│   ├── skia-rs-gpu/      # GPU backends: Vulkan, OpenGL, WebGPU
-│   ├── skia-rs-codec/    # Image I/O: PNG, JPEG, GIF, WebP
-│   ├── skia-rs-svg/      # SVG support: parsing and rendering
-│   ├── skia-rs-pdf/      # PDF generation
-│   ├── skia-rs-ffi/      # C API bindings for FFI
-│   ├── skia-rs-safe/     # High-level ergonomic Rust API
-│   └── skia-rs-bench/    # Performance benchmarks
-├── fuzz/                 # Fuzz testing with cargo-fuzz/libFuzzer
-├── skia/                 # Official Skia submodule (reference)
-└── TODO.md              # Development roadmap
+# Run specific suite
+cargo bench -p skia-rs-bench --bench core_benchmarks
+
+# Quick validation
+cargo bench -p skia-rs-bench -- --test
 ```
 
-## Crate Dependencies
-
-```
-skia-rs-core (no internal deps)
-    ↓
-skia-rs-path (depends on: core)
-    ↓
-skia-rs-paint (depends on: core, path)
-    ↓
-skia-rs-canvas (depends on: core, path, paint)
-    ↓
-skia-rs-text (depends on: core, path, paint)
-    ↓
-skia-rs-gpu (depends on: core, path, paint, canvas)
-skia-rs-codec (depends on: core)
-skia-rs-svg (depends on: core, path, paint, canvas)
-skia-rs-pdf (depends on: core, path, paint, canvas, text)
-    ↓
-skia-rs-ffi (depends on: all above)
-skia-rs-safe (depends on: all above, re-exports)
-```
-
-## File Organization
-
-Each crate should follow this structure:
-
-```
-crates/skia-rs-{name}/
-├── Cargo.toml
-├── src/
-│   ├── lib.rs          # Module declarations and re-exports
-│   ├── {feature}.rs    # Feature implementations
-│   └── ...
-```
-
-## Re-exports
-
-- `lib.rs` should re-export all public types
-- Use `pub use module::*;` for complete re-exports
-- Group related items in modules
+## Writing Benchmarks
 
 ```rust
-// lib.rs
-pub mod color;
-pub mod geometry;
-pub mod matrix;
+use criterion::{criterion_group, criterion_main, Criterion};
+use std::hint::black_box;
 
-pub use color::*;
-pub use geometry::*;
-pub use matrix::*;
+fn bench_example(c: &mut Criterion) {
+    let mut group = c.benchmark_group("Example");
+
+    group.bench_function("operation", |b| {
+        b.iter(|| {
+            // Use black_box to prevent optimization
+            black_box(some_operation())
+        })
+    });
+
+    group.finish();
+}
+
+criterion_group!(benches, bench_example);
+criterion_main!(benches);
 ```
+
+## Performance Targets
+
+- Core operations (Point, Rect, Color): < 10ns
+- Matrix operations: < 100ns
+- Path operations: < 1µs per segment
+- Canvas drawing: comparable to native Skia
+
+## Best Practices
+
+- Use `std::hint::black_box` to prevent compiler optimizations
+- Use deterministic RNG for reproducible benchmarks
+- Group related benchmarks together
+- Include baseline comparisons where possible
 
 ---
 > Source: [quinnjr/skia-rs](https://github.com/quinnjr/skia-rs) — distributed by [TomeVault](https://tomevault.io).
