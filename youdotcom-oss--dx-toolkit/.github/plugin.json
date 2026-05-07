@@ -1,0 +1,34 @@
+{
+  "name": "youdotcom-oss--dx-toolkit",
+  "displayName": "dx-toolkit",
+  "description": "Open-source toolkit enabling developers to integrate You.com's AI capabilities into their workflows",
+  "version": "1.0.0",
+  "author": "youdotcom-oss",
+  "homepage": "https://github.com/youdotcom-oss/dx-toolkit",
+  "skills": [
+    {
+      "name": "ai-sdk-plugin-patterns",
+      "description": ""
+    },
+    {
+      "name": "api-patterns",
+      "description": ""
+    },
+    {
+      "name": "code-documentation",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "mcp-patterns",
+      "description": ""
+    },
+    {
+      "name": "teams-anthropic-patterns",
+      "description": ""
+    }
+  ]
+}
