@@ -7,11 +7,11 @@ Give your AI assistant memory, skills, and autonomy. Persistent memory, 11 integ
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TechNickAI/openclaw-config](https://github.com/TechNickAI/openclaw-config).
+Original source: `CLAUDE.md` in [TechNickAI/openclaw-config](https://github.com/TechNickAI/openclaw-config).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
