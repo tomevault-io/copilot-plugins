@@ -1,34 +1,66 @@
-## no-auto-start-dev-server
+## shell-preferences
 
-> **MANDATORY**: Never automatically start development servers for web applications. Always let the user start them manually.
+> Enforces fish shell syntax for all terminal commands and provides conversion patterns from bash
 
 
-# Development Server Manual Start Policy
+# Shell Execution Standards
 
-## Server Startup Behavior
+## Fish Shell Requirement
 
-**MANDATORY**: Never automatically start development servers for web applications. Always let the user start them manually.
+**MANDATORY**: Use fish shell syntax for ALL terminal commands. Never use bash syntax.
 
-### Prohibited Actions
+### Core Syntax Rules
 
-- Do not run `npm start`, `bun dev`, `pnpm dev`, or similar commands automatically
-- Do not execute `yarn start`, `npm run dev`, or framework-specific dev commands
-- Do not start servers for React, Vue, Angular, Next.js, Vite, or other web frameworks
-- Do not automatically run `serve`, `http-server`, or local server commands
+- **Variables**: `set VAR_NAME value` (not `export VAR=value`)
+- **Environment**: `set -x VAR value` (exported variables)
+- **Conditionals**: `if test condition; command; end`
+- **Logic**: Use `; and` and `; or` (not `&&` and `||`)
 
-### Permitted Actions
+### Essential Fish Commands
 
-- Suggest the appropriate command to start the server
-- Provide instructions on how to start the development server
-- Offer to create or update start scripts in package.json
-- Help configure server settings and environment variables
+```fish
+# Variable assignment
+set PROJECT_ID (grep "^project_id" config.toml | cut -d"\"" -f2)
 
-### Framework-Specific Examples
+# Conditional execution
+if test -f file.txt; echo "exists"; end
 
-**React/Create React App:**
-```bash
-# Don't auto-run: npm start
-# Instead suggest: "Run 'npm start' to start the development server"
+# Environment variables
+set -x NODE_ENV production
+
+# Universal variables (persistent)
+set -U EDITOR vim
+```
+
+### Common Bash to Fish Conversions
+
+| Bash | Fish |
+|------|------|
+| `export VAR=value` | `set -x VAR value` |
+| `cmd1 && cmd2` | `cmd1; and cmd2` |
+| `cmd1 \|\| cmd2` | `cmd1; or cmd2` |
+| `if [ condition ]` | `if test condition` |
+
+### Project-Specific Patterns
+
+Use these patterns for common project operations:
+
+```fish
+# Docker container detection
+set CONTAINER_ID (docker ps --filter "name=pattern" --format "{{.ID}}")
+
+# Configuration reading
+set CONFIG_VALUE (grep "^key" config.file | cut -d"\"" -f2)
+
+# Conditional container operations
+if test -n "$CONTAINER_ID"
+    docker exec $CONTAINER_ID command
+else
+    echo "Container not found"
+end
+```
+
+This ensures consistent, readable terminal operations across all project automation.
 
 ---
 > Source: [uratmangun/kiro-starter-pack](https://github.com/uratmangun/kiro-starter-pack) — distributed by [TomeVault](https://tomevault.io).
