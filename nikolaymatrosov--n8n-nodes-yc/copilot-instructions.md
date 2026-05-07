@@ -1,0 +1,37 @@
+## n8n-nodes-yc
+
+> - NEVER try to edit svg files. I'll do it myself.
+
+# Workspace Rules
+
+## Critical Global Rules
+- NEVER try to edit svg files. I'll do it myself.
+- **Always work from within the package directory** when running tests
+- **Mock all external dependencies** in unit tests
+- **Confirm test cases with user** before writing unit tests
+- **Typecheck is critical before committing** - always run `pnpm typecheck`
+- **When modifying pinia stores**, check for unused computed properties
+
+## Commit Messages
+All commit messages MUST follow the Conventional Commits specification.
+See `.cursor/rules/commit-message-format.mdc` for detailed guidelines.
+
+## New Node Documentation
+When adding a new n8n node, you MUST update documentation files.
+See `.cursor/rules/new-node-documentation.mdc` for the complete checklist.
+
+**Quick reminder**: Update bug report template, both README files (EN & RU), and package.json.
+
+## Testing
+What we use for testing and writing tests:
+- For testing nodes and other backend components, we use Jest for unit tests. Examples can be found in `packages/nodes-base/nodes/**/*test*`.
+- We use `nock` for server mocking
+- For frontend we use `vitest`
+- For e2e tests we use `Playwright` and `pnpm dev:e2e`. The old Cypress tests
+  are being migrated to Playwright, so please use Playwright for new tests.
+
+See `.cursor/rules/testing-guidelines.mdc` and `.cursor/rules/test-approach.mdc` for detailed testing guidelines.
+
+---
+> Source: [nikolaymatrosov/n8n-nodes-yc](https://github.com/nikolaymatrosov/n8n-nodes-yc) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
