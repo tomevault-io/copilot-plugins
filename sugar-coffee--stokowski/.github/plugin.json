@@ -1,0 +1,9 @@
+{
+  "name": "sugar-coffee--stokowski",
+  "displayName": "stokowski",
+  "description": "A multi-model autonomous agentic engineering pipeline driven by linear. Claude + Codex + Linear",
+  "version": "1.0.0",
+  "author": "Sugar-Coffee",
+  "homepage": "https://github.com/Sugar-Coffee/stokowski",
+  "skills": []
+}
