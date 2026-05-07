@@ -1,0 +1,50 @@
+{
+  "name": "alexanderop--nuxt-layer-example",
+  "displayName": "nuxt",
+  "description": "nuxt-layer-example",
+  "version": "1.0.0",
+  "author": "alexanderop",
+  "homepage": "https://github.com/alexanderop/nuxt-layer-example",
+  "skills": [
+    {
+      "name": "antfu",
+      "description": ""
+    },
+    {
+      "name": "pnpm",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "description": ""
+    },
+    {
+      "name": "vitepress",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-router-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-testing-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vueuse-functions",
+      "description": ""
+    }
+  ]
+}
