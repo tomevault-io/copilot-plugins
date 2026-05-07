@@ -7,11 +7,11 @@ Stop stressing over not having an agent running. Ralph is always running 🏃‍
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [computerlovetech/ralphify](https://github.com/computerlovetech/ralphify).
+Original source: `CLAUDE.md` in [computerlovetech/ralphify](https://github.com/computerlovetech/ralphify).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
