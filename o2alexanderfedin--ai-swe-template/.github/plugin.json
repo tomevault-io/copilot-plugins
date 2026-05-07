@@ -1,0 +1,14 @@
+{
+  "name": "o2alexanderfedin--ai-swe-template",
+  "displayName": "ai-swe-template",
+  "description": "ai-swe-template",
+  "version": "1.0.0",
+  "author": "o2alexanderfedin",
+  "homepage": "https://github.com/o2alexanderfedin/ai-swe-template",
+  "skills": [
+    {
+      "name": "create-agent-skills",
+      "description": ""
+    }
+  ]
+}
