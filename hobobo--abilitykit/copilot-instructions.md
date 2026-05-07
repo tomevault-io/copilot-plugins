@@ -1,184 +1,60 @@
-## ability-package-structure
+## build-verification
 
-> AbilityKit Package 结构和命名规范
+> Build verification - always run dotnet build after writing code
 
 
-# AbilityKit Package 结构和命名规范
+# Build Verification Rule
 
-## 核心原则
+## Important
 
-### 1. 包职责划分
+**After writing any new code or making changes to C# files, always run `dotnet build` to verify compilation.** This ensures all code compiles correctly before considering the task complete.
 
-| 包类型 | 职责 | 目录结构 |
-|--------|------|-----------|
-| **Runtime** | 核心业务逻辑，不依赖 Unity Editor | `Runtime/**` |
-| **Editor** | 编辑器工具、UI、代码生成 | `Editor/**` |
-| **Samples** | 示例代码、使用教程 | `Samples/**` |
+## Workflow
 
-### 2. 包命名规范
+1. Write or modify C# code
+2. Immediately run `dotnet build` to check for compilation errors
+3. If errors occur:
+   - Read the error messages carefully
+   - Fix all compilation errors
+   - Re-run `dotnet build` to verify fixes
+4. Only mark task as complete when `dotnet build` succeeds with no errors
 
-```
-com.abilitykit.<功能模块>.<类型>
-```
+## Why This Matters
 
-例如：
-- `com.abilitykit.ability.runtime` - 技能系统运行时
-- `com.abilitykit.ability.editor` - 技能系统编辑器
-- `com.abilitykit.demo.moba.samples` - MOBA 示例
+- Catches type mismatches early
+- Prevents API breakage from spreading
+- Ensures refactoring changes are consistent across the codebase
+- Maintains code quality and integration health
 
-### 3. Assembly Definition 规范
+## Examples
 
-```
-包名.asmdef  (Runtime 程序集)
-包名.editor.asmdef  (Editor 程序集)
-包名.samples.asmdef  (Samples 程序集)
-```
+### Good: Always verify after writing code
 
-**不允许**：在 Runtime 包中混编 Editor 代码
-
-## 当前问题
-
-### 问题：`com.abilitykit.ability.editor` 和 `com.abilitykit.ability.runtime` 的问题
-
-1. **Editor 包职责混杂**
-   - `com.abilitykit.ability.editor` 包含了太多 Runtime 相关的配置数据（��� TriggerStrong 配置）
-   - 这些配置数据 (`*EditorConfig`) 实际上是 Editor 用来编辑、Runtime 用来反序列化的
-   - 但它们的命名和命名空间暗示它们是 Editor 专用的
-
-2. **Runtime 包结构不一致**
-   - `com.abilitykit.ability.runtime` 有 `Editor/` 目录但无内容（空的 asmdef）
-   - 应该移除这个空目录
-
-3. **Engine 包边界模糊**
-   - `com.abilitykit.ability.engine` 包含 Runtime 示例代码和 Editor 工具
-   - 应该将示例移到 Samples 包
-
-## 重构指导
-
-### 需要合并/整理的包
-
-1. **`com.abilitykit.ability.editor`** - 保留 Editor 工具，将配置数据移到 Runtime
-2. **`com.abilitykit.ability.runtime`** - 清理空目录，统一命名
-3. **`com.abilitykit.ability.engine`** - 拆分示例和工具
-
-### 移动规则
-
-| 代码类型 | 移动方向 |
-|----------|----------|
-| EditorWindow, MenuItem | 保留在 Editor 包 |
-| 序列化的配置类 (`*EditorConfig`, `*Config`) | 移动到 Runtime 包 |
-| 代码生成器 | 保留在 Editor 包 |
-| 示例代码 | 移动到 Samples 包 |
-| Unity 平台相关实现 (Resources 加载) | 根据用途决定 |
-
-### 文件命名
-
-- **Editor 专用配置**：`*EditorConfig.cs` → `*Config.cs` (移到 Runtime)
-- **Runtime 配置**：`*Config.cs` 保持在 Runtime
-
-### 命名空间规范
-
-```
-AbilityKit.Ability.Editor      - 编辑器代码
-AbilityKit.Ability.Runtime     - 运行时核心
-AbilityKit.Ability.Config      - 配置数据模型
-AbilityKit.Ability.Samples     - 示例代码
+```bash
+# After creating a new file
+Write: "Unity/Packages/example/MyClass.cs"
+# Immediately run build
+dotnet build Unity/Packages/example/example.csproj
+# Fix any errors if they appear
 ```
 
-## 禁止事项
+### Bad: Skip verification
 
-❌ **禁止**：在 Runtime 包中使用 `#if UNITY_EDITOR`
-❌ **禁止**：Editor 包依赖 Editor 包外的代码（循环依赖）
-❌ **禁止**：将业务逻辑放在 Editor 包中
-❌ **禁止**：空目录（留下空 asmdef）
-
----
-
-# MarkerAttribute 通用类型注册模式
-
-## 概述
-
-项目在 `com.abilitykit.core` 包中提供了通用的 `MarkerAttribute` + `MarkerScanner<T>` + `IMarkerRegistry` 机制，用于实现基于 Attribute 的类型自动发现和注册。
-
-## 核心组件
-
-| 组件 | 位置 | 说明 |
-|------|------|------|
-| `MarkerAttribute` | `AbilityKit.Core.Common.Marker` | 框架级类型标记基类 |
-| `MarkerScanner<TAttr>` | `AbilityKit.Core.Common.Marker` | 扫描器，自动扫描程序集 |
-| `IMarkerRegistry` | `AbilityKit.Core.Common.Marker` | 注册表接口 |
-| `MarkerRegistry<TAttr>` | `AbilityKit.Core.Common.Marker` | 默认注册表实现 |
-
-## 使用模式
-
-### 1. 定义自定义 Attribute（继承 MarkerAttribute）
-
-```csharp
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-public sealed class MyTypeIdAttribute : MarkerAttribute
-{
-    public int TypeId { get; }
-    public string TypeName { get; }
-
-    public MyTypeIdAttribute(int typeId, string typeName)
-    {
-        TypeId = typeId;
-        TypeName = typeName;
-    }
-
-    public override void OnScanned(Type implType, IMarkerRegistry registry)
-    {
-        // 自定义注册逻辑
-        var myRegistry = registry as MyRegistry;
-        myRegistry?.RegisterByAttribute(this, implType);
-    }
-}
+```bash
+# Writing code but not verifying
+Write: "Unity/Packages/example/MyClass.cs"
+# User later finds compilation errors
 ```
 
-### 2. 实现 Registry（实现 IMarkerRegistry）
+## Summary
 
-```csharp
-public sealed class MyRegistry : IMarkerRegistry
-{
-    public static MyRegistry Instance { get; } = new();
-
-    private MyRegistry()
-    {
-        // 初始化时扫描
-        MarkerScanner<MyTypeIdAttribute>.Scan(assemblies, this);
-    }
-
-    internal void RegisterByAttribute(MyTypeIdAttribute attr, Type implType)
-    {
-        // 注册类型...
-    }
-
-    // 实现 IMarkerRegistry 接口...
-}
-```
-
-### 3. 使用 Attribute 标记类型
-
-```csharp
-[MyTypeId(TypeIdRegistry.MyType.BusinessStart, "MyCustomType")]
-public sealed class MyCustomType : IMyInterface
-{
-    // 实现...
-}
-```
-
-## 已在 triggering 包中的应用
-
-以下类型已使用 MarkerAttribute 模式：
-
-- `ExecutableTypeIdAttribute` - 标记 IExecutable 实现类
-- `ConditionTypeIdAttribute` - 标记 ICondition 实现类
-
-## 优势
-
-- **零侵入**：扩展类型只需添加 Attribute，无需修改框架代码
-- **解耦**：扫描逻辑与注册逻辑分离
-- **统一**：全项目统一的注册模式
+| Step | Action |
+|------|--------|
+| 1 | Write/modify C# code |
+| 2 | Run `dotnet build` |
+| 3 | Fix any errors found |
+| 4 | Repeat until build succeeds |
+| 5 | Task complete |
 
 ---
 > Source: [HOBOBO/AbilityKit](https://github.com/HOBOBO/AbilityKit) — distributed by [TomeVault](https://tomevault.io).
