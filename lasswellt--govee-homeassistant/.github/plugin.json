@@ -1,0 +1,9 @@
+{
+  "name": "lasswellt--govee-homeassistant",
+  "displayName": "govee-homeassistant",
+  "description": "Govee Integration for Home Assistant - A HACS custom component for Govee lights and smart devices",
+  "version": "1.0.0",
+  "author": "lasswellt",
+  "homepage": "https://github.com/lasswellt/govee-homeassistant",
+  "skills": []
+}
