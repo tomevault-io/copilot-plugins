@@ -4,7 +4,7 @@
   "repo": "Conductor-for-all",
   "description": "Bring the Conductor spec-driven development methodology to any coding environment as skills.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/hlhr202/Conductor-for-all",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T16:01:19Z"
+  "distributed_at": "2026-05-07T14:56:22Z"
 }
