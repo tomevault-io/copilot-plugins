@@ -1,7 +1,7 @@
 {
   "name": "sziadan--open-midgard",
   "displayName": "open-midgard",
-  "description": "open-midgard",
+  "description": "Complete rewrite of a Ragnarok Online client",
   "version": "1.0.0",
   "author": "Sziadan",
   "homepage": "https://github.com/Sziadan/open-midgard",
