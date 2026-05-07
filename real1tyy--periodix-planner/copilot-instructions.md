@@ -1,106 +1,187 @@
-## no-backwards-compatibility
+## obsidian-frontmatter-api
 
-> Never maintain backwards compatibility unless explicitly requested
+> Enforce use of Obsidian's processFrontMatter API instead of manual YAML manipulation
 
 
-# No Backwards Compatibility Rule
+# Obsidian Frontmatter API Usage Rule
 
-**CRITICAL: Never maintain backwards compatibility unless explicitly requested by the user.**
+**CRITICAL: Always use Obsidian's `app.fileManager.processFrontMatter()` API for all frontmatter modifications. Never manipulate YAML manually.**
 
-## Core Principles
-
-- **Clean Slate Approach**: Always prefer clean, modern implementations over maintaining legacy code
-- **Remove Legacy Code**: Delete old files, deprecated functions, and outdated patterns immediately
-- **No Compatibility Layers**: Don't create adapters, wrappers, or compatibility shims
-- **Modern Standards**: Use the latest language features, libraries, and best practices
-
-## ✅ **DO: Embrace Breaking Changes**
-
-- Replace old APIs with new ones completely
-- Remove deprecated functions and classes
-- Update type definitions without maintaining old ones
-- Refactor to use modern patterns (Zod schemas vs manual validation)
-- Delete unused files and imports immediately
-
-## ❌ **DON'T: Maintain Legacy Code**
+## ✅ **ALWAYS Use processFrontMatter**
 
 ```typescript
-// ❌ DON'T: Keep old exports for "compatibility"
-export * from "./schemas";
-export * from "./settings"; // Remove this immediately
+// ✅ CORRECT: Use Obsidian's built-in API
+await this.app.fileManager.processFrontMatter(file, (fm) => {
+  // Treat `fm` as a mutable JavaScript object
+  fm["title"] = "My recurring event";           // set/overwrite
+  fm["tags"] = (fm["tags"] ?? []).concat("calendar"); // append to array
+  fm["start"] = new Date().toISOString();       // ISO string for dates
+  fm[settings.startProp] = eventData.start;     // dynamic property names
+  delete fm["obsoleteProp"];                    // remove properties
 
-// ❌ DON'T: Create compatibility wrappers
-export const legacyValidateSettings = (settings: any) => {
-  return validateSettings(settings); // Just use the new function
-};
-
-// ❌ DON'T: Keep old function signatures
-function sanitizeSettings(
-  settings: unknown,
-  defaults?: CustomCalendarSettings // Remove optional parameter
-): CustomCalendarSettings;
+  // Handle conditional updates
+  if (eventData.allDay && settings.allDayProp) {
+    fm[settings.allDayProp] = eventData.allDay;
+  }
+});
 ```
 
-## ✅ **DO: Clean Modern Implementation**
+## ❌ **NEVER Manipulate YAML Manually**
 
 ```typescript
-// ✅ DO: Single source of truth
-export * from "./schemas";
-
-// ✅ DO: Clean function signatures
-export function sanitizeSettings(settings: unknown): CustomCalendarSettings {
-  // Modern implementation only
+// ❌ WRONG: Manual YAML string manipulation
+private async updateFrontmatterPreservingFormat(content: string, eventData: any): Promise<string> {
+  const yamlMatch = frontmatterSection.match(/^---\n([\s\S]*?)\n---$/);
+  let yamlContent = yamlMatch[1];
+  yamlContent = this.updateYamlProperty(yamlContent, key, value);
+  return `${beforeFrontmatter}---\n${yamlContent}\n---${afterFrontmatter}`;
 }
 
-// ✅ DO: Use modern validation
-export const CalendarViewTypeSchema = z.enum([
-  "dayGridMonth",
-  "dayGridWeek",
-  // ... modern enum values only
-]);
+// ❌ WRONG: Manual YAML property updates
+private updateYamlProperty(yamlContent: string, key: string, value: any): string {
+  const keyRegex = new RegExp(`^(${escapedKey}:\\s*)(.*)$`, "m");
+  return yamlContent.replace(keyRegex, `$1${formattedValue}`);
+}
+
+// ❌ WRONG: Manual frontmatter creation
+private createFrontmatterFromEventData(eventData: any): string {
+  const lines: string[] = [];
+  lines.push(`${settings.titleProp}: "${eventData.title}"`);
+  return lines.join("\n");
+}
 ```
 
-## **When Backwards Compatibility IS Allowed**
+## **How processFrontMatter Works**
 
-Only when the user **explicitly states**:
-- "Keep backwards compatibility"
-- "Don't break existing code"
-- "Maintain legacy support"
-- "Gradual migration"
+1. **Loads** the file's current YAML frontmatter
+2. **Provides** it to your updater function as a mutable JS object
+3. **Writes back** any mutations you make, automatically re-serialized as YAML
+4. **Creates** frontmatter if none exists
+5. **Handles** all YAML formatting, escaping, and edge cases
 
-## **Default Behavior**
+## **Key Benefits**
 
-- **Assume breaking changes are acceptable**
-- **Remove legacy code immediately**
-- **Use the most modern approach available**
-- **Prioritize clean code over compatibility**
+- **Automatic YAML serialization** - No manual string manipulation
+- **Handles edge cases** - Special characters, arrays, nested objects
+- **Creates frontmatter** if file has none
+- **Atomic updates** - All changes applied together
+- **Type safety** - Work with JS objects, not strings
+- **Obsidian integration** - Triggers proper cache updates
 
-## **Examples of Immediate Removal**
+## **Common Patterns**
 
-- Old type definition files (settings.ts ❌ REMOVED)
-- Legacy validation functions
-- Deprecated configuration options
-- Unused imports and exports
-- Old test patterns
-- Settings-based recurring events (replaced with node-based)
+### Event Updates
+```typescript
+// ✅ Update event properties
+await this.app.fileManager.processFrontMatter(file, (fm) => {
+  fm[settings.startProp] = info.event.start.toISOString();
+  if (info.event.end && settings.endProp) {
+    fm[settings.endProp] = info.event.end.toISOString();
+  }
+});
+```
 
-## **Migration Strategy**
+### Conditional Property Setting
+```typescript
+// ✅ Set properties conditionally
+await this.app.fileManager.processFrontMatter(file, (fm) => {
+  if (eventData.title && settings.titleProp) {
+    fm[settings.titleProp] = eventData.title;
+  }
+  if (settings.zettelIdProp) {
+    fm[settings.zettelIdProp] = generateZettelId();
+  }
+});
+```
 
-1. **Identify Legacy Code**: Find old patterns, files, or functions
-2. **Replace Completely**: Implement modern equivalent
-3. **Remove Immediately**: Delete old code without transition period
-4. **Update All References**: Fix all imports and usages at once
-5. **Test Modern Implementation**: Ensure new code works correctly
+### Array Manipulation
+```typescript
+// ✅ Handle arrays properly
+await this.app.fileManager.processFrontMatter(file, (fm) => {
+  fm["tags"] = (fm["tags"] ?? []).concat("new-tag");
+  fm[propertyName] = normalizedRefs;  // Replace entire array
+});
+```
 
-**Remember**: This is a new project. Clean, modern code is more important than maintaining compatibility with code that doesn't exist yet.
+### Preserving Existing Data
+```typescript
+// ✅ Preserve non-calendar properties
+await this.app.fileManager.processFrontMatter(file, (fm) => {
+  // Only update specific properties, others remain unchanged
+  fm[settings.startProp] = eventData.start;
+  fm[settings.endProp] = eventData.end;
+  // All other frontmatter properties are automatically preserved
+});
+```
 
-## **Recent Examples**
+## **Migration Examples**
 
-- ✅ **Recurring Events**: Completely removed settings-based recurring events in favor of node-based RRule system
-- ✅ **Schema Validation**: Moved from manual validation to Zod schemas without maintaining old validation logic
-- ✅ **Type Definitions**: Removed `SettingsRecurringEvent` types completely when switching to `NodeRecurringEvent`
+### Replace Manual YAML Updates
+```typescript
+// ❌ BEFORE: Manual string manipulation
+private async updateEventFile(eventData: any): Promise<void> {
+  const content = await this.app.vault.read(file);
+  const updatedContent = await this.updateFrontmatterPreservingFormat(content, eventData);
+  await this.app.vault.modify(file, updatedContent);
+}
 
-**Zero Tolerance**: If you catch yourself writing compatibility code, STOP and implement the modern approach only.
+// ✅ AFTER: Use processFrontMatter
+private async updateEventFile(eventData: any): Promise<void> {
+  const file = this.app.vault.getAbstractFileByPath(eventData.filePath);
+  if (!(file instanceof TFile)) return;
+
+  await this.app.fileManager.processFrontMatter(file, (fm) => {
+    if (eventData.title && settings.titleProp) {
+      fm[settings.titleProp] = eventData.title;
+    }
+    fm[settings.startProp] = eventData.start;
+    if (eventData.end) {
+      fm[settings.endProp] = eventData.end;
+    }
+    if (eventData.allDay !== undefined && settings.allDayProp) {
+      fm[settings.allDayProp] = eventData.allDay;
+    }
+  });
+}
+```
+
+## **Error Handling**
+
+```typescript
+// ✅ Proper error handling with processFrontMatter
+try {
+  await this.app.fileManager.processFrontMatter(file, (fm) => {
+    fm[settings.startProp] = eventData.start;
+    // Mutations here are atomic
+  });
+  console.log("Event updated successfully");
+} catch (error) {
+  console.error("Error updating event:", error);
+  // File remains unchanged if error occurs
+}
+```
+
+## **Zero Tolerance Policy**
+
+- **NEVER** use string manipulation for YAML
+- **NEVER** manually construct `---\nkey: value\n---` strings
+- **NEVER** use regex to update YAML properties
+- **NEVER** parse YAML manually with `matter()` for updates
+- **ALWAYS** use `processFrontMatter` for any frontmatter changes
+- **DELETE** any existing manual YAML manipulation code immediately
+
+## **Current Violations to Fix**
+
+The following methods in [event-context-menu.ts](mdc:apps/custom-calendar/src/components/event-context-menu.ts) violate this rule and must be replaced:
+
+- `updateFrontmatterPreservingFormat()` - Lines 204-264
+- `updateYamlProperty()` - Lines 266-305
+- `updateYamlArrayProperty()` - Lines 307-336
+- `createFrontmatterFromEventData()` - Lines 338-356
+
+Replace the entire `updateEventFile()` method to use `processFrontMatter` instead.
+
+**Remember**: Obsidian's `processFrontMatter` handles all the complexity of YAML serialization, formatting, and edge cases. Trust the API and never manipulate YAML strings manually.
 
 ---
 > Source: [Real1tyy/Periodix-Planner](https://github.com/Real1tyy/Periodix-Planner) — distributed by [TomeVault](https://tomevault.io).
