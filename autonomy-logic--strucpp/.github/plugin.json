@@ -1,0 +1,9 @@
+{
+  "name": "autonomy-logic--strucpp",
+  "displayName": "STruCpp",
+  "description": "STruC++ is a ST to C++ compiler",
+  "version": "1.0.0",
+  "author": "Autonomy-Logic",
+  "homepage": "https://github.com/Autonomy-Logic/STruCpp",
+  "skills": []
+}
