@@ -1,0 +1,9 @@
+{
+  "name": "carloseguerrasilva--agents-md",
+  "displayName": "AGENTS.md",
+  "description": "AGENTS.md template to improve response structure, reduce input and output tokens, correct normie behavior (this includes vibe coders), improve DX, and provide necessary context for querying project in",
+  "version": "1.0.0",
+  "author": "CarlosEGuerraSilva",
+  "homepage": "https://github.com/CarlosEGuerraSilva/AGENTS.md",
+  "skills": []
+}
