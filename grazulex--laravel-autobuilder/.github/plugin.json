@@ -1,0 +1,9 @@
+{
+  "name": "grazulex--laravel-autobuilder",
+  "displayName": "laravel-autobuilder",
+  "description": "Visual automation builder for Laravel - Create workflows with a drag-and-drop interface",
+  "version": "1.0.0",
+  "author": "Grazulex",
+  "homepage": "https://github.com/Grazulex/laravel-autobuilder",
+  "skills": []
+}
