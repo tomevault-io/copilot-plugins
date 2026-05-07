@@ -1,0 +1,105 @@
+{
+  "name": "vp-real-estate",
+  "owner": "reggiechan74",
+  "repo": "vp-real-estate",
+  "description": "lease management using Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "board-memo-expert",
+      "path": ".claude/skills/board-memo-expert",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/board-memo-expert",
+      "description": ""
+    },
+    {
+      "name": "briefing-note-expert",
+      "path": ".claude/skills/briefing-note-expert",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/briefing-note-expert",
+      "description": ""
+    },
+    {
+      "name": "cost-approach-expert",
+      "path": ".claude/skills/cost-approach-expert",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/cost-approach-expert",
+      "description": ""
+    },
+    {
+      "name": "easement-valuation-methods",
+      "path": ".claude/skills/easement-valuation-methods",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/easement-valuation-methods",
+      "description": ""
+    },
+    {
+      "name": "expropriation-compensation-entitlement-analysis",
+      "path": ".claude/skills/expropriation-compensation-entitlement-analysis",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/expropriation-compensation-entitlement-analysis",
+      "description": ""
+    },
+    {
+      "name": "forms-1-12-completeness-verification",
+      "path": ".claude/skills/forms-1-12-completeness-verification",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/forms-1-12-completeness-verification",
+      "description": ""
+    },
+    {
+      "name": "income-approach-expert",
+      "path": ".claude/skills/income-approach-expert",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/income-approach-expert",
+      "description": ""
+    },
+    {
+      "name": "land-assembly-expert",
+      "path": ".claude/skills/land-assembly-expert",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/land-assembly-expert",
+      "description": ""
+    },
+    {
+      "name": "severance-damages-quantification",
+      "path": ".claude/skills/severance-damages-quantification",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/severance-damages-quantification",
+      "description": ""
+    },
+    {
+      "name": "transit-station-site-acquisition-strategy",
+      "path": ".claude/skills/transit-station-site-acquisition-strategy",
+      "github_url": "https://github.com/reggiechan74/vp-real-estate/tree/main/.claude/skills/transit-station-site-acquisition-strategy",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/reggiechan74/vp-real-estate",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T05:30:10Z"
+}
