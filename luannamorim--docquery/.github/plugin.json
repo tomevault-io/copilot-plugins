@@ -1,0 +1,9 @@
+{
+  "name": "luannamorim--docquery",
+  "displayName": "docquery",
+  "description": "Production-ready RAG system for technical documentation with hybrid retrieval, cross-encoder reranking, and RAGAS evaluation metrics.",
+  "version": "1.0.0",
+  "author": "luannamorim",
+  "homepage": "https://github.com/luannamorim/docquery",
+  "skills": []
+}
