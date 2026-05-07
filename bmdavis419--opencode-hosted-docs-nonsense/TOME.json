@@ -4,7 +4,7 @@
   "repo": "opencode-hosted-docs-nonsense",
   "description": "idk man it's funny",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bmdavis419/opencode-hosted-docs-nonsense",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T05:55:32Z"
+  "distributed_at": "2026-05-07T15:37:18Z"
 }
