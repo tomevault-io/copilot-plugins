@@ -1,0 +1,9 @@
+{
+  "name": "deepnote--deepnote-toolkit",
+  "displayName": "deepnote-toolkit",
+  "description": "Essential Python toolkit for Deepnote environments",
+  "version": "1.0.0",
+  "author": "deepnote",
+  "homepage": "https://github.com/deepnote/deepnote-toolkit",
+  "skills": []
+}
