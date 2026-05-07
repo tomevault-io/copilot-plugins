@@ -1,0 +1,50 @@
+{
+  "name": "reggiechan74--vp-real-estate",
+  "displayName": "vp-real-estate",
+  "description": "lease management using Claude Code",
+  "version": "1.0.0",
+  "author": "reggiechan74",
+  "homepage": "https://github.com/reggiechan74/vp-real-estate",
+  "skills": [
+    {
+      "name": "board-memo-expert",
+      "description": ""
+    },
+    {
+      "name": "briefing-note-expert",
+      "description": ""
+    },
+    {
+      "name": "cost-approach-expert",
+      "description": ""
+    },
+    {
+      "name": "easement-valuation-methods",
+      "description": ""
+    },
+    {
+      "name": "expropriation-compensation-entitlement-analysis",
+      "description": ""
+    },
+    {
+      "name": "forms-1-12-completeness-verification",
+      "description": ""
+    },
+    {
+      "name": "income-approach-expert",
+      "description": ""
+    },
+    {
+      "name": "land-assembly-expert",
+      "description": ""
+    },
+    {
+      "name": "severance-damages-quantification",
+      "description": ""
+    },
+    {
+      "name": "transit-station-site-acquisition-strategy",
+      "description": ""
+    }
+  ]
+}
