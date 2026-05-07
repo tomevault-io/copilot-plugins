@@ -1,0 +1,9 @@
+{
+  "name": "qoredb--qoredb",
+  "displayName": "QoreDB",
+  "description": "Next Generation Database Client",
+  "version": "1.0.0",
+  "author": "QoreDB",
+  "homepage": "https://github.com/QoreDB/QoreDB",
+  "skills": []
+}
