@@ -1,0 +1,9 @@
+{
+  "name": "surrealdb--agent-skills",
+  "displayName": "agent-skills",
+  "description": "Supercharge your coding agent with official SurrealDB Skills",
+  "version": "1.0.0",
+  "author": "surrealdb",
+  "homepage": "https://github.com/surrealdb/agent-skills",
+  "skills": []
+}
