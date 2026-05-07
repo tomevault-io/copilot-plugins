@@ -1,0 +1,9 @@
+{
+  "name": "mxvsh--svglogo",
+  "displayName": "svglogo",
+  "description": "Generate clean icon-based logos instantly in your browser. Export as SVG, PNG, or ICO.",
+  "version": "1.0.0",
+  "author": "mxvsh",
+  "homepage": "https://github.com/mxvsh/svglogo",
+  "skills": []
+}
