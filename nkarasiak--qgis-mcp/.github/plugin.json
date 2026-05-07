@@ -1,0 +1,9 @@
+{
+  "name": "nkarasiak--qgis-mcp",
+  "displayName": "qgis-mcp",
+  "description": "Connect QGIS to Claude AI through the Model Context Protocol (MCP)",
+  "version": "1.0.0",
+  "author": "nkarasiak",
+  "homepage": "https://github.com/nkarasiak/qgis-mcp",
+  "skills": []
+}
