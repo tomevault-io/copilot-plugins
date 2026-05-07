@@ -1,0 +1,9 @@
+{
+  "name": "intellegix--intellegix-code-agent-toolkit",
+  "displayName": "intellegix-code-agent-toolkit",
+  "description": "Automated loop driver, slash commands, council automation, MCP browser bridge, and portfolio governance for Claude Code CLI",
+  "version": "1.0.0",
+  "author": "intellegix",
+  "homepage": "https://github.com/intellegix/intellegix-code-agent-toolkit",
+  "skills": []
+}
