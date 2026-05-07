@@ -1,0 +1,9 @@
+{
+  "name": "joinclass--ai-ceo-framework",
+  "displayName": "ai-ceo-framework",
+  "description": "Run your entire company with Claude Code. 15 AI Agents + 5 Skills + Approval Pipeline. Battle-tested in production for 1+ year.",
+  "version": "1.0.0",
+  "author": "JOINCLASS",
+  "homepage": "https://github.com/JOINCLASS/ai-ceo-framework",
+  "skills": []
+}
