@@ -1,0 +1,51 @@
+{
+  "name": "ai-todo",
+  "owner": "fxstein",
+  "repo": "ai-todo",
+  "description": "AI-native task management for coding agents - Persistent, version-controlled TODO tracking that works naturally with AI agents like OpenClaw, Cursor, Claude, and Copilot",
+  "type": "tome",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "release-workflow",
+      "path": ".cursor/skills/release-workflow",
+      "github_url": "https://github.com/fxstein/ai-todo/tree/main/.cursor/skills/release-workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/fxstein/ai-todo",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T05:33:26Z"
+}
