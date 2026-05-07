@@ -1,0 +1,9 @@
+{
+  "name": "deadronos--nanogpt-provider-openclaw",
+  "displayName": "nanogpt-provider-openclaw",
+  "description": "OpenClaw Plugin to use NanoGPT as provider",
+  "version": "1.0.0",
+  "author": "deadronos",
+  "homepage": "https://github.com/deadronos/nanogpt-provider-openclaw",
+  "skills": []
+}
