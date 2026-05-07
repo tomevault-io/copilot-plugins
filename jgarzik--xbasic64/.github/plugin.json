@@ -1,0 +1,9 @@
+{
+  "name": "jgarzik--xbasic64",
+  "displayName": "xbasic64",
+  "description": "BASIC compiler for x86-64",
+  "version": "1.0.0",
+  "author": "jgarzik",
+  "homepage": "https://github.com/jgarzik/xbasic64",
+  "skills": []
+}
