@@ -1,45 +1,26 @@
-## localization
+## project-overview
 
-> - Simplified Chinese (zh-Hans)
+> AppAboutView is a SwiftUI package that provides a reusable "About" view component for macOS and iOS apps. It displays app information, handles user interactions (feedback, ratings, coffee tips), and showcases other apps by the developer.
 
 
-# Localization Rules
+# AppAboutView Project Rules
 
-## Supported Languages
-- English (base)
-- German (de)
-- Spanish (es)
-- French (fr)
-- Italian (it)
-- Japanese (ja)
-- Korean (ko)
-- Russian (ru)
-- Simplified Chinese (zh-Hans)
-- Traditional Chinese (zh-Hant)
-- Finnish (fi)
-- Hindi (hi)
-- Indonesian (id)
-- Dutch (nl)
-- Norwegian (no)
-- Polish (pl)
-- Portuguese (pt)
-- Swedish (sv)
-- Thai (th)
-- Turkish (tr)
-- Ukrainian (uk)
-- Vietnamese (vi)
+## Project Overview
+AppAboutView is a SwiftUI package that provides a reusable "About" view component for macOS and iOS apps. It displays app information, handles user interactions (feedback, ratings, coffee tips), and showcases other apps by the developer.
 
-## Localization Structure
-- Language-specific `.lproj/` folders in `Sources/Resources/`
-- Each folder contains `Localizable.strings` file
-- Localized strings use bundle-specific lookup: `String(localized: "key", bundle: .module)`
-- App data supports runtime locale-based string selection
+## Core Principles
+- Multi-platform support (macOS and iOS)
+- SwiftUI-first architecture
+- Localization support (7 languages)
+- Service-based data management
+- Resource bundling for app showcase
 
-## Implementation Guidelines
-- Always use `String(localized: "key", bundle: .module)` for localized strings
-- Maintain consistency across all language files
-- Test localization with different system languages
-- Ensure fallback logic works properly for missing translations
+## File Structure Rules
+- Never create files unless absolutely necessary
+- Always prefer editing existing files over creating new ones
+- Never proactively create documentation files (*.md) or README files
+- Only create documentation if explicitly requested
+- Please ignore CLAUDE.md since it's made for Claude Code
 
 ---
 > Source: [lexrus/AppAboutView](https://github.com/lexrus/AppAboutView) — distributed by [TomeVault](https://tomevault.io).
