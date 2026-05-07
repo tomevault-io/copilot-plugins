@@ -4,7 +4,7 @@
   "repo": "clickclaw",
   "description": "ClickClaw \u662f\u9762\u5411\u5c0f\u767d\u7528\u6237\u7684 OpenClaw \u684c\u9762\u7ba1\u7406\u5de5\u5177\uff0c\u5185\u7f6e Node.js 22 + OpenClaw\uff0c\u96f6\u4f9d\u8d56\u5b89\u88c5\u5373\u7528\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clickclaw/clickclaw",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T05:34:38Z"
+  "distributed_at": "2026-05-07T01:45:54Z"
 }
