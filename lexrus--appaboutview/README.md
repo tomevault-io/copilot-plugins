@@ -1,6 +1,8 @@
 # AppAboutView
 
-> Tome by [lexrus](https://github.com/lexrus/AppAboutView) — distributed by [TomeVault](https://tomevault.io/claim/lexrus)
+> Tome by [lexrus](https://github.com/lexrus/AppAboutView) — distributed by [TomeVault](https://tomevault.io)
+
+A drop in micro-framework for "About" views in your next macOS/iOS/visionOS/tvOS app
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.windsurf/rules/*.md` in [lexrus/AppAboutView](https://github.
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 
-From a repo with 0+ stars on GitHub. [See the full profile](https://tomevault.io/claim/lexrus)
+From [lexrus/AppAboutView](https://github.com/lexrus/AppAboutView) — a repo with 19+ stars on GitHub.
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/lexrus) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-s -->
