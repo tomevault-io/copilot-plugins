@@ -1,0 +1,9 @@
+{
+  "name": "awfp1314--ue-toolkitai",
+  "displayName": "UE_ToolkitAI",
+  "description": "AI-powered desktop toolbox for Unreal Engine developers with multi-model LLM, Function Calling, and real-time UE editor communication",
+  "version": "1.0.0",
+  "author": "Awfp1314",
+  "homepage": "https://github.com/Awfp1314/UE_ToolkitAI",
+  "skills": []
+}
