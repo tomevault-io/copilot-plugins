@@ -7,11 +7,11 @@ A new UX layer for the terminal, built on tmux
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [honeymux/honeymux](https://github.com/honeymux/honeymux).
+Original source: `CLAUDE.md` in [honeymux/honeymux](https://github.com/honeymux/honeymux).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
