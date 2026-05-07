@@ -1,173 +1,213 @@
-## project-guide
+## project
 
-> 这是一个基于 Vue 3 + TypeScript + Vite + Tailwind CSS 的现代化前端项目。
+> - 包管理器：默认使用 pnpm（如项目中存在 pnpm-lock.yaml）
 
 
----
+# 项目开发规范
 
-## alwaysApply: true
+## 环境与工具
 
-# 项目开发指南
+- 包管理器：默认使用 pnpm（如项目中存在 pnpm-lock.yaml）
+- Windows 环境：使用 PowerShell 脚本
+- 其他环境：根据项目实际配置自动适配（如 npm、yarn、bun 等）
+- API 文档查询：使用 Context7 MCP 查询第三方库的最新 API 文档
 
-这是一个基于 Vue 3 + TypeScript + Vite + Tailwind CSS 的现代化前端项目。
+## 交流与语言
 
-## 核心技术栈
+- 全程使用中文进行交流和内容输出
+- 代码注释使用中文，除非项目已有英文注释规范
+- 变量命名使用英文，遵循驼峰或下划线命名规范
 
-- **构建工具**：Vite
-- **样式方案**：Tailwind CSS
-- **UI 组件**：纯 Tailwind CSS + Vue 组件（位于 `src/components/common/`）
-- **包管理器**：pnpm
-- **路由管理**：Vue Router
-- **状态管理**：Pinia（Setup Store 风格）
-- **工具库**：VueUse、lodash-es、mitt（事件总线）
+## 前端开发规范
 
-## 开发原则
+### HTML/CSS
 
-1. **类型安全优先**：所有函数必须有明确的类型定义，避免使用 `any`
-2. **逻辑分离**：复杂逻辑抽离为 Hooks（Composables），保持组件简洁
-3. **配置集中管理**：所有配置统一放在 `config/` 目录，使用对象形式组织
-4. **单一职责**：组件、函数、Hooks 都保持单一职责
-5. **避免循环依赖**：Hooks 之间不要相互依赖，使用参数传递或 Pinia 共享状态
+- 编写 HTML 页面时默认使用 Tailwind CSS 进行样式开发
+- 图标优先使用 SVG 格式（内联或组件形式）
+- 响应式设计：优先采用移动端优先策略
+- 语义化 HTML：使用恰当的 HTML5 语义标签
 
-## 项目规范速查
+### JavaScript/TypeScript
 
-### 文件命名
+- 优先使用 TypeScript，确保类型安全
+- 使用 ES6+ 现代语法特性
+- 异步操作使用 async/await 而非 Promise.then()
+- 避免使用 any 类型，尽量提供明确的类型定义
 
-- Vue 组件：`PascalCase.vue`（如 `UserProfile.vue`）
-- TypeScript 文件：`camelCase.ts`（如 `formatDate.ts`）
-- 类型声明：`camelCase.d.ts`（如 `api.d.ts`）
-- SVG 图标：`iconName.svg`（如 `iconHome.svg`）
+### 组件开发
 
-### 目录结构
+- 组件化优先：将可复用逻辑抽离为独立组件
+- 状态管理：使用 Pinia 进行全局状态管理，采用 Setup Store 写法
+- Props 验证：提供完整的 props 类型定义和默认值
+- 路由管理：使用 Vue Router 进行页面路由管理
+- 工具函数：优先使用 VueUse 提供的组合式函数
+- 数据处理：使用 lodash-es 进行复杂数据操作（按需导入）
 
-```
-src/
-├── components/      # 组件（common/ 通用，business/ 业务）
-├── composables/     # Hooks（business/ common/ ui/）
-├── config/          # 配置文件（使用对象形式 + JSDoc 注释）
-├── stores/          # Pinia Store
-├── typings/         # TypeScript 类型声明
-├── utils/           # 工具函数
-├── views/           # 页面组件
-├── volt/            # Volt UI 组件（从 PrimeVue 下载的组件）
-└── icons/           # SVG 图标
-```
+## 代码质量
 
-### 组件通信
+### 编码原则
 
-- **父子组件** → 使用 `Props/Emit`
-- **全局状态** → 使用 `Pinia Store`
-- **跨组件通信** → 使用 `Mitt 事件总线`
-- **逻辑复用** → 使用 `Hooks (Composables)`
+- 遵循 DRY 原则（Don't Repeat Yourself）
+- 单一职责原则：每个函数/组件只做一件事
+- 代码可读性优先于过度简洁
+- 使用有意义的变量和函数命名
 
-### 代码组织
+### 错误处理
 
-- 配置信息统一放在 `config/` 目录，使用对象形式 + `as const`
-- 配置字段必须添加 JSDoc 注释（`/** */`）
-- Pinia 使用 Setup Store 写法
-- lodash-es 按需导入：`import { debounce } from 'lodash-es'`
-- 路由懒加载：`component: () => import('@/views/XXX.vue')`
-- **Volt 组件导入必须使用 `@/volt` 路径别名**：
-  - `import Button from '@/volt/Button.vue'`
-  - `import DataTable from '@/volt/DataTable.vue'`
-  - 禁止使用相对路径导入 Volt 组件（如 `../volt/Button.vue`）
-- **类型导入必须使用 `type` 关键字**：
-  - 混合导入：`import { ref, type Ref } from "vue"`
-  - 纯类型导入：`import type { UserInfo } from "@/typings/api"`
-  - 默认导出 + 类型：`import axios, { type AxiosInstance } from "axios"`
+- 必须处理所有可能的异常情况
+- 提供用户友好的错误提示信息
+- 关键操作添加 try-catch 块
+- 避免让程序静默失败
 
 ### 性能优化
 
-- 使用计算属性缓存复杂计算
-- 大列表使用虚拟滚动（VueUse 的 `useVirtualList`）
-- 防抖节流使用 lodash-es 或 VueUse
-- 路由和组件懒加载
+- 避免不必要的重复渲染
+- 大列表使用虚拟滚动
+- 图片懒加载和压缩
+- 合理使用缓存和防抖节流
+- 路由懒加载：使用动态导入 `() => import('@/views/XXX.vue')`
+- lodash-es 按需导入：避免 `import _ from 'lodash-es'`
 
-## 详细文档导航
+### Vue 生态最佳实践
 
-### 📚 核心文档
+#### Pinia Store 规范
 
-- **[技术栈和初始化](../../docs/tech-stack.md)** - 技术栈详解、初始化指南、依赖配置
-- **[项目结构规范](../../docs/project-structure.md)** - 目录结构、文件命名、图标管理
-- **[配置文件管理](../../docs/config-management.md)** - 配置组织、JSDoc 注释、环境变量
-- **[Volt UI 组件库配置](../../docs/volt-setup.md)** - Volt 安装、配置、使用指南
+- 使用 Setup Store 写法（Composition API 风格）
+- Store 命名：`use[Name]Store`，如 `useUserStore`
+- 保持 Store 职责单一，避免创建过大的全局 Store
+- 复杂的派生状态使用 `computed`
+- 异步操作封装在 action 函数中
 
-### 🎨 设计规范
+#### Vue Router 规范
 
-- **[组件设计原则](../../docs/component-design.md)** - 单一职责、组件分层、Props/Events 设计
-- **[Hooks 使用指南](../../docs/hooks-guide.md)** - Hooks 编写、避免依赖、常用模板
+- 路由命名：使用大驼峰命名，如 `UserProfile`
+- 动态路由参数类型化：使用 TypeScript 定义路由元信息
+- 路由守卫：在需要权限控制的路由中使用 `beforeEach`
+- 懒加载：所有页面级组件使用动态导入
 
-### 📡 通信与规范
+#### VueUse 使用建议
 
-- **[组件通信方式](../../docs/communication.md)** - Props/Emit、Pinia、Mitt、Provide/Inject
-- **[代码规范](../../docs/code-standards.md)** - 类型安全、错误处理、命名规范、性能优化
+- 优先使用 VueUse 提供的函数，避免重复造轮子
+- 常用函数：`useLocalStorage`、`useDebounce`、`useThrottle`、`useWindowSize`
+- 响应式工具：`useVModel`、`useToggle`、`useCounter`
+- 网络请求：`useFetch` 可用于简单的数据获取场景
 
-### 🛠️ 工具和库
+#### lodash-es 使用规范
 
-- **[常用工具方法和 Hooks](../../docs/common-utilities.md)** - HTTP 请求封装、useBoolean、useAsync 等实用工具
+- 按需导入：`import { debounce, cloneDeep } from 'lodash-es'`
+- 禁止全量导入：避免 `import _ from 'lodash-es'`
+- 常用函数：`debounce`、`throttle`、`cloneDeep`、`isEmpty`、`isEqual`
+- 优先使用原生方法：如果原生 JavaScript 方法足够，不必使用 lodash
 
-### ✅ 质量保证
+## API 文档查询规范
 
-- **[开发检查清单](../../docs/checklist.md)** - 开发前、开发中、提交前的完整检查清单
+### Context7 MCP 使用
 
-## 快速参考
+在使用第三方库开发功能前，必须通过 Context7 MCP 查询最新的 API 文档，确保使用的是最新、最正确的 API。
 
-### 创建新功能的标准流程
+#### 查询流程
 
-1. 在 `typings/` 中定义相关类型
-2. 在 `config/` 中添加配置（如需要）
-3. 创建 Hooks 抽离复杂逻辑（`composables/`）
-4. 开发组件（保持职责单一）
-5. 测试功能和交互
-6. 检查清单验证
-7. 提交代码
+1. **解析库 ID**：使用 `resolve-library-id` 工具获取库的 Context7 ID
 
-### 常见问题
+   - 输入库名称（如 "vue"、"pinia"、"vueuse"）
+   - 获取准确的库 ID（格式：`/org/project` 或 `/org/project/version`）
 
-**Q: 什么时候使用 Pinia？**  
-A: 只在需要跨多个组件共享的全局状态时使用，局部状态应在组件内管理。
+2. **获取文档**：使用 `get-library-docs` 工具获取最新文档
+   - 使用第一步获得的库 ID
+   - 可指定具体的主题（如 "hooks"、"routing"、"composition-api"）
+   - 根据需要调整 tokens 参数（默认 5000，复杂场景可增加）
 
-**Q: Hooks 可以相互调用吗？**  
-A: 避免 Hooks 相互依赖。如果需要共享状态，使用 Pinia；如果需要传递数据，使用参数。
+#### 适用场景
 
-**Q: 配置文件如何组织？**  
-A: 使用对象形式组织，添加 JSDoc 注释，使用 `as const`，通过 `config/index.ts` 统一导出。
+必须使用 Context7 MCP 查询的情况：
 
-**Q: 如何处理跨组件通信？**  
-A: 父子用 Props/Emit，全局状态用 Pinia，事件通知用 Mitt，避免使用 Provide/Inject。
+- 使用新的第三方库或框架
+- 使用不熟悉的 API
+- API 可能已更新或弃用的情况
+- 需要查看完整参数、返回值、使用示例
 
-**Q: 如何管理加载状态？**  
-A: 使用 `useBoolean` Hook 简化布尔状态管理，或使用 `useAsync` 自动处理异步操作的加载状态。
+可以跳过查询的情况：
 
-**Q: HTTP 请求如何封装？**  
-A: 使用 `utils/request.ts` 中的 Axios 封装，已包含失败重试、拦截器和错误处理。
+- 使用非常基础、确定不会改变的原生 JavaScript API
+- 项目内部自定义的工具函数和组件
+- 已经非常熟悉且近期使用过的 API
 
-**Q: 如何使用 Volt UI 组件？**  
-A: 使用 `npx volt-vue add [组件名]` 下载组件到 `src/volt/` 目录，然后使用 `@/volt` 路径别名导入，如 `import Button from '@/volt/Button.vue'`。
+#### 常用库查询示例
 
-**Q: Volt 组件如何定制样式？**  
-A: 可通过三种方式：1) 修改 CSS 变量；2) 传递 Tailwind 类到 class 属性；3) 直接修改 `src/volt/` 中的组件文件。
+- Vue 3 核心 API：查询 `vue` 或 `/vuejs/core`
+- Pinia 状态管理：查询 `pinia` 或 `/vuejs/pinia`
+- VueUse 工具库：查询 `vueuse` 或 `/@vueuse/core`
+- Vue Router：查询 `vue-router` 或 `/vuejs/router`
+- Tailwind CSS：查询 `tailwindcss` 或 `/tailwindlabs/tailwindcss`
+- lodash-es：查询 `lodash` 或 `/lodash/lodash`
 
-## 注意事项
+#### 注意事项
 
-- ⚠️ 事件总线监听器必须在组件卸载时清理
-- ⚠️ 避免 Hooks 之间形成依赖链
-- ⚠️ 配置文件每个字段都要有 JSDoc 注释
-- ⚠️ lodash-es 必须按需导入，避免 `import _ from 'lodash-es'`
-- ⚠️ 不要滥用 Pinia，只存储真正需要共享的状态
-- ⚠️ **类型导入必须添加 `type` 关键字**，避免类型和值混淆
-- ⚠️ **Volt 组件必须使用 `@/volt` 路径别名导入**，禁止使用相对路径
+- 优先查询官方维护的文档库（trust score 7-10）
+- 如果库有多个版本，优先使用项目中实际安装的版本
+- 查询时指定具体主题可以获得更精准的文档内容
+- 将查询到的 API 信息应用到代码中，确保参数、类型、用法正确
 
-## 开发工具
+## 工作流程
 
-- **包管理**：`pnpm install` / `pnpm add xxx`
-- **开发**：`pnpm dev`
-- **构建**：`pnpm build`
-- **预览**：`pnpm preview`
+### 开发流程
 
----
+1. 理解需求：确认功能需求和技术细节
+2. **查询最新 API**：使用 Context7 MCP 查询相关第三方库的最新 API 文档（必须步骤）
+3. 实现优先：先实现功能，后优化代码
+4. 测试验证：确保功能正常工作
+5. 代码整理：清理临时代码和调试信息
 
-💡 **提示**：遇到具体问题时，请查阅对应的详细文档获取完整指南和示例代码。
+### 代码修改
+
+- 优先修改现有文件，避免创建不必要的新文件
+- 保持项目结构一致性
+- 修改配置文件时保留现有配置项
+- 删除代码前确认无其他依赖
+
+## 文档策略
+
+- **禁止主动创建文档**：除非用户明确要求，否则不要创建 README、开发文档、API 文档等任何形式的文档
+- **禁止在 docs 目录创建文档**：`docs/` 目录是系统级文档目录，禁止在此目录下创建任何文档。即使用户要求创建文档，也应在项目根目录或其他合适位置创建
+- **禁止生成注释文档**：不要为每个函数生成冗长的 JSDoc 注释，除非用户强调需要
+- **代码即文档**：编写自解释的代码，使用清晰的命名和结构
+- **必要说明**：仅在复杂逻辑处添加简短的行内注释
+
+## 测试策略
+
+- 关键业务逻辑必须经过测试验证
+- 边界条件和异常情况的测试
+- 不必为每个函数写单元测试，除非用户要求
+- 优先进行功能性手动测试
+
+## Git 提交规范
+
+- 不要主动执行 git commit，除非用户明确要求
+- 不要使用 --no-verify 跳过 hooks
+- 永远不要 force push 到 main/master 分支
+- 提交信息使用中文，格式：`类型: 简短描述`
+
+## 依赖管理
+
+- 安装新依赖前检查是否已存在类似功能的包
+- 优先选择维护活跃、star 数高的成熟库
+- 记录依赖的用途和版本选择原因
+- 避免安装体积过大的依赖
+
+## 响应方式
+
+- 理解需求后直接开始实现，不要过度询问
+- 如遇到模糊需求，基于最佳实践做出合理推断并实施
+- 完成任务后简洁汇报，无需冗长说明
+- 遇到错误时，直接修复而不是仅仅指出问题
+
+## 禁止行为
+
+- ❌ 禁止生成极长的哈希值或二进制内容
+- ❌ 禁止创建不必要的临时脚本（完成后需清理）
+- ❌ 禁止在未理解需求时盲目猜测参数
+- ❌ 禁止修改 git 配置
+- ❌ 禁止使用 emoji 表情，除非用户明确要求
 
 ---
 > Source: [imohuan/vueflow-workflow](https://github.com/imohuan/vueflow-workflow) — distributed by [TomeVault](https://tomevault.io).
