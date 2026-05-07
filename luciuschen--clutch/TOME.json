@@ -4,7 +4,7 @@
   "repo": "clutch",
   "description": "Interactive database client for Emacs \u2014 MySQL, PostgreSQL, SQLite (pure Elisp) plus Oracle, SQL Server, DB2, Snowflake & Redshift via JDBC; paginated result browser, inline editing, schema browser, and REPL.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LuciusChen/clutch",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T11:30:55Z"
+  "distributed_at": "2026-05-07T10:21:51Z"
 }
