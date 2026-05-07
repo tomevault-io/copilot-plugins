@@ -1,54 +1,26 @@
-## how-to-add-features
+## models-and-state
 
-> Checklists for adding new agents, tools, guardrails, crews, and flow steps
+> Pydantic output and flow state models reference
 
 
-# When creating a new agent
+# Output Models (src/ai_team/models/outputs.py)
 
-1. Add YAML config to `config/agents.yaml` (role, goal, backstory, verbose, memory, allow_delegation, max_iter)
-2. Create Python class in `agents/` extending `BaseAgent`
-3. Define tools as `@tool` in `tools/`
-4. Add model in `config/settings.py` `OllamaModelConfig`
-5. Register in the appropriate crew's agent list
-6. Add unit test in `tests/unit/test_agents.py`
+- **RequirementsDocument**: project_name, description, target_users, user_stories (UserStory: as_a, i_want, so_that, acceptance_criteria, priority), non_functional_requirements, assumptions, constraints
+- **ArchitectureDocument**: system_overview, components, technology_stack, interfaces, data_model, deployment_topology, adrs
+- **CodeFile**: path, content, language, file_type (source/test/config/doc), dependencies, size_bytes
+- **TestResult / TestRunResult**: total, passed, failed, errors, skipped, coverage_line, coverage_branch, failures, duration_seconds
+- **DeploymentConfig**: dockerfile, docker_compose, ci_pipeline, environment_variables, infrastructure
+- **ProjectReport**: project_id, project_name, status, files, test_results, summary, duration
 
-# When creating a new tool
+# Flow State (src/ai_team/flows/state.py)
 
-1. Create in `src/ai_team/tools/` with `@tool` decorator
-2. Include security wrapper (path validation, content scanning)
-3. Add audit logging for all operations
-4. Define Pydantic models for structured input/output
-5. Add unit test with normal and adversarial inputs
-6. Register in the appropriate agent's tool list
+**ProjectState**: project_id, project_description, current_phase, requirements, architecture, generated_files, test_results, deployment_config, phase_history, errors, retry_counts, max_retries, started_at, completed_at, metadata
 
-# When creating a new guardrail
+**ProjectPhase** enum: INTAKE, PLANNING, DEVELOPMENT, TESTING, DEPLOYMENT, COMPLETE, ERROR
 
-1. Add to `behavioral.py`, `security.py`, or `quality.py`
-2. Return `GuardrailResult` Pydantic model
-3. Integrate with CrewAI task `guardrail` parameter
-4. Add toggles in `GuardrailConfig` settings
-5. Add unit test (passing, failing, edge-case)
-6. Add adversarial test in `test_guardrails_adversarial.py`
+# GuardrailResult (guardrails/validators.py)
 
-# When creating a new crew
-
-1. Create in `src/ai_team/crews/` with `kickoff()` method
-2. Define tasks in tasks/ (YAML + Python)
-3. Set process (hierarchical or sequential)
-4. Configure memory, planning, verbose
-5. Add context dependencies between tasks
-6. Integrate guardrails at task level
-7. Add integration test with mocked LLM
-
-# When adding to the flow
-
-1. Add `@listen` to `AITeamFlow` in `flows/main_flow.py`
-2. Add `@router` for branching if needed
-3. Update `ProjectState` if needed
-4. Add phase to `ProjectPhase` enum if new
-5. Add error handler in `error_handling.py`
-6. Update routing documentation
-7. Add integration test for new flow path
+status ("pass" / "fail" / "warn"), message, details, retry_allowed, severity ("info" / "warning" / "critical")
 
 ---
 > Source: [RickZee/ai-team](https://github.com/RickZee/ai-team) — distributed by [TomeVault](https://tomevault.io).
