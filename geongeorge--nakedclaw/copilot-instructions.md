@@ -1,4 +1,4 @@
-## use-bun-instead-of-node-vite-npm-pnpm
+## nakedclaw
 
 > A self-improving AI agent reachable via Telegram, WhatsApp, Slack, and terminal. Runs as a background daemon with a CLI chat interface.
 
