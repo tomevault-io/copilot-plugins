@@ -4,7 +4,7 @@
   "repo": "agent-to-bricks",
   "description": "AI-powered element generation for Bricks Builder (WordPress)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nerveband/agent-to-bricks",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T05:57:17Z"
+  "distributed_at": "2026-05-07T08:12:16Z"
 }
