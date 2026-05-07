@@ -1,0 +1,44 @@
+{
+  "name": "K.U.R.O",
+  "owner": "Project-N-E-K-O",
+  "repo": "K.U.R.O",
+  "description": "An AI Native game that is built for N.E.K.O, with User&AI-friendly interfaces.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Project-N-E-K-O/K.U.R.O",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T17:15:17Z"
+}
