@@ -1,0 +1,9 @@
+{
+  "name": "durabullhq--durabull",
+  "displayName": "durabull",
+  "description": "Durabull gives your team one clean command surface to inspect queues, recover failed jobs, and keep distributed workers healthy without digging through Redis internals.",
+  "version": "1.0.0",
+  "author": "durabullhq",
+  "homepage": "https://github.com/durabullhq/durabull",
+  "skills": []
+}
