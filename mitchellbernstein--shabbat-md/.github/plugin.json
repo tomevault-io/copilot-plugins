@@ -1,0 +1,9 @@
+{
+  "name": "mitchellbernstein--shabbat-md",
+  "displayName": "shabbat.md",
+  "description": "Make Agents Kosher Again. An open format for Shabbat-compliant AI agent configuration.",
+  "version": "1.0.0",
+  "author": "mitchellbernstein",
+  "homepage": "https://github.com/mitchellbernstein/shabbat.md",
+  "skills": []
+}
