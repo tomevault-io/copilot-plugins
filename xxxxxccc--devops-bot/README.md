@@ -7,11 +7,11 @@ Chat-driven AI coding agent — discuss requirements in group chat, get automate
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [xxxxxccc/devops-bot](https://github.com/xxxxxccc/devops-bot).
+Original source: `CLAUDE.md` in [xxxxxccc/devops-bot](https://github.com/xxxxxccc/devops-bot).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
