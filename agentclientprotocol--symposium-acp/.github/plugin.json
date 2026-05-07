@@ -1,0 +1,14 @@
+{
+  "name": "agentclientprotocol--symposium-acp",
+  "displayName": "symposium-acp",
+  "description": "The Symposium implementation the Agent Client Protocol specification",
+  "version": "1.0.0",
+  "author": "agentclientprotocol",
+  "homepage": "https://github.com/agentclientprotocol/symposium-acp",
+  "skills": [
+    {
+      "name": "sacp-v2-migration",
+      "description": ""
+    }
+  ]
+}
