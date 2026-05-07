@@ -1,19 +1,22 @@
-## python-configuration-management
+## python-decorator-patterns
 
-> Best practices for configuration management using Pydantic Settings with environment variables and .env files.
+> Best practices for creating and using decorators for cross-cutting concerns like timing, retry logic, and logging.
 
-- Use pydantic-settings for type-safe configuration management.
-- Define all configuration in a Settings class inheriting from BaseSettings.
-- Use Field() with default values and descriptions for all configuration fields.
-- Support environment variables with clear naming conventions (UPPERCASE_WITH_UNDERSCORES).
-- Use .env files for local development; never commit sensitive data.
-- Implement get_settings() as a singleton pattern using @lru_cache.
-- Provide helper methods in Settings class for derived paths and values.
-- Use env_prefix for namespacing environment variables if needed.
-- Validate configuration values using Pydantic validators.
-- Document all configuration fields with Field(description=...).
-- Support multiple environments (development, staging, production) with environment variable.
-- Use model_config for Pydantic v2 settings like env_file, env_nested_delimiter.
+- Use functools.wraps to preserve function metadata in decorators.
+- Create generic, reusable decorators that work with any function signature.
+- Use *args and **kwargs to support flexible function signatures.
+- Provide configurable decorators with default parameters.
+- Implement timing_decorator for performance monitoring.
+- Create retry_decorator with exponential backoff for transient failures.
+- Build log_calls decorator for automatic function call logging.
+- Support both synchronous and asynchronous functions in decorators.
+- Handle exceptions properly within decorators; don't swallow errors silently.
+- Use type hints in decorator signatures for better IDE support.
+- Document decorator parameters and behavior in docstrings.
+- Keep decorators focused on single concerns (timing, logging, retry, etc.).
+- Make decorators stackable and composable.
+- Consider performance impact; avoid expensive operations in decorators.
+- Test decorators independently with various function types.
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
