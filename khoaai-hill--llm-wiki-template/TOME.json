@@ -1,0 +1,44 @@
+{
+  "name": "llm-wiki-template",
+  "owner": "KHOAAI-HILL",
+  "repo": "llm-wiki-template",
+  "description": "AI-managed personal knowledge base using Karpathy LLM Wiki Pattern. Obsidian vault with automated workflows for ingestion, compilation, Q&A, and quality auditing.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/KHOAAI-HILL/llm-wiki-template",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T10:38:14Z"
+}
