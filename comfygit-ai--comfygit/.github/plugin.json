@@ -1,0 +1,14 @@
+{
+  "name": "comfygit-ai--comfygit",
+  "displayName": "comfygit",
+  "description": "ComfyGit monorepo containing the core libraries, CLI tools, and deployment utilities for managing ComfyUI environments.",
+  "version": "1.0.0",
+  "author": "comfygit-ai",
+  "homepage": "https://github.com/comfygit-ai/comfygit",
+  "skills": [
+    {
+      "name": "comfygit",
+      "description": ""
+    }
+  ]
+}
