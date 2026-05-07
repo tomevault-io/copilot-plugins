@@ -1,0 +1,100 @@
+## always
+
+> Critical rules that must always be followed
+
+
+# Critical Rules
+
+## Multi-Agent Plans (READ FIRST)
+
+Before creating plans for multiple agents, you **MUST** read `.cursor/rules/plans.mdc` and follow its structure exactly.
+
+---
+
+## Tool Usage
+
+| Task | Use This | Never This |
+|------|----------|------------|
+| Read | `read_file` | `cat`, `Get-Content` |
+| Write | `write` | `echo >`, `Set-Content` |
+| Edit | `search_replace` | `sed`, `awk` |
+| Search | `grep` | `rg`, `findstr` |
+| **Move** | `Move-Item` (terminal) | write new + delete old |
+| **Rename** | `Rename-Item` (terminal) | write new + delete old |
+| **Delete** | `Remove-Item` (terminal) | — |
+
+## File Move/Rename/Delete (CRITICAL)
+
+**NEVER** recreate files from scratch when moving or renaming. Use PowerShell:
+
+```powershell
+Move-Item -Path "old/path/file.ts" -Destination "new/path/file.ts"
+Rename-Item -Path "file.ts" -NewName "newname.ts"
+Remove-Item -Path "file.ts"
+```
+
+Why: Recreating files risks losing content, comments, or subtle details. Native file operations preserve everything exactly.
+
+Terminal is also for: `git`, `npm`, `npx`, build scripts.
+
+## Schema Versioning (BOTH files, every time)
+
+1. `supabase/schema.sql` → bump INSERT version
+2. `src/lib/schemaVersion.ts` → bump EXPECTED_SCHEMA_VERSION
+
+Mismatch = users see "database newer/older than app" warnings.
+
+## API Versioning (BOTH files, every time)
+
+When making API changes:
+
+1. `api/package.json` → bump `version` field
+2. `src/lib/apiVersion.ts` → bump `EXPECTED_API_VERSION`
+3. Add entry to `API_VERSION_DESCRIPTIONS` with changelog
+
+For **breaking changes** (major version bump):
+- Also update `MINIMUM_COMPATIBLE_API_VERSION`
+
+Mismatch = users see "API newer/older than app" warnings.
+
+## Release Gate
+
+Before creating a git tag:
+
+```
+npm run typecheck        # must pass
+package.json             # version bumped
+CHANGELOG.md             # entry added
+docs/                    # updated if user-facing
+```
+
+## Plans Location (CRITICAL)
+
+**ALWAYS** create plan files in the **repository's** `.cursor/plans/` folder:
+
+```
+{workspace}/.cursor/plans/{name}.plan.md
+```
+
+**NEVER** create plans in:
+- User home directory (`~/.cursor/` or `C:\Users\{user}\.cursor\`)
+- Cursor's project folder (`~/.cursor/projects/`)
+- Any location outside the repository
+
+The correct path is always **relative to the workspace root**, not the user's home directory.
+
+## CLI Commands
+
+New commands go in `src/lib/commands/handlers/`, register in `index.ts`.
+
+## New Features Checklist
+
+Before adding features, verify:
+
+1. **State** → Use `usePDMStore` slices, never new stores (`zustand.mdc`)
+2. **Location** → Feature code in `src/features/`, shared in `src/components/` (`architecture.mdc`)
+3. **Types** → Shared in `src/types/`, feature-specific in feature folder
+
+---
+> Source: [bluerobotics/bluePLM](https://github.com/bluerobotics/bluePLM) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
