@@ -1,0 +1,9 @@
+{
+  "name": "remorses--kitty-graphics-agent",
+  "displayName": "kitty-graphics-agent",
+  "description": "Intercept Kitty Graphics Protocol images from CLI output and inject them into LLM context. A standard for agent-CLI image passing. let agents read images from cli output in one tool call",
+  "version": "1.0.0",
+  "author": "remorses",
+  "homepage": "https://github.com/remorses/kitty-graphics-agent",
+  "skills": []
+}
