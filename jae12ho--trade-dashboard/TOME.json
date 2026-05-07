@@ -1,0 +1,44 @@
+{
+  "name": "trade-dashboard",
+  "owner": "Jae12ho",
+  "repo": "trade-dashboard",
+  "description": "\uc8fc\uc2dd \uc2dc\uc7a5 \uad00\ub828 \uc9c0\ud45c\ub4e4\uc744 \ubaa8\uc544\uc11c \ubcf4\uc5ec\uc8fc\uace0, AI\ub97c \ud1b5\ud574 \uc2dc\uc7a5\uc758 \ud5a5\ubc29\uc744 \uc608\uce21\ud574\uc8fc\ub294 \uc6f9 \ud398\uc774\uc9c0 \uc785\ub2c8\ub2e4.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jae12ho/trade-dashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T17:04:45Z"
+}
