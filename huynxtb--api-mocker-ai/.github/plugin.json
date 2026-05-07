@@ -1,0 +1,9 @@
+{
+  "name": "huynxtb--api-mocker-ai",
+  "displayName": "api-mocker-ai",
+  "description": " Generate realistic mock REST APIs with AI. Define projects, paste a JSON structure, and auto-create CRUD endpoints with synced data served at live URLs. Perfect for frontend teams",
+  "version": "1.0.0",
+  "author": "huynxtb",
+  "homepage": "https://github.com/huynxtb/api-mocker-ai",
+  "skills": []
+}
