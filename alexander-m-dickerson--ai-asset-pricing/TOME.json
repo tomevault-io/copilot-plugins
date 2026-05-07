@@ -4,7 +4,7 @@
   "repo": "ai-asset-pricing",
   "description": "Empirical Asset Pricing Tools",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Alexander-M-Dickerson/ai-asset-pricing",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T03:41:32Z"
+  "distributed_at": "2026-05-07T21:38:05Z"
 }
