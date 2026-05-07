@@ -1,0 +1,9 @@
+{
+  "name": "krissen--output-panel-nvim",
+  "displayName": "output-panel.nvim",
+  "description": "A configurable floating output window for Neovim jobs that combines optional adapters for VimTeX and Overseer with a generic run() API and :Make helper for everything else.",
+  "version": "1.0.0",
+  "author": "krissen",
+  "homepage": "https://github.com/krissen/output-panel.nvim",
+  "skills": []
+}
