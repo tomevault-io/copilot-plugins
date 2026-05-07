@@ -1,0 +1,9 @@
+{
+  "name": "yha9806--academic-writing-toolkit",
+  "displayName": "academic-writing-toolkit",
+  "description": "Structured skills for reading, writing, and managing academic research with AI agents. Works with Claude Code, Codex CLI, Gemini CLI, Cursor, and more.",
+  "version": "1.0.0",
+  "author": "yha9806",
+  "homepage": "https://github.com/yha9806/academic-writing-toolkit",
+  "skills": []
+}
