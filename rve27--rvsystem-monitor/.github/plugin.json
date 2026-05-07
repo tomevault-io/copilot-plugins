@@ -1,0 +1,9 @@
+{
+  "name": "rve27--rvsystem-monitor",
+  "displayName": "RvSystem-Monitor",
+  "description": "Modern Android system monitoring app using Jetpack Compose and Rust",
+  "version": "1.0.0",
+  "author": "Rve27",
+  "homepage": "https://github.com/Rve27/RvSystem-Monitor",
+  "skills": []
+}
