@@ -1,0 +1,9 @@
+{
+  "name": "max-hq--max",
+  "displayName": "max",
+  "description": "Max is a federated data connectivity layer that puts searchable data next to your deployed agent",
+  "version": "1.0.0",
+  "author": "max-hq",
+  "homepage": "https://github.com/max-hq/max",
+  "skills": []
+}
