@@ -1,0 +1,9 @@
+{
+  "name": "bikallem--webapi",
+  "displayName": "webapi",
+  "description": "Semi-curated and generated Moonbit browser WebAPI. Includes APIs - dom, fetch, html, xhr, url, svg, uievents and more.",
+  "version": "1.0.0",
+  "author": "bikallem",
+  "homepage": "https://github.com/bikallem/webapi",
+  "skills": []
+}
