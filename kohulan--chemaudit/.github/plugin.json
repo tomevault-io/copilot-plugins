@@ -1,0 +1,9 @@
+{
+  "name": "kohulan--chemaudit",
+  "displayName": "ChemAudit",
+  "description": "ChemAudit helps researchers validate, standardize, and assess the quality of chemical structures before using them in machine learning models or chemical databases. Upload individual molecules or batc",
+  "version": "1.0.0",
+  "author": "Kohulan",
+  "homepage": "https://github.com/Kohulan/ChemAudit",
+  "skills": []
+}
