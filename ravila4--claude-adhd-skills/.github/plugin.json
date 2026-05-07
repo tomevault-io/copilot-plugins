@@ -1,0 +1,9 @@
+{
+  "name": "ravila4--claude-adhd-skills",
+  "displayName": "claude-adhd-skills",
+  "description": "Claude Code skills and hooks for staying organized with AI agents.",
+  "version": "1.0.0",
+  "author": "ravila4",
+  "homepage": "https://github.com/ravila4/claude-adhd-skills",
+  "skills": []
+}
