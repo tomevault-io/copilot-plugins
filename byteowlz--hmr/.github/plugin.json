@@ -1,0 +1,9 @@
+{
+  "name": "byteowlz--hmr",
+  "displayName": "hmr",
+  "description": "Home Assistant CLI",
+  "version": "1.0.0",
+  "author": "byteowlz",
+  "homepage": "https://github.com/byteowlz/hmr",
+  "skills": []
+}
