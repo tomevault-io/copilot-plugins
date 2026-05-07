@@ -1,0 +1,9 @@
+{
+  "name": "spreadpaper--spreadpaper",
+  "displayName": "SpreadPaper",
+  "description": "macOS utility to spread one high resolution wallpaper over multiple monitors",
+  "version": "1.0.0",
+  "author": "spreadpaper",
+  "homepage": "https://github.com/spreadpaper/SpreadPaper",
+  "skills": []
+}
