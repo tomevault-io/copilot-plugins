@@ -4,7 +4,7 @@
   "repo": "Openagent-Github-Bridge",
   "description": "Self-hosted GitHub-to-OpenCode bridge for AI issue fixing, planning, slash-command coding, and PR review with full workspace control.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/spongehah/Openagent-Github-Bridge",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T12:38:21Z"
+  "distributed_at": "2026-05-07T12:55:07Z"
 }
