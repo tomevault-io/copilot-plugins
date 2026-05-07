@@ -1,0 +1,9 @@
+{
+  "name": "imperial-nsb--jbubble",
+  "displayName": "jbubble",
+  "description": "\ud83e\udee7 Differentiable microbubble dynamics in JAX.",
+  "version": "1.0.0",
+  "author": "imperial-nsb",
+  "homepage": "https://github.com/imperial-nsb/jbubble",
+  "skills": []
+}
