@@ -1,0 +1,9 @@
+{
+  "name": "tronghieu--lumina-wiki",
+  "displayName": "lumina-wiki",
+  "description": "An AI-powered research assistant for reading, understanding, organizing, and connecting knowledge, implementation of Karpathy's LLM Wiki",
+  "version": "1.0.0",
+  "author": "tronghieu",
+  "homepage": "https://github.com/tronghieu/lumina-wiki",
+  "skills": []
+}
