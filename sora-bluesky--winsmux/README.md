@@ -7,14 +7,14 @@ Native Windows terminal multiplexer with cross-pane AI agent communication — n
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [Sora-bluesky/winsmux](https://github.com/Sora-bluesky/winsmux).
+Original source: `AGENTS.md` in [Sora-bluesky/winsmux](https://github.com/Sora-bluesky/winsmux).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [Sora-bluesky/winsmux](https://github.com/Sora-bluesky/winsmux) — a repo with 24+ stars on GitHub.
