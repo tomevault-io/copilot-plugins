@@ -1,349 +1,86 @@
-## css-utilities
+## jsdoc-quality
 
-> Always use CSS utility functions with prefixed classes, never inline styles
+> Enforce meaningful JSDoc comments and avoid redundant documentation
 
 
-# CSS Utilities and Class Prefix Rule
+# JSDoc Quality Standards
 
-**CRITICAL: Never use inline styles. Always use CSS utility functions with the `plugin-name-` prefix.**
+**Eliminate useless JSDoc comments that just repeat the function/variable name.**
 
-## 🚨 **Zero Tolerance for Inline Styles**
-
-Inline styles (`element.style.*`) are **FORBIDDEN** in all TypeScript/JavaScript code.
-
-### ❌ **NEVER Use Inline Styles**
+## ❌ **DON'T: Write redundant JSDoc**
 
 ```typescript
-// ❌ FORBIDDEN: Any inline style manipulation
-element.style.display = "none";
-element.style.cssText = "color: red; font-size: 14px;";
-element.style.opacity = "0.5";
-element.style.visibility = "hidden";
-element.style.backgroundColor = "#fff";
-element.style.setProperty("color", "red");
-
-// ❌ FORBIDDEN: Even for dynamic values
-element.style.width = `${width}px`;
-element.style.top = `${position}px`;
-```
-
-## ✅ **ALWAYS Use CSS Utility Functions**
-
-### **CSS Prefix Configuration**
-
-Define the prefix once and use these utility functions throughout your codebase:
-
-```typescript
-const CSS_PREFIX = "plugin-name-";
+/**
+ * Get settings
+ */
+get settings() { ... }
 
 /**
- * Prefixes class names with the standard plugin prefix.
- * Handles multiple class names and automatically adds the prefix.
+ * Load settings
  */
-export function cls(...classNames: string[]): string {
-  return classNames
-    .flatMap((name) => name.split(/\s+/))
-    .filter((name) => name.length > 0)
-    .map((name) => `${CSS_PREFIX}${name}`)
-    .join(" ");
-}
+async loadSettings() { ... }
 
 /**
- * Adds prefixed class names to an element.
+ * Save settings
  */
-export function addCls(element: HTMLElement, ...classNames: string[]): void {
-  const classes = cls(...classNames);
-  if (classes) {
-    element.classList.add(...classes.split(/\s+/));
-  }
-}
+async saveSettings() { ... }
 
 /**
- * Removes prefixed class names from an element.
+ * Update profile
  */
-export function removeCls(element: HTMLElement, ...classNames: string[]): void {
-  const classes = cls(...classNames);
-  if (classes) {
-    element.classList.remove(...classes.split(/\s+/));
-  }
-}
+async updateProfile(profile: CalendarProfile) { ... }
+```
+
+## ✅ **DO: Write meaningful documentation or none at all**
+
+```typescript
+// No JSDoc needed - method name is self-explanatory
+get settings() { ... }
+
+// No JSDoc needed - clear from name and parameters
+async loadSettings() { ... }
+
+// Add JSDoc only when it provides real value
+/**
+ * Migrates settings from older versions and validates structure.
+ * Throws error if migration fails or settings are invalid.
+ */
+private migrateSettings(data: any): CustomCalendarSettings { ... }
 
 /**
- * Toggles prefixed class names on an element.
+ * Updates profile and automatically saves to disk.
+ * Creates new profile if ID doesn't exist, updates existing otherwise.
+ *
+ * @throws {Error} When max profile limit is reached for new profiles
  */
-export function toggleCls(element: HTMLElement, className: string, force?: boolean): boolean {
-  return element.classList.toggle(cls(className), force);
-}
-
-/**
- * Checks if element has a prefixed class.
- */
-export function hasCls(element: HTMLElement, className: string): boolean {
-  return element.classList.contains(cls(className));
-}
+async updateProfile(profile: CalendarProfile): Promise<void> { ... }
 ```
 
-## **Utility Function Reference**
-
-### `cls(...classNames: string[]): string`
-
-Prefixes class names and handles multiple classes.
-
-```typescript
-// ✅ Single class
-cls("calendar-view") // => "plugin-name-calendar-view"
-
-// ✅ Multiple classes
-cls("button", "active") // => "plugin-name-button plugin-name-active"
-
-// ✅ Space-separated classes
-cls("modal calendar") // => "plugin-name-modal plugin-name-calendar"
-
-// ✅ Mixed usage
-cls("button large", "primary") // => "plugin-name-button plugin-name-large plugin-name-primary"
-```
-
-### `addCls(element: HTMLElement, ...classNames: string[]): void`
-
-Adds prefixed classes to an element.
-
-```typescript
-// ✅ Add single class
-addCls(element, "active");
-
-// ✅ Add multiple classes
-addCls(element, "modal", "visible");
-
-// ✅ Add space-separated classes
-addCls(element, "button primary large");
-```
-
-### `removeCls(element: HTMLElement, ...classNames: string[]): void`
-
-Removes prefixed classes from an element.
-
-```typescript
-// ✅ Remove single class
-removeCls(element, "active");
-
-// ✅ Remove multiple classes
-removeCls(element, "loading", "disabled");
-```
-
-### `toggleCls(element: HTMLElement, className: string, force?: boolean): boolean`
-
-Toggles a prefixed class on an element.
-
-```typescript
-// ✅ Toggle class
-toggleCls(element, "active");
-
-// ✅ Force add
-toggleCls(element, "visible", true);
-
-// ✅ Force remove
-toggleCls(element, "hidden", false);
-
-// ✅ Use return value
-const isActive = toggleCls(button, "active");
-```
-
-### `hasCls(element: HTMLElement, className: string): boolean`
-
-Checks if element has a prefixed class.
-
-```typescript
-// ✅ Check for class
-if (hasCls(element, "active")) {
-  // Element has "plugin-name-active" class
-}
-
-// ✅ Conditional logic
-const isVisible = hasCls(modal, "visible");
-```
-
-## **Common Pattern Replacements**
-
-### Show/Hide Elements
-
-```typescript
-// ❌ WRONG: Inline style
-element.style.display = "none";
-element.style.display = "block";
-
-// ✅ CORRECT: CSS class
-// Define in styles.css:
-// .plugin-name-hidden { display: none; }
-// .plugin-name-visible { display: block; }
-addCls(element, "hidden");
-removeCls(element, "hidden");
-toggleCls(element, "visible");
-```
-
-### Active/Selected States
-
-```typescript
-// ❌ WRONG: Inline style
-element.style.backgroundColor = "#007acc";
-element.style.color = "white";
-
-// ✅ CORRECT: CSS class
-// Define in styles.css:
-// .plugin-name-active { background-color: #007acc; color: white; }
-addCls(element, "active");
-removeCls(element, "active");
-toggleCls(element, "active");
-```
-
-### Visibility Control
-
-```typescript
-// ❌ WRONG: Inline style
-element.style.opacity = "0";
-element.style.visibility = "hidden";
-
-// ✅ CORRECT: CSS class
-// Define in styles.css:
-// .plugin-name-fade-out { opacity: 0; }
-// .plugin-name-invisible { visibility: hidden; }
-addCls(element, "fade-out");
-addCls(element, "invisible");
-```
-
-### Dynamic Positioning
-
-```typescript
-// ❌ WRONG: Inline style for static positions
-element.style.position = "absolute";
-element.style.top = "10px";
-element.style.left = "20px";
-
-// ✅ CORRECT: CSS class for static positions
-// Define in styles.css:
-// .plugin-name-positioned { position: absolute; top: 10px; left: 20px; }
-addCls(element, "positioned");
-
-// ⚠️ EXCEPTION: Only for truly dynamic values (rare)
-// If position MUST be calculated at runtime based on user input/calculations
-element.style.top = `${calculatedPosition}px`;
-```
-
-### Setting Initial Classes on Creation
-
-```typescript
-// ✅ CORRECT: Set classes during element creation
-const button = containerEl.createEl("button", {
-  cls: cls("button", "primary", "large")
-});
-
-// ✅ CORRECT: Add classes after creation
-const modal = containerEl.createDiv();
-addCls(modal, "modal", "calendar-modal");
-```
-
-### Conditional Classes
-
-```typescript
-// ✅ CORRECT: Conditional class application
-if (isActive) {
-  addCls(element, "active");
-}
-
-// ✅ CORRECT: Toggle based on state
-toggleCls(element, "disabled", !isEnabled);
-
-// ✅ CORRECT: Remove/add pattern
-if (isLoading) {
-  addCls(button, "loading");
-  removeCls(button, "idle");
-} else {
-  removeCls(button, "loading");
-  addCls(button, "idle");
-}
-```
-
-## **CSS File Organization**
-
-Define all styles in `styles.css` with the `plugin-name-` prefix:
-
-```css
-/* Component states */
-.plugin-name-hidden { display: none; }
-.plugin-name-visible { display: block; }
-.plugin-name-invisible { visibility: hidden; }
-
-/* Active/selected states */
-.plugin-name-active { background-color: var(--interactive-accent); }
-.plugin-name-selected { border: 2px solid var(--interactive-accent); }
-
-/* Loading states */
-.plugin-name-loading { opacity: 0.6; pointer-events: none; }
-.plugin-name-disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* Component-specific */
-.plugin-name-calendar-view { /* ... */ }
-.plugin-name-modal { /* ... */ }
-.plugin-name-button { /* ... */ }
-.plugin-name-button.plugin-name-primary { /* ... */ }
-```
-
-## **Migration Checklist**
-
-When refactoring code with inline styles:
-
-- [ ] Find all `element.style.*` usages
-- [ ] Identify the visual state being changed
-- [ ] Create corresponding CSS class in `styles.css`
-- [ ] Replace inline style with `addCls()`, `removeCls()`, or `toggleCls()`
-- [ ] Verify the prefix is automatically applied
-- [ ] Test the visual appearance
-
-## **Exceptions (Extremely Rare)**
-
-Inline styles are **ONLY** acceptable when:
-
-1. **Truly dynamic runtime values** that can't be predefined in CSS
-   ```typescript
-   // Acceptable: Position calculated from user drag or resize
-   element.style.top = `${mouseY}px`;
-   element.style.left = `${mouseX}px`;
-   ```
-
-2. **Third-party library requirements** (document why)
-   ```typescript
-   // Acceptable: Required by external library API
-   // TODO: Check if library supports CSS classes instead
-   chartElement.style.width = chartWidth;
-   ```
-
-**Always ask**: "Can this be a CSS class with a state modifier?" The answer is almost always YES.
-
-## **Usage Pattern**
-
-```typescript
-// ✅ Import the utilities (place in a css-utils.ts file or similar)
-import { cls, addCls, removeCls, toggleCls, hasCls } from "./css-utils";
-
-// Use throughout your codebase
-const button = containerEl.createEl("button", {
-  cls: cls("button", "primary")
-});
-
-addCls(button, "active");
-toggleCls(button, "disabled", !isEnabled);
-
-// ❌ Never use inline styles
-// ❌ Never manipulate classList directly without prefix utilities
-```
-
-## **Enforcement**
-
-- **Code Review**: Flag any `element.style.*` usage
-- **CI/CD**: Linter should catch inline style usage
-- **Refactoring**: Remove all existing inline styles immediately
-- **New Code**: Zero tolerance for new inline styles
-
-**Remember**: CSS classes are maintainable, themeable, and performant. Inline styles are technical debt.
+## **When JSDoc adds value:**
+
+- **Complex logic**: Explain non-obvious behavior or algorithms
+- **Error conditions**: Document what exceptions are thrown and when
+- **Side effects**: Mention automatic saves, notifications, state changes
+- **Business rules**: Explain validation rules or constraints
+- **API contracts**: Document expected input/output for public methods
+- **Performance notes**: Mention caching, async behavior, or expensive operations
+
+## **When to skip JSDoc:**
+
+- **Self-explanatory names**: `getName()`, `setActive()`, `isValid()`
+- **Simple getters/setters**: Basic property access
+- **Obvious parameters**: `updateProfile(profile)`, `removeById(id)`
+- **Standard patterns**: Basic CRUD operations, event handlers
+- **Private utilities**: Internal helper methods with clear names
+
+## **Focus on code clarity first:**
+
+- Use descriptive method and variable names
+- Keep functions small and focused
+- Use TypeScript types for parameter documentation
+- Let the code tell the story, use JSDoc for context
+
+**Remember**: Good code needs less documentation. Write code so clear that JSDoc becomes unnecessary, then add JSDoc only where it genuinely helps.
 
 ---
 > Source: [Real1tyy/Periodix-Planner](https://github.com/Real1tyy/Periodix-Planner) — distributed by [TomeVault](https://tomevault.io).
