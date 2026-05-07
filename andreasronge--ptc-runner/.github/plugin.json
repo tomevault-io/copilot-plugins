@@ -1,0 +1,9 @@
+{
+  "name": "andreasronge--ptc-runner",
+  "displayName": "ptc_runner",
+  "description": "A BEAM-native Elixir library for Programmatic Tool Calling (PTC). Execute LLM-generated programs that orchestrate tools and transform data safely inside sandboxed processes.",
+  "version": "1.0.0",
+  "author": "andreasronge",
+  "homepage": "https://github.com/andreasronge/ptc_runner",
+  "skills": []
+}
