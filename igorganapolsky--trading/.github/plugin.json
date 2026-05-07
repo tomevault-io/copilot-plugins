@@ -1,0 +1,9 @@
+{
+  "name": "igorganapolsky--trading",
+  "displayName": "trading",
+  "description": "Paper-first SPY options validation platform with broker-backed scorecards, hard risk gates, paired-trade accounting, and live dashboards.",
+  "version": "1.0.0",
+  "author": "IgorGanapolsky",
+  "homepage": "https://github.com/IgorGanapolsky/trading",
+  "skills": []
+}
