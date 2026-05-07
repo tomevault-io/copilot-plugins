@@ -1,0 +1,9 @@
+{
+  "name": "conflicthq--fossilrepo",
+  "displayName": "fossilrepo",
+  "description": "fossilrepo server omnibus stack",
+  "version": "1.0.0",
+  "author": "ConflictHQ",
+  "homepage": "https://github.com/ConflictHQ/fossilrepo",
+  "skills": []
+}
