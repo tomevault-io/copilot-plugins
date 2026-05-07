@@ -1,0 +1,9 @@
+{
+  "name": "ximatai--agenttavern",
+  "displayName": "AgentTavern",
+  "description": "AgentTavern \u662f\u4e00\u4e2a\u9762\u5411\u4f01\u4e1a\u5185\u534f\u4f5c\u7684\u3001\u53ef\u672c\u5730\u90e8\u7f72\u4e14\u5e26\u5ba1\u6279\u7ea6\u675f\u7684 Agent \u534f\u4f5c\u6267\u884c\u7a7a\u95f4\u3002",
+  "version": "1.0.0",
+  "author": "ximatai",
+  "homepage": "https://github.com/ximatai/AgentTavern",
+  "skills": []
+}
