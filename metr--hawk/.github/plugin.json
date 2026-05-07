@@ -1,0 +1,9 @@
+{
+  "name": "metr--hawk",
+  "displayName": "hawk",
+  "description": "Run Inspect AI evals in the cloud",
+  "version": "1.0.0",
+  "author": "METR",
+  "homepage": "https://github.com/METR/hawk",
+  "skills": []
+}
