@@ -7,11 +7,11 @@ A lightweight CLI coding agent focused on speed, determinism, and developer cont
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [qnguyen3/qqcode](https://github.com/qnguyen3/qqcode).
+Original source: `CLAUDE.md` in [qnguyen3/qqcode](https://github.com/qnguyen3/qqcode).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
