@@ -1,0 +1,9 @@
+{
+  "name": "outlinedriven--odin-codex-plugin",
+  "displayName": "odin-codex-plugin",
+  "description": "Outline-Driven Development for Codex CLI - methodology + skills + agents for OpenAI Codex coding workflows.",
+  "version": "1.0.0",
+  "author": "OutlineDriven",
+  "homepage": "https://github.com/OutlineDriven/odin-codex-plugin",
+  "skills": []
+}
