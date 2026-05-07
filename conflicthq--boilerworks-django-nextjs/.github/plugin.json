@@ -1,0 +1,9 @@
+{
+  "name": "conflicthq--boilerworks-django-nextjs",
+  "displayName": "boilerworks-django-nextjs",
+  "description": "Django + React platform base for AI-assisted business app development",
+  "version": "1.0.0",
+  "author": "ConflictHQ",
+  "homepage": "https://github.com/ConflictHQ/boilerworks-django-nextjs",
+  "skills": []
+}
