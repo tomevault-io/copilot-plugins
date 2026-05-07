@@ -1,0 +1,9 @@
+{
+  "name": "neulab--swe-playground",
+  "displayName": "SWE-Playground",
+  "description": "Official Repository for \"Training Versatile Coding Agents in Synthetic Environments\"",
+  "version": "1.0.0",
+  "author": "neulab",
+  "homepage": "https://github.com/neulab/SWE-Playground",
+  "skills": []
+}
