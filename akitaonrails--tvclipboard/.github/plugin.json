@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--tvclipboard",
+  "displayName": "tvclipboard",
+  "description": "A simple local service to paste text from your phone to the clipboard of a remote computer",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/tvclipboard",
+  "skills": []
+}
