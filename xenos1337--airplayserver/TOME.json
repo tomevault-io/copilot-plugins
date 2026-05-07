@@ -1,0 +1,44 @@
+{
+  "name": "AirPlayServer",
+  "owner": "xenos1337",
+  "repo": "AirPlayServer",
+  "description": "A fast, modern AirPlay receiver for Windows with real-time video mirroring, audio playback, and automatic device discovery. Supports 30/60 FPS streaming, hardware-accelerated rendering, adjustable quality presets, and a smooth, low-latency playback pipeline.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xenos1337/AirPlayServer",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T19:02:50Z"
+}
