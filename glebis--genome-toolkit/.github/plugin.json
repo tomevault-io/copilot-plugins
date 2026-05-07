@@ -1,0 +1,9 @@
+{
+  "name": "glebis--genome-toolkit",
+  "displayName": "genome-toolkit",
+  "description": "Personal genomics Obsidian vault toolkit \u2014 import, analyze, and act on your genome data with Claude Code",
+  "version": "1.0.0",
+  "author": "glebis",
+  "homepage": "https://github.com/glebis/genome-toolkit",
+  "skills": []
+}
