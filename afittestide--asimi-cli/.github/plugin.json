@@ -1,0 +1,9 @@
+{
+  "name": "afittestide--asimi-cli",
+  "displayName": "asimi-cli",
+  "description": "An opinionated, safe & fast coding agent",
+  "version": "1.0.0",
+  "author": "afittestide",
+  "homepage": "https://github.com/afittestide/asimi-cli",
+  "skills": []
+}
