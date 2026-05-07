@@ -1,0 +1,9 @@
+{
+  "name": "paradise-runner--toast",
+  "displayName": "toast",
+  "description": "A lightweight TUI IDE for making quick in-the-moment edits.",
+  "version": "1.0.0",
+  "author": "paradise-runner",
+  "homepage": "https://github.com/paradise-runner/toast",
+  "skills": []
+}
