@@ -4,7 +4,7 @@
   "repo": "Thinking-Space",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/anuragrpatil23/Thinking-Space",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T05:30:44Z"
+  "distributed_at": "2026-05-07T06:08:28Z"
 }
