@@ -1,0 +1,9 @@
+{
+  "name": "agentii-ai--blog-tech-kit",
+  "displayName": "blog-tech-kit",
+  "description": "Spec-driven toolkit for building authority blogs with AI agents. Define content strategy, editorial workflows, and production tasks using Claude Code, Cursor, Windsurf & more. Built on spec-kit method",
+  "version": "1.0.0",
+  "author": "agentii-ai",
+  "homepage": "https://github.com/agentii-ai/blog-tech-kit",
+  "skills": []
+}
