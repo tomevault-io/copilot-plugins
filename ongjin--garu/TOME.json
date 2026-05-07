@@ -1,0 +1,44 @@
+{
+  "name": "garu",
+  "owner": "ongjin",
+  "repo": "garu",
+  "description": "\ube0c\ub77c\uc6b0\uc800\uc5d0\uc11c \uc9c1\uc811 \uc2e4\ud589\ub418\ub294 WebAssembly \uae30\ubc18 \ud615\ud0dc\uc18c \ubd84\uc11d\uae30",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ongjin/garu",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T14:34:30Z"
+}
