@@ -2,9 +2,9 @@
   "name": "specfact-cli",
   "owner": "nold-ai",
   "repo": "specfact-cli",
-  "description": "AI instruction files for specfact-cli by nold-ai",
+  "description": "The Swiss-knife CLI for validation and alignment in software delivery. Keep backlog intent, specs, tests, and code in sync across AI-assisted and brownfield delivery.",
   "type": "tome",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -45,7 +45,7 @@
       "description": ""
     }
   ],
-  "claim_url": "https://tomevault.io/claim/nold-ai",
+  "source_url": "https://github.com/nold-ai/specfact-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T16:07:59Z"
+  "distributed_at": "2026-05-07T05:30:59Z"
 }
