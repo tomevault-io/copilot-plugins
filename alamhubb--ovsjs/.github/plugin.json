@@ -1,0 +1,9 @@
+{
+  "name": "alamhubb--ovsjs",
+  "displayName": "ovsjs",
+  "description": "OVS - a pure JavaScript declarative UI, a Vue DSL that lets you write Vue with a more concise, elegant, and flexible syntax, inspired by Kotlin-HTML, SwiftUI, and SolidJS.",
+  "version": "1.0.0",
+  "author": "alamhubb",
+  "homepage": "https://github.com/alamhubb/ovsjs",
+  "skills": []
+}
