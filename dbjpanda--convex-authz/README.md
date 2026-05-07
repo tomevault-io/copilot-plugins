@@ -7,13 +7,13 @@ A comprehensive RBAC/ABAC/ReBAC authorization component for Convex with O(1) ind
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [dbjpanda/convex-authz](https://github.com/dbjpanda/convex-authz).
+Original source: `CLAUDE.md` in [dbjpanda/convex-authz](https://github.com/dbjpanda/convex-authz).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
