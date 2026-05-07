@@ -1,0 +1,9 @@
+{
+  "name": "allen-hsu--clawhuddle",
+  "displayName": "clawhuddle",
+  "description": "Self-hosted OpenClaw for teams \u2014 Give every person on your team their own AI assistant.  Each team member gets an isolated OpenClaw instance with zero maintenance. You add people, the system handles t",
+  "version": "1.0.0",
+  "author": "allen-hsu",
+  "homepage": "https://github.com/allen-hsu/clawhuddle",
+  "skills": []
+}
