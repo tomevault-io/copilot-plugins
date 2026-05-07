@@ -1,20 +1,23 @@
-## python-error-handling
+## python-general-coding-style
 
-> Comprehensive error handling patterns with custom exceptions and proper error propagation.
+> Enforces general Python coding style guidelines for utility library development, emphasizing functional programming and type safety.
 
-- Always handle expected errors explicitly with try-except blocks.
-- Create custom exception classes for domain-specific errors.
-- Use meaningful exception messages with context about what failed.
-- Never use bare except: clauses; always specify exception types.
-- Log errors with full context using logger.exception() or logger.opt(exception=True).
-- Re-raise exceptions after logging when appropriate.
-- Use contextlib.suppress() for acceptable ignored exceptions.
-- Implement retry logic using @retry_decorator for transient failures.
-- Validate inputs early and raise ValueError/TypeError for invalid inputs.
-- Use assertions only for internal invariants, not for user input validation.
-- Clean up resources properly using context managers or try-finally blocks.
-- Document exceptions that functions may raise in docstrings.
-- Return Optional[T] or Result types instead of raising exceptions for expected failures.
+- Write concise, technical responses with accurate Python examples.
+- Use functional, declarative programming; avoid classes except for Pydantic BaseModel and necessary data structures.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable names with auxiliary verbs (e.g., is_valid, has_data, should_retry).
+- Use lowercase with underscores for directories and files (e.g., utils/date_utils.py).
+- Favor named exports for utility functions.
+- Use the Receive an Object, Return an Object (RORO) pattern.
+- Use def for pure functions and async def for asynchronous operations.
+- Use type hints for all function signatures (parameters and return types).
+- All models in the models/ directory MUST inherit from Pydantic BaseModel for validation and serialization.
+- Prefer Pydantic models for configuration and data validation over raw dictionaries.
+- Use Optional[T] explicitly instead of T | None for better Python 3.8+ compatibility.
+- Avoid unnecessary complexity in conditional statements.
+- Use concise, one-line syntax for simple conditional statements (e.g., if condition: do_something()).
+- Follow PEP 8 naming conventions: snake_case for functions/variables, PascalCase for classes.
+- Use docstrings (Google style) for all public functions and classes.
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
