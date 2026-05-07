@@ -1,0 +1,9 @@
+{
+  "name": "nikolassv--md-serve",
+  "displayName": "md-serve",
+  "description": " Serve a directory of Markdown files as rendered HTML - with directory listings, YAML front matter, breadcrumb navigation, and customisable Handlebars templates.",
+  "version": "1.0.0",
+  "author": "nikolassv",
+  "homepage": "https://github.com/nikolassv/md-serve",
+  "skills": []
+}
