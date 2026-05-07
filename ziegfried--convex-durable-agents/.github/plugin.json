@@ -1,0 +1,9 @@
+{
+  "name": "ziegfried--convex-durable-agents",
+  "displayName": "convex-durable-agents",
+  "description": "A durable AI agents component for Convex with automatic retries, crash recovery, and tool execution",
+  "version": "1.0.0",
+  "author": "ziegfried",
+  "homepage": "https://github.com/ziegfried/convex-durable-agents",
+  "skills": []
+}
