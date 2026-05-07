@@ -1,0 +1,9 @@
+{
+  "name": "coddy-project--coddy-bot",
+  "displayName": "coddy-bot",
+  "description": "COmmunity Driven Development, Yep - is an autonomous development assistant that integrates with Git hosting platforms.",
+  "version": "1.0.0",
+  "author": "coddy-project",
+  "homepage": "https://github.com/coddy-project/coddy-bot",
+  "skills": []
+}
