@@ -1,0 +1,9 @@
+{
+  "name": "plckr--flightradar-flight-card",
+  "displayName": "flightradar-flight-card",
+  "description": "FlightRadar24 custom card for Home Assistant",
+  "version": "1.0.0",
+  "author": "plckr",
+  "homepage": "https://github.com/plckr/flightradar-flight-card",
+  "skills": []
+}
