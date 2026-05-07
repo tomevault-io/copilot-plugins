@@ -1,54 +1,32 @@
-## react
+## solidworks-service
 
-> React component architecture and patterns
+> SolidWorks service build requirements
 
 
-# React Architecture
+# SolidWorks Service
 
-## State Management (Zustand-First)
+## Version Bumping (MANDATORY for every change)
 
-> **See `zustand.mdc` for complete Zustand patterns and slice creation.**
+Every change to the SolidWorks service MUST bump the version in BOTH files:
 
-| Scope | Tool | Example |
-|-------|------|---------|
-| Component UI | `useState` | modal open, input value |
-| Shared/Global | `usePDMStore` | user, files, settings |
-| Server cache | React Query | when implemented |
+1. `solidworks-service/BluePLM.SolidWorksService/Program.cs` → bump `SERVICE_VERSION`
+2. `src/lib/swServiceVersion.ts` → bump `EXPECTED_SW_SERVICE_VERSION` (and `MINIMUM_COMPATIBLE_SW_SERVICE_VERSION` for breaking changes)
+3. `src/lib/swServiceVersion.ts` → add entry to `SW_SERVICE_VERSION_DESCRIPTIONS` with a short changelog
+4. `src/lib/swServiceVersion.ts` → update the VERSION HISTORY comment block
 
-**Prop Drilling: Max 2 levels. Beyond that → Zustand selector.**
+Uses semver: bump PATCH for fixes, MINOR for features, MAJOR for breaking changes.
 
-```typescript
-// ✅ GOOD: grab what you need from store
-const files = usePDMStore(state => state.files)
+## ALWAYS After Changes
 
-// ❌ BAD: passing props through 3+ components
-<Parent files={files}> → <Child files={files}> → <GrandChild files={files}>
+1. **Bump the version** (see above)
+2. **Close BluePLM app** if running (the service exe is locked while in use)
+3. **Rebuild** the service:
 
-// ❌ NEVER select entire store
-const store = usePDMStore()  // Re-renders on ANY state change
+```powershell
+cd solidworks-service/BluePLM.SolidWorksService && dotnet build -c Release
 ```
 
-**Adding state? → Create a slice**, not a new store. See `zustand.mdc`.
-
-## Component Rules
-
-- Single responsibility: one reason to change
-- Composition over configuration: small, composable pieces
-- Props interface: explicit types, no `any`
-- Named export, one primary component per file
-
-## Styling (Tailwind Only)
-
-- Theme tokens: `pdm-bg`, `pdm-fg`, `pdm-accent`, `pdm-border`
-- Status: `pdm-success`, `pdm-warning`, `pdm-error`, `pdm-info`
-- Sidebar text: always `text-left`
-- No inline styles, no CSS modules
-
-## Import Order
-
-1. External (`react`, `zustand`)
-2. Internal (`@/lib`, `@/stores`, `@/components`)
-3. Relative (`./`, `../`)
+Why: The Electron app loads the compiled `.exe` from `bin/Release/`. Without rebuilding and restarting, your code changes won't take effect. Always build with `-c Release` (not Debug).
 
 ---
 > Source: [bluerobotics/bluePLM](https://github.com/bluerobotics/bluePLM) — distributed by [TomeVault](https://tomevault.io).
