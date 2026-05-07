@@ -1,0 +1,9 @@
+{
+  "name": "webodm--odx",
+  "displayName": "ODX",
+  "description": "Free and open source photogrammetry engine for processing aerial and ground imagery. Powering WebODM \ud83d\udcf7  ",
+  "version": "1.0.0",
+  "author": "WebODM",
+  "homepage": "https://github.com/WebODM/ODX",
+  "skills": []
+}
