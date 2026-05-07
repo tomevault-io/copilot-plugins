@@ -1,33 +1,54 @@
-## crewai-tools
+## how-to-add-features
 
-> CrewAI tool definition and security for ai-team tools
+> Checklists for adding new agents, tools, guardrails, crews, and flow steps
 
 
-# Tool Definition Pattern
+# When creating a new agent
 
-- Use `@tool("Display Name")`; docstring with Args and Returns
-- Validate inputs first (path validation, content checks)
-- Call `audit_log` for the operation; return only safe result
+1. Add YAML config to `config/agents.yaml` (role, goal, backstory, verbose, memory, allow_delegation, max_iter)
+2. Create Python class in `agents/` extending `BaseAgent`
+3. Define tools as `@tool` in `tools/`
+4. Add model in `config/settings.py` `OllamaModelConfig`
+5. Register in the appropriate crew's agent list
+6. Add unit test in `tests/unit/test_agents.py`
 
-```python
-from crewai.tools import tool
+# When creating a new tool
 
-@tool("Read File")
-def read_file(file_path: str) -> str:
-    """Read a file from the workspace directory securely.
+1. Create in `src/ai_team/tools/` with `@tool` decorator
+2. Include security wrapper (path validation, content scanning)
+3. Add audit logging for all operations
+4. Define Pydantic models for structured input/output
+5. Add unit test with normal and adversarial inputs
+6. Register in the appropriate agent's tool list
 
-    Args:
-        file_path: Relative path to the file within the workspace.
+# When creating a new guardrail
 
-    Returns:
-        The file contents as a string.
-    """
-    validated_path = validate_path(file_path)
-    audit_log("read_file", validated_path)
-    return validated_path.read_text()
-```
+1. Add to `behavioral.py`, `security.py`, or `quality.py`
+2. Return `GuardrailResult` Pydantic model
+3. Integrate with CrewAI task `guardrail` parameter
+4. Add toggles in `GuardrailConfig` settings
+5. Add unit test (passing, failing, edge-case)
+6. Add adversarial test in `test_guardrails_adversarial.py`
 
-For the full security checklist (path traversal, sandboxing, PII/secret detection, etc.), see the security-requirements rule.
+# When creating a new crew
+
+1. Create in `src/ai_team/crews/` with `kickoff()` method
+2. Define tasks in tasks/ (YAML + Python)
+3. Set process (hierarchical or sequential)
+4. Configure memory, planning, verbose
+5. Add context dependencies between tasks
+6. Integrate guardrails at task level
+7. Add integration test with mocked LLM
+
+# When adding to the flow
+
+1. Add `@listen` to `AITeamFlow` in `flows/main_flow.py`
+2. Add `@router` for branching if needed
+3. Update `ProjectState` if needed
+4. Add phase to `ProjectPhase` enum if new
+5. Add error handler in `error_handling.py`
+6. Update routing documentation
+7. Add integration test for new flow path
 
 ---
 > Source: [RickZee/ai-team](https://github.com/RickZee/ai-team) — distributed by [TomeVault](https://tomevault.io).
