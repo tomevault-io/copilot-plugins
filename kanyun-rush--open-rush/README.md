@@ -7,11 +7,11 @@ Enterprise AI agent infrastructure — self-hosted, multi-scenario, built for ev
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kanyun-rush/open-rush](https://github.com/kanyun-rush/open-rush).
+Original source: `CLAUDE.md` in [kanyun-rush/open-rush](https://github.com/kanyun-rush/open-rush).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
