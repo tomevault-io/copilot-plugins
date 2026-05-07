@@ -7,11 +7,11 @@ MCP server for orchestrating Claude Code or Codex sessions via iTerm2 or tmux
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Martian-Engineering/maniple](https://github.com/Martian-Engineering/maniple).
+Original source: `CLAUDE.md` in [Martian-Engineering/maniple](https://github.com/Martian-Engineering/maniple).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
