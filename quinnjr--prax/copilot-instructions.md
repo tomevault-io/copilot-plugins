@@ -1,413 +1,262 @@
-## caching
+## changelog
 
-> This project provides a tiered caching layer with in-memory and Redis backends. Follow these guidelines for effective cache usage.
+> Guidelines for maintaining CHANGELOG.md following Keep a Changelog format
 
-# Data Caching Guidelines
 
-This project provides a tiered caching layer with in-memory and Redis backends. Follow these guidelines for effective cache usage.
+# Changelog Guidelines
 
-## Cache Architecture
+This project follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [Semantic Versioning](https://semver.org/).
 
-### Tiered Cache (Recommended)
+## When to Update
 
-Use L1 (memory) + L2 (Redis) for best performance:
+Update `CHANGELOG.md` when:
+- ✅ Adding a new feature (`feat` commits)
+- ✅ Fixing a bug (`fix` commits)
+- ✅ Making breaking changes
+- ✅ Deprecating functionality
+- ✅ Removing features
+- ✅ Security fixes
+- ✅ Performance improvements (`perf` commits)
 
-```rust
-use prax_query::data_cache::{TieredCache, MemoryCache, RedisCache};
+Do NOT update for:
+- ❌ Internal refactoring (no user-facing changes)
+- ❌ Test additions/changes
+- ❌ CI/CD changes
+- ❌ Documentation-only changes (unless significant)
+- ❌ Code style/formatting
 
-// L1: Fast in-memory cache
-let memory = MemoryCache::builder()
-    .max_capacity(10_000)
-    .time_to_live(Duration::from_secs(60))
-    .build();
+## File Structure
 
-// L2: Distributed Redis cache
-let redis = RedisCache::builder()
-    .url("redis://localhost:6379")
-    .key_prefix("myapp:")
-    .default_ttl(Duration::from_secs(300))
-    .build()
-    .await?;
+```markdown
+# Changelog
 
-// Tiered: Check L1 first, then L2
-let cache = TieredCache::new(memory, redis);
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- New features here
+
+### Changed
+- Changes to existing functionality
+
+### Deprecated
+- Features that will be removed
+
+### Removed
+- Features that were removed
+
+### Fixed
+- Bug fixes
+
+### Security
+- Security-related fixes
+
+## [0.1.0] - 2025-01-15
+
+### Added
+- Initial release features
+
+[Unreleased]: https://github.com/pegasusheavy/prax/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/pegasusheavy/prax/releases/tag/v0.1.0
 ```
 
-### Memory-Only Cache
+## Section Definitions
 
-For single-instance deployments:
+### Added
+New features or capabilities added to the project.
 
-```rust
-use prax_query::data_cache::MemoryCache;
-
-let cache = MemoryCache::builder()
-    .max_capacity(50_000)
-    .time_to_live(Duration::from_secs(300))
-    .time_to_idle(Duration::from_secs(60))
-    .build();
+```markdown
+### Added
+- Query builder now supports nested `where` clauses
+- New `include()` method for eager loading relations
+- PostgreSQL `JSONB` column type support
 ```
 
-### Redis-Only Cache
+### Changed
+Changes to existing functionality (non-breaking).
 
-For distributed caching without local cache:
-
-```rust
-use prax_query::data_cache::RedisCache;
-
-let cache = RedisCache::builder()
-    .url("redis://localhost:6379")
-    .pool_size(10)
-    .key_prefix("myapp:")
-    .default_ttl(Duration::from_secs(3600))
-    .build()
-    .await?;
+```markdown
+### Changed
+- `execute()` now returns `QueryResult<T>` instead of `Result<T, Error>`
+- Connection pool default size increased from 5 to 10
+- Improved error messages for invalid schema definitions
 ```
 
-## Cache Keys
+### Deprecated
+Features that will be removed in future versions.
 
-### Use Structured Keys
-
-```rust
-use prax_query::data_cache::CacheKey;
-
-// ✅ Good: Structured, predictable keys
-let key = CacheKey::entity("User", 123);           // "User:123"
-let key = CacheKey::query("users", &filter_hash);  // "query:users:{hash}"
-let key = CacheKey::custom("feature_flags", "v1"); // "feature_flags:v1"
-
-// ❌ Bad: Unstructured keys
-let key = format!("user_{}", id);  // No namespace, hard to invalidate
+```markdown
+### Deprecated
+- `Client::query_raw()` - use `Client::raw_query()` instead
+- The `sync` feature flag will be removed in v1.0.0
 ```
 
-### Include Tenant in Keys (Multi-Tenant)
+### Removed
+Features that were removed in this release.
 
-```rust
-// ✅ Good: Tenant-scoped keys
-let key = CacheKey::tenant_entity(tenant_id, "User", user_id);
-// "tenant:123:User:456"
-
-// ✅ Good: Tenant prefix in Redis
-let redis = RedisCache::builder()
-    .key_prefix(format!("tenant:{}:", tenant_id))
-    .build()
-    .await?;
-
-// ❌ DANGEROUS: Shared keys across tenants
-let key = CacheKey::entity("User", user_id);
-// Tenant A might see Tenant B's cached data!
+```markdown
+### Removed
+- Removed deprecated `Client::execute_sync()` method
+- Dropped support for PostgreSQL versions below 12
 ```
 
-## Cache Operations
+### Fixed
+Bug fixes.
 
-### Basic Get/Set
-
-```rust
-// Get with type inference
-let user: Option<User> = cache.get(&key).await?;
-
-// Set with default TTL
-cache.set(&key, &user).await?;
-
-// Set with custom TTL
-cache.set_with_ttl(&key, &user, Duration::from_secs(600)).await?;
-
-// Get or compute
-let user = cache.get_or_set(&key, || async {
-    db.user().find_unique(user::id::equals(id)).exec().await
-}).await?;
+```markdown
+### Fixed
+- Fixed connection leak when queries timeout
+- Fixed panic when parsing schemas with circular relations
+- Corrected SQL generation for `NOT IN` clauses
 ```
 
-### Batch Operations
+### Security
+Security-related fixes (always include CVE if applicable).
 
-```rust
-// Get multiple keys
-let keys = vec![
-    CacheKey::entity("User", 1),
-    CacheKey::entity("User", 2),
-    CacheKey::entity("User", 3),
-];
-let users: Vec<Option<User>> = cache.get_many(&keys).await?;
-
-// Set multiple
-cache.set_many(&[(key1, user1), (key2, user2)]).await?;
+```markdown
+### Security
+- Fixed SQL injection vulnerability in raw query interpolation (CVE-2025-XXXX)
+- Updated `tokio` to address potential DoS vector
 ```
 
-## Invalidation Strategies
+## Writing Good Entries
 
-### Entity-Based Invalidation
+### DO ✅
 
-```rust
-// Invalidate single entity
-cache.invalidate(&CacheKey::entity("User", user_id)).await?;
+```markdown
+### Added
+- Add `cursor()` method for cursor-based pagination (#123)
+- Add support for `RETURNING` clause in insert queries
 
-// Invalidate all entities of a type
-cache.invalidate_pattern("User:*").await?;
-
-// Invalidate related entities
-async fn update_user(id: i64, data: UpdateUser) -> Result<User> {
-    let user = db.user().update(id, data).exec().await?;
-
-    // Invalidate user cache
-    cache.invalidate(&CacheKey::entity("User", id)).await?;
-
-    // Invalidate related caches
-    cache.invalidate(&CacheKey::entity("UserProfile", id)).await?;
-    cache.invalidate_pattern(&format!("query:users:*")).await?;
-
-    Ok(user)
-}
+### Fixed
+- Fix memory leak in connection pool under high load (#456)
+- Fix incorrect SQL generation for nullable enum fields
 ```
 
-### Tag-Based Invalidation
+### DON'T ❌
 
-```rust
-use prax_query::data_cache::EntityTag;
+```markdown
+### Added
+- Added stuff
+- New feature
+- Implemented the thing from issue #123
 
-// Cache with tags
-cache.set_with_tags(
-    &key,
-    &user,
-    &[EntityTag::entity("User"), EntityTag::record("User", user_id)],
-).await?;
-
-// Invalidate by tag
-cache.invalidate_tag(&EntityTag::entity("User")).await?;
-// All User caches invalidated
+### Fixed
+- Fixed bug
+- Fix
+- Bugfix
 ```
 
-### Write-Through Pattern
+## Guidelines
 
-```rust
-// Update database and cache atomically
-async fn update_user(id: i64, data: UpdateUser) -> Result<User> {
-    // Update DB
-    let user = db.user().update(id, data).exec().await?;
+1. **Use imperative mood**: "Add feature" not "Added feature"
+2. **Be specific**: Describe what changed, not just that something changed
+3. **Reference issues/PRs**: Include `(#123)` when applicable
+4. **Group related changes**: Don't repeat similar entries
+5. **Order by importance**: Most significant changes first
+6. **Keep entries concise**: One line per change when possible
 
-    // Update cache (not invalidate)
-    cache.set(&CacheKey::entity("User", id), &user).await?;
+## Mapping Commits to Sections
 
-    Ok(user)
-}
+| Commit Type | Changelog Section |
+|-------------|-------------------|
+| `feat` | Added |
+| `fix` | Fixed |
+| `perf` | Changed |
+| `refactor` | Changed (if user-facing) |
+| `deprecate` | Deprecated |
+| `security` | Security |
+| `BREAKING CHANGE` | Changed (with note) |
+
+## Breaking Changes
+
+Always highlight breaking changes prominently:
+
+```markdown
+### Changed
+- **BREAKING**: `QueryBuilder::new()` now requires a connection parameter
+- **BREAKING**: Renamed `Client` to `PraxClient` for clarity
 ```
 
-### Cache-Aside Pattern
+Or use a dedicated section:
 
-```rust
-// Read: Check cache first
-async fn get_user(id: i64) -> Result<User> {
-    let key = CacheKey::entity("User", id);
-
-    // Try cache
-    if let Some(user) = cache.get(&key).await? {
-        return Ok(user);
-    }
-
-    // Cache miss: load from DB
-    let user = db.user()
-        .find_unique(user::id::equals(id))
-        .exec()
-        .await?
-        .ok_or(Error::NotFound)?;
-
-    // Populate cache
-    cache.set(&key, &user).await?;
-
-    Ok(user)
-}
+```markdown
+### ⚠️ Breaking Changes
+- `QueryBuilder::new()` now requires a connection parameter
+- Renamed `Client` to `PraxClient` for clarity
 ```
 
-## TTL Configuration
+## Release Checklist
 
-### Choose Appropriate TTLs
+When preparing a release:
 
-```rust
-// ✅ Good: Different TTLs for different data types
+1. Move entries from `[Unreleased]` to new version section
+2. Add release date: `## [0.2.0] - 2025-02-01`
+3. Update comparison links at bottom of file
+4. Remove empty sections
+5. Ensure all breaking changes are clearly marked
+6. Verify version matches `Cargo.toml`
 
-// Rarely changes, long TTL
-let feature_flags = CachePolicy::new()
-    .ttl(Duration::from_secs(3600))  // 1 hour
-    .stale_while_revalidate(Duration::from_secs(300));
+```markdown
+## [Unreleased]
 
-// User data, medium TTL
-let user_data = CachePolicy::new()
-    .ttl(Duration::from_secs(300))  // 5 minutes
-    .stale_while_revalidate(Duration::from_secs(60));
+## [0.2.0] - 2025-02-01
 
-// Real-time data, short TTL
-let live_data = CachePolicy::new()
-    .ttl(Duration::from_secs(10))  // 10 seconds
-    .no_stale();
+### Added
+- (moved from Unreleased)
 
-// Static reference data, very long TTL
-let countries = CachePolicy::new()
-    .ttl(Duration::from_secs(86400));  // 24 hours
+[Unreleased]: https://github.com/pegasusheavy/prax/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/pegasusheavy/prax/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/pegasusheavy/prax/releases/tag/v0.1.0
 ```
 
-### Use Presets
+## Version Links
 
-```rust
-use prax_query::data_cache::CachePolicy;
+Always maintain comparison links at the bottom:
 
-// Built-in presets
-let policy = CachePolicy::user_data();      // 5 min TTL
-let policy = CachePolicy::reference_data(); // 1 hour TTL
-let policy = CachePolicy::static_data();    // 24 hour TTL
-let policy = CachePolicy::realtime();       // 10 sec TTL
+```markdown
+[Unreleased]: https://github.com/pegasusheavy/prax/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/pegasusheavy/prax/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/pegasusheavy/prax/releases/tag/v0.1.0
 ```
 
-## Cache Metrics
+## Examples
 
-### Monitor Cache Health
-
-```rust
-let stats = cache.stats();
-
-println!("Hits: {}", stats.hits);
-println!("Misses: {}", stats.misses);
-println!("Hit rate: {:.2}%", stats.hit_rate() * 100.0);
-println!("Size: {} entries", stats.size);
-println!("Memory: {} bytes", stats.memory_bytes);
-
-// Alert on low hit rate
-if stats.hit_rate() < 0.7 {
-    warn!("Cache hit rate below 70%: {:.2}%", stats.hit_rate() * 100.0);
-}
+### Feature Addition
+```markdown
+### Added
+- Add `find_first()` method to query builder for single result queries
+- Add `#[prax(default = "...")]` attribute for default column values
+- Add MySQL support via `mysql_async` driver (#89)
 ```
 
-### Expose Metrics
-
-```rust
-// Prometheus metrics
-cache.register_metrics(&prometheus_registry);
-
-// Metrics: prax_cache_hits_total, prax_cache_misses_total, etc.
+### Bug Fix
+```markdown
+### Fixed
+- Fix `ORDER BY` clause being ignored when combined with `LIMIT` (#142)
+- Fix transaction rollback not releasing connection back to pool
+- Fix schema parser rejecting valid enum definitions with attributes
 ```
 
-## Testing Cache
+### Breaking Change
+```markdown
+### Changed
+- **BREAKING**: `PraxClient::new()` is now async and returns `Result<Self, Error>`
 
-### Test Cache Hit/Miss
+  Before:
+  ```rust
+  let client = PraxClient::new("postgres://...");
+  ```
 
-```rust
-#[tokio::test]
-async fn test_cache_hit() {
-    let cache = MemoryCache::new(1000);
-    let key = CacheKey::entity("User", 1);
-
-    // Miss
-    assert!(cache.get::<User>(&key).await?.is_none());
-
-    // Set
-    let user = User { id: 1, name: "Alice".into() };
-    cache.set(&key, &user).await?;
-
-    // Hit
-    let cached = cache.get::<User>(&key).await?;
-    assert_eq!(cached, Some(user));
-}
+  After:
+  ```rust
+  let client = PraxClient::new("postgres://...").await?;
+  ```
 ```
-
-### Test Invalidation
-
-```rust
-#[tokio::test]
-async fn test_invalidation() {
-    let cache = MemoryCache::new(1000);
-    let key = CacheKey::entity("User", 1);
-
-    cache.set(&key, &user).await?;
-    assert!(cache.get::<User>(&key).await?.is_some());
-
-    cache.invalidate(&key).await?;
-    assert!(cache.get::<User>(&key).await?.is_none());
-}
-```
-
-### Test TTL Expiration
-
-```rust
-#[tokio::test]
-async fn test_ttl_expiration() {
-    let cache = MemoryCache::builder()
-        .time_to_live(Duration::from_millis(100))
-        .build();
-
-    cache.set(&key, &user).await?;
-    assert!(cache.get::<User>(&key).await?.is_some());
-
-    tokio::time::sleep(Duration::from_millis(150)).await;
-    assert!(cache.get::<User>(&key).await?.is_none());
-}
-```
-
-## Common Pitfalls
-
-### Avoid Cache Stampede
-
-```rust
-// ❌ Bad: Many concurrent requests trigger DB load
-async fn get_user(id: i64) -> Result<User> {
-    if let Some(user) = cache.get(&key).await? {
-        return Ok(user);
-    }
-    // 100 concurrent requests all miss and hit DB
-    let user = db.user().find(id).await?;
-    cache.set(&key, &user).await?;
-    Ok(user)
-}
-
-// ✅ Good: Use locking or singleflight
-async fn get_user(id: i64) -> Result<User> {
-    cache.get_or_set_with_lock(&key, || async {
-        // Only one request loads from DB
-        db.user().find(id).await
-    }).await
-}
-```
-
-### Don't Cache Errors
-
-```rust
-// ❌ Bad: Caching error state
-let result = db.user().find(id).await;
-cache.set(&key, &result).await?; // Caches Err!
-
-// ✅ Good: Only cache success
-match db.user().find(id).await {
-    Ok(user) => {
-        cache.set(&key, &user).await?;
-        Ok(user)
-    }
-    Err(e) => Err(e), // Don't cache
-}
-```
-
-### Cache Serializable Data Only
-
-```rust
-// ✅ Good: Cache serializable types
-#[derive(Serialize, Deserialize)]
-struct CachedUser {
-    id: i64,
-    name: String,
-}
-
-// ❌ Bad: Cache types with connections, handles
-struct User {
-    id: i64,
-    db_connection: Connection, // Not serializable!
-}
-```
-
-## Summary
-
-1. **Use tiered cache** (L1 memory + L2 Redis) for best performance
-2. **Structure cache keys** with entity type and ID
-3. **Include tenant ID** in keys for multi-tenant apps
-4. **Choose appropriate TTLs** based on data volatility
-5. **Invalidate on writes** - either entity or tag-based
-6. **Monitor cache metrics** - alert on low hit rates
-7. **Prevent cache stampede** with locking
-8. **Test cache behavior** - hits, misses, TTL, invalidation
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
