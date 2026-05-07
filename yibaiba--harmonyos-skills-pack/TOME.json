@@ -1,0 +1,44 @@
+{
+  "name": "harmonyos-skills-pack",
+  "owner": "yibaiba",
+  "repo": "harmonyos-skills-pack",
+  "description": "HarmonyOS Ark \u9879\u76ee\u4ece 0 \u5230 1 \u843d\u5730\u65f6\uff0c\u5982\u4f55\u5feb\u901f\u5f97\u5230\u53ef\u6267\u884c\u7684\u76ee\u5f55\u7ed3\u6784\u3001\u6a21\u5757\u6a21\u677f\u3001\u6267\u884c\u987a\u5e8f\u548c\u63d0\u5ba1\u6e05\u5355",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/yibaiba/harmonyos-skills-pack",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T22:33:46Z"
+}
