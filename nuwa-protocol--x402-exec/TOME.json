@@ -2,9 +2,9 @@
   "name": "x402-exec",
   "owner": "nuwa-protocol",
   "repo": "x402-exec",
-  "description": "",
+  "description": "x402-exec is a programmable settlement framework for x402 protocol, combining payment verification, Hook-based business logic, and facilitator incentives in atomic transactions.",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nuwa-protocol/x402-exec",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-19T23:57:22Z"
+  "distributed_at": "2026-05-07T05:46:04Z"
 }
