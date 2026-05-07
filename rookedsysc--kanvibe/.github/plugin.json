@@ -1,0 +1,9 @@
+{
+  "name": "rookedsysc--kanvibe",
+  "displayName": "kanvibe",
+  "description": "Self-hosted Kanban board with browser terminals for AI coding agents. Hook-driven auto-tracking \u2014 manage tmux/zellij sessions and git worktrees from one board.",
+  "version": "1.0.0",
+  "author": "rookedsysc",
+  "homepage": "https://github.com/rookedsysc/kanvibe",
+  "skills": []
+}
