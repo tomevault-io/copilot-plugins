@@ -1,0 +1,9 @@
+{
+  "name": "rickzee--ai-team",
+  "displayName": "ai-team",
+  "description": "Autonomous multi-agent software development system \u2014 converts natural language requirements into production code using specialized AI agents (CrewAI + OpenRouter)",
+  "version": "1.0.0",
+  "author": "RickZee",
+  "homepage": "https://github.com/RickZee/ai-team",
+  "skills": []
+}
