@@ -1,42 +1,47 @@
-## no-copium
+## project-workspace
 
-> Engineering standards -- no workarounds, no duct tape, no copium
+> Project workspace conventions — patches/ directory, backups, and knowledge base format
 
 
-# No Copium
+# Project Workspace
 
-## Principle
+Use `patches/<project_name>/` (git-ignored) for all project-specific artifacts:
+- Knowledge base files (`kb.h`)
+- One-off analysis scripts
+- ASI patch specs and builds
+- Notes, logs, collected trace data
 
-Every change should make the codebase better, not just make the problem go away. If a solution needs a paragraph to justify why it's not a hack, it's a hack.
+Create the project subfolder on first use.
 
-## Remove
+# Backups
 
-- **Fixes in the wrong layer**: a guard on a canvas to suppress commits that a model should own. Put the fix where the problem originates.
-- **Tolerance inflation**: widening deltas or adding retries to hide flaky behavior. If the value is wrong, find out why.
-- **Catch-all exception swallowing**: `try/except Exception: pass` to hide symptoms.
-- **Excessive error/null handling**: adding too many error/None "if" checks. If the error is expected, handle it. If unexpected, raise it.
-- **God methods**: 200+ line functions doing multiple things. Break into named steps. Focus on cognitive load. Design for fewer indentation levels.
-- **Leaky abstractions**: implementation details leaking into layers/modules that should be agnostic of one another.
+Before modifying project files (proxy source, kb.h, proxy.ini, build scripts, ASI specs), create a timestamped backup in `patches/<project>/backups/`:
 
-## Design For
+```
+patches/<project>/backups/YYYY-MM-DD_HHMM_<description>/
+```
 
-- **Single responsibility**: one component, one job. If you need "and" to describe it, split it.
-- **Ownership**: the component that creates the problem owns the fix.
-- **Minimal public surface**: expose what consumers need, nothing more.
+Copy ALL files being modified into the backup folder. The description should be a short slug of what the update does (e.g. `added-world-matrix-regs`, `fixed-albedo-stage`, `enabled-skinning`).
 
-## Commit to the New Code
+Create the backup BEFORE making changes so it captures the last known-good state. This applies to all development work — FFP proxy edits, ASI patch specs, build config changes, and any other project file modifications.
 
-- **No legacy fallbacks**: if you replace a system, remove the old one.
-- **No dead code**: commented-out blocks, unused imports, orphan functions "just in case". Version control is the safety net.
-- **No multiple paths to the same result**: one way to do each thing. If two paths exist, one is wrong.
-- **No half-migrations**: finish the job -- update every reference, remove old APIs.
+# Knowledge Base
 
-## Smell Tests
+When reverse engineering a binary, maintain a knowledge base file (`.h`) that accumulates discoveries. Store in `patches/<project>/kb.h`.
 
-- "It works if I add a sleep" -- broken data flow.
-- "It works if I read from widget instead of storage" -- the two are out of sync.
-- "It passes alone but fails with other tests" -- shared mutable state leaking.
-- "I added a flag to skip this code path" -- why does that path run in the first place?
+**Format:** C types (no prefix), functions (`@` prefix), globals (`$` prefix):
+```c
+struct Foo { int x; float y; };
+@ 0x401000 void __cdecl ProcessInput(int key);
+$ 0x7C5548 Object* g_mainObject
+```
+
+**When to update the KB:**
+- When you identify a function's purpose, add `@ 0xADDR` with a descriptive name and signature
+- When you reconstruct a struct (e.g., from `structrefs.py --aggregate`), add the struct definition
+- When you identify a global variable via `datarefs.py`, add `$ 0xADDR` with its name and type
+- When you identify magic constants, define an enum with named values
+- When `rtti.py` reveals a class name, use it in struct/function names
 
 ---
 > Source: [Ekozmaster/Vibe-Reverse-Engineering](https://github.com/Ekozmaster/Vibe-Reverse-Engineering) — distributed by [TomeVault](https://tomevault.io).
