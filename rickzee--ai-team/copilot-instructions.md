@@ -1,55 +1,33 @@
-## crewai-agents-crews-flows
+## crewai-tools
 
-> CrewAI agent, crew, and flow patterns
+> CrewAI tool definition and security for ai-team tools
 
 
-# Agent Definition
+# Tool Definition Pattern
 
-Agents: YAML config (agents.yaml) + Python class extending BaseAgent. Use `role_name` (maps to YAML key), `create()` → `load_yaml_config()`, `get_ollama_llm()`, return `Agent(...)`.
-
-```python
-from ai_team.agents.base import BaseAgent
-
-class ArchitectAgent(BaseAgent):
-    """Solutions Architect agent for system design."""
-    role_name: str = "architect"
-
-    def create(self) -> Agent:
-        config = self.load_yaml_config()
-        llm = self.get_ollama_llm()
-        return Agent(
-            role=config["role"], goal=config["goal"], backstory=config["backstory"],
-            tools=self.get_tools(), llm=llm, verbose=config.get("verbose", True),
-            memory=config.get("memory", True), allow_delegation=config.get("allow_delegation", False),
-            max_iter=config.get("max_iter", 10),
-        )
-```
-
-# Crew Composition
+- Use `@tool("Display Name")`; docstring with Args and Returns
+- Validate inputs first (path validation, content checks)
+- Call `audit_log` for the operation; return only safe result
 
 ```python
-crew = Crew(
-    agents=[...], tasks=[...], process=Process.hierarchical,
-    manager_agent=self.manager, memory=True, verbose=True, planning=True,
-)
-return crew.kickoff(inputs=inputs)
+from crewai.tools import tool
+
+@tool("Read File")
+def read_file(file_path: str) -> str:
+    """Read a file from the workspace directory securely.
+
+    Args:
+        file_path: Relative path to the file within the workspace.
+
+    Returns:
+        The file contents as a string.
+    """
+    validated_path = validate_path(file_path)
+    audit_log("read_file", validated_path)
+    return validated_path.read_text()
 ```
 
-# Flow Orchestration
-
-`AITeamFlow(Flow[ProjectState])`: use `@start()`, `@listen(previous)`, `@router(previous)` for branching.
-
-```python
-@router(run_planning_crew)
-def route_after_planning(self):
-    if self.state.requirements and self.state.architecture:
-        return "run_development"
-    return "request_human_feedback"
-```
-
-# Task with Guardrail
-
-`Task(description=..., expected_output=..., output_pydantic=..., guardrail=fn)`. Guardrail receives `TaskOutput`, returns it or raises `GuardrailFailure` to trigger retry.
+For the full security checklist (path traversal, sandboxing, PII/secret detection, etc.), see the security-requirements rule.
 
 ---
 > Source: [RickZee/ai-team](https://github.com/RickZee/ai-team) — distributed by [TomeVault](https://tomevault.io).
