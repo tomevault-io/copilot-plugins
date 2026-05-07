@@ -4,7 +4,7 @@
   "repo": "TACO",
   "description": "This is the repo for the paper A Self-Evolving Framework for Efficient Terminal Agents via Observational Context Compression",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/multimodal-art-projection/TACO",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T03:46:17Z"
+  "distributed_at": "2026-05-07T22:42:34Z"
 }
