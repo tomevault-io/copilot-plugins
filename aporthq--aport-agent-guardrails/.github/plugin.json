@@ -1,0 +1,9 @@
+{
+  "name": "aporthq--aport-agent-guardrails",
+  "displayName": "aport-agent-guardrails",
+  "description": "Pre-action authorization guardrails for AI agents - Works with OpenClaw, Claude Code, LandChain, CrewAI and others",
+  "version": "1.0.0",
+  "author": "aporthq",
+  "homepage": "https://github.com/aporthq/aport-agent-guardrails",
+  "skills": []
+}
