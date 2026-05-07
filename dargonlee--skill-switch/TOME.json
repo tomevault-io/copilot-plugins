@@ -1,0 +1,44 @@
+{
+  "name": "skill-switch",
+  "owner": "DargonLee",
+  "repo": "skill-switch",
+  "description": "SkillSwitch \u662f\u4e00\u6b3e\u8de8\u5e73\u53f0\u684c\u9762\u5e94\u7528\uff0c\u4e13\u4e3a AI \u7f16\u7a0b\u52a9\u624b\u7684\u7528\u6237\u6253\u9020\u3002\u5b83\u8ba9\u4f60\u80fd\u591f\u5728\u4e00\u4e2a\u7edf\u4e00\u7684\u754c\u9762\u4e2d\u7ba1\u7406\u591a\u4e2a AI   \u5de5\u5177\uff08Claude Code\u3001Codex CLI\u3001Gemini CLI\u3001Cursor\u3001Windsurf\uff09\u7684 Skill \u6587\u4ef6\u2014\u2014\u5305\u62ec\u5df2\u5b89\u88c5\u7ba1\u7406\u3001\u53d1\u73b0\u65b0   Skill\u3001\u521b\u5efa\u81ea\u5b9a\u4e49 Skill\u3001\u4ee5\u53ca\u5907\u4efd\u4e0e\u6062\u590d\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/DargonLee/skill-switch",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T14:45:22Z"
+}
