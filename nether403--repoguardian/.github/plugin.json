@@ -1,0 +1,9 @@
+{
+  "name": "nether403--repoguardian",
+  "displayName": "RepoGuardian",
+  "description": "a supervised GitHub repository triage and maintenance assistant",
+  "version": "1.0.0",
+  "author": "Nether403",
+  "homepage": "https://github.com/Nether403/RepoGuardian",
+  "skills": []
+}
