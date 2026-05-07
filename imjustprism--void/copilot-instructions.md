@@ -1,0 +1,195 @@
+## void
+
+> title: Void Development Rules
+
+title: Void Development Rules
+
+rules:
+  critical:
+    - new files use 2026 license header, NEVER edit existing headers
+    - push back when user idea is wrong, user NOT always right
+    - NEVER assume values/APIs/module shapes you dont know, ask or inspect via void-mcp
+    - smallest possible change, no refactoring unless asked
+    - ALWAYS explore @utils/, @components/, @api/ BEFORE writing anything — reuse existing, NEVER reimplement
+    - if a helper/component/pattern exists elsewhere, import it, NEVER copy-paste or recreate
+    - use void-mcp to inspect live code, NEVER guess module structure
+    - run `bun run lint:fix` + `bun run lint:styles:fix` + `bun run tsc` after changes, NEVER `bun run build` unless asked
+    - NEVER commit/push without explicit user instruction
+    - NEVER commit design specs/plans/docs to the repo
+  code:
+    - DELETE dead code, never comment out
+    - NEVER add comments unless asked, only for non-obvious gotchas
+    - capital first letter, period at end for descriptions
+    - Logger from @utils/Logger, NEVER console.log/warn/error
+    - less code = smarter code, same functionality fewer lines always wins
+    - if it can be simpler, make it simpler — no clever, no cute, just clear
+    - NEVER overengineer, NEVER overcomplicate, NEVER speculative abstractions
+    - NEVER wrapper functions that add nothing, NEVER helpers for one-time operations
+    - NEVER backwards-compat shims, feature flags, or dead-code fallbacks — just change the code
+    - NEVER add error handling/validation for scenarios that cant happen
+    - inline single-use vars, hoist statics out of components/loops
+    - no magic numbers, unused imports/exports, dead functions, unused types
+    - DRY — if a pattern repeats 2+ times, extract to @utils/ or @components/
+    - deduplicate ruthlessly, prefer importing over reimplementing
+    - KISS, flat over nested, early returns, guard clauses at top, max 3 nesting levels
+    - every code path returns a value, every subscribe() needs unsubscribe()
+    - re-read state after await gaps, never trust snapshots across async
+    - never Date.now() alone for IDs, add random suffix
+    - never index arrays by enum ordinal, use Record maps
+    - imports > Logger > finders > types > constants > functions > definePlugin
+  perf:
+    - Promise.all for parallel async, .find/.some over .filter()[0]
+    - Map/Set over objects for dynamic keys, WeakMap for DOM metadata
+    - no spread in hot loops, cache computed values, hoist RegExp/frozen objects to module scope
+    - batch DOM reads before writes, never interleave (layout thrashing)
+    - rAF for visual mutations, never force sync layout in event handlers
+    - { passive: true } for scroll/wheel/touch, { once: true } for fire-once listeners
+    - { signal } on addEventListener for bulk cleanup via AbortController
+    - textContent over innerHTML for plain text
+    - structuredClone over JSON.parse(JSON.stringify())
+    - avoid async on functions that never await
+    - queueMicrotask over Promise.resolve().then()
+    - requestIdleCallback for non-critical init
+  typescript:
+    - prefer ?. ?? const arrow satisfies
+    - destructuring, template literals, object shorthand, array methods, for...of, Object.entries
+    - early returns, trust inference for locals, annotate exports/params, never nest ternaries
+    - any over unknown when cant type properly, grok-types/ for Grok objects
+  react:
+    - ErrorBoundary.wrap(Component, fallback?)
+    - return null not undefined for conditional rendering
+    - always cleanup useEffect, prefer AbortController signal
+    - never mutate params/settings/store objects, spread-copy first
+    - useMemo/useCallback deps must be stable refs, memoize arrays/objects used as deps
+    - useCallback over fast-changing state: use refs not closures
+    - disabled={loading} over busyRef for double-click prevention
+    - static objects/arrays/functions outside component body, no hook needed
+    - never create new object/array/function literals in JSX props passed to memoized children
+    - useRef for mutable values that dont affect UI, not useState
+  security:
+    - textContent/createTextNode for user text, never innerHTML with unsanitized data
+    - validate external URLs against allowlist before fetch
+    - wrap JSON.parse in try/catch at every call site
+    - never eval(), setTimeout(string), setInterval(string)
+    - wrap patch replacements in try/catch so failed patch never crashes host app
+    - no nested regex quantifiers (ReDoS), .{0,N} bounded gaps only
+    - reset lastIndex before .test()/.exec() on reused RegExp
+  forbidden:
+    - bare HTML elements (button, input, select, etc.) when a @components equivalent exists
+    - empty catch (except turbopack/module iteration)
+    - style={{}} (unless dynamic computed)
+    - {arr.length && <Foo/>} (renders 0)
+    - .map(x => cond ? <X/> : null) (use .filter().map())
+    - barrel imports from @turbopack/common
+    - reimplementing utils that exist in @utils/ or @components/
+    - wrapper functions/components that add zero value
+    - abstractions for a single call site
+    - deep nesting beyond 3 levels, nested ternaries
+    - direct mutation of Settings objects
+    - delete obj.key in hot paths (deoptimizes hidden classes)
+    - any type when unknown/generic works
+    - non-null assertions (!) unless the invariant is guaranteed upstream
+  antiPatterns{bad > good}:
+    - "value !== null && value !== undefined" > "value != null"
+    - "array && array.length > 0" > "array.length"
+    - "settings?.store?.value" > "settings.store.value"
+    - "value || defaultValue" > "value ?? defaultValue"
+    - "new Promise(r => setTimeout(r, n))" > "sleep(n)"
+    - "${x !== 1 ? 's' : ''}" > "pluralize(x, 'thing')"
+    - "for (const key in obj) { obj[key] }" > "Object.entries(obj)"
+    - "document.body.appendChild(a); a.click()" > "a.click()"
+    - "JSON.parse(JSON.stringify(obj))" > "structuredClone(obj)"
+    - "Promise.resolve().then(fn)" > "queueMicrotask(fn)"
+
+css:
+  - "void-foo-" prefix, cl("bar") not cl("-bar")
+  - NEVER Tailwind, write CSS in styles.css
+  - classes(cl("foo"), cl("bar")), NEVER template strings
+  - registerStyle(name, css) for runtime injection
+  - rem for spacing, not mixed units
+  - contain: content on injected UI containers
+  - animate only transform/opacity, never layout properties
+  - class toggling over inline style mutations
+
+patching:
+  core:
+    - minimum code, stability over cleverness, one patch per concern
+    - ALWAYS MCP patch test, NEVER guess
+    - try multiple approaches, keep simplifying
+    - remove any regex char that doesnt change the match
+  tokens: \i (minified id), $self (plugin ref), $& (entire match), .{0,N} (bounded gap ~1.5x)
+  find:
+    - exactly 1 module match, verify with MCP
+    - anchors: i18n keys, displayName, feature flags, prop names
+    - semantic and close to match target
+  match:
+    - must contain stable string literal
+    - $& to append/prepend, capture groups only when reusing
+    - .{0,N} not .+? or .*?, minimize \i count
+    - group:true for multi-step transforms
+  flags: all:true (shared factories), noWarn:true (lazy modules), group:true (multi-replace)
+  NEVER: hardcoded minified vars, unbounded gaps, pure identifier chains, massive regex
+
+plugin:
+  - src/plugins/<name>/index.ts(x), styles.css optional
+  - .dev (dev only), .chrome (Chromium only)
+  - _core/ > _api/ > regular load order
+  - start()/stop(), startAt for timing
+  - _helpers via $self._method() from patches
+  - definePluginSettings() with OptionType
+
+imports:
+  - react: "@turbopack/common/react"
+  - components: "@components"
+  - stores: "@turbopack/common/stores"
+  - utils: "@turbopack/common/utils"
+  - guards/text/react/misc/css/logger: "@utils/<name>"
+  - themes: "@api/Themes"
+  - icons: "@components/icons"
+
+components:
+  - Text: size(xs/sm/base/lg/xl/2xl), weight, color
+  - Paragraph: descriptions, ALWAYS use over Text size="xs"
+  - SectionHeader: Text sm medium + Paragraph, use over hand-rolled section labels
+  - Flex/Grid: layout containers
+  - ChatBarButton, ConfirmDialog, ErrorBoundary, ErrorCard from @components
+  - Button, Dialog, Drawer, DropdownMenu, Select, Switch, Tooltip, Tabs, Badge, etc. from @turbopack/common/components (re-exported via @components)
+  - sectionPattern: Flex column gap=0 > Text sm medium + Paragraph
+
+project:
+  - src/api/: logic, state, registries
+  - src/components/: Void components + icons
+  - src/plugins/: _core/ patches, _api/ patches, user plugins
+  - src/turbopack/: module system, patching, common/ finders
+  - packages/grok-types/: types, enums
+
+settingsTabs:
+  - wrapper handles flex-1, padding, overflow-scroll
+  - tab components: NEVER set width/height/overflow/flex:1
+  - root: bare Flex column with gap
+
+git:
+  - NEVER commit or push without explicit user permission, always ask first
+  - plugin change: `PluginName: imperative summary` — PascalCase plugin name, colon, space
+  - new plugin: `PluginName: add plugin` — nothing else, no body, no description
+  - dropped plugin: `PluginName: drop plugin`
+  - non-plugin change: `type: imperative summary` — types: fix, refactor, perf, style, chore, docs, test, build, ci, revert
+  - NEVER use parenthesis scope syntax like `feat(scope):`, NEVER use `feat:` prefix
+  - imperative mood: "add", "fix", "remove" — never "added", "adds", "adding"
+  - subject ≤50 chars preferred, hard cap 72, no trailing period
+  - no body by default — skip entirely when subject is self-explanatory
+  - body ONLY for: breaking changes, security fixes, data migrations, non-obvious *why*
+  - body wraps at 72 chars, bullets use `-` not `*`, why over what
+  - issue refs at end of body: `Closes #42`, `Refs #17`
+  - NEVER "this commit does X", NEVER I/we/now/currently — diff says what
+  - NEVER Co-Authored-By, NEVER Claude/AI attribution, NEVER generated-by tags
+  - NEVER emoji
+  - NEVER --amend, create a new commit instead
+  - NEVER --force push
+  - group related files into one commit, dont split atomic changes
+  - NEVER commit userscript/Void.user.js except on version bumps
+  - examples: `PluginName: fix patch`, `PluginName: add plugin`, `PluginName: drop plugin`, `PluginName: add setting`, `chore: bump deps`, `refactor: flatten plugin loader`, `perf: hoist regex to module scope`, `style: oxlint auto-fixes`
+
+---
+> Source: [imjustprism/Void](https://github.com/imjustprism/Void) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
