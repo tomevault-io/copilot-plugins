@@ -1,362 +1,384 @@
-## readme
+## rust-2024
 
-> Guidelines for maintaining README.md documentation for the Prax ORM project
+> Rust 2024 Edition best practices and code conventions for the Prax ORM project
 
 
-# README Guidelines
+# Rust 2024 Edition Guidelines
 
-This document provides guidelines for maintaining the project README to ensure clear, accurate, and helpful documentation.
+This project uses **Rust 2024 edition** (requires Rust 1.85+). Follow these guidelines for idiomatic, safe, and performant code.
 
-## README Structure
+## Edition 2024 Specifics
 
-The README should follow this structure:
+### RPIT Lifetime Capture Rules
+- Rust 2024 changes `impl Trait` return type lifetime capture behavior
+- Use explicit `+ use<'a>` syntax when you need specific lifetime capture:
+  ```rust
+  fn process<'a>(data: &'a str) -> impl Iterator<Item = &'a str> + use<'a> {
+      data.split(',')
+  }
+  ```
 
-```markdown
-# Prax
+### `gen` Blocks (Experimental)
+- Use `gen` blocks for generator-based iterators when stabilized
+- Prefer standard iterators for now unless generators provide clear benefits
 
-<badges and shields>
+### New Reserved Keywords
+- `gen` is now a reserved keyword - avoid as identifier
 
-<brief description>
-
-## Features
-## Installation
-## Quick Start
-## Query Operations
-## Architecture
-## CLI
-## Comparison
-## Contributing
-## License
-## Acknowledgments
-```
-
-## When to Update
-
-### Always Update When:
-- ✅ Adding new public API methods
-- ✅ Changing installation requirements
-- ✅ Adding new features mentioned in examples
-- ✅ Changing CLI commands
-- ✅ Adding new database backend support
-- ✅ Adding new framework integrations
-- ✅ Changing minimum Rust version
-
-### Consider Updating When:
-- 🤔 Fixing bugs that affect documented behavior
-- 🤔 Improving performance significantly
-- 🤔 Adding new optional features
-
-### Don't Update For:
-- ❌ Internal refactoring
-- ❌ Test changes
-- ❌ Minor bug fixes
-- ❌ Dependency updates (unless breaking)
-
-## Section Guidelines
-
-### Header & Badges
-
-```markdown
-# Prax
-
-<p align="center">
-  <strong>A next-generation, type-safe ORM for Rust</strong>
-</p>
-
-<p align="center">
-  <a href="https://crates.io/crates/prax"><img src="https://img.shields.io/crates/v/prax.svg" alt="crates.io"></a>
-  <a href="https://docs.rs/prax"><img src="https://docs.rs/prax/badge.svg" alt="docs.rs"></a>
-  <a href="https://github.com/pegasusheavy/prax/actions"><img src="https://github.com/pegasusheavy/prax/workflows/CI/badge.svg" alt="CI"></a>
-  <img src="https://img.shields.io/badge/rust-1.85%2B-blue.svg" alt="Rust 1.85+">
-  <a href="#license"><img src="https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg" alt="License"></a>
-</p>
-```
-
-### Features Section
-
-List features with emoji icons for scannability:
-
-```markdown
-## Features
-
-- 🔒 **Type-Safe Queries** - Compile-time checked queries
-- ⚡ **Async-First** - Built on Tokio
-- 🎯 **Fluent API** - Intuitive query builder
-- 🔗 **Relations** - Eager and lazy loading
-- 📦 **Migrations** - Schema management
-- 🛠️ **Code Generation** - Proc-macro models
-- 🗄️ **Multi-Database** - PostgreSQL, MySQL, SQLite
-- 🔌 **Framework Integration** - Armature, Axum, Actix-web
-```
-
-### Installation Section
-
-Always show:
-1. Basic installation
-2. Feature flags for different backends
-3. Minimum Rust version requirement
-
-```markdown
-## Installation
-
-Add Prax to your `Cargo.toml`:
-
-\`\`\`toml
-[dependencies]
-prax = "0.1"
-\`\`\`
-
-**Requires Rust 1.85+** (Edition 2024)
-
-### Feature Flags
-
-| Feature | Description |
-|---------|-------------|
-| `postgres` | PostgreSQL support (default) |
-| `mysql` | MySQL support |
-| `sqlite` | SQLite support |
-| `runtime-tokio` | Tokio runtime (default) |
-```
-
-### Quick Start Section
-
-Provide a complete, copy-pasteable example:
-
-```markdown
-## Quick Start
-
-\`\`\`rust
-use prax::prelude::*;
-
-#[derive(Model)]
-#[prax(table = "users")]
-pub struct User {
-    #[prax(id)]
-    pub id: i32,
-    pub email: String,
-}
-
-#[tokio::main]
-async fn main() -> Result<(), prax::Error> {
-    let client = PraxClient::new("postgresql://localhost/mydb").await?;
-
-    let users = client.user().find_many().exec().await?;
-
-    Ok(())
-}
-\`\`\`
-```
-
-### Code Examples
-
-#### DO ✅
-
-```rust
-// Good: Complete, runnable example
-use prax::prelude::*;
-
-let users = client
-    .user()
-    .find_many()
-    .where_(user::active::equals(true))
-    .order_by(user::created_at::desc())
-    .take(10)
-    .exec()
-    .await?;
-```
-
-#### DON'T ❌
-
-```rust
-// Bad: Incomplete, won't compile
-let users = client.user().find_many()...
-```
-
-### API Documentation
-
-When documenting query operations, use tables for clarity:
-
-```markdown
-## Query Operations
-
-### Filtering
-
-| Method | SQL Equivalent | Example |
-|--------|---------------|---------|
-| `equals(v)` | `= v` | `user::id::equals(1)` |
-| `not_equals(v)` | `!= v` | `user::status::not_equals("banned")` |
-| `contains(v)` | `LIKE %v%` | `user::name::contains("john")` |
-| `gt(v)` | `> v` | `user::age::gt(18)` |
-```
-
-### Architecture Section
-
-Keep the directory tree updated:
-
-```markdown
-## Architecture
-
-\`\`\`
-prax/
-├── prax-core/           # Core types and traits
-├── prax-schema/         # Schema parser
-├── prax-codegen/        # Proc-macros
-├── prax-query/          # Query builder
-├── prax-postgres/       # PostgreSQL driver
-├── prax-mysql/          # MySQL driver
-├── prax-sqlite/         # SQLite driver
-├── prax-migrate/        # Migrations
-├── prax-cli/            # CLI tool
-├── prax-armature/       # Armature integration
-└── prax/                # Main crate
-\`\`\`
-```
-
-### Comparison Table
-
-Keep comparisons fair and up-to-date:
-
-```markdown
-## Comparison
-
-| Feature | Prax | Diesel | SeaORM | SQLx |
-|---------|------|--------|--------|------|
-| Async | ✅ | ❌ | ✅ | ✅ |
-| Type-Safe | ✅ | ✅ | ✅ | ✅ |
-| Schema DSL | ✅ | ❌ | ❌ | ❌ |
-| Migrations | ✅ | ✅ | ✅ | ✅ |
-```
-
-## Writing Style
-
-### Tone
-- Professional but approachable
-- Confident but not arrogant
-- Technical but accessible
+## Code Style
 
 ### Formatting
-- Use code blocks with language hints
-- Use tables for structured data
-- Use emoji sparingly for visual scanning
-- Keep paragraphs short (2-3 sentences max)
+- Always run `cargo fmt` before committing (enforced by pre-commit hook)
+- Use default rustfmt settings
+- Maximum line width: 100 characters
 
-### Links
-- Link to detailed docs for complex topics
-- Use relative links for repo files: `[CONTRIBUTING](./CONTRIBUTING.md)`
-- Use absolute links for external resources
+### Naming Conventions
+```rust
+// Types: PascalCase
+struct QueryBuilder;
+trait AsyncExecutor;
+enum FilterOperator;
 
-## Code Block Standards
+// Functions, methods, variables: snake_case
+fn execute_query() {}
+let user_count = 0;
 
-### Always Specify Language
+// Constants: SCREAMING_SNAKE_CASE
+const MAX_CONNECTIONS: usize = 100;
 
-```markdown
-\`\`\`rust
-// Rust code
-\`\`\`
+// Type parameters: single uppercase or descriptive PascalCase
+fn process<T, Item>(data: T) {}
 
-\`\`\`toml
-# TOML config
-\`\`\`
-
-\`\`\`bash
-# Shell commands
-\`\`\`
-
-\`\`\`sql
--- SQL queries
-\`\`\`
+// Lifetimes: short lowercase, descriptive when needed
+fn parse<'src>(input: &'src str) {}
 ```
 
-### Include Error Handling
+### Imports
+```rust
+// Group imports: std, external crates, internal modules
+use std::collections::HashMap;
+use std::sync::Arc;
 
-Show realistic code with proper error handling:
+use tokio::sync::RwLock;
+use tracing::{debug, error, info};
+
+use crate::query::QueryBuilder;
+use crate::schema::Model;
+```
+
+## Async Code
+
+### Use `async`/`await` Idiomatically
+```rust
+// Good: Use async blocks for lazy futures
+let future = async {
+    let result = fetch_data().await?;
+    process(result).await
+};
+
+// Good: Avoid unnecessary async when not needed
+fn sync_operation() -> Result<()> {
+    // No await needed, don't make it async
+}
+
+// Good: Use async traits (stabilized in 2024)
+trait Repository {
+    async fn find(&self, id: i64) -> Result<Option<Model>>;
+    async fn save(&self, model: &Model) -> Result<()>;
+}
+```
+
+### Concurrency Patterns
+```rust
+// Good: Use tokio::spawn for concurrent tasks
+let handles: Vec<_> = ids
+    .into_iter()
+    .map(|id| tokio::spawn(async move { fetch(id).await }))
+    .collect();
+
+let results = futures::future::join_all(handles).await;
+
+// Good: Use select! for racing futures
+tokio::select! {
+    result = operation() => handle(result),
+    _ = tokio::time::sleep(timeout) => return Err(Error::Timeout),
+}
+
+// Good: Prefer RwLock over Mutex when reads dominate
+let cache: Arc<RwLock<HashMap<K, V>>> = Arc::new(RwLock::new(HashMap::new()));
+```
+
+### Cancellation Safety
+```rust
+// Document cancellation safety for public async functions
+/// Fetches user data from the database.
+///
+/// # Cancellation Safety
+///
+/// This function is cancellation safe. If cancelled, no partial
+/// writes will occur.
+pub async fn fetch_user(id: i64) -> Result<User> {
+    // ...
+}
+```
+
+## Error Handling
+
+### Use `thiserror` for Library Errors
+```rust
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum QueryError {
+    #[error("connection failed: {0}")]
+    Connection(#[from] tokio_postgres::Error),
+
+    #[error("query timeout after {0:?}")]
+    Timeout(std::time::Duration),
+
+    #[error("invalid filter: {field} {message}")]
+    InvalidFilter { field: String, message: String },
+}
+```
+
+### Use `?` Operator
+```rust
+// Good: Propagate errors with ?
+async fn execute(&self) -> Result<Vec<Row>, QueryError> {
+    let conn = self.pool.get().await?;
+    let rows = conn.query(&self.sql, &self.params).await?;
+    Ok(rows)
+}
+
+// Avoid: Manual match for simple propagation
+// let conn = match self.pool.get().await {
+//     Ok(c) => c,
+//     Err(e) => return Err(e.into()),
+// };
+```
+
+### Provide Context
+```rust
+use anyhow::Context;
+
+// Good: Add context to errors
+let config = std::fs::read_to_string(path)
+    .with_context(|| format!("failed to read config from {}", path.display()))?;
+```
+
+## Type System
+
+### Use Type Aliases for Complex Types
+```rust
+// Good: Simplify complex types
+pub type QueryResult<T> = Result<T, QueryError>;
+pub type BoxFuture<'a, T> = Pin<Box<dyn Future<Output = T> + Send + 'a>>;
+```
+
+### Leverage Associated Types
+```rust
+// Good: Use associated types in traits
+trait Database {
+    type Connection: Connection;
+    type Error: std::error::Error;
+
+    async fn connect(&self) -> Result<Self::Connection, Self::Error>;
+}
+```
+
+### Generic Constraints
+```rust
+// Good: Use impl Trait in argument position for cleaner APIs
+pub fn where_clause(filter: impl Into<Filter>) -> Self {
+    // ...
+}
+
+// Good: Use where clauses for complex bounds
+fn execute<T, E>(query: T) -> Result<E::Output>
+where
+    T: Query + Send + Sync,
+    E: Executor<Query = T>,
+{
+    // ...
+}
+```
+
+## Performance
+
+### Avoid Unnecessary Allocations
+```rust
+// Good: Use references and slices
+fn process(data: &[u8]) -> &str { ... }
+
+// Good: Use Cow for conditional ownership
+use std::borrow::Cow;
+fn normalize(s: &str) -> Cow<'_, str> {
+    if needs_normalization(s) {
+        Cow::Owned(s.to_lowercase())
+    } else {
+        Cow::Borrowed(s)
+    }
+}
+
+// Good: Reuse buffers
+let mut buf = String::with_capacity(1024);
+for item in items {
+    buf.clear();
+    write!(&mut buf, "{}", item)?;
+    process(&buf);
+}
+```
+
+### Use Iterators
+```rust
+// Good: Chain iterator methods
+let active_users: Vec<_> = users
+    .iter()
+    .filter(|u| u.is_active)
+    .map(|u| &u.name)
+    .collect();
+
+// Good: Use collect with type inference
+let map: HashMap<_, _> = pairs.into_iter().collect();
+```
+
+### Smart Pointers
+```rust
+// Use Arc for shared ownership across threads
+let shared: Arc<Config> = Arc::new(config);
+
+// Use Box for heap allocation and trait objects
+let handler: Box<dyn Handler> = Box::new(MyHandler);
+
+// Avoid Rc in async code (not Send)
+```
+
+## Documentation
+
+### Document Public APIs
+```rust
+/// A type-safe query builder for database operations.
+///
+/// # Examples
+///
+/// ```rust
+/// let users = client
+///     .user()
+///     .find_many()
+///     .where_(user::active::equals(true))
+///     .exec()
+///     .await?;
+/// ```
+///
+/// # Panics
+///
+/// Panics if called without a valid connection.
+///
+/// # Errors
+///
+/// Returns `QueryError::Connection` if the database is unreachable.
+pub struct QueryBuilder<T> { ... }
+```
+
+### Use `#[must_use]` for Important Return Values
+```rust
+#[must_use = "queries do nothing until executed"]
+pub fn where_(self, filter: Filter) -> Self { ... }
+
+#[must_use]
+pub fn build(self) -> Query { ... }
+```
+
+## Testing
+
+### Unit Tests
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_filter_equals() {
+        let filter = user::id::equals(1);
+        assert_eq!(filter.to_sql(), "id = $1");
+    }
+
+    #[tokio::test]
+    async fn test_async_operation() {
+        let result = async_fn().await;
+        assert!(result.is_ok());
+    }
+}
+```
+
+### Use `#[should_panic]` and `#[ignore]`
+```rust
+#[test]
+#[should_panic(expected = "invalid input")]
+fn test_panics_on_invalid_input() {
+    parse("invalid");
+}
+
+#[test]
+#[ignore = "requires database connection"]
+fn test_integration() {
+    // ...
+}
+```
+
+## Safety
+
+### Minimize `unsafe`
+- Avoid `unsafe` unless absolutely necessary
+- Document safety invariants for any `unsafe` code
+- Isolate `unsafe` in small, well-tested modules
 
 ```rust
-// Good: Shows error handling
-let user = client
-    .user()
-    .find_unique(user::id::equals(1))
-    .exec()
-    .await?
-    .ok_or(Error::NotFound)?;
-
-// Avoid: Hides complexity
-let user = client.user().find_unique(...).exec().await.unwrap();
+/// # Safety
+///
+/// The caller must ensure that `ptr` is valid and properly aligned.
+unsafe fn raw_operation(ptr: *mut u8) {
+    // ...
+}
 ```
 
-### Keep Examples Concise
+### Use `#[non_exhaustive]` for Extensibility
+```rust
+#[non_exhaustive]
+pub enum FilterOp {
+    Equals,
+    NotEquals,
+    Contains,
+    // Can add variants without breaking changes
+}
+```
+
+## Clippy
+
+All code must pass `cargo clippy` with no warnings. Key lints enforced:
 
 ```rust
-// Good: Focused example
-let users = client
-    .user()
-    .find_many()
-    .where_(user::active::equals(true))
-    .exec()
-    .await?;
-
-// Avoid: Too much going on
-let users = client
-    .user()
-    .find_many()
-    .where_(and![
-        user::active::equals(true),
-        user::role::equals("admin"),
-        user::created_at::gt(DateTime::from(...)),
-    ])
-    .include(user::posts::fetch().include(post::comments::fetch()))
-    .order_by(user::name::asc())
-    .skip(page * 10)
-    .take(10)
-    .exec()
-    .await?;
+#![deny(
+    clippy::all,
+    clippy::pedantic,
+    clippy::unwrap_used,
+    clippy::expect_used,
+)]
+#![allow(
+    clippy::module_name_repetitions,
+    clippy::must_use_candidate,
+)]
 ```
 
-## Sync Checklist
+## Commit Messages
 
-When updating the README, verify:
-
-- [ ] Code examples compile and run
-- [ ] Version numbers match `Cargo.toml`
-- [ ] Feature flags are accurate
-- [ ] Links are not broken
-- [ ] CLI commands are current
-- [ ] Comparison table is fair/accurate
-- [ ] Architecture tree matches actual structure
-- [ ] Installation instructions work
-
-## Common Updates
-
-### New Feature Added
-
-1. Add to Features list if significant
-2. Add usage example in appropriate section
-3. Update comparison table if relevant
-
-### New Database Backend
-
-1. Add to Features list
-2. Add installation instructions with feature flag
-3. Add to comparison table
-4. Add backend-specific examples if needed
-
-### New Framework Integration
-
-1. Add to Features list
-2. Add installation with integration crate
-3. Add example in Quick Start or dedicated section
-
-### API Change
-
-1. Update affected code examples
-2. Note breaking changes prominently
-3. Show migration path if applicable
-
-### Version Bump
-
-1. Update badge URLs if needed
-2. Update minimum Rust version if changed
-3. Verify all version references are consistent
+Follow Conventional Commits (enforced by commit-msg hook):
+- `feat(query):` - New features
+- `fix(postgres):` - Bug fixes
+- `docs:` - Documentation
+- `refactor:` - Code refactoring
+- `test:` - Test changes
+- `perf:` - Performance improvements
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
