@@ -4,7 +4,7 @@
   "repo": "openclaw-config",
   "description": "Give your AI assistant memory, skills, and autonomy. Persistent memory, 11 integration skills, and 4 autonomous workflows \u2014 all in markdown and Python scripts. Built for Claude Code.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TechNickAI/openclaw-config",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T06:07:26Z"
+  "distributed_at": "2026-05-07T09:52:29Z"
 }
