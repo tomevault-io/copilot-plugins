@@ -4,7 +4,7 @@
   "repo": "devops-bot",
   "description": "Chat-driven AI coding agent \u2014 discuss requirements in group chat, get automated code changes and pull requests",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xxxxxccc/devops-bot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T05:32:18Z"
+  "distributed_at": "2026-05-07T01:39:08Z"
 }
