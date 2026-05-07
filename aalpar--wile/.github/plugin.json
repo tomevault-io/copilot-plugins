@@ -1,0 +1,9 @@
+{
+  "name": "aalpar--wile",
+  "displayName": "wile",
+  "description": "Pure Go R7RS Scheme \u2014 embeddable interpreter with hygienic macros, first-class continuations, and sandboxing",
+  "version": "1.0.0",
+  "author": "aalpar",
+  "homepage": "https://github.com/aalpar/wile",
+  "skills": []
+}
