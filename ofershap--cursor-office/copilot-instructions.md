@@ -1,47 +1,54 @@
-## interactive-objects
+## sprites-and-rendering
 
-> Each object is created by a `create*()` function in `objects.ts` returning `InteractiveObject`.
+> - `SpriteData = string[][]` - 2D array of hex color strings. Empty string = transparent.
 
-# Interactive Objects
+# Sprites & Rendering
 
-## Object Factory Pattern
-Each object is created by a `create*()` function in `objects.ts` returning `InteractiveObject`.
-The `render` function receives `(ctx, obj, tick, scale)` — it draws relative to `obj.position` using `scale`.
-`onClick` mutates `obj.state` (toggle, cycle, etc.) and can mutate `OfficeState`.
+## Sprite System
+- `SpriteData = string[][]` - 2D array of hex color strings. Empty string = transparent.
+- `makeSprite(w, h)` creates the array. `fill(s, x1, y1, x2, y2, color)` and `outline(s, ...)` draw into it.
+- `renderSprite()` draws each non-empty pixel as a `scale`-sized rectangle. `imageSmoothingEnabled = false`.
+- All sprites are procedural code, no external image files.
 
-## Registering External Objects
-`window.agentArcade.registerObject(obj)` — lets external code inject custom objects.
-`registerBackground(bg)` — replaces floor/wall rendering with custom `BackgroundRenderer`.
-This is the extensibility API for future plugins/themes.
+## PAL (Palette)
+Single `PAL` object in sprites.ts. All colors go here. When adding objects, reuse PAL colors.
+Character suit colors: `suitDark`, `suitMid`, `suitLight`, `suitHighlight`, `dressShirt`, `tie`.
 
-## Current Objects & Their States
+## Character Sprites
+- `idle` - front-facing standing (skin, suit, tie visible). Uses `makeCharHead` (face with eyes/mouth).
+- `back` - rear view (hair, suit back, center seam). Uses raw hair fill, NOT `makeCharHead`.
+- `sitType1/sitType2` - seated REAR view with typing animation (arms alternate). Back-of-head like `back`.
+- `celebrate` - arms up, stars. Front-facing with `makeCharHead`.
+- `walk1/walk2` - walking animation frames. Front-facing with `makeCharHead`.
+- `phoning` - standing REAR view, left arm raised holding handset to ear. Back-of-head like `back`.
 
-| Object | `state` key | Behavior |
-|--------|------------|----------|
-| lamp | `on: boolean` | Toggle. Sets `office.dimmed`. Flash effect on toggle. |
-| window | `open: boolean` | Toggle curtains. Sky renders day/night/sunset based on system clock. Light beam when open + daytime. |
-| arcade | `game: number` | Cycles through 3 mini-game animations (Space Invaders, Tetris, Pong). Scanline + glow effects. |
-| coffee | `steamTimer: number` | Click → steam particles rise for 3 seconds. |
-| cat | `targetCol/Row, moveTimer, nudged, purring, facingRight` | Autonomous wandering AI. Click → nudge bounce + purr hearts. |
-| plant | `stage, clicks, bounce` | Click → water. After 4 clicks → stage 1, 10 clicks → stage 2 (flowers + sparkles). |
-| watercooler | `bubbleTimer: number` | Click → rising bubbles for 2 seconds. |
-| phone | `ringing: boolean, ringTimer: number` | Vibrates when `ringing=true`. Synced with character phoning activity via message handler in `index.ts`. |
-| bookshelf | `selected, bubbleTimer, title` | Click → cycles through book titles, shows in custom wide bubble. |
-| rug | (none) | Non-interactive. Woven texture with diamond pattern and tassels. |
+## Critical: Front vs Back Sprite Construction
+- Front-facing sprites call `makeCharHead(s, 0)` → draws face with skin, eyes, mouth.
+- Back-facing sprites draw hair/head MANUALLY (fill with `H`/`HH`, ears peeking as `SK`).
+- NEVER use `makeCharHead` for back-facing sprites — it draws a visible face.
+- When adding a new pose, decide front/back first, then follow the matching pattern.
+- `makeSuitTorso` draws the FRONT of the jacket (shirt, tie visible). For back poses, draw jacket back manually (SD fill, SM center seam, SH shoulder highlights).
 
-## Hitbox Gotchas
-- Hitbox `{ w, h }` is in PIXEL space (unscaled). Hit test multiplies by `scale`.
-- Position is in TILE coords, so pixel position = `col * TILE_SIZE * scale`.
-- Small objects (cat, plant) need oversized hitboxes for usability. Aim for at least 20x14 for small items.
-- Hitbox anchors at top-left of the object's tile position.
+`facingDir` controls rendering:
+- `'back'` = render sprite as-is (back sprites already face away)
+- `'left'` = mirror with `ctx.scale(-1, 1)` (idle sprite faces right by default)
+- `'right'` = render as-is
 
-## Adding a New Object
-1. Create sprite(s) in `sprites.ts` using `makeSprite` / `fill` / `outline`.
-2. Add factory function in `objects.ts` with position, hitbox, zY, state, onClick, render.
-3. Add to `createDefaultObjects()` array.
-4. Add entry in `OBJECT_POSITIONS` (character.ts) if the character should walk to it on click.
-5. Add corresponding waypoint in `IDLE_WAYPOINTS` if the character should visit it during idle patrol.
-6. Set `zY = (row + some_offset) * TILE_SIZE` (unscaled) for correct depth sorting.
+## Facing Direction Rules
+- Working at desk: always `'back'` (uses sitType sprites)
+- Phoning: always `'back'` (uses phoning sprite — character faces desk/phone)
+- Idle at coffee/browse/arcade: `'back'` (uses back sprite)
+- Idle at water cooler: `'left'`
+- Idle at plant: `'right'`
+- Walking: follows movement direction (left/right only)
+- Default idle: alternates left/right on a timer
+
+## Speech Bubbles
+- Clamped to scene bounds: `bx` between `2*scale` and `sceneW - bubbleW - 2*scale`.
+- `by` clamped to `>= 2*scale` to prevent top clipping.
+- `sceneW = 6 * 32 * scale` (COLS * TILE_SIZE * scale, NOT canvas width).
+- Working activities get an icon prefix (emoji). Idle activities don't.
+- After initial status text fades (6s), working states auto-cycle "Working." / "Working.." / "Working..." via `speechBubbleTimer = 0.5` loop.
 
 ---
 > Source: [ofershap/cursor-office](https://github.com/ofershap/cursor-office) — distributed by [TomeVault](https://tomevault.io).
