@@ -1,0 +1,9 @@
+{
+  "name": "karanchandekar--generative-dashboard-builder",
+  "displayName": "generative-dashboard-builder",
+  "description": "AI-powered dashboard builder \u2014 describe what you want in natural language and watch interactive charts, KPIs, and visualizations stream in real-time. Built with Next.js, Gemini AI, Recharts, and Tailw",
+  "version": "1.0.0",
+  "author": "KaranChandekar",
+  "homepage": "https://github.com/KaranChandekar/generative-dashboard-builder",
+  "skills": []
+}
