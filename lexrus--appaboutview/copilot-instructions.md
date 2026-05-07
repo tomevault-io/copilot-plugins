@@ -1,35 +1,33 @@
-## resources
+## testing
 
-> All resources are located in `Sources/Resources/`
+> - Uses Swift Testing framework (NOT XCTest)
 
 
-# Resource Management Rules
+# Testing Guidelines
 
-## Resource Files Location
-All resources are located in `Sources/Resources/`
+## Testing Framework
+- Uses Swift Testing framework (NOT XCTest)
+- Test files located in `Tests/` directory
+- Main test file: `Tests/AppAboutViewTests.swift`
 
-## Key Resource Files
+## Testing Focus Areas
+- Component initialization and data integrity
+- Service layer functionality (AppShowcaseService)
+- Localization support
+- Platform-specific behavior
+- Data model validation (MyAppInfo)
 
-### App Data
-- `apps.json`: JSON data containing showcase app information
-- Contains app metadata, descriptions, and platform information
+## Testing Commands
+- Run tests: `swift test`
+- Always run tests after making changes
+- Ensure tests pass before committing code
 
-### Assets
-- `Assets.xcassets/`: App icons for showcase apps
-- Individual `.imageset/` folders for each app icon
-- Icons include: liveextractor, regexplus, sharptooth, swiftymenu
-
-### Localization Files
-- Language-specific `.lproj/` folders
-- Each contains `Localizable.strings` file
-- 7 supported languages total
-
-## Resource Guidelines
-- Icons should be properly sized and optimized
-- JSON data must be valid and properly structured
-- Localization files must be consistent across languages
-- Resource loading should include fallback mechanisms
-- Bundle references use `.module` for proper package context
+## Testing Best Practices
+- Test both success and failure scenarios
+- Mock external dependencies when necessary
+- Test platform-specific code paths
+- Validate localization behavior
+- Test caching mechanisms
 
 ---
 > Source: [lexrus/AppAboutView](https://github.com/lexrus/AppAboutView) — distributed by [TomeVault](https://tomevault.io).
