@@ -4,7 +4,7 @@
   "repo": "tallyman",
   "description": "A command-line tool that summarizes the size of a codebase by language, showing lines of code with and without comments and blank lines.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikeckennedy/tallyman",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:58:55Z"
+  "distributed_at": "2026-05-07T09:59:19Z"
 }
