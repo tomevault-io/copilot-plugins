@@ -1,0 +1,9 @@
+{
+  "name": "soapbucket--sbproxy",
+  "displayName": "sbproxy",
+  "description": "Single-binary AI gateway and reverse proxy. 200+ LLM providers, one config.",
+  "version": "1.0.0",
+  "author": "soapbucket",
+  "homepage": "https://github.com/soapbucket/sbproxy",
+  "skills": []
+}
