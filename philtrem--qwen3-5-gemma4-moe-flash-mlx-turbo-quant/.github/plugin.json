@@ -1,0 +1,9 @@
+{
+  "name": "philtrem--qwen3-5-gemma4-moe-flash-mlx-turbo-quant",
+  "displayName": "qwen3.5-gemma4-moe-flash-mlx-turbo-quant",
+  "description": "qwen3.5-gemma4-moe-flash-mlx-turbo-quant",
+  "version": "1.0.0",
+  "author": "philtrem",
+  "homepage": "https://github.com/philtrem/qwen3.5-gemma4-moe-flash-mlx-turbo-quant",
+  "skills": []
+}
