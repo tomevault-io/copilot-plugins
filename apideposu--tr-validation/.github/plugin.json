@@ -1,0 +1,9 @@
+{
+  "name": "apideposu--tr-validation",
+  "displayName": "tr-validation",
+  "description": "Local-only validation and normalization toolkit for Turkiye-specific form data. No backend calls, no telemetry, no registry lookup.",
+  "version": "1.0.0",
+  "author": "apideposu",
+  "homepage": "https://github.com/apideposu/tr-validation",
+  "skills": []
+}
