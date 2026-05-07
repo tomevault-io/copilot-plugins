@@ -1,0 +1,9 @@
+{
+  "name": "maximcoding--react-native-bare-starter",
+  "displayName": "react-native-bare-starter",
+  "description": "Bare React Native starter with TypeScript, feature-first structure, TanStack Query, MMKV, i18n, theming, CI, and offline-ready support.",
+  "version": "1.0.0",
+  "author": "maximcoding",
+  "homepage": "https://github.com/maximcoding/react-native-bare-starter",
+  "skills": []
+}
