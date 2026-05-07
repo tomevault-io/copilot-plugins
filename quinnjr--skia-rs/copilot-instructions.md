@@ -1,64 +1,71 @@
-## commands
+## ffi
 
-> Common workspace commands for skia-rs development
+> FFI (Foreign Function Interface) guidelines for skia-rs-ffi
 
 
-# Workspace Commands
+# FFI Guidelines
 
-## Development
+## C API Design
 
-```bash
-# Check all crates
-cargo check --workspace
+- All FFI functions in `skia-rs-ffi`
+- Use opaque pointers for complex types
+- Follow Skia's C API naming: `sk_{type}_{method}`
+- Always check for null pointers
 
-# Build debug
-cargo build --workspace
+```rust
+// skia-rs-ffi/src/lib.rs
 
-# Build release
-cargo build --release --workspace
+/// Create a new paint object.
+///
+/// # Safety
+/// Returns a valid pointer that must be freed with `sk_paint_delete`.
+#[no_mangle]
+pub unsafe extern "C" fn sk_paint_new() -> *mut Paint {
+    Box::into_raw(Box::new(Paint::new()))
+}
 
-# Run tests
-cargo test --workspace
+/// Delete a paint object.
+///
+/// # Safety
+/// `paint` must be a valid pointer returned by `sk_paint_new`.
+#[no_mangle]
+pub unsafe extern "C" fn sk_paint_delete(paint: *mut Paint) {
+    if !paint.is_null() {
+        drop(Box::from_raw(paint));
+    }
+}
 
-# Run benchmarks
-cargo bench -p skia-rs-bench
-
-# Generate docs
-cargo doc --workspace --no-deps --open
-
-# Format code
-cargo fmt --all
-
-# Lint
-cargo clippy --workspace -- -D warnings
+/// Set the paint color.
+///
+/// # Safety
+/// `paint` must be a valid pointer.
+#[no_mangle]
+pub unsafe extern "C" fn sk_paint_set_color(paint: *mut Paint, color: u32) {
+    if let Some(p) = paint.as_mut() {
+        p.set_color32(Color(color));
+    }
+}
 ```
 
-## Git Workflow
+## Type Mappings
 
-- Keep the `skia/` submodule updated for reference
-- Commit messages should reference Skia types/functions being implemented
-- Use feature branches for new implementations
-- Update `TODO.md` as features are completed
+| Skia C++ | Rust | C FFI |
+|----------|------|-------|
+| `SkScalar` | `Scalar` (f32) | `float` |
+| `SkPoint` | `Point` | `sk_point_t` |
+| `SkRect` | `Rect` | `sk_rect_t` |
+| `SkColor` | `Color` | `uint32_t` |
+| `SkMatrix` | `Matrix` | `sk_matrix_t` |
+| `SkPath*` | `*mut Path` | `sk_path_t*` |
+| `SkPaint*` | `*mut Paint` | `sk_paint_t*` |
+| `SkCanvas*` | `*mut Canvas` | `sk_canvas_t*` |
 
-## Conventional Commits
+## Safety Requirements
 
-Commit messages must follow Conventional Commits:
-
-```
-feat(core): add Matrix inversion
-fix(path): correct cubic curve bounds calculation
-docs: update API documentation
-refactor(canvas): simplify save/restore stack
-test(paint): add property tests for color conversion
-```
-
-## Pre-commit Hooks
-
-The project uses `cargo-husky` for git hooks:
-
-- **pre-commit**: Runs `cargo fmt --check` and `cargo clippy`
-- **pre-push**: Runs full test suite
-- **commit-msg**: Validates Conventional Commits format
+- All FFI functions must be marked `unsafe`
+- Document safety requirements in doc comments
+- Check for null pointers before dereferencing
+- Use `#[repr(C)]` for all FFI-visible structs
 
 ---
 > Source: [quinnjr/skia-rs](https://github.com/quinnjr/skia-rs) — distributed by [TomeVault](https://tomevault.io).
