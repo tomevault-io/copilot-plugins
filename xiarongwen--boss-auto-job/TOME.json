@@ -1,0 +1,44 @@
+{
+  "name": "boss-auto-job",
+  "owner": "xiarongwen",
+  "repo": "boss-auto-job",
+  "description": "\ud83c\udfaf BOSS\u76f4\u8058 skill - \u641c\u7d22+AI\u5339\u914d+\u81ea\u52a8\u6295\u9012 (Camoufox\u9690\u8eab\u6a21\u5f0f)",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/xiarongwen/boss-auto-job",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T05:49:08Z"
+}
