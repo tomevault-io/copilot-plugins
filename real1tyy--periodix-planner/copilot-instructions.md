@@ -1,86 +1,102 @@
-## jsdoc-quality
+## mock-management
 
-> Enforce meaningful JSDoc comments and avoid redundant documentation
+> Centralized mock management and DRY testing practices
 
 
-# JSDoc Quality Standards
+# Mock Management and Testing Strategy
 
-**Eliminate useless JSDoc comments that just repeat the function/variable name.**
+**Always reuse existing mocks from the utils package before creating new ones.**
 
-## ❌ **DON'T: Write redundant JSDoc**
+## ✅ **DO: Use Centralized Mocks**
 
-```typescript
-/**
- * Get settings
- */
-get settings() { ... }
-
-/**
- * Load settings
- */
-async loadSettings() { ... }
-
-/**
- * Save settings
- */
-async saveSettings() { ... }
-
-/**
- * Update profile
- */
-async updateProfile(profile: CalendarProfile) { ... }
-```
-
-## ✅ **DO: Write meaningful documentation or none at all**
+All common mocks are centralized in [libs/utils/src/testing/](mdc:libs/utils/src/testing/) and should be imported:
 
 ```typescript
-// No JSDoc needed - method name is self-explanatory
-get settings() { ... }
-
-// No JSDoc needed - clear from name and parameters
-async loadSettings() { ... }
-
-// Add JSDoc only when it provides real value
-/**
- * Migrates settings from older versions and validates structure.
- * Throws error if migration fails or settings are invalid.
- */
-private migrateSettings(data: any): CustomCalendarSettings { ... }
-
-/**
- * Updates profile and automatically saves to disk.
- * Creates new profile if ID doesn't exist, updates existing otherwise.
- *
- * @throws {Error} When max profile limit is reached for new profiles
- */
-async updateProfile(profile: CalendarProfile): Promise<void> { ... }
+// Import from centralized testing utilities
+import {
+  Plugin,
+  PluginSettingTab,
+  Setting,
+  Notice,
+  MarkdownRenderer,
+  createMockApp,
+  createMockFile,
+  setupTestEnvironment
+} from "@obsidian-plugins/utils/testing";
 ```
 
-## **When JSDoc adds value:**
+### Available Centralized Mocks
 
-- **Complex logic**: Explain non-obvious behavior or algorithms
-- **Error conditions**: Document what exceptions are thrown and when
-- **Side effects**: Mention automatic saves, notifications, state changes
-- **Business rules**: Explain validation rules or constraints
-- **API contracts**: Document expected input/output for public methods
-- **Performance notes**: Mention caching, async behavior, or expensive operations
+- **Obsidian Core**: [obsidian.ts](mdc:libs/utils/src/testing/mocks/obsidian.ts) - Plugin, PluginSettingTab, ItemView, Setting, TFile, Notice, MarkdownRenderer
+- **Utility Functions**: [utils.ts](mdc:libs/utils/src/testing/mocks/utils.ts) - mockFileOperations, mockLinkParser
+- **Setup Helpers**: [setup.ts](mdc:libs/utils/src/testing/setup.ts) - setupTestEnvironment()
 
-## **When to skip JSDoc:**
+### Test Configuration Pattern
 
-- **Self-explanatory names**: `getName()`, `setActive()`, `isValid()`
-- **Simple getters/setters**: Basic property access
-- **Obvious parameters**: `updateProfile(profile)`, `removeById(id)`
-- **Standard patterns**: Basic CRUD operations, event handlers
-- **Private utilities**: Internal helper methods with clear names
+```typescript
+// vitest.config.ts - Use centralized mock resolution
+export default defineConfig({
+  test: {
+    globals: true,
+    environment: "jsdom",
+  },
+  resolve: {
+    alias: {
+      obsidian: new URL("../../utils/src/testing/mocks/obsidian.ts", import.meta.url).pathname,
+    },
+  },
+});
+```
 
-## **Focus on code clarity first:**
+## ❌ **DON'T: Duplicate Common Mocks**
 
-- Use descriptive method and variable names
-- Keep functions small and focused
-- Use TypeScript types for parameter documentation
-- Let the code tell the story, use JSDoc for context
+```typescript
+// DON'T create new Obsidian mocks
+vi.mock("obsidian", () => ({
+  Plugin: vi.fn(),
+  Setting: vi.fn(),
+  // ... duplicating existing mocks
+}));
 
-**Remember**: Good code needs less documentation. Write code so clear that JSDoc becomes unnecessary, then add JSDoc only where it genuinely helps.
+// DON'T create separate mock files for common utilities
+// tests/__mocks__/obsidian.ts ❌
+```
+
+## 🎯 **ONLY Create Package-Specific Mocks When:**
+
+1. **Package-specific interfaces** not available in utils
+2. **Business logic mocks** unique to your package
+3. **Integration points** specific to your plugin
+
+### Package-Specific Mock Example
+
+```typescript
+// Only for package-specific functionality
+vi.mock("../src/my-specific-service", () => ({
+  MySpecificService: vi.fn().mockImplementation(() => ({
+    packageSpecificMethod: vi.fn(),
+  })),
+}));
+```
+
+## 🔧 **Implementation Steps**
+
+1. **Check existing mocks** in [libs/utils/src/testing/](mdc:libs/utils/src/testing/) first
+2. **Import from utils package** using `@obsidian-plugins/utils/testing`
+3. **Configure vitest** to use centralized mock resolution
+4. **Only create new mocks** for package-specific functionality
+5. **Add to utils package** if the mock could benefit other packages
+
+## 📦 **Dependencies**
+
+```json
+// package.json devDependencies
+{
+  "@obsidian-plugins/utils": "workspace:*"
+}
+```
+
+This approach ensures **DRY principles**, **consistent test behavior**, and **easier maintenance** across all packages.
 
 ---
 > Source: [Real1tyy/Periodix-Planner](https://github.com/Real1tyy/Periodix-Planner) — distributed by [TomeVault](https://tomevault.io).
