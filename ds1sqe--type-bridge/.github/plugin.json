@@ -1,0 +1,14 @@
+{
+  "name": "ds1sqe--type-bridge",
+  "displayName": "type-bridge",
+  "description": "A modern, Pythonic ORM for TypeDB with an Attribute-based API that aligns with TypeDB's type system.",
+  "version": "1.0.0",
+  "author": "ds1sqe",
+  "homepage": "https://github.com/ds1sqe/type-bridge",
+  "skills": [
+    {
+      "name": "docs",
+      "description": ""
+    }
+  ]
+}
