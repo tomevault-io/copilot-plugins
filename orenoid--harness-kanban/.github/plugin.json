@@ -1,0 +1,9 @@
+{
+  "name": "orenoid--harness-kanban",
+  "displayName": "harness-kanban",
+  "description": "A cloud-based kanban tool for managing fully containerized coding agents that run 24/7 to handle assigned issues.",
+  "version": "1.0.0",
+  "author": "Orenoid",
+  "homepage": "https://github.com/Orenoid/harness-kanban",
+  "skills": []
+}
