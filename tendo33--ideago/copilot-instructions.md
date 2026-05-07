@@ -1,22 +1,20 @@
-## python-decorator-patterns
+## python-error-handling
 
-> Best practices for creating and using decorators for cross-cutting concerns like timing, retry logic, and logging.
+> Comprehensive error handling patterns with custom exceptions and proper error propagation.
 
-- Use functools.wraps to preserve function metadata in decorators.
-- Create generic, reusable decorators that work with any function signature.
-- Use *args and **kwargs to support flexible function signatures.
-- Provide configurable decorators with default parameters.
-- Implement timing_decorator for performance monitoring.
-- Create retry_decorator with exponential backoff for transient failures.
-- Build log_calls decorator for automatic function call logging.
-- Support both synchronous and asynchronous functions in decorators.
-- Handle exceptions properly within decorators; don't swallow errors silently.
-- Use type hints in decorator signatures for better IDE support.
-- Document decorator parameters and behavior in docstrings.
-- Keep decorators focused on single concerns (timing, logging, retry, etc.).
-- Make decorators stackable and composable.
-- Consider performance impact; avoid expensive operations in decorators.
-- Test decorators independently with various function types.
+- Always handle expected errors explicitly with try-except blocks.
+- Create custom exception classes for domain-specific errors.
+- Use meaningful exception messages with context about what failed.
+- Never use bare except: clauses; always specify exception types.
+- Log errors with full context using logger.exception() or logger.opt(exception=True).
+- Re-raise exceptions after logging when appropriate.
+- Use contextlib.suppress() for acceptable ignored exceptions.
+- Implement retry logic using @retry_decorator for transient failures.
+- Validate inputs early and raise ValueError/TypeError for invalid inputs.
+- Use assertions only for internal invariants, not for user input validation.
+- Clean up resources properly using context managers or try-finally blocks.
+- Document exceptions that functions may raise in docstrings.
+- Return Optional[T] or Result types instead of raising exceptions for expected failures.
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
