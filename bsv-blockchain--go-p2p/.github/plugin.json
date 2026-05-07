@@ -1,0 +1,9 @@
+{
+  "name": "bsv-blockchain--go-p2p",
+  "displayName": "go-p2p",
+  "description": "Enterprise-ready P2P networking for BSV blockchain\u2014built on libp2p with DHT",
+  "version": "1.0.0",
+  "author": "bsv-blockchain",
+  "homepage": "https://github.com/bsv-blockchain/go-p2p",
+  "skills": []
+}
