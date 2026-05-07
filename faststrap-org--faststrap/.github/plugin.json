@@ -1,0 +1,9 @@
+{
+  "name": "faststrap-org--faststrap",
+  "displayName": "Faststrap",
+  "description": "Faststrap is a component-based extension for FastHTML that provides reusable UI elements (cards, modals, toasts, drawers, navbars, grids, etc.) using lightweight Bootstrap styling. Fully customizable,",
+  "version": "1.0.0",
+  "author": "Faststrap-org",
+  "homepage": "https://github.com/Faststrap-org/Faststrap",
+  "skills": []
+}
