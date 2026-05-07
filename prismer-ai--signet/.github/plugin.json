@@ -1,0 +1,9 @@
+{
+  "name": "prismer-ai--signet",
+  "displayName": "signet",
+  "description": "Proof layer for AI agents. Cryptographically verify every action.",
+  "version": "1.0.0",
+  "author": "Prismer-AI",
+  "homepage": "https://github.com/Prismer-AI/signet",
+  "skills": []
+}
