@@ -1,162 +1,163 @@
-## 01-rule-format
+## 02-contributor-guide
 
-> MDC format specifications and frontmatter requirements for cursor rules
+> Guidelines for contributing new rules or editing existing ones
 
 
-# Rule Format Specification
+# Contributor Guide
 
-## MDC File Structure
+## Quick Start
 
-Every rule file MUST have this structure:
+1. Find the right category in `rules/`
+2. Create or edit an `.mdc` file
+3. Follow the format in `01-rule-format.mdc`
+4. Test the rule in a real project
+5. Submit PR
+
+---
+
+## Adding a New Rule
+
+### Step 1: Check if it exists
+
+```bash
+# Search existing rules
+ls rules/**/*.mdc | grep -i "your-topic"
+```
+
+### Step 2: Choose the right category
+
+| Category | What belongs here |
+|----------|-------------------|
+| `frameworks/` | React, Next.js, Vue, Svelte, Angular, Astro |
+| `languages/` | TypeScript, Python, Go, Rust, etc. |
+| `backends/` | Supabase, FastAPI, Express, Django |
+| `mobile/` | React Native, Flutter, SwiftUI |
+| `styling/` | Tailwind, CSS modules, shadcn/ui |
+| `testing/` | Vitest, Jest, Playwright, Cypress |
+| `best-practices/` | Clean code, security, accessibility |
+| `stacks/` | Combined presets (T3, LAMP, etc.) |
+
+### Step 3: Create the file
+
+```bash
+# Example: Adding a new framework rule
+touch rules/frameworks/remix.mdc
+```
+
+### Step 4: Write the rule
+
+Follow the template:
 
 ```markdown
 ---
-description: Brief explanation of what this rule does
+description: [What this rule helps with - 1-2 sentences]
 globs: ["**/*.tsx", "**/*.ts"]
 alwaysApply: false
 ---
 
-# Rule Title
+# [Framework/Topic Name]
 
-## Section 1
-Content...
-
-## Section 2
-Content...
-```
-
----
-
-## Frontmatter Fields
-
-| Field | Required | Type | Description |
-|-------|----------|------|-------------|
-| `description` | Yes | string | 1-2 sentence summary for AI to understand when to use |
-| `globs` | Yes | array | File patterns that trigger this rule (empty = manual) |
-| `alwaysApply` | No | boolean | If true, always included in context |
-
-### Globs Examples
-
-```yaml
-# TypeScript/React files
-globs: ["**/*.tsx", "**/*.ts"]
-
-# Python files
-globs: ["**/*.py"]
-
-# Specific directories
-globs: ["src/components/**/*", "src/hooks/**/*"]
-
-# Empty = manual activation only
-globs: []
-```
-
----
-
-## Content Guidelines
-
-### DO
-
-```markdown
-✅ Use clear headings (##, ###)
-✅ Include practical code examples
-✅ Use tables for quick reference
-✅ Keep sections focused and scannable
-✅ Include ✅/❌ for do/don't patterns
-✅ Reference specific file paths when helpful
-```
-
-### DON'T
-
-```markdown
-❌ Write walls of text
-❌ Use vague language ("consider doing X")
-❌ Include outdated patterns
-❌ Repeat information from other rules
-❌ Use corporate/AI-slop language
-❌ Exceed 500 lines (split into multiple files)
-```
-
----
-
-## Section Patterns
-
-### Pattern 1: Quick Reference Table
-
-```markdown
 ## Overview
+[Brief intro - what, why, when]
 
-| Aspect | Recommendation |
-|--------|----------------|
-| State | Use Zustand |
-| Styling | Tailwind CSS |
-| Forms | React Hook Form + Zod |
-```
+## Key Patterns
+[The most important stuff first]
 
-### Pattern 2: Do/Don't Examples
+## Examples
+[Real code examples]
 
-```markdown
-## Component Patterns
-
-### ✅ DO: Use early returns
-
-```tsx
-function Component({ data }) {
-  if (!data) return null;
-  return <div>{data.name}</div>;
-}
-```
-
-### ❌ DON'T: Nested conditionals
-
-```tsx
-function Component({ data }) {
-  return (
-    <div>
-      {data && data.name && <span>{data.name}</span>}
-    </div>
-  );
-}
-```
-```
-
-### Pattern 3: Command Reference
-
-```markdown
-## Commands
-
-```bash
-npm run dev      # Start development server
-npm run build    # Production build
-npm run lint     # Check code quality
-```
+## Common Mistakes
+[What to avoid]
 ```
 
 ---
 
-## File Naming
+## Editing Existing Rules
 
-| Category | Pattern | Example |
-|----------|---------|---------|
-| Frameworks | `{name}-{version}.mdc` | `nextjs-15.mdc` |
-| Languages | `{name}.mdc` | `typescript.mdc` |
-| Stacks | `{name}-stack.mdc` | `t3-stack.mdc` |
-| Practices | `{topic}.mdc` | `clean-code.mdc` |
+### When to edit
+
+✅ Outdated information (old API, deprecated patterns)
+✅ Missing important patterns
+✅ Incorrect examples
+✅ Typos or unclear language
+
+### When NOT to edit
+
+❌ Personal preference changes
+❌ Adding niche edge cases
+❌ Restructuring without clear benefit
 
 ---
 
-## Quality Checklist
+## Quality Standards
 
-Before submitting a rule, verify:
+### Must Have
 
-- [ ] Frontmatter is valid YAML
-- [ ] Description is clear and concise
-- [ ] Globs target correct file types
-- [ ] Code examples are tested and work
-- [ ] No outdated patterns (check 2025 docs)
+- [ ] Valid MDC frontmatter
+- [ ] Clear, tested code examples
+- [ ] Current for 2025 (latest stable versions)
 - [ ] Under 500 lines
-- [ ] Follows existing style patterns
-- [ ] No AI-generated filler text
+- [ ] No duplicate content from other rules
+
+### Nice to Have
+
+- [ ] Tables for quick reference
+- [ ] ✅/❌ do/don't examples
+- [ ] Links to official docs
+- [ ] Common gotchas section
+
+---
+
+## Writing Style
+
+### DO write like this
+
+```markdown
+Use Server Components by default. Only add 'use client' when you need 
+browser APIs or interactivity.
+```
+
+### DON'T write like this
+
+```markdown
+It is recommended that developers consider utilizing Server Components 
+as the default paradigm for their applications, and only transition to 
+Client Components when necessitated by requirements for browser-specific 
+APIs or interactive user interface elements.
+```
+
+### Key principles
+
+- **Direct** - Get to the point
+- **Practical** - Real examples, not theory
+- **Scannable** - Headers, bullets, tables
+- **Current** - 2025 best practices
+- **Human** - Write like you're helping a friend
+
+---
+
+## Testing Your Rule
+
+Before submitting:
+
+1. Copy the rule to a test project's `.cursor/rules/`
+2. Open files that match the globs
+3. Ask Cursor to help with something related
+4. Verify it follows your rule's guidance
+5. Check edge cases
+
+---
+
+## PR Checklist
+
+```markdown
+- [ ] Rule follows MDC format
+- [ ] Code examples are tested
+- [ ] No duplicate content
+- [ ] Under 500 lines
+- [ ] Targets 2025 versions
+- [ ] Writing is clear and direct
+```
 
 ---
 > Source: [Renvia-code/best-cursor-rules](https://github.com/Renvia-code/best-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
