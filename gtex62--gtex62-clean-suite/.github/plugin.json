@@ -1,0 +1,9 @@
+{
+  "name": "gtex62--gtex62-clean-suite",
+  "displayName": "gtex62-clean-suite",
+  "description": "A modern, modular Conky suite for Linux with weather, system, and network widgets \u2014 built by GTex62.",
+  "version": "1.0.0",
+  "author": "GTex62",
+  "homepage": "https://github.com/GTex62/gtex62-clean-suite",
+  "skills": []
+}
