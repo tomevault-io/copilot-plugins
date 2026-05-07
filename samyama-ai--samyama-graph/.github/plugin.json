@@ -1,0 +1,9 @@
+{
+  "name": "samyama-ai--samyama-graph",
+  "displayName": "samyama-graph",
+  "description": "Graph-vector database that queried 1 billion edges for $2.50. Rust, OpenCypher, vector search, 14 graph algorithms. 74M nodes / 1B edges on a single machine.",
+  "version": "1.0.0",
+  "author": "samyama-ai",
+  "homepage": "https://github.com/samyama-ai/samyama-graph",
+  "skills": []
+}
