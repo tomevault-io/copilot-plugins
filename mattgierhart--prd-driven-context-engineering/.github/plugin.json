@@ -1,0 +1,90 @@
+{
+  "name": "mattgierhart--prd-driven-context-engineering",
+  "displayName": "PRD-driven-context-engineering",
+  "description": "PRD-driven Context Engineering: A systematic approach to building AI-powered products using progressive documentation and context-aware development workflows",
+  "version": "1.0.0",
+  "author": "mattgierhart",
+  "homepage": "https://github.com/mattgierhart/PRD-driven-context-engineering",
+  "skills": [
+    {
+      "name": "ghm-id-register",
+      "description": ""
+    },
+    {
+      "name": "ghm-template-sync",
+      "description": ""
+    },
+    {
+      "name": "prd-v01-user-value-articulation",
+      "description": ""
+    },
+    {
+      "name": "prd-v02-product-type-classification",
+      "description": ""
+    },
+    {
+      "name": "prd-v03-outcome-definition",
+      "description": ""
+    },
+    {
+      "name": "prd-v03-pricing-model",
+      "description": ""
+    },
+    {
+      "name": "prd-v04-screen-flow-definition",
+      "description": ""
+    },
+    {
+      "name": "prd-v05-risk-discovery-interview",
+      "description": ""
+    },
+    {
+      "name": "prd-v05-technical-stack-selection",
+      "description": ""
+    },
+    {
+      "name": "prd-v06-architecture-design",
+      "description": ""
+    },
+    {
+      "name": "prd-v06-environment-setup",
+      "description": ""
+    },
+    {
+      "name": "prd-v06-technical-specification",
+      "description": ""
+    },
+    {
+      "name": "prd-v07-epic-scoping",
+      "description": ""
+    },
+    {
+      "name": "prd-v07-implementation-loop",
+      "description": ""
+    },
+    {
+      "name": "prd-v07-test-planning",
+      "description": ""
+    },
+    {
+      "name": "prd-v08-monitoring-setup",
+      "description": ""
+    },
+    {
+      "name": "prd-v08-release-planning",
+      "description": ""
+    },
+    {
+      "name": "prd-v08-runbook-creation",
+      "description": ""
+    },
+    {
+      "name": "prd-v09-feedback-loop-setup",
+      "description": ""
+    },
+    {
+      "name": "prd-v09-launch-metrics",
+      "description": ""
+    }
+  ]
+}
