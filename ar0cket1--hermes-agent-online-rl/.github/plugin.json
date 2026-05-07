@@ -1,0 +1,9 @@
+{
+  "name": "ar0cket1--hermes-agent-online-rl",
+  "displayName": "Hermes-Agent-Online-RL",
+  "description": "Online RL for Hermes Agent \u2014 self-improving LoRA adapters from human feedback using MIS-PO",
+  "version": "1.0.0",
+  "author": "ar0cket1",
+  "homepage": "https://github.com/ar0cket1/Hermes-Agent-Online-RL",
+  "skills": []
+}
