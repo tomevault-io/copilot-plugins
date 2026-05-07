@@ -1,0 +1,9 @@
+{
+  "name": "solanabr--solana-claude",
+  "displayName": "solana-claude",
+  "description": "Claude Code configs for the expert Solana builder. CLAUDE.md, agents, commands, hooks, rules, skills and settings across Web, Anchor, Pinnochio, Unity, Mobile, security and more.",
+  "version": "1.0.0",
+  "author": "solanabr",
+  "homepage": "https://github.com/solanabr/solana-claude",
+  "skills": []
+}
