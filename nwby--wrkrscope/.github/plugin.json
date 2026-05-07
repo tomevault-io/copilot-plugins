@@ -1,0 +1,9 @@
+{
+  "name": "nwby--wrkrscope",
+  "displayName": "wrkrscope",
+  "description": "Browser based explorer for local Cloudflare Worker development",
+  "version": "1.0.0",
+  "author": "NWBY",
+  "homepage": "https://github.com/NWBY/wrkrscope",
+  "skills": []
+}
