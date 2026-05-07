@@ -1,121 +1,105 @@
-## i18n-translation-system
+## logging-system
 
-> This project implements an intelligent translation system with incremental detection and language validation.
+> This project uses a custom logging system located in [scripts/utils/logger.ts](mdc:scripts/utils/logger.ts) for consistent, structured output across all scripts.
 
-# I18n Translation System Guide
+# Custom Logger System Guide
 
-This project implements an intelligent translation system with incremental detection and language validation.
+This project uses a custom logging system located in [scripts/utils/logger.ts](mdc:scripts/utils/logger.ts) for consistent, structured output across all scripts.
 
-## 🌍 Translation Workflow
+## 🚨 Critical Rule
+**NEVER use `console.log`, `console.warn`, `console.error` directly in any scripts.** Always use the custom Logger.
 
-### Core Components
-- **[scripts/processors/i18n-processor.ts](mdc:scripts/processors/i18n-processor.ts)** - Handles OpenAI-based translation
-- **[scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts)** - Manages incremental translation logic
-- **[scripts/validators/language-validator.ts](mdc:scripts/validators/language-validator.ts)** - Validates translation quality
+## 📝 Logger Usage Patterns
 
-### Translation Process Flow
-1. **Source Detection**: Extract translatable fields from source files
-2. **Incremental Check**: Compare with existing translations to detect changes
-3. **Translation**: Use OpenAI to translate only new/changed content
-4. **Merge**: Combine new translations with existing ones
-5. **Validation**: Verify translation language matches expected locale
-6. **Format**: Apply formatting and save results
-
-## 🔄 Incremental Translation Logic
-
-### Key Method: `getIncrementalData()`
-Located in [scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts):
-
+### Basic Import
 ```typescript
-private getIncrementalData = (sourceData: any, existingData: any) => {
-  const needsTranslation = {};
-  let hasUpdates = false;
-
-  for (const key of config.selectors) {
-    const sourceValue = get(sourceData, key);
-    const existingValue = get(existingData, key);
-
-    if (sourceValue && !isEqual(sourceValue, existingValue)) {
-      set(needsTranslation, key, sourceValue);
-      hasUpdates = true;
-    }
-  }
-
-  return { hasUpdates, needsTranslation };
-};
+import { Logger } from '../utils/logger';
+// OR import specific functions
+import { info, warn, error, success, start } from '../utils/logger';
 ```
 
-### Translation Strategy
-- **Full Translation**: When no existing translation file exists
-- **Incremental Translation**: When changes detected in source content
-- **Skip Translation**: When no changes detected (content unchanged)
-- **Merge Results**: Combine new translations with existing using `lodash.merge`
+### Common Logging Methods
 
-## 🛡️ Language Validation
-
-### Validation Process
-Uses `@yutengjing/eld` library for language detection:
-
+#### Information and Status
 ```typescript
-import { validateTranslationLanguage } from '../validators/language-validator';
-
-const validationResult = validateTranslationLanguage(
-  translatedData,
-  expectedLocale,
-  fileName
-);
+Logger.info('处理文件', '文件名或详情');
+Logger.success('操作完成', '目标', '详细信息');
+Logger.warn('警告信息', '原因或详情');
+Logger.error('错误信息', '错误对象或详情');
 ```
 
-### Validation Command
-Use [scripts/commands/validate-language.ts](mdc:scripts/commands/validate-language.ts):
-
-```bash
-pnpm run validate:lang                    # Validate all files
-pnpm run validate:lang --delete           # Validate and delete invalid files
-pnpm run validate:lang <file_path>        # Validate single file
+#### Process Flow
+```typescript
+Logger.start('开始操作', '目标', '详细信息');
+Logger.split('分隔线标题', '='); // 创建分隔线
 ```
 
-## 📋 Configuration
+#### File Operations
+```typescript
+Logger.file('read', 'path/to/file.json', 'success');
+Logger.file('write', 'path/to/file.json', 'start');
+Logger.file('delete', 'path/to/file.json', 'error');
+```
 
-### Translation Fields
-Defined in [scripts/core/constants.ts](mdc:scripts/core/constants.ts) as `config.selectors`:
-- `meta.title`
-- `meta.description`
-- `meta.tags`
-- `config.systemRole`
-- `summary`
-- `examples`
-- `config.openingMessage`
-- `config.openingQuestions`
+#### Translation Process
+```typescript
+Logger.translate(agentId, '源语言', '目标语言', 'start');
+Logger.translate(agentId, '源语言', '目标语言', 'success');
+Logger.translate(agentId, '源语言', '目标语言', 'skip');
+Logger.translate(agentId, '源语言', '目标语言', 'error');
+```
 
-### Supported Locales
-Available in `config.outputLocales`:
-- `zh-CN`, `en-US`, `ja-JP`, `ko-KR`
-- `fr-FR`, `de-DE`, `es-ES`, `pt-BR`
-- `ru-RU`, `it-IT`, `nl-NL`, `pl-PL`
-- `ar`, `tr-TR`, `vi-VN`, `ms-MY`
-- `th-TH`, `hi-IN`, `bg-BG`, `cs-CZ`
-- `da-DK`, `fi-FI`, `he-IL`, `hu-HU`
-- `id-ID`, `no-NO`, `ro-RO`, `sk-SK`
-- `sl-SI`, `sv-SE`, `uk-UA`
+#### Progress and Statistics
+```typescript
+Logger.progress(current, total, '操作描述');
+Logger.stats({
+  '总文件数': totalCount,
+  '成功数量': successCount,
+  '失败数量': failureCount
+});
+```
 
-## 🚀 Best Practices
+## 🎨 Logger Features
 
-### OpenAI Translation Prompts
-- Preserve role fields (`user`, `assistant`, `system`, `function`)
-- Translate only content fields, not structural elements
-- Maintain JSON structure and format
-- Follow BCP 47 language standards
+### Colored Output
+- Uses `consola` with colored icons and formatting
+- Different colors for different log levels
+- Consistent visual hierarchy
 
-### Error Handling
-- Use dirty-json as fallback for malformed JSON responses
-- Log translation failures with detailed error information
-- Gracefully handle API rate limits and timeouts
+### Structured Information
+- Progress bars for long operations
+- Statistical summaries
+- File operation tracking
+- Translation workflow logging
 
-### File Management
-- Create locale directories as needed
-- Use consistent file naming: `agent-id.locale.json`
-- Clean up empty JSON files automatically
+### Debugging Support
+```typescript
+Logger.debug('调试信息', debugData);
+```
+
+## 📋 Migration from console.*
+
+### Old Pattern ❌
+```typescript
+console.log('Processing file:', fileName);
+console.warn('File not found:', filePath);
+console.error('Error occurred:', error);
+```
+
+### New Pattern ✅
+```typescript
+Logger.info('处理文件', fileName);
+Logger.warn('文件未找到', filePath);
+Logger.error('发生错误', error);
+```
+
+## 🔧 Command Line Tools
+
+Commands like [scripts/commands/validate-language.ts](mdc:scripts/commands/validate-language.ts) demonstrate proper Logger usage:
+- Use `Logger.split()` for section headers
+- Use appropriate log levels for different message types
+- Provide structured output with `Logger.stats()`
+- Use `Logger.file()` for file operations
 
 ---
 > Source: [nirholas/defi-agents](https://github.com/nirholas/defi-agents) — distributed by [TomeVault](https://tomevault.io).
