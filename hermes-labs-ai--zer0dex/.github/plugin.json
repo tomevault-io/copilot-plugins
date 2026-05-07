@@ -1,0 +1,9 @@
+{
+  "name": "hermes-labs-ai--zer0dex",
+  "displayName": "zer0dex",
+  "description": "Local dual-layer memory for AI agents using a compressed index plus vector retrieval",
+  "version": "1.0.0",
+  "author": "hermes-labs-ai",
+  "homepage": "https://github.com/hermes-labs-ai/zer0dex",
+  "skills": []
+}
