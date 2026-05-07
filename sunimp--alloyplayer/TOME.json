@@ -4,7 +4,7 @@
   "repo": "AlloyPlayer",
   "description": "Swift \u89c6\u9891\u64ad\u653e\u6846\u67b6\uff0c\u534f\u8bae\u9a71\u52a8\u63d2\u4ef6\u5f0f\u67b6\u6784\uff0c\u8986\u76d6 ZFPlayer \u5927\u90e8\u5206\u529f\u80fd\u3002\u652f\u6301 AVPlayer \u5f15\u64ce\u3001\u6a2a\u7ad6\u5c4f\u5168\u5c4f\u3001\u5217\u8868\u64ad\u653e\u3001\u624b\u52bf\u63a7\u5236\u3001\u5c0f\u7a97\u6d6e\u7a97\u3001Combine \u4e8b\u4ef6\u6d41\uff0cSwift 6 \u5e76\u53d1\u5b89\u5168\u3002",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sunimp/AlloyPlayer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T08:59:51Z"
+  "distributed_at": "2026-05-07T04:06:45Z"
 }
