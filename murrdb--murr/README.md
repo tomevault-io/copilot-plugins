@@ -7,11 +7,11 @@ Sub-millisecond cache for ML/AI workloads. Parquets in, Arrow-Flight out.
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [murrdb/murr](https://github.com/murrdb/murr).
+Original source: `CLAUDE.md` in [murrdb/murr](https://github.com/murrdb/murr).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
