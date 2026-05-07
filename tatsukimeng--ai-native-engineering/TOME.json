@@ -4,7 +4,7 @@
   "repo": "ai-native-engineering",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/TatsukiMeng/ai-native-engineering",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:35:25Z"
+  "distributed_at": "2026-05-07T01:49:23Z"
 }
