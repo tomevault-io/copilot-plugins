@@ -1,0 +1,9 @@
+{
+  "name": "kromahlusenii-ops--ham",
+  "displayName": "ham",
+  "description": "(HAM) Memory system for AI coding agents. Cut token usage by 80% by scoping context to directories.",
+  "version": "1.0.0",
+  "author": "kromahlusenii-ops",
+  "homepage": "https://github.com/kromahlusenii-ops/ham",
+  "skills": []
+}
