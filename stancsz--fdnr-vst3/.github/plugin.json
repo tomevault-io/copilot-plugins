@@ -1,0 +1,9 @@
+{
+  "name": "stancsz--fdnr-vst3",
+  "displayName": "fdnr-vst3",
+  "description": "Open-source, modular reverb engine offering high-fidelity algorithms inspired by Valhalla classics (VintageVerb, Room). Features community-contributed decay models, deep modulation, and VST3 compatibi",
+  "version": "1.0.0",
+  "author": "stancsz",
+  "homepage": "https://github.com/stancsz/fdnr-vst3",
+  "skills": []
+}
