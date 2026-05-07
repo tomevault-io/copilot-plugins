@@ -1,0 +1,9 @@
+{
+  "name": "axolotl-stack--axolotl-stack",
+  "displayName": "axolotl-stack",
+  "description": "A monorepo of MCPE related tools in Rust. Transport layers, game protocol and server impl. ",
+  "version": "1.0.0",
+  "author": "axolotl-stack",
+  "homepage": "https://github.com/axolotl-stack/axolotl-stack",
+  "skills": []
+}
