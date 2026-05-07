@@ -4,7 +4,7 @@
   "repo": "nsys-ai",
   "description": "Terminal UI for NVIDIA Nsight Systems profiles \u2014 timeline viewer, kernel navigator, NVTX hierarchy",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/GindaChen/nsys-ai",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T05:42:21Z"
+  "distributed_at": "2026-05-07T07:45:01Z"
 }
