@@ -1,365 +1,338 @@
-## error-handling
+## git-flow
 
-> This project uses `thiserror` for library errors and follows Rust error handling best practices.
+> Git-flow branching strategy and workflow conventions for the Prax project
 
-# Error Handling Guidelines
 
-This project uses `thiserror` for library errors and follows Rust error handling best practices.
+# Git-Flow Workflow
 
-## Error Types
+This project follows the **Git-Flow** branching model for organized development and releases.
 
-### Use `thiserror` for Library Errors
+## Branch Structure
 
-```rust
-use thiserror::Error;
-
-#[derive(Error, Debug)]
-pub enum QueryError {
-    #[error("connection failed: {0}")]
-    Connection(#[source] tokio_postgres::Error),
-
-    #[error("query timeout after {0:?}")]
-    Timeout(std::time::Duration),
-
-    #[error("invalid filter: {field} - {message}")]
-    InvalidFilter { field: String, message: String },
-
-    #[error("record not found: {entity} with id {id}")]
-    NotFound { entity: &'static str, id: i64 },
-
-    #[error("constraint violation: {0}")]
-    Constraint(String),
-}
+```
+main (production)
+  │
+  └── develop (integration)
+        │
+        ├── feature/* (new features)
+        ├── bugfix/* (non-critical fixes)
+        ├── release/* (release preparation)
+        └── hotfix/* (critical production fixes)
 ```
 
-### Error Hierarchy
+## Primary Branches
 
-```rust
-// Top-level error type
-#[derive(Error, Debug)]
-pub enum PraxError {
-    #[error("query error: {0}")]
-    Query(#[from] QueryError),
+### `main`
+- **Purpose**: Production-ready code only
+- **Protection**: Protected, requires PR approval
+- **Deploys to**: Production / crates.io releases
+- **Never commit directly** - only merge from `release/*` or `hotfix/*`
 
-    #[error("schema error: {0}")]
-    Schema(#[from] SchemaError),
+### `develop`
+- **Purpose**: Integration branch for features
+- **Contains**: Latest delivered development changes
+- **Base for**: All `feature/*` and `bugfix/*` branches
+- **Merged to**: `release/*` branches
 
-    #[error("migration error: {0}")]
-    Migration(#[from] MigrationError),
+## Supporting Branches
 
-    #[error("connection error: {0}")]
-    Connection(#[from] ConnectionError),
-}
+### Feature Branches: `feature/<name>`
 
-// Domain-specific errors
-#[derive(Error, Debug)]
-pub enum SchemaError {
-    #[error("parse error at line {line}: {message}")]
-    Parse { line: usize, message: String },
+For new features and enhancements.
 
-    #[error("invalid model: {0}")]
-    InvalidModel(String),
+```bash
+# Create feature branch from develop
+git checkout develop
+git pull origin develop
+git checkout -b feature/query-builder
 
-    #[error("unknown type: {0}")]
-    UnknownType(String),
-}
+# Work on feature...
+git add .
+git commit -m "feat(query): implement basic query builder"
+
+# Keep up to date with develop
+git fetch origin develop
+git rebase origin/develop
+
+# Push and create PR to develop
+git push -u origin feature/query-builder
 ```
 
-## Error Propagation
+**Naming convention**: `feature/<scope>-<description>`
+- `feature/query-builder`
+- `feature/postgres-connection-pool`
+- `feature/schema-parser`
 
-### Use `?` Operator
+### Bugfix Branches: `bugfix/<name>`
 
-```rust
-// ✅ Good: Clean error propagation
-pub async fn find_user(id: i64) -> Result<User, QueryError> {
-    let conn = self.pool.get().await?;
-    let row = conn.query_one(&self.sql, &[&id]).await?;
-    let user = User::from_row(row)?;
-    Ok(user)
-}
+For non-critical bug fixes during development.
 
-// ❌ Bad: Explicit match everywhere
-pub async fn find_user(id: i64) -> Result<User, QueryError> {
-    let conn = match self.pool.get().await {
-        Ok(c) => c,
-        Err(e) => return Err(e.into()),
-    };
-    // ... more matches ...
-}
+```bash
+git checkout develop
+git checkout -b bugfix/connection-timeout
+
+# Fix the bug...
+git commit -m "fix(postgres): handle connection timeout gracefully"
+
+git push -u origin bugfix/connection-timeout
 ```
 
-### Add Context with `map_err`
+**Naming convention**: `bugfix/<scope>-<description>`
+- `bugfix/query-null-handling`
+- `bugfix/migration-rollback`
 
-```rust
-use std::path::Path;
+### Release Branches: `release/<version>`
 
-pub fn read_schema(path: &Path) -> Result<Schema, SchemaError> {
-    let content = std::fs::read_to_string(path)
-        .map_err(|e| SchemaError::Io {
-            path: path.to_path_buf(),
-            source: e,
-        })?;
+For preparing a new production release.
 
-    parse_schema(&content)
-        .map_err(|e| SchemaError::Parse {
-            path: path.to_path_buf(),
-            source: e,
-        })
-}
+```bash
+# Create release branch from develop
+git checkout develop
+git checkout -b release/0.1.0
+
+# Update version in Cargo.toml
+# Update CHANGELOG.md
+# Final testing and bug fixes only
+
+git commit -m "chore(release): prepare v0.1.0"
+
+# Merge to main
+git checkout main
+git merge --no-ff release/0.1.0
+git tag -a v0.1.0 -m "Release v0.1.0"
+
+# Merge back to develop
+git checkout develop
+git merge --no-ff release/0.1.0
+
+# Delete release branch
+git branch -d release/0.1.0
 ```
 
-### Use `anyhow` for Context in Applications
+**Naming convention**: `release/<semver>`
+- `release/0.1.0`
+- `release/1.0.0`
+- `release/2.3.1`
 
-```rust
-// In CLI or application code (not library)
-use anyhow::{Context, Result};
+### Hotfix Branches: `hotfix/<name>`
 
-pub fn run_migration(path: &str) -> Result<()> {
-    let schema = read_schema(path)
-        .with_context(|| format!("failed to read schema from {}", path))?;
+For critical production fixes that can't wait.
 
-    let sql = generate_sql(&schema)
-        .context("failed to generate SQL")?;
+```bash
+# Create hotfix from main
+git checkout main
+git checkout -b hotfix/security-vulnerability
 
-    execute_sql(&sql)
-        .context("failed to execute migration")?;
+# Fix the issue...
+git commit -m "fix(security): patch SQL injection vulnerability"
 
-    Ok(())
-}
+# Merge to main
+git checkout main
+git merge --no-ff hotfix/security-vulnerability
+git tag -a v0.1.1 -m "Hotfix v0.1.1"
+
+# Merge to develop (or current release branch)
+git checkout develop
+git merge --no-ff hotfix/security-vulnerability
+
+# Delete hotfix branch
+git branch -d hotfix/security-vulnerability
 ```
 
-## Error Design Principles
+**Naming convention**: `hotfix/<description>`
+- `hotfix/security-patch`
+- `hotfix/critical-query-fix`
 
-### Make Errors Actionable
+## Workflow Diagrams
 
-```rust
-// ✅ Good: Error tells you what went wrong and how to fix it
-#[error("field '{field}' requires type {expected}, got {actual}. Use @{expected} attribute or change the type.")]
-InvalidFieldType {
-    field: String,
-    expected: &'static str,
-    actual: String,
-}
-
-// ❌ Bad: Vague error
-#[error("invalid field")]
-InvalidField,
+### Feature Development
+```
+develop ─────●─────────────●─────────────●───────
+              \           /
+feature/*      ●────●────●
+               ↑    ↑    ↑
+            commits on feature
 ```
 
-### Include Relevant Data
-
-```rust
-// ✅ Good: Error includes debugging information
-#[error("query failed after {attempts} attempts (last error: {last_error})")]
-RetryExhausted {
-    attempts: u32,
-    last_error: String,
-    query: String, // Include the query for debugging
-}
-
-// ❌ Bad: No context
-#[error("retry failed")]
-RetryFailed,
+### Release Process
+```
+main    ─────────────────────●────── (v0.1.0)
+                            /
+release/0.1.0    ●────●────●
+                /
+develop ───●───●─────────────●───────
 ```
 
-### Preserve Error Chain
-
-```rust
-#[derive(Error, Debug)]
-pub enum DatabaseError {
-    // ✅ Good: Preserves source error
-    #[error("connection pool exhausted")]
-    PoolExhausted(#[source] deadpool::PoolError),
-
-    // ✅ Good: #[from] for automatic conversion
-    #[error("postgres error")]
-    Postgres(#[from] tokio_postgres::Error),
-}
+### Hotfix Process
+```
+main    ────●─────────────●────── (v0.1.1)
+             \           /
+hotfix/*      ●────●────●
+                        \
+develop ─────────────────●───────
 ```
 
-## Handling Specific Error Cases
+## Commit Message Format
 
-### Not Found vs Error
+All commits **MUST** follow [Conventional Commits](https://conventionalcommits.org/) with **REQUIRED scope**:
 
-```rust
-// Return Option for "not found" when that's a valid state
-pub async fn find_by_id(id: i64) -> Result<Option<User>, QueryError> {
-    match self.query_one(&sql, &[&id]).await {
-        Ok(row) => Ok(Some(User::from_row(row)?)),
-        Err(e) if e.is_no_rows() => Ok(None),
-        Err(e) => Err(e.into()),
-    }
-}
+```
+<type>(<scope>): <description>
 
-// Return Error for "not found" when it indicates a problem
-pub async fn get_by_id(id: i64) -> Result<User, QueryError> {
-    self.find_by_id(id)
-        .await?
-        .ok_or(QueryError::NotFound { entity: "User", id })
-}
+[optional body]
+
+[optional footer]
 ```
 
-### Validation Errors
+### ⚠️ Scope is REQUIRED
 
-```rust
-#[derive(Error, Debug)]
-pub enum ValidationError {
-    #[error("validation failed")]
-    Multiple(Vec<FieldError>),
-}
+Every commit must include a scope. This is enforced by the `commit-msg` git hook.
 
-#[derive(Debug)]
-pub struct FieldError {
-    pub field: String,
-    pub message: String,
-    pub code: &'static str,
-}
+**Valid scopes:**
+- Crate names: `query`, `postgres`, `mysql`, `sqlite`, `mssql`, `mongodb`, `duckdb`, `schema`, `codegen`, `migrate`, `cli`
+- Special: `deps`, `ci`, `docs`, `release`, `security`
 
-impl ValidationError {
-    pub fn single(field: impl Into<String>, message: impl Into<String>) -> Self {
-        Self::Multiple(vec![FieldError {
-            field: field.into(),
-            message: message.into(),
-            code: "invalid",
-        }])
-    }
+### Valid Types
 
-    pub fn builder() -> ValidationErrorBuilder {
-        ValidationErrorBuilder::new()
-    }
-}
+| Type | Description | Example |
+|------|-------------|---------|
+| `feat` | New feature | `feat(query): add nested filter support` |
+| `fix` | Bug fix | `fix(postgres): handle connection timeout` |
+| `docs` | Documentation | `docs(readme): add installation guide` |
+| `style` | Formatting | `style(query): fix indentation` |
+| `refactor` | Code refactoring | `refactor(schema): simplify parser logic` |
+| `perf` | Performance | `perf(query): optimize SQL generation` |
+| `test` | Tests | `test(postgres): add connection tests` |
+| `build` | Build system | `build(deps): update tokio to 1.35` |
+| `ci` | CI/CD | `ci(github): add benchmark workflow` |
+| `chore` | Maintenance | `chore(release): bump version to 0.3.3` |
+| `revert` | Revert commit | `revert(query): undo filter changes` |
 
-// Usage
-let mut errors = ValidationError::builder();
-if email.is_empty() {
-    errors.add("email", "Email is required", "required");
-}
-if password.len() < 8 {
-    errors.add("password", "Password must be at least 8 characters", "min_length");
-}
-errors.build()?; // Returns Ok(()) or Err(ValidationError)
+### Breaking Changes
+
+Add `!` before `:` for breaking changes:
+```
+feat(api)!: change query builder interface
 ```
 
-### Database Constraint Errors
+### Types by Branch
 
-```rust
-impl From<tokio_postgres::Error> for QueryError {
-    fn from(e: tokio_postgres::Error) -> Self {
-        // Parse PostgreSQL error codes
-        if let Some(db_err) = e.as_db_error() {
-            match db_err.code().code() {
-                "23505" => return QueryError::UniqueViolation {
-                    constraint: db_err.constraint().map(String::from),
-                    detail: db_err.detail().map(String::from),
-                },
-                "23503" => return QueryError::ForeignKeyViolation {
-                    constraint: db_err.constraint().map(String::from),
-                },
-                "23502" => return QueryError::NotNullViolation {
-                    column: db_err.column().map(String::from),
-                },
-                _ => {}
-            }
-        }
-        QueryError::Database(e)
-    }
-}
+| Branch Type | Common Commit Types |
+|-------------|---------------------|
+| `feature/*` | `feat`, `test`, `docs` |
+| `bugfix/*` | `fix`, `test` |
+| `release/*` | `chore`, `docs`, `fix` |
+| `hotfix/*` | `fix`, `security` |
+
+## Pull Request Guidelines
+
+### PR Titles
+Follow the same conventional commit format:
+- `feat(query): add nested filter support`
+- `fix(postgres): resolve connection leak`
+
+### PR Checklist
+- [ ] Branch is up to date with target branch
+- [ ] All tests pass (`cargo test --all-features`)
+- [ ] Code is formatted (`cargo fmt`)
+- [ ] No clippy warnings (`cargo clippy`)
+- [ ] CHANGELOG.md updated (for features/fixes)
+- [ ] Documentation updated if needed
+
+### Merge Strategy
+
+| Target Branch | Merge Type | Reason |
+|---------------|------------|--------|
+| `develop` ← `feature/*` | Squash | Clean history |
+| `develop` ← `bugfix/*` | Squash | Clean history |
+| `main` ← `release/*` | Merge commit | Preserve release history |
+| `main` ← `hotfix/*` | Merge commit | Preserve hotfix history |
+| `develop` ← `release/*` | Merge commit | Sync changes |
+| `develop` ← `hotfix/*` | Merge commit | Sync changes |
+
+## Version Tagging
+
+Tags are created on `main` branch only:
+
+```bash
+# Annotated tags for releases
+git tag -a v0.1.0 -m "Release v0.1.0: Initial release with PostgreSQL support"
+
+# Push tags
+git push origin v0.1.0
+# or push all tags
+git push origin --tags
 ```
 
-## Testing Error Handling
+### Semantic Versioning
 
-### Test Error Cases Explicitly
+```
+v<MAJOR>.<MINOR>.<PATCH>
 
-```rust
-#[test]
-fn test_invalid_filter_error() {
-    let result = parse_filter("invalid syntax");
-
-    assert!(result.is_err());
-    let err = result.unwrap_err();
-    assert!(matches!(err, FilterError::Parse { .. }));
-    assert!(err.to_string().contains("invalid syntax"));
-}
-
-#[test]
-fn test_error_source_chain() {
-    let inner = std::io::Error::new(std::io::ErrorKind::NotFound, "file missing");
-    let err = SchemaError::Io {
-        path: "schema.prax".into(),
-        source: inner,
-    };
-
-    // Verify source is accessible
-    assert!(err.source().is_some());
-    assert!(err.to_string().contains("schema.prax"));
-}
+MAJOR: Breaking API changes
+MINOR: New features (backwards compatible)
+PATCH: Bug fixes (backwards compatible)
 ```
 
-### Test Error Recovery
+**Pre-release versions**:
+- `v0.1.0-alpha.1`
+- `v0.1.0-beta.1`
+- `v0.1.0-rc.1`
 
-```rust
-#[tokio::test]
-async fn test_retry_on_transient_error() {
-    let mut attempts = 0;
-    let result = retry_with_backoff(|| async {
-        attempts += 1;
-        if attempts < 3 {
-            Err(QueryError::Connection("transient".into()))
-        } else {
-            Ok("success")
-        }
-    }).await;
+## Quick Reference
 
-    assert!(result.is_ok());
-    assert_eq!(attempts, 3);
-}
+### Starting New Work
+
+```bash
+# Feature
+git checkout develop && git pull
+git checkout -b feature/my-feature
+
+# Bugfix
+git checkout develop && git pull
+git checkout -b bugfix/my-fix
+
+# Hotfix (critical)
+git checkout main && git pull
+git checkout -b hotfix/critical-fix
 ```
 
-## Logging Errors
+### Keeping Branch Updated
 
-### Log at Appropriate Levels
+```bash
+# Rebase feature on latest develop
+git fetch origin develop
+git rebase origin/develop
 
-```rust
-use tracing::{error, warn, debug};
-
-pub async fn execute(&self) -> Result<(), QueryError> {
-    match self.try_execute().await {
-        Ok(()) => Ok(()),
-        Err(e) if e.is_transient() => {
-            warn!(error = %e, "transient error, will retry");
-            self.retry().await
-        }
-        Err(e) => {
-            error!(error = %e, query = %self.sql, "query execution failed");
-            Err(e)
-        }
-    }
-}
+# Resolve conflicts if any, then:
+git push --force-with-lease
 ```
 
-### Include Structured Context
+### Finishing Work
 
-```rust
-use tracing::{error, instrument};
+```bash
+# Push branch and create PR
+git push -u origin <branch-name>
+# Create PR via GitHub UI or CLI
 
-#[instrument(skip(self), fields(user_id = %id))]
-pub async fn find_user(&self, id: i64) -> Result<User, QueryError> {
-    self.query_one(&sql, &[&id]).await.map_err(|e| {
-        error!(error = %e, "failed to find user");
-        e
-    })
-}
+# After PR merged, clean up
+git checkout develop
+git pull
+git branch -d <branch-name>
 ```
 
-## Summary
+## Branch Protection Rules
 
-1. **Use `thiserror`** for library error types
-2. **Preserve error chains** with `#[source]` and `#[from]`
-3. **Make errors actionable** with clear messages and context
-4. **Use `?` operator** for clean propagation
-5. **Add context** with `map_err` or `anyhow::Context`
-6. **Test error cases** explicitly
-7. **Log appropriately** with structured context
+### `main`
+- Require pull request reviews (1+ approval)
+- Require status checks to pass
+- Require linear history (no merge commits from features)
+- Restrict who can push (maintainers only)
+
+### `develop`
+- Require pull request reviews
+- Require status checks to pass
+- Allow squash merging
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
