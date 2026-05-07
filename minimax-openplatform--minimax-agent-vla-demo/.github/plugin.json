@@ -1,0 +1,9 @@
+{
+  "name": "minimax-openplatform--minimax-agent-vla-demo",
+  "displayName": "MiniMax-Agent-VLA-Demo",
+  "description": "MiniMax LLM + Pi05 VLA Robot Agent Demo",
+  "version": "1.0.0",
+  "author": "MiniMax-OpenPlatform",
+  "homepage": "https://github.com/MiniMax-OpenPlatform/MiniMax-Agent-VLA-Demo",
+  "skills": []
+}
