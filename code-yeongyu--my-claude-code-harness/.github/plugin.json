@@ -1,0 +1,22 @@
+{
+  "name": "code-yeongyu--my-claude-code-harness",
+  "displayName": "my-claude-code-harness",
+  "description": "I'm confident this setup will become deprecated and outdated in less than 3 months",
+  "version": "1.0.0",
+  "author": "code-yeongyu",
+  "homepage": "https://github.com/code-yeongyu/my-claude-code-harness",
+  "skills": [
+    {
+      "name": "git-committer",
+      "description": ""
+    },
+    {
+      "name": "pr-context-retrieval",
+      "description": ""
+    },
+    {
+      "name": "pr-creator",
+      "description": ""
+    }
+  ]
+}
