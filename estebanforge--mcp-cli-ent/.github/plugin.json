@@ -1,0 +1,9 @@
+{
+  "name": "estebanforge--mcp-cli-ent",
+  "displayName": "mcp-cli-ent",
+  "description": "A context-guardian CLI for MCP servers. It provides access to MCP servers via CLI and returns clean, structured summaries to the AI agent. This prevents context window overflow and preserves the agent",
+  "version": "1.0.0",
+  "author": "EstebanForge",
+  "homepage": "https://github.com/EstebanForge/mcp-cli-ent",
+  "skills": []
+}
