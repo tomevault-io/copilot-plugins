@@ -1,0 +1,44 @@
+{
+  "name": "blender-ai-mcp",
+  "owner": "PatrykIti",
+  "repo": "blender-ai-mcp",
+  "description": "Production-shaped MCP server for Blender with goal-first routing, curated tools, deterministic verification, and vision-assisted 3D modeling workflows.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/PatrykIti/blender-ai-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T06:22:27Z"
+}
