@@ -1,0 +1,9 @@
+{
+  "name": "realms-cards--contested-realms",
+  "displayName": "contested-realms",
+  "description": "Web client for Sorcery: Contested Realm. Play at https://realms.cards",
+  "version": "1.0.0",
+  "author": "realms-cards",
+  "homepage": "https://github.com/realms-cards/contested-realms",
+  "skills": []
+}
