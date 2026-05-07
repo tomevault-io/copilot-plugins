@@ -1,115 +1,121 @@
-## development-workflow
+## i18n-translation-system
 
-> This project uses pnpm for package management and has a structured set of scripts for different development tasks.
+> This project implements an intelligent translation system with incremental detection and language validation.
 
-# Development Workflow Guide
+# I18n Translation System Guide
 
-This project uses pnpm for package management and has a structured set of scripts for different development tasks.
+This project implements an intelligent translation system with incremental detection and language validation.
 
-## 🔧 NPM Scripts
+## 🌍 Translation Workflow
 
-### Core Commands
-Located in [package.json](mdc:package.json):
+### Core Components
+- **[scripts/processors/i18n-processor.ts](mdc:scripts/processors/i18n-processor.ts)** - Handles OpenAI-based translation
+- **[scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts)** - Manages incremental translation logic
+- **[scripts/validators/language-validator.ts](mdc:scripts/validators/language-validator.ts)** - Validates translation quality
 
-```bash
-# Build and format agents
-pnpm run build          # Build all Agent files
-pnpm run format         # Format Agent configurations (triggers translation)
+### Translation Process Flow
+1. **Source Detection**: Extract translatable fields from source files
+2. **Incremental Check**: Compare with existing translations to detect changes
+3. **Translation**: Use OpenAI to translate only new/changed content
+4. **Merge**: Combine new translations with existing ones
+5. **Validation**: Verify translation language matches expected locale
+6. **Format**: Apply formatting and save results
 
-# Validation and testing
-pnpm run test           # Run validation tests
-pnpm run test:locale    # Test multi-language files
-pnpm run type-check     # TypeScript type checking
+## 🔄 Incremental Translation Logic
 
-# Language validation
-pnpm run validate:lang              # Validate all translation files
-pnpm run validate:lang --delete     # Validate and clean invalid files
-pnpm run clean:lang                 # Shorthand for validate with delete
+### Key Method: `getIncrementalData()`
+Located in [scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts):
 
-# Maintenance
-pnpm run update:awesome             # Update README file
+```typescript
+private getIncrementalData = (sourceData: any, existingData: any) => {
+  const needsTranslation = {};
+  let hasUpdates = false;
+
+  for (const key of config.selectors) {
+    const sourceValue = get(sourceData, key);
+    const existingValue = get(existingData, key);
+
+    if (sourceValue && !isEqual(sourceValue, existingValue)) {
+      set(needsTranslation, key, sourceValue);
+      hasUpdates = true;
+    }
+  }
+
+  return { hasUpdates, needsTranslation };
+};
 ```
 
-### Translation Workflow
-The main translation process is triggered by:
-```bash
-pnpm run format
+### Translation Strategy
+- **Full Translation**: When no existing translation file exists
+- **Incremental Translation**: When changes detected in source content
+- **Skip Translation**: When no changes detected (content unchanged)
+- **Merge Results**: Combine new translations with existing using `lodash.merge`
+
+## 🛡️ Language Validation
+
+### Validation Process
+Uses `@yutengjing/eld` library for language detection:
+
+```typescript
+import { validateTranslationLanguage } from '../validators/language-validator';
+
+const validationResult = validateTranslationLanguage(
+  translatedData,
+  expectedLocale,
+  fileName
+);
 ```
 
-This command:
-1. Calls [scripts/commands/format.ts](mdc:scripts/commands/format.ts)
-2. Executes `formatAgents()` function
-3. Processes each agent through [scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts)
-4. Performs incremental translation detection
-5. Validates language accuracy
-6. Saves formatted and translated files
+### Validation Command
+Use [scripts/commands/validate-language.ts](mdc:scripts/commands/validate-language.ts):
 
-## 🚀 Development Best Practices
-
-### Before Making Changes
-1. Run `pnpm run type-check` to ensure TypeScript correctness
-2. Test changes with a small subset of agents first
-3. Use incremental translation to avoid unnecessary API calls
-
-### Code Quality Checks
-- **TypeScript**: Use strict type checking
-- **ESLint**: Follow project linting rules
-- **Prettier**: Code formatting is handled automatically
-
-### Testing Translation Changes
 ```bash
-# Test specific language
-pnpm run test:locale
-
-# Validate a single file
-pnpm run validate:lang path/to/agent.en-US.json
-
-# Clean up invalid translations
-pnpm run clean:lang
+pnpm run validate:lang                    # Validate all files
+pnpm run validate:lang --delete           # Validate and delete invalid files
+pnpm run validate:lang <file_path>        # Validate single file
 ```
 
-## 📁 File Structure Patterns
+## 📋 Configuration
 
-### Agent Configuration Files
-- Source files: `src/agent-name.json`
-- Translations: `locales/agent-name/agent-name.locale.json`
+### Translation Fields
+Defined in [scripts/core/constants.ts](mdc:scripts/core/constants.ts) as `config.selectors`:
+- `meta.title`
+- `meta.description`
+- `meta.tags`
+- `config.systemRole`
+- `summary`
+- `examples`
+- `config.openingMessage`
+- `config.openingQuestions`
 
-### Script Organization
-- Commands in `scripts/commands/` - executable entry points
-- Core logic in processors, validators, builders
-- Utilities in `scripts/utils/`
-- Schemas in `scripts/schema/`
+### Supported Locales
+Available in `config.outputLocales`:
+- `zh-CN`, `en-US`, `ja-JP`, `ko-KR`
+- `fr-FR`, `de-DE`, `es-ES`, `pt-BR`
+- `ru-RU`, `it-IT`, `nl-NL`, `pl-PL`
+- `ar`, `tr-TR`, `vi-VN`, `ms-MY`
+- `th-TH`, `hi-IN`, `bg-BG`, `cs-CZ`
+- `da-DK`, `fi-FI`, `he-IL`, `hu-HU`
+- `id-ID`, `no-NO`, `ro-RO`, `sk-SK`
+- `sl-SI`, `sv-SE`, `uk-UA`
 
-## 🛠️ Debugging and Troubleshooting
+## 🚀 Best Practices
 
-### Common Issues
-1. **Translation API Errors**: Check OpenAI API key and rate limits
-2. **Language Validation Failures**: Review [scripts/validators/language-validator.ts](mdc:scripts/validators/language-validator.ts) mapping
-3. **Type Errors**: Run `pnpm run type-check` for detailed error messages
+### OpenAI Translation Prompts
+- Preserve role fields (`user`, `assistant`, `system`, `function`)
+- Translate only content fields, not structural elements
+- Maintain JSON structure and format
+- Follow BCP 47 language standards
 
-### Debug Mode
-Set `DEBUG=true` environment variable for verbose logging:
-```bash
-DEBUG=true pnpm run validate:lang
-```
+### Error Handling
+- Use dirty-json as fallback for malformed JSON responses
+- Log translation failures with detailed error information
+- Gracefully handle API rate limits and timeouts
 
-### Log Analysis
-All operations use [scripts/utils/logger.ts](mdc:scripts/utils/logger.ts) for structured logging:
-- Progress bars show operation status
-- Statistics summaries provide overview
-- Error messages include context and suggestions
-
-## 🔄 Continuous Integration
-
-### Pre-commit Checks
-- Type checking with TypeScript
-- Linting with ESLint
-- Language validation for translations
-
-### Automated Workflows
-- [scripts/commands/auto-submit.ts](mdc:scripts/commands/auto-submit.ts) handles GitHub automation
-- Batch processing with controlled concurrency
-- Error handling and recovery mechanisms
+### File Management
+- Create locale directories as needed
+- Use consistent file naming: `agent-id.locale.json`
+- Clean up empty JSON files automatically
 
 ---
 > Source: [nirholas/defi-agents](https://github.com/nirholas/defi-agents) — distributed by [TomeVault](https://tomevault.io).
