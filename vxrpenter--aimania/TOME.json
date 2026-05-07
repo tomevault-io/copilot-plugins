@@ -4,7 +4,7 @@
   "repo": "AIMania",
   "description": "A guide on how to avoid AI",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Vxrpenter/AIMania",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T12:04:42Z"
+  "distributed_at": "2026-05-07T11:11:14Z"
 }
