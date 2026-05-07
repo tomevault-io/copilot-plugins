@@ -1,0 +1,44 @@
+{
+  "name": "quantmesh",
+  "owner": "ghostsworm",
+  "repo": "quantmesh",
+  "description": "\u5f00\u6e90\u53ef\u5ba1\u8ba1\u7684\u52a0\u5bc6\u8d27\u5e01\u505a\u5e02\u4e0e\u7f51\u683c\u7cfb\u7edf\uff1a20+ \u4ea4\u6613\u6240\u3001\u591a\u7b56\u7565\u5e76\u884c\u3001\u591a Bot\uff1b\u590d\u6742\u4e0e Tick \u7ea7\u56de\u6d4b\u4e00\u4f53\u3002Go \u9ad8\u6027\u80fd\u5b9e\u76d8\u94fe\u8def\uff08WebSocket \u4f18\u5148\uff09+ React \u4e00\u7ad9\u5f0f\u63a7\u5236\u53f0\u3002  Open-source, auditable crypto market maker & grid: 20+ exchanges, multi-strategy & multi-bot, advanced + tick-level backtest. Go core + React console.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ghostsworm/quantmesh",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T10:41:57Z"
+}
