@@ -1,0 +1,9 @@
+{
+  "name": "kyanitelabs--mcp-video",
+  "displayName": "mcp-video",
+  "description": "Video editing MCP server for AI agents. 87 FFmpeg and Hyperframes tools, Python client, and CLI. Local, fast, free.",
+  "version": "1.0.0",
+  "author": "KyaniteLabs",
+  "homepage": "https://github.com/KyaniteLabs/mcp-video",
+  "skills": []
+}
