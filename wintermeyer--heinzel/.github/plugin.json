@@ -1,0 +1,9 @@
+{
+  "name": "wintermeyer--heinzel",
+  "displayName": "heinzel",
+  "description": "A ruleset that turns AI coding assistants into disciplined Linux, FreeBSD & macOS sysadmins. Manages servers via SSH and localhost with safety guardrails, checklists, and team support. Named after the",
+  "version": "1.0.0",
+  "author": "wintermeyer",
+  "homepage": "https://github.com/wintermeyer/heinzel",
+  "skills": []
+}
