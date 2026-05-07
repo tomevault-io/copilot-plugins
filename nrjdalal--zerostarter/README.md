@@ -7,11 +7,11 @@ A modern, type-safe, and high-performance SaaS starter template built with a mon
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nrjdalal/zerostarter](https://github.com/nrjdalal/zerostarter).
+Original source: `CLAUDE.md` in [nrjdalal/zerostarter](https://github.com/nrjdalal/zerostarter).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
