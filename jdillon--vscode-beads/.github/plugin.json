@@ -1,0 +1,9 @@
+{
+  "name": "jdillon--vscode-beads",
+  "displayName": "vscode-beads",
+  "description": "VS Code extension for managing Beads issues",
+  "version": "1.0.0",
+  "author": "jdillon",
+  "homepage": "https://github.com/jdillon/vscode-beads",
+  "skills": []
+}
