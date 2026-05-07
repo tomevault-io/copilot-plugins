@@ -1,56 +1,24 @@
-## lint-conventions
+## modular-code
 
-> Follow the project ESLint config (import order, unused vars/imports, React hooks)
+> Keep files short, modular, and DRY
 
 
-# Lint conventions
+# Modular code & DRY
 
-The project enforces these rules via ESLint. Follow them in every code change.
+- **Max ~400 lines per file.** If a file grows beyond that, split it into smaller, focused modules.
+- **Extract reusable components.** Repeated UI patterns, logic blocks, or layout wrappers should become their own components/hooks.
+- **Don't repeat yourself.** If the same logic or markup appears in two or more places, extract it into a shared helper, hook, or component.
+- **One concern per file.** A component file should own one component (plus small private helpers). Move large sub-trees into separate files.
+- **Colocate related code.** Keep a component, its types, and its hook(s) close together in the directory tree rather than scattering across distant folders.
 
-## Import sorting (`simple-import-sort`)
+## Refactoring checklist
 
-**Client** uses `simple-import-sort`. Group and sort imports in this order:
+When editing a file that already exceeds ~400 lines:
 
-1. Side-effect imports (`import "./foo"`)
-2. Node / external packages (`react`, `zustand`, `socket.io-client`, …)
-3. Internal aliases / project imports (`@/…`, `../…`, `./…`)
-
-Within each group, sort alphabetically. Exports must also be sorted.
-
-```ts
-// Good
-import { useEffect, useState } from "react";
-import { create } from "zustand";
-
-import { useSocket } from "../hooks/useSocket";
-import { Button } from "./Button";
-```
-
-## No unused imports or variables
-
-- Remove any import that is not referenced in the file (`unused-imports/no-unused-imports`).
-- Remove or use every declared variable (`@typescript-eslint/no-unused-vars`).
-- Prefix intentionally unused **function parameters** with `_` (e.g. `_event`, `_index`). This satisfies the `argsIgnorePattern: "^_"` setting.
-
-```ts
-// Good – unused param prefixed
-server.on("connection", (_socket, request) => { … });
-
-// Bad – unused param without prefix
-server.on("connection", (socket, request) => { … });
-//                       ^^^^^^ lint error if not used
-```
-
-## React hooks (`react-hooks/recommended`)
-
-- Never call hooks conditionally or inside loops.
-- List all reactive values in dependency arrays for `useEffect`, `useCallback`, and `useMemo`.
-- Do not ignore the `exhaustive-deps` warning; restructure code instead.
-
-## React Refresh (`react-refresh/only-export-components`)
-
-- A file that exports a React component should **only** export components (and constants via `allowConstantExport`).
-- Move non-component exports (types, utils, helpers) to separate files.
+1. Identify self-contained sections (sub-components, hooks, utils).
+2. Move each into its own file with a clear name.
+3. Re-export from an `index.ts` barrel if it helps the consumer.
+4. Verify no circular imports were introduced.
 
 ---
 > Source: [Gryt-chat/gryt](https://github.com/Gryt-chat/gryt) — distributed by [TomeVault](https://tomevault.io).
