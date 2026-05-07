@@ -1,0 +1,9 @@
+{
+  "name": "htmujahid--undocx",
+  "displayName": "undocx",
+  "description": "A Google Docs-like 'realtime collaborative rich text editor' built with Next.js, Lexical.dev, Supabase, and shadcn UI.",
+  "version": "1.0.0",
+  "author": "htmujahid",
+  "homepage": "https://github.com/htmujahid/undocx",
+  "skills": []
+}
