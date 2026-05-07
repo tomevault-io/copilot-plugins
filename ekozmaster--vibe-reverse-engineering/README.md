@@ -2,6 +2,8 @@
 
 > Sourced from [Ekozmaster/Vibe-Reverse-Engineering](https://github.com/Ekozmaster/Vibe-Reverse-Engineering) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+A set LLM-Friendly tools for Cursor to Reverse Engineer binaries, specially games
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
