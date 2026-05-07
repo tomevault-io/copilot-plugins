@@ -1,0 +1,9 @@
+{
+  "name": "dipseth--google-workspace-fastmcp2",
+  "displayName": "google_workspace_fastmcp2",
+  "description": "FastMCP2 server for Google Drive uploads with Qdrant-powered semantic search",
+  "version": "1.0.0",
+  "author": "dipseth",
+  "homepage": "https://github.com/dipseth/google_workspace_fastmcp2",
+  "skills": []
+}
