@@ -1,24 +1,45 @@
-## commands
+## localization
 
-> - Build: `swift build`
+> - Simplified Chinese (zh-Hans)
 
 
-# Build and Development Commands
+# Localization Rules
 
-## Building and Testing
-- Build: `swift build`
-- Test: `swift test` (uses Swift Testing framework, not XCTest)
-- Clean: `swift package clean`
+## Supported Languages
+- English (base)
+- German (de)
+- Spanish (es)
+- French (fr)
+- Italian (it)
+- Japanese (ja)
+- Korean (ko)
+- Russian (ru)
+- Simplified Chinese (zh-Hans)
+- Traditional Chinese (zh-Hant)
+- Finnish (fi)
+- Hindi (hi)
+- Indonesian (id)
+- Dutch (nl)
+- Norwegian (no)
+- Polish (pl)
+- Portuguese (pt)
+- Swedish (sv)
+- Thai (th)
+- Turkish (tr)
+- Ukrainian (uk)
+- Vietnamese (vi)
 
-## Package Management
-- Resolve dependencies: `swift package resolve`
-- Generate Xcode project: `swift package generate-xcodeproj`
+## Localization Structure
+- Language-specific `.lproj/` folders in `Sources/Resources/`
+- Each folder contains `Localizable.strings` file
+- Localized strings use bundle-specific lookup: `String(localized: "key", bundle: .module)`
+- App data supports runtime locale-based string selection
 
-## Verification Steps
-ALWAYS run linting and testing commands after making changes:
-1. `swift test` - to ensure tests pass
-2. `swiftlint` - to ensure code style compliance
-3. `swift build` - to ensure project builds successfully
+## Implementation Guidelines
+- Always use `String(localized: "key", bundle: .module)` for localized strings
+- Maintain consistency across all language files
+- Test localization with different system languages
+- Ensure fallback logic works properly for missing translations
 
 ---
 > Source: [lexrus/AppAboutView](https://github.com/lexrus/AppAboutView) — distributed by [TomeVault](https://tomevault.io).
