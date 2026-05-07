@@ -1,0 +1,30 @@
+{
+  "name": "openclaw--mcporter",
+  "displayName": "mcporter",
+  "description": "Call MCPs via TypeScript, masquerading as simple TypeScript API. Or package them as cli.",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/mcporter",
+  "skills": [
+    {
+      "name": "mcporter",
+      "description": ""
+    },
+    {
+      "name": "mcporter",
+      "description": ""
+    },
+    {
+      "name": "mcporter-railway-query-repo",
+      "description": ""
+    },
+    {
+      "name": "mcporter-skill",
+      "description": ""
+    },
+    {
+      "name": "mcporter-railway-query",
+      "description": ""
+    }
+  ]
+}
