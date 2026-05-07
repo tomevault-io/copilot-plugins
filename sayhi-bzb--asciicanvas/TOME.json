@@ -4,7 +4,7 @@
   "repo": "AsciiCanvas",
   "description": "The native visual interface for LLMs. Infinite canvas, multi-byte support, copy-pasteable architecture. Build diagrams AI can actually read.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Sayhi-bzb/AsciiCanvas",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T20:25:13Z"
+  "distributed_at": "2026-05-07T18:35:22Z"
 }
