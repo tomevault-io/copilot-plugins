@@ -1,0 +1,9 @@
+{
+  "name": "origintrail--dkg",
+  "displayName": "dkg",
+  "description": "OriginTrail Decentralized Knowledge Graph (DKG) is a decentralized knowledge infrastructure for multi-agent AI memory \u2014 enabling agents to publish, verify, and query shared knowledge as cryptographica",
+  "version": "1.0.0",
+  "author": "OriginTrail",
+  "homepage": "https://github.com/OriginTrail/dkg",
+  "skills": []
+}
