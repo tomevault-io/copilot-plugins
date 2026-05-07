@@ -4,7 +4,7 @@
   "repo": "astro-medusa-starter",
   "description": "Astro + Medusa starter for e-commerce. Optimized to the core.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/Bystrol/astro-medusa-starter",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:56:36Z"
+  "distributed_at": "2026-05-07T09:56:07Z"
 }
