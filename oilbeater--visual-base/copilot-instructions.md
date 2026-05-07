@@ -1,0 +1,96 @@
+## visual-base
+
+> Guidance for Claude Code working in the `visual-base` distribution.
+
+# CLAUDE.md
+
+Guidance for Claude Code working in the `visual-base` distribution.
+
+## What this repo is
+
+A Bub distribution published to PyPI as a single `visual-base` package.
+It bundles the framework plus two plugins (`bub-kimi`, `bub-eye`) as
+top-level modules inside the same wheel. It is **not** the core
+framework (`bub`) and **not** the community plugin monorepo
+(`bub-contrib`) — those are separate upstreams.
+
+The sibling checkouts `../bub/` and `../bub-contrib/` are independent
+git repos used for reference. Never edit them from here.
+
+## Package layout
+
+```
+pyproject.toml       # hatchling build, publishes visual-base to PyPI
+LICENSE              # MIT
+src/visual_base/     # distribution-level defaults and version
+src/bub_kimi/        # Kimi CLI plugin (entry-point: bub.kimi)
+src/bub_eye/         # Screen-capture plugin (entry-point: bub.eye)
+src/skills/          # Builtin skills shipped with the wheel
+tests/               # One test file per plugin
+```
+
+The three top-level packages (`bub_kimi`, `bub_eye`, `skills`) are
+bundled into the single `visual-base` distribution via
+`[tool.hatch.build.targets.wheel].packages`. Do not re-introduce a
+workspace — everything lives inside the one wheel.
+
+## Dependency rules
+
+- `bub>=0.3.6,<0.4` — track upstream PyPI releases. Bump the floor when
+  you need new framework APIs; bump the ceiling when bub makes a breaking
+  minor release.
+- `loguru`, `pydantic-settings`, and `imageio-ffmpeg` are always
+  installed — `bub_eye` imports them at plugin-load time, even on Linux
+  where the channel then reports `enabled=False`. `imageio-ffmpeg` ships
+  prebuilt wheels (≈20–30 MB) for every platform we target, so the
+  cross-platform cost is small and we avoid a runtime `uv pip install`
+  dance.
+- **One optional auto-install left.** `kimi-cli` is a separate uv tool
+  (an application, not a Python library), so `bub_kimi.plugin._ensure_kimi_installed`
+  still runs `uv tool install kimi-cli` lazily on first use, guarded by a
+  module-level flag, raising `RuntimeError` with an actionable message if
+  `uv` is missing or the install fails.
+
+## Plugin platform rules
+
+`bub_eye` requires macOS (Intel + Apple Silicon both supported —
+`avfoundation` input and `hevc_videotoolbox` hardware HEVC are available
+on every Mac we target). On Linux / Windows `EyeChannel.enabled` returns
+`False` after a log line and `resolve_ffmpeg` is never called — the
+bundled `imageio-ffmpeg` binary just sits unused.
+
+The `-pixel_format nv12` + `-framerate 1` avfoundation hints were tuned
+on Intel Mac to cut RSS from ~267 MB to ~96 MB (see `ffmpeg.py`
+docstring). Apple Silicon behavior is expected to be equivalent, but if
+the hints ever stop applying cleanly there, functionality stays intact —
+ffmpeg just falls back to a BGRA→YUV swscale pass at a memory cost.
+
+## Publishing to PyPI
+
+Releases are driven by `.github/workflows/release.yml`, triggered by
+pushing a `v<version>` tag. The workflow:
+
+1. Runs ruff + pytest.
+2. Checks the tag matches `project.version` in `pyproject.toml`.
+3. Builds sdist + wheel via `uv build`.
+4. Publishes via PyPI trusted publisher (OIDC, environment `pypi`).
+
+Before the first release, configure a Pending publisher on PyPI
+pointing at `oilbeater/visual-base` → `release.yml` → environment `pypi`.
+Bumping the version: edit `pyproject.toml`, commit, `git tag vX.Y.Z`,
+`git push --tags`.
+
+## Branch policy
+
+This repo is an exception to the user's global rule: commit directly to
+`main` by default. Only branch off into `feat/*` / `fix/*` when the user
+explicitly asks (or when the change clearly warrants a review cycle —
+e.g. cross-repo coordination, risky migrations).
+
+## Commit policy
+
+Every commit must carry `Signed-off-by: Mengxin Liu <liumengxinfly@gmail.com>`.
+
+---
+> Source: [oilbeater/visual-base](https://github.com/oilbeater/visual-base) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
