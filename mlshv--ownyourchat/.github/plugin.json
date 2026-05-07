@@ -1,0 +1,9 @@
+{
+  "name": "mlshv--ownyourchat",
+  "displayName": "OwnYourChat",
+  "description": "Sync your ChatGPT and Claude conversations to a local SQLite database",
+  "version": "1.0.0",
+  "author": "mlshv",
+  "homepage": "https://github.com/mlshv/OwnYourChat",
+  "skills": []
+}
