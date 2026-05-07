@@ -1,0 +1,44 @@
+{
+  "name": "dexter-kabu-jp",
+  "owner": "raditrejp",
+  "repo": "dexter-kabu-jp",
+  "description": "Claude Code\u3067\u4f7f\u3048\u308b\u65e5\u672c\u682a\u5206\u6790AI\u30ad\u30c3\u30c8 \u2014 DCF\u30fbSEPA\u30fbAltman Z''\u30fb\u30e2\u30f3\u30c6\u30ab\u30eb\u30ed\u7b4915\u306e\u5206\u6790\u30b9\u30ad\u30eb\u3002\u30e9\u30b8\u682a\u30ca\u30d3MCP\u3067\u7d043,800\u793e\u306e\u8ca1\u52d9\u30c7\u30fc\u30bf\u30fb\u30b9\u30af\u30ea\u30fc\u30cb\u30f3\u30b0\u5bfe\u5fdc",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/raditrejp/dexter-kabu-jp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T20:52:28Z"
+}
