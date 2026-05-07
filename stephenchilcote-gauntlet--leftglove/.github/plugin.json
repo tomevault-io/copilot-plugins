@@ -1,0 +1,9 @@
+{
+  "name": "stephenchilcote-gauntlet--leftglove",
+  "displayName": "leftglove",
+  "description": "MCP server wrapping ShiftLefter \u2014 agent and human interface for exploration, cataloging, and testing web applications",
+  "version": "1.0.0",
+  "author": "stephenchilcote-gauntlet",
+  "homepage": "https://github.com/stephenchilcote-gauntlet/leftglove",
+  "skills": []
+}
