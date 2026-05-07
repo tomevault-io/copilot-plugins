@@ -4,7 +4,7 @@
   "repo": "superpowers-plus",
   "description": "superpowers-plus",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/xhyqaq/superpowers-plus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T03:44:03Z"
+  "distributed_at": "2026-05-07T12:56:04Z"
 }
