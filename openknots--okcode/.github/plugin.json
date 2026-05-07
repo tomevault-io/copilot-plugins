@@ -1,0 +1,9 @@
+{
+  "name": "openknots--okcode",
+  "displayName": "okcode",
+  "description": "Chat with OpenClaw, Codex, Claude, and Copilot (soon) in a modern web UI. Git worktree isolation, diff review, integrated terminal, and more.",
+  "version": "1.0.0",
+  "author": "OpenKnots",
+  "homepage": "https://github.com/OpenKnots/okcode",
+  "skills": []
+}
