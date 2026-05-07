@@ -1,0 +1,9 @@
+{
+  "name": "wolf-jonathan--logseq-cli",
+  "displayName": "logseq-cli",
+  "description": "A Unix-composable CLI for the Logseq local HTTP API - built for humans and AI agents alike",
+  "version": "1.0.0",
+  "author": "wolf-jonathan",
+  "homepage": "https://github.com/wolf-jonathan/logseq-cli",
+  "skills": []
+}
