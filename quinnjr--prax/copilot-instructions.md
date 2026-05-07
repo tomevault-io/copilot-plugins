@@ -1,361 +1,277 @@
-## performance
+## profiling
 
-> This project prioritizes performance. Follow these guidelines to write efficient, allocation-conscious code.
+> This project includes comprehensive memory profiling tools for detecting leaks and analyzing memory usage patterns.
 
-# Performance Optimization Guidelines
+# Memory Profiling Guidelines
 
-This project prioritizes performance. Follow these guidelines to write efficient, allocation-conscious code.
+This project includes comprehensive memory profiling tools for detecting leaks and analyzing memory usage patterns.
 
-## Memory Optimization
+## Profiling Module Overview
+
+The `prax_query::profiling` module provides:
+
+- **Allocation Tracking**: Track every allocation/deallocation
+- **Memory Snapshots**: Capture and compare memory state
+- **Leak Detection**: Identify memory that wasn't freed
+- **Heap Profiling**: System-level heap analysis
+
+## Quick Start
+
+```rust
+use prax_query::profiling::{MemoryProfiler, with_profiling, enable_profiling};
+
+// Option 1: Use with_profiling wrapper
+let (result, leak_report) = with_profiling(|| {
+    // Your code here
+    perform_operations()
+});
+
+if leak_report.has_leaks() {
+    eprintln!("⚠️  Potential leaks: {}", leak_report);
+}
+
+// Option 2: Use MemoryProfiler directly
+let profiler = MemoryProfiler::new();
+let before = profiler.snapshot();
+
+// ... do work ...
+
+let after = profiler.snapshot();
+let diff = after.diff(&before);
+println!("{}", diff.report());
+```
+
+## Enabling Profiling
+
+Profiling has runtime overhead. Enable only when needed:
+
+```rust
+// Enable globally
+prax_query::profiling::enable_profiling();
+
+// Or use RAII guard
+let detector = LeakDetector::new();
+let _guard = detector.start(); // Enables profiling
+// ... profiling active ...
+// guard dropped - profiling disabled
+```
+
+## Leak Detection Patterns
+
+### Detecting Repeated Allocations
+
+```rust
+use prax_query::profiling::{LeakDetector, LeakSeverity};
+use std::time::Duration;
+
+let detector = LeakDetector::with_threshold(Duration::from_secs(30));
+let report = detector.analyze(&tracker);
+
+for leak in &report.potential_leaks {
+    match leak.severity {
+        LeakSeverity::High => eprintln!("🔴 High severity: {}", leak.pattern.description()),
+        LeakSeverity::Medium => eprintln!("🟡 Medium: {}", leak.pattern.description()),
+        LeakSeverity::Low => eprintln!("🟢 Low: {}", leak.pattern.description()),
+    }
+}
+```
+
+### Memory Growth Analysis
+
+```rust
+use prax_query::profiling::snapshot::SnapshotSeries;
+
+let mut series = SnapshotSeries::new(100);
+
+// Periodically capture snapshots
+for _ in 0..10 {
+    series.add(profiler.snapshot());
+    tokio::time::sleep(Duration::from_secs(1)).await;
+}
+
+if series.has_growth_trend() {
+    eprintln!("⚠️  Memory growing at {:.2} bytes/sec", series.growth_rate());
+}
+```
+
+## Testing for Leaks
+
+### In Unit Tests
+
+```rust
+#[test]
+fn test_no_memory_leak() {
+    let (_, report) = prax_query::profiling::with_profiling(|| {
+        // Create and drop resources
+        let filter = Filter::and(vec![
+            Filter::Equals("id".into(), FilterValue::Int(1)),
+            Filter::Equals("status".into(), FilterValue::String("active".into())),
+        ]);
+        drop(filter);
+    });
+
+    assert!(!report.has_high_severity_leaks(), "Memory leak detected: {}", report);
+}
+```
+
+### In Integration Tests
+
+```rust
+#[tokio::test]
+async fn test_connection_pool_no_leak() {
+    let profiler = MemoryProfiler::new();
+    let before = profiler.snapshot();
+
+    // Simulate many connections
+    for _ in 0..100 {
+        let conn = pool.get().await.unwrap();
+        conn.query("SELECT 1").await.unwrap();
+        drop(conn);
+    }
+
+    let after = profiler.snapshot();
+    let diff = after.diff(&before);
+
+    assert!(
+        diff.bytes_delta < 10_000,  // Allow some variance
+        "Excessive memory growth: {} bytes", diff.bytes_delta
+    );
+}
+```
+
+## Benchmark Memory Usage
+
+```rust
+use criterion::{black_box, criterion_group, criterion_main, Criterion};
+
+fn bench_memory_efficiency(c: &mut Criterion) {
+    let mut group = c.benchmark_group("memory");
+
+    group.bench_function("interned_vs_string", |b| {
+        let interner = GlobalInterner::get_instance();
+
+        b.iter(|| {
+            // Compare interned vs regular strings
+            for _ in 0..100 {
+                black_box(interner.intern("field_name"));
+            }
+        });
+    });
+}
+```
+
+## CI Integration
+
+The `.github/workflows/memory-check.yml` workflow runs:
+
+1. **Leak Detection Tests**: Run profiling module tests
+2. **Valgrind Analysis**: Check for definite memory leaks
+3. **AddressSanitizer**: Runtime memory error detection
+4. **DHAT Profiling**: Heap allocation analysis
+
+## Using TrackedAllocator
+
+For comprehensive tracking, use the custom allocator:
+
+```rust
+// In main.rs or lib.rs (ONE location only)
+use prax_query::profiling::TrackedAllocator;
+
+#[global_allocator]
+static ALLOC: TrackedAllocator = TrackedAllocator::new();
+
+// Now all allocations are tracked automatically
+fn main() {
+    prax_query::profiling::enable_profiling();
+
+    // ... your code ...
+
+    let stats = prax_query::profiling::GLOBAL_TRACKER.stats();
+    println!("Total allocations: {}", stats.total_allocations);
+    println!("Current bytes: {}", stats.current_bytes);
+    println!("Peak bytes: {}", stats.peak_bytes);
+}
+```
+
+## Memory Optimization Tips
 
 ### Use String Interning
 
-For repeated identifiers (column names, table names):
-
 ```rust
-use prax_query::mem_optimize::interning::{GlobalInterner, ScopedInterner};
-
-// ✅ Good: Intern repeated field names
-let interner = GlobalInterner::get();
-let field = interner.intern("user_id"); // Shared across all uses
-
-// ✅ Good: Use scoped interner for request-local interning
-let mut scoped = ScopedInterner::new();
-for column in &columns {
-    let interned = scoped.intern(column);
-    // Memory freed when scoped is dropped
+// ❌ Bad: Many allocations for repeated strings
+for _ in 0..1000 {
+    let field = "user_id".to_string();
 }
 
-// ❌ Bad: Repeated String allocations
+// ✅ Good: Single allocation, shared reference
+let interner = GlobalInterner::get_instance();
 for _ in 0..1000 {
-    let field = "user_id".to_string(); // 1000 allocations!
+    let field = interner.intern("user_id");
 }
 ```
 
 ### Use Arena Allocation
 
-For query building with many temporary allocations:
-
 ```rust
-use prax_query::mem_optimize::arena::QueryArena;
-
-// ✅ Good: Arena-based query building
-let arena = QueryArena::new();
-let sql = arena.scope(|scope| {
-    let filter = scope.and(vec![
-        scope.eq("active", true),
-        scope.or(vec![
-            scope.gt("age", 18),
-            scope.is_not_null("email"),
-        ]),
-    ]);
-    scope.build_select("users", filter)
-});
-// Arena memory freed, sql String is owned
-
 // ❌ Bad: Many small heap allocations
-let filter = Filter::and(vec![
-    Filter::Equals("active".into(), FilterValue::Bool(true)),
-    Filter::or(vec![
-        Filter::Gt("age".into(), FilterValue::Int(18)),
-        Filter::IsNotNull("email".into()),
-    ]),
-]);
+let filters: Vec<Filter> = items.iter()
+    .map(|i| Filter::Equals("id".into(), FilterValue::Int(*i)))
+    .collect();
+
+// ✅ Good: Arena-allocated, freed together
+let arena = QueryArena::new();
+let filters = arena.scope(|s| {
+    items.iter()
+        .map(|i| s.eq("id", *i))
+        .collect::<Vec<_>>()
+});
 ```
 
-### Use Lazy Parsing
-
-For large schemas where not all data is needed:
+### Use Buffer Pools
 
 ```rust
-use prax_query::mem_optimize::lazy::LazySchema;
+// ❌ Bad: Allocate new buffer each time
+let mut sql = String::new();
+write!(&mut sql, "SELECT * FROM {}", table)?;
 
-// ✅ Good: Lazy schema - only parses what you access
-let schema = LazySchema::from_json(large_json)?;
-
-// Table names available immediately (no parsing)
-for name in schema.table_names() {
-    if name == "users" {
-        // Only now parse the users table
-        let table = schema.get_table(name)?;
-        for col in table.columns() {
-            // Columns parsed on first access
-        }
-    }
-}
-
-// ❌ Bad: Parse everything eagerly
-let schema: DatabaseSchema = serde_json::from_str(large_json)?;
-// All tables and columns parsed upfront
+// ✅ Good: Reuse pooled buffers
+let mut buf = GLOBAL_BUFFER_POOL.get();
+write!(&mut buf, "SELECT * FROM {}", table)?;
+// Buffer returned to pool on drop
 ```
 
-### Avoid Unnecessary Allocations
+## Interpreting Reports
 
-```rust
-// ✅ Good: Use references and slices
-fn process(data: &[u8]) -> &str { ... }
+### Allocation Stats
 
-// ✅ Good: Use Cow for conditional ownership
-use std::borrow::Cow;
-
-fn normalize(s: &str) -> Cow<'_, str> {
-    if needs_normalization(s) {
-        Cow::Owned(s.to_lowercase())
-    } else {
-        Cow::Borrowed(s)
-    }
-}
-
-// ✅ Good: Reuse buffers
-let mut buf = String::with_capacity(1024);
-for item in items {
-    buf.clear();
-    write!(&mut buf, "{}", item)?;
-    process(&buf);
-}
-
-// ❌ Bad: Allocate in a loop
-for item in items {
-    let s = format!("{}", item); // Allocation each iteration
-    process(&s);
-}
+```
+Total allocations: 10,000
+Current bytes: 50,000
+Peak bytes: 100,000
+Net allocations: 500  ← If positive, potential leak
 ```
 
-### Use SmallVec for Small Collections
+### Leak Severity
 
-```rust
-use smallvec::SmallVec;
+- **High**: Many allocations of same size held long time
+- **Medium**: Growing allocation count over time
+- **Low**: Old allocations that might be intentional caching
 
-// ✅ Good: Inline storage for common case
-let columns: SmallVec<[&str; 8]> = SmallVec::new();
-// No heap allocation until > 8 elements
+### Heap Stats
 
-// ❌ Bad: Always heap allocate
-let columns: Vec<&str> = Vec::new();
+```
+RSS: 50 MB
+Fragmentation: 15%  ← Over 30% is concerning
 ```
 
-## Query Performance
+## Summary
 
-### Batch Operations
-
-```rust
-// ✅ Good: Single multi-row INSERT
-let mut builder = SqlBuilder::postgres();
-builder.push("INSERT INTO events (user_id, type) VALUES ");
-for (i, event) in events.iter().enumerate() {
-    if i > 0 { builder.push(", "); }
-    builder.push("(");
-    builder.push_param(FilterValue::Int(event.user_id));
-    builder.push(", ");
-    builder.push_param(FilterValue::String(event.event_type.clone()));
-    builder.push(")");
-}
-
-// ❌ Bad: Multiple INSERT statements
-for event in events {
-    execute("INSERT INTO events (user_id, type) VALUES ($1, $2)", &[...]).await?;
-}
-```
-
-### Use Prepared Statements
-
-```rust
-// ✅ Good: Prepare once, execute many
-let stmt = client.prepare("SELECT * FROM users WHERE id = $1").await?;
-for id in ids {
-    let row = client.query_one(&stmt, &[&id]).await?;
-}
-
-// ❌ Bad: Re-parse query each time
-for id in ids {
-    let row = client.query_one("SELECT * FROM users WHERE id = $1", &[&id]).await?;
-}
-```
-
-### Efficient IN Clauses
-
-```rust
-// ✅ Good: Use ANY with array parameter (PostgreSQL)
-let sql = "SELECT * FROM users WHERE id = ANY($1)";
-let ids: Vec<i64> = vec![1, 2, 3, 4, 5];
-client.query(sql, &[&ids]).await?;
-
-// ✅ Good: Generate IN clause efficiently
-let placeholders = postgres_in_pattern(1, ids.len());
-let sql = format!("SELECT * FROM users WHERE id IN ({})", placeholders);
-
-// ❌ Bad: Dynamic SQL with many parameters
-let sql = format!(
-    "SELECT * FROM users WHERE id IN ({})",
-    ids.iter().map(|_| "?").collect::<Vec<_>>().join(", ")
-);
-```
-
-### Select Only Needed Columns
-
-```rust
-// ✅ Good: Select specific columns
-let select = Select::fields(["id", "email", "name"]);
-
-// ❌ Bad: Select all columns when only few needed
-let select = Select::all(); // SELECT * includes unused columns
-```
-
-## Async Performance
-
-### Use Concurrent Execution
-
-```rust
-use prax_query::async_optimize::ConcurrentExecutor;
-
-// ✅ Good: Execute independent queries in parallel
-let executor = ConcurrentExecutor::new(config);
-let results = executor.execute_batch(vec![
-    || async { fetch_users().await },
-    || async { fetch_posts().await },
-    || async { fetch_comments().await },
-]).await;
-
-// ❌ Bad: Sequential when parallel is possible
-let users = fetch_users().await?;
-let posts = fetch_posts().await?;
-let comments = fetch_comments().await?;
-```
-
-### Use Connection Pooling
-
-```rust
-// ✅ Good: Pool connections
-let pool = Pool::builder()
-    .max_size(20)
-    .build(manager)
-    .await?;
-
-// Get connection from pool
-let conn = pool.get().await?;
-
-// ❌ Bad: New connection per query
-let conn = PgConnection::connect(&url).await?;
-```
-
-### Stream Large Results
-
-```rust
-use futures::StreamExt;
-
-// ✅ Good: Stream rows without loading all into memory
-let mut stream = client.query_raw(&sql, &[]).await?;
-while let Some(row) = stream.next().await {
-    process_row(row?);
-}
-
-// ❌ Bad: Load all rows into memory
-let rows = client.query(&sql, &[]).await?; // All in memory
-for row in rows {
-    process_row(row);
-}
-```
-
-## Profiling and Measurement
-
-### Use Benchmarks
-
-```bash
-# Run benchmarks
-cargo bench --package prax-query
-
-# Compare against baseline
-cargo bench -- --save-baseline main
-cargo bench -- --load-baseline main
-```
-
-### Profile with flamegraph
-
-```bash
-# Install flamegraph
-cargo install flamegraph
-
-# Generate flamegraph
-cargo flamegraph --bench throughput_bench -- --bench
-```
-
-### Measure Allocations
-
-```rust
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn test_allocation_count() {
-        // Use a counting allocator or DHAT
-        let stats = arena.stats();
-        assert!(stats.allocations < 10, "Too many allocations");
-    }
-}
-```
-
-## Hot Path Optimization
-
-### Inline Small Functions
-
-```rust
-// ✅ Good: Inline hint for hot path
-#[inline]
-pub fn intern(&self, s: &str) -> InternedStr {
-    // Fast path: check cache
-    if let Some(existing) = self.cache.get(s) {
-        return existing.clone();
-    }
-    // Slow path: allocate
-    self.intern_slow(s)
-}
-
-#[inline(never)] // Don't inline slow path
-fn intern_slow(&self, s: &str) -> InternedStr {
-    // Complex allocation logic
-}
-```
-
-### Avoid Dynamic Dispatch in Loops
-
-```rust
-// ✅ Good: Monomorphization
-fn process_filters<F: FilterTrait>(filters: &[F]) {
-    for f in filters {
-        f.to_sql(); // Static dispatch
-    }
-}
-
-// ❌ Bad in hot path: Dynamic dispatch
-fn process_filters(filters: &[Box<dyn FilterTrait>]) {
-    for f in filters {
-        f.to_sql(); // Virtual call each iteration
-    }
-}
-```
-
-### Pre-allocate with Capacity
-
-```rust
-// ✅ Good: Pre-allocate when size known
-let mut results = Vec::with_capacity(expected_count);
-let mut sql = String::with_capacity(256);
-
-// ❌ Bad: Grow incrementally
-let mut results = Vec::new(); // Reallocates as it grows
-```
-
-## Summary Checklist
-
-- [ ] Use string interning for repeated identifiers
-- [ ] Use arena allocation for temporary query building
-- [ ] Use lazy parsing for large schemas
-- [ ] Batch database operations
-- [ ] Use prepared statements
-- [ ] Select only needed columns
-- [ ] Use concurrent execution for independent operations
-- [ ] Stream large result sets
-- [ ] Profile before optimizing
-- [ ] Benchmark changes for regression
+1. **Enable profiling** only when debugging memory issues
+2. **Use with_profiling** for scoped leak detection
+3. **Compare snapshots** before/after operations
+4. **Test for leaks** in unit and integration tests
+5. **Use interning and arenas** to reduce allocations
+6. **Monitor CI** for memory regressions
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
