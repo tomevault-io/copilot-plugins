@@ -1,59 +1,129 @@
-## extension-architecture
+## templates
 
-> Inkwell VS Code extension architecture, module roles, and development conventions
+> Inkwell template system, covering creation, resolution, compilation, and Pandoc wrapper authoring
 
 
-# Inkwell Extension Architecture
+# Inkwell Template System
 
-## Module Map
+## Directory Structure
 
-| File | Role |
-|------|------|
-| `extension.ts` | Activation, command registration, lifecycle |
-| `compiler.ts` | Pandoc and direct-TeX compilation pipelines |
-| `templates.ts` | Template resolution, manifest reading, file discovery |
-| `preview.ts` | Webview panel (HTML preview, PDF viewer, log tab) |
-| `runner.ts` | Code block execution (Python, R, Shell, Node) |
-| `inject.ts` | Injects cached code outputs into markdown before compilation |
-| `preamble.ts` | Generates LaTeX preamble from `inkwell:` frontmatter options |
-| `cache.ts` | Code block output caching and invalidation |
-| `config.ts` | Project root detection (`.inkwell/`), artifact paths, .bib discovery, defaults.yaml |
-| `shell-env.ts` | Augmented `PATH` for subprocesses (TeX, `mmdc`, node managers) |
-| `diagnostics.ts` | Error parsing, VS Code diagnostic reporting |
-| `scaffold.ts` | New project scaffolding (Inkwell: New Project command) |
-| `toolchain.ts` | Pandoc/TeX binary detection and guided installation |
+Each template is a named subdirectory containing at minimum two files:
 
-## Key Conventions
-
-- Compilation always happens in an isolated temp directory (`getCacheDir`). The user's working tree is never written to except for the final PDF output and Inkwell’s **project-root** `.inkwell/` dirs: `outputs/<doc-key>/`, `compiled/`, `mermaid/` (see `config.getInkwellProjectRoot`, `getInkwellOutputsDir`, `getInkwellCompiledPath`).
-- `TEX_ENV` uses `buildTexInvocationPath()` from `shell-env.ts`. All `exec` calls for TeX/Pandoc use this environment, never bare `process.env`.
-- Template selection flows: YAML frontmatter `template:` field > `.inkwell/manifest.json` > default "inkwell" template.
-- Code block outputs cache by content hash under **per-document** subfolders. A block only re-runs when its source changes.
-
-## Environment
-
-- TypeScript compiled to `out/` via `tsc`.
-- `__dirname` at runtime is `<extension-root>/out/`. Built-in templates live at `path.join(__dirname, "..", "templates")`.
-- VS Code on macOS does not inherit the user's shell PATH when launched from the Dock. `shell-env.ts` adds common TeX and Node-tool locations explicitly.
-
-## Testing
-
-Run `npm run compile` after any TypeScript change. The extension loads compiled JS from `out/`; reload the VS Code window (`Developer: Reload Window`) to pick up changes.
-
-Manual compilation test for a template:
-
-```bash
-BASE="/path/to/inkwell-vscode"
-TEXINPUTS="$BASE/templates/<name>:$BASE/examples:" \
-pandoc "$BASE/examples/demo-<name>.md" \
-  -o /tmp/test.pdf \
-  --pdf-engine=<pdflatex|xelatex> \
-  --standalone \
-  --template="$BASE/templates/<name>/<name>.latex" \
-  --resource-path="$BASE/templates/<name>:$BASE/examples:$BASE/.inkwell" \
-  -V graphics=true --citeproc \
-  --bibliography="$BASE/.inkwell/references/refs.bib"
 ```
+my-template/
+  template.json      # manifest (required)
+  my-template.latex  # Pandoc wrapper (required)
+  my-class.cls       # LaTeX document class
+  *.sty, *.bst       # style/bibliography support
+  images/, fonts/     # assets referenced by the class
+```
+
+Subdirectories are fine. The template directory is added to TEXINPUTS, so `\documentclass{subdir/my-class}` resolves correctly.
+
+## template.json Manifest
+
+```json
+{
+  "name": "Human-readable Name",
+  "description": "Shown in the template picker and README.",
+  "engine": "pdflatex"
+}
+```
+
+`engine` must be `"xelatex"` or `"pdflatex"`. The compiler reads this and selects the binary automatically. If omitted, defaults to `"xelatex"`.
+
+## Resolution Order
+
+Templates are searched in three locations (ascending priority):
+
+1. **Built-in**: `<extension>/templates/<name>/`
+2. **Global**: `~/.inkwell/templates/<name>/`
+3. **Project-local**: `.inkwell/templates/<name>/`
+
+A higher-priority template overrides a lower one **only if it includes its own `.latex` Pandoc wrapper**. A directory with supporting files but no wrapper will not shadow a built-in. This prevents raw upstream journal distributions from breaking compilation.
+
+The guard in `listTemplates` (`templates.ts`):
+```typescript
+if (!pandocTemplate && result.has(id)) continue;
+```
+
+## Pandoc .latex Wrapper
+
+The wrapper bridges Pandoc's variable system to the journal class. It is a standard Pandoc template, not a LaTeX document you compile directly.
+
+### Required elements
+
+- `\documentclass{...}` using the journal's class
+- `\begin{document}` / `\end{document}`
+- `$body$` where Pandoc inserts the converted markdown
+- `\providecommand{\tightlist}{...}` for Pandoc list compatibility
+
+### Pandoc variable syntax
+
+| Syntax | Purpose |
+|--------|---------|
+| `$title$` | Scalar variable from YAML frontmatter |
+| `$if(var)$...$endif$` | Conditional block |
+| `$for(list)$...$endfor$` | Loop over YAML list |
+| `$list.field$` | Access field inside list item |
+| `$sep$,` | Separator between loop iterations |
+| `$for(header-includes)$$header-includes$$endfor$` | User-supplied preamble additions |
+
+### Common patterns
+
+**Author affiliations with superscripts** (RMxAA pattern):
+```latex
+$for(rmxaa-authors)$
+\author[$rmxaa-authors.affiliations$]{$rmxaa-authors.name$}
+$endfor$
+```
+
+**Class options from frontmatter**:
+```latex
+\documentclass[$for(classoption)$$classoption$$sep$,$endfor$]{my-class}
+```
+
+**Longtable-to-float for two-column layouts** (required when Pandoc emits longtable but the class uses twocolumn): see `rmxaa/rmxaa.latex` lines 70-93.
+
+**Syntax highlighting tokens**: Pandoc expects `\Highlighting`, `\KeywordTok`, `\StringTok`, etc. If the journal class does not provide them, the wrapper must define them. See any built-in wrapper for the full set.
+
+## Compilation Pipeline
+
+`compiler.ts` handles two modes:
+
+1. **Pandoc** (markdown/rst/org): `compilePandoc` generates a .tex via Pandoc, then Pandoc calls the PDF engine.
+2. **Direct TeX**: `compileTeX` runs xelatex/pdflatex directly on .tex files.
+
+Both modes:
+- Compile in an isolated temp directory (`getCacheDir`)
+- Set `TEXINPUTS` to `cacheDir:template.dir:sourceDir:` (trailing colon preserves default TeX paths)
+- Copy supporting files to the cache via `copySupportingFiles`
+
+The Pandoc mode also passes `--resource-path=cacheDir:template.dir:sourceDir` so Pandoc includes these in its own TEXINPUTS construction for the PDF engine.
+
+## Supported File Types for Auto-Copy
+
+`copySupportingFiles` copies files matching these extensions from the template directory to the build cache:
+
+`.cls` `.sty` `.bst` `.bib` `.def` `.fd` `.cfg` `.clo` `.ldf` `.png` `.jpg` `.jpeg` `.pdf` `.eps` `.svg` `.ttf` `.otf` `.woff` `.woff2`
+
+Files not matching (e.g., `.tex`, `.md`, `.json`) are left in place but still reachable via TEXINPUTS.
+
+## Diagnostic Output
+
+`compilePandoc` emits diagnostic lines at the top of the build log:
+
+```
+[inkwell] template: rmxaa (/path/to/templates/rmxaa)
+[inkwell] pandoc template: /tmp/.../rmxaa.latex
+[inkwell] TEXINPUTS: /tmp/...:/path/to/templates/rmxaa:/path/to/source:
+[inkwell] resource-path: /tmp/...:/path/to/templates/rmxaa:/path/to/source
+[inkwell] cls in template dir: true
+[inkwell] cls in cache dir: true
+[inkwell] engine: /path/to/pdflatex
+```
+
+When a template isn't rendering correctly, check this output first. The most common issue is a global template shadowing a built-in (template dir points to `~/.inkwell/templates/` instead of the extension's `templates/`).
 
 ---
 > Source: [goldberg-consulting/measured.one.inkwell-extension](https://github.com/goldberg-consulting/measured.one.inkwell-extension) — distributed by [TomeVault](https://tomevault.io).
