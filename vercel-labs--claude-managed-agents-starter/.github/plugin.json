@@ -1,0 +1,9 @@
+{
+  "name": "vercel-labs--claude-managed-agents-starter",
+  "displayName": "claude-managed-agents-starter",
+  "description": "Open source Claude Managed Agents template. Build your own agent.",
+  "version": "1.0.0",
+  "author": "vercel-labs",
+  "homepage": "https://github.com/vercel-labs/claude-managed-agents-starter",
+  "skills": []
+}
