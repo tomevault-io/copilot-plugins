@@ -4,7 +4,7 @@
   "repo": "wallfacer",
   "description": "Chat, specs, tasks, and code. An autonomous engineering platform. Full autonomy when you trust it. Full control when you don't.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/changkun/wallfacer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T09:41:48Z"
+  "distributed_at": "2026-05-07T05:57:44Z"
 }
