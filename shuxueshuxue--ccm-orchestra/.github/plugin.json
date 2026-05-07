@@ -1,0 +1,9 @@
+{
+  "name": "shuxueshuxue--ccm-orchestra",
+  "displayName": "ccm-orchestra",
+  "description": "\u5728 tmux \u4e2d\u7ba1\u7406\u4ea4\u4e92\u5f0f Claude Code agent\uff0c\u5e76\u5728 kitty \u4e2d\u534f\u8c03\u4e0d\u540c code agent \u7684\u53ef\u89c1\u534f\u4f5c\u4e0e\u63a5\u529b",
+  "version": "1.0.0",
+  "author": "shuxueshuxue",
+  "homepage": "https://github.com/shuxueshuxue/ccm-orchestra",
+  "skills": []
+}
