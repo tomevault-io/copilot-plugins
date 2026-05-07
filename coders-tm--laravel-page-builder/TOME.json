@@ -1,0 +1,44 @@
+{
+  "name": "laravel-page-builder",
+  "owner": "coders-tm",
+  "repo": "laravel-page-builder",
+  "description": "A powerful Laravel page builder using sections, layouts and JSON rendering. Build dynamic pages with a visual editor, reusable sections and multi-layout support.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/coders-tm/laravel-page-builder",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T22:53:36Z"
+}
