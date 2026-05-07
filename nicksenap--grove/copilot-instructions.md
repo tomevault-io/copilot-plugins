@@ -1,0 +1,63 @@
+## grove
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What is Grove?
+
+Git Worktree Workspace Orchestrator — CLI tool invoked as `gw`. Manages multi-repo worktree-based workspaces so developers can spin up isolated branches across several repos at once.
+
+## Development
+
+- Go 1.25+
+- Run `just check` for tests + vet
+- Run `just build` to build the `gw` binary
+- Run a single test: `go test ./internal/workspace -run TestName -v`
+- Run e2e tests: `just e2e`
+
+## Release Process
+
+1. Add a new `## vX.Y.Z` section at the top of `CHANGELOG.md`
+2. Commit everything
+3. Tag + push: `just release X.Y.Z`
+   - Creates annotated tag `vX.Y.Z`
+   - Pushes tag to origin (triggers release workflow)
+   - GoReleaser builds binaries, prepends changelog notes, and updates Homebrew tap
+
+## Per-repo config
+
+Repos managed by Grove can have a `.grove.toml` at their root:
+- `base_branch` — override the default branch for new worktrees (e.g. `stage`)
+- `setup` — command(s) to run after worktree creation (string or list of strings)
+
+## Architecture
+
+Entry point: `cmd/gw/main.go` → `cmd.Execute()` (Cobra).
+
+Tool-specific integrations (Claude Code memory sync, Zellij, archive, dashboard) live in external plugins (`gw-claude`, `gw-zellij`, `gw-archive`, `gw-dash`) — Grove core is a pure git worktree orchestrator. Plugins hook into lifecycle events configured in `~/.grove/config.toml`.
+
+### Package layout
+
+- **cmd/** — Cobra commands and interactive pickers. Orchestrates user interaction.
+- **cmd/gw/** — `main` package; thin entry point.
+- **internal/config/** — Global config from `~/.grove/config.toml`. Defines `GroveDir`, `ConfigPath`, `DefaultWorkspaceDir` constants.
+- **internal/console/** — Colored output helpers and table rendering.
+- **internal/discover/** — Finds git repos in configured directories. Caches remote URLs on disk.
+- **internal/gitops/** — Thin wrappers around `git` subprocess calls. Includes `ReadGroveConfig()`.
+- **internal/lifecycle/** — Runs global lifecycle hooks (`on_close`, `pre_delete`, etc.) defined in `[hooks]`. Plugins register here.
+- **internal/logging/** — Structured logging.
+- **internal/mcp/** — MCP JSON-RPC server exposing workspace state to Claude Code.
+- **internal/models/** — Data structs with JSON serialization.
+- **internal/picker/** — Interactive terminal menus.
+- **internal/plugin/** — Plugin install/upgrade/remove from GitHub releases.
+- **internal/state/** — Workspace state persisted to `~/.grove/state.json`. Uses atomic writes.
+- **internal/stats/** — Workspace usage stats and heatmap.
+- **internal/update/** — Non-blocking version check.
+- **internal/workspace/** — Core worktree orchestration (create, delete, status, sync). Uses goroutines for concurrent multi-repo operations.
+
+---
+> Source: [nicksenap/grove](https://github.com/nicksenap/grove) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-23 -->
