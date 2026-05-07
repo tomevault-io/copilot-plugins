@@ -1,0 +1,9 @@
+{
+  "name": "heart--kk-kubernetes-power-helper-cli",
+  "displayName": "kk-Kubernetes-Power-Helper-CLI",
+  "description": "Lightweight kubectl power-tools for DevOps: smart pod matching, multi-pod logs, quick exec.",
+  "version": "1.0.0",
+  "author": "heart",
+  "homepage": "https://github.com/heart/kk-Kubernetes-Power-Helper-CLI",
+  "skills": []
+}
