@@ -7,11 +7,11 @@ A Laravel package for orchestrating AI-driven features using agents, tools, and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [atlas-php/atlas](https://github.com/atlas-php/atlas).
+Original source: `CLAUDE.md` in [atlas-php/atlas](https://github.com/atlas-php/atlas).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
