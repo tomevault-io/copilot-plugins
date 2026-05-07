@@ -7,11 +7,11 @@ AI Kanban & Development Environment. Orchestrate multiple agents, review changes
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [kdlbs/kandev](https://github.com/kdlbs/kandev).
+Original source: `CLAUDE.md` in [kdlbs/kandev](https://github.com/kdlbs/kandev).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
