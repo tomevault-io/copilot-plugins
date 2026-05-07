@@ -1,22 +1,46 @@
-## lint-rules
+## misc
 
-> - Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly
+> Conventions to be applied to all files
+
+# Miscellaneous Conventions
 
 
-# Most common mistakes that lead to lint error
+## TypeScript and Code Quality
 
-- Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly
-this one we prevent when comparing strings instead doing
+- Use TypeScript for all files.
+- Only use types, not interfaces.
+- Do not use `any` type.
+- Use `undefined` over `null`.
+- Do not add any comments to the code that you generate.
+- Don’t cast to `any`.
+- Don’t unnecessarily add `try`/`catch`.
+- Use `computed` for derived state instead of reactive variables when possible.
+- Use `knip` to remove unused code if making large changes.
+- When refactoring, avoid creating alias types like this:
 ```
-if (!str) {}
+export type Options = ScanConfig;
 ```
-we do
-```
-if (str !== undefined) {}
-```
+Instead, actually rename the type and fix all occurrences if needed.
 
+## Structure, Naming, and Organization
 
-- Once you are done, ALWAYS run linter, typecheck and knip to ensure clean code
+- Follow consistent naming conventions:
+    - Folders: camelCase (`intercept`, `replay`, `httpHistory`).
+    - Component folders: PascalCase (`PassiveFormCreate`, `PassiveTable`).
+    - All other files: camelCase (`useForm.ts`, `assistant.graphql`).
+- Avoid massive template blocks; compose smaller components.
+- Colocate code that changes together.
+- Declare variables close to their usage:
+    - Avoid declaring all variables at the top of functions/files.
+    - Place variable declarations as close as possible to where they are first used.
+    - Group related variables together (e.g., event bus declarations next to their corresponding listeners).
+
+## Simplicity and Readability
+
+- Only create an abstraction if it is actually needed.
+- Prefer clear function and variable names over inline comments.
+- Avoid helper functions when a simple inline expression would suffice.
+- Use built-in Tailwind values, occasionally allow dynamic values, rarely globals.
 
 ---
 > Source: [bebiksior/httpworkbench](https://github.com/bebiksior/httpworkbench) — distributed by [TomeVault](https://tomevault.io).
