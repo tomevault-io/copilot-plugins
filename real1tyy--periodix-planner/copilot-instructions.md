@@ -1,59 +1,51 @@
-## ci-enforcement
+## context7
 
-> Enforce running CI checks after code changes
+> **Always use Context7 for up-to-date library and API documentation**
 
 
-# CI Enforcement Rule
+# Context7 MCP Integration Rule
 
-**Always run `mise run ci` after making code changes and ensure it passes before completing any task.**
+**Always use Context7 for up-to-date library and API documentation**
 
-## Required Workflow
+## When to Use Context7
 
-1. **After any code changes**, run:
-   ```bash
-   mise run ci
-   ```
+Context7 MCP pulls up-to-date, version-specific documentation and code examples straight from the source. Use Context7 whenever you need:
 
-2. **If CI fails**, fix all issues before proceeding:
-   - **Linting errors**: Fix code quality issues reported by Biome
-   - **Formatting issues**: Let Biome auto-fix formatting
-   - **Test failures**: Ensure all tests pass
-   - **Type errors**: Resolve TypeScript compilation issues
+- **Library Documentation**: Any third-party library usage, setup, or configuration
+- **API Documentation**: REST APIs, GraphQL APIs, or any external service integration
+- **Framework Examples**: React, Vue, Angular, or any framework-specific code
+- **Tool Configuration**: Build tools, testing frameworks, deployment tools
+- **Package Setup**: Installation guides, dependency management
+- **Code Examples**: Implementation patterns from official sources
+- **Version-Specific Info**: Latest features, deprecated methods, breaking changes
 
-3. **Only complete the task when CI passes completely**
+## Implementation
 
-## Common Issues to Fix
+Context7 should be automatically invoked when users request:
+- Code examples for any library
+- Setup or configuration steps
+- Library/API documentation
+- Integration guides
+- Best practices from official sources
 
-### Biome Linting Errors
-- **`useIterableCallbackReturn`**: Don't return values from `forEach()` callbacks
-  ```typescript
-  // ❌ DON'T: Return value from forEach
-  array.forEach(item => item.process());
+## Benefits
 
-  // ✅ DO: Use block syntax for side effects
-  array.forEach(item => {
-    item.process();
-  });
-  ```
+- **Up-to-date Information**: Prevents using outdated documentation
+- **Version-Specific**: Gets the right info for the specific version being used
+- **Official Sources**: Pulls directly from authoritative documentation
+- **Code Examples**: Provides working, tested examples
+- **Reduced Errors**: Avoids common mistakes from outdated tutorials
 
-- **Formatting**: Let Biome auto-fix with `pnpm check:fix`
-- **Import ordering**: Biome will sort imports automatically
+## Usage Pattern
 
-### Test Issues
-- Ensure all mocks are properly configured
-- Verify test expectations match actual behavior
-- Check that setup/teardown is correct
+Instead of relying on training data that may be outdated, always use Context7 to:
+1. Get the latest API changes
+2. Find current best practices
+3. Retrieve working code examples
+4. Understand new features
+5. Check for deprecated methods
 
-## Commands Reference
-
-- `mise run ci` - Run full CI pipeline
-- `pnpm check:fix` - Run Biome checks and auto-fix
-- `pnpm test` - Run tests only
-- `pnpm build` - Build the project
-
-## Non-Negotiable Rule
-
-**Never mark a task as complete if `mise run ci` fails.** Always fix the issues first.
+**Remember**: Context7 ensures you're working with the most current and accurate information available.
 
 ---
 > Source: [Real1tyy/Periodix-Planner](https://github.com/Real1tyy/Periodix-Planner) — distributed by [TomeVault](https://tomevault.io).
