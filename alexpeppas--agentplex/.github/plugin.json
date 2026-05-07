@@ -1,0 +1,9 @@
+{
+  "name": "alexpeppas--agentplex",
+  "displayName": "agentplex",
+  "description": "Multi-session Claude/Codex/Github CLI orchestrator with graph visualization, cross-session context sharing and notifications.",
+  "version": "1.0.0",
+  "author": "AlexPeppas",
+  "homepage": "https://github.com/AlexPeppas/agentplex",
+  "skills": []
+}
