@@ -4,7 +4,7 @@
   "repo": "aegis",
   "description": "DAG-based Deterministic Context Compiler for AI Coding Agents",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/fuwasegu/aegis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:36:59Z"
+  "distributed_at": "2026-05-07T01:58:01Z"
 }
