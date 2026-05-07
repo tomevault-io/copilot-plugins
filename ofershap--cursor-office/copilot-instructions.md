@@ -1,66 +1,62 @@
-## state-machine
+## testing-and-qa
 
-> Working: `typing | editing | running | searching | reading` → character walks to desk (fast: 5.0), sits, types.
+> Use Python Playwright (`test-visual.py`) for visual QA.
 
-# Agent State Machine & Idle Behavior
+# Visual Testing & QA
 
-## Activity States
-Working: `typing | editing | running | searching | reading` → character walks to desk (fast: 5.0), sits, types.
-`phoning` → character walks to PHONE_COL/PHONE_ROW, stands facing back, left arm holds handset. Triggers when agent spawns subagent (`Task` tool).
-`idle` → autonomous waypoint patrol.
-`celebrating` → jumps in center, auto-expires after ~4 seconds, then idle.
-`error` → shows ⁉️ bubble (4s), walks to idle area, then auto-transitions to idle.
+## Playwright Setup
+Use Python Playwright (`test-visual.py`) for visual QA.
+Viewport should mimic Cursor's bottom panel: wide + short (e.g., 900x220).
 
-## Celebration Rules
-- Only triggers on `stop` hook with `status: "completed"` AND the session had "work" tools (editing/running/writing). Read-only or text-only sessions go straight to idle.
-- `cursorWatcher.ts` tracks `didWork` flag — set true on editing/running/writing tools, reset on idle/stop.
-- Auto-expires: after `animFrame > 16` (~4 seconds), transitions to idle.
-- Interrupted by work: any new work activity cuts celebration immediately.
+## Click Coordinate Math (CRITICAL)
+Playwright clicks are in CSS pixel space, but the canvas uses internal coordinates with offset.
+To click on object at grid position (col, row):
 
-## State Transitions (setActivity)
-- Any working state: sets target to DESK pos. Character rushes there.
-- `phoning`: sets target to PHONE pos. Phone object starts vibrating.
-- `idle`: resets `idleActionTimer` to 0 (immediately picks next waypoint).
-- `celebrating`: sets target to center (CELEBRATE_COL/ROW), resets animFrame.
-- `error`: shows ⁉️ bubble, sets target to idle area. After bubble expires → auto-idle.
+```python
+x = offset_x + col * TILE_SIZE * scale + hitbox_center_x * scale
+y = offset_y + row * TILE_SIZE * scale + hitbox_center_y * scale
+```
 
-## Detection Modes (cursorWatcher.ts)
-Two modes, auto-selected on startup:
+The `offset_x` and `offset_y` are calculated from viewport size - scene size.
+If clicks don't register, the offset math is wrong. This was the most common bug during testing.
 
-### Mode 1: Transcript Parsing (default, zero setup)
-- Watches `~/.cursor/projects/*/agent-transcripts/*.jsonl`.
-- Reads last lines → infers activity from content heuristics.
-- Idle timeout: **8 seconds** of no file changes.
-- User lines (`"role":"user"`) → immediate idle (turn is over).
+## Build + Test Loop
+```bash
+cd cursor-office && npm run build
+open dev/playground.html
+```
+Then open `dev/playground.html` in browser to preview, or package as VSIX with `npx vsce package --no-dependencies`.
 
-### Mode 2: Cursor Hooks (opt-in, precise)
-- Activated via command palette: "Cursor Office: Enable Hooks".
-- Installs hooks into `~/.cursor/hooks.json` (see extension-architecture.mdc).
-- Hook script writes to `/tmp/cursor-office-state.json`, extension watches that file.
-- Events: `preToolUse` → activity, `stop` → celebrate/idle, `beforeSubmitPrompt` → idle, `subagentStart` → phoning, `subagentStop` → back to work.
-- Hooks are global — fires for ALL chats across ALL workspaces.
+## dev/playground.html — Visual Sandbox
+`dev/playground.html` stubs the VS Code API and loads `dist/webview.js`.
+Has **control buttons** at the bottom to simulate activity states:
+- Idle, Working, Phone Call, Celebrate, Error
+- Active button gets a white outline indicator.
+- These call `window.postMessage({ type: 'agentStatus', activity })` to trigger state changes.
+- Use this to test all state transitions visually without needing a real Cursor agent.
+- Plugin authors: load your plugin script after `webview.js` to test custom objects.
 
-## Working State Persistence
-`isWorking()` returns true for all 5 working activities.
-While working + at desk, speech bubble auto-cycles "Working." dots (0.5s timer).
-While phoning + at phone, speech bubble auto-cycles "Delegating." dots (0.5s timer).
-`isAtDesk()` and `isAtPhone()` tolerance is 0.5 tiles.
+## What to QA After Any Visual Change
+1. Character sits correctly at desk (rear-facing, hands at keyboard level)
+2. Character phones correctly (rear-facing, left arm raised with handset, near phone on desk)
+3. Character walks to EACH waypoint and faces the right direction
+4. Objects are clickable (especially cat, arcade, plant — small hitboxes)
+5. Speech bubbles don't clip at canvas edges
+6. Z-order: character behind desk when sitting, in front of rug when walking
+7. "Working..." dots animate while at desk, "Delegating..." while phoning
+8. Phone on desk vibrates during phoning, stops when activity changes
+9. Celebration auto-expires after ~4 seconds
+10. Error shows ⁉️ bubble then auto-transitions to idle
+11. Lamp on/off toggles dimmed overlay
+12. Window shows correct time-of-day cycle
+13. Arcade cycles mini-game animations on click
 
-## Idle Behavior
-`IDLE_WAYPOINTS` array - sequential list of (position, action, duration).
-Character visits them in order, wrapping around. Each has a speech bubble.
-Between actions, returns to center (3, 1.8) with `'stand'` action.
-Walk speed when idle: 1.5 (leisurely). When heading to work: 5.0 (urgent).
-
-## Click-to-Attract
-`attractToObject(char, objectId)` - only works when idle.
-Delays 0.8-2.0 seconds (setTimeout) before moving character to object.
-Uses `OBJECT_POSITIONS` map which must match `IDLE_WAYPOINTS` coords.
-
-## Hitboxes
-Pixel-space, UNSCALED. Each object has `{ w, h }`.
-Hit test in `hitTest.ts`: `objX = col * TILE_SIZE * scale`, then checks if mouse is within `w * scale` and `h * scale`.
-Common pitfall: making hitboxes too small. Cat/arcade/plant all needed 1.5-2x enlargement.
+## Screenshot-to-GIF Pipeline
+Take individual screenshots with Playwright, then combine:
+```bash
+magick -delay 200 -loop 0 img1.png img2.png img3.png demo.gif
+```
+Output goes to `assets/demo.gif` for the README.
 
 ---
 > Source: [ofershap/cursor-office](https://github.com/ofershap/cursor-office) — distributed by [TomeVault](https://tomevault.io).
