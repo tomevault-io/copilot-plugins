@@ -1,0 +1,9 @@
+{
+  "name": "adecarolis--wfweb",
+  "displayName": "wfweb",
+  "description": "Turn any Icom transceiver into a web-accessible station. Headless wfview fork with browser-based control, audio streaming, SSB, FreeDV, CW and FT8.",
+  "version": "1.0.0",
+  "author": "adecarolis",
+  "homepage": "https://github.com/adecarolis/wfweb",
+  "skills": []
+}
