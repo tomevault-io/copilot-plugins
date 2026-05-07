@@ -1,0 +1,9 @@
+{
+  "name": "robsonfelix--robsonfelix-hass-addons",
+  "displayName": "robsonfelix-hass-addons",
+  "description": "Home Assistant add-ons by Robson Felix. Includes Claude Code - run Anthropic's AI coding assistant directly in Home Assistant to create automations and manage your smart home.",
+  "version": "1.0.0",
+  "author": "robsonfelix",
+  "homepage": "https://github.com/robsonfelix/robsonfelix-hass-addons",
+  "skills": []
+}
