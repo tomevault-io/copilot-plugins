@@ -1,0 +1,9 @@
+{
+  "name": "xenos1337--airplayserver",
+  "displayName": "AirPlayServer",
+  "description": "A fast, modern AirPlay receiver for Windows with real-time video mirroring, audio playback, and automatic device discovery. Supports 30/60 FPS streaming, hardware-accelerated rendering, adjustable qua",
+  "version": "1.0.0",
+  "author": "xenos1337",
+  "homepage": "https://github.com/xenos1337/AirPlayServer",
+  "skills": []
+}
