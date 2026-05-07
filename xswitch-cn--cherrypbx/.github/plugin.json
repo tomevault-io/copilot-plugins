@@ -1,0 +1,9 @@
+{
+  "name": "xswitch-cn--cherrypbx",
+  "displayName": "CherryPBX",
+  "description": "Lightweight Web UI for IP-PBX systems with XSwitch as the backend.",
+  "version": "1.0.0",
+  "author": "xswitch-cn",
+  "homepage": "https://github.com/xswitch-cn/CherryPBX",
+  "skills": []
+}
