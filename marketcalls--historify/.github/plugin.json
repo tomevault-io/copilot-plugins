@@ -1,0 +1,9 @@
+{
+  "name": "marketcalls--historify",
+  "displayName": "historify",
+  "description": "OpenAlgo Full Stack Historical Data Management App",
+  "version": "1.0.0",
+  "author": "marketcalls",
+  "homepage": "https://github.com/marketcalls/historify",
+  "skills": []
+}
