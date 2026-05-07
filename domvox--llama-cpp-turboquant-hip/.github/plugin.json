@@ -1,0 +1,9 @@
+{
+  "name": "domvox--llama-cpp-turboquant-hip",
+  "displayName": "llama.cpp-turboquant-hip",
+  "description": "TurboQuant KV cache compression for llama.cpp \u2014 HIP/ROCm port for AMD RDNA3 (gfx1100)",
+  "version": "1.0.0",
+  "author": "domvox",
+  "homepage": "https://github.com/domvox/llama.cpp-turboquant-hip",
+  "skills": []
+}
