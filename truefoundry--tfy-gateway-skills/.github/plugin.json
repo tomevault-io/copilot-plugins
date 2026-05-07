@@ -1,0 +1,9 @@
+{
+  "name": "truefoundry--tfy-gateway-skills",
+  "displayName": "tfy-gateway-skills",
+  "description": "This repo contains skills as per the agentskills specification to enable coding agents to deploy to Truefoundry",
+  "version": "1.0.0",
+  "author": "truefoundry",
+  "homepage": "https://github.com/truefoundry/tfy-gateway-skills",
+  "skills": []
+}
