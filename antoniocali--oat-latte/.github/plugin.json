@@ -1,0 +1,9 @@
+{
+  "name": "antoniocali--oat-latte",
+  "displayName": "oat-latte",
+  "description": "A component-based TUI framework for Go: two-pass layout, composable widgets, focus management, themes, and modal dialogs.",
+  "version": "1.0.0",
+  "author": "antoniocali",
+  "homepage": "https://github.com/antoniocali/oat-latte",
+  "skills": []
+}
