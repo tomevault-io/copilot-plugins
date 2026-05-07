@@ -1,0 +1,9 @@
+{
+  "name": "cvander--maya",
+  "displayName": "Maya",
+  "description": "Collection of skills and agent tools to run a bar in San Francisco",
+  "version": "1.0.0",
+  "author": "cvander",
+  "homepage": "https://github.com/cvander/Maya",
+  "skills": []
+}
