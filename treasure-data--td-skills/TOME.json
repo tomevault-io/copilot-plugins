@@ -1,0 +1,213 @@
+{
+  "name": "td-skills",
+  "owner": "treasure-data",
+  "repo": "td-skills",
+  "description": "Treasure Data Skills for Claude Code",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "agent",
+      "path": "tdx-skills/agent",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/tdx-skills/agent",
+      "description": ""
+    },
+    {
+      "name": "agent-prompt",
+      "path": "tdx-skills/agent-prompt",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/tdx-skills/agent-prompt",
+      "description": ""
+    },
+    {
+      "name": "agent-test",
+      "path": "tdx-skills/agent-test",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/tdx-skills/agent-test",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "path": "aps-doc-skills/core",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/aps-doc-skills/core",
+      "description": ""
+    },
+    {
+      "name": "golden",
+      "path": "aps-doc-skills/golden",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/aps-doc-skills/golden",
+      "description": ""
+    },
+    {
+      "name": "hist-union",
+      "path": "aps-doc-skills/hist-union",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/aps-doc-skills/hist-union",
+      "description": ""
+    },
+    {
+      "name": "id-unification",
+      "path": "aps-doc-skills/id-unification",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/aps-doc-skills/id-unification",
+      "description": ""
+    },
+    {
+      "name": "ingestion",
+      "path": "aps-doc-skills/ingestion",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/aps-doc-skills/ingestion",
+      "description": ""
+    },
+    {
+      "name": "master-segment",
+      "path": "aps-doc-skills/master-segment",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/aps-doc-skills/master-segment",
+      "description": ""
+    },
+    {
+      "name": "staging",
+      "path": "aps-doc-skills/staging",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/aps-doc-skills/staging",
+      "description": ""
+    },
+    {
+      "name": "data-dictionary-helper",
+      "path": "semantic-layer/data-dictionary-helper",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/semantic-layer/data-dictionary-helper",
+      "description": ""
+    },
+    {
+      "name": "dbt",
+      "path": "workflow-skills/dbt",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/workflow-skills/dbt",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "path": "field-agent-skills/deployment",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/field-agent-skills/deployment",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "field-agent-skills/documentation",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/field-agent-skills/documentation",
+      "description": ""
+    },
+    {
+      "name": "visualization",
+      "path": "field-agent-skills/visualization",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/field-agent-skills/visualization",
+      "description": ""
+    },
+    {
+      "name": "journey",
+      "path": "tdx-skills/journey",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/tdx-skills/journey",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "path": "sdk-skills/python",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/sdk-skills/python",
+      "description": ""
+    },
+    {
+      "name": "rt-config",
+      "path": "realtime-skills/rt-config",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/realtime-skills/rt-config",
+      "description": ""
+    },
+    {
+      "name": "rt-personalization",
+      "path": "realtime-skills/rt-personalization",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/realtime-skills/rt-personalization",
+      "description": ""
+    },
+    {
+      "name": "rt-setup-personalization",
+      "path": "realtime-skills/rt-setup-personalization",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/realtime-skills/rt-setup-personalization",
+      "description": ""
+    },
+    {
+      "name": "rt-triggers",
+      "path": "realtime-skills/rt-triggers",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/realtime-skills/rt-triggers",
+      "description": ""
+    },
+    {
+      "name": "schema-auto-tagger",
+      "path": "semantic-layer/schema-auto-tagger",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/semantic-layer/schema-auto-tagger",
+      "description": ""
+    },
+    {
+      "name": "javascript",
+      "path": "sdk-skills/javascript",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/sdk-skills/javascript",
+      "description": ""
+    },
+    {
+      "name": "tdx-basic",
+      "path": "tdx-skills/tdx-basic",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/tdx-skills/tdx-basic",
+      "description": ""
+    },
+    {
+      "name": "template-skill",
+      "path": "template-skill",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/template-skill",
+      "description": ""
+    },
+    {
+      "name": "trino-optimizer",
+      "path": "sql-skills/trino-optimizer",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/sql-skills/trino-optimizer",
+      "description": ""
+    },
+    {
+      "name": "validate-segment",
+      "path": "tdx-skills/validate-segment",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/tdx-skills/validate-segment",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "path": "tdx-skills/workflow",
+      "github_url": "https://github.com/treasure-data/td-skills/tree/main/tdx-skills/workflow",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/treasure-data/td-skills",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T07:37:08Z"
+}
