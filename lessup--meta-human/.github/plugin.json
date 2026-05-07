@@ -1,0 +1,9 @@
+{
+  "name": "lessup--meta-human",
+  "displayName": "meta-human",
+  "description": "Browser-native 3D digital human engine with voice, vision & dialogue. Zero-config, offline-ready, production-grade AI avatar platform.",
+  "version": "1.0.0",
+  "author": "LessUp",
+  "homepage": "https://github.com/LessUp/meta-human",
+  "skills": []
+}
