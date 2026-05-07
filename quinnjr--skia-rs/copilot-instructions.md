@@ -1,59 +1,100 @@
-## benchmarking
+## code-style
 
-> Benchmarking guidelines for skia-rs performance testing
+> Rust code style and conventions for skia-rs
 
 
-# Benchmarking
+# Code Style & Conventions
 
-## Using the Benchmark System
+## Rust Edition & Version
 
-```bash
-# Run all benchmarks
-cargo bench -p skia-rs-bench
+- **Edition**: 2024
+- **MSRV**: 1.85
+- All code must compile on stable Rust
 
-# Run specific suite
-cargo bench -p skia-rs-bench --bench core_benchmarks
+## Naming Conventions
 
-# Quick validation
-cargo bench -p skia-rs-bench -- --test
-```
+- Follow Skia's naming where possible for API compatibility
+- Use `snake_case` for functions and variables
+- Use `PascalCase` for types and traits
+- Prefix internal/private items with underscore only when necessary
+- Crate names: `skia-rs-{module}` (hyphenated)
+- Module imports: `skia_rs_{module}` (underscored)
 
-## Writing Benchmarks
+## Type Aliases
 
 ```rust
-use criterion::{criterion_group, criterion_main, Criterion};
-use std::hint::black_box;
-
-fn bench_example(c: &mut Criterion) {
-    let mut group = c.benchmark_group("Example");
-
-    group.bench_function("operation", |b| {
-        b.iter(|| {
-            // Use black_box to prevent optimization
-            black_box(some_operation())
-        })
-    });
-
-    group.finish();
-}
-
-criterion_group!(benches, bench_example);
-criterion_main!(benches);
+// Core type alias - matches Skia's SkScalar
+pub type Scalar = f32;
 ```
 
-## Performance Targets
+## Documentation
 
-- Core operations (Point, Rect, Color): < 10ns
-- Matrix operations: < 100ns
-- Path operations: < 1µs per segment
-- Canvas drawing: comparable to native Skia
+- All public items MUST have doc comments
+- Use `//!` for module-level documentation
+- Include examples in doc comments for complex APIs
+- Reference corresponding Skia types/functions in docs
 
-## Best Practices
+```rust
+/// A 2D point with floating-point coordinates.
+///
+/// Corresponds to Skia's `SkPoint`.
+///
+/// # Examples
+/// ```
+/// use skia_rs_core::Point;
+/// let p = Point::new(10.0, 20.0);
+/// assert_eq!(p.length(), (500.0_f32).sqrt());
+/// ```
+#[derive(Debug, Clone, Copy, PartialEq, Default)]
+#[repr(C)]
+pub struct Point {
+    pub x: Scalar,
+    pub y: Scalar,
+}
+```
 
-- Use `std::hint::black_box` to prevent compiler optimizations
-- Use deterministic RNG for reproducible benchmarks
-- Group related benchmarks together
-- Include baseline comparisons where possible
+## Error Handling
+
+- Use `thiserror` for error types
+- Prefer `Option<T>` over `Result<T, E>` for simple failure cases (matching Skia patterns)
+- Never panic in library code except for invariant violations
+- Use `debug_assert!` for development-time checks
+
+## Memory & Performance
+
+- Use `#[repr(C)]` for FFI-compatible structs
+- Derive `bytemuck::{Pod, Zeroable}` for types that need zero-copy operations
+- Use `SmallVec` for small, stack-allocated collections
+- Prefer `&self` over `&mut self` where possible
+- Avoid allocations in hot paths
+
+```rust
+use bytemuck::{Pod, Zeroable};
+
+#[derive(Debug, Clone, Copy, Pod, Zeroable)]
+#[repr(C)]
+pub struct Color(pub u32);
+```
+
+## Inline Hints
+
+- Use `#[inline]` for small, frequently-called methods
+- Use `#[inline(always)]` sparingly, only for critical hot paths
+- Let the compiler decide for complex functions
+
+```rust
+impl Point {
+    #[inline]
+    pub const fn new(x: Scalar, y: Scalar) -> Self {
+        Self { x, y }
+    }
+
+    #[inline]
+    pub fn length(&self) -> Scalar {
+        (self.x * self.x + self.y * self.y).sqrt()
+    }
+}
+```
 
 ---
 > Source: [quinnjr/skia-rs](https://github.com/quinnjr/skia-rs) — distributed by [TomeVault](https://tomevault.io).
