@@ -1,0 +1,9 @@
+{
+  "name": "failcoach--ai-agent-onboarding",
+  "displayName": "ai-agent-onboarding",
+  "description": "A step-by-step system for business owners to onboard AI agents the way they'd onboard a new hire \u2014 built for Claude Code.",
+  "version": "1.0.0",
+  "author": "failcoach",
+  "homepage": "https://github.com/failcoach/ai-agent-onboarding",
+  "skills": []
+}
