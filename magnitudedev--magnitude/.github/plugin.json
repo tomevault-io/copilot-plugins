@@ -1,0 +1,9 @@
+{
+  "name": "magnitudedev--magnitude",
+  "displayName": "magnitude",
+  "description": "Open source coding agent for open source models",
+  "version": "1.0.0",
+  "author": "magnitudedev",
+  "homepage": "https://github.com/magnitudedev/magnitude",
+  "skills": []
+}
