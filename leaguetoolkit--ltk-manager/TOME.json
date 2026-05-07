@@ -4,7 +4,7 @@
   "repo": "ltk-manager",
   "description": "The next-generation mod manager for League of Legends.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/LeagueToolkit/ltk-manager",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-02T09:52:01Z"
+  "distributed_at": "2026-05-07T07:47:45Z"
 }
