@@ -1,0 +1,9 @@
+{
+  "name": "rogeriochaves--open-managed-agents",
+  "displayName": "open-managed-agents",
+  "description": "Self-hostable, open-source alternative to Claude Managed Agents. Multi-LLM support (Anthropic, OpenAI, Ollama), enterprise governance (org/teams/RBAC)",
+  "version": "1.0.0",
+  "author": "rogeriochaves",
+  "homepage": "https://github.com/rogeriochaves/open-managed-agents",
+  "skills": []
+}
