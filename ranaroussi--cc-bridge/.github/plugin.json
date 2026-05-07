@@ -1,0 +1,9 @@
+{
+  "name": "ranaroussi--cc-bridge",
+  "displayName": "cc-bridge",
+  "description": "Anthropic API compatibility using the official Claude Code CLI under the hood",
+  "version": "1.0.0",
+  "author": "ranaroussi",
+  "homepage": "https://github.com/ranaroussi/cc-bridge",
+  "skills": []
+}
