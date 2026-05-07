@@ -1,0 +1,9 @@
+{
+  "name": "gryt-chat--gryt",
+  "displayName": "gryt",
+  "description": "Monorepo for the Gryt voice chat platform \u2014 a self-hostable, WebRTC-based voice communication app with a desktop client, signaling server, SFU, and Keycloak auth.",
+  "version": "1.0.0",
+  "author": "Gryt-chat",
+  "homepage": "https://github.com/Gryt-chat/gryt",
+  "skills": []
+}
