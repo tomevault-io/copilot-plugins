@@ -1,0 +1,9 @@
+{
+  "name": "jendat--fb2k-components-mac-suite",
+  "displayName": "fb2k-components-mac-suite",
+  "description": "foobar2000 macOS components: SimPlaylist, Playlist Organizer, Waveform Seekbar, Last.fm Scrobbler",
+  "version": "1.0.0",
+  "author": "JendaT",
+  "homepage": "https://github.com/JendaT/fb2k-components-mac-suite",
+  "skills": []
+}
