@@ -4,7 +4,7 @@
   "repo": "tdx",
   "description": "tdx - your todos, in markdown, done fast.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/niklas-heer/tdx",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T00:01:52Z"
+  "distributed_at": "2026-05-07T19:12:14Z"
 }
