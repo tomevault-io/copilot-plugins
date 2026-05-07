@@ -1,0 +1,9 @@
+{
+  "name": "pipeopshq--rexec",
+  "displayName": "Rexec",
+  "description": "Rexec is an open-source platform that gives you instantly-available, network-isolated Linux terminals in the cloud, or lets you connect your own machines to a unified dashboard. Built for developers w",
+  "version": "1.0.0",
+  "author": "PipeOpsHQ",
+  "homepage": "https://github.com/PipeOpsHQ/Rexec",
+  "skills": []
+}
