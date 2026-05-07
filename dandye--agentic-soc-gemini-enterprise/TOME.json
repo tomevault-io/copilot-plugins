@@ -1,0 +1,44 @@
+{
+  "name": "agentic_soc_gemini_enterprise",
+  "owner": "dandye",
+  "repo": "agentic_soc_gemini_enterprise",
+  "description": "Deploy custom SOC Agents to Gemini Enterprise Agent Platform",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/dandye/agentic_soc_gemini_enterprise",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T12:41:17Z"
+}
