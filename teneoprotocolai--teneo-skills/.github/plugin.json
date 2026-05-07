@@ -1,0 +1,9 @@
+{
+  "name": "teneoprotocolai--teneo-skills",
+  "displayName": "teneo-skills",
+  "description": "Teneo Protocol AI agent skills for Claude Code and AI coding assistants",
+  "version": "1.0.0",
+  "author": "TeneoProtocolAI",
+  "homepage": "https://github.com/TeneoProtocolAI/teneo-skills",
+  "skills": []
+}
