@@ -1,254 +1,240 @@
-## sql-safety
+## testing
 
-> This project handles user-provided data that becomes part of SQL queries. **Never allow SQL injection vulnerabilities.**
+> Testing requirements and standards for the Prax ORM project
 
-# SQL Safety & Security
 
-This project handles user-provided data that becomes part of SQL queries. **Never allow SQL injection vulnerabilities.**
+# Testing Standards
 
-## Core Principles
+This project requires **90%+ code coverage**. All new code must include comprehensive tests.
 
-### 1. Always Use Parameterized Queries
+## Coverage Requirements
 
-**NEVER concatenate user input directly into SQL strings.**
+- **Minimum coverage**: 90% line coverage
+- **Target coverage**: 95%+ for critical paths (parser, query builder, migrations)
+- Run coverage with: `cargo llvm-cov --all-features`
 
-```rust
-// ✅ Good: Parameterized query
-let filter = Filter::Equals("email".into(), FilterValue::String(user_email.into()));
-let (sql, params) = filter.to_sql(0);
-// sql = "email = $1", params = [user_email]
+## Test Organization
 
-// ✅ Good: Using SqlBuilder
-let mut builder = SqlBuilder::postgres();
-builder.push("SELECT * FROM users WHERE email = ");
-builder.push_param(FilterValue::String(user_email.into()));
+### Unit Tests
 
-// ❌ DANGEROUS: String concatenation
-let sql = format!("SELECT * FROM users WHERE email = '{}'", user_email);
-
-// ❌ DANGEROUS: Direct interpolation
-let sql = format!("SELECT * FROM users WHERE id = {}", user_id);
-```
-
-### 2. Validate Identifiers
-
-Table names, column names, and other identifiers cannot be parameterized. **Always validate them.**
+Place unit tests in the same file as the code being tested:
 
 ```rust
-// ✅ Good: Whitelist allowed identifiers
-const ALLOWED_COLUMNS: &[&str] = &["id", "name", "email", "created_at"];
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-pub fn sort_by(column: &str) -> Result<String> {
-    if ALLOWED_COLUMNS.contains(&column) {
-        Ok(format!("ORDER BY {}", column))
-    } else {
-        Err(Error::InvalidColumn(column.to_string()))
+    #[test]
+    fn test_function_name() {
+        // Arrange
+        let input = ...;
+
+        // Act
+        let result = function_under_test(input);
+
+        // Assert
+        assert_eq!(result, expected);
     }
 }
+```
 
-// ✅ Good: Use enums for allowed values
-pub enum SortColumn {
-    Id,
-    Name,
-    Email,
-    CreatedAt,
+### Integration Tests
+
+Place integration tests in `tests/` directory:
+
+```
+tests/
+├── parser_integration.rs
+├── config_integration.rs
+└── common/
+    └── mod.rs
+```
+
+### Test Naming Conventions
+
+```rust
+// Unit test: test_<function>_<scenario>_<expected_outcome>
+#[test]
+fn test_parse_model_with_relations_succeeds() { }
+
+#[test]
+fn test_parse_model_missing_id_returns_error() { }
+
+// Parameterized tests with descriptive names
+#[test]
+fn test_scalar_type_int_parses_correctly() { }
+
+#[test]
+fn test_scalar_type_string_parses_correctly() { }
+```
+
+## What to Test
+
+### Always Test
+
+1. **Happy path** - Normal successful execution
+2. **Edge cases** - Empty inputs, boundaries, limits
+3. **Error cases** - Invalid inputs, missing required fields
+4. **All branches** - Every if/else, match arm, Option/Result path
+
+### Parser Tests Must Cover
+
+- All scalar types (Int, String, Boolean, DateTime, etc.)
+- All type modifiers (optional `?`, list `[]`)
+- All field attributes (@id, @auto, @unique, @default, etc.)
+- All model attributes (@@map, @@index, @@unique, etc.)
+- Relation definitions with all referential actions
+- Enum definitions with variants
+- Composite types
+- Views
+- Documentation comments
+- Error cases (syntax errors, invalid attributes)
+
+### Config Tests Must Cover
+
+- Default values
+- Environment variable expansion
+- All configuration sections
+- Environment-specific overrides
+- Invalid configuration handling
+
+### AST Tests Must Cover
+
+- All type constructors
+- All accessor methods
+- Serialization/deserialization (if serde enabled)
+- Display implementations
+
+## Test Utilities
+
+### Use Test Fixtures
+
+```rust
+fn sample_schema() -> &'static str {
+    r#"
+    model User {
+        id    Int    @id @auto
+        email String @unique
+    }
+    "#
 }
 
-impl SortColumn {
-    pub fn as_sql(&self) -> &'static str {
-        match self {
-            SortColumn::Id => "id",
-            SortColumn::Name => "name",
-            SortColumn::Email => "email",
-            SortColumn::CreatedAt => "created_at",
-        }
+fn sample_config() -> &'static str {
+    r#"
+    [database]
+    provider = "postgresql"
+    url = "postgres://localhost/test"
+    "#
+}
+```
+
+### Use Snapshot Testing for Complex Output
+
+```rust
+use insta::assert_yaml_snapshot;
+
+#[test]
+fn test_parse_complex_schema() {
+    let schema = parse_schema(COMPLEX_SCHEMA).unwrap();
+    assert_yaml_snapshot!(schema);
+}
+```
+
+### Use Property-Based Testing for Parsers
+
+```rust
+use proptest::prelude::*;
+
+proptest! {
+    #[test]
+    fn test_identifier_roundtrip(name in "[a-zA-Z][a-zA-Z0-9_]*") {
+        let parsed = parse_identifier(&name);
+        assert!(parsed.is_ok());
     }
 }
+```
 
-// ❌ DANGEROUS: Accepting arbitrary identifiers
-pub fn sort_by(column: &str) -> String {
-    format!("ORDER BY {}", column) // SQL injection possible!
+## Test Quality Checklist
+
+Before submitting code, verify:
+
+- [ ] All public functions have tests
+- [ ] All error paths are tested
+- [ ] Edge cases are covered
+- [ ] Tests are deterministic (no random, no time-dependent)
+- [ ] Tests are fast (mock external dependencies)
+- [ ] Tests have descriptive names
+- [ ] Tests use assertions with good error messages
+- [ ] No `#[ignore]` without explanation
+
+## Running Tests
+
+```bash
+# Run all tests
+cargo test --all-features
+
+# Run with coverage
+cargo llvm-cov --all-features
+
+# Run specific test
+cargo test test_name
+
+# Run tests for specific crate
+cargo test -p prax-schema
+
+# Run with output
+cargo test -- --nocapture
+
+# Run ignored tests
+cargo test -- --ignored
+```
+
+## Mocking Guidelines
+
+- Use traits for external dependencies
+- Create mock implementations in test modules
+- Prefer dependency injection over global state
+
+```rust
+// Production code
+trait DatabaseConnection {
+    async fn execute(&self, query: &str) -> Result<()>;
+}
+
+// Test code
+struct MockConnection {
+    queries: RefCell<Vec<String>>,
+}
+
+impl DatabaseConnection for MockConnection {
+    async fn execute(&self, query: &str) -> Result<()> {
+        self.queries.borrow_mut().push(query.to_string());
+        Ok(())
+    }
 }
 ```
 
-### 3. Quote Identifiers When Dynamic
+## Continuous Integration
 
-If you must use dynamic identifiers, properly quote them:
+Tests run on every PR:
+- `cargo test --all-features`
+- `cargo clippy -- -D warnings`
+- `cargo fmt -- --check`
+- Coverage must not decrease
 
-```rust
-// ✅ Good: Quoted identifier (PostgreSQL style)
-pub fn quote_identifier(name: &str) -> String {
-    // Escape any embedded double quotes
-    let escaped = name.replace('"', "\"\"");
-    format!("\"{}\"", escaped)
-}
+## When to Skip Tests
 
-// Usage
-let safe_column = quote_identifier(user_provided_column);
-let sql = format!("SELECT {} FROM users", safe_column);
-```
+Only skip tests with `#[ignore]` when:
+- Test requires external service (database, network)
+- Test is flaky and being investigated
+- Test is for future functionality
 
-## Filter Building Rules
-
-### Use the Type System
-
-The `Filter` and `FilterValue` types enforce parameterization:
-
-```rust
-// ✅ Good: Type-safe filter construction
-let filter = Filter::and(vec![
-    Filter::Equals("status".into(), FilterValue::String("active".into())),
-    Filter::Gte("age".into(), FilterValue::Int(18)),
-    Filter::Contains("email".into(), FilterValue::String(search_term.into())),
-]);
-
-// The to_sql() method ensures all values become parameters
-let (where_clause, params) = filter.to_sql(0);
-// where_clause = "(status = $1 AND age >= $2 AND email LIKE $3)"
-// params = ["active", 18, "%search_term%"]
-```
-
-### Escape LIKE Patterns
-
-When using `Contains`, `StartsWith`, `EndsWith`, the ORM handles escaping:
-
-```rust
-// ✅ Good: ORM escapes LIKE wildcards in user input
-let filter = Filter::Contains("name".into(), FilterValue::String(user_search.into()));
-// If user_search = "test%", it becomes "test\%" in the LIKE pattern
-
-// ❌ Bad: Manual LIKE without escaping
-let pattern = format!("%{}%", user_search); // user_search = "%" breaks query
-```
-
-## Raw SQL Safety
-
-### Minimize Raw SQL
-
-Prefer the query builder. When raw SQL is necessary:
-
-```rust
-// ✅ Good: Raw SQL with parameterized values
-use prax_query::raw::Sql;
-
-let sql = Sql::new("SELECT * FROM users WHERE email = $1 AND status = $2")
-    .bind(FilterValue::String(email.into()))
-    .bind(FilterValue::String("active".into()));
-
-// ✅ Good: Raw SQL with safe interpolation for identifiers only
-let table = validate_table_name(user_table)?; // whitelist check
-let sql = Sql::new(&format!("SELECT * FROM {} WHERE id = $1", table))
-    .bind(FilterValue::Int(id));
-
-// ❌ DANGEROUS: Raw SQL with user values in string
-let sql = Sql::new(&format!("SELECT * FROM users WHERE email = '{}'", email));
-```
-
-### Review All `format!` Calls in SQL Context
-
-Every `format!` that produces SQL should be audited:
-
-```rust
-// Questions to ask:
-// 1. Are all user-provided values going through push_param()?
-// 2. Are identifiers validated against a whitelist?
-// 3. Could a malicious input change the query structure?
-```
-
-## JSON/JSONB Safety
-
-When working with JSON queries:
-
-```rust
-// ✅ Good: JSON value as parameter
-builder.push("WHERE metadata @> ");
-builder.push_param(FilterValue::Json(serde_json::json!({"role": role})));
-
-// ✅ Good: JSON path with validated keys
-const ALLOWED_KEYS: &[&str] = &["role", "status", "type"];
-if ALLOWED_KEYS.contains(&key) {
-    builder.push(&format!("WHERE metadata->>'{}' = ", key));
-    builder.push_param(FilterValue::String(value.into()));
-}
-
-// ❌ DANGEROUS: Unvalidated JSON path
-builder.push(&format!("WHERE metadata->>'{}' = ", user_key)); // injection risk
-```
-
-## Multi-Tenancy Security
-
-### Always Include Tenant Filter
-
-```rust
-// ✅ Good: Tenant filter added at ORM level
-let filter = Filter::and(vec![
-    Filter::Equals("tenant_id".into(), FilterValue::Int(current_tenant)),
-    user_provided_filter,
-]);
-
-// ✅ Good: PostgreSQL RLS handles it
-// SET app.current_tenant = $1; -- set at connection level
-// CREATE POLICY tenant_isolation ON users USING (tenant_id = current_setting('app.current_tenant')::int);
-
-// ❌ DANGEROUS: Trusting user to provide tenant filter
-let filter = user_provided_filter; // Could query other tenants!
-```
-
-## Testing for SQL Injection
-
-### Include Injection Tests
-
+Always document why:
 ```rust
 #[test]
-fn test_sql_injection_in_filter_value() {
-    let malicious = "'; DROP TABLE users; --";
-    let filter = Filter::Equals("name".into(), FilterValue::String(malicious.into()));
-    let (sql, params) = filter.to_sql(0);
-
-    // Value should be a parameter, not in SQL string
-    assert_eq!(sql, "name = $1");
-    assert!(!sql.contains("DROP"));
-    assert!(matches!(&params[0], FilterValue::String(s) if s == malicious));
-}
-
-#[test]
-fn test_sql_injection_in_like_pattern() {
-    let malicious = "test%' OR '1'='1";
-    let filter = Filter::Contains("name".into(), FilterValue::String(malicious.into()));
-    let (sql, params) = filter.to_sql(0);
-
-    assert_eq!(sql, "name LIKE $1");
-    // Pattern should be escaped and parameterized
-}
-
-#[test]
-fn test_identifier_validation() {
-    let malicious = "id; DROP TABLE users; --";
-    let result = validate_column_name(malicious);
-    assert!(result.is_err());
-}
+#[ignore = "requires PostgreSQL database connection"]
+fn test_real_database_connection() { }
 ```
-
-## Code Review Checklist
-
-When reviewing SQL-related code:
-
-- [ ] All user values go through `FilterValue` or `push_param()`
-- [ ] All dynamic identifiers are validated against whitelist
-- [ ] No string concatenation for SQL with user input
-- [ ] LIKE patterns are properly escaped
-- [ ] Raw SQL is minimized and justified
-- [ ] Multi-tenant queries always include tenant filter
-- [ ] Tests include SQL injection attempts
-
-## Summary
-
-1. **Use parameterized queries** - Always use `FilterValue` and `push_param()`
-2. **Validate identifiers** - Whitelist table/column names, or use enums
-3. **Quote when necessary** - Properly escape dynamic identifiers
-4. **Test for injection** - Include malicious input in test cases
-5. **Review `format!`** - Audit all SQL string formatting
-6. **Defense in depth** - Combine ORM safety with database-level controls (RLS)
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
