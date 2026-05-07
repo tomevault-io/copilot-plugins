@@ -1,0 +1,9 @@
+{
+  "name": "kequach--uniqlo-sales-alerter",
+  "displayName": "uniqlo-sales-alerter",
+  "description": "A Python web server that monitors Uniqlo sales and notifies you when items match your criteria",
+  "version": "1.0.0",
+  "author": "kequach",
+  "homepage": "https://github.com/kequach/uniqlo-sales-alerter",
+  "skills": []
+}
