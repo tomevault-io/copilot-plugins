@@ -1,0 +1,9 @@
+{
+  "name": "lmacan1--talktype",
+  "displayName": "talktype",
+  "description": "Push-to-talk voice typing for your terminal. Local Whisper, cross-platform.",
+  "version": "1.0.0",
+  "author": "lmacan1",
+  "homepage": "https://github.com/lmacan1/talktype",
+  "skills": []
+}
