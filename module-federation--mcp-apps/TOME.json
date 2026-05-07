@@ -4,7 +4,7 @@
   "repo": "mcp-apps",
   "description": "",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/module-federation/mcp-apps",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T05:31:06Z"
+  "distributed_at": "2026-05-07T01:31:48Z"
 }
