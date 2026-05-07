@@ -1,0 +1,9 @@
+{
+  "name": "quinnjr--prax",
+  "displayName": "prax",
+  "description": "\ud83e\udd80 Type-safe, async-first ORM for Rust. Prisma-like schema, fluent queries, multi-database support.",
+  "version": "1.0.0",
+  "author": "quinnjr",
+  "homepage": "https://github.com/quinnjr/prax",
+  "skills": []
+}
