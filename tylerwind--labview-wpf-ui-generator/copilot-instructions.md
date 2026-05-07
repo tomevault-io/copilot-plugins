@@ -1,0 +1,56 @@
+## csharp-structure
+
+> C# 项目结构与分层规范（WPF 控件生成器）
+
+
+# C# 项目结构与分层规范
+
+## 分层与职责
+
+- **UI/视图层**：WPF `XAML` 与 `*.xaml.cs` 仅负责界面展示与交互事件绑定，避免复杂业务逻辑。
+- **服务层**：放在 `Services/`，负责模板生成、导出、解析、IO 等业务逻辑。
+- **模型层**：放在 `Models/`，仅保存数据结构与枚举，不包含业务逻辑。
+
+## 目录组织
+
+- 新的业务类优先放到 `Services/` 或 `Models/`，不要堆在 `MainWindow.xaml.cs`。
+- 与导出模板相关的逻辑统一放到 `ExportTemplate/`。
+- 复用控件或通用逻辑放到独立类，避免在窗口代码后置文件中重复实现。
+
+## 依赖方向
+
+- 视图层可以依赖服务层与模型层。
+- 服务层可以依赖模型层。
+- 模型层不依赖其他层。
+
+## 编译与运行环境
+
+- 目标框架：.NET Framework 4.0
+- 语言版本：C# 5.0
+- 编译方式：仅使用系统自带 `msbuild`，避免依赖外部构建工具
+- 新增功能或第三方依赖时，必须保证在无额外环境配置的电脑上也能正常导出 DLL
+
+## 代码组织要求
+
+- 每个类文件只聚焦一个职责。
+- 公共工具类使用明确命名，避免“Helper”“Util”一类的泛化名称。
+- 新增功能时，先确定放置层级再写实现。
+
+这是一个基于 AI 辅助开发的工具套件，致力于为 LabVIEW 提供极其现代化、支持硬件加速与平滑交互的 WPF 前端控件体验。 它不仅是一套 DLL 控件库，更是一个“所见即所得”的零代码控件设计与一键导出引擎。
+底层引擎：LabVIEW 负责核心逻辑与通讯。
+视觉前端：WPF 负责圆角、阴影、渐变、悬浮高亮以及平滑阻尼动画。
+全栈闭环：无需 XAML 基础，无需安装 Visual Studio，一键可视化配置并生成供 LabVIEW 调用的专属 DLL。
+
+## 技术规范 
+- 语言： .NET 4.0  C# 5.0 语法
+- 提交：Conventional Commits (中文)
+
+注意问题点：
+bin\Release\ExportTemplate与ExportTemplate内容更新同步
+事件回调不是.net引用，而是直接的数据类型
+颜色设置为颜色数值
+语言回复干净利落，不要加无用的修饰。
+
+---
+> Source: [tylerwind/LabVIEW-WPF-UI-Generator](https://github.com/tylerwind/LabVIEW-WPF-UI-Generator) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
