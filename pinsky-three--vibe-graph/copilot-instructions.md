@@ -1,215 +1,100 @@
-## automaton-contracts
+## vibe-graph
 
-> Automaton behavioral contracts for vibe-graph. These define per-module stability, roles, and change impact rules.
+> Vibe-Graph MCP tools for code navigation and impact analysis
 
 
-# Behavioral Contracts: vibe-graph
+# Vibe-Graph Code Intelligence
 
-Each module in this codebase has a role, stability level, and behavioral rules.
-AI agents and developers should respect these contracts when making changes.
+This project has an MCP server (`vg serve --mcp`) that provides semantic code
+analysis tools. Use these tools instead of manual file exploration when
+possible.
 
-## Defaults
+## Available Tools
 
-- Default rule: `identity`
-- Damping coefficient: 0.5
-- Inheritance mode: Compose
+| Tool               | Use When                                                   |
+| ------------------ | ---------------------------------------------------------- |
+| `search_nodes`     | Finding files/modules by name or path pattern              |
+| `get_dependencies` | Understanding imports and dependents of a file             |
+| `impact_analysis`  | Before modifying files, to see what might break            |
+| `get_node_context` | Getting detailed info about a specific file with neighbors |
+| `list_files`       | Browsing directory contents with filtering                 |
+| `get_git_changes`  | Checking current uncommitted changes                       |
 
-## Role: `identity`
+## Available Resources
 
-Nodes: 101
+| Resource             | Contents                                |
+| -------------------- | --------------------------------------- |
+| `vibe://graph`       | Full codebase graph (nodes + edges)     |
+| `vibe://graph/nodes` | All nodes (files, modules, directories) |
+| `vibe://graph/edges` | All edges (dependencies, containment)   |
+| `vibe://git/changes` | Current git working tree status         |
 
-| Path | Stability | Impact |
-|------|-----------|--------|
-| `release.toml` | 0.32 | — |
-| `Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-core/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-layout-gpu/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-layout-gpu/README.md` | 0.32 | — |
-| `crates/vibe-graph-layout-gpu/examples/large_graph.rs` | 0.32 | — |
-| `crates/vibe-graph-layout-gpu/examples/simple_layout.rs` | 0.32 | — |
-| `crates/vibe-graph-layout-gpu/src/quadtree.rs` | 0.32 | — |
-| `crates/vibe-graph-layout-gpu/src/layout.rs` | 0.32 | — |
-| `crates/vibe-graph-layout-gpu/src/error.rs` | 0.44 | — |
-| `crates/vibe-graph-layout-gpu/src/shaders.rs` | 0.32 | — |
-| `crates/vibe-graph-layout-gpu/src/gpu.rs` | 0.33 | — |
-| `crates/vibe-graph-viz/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-viz/index.html` | 0.32 | — |
-| `crates/vibe-graph-viz/Makefile` | 0.32 | — |
-| `crates/vibe-graph-viz/README.md` | 0.32 | — |
-| `crates/vibe-graph-viz/examples/native.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/examples/automaton_viz.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/examples/run_automaton_viz.sh` | 0.32 | — |
-| `crates/vibe-graph-viz/Trunk.toml` | 0.32 | — |
-| `crates/vibe-graph-viz/src/ui/overlays.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/src/automaton_mode.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/src/render.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/src/gpu_layout.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/src/automaton_app.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/src/selection.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/src/git_panel.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/src/settings.rs` | 0.33 | — |
-| `crates/vibe-graph-viz/src/sample.rs` | 0.32 | — |
-| `crates/vibe-graph-viz/src/api.rs` | 0.35 | — |
-| `crates/vibe-graph-viz/src/top_bar.rs` | 0.32 | — |
-| `crates/vibe-graph-ui/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-ops/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-ops/src/error.rs` | 0.32 | — |
-| `crates/vibe-graph-ops/src/config.rs` | 0.32 | — |
-| `crates/vibe-graph-ops/src/store.rs` | 0.32 | — |
-| `crates/vibe-graph-ops/src/responses.rs` | 0.33 | — |
-| `crates/vibe-graph-ops/src/project.rs` | 0.35 | — |
-| `crates/vibe-graph-ops/src/workspace.rs` | 0.33 | — |
-| `crates/vibe-graph-ops/src/requests.rs` | 0.33 | — |
-| `crates/vibe-graph-ops/src/scan.rs` | 0.32 | — |
-| `crates/vibe-graph-ops/src/context.rs` | 0.32 | — |
-| `crates/vibe-graph-api/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-api/tests/api_integration.rs` | 0.32 | — |
-| `crates/vibe-graph-api/src/types.rs` | 0.32 | — |
-| `crates/vibe-graph-api/src/routes/health.rs` | 0.32 | — |
-| `crates/vibe-graph-api/src/routes/graph.rs` | 0.32 | — |
-| `crates/vibe-graph-api/src/routes/git.rs` | 0.32 | — |
-| `crates/vibe-graph-api/src/routes/ops.rs` | 0.32 | — |
-| `crates/vibe-graph-api/src/ws.rs` | 0.32 | — |
-| `crates/vibe-graph-engine/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-constitution/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-git/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-semantic/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-ssot/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-materializer/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-llmca/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-llmca/src/prompt_rule.rs` | 0.32 | — |
-| `crates/vibe-graph-cli/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-cli/LICENSE` | 0.32 | — |
-| `crates/vibe-graph-cli/tests/cli_integration.rs` | 0.32 | — |
-| `crates/vibe-graph-cli/README.md` | 0.32 | — |
-| `crates/vibe-graph-cli/templates/composer.md` | 0.32 | — |
-| `crates/vibe-graph-cli/assets/vibe_graph_viz.js` | 0.32 | — |
-| `crates/vibe-graph-cli/assets/vibe_graph_viz_bg.wasm` | 0.32 | — |
-| `crates/vibe-graph-cli/src/config.rs` | 0.32 | — |
-| `crates/vibe-graph-cli/src/commands/serve.rs` | 0.32 | — |
-| `crates/vibe-graph-cli/src/commands/remote.rs` | 0.32 | — |
-| `crates/vibe-graph-cli/src/commands/config.rs` | 0.32 | — |
-| `crates/vibe-graph-cli/src/commands/compose.rs` | 0.32 | — |
-| `crates/vibe-graph-cli/src/commands/automaton.rs` | 0.32 | — |
-| `crates/vibe-graph-cli/src/commands/viz.rs` | 0.32 | — |
-| `crates/vibe-graph-sync/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-mcp/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-mcp/src/types.rs` | 0.44 | — |
-| `crates/vibe-graph-mcp/src/tools.rs` | 0.32 | — |
-| `crates/vibe-graph-mcp/src/server.rs` | 0.32 | — |
-| `crates/vibe-graph-mcp/src/gateway.rs` | 0.32 | — |
-| `crates/vibe-graph-automaton/Cargo.toml` | 0.32 | — |
-| `crates/vibe-graph-automaton/PLANNING.md` | 0.32 | — |
-| `crates/vibe-graph-automaton/tests/integration_tests.rs` | 0.32 | — |
-| `crates/vibe-graph-automaton/README.md` | 0.32 | — |
-| `crates/vibe-graph-automaton/examples/run_llm_gol.sh` | 0.32 | — |
-| `crates/vibe-graph-automaton/examples/llm_game_of_life.rs` | 0.32 | — |
-| `crates/vibe-graph-automaton/examples/game_of_life.rs` | 0.32 | — |
-| `crates/vibe-graph-automaton/src/source_code.rs` | 0.32 | — |
-| `crates/vibe-graph-automaton/src/error.rs` | 0.32 | — |
-| `crates/vibe-graph-automaton/src/config.rs` | 0.37 | — |
-| `crates/vibe-graph-automaton/src/persistence.rs` | 0.32 | — |
-| `crates/vibe-graph-automaton/src/temporal.rs` | 0.35 | — |
-| `crates/vibe-graph-automaton/src/llm_runner.rs` | 0.33 | — |
-| `crates/vibe-graph-automaton/src/description/inferencer.rs` | 0.32 | — |
-| `crates/vibe-graph-automaton/src/description/generator.rs` | 0.33 | — |
-| `crates/vibe-graph-automaton/src/state.rs` | 0.35 | — |
-| `crates/vibe-graph-automaton/src/automaton.rs` | 0.35 | — |
-| `crates/vibe-graph-automaton/src/test_fixtures.rs` | 0.32 | — |
-| `crates/vibe-graph-automaton/src/rule.rs` | 0.37 | — |
-| `Makefile` | 0.32 | — |
-| `Cargo.lock` | 0.32 | — |
-| `README.md` | 0.32 | — |
-| `rust-toolchain.toml` | 0.32 | — |
+## When to Use These Tools
 
-## Role: `directory_container`
+### Exploring the Codebase
 
-Nodes: 57
+Instead of reading multiple files to understand structure:
 
-| Path | Stability | Impact |
-|------|-----------|--------|
-| `crates/vibe-graph-semantic/src` | 0.80 | — |
-| `crates/vibe-graph-layout-gpu` | 0.80 | — |
-| `crates/vibe-graph-api/src/routes` | 0.80 | — |
-| `crates/vibe-graph-ops/src` | 0.80 | — |
-| `crates/vibe-graph-viz/src/ui` | 0.80 | — |
-| `crates/vibe-graph-ssot` | 0.80 | — |
-| `crates` | 0.80 | — |
-| `crates/vibe-graph-layout-gpu/examples` | 0.80 | — |
-| `crates/vibe-graph-ui` | 0.80 | — |
-| `crates/vibe-graph-api/src` | 0.80 | — |
-| `crates/vibe-graph-viz/examples` | 0.80 | — |
-| `crates/vibe-graph-constitution/src` | 0.80 | — |
-| `crates/vibe-graph-cli` | 0.80 | — |
-| `crates/vibe-graph-llmca/src` | 0.80 | — |
-| `crates/vibe-graph-cli/templates` | 0.80 | — |
-| `crates/vibe-graph-mcp` | 0.80 | — |
-| `crates/vibe-graph-semantic` | 0.80 | — |
-| `crates/vibe-graph-api` | 0.80 | — |
-| `crates/vibe-graph-git` | 0.80 | — |
-| `crates/vibe-graph-llmca` | 0.80 | — |
-| `crates/vibe-graph-sync` | 0.80 | — |
-| `crates/vibe-graph-automaton/examples` | 0.80 | — |
-| `crates/vibe-graph-engine/src` | 0.80 | — |
-| `crates/vibe-graph-automaton/tests` | 0.80 | — |
-| `crates/vibe-graph-cli/src/commands` | 0.80 | — |
-| `crates/vibe-graph-ops` | 0.80 | — |
-| `crates/vibe-graph-cli/assets` | 0.80 | — |
-| `/Users` | 0.80 | — |
-| `crates/vibe-graph-constitution` | 0.80 | — |
-| `/` | 0.80 | — |
-| `crates/vibe-graph-core/src` | 0.80 | — |
-| `crates/vibe-graph-git/src` | 0.80 | — |
-| `crates/vibe-graph-ssot/src` | 0.80 | — |
-| `crates/vibe-graph-automaton` | 0.80 | — |
-| `crates/vibe-graph-materializer` | 0.80 | — |
-| `crates/vibe-graph-ui/src` | 0.80 | — |
-| `crates/vibe-graph-mcp/src` | 0.80 | — |
-| `crates/vibe-graph-cli/tests` | 0.80 | — |
-| `crates/vibe-graph-cli/src` | 0.80 | — |
-| `crates/vibe-graph-automaton/src/description` | 0.80 | — |
-| `crates/vibe-graph-sync/src` | 0.80 | — |
-| `crates/vibe-graph-materializer/src` | 0.80 | — |
-| `crates/vibe-graph-automaton/src` | 0.80 | — |
-| `crates/vibe-graph-engine` | 0.80 | — |
-| `/Users/bregy/Documents/pinsky-three/vibe-graph` | 0.80 | — |
-| `/Users/bregy` | 0.80 | — |
-| `crates/vibe-graph-viz` | 0.80 | — |
-| `/Users/bregy/Documents` | 0.80 | — |
-| `crates/vibe-graph-layout-gpu/src` | 0.80 | — |
-| `/Users/bregy/Documents/pinsky-three` | 0.80 | — |
-| `crates/vibe-graph-core` | 0.80 | — |
-| `crates/vibe-graph-api/tests` | 0.80 | — |
-| `crates/vibe-graph-viz/src` | 0.80 | — |
-| `crates/vibe-graph-viz/src/ui/mod.rs` | 0.80 | — |
-| `crates/vibe-graph-api/src/routes/mod.rs` | 0.80 | — |
-| `crates/vibe-graph-cli/src/commands/mod.rs` | 0.80 | — |
-| `crates/vibe-graph-automaton/src/description/mod.rs` | 0.80 | — |
+```
+1. search_nodes with query to find relevant files
+2. get_dependencies to understand relationships
+3. get_node_context for detailed view with neighbors
+```
 
-## Role: `entry_point`
+### Before Making Changes
 
-Nodes: 18
+ALWAYS run `impact_analysis` before modifying any source file:
 
-| Path | Stability | Impact |
-|------|-----------|--------|
-| `crates/vibe-graph-core/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-layout-gpu/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-viz/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-viz/src/app.rs` | 1.00 | — |
-| `crates/vibe-graph-ui/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-ops/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-api/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-engine/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-constitution/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-git/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-semantic/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-ssot/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-materializer/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-llmca/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-cli/src/main.rs` | 1.00 | — |
-| `crates/vibe-graph-sync/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-mcp/src/lib.rs` | 1.00 | — |
-| `crates/vibe-graph-automaton/src/lib.rs` | 1.00 | — |
+```
+impact_analysis(paths: ["crates/vibe-graph-core/src/lib.rs"], depth: 2)
+```
+
+This reveals:
+
+- Files that depend on what you're changing
+- Test files that might need updates
+- Transitive impact through the dependency graph
+
+### Finding Related Code
+
+Use `get_dependencies` with both incoming and outgoing:
+
+```
+get_dependencies(node_path: "src/lib.rs", incoming: true, outgoing: true)
+```
+
+### Understanding Module Structure
+
+Use `list_files` with filters:
+
+```
+list_files(path: "crates/", extension: "rs", kind: "file")
+```
+
+## Project-Specific Context
+
+This is a Rust workspace with multiple crates:
+
+- `vibe-graph-core` - Core graph types (SourceCodeGraph, GraphNode, GraphEdge)
+- `vibe-graph-ops` - Operations and scanning logic
+- `vibe-graph-mcp` - MCP server implementation (this is the tool provider)
+- `vibe-graph-cli` - CLI (`vg` command)
+- `vibe-graph-viz` - Visualization (WASM + native)
+- `vibe-graph-automaton` - Cellular automaton framework
+
+The graph represents the codebase as nodes (files, directories, modules)
+connected by edges (contains, uses/imports).
+
+## Best Practices
+
+1. **Start broad, then narrow**: Use `search_nodes` first, then
+   `get_node_context` on specific results
+2. **Check impact before edit**: Run `impact_analysis` to avoid breaking
+   dependents
+3. **Use graph over grep**: The graph captures semantic relationships, not just
+   text patterns
+4. **Refresh awareness**: After significant edits, the graph may be stale until
+   `vg sync` or server restart
 
 ---
 > Source: [pinsky-three/vibe-graph](https://github.com/pinsky-three/vibe-graph) — distributed by [TomeVault](https://tomevault.io).
