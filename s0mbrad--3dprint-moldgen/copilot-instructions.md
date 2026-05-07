@@ -1,19 +1,35 @@
-## agent-system
+## moldgen-project
 
-> Agent system development patterns for AI agent files
+> MoldGen project conventions and architecture overview. Core rules for all development.
 
 
-# Agent System Patterns
+# MoldGen Project Rules
 
-- All agents extend `BaseAgent` and implement 5 abstract members: `name`, `description`, `system_prompt`, `get_available_tools()`, `execute()`
-- Tools registered in `ToolRegistry` with `ToolDef` (name, description, category, parameters, handler)
-- Agent config via `AgentConfig` dataclass — each agent has independent settings
-- Three thinking styles: `fast` (keyword), `balanced` (LLM+fallback), `deep` (CoT+reflection)
-- Tool calls go through `self.call_tool()` which handles retry automatically
-- Events emitted via `self.emit_event()` for real-time UI updates
-- MasterAgent routes via keyword matching OR LLM classification depending on thinking style
-- Memory: `AgentMemoryManager` singleton — `short_term` (session) + `long_term` (persisted JSON)
-- API endpoints at `/api/v1/ai/agent/` — config, memory, history, execution
+## Project Identity
+
+MoldGen is an AI-driven medical teaching mold generation desktop workstation.
+Stack: Tauri 2 + React 19 + Three.js (frontend) / FastAPI + trimesh + CUDA (backend).
+
+## Language
+
+- Code: English (variables, functions, comments)
+- UI text: Chinese (labels, messages, tooltips)
+- Documentation: Chinese (docs/) with English code examples
+
+## Architecture Boundaries
+
+- `moldgen/core/`: Pure geometry algorithms. No API, no AI, no side effects.
+- `moldgen/gpu/`: CUDA kernels with CPU fallback. Always check GPU availability.
+- `moldgen/ai/`: Agent system. Follows BaseAgent pattern with ToolRegistry.
+- `moldgen/api/`: FastAPI routes. Thin layer calling core/ai modules.
+- `frontend/src/stores/`: Zustand flat stores. One store per domain.
+- `frontend/src/hooks/`: TanStack Query hooks. One file per API domain.
+
+## Error Handling
+
+- Backend: `HTTPException` for API errors, `logging.exception()` for unexpected errors.
+- GPU: Always provide CPU fallback path. Never crash on GPU OOM.
+- Agents: Retry with `AgentConfig.max_retries`. Log and degrade gracefully.
 
 ---
 > Source: [S0mbraD/3DPrint_MoldGen](https://github.com/S0mbraD/3DPrint_MoldGen) — distributed by [TomeVault](https://tomevault.io).
