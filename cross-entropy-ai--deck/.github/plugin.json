@@ -1,0 +1,9 @@
+{
+  "name": "cross-entropy-ai--deck",
+  "displayName": "deck",
+  "description": "Essential tmux sidebar for vibe coding \u2014 manage sessions and monitor agents at a glance",
+  "version": "1.0.0",
+  "author": "cross-entropy-ai",
+  "homepage": "https://github.com/cross-entropy-ai/deck",
+  "skills": []
+}
