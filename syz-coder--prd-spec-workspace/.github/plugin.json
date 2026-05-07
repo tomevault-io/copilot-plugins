@@ -1,0 +1,9 @@
+{
+  "name": "syz-coder--prd-spec-workspace",
+  "displayName": "prd-spec-workspace",
+  "description": "\u4ea7\u54c1\u9700\u6c42\u8f6c\u6362AI\u53ef\u8bc6\u522b\u7684\u6587\u6863\uff08\u8f93\u5165\u652f\u6301\uff1a\u56fe\u7247\u3001\u6587\u672c\u3001\u6d41\u7a0b\u56fe\u3001prd\u3001\u5404\u79cd\u6587\u6863\u7b49\u7b49\u591a\u6a21\u6001\u9700\u6c42\uff09\uff08\u8f93\u51fa\u652f\u6301\uff1a OpenSpec\u3001Superpowers \u6216\u901a\u7528 AI \u5f00\u53d1\u4e0a\u4e0b\u6587\u5305\u7b49\u7b49\uff09",
+  "version": "1.0.0",
+  "author": "SYZ-Coder",
+  "homepage": "https://github.com/SYZ-Coder/prd-spec-workspace",
+  "skills": []
+}
