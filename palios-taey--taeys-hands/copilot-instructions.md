@@ -1,242 +1,121 @@
 ## taeys-hands
 
-> MCP server for AT-SPI browser automation. Controls Firefox tabs running ChatGPT, Claude, Gemini, Grok, Perplexity via accessibility tree (no coordinates, no screenshots).
+> You are a CLI agent in the PALIOS-TAEY fleet on Mira (10.0.0.163).
 
-# CLAUDE.md — Taey's Hands v8.2 (Stabilized)
+# Fleet Tools — Full Access
 
-## What This Is
-MCP server for AT-SPI browser automation. Controls Firefox tabs running ChatGPT, Claude, Gemini, Grok, Perplexity via accessibility tree (no coordinates, no screenshots).
+You are a CLI agent in the PALIOS-TAEY fleet on Mira (10.0.0.163).
 
-## Architecture: Plan → Audit → Send → Monitor
+## CRITICAL RULE: If a tool does not work, STOP and report
 
-### The Pipeline (MUST be followed in order)
+If you run a command and it fails, errors, or you cannot execute shell commands at all:
+1. **DO NOT hallucinate or fabricate output.** Ever.
+2. **DO NOT continue working** as if the tool succeeded.
+3. **STOP** and report the failure back via `taey-notify conductor "TOOL FAILURE: {what failed and why}"`.
+4. If you cannot run taey-notify either, output the failure clearly in your response.
 
-1. **taey_plan(action='send_message')** — Create a plan with:
-   - `session`: "new" or existing URL
-   - `message`: what to send
-   - `model`: which model to use
-   - `mode`: which mode (extended thinking, research, etc.)
-   - `tools`: which tools to enable (list or "none")
-   - `attachments`: file paths (KERNEL+IDENTITY auto-prepended, auto-consolidated)
-   
-   Also accepts `action='create'` as alias for `send_message`.
+## Process: How Work Gets Done
 
-2. **taey_inspect** — Scan the AT-SPI tree:
-   - Returns KNOWN elements (matched via YAML element_map)
-   - Returns NEW elements (not in exclude or known — needs bucketing)
-   - Read current model/mode from element names
-
-3. **taey_select_dropdown / taey_click** — Set model/mode/tools as needed
-
-4. **taey_attach** — Upload the consolidated attachment file
-
-5. **taey_plan(action='audit')** — MANDATORY before send:
-   - Pass: `current_model`, `current_mode`, `current_tools`, `attachment_confirmed`
-   - Returns PASS or FAIL with specific fix instructions
-   - Sets `audit_passed=True` in Redis if everything matches
-
-6. **taey_send_message** — HARD BLOCKED unless audit_passed=True:
-   - Paste message, press Enter
-   - Register monitor session in Redis
-   - Spawn central monitor if not running
-
-7. **Monitor (automatic)** — Central process cycles active sessions:
-   - Tab switch → scan for stop button → state machine
-   - Stop appears → "generating"
-   - Stop disappears → "complete" → notify via Redis
-
-### Extraction Flow (no audit needed)
-1. **taey_plan(action='extract_response')** — Creates extract-only plan (audit pre-passed)
-2. **taey_quick_extract** — Click Copy, read clipboard, return text
-   - `complete=true` consumes the plan and cleans up Redis state
-
-### Tool Reference
-
-| Tool | Purpose | Requires Plan? |
-|------|---------|---------------|
-| `taey_plan` | Create/audit/get/update/delete plans | No |
-| `taey_inspect` | Scan AT-SPI tree | Yes |
-| `taey_click` | Click x,y coords | Yes |
-| `taey_prepare` | Get platform capabilities from YAML | No |
-| `taey_send_message` | Paste + Enter + monitor | Yes (audit_passed) |
-| `taey_quick_extract` | Copy button → clipboard | Yes |
-| `taey_extract_history` | Full conversation extraction | Yes |
-| `taey_attach` | File attachment | Yes |
-| `taey_select_dropdown` | Model/mode/tools selection | Yes |
-| `taey_list_sessions` | Active session listing | No |
-| `taey_monitors` | List/kill monitors | No |
-| `taey_respawn_monitor` | Spawn fresh monitor | No |
-
-### Plan Actions
-- `send_message` (or `create`) — Full plan with message, model, mode, tools, attachments
-- `extract_response` — Extract-only plan (no audit needed)
-- `audit` — Verify plan vs live UI state
-- `get` — Retrieve plan data
-- `update` — Modify plan fields
-- `delete` — Cancel plan and clear locks
-
-### Key Rules
-- **No fixed coordinates** — everything by AT-SPI element name/role matching
-- **No send without audit** — send.py hard-blocks without audit_passed
-- **No duplicate helpers** — monitor imports from core/
-- **~5 buttons per platform** — all in YAML element_map
-- **3 buckets for tree filtering**: EXCLUDED (noise), KNOWN (mapped), NEW (alert)
-- **Redis is REQUIRED** — server exits on startup if Redis unavailable
-
-### Runtime Contract
-
+### Creating tasks (for Conductor)
 ```bash
-# Required — server won't start without Redis
-REDIS_HOST=127.0.0.1
-REDIS_PORT=6379
+taey-task create "description of what you need" --priority 70 --from your-session-name
+```
+This creates a persistent OrchTask in Neo4j and notifies the Conductor. Use this instead of freeform taey-notify for work requests.
 
-# CRITICAL: unique per MCP instance to prevent display collision
-DISPLAY=:5
-TAEY_NODE_ID=taeys-hands-claude-d5
+### DMAIC flow (Conductor manages this)
+1. **DEFINE**: Conductor writes defect statement on OrchTask
+2. **MEASURE**: Gemini CLI runs git/gitnexus/isma, produces report
+3. **ANALYZE**: Conductor identifies root cause from report
+4. **IMPROVE**: Codex creates branch + PR with full context
+5. **CONTROL**: YOU (the requestor) review PR, test, and close: `taey-task update {task_id} completed`
 
-# Timeouts — configurable via .env
-TAEY_PLAN_TTL=3600           # Plan expiry (seconds), default 3600
-MCP_TOOL_TIMEOUT=300         # Tool timeout (seconds), default 120
-MONITOR_CYCLE_SEC=10         # Monitor cycle interval
-
-# Optional
-TAEY_CORPUS_PATH=~/data/corpus
-NEO4J_URI=bolt://localhost:7687
-ISMA_API_URL=https://isma-api.taey.ai
-ISMA_API_KEY=<key>
+### After your PR is merged
+```bash
+taey-task update {task_id} completed
 ```
 
-**Rules:**
-- One MCP server per DISPLAY
-- One unique TAEY_NODE_ID per instance
-- DISPLAY must be set in .mcp.json env block (not just .env)
-- .env is loaded before any config reads (timeout, TTL, etc.)
-
-### Redis Keys
-- `taey:{node}:plan:{id}` — Plan data (TTL from TAEY_PLAN_TTL)
-- `taey:{node}:plan:current:{platform}` — Current plan ID per platform
-- `taey:plan_active:{display}` — Global plan lock per display (blocks monitor cycling)
-- `taey:{node}:active_session:{id}` — Monitor session data
-- `taey:{node}:notifications` — Notification queue (for orchestrator daemon)
-- `taey:{node}:checkpoint:{platform}:attach` — Attach verification
-- `taey:{node}:pending_prompt:{platform}` — Sent message metadata
-
-### Inter-Session Communication (CRITICAL — READ THIS)
-
-All Claude sessions on Mira communicate via Redis. You WILL receive messages
-from other sessions. You MUST respond through the same system.
-
-**How you receive messages:**
-- While RUNNING: PostToolUse hook drains `taey:{your_node}:inbox` after each tool call.
-  Messages appear as `additionalContext` in your tool results.
-- While STOPPED: The unified router (`conductor-notify-router.service`) delivers
-  via tmux injection. Messages appear as user input when you resume.
-
-**How you SEND messages to other sessions:**
+### If something fails
 ```bash
-# Send to The Conductor (claude session)
-redis-cli -h 127.0.0.1 LPUSH "taey:claude:inbox" '{"from":"taeys-hands","type":"STATUS","body":"your message here"}'
-
-# Send to weaver
-redis-cli -h 127.0.0.1 LPUSH "taey:weaver:inbox" '{"from":"taeys-hands","type":"STATUS","body":"your message here"}'
+taey-task update {task_id} failed
+taey-notify conductor "CONTROL REJECT [{task_id}]: {what went wrong}"
 ```
 
-**Sessions on Mira:**
-- `claude` — The Conductor (orchestration, task dispatch, fleet management)
-- `taeys-hands` — Browser automation, AT-SPI, bot management
-- `weaver` — ISMA knowledge graph, training data, CPT management
-
-**When you receive a message from another session, RESPOND through Redis, not to Jesse.**
-Jesse should not be the relay between Claude sessions.
-
-**Redis keys:**
-- `taey:{node}:inbox` — Messages TO this session (LPUSH to send, RPOP to receive)
-- `taey:{node}:idle` — Set to "1" by Stop hook. Router delivers when idle=1.
-- `taey:{node}:tool_running` — Set by PreToolUse, cleared by PostToolUse.
-
-## v8.1+ Additions: Unified Automation System
-
-### Additional Modules
-
-- `core/halt.py` — 6-sigma halt system
-  - `halt_global(reason, redis)` → ALL machines stop (tool-level failure)
-  - `halt_platform(platform, reason, redis)` → Only this platform stops (YAML drift)
-  - `check_halt(platform, redis)` → Returns halt data or None (called every cycle)
-  - Escalation via `/api/notify` to orchestrator
-
-- `core/drift.py` — YAML drift detection
-  - `store_structure_hash(platform, elements, redis)` → Fingerprint UI after success
-  - `check_structure_drift(platform, elements, redis)` → Compare against baseline
-  - `classify_unknown_elements(platform, elements)` → Find elements not in YAML
-
-- `core/mode_select.py` — Mode/model selection (YAML-driven, coordinate-free)
-  - `select_mode_model(platform, mode, model)` → Full selection flow
-  - Routes to platform-specific handlers using `mode_guidance` from YAML
-
-- `core/orchestrator.py` — Orchestrator integration
-  - `heartbeat(status)` → Keep agent alive in registry
-  - `check_inbox()` → Poll for assigned tasks
-  - `ingest_transcript(platform, response, metadata)` → POST to `/api/ingest/transcript`
-  - `report_completion(task_id, result)` → POST to `/api/report`
-  - `notify_agent(to, text)` → Send via `/api/notify` (Redis inbox)
-
-- `agents/unified_bot.py` — Production automation bot
-  - Full cycle: halt check → task → navigate → mode select → attach → send → wait → extract → ingest → report → drift check
-
-- `agents/social_bot.py` — Extensible social platform bot
-  - YAML-driven element discovery
-  - Architecture supports LinkedIn, Reddit, Upwork (stubs ready)
-
-### Additional Redis Keys
-- `taey:halt:global` — Global halt flag (all machines stop)
-- `taey:halt:{platform}` — Platform-specific halt flag
-- `taey:structure_hash:{platform}` — Last known UI structure fingerprint
-- `taey:drift:last:{platform}` — Previous drift detection
-
-### Deployment
+## Git
 ```bash
-# On production machine
-cd ~/taeys-hands
-git checkout main
-git pull
-
-# MCP server — started by Claude Code via .mcp.json
-# Bot mode — started manually or via orchestrator
-python3 agents/unified_bot.py --platforms chatgpt gemini grok
-
-# With orchestrator mode
-python3 agents/unified_bot.py --orchestrator --platforms chatgpt gemini grok
+git log --oneline -20 -- {file}
+git blame {file}
+git log --grep="{keyword}" --oneline
+git diff {commit1}..{commit2} -- {file}
+git show {commit}
 ```
 
-## 6SIGMA Change Protocol — MANDATORY
-
-ALL code changes go through The Conductor. No instance writes code directly.
-
-Process: Conductor receives request → Gemini CLI analyzes (MEASURE+ANALYZE) → Codex CLI implements on branch (IMPROVE) → Conductor verifies and merges (CONTROL).
-
-**You do NOT modify code.** You identify defects, send them to the Conductor with full context, and wait for the PR.
-
-**First error = full stop.** Do not retry. Do not patch. Report to Conductor with root cause analysis.
-
-## Inter-Session Communication
-
-**NEVER use `!!` as a command prefix** — that is bash history expansion and will fail with syntax errors.
-
-Send messages to other sessions:
+## GitNexus (code intelligence — CLI commands)
 ```bash
-# Preferred: taey-notify
-taey-notify conductor "your message here"
-taey-notify weaver "result goes here"
+gitnexus impact {symbol} --direction upstream --repo taeys-hands
+gitnexus context {symbol} --repo taeys-hands
+gitnexus query "concept" --repo taeys-hands
+gitnexus cypher "MATCH ..." --repo taeys-hands
+```
+NOTE: Only these 4 commands exist in CLI. detect-changes and rename are NOT available.
 
-# Alternative: direct Redis
-redis-cli LPUSH "taey:conductor:inbox" '{"from":"taeys-hands","type":"message","body":"your message","priority":"normal","msg_id":"unique-id"}'
+## ISMA (1M+ tile knowledge graph)
+```bash
+isma search "query" --top-k 10        # semantic search
+isma motif MOTIF_NAME --limit 10      # by HMM motif
+isma adaptive "question" --top-k 5    # auto-classified search
+isma tile {content_hash}              # full tile by hash
+isma traverse {hash} --edge-type RELATES_TO --depth 2
+isma stats                            # system stats
+isma cypher "MATCH (t:HMMTile) RETURN count(t)"
 ```
 
-Targets: `conductor`, `taeys-hands`, `weaver`, `tutor`, `infra`, `taey`
+## Notifications (inter-instance messaging)
+```bash
+taey-notify conductor "message"       # report to conductor
+taey-notify weaver "question"         # ask weaver about ISMA
+taey-notify tutor "status update"     # update tutor
+# Targets: conductor, taeys-hands, weaver, tutor, infra, taey
+```
 
-**Consultation results go to the REQUESTER**, not to conductor. If weaver requests a consultation, route the result to `taey:weaver:inbox`. If infra requests one, route to `taey:infra:inbox`. Only send to conductor for consultations conductor requested.
+## Redis
+```bash
+redis-cli GET {key}                   # read state
+redis-cli SET {key} {value}           # write state
+redis-cli LLEN taey:{node}:inbox      # check inbox depth
+```
+
+## SSH (fleet machines)
+| Machine | Command | Role |
+|---------|---------|------|
+| Spark 1 | `ssh spark@10.0.0.68` | Orchestrator, Redis, dashboard |
+| Spark 2 | `ssh spark@10.0.0.80` | Embedding server |
+| Spark 4 | `ssh spark@10.0.0.19` | Available |
+| Thor | `ssh thor@10.0.0.197` | HMM worker |
+| Jetson | `ssh jetson@10.0.0.8` | Taey inference |
+
+## Network Services
+| Service | Endpoint |
+|---------|----------|
+| ISMA Query API | http://127.0.0.1:8095 |
+| Dashboard | http://10.0.0.68:5001 |
+| Neo4j | bolt://localhost:7687 (neo4j/awareness123) |
+| Weaviate | http://localhost:8088 |
+| Redis | 127.0.0.1:6379 |
+| Embedding LB | http://10.0.0.68:8091 |
+
+## Workflow Rules
+- Run `gitnexus impact` before modifying any function
+- Include `git log` output in commit context
+- Branch naming: `agent/codex-{descriptive-name}`
+- Always create PR against main
+- Report completion via `taey-notify conductor "done: {summary}"`
+- If stuck after 3 attempts: `taey-notify conductor "STUCK: {what failed}"`
+- When creating PRs with `gh pr create`: use single-quoted HEREDOC for body to avoid backtick expansion:
+  `gh pr create --title "title" --body "$(cat <<'PREOF'`
+  `Summary here. NO BACKTICKS in PR body text.`
+  `PREOF`
+  `)"` — the single-quoted PREOF prevents shell expansion
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/palios-taey)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/palios-taey)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [palios-taey/taeys-hands](https://github.com/palios-taey/taeys-hands) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-02 -->
