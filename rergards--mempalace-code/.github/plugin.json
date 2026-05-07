@@ -1,0 +1,9 @@
+{
+  "name": "rergards--mempalace-code",
+  "displayName": "mempalace-code",
+  "description": "Offline-first AI memory for coding \u2014 mine codebases into a local LanceDB vector store with 18 MCP tools, temporal knowledge graph, and export/import. No API keys, no cloud, no server.",
+  "version": "1.0.0",
+  "author": "rergards",
+  "homepage": "https://github.com/rergards/mempalace-code",
+  "skills": []
+}
