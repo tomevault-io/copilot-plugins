@@ -1,0 +1,9 @@
+{
+  "name": "asksurf-ai--surf-skills",
+  "displayName": "surf-skills",
+  "description": "Give your AI agent access to all crypto data \u2014 prices, wallets, social, on-chain, prediction markets. One skill, 83+ endpoints.",
+  "version": "1.0.0",
+  "author": "asksurf-ai",
+  "homepage": "https://github.com/asksurf-ai/surf-skills",
+  "skills": []
+}
