@@ -1,0 +1,9 @@
+{
+  "name": "hitosea--happy-next",
+  "displayName": "happy-next",
+  "description": "A multi-model AI workspace for Claude Code & Codex, featuring orchestration, realtime voice, and end-to-end encryption.",
+  "version": "1.0.0",
+  "author": "hitosea",
+  "homepage": "https://github.com/hitosea/happy-next",
+  "skills": []
+}
