@@ -1,0 +1,9 @@
+{
+  "name": "teelicht--pi-superagents",
+  "displayName": "pi-superagents",
+  "description": "Pi extension for async subagent delegation with truncation, artifacts, and session sharing",
+  "version": "1.0.0",
+  "author": "teelicht",
+  "homepage": "https://github.com/teelicht/pi-superagents",
+  "skills": []
+}
