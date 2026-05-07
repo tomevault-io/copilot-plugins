@@ -1,0 +1,9 @@
+{
+  "name": "snarktank--code-editing-agent",
+  "displayName": "code-editing-agent",
+  "description": "A simple AI developer agent",
+  "version": "1.0.0",
+  "author": "snarktank",
+  "homepage": "https://github.com/snarktank/code-editing-agent",
+  "skills": []
+}
