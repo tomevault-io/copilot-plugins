@@ -4,7 +4,7 @@
   "repo": "AbilityKit",
   "description": "",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/HOBOBO/AbilityKit",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T04:09:30Z"
+  "distributed_at": "2026-05-07T18:41:40Z"
 }
