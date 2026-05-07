@@ -1,0 +1,9 @@
+{
+  "name": "rohansx--workz",
+  "displayName": "workz",
+  "description": "git worktrees that actually work (zero-config dep sync, fleet mode for parallel agents)",
+  "version": "1.0.0",
+  "author": "rohansx",
+  "homepage": "https://github.com/rohansx/workz",
+  "skills": []
+}
