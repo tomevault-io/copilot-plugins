@@ -1,32 +1,59 @@
-## solidworks-service
+## style
 
-> SolidWorks service build requirements
+> Code style and consistency rules
 
 
-# SolidWorks Service
+# Style & Consistency
 
-## Version Bumping (MANDATORY for every change)
+## Exports
 
-Every change to the SolidWorks service MUST bump the version in BOTH files:
+- **Named exports** for components and utilities (`export function Foo`)
+- **Default exports** only for Fastify route plugins (Fastify convention)
+- One primary component per file; small local helpers are fine
 
-1. `solidworks-service/BluePLM.SolidWorksService/Program.cs` → bump `SERVICE_VERSION`
-2. `src/lib/swServiceVersion.ts` → bump `EXPECTED_SW_SERVICE_VERSION` (and `MINIMUM_COMPATIBLE_SW_SERVICE_VERSION` for breaking changes)
-3. `src/lib/swServiceVersion.ts` → add entry to `SW_SERVICE_VERSION_DESCRIPTIONS` with a short changelog
-4. `src/lib/swServiceVersion.ts` → update the VERSION HISTORY comment block
+## TypeScript
 
-Uses semver: bump PATCH for fixes, MINOR for features, MAJOR for breaking changes.
+- No `any` — use `unknown` + type guards, or narrow with proper types
+- `as any` only as last resort with a `// TODO: type this` comment
+- Canonical domain types live in `src/types/`; features extend with `Pick`/`Omit`/`&`, never redefine
+- `interface` for object shapes, `type` for unions and aliases
 
-## ALWAYS After Changes
+## Naming
 
-1. **Bump the version** (see above)
-2. **Close BluePLM app** if running (the service exe is locked while in use)
-3. **Rebuild** the service:
+- **Files**: PascalCase for components (`FilePane.tsx`), camelCase for utilities/hooks (`useAuth.ts`, `mutations.ts`)
+- **Variables/functions**: camelCase
+- **Types/interfaces**: PascalCase
+- **Constants**: UPPER_SNAKE for true constants, camelCase for config objects
+- **Catch binding**: always `error` (not `err`, `e`)
 
-```powershell
-cd solidworks-service/BluePLM.SolidWorksService && dotnet build -c Release
-```
+## Numbers and Strings
 
-Why: The Electron app loads the compiled `.exe` from `bin/Release/`. Without rebuilding and restarting, your code changes won't take effect. Always build with `-c Release` (not Debug).
+- No magic numbers — extract to named constants (`const CONNECT_TIMEOUT_MS = 90_000`)
+- No hardcoded user-facing strings — use `t()` from `lib/i18n`
+
+## API Layer (`api/`)
+
+- Error responses use SCREAMING_SNAKE codes: `VALIDATION_ERROR`, `NOT_FOUND`, `UNAUTHORIZED`, `FORBIDDEN`, `INTERNAL_ERROR`
+- Use shared `sendError(reply, statusCode, code, message?)` — never inline `reply.code().send({ error })`
+- No semicolons (match the majority style)
+
+## Imports (all files)
+
+1. External packages (`react`, `zustand`, `fastify`)
+2. Internal aliases (`@/lib`, `@/stores`, `@/components`)
+3. Relative (`./`, `../`)
+
+Blank line between each group.
+
+## General
+
+- File size tiers (excluding generated files like `supabase.ts`):
+  - **< 600 lines** — normal, no action needed
+  - **600–1,000 lines** — review on next touch; consider splitting if logic is separable
+  - **1,000–1,500 lines** — should be split; extract sub-hooks, sub-components, or utilities
+  - **> 1,500 lines** — must be split before adding new functionality
+- No `console.log` in production code — use `log.*` (Pino) in API, `log.*` in Electron
+- Prefer Tailwind classes over inline `style={{ }}`; inline styles acceptable only for truly dynamic values (runtime-computed positions, user-set colors)
 
 ---
 > Source: [bluerobotics/bluePLM](https://github.com/bluerobotics/bluePLM) — distributed by [TomeVault](https://tomevault.io).
