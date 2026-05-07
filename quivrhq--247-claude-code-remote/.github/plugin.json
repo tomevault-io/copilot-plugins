@@ -1,0 +1,9 @@
+{
+  "name": "quivrhq--247-claude-code-remote",
+  "displayName": "247-claude-code-remote",
+  "description": "Access Claude Code from anywhere - Mobile / Desktop secure connection via Tailscale. Provision VMs with Fly.io. Compatible with Gemini / Codex / OpenCode",
+  "version": "1.0.0",
+  "author": "QuivrHQ",
+  "homepage": "https://github.com/QuivrHQ/247-claude-code-remote",
+  "skills": []
+}
