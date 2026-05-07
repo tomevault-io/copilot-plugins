@@ -1,0 +1,42 @@
+{
+  "name": "zerobearing2--rails-ai",
+  "displayName": "rails-ai",
+  "description": "Opinionated Rails AI agent system",
+  "version": "1.0.0",
+  "author": "zerobearing2",
+  "homepage": "https://github.com/zerobearing2/rails-ai",
+  "skills": [
+    {
+      "name": "jobs",
+      "description": ""
+    },
+    {
+      "name": "mailers",
+      "description": ""
+    },
+    {
+      "name": "models",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "description": ""
+    },
+    {
+      "name": "styling",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "using-rails-ai",
+      "description": ""
+    }
+  ]
+}
