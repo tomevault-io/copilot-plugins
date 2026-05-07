@@ -1,0 +1,9 @@
+{
+  "name": "moazsalem--jellyfin-renamer",
+  "displayName": "jellyfin-renamer",
+  "description": "A command-line tool for renaming jellyfin media libraries.",
+  "version": "1.0.0",
+  "author": "MoazSalem",
+  "homepage": "https://github.com/MoazSalem/jellyfin-renamer",
+  "skills": []
+}
