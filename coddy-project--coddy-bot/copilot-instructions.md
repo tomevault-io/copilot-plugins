@@ -1,116 +1,128 @@
-## architecture
+## code-style
 
-> Architectural rules and boundaries for Coddy Bot
+> Code style and formatting rules
 
 
-# Architectural Rules
+# Code Style Rules
 
-## General Architecture
+## General Rules
 
-The project uses **modular architecture with clear separation of concerns**. Code is organized into **services** (shared store), **observer** (events, planning), and **worker** (ralph loop, agents). See `docs/architecture.md` for the full layout.
+1. **Comments**: Write all code comments **ONLY in English**
+2. **User responses**: Respond in Russian unless user requests otherwise
+3. **Empty line at end of file**: Always add an empty line at the end of new files
+4. **No em dashes**: Never use —, use - instead
+5. **No colons in lists**: Never use : except for list enumeration
+6. **No curly quotes**: Never use «», use regular quotes ""
 
-## Package Layout
+## Code Formatting
 
-### Services (`coddy/services/`)
+### Ruff and Black
+- Use `ruff` for linting and formatting
+- Line length: **120 characters** (configured in `ruff.toml`)
+- Follow rules from `ruff.toml`
 
-Shared by observer and worker. No dependency on observer or worker.
+### Imports
+- Use `isort` for import sorting
+- Group imports: standard library → third-party → local
+- One import per line for long lists
 
-- **store/** - Issue and PR storage (`.coddy/issues/`, `.coddy/prs/`). Schemas: IssueFile, IssueComment, PRFile. create_issue, load_issue, set_issue_status, list_queued, set_pr_status, etc.
-- **git/** - Git operations: branches (sanitize, checkout, fetch), commits (stage + commit), push_pull (pull, push, commit_all_and_push).
+### Type Hints
+- **Mandatory**: Use type hints for all functions and methods
+- Use `Optional[T]` instead of `T | None` for compatibility
+- Use `Union[A, B]` for complex types
+- Use `Dict[str, Any]` instead of `dict` for explicitness
+- Use `List[T]` instead of `list[T]` for compatibility
 
-### Observer (`coddy/observer/`)
+### Docstrings
+- Use docstrings in Google style format
+- All docstrings in **English**
+- Must document:
+  - Public classes and methods
+  - Complex business logic
+  - Parameters and return values
+  - Exceptions raised
 
-Daemon-side: events, state, planning. Does not run the AI agent.
+Example:
+```python
+def create_branch(self, repo: str, branch_name: str) -> None:
+    """
+    Create a new branch in the repository.
 
-- **adapters/** - Git platform adapters (base, github)
-- **models/** - Pydantic models (Issue, Comment, PR, ReviewComment)
-- **planner.py** - Plan and user confirmation flow
-- **webhook/** - Webhook server and handlers
-- **run.py** - Observer entry (webhook server; plan on assignment)
+    Args:
+        repo: Repository name in format owner/repo
+        branch_name: Name of the branch to create
 
-**Dependencies**: config, standard lib, third-party, coddy.services.store
+    Raises:
+        GitPlatformError: If branch creation fails
+    """
+```
 
-### Worker (`coddy/worker/`)
+## File Structure
 
-Runs the development loop and uses the AI agent.
+### Element Order in File
+1. Module docstring
+2. Imports (standard library → third-party → local)
+3. Constants
+4. Types and exceptions
+5. Classes and functions
 
-- **agents/** - AI agent interface (base, cursor_cli_agent)
-- **task_yaml.py** - Task and PR report YAML paths and helpers
-- **ralph_loop.py** - Ralph loop (sufficiency, branch, agent loop)
-- **run.py** - Worker entry (dry-run stub: read issues, write empty PR YAML)
+### Naming
+- **Classes**: PascalCase (`GitHubAdapter`, `CodeGenerator`)
+- **Functions and methods**: snake_case (`create_branch`, `process_issue`)
+- **Constants**: UPPER_SNAKE_CASE (`MAX_RETRIES`, `DEFAULT_TIMEOUT`)
+- **Private methods**: start with `_` (`_internal_method`)
+- **Types**: PascalCase (`Issue`, `PullRequest`, `CodeChanges`)
+- **Modules**: snake_case (`issue_monitor.py`, `code_generator.py`)
 
-**Dependencies**: observer (models), coddy.services.store, coddy.services.git
+## Error Handling
 
-### Application entry (`coddy/`)
+- Use specific exceptions, not generic `Exception`
+- Create custom exceptions for business logic (`GitPlatformError`, `AgentError`)
+- Always include informative error messages
+- Use `Optional` for values that may be missing
+- Define exception hierarchy:
+  - `CoddyError` - Base exception
+  - `GitPlatformError` - Git platform related errors
+  - `AgentError` - AI agent related errors
+  - `ConfigurationError` - Configuration errors
 
-- **main.py** - CLI (observer | worker), config load, dispatch
-- **config.py** - Configuration
-- **logging.py** - Logging from config and env (CoddyLogging)
-- **daemon.py**, **worker.py** - Thin wrappers for `python -m coddy.daemon` (-> observer.run) / `python -m coddy.worker`
+## Performance
 
-## Module Rules
+- **Always** use hash indexes (dict) instead of loops for search
+- Avoid repeated API calls - cache results when appropriate
+- Use generators for large collections
+- Respect rate limits for Git platform APIs
+- Use async/await for I/O operations when possible
 
-### Platform Adapters (`observer/adapters/`)
+## Testing
 
-- Must implement abstract base class from `base.py`
-- Must handle platform-specific API differences
-- Must provide unified interface for upper layers
-- Should handle rate limiting and retries
+- Each new class must have unit tests
+- Tests should be in `tests/` directory
+- Test file name: `test_<module_name>.py`
+- Use pytest fixtures for data preparation
+- Use mocks for external dependencies (Git platform APIs, AI agents)
+- Aim for code coverage >90%
 
-### AI Agents (`worker/agents/`)
+## Configuration
 
-- Must implement abstract base class from `base.py`
-- Must handle agent-specific command execution
-- Must parse agent output into standardized format
-- Should handle timeouts and errors gracefully
+- Load configuration from environment variables (highest priority)
+- Fall back to configuration file
+- Use default values as last resort
+- Validate configuration on startup
+- Use type hints for configuration classes
 
-### Observer components (planner, webhook, pr)
+## Logging
 
-- Should use adapters for API calls, not direct HTTP
-- Should contain event/state logic only; agent runs in worker
-- Should be testable in isolation with mocks
-
-### Webhook Server (`observer/webhook/`)
-
-- Must verify webhook signatures
-- Must handle different event types
-- Should route events to appropriate handlers
-- Should log all events
-
-## Design Principles
-
-1. **One class at a time**: When implementing new functionality, create one class at a time, starting from lower layers
-2. **Minimal dependencies**: Observer does not depend on worker; worker depends on observer
-3. **Factory pattern**: Use factory helpers for agents (e.g. `make_cursor_cli_agent(config)`)
-4. **Strategy pattern**: Use strategy pattern for different platform/agent implementations
-5. **Type hints**: Use type hints for all functions and methods
-6. **Abstract interfaces**: Define abstract base classes for extensibility
-7. **Error handling**: Use specific exceptions, not generic Exception
-8. **Configuration**: Load configuration from environment variables and config files
-
-## Forbidden
-
-- Upper layers depending on lower layers in wrong order
-- Direct API calls from observer/worker (must use adapters)
-- Platform-specific code outside `observer/adapters`
-- Agent-specific code outside `worker/agents`
-- Business logic in webhook handlers (delegate to planner/queue)
-- Hardcoded configuration values
-
-## Allowed
-
-- Observer using only adapters, issues, queue, models
-- Worker using observer (adapters, queue, models)
-- Abstract base classes for interfaces
-- Factory helpers for creating agents
-- Configuration through environment variables
-- Dependency injection for testability
+- Use Python `logging` module
+- Log levels: DEBUG, INFO, WARNING, ERROR
+- Include context in log messages (issue number, PR number, etc.)
+- Log all external API calls
+- Log errors with full traceback
 
 ## References
 
-@README.md
-@docs/architecture.md
-@docs/system-specification.md
+@ruff.toml
+@pytest.ini
 
 ---
 > Source: [coddy-project/coddy-bot](https://github.com/coddy-project/coddy-bot) — distributed by [TomeVault](https://tomevault.io).
