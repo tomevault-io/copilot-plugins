@@ -1,0 +1,9 @@
+{
+  "name": "linuxmatters--ffmpeg-statigo",
+  "displayName": "ffmpeg-statigo",
+  "description": "Real FFmpeg bindings for Go. Not a wrapper. Not a CLI tool. The actual libraries \ud83d\udcda",
+  "version": "1.0.0",
+  "author": "linuxmatters",
+  "homepage": "https://github.com/linuxmatters/ffmpeg-statigo",
+  "skills": []
+}
