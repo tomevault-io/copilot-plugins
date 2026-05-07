@@ -4,7 +4,7 @@
   "repo": "docx-corpus",
   "description": "The largest open corpus of classified docx documents",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/superdoc-dev/docx-corpus",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T15:54:26Z"
+  "distributed_at": "2026-05-07T14:47:56Z"
 }
