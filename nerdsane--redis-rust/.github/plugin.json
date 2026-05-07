@@ -1,0 +1,9 @@
+{
+  "name": "nerdsane--redis-rust",
+  "displayName": "redis-rust",
+  "description": "Redis-compatible in-memory data store in Rust. Actor-per-shard architecture, CRDT replication, deterministic simulation testing, 4-layer verification.",
+  "version": "1.0.0",
+  "author": "nerdsane",
+  "homepage": "https://github.com/nerdsane/redis-rust",
+  "skills": []
+}
