@@ -1,35 +1,18 @@
-## moldgen-project
+## python-backend
 
-> MoldGen project conventions and architecture overview. Core rules for all development.
+> Python backend coding standards for moldgen/ files
 
 
-# MoldGen Project Rules
+# Python Backend Standards
 
-## Project Identity
-
-MoldGen is an AI-driven medical teaching mold generation desktop workstation.
-Stack: Tauri 2 + React 19 + Three.js (frontend) / FastAPI + trimesh + CUDA (backend).
-
-## Language
-
-- Code: English (variables, functions, comments)
-- UI text: Chinese (labels, messages, tooltips)
-- Documentation: Chinese (docs/) with English code examples
-
-## Architecture Boundaries
-
-- `moldgen/core/`: Pure geometry algorithms. No API, no AI, no side effects.
-- `moldgen/gpu/`: CUDA kernels with CPU fallback. Always check GPU availability.
-- `moldgen/ai/`: Agent system. Follows BaseAgent pattern with ToolRegistry.
-- `moldgen/api/`: FastAPI routes. Thin layer calling core/ai modules.
-- `frontend/src/stores/`: Zustand flat stores. One store per domain.
-- `frontend/src/hooks/`: TanStack Query hooks. One file per API domain.
-
-## Error Handling
-
-- Backend: `HTTPException` for API errors, `logging.exception()` for unexpected errors.
-- GPU: Always provide CPU fallback path. Never crash on GPU OOM.
-- Agents: Retry with `AgentConfig.max_retries`. Log and degrade gracefully.
+- Python 3.11+, use `from __future__ import annotations` in all files
+- Ruff: line-length=100, target=py311
+- Type hints on all function signatures
+- Use `StrEnum` for enums, `dataclass` for data containers, Pydantic `BaseModel` for API schemas
+- Async preferred for API handlers and AI calls
+- Singleton pattern via `__new__` for ToolRegistry, AIServiceManager, AgentMemoryManager
+- Logging: `logger = logging.getLogger(__name__)` at module level
+- Config: access via `moldgen.config.get_config()`, never hardcode values
 
 ---
 > Source: [S0mbraD/3DPrint_MoldGen](https://github.com/S0mbraD/3DPrint_MoldGen) — distributed by [TomeVault](https://tomevault.io).
