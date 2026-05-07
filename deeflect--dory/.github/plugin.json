@@ -1,0 +1,9 @@
+{
+  "name": "deeflect--dory",
+  "displayName": "dory",
+  "description": "One memory layer for every AI agent. Local-first, markdown source of truth, and CLI/HTTP/MCP native. Your agent forgot who you are. Again. Dory fixes that.",
+  "version": "1.0.0",
+  "author": "deeflect",
+  "homepage": "https://github.com/deeflect/dory",
+  "skills": []
+}
