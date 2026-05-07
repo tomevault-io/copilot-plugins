@@ -1,0 +1,9 @@
+{
+  "name": "myclaude-sh--myclaude-creator-engine",
+  "displayName": "myclaude-creator-engine",
+  "description": "The creation pipeline for Claude Code products \u2014 research, create, validate, publish. 13 types, 20 quality patterns, zero coding required.",
+  "version": "1.0.0",
+  "author": "myclaude-sh",
+  "homepage": "https://github.com/myclaude-sh/myclaude-creator-engine",
+  "skills": []
+}
