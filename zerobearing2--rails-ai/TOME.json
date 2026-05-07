@@ -1,0 +1,93 @@
+{
+  "name": "rails-ai",
+  "owner": "zerobearing2",
+  "repo": "rails-ai",
+  "description": "Opinionated Rails AI agent system",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "jobs",
+      "path": "skills/jobs",
+      "github_url": "https://github.com/zerobearing2/rails-ai/tree/main/skills/jobs",
+      "description": ""
+    },
+    {
+      "name": "mailers",
+      "path": "skills/mailers",
+      "github_url": "https://github.com/zerobearing2/rails-ai/tree/main/skills/mailers",
+      "description": ""
+    },
+    {
+      "name": "models",
+      "path": "skills/models",
+      "github_url": "https://github.com/zerobearing2/rails-ai/tree/main/skills/models",
+      "description": ""
+    },
+    {
+      "name": "project-setup",
+      "path": "skills/project-setup",
+      "github_url": "https://github.com/zerobearing2/rails-ai/tree/main/skills/project-setup",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "path": "skills/security",
+      "github_url": "https://github.com/zerobearing2/rails-ai/tree/main/skills/security",
+      "description": ""
+    },
+    {
+      "name": "styling",
+      "path": "skills/styling",
+      "github_url": "https://github.com/zerobearing2/rails-ai/tree/main/skills/styling",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "path": "skills/testing",
+      "github_url": "https://github.com/zerobearing2/rails-ai/tree/main/skills/testing",
+      "description": ""
+    },
+    {
+      "name": "using-rails-ai",
+      "path": "skills/using-rails-ai",
+      "github_url": "https://github.com/zerobearing2/rails-ai/tree/main/skills/using-rails-ai",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/zerobearing2/rails-ai",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T03:30:46Z"
+}
