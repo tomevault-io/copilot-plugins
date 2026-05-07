@@ -1,0 +1,9 @@
+{
+  "name": "nguyentamdat--opencode-mempalace",
+  "displayName": "opencode-mempalace",
+  "description": "OpenCode plugin for MemPalace memory system \u2014 auto-registers MCP server, injects memory protocol, loads context on session start",
+  "version": "1.0.0",
+  "author": "nguyentamdat",
+  "homepage": "https://github.com/nguyentamdat/opencode-mempalace",
+  "skills": []
+}
