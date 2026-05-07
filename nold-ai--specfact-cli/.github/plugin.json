@@ -1,0 +1,14 @@
+{
+  "name": "nold-ai--specfact-cli",
+  "displayName": "specfact-cli",
+  "description": "The Swiss-knife CLI for validation and alignment in software delivery. Keep backlog intent, specs, tests, and code in sync across AI-assisted and brownfield delivery.",
+  "version": "1.0.0",
+  "author": "nold-ai",
+  "homepage": "https://github.com/nold-ai/specfact-cli",
+  "skills": [
+    {
+      "name": "openspec-workflows",
+      "description": ""
+    }
+  ]
+}
