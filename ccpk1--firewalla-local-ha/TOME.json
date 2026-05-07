@@ -1,0 +1,44 @@
+{
+  "name": "firewalla-local-ha",
+  "owner": "ccpk1",
+  "repo": "firewalla-local-ha",
+  "description": "\ud83d\udd25 Native Home Assistant control for Firewalla. 100% local data, zero latency, and no cloud middleman.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ccpk1/firewalla-local-ha",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T17:39:54Z"
+}
