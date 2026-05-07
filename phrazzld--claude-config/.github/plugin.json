@@ -1,0 +1,18 @@
+{
+  "name": "phrazzld--claude-config",
+  "displayName": "claude-config",
+  "description": "AI instruction skills by phrazzld",
+  "version": "1.0.0",
+  "author": "phrazzld",
+  "homepage": "https://github.com/phrazzld/claude-config",
+  "skills": [
+    {
+      "name": "autopilot",
+      "description": ""
+    },
+    {
+      "name": "design-lab",
+      "description": ""
+    }
+  ]
+}
