@@ -1,0 +1,14 @@
+{
+  "name": "azalio--map-framework",
+  "displayName": "map-framework",
+  "description": "AI instruction skills by azalio",
+  "version": "1.0.0",
+  "author": "azalio",
+  "homepage": "https://github.com/azalio/map-framework",
+  "skills": [
+    {
+      "name": "map-planning",
+      "description": ""
+    }
+  ]
+}
