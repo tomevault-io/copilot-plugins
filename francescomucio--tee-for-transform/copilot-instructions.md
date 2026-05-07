@@ -1,0 +1,160 @@
+## tee-for-transform
+
+> This is a Python 3.14 project for managing SQL data transformations, managed with uv (a fast Python package installer and resolver). The project is named "Tee for Transform" (abbreviated as **t4t**).
+
+# Cursor Rules for t4t (Tee for Transform) Project
+
+## Project Overview
+This is a Python 3.14 project for managing SQL data transformations, managed with uv (a fast Python package installer and resolver). The project is named "Tee for Transform" (abbreviated as **t4t**).
+
+## Python Version
+- **Python 3.14 is REQUIRED** - This project targets Python 3.14 specifically
+- Python 3.14 features are used (e.g., deferred annotation evaluation is default, no need for `from __future__ import annotations`)
+- The `.python-version` file specifies `3.14`
+- `pyproject.toml` requires `>=3.14`
+- **ALWAYS use `uv run` for executing Python scripts** - never use `python` directly
+- Use `uv add` for adding dependencies
+- Use `uv sync` for installing dependencies
+
+## File Structure
+- `pyproject.toml` - Project configuration and dependencies (requires Python >=3.14)
+- `tee/` - Main package containing all modules
+  - `tee/cli/` - CLI command implementations (`tcli` commands)
+  - `tee/parser/` - SQL parsing, dependency analysis, and graph building
+  - `tee/engine/` - Execution engine for running SQL models
+  - `tee/testing/` - Data quality testing framework
+  - `tee/adapters/` - Database adapter implementations
+  - `tee/executor.py` - High-level execution functions
+- `tests/` - Test files (use `uv run pytest`)
+- `examples/` - Example projects
+- `docs/` - Documentation (MkDocs)
+- `README.md` - Project documentation
+
+## Development Guidelines
+
+### Dependency Management
+- Always use `uv add <package>` instead of pip install
+- Dependencies are managed in `pyproject.toml`
+- Use `uv sync` to install dependencies from lock file
+- Use `uv lock` to update lock file
+
+### Running Code and Tests
+- **CRITICAL: ALWAYS use `uv run` for ALL Python execution** - NEVER use `python`, `pytest`, or `python3` directly
+- **When running tests, ALWAYS use `uv run python -m pytest` or `uv run pytest`**
+- **When running CLI commands, ALWAYS use `uv run t4t <command>`** (not `t4t` directly)
+- Use `uv run t4t <command>` for CLI commands (e.g., `uv run t4t run`, `uv run t4t build`, `uv run t4t test`, `uv run t4t compile`)
+- Use `uv run python <script_name>` for Python scripts
+- Use `uv run pytest` or `uv run python -m pytest` for running tests
+- Use `uv run pytest tests/ -v` for verbose test output
+- Use `uv run pytest tests/ -k <test_name>` for specific tests
+- Use `uv run python -c "code"` for one-liner Python execution
+
+### Virtual Environment
+- uv automatically manages virtual environments (`.venv/` directory)
+- No need to manually activate/deactivate venv
+- Use `uv shell` to activate the virtual environment shell (if needed)
+- **NEVER use `python` directly - always use `uv run python`**
+- **NEVER use `pytest` directly - always use `uv run pytest` or `uv run python -m pytest`**
+
+### Project Dependencies
+- Add development dependencies with `uv add --dev <package>`
+- Add optional dependencies with `uv add --optional <package>`
+- Group dependencies by purpose in pyproject.toml
+
+### Testing
+- Use pytest for testing
+- Place tests in `tests/` directory
+- Run tests with `uv run pytest`
+- Use `uv run pytest tests/ -v` for detailed output
+- Use `uv run pytest tests/ -k <pattern>` for specific test patterns
+
+### Code Organization
+- Keep main logic in `main.py` or appropriate modules
+- Create separate modules for different functionality
+- Use `__init__.py` files for package structure
+- Follow the tee module structure: `tee/parser/` and `tee/engine/`
+
+## Common Commands
+```bash
+# Add a dependency
+uv add requests
+
+# Add a development dependency
+uv add --dev pytest
+
+# Install all dependencies
+uv sync
+
+# CLI Commands (t4t)
+uv run t4t run ./my_project          # Run models
+uv run t4t build ./my_project        # Build models with tests
+uv run t4t test ./my_project         # Run tests
+uv run t4t compile ./my_project      # Compile to OTS modules
+uv run t4t debug ./my_project        # Test database connection
+
+# Run a Python script
+uv run python script.py
+
+# Run tests
+uv run pytest
+# or
+uv run python -m pytest
+
+# Run tests with verbose output
+uv run pytest tests/ -v
+
+# Run specific tests
+uv run pytest tests/ -k test_name
+
+# Run one-liner Python code
+uv run python -c "print('Hello')"
+
+# Update dependencies
+uv lock --upgrade
+
+# Show installed packages
+uv pip list
+```
+
+## Best Practices
+- **Python 3.14 is required** - Use Python 3.14 features (no `from __future__ import annotations` needed)
+- Keep `pyproject.toml` clean and well-organized
+- Use semantic versioning for project version
+- Document dependencies and their purposes
+- Use virtual environments for isolation (managed by uv)
+- Write tests for new functionality
+- Use type hints for better code documentation
+- Use absolute imports (not relative imports like `from ..module`)
+- **NEVER use `python` directly - always use `uv run python`**
+- **NEVER use `pytest` directly - always use `uv run pytest` or `uv run python -m pytest`**
+- Use `print()` for user-facing CLI output, `logging` for internal/debug messages
+- The project uses "t4t" as the shorthand name (not "TEE" or "Tee")
+
+## Module Structure
+- `tee/` - Main package
+  - `tee/cli/` - CLI commands (`run`, `build`, `test`, `compile`, `debug`)
+  - `tee/parser/` - SQL parsing, dependency graph, and analysis
+  - `tee/engine/` - Execution engine for running SQL models
+  - `tee/testing/` - Data quality testing framework (standard tests, SQL tests)
+  - `tee/adapters/` - Database adapters (DuckDB, Snowflake, PostgreSQL, BigQuery)
+  - `tee/executor.py` - High-level execution functions (`execute_models`, `build_models`)
+  - `tee/executor_helpers/` - Helper functions for build command
+- `tests/` - All test files (mirror the `tee/` structure)
+- `examples/` - Example projects (e.g., `t_project/`)
+
+## Error Handling
+- Always use proper exception handling
+- Log errors appropriately (use `logging` module, not `print()` for errors)
+- Provide meaningful error messages
+- Test error conditions
+
+## Code Style
+- Use absolute imports: `from tee.module import function` (not `from ..module`)
+- No `from __future__ import annotations` needed (Python 3.14 default)
+- Use `print()` for user-facing CLI output
+- Use `logging` for internal/debug messages
+- Project name shorthand is "t4t" (not "TEE" or "Tee")
+
+---
+> Source: [francescomucio/tee-for-transform](https://github.com/francescomucio/tee-for-transform) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
