@@ -1,23 +1,20 @@
-## python-general-coding-style
+## python-logging-practices
 
-> Enforces general Python coding style guidelines for utility library development, emphasizing functional programming and type safety.
+> Structured logging practices using loguru with proper configuration and formatting.
 
-- Write concise, technical responses with accurate Python examples.
-- Use functional, declarative programming; avoid classes except for Pydantic BaseModel and necessary data structures.
-- Prefer iteration and modularization over code duplication.
-- Use descriptive variable names with auxiliary verbs (e.g., is_valid, has_data, should_retry).
-- Use lowercase with underscores for directories and files (e.g., utils/date_utils.py).
-- Favor named exports for utility functions.
-- Use the Receive an Object, Return an Object (RORO) pattern.
-- Use def for pure functions and async def for asynchronous operations.
-- Use type hints for all function signatures (parameters and return types).
-- All models in the models/ directory MUST inherit from Pydantic BaseModel for validation and serialization.
-- Prefer Pydantic models for configuration and data validation over raw dictionaries.
-- Use Optional[T] explicitly instead of T | None for better Python 3.8+ compatibility.
-- Avoid unnecessary complexity in conditional statements.
-- Use concise, one-line syntax for simple conditional statements (e.g., if condition: do_something()).
-- Follow PEP 8 naming conventions: snake_case for functions/variables, PascalCase for classes.
-- Use docstrings (Google style) for all public functions and classes.
+- Use loguru for all logging needs; avoid standard library logging.
+- Configure logging once at application startup using setup_logging().
+- Support log rotation, retention, and compression in configuration.
+- Use structured logging with context data: logger.bind(user_id=...).info(...).
+- Implement different log levels appropriately (DEBUG, INFO, WARNING, ERROR, CRITICAL).
+- Configure separate log files for different environments or severity levels.
+- Use logger.opt(exception=True) to log full stack traces.
+- Provide get_logger() factory function that returns configured logger.
+- Add serialization for custom objects in log messages.
+- Use log_calls decorator for automatic function call logging.
+- Configure JSON formatting for production logs if needed.
+- Never log sensitive information (passwords, tokens, PII).
+- Use lazy evaluation for expensive log message formatting.
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
