@@ -1,0 +1,9 @@
+{
+  "name": "yaroshevych--desktopctl",
+  "displayName": "desktopctl",
+  "description": "GPU-accelerated CLI tool for AI agents, to control computer via screen, mouse, and keyboard.",
+  "version": "1.0.0",
+  "author": "yaroshevych",
+  "homepage": "https://github.com/yaroshevych/desktopctl",
+  "skills": []
+}
