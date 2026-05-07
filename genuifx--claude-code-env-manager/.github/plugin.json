@@ -1,0 +1,9 @@
+{
+  "name": "genuifx--claude-code-env-manager",
+  "displayName": "claude-code-env-manager",
+  "description": "Control center for Claude Code & Codex \u2014 multi-model parallel sessions, Telegram remote control,      scheduled cron tasks with push notifications, usage analytics, permission modes. CLI + native macO",
+  "version": "1.0.0",
+  "author": "Genuifx",
+  "homepage": "https://github.com/Genuifx/claude-code-env-manager",
+  "skills": []
+}
