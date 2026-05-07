@@ -7,13 +7,13 @@ A command-line tool that summarizes the size of a codebase by language, showing 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [mikeckennedy/tallyman](https://github.com/mikeckennedy/tallyman).
+Original source: `CLAUDE.md` in [mikeckennedy/tallyman](https://github.com/mikeckennedy/tallyman).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
