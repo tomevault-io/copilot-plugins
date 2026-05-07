@@ -1,0 +1,9 @@
+{
+  "name": "wuguofish--switchboard",
+  "displayName": "Switchboard",
+  "description": "A telegram between Claude Code sessions",
+  "version": "1.0.0",
+  "author": "wuguofish",
+  "homepage": "https://github.com/wuguofish/Switchboard",
+  "skills": []
+}
