@@ -1,0 +1,9 @@
+{
+  "name": "nameetp--pdfmux",
+  "displayName": "pdfmux",
+  "description": "PDF extraction that checks its own work. #2 reading order accuracy \u2014 zero AI, zero GPU, zero cost.",
+  "version": "1.0.0",
+  "author": "NameetP",
+  "homepage": "https://github.com/NameetP/pdfmux",
+  "skills": []
+}
