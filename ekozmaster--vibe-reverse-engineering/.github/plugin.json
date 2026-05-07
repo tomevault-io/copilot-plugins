@@ -1,7 +1,7 @@
 {
   "name": "ekozmaster--vibe-reverse-engineering",
   "displayName": "Vibe-Reverse-Engineering",
-  "description": "Vibe-Reverse-Engineering",
+  "description": "A set LLM-Friendly tools for Cursor to Reverse Engineer binaries, specially games",
   "version": "1.0.0",
   "author": "Ekozmaster",
   "homepage": "https://github.com/Ekozmaster/Vibe-Reverse-Engineering",
