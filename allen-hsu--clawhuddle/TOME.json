@@ -1,0 +1,44 @@
+{
+  "name": "clawhuddle",
+  "owner": "allen-hsu",
+  "repo": "clawhuddle",
+  "description": "Self-hosted OpenClaw for teams \u2014 Give every person on your team their own AI assistant.  Each team member gets an isolated OpenClaw instance with zero maintenance. You add people, the system handles the rest.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/allen-hsu/clawhuddle",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T08:00:53Z"
+}
