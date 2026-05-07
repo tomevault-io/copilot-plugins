@@ -1,0 +1,9 @@
+{
+  "name": "jolestar--indexbind",
+  "displayName": "indexbind",
+  "description": "Embedded retrieval artifacts for Node, browsers, and Workers.",
+  "version": "1.0.0",
+  "author": "jolestar",
+  "homepage": "https://github.com/jolestar/indexbind",
+  "skills": []
+}
