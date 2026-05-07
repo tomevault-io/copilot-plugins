@@ -1,0 +1,9 @@
+{
+  "name": "yambr--open-computer-use",
+  "displayName": "open-computer-use",
+  "description": "MCP server that gives any LLM its own computer \u2014 managed Docker workspaces with live browser, terminal, code execution, document skills, and autonomous sub-agents. Self-hosted, open-source, pluggable ",
+  "version": "1.0.0",
+  "author": "Yambr",
+  "homepage": "https://github.com/Yambr/open-computer-use",
+  "skills": []
+}
