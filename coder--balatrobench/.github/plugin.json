@@ -1,0 +1,14 @@
+{
+  "name": "coder--balatrobench",
+  "displayName": "balatro",
+  "description": "Benchmark LLMs' strategic performance in Balatro \ud83d\udcca",
+  "version": "1.0.0",
+  "author": "coder",
+  "homepage": "https://github.com/coder/balatrobench",
+  "skills": [
+    {
+      "name": "balatrobot",
+      "description": ""
+    }
+  ]
+}
