@@ -1,26 +1,33 @@
-## models-and-state
+## pydantic-and-errors
 
-> Pydantic output and flow state models reference
+> Pydantic, error handling, and logging conventions
 
 
-# Output Models (src/ai_team/models/outputs.py)
+# Pydantic Conventions
 
-- **RequirementsDocument**: project_name, description, target_users, user_stories (UserStory: as_a, i_want, so_that, acceptance_criteria, priority), non_functional_requirements, assumptions, constraints
-- **ArchitectureDocument**: system_overview, components, technology_stack, interfaces, data_model, deployment_topology, adrs
-- **CodeFile**: path, content, language, file_type (source/test/config/doc), dependencies, size_bytes
-- **TestResult / TestRunResult**: total, passed, failed, errors, skipped, coverage_line, coverage_branch, failures, duration_seconds
-- **DeploymentConfig**: dockerfile, docker_compose, ci_pipeline, environment_variables, infrastructure
-- **ProjectReport**: project_id, project_name, status, files, test_results, summary, duration
+- Use Pydantic v2 `BaseModel`; `Field(description=...)` for all fields
+- Validators: `@field_validator` or `@model_validator`; `model_config` with `json_schema_extra` where helpful
+- Settings: `pydantic_settings.BaseSettings` with `SettingsConfigDict`
+- Output models: `src/ai_team/models/outputs.py`; state models: `src/ai_team/flows/state.py`
 
-# Flow State (src/ai_team/flows/state.py)
+# Error Handling
 
-**ProjectState**: project_id, project_description, current_phase, requirements, architecture, generated_files, test_results, deployment_config, phase_history, errors, retry_counts, max_retries, started_at, completed_at, metadata
+- Custom exceptions in `src/ai_team/utils/exceptions.py`: `AITeamError` → `AgentError`, `ToolError`, `GuardrailError`, `FlowError`
+- Never use bare `except:`; catch specific exceptions
+- Use `tenacity` for retry with exponential backoff
+- Log errors with structlog including context (agent, tool, phase)
 
-**ProjectPhase** enum: INTAKE, PLANNING, DEVELOPMENT, TESTING, DEPLOYMENT, COMPLETE, ERROR
+# Logging
 
-# GuardrailResult (guardrails/validators.py)
+- Use **structlog** only; never `print()` or `logging` directly
+- Get logger: `logger = structlog.get_logger(__name__)`
+- Bind context: `logger.bind(agent=self.role, phase=current_phase)`
+- Levels: DEBUG (tool calls), INFO (phase transitions), WARNING (retries), ERROR (hard failures)
 
-status ("pass" / "fail" / "warn"), message, details, retry_allowed, severity ("info" / "warning" / "critical")
+```python
+logger = structlog.get_logger(__name__)
+logger.bind(agent=self.role_name, phase=current_phase).info("Task started")
+```
 
 ---
 > Source: [RickZee/ai-team](https://github.com/RickZee/ai-team) — distributed by [TomeVault](https://tomevault.io).
