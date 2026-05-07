@@ -1,0 +1,9 @@
+{
+  "name": "thevoiceguy--siphon-rs",
+  "displayName": "siphon-rs",
+  "description": "A SIP stack written in Rust",
+  "version": "1.0.0",
+  "author": "thevoiceguy",
+  "homepage": "https://github.com/thevoiceguy/siphon-rs",
+  "skills": []
+}
