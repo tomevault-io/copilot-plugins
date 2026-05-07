@@ -4,7 +4,7 @@
   "repo": "take3bounce",
   "description": "Take 3 on the bounce gives three expressive voice readings - experience Gemini 3.1 Flash TTS and experiment with speech expressivity, pacing and delivery.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ghchinoy/take3bounce",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T03:41:43Z"
+  "distributed_at": "2026-05-07T11:31:30Z"
 }
