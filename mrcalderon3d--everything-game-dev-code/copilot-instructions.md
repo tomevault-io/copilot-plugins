@@ -1,13 +1,15 @@
-## 01-engine-isolation
+## 02-workflow
 
-> Prevent Unity, Unreal, and Godot guidance from contaminating each other.
+> Route work through commands, agents, and skills before improvising.
 
 
-Engine isolation is mandatory.
+Preferred routing order:
+1. Resolve to a shared command in `commands/` when possible.
+2. Use `agents/` to determine role ownership.
+3. Use `skills/` to execute the workflow reliably.
+4. Use `hooks/` and `scripts/hooks/` for automation and summaries.
 
-- Use `rules/common/` first.
-- Then use exactly one engine layer for implementation: `rules/unity/`, `rules/unreal/`, or `rules/godot/`.
-- Only compare engines in research contexts. Do not mix their implementation advice in production tasks.
+Always keep docs, QA, telemetry, and release implications explicit when they are affected.
 
 ---
 > Source: [MRCalderon3D/everything-game-dev-code](https://github.com/MRCalderon3D/everything-game-dev-code) — distributed by [TomeVault](https://tomevault.io).
