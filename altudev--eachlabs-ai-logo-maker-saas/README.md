@@ -7,11 +7,11 @@ EACHLABS AI LOGO MAKER SAAS NEXT.JS APPLICATION WITH THE COMMUNITY. 1453
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [altudev/eachlabs-ai-logo-maker-saas](https://github.com/altudev/eachlabs-ai-logo-maker-saas).
+Original source: `CLAUDE.md` in [altudev/eachlabs-ai-logo-maker-saas](https://github.com/altudev/eachlabs-ai-logo-maker-saas).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
