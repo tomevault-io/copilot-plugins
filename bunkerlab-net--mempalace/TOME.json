@@ -4,7 +4,7 @@
   "repo": "mempalace",
   "description": "A Rust reimplementation of MemPalace/mempalace",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bunkerlab-net/mempalace",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T00:31:39Z"
+  "distributed_at": "2026-05-07T21:12:25Z"
 }
