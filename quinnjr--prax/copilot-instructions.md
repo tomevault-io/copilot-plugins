@@ -1,262 +1,124 @@
-## changelog
+## documentation
 
-> Guidelines for maintaining CHANGELOG.md following Keep a Changelog format
+> Guidelines for keeping TODO.md and CHANGELOG.md synchronized with code changes
 
 
-# Changelog Guidelines
+# Documentation Synchronization
 
-This project follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) format and [Semantic Versioning](https://semver.org/).
+**Always keep `TODO.md` and `CHANGELOG.md` synchronized when making code changes.**
 
-## When to Update
+## When to Update CHANGELOG.md
 
-Update `CHANGELOG.md` when:
-- ✅ Adding a new feature (`feat` commits)
-- ✅ Fixing a bug (`fix` commits)
-- ✅ Making breaking changes
-- ✅ Deprecating functionality
-- ✅ Removing features
-- ✅ Security fixes
-- ✅ Performance improvements (`perf` commits)
+Update the `[Unreleased]` section for:
+- ✅ New features (`feat` commits) → **Added**
+- ✅ Bug fixes (`fix` commits) → **Fixed**
+- ✅ Breaking changes → **Changed** with **BREAKING** prefix
+- ✅ Deprecations → **Deprecated**
+- ✅ Removed features → **Removed**
+- ✅ Security fixes → **Security**
+- ✅ Performance improvements (`perf` commits) → **Changed**
 
-Do NOT update for:
-- ❌ Internal refactoring (no user-facing changes)
-- ❌ Test additions/changes
-- ❌ CI/CD changes
-- ❌ Documentation-only changes (unless significant)
-- ❌ Code style/formatting
+**Do NOT update for**: internal refactoring, tests, CI changes, documentation-only changes.
 
-## File Structure
-
-```markdown
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
-### Added
-- New features here
-
-### Changed
-- Changes to existing functionality
-
-### Deprecated
-- Features that will be removed
-
-### Removed
-- Features that were removed
-
-### Fixed
-- Bug fixes
-
-### Security
-- Security-related fixes
-
-## [0.1.0] - 2025-01-15
-
-### Added
-- Initial release features
-
-[Unreleased]: https://github.com/pegasusheavy/prax/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/pegasusheavy/prax/releases/tag/v0.1.0
-```
-
-## Section Definitions
-
-### Added
-New features or capabilities added to the project.
+### CHANGELOG Entry Format
 
 ```markdown
 ### Added
-- Query builder now supports nested `where` clauses
-- New `include()` method for eager loading relations
-- PostgreSQL `JSONB` column type support
+- **Feature Name** (`crate-name`) - Brief description of what was added
 ```
 
-### Changed
-Changes to existing functionality (non-breaking).
-
-```markdown
-### Changed
-- `execute()` now returns `QueryResult<T>` instead of `Result<T, Error>`
-- Connection pool default size increased from 5 to 10
-- Improved error messages for invalid schema definitions
-```
-
-### Deprecated
-Features that will be removed in future versions.
-
-```markdown
-### Deprecated
-- `Client::query_raw()` - use `Client::raw_query()` instead
-- The `sync` feature flag will be removed in v1.0.0
-```
-
-### Removed
-Features that were removed in this release.
-
-```markdown
-### Removed
-- Removed deprecated `Client::execute_sync()` method
-- Dropped support for PostgreSQL versions below 12
-```
-
-### Fixed
-Bug fixes.
-
-```markdown
-### Fixed
-- Fixed connection leak when queries timeout
-- Fixed panic when parsing schemas with circular relations
-- Corrected SQL generation for `NOT IN` clauses
-```
-
-### Security
-Security-related fixes (always include CVE if applicable).
-
-```markdown
-### Security
-- Fixed SQL injection vulnerability in raw query interpolation (CVE-2025-XXXX)
-- Updated `tokio` to address potential DoS vector
-```
-
-## Writing Good Entries
-
-### DO ✅
-
+Example:
 ```markdown
 ### Added
-- Add `cursor()` method for cursor-based pagination (#123)
-- Add support for `RETURNING` clause in insert queries
-
-### Fixed
-- Fix memory leak in connection pool under high load (#456)
-- Fix incorrect SQL generation for nullable enum fields
+- **DuckDB Support** (`prax-duckdb`) - Analytical database driver with Parquet export
 ```
 
-### DON'T ❌
+## When to Update TODO.md
 
-```markdown
-### Added
-- Added stuff
-- New feature
-- Implemented the thing from issue #123
+Update when:
+- ✅ Completing a feature listed in TODO.md → Mark as completed or remove
+- ✅ Adding significant new features → Add to completed features table
+- ✅ Changing architecture → Update architecture diagram
+- ✅ Adding new crates → Add to crate list
+- ✅ Adding new benchmarks → Add to benchmark list
 
-### Fixed
-- Fixed bug
-- Fix
-- Bugfix
+### TODO.md Structure
+
+Keep it concise:
+- **Architecture section**: List all crates
+- **Completed Features**: Tables organized by category
+- **Benchmarks**: List available benchmark suites
+- **Quick Start**: Minimal working example
+- **References**: External documentation links
+
+## Checklist Before Completing a Task
+
 ```
-
-## Guidelines
-
-1. **Use imperative mood**: "Add feature" not "Added feature"
-2. **Be specific**: Describe what changed, not just that something changed
-3. **Reference issues/PRs**: Include `(#123)` when applicable
-4. **Group related changes**: Don't repeat similar entries
-5. **Order by importance**: Most significant changes first
-6. **Keep entries concise**: One line per change when possible
-
-## Mapping Commits to Sections
-
-| Commit Type | Changelog Section |
-|-------------|-------------------|
-| `feat` | Added |
-| `fix` | Fixed |
-| `perf` | Changed |
-| `refactor` | Changed (if user-facing) |
-| `deprecate` | Deprecated |
-| `security` | Security |
-| `BREAKING CHANGE` | Changed (with note) |
-
-## Breaking Changes
-
-Always highlight breaking changes prominently:
-
-```markdown
-### Changed
-- **BREAKING**: `QueryBuilder::new()` now requires a connection parameter
-- **BREAKING**: Renamed `Client` to `PraxClient` for clarity
-```
-
-Or use a dedicated section:
-
-```markdown
-### ⚠️ Breaking Changes
-- `QueryBuilder::new()` now requires a connection parameter
-- Renamed `Client` to `PraxClient` for clarity
-```
-
-## Release Checklist
-
-When preparing a release:
-
-1. Move entries from `[Unreleased]` to new version section
-2. Add release date: `## [0.2.0] - 2025-02-01`
-3. Update comparison links at bottom of file
-4. Remove empty sections
-5. Ensure all breaking changes are clearly marked
-6. Verify version matches `Cargo.toml`
-
-```markdown
-## [Unreleased]
-
-## [0.2.0] - 2025-02-01
-
-### Added
-- (moved from Unreleased)
-
-[Unreleased]: https://github.com/pegasusheavy/prax/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/pegasusheavy/prax/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/pegasusheavy/prax/releases/tag/v0.1.0
-```
-
-## Version Links
-
-Always maintain comparison links at the bottom:
-
-```markdown
-[Unreleased]: https://github.com/pegasusheavy/prax/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/pegasusheavy/prax/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/pegasusheavy/prax/releases/tag/v0.1.0
+□ Code changes committed
+□ CHANGELOG.md updated (if user-facing change)
+□ TODO.md updated (if feature completed or added)
+□ Tests pass
 ```
 
 ## Examples
 
-### Feature Addition
-```markdown
-### Added
-- Add `find_first()` method to query builder for single result queries
-- Add `#[prax(default = "...")]` attribute for default column values
-- Add MySQL support via `mysql_async` driver (#89)
-```
+### Adding a New Feature
 
-### Bug Fix
-```markdown
-### Fixed
-- Fix `ORDER BY` clause being ignored when combined with `LIMIT` (#142)
-- Fix transaction rollback not releasing connection back to pool
-- Fix schema parser rejecting valid enum definitions with attributes
-```
+When implementing multi-tenancy support:
 
-### Breaking Change
-```markdown
-### Changed
-- **BREAKING**: `PraxClient::new()` is now async and returns `Result<Self, Error>`
+1. **CHANGELOG.md** - Add to `[Unreleased]`:
+   ```markdown
+   ### Added
+   - **Multi-Tenancy Support** (`prax-query/src/tenant/`)
+     - Zero-allocation task-local tenant context
+     - PostgreSQL RLS integration
+   ```
 
-  Before:
-  ```rust
-  let client = PraxClient::new("postgres://...");
-  ```
+2. **TODO.md** - Add to completed features:
+   ```markdown
+   ### Multi-Tenancy (`prax-query/src/tenant/`)
+   | Feature | Module |
+   |---------|--------|
+   | Task-local context | `task_local.rs` |
+   | RLS integration | `rls.rs` |
+   ```
 
-  After:
-  ```rust
-  let client = PraxClient::new("postgres://...").await?;
-  ```
-```
+### Fixing a Bug
+
+When fixing a query builder bug:
+
+1. **CHANGELOG.md** only:
+   ```markdown
+   ### Fixed
+   - Fix SQL injection vulnerability in raw query builder (#123)
+   ```
+
+2. **TODO.md** - No update needed for bug fixes
+
+### Adding a New Crate
+
+When adding `prax-duckdb`:
+
+1. **CHANGELOG.md**:
+   ```markdown
+   ### Added
+   - **DuckDB Support** (`prax-duckdb`) - Analytical database driver
+   ```
+
+2. **TODO.md** - Update architecture:
+   ```
+   prax/
+   ├── prax-duckdb/         # DuckDB analytical driver  ← Add this
+   ```
+
+## Automation Hints
+
+When the agent completes a significant task:
+1. Review what was changed
+2. Determine if it's user-facing
+3. Update CHANGELOG.md with proper section
+4. Update TODO.md if architecture changed or feature completed
+5. Keep entries concise (one line when possible)
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
