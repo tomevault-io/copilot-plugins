@@ -1,0 +1,14 @@
+{
+  "name": "fxstein--ai-todo",
+  "displayName": "ai-todo",
+  "description": "AI-native task management for coding agents - Persistent, version-controlled TODO tracking that works naturally with AI agents like OpenClaw, Cursor, Claude, and Copilot",
+  "version": "1.0.0",
+  "author": "fxstein",
+  "homepage": "https://github.com/fxstein/ai-todo",
+  "skills": [
+    {
+      "name": "release-workflow",
+      "description": ""
+    }
+  ]
+}
