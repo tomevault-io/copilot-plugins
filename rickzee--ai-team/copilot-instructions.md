@@ -1,32 +1,55 @@
-## ai-team-core
+## crewai-agents-crews-flows
 
-> Project identity and tech stack for ai-team (CrewAI multi-agent system)
+> CrewAI agent, crew, and flow patterns
 
 
-# AI-Team Project Context
+# Agent Definition
 
-You are working on **ai-team**, an autonomous multi-agent software development system built with CrewAI. The system simulates a complete engineering organization with 7+ specialized AI agents (Manager, Product Owner, Architect, Backend/Frontend Developers, DevOps, Cloud Engineer, QA Engineer) that accept natural language project descriptions and autonomously deliver working, tested, deployable code.
+Agents: YAML config (agents.yaml) + Python class extending BaseAgent. Use `role_name` (maps to YAML key), `create()` → `load_yaml_config()`, `get_ollama_llm()`, return `Agent(...)`.
 
-This is a portfolio-grade capstone project. All code must be production-quality, well-documented, and security-conscious.
+```python
+from ai_team.agents.base import BaseAgent
 
-## Technology Stack
+class ArchitectAgent(BaseAgent):
+    """Solutions Architect agent for system design."""
+    role_name: str = "architect"
 
-- **Python** 3.11+ (minimum)
-- **CrewAI** (>=0.80.0), **CrewAI Tools** (>=0.14.0), **LangChain-Ollama** (>=0.2.0)
-- **Pydantic** (>=2.7.0), **Pydantic-Settings** (>=2.2.0)
-- **Streamlit** (>=1.35.0), **structlog** (>=24.1.0)
-- **ChromaDB** (>=0.5.0), **SQLAlchemy** (>=2.0.0), **GitPython** (>=3.1.0), **httpx** (>=0.27.0), **tenacity** (>=8.2.0)
-- **pytest** (>=8.0.0), **ruff** (>=0.3.0), **mypy** (>=1.9.0), **black** (>=24.3.0)
-- **Poetry** for dependency management
+    def create(self) -> Agent:
+        config = self.load_yaml_config()
+        llm = self.get_ollama_llm()
+        return Agent(
+            role=config["role"], goal=config["goal"], backstory=config["backstory"],
+            tools=self.get_tools(), llm=llm, verbose=config.get("verbose", True),
+            memory=config.get("memory", True), allow_delegation=config.get("allow_delegation", False),
+            max_iter=config.get("max_iter", 10),
+        )
+```
 
-**Ollama models**: qwen3 (management, PO), deepseek-r1 (architecture), qwen2.5-coder (frontend, devops), deepseek-coder-v2 (backend).
+# Crew Composition
 
-## Project Structure (abbreviated)
+```python
+crew = Crew(
+    agents=[...], tasks=[...], process=Process.hierarchical,
+    manager_agent=self.manager, memory=True, verbose=True, planning=True,
+)
+return crew.kickoff(inputs=inputs)
+```
 
-- `src/ai_team/` — config (settings, agents.yaml, tasks.yaml), agents/, crews/, flows/, tools/, guardrails/, memory/, models/, utils/
-- `tests/` — unit/, integration/, e2e/, performance/, fixtures/
-- `src/ai_team/ui/` — Gradio app, Rich TUI, FastAPI + Vite web dashboard
-- `docs/`, `scripts/`, `demos/`, `docker/`, `.github/`
+# Flow Orchestration
+
+`AITeamFlow(Flow[ProjectState])`: use `@start()`, `@listen(previous)`, `@router(previous)` for branching.
+
+```python
+@router(run_planning_crew)
+def route_after_planning(self):
+    if self.state.requirements and self.state.architecture:
+        return "run_development"
+    return "request_human_feedback"
+```
+
+# Task with Guardrail
+
+`Task(description=..., expected_output=..., output_pydantic=..., guardrail=fn)`. Guardrail receives `TaskOutput`, returns it or raises `GuardrailFailure` to trigger retry.
 
 ---
 > Source: [RickZee/ai-team](https://github.com/RickZee/ai-team) — distributed by [TomeVault](https://tomevault.io).
