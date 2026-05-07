@@ -4,7 +4,7 @@
   "repo": "AgentGal",
   "description": "\u4e00\u4e2a\u57fa\u4e8e\u72ec\u7acb\u4e0a\u4e0b\u6587\u7684agent galgame",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/huccihuang/AgentGal",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T06:30:40Z"
+  "distributed_at": "2026-05-07T10:15:50Z"
 }
