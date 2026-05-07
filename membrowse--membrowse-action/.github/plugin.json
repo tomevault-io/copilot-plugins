@@ -1,0 +1,14 @@
+{
+  "name": "membrowse--membrowse-action",
+  "displayName": "membrowse-action",
+  "description": "Track and analyze binary size and memory footprint in embedded firmware",
+  "version": "1.0.0",
+  "author": "membrowse",
+  "homepage": "https://github.com/membrowse/membrowse-action",
+  "skills": [
+    {
+      "name": "membrowse-integrate",
+      "description": ""
+    }
+  ]
+}
