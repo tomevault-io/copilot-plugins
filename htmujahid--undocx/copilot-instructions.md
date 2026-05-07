@@ -1,134 +1,107 @@
-## postgres-sql-style-guide
+## writing-supabase-edge-functions
 
-> Guidelines for writing Postgres SQL
+> Coding rules for Supabase Edge Functions
 
 
-# Postgres SQL Style Guide
+# Writing Supabase Edge Functions
 
-## General
+You're an expert in writing TypeScript and Deno JavaScript runtime. Generate **high-quality Supabase Edge Functions** that adhere to the following best practices:
 
-- Use lowercase for SQL reserved words to maintain consistency and readability.
-- Employ consistent, descriptive identifiers for tables, columns, and other database objects.
-- Use white space and indentation to enhance the readability of your code.
-- Store dates in ISO 8601 format (`yyyy-mm-ddThh:mm:ss.sssss`).
-- Include comments for complex logic, using '/_ ... _/' for block comments and '--' for line comments.
+## Guidelines
 
-## Naming Conventions
+1. Try to use Web APIs and Deno’s core APIs instead of external dependencies (eg: use fetch instead of Axios, use WebSockets API instead of node-ws)
+2. If you are reusing utility methods between Edge Functions, add them to `supabase/functions/_shared` and import using a relative path. Do NOT have cross dependencies between Edge Functions.
+3. Do NOT use bare specifiers when importing dependecnies. If you need to use an external dependency, make sure it's prefixed with either `npm:` or `jsr:`. For example, `@supabase/supabase-js` should be written as `npm:@supabase/supabase-js`.
+4. For external imports, always define a version. For example, `npm:@express` should be written as `npm:express@4.18.2`.
+5. For external dependencies, importing via `npm:` and `jsr:` is preferred. Minimize the use of imports from @`deno.land/x` , `esm.sh` and @`unpkg.com` . If you have a package from one of those CDNs, you can replace the CDN hostname with `npm:` specifier.
+6. You can also use Node built-in APIs. You will need to import them using `node:` specifier. For example, to import Node process: `import process from "node:process". Use Node APIs when you find gaps in Deno APIs.
+7. Do NOT use `import { serve } from "https://deno.land/std@0.168.0/http/server.ts"`. Instead use the built-in `Deno.serve`.
+8. Following environment variables (ie. secrets) are pre-populated in both local and hosted Supabase environments. Users don't need to manually set them:
+   - SUPABASE_URL
+   - SUPABASE_PUBLISHABLE_OR_ANON_KEY
+   - SUPABASE_SERVICE_ROLE_KEY
+   - SUPABASE_DB_URL
+9. To set other environment variables (ie. secrets) users can put them in a env file and run the `supabase secrets set --env-file path/to/env-file`
+10. A single Edge Function can handle multiple routes. It is recommended to use a library like Express or Hono to handle the routes as it's easier for developer to understand and maintain. Each route must be prefixed with `/function-name` so they are routed correctly.
+11. File write operations are ONLY permitted on `/tmp` directory. You can use either Deno or Node File APIs.
+12. Use `EdgeRuntime.waitUntil(promise)` static method to run long-running tasks in the background without blocking response to a request. Do NOT assume it is available in the request / execution context.
 
-- Avoid SQL reserved words and ensure names are unique and under 63 characters.
-- Use snake_case for tables and columns.
-- Prefer plurals for table names
-- Prefer singular names for columns.
+## Example Templates
 
-## Tables
+### Simple Hello World Function
 
-- Avoid prefixes like 'tbl\_' and ensure no table name matches any of its column names.
-- Always add an `id` column of type `identity generated always` unless otherwise specified.
-- Create all tables in the `public` schema unless otherwise specified.
-- Always add the schema to SQL queries for clarity.
-- Always add a comment to describe what the table does. The comment can be up to 1024 characters.
+```tsx
+interface reqPayload {
+  name: string
+}
 
-## Columns
+console.info('server started')
 
-- Use singular names and avoid generic names like 'id'.
-- For references to foreign tables, use the singular of the table name with the `_id` suffix. For example `user_id` to reference the `users` table
-- Always use lowercase except in cases involving acronyms or when readability would be enhanced by an exception.
+Deno.serve(async (req: Request) => {
+  const { name }: reqPayload = await req.json()
+  const data = {
+    message: `Hello ${name} from foo!`,
+  }
 
-#### Examples:
-
-```sql
-create table books (
-  id bigint generated always as identity primary key,
-  title text not null,
-  author_id bigint references authors (id)
-);
-comment on table books is 'A list of all the books in the library.';
+  return new Response(JSON.stringify(data), {
+    headers: { 'Content-Type': 'application/json', Connection: 'keep-alive' },
+  })
+})
 ```
 
-## Queries
+### Example Function using Node built-in API
 
-- When the query is shorter keep it on just a few lines. As it gets larger start adding newlines for readability
-- Add spaces for readability.
+```tsx
+import { randomBytes } from 'node:crypto'
+import { createServer } from 'node:http'
+import process from 'node:process'
 
-Smaller queries:
+const generateRandomString = (length) => {
+  const buffer = randomBytes(length)
+  return buffer.toString('hex')
+}
 
-```sql
-select *
-from employees
-where end_date is null;
+const randomString = generateRandomString(10)
+console.log(randomString)
 
-update employees
-set end_date = '2023-12-31'
-where employee_id = 1001;
+const server = createServer((req, res) => {
+  const message = `Hello`
+  res.end(message)
+})
+
+server.listen(9999)
 ```
 
-Larger queries:
+### Using npm packages in Functions
 
-```sql
-select
-  first_name,
-  last_name
-from employees
-where start_date between '2021-01-01' and '2021-12-31' and status = 'employed';
+```tsx
+import express from 'npm:express@4.18.2'
+
+const app = express()
+
+app.get(/(.*)/, (req, res) => {
+  res.send('Welcome to Supabase')
+})
+
+app.listen(8000)
 ```
 
-### Joins and Subqueries
+### Generate embeddings using built-in @Supabase.ai API
 
-- Format joins and subqueries for clarity, aligning them with related SQL clauses.
-- Prefer full table names when referencing tables. This helps for readability.
+```tsx
+const model = new Supabase.ai.Session('gte-small')
 
-```sql
-select
-  employees.employee_name,
-  departments.department_name
-from
-  employees
-  join departments on employees.department_id = departments.department_id
-where employees.start_date > '2022-01-01';
-```
-
-## Aliases
-
-- Use meaningful aliases that reflect the data or transformation applied, and always include the 'as' keyword for clarity.
-
-```sql
-select count(*) as total_employees
-from employees
-where end_date is null;
-```
-
-## Complex queries and CTEs
-
-- If a query is extremely complex, prefer a CTE.
-- Make sure the CTE is clear and linear. Prefer readability over performance.
-- Add comments to each block.
-
-```sql
-with
-  department_employees as (
-    -- Get all employees and their departments
-    select
-      employees.department_id,
-      employees.first_name,
-      employees.last_name,
-      departments.department_name
-    from
-      employees
-      join departments on employees.department_id = departments.department_id
-  ),
-  employee_counts as (
-    -- Count how many employees in each department
-    select
-      department_name,
-      count(*) as num_employees
-    from department_employees
-    group by department_name
-  )
-select
-  department_name,
-  num_employees
-from employee_counts
-order by department_name;
+Deno.serve(async (req: Request) => {
+  const params = new URL(req.url).searchParams
+  const input = params.get('text')
+  const output = await model.run(input, { mean_pool: true, normalize: true })
+  return new Response(JSON.stringify(output), {
+    headers: {
+      'Content-Type': 'application/json',
+      Connection: 'keep-alive',
+    },
+  })
+})
 ```
 
 ---
