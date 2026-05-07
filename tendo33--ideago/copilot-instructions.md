@@ -1,15 +1,19 @@
-## project-development-standards
+## python-configuration-management
 
-> Project-wide engineering contract across backend and frontend work.
+> Best practices for configuration management using Pydantic Settings with environment variables and .env files.
 
-- **Read `ai_docs/` for project standards.** `ai_docs/AI_TOOLING_STANDARDS.md` has the full index.
-- Backend: `ai_docs/BACKEND_STANDARDS.md`. Frontend: `ai_docs/FRONTEND_STANDARDS.md`.
-- Scripts (rename/version): `ai_docs/SCRIPTS_GUIDE.md`.
-- Plan first, implement minimal changes, and verify before completion.
-- Backend default: Python 3.10+, uv, ruff, pytest.
-- Frontend default: pnpm + React + TypeScript + Vite + Tailwind CSS + shadcn/ui.
-- Keep functions typed, explicit, and testable.
-- Handle failures explicitly; avoid silent exception swallowing.
+- Use pydantic-settings for type-safe configuration management.
+- Define all configuration in a Settings class inheriting from BaseSettings.
+- Use Field() with default values and descriptions for all configuration fields.
+- Support environment variables with clear naming conventions (UPPERCASE_WITH_UNDERSCORES).
+- Use .env files for local development; never commit sensitive data.
+- Implement get_settings() as a singleton pattern using @lru_cache.
+- Provide helper methods in Settings class for derived paths and values.
+- Use env_prefix for namespacing environment variables if needed.
+- Validate configuration values using Pydantic validators.
+- Document all configuration fields with Field(description=...).
+- Support multiple environments (development, staging, production) with environment variable.
+- Use model_config for Pydantic v2 settings like env_file, env_nested_delimiter.
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
