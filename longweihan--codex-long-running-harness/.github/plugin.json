@@ -1,0 +1,9 @@
+{
+  "name": "longweihan--codex-long-running-harness",
+  "displayName": "codex-long-running-harness",
+  "description": "Codex-first long-running application harness inspired by Anthropic's planner-generator-evaluator pattern.",
+  "version": "1.0.0",
+  "author": "LongWeihan",
+  "homepage": "https://github.com/LongWeihan/codex-long-running-harness",
+  "skills": []
+}
