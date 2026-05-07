@@ -1,0 +1,14 @@
+{
+  "name": "husniadil--ultrathink",
+  "displayName": "ultrathink",
+  "description": "MCP server for sequential thinking and complex problem-solving. Built iteratively using itself. Features confidence scoring,   assumption tracking, and multi-session support.",
+  "version": "1.0.0",
+  "author": "husniadil",
+  "homepage": "https://github.com/husniadil/ultrathink",
+  "skills": [
+    {
+      "name": "ultrathink",
+      "description": ""
+    }
+  ]
+}
