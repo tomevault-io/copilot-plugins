@@ -1,129 +1,64 @@
-## templates
+## tufte-format
 
-> Inkwell template system, covering creation, resolution, compilation, and Pandoc wrapper authoring
+> Tufte template formatting conventions for margin notes, sidenotes, full-width sections, and margin figures
 
 
-# Inkwell Template System
+# Tufte Template Formatting
 
-## Directory Structure
+The `tufte-handout` class provides margin notes, sidenotes, margin figures, and full-width sections. Some of these require raw LaTeX because Pandoc's fenced div conversion is unreliable for complex content.
 
-Each template is a named subdirectory containing at minimum two files:
+## Margin text
 
-```
-my-template/
-  template.json      # manifest (required)
-  my-template.latex  # Pandoc wrapper (required)
-  my-class.cls       # LaTeX document class
-  *.sty, *.bst       # style/bibliography support
-  images/, fonts/     # assets referenced by the class
+Use `\sidenote{text}` (numbered) or `\marginnote{text}` (unnumbered). Keep content to 1-2 sentences.
+
+```markdown
+The data-ink ratio\sidenote{Tufte introduced this concept in 1983.} measures
+the proportion of ink devoted to non-redundant data display.
 ```
 
-Subdirectories are fine. The template directory is added to TEXINPUTS, so `\documentclass{subdir/my-class}` resolves correctly.
+The `::: {.aside}` fenced div works for short text but breaks with paragraphs or math. Prefer raw LaTeX.
 
-## template.json Manifest
+## Full-width sections
 
-```json
-{
-  "name": "Human-readable Name",
-  "description": "Shown in the template picker and README.",
-  "engine": "pdflatex"
-}
+Wrap content in raw LaTeX, not fenced divs:
+
+```markdown
+\begin{fullwidth}
+| Col A | Col B | Col C | Col D | Col E |
+|-------|-------|-------|-------|-------|
+| 1     | 2     | 3     | 4     | 5     |
+
+: Wide table caption. {#tbl:wide}
+\end{fullwidth}
 ```
 
-`engine` must be `"xelatex"` or `"pdflatex"`. The compiler reads this and selects the binary automatically. If omitted, defaults to `"xelatex"`.
+`::: {.fullwidth}` can fail silently depending on Pandoc version. Raw LaTeX is reliable.
 
-## Resolution Order
+## Margin figures
 
-Templates are searched in three locations (ascending priority):
+Always raw LaTeX:
 
-1. **Built-in**: `<extension>/templates/<name>/`
-2. **Global**: `~/.inkwell/templates/<name>/`
-3. **Project-local**: `.inkwell/templates/<name>/`
-
-A higher-priority template overrides a lower one **only if it includes its own `.latex` Pandoc wrapper**. A directory with supporting files but no wrapper will not shadow a built-in. This prevents raw upstream journal distributions from breaking compilation.
-
-The guard in `listTemplates` (`templates.ts`):
-```typescript
-if (!pandocTemplate && result.has(id)) continue;
+```markdown
+\begin{marginfigure}
+\centering
+\includegraphics[width=\linewidth]{.inkwell/figures/plot.pdf}
+\caption{Caption in the margin.}
+\end{marginfigure}
 ```
 
-## Pandoc .latex Wrapper
+## New thought (paragraph opener)
 
-The wrapper bridges Pandoc's variable system to the journal class. It is a standard Pandoc template, not a LaTeX document you compile directly.
-
-### Required elements
-
-- `\documentclass{...}` using the journal's class
-- `\begin{document}` / `\end{document}`
-- `$body$` where Pandoc inserts the converted markdown
-- `\providecommand{\tightlist}{...}` for Pandoc list compatibility
-
-### Pandoc variable syntax
-
-| Syntax | Purpose |
-|--------|---------|
-| `$title$` | Scalar variable from YAML frontmatter |
-| `$if(var)$...$endif$` | Conditional block |
-| `$for(list)$...$endfor$` | Loop over YAML list |
-| `$list.field$` | Access field inside list item |
-| `$sep$,` | Separator between loop iterations |
-| `$for(header-includes)$$header-includes$$endfor$` | User-supplied preamble additions |
-
-### Common patterns
-
-**Author affiliations with superscripts** (RMxAA pattern):
-```latex
-$for(rmxaa-authors)$
-\author[$rmxaa-authors.affiliations$]{$rmxaa-authors.name$}
-$endfor$
+```markdown
+\newthought{The fundamental principle} of analytical design is to show the data.
 ```
 
-**Class options from frontmatter**:
-```latex
-\documentclass[$for(classoption)$$classoption$$sep$,$endfor$]{my-class}
-```
+Renders the opening phrase in small caps. Use at the start of major sections.
 
-**Longtable-to-float for two-column layouts** (required when Pandoc emits longtable but the class uses twocolumn): see `rmxaa/rmxaa.latex` lines 70-93.
+## What to avoid
 
-**Syntax highlighting tokens**: Pandoc expects `\Highlighting`, `\KeywordTok`, `\StringTok`, etc. If the journal class does not provide them, the wrapper must define them. See any built-in wrapper for the full set.
-
-## Compilation Pipeline
-
-`compiler.ts` handles two modes:
-
-1. **Pandoc** (markdown/rst/org): `compilePandoc` generates a .tex via Pandoc, then Pandoc calls the PDF engine.
-2. **Direct TeX**: `compileTeX` runs xelatex/pdflatex directly on .tex files.
-
-Both modes:
-- Compile in an isolated temp directory (`getCacheDir`)
-- Set `TEXINPUTS` to `cacheDir:template.dir:sourceDir:` (trailing colon preserves default TeX paths)
-- Copy supporting files to the cache via `copySupportingFiles`
-
-The Pandoc mode also passes `--resource-path=cacheDir:template.dir:sourceDir` so Pandoc includes these in its own TEXINPUTS construction for the PDF engine.
-
-## Supported File Types for Auto-Copy
-
-`copySupportingFiles` copies files matching these extensions from the template directory to the build cache:
-
-`.cls` `.sty` `.bst` `.bib` `.def` `.fd` `.cfg` `.clo` `.ldf` `.png` `.jpg` `.jpeg` `.pdf` `.eps` `.svg` `.ttf` `.otf` `.woff` `.woff2`
-
-Files not matching (e.g., `.tex`, `.md`, `.json`) are left in place but still reachable via TEXINPUTS.
-
-## Diagnostic Output
-
-`compilePandoc` emits diagnostic lines at the top of the build log:
-
-```
-[inkwell] template: rmxaa (/path/to/templates/rmxaa)
-[inkwell] pandoc template: /tmp/.../rmxaa.latex
-[inkwell] TEXINPUTS: /tmp/...:/path/to/templates/rmxaa:/path/to/source:
-[inkwell] resource-path: /tmp/...:/path/to/templates/rmxaa:/path/to/source
-[inkwell] cls in template dir: true
-[inkwell] cls in cache dir: true
-[inkwell] engine: /path/to/pdflatex
-```
-
-When a template isn't rendering correctly, check this output first. The most common issue is a global template shadowing a built-in (template dir points to `~/.inkwell/templates/` instead of the extension's `templates/`).
+- Multi-paragraph content inside `\sidenote{}` or `\marginnote{}`
+- Fenced divs (`::: {.fullwidth}`, `::: {.aside}`) for anything beyond simple text
+- `\begin{figure*}` (use `\begin{fullwidth}` with a standard figure inside)
 
 ---
 > Source: [goldberg-consulting/measured.one.inkwell-extension](https://github.com/goldberg-consulting/measured.one.inkwell-extension) — distributed by [TomeVault](https://tomevault.io).
