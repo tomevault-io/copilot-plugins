@@ -1,0 +1,60 @@
+## extension-architecture
+
+> Inkwell VS Code extension architecture, module roles, and development conventions
+
+
+# Inkwell Extension Architecture
+
+## Module Map
+
+| File | Role |
+|------|------|
+| `extension.ts` | Activation, command registration, lifecycle |
+| `compiler.ts` | Pandoc and direct-TeX compilation pipelines |
+| `templates.ts` | Template resolution, manifest reading, file discovery |
+| `preview.ts` | Webview panel (HTML preview, PDF viewer, log tab) |
+| `runner.ts` | Code block execution (Python, R, Shell, Node) |
+| `inject.ts` | Injects cached code outputs into markdown before compilation |
+| `preamble.ts` | Generates LaTeX preamble from `inkwell:` frontmatter options |
+| `cache.ts` | Code block output caching and invalidation |
+| `config.ts` | Project root detection (`.inkwell/`), artifact paths, .bib discovery, defaults.yaml |
+| `shell-env.ts` | Augmented `PATH` for subprocesses (TeX, `mmdc`, node managers) |
+| `diagnostics.ts` | Error parsing, VS Code diagnostic reporting |
+| `scaffold.ts` | New project scaffolding (Inkwell: New Project command) |
+| `toolchain.ts` | Pandoc/TeX binary detection and guided installation |
+
+## Key Conventions
+
+- Compilation always happens in an isolated temp directory (`getCacheDir`). The user's working tree is never written to except for the final PDF output and Inkwell’s **project-root** `.inkwell/` dirs: `outputs/<doc-key>/`, `compiled/`, `mermaid/` (see `config.getInkwellProjectRoot`, `getInkwellOutputsDir`, `getInkwellCompiledPath`).
+- `TEX_ENV` uses `buildTexInvocationPath()` from `shell-env.ts`. All `exec` calls for TeX/Pandoc use this environment, never bare `process.env`.
+- Template selection flows: YAML frontmatter `template:` field > `.inkwell/manifest.json` > default "inkwell" template.
+- Code block outputs cache by content hash under **per-document** subfolders. A block only re-runs when its source changes.
+
+## Environment
+
+- TypeScript compiled to `out/` via `tsc`.
+- `__dirname` at runtime is `<extension-root>/out/`. Built-in templates live at `path.join(__dirname, "..", "templates")`.
+- VS Code on macOS does not inherit the user's shell PATH when launched from the Dock. `shell-env.ts` adds common TeX and Node-tool locations explicitly.
+
+## Testing
+
+Run `npm run compile` after any TypeScript change. The extension loads compiled JS from `out/`; reload the VS Code window (`Developer: Reload Window`) to pick up changes.
+
+Manual compilation test for a template:
+
+```bash
+BASE="/path/to/inkwell-vscode"
+TEXINPUTS="$BASE/templates/<name>:$BASE/examples:" \
+pandoc "$BASE/examples/demo-<name>.md" \
+  -o /tmp/test.pdf \
+  --pdf-engine=<pdflatex|xelatex> \
+  --standalone \
+  --template="$BASE/templates/<name>/<name>.latex" \
+  --resource-path="$BASE/templates/<name>:$BASE/examples:$BASE/.inkwell" \
+  -V graphics=true --citeproc \
+  --bibliography="$BASE/.inkwell/references/refs.bib"
+```
+
+---
+> Source: [goldberg-consulting/measured.one.inkwell-extension](https://github.com/goldberg-consulting/measured.one.inkwell-extension) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
