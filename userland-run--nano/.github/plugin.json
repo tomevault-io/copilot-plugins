@@ -1,0 +1,9 @@
+{
+  "name": "userland-run--nano",
+  "displayName": "nano",
+  "description": "nano \u2014 Run real Node.js and other statically linked Linux binaries directly in the browser via a tiny RISC-V user-mode Linux interpreter compiled to WebAssembly. No containers. No servers. Pure client",
+  "version": "1.0.0",
+  "author": "userland-run",
+  "homepage": "https://github.com/userland-run/nano",
+  "skills": []
+}
