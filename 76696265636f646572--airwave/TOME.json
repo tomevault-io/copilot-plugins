@@ -1,0 +1,44 @@
+{
+  "name": "Airwave",
+  "owner": "76696265636f646572",
+  "repo": "Airwave",
+  "description": "Shared live audio from YouTube. Add tracks and playlists to the queue, stream to browsers and Sonos and more. ",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/76696265636f646572/Airwave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T22:56:16Z"
+}
