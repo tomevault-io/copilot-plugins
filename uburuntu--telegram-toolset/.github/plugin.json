@@ -1,0 +1,9 @@
+{
+  "name": "uburuntu--telegram-toolset",
+  "displayName": "Telegram-Toolset",
+  "description": "Download deleted messages and send them again",
+  "version": "1.0.0",
+  "author": "uburuntu",
+  "homepage": "https://github.com/uburuntu/Telegram-Toolset",
+  "skills": []
+}
