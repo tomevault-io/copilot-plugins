@@ -1,0 +1,9 @@
+{
+  "name": "mr-doosun--fastapi-agent-blueprint",
+  "displayName": "fastapi-agent-blueprint",
+  "description": "FastAPI DDD template, built for AI agent backends \u2014 zero-boilerplate CRUD, auto domain discovery, vector search infrastructure. 3 interface types + 14+ AI skills for Claude Code & Codex CLI. MCP + Pyd",
+  "version": "1.0.0",
+  "author": "Mr-DooSun",
+  "homepage": "https://github.com/Mr-DooSun/fastapi-agent-blueprint",
+  "skills": []
+}
