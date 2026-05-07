@@ -1,151 +1,175 @@
-## implementation-order
+## testing
 
-> Implementation order for new features - one class at a time
+> Testing rules and best practices
 
 
-# Implementation Order: One Class at a Time
+# Testing Rules
 
-## "One Class at a Time" Principle
+## General Principles
 
-When adding new functionality, follow **"one class at a time"** principle, starting from lower architecture layers.
+1. **TDD Approach**: Write tests before implementation
+2. **Test Coverage**: Aim for >90% code coverage
+3. **Test Isolation**: Each test must be independent
+4. **Mock External Dependencies**: Mock Git platform APIs and AI agents
+5. **Clear Test Names**: Test names should describe what is being tested
 
-## Architecture Layers (from lowest to highest)
+## Test Structure
 
-1. **Layer 1: Platform Adapters** (`coddy/adapters/`)
-2. **Layer 2: AI Agent Interface** (`coddy/agents/`)
-3. **Layer 3: Core Services** (`coddy/services/`)
-4. **Layer 4: Webhook Server** (`coddy/webhook/`)
-5. **Layer 5: Application Entry Point** (`coddy/`)
+### Test File Organization
+- Tests should mirror source code structure
+- Test file: `tests/test_<module_name>.py`
+- Test class: `Test<ClassName>` (if using classes)
+- Test function: `test_<functionality>`
 
-See @architecture.mdc for detailed layer descriptions.
+### Test Naming
+- Use descriptive names: `test_create_branch_success`, `test_create_branch_invalid_repo`
+- Use `test_` prefix for all test functions
+- Group related tests in classes if needed
 
-## Implementation Steps
+## Test Types
 
-### 1. Determine Layer
-Determine which layer the new functionality belongs to (see @architecture.mdc)
+### Unit Tests
+- Test individual components in isolation
+- Mock all external dependencies
+- Fast execution
+- Should be majority of tests
 
-### 2. Implement Class
-- Create class with minimal implementation
-- Use type hints
-- Add docstrings in English
-- Follow rules from @code-style.mdc
-- Implement abstract base class if needed
+### Integration Tests
+- Test component interactions
+- May use real adapters with test fixtures
+- Test full workflows
+- Slower than unit tests
 
-### 3. Write Tests
-- Create test file `tests/test_<module_name>.py`
-- Write minimal unit tests for class
-- Make sure tests pass
-- Follow rules from @testing.mdc
+### End-to-End Tests
+- Test complete workflows
+- Use mock Git platform APIs
+- Test webhook → issue → code → PR flow
+- Slowest tests
 
-### 4. Move to Next Layer
-Only after lower layer class is ready and tested, move to upper layer classes.
+## Mocking Guidelines
 
-## Example: Adding New Git Platform Adapter
+### Git Platform APIs
+- Always mock Git platform API calls
+- Use `unittest.mock` or `pytest-mock`
+- Create fixtures for common API responses
+- Test error cases (rate limits, network errors)
 
-### Step 1: Define Abstract Interface (if needed)
+### AI Agents
+- Mock AI agent command execution
+- Mock agent output
+- Test timeout scenarios
+- Test error handling
+
+### External Services
+- Mock all external HTTP calls
+- Mock file system operations if needed
+- Mock time-dependent operations
+
+## Test Fixtures
+
+### Pytest Fixtures
+- Use `@pytest.fixture` for reusable test data
+- Place fixtures in `tests/conftest.py`
+- Use fixtures for:
+  - Mock Git platform adapters
+  - Mock AI agents
+  - Test configuration
+  - Sample data (issues, PRs, etc.)
+
+### Example Fixture
 ```python
-# coddy/adapters/base.py
-class GitPlatformAdapter(ABC):
-    @abstractmethod
-    def create_branch(self, repo: str, branch_name: str) -> None:
-        pass
+@pytest.fixture
+def mock_github_adapter(mocker):
+    adapter = mocker.Mock(spec=GitHubAdapter)
+    adapter.get_issue.return_value = Issue(
+        number=1,
+        title="Test Issue",
+        body="Test body"
+    )
+    return adapter
 ```
 
-### Step 2: Write Tests for New Adapter
-```python
-# tests/test_adapters/test_gitlab.py
-def test_gitlab_create_branch():
-    adapter = GitLabAdapter(token="test")
-    adapter.create_branch("owner/repo", "feature-1")
-    # Assertions
+## Test Assertions
+
+- Use clear assertion messages
+- Test both success and failure cases
+- Test edge cases (empty strings, None values, etc.)
+- Test error handling and exceptions
+
+## Test Data
+
+- Use realistic test data
+- Create test data factories if needed
+- Keep test data minimal but complete
+- Use constants for repeated test data
+
+## Running Tests
+
+### Run All Tests
+```bash
+pytest tests/ -v
 ```
 
-### Step 3: Implement Adapter (Layer 1)
-```python
-# coddy/adapters/gitlab.py
-class GitLabAdapter(GitPlatformAdapter):
-    def create_branch(self, repo: str, branch_name: str) -> None:
-        """Create branch in GitLab repository."""
-        # Implementation
+### Run Specific Test
+```bash
+pytest tests/test_module.py::test_function -v
 ```
 
-### Step 4: Integration Tests
-```python
-# tests/test_services/test_code_generator.py
-def test_code_generator_with_gitlab():
-    adapter = GitLabAdapter(...)
-    generator = CodeGenerator(adapter=adapter)
-    # Test integration
+### Run with Coverage
+```bash
+pytest tests/ --cov=coddy --cov-report=html
 ```
 
-### Step 5: Use in Services (Layer 3)
-Only after adapter is ready and tested:
-```python
-# coddy/services/code_generator.py
-class CodeGenerator:
-    def __init__(self, adapter: GitPlatformAdapter):
-        self.adapter = adapter
+### Run Fast Tests Only
+```bash
+pytest tests/ -m "not slow"
 ```
 
-## Example: Adding New AI Agent
+## Test Organization
 
-### Step 1: Define Abstract Interface (if needed)
-```python
-# coddy/agents/base.py
-class AIAgent(ABC):
-    @abstractmethod
-    def generate_code(self, task: Task) -> CodeChanges:
-        pass
+### Test Directory Structure
+```
+tests/
+├── conftest.py          # Shared fixtures
+├── unit/                # Unit tests
+│   ├── test_adapters/
+│   ├── test_agents/
+│   └── test_services/
+├── integration/         # Integration tests
+└── e2e/                 # End-to-end tests
 ```
 
-### Step 2: Write Tests
-```python
-# tests/test_agents/test_custom_agent.py
-def test_custom_agent_generate_code():
-    agent = CustomAgent()
-    result = agent.generate_code(task)
-    assert result is not None
-```
+## Best Practices
 
-### Step 3: Implement Agent (Layer 2)
-```python
-# coddy/agents/custom_agent.py
-class CustomAgent(AIAgent):
-    def generate_code(self, task: Task) -> CodeChanges:
-        """Generate code using custom agent."""
-        # Implementation
-```
-
-### Step 4: Use in Services (Layer 3)
-```python
-# coddy/services/code_generator.py
-class CodeGenerator:
-    def __init__(self, agent: AIAgent):
-        self.agent = agent
-```
+1. **One assertion per test** (when possible)
+2. **Test behavior, not implementation**
+3. **Use descriptive test names**
+4. **Keep tests simple and focused**
+5. **Refactor tests along with code**
+6. **Test error paths, not just happy paths**
+7. **Use parametrize for similar tests**
+8. **Clean up after tests** (if needed)
 
 ## Forbidden
 
-❌ Implement multiple classes simultaneously
-❌ Move to upper layers before lower ones are ready
-❌ Skip writing tests
-❌ Implement functionality without understanding architecture
-❌ Depend on upper layers from lower layers
+❌ Tests that depend on external services
+❌ Tests that depend on other tests
+❌ Tests without assertions
+❌ Tests that don't actually test anything
+❌ Hardcoded credentials or tokens
 
 ## Allowed
 
-✅ Implement one class at a time
-✅ Write tests immediately before class
-✅ Use stubs for dependencies
-✅ Refactor after basic functionality works
-✅ Create abstract base classes first
-✅ Use factory pattern for creating instances
+✅ Mocked external dependencies
+✅ Independent tests
+✅ Clear test names
+✅ Test fixtures for common data
+✅ Parametrized tests for similar cases
 
 ## References
 
-@architecture.mdc
+@pytest.ini
 @code-style.mdc
-@testing.mdc
 
 ---
 > Source: [coddy-project/coddy-bot](https://github.com/coddy-project/coddy-bot) — distributed by [TomeVault](https://tomevault.io).
