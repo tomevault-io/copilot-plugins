@@ -1,0 +1,44 @@
+{
+  "name": "bastille-chain",
+  "owner": "laurentf",
+  "repo": "bastille-chain",
+  "description": "A post-quantum blockchain in Elixir/OTP with \"1789...\" addresses, 14-decimal Bastille tokens, and Blake3 Proof-of-Work mining.",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/laurentf/bastille-chain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T05:39:57Z"
+}
