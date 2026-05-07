@@ -1,0 +1,9 @@
+{
+  "name": "benjaminsehl--agent-kernel",
+  "displayName": "agent-kernel",
+  "description": "A small markdown workspace for agent memory, durable context, and reusable outputs.",
+  "version": "1.0.0",
+  "author": "benjaminsehl",
+  "homepage": "https://github.com/benjaminsehl/agent-kernel",
+  "skills": []
+}
