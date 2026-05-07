@@ -1,0 +1,757 @@
+## horcrux
+
+> **CRITICAL**: Before starting any work or making significant changes, AI assistants MUST:
+
+# Horcrux Cursor Rules
+
+## Project Documentation
+
+### Always Read README and CONTRIBUTING Guide
+**CRITICAL**: Before starting any work or making significant changes, AI assistants MUST:
+- Read `README.md` to understand the project overview, purpose, and current state
+- Read `CONTRIBUTING.md` to understand development workflows, code generation requirements, and contribution guidelines
+- Reference these documents when:
+  - Starting a new feature or task
+  - Encountering questions about project structure or conventions
+  - Needing to understand build processes or tooling
+  - Working with code generation (Freezed, build_runner, etc.)
+
+## Service and Repository Architecture
+
+### When to Use Repositories
+Create a **Repository** class when data access meets ANY of these criteria:
+- Complex caching logic (in-memory + persistence)
+- Stream management for reactive updates
+- Multiple specialized queries (e.g., by ID, by status, filtered lists)
+- Multiple services need the same data access
+- Might swap storage implementations (SharedPreferences → SQLite)
+- Would be 100+ lines of data access code
+
+**Example: VaultRepository**
+```dart
+final vaultRepositoryProvider = Provider<VaultRepository>((ref) {
+  final repository = VaultRepository();
+  ref.onDispose(() => repository.dispose());
+  return repository;
+});
+
+class VaultRepository {
+  final StreamController<List<Vault>> _controller = StreamController.broadcast();
+  List<Vault>? _cache;
+  
+  Stream<List<Vault>> get stream => _controller.stream;
+  Future<List<Vault>> getAll() async { /* load + cache */ }
+  Future<Vault?> getById(String id) async { /* query cache */ }
+  Future<void> save(Vault vault) async { /* persist + notify */ }
+}
+```
+
+### When to Use Services Only
+Use **Service-only** architecture (no repository) when:
+- Simple CRUD operations (read/write SharedPreferences)
+- Only one service needs this data
+- Minimal or no caching logic
+- No complex stream management
+- Under 100 lines of data access
+
+**Example: Service-Only Pattern**
+```dart
+final myServiceProvider = Provider<MyService>((ref) {
+  return MyService(ref.read(otherServiceProvider));
+});
+
+class MyService {
+  final OtherService _otherService;
+  MyService(this._otherService);
+  
+  Future<void> doSomething() async {
+    final prefs = await SharedPreferences.getInstance();
+    // Simple data access inline
+  }
+}
+```
+
+### Service Pattern (Business Logic)
+All services MUST:
+- Be instance classes (not static)
+- Use dependency injection via Riverpod
+- Have a corresponding Provider
+- Accept dependencies via constructor
+
+**Example: Service with Dependencies**
+```dart
+final myServiceProvider = Provider<MyService>((ref) {
+  return MyService(
+    ref.read(repositoryProvider),
+    ref.read(otherServiceProvider),
+  );
+});
+
+class MyService {
+  final MyRepository _repository;
+  final OtherService _otherService;
+  
+  MyService(this._repository, this._otherService);
+  
+  Future<Result> doBusinessLogic() async {
+    // Validation, orchestration, business rules
+    final data = await _repository.getData();
+    return _otherService.process(data);
+  }
+}
+```
+
+### Breaking Circular Dependencies
+When services depend on each other, add explicit types:
+
+```dart
+// Both providers need explicit types to break inference cycle
+final Provider<ServiceA> serviceAProvider = Provider<ServiceA>((ref) {
+  final ServiceB serviceB = ref.read(serviceBProvider);
+  return ServiceA(serviceB);
+});
+
+final Provider<ServiceB> serviceBProvider = Provider<ServiceB>((ref) {
+  final ServiceA serviceA = ref.read(serviceAProvider);
+  return ServiceB(serviceA);
+});
+```
+
+### Don't Create Thin Wrappers
+❌ **Bad: Thin repository that just delegates**
+```dart
+class KeyRepository {
+  final Ref _ref;
+  Future<String?> getKey() => KeyService.getKey();
+  Future<void> clearKey() {
+    await KeyService.clearKey();
+    _ref.invalidate(keyProvider);
+  }
+}
+```
+
+✅ **Good: Use service directly with providers**
+```dart
+final keyServiceProvider = Provider<KeyService>((ref) => KeyService());
+
+final currentKeyProvider = FutureProvider<String?>((ref) async {
+  final keyService = ref.watch(keyServiceProvider);
+  return await keyService.getCurrentKey();
+});
+```
+
+## Code Verification Requirements (MANDATORY)
+
+**CRITICAL**: AI assistants MUST verify code quality after EVERY change before responding to the user.
+
+**⚠️ REMEMBER**: Every UI change requires:
+1. Check for golden tests → Update goldens if they exist
+2. Run `dart format .` 
+3. Run ReadLints and `flutter analyze`
+4. Commit UI changes + golden images together
+
+### ⚠️ COMMIT REQUIREMENTS (ESPECIALLY FOR PRs) ⚠️
+
+**BEFORE EVERY COMMIT** (especially when working on an open PR):
+
+1. **Code Generation** ⚠️ MANDATORY - If you modified any `@freezed` classes or `@GenerateMocks` annotations:
+   - **MUST run**: `flutter pub run build_runner build --delete-conflicting-outputs`
+   - **MUST format**: `dart format .` (ALWAYS run after codegen - generated code needs formatting)
+   - **MUST commit**: Generated files with your changes
+2. **Format Code**: `dart format .` - MUST run before every commit
+3. **Check Linter**: Use ReadLints tool on modified files - MUST be clean
+4. **Run Analyzer**: `flutter analyze` - MUST show "No issues found!"
+5. **UI Changes**: If you modified ANY UI file (`lib/screens/*.dart`, `lib/widgets/*.dart`):
+   - **MUST update goldens**: `flutter test test/screens/<screen>_golden_test.dart --update-goldens` (if golden tests exist)
+   - **MUST format**: `dart format .`
+   - **MUST commit golden PNG files** with the UI changes
+6. **Build Check**: Code must compile without errors
+
+**NEVER commit**:
+- ❌ Unformatted code
+- ❌ Code with linter errors
+- ❌ Code with analyzer errors/warnings
+- ❌ UI changes without updating golden images (if golden tests exist)
+- ❌ Code that doesn't compile
+
+**For Open PRs**: Every commit MUST be production-ready:
+- Zero linter errors
+- Zero analyzer errors/warnings
+- All tests passing
+- Golden images updated (if UI changed)
+- Code formatted
+
+### Verification Checklist (Execute After Every Change)
+
+After making ANY code changes, you MUST run the following verification steps IN ORDER:
+
+0. **Code Generation** ⚠️ MANDATORY - If you modified any `@freezed` classes or `@GenerateMocks` annotations:
+   ```bash
+   # Run codegen first
+   flutter pub run build_runner build --delete-conflicting-outputs
+   # ALWAYS format after codegen
+   dart format .
+   ```
+   - **MANDATORY**: Run codegen if you modified `@freezed` classes or `@GenerateMocks` annotations
+   - **MANDATORY**: ALWAYS run `dart format .` immediately after codegen (generated code needs formatting)
+   - **MANDATORY**: Commit generated files with your changes
+   - **DO NOT skip** - missing codegen will cause build failures
+
+1. **Check Linter Errors**
+   ```bash
+   # Use ReadLints tool on all modified files
+   ReadLints(paths: ["lib/path/to/modified/file.dart"])
+   # Or check entire lib directory for comprehensive verification
+   ReadLints(paths: ["lib"])
+   ```
+   - MUST show "No linter errors found"
+   - Fix ALL errors and warnings before proceeding
+   - Re-run ReadLints after fixes to confirm
+
+2. **Verify Analyzer Passes** (when ReadLints is insufficient)
+   - ReadLints should catch most issues, but for build-breaking errors, analyzer may be needed
+   - Only if ReadLints shows clean but user reports analyzer errors
+   - Check specific error messages and fix root cause
+
+3. **Run Unit Tests** (for significant logic changes)
+   ```bash
+   # Run tests excluding golden tests
+   flutter test --exclude-tags=golden
+   ```
+   - MUST show all tests passing
+   - Fix failing tests before proceeding
+   - Update test expectations if behavior intentionally changed
+
+4. **Format Code** ⚠️ MANDATORY FOR EVERY COMMIT
+   ```bash
+   dart format .
+   ```
+   - **MANDATORY**: Run `dart format .` before EVERY commit
+   - **MANDATORY**: Especially for UI changes
+   - **MANDATORY**: ALWAYS run after codegen (see step 0 above)
+   - **DO NOT skip** - unformatted code will fail CI
+
+5. **Update Golden Tests** (for UI changes) ⚠️ MANDATORY
+   ```bash
+   # REQUIRED if you created/modified any *_golden_test.dart files
+   # REQUIRED if you modified UI screens or widgets that have golden tests
+   flutter test <path_to_golden_test_file> --update-goldens
+   ```
+   - **MANDATORY**: If you modify ANY UI file (`lib/screens/*.dart`, `lib/widgets/*.dart`), check if golden tests exist
+   - **MANDATORY**: If golden tests exist, you MUST run `--update-goldens` before committing
+   - **MANDATORY**: Commit updated golden PNG files WITH the UI changes (same commit)
+   - **MANDATORY**: Verify tests pass after updating: `flutter test`
+   - **REMINDER**: Every UI change = check for golden tests = update goldens = commit together
+   - Note: Golden tests require macOS - inform user if you can't run them
+   - **DO NOT skip this step** - it will cause CI failures
+
+### Enforcement Rules
+
+**DO NOT**:
+- ❌ Tell the user "the code is clean" without running ReadLints
+- ❌ Claim "no analyzer errors" without verification
+- ❌ Say "tests should pass" without running them
+- ❌ Mark a task complete with known linter/analyzer errors
+
+**ALWAYS**:
+- ✅ Run codegen if you modified `@freezed` classes or `@GenerateMocks` annotations
+- ✅ Run `dart format .` after codegen (MANDATORY - generated code needs formatting)
+- ✅ Run `dart format .` before EVERY commit (especially UI changes)
+- ✅ Run ReadLints on modified files after every change
+- ✅ Check for golden tests when modifying UI files
+- ✅ Update goldens BEFORE committing UI changes
+- ✅ Run analyzer before committing (especially for PRs)
+- ✅ Show verification results in your response
+- ✅ Fix all issues before claiming completion
+- ✅ Re-verify after fixes to ensure they worked
+- ✅ Inform user if verification fails and you need guidance
+
+**UI CHANGE WORKFLOW** (follow this EVERY time):
+1. Modify UI file (`lib/screens/*.dart` or `lib/widgets/*.dart`)
+2. **If you modified `@freezed` classes or `@GenerateMocks`**: Run codegen → `dart format .`
+3. Check if golden test exists: `test/screens/<screen>_golden_test.dart` or `test/widgets/<widget>_golden_test.dart`
+4. If golden test exists → Run `flutter test <test_file> --update-goldens`
+5. Run `dart format .`
+6. Run ReadLints on modified files
+7. Run `flutter analyze`
+8. Commit UI changes + golden images together
+9. Verify: `flutter test` passes
+
+### Example Verification Workflow
+
+```dart
+// 1. Make code changes
+StrReplace(...)
+
+// 2. If you modified @freezed classes or @GenerateMocks annotations:
+//    Run: flutter pub run build_runner build --delete-conflicting-outputs
+//    Run: dart format . (ALWAYS after codegen)
+
+// 3. IMMEDIATELY verify
+ReadLints(paths: ["lib/screens/my_screen.dart"])
+
+// 4. If UI file changed, check for golden tests
+// If test/screens/my_screen_golden_test.dart exists:
+//   Run: flutter test test/screens/my_screen_golden_test.dart --update-goldens
+//   Commit golden PNG files with UI changes
+
+// 5. Format code
+// Run: dart format .
+
+// 6. Run analyzer
+// Run: flutter analyze
+
+// 7. If issues found, fix them
+StrReplace(...) // fix the issues
+
+// 8. Re-verify
+ReadLints(paths: ["lib/screens/my_screen.dart"])
+
+// 9. Only NOW commit and respond to user with "✅ Verified clean"
+```
+
+### ⚠️ UI CHANGE REMINDER ⚠️
+
+**EVERY TIME you modify a UI file** (`lib/screens/*.dart` or `lib/widgets/*.dart`):
+
+1. **Check for golden tests**: Look for `test/screens/<screen>_golden_test.dart` or `test/widgets/<widget>_golden_test.dart`
+2. **If golden test exists**: 
+   - Run `flutter test <test_file> --update-goldens` BEFORE committing
+   - Commit the updated PNG files WITH your UI changes (same commit)
+3. **Always format**: Run `dart format .` before committing
+4. **Always check**: Run ReadLints and `flutter analyze` before committing
+
+**Remember**: UI change → Check for goldens → Update goldens → Format → Commit together
+
+### When Verification Fails
+
+If verification reveals errors:
+1. **Do not hide them** - inform the user immediately
+2. **Attempt to fix** the errors automatically
+3. **Re-verify** after fixes
+4. **Report results** honestly (success or remaining issues)
+5. **Ask for help** if stuck, don't pretend the issue doesn't exist
+
+This verification requirement applies to ALL code changes, no exceptions.
+
+## Nostr Key Format Conventions
+
+### Hex Format (Internal)
+- **Use hex format (64 characters, no 0x prefix) for:**
+  - All internal data storage and processing
+  - Service-to-service communication
+  - Database storage
+  - API payloads
+  - Cryptographic operations
+  - Model fields (e.g., `Steward.pubkey`, `ShardEvent.recipientPubkey`)
+
+### Bech32 Format (UI/Display)
+- **Use bech32 format (npub1..., nsec1...) for:**
+  - User interface display
+  - User input fields
+  - Logging for human readability
+  - Error messages shown to users
+  - Configuration files that users edit
+
+## Nostr Event Payload Conventions
+
+### Snake Case for Raw Nostr Events
+- **Always use snake_case (not camelCase) for JSON payloads in raw Nostr events**
+  - NDK automatically converts snake_case to camelCase when processing events
+  - This ensures consistency across the Nostr protocol
+  - Examples: `lockbox_id`, `shard_index`, `invite_code`, `confirmed_at`
+
+**Example:**
+```dart
+// ✅ Good: Use snake_case in Nostr event payloads
+final confirmationData = {
+  'type': 'shard_confirmation',
+  'vault_id': vaultId,
+  'shard_index': shardIndex,
+  'steward_pubkey': currentPubkey,
+  'confirmed_at': DateTime.now().toIso8601String(),
+};
+
+// ❌ Bad: Don't use camelCase in Nostr event payloads
+final confirmationData = {
+  'vaultId': vaultId,  // Wrong - NDK expects snake_case
+  'shardIndex': shardIndex,
+};
+```
+
+## Nostr Event Expiration
+
+### NIP-40 Expiration Tags
+- **All Nostr events published by Horcrux MUST include NIP-40 expiration tags**
+- Expiration is set to 7 days from publication time
+- Expiration tags are automatically added by `publishEncryptedEvent` and `publishEncryptedEventToMultiple`
+- Format: `['expiration', '<unix_timestamp_in_seconds>']` per NIP-40 specification
+- The expiration tag is added to the rumor event (inner event), not the gift wrap (outer event)
+- See NIP-40 for full specification details
+
+**Note:** When publishing events, you do NOT need to manually add expiration tags. They are automatically included by the publishing functions.
+
+## UI Design and Theming
+
+### Design Guide
+**IMPORTANT**: When working on UI components, screens, or styling, ALWAYS reference `DESIGN_GUIDE.md` for:
+- Color palette and usage rules
+- Typography system
+- Component patterns
+- Layout guidelines
+- Visual style principles
+
+### When to Reference DESIGN_GUIDE.md
+Read the design guide when:
+- Creating new screens or pages
+- Building new widgets or components
+- Styling existing components
+- Adding buttons or actions
+- Working with forms or lists
+- Choosing colors or fonts
+- Implementing layouts
+- Making any visual design decisions
+
+### The Monochrome Rule (Most Important!)
+**Horcrux3 uses ONLY grayscale colors** - no accent colors beyond error red
+- All UI elements use shades of gray
+- Buttons use medium grays (light: `#808080`, dark: `#404040`)
+- RowButtonStack creates monotonic gray gradients (no visual "dips")
+- High contrast between text and background in both light and dark modes
+- Never add colorful UI elements - stay monochrome
+
+### Active Theme
+The app uses the **horcrux3 theme** defined in `lib/widgets/theme.dart`
+- Stark black and white monochrome palette
+- System theme support (light and dark modes)
+- Minimal rounding (4pt for fields, 12pt for buttons)
+- Flat design with subtle shadows (2pt elevation on buttons)
+- Confident typography (Archivo for titles, Fira Sans for body)
+- Razor-thin dividers (0.5pt) between list items
+
+### Quick Design References
+- **Primary Action**: Use `RowButton` widget (outlined with gray fill, full-width, at bottom)
+- **Multiple Actions**: Use `RowButtonStack` widget (monotonic gray gradient, darker at bottom)
+- **Forms**: Match scaffold background, subtle borders, filled inputs
+- **Lists**: Use `ListView.separated` with dividers, icon containers use `surfaceContainer`
+- **AppBar**: Large (40pt), left-aligned, 100pt toolbar height, transparent surface tint
+- **Icons**: Use `onSurface` color for high contrast
+
+**Remember**: Check DESIGN_GUIDE.md for complete details before implementing any UI changes.
+
+## Automated Testing with Marionette MCP
+
+### When to Use Marionette Testing
+**CRITICAL**: When the user asks you to:
+- "test your changes"
+- "qa your changes"
+- "verify your changes"
+- "test the app"
+- "check if it works"
+- Or any similar request to verify functionality
+
+**You MUST automatically**:
+1. Launch the Flutter app in debug mode (if not already running)
+2. Connect via Marionette MCP
+3. Navigate through the app to test the changes
+4. Verify the changes work as expected
+5. Report results to the user
+
+### Marionette Testing Workflow
+
+**Step 1: Launch App (if needed)**
+```bash
+# Check if app is already running
+ps aux | grep "flutter run" | grep -v grep
+
+# If not running, launch it
+flutter run -d macos > /tmp/flutter_run.log 2>&1 &
+sleep 15  # Wait for app to start
+```
+
+**Step 2: Get VM Service URI**
+```bash
+grep -i "vm service\|ws://" /tmp/flutter_run.log | head -1
+# Look for: "A Dart VM Service on macOS is available at: http://127.0.0.1:XXXXX/XXXXX=/"
+# Convert to: ws://127.0.0.1:XXXXX/XXXXX=/ws
+```
+
+**Step 3: Connect**
+```
+mcp_horcrux_app-marionette_connect with the WebSocket URI
+```
+
+**Step 4: Test Changes**
+- Take screenshots to see current state
+- Get interactive elements to find buttons/fields
+- Navigate to the feature you changed
+- Test the functionality
+- Verify it works as expected
+
+**Step 5: Hot Reload (if code changed)**
+After making code changes, use:
+```
+mcp_horcrux_app-marionette_hot_reload
+```
+Then verify the changes are reflected in the app.
+
+### Testing Checklist
+When testing changes, verify:
+- ✅ App launches without errors
+- ✅ Navigation works correctly
+- ✅ UI elements render properly
+- ✅ User interactions work (taps, text input, etc.)
+- ✅ Changes match the intended behavior
+- ✅ No crashes or errors occur
+
+### Common Testing Scenarios
+- **UI Changes**: Navigate to the screen, verify visual changes, test interactions
+- **New Features**: Go through the complete flow, test edge cases
+- **Bug Fixes**: Reproduce the bug scenario, verify it's fixed
+- **Form Changes**: Fill out forms, submit, verify validation
+
+**Remember**: Always use Marionette MCP for Flutter app testing. See `.cursor/rules/ui-testing.mdc` for detailed instructions.
+
+## Pull Request Requirements
+
+### ⚠️ CRITICAL: BEFORE OPENING ANY PR ⚠️
+
+**MANDATORY CHECKLIST** - Complete ALL items before opening/pushing PR:
+
+1. ✅ **Code Generation**: If you modified any `@freezed` classes or `@GenerateMocks` annotations:
+   - **MUST run**: VS Code task "Codegen" or `flutter pub run build_runner build --delete-conflicting-outputs`
+
+2. ✅ **Golden Tests**: If you created/modified any `*_golden_test.dart` files, or any files imported by a golden test:
+   - **MUST run**: `flutter test <test_file> --update-goldens`
+   - **MUST commit**: The generated PNG files in `test/**/goldens/`
+   - **MUST verify**: Tests pass after updating goldens
+   - **DO NOT skip**: This will cause CI failures
+
+3. ✅ **All Tests Pass**: `flutter test` (0 failures required)
+
+4. ✅ **Analyzer Clean**: `flutter analyze` (must show "No issues found!")
+
+5. ✅ **Code Formatted**: `dart format .`
+
+6. ✅ **Linter Clean**: Use ReadLints tool on modified files
+
+7. ✅ **Marionette Testing** ⚠️ MANDATORY - Test changes in the app:
+   - Launch Flutter app in debug mode (if not already running)
+   - Connect via Marionette MCP using VM Service URI
+   - Navigate to and test all changed features
+   - Verify functionality works as expected
+   - Check for crashes, errors, or UI issues
+   - **If problems found**: Fix them, then re-run steps 1-6 above
+   - **DO NOT open PR** until Marionette testing passes
+
+8. ✅ **Bead ID in PR description**: If the change is tracked in bd, the PR description MUST include that bead's issue ID (use `bd show <id>` for the exact string). If there is no bead, state that briefly (for example "No bead — chore only").
+
+**If you skip any step, the PR will fail CI and waste reviewer time.**
+
+### Pre-PR Checklist
+Before opening a pull request, you MUST verify ALL of the following requirements:
+
+#### 1. Tests Pass
+- **Run all tests**: `flutter test`
+- All tests must pass with 0 failures
+- No skipped tests unless explicitly documented why they're skipped
+- Test coverage should not decrease for modified code
+
+#### 2. Golden Tests Updated ⚠️ MANDATORY FOR UI/TEST CHANGES
+**CRITICAL**: This step is REQUIRED, not optional. Do not skip this.
+
+**When you MUST update goldens:**
+- ✅ You created a new `*_golden_test.dart` file
+- ✅ You modified an existing `*_golden_test.dart` file  
+- ✅ You modified any UI screen/widget that has golden tests
+- ✅ You added new test scenarios to existing golden tests
+
+**Steps (MANDATORY):**
+1. **Update goldens**: `flutter test <path_to_test_file> --update-goldens`
+   - Example: `flutter test test/screens/my_screen_golden_test.dart --update-goldens`
+2. **Verify golden images created**: Check `test/**/goldens/` directory for new PNG files
+3. **Commit golden images**: `git add test/**/goldens/*.png` and commit with test code
+4. **Re-run tests**: `flutter test` to verify all tests pass (including golden tests)
+5. **DO NOT push PR** until golden images are committed and tests pass
+
+**Failure to update goldens will cause CI to fail and waste reviewer time.**
+
+#### 3. No Analyzer Errors
+- **Run analyzer**: `flutter analyze`
+- Output must show: "No issues found!"
+- Zero errors, zero warnings, zero hints
+- Do not suppress analyzer warnings with `// ignore:` comments unless absolutely necessary and documented
+
+#### 4. Code Formatting
+- **Format code**: `dart format .`
+- All code must follow Dart formatting standards
+- No manual formatting that violates `dart format` rules
+
+#### 5. Linter Compliance
+- All linter rules in `analysis_options.yaml` must be followed
+- Fix any linter warnings or errors
+- Do not disable linter rules without team discussion
+
+#### 6. Marionette Testing ⚠️ MANDATORY
+**CRITICAL**: You MUST test all changes in the running app before opening a PR.
+
+**Steps:**
+1. Launch Flutter app: `flutter run -d macos > /tmp/flutter_run.log 2>&1 &`
+2. Wait 15 seconds, then get VM Service URI: `grep -i "vm service\|ws://" /tmp/flutter_run.log | head -1`
+3. Connect via Marionette MCP (convert HTTP URI to WebSocket: `ws://127.0.0.1:XXXXX/XXXXX=/ws`)
+4. Navigate to and test ALL changed features
+5. Verify functionality works as expected
+6. Check for crashes, errors, or UI issues
+
+**If problems found:**
+- Fix the issues in code
+- Hot reload: `mcp_horcrux_app-marionette_hot_reload`
+- Re-test to verify fixes
+- Re-run all PR checks (codegen, format, analyzer, tests, linter)
+- Repeat Marionette testing until all issues resolved
+
+**DO NOT open PR** until Marionette testing passes and all issues are fixed.
+
+### Running the Complete Pre-PR Check
+Run these commands in sequence to verify all requirements:
+
+# 1. Run codegen (if you modified @freezed classes or @GenerateMocks)
+flutter pub run build_runner build --delete-conflicting-outputs
+
+# 2. Format code (ALWAYS run after codegen - generated code needs formatting)
+dart format .
+
+# 3. Run analyzer
+flutter analyze
+
+# 4. Update golden tests (if UI changes were made)
+flutter test --update-goldens
+
+# 5. Run all tests
+flutter test
+
+# 6. Verify no issues
+flutter analyze
+
+# 7. Marionette Testing (MANDATORY)
+# Launch app and test changes - see Marionette Testing Workflow section above
+```
+
+All commands must complete successfully AND Marionette testing must pass before opening a PR.
+
+### AI Assistant PR Workflow
+**CRITICAL**: AI assistants MUST complete ALL steps below before opening or pushing a PR.
+
+**MANDATORY PRE-PR CHECKLIST** (must complete ALL items):
+1. ✅ **Run codegen**: If you modified any `@freezed` classes or `@GenerateMocks` annotations:
+   - Run VS Code task "Codegen" or `flutter pub run build_runner build --delete-conflicting-outputs`
+   - **ALWAYS run `dart format .` immediately after codegen** (generated code needs formatting)
+   - Commit generated files with your changes
+2. ✅ **Format code**: `dart format .` (MUST run before every commit, MUST run after codegen)
+3. ✅ **Run analyzer**: `flutter analyze` (must show "No issues found!")
+4. ✅ **Check for UI changes**: If you modified ANY `lib/screens/*.dart` or `lib/widgets/*.dart`:
+   - Check if corresponding golden test exists
+   - If golden test exists → Run `flutter test <test_file> --update-goldens`
+   - Commit golden PNG files WITH the UI changes (same commit)
+5. ✅ **Check for golden test files**: If you created or modified any `*_golden_test.dart` files, you MUST:
+   - Run `flutter test <test_file_path> --update-goldens` to generate golden images
+   - Verify golden images were created in `test/**/goldens/` directory
+   - Commit the golden PNG files with your test code
+   - Re-run tests to verify they pass: `flutter test <test_file_path>`
+6. ✅ **Run all tests**: `flutter test` (must pass with 0 failures)
+7. ✅ **Verify no linter errors**: Use ReadLints tool on modified files
+8. ✅ **Marionette Testing** ⚠️ MANDATORY - Test changes in the app:
+   - Launch Flutter app in debug mode: `flutter run -d macos > /tmp/flutter_run.log 2>&1 &`
+   - Wait 15 seconds, then get VM Service URI: `grep -i "vm service\|ws://" /tmp/flutter_run.log | head -1`
+   - Connect via Marionette MCP (convert HTTP URI to WebSocket: `ws://127.0.0.1:XXXXX/XXXXX=/ws`)
+   - Navigate to and test ALL changed features
+   - Verify functionality works as expected
+   - Check for crashes, errors, or UI issues
+   - **If problems found**: Fix them, then re-run steps 1-7 above (including Marionette testing again)
+   - **DO NOT open/push PRs** until Marionette testing passes
+9. ✅ **Bead ID in PR description**: If the change is tracked in bd, the PR description MUST include that bead's issue ID (`bd show <id>`). If there is no bead, state that briefly.
+10. ✅ **Do NOT open/push PRs** until ALL above steps are complete
+
+**FOR EVERY COMMIT ON AN OPEN PR**:
+- ✅ Run codegen: If you modified any `@freezed` classes or `@GenerateMocks` annotations
+- ✅ Format code: `dart format .` (ALWAYS run after codegen)
+- ✅ Check linter: ReadLints on modified files
+- ✅ Run analyzer: `flutter analyze` (must be clean)
+- ✅ If UI changed: Update goldens and commit together
+- ✅ Verify build: Code must compile
+- ✅ All tests pass: `flutter test`
+- ✅ Marionette Testing: Test changes in app, fix issues if found, re-run checks
+
+**Golden Test Rule (CRITICAL - DO NOT SKIP)**:
+- If you create a new `*_golden_test.dart` file → YOU MUST update goldens BEFORE committing
+- If you modify an existing `*_golden_test.dart` file → YOU MUST update goldens BEFORE committing  
+- If you modify any UI screen/widget that has golden tests → YOU MUST update goldens BEFORE committing
+- **Never commit golden test code without the corresponding golden PNG files**
+- **Never push a PR with golden test code that hasn't been run with `--update-goldens`**
+
+**Verification Before PR**:
+Before opening/pushing a PR, verify:
+- [ ] All golden test files have corresponding PNG files in `test/**/goldens/`
+- [ ] Running `flutter test` shows all tests passing (including golden tests)
+- [ ] No new `*_golden_test.dart` files exist without their golden images committed
+- [ ] Marionette testing completed and all functionality verified
+- [ ] No crashes, errors, or UI issues found during Marionette testing
+- [ ] PR description includes the bd issue ID when work is bead-tracked (or explicitly says there is no bead)
+
+**Marionette Testing Workflow (MANDATORY for PRs)**:
+1. Launch app: `flutter run -d macos > /tmp/flutter_run.log 2>&1 &`
+2. Wait 15 seconds for app to start
+3. Get VM Service URI: `grep -i "vm service\|ws://" /tmp/flutter_run.log | head -1`
+4. Connect: Convert HTTP URI to WebSocket format (`ws://127.0.0.1:XXXXX/XXXXX=/ws`) and connect via `mcp_horcrux_app-marionette_connect`
+5. Test all changed features:
+   - Navigate to affected screens
+   - Test user interactions (taps, text input, scrolling)
+   - Verify UI renders correctly
+   - Check for crashes or errors
+6. **If problems found**:
+   - Fix the issues in code
+   - Hot reload: `mcp_horcrux_app-marionette_hot_reload`
+   - Re-test to verify fixes
+   - Re-run all PR checks (codegen, format, analyzer, tests, linter)
+   - Repeat Marionette testing until all issues resolved
+7. **Only after Marionette testing passes**: Proceed with opening PR
+
+### Common Pre-PR Issues
+
+#### Golden Test Failures
+If golden tests fail after changes:
+```bash
+# Review the failures
+flutter test
+
+# If changes are intentional, update goldens
+flutter test --update-goldens
+
+# Verify tests now pass
+flutter test
+```
+
+#### Analyzer Errors After Refactoring
+- Unused imports: Remove them
+- Missing `const` constructors: Add `const` where appropriate
+- Type errors: Ensure types are correct throughout the call chain
+- Null safety issues: Handle nullability properly
+
+#### Test Failures
+- Review test output carefully
+- Update test expectations if behavior intentionally changed
+- Fix bugs if tests reveal issues in the implementation
+- Do not skip failing tests to make CI pass
+
+### PR Description Guidelines
+When opening a PR, include:
+- **Bead**: Issue ID from bd when work is tracked there (for example `horcrux_app-tco`), or a one-line note that there is no bead
+- **What**: Brief description of changes
+- **Why**: Reason for the changes
+- **Testing**: How the changes were tested
+- **Screenshots**: For UI changes (before/after if applicable)
+- **Breaking Changes**: Document any breaking API changes
+
+---
+> Source: [mplorentz/horcrux](https://github.com/mplorentz/horcrux) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-07 -->
