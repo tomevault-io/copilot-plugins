@@ -1,0 +1,9 @@
+{
+  "name": "haemarcus--mindmirror",
+  "displayName": "MindMirror",
+  "description": "AI self-insight assistant based on personal data (RAG + Memory)",
+  "version": "1.0.0",
+  "author": "HaeMarcus",
+  "homepage": "https://github.com/HaeMarcus/MindMirror",
+  "skills": []
+}
