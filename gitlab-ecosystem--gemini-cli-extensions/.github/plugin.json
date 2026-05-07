@@ -1,0 +1,9 @@
+{
+  "name": "gitlab-ecosystem--gemini-cli-extensions",
+  "displayName": "Gemini-CLI-Extensions",
+  "description": "GitLab extensions for Gemini CLI",
+  "version": "1.0.0",
+  "author": "GitLab-Ecosystem",
+  "homepage": "https://github.com/GitLab-Ecosystem/Gemini-CLI-Extensions",
+  "skills": []
+}
