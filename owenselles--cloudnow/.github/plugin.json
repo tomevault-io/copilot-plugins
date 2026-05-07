@@ -1,0 +1,9 @@
+{
+  "name": "owenselles--cloudnow",
+  "displayName": "CloudNow",
+  "description": "A native GeForce NOW client for Apple TV and Apple Vision. Stream your entire PC game library directly on tvOS and VisionOS with full controller support, no browser, no workarounds.",
+  "version": "1.0.0",
+  "author": "owenselles",
+  "homepage": "https://github.com/owenselles/CloudNow",
+  "skills": []
+}
