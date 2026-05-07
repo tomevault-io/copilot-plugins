@@ -1,67 +1,47 @@
-## extension-architecture
+## interactive-objects
 
-> 1. `esbuild` for extension host (`src/extension.ts` → `dist/extension.js`, Node context)
+> Each object is created by a `create*()` function in `objects.ts` returning `InteractiveObject`.
 
-# Extension Architecture
+# Interactive Objects
 
-## Build Pipeline
-Two separate builds:
-1. `esbuild` for extension host (`src/extension.ts` → `dist/extension.js`, Node context)
-2. `esbuild` for webview (`webview/index.ts` → `dist/webview.js`, browser context)
+## Object Factory Pattern
+Each object is created by a `create*()` function in `objects.ts` returning `InteractiveObject`.
+The `render` function receives `(ctx, obj, tick, scale)` — it draws relative to `obj.position` using `scale`.
+`onClick` mutates `obj.state` (toggle, cycle, etc.) and can mutate `OfficeState`.
 
-These are DIFFERENT runtimes. The extension host has Node + VS Code API. The webview has DOM + Canvas.
-They communicate only via `postMessage` / `onDidReceiveMessage`.
+## Registering External Objects
+`window.agentArcade.registerObject(obj)` — lets external code inject custom objects.
+`registerBackground(bg)` — replaces floor/wall rendering with custom `BackgroundRenderer`.
+This is the extensibility API for future plugins/themes.
 
-## Webview Security
-CSP requires `script-src 'nonce-...'`. The nonce is generated per webview instance in the extension host.
-The webview HTML template injects the nonce into the script tag.
-No inline scripts, no eval, no external CDN scripts.
+## Current Objects & Their States
 
-## Agent Detection — Two Modes
+| Object | `state` key | Behavior |
+|--------|------------|----------|
+| lamp | `on: boolean` | Toggle. Sets `office.dimmed`. Flash effect on toggle. |
+| window | `open: boolean` | Toggle curtains. Sky renders day/night/sunset based on system clock. Light beam when open + daytime. |
+| arcade | `game: number` | Cycles through 3 mini-game animations (Space Invaders, Tetris, Pong). Scanline + glow effects. |
+| coffee | `steamTimer: number` | Click → steam particles rise for 3 seconds. |
+| cat | `targetCol/Row, moveTimer, nudged, purring, facingRight` | Autonomous wandering AI. Click → nudge bounce + purr hearts. |
+| plant | `stage, clicks, bounce` | Click → water. After 4 clicks → stage 1, 10 clicks → stage 2 (flowers + sparkles). |
+| watercooler | `bubbleTimer: number` | Click → rising bubbles for 2 seconds. |
+| phone | `ringing: boolean, ringTimer: number` | Vibrates when `ringing=true`. Synced with character phoning activity via message handler in `index.ts`. |
+| bookshelf | `selected, bubbleTimer, title` | Click → cycles through book titles, shows in custom wide bubble. |
+| rug | (none) | Non-interactive. Woven texture with diamond pattern and tassels. |
 
-### Mode 1: Transcript Parsing (fallback)
-- Cursor stores transcripts at `~/.cursor/projects/<workspace-hash>/agent-transcripts/`.
-- `cursorWatcher.ts` scans `~/.cursor/projects/*/agent-transcripts/` with glob.
-- Each JSONL line is `{ role, content }`. Last few lines → heuristic activity inference.
-- User line after assistant lines → immediate idle. 8-second silence → idle.
+## Hitbox Gotchas
+- Hitbox `{ w, h }` is in PIXEL space (unscaled). Hit test multiplies by `scale`.
+- Position is in TILE coords, so pixel position = `col * TILE_SIZE * scale`.
+- Small objects (cat, plant) need oversized hitboxes for usability. Aim for at least 20x14 for small items.
+- Hitbox anchors at top-left of the object's tile position.
 
-### Mode 2: Cursor Hooks (preferred)
-Cursor has a hooks API (`~/.cursor/hooks.json`) that fires shell scripts on agent events.
-
-**Hook events we use:**
-- `preToolUse` — tool_name maps to activity: Read/Glob → reading, Write/StrReplace → editing, Shell → running, Grep/SemanticSearch → searching, Task → phoning
-- `stop` — `status: "completed"|"aborted"|"error"`. Completed + did work → celebrate. Error → error reaction. Aborted → idle.
-- `beforeSubmitPrompt` — user sent message → idle
-- `subagentStart` → phoning (character picks up desk phone)
-- `subagentStop` → back to previous work activity
-
-**Files involved:**
-- `hooks/cursor-office-hook.sh` — shell script bundled with extension. Writes JSON to `/tmp/cursor-office-state.json`.
-- `src/hooksInstaller.ts` — installs/removes hooks from `~/.cursor/hooks.json`. Merges gently: checks for `cursor-office-hook` marker, only adds our entries, preserves existing hooks.
-- `cursorWatcher.ts` — on startup checks if hooks state file exists. If yes, watches it instead of transcripts.
-
-**Commands:**
-- `Cursor Office: Enable Hooks` — installs hooks, tells user to restart Cursor.
-- `Cursor Office: Disable Hooks` — removes only our hook entries, leaves others intact.
-
-**Hook installation pattern** (learned from Honcho/LangSmith):
-1. Check if `hooks.json` exists
-2. If exists, parse JSON, check for our marker
-3. If already installed, skip
-4. If not, merge our hooks into existing arrays
-5. If removing and arrays become empty, delete file
-
-## Extension Registration
-- `WebviewViewProvider` registered for view ID `agentArcade.officeView`.
-- Contributes to `panel` viewContainer (bottom panel in Cursor).
-- `package.json` must declare the view under `contributes.views.panel`.
-- Two commands registered: `cursor-office.enableHooks` and `cursor-office.disableHooks`.
-
-## Packaging
-```bash
-npm run build:webview && npm run compile && npx vsce package --no-dependencies
-```
-Produces `.vsix` file. Install with `code --install-extension agent-arcade-*.vsix` (or `cursor` CLI).
+## Adding a New Object
+1. Create sprite(s) in `sprites.ts` using `makeSprite` / `fill` / `outline`.
+2. Add factory function in `objects.ts` with position, hitbox, zY, state, onClick, render.
+3. Add to `createDefaultObjects()` array.
+4. Add entry in `OBJECT_POSITIONS` (character.ts) if the character should walk to it on click.
+5. Add corresponding waypoint in `IDLE_WAYPOINTS` if the character should visit it during idle patrol.
+6. Set `zY = (row + some_offset) * TILE_SIZE` (unscaled) for correct depth sorting.
 
 ---
 > Source: [ofershap/cursor-office](https://github.com/ofershap/cursor-office) — distributed by [TomeVault](https://tomevault.io).
