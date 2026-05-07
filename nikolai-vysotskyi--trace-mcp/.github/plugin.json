@@ -1,0 +1,9 @@
+{
+  "name": "nikolai-vysotskyi--trace-mcp",
+  "displayName": "trace-mcp",
+  "description": "MCP server for Claude Code and Codex. One tool call replaces ~42 minutes of agent exploration",
+  "version": "1.0.0",
+  "author": "nikolai-vysotskyi",
+  "homepage": "https://github.com/nikolai-vysotskyi/trace-mcp",
+  "skills": []
+}
