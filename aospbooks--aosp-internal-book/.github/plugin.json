@@ -1,0 +1,9 @@
+{
+  "name": "aospbooks--aosp-internal-book",
+  "displayName": "aosp-internal-book",
+  "description": "The book introduces the internal of AOSP",
+  "version": "1.0.0",
+  "author": "aospbooks",
+  "homepage": "https://github.com/aospbooks/aosp-internal-book",
+  "skills": []
+}
