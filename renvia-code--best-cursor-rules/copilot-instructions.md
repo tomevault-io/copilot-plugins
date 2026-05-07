@@ -1,83 +1,162 @@
-## 00-project-core
+## 01-rule-format
 
-> Core project overview for best-cursor-rules repository
+> MDC format specifications and frontmatter requirements for cursor rules
 
 
-# Best Cursor Rules - Project Core
+# Rule Format Specification
 
-## Critical Rules
+## MDC File Structure
 
-**NO UNNECESSARY FILES** - Don't create files outside the defined structure.
+Every rule file MUST have this structure:
 
-**FOLLOW MDC FORMAT** - All rules must use proper frontmatter (see 01-rule-format.mdc).
+```markdown
+---
+description: Brief explanation of what this rule does
+globs: ["**/*.tsx", "**/*.ts"]
+alwaysApply: false
+---
 
-**Current Date**: December 2025
+# Rule Title
+
+## Section 1
+Content...
+
+## Section 2
+Content...
+```
 
 ---
 
+## Frontmatter Fields
+
+| Field | Required | Type | Description |
+|-------|----------|------|-------------|
+| `description` | Yes | string | 1-2 sentence summary for AI to understand when to use |
+| `globs` | Yes | array | File patterns that trigger this rule (empty = manual) |
+| `alwaysApply` | No | boolean | If true, always included in context |
+
+### Globs Examples
+
+```yaml
+# TypeScript/React files
+globs: ["**/*.tsx", "**/*.ts"]
+
+# Python files
+globs: ["**/*.py"]
+
+# Specific directories
+globs: ["src/components/**/*", "src/hooks/**/*"]
+
+# Empty = manual activation only
+globs: []
+```
+
+---
+
+## Content Guidelines
+
+### DO
+
+```markdown
+✅ Use clear headings (##, ###)
+✅ Include practical code examples
+✅ Use tables for quick reference
+✅ Keep sections focused and scannable
+✅ Include ✅/❌ for do/don't patterns
+✅ Reference specific file paths when helpful
+```
+
+### DON'T
+
+```markdown
+❌ Write walls of text
+❌ Use vague language ("consider doing X")
+❌ Include outdated patterns
+❌ Repeat information from other rules
+❌ Use corporate/AI-slop language
+❌ Exceed 500 lines (split into multiple files)
+```
+
+---
+
+## Section Patterns
+
+### Pattern 1: Quick Reference Table
+
+```markdown
 ## Overview
 
-**Purpose**: Comprehensive collection of Cursor AI rules for developers
-**Format**: MDC files with frontmatter metadata
-**License**: CC0 (Public Domain)
-**Maintainer**: Renvia Technologies (community-focused)
-
----
-
-## Project Structure
-
-```
-best-cursor-rules/
-├── .github/assets/        # Logos for README (not for users)
-├── .cursor/rules/         # THIS repo's own rules
-├── rules/
-│   ├── frameworks/        # Next.js, React, Vue, Svelte, etc.
-│   ├── languages/         # TypeScript, Python, Go, Rust
-│   ├── backends/          # Supabase, FastAPI, Node.js
-│   ├── mobile/            # React Native, Flutter, SwiftUI
-│   ├── styling/           # Tailwind, shadcn/ui
-│   ├── testing/           # Vitest, Playwright, Jest
-│   ├── best-practices/    # Clean code, security, a11y
-│   └── stacks/            # Combined presets (T3, etc.)
-├── SETUP-WIZARD.md        # Master prompt for users
-├── README.md
-├── CONTRIBUTING.md
-└── LICENSE
+| Aspect | Recommendation |
+|--------|----------------|
+| State | Use Zustand |
+| Styling | Tailwind CSS |
+| Forms | React Hook Form + Zod |
 ```
 
+### Pattern 2: Do/Don't Examples
+
+```markdown
+## Component Patterns
+
+### ✅ DO: Use early returns
+
+```tsx
+function Component({ data }) {
+  if (!data) return null;
+  return <div>{data.name}</div>;
+}
+```
+
+### ❌ DON'T: Nested conditionals
+
+```tsx
+function Component({ data }) {
+  return (
+    <div>
+      {data && data.name && <span>{data.name}</span>}
+    </div>
+  );
+}
+```
+```
+
+### Pattern 3: Command Reference
+
+```markdown
+## Commands
+
+```bash
+npm run dev      # Start development server
+npm run build    # Production build
+npm run lint     # Check code quality
+```
+```
+
 ---
 
-## Key Files
+## File Naming
 
-| File | Purpose |
-|------|---------|
-| `SETUP-WIZARD.md` | Master prompt users paste into Cursor |
-| `README.md` | Project documentation |
-| `CONTRIBUTING.md` | How to add/edit rules |
-| `rules/**/*.mdc` | Individual cursor rules |
-
----
-
-## Naming Conventions
-
-### Rule Files
-- Use lowercase with hyphens: `nextjs-15.mdc`, `react-native.mdc`
-- Include version only for major versions: `nextjs-15.mdc` not `nextjs-15.1.0.mdc`
-- Keep names short but clear
-
-### Directories
-- Lowercase, plural: `frameworks/`, `backends/`
-- No version numbers in directories
+| Category | Pattern | Example |
+|----------|---------|---------|
+| Frameworks | `{name}-{version}.mdc` | `nextjs-15.mdc` |
+| Languages | `{name}.mdc` | `typescript.mdc` |
+| Stacks | `{name}-stack.mdc` | `t3-stack.mdc` |
+| Practices | `{topic}.mdc` | `clean-code.mdc` |
 
 ---
 
-## Core Principles
+## Quality Checklist
 
-1. **Quality over Quantity** - Each rule should be well-tested and useful
-2. **Current Versions** - Rules should target 2025 framework versions
-3. **Practical Examples** - Include real code examples, not just theory
-4. **User-Friendly** - Rules should help, not overwhelm
-5. **No AI Slop** - Write like a human, avoid corporate/AI clichés
+Before submitting a rule, verify:
+
+- [ ] Frontmatter is valid YAML
+- [ ] Description is clear and concise
+- [ ] Globs target correct file types
+- [ ] Code examples are tested and work
+- [ ] No outdated patterns (check 2025 docs)
+- [ ] Under 500 lines
+- [ ] Follows existing style patterns
+- [ ] No AI-generated filler text
 
 ---
 > Source: [Renvia-code/best-cursor-rules](https://github.com/Renvia-code/best-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
