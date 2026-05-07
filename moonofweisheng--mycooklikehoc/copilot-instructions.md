@@ -1,122 +1,98 @@
-## development-workflow
+## overview
 
-> pnpm dev:mp-weixin    # 微信小程序
+> 这是一个基于 uni-app + Vue 3 + TypeScript 的跨平台应用项目，使用 wot-design-uni 组件库构建现代化的移动应用界面。
 
-# 开发工作流规则
+# wot-starter 项目开发指南
 
-## 开发环境
+## 项目概述
+这是一个基于 uni-app + Vue 3 + TypeScript 的跨平台应用项目，使用 wot-design-uni 组件库构建现代化的移动应用界面。
 
-### 启动开发服务器
+## 规则文档索引
+
+### 🏗️ [项目结构规则](mdc:.cursor/rules/project-structure.mdc)
+- 项目整体架构和目录结构规范
+- 核心技术栈介绍
+- 文件组织和命名规范
+
+### 🛣️ [路由开发规则](mdc:.cursor/rules/route.mdc)
+- 基于文件的路由系统
+- 布局框架使用
+- 路由跳转方法
+
+### 🎨 [UI组件开发规则](mdc:.cursor/rules/ui-library.mdc)
+- 组件使用优先级
+- wot-design-uni 组件库使用
+- 自定义组件开发规范
+
+### 🌐 [API开发规则](mdc:.cursor/rules/api-development.mdc)
+- Alova 请求库使用规范
+- Mock数据管理
+- API生成和配置
+
+### 💄 [样式开发规则](mdc:.cursor/rules/styling.mdc)
+- UnoCSS 使用规范
+- 主题系统和深色模式
+- 响应式设计
+
+### 📦 [状态管理规则](mdc:.cursor/rules/state-management.mdc)
+- Pinia Store 使用规范
+- 持久化配置
+- 最佳实践
+
+### ⚡ [开发工作流规则](mdc:.cursor/rules/development-workflow.mdc)
+- 开发环境配置
+- 代码规范和Git工作流
+- 构建部署流程
+
+## 快速开始
+
+### 开发环境启动
 ```bash
-# H5开发
+# 安装依赖
+pnpm install
+
+# 启动H5开发
 pnpm dev
-pnpm dev:h5
 
-# 小程序开发
-pnpm dev:mp-weixin    # 微信小程序
-pnpm dev:mp-alipay    # 支付宝小程序
-pnpm dev:mp-baidu     # 百度小程序
-
-# App开发
-pnpm dev:app          # App
-pnpm dev:app-android  # Android
-pnpm dev:app-ios      # iOS
+# 启动微信小程序开发
+pnpm dev:mp-weixin
 ```
 
-### 代码生成
+### 常用命令
 ```bash
+# 代码检查和修复
+pnpm lint:fix
+
 # 生成API接口
-pnpm alova-gen        # 生成API
-pnpm alova-gen -f     # 强制重新生成
+pnpm alova-gen
+
+# 规范化提交
+pnpm commit
 ```
 
-## 代码规范
+## 核心特性
+- ✅ 跨平台支持 (H5/小程序/App)
+- ✅ TypeScript 全面支持
+- ✅ 基于文件的路由系统
+- ✅ 组件化开发
+- ✅ 响应式设计和主题切换
+- ✅ 状态管理和持久化
+- ✅ Mock数据和API管理
+- ✅ 代码规范和自动化工作流
 
-### ESLint配置
-- 基于 `@uni-helper/eslint-config`
-- 支持 Vue 3 + TypeScript
-- 集成 UnoCSS 规则
+## 开发原则
+1. **类型安全**: 全面使用 TypeScript
+2. **组件化**: 优先复用，合理抽象
+3. **响应式**: 适配多端和多主题
+4. **规范化**: 遵循代码规范和提交规范
+5. **性能优先**: 关注加载速度和用户体验
 
-### 代码检查命令
-```bash
-pnpm lint           # 检查代码规范
-pnpm lint:fix       # 自动修复代码规范问题
-pnpm type-check     # TypeScript类型检查
-```
-
-### Git工作流
-1. **提交前检查**: husky + lint-staged 自动检查代码
-2. **提交信息规范**: 使用 commitizen
-   ```bash
-   pnpm commit         # 规范化提交
-   # 或者
-   git-cz
-   ```
-3. **提交信息格式**: 遵循 conventional commits
-   - `feat:` 新功能
-   - `fix:` 修复bug
-   - `docs:` 文档更新
-   - `style:` 代码格式
-   - `refactor:` 代码重构
-   - `test:` 测试相关
-   - `chore:` 其他修改
-
-### 版本发布
-```bash
-pnpm release-patch    # 补丁版本 (1.0.0 -> 1.0.1)
-pnpm release-minor    # 次版本 (1.0.0 -> 1.1.0)
-pnpm release-major    # 主版本 (1.0.0 -> 2.0.0)
-```
-
-## 构建部署
-
-### 构建命令
-```bash
-# H5构建
-pnpm build
-pnpm build:h5
-pnpm build:h5:ssr     # SSR构建
-
-# 小程序构建
-pnpm build:mp-weixin
-pnpm build:mp-alipay
-
-# App构建
-pnpm build:app
-pnpm build:app-android
-pnpm build:app-ios
-```
-
-### 构建产物
-- H5: `dist/build/h5/`
-- 小程序: `dist/build/mp-weixin/` 等
-- App: `dist/build/app/`
-
-## 开发最佳实践
-
-### 文件组织
-1. 新页面在 `src/pages/` 下创建目录和 `index.vue`
-2. 复用组件放在 `src/components/`
-3. 业务逻辑封装为 composables
-4. API接口统一通过 Alova 管理
-
-### 性能优化
-1. 合理使用组件懒加载
-2. 图片资源优化和压缩
-3. 避免过度使用响应式数据
-4. 合理配置API缓存策略
-
-### 调试技巧
-1. 使用 Vue DevTools 调试组件状态
-2. 利用 uni-app 开发者工具调试小程序
-3. 使用 console.log 和断点调试
-4. 关注网络请求和性能监控
-
-### 跨平台兼容
-1. 使用 uni-app 条件编译处理平台差异
-2. 样式使用 rpx 单位适配不同屏幕
-3. API调用注意平台兼容性
-4. 测试覆盖主要目标平台
+## 技术支持
+- [uni-app 官网](mdc:https:/uniapp.dcloud.net.cn)
+- [wot-design-uni 文档](mdc:https:/wot-design-uni.cn)
+- [Vue 3 文档](mdc:https:/vuejs.org)
+- [UnoCSS 文档](mdc:https:/unocss.dev)
+- [Alova 文档](mdc:https:/alova.js.org)
 
 ---
 > Source: [Moonofweisheng/MyCookLikeHOC](https://github.com/Moonofweisheng/MyCookLikeHOC) — distributed by [TomeVault](https://tomevault.io).
