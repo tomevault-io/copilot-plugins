@@ -4,7 +4,7 @@
   "repo": "agent-diva",
   "description": "Next Generation AI Agent(AKA:nanobot-rs-pro)",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ProjectViVy/agent-diva",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T05:47:21Z"
+  "distributed_at": "2026-05-07T07:55:22Z"
 }
