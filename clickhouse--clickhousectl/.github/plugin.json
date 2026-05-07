@@ -1,0 +1,9 @@
+{
+  "name": "clickhouse--clickhousectl",
+  "displayName": "clickhousectl",
+  "description": "The CLI for ClickHouse: local and cloud.",
+  "version": "1.0.0",
+  "author": "ClickHouse",
+  "homepage": "https://github.com/ClickHouse/clickhousectl",
+  "skills": []
+}
