@@ -1,41 +1,64 @@
-## gpu
+## testing
 
-> GPU backend guidelines for skia-rs-gpu
+> Testing guidelines and patterns for skia-rs
 
 
-# GPU Backend Guidelines
+# Testing Guidelines
 
-## Feature Flags
+## Unit Tests
 
-```toml
-[features]
-default = ["wgpu-backend"]
-vulkan = ["dep:ash"]
-opengl = ["dep:glow"]
-wgpu-backend = ["dep:wgpu"]
-```
-
-## Backend Abstraction
+- Place tests in the same file as the code
+- Test edge cases and error conditions
+- Use property-based testing with `proptest` for numeric code
 
 ```rust
-pub trait GpuBackend: Send + Sync {
-    fn create_surface(&self, info: &ImageInfo) -> Result<GpuSurface, GpuError>;
-    fn flush(&self);
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn point_addition() {
+        let p1 = Point::new(1.0, 2.0);
+        let p2 = Point::new(3.0, 4.0);
+        assert_eq!(p1 + p2, Point::new(4.0, 6.0));
+    }
 }
 ```
 
-## Supported Backends
+## Property Testing
 
-- **wgpu**: Cross-platform WebGPU abstraction (default)
-- **Vulkan**: Low-level via `ash` crate
-- **OpenGL**: Via `glow` crate
-- **Metal**: macOS/iOS (planned)
+```rust
+use proptest::prelude::*;
 
-## Resource Management
+proptest! {
+    #[test]
+    fn matrix_identity_preserves_point(x in -1000.0f32..1000.0, y in -1000.0f32..1000.0) {
+        let p = Point::new(x, y);
+        let result = Matrix::IDENTITY.map_point(p);
+        prop_assert!((result.x - p.x).abs() < 1e-6);
+        prop_assert!((result.y - p.y).abs() < 1e-6);
+    }
+}
+```
 
-- Use GPU resource pools for frequently allocated objects
-- Implement proper cleanup in `Drop` traits
-- Handle device lost scenarios gracefully
+## Conformance Testing
+
+- Compare output against Skia reference implementation
+- Use the `skia/` submodule for reference
+- Document any intentional behavioral differences
+
+## Running Tests
+
+```bash
+# Run all tests
+cargo test --workspace
+
+# Run tests for a specific crate
+cargo test -p skia-rs-core
+
+# Run with output
+cargo test --workspace -- --nocapture
+```
 
 ---
 > Source: [quinnjr/skia-rs](https://github.com/quinnjr/skia-rs) — distributed by [TomeVault](https://tomevault.io).
