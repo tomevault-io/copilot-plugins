@@ -1,0 +1,44 @@
+{
+  "name": "spring-boot-nginx-websocket-rabbitmq-kafka",
+  "owner": "ivangfr",
+  "repo": "spring-boot-nginx-websocket-rabbitmq-kafka",
+  "description": "This project shows how to implement an interactive news broadcasting app. A user can post news using a REST API, and it gets sent out to users instantly through a live WebSocket connection. Users can react by liking or disliking the news, and the app keeps track of all those reactions to show the total likes and dislikes.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/ivangfr/spring-boot-nginx-websocket-rabbitmq-kafka",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T03:45:17Z"
+}
