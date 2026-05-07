@@ -1,0 +1,9 @@
+{
+  "name": "uraux--archviber",
+  "displayName": "ArchViber",
+  "description": "Visual architecture editor + AI code generation via Claude Code / Codex CLI",
+  "version": "1.0.0",
+  "author": "URaux",
+  "homepage": "https://github.com/URaux/ArchViber",
+  "skills": []
+}
