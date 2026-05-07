@@ -1,0 +1,9 @@
+{
+  "name": "automateyournetwork--geminicli-screenshare-extension",
+  "displayName": "GeminiCLI_ScreenShare_Extension",
+  "description": "Share your screen with Gemini-CLI via this extension using MCP and custom slash commands",
+  "version": "1.0.0",
+  "author": "automateyournetwork",
+  "homepage": "https://github.com/automateyournetwork/GeminiCLI_ScreenShare_Extension",
+  "skills": []
+}
