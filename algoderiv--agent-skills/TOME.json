@@ -4,7 +4,7 @@
   "repo": "agent-skills",
   "description": "Claude Code skills for China quant trading",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/algoderiv/agent-skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T08:53:44Z"
+  "distributed_at": "2026-05-07T03:56:33Z"
 }
