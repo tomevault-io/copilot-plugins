@@ -1,0 +1,9 @@
+{
+  "name": "akozlo--autointerp",
+  "displayName": "AutoInterp",
+  "description": "An LLM agent framework for automated AI interpretability research",
+  "version": "1.0.0",
+  "author": "akozlo",
+  "homepage": "https://github.com/akozlo/AutoInterp",
+  "skills": []
+}
