@@ -1,0 +1,9 @@
+{
+  "name": "iamfakeguru--agent-md",
+  "displayName": "agent-md",
+  "description": "Production-grade agent directives for autonomous coding agents: Claude Code, Codex, Cursor, Windsurf, Aider.",
+  "version": "1.0.0",
+  "author": "iamfakeguru",
+  "homepage": "https://github.com/iamfakeguru/agent-md",
+  "skills": []
+}
