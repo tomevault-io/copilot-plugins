@@ -1,0 +1,9 @@
+{
+  "name": "lastweek--spinalgpu",
+  "displayName": "SpinalGPU",
+  "description": "A Vibed GPU written in SpinalHDL",
+  "version": "1.0.0",
+  "author": "lastweek",
+  "homepage": "https://github.com/lastweek/SpinalGPU",
+  "skills": []
+}
