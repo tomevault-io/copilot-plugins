@@ -1,0 +1,114 @@
+{
+  "name": "matsuni-kk--agent-template-public",
+  "displayName": "agent_template_public",
+  "description": "Agent Template Framework for Domain-Specific Agent Generation - Public Version",
+  "version": "1.0.0",
+  "author": "matsuni-kk",
+  "homepage": "https://github.com/matsuni-kk/agent_template_public",
+  "skills": [
+    {
+      "name": "agent-deploy",
+      "description": ""
+    },
+    {
+      "name": "agent-deploy",
+      "description": ""
+    },
+    {
+      "name": "agent-deploy",
+      "description": ""
+    },
+    {
+      "name": "agent-deploy",
+      "description": ""
+    },
+    {
+      "name": "agent-discovery",
+      "description": ""
+    },
+    {
+      "name": "core-rule-maintenance",
+      "description": ""
+    },
+    {
+      "name": "domain-skills-generate",
+      "description": ""
+    },
+    {
+      "name": "domain-skills-generate",
+      "description": ""
+    },
+    {
+      "name": "domain-skills-generate",
+      "description": ""
+    },
+    {
+      "name": "domain-skills-generate",
+      "description": ""
+    },
+    {
+      "name": "post-deploy-cleanup",
+      "description": ""
+    },
+    {
+      "name": "rule-validation",
+      "description": ""
+    },
+    {
+      "name": "rule-validation",
+      "description": ""
+    },
+    {
+      "name": "rule-validation",
+      "description": ""
+    },
+    {
+      "name": "rule-validation",
+      "description": ""
+    },
+    {
+      "name": "skeleton-generate",
+      "description": ""
+    },
+    {
+      "name": "skeleton-generate",
+      "description": ""
+    },
+    {
+      "name": "skeleton-generate",
+      "description": ""
+    },
+    {
+      "name": "skeleton-generate",
+      "description": ""
+    },
+    {
+      "name": "skill-maintenance",
+      "description": ""
+    },
+    {
+      "name": "skill-maintenance",
+      "description": ""
+    },
+    {
+      "name": "subagent-generate",
+      "description": ""
+    },
+    {
+      "name": "subagent-generate",
+      "description": ""
+    },
+    {
+      "name": "subagent-generate",
+      "description": ""
+    },
+    {
+      "name": "subagent-generate",
+      "description": ""
+    },
+    {
+      "name": "subagent-maintenance",
+      "description": ""
+    }
+  ]
+}
