@@ -1,0 +1,9 @@
+{
+  "name": "goldberg-consulting--measured-one-inkwell-extension",
+  "displayName": "measured.one.inkwell-extension",
+  "description": "Inkwell: Markdown to publication-quality PDF. Live preview, Pandoc + XeLaTeX compilation, runnable code blocks, and LaTeX template management for VS Code / Cursor.",
+  "version": "1.0.0",
+  "author": "goldberg-consulting",
+  "homepage": "https://github.com/goldberg-consulting/measured.one.inkwell-extension",
+  "skills": []
+}
