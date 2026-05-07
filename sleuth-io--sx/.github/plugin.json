@@ -1,0 +1,9 @@
+{
+  "name": "sleuth-io--sx",
+  "displayName": "sx",
+  "description": "sx is a package manager for AI coding assistants",
+  "version": "1.0.0",
+  "author": "sleuth-io",
+  "homepage": "https://github.com/sleuth-io/sx",
+  "skills": []
+}
