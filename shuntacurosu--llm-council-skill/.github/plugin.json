@@ -1,0 +1,9 @@
+{
+  "name": "shuntacurosu--llm-council-skill",
+  "displayName": "llm_council_skill",
+  "description": "A Claude Skill that orchestrates multiple LLMs as a council, generating collective intelligence through peer review and chairman synthesis",
+  "version": "1.0.0",
+  "author": "shuntacurosu",
+  "homepage": "https://github.com/shuntacurosu/llm_council_skill",
+  "skills": []
+}
