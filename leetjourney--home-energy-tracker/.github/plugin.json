@@ -1,0 +1,9 @@
+{
+  "name": "leetjourney--home-energy-tracker",
+  "displayName": "home-energy-tracker",
+  "description": "Full microservices Spring Boot 4 - Home Energy Tracker",
+  "version": "1.0.0",
+  "author": "leetjourney",
+  "homepage": "https://github.com/leetjourney/home-energy-tracker",
+  "skills": []
+}
