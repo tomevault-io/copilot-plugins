@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--ultrasearch",
+  "displayName": "ultrasearch",
+  "description": "Windows desktop search engine combining NTFS MFT enumeration (instant filename search) with Tantivy full-text content indexing, in a multi-process Rust architecture",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/ultrasearch",
+  "skills": []
+}
