@@ -1,0 +1,87 @@
+{
+  "name": "claude-code-marketplace",
+  "owner": "getty104",
+  "repo": "claude-code-marketplace",
+  "description": "AI instruction skills by getty104",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "check-library",
+      "path": "base-tools/skills/check-library",
+      "github_url": "https://github.com/getty104/claude-code-marketplace/tree/main/base-tools/skills/check-library",
+      "description": ""
+    },
+    {
+      "name": "create-issue",
+      "path": "base-tools/skills/create-issue",
+      "github_url": "https://github.com/getty104/claude-code-marketplace/tree/main/base-tools/skills/create-issue",
+      "description": ""
+    },
+    {
+      "name": "create-pr",
+      "path": "base-tools/skills/create-pr",
+      "github_url": "https://github.com/getty104/claude-code-marketplace/tree/main/base-tools/skills/create-pr",
+      "description": ""
+    },
+    {
+      "name": "exec-issue",
+      "path": "base-tools/skills/exec-issue",
+      "github_url": "https://github.com/getty104/claude-code-marketplace/tree/main/base-tools/skills/exec-issue",
+      "description": ""
+    },
+    {
+      "name": "read-github-issue",
+      "path": "base-tools/skills/read-github-issue",
+      "github_url": "https://github.com/getty104/claude-code-marketplace/tree/main/base-tools/skills/read-github-issue",
+      "description": ""
+    },
+    {
+      "name": "resolve-pr-comments",
+      "path": "base-tools/skills/resolve-pr-comments",
+      "github_url": "https://github.com/getty104/claude-code-marketplace/tree/main/base-tools/skills/resolve-pr-comments",
+      "description": ""
+    },
+    {
+      "name": "update-issue",
+      "path": "base-tools/skills/update-issue",
+      "github_url": "https://github.com/getty104/claude-code-marketplace/tree/main/base-tools/skills/update-issue",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/getty104/claude-code-marketplace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T07:35:40Z"
+}
