@@ -1,0 +1,14 @@
+{
+  "name": "alexanderop--eslint-plugin-nuxt-layers",
+  "displayName": "eslint-plugin-nuxt-layers",
+  "description": "ESLint plugin to enforce Nuxt 4 layer architecture with configurable imports",
+  "version": "1.0.0",
+  "author": "alexanderop",
+  "homepage": "https://github.com/alexanderop/eslint-plugin-nuxt-layers",
+  "skills": [
+    {
+      "name": "nuxt",
+      "description": ""
+    }
+  ]
+}
