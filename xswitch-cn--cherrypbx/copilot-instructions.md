@@ -1,35 +1,39 @@
-## coding-rules
+## core-rules
 
-> Next.js + React + TypeScript coding standards
+> Core rules - always apply
 
 
-# Coding Standards
+# Core Rules
 
-## Tech Stack
+## Language
 
-- Next.js 16 (App Router)
-- React 19
-- TypeScript 5
-- Tailwind CSS v4
-- shadcn/ui (radix-nova style)
+- Commit messages must be in English
+- Documentation and comments must be in English
 
-## Code Style
+## Comments
 
-### TypeScript
+- All comments MUST be in English - no Chinese or other languages allowed
+- No obvious comments
+- Comments explain "why" not "what"
+- Do not explain code changes in comments
 
-- Enable strict mode, avoid `any` type
-- Prefer `interface` for object types
-- Explicit return types for functions
+### Examples
 
-## Post-Task
+```typescript
+// Bad - Chinese comment
+// 初始化用户数据
 
-- After completing any code changes, run `pnpm check`
+// Good - English comment explaining why
+// Pre-load user data to avoid waterfall requests on dashboard mount
 
-## Lint Rules
+// Bad - obvious comment
+// Increment counter by 1
+counter++
 
-- Always use best practices to solve problems
-- Strictly prohibited from using tricks to bypass lint
-- Strictly prohibited from modifying lint rules (such as eslint-disable, @ts-expect-error without reason, or overly broad types) to skip lint or achieve goals
+// Good - explains the business reason
+// Track daily limit to enforce free tier restrictions
+counter++
+```
 
 ---
 > Source: [xswitch-cn/CherryPBX](https://github.com/xswitch-cn/CherryPBX) — distributed by [TomeVault](https://tomevault.io).
