@@ -1,0 +1,44 @@
+{
+  "name": "AI_workshop",
+  "owner": "tlarroucau",
+  "repo": "AI_workshop",
+  "description": "ASU Workshop: Git, GitHub, and VS Code - Agentic AI for Project Management and Research Productivity. Complete reproducible research template with data analysis, LaTeX documents, and Makefile automation.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tlarroucau/AI_workshop",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T06:09:48Z"
+}
