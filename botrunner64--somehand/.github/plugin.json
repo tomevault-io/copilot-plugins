@@ -1,0 +1,9 @@
+{
+  "name": "botrunner64--somehand",
+  "displayName": "somehand",
+  "description": "retargeting human hand motion to robot hand motion",
+  "version": "1.0.0",
+  "author": "BotRunner64",
+  "homepage": "https://github.com/BotRunner64/somehand",
+  "skills": []
+}
