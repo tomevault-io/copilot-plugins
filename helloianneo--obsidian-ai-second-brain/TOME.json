@@ -1,0 +1,44 @@
+{
+  "name": "obsidian-ai-second-brain",
+  "owner": "helloianneo",
+  "repo": "obsidian-ai-second-brain",
+  "description": "Obsidian + Claude AI \u4e2a\u4eba\u77e5\u8bc6\u5e93\u5b8c\u6574\u642d\u5efa\u6307\u5357 | \u57fa\u4e8e Karpathy LLM Wiki \u65b9\u6cd5\u8bba | 4 \u9636\u6bb5 12 \u6b65 | \u4e0d\u7528\u5199\u4ee3\u7801",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/helloianneo/obsidian-ai-second-brain",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T20:57:54Z"
+}
