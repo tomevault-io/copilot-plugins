@@ -1,9 +1,9 @@
 {
   "name": "mrcalderon3d--everything-game-dev-code",
   "displayName": "everything-game-dev-code",
-  "description": "everything-game-dev-code",
+  "description": "A universal scaffold for AI-assisted game development. 42 agents, 51 commands, 86 skills. Multi-engine (Unity, Unreal, Godot, HTML). Multi-harness (Claude Code, Codex, Cursor, OpenCode, Kiro).",
   "version": "1.0.0",
   "author": "MRCalderon3D",
-  "homepage": "https://tomevault.io/claim/MRCalderon3D",
+  "homepage": "https://github.com/MRCalderon3D/everything-game-dev-code",
   "skills": []
 }
