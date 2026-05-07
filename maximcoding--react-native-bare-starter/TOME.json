@@ -1,0 +1,44 @@
+{
+  "name": "react-native-bare-starter",
+  "owner": "maximcoding",
+  "repo": "react-native-bare-starter",
+  "description": "Bare React Native starter with TypeScript, feature-first structure, TanStack Query, MMKV, i18n, theming, CI, and offline-ready support.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/maximcoding/react-native-bare-starter",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T03:51:08Z"
+}
