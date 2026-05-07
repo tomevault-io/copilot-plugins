@@ -1,0 +1,51 @@
+{
+  "name": "map-framework",
+  "owner": "azalio",
+  "repo": "map-framework",
+  "description": "AI instruction skills by azalio",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "map-planning",
+      "path": "src/mapify_cli/templates/skills/map-planning",
+      "github_url": "https://github.com/azalio/map-framework/tree/main/src/mapify_cli/templates/skills/map-planning",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/azalio/map-framework",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T09:31:15Z"
+}
