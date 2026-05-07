@@ -1,0 +1,46 @@
+{
+  "name": "emdashcodes--claude-code-plugins",
+  "displayName": "claude-code-plugins",
+  "description": "Claude Code plugins featuring specialized agents, commands, and development skills.",
+  "version": "1.0.0",
+  "author": "emdashcodes",
+  "homepage": "https://github.com/emdashcodes/claude-code-plugins",
+  "skills": [
+    {
+      "name": "claude-agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "claude-code-hooks",
+      "description": ""
+    },
+    {
+      "name": "claude-code-mcp",
+      "description": ""
+    },
+    {
+      "name": "claude-code-plugins",
+      "description": ""
+    },
+    {
+      "name": "claude-code-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-code-slash-commands",
+      "description": ""
+    },
+    {
+      "name": "claude-code-subagents",
+      "description": ""
+    },
+    {
+      "name": "docs-to-skill",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-image-editor",
+      "description": ""
+    }
+  ]
+}
