@@ -1,0 +1,51 @@
+{
+  "name": "eslint-plugin-nuxt-layers",
+  "owner": "alexanderop",
+  "repo": "eslint-plugin-nuxt-layers",
+  "description": "ESLint plugin to enforce Nuxt 4 layer architecture with configurable imports",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "nuxt",
+      "path": ".claude/skills/nuxt",
+      "github_url": "https://github.com/alexanderop/eslint-plugin-nuxt-layers/tree/main/.claude/skills/nuxt",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alexanderop/eslint-plugin-nuxt-layers",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T05:32:09Z"
+}
