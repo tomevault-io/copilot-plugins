@@ -1,0 +1,9 @@
+{
+  "name": "vertti--preflight",
+  "displayName": "preflight",
+  "description": "Validation toolkit for containers and CI. Single binary, zero dependencies.",
+  "version": "1.0.0",
+  "author": "vertti",
+  "homepage": "https://github.com/vertti/preflight",
+  "skills": []
+}
