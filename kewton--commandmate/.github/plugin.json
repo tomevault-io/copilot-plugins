@@ -1,0 +1,9 @@
+{
+  "name": "kewton--commandmate",
+  "displayName": "CommandMate",
+  "description": "Issue-driven AI development IDE for Claude Code and Codex CLI. Run multiple issues in parallel and keep work moving from desktop or mobile.",
+  "version": "1.0.0",
+  "author": "Kewton",
+  "homepage": "https://github.com/Kewton/CommandMate",
+  "skills": []
+}
