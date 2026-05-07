@@ -4,7 +4,7 @@
   "repo": "Clamper",
   "description": "The app that \"clamps\" your precious menu bar.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/validatedev/Clamper",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T08:56:11Z"
+  "distributed_at": "2026-05-07T03:58:12Z"
 }
