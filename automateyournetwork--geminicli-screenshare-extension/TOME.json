@@ -1,0 +1,44 @@
+{
+  "name": "GeminiCLI_ScreenShare_Extension",
+  "owner": "automateyournetwork",
+  "repo": "GeminiCLI_ScreenShare_Extension",
+  "description": "Share your screen with Gemini-CLI via this extension using MCP and custom slash commands",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/automateyournetwork/GeminiCLI_ScreenShare_Extension",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T12:36:10Z"
+}
