@@ -1,0 +1,9 @@
+{
+  "name": "jpantsjoha--pinescript-vscode-extension",
+  "displayName": "pinescript-vscode-extension",
+  "description": "Transform VS Code into a powerful Pine Script IDE with comprehensive v6 support, IntelliSense-quality completions, parameter hints, professional syntax highlighting, and rich documentation.",
+  "version": "1.0.0",
+  "author": "jpantsjoha",
+  "homepage": "https://github.com/jpantsjoha/pinescript-vscode-extension",
+  "skills": []
+}
