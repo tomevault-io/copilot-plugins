@@ -1,0 +1,9 @@
+{
+  "name": "eureka-0--pygnss-tec",
+  "displayName": "pygnss-tec",
+  "description": "A Python package for GNSS RINEX file reading and total electron content (TEC) calculation with Rust-accelerated performance.",
+  "version": "1.0.0",
+  "author": "eureka-0",
+  "homepage": "https://github.com/eureka-0/pygnss-tec",
+  "skills": []
+}
