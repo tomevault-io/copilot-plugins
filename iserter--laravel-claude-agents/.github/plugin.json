@@ -1,0 +1,9 @@
+{
+  "name": "iserter--laravel-claude-agents",
+  "displayName": "laravel-claude-agents",
+  "description": "Awesome Claude Code Subagents and Skills for Laravel.",
+  "version": "1.0.0",
+  "author": "iSerter",
+  "homepage": "https://github.com/iSerter/laravel-claude-agents",
+  "skills": []
+}
