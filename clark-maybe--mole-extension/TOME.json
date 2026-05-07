@@ -4,7 +4,7 @@
   "repo": "mole-extension",
   "description": "Mole - AI-powered browser assistant with workflow automation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/clark-maybe/mole-extension",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T08:38:57Z"
+  "distributed_at": "2026-05-07T02:11:51Z"
 }
