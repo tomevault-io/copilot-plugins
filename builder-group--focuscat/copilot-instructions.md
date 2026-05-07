@@ -1,39 +1,18 @@
-## swift
+## typescript
 
-> Swift and SwiftUI coding standards and style guidelines
+> TypeScript coding standards and style guidelines
 
 
-# Swift Style Guide
+# TypeScript Style Guide
 
-Swift and SwiftUI coding standards and style guidelines for our iOS codebase. These guidelines ensure consistency, maintainability, and high code quality across Swift projects.
+TypeScript coding standards and style guidelines for our codebase. These guidelines ensure consistency, maintainability, and high code quality across TypeScript projects.
 
 ## Core Principles
 
 - **KISS (Keep It Simple, Stupid)** - Always choose the simplest, most maintainable solution
-- **SwiftUI First** - Always prefer SwiftUI over UIKit when possible
+- **TypeScript First** - Always use TypeScript with strict typing (`strict: true`) everywhere
 - **Less is More** - Always avoid unnecessary complexity, the best code is no code
 - **Self-Documenting** - Always make code obvious and clear without comments
-
-## Linter Errors and False Positives
-
-### Ignoring False Positive Errors
-
-**Always ignore false positive linter errors from Cursor/VS Code** when working with Swift code. The Swift language server in VS Code/Cursor cannot properly resolve Swift symbols and dependencies that are correctly configured in Xcode.
-
-**Common false positive errors to ignore:**
-
-- `Cannot find 'X' in scope` - When X is clearly defined in the codebase
-- `Reference to member 'X' cannot be resolved without a contextual type` - When X is a valid SwiftUI/UIKit type
-- `No such module 'X'` - When the module is correctly imported in Xcode
-- `Value of type 'X' has no member 'Y'` - When Y is a valid member in Xcode
-- Any reference errors for custom views, models, or utilities that compile successfully in Xcode
-
-**Workflow:**
-
-- Use Cursor for AI assistance and code generation
-- Use Xcode for actual development and compilation
-- Only report real compilation errors from Xcode, not linter errors from Cursor/VS Code
-- Trust Xcode's build system over Cursor's language server for Swift
 
 ## File Organization
 
@@ -43,384 +22,486 @@ Swift and SwiftUI coding standards and style guidelines for our iOS codebase. Th
 - Always keep related code close together
 - Always use clear, descriptive directory names
 - Always follow consistent patterns across the project
-- Always use singular for categories/domains (e.g. `Feature/`, `Model/`, `View/`)
-- Always use plural for collections/lists (e.g. `Features/`, `Models/`, `Views/`)
+- Always use singular for categories/domains (e.g. `auth/`, `user/`, `product/`)
+- Always use plural for collections/lists (e.g. `components/`, `hooks/`, `utils/`)
 
 ✅ Good:
 
-```swift
-Tapling/
-  Features/
-    Collectible/
-      Environment/
-        Models/
-        CollectibleRegistry.swift
-      Views/
-  Routes/
-    Settings/
-      SettingsView.swift
-  Views/
-    ActionRowView.swift
+```typescript
+src/
+  auth/              # Singular: domain
+    components/      # Plural: collection
+    hooks/          # Plural: collection
+    lib/            # Singular: category
+
+  user/             # Singular: domain
+    components/     # Plural: collection
+    hooks/         # Plural: collection
+    lib/           # Singular: category
+
+  lib/             # Singular: core category
+  components/      # Plural: shared collection
+  hooks/          # Plural: shared collection
 ```
 
 ❌ Bad:
 
-```swift
-Tapling/
-  feature/           // Wrong: Should be Features (plural)
-    collectible/     // Wrong: Should be Collectible (PascalCase)
-      model/         // Wrong: Should be Models (plural)
+```typescript
+src/
+  auths/           # Wrong: Category should be singular
+    component/     # Wrong: Collection should be plural
+
+  users/          # Wrong: Category should be singular
+    hook/         # Wrong: Collection should be plural
+
+  libraries/      # Wrong: Category should be singular
+  shared-components/ # Wrong: Use simple plural
 ```
 
-### File Naming
+### Files & Directories
 
-- Always use `PascalCase` for Swift files (e.g. `SettingsView.swift`, `TaplingSettings.swift`)
-- Always match the file name to the primary type/struct/class it contains
-- Always use descriptive names that indicate purpose
+- Always use consistent and predictable naming patterns
+- Always make names descriptive and purpose-indicating
+- Always follow established community conventions
 
 ✅ Good:
 
-```swift
-SettingsView.swift        // Contains SettingsView struct
-TaplingSettings.swift     // Contains TaplingSettings class
-ActionRowView.swift       // Contains ActionRowView struct
+```typescript
+// Directories (kebab-case)
+src/
+  auth/
+  components/
+  hooks/
+  lib/
+
+// Regular Files (kebab-case)
+user-service.ts
+jwt-utils.ts
+date-formatter.ts
+api-client.ts
+
+// Component Files (PascalCase)
+UserProfileCard.tsx
+OrderSummaryTable.tsx
+PaymentMethodSelector.tsx
+ButtonPrimary.tsx
+
+// Class Files (PascalCase)
+OrderProcessor.ts
+PaymentGateway.ts
+CacheManager.ts
 ```
 
 ❌ Bad:
 
-```swift
-settings.swift           // Wrong: Should be PascalCase
-Settings.swift           // Wrong: Too generic
-View.swift               // Wrong: Not descriptive
+```typescript
+// Directories (mixed case)
+src/
+  UserManagement/     # Wrong: PascalCase directory
+  order_processing/   # Wrong: snake_case directory
+  PAYMENT/           # Wrong: UPPERCASE directory
+  Shared-Utils/      # Wrong: Mixed kebab-case and PascalCase
+
+// Files (inconsistent)
+userService.ts      # Wrong: camelCase
+USER_HELPERS.ts    # Wrong: SNAKE_CASE
+payment.utilities.ts # Wrong: dot notation
+Api.Client.ts      # Wrong: PascalCase with dots
 ```
 
-## SwiftUI View Structure
+### Code Identifiers
 
-### View Organization
-
-- Always follow the 3-layer structure: Variables → UI → Actions
-- Always use `// MARK: - UI` to separate UI components from actions
-- Always use `// MARK: - Actions` to separate actions from UI
-- Never add more than these 2 MARKs - if you need more organization, split the view
+- Always use clear, descriptive names that indicate purpose
+- Always follow TypeScript community standards
+- Always maintain consistent prefixing for special types
 
 ✅ Good:
 
-```swift
-struct SettingsView: View {
-    // Variables (no MARK needed)
-    @State private var isEnabled = false
-    @QuerySingleton private var settings: Settings
-
-    // MARK: - UI
-
-    var body: some View {
-        Form {
-            headerSection
-        }
-    }
-
-    private var headerSection: some View {
-        Section {
-            Toggle("Enabled", isOn: isEnabledBinding)
-        }
-    }
-
-    // MARK: - Actions
-
-    private func saveSettings() {
-        try? modelContext.save()
-    }
-}
-```
-
-❌ Bad:
-
-```swift
-struct SettingsView: View {
-    // MARK: - Properties  // Wrong: No MARK for variables
-    @State private var isEnabled = false
-
-    // MARK: - UI
-    var body: some View { }
-
-    // MARK: - Search UI     // Wrong: Too many MARKs
-    // MARK: - Filter UI     // Wrong: Split into separate views instead
-    // MARK: - Actions
-}
-```
-
-### View Components
-
-- Always use computed properties for view sections
-- Always use descriptive names ending with `Section`, `View`, or `Button` (e.g. `headerSection`, `settingsForm`, `saveButton`)
-- Always keep view components private unless they need to be reused elsewhere
-
-✅ Good:
-
-```swift
-private var headerSection: some View {
-    VStack {
-        Text("Title")
-    }
+```typescript
+// Variables & Functions (camelCase)
+const currentUser = getCurrentUser();
+const isValidEmail = validateEmail(email);
+function calculateTotalPrice(items: TOrderItem[]): number {
+	return items.reduce((sum, item) => sum + item.price, 0);
 }
 
-private var settingsForm: some View {
-    Form {
-        // ...
-    }
+// Interfaces (T prefix) - Always use for object shapes
+interface TUser {
+	id: string;
+	email: string;
+	profile: TUserProfile;
 }
+
+interface TOrderItem {
+	id: string;
+	productId: string;
+	quantity: number;
+	price: number;
+}
+
+// Types (T prefix) - Only use when interface is not possible
+type TOrderStatus = 'pending' | 'processing' | 'completed'; // Union
+type TUserOrNull = TUser | null; // Union with null
+type TPartialUser = Partial<TUser>; // Mapped type
+type TUserConfig = Required<TUserOptions>; // Utility type
+
+// Enums (E prefix)
+enum EOrderStatus {
+	Pending = 'pending',
+	Processing = 'processing',
+	Completed = 'completed',
+	Cancelled = 'cancelled'
+}
+
+enum EUserRole {
+	Admin = 'admin',
+	Customer = 'customer',
+	Guest = 'guest'
+}
+
+// Schemas (S prefix)
+const SUserProfile = z.object({
+	firstName: z.string().min(2),
+	lastName: z.string().min(2),
+	dateOfBirth: z.iso.datetime().optional(),
+	phoneNumber: z
+		.string()
+		.regex(/^\+?[1-9]\d{1,14}$/)
+		.optional()
+});
+
+const SOrderCreate = z.object({
+	userId: z.string().uuid(),
+	items: z.array(
+		z.object({
+			productId: z.string().uuid(),
+			quantity: z.number().int().positive()
+		})
+	)
+});
 ```
 
 ❌ Bad:
 
-```swift
-var header: some View { }        // Wrong: Not descriptive
-public var section: some View { } // Wrong: Should be private unless reused
-```
+```typescript
+// Variables & Functions (inconsistent)
+const CurrentUser = getCurrentUser();  // Wrong: PascalCase
+const valid_email = validate_email();  // Wrong: snake_case
+const CALCULATE_PRICE = () => {};      // Wrong: UPPER_CASE
 
-## Naming Conventions
+// Types & Interfaces (missing prefix or wrong keyword)
+type User = {                         // Wrong: Missing T prefix
+  ID: string;                        // Wrong: UPPER_CASE
+  Email: string;                     // Wrong: PascalCase
+};
 
-### Types and Structures
+type TOrderItem = {                   // Wrong: Use interface for objects
+  product_id: string;               // Wrong: snake_case
+  Quantity: number;                 // Wrong: PascalCase
+};
 
-- Always use `PascalCase` for types, structs, classes, enums, protocols
-- Always use descriptive names that clearly indicate purpose
-- Always prefix protocols with descriptive names (e.g. `SingletonModel`, not `Model`)
+interface TUserStatus = 'active' | 'inactive'; // Wrong: Can't use interface for unions
 
-✅ Good:
+// Enums (inconsistent)
+enum OrderStatus {                    // Wrong: Missing E prefix
+  PENDING = 'PENDING',              // Wrong: All caps
+  Processing = 'Processing',        // Wrong: PascalCase value
+  completed = 'completed'           // Wrong: camelCase
+}
 
-```swift
-struct SettingsView: View { }
-class DataContainer { }
-protocol SingletonModel { }
-enum Rarity { }
-```
-
-❌ Bad:
-
-```swift
-struct view: View { }           // Wrong: Should be PascalCase
-class container { }             // Wrong: Should be PascalCase
-protocol Model { }             // Wrong: Too generic
-```
-
-### Variables and Functions
-
-- Always use `camelCase` for variables and functions
-- Always use descriptive names that indicate purpose
-- Always use verb phrases for functions that perform actions
-- Always use noun phrases for computed properties
-
-✅ Good:
-
-```swift
-private var isEnabled = false
-private func saveSettings() { }
-private func formatDate(_ date: Date) -> String { }
-private var headerSection: some View { }
-```
-
-❌ Bad:
-
-```swift
-var enabled = false             // Wrong: Should indicate boolean
-func save() { }                // Wrong: Too generic
-func date(_ d: Date) -> String { } // Wrong: Not a verb phrase
-```
-
-### Property Wrappers
-
-- Always use appropriate property wrappers (`@State`, `@Query`, `@QuerySingleton`, `@Environment`, etc.)
-- Always make property wrapper variables `private` unless they need external access
-- Always use descriptive names that indicate the property's purpose
-
-✅ Good:
-
-```swift
-@State private var isEnabled = false
-@QuerySingleton private var settings: TaplingSettings
-@Environment(\.modelContext) private var modelContext
-```
-
-❌ Bad:
-
-```swift
-@State var enabled = false     // Wrong: Should be private
-@Query var items: [Item]       // Wrong: Should be private
+// Schemas (inconsistent)
+const userSchema = z.object({         // Wrong: Missing S prefix
+  FirstName: z.string(),            // Wrong: PascalCase
+  last_name: z.string(),            // Wrong: snake_case
+  DOB: z.iso.datetime()             // Wrong: Abbreviation
+});
 ```
 
 ## Code Style
 
-### Imports
+### Type Safety
 
-- Always import only what you need
-- Always group imports logically (Foundation, SwiftUI, SwiftData, then third-party)
-- Always use explicit imports when possible
-
-✅ Good:
-
-```swift
-import Foundation
-import SwiftData
-import SwiftUI
-import KeyboardKit
-```
-
-❌ Bad:
-
-```swift
-import *                    // Wrong: Not valid Swift
-import Foundation.SwiftUI  // Wrong: Incorrect import syntax
-```
-
-### Spacing and Formatting
-
-- Always use consistent indentation (spaces, not tabs)
-- Always add blank lines between logical sections
-- Always use trailing commas in multi-line arrays/dictionaries
-- Always format code consistently with Xcode's formatter
+- Always define explicit types for better maintainability
+- Always use TypeScript's type system to prevent runtime errors
+- Always make code intentions clear through typing
 
 ✅ Good:
 
-```swift
-let items = [
-    "item1",
-    "item2",
-    "item3",
-]
-```
-
-❌ Bad:
-
-```swift
-let items = ["item1","item2","item3"]  // Wrong: No spacing
-```
-
-### Error Handling
-
-- Always handle errors explicitly
-- Always use `try?` when errors can be safely ignored
-- Always use `do-catch` when error handling is important
-- Always provide meaningful error messages
-
-✅ Good:
-
-```swift
-do {
-    try modelContext.save()
-} catch {
-    print("Failed to save: \(error)")
-}
-
-// Or when error can be ignored
-try? modelContext.save()
-```
-
-❌ Bad:
-
-```swift
-try modelContext.save()  // Wrong: Unhandled error
-```
-
-## SwiftData Patterns
-
-### Model Definitions
-
-- Always use `@Model` macro for SwiftData models
-- Always provide default values where appropriate
-- Always use `SingletonModel` protocol for singleton models
-
-✅ Good:
-
-```swift
-@Model
-final class TaplingSettings: SingletonModel {
-    var scale: Double = 1.0
-    var position: HandPosition = .center
-
-    static var `default`: TaplingSettings {
-        TaplingSettings()
-    }
+```typescript
+async function getUser(id: string): Promise<TUser> {
+	const user = await db.users.findUnique({ where: { id } });
+	if (user == null) {
+		throw new Error('User not found');
+	}
+	return user;
 }
 ```
 
 ❌ Bad:
 
-```swift
-class TaplingSettings {  // Wrong: Missing @Model
-    var scale: Double     // Wrong: No default value
+```typescript
+async function getUser(id) {
+	const user = await db.users.findUnique({ where: { id } });
+	if (!user) throw new Error('User not found');
+	return user;
 }
 ```
 
-### Querying Data
+### Null Checks
 
-- Always use `@Query` for collections
-- Always use `@QuerySingleton` for singleton models
-- Always make query properties `private`
+- Always be explicit about null/undefined checks
+- Always handle edge cases clearly and consistently
+- Always prevent runtime null/undefined errors
 
 ✅ Good:
 
-```swift
-@Query private var collectibles: [OwnedCollectible]
-@QuerySingleton private var settings: TaplingSettings
+```typescript
+if (user == null) {
+	throw new Error('User is required');
+}
+
+const name = user.name ?? 'Anonymous';
 ```
 
 ❌ Bad:
 
-```swift
-@Query var items: [Item]  // Wrong: Should be private
+```typescript
+if (!user) {
+	throw new Error('User is required');
+}
+
+const name = user.name || 'Anonymous';
 ```
 
-## Documentation
+### Functions
 
-### Comments
-
-- Always use comments sparingly - code should be self-documenting
-- Always use `///` for documentation comments
-- Always explain "why" not "what" in comments
+- Always keep functions focused and single-purpose
+- Always use function declarations for named functions
+- Always use arrow functions only for callbacks and inline functions
 
 ✅ Good:
 
-```swift
-/// Ensures singleton models exist in the given context.
-/// Creates default instances if they don't exist.
-static func ensureSingletons(in context: ModelContext) {
-    // ...
+```typescript
+function processUser(user: TUser): void {
+	// Implementation
+}
+
+users.map((user) => user.name);
+```
+
+❌ Bad:
+
+```typescript
+const processUser = (user: TUser): void => {
+	// Implementation
+};
+
+users.map(function (user) {
+	return user.name;
+});
+```
+
+### Conditionals
+
+- Always keep conditionals simple and flat
+- Always use early returns for guard clauses (invalid states)
+- Always avoid deeply nested conditions
+- Always prefer single exit point for main flow when possible
+
+✅ Good:
+
+```typescript
+// Guard clauses for invalid states
+function processUser(user: TUser): void {
+	if (user == null) {
+		return;
+	}
+
+	if (!user.isActive) {
+		return;
+	}
+
+	processActiveUser(user);
+}
+
+// Single exit point for main flow
+async function handleMessage(ctx: TBotContext): Promise<void> {
+	const session = getSession(ctx);
+	if (session == null) {
+		return;
+	}
+
+	await processMessage(ctx);
+	await sendResponse(ctx);
+
+	const finalState = getState(ctx);
+	if (finalState.isComplete) {
+		await handleComplete(ctx);
+	}
+}
+
+// Simple boolean check
+function isValidUser(user: TUser): boolean {
+	return user != null && user.isActive;
 }
 ```
 
 ❌ Bad:
 
-```swift
-// This function ensures singletons
-// It creates default instances
-static func ensureSingletons(in context: ModelContext) {
-    // ...
+```typescript
+// Deeply nested conditions
+function processUser(user: TUser): void {
+	if (user != null) {
+		if (user.isActive) {
+			if (user.permissions != null) {
+				if (user.permissions.canEdit) {
+					processActiveUser(user);
+				}
+			}
+		}
+	}
 }
+
+// Complex nested ternary
+const userName = user
+	? user.profile
+		? user.profile.name
+			? user.profile.name
+			: 'No name'
+		: 'No profile'
+	: 'No user';
 ```
 
-## Testing
+## Code Organization
 
-### Test Structure
+### Section Markers
 
-- Always organize tests to match source structure
-- Always use descriptive test names that explain what is being tested
-- Always use `XCTest` for unit tests
+- Always use `// MARK: -` for section dividers (Xcode/IDE compatible)
+- Always place section markers at the same indentation level as the code they describe
 
 ✅ Good:
 
-```swift
-func testSettingsDefaultValues() {
-    let settings = TaplingSettings.default
-    XCTAssertEqual(settings.scale, 1.0)
+```typescript
+// MARK: - Main Class
+
+export class UserService {
+	// MARK: - Properties
+
+	private readonly db: Database;
+
+	// MARK: - Public Methods
+
+	public getUser(id: string): TUser {
+		// ...
+	}
+
+	// MARK: - Private Helpers
+
+	private validateId(id: string): boolean {
+		// ...
+	}
 }
 ```
 
 ❌ Bad:
 
-```swift
-func test1() {  // Wrong: Not descriptive
-    // ...
+```typescript
+// ============================================================================
+// Main Class
+// ============================================================================
+
+// === Properties ===
+
+// --- Public Methods ---
+```
+
+### Conditional Clarity
+
+- Always use named variables for complex conditions (self-documenting)
+- Always prefer variables over comments for explaining what a condition checks
+
+✅ Good:
+
+```typescript
+const isLargeEnough = widthPx >= minBlockPx;
+if (isLargeEnough) {
+	renderBlock(block);
 }
+
+const needsClipping = startMs < boundsStart || endMs > boundsEnd;
+if (needsClipping) {
+	return clipToBounds(block);
+}
+```
+
+❌ Bad:
+
+```typescript
+// Check if block is large enough to render
+if (widthPx >= minBlockPx) {
+	renderBlock(block);
+}
+
+// Needs clipping if outside bounds
+if (startMs < boundsStart || endMs > boundsEnd) {
+	return clipToBounds(block);
+}
+```
+
+### Array Length Checks
+
+- Always use `!array.length` for empty checks (concise, handles undefined)
+- Always use `array.length > 0` for non-empty checks (explicit intent)
+
+✅ Good:
+
+```typescript
+// Empty check - concise and handles undefined
+if (!items.length) {
+	return [];
+}
+
+// Non-empty check - explicit "has items"
+if (users.length > 0) {
+	processUsers(users);
+}
+```
+
+❌ Bad:
+
+```typescript
+// Verbose empty check
+if (items.length === 0) {
+	return [];
+}
+
+// Relies on truthiness - less explicit
+if (users.length) {
+	processUsers(users);
+}
+```
+
+## Barrel Exports
+
+- Always use `export * from` in index files
+- Always keep barrel files simple and flat
+
+✅ Good:
+
+```typescript
+// index.ts
+export * from './Button';
+export * from './Input';
+export * from './Modal';
+```
+
+❌ Bad:
+
+```typescript
+// index.ts
+export { Button } from './Button';
+export { Input } from './Input';
+export { Modal } from './Modal';
 ```
 
 ---
