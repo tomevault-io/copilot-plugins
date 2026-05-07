@@ -1,0 +1,30 @@
+## tiny-roommate
+
+> Before making product, UX, or workflow changes:
+
+# TinyRoommate Agent Guide
+
+## Read First
+
+Before making product, UX, or workflow changes:
+
+1. Read [Contributing](./.github/CONTRIBUTING.md).
+2. Read [docs/README.md](./docs/README.md).
+3. Read the relevant files in `docs/`.
+4. If the change touches custom character assets, also read [SPRITE-SPEC.md](./SPRITE-SPEC.md).
+
+Treat `docs/` as the current source of truth for product, interaction, and workflow decisions.
+
+## Repo-Specific Rules
+
+- If code changes user-facing behavior, update the relevant docs in the same change.
+- This still applies when porting, restoring, or backporting behavior from another branch or PR. Do not assume "it already exists elsewhere" means docs can be skipped here.
+- If docs are intentionally not updated, explicitly mark the PR as a docs bypass and give a reason.
+- Do not leave docs and code silently diverged.
+- `.pet-data/` is runtime data and is not checked into git.
+- `.pet-data-template/` is the tracked template copied into `.pet-data/` on first launch.
+- Follow the repo's existing Vanilla JS style: `var`/`function`, no TypeScript.
+
+---
+> Source: [ryannli/tiny-roommate](https://github.com/ryannli/tiny-roommate) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
