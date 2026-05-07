@@ -1,0 +1,30 @@
+{
+  "name": "arittr--spectacular",
+  "displayName": "spectacular",
+  "description": "\u2693\u2728 Spec-anchored, stack-driven development tools for Claude Code",
+  "version": "1.0.0",
+  "author": "arittr",
+  "homepage": "https://github.com/arittr/spectacular",
+  "skills": [
+    {
+      "name": "executing-sequential-phase",
+      "description": ""
+    },
+    {
+      "name": "testing-workflows-with-subagents",
+      "description": ""
+    },
+    {
+      "name": "using-git-spice",
+      "description": ""
+    },
+    {
+      "name": "validating-environment",
+      "description": ""
+    },
+    {
+      "name": "versioning-constitutions",
+      "description": ""
+    }
+  ]
+}
