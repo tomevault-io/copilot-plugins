@@ -1,0 +1,18 @@
+{
+  "name": "thrawn01--claude-dotfiles",
+  "displayName": "claude-dotfiles",
+  "description": "Claude Configuration Repository",
+  "version": "1.0.0",
+  "author": "thrawn01",
+  "homepage": "https://github.com/thrawn01/claude-dotfiles",
+  "skills": [
+    {
+      "name": "functional-testing",
+      "description": ""
+    },
+    {
+      "name": "makefile",
+      "description": ""
+    }
+  ]
+}
