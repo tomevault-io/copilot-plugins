@@ -1,0 +1,9 @@
+{
+  "name": "trankhanh040147--revcli",
+  "displayName": "revcli",
+  "description": "A personal LLM code reviewer that checks your local Git changes against best practices and common mistakes.",
+  "version": "1.0.0",
+  "author": "trankhanh040147",
+  "homepage": "https://github.com/trankhanh040147/revcli",
+  "skills": []
+}
