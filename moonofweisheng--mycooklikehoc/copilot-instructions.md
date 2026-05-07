@@ -1,68 +1,122 @@
-## api-development
+## development-workflow
 
-> 1. 核心实例配置在 [src/api/core/instance.ts](mdc:src/api/core/instance.ts)
+> pnpm dev:mp-weixin    # 微信小程序
 
-# API开发规则
+# 开发工作流规则
 
-## Alova请求库使用规范
+## 开发环境
 
-### 基础配置
-1. 核心实例配置在 [src/api/core/instance.ts](mdc:src/api/core/instance.ts)
-2. 全局API对象通过 [src/api/index.ts](mdc:src/api/index.ts) 导出
-3. API定义使用 [src/api/apiDefinitions.ts](mdc:src/api/apiDefinitions.ts) 管理
+### 启动开发服务器
+```bash
+# H5开发
+pnpm dev
+pnpm dev:h5
 
-### API使用方式
-```typescript
-// 导入全局API对象
-import Apis from '@/api'
+# 小程序开发
+pnpm dev:mp-weixin    # 微信小程序
+pnpm dev:mp-alipay    # 支付宝小程序
+pnpm dev:mp-baidu     # 百度小程序
 
-// 在组合式函数中使用
-const { data, loading, error, send } = useRequest(Apis.user.getUserInfo)
-
-// 直接调用
-const userInfo = await Apis.user.getUserInfo()
+# App开发
+pnpm dev:app          # App
+pnpm dev:app-android  # Android
+pnpm dev:app-ios      # iOS
 ```
 
-### Mock数据管理
-1. Mock数据存放在 `src/api/mock/modules/` 目录
-2. 按业务模块分类：
-   - [common.ts](mdc:src/api/mock/modules/common.ts) - 通用接口
-   - [user.ts](mdc:src/api/mock/modules/user.ts) - 用户相关
-   - [pet.ts](mdc:src/api/mock/modules/pet.ts) - 业务模块示例
-   - [store.ts](mdc:src/api/mock/modules/store.ts) - 商店模块示例
-
-### API生成命令
+### 代码生成
 ```bash
 # 生成API接口
-pnpm alova-gen
-
-# 强制重新生成
-pnpm alova-gen -f
+pnpm alova-gen        # 生成API
+pnpm alova-gen -f     # 强制重新生成
 ```
 
-### 配置特定API选项
-在 [src/api/index.ts](mdc:src/api/index.ts) 中的 `$$userConfigMap` 对象中配置：
-```typescript
-export const $$userConfigMap = withConfigType({
-  'api.methodName': {
-    // 响应数据转换
-    transform: (data: any) => data?.result || data,
-    // 缓存配置
-    cacheFor: 5 * 60 * 1000, // 5分钟
-  },
-})
+## 代码规范
+
+### ESLint配置
+- 基于 `@uni-helper/eslint-config`
+- 支持 Vue 3 + TypeScript
+- 集成 UnoCSS 规则
+
+### 代码检查命令
+```bash
+pnpm lint           # 检查代码规范
+pnpm lint:fix       # 自动修复代码规范问题
+pnpm type-check     # TypeScript类型检查
 ```
 
-### 错误处理
-1. 全局错误处理在 [src/api/core/handlers.ts](mdc:src/api/core/handlers.ts) 中配置
-2. 使用中间件进行请求/响应拦截
-3. 结合 GlobalToast 组件显示错误信息
+### Git工作流
+1. **提交前检查**: husky + lint-staged 自动检查代码
+2. **提交信息规范**: 使用 commitizen
+   ```bash
+   pnpm commit         # 规范化提交
+   # 或者
+   git-cz
+   ```
+3. **提交信息格式**: 遵循 conventional commits
+   - `feat:` 新功能
+   - `fix:` 修复bug
+   - `docs:` 文档更新
+   - `style:` 代码格式
+   - `refactor:` 代码重构
+   - `test:` 测试相关
+   - `chore:` 其他修改
 
-### 最佳实践
-1. 优先使用 `useRequest` hook 进行状态管理
-2. 合理配置缓存策略避免重复请求
-3. 使用 TypeScript 类型定义确保类型安全
-4. Mock数据与真实API保持一致的数据结构
+### 版本发布
+```bash
+pnpm release-patch    # 补丁版本 (1.0.0 -> 1.0.1)
+pnpm release-minor    # 次版本 (1.0.0 -> 1.1.0)
+pnpm release-major    # 主版本 (1.0.0 -> 2.0.0)
+```
+
+## 构建部署
+
+### 构建命令
+```bash
+# H5构建
+pnpm build
+pnpm build:h5
+pnpm build:h5:ssr     # SSR构建
+
+# 小程序构建
+pnpm build:mp-weixin
+pnpm build:mp-alipay
+
+# App构建
+pnpm build:app
+pnpm build:app-android
+pnpm build:app-ios
+```
+
+### 构建产物
+- H5: `dist/build/h5/`
+- 小程序: `dist/build/mp-weixin/` 等
+- App: `dist/build/app/`
+
+## 开发最佳实践
+
+### 文件组织
+1. 新页面在 `src/pages/` 下创建目录和 `index.vue`
+2. 复用组件放在 `src/components/`
+3. 业务逻辑封装为 composables
+4. API接口统一通过 Alova 管理
+
+### 性能优化
+1. 合理使用组件懒加载
+2. 图片资源优化和压缩
+3. 避免过度使用响应式数据
+4. 合理配置API缓存策略
+
+### 调试技巧
+1. 使用 Vue DevTools 调试组件状态
+2. 利用 uni-app 开发者工具调试小程序
+3. 使用 console.log 和断点调试
+4. 关注网络请求和性能监控
+
+### 跨平台兼容
+1. 使用 uni-app 条件编译处理平台差异
+2. 样式使用 rpx 单位适配不同屏幕
+3. API调用注意平台兼容性
+4. 测试覆盖主要目标平台
 
 ---
 > Source: [Moonofweisheng/MyCookLikeHOC](https://github.com/Moonofweisheng/MyCookLikeHOC) — distributed by [TomeVault](https://tomevault.io).
