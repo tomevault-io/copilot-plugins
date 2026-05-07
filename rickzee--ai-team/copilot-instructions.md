@@ -1,30 +1,41 @@
-## python-style
+## quality-pitfalls-and-deps
 
-> Python code style and conventions for ai-team
+> Quality gates, pitfalls, dependency direction, and git conventions
 
 
-# Python Style
+# Quality Gates
 
-- **Formatter**: black, line length 100
-- **Linter**: ruff (E, F, I, N, W, UP, B, C4, SIM)
-- **Type checker**: mypy strict for `src/`
-- **Line length**: 100 characters max
-- **Naming**: snake_case (functions/variables), PascalCase (classes), UPPER_SNAKE (constants)
-- **Imports**: isort profile=black; groups: stdlib → third-party → local
-- **Docstrings**: Google style on all public classes, methods, and functions
-- **Type hints**: required on all function signatures; use `from __future__ import annotations` in every file
+Before marking any phase complete: type hints on signatures; Google-style docstrings; ruff zero warnings; mypy zero errors; black applied; unit tests written and passing; integration tests updated if cross-module; security guardrails for new file/code/network ops; structlog for significant ops; settings via env where appropriate; Pydantic for all structured data.
 
-## File Header
+# Common Pitfalls
 
-Every Python file must start with a module docstring:
+1. Never use `print()` — use structlog
+2. Never bare `except:` — catch specific exceptions
+3. Never hardcode model names — read from settings
+4. Never access files outside workspace — validate paths
+5. Never use `eval()`, `exec()`, `os.system()` in tools or generated code
+6. Never skip guardrails — test that guardrails fire in tests
+7. Never use `yaml.load()` without `SafeLoader`
+8. Never store secrets in code — use environment variables
+9. Never skip type hints — mypy runs in CI
+10. Never create circular imports — follow dependency direction below
+11. Never use `subprocess.call(shell=True)` — use `shell=False` with explicit command list
+12. Never commit `.env` — only `.env.example` with placeholders
 
-```python
-"""
-Module name and one-line description.
+# Dependency Direction
 
-Detailed description of what this module does and how it fits into the system.
-"""
-```
+utils → models → guardrails → tools → agents → config → crews → flows → main/ui. Never import upward; pass as parameter.
+
+# Performance Targets
+
+Guardrail &lt;100ms; guardrail overhead &lt;10% of task time; memory op &lt;50ms; full flow mocked &lt;30s; unit tests &lt;30s; full test suite &lt;5 min.
+
+# Git Conventions
+
+- **Branches**: `feature/phase-{N}-{description}`, `fix/{description}`, `test/{description}`
+- **Commits**: Conventional Commits — `feat(scope):`, `fix(scope):`, `test(scope):`, `docs(scope):`
+- **PR**: one phase or one feature per PR
+- **Checks**: ruff, mypy, pytest (unit), pytest (integration)
 
 ---
 > Source: [RickZee/ai-team](https://github.com/RickZee/ai-team) — distributed by [TomeVault](https://tomevault.io).
