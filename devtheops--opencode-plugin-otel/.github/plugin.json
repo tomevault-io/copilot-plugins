@@ -1,0 +1,9 @@
+{
+  "name": "devtheops--opencode-plugin-otel",
+  "displayName": "opencode-plugin-otel",
+  "description": "An opencode plugin that exports telemetry via OpenTelemetry (OTLP/gRPC), mirroring the same signals as Claude Code's monitoring.",
+  "version": "1.0.0",
+  "author": "DEVtheOPS",
+  "homepage": "https://github.com/DEVtheOPS/opencode-plugin-otel",
+  "skills": []
+}
