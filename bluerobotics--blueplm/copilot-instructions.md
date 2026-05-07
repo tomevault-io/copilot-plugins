@@ -1,59 +1,186 @@
-## style
+## zustand
 
-> Code style and consistency rules
+> Zustand state management architecture and slice patterns
 
 
-# Style & Consistency
+# Zustand State Architecture
 
-## Exports
+## Single Store Pattern
 
-- **Named exports** for components and utilities (`export function Foo`)
-- **Default exports** only for Fastify route plugins (Fastify convention)
-- One primary component per file; small local helpers are fine
+BluePLM uses ONE global store (`usePDMStore`) composed of slices:
 
-## TypeScript
+```typescript
+// ✅ ALWAYS import from the main store
+import { usePDMStore } from '@/stores'
 
-- No `any` — use `unknown` + type guards, or narrow with proper types
-- `as any` only as last resort with a `// TODO: type this` comment
-- Canonical domain types live in `src/types/`; features extend with `Pick`/`Omit`/`&`, never redefine
-- `interface` for object shapes, `type` for unions and aliases
+// ❌ NEVER create new stores
+const useNewStore = create(...) // WRONG
+```
 
-## Naming
+## Creating a New Slice
 
-- **Files**: PascalCase for components (`FilePane.tsx`), camelCase for utilities/hooks (`useAuth.ts`, `mutations.ts`)
-- **Variables/functions**: camelCase
-- **Types/interfaces**: PascalCase
-- **Constants**: UPPER_SNAKE for true constants, camelCase for config objects
-- **Catch binding**: always `error` (not `err`, `e`)
+All slices live in `src/stores/slices/`. Follow this exact pattern:
 
-## Numbers and Strings
+### 1. Define Types in `src/stores/types.ts`
 
-- No magic numbers — extract to named constants (`const CONNECT_TIMEOUT_MS = 90_000`)
-- No hardcoded user-facing strings — use `t()` from `lib/i18n`
+```typescript
+export interface MyFeatureSlice {
+  // State
+  items: Item[]
+  isLoading: boolean
+  
+  // Actions
+  setItems: (items: Item[]) => void
+  addItem: (item: Item) => void
+  updateItem: (id: string, updates: Partial<Item>) => void
+  removeItem: (id: string) => void
+  clearItems: () => void
+}
+```
 
-## API Layer (`api/`)
+**Naming conventions:**
+- State: noun (`items`, `isLoading`, `selectedId`)
+- Setters: `set` + noun (`setItems`, `setIsLoading`)
+- Mutations: verb + noun (`addItem`, `removeItem`, `updateItem`)
+- Bulk clear: `clear` + noun (`clearItems`)
 
-- Error responses use SCREAMING_SNAKE codes: `VALIDATION_ERROR`, `NOT_FOUND`, `UNAUTHORIZED`, `FORBIDDEN`, `INTERNAL_ERROR`
-- Use shared `sendError(reply, statusCode, code, message?)` — never inline `reply.code().send({ error })`
-- No semicolons (match the majority style)
+### 2. Create Slice in `src/stores/slices/myFeatureSlice.ts`
 
-## Imports (all files)
+```typescript
+import { StateCreator } from 'zustand'
+import type { PDMStoreState, MyFeatureSlice } from '../types'
 
-1. External packages (`react`, `zustand`, `fastify`)
-2. Internal aliases (`@/lib`, `@/stores`, `@/components`)
-3. Relative (`./`, `../`)
+export const createMyFeatureSlice: StateCreator<
+  PDMStoreState,
+  [['zustand/persist', unknown]],
+  [],
+  MyFeatureSlice
+> = (set, get) => ({
+  // Initial state
+  items: [],
+  isLoading: false,
+  
+  // Actions
+  setItems: (items) => set({ items }),
+  
+  addItem: (item) => set((s) => ({ 
+    items: [...s.items, item] 
+  })),
+  
+  updateItem: (id, updates) => set((s) => ({
+    items: s.items.map(i => i.id === id ? { ...i, ...updates } : i)
+  })),
+  
+  removeItem: (id) => set((s) => ({
+    items: s.items.filter(i => i.id !== id)
+  })),
+  
+  clearItems: () => set({ items: [], isLoading: false })
+})
+```
 
-Blank line between each group.
+### 3. Register in `src/stores/slices/index.ts`
 
-## General
+```typescript
+export { createMyFeatureSlice } from './myFeatureSlice'
+```
 
-- File size tiers (excluding generated files like `supabase.ts`):
-  - **< 600 lines** — normal, no action needed
-  - **600–1,000 lines** — review on next touch; consider splitting if logic is separable
-  - **1,000–1,500 lines** — should be split; extract sub-hooks, sub-components, or utilities
-  - **> 1,500 lines** — must be split before adding new functionality
-- No `console.log` in production code — use `log.*` (Pino) in API, `log.*` in Electron
-- Prefer Tailwind classes over inline `style={{ }}`; inline styles acceptable only for truly dynamic values (runtime-computed positions, user-set colors)
+### 4. Add to Combined Store in `src/stores/pdmStore.ts`
+
+```typescript
+import { createMyFeatureSlice } from './slices'
+
+export const usePDMStore = create<PDMStoreState>()(
+  persist(
+    (...a) => ({
+      ...createToastsSlice(...a),
+      // ... existing slices ...
+      ...createMyFeatureSlice(...a),  // ADD HERE
+    }),
+    // ... persist config
+  )
+)
+```
+
+### 5. Add to Combined Type in `src/stores/types.ts`
+
+```typescript
+export type PDMStoreState = 
+  ToastsSlice & 
+  // ... existing slices ...
+  MyFeatureSlice  // ADD HERE
+```
+
+### 6. Configure Persistence (if needed)
+
+In `pdmStore.ts`, add to `partialize`:
+
+```typescript
+partialize: (state) => ({
+  // ... existing fields ...
+  items: state.items,  // ADD fields to persist
+})
+```
+
+## Using State in Components
+
+### Basic Selectors
+
+```typescript
+// ✅ Select only what you need (prevents re-renders)
+const items = usePDMStore(state => state.items)
+const addItem = usePDMStore(state => state.addItem)
+
+// ✅ Multiple selectors for unrelated state
+const user = usePDMStore(s => s.user)
+const theme = usePDMStore(s => s.theme)
+
+// ❌ NEVER select entire store
+const store = usePDMStore()  // WRONG - re-renders on ANY change
+```
+
+### Memoized Selectors for Derived State
+
+Add complex selectors to `src/stores/selectors.ts`:
+
+```typescript
+export function useFilteredItems() {
+  const items = usePDMStore(s => s.items)
+  const filter = usePDMStore(s => s.filter)
+  
+  return useMemo(
+    () => items.filter(i => i.category === filter),
+    [items, filter]
+  )
+}
+```
+
+### Accessing State Outside React
+
+```typescript
+// For async operations, callbacks, etc.
+const { items, addItem } = usePDMStore.getState()
+```
+
+## State Categories
+
+| Scope | Use | Persist? |
+|-------|-----|----------|
+| User preferences | Zustand | ✅ Yes |
+| UI layout | Zustand | ✅ Yes |
+| Session data | Zustand | ❌ No |
+| Form state | `useState` | ❌ No |
+| Server cache | React Query (future) | ❌ No |
+
+## Checklist for New Slices
+
+- [ ] Types defined in `src/stores/types.ts`
+- [ ] Slice created in `src/stores/slices/`
+- [ ] Exported from `src/stores/slices/index.ts`
+- [ ] Added to `PDMStoreState` type union
+- [ ] Added to store composition in `pdmStore.ts`
+- [ ] Persistence configured if needed
+- [ ] Memoized selectors added if complex filtering needed
 
 ---
 > Source: [bluerobotics/bluePLM](https://github.com/bluerobotics/bluePLM) — distributed by [TomeVault](https://tomevault.io).
