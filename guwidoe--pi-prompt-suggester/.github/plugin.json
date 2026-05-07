@@ -1,0 +1,9 @@
+{
+  "name": "guwidoe--pi-prompt-suggester",
+  "displayName": "pi-prompt-suggester",
+  "description": "A pi extension that suggests the user's likely next prompt.",
+  "version": "1.0.0",
+  "author": "guwidoe",
+  "homepage": "https://github.com/guwidoe/pi-prompt-suggester",
+  "skills": []
+}
