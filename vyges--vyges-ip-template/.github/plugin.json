@@ -1,0 +1,9 @@
+{
+  "name": "vyges--vyges-ip-template",
+  "displayName": "vyges-ip-template",
+  "description": "\ud83e\udde9 Starter template for ASIC hardware IP blocks with Vyges metadata, OpenLane integration, and comprehensive documentation",
+  "version": "1.0.0",
+  "author": "vyges",
+  "homepage": "https://github.com/vyges/vyges-ip-template",
+  "skills": []
+}
