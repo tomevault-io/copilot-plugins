@@ -1,0 +1,9 @@
+{
+  "name": "jxin-cai--velpos",
+  "displayName": "velpos",
+  "description": "Rapidly build a multi-Agent management dashboard based on Claude Code, integrating daily work and remote IM collaboration. It includes Claude Code monitoring, channel configuration and message notific",
+  "version": "1.0.0",
+  "author": "Jxin-Cai",
+  "homepage": "https://github.com/Jxin-Cai/velpos",
+  "skills": []
+}
