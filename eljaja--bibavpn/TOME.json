@@ -1,0 +1,44 @@
+{
+  "name": "BibaVPN",
+  "owner": "Eljaja",
+  "repo": "BibaVPN",
+  "description": "DPI-resistant SOCKS5/HTTP tunnel over TLS+WebSocket for self-hosted single-VPS setups",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Eljaja/BibaVPN",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T09:37:35Z"
+}
