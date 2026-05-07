@@ -1,0 +1,9 @@
+{
+  "name": "agneym--pi-honcho-memory",
+  "displayName": "pi-honcho-memory",
+  "description": "Honcho persistent memory extension for pi coding agent",
+  "version": "1.0.0",
+  "author": "agneym",
+  "homepage": "https://github.com/agneym/pi-honcho-memory",
+  "skills": []
+}
