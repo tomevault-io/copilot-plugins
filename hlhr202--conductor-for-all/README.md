@@ -7,11 +7,11 @@ Bring the Conductor spec-driven development methodology to any coding environmen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [hlhr202/Conductor-for-all](https://github.com/hlhr202/Conductor-for-all).
+Original source: `CLAUDE.md` in [hlhr202/Conductor-for-all](https://github.com/hlhr202/Conductor-for-all).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
