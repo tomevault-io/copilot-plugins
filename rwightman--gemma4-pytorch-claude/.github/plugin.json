@@ -1,0 +1,9 @@
+{
+  "name": "rwightman--gemma4-pytorch-claude",
+  "displayName": "gemma4_pytorch_claude",
+  "description": "Standalone Gemma 4 PyTorch Model using Claude Code",
+  "version": "1.0.0",
+  "author": "rwightman",
+  "homepage": "https://github.com/rwightman/gemma4_pytorch_claude",
+  "skills": []
+}
