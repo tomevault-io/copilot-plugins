@@ -1,16 +1,35 @@
-## cherrypbx
+## coding-rules
 
-> - Read `.cursor/rules/core-rules.mdc` first
+> Next.js + React + TypeScript coding standards
 
-# Agent Rules Index
 
-## Required (Always Apply)
+# Coding Standards
 
-- Read `.cursor/rules/core-rules.mdc` first
+## Tech Stack
 
-## Contextual Rules
+- Next.js 16 (App Router)
+- React 19
+- TypeScript 5
+- Tailwind CSS v4
+- shadcn/ui (radix-nova style)
 
-- If you are writing code, read `.cursor/rules/coding-rules.mdc`
+## Code Style
+
+### TypeScript
+
+- Enable strict mode, avoid `any` type
+- Prefer `interface` for object types
+- Explicit return types for functions
+
+## Post-Task
+
+- After completing any code changes, run `pnpm check`
+
+## Lint Rules
+
+- Always use best practices to solve problems
+- Strictly prohibited from using tricks to bypass lint
+- Strictly prohibited from modifying lint rules (such as eslint-disable, @ts-expect-error without reason, or overly broad types) to skip lint or achieve goals
 
 ---
 > Source: [xswitch-cn/CherryPBX](https://github.com/xswitch-cn/CherryPBX) — distributed by [TomeVault](https://tomevault.io).
