@@ -1,0 +1,9 @@
+{
+  "name": "pinsky-three--vibe-graph",
+  "displayName": "vibe-graph",
+  "description": "A local-first neural OS for software projects, where a living source code graph and AI agents continuously evolve your code, with Git as the fossil record.",
+  "version": "1.0.0",
+  "author": "pinsky-three",
+  "homepage": "https://github.com/pinsky-three/vibe-graph",
+  "skills": []
+}
