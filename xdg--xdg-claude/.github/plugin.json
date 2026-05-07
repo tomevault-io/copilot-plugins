@@ -1,0 +1,22 @@
+{
+  "name": "xdg--xdg-claude",
+  "displayName": "xdg-claude",
+  "description": "Plugins for Claude Code",
+  "version": "1.0.0",
+  "author": "xdg",
+  "homepage": "https://github.com/xdg/xdg-claude",
+  "skills": [
+    {
+      "name": "ast-grep",
+      "description": ""
+    },
+    {
+      "name": "code-structure",
+      "description": ""
+    },
+    {
+      "name": "jira-cli",
+      "description": ""
+    }
+  ]
+}
