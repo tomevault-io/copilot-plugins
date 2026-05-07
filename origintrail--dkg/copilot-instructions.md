@@ -1,55 +1,68 @@
-## dkg-annotate
+## mermaid-diagram-preset
 
-> Annotate every chat turn into the DKG project's chat sub-graph via the dkg MCP tools so shared project memory grows organically and stays navigable.
+> Mermaid sequence diagram preset for all Markdown docs in this repo. Gives rectangles and notes enough breathing room that they don't overlap the arrows around them.
 
 
-# DKG annotation protocol
+# Mermaid Sequence Diagram Preset
 
-This workspace is bound to a DKG context graph. Use the `dkg` MCP server to keep the graph rich and convergent.
+Every Mermaid **sequence diagram** in this repo MUST start with the shared init directive below. Mermaid's defaults are too tight: `rect` borders collide with adjacent arrows, stacked `Note` pills overlap each other, and multi-participant diagrams get cramped horizontally.
 
-## After every substantive turn
-
-Call **`dkg_annotate_turn`** exactly once. A turn is "substantive" if it reasoned, proposed, examined, or referenced something — basically every turn that wasn't a one-line acknowledgement. Over-eagerness is not a failure mode; under-coverage is.
-
-**Always pass `forSession`.** The session ID is in the session-start `additionalContext` ("Your current session ID: `<id>`"). Race-free deferred rendezvous: the tool queues the annotation, the capture hook applies it to your actual turn URI when it writes the next `chat:Turn` for the session. Never try to predict your own turn URI — it doesn't exist yet.
-
-Minimum payload:
-
-```jsonc
-dkg_annotate_turn({
-  forSession: "<session id from additionalContext>",
-  topics:   [<2-3 short topic strings>],
-  mentions: [<URIs found via dkg_search; mint fresh ones if no match>]
-})
-```
-
-Add `examines` / `proposes` / `concludes` / `asks` / `proposedDecisions` / `proposedTasks` / `comments` / `vmPublishRequests` when the turn warrants them. The full schema is in the agent guide returned by `dkg_get_ontology`.
-
-## Look-before-mint protocol (the convergence rule)
-
-Before minting any new `urn:dkg:<type>:<slug>` URI:
-
-1. Compute the normalised slug: `lowercase → ASCII-fold → strip stopwords (the/a/an/of/for/and/or/to/in/on/with) → hyphenate → ≤60 chars`.
-2. Call `dkg_search` with the unnormalised label.
-3. If any result's normalised slug matches yours, **REUSE** that URI.
-4. Otherwise mint fresh per the URI patterns below. **Never fabricate URIs** for entities that don't exist yet.
-
-## URI patterns
+## The preset
 
 ```
-urn:dkg:concept:<slug>      free-text concept (skos:Concept)
-urn:dkg:topic:<slug>        broad topical bucket
-urn:dkg:question:<slug>     open question
-urn:dkg:finding:<slug>      preserved claim/observation
-urn:dkg:decision:<slug>     architectural decision
-urn:dkg:task:<slug>         work item
+%%{init: { 'sequence': { 'messageMargin': 55, 'noteMargin': 15, 'boxMargin': 15, 'actorMargin': 70 } } }%%
+sequenceDiagram
+    ...
+```
+
+For diagrams with **nested `rect` blocks** (e.g., phase-based lifecycle diagrams), bump `boxMargin` to `20`:
+
+```
+%%{init: { 'sequence': { 'messageMargin': 55, 'noteMargin': 15, 'boxMargin': 20, 'actorMargin': 70 } } }%%
+```
+
+## Why these numbers
+
+| Setting         | Default | Preset | Effect |
+| --------------- | ------- | ------ | ------ |
+| `messageMargin` | 35      | **55** | Vertical spacing between arrows. Main anti-overlap lever. |
+| `noteMargin`    | 10      | **15** | Padding inside `Note` pills so text doesn't crowd borders. |
+| `boxMargin`     | 10      | **15** (20 for nested `rect`) | Space around `rect` blocks so they don't kiss neighboring arrows. |
+| `actorMargin`   | 50      | **70** | Horizontal spacing between participant columns. |
+
+## Companion rules (learned the hard way)
+
+These rules keep diagrams readable beyond the preset:
+
+- **Do not use `<br/>` inside notes.** Split into multiple `Note over X:` lines or collapse into a single sentence. `<br/>` works but produces hard-to-read dense pills.
+- **Avoid stacking 3+ consecutive `Note over X:` on the same participant.** Mermaid renders each as a separate pill; they frequently overlap neighboring `rect` borders. Collapse into one concise sentence, or intersperse with arrows.
+- **Do not indent multi-line math inside a `Note`** (e.g., `"                      = 840e18 · 1e18 / 8000"`). Mermaid preserves the whitespace and widens the pill, causing horizontal collisions. Put the math on one line or use a `pre`-style code block outside the diagram.
+
+- **Avoid `=` inside participant aliases.** `participant X as X (id=42)` throws a parse error because Mermaid interprets `=` as syntax. Either drop the `=` from the display label or quote the alias: `participant X as "X (id=42)"`. Parentheses alone (e.g., `Token (TRAC)`) are fine.
+- **Use `---` text decoration for phase separators**, not nested `rect` titles:
+
+  ```
+  Note over A,Z: --- PHASE 3 — lock expires, nothing happens on-chain ---
+  ```
+
+  Cleaner than `Note over A,Z: PHASE 3\nlock expires\nnothing happens on-chain`.
+
+- **Prefer `autonumber`** on sequence diagrams longer than ~6 arrows, and reference the autonumber indices in a line-by-line walk-through below the diagram.
+
+## Flowchart / graph diagrams
+
+These settings are sequence-specific. For `flowchart` / `graph` diagrams, the equivalent preset is:
+
+```
+%%{init: { 'flowchart': { 'nodeSpacing': 50, 'rankSpacing': 60, 'curve': 'basis' } } }%%
+flowchart TD
+    ...
 ```
 
 ## Reference
 
-Call `dkg_get_ontology` once per session for the full agent guide + formal Turtle/OWL ontology. The session-start hook injects a summary so this is mostly a refresher; consult it whenever uncertain about which predicate to use.
-
-VM publish is **always** human-gated. Use `dkg_request_vm_publish` to write a marker; never publish on-chain directly.
+- Canonical example in this repo: `packages/evm-module/docs/D26_TIME_ACCURATE_STAKING.md` §5.1-5.5.
+- Mermaid config docs: https://mermaid.js.org/config/schema-docs/config.html#sequencediagramconfig
 
 ---
 > Source: [OriginTrail/dkg](https://github.com/OriginTrail/dkg) — distributed by [TomeVault](https://tomevault.io).
