@@ -7,11 +7,11 @@ Automatically claim Epic Games weekly free titles with GitHub Actions and GLM-po
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [Ronchy2000/epic-freebies-helper](https://github.com/Ronchy2000/epic-freebies-helper).
+Original source: `CLAUDE.md` in [Ronchy2000/epic-freebies-helper](https://github.com/Ronchy2000/epic-freebies-helper).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
