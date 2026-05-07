@@ -1,13 +1,16 @@
-## build-mode-rules
+## packet-alignment-rules
 
-> Build this client in x64 Release with dev deploy
+> Keep packet work aligned to packet_ver 23
 
 
-# Build Mode Rules
+# Packet Alignment Rules
 
-- After making code changes that should be verified with a build, configure with `cmake --preset vs2022-x64 -DRO_ENABLE_DEV_DEPLOY=ON`.
-- Build with `cmake --build --preset build-release-x64`.
-- Treat this x64 Release + `RO_ENABLE_DEV_DEPLOY=ON` flow as the default build mode for this workspace unless the user explicitly asks for a different configuration.
+- Always review `PACKET_VERSION_ALIGNMENT.md` before making packet-related decisions.
+- The rebuilt client targets `packet_ver 23` for packet behavior and client-send packet alignment.
+- Do not assume the decompiled client under `Ref` uses the same packet version as this rebuilt client.
+- When packet version, opcode mapping, payload layout, or server expectations are in question, prefer `Ref/eAthena_src_2011` and `Ref/RunningServer` over raw client behavior from `Ref`.
+- Use `Ref` for broader client behavior and implementation context, but treat packet-version-specific details as potentially different unless they match packet alignment documentation and server references.
+- If the packet alignment document and reference sources disagree, call out the mismatch explicitly and follow the source matching the `packet_ver 23` target.
 
 ---
 > Source: [Sziadan/open-midgard](https://github.com/Sziadan/open-midgard) — distributed by [TomeVault](https://tomevault.io).
