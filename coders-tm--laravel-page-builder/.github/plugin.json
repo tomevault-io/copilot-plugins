@@ -1,0 +1,9 @@
+{
+  "name": "coders-tm--laravel-page-builder",
+  "displayName": "laravel-page-builder",
+  "description": "A powerful Laravel page builder using sections, layouts and JSON rendering. Build dynamic pages with a visual editor, reusable sections and multi-layout support.",
+  "version": "1.0.0",
+  "author": "coders-tm",
+  "homepage": "https://github.com/coders-tm/laravel-page-builder",
+  "skills": []
+}
