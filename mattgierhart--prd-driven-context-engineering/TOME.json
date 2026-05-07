@@ -1,0 +1,165 @@
+{
+  "name": "PRD-driven-context-engineering",
+  "owner": "mattgierhart",
+  "repo": "PRD-driven-context-engineering",
+  "description": "PRD-driven Context Engineering: A systematic approach to building AI-powered products using progressive documentation and context-aware development workflows",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "ghm-id-register",
+      "path": ".claude/skills/ghm-id-register",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-id-register",
+      "description": ""
+    },
+    {
+      "name": "ghm-template-sync",
+      "path": ".claude/skills/ghm-template-sync",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/ghm-template-sync",
+      "description": ""
+    },
+    {
+      "name": "prd-v01-user-value-articulation",
+      "path": ".claude/skills/prd-v01-user-value-articulation",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v01-user-value-articulation",
+      "description": ""
+    },
+    {
+      "name": "prd-v02-product-type-classification",
+      "path": ".claude/skills/prd-v02-product-type-classification",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v02-product-type-classification",
+      "description": ""
+    },
+    {
+      "name": "prd-v03-outcome-definition",
+      "path": ".claude/skills/prd-v03-outcome-definition",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v03-outcome-definition",
+      "description": ""
+    },
+    {
+      "name": "prd-v03-pricing-model",
+      "path": ".claude/skills/prd-v03-pricing-model",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v03-pricing-model",
+      "description": ""
+    },
+    {
+      "name": "prd-v04-screen-flow-definition",
+      "path": ".claude/skills/prd-v04-screen-flow-definition",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v04-screen-flow-definition",
+      "description": ""
+    },
+    {
+      "name": "prd-v05-risk-discovery-interview",
+      "path": ".claude/skills/prd-v05-risk-discovery-interview",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v05-risk-discovery-interview",
+      "description": ""
+    },
+    {
+      "name": "prd-v05-technical-stack-selection",
+      "path": ".claude/skills/prd-v05-technical-stack-selection",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v05-technical-stack-selection",
+      "description": ""
+    },
+    {
+      "name": "prd-v06-architecture-design",
+      "path": ".claude/skills/prd-v06-architecture-design",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v06-architecture-design",
+      "description": ""
+    },
+    {
+      "name": "prd-v06-environment-setup",
+      "path": ".claude/skills/prd-v06-environment-setup",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v06-environment-setup",
+      "description": ""
+    },
+    {
+      "name": "prd-v06-technical-specification",
+      "path": ".claude/skills/prd-v06-technical-specification",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v06-technical-specification",
+      "description": ""
+    },
+    {
+      "name": "prd-v07-epic-scoping",
+      "path": ".claude/skills/prd-v07-epic-scoping",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v07-epic-scoping",
+      "description": ""
+    },
+    {
+      "name": "prd-v07-implementation-loop",
+      "path": ".claude/skills/prd-v07-implementation-loop",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v07-implementation-loop",
+      "description": ""
+    },
+    {
+      "name": "prd-v07-test-planning",
+      "path": ".claude/skills/prd-v07-test-planning",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v07-test-planning",
+      "description": ""
+    },
+    {
+      "name": "prd-v08-monitoring-setup",
+      "path": ".claude/skills/prd-v08-monitoring-setup",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-monitoring-setup",
+      "description": ""
+    },
+    {
+      "name": "prd-v08-release-planning",
+      "path": ".claude/skills/prd-v08-release-planning",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-release-planning",
+      "description": ""
+    },
+    {
+      "name": "prd-v08-runbook-creation",
+      "path": ".claude/skills/prd-v08-runbook-creation",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v08-runbook-creation",
+      "description": ""
+    },
+    {
+      "name": "prd-v09-feedback-loop-setup",
+      "path": ".claude/skills/prd-v09-feedback-loop-setup",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-feedback-loop-setup",
+      "description": ""
+    },
+    {
+      "name": "prd-v09-launch-metrics",
+      "path": ".claude/skills/prd-v09-launch-metrics",
+      "github_url": "https://github.com/mattgierhart/PRD-driven-context-engineering/tree/main/.claude/skills/prd-v09-launch-metrics",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/mattgierhart/PRD-driven-context-engineering",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T20:30:14Z"
+}
