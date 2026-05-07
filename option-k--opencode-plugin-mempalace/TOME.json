@@ -1,0 +1,44 @@
+{
+  "name": "opencode-plugin-mempalace",
+  "owner": "option-K",
+  "repo": "opencode-plugin-mempalace",
+  "description": "MemPalace lifetime memory integration for OpenCode AI terminal assistant",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/option-K/opencode-plugin-mempalace",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T10:35:27Z"
+}
