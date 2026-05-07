@@ -1,7 +1,7 @@
 {
   "name": "nuwa-protocol--x402-exec",
   "displayName": "x402-exec",
-  "description": "x402-exec",
+  "description": "x402-exec is a programmable settlement framework for x402 protocol, combining payment verification, Hook-based business logic, and facilitator incentives in atomic transactions.",
   "version": "1.0.0",
   "author": "nuwa-protocol",
   "homepage": "https://github.com/nuwa-protocol/x402-exec",
