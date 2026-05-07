@@ -1,0 +1,9 @@
+{
+  "name": "deevus--pixels",
+  "displayName": "pixels",
+  "description": "Disposable Linux containers for AI coding agents, with extensible backends",
+  "version": "1.0.0",
+  "author": "deevus",
+  "homepage": "https://github.com/deevus/pixels",
+  "skills": []
+}
