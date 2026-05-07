@@ -1,0 +1,44 @@
+{
+  "name": "velpos",
+  "owner": "Jxin-Cai",
+  "repo": "velpos",
+  "description": "Rapidly build a multi-Agent management dashboard based on Claude Code, integrating daily work and remote IM collaboration. It includes Claude Code monitoring, channel configuration and message notifications, with a Codex GUI optimized for non-technical users.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Jxin-Cai/velpos",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T10:06:06Z"
+}
