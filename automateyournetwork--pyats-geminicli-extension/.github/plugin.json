@@ -1,0 +1,9 @@
+{
+  "name": "automateyournetwork--pyats-geminicli-extension",
+  "displayName": "pyATS_GeminiCLI_Extension",
+  "description": "An easy to install pyATS extension for Gemini CLI ",
+  "version": "1.0.0",
+  "author": "automateyournetwork",
+  "homepage": "https://github.com/automateyournetwork/pyATS_GeminiCLI_Extension",
+  "skills": []
+}
