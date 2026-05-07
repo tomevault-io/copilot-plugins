@@ -1,0 +1,9 @@
+{
+  "name": "dbaazzz--easy-weixin-clawbot",
+  "displayName": "easy-weixin-clawbot",
+  "description": "\u591a\u8d26\u53f7\u5fae\u4fe1 ClawBot \u8fde\u63a5\u5668 \u2014\u2014 \u901a\u8fc7 Web \u540e\u53f0\u7ba1\u7406\u591a\u4e2a\u5fae\u4fe1\u53f7\u7684 ClawBot \u63a5\u5165\uff0c\u652f\u6301\u626b\u7801\u767b\u5f55\u3001\u5bf9\u8bdd\u6301\u4e45\u5316\u3001LLM \u667a\u80fd\u56de\u590d\u3001\u63d2\u4ef6\u5316\u5de5\u5177/\u6280\u80fd\u6269\u5c55\u3002",
+  "version": "1.0.0",
+  "author": "DBAAZzz",
+  "homepage": "https://github.com/DBAAZzz/easy-weixin-clawbot",
+  "skills": []
+}
