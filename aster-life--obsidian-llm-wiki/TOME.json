@@ -1,0 +1,44 @@
+{
+  "name": "obsidian-llm-wiki",
+  "owner": "aster-life",
+  "repo": "obsidian-llm-wiki",
+  "description": "Obsidian LLM Wiki \u61f6\u4eba\u5305\uff1a\u8b93 AI \u5e6b\u4f60\u8490\u96c6\u3001\u6574\u7406\u3001\u7522\u51fa\u77e5\u8b58\u7684 Obsidian \u5de5\u4f5c\u6d41",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/aster-life/obsidian-llm-wiki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T20:59:16Z"
+}
