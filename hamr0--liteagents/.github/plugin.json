@@ -1,0 +1,14 @@
+{
+  "name": "hamr0--liteagents",
+  "displayName": "liteagents",
+  "description": "Comprehensive AI liteagents kit (subagents, skills/commands) for Claude Code, Opencode, Ampcode, and Droid",
+  "version": "1.0.0",
+  "author": "hamr0",
+  "homepage": "https://github.com/hamr0/liteagents",
+  "skills": [
+    {
+      "name": "docs-builder",
+      "description": ""
+    }
+  ]
+}
