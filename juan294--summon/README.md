@@ -7,11 +7,11 @@ CLI tool that launches configurable multi-pane Ghostty workspaces with one comma
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [juan294/summon](https://github.com/juan294/summon).
+Original source: `CLAUDE.md` in [juan294/summon](https://github.com/juan294/summon).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
