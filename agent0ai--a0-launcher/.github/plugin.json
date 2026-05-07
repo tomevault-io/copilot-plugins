@@ -1,0 +1,9 @@
+{
+  "name": "agent0ai--a0-launcher",
+  "displayName": "a0-launcher",
+  "description": "Agent Zero launcher app",
+  "version": "1.0.0",
+  "author": "agent0ai",
+  "homepage": "https://github.com/agent0ai/a0-launcher",
+  "skills": []
+}
