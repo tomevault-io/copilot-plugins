@@ -1,0 +1,9 @@
+{
+  "name": "igmarin--rails-ai-bridge",
+  "displayName": "rails-ai-bridge",
+  "description": "Give AI assistants deep, live knowledge of your Rails app via MCP",
+  "version": "1.0.0",
+  "author": "igmarin",
+  "homepage": "https://github.com/igmarin/rails-ai-bridge",
+  "skills": []
+}
