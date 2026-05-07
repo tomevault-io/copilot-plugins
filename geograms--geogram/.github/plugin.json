@@ -1,0 +1,9 @@
+{
+  "name": "geograms--geogram",
+  "displayName": "geogram",
+  "description": "Run geogram on Linux, Android, Windows, OSX, iOS and Web",
+  "version": "1.0.0",
+  "author": "geograms",
+  "homepage": "https://github.com/geograms/geogram",
+  "skills": []
+}
