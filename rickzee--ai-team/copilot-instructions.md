@@ -1,41 +1,35 @@
-## quality-pitfalls-and-deps
+## security-requirements
 
-> Quality gates, pitfalls, dependency direction, and git conventions
+> Security requirements for tools and guardrails
 
 
-# Quality Gates
+# Mandatory Security Practices
 
-Before marking any phase complete: type hints on signatures; Google-style docstrings; ruff zero warnings; mypy zero errors; black applied; unit tests written and passing; integration tests updated if cross-module; security guardrails for new file/code/network ops; structlog for significant ops; settings via env where appropriate; Pydantic for all structured data.
+1. **Path traversal prevention**: Validate paths against whitelist; no `..`; resolve symlinks before access.
+2. **Code execution sandboxing**: Subprocess with timeouts and resource limits; never `eval()` or `exec()` on untrusted input.
+3. **PII detection**: Scan output for emails, phone numbers, SSNs, credit cards, API keys.
+4. **Secret detection**: Scan for AWS keys, GitHub tokens, passwords, connection strings, JWT secrets.
+5. **Prompt injection defense**: Validate external inputs for instruction override attempts.
+6. **Dangerous pattern blocking**: Block `eval`, `exec`, `os.system`, `subprocess.call(shell=True)`, `__import__`, `pickle.loads`, `yaml.load` without SafeLoader.
+7. **Audit logging**: Log file operations, code executions, and tool invocations with timestamps.
 
-# Common Pitfalls
+# Security Guardrail Integration
 
-1. Never use `print()` — use structlog
-2. Never bare `except:` — catch specific exceptions
-3. Never hardcode model names — read from settings
-4. Never access files outside workspace — validate paths
-5. Never use `eval()`, `exec()`, `os.system()` in tools or generated code
-6. Never skip guardrails — test that guardrails fire in tests
-7. Never use `yaml.load()` without `SafeLoader`
-8. Never store secrets in code — use environment variables
-9. Never skip type hints — mypy runs in CI
-10. Never create circular imports — follow dependency direction below
-11. Never use `subprocess.call(shell=True)` — use `shell=False` with explicit command list
-12. Never commit `.env` — only `.env.example` with placeholders
+Wrap tool operations: pre-execution validate inputs (run_security_guardrails); on fail raise SecurityViolation; post-execution scan output for secrets and redact if needed.
 
-# Dependency Direction
-
-utils → models → guardrails → tools → agents → config → crews → flows → main/ui. Never import upward; pass as parameter.
-
-# Performance Targets
-
-Guardrail &lt;100ms; guardrail overhead &lt;10% of task time; memory op &lt;50ms; full flow mocked &lt;30s; unit tests &lt;30s; full test suite &lt;5 min.
-
-# Git Conventions
-
-- **Branches**: `feature/phase-{N}-{description}`, `fix/{description}`, `test/{description}`
-- **Commits**: Conventional Commits — `feat(scope):`, `fix(scope):`, `test(scope):`, `docs(scope):`
-- **PR**: one phase or one feature per PR
-- **Checks**: ruff, mypy, pytest (unit), pytest (integration)
+```python
+def secure_tool_wrapper(func):
+    def wrapper(*args, **kwargs):
+        security_result = run_security_guardrails(args, kwargs)
+        if security_result.status == "fail":
+            raise SecurityViolation(security_result.message)
+        result = func(*args, **kwargs)
+        output_scan = scan_output_for_secrets(result)
+        if output_scan.has_findings:
+            result = redact_secrets(result)
+        return result
+    return wrapper
+```
 
 ---
 > Source: [RickZee/ai-team](https://github.com/RickZee/ai-team) — distributed by [TomeVault](https://tomevault.io).
