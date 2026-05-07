@@ -1,0 +1,9 @@
+{
+  "name": "seznam--jailoc",
+  "displayName": "jailoc",
+  "description": "\ud83d\udd12 Jail your AI agents \u2014 sandboxed Docker environments with network isolation for Opencode agents",
+  "version": "1.0.0",
+  "author": "seznam",
+  "homepage": "https://github.com/seznam/jailoc",
+  "skills": []
+}
