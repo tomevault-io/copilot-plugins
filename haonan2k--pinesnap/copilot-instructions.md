@@ -1,91 +1,87 @@
-## pinesnap
+## collaboration-workflow
 
-> **生成时间:** 2026-01-16 17:01:00 CST
+> 协作工作流（先查后问的决策清单 + OpenSpec 门禁 + 实现节奏）
 
 
-# 项目知识库
+你是本项目的 AI 编码助手。你与用户协作时必须遵循本工作流，以确保讨论可沉淀、实现可验证、并避免重复踩坑。
 
-**生成时间:** 2026-01-16 17:01:00 CST
-**提交:** 1b49d00
-**分支:** feat/plan-optimize
+## 核心原则
 
-## 概述
+- **先查后问（Decision Checklist）**：优先从代码/现有 OpenSpec/lockfile 推断答案；仅在“将要改变外部行为/契约”且仓库无明确答案时再向用户提问确认。
+- **服务端为真相源**：涉及会话/消息/权限/落库/历史拼接时，默认以服务端为真相源（除非用户明确改变）。
+- **beta 依赖以本地为准**：涉及 Vercel AI SDK（beta）时，必须以本仓库 `node_modules` 与 `pnpm-lock.yaml` 的类型/行为为准。
+- **变更先规范后实现**：当变更触达“路由/API/DB/权限/存储契约”时，必须先走 OpenSpec 提案阶段。
 
-PineSnap 是一个基于 Next.js 16 的 AI 聊天应用，采用规范驱动开发（OpenSpec）、tRPC 和 **Vercel AI SDK v6（beta）**。项目以「不止收藏」为核心理念——面向学习者提供 AI + A2UI 辅助交互体验，并使用结构化消息部件（ChatPart）存储对话内容。
+## 适中门禁：何时必须先走 OpenSpec
 
-## 目录结构
+以下任一情况 **必须先创建/更新** `openspec/changes/<id>/`（proposal/design/tasks + delta specs），并通过 `openspec validate <id> --strict`：
 
-```
-.
-├── app/             # App Router 页面与 API 处理器（chat、learn、capture）
-├── components/      # React 组件（聊天专用、共享 UI、侧边栏）
-├── hooks/           # 自定义 React Hooks
-├── lib/             # 核心逻辑：聊天转换、数据库访问、存储、认证
-├── server/          # tRPC 后端路由与上下文
-├── prisma/          # 数据库模式与迁移
-├── openspec/        # 规范驱动开发文档与变更提案
-├── docs/            # 项目文档（如 Bilibili 连接说明）
-└── public/          # 静态资源
-```
+- **路由形态变化**：新增/调整页面路径与深链策略（例如 `/chat/c/[id]`）
+- **API 契约变化**：新增/修改 `app/api/**/route.ts` 的请求/响应形状、错误语义、流式协议
+- **数据库 schema 变化**：`prisma/schema.prisma`、migration、索引、数据语义
+- **权限/隔离策略**：会话/消息鉴权、按用户隔离规则
+- **存储契约变化**：例如引入/修改 `ChatPart[]`、`jsonb` 字段、落库时机（边流边存 vs 最终落库）
+- **跨层架构调整**：例如把历史拼接从客户端移动到服务端、引入 `lib/chat` 领域层与 `lib/db` 数据访问层
 
-## 快速定位
+以下情况 **通常不需要** OpenSpec（可直接实现）：
+- 明确的小 bug 修复（恢复既有规范行为）
+- 纯 UI 小改动（不改路由/API/DB/权限/存储契约）
+- 纯重命名/格式化/注释
 
-| 任务 | 位置 | 说明 |
-|------|------|------|
-| 聊天逻辑 | `lib/chat/` | 转换器、类型定义、工具函数 |
-| 数据库访问 | `lib/db/` | Conversation、Message、Resource 等数据访问层 |
-| 流式 API | `app/api/chat/route.ts` | 懒创建会话与流式响应 |
-| UI 组件 | `components/` | 聊天 UI 与共享基础组件 |
-| tRPC 路由 | `server/routers/` | tRPC procedures 定义 |
-| 数据库模式 | `prisma/schema.prisma` | Conversation、Message 等模型定义 |
-| 自定义 Hooks | `hooks/` | `use-mobile`、`use-scroll-to-bottom` 等 |
-| 请求中间件 | `middleware.ts` | Next.js 中间件（鉴权等） |
-| 类型定义 | `lib/chat/types.ts` | ChatPart 等核心类型 |
-| 开发调试工具 | `app/dev/trace/` | 追踪 AI 请求/响应的调试界面 |
+## 协作阶段与输出物
 
-## 约定（DO / DON'T）
+### 阶段 0：对齐本轮目标与允许的操作
+- 明确本轮是 **讨论 / 提案 / 实现** 哪一种。
+- 未得到用户明确同意前，不修改业务代码与规范文件。
 
-### DO（必须遵守）
+### 阶段 1：现状盘点（事实）
+- 阅读相关文件，画出真实数据流（UI → API → DB → UI）。
+- 用 3–10 条 bullet 列出“当前不一致/风险点”（例如：ID 生命周期冲突、updatedAt 不更新、状态源重复等）。
 
-- **Prisma 7 导入**：使用自定义输出路径 `../generated/prisma/client`，导入时带 `/client`
-- **OpenSpec 提案**：每个重大变更必须在 `openspec/changes/` 中先提交提案
-- **软删除**：使用 `deletedAt` 时间戳标记删除；禁止物理删除
-- **服务端为真相源**：历史消息拼接必须在服务端完成，客户端只发送 `conversationId` + 当前输入
-- **严格 TypeScript**：所有代码必须类型安全
+### 阶段 2：决策清单（先查后问）
+对以下决策点逐条检查：
+1. **入口与深链**：新对话入口与历史会话 URL 形态
+2. **创建时机**：懒创建/立即创建；在开始流式前还是后创建会话
+3. **状态真相源**：客户端 vs 服务端谁拼接历史
+4. **持久化粒度**：最终落库 vs 边流边存
+5. **内容 schema**：纯文本 vs 结构化 parts；parts 类型范围
+6. **权限前置**：`userId` 来源必须由服务端控制；隔离规则
+7. **列表/排序**：`updatedAt` 如何更新；是否需要 lastMessagePreview
+8. **演进点**：regenerate/编辑/搜索/知识管理是否近期做
 
-### DON'T（禁止）
+执行规则：
+- 若仓库已有明确答案：在输出中引用它（指出来自哪份 OpenSpec 或哪段代码）。
+- 若无明确答案且本次变更会触发该点：向用户提问确认。
+- 每次提案/实现前必须输出“**本次沿用的既有决策** + **本次新增/变更的决策**”的决策清单（像会议纪要），但不要求用户每次重复回答所有点。
 
-- **禁止 `as any`**：不允许使用类型逃逸
-- **禁止 `@prisma/client`**：只能使用本地生成的客户端（`generated/prisma/client`）
-- **禁止客户端传历史**：不要从客户端向 API 发送完整对话历史
+### 阶段 3：对标参考（可选）
+若用户要求参考开源项目：
+- 抽取“原则/机制/权衡”，不要照抄实现细节。
+- 明确哪些点可迁移、哪些点必须适配本项目技术栈。
 
-## 独特风格
+### 阶段 4：OpenSpec 提案（当门禁触发）
+在 `openspec/changes/<id>/` 产出：
+- `proposal.md`：为什么/范围/非目标
+- `design.md`：状态机、API 契约（概念）、数据模型、关键取舍
+- `tasks.md`：可验证、可分步交付的任务列表
+- `specs/<capability>/spec.md`：delta specs（Requirement + Scenario）
+并确保：
+- `openspec validate <id> --strict` 通过
+- 若涉及历史/旧 spec：优先 **标记 superseded** 而非直接删除；最终保证 `openspec validate --all --strict` 通过
 
-- **北欧森林主题**：在 `globals.css` 中使用 Tailwind 4 自定义 CSS 变量
-- **懒创建会话**：会话仅在首条消息发送后才由服务端创建
+### 阶段 5：实现（apply）
+- 按 `tasks.md` 自上而下逐条实现，保持变更范围可控。
+- 每个任务完成后，必须能用“可复现路径”验证（例如：新对话 → URL 切换 → 历史回放 → 追加消息 → 列表排序）。
 
-## 环境配置
+### 阶段 6：收尾与沉淀
+- 回归关键用户路径。
+- 若变更已落地并准备归档：使用 `openspec archive <id> --yes`，并再次 `openspec validate --all --strict`。
 
-参考 `env.example` 配置环境变量。主要包括：
-- 数据库连接（PostgreSQL）
-- Supabase 认证与存储
-- AI 模型 API Key
+## 示例（用于理解，不是硬约束）
 
-## 常用命令
-
-```bash
-pnpm dev             # 启动开发服务器
-pnpm build           # 构建（会运行 migrate + 生成 prisma）
-pnpm lint            # 运行 eslint
-openspec validate    # 校验 OpenSpec 变更
-```
-
-## 注意事项
-
-- **AI SDK v6（beta）**：本项目使用 **Vercel AI SDK v6 beta**（`ai@6.0.0-beta.169`、`@ai-sdk/react@3.0.0-beta.172`）。遇到类型/行为疑问时，必须查阅本仓库 `node_modules/ai` 和 `node_modules/@ai-sdk/react` 中的实际类型定义，而非外部文档。beta 版本可能存在 breaking changes，任何涉及 `useChat`、流式响应、data stream 的用法必须先对照当前版本的类型/行为。
-- **开发调试工具**：使用 `/dev/trace` 页面（仅开发环境）可以追踪和排查 AI 请求/响应问题。该工具会记录每次学习对话的完整上下文，包括请求消息、响应消息、输入 parts 等，支持按 `learningId` 和 `clientMessageId` 过滤查看。
-- **签名 URL**：文件通过稳定 ID 引用，但展示时使用短期签名 URL（Supabase Storage）
-- **长期维护文档（Capture 鉴权）**：`docs/capture-auth-data-model.md` 是扩展采集鉴权的数据模型真相文档。凡是修改 `CaptureAuthCode` / `CaptureToken` / `Resource` 关系、`/api/capture/extension/*`、`/api/capture/jobs` 契约或 token 生命周期逻辑，必须同步更新该文档。
+- **示例：要改路由与会话生命周期**
+  - 触发门禁：路由 + API 契约 + DB 存储 → 必须先 OpenSpec。
+  - 决策清单里需明确：入口 `/chat`、历史 `/chat/c/[id]`、懒创建在开始流式前回传 `conversationId`、服务端拼历史、`jsonb ChatPart[]`。
 
 ---
 > Source: [HaoNan2k/PineSnap](https://github.com/HaoNan2k/PineSnap) — distributed by [TomeVault](https://tomevault.io).
