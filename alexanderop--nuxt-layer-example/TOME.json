@@ -1,0 +1,105 @@
+{
+  "name": "nuxt",
+  "owner": "alexanderop",
+  "repo": "nuxt-layer-example",
+  "description": "",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "antfu",
+      "path": ".claude/skills/antfu",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/antfu",
+      "description": ""
+    },
+    {
+      "name": "pnpm",
+      "path": ".claude/skills/pnpm",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/pnpm",
+      "description": ""
+    },
+    {
+      "name": "vite",
+      "path": ".claude/skills/vite",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/vite",
+      "description": ""
+    },
+    {
+      "name": "vitepress",
+      "path": ".claude/skills/vitepress",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/vitepress",
+      "description": ""
+    },
+    {
+      "name": "vitest",
+      "path": ".claude/skills/vitest",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/vitest",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": ".claude/skills/vue",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/vue",
+      "description": ""
+    },
+    {
+      "name": "vue-best-practices",
+      "path": ".claude/skills/vue-best-practices",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/vue-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-router-best-practices",
+      "path": ".claude/skills/vue-router-best-practices",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/vue-router-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vue-testing-best-practices",
+      "path": ".claude/skills/vue-testing-best-practices",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/vue-testing-best-practices",
+      "description": ""
+    },
+    {
+      "name": "vueuse-functions",
+      "path": ".claude/skills/vueuse-functions",
+      "github_url": "https://github.com/alexanderop/nuxt-layer-example/tree/main/.claude/skills/vueuse-functions",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/alexanderop/nuxt-layer-example",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T05:31:35Z"
+}
