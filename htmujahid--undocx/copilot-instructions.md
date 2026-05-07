@@ -1,138 +1,52 @@
-## create-db-functions
+## create-migration
 
-> Guidelines for writing Supabase database functions
+> Guidelines for writing Postgres migrations
 
 
-# Database: Create functions
+# Database: Create migration
 
-You're a Supabase Postgres expert in writing database functions. Generate **high-quality PostgreSQL functions** that adhere to the following best practices:
+You are a Postgres Expert who loves creating secure database schemas.
 
-## General Guidelines
+This project uses the migrations provided by the Supabase CLI.
 
-1. **Default to `SECURITY INVOKER`:**
+## Creating a migration file
 
-   - Functions should run with the permissions of the user invoking the function, ensuring safer access control.
-   - Use `SECURITY DEFINER` only when explicitly required and explain the rationale.
+Given the context of the user's message, create a database migration file inside the folder `supabase/migrations/`.
 
-2. **Set the `search_path` Configuration Parameter:**
+The file MUST following this naming convention:
 
-   - Always set `search_path` to an empty string (`set search_path = '';`).
-   - This avoids unexpected behavior and security risks caused by resolving object references in untrusted or unintended schemas.
-   - Use fully qualified names (e.g., `schema_name.table_name`) for all database objects referenced within the function.
+The file MUST be named in the format `YYYYMMDDHHmmss_short_description.sql` with proper casing for months, minutes, and seconds in UTC time:
 
-3. **Adhere to SQL Standards and Validation:**
-   - Ensure all queries within the function are valid PostgreSQL SQL queries and compatible with the specified context (ie. Supabase).
+1. `YYYY` - Four digits for the year (e.g., `2024`).
+2. `MM` - Two digits for the month (01 to 12).
+3. `DD` - Two digits for the day of the month (01 to 31).
+4. `HH` - Two digits for the hour in 24-hour format (00 to 23).
+5. `mm` - Two digits for the minute (00 to 59).
+6. `ss` - Two digits for the second (00 to 59).
+7. Add an appropriate description for the migration.
 
-## Best Practices
+For example:
 
-1. **Minimize Side Effects:**
-
-   - Prefer functions that return results over those that modify data unless they serve a specific purpose (e.g., triggers).
-
-2. **Use Explicit Typing:**
-
-   - Clearly specify input and output types, avoiding ambiguous or loosely typed parameters.
-
-3. **Default to Immutable or Stable Functions:**
-
-   - Where possible, declare functions as `IMMUTABLE` or `STABLE` to allow better optimization by PostgreSQL. Use `VOLATILE` only if the function modifies data or has side effects.
-
-4. **Triggers (if Applicable):**
-   - If the function is used as a trigger, include a valid `CREATE TRIGGER` statement that attaches the function to the desired table and event (e.g., `BEFORE INSERT`).
-
-## Example Templates
-
-### Simple Function with `SECURITY INVOKER`
-
-```sql
-create or replace function my_schema.hello_world()
-returns text
-language plpgsql
-security invoker
-set search_path = ''
-as $$
-begin
-  return 'hello world';
-end;
-$$;
+```
+20240906123045_create_profiles.sql
 ```
 
-### Function with Parameters and Fully Qualified Object Names
+## SQL Guidelines
 
-```sql
-create or replace function public.calculate_total_price(order_id bigint)
-returns numeric
-language plpgsql
-security invoker
-set search_path = ''
-as $$
-declare
-  total numeric;
-begin
-  select sum(price * quantity)
-  into total
-  from public.order_items
-  where order_id = calculate_total_price.order_id;
+Write Postgres-compatible SQL code for Supabase migration files that:
 
-  return total;
-end;
-$$;
-```
+- Includes a header comment with metadata about the migration, such as the purpose, affected tables/columns, and any special considerations.
+- Includes thorough comments explaining the purpose and expected behavior of each migration step.
+- Write all SQL in lowercase.
+- Add copious comments for any destructive SQL commands, including truncating, dropping, or column alterations.
+- When creating a new table, you MUST enable Row Level Security (RLS) even if the table is intended for public access.
+- When creating RLS Policies
+  - Ensure the policies cover all relevant access scenarios (e.g. select, insert, update, delete) based on the table's purpose and data sensitivity.
+  - If the table is intended for public access the policy can simply return `true`.
+  - RLS Policies should be granular: one policy for `select`, one for `insert` etc) and for each supabase role (`anon` and `authenticated`). DO NOT combine Policies even if the functionality is the same for both roles.
+  - Include comments explaining the rationale and intended behavior of each security policy
 
-### Function as a Trigger
-
-```sql
-create or replace function my_schema.update_updated_at()
-returns trigger
-language plpgsql
-security invoker
-set search_path = ''
-as $$
-begin
-  -- Update the "updated_at" column on row modification
-  new.updated_at := now();
-  return new;
-end;
-$$;
-
-create trigger update_updated_at_trigger
-before update on my_schema.my_table
-for each row
-execute function my_schema.update_updated_at();
-```
-
-### Function with Error Handling
-
-```sql
-create or replace function my_schema.safe_divide(numerator numeric, denominator numeric)
-returns numeric
-language plpgsql
-security invoker
-set search_path = ''
-as $$
-begin
-  if denominator = 0 then
-    raise exception 'Division by zero is not allowed';
-  end if;
-
-  return numerator / denominator;
-end;
-$$;
-```
-
-### Immutable Function for Better Optimization
-
-```sql
-create or replace function my_schema.full_name(first_name text, last_name text)
-returns text
-language sql
-security invoker
-set search_path = ''
-immutable
-as $$
-  select first_name || ' ' || last_name;
-$$;
-```
+The generated SQL code should be production-ready, well-documented, and aligned with Supabase's best practices.
 
 ---
 > Source: [htmujahid/undocx](https://github.com/htmujahid/undocx) — distributed by [TomeVault](https://tomevault.io).
