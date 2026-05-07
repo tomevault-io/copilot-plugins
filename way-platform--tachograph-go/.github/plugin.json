@@ -5,5 +5,14 @@
   "version": "1.0.0",
   "author": "way-platform",
   "homepage": "https://github.com/way-platform/tachograph-go",
-  "skills": []
+  "skills": [
+    {
+      "name": "protobuf",
+      "description": ""
+    },
+    {
+      "name": "way-magefile",
+      "description": ""
+    }
+  ]
 }
