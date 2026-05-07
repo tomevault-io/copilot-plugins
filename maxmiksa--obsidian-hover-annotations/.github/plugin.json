@@ -1,0 +1,9 @@
+{
+  "name": "maxmiksa--obsidian-hover-annotations",
+  "displayName": "Obsidian-Hover-Annotations",
+  "description": "Instantly display annotations, comments, or notes on mouse hover and automatically hide them on mouse out.",
+  "version": "1.0.0",
+  "author": "MaxMiksa",
+  "homepage": "https://github.com/MaxMiksa/Obsidian-Hover-Annotations",
+  "skills": []
+}
