@@ -1,0 +1,9 @@
+{
+  "name": "opensin-ai--a2a-sin-stripe",
+  "displayName": "A2A-SIN-Stripe",
+  "description": "SIN Stripe automation agent for payment links, webhooks, checkout redirects, and sub-3-minute onboarding",
+  "version": "1.0.0",
+  "author": "OpenSIN-AI",
+  "homepage": "https://github.com/OpenSIN-AI/A2A-SIN-Stripe",
+  "skills": []
+}
