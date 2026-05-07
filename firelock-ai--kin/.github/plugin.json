@@ -1,0 +1,9 @@
+{
+  "name": "firelock-ai--kin",
+  "displayName": "kin",
+  "description": "Local-first semantic version control for AI-native teams. Git stores text history. Kin understands code.",
+  "version": "1.0.0",
+  "author": "firelock-ai",
+  "homepage": "https://github.com/firelock-ai/kin",
+  "skills": []
+}
