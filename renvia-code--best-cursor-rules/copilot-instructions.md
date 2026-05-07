@@ -1,163 +1,168 @@
-## 02-contributor-guide
+## 03-tool-usage
 
-> Guidelines for contributing new rules or editing existing ones
+> Efficient tool usage patterns for navigating and editing this repository
 
 
-# Contributor Guide
+# Tool Usage for This Repository
 
-## Quick Start
+## Tool Selection Strategy
 
-1. Find the right category in `rules/`
-2. Create or edit an `.mdc` file
-3. Follow the format in `01-rule-format.mdc`
-4. Test the rule in a real project
-5. Submit PR
+### codebase_search (Semantic Search)
+
+**When to use**:
+- Finding rules by topic or concept
+- Understanding how similar rules are structured
+- Discovering patterns across multiple rules
+
+**Examples**:
+```
+✅ "How do other rules handle React patterns?"
+✅ "What's the structure for backend rules?"
+✅ "Find rules related to testing"
+```
+
+**Don't use for**:
+```
+❌ Finding specific file names (use glob_file_search)
+❌ Exact text matches (use grep)
+❌ Known file paths (use read_file)
+```
 
 ---
 
-## Adding a New Rule
+### grep (Exact Text Search)
 
-### Step 1: Check if it exists
+**When to use**:
+- Finding specific patterns in rules
+- Locating frontmatter fields
+- Finding all rules with certain globs
 
+**Examples**:
 ```bash
-# Search existing rules
-ls rules/**/*.mdc | grep -i "your-topic"
-```
-
-### Step 2: Choose the right category
-
-| Category | What belongs here |
-|----------|-------------------|
-| `frameworks/` | React, Next.js, Vue, Svelte, Angular, Astro |
-| `languages/` | TypeScript, Python, Go, Rust, etc. |
-| `backends/` | Supabase, FastAPI, Express, Django |
-| `mobile/` | React Native, Flutter, SwiftUI |
-| `styling/` | Tailwind, CSS modules, shadcn/ui |
-| `testing/` | Vitest, Jest, Playwright, Cypress |
-| `best-practices/` | Clean code, security, accessibility |
-| `stacks/` | Combined presets (T3, LAMP, etc.) |
-
-### Step 3: Create the file
-
-```bash
-# Example: Adding a new framework rule
-touch rules/frameworks/remix.mdc
-```
-
-### Step 4: Write the rule
-
-Follow the template:
-
-```markdown
----
-description: [What this rule helps with - 1-2 sentences]
-globs: ["**/*.tsx", "**/*.ts"]
-alwaysApply: false
----
-
-# [Framework/Topic Name]
-
-## Overview
-[Brief intro - what, why, when]
-
-## Key Patterns
-[The most important stuff first]
-
-## Examples
-[Real code examples]
-
-## Common Mistakes
-[What to avoid]
+✅ grep("alwaysApply: true")      # Find always-on rules
+✅ grep("globs:.*\\.tsx")         # Find TypeScript rules
+✅ grep("## Common Mistakes")     # Find rules with this section
 ```
 
 ---
 
-## Editing Existing Rules
+### glob_file_search (Find Files)
 
-### When to edit
+**When to use**:
+- Listing all rules in a category
+- Finding rules by name pattern
+- Getting file counts
 
-✅ Outdated information (old API, deprecated patterns)
-✅ Missing important patterns
-✅ Incorrect examples
-✅ Typos or unclear language
-
-### When NOT to edit
-
-❌ Personal preference changes
-❌ Adding niche edge cases
-❌ Restructuring without clear benefit
-
----
-
-## Quality Standards
-
-### Must Have
-
-- [ ] Valid MDC frontmatter
-- [ ] Clear, tested code examples
-- [ ] Current for 2025 (latest stable versions)
-- [ ] Under 500 lines
-- [ ] No duplicate content from other rules
-
-### Nice to Have
-
-- [ ] Tables for quick reference
-- [ ] ✅/❌ do/don't examples
-- [ ] Links to official docs
-- [ ] Common gotchas section
-
----
-
-## Writing Style
-
-### DO write like this
-
-```markdown
-Use Server Components by default. Only add 'use client' when you need 
-browser APIs or interactivity.
+**Examples**:
+```
+✅ glob_file_search("rules/frameworks/*.mdc")
+✅ glob_file_search("**/*react*.mdc")
+✅ glob_file_search("rules/**/*.mdc")
 ```
 
-### DON'T write like this
+---
 
-```markdown
-It is recommended that developers consider utilizing Server Components 
-as the default paradigm for their applications, and only transition to 
-Client Components when necessitated by requirements for browser-specific 
-APIs or interactive user interface elements.
+### read_file (Direct Access)
+
+**When to use**:
+- Reading a specific rule file
+- Checking rule format/structure
+- Reviewing before editing
+
+**Examples**:
 ```
-
-### Key principles
-
-- **Direct** - Get to the point
-- **Practical** - Real examples, not theory
-- **Scannable** - Headers, bullets, tables
-- **Current** - 2025 best practices
-- **Human** - Write like you're helping a friend
+✅ read_file("rules/frameworks/nextjs-15.mdc")
+✅ read_file(".cursor/rules/01-rule-format.mdc")
+```
 
 ---
 
-## Testing Your Rule
+## Parallel Operations
 
-Before submitting:
+### ✅ DO: Read multiple rules at once
 
-1. Copy the rule to a test project's `.cursor/rules/`
-2. Open files that match the globs
-3. Ask Cursor to help with something related
-4. Verify it follows your rule's guidance
-5. Check edge cases
+```javascript
+// When comparing or reviewing multiple rules
+read_file('rules/frameworks/nextjs-15.mdc')
+read_file('rules/frameworks/react-19.mdc')
+read_file('rules/backends/supabase.mdc')
+// All execute in parallel
+```
+
+### ❌ DON'T: Read sequentially when independent
+
+```javascript
+// Slow - waits between each
+read_file('rules/frameworks/nextjs-15.mdc')
+// wait...
+read_file('rules/frameworks/react-19.mdc')
+// wait...
+```
 
 ---
 
-## PR Checklist
+## Common Tasks
 
-```markdown
-- [ ] Rule follows MDC format
-- [ ] Code examples are tested
-- [ ] No duplicate content
-- [ ] Under 500 lines
-- [ ] Targets 2025 versions
-- [ ] Writing is clear and direct
+### Adding a new rule
+
 ```
+1. glob_file_search("rules/{category}/*.mdc")  # See existing
+2. read_file(".cursor/rules/01-rule-format.mdc")  # Check format
+3. read_file("rules/{category}/similar-rule.mdc")  # Reference
+4. write("rules/{category}/new-rule.mdc", content)
+```
+
+### Updating an existing rule
+
+```
+1. read_file("rules/{category}/rule-name.mdc")  # Current content
+2. search_replace or write to update
+3. Verify frontmatter is still valid
+```
+
+### Finding all rules in a category
+
+```
+glob_file_search("rules/frameworks/*.mdc")
+```
+
+### Checking rule quality
+
+```
+1. read_file("rules/{category}/rule-name.mdc")
+2. Check: frontmatter valid?
+3. Check: under 500 lines?
+4. Check: has code examples?
+5. Check: current for 2025?
+```
+
+---
+
+## File Operations
+
+### Creating Files
+- Use `write` for new rules
+- Always include proper frontmatter
+- Place in correct category directory
+
+### Editing Files
+- Use `read_file` first to see current state
+- Use `search_replace` for precise changes
+- Verify frontmatter remains valid after edits
+
+### Moving/Renaming
+- Delete old file, create new one
+- Update any references in README
+
+---
+
+## Efficiency Tips
+
+1. **Batch reads** - Read multiple related files in parallel
+2. **Search first** - Use grep/glob before reading everything
+3. **Check format** - Reference `01-rule-format.mdc` when creating
+4. **Verify category** - Make sure rule is in the right directory
+5. **Test locally** - Copy rule to a test project to verify it works
 
 ---
 > Source: [Renvia-code/best-cursor-rules](https://github.com/Renvia-code/best-cursor-rules) — distributed by [TomeVault](https://tomevault.io).
