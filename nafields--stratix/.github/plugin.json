@@ -1,0 +1,9 @@
+{
+  "name": "nafields--stratix",
+  "displayName": "stratix",
+  "description": "Native tvOS Xbox Game Pass cloud gaming client for Apple TV \u2014 xCloud and xHome streaming, built in Swift.",
+  "version": "1.0.0",
+  "author": "nafields",
+  "homepage": "https://github.com/nafields/stratix",
+  "skills": []
+}
