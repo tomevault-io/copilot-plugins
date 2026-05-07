@@ -1,0 +1,9 @@
+{
+  "name": "zellux--paperwise",
+  "displayName": "paperwise",
+  "description": "Open-source document intelligence platform with OCR, extraction, grounded Q&A, and task-specific AI configuration",
+  "version": "1.0.0",
+  "author": "zellux",
+  "homepage": "https://github.com/zellux/paperwise",
+  "skills": []
+}
