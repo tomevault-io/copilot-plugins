@@ -1,0 +1,99 @@
+{
+  "name": "claude-code-plugins",
+  "owner": "emdashcodes",
+  "repo": "claude-code-plugins",
+  "description": "Claude Code plugins featuring specialized agents, commands, and development skills.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "claude-agent-sdk",
+      "path": "plugins/claude-agent-sdk-dev/skills/claude-agent-sdk",
+      "github_url": "https://github.com/emdashcodes/claude-code-plugins/tree/main/plugins/claude-agent-sdk-dev/skills/claude-agent-sdk",
+      "description": ""
+    },
+    {
+      "name": "claude-code-hooks",
+      "path": "plugins/claude-code-meta/skills/claude-code-hooks",
+      "github_url": "https://github.com/emdashcodes/claude-code-plugins/tree/main/plugins/claude-code-meta/skills/claude-code-hooks",
+      "description": ""
+    },
+    {
+      "name": "claude-code-mcp",
+      "path": "plugins/claude-code-meta/skills/claude-code-mcp",
+      "github_url": "https://github.com/emdashcodes/claude-code-plugins/tree/main/plugins/claude-code-meta/skills/claude-code-mcp",
+      "description": ""
+    },
+    {
+      "name": "claude-code-plugins",
+      "path": "plugins/claude-code-meta/skills/claude-code-plugins",
+      "github_url": "https://github.com/emdashcodes/claude-code-plugins/tree/main/plugins/claude-code-meta/skills/claude-code-plugins",
+      "description": ""
+    },
+    {
+      "name": "claude-code-skills",
+      "path": "plugins/claude-code-meta/skills/claude-code-skills",
+      "github_url": "https://github.com/emdashcodes/claude-code-plugins/tree/main/plugins/claude-code-meta/skills/claude-code-skills",
+      "description": ""
+    },
+    {
+      "name": "claude-code-slash-commands",
+      "path": "plugins/claude-code-meta/skills/claude-code-slash-commands",
+      "github_url": "https://github.com/emdashcodes/claude-code-plugins/tree/main/plugins/claude-code-meta/skills/claude-code-slash-commands",
+      "description": ""
+    },
+    {
+      "name": "claude-code-subagents",
+      "path": "plugins/claude-code-meta/skills/claude-code-subagents",
+      "github_url": "https://github.com/emdashcodes/claude-code-plugins/tree/main/plugins/claude-code-meta/skills/claude-code-subagents",
+      "description": ""
+    },
+    {
+      "name": "docs-to-skill",
+      "path": "plugins/docs-to-skill/skills/docs-to-skill",
+      "github_url": "https://github.com/emdashcodes/claude-code-plugins/tree/main/plugins/docs-to-skill/skills/docs-to-skill",
+      "description": ""
+    },
+    {
+      "name": "nano-banana-image-editor",
+      "path": "plugins/nano-banana-image-editor/skills/nano-banana-image-editor",
+      "github_url": "https://github.com/emdashcodes/claude-code-plugins/tree/main/plugins/nano-banana-image-editor/skills/nano-banana-image-editor",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/emdashcodes/claude-code-plugins",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T07:34:50Z"
+}
