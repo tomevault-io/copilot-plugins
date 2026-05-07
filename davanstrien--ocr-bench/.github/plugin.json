@@ -1,0 +1,9 @@
+{
+  "name": "davanstrien--ocr-bench",
+  "displayName": "ocr-bench",
+  "description": "Per-collection OCR leaderboards using VLM-as-judge",
+  "version": "1.0.0",
+  "author": "davanstrien",
+  "homepage": "https://github.com/davanstrien/ocr-bench",
+  "skills": []
+}
