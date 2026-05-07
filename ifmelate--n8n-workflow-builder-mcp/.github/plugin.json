@@ -1,0 +1,9 @@
+{
+  "name": "ifmelate--n8n-workflow-builder-mcp",
+  "displayName": "n8n-workflow-builder-mcp",
+  "description": "MCP server that allow LLM in agent mode builds n8n workflows for you",
+  "version": "1.0.0",
+  "author": "ifmelate",
+  "homepage": "https://github.com/ifmelate/n8n-workflow-builder-mcp",
+  "skills": []
+}
