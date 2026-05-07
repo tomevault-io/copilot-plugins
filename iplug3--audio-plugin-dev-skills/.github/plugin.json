@@ -1,0 +1,9 @@
+{
+  "name": "iplug3--audio-plugin-dev-skills",
+  "displayName": "audio-plugin-dev-skills",
+  "description": "Claude Code marketplace for audio plugin development skills.",
+  "version": "1.0.0",
+  "author": "iPlug3",
+  "homepage": "https://github.com/iPlug3/audio-plugin-dev-skills",
+  "skills": []
+}
