@@ -1,0 +1,9 @@
+{
+  "name": "clkao--spacedock",
+  "displayName": "spacedock",
+  "description": "Zero-dep agent workflows with structured approval gates and adversarial review.",
+  "version": "1.0.0",
+  "author": "clkao",
+  "homepage": "https://github.com/clkao/spacedock",
+  "skills": []
+}
