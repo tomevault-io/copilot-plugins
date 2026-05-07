@@ -1,105 +1,83 @@
-## logging-system
+## scripts-architecture
 
-> This project uses a custom logging system located in [scripts/utils/logger.ts](mdc:scripts/utils/logger.ts) for consistent, structured output across all scripts.
+> This project uses a modular scripts directory structure for maintainability and clear separation of concerns.
 
-# Custom Logger System Guide
+# Scripts Directory Architecture Guide
 
-This project uses a custom logging system located in [scripts/utils/logger.ts](mdc:scripts/utils/logger.ts) for consistent, structured output across all scripts.
+This project uses a modular scripts directory structure for maintainability and clear separation of concerns.
 
-## 🚨 Critical Rule
-**NEVER use `console.log`, `console.warn`, `console.error` directly in any scripts.** Always use the custom Logger.
+## 📁 Directory Structure
 
-## 📝 Logger Usage Patterns
+### Core Module (`scripts/core/`)
+- **[scripts/core/constants.ts](mdc:scripts/core/constants.ts)** - Central configuration, paths, and constants
+- **[scripts/core/model.ts](mdc:scripts/core/model.ts)** - OpenAI model configuration and API calls
 
-### Basic Import
+### Utility Modules (`scripts/utils/`)
+- **[scripts/utils/file.ts](mdc:scripts/utils/file.ts)** - File operations (read, write, directory management)
+- **[scripts/utils/common.ts](mdc:scripts/utils/common.ts)** - General utility functions (string processing, arrays)
+- **[scripts/utils/logger.ts](mdc:scripts/utils/logger.ts)** - Custom logging system with structured output
+
+### Processing Modules
+- **[scripts/parsers/agent-parser.ts](mdc:scripts/parsers/agent-parser.ts)** - Parse Agent configuration files
+- **[scripts/processors/category-processor.ts](mdc:scripts/processors/category-processor.ts)** - AI-powered category assignment
+- **[scripts/processors/i18n-processor.ts](mdc:scripts/processors/i18n-processor.ts)** - Translation and internationalization
+
+### Validation Modules
+- **[scripts/validators/agent-validator.ts](mdc:scripts/validators/agent-validator.ts)** - Schema validation and formatting
+- **[scripts/validators/language-validator.ts](mdc:scripts/validators/language-validator.ts)** - Language detection and validation using @yutengjing/eld
+
+### Build System
+- **[scripts/builders/agent-builder.ts](mdc:scripts/builders/agent-builder.ts)** - Build all language versions of Agent files
+- **[scripts/formatters/agent-formatter.ts](mdc:scripts/formatters/agent-formatter.ts)** - Format and process Agent configurations
+
+### Command Line Tools (`scripts/commands/`)
+- **[scripts/commands/build.ts](mdc:scripts/commands/build.ts)** - Main build command
+- **[scripts/commands/format.ts](mdc:scripts/commands/format.ts)** - Format Agent files
+- **[scripts/commands/test.ts](mdc:scripts/commands/test.ts)** - Validation tests
+- **[scripts/commands/test-locale.ts](mdc:scripts/commands/test-locale.ts)** - Multi-language validation
+- **[scripts/commands/update-awesome.ts](mdc:scripts/commands/update-awesome.ts)** - Update README
+- **[scripts/commands/auto-submit.ts](mdc:scripts/commands/auto-submit.ts)** - GitHub automation
+- **[scripts/commands/validate-language.ts](mdc:scripts/commands/validate-language.ts)** - Language validation command
+
+### Schema Definitions (`scripts/schema/`)
+- **[scripts/schema/agentMeta.ts](mdc:scripts/schema/agentMeta.ts)** - Agent metadata schema definitions
+- **[scripts/schema/llm.ts](mdc:scripts/schema/llm.ts)** - LLM-related type definitions
+
+## 🔄 Import Patterns
+
 ```typescript
+// Core configurations - Always import from constants first
+import { config, agentsDir } from '../core/constants';
+import { model } from '../core/model';
+
+// Utilities - File operations and common functions
+import { writeJSON, checkDir } from '../utils/file';
+import { split, findDuplicates } from '../utils/common';
 import { Logger } from '../utils/logger';
-// OR import specific functions
-import { info, warn, error, success, start } from '../utils/logger';
+
+// Processing modules
+import { AgentParser } from '../parsers/agent-parser';
+import { addCategory } from '../processors/category-processor';
+import { translateJSON } from '../processors/i18n-processor';
+import { formatAgentJSON } from '../validators/agent-validator';
 ```
 
-### Common Logging Methods
+## 📝 Architectural Principles
 
-#### Information and Status
-```typescript
-Logger.info('处理文件', '文件名或详情');
-Logger.success('操作完成', '目标', '详细信息');
-Logger.warn('警告信息', '原因或详情');
-Logger.error('错误信息', '错误对象或详情');
-```
+### Single Responsibility
+- Each module has one clear purpose and responsibility
+- Commands depend on builders/formatters, which depend on processors/validators
+- Shared utilities are centralized in `utils/`
 
-#### Process Flow
-```typescript
-Logger.start('开始操作', '目标', '详细信息');
-Logger.split('分隔线标题', '='); // 创建分隔线
-```
+### Dependency Direction
+- Commands → Builders/Formatters → Processors/Validators → Utils → Core
+- Never import upwards in the dependency chain
+- Core modules should have minimal dependencies
 
-#### File Operations
-```typescript
-Logger.file('read', 'path/to/file.json', 'success');
-Logger.file('write', 'path/to/file.json', 'start');
-Logger.file('delete', 'path/to/file.json', 'error');
-```
-
-#### Translation Process
-```typescript
-Logger.translate(agentId, '源语言', '目标语言', 'start');
-Logger.translate(agentId, '源语言', '目标语言', 'success');
-Logger.translate(agentId, '源语言', '目标语言', 'skip');
-Logger.translate(agentId, '源语言', '目标语言', 'error');
-```
-
-#### Progress and Statistics
-```typescript
-Logger.progress(current, total, '操作描述');
-Logger.stats({
-  '总文件数': totalCount,
-  '成功数量': successCount,
-  '失败数量': failureCount
-});
-```
-
-## 🎨 Logger Features
-
-### Colored Output
-- Uses `consola` with colored icons and formatting
-- Different colors for different log levels
-- Consistent visual hierarchy
-
-### Structured Information
-- Progress bars for long operations
-- Statistical summaries
-- File operation tracking
-- Translation workflow logging
-
-### Debugging Support
-```typescript
-Logger.debug('调试信息', debugData);
-```
-
-## 📋 Migration from console.*
-
-### Old Pattern ❌
-```typescript
-console.log('Processing file:', fileName);
-console.warn('File not found:', filePath);
-console.error('Error occurred:', error);
-```
-
-### New Pattern ✅
-```typescript
-Logger.info('处理文件', fileName);
-Logger.warn('文件未找到', filePath);
-Logger.error('发生错误', error);
-```
-
-## 🔧 Command Line Tools
-
-Commands like [scripts/commands/validate-language.ts](mdc:scripts/commands/validate-language.ts) demonstrate proper Logger usage:
-- Use `Logger.split()` for section headers
-- Use appropriate log levels for different message types
-- Provide structured output with `Logger.stats()`
-- Use `Logger.file()` for file operations
+### File Naming Conventions
+- Use kebab-case for file names
+- Include module type in name (e.g., `agent-parser.ts`, `category-processor.ts`)
+- Commands are simple action names (e.g., `build.ts`, `format.ts`)
 
 ---
 > Source: [nirholas/defi-agents](https://github.com/nirholas/defi-agents) — distributed by [TomeVault](https://tomevault.io).
