@@ -1,0 +1,14 @@
+{
+  "name": "trufae--mai",
+  "displayName": "mai",
+  "description": "my artificial intelligence (\ud83d\ude38AI)",
+  "version": "1.0.0",
+  "author": "trufae",
+  "homepage": "https://github.com/trufae/mai",
+  "skills": [
+    {
+      "name": "commitmsg",
+      "description": ""
+    }
+  ]
+}
