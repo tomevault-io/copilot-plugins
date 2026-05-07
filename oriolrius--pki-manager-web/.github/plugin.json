@@ -1,0 +1,26 @@
+{
+  "name": "oriolrius--pki-manager-web",
+  "displayName": "pki-manager-web",
+  "description": "Web-based PKI Manager - Secure X.509 certificate lifecycle management with Cosmian KMS integration",
+  "version": "1.0.0",
+  "author": "oriolrius",
+  "homepage": "https://github.com/oriolrius/pki-manager-web",
+  "skills": [
+    {
+      "name": "backlog-md",
+      "description": ""
+    },
+    {
+      "name": "github-cli",
+      "description": ""
+    },
+    {
+      "name": "nextjs",
+      "description": ""
+    },
+    {
+      "name": "pki-x509",
+      "description": ""
+    }
+  ]
+}
