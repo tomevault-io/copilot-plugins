@@ -1,0 +1,9 @@
+{
+  "name": "abuiles--codex-whatsapp-relay",
+  "displayName": "codex-whatsapp-relay",
+  "description": "Put Codex in your WhatsApp with QR auth, MCP tools, and optional phone-based control.",
+  "version": "1.0.0",
+  "author": "abuiles",
+  "homepage": "https://github.com/abuiles/codex-whatsapp-relay",
+  "skills": []
+}
