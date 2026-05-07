@@ -1,124 +1,365 @@
-## documentation
+## error-handling
 
-> Guidelines for keeping TODO.md and CHANGELOG.md synchronized with code changes
+> This project uses `thiserror` for library errors and follows Rust error handling best practices.
 
+# Error Handling Guidelines
 
-# Documentation Synchronization
+This project uses `thiserror` for library errors and follows Rust error handling best practices.
 
-**Always keep `TODO.md` and `CHANGELOG.md` synchronized when making code changes.**
+## Error Types
 
-## When to Update CHANGELOG.md
+### Use `thiserror` for Library Errors
 
-Update the `[Unreleased]` section for:
-- ✅ New features (`feat` commits) → **Added**
-- ✅ Bug fixes (`fix` commits) → **Fixed**
-- ✅ Breaking changes → **Changed** with **BREAKING** prefix
-- ✅ Deprecations → **Deprecated**
-- ✅ Removed features → **Removed**
-- ✅ Security fixes → **Security**
-- ✅ Performance improvements (`perf` commits) → **Changed**
+```rust
+use thiserror::Error;
 
-**Do NOT update for**: internal refactoring, tests, CI changes, documentation-only changes.
+#[derive(Error, Debug)]
+pub enum QueryError {
+    #[error("connection failed: {0}")]
+    Connection(#[source] tokio_postgres::Error),
 
-### CHANGELOG Entry Format
+    #[error("query timeout after {0:?}")]
+    Timeout(std::time::Duration),
 
-```markdown
-### Added
-- **Feature Name** (`crate-name`) - Brief description of what was added
+    #[error("invalid filter: {field} - {message}")]
+    InvalidFilter { field: String, message: String },
+
+    #[error("record not found: {entity} with id {id}")]
+    NotFound { entity: &'static str, id: i64 },
+
+    #[error("constraint violation: {0}")]
+    Constraint(String),
+}
 ```
 
-Example:
-```markdown
-### Added
-- **DuckDB Support** (`prax-duckdb`) - Analytical database driver with Parquet export
+### Error Hierarchy
+
+```rust
+// Top-level error type
+#[derive(Error, Debug)]
+pub enum PraxError {
+    #[error("query error: {0}")]
+    Query(#[from] QueryError),
+
+    #[error("schema error: {0}")]
+    Schema(#[from] SchemaError),
+
+    #[error("migration error: {0}")]
+    Migration(#[from] MigrationError),
+
+    #[error("connection error: {0}")]
+    Connection(#[from] ConnectionError),
+}
+
+// Domain-specific errors
+#[derive(Error, Debug)]
+pub enum SchemaError {
+    #[error("parse error at line {line}: {message}")]
+    Parse { line: usize, message: String },
+
+    #[error("invalid model: {0}")]
+    InvalidModel(String),
+
+    #[error("unknown type: {0}")]
+    UnknownType(String),
+}
 ```
 
-## When to Update TODO.md
+## Error Propagation
 
-Update when:
-- ✅ Completing a feature listed in TODO.md → Mark as completed or remove
-- ✅ Adding significant new features → Add to completed features table
-- ✅ Changing architecture → Update architecture diagram
-- ✅ Adding new crates → Add to crate list
-- ✅ Adding new benchmarks → Add to benchmark list
+### Use `?` Operator
 
-### TODO.md Structure
+```rust
+// ✅ Good: Clean error propagation
+pub async fn find_user(id: i64) -> Result<User, QueryError> {
+    let conn = self.pool.get().await?;
+    let row = conn.query_one(&self.sql, &[&id]).await?;
+    let user = User::from_row(row)?;
+    Ok(user)
+}
 
-Keep it concise:
-- **Architecture section**: List all crates
-- **Completed Features**: Tables organized by category
-- **Benchmarks**: List available benchmark suites
-- **Quick Start**: Minimal working example
-- **References**: External documentation links
-
-## Checklist Before Completing a Task
-
-```
-□ Code changes committed
-□ CHANGELOG.md updated (if user-facing change)
-□ TODO.md updated (if feature completed or added)
-□ Tests pass
+// ❌ Bad: Explicit match everywhere
+pub async fn find_user(id: i64) -> Result<User, QueryError> {
+    let conn = match self.pool.get().await {
+        Ok(c) => c,
+        Err(e) => return Err(e.into()),
+    };
+    // ... more matches ...
+}
 ```
 
-## Examples
+### Add Context with `map_err`
 
-### Adding a New Feature
+```rust
+use std::path::Path;
 
-When implementing multi-tenancy support:
+pub fn read_schema(path: &Path) -> Result<Schema, SchemaError> {
+    let content = std::fs::read_to_string(path)
+        .map_err(|e| SchemaError::Io {
+            path: path.to_path_buf(),
+            source: e,
+        })?;
 
-1. **CHANGELOG.md** - Add to `[Unreleased]`:
-   ```markdown
-   ### Added
-   - **Multi-Tenancy Support** (`prax-query/src/tenant/`)
-     - Zero-allocation task-local tenant context
-     - PostgreSQL RLS integration
-   ```
+    parse_schema(&content)
+        .map_err(|e| SchemaError::Parse {
+            path: path.to_path_buf(),
+            source: e,
+        })
+}
+```
 
-2. **TODO.md** - Add to completed features:
-   ```markdown
-   ### Multi-Tenancy (`prax-query/src/tenant/`)
-   | Feature | Module |
-   |---------|--------|
-   | Task-local context | `task_local.rs` |
-   | RLS integration | `rls.rs` |
-   ```
+### Use `anyhow` for Context in Applications
 
-### Fixing a Bug
+```rust
+// In CLI or application code (not library)
+use anyhow::{Context, Result};
 
-When fixing a query builder bug:
+pub fn run_migration(path: &str) -> Result<()> {
+    let schema = read_schema(path)
+        .with_context(|| format!("failed to read schema from {}", path))?;
 
-1. **CHANGELOG.md** only:
-   ```markdown
-   ### Fixed
-   - Fix SQL injection vulnerability in raw query builder (#123)
-   ```
+    let sql = generate_sql(&schema)
+        .context("failed to generate SQL")?;
 
-2. **TODO.md** - No update needed for bug fixes
+    execute_sql(&sql)
+        .context("failed to execute migration")?;
 
-### Adding a New Crate
+    Ok(())
+}
+```
 
-When adding `prax-duckdb`:
+## Error Design Principles
 
-1. **CHANGELOG.md**:
-   ```markdown
-   ### Added
-   - **DuckDB Support** (`prax-duckdb`) - Analytical database driver
-   ```
+### Make Errors Actionable
 
-2. **TODO.md** - Update architecture:
-   ```
-   prax/
-   ├── prax-duckdb/         # DuckDB analytical driver  ← Add this
-   ```
+```rust
+// ✅ Good: Error tells you what went wrong and how to fix it
+#[error("field '{field}' requires type {expected}, got {actual}. Use @{expected} attribute or change the type.")]
+InvalidFieldType {
+    field: String,
+    expected: &'static str,
+    actual: String,
+}
 
-## Automation Hints
+// ❌ Bad: Vague error
+#[error("invalid field")]
+InvalidField,
+```
 
-When the agent completes a significant task:
-1. Review what was changed
-2. Determine if it's user-facing
-3. Update CHANGELOG.md with proper section
-4. Update TODO.md if architecture changed or feature completed
-5. Keep entries concise (one line when possible)
+### Include Relevant Data
+
+```rust
+// ✅ Good: Error includes debugging information
+#[error("query failed after {attempts} attempts (last error: {last_error})")]
+RetryExhausted {
+    attempts: u32,
+    last_error: String,
+    query: String, // Include the query for debugging
+}
+
+// ❌ Bad: No context
+#[error("retry failed")]
+RetryFailed,
+```
+
+### Preserve Error Chain
+
+```rust
+#[derive(Error, Debug)]
+pub enum DatabaseError {
+    // ✅ Good: Preserves source error
+    #[error("connection pool exhausted")]
+    PoolExhausted(#[source] deadpool::PoolError),
+
+    // ✅ Good: #[from] for automatic conversion
+    #[error("postgres error")]
+    Postgres(#[from] tokio_postgres::Error),
+}
+```
+
+## Handling Specific Error Cases
+
+### Not Found vs Error
+
+```rust
+// Return Option for "not found" when that's a valid state
+pub async fn find_by_id(id: i64) -> Result<Option<User>, QueryError> {
+    match self.query_one(&sql, &[&id]).await {
+        Ok(row) => Ok(Some(User::from_row(row)?)),
+        Err(e) if e.is_no_rows() => Ok(None),
+        Err(e) => Err(e.into()),
+    }
+}
+
+// Return Error for "not found" when it indicates a problem
+pub async fn get_by_id(id: i64) -> Result<User, QueryError> {
+    self.find_by_id(id)
+        .await?
+        .ok_or(QueryError::NotFound { entity: "User", id })
+}
+```
+
+### Validation Errors
+
+```rust
+#[derive(Error, Debug)]
+pub enum ValidationError {
+    #[error("validation failed")]
+    Multiple(Vec<FieldError>),
+}
+
+#[derive(Debug)]
+pub struct FieldError {
+    pub field: String,
+    pub message: String,
+    pub code: &'static str,
+}
+
+impl ValidationError {
+    pub fn single(field: impl Into<String>, message: impl Into<String>) -> Self {
+        Self::Multiple(vec![FieldError {
+            field: field.into(),
+            message: message.into(),
+            code: "invalid",
+        }])
+    }
+
+    pub fn builder() -> ValidationErrorBuilder {
+        ValidationErrorBuilder::new()
+    }
+}
+
+// Usage
+let mut errors = ValidationError::builder();
+if email.is_empty() {
+    errors.add("email", "Email is required", "required");
+}
+if password.len() < 8 {
+    errors.add("password", "Password must be at least 8 characters", "min_length");
+}
+errors.build()?; // Returns Ok(()) or Err(ValidationError)
+```
+
+### Database Constraint Errors
+
+```rust
+impl From<tokio_postgres::Error> for QueryError {
+    fn from(e: tokio_postgres::Error) -> Self {
+        // Parse PostgreSQL error codes
+        if let Some(db_err) = e.as_db_error() {
+            match db_err.code().code() {
+                "23505" => return QueryError::UniqueViolation {
+                    constraint: db_err.constraint().map(String::from),
+                    detail: db_err.detail().map(String::from),
+                },
+                "23503" => return QueryError::ForeignKeyViolation {
+                    constraint: db_err.constraint().map(String::from),
+                },
+                "23502" => return QueryError::NotNullViolation {
+                    column: db_err.column().map(String::from),
+                },
+                _ => {}
+            }
+        }
+        QueryError::Database(e)
+    }
+}
+```
+
+## Testing Error Handling
+
+### Test Error Cases Explicitly
+
+```rust
+#[test]
+fn test_invalid_filter_error() {
+    let result = parse_filter("invalid syntax");
+
+    assert!(result.is_err());
+    let err = result.unwrap_err();
+    assert!(matches!(err, FilterError::Parse { .. }));
+    assert!(err.to_string().contains("invalid syntax"));
+}
+
+#[test]
+fn test_error_source_chain() {
+    let inner = std::io::Error::new(std::io::ErrorKind::NotFound, "file missing");
+    let err = SchemaError::Io {
+        path: "schema.prax".into(),
+        source: inner,
+    };
+
+    // Verify source is accessible
+    assert!(err.source().is_some());
+    assert!(err.to_string().contains("schema.prax"));
+}
+```
+
+### Test Error Recovery
+
+```rust
+#[tokio::test]
+async fn test_retry_on_transient_error() {
+    let mut attempts = 0;
+    let result = retry_with_backoff(|| async {
+        attempts += 1;
+        if attempts < 3 {
+            Err(QueryError::Connection("transient".into()))
+        } else {
+            Ok("success")
+        }
+    }).await;
+
+    assert!(result.is_ok());
+    assert_eq!(attempts, 3);
+}
+```
+
+## Logging Errors
+
+### Log at Appropriate Levels
+
+```rust
+use tracing::{error, warn, debug};
+
+pub async fn execute(&self) -> Result<(), QueryError> {
+    match self.try_execute().await {
+        Ok(()) => Ok(()),
+        Err(e) if e.is_transient() => {
+            warn!(error = %e, "transient error, will retry");
+            self.retry().await
+        }
+        Err(e) => {
+            error!(error = %e, query = %self.sql, "query execution failed");
+            Err(e)
+        }
+    }
+}
+```
+
+### Include Structured Context
+
+```rust
+use tracing::{error, instrument};
+
+#[instrument(skip(self), fields(user_id = %id))]
+pub async fn find_user(&self, id: i64) -> Result<User, QueryError> {
+    self.query_one(&sql, &[&id]).await.map_err(|e| {
+        error!(error = %e, "failed to find user");
+        e
+    })
+}
+```
+
+## Summary
+
+1. **Use `thiserror`** for library error types
+2. **Preserve error chains** with `#[source]` and `#[from]`
+3. **Make errors actionable** with clear messages and context
+4. **Use `?` operator** for clean propagation
+5. **Add context** with `map_err` or `anyhow::Context`
+6. **Test error cases** explicitly
+7. **Log appropriately** with structured context
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
