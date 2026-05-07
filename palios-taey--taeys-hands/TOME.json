@@ -4,7 +4,7 @@
   "repo": "taeys-hands",
   "description": "",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/palios-taey",
+  "source_url": "https://github.com/palios-taey/taeys-hands",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-10T17:49:50Z"
+  "distributed_at": "2026-05-07T08:13:45Z"
 }
