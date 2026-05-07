@@ -1,0 +1,9 @@
+{
+  "name": "quinnjr--skia-rs",
+  "displayName": "skia-rs",
+  "description": "A 100% pure Rust implementation of Google's Skia 2D graphics library",
+  "version": "1.0.0",
+  "author": "quinnjr",
+  "homepage": "https://github.com/quinnjr/skia-rs",
+  "skills": []
+}
