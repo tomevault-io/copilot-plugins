@@ -1,0 +1,9 @@
+{
+  "name": "mauricioperera--llm-wiki-kit",
+  "displayName": "llm-wiki-kit",
+  "description": "LLM-maintained markdown wiki on a git-native substrate. Obsidian-compatible, three-layer retrieval (grep + BM25 + embeddings), explicit supersession. Built on js-doc-store, js-vector-store, js-git-sto",
+  "version": "1.0.0",
+  "author": "MauricioPerera",
+  "homepage": "https://github.com/MauricioPerera/llm-wiki-kit",
+  "skills": []
+}
