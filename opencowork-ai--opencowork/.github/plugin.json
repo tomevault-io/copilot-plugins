@@ -1,0 +1,9 @@
+{
+  "name": "opencowork-ai--opencowork",
+  "displayName": "opencowork",
+  "description": "OpenCoWork is an open-source alternative to Claude Cowork. Local-first, secure, extensible. Like having a real colleague to help you organize files, manage tasks, and generate documents.",
+  "version": "1.0.0",
+  "author": "opencowork-ai",
+  "homepage": "https://github.com/opencowork-ai/opencowork",
+  "skills": []
+}
