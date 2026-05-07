@@ -1,0 +1,9 @@
+{
+  "name": "projectbluefin--common",
+  "displayName": "common",
+  "description": "OCI layer for things that need to be on every bluefin",
+  "version": "1.0.0",
+  "author": "projectbluefin",
+  "homepage": "https://github.com/projectbluefin/common",
+  "skills": []
+}
