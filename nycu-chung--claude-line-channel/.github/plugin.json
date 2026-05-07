@@ -1,0 +1,9 @@
+{
+  "name": "nycu-chung--claude-line-channel",
+  "displayName": "claude-line-channel",
+  "description": "LINE Messaging API channel plugin for Claude Code",
+  "version": "1.0.0",
+  "author": "NYCU-Chung",
+  "homepage": "https://github.com/NYCU-Chung/claude-line-channel",
+  "skills": []
+}
