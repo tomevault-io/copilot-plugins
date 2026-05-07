@@ -1,161 +1,361 @@
-## no-skip-hooks
+## performance
 
-> Never bypass git hooks - fix the underlying issues instead
+> This project prioritizes performance. Follow these guidelines to write efficient, allocation-conscious code.
 
+# Performance Optimization Guidelines
 
-# Never Skip Git Hooks
+This project prioritizes performance. Follow these guidelines to write efficient, allocation-conscious code.
 
-**CRITICAL**: Never use `--no-verify` or `-n` flags to bypass git hooks. Always fix the underlying issue.
+## Memory Optimization
 
-## Forbidden Commands
+### Use String Interning
+
+For repeated identifiers (column names, table names):
+
+```rust
+use prax_query::mem_optimize::interning::{GlobalInterner, ScopedInterner};
+
+// ✅ Good: Intern repeated field names
+let interner = GlobalInterner::get();
+let field = interner.intern("user_id"); // Shared across all uses
+
+// ✅ Good: Use scoped interner for request-local interning
+let mut scoped = ScopedInterner::new();
+for column in &columns {
+    let interned = scoped.intern(column);
+    // Memory freed when scoped is dropped
+}
+
+// ❌ Bad: Repeated String allocations
+for _ in 0..1000 {
+    let field = "user_id".to_string(); // 1000 allocations!
+}
+```
+
+### Use Arena Allocation
+
+For query building with many temporary allocations:
+
+```rust
+use prax_query::mem_optimize::arena::QueryArena;
+
+// ✅ Good: Arena-based query building
+let arena = QueryArena::new();
+let sql = arena.scope(|scope| {
+    let filter = scope.and(vec![
+        scope.eq("active", true),
+        scope.or(vec![
+            scope.gt("age", 18),
+            scope.is_not_null("email"),
+        ]),
+    ]);
+    scope.build_select("users", filter)
+});
+// Arena memory freed, sql String is owned
+
+// ❌ Bad: Many small heap allocations
+let filter = Filter::and(vec![
+    Filter::Equals("active".into(), FilterValue::Bool(true)),
+    Filter::or(vec![
+        Filter::Gt("age".into(), FilterValue::Int(18)),
+        Filter::IsNotNull("email".into()),
+    ]),
+]);
+```
+
+### Use Lazy Parsing
+
+For large schemas where not all data is needed:
+
+```rust
+use prax_query::mem_optimize::lazy::LazySchema;
+
+// ✅ Good: Lazy schema - only parses what you access
+let schema = LazySchema::from_json(large_json)?;
+
+// Table names available immediately (no parsing)
+for name in schema.table_names() {
+    if name == "users" {
+        // Only now parse the users table
+        let table = schema.get_table(name)?;
+        for col in table.columns() {
+            // Columns parsed on first access
+        }
+    }
+}
+
+// ❌ Bad: Parse everything eagerly
+let schema: DatabaseSchema = serde_json::from_str(large_json)?;
+// All tables and columns parsed upfront
+```
+
+### Avoid Unnecessary Allocations
+
+```rust
+// ✅ Good: Use references and slices
+fn process(data: &[u8]) -> &str { ... }
+
+// ✅ Good: Use Cow for conditional ownership
+use std::borrow::Cow;
+
+fn normalize(s: &str) -> Cow<'_, str> {
+    if needs_normalization(s) {
+        Cow::Owned(s.to_lowercase())
+    } else {
+        Cow::Borrowed(s)
+    }
+}
+
+// ✅ Good: Reuse buffers
+let mut buf = String::with_capacity(1024);
+for item in items {
+    buf.clear();
+    write!(&mut buf, "{}", item)?;
+    process(&buf);
+}
+
+// ❌ Bad: Allocate in a loop
+for item in items {
+    let s = format!("{}", item); // Allocation each iteration
+    process(&s);
+}
+```
+
+### Use SmallVec for Small Collections
+
+```rust
+use smallvec::SmallVec;
+
+// ✅ Good: Inline storage for common case
+let columns: SmallVec<[&str; 8]> = SmallVec::new();
+// No heap allocation until > 8 elements
+
+// ❌ Bad: Always heap allocate
+let columns: Vec<&str> = Vec::new();
+```
+
+## Query Performance
+
+### Batch Operations
+
+```rust
+// ✅ Good: Single multi-row INSERT
+let mut builder = SqlBuilder::postgres();
+builder.push("INSERT INTO events (user_id, type) VALUES ");
+for (i, event) in events.iter().enumerate() {
+    if i > 0 { builder.push(", "); }
+    builder.push("(");
+    builder.push_param(FilterValue::Int(event.user_id));
+    builder.push(", ");
+    builder.push_param(FilterValue::String(event.event_type.clone()));
+    builder.push(")");
+}
+
+// ❌ Bad: Multiple INSERT statements
+for event in events {
+    execute("INSERT INTO events (user_id, type) VALUES ($1, $2)", &[...]).await?;
+}
+```
+
+### Use Prepared Statements
+
+```rust
+// ✅ Good: Prepare once, execute many
+let stmt = client.prepare("SELECT * FROM users WHERE id = $1").await?;
+for id in ids {
+    let row = client.query_one(&stmt, &[&id]).await?;
+}
+
+// ❌ Bad: Re-parse query each time
+for id in ids {
+    let row = client.query_one("SELECT * FROM users WHERE id = $1", &[&id]).await?;
+}
+```
+
+### Efficient IN Clauses
+
+```rust
+// ✅ Good: Use ANY with array parameter (PostgreSQL)
+let sql = "SELECT * FROM users WHERE id = ANY($1)";
+let ids: Vec<i64> = vec![1, 2, 3, 4, 5];
+client.query(sql, &[&ids]).await?;
+
+// ✅ Good: Generate IN clause efficiently
+let placeholders = postgres_in_pattern(1, ids.len());
+let sql = format!("SELECT * FROM users WHERE id IN ({})", placeholders);
+
+// ❌ Bad: Dynamic SQL with many parameters
+let sql = format!(
+    "SELECT * FROM users WHERE id IN ({})",
+    ids.iter().map(|_| "?").collect::<Vec<_>>().join(", ")
+);
+```
+
+### Select Only Needed Columns
+
+```rust
+// ✅ Good: Select specific columns
+let select = Select::fields(["id", "email", "name"]);
+
+// ❌ Bad: Select all columns when only few needed
+let select = Select::all(); // SELECT * includes unused columns
+```
+
+## Async Performance
+
+### Use Concurrent Execution
+
+```rust
+use prax_query::async_optimize::ConcurrentExecutor;
+
+// ✅ Good: Execute independent queries in parallel
+let executor = ConcurrentExecutor::new(config);
+let results = executor.execute_batch(vec![
+    || async { fetch_users().await },
+    || async { fetch_posts().await },
+    || async { fetch_comments().await },
+]).await;
+
+// ❌ Bad: Sequential when parallel is possible
+let users = fetch_users().await?;
+let posts = fetch_posts().await?;
+let comments = fetch_comments().await?;
+```
+
+### Use Connection Pooling
+
+```rust
+// ✅ Good: Pool connections
+let pool = Pool::builder()
+    .max_size(20)
+    .build(manager)
+    .await?;
+
+// Get connection from pool
+let conn = pool.get().await?;
+
+// ❌ Bad: New connection per query
+let conn = PgConnection::connect(&url).await?;
+```
+
+### Stream Large Results
+
+```rust
+use futures::StreamExt;
+
+// ✅ Good: Stream rows without loading all into memory
+let mut stream = client.query_raw(&sql, &[]).await?;
+while let Some(row) = stream.next().await {
+    process_row(row?);
+}
+
+// ❌ Bad: Load all rows into memory
+let rows = client.query(&sql, &[]).await?; // All in memory
+for row in rows {
+    process_row(row);
+}
+```
+
+## Profiling and Measurement
+
+### Use Benchmarks
 
 ```bash
-# ❌ NEVER DO THIS
-git commit --no-verify
-git commit -n
-git push --no-verify
-git merge --no-verify
+# Run benchmarks
+cargo bench --package prax-query
 
-# ❌ ALSO NEVER DO THIS
-HUSKY=0 git commit
-HUSKY_SKIP_HOOKS=1 git commit
+# Compare against baseline
+cargo bench -- --save-baseline main
+cargo bench -- --load-baseline main
 ```
 
-## Why This Matters
-
-The git hooks enforce:
-- **pre-commit**: Code formatting (`cargo fmt`) and linting (`cargo clippy`)
-- **pre-push**: Full test suite passes
-- **commit-msg**: Conventional commit format
-
-Bypassing these hooks:
-- Introduces unformatted code to the repository
-- Allows linting errors into the codebase
-- Breaks CI/CD pipelines
-- Creates inconsistent commit history
-- Causes problems for other contributors
-
-## What to Do Instead
-
-### Hook: pre-commit (format/lint issues)
+### Profile with flamegraph
 
 ```bash
-# Fix formatting
-cargo fmt --all
+# Install flamegraph
+cargo install flamegraph
 
-# Fix clippy warnings
-cargo clippy --fix --allow-dirty --allow-staged
-
-# Then commit normally
-git commit -m "feat: your message"
+# Generate flamegraph
+cargo flamegraph --bench throughput_bench -- --bench
 ```
 
-### Hook: pre-push (test failures)
+### Measure Allocations
 
-```bash
-# Run tests and fix failures
-cargo test --all-features
-
-# Check specific failing test
-cargo test test_name -- --nocapture
-
-# Fix the issue, then push
-git push
+```rust
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_allocation_count() {
+        // Use a counting allocator or DHAT
+        let stats = arena.stats();
+        assert!(stats.allocations < 10, "Too many allocations");
+    }
+}
 ```
 
-### Hook: commit-msg (message format)
+## Hot Path Optimization
 
-```bash
-# Use correct format: type(scope): description
-git commit -m "feat(query): add nested filter support"
-git commit -m "fix(postgres): handle connection timeout"
-git commit -m "docs: update README examples"
+### Inline Small Functions
 
-# Valid types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+```rust
+// ✅ Good: Inline hint for hot path
+#[inline]
+pub fn intern(&self, s: &str) -> InternedStr {
+    // Fast path: check cache
+    if let Some(existing) = self.cache.get(s) {
+        return existing.clone();
+    }
+    // Slow path: allocate
+    self.intern_slow(s)
+}
+
+#[inline(never)] // Don't inline slow path
+fn intern_slow(&self, s: &str) -> InternedStr {
+    // Complex allocation logic
+}
 ```
 
-## Common Issues and Solutions
+### Avoid Dynamic Dispatch in Loops
 
-### "Formatting check failed"
+```rust
+// ✅ Good: Monomorphization
+fn process_filters<F: FilterTrait>(filters: &[F]) {
+    for f in filters {
+        f.to_sql(); // Static dispatch
+    }
+}
 
-```bash
-# Problem: Code not formatted
-cargo fmt --all
-git add -u
-git commit -m "your message"
+// ❌ Bad in hot path: Dynamic dispatch
+fn process_filters(filters: &[Box<dyn FilterTrait>]) {
+    for f in filters {
+        f.to_sql(); // Virtual call each iteration
+    }
+}
 ```
 
-### "Clippy found issues"
+### Pre-allocate with Capacity
 
-```bash
-# Problem: Linting warnings
-cargo clippy --all-targets --all-features
-# Read the warnings and fix them, then:
-git add -u
-git commit -m "your message"
+```rust
+// ✅ Good: Pre-allocate when size known
+let mut results = Vec::with_capacity(expected_count);
+let mut sql = String::with_capacity(256);
+
+// ❌ Bad: Grow incrementally
+let mut results = Vec::new(); // Reallocates as it grows
 ```
 
-### "Tests failed"
+## Summary Checklist
 
-```bash
-# Problem: Tests don't pass
-cargo test --all-features
-# Fix failing tests, then:
-git add -u
-git commit -m "your message"
-git push
-```
-
-### "Invalid commit message"
-
-```bash
-# Problem: Wrong format
-# Instead of: "fixed the bug"
-# Use: "fix(module): resolve specific issue"
-
-git commit --amend -m "fix(postgres): handle null values in query results"
-```
-
-### "I need to commit work-in-progress"
-
-```bash
-# Use a WIP branch instead of bypassing hooks
-git stash
-# or
-git checkout -b wip/my-feature
-# Make a proper commit when ready
-```
-
-## Emergency Situations
-
-If you genuinely believe you need to bypass hooks (you almost certainly don't):
-
-1. **Stop and ask**: Is this really necessary?
-2. **Document why**: Create an issue explaining the situation
-3. **Get approval**: Discuss with the team first
-4. **Fix immediately**: The next commit must fix what you bypassed
-
-**There is virtually never a legitimate reason to skip hooks in this project.**
-
-## For AI Assistants
-
-When a user asks to bypass git hooks or encounters hook failures:
-
-1. **Never suggest** `--no-verify`, `-n`, or similar flags
-2. **Diagnose the actual problem** by reading the error message
-3. **Provide the fix** for the underlying issue
-4. **Explain why** hooks exist and why bypassing is harmful
-
-Example response:
-```
-I see the pre-commit hook failed due to formatting issues.
-Let me fix that:
-
-cargo fmt --all
-
-Now the commit should succeed. Never use --no-verify
-as it bypasses important quality checks.
-```
+- [ ] Use string interning for repeated identifiers
+- [ ] Use arena allocation for temporary query building
+- [ ] Use lazy parsing for large schemas
+- [ ] Batch database operations
+- [ ] Use prepared statements
+- [ ] Select only needed columns
+- [ ] Use concurrent execution for independent operations
+- [ ] Stream large result sets
+- [ ] Profile before optimizing
+- [ ] Benchmark changes for regression
 
 ---
 > Source: [quinnjr/prax](https://github.com/quinnjr/prax) — distributed by [TomeVault](https://tomevault.io).
