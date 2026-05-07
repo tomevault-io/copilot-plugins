@@ -1,0 +1,9 @@
+{
+  "name": "ces-ltd--titanx",
+  "displayName": "TitanX",
+  "description": "Enterprise AI Agent Orchestration Platform \u2014 Secure, Observable, Configurable. Multi-agent teams with IAM policies, n8n workflows, LangChain memory, LangSmith traces, NemoClaw security, OpenTelemetry,",
+  "version": "1.0.0",
+  "author": "CES-Ltd",
+  "homepage": "https://github.com/CES-Ltd/TitanX",
+  "skills": []
+}
