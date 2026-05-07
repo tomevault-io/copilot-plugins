@@ -7,13 +7,13 @@ DeFi agent definitions JSON API + MCP - Production-ready agents for Web3, crypto
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nirholas/defi-agents](https://github.com/nirholas/defi-agents).
+Original source: `.cursor/rules/*.mdc` in [nirholas/defi-agents](https://github.com/nirholas/defi-agents).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
