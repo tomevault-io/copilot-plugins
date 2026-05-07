@@ -1,0 +1,44 @@
+{
+  "name": "fdnr-vst3",
+  "owner": "stancsz",
+  "repo": "fdnr-vst3",
+  "description": "Open-source, modular reverb engine offering high-fidelity algorithms inspired by Valhalla classics (VintageVerb, Room). Features community-contributed decay models, deep modulation, and VST3 compatibility. Craft lush spaces and experimental textures with full source code access.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/stancsz/fdnr-vst3",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-07T08:07:55Z"
+}
