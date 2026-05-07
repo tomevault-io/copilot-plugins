@@ -7,11 +7,11 @@ This is the repo for the paper A Self-Evolving Framework for Efficient Terminal 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [multimodal-art-projection/TACO](https://github.com/multimodal-art-projection/TACO).
+Original source: `CLAUDE.md` in [multimodal-art-projection/TACO](https://github.com/multimodal-art-projection/TACO).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
