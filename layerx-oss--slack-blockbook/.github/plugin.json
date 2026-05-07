@@ -1,0 +1,9 @@
+{
+  "name": "layerx-oss--slack-blockbook",
+  "displayName": "slack-blockbook",
+  "description": "Storybook-like preview tool for Slack Block Kit development.",
+  "version": "1.0.0",
+  "author": "layerx-oss",
+  "homepage": "https://github.com/layerx-oss/slack-blockbook",
+  "skills": []
+}
