@@ -1,0 +1,9 @@
+{
+  "name": "onlycli--onlycli",
+  "displayName": "OnlyCLI",
+  "description": "Turn any OpenAPI spec into a native CLI binary. No MCP, no bloat, no runtime dependencies, ONLY CLI.",
+  "version": "1.0.0",
+  "author": "OnlyCLI",
+  "homepage": "https://github.com/OnlyCLI/OnlyCLI",
+  "skills": []
+}
