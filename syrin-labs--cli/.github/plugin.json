@@ -1,0 +1,9 @@
+{
+  "name": "syrin-labs--cli",
+  "displayName": "cli",
+  "description": "Runtime intelligence system that makes MCP servers debuggable, testable, and safe to run in production.",
+  "version": "1.0.0",
+  "author": "syrin-labs",
+  "homepage": "https://github.com/syrin-labs/cli",
+  "skills": []
+}
