@@ -1,0 +1,9 @@
+{
+  "name": "nispa--nispa-vibevoice-studio",
+  "displayName": "nispa-vibevoice-studio",
+  "description": "is a powerful, locally-hosted Text-to-Speech (TTS) application designed to provide high-quality voice synthesis. It leverages the Microsoft VibeVoice model as its core engine, seamlessly integrating a",
+  "version": "1.0.0",
+  "author": "nispa",
+  "homepage": "https://github.com/nispa/nispa-vibevoice-studio",
+  "skills": []
+}
