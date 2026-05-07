@@ -1,0 +1,117 @@
+## architecture
+
+> Architectural rules and boundaries for Coddy Bot
+
+
+# Architectural Rules
+
+## General Architecture
+
+The project uses **modular architecture with clear separation of concerns**. Code is organized into **services** (shared store), **observer** (events, planning), and **worker** (ralph loop, agents). See `docs/architecture.md` for the full layout.
+
+## Package Layout
+
+### Services (`coddy/services/`)
+
+Shared by observer and worker. No dependency on observer or worker.
+
+- **store/** - Issue and PR storage (`.coddy/issues/`, `.coddy/prs/`). Schemas: IssueFile, IssueComment, PRFile. create_issue, load_issue, set_issue_status, list_queued, set_pr_status, etc.
+- **git/** - Git operations: branches (sanitize, checkout, fetch), commits (stage + commit), push_pull (pull, push, commit_all_and_push).
+
+### Observer (`coddy/observer/`)
+
+Daemon-side: events, state, planning. Does not run the AI agent.
+
+- **adapters/** - Git platform adapters (base, github)
+- **models/** - Pydantic models (Issue, Comment, PR, ReviewComment)
+- **planner.py** - Plan and user confirmation flow
+- **webhook/** - Webhook server and handlers
+- **run.py** - Observer entry (webhook server; plan on assignment)
+
+**Dependencies**: config, standard lib, third-party, coddy.services.store
+
+### Worker (`coddy/worker/`)
+
+Runs the development loop and uses the AI agent.
+
+- **agents/** - AI agent interface (base, cursor_cli_agent)
+- **task_yaml.py** - Task and PR report YAML paths and helpers
+- **ralph_loop.py** - Ralph loop (sufficiency, branch, agent loop)
+- **run.py** - Worker entry (dry-run stub: read issues, write empty PR YAML)
+
+**Dependencies**: observer (models), coddy.services.store, coddy.services.git
+
+### Application entry (`coddy/`)
+
+- **main.py** - CLI (observer | worker), config load, dispatch
+- **config.py** - Configuration
+- **logging.py** - Logging from config and env (CoddyLogging)
+- **daemon.py**, **worker.py** - Thin wrappers for `python -m coddy.daemon` (-> observer.run) / `python -m coddy.worker`
+
+## Module Rules
+
+### Platform Adapters (`observer/adapters/`)
+
+- Must implement abstract base class from `base.py`
+- Must handle platform-specific API differences
+- Must provide unified interface for upper layers
+- Should handle rate limiting and retries
+
+### AI Agents (`worker/agents/`)
+
+- Must implement abstract base class from `base.py`
+- Must handle agent-specific command execution
+- Must parse agent output into standardized format
+- Should handle timeouts and errors gracefully
+
+### Observer components (planner, webhook, pr)
+
+- Should use adapters for API calls, not direct HTTP
+- Should contain event/state logic only; agent runs in worker
+- Should be testable in isolation with mocks
+
+### Webhook Server (`observer/webhook/`)
+
+- Must verify webhook signatures
+- Must handle different event types
+- Should route events to appropriate handlers
+- Should log all events
+
+## Design Principles
+
+1. **One class at a time**: When implementing new functionality, create one class at a time, starting from lower layers
+2. **Minimal dependencies**: Observer does not depend on worker; worker depends on observer
+3. **Factory pattern**: Use factory helpers for agents (e.g. `make_cursor_cli_agent(config)`)
+4. **Strategy pattern**: Use strategy pattern for different platform/agent implementations
+5. **Type hints**: Use type hints for all functions and methods
+6. **Abstract interfaces**: Define abstract base classes for extensibility
+7. **Error handling**: Use specific exceptions, not generic Exception
+8. **Configuration**: Load configuration from environment variables and config files
+
+## Forbidden
+
+- Upper layers depending on lower layers in wrong order
+- Direct API calls from observer/worker (must use adapters)
+- Platform-specific code outside `observer/adapters`
+- Agent-specific code outside `worker/agents`
+- Business logic in webhook handlers (delegate to planner/queue)
+- Hardcoded configuration values
+
+## Allowed
+
+- Observer using only adapters, issues, queue, models
+- Worker using observer (adapters, queue, models)
+- Abstract base classes for interfaces
+- Factory helpers for creating agents
+- Configuration through environment variables
+- Dependency injection for testability
+
+## References
+
+@README.md
+@docs/architecture.md
+@docs/system-specification.md
+
+---
+> Source: [coddy-project/coddy-bot](https://github.com/coddy-project/coddy-bot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
