@@ -4,7 +4,7 @@
   "repo": "ralphify",
   "description": "Stop stressing over not having an agent running. Ralph is always running \ud83c\udfc3\u200d\u2642",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/computerlovetech/ralphify",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-27T05:36:57Z"
+  "distributed_at": "2026-05-07T01:54:40Z"
 }
