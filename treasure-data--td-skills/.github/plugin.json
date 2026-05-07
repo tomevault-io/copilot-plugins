@@ -1,0 +1,122 @@
+{
+  "name": "treasure-data--td-skills",
+  "displayName": "td-skills",
+  "description": "Treasure Data Skills for Claude Code",
+  "version": "1.0.0",
+  "author": "treasure-data",
+  "homepage": "https://github.com/treasure-data/td-skills",
+  "skills": [
+    {
+      "name": "agent",
+      "description": ""
+    },
+    {
+      "name": "agent-prompt",
+      "description": ""
+    },
+    {
+      "name": "agent-test",
+      "description": ""
+    },
+    {
+      "name": "core",
+      "description": ""
+    },
+    {
+      "name": "golden",
+      "description": ""
+    },
+    {
+      "name": "hist-union",
+      "description": ""
+    },
+    {
+      "name": "id-unification",
+      "description": ""
+    },
+    {
+      "name": "ingestion",
+      "description": ""
+    },
+    {
+      "name": "master-segment",
+      "description": ""
+    },
+    {
+      "name": "staging",
+      "description": ""
+    },
+    {
+      "name": "data-dictionary-helper",
+      "description": ""
+    },
+    {
+      "name": "dbt",
+      "description": ""
+    },
+    {
+      "name": "deployment",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "visualization",
+      "description": ""
+    },
+    {
+      "name": "journey",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "description": ""
+    },
+    {
+      "name": "rt-config",
+      "description": ""
+    },
+    {
+      "name": "rt-personalization",
+      "description": ""
+    },
+    {
+      "name": "rt-setup-personalization",
+      "description": ""
+    },
+    {
+      "name": "rt-triggers",
+      "description": ""
+    },
+    {
+      "name": "schema-auto-tagger",
+      "description": ""
+    },
+    {
+      "name": "javascript",
+      "description": ""
+    },
+    {
+      "name": "tdx-basic",
+      "description": ""
+    },
+    {
+      "name": "template-skill",
+      "description": ""
+    },
+    {
+      "name": "trino-optimizer",
+      "description": ""
+    },
+    {
+      "name": "validate-segment",
+      "description": ""
+    },
+    {
+      "name": "workflow",
+      "description": ""
+    }
+  ]
+}
