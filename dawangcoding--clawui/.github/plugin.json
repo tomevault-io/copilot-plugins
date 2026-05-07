@@ -1,0 +1,9 @@
+{
+  "name": "dawangcoding--clawui",
+  "displayName": "ClawUI",
+  "description": "Cross-platform desktop client for OpenClaw \u2014 built-in Gateway management, onboarding wizard, streaming chat, and full admin panel. Powered by Electron 40, React 19, TypeScript & Vite.",
+  "version": "1.0.0",
+  "author": "dawangcoding",
+  "homepage": "https://github.com/dawangcoding/ClawUI",
+  "skills": []
+}
