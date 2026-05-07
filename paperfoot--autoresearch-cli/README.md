@@ -7,15 +7,15 @@ Autonomous AI experiment loop CLI -- run research overnight with any coding agen
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.windsurf/rules/*.md` in [paperfoot/autoresearch-cli](https://github.com/paperfoot/autoresearch-cli).
+Original source: `.cursor/rules/*.mdc` in [paperfoot/autoresearch-cli](https://github.com/paperfoot/autoresearch-cli).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
-- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
+- **Windsurf** — `project-config.md`
 
 From [paperfoot/autoresearch-cli](https://github.com/paperfoot/autoresearch-cli) — a repo with 17+ stars on GitHub.
 
