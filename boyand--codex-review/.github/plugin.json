@@ -1,0 +1,9 @@
+{
+  "name": "boyand--codex-review",
+  "displayName": "codex-review",
+  "description": "Claude Code plugin for multi-round Codex reviews of plans and implementations.",
+  "version": "1.0.0",
+  "author": "boyand",
+  "homepage": "https://github.com/boyand/codex-review",
+  "skills": []
+}
