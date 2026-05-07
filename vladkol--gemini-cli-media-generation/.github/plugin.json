@@ -1,0 +1,9 @@
+{
+  "name": "vladkol--gemini-cli-media-generation",
+  "displayName": "gemini-cli-media-generation",
+  "description": "An example of using Gemini CLI with MCP Servers for Genmedia and Gemini 2.5 Flash Image model ",
+  "version": "1.0.0",
+  "author": "vladkol",
+  "homepage": "https://github.com/vladkol/gemini-cli-media-generation",
+  "skills": []
+}
