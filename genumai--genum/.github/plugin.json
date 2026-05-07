@@ -1,0 +1,9 @@
+{
+  "name": "genumai--genum",
+  "displayName": "genum",
+  "description": "Turning human business logic into clear, verifiable instructions that enable LLMs to deliver stable, predictable, and testable AI logic within real business workflows.",
+  "version": "1.0.0",
+  "author": "GenumAI",
+  "homepage": "https://github.com/GenumAI/genum",
+  "skills": []
+}
