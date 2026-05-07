@@ -1,0 +1,9 @@
+{
+  "name": "pejmanjohn--slot-machine",
+  "displayName": "slot-machine",
+  "description": "An open-source skill for running parallel implementations, reviewing them independently, and selecting or synthesizing the best result.",
+  "version": "1.0.0",
+  "author": "pejmanjohn",
+  "homepage": "https://github.com/pejmanjohn/slot-machine",
+  "skills": []
+}
