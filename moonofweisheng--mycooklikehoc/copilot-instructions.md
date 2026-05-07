@@ -1,27 +1,121 @@
-## route
+## state-management
 
-> 1. 本项目基于@uni-helper/vite-plugin-uni-pages在uni-app 上实现基于文件的路由系统。
+> import { defineStore } from 'pinia'
 
-# 路由开发规则
+# 状态管理规则
 
-## 基于文件的路由
-1. 本项目基于@uni-helper/vite-plugin-uni-pages在uni-app 上实现基于文件的路由系统。
-2. 使用SFC 自定义块用于路由数据，通过添加一个 <route> 块到 SFC 中来添加路由元数据。这将会在路由生成后直接添加到路由中，并且会覆盖。
-3. 在 `pages.config.ts` 文件中可以配置 `tabbar` 等全局配置。
+## Pinia使用规范
 
-## 布局框架
-1. 本项目基于@uni-helper/vite-plugin-uni-layouts实现 uni-app 的可定制布局框架。
-2. 可以结合 vite-plugin-uni-pages 的 route-block 实现指定页面布局。
+### Store定义
+```typescript
+// 定义store
+import { defineStore } from 'pinia'
 
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    userInfo: null,
+    isLogin: false,
+  }),
 
-## 路由跳转
-1. 本项目使用uni-mini-router实现路由跳转。
-2. uni-mini-router 提供2个hooks: `useRouter` 和 `useRoute`。
-3. push方法 `router.push(target:RouteLocationRaw): void` 保留当前页面，跳转到应用内的某个页面，相当于使用 `uni.navigateTo(OBJECT)`。
-4. pushTab方法 `router.pushTab(target:RouteLocationRaw): void` 跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面，相当于使用 `uni.switchTab(OBJECT)`。
-5. replace方法 `router.replace(target:RouteLocationRaw): void` 关闭当前页面，跳转到应用内的某个页面，相当于使用 `uni.redirectTo(OBJECT)`。
-6. replaceAll方法 `router.replaceAll(target:RouteLocationRaw): void` 关闭所有页面，打开到应用内的某个页面，相当于使用 `uni.reLaunch(OBJECT)`。
-7. back方法 `router.back(level?: number): void` 关闭当前页面，返回上一页面或多级页面，相当于使用 `uni.navigateBack(OBJECT)`。
+  getters: {
+    userName: (state) => state.userInfo?.name || '',
+  },
+
+  actions: {
+    async login(credentials) {
+      // 登录逻辑
+    },
+    logout() {
+      // 登出逻辑
+    }
+  }
+})
+```
+
+### 持久化配置
+使用配置在 [src/store/persist.ts](mdc:src/store/persist.ts) 的持久化选项：
+```typescript
+export const useUserStore = defineStore('user', {
+  // store定义...
+}, {
+  persist: {
+    key: 'user-store',
+    storage: 'localStorage', // 或 'sessionStorage'
+    paths: ['userInfo', 'isLogin'] // 指定需要持久化的字段
+  }
+})
+```
+
+### Store使用
+```vue
+<script setup lang="ts">
+// 在组件中使用
+const userStore = useUserStore()
+
+// 响应式解构
+const { userInfo, isLogin } = storeToRefs(userStore)
+
+// 调用actions
+const handleLogin = () => {
+  userStore.login(credentials)
+}
+</script>
+```
+
+### 组合式Store
+```typescript
+// 组合式写法
+export const useCounterStore = defineStore('counter', () => {
+  const count = ref(0)
+  const doubleCount = computed(() => count.value * 2)
+
+  function increment() {
+    count.value++
+  }
+
+  return { count, doubleCount, increment }
+})
+```
+
+### Store分类规范
+1. **用户状态**: `useUserStore` - 用户信息、登录状态
+2. **应用配置**: `useAppStore` - 主题、语言、系统设置
+3. **业务数据**: `useBusinessStore` - 具体业务相关状态
+4. **临时状态**: 使用 `ref`/`reactive` 或组件内部状态
+
+### 最佳实践
+1. Store命名使用 `use[Name]Store` 格式
+2. 合理拆分Store，避免单个Store过大
+3. 使用 TypeScript 提供完整类型定义
+4. 重要数据配置持久化存储
+5. Actions中处理异步逻辑和副作用
+6. 使用 `storeToRefs` 解构响应式数据
+7. 避免在Store中直接操作DOM
+
+### 与API集成
+```typescript
+export const useUserStore = defineStore('user', {
+  state: () => ({
+    userInfo: null,
+    loading: false,
+  }),
+
+  actions: {
+    async fetchUserInfo() {
+      this.loading = true
+      try {
+        // 使用Alova API
+        const response = await Apis.user.getUserInfo()
+        this.userInfo = response
+      } catch (error) {
+        console.error('获取用户信息失败:', error)
+      } finally {
+        this.loading = false
+      }
+    }
+  }
+})
+```
 
 ---
 > Source: [Moonofweisheng/MyCookLikeHOC](https://github.com/Moonofweisheng/MyCookLikeHOC) — distributed by [TomeVault](https://tomevault.io).
