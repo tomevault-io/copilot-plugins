@@ -1,0 +1,9 @@
+{
+  "name": "curlysasha--meshradar",
+  "displayName": "MeshRadar",
+  "description": "Modern web interface for Meshtastic mesh network nodes. Supports Serial/TCP connection, real-time messaging, channels, DM, traceroute, telemetry.",
+  "version": "1.0.0",
+  "author": "curlysasha",
+  "homepage": "https://github.com/curlysasha/MeshRadar",
+  "skills": []
+}
