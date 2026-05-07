@@ -1,0 +1,9 @@
+{
+  "name": "willhennessy--architect",
+  "displayName": "architect",
+  "description": "Plugin to add interactive architecture diagrams to Claude Plan Mode",
+  "version": "1.0.0",
+  "author": "willhennessy",
+  "homepage": "https://github.com/willhennessy/architect",
+  "skills": []
+}
