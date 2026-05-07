@@ -2,9 +2,9 @@
   "name": "skills",
   "owner": "CopilotKit",
   "repo": "skills",
-  "description": "",
+  "description": "AI agent skills for CopilotKit \u2014 setup, develop, integrate, debug, upgrade, and contribute",
   "type": "config",
-  "source_format": "CLAUDE.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/CopilotKit",
+  "source_url": "https://github.com/CopilotKit/skills",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T12:55:21Z"
+  "distributed_at": "2026-05-07T20:45:12Z"
 }
