@@ -4,7 +4,7 @@
   "repo": "void-box",
   "description": "Composable agent runtime with enforced isolation boundaries",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/the-void-ia/void-box",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-28T06:20:18Z"
+  "distributed_at": "2026-05-07T10:06:36Z"
 }
