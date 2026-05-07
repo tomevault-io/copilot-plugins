@@ -1,0 +1,9 @@
+{
+  "name": "pengchengxia75-arch--hermes-agent-windows",
+  "displayName": "hermes-agent-windows",
+  "description": "Hermes Agent with native Windows support and one-line PowerShell installer",
+  "version": "1.0.0",
+  "author": "pengchengxia75-arch",
+  "homepage": "https://github.com/pengchengxia75-arch/hermes-agent-windows",
+  "skills": []
+}
