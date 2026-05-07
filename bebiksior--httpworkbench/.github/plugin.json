@@ -1,0 +1,9 @@
+{
+  "name": "bebiksior--httpworkbench",
+  "displayName": "httpworkbench",
+  "description": "HTTP testing platform for security researchers",
+  "version": "1.0.0",
+  "author": "bebiksior",
+  "homepage": "https://github.com/bebiksior/httpworkbench",
+  "skills": []
+}
