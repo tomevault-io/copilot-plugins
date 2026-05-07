@@ -4,7 +4,7 @@
   "repo": "autoresearch-cli",
   "description": "Autonomous AI experiment loop CLI -- run research overnight with any coding agent",
   "type": "config",
-  "source_format": ".windsurf/rules/*.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/paperfoot/autoresearch-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T04:11:29Z"
+  "distributed_at": "2026-05-07T19:11:22Z"
 }
