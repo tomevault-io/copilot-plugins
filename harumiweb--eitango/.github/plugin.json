@@ -1,0 +1,9 @@
+{
+  "name": "harumiweb--eitango",
+  "displayName": "eitango",
+  "description": "Offline TUI English vocabulary trainer built with Go, Bubble Tea, and SQLite.",
+  "version": "1.0.0",
+  "author": "harumiWeb",
+  "homepage": "https://github.com/harumiWeb/eitango",
+  "skills": []
+}
