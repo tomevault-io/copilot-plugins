@@ -1,0 +1,9 @@
+{
+  "name": "ksd-co--excelstream",
+  "displayName": "excelstream",
+  "description": "ExcelStream is a high-performance XLSX writer/reader for Rust, optimized for massive datasets with constant memory usage.",
+  "version": "1.0.0",
+  "author": "KSD-CO",
+  "homepage": "https://github.com/KSD-CO/excelstream",
+  "skills": []
+}
