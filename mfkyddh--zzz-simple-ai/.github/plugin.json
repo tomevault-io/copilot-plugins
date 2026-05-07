@@ -1,0 +1,9 @@
+{
+  "name": "mfkyddh--zzz-simple-ai",
+  "displayName": "ZZZ-Simple-AI",
+  "description": "\u7528\u5927\u767d\u8bdd\u8bb2\u900f AI \u548c Agent\uff0c\u4ece ChatGPT \u5230\u667a\u80fd\u4f53\uff0c\u96f6\u57fa\u7840\u4e5f\u80fd\u770b\u61c2\u7684\u5de5\u4f5c\u6307\u5357\u3002\u57fa\u4e8e WorkBuddy \u591a\u6a21\u578b\u534f\u4f5c\u5e73\u53f0\u521b\u4f5c\u3002\u4f7f\u7528\u6c42\u662fskill\u4f5c\u4e3a\u4e3b\u8981\u6280\u80fd\u3002",
+  "version": "1.0.0",
+  "author": "mfkyddh",
+  "homepage": "https://github.com/mfkyddh/ZZZ-Simple-AI",
+  "skills": []
+}
