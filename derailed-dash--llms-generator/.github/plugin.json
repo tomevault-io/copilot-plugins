@@ -1,0 +1,9 @@
+{
+  "name": "derailed-dash--llms-generator",
+  "displayName": "LLMs-Generator",
+  "description": "An agentic solution designed to create a llms.txt file for any given repo or folder.",
+  "version": "1.0.0",
+  "author": "derailed-dash",
+  "homepage": "https://github.com/derailed-dash/LLMs-Generator",
+  "skills": []
+}
