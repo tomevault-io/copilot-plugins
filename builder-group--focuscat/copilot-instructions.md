@@ -1,205 +1,411 @@
-## react
+## rust
 
-> React component patterns and conventions
+> Rust coding standards and style guidelines for Tauri applications
 
 
-# React Style Guide
+# Rust Style Guide
 
-React component patterns and conventions for our codebase.
+Rust coding standards and style guidelines for our Tauri applications. These guidelines ensure consistency, maintainability, and high code quality across Rust codebases.
 
-## Component Definition
+## Core Principles
 
-- Always use `React.FC<TProps>` pattern for components
-- Always destructure props at the top with `const { ... } = props`
-- Always define interface at the bottom of the file with `T` prefix
-- Always use `useMemo` for computed values (especially switch statements)
+- **KISS (Keep It Simple, Stupid)** - Always choose the simplest, most maintainable solution
+- **Type Safety First** - Always leverage Rust's type system to prevent errors at compile time
+- **Less is More** - Always avoid unnecessary complexity, the best code is no code
+- **Intent-Driven Comments** - Always use comments to explain intent and categorize code, never to restate what the code does
+
+## Code Organization
+
+### Module Structure
+- Always organize code in a predictable and scalable way
+- Always keep related code close together
+- Always use clear, descriptive module names
+- Always follow consistent patterns across the project
 
 ✅ Good:
+```rust
+src/
+  features/
+    activity_window/
+      mod.rs
+      types.rs
+      repository.rs
+      watcher.rs
+      commands.rs
+  common/
+    db.rs
+    time.rs
+```
 
-```tsx
-export const StartButton: React.FC<TStartButtonProps> = (props) => {
-	const { status, onStart, onPause, className } = props;
+❌ Bad:
+```rust
+src/
+  features/
+    ActivityWindow/     # Wrong: PascalCase directory
+    activity_window/
+      Types.rs          # Wrong: PascalCase file
+      repository.rs
+      watcher.rs
+```
 
-	const { label, onClick } = React.useMemo(() => {
-		switch (status) {
-			case 'idle':
-				return { label: 'START', onClick: onStart };
-			case 'running':
-				return { label: 'PAUSE', onClick: onPause };
-		}
-	}, [status, onStart, onPause]);
+### File Naming
+- Always use `snake_case` for Rust files
+- Always use descriptive, purpose-indicating names
+- Always follow Rust community conventions
 
-	return (
-		<button onClick={onClick} className={className}>
-			{label}
-		</button>
-	);
-};
+✅ Good:
+```rust
+user_service.rs
+jwt_utils.rs
+activity_repository.rs
+```
 
-interface TStartButtonProps {
-	status: 'idle' | 'running';
-	onStart: () => void;
-	onPause: () => void;
-	className?: string;
+❌ Bad:
+```rust
+UserService.rs      # Wrong: PascalCase
+user-service.rs     # Wrong: kebab-case
+USER_UTILS.rs       # Wrong: UPPER_SNAKE_CASE
+```
+
+## Comments and Documentation
+
+### Comment Philosophy
+- Always use comments to explain **intent** and **context**, not to restate code
+- Always use comments to **categorize** and **section** code into logical blocks
+- Always use comments to provide **context** that isn't obvious from the code
+- Never restate what the code already makes clear
+- Never add comments that become outdated quickly
+
+✅ Good:
+```rust
+/// Upsert item (insert or update if exists).
+pub async fn upsert(input: &UpsertInput) -> Result<i64, Error> {
+    // Try to find existing item
+    let existing: Option<i64> = query("SELECT id FROM items WHERE key = ?")
+        .bind(&input.key)
+        .fetch_optional(pool)
+        .await?;
+
+    // Update existing item
+    if let Some(id) = existing {
+        query("UPDATE items SET name = ? WHERE id = ?")
+            .execute(pool)
+            .await?;
+        return Ok(id);
+    }
+    // Insert new item
+    else {
+        let id = query("INSERT INTO items ... RETURNING id")
+            .fetch_one(pool)
+            .await?;
+        return Ok(id);
+    }
 }
 ```
 
 ❌ Bad:
+```rust
+// This function upserts an item
+pub async fn upsert(input: &UpsertInput) -> Result<i64, Error> {
+    // Get current timestamp
+    let now = current_timestamp();
 
-```tsx
-// Wrong: function declaration, I prefix, inline ternary
-function StartButton({ status, onStart }: IStartButtonProps) {
-	const label = status === 'idle' ? 'START' : 'PAUSE';
-	return <button>{label}</button>;
-}
+    // Query the database
+    let existing = query("SELECT id...")
+        .bind(&input.key)  // Bind key
+        .fetch_optional(pool)  // Fetch optional
+        .await?;  // Await
 
-interface IStartButtonProps {
-	status: 'idle' | 'running';
+    // Check if existing exists
+    if let Some(id) = existing {
+        // Update the item
+        query("UPDATE...").execute(pool).await?;
+        // Return the id
+        return Ok(id);
+    }
 }
 ```
 
-## Props with Defaults
-
-- Always prefer props with defaults over module-level constants
-- Always destructure with default values in props
+### Section Dividers
+- Always use `// MARK: -` style section dividers (Xcode convention)
+- Always use section dividers to organize large files into logical sections
+- Always place dividers before major sections, not between every function
 
 ✅ Good:
+```rust
+// MARK: - App Repository
 
-```tsx
-export const NumberWheel: React.FC<TNumberWheelProps> = (props) => {
-	const { value, min = 1, max = 60, itemWidth = 14 } = props;
-	// ...
-};
+pub struct AppRepository;
 
-interface TNumberWheelProps {
-	value: number;
-	min?: number;
-	max?: number;
-	itemWidth?: number;
+impl AppRepository {
+    // ...
+}
+
+// MARK: - App Activity Repository
+
+pub struct AppActivityRepository;
+```
+
+❌ Bad:
+```rust
+// App Repository
+pub struct AppRepository;
+
+// Implementation
+impl AppRepository {
+    // Upsert method
+    pub async fn upsert(...) {
+        // ...
+    }
+    // Get method
+    pub async fn get(...) {
+        // ...
+    }
+}
+```
+
+### Doc Comments
+- Always use doc comments (`///`) for public APIs
+- Always explain behavior, edge cases, and return values
+- Always use doc comments for structs, enums, and public functions
+
+✅ Good:
+```rust
+/// Insert new session.
+/// Returns None if duration is zero or negative (entry skipped).
+pub async fn insert(input: &UpsertInput) -> Result<Option<i64>, Error> {
+    // Skip entries with zero or negative duration
+    if input.end_time <= input.start_time {
+        return Ok(None);
+    }
+    // ...
 }
 ```
 
 ❌ Bad:
-
-```tsx
-const ITEM_WIDTH = 14;  // Wrong: module-level constant
-
-export const NumberWheel: React.FC<TNumberWheelProps> = (props) => {
-	// Uses ITEM_WIDTH instead of prop
-};
-```
-
-## Hooks
-
-- Always prefix custom hooks with `use`
-- Always use `React.useCallback` for event handlers passed to children
-- Always use `React.useMemo` for expensive computations
-- Always use `React.useRef` for mutable values that don't trigger re-renders
-
-✅ Good:
-
-```tsx
-export function useTimer(): TUseTimerReturn {
-	const [state, setState] = React.useState<TTimerState>(initialState);
-	const intervalRef = React.useRef<number | null>(null);
-
-	const start = React.useCallback(() => {
-		setState((prev) => ({ ...prev, status: 'running' }));
-	}, []);
-
-	return { state, start };
-}
-
-interface TUseTimerReturn {
-	state: TTimerState;
-	start: () => void;
+```rust
+// Insert activity
+pub async fn insert(input: &UpsertInput) -> Result<Option<i64>, Error> {
+    // ...
 }
 ```
 
-## Component Structure
+## Return Statements
 
-Larger components follow a consistent section order (skip MARK comments for small components):
-
-1. **Top** - Props destructuring, useState, useRef, useMemo
-2. **`// MARK: - Actions`** - useCallback handlers
-3. **`// MARK: - Effects`** - useEffect hooks
-4. **`// MARK: - UI`** - return JSX
+### Explicit Returns
+- Always use explicit `return` keyword for return statements
+- Always prefer clarity over implicit returns
+- Always use `return` for early returns
 
 ✅ Good:
+```rust
+pub async fn upsert(input: &UpsertInput) -> Result<i64, Error> {
+    if let Some(id) = existing {
+        update_item(id).await?;
+        return Ok(id);
+    } else {
+        let id = insert_item(input).await?;
+        return Ok(id);
+    }
+}
 
-```tsx
-export const Timer: React.FC<TTimerProps> = (props) => {
-	const { initialTime, onComplete } = props;
-
-	const [time, setTime] = React.useState(initialTime);
-	const intervalRef = React.useRef<number | null>(null);
-
-	const isRunning = React.useMemo(() => time > 0, [time]);
-
-	// MARK: - Actions
-
-	const start = React.useCallback(() => {
-		intervalRef.current = window.setInterval(() => {
-			setTime((prev) => prev - 1);
-		}, 1000);
-	}, []);
-
-	const stop = React.useCallback(() => {
-		if (intervalRef.current != null) {
-			clearInterval(intervalRef.current);
-		}
-	}, []);
-
-	// MARK: - Effects
-
-	React.useEffect(() => {
-		if (time === 0) {
-			stop();
-			onComplete?.();
-		}
-	}, [time, stop, onComplete]);
-
-	// MARK: - UI
-
-	return (
-		<div>
-			{/* Time display */}
-			<span>{time}</span>
-
-			{/* Controls */}
-			<button onClick={start}>Start</button>
-		</div>
-	);
-};
+fn validate(input: &str) -> Result<(), Error> {
+    if input.is_empty() {
+        return Err(Error::InvalidInput);
+    }
+    if input.len() > 100 {
+        return Err(Error::InputTooLong);
+    }
+    Ok(())
+}
 ```
 
-## Comments
+❌ Bad:
+```rust
+pub async fn upsert(input: &UpsertInput) -> Result<i64, Error> {
+    if let Some(id) = existing {
+        update_item(id).await?;
+        Ok(id)  // Wrong: Implicit return
+    } else {
+        let id = insert_item(input).await?;
+        Ok(id)  // Wrong: Implicit return
+    }
+}
+```
 
-- Use `{/* Label */}` in JSX for layout structure (helps skimming)
-- Use `// Note:` prefix for non-obvious explanations
-- Never restate what code does - explain WHY if not obvious
-- Keep comments concise - one line when possible
+## Type Definitions
 
-## File Structure
-
-- Always organize features with `components/` and `hooks/` folders
-- Always use barrel exports with `export * from`
+### Naming Conventions
+- Always use descriptive type names
+- Always prefix input types with operation name (e.g., `UpsertAppInput`, `CreateUserInput`)
+- Always prefix DTOs with `Dto` suffix (e.g., `WindowActivityDto`, `UserInfoDto`)
+- Always use `T` prefix for type aliases if needed
 
 ✅ Good:
+```rust
+pub struct UpsertAppInput {
+    pub bundle_id: String,
+    pub name: String,
+}
 
+pub struct WindowActivityDto {
+    pub id: i64,
+    pub title: Option<String>,
+}
 ```
-features/
-  timer/
-    components/
-      TimerDial.tsx
-      StartButton.tsx
-      index.ts          # export * from './TimerDial'; etc.
-    hooks/
-      use-timer.ts
-      index.ts          # export * from './use-timer';
-    TimerView.tsx
-    types.ts
-    index.ts            # export * from './TimerView'; etc.
+
+❌ Bad:
+```rust
+pub struct AppInput {  // Wrong: Unclear what operation
+    // ...
+}
+
+pub struct WindowActivity {  // Wrong: Missing Dto suffix
+    // ...
+}
+```
+
+## Error Handling
+
+### Result Types
+- Always use `Result<T, E>` for fallible operations
+- Always propagate errors with `?` operator when appropriate
+- Always handle errors explicitly when needed
+
+✅ Good:
+```rust
+pub async fn get_by_id(id: i64) -> Result<Option<Item>, Error> {
+    let row = query("SELECT * FROM items WHERE id = ?")
+        .bind(id)
+        .fetch_optional(pool)
+        .await?;
+
+    Ok(row.map(Item::from))
+}
+```
+
+❌ Bad:
+```rust
+pub async fn get_by_id(id: i64) -> Option<Item> {
+    let row = query("SELECT * FROM items WHERE id = ?")
+        .fetch_optional(pool)
+        .await
+        .unwrap();  // Wrong: Panic on error
+
+    row.map(Item::from)
+}
+```
+
+## Async/Await
+
+### Async Functions
+- Always use `async fn` for asynchronous operations
+- Always use `.await?` for error propagation in async contexts
+- Always handle async errors appropriately
+
+✅ Good:
+```rust
+pub async fn insert(input: &UpsertInput) -> Result<Option<i64>, Error> {
+    let id = query("INSERT INTO items ... RETURNING id")
+        .fetch_one(pool)
+        .await?;
+
+    return Ok(Some(id));
+}
+```
+
+❌ Bad:
+```rust
+pub fn insert(input: &UpsertInput) -> Result<Option<i64>, Error> {  // Wrong: Not async
+    let id = query("...")
+        .fetch_one(pool)  // Wrong: Missing await
+        .unwrap();  // Wrong: Panic on error
+
+    Ok(Some(id))
+}
+```
+
+## Repository Pattern
+
+### Structure
+- Always organize repositories by domain/feature
+- Always keep input types near their repository
+- Always use clear separation between repositories
+
+✅ Good:
+```rust
+// MARK: - App Repository
+
+pub struct AppRepository;
+
+impl AppRepository {
+    pub async fn upsert(input: &UpsertAppInput) -> Result<i64, Error> {
+        // ...
+    }
+}
+
+pub struct UpsertAppInput {
+    pub bundle_id: String,
+    pub name: String,
+}
+```
+
+❌ Bad:
+```rust
+pub struct AppRepository;
+pub struct UpsertAppInput { /* ... */ }
+pub struct ActivityRepository;
+pub struct UpsertActivityInput { /* ... */ }
+
+impl AppRepository { /* ... */ }
+impl ActivityRepository { /* ... */ }
+```
+
+## Code Style
+
+### Formatting
+- Always use `rustfmt` for consistent formatting
+- Always use 4 spaces for indentation
+- Always use trailing commas in multi-line structs/enums
+
+✅ Good:
+```rust
+pub struct ItemDto {
+    pub id: i64,
+    pub name: String,
+    pub value: Option<String>,
+}
+```
+
+❌ Bad:
+```rust
+pub struct ItemDto {
+    pub id: i64,
+    pub name: String,
+    pub value: Option<String>  // Wrong: Missing trailing comma
+}
+```
+
+### Null Checks
+- Always use explicit null checks with `== null` or `is_none()`
+- Always handle `Option` types explicitly
+
+✅ Good:
+```rust
+if let Some(id) = existing {
+    return Ok(id);
+}
+
+let value = option.unwrap_or_default();
+```
+
+❌ Bad:
+```rust
+if existing.is_some() {  // Wrong: Less clear
+    return Ok(existing.unwrap());
+}
+
+let value = option.unwrap();  // Wrong: May panic
 ```
 
 ---
