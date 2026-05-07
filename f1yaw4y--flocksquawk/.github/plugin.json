@@ -1,0 +1,9 @@
+{
+  "name": "f1yaw4y--flocksquawk",
+  "displayName": "FlockSquawk",
+  "description": "FlockSquawk is a compact Flock Safety detector with clear voice alerts via speaker. It monitors WiFi and BLE signals to detect known surveillance devices in real time.",
+  "version": "1.0.0",
+  "author": "f1yaw4y",
+  "homepage": "https://github.com/f1yaw4y/FlockSquawk",
+  "skills": []
+}
