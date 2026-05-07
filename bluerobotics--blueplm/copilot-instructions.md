@@ -1,99 +1,136 @@
-## always
+## architecture
 
-> Critical rules that must always be followed
+> Source folder structure and architecture overview
 
 
-# Critical Rules
+# BluePLM Architecture
 
-## Multi-Agent Plans (READ FIRST)
-
-Before creating plans for multiple agents, you **MUST** read `.cursor/rules/plans.mdc` and follow its structure exactly.
-
----
-
-## Tool Usage
-
-| Task | Use This | Never This |
-|------|----------|------------|
-| Read | `read_file` | `cat`, `Get-Content` |
-| Write | `write` | `echo >`, `Set-Content` |
-| Edit | `search_replace` | `sed`, `awk` |
-| Search | `grep` | `rg`, `findstr` |
-| **Move** | `Move-Item` (terminal) | write new + delete old |
-| **Rename** | `Rename-Item` (terminal) | write new + delete old |
-| **Delete** | `Remove-Item` (terminal) | — |
-
-## File Move/Rename/Delete (CRITICAL)
-
-**NEVER** recreate files from scratch when moving or renaming. Use PowerShell:
-
-```powershell
-Move-Item -Path "old/path/file.ts" -Destination "new/path/file.ts"
-Rename-Item -Path "file.ts" -NewName "newname.ts"
-Remove-Item -Path "file.ts"
-```
-
-Why: Recreating files risks losing content, comments, or subtle details. Native file operations preserve everything exactly.
-
-Terminal is also for: `git`, `npm`, `npx`, build scripts.
-
-## Schema Versioning (BOTH files, every time)
-
-1. `supabase/schema.sql` → bump INSERT version
-2. `src/lib/schemaVersion.ts` → bump EXPECTED_SCHEMA_VERSION
-
-Mismatch = users see "database newer/older than app" warnings.
-
-## API Versioning (BOTH files, every time)
-
-When making API changes:
-
-1. `api/package.json` → bump `version` field
-2. `src/lib/apiVersion.ts` → bump `EXPECTED_API_VERSION`
-3. Add entry to `API_VERSION_DESCRIPTIONS` with changelog
-
-For **breaking changes** (major version bump):
-- Also update `MINIMUM_COMPATIBLE_API_VERSION`
-
-Mismatch = users see "API newer/older than app" warnings.
-
-## Release Gate
-
-Before creating a git tag:
+## Source Folder Structure
 
 ```
-npm run typecheck        # must pass
-package.json             # version bumped
-CHANGELOG.md             # entry added
-docs/                    # updated if user-facing
+src/
+├── app/                    # App entry point
+│   ├── App.tsx            # Main component, providers, layout
+│   └── main.tsx           # React DOM entry
+│
+├── components/            # Reusable UI components
+│   ├── core/             # Primitives: Dialog, Loader, Toast, ErrorBoundary
+│   ├── effects/          # Visual effects (seasonal themes)
+│   ├── layout/           # App shell: Sidebar, Topbar, Panels
+│   └── shared/           # Cross-feature components
+│
+├── features/             # Feature modules (vertical slices)
+│   ├── source/           # File browser, explorer, workflows
+│   ├── settings/         # All settings screens
+│   ├── search/           # Command palette, search views
+│   ├── change-control/   # ECR, ECO, deviations
+│   ├── supply-chain/     # Suppliers, RFQ, portal
+│   ├── integrations/     # Google Drive, SolidWorks
+│   ├── notifications/    # Notification center
+│   ├── items/            # BOMs, products
+│   └── dev-tools/        # Terminal, logs, performance
+│
+├── stores/               # Zustand state (see zustand.mdc)
+│   ├── pdmStore.ts      # Combined store with persistence
+│   ├── slices/          # Individual slice creators
+│   ├── types.ts         # All state/action types
+│   ├── selectors.ts     # Memoized derived state
+│   └── migrations.ts    # Store version migrations
+│
+├── hooks/               # Shared React hooks
+│   ├── useAuth.ts
+│   ├── useClipboard.ts
+│   ├── useKeyboardShortcuts.ts
+│   └── ...
+│
+├── lib/                 # Core utilities & services
+│   ├── supabase/       # Supabase client & queries
+│   ├── commands/       # CLI command handlers
+│   ├── fileOperations/ # File sync logic
+│   ├── i18n/           # Translations
+│   └── utils/          # Pure utility functions
+│
+├── types/              # Shared TypeScript types
+│   ├── pdm.ts         # Core domain types
+│   ├── modules.ts     # Module configuration
+│   ├── workflow.ts    # Workflow types
+│   └── supabase.ts    # Generated DB types
+│
+└── constants/          # App-wide constants
 ```
 
-## Plans Location (CRITICAL)
+## Feature Module Structure
 
-**ALWAYS** create plan files in the **repository's** `.cursor/plans/` folder:
+Each feature follows this pattern:
 
 ```
-{workspace}/.cursor/plans/{name}.plan.md
+features/my-feature/
+├── index.ts           # Public exports (barrel)
+├── MyFeatureView.tsx  # Main view component
+├── components/        # Feature-specific components
+├── hooks/            # Feature-specific hooks
+├── types.ts          # Feature types
+└── utils.ts          # Feature utilities
 ```
 
-**NEVER** create plans in:
-- User home directory (`~/.cursor/` or `C:\Users\{user}\.cursor\`)
-- Cursor's project folder (`~/.cursor/projects/`)
-- Any location outside the repository
+## Import Aliases
 
-The correct path is always **relative to the workspace root**, not the user's home directory.
+Use `@/` alias for clean imports:
 
-## CLI Commands
+```typescript
+import { usePDMStore } from '@/stores'
+import { Button } from '@/components/shared'
+import { supabase } from '@/lib/supabase'
+import type { PDMFile } from '@/types/pdm'
+```
 
-New commands go in `src/lib/commands/handlers/`, register in `index.ts`.
+## Component Placement Decision Tree
 
-## New Features Checklist
+```
+Is it a primitive (Dialog, Toast, Loader)?
+  → src/components/core/
 
-Before adding features, verify:
+Is it app shell (Sidebar, Topbar)?
+  → src/components/layout/
 
-1. **State** → Use `usePDMStore` slices, never new stores (`zustand.mdc`)
-2. **Location** → Feature code in `src/features/`, shared in `src/components/` (`architecture.mdc`)
-3. **Types** → Shared in `src/types/`, feature-specific in feature folder
+Is it used across multiple features?
+  → src/components/shared/
+
+Is it feature-specific?
+  → src/features/{feature}/components/
+```
+
+## Adding a New Feature
+
+1. Create folder: `src/features/my-feature/`
+2. Add view: `MyFeatureView.tsx`
+3. Export from `index.ts`
+4. Add to sidebar (if needed): see `src/stores/types.ts` → `SidebarView`
+5. Add slice (if state needed): see `zustand.mdc`
+
+## Key Patterns
+
+### Barrel Exports
+
+Every folder has an `index.ts` that exports public API:
+
+```typescript
+// src/features/my-feature/index.ts
+export { MyFeatureView } from './MyFeatureView'
+export type { MyFeatureProps } from './types'
+```
+
+### Type Colocation
+
+- **Shared types** → `src/types/`
+- **Feature types** → `src/features/{feature}/types.ts`
+- **Store types** → `src/stores/types.ts`
+
+### Hook Organization
+
+- **Shared hooks** → `src/hooks/`
+- **Feature hooks** → `src/features/{feature}/hooks/`
+- **Store selectors** → `src/stores/selectors.ts`
 
 ---
 > Source: [bluerobotics/bluePLM](https://github.com/bluerobotics/bluePLM) — distributed by [TomeVault](https://tomevault.io).
