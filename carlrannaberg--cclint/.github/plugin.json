@@ -1,0 +1,9 @@
+{
+  "name": "carlrannaberg--cclint",
+  "displayName": "cclint",
+  "description": "Linter for Claude Code project files",
+  "version": "1.0.0",
+  "author": "carlrannaberg",
+  "homepage": "https://github.com/carlrannaberg/cclint",
+  "skills": []
+}
