@@ -1,0 +1,9 @@
+{
+  "name": "bitwisecook--tcl-lsp",
+  "displayName": "tcl-lsp",
+  "description": "An LSP for Tcl 8.4-9.0, F5 iRules, F5 iApps and other Tcl dialects",
+  "version": "1.0.0",
+  "author": "bitwisecook",
+  "homepage": "https://github.com/bitwisecook/tcl-lsp",
+  "skills": []
+}
