@@ -1,25 +1,91 @@
-## gh-merge
+## go-apt-bundle-standards
 
-> When merging PRs with gh, use squash merge so main stays linear (one commit per PR).
+> Go coding standards for apt-bundle to prevent common bugs and maintain consistency
 
 
-# GitHub PR merge behavior
+# Go / apt-bundle Coding Standards
 
-When merging pull requests using the `gh` CLI, **always use squash merge** so that `main` has a linear history (one commit per PR) and no merge commits.
+Guidelines derived from code review to prevent recurring issues.
 
-Use:
+## Use Type Constants Over String Literals
 
-```bash
-gh pr merge <number> --squash
+When comparing to known types (e.g. `EntryType`), use the constant to avoid typos and stay consistent.
+
+```go
+// ❌ BAD
+if entry.Type == "apt" { ... }
+
+// ✅ GOOD
+if entry.Type == aptfile.EntryTypeApt { ... }
 ```
 
-Do **not** use:
+## Check Before Mutate (Prefix/Trim Logic)
 
-```bash
-gh pr merge <number> --merge
+When parsing or trimming strings, check the condition **before** trimming. Trimming first can make the subsequent check always false.
+
+```go
+// ❌ BAD - HasPrefix is false after TrimPrefix
+line = strings.TrimPrefix(line, "deb-src ")
+if strings.HasPrefix(line, "deb-src ") { ... }
+
+// ✅ GOOD - Check first, then trim
+if strings.HasPrefix(line, "deb-src ") {
+    line = strings.TrimPrefix(line, "deb-src ")
+} else if strings.HasPrefix(line, "deb ") {
+    line = strings.TrimPrefix(line, "deb ")
+}
 ```
 
-This matches the repo preference for squash merging (configure in GitHub: Settings → General → Pull Requests → allow squash merging and default to squash merging).
+## Prefer Returning Errors Over os.Exit
+
+In Cobra command handlers, return errors and let `main` handle exit codes. `os.Exit` bypasses `defer` and is harder to test.
+
+```go
+// ❌ BAD
+if !ok {
+    os.Exit(1)
+}
+return nil
+
+// ✅ GOOD
+if !ok {
+    return fmt.Errorf("validation failed")
+}
+return nil
+```
+
+## Avoid Redundant Parsing or I/O
+
+Don't parse or read the same file/data twice when you can pass results through. Refactor to return or accept the parsed data.
+
+```go
+// ❌ BAD - parses Aptfile twice
+ok, missing, _ := doCheck(aptfilePath)
+entries, _ := aptfile.Parse(aptfilePath)
+fmt.Printf("Checking %d entries...\n", len(entries))
+
+// ✅ GOOD - parse once, pass through
+entries, _ := aptfile.Parse(aptfilePath)
+ok, missing, _ := doCheckWithEntries(entries)
+fmt.Printf("Checking %d entries...\n", len(entries))
+```
+
+## HTTP Clients: Use Timeouts
+
+External HTTP requests (e.g. downloading GPG keys) should use a client with a timeout to avoid hanging.
+
+```go
+// ❌ BAD - no timeout
+resp, err := http.Get(url)
+
+// ✅ GOOD
+client := &http.Client{Timeout: 30 * time.Second}
+resp, err := client.Get(url)
+```
+
+## Dependency Injection for Testability
+
+External system calls (exec, HTTP, filesystem) should be overridable via package-level vars or interfaces. Use `SetX`/`ResetX` for tests and `defer ResetX()` in tests.
 
 ---
 > Source: [apt-bundle/apt-bundle](https://github.com/apt-bundle/apt-bundle) — distributed by [TomeVault](https://tomevault.io).
