@@ -7,11 +7,11 @@ A fast, native Spotify client written in Rust - a fork of psst focused on a ligh
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [skyline69/spotix](https://github.com/skyline69/spotix).
+Original source: `CLAUDE.md` in [skyline69/spotix](https://github.com/skyline69/spotix).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
