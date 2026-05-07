@@ -1,0 +1,9 @@
+{
+  "name": "drakulavich--kesha-voice-kit",
+  "displayName": "kesha-voice-kit",
+  "description": "Open-source voice toolkit. Speech-to-text (25 langs, ~19x faster than Whisper on Apple Silicon, ONNX fallback on CPU), text-to-speech (Kokoro + Vosk-TTS + ~180 macOS system voices, SSML), voice-activi",
+  "version": "1.0.0",
+  "author": "drakulavich",
+  "homepage": "https://github.com/drakulavich/kesha-voice-kit",
+  "skills": []
+}
