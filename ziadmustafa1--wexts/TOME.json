@@ -4,7 +4,7 @@
   "repo": "wexts",
   "description": "",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/ziadmustafa1/wexts",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T01:07:39Z"
+  "distributed_at": "2026-05-07T07:53:08Z"
 }
