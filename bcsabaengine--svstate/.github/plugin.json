@@ -1,0 +1,9 @@
+{
+  "name": "bcsabaengine--svstate",
+  "displayName": "svstate",
+  "description": "Deep reactive proxy with validation, snapshot/undo, and side effects \u2014 built for complex, real-world applications",
+  "version": "1.0.0",
+  "author": "BCsabaEngine",
+  "homepage": "https://github.com/BCsabaEngine/svstate",
+  "skills": []
+}
