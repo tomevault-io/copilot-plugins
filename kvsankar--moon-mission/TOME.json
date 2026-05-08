@@ -4,7 +4,7 @@
   "repo": "moon-mission",
   "description": "Moon mission orbit animation",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kvsankar/moon-mission",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-30T00:10:30Z"
+  "distributed_at": "2026-05-08T17:04:21Z"
 }
