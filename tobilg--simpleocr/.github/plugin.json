@@ -1,0 +1,9 @@
+{
+  "name": "tobilg--simpleocr",
+  "displayName": "simpleocr",
+  "description": "Swift OCR CLI for AI Pipeline Use",
+  "version": "1.0.0",
+  "author": "tobilg",
+  "homepage": "https://github.com/tobilg/simpleocr",
+  "skills": []
+}
