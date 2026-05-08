@@ -1,0 +1,9 @@
+{
+  "name": "confusius-tools--confusius",
+  "displayName": "confusius",
+  "description": "Python package for analysis and visualization of functional ultrasound imaging data.",
+  "version": "1.0.0",
+  "author": "confusius-tools",
+  "homepage": "https://github.com/confusius-tools/confusius",
+  "skills": []
+}
