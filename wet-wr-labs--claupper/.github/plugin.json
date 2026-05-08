@@ -1,0 +1,9 @@
+{
+  "name": "wet-wr-labs--claupper",
+  "displayName": "claupper",
+  "description": "One-handed agentic remote for Flipper Zero. Includes custom macros, voice dictation, an offline claude code manual & more.",
+  "version": "1.0.0",
+  "author": "Wet-wr-Labs",
+  "homepage": "https://github.com/Wet-wr-Labs/claupper",
+  "skills": []
+}
