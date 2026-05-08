@@ -1,6 +1,8 @@
-# nornweave — distributed by TomeVault
+# nornweave
 
-> Originally from [DataCovey/nornweave](https://github.com/DataCovey/nornweave). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [DataCovey/nornweave](https://github.com/DataCovey/nornweave) — distributed by [TomeVault](https://tomevault.io)
+
+An open-source, self-hosted API that turns standard email providers (Mailgun, SES, SendGrid) into "Inbox-as-a-Service" for AI Agents.
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [DataCovey/nornweave](https://github.c
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/DataCovey)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/DataCovey/nornweave](https://github.com/DataCovey/nornweave)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/DataCovey) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:d-c-p -->
