@@ -1,0 +1,9 @@
+{
+  "name": "ar0cket1--hermes-research-agent",
+  "displayName": "hermes-research-agent",
+  "description": "Research-focused fork of Hermes Agent for autonomous end-to-end LLM research loops.",
+  "version": "1.0.0",
+  "author": "ar0cket1",
+  "homepage": "https://github.com/ar0cket1/hermes-research-agent",
+  "skills": []
+}
