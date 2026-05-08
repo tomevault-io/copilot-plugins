@@ -1,0 +1,9 @@
+{
+  "name": "tambo-ai--tambo-template-vite",
+  "displayName": "tambo-template-vite",
+  "description": "Tambo AI template using TanStack Router and Vite",
+  "version": "1.0.0",
+  "author": "tambo-ai",
+  "homepage": "https://github.com/tambo-ai/tambo-template-vite",
+  "skills": []
+}
