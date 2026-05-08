@@ -1,0 +1,9 @@
+{
+  "name": "p2pdotme--p2pdotme-sdk",
+  "displayName": "p2pdotme-sdk",
+  "description": "TypeScript SDK for P2P.me",
+  "version": "1.0.0",
+  "author": "p2pdotme",
+  "homepage": "https://github.com/p2pdotme/p2pdotme-sdk",
+  "skills": []
+}
