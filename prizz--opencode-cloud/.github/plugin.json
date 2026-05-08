@@ -1,0 +1,9 @@
+{
+  "name": "prizz--opencode-cloud",
+  "displayName": "opencode-cloud",
+  "description": "A docker container configuration and scripts for running opencode and its web ui in the cloud",
+  "version": "1.0.0",
+  "author": "pRizz",
+  "homepage": "https://github.com/pRizz/opencode-cloud",
+  "skills": []
+}
