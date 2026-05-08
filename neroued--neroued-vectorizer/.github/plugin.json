@@ -1,0 +1,9 @@
+{
+  "name": "neroued--neroued-vectorizer",
+  "displayName": "neroued_vectorizer",
+  "description": "High-quality raster-to-SVG vectorization C++ library",
+  "version": "1.0.0",
+  "author": "Neroued",
+  "homepage": "https://github.com/Neroued/neroued_vectorizer",
+  "skills": []
+}
