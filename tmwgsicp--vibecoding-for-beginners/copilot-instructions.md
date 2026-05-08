@@ -1,331 +1,144 @@
-## dev-standards
+## ui-design-guide
 
-> - Keep it simple, practical, iterative
+> UI design system: colors, typography, 8-point grid, components (buttons/cards/inputs), animations. Use CSS variables, no hardcoded values.
 
-## Core Principles
 
-- Keep it simple, practical, iterative
-- Code is documentation (clear naming + minimal comments)
-- **Comment only when necessary** (complex logic, non-obvious decisions, business rules)
-- **NO EMOJI** in code/comments/logs
-- **Bilingual comments** (English + Chinese) for important explanations only
+## Color System
 
----
+```css
+/* Primary */
+--primary-color: #1890ff;
+--success-color: #52c41a;
+--warning-color: #fa8c16;
+--error-color: #ff4d4f;
 
-## Documentation Discipline
+/* Text */
+--text-primary: #262626;
+--text-secondary: #595959;
 
-### When to Write Documentation
+/* Background */
+--bg-primary: #ffffff;
+--bg-secondary: #fafafa;
 
-**ONLY create documentation for**:
-- ✅ Core architecture designs (database schema, API design)
-- ✅ Critical technical solution documents
-- ✅ User-facing usage guides
+/* Border */
+--border-light: #f0f0f0;
+--border-base: #d9d9d9;
 
-### Absolutely Forbidden
-
-**DO NOT create documentation for**:
-- ❌ Summary docs after each conversation/task
-- ❌ Design docs for simple/straightforward tasks
-- ❌ Overly detailed changelogs
-- ❌ Documenting what code already clearly expresses
-
-### Principle: Code as Documentation
-
-优先使用以下方式表达意图,而非写文档:
-- Clear naming (descriptive variable/function/class names)
-- Type hints (Python type annotations, TypeScript types)
-- Minimal inline comments (only for complex logic)
-- Self-documenting code structure
-
-**Remember**: 在开发过程中对文档撰写保持克制。不要浪费时间和资源在非核心文档上。
-
----
-
-## Python Standards
-
-### File Structure
-
-```python
-#!/usr/bin/env python3
-# Copyright (C) {YEAR} {PROJECT} Contributors
-# Licensed under {LICENSE}
-
-"""
-Module brief description.
-模块简要说明。
-"""
-
-# 1. Standard library
-import os
-from typing import Dict, List, Optional, Any
-
-# 2. Third-party
-from fastapi import FastAPI
-
-# 3. Local
-from app.core import BaseClass
-```
-
-### Naming Conventions
-
-| Type | Convention | Example |
-|------|-----------|---------|
-| Module/Package | `snake_case` | `user_manager.py` |
-| Class | `PascalCase` | `UserManager` |
-| Function/Method | `snake_case` | `get_user()` |
-| Variable | `snake_case` | `user_name` |
-| Constant | `UPPER_SNAKE` | `MAX_RETRY` |
-| Private | `_leading` | `_internal()` |
-
-### Type Hints (Required)
-
-```python
-def process_data(
-    data: str,
-    max_length: int = 100,
-    options: Optional[Dict[str, Any]] = None
-) -> Dict[str, Any]:
-    """Process data with max length limit."""
-    return {"result": data[:max_length]}
-```
-
-### Docstrings (Bilingual for Public APIs)
-
-```python
-def get_user(user_id: str) -> Dict:
-    """
-    Get user information by ID.
-    根据ID获取用户信息。
-    """
-    return {}
-
-def process_batch(items: List[Dict], batch_size: int = 10) -> List[Dict]:
-    """
-    Process items in batches.
-    批量处理数据项。
-    
-    Args:
-        items: List of items to process / 待处理的数据项列表
-        batch_size: Number of items per batch / 每批次的数据项数量
-    
-    Returns:
-        List of processed results / 处理结果列表
-    
-    Raises:
-        ValueError: When items is empty / 当items为空时抛出
-    """
-    if not items:
-        raise ValueError("Items cannot be empty")
-    return []
-```
-
-### Comments (Only When Necessary)
-
-**When to comment** (bilingual preferred):
-- Complex algorithms / 复杂算法
-- Non-obvious business logic / 非显而易见的业务逻辑
-- Important design decisions / 重要的设计决策
-- Workarounds / 临时方案
-
-**When NOT to comment**:
-- Self-explanatory code
-- Simple variable assignments
-- Obvious operations
-
-```python
-# Good - explains WHY for complex logic
-# Apply exponential decay for time sensitivity / 对时间敏感度应用指数衰减
-weight = math.exp(-0.1 * data['age'])
-
-# Bad - repeats WHAT code does
-x = x + 1  # Increment x by 1
-
-# Tags (can be English-only)
-# TODO: Implement caching layer
-# FIXME: Race condition in user updates
-# HACK: Temporary fix, refactor needed
-```
-
-### CRITICAL - NO EMOJI
-
-```python
-# WRONG
-logger.info("✅ Test passed")
-print("📊 Statistics")
-
-# CORRECT
-logger.info("Test passed")
-print("Statistics")
+/* Shadow */
+--shadow-light: 0 2px 8px rgba(0, 0, 0, 0.06);
+--shadow-base: 0 4px 12px rgba(0, 0, 0, 0.08);
 ```
 
 ---
 
-## JavaScript/Vue Standards
+## Typography
 
-### Naming Conventions
+```css
+/* Font Family */
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  'PingFang SC', 'Microsoft YaHei', sans-serif;
 
-| Type | Convention | Example |
-|------|-----------|---------|
-| File | `kebab-case` | `user-list.js` |
-| Component | `PascalCase` | `UserList.vue` |
-| Function/Variable | `camelCase` | `getUserList()` |
-| Constant | `UPPER_SNAKE` | `MAX_COUNT` |
+/* Sizes */
+--font-xs: 12px;
+--font-sm: 14px;
+--font-base: 16px;
+--font-lg: 20px;
+--font-xl: 24px;
 
-### Vue Component (Minimal Comments)
+/* Weight */
+--font-regular: 400;
+--font-semibold: 600;
+--font-bold: 700;
 
+/* Line Height */
+--leading-normal: 1.6;
+```
+
+---
+
+## Layout (8-Point Grid)
+
+```css
+/* Spacing */
+--space-xs: 4px;
+--space-sm: 8px;
+--space-md: 16px;
+--space-lg: 24px;
+--space-xl: 32px;
+
+/* Border Radius */
+--radius-small: 4px;
+--radius-base: 8px;
+--radius-large: 12px;
+
+/* Page Width */
+--width-wide: 1400px;  /* Default */
+
+/* Breakpoints */
+--breakpoint-mobile: 768px;
+--breakpoint-tablet: 1024px;
+```
+
+---
+
+## Components
+
+### Buttons
 ```vue
-<!--
-  Copyright (C) {YEAR} {PROJECT} Contributors
-  Licensed under {LICENSE}
--->
+<el-button type="primary">Confirm</el-button>
+<el-button>Cancel</el-button>
+<el-button type="danger">Delete</el-button>
+```
 
-<template>
-  <div class="component-name">
-    <h1>{{ title }}</h1>
-  </div>
-</template>
-
-<script setup>
-import { ref, onMounted } from 'vue'
-
-const props = defineProps({
-  title: String
-})
-
-const count = ref(0)
-
-function handleClick() {
-  count.value++
-}
-
-onMounted(() => {
-  // Complex initialization only / 仅在复杂初始化时注释
-})
-</script>
+### Cards (Use `unified-card` class)
+```vue
+<el-card class="unified-card" shadow="never">
+  <template #header>
+    <span class="card-title">Title</span>
+  </template>
+  <div>Content</div>
+</el-card>
 
 <style scoped>
-.component-name {
-  padding: 16px;
+.unified-card {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow-light);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
 }
 </style>
 ```
 
----
-
-## Copyright Headers
-
-### Python
-```python
-#!/usr/bin/env python3
-# Copyright (C) 2026 PocketFlow Contributors
-# Licensed under MIT
-
-"""Module description / 模块说明."""
-```
-
-### JavaScript/Vue
-```javascript
-/**
- * Copyright (C) 2026 PocketFlow Contributors
- * Licensed under MIT
- */
+### Inputs
+```vue
+<el-input v-model="value" placeholder="Enter content" clearable />
 ```
 
 ---
 
-## Database Design Guidelines
+## Animation
 
-### Naming Conventions
+```css
+/* Duration */
+--duration-fast: 200ms;
+--duration-normal: 300ms;
 
-| Type | Convention | Example |
-|---|-----|---|
-| Table | `snake_case`, plural | `workflows`, `executions` |
-| Column | `snake_case` | `user_id`, `created_at` |
-| Primary Key | `id` | `id` (UUID string) |
-| Foreign Key | `{table}_id` | `workflow_id`, `user_id` |
-| Boolean | `is_*` / `has_*` | `is_active`, `has_permission` |
-| Timestamp | `*_at` | `created_at`, `updated_at`, `deleted_at` |
-| Index | `idx_{columns}` | `idx_user_id`, `idx_created_at` |
-
-### Design Principles
-
-1. **Separation of Concerns** (关注点分离)
-   - 按业务功能分库: core.db (核心业务), executions.db (执行历史), hitl.db (人机交互)
-   - 按时间分表: 执行历史按月分表 (executions_2026_01, executions_2026_02)
-
-2. **Field Design** (字段设计)
-   - 必须字段: `id`, `created_at`, `updated_at`
-   - 软删除: 添加 `deleted_at` (可选)
-   - JSON 字段: 用于灵活配置,但避免过度使用
-   - 外键约束: 根据需要设置 CASCADE/SET NULL
-
-3. **Index Strategy** (索引策略)
-   - 主键默认索引
-   - 频繁查询字段: `user_id`, `status`, `created_at`
-   - 外键字段
-   - 组合索引: 多字段联合查询
-
-4. **Schema Evolution** (模式演进)
-   - 向前兼容: 新增字段设置默认值
-   - 迁移脚本: 使用 Alembic 管理版本
-   - 数据备份: 变更前必须备份
-
-### Example Table
-
-```sql
--- Good example / 良好示例
-CREATE TABLE workflows (
-    -- Primary Key
-    id VARCHAR(36) PRIMARY KEY,
-    
-    -- Foreign Keys
-    user_id VARCHAR(36) NOT NULL,
-    workspace_id VARCHAR(36),
-    
-    -- Core Fields
-    name VARCHAR(255) NOT NULL,
-    description TEXT,
-    definition JSON NOT NULL,
-    
-    -- Status Fields
-    is_active BOOLEAN DEFAULT TRUE,
-    
-    -- Timestamps (required / 必需)
-    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    
-    -- Indexes
-    INDEX idx_user_id (user_id),
-    INDEX idx_workspace_id (workspace_id),
-    INDEX idx_is_active (is_active),
-    INDEX idx_created_at (created_at)
-);
+/* Easing */
+--ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 ```
 
 ---
 
-## Commit Messages
+## Rules
 
-```
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
-```
-
-**Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-
-**Examples**:
-```bash
-feat: add user authentication
-fix: resolve memory leak in parser
-feat(api): add user registration endpoint
-
-Implement POST /api/users/register with email validation and JWT tokens.
-
-Closes #123
-```
+1. **Always use CSS variables** (no hardcoded colors/spacing)
+2. **Spacing must be 8-point multiples** (8, 16, 24, 32...)
+3. **Cards use `shadow="never"`** and `unified-card` class
+4. **Animations under 400ms**
 
 ---
 > Source: [tmwgsicp/vibecoding-for-beginners](https://github.com/tmwgsicp/vibecoding-for-beginners) — distributed by [TomeVault](https://tomevault.io).
