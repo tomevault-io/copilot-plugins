@@ -1,0 +1,9 @@
+{
+  "name": "pierresmague--geotrainer",
+  "displayName": "GeoTrainer",
+  "description": "A training tool to optimize progression at Geoguessr.",
+  "version": "1.0.0",
+  "author": "PierreSmague",
+  "homepage": "https://github.com/PierreSmague/GeoTrainer",
+  "skills": []
+}
