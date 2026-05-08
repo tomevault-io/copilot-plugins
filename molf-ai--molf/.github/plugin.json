@@ -1,0 +1,9 @@
+{
+  "name": "molf-ai--molf",
+  "displayName": "molf",
+  "description": "Yet another AI agent (but maybe the one for you)",
+  "version": "1.0.0",
+  "author": "molf-ai",
+  "homepage": "https://github.com/molf-ai/molf",
+  "skills": []
+}
