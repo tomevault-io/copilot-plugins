@@ -1,221 +1,93 @@
-## unity-performance
+## unity-testing
 
-> Performance Optimization
+> Unity Test Framework (Production Standards)
 
 
-# Unity Performance Rules
+# Unity Test Framework Guidelines
 
-## Update/FixedUpdate/LateUpdate
+When writing tests in Unity 6.2, adhere to the **AAA (Arrange, Act, Assert)** pattern and use the **Constraint Model** for assertions (`Assert.That`). This ensures readability and maintainability.
 
-### Usage Rules
+## 1. Assembly Definition Requirement
+Ensure your test script is located in a folder with an `.asmdef` (Assembly Definition) file that:
+1. References `UnityEngine.TestRunner` and `UnityEditor.TestRunner`.
+2. References the Assembly Definition of your main project logic (Runtime code).
 
-```
-using UnityEngine;
-
-public class PerformanceExample : MonoBehaviour
-{
-    private Rigidbody _rigidbody;
-    
-    // ✅ DO: Cache components in Awake/Start
-    private void Awake()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
-    }
-    
-    // ❌ DON'T: Frequent GetComponent calls in Update
-    /* 
-    private void Update()
-    {
-        GetComponent<Rigidbody>().AddForce(Vector3.up); // Bad! Expensive call every frame.
-    }
-    */
-    
-    private void FixedUpdate()
-    {
-        // ✅ DO: Physics calculations in FixedUpdate
-        _rigidbody.AddForce(Vector3.up);
-    }
-    
-    private void Update()
-    {
-        // ✅ DO: Input processing and frame-logic in Update
-        ProcessInput();
-    }
-    
-    private void LateUpdate()
-    {
-        // ✅ DO: Camera following logic in LateUpdate (after player moves)
-        UpdateCameraPosition();
-    }
-    
-    private void ProcessInput() { /* ... */ }
-    private void UpdateCameraPosition() { /* ... */ }
-}
-```
-
-## Object Pooling (UnityEngine.Pool)
-
-**Unity 6.2 Note:** Do not write custom Queue-based pools. Use the native `UnityEngine.Pool` API.
+## 2. Edit Mode Test (Pure Logic)
+Use this for testing logic that is independent of the Engine Loop (e.g., Math, Data Parsing, State Machines). These tests run very fast.
 
 ```
-using UnityEngine;
-using UnityEngine.Pool;
+using NUnit.Framework;
+// using MyProject.Systems; 
 
-public class BulletManager : MonoBehaviour
+public class HealthSystemTests
 {
-    [SerializeField] private Bullet _bulletPrefab;
-    
-    // Native Unity Pool interface
-    private IObjectPool<Bullet> _bulletPool;
-    
-    private void Awake()
+    [Test]
+    public void TakeDamage_DecreasesCurrentHealth()
     {
-        // Initialize the pool
-        _bulletPool = new ObjectPool<Bullet>(
-            createFunc: CreateBullet,
-            actionOnGet: OnGetBullet,
-            actionOnRelease: OnReleaseBullet,
-            actionOnDestroy: OnDestroyBullet,
-            collectionCheck: true, // Checks for double-return errors (debug only)
-            defaultCapacity: 50,
-            maxSize: 100
-        );
-    }
+        // Arrange
+        var healthSystem = new HealthSystem(maxHealth: 100);
 
-    private Bullet CreateBullet()
-    {
-        Bullet bullet = Instantiate(_bulletPrefab, transform);
-        bullet.SetPool(_bulletPool); // Inject pool reference into the bullet
-        return bullet;
-    }
+        // Act
+        healthSystem.TakeDamage(30);
 
-    private void OnGetBullet(Bullet bullet) => bullet.gameObject.SetActive(true);
-    private void OnReleaseBullet(Bullet bullet) => bullet.gameObject.SetActive(false);
-    private void OnDestroyBullet(Bullet bullet) => Destroy(bullet.gameObject);
-    
-    public void FireBullet(Vector3 position, Vector3 direction)
-    {
-        Bullet bullet = _bulletPool.Get();
-        bullet.transform.position = position;
-        bullet.Fire(direction);
-    }
-}
-
-public class Bullet : MonoBehaviour
-{
-    private IObjectPool<Bullet> _pool;
-
-    public void SetPool(IObjectPool<Bullet> pool) => _pool = pool;
-
-    public void Fire(Vector3 direction) { /* Physics logic */ }
-
-    private void DisableSelf()
-    {
-        // ✅ DO: Return to pool instead of Destroy()
-        _pool.Release(this);
+        // Assert
+        // Use Constraint Model for better readability
+        Assert.That(healthSystem.CurrentHealth, Is.EqualTo(70));
     }
 }
 ```
 
-## Addressables (NOT Resources)
-
-**Unity 6.2 Note:** Use `Awaitable` instead of `System.Threading.Tasks`.
+## 3. Play Mode Test (Integration & Physics)
+Use this for testing GameObject interactions, Physics, and Coroutines.
+**IMPORTANT:** Always use `[TearDown]` to destroy created objects. If you rely on `Object.Destroy` at the end of the test method and an assertion fails beforehand, the object will leak into the scene.
 
 ```
+using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.TestTools;
+using System.Collections;
 
-public class AssetLoader : MonoBehaviour
+public class PlayerMovementTests
 {
-    // ❌ DON'T: Resources.Load (Synchronous, increases memory footprint)
-    /*
-    private void BadLoad()
+    // Standard Microsoft C# style: _camelCase for private fields
+    private GameObject _player;
+    private PlayerController _controller;
+
+    [SetUp]
+    public void Setup()
     {
-        GameObject prefab = Resources.Load<GameObject>("Prefabs/Enemy");
+        // Create an isolated environment for each test
+        _player = new GameObject("TestPlayer");
+        _controller = _player.AddComponent<PlayerController>();
     }
-    */
-    
-    private AsyncOperationHandle<GameObject> _handle;
-    private GameObject _loadedInstance;
 
-    // ✅ DO: Addressables with Awaitable (Unity 6)
-    public async Awaitable LoadEnemyAsync()
+    [TearDown]
+    public void Teardown()
     {
-        // Avoid loading if already loaded
-        if (_handle.IsValid()) return;
-
-        _handle = Addressables.LoadAssetAsync<GameObject>("Enemy");
-        
-        try 
+        // Guaranteed cleanup even if an assertion fails
+        if (_player != null)
         {
-            await _handle.Task; // Native await integration
-
-            if (_handle.Status == AsyncOperationStatus.Succeeded)
-            {
-                GameObject prefab = _handle.Result;
-                _loadedInstance = Instantiate(prefab);
-            }
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Failed to load asset: {e.Message}");
+            Object.Destroy(_player);
         }
     }
-    
-    // ✅ DO: Correct Memory Release
-    private void OnDestroy()
+
+    [UnityTest]
+    public IEnumerator Move_ForwardInput_ChangesPosition()
     {
-        if (_loadedInstance != null) Destroy(_loadedInstance);
-
-        if (_handle.IsValid())
-        {
-            // Crucial: Release the handle to free memory
-            Addressables.Release(_handle);
-        }
-    }
-}
-```
-
-## Memory Management (Zero Allocations)
-
-```
-using UnityEngine;
-using System.Collections.Generic;
-using TMPro;
-using System.Text;
-
-public class MemoryOptimization : MonoBehaviour
-{
-    // ✅ DO: Pre-allocate collections to avoid resizing in runtime
-    private readonly List<int> _numbers = new List<int>(100); 
-
-    private void Update()
-    {
-        // ❌ DON'T: New List allocation or resizing in Update
-        // List<int> temp = new List<int>(); 
+        // Arrange
+        var startPosition = _player.transform.position;
         
-        // ✅ DO: Reuse collections
-        _numbers.Clear();
-        // Fill list...
-    }
-}
-
-public class UiOptimization : MonoBehaviour
-{
-    [SerializeField] private TMP_Text _scoreText;
-    
-    // ✅ DO: Reusable StringBuilder
-    private StringBuilder _sb = new StringBuilder(64);
-
-    public void UpdateScore(string playerName, int score)
-    {
-        _sb.Clear();
-        _sb.Append("Player: ").Append(playerName).Append(", Score: ").Append(score);
+        // Act
+        _controller.Move(Vector3.forward);
         
-        // ✅ DO: Pass StringBuilder directly to SetText.
-        // Avoids .ToString() which creates a new string allocation every frame.
-        _scoreText.SetText(_sb);
+        // Wait for one frame (for Update logic)
+        yield return null; 
+        
+        // OR wait for physics step if using Rigidbody
+        // yield return new WaitForFixedUpdate(); 
+        
+        // Assert
+        Assert.That(_player.transform.position.z, Is.GreaterThan(startPosition.z));
     }
 }
 ```
