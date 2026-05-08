@@ -1,82 +1,85 @@
-## project-overview
+## python-guidelines
 
-> 让 AI 能够完整追踪 Unreal 项目中任意一条引用链，从入口到实现，跨越 Blueprint ↔ C++ ↔ Asset 边界。
+> - 使用 dataclass 定义数据结构
 
 
-# Unreal Project Analyzer - 项目概览
+# Python 开发规范
 
-## 项目愿景
+## 基本规则
 
-让 AI 能够完整追踪 Unreal 项目中任意一条引用链，从入口到实现，跨越 Blueprint ↔ C++ ↔ Asset 边界。
+- Python 3.11+ 语法
+- 使用 type hints
+- 异步优先 (async/await)
+- 使用 dataclass 定义数据结构
 
-**核心场景**：分析 Lyra 等大型 Unreal 项目，追踪如 GAS Ability 从触发到执行的完整链路。
+## 代码风格
 
-## 架构
+- 行宽限制: 100 字符
+- 使用 ruff 进行 lint
+- 遵循 PEP 8
 
-```
-AI Agent
-    │ MCP Protocol
-    ▼
-MCP Server (Python/FastMCP)
-    │ - C++ 源码分析 (tree-sitter)
-    │ - 工具路由
-    │ HTTP
-    ▼
-Unreal Plugin (Editor 内运行)
-    ├─ C++ HTTP Server (:8080)
-    │   - Blueprint 内省 API
-    │   - Asset 引用查询 API
-    └─ Python Bridge (自动拉起)
-        - Unreal Python 补充 API
-```
+## 项目特定规范
 
-## 目录结构
+### MCP 工具定义
 
-```
-unreal-project-analyzer/           # 主项目目录
-├── Mcp/src/unreal_analyzer/       # MCP Server (Python)
-│   ├── server.py               # 入口
-│   ├── tools/                  # MCP 工具定义
-│   ├── cpp_analyzer/           # C++ 源码分析 (tree-sitter)
-│   └── ue_client/              # UE 插件 HTTP 客户端
-│
-├── Source/                     # Unreal C++ 插件代码
-└── Content/Python/             # Python Bridge
-│
-└── Mcp/tests/                  # 测试
+工具函数放在 `Mcp/src/unreal_analyzer/tools/` 目录，按领域分文件：
+- `blueprint.py` - 蓝图分析
+- `asset.py` - 资产分析
+- `cpp.py` - C++ 分析
+- `cross_domain.py` - 跨域查询
 
-docs/                           # 项目文档
-reference/                      # 参考项目 (不修改)
+工具函数规范：
+```python
+async def tool_name(param1: str, param2: int = 0) -> dict:
+    """工具描述 (会显示给 AI)。
+    
+    Args:
+        param1: 参数1说明
+        param2: 参数2说明
+    
+    Returns:
+        Dictionary containing:
+        - key1: 说明
+        - key2: 说明
+    """
 ```
 
-## 关键文件
+### 与 Unreal 插件通信
 
-- [PROJECT_VISION.md](mdc:docs/PROJECT_VISION.md) - 详细项目愿景和技术规划
-- [server.py](mdc:Mcp/src/unreal_analyzer/server.py) - MCP Server 入口
-- [UnrealProjectAnalyzer.cpp](mdc:Source/UnrealProjectAnalyzer/Private/UnrealProjectAnalyzer.cpp) - Unreal 插件入口
+使用 `ue_client.http_client.UEPluginClient`:
+```python
+from ..ue_client import get_client
 
-## 技术栈
+async def my_tool():
+    client = get_client()
+    return await client.get("/endpoint", {"param": "value"})
+```
 
-| 组件 | 技术选型 |
-|------|----------|
-| Python 包管理 | uv |
-| MCP 框架 | FastMCP |
-| C++ 解析 | tree-sitter + tree-sitter-cpp |
-| UE 通信 | HTTP (自研插件) |
-| UE 版本 | 5.3+ |
+### C++ 分析器
 
-## 当前版本：v0.3.1
+使用 `cpp_analyzer.analyzer.CppAnalyzer`:
+```python
+from ..cpp_analyzer import get_analyzer
 
-**8 个工具**（4 核心 + 4 特殊）：
+async def my_tool():
+    analyzer = get_analyzer()
+    return await analyzer.analyze_class("AMyClass")
+```
 
-| 核心工具 | 特殊工具 |
-|----------|----------|
-| `search` | `get_blueprint_graph` |
-| `get_hierarchy` | `detect_ue_patterns` |
-| `get_references` | `trace_reference_chain` |
-| `get_details` | `find_cpp_class_usage` |
+## 依赖管理
 
-详见 [mcp-tools-design.mdc](mdc:.cursor/rules/mcp-tools-design.mdc)
+使用 uv:
+```bash
+uv add package_name      # 添加依赖
+uv sync                   # 安装依赖
+uv run command           # 运行命令
+```
+
+## 测试
+
+- 测试文件放在 `Mcp/tests/` 目录
+- 使用 pytest + pytest-asyncio
+- 异步测试使用 `@pytest.mark.asyncio`
 
 ---
 > Source: [syan2018/UnrealCopilot](https://github.com/syan2018/UnrealCopilot) — distributed by [TomeVault](https://tomevault.io).
