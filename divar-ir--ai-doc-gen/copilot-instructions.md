@@ -1,242 +1,135 @@
-## code-patterns
+## project-overview
 
-> Code style, patterns, and best practices for Python development
+> Core project architecture, patterns, and conventions for the AI Documentation Generator
 
 
-# Code Patterns and Best Practices
+# AI Documentation Generator - Project Overview
 
-## Python Style
+## Project Identity
 
-### Ruff Configuration
-```toml
-line-length = 120
-indent-width = 4
-target-version = "py313"
-lint.select = ["I", "F401"]  # Import sorting and unused imports
-```
+**Name**: ai-doc-gen  
+**Version**: 1.2.0  
+**Python**: 3.13 (strict requirement)  
+**Architecture**: Multi-agent CLI application with async/await patterns
 
-### Type Hints
-- **Always use type hints** for function parameters and return values
-- Use `from typing import Optional, Type, TypeVar` for complex types
-- Use `Path` from `pathlib` for file paths (never strings)
-- Use `BaseModel` from `pydantic` for all configuration and data models
+## Core Architecture
 
+This is a **multi-agent AI system** that analyzes codebases and generates documentation using specialized AI agents:
+
+### Handler-Agent Pattern
+- **Handlers** (`src/handlers/`) orchestrate workflows and manage configuration
+- **Agents** (`src/agents/`) execute AI-powered analysis using pydantic-ai
+- **Tools** (`src/agents/tools/`) provide file system access to agents
+
+### Key Components
+
+1. **Entry Point**: `src/main.py`
+   - Dynamic CLI argument generation from Pydantic models via reflection
+   - Command routing: `analyze`, `generate readme`, `generate ai-rules`, `cronjob analyze`
+   - Observability setup with Langfuse/OpenTelemetry
+
+2. **Configuration System**: `src/config.py`
+   - Multi-source loading: environment variables → YAML files → CLI arguments
+   - Hierarchical merging with explicit precedence
+   - All config validated through Pydantic models
+
+3. **Agent System**:
+   - **AnalyzerAgent**: Runs 5 concurrent specialized agents (structure, dependencies, data flow, request flow, API)
+   - **DocumenterAgent**: Generates README from analysis results
+   - **AIRulesAgent**: Generates AI assistant configuration files
+
+4. **Handler System**:
+   - **AnalyzeHandler**: Orchestrates code analysis
+   - **ReadmeHandler**: Manages README generation
+   - **AIRulesHandler**: Manages AI rules generation
+   - **JobAnalyzeHandler**: Automates GitLab project analysis with MR creation
+
+## Critical Patterns
+
+### 1. Configuration Hierarchy
 ```python
-from pathlib import Path
-from typing import Optional, Type, TypeVar
-from pydantic import BaseModel, Field
-
-T = TypeVar("T", bound=BaseModel)
-
-def load_config(args, handler_config: Type[T], file_key: str = "") -> T:
-    # Implementation
-    pass
-```
-
-## Pydantic Patterns
-
-### Configuration Models
-```python
-class HandlerConfig(BaseModel):
-    repo_path: Path = Field(..., description="The path to the repository")
-    exclude_something: bool = Field(default=False, description="Exclude something")
-    
-    @model_validator(mode="after")
-    def validate_paths(self) -> "HandlerConfig":
-        if not self.repo_path.exists():
-            raise ValueError(f"repo_path {self.repo_path} does not exist")
-        return self
-```
-
-### Field Descriptions
-- **Always provide descriptions** for CLI argument generation
-- Use clear, concise language
-- Include defaults in description when helpful
-
-## Async/Await Patterns
-
-### Handler Methods
-```python
-class MyHandler(BaseHandler):
-    async def handle(self):
-        # All handler methods are async
-        result = await self.agent.run()
-        return result
-```
-
-### Concurrent Execution
-```python
-# Run multiple agents concurrently with error isolation
-tasks = [agent1.run(), agent2.run(), agent3.run()]
-results = await asyncio.gather(*tasks, return_exceptions=True)
-
-# Check results
-for i, result in enumerate(results):
-    if isinstance(result, Exception):
-        Logger.error(f"Agent #{i} failed: {result}", exc_info=True)
-    else:
-        Logger.info(f"Agent #{i} completed successfully")
-```
-
-## Configuration Loading
-
-### Multi-Source Configuration Pattern
-
-```python
-# Load configuration with precedence: defaults → file → CLI
+# Precedence: Pydantic defaults < YAML file < CLI args
 config = load_config(args, HandlerConfig, file_key="section.subsection")
-
-# File-based config (YAML)
-file_config = load_config_from_file(args, "analyzer")
-
-# CLI arguments
-cli_config = load_config_as_dict(args, HandlerConfig)
-
-# Merge with precedence
-final_config = merge_dicts(file_config, cli_config)
 ```
 
-### Environment Variables
-
+### 2. Concurrent Agent Execution
 ```python
-# Required variables (raise KeyError if missing)
-MY_API_KEY = os.environ["MY_API_KEY"]
-
-# Optional with defaults
-MY_TIMEOUT = int(os.getenv("MY_TIMEOUT", "180"))
-
-# Boolean conversion
-MY_FLAG = str_to_bool(os.getenv("MY_FLAG", "true"))
+# Error isolation - individual failures don't stop others
+results = await asyncio.gather(*tasks, return_exceptions=True)
 ```
 
-## Logging Patterns
+### 3. Pydantic Model Validation
+- All configuration uses Pydantic BaseModel with Field descriptors
+- Custom validators with `@model_validator(mode="after")`
+- Path validation and auto-resolution in BaseHandlerConfig
 
-### Logger Usage
+### 4. Tool-Based Agent Pattern
 ```python
-from utils import Logger
-
-# Initialize once per execution
-Logger.init(logs_dir, file_level=logging.INFO, console_level=logging.WARNING)
-
-# Use throughout code
-Logger.info("Starting process")
-Logger.debug("Debug details", {"key": "value"})
-Logger.warning("Warning message")
-Logger.error("Error occurred", exc_info=True)
+agent = Agent(
+    name="Structure Analyzer",
+    model=model,
+    tools=[FileReadTool().get_tool(), ListFilesTool().get_tool()]
+)
 ```
 
-### Structured Logging
-```python
-# Pass dictionaries for structured data
-Logger.info("Agent completed", {
-    "agent_name": agent.name,
-    "total_tokens": result.usage().total_tokens,
-    "execution_time": elapsed_time,
-})
+### 5. Retry Logic
+- **Agent-level**: 2 retries via pydantic-ai (configurable)
+- **HTTP-level**: 5 attempts with exponential backoff (1s → 60s max)
+- **Tool-level**: 2 retries with ModelRetry exceptions
+
+## File Organization
+
+```
+src/
+├── main.py                    # CLI entry point
+├── config.py                  # Configuration management
+├── handlers/                  # Command handlers
+│   ├── base_handler.py       # Abstract base with config validation
+│   ├── analyze.py            # Analysis orchestration
+│   ├── readme.py             # README generation
+│   ├── ai_rules.py           # AI rules generation
+│   └── cronjob.py            # GitLab automation
+├── agents/                    # AI agents
+│   ├── analyzer.py           # Multi-agent analyzer
+│   ├── documenter.py         # README generator
+│   ├── ai_rules.py           # AI rules generator
+│   ├── prompts/              # YAML prompt templates
+│   └── tools/                # Agent tools
+│       ├── file_tool/        # File reading
+│       └── dir_tool/         # Directory listing
+└── utils/                     # Shared utilities
+    ├── logger.py             # Structured logging
+    ├── prompt_manager.py     # Jinja2 template rendering
+    ├── retry_client.py       # HTTP retry logic
+    ├── repo.py               # Git utilities
+    └── custom_models/        # Custom LLM providers
 ```
 
-## OpenTelemetry Tracing
+## Key Dependencies
 
-### Span Creation
-```python
-from opentelemetry import trace
+- **pydantic-ai==1.0.15**: Core AI agent framework (CRITICAL)
+- **pydantic==2.12.0**: Data validation and settings
+- **logfire==4.12.0**: Observability and tracing
+- **python-gitlab==6.2.0**: GitLab API integration
+- **gitpython==3.1.45**: Git operations
+- **jinja2==3.1.6**: Prompt template rendering
 
-tracer = trace.get_tracer("my-component")
+## Environment Configuration
 
-with tracer.start_as_current_span("Operation Name") as span:
-    span.set_attributes({
-        "repo_path": str(repo_path),
-        "config_key": config_value,
-    })
-    span.add_event(name="Starting operation", attributes={"detail": "value"})
-    
-    # Do work
-    result = await do_work()
-    
-    span.set_attribute("result_size", len(result))
-```
+All sensitive data in environment variables:
+- `ANALYZER_LLM_MODEL`, `ANALYZER_LLM_API_KEY`, `ANALYZER_LLM_BASE_URL`
+- `DOCUMENTER_LLM_MODEL`, `DOCUMENTER_LLM_API_KEY`, `DOCUMENTER_LLM_BASE_URL`
+- `AI_RULES_LLM_MODEL`, `AI_RULES_LLM_API_KEY`, `AI_RULES_LLM_BASE_URL`
+- `GITLAB_OAUTH_TOKEN`, `GITLAB_API_URL`
+- `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY` (optional)
 
-## Error Handling
+## Output Locations
 
-### Graceful Degradation
-```python
-# Partial success is acceptable
-if len(missing_files) == len(analysis_files):
-    Logger.error("Complete failure: no files generated")
-    raise ValueError("Complete failure")
-
-if missing_files:
-    Logger.warning(f"Partial success: {successful_count}/{len(analysis_files)} files")
-    # Continue execution
-```
-
-### Cleanup Guarantees
-```python
-try:
-    # Operations
-    await process_project(project)
-finally:
-    # Always cleanup
-    cleanup_project(project)
-```
-
-## File Operations
-
-### Path Handling
-```python
-from pathlib import Path
-
-# Always use Path objects
-repo_path = Path("/path/to/repo")
-config_path = repo_path / ".ai" / "config.yaml"
-
-# Check existence
-if config_path.exists():
-    content = config_path.read_text()
-
-# Create directories
-output_dir = repo_path / ".ai" / "docs"
-output_dir.mkdir(parents=True, exist_ok=True)
-
-# Write files
-output_file = output_dir / "analysis.md"
-output_file.write_text(content)
-```
-
-## CLI Argument Generation
-
-### Dynamic Argument Creation
-
-```python
-def _add_field_arg(parser: argparse.ArgumentParser, field_name: str, field_info: FieldInfo):
-    arg_name = f"--{field_name.replace('_', '-')}"
-    help_text = field_info.description
-    
-    # Boolean flags use store_true with None default
-    if field_info.annotation in [bool, Optional[bool]]:
-        parser.add_argument(
-            arg_name,
-            action="store_true",
-            default=None,  # None means "not specified"
-            help=help_text,
-            required=field_info.is_required(),
-        )
-    else:
-        parser.add_argument(
-            arg_name,
-            default=None,
-            help=help_text,
-            required=field_info.is_required(),
-        )
-```
-
-## Testing Considerations
-
-- Mock LLM responses using pydantic-ai's testing utilities
-- Use temporary directories for file operations
-- Mock GitLab API calls with python-gitlab's test utilities
-- Test configuration loading with various precedence scenarios
-- Test partial success scenarios in concurrent execution
+- Analysis files: `{repo_path}/.ai/docs/*.md`
+- README: `{repo_path}/README.md`
+- AI Rules: `{repo_path}/CLAUDE.md`, `{repo_path}/AGENTS.md`, `{repo_path}/.cursor/rules/*.mdc`
+- Logs: `.logs/{repo_name}/{YYYY_MM_DD}/{timestamp}.log`
+- Config: `{repo_path}/.ai/config.yaml`
 
 ---
 > Source: [divar-ir/ai-doc-gen](https://github.com/divar-ir/ai-doc-gen) — distributed by [TomeVault](https://tomevault.io).
