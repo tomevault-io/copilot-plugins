@@ -1,0 +1,9 @@
+{
+  "name": "konixy--better-svelte-email",
+  "displayName": "better-svelte-email",
+  "description": "\ud83d\udce7 Render emails in Svelte effortlessly with first-class tailwind support",
+  "version": "1.0.0",
+  "author": "Konixy",
+  "homepage": "https://github.com/Konixy/better-svelte-email",
+  "skills": []
+}
