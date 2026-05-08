@@ -1,0 +1,145 @@
+## ground-rules
+
+> **These rules are NON-NEGOTIABLE. Follow them at ALL times, without exception.**
+
+
+# Ground Rules for GoClaw Development
+
+**These rules are NON-NEGOTIABLE. Follow them at ALL times, without exception.**
+
+---
+
+## THINK BEFORE CODING
+
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
+
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them - don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
+
+## DISCUSS BEFORE IMPLEMENTING
+
+**Always discuss proposed changes before making them.**
+
+When a problem is identified:
+1. Explain the issue
+2. Propose options/solutions
+3. **Wait for approval** before writing any code
+
+DO NOT:
+- Start implementing a fix immediately after identifying a problem
+- Assume a solution is acceptable without asking
+- Make "obvious" changes without confirmation
+
+The user decides what approach to take. Your job is to present options, not make decisions.
+
+Whenever you output the text "Let me start." or something similar STOP! Do not proceed until given permission.
+
+## FORBIDDEN TOOLS
+
+Do not use rsync for anything, or ssh. You're not allowed.
+
+## Manager patterns
+We like global singletons, for manager patterns */manager.go must be a singleton, passing references  around is just silly for things that have one global use and instance requirement, if we are the only people eating our own dogfood. This is not a library, this is an application.
+
+## Command patterns
+When adding "/commands" and other things remember that we have global infrastructure to handle this, do NOT add stuff to the channels such as http and telegram bot. Use the global command pattern
+
+## Logging - USE THE RIGHT FUNCTIONS
+
+**ONLY use the logging functions from `internal/logging`:**
+
+```go
+import . "github.com/roelfdiedericks/goclaw/internal/logging"
+
+// Use these:
+L_trace("message", "key", value)
+L_debug("message", "key", value)
+L_info("message", "key", value)
+L_warn("message", "key", value)
+L_error("message", "key", value)
+```
+
+**DO NOT:**
+- Import `"github.com/charmbracelet/log"` directly
+- Import standard `"log"` package
+- Use `log.Debug()`, `log.Info()`, etc.
+- Use `fmt.Println()` for logging
+
+**Log Level Guidelines:**
+- `L_info` - Summary information (totals, counts, status changes)
+- `L_warn` - Specific failures WITH context (what failed and why)
+- `L_debug` - Per-item details (only visible with `-d` flag)
+- `L_trace` - Very verbose (only visible with `-t` flag)
+
+**Example - Good logging:**
+```go
+// INFO: Summary only
+L_info("skills: loaded", "total", 55, "failed", 2)
+
+// WARN: Each failure with details
+L_warn("skills: failed to load", "skill", "foo", "error", err)
+
+// DEBUG: Per-item details
+L_debug("skills: ineligible", "skill", "bar", "reason", "binary: mytool")
+```
+
+## Git Commands - RESTRICTED
+
+**You are NOT allowed to run any git commands except `git log, status or diff`.**
+
+Forbidden commands include but are not limited to:
+- `git restore` - DO NOT USE, this wipes uncommitted work
+- `git checkout`
+- `git reset`
+- `git clean`
+- `git stash`
+- `git add`
+- `git commit`
+- `git push`
+- `git pull`
+- `git merge`
+- `git rebase`
+
+
+The user will handle all git operations manually.
+
+## Testing
+
+- **DO NOT run `goclaw gateway` or `make run/debug/tui`** - the user will test manually
+- Running the gateway could interfere with existing instances
+
+## Use the Makefile
+
+**ALWAYS use Makefile targets instead of running tools directly.**
+
+```bash
+# CORRECT
+make build
+make lint
+make audit
+make test
+
+# WRONG - do not run tools directly
+go build ./...
+golangci-lint run ./...
+gosec ./...
+go test ./...
+```
+
+The Makefile has the correct flags, environment variables, and configuration. Running tools directly bypasses this and causes problems.
+
+Do not run "make lint" or do lintian checks when busy with todo items. Do it after a major run of coding, at the end.
+Linting wastes time and tokens between each todo item. A simple "make build" is good enough.
+
+## Why These Rules Exist
+
+**Git:** On 2026-02-02, a `git restore` command wiped out an entire day's worth of uncommitted work including all files in `internal/skills/`. This happened because the assistant panicked and ran `git restore` without understanding the situation. **Never again.**
+
+**Logging:** Using `charmbracelet/log` directly bypasses the project's log level filtering and caller info. The `L_*` functions provide consistent formatting with file:line info and proper level filtering.
+
+---
+> Source: [roelfdiedericks/goclaw](https://github.com/roelfdiedericks/goclaw) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
