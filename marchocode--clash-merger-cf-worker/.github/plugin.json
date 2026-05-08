@@ -1,0 +1,9 @@
+{
+  "name": "marchocode--clash-merger-cf-worker",
+  "displayName": "clash-merger-cf-worker",
+  "description": "\ud83d\ude80 Clash \u8ba2\u9605\u5408\u5e76\u5de5\u5177 - Cloudflare Worker \u7248\u672c\u3002\u65e0\u9700\u670d\u52a1\u5668\uff0c\u4f7f\u7528 KV \u6570\u636e\u5e93\u5b58\u50a8\u914d\u7f6e\uff0c\u652f\u6301\u591a\u8ba2\u9605\u6e90\u5408\u5e76\u548c\u667a\u80fd\u5206\u6d41\u89c4\u5219",
+  "version": "1.0.0",
+  "author": "marchocode",
+  "homepage": "https://github.com/marchocode/clash-merger-cf-worker",
+  "skills": []
+}
