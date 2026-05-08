@@ -1,0 +1,9 @@
+{
+  "name": "degenapetrader--evclaw",
+  "displayName": "EVClaw",
+  "description": "OpenClaw AI Trading Agent, based on EVPlus.AI data.",
+  "version": "1.0.0",
+  "author": "Degenapetrader",
+  "homepage": "https://github.com/Degenapetrader/EVClaw",
+  "skills": []
+}
