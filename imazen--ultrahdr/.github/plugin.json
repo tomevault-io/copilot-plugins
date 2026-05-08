@@ -1,0 +1,9 @@
+{
+  "name": "imazen--ultrahdr",
+  "displayName": "ultrahdr",
+  "description": "Pure Rust Ultra HDR (gain map HDR) encoder/decoder",
+  "version": "1.0.0",
+  "author": "imazen",
+  "homepage": "https://github.com/imazen/ultrahdr",
+  "skills": []
+}
