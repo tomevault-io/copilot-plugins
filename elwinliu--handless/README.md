@@ -7,11 +7,11 @@ MacOS desktop speech-to-text. Private, offline, open-source. Choose your own STT
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [ElwinLiu/handless](https://github.com/ElwinLiu/handless).
+Original source: `CLAUDE.md` in [ElwinLiu/handless](https://github.com/ElwinLiu/handless).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
