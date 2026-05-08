@@ -1,37 +1,37 @@
-## git-branch-pr-policy
+## release-changelog
 
-> 禁止直接提交到 master，必须走分支 + PR
+> 发版时 manifest changelog 的撰写规范
 
 
-# Git 提交与合并规范
+# 版本更新日志撰写规范
 
-## 强制要求
+执行 `scripts/release.sh` 时需要传入 `changelog` 参数，该内容会写入 `version-manifest.json` 并展示给最终用户（包括 Web 页面弹窗和 Electron 更新提示）。
 
-- **禁止**在 `master` 分支直接提交代码并推送。
-- 所有代码改动必须在独立分支完成，并通过 Pull Request 合并到 `master`。
-- 分支未提交 PR 前，不得视为“已完成”。
+## 必须遵守
 
-## 标准流程
+- **面向用户**：用普通用户能理解的语言描述变化，而不是照搬 commit message。
+- **突出价值**：说明"用户能得到什么"，而不是"开发者改了什么"。
+- **避免专业术语**：不使用模块名、函数名、架构概念（如"子模块"、"重构"、"迁移"等）。
+- **简洁有序**：每条一行，以 `- ` 开头，最重要的变化放在最前面。
+- **中文撰写**：changelog 使用中文。
 
-1. 同步基线：`git fetch origin`，基于最新 `origin/master` 创建分支。
-2. 分支开发：在功能分支完成修改与验证。
-3. 推送分支：`git push -u origin <branch>`。
-4. 创建 PR：说明变更、验证结果、风险与回滚方案。
-5. 合并条件：CI 通过 + Code Review 通过后再合并。
+## 改写示例
 
-## 分支命名建议
+| commit message（内部） | changelog（面向用户） |
+|---|---|
+| feat: version update notification for web and Electron clients | 新增版本更新提醒，有新版本时自动通知 |
+| refactor: migrate vectorization to neroued_vectorizer submodule | 矢量化处理性能优化 |
+| fix: restore calibration board meta JSON download | 修复校准板配置文件无法下载的问题 |
+| feat: 自动聚类检测 + 三态聚类模式 | 智能颜色分析，自动识别图片最佳配色方案 |
+| fix(backend): use WHOLE_ARCHIVE to preserve controller registration | 修复部分接口偶发不可用的问题 |
 
-- `feat/<topic>`
-- `fix/<topic>`
-- `refactor/<topic>`
-- `docs/<topic>`
-- `chore/<topic>`
-- `release/vX.Y.Z`
+## 格式
 
-## 异常场景
+changelog 在 JSON 中以 `\n` 分隔多行，示例：
 
-- 仅在紧急故障且仓库维护者明确授权时，才允许绕过该规范。
-- 事后必须补齐复盘记录与后续 PR 同步。
+```
+"- 新增版本更新提醒，有新版本时自动通知\n- 矢量化处理性能优化"
+```
 
 ---
 > Source: [Neroued/ChromaPrint3D](https://github.com/Neroued/ChromaPrint3D) — distributed by [TomeVault](https://tomevault.io).
