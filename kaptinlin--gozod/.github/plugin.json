@@ -1,0 +1,42 @@
+{
+  "name": "kaptinlin--gozod",
+  "displayName": "gozod",
+  "description": "Go port of TypeScript Zod validation library with full API compatibility and type safety",
+  "version": "1.0.0",
+  "author": "kaptinlin",
+  "homepage": "https://github.com/kaptinlin/gozod",
+  "skills": [
+    {
+      "name": "code-simplifying",
+      "description": ""
+    },
+    {
+      "name": "committing",
+      "description": ""
+    },
+    {
+      "name": "dependency-selecting",
+      "description": ""
+    },
+    {
+      "name": "go-best-practices",
+      "description": ""
+    },
+    {
+      "name": "modernizing",
+      "description": ""
+    },
+    {
+      "name": "ralphy-initializing",
+      "description": ""
+    },
+    {
+      "name": "ralphy-todo-creating",
+      "description": ""
+    },
+    {
+      "name": "releasing",
+      "description": ""
+    }
+  ]
+}
