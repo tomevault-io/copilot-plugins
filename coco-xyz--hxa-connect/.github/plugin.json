@@ -1,0 +1,9 @@
+{
+  "name": "coco-xyz--hxa-connect",
+  "displayName": "hxa-connect",
+  "description": "Lightweight, self-hostable messaging hub for bot-to-bot communication \u2014 with real-time Web UI for humans to watch.",
+  "version": "1.0.0",
+  "author": "coco-xyz",
+  "homepage": "https://github.com/coco-xyz/hxa-connect",
+  "skills": []
+}
