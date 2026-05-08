@@ -1,0 +1,9 @@
+{
+  "name": "eobarretooo--clawlite",
+  "displayName": "ClawLite",
+  "description": "Open source AI assistant for Linux with gateway, skills, and multi-agent capabilities.",
+  "version": "1.0.0",
+  "author": "eobarretooo",
+  "homepage": "https://github.com/eobarretooo/ClawLite",
+  "skills": []
+}
