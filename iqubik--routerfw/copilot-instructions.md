@@ -1,42 +1,60 @@
-## file-header
+## profiles
 
-> File header convention — every builder-owned script must start with a file path comment
+> Profile configuration format for OpenWrt builds
 
 
-# File Header Convention
+# Profile Configuration (.conf)
 
-Every file that belongs to the routerFW build system must have a **file path comment** near the top.
+Profiles are sourced as shell scripts. They define variables for both Image Builder and Source Builder modes.
 
-## Format by file type
-
-| File type | Header format | Position |
-|---|---|---|
-| `.sh` | `# file: relative/path/to/file.sh` | line 2, after `#!/bin/bash` or `#!/bin/sh` |
-| `.bat` | `rem file: relative\path\to\file.bat` | line 2, after `@echo off` |
-| `.ps1` | `# file: relative/path/to/file.ps1` | line 1, or inside `<# ... #>` block |
-| `.env` | `# file: relative/path/to/file.env` | line 1 |
-| `.yaml` | `# file: relative/path/to/file.yaml` | line 1 |
-
-## Rules
-
-- Path is **relative to repository root** (forward slashes on all platforms)
-- No version suffix required (unlike ib_builder.sh / src_builder.sh which carry `v1.x`)
-- Do NOT add a file header to: generated output, user profile `.conf` files, `firmware_output/`
-
-## Examples
+## Required Variables
 
 ```bash
-#!/bin/bash
-# file: system/create_profile.sh
+PROFILE_NAME="human_readable_name"
+TARGET_PROFILE="openwrt_device_profile_id"
 ```
 
-```batch
-@echo off
-rem file: _Builder.bat
+## Image Builder Variables
+
+```bash
+IMAGEBUILDER_URL="https://..."          # URL to ImageBuilder SDK archive (.tar.zst)
+IMAGE_EXTRA_NAME="tag"                  # Appended to output filenames (was: EXTRA_IMAGE_NAME)
+CUSTOM_KEYS="https://.../key.pub"       # Custom repo signing keys
+CUSTOM_REPOS="src/gz name https://..."  # Custom package repositories (multiline)
+IMAGE_PKGS="package1 package2 -excluded" # Final package list for Image Builder (was: PKGS)
+DISABLED_SERVICES="svc1 svc2"           # Services to disable
 ```
 
+## Source Builder Variables
+
+```bash
+SRC_REPO="https://github.com/..."       # OpenWrt source repository
+SRC_BRANCH="openwrt-24.10"             # Git branch
+SRC_TARGET="mediatek"                   # OpenWrt target
+SRC_SUBTARGET="filogic"                # OpenWrt subtarget
+SRC_ARCH="aarch64_cortex-a53"          # Package architecture
+SRC_CORES="safe"                        # Compilation threads: "safe" (max-1), number, or "debug" (verbose single-thread)
+SRC_PACKAGES="$BASE_PKGS $EXTRA_PKGS"  # Package list for Source Builder
+SRC_EXTRA_CONFIG='CONFIG_...'          # Multiline Kconfig (single-quoted heredoc style)
 ```
-# file: system/lang/ru.env
+
+## Shared Variables
+
+```bash
+ROOTFS_SIZE="512"                       # Root filesystem size (MB)
+KERNEL_SIZE="64"                        # Kernel partition size (MB)
+```
+
+## Package List Pattern
+
+Profiles often compose package lists from named groups:
+
+```bash
+BASE_PKGS="pkg1 pkg2..."
+NET_PKGS="luci-proto-wireguard..."
+MODEM_PKGS="kmod-usb-serial-option..."
+MUNIS_PKGS="-pkg_to_exclude..."         # Exclusions with dash prefix
+IMAGE_PKGS="$COMMON_LIST $SRC_PACKAGES" # Final list passed to Image Builder
 ```
 
 ---
