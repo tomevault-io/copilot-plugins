@@ -1,0 +1,9 @@
+{
+  "name": "artalis-io--hull",
+  "displayName": "hull",
+  "description": "A secure, capability-limited runtime for agent-native, local-first applications. Single binary, zero dependencies, runs anywhere.",
+  "version": "1.0.0",
+  "author": "artalis-io",
+  "homepage": "https://github.com/artalis-io/hull",
+  "skills": []
+}
