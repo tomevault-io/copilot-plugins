@@ -1,53 +1,127 @@
-## cross-platform-cpp
+## eval-usage
 
-> C++ 跨平台编译规范
+> 当需要运行 eval 评估时，直接使用以下信息，无需重新查看文件。
 
+# 评估系统使用指南
 
-# C++ 跨平台编译规范
+当需要运行 eval 评估时，直接使用以下信息，无需重新查看文件。
 
-本项目支持 Linux / macOS / Windows (MSVC) 三平台。所有 C++ 代码必须在 MSVC 上编译通过。
+## 测试图像
 
-## MSVC 禁用项
+Manifest 路径：`test_data/images/manifest.json`
 
-- **禁止 `M_PI` / `M_E` / `M_SQRT2` 等 POSIX 数学常量**：MSVC 默认不定义。使用 C++20 `std::numbers::pi`、`std::numbers::e` 等替代，需 `#include <numbers>`。
-- **禁止 `constexpr` 中调用 `std::pow`、`std::exp`、`std::log`、`std::sin` 等**：MSVC 不将这些视为 constexpr。需要编译期求值时使用运行时初始化的 `static` 变量或 LUT。
-- **禁止 VLA（变长数组）**：MSVC 不支持。使用 `std::vector` 或固定大小数组。
-- **禁止 GCC/Clang 扩展**：`__attribute__`、`__builtin_*`、`__typeof__`、`__PRETTY_FUNCTION__`。使用标准等价物（如 `[[nodiscard]]`、`__FUNCSIG__` + `#ifdef` 分支）。
+共 15 张图，分两类：
 
-## MSVC OpenMP 2.0 限制
+### simple（8 张）
 
-MSVC 仅支持 OpenMP 2.0，以下功能不可用：
-- `#pragma omp parallel for` 的循环变量必须是 `int`（不支持 `size_t`、`unsigned`、迭代器）
-- 不支持 `collapse`、`task`、`taskloop`
-- 不支持自定义类型的 `reduction`：使用 per-thread 数组 + 手动合并
-- OpenMP API 调用（`omp_get_thread_num()` 等）必须用 `#ifdef _OPENMP` 保护
+| 简称 | 文件 | 尺寸 | 特征 |
+|------|------|------|------|
+| tjls | `simple/tjls.jpg` | 3071×3071 | 只有 2 种主色 |
+| varesa | `simple/varesa.JPG` | 1431×1431 | 需 16-18 色保持色彩完整 |
+| bcba38 | `simple/BCBA38E4139B200BF7018202BD7071DA.jpg` | 1450×2048 | 中等复杂度 |
+| s_c0315 | `simple/c03155ca4f21690e44fe38b5d2e94e4a_535808916776764142.png` | 188×253 | 小图 |
+| s_b8489 | `simple/b848977173910bd7f1029f89003dff75_3952281026289371623.png` | 96×96 | 小图 |
+| s_0ce86 | `simple/0ce86ee140a04fd833f948a637af2283_1513181873101011224.png` | 96×96 | 小图 |
+| s_64c9a | `simple/64c9aca07027becd6143bbbdb47a323a_7089473772145220523.png` | 96×96 | 黑白二值小图 |
+| s_39e69 | `simple/39e69fa36571347e9300cb88dedea782_5990935446758869519.png` | 96×96 | 小图 |
 
-## POSIX 函数兼容
+### complex（6 张）
 
-- `popen`/`pclose` → MSVC 下用 `_popen`/`_pclose`，需 `#if defined(_WIN32)` 分支
-- `localtime_r` → MSVC 下用 `localtime_s`（参数顺序不同）
-- `strdup` → MSVC 下用 `_strdup`
-- `strcasecmp` → MSVC 下用 `_stricmp`
+| 简称 | 文件 | 尺寸 | 特征 |
+|------|------|------|------|
+| miku | `complex/miku.png` | 4680×2876 | 多色区域+渐变，大图 |
+| reward | `complex/reward_1002.b096a174..png` | 200×200 | 中等 |
+| c_193ce | `complex/193ce3eb96bce41fc84619164cd3aed5_748736223171964553.png` | 360×376 | 中等 |
+| c_5bf9c | `complex/5bf9ca7c5b342d38c8b3fbf0964e00da_6402413799256732419.png` | 450×450 | 中等 |
+| c_7eda8 | `complex/7eda813e089f1bdcec4e7c7e93b101d6_6078806162773208785.png` | 450×450 | 中等 |
+| c_8e8d9 | `complex/8e8d9ba7da393866262621c946642090_7081326994847318235.png` | 450×450 | 中等 |
 
-## 文件系统路径
+## 常用命令
 
-禁止硬编码 POSIX 路径，一律使用 `std::filesystem`（C++17）。
+### 批量评估（14 张全跑）
 
-## 随机数 / ID 生成
+```bash
+# V2 管线
+./build/apps/evaluate_svg \
+  --manifest test_data/images/manifest.json \
+  --svg-dir test_data/images/results/<输出目录名> \
+  --json test_data/images/results/<输出目录名>/report.json \
+  --pipeline v2 \
+  --log-level info \
+  --note "说明文字"
 
-禁止直接读取 `/dev/urandom`，使用 `std::random_device`。
+# V1 管线
+./build/apps/evaluate_svg \
+  --manifest test_data/images/manifest.json \
+  --svg-dir test_data/images/results/<输出目录名> \
+  --json test_data/images/results/<输出目录名>/report.json \
+  --pipeline v1 \
+  --log-level info
+```
 
-## CMake 外部库链接
+### 单图评估
 
-禁止硬编码 Linux 特有的库名，使用 find_package 或条件分支。
+```bash
+./build/apps/evaluate_svg \
+  --image test_data/images/simple/tjls.jpg \
+  --svg-dir test_data/images/results/<输出目录名> \
+  --json test_data/images/results/<输出目录名>/report.json \
+  --pipeline v2 \
+  --log-level debug
+```
 
-## 平台宏判断
+### 单图矢量化（不评估）
 
-需要平台差异时，使用标准宏：`_WIN32`、`__APPLE__`。
+```bash
+./build/apps/raster_to_svg \
+  --image test_data/images/complex/miku.png \
+  --out /tmp/miku.svg \
+  --pipeline v2 \
+  --log-level debug
+```
 
-## 变更检查
+### 只跑某一类
 
-每次新增系统调用、数学常量、OpenMP 代码或文件操作时，必须确认 MSVC 兼容性。
+```bash
+./build/apps/evaluate_svg \
+  --manifest test_data/images/manifest.json \
+  --svg-dir test_data/images/results/<输出目录名> \
+  --json test_data/images/results/<输出目录名>/report.json \
+  --pipeline v2 \
+  --category simple
+```
+
+## 关键参数覆盖
+
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `--colors N` | 颜色数，0=自动 | 0 |
+| `--pipeline MODE` | v1 或 v2 | v1 |
+| `--log-level LEVEL` | trace/debug/info/warn/error/off | info |
+| `--min-region N` | 最小区域面积 | 50 |
+| `--curve-fit-error F` | 曲线拟合误差 | 0.8 |
+| `--smoothing-spatial F` | Mean Shift 空间半径 | 15 |
+| `--smoothing-color F` | Mean Shift 颜色半径 | 25 |
+| `--max-working-pixels N` | 自动缩放阈值 | 3000000 |
+
+## 已有评估结果目录
+
+结果存储在 `test_data/images/results/` 下：
+- `v1_eval/` — V1 管线基准
+- `v2_eval/` — V2 管线初始基准
+- `v2_eval_new/` — V2 修复 AutoDetectK 后（kTargetRemaining=0.02）
+- `v2_eval_tuned/` — V2 调优 AutoDetectK 后（kTargetRemaining=0.005）
+
+## 输出格式
+
+report.json 中每张图的 metrics 包含：
+- `score` — 综合得分
+- `unique_colors` — 实际使用的颜色数
+- `delta_e_mean` — 平均色差
+- `ssim` — 结构相似度
+- `coverage` — 覆盖率
+- `total_shapes` — 形状总数
+- `vectorize_time_ms` — 矢量化耗时
 
 ---
 > Source: [Neroued/neroued_vectorizer](https://github.com/Neroued/neroued_vectorizer) — distributed by [TomeVault](https://tomevault.io).
