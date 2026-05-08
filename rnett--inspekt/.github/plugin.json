@@ -1,0 +1,9 @@
+{
+  "name": "rnett--inspekt",
+  "displayName": "inspekt",
+  "description": "Compile time, multiplatform reflection for Kotlin",
+  "version": "1.0.0",
+  "author": "rnett",
+  "homepage": "https://github.com/rnett/inspekt",
+  "skills": []
+}
