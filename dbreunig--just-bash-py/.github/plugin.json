@@ -1,0 +1,9 @@
+{
+  "name": "dbreunig--just-bash-py",
+  "displayName": "just-bash-py",
+  "description": "Python Bash emulation for agents, a port of vercel-labs/just-bash",
+  "version": "1.0.0",
+  "author": "dbreunig",
+  "homepage": "https://github.com/dbreunig/just-bash-py",
+  "skills": []
+}
