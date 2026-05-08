@@ -1,42 +1,80 @@
-## code-style
+## database-workflow
 
-> - Variables: `^[a-z][a-zA-Z0-9]*$`
+> - Do NOT manually create migration files in `supabase/migrations/`
 
-# Code Style Conventions
+# Database Workflow Rules
 version: 1.0.0
 
-## TypeScript Rules
+## Database Schema Changes
 
-### Naming Conventions
-- Variables: `^[a-z][a-zA-Z0-9]*$`
-- Functions: `^[a-z][a-zA-Z0-9]*$`
-- Classes: `^[A-Z][a-zA-Z0-9]*$`
-- Interfaces: `^[A-Z][a-zA-Z0-9]*$`
-- Types: `^[A-Z][a-zA-Z0-9]*$`
+### NEVER Create Manual Migrations
+- Do NOT manually create migration files in `supabase/migrations/`
+- Always use the declarative schema approach
+- Update schema files in `supabase/schemas/` folder instead
+- Only modify generated migrations files if absolutely necessary
 
-### Formatting
-- Max line length: 100 characters
-- Indentation: 2 spaces
-- Semicolons: required
-- Quotes: single quotes
+### Schema File Management
+- Modify existing table schemas in `supabase/schemas/` files
+- Add new tables by creating new schema files
+- Follow the existing schema file patterns and naming conventions
 
-## React Rules
-- Component naming: `^[A-Z][a-zA-Z0-9]*$`
-- File naming: `^[A-Z][a-zA-Z0-9]*\.tsx$`
-- Props interface: `^[A-Z][a-zA-Z0-9]*Props$`
+## Migration Generation Process
 
-## Import Rules
-### Order
-1. react
-2. external-libraries
-3. components
-4. hooks
-5. utils
-6. types
-7. styles
+### Step 1: Stop Supabase
+```bash
+supabase stop
+```
 
-### Grouping
-- Use newlines between import groups
+### Step 2: Generate Migration
+```bash
+supabase db diff -f <migration_name>
+```
+- Replace `<migration_name>` with descriptive name (e.g., `add_user_preferences`, `create_new_table`)
+- Migration will be generated in `supabase/migrations/` with timestamp
+
+### Step 3: Apply Migration
+```bash
+supabase start && supabase migration up
+```
+
+## Local Development Only
+
+### CRITICAL: Never Push to Remote
+- NEVER use `supabase db push`
+- NEVER use `supabase db pull`
+- ALL migrations should be tested locally only
+- Remote database changes are forbidden
+
+## Type Generation
+
+### Auto-Generate Types
+- NEVER manually edit `shared/database.ts`
+- Always regenerate after schema changes:
+```bash
+supabase gen types typescript --local > shared/database.ts
+```
+
+## Workflow Summary
+
+1. **Edit Schema**: Modify `supabase/schemas/` files
+2. **Stop Database**: `supabase stop`
+3. **Generate Migration**: `supabase db diff -f <name>`
+4. **Apply Migration**: `supabase start && supabase migration up`
+5. **Update Types**: `supabase gen types typescript --local > shared/database.ts`
+
+## Common Commands Reference
+
+```bash
+# Development workflow
+supabase stop
+supabase db diff -f <migration_name>
+supabase start && supabase migration up
+supabase gen types typescript --local > shared/database.ts
+
+# NEVER use these commands
+# supabase db push  ❌
+# supabase db pull  ❌
+```
 
 ---
 > Source: [Adam-CAD/CADAM](https://github.com/Adam-CAD/CADAM) — distributed by [TomeVault](https://tomevault.io).
