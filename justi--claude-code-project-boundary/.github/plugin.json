@@ -1,0 +1,9 @@
+{
+  "name": "justi--claude-code-project-boundary",
+  "displayName": "claude-code-project-boundary",
+  "description": "Claude Code plugin: scope-aware protection \u2014 allows destructive ops (rm, mv, chmod) within project, blocks them outside. Built for dangerouslySkipPermissions mode.",
+  "version": "1.0.0",
+  "author": "justi",
+  "homepage": "https://github.com/justi/claude-code-project-boundary",
+  "skills": []
+}
