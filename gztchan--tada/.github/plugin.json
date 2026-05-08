@@ -1,0 +1,9 @@
+{
+  "name": "gztchan--tada",
+  "displayName": "tada",
+  "description": "A lightweight, multi-window sticky note-taking app for the desktop(macOS). Built with Electron and React.",
+  "version": "1.0.0",
+  "author": "gztchan",
+  "homepage": "https://github.com/gztchan/tada",
+  "skills": []
+}
