@@ -7,11 +7,11 @@ Privacy-first macOS voice assistant powered by on-device AI
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [benedict2310/ora](https://github.com/benedict2310/ora).
+Original source: `CLAUDE.md` in [benedict2310/ora](https://github.com/benedict2310/ora).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
