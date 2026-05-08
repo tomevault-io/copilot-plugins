@@ -1,0 +1,9 @@
+{
+  "name": "altnautica--adosmissioncontrol",
+  "displayName": "ADOSMissionControl",
+  "description": "Open-source web-based Ground Control Station for autonomous drones. FC config, sensor calibration, mission planning, MAVLink protocol, manual flight control. Supports multi drone fleet and companion s",
+  "version": "1.0.0",
+  "author": "altnautica",
+  "homepage": "https://github.com/altnautica/ADOSMissionControl",
+  "skills": []
+}
