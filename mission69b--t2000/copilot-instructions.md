@@ -1,88 +1,133 @@
-## metrics-and-monitoring
+## safeguards-defense-in-depth
 
-> Metrics + monitoring — what we measure, where it's stored, how to read it
+> Engine-side safeguards — preflight, guards, USD-aware permission resolver, fail-closed
 
 
-# Metrics + Monitoring
+# Safeguards — Engine-Side (Defense in Depth)
 
-The signal that tells us the agent is working. Everything we measure is for one of three purposes:
-1. **Cost control** — Anthropic + BlockVision + Upstash spend.
-2. **Correctness** — Was the agent helpful? Did the user confirm? Did the tx succeed?
-3. **Reliability** — Are we degrading? Are we throwing? Are we timing out?
+The engine sits in the middle of a 6-layer defense stack. Layer 1 (UI), Layer 4 (user confirm), Layer 5 (server validation), and Layer 6 (on-chain) are host concerns. Engine owns Layer 2 (preflight) and Layer 3 (guards). Get those wrong and the whole stack degrades.
 
-## What we store (Prisma — durable)
+## Layer 2 — Preflight (`tool.preflight()`)
 
-| Model | What it captures | Used for |
-|---|---|---|
-| `TurnMetrics` | Per-turn: latency, attemptId, modifiableFieldsTouched, pendingActionOutcome, writeToolDurationMs, tokens, cost | Q5/Q6 analytics dashboards, harness regressions |
-| `SessionUsage` | Per-session: tokens, cost, tool names, model | Billing gate (5/20 daily-free), per-session cost |
-| `ConversationLog` | Full transcripts | Future self-hosted model migration training data |
-| `AppEvent` | App-side events (chip taps, sponsor failures, key flows) | Chain memory classifiers, UX analytics |
-| `AdviceLog` | Recommendations the agent gave | Cross-session consistency checks |
-
-`TurnMetrics` is THE harness telemetry table. Every chat turn writes one row at chat-time. Every confirmed/declined/modified pending action updates the row via `attemptId`-keyed `updateMany`. Resume turns get their own row.
-
-## What we send to Vercel/CloudWatch (transient)
-
-- **Vercel Observability** — request rates, p50/p95/p99 latency, error rates, cold start counts
-- **Vercel Speed Insights** — client-side LCP/FCP/TTI for the chat UI
-- **`@vercel/analytics`** — page views, custom events
-- **CloudWatch** — t2000 ECS task health, cron job duration, cron error rates
-
-We do NOT use Axiom, Datadog, or Honeycomb. Decision: stick to the platforms we already pay for. See `audric-scaling-spec.md` for the rationale.
-
-## Key dashboards (Q5/Q6)
-
-| Dashboard | Source | Question it answers |
-|---|---|---|
-| Daily spend | `SessionUsage.costUsd` aggregated | Are we over budget? |
-| Pending action outcome | `TurnMetrics.pendingActionOutcome` | What % of writes get confirmed vs declined vs modified? |
-| Modifiable field usage | `TurnMetrics.modifiableFieldsTouched` | Are users editing amounts? Which fields? |
-| Tool latency | `TurnMetrics.toolDurationMs` per `toolName` | Which tools are slow? |
-| Resume failure rate | `TurnMetrics.pendingActionOutcome === 'resume_failed'` | Is the resume contract holding? |
-| Engine version vs error rate | `TurnMetrics.engineVersion` cross errors | Did v0.50.4 regress? |
-
-## Tracing a regression — the runbook
-
-1. **Identify the symptom.** "Users report Audric forgets transactions."
-2. **Find the metric.** `TurnMetrics.pendingActionOutcome === 'unresolved'` rate.
-3. **Bisect by engine version.** Filter rows by `engineVersion`. Find the version where the rate climbed.
-4. **Check the diff.** What changed in that engine release?
-5. **Reproduce locally.** Use `pnpm --filter @t2000/engine test` + the engine event types to simulate the failed flow.
-6. **Fix + add regression test.**
-
-Without `TurnMetrics` rows, this runbook is "stare at logs and guess." With them, it's a 30-minute investigation.
-
-## What MUST NOT happen
+Cheap synchronous validation that runs BEFORE the LLM round-trip. No I/O, no context lookup, no network.
 
 ```typescript
-// ❌ Skip writing TurnMetrics because "this turn doesn't have anything interesting"
-// — every turn writes a row. Always.
-
-// ❌ Forget attemptId on the TurnMetrics row
-// — see write-tool-pending-action.mdc
-
-// ❌ Write metrics to a third-party vendor we haven't approved
-// — Vercel + CloudWatch + Prisma. Adding Axiom etc. needs explicit roadmap approval.
-
-// ❌ Log secrets / addresses / amounts in a way that's hard to audit
-console.log(`User ${address} sent ${amount} USDC to ${recipient}`);
-// — addresses/amounts ok for debugging, but use a structured format that's grep-able and respects PII.
+preflight: (input) => {
+  if (input.amount <= 0) return { valid: false, error: 'amount must be positive' };
+  if (input.amount > 1_000_000) return { valid: false, error: 'amount unreasonable (max 1M)' };
+  if (!isValidSuiAddress(input.to)) return { valid: false, error: 'invalid recipient' };
+  return { valid: true };
+}
 ```
 
-## Adding a new metric
+Failed preflight → LLM is told "tool input invalid" and re-asks. The user is never shown a confirm card for a malformed intent.
 
-1. Decide: durable (Prisma) or transient (Vercel/CloudWatch)?
-2. If durable, extend `TurnMetrics` or add a new model. Add an `@@index` on what you'll filter by.
-3. Document what dashboard will read it.
-4. Backfill if the metric is meaningful for past sessions.
+**Every write tool MUST implement preflight.** No exceptions.
+
+## Layer 3 — Guards (`runGuards()`)
+
+14 guards across 3 priority tiers run around every write — 12 pre-execution gates + 2 post-execution hints. Defined in `packages/engine/src/guards.ts`.
+
+| Tier | Guards |
+|---|---|
+| Safety | Health Factor, Insufficient Balance, Recipient Validation |
+| Financial | USD Threshold, Slippage Cap, Daily Spend Limit |
+| UX | Allowance Reminder, Network Health, Stale Quote |
+
+Each guard returns one of:
+- `{ pass: true }` — silent, allowed
+- `{ pass: true, hint: '...' }` — allowed, hint injected for LLM context
+- `{ pass: true, warning: '...' }` — allowed, warning surfaced in confirm card
+- `{ pass: false, reason: '...' }` — BLOCKED, agent narrates and re-asks
+
+Adding a new guard:
+1. Add to `guards.ts` with the right tier.
+2. Test with all 4 outcomes (`pass`, `hint`, `warning`, `block`).
+3. Add a regression test that asserts the bypass attempt fails closed.
+4. Document in this rule.
+
+## USD-aware permission resolver (B.4)
+
+`resolvePermissionTier(operation, amountUsd, config)` dynamically downgrades a write's permission level based on USD value. The resolver is **active in audric/web today** (P2.6 UC4b confirmed via live run: a 1.27 SUI / ~$1.20 swap auto-executed under the `conservative` preset).
+
+```typescript
+// packages/engine/src/permission-rules.ts
+DEFAULT_PERMISSION_CONFIG = {
+  globalAutoBelow: 10,
+  autonomousDailyLimit: 200,
+  rules: [
+    { operation: 'save',     autoBelow: 50, confirmBetween: 1000 },
+    { operation: 'send',     autoBelow: 10, confirmBetween: 200  },
+    { operation: 'borrow',   autoBelow: 0,  confirmBetween: 500  }, // always confirm
+    { operation: 'withdraw', autoBelow: 25, confirmBetween: 500  },
+    { operation: 'swap',     autoBelow: 25, confirmBetween: 300  },
+    { operation: 'pay',      autoBelow: 1,  confirmBetween: 50   },
+    { operation: 'repay',    autoBelow: 50, confirmBetween: 1000 },
+  ],
+};
+
+PERMISSION_PRESETS = {
+  conservative: { globalAutoBelow: 5,  autonomousDailyLimit: 100, /* most writes autoBelow: 5 */ },
+  balanced:     DEFAULT_PERMISSION_CONFIG,
+  aggressive:   { globalAutoBelow: 25, autonomousDailyLimit: 500, /* most writes autoBelow: 25–100 */ },
+};
+```
+
+**How a write is resolved:**
+1. If `amountUsd < rule.autoBelow` (or `globalAutoBelow` when no per-op rule) → `auto`.
+2. If `amountUsd ≤ rule.confirmBetween` → `confirm`.
+3. Else → `explicit` (LLM never dispatches; user must initiate manually).
+4. Cumulative daily spend > `autonomousDailyLimit` downgrades any `auto` to `confirm` (runtime safety net).
+5. `borrow` always confirms (`autoBelow: 0` across every preset) — debt is too consequential to silently take on.
+
+**Audric/web's wiring (today):**
+- The session permission preset is plumbed through to the engine via `ToolContext.permissionConfig` + `priceCache`.
+- Default is `conservative` for new accounts (set in user settings; settable to `balanced` / `aggressive`).
+- Sub-threshold writes auto-execute via the same sponsored-tx path; the user sees the receipt only after on-chain settlement.
+- `attemptId` is still stamped on auto-executed writes so audit + rollback paths work identically to confirm-tier.
+
+**Trust model under zkLogin:**
+- Auto-execution does NOT bypass user consent — the user opted into the preset (and thus into "small writes happen without a tap"). Tap-to-confirm is recoverable per-operation by toggling to `conservative`+raising thresholds, or by switching to `balanced` for a higher per-op tap-to-confirm baseline.
+- Each leg still flows through the same Enoki-sponsored builder; auto-execute changes WHO presses the button (engine vs. user), not WHAT gets signed.
+
+**When NOT to auto-execute (engineering rule):**
+- Don't add a new write tool whose preset entry has `autoBelow > 0` without a guard that re-validates fresh balance / health-factor at execute time. The `<financial_context>` snapshot is daily; small auto-writes that race a position change can wedge HF if you trust stale data.
+
+## Tool result budgeting (B.2)
+
+```typescript
+maxResultSizeChars: 8_000,
+summarizeOnTruncate: (full, max) => `${full.slice(0, max - 100)}\n\n[Truncated]`,
+```
+
+Without this, a tool returning a 50k-token portfolio response blows context budget and degrades EVERY subsequent turn. Set the cap explicitly per tool.
+
+## What's banned
+
+```typescript
+// ❌ A write tool with no preflight
+buildTool({ name: 'send_transfer', /* no preflight */ });
+
+// ❌ Disabling guards
+runEngine({ guards: [] });
+
+// ❌ Catching guard failures and continuing
+try { await runGuards(...); } catch { /* ignore */ }
+
+// ❌ Soft warnings disguised as guards
+return { pass: true, warning: '⚠️ This is dangerous, but I'll do it anyway.' };
+// — if it's dangerous enough to warn, it's dangerous enough to block.
+
+// ❌ Tools that read env directly
+const key = process.env.X;
+// — engine doesn't own env. Threading through ToolContext is the only path.
+```
 
 ## Cross-references
 
-- Spec 1 telemetry → `agent-harness-spec.mdc` (TurnMetrics + attemptId)
-- Audric-side metrics emission → `audric/.cursor/rules/metrics-and-monitoring.mdc`
-- Cost rates table → `apps/web/lib/engine/cost-rates.ts`
-- Scaling decisions → `audric-scaling-spec.md`
+- Implementation → `packages/engine/src/guards.ts`, `packages/engine/src/permission-rules.ts`
+- Tool factory → `engine-tool-development.mdc`
+- Audric-side defense layers → `audric/.cursor/rules/safeguards-defense-in-depth.mdc`
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
