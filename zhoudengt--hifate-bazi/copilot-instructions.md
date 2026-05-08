@@ -1,52 +1,33 @@
-## hifate-bazi
+## cache-rules
 
-> 文件拆分/重构时的操作规范（编辑 Python 文件时生效）
+> 缓存有效性规范（始终生效）
 
 
-# 文件拆分规范
+# 缓存有效性原则（最高优先级）
 
-## 核心原则
+> **⚠️ 缓存命中率必须 ≥ 98%，缓存 key 中禁止使用高精度时间戳（秒/毫秒/微秒），否则缓存形同虚设！**
 
-**拆分文件时使用 shell 命令搬代码，不逐字重写。** 减少 token 消耗和出错概率。
+## 核心规则
 
-## 操作方式
+- ✅ 缓存 key 中的时间组件最多精确到**小时**（`strftime('%Y-%m-%dT%H')`），绝对禁止使用 `isoformat()` 或 `time.time()`
+- ✅ 修改任何涉及缓存的代码前，必须检查缓存 key 生成逻辑，确认不会导致命中率下降
+- ✅ 新增缓存时，必须通过日志或监控验证实际命中率 ≥ 98%
+- ✅ 已有缓存参考实现：`CacheKeyGenerator.generate_orchestrator_key()`（`server/utils/cache_key_generator.py`）
 
-### 推荐（低成本、高准确性）
+## 绝对禁止
 
-```bash
-# 1. 用 sed/head/tail 提取指定行范围到新文件
-sed -n '100,200p' old_file.py > new_module.py
+- ❌ 缓存 key 使用 `datetime.now().isoformat()`（微秒级，每次请求都不同，缓存永远 miss）
+- ❌ 缓存 key 使用 `time.time()`（秒级浮点数，同上）
+- ❌ 设置了 TTL 但 key 不可复用（等于浪费内存/Redis 空间）
+- ❌ 跳过缓存审查直接提交代码
 
-# 2. 用 sed 添加文件头（imports/docstring）
-sed -i '1i\#!/usr/bin/env python3\n# -*- coding: utf-8 -*-' new_module.py
+## 修改代码时的缓存审查流程
 
-# 3. 用 sed 批量替换（如 @app.get → @router.get）
-sed -i 's/@app\.get/@router.get/g' new_module.py
-
-# 4. 用 StrReplace 做精准小修改（如修改函数签名、添加参数）
-```
-
-### 禁止
-
-- ❌ 用 Write 工具逐字写出已存在的代码
-- ❌ 手动拷贝大段代码到新文件
-- ❌ 在 agent 响应中输出大段待写入的代码
-
-## 拆分流程
-
-1. **分析**：确定拆分方案（哪些函数/类搬到哪个模块）
-2. **提取**：用 shell 命令提取代码段到新文件
-3. **修饰**：添加 imports、docstring、调整缩进
-4. **瘦身**：在原文件中删除已搬出的代码，添加 import
-5. **验证**：运行导入测试 + 单元测试
-
-## 注意事项
-
-- Mixin 模式适合拆分大型类（保持公共 API 不变）
-- 拆分后的模块应通过 `__init__.py` 重新导出
-- 拆分前先做备份：`cp file.py file.py.bak`
-- 验证通过后删除备份
+1. 检查修改是否涉及缓存 key 生成（搜索 `cache_key`、`_generate_cache_key`、`CacheKeyGenerator`）
+2. 确认 key 中无高精度时间戳
+3. 确认 TTL 设置合理（数据变化频率 vs 缓存过期时间）
+4. 确认缓存读写一致（get/set 使用相同的 key 生成逻辑）
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/zhoudengt) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-10 -->
+> Source: [zhoudengt/HiFate-bazi](https://github.com/zhoudengt/HiFate-bazi) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
