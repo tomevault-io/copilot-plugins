@@ -4,7 +4,7 @@
   "repo": "facet",
   "description": "Generate hundreds of AI personas with real behavioral psychology. Simulate them through your pricing, copy, and feature decisions. The verdict isn't the point \u2014 the reasoning is.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/saraswatayu/facet",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T08:31:52Z"
+  "distributed_at": "2026-05-08T03:17:42Z"
 }
