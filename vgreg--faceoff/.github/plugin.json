@@ -1,0 +1,9 @@
+{
+  "name": "vgreg--faceoff",
+  "displayName": "faceoff",
+  "description": "Terminal tool to watch hockey games",
+  "version": "1.0.0",
+  "author": "vgreg",
+  "homepage": "https://github.com/vgreg/faceoff",
+  "skills": []
+}
