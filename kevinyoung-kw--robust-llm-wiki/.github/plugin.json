@@ -1,0 +1,9 @@
+{
+  "name": "kevinyoung-kw--robust-llm-wiki",
+  "displayName": "robust-llm-wiki",
+  "description": "Research-backed schema framework for maintaining Karpathy-style LLM Wikis with robust ingest/query/lint operations.",
+  "version": "1.0.0",
+  "author": "KevinYoung-Kw",
+  "homepage": "https://github.com/KevinYoung-Kw/robust-llm-wiki",
+  "skills": []
+}
