@@ -1,0 +1,9 @@
+{
+  "name": "pku-yuangroup--clawgame",
+  "displayName": "ClawGame",
+  "description": "A living arena for Human vs Agent and Agent vs Agent competition, testing OpenClaw intelligence through real-time gameplay.",
+  "version": "1.0.0",
+  "author": "PKU-YuanGroup",
+  "homepage": "https://github.com/PKU-YuanGroup/ClawGame",
+  "skills": []
+}
