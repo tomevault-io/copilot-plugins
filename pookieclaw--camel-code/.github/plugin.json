@@ -1,0 +1,9 @@
+{
+  "name": "pookieclaw--camel-code",
+  "displayName": "camel-code",
+  "description": "Terminal AI coding assistant written in OCaml. Two humps, zero runtime.",
+  "version": "1.0.0",
+  "author": "pookieclaw",
+  "homepage": "https://github.com/pookieclaw/camel-code",
+  "skills": []
+}
