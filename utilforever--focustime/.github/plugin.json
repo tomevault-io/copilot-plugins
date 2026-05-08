@@ -1,0 +1,9 @@
+{
+  "name": "utilforever--focustime",
+  "displayName": "focustime",
+  "description": "TUI-based application for \u23f1 Pomodoro + \ud83d\udeab Site Blocking + \ud83d\udcca WakaTime Tracking",
+  "version": "1.0.0",
+  "author": "utilForever",
+  "homepage": "https://github.com/utilForever/focustime",
+  "skills": []
+}
