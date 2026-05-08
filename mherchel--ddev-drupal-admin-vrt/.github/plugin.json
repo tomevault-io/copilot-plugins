@@ -1,0 +1,9 @@
+{
+  "name": "mherchel--ddev-drupal-admin-vrt",
+  "displayName": "ddev-drupal-admin-vrt",
+  "description": "A DDEV add-on that provides visual regression testing for Drupal's default_admin theme using Playwright.",
+  "version": "1.0.0",
+  "author": "mherchel",
+  "homepage": "https://github.com/mherchel/ddev-drupal-admin-vrt",
+  "skills": []
+}
