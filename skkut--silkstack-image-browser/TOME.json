@@ -4,7 +4,7 @@
   "repo": "SilkStack-Image-Browser",
   "description": "A beautiful image browser built specially for ComfyUI generated images.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/skkut/SilkStack-Image-Browser",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T12:59:55Z"
+  "distributed_at": "2026-05-08T18:46:43Z"
 }
