@@ -1,0 +1,9 @@
+{
+  "name": "litestar-org--litestar-email",
+  "displayName": "litestar-email",
+  "description": "Email integration for Litestar",
+  "version": "1.0.0",
+  "author": "litestar-org",
+  "homepage": "https://github.com/litestar-org/litestar-email",
+  "skills": []
+}
