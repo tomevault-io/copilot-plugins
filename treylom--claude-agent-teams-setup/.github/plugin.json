@@ -1,0 +1,9 @@
+{
+  "name": "treylom--claude-agent-teams-setup",
+  "displayName": "claude-agent-teams-setup",
+  "description": "Windows\uc5d0\uc11c Claude Code Agent Teams + tmux split pane \uc790\ub3d9 \uc124\uc815 \uac00\uc774\ub4dc",
+  "version": "1.0.0",
+  "author": "treylom",
+  "homepage": "https://github.com/treylom/claude-agent-teams-setup",
+  "skills": []
+}
