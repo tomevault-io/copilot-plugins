@@ -1,108 +1,39 @@
 ## unnamed-skill
 
-> 当需要编写脚本时, 你应该参考本文件
+> `@types` 文件夹中定义了酒馆助手所提供的所有接口, [酒馆助手官方文档](https://n0vi028.github.io/JS-Slash-Runner-Doc/)中也对这些接口进行了类似的说明:
 
-# 脚本
+# 酒馆助手接口
 
-如果 `src/xxx` 文件夹中仅有 `index.ts` 文件, 则它是一个脚本项目.
+`@types` 文件夹中定义了酒馆助手所提供的所有接口, [酒馆助手官方文档](https://n0vi028.github.io/JS-Slash-Runner-Doc/)中也对这些接口进行了类似的说明:
 
-脚本以无沙盒 iframe 的形式在酒馆后台运行, 没有自己的界面, 只有代码部分可供编写.
+其中, `@types/function` 中的接口将会导出到酒馆网页的 `window.TavernHelper`; 而 `@types/iframe` 依赖于 iframe 环境, 只在酒馆助手前端界面或脚本内可用. 由于本项目主要是制作酒馆助手前端界面或脚本, `@types/function` 和 `@types/iframe` 内的接口均可直接调用, 你无须在意 `@types/function` 和 `@types/iframe` 的区别.
 
-## jquery
-
-脚本中的 jquery 将直接作用于整个酒馆页面而非仅作用于脚本所在的 iframe, 因为它是通过 `window.$ = window.parent.$` 得到的. 例如 `$('body')` 将选择酒馆网页的 `<body>` 标签, 而不是脚本所在的 iframe 的 `<body>` 标签.
-
-## vue
-
-由于脚本运行在 iframe 中, 当需要在脚本中向酒馆页面挂载 vue 组件时, 你应该使用 jquery 来创建一个要挂载的位置, 将其添加到酒馆网页上, 并使用 `app.mount($app[0])` 来挂载.
-
-## 向酒馆网页挂载 vue 组件时的样式问题
-
-由于脚本运行在 iframe 中, 脚本所设置的 style (包括 tailwindcss 产生的) 仅会在 iframe 内生效而不会应用到整个酒馆网页; 也就是说, 当我们用 jquery 创建了挂载位置, 并想将 vue 组件挂载到酒馆网页上时, 组件所需要的样式、所填写的 tailwindcss class 都无法生效.
-
-基于 vue 组件用途, 这有两个解决方案.
-
-### 组件是对酒馆网页的补充，需要使用酒馆网页的样式
-
-组件可能是用来增强酒馆网页的界面使用体验，或需要与酒馆网页目前的样式保持一致的, 则应该挂载在非 iframe DOM 上. 例如:
-
-```ts
-$(() => {
-  const app = createApp(App).use(createPinia());
-
-  const $app = createScriptIdDiv().appendTo('想要放置的位置');
-  app.mount($app[0]);
-
-  // 关闭脚本时卸载组件
-  $(window).on('pagehide', () => {
-    app.unmount();
-    $app.remove();
-  });
-});
-```
-
-这种组件应该尽量参考酒馆网页原有样式; 为了让脚本里为组件设置的额外样式生效, 我们需要使用 `util/script.ts` 中的 `teleportStyle` 函数来将样式复制到酒馆网页的 `<head>` 中.
-
-```ts
-const { destroy } = teleportStyle();
-```
-
-在关闭脚本时, 我们需要调用 `destroy` 函数来卸载样式.
-
-```ts
-$(window).on('pagehide', () => {
-  destroy();
-});
-```
-
-**但为了不与酒馆网页中已经有的类名冲突, 针对这种情况, 我们禁止使用 tailwindcss.**
-
-### 组件是独立的，不需要使用酒馆网页的样式
-
-组件可能是单独的悬浮窗、手机样式的对话界面或对酒馆网页的大幅调整, 需要与酒馆网页现有样式隔离, 则应该挂载在 iframe DOM 上. 为此我们使用 `util/script.ts` 中的 `createScriptIdIframe` 函数来创建 iframe DOM, 并将 vue 组件在 iframe load 完成后挂载到 iframe 内部的 body 上 (`iframe_element.contentDocument!.body`):
-
-```ts
-$(() => {
-  const app = createApp(App).use(createPinia());
-
-  const $app = createScriptIdIframe()
-    .appendTo('想要放置的位置')
-    .on('load', () => {
-      teleportStyle($app[0].contentDocument!.head);
-      app.mount($app[0].contentDocument!.body);
-    });
-
-  // 关闭脚本时卸载组件
-  $(window).on('pagehide', () => {
-    app.unmount();
-    $app.remove();
-  });
-});
-```
-
-这种情况应该**优先使用无须自行复制样式的 tailwindcss class**; 否则, 如果有需要复制的样式, 则需要使用 `teleportStyle($app[0].contentDocument!.head)` 函数来复制样式.
-
-## 脚本设置
-
-如果需要为用户提供自定义设置, 可以使用脚本变量, 并用 `zod` 来定义设置的类型和默认值.
-
-## 按钮
-
-脚本可以在酒馆助手脚本库界面中设置按钮, 用户点击按钮时将会触发对应的事件.
-
-我们可以这样添加按钮:
-
-```typescript
-appendInexistentScriptButtons([{ name: '按钮名', visible: true }]);
-```
-
-然后, 可以在代码中这样注册按钮事件:
-
-```typescript
-eventOn(getButtonEvent('按钮名'), () => {
-  console.log('按钮被点击了');
-});
-```
+- `@types/function/audio.d.ts`: 音频播放器
+- `@types/function/builtin.d.ts`: 对 `@types/iframe/exported.sillytavern.d.ts` 的增补, 一些酒馆原生具有但没有导出的接口
+- `@types/function/chat_message.d.ts`: 操作目前酒馆玩家与 AI 的聊天楼层记录, 如获取某些楼层的消息、修改楼层消息内容、新建楼层、删除楼层、移动楼层等
+- `@types/function/displayed_message.d.ts`: 操作目前酒馆网页对楼层的显示, 如获取某一楼层的 JQuery 实例、将文本格式化为如果放在楼层中会如何显示的 html 文本等
+- `@types/iframe/event.d.ts`: 监听、发送酒馆事件, 如监听消息接收完毕、监听世界书发生更新等
+- `@types/iframe/exported.ejstemplate.d.ts`: 与提示词模板这一酒馆插件进行交互, 主要是调整提示词模板的设置. 除非我明确要求你做, 不要考虑
+- `@types/iframe/exported.mvu.d.ts`: 与 MVU 变量框架进行交互
+- `@types/iframe/exported.sillytavern.d.ts`: 酒馆原生导出的接口, 但抽象层次很低, 因此你应该优先使用 `@types` 中列出的其他酒馆助手接口而不是这个文件里的
+- `@types/function/extension.d.ts`: 操作酒馆第三方扩展的安装、卸载、更新等
+- `@types/function/generate.d.ts`: 请求酒馆 AI 生成回复. `generate` 是携带酒馆预设作为提示词的请求 AI 生成, 而 `generateRaw` 是不携带酒馆预设 (但依旧会发送酒馆世界书条目等内容) 直接请求 AI 生成
+- `@types/function/global.d.ts`: 支持不同前端界面、脚本间的接口共享
+- `@types/function/import_raw.d.ts`: 导入酒馆原生数据, 包括角色卡、聊天记录、世界书、预设等. 导入所用的数据格式应与玩家通过酒馆页面按钮导出的数据格式一致
+- `@types/function/inject.d.ts`: 为酒馆 AI 请求注入额外提示词
+- `@types/function/macro_like.d.ts`: 注册酒馆助手宏. 注册后, 酒馆 AI 提示词、酒馆楼层显示中出现这个宏时, 将会被替换为宏所定义的内容
+- `@types/function/preset.d.ts`: 操作酒馆预设, 可以切换使用别的预设, 也可以调整预设中的酒馆 AI 请求参数 (温度、流式传输等) 和提示词等
+- `@types/function/raw_character.d.ts`: 获取角色卡的一些信息
+- `@types/function/script.d.ts`: 获取或修改当前酒馆助手脚本的某些信息
+- `@types/iframe/script.d.ts`: 获取或修改当前酒馆助手脚本的某些信息
+- `@types/function/slash.d.ts`: 运行酒馆的 DSL 命令 (称为 "/STScript"), 可运行的命令在 `slash_command.txt` 中有列出, 但这些命令很难与代码结合使用,因此你应该优先使用 `@types` 中列出的其他酒馆助手接口而不是 "/STScript" 命令
+- `@types/function/tavern_regex.d.ts`: 操作酒馆正则. 酒馆在发送 AI 请求或显示楼层时, 会按酒馆正则将聊天记录中的内容替换成其他内容. 除非明确要求, 你只应该在有些时候使用这个文件里的 `formatAsTavernRegexedString` 函数
+- `@types/function/util.d.ts`: 一些工具函数, 如获取当前酒馆聊天的最新楼层号, 替换文本里的酒馆宏等
+- `@types/iframe/util.d.ts`: 一些工具函数, 如在前端界面里获取前端界面所在楼层号等
+- `@types/function/variables.d.ts`: 操作酒馆变量, 可以获取或修改变量值
+- `@types/iframe/varriables.d.ts`: 操作酒馆变量
+- `@types/function/version.d.ts`: 获取酒馆和酒馆助手的版本号
+- `@types/function/worldbook.d.ts`: 操作世界书, 可以删除创建世界书, 可以调整世界书启用情况, 也可以调整其中的条目等
 
 ---
 > Source: [StageDog/tavern_helper_template](https://github.com/StageDog/tavern_helper_template) — distributed by [TomeVault](https://tomevault.io).
