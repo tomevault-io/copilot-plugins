@@ -1,0 +1,9 @@
+{
+  "name": "launchapp-dev--animus-cli",
+  "displayName": "animus-cli",
+  "description": "Autonomous AI agent orchestrator \u2014 run multi-model dev teams (Claude, Gemini, GPT) with YAML workflows, daemon scheduling, and MCP integration. 100% Rust.",
+  "version": "1.0.0",
+  "author": "launchapp-dev",
+  "homepage": "https://github.com/launchapp-dev/animus-cli",
+  "skills": []
+}
