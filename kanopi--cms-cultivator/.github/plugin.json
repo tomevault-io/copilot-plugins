@@ -1,0 +1,30 @@
+{
+  "name": "kanopi--cms-cultivator",
+  "displayName": "cms-cultivator",
+  "description": "A comprehensive Claude Code plugin providing specialized slash commands for Drupal and WordPress development.",
+  "version": "1.0.0",
+  "author": "kanopi",
+  "homepage": "https://github.com/kanopi/cms-cultivator",
+  "skills": [
+    {
+      "name": "browser-validator",
+      "description": ""
+    },
+    {
+      "name": "design-analyzer",
+      "description": ""
+    },
+    {
+      "name": "documentation-generator",
+      "description": ""
+    },
+    {
+      "name": "responsive-styling",
+      "description": ""
+    },
+    {
+      "name": "test-scaffolding",
+      "description": ""
+    }
+  ]
+}
