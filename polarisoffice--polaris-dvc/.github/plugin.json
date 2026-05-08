@@ -1,0 +1,9 @@
+{
+  "name": "polarisoffice--polaris-dvc",
+  "displayName": "polaris_dvc",
+  "description": "Rust\ub85c \ud3ec\ud305\ud55c Hancom DVC",
+  "version": "1.0.0",
+  "author": "PolarisOffice",
+  "homepage": "https://github.com/PolarisOffice/polaris_dvc",
+  "skills": []
+}
