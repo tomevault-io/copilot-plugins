@@ -1,0 +1,9 @@
+{
+  "name": "openspiir-collective--openspiir",
+  "displayName": "openspiir",
+  "description": "A faithful reproduction of the Spiir app, website and infrastructure, so we can keep using it.",
+  "version": "1.0.0",
+  "author": "openspiir-collective",
+  "homepage": "https://github.com/openspiir-collective/openspiir",
+  "skills": []
+}
