@@ -1,0 +1,9 @@
+{
+  "name": "hugoguerrap--crypto-claude-desk",
+  "displayName": "crypto-claude-desk",
+  "description": "Multi-agent cryptocurrency intelligence system built with Claude Code. 6 AI agents, 66 MCP tools, Agent Teams, zero orchestration code.",
+  "version": "1.0.0",
+  "author": "hugoguerrap",
+  "homepage": "https://github.com/hugoguerrap/crypto-claude-desk",
+  "skills": []
+}
