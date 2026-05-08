@@ -1,13 +1,37 @@
-## git-policy
+## post-algo-eval
 
-> Git 提交与合并规范
+> 算法改进后必须跑 eval 验证效果
 
 
-# Git 提交与合并规范
+# 算法改进后验证
 
-- 禁止在 master/main 分支直接提交代码并推送。
-- 所有代码改动必须在独立分支完成，并通过 Pull Request 合并。
-- 分支命名：feat/<topic>、fix/<topic>、refactor/<topic>、docs/<topic>、chore/<topic>
+当修改涉及以下模块的算法逻辑时，完成代码修改并确认编译通过后，必须跑一次 eval 验证效果：
+
+- 颜色量化 (`src/quantize/`)
+- 深度排序 / 形状延伸 (`src/stacking/`)
+- Potrace 追踪 / 覆盖率修补 (`src/trace/`)
+- 曲线拟合 / 路径优化 (`src/curve/`)
+- 管线编排 (`src/pipeline.cpp`, `src/pipeline_v2.cpp`)
+- SVG 输出 (`src/output/`)
+- 预处理 / 分割 (`src/preprocess/`, `src/segment/`)
+
+## 验证流程
+
+1. 编译通过 + 单元测试通过
+2. 跑 V2 批量评估（15 张全跑），与上一次结果对比：
+
+```bash
+./build/apps/evaluate_svg \
+  --manifest test_data/images/manifest.json \
+  --svg-dir test_data/images/results/<本次目录名> \
+  --json test_data/images/results/<本次目录名>/report.json \
+  --pipeline v2 \
+  --log-level info \
+  --note "<本次改动简述>"
+```
+
+3. 对比 report.json 中关键指标（score、delta_e_mean、ssim、coverage），确认无回归
+4. 若改动同时影响 V1，额外跑一次 `--pipeline v1` 验证
 
 ---
 > Source: [Neroued/neroued_vectorizer](https://github.com/Neroued/neroued_vectorizer) — distributed by [TomeVault](https://tomevault.io).
