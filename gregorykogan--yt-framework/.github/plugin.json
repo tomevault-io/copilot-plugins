@@ -1,0 +1,9 @@
+{
+  "name": "gregorykogan--yt-framework",
+  "displayName": "yt-framework",
+  "description": "Build scalable data pipelines on YTsaurus with automatic stage management, local development simulation, and more.",
+  "version": "1.0.0",
+  "author": "GregoryKogan",
+  "homepage": "https://github.com/GregoryKogan/yt-framework",
+  "skills": []
+}
