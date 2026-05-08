@@ -1,0 +1,9 @@
+{
+  "name": "rtlzeromemory--zireael",
+  "displayName": "Zireael",
+  "description": "Deterministic terminal UI core engine in C (FFI/ABI backend fo Rezi).",
+  "version": "1.0.0",
+  "author": "RtlZeroMemory",
+  "homepage": "https://github.com/RtlZeroMemory/Zireael",
+  "skills": []
+}
