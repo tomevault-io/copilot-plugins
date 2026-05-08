@@ -1,45 +1,111 @@
-## parallel-subagents
+## plan-feature
 
-> Use parallel subagents when auditing or editing 5+ files in a single task
+> Framework for planning a new feature end-to-end — use when asked to plan or design a new module
 
 
-# Parallel Subagents for Multi-File Operations
+# Plan a Feature
 
-When a task involves **auditing or editing 5+ independent files**, prefer parallel subagents over sequential tool calls. If changes have ordering dependencies, keep dependent steps sequential.
+Use this structure when planning a new feature module.
 
-## When to parallelize
+## Planning Checklist
 
-- **Audits**: searching for patterns, checking consistency, or reviewing code across 5+ files
-- **Edits**: renaming, fixing stale references, or applying the same pattern across 5+ files
-- **Mixed**: audit first (parallel), then edit (parallel) based on findings
+1. **Explore existing code** — read the schema, related services, frontend routes. Understand what exists.
+2. **Scaffold boilerplate** — run `make new-module name=<module>` to generate migration, service, handler, and route stubs.
+3. **Identify the data model** — what tables, enums, relationships are needed? Check if any already exist in `backend/migrations/000001_init.up.sql`.
+4. **Define the API surface** — list every endpoint (verb + path + purpose).
+5. **Identify auth requirements** — who can do what? Map to the two-layer pattern (handler: authn, service: authz).
+6. **Note side effects** — what happens on status changes? Cascading updates? History entries?
+7. **Plan seed data** — test accounts need realistic data for manual testing during development.
 
-## How to split work
+## Plan Structure (phases)
 
-Group files by **independence** — changes that don't depend on each other go in separate subagents. Max 4 concurrent subagents.
+```
+Phase 1: Database Migration
+  - New enums, tables, ALTER existing tables
+  - Down migration
 
-Good splits:
+Phase 1b: Seed Data (immediately after migration)
+  - Enables manual testing during backend development
 
-- By layer: Docker/infra files | source code | documentation | config
-- By concern: backend changes | frontend changes
+Phase 2: Backend Service
+  - Types (input/output structs)
+  - Auth helper (verifyXMembership)
+  - CRUD methods + business logic
 
-Bad splits:
+Phase 3: Backend Handler + Routes
+  - Request types, validation
+  - Handler methods
+  - Route registration in main.go
 
-- Putting a TSX file and its CSS file in different subagents (coordinated rename)
-- Splitting a function definition from its callers
+Phase 4: Frontend API Types + Client
+  - TypeScript interfaces matching backend structs
+  - API client object (itemsApi pattern)
 
-## Subagent instructions
+Phase 5: Frontend Pages + Components
+  - Sidebar nav entry
+  - List page (with filters, empty states)
+  - Detail view (modal or page)
+```
 
-Each subagent prompt must include:
+## Key Decisions to Make Upfront
 
-1. The exact files to read/edit
-2. The specific changes to make (before/after values, line numbers if known)
-3. "Read each file before editing to verify exact content"
+- **Modal vs page** for detail views — prefer modal for "detail within a list" (notes, items). Use page for standalone content.
+- **Transaction boundaries** — identify which operations need multi-write transactions.
+- **Permission model** — who can create/read/update/delete? Map to `verifyResourceAccess` or similar. See "Role-Based Permissions" below.
+- **Status side effects** — what happens on transitions? Auto-history? Cascading approvals?
+- **Computed vs stored** — prefer computed fields (via SQL subquery) over stored aggregates.
+- **Side effects** — what happens on key events? Emails, webhooks, audit logging?
+- **Real-time updates** — for features that need server push (live notifications, collaborative edits), consider SSE. Exclude SSE endpoints from gzip and timeout middleware in `middleware/stack.go`.
 
-Use the fast model for mechanical renames; default model for changes requiring judgment.
+## Role-Based Permissions
 
-## After subagents complete
+When planning a feature, map each action to user roles. Example role levels:
 
-Run verification searches (`rg`) to confirm all changes applied and no regressions introduced. If a subagent failed due to content mismatch, read the file and fix manually.
+| Role | Who |
+|---|---|
+| **User** | Can view own data |
+| **Admin** | Can create/edit/manage all resources |
+
+In handlers, extract auth and check roles:
+```go
+userID, err := requireUserID(c)
+userType, err := requireUserType(c)
+if userType != "admin" {
+    return apperror.Forbidden("Admin access required")
+}
+```
+
+Services accept `userID` directly from the handler (extracted from JWT context) — never look up user details in the service layer for auth purposes.
+
+## Frontend Component Rule
+
+**Use existing components from `~/components` — never create raw HTML equivalents.** If a component doesn't exist, ask before building one.
+
+- Dropdowns/selects: `<Select>` + `<SelectItem>` (not raw `<select>`)
+- Multi-select: `<MultiSelect>` + `<MultiSelectItem>`
+- Buttons: `<Button>` with variant/size props
+- Inputs: `<Input>` with size/variant props
+- Textareas: `<Textarea>` with autoGrow
+- Modals: `<Modal>` for general, `<DestructiveModal>` for destructive confirms
+- Tabs: `<Tabs>` + `<TabList>` + `<Tab>` + `<TabPanel>`
+- Status badges: `<Chip>` with variant/size props
+
+Check `frontend/src/components/index.ts` for the full list of available exports before writing UI code.
+
+## Reference Files
+
+- Service pattern: `backend/internal/service/auth.go`, `backend/internal/service/user.go`
+- Handler pattern: `backend/internal/handler/auth.go`, `backend/internal/handler/user.go`
+- Migration pattern: `backend/migrations/000001_init.up.sql`
+- Frontend page: `frontend/src/routes/(private)/dashboard/index.tsx`, `frontend/src/routes/(private)/settings/index.tsx`
+- API types: `frontend/src/lib/api.ts`
+- Component barrel: `frontend/src/components/index.ts`
+- Auth context helpers: `backend/internal/handler/context.go`
+- Frontend auth helpers: `frontend/src/lib/auth.ts`
+
+## Post-Implementation
+
+After implementing, run the audit checklist (`@audit-bugs`) against all new files before considering the feature complete.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
