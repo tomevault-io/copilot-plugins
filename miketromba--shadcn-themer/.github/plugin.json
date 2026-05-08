@@ -1,9 +1,9 @@
 {
   "name": "miketromba--shadcn-themer",
   "displayName": "shadcn-themer",
-  "description": "shadcn-themer",
+  "description": "Shadcn Themer is a web application that lets you to create, customize, and share themes for shadcn/ui",
   "version": "1.0.0",
   "author": "miketromba",
-  "homepage": "https://tomevault.io/claim/miketromba",
+  "homepage": "https://github.com/miketromba/shadcn-themer",
   "skills": []
 }
