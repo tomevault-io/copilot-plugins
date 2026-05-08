@@ -1,0 +1,26 @@
+{
+  "name": "liaocaoxuezhe--obsidian-rag",
+  "displayName": "obsidian",
+  "description": "Convert your Obsidian knowledge base into an intelligent conversational system, supporting semantic retrieval and localized deployment.",
+  "version": "1.0.0",
+  "author": "liaocaoxuezhe",
+  "homepage": "https://github.com/liaocaoxuezhe/obsidian-rag",
+  "skills": [
+    {
+      "name": "json-canvas",
+      "description": ""
+    },
+    {
+      "name": "obsidian-bases",
+      "description": ""
+    },
+    {
+      "name": "obsidian-markdown",
+      "description": ""
+    },
+    {
+      "name": "obsidian_templater_use",
+      "description": ""
+    }
+  ]
+}
