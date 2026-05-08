@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--storage-ballast-helper",
+  "displayName": "storage_ballast_helper",
+  "description": "Cross-platform Rust daemon that prevents disk-full incidents for AI coding workloads using predictive pressure control, safe artifact cleanup, and multi-volume ballast pools.",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/storage_ballast_helper",
+  "skills": []
+}
