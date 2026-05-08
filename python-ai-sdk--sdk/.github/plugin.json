@@ -1,0 +1,9 @@
+{
+  "name": "python-ai-sdk--sdk",
+  "displayName": "sdk",
+  "description": "The Vercel AI SDK, in Python",
+  "version": "1.0.0",
+  "author": "python-ai-sdk",
+  "homepage": "https://github.com/python-ai-sdk/sdk",
+  "skills": []
+}
