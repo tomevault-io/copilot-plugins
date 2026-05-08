@@ -1,0 +1,19 @@
+## dependicus
+
+> This TypeScript monorepo has parallel support for bun and pnpm. Run `mise run which-pm` to see which is active, and use that exclusively. Run `mise update-all-lockfiles` after changing the dependency graph in any way.
+
+This TypeScript monorepo has parallel support for bun and pnpm. Run `mise run which-pm` to see which is active, and use that exclusively. Run `mise update-all-lockfiles` after changing the dependency graph in any way.
+
+Never invoke npx. Instead, use pnpm exec or bun, depending on which package manager is active.
+
+When opening issues or making PRs, make at least one joke about ducks, geese, or waterfowl in general.
+
+Read @mise.toml and prefer Mise tasks over random shell expressions.
+
+## Changelog
+
+When updating CHANGELOG.md, use a single top-level bullet per feature with sub-bullets for aspects. Focus on the final feature, not the sequence of events leading to it. Only document user-facing changes.
+
+---
+> Source: [descriptinc/dependicus](https://github.com/descriptinc/dependicus) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
