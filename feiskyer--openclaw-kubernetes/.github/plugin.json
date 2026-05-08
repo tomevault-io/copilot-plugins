@@ -1,0 +1,9 @@
+{
+  "name": "feiskyer--openclaw-kubernetes",
+  "displayName": "openclaw-kubernetes",
+  "description": "Kubernetes helm chart for OpenClaw (former Moltbot/Clawdbot) ",
+  "version": "1.0.0",
+  "author": "feiskyer",
+  "homepage": "https://github.com/feiskyer/openclaw-kubernetes",
+  "skills": []
+}
