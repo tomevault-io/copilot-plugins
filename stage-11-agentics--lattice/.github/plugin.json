@@ -1,0 +1,9 @@
+{
+  "name": "stage-11-agentics--lattice",
+  "displayName": "lattice",
+  "description": "task tracking. upgraded for the agent-native era. event-sourced. file-based. for minds that think in tokens and act in tool calls.",
+  "version": "1.0.0",
+  "author": "Stage-11-Agentics",
+  "homepage": "https://github.com/Stage-11-Agentics/lattice",
+  "skills": []
+}
