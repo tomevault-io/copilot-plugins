@@ -1,162 +1,115 @@
-## figma-styles
+## figma-ui-thread
 
-> Styles are reusable design properties that can be applied to multiple nodes.
+> This code runs in an iframe with full browser APIs but NO access to `figma.*`.
 
 
-# Figma Styles API
+# Figma UI Thread (React) Rules
 
-Styles are reusable design properties that can be applied to multiple nodes.
+This code runs in an iframe with full browser APIs but NO access to `figma.*`.
 
-## Style Types
+## Available APIs
 
-| Style Type | Applies To | Properties |
-|------------|------------|------------|
-| Paint Style | Fills, strokes | Colors, gradients, images |
-| Text Style | Text nodes | Font, size, line height, etc. |
-| Effect Style | Any node | Shadows, blurs |
-| Grid Style | Frames | Layout grids |
+- Full DOM and React
+- `fetch()` for network requests
+- `window`, `localStorage`, `sessionStorage`
+- `parent.postMessage()` to send messages to plugin
 
-## Getting Local Styles
+## Communication with Plugin
+
+### Sending Messages to Plugin
 
 ```typescript
-// Get all local styles (async)
-const paintStyles = await figma.getLocalPaintStylesAsync()
-const textStyles = await figma.getLocalTextStylesAsync()
-const effectStyles = await figma.getLocalEffectStylesAsync()
-const gridStyles = await figma.getLocalGridStylesAsync()
+import type { PluginMessage } from "../shared/messages";
 
-// Log style names
-paintStyles.forEach(style => console.log(style.name))
+const postToPlugin = (message: PluginMessage) => {
+  parent.postMessage({ pluginMessage: message }, "*");
+};
+
+// Usage
+postToPlugin({ type: "get-selection" });
+postToPlugin({ type: "create-rectangle", width: 100, height: 100 });
 ```
 
-## Creating Styles
-
-### Paint Style
+### Receiving Messages from Plugin
 
 ```typescript
-const style = figma.createPaintStyle()
-style.name = "Brand/Primary"
-style.paints = [{
-  type: 'SOLID',
-  color: { r: 0.2, g: 0.4, b: 1 }
-}]
+import type { UIMessage } from "../shared/messages";
+
+useEffect(() => {
+  const handleMessage = (event: MessageEvent<{ pluginMessage: UIMessage }>) => {
+    const msg = event.data.pluginMessage;
+    if (!msg) return;
+
+    switch (msg.type) {
+      case "selection-changed":
+        setSelection(msg.nodes);
+        break;
+    }
+  };
+
+  window.addEventListener("message", handleMessage);
+  return () => window.removeEventListener("message", handleMessage);
+}, []);
 ```
 
-### Text Style
+## React Patterns
+
+### Functional Components with Hooks
 
 ```typescript
-const style = figma.createTextStyle()
-style.name = "Heading/H1"
-style.fontName = { family: "Inter", style: "Bold" }
-style.fontSize = 32
-style.lineHeight = { value: 40, unit: "PIXELS" }
-style.letterSpacing = { value: -0.5, unit: "PIXELS" }
-```
-
-### Effect Style
-
-```typescript
-const style = figma.createEffectStyle()
-style.name = "Elevation/Medium"
-style.effects = [{
-  type: 'DROP_SHADOW',
-  color: { r: 0, g: 0, b: 0, a: 0.15 },
-  offset: { x: 0, y: 4 },
-  radius: 8,
-  spread: 0,
-  visible: true,
-  blendMode: 'NORMAL'
-}]
-```
-
-## Applying Styles to Nodes
-
-```typescript
-// Apply paint style to fills
-const rect = figma.createRectangle()
-rect.fillStyleId = paintStyle.id
-
-// Apply paint style to strokes
-rect.strokeStyleId = strokeStyle.id
-
-// Apply text style
-if (textNode.type === "TEXT") {
-  textNode.textStyleId = textStyle.id
-}
-
-// Apply effect style
-node.effectStyleId = effectStyle.id
-
-// Apply grid style to frame
-if (frame.type === "FRAME") {
-  frame.gridStyleId = gridStyle.id
+// ✓ Use functional components
+function SelectionPanel() {
+  const [selection, setSelection] = useState<SelectionNode[]>([]);
+  // ...
 }
 ```
 
-## Getting Style from Node
+### Custom Hooks for Plugin Communication
+
+Consider extracting message handling into a custom hook:
 
 ```typescript
-// Check if node uses a style
-if (node.fillStyleId && typeof node.fillStyleId === 'string') {
-  const style = await figma.getStyleByIdAsync(node.fillStyleId)
-  console.log("Fill style:", style?.name)
-}
-
-// Handle mixed styles (multiple different styles applied)
-if (node.fillStyleId === figma.mixed) {
-  console.log("Node has mixed fill styles")
-}
-```
-
-## Importing Styles from Libraries
-
-```typescript
-// Import a style by key
-const importedStyle = await figma.importStyleByKeyAsync(styleKey)
-node.fillStyleId = importedStyle.id
-```
-
-## Updating Styles
-
-```typescript
-// Modify an existing style
-const style = await figma.getStyleByIdAsync(styleId)
-if (style?.type === "PAINT") {
-  style.paints = [{
-    type: 'SOLID',
-    color: { r: 1, g: 0, b: 0 } // Change to red
-  }]
+// src/ui/hooks/usePluginMessage.ts
+function usePluginMessage<T>(type: string, handler: (data: T) => void) {
+  useEffect(() => {
+    const onMessage = (e: MessageEvent) => {
+      if (e.data.pluginMessage?.type === type) {
+        handler(e.data.pluginMessage);
+      }
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [type, handler]);
 }
 ```
 
-## Style Properties
+## Styling with Tailwind CSS
 
-### PaintStyle
-- `paints`: Array of Paint objects
-- `name`: Style name
-- `description`: Optional description
+Use Tailwind utility classes with CSS variables defined in `index.css`. Never hardcode colors — always use variables with **Tailwind v4 syntax**:
 
-### TextStyle
-- `fontName`: `{ family: string, style: string }`
-- `fontSize`: number
-- `lineHeight`: `{ value: number, unit: "PIXELS" | "PERCENT" | "AUTO" }`
-- `letterSpacing`: `{ value: number, unit: "PIXELS" | "PERCENT" }`
-- `textCase`: `"ORIGINAL" | "UPPER" | "LOWER" | "TITLE"`
-- `textDecoration`: `"NONE" | "UNDERLINE" | "STRIKETHROUGH"`
+```typescript
+// ✓ GOOD - Use CSS variables with Tailwind v4 syntax
+className="bg-(--color-bg)"
+className="text-(--color-text)"
+className="border-(--color-border)"
 
-### EffectStyle
-- `effects`: Array of Effect objects (shadows, blurs)
+// ❌ BAD - Hardcoded colors
+className="bg-[#0d0d14]"
+className="text-[#e8e8e8]"
 
-## Best Practices
+// ❌ AVOID - Legacy arbitrary value syntax
+className="bg-[var(--color-bg)]"
+```
 
-1. **Use async getters** — `getLocalPaintStylesAsync()` instead of sync versions
-2. **Check for mixed** — Style IDs can be `figma.mixed` on text ranges
-3. **Organize with `/`** — Use slashes in names for hierarchy: `"Colors/Primary/500"`
-4. **Handle remote styles** — Library styles have `remote: true`
+## Network Requests
 
-## MCP Tool
+All API calls must happen in UI thread:
 
-Use `figma_get_examples` with topic "styles" for more code examples.
+```typescript
+// ✓ Fetch in UI, send result to plugin
+const data = await fetch("https://api.example.com/data").then((r) => r.json());
+postToPlugin({ type: "api-response", data });
+```
 
 ---
 > Source: [hoshikitsunoda/figma-plugins-vibe-coding-template](https://github.com/hoshikitsunoda/figma-plugins-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
