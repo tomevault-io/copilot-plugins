@@ -1,0 +1,9 @@
+{
+  "name": "jasiek--webchirp",
+  "displayName": "webchirp",
+  "description": "PoC for running chirp in the browser",
+  "version": "1.0.0",
+  "author": "jasiek",
+  "homepage": "https://github.com/jasiek/webchirp",
+  "skills": []
+}
