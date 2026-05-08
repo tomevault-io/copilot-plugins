@@ -1,0 +1,142 @@
+## development-workflow
+
+> 开发流程和优先级指南
+
+
+# 开发流程指南
+
+## 当前版本：v0.3.1
+
+核心功能已完成，当前处于优化和稳定阶段。
+
+### 已完成功能
+
+- ✅ C++ 源码分析（tree-sitter）
+- ✅ Blueprint 内省 API
+- ✅ Asset 引用查询
+- ✅ 跨域引用链追踪
+- ✅ 软引用追踪（Blueprint CDO）
+- ✅ Mermaid 图表输出
+- ✅ 工具集精简（22 → 8）
+
+### 当前优化方向
+
+1. **性能优化**：大型项目搜索速度
+2. **准确性提升**：引用链完整性
+3. **用户体验**：错误提示和文档
+
+## 关键文件
+
+### MCP Server (Python)
+
+- [server.py](mdc:Mcp/src/unreal_analyzer/server.py) - 入口
+- [unified.py](mdc:Mcp/src/unreal_analyzer/tools/unified.py) - 核心工具
+- [cross_domain.py](mdc:Mcp/src/unreal_analyzer/tools/cross_domain.py) - 跨域工具
+- [blueprint.py](mdc:Mcp/src/unreal_analyzer/tools/blueprint.py) - 蓝图工具
+- [cpp.py](mdc:Mcp/src/unreal_analyzer/tools/cpp.py) - C++ 工具
+- [analyzer.py](mdc:Mcp/src/unreal_analyzer/cpp_analyzer/analyzer.py) - C++ 分析器
+
+### Unreal Plugin (C++)
+
+- [UnrealAnalyzerHttpRoutes.cpp](mdc:Source/UnrealProjectAnalyzer/Private/UnrealAnalyzerHttpRoutes.cpp) - HTTP API 路由
+- [UnrealProjectAnalyzer.cpp](mdc:Source/UnrealProjectAnalyzer/Private/UnrealProjectAnalyzer.cpp) - 插件入口
+
+## 开发命令
+
+### Python MCP Server
+
+```bash
+cd unreal-project-analyzer
+
+# 安装依赖
+uv sync
+
+# 运行测试
+uv run pytest
+
+# 运行 MCP Server
+uv run unreal-analyzer
+
+# Lint
+uv run ruff check .
+uv run ruff format .
+```
+
+### Unreal 插件
+
+1. 复制本仓库目录到 UE 项目的 `Plugins/` 目录
+2. 确保目录名为 `UnrealProjectAnalyzer/`（与 `UnrealProjectAnalyzer.uplugin` 一致）
+3. 用 UE 编辑器打开项目，编译插件
+4. 启用插件
+
+## 测试指南
+
+### 单元测试
+
+```bash
+uv run pytest Mcp/tests/test_cpp_analyzer.py -v
+```
+
+### 集成测试 (需要 UE 插件运行)
+
+```bash
+# 确保 UE 编辑器已启动且插件已启用
+# 确保 HTTP API 在 localhost:8080 可用
+
+uv run pytest Mcp/tests/test_integration.py -v
+```
+
+### Lyra 项目验证
+
+1. 下载 Lyra 示例项目
+2. 安装 UnrealProjectAnalyzer 插件
+3. 配置 MCP Server 连接
+4. 测试典型查询:
+   - "分析 B_Hero_ShooterMannequin 的继承链"
+   - "GA_Hero_Dash 的触发路径是什么"
+   - "SK_Mannequin 被哪些资产引用"
+
+## Git 工作流
+
+- `main` 分支保持稳定
+- 功能开发使用 feature 分支
+- PR 需要通过测试
+
+## 调试技巧
+
+### MCP Server 调试
+
+```python
+# 在 server.py 中添加日志
+import logging
+logging.basicConfig(level=logging.DEBUG)
+```
+
+### Unreal 插件调试
+
+```cpp
+// 在代码中添加断点日志
+UE_LOG(LogTemp, Warning, TEXT("DEBUG: variable = %s"), *Variable);
+```
+
+### 查看 HTTP 请求
+
+```bash
+# 直接测试 UE 插件 API
+curl http://localhost:8080/health
+curl http://localhost:8080/blueprint/search?pattern=BP_Player
+curl http://localhost:8080/blueprint/soft-references?bp_path=/Game/BP_Player
+```
+
+## 工具设计原则
+
+参考 [mcp-tools-design.mdc](mdc:.cursor/rules/mcp-tools-design.mdc)
+
+核心原则：
+1. **最小信息熵**：删除冗余参数，合并语义相同的参数
+2. **统一命名**：`domain`, `scope`, `direction`, `format`
+3. **合理默认值**：大多数情况下使用默认值即可
+
+---
+> Source: [syan2018/UnrealCopilot](https://github.com/syan2018/UnrealCopilot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
