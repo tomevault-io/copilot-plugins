@@ -1,0 +1,9 @@
+{
+  "name": "iqubik--routerfw",
+  "displayName": "routerFW",
+  "description": "openwrt smart builder with docker",
+  "version": "1.0.0",
+  "author": "iqubik",
+  "homepage": "https://github.com/iqubik/routerFW",
+  "skills": []
+}
