@@ -7,11 +7,11 @@ Generate hundreds of AI personas with real behavioral psychology. Simulate them 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [saraswatayu/facet](https://github.com/saraswatayu/facet).
+Original source: `CLAUDE.md` in [saraswatayu/facet](https://github.com/saraswatayu/facet).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
