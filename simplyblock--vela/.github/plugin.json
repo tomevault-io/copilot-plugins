@@ -1,0 +1,9 @@
+{
+  "name": "simplyblock--vela",
+  "displayName": "vela",
+  "description": "Postgres Platform with full stack (auth, APIs, functions), instant cloning, branching and separation of compute and storage. Built for self-hosting.",
+  "version": "1.0.0",
+  "author": "simplyblock",
+  "homepage": "https://github.com/simplyblock/vela",
+  "skills": []
+}
