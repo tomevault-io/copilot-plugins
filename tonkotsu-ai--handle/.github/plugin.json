@@ -1,0 +1,9 @@
+{
+  "name": "tonkotsu-ai--handle",
+  "displayName": "handle",
+  "description": "Refine UI directly in the browser and feed the changes to your coding agent.",
+  "version": "1.0.0",
+  "author": "tonkotsu-ai",
+  "homepage": "https://github.com/tonkotsu-ai/handle",
+  "skills": []
+}
