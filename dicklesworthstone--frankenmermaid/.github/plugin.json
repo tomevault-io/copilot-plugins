@@ -1,0 +1,9 @@
+{
+  "name": "dicklesworthstone--frankenmermaid",
+  "displayName": "frankenmermaid",
+  "description": "Rust-first Mermaid-compatible diagram engine with smarter parsing, deterministic layouts, and high-quality output across CLI, SVG, terminal, and WASM targets",
+  "version": "1.0.0",
+  "author": "Dicklesworthstone",
+  "homepage": "https://github.com/Dicklesworthstone/frankenmermaid",
+  "skills": []
+}
