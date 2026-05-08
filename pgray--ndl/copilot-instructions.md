@@ -1,0 +1,187 @@
+## ndl
+
+> This file provides context for AI assistants working on this codebase.
+
+# CLAUDE.md
+
+This file provides context for AI assistants working on this codebase.
+
+## Project Overview
+
+**ndl** (needle) is a minimal multi-platform TUI client for Threads (threads.net) and Bluesky (bsky.app). It's a Cargo workspace with two binaries:
+
+- `ndl` - The terminal UI client (supports Threads and Bluesky)
+- `ndld` - OAuth authentication server (for Threads)
+
+## Directory Structure
+
+```
+ndl/
+├── Cargo.toml           # Workspace manifest (shared version here)
+├── ndl/                 # TUI client
+│   ├── Cargo.toml
+│   ├── build.rs         # Embeds git version at compile time
+│   └── src/
+│       ├── main.rs      # Entry point, CLI commands (login/logout/--version)
+│       ├── config.rs    # Config file handling (~/.config/ndl/config.json)
+│       ├── oauth.rs     # OAuth flows (local + hosted)
+│       ├── api.rs       # Threads API client
+│       ├── bluesky.rs   # Bluesky API client (AT Protocol)
+│       ├── platform.rs  # Multi-platform abstraction (SocialClient trait)
+│       └── tui.rs       # Ratatui-based terminal UI
+├── ndld/                # OAuth server
+│   ├── Cargo.toml
+│   ├── build.rs         # Embeds git version at compile time
+│   ├── Dockerfile
+│   ├── tests/           # Integration tests
+│   └── src/
+│       ├── lib.rs       # Library exports for testing
+│       ├── main.rs      # Server entry point
+│       ├── auth.rs      # Session management (DashMap with TTL)
+│       └── routes.rs    # Axum HTTP handlers
+└── ndl-core/            # Shared library
+    ├── Cargo.toml
+    └── src/
+        ├── lib.rs
+        └── oauth.rs     # Shared OAuth types and token exchange
+```
+
+## Key Technologies
+
+- **TUI**: ratatui + crossterm
+- **HTTP Server**: axum (both ndl for local OAuth callback, ndld for hosted auth)
+- **HTTP Client**: reqwest with rustls
+- **Async Runtime**: tokio
+- **Serialization**: serde + serde_json for config and API
+- **Bluesky**: bsky-sdk + atrium-api (AT Protocol)
+
+## Versioning
+
+Version is defined once in workspace `Cargo.toml` under `[workspace.package]`. Both binaries inherit it via `version.workspace = true`. Git tag/hash is embedded at compile time via `build.rs`.
+
+## Build Commands
+
+```bash
+cargo build --workspace          # Build both binaries
+cargo build -p ndl               # Build only the TUI client
+cargo build -p ndld              # Build only the auth server
+cargo run -p ndl                 # Run the TUI
+cargo run -p ndld                # Run the auth server
+```
+
+## Configuration
+
+Config file: `~/.config/ndl/config.json`
+
+```json
+{
+  "access_token": "...",      // Threads API token (set by login)
+  "client_id": "...",         // For local OAuth
+  "client_secret": "...",     // For local OAuth
+  "auth_server": "...",       // Optional: URL of ndld server for hosted auth
+  "bluesky": {                // Optional: Bluesky credentials
+    "identifier": "user.bsky.social",
+    "password": "app-password",
+    "session": "..."          // Persisted session data
+  }
+}
+```
+
+Environment variables:
+
+- `NDL_OAUTH_ENDPOINT` - OAuth server URL (default: `https://ndl.pgray.dev`, empty string for local OAuth)
+- `NDL_CLIENT_ID` / `NDL_CLIENT_SECRET` - Threads app credentials (only needed for local OAuth)
+- `NDLD_PUBLIC_URL` - Public URL for ndld (must match Threads redirect URI)
+- `NDLD_PORT` - Port for ndld (default: 8080)
+- `NDLD_TLS_CERT` / `NDLD_TLS_KEY` - Optional paths to PEM cert/key for manual TLS
+- `NDLD_ACME_DOMAIN` - Domain for Let's Encrypt automatic TLS
+- `NDLD_ACME_EMAIL` - Email for Let's Encrypt account (required with ACME_DOMAIN)
+- `NDLD_ACME_DIR` - Directory to persist ACME certs (default: /var/lib/ndld/acme)
+- `NDLD_ACME_STAGING` - If set, use Let's Encrypt staging environment
+
+## Auth Flow
+
+### Threads
+By default, ndl uses hosted OAuth at `https://ndl.pgray.dev`. Set `NDL_OAUTH_ENDPOINT=""` or `auth_server = ""` in config to use local OAuth.
+
+### Bluesky
+Uses username/password authentication via `ndl login bluesky`. Credentials and session data stored in config.json.
+
+### Local OAuth (ndl only, Threads)
+
+1. ndl starts HTTPS server on localhost:1337 with self-signed cert
+2. Opens browser to Threads authorization URL
+3. User authorizes, Threads redirects to localhost callback
+4. ndl exchanges code for token, saves to config
+
+### Hosted OAuth (ndl + ndld)
+
+1. ndl POSTs to `{auth_server}/auth/start`, gets session_id + auth_url
+2. Opens browser to auth_url (Threads authorization)
+3. User authorizes, Threads redirects to ndld's `/auth/callback`
+4. ndld exchanges code for token, stores in session
+5. ndl polls `{auth_server}/auth/poll/{session_id}` until completed
+6. ndl saves token to config
+
+## Threads API
+
+Base URL: `https://graph.threads.net`
+
+Key endpoints used:
+
+- `GET /me` - User profile
+- `GET /me/threads` - User's threads
+- `GET /{thread_id}/replies` - Replies to a thread
+- `POST /me/threads` - Create container (with `media_type=TEXT`)
+- `POST /me/threads_publish` - Publish container
+
+All requests require `access_token` query parameter.
+
+## TUI Architecture
+
+- `App` struct holds all state (threads, selection, input mode, platform states)
+- Two panels: posts list (left) and detail view (right)
+- Input modes: `Normal`, `Replying`, `Posting`, `CrossPosting`
+- Multi-platform support via `SocialClient` trait and `platform_states` HashMap
+- Background task refreshes posts every 15 seconds for each platform
+- Events sent via `mpsc` channel (`AppEvent` enum)
+- Platform switching with `Tab` or `]` key
+
+## Code Conventions
+
+- Edition 2024 Rust
+- Error handling: `thiserror` for custom error types
+- Async: tokio runtime, async/await throughout
+- No unwrap in production paths, proper error propagation
+- Modules are single files (no `mod/` directories)
+- run `cargo search` or `cargo update` to ensure latest deps
+
+## Testing
+
+```bash
+cargo test --workspace
+```
+
+## Pre-commit Checklist
+
+**IMPORTANT**: Before committing changes, run these commands in order:
+
+```bash
+cargo fmt --all                         # Format code
+cargo clippy --workspace --all-targets  # Lint for warnings
+cargo check --workspace                 # Quick compile check
+cargo build --workspace                 # Full build (optional but recommended)
+cargo test --workspace                  # Run all tests (optional but recommended)
+```
+
+**Required**: `cargo fmt`, `cargo clippy`, and `cargo check` must pass without errors.
+**Recommended**: Fix all clippy warnings before committing. Run full build and tests when making significant changes.
+**IMPORTANT**: UPDATE ANY README FILES RELEVANT TO CHANGES
+
+## Updating Dependencies
+
+When adding or removing significant dependencies, update the "Built with" list in `ndld/src/routes.rs` (the landing page at https://ndl.pgray.dev). This list showcases the open source libraries used by the project.
+
+---
+> Source: [pgray/ndl](https://github.com/pgray/ndl) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
