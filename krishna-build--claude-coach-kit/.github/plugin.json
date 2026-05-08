@@ -1,0 +1,9 @@
+{
+  "name": "krishna-build--claude-coach-kit",
+  "displayName": "claude-coach-kit",
+  "description": "\ud83d\ude80 Open-source marketing automation toolkit for coaches & solopreneurs \u2014 built entirely with Claude. Email sequences, payment tracking, UTM attribution, analytics dashboard. Supabase + React.",
+  "version": "1.0.0",
+  "author": "krishna-build",
+  "homepage": "https://github.com/krishna-build/claude-coach-kit",
+  "skills": []
+}
