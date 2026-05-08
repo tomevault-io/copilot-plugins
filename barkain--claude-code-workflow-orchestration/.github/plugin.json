@@ -1,0 +1,9 @@
+{
+  "name": "barkain--claude-code-workflow-orchestration",
+  "displayName": "claude-code-workflow-orchestration",
+  "description": "Claude Code plugin for multi-step workflow orchestration \u2014 automatic task decomposition, parallel agent execution, and specialized agent delegation with native plan mode integration.",
+  "version": "1.0.0",
+  "author": "barkain",
+  "homepage": "https://github.com/barkain/claude-code-workflow-orchestration",
+  "skills": []
+}
