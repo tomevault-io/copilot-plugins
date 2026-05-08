@@ -1,0 +1,9 @@
+{
+  "name": "cesarandreslopez--sidekick-docker",
+  "displayName": "sidekick-docker",
+  "description": "The best TUI and VSCode extension for managing Docker containers and Compose. Period.",
+  "version": "1.0.0",
+  "author": "cesarandreslopez",
+  "homepage": "https://github.com/cesarandreslopez/sidekick-docker",
+  "skills": []
+}
