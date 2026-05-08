@@ -1,0 +1,9 @@
+{
+  "name": "sin-experimental--plugin-sin-biometrics",
+  "displayName": "Plugin-SIN-Biometrics",
+  "description": "OpenCode plugin for bootstrapping and operating the BIOMETRICS control plane. Adds governance, policy enforcement, and supervisor capabilities to OpenCode workflows.",
+  "version": "1.0.0",
+  "author": "sin-experimental",
+  "homepage": "https://github.com/sin-experimental/Plugin-SIN-Biometrics",
+  "skills": []
+}
