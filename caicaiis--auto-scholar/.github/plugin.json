@@ -1,0 +1,9 @@
+{
+  "name": "caicaiis--auto-scholar",
+  "displayName": "Auto-Scholar",
+  "description": "AI-powered literature review generator with human-in-the-loop workflow. Enter a research topic, approve papers, and get well-cited academic reviews in minutes.",
+  "version": "1.0.0",
+  "author": "CAICAIIs",
+  "homepage": "https://github.com/CAICAIIs/Auto-Scholar",
+  "skills": []
+}
