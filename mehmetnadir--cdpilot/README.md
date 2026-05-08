@@ -7,14 +7,14 @@ Zero-dependency browser automation CLI. 70+ commands, 10 test assertions, smart 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [mehmetnadir/cdpilot](https://github.com/mehmetnadir/cdpilot).
+Original source: `AGENTS.md` in [mehmetnadir/cdpilot](https://github.com/mehmetnadir/cdpilot).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 From [mehmetnadir/cdpilot](https://github.com/mehmetnadir/cdpilot) — a repo with 25+ stars on GitHub.
