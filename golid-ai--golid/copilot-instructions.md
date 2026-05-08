@@ -1,88 +1,65 @@
-## refactor-large-files
+## rename-tool
 
-> Guidance for splitting large route files into maintainable pieces
+> Patterns for the project rename tool — file coverage, domain-safe replacement, name validation
 
 
-# Refactoring Large Route Files
+# Rename Tool Patterns
 
-## When to Split
+The rename tool (`make rename` / `go run ./cmd/rename`) rebrands the entire project. It's high-risk — a missed file means a downstream user ships with "Golid" in their app, and a naive replacement corrupts domain URLs.
 
-Any route file **over 600 lines** should be split. Signs it's time:
-- Multiple distinct UI sections (KPI bar, table, modal, form)
-- Multiple modal components with their own state
-- Helper functions / sub-components that don't need the page's signals
+## Domain-Safe Replacement
 
-## How to Split
+`replaceInFileSafe` uses a null-byte placeholder to protect the project domain (`golid.ai`) from corruption. Without it, `"golid"→"myapp"` turns `golid.ai` into `myapp.ai`.
 
-### Co-located Components
-
-Create a `_components/` directory next to the route file:
-
-```
-routes/(private)/items/
-├── index.tsx              ← Page (signals, data fetching, layout)
-├── _components/
-│   ├── ItemCard.tsx        ← Presentational (receives props)
-│   ├── CreateItemModal.tsx ← Modal with own form state
-│   └── ItemDetailModal.tsx ← Detail modal with tabs
+```go
+const placeholder = "\x00DOMAIN\x00"
+protected := strings.ReplaceAll(content, oldDomain, placeholder)
+updated := strings.ReplaceAll(protected, old, new)
+final := strings.ReplaceAll(updated, placeholder, oldDomain)
 ```
 
-The `_` prefix tells SolidStart this is NOT a route — it's a co-located module.
+Use `replaceInFileSafe` for any file that might contain the project domain (docker-compose, deploy scripts, env files, infra templates, CI configs). Use `replaceInFile` for files that only contain module paths or titled names (Go imports, package.json scope).
 
-### What Goes Where
+## File Coverage
 
-**Parent route file keeps:**
-- Data fetching (`onMount`, `createSignal`, `createEffect`)
-- Page-level signals (loading, error, data, filters, pagination)
-- `alive` guard and `onCleanup`
-- Layout structure (`Switch/Match` for content states)
-- Signal-driven modal open/close logic
+The tool must cover every file with hardcoded project names. Current categories:
 
-**Extracted components receive:**
-- Data via **props** (not by importing shared signals)
-- Callbacks via **props** (`onSave`, `onClose`, `onDelete`)
-- They are **presentational** — they render what they're given
+| # | Target | Function |
+|---|--------|----------|
+| 1 | `go.mod` | Module path |
+| 2 | All `.go` files | Import paths + titled name |
+| 3 | `docker-compose.yml` | Container/DB names |
+| 4 | `package.json` + lock | npm scope |
+| 5 | `README.md` | GitHub repo + titled name |
+| 6 | `.cursor/rules/*.mdc` | Module path + project name |
+| 7 | `docs/*.md` | Module path + project name |
+| 8 | `frontend/src/**/*.{ts,tsx}` | Titled branding + lowercase + all-caps |
+| 8b | `frontend/src/**/*.css` | Branded CSS class names |
+| 9 | Community files (SECURITY, CHANGELOG, CONTRIBUTING) | GitHub repo + titled name |
+| 10 | `codecov.yml` | Module path |
+| 11 | `config/.env.*` | APP_NAME + DB names |
+| 12 | `scripts/*.sh` + `scripts/README.md` | Project name + titled |
+| 13 | Swagger docs, DevContainer, Dockerfiles | Titled + project name |
+| 14 | `infra/*.yaml` + `.github/workflows/*.yml` | Project name |
+| 15 | Scaffold template + backend Makefile | Titled name |
+| 16 | `testutil/testutil.go` | Default DB name |
+| 17 | Entrypoint scripts | Project + titled name |
+| 18 | `openapi.yaml` | Titled + project name |
+| 19 | `.gitignore` | All-caps project name in comments |
 
-### Example Split
+**When adding a new file with hardcoded project names**, add a corresponding replacement step here. Check both the lowercase name and the titled (capitalized) name.
 
-Before (800-line `items/index.tsx`):
-```tsx
-export default function ItemsPage() {
-  // 50 lines of signals + fetching
-  // 100 lines of ItemCard component
-  // 200 lines of CreateItemModal
-  // 300 lines of ItemDetailModal
-  // 150 lines of page layout
-}
-```
+## Name Validation
 
-After:
-```tsx
-// items/index.tsx (200 lines)
-import { ItemCard } from "./_components/ItemCard";
-import { CreateItemModal } from "./_components/CreateItemModal";
-import { ItemDetailModal } from "./_components/ItemDetailModal";
+Project names must match `^[a-z][a-z0-9]*(-[a-z0-9]+)*$` (2-50 chars). This is valid for Go module path components, npm package names, Docker image names, and GCP resource names.
 
-export default function ItemsPage() {
-  // signals + fetching + layout
-  // passes data to components via props
-}
-```
+## Testing After Rename
 
-```tsx
-// items/_components/ItemCard.tsx (100 lines)
-export function ItemCard(props: { item: Item; onClick: () => void }) {
-  // pure presentational
-}
-```
-
-## Rules
-
-1. **Props, not imports** — extracted components get data via props, never import the parent's signals
-2. **Callbacks, not mutations** — extracted components call `props.onSave()`, not `setData()` directly
-3. **Own state is OK** — modals can have their own form signals (`title`, `description`, `saving`)
-4. **Alive guards stay in parent** — the parent manages the component lifecycle
-5. **Don't over-split** — a 400-line file with one modal is fine. Split when there are 3+ distinct UI sections.
+The tool prints a "Next steps" checklist. Always verify:
+1. `cd backend && go build ./...` (import paths updated)
+2. `cd frontend && npm run build` (scope + branding updated)
+3. `git diff` to review all changes
+4. Update `entry-server.tsx` og:url with the new domain
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
