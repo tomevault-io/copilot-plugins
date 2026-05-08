@@ -1,24 +1,47 @@
-## coding-style
+## json-config
 
-> Python coding style for Open Edison
+> How to use and manage JSON configuration in Open Edison
 
-## Stylistic preferences
+## JSON Configuration System
 
-- Use snake_case for all function, file, and directory names
-- Use PascalCase for class names
-- Use lowercase for variable names
-- Use UPPER_SNAKE_CASE for constants
-- Use 4 spaces for indentation
-- Use double quotes for strings
-- Type hints for all function signatures, using modern syntax (instead of Optional[T], use T | None, instead of List[T], use list[T], etc)
-- Docstrings for public functions and classes
+Open Edison uses a simple JSON-based configuration system instead of databases or complex config management.
 
-## Open Edison specific
+### Core Principles
 
-- Prefer simplicity over complexity
-- Keep single-user focus (no multi-user patterns)
-- Use dataclasses for configuration structures
-- Use subprocess management for MCP servers
+- **Single config.json file** - All configuration in one place
+- **Type-safe with dataclasses** - Configuration validated with Python dataclasses
+- **Version control friendly** - Can be committed to git
+- **No database required** - Zero setup complexity
+
+### Usage Pattern
+
+```python
+from src.config import config
+
+# Access server settings
+print(config.server.host)
+print(config.server.port)
+print(config.server.api_key)
+
+# Access MCP servers
+for server in config.mcp_servers:
+    if server.enabled:
+        print(f"Server: {server.name}")
+```
+
+### Adding New Configuration
+
+1. Add field to appropriate dataclass in `src/config.py`
+2. Update default configuration in `create_default()` method
+3. Document new option in configuration guide
+
+### Configuration Structure
+
+- `server` - Host, port, API key
+- `logging` - Log level, database path
+- `mcp_servers` - List of MCP server configurations
+
+Never bypass the configuration system. Always use `config` import for accessing settings.
 
 ---
 > Source: [Edison-Watch/open-edison](https://github.com/Edison-Watch/open-edison) — distributed by [TomeVault](https://tomevault.io).
