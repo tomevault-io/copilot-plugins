@@ -7,11 +7,11 @@ Claude Code plugin: Python type-checker LSP multiplexer. Auto-detects .venv and 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [K-dash/typemux-cc](https://github.com/K-dash/typemux-cc).
+Original source: `CLAUDE.md` in [K-dash/typemux-cc](https://github.com/K-dash/typemux-cc).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
