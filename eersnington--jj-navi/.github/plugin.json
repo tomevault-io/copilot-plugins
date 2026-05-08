@@ -1,0 +1,9 @@
+{
+  "name": "eersnington--jj-navi",
+  "displayName": "jj-navi",
+  "description": "jj-navi is workspace orchestrator for Jujutsu (jj), built for parallel human and AI agentic workflows",
+  "version": "1.0.0",
+  "author": "eersnington",
+  "homepage": "https://github.com/eersnington/jj-navi",
+  "skills": []
+}
