@@ -1,0 +1,9 @@
+{
+  "name": "thethoughtagen--ignition-ide-plugins",
+  "displayName": "ignition-ide-plugins",
+  "description": "Neovim Terminal IDE Lazy-Vim plugin for Ignition by Inductive Automation",
+  "version": "1.0.0",
+  "author": "TheThoughtagen",
+  "homepage": "https://github.com/TheThoughtagen/ignition-ide-plugins",
+  "skills": []
+}
