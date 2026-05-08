@@ -1,0 +1,60 @@
+## mem-net
+
+> Build and maintain `mem.net` as a robust, configurable memory service that is easy to evolve and safe to operate.
+
+# AGENTS.md
+
+## Mission
+Build and maintain `mem.net` as a robust, configurable memory service that is easy to evolve and safe to operate.
+
+## Working Principles
+- Keep service logic generic; memory categories belong in caller conventions (optional SDK policy helpers).
+- Favor deterministic behavior over implicit magic.
+- Keep document writes auditable and conflict-safe.
+- Enforce strict validation and clear error contracts.
+- Keep documents bounded; move history/detail to events.
+
+## First-Principles Rule
+- Before introducing any new abstraction, state which core service capability it supports: slot resolution, write guardrails, deterministic context assembly, or lifecycle cleanup.
+- If a concept does not directly support one of those capabilities in production today, keep it out of the runtime model.
+- Prefer direct file/path contracts over cross-file registries or indirection unless there is a proven scaling need.
+
+## Engineering Rules
+- Use .NET 8 and keep external dependencies minimal.
+- Prefer pure domain services over framework-coupled code.
+- Keep APIs small and explicit; avoid hidden side effects.
+- Every mutating endpoint must enforce ETag optimistic concurrency semantics.
+- Every mutating endpoint must emit audit data.
+
+## Execution Environment Rule
+- In restricted sandbox sessions, `dotnet` restore/build/test/run workflows may fail with permission or process-launch errors.
+- Before running `dotnet` validation commands, ask the user to switch to full access mode.
+- If full access is not available, clearly report which `dotnet` checks could not be executed.
+
+## Testing Rules
+- Add or update framework unit/integration tests for every feature and regression.
+- Keep executable spec tests as smoke/parity coverage where relevant.
+- Include at least one negative test for validation/concurrency error paths.
+- Keep tests deterministic and environment-independent.
+
+## Documentation Rules
+- Update `docs/project/TASK_BOARD.md` when status changes.
+- Preserve historical status in `docs/archive/TASK_BOARD_ARCHIVE.md` when simplifying active board content.
+- Keep `README.md` run instructions accurate.
+- Keep implementation aligned with `docs/specs/MEMORY_SERVICE_SPEC.md`; document intentional deviations.
+
+## Azure SDK Rule
+- For any specific Azure SDK/API usage (types, methods, options, auth flows), verify against the latest Microsoft docs before coding.
+- Do not rely on memory for exact Azure SDK details when implementation correctness depends on current official behavior.
+- If guidance is uncertain or outdated, pause implementation and re-check official Microsoft documentation first.
+
+## Delivery Standard
+A task is done only when:
+1. Feature behavior is implemented.
+2. Relevant tests pass.
+3. Docs are updated.
+4. Known risks are called out.
+
+---
+> Source: [TianqiZhang/mem.net](https://github.com/TianqiZhang/mem.net) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
