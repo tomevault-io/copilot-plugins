@@ -1,0 +1,9 @@
+{
+  "name": "nirs--vmnet-broker",
+  "displayName": "vmnet-broker",
+  "description": "A shared XPC service that manages vmnet networks for apps using the Apple Virtualization framework",
+  "version": "1.0.0",
+  "author": "nirs",
+  "homepage": "https://github.com/nirs/vmnet-broker",
+  "skills": []
+}
