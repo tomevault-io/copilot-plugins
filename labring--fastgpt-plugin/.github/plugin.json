@@ -1,0 +1,34 @@
+{
+  "name": "labring--fastgpt-plugin",
+  "displayName": "fastgpt",
+  "description": "FastGPT plugin system. Provide model presets, system tools and other extended functions for FastGPT.",
+  "version": "1.0.0",
+  "author": "labring",
+  "homepage": "https://github.com/labring/fastgpt-plugin",
+  "skills": [
+    {
+      "name": "server-common-api_development",
+      "description": ""
+    },
+    {
+      "name": "api-development",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "description": ""
+    },
+    {
+      "name": "system-pr_review",
+      "description": ""
+    },
+    {
+      "name": "system-prompt_optimize",
+      "description": ""
+    },
+    {
+      "name": "system-test",
+      "description": ""
+    }
+  ]
+}
