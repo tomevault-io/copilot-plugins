@@ -2,9 +2,9 @@
   "name": "spidershield",
   "owner": "teehooai",
   "repo": "spidershield",
-  "description": "",
+  "description": "Scan, rate, and harden MCP servers for AI agent safety",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/teehooai",
+  "source_url": "https://github.com/teehooai/spidershield",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-09T20:58:51Z"
+  "distributed_at": "2026-05-08T07:17:41Z"
 }
