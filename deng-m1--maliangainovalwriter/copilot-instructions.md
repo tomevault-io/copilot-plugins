@@ -1,17 +1,8 @@
-## project-overview
+## web
 
-> AINovalWriter is an AI-assisted novel writing platform consisting of a frontend application (Flutter) and a backend service (Spring Boot).
+> 在前端实现组件的时候，要设置合理的长宽，使得布局不臃肿也不拥挤，同时使用全局主题和全局样式，使用纯黑和纯白的组合，保持flutter现代和简洁的风格，尽量使用和创建全局通用组件，并添加相关的说明注释
 
-# Project Overview
-
-AINovalWriter is an AI-assisted novel writing platform consisting of a frontend application (Flutter) and a backend service (Spring Boot).
-
-- Frontend Entry Point: [AINoval/lib/main.dart](mdc:AINoval/lib/main.dart)
-- Backend Entry Point: [AINovalServer/src/main/java/com/ainovel/server/AiNovelServerApplication.java](mdc:AINovalServer/src/main/java/com/ainovel/server/AiNovelServerApplication.java)
-- Project Structure Documentation: [项目架构说明.md](mdc:项目架构说明.md)
-- Frontend README: [AINoval/README.md](mdc:AINoval/README.md)
-- Backend README: [AINovalServer/README.md](mdc:AINovalServer/README.md)
-- Overall Documentation: See [documentation_links.mdc](mdc:.cursor/rules/documentation_links.mdc)
+在前端实现组件的时候，要设置合理的长宽，使得布局不臃肿也不拥挤，同时使用全局主题和全局样式，使用纯黑和纯白的组合，保持flutter现代和简洁的风格，尽量使用和创建全局通用组件，并添加相关的说明注释
 
 ---
 > Source: [Deng-m1/MaliangAINovalWriter](https://github.com/Deng-m1/MaliangAINovalWriter) — distributed by [TomeVault](https://tomevault.io).
