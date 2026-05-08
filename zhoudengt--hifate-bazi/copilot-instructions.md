@@ -1,41 +1,64 @@
-## data-source-rules
+## deploy
 
-> 基础数据单一数据源与字段名一致（流式/分析接口）
+> 增量发布流程与热更新规范（始终生效）
 
 
-# 基础数据源治理：单一源头 + 字段名一致
+# 增量发布规范
 
-> **⚠️ 所有流式/分析接口的基础命理数据（十神、大运、流年、特殊流年、地支关系、旺衰喜忌）唯一数据源是 BaziDataOrchestrator 从底层服务（BaziCoreCalculator / BaziDetailService）获取的数据。格式化给 LLM 时只做「取值 + 拼字符串」，禁止任何重新计算。字段名必须与底层一致。**
+> 完整文档：`docs/deploy/门控发布详细说明.md`（发布规范，含 .env 配置说明）
+> **芝麻开门** / **芝麻开发** = 执行增量发布
 
-## 核心原则
+## 核心流程
 
-- **单一数据源**：十神、大运、流年、特殊流年、地支关系、旺衰喜忌等，只从 `BaziDataOrchestrator` 拿到的 `bazi_data` / `detail_result` / `unified_data` 中取值，禁止在接口层或 prompt 层重新计算。
-- **格式化只做取值与拼接**：给 LLM 的 prompt 中，基础信息只做从已有结构里取字段、拼成字符串，不得用自写公式或查表重算（例如十神对照必须从 `detail_result.details` 中已算好的 main_star / hidden_stars 组装，不得用线性公式重推）。
-- **字段名与底层一致**：使用底层返回的 key 名称，避免因名称不一致导致取不到值。例如地支关系用 `branches` 列表，不得改用 `branch1`/`branch2`。
-- **大运/流年**：大运序列使用 `detail_result.get('dayun_sequence')` 或 `detail_result.get('details', {}).get('dayun_sequence', [])`，与排盘接口 `/api/v1/bazi/fortune/display` 同源。
-- **特殊流年**：只从 `unified_data['special_liunians']['list']`（或当前接口等价数据源）获取，不另行计算或造数据。
+```
+本地开发 → 热更新验证 → 功能测试 → Git 提交 → 增量发布（Node2 验证 → Node1 部署）→ 生产验证
+```
 
-## 评测脚本数据同源规则
+**增量发布原则**：先到 Node2 测试对应开发是否合适（23 个 gRPC 端点 + 24 个 API 回归测试），合适则增量发布到 Node1。
 
-> **⚠️ `scripts/evaluation/` 下的评测脚本显示的所有基础数据（五行、旺衰、喜忌、调候、十神等），必须与对应流式接口给 LLM 的参数完全一致——同一数据源、同一字段路径、同一格式化逻辑。**
+---
 
-- **五行**：必须从 `wuxing_proportion.proportions` 取（`BaziDataAssembler.assemble_wuxing_proportion` 产出），与 `_format_wuxing_for_llm` 一致。禁止从 `bazi.element_counts` 取。
-- **喜忌**：必须优先使用 `wangshuai.final_xi_ji.xi_shen_elements`（调候后），与 `_format_wuxing_for_llm` / `_format_xishen_jishen_for_llm` / `get_xishen_jishen` 一致。禁止使用调候前的 `wangshuai.xi_shen_elements`。
-- **旺衰**：必须包含总分（`total_score`）和调候信息（`tiaohou`），与给 LLM 的格式一致。
-- **新增字段**：评测脚本需要展示新字段时，先查对应流式接口的 `format_for_llm` 函数取的是哪个字段，直接复用，禁止另找数据源。
+## 发布命令
 
-## 禁止操作
+| 命令 | 说明 |
+|------|------|
+| `bash deploy/scripts/gated_deploy.sh` | 增量发布（Node2 验证 → Node1 部署） |
+| **芝麻开门 快速** | `--skip-node2 --no-verify --non-interactive`（跳过 Node2+验证，直接 Node1 重启 web） |
+| `--dry-run` | 只在 Node2 验证，不动 Node1 |
+| `--skip-node2` | 紧急修复（慎用） |
+| `--rollback` | 回滚 Node1 |
 
-- ❌ 在 prompt 或格式化层用公式重算十神、地支关系、大运干支等。
-- ❌ 使用与底层不一致的字段名（如 `branch1`/`branch2` 而底层为 `branches`）。
-- ❌ 新增展示字段时自造数据；先查底层/编排是否已提供，有则直接取用。
-- ❌ 评测脚本从与流式接口不同的数据路径取基础数据（如用 `bazi.element_counts` 而非 `wuxing_proportion.proportions`）。
-- ❌ 评测脚本使用调候前的原始喜忌（`wangshuai.xi_shen_elements`）而非调候后的最终喜忌（`wangshuai.final_xi_ji.xi_shen_elements`）。
+---
 
-## 参考实现
+## 上线步骤速查
 
-- 十神对照：`format_ten_gods_reference_from_details(details, bazi_pillars)`，从 `detail_result.details` 各柱 main_star / hidden_stars + 天干组装。
-- 地支关系：`format_branch_relations_text(branch_relations)` 使用 `r.get('branches', [])`，与 `BaziCoreCalculator` 返回的 `branch_relations` 结构一致。
+1. **热更新验证**：`.venv/bin/python scripts/ai/auto_hot_reload.py --trigger` + `--verify`
+2. **回归测试**：`.venv/bin/python scripts/evaluation/api_regression_test.py --env production --category basic --category stream --category payment --parallel`
+3. **Git 提交** → `bash deploy/scripts/gated_deploy.sh`（增量发布：Node2 验证 23 接口 + 24 API → Node1）
+4. **生产验证**：health 接口 + 回归测试
+
+---
+
+## 热更新端点
+
+| 端点 | 用途 |
+|------|------|
+| `/hot-reload/reload-all` | 生产部署（通知所有 worker） |
+| `/hot-reload/reload-endpoints` | gRPC 端点恢复（单 worker） |
+| `/hot-reload/verify` | 部署后验证 |
+| `/hot-reload/check` | 仅开发用 |
+
+**重要**：部署脚本已内置 `reload-endpoints` 多次调用（8 次），覆盖所有 worker，确保 gRPC 端点在所有进程中正确注册。
+
+---
+
+## 绝对禁止
+
+- ❌ 跳过 Node2 直接部署 Node1
+- ❌ 服务器上直接改代码
+- ❌ `docker restart`
+- ❌ 生产用 `/hot-reload/check`
+- ❌ 修改部署脚本时删除 `gate_reload_endpoints_multi` 调用
 
 ---
 > Source: [zhoudengt/HiFate-bazi](https://github.com/zhoudengt/HiFate-bazi) — distributed by [TomeVault](https://tomevault.io).
