@@ -1,0 +1,9 @@
+{
+  "name": "getainode--ainode",
+  "displayName": "ainode",
+  "description": "Turn any NVIDIA GPU into a local AI platform. Inference + fine-tuning in your browser. One command to start, automatic clustering.",
+  "version": "1.0.0",
+  "author": "getainode",
+  "homepage": "https://github.com/getainode/ainode",
+  "skills": []
+}
