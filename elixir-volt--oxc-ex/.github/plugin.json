@@ -1,0 +1,9 @@
+{
+  "name": "elixir-volt--oxc-ex",
+  "displayName": "oxc_ex",
+  "description": "Elixir bindings for the OXC JavaScript toolchain \u2014 parse, transform, and minify JS/TS via Rust NIFs",
+  "version": "1.0.0",
+  "author": "elixir-volt",
+  "homepage": "https://github.com/elixir-volt/oxc_ex",
+  "skills": []
+}
