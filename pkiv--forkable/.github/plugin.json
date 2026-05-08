@@ -1,0 +1,9 @@
+{
+  "name": "pkiv--forkable",
+  "displayName": "forkable",
+  "description": "Automatically order healthy lunches using Stagehand",
+  "version": "1.0.0",
+  "author": "pkiv",
+  "homepage": "https://github.com/pkiv/forkable",
+  "skills": []
+}
