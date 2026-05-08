@@ -1,0 +1,9 @@
+{
+  "name": "ansonlai--docx-redline-js",
+  "displayName": "docx-redline-js",
+  "description": "Zero-dependency OOXML engine for text reconciliation and native Microsoft Word redlines.",
+  "version": "1.0.0",
+  "author": "AnsonLai",
+  "homepage": "https://github.com/AnsonLai/docx-redline-js",
+  "skills": []
+}
