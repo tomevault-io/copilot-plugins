@@ -1,0 +1,9 @@
+{
+  "name": "somarkai--skills",
+  "displayName": "skills",
+  "description": "AI skill for parsing PDF, images, Word & PPT into Markdown/JSON via SoMark API. Works with Claude Code, Cursor, Cline and 40+ agents.",
+  "version": "1.0.0",
+  "author": "SoMarkAI",
+  "homepage": "https://github.com/SoMarkAI/skills",
+  "skills": []
+}
