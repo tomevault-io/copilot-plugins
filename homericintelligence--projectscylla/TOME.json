@@ -1,0 +1,44 @@
+{
+  "name": "ProjectScylla",
+  "owner": "HomericIntelligence",
+  "repo": "ProjectScylla",
+  "description": "ProjectScylla is a testing and optimization framework inspired by Odysseus\u2019 trials, built to measure and improve agentic workflows under constrained decision-making. It evaluates resilience, adaptability, and trade-offs, ensuring agents optimize outcomes in complex environments.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/HomericIntelligence/ProjectScylla",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T20:37:22Z"
+}
