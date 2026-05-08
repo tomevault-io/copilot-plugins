@@ -1,0 +1,9 @@
+{
+  "name": "finaltheory--whistlerpowderhunter",
+  "displayName": "WhistlerPowderHunter",
+  "description": "A trend-first weather intelligence system for Whistler that fuses RWDI, Avalanche Canada, multi-model signals and mountain sensor data into fast, human-verifiable ski/snowboard decisions.",
+  "version": "1.0.0",
+  "author": "FinalTheory",
+  "homepage": "https://github.com/FinalTheory/WhistlerPowderHunter",
+  "skills": []
+}
