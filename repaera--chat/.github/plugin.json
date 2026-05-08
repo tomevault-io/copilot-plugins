@@ -1,0 +1,9 @@
+{
+  "name": "repaera--chat",
+  "displayName": "chat",
+  "description": "Chat Client for Your Service's MCP Server",
+  "version": "1.0.0",
+  "author": "repaera",
+  "homepage": "https://github.com/repaera/chat",
+  "skills": []
+}
