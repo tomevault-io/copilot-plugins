@@ -1,0 +1,9 @@
+{
+  "name": "jongio--dispatch",
+  "displayName": "dispatch",
+  "description": "A terminal UI for browsing and launching GitHub Copilot CLI sessions. Search,   filter, group, preview, and resume \u2014 without leaving the terminal.",
+  "version": "1.0.0",
+  "author": "jongio",
+  "homepage": "https://github.com/jongio/dispatch",
+  "skills": []
+}
