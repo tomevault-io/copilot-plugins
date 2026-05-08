@@ -1,0 +1,9 @@
+{
+  "name": "pdufour--browserbrowserbrowser",
+  "displayName": "browserbrowserbrowser",
+  "description": "Rust browser running inside a browser via WASM / WGPU",
+  "version": "1.0.0",
+  "author": "pdufour",
+  "homepage": "https://github.com/pdufour/browserbrowserbrowser",
+  "skills": []
+}
