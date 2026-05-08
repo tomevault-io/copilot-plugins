@@ -1,0 +1,9 @@
+{
+  "name": "fulappios--agent-quest",
+  "displayName": "Agent-Quest",
+  "description": "Real-time gamified dashboard to monitor Claude Code CLI AI agents with a 2D visual interface",
+  "version": "1.0.0",
+  "author": "FulAppiOS",
+  "homepage": "https://github.com/FulAppiOS/Agent-Quest",
+  "skills": []
+}
