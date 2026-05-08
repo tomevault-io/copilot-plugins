@@ -1,0 +1,18 @@
+{
+  "name": "viteinfinite--sync-skills",
+  "displayName": "sync-skills",
+  "description": "Synchronize agent skill definitions between .claude and .codex directories",
+  "version": "1.0.0",
+  "author": "viteinfinite",
+  "homepage": "https://github.com/viteinfinite/sync-skills",
+  "skills": [
+    {
+      "name": "testing",
+      "description": ""
+    },
+    {
+      "name": "verify-before-committing",
+      "description": ""
+    }
+  ]
+}
