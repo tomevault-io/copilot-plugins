@@ -4,7 +4,7 @@
   "repo": "flashcards-open-source-app",
   "description": "AI-powered flashcards app built for serious daily study on iOS, Android, and the web. Use it to prepare for exams, learn vocabulary, memorize technical terms and facts, improve your material with AI, and review with spaced repetition.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/kirill-markin/flashcards-open-source-app",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T12:11:36Z"
+  "distributed_at": "2026-05-08T06:40:27Z"
 }
