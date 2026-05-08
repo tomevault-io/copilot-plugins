@@ -1,0 +1,44 @@
+{
+  "name": "resharper-mcp",
+  "owner": "joshua-light",
+  "repo": "resharper-mcp",
+  "description": "An MCP server that lives inside Rider and exposes Resharper-powered tools for AI agents that allow working with actual codebase semantics instead of `grep` approximations.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/joshua-light/resharper-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T07:04:56Z"
+}
