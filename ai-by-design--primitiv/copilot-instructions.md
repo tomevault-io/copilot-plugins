@@ -1,49 +1,61 @@
-## new-source
+## project
 
-> How to add a new source adapter to Primitiv
+> Primitiv project rules — apply to all files
 
 
-# Adding a new source adapter
+# Primitiv
 
-Every source adapter follows the same interface. When adding a new source:
+Primitiv is a TypeScript MCP server that acts as a reconciliation layer for design systems. It sits above any number of design sources (Figma, codebase, Storybook, token files), resolves conflicts between them, and exposes a single canonical contract via MCP.
 
-## 1. Create the folder
+## Architecture
 
 ```
-src/sources/<source-name>/
-  <source-name>.ts   — adapter logic
-  index.ts           — barrel export
+src/
+  types.ts          — all shared types and interfaces
+  index.ts          — build() and serve() entry points
+  cli.ts            — CLI wrapper
+  scanner/
+    scanner.ts      — reads codebase, extracts tokens and components
+    index.ts        — barrel export
+  contract/
+    contract.ts     — merges sources, surfaces conflicts, writes contract JSON
+    index.ts        — barrel export
+  mcp/
+    server.ts       — MCP server with get_design_context, get_token, get_component, get_conflicts tools
+    index.ts        — barrel export
+  sources/
+    codebase/       — codebase adapter (CSS variables, TS tokens, React components)
+    figma/          — Figma API adapter (not yet implemented)
+    storybook/      — Storybook adapter (not yet implemented)
+  reconciler/       — conflict resolution logic (not yet implemented)
 ```
 
-## 2. Implement the interface
+## Key concepts
 
-The adapter must implement this shape (not yet a formal interface — add it to types.ts when the second adapter lands):
+- **Contract** — `primitiv.contract.json`, the resolved single source of truth written after a build
+- **Source** — any adapter that provides tokens or components (codebase, Figma, Storybook, etc.)
+- **Conflict** — a token or component that exists in multiple sources with different values
+- **Governance** — configurable rules that determine which source wins when a conflict occurs
 
-```ts
-class <Name>Scanner {
-  constructor(private config: <Name>Source) {}
+## Conventions
 
-  async scan(): Promise<{ tokens: TokenMap; components: ComponentMap }>
-}
-```
+- All types defined in `src/types.ts`, never inline
+- Sources are adapters — each implements `scan(): Promise<{ tokens: TokenMap, components: ComponentMap }>`
+- New sources go in `src/sources/<name>/` with the same interface
+- MCP tools are read-only (readOnlyHint: true) and return both text content and structuredContent
+- Error messages tell the agent what to do next, not just what went wrong
 
-## 3. Add config type to types.ts
+## Stack
 
-Add a `<Name>Source` interface to `src/types.ts` and add it to `PrimitivConfig.sources`.
+- TypeScript, strict mode
+- `@modelcontextprotocol/sdk` for MCP server
+- `zod` for input schema validation
+- `glob` for file scanning
+- No framework — plain Node.js
 
-## 4. Wire it into src/index.ts
+## Config
 
-In the `build()` function, check for the new source in config and call its scanner.
-
-## 5. Update primitiv.config.js example
-
-Add the new source as a commented-out example in `primitiv.config.js`.
-
-## Current adapters
-
-- `codebase` — implemented. Scans CSS variables, TypeScript token objects, React components.
-- `figma` — not yet implemented. Will use the Figma REST API.
-- `storybook` — not yet implemented. Will use the Storybook Component Manifest.
+Users configure Primitiv via `primitiv.config.js` in their project root. The config shape is `PrimitivConfig` from `src/types.ts`.
 
 ---
 > Source: [AI-by-design/primitiv](https://github.com/AI-by-design/primitiv) — distributed by [TomeVault](https://tomevault.io).
