@@ -1,0 +1,9 @@
+{
+  "name": "one3qualsone--elastic-security-agent-mesh",
+  "displayName": "elastic-security-agent-mesh",
+  "description": "workflows and agents configuration",
+  "version": "1.0.0",
+  "author": "one3qualsone",
+  "homepage": "https://github.com/one3qualsone/elastic-security-agent-mesh",
+  "skills": []
+}
