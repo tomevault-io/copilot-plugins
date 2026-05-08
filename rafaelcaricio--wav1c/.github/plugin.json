@@ -1,0 +1,9 @@
+{
+  "name": "rafaelcaricio--wav1c",
+  "displayName": "wav1c",
+  "description": "Wondrous AV1 Coder. A spec-compliant AV1 video encoder written from scratch in safe Rust with zero dependencies. Usable as a Rust library, C shared library, WebAssembly module, or as an FFmpeg encoder",
+  "version": "1.0.0",
+  "author": "rafaelcaricio",
+  "homepage": "https://github.com/rafaelcaricio/wav1c",
+  "skills": []
+}
