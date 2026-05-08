@@ -1,12 +1,13 @@
-## cfn-lint-cloudformation
+## post-push-mirror
 
-> Run cfn-lint for CloudFormation changes
+> Post-push: also push to mirror remote when configured
 
 
-# CloudFormation Lint
+# Post-Push Mirror Remote
 
-- When editing CloudFormation templates, run `cfn-lint infra/aws/cloudformation/*.yaml`.
-- If a commit includes CloudFormation template changes, ensure `cfn-lint` is run before committing.
+- After any successful `git push`, also run `git push mirror`.
+- Only do this if a remote named `mirror` exists (check `git remote -v`).
+- If `mirror` is not configured, ignore this rule.
 
 ---
 > Source: [pRizz/opencode-cloud](https://github.com/pRizz/opencode-cloud) — distributed by [TomeVault](https://tomevault.io).
