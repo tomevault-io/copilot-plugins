@@ -1,58 +1,57 @@
-## pr-to-main
+## xfoil-matching
 
-> Checklist enforced whenever creating a PR that targets main
+> **To match XFOIL numbers, you MUST see what XFOIL is doing internally. Do not guess.**
 
+# XFOIL Matching Rule
 
-# PR-to-Main Requirements
+## Core Principle
 
-Every pull request that targets `main` **must** satisfy the three gates below before it can be opened. Treat these as blocking — do not create the PR until all are done.
+**To match XFOIL numbers, you MUST see what XFOIL is doing internally. Do not guess.**
 
-## 1. Update "What's New"
+## Rules
 
-The in-app changelog lives in `flexfoil-ui/src/lib/version.ts` (the `CHANGELOG` array).
+1. **No guessing**: Never assume what XFOIL does. Always read the XFOIL Fortran source code first.
 
-- If the current top entry's `version` already matches the release being prepared, **append** new items to that entry.
-- Otherwise, **add a new entry** at index 0 with the next version, today's date, and the items.
-- Every user-visible change in the PR must have a corresponding `{ category, text }` item. Use the correct category:
-  - `added` — wholly new feature or capability
-  - `changed` — enhancement or modification to existing behavior
-  - `fixed` — bug fix
-- Keep descriptions concise (one sentence, no period).
+2. **No invented methods**: Do not add any method, cap, clamp, or workaround unless it exists in XFOIL. If RustFoil diverges and XFOIL doesn't, the bug is in RustFoil - find it, don't mask it.
 
-## 2. Bump Distribution Versions
+3. **Dump intermediate values**: When debugging discrepancies:
+   - Add instrumentation to XFOIL to dump the relevant intermediate values
+   - Add instrumentation to RustFoil to dump the same values
+   - Compare them directly to find where divergence begins
 
-All version numbers **must** stay in sync with the changelog's latest entry.
+4. **Match formulas exactly**: Every formula in RustFoil must match XFOIL exactly:
+   - Same coefficients
+   - Same order of operations
+   - Same edge cases and limits
+   - Same variable names where possible (for traceability)
 
-| File | Field | Must match |
-|------|-------|------------|
-| `flexfoil-ui/package.json` | `"version"` | Top `CHANGELOG` entry version (drives `__APP_VERSION__` via Vite) |
-| `packages/flexfoil-python/pyproject.toml` | `version` | Bump if the PR touches **anything** in `packages/flexfoil-python/`, `crates/rustfoil-python/`, solver behavior, or the WASM bridge. Skip only if the PR is purely UI cosmetic. |
+5. **Verify with XFOIL source**: Before implementing or fixing anything, find the corresponding code in:
+   - `/Xfoil-instrumented/src/xbl.f` - boundary layer routines
+   - `/Xfoil-instrumented/src/xoper.f` - viscous operations
+   - `/Xfoil-instrumented/src/xpanel.f` - panel methods
 
-- Use semver: bump **patch** for fixes, **minor** for new features, **major** for breaking changes.
-- The `package.json` version and the top `CHANGELOG` entry version must always be identical after the PR.
-- When in doubt about whether the Python package needs a bump, bump it — users should always be able to `pip install --upgrade flexfoil` to get the latest solver/API changes.
+## Debugging Workflow
 
-## 3. Keep Documentation in Sync
+1. Identify the discrepancy (e.g., "ctau diverges at station 63")
+2. Find the XFOIL code that computes that value
+3. Add debug output to XFOIL at that location
+4. Run XFOIL and capture the intermediate values
+5. Add equivalent debug output to RustFoil
+6. Compare step-by-step until you find the first divergence
+7. Fix RustFoil to match XFOIL exactly
 
-The docs site lives in `docs-site/docs/` (Docusaurus `.mdx` files).
+## Anti-Patterns to Avoid
 
-- If the PR adds, changes, or removes **any** solver behavior, UI feature, API surface, or configuration option, the corresponding doc page must be created or updated in the same PR.
-- Docs must reflect the **actual** implementation — no aspirational or outdated content. If existing docs reference behavior that the PR changes, update those docs.
-- New major features need their own doc page added to `docs-site/docs/`.
+- ❌ "Let me cap this value to prevent divergence"
+- ❌ "Let me add a safeguard for numerical stability"
+- ❌ "XFOIL probably does X, so let me implement that"
+- ❌ "This seems reasonable based on physics"
 
-## PR Authoring Checklist
+## Correct Approach
 
-When drafting the PR description, include this checklist (filled in):
-
-```markdown
-## Changelog, Versions & Docs
-- [ ] `flexfoil-ui/src/lib/version.ts` CHANGELOG updated
-- [ ] All user-visible changes have a changelog entry
-- [ ] `flexfoil-ui/package.json` version matches top CHANGELOG entry
-- [ ] `packages/flexfoil-python/pyproject.toml` version bumped (if applicable)
-- [ ] New/changed docs pages added or updated in `docs-site/docs/`
-- [ ] No stale or aspirational content remains in affected docs
-```
+- ✅ "Let me check what XFOIL does in xbl.f line 1568"
+- ✅ "XFOIL uses DN1 = DCTAU / CTAU(IBL,IS), let me verify RustFoil matches"
+- ✅ "I'll add DBGTRANSITION to XFOIL and compare with RustFoil output"
 
 ---
 > Source: [flexcompute/flexfoil](https://github.com/flexcompute/flexfoil) — distributed by [TomeVault](https://tomevault.io).
