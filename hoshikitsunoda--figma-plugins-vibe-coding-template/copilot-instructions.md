@@ -1,68 +1,89 @@
-## figma-node-properties
+## figma-performance
 
-> Safe patterns for accessing node properties in the Plugin API.
+> Handling large documents efficiently in the Plugin API.
 
 
-# Figma Node Properties
+# Figma Performance Patterns
 
-Safe patterns for accessing node properties in the Plugin API.
+Handling large documents efficiently in the Plugin API.
 
-## Type Narrowing
+## Skip Invisible Instance Children
 
-Check `node.type` before accessing type-specific properties:
+Speed up traversal by skipping hidden nested instances:
 
 ```typescript
-// ✓ Type narrowing by node.type
-if (node.type === "TEXT") {
-  console.log(node.characters);
-  console.log(node.fontSize);
-}
+// ✓ Set before traversing large documents
+figma.skipInvisibleInstanceChildren = true
+```
 
-if (node.type === "FRAME") {
-  console.log(node.layoutMode);
-  console.log(node.children);
+## Use Built-in Find Methods
+
+Figma's find methods are optimized internally:
+
+```typescript
+// ✓ Preferred — uses internal optimization
+const frames = page.findAll((n) => n.type === 'FRAME')
+const firstText = page.findOne((n) => n.type === 'TEXT')
+
+// ❌ Avoid manual recursion when possible
+function findAllManual(node) { ... }
+```
+
+## Destructure Repeated Access
+
+Avoid multiple property lookups on the same object:
+
+```typescript
+// ✓ Destructure once
+const { x, y, width, height } = node.absoluteBoundingBox
+
+// ❌ Repeated access
+const x = node.absoluteBoundingBox.x
+const y = node.absoluteBoundingBox.y
+```
+
+## Batch with Yielding
+
+For very large operations, yield to prevent UI freeze:
+
+```typescript
+async function processNodes(nodes: readonly SceneNode[]) {
+  for (const node of nodes) {
+    processNode(node)
+    // Yield to main thread periodically
+    await new Promise((r) => setTimeout(r, 0))
+  }
 }
 ```
 
-## Property Existence Check
+## Load Pages On Demand
 
-Use `in` operator for properties shared across multiple node types:
+Pages are loaded dynamically — only access what you need:
 
 ```typescript
-// ✓ Check property exists before access
-if ('fills' in node) {
-  console.log(node.fills)
-}
+// ✓ Work with current page when possible
+const nodes = figma.currentPage.findAll(...)
 
-if ('children' in node) {
-  node.children.forEach((child) => ...)
-}
-
-if ('absoluteBoundingBox' in node) {
-  const { x, y, width, height } = node.absoluteBoundingBox
+// Loading other pages is async
+await figma.loadAllPagesAsync()
+for (const page of figma.root.children) {
+  // Now all pages are accessible
 }
 ```
 
-## Common Mixins
+## Avoid Large Payloads
 
-Properties are grouped by "mixins" — capabilities shared across node types:
+When sending data to UI, serialize only what's needed:
 
-| Mixin         | Properties                            | Node Types            |
-| ------------- | ------------------------------------- | --------------------- |
-| GeometryMixin | `fills`, `strokes`, `strokeWeight`    | Shapes, frames, text  |
-| LayoutMixin   | `layoutMode`, `primaryAxisAlignItems` | Frames, components    |
-| BlendMixin    | `opacity`, `blendMode`, `effects`     | Most visible nodes    |
-| ChildrenMixin | `children`                            | Frames, groups, pages |
+```typescript
+// ✓ Send minimal data
+figma.ui.postMessage({
+  type: 'nodes',
+  data: nodes.map((n) => ({ id: n.id, name: n.name })),
+})
 
-## Global Properties
-
-These exist on all `SceneNode` types:
-
-- `id` — Unique identifier
-- `name` — Layer name
-- `type` — Node type string
-- `parent` — Parent node (or null)
-- `visible` — Visibility state
+// ❌ Don't serialize entire node trees unnecessarily
+```
 
 ---
 > Source: [hoshikitsunoda/figma-plugins-vibe-coding-template](https://github.com/hoshikitsunoda/figma-plugins-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
