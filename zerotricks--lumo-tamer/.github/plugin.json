@@ -1,0 +1,9 @@
+{
+  "name": "zerotricks--lumo-tamer",
+  "displayName": "lumo-tamer",
+  "description": "Use Proton's private AI assistant anywhere: OpenAI-compatible API and CLI for Lumo",
+  "version": "1.0.0",
+  "author": "ZeroTricks",
+  "homepage": "https://github.com/ZeroTricks/lumo-tamer",
+  "skills": []
+}
