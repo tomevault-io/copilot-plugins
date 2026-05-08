@@ -7,11 +7,11 @@ Turn Claude Code session transcripts into blog-style articles — narrative, not
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [iamtouchskyer/logex](https://github.com/iamtouchskyer/logex).
+Original source: `CLAUDE.md` in [iamtouchskyer/logex](https://github.com/iamtouchskyer/logex).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
