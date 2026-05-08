@@ -1,0 +1,44 @@
+{
+  "name": "podlogs",
+  "owner": "andrisasuke",
+  "repo": "podlogs",
+  "description": "A modern, lightweight Kubernetes pod log viewer desktop app built with Tauri, React & Rust. Features real-time log streaming, multi-pod search, and dark/light themes. 100% vibe coded with Claude.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/andrisasuke/podlogs",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T17:10:14Z"
+}
