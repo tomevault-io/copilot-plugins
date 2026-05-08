@@ -1,0 +1,9 @@
+{
+  "name": "hulryung--markdown-prism",
+  "displayName": "markdown-prism",
+  "description": "A free macOS-native Markdown viewer & editor with GFM, LaTeX, Mermaid, and Quick Look support",
+  "version": "1.0.0",
+  "author": "hulryung",
+  "homepage": "https://github.com/hulryung/markdown-prism",
+  "skills": []
+}
