@@ -1,0 +1,9 @@
+{
+  "name": "xmpuspus--ai-workflow-benchmark",
+  "displayName": "ai-workflow-benchmark",
+  "description": "Benchmark harness measuring AI coding tool+workflow performance, not just model capability. 100 tasks, sigmoid scoring, 12 capability dimensions, gap analysis.",
+  "version": "1.0.0",
+  "author": "xmpuspus",
+  "homepage": "https://github.com/xmpuspus/ai-workflow-benchmark",
+  "skills": []
+}
