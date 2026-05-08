@@ -1,0 +1,9 @@
+{
+  "name": "minguhong--wikiwikiwiki",
+  "displayName": "WikiWikiWiki",
+  "description": "A flat-file PHP wiki engine. No database, no complex setup, just write.",
+  "version": "1.0.0",
+  "author": "minguhong",
+  "homepage": "https://github.com/minguhong/WikiWikiWiki",
+  "skills": []
+}
