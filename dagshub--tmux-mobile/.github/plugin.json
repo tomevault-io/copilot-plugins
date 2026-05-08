@@ -1,0 +1,9 @@
+{
+  "name": "dagshub--tmux-mobile",
+  "displayName": "tmux-mobile",
+  "description": "Connect to your tmux securely from a web browser",
+  "version": "1.0.0",
+  "author": "DagsHub",
+  "homepage": "https://github.com/DagsHub/tmux-mobile",
+  "skills": []
+}
