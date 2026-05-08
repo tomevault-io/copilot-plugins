@@ -1,38 +1,57 @@
 ## agents-environment-config
 
-> Cross-cutting topic rules that apply across multiple technologies and frameworks.
+> > **Canonical Source**: Project-specific standards live in `AGENTINFO.md`.
 
-# Topics Rules
+# Gemini CLI Agent Instructions
 
-Cross-cutting topic rules that apply across multiple technologies and frameworks.
+> **Canonical Source**: Project-specific standards live in `AGENTINFO.md`.
+> Read that file first. This file provides rule references.
 
-## API
+## Quick Start
 
-- `design-standards.mdc` - API design standards, HTTP status codes, error handling
+1. Read `AGENTINFO.md` for project-specific info
+2. Read relevant `~/.agent-tools/rules/agents-environment-config/*.md` files on demand
+3. Do NOT memorize all rules - reference them when needed
 
-## Git
+## Rules Reference
 
-- `workflow.mdc` - Git branching strategy, commit conventions, pull request workflow
+Rules live in `~/.agent-tools/rules/agents-environment-config/` (installed by `aec install`) and should be read on demand.
+Do NOT memorize all rules - read the specific rule file when working in that area.
 
-## Security
+### Essential Rules (read when relevant)
 
-- `authentication.mdc` - Authentication boundaries and user identification
-- `secrets.mdc` - Secrets management and environment variables
+- **Testing**: `~/.agent-tools/rules/agents-environment-config/frameworks/testing/standards.md`
+- **Typescript**: `~/.agent-tools/rules/agents-environment-config/languages/typescript/typing-standards.md`
+- **Architecture**: `~/.agent-tools/rules/agents-environment-config/general/architecture.md`
+- **Git**: `~/.agent-tools/rules/agents-environment-config/topics/git/workflow.md`
+- **Quality**: `~/.agent-tools/rules/agents-environment-config/topics/quality/gates.md`
 
-## Quality
+### All Rules by Category
 
-- `gates.mdc` - Quality gates and standards for code quality and production readiness
+- **general/**: Core principles (architecture, workflow, documentation) (9 rules)
+- **languages/**: Language conventions (Python, TypeScript) (2 rules)
+- **stacks/**: Stack patterns (Next.js, FastAPI, React Native) (3 rules)
+- **frameworks/**: Framework guides (databases, testing, UI) (10 rules)
+- **topics/**: Cross-cutting (API, git, security, quality) (12 rules)
+- **packages/**: Package management (2 rules)
 
-## Usage
+### How to Use Rules
 
-These rules apply across different technologies and frameworks. See individual rule files for specific scopes.
+1. When working on TypeScript, read `~/.agent-tools/rules/agents-environment-config/languages/typescript/typing-standards.md`
+2. When writing tests, read `~/.agent-tools/rules/agents-environment-config/frameworks/testing/standards.md`
+3. When working with databases, read `~/.agent-tools/rules/agents-environment-config/frameworks/database/connection-management.md`
+4. When setting up a project, read `~/.agent-tools/rules/agents-environment-config/general/architecture.md`
+5. For project-specific info, see `AGENTINFO.md`
 
-## References
+## Regenerating This File
 
-- **General Rules**: See `../general/` directory
-- **Frameworks**: See `../frameworks/` directory
+```bash
+python3 scripts/generate-agent-files.py
+```
+
+## Session Discipline
+- Do not combine planning and implementation in a single session. If the user asks to plan, produce the plan and stop. If the user asks to implement, start from an existing plan and begin coding immediately.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/bernierllc)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/bernierllc)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [bernierllc/agents-environment-config](https://github.com/bernierllc/agents-environment-config) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-08 -->
