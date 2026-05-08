@@ -1,47 +1,55 @@
-## json-config
+## logging
 
-> How to use and manage JSON configuration in Open Edison
+> Logging standards for Open Edison
 
-## JSON Configuration System
+## Logging Configuration
 
-Open Edison uses a simple JSON-based configuration system instead of databases or complex config management.
-
-### Core Principles
-
-- **Single config.json file** - All configuration in one place
-- **Type-safe with dataclasses** - Configuration validated with Python dataclasses
-- **Version control friendly** - Can be committed to git
-- **No database required** - Zero setup complexity
+Open Edison uses `loguru` for simple, structured logging.
 
 ### Usage Pattern
 
 ```python
-from src.config import config
+from loguru import logger as log
 
-# Access server settings
-print(config.server.host)
-print(config.server.port)
-print(config.server.api_key)
-
-# Access MCP servers
-for server in config.mcp_servers:
-    if server.enabled:
-        print(f"Server: {server.name}")
+# Use throughout the codebase
+log.info("Starting MCP server: {}", server_name)
+log.error("Failed to start server: {}", error)
+log.debug("Configuration loaded: {}", config.server.host)
 ```
 
-### Adding New Configuration
+### Log Levels
 
-1. Add field to appropriate dataclass in `src/config.py`
-2. Update default configuration in `create_default()` method
-3. Document new option in configuration guide
+Configure via `config.json`:
 
-### Configuration Structure
+```json
+{
+  "logging": {
+    "level": "INFO"
+  }
+}
+```
 
-- `server` - Host, port, API key
-- `logging` - Log level, database path
-- `mcp_servers` - List of MCP server configurations
+Available levels: DEBUG, INFO, WARNING, ERROR, CRITICAL
 
-Never bypass the configuration system. Always use `config` import for accessing settings.
+### Best Practices
+
+- Use structured logging with `{}` placeholders
+- Log important state changes (server start/stop)
+- Include context in error messages
+- Use appropriate log levels
+- No custom logging configuration - keep it simple
+
+### Examples
+
+```python
+# Good
+log.info("🚀 Open Edison starting on {}:{}", host, port)
+log.error("❌ MCP server {} failed to start: {}", name, error)
+
+# Avoid
+print("Starting server...")  # Use logging instead
+log.info(f"Server {name}")   # Use {} placeholders
+```
 
 ---
 > Source: [Edison-Watch/open-edison](https://github.com/Edison-Watch/open-edison) — distributed by [TomeVault](https://tomevault.io).
