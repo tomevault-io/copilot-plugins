@@ -7,11 +7,11 @@ Technical analysis + AI agents trading workflows from live market data to automa
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [TradingGoose/TradingGoose-Studio](https://github.com/TradingGoose/TradingGoose-Studio).
+Original source: `CLAUDE.md` in [TradingGoose/TradingGoose-Studio](https://github.com/TradingGoose/TradingGoose-Studio).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
