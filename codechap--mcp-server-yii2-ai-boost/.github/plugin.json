@@ -1,0 +1,9 @@
+{
+  "name": "codechap--mcp-server-yii2-ai-boost",
+  "displayName": "mcp-server-yii2-ai-boost",
+  "description": "MCP server for Yii2 \u2014 16 tools for database inspection, semantic search, profiling, and AI-assisted development",
+  "version": "1.0.0",
+  "author": "codeChap",
+  "homepage": "https://github.com/codeChap/mcp-server-yii2-ai-boost",
+  "skills": []
+}
