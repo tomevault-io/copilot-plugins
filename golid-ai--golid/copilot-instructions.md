@@ -1,67 +1,57 @@
-## external-api
+## feature-flags
 
-> Patterns for external API integrations
+> Feature flag patterns — use when working with feature toggles
 
 
-# External API Integration Patterns
+# Feature Flag Patterns
 
-## Service Wrapper Structure
+Follow the established patterns in `service/feature.go` and `handler/feature.go`.
+
+## Usage in Services
 
 ```go
-type XService struct {
-    apiKey     string
-    configured bool
-    client     *http.Client
+if s.features.IsEnabled(ctx, "new_pricing") {
+    // new behavior
+} else {
+    // existing behavior
 }
+```
 
-func NewXService(apiKey string) *XService {
-    if apiKey == "" {
-        slog.Warn("X not configured — feature will be disabled")
-        return &XService{configured: false}
-    }
-    return &XService{apiKey: apiKey, configured: true, client: &http.Client{Timeout: 30 * time.Second}}
+`IsEnabled()` returns `false` for unknown keys (safe default). Never use it for auth decisions.
+
+## Cache Behavior
+
+- 30s TTL on the in-memory cache (configurable via constructor)
+- `Set()` invalidates the local cache immediately — the admin who toggles sees the change instantly
+- Other instances refresh within the TTL window
+- If two goroutines call `IsEnabled()` simultaneously when cache is expired, both may refresh (acceptable — queries are fast, result is identical)
+
+## Admin API
+
+- `GET /api/v1/admin/features` — list all flags with descriptions (admin-only)
+- `PUT /api/v1/admin/features/:key` — toggle a flag (admin-only)
+- `GET /api/v1/features` — public endpoint returning `{key: bool}` map (no descriptions)
+
+## Frontend
+
+Use `features.ts`:
+
+```typescript
+import { isEnabled } from "~/lib/features";
+
+if (isEnabled("new_dashboard")) {
+    // show new component
 }
-
-func (s *XService) IsConfigured() bool { return s.configured }
 ```
 
-Every method must check `IsConfigured()` first and return a clean error, not panic.
+Call `loadFeatures()` on app init. Uses `skipAuth: true` since the public endpoint doesn't require auth.
 
-## Config Flow
+## Adding a New Flag
 
-API keys and secrets flow: **env var → Config struct → service constructor → main.go init**.
-
-```
-.env.local:       EXTERNAL_API_KEY=xxx
-config.go:        ExternalAPIKey string → os.Getenv("EXTERNAL_API_KEY")
-main.go:          externalService := service.NewExternalService(cfg.ExternalAPIKey)
-```
-
-Template IDs, webhook secrets, and other per-service config follow the same pattern. Never hardcode in service files.
-
-## Request Building
-
-- **Verify field names** against the actual API docs. JSON struct tags must match exactly (e.g., `roleIndex` not `role_index`).
-- **Query params vs body** — some APIs put IDs in the URL, not the body. Check the docs.
-- **URL-encode** all query parameter values with `url.QueryEscape()`.
-- **Set timeouts** on the HTTP client (30s default).
-- **Close response bodies** with `defer resp.Body.Close()`.
-
-## Webhook Handling
-
-- **Verify signatures** — HMAC-SHA256 with timing-safe `hmac.Equal`. Read raw body with `io.ReadAll` before parsing.
-- **Return 200 on parse errors** — prevents the external service from retrying malformed events indefinitely.
-- **Return 500 on handler errors** — signals the external service to retry.
-- **Register on public route group** — webhooks don't have JWT auth, they use their own signature verification.
-- **Exclude from gzip middleware** — webhook bodies need to be read raw for signature verification.
-
-## Mailgun Email (Reference Implementation)
-
-The codebase uses Mailgun for transactional email. Key patterns:
-
-- **`IsConfigured()`** — graceful degradation when `MAILGUN_API_KEY` is empty; feature is disabled, no panic.
-- **`Retry()`** — wrap outbound HTTP calls for resilience against transient failures.
-- Config flow: env → Config → service constructor. See `backend/internal/service/email.go`.
+1. Add to `backend/seeds/dev_seed.sql` with `ON CONFLICT (key) DO NOTHING`
+2. Use `featureService.IsEnabled(ctx, "my_flag")` in backend code
+3. Use `isEnabled("my_flag")` in frontend code
+4. Toggle via admin API or direct DB update
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
