@@ -1,133 +1,54 @@
-## safeguards-defense-in-depth
+## savings-usdc-only
 
-> Engine-side safeguards — preflight, guards, USD-aware permission resolver, fail-closed
+> Savings is USDC-or-USDsui only — engine tools and prompts must enforce this. USDsui is a strategic exception; USDC remains the canonical default.
 
 
-# Safeguards — Engine-Side (Defense in Depth)
+# Savings = USDC or USDsui (Engine)
 
-The engine sits in the middle of a 6-layer defense stack. Layer 1 (UI), Layer 4 (user confirm), Layer 5 (server validation), and Layer 6 (on-chain) are host concerns. Engine owns Layer 2 (preflight) and Layer 3 (guards). Get those wrong and the whole stack degrades.
+> **Strategic exception (v0.51.0+):** USDsui is permitted alongside USDC for `save_deposit` and `borrow`. The USDC-canonical thesis still applies to **every other asset** (GOLD, SUI, USDT, USDe, ETH, NAVX, WAL): they are holdable/swappable but **never** saveable.
+>
+> Why USDsui is the exception: it's the only other Sui-native stable with a productive NAVI pool (USDC pool ~4.6% APY, USDsui pool variable, often higher). Adding it as a saveable asset captures yield optimization without inviting "save anything stable" creep (which would pull in USDe/USDT and break the simplicity invariant).
 
-## Layer 2 — Preflight (`tool.preflight()`)
+## balance_check tool
 
-Cheap synchronous validation that runs BEFORE the LLM round-trip. No I/O, no context lookup, no network.
-
-```typescript
-preflight: (input) => {
-  if (input.amount <= 0) return { valid: false, error: 'amount must be positive' };
-  if (input.amount > 1_000_000) return { valid: false, error: 'amount unreasonable (max 1M)' };
-  if (!isValidSuiAddress(input.to)) return { valid: false, error: 'invalid recipient' };
-  return { valid: true };
-}
-```
-
-Failed preflight → LLM is told "tool input invalid" and re-asks. The user is never shown a confirm card for a malformed intent.
-
-**Every write tool MUST implement preflight.** No exceptions.
-
-## Layer 3 — Guards (`runGuards()`)
-
-14 guards across 3 priority tiers run around every write — 12 pre-execution gates + 2 post-execution hints. Defined in `packages/engine/src/guards.ts`.
-
-| Tier | Guards |
-|---|---|
-| Safety | Health Factor, Insufficient Balance, Recipient Validation |
-| Financial | USD Threshold, Slippage Cap, Daily Spend Limit |
-| UX | Allowance Reminder, Network Health, Stale Quote |
-
-Each guard returns one of:
-- `{ pass: true }` — silent, allowed
-- `{ pass: true, hint: '...' }` — allowed, hint injected for LLM context
-- `{ pass: true, warning: '...' }` — allowed, warning surfaced in confirm card
-- `{ pass: false, reason: '...' }` — BLOCKED, agent narrates and re-asks
-
-Adding a new guard:
-1. Add to `guards.ts` with the right tier.
-2. Test with all 4 outcomes (`pass`, `hint`, `warning`, `block`).
-3. Add a regression test that asserts the bypass attempt fails closed.
-4. Document in this rule.
-
-## USD-aware permission resolver (B.4)
-
-`resolvePermissionTier(operation, amountUsd, config)` dynamically downgrades a write's permission level based on USD value. The resolver is **active in audric/web today** (P2.6 UC4b confirmed via live run: a 1.27 SUI / ~$1.20 swap auto-executed under the `conservative` preset).
+Must return `saveableUsdc` field (USDC wallet balance — the canonical saveable). The `displayText` must distinguish:
+- **Wallet holdings** (GOLD, SUI, USDT, USDe, ETH, etc.) — tokens in the wallet, NOT savings, NOT saveable
+- **NAVI savings deposits** — USDC and/or USDsui deposited into NAVI earning yield
+- **Saveable USDC** — the USDC amount that CAN be saved
+- **USDsui balance** (if present) — also saveable, surface it in the holdings list with a "(saveable)" tag
 
 ```typescript
-// packages/engine/src/permission-rules.ts
-DEFAULT_PERMISSION_CONFIG = {
-  globalAutoBelow: 10,
-  autonomousDailyLimit: 200,
-  rules: [
-    { operation: 'save',     autoBelow: 50, confirmBetween: 1000 },
-    { operation: 'send',     autoBelow: 10, confirmBetween: 200  },
-    { operation: 'borrow',   autoBelow: 0,  confirmBetween: 500  }, // always confirm
-    { operation: 'withdraw', autoBelow: 25, confirmBetween: 500  },
-    { operation: 'swap',     autoBelow: 25, confirmBetween: 300  },
-    { operation: 'pay',      autoBelow: 1,  confirmBetween: 50   },
-    { operation: 'repay',    autoBelow: 50, confirmBetween: 1000 },
-  ],
-};
+// ❌ BAD — LLM confuses holdings with savings, treats USDsui as a regular holding
+displayText: `Balance: $${total} (Available: $${available}, Savings: $${savings})`
 
-PERMISSION_PRESETS = {
-  conservative: { globalAutoBelow: 5,  autonomousDailyLimit: 100, /* most writes autoBelow: 5 */ },
-  balanced:     DEFAULT_PERMISSION_CONFIG,
-  aggressive:   { globalAutoBelow: 25, autonomousDailyLimit: 500, /* most writes autoBelow: 25–100 */ },
-};
+// ✅ GOOD — explicit separation, USDsui flagged as saveable
+displayText: `Wallet holdings (NOT savings): GOLD ${gold}, SUI ${sui}, USDsui ${usdsui} (saveable). NAVI savings: $${savings}. Saveable USDC: ${usdc} USDC.`
 ```
 
-**How a write is resolved:**
-1. If `amountUsd < rule.autoBelow` (or `globalAutoBelow` when no per-op rule) → `auto`.
-2. If `amountUsd ≤ rule.confirmBetween` → `confirm`.
-3. Else → `explicit` (LLM never dispatches; user must initiate manually).
-4. Cumulative daily spend > `autonomousDailyLimit` downgrades any `auto` to `confirm` (runtime safety net).
-5. `borrow` always confirms (`autoBelow: 0` across every preset) — debt is too consequential to silently take on.
+## System prompt
 
-**Audric/web's wiring (today):**
-- The session permission preset is plumbed through to the engine via `ToolContext.permissionConfig` + `priceCache`.
-- Default is `conservative` for new accounts (set in user settings; settable to `balanced` / `aggressive`).
-- Sub-threshold writes auto-execute via the same sponsored-tx path; the user sees the receipt only after on-chain settlement.
-- `attemptId` is still stamped on auto-executed writes so audit + rollback paths work identically to confirm-tier.
+Must include a "Savings = USDC or USDsui" section that tells the LLM:
+- Only **USDC or USDsui** can be saved via `save_deposit` and used as collateral via `borrow`
+- Wallet holdings ≠ savings positions (the same NAVI pool may contain both deposits and the user's own holdings — but only the deposit row earns APY)
+- Never say non-saveable tokens (GOLD, SUI, USDT, etc.) are "earning APY in savings"
+- When asked "how much can I save?", report `saveableUsdc` plus the user's USDsui wallet balance, separately
+- USDsui pool APY can differ from USDC; if user asks "best stable to save", call `rates_info` to compare
 
-**Trust model under zkLogin:**
-- Auto-execution does NOT bypass user consent — the user opted into the preset (and thus into "small writes happen without a tap"). Tap-to-confirm is recoverable per-operation by toggling to `conservative`+raising thresholds, or by switching to `balanced` for a higher per-op tap-to-confirm baseline.
-- Each leg still flows through the same Enoki-sponsored builder; auto-execute changes WHO presses the button (engine vs. user), not WHAT gets signed.
+## save_deposit + borrow + repay_debt tools
 
-**When NOT to auto-execute (engineering rule):**
-- Don't add a new write tool whose preset entry has `autoBelow > 0` without a guard that re-validates fresh balance / health-factor at execute time. The `<financial_context>` snapshot is daily; small auto-writes that race a position change can wedge HF if you trust stale data.
+Description must:
+- Accept `asset: 'USDC' | 'USDsui'` (default `'USDC'` when omitted, except `repay_debt` where omitting means "highest-APY borrow")
+- Reject every other asset with a clear error
+- Explicitly forbid auto-chaining swap + deposit / swap + repay (the user decides which stable to save or repay)
+- For "save 10 USDC" — execute as USDC. For "save 10 USDsui" — execute as USDsui. Never silently substitute.
+- For "save 10" (no asset specified) — call `balance_check` first, then ask the user which stable they want (or default to whichever they hold more of, with a one-line explanation).
+- **Repay symmetry (v0.51.1+):** A USDsui debt MUST be repaid with USDsui (and USDC debt with USDC). The SDK fetches the correct coin type for the targeted asset, but the user must hold enough of that stable. If they hold only the wrong stable, tell them to swap manually first — never auto-chain.
 
-## Tool result budgeting (B.2)
+## Adding new assets
 
-```typescript
-maxResultSizeChars: 8_000,
-summarizeOnTruncate: (full, max) => `${full.slice(0, max - 100)}\n\n[Truncated]`,
-```
+When adding assets to the token registry, they are holdable/swappable but **NOT saveable** — even other stables (USDe, USDT). Only USDC and USDsui go through `save_deposit` / `borrow`. This is enforced by `assertAllowedAsset('save', asset)` and `assertAllowedAsset('borrow', asset)` in `packages/sdk/src/constants.ts`.
 
-Without this, a tool returning a 50k-token portfolio response blows context budget and degrades EVERY subsequent turn. Set the cap explicitly per tool.
-
-## What's banned
-
-```typescript
-// ❌ A write tool with no preflight
-buildTool({ name: 'send_transfer', /* no preflight */ });
-
-// ❌ Disabling guards
-runEngine({ guards: [] });
-
-// ❌ Catching guard failures and continuing
-try { await runGuards(...); } catch { /* ignore */ }
-
-// ❌ Soft warnings disguised as guards
-return { pass: true, warning: '⚠️ This is dangerous, but I'll do it anyway.' };
-// — if it's dangerous enough to warn, it's dangerous enough to block.
-
-// ❌ Tools that read env directly
-const key = process.env.X;
-// — engine doesn't own env. Threading through ToolContext is the only path.
-```
-
-## Cross-references
-
-- Implementation → `packages/engine/src/guards.ts`, `packages/engine/src/permission-rules.ts`
-- Tool factory → `engine-tool-development.mdc`
-- Audric-side defense layers → `audric/.cursor/rules/safeguards-defense-in-depth.mdc`
+To extend the saveable set in the future (e.g., a hypothetical USDe-on-NAVI pool), update `OPERATION_ASSETS.save` and `OPERATION_ASSETS.borrow` in `packages/sdk/src/constants.ts` AND revisit this rule — don't bypass the allow-list.
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
