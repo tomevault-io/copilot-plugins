@@ -1,0 +1,9 @@
+{
+  "name": "conflicthq--navegador",
+  "displayName": "navegador",
+  "description": "AST + knowledge graph context engine for AI coding agents",
+  "version": "1.0.0",
+  "author": "ConflictHQ",
+  "homepage": "https://github.com/ConflictHQ/navegador",
+  "skills": []
+}
