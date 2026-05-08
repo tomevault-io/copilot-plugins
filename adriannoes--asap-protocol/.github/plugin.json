@@ -1,0 +1,9 @@
+{
+  "name": "adriannoes--asap-protocol",
+  "displayName": "asap-protocol",
+  "description": "Standard protocol for agent-to-agent communication with stateful orchestration, MCP-compatible and a public marketplace to discover and register agents.",
+  "version": "1.0.0",
+  "author": "adriannoes",
+  "homepage": "https://github.com/adriannoes/asap-protocol",
+  "skills": []
+}
