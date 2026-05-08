@@ -1,98 +1,68 @@
-## figma-messages
+## figma-node-properties
 
-> Messages are the **only** way to communicate between the plugin sandbox and UI iframe.
+> Safe patterns for accessing node properties in the Plugin API.
 
 
-# Figma Plugin Message Protocol
+# Figma Node Properties
 
-Messages are the **only** way to communicate between the plugin sandbox and UI iframe.
+Safe patterns for accessing node properties in the Plugin API.
 
-## Message Type Definitions
+## Type Narrowing
 
-Define all messages in `src/shared/messages.ts` using discriminated unions:
-
-```typescript
-/**
- * Messages sent from UI thread to Main thread (plugin sandbox)
- */
-export type PluginMessage =
-  | { type: "get-selection" }
-  | { type: "create-rectangle"; width: number; height: number }
-  | { type: "update-node"; nodeId: string; properties: NodeProperties };
-
-/**
- * Messages sent from Main thread to UI thread
- */
-export type UIMessage =
-  | { type: "selection-changed"; nodes: SelectionNode[] }
-  | { type: "plugin-ready" }
-  | { type: "error"; message: string };
-```
-
-## Design Principles
-
-### 1. Use Discriminated Unions
-
-The `type` field enables type-safe message handling:
+Check `node.type` before accessing type-specific properties:
 
 ```typescript
-// TypeScript narrows the type based on msg.type
-switch (msg.type) {
-  case "create-rectangle":
-    // msg is now typed as { type: 'create-rectangle'; width: number; height: number }
-    createRect(msg.width, msg.height);
-    break;
+// ✓ Type narrowing by node.type
+if (node.type === "TEXT") {
+  console.log(node.characters);
+  console.log(node.fontSize);
+}
+
+if (node.type === "FRAME") {
+  console.log(node.layoutMode);
+  console.log(node.children);
 }
 ```
 
-### 2. Serialize Data, Not References
+## Property Existence Check
 
-Never include Figma node references in messages:
-
-```typescript
-// ❌ BAD - node references can't be serialized
-{ type: 'node-selected', node: figma.currentPage.selection[0] }
-
-// ✓ GOOD - plain data only
-{ type: 'node-selected', nodeId: '1:23', name: 'Frame 1', width: 100 }
-```
-
-### 3. Keep Payloads Small
-
-Only send the data you need:
+Use `in` operator for properties shared across multiple node types:
 
 ```typescript
-// ❌ BAD - sending entire node tree
-{ type: 'document-data', root: serializeEntireDocument() }
+// ✓ Check property exists before access
+if ('fills' in node) {
+  console.log(node.fills)
+}
 
-// ✓ GOOD - send only what UI needs
-{ type: 'frame-list', frames: frames.map((f) => ({ id: f.id, name: f.name })) }
-```
+if ('children' in node) {
+  node.children.forEach((child) => ...)
+}
 
-### 4. Define Serialized Types
-
-Create interfaces for serialized node data:
-
-```typescript
-/**
- * Serialized node data safe for postMessage
- */
-export interface SelectionNode {
-  id: string;
-  name: string;
-  type: string;
-  width: number;
-  height: number;
+if ('absoluteBoundingBox' in node) {
+  const { x, y, width, height } = node.absoluteBoundingBox
 }
 ```
 
-## Adding New Messages
+## Common Mixins
 
-When adding a new message type:
+Properties are grouped by "mixins" — capabilities shared across node types:
 
-1. Add the type to `PluginMessage` or `UIMessage` union
-2. Add the handler in the appropriate switch statement
-3. Test the full round-trip: UI → Plugin → UI
+| Mixin         | Properties                            | Node Types            |
+| ------------- | ------------------------------------- | --------------------- |
+| GeometryMixin | `fills`, `strokes`, `strokeWeight`    | Shapes, frames, text  |
+| LayoutMixin   | `layoutMode`, `primaryAxisAlignItems` | Frames, components    |
+| BlendMixin    | `opacity`, `blendMode`, `effects`     | Most visible nodes    |
+| ChildrenMixin | `children`                            | Frames, groups, pages |
+
+## Global Properties
+
+These exist on all `SceneNode` types:
+
+- `id` — Unique identifier
+- `name` — Layer name
+- `type` — Node type string
+- `parent` — Parent node (or null)
+- `visible` — Visibility state
 
 ---
 > Source: [hoshikitsunoda/figma-plugins-vibe-coding-template](https://github.com/hoshikitsunoda/figma-plugins-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
