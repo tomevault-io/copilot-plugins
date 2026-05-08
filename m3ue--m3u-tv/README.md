@@ -7,14 +7,14 @@ Cross-platform TV front-end player for the M3U Editor app. Provides a convenient
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `GEMINI.md` in [m3ue/m3u-tv](https://github.com/m3ue/m3u-tv).
+Original source: `CLAUDE.md` in [m3ue/m3u-tv](https://github.com/m3ue/m3u-tv).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
 - **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
+- **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
 Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/m3ue/m3u-tv](https://github.com/m3ue/m3u-tv)
