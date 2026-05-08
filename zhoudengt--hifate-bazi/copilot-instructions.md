@@ -1,64 +1,33 @@
-## deploy
+## dev-checklist
 
-> 增量发布流程与热更新规范（始终生效）
+> 开发检查清单（编辑 Python 文件时自动加载，提交前用 @dev-checklist.mdc 引用）
 
 
-# 增量发布规范
+# 开发检查清单
 
-> 完整文档：`docs/deploy/门控发布详细说明.md`（发布规范，含 .env 配置说明）
-> **芝麻开门** / **芝麻开发** = 执行增量发布
+> 提交前用 `@dev-checklist.mdc` 引用本规则进行检查。
 
-## 核心流程
+## 通用开发检查清单
 
-```
-本地开发 → 热更新验证 → 功能测试 → Git 提交 → 增量发布（Node2 验证 → Node1 部署）→ 生产验证
-```
+- [ ] 代码是否在热更新监控范围内（`core/`, `server/`, `services/`）
+- [ ] **开发完成后是否触发热更新（必须！）**
+- [ ] **是否验证对应功能在热更新后正常工作（必须！）**
+- [ ] **如果涉及 API 端点，是否验证端点正确注册到 gRPC 网关（必须！）**
 
-**增量发布原则**：先到 Node2 测试对应开发是否合适（23 个 gRPC 端点 + 24 个 API 回归测试），合适则增量发布到 Node1。
+## API 开发检查清单
 
----
+- [ ] 是否使用 Pydantic `BaseModel` 定义模型
+- [ ] 是否在 `grpc_gateway.py` 中注册端点
+- [ ] 是否编写了对应的测试案例（测试覆盖率 ≥ 50%）
 
-## 发布命令
+## 规则开发检查清单
 
-| 命令 | 说明 |
-|------|------|
-| `bash deploy/scripts/gated_deploy.sh` | 增量发布（Node2 验证 → Node1 部署） |
-| **芝麻开门 快速** | `--skip-node2 --no-verify --non-interactive`（跳过 Node2+验证，直接 Node1 重启 web） |
-| `--dry-run` | 只在 Node2 验证，不动 Node1 |
-| `--skip-node2` | 紧急修复（慎用） |
-| `--rollback` | 回滚 Node1 |
+- [ ] 所有规则匹配使用 `RuleService`
+- [ ] 没有文件读取调用（`load_from_file`、`read_excel`、`read_json` 等）
 
----
+## 完整检查清单
 
-## 上线步骤速查
-
-1. **热更新验证**：`.venv/bin/python scripts/ai/auto_hot_reload.py --trigger` + `--verify`
-2. **回归测试**：`.venv/bin/python scripts/evaluation/api_regression_test.py --env production --category basic --category stream --category payment --parallel`
-3. **Git 提交** → `bash deploy/scripts/gated_deploy.sh`（增量发布：Node2 验证 23 接口 + 24 API → Node1）
-4. **生产验证**：health 接口 + 回归测试
-
----
-
-## 热更新端点
-
-| 端点 | 用途 |
-|------|------|
-| `/hot-reload/reload-all` | 生产部署（通知所有 worker） |
-| `/hot-reload/reload-endpoints` | gRPC 端点恢复（单 worker） |
-| `/hot-reload/verify` | 部署后验证 |
-| `/hot-reload/check` | 仅开发用 |
-
-**重要**：部署脚本已内置 `reload-endpoints` 多次调用（8 次），覆盖所有 worker，确保 gRPC 端点在所有进程中正确注册。
-
----
-
-## 绝对禁止
-
-- ❌ 跳过 Node2 直接部署 Node1
-- ❌ 服务器上直接改代码
-- ❌ `docker restart`
-- ❌ 生产用 `/hot-reload/check`
-- ❌ 修改部署脚本时删除 `gate_reload_endpoints_multi` 调用
+详见 `standards/03_开发者手册.md`
 
 ---
 > Source: [zhoudengt/HiFate-bazi](https://github.com/zhoudengt/HiFate-bazi) — distributed by [TomeVault](https://tomevault.io).
