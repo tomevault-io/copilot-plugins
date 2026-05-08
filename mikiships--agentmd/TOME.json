@@ -4,7 +4,7 @@
   "repo": "agentmd",
   "description": "Generate high-quality AI agent context files (CLAUDE.md, AGENTS.md, .cursorrules, copilot-instructions.md) from any codebase",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mikiships/agentmd",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T12:14:13Z"
+  "distributed_at": "2026-05-08T06:43:03Z"
 }
