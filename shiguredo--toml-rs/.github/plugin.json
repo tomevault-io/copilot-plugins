@@ -1,0 +1,9 @@
+{
+  "name": "shiguredo--toml-rs",
+  "displayName": "toml-rs",
+  "description": "TOML Library",
+  "version": "1.0.0",
+  "author": "shiguredo",
+  "homepage": "https://github.com/shiguredo/toml-rs",
+  "skills": []
+}
