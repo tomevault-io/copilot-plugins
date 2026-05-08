@@ -1,19 +1,19 @@
-## 11-skill-init-skill
+## 12-skill-repo-scout
 
-> SKILL: Generate New Skills with Interactive Workflow (use for /init-skill)
+> SKILL: Scan Backend Repo & Catalog API Surface (use for /repo-scout)
 
-# SKILL: INIT SKILL
+# SKILL: REPO SCOUT
 
 ## TRIGGER
-Use this when creating a new skill, standardizing a QA process, or automating routine checks.
+Use this when entering a new backend repository (Go) before writing tests to catalog API surface, infrastructure and test coverage.
 
 ## LOGIC SOURCE
-**EXECUTE the instruction set defined in:** `.claude/skills/init-skill/SKILL.md`
+**EXECUTE the instruction set defined in:** `.claude/skills/repo-scout/SKILL.md`
 
-@.claude/skills/init-skill/SKILL.md
+@.claude/skills/repo-scout/SKILL.md
 
 ## KEY CONSTRAINT
-- Do NOT use to edit existing skills — edit SKILL.md files directly.
+- Do NOT use for QA projects — use /init-project for those.
 
 ---
 > Source: [vlad-ryzhkov/AI-QA-workshop-feb19](https://github.com/vlad-ryzhkov/AI-QA-workshop-feb19) — distributed by [TomeVault](https://tomevault.io).
