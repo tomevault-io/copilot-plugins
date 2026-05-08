@@ -1,0 +1,9 @@
+{
+  "name": "jinphinity--blueprintserializer",
+  "displayName": "BlueprintSerializer",
+  "description": "Unreal Engine 5 Blueprint JSON Serialization Plugin for AI-assisted development",
+  "version": "1.0.0",
+  "author": "Jinphinity",
+  "homepage": "https://github.com/Jinphinity/BlueprintSerializer",
+  "skills": []
+}
