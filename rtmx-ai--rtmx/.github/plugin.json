@@ -1,0 +1,9 @@
+{
+  "name": "rtmx-ai--rtmx",
+  "displayName": "rtmx",
+  "description": "Requirements traceability matrix package for closed-loop product development with agentic AI tools.",
+  "version": "1.0.0",
+  "author": "rtmx-ai",
+  "homepage": "https://github.com/rtmx-ai/rtmx",
+  "skills": []
+}
