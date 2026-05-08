@@ -1,48 +1,50 @@
-## batch-scripts
+## build-system
 
-> Conventions for Windows Batch scripts in routerFW
+> Build system internals — Docker, compose, builder scripts
 
 
-# Batch Script Conventions
+# Build System (system/ directory)
 
-## Style
+## Image Builder Flow
 
-- Header: `@echo off` then `rem file: <name>`
-- `setlocal enabledelayedexpansion` for variable expansion in blocks
-- Console: `chcp 65001 >nul` (UTF-8), `mode con: cols=120 lines=40`
-- ANSI colors via ESC codes: `C_KEY`, `C_LBL`, `C_GRY`, `C_VAL`, `C_ERR`, `C_RST`, `C_OK` (alias of C_VAL)
+`docker-compose.yaml` -> `ib_builder.sh` (runs inside container):
+1. Normalize config (strip BOM, CRLF)
+2. Download/extract ImageBuilder SDK (with caching in `/cache` volume)
+3. Apply custom packages from `/input_packages`
+4. Apply file overlay from `/overlay_files`
+5. Configure custom repos/keys if defined
+6. Modify partition sizes (ROOTFS_SIZE, KERNEL_SIZE) if set
+7. Run `make image` with `IMAGE_PKGS` (fallback compatible with old `PKGS`)
+8. Copy output to `/output/<profile>/`
 
-## Bilingual Pattern
+## Source Builder Flow
 
-Same weighted language detection as `.sh` but uses Windows-specific checks:
-- Registry: `HKCU\Control Panel\Desktop\PreferredUILanguages`
-- Install language: `HKLM\...\Nls\Language\InstallLanguage` (0419 = Russian)
-- PowerShell: `Get-Culture`, `Get-WinUserLanguageList`
-- Console codepage: CP866 = Russian
+`docker-compose-src.yaml` -> `src_builder.sh` (runs as user `build` inside container):
+1. Fix volume permissions (optimized: skips if `.git` exists and ownership correct)
+2. Git clone or fetch `SRC_REPO` at `SRC_BRANCH`
+3. Update feeds (optimized: skips if commit unchanged)
+4. Apply patches from `custom_patches/<profile>/` (CRLF->LF conversion)
+5. Run hooks from `scripts/hooks.sh`
+6. Generate `.config` from profile's `SRC_EXTRA_CONFIG`
+7. Compile with `make -j<cores>` (CCache enabled, 20GB limit)
+8. Copy output firmware to `/output/<profile>/`
 
-Dictionary is loaded from unified `.env` files (`system/lang/RU.env` / `system/lang/en.env`).
-Format: `KEY={C_VAL}value{C_RST}` — neutral pseudo-format, no quotes, `{C_*}` placeholders.
-Loader: custom `for /f "usebackq eol=# tokens=1,* delims==" %%k` block — expands `{C_*}` to ANSI codes via `!_v:{C_VAL}=%C_VAL%!` (early+late expansion). Fallback to `en.env` if file missing.
+## Docker Images
 
-## PowerShell Integration
+| Dockerfile | Base | Purpose |
+|---|---|---|
+| `dockerfile` | Ubuntu 22.04 | Modern Image Builder |
+| `dockerfile.legacy` | Ubuntu 18.04 | Legacy Image Builder |
+| `src.dockerfile` | Ubuntu 24.04 | Modern Source Builder (GCC 13, ccache) |
+| `src.dockerfile.legacy` | Ubuntu 18.04 | Legacy Source Builder |
 
-When executing a complex PowerShell command from a `.bat` script (e.g., in `tester.bat`), follow these rules to avoid `cmd.exe` parsing issues:
+## Docker Volumes
 
-1.  Enclose the entire PowerShell script block in double quotes (`"..."`).
-2.  Use the **full names of PowerShell cmdlets** (e.g., `Where-Object`, `ForEach-Object`) instead of aliases (`?`, `%`).
-3.  Do **not** escape PowerShell operators like `|` with the `^` character inside the quoted string.
-
-## Feature Parity
-
-`.bat` scripts must stay in sync with their `.sh` counterparts:
-- `_Builder.bat` <-> `_Builder.sh`
-- `_packer.bat` <-> `_packer.sh`
-
-When modifying one, the other must be updated with equivalent logic.
-
-## FORBIDDEN
-
-- NEVER read or edit `_unpacker.bat` — contains base64 payload
+- `imagebuilder-cache` — SDK archives
+- `ipk-cache` — downloaded packages
+- `src-workdir` — OpenWrt source tree (persistent across builds)
+- `src-dl-cache` — source download cache
+- `src-ccache` — compiler cache
 
 ---
 > Source: [iqubik/routerFW](https://github.com/iqubik/routerFW) — distributed by [TomeVault](https://tomevault.io).
