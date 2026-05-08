@@ -1,0 +1,9 @@
+{
+  "name": "lasswellt--cc-metrics",
+  "displayName": "cc-metrics",
+  "description": "Real-time OpenTelemetry metrics dashboard for monitoring Claude Code usage, token consumption, and costs",
+  "version": "1.0.0",
+  "author": "lasswellt",
+  "homepage": "https://github.com/lasswellt/cc-metrics",
+  "skills": []
+}
