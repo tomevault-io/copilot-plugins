@@ -1,0 +1,9 @@
+{
+  "name": "inventhq--gobble",
+  "displayName": "Gobble",
+  "description": "Business OS event tracking platform. Open source alternative to Posthog, Google Analytics, etc. Process billions of events a day.",
+  "version": "1.0.0",
+  "author": "inventhq",
+  "homepage": "https://github.com/inventhq/Gobble",
+  "skills": []
+}
