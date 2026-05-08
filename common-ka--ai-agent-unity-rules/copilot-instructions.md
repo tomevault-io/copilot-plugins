@@ -1,286 +1,104 @@
-## code-organization
+## unity-ecs
 
-> ├── !_Project/                   # Main project content (! keeps it at top)
+> DOTS, ECS, Job System, Burst, ISystem, IJobEntity
 
 
-# Code Organization
+# Unity ECS & DOTS (Unity 6.2+)
 
-## Project Folder Structure
+## Core Principles
 
+1.  **Prefer `ISystem` (struct)** over `SystemBase` (class) to avoid GC overhead.
+2.  **Always use `[BurstCompile]`** for Systems and Jobs to unlock native performance.
+3.  **Use `IJobEntity`** for component iteration; it handles chunking and multithreading automatically.
+4.  **Follow Microsoft Naming Conventions**: Use **PascalCase** for public fields in Jobs and Components.
+
+## Entity Component System
+
+### 1. Component Data
 ```
-Assets/
-├── !_Project/                   # Main project content (! keeps it at top)
-│   ├── Art/
-│   │   ├── Materials/
-│   │   ├── Models/
-│   │   ├── Textures/
-│   │   └── Animations/
-│   ├── Audio/
-│   │   ├── Music/
-│   │   ├── SFX/
-│   │   └── Mixers/
-│   ├── Prefabs/
-│   │   ├── Characters/
-│   │   ├── Environment/
-│   │   ├── UI/
-│   │   └── Effects/
-│   ├── Scenes/
-│   │   ├── Levels/
-│   │   ├── Menus/
-│   │   └── Test/
-│   ├── Scripts/
-│   │   ├── Runtime/           # Runtime code
-│   │   │   ├── Core/          # Base systems
-│   │   │   ├── Gameplay/      # Game logic
-│   │   │   ├── UI/            # UI controllers
-│   │   │   ├── Utilities/     # Helper classes
-│   │   │   ├── DOTS/          # ECS implementation
-│   │   │   │   ├── Components/    # IComponentData
-│   │   │   │   ├── Systems/       # SystemBase/ISystem
-│   │   │   │   └── Aspects/       # Aspects
-│   │   │   └── Hybrid/        # Mixed MonoBehaviour + DOTS
-│   │   ├── Editor/            # Editor scripts
-│   │   └── Tests/             # Test assembly scripts
-│   ├── ScriptableObjects/
-│   │   ├── GameConfig/        # Game settings
-│   │   ├── EventChannels/     # SO-based events
-│   │   ├── Variables/         # Runtime shared data
-│   │   ├── Sets/              # SO Sets for collections
-│   │   └── Stats/             # Character/weapon data
-│   └── Settings/              # Project settings
-├── Packages/                  # Custom packages
-│   └── com.yourcompany.core/  # Reusable modules
-│       ├── Runtime/
-│       ├── Editor/
-│       ├── Tests/
-│       └── Documentation~/
-├── AddressableAssets/         # Addressables content
-│   ├── Groups/                # Addressable Groups configs
-│   ├── Settings/              # Addressable Settings
-│   └── Content/               # Organized by strategy
-│       ├── PerLevel/          # Concurrent usage strategy
-│       ├── Characters/        # Logical entity strategy
-│       └── Shared/            # Shared resources
-├── Plugins/                   # Third-party plugins
-├── Tests/                     # Test assemblies
-│   ├── EditMode/
-│   │   ├── Unit/              # Unit tests
-│   │   └── Integration/       # Integration tests
-│   ├── PlayMode/
-│   │   ├── Functional/        # Functional tests
-│   │   └── Performance/       # Profiling tests
-│   └── TestUtilities/         # Common mocks and helpers
-└── TextMesh Pro/              # TMP resources
-```
-
-## Asset Naming Conventions
-
-### Modern Naming (No Hungarian Prefixes)
-Organization through folders, not prefixes. Use PascalCase for all asset names.
-
-### Prefabs
-- Characters: `PlayerKnight.prefab` in `Prefabs/Characters/`
-- Environment: `TreeOak.prefab` in `Prefabs/Environment/`
-- UI: `MainMenu.prefab` in `Prefabs/UI/`
-- Effects: `Explosion.prefab` in `Prefabs/Effects/VFX/`
-
-### Scripts
-Follow Microsoft C# conventions:
-
-#### Classes and Methods
-```
-// PascalCase for classes, methods, properties, and public fields
-public class GameManager { }
-public class AudioManager { }
-public class PlayerController { }
-public void Initialize() { }
-public int MaxHealth { get; set; }
-```
-
-#### Fields and Variables
-```
-// Private instance fields: _camelCase
-private int _currentHealth;
-private Transform _targetTransform;
-
-// Static fields: s_camelCase
-private static int s_instanceCount;
-private static GameManager s_instance;
-
-// Public fields: PascalCase (prefer properties)
-public int MaxHealth;
-
-// Local variables and parameters: camelCase
-public void SetHealth(int newHealth)
-{
-    int previousHealth = _currentHealth;
-    _currentHealth = newHealth;
-}
-
-// Constants: PascalCase
-private const int MaxPlayers = 4;
-public const string GameVersion = "1.0.0";
-```
-
-#### Interfaces
-```
-// Prefix with 'I' + PascalCase
-public interface IInteractable { }
-public interface IDamageable { }
-public interface IPoolable { }
-```
-
-### Scenes
-- Levels: `Level01_Forest.unity`
-- Menus: `MenuMain.unity`, `MenuSettings.unity`
-- Test: `TestPlayerMovement.unity`
-
-## Assembly Definition Organization
-
-### Core Assemblies
-```
-Scripts/Runtime/Core/YourCompany.Core.asmdef
-Scripts/Runtime/Gameplay/YourCompany.Gameplay.asmdef
-Scripts/Runtime/UI/YourCompany.UI.asmdef
-Scripts/Runtime/DOTS/YourCompany.DOTS.asmdef
-Scripts/Editor/YourCompany.Editor.asmdef
-Scripts/Tests/YourCompany.Tests.asmdef
-```
-
-### Example Assembly Definition
-```
-{
-    "name": "YourCompany.Core",
-    "rootNamespace": "YourCompany.Core",
-    "references": [],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
-}
-```
-
-## Scene Hierarchy Organization
-
-```
-Hierarchy:
---- SYSTEMS ---              # Persistent (DontDestroyOnLoad)
-├── GameManager
-├── AudioManager
-├── InputManager
-└── UIManager
---- LEVEL ---                # Level content
-├── Environment
-│   ├── Terrain
-│   ├── Props
-│   └── Lighting
-├── Gameplay
-│   ├── SpawnPoints
-│   └── Triggers
-└── UI
-    ├── Canvas_HUD
-    └── Canvas_Menus
---- DYNAMIC ---              # Runtime spawned objects
-```
-
-## Prefab Structure
-
-```
-Player
-├── Model                    # Visual model
-├── Colliders               # Physics colliders
-├── Effects                 # Particles, effects
-└── Audio                   # Audio sources
-```
-
-## DOTS/ECS Structure
-
-### Component Example
-```
-// Components/HealthComponent.cs
 using Unity.Entities;
+using Unity.Mathematics;
 
-namespace YourCompany.DOTS.Components
+public struct MovementSpeed : IComponentData
 {
-    public struct HealthComponent : IComponentData
-    {
-        public float CurrentHealth;
-        public float MaxHealth;
-    }
+    public float Value;
 }
 ```
 
-### System Example
-```
-// Systems/HealthSystem.cs
-using Unity.Entities;
-using Unity.Burst;
+### 2. System (ISystem + IJobEntity)
+This is the modern standard. It separates data iteration (Job) from the system lifecycle (System).
 
-namespace YourCompany.DOTS.Systems
-{
-    [BurstCompile]
-    public partial struct HealthSystem : ISystem
-    {
-        [BurstCompile]
-        public void OnUpdate(ref SystemState state)
-        {
-            // System logic
-        }
-    }
-}
 ```
-
-### Aspect Example
-```
-// Aspects/CharacterAspect.cs
 using Unity.Entities;
 using Unity.Transforms;
+using Unity.Burst;
+using Unity.Mathematics;
 
-namespace YourCompany.DOTS.Aspects
+[BurstCompile]
+partial struct MovementSystem : ISystem
 {
-    public readonly partial struct CharacterAspect : IAspect
+    [BurstCompile]
+    public void OnCreate(ref SystemState state)
     {
-        readonly RefRW<LocalTransform> _transform;
-        readonly RefRW<HealthComponent> _health;
+        // Prevents the system from running if no entities have MovementSpeed
+        state.RequireForUpdate<MovementSpeed>();
+    }
+
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        // Pass delta time into the job
+        float deltaTime = SystemAPI.Time.DeltaTime;
+
+        // Schedule the job to run in parallel across available worker threads
+        new MoveJob
+        {
+            DeltaTime = deltaTime
+        }.ScheduleParallel();
+    }
+}
+
+// The Source Generator automatically creates the optimized chunk iteration code for this job
+[BurstCompile]
+partial struct MoveJob : IJobEntity
+{
+    public float DeltaTime;
+
+    // Use 'in' for read-only data to improve performance
+    private void Execute(ref LocalTransform transform, in MovementSpeed speed)
+    {
+        transform.Position += new float3(0, speed.Value * DeltaTime, 0);
     }
 }
 ```
 
-## Best Practices
+## Job System (Native Arrays)
 
-### Naming
-- Use PascalCase for all public identifiers (classes, methods, properties)
-- Use _camelCase for private instance fields
-- Use s_camelCase for static fields
-- Use camelCase for local variables and parameters
-- Use meaningful, descriptive names - prefer clarity over brevity
-- Avoid abbreviations except widely known ones (UI, FX, AI)
-- No Hungarian notation or type prefixes
+Use this pattern when processing raw memory (`NativeArray`) outside of the ECS framework.
 
-### Organization
-- Organize assets by type through folder structure, not prefixes
-- Use Assembly Definitions to reduce compilation time
-- Separate Runtime and Editor code
-- Group DOTS code separately from MonoBehaviour code
-- Use Addressables for content management with clear grouping strategy
+```
+using Unity.Jobs;
+using Unity.Collections;
+using Unity.Burst;
+using Unity.Mathematics;
 
-### Architecture
-- Use ScriptableObject-based architecture for events and shared data
-- Implement EventChannel pattern for decoupled communication
-- Use Assembly Definitions to enforce architectural boundaries
-- Separate concerns: Core, Gameplay, UI, Utilities
-- Create custom packages for reusable systems
-
-### Testing
-- Organize tests by type: Unit, Integration, Functional, Performance
-- Use separate assemblies for test code
-- Create TestUtilities assembly for shared test helpers
-- Write tests for critical gameplay systems
+[BurstCompile]
+public struct VelocityJob : IJobParallelFor
+{
+    // Microsoft Style: Public fields should be PascalCase
+    public NativeArray<float3> Velocity;
+    
+    [ReadOnly] 
+    public NativeArray<float3> Acceleration;
+    
+    public float DeltaTime;
+    
+    public void Execute(int index)
+    {
+        Velocity[index] += Acceleration[index] * DeltaTime;
+    }
+}
+```
 
 ---
 > Source: [Common-ka/ai-agent-unity-rules](https://github.com/Common-ka/ai-agent-unity-rules) — distributed by [TomeVault](https://tomevault.io).
