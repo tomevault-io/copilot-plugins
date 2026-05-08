@@ -1,0 +1,9 @@
+{
+  "name": "bscott--pm-cli",
+  "displayName": "pm-cli",
+  "description": "Protonmail CLI (including PM specific features)",
+  "version": "1.0.0",
+  "author": "bscott",
+  "homepage": "https://github.com/bscott/pm-cli",
+  "skills": []
+}
