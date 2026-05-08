@@ -1,0 +1,9 @@
+{
+  "name": "kcchien--skills-cli",
+  "displayName": "skills-cli",
+  "description": "Cross-platform CLI for managing Claude Code and Claude Desktop skills",
+  "version": "1.0.0",
+  "author": "kcchien",
+  "homepage": "https://github.com/kcchien/skills-cli",
+  "skills": []
+}
