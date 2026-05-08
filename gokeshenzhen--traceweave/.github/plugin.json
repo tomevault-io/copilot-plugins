@@ -1,0 +1,9 @@
+{
+  "name": "gokeshenzhen--traceweave",
+  "displayName": "TraceWeave",
+  "description": "\u7b80\u6d01\u7684\u6d4b\u8bd5\u5e73\u53f0\u65e5\u5fd7\uff0c\u6ce2\u5f62(FSDB/VCD)\uff0c\u6839\u56e0\u5206\u6790MCP Server. A Simple and Universal MCP Server to Debug Testbench Simulation  Failures Via Log Parsing And Waveform Analysis (FSDB/VCD)",
+  "version": "1.0.0",
+  "author": "gokeshenzhen",
+  "homepage": "https://github.com/gokeshenzhen/TraceWeave",
+  "skills": []
+}
