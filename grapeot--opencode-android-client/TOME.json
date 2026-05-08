@@ -1,0 +1,44 @@
+{
+  "name": "opencode_android_client",
+  "owner": "grapeot",
+  "repo": "opencode_android_client",
+  "description": "OpenCode Android \u5ba2\u6237\u7aef \u2014 \u8fdc\u7a0b\u8fde\u63a5 OpenCode \u670d\u52a1\u7aef\u3001\u53d1\u9001\u6307\u4ee4\u3001\u76d1\u63a7 AI \u5de5\u4f5c\u8fdb\u5ea6",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/grapeot/opencode_android_client",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T06:55:54Z"
+}
