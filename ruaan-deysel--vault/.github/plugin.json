@@ -1,9 +1,9 @@
 {
   "name": "ruaan-deysel--vault",
   "displayName": "vault",
-  "description": "vault",
+  "description": "Unraid Backup Management Software",
   "version": "1.0.0",
   "author": "ruaan-deysel",
-  "homepage": "https://tomevault.io/claim/ruaan-deysel",
+  "homepage": "https://github.com/ruaan-deysel/vault",
   "skills": []
 }
