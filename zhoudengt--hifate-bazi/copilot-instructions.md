@@ -1,29 +1,33 @@
-## frontend-test-and-backend-only
+## grpc-rules
 
-> 前端测试账号与后端修改约束（前端不可改，仅后端建议）
+> gRPC 与 API 端点注册规范（修改 grpc_gateway 或 proto 时生效）
 
 
-# 前端测试与后端修改约束
+# gRPC 交互规范
 
-## 前端测试账号（HelloDestiny / yuanqistation.com）
+## 架构
 
-- **登录页**: https://www.yuanqistation.com/login
-- **八字命理页**: https://www.yuanqistation.com/ba_zml
-- **测试邮箱**: `643795362@qq.com`
-- **测试密码**: `123456asd`
-- **用途**: 仅用于后端联调、接口验证、回归测试；不得用于生产数据或对外暴露。
+前端 (Browser) → gRPC-Web → Web服务 (Port 8001) → gRPC → 微服务 (9001-9010)
 
-## 前端不可改动
+## 核心要求
 
-- **约束**: 前端代码与部署由前端团队负责，本仓库及 AI 仅做后端修改。
-- **原则**: 所有需求以「后端兼容现有前端」为前提；接口契约（请求/响应格式、字段名、枚举值）不得破坏，只允许后端扩展或优化。
-- **建议方式**: 仅给出后端修改建议，经确认后再改代码；涉及前端联调的需与前端团队对齐。
+- ✅ 前端必须使用 gRPC-Web 网关（`/api/v1/*` 路径）
+- ✅ 服务间必须使用 gRPC 通信
+- ✅ 所有 API 端点必须在 `grpc_gateway.py` 中注册
 
-## 后端修改建议流程
+## gRPC 端点注册检查（重要！）
 
-1. 分析问题，给出**后端可做的修改建议**（含影响范围、兼容性）。
-2. 等待用户确认后再实施代码修改。
-3. 涉及接口契约变更时，在建议中明确「需前端配合」或「无需前端改动」。
+新增 API 端点时，必须检查：
+
+- [ ] 是否需要通过 gRPC-Web 访问？
+- [ ] 如需 gRPC-Web 访问，是否在 `server/api/grpc_gateway.py` 中注册？
+- [ ] 如是流式接口，是否使用 `_collect_sse_stream()` 处理？
+
+**已知问题**：流式接口忘记注册到 gRPC 网关，导致 `grpc-status: 12` 错误。
+
+## 详细规范
+
+详见 `standards/grpc-protocol.md`
 
 ---
 > Source: [zhoudengt/HiFate-bazi](https://github.com/zhoudengt/HiFate-bazi) — distributed by [TomeVault](https://tomevault.io).
