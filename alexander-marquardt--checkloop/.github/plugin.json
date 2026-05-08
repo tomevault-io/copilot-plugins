@@ -1,0 +1,9 @@
+{
+  "name": "alexander-marquardt--checkloop",
+  "displayName": "checkloop",
+  "description": "Autonomous multi-pass code review using Claude Code",
+  "version": "1.0.0",
+  "author": "alexander-marquardt",
+  "homepage": "https://github.com/alexander-marquardt/checkloop",
+  "skills": []
+}
