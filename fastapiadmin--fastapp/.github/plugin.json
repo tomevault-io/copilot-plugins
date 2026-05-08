@@ -1,0 +1,9 @@
+{
+  "name": "fastapiadmin--fastapp",
+  "displayName": "FastApp",
+  "description": "FastApp \u662fFastapiAdmin\u9879\u76ee\u79fb\u52a8\u7aef\u5de5\u7a0b\uff0c\u8be5\u5de5\u7a0b\u662f\u57fa\u4e8e Uni-App\u3001Vue3 \u3001Wot-Design\u548c TypeScript \u6784\u5efa\u7684\u7075\u6d3b\u8de8\u5e73\u53f0\u79fb\u52a8\u7aef\u6a21\u677f\uff0c\u4f7f\u7528 VSCode \u548c CLI \u9ad8\u6548\u5f00\u53d1\u6a21\u5f0f\u3002",
+  "version": "1.0.0",
+  "author": "fastapiadmin",
+  "homepage": "https://github.com/fastapiadmin/FastApp",
+  "skills": []
+}
