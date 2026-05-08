@@ -2,6 +2,8 @@
 
 > Source: [reposwarm/reposwarm](https://github.com/reposwarm/reposwarm) — distributed by [TomeVault](https://tomevault.io)
 
+RepoSwarm is an AI powered tools that coding agents can use for multi-repo architecture discovery.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
