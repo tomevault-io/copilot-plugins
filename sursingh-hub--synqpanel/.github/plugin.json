@@ -1,0 +1,9 @@
+{
+  "name": "sursingh-hub--synqpanel",
+  "displayName": "SynQPanel",
+  "description": "Panel-based system telemetry visualization for Windows using AIDA64 Shared Memory",
+  "version": "1.0.0",
+  "author": "sursingh-hub",
+  "homepage": "https://github.com/sursingh-hub/SynQPanel",
+  "skills": []
+}
