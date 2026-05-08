@@ -1,0 +1,9 @@
+{
+  "name": "rastachaum--intelligent-heating-pilot",
+  "displayName": "Intelligent-Heating-Pilot",
+  "description": "Intelligent Heating Pilot (IHP): An ambitious Home Assistant integration that acts as your climate Pilot. It uses Online Learning and advanced strategies (like Adaptive Start) to optimize comfort and ",
+  "version": "1.0.0",
+  "author": "RastaChaum",
+  "homepage": "https://github.com/RastaChaum/Intelligent-Heating-Pilot",
+  "skills": []
+}
