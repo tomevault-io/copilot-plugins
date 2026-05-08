@@ -1,0 +1,9 @@
+{
+  "name": "inferact--vllm-frontend-rs",
+  "displayName": "vllm-frontend-rs",
+  "description": "Early-stage Rust drop-in alternative frontend for vLLM",
+  "version": "1.0.0",
+  "author": "Inferact",
+  "homepage": "https://github.com/Inferact/vllm-frontend-rs",
+  "skills": []
+}
