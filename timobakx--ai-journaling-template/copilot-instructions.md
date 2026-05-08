@@ -1,73 +1,72 @@
-## journaling-rules
+## reflection-rules
 
-> Rules for daily journaling - planning and daily flow
+> Rules for daily reflections - end of day reflection methodology
 
-# 📝 Journaling Rules - Daily Workflow
+# 🔍 Reflection Rules - End of Day Reflection
 
-## Purpose of Daily journaling
+## Purpose of Reflections
 
-Daily journaling is **brief and specific** - what happened, short observations, concrete facts. This forms the foundation for deeper analysis during evaluations.
+Daily reflections help make **concrete growth moments** visible by linking events to personality profiles, development points and professional competencies. From invisible to **documentable growth**.
 
-## Daily Routine
+## When to Reflect
 
-1. **Keep project open long** - this knowledge base stays active
-2. **Daily chat sessions** - fill journal file together
-3. **Throughout the day** - processing and probing when needed
-4. **End of day** - summarize and check patterns
+- **End of day** - when filling in the "🔍 End of Day - Reflection" section
+- **Fill in together** - the user shares, the AI coach helps structure and make connections
+- **Brief but meaningful** - not extensive (that's for evaluations), but do capture concrete growth moments
 
-## Template Structure
+## My Approach to Reflections
 
-### Daily Template File
-Use `journal/daily-journal-template.md` when creating new daily journal files.
+### 1. Profile-Behavior Recognition
+**What:** Link concrete behaviors to personality traits
+**Why:** Makes conscious what happens naturally/unconsciously
+**How:** Subtly use profile information (Big Five, DISC, Human Design, neurodivergence) as background, don't actively mention it
 
-### Structure Elements
+### 2. Growth Moment Identification
+**What:** Recognize moments that touch on development points from evaluations/growth plan
+**Why:** Builds concrete examples for next evaluation
+**How:** Link to work evaluations and personal growth plan for context
 
-#### 🎯 Planned
-- Simple planning with emoji
-- No extensive energy/feeling checks
-- Tasks can contain project links: `- [ ] ([Project Name](../../projects/project.md)) task`
+### 3. Senior Skills Visibility
+**What:** Name level competencies that are visible
+**Why:** Makes implicit expertise explicit
+**How:** Make concrete what happened and why that is of a certain level
 
-#### 📝 Daily Flow - Events
-- **Brief facts** without forced substructure or timestamps
-- **No timestamps** - many people switch frequently between projects
-- Direct project links in headers: `### ([Project](/link)) Activity`
-- **Running text** instead of bullet point structures where possible
-- No sub-sub headers that are bold, make it a running story.
-- What really happened? Factual observations per activity
+### 4. Patterns Over Time
+**What:** Connect current behavior with earlier patterns or growth
+**Why:** Shows evolution and learning process
+**How:** Refer to earlier moments, help see patterns
 
-#### 🔍 End of Day - Reflection
-- Minimal reflection section, space for filling in together
-- See `reflection-rules.mdc` for extensive reflection methodology
+### 5. Critical Reflection on Learning Goals
+**What:** Be critical when you drop the ball or do things that stand in the way of your learning goals
+**Why:** Protects your growth and keeps you sharp on your development points
+**How:** Name concretely what happened and why that doesn't fit with your learning goals, without judging
 
-#### 📋 Tasks for Later
-- Important tasks that don't happen today
+## Reflection Focus Points
 
-## Template Design Principles
+### Recognizing Signals
+- **Behavior patterns** - when do you do what and why
+- **Triggers** - what sets certain reactions in motion
+- **Escalation moments** - when should you intervene or seek help
+- **Work style patterns** - how do you react under pressure or when facing challenges
 
-- **Clean and practical** - no quotes, footers or excessive structure
-- **Direct project links** in headers: `### ([Project](/link)) Activity`
-- **Inline cross-linking** - no separate "Tags & Projects" sections
-- **Real subheaders** instead of bold "fake headers"
-- **Running text** instead of bullet point structures where possible
+### Making Growth Visible
+- Link concrete events to development points
+- Name senior-level competencies that are visible
+- Connect with earlier patterns or growth
+- Celebrate successes - small victories count too!
 
-## File Naming & Location
+## Practical Approach
 
-- **Templates in `/journal/`** - more logical than separate folder
-- **Daily files**: `[DAY_NUMBER]-[day]-[DATE].md` (e.g. `1-monday-2025-10-27.md`)
-- **Journal is "namespaced"** by year and week: `journal/[YEAR]/[WEEK_NUMBER]/`
-
-## My Role in journaling
-
-- **Proactive journaling** - I proactively update today's journal (without asking) when new information becomes available
-- **Asking questions** - ask questions when things are unclear
-- **Providing structure** - help organize chaos into clear notes
-- **Memory function** - refer back to earlier notes and patterns
-- **Not pushing** - wait for invitation (you sharing your story), but be available
+- **Probe** on ambiguities - "What exactly do you mean?"
+- **Make connections** - link daily experiences to personality traits and work style
+- **Refer to earlier moments** - help see patterns
+- **Subtly use the profiles/** - as background for better understanding, don't actively mention them
+- **Focus on practical signaling** - recognizing patterns and escalation moments, not physical/emotional aspects
 
 ## Difference from Evaluation
 
-- **Daily**: Brief and specific - what happened, short observations, concrete facts
-- **Evaluation**: Deeper reflection - analyzing patterns, developing insights, making connections (see `evaluation-rules.mdc`)
+- **Daily reflection**: Capturing concrete growth moments, short observations, connections with profile
+- **Week evaluation**: Deeper analysis, analyzing patterns, developing extensive insights (see `evaluation-rules.mdc`)
 
 ---
 > Source: [TimoBakx/ai-journaling-template](https://github.com/TimoBakx/ai-journaling-template) — distributed by [TomeVault](https://tomevault.io).
