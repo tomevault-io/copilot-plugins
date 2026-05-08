@@ -1,0 +1,9 @@
+{
+  "name": "sleeyax--claude-code-session-bot",
+  "displayName": "claude-code-session-bot",
+  "description": "Telegram bot to warm up your Claude code session while you're AFK",
+  "version": "1.0.0",
+  "author": "sleeyax",
+  "homepage": "https://github.com/sleeyax/claude-code-session-bot",
+  "skills": []
+}
