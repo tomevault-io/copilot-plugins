@@ -1,0 +1,9 @@
+{
+  "name": "kubernetes-sigs--mcp-lifecycle-operator",
+  "displayName": "mcp-lifecycle-operator",
+  "description": "A Kubernetes operator that provides a declarative API to deploy, manage, and safely roll out MCP Servers, handling their full lifecycle with production-grade automation and ecosystem integrations.",
+  "version": "1.0.0",
+  "author": "kubernetes-sigs",
+  "homepage": "https://github.com/kubernetes-sigs/mcp-lifecycle-operator",
+  "skills": []
+}
