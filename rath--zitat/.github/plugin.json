@@ -1,0 +1,9 @@
+{
+  "name": "rath--zitat",
+  "displayName": "zitat",
+  "description": "YouTube \uc601\uc0c1\uc5d0\uc11c \ud2b9\uc815 \uad6c\uac04\uc744 \ucd94\ucd9c\ud558\uace0, Whisper\ub85c \uc790\ub9c9\uc744 \uc0dd\uc131\ud55c \ub4a4 Claude\ub85c \ubc88\uc5ed\ud574\uc11c \uc601\uc0c1\uc5d0 \uc785\ud788\ub294 CLI \ud30c\uc774\ud504\ub77c\uc778. \ubc88\uc5ed \ud6c4 \ud3b8\uc9d1\uae30\ub85c \uac80\uc218 \uac00\ub2a5.",
+  "version": "1.0.0",
+  "author": "rath",
+  "homepage": "https://github.com/rath/zitat",
+  "skills": []
+}
