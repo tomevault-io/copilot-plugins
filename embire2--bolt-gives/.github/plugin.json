@@ -1,0 +1,9 @@
+{
+  "name": "embire2--bolt-gives",
+  "displayName": "bolt.gives",
+  "description": "Prompt, run, edit, and deploy full-stack web applications using any LLM you want!",
+  "version": "1.0.0",
+  "author": "embire2",
+  "homepage": "https://github.com/embire2/bolt.gives",
+  "skills": []
+}
