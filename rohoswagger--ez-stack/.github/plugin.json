@@ -1,0 +1,9 @@
+{
+  "name": "rohoswagger--ez-stack",
+  "displayName": "ez-stack",
+  "description": "The Stacked PR CLI for agents - Manage worktrees, atomic PRs, and more all from the CLI",
+  "version": "1.0.0",
+  "author": "rohoswagger",
+  "homepage": "https://github.com/rohoswagger/ez-stack",
+  "skills": []
+}
