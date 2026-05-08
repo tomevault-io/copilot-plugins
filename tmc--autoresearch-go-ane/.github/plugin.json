@@ -1,0 +1,9 @@
+{
+  "name": "tmc--autoresearch-go-ane",
+  "displayName": "autoresearch-go-ane",
+  "description": "Autonomous AI research on Apple Silicon using ANE-accelerated training",
+  "version": "1.0.0",
+  "author": "tmc",
+  "homepage": "https://github.com/tmc/autoresearch-go-ane",
+  "skills": []
+}
