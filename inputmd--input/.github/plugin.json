@@ -1,0 +1,9 @@
+{
+  "name": "inputmd--input",
+  "displayName": "input",
+  "description": "Markdown document editor and AI interface",
+  "version": "1.0.0",
+  "author": "inputmd",
+  "homepage": "https://github.com/inputmd/input",
+  "skills": []
+}
