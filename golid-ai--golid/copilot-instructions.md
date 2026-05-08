@@ -1,111 +1,88 @@
-## plan-feature
+## refactor-large-files
 
-> Framework for planning a new feature end-to-end — use when asked to plan or design a new module
+> Guidance for splitting large route files into maintainable pieces
 
 
-# Plan a Feature
+# Refactoring Large Route Files
 
-Use this structure when planning a new feature module.
+## When to Split
 
-## Planning Checklist
+Any route file **over 600 lines** should be split. Signs it's time:
+- Multiple distinct UI sections (KPI bar, table, modal, form)
+- Multiple modal components with their own state
+- Helper functions / sub-components that don't need the page's signals
 
-1. **Explore existing code** — read the schema, related services, frontend routes. Understand what exists.
-2. **Scaffold boilerplate** — run `make new-module name=<module>` to generate migration, service, handler, and route stubs.
-3. **Identify the data model** — what tables, enums, relationships are needed? Check if any already exist in `backend/migrations/000001_init.up.sql`.
-4. **Define the API surface** — list every endpoint (verb + path + purpose).
-5. **Identify auth requirements** — who can do what? Map to the two-layer pattern (handler: authn, service: authz).
-6. **Note side effects** — what happens on status changes? Cascading updates? History entries?
-7. **Plan seed data** — test accounts need realistic data for manual testing during development.
+## How to Split
 
-## Plan Structure (phases)
+### Co-located Components
+
+Create a `_components/` directory next to the route file:
 
 ```
-Phase 1: Database Migration
-  - New enums, tables, ALTER existing tables
-  - Down migration
-
-Phase 1b: Seed Data (immediately after migration)
-  - Enables manual testing during backend development
-
-Phase 2: Backend Service
-  - Types (input/output structs)
-  - Auth helper (verifyXMembership)
-  - CRUD methods + business logic
-
-Phase 3: Backend Handler + Routes
-  - Request types, validation
-  - Handler methods
-  - Route registration in main.go
-
-Phase 4: Frontend API Types + Client
-  - TypeScript interfaces matching backend structs
-  - API client object (itemsApi pattern)
-
-Phase 5: Frontend Pages + Components
-  - Sidebar nav entry
-  - List page (with filters, empty states)
-  - Detail view (modal or page)
+routes/(private)/items/
+├── index.tsx              ← Page (signals, data fetching, layout)
+├── _components/
+│   ├── ItemCard.tsx        ← Presentational (receives props)
+│   ├── CreateItemModal.tsx ← Modal with own form state
+│   └── ItemDetailModal.tsx ← Detail modal with tabs
 ```
 
-## Key Decisions to Make Upfront
+The `_` prefix tells SolidStart this is NOT a route — it's a co-located module.
 
-- **Modal vs page** for detail views — prefer modal for "detail within a list" (notes, items). Use page for standalone content.
-- **Transaction boundaries** — identify which operations need multi-write transactions.
-- **Permission model** — who can create/read/update/delete? Map to `verifyResourceAccess` or similar. See "Role-Based Permissions" below.
-- **Status side effects** — what happens on transitions? Auto-history? Cascading approvals?
-- **Computed vs stored** — prefer computed fields (via SQL subquery) over stored aggregates.
-- **Side effects** — what happens on key events? Emails, webhooks, audit logging?
-- **Real-time updates** — for features that need server push (live notifications, collaborative edits), consider SSE. Exclude SSE endpoints from gzip and timeout middleware in `middleware/stack.go`.
+### What Goes Where
 
-## Role-Based Permissions
+**Parent route file keeps:**
+- Data fetching (`onMount`, `createSignal`, `createEffect`)
+- Page-level signals (loading, error, data, filters, pagination)
+- `alive` guard and `onCleanup`
+- Layout structure (`Switch/Match` for content states)
+- Signal-driven modal open/close logic
 
-When planning a feature, map each action to user roles. Example role levels:
+**Extracted components receive:**
+- Data via **props** (not by importing shared signals)
+- Callbacks via **props** (`onSave`, `onClose`, `onDelete`)
+- They are **presentational** — they render what they're given
 
-| Role | Who |
-|---|---|
-| **User** | Can view own data |
-| **Admin** | Can create/edit/manage all resources |
+### Example Split
 
-In handlers, extract auth and check roles:
-```go
-userID, err := requireUserID(c)
-userType, err := requireUserType(c)
-if userType != "admin" {
-    return apperror.Forbidden("Admin access required")
+Before (800-line `items/index.tsx`):
+```tsx
+export default function ItemsPage() {
+  // 50 lines of signals + fetching
+  // 100 lines of ItemCard component
+  // 200 lines of CreateItemModal
+  // 300 lines of ItemDetailModal
+  // 150 lines of page layout
 }
 ```
 
-Services accept `userID` directly from the handler (extracted from JWT context) — never look up user details in the service layer for auth purposes.
+After:
+```tsx
+// items/index.tsx (200 lines)
+import { ItemCard } from "./_components/ItemCard";
+import { CreateItemModal } from "./_components/CreateItemModal";
+import { ItemDetailModal } from "./_components/ItemDetailModal";
 
-## Frontend Component Rule
+export default function ItemsPage() {
+  // signals + fetching + layout
+  // passes data to components via props
+}
+```
 
-**Use existing components from `~/components` — never create raw HTML equivalents.** If a component doesn't exist, ask before building one.
+```tsx
+// items/_components/ItemCard.tsx (100 lines)
+export function ItemCard(props: { item: Item; onClick: () => void }) {
+  // pure presentational
+}
+```
 
-- Dropdowns/selects: `<Select>` + `<SelectItem>` (not raw `<select>`)
-- Multi-select: `<MultiSelect>` + `<MultiSelectItem>`
-- Buttons: `<Button>` with variant/size props
-- Inputs: `<Input>` with size/variant props
-- Textareas: `<Textarea>` with autoGrow
-- Modals: `<Modal>` for general, `<DestructiveModal>` for destructive confirms
-- Tabs: `<Tabs>` + `<TabList>` + `<Tab>` + `<TabPanel>`
-- Status badges: `<Chip>` with variant/size props
+## Rules
 
-Check `frontend/src/components/index.ts` for the full list of available exports before writing UI code.
-
-## Reference Files
-
-- Service pattern: `backend/internal/service/auth.go`, `backend/internal/service/user.go`
-- Handler pattern: `backend/internal/handler/auth.go`, `backend/internal/handler/user.go`
-- Migration pattern: `backend/migrations/000001_init.up.sql`
-- Frontend page: `frontend/src/routes/(private)/dashboard/index.tsx`, `frontend/src/routes/(private)/settings/index.tsx`
-- API types: `frontend/src/lib/api.ts`
-- Component barrel: `frontend/src/components/index.ts`
-- Auth context helpers: `backend/internal/handler/context.go`
-- Frontend auth helpers: `frontend/src/lib/auth.ts`
-
-## Post-Implementation
-
-After implementing, run the audit checklist (`@audit-bugs`) against all new files before considering the feature complete.
+1. **Props, not imports** — extracted components get data via props, never import the parent's signals
+2. **Callbacks, not mutations** — extracted components call `props.onSave()`, not `setData()` directly
+3. **Own state is OK** — modals can have their own form signals (`title`, `description`, `saving`)
+4. **Alive guards stay in parent** — the parent manages the component lifecycle
+5. **Don't over-split** — a 400-line file with one modal is fine. Split when there are 3+ distinct UI sections.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
