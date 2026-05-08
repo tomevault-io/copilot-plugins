@@ -1,0 +1,9 @@
+{
+  "name": "julesvcode--framer-plugin-starter-kit",
+  "displayName": "framer-plugin-starter-kit",
+  "description": "A starter kit to build Framer plugins with Cursor.",
+  "version": "1.0.0",
+  "author": "julesvcode",
+  "homepage": "https://github.com/julesvcode/framer-plugin-starter-kit",
+  "skills": []
+}
