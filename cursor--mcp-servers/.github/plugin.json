@@ -1,0 +1,9 @@
+{
+  "name": "cursor--mcp-servers",
+  "displayName": "mcp-servers",
+  "description": "A list of MCP (Model Context Protocol) servers for developer tools and services",
+  "version": "1.0.0",
+  "author": "cursor",
+  "homepage": "https://github.com/cursor/mcp-servers",
+  "skills": []
+}
