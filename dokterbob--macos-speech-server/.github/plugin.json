@@ -1,0 +1,9 @@
+{
+  "name": "dokterbob--macos-speech-server",
+  "displayName": "macos-speech-server",
+  "description": "Local, fast and efficient Speech to Text (STT) and Text to Speech (TTS) on MacOS with OpenAI-compatible API.",
+  "version": "1.0.0",
+  "author": "dokterbob",
+  "homepage": "https://github.com/dokterbob/macos-speech-server",
+  "skills": []
+}
