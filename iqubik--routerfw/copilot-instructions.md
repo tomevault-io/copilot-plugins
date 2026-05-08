@@ -1,50 +1,33 @@
-## build-system
+## docker
 
-> Build system internals — Docker, compose, builder scripts
+> Docker and Docker Compose conventions
 
 
-# Build System (system/ directory)
+# Docker Configuration
 
-## Image Builder Flow
+## Compose Files
 
-`docker-compose.yaml` -> `ib_builder.sh` (runs inside container):
-1. Normalize config (strip BOM, CRLF)
-2. Download/extract ImageBuilder SDK (with caching in `/cache` volume)
-3. Apply custom packages from `/input_packages`
-4. Apply file overlay from `/overlay_files`
-5. Configure custom repos/keys if defined
-6. Modify partition sizes (ROOTFS_SIZE, KERNEL_SIZE) if set
-7. Run `make image` with `IMAGE_PKGS` (fallback compatible with old `PKGS`)
-8. Copy output to `/output/<profile>/`
+- `system/docker-compose.yaml` — Image Builder (2 services: modern + legacy)
+- `system/docker-compose-src.yaml` — Source Builder (2 services: modern + legacy)
 
-## Source Builder Flow
+Services are selected by `_Builder.sh`/`_Builder.bat` based on the ImageBuilder URL version detection.
 
-`docker-compose-src.yaml` -> `src_builder.sh` (runs as user `build` inside container):
-1. Fix volume permissions (optimized: skips if `.git` exists and ownership correct)
-2. Git clone or fetch `SRC_REPO` at `SRC_BRANCH`
-3. Update feeds (optimized: skips if commit unchanged)
-4. Apply patches from `custom_patches/<profile>/` (CRLF->LF conversion)
-5. Run hooks from `scripts/hooks.sh`
-6. Generate `.config` from profile's `SRC_EXTRA_CONFIG`
-7. Compile with `make -j<cores>` (CCache enabled, 20GB limit)
-8. Copy output firmware to `/output/<profile>/`
+## Volume Mounts Pattern
 
-## Docker Images
+All compose files mount host directories relative to project root:
+- `../profiles:/profiles` — profile configs
+- `../${HOST_PKGS_DIR}:/input_packages` — custom .ipk packages
+- `../${HOST_FILES_DIR}:/overlay_files` — file overlay
+- `../firmware_output:/output` — build output
 
-| Dockerfile | Base | Purpose |
-|---|---|---|
-| `dockerfile` | Ubuntu 22.04 | Modern Image Builder |
-| `dockerfile.legacy` | Ubuntu 18.04 | Legacy Image Builder |
-| `src.dockerfile` | Ubuntu 24.04 | Modern Source Builder (GCC 13, ccache) |
-| `src.dockerfile.legacy` | Ubuntu 18.04 | Legacy Source Builder |
+Environment variables `CONF_FILE`, `HOST_OUTPUT_DIR` are passed from the host builder script.
 
-## Docker Volumes
+## Dockerfiles
 
-- `imagebuilder-cache` — SDK archives
-- `ipk-cache` — downloaded packages
-- `src-workdir` — OpenWrt source tree (persistent across builds)
-- `src-dl-cache` — source download cache
-- `src-ccache` — compiler cache
+- Modern images use Ubuntu 22.04/24.04
+- Legacy images use Ubuntu 18.04 with `old-releases.ubuntu.com` mirrors
+- Source Builder creates user `build` (UID 1000) to avoid root compilation
+- All images install minimal build dependencies only
 
 ---
 > Source: [iqubik/routerFW](https://github.com/iqubik/routerFW) — distributed by [TomeVault](https://tomevault.io).
