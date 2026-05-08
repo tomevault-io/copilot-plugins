@@ -1,0 +1,9 @@
+{
+  "name": "antiv--mate",
+  "displayName": "mate",
+  "description": "Production-ready multi-agent orchestration engine built on Google ADK. Database-driven agent config, 50+ LLM providers, MCP protocol, persistent memory, web dashboard, RBAC.",
+  "version": "1.0.0",
+  "author": "antiv",
+  "homepage": "https://github.com/antiv/mate",
+  "skills": []
+}
