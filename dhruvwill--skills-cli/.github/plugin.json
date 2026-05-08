@@ -1,0 +1,9 @@
+{
+  "name": "dhruvwill--skills-cli",
+  "displayName": "skills-cli",
+  "description": "Sync AI Agent skills across all your agent tools with one command.",
+  "version": "1.0.0",
+  "author": "dhruvwill",
+  "homepage": "https://github.com/dhruvwill/skills-cli",
+  "skills": []
+}
