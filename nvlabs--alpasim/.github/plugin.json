@@ -1,0 +1,9 @@
+{
+  "name": "nvlabs--alpasim",
+  "displayName": "alpasim",
+  "description": "AlpaSim is an open-source autonomous vehicle simulation platform designed for development and testing of end-to-end AV policies",
+  "version": "1.0.0",
+  "author": "NVlabs",
+  "homepage": "https://github.com/NVlabs/alpasim",
+  "skills": []
+}
