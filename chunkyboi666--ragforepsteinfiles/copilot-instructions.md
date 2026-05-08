@@ -1,26 +1,60 @@
-## project-context
+## project
 
-> Project identity and product context for RAGforEFN
+> Backend architecture and constraints; source of truth is docs/BACKEND_PLAN.md
 
 
-# Project context
+# Source of truth
 
-This rule applies only when working in this repo (RAGforEFN). Ignore it in other workspaces.
+- **At session start:** Read **`docs/BACKEND_PLAN.md`** (full plan: DB design, ingestion, retrieval, API, build order) and **`docs/PROGRESS.md`** (current phase status). This rule summarizes constraints; the docs are the source of truth.
+- **When work advances:** Update **`docs/PROGRESS.md`** whenever a phase moves to "In progress" or "Complete", or when notes need to change. Keep it in sync with actual progress.
 
-## Product
-Perplexity-style conversational research tool over a document corpus. Users ask natural-language questions and get answers with source citations. Three modes: chat (Synthesize), keyword search (Raw), and entity graph (Network).
+---
 
-## Stack (current — do not revert to old decisions)
-- **Backend**: Python 3.10+ + FastAPI + Uvicorn
-- **Database**: Supabase (PostgreSQL + pgvector) — sole vector store
-- **Embeddings**: OpenAI `text-embedding-3-small` (1536-dim)
-- **LLM**: Any OpenAI-compatible API (OpenRouter, Groq, Ollama, etc.)
-- **Frontend**: React 19 + Vite 6 + TypeScript + Tailwind CSS v4
+# Stack (non-negotiable)
 
-Superseded choices (do not re-introduce): LlamaIndex, LangChain, Qdrant, Pinecone, Chroma, SQLite, Next.js.
+- **Backend:** Python + FastAPI only.
+- **Database:** Supabase (PostgreSQL + pgvector) only. No SQLite in the codebase (no `sqlite3`, no `.db` reads, no SQLite-backed endpoints). No Qdrant, Pinecone, Chroma, Weaviate, FAISS.
+- **Config:** Environment variables only. No hardcoded credentials, URLs, or keys. Use `config.py` for env parsing.
 
-## Architecture constraints
-See `project.mdc` and `backend-plan.mdc` for enforced constraints on folder layout, retrieval pipeline, and API contract.
+---
+
+# Backend folder structure (match the plan)
+
+```
+backend/
+├── ingestion/   — migrate_sqlite.py, chunk_documents.py, embed_chunks.py, create_indexes.py
+├── retrieval/  — query_expansion.py, summary_search.py, chunk_search.py, triple_lookup.py, context_builder.py
+├── api/        — main.py, chat.py, documents.py, search.py, stats.py
+├── config.py
+└── requirements.txt
+```
+
+Do not add parallel layouts (e.g. `src/`, `services/`) unless the plan changes.
+
+---
+
+# Retrieval (6 stages, every /api/chat)
+
+1. Query expansion (entity_aliases)
+2. Summary-level search (summary_embedding) → candidate doc_ids
+3. Chunk-level search (embedding, within candidates) → top chunks
+4. Triple lookup (rdf_triples for those doc_ids, filter by query terms)
+5. Context assembly (chunks + triples + system instruction)
+6. LLM generation (Claude) → answer + sources + triples
+
+Do not skip or reorder stages.
+
+---
+
+# API contract
+
+Every chat-style response MUST include:
+
+- **answer** (string)
+- **sources** (array)
+- **triples** (array)
+
+Use empty arrays when there are none; never omit these fields.
 
 ---
 > Source: [CHUNKYBOI666/RAGforEpsteinFiles](https://github.com/CHUNKYBOI666/RAGforEpsteinFiles) — distributed by [TomeVault](https://tomevault.io).
