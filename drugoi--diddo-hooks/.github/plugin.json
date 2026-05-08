@@ -1,0 +1,9 @@
+{
+  "name": "drugoi--diddo-hooks",
+  "displayName": "diddo-hooks",
+  "description": "diddo is a CLI that tracks your git commits with a post-commit hook and turns them into AI daily summaries",
+  "version": "1.0.0",
+  "author": "drugoi",
+  "homepage": "https://github.com/drugoi/diddo-hooks",
+  "skills": []
+}
