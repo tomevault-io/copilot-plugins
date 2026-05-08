@@ -1,0 +1,59 @@
+## pr-to-main
+
+> Checklist enforced whenever creating a PR that targets main
+
+
+# PR-to-Main Requirements
+
+Every pull request that targets `main` **must** satisfy the three gates below before it can be opened. Treat these as blocking — do not create the PR until all are done.
+
+## 1. Update "What's New"
+
+The in-app changelog lives in `flexfoil-ui/src/lib/version.ts` (the `CHANGELOG` array).
+
+- If the current top entry's `version` already matches the release being prepared, **append** new items to that entry.
+- Otherwise, **add a new entry** at index 0 with the next version, today's date, and the items.
+- Every user-visible change in the PR must have a corresponding `{ category, text }` item. Use the correct category:
+  - `added` — wholly new feature or capability
+  - `changed` — enhancement or modification to existing behavior
+  - `fixed` — bug fix
+- Keep descriptions concise (one sentence, no period).
+
+## 2. Bump Distribution Versions
+
+All version numbers **must** stay in sync with the changelog's latest entry.
+
+| File | Field | Must match |
+|------|-------|------------|
+| `flexfoil-ui/package.json` | `"version"` | Top `CHANGELOG` entry version (drives `__APP_VERSION__` via Vite) |
+| `packages/flexfoil-python/pyproject.toml` | `version` | Bump if the PR touches **anything** in `packages/flexfoil-python/`, `crates/rustfoil-python/`, solver behavior, or the WASM bridge. Skip only if the PR is purely UI cosmetic. |
+
+- Use semver: bump **patch** for fixes, **minor** for new features, **major** for breaking changes.
+- The `package.json` version and the top `CHANGELOG` entry version must always be identical after the PR.
+- When in doubt about whether the Python package needs a bump, bump it — users should always be able to `pip install --upgrade flexfoil` to get the latest solver/API changes.
+
+## 3. Keep Documentation in Sync
+
+The docs site lives in `docs-site/docs/` (Docusaurus `.mdx` files).
+
+- If the PR adds, changes, or removes **any** solver behavior, UI feature, API surface, or configuration option, the corresponding doc page must be created or updated in the same PR.
+- Docs must reflect the **actual** implementation — no aspirational or outdated content. If existing docs reference behavior that the PR changes, update those docs.
+- New major features need their own doc page added to `docs-site/docs/`.
+
+## PR Authoring Checklist
+
+When drafting the PR description, include this checklist (filled in):
+
+```markdown
+## Changelog, Versions & Docs
+- [ ] `flexfoil-ui/src/lib/version.ts` CHANGELOG updated
+- [ ] All user-visible changes have a changelog entry
+- [ ] `flexfoil-ui/package.json` version matches top CHANGELOG entry
+- [ ] `packages/flexfoil-python/pyproject.toml` version bumped (if applicable)
+- [ ] New/changed docs pages added or updated in `docs-site/docs/`
+- [ ] No stale or aspirational content remains in affected docs
+```
+
+---
+> Source: [flexcompute/flexfoil](https://github.com/flexcompute/flexfoil) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
