@@ -1,0 +1,17 @@
+## whistlerpowderhunter
+
+> - Read ReadMe.md to understand the project. Keep it in sync with the project.
+
+- Read ReadMe.md to understand the project. Keep it in sync with the project.
+- Do not force end-to-end runnable output in every change. Partial implementation is allowed when requirements are uncertain.
+- For uncertain or undefined parts, leave explicit placeholders (for example: `TODO`, `pass`, or empty stubs) instead of guessing behavior.
+- Prefer explicit arguments at call sites; avoid default parameters unless there is a clear and stable reason.
+- When a default parameter is necessary, document why that default is safe and intentional.
+- all import should be placed at start of source file.
+- Currently the `need` field is only for debugging purpose, we don't implement the logic to feed additional images yet.
+- Try your best not to use default value in function parameters, if you can't figure out, pause and ask for advice. You don't have to give runnable code change every time.
+- Do not handle exceptions or early return `None` unless explicitly instructed. Exceptions should be thrown to upper logic.
+
+---
+> Source: [FinalTheory/WhistlerPowderHunter](https://github.com/FinalTheory/WhistlerPowderHunter) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
