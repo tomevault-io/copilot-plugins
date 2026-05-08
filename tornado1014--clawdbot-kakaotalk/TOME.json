@@ -1,0 +1,44 @@
+{
+  "name": "clawdbot-kakaotalk",
+  "owner": "tornado1014",
+  "repo": "clawdbot-kakaotalk",
+  "description": "\ud83e\udd9e \uce74\uce74\uc624\ud1a1 \ucc44\ub110\uc744 \ud1b5\ud574 Clawdbot AI \uc5b4\uc2dc\uc2a4\ud134\ud2b8\uc640 \ub300\ud654\ud558\ub294 \ud1b5\ud569 \ud50c\ub7ec\uadf8\uc778",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/tornado1014/clawdbot-kakaotalk",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T10:53:08Z"
+}
