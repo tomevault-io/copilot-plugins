@@ -1,0 +1,9 @@
+{
+  "name": "djust-org--djust",
+  "displayName": "djust",
+  "description": "Phoenix LiveView-style reactive server-side rendering for Django with Rust-powered performance",
+  "version": "1.0.0",
+  "author": "djust-org",
+  "homepage": "https://github.com/djust-org/djust",
+  "skills": []
+}
