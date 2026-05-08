@@ -1,0 +1,9 @@
+{
+  "name": "ops0-ai--oxid",
+  "displayName": "oxid",
+  "description": "A standalone infrastructure-as-code engine that saves the state in a database. Open-source alternative to Terraform.",
+  "version": "1.0.0",
+  "author": "ops0-ai",
+  "homepage": "https://github.com/ops0-ai/oxid",
+  "skills": []
+}
