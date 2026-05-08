@@ -1,0 +1,9 @@
+{
+  "name": "nullcline-labs--vectors-db",
+  "displayName": "vectors.db",
+  "description": "Low-latency in-memory vector database: HNSW + BM25 + hybrid retrieval.",
+  "version": "1.0.0",
+  "author": "nullcline-labs",
+  "homepage": "https://github.com/nullcline-labs/vectors.db",
+  "skills": []
+}
