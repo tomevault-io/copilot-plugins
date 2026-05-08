@@ -2,7 +2,7 @@
   "name": "nornweave",
   "owner": "DataCovey",
   "repo": "nornweave",
-  "description": "",
+  "description": "An open-source, self-hosted API that turns standard email providers (Mailgun, SES, SendGrid) into \"Inbox-as-a-Service\" for AI Agents.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/DataCovey",
+  "source_url": "https://github.com/DataCovey/nornweave",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-15T00:47:28Z"
+  "distributed_at": "2026-05-08T02:32:42Z"
 }
