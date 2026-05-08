@@ -1,0 +1,9 @@
+{
+  "name": "breadcrumb-sh--breadcrumb",
+  "displayName": "breadcrumb",
+  "description": "Simple, open source LLM tracing",
+  "version": "1.0.0",
+  "author": "breadcrumb-sh",
+  "homepage": "https://github.com/breadcrumb-sh/breadcrumb",
+  "skills": []
+}
