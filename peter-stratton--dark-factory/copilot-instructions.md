@@ -1,0 +1,21 @@
+## dark-factory
+
+> Go CLI built for Claude Code that orchestrates autonomous AI agents to
+
+# CLAUDE.md
+
+Go CLI built for Claude Code that orchestrates autonomous AI agents to
+implement, review, and merge GitHub issues without human intervention.
+
+## Where to look
+
+- Architecture and layer definitions — docs/architecture.md
+- Machine-readable layer graph — docs/architecture.json
+- Coding conventions — docs/conventions.md
+- Roadmap and phasing — docs/roadmap/
+- Build, test, and runtime config — godark.yaml
+- Run analytics database — ~/.godark/stats.db (SQLite, queryable for cost/duration/outcome trends)
+
+---
+> Source: [peter-stratton/dark-factory](https://github.com/peter-stratton/dark-factory) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
