@@ -1,0 +1,9 @@
+{
+  "name": "rimuruw--pi-hashline-edit",
+  "displayName": "pi-hashline-edit",
+  "description": "A pi coding agent extension that overrides the built-in read, grep, and edit tools with content-anchored line references (LINE:HASH|content).",
+  "version": "1.0.0",
+  "author": "RimuruW",
+  "homepage": "https://github.com/RimuruW/pi-hashline-edit",
+  "skills": []
+}
