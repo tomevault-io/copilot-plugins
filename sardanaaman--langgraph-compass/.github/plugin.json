@@ -1,0 +1,9 @@
+{
+  "name": "sardanaaman--langgraph-compass",
+  "displayName": "langgraph-compass",
+  "description": "Intelligent follow-up question generation for conversational LangGraph agents",
+  "version": "1.0.0",
+  "author": "sardanaaman",
+  "homepage": "https://github.com/sardanaaman/langgraph-compass",
+  "skills": []
+}
