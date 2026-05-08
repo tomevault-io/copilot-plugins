@@ -7,11 +7,11 @@ Lightweight OpenTelemetry receiver and local dashboard for LLM development — s
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [planetf1/otelite](https://github.com/planetf1/otelite).
+Original source: `CLAUDE.md` in [planetf1/otelite](https://github.com/planetf1/otelite).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
