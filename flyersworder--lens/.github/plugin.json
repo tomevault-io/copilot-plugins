@@ -1,0 +1,9 @@
+{
+  "name": "flyersworder--lens",
+  "displayName": "lens",
+  "description": "LENS: LLM Engineering Navigation System \u2014 discover solution patterns from arxiv papers, inspired by TRIZ",
+  "version": "1.0.0",
+  "author": "flyersworder",
+  "homepage": "https://github.com/flyersworder/lens",
+  "skills": []
+}
