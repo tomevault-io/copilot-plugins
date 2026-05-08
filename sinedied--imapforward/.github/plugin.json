@@ -1,0 +1,9 @@
+{
+  "name": "sinedied--imapforward",
+  "displayName": "imapforward",
+  "description": "Simple IMAP email forwarder for syncing multiple email accounts into one",
+  "version": "1.0.0",
+  "author": "sinedied",
+  "homepage": "https://github.com/sinedied/imapforward",
+  "skills": []
+}
