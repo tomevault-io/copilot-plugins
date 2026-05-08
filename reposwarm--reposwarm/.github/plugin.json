@@ -1,7 +1,7 @@
 {
   "name": "reposwarm--reposwarm",
   "displayName": "reposwarm",
-  "description": "reposwarm",
+  "description": "RepoSwarm is an AI powered tools that coding agents can use for multi-repo architecture discovery.",
   "version": "1.0.0",
   "author": "reposwarm",
   "homepage": "https://github.com/reposwarm/reposwarm",
