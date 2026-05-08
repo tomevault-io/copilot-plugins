@@ -1,167 +1,113 @@
-## i18n-two-level-nesting
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> This rule enforces a strict two-level nesting structure for all i18n translation keys across the project. Translation keys must follow the pattern `category.key` and cannot exceed two levels of nesting.
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
-# i18n Two-Level Nesting Rule
 
-## Overview
+Default to using Bun instead of Node.js.
 
-This rule enforces a strict two-level nesting structure for all i18n translation keys across the project. Translation keys must follow the pattern `category.key` and cannot exceed two levels of nesting.
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Bun automatically loads .env, so don't use dotenv.
 
-## Rule Details
+## APIs
 
-### ✅ Allowed Patterns
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-- `product.name` - Two levels: category and key
-- `user.email` - Two levels: category and key
-- `auth.login` - Two levels: category and key
-- `dashboard.title` - Two levels: category and key
-- `sidebar.home` - Two levels: category and key
+## Testing
 
-### ❌ Rejected Patterns
+Use `bun test` to run tests.
 
-- `reservation.statuses.canceled` - Three levels: category, subcategory, and key
-- `auth.errors.invalidCredentials` - Three levels: category, subcategory, and key
-- `dashboard.metrics.totalReservations` - Three levels: category, subcategory, and key
-- `user.profile.settings.theme` - Four levels: too deep nesting
+```ts#index.test.ts
+import { test, expect } from "bun:test";
 
-## Implementation Guidelines
-
-### 1. Key Structure
-
-- **First level**: Represents the main feature/component (e.g., `reservations`, `users`, `auth`)
-- **Second level**: Represents the specific property/action (e.g., `name`, `email`, `login`)
-
-### 2. Naming Conventions
-
-- Use camelCase for both levels
-- First level should be plural for collections (e.g., `reservations`, `users`)
-- Second level should be descriptive and specific
-
-### 3. File Organization
-
-- All translation files must follow this structure
-- Both `en.json` and `ar.json` files must maintain identical key structures
-- Keys should be organized logically by feature/component
-
-## Examples
-
-### ✅ Correct Structure
-
-```json
-{
-  "reservations": {
-    "add": "Add Reservation",
-    "edit": "Edit Reservation",
-    "delete": "Delete Reservation",
-    "status": "Status",
-    "pending": "Pending",
-    "attended": "Attended",
-    "cancelled": "Cancelled"
-  },
-  "users": {
-    "name": "Name",
-    "email": "Email",
-    "phone": "Phone",
-    "add": "Add User",
-    "edit": "Edit User"
-  },
-  "auth": {
-    "login": "Login",
-    "logout": "Logout",
-    "email": "Email",
-    "password": "Password"
-  }
-}
+test("hello world", () => {
+  expect(1).toBe(1);
+});
 ```
 
-### ❌ Incorrect Structure
+## Frontend
 
-```json
-{
-  "reservations": {
-    "statuses": {
-      "pending": "Pending",
-      "attended": "Attended"
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+
+Server:
+
+```ts#index.ts
+import index from "./index.html"
+
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
     },
-    "actions": {
-      "add": "Add",
-      "edit": "Edit"
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
     }
   },
-  "auth": {
-    "errors": {
-      "invalidCredentials": "Invalid credentials",
-      "sessionExpired": "Session expired"
-    }
+  development: {
+    hmr: true,
+    console: true,
   }
-}
+})
 ```
 
-## Migration Strategy
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
 
-### For Existing Violations
-
-If you encounter existing three-level nesting, refactor as follows:
-
-**Before:**
-
-```json
-{
-  "qrcode": {
-    "notFetched": {
-      "title": "Scan QR Code",
-      "subtitle": "Enter a reservation ID",
-      "description": "Use the search form above"
-    }
-  }
-}
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
 ```
 
-**After:**
+With the following `frontend.tsx`:
 
-```json
-{
-  "qrcode": {
-    "notFetchedTitle": "Scan QR Code",
-    "notFetchedSubtitle": "Enter a reservation ID",
-    "notFetchedDescription": "Use the search form above"
-  }
+```tsx#frontend.tsx
+import React from "react";
+
+// import .css files directly and it works
+import './index.css';
+
+import { createRoot } from "react-dom/client";
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
 }
+
+root.render(<Frontend />);
 ```
 
-## Validation
+Then, run index.ts
 
-### Automated Checks
+```sh
+bun --hot ./index.ts
+```
 
-- Use JSON schema validation to enforce structure
-- Implement pre-commit hooks to validate i18n files
-- Add ESLint rules to catch violations in TypeScript/JavaScript files
-
-### Manual Review
-
-- Review all translation files before commits
-- Ensure both `en.json` and `ar.json` maintain identical structure
-- Verify that refactored keys are updated in all usage locations
-
-## Benefits
-
-1. **Consistency**: Uniform structure across all translation files
-2. **Maintainability**: Easier to locate and update translations
-3. **Performance**: Faster key resolution with fewer nesting levels
-4. **Developer Experience**: Clearer mental model for translation organization
-5. **Tooling**: Better support from i18n tools and IDEs
-
-## Enforcement
-
-This rule should be enforced through:
-
-- Code review processes
-- Automated validation scripts
-- Pre-commit hooks
-- CI/CD pipeline checks
-
-Any violations should be caught and fixed before merging to main branch.
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.md`.
 
 ---
 > Source: [alimehasin/cvforest](https://github.com/alimehasin/cvforest) — distributed by [TomeVault](https://tomevault.io).
