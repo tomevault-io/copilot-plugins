@@ -1,0 +1,26 @@
+## terminal-visualizer
+
+> Use `terminal-visualizer` CLI to render interactive visualizations. Only trigger when the user's prompt contains a **"visual"** keyword (visualize, visualization, visual, etc.). Pipe JSON via Bash:
+
+# Terminal Visualizer
+
+Use `terminal-visualizer` CLI to render interactive visualizations. Only trigger when the user's prompt contains a **"visual"** keyword (visualize, visualization, visual, etc.). Pipe JSON via Bash:
+
+```bash
+terminal-visualizer <<'EOF'
+{"type": "bar-chart", "title": "Revenue", "data": [{"label": "Q1", "value": 120, "color": "blue"}]}
+EOF
+```
+
+See `SKILL.md` for full documentation of all 10 visualization types, color system, and routing logic.
+
+## Install
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/gocodeweb/terminal-visualizer/main/install.sh | bash
+terminal-visualizer install-skill
+```
+
+---
+> Source: [gocodeweb/terminal-visualizer](https://github.com/gocodeweb/terminal-visualizer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
