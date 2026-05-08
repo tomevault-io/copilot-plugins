@@ -1,0 +1,9 @@
+{
+  "name": "freddy-schuetz--n8n-claw-templates",
+  "displayName": "n8n-claw-templates",
+  "description": "MCP server skill catalog for n8n-claw",
+  "version": "1.0.0",
+  "author": "freddy-schuetz",
+  "homepage": "https://github.com/freddy-schuetz/n8n-claw-templates",
+  "skills": []
+}
