@@ -1,105 +1,162 @@
-## figma-serialization
+## figma-styles
 
-> Converting Plugin API data to JSON for postMessage or export.
+> Styles are reusable design properties that can be applied to multiple nodes.
 
 
-# Figma Serialization Patterns
+# Figma Styles API
 
-Converting Plugin API data to JSON for postMessage or export.
+Styles are reusable design properties that can be applied to multiple nodes.
 
-## Clone Readonly Arrays
+## Style Types
 
-Paint and effect arrays are readonly — clone before modifying or sending:
+| Style Type | Applies To | Properties |
+|------------|------------|------------|
+| Paint Style | Fills, strokes | Colors, gradients, images |
+| Text Style | Text nodes | Font, size, line height, etc. |
+| Effect Style | Any node | Shadows, blurs |
+| Grid Style | Frames | Layout grids |
+
+## Getting Local Styles
 
 ```typescript
-// ✓ Clone with JSON round-trip
-const fills = JSON.parse(JSON.stringify(node.fills))
+// Get all local styles (async)
+const paintStyles = await figma.getLocalPaintStylesAsync()
+const textStyles = await figma.getLocalTextStylesAsync()
+const effectStyles = await figma.getLocalEffectStylesAsync()
+const gridStyles = await figma.getLocalGridStylesAsync()
 
-// ✓ Or use spread for shallow clone
-const effects = [...node.effects]
+// Log style names
+paintStyles.forEach(style => console.log(style.name))
 ```
 
-## Handle Special Types
+## Creating Styles
 
-### Colors
-
-Figma colors use 0-1 range, not 0-255:
+### Paint Style
 
 ```typescript
-interface Color {
-  r: number // 0-1
-  g: number // 0-1
-  b: number // 0-1
+const style = figma.createPaintStyle()
+style.name = "Brand/Primary"
+style.paints = [{
+  type: 'SOLID',
+  color: { r: 0.2, g: 0.4, b: 1 }
+}]
+```
+
+### Text Style
+
+```typescript
+const style = figma.createTextStyle()
+style.name = "Heading/H1"
+style.fontName = { family: "Inter", style: "Bold" }
+style.fontSize = 32
+style.lineHeight = { value: 40, unit: "PIXELS" }
+style.letterSpacing = { value: -0.5, unit: "PIXELS" }
+```
+
+### Effect Style
+
+```typescript
+const style = figma.createEffectStyle()
+style.name = "Elevation/Medium"
+style.effects = [{
+  type: 'DROP_SHADOW',
+  color: { r: 0, g: 0, b: 0, a: 0.15 },
+  offset: { x: 0, y: 4 },
+  radius: 8,
+  spread: 0,
+  visible: true,
+  blendMode: 'NORMAL'
+}]
+```
+
+## Applying Styles to Nodes
+
+```typescript
+// Apply paint style to fills
+const rect = figma.createRectangle()
+rect.fillStyleId = paintStyle.id
+
+// Apply paint style to strokes
+rect.strokeStyleId = strokeStyle.id
+
+// Apply text style
+if (textNode.type === "TEXT") {
+  textNode.textStyleId = textStyle.id
 }
 
-// Convert to hex if needed
-const toHex = (c: Color) =>
-  '#' +
-  [c.r, c.g, c.b]
-    .map((v) => Math.round(v * 255).toString(16).padStart(2, '0'))
-    .join('')
-```
+// Apply effect style
+node.effectStyleId = effectStyle.id
 
-### Image Paints
-
-Image fills contain `imageHash`, not actual bytes:
-
-```typescript
-if (fill.type === 'IMAGE') {
-  // imageHash is a string reference
-  const hash = fill.imageHash
-
-  // To get actual bytes, use:
-  const image = figma.getImageByHash(hash)
-  const bytes = await image.getBytesAsync()
+// Apply grid style to frame
+if (frame.type === "FRAME") {
+  frame.gridStyleId = gridStyle.id
 }
 ```
 
-### Font Names
+## Getting Style from Node
 
 ```typescript
-if (node.type === 'TEXT') {
-  // FontName is { family: string, style: string }
-  const font = node.fontName
-  // May be mixed — check for figma.mixed symbol
-  if (font !== figma.mixed) {
-    console.log(font.family, font.style)
-  }
+// Check if node uses a style
+if (node.fillStyleId && typeof node.fillStyleId === 'string') {
+  const style = await figma.getStyleByIdAsync(node.fillStyleId)
+  console.log("Fill style:", style?.name)
+}
+
+// Handle mixed styles (multiple different styles applied)
+if (node.fillStyleId === figma.mixed) {
+  console.log("Node has mixed fill styles")
 }
 ```
 
-## Skip Non-Serializable Properties
-
-These will break `JSON.stringify()`:
+## Importing Styles from Libraries
 
 ```typescript
-// ❌ Don't include in serialized output
-node.parent // Circular reference
-node.removed // Runtime state
-node.reactions // Contains functions
+// Import a style by key
+const importedStyle = await figma.importStyleByKeyAsync(styleKey)
+node.fillStyleId = importedStyle.id
+```
 
-// ✓ Extract only needed data
-function serializeNode(node: SceneNode) {
-  return {
-    id: node.id,
-    name: node.name,
-    type: node.type,
-    // ... other safe properties
-  }
+## Updating Styles
+
+```typescript
+// Modify an existing style
+const style = await figma.getStyleByIdAsync(styleId)
+if (style?.type === "PAINT") {
+  style.paints = [{
+    type: 'SOLID',
+    color: { r: 1, g: 0, b: 0 } // Change to red
+  }]
 }
 ```
 
-## Mixed Values
+## Style Properties
 
-Some properties can be `figma.mixed` when values vary (e.g., mixed fonts in text):
+### PaintStyle
+- `paints`: Array of Paint objects
+- `name`: Style name
+- `description`: Optional description
 
-```typescript
-if (node.fontSize === figma.mixed) {
-  // Handle mixed case
-} else {
-  // Use the value directly
-}
-```
+### TextStyle
+- `fontName`: `{ family: string, style: string }`
+- `fontSize`: number
+- `lineHeight`: `{ value: number, unit: "PIXELS" | "PERCENT" | "AUTO" }`
+- `letterSpacing`: `{ value: number, unit: "PIXELS" | "PERCENT" }`
+- `textCase`: `"ORIGINAL" | "UPPER" | "LOWER" | "TITLE"`
+- `textDecoration`: `"NONE" | "UNDERLINE" | "STRIKETHROUGH"`
+
+### EffectStyle
+- `effects`: Array of Effect objects (shadows, blurs)
+
+## Best Practices
+
+1. **Use async getters** — `getLocalPaintStylesAsync()` instead of sync versions
+2. **Check for mixed** — Style IDs can be `figma.mixed` on text ranges
+3. **Organize with `/`** — Use slashes in names for hierarchy: `"Colors/Primary/500"`
+4. **Handle remote styles** — Library styles have `remote: true`
+
+## MCP Tool
+
+Use `figma_get_examples` with topic "styles" for more code examples.
 
 ---
 > Source: [hoshikitsunoda/figma-plugins-vibe-coding-template](https://github.com/hoshikitsunoda/figma-plugins-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
