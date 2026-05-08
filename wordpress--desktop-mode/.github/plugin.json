@@ -1,0 +1,9 @@
+{
+  "name": "wordpress--desktop-mode",
+  "displayName": "desktop-mode",
+  "description": "WP Desktop Mode is a WordPress plugin that turns /wp-admin into a desktop-style interface with movable windows and a dock menu. It\u2019s opt-in per user, doesn\u2019t change core, and fully reverts on deactiva",
+  "version": "1.0.0",
+  "author": "WordPress",
+  "homepage": "https://github.com/WordPress/desktop-mode",
+  "skills": []
+}
