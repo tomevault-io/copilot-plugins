@@ -1,56 +1,76 @@
-## observability
+## openapi
 
-> Observability patterns — use when adding metrics, traces, or monitoring
+> Patterns for maintaining the OpenAPI specification
 
 
-# Observability Patterns
+# OpenAPI Spec Patterns
 
-Follow the established patterns in `observability/tracer.go` and `observability/metrics.go`.
+The API is documented in `backend/openapi.yaml` (OpenAPI 3.1, hand-maintained).
 
-## Opt-In via Environment Variables
+## When to Update
 
-- `OTEL_ENDPOINT` — set to enable distributed tracing (e.g., `localhost:4317` for local collector)
-- `METRICS_ENABLED=true` — enables Prometheus `/metrics` endpoint
-- Both are no-op when unset — zero overhead in development
+Update the spec whenever you:
+- Add a new endpoint (handler + route in `main.go`)
+- Change request/response schemas
+- Add or modify query parameters
+- Change authentication requirements
 
-## Adding a New Metric
+## Adding a New Endpoint
 
-Register in `observability/metrics.go` using `promauto`:
+Follow the existing pattern. Each endpoint needs:
 
-```go
-var MyNewCounter = promauto.NewCounterVec(prometheus.CounterOpts{
-    Name: "my_new_counter_total",
-    Help: "Description of what this counts.",
-}, []string{"label1", "label2"})
+```yaml
+/your-resource:
+  get:
+    summary: Short description
+    tags: [YourTag]
+    security: [{ bearerAuth: [] }]  # omit for public endpoints
+    parameters: []                   # query params if any
+    responses:
+      "200":
+        description: Success description
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/YourSchema" }
+      "401": { $ref: "#/components/responses/Unauthorized" }
 ```
 
-**Naming conventions:**
-- snake_case
-- Units in the name: `_seconds`, `_bytes`, `_total`
-- Counters end with `_total`
+## Adding a New Schema
 
-**Label cardinality:**
-- Use `c.Path()` (route pattern like `/api/v1/me`) NOT `c.Request().URL.Path` (actual URL like `/api/v1/users/abc123`)
-- Never use user IDs, request IDs, or other high-cardinality values as labels
-- Keep label combinations under ~100 unique sets
+Add to `components/schemas`. Match the Go `Detail` struct field names exactly:
 
-## Adding a Trace Span
-
-The OTel middleware automatically creates spans for every HTTP request. For sub-operations:
-
-```go
-import "go.opentelemetry.io/otel"
-
-tracer := otel.Tracer("service-name")
-ctx, span := tracer.Start(ctx, "operation-name")
-defer span.End()
+```yaml
+YourResource:
+  type: object
+  properties:
+    id: { type: string, format: uuid }
+    title: { type: string }
+    created_at: { type: string, format: date-time }
 ```
 
-## Current Metrics
+## Scaffold Integration
 
-- `http_requests_total` — counter (method, path, status)
-- `http_request_duration_seconds` — histogram (method, path)
-- `active_sse_connections` — gauge (no labels)
+`make new-module name=items` generates backend code but does NOT auto-update the spec. After scaffolding, manually add the CRUD endpoints following the pattern above.
+
+## Conventions
+
+- Endpoint paths must match routes registered in `cmd/server/main.go`
+- Use `$ref` for shared schemas and responses (DRY)
+- Tag names match handler file groupings (Auth, Users, Features, SSE)
+- Reuse `MessageResponse` for simple `{"message": "..."}` responses
+- Reuse `AppError` for all error responses
+
+## TypeScript Type Generation
+
+The frontend generates TypeScript types from this spec via `openapi-typescript`:
+
+```bash
+cd frontend && npm run generate:types
+```
+
+This reads `backend/openapi.yaml` and outputs `frontend/src/lib/api.generated.ts`. CI checks for staleness by running this command and `git diff --exit-code` (with `continue-on-error: true`).
+
+After updating the spec, always regenerate types before committing.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
