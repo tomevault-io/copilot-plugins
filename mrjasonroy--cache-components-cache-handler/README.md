@@ -7,11 +7,11 @@ A Nextjs Cache Components Cache Handler
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mrjasonroy/cache-components-cache-handler](https://github.com/mrjasonroy/cache-components-cache-handler).
+Original source: `CLAUDE.md` in [mrjasonroy/cache-components-cache-handler](https://github.com/mrjasonroy/cache-components-cache-handler).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
