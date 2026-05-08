@@ -1,44 +1,42 @@
-## python-best-practices
+## security-standards
 
-> Guidelines for professional Python development, including Pydantic v2, Python 3.13 typing, Ruff and testing.
+> Security standards for code quality, secret management, and input validation. Apply to all Python and TypeScript files.
 
-# Python Best Practices
 
-You are an AI assistant specialized in Python development. Your approach emphasizes:
+# Security Standards
 
-- **Clear Project Structure**: Separate directories for source code, tests, docs, and config.
-- **Modular Design**: Distinct files for models, services, controllers, and utilities.
-- **Configuration**: Use environment variables for sensitive or environment-specific data.
-- **Error Handling**: Robust error handling and logging, including context capture.
-- **Testing**: Comprehensive testing with `pytest`.
-- **Documentation**: Detailed docstrings (PEP 257) and README files.
-- **Dependency Management**: Use `uv` strictly as specified in `pyproject.toml`.
-- **Code Style**: Consistency using `Ruff` for linting and formatting.
-- **Data Tech**: Pydantic v2 for all data models.
+## 1. Secrets Management
+- **NO Hardcoded Secrets**: Never commit API keys, tokens, or passwords.
+- **Detection**: Patterns like `sk-`, `ghp_`, `eyJ` (JWT) are strictly forbidden in code.
+- **Env Vars**: Use `os.environ` (Python) or `process.env` (Node) loaded from `.env` files.
+- **Access**: Treat `.env` as sensitive. Add to `.gitignore`.
 
-## Rules to Follow:
+## 2. Input Validation (Zero Trust)
+- **Trust No Input**: unexpected JSON fields, query params, or headers.
+- **Python**: Use **Pydantic v2** models for all ingress data (API requests, message payloads).
+  ```python
+  class Request(BaseModel):
+      id: UUID
+      # forbid extra fields to prevent injection
+      model_config = ConfigDict(extra="forbid")
+  ```
+- **TypeScript**: Use **Zod** schema validation for forms and API routes.
+  ```ts
+  const schema = z.object({ email: z.string().email() });
+  ```
 
-1. **Type Annotations**: ALWAYS add typing annotations to each function or class. Include explicit return types (including `None` where appropriate).
-2. **Docstrings**: Add descriptive docstrings to all Python functions and classes following **PEP 257** (Google-style is preferred).
-3. **Preserve Comments**: Keep existing comments in files unless they are explicitly incorrect.
-4. **Testing Standards**:
-   - ONLY use `pytest` or `pytest` plugins.
-   - All tests must have typing annotations.
-   - Place all tests under `./tests`.
-   - Ensure `__init__.py` exists in test packages.
-5. **Modern Pydantic (v2)**:
-   - Use `model_dump()` instead of `dict()`.
-   - Use `model_validate()` instead of `parse_obj()`.
-   - Use `ConfigDict` for configuration.
-6. **Imports for Type Checking**: When using `TYPE_CHECKING`, import standard pytest fixtures as needed:
-   ```python
-   from typing import Self  # Python 3.11+
-   from _pytest.capture import CaptureFixture
-   from _pytest.fixtures import FixtureRequest
-   from _pytest.logging import LogCaptureFixture
-   from _pytest.monkeypatch import MonkeyPatch
-   from pytest_mock.plugin import MockerFixture
-   ```
+## 3. Dependency Security
+- **Lock Files**: Always commit `uv.lock` and `package-lock.json`.
+- **Review**: Check `pip-audit` or `npm audit` results before major merges.
+
+## 4. Output Encoding
+- **No InnerHTML**: Avoid `dangerouslySetInnerHTML` in React unless sanitized (DOMPurify).
+- **SQL Injection**: Never build SQL strings with format strings (`f"SELECT... {user_input}"`). Use ORM (SQLAlchemy/Prisma) or parameterized queries.
+
+## 5. Authentication & AuthZ
+- **Least Privilege**: Agents run with minimal required OAuth scopes.
+- **Validation**: Verify JWT signatures on every request (Middleware).
+- **State**: Do not store sensitive session data in `localStorage` (use `httpOnly` cookies).
 
 ---
 > Source: [adriannoes/asap-protocol](https://github.com/adriannoes/asap-protocol) — distributed by [TomeVault](https://tomevault.io).
