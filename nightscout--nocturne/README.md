@@ -7,11 +7,11 @@ A next-generation platform for diabetes management
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [nightscout/nocturne](https://github.com/nightscout/nocturne).
+Original source: `CLAUDE.md` in [nightscout/nocturne](https://github.com/nightscout/nocturne).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
