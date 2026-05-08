@@ -1,139 +1,101 @@
-## architecture
+## code-style
 
-> Architectural rules and boundaries for SGR Agent Core
+> Code style and formatting rules for SGR Agent Core
 
 
-# Architectural Rules for SGR Agent Core
+# Code Style Rules
 
-## General Architecture
+## General Rules
 
-The project uses **modular architecture with clear separation of concerns**. The framework implements Schema-Guided Reasoning (SGR) for building intelligent research agents.
+1. **Comments**: Write all code comments **ONLY in English**
+2. **User responses**: Respond in Russian unless user requests otherwise
+3. **Empty line at end of file**: Always add an empty line at the end of new files
+4. **Virtual environment**: Virtual environment is located in `.venv` directory
 
-## Core Architecture Layers
+## Code Formatting
 
-### Layer 1: Base Classes (No Dependencies)
-- `BaseAgent` - Base class for all agents
-- `BaseTool` - Base class for all tools (Pydantic models)
-- `MCPBaseTool` - Base class for MCP-integrated tools
-- `models.py` - Core data models (AgentContext, AgentStatesEnum, etc.)
+### Ruff and Black
+- Use `ruff` for linting and formatting
+- Line length: **120 characters** (configured in `pyproject.toml`)
+- Follow rules from `pyproject.toml` and `.ruff.toml` if present
 
-### Layer 2: Configuration and Registry
-- `agent_config.py` - GlobalConfig singleton
-- `agent_definition.py` - AgentDefinition, AgentConfig, LLMConfig, etc.
-- `services/registry.py` - AgentRegistry, ToolRegistry
-- `services/prompt_loader.py` - PromptLoader service
+### Imports
+- Use `isort` for import sorting
+- Group imports: standard library → third-party → local
+- One import per line for long lists
 
-### Layer 3: Factory and Services
-- `agent_factory.py` - AgentFactory for creating agents
-- `services/mcp_service.py` - MCP2ToolConverter for MCP tool integration
-- `services/tavily_search.py` - Tavily search service
-- `next_step_tool.py` - NextStepToolsBuilder, NextStepToolStub, DiscriminantToolMixin
+### Type Hints
+- **Mandatory**: Use type hints for all functions and methods
+- Prefer `T | None` over `Optional[T]` (Python 3.10+)
+- Use `Union[A, B]` for complex types when needed
+- Use `dict[str, Any]` instead of `Dict[str, Any]` (Python 3.9+)
 
-### Layer 4: Agent Implementations
-- `agents/sgr_agent.py` - SGRAgent (Structured Output)
-- `agents/tool_calling_agent.py` - ToolCallingAgent (Function Calling)
-- `agents/sgr_tool_calling_agent.py` - SGRToolCallingAgent (Hybrid)
+### Docstrings
+- Use docstrings in Google style format
+- All docstrings in **English**
+- Must document:
+  - Public classes and methods
+  - Complex business logic
+  - Parameters and return values
 
-### Layer 5: Tools
-- `tools/reasoning_tool.py` - ReasoningTool
-- `tools/clarification_tool.py` - ClarificationTool
-- `tools/web_search_tool.py` - WebSearchTool
-- `tools/extract_page_content_tool.py` - ExtractPageContentTool
-- `tools/generate_plan_tool.py` - GeneratePlanTool
-- `tools/adapt_plan_tool.py` - AdaptPlanTool
-- `tools/create_report_tool.py` - CreateReportTool
-- `tools/final_answer_tool.py` - FinalAnswerTool
-
-### Layer 6: Server and API
-- `server/app.py` - FastAPI application
-- `server/endpoints.py` - API endpoints
-- `server/models.py` - API request/response models
-- `server/settings.py` - Server settings
-- `stream.py` - OpenAIStreamingGenerator
-
-## Agent Execution Cycle
-
-All agents follow a three-phase cycle implemented in `BaseAgent._execution_step()`:
-
+Example:
 ```python
-while agent._context.state not in FINISH_STATES:
-    reasoning = await agent._reasoning_phase()
-    action_tool = await agent._select_action_phase(reasoning)
-    await agent._action_phase(action_tool)
+def create_agent(self, agent_def: AgentDefinition, task_messages: list[dict]) -> BaseAgent:
+    """
+    Create an agent instance from a definition.
+
+    Args:
+        agent_def: Agent definition with configuration
+        task_messages: Task messages in OpenAI format
+
+    Returns:
+        Created agent instance
+    """
 ```
 
-The main `execute()` method runs this cycle until agent reaches a finish state.
+## File Structure
 
-### Phase 1: Reasoning Phase (`_reasoning_phase()`)
-- Agent analyzes current context via `_prepare_context()`
-- Decides on next action using LLM
-- Implementation varies by agent type:
-  - **SGRAgent**: Uses structured output with `NextStepToolStub` (reasoning + tool selection)
-  - **ToolCallingAgent**: Returns `None` (no explicit reasoning)
-  - **SGRToolCallingAgent**: Uses Function Calling to get `ReasoningTool` result, then executes it
-- Returns `ReasoningTool` or `NextStepToolStub` (or `None` for ToolCallingAgent)
+### Element Order in File
+1. Module docstring
+2. Imports (standard library → third-party → local)
+3. Constants
+4. Types and exceptions
+5. Classes and functions
 
-### Phase 2: Select Action Phase (`_select_action_phase()`)
-- Selects appropriate tool based on reasoning
-- Implementation varies by agent type:
-  - **SGRAgent**: Extracts tool from `reasoning.function` field
-  - **ToolCallingAgent**: Uses Function Calling with `tool_choice="required"`
-  - **SGRToolCallingAgent**: Uses Function Calling with `tool_choice="required"` (handles text response edge case)
-- Returns `BaseTool` instance ready for execution
+### Naming
+- **Classes**: PascalCase (`SGRAgent`, `BaseTool`)
+- **Functions and methods**: snake_case (`create_agent`, `_prepare_context`)
+- **Constants**: UPPER_SNAKE_CASE (`MAX_ITERATIONS`)
+- **Private methods**: start with `_` (`_reasoning_phase`, `_log_reasoning`)
+- **Types**: PascalCase (`AgentContext`, `AgentDefinition`)
 
-### Phase 3: Action Phase (`_action_phase()`)
-- Executes selected tool: `result = await tool(context, config)`
-- Updates conversation history with tool call and result
-- Updates agent context (state, iteration, sources, etc.)
-- Logs tool execution
-- Handles special cases (e.g., `ClarificationTool` pauses execution)
+## Error Handling
 
-## Module Rules
+- Use specific exceptions, not generic `Exception`
+- Create custom exceptions for business logic when needed
+- Always include informative error messages
+- Use `Optional` or `| None` for values that may be missing
 
-### Agents (`sgr_agent_core/agents/`)
-- Must inherit from `BaseAgent`
-- Must implement `_reasoning_phase()`, `_select_action_phase()`, `_action_phase()`
-- Can override `_execution_step()` to customize execution cycle
-- Can override `_prepare_context()` and `_prepare_tools()` for customization
-- Automatically registered in `AgentRegistry` via `AgentRegistryMixin`
-- Must set `name` class variable (used for registration)
+## Async/Await
 
-### Tools (`sgr_agent_core/tools/`)
-- Must inherit from `BaseTool` or `MCPBaseTool`
-- Must be Pydantic models (inherit from `BaseModel`)
-- Must implement `__call__(context: AgentContext, config: AgentConfig, **kwargs) -> str`
-- Must set `tool_name` and `description` class variables (or use defaults)
-- Automatically registered in `ToolRegistry` via `ToolRegistryMixin`
-- Return string or JSON string from `__call__()`
-- Can be used in `NextStepToolsBuilder` for structured output
+- Use `async def` for all asynchronous operations
+- Use `await` for all async calls
+- Don't use blocking I/O in async code
+- Use `httpx` instead of `requests` for async HTTP calls
 
-### Services (`sgr_agent_core/services/`)
-- Stateless utility classes
-- Provide shared functionality (prompts, MCP, search)
-- No direct dependencies on agents or tools
+## FastAPI-Specific Guidelines
 
-### Configuration (`agent_config.py`, `agent_definition.py`)
-- Hierarchical configuration: GlobalConfig → AgentDefinition → AgentConfig
-- Supports YAML loading via `GlobalConfig.from_yaml()` and `definitions_from_yaml()`
-- Supports environment variables via `pydantic-settings` (prefix `SGR__`)
-- Automatic inheritance and override of settings
-- `AgentDefinition` inherits from `AgentConfig` (has all config fields + name, base_class, tools)
-- Config classes use `extra="allow"` to support custom fields
-
-## Design Principles
-
-1. **One class at a time**: When implementing new functionality, create one class at a time, starting from lower layers
-2. **Minimal dependencies**: Each module should depend only on lower layer modules
-3. **Type hints**: Use type hints for all functions and methods
-4. **Async-first**: All I/O operations must be async
-5. **Registry pattern**: Use registries for automatic discovery of agents and tools
-6. **Configuration over code**: Prefer YAML configuration over hardcoded values
+- Avoid global scope variables, use application state
+- Use functional components and Pydantic models for validation
+- Use declarative route definitions with clear return type annotations
+- Use `async def` for asynchronous endpoints
+- Use Pydantic's `BaseModel` for input/output validation
+- Use `HTTPException` for expected errors
 
 ## References
 
-@docs/en/framework/main-concepts.md
-@docs/en/framework/agents.md
-@README.md
+@pyproject.toml
+@pytest.ini
 
 ---
 > Source: [vamplabAI/sgr-agent-core](https://github.com/vamplabAI/sgr-agent-core) — distributed by [TomeVault](https://tomevault.io).
