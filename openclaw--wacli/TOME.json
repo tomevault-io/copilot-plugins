@@ -1,0 +1,75 @@
+{
+  "name": "wacli",
+  "owner": "openclaw",
+  "repo": "wacli",
+  "description": "WhatsApp CLI: sync, search, send",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "wacli",
+      "path": "skills/wacli",
+      "github_url": "https://github.com/openclaw/wacli/tree/main/skills/wacli",
+      "description": ""
+    },
+    {
+      "name": "wacli-xcb",
+      "path": "skills/sakaen736jih/wacli-xcb",
+      "github_url": "https://github.com/openclaw/wacli/tree/main/skills/sakaen736jih/wacli-xcb",
+      "description": ""
+    },
+    {
+      "name": "wacli-hdg",
+      "path": "skills/sakaen736jih/wacli-hdg",
+      "github_url": "https://github.com/openclaw/wacli/tree/main/skills/sakaen736jih/wacli-hdg",
+      "description": ""
+    },
+    {
+      "name": "wacli",
+      "path": "skills/steipete/wacli",
+      "github_url": "https://github.com/openclaw/wacli/tree/main/skills/steipete/wacli",
+      "description": ""
+    },
+    {
+      "name": "wacli-mch",
+      "path": "skills/sakaen736jih/wacli-mch",
+      "github_url": "https://github.com/openclaw/wacli/tree/main/skills/sakaen736jih/wacli-mch",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/openclaw/wacli",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T04:30:47Z"
+}
