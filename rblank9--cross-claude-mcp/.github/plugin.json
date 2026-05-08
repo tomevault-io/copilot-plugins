@@ -1,0 +1,9 @@
+{
+  "name": "rblank9--cross-claude-mcp",
+  "displayName": "cross-claude-mcp",
+  "description": "A message bus that lets AI assistants talk to each other. Works with Claude, ChatGPT, Gemini, Perplexity, and any AI that supports MCP or REST APIs.",
+  "version": "1.0.0",
+  "author": "rblank9",
+  "homepage": "https://github.com/rblank9/cross-claude-mcp",
+  "skills": []
+}
