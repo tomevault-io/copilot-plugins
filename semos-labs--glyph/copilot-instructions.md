@@ -1,109 +1,113 @@
-## jsdoc-documentation
+## use-bun-instead-of-node-vite-npm-pnpm
 
-> JSDoc documentation standards for all user-facing code in the glyph package
+> Use Bun instead of Node.js, npm, pnpm, or vite.
 
 
-# JSDoc Documentation Standards
+Default to using Bun instead of Node.js.
 
-Every user-facing export (component, hook, utility function, type, interface) **must** have JSDoc documentation so it can be automatically extracted by the doc generator (TypeDoc → Starlight).
+- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
+- Use `bun test` instead of `jest` or `vitest`
+- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
+- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
+- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
+- Use `bunx <package> <command>` instead of `npx <package> <command>`
+- Bun automatically loads .env, so don't use dotenv.
 
-## Required structure
+## APIs
 
-### Components
+- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
+- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
+- `Bun.redis` for Redis. Don't use `ioredis`.
+- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
+- `WebSocket` is built-in. Don't use `ws`.
+- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
+- Bun.$`ls` instead of execa.
 
-```tsx
-/**
- * Short one-line summary of what the component does.
- *
- * Longer description with behavior details, keyboard shortcuts, etc.
- *
- * @example
- * ```tsx
- * <Component prop="value" onPress={() => doSomething()} />
- * ```
- * @category Components
- */
-export const Component = forwardRef<Handle, Props>(...);
+## Testing
+
+Use `bun test` to run tests.
+
+```ts#index.test.ts
+import { test, expect } from "bun:test";
+
+test("hello world", () => {
+  expect(1).toBe(1);
+});
 ```
 
-### Hooks
+## Frontend
 
-```tsx
-/**
- * Short one-line summary of the hook's purpose.
- *
- * Longer description, when to use it, constraints.
- *
- * @param paramName - Description of parameter.
- * @returns Description of return value.
- *
- * @example
- * ```tsx
- * const result = useMyHook(options);
- * ```
- * @category Hooks
- */
-export function useMyHook(...) { ... }
+Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
+
+Server:
+
+```ts#index.ts
+import index from "./index.html"
+
+Bun.serve({
+  routes: {
+    "/": index,
+    "/api/users/:id": {
+      GET: (req) => {
+        return new Response(JSON.stringify({ id: req.params.id }));
+      },
+    },
+  },
+  // optional websocket support
+  websocket: {
+    open: (ws) => {
+      ws.send("Hello, world!");
+    },
+    message: (ws, message) => {
+      ws.send(message);
+    },
+    close: (ws) => {
+      // handle close
+    }
+  },
+  development: {
+    hmr: true,
+    console: true,
+  }
+})
 ```
 
-### Types & Interfaces
+HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
 
-```tsx
-/**
- * Short description of what this type represents.
- *
- * @example
- * ```tsx
- * const opts: MyOptions = { block: "center" };
- * ```
- * @category Types
- */
-export interface MyOptions {
-  /** Description of each property */
-  block?: "start" | "center" | "end";
+```html#index.html
+<html>
+  <body>
+    <h1>Hello, world!</h1>
+    <script type="module" src="./frontend.tsx"></script>
+  </body>
+</html>
+```
+
+With the following `frontend.tsx`:
+
+```tsx#frontend.tsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+
+// import .css files directly and it works
+import './index.css';
+
+const root = createRoot(document.body);
+
+export default function Frontend() {
+  return <h1>Hello, world!</h1>;
 }
+
+root.render(<Frontend />);
 ```
 
-### Utility functions
+Then, run index.ts
 
-```tsx
-/**
- * Short summary of the utility.
- *
- * @param input - Parameter description.
- * @returns What it returns.
- *
- * @example
- * ```tsx
- * const result = myUtil(input);
- * ```
- * @category Utilities
- */
-export function myUtil(...) { ... }
+```sh
+bun --hot ./index.ts
 ```
 
-## Rules
-
-1. **Every exported symbol** must have a JSDoc block with at least a summary line.
-2. **`@category`** tag is **required** on every primary export. Use one of:
-   - `Components` — React components
-   - `Hooks` — React hooks (`use*`)
-   - `Types` — interfaces, type aliases, enums
-   - `Utilities` — standalone functions and constants
-3. **`@example`** is required on components, hooks, and utility functions. Include a runnable TSX/TS code block.
-4. **`@param`** and **`@returns`** are required on functions and hooks that accept arguments or return values.
-5. **Interface/type properties** must each have a `/** */` doc comment describing them.
-6. **Props interfaces** (e.g. `ButtonProps`) are documented per-property — they don't need a `@category` tag since they get merged into the parent component's page.
-7. **Handle interfaces** (e.g. `InputHandle`) extending `FocusableHandle` should have a brief `/** */` one-liner.
-8. The `@category` tag controls how the doc generator groups pages. Adding a new export with the correct `@category` is all that's needed — no config files to update.
-
-## Reference files
-
-- Components: [Button.tsx](mdc:packages/glyph/src/components/Button.tsx), [Input.tsx](mdc:packages/glyph/src/components/Input.tsx)
-- Hooks: [useApp.ts](mdc:packages/glyph/src/hooks/useApp.ts), [useScrollIntoView.ts](mdc:packages/glyph/src/hooks/useScrollIntoView.ts)
-- Types: [handles.ts](mdc:packages/glyph/src/types/handles.ts), [style.ts](mdc:packages/glyph/src/types/style.ts)
-- Utilities: [mask.ts](mdc:packages/glyph/src/utils/mask.ts), [render.ts](mdc:packages/glyph/src/render.ts)
-- Doc generation: [typedoc.json](mdc:typedoc.json), [postprocess-docs.ts](mdc:scripts/postprocess-docs.ts)
+For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
 
 ---
 > Source: [semos-labs/glyph](https://github.com/semos-labs/glyph) — distributed by [TomeVault](https://tomevault.io).
