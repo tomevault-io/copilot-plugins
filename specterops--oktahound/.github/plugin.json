@@ -1,0 +1,9 @@
+{
+  "name": "specterops--oktahound",
+  "displayName": "OktaHound",
+  "description": "Okta Data Collector for BloodHound Community",
+  "version": "1.0.0",
+  "author": "SpecterOps",
+  "homepage": "https://github.com/SpecterOps/OktaHound",
+  "skills": []
+}
