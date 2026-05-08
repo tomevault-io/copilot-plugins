@@ -1,11 +1,103 @@
-## features-file
+## project-context
 
-> Keep FEATURES.md up to date when adding new features
+> Core project context for cursor-usage-tracker — architecture, data flow, key files
 
 
-# Feature Map Maintenance
+# cursor-usage-tracker — Project Context
 
-When adding a new user-facing feature (page, section, chart, badge, metric, setting, or API endpoint), update `docs/FEATURES.md` to reflect the change. Keep entries short — one line per item, grouped under the correct page heading.
+Open-source Cursor IDE usage monitoring, anomaly detection, and alerting for enterprise teams.
+
+## Project Goals
+
+This dashboard answers four questions:
+
+1. **Cost monitoring** - Are we spending too much? Who's driving it? Why?
+2. **Cost optimization** - Who's using expensive models when cheaper ones would do? How much would switching save?
+3. **Adoption tracking** - Is everyone using the tool we're paying for?
+4. **Usage understanding** - How is each person working with AI?
+
+It is NOT a developer performance measurement tool. Cursor metrics cannot tell you if someone shipped a great feature or wrote bad code. The dashboard monitors cost, adoption, and usage patterns.
+
+## Tech Stack
+
+- Next.js (App Router, Turbopack) + TypeScript strict
+- SQLite via better-sqlite3 (zero-config, file at `data/tracker.db`)
+- Recharts for charts, Tailwind CSS for styling (zinc dark theme)
+- Vitest for tests, ESLint 9 flat config, Prettier
+- Docker (multi-stage Dockerfile + docker-compose.yml)
+
+## Architecture
+
+```
+Cursor Enterprise APIs → Collector (src/lib/collector.ts) → SQLite (src/lib/db.ts)
+                                                                ↓
+                                                    Detection Engine (src/lib/anomaly/)
+                                                                ↓
+                                                    Alerts: Slack + Email (src/lib/alerts/)
+                                                                ↓
+                                                    Dashboard (src/app/ pages)
+```
+
+Two CLI entry points:
+- `npm run collect` — fetch data from Cursor APIs into SQLite
+- `npm run detect` — run anomaly detection + alerting on stored data
+
+Single cron endpoint `POST /api/cron` does both: collect → detect → alert in one call.
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `src/lib/types.ts` | All shared types + DetectionConfig + DEFAULT_CONFIG |
+| `src/lib/cursor-client.ts` | Cursor API client (Admin + Analytics), pagination, rate-limit retry |
+| `src/lib/db.ts` | SQLite schema, all queries, dashboard stats, analytics, user stats |
+| `src/lib/collector.ts` | Data collection pipeline (members, daily usage, spending, events, analytics, groups) |
+| `src/lib/anomaly/detector.ts` | Orchestrator — runs all 3 detection layers, deduplicates |
+| `src/lib/anomaly/thresholds.ts` | Layer 1: static limits (spend, requests, tokens) |
+| `src/lib/anomaly/zscore.ts` | Layer 2: statistical z-score on daily spend vs active team mean |
+| `src/lib/anomaly/trends.ts` | Layer 3: daily spend spikes, cycle spend outliers |
+| `src/lib/incidents.ts` | Incident lifecycle: create, alert, acknowledge, resolve + MTTD/MTTI/MTTR |
+| `src/lib/alerts/slack.ts` | Slack bot token + chat.postMessage with block-kit messages |
+| `src/lib/alerts/email.ts` | Email alerts via Resend with HTML templates |
+| `src/lib/date-utils.ts` | Date formatting helpers (formatDateShort, formatDateTick, formatDateLabel) |
+| `src/lib/format-utils.ts` | Model name shortening (MODEL_MAP regex → short labels) |
+| `src/app/api/cron/route.ts` | Main cron endpoint (collect + detect + alert) |
+| `src/app/api/groups/import/route.ts` | HiBob CSV import: parse, preview changes, apply selectively |
+
+## Dashboard Pages
+
+- `/` — Team overview: stat cards, model cost comparison table ($/request relative multipliers), daily spend trend (sourced from `usage_events` with `daily_spend` fallback, last 2 days marked provisional), spend breakdown by user, members table with search/sort, **group filter dropdown**, time range picker (24h/3d/7d/14d/30d), billing cycle progress
+- `/insights` — Analytics: DAU chart, model adoption, model efficiency rankings, repository code volume (lines, % of total, AI %), MCP tool usage, file extensions, client versions
+- `/users/[email]` — Per-user detail: KPI cards (cycle spend, $/req, agent reqs, diffs accepted, team rank), spend trend chart, AI adoption card (tier, score bar, stat pills with tooltips), cost breakdown by model, tools & features (MCP tools + commands per user), repositories (top 15 by lines, % of total, AI %), model preferences, daily activity table, anomaly history
+- `/anomalies` — MTTD/MTTI/MTTR metrics, open incidents (acknowledge/resolve), anomaly table
+- `/settings` — Detection thresholds, **billing group management** (rename, assign, create), **HiBob CSV import** with change preview
+
+## API Endpoints
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/cron` | POST | Collect + detect + alert (requires x-cron-secret header) |
+| `/api/stats` | GET | Full dashboard data (supports `?days=N`) |
+| `/api/analytics` | GET | Analytics data: DAU, models, agent edits, tabs, MCP, etc. |
+| `/api/team-spend` | GET | Daily team spend breakdown |
+| `/api/model-costs` | GET | Model cost breakdown (users, avg/total spend, requests) |
+| `/api/groups` | GET | Billing groups with members and spend |
+| `/api/groups` | PATCH | Rename group, assign member, or create group |
+| `/api/groups/import` | POST | HiBob CSV import (preview + apply) |
+| `/api/anomalies` | GET | Anomaly timeline (supports `?days=N`) |
+| `/api/users/[email]` | GET | Per-user statistics (supports `?days=N`) |
+| `/api/incidents/[id]` | PATCH | Acknowledge or resolve incident |
+| `/api/settings` | GET/PUT | Detection configuration |
+
+## Database Tables
+
+members, daily_usage, spending, usage_events, anomalies, incidents, config, collection_log, metadata, daily_spend, billing_groups, group_members, billing_group_members, analytics_dau, analytics_model_usage, analytics_agent_edits, analytics_tabs, analytics_mcp, analytics_file_extensions, analytics_client_versions, analytics_commands, analytics_plans, analytics_user_mcp, analytics_user_commands, ai_code_commits
+
+## Important Caveats
+
+- API response shapes may not exactly match the live Cursor API. If real responses differ, update `src/lib/types.ts` and `src/lib/cursor-client.ts`.
+- Trend detection can produce duplicate dedup keys (spend spike + cycle outlier both emit `trend:spend` for same user) — first one wins, second is silently dropped.
+- CLI scripts (`npm run collect`, `npm run detect`) do NOT auto-load `.env` — use `source .env && export CURSOR_ADMIN_API_KEY` or run via the Next.js dev server cron endpoint instead.
 
 ---
 > Source: [ofershap/cursor-usage-tracker](https://github.com/ofershap/cursor-usage-tracker) — distributed by [TomeVault](https://tomevault.io).
