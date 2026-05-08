@@ -1,72 +1,63 @@
-## sql-migrations
+## sse-realtime
 
-> Patterns for SQL migration files — schema changes, enums, indexes, triggers
+> SSE and real-time event patterns — hub, ticket auth, keepalive, reconnect
 
 
-# SQL Migration Patterns
+# SSE / Real-Time Patterns
 
-Follow the established patterns in `000001_init.up.sql`.
+## Hub Architecture
 
-## File Naming
+`SSEHub` is a singleton created in `main.go`. Per-user channel sets with buffered channels (16). Non-blocking sends — if a client's buffer is full, the event is dropped (logged as warning). Max 5 connections per user prevents resource exhaustion.
 
-`000NNN_description.up.sql` and `000NNN_description.down.sql` — always create both.
-
-## Up Migration
-
-```sql
--- Enums first
-CREATE TYPE item_status AS ENUM ('new', 'in_progress', 'complete', 'cancelled');
-
--- Tables (with UUID PKs, timestamps, FKs with ON DELETE CASCADE)
-CREATE TABLE items (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  title TEXT NOT NULL,
-  status item_status DEFAULT 'new',
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Indexes on FKs and frequently filtered columns
-CREATE INDEX idx_items_user_id ON items(user_id);
-CREATE INDEX idx_items_status ON items(status);
-
--- Reuse the existing updated_at trigger function
-CREATE TRIGGER items_updated_at BEFORE
-UPDATE ON items FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+```go
+sseHub := service.NewSSEHub(cfg.SSETicketTTL)
+// Pass to handler and any service that needs to push events
 ```
 
-## Down Migration
+## Ticket Auth (not JWT in URL)
 
-Drop in reverse dependency order: columns (ALTER), then tables, then enums.
+`EventSource` can't set `Authorization` headers. Never put JWTs in URLs (they leak into logs). Use one-time tickets:
 
-```sql
-DROP TABLE IF EXISTS item_history;
-DROP TABLE IF EXISTS items;
-DROP TYPE IF EXISTS item_status;
+1. Client calls `POST /api/v1/events/ticket` with JWT auth → gets a 30s single-use ticket
+2. Client opens `EventSource("/api/v1/events/stream?ticket=<ticket>")`
+3. Server validates and burns the ticket, begins streaming
+
+The stream endpoint is on the public API group (not behind JWT middleware) — it uses ticket auth directly.
+
+## Keepalive
+
+Send `: keepalive\n\n` every 30 seconds. Cloud Run closes idle connections at 15 minutes.
+
+## Frontend Reconnect
+
+On disconnect: refresh access token first (it may have expired), request a new ticket, reconnect with exponential backoff (1s → 2s → 4s → max 30s). Reset backoff on successful connect.
+
+## Scaling Limitation
+
+The hub is in-memory — all connected clients must be on the same instance. For multi-instance deployments, add a pub/sub layer (Redis, NATS). `Send()` and `Broadcast()` are the integration points.
+
+## Adding New Event Types
+
+Backend — publish from any service:
+
+```go
+sseHub.Send(userID, service.SSEEvent{
+    Event: "order_updated",
+    Data:  map[string]any{"order_id": orderID, "status": newStatus},
+})
 ```
 
-## Conventions
+Frontend — register a typed handler:
 
-- **UUIDs** for all primary keys (not serial/bigint).
-- **TIMESTAMPTZ** for all timestamps (not TIMESTAMP).
-- **TEXT** for strings (not VARCHAR) — PostgreSQL treats them identically.
-- **DECIMAL(x,2)** for money/hours (not FLOAT).
-- **JSONB** for structured metadata (audit trails, preferences).
-- **TEXT[]** for tag-like arrays (skills, industries).
-- **Enums** for finite status sets — add a `cancelled` state if the entity can be deactivated.
-- **ON DELETE CASCADE** on child table FKs.
-- **Index every FK** and every column used in WHERE filters.
-- **`updated_at` trigger** on every table that has the column.
-
-## Idempotent Status Transitions
-
-When writing status transitions in service code that references these enums:
-
-```sql
--- GOOD — idempotent, no error on repeat
-UPDATE items SET status = 'in_progress' WHERE id = $1 AND status = 'new';
+```typescript
+onSSEEvent<OrderUpdate>("order_updated", (data) => {
+    toast.info(`Order ${data.order_id} is now ${data.status}`);
+});
 ```
+
+## Middleware
+
+SSE endpoints must be excluded from gzip and timeout middleware (long-lived connections). Both are handled via path checks in `middleware/stack.go` for `/api/v1/events/stream`.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
