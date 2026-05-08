@@ -7,11 +7,11 @@ Preloop is the Governance Layer for AI agents: MCP firewall, model gateway, huma
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [preloop/preloop](https://github.com/preloop/preloop).
+Original source: `CLAUDE.md` in [preloop/preloop](https://github.com/preloop/preloop).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
