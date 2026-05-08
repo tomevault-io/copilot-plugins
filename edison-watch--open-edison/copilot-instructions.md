@@ -1,58 +1,41 @@
-## tests
+## typing
 
-> Testing approach for Open Edison
+> Modern Python typing for Open Edison
 
-## Testing Strategy
+In Python 3.12+ (which Open Edison uses), use built-in collection types for type annotations.
 
-Write simple, focused tests for Open Edison's core functionality.
-
-### Test Structure
+Use `list`, `dict`, `tuple` directly instead of importing from `typing`.
 
 ```python
-import pytest
-from fastapi.testclient import TestClient
-from src.server import OpenEdisonProxy
+# Good
+def process_servers(servers: list[str]) -> dict[str, bool]:
+    return {name: True for name in servers}
 
-@pytest.fixture
-def client():
-    proxy = OpenEdisonProxy()
-    return TestClient(proxy.app)
-
-def test_health_endpoint(client):
-    """Test health check endpoint"""
-    response = client.get("/health")
-    assert response.status_code == 200
-    assert response.json()["status"] == "healthy"
+# Bad  
+from typing import List, Dict
+def process_servers(servers: List[str]) -> Dict[str, bool]:
+    return {name: True for name in servers}
 ```
 
-### Test Categories
+DO NOT import `list`, `dict`, `tuple` from typing module:
 
-- **Unit tests** - Configuration, individual functions
-- **Integration tests** - API endpoints, server functionality
-- **Config tests** - JSON loading, validation
-
-### Key Areas to Test
-
-1. **Configuration system** - Loading, saving, validation
-2. **API endpoints** - Health, status, server management
-3. **Authentication** - API key validation
-4. **MCP proxy** - Server start/stop, process management
-
-### Running Tests
-
-```bash
-make test          # Run all tests
-pytest tests/      # Direct pytest
-pytest -v tests/   # Verbose output
+```python
+# This is wrong
+from typing import list  # Don't do this
 ```
 
-### Best Practices
+For Optional types, use the union syntax:
 
-- Test the happy path and error cases
-- Use descriptive test names
-- Keep tests simple and focused
-- Mock external dependencies (MCP servers)
-- Test configuration edge cases
+```python
+# Good
+from typing import Optional
+def get_config(path: Optional[str] = None) -> Config:
+    pass
+
+# Also good (Python 3.10+)
+def get_config(path: str | None = None) -> Config:
+    pass
+```
 
 ---
 > Source: [Edison-Watch/open-edison](https://github.com/Edison-Watch/open-edison) — distributed by [TomeVault](https://tomevault.io).
