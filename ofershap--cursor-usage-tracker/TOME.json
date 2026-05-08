@@ -2,7 +2,7 @@
   "name": "cursor-usage-tracker",
   "owner": "ofershap",
   "repo": "cursor-usage-tracker",
-  "description": "",
+  "description": "Monitor Cursor IDE usage, detect spending anomalies, and alert your team. Self-hosted, open-source.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ofershap",
+  "source_url": "https://github.com/ofershap/cursor-usage-tracker",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-17T10:10:40Z"
+  "distributed_at": "2026-05-08T16:58:51Z"
 }
