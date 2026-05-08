@@ -1,19 +1,19 @@
-## 02-skill-spec-audit
+## 03-skill-testcases
 
-> SKILL: Requirement Analysis & QA Audit (use for /spec-audit)
+> SKILL: Generate Test Scenarios Matrix from API spec (use for /test-cases)
 
-# SKILL: REQUIREMENTS ANALYSIS
+# SKILL: TEST CASES
 
 ## TRIGGER
-Use this when the user asks to analyze specs, find gaps, or audit documentation.
+Use this when generating test scenarios matrix from API specification.
 
 ## LOGIC SOURCE
-**EXECUTE the instruction set defined in:** `.claude/skills/spec-audit/SKILL.md`
+**EXECUTE the instruction set defined in:** `.claude/skills/test-cases/SKILL.md`
 
-@.claude/skills/spec-audit/SKILL.md
+@.claude/skills/test-cases/SKILL.md
 
 ## OUTPUT
-Follow the Markdown report format defined in the skill file strictly.
+Output: `audit/test-scenarios.md`
 
 ---
 > Source: [vlad-ryzhkov/AI-QA-workshop-feb19](https://github.com/vlad-ryzhkov/AI-QA-workshop-feb19) — distributed by [TomeVault](https://tomevault.io).
