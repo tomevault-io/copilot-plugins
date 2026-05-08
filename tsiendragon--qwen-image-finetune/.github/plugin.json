@@ -1,0 +1,9 @@
+{
+  "name": "tsiendragon--qwen-image-finetune",
+  "displayName": "qwen-image-finetune",
+  "description": "Repo for Qwen Image Finetune",
+  "version": "1.0.0",
+  "author": "tsiendragon",
+  "homepage": "https://github.com/tsiendragon/qwen-image-finetune",
+  "skills": []
+}
