@@ -1,928 +1,297 @@
-## chat-window-accessibility
+## color-contrast-accessibility
 
-> Chat window component accessibility compliance and WCAG compliance for real-time communication features
+> Text and user interface color contrast compliance with WCAG 2.2 1.4.3 and 1.4.11
 
-# Chat Window Component Accessibility Standards
+# Color Contrast Accessibility Standards
 
-Ensures chat window components follow WCAG compliance and provide proper accessibility for real-time communication, notifications, and assistive technology support.
+Ensures color contrast meets WCAG 2.2 1.4.3: Contrast (Minimum) and 1.4.11: Non-text Contrast requirements.
 
 <rule>
-name: chat_window_accessibility_standards
-description: Enforce chat window component accessibility standards and WCAG compliance for real-time communication features
+name: color_contrast_accessibility_standards
+description: Enforce color contrast accessibility standards per WCAG 2.2 1.4.3 and 1.4.11
 filters:
   - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts|css|scss|sass|less)$"
+    pattern: "\\.(css|scss|sass|less|vue|jsx|tsx|html|liquid|php|js|ts)$"
 
 actions:
   - type: enforce
     conditions:
-      # Chat window missing proper landmark role
-      - pattern: "(?i)<(div|section)[^>]*(?:chat|conversation|messages)[^>]*>"
-        pattern_negate: "role=\"(log|region|dialog)\""
-        message: "Chat window containers must have role='log' for message history, role='region' for general chat areas, or role='dialog' for popup windows."
+      # Common low-contrast text color combinations
+      - pattern: "color:\\s*#[89abcdefABCDEF]{6}"
+        message: "Light text colors may not meet 4.5:1 contrast ratio requirement. Verify contrast against background."
 
-      # Chat log missing accessible name
-      - pattern: "(?i)<[^>]*role=\"log\"[^>]*>"
-        pattern_negate: "(aria-labelledby|aria-label)"
-        message: "Chat log elements must have accessible names via aria-labelledby or aria-label for screen reader identification."
+      - pattern: "color:\\s*#[0-6]{6}"
+        message: "Very light text colors likely fail contrast requirements. Use darker colors for better accessibility."
 
-      # Chat messages missing author identification
-      - pattern: "(?i)<(p|div)[^>]*(?:message|chat|conversation)[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby|class.*visually-hidden|class.*sr-only)"
-        message: "Chat messages must include author identification via visible text, aria-label, or visually hidden content for screen reader users."
+      # Light gray text (common accessibility issue)
+      - pattern: "color:\\s*(#[cdefCDEF]{3,6}|lightgray|lightgrey|silver)"
+        message: "Light gray text often fails WCAG contrast requirements (4.5:1 minimum). Use darker colors."
 
-      # Chat messages in wrong DOM order
-      - pattern: "(?i)<div[^>]*class=\"[^\"]*(?:left|right|user|agent)[^\"]*\"[^>]*>"
-        pattern_negate: "(role=\"log\"|aria-live)"
-        message: "Chat messages must maintain chronological order in DOM structure. Avoid using separate columns that break reading sequence."
+      # Common problematic color combinations
+      - pattern: "background.*#fff.*color.*#[89abcdefABCDEF]"
+        message: "Light text on white background may not meet 4.5:1 contrast ratio requirement."
 
-      # Chat notifications relying only on sound
-      - pattern: "(?i)(audio|sound|play|new.*message)"
-        pattern_negate: "(aria-live|role=\"status\"|visual.*notification|title.*change|notification.*badge)"
-        message: "Chat notifications must use multiple sensory channels. Combine sound with visual indicators, aria-live announcements, title changes, and notification badges."
+      - pattern: "background.*#f[0-9a-fA-F]{5}.*color.*#[89abcdefABCDEF]"
+        message: "Light text on light background may not meet contrast requirements."
 
-      # Chat window missing keyboard support
-      - pattern: "(?i)<(div|section)[^>]*(?:chat|conversation)[^>]*>"
-        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown|tabindex)"
-        message: "Chat windows must support keyboard navigation for opening, closing, and message interaction."
+      # UI component border/focus indicators
+      - pattern: "border.*#[cdefCDEF]{3,6}"
+        message: "Light borders may not meet 3:1 non-text contrast requirement for UI components."
 
-      # Chat popup missing focus management
-      - pattern: "(?i)<(div|section)[^>]*role=\"dialog\"[^>]*(?:chat|conversation)[^>]*>"
-        pattern_negate: "(aria-modal|focus|tabindex)"
-        message: "Chat popup windows must implement proper focus management and aria-modal='true' for accessibility."
+      - pattern: "outline.*#[cdefCDEF]{3,6}"
+        message: "Light focus outlines may not meet 3:1 contrast requirement for UI component identification."
 
-      # Chat launcher missing aria-haspopup
-      - pattern: "(?i)<(button|div)[^>]*(?:chat|conversation|support)[^>]*>"
-        pattern_negate: "aria-haspopup=\"dialog\""
-        message: "Chat launcher buttons must include aria-haspopup='dialog' to inform users a dialog will open."
+      # Button states with insufficient contrast
+      - pattern: "button.*background.*#[cdefCDEF]{3,6}"
+        message: "Light button backgrounds may not provide sufficient 3:1 contrast for UI component identification."
 
-      # Chat window missing focus trap
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:chat|conversation)[^>]*>"
-        pattern_negate: "(focus.*trap|tabindex|aria-modal)"
-        message: "Chat popup windows must implement focus trapping to prevent keyboard navigation outside the dialog."
+      # Form input borders
+      - pattern: "input.*border.*#[defDEF]{3,6}"
+        message: "Very light input borders may not meet 3:1 contrast requirement for form field identification."
 
-      # Chat input missing proper labeling
-      - pattern: "(?i)<(input|textarea)[^>]*(?:chat|message|reply)[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby|label|placeholder)"
-        message: "Chat input fields must have proper labels via label elements, aria-label, or aria-labelledby for screen reader context."
+      # SVG icon fill colors that may lack contrast
+      - pattern: "fill=\"#[cdefCDEF]{3,6}\""
+        message: "Light SVG fill colors may not meet 3:1 contrast requirement for icon identification."
 
-      # Chat button missing accessible name
-      - pattern: "(?i)<(button|div)[^>]*(?:chat|conversation|support)[^>]*>"
-        pattern_negate: "(aria-label|aria-labelledby|>.*[A-Za-z]{10,})"
-        message: "Chat buttons must have accessible names via visible text, aria-label, or aria-labelledby for screen reader identification."
+      # SVG stroke colors for icon outlines
+      - pattern: "stroke=\"#[defDEF]{3,6}\""
+        message: "Very light SVG stroke colors may not provide sufficient contrast for icon visibility."
 
-      # Chat button missing proper role
-      - pattern: "(?i)<(div|span)[^>]*(?:chat|conversation|support)[^>]*>"
-        pattern_negate: "(role=\"button\"|<button)"
-        message: "Chat controls styled as buttons must have role='button' or use native button elements for proper semantics."
-
-      # Chat window missing expandable state management
-      - pattern: "(?i)<(button|div)[^>]*(?:chat|conversation)[^>]*>"
-        pattern_negate: "aria-expanded=\"(true|false)\""
-        message: "Expandable chat windows must have aria-expanded attribute to indicate open/closed state for screen readers."
-
-      # Chat window missing aria-controls
-      - pattern: "(?i)<(button|div)[^>]*(?:chat|conversation)[^>]*>"
-        pattern_negate: "aria-controls=\"[^\"]+\""
-        message: "Chat controls must have aria-controls referencing the chat window ID for proper association."
-
-      # Chat timeout missing user notification
-      - pattern: "(?i)(timeout|session.*expir|inactive)"
-        pattern_negate: "(notification|warning|extend|20.*second)"
-        message: "Chat timeouts must notify users before expiration and provide at least 20 seconds to extend the session."
-
-      # Chat auto-update missing pause controls
-      - pattern: "(?i)(auto.*update|real.*time|live.*update)"
-        pattern_negate: "(pause|stop|hide|user.*control)"
-        message: "Auto-updating chat content must provide pause/stop controls to prevent overwhelming screen reader users."
-
-      # Chat missing persistent notification system
-      - pattern: "(?i)<(div|section)[^>]*(?:chat|conversation)[^>]*>"
-        pattern_negate: "(notification.*badge|aria-live.*polite|role.*status)"
-        message: "Chat windows must provide persistent notification system including visual badge counter and persistent screen reader announcements when closed."
-
-      # Chat focus not contained within popup
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:chat|conversation)[^>]*>"
-        pattern_negate: "(focus.*trap|tabindex|aria-modal)"
-        message: "Chat popup windows must contain keyboard focus to prevent focus from becoming obscured behind the dialog."
-
-      # Chat messages missing proper contrast
-      - pattern: "(?i)<(p|div)[^>]*(?:message|chat)[^>]*>"
-        pattern_negate: "(color.*#[0-4][0-9a-fA-F]{5}|color.*#[5-9a-fA-F][0-9a-fA-F]{5})"
-        message: "Chat message text must meet WCAG contrast requirements (4.5:1 minimum for normal text, 3:1 for large text)."
-
-      # Chat window not responsive
-      - pattern: "(?i)<(div|section)[^>]*(?:chat|conversation)[^>]*>"
-        pattern_negate: "(max-width|min-width|flex|grid|responsive)"
-        message: "Chat windows must be responsive and work on devices down to 320px width without horizontal scrolling."
-
-      # Chat icon missing alt text
-      - pattern: "(?i)<img[^>]*(?:chat|conversation|support)[^>]*>"
-        pattern_negate: "alt=\"[^\"]+\""
-        message: "Chat-related images must have descriptive alt text for screen reader users."
-
-      # Chat status messages missing role
-      - pattern: "(?i)<(div|span)[^>]*(?:status|notification|typing)[^>]*>"
-        pattern_negate: "role=\"(status|log|alert)\""
-        message: "Chat status messages must use appropriate ARIA roles (status, log, or alert) for screen reader announcements."
+      # Missing prefers-contrast considerations
+      - pattern: "@media\\s*\\(prefers-contrast:\\s*more\\)"
+        pattern_negate: "color|background|border"
+        message: "prefers-contrast: more media query should include enhanced color/contrast properties."
 
   - type: suggest
     message: |
-      **WCAG Chat Window Accessibility Requirements:**
-
-      **Key Accessibility Features:**
-      - **Easy to find and use:** Intuitive placement and clear labeling
-      - **Multi-sensory notifications:** Visual, auditory, and haptic feedback
-      - **Universal access:** All features available to all users
-      - **Message preservation:** All messages accessible to everyone
-
-      **WCAG Criteria Implementation:**
-
-      **1. Info and Relationships (WCAG 1.3.1):**
-      - **Author identification:** Each message must clearly indicate who sent it
-      - **Visual relationships:** Use semantic markup, not just visual styling
-      - **Screen reader support:** Provide context for message ownership
-
-      **2. Meaningful Sequence (WCAG 1.3.2):**
-      - **Chronological order:** Messages must appear in DOM order matching visual order
-      - **Avoid columns:** Don't separate user/agent messages into different containers
-      - **Reading flow:** Maintain logical conversation sequence for screen readers
-
-      **3. Sensory Characteristics (WCAG 1.3.3):**
-      - **Multiple notification methods:** Combine sound, visual, and screen reader announcements
-      - **No single sense dependency:** Don't rely solely on audio or visual cues
-      - **Universal alerts:** Ensure notifications work for all users
-
-      **4. Orientation (WCAG 1.3.4):**
-      - **Responsive design:** Work in both portrait and landscape modes
-      - **No orientation locks:** Allow users to choose their preferred orientation
-      - **Flexible layouts:** Adapt to different screen sizes and orientations
-
-      **5. Contrast (WCAG 1.4.3):**
-      - **Text contrast:** 4.5:1 minimum for normal text, 3:1 for large text
-      - **Background contrast:** Ensure sufficient contrast for all text elements
-      - **Visual clarity:** Make messages easily readable for all users
-
-      **6. Reflow (WCAG 1.4.10):**
-      - **Responsive design:** Work on devices down to 320px width
-      - **No horizontal scroll:** Content must fit without horizontal scrolling
-      - **Flexible layouts:** Use CSS Grid and Flexbox for adaptability
-
-      **7. Non-text Contrast (WCAG 1.4.11):**
-      - **Image alternatives:** Provide alt text for all images and icons
-      - **Icon identification:** Ensure chat icons are properly labeled
-      - **Visual elements:** Make all non-text content accessible
-
-      **8. Keyboard (WCAG 2.1.1):**
-      - **Full keyboard support:** All chat functions must work with keyboard
-      - **Navigation:** Support Tab, Enter, Space, and Escape keys
-      - **No mouse dependency:** Ensure keyboard-only users can fully participate
-
-      **9. No Keyboard Trap (WCAG 2.1.2):**
-      - **Focus management:** Proper focus trapping within chat windows
-      - **Escape mechanism:** Provide clear way to exit chat
-      - **Focus restoration:** Return focus to launcher when chat closes
-      - **Focus trap:** Prevent keyboard navigation outside chat window while open
-
-      **11. Timing Adjustable (WCAG 2.2.1):**
-      - **Session timeouts:** Notify users before session expiration (minimum 30 seconds notice)
-      - **Extension options:** Provide at least 20 seconds to extend
-      - **Character monitoring:** Listen for input changes, not just key presses
-      - **Screen reader notification:** Use dedicated role="alert" element for important timeout warnings
-
-      **12. Pause, Stop, Hide (WCAG 2.2.2):**
-      - **Content control:** Allow users to pause auto-updating content
-      - **Overwhelm prevention:** Provide mechanisms to reduce screen reader noise
-      - **Essential content:** Balance accessibility with functionality
-
-      **13. Enhanced Notifications (WCAG 4.1.3):**
-      - **Persistent notifications:** Provide visual badge counter on chat launcher when closed
-      - **Screen reader announcements:** Persistent aria-live regions for notifications when chat window is closed
-      - **Multi-sensory feedback:** Combine visual, auditory, and screen reader notifications
-      - **Context awareness:** Notify users about new messages even when chat window is not open
-      - **Enhanced button labeling:** Dynamic accessible name that includes unread message count for better context
-
-      **14. User Interaction Monitoring (WCAG 2.2.1):**
-      - **Session extension on interaction:** Extend chat session on any user interaction, not just sent messages
-      - **Comprehensive monitoring:** Monitor clicks, key presses, input changes, scrolling, and focus events
-      - **Assistive technology support:** Ensure users with typing difficulties can extend sessions through other interactions
-      - **Immediate response:** Reset session timer immediately on any user engagement
-
-      **15. Focus Not Obscured (WCAG 2.4.11):**
-      - **Focus visibility:** Ensure keyboard focus is always visible
-      - **Modal containment:** Keep focus within chat popup windows
-      - **Background prevention:** Don't let focus move behind chat windows
-
-      **16. Name, Role, Value (WCAG 4.1.2):**
-      - **Accessible names:** Clear labels for all interactive elements
-      - **Proper roles:** Use semantic HTML or appropriate ARIA roles
-      - **State management:** Maintain and communicate current states
-
-      **17. Status Messages (WCAG 4.1.3):**
-      - **Real-time updates:** Announce new messages and status changes
-      - **Context awareness:** Provide appropriate level of detail
-      - **Screen reader support:** Use role='log' for message history
-
-      **18. Modal Dialog Requirements:**
-      - **aria-haspopup="dialog":** Set on chat launcher buttons (no aria-controls or aria-expanded needed)
-      - **Focus trapping:** Prevent keyboard navigation outside chat window
-      - **Initial focus:** Move focus to first focusable element when chat opens
-      - **Focus restoration:** Return focus to launcher when chat closes
-      - **Escape key:** Close chat window with Escape key
-      - **Focus trap implementation:** Must handle both forward (Tab) and backward (Shift+Tab) navigation
-      - **Focusable element detection:** Include all interactive elements (buttons, inputs, textareas, links, custom focusable elements)
-      - **Safety checks:** Additional validation to ensure focus remains within chat window
-
-      **Implementation Patterns:**
-
-      **1. Basic Chat Window Structure (Modal Dialog Pattern):**
-      ```html
-      <!-- Chat launcher button -->
-      <button id="chat-launcher"
-              aria-haspopup="dialog">
-        <img src="chat-icon.png" alt="" />
-        Chat with Support
-        <span id="notification-badge" class="notification-badge" hidden>0</span>
-      </button>
-
-      **Note:** For modal dialog pattern, use only `aria-haspup="dialog"`. Do not use `aria-controls` or `aria-expanded` as these are not needed for modal dialogs.
-
-      <!-- Chat window -->
-      <div id="chat-window"
-           role="dialog"
-           aria-modal="true"
-           aria-labelledby="chat-heading"
-           hidden>
-        <div class="chat-header">
-          <h2 id="chat-heading">Chat: Customer Support</h2>
-          <button type="button"
-                  aria-label="Close chat"
-                  onclick="closeChat()">
-            ×
-          </button>
-        </div>
-
-        <!-- Message log -->
-        <div class="chat-messages"
-             role="log"
-             aria-labelledby="chat-heading">
-          <div class="message agent" role="article">
-            <div class="message-content">
-              <span class="sr-only">Customer Support: </span>
-              Hi, how can I help you today?
-            </div>
-            <time class="message-time" datetime="2024-01-15T10:00:00Z">10:00 AM</time>
-          </div>
-          <div class="message user" role="article">
-            <div class="message-content">
-              <span class="sr-only">You sent: </span>
-              I'm having trouble resetting my password.
-            </div>
-            <time class="message-time" datetime="2024-01-15T10:01:00Z">10:01 AM</time>
-          </div>
-        </div>
-
-        <!-- Input area -->
-        <div class="chat-input">
-          <label for="message-input" class="visually-hidden">Type your message:</label>
-          <textarea id="message-input"
-                    placeholder="Type your message..."
-                    aria-label="Type your message"></textarea>
-          <button type="button"
-                  aria-label="Send message"
-                  onclick="sendMessage()">
-            Send
-          </button>
-        </div>
-      </div>
-      ```
-
-      **2. Chat Message Structure:**
-      ```html
-      <!-- Good: Proper message structure with author identification -->
-      <div class="chat-messages" role="log" aria-labelledby="chat-heading">
-        <div class="message agent">
-          <div class="message-content">
-            <span class="sr-only">Customer Support: </span>
-            Hi, how can I help you today?
-          </div>
-          <time class="message-time" datetime="2024-01-15T10:00:00Z">10:00 AM</time>
-        </div>
-        <div class="message user">
-          <div class="message-content">
-            <span class="sr-only">You sent: </span>
-            I'm having trouble resetting my password.
-          </div>
-          <time class="message-time" datetime="2024-01-15T10:01:00Z">10:01 AM</time>
-        </div>
-        <div class="message agent">
-          <div class="message-content">
-            <span class="sr-only">Customer Support: </span>
-            I can help with that. What's your email address?
-          </div>
-          <time class="message-time" datetime="2024-01-15T10:01:30Z">10:01 AM</time>
-        </div>
-      </div>
-
-      **Note:** Use div elements for chat messages instead of role="article" to reduce navigation noise for screen reader users. Chat messages are conversational content rather than standalone articles.
-
-      <!-- Bad: Separate columns that break reading order -->
-      <div class="chat-columns">
-        <div class="left-column">
-          <p>Customer Support: Hi</p>
-          <p>Customer Support: How can I help?</p>
-        </div>
-        <div class="right-column">
-          <p>Me: Hi</p>
-          <p>Me: I need help</p>
-        </div>
-      </div>
-      ```
-
-      **3. Multi-Sensory Notifications:**
-      ```html
-      <!-- Status message for new messages -->
-      <div role="status" aria-live="polite" class="chat-status">
-        New message received
-      </div>
-
-      <!-- Visual notification -->
-      <div class="chat-notification" aria-hidden="true">
-        <span class="notification-badge">1</span>
-      </div>
-
-      <!-- Page title update -->
-      <script>
-        function updatePageTitle(message) {
-          const originalTitle = document.title;
-          document.title = `New message - ${originalTitle}`;
-
-          // Restore title after 5 seconds
-          setTimeout(() => {
-            document.title = originalTitle;
-          }, 5000);
-        }
-      </script>
-      ```
-
-      **4. Enhanced Notification System:**
-      ```html
-      <!-- Chat launcher with notification badge -->
-      <button id="chat-launcher"
-              class="chat-launcher"
-              aria-haspopup="dialog">
-        <img src="chat-icon.png" alt="" />
-        Chat with Support
-        <span id="notification-badge" class="notification-badge" hidden>0</span>
-      </button>
-
-      **Note:** The notification badge is part of the button's accessible name, not hidden from screen readers. This provides better context about unread messages.
-
-      **5. Enhanced Button Labeling:**
-      ```html
-      <!-- Dynamic accessible name based on message count -->
-      <button id="chat-launcher"
-              class="chat-launcher"
-              aria-haspopup="dialog">
-        <img src="chat-icon.png" alt="" />
-        Chat with Support
-        <span id="notification-badge" class="notification-badge" hidden>0</span>
-      </button>
-      ```
-
-      **JavaScript for Dynamic Labeling:**
-      ```javascript
-      // Update button's accessible name to include message count
-      function updateNotificationBadge() {
-        const launcher = document.getElementById('chat-launcher');
-
-        if (messageCount === 1) {
-          launcher.setAttribute('aria-label', 'Chat with Support - 1 new message');
-        } else if (messageCount > 1) {
-          launcher.setAttribute('aria-label', `Chat with Support - ${messageCount} new messages`);
-        }
-      }
-
-      // Reset button's accessible name when chat is opened
-      function clearNotificationBadge() {
-        const launcher = document.getElementById('chat-launcher');
-        launcher.removeAttribute('aria-label');
-      }
-      ```
-
-      <!-- Persistent notification area for screen readers -->
-      <div id="chat-notifications"
-           role="status"
-           aria-live="polite"
-           class="sr-only"
-           aria-label="Chat notifications">
-      </div>
-
-      <style>
-        .notification-badge {
-          position: absolute;
-          top: -5px;
-          right: -5px;
-          background: #dc3545;
-          color: white;
-          border-radius: 50%;
-          width: 20px;
-          height: 20px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 0.75rem;
-          font-weight: bold;
-          transition: all 0.3s ease;
-        }
-
-        .notification-badge.show {
-          animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-          100% { transform: scale(1); }
-        }
-      </style>
-
-      <script>
-        let messageCount = 0;
-
-                // Update notification badge
-        function updateNotificationBadge() {
-          const badge = document.getElementById('notification-badge');
-          const chatWindow = document.getElementById('chat-window');
-          const launcher = document.getElementById('chat-launcher');
-
-          if (badge) {
-            // Only show badge when chat is closed
-            if (chatWindow.classList.contains('hidden')) {
-              badge.hidden = false;
-              badge.textContent = messageCount;
-              badge.classList.add('show');
-
-              // Update button's accessible name to include message count
-              if (messageCount === 1) {
-                launcher.setAttribute('aria-label', 'Chat with Support - 1 new message');
-              } else if (messageCount > 1) {
-                launcher.setAttribute('aria-label', `Chat with Support - ${messageCount} new messages`);
-              }
-
-              // Remove animation after 2 seconds
-              setTimeout(() => {
-                badge.classList.remove('show');
-              }, 2000);
-            } else {
-              // Hide badge when chat is open
-              badge.hidden = true;
-            }
-          }
-        }
-
-        // Announce persistent notification for screen readers
-        function announcePersistentNotification(sender) {
-          const notificationArea = document.getElementById('chat-notifications');
-          const chatWindow = document.getElementById('chat-window');
-
-          if (notificationArea && chatWindow.classList.contains('hidden')) {
-            const message = `New message from ${sender === 'agent' ? 'Customer Support' : 'you'}. Chat window is closed.`;
-            notificationArea.textContent = message;
-
-            // Clear notification after 3 seconds
-            setTimeout(() => {
-              notificationArea.textContent = '';
-            }, 3000);
-          }
-        }
-
-        // Clear notification badge
-        function clearNotificationBadge() {
-          const badge = document.getElementById('notification-badge');
-          const launcher = document.getElementById('chat-launcher');
-
-          if (badge) {
-            badge.hidden = true;
-            badge.classList.remove('show');
-          }
-
-          // Reset button's accessible name
-          if (launcher) {
-            launcher.removeAttribute('aria-label');
-          }
-        }
-      </script>
-      ```
-
-      **6. Focus Management:**
-      ```html
-      <!-- Chat popup with focus management -->
-      <div role="dialog"
-           aria-modal="true"
-           aria-labelledby="chat-heading"
-           class="chat-popup">
-        <div class="chat-header">
-          <h2 id="chat-heading">Chat Support</h2>
-          <button type="button"
-                  aria-label="Close chat"
-                  onclick="closeChat()">
-            ×
-          </button>
-        </div>
-
-        <div class="chat-content" tabindex="-1">
-          <!-- Chat messages and input -->
-        </div>
-      </div>
-
-      <script>
-        function openChat() {
-          const chatWindow = document.getElementById('chat-window');
-          const launcher = document.getElementById('chat-launcher');
-
-          chatWindow.hidden = false;
-          launcher.setAttribute('aria-expanded', 'true');
-
-          // Focus first focusable element in chat
-          const firstFocusable = chatWindow.querySelector('button, input, textarea');
-          if (firstFocusable) {
-            firstFocusable.focus();
-          }
-        }
-
-        function closeChat() {
-          const chatWindow = document.getElementById('chat-window');
-          const launcher = document.getElementById('chat-launcher');
-
-          chatWindow.hidden = true;
-          launcher.setAttribute('aria-expanded', 'false');
-
-          // Return focus to launcher
-          launcher.focus();
-        }
-      </script>
-      ```
-
-      **7. Session Timeout Management:**
-      ```html
-      <!-- Timeout warning -->
-      <div class="timeout-warning" hidden>
-        <p>This chat will end in <span id="timeout-countdown">20</span> seconds if you do not reply.</p>
-        <button type="button" onclick="extendSession()">Extend Session</button>
-      </div>
-
-      <!-- Timeout alert for screen readers -->
-      <div role="alert" aria-live="assertive" class="timeout-alert" hidden>
-        This chat will end in 20 seconds if you do not reply.
-      </div>
-
-      <script>
-        let sessionTimeout;
-        let warningTimeout;
-
-        function startSessionTimer() {
-          // Start 5-minute session timer
-          sessionTimeout = setTimeout(() => {
-            showTimeoutWarning();
-          }, 280000); // 4 minutes 40 seconds
-        }
-
-        function showTimeoutWarning() {
-          const warning = document.querySelector('.timeout-warning');
-          const countdown = document.getElementById('timeout-countdown');
-          const timeoutAlert = document.querySelector('.timeout-alert');
-
-          warning.hidden = false;
-          timeoutAlert.hidden = false;
-
-          // 20-second countdown
-          let timeLeft = 20;
-          const countdownInterval = setInterval(() => {
-            timeLeft--;
-            countdown.textContent = timeLeft;
-
-            if (timeLeft <= 0) {
-              clearInterval(countdownInterval);
-              endSession();
-            }
-          }, 1000);
-        }
-
-        function extendSession() {
-          // Set session as extended FIRST to prevent any race conditions
-          isSessionExtended = true;
-
-          const warning = document.querySelector('.timeout-warning');
-          const timeoutAlert = document.querySelector('.timeout-alert');
-
-          // Clear any existing warning timeout
-          if (warningTimeout) {
-            clearInterval(warningTimeout);
-            warningTimeout = null;
-          }
-
-          // Clear the main session timeout as well
-          if (sessionTimeout) {
-            clearTimeout(sessionTimeout);
-            sessionTimeout = null;
-          }
-
-          // Hide warning elements
-          if (warning) warning.hidden = true;
-          if (timeoutAlert) timeoutAlert.hidden = true;
-
-          // Start fresh session timer
-          startSessionTimer();
-        }
-
-        // Extend session on user interaction
-        function extendSessionOnInteraction() {
-          // Only extend if warning is currently showing
-          const warning = document.querySelector('.timeout-warning');
-          if (warning && !warning.hidden) {
-            extendSession();
-          } else {
-            // Just reset the session timer
-            clearTimeout(sessionTimeout);
-            clearInterval(warningTimeout); // Also clear any warning timeout that might be running
-            isSessionExtended = true; // Mark session as extended
-            startSessionTimer();
-          }
-        }
-
-        // Monitor input for activity
-        document.getElementById('message-input').addEventListener('input', () => {
-          // Reset timer on any input
-          clearTimeout(sessionTimeout);
-          startSessionTimer();
-        });
-
-        // Setup comprehensive user interaction monitoring
-        function setupUserInteractionListeners() {
-          const chatWindow = document.getElementById('chat-window');
-
-          // Add listeners for various user interactions
-          chatWindow.addEventListener('click', extendSessionOnInteraction);
-          chatWindow.addEventListener('keydown', extendSessionOnInteraction);
-          chatWindow.addEventListener('keypress', extendSessionOnInteraction);
-          chatWindow.addEventListener('input', extendSessionOnInteraction);
-          chatWindow.addEventListener('scroll', extendSessionOnInteraction);
-
-          // Also listen for focus events on interactive elements
-          const interactiveElements = chatWindow.querySelectorAll('button, input, textarea, [tabindex]:not([tabindex="-1"])');
-          interactiveElements.forEach(element => {
-            element.addEventListener('focus', extendSessionOnInteraction);
-          });
-        }
-      </script>
-      ```
-
-      **Note:** The timeout warning should appear with sufficient notice (minimum 30 seconds) and use a dedicated `role="alert"` element for screen reader announcements. This ensures important timeout information is properly communicated without interfering with chat functionality.
-
-      **8. User Interaction Monitoring:**
-      ```javascript
-      // Setup comprehensive user interaction monitoring
-      function setupUserInteractionListeners() {
-        const chatWindow = document.getElementById('chat-window');
-
-        // Add listeners for various user interactions
-        chatWindow.addEventListener('click', extendSessionOnInteraction);
-        chatWindow.addEventListener('keydown', extendSessionOnInteraction);
-        chatWindow.addEventListener('keypress', extendSessionOnInteraction);
-        chatWindow.addEventListener('input', extendSessionOnInteraction);
-        chatWindow.addEventListener('scroll', extendSessionOnInteraction);
-
-        // Also listen for focus events on interactive elements
-        const interactiveElements = chatWindow.querySelectorAll('button, input, textarea, [tabindex]:not([tabindex="-1"])');
-        interactiveElements.forEach(element => {
-          element.addEventListener('focus', extendSessionOnInteraction);
-        });
-      }
-      ```
-
-      **Note:** Chat sessions should extend on any user interaction, not just sent messages. This is crucial for assistive technology users who may have difficulty typing or need more time to compose messages. Monitor clicks, key presses, input changes, scrolling, and focus events to ensure the session remains active during user engagement.
-
-      **Important:** When extending sessions, ensure both the main session timeout and warning timeout are properly cleared to prevent race conditions where the session can end even after being extended.
-
-      **Session State Management:** Use a dedicated boolean flag (`isSessionExtended`) to track session extension state, rather than relying on DOM element visibility. This prevents race conditions and ensures reliable session management.
-
-      **Race Condition Prevention:** Set the session extension flag BEFORE clearing timeouts to prevent race conditions where the countdown might still call `endSession()` after the session has been extended.
-
-      **Countdown Safety:** Implement proper bounds checking to prevent negative countdown values and ensure the countdown stops immediately when the session is extended. Clear existing intervals before starting new ones to prevent multiple countdowns from running simultaneously.
-
-      **Session Ending Protection:** Implement multiple safety checks in the `endSession()` function to prevent premature session termination. Check session extension status, session activity state, and warning visibility before allowing the session to end.
-
-      **Visual Design Consistency:** Follow the established design pattern used across all accessibility example files, including consistent container styling, typography, color scheme, and layout structure for a cohesive user experience.
-
-      **9. Responsive Chat Design:**
+      **WCAG 2.2 Color Contrast Requirements:**
+
+      **1.4.3: Text Contrast (Minimum) - Level AA:**
+      - **Normal Text:** Minimum 4.5:1 contrast ratio
+      - **Large Text:** Minimum 3:1 contrast ratio (18pt+ regular or 14pt+ bold)
+      - **Enhanced (Level AAA):** 7:1 for normal text, 4.5:1 for large text
+
+      **1.4.11: Non-text Contrast - Level AA:**
+      - **UI Components:** Minimum 3:1 contrast ratio for component identification
+      - **Focus Indicators:** Minimum 3:1 contrast ratio for focus visibility
+      - **Graphical Objects:** Minimum 3:1 contrast ratio for content understanding
+
+      **Exceptions (No Contrast Requirement):**
+      - Inactive/disabled UI components
+      - Pure decorative elements
+      - Text in logos or brand names
+      - Text that is not visible to users
+      - Graphics where specific presentation is essential
+
+      **High Contrast Color Combinations:**
+
+      **Dark Text on Light Backgrounds:**
+      - `#212529` on `#ffffff` - 16.6:1 ✅
+      - `#495057` on `#ffffff` - 8.3:1 ✅
+      - `#6c757d` on `#ffffff` - 5.4:1 ✅
+      - `#343a40` on `#f8f9fa` - 11.7:1 ✅
+
+      **Light Text on Dark Backgrounds:**
+      - `#ffffff` on `#212529` - 16.6:1 ✅
+      - `#f8f9fa` on `#495057` - 7.0:1 ✅
+      - `#ffffff` on `#0056b3` - 7.7:1 ✅
+      - `#ffffff` on `#dc3545` - 5.8:1 ✅
+
+      **UI Component Colors (3:1 minimum):**
+      - Focus outlines: `#0056b3`, `#dc3545`, `#198754`
+      - Border colors: `#ced4da`, `#adb5bd`, `#6c757d`
+      - Button states: `#0056b3`, `#157347`, `#b02a37`
+
+      **Implementation Examples:**
+
+      **CSS Text Contrast:**
       ```css
-      /* Responsive chat window */
-      .chat-window {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 350px;
-        height: 500px;
-        max-width: calc(100vw - 40px);
-        max-height: calc(100vh - 40px);
-        background: white;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        display: flex;
-        flex-direction: column;
+      /* Good: High contrast text */
+      .primary-text {
+        color: #212529;
+        background: #ffffff;
       }
 
-      /* Mobile responsive adjustments */
-      @media screen and (max-width: 480px) {
-        .chat-window {
-          bottom: 0;
-          right: 0;
-          width: 100%;
-          height: 100vh;
-          max-width: none;
-          max-height: none;
-          border-radius: 0;
-        }
+      .secondary-text {
+        color: #495057;
+        background: #ffffff;
       }
 
-      /* Ensure minimum width compliance */
-      @media screen and (max-width: 320px) {
-        .chat-window {
-          width: 320px;
-          min-width: 320px;
-        }
+      /* Good: Large text with 3:1 minimum */
+      .large-heading {
+        font-size: 18px;
+        font-weight: normal;
+        color: #6c757d;
+        background: #ffffff;
       }
       ```
 
-      **10. Screen Reader Optimized Messages:**
+      **CSS UI Component Contrast:**
+      ```css
+      /* Good: Form inputs with sufficient border contrast */
+      .form-control {
+        border: 2px solid #ced4da; /* 3:1+ contrast */
+        background: #ffffff;
+      }
+
+      .form-control:focus {
+        border-color: #0056b3; /* High contrast focus */
+        outline: 3px solid #0056b3;
+        outline-offset: 2px;
+      }
+
+      /* Good: Button states */
+      .btn-primary {
+        background: #0056b3;
+        color: #ffffff;
+        border: 1px solid #004085;
+      }
+      ```
+
+      **Contrast Testing:**
+      - Use browser dev tools color picker for contrast ratios
+      - Test with tools like WebAIM Contrast Checker
+      - Verify with automated accessibility testing tools
+      - Test with actual users who have visual impairments
+
+      **Common Problematic Combinations to Avoid:**
+      - Light gray text (#999999) on white backgrounds
+      - Yellow text (#ffff00) on white backgrounds
+      - Light blue links (#87ceeb) on white backgrounds
+      - Thin borders (#e0e0e0) for essential UI components
+      - Low contrast placeholder text
+      - Insufficient focus indicator contrast
+
+      **Responsive Considerations:**
+      - Maintain contrast ratios across all screen sizes
+      - Consider dark mode color schemes
+      - Test contrast in different lighting conditions
+      - Ensure contrast is maintained with CSS filters/effects
+
+      **CSS `prefers-contrast` Media Query:**
+      The `prefers-contrast` media query allows adaptation to user contrast preferences:
+
+      ```css
+      /* Default styles */
+      .button {
+        background: #0056b3;
+        color: #ffffff;
+        border: 1px solid #004085;
+      }
+
+      /* High contrast preference */
+      @media (prefers-contrast: more) {
+        .button {
+          background: #000000;
+          color: #ffffff;
+          border: 2px solid #ffffff;
+          font-weight: bold;
+        }
+
+        .text-secondary {
+          color: #000000; /* Increase from gray to black */
+        }
+
+        .form-control {
+          border: 3px solid #000000; /* Thicker, darker borders */
+        }
+      }
+
+      /* Low contrast preference (rare) */
+      @media (prefers-contrast: less) {
+        .high-contrast-element {
+          /* Reduce contrast only where specifically needed */
+          /* Still maintain minimum WCAG requirements */
+        }
+      }
+
+      /* Custom contrast preference */
+      @media (prefers-contrast: custom) {
+        /* Allow user-defined contrast settings */
+        /* Respect system/browser contrast customizations */
+      }
+      ```
+
+      **Icon Accessibility & Contrast Requirements:**
+      Icons are UI components and must meet 3:1 contrast ratio for identification:
+
+      **SVG Icon Examples:**
       ```html
-      <!-- Message with proper structure -->
-      <div class="message agent" role="article">
-        <div class="message-content">
-          <span class="sr-only">Customer Support: </span>
-          Hi, how can I help you today?
-        </div>
-        <time datetime="2024-01-15T10:30:00Z" class="timestamp">
-          <span class="sr-only">Message sent at </span>
-          10:30 AM
-        </time>
-      </div>
+      <!-- Good: High contrast icon -->
+      <svg width="24" height="24" viewBox="0 0 24 24"
+           aria-label="Close dialog" role="img">
+        <path fill="#212529"
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </svg>
 
-      <!-- Typing indicator -->
-      <div class="typing-indicator" aria-live="polite">
-        <span class="visually-hidden">Customer Support is typing</span>
-        <span class="typing-dots">...</span>
-      </div>
-      ```
+      <!-- Good: Icon with sufficient background contrast -->
+      <button class="icon-button" aria-label="Save document">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          <path fill="#ffffff"
+                d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V7l-4-4z"/>
+        </svg>
+      </button>
 
-      **11. Proper Focus Trap Implementation:**
-      ```javascript
-      // Focus trap variables
-      let focusableElements = [];
-      let firstFocusableElement = null;
-      let lastFocusableElement = null;
-
-      // Setup focus trap
-      function setupFocusTrap() {
-        const chatWindow = document.getElementById('chat-window');
-
-        // Get all focusable elements within the chat window
-        // Include all interactive elements that can receive focus
-        focusableElements = chatWindow.querySelectorAll(
-          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [role="button"]:not([disabled])'
-        );
-
-        if (focusableElements.length > 0) {
-          firstFocusableElement = focusableElements[0];
-          lastFocusableElement = focusableElements[focusableElements.length - 1];
-
-          // Add focus trap event listener
-          chatWindow.addEventListener('keydown', trapFocus);
-        }
+      /* CSS for icon button with 3:1 contrast */
+      .icon-button {
+        background: #0056b3; /* High contrast background */
+        border: 2px solid #004085; /* Visible border for component identification */
+        padding: 8px;
+        border-radius: 4px;
       }
 
-      // Focus trap functionality
-      function trapFocus(event) {
-        if (event.key === 'Tab') {
-          // Check if focus is currently within the chat window
-          const chatWindow = document.getElementById('chat-window');
-          const isFocusInChat = chatWindow.contains(document.activeElement);
-
-          if (event.shiftKey) {
-            // Shift + Tab: move backwards
-            if (document.activeElement === firstFocusableElement) {
-              event.preventDefault();
-              lastFocusableElement.focus();
-            }
-          } else {
-            // Tab: move forwards
-            if (document.activeElement === lastFocusableElement) {
-              event.preventDefault();
-              firstFocusableElement.focus();
-            }
-          }
-
-          // Additional safety check: if focus somehow escapes, bring it back
-          if (!isFocusInChat && focusableElements.length > 0) {
-            event.preventDefault();
-            firstFocusableElement.focus();
-          }
-        }
-      }
-
-      // Clean up focus trap when closing chat
-      function closeChat() {
-        const chatWindow = document.getElementById('chat-window');
-        const launcher = document.getElementById('chat-launcher');
-
-        chatWindow.hidden = true;
-        launcher.setAttribute('aria-expanded', 'false');
-
-        // Remove focus trap
-        chatWindow.removeEventListener('keydown', trapFocus);
-
-        // Return focus to launcher
-        launcher.focus();
+      .icon-button:focus {
+        outline: 3px solid #ffd700; /* High contrast focus indicator */
+        outline-offset: 2px;
       }
       ```
 
-      **JavaScript Considerations:**
-      - Implement proper focus management for popup windows
-      - Handle keyboard navigation (Tab, Enter, Escape)
-      - Manage session timeouts with user notifications
-      - Provide pause/stop controls for auto-updating content
-      - Update page titles for new message notifications
-      - Monitor input activity for session extension
-      - Handle focus restoration when chat closes
-      - Implement proper ARIA live regions for status updates
+      **Icon Contrast Considerations:**
+      - **Informative Icons:** Must meet 3:1 contrast against background
+      - **Decorative Icons:** No contrast requirement (use `aria-hidden="true"`)
+      - **Icon Buttons:** Both icon and button background need sufficient contrast
+      - **State Icons:** Different states (active/inactive) need distinguishable contrast
+      - **Icon + Text:** Ensure both elements meet their respective requirements
 
-      **Accessibility Notes:**
-      - Use role="log" for message history with aria-labelledby
-      - Provide multi-sensory notifications for new messages
-      - Maintain chronological message order in DOM
-      - Ensure all interactive elements have accessible names
-      - Test with screen readers for proper announcement
-      - Consider user preferences for notification levels
-      - Provide alternatives to chat (phone, email, etc.)
-      - Test keyboard navigation thoroughly
-      - Validate focus management in popup windows
-      - Use div elements for chat messages to reduce navigation noise (avoid role="article")
-      - Chat messages are conversational content, not standalone articles
+      **Complex Icon Examples:**
+      ```css
+      /* Multi-state icon button */
+      .toggle-icon {
+        background: #f8f9fa;
+        border: 2px solid #6c757d; /* 3:1+ contrast for UI component */
+        color: #495057;
+      }
 
-      **Testing Requirements:**
-      - Test with screen readers (NVDA, JAWS, VoiceOver)
-      - Verify keyboard navigation works completely
-      - Test focus management in popup windows
-      - Validate message reading order
-      - Test timeout notifications and extensions
-      - Verify responsive design on small screens
-      - Test with different notification preferences
-      - Validate ARIA live region announcements
-      - Test focus restoration when chat closes
-      - Verify contrast ratios meet WCAG requirements
-      - **Test focus trapping thoroughly:** Verify Tab and Shift+Tab navigation stays within chat window
-      - **Test focus escape scenarios:** Ensure focus cannot accidentally leave the chat window
-      - **Test focus restoration:** Verify focus returns to launcher when chat closes
-      - **Test all interactive elements:** Ensure all buttons, inputs, and focusable elements are included in focus trap
+      .toggle-icon[aria-pressed="true"] {
+        background: #0056b3;
+        color: #ffffff;
+        border-color: #004085;
+      }
 
-      **Common Mistakes to Avoid:**
-      - Chat messages in wrong DOM order
-      - Notifications relying only on sound
-      - Missing keyboard support for chat functions
-      - Poor focus management in popup windows
-      - Missing author identification in messages
-      - Chat windows not responsive to small screens
-      - Missing timeout warnings and extensions
-      - Auto-updating content without pause controls
-      - Focus becoming obscured behind chat windows
-      - Missing accessible names for chat controls
-      - Chat buttons without proper roles
-      - Missing expandable state management
-      - Insufficient contrast for message text
-      - Chat icons without alt text
-      - Missing status message roles
-      - Missing aria-haspopup="dialog" on chat launcher
-      - Missing focus trapping in chat popup windows
-      - Poor focus management when opening/closing chat
-      - **Incomplete focus trap implementation:** Focus trap that only works in one direction (Tab vs Shift+Tab)
-      - **Missing focusable elements:** Focus trap that doesn't include all interactive elements
-      - **Focus escape vulnerabilities:** Focus trap without safety checks to prevent focus from leaving chat window
-      - **Incorrect ARIA attributes for modal dialogs:** Using aria-controls or aria-expanded with modal dialog pattern
-      - **Missing notification context:** Not including unread message count in button's accessible name
-      - **Decorative images with alt text:** Including unnecessary alt text for decorative icons in buttons
-      - **Limited session extension:** Only extending chat session on sent messages instead of all user interactions
-      - **Missing user interaction monitoring:** Not monitoring clicks, key presses, scrolling, and focus events for session extension
+      /* Icon with adaptive contrast */
+      @media (prefers-contrast: more) {
+        .icon-subtle {
+          filter: contrast(150%); /* Increase icon contrast */
+        }
+
+        .icon-button {
+          border-width: 3px; /* Thicker borders for better identification */
+        }
+      }
+      ```
+
+      **Design System Approach:**
+      - Establish a palette of WCAG-compliant color combinations
+      - Document contrast ratios for all color pairs
+      - Create design tokens with built-in accessibility
+      - Implement automated contrast checking in build process
+      - Define icon contrast standards for different contexts
+      - Test icons across different contrast preferences
 
 metadata:
   priority: high
   version: 1.0
 </rule>
-description:
-globs:
-alwaysApply: false
----
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
