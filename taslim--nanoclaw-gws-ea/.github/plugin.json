@@ -1,0 +1,9 @@
+{
+  "name": "taslim--nanoclaw-gws-ea",
+  "displayName": "nanoclaw-gws-ea",
+  "description": "Google Workspace Executive Assistant flavor for NanoClaw",
+  "version": "1.0.0",
+  "author": "taslim",
+  "homepage": "https://github.com/taslim/nanoclaw-gws-ea",
+  "skills": []
+}
