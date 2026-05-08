@@ -1,0 +1,9 @@
+{
+  "name": "sachdved--kg-builder",
+  "displayName": "kg_builder",
+  "description": "Codebase for building Knowledge Graphs on codebases",
+  "version": "1.0.0",
+  "author": "sachdved",
+  "homepage": "https://github.com/sachdved/kg_builder",
+  "skills": []
+}
