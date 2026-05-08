@@ -1,0 +1,9 @@
+{
+  "name": "kenkaiii--kens-chrome-extension",
+  "displayName": "kens-chrome-extension",
+  "description": "Production-ready Chrome Extension boilerplate with TypeScript, React, Vite, and Manifest V3",
+  "version": "1.0.0",
+  "author": "KenKaiii",
+  "homepage": "https://github.com/KenKaiii/kens-chrome-extension",
+  "skills": []
+}
