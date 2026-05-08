@@ -1,7 +1,7 @@
 {
   "name": "davis7dotsh--river",
   "displayName": "river",
-  "description": "river",
+  "description": "the sane way to work with ai agent streams (type safety and stream resuming out of the box)",
   "version": "1.0.0",
   "author": "davis7dotsh",
   "homepage": "https://github.com/davis7dotsh/river",
