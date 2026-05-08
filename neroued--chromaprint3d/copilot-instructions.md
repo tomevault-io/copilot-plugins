@@ -1,41 +1,75 @@
-## frontend-architecture
+## frontend-i18n
 
-> 前端分层边界与组件职责约束
+> 前端 i18n 国际化规范：新增或修改用户可见文案时必须走翻译流程
 
 
-# 前端分层边界（Vue）
+# 前端 i18n 规范
 
-## 依赖方向
+## 基本原则
 
-- `components` 只负责 UI 组合与交互，不直接访问 `api/*`。
-- 页面组件统一依赖 `services/*` 或复用 `composables/*` 暴露的能力。
-- `services` 负责业务流程编排，可调用 `api/*`、`domain/*`、`runtime/*`。
-- `api/*` 只放请求封装与接口路径，不放 UI 状态或组件逻辑。
+- 所有用户可见的 UI 文本（按钮、标签、提示、错误消息、placeholder、title 等）禁止硬编码中文或英文，必须通过 `t('namespace.key')` 引用翻译 key。
+- 翻译 key 同时存在于 `src/locales/zh-CN.ts` 和 `src/locales/en.ts`，两个文件的 key 结构必须完全一致。
+- 代码注释中的中文不受此规则约束。
 
-## 必须遵守
+## 翻译调用方式
 
-- 禁止在 `web/frontend/src/components/**/*.vue` 中出现 `from '../api'`、`from '../../api'`、`from './api'`。
-- 新增后端端点时，优先落在 `web/frontend/src/api/<domain>.ts`，并通过 `web/frontend/src/api.ts` 汇总导出。
-- 出现跨面板重复交互逻辑（上传、联动缩放、下载错误处理）时，优先提取到 `composables`。
+| 场景 | 用法 |
+|------|------|
+| Vue 组件 `<script setup>` 或 composable（setup 上下文内） | `const { t } = useI18n()` |
+| 模块级常量 / 非 Vue 上下文（如 `types.ts`、独立工具函数） | `import i18n from '@/locales'`，使用 `i18n.global.t()` |
+| 带参数插值 | `t('namespace.key', { param: value })` |
 
-## 快速检查
+## 模块级常量的处理
 
-- 组件层是否只做"渲染 + 事件绑定 + 调用 service/composable"？
-- 相同逻辑是否已经在 `composables` 或 `services` 存在？
-- 新增 API 是否按业务域拆分，而不是继续堆在单文件中？
+若模块级常量数组的 `label` 字段需要翻译，禁止在模块作用域直接赋值，必须转为 getter 函数或 `computed`，确保标签在语言切换时动态更新：
 
-## 格式化
+```typescript
+// ❌ 禁止
+const OPTIONS = [{ label: '自定义', value: 0 }]
 
-前端文件格式化由 `.cursor/hooks/format-frontend.sh` 自动执行（afterFileEdit hook），无需手动运行。
+// ✅ 正确
+function getOptions(t: (key: string) => string) {
+  return [{ label: t('common.custom'), value: 0 }]
+}
+```
 
-提交前如需全量检查，可运行：
+## 新增翻译 key 的流程
+
+1. 在 `src/locales/zh-CN.ts` 对应命名空间下添加 key 和中文值。
+2. 在 `src/locales/en.ts` 同一位置添加相同 key 和英文值。
+3. 在组件/composable 中使用 `t('namespace.key')` 引用。
+
+## 命名空间对应关系
+
+| 命名空间 | 对应组件/模块 |
+|----------|---------------|
+| `common` | 全局公共文案 |
+| `app` | App.vue |
+| `convert` | ConvertPanel |
+| `param` | ParamPanel 及子组件 |
+| `calibration` | CalibrationPanel / Calibration8ColorPanel |
+| `vectorize` | VectorizePanel |
+| `matting` | MattingPanel |
+| `colordb` | ColorDBSelector / ColorDBBuildSection / ColorDBUploadSection |
+| `imageUpload` | ImageUpload |
+| `result` | ResultPanel |
+
+## locale 敏感格式化
+
+- 禁止在 `toLocaleString`、`toLocaleTimeString`、`Intl.DateTimeFormat` 等 API 中硬编码 `'zh-CN'` 或其他 locale 字符串。
+- 使用无参数调用（跟随系统 locale）或传入当前 `i18n.global.locale.value`。
+
+## 变更检查
+
+硬编码 UI 文本由 `.cursor/hooks.json` 中的 prompt hook 自动检测（afterFileEdit 事件），编辑前端文件后会即时提示遗漏的 `t()` 调用。
+
+- 新增或修改用户可见文案后，确认 `zh-CN.ts` 和 `en.ts` 的 key 已同步。
+- 如需手动全量扫描硬编码中文（排除 locales 目录和测试文件）：
 
 ```bash
-cd web/frontend
-npm run format:check   # prettier --check .
-npm run lint           # vue-tsc -b --pretty false && eslint
-npm run test           # vitest run --coverage
-npm run build          # vue-tsc -b && vite build
+cd web/frontend/src
+grep -rPn '[\x{4e00}-\x{9fff}]' --include='*.vue' --include='*.ts' \
+  --exclude-dir=locales --exclude='*.test.ts'
 ```
 
 ---
