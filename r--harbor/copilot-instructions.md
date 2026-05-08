@@ -1,57 +1,47 @@
-## browser-priority
+## third-party-testing
 
-> Browser priority and testing requirements for Harbor
+> How to give 3rd party developers a test harness they can generate or import from Harbor
 
 
-# Browser Priority
+# Third-Party Testing: Generate & Import
 
-**Firefox is the PRIMARY browser for Harbor development and testing.**
+When a **third-party developer** (or the user) wants to **test their app** that uses the Web Agents API (`window.ai` / `window.agent`) and is building on Harbor, help them get the **test harness** from this repo so they can accelerate testing.
 
-## Key Requirements
+## How they get the harness
 
-1. **All browser testing must target Firefox first** - Chromium/Chrome is secondary
-2. **Extensions are built for Firefox by default** - `npm run build` produces Firefox builds
-3. **Demo pages should be tested in Firefox** with both extensions loaded
-4. **Safari is the tertiary target** for the macOS App Store distribution
+1. **Generate into their project (recommended)**  
+   From the **Harbor repo root** run:
+   ```bash
+   node scripts/generate-test-harness.mjs /path/to/their/project
+   ```
+   This creates `their-project/harbor-test/` with:
+   - `mock.js` – installable mock for `window.ai` and `window.agent` (unit tests, no browser)
+   - `playwright.harbor.config.example.ts` – Playwright config for E2E with extensions
+   - `fixtures/harbor.ts` – optional Playwright fixture
+   - `web-agents-api.d.ts` – TypeScript declarations
+   - `README.md` – how to use each piece
 
-## Extension Architecture
+2. **Copy from the template**  
+   If they can’t run the script (e.g. they only have a clone or Cursor is in their project and Harbor is referenced), **copy the contents** of `spec/testing/harness-template/` into their project (e.g. into `harbor-test/` or `tests/harbor/`). Same files as above.
 
-Harbor consists of TWO browser extensions that work together:
+3. **Point Cursor at Harbor**  
+   If they’re in **their** project and have added Harbor as a reference (e.g. `@harbor` or path to Harbor repo), you can:
+   - Suggest they run the generator from their machine (clone Harbor, then `node path/to/harbor/scripts/generate-test-harness.mjs .` from their project root), or
+   - Copy the template files from Harbor’s `spec/testing/harness-template/` into their project and tell them how to import the mock and use the Playwright example.
 
-1. **Harbor Extension** (`extension/`) - Core infrastructure providing:
-   - LLM provider management
-   - MCP server hosting
-   - Native bridge communication
-   - OAuth flows
+## What to tell them
 
-2. **Web Agents API Extension** (`web-agents-api/`) - Page-facing API providing:
-   - `window.ai` - AI/LLM access for web pages
-   - `window.agent` - Agent tools and browser control
+- **Unit / integration tests:** Use `installWebAgentsMock(globalThis)` (or `window` in a browser env), then e.g. `mock.permissions.grantAll()`, `mock.ai.textSessionResponse = '...'`. Their code that calls `window.ai` / `window.agent` then runs against the mock.
+- **E2E tests:** They need Playwright and the two extension paths (Harbor + Web Agents API). The generated `playwright.harbor.config.example.ts` shows how to load both extensions; they set `HARBOR_EXTENSION_PATH` and `WEB_AGENTS_EXTENSION_PATH` to their Harbor build output (e.g. `extension/dist-chrome`, `web-agents-api/dist-chrome`).
+- **Entry points in Harbor:** `spec/testing/README.md`, `docs/THIRD_PARTY_TESTING_PLAN.md`, and this rule.
 
-Both extensions must be installed for full functionality.
+## When this applies
 
-## Build Commands
+- User asks how to test their app that uses Harbor or the Web Agents API.
+- User wants a “test harness,” “mocks for window.ai,” or “E2E with Harbor extensions.”
+- User has referenced Harbor (or is in Harbor) and wants to give another team or project a way to test Harbor-based code.
 
-```bash
-# Firefox (default)
-npm run build
-
-# Chrome (secondary)
-npm run build:chrome
-
-# Safari (tertiary)
-npm run build:safari
-```
-
-## Testing in Firefox
-
-Use `web-ext` to run Firefox with extensions:
-
-```bash
-cd extension && npx web-ext run --source-dir dist-firefox
-```
-
-For E2E tests with both extensions, see `tests/e2e/README.md`.
+Do **not** use this rule for Harbor’s own internal tests (those live under `tests/` and use `tests/e2e/fixtures/`); this rule is for **external** developers building on top of Harbor.
 
 ---
 > Source: [r/Harbor](https://github.com/r/Harbor) — distributed by [TomeVault](https://tomevault.io).
