@@ -1,0 +1,9 @@
+{
+  "name": "marked23--haproxy-vllm-bootstrap",
+  "displayName": "HAProxy-vLLM-bootstrap",
+  "description": "This is a single-command bootstrap for a local OpenAI-compatible LLM inference endpoint that offers redundancy.",
+  "version": "1.0.0",
+  "author": "marked23",
+  "homepage": "https://github.com/marked23/HAProxy-vLLM-bootstrap",
+  "skills": []
+}
