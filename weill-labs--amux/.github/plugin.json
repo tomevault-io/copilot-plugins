@@ -1,0 +1,9 @@
+{
+  "name": "weill-labs--amux",
+  "displayName": "amux",
+  "description": "Terminal multiplexer with a first-class agent API for shared human+agent workflows",
+  "version": "1.0.0",
+  "author": "weill-labs",
+  "homepage": "https://github.com/weill-labs/amux",
+  "skills": []
+}
