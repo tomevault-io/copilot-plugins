@@ -1,0 +1,9 @@
+{
+  "name": "realabhishek--shankar",
+  "displayName": "shankar",
+  "description": "CLI + Web terminal for spawning Gemini-powered Multipass VMs with 2FA, WebSocket streaming & AI agent orchestration",
+  "version": "1.0.0",
+  "author": "RealAbhishek",
+  "homepage": "https://github.com/RealAbhishek/shankar",
+  "skills": []
+}
