@@ -1,0 +1,44 @@
+{
+  "name": "meshcore-uconsole",
+  "owner": "cwill747",
+  "repo": "meshcore-uconsole",
+  "description": "A gtk-based meshcore companion node and network analyzer for the ClockworkPi uconsole and the HackerGadgets uConsole AIO board",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/cwill747/meshcore-uconsole",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T16:45:33Z"
+}
