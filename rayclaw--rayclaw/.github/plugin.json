@@ -1,0 +1,9 @@
+{
+  "name": "rayclaw--rayclaw",
+  "displayName": "rayclaw",
+  "description": "An agentic AI assistant built with Rust \ud83e\udd80 , inspired by OpenClaw, NanoClaw, NullClaw, ZeroClaw, and MicroClaw and incorporating some of their design ideas. Contributions welcome!",
+  "version": "1.0.0",
+  "author": "rayclaw",
+  "homepage": "https://github.com/rayclaw/rayclaw",
+  "skills": []
+}
