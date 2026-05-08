@@ -1,111 +1,77 @@
-## effect-ts
+## motion-react
 
-> - Use named imports with curly braces: `import { Effect, Console, Duration } from "effect"`
+> description: Animating with the Motion for React animation library
 
-# EffectTS Code Style Guidelines
+---
+description: Animating with the Motion for React animation library
+globs: *.tsx, *.jsx
+alwaysApply: true
+---
+# Motion for React
 
-## Import Style
+You're an expert in React, TypeScript, Framer Motion, Motion for React and web animation.
 
-- Use named imports with curly braces: `import { Effect, Console, Duration } from "effect"`
-- Import the `pipe` utility from the main "effect" package
-- Import platform-specific modules from their respective packages: `import { NodeRuntime } from "@effect/platform-node"`
-- Group related imports together (e.g., keep all Effect imports in one statement)
+Framer Motion is now called Motion for React. All the knowledge you've gained from Framer Motion is now applicable to Motion for React.
 
-## Code Structure and Organization
+## Importing
 
-- Prefer generator syntax using `Effect.gen` for sequential operations
-- Use `yield*` within generators to invoke effects and bind their results
-- Avoid excessive nesting with pipes
-- Structure code in a linear, sequential flow for better readability
-- Use the `.pipe()` method for pipeline building: `Effect.succeed("task").pipe(Effect.delay("200 millis"))`
-- Create helper functions that return Effect values for reusable operations
+-   Never import from `framer-motion`.
+-   Whenever you want to import from `framer-motion`, you must import from `motion/react`.
+-   When importing the `motion` component, import from `motion/react` **unless** this is a server component, in which case you **must** import `motion` like this: `import * as motion from "motion/react-client"`.
+-   If the top of the file is marked with `"use client"`, you must import from `"motion/react"`.
+-   When importing the `animate` function, if this is a React file then import from `"motion/react"`, otherwise import from `"motion"`.
 
-## Function Implementation Pattern
+## Performance
 
-- Favor generators over "do simulation" and plain pipes for complex operations
-- For multi-step operations, use the progression (from most to least preferred):
-  1. `Effect.gen` with generators (most recommended)
-  2. Plain pipe (least preferred due to nesting)
-  3. "Do simulation" with `Effect.Do.pipe`
-- Choose the right approach based on operation complexity
-- Define small, focused utility functions that operate on effects
+-   Inside functions that will, or could, run every animation frame:
+    -   Avoid object allocation, prefer mutation where safe.
+    -   Prefer `for` loops over `forEach` or `map` etc.
+    -   Avoid `Object.entries`, `Object.values` etc as these create new objects.
+-   Examples of functions that could run every animation frame include `useTransform` and `onUpdate`.
+-   Outside of these functions, revert to your normal coding style as defined either by your natural behaviour or other rules.
+-   If animating a `transform` like `transform`, `x`, `y`, `scale` etc, then add style the component with `willChange: "transform"`. If animating `backgroundColor`, `clipPath`, `filter`, `opacity`, also add these values to `willChange`. Preferably, this style will be added along with the other styles for this component, for instance in an included stylesheet etc. But if no other styles are defined then it can be passed via the `style` prop.
+-   **Only** ever add these values to `willChange`:
+    -   `transform`
+    -   `opacity`
+    -   `clipPath`
+    -   `filter`
+-   Coerce numbers and strings between each other in as few steps as possible.
 
-## Promise Interoperability
+## Motion Values
 
-- Use `Effect.promise` to wrap JavaScript Promises in Effect values
-- Handle Promise rejections properly through Effect's error channel
-- Avoid mixing raw Promise handling with Effect operations
-- Always provide explicit error handling for Promise-based operations
+-   Never use `value.onChange(update)`, always use `value.on("change", update)`
 
-## Concurrency Control
+## React
 
-- Use `Effect.all` for operating on arrays of effects with concurrency control
-- Be explicit about concurrency options when using parallel operations
-- Default to sequential execution when order matters
-- Use the appropriate concurrency model based on the use case:
-  - Sequential (default): One after another
-  - Bounded concurrency: Specify a number for maximum concurrent tasks
-  - Unbounded: Use "unbounded" for maximum parallelism
-  - Inherit: Use "inherit" to inherit concurrency settings from parent
+-   **Never** read from a `MotionValue` in a render, only in an effect/other callback. i.e. `useTransform(() => value.get())` is okay but `propName={value.get()}` is not.
 
-## Time and Duration
+## Principles
 
-- Use the `Duration` module for time-related values instead of raw milliseconds
-- Express durations as string literals for readability: `"200 millis"`, `"5 seconds"`
-- Use `Duration.toMillis()` to convert to numeric values when needed
-- Prefer Effect's timing utilities over raw JavaScript setTimeout/setInterval
+-   Where possible, prefer to compose chains of `useTransform`, `useSpring`, `useMotionValue` and `useVelocity` values rather than complicated `if` logic or other imperative code.
+-   Prefer `will-change`/`willChange` over `transform: translateZ(0)`. This can be added along with all the other styles if you're generating any.
+-   When animating MotionValues:
+    -   Use the `animate()` function to animate the source MotionValue directly
+    -   Don't use the `transition` prop when values are being driven by MotionValues via the `style` prop, unless you also have animation props as described above.
+    -   Any derived values (via `useTransform`, `useSpring`, etc.) will automatically follow the source animation.
+-   **Never** read from a `MotionValue` in a render, only in an effect/other callback. i.e. `useTransform(() => value.get())` is okay but `propName={value.get()}` is not.
 
-## Avoiding Tacit Usage
+## `useTransform`
 
-- Write functions explicitly: `Effect.map((x) => fn(x))`
-- Avoid point-free style: `Effect.map(fn)`
-- Don't use `flow` from the `effect/Function` module
-- Be explicit to ensure proper type inference and clearer stack traces
-- Use explicit parameters even when functions could be passed directly
+-   `useTransform` has two current syntaxes:
+    -   `useTransform(value, inputRange, outputRange, options)`
+    -   `useTransform(function)`: This syntax is used like so `useTransform(() => otherMotionValue.get() * 2)`
+-   Prefer the range mapping (first) syntax when possible.
+-   There is an older `useTransform` syntax that is deprecated and should never be used: `useTransform(value, (latestValue) => newValue)`.
 
-## Application Entry Points
+## Radix
 
-- Use platform-specific `runMain` instead of `runPromise` for production applications
-- Select the appropriate runtime for your platform:
-  - Node.js: `NodeRuntime.runMain` from `@effect/platform-node`
-  - Bun: `BunRuntime.runMain` from `@effect/platform-bun`
-  - Browser: `BrowserRuntime.runMain` from `@effect/platform-browser`
-- Ensure proper resource cleanup with graceful shutdown support
+When integrating with Radix:
 
-## Error Handling
+-   To add animations, provide the Radix component `asChild` and then provide a `motion` component with the appropriate HTML element (i.e. `motion.div`, `motion.li` etc) as the first child.
+-   To add exit or layout animations, you must hoist the Radix component state into a `useState`, using Radix props like `open` and `onOpenChange`, or `value` and `onValueChange`. Then using these props to conditionally render the Radix component.
+-   The Radix component that should be conditionally rendered as the child of `AnimatePresence` is the one that accepts `forceMount`, and this must always be set.
 
-- Place teardown logic in the main effect for proper resource release
-- Use `Effect.addFinalizer` for cleanup operations
-- Ensure graceful teardown when applications are interrupted
-- Handle errors at the appropriate level of abstraction
-
-## Type Safety
-
-- Use explicit type annotations when inference is insufficient
-- Avoid type assertions when possible
-- Leverage Effect's built-in error handling with proper typing
-- Define custom error types for domain-specific errors
-
-## Logging and Debugging
-
-- Structure complex operations to make logging and tracing easier
-- Log the start and completion of long-running tasks
-- Consider wrapping logging in Effect operations for better composition
-
-## Performance Considerations
-
-- Follow Effect's patterns for resource management
-- Use appropriate scheduling mechanisms
-- Implement proper cancellation and interruption handling
-- Optimize for both readability and performance
-- Choose the appropriate concurrency model for your use case
-
-## Testing
-
-- Write tests that validate both success and failure paths
-- Use Effect's testing utilities for effect-based code, especially the `@effect/vitest` library
-- Test interruption handling and resource cleanup
-- Verify correct concurrency behavior in multi-task scenarios
+-   Only apply `forceMount` on Radix components, never on DOM components.
 
 ---
 > Source: [MusKRI/pure-ui](https://github.com/MusKRI/pure-ui) — distributed by [TomeVault](https://tomevault.io).
