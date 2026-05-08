@@ -1,9 +1,9 @@
 {
   "name": "hainanzhao--clawless",
   "displayName": "Clawless",
-  "description": "Clawless",
+  "description": "Clawless is an messaging bridge and schedule engine built around your favourite coding Agents.",
   "version": "1.0.0",
   "author": "HainanZhao",
-  "homepage": "https://tomevault.io/claim/HainanZhao",
+  "homepage": "https://github.com/HainanZhao/Clawless",
   "skills": []
 }
