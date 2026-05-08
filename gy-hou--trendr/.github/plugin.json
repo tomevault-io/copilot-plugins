@@ -1,0 +1,9 @@
+{
+  "name": "gy-hou--trendr",
+  "displayName": "trendr",
+  "description": "\u4e00\u4e2a\u9762\u5411\u7814\u7a76\u573a\u666f\u7684 multi-agent workflow\uff0c\u91cd\u70b9\u89e3\u51b3\u68c0\u7d22\u3001\u6574\u7406\u3001\u4ea4\u63a5\u3001\u7eed\u8dd1\u3001\u9632\u9057\u5fd8\u548c\u591a\u6e90 fallback\u3002\u4e3b\u8981\u9762\u5411OpenClaw, \u517c\u5bb9ClaudeCode/Codex",
+  "version": "1.0.0",
+  "author": "gy-hou",
+  "homepage": "https://github.com/gy-hou/trendr",
+  "skills": []
+}
