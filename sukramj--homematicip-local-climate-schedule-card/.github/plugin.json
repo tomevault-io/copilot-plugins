@@ -1,0 +1,9 @@
+{
+  "name": "sukramj--homematicip-local-climate-schedule-card",
+  "displayName": "homematicip_local_climate_schedule_card",
+  "description": "Climate scheduler card for Homematic(IP) local",
+  "version": "1.0.0",
+  "author": "SukramJ",
+  "homepage": "https://github.com/SukramJ/homematicip_local_climate_schedule_card",
+  "skills": []
+}
