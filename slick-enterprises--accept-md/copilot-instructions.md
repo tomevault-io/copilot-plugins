@@ -1,37 +1,38 @@
-## packages-conventions
+## project-overview
 
-> Package boundaries and conventions (core, middleware, cli)
+> accept-md monorepo layout and rules for AI contributors
 
 
-# Package conventions
+# accept-md project rules
 
-## Boundaries
+## Monorepo layout
 
-- **@accept-md/core**: No dependency on Next.js or accept-md-runtime. Exports: types, `scanProject`, `loadConfig` (config loader re-exported from runtime in docs; core has types).
-- **accept-md-runtime**: Depends only on turndown, linkedom. Exports: `getMarkdownForPath`, `loadConfig`, template constants. Used by user apps and by the CLI (templates).
-- **accept-md** (CLI): Depends on core and runtime. No direct Next.js dependency; uses core for detection and runtime for templates.
+- **packages/core** (`@accept-md/core`): Route scanner (app/pages), config types, project detection. No Next.js runtime dependency.
+- **packages/middleware** (`accept-md-runtime`): HTML→Markdown, handler logic, config loader, **templates**. Used by end-user apps.
+- **packages/cli** (`accept-md`): CLI (init, doctor, fix-routes). Depends on core and runtime.
+- **examples/app-router**, **examples/pages-router**: Example Next.js apps. Used for manual testing.
+- **website**: Marketing/docs site (Next.js).
 
-## Code style
+Workspace: pnpm. Build from root with `pnpm run build`. Tests: `pnpm run test`. Lint: `pnpm run lint`.
 
-- ESM only (`"type": "module"`). Use `import`/`export`, `.js` in imports for TypeScript.
-- Prefer minimal config and small dependency sets.
-- Tests: `**/*.test.ts`, Vitest. Run with `pnpm run test` from root (filters to core and runtime).
+## User-facing code must stay JS-compatible
 
-## When changing behavior
+- **Generated handler files** (e.g. `app/api/accept-md/route.js` or `route.ts`) are written by the CLI for **end users**. Many users do **not** use TypeScript.
+- **Templates** in `packages/middleware/src/templates.ts` must be **plain JavaScript** (no type annotations). The CLI writes either `.js` or `.ts` based on `tsconfig.json`; the content is the same.
+- **Examples** in `examples/*` use **`.js`** for the accept-md handler (`route.js`, `index.js`) so the examples work for both TS and JS users.
+- Do **not** convert handler templates or example handlers to TypeScript-only. Do not add TypeScript-only syntax to files that get copied into user projects.
 
-- If you change handler or middleware **contract** (exports, request/response shape), update:
-  - `packages/middleware` (handler, templates)
-  - `packages/cli` (init, doctor if it references paths)
-  - Both `examples/app-router` and `examples/pages-router`
-  - README and `packages/*/README.md` as needed
-- Run `pnpm run build` and `pnpm run test` before committing.
+## Backward compatibility
 
-## Next.js rewrite configuration
+- CLI **init** creates `route.ts` / `index.ts` only when the project has `tsconfig.json`; otherwise creates `route.js` / `index.js`.
+- **Doctor** considers the handler present if either `route.ts` or `route.js` (App) or `index.ts` or `index.js` (Pages) exists.
+- When changing handler or middleware contract, update both App and Pages examples and the README.
 
-- **Rewrite pattern**: Use catch-all `/:path*` in `next.config.js` rewrites. Complex regex patterns like `/:path((?!api|_next).)*` don't match sub-routes reliably in Next.js.
-- **Exclusion handling**: Path exclusions for `/api` and `/_next` are handled in the handler code (returns 404), not in the rewrite pattern.
-- **Destination format**: App Router uses `/api/accept-md/:path*` (path parameter). Pages Router can use `/api/accept-md?path=:path*` (query string) for backward compatibility.
-- The `getNextConfigRewrite()` function in `packages/middleware/src/templates.ts` returns the correct rewrite configuration.
+## Conventions
+
+- Use TypeScript and ESM in **this repo** (packages, website).
+- Keep runtime dependencies minimal (turndown, linkedom only in runtime).
+- When editing init/templates, keep generated output valid for both JS and TS user projects.
 
 ---
 > Source: [slick-enterprises/accept-md](https://github.com/slick-enterprises/accept-md) — distributed by [TomeVault](https://tomevault.io).
