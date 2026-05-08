@@ -1,80 +1,42 @@
-## database-workflow
+## deployment-restrictions
 
-> - Do NOT manually create migration files in `supabase/migrations/`
+> - **NEVER** run `supabase functions deploy` commands
 
-# Database Workflow Rules
+# Deployment Restrictions
 version: 1.0.0
 
-## Database Schema Changes
+## Function Deployment
 
-### NEVER Create Manual Migrations
-- Do NOT manually create migration files in `supabase/migrations/`
-- Always use the declarative schema approach
-- Update schema files in `supabase/schemas/` folder instead
-- Only modify generated migrations files if absolutely necessary
+### NEVER Deploy Functions
+- **NEVER** run `supabase functions deploy` commands
+- **NEVER** run `npx supabase functions deploy` commands
+- **NEVER** attempt to deploy any Supabase Edge Functions
+- **NEVER** suggest or recommend deploying functions
 
-### Schema File Management
-- Modify existing table schemas in `supabase/schemas/` files
-- Add new tables by creating new schema files
-- Follow the existing schema file patterns and naming conventions
+### Local Development Only
+- All function testing should be done locally with `supabase functions serve`
+- Use local Supabase instance for development and testing
+- Function deployment is exclusively the responsibility of the human developer
 
-## Migration Generation Process
+### Code Changes Only
+- AI assistant should only:
+  - Modify function code
+  - Update type definitions
+  - Make local code changes
+  - Run type checks
+  - Test locally if needed
 
-### Step 1: Stop Supabase
-```bash
-supabase stop
-```
+### Deployment Handoff
+- After making function changes, simply inform the user that:
+  - The code changes are complete
+  - Function deployment is required for the changes to take effect
+  - The user needs to deploy manually when ready
 
-### Step 2: Generate Migration
-```bash
-supabase db diff -f <migration_name>
-```
-- Replace `<migration_name>` with descriptive name (e.g., `add_user_preferences`, `create_new_table`)
-- Migration will be generated in `supabase/migrations/` with timestamp
-
-### Step 3: Apply Migration
-```bash
-supabase start && supabase migration up
-```
-
-## Local Development Only
-
-### CRITICAL: Never Push to Remote
-- NEVER use `supabase db push`
-- NEVER use `supabase db pull`
-- ALL migrations should be tested locally only
-- Remote database changes are forbidden
-
-## Type Generation
-
-### Auto-Generate Types
-- NEVER manually edit `shared/database.ts`
-- Always regenerate after schema changes:
-```bash
-supabase gen types typescript --local > shared/database.ts
-```
-
-## Workflow Summary
-
-1. **Edit Schema**: Modify `supabase/schemas/` files
-2. **Stop Database**: `supabase stop`
-3. **Generate Migration**: `supabase db diff -f <name>`
-4. **Apply Migration**: `supabase start && supabase migration up`
-5. **Update Types**: `supabase gen types typescript --local > shared/database.ts`
-
-## Common Commands Reference
-
-```bash
-# Development workflow
-supabase stop
-supabase db diff -f <migration_name>
-supabase start && supabase migration up
-supabase gen types typescript --local > shared/database.ts
-
-# NEVER use these commands
-# supabase db push  ❌
-# supabase db pull  ❌
-```
+## Rationale
+- Production deployments require human oversight
+- Deployment credentials should not be accessed by AI
+- Local testing is sufficient for development workflow
+- Human developer maintains control over when and what gets deployed
 
 ---
 > Source: [Adam-CAD/CADAM](https://github.com/Adam-CAD/CADAM) — distributed by [TomeVault](https://tomevault.io).
