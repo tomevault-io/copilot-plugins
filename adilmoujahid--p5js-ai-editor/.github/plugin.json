@@ -1,0 +1,9 @@
+{
+  "name": "adilmoujahid--p5js-ai-editor",
+  "displayName": "p5js-ai-editor",
+  "description": "A modern, web-based IDE for creating and editing p5.js sketches with AI assistance and Model Context Protocol (MCP) integration for Claude Desktop.",
+  "version": "1.0.0",
+  "author": "adilmoujahid",
+  "homepage": "https://github.com/adilmoujahid/p5js-ai-editor",
+  "skills": []
+}
