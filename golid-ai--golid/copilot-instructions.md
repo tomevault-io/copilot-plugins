@@ -1,76 +1,95 @@
-## audit-bugs
+## audit-codebase
 
-> Bug audit checklist — use when asked to review code for bugs, security issues, or quality problems
+> Deep codebase audit checklist — use when asked to audit, review for release, or grade the codebase
 
 
-# Bug Audit Checklist
+# Codebase Audit Checklist
 
-Run this checklist against any file or module being reviewed. Each item references a real bug found in this codebase.
+Run this checklist for release readiness audits. Cite exact file paths and line numbers for every finding. Check docs/decisions/ for ADRs before flagging documented design decisions.
 
-## Audit Strategy
+## Backend
 
-A single audit pass catches ~60-70% of real issues. Each pass has blind spots due to which files get read first, which patterns the search focuses on, and attention saturation on large codebases. To maximize coverage:
+- [ ] All SQL uses $N parameterized placeholders (no fmt.Sprintf with values)
+- [ ] No `_ = fn()` discarded errors in production code
+- [ ] No `echo.NewHTTPError` in production code (use apperror)
+- [ ] Token refresh is transactional and TOCTOU-safe (atomic UPDATE...RETURNING)
+- [ ] Password reset uses SELECT...FOR UPDATE inside transaction
+- [ ] Verification tokens hashed with selector/verifier pattern
+- [ ] All `rows.Next()` loops check `rows.Err()` after iteration
+- [ ] JWT_SECRET rejects CHANGE_ME placeholder at startup
+- [ ] Production entrypoint exits on migration failure
+- [ ] Timeout middleware uses Echo's built-in (no custom goroutine race)
+- [ ] All operational constants in Config struct with env var overrides
+- [ ] ForgotPassword/ResendVerification log errors server-side (anti-enumeration: always return 200)
 
-1. **Run multiple independent passes with different focus areas** — e.g., one pass for reactive patterns, one for auth/security, one for config consistency, one for the fork/rename story. Narrow scope finds more than broad sweeps.
-2. **Vary the search strategy** — don't just follow this checklist. Grep for known anti-patterns (`return () =>` in `.tsx`, `_ =` in `.go`, `any` in component props). Read files the checklist doesn't mention (entry-server.tsx, rename tool, CI config, env files).
-3. **Check reference implementations are textbook-perfect** — `app.tsx`, `login/index.tsx`, `dashboard/index.tsx`, and `settings/index.tsx` are copied by the scaffold tool and by AI assistants. A bug in these propagates everywhere.
-4. **Verify the tool chain, not just the code** — rename tool, scaffold templates, deploy scripts, and CI config can have bugs that downstream users inherit silently.
-5. **After fixing issues, re-read the fixed files** — fixes can introduce new problems (e.g., a rename tool step that corrupts URLs by naively replacing project names inside domain strings).
+## Frontend
 
-## Backend Service Files
+- [ ] Zero `createResource` (use onMount + signals)
+- [ ] Zero nested `<Show>` for mutually exclusive content states (use Switch/Match)
+- [ ] Zero `window.confirm()` (use DestructiveModal)
+- [ ] Zero onMount/createEffect returning cleanup functions (use onCleanup)
+- [ ] Zero `any` in production code (test files acceptable)
+- [ ] Auth store reacts to token clearing (`auth:session-expired` event)
+- [ ] Auth cookie Secure on HTTPS (both set and clear paths)
+- [ ] Skip link present with correct target and tabindex
+- [ ] Auth guard effects use `on()` syntax (without defer — documented exception in solidjs-pages.mdc)
+- [ ] `batch()` wraps signal updates after every `await`
 
-- [ ] **SQL injection** — any `fmt.Sprintf` with values going into SQL? Must use `$N` placeholders.
-- [ ] **Missing transactions** — any method with 2+ writes that isn't wrapped in `Begin/Commit`?
-- [ ] **Silent error discards** — any `_ = pool.Exec(...)` or `_ = fn(...)`? Must log errors.
-- [ ] **ErrNoRows masking** — any `_ = pool.QueryRow(...)` that ignores real DB errors? Must check `err != nil && err != pgx.ErrNoRows`.
-- [ ] **Role-only auth** — any method that checks `userType` but not specific resource membership? Must use `verifyXAccess`.
-- [ ] **Missing status guards** — can the method be called on inactive/completed/cancelled parent entities? Add guards.
-- [ ] **echo.NewHTTPError usage** — should be `apperror.X()` instead.
-- [ ] **TIMESTAMPTZ scan into *string** — nullable `TIMESTAMPTZ` columns CANNOT scan into `*string`. Must scan into `*time.Time` then format: `if t != nil { s := t.Format(time.RFC3339); field = &s }`.
-- [ ] **ON CONFLICT without UNIQUE constraint** — any `ON CONFLICT (col1, col2)` requires a matching `UNIQUE` index on those columns. Without it, PostgreSQL returns a runtime error.
-- [ ] **Hardcoded values in service constructors** — names, emails, URLs should come from config/env, not hardcoded strings.
-- [ ] **Missing `rows.Err()` after `rows.Next()` loops** — partial iteration errors are silent without this check. Every `for rows.Next()` must be followed by `if err := rows.Err()`.
+## Security
 
-## Backend Handler Files
+- [ ] No endpoints leak DB errors or stack traces to clients
+- [ ] Rate limiting covers auth (strict) and general API
+- [ ] SSE excluded from gzip and timeout middleware
+- [ ] CSP configurable via `CSP_POLICY` env var
+- [ ] CORS rejects all origins when `ALLOWED_ORIGINS` unset (deny-by-default)
+- [ ] Password hashing uses bcrypt with 72-byte max enforcement
+- [ ] Refresh token rotation is atomic (revoke + issue in one transaction)
 
-- [ ] **Missing requireUserID/requireUserType** — every protected handler must extract auth.
-- [ ] **Business logic in handler** — DB queries or complex logic should be in the service layer.
-- [ ] **Missing request validation** — required fields should be checked before calling service.
+## Tooling — Rename Tool
 
-## Frontend Route Files
+- [ ] Handles hyphenated names (`my-app` → `MyApp` for PascalCase identifiers)
+- [ ] ALL-CAPS form handles hyphens (`my-app` → `MY_APP`, not `MY-APP`)
+- [ ] Covers all file types: Go, TSX/TS, CSS, docs, Cursor rules, CI, infra, env files, entrypoints, .gcloudignore, benchmarks, openapi.yaml, scaffold, testutil, teardown.sh
+- [ ] ALL-CAPS replacement applied to env files, entrypoints, and config files
+- [ ] Validates project name format (lowercase alphanumeric + hyphens)
+- [ ] Protects domain (`golid.ai`) from corruption via `replaceInFileSafe`
+- [ ] `frontend/.env.example` gets lowercase + titled + ALL-CAPS passes
 
-- [ ] **Nested `<Show>` for content states** — loading/error/empty/data using nested `<Show when={!loading()}>` → `<Show when={error()}>` → `<Show when={data()}>` chains? Must use flat `Switch/Match` instead. Nested `<Show>` creates stacked reactive scopes that leak during route transitions.
-- [ ] **Missing `batch()` on async signal updates** — `setData(result)` and `setLoading(false)` after an `await` must be wrapped in `batch()` for atomic updates. Otherwise intermediate states cause computation leaks.
-- [ ] **Missing `defer: true` on `createEffect(on(...))`** — effects that refetch on filter/page changes must use `{ defer: true }` + separate `onMount` for initial fetch. Without defer, the effect fires synchronously during mount and conflicts with route transitions.
-- [ ] **Reactive expression inside `<Title>`** — `<Title>{signal() ? "A" : "B"}</Title>` leaks during route transitions. Pre-compute as `createMemo`, pass resolved string.
-- [ ] **`createResource` usage anywhere** — the project uses `onMount` + `createSignal` + `alive` guard + `batch` for all data fetching. `createResource` causes orphaned computation warnings on route transitions and Suspense blanking in conditional components. Replace with signals pattern.
-- [ ] **Return from `onMount` or `createEffect`** — `onMount(() => { ...; return () => cleanup() })` silently ignores the cleanup function. Must use `onCleanup(() => cleanup())` inside the body instead. This is the React pattern — it compiles in Solid but the cleanup never runs.
-- [ ] **Missing alive guard** — any async operation without `let alive = true; onCleanup(...)` check? Also check `.then()` callbacks (e.g., avatar URL resolution) — they must check `if (alive)` before setting signals.
-- [ ] **Missing PRIVATE_ROUTES entry** — is this route listed in `frontend/src/lib/constants.ts`?
-- [ ] **window.confirm usage** — should be `DestructiveModal`.
-- [ ] **Route-based detail view** — should it be a signal-driven modal instead?
+## Tooling — Scaffold Tool
 
-## Migration Files
+- [ ] `singularize()` handles -us/-is/-as suffixes (prevents `status` → `statu`)
+- [ ] Template includes `rows.Err()` after `rows.Next()` loops
+- [ ] Template uses `toast` (not `snackbar`) for success/error notifications
+- [ ] Generated Pagination component props match the actual `PaginationProps` interface
+- [ ] Generated code compiles without modification (`go build`, `tsc --noEmit`)
 
-- [ ] **Missing down migration** — does the `.down.sql` exist and reverse everything?
-- [ ] **Missing indexes** — are FK columns and filter columns indexed?
-- [ ] **Missing updated_at trigger** — does the table have `updated_at` and the trigger?
+## Documentation
 
-## External API Integration
+- [ ] Zero broken internal links (check all `*.md` files in docs/)
+- [ ] README Quick Start works on fresh clone (including JWT_SECRET generation)
+- [ ] `docs/quick-start.md` Option B includes JWT_SECRET generation
+- [ ] `example-module.md` matches scaffold output: constructor signatures, interface pattern, ParsePagination, 5-arg List with search, rows.Err, Pagination props, toast, reactive page refetch
+- [ ] Cursor rules reference correct function names, arities, and store APIs — cross-check against actual source:
+  - `go-service.mdc` constructor and `NormalizePagination` signature
+  - `write-tests.mdc` constructor and pagination helper
+  - `frontend-lib.mdc` store method names
+  - `sse-realtime.mdc` `NewSSEHub` signature and notification store
+- [ ] CHANGELOG accurate (rule count, coverage thresholds, feature claims)
+- [ ] All test counts, coverage numbers, and version badges match actual values
+- [ ] Migration numbers in examples don't conflict with existing migrations
 
-- [ ] **API field names mismatch** — verify JSON struct tags match the external API's exact field names. Check the API docs, not assumptions.
-- [ ] **Query param vs body** — some APIs expect fields as query parameters, not in the request body. Verify endpoint documentation.
-- [ ] **Email deliverability** — external services may reject emails on bounce suppression lists. Verify `IsConfigured()` returns true before relying on email delivery. Use `service.Retry()` for resilience.
-- [ ] **Webhook signature verification** — every webhook endpoint must verify the request signature (e.g., HMAC-SHA256 with timing-safe comparison).
+## Integration Tests
 
-## Cross-Cutting
+- [ ] All integration test files compile with current constructor signatures
+- [ ] Test assertions match current service behavior (e.g., error codes, return values)
+- [ ] Concurrency tests enforce correct outcomes (e.g., exactly 1 success for token refresh race)
 
-- [ ] **Secrets in code** — any hardcoded API keys, passwords, or tokens?
-- [ ] **Secrets in shell scripts** — any `export VAR=secret`? Secrets should be loaded from env files, never hardcoded.
-- [ ] **N+1 queries** — any loop that makes a DB query per iteration? Should be a JOIN or batch query.
-- [ ] **Missing error handling in goroutines** — any `go fn()` without error logging?
-- [ ] **SSE endpoints excluded from middleware** — SSE (long-lived) endpoints must skip gzip compression (causes flush panic on close) and request timeout middleware. Check `middleware/stack.go` skipper functions.
-- [ ] **Modal overflow** — any modal content taller than the viewport? The global Modal has `max-h-[90vh] overflow-y-auto` but verify iframe/large content modals use appropriate height constraints.
+## Grading
+
+Score out of 100 with subgrades per category. List every finding with severity:
+- **Blocker**: security vulnerability, data loss risk, or generated code that won't compile
+- **Important**: incorrect behavior, stale references that mislead developers, or missing coverage
+- **Minor**: style inconsistency, cosmetic, or documentation clarity
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
