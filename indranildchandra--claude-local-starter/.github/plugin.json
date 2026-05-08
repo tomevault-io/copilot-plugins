@@ -1,0 +1,9 @@
+{
+  "name": "indranildchandra--claude-local-starter",
+  "displayName": "claude-local-starter",
+  "description": "Single-script installer that lifts and shifts my personal Claude Code setup - plugins, skills, commands, MCP servers, and config - onto any machine in seconds.",
+  "version": "1.0.0",
+  "author": "indranildchandra",
+  "homepage": "https://github.com/indranildchandra/claude-local-starter",
+  "skills": []
+}
