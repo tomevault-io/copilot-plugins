@@ -1,0 +1,9 @@
+{
+  "name": "karazajac--moon-firmware",
+  "displayName": "Moon-Firmware",
+  "description": "Moon Firmware \u2014 Custom Flipper Zero firmware with XIP flash execution, full BLE stack, and expanded SubGHz automotive protocols",
+  "version": "1.0.0",
+  "author": "KaraZajac",
+  "homepage": "https://github.com/KaraZajac/Moon-Firmware",
+  "skills": []
+}
