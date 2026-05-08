@@ -1,0 +1,9 @@
+{
+  "name": "cosformula--openclaw-mlx-audio",
+  "displayName": "openclaw-mlx-audio",
+  "description": "OpenClaw local TTS plugin powered by mlx-audio, zero API key, zero cloud dependency",
+  "version": "1.0.0",
+  "author": "cosformula",
+  "homepage": "https://github.com/cosformula/openclaw-mlx-audio",
+  "skills": []
+}
