@@ -1,19 +1,21 @@
-## 03-skill-testcases
+## 04-skill-api-tests
 
-> SKILL: Generate Test Scenarios Matrix from API spec (use for /test-cases)
+> SKILL: Generate Ktor/JUnit API Tests (use for /api-tests)
 
-# SKILL: TEST CASES
+# SKILL: API AUTOMATION
 
 ## TRIGGER
-Use this when generating test scenarios matrix from API specification.
+Use this when writing actual executable API tests in Kotlin.
 
 ## LOGIC SOURCE
-**EXECUTE the instruction set defined in:** `.claude/skills/test-cases/SKILL.md`
+**EXECUTE the instruction set defined in:** `.claude/skills/api-tests/SKILL.md`
 
-@.claude/skills/test-cases/SKILL.md
+@.claude/skills/api-tests/SKILL.md
 
-## OUTPUT
-Output: `audit/test-scenarios.md`
+## CRITICAL REMINDERS
+- Use `ApiRequestBaseJson` wrapper as defined in the skill.
+- Assertions must use JUnit 5 format.
+- Link tests to Allure IDs.
 
 ---
 > Source: [vlad-ryzhkov/AI-QA-workshop-feb19](https://github.com/vlad-ryzhkov/AI-QA-workshop-feb19) — distributed by [TomeVault](https://tomevault.io).
