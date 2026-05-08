@@ -1,22 +1,30 @@
-## python-performance-optimization
+## python-pydantic-models
 
-> Performance optimization patterns for utility functions including caching, lazy evaluation, and async operations.
+> Best practices for defining and using Pydantic BaseModel in the models directory for data validation and serialization.
 
-- Use @lru_cache for expensive pure functions that are called repeatedly.
-- Implement lazy evaluation for costly operations that may not always be needed.
-- Use generators and iterators for processing large datasets to save memory.
-- Prefer list comprehensions over map/filter for simple transformations.
-- Use async def for I/O-bound operations (file I/O, network calls).
-- Avoid premature optimization; profile first with cProfile or py-spy.
-- Cache compiled regex patterns at module level.
-- Use appropriate data structures (set for membership tests, dict for lookups).
-- Minimize function call overhead in hot paths.
-- Use str.join() instead of repeated string concatenation.
-- Read files in binary mode when text encoding is not needed.
-- Use pathlib.Path for file operations (more efficient than os.path).
-- Batch operations when possible to reduce overhead.
-- Consider using slots for frequently instantiated classes to reduce memory.
-- Use context managers to ensure proper resource cleanup.
+- All model classes in the models/ directory MUST inherit from pydantic.BaseModel (or the project's BaseModel wrapper).
+- Use Pydantic v2 syntax and features (Field, field_validator, model_validator, model_config, ConfigDict).
+- Define model_config using ConfigDict for model-level configuration (populate_by_name, validate_assignment, extra, etc.).
+- Use Field() to add validation constraints, descriptions, default values, and aliases for all model fields.
+- Provide bilingual descriptions (English / 中文) in Field(description=...) for better documentation.
+- Use type hints for all fields with proper types (str, int, List[T], Optional[T], etc.).
+- Use Optional[T] explicitly instead of T | None for Python 3.8+ compatibility.
+- Implement field validators using @field_validator decorator for custom validation logic.
+- Implement model validators using @model_validator(mode='before'/'after') for cross-field validation.
+- Create reusable mixins (e.g., TimestampMixin) for common field groups.
+- Use Generic[T] with TypeVar for generic models like ApiResponse[T], PaginatedResponse[T].
+- Implement helper methods as @property or regular methods for computed fields.
+- Use model_dump() and model_dump_json() for serialization (not .dict() or .json() from Pydantic v1).
+- Use model_validate() and model_validate_json() for validation (not .parse_obj() or .parse_raw() from Pydantic v1).
+- Avoid nested dict structures; create dedicated Pydantic models for nested data.
+- Export all public models in models/__init__.py for clean imports.
+- Use pattern parameter in Field() for regex validation (e.g., email, username patterns).
+- Use ge, gt, le, lt parameters in Field() for numeric constraints.
+- Use min_length, max_length parameters in Field() for string length validation.
+- Document validation rules and field purposes in model and field docstrings.
+- Use default_factory for mutable default values (lists, dicts) instead of default=[].
+- Implement model_dump_json_safe() or similar methods for JSON serialization with custom handling.
+- Never use plain dict or dataclass for models; always use Pydantic BaseModel for validation and serialization.
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
