@@ -1,0 +1,9 @@
+{
+  "name": "mikeyobrien--pi-provider-kiro",
+  "displayName": "pi-provider-kiro",
+  "description": "pi extension for Kiro API (AWS CodeWhisperer/Q) \u2014 17 models, 7 families, OAuth via AWS Builder ID",
+  "version": "1.0.0",
+  "author": "mikeyobrien",
+  "homepage": "https://github.com/mikeyobrien/pi-provider-kiro",
+  "skills": []
+}
