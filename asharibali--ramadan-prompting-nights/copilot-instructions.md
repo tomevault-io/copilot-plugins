@@ -1,297 +1,39 @@
-## api
+## db
 
-> You are an expert TypeScript backend engineer specializing in building modern, type-safe APIs. Your expertise covers Hono for HTTP routing, Drizzle ORM for database operations, and React Query for frontend integration.
+> Database rules for working with drizzle schemas and creating backend apis
 
-# Backend API Architecture and Development Guidelines
+Leverage strings with drizzle types, instead of enums:
+`status: text("status").$type<pending | cancelled |error >().notNull()`
 
-You are an expert TypeScript backend engineer specializing in building modern, type-safe APIs. Your expertise covers Hono for HTTP routing, Drizzle ORM for database operations, and React Query for frontend integration.
+Only use varchar for ids, similiar to the users table. Otherwise use text.
 
-<core_architecture>
-
-<tech_stack>
-- **Server & Routing**: Hono
-- **Database ORM**: Drizzle with PostgreSQL
-- **Frontend Integration**: React Query
-- **Authentication**: Clerk
-- **Validation**: Zod with zValidator
-</tech_stack>
-
-<project_structure>
-apps/
-  ├── api/
-  │   ├── src/
-  │   │   ├── modules/           # Feature-based modules
-  │   │   │   ├── [module]/      # e.g., posts, webhooks
-  │   │   │   │   ├── [module].routes.ts   # Route definitions
-  │   │   │   │   └── [module].service.ts  # Business logic & DB operations
-  │   │   ├── pkg/               # Shared utilities and middleware
-  │   │   └── index.ts          # Main application setup
-  └── web/
-      └── src/
-          └── api/
-              └── [module].api.ts # React Query hooks
-
-packages/
-  └── db/
-      ├── src/
-      │   ├── schema.ts         # Database schema definitions
-      │   ├── types.ts          # Shared TypeScript types
-      │   ├── index.ts          # Main exports
-      │   └── util/             # Database utilities
-</project_structure>
-
-<module_development_guidelines>
-### 1. Database layer
-- If the request needs a new column or addition database fields start by creating and updating schema.ts
-- Leverage types.ts inside packages/db to create new zod schemas for the newly created tables or columns and eg:
-```
-export type Post = InferSelectModel<typeof schema.posts>;
-export type NewPost = InferInsertModel<typeof schema.posts>;
-
-export const postInsertSchema = createInsertSchema(schema.posts).omit({ userId: true });
-export const postSelectSchema = createSelectSchema(schema.posts);
-```
-
-
-### 2. Service Layer ([module].service.ts)
-- Implement business logic
-- Handle database operations using Drizzle
-- Return strongly typed responses
-- Keep services focused and modular
-- Import db from the `packages/db` 
-
-Example service implementation:
+When creating a new table, leverage the id util `packages/id/src/generate.ts`
+<new_table_prefix>
 ```ts
-`[module].service.ts`
-import { db, eq, items} from "@repo/db"
+`packages/id/generate.ts`
 
-export const moduleService = {
-  async getItems() {
-    return db.select().from(items);
-  },
-  
-  async createItem(data: NewItem) {
-    return db.insert(items).values(data).returning();
-  }
-};
+const prefixes = {
+  post: "post",
+  property: "prop",
+  // Add new prefixes here
+} as const;
 ```
+For generate.ts, all you have to do is add the table name (or varation) as a key to the const. No need to use nanoid or change any other code.
+Also abbreviate longer words, i.e   property: "cust",
 
 
-### 3. Route Layer ([module].routes.ts)
-- Define endpoints using Hono router
-- Implement request validation using zValidator. You can leverage the created zod schemas from drizzle zod.
-- Apply authentication middleware where needed
-- Structure routes logically by resource
-- **Use custom error classes instead of manual status responses** - Import from `@/pkg/errors` and throw appropriate errors
-- **Avoid wrapping route handlers in try-catch blocks** - let error middleware handle exceptions
-- Delegate all business logic and error handling to the service layer
 
-Example route implementation:
+Then inside `packages/db/schema.ts` you can use it like so:
 ```ts
-import { NotFoundError } from "@/pkg/errors";
-
-const moduleRoutes = new Hono()
-  .use(auth(),requireAuth)
-  .get("/", async (c) => {
-    const items = await moduleService.getItems();
-    return c.json(items);
-  })
-  .post("/", zValidator("json", insertSchema), async (c) => {
-    const data = c.req.valid("json");
-    const userId = getUserId(c);
-    const result = await moduleService.createItem({ ...data, userId });
-    // If results could be undefined or otherwise, throw proper error
-    if (!result){
-        throw new NotFoundError("Item not found");
-    }
-    return c.json(result);
-  });
-
-  
-```
-
-After the route is created, you must add it to the `apps/api/src/index.ts` route so its accessable by the frontend.
-
-</module_development_guidelines>
-
-<frontend_integration>
-When fetching data from the backend api on the client, use the following guidelines
-`post.api.ts`
-```ts
-import { apiRpc, getApiClient, InferRequestType, callRpc } from "./client";
-
-const $createPost = apiRpc.posts.$post;
-// Simple get
-export async function getPosts() {
-  const client = await getApiClient();
-
-  return callRpc(client.posts.$get());
-}
-// Safely leverage the typed params elsewhere within the nextjs application 
-export type CreatePostParams = InferRequestType<typeof $createPost>["json"];
-export async function createPost(params: CreatePostParams) {
-  const client = await getApiClient();
-
-  return callRpc(client.posts.$post({ json: params }));
+export const properties = pgTable("properties", {
+  id: varchar("id", { length: 255 })
+    .primaryKey()
+    .$defaultFn(() => newId("property"))
 }
 ```
-</frontend_integration>
-<package_management>
+</new_table_prefix>
 
-- Use `pnpm` as the primary package manager for the project
-- Install dependencies using `pnpm add [package-name]`
-- Install dev dependencies using `pnpm add -D [package-name]`
-- Install workspace dependencies using `pnpm add -w [package-name]`
-</package_management>
-
-<development_guidelines>
-### Running Scripts
-- Use `bun` as the runtime environment and script runner
-- Execute scripts defined in package.json using `bun run [script-name]`
-- Run TypeScript files directly using `bun [file.ts]`
-
-### Monorepo 
-The project use turbo repo. To run everything, use the `turbo dev` script from the root folder.
-
-### Type Safety
-- Use Drizzle schemas for database types
-- Share types between frontend and backend using a shared package
-- Leverage zod for runtime validation
-
-### Error Handling
-- **Use custom error classes instead of manual JSON responses** - Import and throw errors from `@/pkg/errors/error`
-- Available error classes: `NotFoundError`, `BadRequestError`, `UnauthorizedError`, `ForbiddenError`, `ConflictError`, `UnprocessableEntityError`, `InternalServerError`, `TooManyRequestsError`
-- **NEVER return manual status responses** like `return c.json({error: "message"}, 401)` - always throw proper error classes
-- Implement consistent error handlers across all routes
-- Handle edge cases by throwing appropriate error classes
-- Use the logger from the package @repo/logger with object inside, i.e `logger.error({...})` instead of `console.error`
-
-#### Error Class Usage Examples:
-```ts
-// ❌ DON'T DO THIS
-if (!user) {
-  return c.json({ error: "User not found" }, 404);
-}
-
-// ✅ DO THIS INSTEAD
-import { NotFoundError, BadRequestError, ConflictError } from "@/pkg/errors";
-
-if (!user) {
-  throw new NotFoundError("User not found");    
-}
-
-if (email && await userExists(email)) {
-  throw new ConflictError("User with this email already exists");
-}
-
-if (!isValidInput(data)) {
-  throw new BadRequestError("Invalid input data provided");
-}
-```
-
-### Authentication & Authorization
-- Use Clerk middleware for authentication
-- Implement role-based access control where needed
-- Validate user permissions at the route level
-- Keep authentication logic in middleware
-
-### API Design Principles
-- Follow RESTful conventions
-- Use consistent naming patterns
-- Implement proper request validation
-- Structure endpoints by resource/module
-- Keep routes clean and delegate logic to services
-
-### Database Operations
-- Use Drizzle for all database interactions
-- Implement proper migrations
-- Handle transactions when needed
-- Write efficient queries
-- Use appropriate indexes
-</development_guidelines>
-
-<dev_workflow>
-### Creating a New Module for different buisness logic
-1. Create module directory in api/src/modules/[module]
-2. Define routes in [module].routes.ts
-3. Implement service logic in [module].service.ts
-4. Add route to main application in index.ts
-5. Create frontend integration in web/src/api/[module].api.ts
-</dev_workflow>
-
-### Testing Requirements
-- If needed use vitest to create testing files inside of the modules, [module].test.ts 
-- 
-### Code Quality
-- For methods with more than one argument, use object destructuring: `function myMethod({ param1, param2 }: MyMethodParams) {...}`.
-</best_practices>
-
-
-<example_api_workflow>
-Here's a complete example of a typical module:
-
-(if required) create new schemas. 
-// packages/db/schema.ts
-.. new schema files
-
-Then:
-```ts
-// posts.service.ts
-import { db, posts, type NewPost } from "@repo/db";
-
-export const postService = {
-  async getPosts() {
-    return db.select().from(posts);
-  },
-
-  async createPost(post: NewPost) {
-    return db.insert(posts).values(post).returning();
-  }
-};
-
-// posts.routes.ts
-import { Hono } from "hono";
-import { auth, requireAuth, getUserId } from "@/pkg/middleware/clerk-auth";
-import { postService } from "./post.service";
-import { zValidator } from "@/pkg/util/validator-wrapper";
-import { postInsertSchema } from "@repo/db";
-
-export const postRoutes = new Hono()
-  .use(auth(),requireAuth)
-  .get("/", async (c) => {
-    const posts = await postService.getPosts();
-    return c.json(posts);
-  })
-  .post("/", zValidator("json", postInsertSchema), async (c) => {
-    const data = c.req.valid("json");
-    const userId = getUserId(c);
-    const post = await postService.createPost({ ...data, userId });
-    return c.json(post);
-  });
-```
-
-- Use the RPC-style API client for type-safe API calls
-- Leverage `InferRequestType` for parameter typing
-- Export plain async functions for API operations
-- Optionally create React Query hooks when needed
-```ts
-// posts.api.ts (Frontend)
-import { apiRpc, getApiClient, InferRequestType, callRpc } from "./client";
-
-const $createPost = apiRpc.posts.$post;
-
-export async function getPosts() {
-  const client = await getApiClient();
-  return  callRpc(client.posts.$get());
-}
-
-export async function createPost(params: InferRequestType<typeof $createPost>["json"]) {
-  const client = await getApiClient();
-  return callRpc(client.posts.$post({ json: params }));
-  return response.json();
-}
-```
-</example_api_workflow>
+Users table doesn't need items like avatar or name, unless specificially required to sync via clerk
 
 ---
 > Source: [AsharibAli/ramadan-prompting-nights](https://github.com/AsharibAli/ramadan-prompting-nights) — distributed by [TomeVault](https://tomevault.io).
