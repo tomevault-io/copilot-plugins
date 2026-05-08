@@ -1,0 +1,9 @@
+{
+  "name": "razbakov--skill-mix",
+  "displayName": "skill-mix",
+  "description": "A management layer for AI agent skills \u2014 discover, install, scope, rate, and update skills across Cursor, Codex, and Claude Code.",
+  "version": "1.0.0",
+  "author": "razbakov",
+  "homepage": "https://github.com/razbakov/skill-mix",
+  "skills": []
+}
