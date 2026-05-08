@@ -1,0 +1,9 @@
+{
+  "name": "nightaqua--tasklens",
+  "displayName": "TaskLens",
+  "description": "Easy to customize dashboard plug-in for tasks management via Obsidian.",
+  "version": "1.0.0",
+  "author": "nightaqua",
+  "homepage": "https://github.com/nightaqua/TaskLens",
+  "skills": []
+}
