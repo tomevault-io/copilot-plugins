@@ -7,11 +7,11 @@ Monorepo for Codelegate, the multi-platform, multi-paradigm coding agent manager
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [brucehsu/codelegate](https://github.com/brucehsu/codelegate).
+Original source: `CLAUDE.md` in [brucehsu/codelegate](https://github.com/brucehsu/codelegate).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
