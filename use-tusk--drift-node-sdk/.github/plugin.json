@@ -1,0 +1,9 @@
+{
+  "name": "use-tusk--drift-node-sdk",
+  "displayName": "drift-node-sdk",
+  "description": "Node.js SDK for capturing and replaying API calls made to/from your service",
+  "version": "1.0.0",
+  "author": "Use-Tusk",
+  "homepage": "https://github.com/Use-Tusk/drift-node-sdk",
+  "skills": []
+}
