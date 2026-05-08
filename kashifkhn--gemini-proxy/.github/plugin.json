@@ -1,0 +1,9 @@
+{
+  "name": "kashifkhn--gemini-proxy",
+  "displayName": "gemini-proxy",
+  "description": "Self-hosted OpenAI-compatible API proxy for Google Gemini \u2014 authenticated via OAuth 2.0 + PKCE, no paid API key required. Built with Bun + Hono + TypeScript.",
+  "version": "1.0.0",
+  "author": "KashifKhn",
+  "homepage": "https://github.com/KashifKhn/gemini-proxy",
+  "skills": []
+}
