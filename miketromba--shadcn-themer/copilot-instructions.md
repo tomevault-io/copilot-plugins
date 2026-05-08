@@ -1,35 +1,50 @@
-## db-migrations
+## hono-rpc
 
-> Review this rule when making any schema changes to our database, running any database migrations, or dealing with database-related errors like RLS issues, adding RLS policies, etc.
+> Colocate server routers and typed client hooks using Hono RPC + React Query
 
+Conventions
+- Backend HTTP is implemented with Hono in `src/api/routers/*`. All routers are registered by chaining in `src/api/routers/index.ts` (keep chaining on the same value for full RPC type inference).
+- Frontend accesses APIs via typed clients in `src/api/client/*`. Clients must export React Query hooks (e.g., `useXyzList`) that call the Hono client (`hc<AppType>`) and never plain `fetch`.
+- Use the shared `apiClient` from `src/api/client/index.ts` and the exported `AppType` from `src/api/routers` for full end‑to‑end type safety.
+- AuthZ: Protected routers must enforce auth via Supabase SSR. Use `getAuthUser(c)` from `src/api/auth.ts` to obtain the authenticated user (throws 401 if not). For Storage writes, prefer the service client when needed.
+- Data contracts: Prefer returning JSON objects with cursors for pagination. Keep URL search params as strings; handle parsing server‑side.
 
-We use drizzle-kit and drizzle's schema system for managing our PG database on Supabase.
+Patterns
+- Router (server):
+```ts
+import { Hono } from 'hono'
+export const myRouter = new Hono()
+  .get('/', async c => { /* auth + data */ return c.json({ items, nextCursor, hasMore }) })
+```
+- Register:
+```ts
+export const routes = api
+  .route('/ping', pingRouter)
+  .route('/my', myRouter)
+```
+- Client hook (frontend):
+```ts
+'use client'
+import { apiClient } from '@/api/client'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
-## Making schema changes
-
-When altering our schema within the codebase in order to implement a feature, you can then continue working within the codebase since everything will be typesafe according to our schema definition.
-
-## Applying schema changes (migrating)
-
-IMPORTANT: Always ask the user before doing this (or wait for the user to explicitly instruct you to run the migration(s))
-
-We NEVER use drizzle push for this. Instead we use the drizzle migration system.
-
-We have scripts in our package.json for this:
-
-1) Run `pnpm db:generate` - this generates the migration file(s) and plan automatically based on the delta of our schema
-
-2) Run `pnpm db:migrate` - this pushes our schema changes to the live database
-
-
-## Custom migrations
-
-Never manually create migration SQL files. If you need to run a custom migration, e.g. for adding RLS policies or performing certain data migrations that cannot be automatically created via db:generate, you may use the command `pnpm db:generate:custom` which will create a new migration sql file and log it's name/location to the command line. You can then open that file and write your migration SQL in there. When you are finished, you can run the migration with the same migrate command `pnpm db:migrate`.
-
-## RLS / Authorization
-
-- After creating any new tables with automatic migrations, make sure to add another custom migration right after and enable row level security for that table.
-- Only enable RLS, never write any policies - we don't need them since we use an admin connection for all writes and perform our own authorization at the application-level with auth / ownership checks as needed.
+export function useMyList() {
+  return useInfiniteQuery({
+    queryKey: ['my'],
+    queryFn: async ({ pageParam }) => {
+      const res = await apiClient.api.my.$get({ query: { cursor: pageParam ?? undefined } })
+      if (!res.ok) throw new Error('Request failed')
+      return await res.json()
+    },
+    initialPageParam: null,
+    getNextPageParam: last => last.nextCursor
+  })
+}
+```
+Checklist
+- Add router under `src/api/routers/*` and register by chaining in `index.ts`.
+- Add client hook under `src/api/client/*` using React Query; no raw `fetch`.
+- Enforce auth / ownership / access checks in the router using `getAuthUser(c)`; do not assume the client is trusted.
 
 ---
 > Source: [miketromba/shadcn-themer](https://github.com/miketromba/shadcn-themer) — distributed by [TomeVault](https://tomevault.io).
