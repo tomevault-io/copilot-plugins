@@ -1,0 +1,9 @@
+{
+  "name": "jfmlima--shelly-manager",
+  "displayName": "shelly-manager",
+  "description": "Local management for Shelly IoT devices without cloud connectivity.",
+  "version": "1.0.0",
+  "author": "jfmlima",
+  "homepage": "https://github.com/jfmlima/shelly-manager",
+  "skills": []
+}
