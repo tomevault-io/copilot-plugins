@@ -1,0 +1,57 @@
+{
+  "name": "tx",
+  "owner": "eighteyes",
+  "repo": "tx",
+  "description": "Declarative agentic harness with guiderails and state management",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "know-tool",
+      "path": ".claude/skills/know-tool",
+      "github_url": "https://github.com/eighteyes/tx/tree/main/.claude/skills/know-tool",
+      "description": ""
+    },
+    {
+      "name": "mesh-builder",
+      "path": ".claude/skills/mesh-builder",
+      "github_url": "https://github.com/eighteyes/tx/tree/main/.claude/skills/mesh-builder",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/eighteyes/tx",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T14:30:10Z"
+}
