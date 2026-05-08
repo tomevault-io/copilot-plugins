@@ -2,9 +2,9 @@
   "name": "vault",
   "owner": "ruaan-deysel",
   "repo": "vault",
-  "description": "",
+  "description": "Unraid Backup Management Software",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/ruaan-deysel",
+  "source_url": "https://github.com/ruaan-deysel/vault",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-14T20:46:02Z"
+  "distributed_at": "2026-05-08T08:41:26Z"
 }
