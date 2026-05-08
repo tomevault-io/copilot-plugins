@@ -1,0 +1,9 @@
+{
+  "name": "rizal72--timecapsule-pi",
+  "displayName": "TimeCapsule-Pi",
+  "description": "Turn your Raspberry Pi into a macOS Time Machine backup server. Replaces Apple Time Capsule with Samba + Avahi + vfs_fruit support.",
+  "version": "1.0.0",
+  "author": "rizal72",
+  "homepage": "https://github.com/rizal72/TimeCapsule-Pi",
+  "skills": []
+}
