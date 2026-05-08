@@ -1,71 +1,111 @@
-## animation-guide
+## effect-ts
 
-> - Default to use `ease-out` for most animations.
+> - Use named imports with curly braces: `import { Effect, Console, Duration } from "effect"`
 
-# Animations Guidelines
+# EffectTS Code Style Guidelines
 
-## Keep your animations fast
+## Import Style
 
-- Default to use `ease-out` for most animations.
-- Animations should never be longer than 1s (unless it's illustrative), most of them should be around 0.2s to 0.3s.
+- Use named imports with curly braces: `import { Effect, Console, Duration } from "effect"`
+- Import the `pipe` utility from the main "effect" package
+- Import platform-specific modules from their respective packages: `import { NodeRuntime } from "@effect/platform-node"`
+- Group related imports together (e.g., keep all Effect imports in one statement)
 
-## Easing rules
+## Code Structure and Organization
 
-- Don't use built-in CSS easings unless it's `ease` or `linear`.
-- Use the following easings for their described use case:
+- Prefer generator syntax using `Effect.gen` for sequential operations
+- Use `yield*` within generators to invoke effects and bind their results
+- Avoid excessive nesting with pipes
+- Structure code in a linear, sequential flow for better readability
+- Use the `.pipe()` method for pipeline building: `Effect.succeed("task").pipe(Effect.delay("200 millis"))`
+- Create helper functions that return Effect values for reusable operations
 
-  - **`ease-in`**: (Starts slow, speeds up) Should generally be avoided as it makes the UI feel slow.
+## Function Implementation Pattern
 
-    - `ease-in-quad`: `cubic-bezier(.55, .085, .68, .53)`
-    - `ease-in-cubic`: `cubic-bezier(.550, .055, .675, .19)`
-    - `ease-in-quart`: `cubic-bezier(.895, .03, .685, .22)`
-    - `ease-in-quint`: `cubic-bezier(.755, .05, .855, .06)`
-    - `ease-in-expo`: `cubic-bezier(.95, .05, .795, .035)`
-    - `ease-in-circ`: `cubic-bezier(.6, .04, .98, .335)`
+- Favor generators over "do simulation" and plain pipes for complex operations
+- For multi-step operations, use the progression (from most to least preferred):
+  1. `Effect.gen` with generators (most recommended)
+  2. Plain pipe (least preferred due to nesting)
+  3. "Do simulation" with `Effect.Do.pipe`
+- Choose the right approach based on operation complexity
+- Define small, focused utility functions that operate on effects
 
-  - **`ease-out`**: (Starts fast, slows down) Best for elements entering the screen or user-initiated interactions.
+## Promise Interoperability
 
-    - `ease-out-quad`: `cubic-bezier(.25, .46, .45, .94)`
-    - `ease-out-cubic`: `cubic-bezier(.215, .61, .355, 1)`
-    - `ease-out-quart`: `cubic-bezier(.165, .84, .44, 1)`
-    - `ease-out-quint`: `cubic-bezier(.23, 1, .32, 1)`
-    - `ease-out-expo`: `cubic-bezier(.19, 1, .22, 1)`
-    - `ease-out-circ`: `cubic-bezier(.075, .82, .165, 1)`
+- Use `Effect.promise` to wrap JavaScript Promises in Effect values
+- Handle Promise rejections properly through Effect's error channel
+- Avoid mixing raw Promise handling with Effect operations
+- Always provide explicit error handling for Promise-based operations
 
-  - **`ease-in-out`**: (Smooth acceleration and deceleration) Perfect for elements moving within the screen.
-    - `ease-in-out-quad`: `cubic-bezier(.455, .03, .515, .955)`
-    - `ease-in-out-cubic`: `cubic-bezier(.645, .045, .355, 1)`
-    - `ease-in-out-quart`: `cubic-bezier(.77, 0, .175, 1)`
-    - `ease-in-out-quint`: `cubic-bezier(.86, 0, .07, 1)`
-    - `ease-in-out-expo`: `cubic-bezier(1, 0, 0, 1)`
-    - `ease-in-out-circ`: `cubic-bezier(.785, .135, .15, .86)`
+## Concurrency Control
 
-## Hover transitions
+- Use `Effect.all` for operating on arrays of effects with concurrency control
+- Be explicit about concurrency options when using parallel operations
+- Default to sequential execution when order matters
+- Use the appropriate concurrency model based on the use case:
+  - Sequential (default): One after another
+  - Bounded concurrency: Specify a number for maximum concurrent tasks
+  - Unbounded: Use "unbounded" for maximum parallelism
+  - Inherit: Use "inherit" to inherit concurrency settings from parent
 
-- Use the built-in CSS `ease` with a duration of `200ms` for simple hover transitions like `color`, `background-color`,`opacity`.
-- Fall back to easing rules for more complex hover transitions.
-- Disable hover transitions on touch devices with the `@media (hover: hover) and (pointer: fine)` media query.
+## Time and Duration
 
-## Accessibility
+- Use the `Duration` module for time-related values instead of raw milliseconds
+- Express durations as string literals for readability: `"200 millis"`, `"5 seconds"`
+- Use `Duration.toMillis()` to convert to numeric values when needed
+- Prefer Effect's timing utilities over raw JavaScript setTimeout/setInterval
 
-- If `transform` is use in the animation, disable it in the `prefers-reduced-motion` media query.
+## Avoiding Tacit Usage
 
-## Origin-aware animations
+- Write functions explicitly: `Effect.map((x) => fn(x))`
+- Avoid point-free style: `Effect.map(fn)`
+- Don't use `flow` from the `effect/Function` module
+- Be explicit to ensure proper type inference and clearer stack traces
+- Use explicit parameters even when functions could be passed directly
 
-- Elements should animate from the trigger. If you open a dropdown or a popover it should animate from the button. Change `transform-origin` according to the trigger position.
+## Application Entry Points
 
-## Performance
+- Use platform-specific `runMain` instead of `runPromise` for production applications
+- Select the appropriate runtime for your platform:
+  - Node.js: `NodeRuntime.runMain` from `@effect/platform-node`
+  - Bun: `BunRuntime.runMain` from `@effect/platform-bun`
+  - Browser: `BrowserRuntime.runMain` from `@effect/platform-browser`
+- Ensure proper resource cleanup with graceful shutdown support
 
-- Stick to opacity and transforms when possible. Example: Animate using `transform` instead of `top`, `left`, etc. when trying to move an element.
-- Do not animate drag gestures using CSS variables.
-- Do not animate blur values higher than 20px.
-- Use `will-change` to optimize your animation, but use it only for: `transform`, `opacity`, `clipPath`, `filter`.
-- When using Motion/Framer Motion use `transform` instead of `x` or `y` if you need animations to be hardware accelerated.
+## Error Handling
 
-## Spring animations
+- Place teardown logic in the main effect for proper resource release
+- Use `Effect.addFinalizer` for cleanup operations
+- Ensure graceful teardown when applications are interrupted
+- Handle errors at the appropriate level of abstraction
 
-- Default to spring animations when using Framer Motion.
-- Avoid using bouncy spring animations unless you are working with drag gestures.
+## Type Safety
+
+- Use explicit type annotations when inference is insufficient
+- Avoid type assertions when possible
+- Leverage Effect's built-in error handling with proper typing
+- Define custom error types for domain-specific errors
+
+## Logging and Debugging
+
+- Structure complex operations to make logging and tracing easier
+- Log the start and completion of long-running tasks
+- Consider wrapping logging in Effect operations for better composition
+
+## Performance Considerations
+
+- Follow Effect's patterns for resource management
+- Use appropriate scheduling mechanisms
+- Implement proper cancellation and interruption handling
+- Optimize for both readability and performance
+- Choose the appropriate concurrency model for your use case
+
+## Testing
+
+- Write tests that validate both success and failure paths
+- Use Effect's testing utilities for effect-based code, especially the `@effect/vitest` library
+- Test interruption handling and resource cleanup
+- Verify correct concurrency behavior in multi-task scenarios
 
 ---
 > Source: [MusKRI/pure-ui](https://github.com/MusKRI/pure-ui) — distributed by [TomeVault](https://tomevault.io).
