@@ -1,0 +1,9 @@
+{
+  "name": "mitchellkellerlg--discolike-cli",
+  "displayName": "discolike-cli",
+  "description": "CLI for the DiscoLike B2B company discovery API. Lookalike search, market sizing, company enrichment.",
+  "version": "1.0.0",
+  "author": "MitchellkellerLG",
+  "homepage": "https://github.com/MitchellkellerLG/discolike-cli",
+  "skills": []
+}
