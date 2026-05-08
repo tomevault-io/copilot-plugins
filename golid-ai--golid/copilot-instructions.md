@@ -1,59 +1,90 @@
-## ci-workflow
+## codebase-standards
 
-> CI workflow patterns for GitHub Actions
+> Core codebase standards — applies to every conversation.
 
-# CI Workflow Patterns
 
-## Job structure
+# Codebase Standards
 
-Three jobs: `backend`, `frontend`, `e2e`. Backend and frontend run in parallel. E2E depends on both.
+## Backend (Go)
 
-## Backend job checklist
+- **Parameterized queries only** — never `fmt.Sprintf` with values into SQL. Always use `$N` placeholders.
+- **Transactions for multi-write only** — `pool.Begin` / `defer tx.Rollback` / `tx.Commit` for any operation with 2+ writes. Never wrap a single UPDATE/INSERT in a transaction — it adds overhead with no benefit.
+- **Never discard errors** — no `_ = fn()`. Log with `logger.Error` at minimum. Fire-and-forget goroutines must wrap with error logging.
+- **Check real DB errors before ErrNoRows** — `if err != nil && err != pgx.ErrNoRows { return 500 }`.
+- **Resource membership, not just role** — verify the specific user belongs to the specific resource (item, record, etc.), not just that they're the right `userType`.
+- **Parent status guards** — check parent entity status before mutations (e.g., reject updates on non-active resources).
+- **`apperror` for all errors** — never `echo.NewHTTPError`. Use `apperror.BadRequest`, `.Forbidden`, `.NotFound`, `.Validation`, `.Internal`.
+- **Config over hardcoded values** — platform fee percentages, pagination defaults, timeout durations, and retry counts go in `Config` struct or named constants, not inline in service methods. If you'd need to change it for a different environment, it belongs in config.
+- **Request body size limit** — `middleware.BodyLimit("1M")` is configured in `stack.go`.
+- **SSE uses one-time ticket auth (not JWT in URL)** — See `handler/sse.go` and `service/sse.go`.
+- **Retry on fire-and-forget** — goroutines calling external services use `service.Retry()` with exponential backoff.
+- **Shutdown order** — `e.Shutdown()` first (drain in-flight HTTP), then `sseHub.Shutdown()` (close SSE connections), then `defer db.Close()` (pool cleanup runs last via defer LIFO). Never close the DB pool before draining HTTP/SSE connections.
 
-- PostgreSQL service container with health check (required for integration tests)
-- `go build` + `go vet` before tests
-- Unit tests: `go test ./... -race -count=1 -coverprofile=coverage-unit.out`
-- Install `migrate` CLI before integration tests
-- Run migrations before integration tests
-- Integration tests: `go test -tags integration ./... -race -count=1 -coverprofile=coverage-integration.out`. Set both `DATABASE_URL` and `TEST_DATABASE_URL` env vars.
-- Merge coverage profiles: concatenate both files (strip duplicate header) into `coverage.out`. This ensures Codecov gets combined coverage from both unit and integration runs.
-- golangci-lint: pin to a version compatible with the Go version in `go.mod`. If no compatible version exists yet (new Go release), use `continue-on-error: true` with a comment linking to the tracking issue.
-- govulncheck: always run, fails CI on vulnerabilities. Fix by upgrading the affected dependency.
-- Codecov: use `codecov/codecov-action@v5` to upload `backend/coverage.out` with `-F backend` flag, only on push (not PR).
+## Frontend (SolidJS)
 
-## Frontend job checklist
+- **`Switch/Match` for content states, NEVER nested `<Show>`** — nested `<Show when={!loading()}>` → `<Show when={error()}>` chains create stacked reactive scopes that leak computations during route transitions. Use flat `Switch/Match` with one `Match` per state.
+- **`batch()` async signal updates** — `batch(() => { setData(result); setLoading(false); })` after every `await`. Prevents intermediate states during route transitions. Never use `try/catch/finally` with signals — `finally { setLoading(false) }` runs unbatched after `catch { setError(...) }`, creating an intermediate state. Instead, put `setLoading(false)` inside both `try` and `catch`, wrapped in `batch()`.
+- **`onMount` + `defer: true`** — use `onMount` for initial fetch, `createEffect(on(..., { defer: true }))` for reactive refetches. Never let `createEffect` fire synchronously during mount.
+- **No reactive expressions inside `<Title>`** — pre-compute as `createMemo`, pass resolved string. Inline reactivity in `<Title>` leaks during route transitions.
+- **`onMount` + signals for all page data — no `createResource`** — the project uses `onMount` + `createSignal` + `alive` guard + `batch` for all data fetching. `createResource` causes orphaned computation warnings on route transitions and Suspense issues in conditional components. (`createAsync` + `query` from `@solidjs/router` is the official Solid 2.0 direction but not yet adopted.)
+- **`onCleanup` for cleanup, NEVER return from `onMount` or `createEffect`** — SolidJS silently ignores return values from both `onMount` and `createEffect`. The React pattern `onMount(() => { ...; return () => cleanup() })` compiles without error but the cleanup never runs. Always use `onCleanup(() => cleanup())` inside the body.
+- **`alive` guard on async** — `let alive = true; onCleanup(() => { alive = false; });` then check before setting signals after await.
+- **`PRIVATE_ROUTES` in constants.ts** — add every new protected route or SSR auth redirects won't work.
+- **`redirectTo` for login redirects** — SSR middleware redirects unauthenticated users to `/login?redirectTo=<encodedPath>`. The login page reads `searchParams.redirectTo` after auth succeeds. The param name is `redirectTo` — not `return`, `next`, or `redirect`.
+- **`DestructiveModal` for destructive actions** — never `window.confirm()`.
+- **Signal-driven modals** — `const [active, setActive] = createSignal(null)` for detail views within list pages, not sub-routes.
+- **`lazy()` requires `<Suspense>`** — SolidJS `lazy()` components silently render nothing without a `<Suspense>` boundary. Always wrap `lazy()` usage in `<Suspense>`. SolidStart's router provides Suspense for route-level components, but `lazy()` inside a route needs its own `<Suspense>` wrapper.
+- **`onCleanup` only synchronously** — never call `onCleanup()` inside an `async` function or after an `await`. SolidJS can't track ownership across async boundaries. Instead, declare mutable refs (e.g., `let observer: ResizeObserver | null = null`) and clean them up in the synchronous `onCleanup` registered during component creation.
+- **Static DOM wrapper for lazy components with `onMount` side effects** — when a `lazy()` component uses `onMount` to append DOM nodes (e.g., Three.js canvas via `appendChild`), the component's return JSX must include at least one static (non-conditional) DOM element. A `Switch/Match` as the only child can cause `onMount` not to fire. Wrap conditional content inside a static div.
 
-- `npm ci` (not `npm install`) for reproducible installs
-- `npm run lint` before build
-- `npm run typecheck` before build
-- `npm run build`
-- `npm run test:coverage` (not `npm test` — the `test` script runs vitest in watch mode)
-- Codecov: upload `frontend/coverage/lcov.info` with `-F frontend` flag from repo root, only on push
-- `npm audit --audit-level=high` with `continue-on-error: true` (transitive dep vulns shouldn't block PRs)
-- Check Generated Types: `npm run generate:types && git diff --exit-code` with `continue-on-error: true` — catches stale TypeScript types when the OpenAPI spec changes
+## Database
 
-## E2E job checklist
+- **Idempotent status transitions** — `WHERE status = 'open'` guards so repeated operations don't error.
+- **Always write a down migration** — reverse dependency order: columns, tables, enums.
 
-- `cp config/.env.example config/.env.local` — create env file before docker compose
-- `docker compose up -d --build` starts backend + db
-- Wait for DB: poll `pg_isready` on the db container (not just backend `/ready`)
-- Install `migrate` CLI + run migrations against the docker compose DB
-- Seed data: `psql < backend/seeds/dev_seed.sql` via docker compose exec
-- Wait for backend: poll `/ready` endpoint (not `/health` — readiness means DB is connected)
-- `npm ci` in frontend (Playwright needs `@playwright/test` from node_modules)
-- `npx playwright install --with-deps chromium`
-- Playwright's `webServer` config starts the frontend dev server automatically — do NOT set `E2E_SKIP_SERVER`
-- `config/.env.example` must be committed (check `.gitignore` exceptions) — CI copies it to `.env.local`
+## Security
 
-## Common mistakes
+- Two-layer auth: handler calls `requireUserID` (authn), service calls `verifyResourceAccess` or equivalent (authz against the specific resource).
+- Webhook endpoints verify signatures (e.g., HMAC-SHA256). Never trust unverified webhooks.
+- External API keys flow from env → Config → service. Never hardcode.
+- Selector.verifier pattern for security tokens — never store tokens as plaintext. Generate a `selector` (DB lookup key, indexed) and `verifier` (compared with `subtle.ConstantTimeCompare` via `verifyHash()`). Store `selector` + `hashVerifier(verifier)`. See `auth_password.go` and `auth_verify.go`.
 
-- **Missing `npm ci`** — any step that runs `npx` with a project dependency needs `npm ci` first. `npx` without node_modules downloads a standalone version that can't find project packages.
-- **golangci-lint + new Go versions** — golangci-lint must be built with a Go version >= the one in `go.mod`. After a Go upgrade, check if a compatible golangci-lint version exists. If not, `continue-on-error: true` until one is released.
-- **Gitignored env files** — `config/.env.example` is needed by the E2E job. The `.gitignore` pattern `config/.env.*` catches it — add `!config/.env.example` exception.
-- **Database name** — CI uses a separate test database. Keep the name consistent with the project (`golid_test`). Update if the project is renamed.
-- **Stale generated types** — `npm run generate:types` produces `frontend/src/lib/api.generated.ts` from `backend/openapi.yaml`. If you update the spec but forget to regenerate, the CI step catches it. Run `cd frontend && npm run generate:types` after any spec change.
-- **Tests pass but typecheck fails** — `vitest run` executes JavaScript at runtime and does not check TypeScript types. Always run `npm run typecheck` locally before pushing frontend test files. Bad imports (non-existent exports, type-only imports used as values) pass at runtime but fail `tsc`.
-- **testutil default DB URL** — `testutil.SetupTestDB()` defaults to `postgres://dev:dev@localhost:5432/golid?sslmode=disable`, matching docker-compose. CI overrides via `TEST_DATABASE_URL`. If you rename the project or change docker-compose credentials, update both.
+## Opt-In Modules
+
+- **`IsConfigured()` for opt-in modules** — queue, rate limiting, email, and tracing use `IsConfigured()` gates triggered by env vars (`REDIS_URL`, `MAILGUN_API_KEY`, `OTEL_ENDPOINT`). When not configured, fall back gracefully: goroutines for queue, in-memory for rate limiting, stdout for email, no-op for tracing. Both paths must be tested.
+- **Never check `service != nil` — use `service.IsConfigured()`** — opt-in services are always instantiated (never nil). The `!= nil` check is always true and bypasses the graceful degradation gate. This causes unnecessary work in dev (e.g., spawning goroutines when Mailgun isn't configured).
+- **Dual-path pattern for queue** — `if h.queue.IsConfigured() { enqueue } else { go func() { Retry(...) }() }`. Handle task creation errors explicitly (`task, err :=` not `task, _ :=`).
+- **Redis fail-open** — rate limiting and queue degrade to in-memory/goroutine when Redis is unreachable. Log the degradation.
+
+## External APIs
+
+- Every external service wrapper uses `IsConfigured()` pattern — graceful degradation when not configured.
+- SSE endpoints must be excluded from gzip + timeout middleware (long-lived connections).
+- Email service uses `IsConfigured()` for graceful degradation — emails are logged to stdout when Mailgun is not configured.
+
+## Nullable Timestamps
+
+Nullable `TIMESTAMPTZ` columns must scan into `*time.Time`, never `*string`. Format after scan:
+```go
+var t *time.Time
+row.Scan(&t)
+if t != nil { s := t.Format(time.RFC3339); result.Field = &s }
+```
+
+## Testing
+
+- **Integration tests**: `//go:build integration` + `testutil.WithTestDB`. Seed with raw SQL, not service methods.
+- **Unit tests**: same `_test.go` file, no build tag, table-driven. For pure logic like validation/parsing.
+- **Always test error paths** — permission denied, invalid status, not found, conflicts. Not just happy paths.
+- **Pre-push verification** — always run both tests AND type check before pushing frontend changes. `vitest run` only checks runtime behavior; `tsc --noEmit` catches import errors, missing exports, and type mismatches that JavaScript silently ignores. CI runs `npm run typecheck` and will fail on type errors that tests pass.
+
+## Working Principles
+
+- **Minimal impact** — changes should only touch what's necessary. Don't refactor adjacent code, rename unrelated variables, or "improve" files you weren't asked to change.
+- **Stop and re-plan when stuck** — if a fix takes more than 2 attempts, stop. Re-read the error, check assumptions, and re-plan the approach. Don't keep pushing the same strategy hoping it works on the third try.
+- **Verify before marking done** — run tests, typecheck, and build after every change. Diff behavior against what you expect. A change isn't done until it's proven correct, not just "looks right."
+
+Full details with code examples in the project documentation.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
