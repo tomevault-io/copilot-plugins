@@ -1,0 +1,9 @@
+{
+  "name": "federicotorrielli--zotero-metadata-hunter",
+  "displayName": "zotero-metadata-hunter",
+  "description": "A Zotero plugin that hunts down missing DOIs and abstracts for your references",
+  "version": "1.0.0",
+  "author": "federicotorrielli",
+  "homepage": "https://github.com/federicotorrielli/zotero-metadata-hunter",
+  "skills": []
+}
