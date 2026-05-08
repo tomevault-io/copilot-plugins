@@ -1,0 +1,182 @@
+{
+  "name": "williamzujkowski--standards",
+  "displayName": "standards",
+  "description": "LLM Software Development Standards Start any project right in 30 seconds. Battle-tested standards from real production systems.",
+  "version": "1.0.0",
+  "author": "williamzujkowski",
+  "homepage": "https://github.com/williamzujkowski/standards",
+  "skills": [
+    {
+      "name": "advanced-kubernetes",
+      "description": ""
+    },
+    {
+      "name": "api-security",
+      "description": ""
+    },
+    {
+      "name": "authentication",
+      "description": ""
+    },
+    {
+      "name": "authorization",
+      "description": ""
+    },
+    {
+      "name": "broken-reference",
+      "description": ""
+    },
+    {
+      "name": "ci-cd",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "description": ""
+    },
+    {
+      "name": "gdpr",
+      "description": ""
+    },
+    {
+      "name": "go",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "description": ""
+    },
+    {
+      "name": "infrastructure",
+      "description": ""
+    },
+    {
+      "name": "infrastructure-as-code",
+      "description": ""
+    },
+    {
+      "name": "kotlin",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "description": ""
+    },
+    {
+      "name": "legacy-bridge",
+      "description": ""
+    },
+    {
+      "name": "logging",
+      "description": ""
+    },
+    {
+      "name": "metrics",
+      "description": ""
+    },
+    {
+      "name": "missing-level1",
+      "description": ""
+    },
+    {
+      "name": "mlops",
+      "description": ""
+    },
+    {
+      "name": "mobile-android",
+      "description": ""
+    },
+    {
+      "name": "mobile-ios",
+      "description": ""
+    },
+    {
+      "name": "model-deployment",
+      "description": ""
+    },
+    {
+      "name": "model-development",
+      "description": ""
+    },
+    {
+      "name": "monitoring",
+      "description": ""
+    },
+    {
+      "name": "nist",
+      "description": ""
+    },
+    {
+      "name": "nosql",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "description": ""
+    },
+    {
+      "name": "mobile-react-native",
+      "description": ""
+    },
+    {
+      "name": "rust",
+      "description": ""
+    },
+    {
+      "name": "service-mesh",
+      "description": ""
+    },
+    {
+      "name": "shell",
+      "description": ""
+    },
+    {
+      "name": "skill-loader",
+      "description": ""
+    },
+    {
+      "name": "sql",
+      "description": ""
+    },
+    {
+      "name": "swift",
+      "description": ""
+    },
+    {
+      "name": "threat-modeling",
+      "description": ""
+    },
+    {
+      "name": "too-long-level1",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "description": ""
+    },
+    {
+      "name": "unit-testing",
+      "description": ""
+    },
+    {
+      "name": "ux",
+      "description": ""
+    },
+    {
+      "name": "valid-skill",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "description": ""
+    }
+  ]
+}
