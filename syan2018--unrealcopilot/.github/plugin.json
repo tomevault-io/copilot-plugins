@@ -1,0 +1,9 @@
+{
+  "name": "syan2018--unrealcopilot",
+  "displayName": "UnrealCopilot",
+  "description": "MCP Server for analyzing & editing Unreal Engine 5 projects - Blueprint, Asset, and C++ source code.",
+  "version": "1.0.0",
+  "author": "syan2018",
+  "homepage": "https://github.com/syan2018/UnrealCopilot",
+  "skills": []
+}
