@@ -1,0 +1,9 @@
+{
+  "name": "usewire--wire-memory",
+  "displayName": "wire-memory",
+  "description": "Persistent memory plugin for AI coding agents. Captures decisions, corrections, and patterns across sessions.",
+  "version": "1.0.0",
+  "author": "usewire",
+  "homepage": "https://github.com/usewire/wire-memory",
+  "skills": []
+}
