@@ -1,7 +1,7 @@
 {
   "name": "divar-ir--ai-doc-gen",
   "displayName": "ai-doc-gen",
-  "description": "ai-doc-gen",
+  "description": "AI-powered multi-agent system that automatically analyzes codebases and generates comprehensive documentation. Features GitLab integration, concurrent processing, and multiple LLM support for better c",
   "version": "1.0.0",
   "author": "divar-ir",
   "homepage": "https://github.com/divar-ir/ai-doc-gen",
