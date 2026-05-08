@@ -1,0 +1,9 @@
+{
+  "name": "borodark--zed",
+  "displayName": "zed",
+  "description": "Declarative BEAM deployment on FreeBSD/illumos. ZFS properties as state store. No etcd, no YAML.",
+  "version": "1.0.0",
+  "author": "borodark",
+  "homepage": "https://github.com/borodark/zed",
+  "skills": []
+}
