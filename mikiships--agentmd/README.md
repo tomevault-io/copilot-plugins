@@ -7,11 +7,11 @@ Generate high-quality AI agent context files (CLAUDE.md, AGENTS.md, .cursorrules
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [mikiships/agentmd](https://github.com/mikiships/agentmd).
+Original source: `CLAUDE.md` in [mikiships/agentmd](https://github.com/mikiships/agentmd).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
