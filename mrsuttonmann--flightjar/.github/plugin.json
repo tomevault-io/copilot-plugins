@@ -1,0 +1,9 @@
+{
+  "name": "mrsuttonmann--flightjar",
+  "displayName": "flightjar",
+  "description": "A jar for your flights: live map, JSONL logs, and a WebSocket API on top of any BEAST feed (readsb, dump1090, ultrafeeder)",
+  "version": "1.0.0",
+  "author": "MrSuttonmann",
+  "homepage": "https://github.com/MrSuttonmann/flightjar",
+  "skills": []
+}
