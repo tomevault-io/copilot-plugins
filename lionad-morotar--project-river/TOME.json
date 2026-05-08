@@ -1,0 +1,44 @@
+{
+  "name": "project-river",
+  "owner": "Lionad-Morotar",
+  "repo": "project-river",
+  "description": "Read the pulse of a project through the rhythm of its code flow.  \u4ece\u4ee3\u7801\u6d41\u52a8\u7684\u8282\u594f\u4e2d\uff0c\u8bfb\u61c2\u4e00\u4e2a\u9879\u76ee\u7684\u751f\u547d\u529b\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Lionad-Morotar/project-river",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T05:04:51Z"
+}
