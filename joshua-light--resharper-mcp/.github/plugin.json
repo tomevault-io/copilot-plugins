@@ -1,0 +1,9 @@
+{
+  "name": "joshua-light--resharper-mcp",
+  "displayName": "resharper-mcp",
+  "description": "An MCP server that lives inside Rider and exposes Resharper-powered tools for AI agents that allow working with actual codebase semantics instead of `grep` approximations.",
+  "version": "1.0.0",
+  "author": "joshua-light",
+  "homepage": "https://github.com/joshua-light/resharper-mcp",
+  "skills": []
+}
