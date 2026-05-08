@@ -1,0 +1,9 @@
+{
+  "name": "dhananjay-pareek--gmap-scrapper",
+  "displayName": "GMAP-Scrapper",
+  "description": "A powerful and open-source Google Maps scraper for extracting business data at scale. Available as CLI, Web UI, REST API.",
+  "version": "1.0.0",
+  "author": "dhananjay-pareek",
+  "homepage": "https://github.com/dhananjay-pareek/GMAP-Scrapper",
+  "skills": []
+}
