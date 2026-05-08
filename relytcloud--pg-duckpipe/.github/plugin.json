@@ -1,0 +1,9 @@
+{
+  "name": "relytcloud--pg-duckpipe",
+  "displayName": "pg_duckpipe",
+  "description": "Real-time streaming ingestion (CDC) for HTAP in PostgreSQL",
+  "version": "1.0.0",
+  "author": "relytcloud",
+  "homepage": "https://github.com/relytcloud/pg_duckpipe",
+  "skills": []
+}
