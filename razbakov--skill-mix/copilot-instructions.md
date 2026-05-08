@@ -1,0 +1,18 @@
+## skill-mix
+
+> - Keep issue filenames in `docs/issues` short and numbered for daily reference: use the next numeric prefix and a 1-2 word slug (for example, `018-scope-view.md`).
+
+## Learned User Preferences
+
+- Keep issue filenames in `docs/issues` short and numbered for daily reference: use the next numeric prefix and a 1-2 word slug (for example, `018-scope-view.md`).
+- Store all issues as Markdown files under `docs/issues`; when using the `user-story` skill, always save the output there.
+- For bug fixes, proactively add or confirm unit test coverage before claiming completion.
+- If coverage is missing, state that explicitly up front instead of waiting to be asked.
+
+## Learned Workspace Facts
+
+- Existing issue files in `docs/issues` follow a numbered naming sequence (`001-...`, `002-...`, ...), so new issues should continue that convention.
+
+---
+> Source: [razbakov/skill-mix](https://github.com/razbakov/skill-mix) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
