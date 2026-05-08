@@ -7,13 +7,13 @@ The web GUI & productivity workspace for OpenClaw (237K+ stars) — tasks, news,
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `.cursor/rules/*.mdc` in [23ag1/ClawdOS](https://github.com/23ag1/ClawdOS).
+Original source: `AGENTS.md` in [23ag1/ClawdOS](https://github.com/23ag1/ClawdOS).
 
 ## Also available for
 
 - **Claude Code** — `CLAUDE.md`
-- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
+- **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
