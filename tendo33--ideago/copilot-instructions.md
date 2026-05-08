@@ -1,22 +1,19 @@
-## python-tooling-standards
+## python-utility-structure
 
-> Standards for using modern Python tooling including uv, ruff, and pre-commit hooks.
+> Defines the preferred file structure and organization for Python utility library projects.
 
-- Use uv for package management and dependency resolution (faster than pip).
-- Run uv sync to install dependencies; use uv add/remove for package management.
-- Use ruff for both linting and formatting (replaces black, flake8, isort).
-- Configure ruff in pyproject.toml with appropriate rules enabled.
-- Run ruff format for code formatting; run ruff check for linting.
-- Enable automatic fixes with ruff check --fix when appropriate.
-- Use pre-commit hooks to enforce code quality before commits.
-- Configure pre-commit with ruff, type checking, and other quality checks.
-- Run pre-commit install after cloning the project.
-- Keep pyproject.toml as the single source of configuration.
-- Use hatchling as the build backend for package distribution.
-- Define all dependencies in pyproject.toml [project.dependencies].
-- Use optional dependencies for dev, test, docs groups.
-- Keep uv.lock in version control for reproducible builds.
-- Update dependencies regularly with uv lock --upgrade.
+- File structure: utility modules organized by functionality (e.g., date_utils.py, file_utils.py, json_utils.py).
+- Each utility module should contain related functions with clear, single responsibilities.
+- Use __init__.py to expose public APIs and control module imports.
+- Group related utilities in subdirectories when modules grow large.
+- Keep utility functions pure and stateless where possible.
+- All data models MUST be placed in models/ directory and inherit from Pydantic BaseModel.
+- Use Pydantic BaseModel for all data structures requiring validation, serialization, or configuration.
+- Separate concerns: configuration (setting.py), logging (logger_util.py), context (context.py).
+- Place decorators in decorator_utils.py for cross-cutting concerns.
+- Use type hints for all function signatures with clear parameter and return types.
+- Avoid circular dependencies; use TYPE_CHECKING imports when necessary.
+- Create models/ directory structure: base.py (base models), examples.py (example models), __init__.py (exports).
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
