@@ -1,0 +1,14 @@
+{
+  "name": "ushironoko--dotfiles",
+  "displayName": "dotfiles",
+  "description": "my dotfiles",
+  "version": "1.0.0",
+  "author": "ushironoko",
+  "homepage": "https://github.com/ushironoko/dotfiles",
+  "skills": [
+    {
+      "name": "output-learn",
+      "description": ""
+    }
+  ]
+}
