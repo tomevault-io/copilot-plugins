@@ -1,0 +1,44 @@
+{
+  "name": "pi-provider-kiro",
+  "owner": "mikeyobrien",
+  "repo": "pi-provider-kiro",
+  "description": "pi extension for Kiro API (AWS CodeWhisperer/Q) \u2014 17 models, 7 families, OAuth via AWS Builder ID",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/mikeyobrien/pi-provider-kiro",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T21:18:43Z"
+}
