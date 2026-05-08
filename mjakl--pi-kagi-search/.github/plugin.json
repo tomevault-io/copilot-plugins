@@ -1,0 +1,9 @@
+{
+  "name": "mjakl--pi-kagi-search",
+  "displayName": "pi-kagi-search",
+  "description": "Pi extension to use Kagi for Web search",
+  "version": "1.0.0",
+  "author": "mjakl",
+  "homepage": "https://github.com/mjakl/pi-kagi-search",
+  "skills": []
+}
