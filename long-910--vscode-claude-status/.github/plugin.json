@@ -1,0 +1,9 @@
+{
+  "name": "long-910--vscode-claude-status",
+  "displayName": "vscode-claude-status",
+  "description": "Claude Code token usage & cost in VSCode status bar",
+  "version": "1.0.0",
+  "author": "long-910",
+  "homepage": "https://github.com/long-910/vscode-claude-status",
+  "skills": []
+}
