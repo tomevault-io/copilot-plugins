@@ -1,0 +1,9 @@
+{
+  "name": "eunomia-bpf--gpu-ext",
+  "displayName": "gpu_ext",
+  "description": "eBPF for GPU UVM offloading and scheduling in Linux kernel",
+  "version": "1.0.0",
+  "author": "eunomia-bpf",
+  "homepage": "https://github.com/eunomia-bpf/gpu_ext",
+  "skills": []
+}
