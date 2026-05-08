@@ -1,0 +1,25 @@
+## coding-style
+
+> Python coding style for Open Edison
+
+## Stylistic preferences
+
+- Use snake_case for all function, file, and directory names
+- Use PascalCase for class names
+- Use lowercase for variable names
+- Use UPPER_SNAKE_CASE for constants
+- Use 4 spaces for indentation
+- Use double quotes for strings
+- Type hints for all function signatures, using modern syntax (instead of Optional[T], use T | None, instead of List[T], use list[T], etc)
+- Docstrings for public functions and classes
+
+## Open Edison specific
+
+- Prefer simplicity over complexity
+- Keep single-user focus (no multi-user patterns)
+- Use dataclasses for configuration structures
+- Use subprocess management for MCP servers
+
+---
+> Source: [Edison-Watch/open-edison](https://github.com/Edison-Watch/open-edison) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
