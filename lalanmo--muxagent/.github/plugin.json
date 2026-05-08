@@ -1,0 +1,9 @@
+{
+  "name": "lalanmo--muxagent",
+  "displayName": "muxagent",
+  "description": "Run coding tasks through graph-based workflows with Codex and Claude Code.",
+  "version": "1.0.0",
+  "author": "LaLanMo",
+  "homepage": "https://github.com/LaLanMo/muxagent",
+  "skills": []
+}
