@@ -1,63 +1,71 @@
-## sse-realtime
+## write-rules
 
-> SSE and real-time event patterns — hub, ticket auth, keepalive, reconnect
+> How to write, update, and maintain Cursor rules — use when creating a new rule or updating an existing one
 
 
-# SSE / Real-Time Patterns
+# Writing Cursor Rules
 
-## Hub Architecture
+> **Thesis:** Every rule opens with a thesis. The thesis is the contract —
+> everything below it is the implementation.
 
-`SSEHub` is a singleton created in `main.go`. Per-user channel sets with buffered channels (16). Non-blocking sends — if a client's buffer is full, the event is dropped (logged as warning). Max 5 connections per user prevents resource exhaustion.
+## Structure
 
-```go
-sseHub := service.NewSSEHub(cfg.SSETicketTTL)
-// Pass to handler and any service that needs to push events
-```
+1. **Thesis (required)** — one sentence after the heading. States what the rule
+   enforces and why. This is the most important line — a thesis enables the AI
+   to generalize to novel situations; a pointer only enables pattern-matching.
 
-## Ticket Auth (not JWT in URL)
+2. **Reference files** — "Follow the established patterns in X" goes here,
+   not in the thesis. The thesis says _what_; references say _where_.
 
-`EventSource` can't set `Authorization` headers. Never put JWTs in URLs (they leak into logs). Use one-time tickets:
+3. **Sections** — BAD/GOOD examples for the highest-consequence patterns.
+   Keep examples minimal — one BAD, one GOOD, showing the exact mistake and fix.
 
-1. Client calls `POST /api/v1/events/ticket` with JWT auth → gets a 30s single-use ticket
-2. Client opens `EventSource("/api/v1/events/stream?ticket=<ticket>")`
-3. Server validates and burns the ticket, begins streaming
+## When to Create a New Rule
 
-The stream endpoint is on the public API group (not behind JWT middleware) — it uses ticket auth directly.
+- A pattern has been explained 3+ times across conversations
+- A bug was caused by violating a convention that isn't written down
+- A new file category has no glob coverage
 
-## Keepalive
+## When to Extend an Existing Rule
 
-Send `: keepalive\n\n` every 30 seconds. Cloud Run closes idle connections at 15 minutes.
+- The new guidance applies to the same file glob
+- It's a sub-pattern of an existing rule's thesis
 
-## Frontend Reconnect
+## Updating Rules During Execution
 
-On disconnect: refresh access token first (it may have expired), request a new ticket, reconnect with exponential backoff (1s → 2s → 4s → max 30s). Reset backoff on successful connect.
+When a code change invalidates or reveals a gap in an existing rule, update the
+rule in the same pass — not as a follow-up task. Stale rules are worse than
+missing rules because they actively mislead.
 
-## Scaling Limitation
+Update triggers (only these — don't edit rules speculatively):
 
-The hub is in-memory — all connected clients must be on the same instance. For multi-instance deployments, add a pub/sub layer (Redis, NATS). `Send()` and `Broadcast()` are the integration points.
+- Bug fix exposed an unwritten convention → add to the relevant domain rule
+- Refactor moved/renamed files referenced by a rule → update the references
+- New pattern discovered (naming conflict, type safety convention) → add to
+  the rule covering that file category
+- Audit finding that should be enforced going forward → add to audit checklist
+  AND the relevant domain rule
 
-## Adding New Event Types
+Keep rule edits minimal — update the specific line or section affected, don't
+rewrite the entire rule. The goal is accuracy, not polish.
 
-Backend — publish from any service:
+## Naming
 
-```go
-sseHub.Send(userID, service.SSEEvent{
-    Event: "order_updated",
-    Data:  map[string]any{"order_id": orderID, "status": newStatus},
-})
-```
+`{domain}-{concern}.mdc` — e.g., `go-service`, `frontend-forms`, `write-tests`.
+Workflow rules use verb phrases: `plan-feature`, `document-module`, `audit-bugs`.
 
-Frontend — register a typed handler:
+## Activation
 
-```typescript
-onSSEEvent<OrderUpdate>("order_updated", (data) => {
-    toast.info(`Order ${data.order_id} is now ${data.status}`);
-});
-```
+- **Glob-triggered** for domain rules (fires when editing matching files)
+- **Description-triggered** for workflow rules (fires when the task matches)
+- **alwaysApply** only for universal guardrails — every line costs context on
+  every interaction, so this is reserved for codebase-standards and
+  parallel-subagents
 
-## Middleware
+## Size
 
-SSE endpoints must be excluded from gzip and timeout middleware (long-lived connections). Both are handled via path checks in `middleware/stack.go` for `/api/v1/events/stream`.
+Aim for 40-80 lines of content (excluding frontmatter). Over 120 lines suggests
+the rule covers two concerns and should be split.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
