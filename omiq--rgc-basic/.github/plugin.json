@@ -1,0 +1,9 @@
+{
+  "name": "omiq--rgc-basic",
+  "displayName": "rgc-basic",
+  "description": "Modern cross-platform BASIC Interpreter with classic syntax compatibility, written in C ",
+  "version": "1.0.0",
+  "author": "omiq",
+  "homepage": "https://github.com/omiq/rgc-basic",
+  "skills": []
+}
