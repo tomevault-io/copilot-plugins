@@ -1,0 +1,9 @@
+{
+  "name": "soein--swarmesh",
+  "displayName": "swarmesh",
+  "description": "tmux-based multi-AI CLI swarm collaboration framework",
+  "version": "1.0.0",
+  "author": "Soein",
+  "homepage": "https://github.com/Soein/swarmesh",
+  "skills": []
+}
