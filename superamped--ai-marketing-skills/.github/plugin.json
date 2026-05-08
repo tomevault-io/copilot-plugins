@@ -1,0 +1,9 @@
+{
+  "name": "superamped--ai-marketing-skills",
+  "displayName": "ai-marketing-skills",
+  "description": "Open-source AI marketing skills for coding agents like Claude Code, Cursor, and Codex. Do SEO, copywriting, competitor research, ad campaigns, marketing strategy, and more.",
+  "version": "1.0.0",
+  "author": "superamped",
+  "homepage": "https://github.com/superamped/ai-marketing-skills",
+  "skills": []
+}
