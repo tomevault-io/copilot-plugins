@@ -7,11 +7,11 @@ Harness Engineering CLI — scaffold, audit, evolve, and doctor agent-readiness 
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [WellDunDun/reins](https://github.com/WellDunDun/reins).
+Original source: `CLAUDE.md` in [WellDunDun/reins](https://github.com/WellDunDun/reins).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
