@@ -1,0 +1,9 @@
+{
+  "name": "joarhal--piperig",
+  "displayName": "piperig",
+  "description": "Declarative pipeline runner for shell scripts. Define steps, params, and loops in YAML \u2014 piperig expands and executes.",
+  "version": "1.0.0",
+  "author": "joarhal",
+  "homepage": "https://github.com/joarhal/piperig",
+  "skills": []
+}
