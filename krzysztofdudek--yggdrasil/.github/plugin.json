@@ -1,0 +1,9 @@
+{
+  "name": "krzysztofdudek--yggdrasil",
+  "displayName": "Yggdrasil",
+  "description": "Architecture enforcement for AI coding agents. You write rules in plain Markdown; a reviewer verifies every change the agent makes and feeds violations back into the agent's loop \u2014 before it moves on.",
+  "version": "1.0.0",
+  "author": "krzysztofdudek",
+  "homepage": "https://github.com/krzysztofdudek/Yggdrasil",
+  "skills": []
+}
