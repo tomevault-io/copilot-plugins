@@ -1,42 +1,74 @@
-## financial-amounts
+## goal-driven-execution
 
-> Financial amount safety — floor vs round, on-chain precision, no rounding up
+> Goal-driven execution — define verifiable success criteria, loop until passing
 
 
-# Financial Amount Safety
+# Goal-Driven Execution
 
-## Floor display amounts — never round up
+Adapted from Karpathy's coding-skills repo. The most important behavior change for any agent working in this codebase.
 
-Any amount shown to users or passed to SDK transaction builders must be **<=** the actual on-chain balance. `Math.round` can round up, causing "Insufficient balance" errors.
+## The standard
 
-```typescript
-// ❌ BAD — Math.round(1.1286 * 100) / 100 = 1.13 (more than on-chain!)
-const amount = Math.round(rawAmount * 100) / 100;
+**Transform tasks into verifiable goals.** Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification and bounce back.
 
-// ✅ GOOD — Math.floor always produces amount <= actual
-const amount = Math.floor(rawAmount * 10000) / 10000;
+| Vague task | Verifiable goal |
+|---|---|
+| "Add validation" | "Write tests for invalid inputs, then make them pass" |
+| "Fix the bug" | "Write a test that reproduces it, then make it pass" |
+| "Refactor X" | "Ensure tests pass before and after" |
+| "Speed it up" | "Add a benchmark, baseline N ms, target ≤ N/2 ms" |
+| "Make it more reliable" | "Add a test for the failure mode I just hit, watch it fail, fix until it passes" |
+
+## For multi-step tasks, state the plan
+
+Before writing code:
+
+```
+1. [Step] → verify: [check]
+2. [Step] → verify: [check]
+3. [Step] → verify: [check]
 ```
 
-## Token decimal precision
+Each verify step is something you can run. Tests, lints, a curl against the dev server, a manual screenshot match — anything that proves the step is done.
 
-Floor to the token's on-chain decimals (capped at 8):
-- SUI: 9 decimals → floor at 4dp for display
-- USDC: 6 decimals → floor at 2dp for display
-- GOLD (XAUM): 9 decimals → floor at 8dp for display
-- Other assets: `Math.min(decimals, 8)` dp
+## Example — fixing a portfolio bug (April 2026)
 
-## SDK transaction amounts
+Bad: "Fix portfolio_analysis to include DeFi correctly."
 
-When `sdk.swap()` or `sdk.save()` receives an amount, it converts to raw units via `amount * 10^decimals`. If the display amount was rounded UP, this produces more raw units than the user actually has → transaction fails.
-
-## Preset amounts for chip flows
-
-For assets with tiny balances (< 0.01), use dynamic precision:
-
-```typescript
-const dp = held >= 1 ? 100 : held >= 0.01 ? 10000 : 100000000;
-const preset = Math.floor(held * fraction * dp) / dp;
+Good:
 ```
+1. Repro the bug → verify: live `/api/portfolio` returns `defiValueUsd: 0` with `defiSource: 'partial'`
+2. Add a regression test asserting portfolio_analysis re-fetches when source != 'blockvision' AND value == 0 → verify: test fails on current code
+3. Fix the trust gate in portfolio-analysis.ts → verify: test passes
+4. Verify no other tests regressed → verify: pnpm --filter @t2000/engine test → 0 failures
+5. Verify live behavior → verify: re-run `/api/portfolio` against the test wallet → `defiValueUsd > 0`
+```
+
+The verify steps catch (a) the wrong fix and (b) the right fix in the wrong place. Without them, you'd be re-confirming success-by-vibes for the third time.
+
+## When to ask vs. when to proceed
+
+**Ask when:**
+- Multiple valid interpretations of the goal exist (e.g. "make the chip flow nicer" — UX choice).
+- The goal touches a system you're not 100% sure about (architectural ambiguity).
+- The fix requires changing a load-bearing API signature.
+
+**Proceed when:**
+- The goal is unambiguous and the verify step is obvious.
+- Existing tests + code conventions tell you which approach matches the codebase.
+- The change is local to one file with one obvious entry point.
+
+## What's banned
+
+- "Done!" without running the verify step.
+- "I think this works" without running tests.
+- "Should be fine" without re-reading the diff.
+- Closing the loop on a partial fix because "the user can tell me if anything's wrong."
+
+## Cross-references
+
+- Engineering principles → `engineering-principles.mdc`
+- Coding discipline (simplicity, surgical changes) → `coding-discipline.mdc`
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
