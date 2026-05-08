@@ -1,0 +1,9 @@
+{
+  "name": "homericintelligence--projectscylla",
+  "displayName": "ProjectScylla",
+  "description": "ProjectScylla is a testing and optimization framework inspired by Odysseus\u2019 trials, built to measure and improve agentic workflows under constrained decision-making. It evaluates resilience, adaptabil",
+  "version": "1.0.0",
+  "author": "HomericIntelligence",
+  "homepage": "https://github.com/HomericIntelligence/ProjectScylla",
+  "skills": []
+}
