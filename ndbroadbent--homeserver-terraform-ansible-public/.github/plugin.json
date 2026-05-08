@@ -1,0 +1,9 @@
+{
+  "name": "ndbroadbent--homeserver-terraform-ansible-public",
+  "displayName": "homeserver-terraform-ansible-public",
+  "description": "My IaC setup (anonymized/scrubbed)",
+  "version": "1.0.0",
+  "author": "ndbroadbent",
+  "homepage": "https://github.com/ndbroadbent/homeserver-terraform-ansible-public",
+  "skills": []
+}
