@@ -1,101 +1,95 @@
-## frontend-architecture
+## project-overview
 
-> - Located in `src/views/`
+> Adam is a web application that enables users to generate 3D CAD models through AI-powered natural language, images, and direct manipulation. The platform combines parametric modeling with creative AI generation.
 
-# Frontend Architecture - React/TypeScript
+# Adam - AI-Powered 3D CAD Model Generation Platform
 
-## Component Architecture
+## Project Overview
+Adam is a web application that enables users to generate 3D CAD models through AI-powered natural language, images, and direct manipulation. The platform combines parametric modeling with creative AI generation.
 
-### Views (Page Components)
-- Located in `src/views/`
-- Each view represents a full page/route
-- Use React Router for navigation
+## Tech Stack
+- **Frontend**: React 19 + TypeScript + Vite
+- **UI Framework**: Radix UI + Tailwind CSS + shadcn/ui
+- **3D Graphics**: Three.js + React Three Fiber
+- **Backend**: Supabase (PostgreSQL + Edge Functions)
+- **Authentication**: Supabase Auth
+- **AI Services**: Anthropic Claude
+- **State Management**: React Query + Context API
+- **Routing**: React Router v6
+
+## Project Structure
+```
+adam/
+├── src/                    # Frontend source code
+│   ├── components/         # Reusable UI components
+│   ├── views/             # Page-level components
+│   ├── contexts/          # React contexts
+│   ├── hooks/             # Custom React hooks
+│   ├── services/          # API service functions
+│   ├── utils/             # Utility functions
+│   ├── types/             # TypeScript type definitions
+│   ├── lib/               # Third-party library configurations
+│   └── worker/            # Web Worker for OpenSCAD processing
+├── supabase/              # Backend configuration
+│   ├── functions/         # Edge functions
+│   ├── migrations/        # Database migrations
+│   ├── schemas/           # Database schemas
+│   └── config.toml        # Supabase configuration
+├── public/                # Static assets
+└── shared/                # Items shared between backend and frontend
+```
+
+## Development Conventions
+
+### Code Style
+- Use TypeScript for all new code
+- Follow React 19 patterns and hooks
+- Use functional components with hooks
+- Implement proper error boundaries
+- Use React Query for server state management
+
+### Component Structure
+- Components in `src/components/` are reusable
+- Views in `src/views/` are page-level components
+- Use proper TypeScript interfaces for props
 - Implement proper loading and error states
-- Examples: `PromptView`, `EditorView`, `HistoryView`
 
-### Reusable Components
-- Located in `src/components/`
-- Organized by feature/domain
-- Use TypeScript interfaces for props
-- Follow shadcn/ui patterns
-- Implement proper accessibility
+### State Management
+- Use React Context for global state (auth, user data)
+- Use React Query for server state
+- Use local state for component-specific data
+- Implement proper loading states and error handling
 
-### Component Categories
-- `ui/`: Base UI components (buttons, inputs, etc.)
-- `chat/`: Components used in ChatSection
-- `parameter/`: Components used in ParameterSection
-- `viewer/`: Components used in ViewerSection
-- `history/`: Components used in the history page
+### API Integration
+- All API calls go through Supabase Edge Functions
+- Use React Query for caching and synchronization
+- Implement proper error handling and retry logic
+- Use TypeScript interfaces for API responses.
 
-## State Management
-
-### Contexts (`src/contexts/`)
-- `AuthContext`: User authentication and session
-- `BlobContext`: STL blob generated from OpenSCAD WASM
-- `ColorContext`: Purely stylistic color for model
-- `CurrentMessageContext`: Current message being processed
-- `SelectedItemsContext`: Selected items across components
-
-### React Query
-- Used for server state management
-- Configured in `src/main.tsx`
-- Provides caching, synchronization, and background updates
-- Handle loading, error, and success states
-
-## Custom Hooks (`src/hooks/`)
-- `useOpenSCAD`: OpenSCAD integration
-- `useItemSelection`: Item selection management
-- `useToast`: Toast notification management
-
-## Services (`src/services/`)
-- `conversationService`: Chat/conversation API calls, mutations and queries
-- `messageService`: Message handling and processing, mutations and queries
-- All services use Supabase client for API calls
-
-## Utilities (`src/utils/`)
-- `file-utils`: Primarily for getting a safe filename when exporting a file
-- `parameterUtils`: Parameter validation and processing
-- `downloadUtils`: Functions for downloading generated model
-
-## Types (`src/types/`)
-- `misc.ts`: Miscellaneous type definitions, should probably get broken up in the future
-- Use proper TypeScript interfaces and types
-- Export types for reuse across components
-
-## 3D Graphics Integration
-
-### Three.js Setup
+### 3D Graphics
+- Use Three.js for 3D rendering
+- Implement proper cleanup for Three.js resources
 - Use React Three Fiber for React integration
-- Implement proper cleanup and resource management
 - Handle WebGL context loss gracefully
-- Use proper lighting and materials
 
-### OpenSCAD Integration
-- Web Worker in `src/worker/` for OpenSCAD processing
-- WASM-based OpenSCAD compilation
-- Real-time parameter updates
-- Error handling for compilation failures
+### Security
+- All sensitive operations go through authenticated Edge Functions
+- Implement proper CORS policies
+- Validate all user inputs
+- Use environment variables for sensitive data
 
-## Routing Structure
-- Main routes defined in `src/main.tsx`
-- Error boundaries for route error handling
+## Environment Setup
+- Frontend: `.env.local` for Vite environment variables
+- Backend: `supabase/functions/.env` for Edge Function environment variables
+- Use ngrok for local webhook development
 
-## Styling
-- Tailwind CSS for utility-first styling
-- shadcn/ui components for consistent design
-- Custom CSS in `src/index.css`
-- Not standard css classes, adam specific, refer to tailwind.config.js for specifics
-
-## Error Handling
-- Error boundaries for component error catching
-- Toast notifications for user feedback
-- Proper error states in components
-
-## Performance
-- React Query for efficient data fetching
-- Proper memoization with `useMemo` and `useCallback`
-- Lazy loading for route components
-- Image optimization and lazy loading
+## Common Patterns
+- Use React Query for data fetching and caching
+- Implement proper loading states with skeleton components
+- Use toast notifications for user feedback
+- Implement proper error boundaries
+- Use React Router for navigation
+- Follow the established component hierarchy
 
 ---
 > Source: [Adam-CAD/CADAM](https://github.com/Adam-CAD/CADAM) — distributed by [TomeVault](https://tomevault.io).
