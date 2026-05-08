@@ -1,159 +1,195 @@
-## page-structure
+## utils
 
-> 每个页面（`app/**/page.tsx`）必须遵循以下目录结构：
+> `utils.ts` 是页面的辅助文件，用于存放：
 
+# 工具函数文件编写规范
 
-# 页面结构规范
+## 文件定位
 
-## 目录结构要求
+`utils.ts` 是页面的辅助文件，用于存放：
 
-每个页面（`app/**/page.tsx`）必须遵循以下目录结构：
+1. **页面常量**：配置值、固定地址、魔法数字等
+2. **辅助工具函数**：数据格式化、字符串处理、类型转换等
+3. **可跳过的实现细节**：与 Web3 核心学习内容关系不大的代码
 
-```
-app/
-  └── [页面名称]/
-      ├── components/          # 页面专用组件目录（必须）
-      │   ├── Header.tsx       # 页面标题组件
-      │   ├── Form.tsx         # 表单组件（如需要）
-      │   ├── EmptyState.tsx   # 空状态组件（如需要）
-      │   └── ...              # 其他功能组件
-      ├── actions.ts          # Server Action 文件（如需要）
-      ├── types.ts            # 类型定义文件（如需要）
-      ├── utils.ts            # 工具函数和常量文件（如需要）
-      └── page.tsx            # 主页面文件，只负责整合组件
-```
+**重要**：`utils.ts` 只存放常量和函数，**不存放类型定义**。所有类型定义（`interface`、`type`）必须放在 `types.ts` 文件中。
 
-## 组件组织要求
+## 设计原则
 
-### 1. 页面组件必须放在子目录中
+### 1. 分离核心逻辑和辅助代码
 
-每个页面必须将功能拆分为独立的组件，并放在 `components` 子目录中。
+本项目是一个学习项目，读者的目标是学习 Web3 开发。`utils.ts` 的作用是将「可以跳过」的代码从核心文件中分离出来，让读者能专注于重点内容。
 
-### 2. 主页面职责
+**应该放在 utils.ts 的内容：**
+- 常量定义（如链 ID、合约地址、配置值）
+- 数据格式化函数（如 `formatValue`、`formatDate`）
+- 字符串处理函数（如 `truncateAddress`、`parseSourceCode`）
+- 类型转换函数（如 `hexToNumber`、`weiToEth`）
+- 其他与 Web3 核心概念无关的辅助代码
 
-主页面文件（`page.tsx`）应该：
-- **只负责整合组件**：导入并组合各个功能组件
-- **保持简洁**：不包含复杂的业务逻辑
-- **提供布局**：定义页面的整体布局结构
+**不应该放在 utils.ts 的内容：**
+- 类型定义（`interface`、`type`）→ 放在 `types.ts`
 
-**示例结构：**
+**应该保留在 actions.ts 的内容：**
+- 与区块链交互的核心逻辑
+- API 调用和数据获取
+- 合约函数编码和解码
+- 更多与 `web3` 核心逻辑相关的代码
+
+### 2. 简化注释
+
+`utils.ts` 中的代码注释可以相对简单，因为这些代码不是学习重点。只需要：
+- 说明函数的用途
+- 说明参数和返回值
+- 不需要详细解释实现原理
+
+## 文件头部注释
+
+每个 `utils.ts` 文件必须包含头部注释，说明这是辅助文件：
 
 ```typescript
-"use client";
-
 // ============================================================
-// 页面名称：页面功能描述
+// [功能名称] 工具函数和常量
 // ============================================================
 // 作用：
-// - 整合所有相关功能组件
-// - 提供统一的页面布局和样式
-// - 作为功能的入口页面
+// - [作用1]
+// - [作用2]
+//
+// 说明：
+// 这些常量和工具函数与 Web3 核心开发逻辑关系不大，
+// 读者可以跳过本文件，专注于 actions.ts 中的核心实现。
 // ============================================================
+```
 
-import { Header } from "./components/Header";
-import { Form } from "./components/Form";
-import { EmptyState } from "./components/EmptyState";
+## 常量定义规范
 
-export default function PageName() {
-  return (
-    <main>
-      {/* 页面标题区域组件 - 显示页面标题和描述信息 */}
-      <Header />
+### 1. 使用 JSDoc 注释说明常量用途
 
-      {/* 表单组件 - 处理用户输入和提交 */}
-      <Form />
+```typescript
+/**
+ * 持有大量 USDT 的地址，用于 Gas 估算
+ *
+ * 为什么需要这个地址？
+ * - eth_estimateGas 会模拟执行交易
+ * - 对于代币转账，如果 from 地址没有足够余额，模拟会失败
+ * - 使用一个已知持有大量 USDT 的地址可以确保模拟成功
+ */
+export const USDT_HOLDER_ADDRESS = "0xF977814e90dA44bFA03b6295A0616a897441aceC";
 
-      {/* 空状态组件 - 显示未连接时的提示 */}
-      <EmptyState />
-    </main>
-  );
+/** 以太坊主网 Chain ID */
+export const MAINNET_CHAIN_ID = 1;
+```
+
+### 2. 常量命名规范
+
+- 使用 `UPPER_SNAKE_CASE` 命名
+- 名称要能表达常量的用途
+
+## 工具函数规范
+
+### 1. 函数注释
+
+工具函数使用简单的 JSDoc 注释即可：
+
+```typescript
+/**
+ * 格式化状态变量的值为可读字符串
+ * 
+ * @param value - 要格式化的值（支持 BigInt、布尔、数组、对象等类型）
+ * @returns 格式化后的字符串
+ */
+export function formatVariableValue(value: unknown): string {
+  // 实现...
 }
 ```
 
-## Server Action 规范要求
+### 2. 不需要详细解释实现
 
-### 1. 必须使用 Server Action，不使用 API 路由
-
-**重要**：本网站**不使用** API 路由形式（如 `app/api/**/route.ts`），所有服务端逻辑必须使用 **Server Action** 形式。
-
-### 2. Server Action 文件位置和命名
-
-**要求：**
-- ✅ Server Action 文件**必须**命名为 `actions.ts`
-- ✅ `actions.ts` **必须**和 `page.tsx` 放在**同一个目录**中
-- ✅ 文件开头**必须**包含 `"use server"` 指令
-- ✅ 导出的函数**必须**是 `async` 函数
-- ❌ 不使用 `app/api/**/route.ts` 形式的 API 路由
-
-## 类型定义规范要求
-
-### 1. 必须使用 types.ts 文件管理类型
-
-**重要**：如果页面中使用了类型定义（如 `interface`、`type`），**必须**将类型定义放在 `types.ts` 文件中，而不是直接写在组件或 actions 文件中。
-
-### 2. 类型定义文件位置和命名
-
-**要求：**
-- ✅ 类型定义文件**必须**命名为 `types.ts`
-- ✅ `types.ts` **必须**和 `page.tsx` 放在**同一个目录**中
-- ✅ 类型定义**必须**使用 `export` 导出，方便其他文件导入
-- ❌ 不在组件文件或 actions 文件中直接定义类型（除非是组件内部使用的私有类型）
-
-## 工具函数和常量规范要求
-
-### 1. 使用 utils.ts 文件管理常量和工具函数
-
-**重要**：页面中使用的常量和辅助工具函数应该放在 `utils.ts` 文件中。
-
-### 2. utils.ts 文件的定位
-
-`utils.ts` 用于存放：
-- 页面使用的常量（如配置值、固定地址等）
-- 与 Web3 核心逻辑关系不大的辅助函数（如数据格式化、字符串处理等）
-- 读者可以跳过的实现细节
-
-### 3. utils.ts 文件位置和命名
-
-**要求：**
-- ✅ 工具函数文件**必须**命名为 `utils.ts`
-- ✅ `utils.ts` **必须**和 `page.tsx` 放在**同一个目录**中
-- ✅ 常量和函数**必须**使用 `export` 导出
-- ❌ 不在 `actions.ts` 中导出常量（Server Action 文件只能导出 async 函数）
-
-## 代币名称使用规范
-
-### 1. 必须使用 TOKENS 常量
-
-**重要**：在页面中使用代币名称（如 USDT、ETH）时，**禁止**直接写字符串，**必须**从 `lib/config/tokens.ts` 导入 `TOKENS` 常量使用。
-
-**要求：**
-- ✅ 使用 `TOKENS.USDT` 而不是 `"USDT"`
-- ✅ 使用 `TOKENS.ETH` 而不是 `"ETH"`
-- ✅ 需要代币精度时，使用 `TOKEN_INFO[TOKENS.USDT].decimals`
-
-**正确示例：**
+工具函数的实现细节不是学习重点，不需要像 `actions.ts` 那样添加步骤注释：
 
 ```typescript
-import { TOKENS, TOKEN_INFO } from "@/lib/config/tokens";
+// ✅ 简单注释即可
+export function parseSourceCode(sourceCode: string): string {
+  if (sourceCode.startsWith("{{") || sourceCode.startsWith("{")) {
+    try {
+      const parsed = JSON.parse(sourceCode);
+      // ...处理逻辑
+    } catch {
+      return sourceCode;
+    }
+  }
+  return sourceCode;
+}
 
-// 显示代币符号
-<span>{TOKENS.USDT}</span>
-
-// 获取代币精度
-const decimals = TOKEN_INFO[TOKENS.USDT].decimals;
-
-// 动态文本
-const message = `获取 ${TOKENS.USDT} 交易数据失败`;
+// ❌ 不需要这样详细的步骤注释
+export function parseSourceCode(sourceCode: string): string {
+  // ============================================================
+  // 步骤 1：检查是否为 JSON 格式
+  // ============================================================
+  // ...
+}
 ```
 
-**错误示例：**
+## 完整示例
 
 ```typescript
-// ❌ 错误：直接使用字符串
-<span>USDT</span>
-const decimals = 6; // 硬编码精度
-const message = "获取 USDT 交易数据失败";
+// ============================================================
+// 合约查询工具函数和常量
+// ============================================================
+// 作用：
+// - 提供源代码解析函数
+// - 提供数据格式化函数
+//
+// 说明：
+// 这些常量和工具函数与 Web3 核心开发逻辑关系不大，
+// 读者可以跳过本文件，专注于 actions.ts 中的核心实现。
+// ============================================================
+
+/**
+ * 解析合约源代码（处理单文件和多文件合约）
+ * 
+ * @param sourceCode - 原始源代码字符串
+ * @returns 解析后的源代码
+ */
+export function parseSourceCode(sourceCode: string): string {
+  if (sourceCode.startsWith("{{") || sourceCode.startsWith("{")) {
+    try {
+      const parsed = JSON.parse(sourceCode);
+      if (typeof parsed === "object" && parsed !== null) {
+        return extractMultiFileSources(parsed).join("\n\n");
+      }
+    } catch {
+      // 解析失败，返回原始字符串
+    }
+  }
+  return sourceCode;
+}
+
+/**
+ * 格式化状态变量的值为可读字符串
+ * 
+ * @param value - 要格式化的值
+ * @returns 格式化后的字符串
+ */
+export function formatVariableValue(value: unknown): string {
+  if (value === null || value === undefined) return "null";
+  if (typeof value === "bigint") return value.toString();
+  if (typeof value === "boolean") return value ? "true" : "false";
+  if (typeof value === "object") {
+    return JSON.stringify(value, (_, v) => 
+      typeof v === "bigint" ? v.toString() : v
+    );
+  }
+  return String(value);
+}
 ```
+
+## 注意事项
+
+1. **不要过度拆分**：只有确实「可以跳过」的代码才放到 `utils.ts`
+2. **保持文件简洁**：`utils.ts` 应该是辅助文件，不应该变得很大
+3. **必须导出**：所有常量和函数都要使用 `export` 导出
+4. **类型定义放 types.ts**：`utils.ts` 只放常量和函数，类型定义放在 `types.ts`
 
 ---
 > Source: [sdjl/learn-web3](https://github.com/sdjl/learn-web3) — distributed by [TomeVault](https://tomevault.io).
