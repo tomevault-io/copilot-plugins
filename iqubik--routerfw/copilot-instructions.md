@@ -1,0 +1,49 @@
+## batch-scripts
+
+> Conventions for Windows Batch scripts in routerFW
+
+
+# Batch Script Conventions
+
+## Style
+
+- Header: `@echo off` then `rem file: <name>`
+- `setlocal enabledelayedexpansion` for variable expansion in blocks
+- Console: `chcp 65001 >nul` (UTF-8), `mode con: cols=120 lines=40`
+- ANSI colors via ESC codes: `C_KEY`, `C_LBL`, `C_GRY`, `C_VAL`, `C_ERR`, `C_RST`, `C_OK` (alias of C_VAL)
+
+## Bilingual Pattern
+
+Same weighted language detection as `.sh` but uses Windows-specific checks:
+- Registry: `HKCU\Control Panel\Desktop\PreferredUILanguages`
+- Install language: `HKLM\...\Nls\Language\InstallLanguage` (0419 = Russian)
+- PowerShell: `Get-Culture`, `Get-WinUserLanguageList`
+- Console codepage: CP866 = Russian
+
+Dictionary is loaded from unified `.env` files (`system/lang/RU.env` / `system/lang/en.env`).
+Format: `KEY={C_VAL}value{C_RST}` — neutral pseudo-format, no quotes, `{C_*}` placeholders.
+Loader: custom `for /f "usebackq eol=# tokens=1,* delims==" %%k` block — expands `{C_*}` to ANSI codes via `!_v:{C_VAL}=%C_VAL%!` (early+late expansion). Fallback to `en.env` if file missing.
+
+## PowerShell Integration
+
+When executing a complex PowerShell command from a `.bat` script (e.g., in `tester.bat`), follow these rules to avoid `cmd.exe` parsing issues:
+
+1.  Enclose the entire PowerShell script block in double quotes (`"..."`).
+2.  Use the **full names of PowerShell cmdlets** (e.g., `Where-Object`, `ForEach-Object`) instead of aliases (`?`, `%`).
+3.  Do **not** escape PowerShell operators like `|` with the `^` character inside the quoted string.
+
+## Feature Parity
+
+`.bat` scripts must stay in sync with their `.sh` counterparts:
+- `_Builder.bat` <-> `_Builder.sh`
+- `_packer.bat` <-> `_packer.sh`
+
+When modifying one, the other must be updated with equivalent logic.
+
+## FORBIDDEN
+
+- NEVER read or edit `_unpacker.bat` — contains base64 payload
+
+---
+> Source: [iqubik/routerFW](https://github.com/iqubik/routerFW) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
