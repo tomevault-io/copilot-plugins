@@ -1,0 +1,9 @@
+{
+  "name": "nguyenyou--circe-sanely-auto",
+  "displayName": "circe-sanely-auto",
+  "description": "Drop-in replacement for circe-generic on Scala 3 \u2014 3x faster compilation, optional 6x faster runtime via jsoniter-scala. 100% compatible.",
+  "version": "1.0.0",
+  "author": "nguyenyou",
+  "homepage": "https://github.com/nguyenyou/circe-sanely-auto",
+  "skills": []
+}
