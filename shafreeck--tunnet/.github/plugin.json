@@ -1,0 +1,9 @@
+{
+  "name": "shafreeck--tunnet",
+  "displayName": "Tunnet",
+  "description": "A modern, cross-platform proxy client based on Tauri and sing-box.",
+  "version": "1.0.0",
+  "author": "shafreeck",
+  "homepage": "https://github.com/shafreeck/Tunnet",
+  "skills": []
+}
