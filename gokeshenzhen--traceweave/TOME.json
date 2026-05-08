@@ -1,0 +1,44 @@
+{
+  "name": "TraceWeave",
+  "owner": "gokeshenzhen",
+  "repo": "TraceWeave",
+  "description": "\u7b80\u6d01\u7684\u6d4b\u8bd5\u5e73\u53f0\u65e5\u5fd7\uff0c\u6ce2\u5f62(FSDB/VCD)\uff0c\u6839\u56e0\u5206\u6790MCP Server. A Simple and Universal MCP Server to Debug Testbench Simulation  Failures Via Log Parsing And Waveform Analysis (FSDB/VCD)",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/gokeshenzhen/TraceWeave",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T08:52:17Z"
+}
