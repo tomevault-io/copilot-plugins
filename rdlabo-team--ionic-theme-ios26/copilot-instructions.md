@@ -1,53 +1,62 @@
-## demo-application
+## development-workflow
 
-> Angular demo application structure and usage
+> Development workflow and directory structure guidelines
 
 
-# Demo Application (Angular)
+# Development Workflow
 
-## デモアプリケーションの目的
+## ディレクトリ構造の詳細
 
-`demo/` ディレクトリには、Ionic iOS26テーマの動作確認用のAngularアプリケーションが含まれています。
+### src/ ディレクトリ
+- **src/styles/**: スタイル関連ファイル
+  - **src/styles/components/**: 個別のIonicコンポーネント用のSCSSファイル
+    - [ion-button.scss](mdc:src/styles/components/ion-button.scss): ボタンスタイル
+    - [ion-list.scss](mdc:src/styles/components/ion-list.scss): リストスタイル
+    - [ion-popover.scss](mdc:src/styles/components/ion-popover.scss): ポップオーバースタイル
+    - [ion-searchbar.scss](mdc:src/styles/components/ion-searchbar.scss): 検索バースタイル
+    - [ion-tabs.scss](mdc:src/styles/components/ion-tabs.scss): タブスタイル
+    - [ion-toggle.scss](mdc:src/styles/components/ion-toggle.scss): トグルスタイル
+    - その他多数のコンポーネントスタイル
 
-## 主要なコンポーネント
+  - **src/styles/utils/**: ユーティリティファイル
+    - [api.scss](mdc:src/styles/utils/api.scss): API関連ユーティリティ
+    - [theme-dark.scss](mdc:src/styles/utils/theme-dark.scss): ダークテーマ用ユーティリティ
+    - [theme-list-inset.scss](mdc:src/styles/utils/theme-list-inset.scss): インセットリスト用ユーティリティ
+    - [translucent.scss](mdc:src/styles/utils/translucent.scss): 半透明効果用ユーティリティ
+    - **src/styles/utils/dark/**: ダークテーマ専用コンポーネントスタイル
 
-### メインページコンポーネント
-- [album-page.component](mdc:demo/src/app/album/): アルバムページ（リスト表示の確認）
-- [index-page.component](mdc:demo/src/app/index/): メインインデックスページ
-- [docs-page.component](mdc:demo/src/app/docs/): ドキュメントページ
-- [settings-page.component](mdc:demo/src/app/settings/): 設定ページ（設定UIの確認）
+  - **src/styles/**: ルートレベルのファイル
+    - [default-variables.scss](mdc:src/styles/default-variables.scss): デフォルト変数定義
+    - [ionic-theme-ios26.scss](mdc:src/styles/ionic-theme-ios26.scss): メインのSCSSファイル（全てのコンポーネントを統合）
+    - [ionic-theme-ios26-dark-*.scss](mdc:src/styles/): ダークテーマ用SCSSファイル
+    - [md-ion-list-inset.scss](mdc:src/styles/md-ion-list-inset.scss): Material Design用インセットリスト
+    - [md-remove-ios-class-effect.scss](mdc:src/styles/md-remove-ios-class-effect.scss): iOSクラス効果削除用
 
-### ナビゲーション
-- [tabs.page](mdc:demo/src/app/tabs/): タブベースのナビゲーション
+- **src/gestures/**: ジェスチャー関連のTypeScriptファイル
+  - [index.ts](mdc:src/gestures/index.ts): ジェスチャー機能のエントリーポイント
+  - [interfaces.ts](mdc:src/gestures/interfaces.ts): ジェスチャー関連の型定義
+  - [utils.ts](mdc:src/gestures/utils.ts): ジェスチャー関連のユーティリティ関数
 
-### 個別コンポーネントデモページ
-- [demo/src/app/index/pages/](mdc:demo/src/app/index/pages/): 各Ionicコンポーネントのデモページ
-  - [button.page](mdc:demo/src/app/index/pages/button/): ボタンコンポーネントのデモ
-  - [card.page](mdc:demo/src/app/index/pages/card/): カードコンポーネントのデモ
-  - [item-list.page](mdc:demo/src/app/index/pages/item-list/): アイテムリストのデモ
-  - [tabs.page](mdc:demo/src/app/index/pages/tabs/): タブコンポーネントのデモ
-  - [searchbar.page](mdc:demo/src/app/index/pages/searchbar/): 検索バーのデモ
-  - [popover.page](mdc:demo/src/app/index/pages/popover/): ポップオーバーのデモ
-  - その他多数のコンポーネントデモページ
+- **src/index.ts**: メインのエクスポートファイル
 
-## テーマファイル
+### demo/ ディレクトリ
+- Angular 20ベースのデモアプリケーション
+- 各ページコンポーネントでテーマの動作確認
+- [demo/src/theme/theme-ios26.scss](mdc:demo/src/theme/theme-ios26.scss): デモアプリ用テーマファイル
 
-- [demo/src/theme/theme-ios26.scss](mdc:demo/src/theme/theme-ios26.scss): デモアプリ用のテーマ設定
-- [demo/src/global.scss](mdc:demo/src/global.scss): グローバルスタイル
+## 開発時の注意事項
 
-## 使用方法
+1. **SCSSファイルの編集**: `src/styles/` ディレクトリ内のSCSSファイルを編集
+2. **ジェスチャー機能の編集**: `src/gestures/` ディレクトリ内のTypeScriptファイルを編集
+3. **コンパイル**: 変更後は適切なビルドコマンドでCSSファイルとJSファイルを生成
+4. **確認**: `demo/` アプリケーションでスタイルとジェスチャーの動作確認
+5. **ドキュメント**: READMEは英語で記述（OSS配布のため）
 
-1. **開発サーバー起動**: `cd demo && npm start` または `ionic serve`
-2. **テーマ確認**: 各ページでiOS26テーマの適用状況を確認
-3. **スタイル調整**: `src/styles/` のSCSSファイルを編集後、デモアプリで確認
-4. **ジェスチャー機能確認**: `src/gestures/` のTypeScriptファイルを編集後、デモアプリで確認
+## ビルド出力
 
-## 設定ファイル
-
-- [demo/angular.json](mdc:demo/angular.json): Angular CLI設定
-- [demo/package.json](mdc:demo/package.json): デモアプリの依存関係
-- [demo/ionic.config.json](mdc:demo/ionic.config.json): Ionic設定
-- [demo/capacitor.config.ts](mdc:demo/capacitor.config.ts): Capacitor設定
+- **CSS出力**: `dist/css/` ディレクトリにコンパイル済みCSSファイル
+- **JS出力**: `dist/` ディレクトリにコンパイル済みTypeScriptファイル
+- **型定義**: `dist/` ディレクトリにTypeScript型定義ファイル（.d.ts）
 
 ---
 > Source: [rdlabo-team/ionic-theme-ios26](https://github.com/rdlabo-team/ionic-theme-ios26) — distributed by [TomeVault](https://tomevault.io).
