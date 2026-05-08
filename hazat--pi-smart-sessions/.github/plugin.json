@@ -1,0 +1,9 @@
+{
+  "name": "hazat--pi-smart-sessions",
+  "displayName": "pi-smart-sessions",
+  "description": "Auto-names Pi sessions with AI-generated summaries",
+  "version": "1.0.0",
+  "author": "HazAT",
+  "homepage": "https://github.com/HazAT/pi-smart-sessions",
+  "skills": []
+}
