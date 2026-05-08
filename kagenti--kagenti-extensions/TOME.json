@@ -1,0 +1,387 @@
+{
+  "name": "kagenti",
+  "owner": "kagenti",
+  "repo": "kagenti-extensions",
+  "description": "Repository for kagenti extensions projects",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "auth",
+      "path": ".claude/skills/auth",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/auth",
+      "description": ""
+    },
+    {
+      "name": "auth:keycloak-confidential-client",
+      "path": ".claude/skills/auth:keycloak-confidential-client",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/auth:keycloak-confidential-client",
+      "description": ""
+    },
+    {
+      "name": "auth:mlflow-oidc-auth",
+      "path": ".claude/skills/auth:mlflow-oidc-auth",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/auth:mlflow-oidc-auth",
+      "description": ""
+    },
+    {
+      "name": "auth:otel-oauth2-exporter",
+      "path": ".claude/skills/auth:otel-oauth2-exporter",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/auth:otel-oauth2-exporter",
+      "description": ""
+    },
+    {
+      "name": "ci:status",
+      "path": ".claude/skills/ci:status",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/ci:status",
+      "description": ""
+    },
+    {
+      "name": "genai:semantic-conventions",
+      "path": ".claude/skills/genai:semantic-conventions",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/genai:semantic-conventions",
+      "description": ""
+    },
+    {
+      "name": "git",
+      "path": ".claude/skills/git",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/git",
+      "description": ""
+    },
+    {
+      "name": "git:commit",
+      "path": ".claude/skills/git:commit",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/git:commit",
+      "description": ""
+    },
+    {
+      "name": "github",
+      "path": ".claude/skills/github",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/github",
+      "description": ""
+    },
+    {
+      "name": "github:issues",
+      "path": ".claude/skills/github:issues",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/github:issues",
+      "description": ""
+    },
+    {
+      "name": "github:last-week",
+      "path": ".claude/skills/github:last-week",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/github:last-week",
+      "description": ""
+    },
+    {
+      "name": "github:my-status",
+      "path": ".claude/skills/github:my-status",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/github:my-status",
+      "description": ""
+    },
+    {
+      "name": "github:prs",
+      "path": ".claude/skills/github:prs",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/github:prs",
+      "description": ""
+    },
+    {
+      "name": "git:rebase",
+      "path": ".claude/skills/git:rebase",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/git:rebase",
+      "description": ""
+    },
+    {
+      "name": "git:status",
+      "path": ".claude/skills/git:status",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/git:status",
+      "description": ""
+    },
+    {
+      "name": "git:worktree",
+      "path": ".claude/skills/git:worktree",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/git:worktree",
+      "description": ""
+    },
+    {
+      "name": "helm",
+      "path": ".claude/skills/helm",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/helm",
+      "description": ""
+    },
+    {
+      "name": "hypershift",
+      "path": ".claude/skills/hypershift",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/hypershift",
+      "description": ""
+    },
+    {
+      "name": "hypershift:cluster",
+      "path": ".claude/skills/hypershift:cluster",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/hypershift:cluster",
+      "description": ""
+    },
+    {
+      "name": "hypershift:preflight",
+      "path": ".claude/skills/hypershift:preflight",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/hypershift:preflight",
+      "description": ""
+    },
+    {
+      "name": "hypershift:setup",
+      "path": ".claude/skills/hypershift:setup",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/hypershift:setup",
+      "description": ""
+    },
+    {
+      "name": "istio:ambient-waypoint",
+      "path": ".claude/skills/istio:ambient-waypoint",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/istio:ambient-waypoint",
+      "description": ""
+    },
+    {
+      "name": "k8s",
+      "path": ".claude/skills/k8s",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/k8s",
+      "description": ""
+    },
+    {
+      "name": "k8s:health",
+      "path": ".claude/skills/k8s:health",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/k8s:health",
+      "description": ""
+    },
+    {
+      "name": "kagenti",
+      "path": ".claude/skills/kagenti",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/kagenti",
+      "description": ""
+    },
+    {
+      "name": "kagenti:deploy",
+      "path": ".claude/skills/kagenti:deploy",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/kagenti:deploy",
+      "description": ""
+    },
+    {
+      "name": "kagenti:operator",
+      "path": ".claude/skills/kagenti:operator",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/kagenti:operator",
+      "description": ""
+    },
+    {
+      "name": "kagenti:ui-debug",
+      "path": ".claude/skills/kagenti:ui-debug",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/kagenti:ui-debug",
+      "description": ""
+    },
+    {
+      "name": "kind",
+      "path": ".claude/skills/kind",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/kind",
+      "description": ""
+    },
+    {
+      "name": "kind:cluster",
+      "path": ".claude/skills/kind:cluster",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/kind:cluster",
+      "description": ""
+    },
+    {
+      "name": "local",
+      "path": ".claude/skills/local",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/local",
+      "description": ""
+    },
+    {
+      "name": "local:full-test",
+      "path": ".claude/skills/local:full-test",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/local:full-test",
+      "description": ""
+    },
+    {
+      "name": "local:testing",
+      "path": ".claude/skills/local:testing",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/local:testing",
+      "description": ""
+    },
+    {
+      "name": "meta",
+      "path": ".claude/skills/meta",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/meta",
+      "description": ""
+    },
+    {
+      "name": "meta:write-docs",
+      "path": ".claude/skills/meta:write-docs",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/meta:write-docs",
+      "description": ""
+    },
+    {
+      "name": "playwright-demo:debug",
+      "path": ".claude/skills/playwright-demo:debug",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/playwright-demo:debug",
+      "description": ""
+    },
+    {
+      "name": "playwright-research",
+      "path": ".claude/skills/playwright-research",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/playwright-research",
+      "description": ""
+    },
+    {
+      "name": "session",
+      "path": ".claude/skills/session",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/session",
+      "description": ""
+    },
+    {
+      "name": "session:dashboard",
+      "path": ".claude/skills/session:dashboard",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/session:dashboard",
+      "description": ""
+    },
+    {
+      "name": "session:extract",
+      "path": ".claude/skills/session:extract",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/session:extract",
+      "description": ""
+    },
+    {
+      "name": "session:post",
+      "path": ".claude/skills/session:post",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/session:post",
+      "description": ""
+    },
+    {
+      "name": "session:summary",
+      "path": ".claude/skills/session:summary",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/session:summary",
+      "description": ""
+    },
+    {
+      "name": "skills",
+      "path": ".claude/skills/skills",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/skills",
+      "description": ""
+    },
+    {
+      "name": "skills:retrospective",
+      "path": ".claude/skills/skills:retrospective",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/skills:retrospective",
+      "description": ""
+    },
+    {
+      "name": "skills:scan",
+      "path": ".claude/skills/skills:scan",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/skills:scan",
+      "description": ""
+    },
+    {
+      "name": "skills:validate",
+      "path": ".claude/skills/skills:validate",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/skills:validate",
+      "description": ""
+    },
+    {
+      "name": "skills:write",
+      "path": ".claude/skills/skills:write",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/skills:write",
+      "description": ""
+    },
+    {
+      "name": "tdd",
+      "path": ".claude/skills/tdd",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/tdd",
+      "description": ""
+    },
+    {
+      "name": "tdd:kind",
+      "path": ".claude/skills/tdd:kind",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/tdd:kind",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "path": ".claude/skills/test",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/test",
+      "description": ""
+    },
+    {
+      "name": "testing:kubectl-debugging",
+      "path": ".claude/skills/testing:kubectl-debugging",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/testing:kubectl-debugging",
+      "description": ""
+    },
+    {
+      "name": "test:playwright",
+      "path": ".claude/skills/test:playwright",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/test:playwright",
+      "description": ""
+    },
+    {
+      "name": "test:review",
+      "path": ".claude/skills/test:review",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/test:review",
+      "description": ""
+    },
+    {
+      "name": "test:run-hypershift",
+      "path": ".claude/skills/test:run-hypershift",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/test:run-hypershift",
+      "description": ""
+    },
+    {
+      "name": "test:run-kind",
+      "path": ".claude/skills/test:run-kind",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/test:run-kind",
+      "description": ""
+    },
+    {
+      "name": "test:ui",
+      "path": ".claude/skills/test:ui",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/test:ui",
+      "description": ""
+    },
+    {
+      "name": "test:write",
+      "path": ".claude/skills/test:write",
+      "github_url": "https://github.com/kagenti/kagenti-extensions/tree/main/.claude/skills/test:write",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kagenti/kagenti-extensions",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T16:30:11Z"
+}
