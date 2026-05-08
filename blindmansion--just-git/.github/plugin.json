@@ -1,0 +1,9 @@
+{
+  "name": "blindmansion--just-git",
+  "displayName": "just-git",
+  "description": "Pure TypeScript git implementation: virtual filesystem client and embeddable server.",
+  "version": "1.0.0",
+  "author": "blindmansion",
+  "homepage": "https://github.com/blindmansion/just-git",
+  "skills": []
+}
