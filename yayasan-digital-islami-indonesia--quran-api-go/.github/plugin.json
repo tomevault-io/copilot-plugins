@@ -1,0 +1,9 @@
+{
+  "name": "yayasan-digital-islami-indonesia--quran-api-go",
+  "displayName": "quran-api-go",
+  "description": "REST API API Quran using go",
+  "version": "1.0.0",
+  "author": "Yayasan-Digital-Islami-Indonesia",
+  "homepage": "https://github.com/Yayasan-Digital-Islami-Indonesia/quran-api-go",
+  "skills": []
+}
