@@ -1,0 +1,9 @@
+{
+  "name": "rwmjhb--happyclaw",
+  "displayName": "happyclaw",
+  "description": "OpenClaw PTY Bridge Plugin - \u5c06\u672c\u673a Claude Code/Codex/Gemini CLI session \u6865\u63a5\u5230 OpenClaw",
+  "version": "1.0.0",
+  "author": "rwmjhb",
+  "homepage": "https://github.com/rwmjhb/happyclaw",
+  "skills": []
+}
