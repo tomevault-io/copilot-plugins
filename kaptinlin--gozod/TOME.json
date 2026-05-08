@@ -1,0 +1,93 @@
+{
+  "name": "gozod",
+  "owner": "kaptinlin",
+  "repo": "gozod",
+  "description": "Go port of TypeScript Zod validation library with full API compatibility and type safety",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "code-simplifying",
+      "path": ".agents/skills/code-simplifying",
+      "github_url": "https://github.com/kaptinlin/gozod/tree/main/.agents/skills/code-simplifying",
+      "description": ""
+    },
+    {
+      "name": "committing",
+      "path": ".agents/skills/committing",
+      "github_url": "https://github.com/kaptinlin/gozod/tree/main/.agents/skills/committing",
+      "description": ""
+    },
+    {
+      "name": "dependency-selecting",
+      "path": ".agents/skills/dependency-selecting",
+      "github_url": "https://github.com/kaptinlin/gozod/tree/main/.agents/skills/dependency-selecting",
+      "description": ""
+    },
+    {
+      "name": "go-best-practices",
+      "path": ".agents/skills/go-best-practices",
+      "github_url": "https://github.com/kaptinlin/gozod/tree/main/.agents/skills/go-best-practices",
+      "description": ""
+    },
+    {
+      "name": "modernizing",
+      "path": ".agents/skills/modernizing",
+      "github_url": "https://github.com/kaptinlin/gozod/tree/main/.agents/skills/modernizing",
+      "description": ""
+    },
+    {
+      "name": "ralphy-initializing",
+      "path": ".agents/skills/ralphy-initializing",
+      "github_url": "https://github.com/kaptinlin/gozod/tree/main/.agents/skills/ralphy-initializing",
+      "description": ""
+    },
+    {
+      "name": "ralphy-todo-creating",
+      "path": ".agents/skills/ralphy-todo-creating",
+      "github_url": "https://github.com/kaptinlin/gozod/tree/main/.agents/skills/ralphy-todo-creating",
+      "description": ""
+    },
+    {
+      "name": "releasing",
+      "path": ".agents/skills/releasing",
+      "github_url": "https://github.com/kaptinlin/gozod/tree/main/.agents/skills/releasing",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kaptinlin/gozod",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T00:30:12Z"
+}
