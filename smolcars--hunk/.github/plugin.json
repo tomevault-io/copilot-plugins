@@ -1,0 +1,9 @@
+{
+  "name": "smolcars--hunk",
+  "displayName": "hunk",
+  "description": "A GPUI based diff viewer and Codex orchestrator for vibe engineering",
+  "version": "1.0.0",
+  "author": "smolcars",
+  "homepage": "https://github.com/smolcars/hunk",
+  "skills": []
+}
