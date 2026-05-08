@@ -1,0 +1,9 @@
+{
+  "name": "giobebbe--second-brain-os-template",
+  "displayName": "second-brain-os-template",
+  "description": "Second Brain OS template: a preconfigured Obsidian + Claude Code vault for solopreneurs and content creators",
+  "version": "1.0.0",
+  "author": "Giobebbe",
+  "homepage": "https://github.com/Giobebbe/second-brain-os-template",
+  "skills": []
+}
