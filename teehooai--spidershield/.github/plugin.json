@@ -1,9 +1,9 @@
 {
   "name": "teehooai--spidershield",
   "displayName": "spidershield",
-  "description": "spidershield",
+  "description": "Scan, rate, and harden MCP servers for AI agent safety",
   "version": "1.0.0",
   "author": "teehooai",
-  "homepage": "https://tomevault.io/claim/teehooai",
+  "homepage": "https://github.com/teehooai/spidershield",
   "skills": []
 }
