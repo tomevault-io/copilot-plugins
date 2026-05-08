@@ -1,0 +1,44 @@
+{
+  "name": "Real-Time-Token-Monitoring",
+  "owner": "Ayman-Alkurdi",
+  "repo": "Real-Time-Token-Monitoring",
+  "description": "This project is a monitoring application designed to help you understand and optimize your token consumption when using the Gemini CLI. By visualizing the token count of your requests, you can identify patterns and adopt strategies to reduce costs and improve efficiency.",
+  "type": "config",
+  "source_format": "GEMINI.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ayman-Alkurdi/Real-Time-Token-Monitoring",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T20:32:27Z"
+}
