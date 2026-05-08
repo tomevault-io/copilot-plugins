@@ -1,0 +1,9 @@
+{
+  "name": "resurrectedtrader--d2ssharp",
+  "displayName": "D2SSharp",
+  "description": "A C# library for reading and writing Diablo 2 save files (.d2s character saves and .d2i shared stash files)",
+  "version": "1.0.0",
+  "author": "ResurrectedTrader",
+  "homepage": "https://github.com/ResurrectedTrader/D2SSharp",
+  "skills": []
+}
