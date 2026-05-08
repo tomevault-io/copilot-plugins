@@ -1,264 +1,192 @@
-## swiftui-patterns
+## xcodebuildmcp-tools
 
-> Modern SwiftUI patterns using @Observable, state management with MV architecture, async operations with .task modifier, accessibility guidelines, and performance optimizations. Apply when creating or modifying SwiftUI views, handling state, or implementing UI interactions.
+> Comprehensive guide for using XcodeBuildMCP tools for building, testing, deploying, and automating iOS applications. Includes simulator management, device deployment, UI automation, and debugging workflows. Apply when building apps, running tests, automating workflows, or using development tools.
 
-name: "SwiftUI Development Patterns"
-description: "Modern SwiftUI patterns using @Observable, state management with MV architecture, async operations with .task modifier, accessibility guidelines, and performance optimizations. Apply when creating or modifying SwiftUI views, handling state, or implementing UI interactions."
-agent_requested: true
-applies_to: ["**/Sources/**/*View.swift", "**/Sources/**/*Screen.swift", "**/*View.swift", "**/*Screen.swift"]
----
+# XcodeBuildMCP Tool Usage
 
-# SwiftUI Development Patterns (2025)
+To work with this project, build, test, and development commands should use XcodeBuildMCP tools instead of raw command-line calls.
 
-## Modern SwiftUI Architecture Guidelines
+## Project Discovery & Setup
 
-### No ViewModels - Use Native SwiftUI Data Flow
-**New features MUST follow these patterns:**
+```javascript
+// Discover Xcode projects in the workspace
+discover_projs({
+    workspaceRoot: "/path/to/YourApp"
+})
 
-1. **Views as Pure State Expressions**
-   ```swift
-   struct MyView: View {
-       @Environment(MyService.self) private var service
-       @State private var viewState: ViewState = .loading
-       
-       enum ViewState {
-           case loading
-           case loaded(data: [Item])
-           case error(String)
-       }
-       
-       var body: some View {
-           // View is just a representation of its state
-       }
-   }
-   ```
-
-2. **Use Environment Appropriately**
-   - **App-wide services**: Router, Theme, CurrentAccount, Client, etc. - use `@Environment`
-   - **Feature-specific services**: Timeline services, single-view logic - use `let` properties with `@Observable`
-   - Rule: Environment for cross-app/cross-feature dependencies, let properties for single-feature services
-   - Access app-wide via `@Environment(ServiceType.self)`
-   - Feature services: `private let myService = MyObservableService()`
-
-3. **Local State Management**
-   - Use `@State` for view-specific state
-   - Use `enum` for view states (loading, loaded, error)
-   - Use `.task(id:)` and `.onChange(of:)` for side effects
-   - Pass state between views using `@Binding`
-
-4. **No ViewModels Required**
-   - Views should be lightweight and disposable
-   - Business logic belongs in services/clients
-   - Test services independently, not views
-   - Use SwiftUI previews for visual testing
-
-5. **When Views Get Complex**
-   - Split into smaller subviews
-   - Use compound views that compose smaller views
-   - Pass state via bindings between views
-   - Never reach for a ViewModel as the solution
-
-## State Management (MV Pattern)
-
-SwiftUI views should follow the Model-View pattern using modern Swift state management:
-
-### @Observable Classes
-Use @Observable for model classes that need to be observed by SwiftUI:
-
-```swift
-@Observable
-class UserSettings {
-    var theme: Theme = .light
-    var fontSize: Double = 16.0
-}
+// List available schemes
+list_schems_ws({
+    workspacePath: "/path/to/YourApp.xcworkspace"
+})
 ```
 
-### View State Usage
-```swift
-@MainActor
-struct ContentView: View {
-    @State private var settings = UserSettings()
-    
-    var body: some View {
-        VStack {
-            // Direct property access, no $ prefix needed
-            Text("Font Size: \(settings.fontSize)")
-            
-            // For bindings, use @Bindable
-            @Bindable var settings = settings
-            Slider(value: $settings.fontSize, in: 10...30)
-        }
-    }
-}
+## Building for Simulator
+
+```javascript
+// Build for iPhone simulator by name
+build_sim_name_ws({
+    workspacePath: "/path/to/YourApp.xcworkspace",
+    scheme: "YourApp",
+    simulatorName: "iPhone 16",
+    configuration: "Debug"
+})
+
+// Build and run in one step
+build_run_sim_name_ws({
+    workspacePath: "/path/to/YourApp.xcworkspace",
+    scheme: "YourApp", 
+    simulatorName: "iPhone 16"
+})
 ```
 
-### Environment for Shared State
-```swift
-@MainActor
-struct ContentView: View {
-    @State private var userSettings = UserSettings()
-    
-    var body: some View {
-        NavigationStack {
-            MainView()
-                .environment(userSettings)
-        }
-    }
-}
+## Building for Device
 
-@MainActor
-struct MainView: View {
-    @Environment(UserSettings.self) private var settings
-    
-    var body: some View {
-        Text("Current theme: \(settings.theme)")
-    }
-}
+```javascript
+// List connected devices first
+list_devices()
+
+// Build for physical device
+build_dev_ws({
+    workspacePath: "/path/to/YourApp.xcworkspace",
+    scheme: "YourApp",
+    configuration: "Debug"
+})
 ```
 
-## iOS 26 Features (Optional)
+## Testing
 
-**Note**: If your app targets iOS 26+, you can take advantage of these cutting-edge SwiftUI APIs introduced in June 2025. These features are optional and should only be used when your deployment target supports iOS 26.
+```javascript
+// Run tests on simulator
+test_sim_name_ws({
+    workspacePath: "/path/to/YourApp.xcworkspace",
+    scheme: "YourApp",
+    simulatorName: "iPhone 16"
+})
 
-### Available iOS 26 SwiftUI APIs
+// Run tests on device
+test_device_ws({
+    workspacePath: "/path/to/YourApp.xcworkspace",
+    scheme: "YourApp",
+    deviceId: "DEVICE_UUID_HERE"
+})
 
-When targeting iOS 26+, consider using these new APIs:
-
-#### Liquid Glass Effects
-- `glassEffect(_:in:isEnabled:)` - Apply Liquid Glass effects to views
-- `buttonStyle(.glass)` - Apply Liquid Glass styling to buttons
-- `ToolbarSpacer` - Create visual breaks in toolbars with Liquid Glass
-
-#### Enhanced Scrolling
-- `scrollEdgeEffectStyle(_:for:)` - Configure scroll edge effects
-- `backgroundExtensionEffect()` - Duplicate, mirror, and blur views around edges
-
-#### Tab Bar Enhancements
-- `tabBarMinimizeBehavior(_:)` - Control tab bar minimization behavior
-- Search role for tabs with search field replacing tab bar
-- `TabViewBottomAccessoryPlacement` - Adjust accessory view content based on placement
-
-#### Animation
-- `@Animatable` macro - SwiftUI synthesizes custom animatable data properties
-
-#### UI Components
-- `Slider` with automatic tick marks when using step parameter
-- `windowResizeAnchor(_:)` - Set window anchor point for resizing
-
-#### Text Enhancements
-- `TextEditor` now supports `AttributedString`
-- `AttributedTextSelection` - Handle text selection with attributed text
-- `AttributedTextFormattingDefinition` - Define text styling in specific contexts
-- `FindContext` - Create find navigator in text editing views
-
-### iOS 26 Usage Guidelines
-- **Only use when targeting iOS 26+**: Ensure your deployment target supports these APIs
-- **Progressive enhancement**: Use availability checks if supporting multiple iOS versions
-- **Feature detection**: Test on older simulators to ensure graceful fallbacks
-- **Modern aesthetics**: Leverage Liquid Glass effects for cutting-edge UI design
-
-```swift
-// Example: Using iOS 26 features with availability checks
-struct ModernButton: View {
-    var body: some View {
-        Button("Tap me") {
-            // Action
-        }
-        .buttonStyle({
-            if #available(iOS 26.0, *) {
-                .glass
-            } else {
-                .bordered
-            }
-        }())
-    }
-}
+// Test Swift Package
+swift_package_test({
+    packagePath: "/path/to/YourAppPackage"
+})
 ```
 
-## Required Patterns
+## Simulator Management
 
-1. **Always use @MainActor** for view structs and UI-related code
-2. **Always use .task modifier** for async operations tied to view lifecycle
-3. **Never use Task {} in onAppear** - it doesn't auto-cancel and can cause issues
-4. **Use @Bindable** when you need bindings to @Observable objects
-5. **Extract complex views** into separate components when body gets large
-6. **No ViewModels** - use native SwiftUI state management instead
+```javascript
+// List available simulators
+list_sims({
+    enabled: true
+})
 
-## Async Operations in Views
+// Boot simulator
+boot_sim({
+    simulatorUuid: "SIMULATOR_UUID"
+})
 
-### Correct: Use .task Modifier
-```swift
-@MainActor
-struct ItemListView: View {
-    @State private var model = DataModel()
-    
-    var body: some View {
-        List(model.items) { item in
-            Text(item.name)
-        }
-        .overlay {
-            if model.isLoading {
-                ProgressView()
-            }
-        }
-        .task {
-            // This task automatically cancels when view disappears
-            do {
-                try await model.loadData()
-            } catch {
-                // Handle error
-            }
-        }
-        .refreshable {
-            // Pull to refresh also uses async/await
-            try? await model.loadData()
-        }
-    }
-}
+// Install app
+install_app_sim({
+    simulatorUuid: "SIMULATOR_UUID",
+    appPath: "/path/to/YourApp.app"
+})
+
+// Launch app
+launch_app_sim({
+    simulatorUuid: "SIMULATOR_UUID",
+    bundleId: "com.example.YourApp"
+})
 ```
 
-### Incorrect: Task in onAppear
-```swift
-// ❌ DON'T DO THIS
-.onAppear {
-    Task {  // This doesn't auto-cancel!
-        items = try await loadItems()
-    }
-}
+## Device Management
+
+```javascript
+// Install on device
+install_app_device({
+    deviceId: "DEVICE_UUID",
+    appPath: "/path/to/YourApp.app"
+})
+
+// Launch on device
+launch_app_device({
+    deviceId: "DEVICE_UUID",
+    bundleId: "com.example.YourApp"
+})
 ```
 
-## Accessibility Requirements
+## UI Automation
 
-Every interactive element must have:
-- `accessibilityLabel` for screen readers
-- `accessibilityIdentifier` for UI testing  
-- `accessibilityHint` when the action isn't obvious
+```javascript
+// Get UI hierarchy
+describe_ui({
+    simulatorUuid: "SIMULATOR_UUID"
+})
 
-```swift
-Button("Save") {
-    save()
-}
-.accessibilityLabel("Save document")
-.accessibilityIdentifier("saveButton")
-.accessibilityHint("Saves the current document to disk")
+// Tap element
+tap({
+    simulatorUuid: "SIMULATOR_UUID",
+    x: 100,
+    y: 200
+})
+
+// Type text
+type_text({
+    simulatorUuid: "SIMULATOR_UUID",
+    text: "Hello World"
+})
+
+// Take screenshot
+screenshot({
+    simulatorUuid: "SIMULATOR_UUID"
+})
 ```
 
-## Performance Guidelines
+## Log Capture
 
-- Use `LazyVStack`/`LazyHStack` for large collections
-- Implement `Equatable` on models for better diffing
-- Use `.id()` modifier sparingly as it forces view recreation
-- Avoid heavy computations in `body` - move to computed properties or methods
-- @Observable tracks only accessed properties, improving performance over @Published
+```javascript
+// Start capturing simulator logs
+start_sim_log_cap({
+    simulatorUuid: "SIMULATOR_UUID",
+    bundleId: "com.example.YourApp"
+})
 
-## Animation Best Practices
+// Stop and retrieve logs
+stop_sim_log_cap({
+    logSessionId: "SESSION_ID"
+})
 
-- Use SwiftUI's built-in animations with `.animation()` modifier
-- Prefer `withAnimation {}` for coordinated animations
-- Use `.transition()` for view appearance/disappearance
-- Consider accessibility preferences for reduced motion
+// Device logs
+start_device_log_cap({
+    deviceId: "DEVICE_UUID",
+    bundleId: "com.example.YourApp"
+})
+```
 
-All SwiftUI views should be placed in [MyProjectPackage/Sources](mdc:MyProjectPackage/Sources) following this modular architecture pattern.
+## Utility Functions
+
+```javascript
+// Get bundle ID from app
+get_app_bundle_id({
+    appPath: "/path/to/YourApp.app"
+})
+
+// Clean build artifacts
+clean_ws({
+    workspacePath: "/path/to/YourApp.xcworkspace"
+})
+
+// Get app path for simulator
+get_sim_app_path_name_ws({
+    workspacePath: "/path/to/YourApp.xcworkspace",
+    scheme: "YourApp",
+    platform: "iOS Simulator",
+    simulatorName: "iPhone 16"
+})
+```
 
 ---
 > Source: [ricyoung/OllamaRemote](https://github.com/ricyoung/OllamaRemote) — distributed by [TomeVault](https://tomevault.io).
