@@ -1,76 +1,45 @@
-## openapi
+## parallel-subagents
 
-> Patterns for maintaining the OpenAPI specification
+> Use parallel subagents when auditing or editing 5+ files in a single task
 
 
-# OpenAPI Spec Patterns
+# Parallel Subagents for Multi-File Operations
 
-The API is documented in `backend/openapi.yaml` (OpenAPI 3.1, hand-maintained).
+When a task involves **auditing or editing 5+ independent files**, prefer parallel subagents over sequential tool calls. If changes have ordering dependencies, keep dependent steps sequential.
 
-## When to Update
+## When to parallelize
 
-Update the spec whenever you:
-- Add a new endpoint (handler + route in `main.go`)
-- Change request/response schemas
-- Add or modify query parameters
-- Change authentication requirements
+- **Audits**: searching for patterns, checking consistency, or reviewing code across 5+ files
+- **Edits**: renaming, fixing stale references, or applying the same pattern across 5+ files
+- **Mixed**: audit first (parallel), then edit (parallel) based on findings
 
-## Adding a New Endpoint
+## How to split work
 
-Follow the existing pattern. Each endpoint needs:
+Group files by **independence** — changes that don't depend on each other go in separate subagents. Max 4 concurrent subagents.
 
-```yaml
-/your-resource:
-  get:
-    summary: Short description
-    tags: [YourTag]
-    security: [{ bearerAuth: [] }]  # omit for public endpoints
-    parameters: []                   # query params if any
-    responses:
-      "200":
-        description: Success description
-        content:
-          application/json:
-            schema: { $ref: "#/components/schemas/YourSchema" }
-      "401": { $ref: "#/components/responses/Unauthorized" }
-```
+Good splits:
 
-## Adding a New Schema
+- By layer: Docker/infra files | source code | documentation | config
+- By concern: backend changes | frontend changes
 
-Add to `components/schemas`. Match the Go `Detail` struct field names exactly:
+Bad splits:
 
-```yaml
-YourResource:
-  type: object
-  properties:
-    id: { type: string, format: uuid }
-    title: { type: string }
-    created_at: { type: string, format: date-time }
-```
+- Putting a TSX file and its CSS file in different subagents (coordinated rename)
+- Splitting a function definition from its callers
 
-## Scaffold Integration
+## Subagent instructions
 
-`make new-module name=items` generates backend code but does NOT auto-update the spec. After scaffolding, manually add the CRUD endpoints following the pattern above.
+Each subagent prompt must include:
 
-## Conventions
+1. The exact files to read/edit
+2. The specific changes to make (before/after values, line numbers if known)
+3. "Read each file before editing to verify exact content"
 
-- Endpoint paths must match routes registered in `cmd/server/main.go`
-- Use `$ref` for shared schemas and responses (DRY)
-- Tag names match handler file groupings (Auth, Users, Features, SSE)
-- Reuse `MessageResponse` for simple `{"message": "..."}` responses
-- Reuse `AppError` for all error responses
+Use the fast model for mechanical renames; default model for changes requiring judgment.
 
-## TypeScript Type Generation
+## After subagents complete
 
-The frontend generates TypeScript types from this spec via `openapi-typescript`:
-
-```bash
-cd frontend && npm run generate:types
-```
-
-This reads `backend/openapi.yaml` and outputs `frontend/src/lib/api.generated.ts`. CI checks for staleness by running this command and `git diff --exit-code` (with `continue-on-error: true`).
-
-After updating the spec, always regenerate types before committing.
+Run verification searches (`rg`) to confirm all changes applied and no regressions introduced. If a subagent failed due to content mismatch, read the file and fix manually.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
