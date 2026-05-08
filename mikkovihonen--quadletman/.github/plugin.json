@@ -1,0 +1,9 @@
+{
+  "name": "mikkovihonen--quadletman",
+  "displayName": "quadletman",
+  "description": "Web application for managing rootless podman containers with quadlets and systemd",
+  "version": "1.0.0",
+  "author": "mikkovihonen",
+  "homepage": "https://github.com/mikkovihonen/quadletman",
+  "skills": []
+}
