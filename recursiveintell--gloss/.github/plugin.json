@@ -1,7 +1,7 @@
 {
   "name": "recursiveintell--gloss",
   "displayName": "Gloss",
-  "description": "Gloss",
+  "description": "A local-first, privacy-preserving alternative to Google NotebookLM \u2014 Tauri 2, React 19, Rust, Ollama",
   "version": "1.0.0",
   "author": "RecursiveIntell",
   "homepage": "https://github.com/RecursiveIntell/Gloss",
