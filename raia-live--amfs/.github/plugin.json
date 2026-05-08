@@ -1,0 +1,9 @@
+{
+  "name": "raia-live--amfs",
+  "displayName": "amfs",
+  "description": "Git for agent memory. Branches, diffs, PRs, and rollback for what your agents know.",
+  "version": "1.0.0",
+  "author": "raia-live",
+  "homepage": "https://github.com/raia-live/amfs",
+  "skills": []
+}
