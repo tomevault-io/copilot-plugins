@@ -1,160 +1,193 @@
-## figma-components
+## figma-dev-mode
 
-> Components enable reusable design elements with variants and overrides.
+> Dev Mode provides developer-focused views and Code Connect links design to code.
 
 
-# Figma Components API
+# Figma Dev Mode & Code Connect
 
-Components enable reusable design elements with variants and overrides.
+Dev Mode provides developer-focused views and Code Connect links design to code.
 
-## Core Concepts
-
-- **ComponentNode**: A reusable design element (the "main" component)
-- **ComponentSetNode**: A container for component variants
-- **InstanceNode**: A copy of a component that inherits from the main
-
-## Creating Components
+## Dev Mode Detection
 
 ```typescript
-// Create a frame first
-const frame = figma.createFrame()
-frame.resize(100, 40)
-frame.name = "Button"
-frame.fills = [{ type: 'SOLID', color: { r: 0.2, g: 0.4, b: 1 } }]
-
-// Convert to component
-const component = figma.createComponentFromNode(frame)
-// Note: 'frame' is now invalid - use 'component' instead
+// Check if plugin is running in Dev Mode
+if (figma.mode === 'dev') {
+  console.log('Running in Dev Mode')
+  // Show developer-focused UI
+} else {
+  console.log('Running in Design Mode')
+}
 ```
 
-## Creating Instances
+## Code Connect Overview
+
+Code Connect links Figma components to their code implementations, showing relevant code snippets in Dev Mode.
+
+> **Note:** Code Connect is typically configured via a separate `figma.config.json` file and CLI, not through the Plugin API. See https://www.figma.com/developers/code-connect
+
+## Dev Mode Properties
+
+### Dev Resources
 
 ```typescript
-// From a component reference
-const instance = component.createInstance()
-instance.x = component.x + 150
-
-// From component key (for library components)
-const importedComponent = await figma.importComponentByKeyAsync(componentKey)
-const instance2 = importedComponent.createInstance()
-```
-
-## Component Variants
-
-```typescript
-// Create variant components
-const defaultButton = figma.createComponent()
-defaultButton.name = "State=Default"
-
-const hoverButton = figma.createComponent()
-hoverButton.name = "State=Hover"
-
-// Combine into a component set
-const componentSet = figma.combineAsVariants([defaultButton, hoverButton], figma.currentPage)
-componentSet.name = "Button"
-```
-
-## Working with Variants
-
-```typescript
-// Get variant properties from a component set
-if (node.type === "COMPONENT_SET") {
-  // Parse variant properties from child names
-  for (const variant of node.children) {
-    console.log(variant.name) // e.g., "Size=Large, State=Hover"
-  }
+// Get dev resources attached to a node (async)
+const resources = await node.getDevResourcesAsync()
+for (const resource of resources) {
+  console.log(resource.name, resource.url)
 }
 
-// Swap instance to different variant
-if (instance.type === "INSTANCE") {
-  const mainComponent = await instance.getMainComponentAsync()
-  const componentSet = mainComponent?.parent
-  
-  if (componentSet?.type === "COMPONENT_SET") {
-    // Find the variant you want
-    const targetVariant = componentSet.children.find(
-      child => child.name === "Size=Large, State=Default"
+// Add a dev resource (link to code, docs, etc.)
+await node.addDevResourceAsync(
+  'https://github.com/org/repo/blob/main/src/Button.tsx',
+  'Component Source',
+)
+
+// Edit an existing dev resource
+await node.editDevResourceAsync(
+  'https://github.com/org/repo/blob/main/src/Button.tsx',
+  { name: 'Updated Name', url: 'https://new-url.com' },
+)
+
+// Delete a dev resource
+await node.deleteDevResourceAsync(
+  'https://github.com/org/repo/blob/main/src/Button.tsx',
+)
+```
+
+### Annotations
+
+```typescript
+// Dev Mode annotations are read-only in plugins
+// They're managed through Figma's UI
+```
+
+## Measurements & Specs
+
+```typescript
+// Get node measurements
+if ('absoluteBoundingBox' in node) {
+  const bounds = node.absoluteBoundingBox
+  console.log(`Position: ${bounds.x}, ${bounds.y}`)
+  console.log(`Size: ${bounds.width} x ${bounds.height}`)
+}
+
+// Get computed styles for dev handoff
+function getNodeSpecs(node: SceneNode) {
+  const specs: Record<string, unknown> = {
+    name: node.name,
+    type: node.type,
+  }
+
+  if ('absoluteBoundingBox' in node) {
+    specs.bounds = node.absoluteBoundingBox
+  }
+
+  if ('fills' in node && Array.isArray(node.fills)) {
+    specs.fills = node.fills.filter((f) => f.visible !== false)
+  }
+
+  if ('effects' in node) {
+    specs.effects = node.effects.filter((e) => e.visible !== false)
+  }
+
+  if ('cornerRadius' in node) {
+    specs.cornerRadius = node.cornerRadius
+  }
+
+  if (node.type === 'TEXT') {
+    specs.fontSize = node.fontSize
+    specs.fontName = node.fontName
+    specs.lineHeight = node.lineHeight
+    specs.letterSpacing = node.letterSpacing
+  }
+
+  return specs
+}
+```
+
+## CSS Generation
+
+```typescript
+// Generate CSS from node properties
+function generateCSS(node: SceneNode): string {
+  const css: string[] = []
+
+  if ('absoluteBoundingBox' in node) {
+    css.push(`width: ${node.absoluteBoundingBox.width}px;`)
+    css.push(`height: ${node.absoluteBoundingBox.height}px;`)
+  }
+
+  if ('cornerRadius' in node && typeof node.cornerRadius === 'number') {
+    css.push(`border-radius: ${node.cornerRadius}px;`)
+  }
+
+  if ('fills' in node && Array.isArray(node.fills)) {
+    const solidFill = node.fills.find(
+      (f) => f.type === 'SOLID' && f.visible !== false,
     )
-    if (targetVariant?.type === "COMPONENT") {
-      instance.swapComponent(targetVariant)
+    if (solidFill && solidFill.type === 'SOLID') {
+      const { r, g, b } = solidFill.color
+      const a = solidFill.opacity ?? 1
+      css.push(
+        `background-color: rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a});`,
+      )
     }
   }
-}
-```
 
-## Instance Overrides
-
-```typescript
-// Override text in an instance
-if (instance.type === "INSTANCE") {
-  // Find text node inside instance
-  const textNode = instance.findOne(n => n.type === "TEXT")
-  if (textNode?.type === "TEXT") {
-    await figma.loadFontAsync(textNode.fontName as FontName)
-    textNode.characters = "New Label"
+  if ('effects' in node) {
+    const shadow = node.effects.find(
+      (e) => e.type === 'DROP_SHADOW' && e.visible !== false,
+    )
+    if (shadow && shadow.type === 'DROP_SHADOW') {
+      const { r, g, b, a } = shadow.color
+      css.push(
+        `box-shadow: ${shadow.offset.x}px ${shadow.offset.y}px ${shadow.radius}px rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a});`,
+      )
+    }
   }
-}
 
-// Reset overrides
-instance.resetOverrides()
-```
-
-## Detaching Instances
-
-```typescript
-// Detach an instance to make it editable
-if (instance.type === "INSTANCE") {
-  const detached = instance.detachInstance()
-  // 'detached' is now a FrameNode
+  return css.join('\n')
 }
 ```
 
-## Getting Component Information
+## Generating Code Snippets
 
 ```typescript
-// Get main component from instance
-if (instance.type === "INSTANCE") {
-  const main = await instance.getMainComponentAsync()
-  console.log(main?.name, main?.key)
+// Generate React component code from a frame
+function generateReactComponent(node: FrameNode): string {
+  const name = node.name.replace(/[^a-zA-Z0-9]/g, '')
+
+  return `
+import React from 'react';
+
+export function ${name}() {
+  return (
+    <div style={{
+      width: ${node.width},
+      height: ${node.height},
+      display: 'flex',
+      flexDirection: '${node.layoutMode === 'VERTICAL' ? 'column' : 'row'}',
+      gap: ${node.itemSpacing || 0},
+      padding: '${node.paddingTop}px ${node.paddingRight}px ${node.paddingBottom}px ${node.paddingLeft}px',
+    }}>
+      {/* Children */}
+    </div>
+  );
 }
-
-// Check if node is from external library
-if (instance.type === "INSTANCE") {
-  const main = await instance.getMainComponentAsync()
-  if (main?.remote) {
-    console.log("This is from an external library")
-  }
+`.trim()
 }
-```
-
-## Component Properties
-
-```typescript
-// Get component properties (for instances)
-if (instance.type === "INSTANCE") {
-  const props = instance.componentProperties
-  for (const [name, prop] of Object.entries(props)) {
-    console.log(name, prop.type, prop.value)
-  }
-}
-
-// Set component property value
-instance.setProperties({
-  "Show Icon": true,
-  "Label": "Click Me"
-})
 ```
 
 ## Best Practices
 
-1. **Use async for main component** — `getMainComponentAsync()` is required
-2. **Check remote status** — Library components behave differently
-3. **Handle missing components** — Main component may be null if deleted
-4. **Load fonts before text changes** — Even in instances
+1. **Check mode** — Adapt UI based on `figma.mode`
+2. **Provide dev resources** — Link to relevant code/docs
+3. **Generate accurate specs** — Include all relevant properties
+4. **Handle design tokens** — Map variables to CSS custom properties
 
 ## MCP Tool
 
-Use `figma_get_examples` with topic "components" for more code examples.
+Use `figma_search_api` with query "dev mode" for more documentation.
 
 ---
 > Source: [hoshikitsunoda/figma-plugins-vibe-coding-template](https://github.com/hoshikitsunoda/figma-plugins-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
