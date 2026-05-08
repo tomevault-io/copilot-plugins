@@ -1,115 +1,139 @@
-## figma-ui-thread
+## figma-variables
 
-> This code runs in an iframe with full browser APIs but NO access to `figma.*`.
+> Variables (design tokens) enable dynamic theming, responsive design, and design system management.
 
 
-# Figma UI Thread (React) Rules
+# Figma Variables API
 
-This code runs in an iframe with full browser APIs but NO access to `figma.*`.
+Variables (design tokens) enable dynamic theming, responsive design, and design system management.
 
-## Available APIs
+## Core Concepts
 
-- Full DOM and React
-- `fetch()` for network requests
-- `window`, `localStorage`, `sessionStorage`
-- `parent.postMessage()` to send messages to plugin
+- **Variable**: A named value that can change based on mode (e.g., light/dark theme)
+- **Collection**: A group of related variables (e.g., "Colors", "Spacing")
+- **Mode**: A variant of values within a collection (e.g., "Light", "Dark")
 
-## Communication with Plugin
-
-### Sending Messages to Plugin
+## Getting Variables
 
 ```typescript
-import type { PluginMessage } from "../shared/messages";
+// Get all local variable collections
+const collections = await figma.variables.getLocalVariableCollectionsAsync()
 
-const postToPlugin = (message: PluginMessage) => {
-  parent.postMessage({ pluginMessage: message }, "*");
-};
+// Get a specific variable by ID
+const variable = await figma.variables.getVariableByIdAsync(variableId)
 
-// Usage
-postToPlugin({ type: "get-selection" });
-postToPlugin({ type: "create-rectangle", width: 100, height: 100 });
-```
-
-### Receiving Messages from Plugin
-
-```typescript
-import type { UIMessage } from "../shared/messages";
-
-useEffect(() => {
-  const handleMessage = (event: MessageEvent<{ pluginMessage: UIMessage }>) => {
-    const msg = event.data.pluginMessage;
-    if (!msg) return;
-
-    switch (msg.type) {
-      case "selection-changed":
-        setSelection(msg.nodes);
-        break;
-    }
-  };
-
-  window.addEventListener("message", handleMessage);
-  return () => window.removeEventListener("message", handleMessage);
-}, []);
-```
-
-## React Patterns
-
-### Functional Components with Hooks
-
-```typescript
-// ✓ Use functional components
-function SelectionPanel() {
-  const [selection, setSelection] = useState<SelectionNode[]>([]);
-  // ...
+// Get variables from a collection
+for (const collection of collections) {
+  for (const variableId of collection.variableIds) {
+    const variable = await figma.variables.getVariableByIdAsync(variableId)
+    console.log(variable?.name, variable?.resolvedType)
+  }
 }
 ```
 
-### Custom Hooks for Plugin Communication
-
-Consider extracting message handling into a custom hook:
+## Creating Variables
 
 ```typescript
-// src/ui/hooks/usePluginMessage.ts
-function usePluginMessage<T>(type: string, handler: (data: T) => void) {
-  useEffect(() => {
-    const onMessage = (e: MessageEvent) => {
-      if (e.data.pluginMessage?.type === type) {
-        handler(e.data.pluginMessage);
-      }
-    };
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
-  }, [type, handler]);
+// Create a new collection (sync)
+const collection = figma.variables.createVariableCollection('My Tokens')
+
+// Create variables of different types (pass VariableCollection object, not ID)
+const colorVar = figma.variables.createVariable('primary', collection, 'COLOR')
+const numberVar = figma.variables.createVariable(
+  'spacing-md',
+  collection,
+  'FLOAT',
+)
+const stringVar = figma.variables.createVariable(
+  'font-family',
+  collection,
+  'STRING',
+)
+const boolVar = figma.variables.createVariable(
+  'is-enabled',
+  collection,
+  'BOOLEAN',
+)
+
+// Set values for the default mode
+colorVar.setValueForMode(collection.defaultModeId, { r: 0.2, g: 0.4, b: 1 })
+numberVar.setValueForMode(collection.defaultModeId, 16)
+```
+
+## Working with Modes
+
+```typescript
+// Add a new mode to a collection (sync)
+const darkModeId = collection.addMode('Dark')
+
+// Set values for different modes
+colorVar.setValueForMode(collection.defaultModeId, { r: 1, g: 1, b: 1 }) // Light
+colorVar.setValueForMode(darkModeId, { r: 0.1, g: 0.1, b: 0.1 }) // Dark
+
+// Get value for a specific mode
+const lightValue = colorVar.valuesByMode[collection.defaultModeId]
+const darkValue = colorVar.valuesByMode[darkModeId]
+```
+
+## Applying Variables to Nodes
+
+```typescript
+// Bind a variable to a node's fill
+const rect = figma.createRectangle()
+const colorVar = await figma.variables.getVariableByIdAsync(variableId)
+
+if (colorVar) {
+  // Create a variable alias for the fill
+  rect.fills = [
+    {
+      type: 'SOLID',
+      color: { r: 0, g: 0, b: 0 }, // Fallback color
+      boundVariables: {
+        color: { type: 'VARIABLE_ALIAS', id: colorVar.id },
+      },
+    },
+  ]
 }
 ```
 
-## Styling with Tailwind CSS
+## Variable Types
 
-Use Tailwind utility classes with CSS variables defined in `index.css`. Never hardcode colors — always use variables with **Tailwind v4 syntax**:
+| Type      | Description  | Value Format                                      |
+| --------- | ------------ | ------------------------------------------------- |
+| `COLOR`   | Color value  | `{ r: number, g: number, b: number, a?: number }` |
+| `FLOAT`   | Number value | `number`                                          |
+| `STRING`  | Text value   | `string`                                          |
+| `BOOLEAN` | True/false   | `boolean`                                         |
 
-```typescript
-// ✓ GOOD - Use CSS variables with Tailwind v4 syntax
-className="bg-(--color-bg)"
-className="text-(--color-text)"
-className="border-(--color-border)"
+## Variable Aliases (References)
 
-// ❌ BAD - Hardcoded colors
-className="bg-[#0d0d14]"
-className="text-[#e8e8e8]"
-
-// ❌ AVOID - Legacy arbitrary value syntax
-className="bg-[var(--color-bg)]"
-```
-
-## Network Requests
-
-All API calls must happen in UI thread:
+Variables can reference other variables:
 
 ```typescript
-// ✓ Fetch in UI, send result to plugin
-const data = await fetch("https://api.example.com/data").then((r) => r.json());
-postToPlugin({ type: "api-response", data });
+// Create a semantic color that references a primitive
+const semanticColor = figma.variables.createVariable(
+  'bg-primary',
+  collection,
+  'COLOR',
+)
+semanticColor.setValueForMode(collection.defaultModeId, {
+  type: 'VARIABLE_ALIAS',
+  id: primitiveColorVar.id,
+})
 ```
+
+## Best Practices
+
+1. **Use async getters** — Reading variables is async (`getVariableByIdAsync`, `getLocalVariableCollectionsAsync`)
+2. **Creation is sync** — `createVariableCollection`, `createVariable`, `addMode` are synchronous
+3. **Pass collection object** — `createVariable(name, collection, type)` takes the collection object, not ID
+4. **Check for null** — Variables may not exist or may have been deleted
+5. **Organize by collection** — Group related variables (colors, spacing, typography)
+6. **Use semantic names** — Name variables by purpose, not value (`primary` not `blue-500`)
+
+## MCP Tool
+
+Use `figma_get_examples` with topic "variables" for more code examples.
 
 ---
 > Source: [hoshikitsunoda/figma-plugins-vibe-coding-template](https://github.com/hoshikitsunoda/figma-plugins-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
