@@ -4,7 +4,7 @@
   "repo": "skelegent",
   "description": "Bones for your agents \u2014 composable async agentic AI framework for Rust",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/secbear/skelegent",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T16:30:06Z"
+  "distributed_at": "2026-05-08T10:41:11Z"
 }
