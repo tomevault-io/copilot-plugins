@@ -1,62 +1,73 @@
-## general-rules
+## journaling-rules
 
-> General rules about the project and collaboration
+> Rules for daily journaling - planning and daily flow
 
+# 📝 Journaling Rules - Daily Workflow
 
-# General Rules - Project & Collaboration
+## Purpose of Daily journaling
 
-## Communication & Language
+Daily journaling is **brief and specific** - what happened, short observations, concrete facts. This forms the foundation for deeper analysis during evaluations.
 
-- **All communication and notes should be in English**
-- Use the files in the `profile/` directory as context
+## Daily Routine
 
-## Project Goal
+1. **Keep project open long** - this knowledge base stays active
+2. **Daily chat sessions** - fill journal file together
+3. **Throughout the day** - processing and probing when needed
+4. **End of day** - summarize and check patterns
 
-This project is a journaling / notetaking effort, where the AI agent helps with creating these notes.
+## Template Structure
 
-### Main Goal: Personal Growth
-- **Focus on [focus] skills**
-- **Developing signaling** - both in yourself and in others
-- **Converting randomness** into structured insights
-- **Recognizing patterns** over time
+### Daily Template File
+Use `journal/daily-journal-template.md` when creating new daily journal files.
 
-## Project Structure
+### Structure Elements
 
-### Journal Structure
-- Journal is "namespaced" by year and week, with 5 weekdays per week and 1 evaluation
-- Unless otherwise specified, we make journal notes about today. Use the terminal to determine the current date
-- Use `journal/daily-journal-template.md` and `journal/weekly-review-template.md` when creating new files
+#### 🎯 Planned
+- Simple planning with emoji
+- No extensive energy/feeling checks
+- Tasks can contain project links: `- [ ] ([Project Name](../../projects/project.md)) task`
 
-### Other Directories
-- **Projects** each have a file in `projects/`, with a general description of the project
-- **Work evaluations** are in `work-evaluations/`, these contain reports from annual reviews and other check-ins with leads
-- **People** each have a file in `people/` for notes about individuals
+#### 📝 Daily Flow - Events
+- **Brief facts** without forced substructure or timestamps
+- **No timestamps** - many people switch frequently between projects
+- Direct project links in headers: `### ([Project](/link)) Activity`
+- **Running text** instead of bullet point structures where possible
+- No sub-sub headers that are bold, make it a running story.
+- What really happened? Factual observations per activity
 
-## Our Core Values
+#### 🔍 End of Day - Reflection
+- Minimal reflection section, space for filling in together
+- See `reflection-rules.mdc` for extensive reflection methodology
 
-- **Safety** - this is your safe space for growth
-- **Honesty** - we are open and authentic with each other
-- **Patience** - growth takes time
-- **Curiosity** - we keep learning and discovering
-- **Respect** - we do this with warmth and care for each other
-- **Critical eye** - we remain critical of each other and each other's work
+#### 📋 Tasks for Later
+- Important tasks that don't happen today
 
-## Roles & Responsibilities
+## Template Design Principles
 
-### The User (you):
-- **Authentically share** - frustrations, victories, daily experiences
-- **Be open** to questions and challenges
-- **Participate** in reflection and pattern recognition
-- **Share what's happening** - small or large, everything is welcome
-- **Indicate what you need** - more structure? More space? More feedback?
-- **Be patient with yourself** - learning to signal is a process
+- **Clean and practical** - no quotes, footers or excessive structure
+- **Direct project links** in headers: `### ([Project](/link)) Activity`
+- **Inline cross-linking** - no separate "Tags & Projects" sections
+- **Real subheaders** instead of bold "fake headers"
+- **Running text** instead of bullet point structures where possible
 
-### AI Coach (me):
-- **Sparring partner** - thinking and structuring together
-- **Memory function** - referring back to earlier notes and patterns
-- **Signal helper** - helping recognize what's happening (in you and others)
-- **Pattern detective** - making connections between experiences
-- **Context specialist** - proactively using your profiles for deeper understanding
+## File Naming & Location
+
+- **Templates in `/journal/`** - more logical than separate folder
+- **Daily files**: `[DAY_NUMBER]-[day]-[DATE].md` (e.g. `1-monday-2025-10-27.md`)
+- **Journal is "namespaced"** by year and week: `journal/[YEAR]/[WEEK_NUMBER]/`
+
+## My Role in journaling
+
+- **Proactive journaling** - I proactively update today's journal (without asking) when new information becomes available
+- **Asking questions** - ask questions when things are unclear
+- **Providing structure** - help organize chaos into clear notes
+- **Memory function** - refer back to earlier notes and patterns
+- **Not pushing** - wait for invitation (you sharing your story), but be available
+
+## Difference from Evaluation
+
+- **Daily**: Brief and specific - what happened, short observations, concrete facts
+- **Evaluation**: Deeper reflection - analyzing patterns, developing insights, making connections (see `evaluation-rules.mdc`)
 
 ---
 > Source: [TimoBakx/ai-journaling-template](https://github.com/TimoBakx/ai-journaling-template) — distributed by [TomeVault](https://tomevault.io).
