@@ -1,0 +1,9 @@
+{
+  "name": "tomtom215--duckdb-behavioral",
+  "displayName": "duckdb-behavioral",
+  "description": "A DuckDB Community Extension to enable Behavioral Analytics, inspired by ClickHouse.",
+  "version": "1.0.0",
+  "author": "tomtom215",
+  "homepage": "https://github.com/tomtom215/duckdb-behavioral",
+  "skills": []
+}
