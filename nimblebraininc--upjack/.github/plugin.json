@@ -1,0 +1,9 @@
+{
+  "name": "nimblebraininc--upjack",
+  "displayName": "upjack",
+  "description": "Declarative AI-native application framework \u2014 schema-driven entities, Markdown skills, MCPB packaging",
+  "version": "1.0.0",
+  "author": "NimbleBrainInc",
+  "homepage": "https://github.com/NimbleBrainInc/upjack",
+  "skills": []
+}
