@@ -1,0 +1,9 @@
+{
+  "name": "marc-riedel--neogram-nvim",
+  "displayName": "neogram.nvim",
+  "description": "Neovim grammar and spelling checker \u2014 fork of taal.nvim with visual/paragraph selection, async + cancel, navigation and status-line integration",
+  "version": "1.0.0",
+  "author": "marc-riedel",
+  "homepage": "https://github.com/marc-riedel/neogram.nvim",
+  "skills": []
+}
