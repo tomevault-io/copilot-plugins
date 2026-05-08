@@ -1,0 +1,9 @@
+{
+  "name": "procontexthq--procontext",
+  "displayName": "procontext",
+  "description": "ProContext acts as a documentation layer for AI coding agents, providing them with accurate and up-to-date library documentation.",
+  "version": "1.0.0",
+  "author": "procontexthq",
+  "homepage": "https://github.com/procontexthq/procontext",
+  "skills": []
+}
