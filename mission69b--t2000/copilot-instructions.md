@@ -1,141 +1,58 @@
-## engine-tool-development
+## engineering-principles
 
-> Engine tool development — buildTool factory, permission levels, flags, preflight, result budgeting
+> Core engineering principles — scalability, single source of truth, trace before fix
 
 
-# Engine Tool Development
+# Engineering Principles
 
-The contract for every tool that lives in `packages/engine/src/tools/`. Use `buildTool()` from `tool.ts`. Don't construct the `Tool` interface by hand — the factory keeps defaults consistent.
+## 1. Trace the full path BEFORE writing code
 
-## Tool anatomy
+Before fixing any bug, trace the ACTUAL execution path from user action → API route → handler → SDK → on-chain → response → UI render. Verify which functions/routes/handlers are actually called. Never assume.
 
-```typescript
-import { buildTool } from '../tool.js';
-import { z } from 'zod';
+**Example of what went wrong:** Spent 4 iterations fixing `sdk.swap()` balance-change parsing when the Audric web app uses a sponsored transaction flow (`/api/transactions/prepare` → sign → `/api/transactions/execute`) that never calls `sdk.swap()` directly. The fix needed to be in the client-side `handleExecuteAction`, not the SDK.
 
-export const myTool = buildTool({
-  name: 'tool_name',
-  description: '...',  // What the LLM sees. Keep short and crisp.
-  inputSchema: z.object({ ... }),
-  jsonSchema: { type: 'object', properties: { ... }, required: [...] },
-  call: async (input, ctx) => {
-    return { data: ..., displayText: '...' };
-  },
-  isReadOnly: true,                 // default true
-  permissionLevel: 'auto',          // 'auto' | 'confirm' | 'explicit'
-  flags: { mutating: false, requiresBalance: false, ... },
-  preflight: (input) => ({ valid: true }),
-  maxResultSizeChars: 8_000,
-  cacheable: true,                  // default true
-});
-```
+## 2. Single source of truth — never duplicate
 
-## Permission level — pick the right one
-
-| Level | Used for | Behavior |
-|---|---|---|
-| `auto` | All read tools, render_canvas | Engine executes server-side, no user prompt |
-| `confirm` | All write tools | Engine yields `pending_action`, host renders confirm card, user taps Confirm, host calls resume |
-| `explicit` | Power-user tools never dispatched by LLM | Reserved for future manual triggers |
-
-**Rule.** A write tool MUST be `confirm` under zkLogin. There is no `auto` write today. If you reach for `auto` on a write, you're breaking the user-consent contract — see `agent-harness-spec.mdc`.
-
-## Read tool patterns
-
-1. Keep them **fast** (target < 500ms p50). They're called per-turn.
-2. Set `isReadOnly: true`, `isConcurrencySafe: true` (default). The early-dispatcher fires them mid-stream.
-3. Cache common reads via `cacheable: true` (default) — the per-turn `turn-read-cache.ts` dedupes identical calls.
-4. Use `ctx.portfolioCache` (per-request `Map<address, AddressPortfolio>`) for shared portfolio reads — avoids 200–500ms BlockVision RTT amplification across tools in the same turn.
-5. Set `maxResultSizeChars` to keep the LLM context lean. Tools that can return large responses MUST cap.
-
-## Write tool patterns
-
-1. `permissionLevel: 'confirm'`, `isReadOnly: false`.
-2. Set `flags.mutating: true` and the relevant flags (`requiresBalance`, `affectsHealth`, `irreversible`, `costAware`).
-3. The `call()` for a `confirm` tool is **never invoked** under audric/web (the host executes via sponsored-tx flow). It's there for CLI / non-sponsored runtimes.
-4. Implement `preflight(input)` for cheap input validation that fails closed BEFORE the user is asked to confirm.
-5. Modifiable fields are sourced from `tool-modifiable-fields.ts` — add an entry there if the user should be able to edit `amount` / `to` / etc. before confirming.
-
-## Result budgeting (B.2)
+If data exists in one place, import it. Never copy token maps, decimal maps, or config into multiple files.
 
 ```typescript
-buildTool({
-  // ...
-  maxResultSizeChars: 8_000,
-  summarizeOnTruncate: (full, max) => {
-    return `${full.slice(0, max - 100)}\n\n[Truncated — call with narrower params]`;
-  },
-});
+// ❌ BAD — hardcoded list that gets stale
+const COMMON_TOKENS = 'SUI, USDC, USDT, USDSUI';
+
+// ✅ GOOD — derived from canonical source
+const { TOKEN_MAP } = await import('@t2000/sdk');
+const supportedTokens = Object.keys(TOKEN_MAP).join(', ');
 ```
 
-Without `maxResultSizeChars`, large results (e.g. portfolio with 100+ tokens) blow context budget and degrade subsequent turns.
+## 3. Ask "does this scale?" before every implementation
 
-## Flags reference
+Before hardcoding any list, map, or constant, ask: "Where is the source of truth? Can I derive this dynamically? Will someone have to manually update this when things change?"
 
-| Flag | Used for |
-|---|---|
-| `mutating` | Any write — drives confirm gating + `onAutoExecuted` |
-| `requiresBalance` | Engine fetches balance before calling |
-| `affectsHealth` | Borrow/repay — engine fetches HF before/after |
-| `irreversible` | Drives stronger confirm UX (e.g. send_transfer) |
-| `producesArtifact` | Tool emits a canvas/card — drives result extraction |
-| `costAware` | Engine factors USD value into permission resolver (B.4) |
-| `maxRetries` | Override default retry count |
+If the answer to the last question is yes, the approach is wrong.
 
-## Preflight validation
+## 4. Fix at the root, not the symptom
 
-```typescript
-preflight: (input) => {
-  if (input.amount <= 0) return { valid: false, error: 'amount must be positive' };
-  if (input.amount > 1_000_000) return { valid: false, error: 'amount unreasonable' };
-  return { valid: true };
-}
-```
+When a fix requires changes in 3+ places or multiple retry attempts, the architecture is wrong. Step back and find the single point of failure.
 
-Runs **before** the LLM round-trip when the engine pre-screens a tool call. Fast, synchronous. Don't reach into context here.
+**Checklist before implementing a fix:**
+1. What is the ACTUAL data flow? (trace it, don't guess)
+2. Where does the data first become wrong? (that's where to fix)
+3. Does this fix introduce duplication? (if yes, rethink)
+4. Will this fix survive adding a new token/asset/feature? (if no, rethink)
 
-## Tool naming
+## 5. Understand which layer you're in
 
-- `<verb>_<object>` for writes — `swap_execute`, `save_deposit`, `send_transfer`.
-- `<object>_<state>` or `<verb>_<object>` for reads — `balance_check`, `health_check`, `transaction_history`.
-- New tool? Update CLAUDE.md tool counts AND `getDefaultTools()` exports.
+This codebase has distinct layers. Fixes in the wrong layer waste time:
 
-## Required tests
+| Layer | Runs where | Changes how |
+|-------|-----------|-------------|
+| `@t2000/sdk` | Server (engine) OR client (sponsored flow) | npm release required |
+| `@t2000/engine` | Server-side API routes | npm release required |
+| Audric `page.tsx` | Client browser | Vercel deploy |
+| Audric API routes | Vercel serverless | Vercel deploy |
+| System prompt | Runtime (built at engine creation) | Vercel deploy |
 
-Every new tool needs:
-1. **Unit test** — `packages/engine/src/__tests__/<tool>.test.ts` covering happy path + every preflight failure mode.
-2. **Permission test** — verify `permissionLevel` and `flags` (these are load-bearing for the harness contract).
-3. **Result budget test** — verify `maxResultSizeChars` caps output.
-4. **Integration test** — if the tool calls BlockVision/NAVI, mock + verify retry + circuit breaker behavior.
-
-## Forbidden in tool code
-
-```typescript
-// ❌ Direct env reads — engine doesn't own env, host does
-const key = process.env.BLOCKVISION_API_KEY;
-
-// ✅ From context (host threads it through)
-const key = ctx.blockvisionApiKey;
-
-// ❌ Mutating shared state
-SOME_GLOBAL_CACHE[address] = result;
-
-// ✅ Use the per-request caches (portfolioCache, turn-read-cache)
-ctx.portfolioCache?.set(address, result);
-
-// ❌ Calling other tools directly
-const balance = await balanceCheck.call(input, ctx);
-
-// ✅ Tools are LLM-orchestrated; if you need shared logic, extract a helper
-import { getPortfolioForTools } from './shared/portfolio.js';
-```
-
-## Cross-references
-
-- Factory + types → `packages/engine/src/tool.ts`, `packages/engine/src/types.ts`
-- Permission resolver → `packages/engine/src/permission-rules.ts`
-- Harness contract → `agent-harness-spec.mdc`
-- BlockVision usage → `blockvision-resilience.mdc`
+Before coding, identify which layer owns the bug.
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
