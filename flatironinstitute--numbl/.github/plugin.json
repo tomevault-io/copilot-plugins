@@ -1,0 +1,9 @@
+{
+  "name": "flatironinstitute--numbl",
+  "displayName": "numbl",
+  "description": "Numerical computing environment that aims to be compatible with Matlab",
+  "version": "1.0.0",
+  "author": "flatironinstitute",
+  "homepage": "https://github.com/flatironinstitute/numbl",
+  "skills": []
+}
