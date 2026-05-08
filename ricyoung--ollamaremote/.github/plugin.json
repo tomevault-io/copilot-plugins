@@ -1,0 +1,9 @@
+{
+  "name": "ricyoung--ollamaremote",
+  "displayName": "OllamaRemote",
+  "description": "iOS client for local Ollama, Ollama Cloud, and OpenRouter LLM inference",
+  "version": "1.0.0",
+  "author": "ricyoung",
+  "homepage": "https://github.com/ricyoung/OllamaRemote",
+  "skills": []
+}
