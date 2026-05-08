@@ -1,0 +1,9 @@
+{
+  "name": "edison-watch--open-edison",
+  "displayName": "open-edison",
+  "description": "\ud83d\udd10 Firewall Your Data, Control Agents. Prevent agent data exfiltration. Gain visibility into AI's interactions with your data / systems of record / existing software. https://discord.gg/tXjATaKgTV",
+  "version": "1.0.0",
+  "author": "Edison-Watch",
+  "homepage": "https://github.com/Edison-Watch/open-edison",
+  "skills": []
+}
