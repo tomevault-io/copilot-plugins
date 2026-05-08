@@ -1,175 +1,159 @@
-## notes
+## page-structure
 
-> 1. **简洁明了**：只记录核心内容，能快速理解即可
+> 每个页面（`app/**/page.tsx`）必须遵循以下目录结构：
 
 
-# 如何编写学习笔记
+# 页面结构规范
 
-## 编写原则
+## 目录结构要求
 
-1. **简洁明了**：只记录核心内容，能快速理解即可
-2. **结构清晰**：使用统一的文档结构，便于查阅
-3. **代码为主**：以实际代码示例为核心，辅以简要说明和中文注释
-4. **快速查阅**：作为学习笔记，应该能快速找到关键信息
-5. **便于理解**：代码示例添加中文注释，帮助读者理解实现逻辑
-6. **面向初学者**：假设读者对技术概念不了解，需要详细解释
-7. **只引用公开库**：代码示例只使用 Viem、Wagmi 等公开库，不引用项目内部的 lib 库
+每个页面（`app/**/page.tsx`）必须遵循以下目录结构：
 
-## 文档结构
-
-### 1. 标题
-
-使用简洁的问题式标题，如：
-
-- `如何链接钱包`
-- `如何查询余额`
-- `如何实现转账`
-
-### 2. 技术栈
-
-列出实现该功能所需的核心工具库，格式：
-
-```markdown
-## 技术栈
-
-- **库名**: 简要说明其作用
-- **库名**: 简要说明其作用
+```
+app/
+  └── [页面名称]/
+      ├── components/          # 页面专用组件目录（必须）
+      │   ├── Header.tsx       # 页面标题组件
+      │   ├── Form.tsx         # 表单组件（如需要）
+      │   ├── EmptyState.tsx   # 空状态组件（如需要）
+      │   └── ...              # 其他功能组件
+      ├── actions.ts          # Server Action 文件（如需要）
+      ├── types.ts            # 类型定义文件（如需要）
+      ├── utils.ts            # 工具函数和常量文件（如需要）
+      └── page.tsx            # 主页面文件，只负责整合组件
 ```
 
-示例：
+## 组件组织要求
 
-```markdown
-- **Wagmi**: React Hooks 库，提供 `useAccount`、`useBalance` 等 Hook
-- **RainbowKit**: 钱包连接 UI 组件库，提供 `<ConnectButton />`
-```
+### 1. 页面组件必须放在子目录中
 
-**重要**：技术栈中列出的函数/Hook，需要简要说明其用途。不要假设读者了解这些工具，要让读者知道「这个工具是做什么的」。
+每个页面必须将功能拆分为独立的组件，并放在 `components` 子目录中。
 
-示例（详细说明版）：
+### 2. 主页面职责
 
-```markdown
-- **Viem**: 以太坊工具库
-  - `encodeFunctionData`: 将合约函数调用编码为十六进制数据，用于构造交易的 data 字段
-  - `parseUnits`: 将人类可读的数字（如 "100"）转换为区块链使用的最小单位（如 100000000）
-```
+主页面文件（`page.tsx`）应该：
+- **只负责整合组件**：导入并组合各个功能组件
+- **保持简洁**：不包含复杂的业务逻辑
+- **提供布局**：定义页面的整体布局结构
 
-### 3. 实现概览
-
-**重要**：这是快速理解实现方案的关键部分。
-
-使用 **"用 XX 的 XX 实现 XX"** 的格式，列出实现该功能所需的关键工具和功能：
-
-```markdown
-## 实现概览
-
-- 用 **库名** 的 `功能/API` 实现 `目的`
-- 用 **库名** 的 `功能/API` 实现 `目的`
-```
-
-示例：
-
-```markdown
-- 用 **RainbowKit** 的 `getDefaultConfig` 和 `RainbowKitProvider` 实现钱包连接配置和 UI 组件
-- 用 **Wagmi** 的 `useAccount` Hook 获取钱包地址和网络信息
-```
-
-**要求**：
-
-- 不需要详细代码样例
-- 只说明工具和功能的对应关系
-- 让读者快速了解"用什么实现什么"
-
-### 4. 核心实现详情
-
-分步骤展示关键代码实现，每个步骤包含：
-
-- 步骤标题（简洁描述功能，不需要文件路径）
-- 代码示例（使用代码块）
-- 必要时添加简要注释
-
-**重要**：代码示例的要求：
-
-- **关注核心内容**：代码示例的目的是帮助理解实现思路，不是为了直接运行
-- **保留关键部分**：只展示实现该功能的核心代码，省略不重要的部分
-- **添加中文注释**：为关键代码添加中文注释，方便阅读理解，说明代码的作用和逻辑
-- **不需要完整代码**：可以省略类型定义、错误处理、边界情况、导入语句等不重要的内容
-- **不需要文件路径**：步骤标题中不需要包含文件路径，只描述功能即可
-- **只使用公开库**：代码示例只能使用 Viem、Wagmi、RainbowKit 等公开库，不能引用项目内部的 lib 库（如 `@/lib/services/etherscan`）
-- **解释技术概念**：遇到专业术语（如 Gas、ABI、Wei 等）时，要解释清楚含义
-
-参考示例：
-
-````markdown
-## 核心实现详情
-
-### 1. 基本查询余额
+**示例结构：**
 
 ```typescript
-import { useAccount, useBalance } from "wagmi";
-import { formatEther } from "viem";
+"use client";
 
-export function WalletConnection() {
-  // 获取钱包地址
-  const { address } = useAccount();
-  // 查询余额，返回的数据包含 value（BigInt 类型，单位为 wei）
-  const { data: balanceData } = useBalance({ address });
+// ============================================================
+// 页面名称：页面功能描述
+// ============================================================
+// 作用：
+// - 整合所有相关功能组件
+// - 提供统一的页面布局和样式
+// - 作为功能的入口页面
+// ============================================================
 
+import { Header } from "./components/Header";
+import { Form } from "./components/Form";
+import { EmptyState } from "./components/EmptyState";
+
+export default function PageName() {
   return (
-    <p>
-      {/* formatEther 将 wei 转换为 ETH 字符串 */}
-      余额: {formatEther(balanceData?.value || 0n)}
-    </p>
+    <main>
+      {/* 页面标题区域组件 - 显示页面标题和描述信息 */}
+      <Header />
+
+      {/* 表单组件 - 处理用户输入和提交 */}
+      <Form />
+
+      {/* 空状态组件 - 显示未连接时的提示 */}
+      <EmptyState />
+    </main>
   );
 }
 ```
-````
 
-## 重要注意事项
+## Server Action 规范要求
 
-### 不要引用内部 lib 库
+### 1. 必须使用 Server Action，不使用 API 路由
 
-文档的目标读者是想学习 Web3 开发的初学者。他们阅读文档是为了学习 Viem、Wagmi 等公开库的用法，而不是学习我们项目内部封装的 lib 库。
+**重要**：本网站**不使用** API 路由形式（如 `app/api/**/route.ts`），所有服务端逻辑必须使用 **Server Action** 形式。
 
-**错误示例**：
+### 2. Server Action 文件位置和命名
+
+**要求：**
+- ✅ Server Action 文件**必须**命名为 `actions.ts`
+- ✅ `actions.ts` **必须**和 `page.tsx` 放在**同一个目录**中
+- ✅ 文件开头**必须**包含 `"use server"` 指令
+- ✅ 导出的函数**必须**是 `async` 函数
+- ❌ 不使用 `app/api/**/route.ts` 形式的 API 路由
+
+## 类型定义规范要求
+
+### 1. 必须使用 types.ts 文件管理类型
+
+**重要**：如果页面中使用了类型定义（如 `interface`、`type`），**必须**将类型定义放在 `types.ts` 文件中，而不是直接写在组件或 actions 文件中。
+
+### 2. 类型定义文件位置和命名
+
+**要求：**
+- ✅ 类型定义文件**必须**命名为 `types.ts`
+- ✅ `types.ts` **必须**和 `page.tsx` 放在**同一个目录**中
+- ✅ 类型定义**必须**使用 `export` 导出，方便其他文件导入
+- ❌ 不在组件文件或 actions 文件中直接定义类型（除非是组件内部使用的私有类型）
+
+## 工具函数和常量规范要求
+
+### 1. 使用 utils.ts 文件管理常量和工具函数
+
+**重要**：页面中使用的常量和辅助工具函数应该放在 `utils.ts` 文件中。
+
+### 2. utils.ts 文件的定位
+
+`utils.ts` 用于存放：
+- 页面使用的常量（如配置值、固定地址等）
+- 与 Web3 核心逻辑关系不大的辅助函数（如数据格式化、字符串处理等）
+- 读者可以跳过的实现细节
+
+### 3. utils.ts 文件位置和命名
+
+**要求：**
+- ✅ 工具函数文件**必须**命名为 `utils.ts`
+- ✅ `utils.ts` **必须**和 `page.tsx` 放在**同一个目录**中
+- ✅ 常量和函数**必须**使用 `export` 导出
+- ❌ 不在 `actions.ts` 中导出常量（Server Action 文件只能导出 async 函数）
+
+## 代币名称使用规范
+
+### 1. 必须使用 TOKENS 常量
+
+**重要**：在页面中使用代币名称（如 USDT、ETH）时，**禁止**直接写字符串，**必须**从 `lib/config/tokens.ts` 导入 `TOKENS` 常量使用。
+
+**要求：**
+- ✅ 使用 `TOKENS.USDT` 而不是 `"USDT"`
+- ✅ 使用 `TOKENS.ETH` 而不是 `"ETH"`
+- ✅ 需要代币精度时，使用 `TOKEN_INFO[TOKENS.USDT].decimals`
+
+**正确示例：**
 
 ```typescript
-// ❌ 不要这样写，读者不知道 getGasOracle 是什么
-import { getGasOracle } from "@/lib/services/etherscan";
-const gasPrice = await getGasOracle(1);
+import { TOKENS, TOKEN_INFO } from "@/lib/config/tokens";
+
+// 显示代币符号
+<span>{TOKENS.USDT}</span>
+
+// 获取代币精度
+const decimals = TOKEN_INFO[TOKENS.USDT].decimals;
+
+// 动态文本
+const message = `获取 ${TOKENS.USDT} 交易数据失败`;
 ```
 
-**正确示例**：
+**错误示例：**
 
 ```typescript
-// ✅ 直接展示 API 调用，读者可以学习到完整的实现方式
-const params = new URLSearchParams({
-  chainid: "1",
-  module: "gastracker",
-  action: "gasoracle",
-  apikey: "YOUR_API_KEY",
-});
-
-const response = await fetch(
-  `https://api.etherscan.io/v2/api?${params.toString()}`
-);
-const result = await response.json();
+// ❌ 错误：直接使用字符串
+<span>USDT</span>
+const decimals = 6; // 硬编码精度
+const message = "获取 USDT 交易数据失败";
 ```
-
-### 解释专业术语
-
-遇到区块链相关的专业术语时，需要解释清楚：
-
-- **Gas**：以太坊网络中衡量计算量的单位
-- **Wei**：以太坊的最小单位，1 ETH = 10^18 Wei
-- **Gwei**：1 Gwei = 10^9 Wei，常用于表示 Gas 价格
-- **ABI**：Application Binary Interface，合约接口定义
-- **ERC20**：代币标准，定义了 transfer、approve 等函数
-
-### 适度详细
-
-- 核心概念要解释清楚，让初学者能理解
-- 但不要过于啰嗦，保持简洁
-- 代码注释要有意义，不要写显而易见的注释
 
 ---
 > Source: [sdjl/learn-web3](https://github.com/sdjl/learn-web3) — distributed by [TomeVault](https://tomevault.io).
