@@ -4,7 +4,7 @@
   "repo": "aegis",
   "description": "\ud83d\udee1\ufe0f Orchestrate Claude Code sessions via API. Create, brief, monitor, refine, ship. The bridge between your orchestrator and your coding agent.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OneStepAt4time/aegis",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T08:29:18Z"
+  "distributed_at": "2026-05-08T03:15:07Z"
 }
