@@ -1,0 +1,44 @@
+{
+  "name": "apfel-mcp",
+  "owner": "Arthur-Ficial",
+  "repo": "apfel-mcp",
+  "description": "Token-budget-optimized MCP servers for apfel: url-fetch (Readability-based) + ddg-search (experimental) + search-and-fetch (compound). Built for apfel's 4096-token context window.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Arthur-Ficial/apfel-mcp",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T00:57:57Z"
+}
