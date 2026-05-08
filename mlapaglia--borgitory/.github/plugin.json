@@ -1,0 +1,9 @@
+{
+  "name": "mlapaglia--borgitory",
+  "displayName": "Borgitory",
+  "description": "Web UI for managing BorgBackup repositories with scheduling, monitoring, and cloud sync",
+  "version": "1.0.0",
+  "author": "mlapaglia",
+  "homepage": "https://github.com/mlapaglia/Borgitory",
+  "skills": []
+}
