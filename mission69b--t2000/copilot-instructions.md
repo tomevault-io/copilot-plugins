@@ -1,74 +1,88 @@
-## goal-driven-execution
+## metrics-and-monitoring
 
-> Goal-driven execution — define verifiable success criteria, loop until passing
+> Metrics + monitoring — what we measure, where it's stored, how to read it
 
 
-# Goal-Driven Execution
+# Metrics + Monitoring
 
-Adapted from Karpathy's coding-skills repo. The most important behavior change for any agent working in this codebase.
+The signal that tells us the agent is working. Everything we measure is for one of three purposes:
+1. **Cost control** — Anthropic + BlockVision + Upstash spend.
+2. **Correctness** — Was the agent helpful? Did the user confirm? Did the tx succeed?
+3. **Reliability** — Are we degrading? Are we throwing? Are we timing out?
 
-## The standard
+## What we store (Prisma — durable)
 
-**Transform tasks into verifiable goals.** Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification and bounce back.
+| Model | What it captures | Used for |
+|---|---|---|
+| `TurnMetrics` | Per-turn: latency, attemptId, modifiableFieldsTouched, pendingActionOutcome, writeToolDurationMs, tokens, cost | Q5/Q6 analytics dashboards, harness regressions |
+| `SessionUsage` | Per-session: tokens, cost, tool names, model | Billing gate (5/20 daily-free), per-session cost |
+| `ConversationLog` | Full transcripts | Future self-hosted model migration training data |
+| `AppEvent` | App-side events (chip taps, sponsor failures, key flows) | Chain memory classifiers, UX analytics |
+| `AdviceLog` | Recommendations the agent gave | Cross-session consistency checks |
 
-| Vague task | Verifiable goal |
-|---|---|
-| "Add validation" | "Write tests for invalid inputs, then make them pass" |
-| "Fix the bug" | "Write a test that reproduces it, then make it pass" |
-| "Refactor X" | "Ensure tests pass before and after" |
-| "Speed it up" | "Add a benchmark, baseline N ms, target ≤ N/2 ms" |
-| "Make it more reliable" | "Add a test for the failure mode I just hit, watch it fail, fix until it passes" |
+`TurnMetrics` is THE harness telemetry table. Every chat turn writes one row at chat-time. Every confirmed/declined/modified pending action updates the row via `attemptId`-keyed `updateMany`. Resume turns get their own row.
 
-## For multi-step tasks, state the plan
+## What we send to Vercel/CloudWatch (transient)
 
-Before writing code:
+- **Vercel Observability** — request rates, p50/p95/p99 latency, error rates, cold start counts
+- **Vercel Speed Insights** — client-side LCP/FCP/TTI for the chat UI
+- **`@vercel/analytics`** — page views, custom events
+- **CloudWatch** — t2000 ECS task health, cron job duration, cron error rates
 
+We do NOT use Axiom, Datadog, or Honeycomb. Decision: stick to the platforms we already pay for. See `audric-scaling-spec.md` for the rationale.
+
+## Key dashboards (Q5/Q6)
+
+| Dashboard | Source | Question it answers |
+|---|---|---|
+| Daily spend | `SessionUsage.costUsd` aggregated | Are we over budget? |
+| Pending action outcome | `TurnMetrics.pendingActionOutcome` | What % of writes get confirmed vs declined vs modified? |
+| Modifiable field usage | `TurnMetrics.modifiableFieldsTouched` | Are users editing amounts? Which fields? |
+| Tool latency | `TurnMetrics.toolDurationMs` per `toolName` | Which tools are slow? |
+| Resume failure rate | `TurnMetrics.pendingActionOutcome === 'resume_failed'` | Is the resume contract holding? |
+| Engine version vs error rate | `TurnMetrics.engineVersion` cross errors | Did v0.50.4 regress? |
+
+## Tracing a regression — the runbook
+
+1. **Identify the symptom.** "Users report Audric forgets transactions."
+2. **Find the metric.** `TurnMetrics.pendingActionOutcome === 'unresolved'` rate.
+3. **Bisect by engine version.** Filter rows by `engineVersion`. Find the version where the rate climbed.
+4. **Check the diff.** What changed in that engine release?
+5. **Reproduce locally.** Use `pnpm --filter @t2000/engine test` + the engine event types to simulate the failed flow.
+6. **Fix + add regression test.**
+
+Without `TurnMetrics` rows, this runbook is "stare at logs and guess." With them, it's a 30-minute investigation.
+
+## What MUST NOT happen
+
+```typescript
+// ❌ Skip writing TurnMetrics because "this turn doesn't have anything interesting"
+// — every turn writes a row. Always.
+
+// ❌ Forget attemptId on the TurnMetrics row
+// — see write-tool-pending-action.mdc
+
+// ❌ Write metrics to a third-party vendor we haven't approved
+// — Vercel + CloudWatch + Prisma. Adding Axiom etc. needs explicit roadmap approval.
+
+// ❌ Log secrets / addresses / amounts in a way that's hard to audit
+console.log(`User ${address} sent ${amount} USDC to ${recipient}`);
+// — addresses/amounts ok for debugging, but use a structured format that's grep-able and respects PII.
 ```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
 
-Each verify step is something you can run. Tests, lints, a curl against the dev server, a manual screenshot match — anything that proves the step is done.
+## Adding a new metric
 
-## Example — fixing a portfolio bug (April 2026)
-
-Bad: "Fix portfolio_analysis to include DeFi correctly."
-
-Good:
-```
-1. Repro the bug → verify: live `/api/portfolio` returns `defiValueUsd: 0` with `defiSource: 'partial'`
-2. Add a regression test asserting portfolio_analysis re-fetches when source != 'blockvision' AND value == 0 → verify: test fails on current code
-3. Fix the trust gate in portfolio-analysis.ts → verify: test passes
-4. Verify no other tests regressed → verify: pnpm --filter @t2000/engine test → 0 failures
-5. Verify live behavior → verify: re-run `/api/portfolio` against the test wallet → `defiValueUsd > 0`
-```
-
-The verify steps catch (a) the wrong fix and (b) the right fix in the wrong place. Without them, you'd be re-confirming success-by-vibes for the third time.
-
-## When to ask vs. when to proceed
-
-**Ask when:**
-- Multiple valid interpretations of the goal exist (e.g. "make the chip flow nicer" — UX choice).
-- The goal touches a system you're not 100% sure about (architectural ambiguity).
-- The fix requires changing a load-bearing API signature.
-
-**Proceed when:**
-- The goal is unambiguous and the verify step is obvious.
-- Existing tests + code conventions tell you which approach matches the codebase.
-- The change is local to one file with one obvious entry point.
-
-## What's banned
-
-- "Done!" without running the verify step.
-- "I think this works" without running tests.
-- "Should be fine" without re-reading the diff.
-- Closing the loop on a partial fix because "the user can tell me if anything's wrong."
+1. Decide: durable (Prisma) or transient (Vercel/CloudWatch)?
+2. If durable, extend `TurnMetrics` or add a new model. Add an `@@index` on what you'll filter by.
+3. Document what dashboard will read it.
+4. Backfill if the metric is meaningful for past sessions.
 
 ## Cross-references
 
-- Engineering principles → `engineering-principles.mdc`
-- Coding discipline (simplicity, surgical changes) → `coding-discipline.mdc`
+- Spec 1 telemetry → `agent-harness-spec.mdc` (TurnMetrics + attemptId)
+- Audric-side metrics emission → `audric/.cursor/rules/metrics-and-monitoring.mdc`
+- Cost rates table → `apps/web/lib/engine/cost-rates.ts`
+- Scaling decisions → `audric-scaling-spec.md`
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
