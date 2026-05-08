@@ -1,0 +1,280 @@
+## zero2agent
+
+> > AI Agent 在本项目中的协作规范和指南。
+
+# AGENTS.md
+
+> AI Agent 在本项目中的协作规范和指南。
+
+---
+
+## 项目概述
+
+**Zero2Agent** 是一个公开的教学项目，带你从零**实现**类似 Claude Code / Codex 的 Coding Agent 所需的 **Agent Harness**（循环、工具、上下文与宿主能力）。
+
+- **目标用户**：想学习如何实现 Agent Harness 的开发者
+- **核心价值**：完整透明的开发过程，包括设计决策、踩坑记录、AI 协作实录
+- **技术栈**：TypeScript, Node.js, pnpm monorepo
+
+---
+
+## 项目结构
+
+```
+zero2agent/
+├── packages/           # 代码
+│   ├── core/           # Agent Harness 核心逻辑
+│   ├── tui/            # CLI 界面
+│   └── shared/         # 共享工具和类型
+├── specs/              # 设计文档 (每个迭代的 spec)
+├── retros/             # 复盘笔记 (每个迭代的反思)
+├── docs/               # 读者文档 (roadmap、架构、快速上手)
+├── .authoring/         # 作者书写规范 (写作风格、导航规范、页面模板)
+├── .vibecoding/        # AI 协作记录 (prompt、对话、修正)
+├── .discuss/           # 需求讨论记录
+├── CHANGELOG.md        # 迭代日志
+└── AGENTS.md           # 本文件
+```
+
+---
+
+## AI 协作规范
+
+### 对话记录
+
+所有和 AI 的协作对话应记录在 `.vibecoding/` 目录：
+
+```
+.vibecoding/
+├── YYYY-MM-DD/
+│   └── <task-name>/
+│       ├── prompt.md      # 使用的 prompt
+│       ├── dialogue.md    # 完整对话
+│       └── learnings.md   # 学到的经验
+```
+
+### 讨论记录
+
+需求讨论和设计决策记录在 `.discuss/` 目录：
+
+```
+.discuss/
+├── YYYY-MM-DD/
+│   └── <topic>/
+│       ├── outline.md       # 讨论大纲
+│       └── decisions/       # 决策记录
+│           └── D01-xxx.md
+```
+
+### Prompt 编写原则
+
+1. **具体而非抽象**：说清楚要什么，而不是泛泛的描述
+2. **提供上下文**：相关代码、文档、约束条件
+3. **分步骤**：复杂任务拆成小步，逐步推进
+4. **明确边界**：什么要做，什么不做
+
+### 代码审查
+
+AI 生成的代码需要人工审查，关注：
+
+- 是否符合项目规范
+- 是否有安全隐患
+- 是否过度设计
+- 是否有明显 bug
+
+---
+
+## 迭代流程
+
+每个迭代（Sxxx）遵循以下流程：
+
+```
+1. 需求讨论  →  .discuss/YYYY-MM-DD/<topic>/
+2. 设计 Spec →  specs/.../README.md + details/（可选 deep-dive/ 延伸文）
+3. 实现代码  →  packages/
+4. 复盘总结  →  retros/E0x-S0xx-<story-slug>.md
+5. 更新日志  →  CHANGELOG.md
+6. 打 Tag    →  git tag E0x-S0xx-<slug>
+```
+
+### Story `details/` 目录约定
+
+各 Story 的技术文档放在 `specs/.../S0xx-.../details/`，与 [`.authoring/templates/details/`](./.authoring/templates/details/) 一致，固定为以下五篇（勿混用旧名 `task-breakdown` / `acceptance-criteria`）：
+
+| 文件 | 用途 |
+|------|------|
+| `00-overview.md` | 概述与文档导航 |
+| `01-technical-design.md` | 技术设计 |
+| `02-task-list.md` | 开发任务清单 |
+| `03-verification-checklist.md` | 验收检查清单 |
+| `04-backlog.md` | Backlog |
+
+---
+
+## Git 规范
+
+### 版本编号
+
+本项目使用 **两层版本结构**：
+
+```
+E01-S001
+│   │
+│   └── 迭代编号（3位），每个 Epic 内从 001 开始
+└────── 阶段编号（2位）
+```
+
+| Epic | 定位 | 迭代范围 |
+|------|------|----------|
+| E01 | 基础 POC | S001 - S00x |
+| E02+ | 待定 | ... |
+
+> **注意**：S000（仓库初始化）是特殊迭代，不带 Epic 前缀。
+
+### Commit 格式
+
+遵循 [Conventional Commits](https://www.conventionalcommits.org/)。Commit 分为两类：
+
+#### Story Commit（属于某个迭代）
+
+必须包含版本前缀 `[Exx-Sxxx]`：
+
+```
+[E01-S001] <type>(<scope>): <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+#### 非 Story Commit（工程改动、讨论整理等）
+
+不加版本前缀，使用标准 Conventional Commit：
+
+```
+<type>(<scope>): <description>
+```
+
+**示例**：
+```bash
+# ✅ Story Commit
+[E01-S001] feat(core): implement basic ReAct loop
+[E01-S001] fix(tui): fix CLI argument parsing
+[E01-S002] docs: update CHANGELOG for tool implementation
+
+# ✅ 非 Story Commit
+docs(roadmap): consolidate course roadmap discussion
+chore: update CI config
+```
+
+**类型**：
+- `feat`: 新功能
+- `fix`: 修复 bug
+- `docs`: 文档变更
+- `refactor`: 重构
+- `test`: 测试相关
+- `chore`: 构建/工具变更
+
+**Scope**：使用 package 名（`core`, `tui`, `shared`），或省略表示全局变更
+
+### Tag 格式
+
+每个迭代完成后打 Tag，格式：
+
+```
+E01-S001-<slug>
+```
+
+**规则**：
+- 前缀：`E01-S001` 与版本编号一致
+- Slug：2-4 个单词，`kebab-case`，描述核心内容
+- 不需要 type（因为 Tag 标记的是迭代完成点）
+
+**示例**：
+```bash
+# ✅ 正确格式
+E01-S001-react-basic
+E01-S002-context-mgmt
+E02-S001-arch-refactor
+
+# ❌ 错误格式
+v1.0.0                    # 不使用语义化版本
+S001-react-basic          # 缺少 Epic 前缀
+E01-S001                  # 缺少 slug 描述
+```
+
+**打 Tag 命令**：
+```bash
+# 使用 tag-helper 脚本（推荐，会检查格式）
+.githooks/tag-helper.sh E01-S001-react-basic
+
+# 或直接创建（不检查格式）
+git tag E01-S001-react-basic
+
+# 推送 Tag
+git push origin E01-S001-react-basic
+```
+
+### 分支策略
+
+- `main`: 稳定版本，每个迭代完成后合入
+- `dev`: 开发分支
+- `feat/xxx`: 功能分支
+
+<!-- [ABC:agent-better-checkpoint:start] -->
+### Checkpoint Commit Rule
+
+After completing any file edit (write_to_file, replace_in_file, multi_replace_in_file, or similar),
+you MUST:
+
+1. Load the "agent-better-checkpoint" skill (if not already loaded)
+2. Follow its instructions to create a checkpoint commit
+3. Do NOT proceed to the next task until the commit is done
+
+This ensures every meaningful code change is tracked with a semantic Git commit.
+<!-- [ABC:agent-better-checkpoint:end] -->
+
+---
+
+## 环境要求
+
+- **Node.js**: >= 22.0.0
+- **pnpm**: >= 9.0.0
+- **Git**: >= 2.30
+
+### 快速开始
+
+```bash
+git clone git@github.com:alienzhou/zero2agent.git
+cd zero2agent
+pnpm install
+pnpm build
+pnpm --filter @zero2agent/tui start
+```
+
+---
+
+## 文档维护
+
+| 文档 | 用途 | 更新时机 |
+|------|------|----------|
+| `README.md` | 项目介绍、快速开始 | 重大变更时 |
+| `AGENTS.md` | AI 协作规范（本文件） | 规范调整时 |
+| `CHANGELOG.md` | 版本变更记录 | 每次迭代完成 |
+| `specs/**/README.md` + `specs/**/details/*.md`（及可选 `deep-dive/`） | 设计文档 | 迭代开始前 |
+| `retros/*.md` | 复盘笔记 | 迭代完成后 |
+
+### 文档书写规范（作者参考）
+
+新增或修改面向读者的文档时，遵循以下核心原则：
+
+1. **标题说人话**：用直述句（"做什么"），不用隐喻（"带到哪里"）
+2. **不重复上游信息**：每层文档只写本层新信息，Epic 不重复 Roadmap，Story 不重复 Epic
+3. **信息密度优先**：每段话要有实质新信息，不做排比堆砌
+4. **快速进入行动**：读完能开始做事，避免抽象铺垫
+
+详细规范和页面模板见 [`.authoring/`](./.authoring/README.md)（仅作者可见，不在读者路径上）。
+
+---
+> Source: [alienzhou/zero2agent](https://github.com/alienzhou/zero2agent) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
