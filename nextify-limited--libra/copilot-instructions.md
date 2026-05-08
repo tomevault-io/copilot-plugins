@@ -1,60 +1,181 @@
-## typescript
+## zod-v4
 
-> TypeScript coding standards and best practices for modern web development
+> Zod v4 Coding Guidelines. ALWAYS read this when using Zod
 
+<zod-v4-guidelines>
 
-# TypeScript Best Practices
+<critical-import-rule>
+<requirement>Always import from 'zod/v4', never 'zod'</requirement>
+</critical-import-rule>
 
-## Type System
-- Prefer interfaces over types for object definitions
-- Use type for unions, intersections, and mapped types
-- Avoid using `any`, prefer `unknown` for unknown types
-- Use strict TypeScript configuration
-- Leverage TypeScript's built-in utility types
-- Use generics for reusable type patterns
+<core-rules>
 
-## Naming Conventions
-- Use PascalCase for type names and interfaces
-- Use camelCase for variables and functions
-- Use UPPER_CASE for constants
-- Use descriptive names with auxiliary verbs (e.g., isLoading, hasError)
-- Prefix interfaces for React props with 'Props' (e.g., ButtonProps)
+<rule>
+<name>Type Inference</name>
+<requirement>Every schema MUST have inferred type above it</requirement>
+<example type="good">
+```typescript
+export type User = z.infer<typeof User>
+export const User = z.object({...})
+```
+</example>
+<requirements>
+- ALWAYS place type above schema
+- ALWAYS same name for type & schema
+- NEVER use "Schema" suffix
+- ALWAYS use JSDoc (/** */), never //
+- NO EXCEPTIONS - even for internal/helper schemas
+</requirements>
+</rule>
 
-## Code Organization
-- Keep type definitions close to where they're used
-- Export types and interfaces from dedicated type files when shared
-- Use barrel exports (index.ts) for organizing exports
-- Place shared types in a `types` directory
-- Co-locate component props with their components
+<rule>
+<name>String Validation</name>
+<requirement>String validations are standalone functions</requirement>
+<example type="comparison">
+```typescript
+// WRONG: z.string().email()
+// RIGHT: z.email(), z.url(), z.uuid(), z.ip()
+```
+</example>
+</rule>
 
-## Functions
-- Use explicit return types for public functions
-- Use arrow functions for callbacks and methods
-- Implement proper error handling with custom error types
-- Use function overloads for complex type scenarios
-- Prefer async/await over Promises
+<rule>
+<name>Error Messages</name>
+<requirement>Use `error` param sparingly - Zod's defaults are excellent</requirement>
+<example type="comparison">
+```typescript
+// WRONG: z.email({error: "Invalid email"}) // Redundant!
+// RIGHT: z.email() // Zod says "Invalid email"
+// RIGHT: Only for business logic:
+z.string().check((val) => /[A-Z]/.test(val), {
+	error: 'Must contain uppercase',
+})
+```
+</example>
+</rule>
 
-## Best Practices
-- Enable strict mode in tsconfig.json
-- Use readonly for immutable properties
-- Leverage discriminated unions for type safety
-- Use type guards for runtime type checking
-- Implement proper null checking
-- Avoid type assertions unless necessary
+<rule>
+<name>Number Types</name>
+<requirements>
+- Use z.number() for general numbers
+- z.int() for integers only (not z.number().int())
+- z.int32(), z.float64() for specific types
+- Numbers finite by default
+</requirements>
+</rule>
 
-## Error Handling
-- Create custom error types for domain-specific errors
-- Use Result types for operations that can fail
-- Implement proper error boundaries
-- Use try-catch blocks with typed catch clauses
-- Handle Promise rejections properly
+<rule>
+<name>Object Types</name>
+<types>
+- `z.object()` - strips unknowns (default)
+- `z.strictObject()` - rejects extras
+- `z.looseObject()` - allows extras
+</types>
+</rule>
 
-## Patterns
-- Use the Builder pattern for complex object creation
-- Implement the Repository pattern for data access
-- Use the Factory pattern for object creation
-- Leverage dependency injection
-- Use the Module pattern for encapsulation 
+<rule>
+<name>Custom Validation</name>
+<requirement>Use .check() not .superRefine()</requirement>
+<migration-steps>
+- `val` → `ctx.value`
+- `ctx.addIssue()` → `ctx.issues.push()`
+- `z.ZodIssueCode.custom` → `'custom'`
+- Add `input: ctx.value` to issue object
+- Use .check() for detailed errors, .refine() for simple validation
+</migration-steps>
+</rule>
+
+<rule>
+<name>Error Formatting</name>
+<methods>
+- `z.prettifyError()` - Human-readable format
+- `z.treeifyError()` - Tree structure format
+</methods>
+</rule>
+
+<rule>
+<name>Functions</name>
+<requirement>Define function schemas with input/output types</requirement>
+<example type="good">
+```typescript
+z.function({
+	input: [z.string()],
+	output: z.number(),
+})
+```
+</example>
+</rule>
+
+<rule>
+<name>Records</name>
+<syntax>`z.record(keyType, valueType)`</syntax>
+</rule>
+
+<rule>
+<name>ISO Formats</name>
+<formats>
+- `z.iso.datetime()` - ISO 8601 datetime
+- `z.iso.date()` - ISO 8601 date
+</formats>
+</rule>
+
+<rule>
+<name>Additional Features</name>
+<features>
+- Default: `.default()` applies to output; use `.prefault()` for v3 behavior
+- File validation: `z.file().min(1024).max(5*1024*1024).mime(['image/jpeg'])`
+- Pipe: `z.pipe(z.string(), z.number())` for transformations
+- Async: Use `.check(async (val) => {...})` for async validation
+- Arrays: `z.array(z.email())` or `z.email().array()`
+- Optional: `.optional()`, `.nullable()`, `.nullish()`
+</features>
+</rule>
+
+</core-rules>
+
+<quick-reference>
+
+| v3                      | v4                          |
+| ----------------------- | --------------------------- |
+| z.string().email()      | z.email()                   |
+| {message: "err"}        | {error: "err"}              |
+| .strict()               | z.strictObject()            |
+| .format()               | z.treeifyError()            |
+| z.string().datetime()   | z.iso.datetime()            |
+| .args().returns()       | {input:[...], output:...}   |
+| .superRefine()          | .check()                    |
+| ctx.addIssue()          | ctx.issues.push()           |
+| z.ZodIssueCode.custom   | 'custom'                    |
+</quick-reference>
+
+<complete-example>
+```typescript
+import { z } from 'zod/v4'
+
+/** User registration */
+export type UserReg = z.infer<typeof UserReg>
+export const UserReg = z.object({
+	email: z.email(),
+	password: z
+		.string()
+		.min(8)
+		.check((pwd) => /[A-Z]/.test(pwd) && /\d/.test(pwd), { error: 'Need uppercase & number' }),
+	age: z.number().min(18),
+})
+
+/** Function with input/output types */
+export type ProcessUser = z.infer<typeof ProcessUser>
+export const ProcessUser = z.function({
+	input: [UserReg],
+	output: z.object({
+		id: z.string(),
+		createdAt: z.iso.datetime(),
+	}),
+})
+```
+</complete-example>
+
+</zod-v4-guidelines>
 
 ---
 > Source: [nextify-limited/libra](https://github.com/nextify-limited/libra) — distributed by [TomeVault](https://tomevault.io).
