@@ -1,0 +1,44 @@
+{
+  "name": "lean4-flow",
+  "owner": "predictable-machines",
+  "repo": "lean4-flow",
+  "description": "Reactive streams library for Lean 4 \u2014 Flow, SharedFlow, StateFlow, ProgramFlow, and ReactiveProgram",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/predictable-machines/lean4-flow",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T08:32:51Z"
+}
