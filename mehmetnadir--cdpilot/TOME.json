@@ -4,7 +4,7 @@
   "repo": "cdpilot",
   "description": "Zero-dependency browser automation CLI. 70+ commands, 10 test assertions, smart commands (click/fill by text \u2014 no LLM needed). MCP server for AI agents with 500x fewer tokens. Extract, observe, script runner. 50KB, pure CDP.",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mehmetnadir/cdpilot",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-03T07:03:49Z"
+  "distributed_at": "2026-05-08T06:54:35Z"
 }
