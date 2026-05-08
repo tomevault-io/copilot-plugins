@@ -1,0 +1,9 @@
+{
+  "name": "hjanuschka--pi-qmd",
+  "displayName": "pi-qmd",
+  "description": "QMD (Quick Markdown Search) extension for pi coding agent - on-device knowledge base search with BM25, vector search, and LLM reranking",
+  "version": "1.0.0",
+  "author": "hjanuschka",
+  "homepage": "https://github.com/hjanuschka/pi-qmd",
+  "skills": []
+}
