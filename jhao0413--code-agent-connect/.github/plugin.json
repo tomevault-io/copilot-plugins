@@ -1,0 +1,9 @@
+{
+  "name": "jhao0413--code-agent-connect",
+  "displayName": "code-agent-connect",
+  "description": " Telegram bridge for local claude, codex, neovate, and opencode \u2014 with per-session working directories and background   service support   ",
+  "version": "1.0.0",
+  "author": "jhao0413",
+  "homepage": "https://github.com/jhao0413/code-agent-connect",
+  "skills": []
+}
