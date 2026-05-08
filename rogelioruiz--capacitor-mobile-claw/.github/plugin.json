@@ -1,0 +1,9 @@
+{
+  "name": "rogelioruiz--capacitor-mobile-claw",
+  "displayName": "capacitor-mobile-claw",
+  "description": "On-device AI agent engine for mobile apps \u2014 embedded Node.js worker with Claude LLM, file tools, code execution, git, and extensible MCP device tools",
+  "version": "1.0.0",
+  "author": "rogelioRuiz",
+  "homepage": "https://github.com/rogelioRuiz/capacitor-mobile-claw",
+  "skills": []
+}
