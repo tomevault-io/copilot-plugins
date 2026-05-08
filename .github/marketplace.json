@@ -37044,6 +37044,11 @@
       "description": "\ud83d\udd0d Web search for pi \u2014 12 providers, one tool. Pick what you need."
     },
     {
+      "name": "labring--fastgpt-plugin",
+      "source": "./labring--fastgpt-plugin",
+      "description": "FastGPT plugin system. Provide model presets, system tools and other extended functions for FastGPT."
+    },
+    {
       "name": "bobmatnyc--claude-mpm-skills",
       "source": "./bobmatnyc--claude-mpm-skills",
       "description": "Curated collection of Claude Code skills for intelligent project development with progressive loading and toolchain detection"
@@ -37554,6 +37559,11 @@
       "description": "**OnePersonCapital** is an orchestration and governance layer for autonomous AI companies. "
     },
     {
+      "name": "sikao-engine--kimi-cli-x",
+      "source": "./sikao-engine--kimi-cli-x",
+      "description": "Some shortage functions about kimi-agent-sdk"
+    },
+    {
       "name": "affitor--open-affiliate",
       "source": "./affitor--open-affiliate",
       "description": "The open registry of affiliate programs. Built for developers and AI agents."
@@ -37894,6 +37904,41 @@
       "description": "AI-powered competitor research engine for startup ideas. "
     },
     {
+      "name": "tendo33--ideago",
+      "source": "./tendo33--ideago",
+      "description": "AI-powered competitor research engine for startup ideas. "
+    },
+    {
+      "name": "bravf--promptx",
+      "source": "./bravf--promptx",
+      "description": "PromptX \u662f\u4e00\u4e2a\u9762\u5411\u9700\u6c42\u6574\u7406\u548c AI \u534f\u4f5c\u7684\u8f7b\u91cf\u5de5\u5177\u3002  "
+    },
+    {
+      "name": "tendo33--ideago",
+      "source": "./tendo33--ideago",
+      "description": "AI-powered competitor research engine for startup ideas. "
+    },
+    {
+      "name": "unjs--env-runner",
+      "source": "./unjs--env-runner",
+      "description": "Generic environment runner for JavaScript runtime."
+    },
+    {
+      "name": "tendo33--ideago",
+      "source": "./tendo33--ideago",
+      "description": "AI-powered competitor research engine for startup ideas. "
+    },
+    {
+      "name": "tendo33--ideago",
+      "source": "./tendo33--ideago",
+      "description": "AI-powered competitor research engine for startup ideas. "
+    },
+    {
+      "name": "tendo33--ideago",
+      "source": "./tendo33--ideago",
+      "description": "AI-powered competitor research engine for startup ideas. "
+    },
+    {
       "name": "littlebunverse--dosphere",
       "source": "./littlebunverse--dosphere",
       "description": "Dosphere"
@@ -38182,6 +38227,21 @@
       "name": "iserter--laravel-claude-agents",
       "source": "./iserter--laravel-claude-agents",
       "description": "Awesome Claude Code Subagents and Skills for Laravel."
+    },
+    {
+      "name": "idoforgod--saas-agenticworkflow",
+      "source": "./idoforgod--saas-agenticworkflow",
+      "description": "SaaS Auto-Builder \u2014 AI Agentic Workflow Automation System"
+    },
+    {
+      "name": "jubakitiashvili--everything-react-native-expo",
+      "source": "./jubakitiashvili--everything-react-native-expo",
+      "description": "Complete AI coding agent harness for React Native and Expo development"
+    },
+    {
+      "name": "ainyc--canonry",
+      "source": "./ainyc--canonry",
+      "description": "An agent first AEO monitoring and operating platform"
     },
     {
       "name": "idoforgod--saas-agenticworkflow",
@@ -38519,6 +38579,36 @@
       "description": "Bo skill marketing toan dien cho AI agent \u2014 16 skills, 4 agents, 3 workflows. Framework Over Powers Agency. Thi truong Viet Nam."
     },
     {
+      "name": "icy-cat--x-article-in-obsidian",
+      "source": "./icy-cat--x-article-in-obsidian",
+      "description": "preview X article in Obsidian"
+    },
+    {
+      "name": "kotodian--siege",
+      "source": "./kotodian--siege",
+      "description": "AI-powered agent development tool"
+    },
+    {
+      "name": "tonkotsu-ai--handle",
+      "source": "./tonkotsu-ai--handle",
+      "description": "Refine UI directly in the browser and feed the changes to your coding agent."
+    },
+    {
+      "name": "vakovalskii--copyosity",
+      "source": "./vakovalskii--copyosity",
+      "description": "copyosity"
+    },
+    {
+      "name": "z-bra0--ski",
+      "source": "./z-bra0--ski",
+      "description": "Install AI agent skills from Git into Claude, Codex, Cursor, and OpenClaw with a manifest, lockfile, and shared store"
+    },
+    {
+      "name": "dan-snelson--microsoft-365-reset",
+      "source": "./dan-snelson--microsoft-365-reset",
+      "description": "We. All. Miss. Paul."
+    },
+    {
       "name": "rajjjaryan--career-copilot",
       "source": "./rajjjaryan--career-copilot",
       "description": "AI-powered job search pipeline built on GitHub Copilot CLI"
@@ -38797,6 +38887,21 @@
       "name": "jcartu--rasputin-memory",
       "source": "./jcartu--rasputin-memory",
       "description": "The ultimate memory backend for OpenClaw and Claude Code. Persistent conversation memory with LLM fact extraction, foundation-model reranking, and 77.7% LoCoMo accuracy. MCP native, REST API, self-hos"
+    },
+    {
+      "name": "reyavir--hierarchical-context-compressor",
+      "source": "./reyavir--hierarchical-context-compressor",
+      "description": "hierarchical-context-compressor"
+    },
+    {
+      "name": "mikkovihonen--quadletman",
+      "source": "./mikkovihonen--quadletman",
+      "description": "Web application for managing rootless podman containers with quadlets and systemd"
+    },
+    {
+      "name": "evan966890--openclaw-bestroll-skills",
+      "source": "./evan966890--openclaw-bestroll-skills",
+      "description": "Executive Feishu OpenClaw 4-agent suite with questionnaire, provisioning and onboarding"
     },
     {
       "name": "skywind3000--gamesample",
@@ -39604,6 +39709,26 @@
       "description": "OriginTrail Decentralized Knowledge Graph (DKG) is a decentralized knowledge infrastructure for multi-agent AI memory \u2014 enabling agents to publish, verify, and query shared knowledge as cryptographica"
     },
     {
+      "name": "asharibali--ramadan-prompting-nights",
+      "source": "./asharibali--ramadan-prompting-nights",
+      "description": "A scenario-based prompting competition exclusively for GIAIC students."
+    },
+    {
+      "name": "asharibali--ramadan-prompting-nights",
+      "source": "./asharibali--ramadan-prompting-nights",
+      "description": "A scenario-based prompting competition exclusively for GIAIC students."
+    },
+    {
+      "name": "asharibali--ramadan-prompting-nights",
+      "source": "./asharibali--ramadan-prompting-nights",
+      "description": "A scenario-based prompting competition exclusively for GIAIC students."
+    },
+    {
+      "name": "vectimus--vectimus",
+      "source": "./vectimus--vectimus",
+      "description": "Deterministic governance for AI coding agents. Cedar-based policy engine that intercepts every agent action and evaluates it against deterministic rules before execution."
+    },
+    {
       "name": "compozy--kb",
       "source": "./compozy--kb",
       "description": "kb"
@@ -39957,6 +40082,16 @@
       "name": "mattgierhart--prd-driven-context-engineering",
       "source": "./mattgierhart--prd-driven-context-engineering",
       "description": "PRD-driven Context Engineering: A systematic approach to building AI-powered products using progressive documentation and context-aware development workflows"
+    },
+    {
+      "name": "omiq--rgc-basic",
+      "source": "./omiq--rgc-basic",
+      "description": "Modern cross-platform BASIC Interpreter with classic syntax compatibility, written in C "
+    },
+    {
+      "name": "aldegad--kuma-studio",
+      "source": "./aldegad--kuma-studio",
+      "description": "Playwright-shaped browser sharing for coding agents, with picks, job cards, and visible paw feedback in your real browser."
     },
     {
       "name": "navikt--cplt",
@@ -41029,6 +41164,21 @@
       "description": "Enforce Architecture Decision Records as executable rules \u2014 for both humans and AI agents"
     },
     {
+      "name": "wjt0321--china-stock-analyst",
+      "source": "./wjt0321--china-stock-analyst",
+      "description": "\u4e2d\u56fd\u80a1\u7968\u5206\u6790\u5e08-china-stock-analyst"
+    },
+    {
+      "name": "zht043--agenticcodingtutorial",
+      "source": "./zht043--agenticcodingtutorial",
+      "description": "AgenticCodingTutorial"
+    },
+    {
+      "name": "ai-agents-incubator--n8n-pilot",
+      "source": "./ai-agents-incubator--n8n-pilot",
+      "description": "n8n-pilot"
+    },
+    {
       "name": "khangbdd--phoenix",
       "source": "./khangbdd--phoenix",
       "description": "phoenix"
@@ -41472,6 +41622,21 @@
       "name": "aave--aave-sdk",
       "source": "./aave--aave-sdk",
       "description": "The official SDK for Aave V3 \ud83d\udc7b."
+    },
+    {
+      "name": "cloudchef--atlasclaw",
+      "source": "./cloudchef--atlasclaw",
+      "description": "AtlasClaw is an enterprise agent framework supporting mutliple users and multi system integration. "
+    },
+    {
+      "name": "zzzgydi--verge-browser",
+      "source": "./zzzgydi--verge-browser",
+      "description": "A browser sandbox platform for agents."
+    },
+    {
+      "name": "lalanmo--muxagent",
+      "source": "./lalanmo--muxagent",
+      "description": "Run coding tasks through graph-based workflows with Codex and Claude Code."
     },
     {
       "name": "10xchengtu--mux0",
@@ -42119,6 +42284,16 @@
       "description": "Durabull gives your team one clean command surface to inspect queues, recover failed jobs, and keep distributed workers healthy without digging through Redis internals."
     },
     {
+      "name": "krcpa--elif-rs",
+      "source": "./krcpa--elif-rs",
+      "description": "elif.rs"
+    },
+    {
+      "name": "jvgomg--podkit",
+      "source": "./jvgomg--podkit",
+      "description": "\ud83d\udd04\ud83c\udfb5Modern TypeScript toolkit and CLI for managing iPods"
+    },
+    {
       "name": "jojobeans1981--ember-campfire-edition",
       "source": "./jojobeans1981--ember-campfire-edition",
       "description": "The introductory app for what will be  the next generation of dyslexia intervention using AI."
@@ -42602,6 +42777,26 @@
       "name": "honeymux--honeymux",
       "source": "./honeymux--honeymux",
       "description": "A new UX layer for the terminal, built on tmux"
+    },
+    {
+      "name": "adilmoujahid--p5js-ai-editor",
+      "source": "./adilmoujahid--p5js-ai-editor",
+      "description": "A modern, web-based IDE for creating and editing p5.js sketches with AI assistance and Model Context Protocol (MCP) integration for Claude Desktop."
+    },
+    {
+      "name": "jackby03--agentic-collaboration-standard",
+      "source": "./jackby03--agentic-collaboration-standard",
+      "description": "A unified open format for agent-ready projects across tools, teams, and platforms."
+    },
+    {
+      "name": "techopolis--perspective-studio",
+      "source": "./techopolis--perspective-studio",
+      "description": "Your LLM playground on Apple devices. Run open-source AI models locally on your Mac with a native SwiftUI interface."
+    },
+    {
+      "name": "ewhauser--gbash",
+      "source": "./ewhauser--gbash",
+      "description": "Pure Go bash implementation for agent sandboxes"
     },
     {
       "name": "shanraisshan--gemini-cli-best-practice",
@@ -43112,6 +43307,26 @@
       "name": "leonardsellem--readwise-vector-db",
       "source": "./leonardsellem--readwise-vector-db",
       "description": "Turn your Readwise library into a blazing-fast, self-hosted semantic search engine \u2013 complete with nightly syncs, vector search API, Prometheus metrics, and a streaming MCP server for LLM clients."
+    },
+    {
+      "name": "definableai--definable-ai",
+      "source": "./definableai--definable-ai",
+      "description": "Agent Framework that just works out of the box \u2b50"
+    },
+    {
+      "name": "jhao0413--code-agent-connect",
+      "source": "./jhao0413--code-agent-connect",
+      "description": " Telegram bridge for local claude, codex, neovate, and opencode \u2014 with per-session working directories and background   service support   "
+    },
+    {
+      "name": "freematters--freematters",
+      "source": "./freematters--freematters",
+      "description": "Agent-native developer tools \u2014 CLI plugins for AI coding agents"
+    },
+    {
+      "name": "semianalysisai--inferencex-app",
+      "source": "./semianalysisai--inferencex-app",
+      "description": "Dashboard for InferenceX\u2122, Open Source Continuous Inference"
     },
     {
       "name": "iamtouchskyer--logex",
@@ -43632,6 +43847,16 @@
       "name": "pmeenan--waterfall-tools",
       "source": "./pmeenan--waterfall-tools",
       "description": "Tools for parsing and visualizing network waterfalls"
+    },
+    {
+      "name": "roelfdiedericks--goclaw",
+      "source": "./roelfdiedericks--goclaw",
+      "description": "goclaw is openclaw in go"
+    },
+    {
+      "name": "alienzhou--zero2agent",
+      "source": "./alienzhou--zero2agent",
+      "description": "A hands-on course on building an AI Agent Harness from scratch \u2014 code included, with a full step-by-step build log, based on real product experience."
     },
     {
       "name": "lucianaib0318--geomind",
@@ -45259,6 +45484,11 @@
       "description": "\ud83c\udf10 AI-powered Laravel translator - Auto-discovers strings, manages translations intelligently, and streamlines multilingual apps"
     },
     {
+      "name": "krzemienski--claude-code-builder",
+      "source": "./krzemienski--claude-code-builder",
+      "description": "AI-powered Python CLI tool that automates the entire software development lifecycle using the Claude Code SDK. From specification to deployment, Claude Code Builder"
+    },
+    {
       "name": "develite98--angular-best-practices",
       "source": "./develite98--angular-best-practices",
       "description": "Performance optimization guidelines and coding standards for Angular applications, designed for AI agents and LLMs."
@@ -45757,6 +45987,86 @@
       "name": "membrowse--membrowse-action",
       "source": "./membrowse--membrowse-action",
       "description": "Track and analyze binary size and memory footprint in embedded firmware"
+    },
+    {
+      "name": "kaptinlin--gozod",
+      "source": "./kaptinlin--gozod",
+      "description": "Go port of TypeScript Zod validation library with full API compatibility and type safety"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
+    },
+    {
+      "name": "vlad-ryzhkov--ai-qa-workshop-feb19",
+      "source": "./vlad-ryzhkov--ai-qa-workshop-feb19",
+      "description": "  AI-\u043f\u0440\u043e\u043c\u043f\u0442\u044b, \u0430\u0433\u0435\u043d\u0442\u044b \u0438 \u0430\u043d\u0442\u0438-\u043f\u0430\u0442\u0442\u0435\u0440\u043d\u044b \u0434\u043b\u044f QA \u2014 \u043e\u0442 \u0430\u0443\u0434\u0438\u0442\u0430 \u0441\u043f\u0435\u0446\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0439 \u0434\u043e \u0433\u0435\u043d\u0435\u0440\u0430\u0446\u0438\u0438 API-\u0442\u0435\u0441\u0442\u043e\u0432"
     },
     {
       "name": "googlecloudplatform--cxas-scrapi",
@@ -47439,6 +47749,11 @@
       "description": "COmmunity Driven Development, Yep - is an autonomous development assistant that integrates with Git hosting platforms."
     },
     {
+      "name": "kevinshowkat--brood",
+      "source": "./kevinshowkat--brood",
+      "description": "Reference-first AI image editing desktop for developers (macOS, Tauri, Rust)."
+    },
+    {
       "name": "13point5--agent-canvas",
       "source": "./13point5--agent-canvas",
       "description": "agent-canvas"
@@ -48042,6 +48357,16 @@
       "name": "gnomesofzurich--scxml",
       "source": "./gnomesofzurich--scxml",
       "description": "SCXML - State Chart XML (State Machine Notation for Control Abstraction)"
+    },
+    {
+      "name": "williamzujkowski--standards",
+      "source": "./williamzujkowski--standards",
+      "description": "LLM Software Development Standards Start any project right in 30 seconds. Battle-tested standards from real production systems."
+    },
+    {
+      "name": "krejcif--magector",
+      "source": "./krejcif--magector",
+      "description": "magector"
     },
     {
       "name": "vm--nila-code",
@@ -49397,6 +49722,11 @@
       "name": "meow-calculations--deepseek-web-to-api",
       "source": "./meow-calculations--deepseek-web-to-api",
       "description": "DeepSeek_Web_To_API"
+    },
+    {
+      "name": "regionallyfamous--noggin",
+      "source": "./regionallyfamous--noggin",
+      "description": "A second brain for WordPress. Create notes, link them together, find anything instantly."
     },
     {
       "name": "mohiwalla--memes",
@@ -50939,6 +51269,21 @@
       "description": "nextjs-ai-chatbot"
     },
     {
+      "name": "hkopenai--hk-finance-mcp-server",
+      "source": "./hkopenai--hk-finance-mcp-server",
+      "description": "This is an MCP server that provides access to finance related data in Hong Kong through a FastMCP interface."
+    },
+    {
+      "name": "alimehasin--cvforest",
+      "source": "./alimehasin--cvforest",
+      "description": "a professional talent platform designed to connect candidates and HR teams"
+    },
+    {
+      "name": "alimehasin--cvforest",
+      "source": "./alimehasin--cvforest",
+      "description": "a professional talent platform designed to connect candidates and HR teams"
+    },
+    {
       "name": "marcoporcellato--logseq-matryca-parser",
       "source": "./marcoporcellato--logseq-matryca-parser",
       "description": "Stop feeding broken Markdown to your AI. A deterministic Logseq parser that preserves parent-child context for RAG, plus a 60FPS visualizer."
@@ -51662,6 +52007,21 @@
       "name": "semos-labs--epist",
       "source": "./semos-labs--epist",
       "description": "Gmail client for your terminal"
+    },
+    {
+      "name": "maoxiaoyue--hypgo",
+      "source": "./maoxiaoyue--hypgo",
+      "description": "A new Go programming framework that support AI-Human Collaborative and save huge tokens"
+    },
+    {
+      "name": "nvidia--isv-ncp-validation-suite",
+      "source": "./nvidia--isv-ncp-validation-suite",
+      "description": "Validation and management tools for NVIDIA ISV Lab environments."
+    },
+    {
+      "name": "nvidia--isv-ncp-validation-suite",
+      "source": "./nvidia--isv-ncp-validation-suite",
+      "description": "Validation and management tools for NVIDIA ISV Lab environments."
     },
     {
       "name": "lightninglabs--lnget",
@@ -59339,6 +59699,11 @@
       "description": "A Figma-like canvas for HTML, driven by AI coding agents"
     },
     {
+      "name": "bwelker--edwin",
+      "source": "./bwelker--edwin",
+      "description": "Personal AI Chief of Staff -- built on cognitive architecture principles"
+    },
+    {
       "name": "ocrbase-hq--ocrbase",
       "source": "./ocrbase-hq--ocrbase",
       "description": "\ud83d\udcc4 PDF/IMG ->.MD/JSON Document OCR API for PaddleOCR and GLMOCR. Self-hostable."
@@ -62884,6 +63249,71 @@
       "description": "A step-by-step system for business owners to onboard AI agents the way they'd onboard a new hire \u2014 built for Claude Code."
     },
     {
+      "name": "hellock--agent-harness-eval",
+      "source": "./hellock--agent-harness-eval",
+      "description": "agent-harness-eval"
+    },
+    {
+      "name": "dimknaf--braindb",
+      "source": "./dimknaf--braindb",
+      "description": "An \"LLM wiki\" upgraded to a real database \u2014 typed entities, graph relations, HTTP API, and a built-in natural-language agent."
+    },
+    {
+      "name": "berkcangumusisik--forge-flow-ai",
+      "source": "./berkcangumusisik--forge-flow-ai",
+      "description": "forge-flow-ai"
+    },
+    {
+      "name": "bolderapps--agentic-workflow",
+      "source": "./bolderapps--agentic-workflow",
+      "description": "agentic-workflow"
+    },
+    {
+      "name": "yukimemi--rvpm",
+      "source": "./yukimemi--rvpm",
+      "description": "Fast Neovim plugin manager with pre-compiled loader and merge optimization"
+    },
+    {
+      "name": "franklesniak--gloryrole",
+      "source": "./franklesniak--gloryrole",
+      "description": "An unsupervised role mining engine written in PowerShell. Feed it cloud activity logs and it figures out who does what, groups similar principals via K-Means clustering, and generates least-privilege "
+    },
+    {
+      "name": "wlfghdr--agentic-kb",
+      "source": "./wlfghdr--agentic-kb",
+      "description": "AI-native, layered knowledge operations. A specification, reference skills, and a portable agent for any AI harness and any agentic IDE."
+    },
+    {
+      "name": "hyun06000--ail",
+      "source": "./hyun06000--ail",
+      "description": "A programming language designed for AI as the primary author of code"
+    },
+    {
+      "name": "planetf1--otelite",
+      "source": "./planetf1--otelite",
+      "description": "Lightweight OpenTelemetry receiver and local dashboard for LLM development \u2014 single binary, zero dependencies"
+    },
+    {
+      "name": "p2pdotme--p2pdotme-sdk",
+      "source": "./p2pdotme--p2pdotme-sdk",
+      "description": "TypeScript SDK for P2P.me"
+    },
+    {
+      "name": "only-pro-marketer--linkedin",
+      "source": "./only-pro-marketer--linkedin",
+      "description": "Linkedin Auto Reserch "
+    },
+    {
+      "name": "ersinkoc--runcodingplan",
+      "source": "./ersinkoc--runcodingplan",
+      "description": "RunCodingPlan"
+    },
+    {
+      "name": "getainode--ainode",
+      "source": "./getainode--ainode",
+      "description": "Turn any NVIDIA GPU into a local AI platform. Inference + fine-tuning in your browser. One command to start, automatic clustering."
+    },
+    {
       "name": "cheerhuan--save-your-token",
       "source": "./cheerhuan--save-your-token",
       "description": "save-your-token"
@@ -63567,6 +63997,91 @@
       "name": "xiarongwen--boss-auto-job",
       "source": "./xiarongwen--boss-auto-job",
       "description": "\ud83c\udfaf BOSS\u76f4\u8058 skill - \u641c\u7d22+AI\u5339\u914d+\u81ea\u52a8\u6295\u9012 (Camoufox\u9690\u8eab\u6a21\u5f0f)"
+    },
+    {
+      "name": "maelwalser--phantom",
+      "source": "./maelwalser--phantom",
+      "description": "Tired of git worktrees?"
+    },
+    {
+      "name": "arthur-ficial--apfel-mcp",
+      "source": "./arthur-ficial--apfel-mcp",
+      "description": "Token-budget-optimized MCP servers for apfel: url-fetch (Readability-based) + ddg-search (experimental) + search-and-fetch (compound). Built for apfel's 4096-token context window."
+    },
+    {
+      "name": "borodark--zed",
+      "source": "./borodark--zed",
+      "description": "Declarative BEAM deployment on FreeBSD/illumos. ZFS properties as state store. No etcd, no YAML."
+    },
+    {
+      "name": "nirholas--scroll-zoom-thing",
+      "source": "./nirholas--scroll-zoom-thing",
+      "description": "CSS 3D perspective scrolling \u2014 a pure-CSS parallax. perspective on the scroll container pushes each layer back with translateZ; layers farther from the vanishing point move slower. scale() compensates"
+    },
+    {
+      "name": "mpalermiti--outlook-mcp",
+      "source": "./mpalermiti--outlook-mcp",
+      "description": "MCP server for Microsoft Outlook personal accounts via Microsoft Graph API. 52 tools \u2014 mail, calendar, contacts, to-do, drafts, attachments. Community project, not affiliated with Microsoft."
+    },
+    {
+      "name": "giobebbe--second-brain-os-template",
+      "source": "./giobebbe--second-brain-os-template",
+      "description": "Second Brain OS template: a preconfigured Obsidian + Claude Code vault for solopreneurs and content creators"
+    },
+    {
+      "name": "risingwavelabs--agent-skills",
+      "source": "./risingwavelabs--agent-skills",
+      "description": "Agent Skills for RisingWave."
+    },
+    {
+      "name": "hdjsadgfwtg--hibiki",
+      "source": "./hdjsadgfwtg--hibiki",
+      "description": "A full-featured immersion language learning suite for mobile."
+    },
+    {
+      "name": "marc-riedel--neogram-nvim",
+      "source": "./marc-riedel--neogram-nvim",
+      "description": "Neovim grammar and spelling checker \u2014 fork of taal.nvim with visual/paragraph selection, async + cancel, navigation and status-line integration"
+    },
+    {
+      "name": "yashaiguy-dev--faceless-youtube-agents",
+      "source": "./yashaiguy-dev--faceless-youtube-agents",
+      "description": "Automated faceless YouTube video pipeline - clone any channel's style, generate videos on autopilot with Claude Code."
+    },
+    {
+      "name": "sesang06--vibe-coding-video",
+      "source": "./sesang06--vibe-coding-video",
+      "description": "Remotion video project - \ubc14\uc774\ube0c \ucf54\ub529 \uac1c\ubc1c\uc790 \uc2a4\ud1a0\ub9ac"
+    },
+    {
+      "name": "xunholy--promptzero",
+      "source": "./xunholy--promptzero",
+      "description": "AI operated Flipper Zero"
+    },
+    {
+      "name": "dxsun97--html2pptx-pro",
+      "source": "./dxsun97--html2pptx-pro",
+      "description": "Convert HTML to PowerPoint presentations with JavaScript."
+    },
+    {
+      "name": "cheerhuan--save-your-token",
+      "source": "./cheerhuan--save-your-token",
+      "description": "save-your-token"
+    },
+    {
+      "name": "iamjoshuadavies--corridorkey-ae",
+      "source": "./iamjoshuadavies--corridorkey-ae",
+      "description": "Native Adobe After Effects plugin for advanced green-screen keying, powered by local ML inference (MLX on macOS, PyTorch/CUDA on Windows). Based on the technique by Niko Pueringer of Corridor Digital."
+    },
+    {
+      "name": "khanhnd157--mazessh",
+      "source": "./khanhnd157--mazessh",
+      "description": "SSH Identity Orchestrator for Git Workflows"
+    },
+    {
+      "name": "alexsvdk--gigaplexity-mcp",
+      "source": "./alexsvdk--gigaplexity-mcp",
+      "description": "MCP server that turns GigaChat into a web-connected search assistant with ask, research, and reason tools."
     },
     {
       "name": "keshavxa--keshav-portfolio",
