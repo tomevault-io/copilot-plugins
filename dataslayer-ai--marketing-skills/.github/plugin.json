@@ -1,0 +1,9 @@
+{
+  "name": "dataslayer-ai--marketing-skills",
+  "displayName": "Marketing-skills",
+  "description": "Marketing agent skills powered by real data. Connect Claude Code to your actual Google Ads, GA4, Search Console, Meta Ads, LinkedIn Ads and 50+ platforms via Dataslayer MCP \u2014 no copy-pasting required.",
+  "version": "1.0.0",
+  "author": "Dataslayer-AI",
+  "homepage": "https://github.com/Dataslayer-AI/Marketing-skills",
+  "skills": []
+}
