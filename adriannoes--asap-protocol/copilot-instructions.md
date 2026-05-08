@@ -1,63 +1,63 @@
-## frontend-best-practices
+## git-commits
 
-> Standards for modern Frontend development using Next.js 16 (App Router), React 19, Tailwind CSS v4, and Shadcn/UI. Apply when working on `apps/web` or `packages/ui`.
+> Apply when generating git commit messages, performing commits, pushing to remote, or suggesting commit-related changes. Enforces Conventional Commits format and pre-push CI verification.
 
 
-# Frontend Best Practices (Next.js 16 + Tailwind)
+# Git Conventional Commits
 
-## 1. Core Stack
-- **Framework**: Next.js 16 (App Router). Do NOT use `pages/`.
-- **Language**: TypeScript (Strict).
-- **Styling**: Tailwind CSS v4. No CSS-in-JS.
-- **Components**: Shadcn/UI (Radix Primitives).
-- **Icons**: Lucide React.
+Use the [Conventional Commits](https://www.conventionalcommits.org/) specification to generate commit messages.
 
-## 2. Server Components (RSC) First
-- **Default to Server**: All components are Server Components by default.
-- **Use Client sparingly**: Only add `"use client"` when you need:
-  - Event listeners (`onClick`, `onChange`).
-  - React Hooks (`useState`, `useEffect`).
-  - Browser-only APIs.
-- **Pattern**: Push client logic down the tree. Keep the page layout server-side.
+## Format
+```
+<type>[optional scope]: <description>
 
-## 3. Data Fetching
-- **Server Actions**: Use Server Actions for mutations (`<form action={...}>`).
-- **Fetch**: Use standard `fetch` in RSCs for data loading.
-- **No useEffect for data**: Avoid fetching data in `useEffect`. Use Server Components or React Query (if absolutely necessary for client-side polling).
+[optional body]
 
-## 4. Styling (Tailwind v4)
-- **Utility First**: Use utility classes directly.
-- **CN Helper**: ALWAYS use `cntl` or `cn` (clsx + tailwind-merge) for conditional classes.
-  ```tsx
-  <div className={cn("p-4", isActive && "bg-blue-500")}>
-  ```
-- **No arbitrary values**: Avoid `w-[123px]`. Use theme tokens (e.g., `w-32`).
-- **Design Aesthetic ("The Clean Architect")**: 
-  - Follow a functional minimalism approach. 
-  - Use Pure Black (`#000`) or Dark Zinc backgrounds (avoid pure `#FFF` in dark mode, use slight off-whites or glass layers).
-  - Rely on 1px subtle borders (e.g., `border-white/10`) and high contrast text.
-  - **Premium Interactions**: Actively use Glassmorphism (`backdrop-blur`), subtle lifts (`hover:-translate-y-0.5`), and radial gradient reveals on cards. Avoid static, flat data presentation.
-  - **Animation**: Use `framer-motion` for state transitions (`AnimatePresence`) and hero elements. Never use abrupt DOM swapping for major components.
-  - **Anti-Boilerplate Discipline**: Strictly **NO** heavy neon glows, excessive static gradients, or generic "Lovable/v0" pill-shaped (`rounded-full`) colorful layouts. The UI must feel like a highly technical, monochromatic engineering tool, not a generic SaaS template. Let the physics and motion provide the "wow" factor, not coloring in background divs.
-  - **Consult**: Always refer to `product/design/design-system.md` for the single source of truth on UI/UX behavior.
+[optional footer(s)]
+```
 
-## 5. Component Architecture
-- **Shadcn**: Use `packages/ui` components (e.g., `<Button>`, `<Card>`) instead of HTML tags.
-- **Composition**: Build complex UIs by composing small, single-responsibility components.
-- **Accessibility**: Use semantic HTML (`<main>`, `<article>`, `<button>`) and ARIA roles where Shadcn doesn't cover it.
+## Commit Types
+- **feat**: A new feature (correlates with MINOR in SemVer).
+- **fix**: A bug fix (correlates with PATCH in SemVer).
+- **docs**: Documentation only changes.
+- **style**: Changes that do not affect the meaning of the code (white-space, formatting, etc.).
+- **refactor**: A code change that neither fixes a bug nor adds a feature.
+- **perf**: A code change that improves performance.
+- **test**: Adding missing tests or correcting existing tests.
+- **build**: Changes that affect the build system or external dependencies.
+- **ci**: Changes to CI configuration files and scripts.
+- **chore**: Other changes that don't modify src or test files.
 
-## 6. Project Structure `apps/web`
-- `app/`: Routes and layouts.
-- `components/`: Feature-specific components.
-- `lib/`: Utilities and generic helpers.
-- `actions/`: Server Actions.
-- `hooks/`: Custom React hooks.
+## Rules
+1. **Breaking Changes**: Must be indicated by a `!` after the type/scope OR by `BREAKING CHANGE:` in the footer.
+2. **Case Sensitivity**: Types must be lowercase (except `BREAKING CHANGE` in footers).
+3. **Description**: Short, imperative summary of the change.
+4. **Body**: Longer description of "what" and "why" (not "how").
+5. **Footers**: Used for tracking issues (e.g., `Refs: #123`) or breaking changes.
 
-## 7. State Management
-1. **URL State**: Query params (`?search=foo`) for shareable state.
-2. **Server State**: RSC + Cache.
-3. **Local State**: `useState` / `useReducer`.
-4. **Global State**: Minimal usage (Zustand) if props drilling becomes unmanageable.
+## Pre-Push CI Verification
+
+Before pushing to the repository, always run the full CI check suite locally to ensure code quality:
+
+1. **Linting**: `uv run ruff check .` - Verify code style and catch common errors
+2. **Formatting**: `uv run ruff format --check .` - Ensure consistent code formatting (or `uv run ruff format .` to auto-fix)
+3. **Type Checking**: `uv run mypy src/ scripts/ tests/` - Validate type annotations (strict for src/scripts, relaxed for tests)
+4. **Tests**: `PYTHONPATH=src uv run pytest --cov=src --cov-report=xml` - Run full test suite with coverage
+5. **Security**: `uv sync --frozen --all-extras --dev --no-extra crewai --no-extra llamaindex && uv run pip-audit --ignore-vuln CVE-2026-4539 --ignore-vuln CVE-2026-3219` — same as the CI security job (see `SECURITY.md`); use full `uv sync --frozen --all-extras --dev` when auditing optional integration extras separately
+
+### Pre-Push CI Verification (Web App / TypeScript)
+
+If you modified files in `apps/web/`:
+1. **Linting**: `npm run lint` or `npx eslint .`
+2. **Type Checking**: `npx tsc --noEmit`
+3. **Tests**: `npx vitest run` (or `npm test`)
+4. **Build Verification**: `npm run build` (Ensures Next.js builds successfully)
+
+**Quick Fix Commands**:
+- Auto-fix linting issues: `uv run ruff check --fix .`
+- Auto-format code: `uv run ruff format .`
+
+All checks must pass before pushing to maintain code quality and prevent CI failures.
 
 ---
 > Source: [adriannoes/asap-protocol](https://github.com/adriannoes/asap-protocol) — distributed by [TomeVault](https://tomevault.io).
