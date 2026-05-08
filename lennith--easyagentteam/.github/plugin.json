@@ -1,0 +1,9 @@
+{
+  "name": "lennith--easyagentteam",
+  "displayName": "EasyAgentTeam",
+  "description": "A self-built project for exploring practical task-driven multi-agent collaboration in small team workflows, including task assignment, discussion, progress tracking, and runtime observability.",
+  "version": "1.0.0",
+  "author": "Lennith",
+  "homepage": "https://github.com/Lennith/EasyAgentTeam",
+  "skills": []
+}
