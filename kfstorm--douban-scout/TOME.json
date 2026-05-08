@@ -1,0 +1,44 @@
+{
+  "name": "douban-scout",
+  "owner": "kfstorm",
+  "repo": "douban-scout",
+  "description": "\u4e00\u4e2a\u73b0\u4ee3\u5316\u7684 Web \u5e94\u7528\uff0c\u7528\u4e8e\u63a2\u7d22\u8c46\u74e3\u7535\u5f71\u548c\u7535\u89c6\u8282\u76ee\uff0c\u914d\u5907\u5f3a\u5927\u7684\u7b5b\u9009\u548c\u641c\u7d22\u529f\u80fd\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/kfstorm/douban-scout",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T15:01:27Z"
+}
