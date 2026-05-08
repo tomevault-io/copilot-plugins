@@ -1,0 +1,9 @@
+{
+  "name": "westpoint-io--dustoff",
+  "displayName": "dustoff",
+  "description": "\ud83d\udd0d Scan for JavaScript/TypeScript build artifacts \ud83d\udce6 (node_modules \ud83d\udcc1, .next \u2699\ufe0f, dist \ud83d\udce4, .cache \ud83d\uddc2\ufe0f, coverage \ud83d\udcca, .turbo \ud83c\udf2a\ufe0f, .parcel-cache \ud83d\udce6, and more) cluttering your filesystem. \ud83d\udcbe See how much space each",
+  "version": "1.0.0",
+  "author": "westpoint-io",
+  "homepage": "https://github.com/westpoint-io/dustoff",
+  "skills": []
+}
