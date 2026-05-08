@@ -4,7 +4,7 @@
   "repo": "ai-auto-work",
   "description": "Automatically completes the full workflow from requirement research \u2192 research review \u2192 planning \u2192 plan review \u2192 development \u2192  development review using \u2192 test AI large language models. Capable of autonomously handling medium to large-scale engineering projects.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/chaohong-ai/ai-auto-work",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T15:39:00Z"
+  "distributed_at": "2026-05-08T08:48:40Z"
 }
