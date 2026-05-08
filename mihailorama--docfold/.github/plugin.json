@@ -1,0 +1,9 @@
+{
+  "name": "mihailorama--docfold",
+  "displayName": "docfold",
+  "description": "Turn any document into structured data. Unified Python interface for document structuring engines with built-in evaluation.",
+  "version": "1.0.0",
+  "author": "Mihailorama",
+  "homepage": "https://github.com/Mihailorama/docfold",
+  "skills": []
+}
