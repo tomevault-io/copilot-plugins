@@ -1,0 +1,9 @@
+{
+  "name": "bluzir--c8c",
+  "displayName": "c8c",
+  "description": "Open-source skill operations for Claude Code",
+  "version": "1.0.0",
+  "author": "bluzir",
+  "homepage": "https://github.com/bluzir/c8c",
+  "skills": []
+}
