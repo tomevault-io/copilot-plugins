@@ -1,0 +1,9 @@
+{
+  "name": "kekzl--imp",
+  "displayName": "imp",
+  "description": "High-performance LLM inference engine in C++/CUDA for NVIDIA Blackwell GPUs (RTX 5090)",
+  "version": "1.0.0",
+  "author": "kekzl",
+  "homepage": "https://github.com/kekzl/imp",
+  "skills": []
+}
