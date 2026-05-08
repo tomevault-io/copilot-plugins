@@ -1,0 +1,9 @@
+{
+  "name": "jarodr47--portager",
+  "displayName": "Portager",
+  "description": "Portage is a Kubernetes operator that declaratively syncs container images between registries. The name comes from the act of carrying cargo between two bodies of water, which is exactly what this doe",
+  "version": "1.0.0",
+  "author": "jarodr47",
+  "homepage": "https://github.com/jarodr47/Portager",
+  "skills": []
+}
