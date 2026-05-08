@@ -1,0 +1,9 @@
+{
+  "name": "un4ckn0wl3z--dioprocess",
+  "displayName": "dioprocess",
+  "description": "A modern, lightweight Windows process monitor built with Rust, Dioxus, and Windows API.",
+  "version": "1.0.0",
+  "author": "un4ckn0wl3z",
+  "homepage": "https://github.com/un4ckn0wl3z/dioprocess",
+  "skills": []
+}
