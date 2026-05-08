@@ -1,70 +1,48 @@
-## mcp-servers
+## single-user
 
-> MCP server management patterns for Open Edison
+> Single-user design principles for Open Edison
 
-## MCP Server Management
+## Single-User Design Philosophy
 
-Open Edison manages MCP servers as subprocess instances, not containers or database entries.
+Open Edison is deliberately designed for single-user deployment. Always maintain this focus.
 
-### Core Patterns
+### Core Principles
 
-```python
-# MCP server configuration in config.json
-{
-  "mcp_servers": [
-    {
-      "name": "filesystem",
-      "command": "uvx", 
-      "args": ["mcp-server-filesystem", "/path"],
-      "env": {"VAR": "value"},
-      "enabled": true
-    }
-  ]
-}
+- **One user, one instance** - No multi-tenancy
+- **Local deployment** - Designed for self-hosting
+- **Simple authentication** - Single API key, no user management
+- **JSON configuration** - No database complexity
+- **Process management** - Subprocess over containers
 
-# Process management
-process = subprocess.Popen(
-    [server.command] + server.args,
-    env=server.env,
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-    stdin=subprocess.PIPE,
-    text=True
-)
-```
+### What NOT to add
 
-### Key Principles
+❌ User management systems  
+❌ Database migrations  
+❌ Complex authentication  
+❌ Multi-tenant features  
+❌ Organization/team features  
 
-- **Subprocess-based** - Each MCP server runs as separate process
-- **JSON configuration** - No database, all config in config.json
-- **Simple lifecycle** - Start, stop, check status
-- **Process isolation** - Servers don't affect each other
+### What to maintain
 
-### Common Operations
+✅ Simple API key authentication  
+✅ JSON configuration file  
+✅ Process-based MCP server management  
+✅ Single-port server architecture  
+✅ Local file storage  
+
+### Code Patterns
 
 ```python
-from src.proxy import MCPProxy
+# Good: Simple API key check
+def verify_api_key(credentials):
+    if credentials.credentials != config.server.api_key:
+        raise HTTPException(401, "Invalid API key")
 
-proxy = MCPProxy()
-
-# Start server
-await proxy.start_server("filesystem")
-
-# Check if running  
-is_running = await proxy.is_server_running("filesystem")
-
-# Stop server
-await proxy.stop_server("filesystem")
+# Bad: Complex user lookup
+# def get_user_by_token(token): ...
 ```
 
-### Error Handling
-
-- Graceful shutdown with terminate() then kill()
-- Process cleanup on server shutdown
-- Health monitoring for crashed processes
-- Clear error messages for failed starts
-
-Keep MCP server management simple and process-focused.
+When in doubt, choose the simpler approach that works for one user on one machine.
 
 ---
 > Source: [Edison-Watch/open-edison](https://github.com/Edison-Watch/open-edison) — distributed by [TomeVault](https://tomevault.io).
