@@ -1,0 +1,9 @@
+{
+  "name": "openysm--ysmparser",
+  "displayName": "YSMParser",
+  "description": "A Parser to recover Yes-Steve-Model Encrypted Binaries.",
+  "version": "1.0.0",
+  "author": "OpenYSM",
+  "homepage": "https://github.com/OpenYSM/YSMParser",
+  "skills": []
+}
