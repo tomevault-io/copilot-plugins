@@ -1,0 +1,9 @@
+{
+  "name": "veithly--vibeshell",
+  "displayName": "vibeshell",
+  "description": "The first SSH client built for AI agents. Let Claude Code, Codex, and other CLI agents manage your servers through MCP skills. Beautiful UI, native performance.",
+  "version": "1.0.0",
+  "author": "veithly",
+  "homepage": "https://github.com/veithly/vibeshell",
+  "skills": []
+}
