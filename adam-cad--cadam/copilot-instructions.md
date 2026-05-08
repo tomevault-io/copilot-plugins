@@ -1,98 +1,42 @@
-## backend-architecture
+## code-style
 
-> The backend is built on Supabase, providing PostgreSQL database, authentication, and Edge Functions for serverless API endpoints.
+> - Variables: `^[a-z][a-zA-Z0-9]*$`
 
-# Backend Architecture - Supabase
+# Code Style Conventions
+version: 1.0.0
 
-## Overview
-The backend is built on Supabase, providing PostgreSQL database, authentication, and Edge Functions for serverless API endpoints.
+## TypeScript Rules
 
-## Database Structure
+### Naming Conventions
+- Variables: `^[a-z][a-zA-Z0-9]*$`
+- Functions: `^[a-z][a-zA-Z0-9]*$`
+- Classes: `^[A-Z][a-zA-Z0-9]*$`
+- Interfaces: `^[A-Z][a-zA-Z0-9]*$`
+- Types: `^[A-Z][a-zA-Z0-9]*$`
 
-### Core Tables
-- `conversations`: Chat conversations between users and AI
-- `messages`: Individual messages within conversations
+### Formatting
+- Max line length: 100 characters
+- Indentation: 2 spaces
+- Semicolons: required
+- Quotes: single quotes
 
-### Key Relationships
-- Users have many conversations
-- Conversations have many messages
-- Users have one subscription
+## React Rules
+- Component naming: `^[A-Z][a-zA-Z0-9]*$`
+- File naming: `^[A-Z][a-zA-Z0-9]*\.tsx$`
+- Props interface: `^[A-Z][a-zA-Z0-9]*Props$`
 
-## Edge Functions (`supabase/functions/`)
+## Import Rules
+### Order
+1. react
+2. external-libraries
+3. components
+4. hooks
+5. utils
+6. types
+7. styles
 
-### Authentication & User Management
-- User registration and login handled by Supabase Auth
-- JWT tokens for API authentication
-
-### Core Functions
-
-#### Chat Functions
-- `chat/`: Parametric AI generation chat
-
-### Shared Utilities (`_shared/`)
-- `cors.ts`: Simple file with cors headers
-- `messageUtils.ts`: Utility functions for formating user messages
-- `parseParameter.ts`: Parameter parsing utilities
-- `supabaseClient.ts`: Functions for getting supabase client
-
-## API Patterns
-
-### Authentication
-- All sensitive functions require JWT authentication
-- Use Supabase client for user verification
-- Implement proper role-based access control
-
-### Error Handling
-- Consistent error response format
-- Proper HTTP status codes
-- Detailed error messages for debugging
-
-### CORS Configuration
-- Configured for frontend domain
-- Handle preflight requests
-- Support for development and production
-
-### Environment Variables
-- Stored in `supabase/functions/.env`
-- Include API keys for external services
-- Environment-specific configurations
-
-### Configuration
-- New functions should be put in config.toml
-- Persistent storage buckets can be put either in a migration or in config.toml
-
-## External Service Integration
-
-### AI Services
-- **Anthropic Claude**: Text generation and chat
-
-## Database Migrations
-
-### Migration Files
-- Located in `supabase/migrations/`
-- Version-controlled database schema changes
-- Include both schema and data migrations
-
-### Migration Patterns
-- Use descriptive migration names
-- Test migrations in development first
-
-## Development Workflow
-
-### Local Development
-- Use `supabase start` for local database
-- `supabase functions serve` for local functions
-- ngrok so model can access
-
-### Testing
-- Test functions locally before deployment
-- Use Supabase CLI for database operations
-- Validate webhook endpoints
-
-### Deployment
-- Functions deployed via Supabase CLI
-- Database migrations applied automatically
-- Environment variables configured in Supabase dashboard
+### Grouping
+- Use newlines between import groups
 
 ---
 > Source: [Adam-CAD/CADAM](https://github.com/Adam-CAD/CADAM) — distributed by [TomeVault](https://tomevault.io).
