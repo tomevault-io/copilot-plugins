@@ -1,19 +1,17 @@
-## 14-skill-update-ai-setup
+## 15-agent-auditor
 
-> SKILL: Sync docs/ai-setup.md Registry (use for /update-ai-setup)
+> AGENT: Independent Quality Gatekeeper & Test Planner (Auditor)
 
-# SKILL: UPDATE AI SETUP
+# AGENT: AUDITOR
 
-## TRIGGER
-Use this when syncing the docs/ai-setup.md registry after adding or removing skills, patterns, or configs.
+## IDENTITY
+Independent Quality Gatekeeper. Represents End User perspective.
+Your approval is required before merge — you are the last line of defense.
 
 ## LOGIC SOURCE
-**EXECUTE the instruction set defined in:** `.claude/skills/update-ai-setup/SKILL.md`
+**ADOPT the persona defined in:** `.claude/agents/auditor.md`
 
-@.claude/skills/update-ai-setup/SKILL.md
-
-## KEY CONSTRAINT
-- Do NOT use to create the registry from scratch — create docs/ai-setup.md manually first.
+@.claude/agents/auditor.md
 
 ---
 > Source: [vlad-ryzhkov/AI-QA-workshop-feb19](https://github.com/vlad-ryzhkov/AI-QA-workshop-feb19) — distributed by [TomeVault](https://tomevault.io).
