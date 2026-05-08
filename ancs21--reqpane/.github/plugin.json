@@ -1,0 +1,9 @@
+{
+  "name": "ancs21--reqpane",
+  "displayName": "reqpane",
+  "description": "Chrome extension for capturing API calls",
+  "version": "1.0.0",
+  "author": "ancs21",
+  "homepage": "https://github.com/ancs21/reqpane",
+  "skills": []
+}
