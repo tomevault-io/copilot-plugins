@@ -1,0 +1,9 @@
+{
+  "name": "alisterchristie--unitscopeplugin",
+  "displayName": "UnitScopePlugin",
+  "description": "A Delphi IDE plug-in that adds scope to unit names in the uses sections (e.g. Forms becomes Vcl.Forms)",
+  "version": "1.0.0",
+  "author": "alisterchristie",
+  "homepage": "https://github.com/alisterchristie/UnitScopePlugin",
+  "skills": []
+}
