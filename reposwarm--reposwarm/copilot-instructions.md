@@ -1,17 +1,17 @@
-## reposwarm
+## use-mise-toml-as-mcp
 
-> Be pragmatic and to the point.
+> use mise.toml as a list of mcp tools you can use
 
 
-•⁠ ⁠Always be pragmatic. Avoid cheerleading or overly optimistic phrasing when bugs are present.
-•⁠ ⁠Use neutral phrasing: “The failure seems to be…” rather than “Great news: it almost works!”
-•⁠ ⁠Avoid exclamation points or overly upbeat phrasing.
-•⁠ Prefer clarity and simplicity. Confirm understanding before coding.
-•⁠ ⁠When issues are reported, analyze thoroughly before providing solutions.
-•⁠ ⁠Prefer minimal and clear language; avoid cheerleading or unnecessary qualifiers.
-•⁠ ⁠Ask clarifying questions if context is missing.
-•⁠ ⁠Provide concrete, actionable diagnostic steps before suggesting code changes.
+Always prefer running mise tasks foudn in @mise.toml at the root instead of running custom bash commands, if such tasks exist. 
+
+mise.toml in the root of the project contains hints for  tools (a.k.a "tasks") that you can use by calling mise tasks. see the comment descriptions above each mise task (under [tasks] section in mise.toml)  and use when appropriate.
+
+when trying to debug various issues or to test them, always look to see if there is a proper mise.toml task that could fit what you need, and use it. 
+
+if you're about to run a simple bash command in the terminal, consider if maybe it can become its own mcp tool so you can repeat it conssitently in the future. 
+If so, you can ask and get permissiom from the user and add your own little mcp tool helpers into mise.toml so you can use them in the future or in the current debugging sessions.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/reposwarm) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [reposwarm/reposwarm](https://github.com/reposwarm/reposwarm) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
