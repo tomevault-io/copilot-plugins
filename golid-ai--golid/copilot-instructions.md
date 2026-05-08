@@ -1,57 +1,275 @@
-## seed-data
+## solidjs-pages
 
-> Patterns for development seed data — stable UUIDs, realistic data, cross-references
+> Patterns for SolidJS route pages — data fetching, state, modals, auth
 
 
-# Seed Data Patterns
+# SolidJS Page Patterns
 
-Follow the established pattern in `dev_seed.sql`.
+Follow the established patterns in `dashboard/index.tsx` and `settings/index.tsx`.
 
-## UUID Convention
+## Data Fetching
 
-Use stable, predictable UUIDs for cross-referencing:
+**Always use `onMount` + `createSignal` + `alive` guard + `batch`.** This is the established pattern across all pages. Do not use `createResource` — it causes orphaned computation warnings on route transitions and triggers route-level Suspense when inside conditional components.
 
-```sql
--- Entity type encoded in the UUID for readability
--- users:     a0000000-0000-0000-0000-00000000000N
--- resources: a0000000-0000-0000-0000-0000000000N0
--- items:     a0000000-0000-0000-0000-000000000N00
+> `createAsync` + `query` from `@solidjs/router` is the official SolidJS recommendation going forward (Solid 2.0). Not yet adopted in this project — use the signals pattern for consistency.
+
+```tsx
+// STANDARD — used on all pages
+const [data, setData] = createSignal<MyType[]>([]);
+const [loading, setLoading] = createSignal(true);
+const [error, setError] = createSignal("");
+
+let alive = true;
+onCleanup(() => {
+  alive = false;
+});
+
+const fetchData = async () => {
+  setLoading(true);
+  setError("");
+  try {
+    const result = await myApi.list();
+    if (!alive) return;
+    batch(() => {
+      setData(result);
+      setLoading(false);
+    });
+  } catch (err) {
+    if (!alive) return;
+    batch(() => {
+      setError(getErrorMessage(err, "Failed to load"));
+      setLoading(false);
+    });
+  }
+};
+
+onMount(() => {
+  fetchData();
+});
 ```
 
-Document the UUID mapping at the top of the file so they're easy to find.
+## Async Data Pattern (batch + defer + onMount)
 
-## Idempotency
+Three rules that MUST be used together for any page that fetches data:
 
-Every INSERT must use `ON CONFLICT ... DO UPDATE` or `ON CONFLICT ... DO NOTHING` so the seed can be re-run safely:
+**1. `batch()` signal updates** — wrap `setData` + `setLoading(false)` in `batch()` so they update atomically. Without this, nested reactive scopes resolve in intermediate states during route transitions, creating computations outside the reactive root.
 
-```sql
-INSERT INTO users (id, email, ...) VALUES (...)
-ON CONFLICT (email) DO UPDATE SET
-  registration_step = EXCLUDED.registration_step,
-  email_verified = EXCLUDED.email_verified;
+**2. `onMount` for initial fetch** — never rely on `createEffect` for the first fetch.
+
+**3. `defer: true` on `createEffect(on(...))` for reactive refetches** — prevents the effect from firing synchronously during mount (which overlaps with route transitions).
+
+**Exception: Auth guards** use `on()` without `defer` — they must fire synchronously to prevent flash of unauthorized content. SSR middleware handles the server-side redirect; the client-side effect is a safety net for SPA navigation. See `routes/(private).tsx`.
+
+```tsx
+import { batch, onMount, createEffect, on } from "solid-js";
+
+const fetchData = async () => {
+  setLoading(true);
+  setError("");
+  try {
+    const result = await api.list({ page: page() });
+    if (!alive) return;
+    batch(() => {
+      // ← atomic update
+      setData(result);
+      setLoading(false);
+    });
+  } catch (err) {
+    if (!alive) return;
+    batch(() => {
+      setError(getErrorMessage(err, "Failed to load"));
+      setLoading(false);
+    });
+  }
+};
+
+onMount(() => {
+  fetchData();
+}); // ← initial fetch
+createEffect(
+  on(
+    () => [filter(), page()] as const,
+    () => {
+      fetchData();
+    },
+    { defer: true }, // ← skip synchronous initial run
+  ),
+);
 ```
 
-## Data Quality
+## Alive Guard
 
-- **Realistic content** — real-sounding names, descriptions, skills. Not "test123" or "Lorem ipsum".
-- **All profile fields populated** — except file-based fields (resume_url, microview_url, etc.) which require actual uploads.
-- **Varied statuses** — seed entities in different states (new, in_progress, complete, approved) to test all UI states.
-- **Realistic timestamps** — use `NOW() - INTERVAL 'N days'` for created/updated dates to simulate a timeline.
+Every component with async operations needs the cleanup guard:
 
-## Cross-Entity Relationships
+```tsx
+let alive = true;
+onCleanup(() => {
+  alive = false;
+});
+```
 
-When adding a new entity type, seed the full chain. For example, items require:
+Check `if (!alive) return;` before every signal setter after an `await`.
 
-1. Users (user, admin)
-2. Parent resources (if applicable)
-3. Items (varied statuses)
-4. Related records (comments, history, etc.)
+````
 
-## When to Update
+## Signal-Driven Modals
 
-- After creating a new migration that adds tables — seed sample data immediately.
-- When adding a new feature — add seed data that exercises all states visible in the UI.
-- Seed data enables manual testing during development. Don't skip it.
+Detail views within list pages use a signal, not a sub-route:
+
+```tsx
+const [activeItem, setActiveItem] = createSignal<Item | null>(null);
+// Open: setActiveItem(item)
+// Close: setActiveItem(null)
+
+<Show when={activeItem()}>
+  {(item) => <DetailModal item={item()} onClose={() => setActiveItem(null)} />}
+</Show>
+````
+
+## Destructive Actions
+
+Never `window.confirm()`. Always use `DestructiveModal`:
+
+```tsx
+const [deleteTarget, setDeleteTarget] = createSignal(false);
+// ...
+<DestructiveModal
+  open={deleteTarget()}
+  onOpenChange={(open) => {
+    if (!open) setDeleteTarget(false);
+  }}
+  onConfirm={handleDelete}
+  title="Delete item?"
+  message="This action cannot be undone."
+  confirmText="Delete"
+/>;
+```
+
+## Page Titles (NEVER use reactive expressions)
+
+**NEVER put reactive expressions inside `<Title>`.** This includes `createMemo` — any reactive getter call inside `<Title>` children creates a computation that leaks during route transitions, causing "computations created outside createRoot" warnings.
+
+```tsx
+// BAD — reactive ternary leaks during route transition
+<Title>{userType() === "admin" ? "Manage Items" : "Items"} | My App</Title>
+
+// ALSO BAD — createMemo is still reactive, still leaks
+const pageTitle = createMemo(() => "Items");
+<Title>{pageTitle()} | My App</Title>
+
+// GOOD — static string, no reactive expression
+<Title>Items | My App</Title>
+```
+
+## SSR Safety (CRITICAL)
+
+SolidStart renders components on the server during SSR. Any access to browser APIs crashes the production build and serves blank pages.
+
+- **Guard browser APIs** with `if (typeof window !== "undefined")` or use them only inside `onMount`.
+- **Heavy browser-only components** (Three.js, WebRTC, charts, video) must be `lazy()` + `<Suspense>`.
+- **Never import browser-only libraries at module top level** — use dynamic `import()` inside `onMount`.
+- **`createEffect` runs on server** — don't access `window`/`document` in effects without a guard.
+
+```tsx
+// BAD — crashes SSR
+const width = window.innerWidth;
+
+// GOOD — only runs in browser
+onMount(() => {
+  const width = window.innerWidth;
+});
+
+// GOOD — lazy-loaded browser component
+const Chart = lazy(() => import("~/components/Chart"));
+<Suspense fallback={<Spinner />}><Chart /></Suspense>
+```
+
+## Auth & Routing
+
+- Add every new private route to `PRIVATE_ROUTES` in `frontend/src/lib/constants.ts`.
+- Redirect wrong user types at the top of the component:
+
+```tsx
+if (auth.user && auth.user.type !== "admin") {
+  navigate("/dashboard", { replace: true });
+  return null;
+}
+```
+
+## Content States: Switch/Match, NOT nested Show
+
+**NEVER nest `<Show>` for loading/error/empty/data states.** Nested `<Show>` creates stacked reactive scopes that leak computations during route transitions ("computations created outside createRoot" warning).
+
+```tsx
+// BAD — 4 nested reactive scopes, leaks on route transition
+<Show when={!loading()} fallback={<Spinner />}>
+  <Show when={error()}><ErrorCard /></Show>
+  <Show when={!error() && items().length > 0} fallback={
+    <Show when={!error()}><EmptyState /></Show>
+  }>
+    <For each={items()}>{(item) => <Card />}</For>
+  </Show>
+</Show>
+
+// GOOD — flat, one active scope at a time
+<Switch>
+  <Match when={loading()}><Spinner /></Match>
+  <Match when={error()}><ErrorCard /></Match>
+  <Match when={items().length === 0}><EmptyState /></Match>
+  <Match when={items().length > 0}>
+    <For each={items()}>{(item) => <Card />}</For>
+  </Match>
+</Switch>
+```
+
+Import: `import { Switch, Match } from "solid-js"`
+
+Reference: Dashboard and Settings pages use flat `Switch/Match` for content states.
+
+## List Page Structure
+
+1. Header (title + subtitle + primary action button)
+2. Summary bar (optional — stat cards)
+3. Filter tabs (status-based, using `createSignal`)
+4. Content (`Switch/Match` for loading/error/empty/data states)
+5. Empty states (contextual: "no items yet" vs "no items matching filter")
+6. Pagination (if applicable)
+
+## Consistent Styling
+
+- Section cards: follow the `Section` component pattern from settings/index.tsx
+- Status/priority chips: use `<Chip variant="..." size="xs">`
+- Page container: `p-6 sm:p-10 max-w-[1400px] mx-auto w-full`
+- Headers: `text-3xl font-bold font-montserrat text-foreground`
+
+## Imports and Components
+
+Use the component barrel: `import { Button, Chip, Icon, Card, Modal, DestructiveModal, Select, SelectItem } from "~/components"`
+
+**Never use raw HTML elements when a component exists.** Check `frontend/src/components/index.ts` for available exports:
+
+- `<select>` → `<Select>` + `<SelectItem>`
+- `<input>` → `<Input>`
+- `<textarea>` → `<Textarea>`
+- `confirm()` → `<DestructiveModal>`
+
+If a needed component doesn't exist, ask before building a raw HTML fallback.
+
+## Avatars and Logos
+
+Use the `Avatar` component from `~/components/atoms/Avatar`. Pass `src` (URL or empty), `alt` (name for initials fallback), and `size`.
+
+## Modal Content
+
+The global `Modal` component has `max-h-[90vh] overflow-y-auto`. For modals with embedded content (iframes, long forms):
+
+- **Iframe modals:** Set explicit height with `calc(80vh - 160px)` and `max-height: 700px`. Add a Cancel/Close button below the iframe.
+- **Form modals:** Content scrolls automatically within the 90vh cap.
+- **Never use `centered` prop** for tall modals — it vertically centers which can push content off-screen.
+
+## Page Container Width
+
+All private route pages use `max-w-[1400px] mx-auto` for the main container. Settings uses `max-w-3xl`. Be consistent with the module type.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
