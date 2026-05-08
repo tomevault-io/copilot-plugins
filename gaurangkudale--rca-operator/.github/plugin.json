@@ -1,0 +1,9 @@
+{
+  "name": "gaurangkudale--rca-operator",
+  "displayName": "RCA-Operator",
+  "description": "An AI-powered SRE Operator that watches your cluster 24x7 and does autonomous root cause analysis.",
+  "version": "1.0.0",
+  "author": "gaurangkudale",
+  "homepage": "https://github.com/gaurangkudale/RCA-Operator",
+  "skills": []
+}
