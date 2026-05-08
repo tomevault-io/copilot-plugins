@@ -1,0 +1,9 @@
+{
+  "name": "folotoy--folotoy-openclaw-plugin",
+  "displayName": "folotoy-openclaw-plugin",
+  "description": "OpenClaw channel plugin for FoloToy",
+  "version": "1.0.0",
+  "author": "FoloToy",
+  "homepage": "https://github.com/FoloToy/folotoy-openclaw-plugin",
+  "skills": []
+}
