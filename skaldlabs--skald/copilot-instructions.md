@@ -1,27 +1,28 @@
-## posthog-integration
+## style
 
-> apply when interacting with PostHog/analytics tasks
+> Codebase styles and patterns
 
 
-Never hallucinate an API key. Instead, always use the API key populated in the .env file.
+# Codebase styles and patterns
 
-# Feature flags
+## General
 
-A given feature flag should be used in as few places as possible. Do not increase the risk of undefined behavior by scattering the same feature flag across multiple areas of code. If the same feature flag needs to be introduced at multiple callsites, flag this for the developer to inspect carefully.
+- Write very concise and simple code. 
+- Avoid very complex patterns.
 
-If a job requires creating new feature flag names, make them as clear and descriptive as possible.
+## Frontend
 
-If using TypeScript, use an enum to store flag names. If using JavaScript, store flag names as strings to an object declared as a constant, to simulate an enum. Use a consistent naming convention for this storage. enum/const object members should be written UPPERCASE_WITH_UNDERSCORE.
+- Store state in Zustand stores, following the patterns found in the stores/ directory. Only use useState when the state is 100% component-specific.
+- Use the api.ts util for all API requests.
+- Build using modular components that make sense as independent units. 
+- Do not create files with multiple components, unless there is a main component and a very small supporting component that won't be used elsewhere.
+- Pages defined in pages/ should have minimal code. They should at most contain some higher level state and reference child components. 
 
-Gate flag-dependent code on a check that verifies the flag's values are valid and expected.
+## Backend
 
-# Custom properties
-
-If a custom property for a person or event is at any point referenced in two or more files or two or more callsites in the same file, use an enum or const object, as above in feature flags.
-
-# Naming
-
-Before creating any new event or property names, consult with the developer for any existing naming convention. Consistency in naming is essential, and additional context may exist outside this project. Similarly, be careful about any changes to existing event and property names, as this may break reporting and distort data for the project.
+- Follow existing API patterns from xxxx_api.py files when creating new endpoints.
+- Make sure endpoints are secure.
+- Ensure everything has static types.
 
 ---
 > Source: [skaldlabs/skald](https://github.com/skaldlabs/skald) — distributed by [TomeVault](https://tomevault.io).
