@@ -1,0 +1,9 @@
+{
+  "name": "sstraus--tuicommander",
+  "displayName": "tuicommander",
+  "description": "Desktop terminal orchestrator for running dozens of AI coding agents in parallel. Tauri + SolidJS + Rust.",
+  "version": "1.0.0",
+  "author": "sstraus",
+  "homepage": "https://github.com/sstraus/tuicommander",
+  "skills": []
+}
