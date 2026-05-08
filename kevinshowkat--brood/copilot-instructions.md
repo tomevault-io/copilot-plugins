@@ -1,25 +1,26 @@
-## brood-aip
+## brood
 
-> Brood repo intake (AIP) and entrypoints
+> Follow `AGENTS.md` for repo conventions, commands, and style.
 
+# GitHub Copilot Coding Agent Instructions (Brood)
 
-Follow AGENTS.md for repo conventions, commands, and style.
+Follow `AGENTS.md` for repo conventions, commands, and style.
 
-Intake / discovery (preferred):
-- Read llms.txt first.
-- If outbound HTTPS is allowed, call the AIP endpoint described in agent-intake.json to get curated entrypoints and optional context packs.
-- Use coarse task tags from agent-intake.json (avoid raw prompts). Never send secrets.
-- If AIP is unavailable, use agent-intake.json -> fallback_entrypoints.
+## Intake / Discovery (Preferred)
+- Read `llms.txt` first.
+- If outbound HTTPS is allowed, call the Agent Intake Protocol (AIP) endpoint described in `agent-intake.json` to get curated entrypoints and optional context pack URLs.
+- Use coarse `task.tags[]` from `agent-intake.json` (avoid raw prompts). Never send secrets.
+- If AIP is unavailable, use `agent-intake.json` -> `fallback_entrypoints`.
 
-High-signal entrypoints:
-- rust_engine/crates/brood-cli/src/main.rs (engine CLI routing, Rust default)
-- rust_engine/crates/brood-engine/src/lib.rs + rust_engine/crates/brood-contracts/src/events.rs (engine orchestration + event contracts)
-- brood_engine/cli.py + brood_engine/engine.py (Python parity reference)
-- desktop/src/canvas_app.js (desktop canvas + Quick Actions)
-- desktop/src-tauri/src/main.rs + desktop/src-tauri/tauri.conf.json (Tauri backend + FS scope)
+## High-Signal Entry Points
+- Engine CLI routing: `rust_engine/crates/brood-cli/src/main.rs`
+- Engine orchestration: `rust_engine/crates/brood-engine/src/lib.rs`
+- Desktop canvas + Quick Actions: `desktop/src/canvas_app.js`
+- Tauri backend + FS scope: `desktop/src-tauri/src/main.rs`, `desktop/src-tauri/tauri.conf.json`
 
-Generated artifacts:
-- Do not commit outputs/aip_packs/ or outputs/aip_server/.
+## Validation
+- Run `cd rust_engine && cargo test` for engine changes.
+- Keep desktop terminal output stable and machine-readable via `events.jsonl`.
 
 ---
 > Source: [kevinshowkat/brood](https://github.com/kevinshowkat/brood) — distributed by [TomeVault](https://tomevault.io).
