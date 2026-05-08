@@ -4,7 +4,7 @@
   "repo": "shabbat.md",
   "description": "Make Agents Kosher Again. An open format for Shabbat-compliant AI agent configuration.",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/mitchellbernstein/shabbat.md",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T23:05:18Z"
+  "distributed_at": "2026-05-08T20:30:08Z"
 }
