@@ -1,0 +1,9 @@
+{
+  "name": "buildkite--cleanroom",
+  "displayName": "cleanroom",
+  "description": "Cleanroom sandbox orchestration system",
+  "version": "1.0.0",
+  "author": "buildkite",
+  "homepage": "https://github.com/buildkite/cleanroom",
+  "skills": []
+}
