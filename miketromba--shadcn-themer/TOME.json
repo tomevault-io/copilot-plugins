@@ -2,7 +2,7 @@
   "name": "shadcn-themer",
   "owner": "miketromba",
   "repo": "shadcn-themer",
-  "description": "",
+  "description": "Shadcn Themer is a web application that lets you to create, customize, and share themes for shadcn/ui",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -38,7 +38,7 @@
     }
   ],
   "skills": [],
-  "claim_url": "https://tomevault.io/claim/miketromba",
+  "source_url": "https://github.com/miketromba/shadcn-themer",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-12T01:44:03Z"
+  "distributed_at": "2026-05-08T15:02:37Z"
 }
