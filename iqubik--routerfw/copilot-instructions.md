@@ -1,61 +1,74 @@
-## profiles
+## shell-scripts
 
-> Profile configuration format for OpenWrt builds
+> Conventions for Bash scripts in routerFW
 
 
-# Profile Configuration (.conf)
+# Shell Script Conventions
 
-Profiles are sourced as shell scripts. They define variables for both Image Builder and Source Builder modes.
+## Style
 
-## Required Variables
+- Shebang: `#!/bin/bash`
+- Header comment: `# file: <relative_path>` (version suffix optional, mandatory only for system builders)
+- Comments in Russian (primary) or English — match surrounding context
+- ANSI color codes via variables: `C_VAL`, `C_ERR`, `C_KEY`, `C_LBL`, `C_GRY`, `C_RST`, `C_OK` (alias of C_VAL)
+- Logging functions: `log()`, `warn()`, `error()` with colored `[INFO]`, `[WARN]`, `[FATAL]` prefixes
+- Use `set -e` for fail-fast in builder scripts
 
-```bash
-PROFILE_NAME="human_readable_name"
-TARGET_PROFILE="openwrt_device_profile_id"
-```
+## Bilingual Pattern
 
-## Image Builder Variables
-
-```bash
-IMAGEBUILDER_URL="https://..."          # URL to ImageBuilder SDK archive (.tar.zst)
-IMAGE_EXTRA_NAME="tag"                  # Appended to output filenames (was: EXTRA_IMAGE_NAME)
-CUSTOM_KEYS="https://.../key.pub"       # Custom repo signing keys
-CUSTOM_REPOS="src/gz name https://..."  # Custom package repositories (multiline)
-IMAGE_PKGS="package1 package2 -excluded" # Final package list for Image Builder (was: PKGS)
-DISABLED_SERVICES="svc1 svc2"           # Services to disable
-```
-
-## Source Builder Variables
+Main scripts (`_Builder.sh`) use a language detection system (weighted scoring):
 
 ```bash
-SRC_REPO="https://github.com/..."       # OpenWrt source repository
-SRC_BRANCH="openwrt-24.10"             # Git branch
-SRC_TARGET="mediatek"                   # OpenWrt target
-SRC_SUBTARGET="filogic"                # OpenWrt subtarget
-SRC_ARCH="aarch64_cortex-a53"          # Package architecture
-SRC_CORES="safe"                        # Compilation threads: "safe" (max-1), number, or "debug" (verbose single-thread)
-SRC_PACKAGES="$BASE_PKGS $EXTRA_PKGS"  # Package list for Source Builder
-SRC_EXTRA_CONFIG='CONFIG_...'          # Multiline Kconfig (single-quoted heredoc style)
+SYS_LANG="EN"  # or "RU", set by detection logic
+FORCE_LANG="AUTO"  # AUTO | RU | EN override
 ```
 
-## Shared Variables
+Dictionary is loaded from unified `.env` files (`system/lang/ru.env` / `system/lang/en.env`).
+Format: `KEY={C_VAL}value{C_RST}` — neutral pseudo-format, no quotes, `{C_*}` placeholders.
+Loader: `load_lang()` function — `while read` loop + `${val//\{C_VAL\}/$C_VAL}` substitutions, `printf -v` to set globals.
+`${SYS_LANG,,}` lowercases the lang code for filename matching. Fallback to `en.env` if file missing.
 
-```bash
-ROOTFS_SIZE="512"                       # Root filesystem size (MB)
-KERNEL_SIZE="64"                        # Kernel partition size (MB)
-```
+## Key Variables
 
-## Package List Pattern
+- `PROJECT_DIR` — root of the project (set via `cd "$(dirname "${BASH_SOURCE[0]}")" && pwd`)
+- `PROFILE_ID` — profile name without `.conf` extension
+- `CONF_FILE` — selected profile filename (e.g. `rax3000m_emmc_test_new.conf`)
+- `VER_NUM` — version number string
 
-Profiles often compose package lists from named groups:
+## Docker Integration
 
-```bash
-BASE_PKGS="pkg1 pkg2..."
-NET_PKGS="luci-proto-wireguard..."
-MODEM_PKGS="kmod-usb-serial-option..."
-MUNIS_PKGS="-pkg_to_exclude..."         # Exclusions with dash prefix
-IMAGE_PKGS="$COMMON_LIST $SRC_PACKAGES" # Final list passed to Image Builder
-```
+Builder scripts run inside Docker containers. They receive configuration via:
+- Environment variables from docker-compose (`CONF_FILE`, `HOST_OUTPUT_DIR`)
+- Mounted volumes for profiles, packages, files, output, and cache
+
+## Argument Filtering
+
+For scripts that selectively run parts of their code based on command-line arguments (like `tester.sh`), use the following robust pattern:
+
+1.  **Capture arguments globally:** At the top of the script, capture all arguments, including those with spaces, into an array. This makes the filters globally available.
+    ```bash
+    FILTERS=("$@")
+    ```
+
+2.  **Use a filter function:** Create a single, reusable function to check if a given label matches any of the stored filters. If the filter array is empty, it should always permit execution.
+    ```bash
+    should_run() {
+      local label="$1"
+      if [ ${#FILTERS[@]} -eq 0 ]; then return 0; fi # No filters = run all
+      for filter in "${FILTERS[@]}"; do
+        if [ "$filter" = "$label" ]; then return 0; fi # Match found
+      done
+      return 1 # No match
+    }
+    ```
+
+3.  **Apply as a guard clause:** In any function that can be filtered, use this check at the very beginning. This is clean, safe, and avoids the common error of misinterpreting a function's arguments (`$@`) as the script's arguments.
+    ```bash
+    my_feature() {
+      if ! should_run "My Feature Label"; then return 0; fi
+      # ... rest of the function logic
+    }
+    ```
 
 ---
 > Source: [iqubik/routerFW](https://github.com/iqubik/routerFW) — distributed by [TomeVault](https://tomevault.io).
