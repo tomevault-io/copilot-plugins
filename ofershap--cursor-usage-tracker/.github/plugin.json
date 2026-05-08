@@ -1,9 +1,9 @@
 {
   "name": "ofershap--cursor-usage-tracker",
   "displayName": "cursor-usage-tracker",
-  "description": "cursor-usage-tracker",
+  "description": "Monitor Cursor IDE usage, detect spending anomalies, and alert your team. Self-hosted, open-source.",
   "version": "1.0.0",
   "author": "ofershap",
-  "homepage": "https://tomevault.io/claim/ofershap",
+  "homepage": "https://github.com/ofershap/cursor-usage-tracker",
   "skills": []
 }
