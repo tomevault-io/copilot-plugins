@@ -1,0 +1,9 @@
+{
+  "name": "leomartindev--voy",
+  "displayName": "voy",
+  "description": "Self-hosted metasearch engine built on SearXNG \u2014 private by design, with AI summaries, auth, and a clean UI.",
+  "version": "1.0.0",
+  "author": "LeoMartinDev",
+  "homepage": "https://github.com/LeoMartinDev/voy",
+  "skills": []
+}
