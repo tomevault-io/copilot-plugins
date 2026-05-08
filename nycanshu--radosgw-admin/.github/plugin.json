@@ -1,0 +1,9 @@
+{
+  "name": "nycanshu--radosgw-admin",
+  "displayName": "radosgw-admin",
+  "description": "Node.js SDK for the Ceph RADOS Gateway Admin Ops API \u2014 manage users, buckets, quotas and rate limits programmatically. Zero dependencies, TypeScript, dual ESM/CJS.",
+  "version": "1.0.0",
+  "author": "nycanshu",
+  "homepage": "https://github.com/nycanshu/radosgw-admin",
+  "skills": []
+}
