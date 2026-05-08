@@ -7,11 +7,11 @@ Bones for your agents — composable async agentic AI framework for Rust
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [secbear/skelegent](https://github.com/secbear/skelegent).
+Original source: `CLAUDE.md` in [secbear/skelegent](https://github.com/secbear/skelegent).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
