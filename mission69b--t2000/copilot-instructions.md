@@ -1,101 +1,76 @@
-## blockvision-resilience
+## coding-discipline
 
-> BlockVision integration — retry, circuit breaker, sticky-positive cache, layered fallback
+> Coding discipline — Think before coding, simplicity first, surgical changes
 
 
-# BlockVision Resilience
+# Coding Discipline
 
-BlockVision Pro is the data source for the entire wallet portfolio + multi-token price feed. It periodically returns 429 under burst load (per-second key limit AND a global edge throttle that fires even under quota). All BlockVision calls MUST go through `fetchBlockVisionWithRetry` in `packages/engine/src/blockvision-prices.ts`.
+Three habits that shrink diffs, reduce rewrites, and surface the right questions before code is written. Adapted from Karpathy's coding-skills repo.
 
-## The contract — three layers of resilience
+## 1. Think Before Coding
 
-### Layer 1 — Retry with jittered exponential backoff
+**Don't assume. Don't hide confusion. Surface tradeoffs.**
 
-```
-attempt 1: fire immediately
-attempt 2: wait 250ms ± 25% jitter
-attempt 3: wait 750ms ± 25% jitter (and final attempt)
-```
+Before implementing:
+- State your assumptions explicitly. If uncertain, ask.
+- If multiple interpretations exist, present them — don't pick silently.
+- If a simpler approach exists, say so. Push back when warranted.
+- If something is unclear, stop. Name what's confusing. Ask.
 
-- Honors `Retry-After` header up to 5s cap.
-- Each `fetch()` carries its own `AbortSignal.timeout()` independent of retry sleep.
-- Retries on 429 + 5xx only. Other errors propagate immediately.
+This pairs with the **trace-the-full-path** principle in `engineering-principles.mdc` — before any fix, trace the actual execution path. Most "wrong fix" iterations come from skipping this.
 
-### Layer 2 — Circuit breaker
+## 2. Simplicity First
 
-After **10 429s within a 5s rolling window**, the circuit opens for **30s**. While open:
-- New 429s are returned as final (no retry).
-- Subsequent calls don't fire BlockVision at all — they fall through to the fallback path.
-- Per-process state (intentional) — global Redis coordination would add hot-path latency.
+**Minimum code that solves the problem. Nothing speculative.**
 
-Why: naive retry amplifies BV load 3x during sustained outages. At 1k+ users that's a self-inflicted DoS.
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" or "configurability" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
 
-### Layer 3 — Layered fallback
+Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
-If BlockVision `/account/coins` returns 429/5xx OR the `apiKey` is missing/blank:
+This pairs with **single source of truth** (`single-source-of-truth.mdc`). Most over-complication comes from forking a canonical instead of extending it.
 
-1. Drop to Sui-RPC for the coin list.
-2. Still attempt BV `/coin/price/list` to USD-price non-stable holdings (separate rate limit, frequent cache hit).
-3. Only when BOTH BV endpoints fail, degrade to hardcoded stable allow-list (USDC/USDT/USDe/USDsui = $1.00, everything else `null`).
+## 3. Surgical Changes
 
-The returned portfolio carries a `source` field: `'blockvision' | 'sui-rpc-degraded' | 'partial'` so callers can decide whether to badge "approximate" totals.
+**Touch only what you must. Clean up only your own mess.**
 
-## Sticky-positive cache rule (DeFi)
+When editing existing code:
+- Don't "improve" adjacent code, comments, or formatting.
+- Don't refactor things that aren't broken.
+- Match existing style, even if you'd do it differently.
+- If you notice unrelated dead code, mention it — don't delete it.
 
-`DefiCacheStore` stores the last known-good positive value for 30 minutes (`DEFI_STICKY_TTL_SEC`).
+When your changes create orphans:
+- Remove imports/variables/functions that YOUR changes made unused.
+- Don't remove pre-existing dead code unless asked.
 
-| Source        | TTL    | Write rule |
-|---------------|--------|------------|
-| `blockvision` | 60s    | Always wins. Positive values flow through immediately. |
-| `partial-stale` | 60s | Used when BV returns success but with missing protocol data. |
-| `sui-rpc-degraded` | 15s | **Never overwrites a known-good positive within the sticky window.** Prevents BV throttle blips from poisoning the cache with $0. |
+**The test:** Every changed line should trace directly to the user's request.
 
-The wallet portfolio cache uses the same pattern — see PR 1+2 in `audric-scaling-spec.md`.
+## Why this matters in this codebase
 
-## When `fetch_*` tools see degraded data
+We've shipped fixes that took 4+ iterations because:
+- The first fix went in the wrong layer (didn't trace the full path → see `engineering-principles.mdc` Principle 5).
+- The fix included "while I'm here" refactors that introduced a new bug (failed surgical changes).
+- The fix added a "flexibility" config that wasn't needed (failed simplicity).
 
-```typescript
-// In a tool's call handler:
-const portfolio = await fetchAddressPortfolio(address, ctx.blockvisionApiKey);
+Time spent thinking before coding is faster than time spent unwinding the wrong fix.
 
-if (portfolio.source !== 'blockvision') {
-  // Surface degradation to the user — don't silently lie about the total.
-  return {
-    data: { ... },
-    displayText: `Wallet (~approximate, ${portfolio.source}): ...`,
-  };
-}
-```
+## Working signals
 
-`portfolio_analysis` MUST treat `partial + 0` DeFi as untrusted and re-fetch via `fetchAddressDefiPortfolio`. See `packages/engine/src/tools/portfolio-analysis.ts` trust gate.
-
-## When `BLOCKVISION_API_KEY` is empty
-
-- `apps/web/lib/env.ts` (audric) makes it `requiredString` — boot fails before any request runs. **Do not relax to optional** unless you also accept the entire DeFi/wallet pricing stack degrading to RPC.
-- This is the S.25 incident class — see `env-validation-gate.mdc`.
-
-## What's banned
-
-```typescript
-// ❌ Direct fetch — bypasses retry + circuit breaker + sticky cache
-const res = await fetch(`${BLOCKVISION_BASE}/account/coins?...`, { headers });
-
-// ✅ Always through the helper
-const res = await fetchBlockVisionWithRetry(url, { headers, signal: AbortSignal.timeout(4_000) });
-```
-
-## Tests live here
-
-- `packages/engine/src/__tests__/blockvision-retry.test.ts` — retry, jitter, `Retry-After`, circuit breaker
-- `packages/engine/src/__tests__/defi-portfolio.test.ts` — aggregation + cache poisoning regression
-- `packages/engine/src/__tests__/defi-cache-sticky.test.ts` — sticky-positive write rules
-- All three call `_resetBlockVisionCircuitBreaker()` in `beforeEach` to isolate state.
+These guidelines are working if:
+- Fewer unnecessary changes in diffs.
+- Fewer rewrites due to overcomplication.
+- Clarifying questions come **before** implementation rather than after mistakes.
+- Each PR can be summarized in 1-2 sentences without weasel words.
 
 ## Cross-references
 
-- Implementation → `packages/engine/src/blockvision-prices.ts` + `packages/engine/src/defi-cache.ts`
-- Engine spec context → `agent-harness-spec.mdc` (Spec 2)
-- Wallet portfolio Redis migration (next PR) → `audric-scaling-spec.md` PR 1+2
+- Engineering principles (trace the full path, single source of truth, fix at root) → `engineering-principles.mdc`
+- Verifiable goals → `goal-driven-execution.mdc`
+- Karpathy's original → `https://github.com/forrestchang/andrej-karpathy-skills`
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
