@@ -1,0 +1,44 @@
+{
+  "name": "get-work-resume",
+  "owner": "GuLu9527",
+  "repo": "get-work-resume",
+  "description": "Claude Code Skill - \u6839\u636eJD\u81ea\u52a8\u751f\u6210\u5b9a\u5236\u5316\u7b80\u5386\uff0c\u652f\u6301A4\u9884\u89c8\u3001\u6280\u672f\u6808\u6807\u7b7e\u3001\u9879\u76ee\u4f18\u5316",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/GuLu9527/get-work-resume",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T07:12:06Z"
+}
