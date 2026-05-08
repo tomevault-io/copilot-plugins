@@ -1,9 +1,9 @@
 {
   "name": "flowers-of-romance--ghost",
   "displayName": "ghost",
-  "description": "ghost",
+  "description": "Brain-inspired memory system for LLM \u2014 there are only words, no subject needed",
   "version": "1.0.0",
   "author": "Flowers-of-Romance",
-  "homepage": "https://tomevault.io/claim/Flowers-of-Romance",
+  "homepage": "https://github.com/Flowers-of-Romance/ghost",
   "skills": []
 }
