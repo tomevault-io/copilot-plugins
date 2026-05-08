@@ -1,0 +1,22 @@
+{
+  "name": "thomasmol--opencode-config",
+  "displayName": "opencode-config",
+  "description": "Personal OpenCode config",
+  "version": "1.0.0",
+  "author": "thomasmol",
+  "homepage": "https://github.com/thomasmol/opencode-config",
+  "skills": [
+    {
+      "name": "hono",
+      "description": ""
+    },
+    {
+      "name": "linear",
+      "description": ""
+    },
+    {
+      "name": "pr-creation",
+      "description": ""
+    }
+  ]
+}
