@@ -1,0 +1,9 @@
+{
+  "name": "barvhaim--honeymcp",
+  "displayName": "HoneyMCP",
+  "description": "A Deception Security Layer for MCP Servers. It injects \"ghost tools\" (fake security-sensitive tools) that act as honeypots.",
+  "version": "1.0.0",
+  "author": "barvhaim",
+  "homepage": "https://github.com/barvhaim/HoneyMCP",
+  "skills": []
+}
