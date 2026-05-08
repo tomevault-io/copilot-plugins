@@ -1,0 +1,9 @@
+{
+  "name": "baidu-baige--loongforge",
+  "displayName": "LoongForge",
+  "description": "A modular, scalable, and highly efficient training framework for language, multimodal, and embodied models.",
+  "version": "1.0.0",
+  "author": "baidu-baige",
+  "homepage": "https://github.com/baidu-baige/LoongForge",
+  "skills": []
+}
