@@ -1,0 +1,70 @@
+## fairway-spec
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What This Is
+
+Event modeling specification framework using CUE as a declarative constraint engine. Boards define domain flows with explicit causality: commands, events, views, actors, and GWT scenarios.
+
+## Commands
+
+```bash
+go build ./cmd/emspec          # Build CLI
+go test ./...                  # Run all tests
+go test -run TestValidation    # Run specific test (schema_test.go)
+```
+
+```bash
+# TUI + watch (default)
+go run ./cmd/emspec -file examples/cart.cue -outdir /tmp/ir
+
+# just render IR, no TUI, no watch
+go run ./cmd/emspec -file examples/cart.cue -outdir /tmp/ir -no-tui -watch=false
+
+# With web server
+go run ./cmd/emspec -file examples/cart.cue -outdir /tmp/ir -web
+
+# Web only
+go run ./cmd/emspec -file examples/cart.cue -outdir /tmp/ir -web -no-tui
+
+```
+
+## Architecture
+
+```
+cmd/emspec/      → Unified CLI: renders IR, watches CUE, runs TUI and/or web server
+pkg/board/       → Board loading: CUE file → Go Board struct via cue.Value unification
+pkg/render/      → Rendering + validation (ValidateBoard, validateParameterizedTags)
+pkg/tui/         → TUI model, styles, detail view, item definitions
+em/              → CUE schemas: board.cue (main), types.cue, gwt.cue, slice.cue, story.cue, dcb.cue, endpoint.cue
+examples/        → Shopping cart domain example (split across multiple .cue files)
+schema_test.go   → 12 validation tests covering board structure, ordering, references, GWT
+```
+
+## Key Types
+
+**Go:** `Board{Name, Value(cue.Value), Flow[]FlowItem}` — FlowItem has Kind (slice/story), Type (change/view), CUEValue.
+
+**CUE schema hierarchy:** `#Board` → `flow: [...]#Instant` where `#Instant` is `#ChangeSlice | #ViewSlice | #StoryStep`. Change slices have `#Command` + `#Endpoint` + `#GWT` scenarios. Events use `#DCBQuery` for tag-based filtering.
+
+## Design Principles
+
+From `chat.md` — the authoritative design document:
+
+- **Structured over parsed**: Endpoints/fields are typed data, not parsed strings
+- **Declarative validation**: CUE unification, not imperative checks
+- **Information completeness**: Command fields must come from endpoint inputs or computed fields
+- **Explicit causality**: `board.cue` tracks `_emittedBefore` per flow index — view slices can only query previously-emitted events
+- **DCB pattern**: Dynamic Consistency Boundaries — (event has ANY of types) AND (has ALL of tags)
+
+## CUE Schema Validation
+
+`board.cue` is the most complex file (~180 lines). It pre-computes emitted event sets at each flow index to enforce ordering. Key constraints: actor existence, command-endpoint field compatibility, event field sourcing (command/mapping/computed), story step slice references, tag validation.
+
+---
+> Source: [err0r500/fairway-spec](https://github.com/err0r500/fairway-spec) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
