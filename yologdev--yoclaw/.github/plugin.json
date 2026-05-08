@@ -1,0 +1,9 @@
+{
+  "name": "yologdev--yoclaw",
+  "displayName": "yoclaw",
+  "description": "OpenClaw reborn in Rust \u2014 single-binary AI agent that remembers you.",
+  "version": "1.0.0",
+  "author": "yologdev",
+  "homepage": "https://github.com/yologdev/yoclaw",
+  "skills": []
+}
