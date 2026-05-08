@@ -1,200 +1,98 @@
-## figma-export
+## figma-messages
 
-> Export nodes as images or retrieve image data from fills.
+> Messages are the **only** way to communicate between the plugin sandbox and UI iframe.
 
 
-# Figma Export API
+# Figma Plugin Message Protocol
 
-Export nodes as images or retrieve image data from fills.
+Messages are the **only** way to communicate between the plugin sandbox and UI iframe.
 
-## Exporting Nodes
+## Message Type Definitions
 
-### Basic Export
+Define all messages in `src/shared/messages.ts` using discriminated unions:
 
 ```typescript
-const node = figma.currentPage.selection[0]
-if (!node) return
+/**
+ * Messages sent from UI thread to Main thread (plugin sandbox)
+ */
+export type PluginMessage =
+  | { type: "get-selection" }
+  | { type: "create-rectangle"; width: number; height: number }
+  | { type: "update-node"; nodeId: string; properties: NodeProperties };
 
-// Export as PNG
-const pngBytes = await node.exportAsync({
-  format: 'PNG',
-  constraint: { type: 'SCALE', value: 2 } // 2x resolution
-})
-
-// Export as SVG
-const svgBytes = await node.exportAsync({
-  format: 'SVG'
-})
-
-// Export as JPG
-const jpgBytes = await node.exportAsync({
-  format: 'JPG',
-  constraint: { type: 'SCALE', value: 1 }
-})
-
-// Export as PDF
-const pdfBytes = await node.exportAsync({
-  format: 'PDF'
-})
+/**
+ * Messages sent from Main thread to UI thread
+ */
+export type UIMessage =
+  | { type: "selection-changed"; nodes: SelectionNode[] }
+  | { type: "plugin-ready" }
+  | { type: "error"; message: string };
 ```
 
-### Export Constraints
+## Design Principles
+
+### 1. Use Discriminated Unions
+
+The `type` field enables type-safe message handling:
 
 ```typescript
-// Scale constraint (multiplier)
-{ type: 'SCALE', value: 2 } // 2x size
-
-// Width constraint (fixed width, height scales proportionally)
-{ type: 'WIDTH', value: 200 } // 200px wide
-
-// Height constraint (fixed height, width scales proportionally)
-{ type: 'HEIGHT', value: 100 } // 100px tall
-```
-
-### Export Settings
-
-```typescript
-// Full export settings
-const bytes = await node.exportAsync({
-  format: 'PNG',
-  constraint: { type: 'SCALE', value: 1 },
-  contentsOnly: true, // Exclude frame itself, only children
-  useAbsoluteBounds: false, // Use node bounds, not absolute
-})
-```
-
-## Sending to UI for Download
-
-```typescript
-// In plugin (main.ts)
-const bytes = await node.exportAsync({ format: 'PNG' })
-figma.ui.postMessage({
-  type: 'download-image',
-  data: Array.from(bytes), // Convert Uint8Array to regular array
-  filename: `${node.name}.png`
-})
-
-// In UI (App.tsx)
-window.addEventListener('message', (event) => {
-  const msg = event.data.pluginMessage
-  if (msg.type === 'download-image') {
-    const blob = new Blob([new Uint8Array(msg.data)], { type: 'image/png' })
-    const url = URL.createObjectURL(blob)
-    
-    const link = document.createElement('a')
-    link.href = url
-    link.download = msg.filename
-    link.click()
-    
-    URL.revokeObjectURL(url)
-  }
-})
-```
-
-## Working with Image Fills
-
-### Get Image Data from Fill
-
-```typescript
-if ('fills' in node && Array.isArray(node.fills)) {
-  for (const fill of node.fills) {
-    if (fill.type === 'IMAGE' && fill.imageHash) {
-      const image = figma.getImageByHash(fill.imageHash)
-      if (image) {
-        const bytes = await image.getBytesAsync()
-        const size = await image.getSizeAsync()
-        console.log(`Image size: ${size.width}x${size.height}`)
-      }
-    }
-  }
+// TypeScript narrows the type based on msg.type
+switch (msg.type) {
+  case "create-rectangle":
+    // msg is now typed as { type: 'create-rectangle'; width: number; height: number }
+    createRect(msg.width, msg.height);
+    break;
 }
 ```
 
-### Set Image Fill
+### 2. Serialize Data, Not References
+
+Never include Figma node references in messages:
 
 ```typescript
-// In UI: Convert image to bytes and send to plugin
-const input = document.createElement('input')
-input.type = 'file'
-input.accept = 'image/*'
-input.onchange = async () => {
-  const file = input.files?.[0]
-  if (file) {
-    const buffer = await file.arrayBuffer()
-    parent.postMessage({
-      pluginMessage: {
-        type: 'set-image',
-        data: Array.from(new Uint8Array(buffer))
-      }
-    }, '*')
-  }
-}
-input.click()
+// ❌ BAD - node references can't be serialized
+{ type: 'node-selected', node: figma.currentPage.selection[0] }
 
-// In plugin: Create image and apply as fill
-figma.ui.onmessage = async (msg) => {
-  if (msg.type === 'set-image') {
-    const bytes = new Uint8Array(msg.data)
-    const image = figma.createImage(bytes)
-    
-    const rect = figma.createRectangle()
-    rect.resize(200, 200)
-    rect.fills = [{
-      type: 'IMAGE',
-      imageHash: image.hash,
-      scaleMode: 'FILL'
-    }]
-  }
+// ✓ GOOD - plain data only
+{ type: 'node-selected', nodeId: '1:23', name: 'Frame 1', width: 100 }
+```
+
+### 3. Keep Payloads Small
+
+Only send the data you need:
+
+```typescript
+// ❌ BAD - sending entire node tree
+{ type: 'document-data', root: serializeEntireDocument() }
+
+// ✓ GOOD - send only what UI needs
+{ type: 'frame-list', frames: frames.map((f) => ({ id: f.id, name: f.name })) }
+```
+
+### 4. Define Serialized Types
+
+Create interfaces for serialized node data:
+
+```typescript
+/**
+ * Serialized node data safe for postMessage
+ */
+export interface SelectionNode {
+  id: string;
+  name: string;
+  type: string;
+  width: number;
+  height: number;
 }
 ```
 
-## Image Scale Modes
+## Adding New Messages
 
-```typescript
-const imageFill: ImagePaint = {
-  type: 'IMAGE',
-  imageHash: image.hash,
-  scaleMode: 'FILL', // Options: 'FILL', 'FIT', 'CROP', 'TILE'
-}
+When adding a new message type:
 
-// For CROP mode, you can set image transform
-const croppedFill: ImagePaint = {
-  type: 'IMAGE',
-  imageHash: image.hash,
-  scaleMode: 'CROP',
-  imageTransform: [[1, 0, 0], [0, 1, 0]] // 2D transform matrix
-}
-```
-
-## Batch Export
-
-```typescript
-async function exportSelection(format: 'PNG' | 'SVG' | 'JPG') {
-  const selection = figma.currentPage.selection
-  const exports: { name: string; data: number[] }[] = []
-  
-  for (const node of selection) {
-    const bytes = await node.exportAsync({ format })
-    exports.push({
-      name: `${node.name}.${format.toLowerCase()}`,
-      data: Array.from(bytes)
-    })
-  }
-  
-  figma.ui.postMessage({ type: 'batch-export', exports })
-}
-```
-
-## Best Practices
-
-1. **Convert Uint8Array for postMessage** — Use `Array.from(bytes)`
-2. **Handle large exports** — Consider chunking or progress indicators
-3. **Check node exportability** — Some nodes may not export correctly
-4. **Use appropriate format** — PNG for raster, SVG for vectors
-
-## MCP Tool
-
-Use `figma_get_examples` with topic "export" for more code examples.
+1. Add the type to `PluginMessage` or `UIMessage` union
+2. Add the handler in the appropriate switch statement
+3. Test the full round-trip: UI → Plugin → UI
 
 ---
 > Source: [hoshikitsunoda/figma-plugins-vibe-coding-template](https://github.com/hoshikitsunoda/figma-plugins-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
