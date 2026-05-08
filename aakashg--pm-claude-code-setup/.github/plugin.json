@@ -1,0 +1,9 @@
+{
+  "name": "aakashg--pm-claude-code-setup",
+  "displayName": "pm-claude-code-setup",
+  "description": "Ready-to-use CLAUDE.md and starter skill for product managers using Claude Code.",
+  "version": "1.0.0",
+  "author": "aakashg",
+  "homepage": "https://github.com/aakashg/pm-claude-code-setup",
+  "skills": []
+}
