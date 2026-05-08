@@ -1,0 +1,9 @@
+{
+  "name": "damianedwards--vsc-change-agent-watch",
+  "displayName": "vsc-change-agent-watch",
+  "description": "VS Code extension that follows file changes in real-time, automatically opening editors and scrolling to edits. Perfect for watching CLI-based coding agents work.",
+  "version": "1.0.0",
+  "author": "DamianEdwards",
+  "homepage": "https://github.com/DamianEdwards/vsc-change-agent-watch",
+  "skills": []
+}
