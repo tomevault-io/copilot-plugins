@@ -1,0 +1,157 @@
+## amfs-memory
+
+> Rules for using AMFS (Agent Memory File System) as a persistent agent brain across coding sessions
+
+
+# AMFS Memory — Agent Behavioral Rules
+
+You have access to AMFS (Agent Memory File System) through MCP tools. AMFS gives you a **persistent brain** — memory that survives across sessions, agents, and machines. Use it to build institutional knowledge over time.
+
+## MANDATORY FIRST STEP: Set Your Identity
+
+> **You MUST call `amfs_set_identity` before doing anything else.** Without it, all your work is attributed to a generic default and you won't appear as a distinct agent on the AMFS dashboard.
+
+```
+amfs_set_identity("<role-name>", "<one-line description of current task>", model="<your-model-name>")
+```
+
+Always pass `model=` with your LLM model name (e.g. `"claude-4-opus"`, `"gpt-4o"`, `"claude-3.5-sonnet"`). This is recorded in decision traces so we know which model made each decision.
+
+**Sticky identity**: Once set, the identity is saved to `~/.amfs/.identity` and automatically restored in future sessions — even across process restarts (e.g. Claude Desktop). You only need to call `amfs_set_identity` again to change roles or update the description.
+
+Use `amfs_whoami()` to check the active identity. Use `amfs_reset_identity()` to clear it.
+
+**Naming rules:**
+- Use **kebab-case role/domain names** that persist across conversations about the same topic.
+- Good: `"dashboard-agent"`, `"stripe-agent"`, `"api-agent"`, `"infra-agent"`, `"mcp-agent"`
+- Bad: `"fix-button-color"` (too specific — won't be reused), `"agent-1"` (meaningless)
+- If you're continuing work a previous agent started, **use the same name** to build on their knowledge.
+- The description should say what you're doing *right now* (e.g. `"Fixing tag rollback for slashed names"`).
+
+## When to GET BRIEFED (start every session with context)
+
+- **Before starting any work**: Get a compiled briefing from the Memory Cortex. This gives you pre-compiled knowledge about the entities you're about to work on — what other agents know, recent risks, external events, and confidence-ranked facts. This is your most important first step.
+  ```
+  amfs_briefing(entity_path="<repo>/<module>")
+  ```
+- Then recall your own specific memories and search for details:
+  ```
+  amfs_recall("<repo>/<module>", "<relevant-key>")
+  amfs_search(entity_path="<repo>/<service-or-module>")
+  ```
+- **Before making architectural decisions**: Get a briefing first, then check specific patterns.
+  ```
+  amfs_briefing(entity_path="<repo>/<module>")
+  amfs_search(query="<topic>", min_confidence=0.5)
+  ```
+- **When encountering errors**: Check if the Cortex or another agent already has context.
+  ```
+  amfs_briefing(entity_path="<repo>/<module>")
+  amfs_search(query="<error-keyword>")
+  ```
+
+## When to READ FROM another agent
+
+- **When consulting another agent's work**: Explicitly read from their brain so the knowledge transfer is tracked.
+  ```
+  amfs_read_from("<agent_id>", "<repo>/<module>", "<key>")
+  ```
+- **When you know which agent has the answer**: Direct cross-agent read is faster and more traceable than search.
+
+## When to WRITE memory (form a memory)
+
+- **After completing a task**: Form a memory of what was done and why.
+  ```
+  amfs_write("<repo>/<module>", "task-summary-<short-desc>", "<what you did and key decisions>")
+  ```
+- **When discovering a pattern**: Write it with pattern_refs for cross-referencing.
+  ```
+  amfs_write("<repo>/<module>", "pattern-<name>", "<pattern description>", pattern_refs=["related-key"])
+  ```
+- **When finding a bug or risk**: Record it so other agents are warned. Use `memory_type="belief"` for hypotheses.
+  ```
+  amfs_write("<repo>/<module>", "risk-<name>", "<what could go wrong>", confidence=0.8, memory_type="belief")
+  ```
+- **When making a non-obvious decision**: Record the reasoning for future agents.
+  ```
+  amfs_write("<repo>/<module>", "decision-<topic>", "<decision and rationale>")
+  ```
+- **When logging actions taken**: Record what you did so future agents can retrace steps. Experiences decay slower.
+  ```
+  amfs_write("<repo>/<module>", "action-<desc>", "<what you did>", memory_type="experience")
+  ```
+- **When consulting external tools or APIs**: Record the context so decision traces are complete.
+  ```
+  amfs_record_context("<label>", "<summary of what was found>", source="<tool name>")
+  ```
+
+## When to RECORD DECISIONS (build the causal chain)
+
+- **When a decision is made** (by you or the user): Record it so the decision trace is complete.
+  ```
+  amfs_record_context("user-decision", "User chose thread-local approach over request-scoped", source="chat")
+  amfs_record_context("architecture-decision", "Using uvx for distribution — no source code needed", source="analysis")
+  ```
+- **When consulting external tools or APIs**: Record the context so decision traces are complete.
+  ```
+  amfs_record_context("pagerduty-incidents", "3 SEV-1 in last 24h", source="PagerDuty API")
+  ```
+- Record contexts **as they happen** during the session, not all at the end. This preserves the causal order.
+
+## When to COMMIT OUTCOMES (capture the full trace)
+
+- **After completing a significant task**: This snapshots all reads, writes, decisions, and contexts from the session into a persisted `DecisionTrace`. Always do this at the end of meaningful work.
+  ```
+  amfs_commit_outcome("tenant-rls-fix", "success")
+  amfs_commit_outcome("mcp-pypi-publish", "success")
+  ```
+- After a **bug or minor setback**: `amfs_commit_outcome("<ticket>", "minor_failure")`
+- After a **severe failure**: `amfs_commit_outcome("<incident-id>", "critical_failure")` or `"failure"`
+- **Don't skip this step** — without `commit_outcome`, the decision trace is lost when the session ends.
+
+## When to BROWSE TRACES (learn from past decisions)
+
+- **Before making similar decisions**: Check if a past trace already covers this area.
+  ```
+  amfs_list_traces(entity_path="<repo>/<module>", limit=5)
+  amfs_get_trace("<trace-id>")
+  ```
+
+## Entity naming convention
+
+Use hierarchical paths: `{repo}/{service-or-module}`
+
+Examples:
+- `amfs/core-engine` — the core AMFS engine
+- `myapp/checkout-service` — a checkout service
+- `myapp/auth` — authentication module
+
+## Confidence guidelines
+
+- `1.0` — verified fact, tested pattern, confirmed decision
+- `0.7-0.9` — high confidence based on analysis, not yet validated in production
+- `0.4-0.6` — hypothesis, initial observation, needs validation
+- `< 0.4` — speculative, early signal
+
+## Quality Feedback on Writes
+
+When you call `amfs_write`, the response includes a `quality` field with a score and any issues found.
+If the quality score is below 0.8, review the `issues` array and consider calling `amfs_write` again
+with an improved value. Common issues:
+- **too_short**: Value lacks detail. Add specifics: what, why, key parameters.
+- **missing_pattern_refs**: Related entries exist. Add pattern_refs to link them.
+- **belief_no_rationale**: Beliefs should explain reasoning (use "because", "hypothesis").
+- **overconfident_belief**: Beliefs should have confidence < 0.9.
+
+## Important
+
+- **Always start with `amfs_briefing`** — this gives you compiled, ranked knowledge from the Cortex before you even start looking.
+- Use `amfs_recall` for specific keys you remember, `amfs_search` for broader queries.
+- Use `amfs_read_from` when you know which agent has the knowledge you need.
+- Don't write trivial information (e.g. "added a comment"). Write things that would help a future agent.
+- Keep values concise but informative — think of it as writing a note to a colleague.
+- Confidence decays over time. Entries validated by outcomes decay slower.
+
+---
+> Source: [raia-live/amfs](https://github.com/raia-live/amfs) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
