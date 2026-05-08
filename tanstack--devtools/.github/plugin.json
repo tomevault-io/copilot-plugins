@@ -1,0 +1,9 @@
+{
+  "name": "tanstack--devtools",
+  "displayName": "devtools",
+  "description": "\ud83e\udd16 Framework-agnostic devtools panel for handling TanStack libraries devtools and your custom devtool plugins",
+  "version": "1.0.0",
+  "author": "TanStack",
+  "homepage": "https://github.com/TanStack/devtools",
+  "skills": []
+}
