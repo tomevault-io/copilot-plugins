@@ -1,0 +1,9 @@
+{
+  "name": "flipbit03--caducode",
+  "displayName": "caducode",
+  "description": "Minimalist Coding Agent. Only one tool: \"Run Python\"",
+  "version": "1.0.0",
+  "author": "flipbit03",
+  "homepage": "https://github.com/flipbit03/caducode",
+  "skills": []
+}
