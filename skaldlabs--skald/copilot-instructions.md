@@ -1,20 +1,27 @@
-## docs
+## posthog-integration
 
-> - Always follow the same tone and patterns as existing documentation
+> apply when interacting with PostHog/analytics tasks
 
 
-# Documentation generation
+Never hallucinate an API key. Instead, always use the API key populated in the .env file.
 
-- Always follow the same tone and patterns as existing documentation
-- Keep docs very concise and to the point
-- Whenever you make changes (or spot changes) to:
-    - the API's structural components: like changes to auth, update api-overview.md
-    - API endpoints: update api-reference.md
-    - models: update models.md
+# Feature flags
 
-# Using the docs
+A given feature flag should be used in as few places as possible. Do not increase the risk of undefined behavior by scattering the same feature flag across multiple areas of code. If the same feature flag needs to be introduced at multiple callsites, flag this for the developer to inspect carefully.
 
-- Refer to the docs/ directory for overviews on how things work
+If a job requires creating new feature flag names, make them as clear and descriptive as possible.
+
+If using TypeScript, use an enum to store flag names. If using JavaScript, store flag names as strings to an object declared as a constant, to simulate an enum. Use a consistent naming convention for this storage. enum/const object members should be written UPPERCASE_WITH_UNDERSCORE.
+
+Gate flag-dependent code on a check that verifies the flag's values are valid and expected.
+
+# Custom properties
+
+If a custom property for a person or event is at any point referenced in two or more files or two or more callsites in the same file, use an enum or const object, as above in feature flags.
+
+# Naming
+
+Before creating any new event or property names, consult with the developer for any existing naming convention. Consistency in naming is essential, and additional context may exist outside this project. Similarly, be careful about any changes to existing event and property names, as this may break reporting and distort data for the project.
 
 ---
 > Source: [skaldlabs/skald](https://github.com/skaldlabs/skald) — distributed by [TomeVault](https://tomevault.io).
