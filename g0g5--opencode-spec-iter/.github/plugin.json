@@ -1,0 +1,9 @@
+{
+  "name": "g0g5--opencode-spec-iter",
+  "displayName": "opencode-spec-iter",
+  "description": "Spec-driven iterative development companion CLI for OpenCode.",
+  "version": "1.0.0",
+  "author": "g0g5",
+  "homepage": "https://github.com/g0g5/opencode-spec-iter",
+  "skills": []
+}
