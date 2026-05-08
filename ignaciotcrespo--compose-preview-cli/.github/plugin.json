@@ -1,0 +1,9 @@
+{
+  "name": "ignaciotcrespo--compose-preview-cli",
+  "displayName": "compose-preview-cli",
+  "description": "A terminal UI for browsing and running Jetpack Compose @Preview composables \u2014 without launching Android Studio.",
+  "version": "1.0.0",
+  "author": "ignaciotcrespo",
+  "homepage": "https://github.com/ignaciotcrespo/compose-preview-cli",
+  "skills": []
+}
