@@ -1,50 +1,67 @@
-## hono-rpc
+## next-dynamic-params
 
-> Colocate server routers and typed client hooks using Hono RPC + React Query
+> Enforce awaiting Next.js dynamic route params (Next 15+ app router). Apply when editing dynamic segment files (pages, route handlers, generateMetadata/generateStaticParams) so params is typed as Promise and awaited before use.
 
-Conventions
-- Backend HTTP is implemented with Hono in `src/api/routers/*`. All routers are registered by chaining in `src/api/routers/index.ts` (keep chaining on the same value for full RPC type inference).
-- Frontend accesses APIs via typed clients in `src/api/client/*`. Clients must export React Query hooks (e.g., `useXyzList`) that call the Hono client (`hc<AppType>`) and never plain `fetch`.
-- Use the shared `apiClient` from `src/api/client/index.ts` and the exported `AppType` from `src/api/routers` for full end‑to‑end type safety.
-- AuthZ: Protected routers must enforce auth via Supabase SSR. Use `getAuthUser(c)` from `src/api/auth.ts` to obtain the authenticated user (throws 401 if not). For Storage writes, prefer the service client when needed.
-- Data contracts: Prefer returning JSON objects with cursors for pagination. Keep URL search params as strings; handle parsing server‑side.
+Rule
+- In app router files for dynamic routes, `params` is async. Always await it before using.
+- Function signatures must reflect this by making the component/handler `async` and typing `params` as a Promise.
 
-Patterns
-- Router (server):
+Do
 ```ts
-import { Hono } from 'hono'
-export const myRouter = new Hono()
-  .get('/', async c => { /* auth + data */ return c.json({ items, nextCursor, hasMore }) })
-```
-- Register:
-```ts
-export const routes = api
-  .route('/ping', pingRouter)
-  .route('/my', myRouter)
-```
-- Client hook (frontend):
-```ts
-'use client'
-import { apiClient } from '@/api/client'
-import { useInfiniteQuery } from '@tanstack/react-query'
+type PageProps = { params: Promise<{ id: string }> }
 
-export function useMyList() {
-  return useInfiniteQuery({
-    queryKey: ['my'],
-    queryFn: async ({ pageParam }) => {
-      const res = await apiClient.api.my.$get({ query: { cursor: pageParam ?? undefined } })
-      if (!res.ok) throw new Error('Request failed')
-      return await res.json()
-    },
-    initialPageParam: null,
-    getNextPageParam: last => last.nextCursor
-  })
+export default async function Page({ params }: PageProps) {
+	const { id } = await params
+	// ...
 }
 ```
+
+Don’t
+```ts
+type PageProps = { params: { id: string } }
+export default function Page({ params }: PageProps) {
+	const { id } = params // ❌ params must be awaited
+}
+```
+
+Also applies to
+- `generateMetadata`, `generateStaticParams`, and Route Handlers in dynamic segments
+
 Checklist
-- Add router under `src/api/routers/*` and register by chaining in `index.ts`.
-- Add client hook under `src/api/client/*` using React Query; no raw `fetch`.
-- Enforce auth / ownership / access checks in the router using `getAuthUser(c)`; do not assume the client is trusted.
+- Component/handler is `async`
+- `params` type is `Promise<...>`
+- Always `await params` before destructuring
+Next.js dynamic route params (Next 15+)
+
+Rule
+- In app router files for dynamic routes, `params` is async. Always await it before using.
+- Function signatures must reflect this by making the component/handler `async` and typing `params` as a Promise.
+
+Do
+```ts
+type PageProps = { params: Promise<{ id: string }> }
+
+export default async function Page({ params }: PageProps) {
+	const { id } = await params
+	// ...
+}
+```
+
+Don’t
+```ts
+type PageProps = { params: { id: string } }
+export default function Page({ params }: PageProps) {
+	const { id } = params // ❌ params must be awaited
+}
+```
+
+Also applies to
+- `generateMetadata`, `generateStaticParams`, and Route Handlers in dynamic segments
+
+Checklist
+- Component/handler is `async`
+- `params` type is `Promise<...>`
+- Always `await params` before destructuring
 
 ---
 > Source: [miketromba/shadcn-themer](https://github.com/miketromba/shadcn-themer) — distributed by [TomeVault](https://tomevault.io).
