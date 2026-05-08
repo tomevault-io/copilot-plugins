@@ -1,0 +1,9 @@
+{
+  "name": "javierustk--delphi-lookup",
+  "displayName": "delphi-lookup",
+  "description": "Fast Delphi/Pascal symbol search for AI coding agents - Now includes Delphi LSP",
+  "version": "1.0.0",
+  "author": "JavierusTk",
+  "homepage": "https://github.com/JavierusTk/delphi-lookup",
+  "skills": []
+}
