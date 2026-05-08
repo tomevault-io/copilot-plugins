@@ -1,0 +1,9 @@
+{
+  "name": "dunova--contextgo",
+  "displayName": "ContextGO",
+  "description": "Local-first context & memory runtime for multi-agent AI coding teams. MCP-free. Rust/Go accelerated.",
+  "version": "1.0.0",
+  "author": "dunova",
+  "homepage": "https://github.com/dunova/ContextGO",
+  "skills": []
+}
