@@ -1,0 +1,9 @@
+{
+  "name": "ruso-0--nreki",
+  "displayName": "Nreki",
+  "description": "MCP plugin that saves 50%+ tokens per session for AI coding agents. Validates edits in RAM (TypeScript + gopls + pyright), auto-heals errors, catches broken code before it hits disk. Patch mode cuts o",
+  "version": "1.0.0",
+  "author": "Ruso-0",
+  "homepage": "https://github.com/Ruso-0/Nreki",
+  "skills": []
+}
