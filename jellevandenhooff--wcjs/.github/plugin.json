@@ -1,0 +1,9 @@
+{
+  "name": "jellevandenhooff--wcjs",
+  "displayName": "wcjs",
+  "description": "WebAssembly Component Model JS runtime",
+  "version": "1.0.0",
+  "author": "jellevandenhooff",
+  "homepage": "https://github.com/jellevandenhooff/wcjs",
+  "skills": []
+}
