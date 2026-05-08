@@ -1,65 +1,57 @@
-## rename-tool
+## seed-data
 
-> Patterns for the project rename tool — file coverage, domain-safe replacement, name validation
+> Patterns for development seed data — stable UUIDs, realistic data, cross-references
 
 
-# Rename Tool Patterns
+# Seed Data Patterns
 
-The rename tool (`make rename` / `go run ./cmd/rename`) rebrands the entire project. It's high-risk — a missed file means a downstream user ships with "Golid" in their app, and a naive replacement corrupts domain URLs.
+Follow the established pattern in `dev_seed.sql`.
 
-## Domain-Safe Replacement
+## UUID Convention
 
-`replaceInFileSafe` uses a null-byte placeholder to protect the project domain (`golid.ai`) from corruption. Without it, `"golid"→"myapp"` turns `golid.ai` into `myapp.ai`.
+Use stable, predictable UUIDs for cross-referencing:
 
-```go
-const placeholder = "\x00DOMAIN\x00"
-protected := strings.ReplaceAll(content, oldDomain, placeholder)
-updated := strings.ReplaceAll(protected, old, new)
-final := strings.ReplaceAll(updated, placeholder, oldDomain)
+```sql
+-- Entity type encoded in the UUID for readability
+-- users:     a0000000-0000-0000-0000-00000000000N
+-- resources: a0000000-0000-0000-0000-0000000000N0
+-- items:     a0000000-0000-0000-0000-000000000N00
 ```
 
-Use `replaceInFileSafe` for any file that might contain the project domain (docker-compose, deploy scripts, env files, infra templates, CI configs). Use `replaceInFile` for files that only contain module paths or titled names (Go imports, package.json scope).
+Document the UUID mapping at the top of the file so they're easy to find.
 
-## File Coverage
+## Idempotency
 
-The tool must cover every file with hardcoded project names. Current categories:
+Every INSERT must use `ON CONFLICT ... DO UPDATE` or `ON CONFLICT ... DO NOTHING` so the seed can be re-run safely:
 
-| # | Target | Function |
-|---|--------|----------|
-| 1 | `go.mod` | Module path |
-| 2 | All `.go` files | Import paths + titled name |
-| 3 | `docker-compose.yml` | Container/DB names |
-| 4 | `package.json` + lock | npm scope |
-| 5 | `README.md` | GitHub repo + titled name |
-| 6 | `.cursor/rules/*.mdc` | Module path + project name |
-| 7 | `docs/*.md` | Module path + project name |
-| 8 | `frontend/src/**/*.{ts,tsx}` | Titled branding + lowercase + all-caps |
-| 8b | `frontend/src/**/*.css` | Branded CSS class names |
-| 9 | Community files (SECURITY, CHANGELOG, CONTRIBUTING) | GitHub repo + titled name |
-| 10 | `codecov.yml` | Module path |
-| 11 | `config/.env.*` | APP_NAME + DB names |
-| 12 | `scripts/*.sh` + `scripts/README.md` | Project name + titled |
-| 13 | Swagger docs, DevContainer, Dockerfiles | Titled + project name |
-| 14 | `infra/*.yaml` + `.github/workflows/*.yml` | Project name |
-| 15 | Scaffold template + backend Makefile | Titled name |
-| 16 | `testutil/testutil.go` | Default DB name |
-| 17 | Entrypoint scripts | Project + titled name |
-| 18 | `openapi.yaml` | Titled + project name |
-| 19 | `.gitignore` | All-caps project name in comments |
+```sql
+INSERT INTO users (id, email, ...) VALUES (...)
+ON CONFLICT (email) DO UPDATE SET
+  registration_step = EXCLUDED.registration_step,
+  email_verified = EXCLUDED.email_verified;
+```
 
-**When adding a new file with hardcoded project names**, add a corresponding replacement step here. Check both the lowercase name and the titled (capitalized) name.
+## Data Quality
 
-## Name Validation
+- **Realistic content** — real-sounding names, descriptions, skills. Not "test123" or "Lorem ipsum".
+- **All profile fields populated** — except file-based fields (resume_url, microview_url, etc.) which require actual uploads.
+- **Varied statuses** — seed entities in different states (new, in_progress, complete, approved) to test all UI states.
+- **Realistic timestamps** — use `NOW() - INTERVAL 'N days'` for created/updated dates to simulate a timeline.
 
-Project names must match `^[a-z][a-z0-9]*(-[a-z0-9]+)*$` (2-50 chars). This is valid for Go module path components, npm package names, Docker image names, and GCP resource names.
+## Cross-Entity Relationships
 
-## Testing After Rename
+When adding a new entity type, seed the full chain. For example, items require:
 
-The tool prints a "Next steps" checklist. Always verify:
-1. `cd backend && go build ./...` (import paths updated)
-2. `cd frontend && npm run build` (scope + branding updated)
-3. `git diff` to review all changes
-4. Update `entry-server.tsx` og:url with the new domain
+1. Users (user, admin)
+2. Parent resources (if applicable)
+3. Items (varied statuses)
+4. Related records (comments, history, etc.)
+
+## When to Update
+
+- After creating a new migration that adds tables — seed sample data immediately.
+- When adding a new feature — add seed data that exercises all states visible in the UI.
+- Seed data enables manual testing during development. Don't skip it.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
