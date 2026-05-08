@@ -1,0 +1,9 @@
+{
+  "name": "akemmanuel--opengui",
+  "displayName": "OpenGUI",
+  "description": "Desktop + web command center for OpenCode, Claude Code, Codex, and Pi. Multi-project AI coding sessions with streaming chat, prompt queue, model switching, and MCP tools.",
+  "version": "1.0.0",
+  "author": "akemmanuel",
+  "homepage": "https://github.com/akemmanuel/OpenGUI",
+  "skills": []
+}
