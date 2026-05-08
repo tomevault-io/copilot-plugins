@@ -1,0 +1,9 @@
+{
+  "name": "lucianfialho--build-in-public-mcp",
+  "displayName": "build-in-public-mcp",
+  "description": "MCP server for Build in Public - share your dev journey on Twitter directly from Claude Code",
+  "version": "1.0.0",
+  "author": "lucianfialho",
+  "homepage": "https://github.com/lucianfialho/build-in-public-mcp",
+  "skills": []
+}
