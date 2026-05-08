@@ -1,0 +1,9 @@
+{
+  "name": "wshaddix--dotnet-skills",
+  "displayName": "dotnet-skills",
+  "description": "Claude Code skills and sub-agents for .NET Developers",
+  "version": "1.0.0",
+  "author": "wshaddix",
+  "homepage": "https://github.com/wshaddix/dotnet-skills",
+  "skills": []
+}
