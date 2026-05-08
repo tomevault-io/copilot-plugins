@@ -1,0 +1,9 @@
+{
+  "name": "predictable-machines--lean4-flow",
+  "displayName": "lean4-flow",
+  "description": "Reactive streams library for Lean 4 \u2014 Flow, SharedFlow, StateFlow, ProgramFlow, and ReactiveProgram",
+  "version": "1.0.0",
+  "author": "predictable-machines",
+  "homepage": "https://github.com/predictable-machines/lean4-flow",
+  "skills": []
+}
