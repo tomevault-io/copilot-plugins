@@ -1,41 +1,63 @@
-## architecture-principles
+## frontend-best-practices
 
-> Architecture principles and code quality standards including SOLID principles, DRY, and clean code practices for designing and refactoring code
+> Standards for modern Frontend development using Next.js 16 (App Router), React 19, Tailwind CSS v4, and Shadcn/UI. Apply when working on `apps/web` or `packages/ui`.
 
 
-# Architecture & Principles (SOLID/DRY)
+# Frontend Best Practices (Next.js 16 + Tailwind)
 
-## Code Quality Standards
+## 1. Core Stack
+- **Framework**: Next.js 16 (App Router). Do NOT use `pages/`.
+- **Language**: TypeScript (Strict).
+- **Styling**: Tailwind CSS v4. No CSS-in-JS.
+- **Components**: Shadcn/UI (Radix Primitives).
+- **Icons**: Lucide React.
 
-1. **SOLID Principles**:
-   - **Single Responsibility**: Each class/module should have one reason to change.
-   - **Open/Closed**: Software entities should be open for extension, but closed for modification.
-   - **Liskov Substitution**: Objects of a superclass should be replaceable with objects of its subclasses.
-   - **Interface Segregation**: Prefer many client-specific interfaces over one general-purpose interface.
-   - **Dependency Inversion**: Depend on abstractions, not concretions.
+## 2. Server Components (RSC) First
+- **Default to Server**: All components are Server Components by default.
+- **Use Client sparingly**: Only add `"use client"` when you need:
+  - Event listeners (`onClick`, `onChange`).
+  - React Hooks (`useState`, `useEffect`).
+  - Browser-only APIs.
+- **Pattern**: Push client logic down the tree. Keep the page layout server-side.
 
-2. **DRY (Don't Repeat Yourself)**:
-   - Minimize code duplication through proper abstraction and semantic naming.
-   - If a logic is used more than twice, consider refactoring it into a reusable component or utility.
+## 3. Data Fetching
+- **Server Actions**: Use Server Actions for mutations (`<form action={...}>`).
+- **Fetch**: Use standard `fetch` in RSCs for data loading.
+- **No useEffect for data**: Avoid fetching data in `useEffect`. Use Server Components or React Query (if absolutely necessary for client-side polling).
 
-3. **Clean Code**:
-   - **Semantic Naming**: Use clear, descriptive names for variables, functions, and classes.
-   - **Small Functions**: Functions should do one thing and be relatively short.
-   - **Avoid Deep Nesting**: Use early returns (guard clauses) to reduce indentation.
+## 4. Styling (Tailwind v4)
+- **Utility First**: Use utility classes directly.
+- **CN Helper**: ALWAYS use `cntl` or `cn` (clsx + tailwind-merge) for conditional classes.
+  ```tsx
+  <div className={cn("p-4", isActive && "bg-blue-500")}>
+  ```
+- **No arbitrary values**: Avoid `w-[123px]`. Use theme tokens (e.g., `w-32`).
+- **Design Aesthetic ("The Clean Architect")**: 
+  - Follow a functional minimalism approach. 
+  - Use Pure Black (`#000`) or Dark Zinc backgrounds (avoid pure `#FFF` in dark mode, use slight off-whites or glass layers).
+  - Rely on 1px subtle borders (e.g., `border-white/10`) and high contrast text.
+  - **Premium Interactions**: Actively use Glassmorphism (`backdrop-blur`), subtle lifts (`hover:-translate-y-0.5`), and radial gradient reveals on cards. Avoid static, flat data presentation.
+  - **Animation**: Use `framer-motion` for state transitions (`AnimatePresence`) and hero elements. Never use abrupt DOM swapping for major components.
+  - **Anti-Boilerplate Discipline**: Strictly **NO** heavy neon glows, excessive static gradients, or generic "Lovable/v0" pill-shaped (`rounded-full`) colorful layouts. The UI must feel like a highly technical, monochromatic engineering tool, not a generic SaaS template. Let the physics and motion provide the "wow" factor, not coloring in background divs.
+  - **Consult**: Always refer to `product/design/design-system.md` for the single source of truth on UI/UX behavior.
 
-## Product Architecture (v2.0.0+)
+## 5. Component Architecture
+- **Shadcn**: Use `packages/ui` components (e.g., `<Button>`, `<Card>`) instead of HTML tags.
+- **Composition**: Build complex UIs by composing small, single-responsibility components.
+- **Accessibility**: Use semantic HTML (`<main>`, `<article>`, `<button>`) and ARIA roles where Shadcn doesn't cover it.
 
-The ASAP Protocol uses a **Lean Marketplace** polyglot architecture:
-1. **Core Protocol (`src/asap/`)**: Strict Python. Uses Pydantic for validation and `uv` for dependency management. No backend APIs.
-2. **Web App (`apps/web/`)**: Next.js 16 (React 19) + TypeScript + Tailwind v4. It acts as a static consumer (SSG/ISR) of the Lite Registry.
-3. **Lite Registry**: A single `registry.json` hosted on GitHub Pages acts as the database. Registration and updates happen via GitHub PRs (IssueOps), *not* via a write API.
+## 6. Project Structure `apps/web`
+- `app/`: Routes and layouts.
+- `components/`: Feature-specific components.
+- `lib/`: Utilities and generic helpers.
+- `actions/`: Server Actions.
+- `hooks/`: Custom React hooks.
 
-## Response Format
-
-When providing code modifications:
-- Include a `# file: path/to/file.py` (or appropriate language comment) before the code block.
-- Provide sufficient context (lines before/after) to make the change clear.
-- Stick to the current architecture choices located in `pyproject.toml` unless changes are explicitly discussed.
+## 7. State Management
+1. **URL State**: Query params (`?search=foo`) for shareable state.
+2. **Server State**: RSC + Cache.
+3. **Local State**: `useState` / `useReducer`.
+4. **Global State**: Minimal usage (Zustand) if props drilling becomes unmanageable.
 
 ---
 > Source: [adriannoes/asap-protocol](https://github.com/adriannoes/asap-protocol) — distributed by [TomeVault](https://tomevault.io).
