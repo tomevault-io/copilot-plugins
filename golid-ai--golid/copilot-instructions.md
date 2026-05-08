@@ -1,99 +1,140 @@
-## deploy-infra
+## document-module
 
-> Patterns for infrastructure changes — deploy scripts, Docker, Cloud Run, env vars, config
+> Document an existing module — use when asked to spec, document, or map a module that's already built
 
 
-# Infrastructure Change Patterns
+# Document a Module
 
-High-risk, low-frequency changes. Follow the full chain for every modification.
+> **Thesis:** Use this when documenting an existing module. `plan-feature.mdc`
+> plans forward. This documents backward — capturing what was built, why, and
+> how it behaves.
 
-## Adding a New Environment Variable
+## Order of Operations
 
-Two chains depending on whether the value is a secret or plain config.
+1. **Schema first** — read the migrations in `backend/migrations/` to understand tables, enums, relationships, indexes
+2. **Service logic** — read `backend/internal/service/*.go` for business rules, auth checks, transactions, status transitions
+3. **Handler surface** — read `backend/internal/handler/*.go` for request validation, response shapes, route registration in `cmd/server/main.go`
+4. **Frontend routes** — read `frontend/src/routes/(private)/*.tsx` for pages, modals, state management
+5. **Write the spec** — fill the template below
 
-### If it's a SECRET (API key, password, signing key):
+## Evidence Standards
 
-1. `backend/internal/config/config.go` — add field to `Config` struct + `os.Getenv()` in `Load()`
-2. `config/.env.local` — add with dev/sandbox value (local dev only)
-3. `config/.env.example` — add with placeholder
-4. Create in GCP Secret Manager: `echo -n "value" | gcloud secrets create golid-{name}-{env} --data-file=- --project=PROJECT`
-5. `scripts/deploy.sh` — add `secret_exists` guard + append to `secrets` string in `ship_api()`
-6. Service constructor in `cmd/server/main.go` — pass `cfg.NewField` to the service
+- Every business rule must be marked:
+  - `[Verified: service/item.go:142]` — confirmed by reading the code
+  - `[NEEDS VERIFICATION]` — inferred from naming or partial evidence
+- Do NOT invent business rules. If you can't confirm it, mark it unverified.
+- Use concrete evidence: function names, line numbers, SQL column names, enum values
 
-### If it's plain CONFIG (URL, domain, feature flag):
+## Spec Template
 
-1. `backend/internal/config/config.go` — add field to `Config` struct + `os.Getenv()` in `Load()`
-2. `config/.env.local` — add with dev/sandbox value
-3. `config/.env.example` — add with placeholder (backend vars only)
-4. `frontend/.env.example` — add with placeholder (for `VITE_*` browser-exposed vars only). Per-environment values (e.g. test vs live Stripe public key) go in `config/.env.{qa,prod}` and are passed as build args during frontend image build.
-5. `config/.env.qa` — add with QA value
-6. `config/.env.prod` — add with production value
-7. `scripts/deploy.sh` — add to the `env_vars` block in `ship_api()` (if backend needs it at runtime)
-8. Service constructor in `cmd/server/main.go` — pass `cfg.NewField` to the service
+```markdown
+# Module: [Name]
 
-```go
-// config.go
-type Config struct {
-    // ...
-    NewAPIKey string
-}
+> **Thesis:** [One sentence — what this module does and why it exists]
 
-// In Load():
-NewAPIKey: os.Getenv("NEW_API_KEY"),
+| | |
+|---|---|
+| **Domain** | [e.g., Core, Billing, User Management] |
+| **Complexity** | Low / Medium / High / Critical |
+| **Status** | Complete / In Progress / Not Started |
+
+---
+
+## Scope
+
+**Includes:**
+- [entities, services, handlers this spec covers]
+
+**Excludes:**
+- [what belongs in other module specs]
+
+**Depends On:**
+- [other modules referenced by FK or service call]
+
+---
+
+## Entities
+
+Derived from `backend/migrations/*.sql`:
+
+| Table | Key Columns | Relationships | Notes |
+|-------|-------------|---------------|-------|
+| | | | |
+
+---
+
+## State Machine
+
+Derived from service status checks and enum definitions:
+
+| Status | Transitions To | Guard | Side Effects |
+|--------|---------------|-------|-------------|
+| | | | |
+
+---
+
+## Business Rules
+
+Derived from service methods. Mark each rule.
+
+### Validation
+- [Verified: service/x.go:line] Rule description
+
+### Auth / Permissions
+- Handler: `requireUserID` + `requireUserType` (authn)
+- Service: `verifyResourceAccess` or equivalent (authz)
+
+### Side Effects
+- Emails, webhooks, SSE events, cascading status changes
+- Fire-and-forget goroutines with `service.Retry()`
+
+---
+
+## API Surface
+
+Derived from handler route registration in `cmd/server/main.go`:
+
+| Method | Route | Handler | Auth | Description |
+|--------|-------|---------|------|-------------|
+| GET | /api/v1/x | List | JWT | List with pagination |
+| POST | /api/v1/x | Create | JWT | Create new |
+| GET | /api/v1/x/:id | GetByID | JWT | Get single |
+| PUT | /api/v1/x/:id | Update | JWT | Update |
+| DELETE | /api/v1/x/:id | Delete | JWT | Soft delete |
+
+---
+
+## Frontend
+
+| Route | Page | Key Components | Data Fetching |
+|-------|------|---------------|--------------|
+| /x | List page | Table, filters, modals | onMount + signals |
+
+---
+
+## Current Implementation
+
+| Layer | Files |
+|-------|-------|
+| Handler | `backend/internal/handler/x.go` |
+| Service | `backend/internal/service/x.go` |
+| Migration | `backend/migrations/000XXX_*.up.sql` |
+| Frontend | `frontend/src/routes/(private)/x/` |
+| Tests | `backend/internal/handler/x_test.go` |
 ```
 
-## Docker Patterns
+## Complexity Ratings
 
-- Multi-stage builds: build stage (Go compile) → runtime stage (minimal image)
-- Never copy `.env` files into images — env vars injected at runtime
-- Health check: `HEALTHCHECK CMD curl -f http://localhost:8080/health || exit 1`
-- Non-root user in production images
+| Rating | Criteria |
+|--------|----------|
+| Low | < 500 lines, simple CRUD, no state machine |
+| Medium | 500-1,500 lines, has state machine or moderate rules |
+| High | 1,500-3,000 lines, complex state machines, financial calcs |
+| Critical | 3,000+ lines, polymorphic entities, cross-system deps |
 
-## Cloud Run
+## Output
 
-- `concurrency: 80` (default, adjust based on load testing)
-- `memory: 512Mi` (sufficient for Go + pgx pool)
-- `min-instances: 0` (scale to zero in QA, 1+ in prod)
-- Always set `--no-traffic` on first deploy, then migrate traffic
-
-## Secrets
-
-**Never hardcode secrets.** Hybrid approach:
-
-- **Development:** `config/.env.local` (gitignored), loaded by Docker Compose
-- **QA/Prod — simple secrets** (`JWT_SECRET`, `MAILGUN_API_KEY`, `STRIPE_*`): stored in GCP Secret Manager, injected via Cloud Run `--set-secrets`. Never visible in service config.
-- **QA/Prod — `DB_PASSWORD`**: fetched from Secret Manager at deploy time by `deploy.sh`, used to construct `DATABASE_URL` (which requires the dynamic Cloud SQL socket path), then passed as `--set-env-vars`.
-- **QA/Prod — plain config** (`FRONTEND_URL`, `MAILGUN_DOMAIN`, etc.): stays in `config/.env.{qa,prod}`, passed as `--set-env-vars`.
-
-Secret naming: `golid-{name}-{env}` (e.g. `golid-jwt-secret-qa`). Env suffix prevents collisions when environments share a GCP project.
-
-## Nginx (Frontend)
-
-- `proxy_pass` to backend with `resolver` for Cloud Run DNS
-- Security headers: `X-Content-Type-Options`, `X-Frame-Options`, `X-XSS-Protection`
-- Gzip enabled for text/html, application/json, application/javascript
-
-## Long-Lived Connections (SSE, WebSockets)
-
-If you add SSE or WebSocket endpoints, exclude them from:
-- Gzip middleware (causes flush panic on connection close)
-- Timeout middleware (long-lived connections)
-- Add skipper functions in `middleware/stack.go`
-
-## Infrastructure Files (infra/)
-
-Cloud Build and Cloud Run configs live in `infra/`, not alongside app code:
-- `infra/backend-cloudbuild.yaml` — builds the backend Docker image
-- `infra/frontend-cloudbuild.yaml` — builds the frontend Docker image
-- `infra/backend-service.yaml` — Cloud Run service config for the API
-- `infra/frontend-service.yaml` — Cloud Run service config for the web frontend
-- `infra/scheduler.yaml` — Cloud Scheduler job configs
-
-`scripts/deploy.sh` references these via `$PROJECT_ROOT/infra/`. Follow the naming convention: `{target}-{type}.yaml`.
-
-## Frontend Config Files
-
-- `frontend/.env.example` — documents `VITE_*` browser-exposed env vars. Separate from `config/.env.example` (backend vars). Backend secrets must never use the `VITE_` prefix.
+Save to `docs/modules/[module-name].md`. Create the directory if it doesn't exist.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
