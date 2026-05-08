@@ -1,183 +1,218 @@
 ## superspec
 
-> SuperSpec - Spec-driven development slash commands
+> <!-- superspec:start -->
 
+<!-- superspec:start -->
+# SuperSpec — AI Agent Instructions
 
-# SuperSpec Slash Commands
+## 🚨 Before ANY Task
 
-> Principles, rules, config, workflow are defined in AGENTS.md (already in your context).
-> This file only adds slash command execution details. Do not duplicate AGENTS.md content.
+1. **Read configuration**: `superspec.config.json` → get `lang`, `specDir`, `boost`, `strategy`, `context`
+2. **Review project context**:
+   - Read `context` files (project rules/conventions)
+   - Check project README, architecture docs, CONTRIBUTING.md
+   - If no `context` configured, auto-check: `.cursor/rules/`, `AGENTS.md`, `CONTRIBUTING.md`
+3. **Inspect current state**:
+   - Run `/ss-status` or check `{specDir}/changes/` → know active changes
+   - Review related changes via `depends_on` to avoid duplication
+4. **Read current change context**:
+   - Determine `strategy` by priority: user input `-c` > config default
+   - Read frontmatter `input` field → understand original user intent
+   - If `strategy: follow` → treat context files as constraints (must follow)
+   - If `strategy: create` → treat context files as awareness (may deviate, must justify)
+5. **Never create change folders manually** → use `superspec create` CLI or `/ss-create`
 
 ---
 
-## /ss-create <feature>
+## 🧭 First Principles
 
-**CLI:** `superspec create <feature>` (`-b` boost, `-c` creative, `--no-branch` skip branch)
+| # | Principle | Rule |
+|---|-----------|------|
+| I | **Context Economy** | < 300 lines per artifact, 400 hard limit. Exceeds → split. Readable in 10 min. |
+| II | **Signal-to-Noise** | Every sentence must inform a decision. If removing it changes nothing → remove it. |
+| III | **Intent Over Implementation** | Focus on **why** and **what**. Let **how** emerge during `/ss-apply`. |
+| IV | **Progressive Disclosure** | Start minimal. Expand only when clarification demands it. |
+| V | **Required Sections** | Metadata header, Problem, Solution, Success Criteria, Trade-offs. |
 
-> CLI only creates folder + git branch. AI reads `{specDir}/templates/` as structural reference, then generates artifacts with real content on demand.
+---
 
-**Strategy priority**: user input `-c` > config default
+## 🎯 Standard vs Boost
 
-**Standard steps:**
-1. Parse user input → extract feature, intent type, developer, lang; **preserve original input text**
-2. Determine strategy by priority
-3. Run `superspec create <feature> [--intent-type <type>] [-c]` → creates folder + branch
-4. If `follow`: read `context` files → constrain to project patterns
-   If `create`: note `context` as awareness only
-5. Collect from user: Background, Goals, Requirements, Technical Solution, Impact scope
-6. `follow`: solution must align with existing architecture
-   `create`: may propose new architecture, must explain trade-offs
-7. Apply First Principles (brevity, intent-focused, required sections)
-8. Directly generate `proposal.md` (requirements + technical solution). Frontmatter `input` = user's original input
-9. **Auto-run checklist** (Standard checks, / 10): evaluate proposal quality
-10. Pass → generate `checklist.md`, prompt /ss-tasks; Fail → fix proposal, re-check
+| | Standard (lightweight) | Boost (enhanced) |
+|---|---|---|
+| **场景** | Simple tasks, bug fixes, small features | Large features, breaking changes, complex designs |
+| **Artifacts** | proposal + checklist + tasks | proposal + spec + checklist + tasks (+ design optional) |
+| **proposal 定位** | 需求 + 技术方案（自含，可直接拆 task） | 需求背景（Goals, Risks, Impact） |
+| **spec 定位** | — | 需求细节 + 交互（US/FR/AC/Edge Cases） |
+| **Checklist 时机** | proposal 后自动检查（/ 10） | spec 后自动检查（/ 25） |
+| **Task granularity** | Flexible | < 1h per task |
+| **Cross-validation** | — | Auto: US↔FR↔AC↔tasks |
+| **Edge cases** | Basic | Comprehensive |
 
-**Boost steps:**
-1. Parse user input → extract feature, intent type, developer, lang; **preserve original input text**
-2. Determine strategy by priority
-3. Run `superspec create <feature> -b [--intent-type <type>] [-c]` → creates folder + branch
-4. Read frontmatter config → check `strategy`, context
-5. Directly generate `proposal.md` (focused on requirements background). Frontmatter `input` = user's original input
-6. Read `{specDir}/templates/spec.md` as structural reference
-7. Generate spec from proposal:
-   - User stories + acceptance criteria (AC-x.x)
-   - Functional requirements + priority (P0/P1/P2) + dependencies
-   - Non-functional requirements, Data model / API design, Edge cases
-8. Validate: every proposal goal → at least one user story
-9. Directly generate `spec.md` with real content
-10. **Auto complexity assessment**: split spec if multi-capability / > 300 lines; generate design.md if cross-system / major architecture decisions
-11. **Auto-run checklist** (Boost checks, / 25): evaluate all artifacts
-12. Pass → generate `checklist.md`, prompt /ss-tasks; Fail → fix, re-check
-
-## /ss-tasks
-
-**Steps:**
-1. Read frontmatter → check `strategy`
-2. Standard: read `proposal.md` as input
-   Boost: read `proposal.md` + `spec.md` as input
-3. Read `{specDir}/templates/tasks.md` as **structural reference**
-4. Break into phased tasks:
-   - Phase 1: Infrastructure / setup
-   - Phase 2: Core implementation
-   - Phase 3: Integration / verification
-5. Each task: file paths, dependencies, `[P]` for parallel
-6. `follow`: use existing file structure, naming, deps
-   `create`: may introduce new structures, explicitly note deviations
-7. Granularity: flexible (standard) / < 1h (boost)
-8. Checkpoints per phase
-9. Boost: validate every spec requirement → at least one task
-10. Directly generate `tasks.md` with real content → status 🟢 Ready
-
-## /ss-apply
-
-**Steps:**
-1. Read frontmatter → check `strategy`
-2. If `follow`: read `context` files → implementation must match project conventions
-   If `create`: implement as designed, note any new patterns introduced
-3. Read `tasks.md` → parse task list
-4. Execute in dependency order, parallelize `[P]` where possible
-5. After each task: mark ✅ in `tasks.md`
-6. After each phase: checkpoint validation
-7. On blockers: pause and report
-8. After all tasks done: run `superspec sync <name>` to refresh context.md
-
-## /ss-resume
-
-**For vibe coding after `/ss-apply`.** Restores spec context in a new conversation.
-
-**Steps:**
-1. Locate current change folder in `{specDir}/changes/`
-2. Run `superspec sync <name>` to collect latest git changes into context.md
-3. Read `context.md` only (single file, minimal tokens, contains goals/progress/strategy/input/git changes)
-4. Determine behavior mode from `strategy` (follow / create)
-5. Report: goals, progress, git changes, affected files
-6. **Ask user whether to read additional docs**, list available files, suggest priority:
-   - ✅ `tasks.md` (recommended) → `proposal.md` → `spec.md` → `design.md` → `checklist.md` → `clarify.md`
-7. Read selected files based on user's choice
-8. Ask user: what needs fixing / adjusting?
-9. Fix respecting `strategy` (follow = obey conventions / create = explore)
-10. After fix: update tasks.md checkbox if applicable
-11. Run `superspec sync <name>` to refresh context.md
-
-## /ss-clarify
-
-**Steps:**
-1. Read ALL existing artifacts
-2. Raise questions: ambiguous reqs, missing edge cases, undefined behaviors, technical constraints, dependencies
-3. One question at a time → wait for answer
-4. Record in `clarify.md`
-5. Propagate answers → update affected artifacts
-6. Log which docs updated
-
-## /ss-archive
-
-Run CLI: `superspec archive <name>`.
-
-## /ss-checklist
-
-Quality gate for both modes. Auto-invoked by `/ss-create`; also callable manually.
-
-**Steps:**
-1. Read ALL existing artifacts
-2. Read `{specDir}/templates/checklist.md` as **structural reference**
-3. Determine mode: Standard → Standard checks (/ 10); Boost → Boost checks (/ 25)
-4. If checklist.md doesn't exist → directly generate with real evaluation results
-5. If checklist.md exists → read and update evaluation results
-6. ✅ passing / annotate failures
-7. Score + recommendations
-8. Fail → report failing items, suggest fixes; Pass → prompt next step
-
-## /ss-status
-
-**Steps:**
-1. List `{specDir}/changes/` (excluding archive)
-2. Read status markers per artifact
-3. Output:
+**核心流程**：
 
 ```
-| Change | Proposal | Spec | Tasks | Checklist | Status |
-|--------|----------|------|-------|-----------|--------|
+Standard:  /ss-create (proposal → checklist ✓) → /ss-tasks → /ss-apply → [vibe: sync → /ss-resume] → /ss-archive
+Boost:     /ss-create -b (proposal → spec → [auto: split? design?] → checklist ✓) → /ss-tasks → /ss-apply → ...
+On-demand: /ss-clarify, /ss-checklist, /ss-lint, /ss-validate, /ss-search, /ss-link, /ss-unlink, /ss-deps
 ```
 
-## /ss-lint
+---
 
-**Steps:**
-1. Run `superspec lint [name]` or check current change
-2. Review output: ✓ ok / ⚠ warn (> target) / ✗ error (> hard limit)
-3. If error: suggest splitting into sub-specs
+## 🧩 Strategy: follow vs create
 
-## /ss-validate
+| | `follow` (default) | `create` (`-c` / `--creative`) |
+|---|---|---|
+| **行为** | Read `context` files → strictly follow project rules/patterns | Aware of `context` but free to deviate with justification |
+| **Proposal** | Solution aligns with existing architecture | May propose new architecture/patterns |
+| **Spec** | Requirements fit current system design | Requirements may introduce new paradigms |
+| **Tasks** | Use existing file structure, naming, dependencies | May create new structures, suggest new dependencies |
+| **适用** | 常规功能、bug fix、遵循既有规范 | 架构重构、新模块设计、UX 创新 |
 
-**Boost mode recommended.** Checks US/FR/AC cross-references (requires spec.md).
+### Context files
 
-**Steps:**
-1. Run `superspec validate [name]` (add `--check-deps` for dependency check)
-2. Review cross-reference issues
-3. Fix reported issues in corresponding artifacts
+Config `context` lists files the AI should read to understand project conventions:
 
-## /ss-search <query>
+```json
+{
+  "context": [".cursor/rules/coding-style.mdc", "AGENTS.md", "docs/conventions.md"]
+}
+```
 
-**Steps:**
-1. Run `superspec search "<query>"` (add `--archived` to include archives)
-2. Optionally filter: `--artifact proposal|spec|tasks|clarify|checklist`
+- **follow**: read these files → treat as constraints (must follow)
+- **create**: read these files → treat as awareness (may deviate, must justify)
+- No `context` configured? AI auto-checks: `.cursor/rules/`, `AGENTS.md`, `CONTRIBUTING.md`
+- Per-change override: add `context: ["src/auth/README.md"]` to frontmatter
 
-## /ss-link
+---
 
-**Steps:**
-1. Run `superspec deps add <name> --on <other>`
-2. Verify with `superspec deps list <name>`
+## ⚠️ Core Rules
 
-## /ss-unlink
+| Rule | Details |
+|------|---------|
+| Language | Follow `lang` config: `"zh"` → Chinese, `"en"` → English. All artifacts and interaction. |
+| Read-first | Read existing content before writing. Preserve user edits. |
+| Consistency | Boost: `US-1`, `FR-1`, `AC-1.1` must match across all artifacts. |
+| Status tracking | 🟡 Draft → 🟢 Ready → ✅ Done. Update after each step. |
 
-**Steps:**
-1. Run `superspec deps remove <name> --on <other>`
-2. Verify with `superspec deps list <name>`
+---
 
-## /ss-deps
+## 🚫 Don't / Do
 
-**Steps:**
-1. Run `superspec deps list [name]` to view dependency graph
-2. No name → show all changes and their dependencies
+| ❌ Don't | ✅ Do |
+|----------|------|
+| Code without planning | `/ss-create` → `/ss-tasks` → `/ss-apply` |
+| Overkill simple tasks | Use standard mode. Only boost when complexity demands it. |
+| Create folders manually | `superspec create <feature>` or `/ss-create` |
+| Ignore `clarify.md` | Read before generating/updating |
+| Overwrite user edits | Merge, don't replace |
+
+---
+
+## 🔧 Commands
+
+| Command | Mode | What it does |
+|---------|------|-------------|
+| `/ss-create <feature>` | Both | Create folder + branch, generate proposal (+ spec in boost), auto-run checklist gate |
+| `/ss-tasks` | Both | AI generates task list from proposal (boost: from proposal + spec) |
+| `/ss-apply` | Both | Implement tasks |
+| `/ss-clarify` | Both | Resolve ambiguity |
+| `/ss-archive` | Both | Archive completed change |
+| `/ss-checklist` | Both | Quality gate: Standard (/ 10 after proposal) or Boost (/ 25 after spec). Auto-invoked by /ss-create, also callable manually |
+| `/ss-status` | Both | View all changes |
+| `/ss-lint` | Both | Check artifact sizes |
+| `/ss-validate` | Boost | Cross-reference consistency check |
+| `/ss-search <q>` | Both | Full-text search across changes |
+| `/ss-link` | Both | Add spec dependency (`deps add`) |
+| `/ss-unlink` | Both | Remove spec dependency (`deps remove`) |
+| `/ss-deps` | Both | View dependency graph (`deps list`) |
+| `/ss-resume` | Both | Restore spec context for vibe coding (runs sync → reads context.md) |
+| `superspec sync` | Both | CLI: collect git diff into context.md (zero AI tokens) |
+
+---
+
+## 📐 Artifacts
+
+**On-demand generation**: CLI `superspec create` only creates the folder + git branch. AI reads templates from `{specDir}/templates/` as structural reference, then generates each artifact with real content when needed — never pre-creates empty template files.
+
+| Artifact | Generated by | When |
+|----------|-------------|------|
+| proposal.md | `/ss-create` | Always (Standard: requirements + tech solution; Boost: requirements background) |
+| spec.md | `/ss-create -b` | Boost mode (requirement details + interactions) |
+| design.md | `/ss-create -b` | Boost mode, auto-detected when needed |
+| checklist.md | `/ss-create` (auto) | Always, after proposal (Standard) or after spec (Boost) |
+| tasks.md | `/ss-tasks` | On demand, after checklist passes |
+| clarify.md | `/ss-clarify` | On demand |
+
+**Standard:**
+```
+{specDir}/changes/<name>/
+├── proposal.md    — Requirements + technical solution (generated by /ss-create)
+├── checklist.md   — Quality gate / 10 (auto-generated by /ss-create)
+└── tasks.md       — Actionable steps (generated by /ss-tasks)
+```
+
+**Boost:**
+```
+{specDir}/changes/<name>/
+├── proposal.md    — Requirements background (generated by /ss-create -b)
+├── spec.md        — Requirement details + interactions (generated by /ss-create -b)
+├── design.md      — Architecture decisions (optional, auto-detected by /ss-create -b)
+├── checklist.md   — Quality gate / 25 (auto-generated by /ss-create -b)
+├── tasks.md       — Phased implementation steps (generated by /ss-tasks)
+└── clarify.md     — Q&A and decisions (generated by /ss-clarify)
+```
+
+**When to use design.md** (optional in boost mode):
+- Solution spans multiple systems or introduces new architectural patterns
+- Major architectural decisions with significant trade-offs
+- Need to document decision rationale before committing to specs
+- Cross-team architectural alignment required
+
+**Spec deltas - Multi-capability structure** (recommended for large changes):
+When a change involves multiple distinct capabilities, split specs by capability domain:
+
+```
+{specDir}/changes/<name>/
+├── proposal.md
+├── design.md
+├── specs/
+│   ├── auth/              — Authentication capability
+│   │   └── spec.md
+│   ├── api/               — API layer capability
+│   │   └── spec.md
+│   └── ui/                — UI components capability
+│       └── spec.md
+├── tasks.md
+└── checklist.md
+```
+
+**Benefits of capability-based splitting**:
+- Each spec.md stays under 300-line target
+- Clear separation of concerns
+- Easier parallel review and implementation
+- Better traceability for cross-references
+
+Each artifact has YAML frontmatter: `name`, `status`, `strategy`, `depends_on: []`, `input` (proposal.md only, records user's original input).
+
+**Strategy priority** (highest to lowest): user input `-c` > `superspec.config.json` default.
+
+---
+
+## ⚙️ Config
+
+| Field | Default | Purpose |
+|-------|---------|---------|
+| `lang` | `"zh"` | Artifact language |
+| `specDir` | `"superspec"` | Spec folder |
+| `branchPrefix` | `"spec/"` | Git branch prefix |
+| `boost` | `false` | Enable boost mode |
+| `strategy` | `"follow"` | `follow` = obey project rules, `create` = explore freely |
+| `context` | `[]` | Files AI should read for project conventions |
+| `limits.targetLines` | `300` | Target max lines per artifact |
+| `limits.hardLines` | `400` | Hard max lines per artifact |
+
+<!-- superspec:end -->
 
 ---
 > Source: [asasugar/SuperSpec](https://github.com/asasugar/SuperSpec) — distributed by [TomeVault](https://tomevault.io).
