@@ -1,0 +1,9 @@
+{
+  "name": "quantumclaw--qclaw",
+  "displayName": "QClaw",
+  "description": "Open-source AI agent runtime with a knowledge graph for a brain. Runs anywhere.",
+  "version": "1.0.0",
+  "author": "QuantumClaw",
+  "homepage": "https://github.com/QuantumClaw/QClaw",
+  "skills": []
+}
