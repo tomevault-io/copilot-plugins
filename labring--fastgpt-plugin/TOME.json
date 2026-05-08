@@ -1,0 +1,81 @@
+{
+  "name": "fastgpt",
+  "owner": "labring",
+  "repo": "fastgpt-plugin",
+  "description": "FastGPT plugin system. Provide model presets, system tools and other extended functions for FastGPT.",
+  "type": "tome",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "server-common-api_development",
+      "path": ".claude/skills/server-common-api_development",
+      "github_url": "https://github.com/labring/fastgpt-plugin/tree/main/.claude/skills/server-common-api_development",
+      "description": ""
+    },
+    {
+      "name": "api-development",
+      "path": ".claude/skills/api-development",
+      "github_url": "https://github.com/labring/fastgpt-plugin/tree/main/.claude/skills/api-development",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "path": ".claude/skills/design",
+      "github_url": "https://github.com/labring/fastgpt-plugin/tree/main/.claude/skills/design",
+      "description": ""
+    },
+    {
+      "name": "system-pr_review",
+      "path": ".claude/skills/system-pr_review",
+      "github_url": "https://github.com/labring/fastgpt-plugin/tree/main/.claude/skills/system-pr_review",
+      "description": ""
+    },
+    {
+      "name": "system-prompt_optimize",
+      "path": ".claude/skills/system-prompt_optimize",
+      "github_url": "https://github.com/labring/fastgpt-plugin/tree/main/.claude/skills/system-prompt_optimize",
+      "description": ""
+    },
+    {
+      "name": "system-test",
+      "path": ".claude/skills/system-test",
+      "github_url": "https://github.com/labring/fastgpt-plugin/tree/main/.claude/skills/system-test",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/labring/fastgpt-plugin",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T00:31:02Z"
+}
