@@ -1,0 +1,9 @@
+{
+  "name": "uruba-software--aptunnel",
+  "displayName": "aptunnel",
+  "description": "Cross-platform Aptible tunnel manager \u2014 multi-tunnel, auto-discovery, background process management",
+  "version": "1.0.0",
+  "author": "Uruba-Software",
+  "homepage": "https://github.com/Uruba-Software/aptunnel",
+  "skills": []
+}
