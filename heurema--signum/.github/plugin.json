@@ -1,0 +1,9 @@
+{
+  "name": "heurema--signum",
+  "displayName": "signum",
+  "description": "Risk-adaptive development pipeline with adversarial consensus code review",
+  "version": "1.0.0",
+  "author": "heurema",
+  "homepage": "https://github.com/heurema/signum",
+  "skills": []
+}
