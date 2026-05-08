@@ -1,58 +1,111 @@
-## engineering-principles
+## env-validation-gate
 
-> Core engineering principles — scalability, single source of truth, trace before fix
+> Env validation gate — every app validates its env contract at boot via Zod
 
 
-# Engineering Principles
+# Env Validation Gate (cross-app standard)
 
-## 1. Trace the full path BEFORE writing code
+## Why this rule exists
 
-Before fixing any bug, trace the ACTUAL execution path from user action → API route → handler → SDK → on-chain → response → UI render. Verify which functions/routes/handlers are actually called. Never assume.
+April 2026, an audric production deploy ran for ~4 days with `BLOCKVISION_API_KEY=""` (empty string in Vercel UI), silently degrading every BlockVision-backed feature. The bug surfaced as "the LLM thinks the user has no DeFi positions" — three layers below the actual misconfig.
 
-**Example of what went wrong:** Spent 4 iterations fixing `sdk.swap()` balance-change parsing when the Audric web app uses a sponsored transaction flow (`/api/transactions/prepare` → sign → `/api/transactions/execute`) that never calls `sdk.swap()` directly. The fix needed to be in the client-side `handleExecuteAction`, not the SDK.
+The fix is now the cross-app standard. **Every app in this monorepo (apps/web, apps/server, apps/gateway) MUST validate its env contract at boot via a Zod schema and expose values through a typed proxy.**
 
-## 2. Single source of truth — never duplicate
+## The contract
 
-If data exists in one place, import it. Never copy token maps, decimal maps, or config into multiple files.
+1. Define a `lib/env.ts` (apps) or `src/env.ts` (server) Zod schema.
+2. Required vars use `z.string().trim().min(1, ...)` — empty string is invalid.
+3. Optional vars normalize empty/whitespace → `undefined`.
+4. Schema runs at first import. Trigger that import from a boot-time hook:
+   - Next.js → `instrumentation.ts` `register()` hook
+   - Node server → top of `server.ts` / `index.ts`
+5. Export a typed `env` proxy that throws on server-only var access from the client.
+6. ESLint `no-restricted-syntax` blocks raw `process.env.X` outside the env module.
+
+## Canonical reference implementation
+
+`audric/apps/web/lib/env.ts` (v0.53.x, ~375 lines, well-commented). Pattern:
 
 ```typescript
-// ❌ BAD — hardcoded list that gets stale
-const COMMON_TOKENS = 'SUI, USDC, USDT, USDSUI';
+import { z } from 'zod';
 
-// ✅ GOOD — derived from canonical source
-const { TOKEN_MAP } = await import('@t2000/sdk');
-const supportedTokens = Object.keys(TOKEN_MAP).join(', ');
+const requiredString = z.string().trim().min(1, 'must be a non-empty string');
+const optionalString = z.string().optional().transform((v) =>
+  v === undefined ? undefined : v.trim().length > 0 ? v.trim() : undefined,
+);
+
+const serverSchema = z.object({
+  ANTHROPIC_API_KEY: requiredString,
+  // ...
+});
+
+const clientSchema = z.object({
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID: requiredString,
+  // ...
+});
+
+// Literal references — Next.js static replacement requires this:
+const runtimeEnv = {
+  ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+  // ...
+};
+
+const isServer =
+  typeof process !== 'undefined' &&
+  ((typeof process.versions?.node === 'string') ||
+    process.env?.NEXT_RUNTIME === 'edge');
+
+const fullSchema = z.object({ ...serverSchema.shape, ...clientSchema.shape });
+const schemaToValidate = isServer ? fullSchema : clientSchema;
+const parsed = schemaToValidate.safeParse(runtimeEnv);
+
+if (!parsed.success) {
+  // Format ALL issues + the settings URL — operators fix in one click.
+  throw new Error(/* formatted block */);
+}
+
+export const env = new Proxy(parsed.data, {
+  get(target, prop) {
+    if (!isServer && SERVER_ONLY_KEYS.has(prop as string)) {
+      throw new Error(`[env] Cannot access server-only var '${String(prop)}' from the client`);
+    }
+    return target[prop as keyof typeof target];
+  },
+});
 ```
 
-## 3. Ask "does this scale?" before every implementation
+## When to copy this to a new app
 
-Before hardcoding any list, map, or constant, ask: "Where is the source of truth? Can I derive this dynamically? Will someone have to manually update this when things change?"
+Any new app in `apps/*` MUST ship `lib/env.ts` before its first `process.env` read. Don't ship without it. The cost of skipping is the same 4-day silent-degradation bug, just in a different surface.
 
-If the answer to the last question is yes, the approach is wrong.
+## What's banned across the monorepo
 
-## 4. Fix at the root, not the symptom
+```typescript
+// ❌ Bypasses the gate
+const k = process.env.X;
 
-When a fix requires changes in 3+ places or multiple retry attempts, the architecture is wrong. Step back and find the single point of failure.
+// ❌ Fallback masks misconfig forever
+const k = process.env.X || 'default';
 
-**Checklist before implementing a fix:**
-1. What is the ACTUAL data flow? (trace it, don't guess)
-2. Where does the data first become wrong? (that's where to fix)
-3. Does this fix introduce duplication? (if yes, rethink)
-4. Will this fix survive adding a new token/asset/feature? (if no, rethink)
+// ✅ Through the gate
+import { env } from '@/lib/env';
+const k = env.X;
+const k = env.X ?? 'default';   // explicit optional default
+```
 
-## 5. Understand which layer you're in
+## Exemptions
 
-This codebase has distinct layers. Fixes in the wrong layer waste time:
+- `process.env.NODE_ENV` — build-time constant
+- `process.env.NEXT_RUNTIME` — runtime detection inside `lib/env.ts`
+- The env module itself (it's the gate)
 
-| Layer | Runs where | Changes how |
-|-------|-----------|-------------|
-| `@t2000/sdk` | Server (engine) OR client (sponsored flow) | npm release required |
-| `@t2000/engine` | Server-side API routes | npm release required |
-| Audric `page.tsx` | Client browser | Vercel deploy |
-| Audric API routes | Vercel serverless | Vercel deploy |
-| System prompt | Runtime (built at engine creation) | Vercel deploy |
+## Cross-references
 
-Before coding, identify which layer owns the bug.
+- Canonical implementation → `audric/apps/web/lib/env.ts`
+- Boot-time hook → `audric/apps/web/instrumentation.ts`
+- audric-side rule → `audric/.cursor/rules/env-validation-gate.mdc`
+- The incident → S.25 in `audric-build-tracker.md` + `audric/apps/web/RUNBOOK_zklogin_env_parity.md`
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
