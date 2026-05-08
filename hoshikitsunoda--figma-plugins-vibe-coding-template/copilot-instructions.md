@@ -1,193 +1,200 @@
-## figma-dev-mode
+## figma-export
 
-> Dev Mode provides developer-focused views and Code Connect links design to code.
+> Export nodes as images or retrieve image data from fills.
 
 
-# Figma Dev Mode & Code Connect
+# Figma Export API
 
-Dev Mode provides developer-focused views and Code Connect links design to code.
+Export nodes as images or retrieve image data from fills.
 
-## Dev Mode Detection
+## Exporting Nodes
+
+### Basic Export
 
 ```typescript
-// Check if plugin is running in Dev Mode
-if (figma.mode === 'dev') {
-  console.log('Running in Dev Mode')
-  // Show developer-focused UI
-} else {
-  console.log('Running in Design Mode')
-}
+const node = figma.currentPage.selection[0]
+if (!node) return
+
+// Export as PNG
+const pngBytes = await node.exportAsync({
+  format: 'PNG',
+  constraint: { type: 'SCALE', value: 2 } // 2x resolution
+})
+
+// Export as SVG
+const svgBytes = await node.exportAsync({
+  format: 'SVG'
+})
+
+// Export as JPG
+const jpgBytes = await node.exportAsync({
+  format: 'JPG',
+  constraint: { type: 'SCALE', value: 1 }
+})
+
+// Export as PDF
+const pdfBytes = await node.exportAsync({
+  format: 'PDF'
+})
 ```
 
-## Code Connect Overview
-
-Code Connect links Figma components to their code implementations, showing relevant code snippets in Dev Mode.
-
-> **Note:** Code Connect is typically configured via a separate `figma.config.json` file and CLI, not through the Plugin API. See https://www.figma.com/developers/code-connect
-
-## Dev Mode Properties
-
-### Dev Resources
+### Export Constraints
 
 ```typescript
-// Get dev resources attached to a node (async)
-const resources = await node.getDevResourcesAsync()
-for (const resource of resources) {
-  console.log(resource.name, resource.url)
-}
+// Scale constraint (multiplier)
+{ type: 'SCALE', value: 2 } // 2x size
 
-// Add a dev resource (link to code, docs, etc.)
-await node.addDevResourceAsync(
-  'https://github.com/org/repo/blob/main/src/Button.tsx',
-  'Component Source',
-)
+// Width constraint (fixed width, height scales proportionally)
+{ type: 'WIDTH', value: 200 } // 200px wide
 
-// Edit an existing dev resource
-await node.editDevResourceAsync(
-  'https://github.com/org/repo/blob/main/src/Button.tsx',
-  { name: 'Updated Name', url: 'https://new-url.com' },
-)
-
-// Delete a dev resource
-await node.deleteDevResourceAsync(
-  'https://github.com/org/repo/blob/main/src/Button.tsx',
-)
+// Height constraint (fixed height, width scales proportionally)
+{ type: 'HEIGHT', value: 100 } // 100px tall
 ```
 
-### Annotations
+### Export Settings
 
 ```typescript
-// Dev Mode annotations are read-only in plugins
-// They're managed through Figma's UI
+// Full export settings
+const bytes = await node.exportAsync({
+  format: 'PNG',
+  constraint: { type: 'SCALE', value: 1 },
+  contentsOnly: true, // Exclude frame itself, only children
+  useAbsoluteBounds: false, // Use node bounds, not absolute
+})
 ```
 
-## Measurements & Specs
+## Sending to UI for Download
 
 ```typescript
-// Get node measurements
-if ('absoluteBoundingBox' in node) {
-  const bounds = node.absoluteBoundingBox
-  console.log(`Position: ${bounds.x}, ${bounds.y}`)
-  console.log(`Size: ${bounds.width} x ${bounds.height}`)
-}
+// In plugin (main.ts)
+const bytes = await node.exportAsync({ format: 'PNG' })
+figma.ui.postMessage({
+  type: 'download-image',
+  data: Array.from(bytes), // Convert Uint8Array to regular array
+  filename: `${node.name}.png`
+})
 
-// Get computed styles for dev handoff
-function getNodeSpecs(node: SceneNode) {
-  const specs: Record<string, unknown> = {
-    name: node.name,
-    type: node.type,
+// In UI (App.tsx)
+window.addEventListener('message', (event) => {
+  const msg = event.data.pluginMessage
+  if (msg.type === 'download-image') {
+    const blob = new Blob([new Uint8Array(msg.data)], { type: 'image/png' })
+    const url = URL.createObjectURL(blob)
+    
+    const link = document.createElement('a')
+    link.href = url
+    link.download = msg.filename
+    link.click()
+    
+    URL.revokeObjectURL(url)
   }
-
-  if ('absoluteBoundingBox' in node) {
-    specs.bounds = node.absoluteBoundingBox
-  }
-
-  if ('fills' in node && Array.isArray(node.fills)) {
-    specs.fills = node.fills.filter((f) => f.visible !== false)
-  }
-
-  if ('effects' in node) {
-    specs.effects = node.effects.filter((e) => e.visible !== false)
-  }
-
-  if ('cornerRadius' in node) {
-    specs.cornerRadius = node.cornerRadius
-  }
-
-  if (node.type === 'TEXT') {
-    specs.fontSize = node.fontSize
-    specs.fontName = node.fontName
-    specs.lineHeight = node.lineHeight
-    specs.letterSpacing = node.letterSpacing
-  }
-
-  return specs
-}
+})
 ```
 
-## CSS Generation
+## Working with Image Fills
+
+### Get Image Data from Fill
 
 ```typescript
-// Generate CSS from node properties
-function generateCSS(node: SceneNode): string {
-  const css: string[] = []
-
-  if ('absoluteBoundingBox' in node) {
-    css.push(`width: ${node.absoluteBoundingBox.width}px;`)
-    css.push(`height: ${node.absoluteBoundingBox.height}px;`)
-  }
-
-  if ('cornerRadius' in node && typeof node.cornerRadius === 'number') {
-    css.push(`border-radius: ${node.cornerRadius}px;`)
-  }
-
-  if ('fills' in node && Array.isArray(node.fills)) {
-    const solidFill = node.fills.find(
-      (f) => f.type === 'SOLID' && f.visible !== false,
-    )
-    if (solidFill && solidFill.type === 'SOLID') {
-      const { r, g, b } = solidFill.color
-      const a = solidFill.opacity ?? 1
-      css.push(
-        `background-color: rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a});`,
-      )
+if ('fills' in node && Array.isArray(node.fills)) {
+  for (const fill of node.fills) {
+    if (fill.type === 'IMAGE' && fill.imageHash) {
+      const image = figma.getImageByHash(fill.imageHash)
+      if (image) {
+        const bytes = await image.getBytesAsync()
+        const size = await image.getSizeAsync()
+        console.log(`Image size: ${size.width}x${size.height}`)
+      }
     }
   }
-
-  if ('effects' in node) {
-    const shadow = node.effects.find(
-      (e) => e.type === 'DROP_SHADOW' && e.visible !== false,
-    )
-    if (shadow && shadow.type === 'DROP_SHADOW') {
-      const { r, g, b, a } = shadow.color
-      css.push(
-        `box-shadow: ${shadow.offset.x}px ${shadow.offset.y}px ${shadow.radius}px rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a});`,
-      )
-    }
-  }
-
-  return css.join('\n')
 }
 ```
 
-## Generating Code Snippets
+### Set Image Fill
 
 ```typescript
-// Generate React component code from a frame
-function generateReactComponent(node: FrameNode): string {
-  const name = node.name.replace(/[^a-zA-Z0-9]/g, '')
-
-  return `
-import React from 'react';
-
-export function ${name}() {
-  return (
-    <div style={{
-      width: ${node.width},
-      height: ${node.height},
-      display: 'flex',
-      flexDirection: '${node.layoutMode === 'VERTICAL' ? 'column' : 'row'}',
-      gap: ${node.itemSpacing || 0},
-      padding: '${node.paddingTop}px ${node.paddingRight}px ${node.paddingBottom}px ${node.paddingLeft}px',
-    }}>
-      {/* Children */}
-    </div>
-  );
+// In UI: Convert image to bytes and send to plugin
+const input = document.createElement('input')
+input.type = 'file'
+input.accept = 'image/*'
+input.onchange = async () => {
+  const file = input.files?.[0]
+  if (file) {
+    const buffer = await file.arrayBuffer()
+    parent.postMessage({
+      pluginMessage: {
+        type: 'set-image',
+        data: Array.from(new Uint8Array(buffer))
+      }
+    }, '*')
+  }
 }
-`.trim()
+input.click()
+
+// In plugin: Create image and apply as fill
+figma.ui.onmessage = async (msg) => {
+  if (msg.type === 'set-image') {
+    const bytes = new Uint8Array(msg.data)
+    const image = figma.createImage(bytes)
+    
+    const rect = figma.createRectangle()
+    rect.resize(200, 200)
+    rect.fills = [{
+      type: 'IMAGE',
+      imageHash: image.hash,
+      scaleMode: 'FILL'
+    }]
+  }
+}
+```
+
+## Image Scale Modes
+
+```typescript
+const imageFill: ImagePaint = {
+  type: 'IMAGE',
+  imageHash: image.hash,
+  scaleMode: 'FILL', // Options: 'FILL', 'FIT', 'CROP', 'TILE'
+}
+
+// For CROP mode, you can set image transform
+const croppedFill: ImagePaint = {
+  type: 'IMAGE',
+  imageHash: image.hash,
+  scaleMode: 'CROP',
+  imageTransform: [[1, 0, 0], [0, 1, 0]] // 2D transform matrix
+}
+```
+
+## Batch Export
+
+```typescript
+async function exportSelection(format: 'PNG' | 'SVG' | 'JPG') {
+  const selection = figma.currentPage.selection
+  const exports: { name: string; data: number[] }[] = []
+  
+  for (const node of selection) {
+    const bytes = await node.exportAsync({ format })
+    exports.push({
+      name: `${node.name}.${format.toLowerCase()}`,
+      data: Array.from(bytes)
+    })
+  }
+  
+  figma.ui.postMessage({ type: 'batch-export', exports })
 }
 ```
 
 ## Best Practices
 
-1. **Check mode** — Adapt UI based on `figma.mode`
-2. **Provide dev resources** — Link to relevant code/docs
-3. **Generate accurate specs** — Include all relevant properties
-4. **Handle design tokens** — Map variables to CSS custom properties
+1. **Convert Uint8Array for postMessage** — Use `Array.from(bytes)`
+2. **Handle large exports** — Consider chunking or progress indicators
+3. **Check node exportability** — Some nodes may not export correctly
+4. **Use appropriate format** — PNG for raster, SVG for vectors
 
 ## MCP Tool
 
-Use `figma_search_api` with query "dev mode" for more documentation.
+Use `figma_get_examples` with topic "export" for more code examples.
 
 ---
 > Source: [hoshikitsunoda/figma-plugins-vibe-coding-template](https://github.com/hoshikitsunoda/figma-plugins-vibe-coding-template) — distributed by [TomeVault](https://tomevault.io).
