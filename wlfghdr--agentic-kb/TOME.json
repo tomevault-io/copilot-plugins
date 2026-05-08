@@ -4,7 +4,7 @@
   "repo": "agentic-kb",
   "description": "AI-native, layered knowledge operations. A specification, reference skills, and a portable agent for any AI harness and any agentic IDE.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/wlfghdr/agentic-kb",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T07:39:15Z"
+  "distributed_at": "2026-05-08T00:48:15Z"
 }
