@@ -1,0 +1,9 @@
+{
+  "name": "shamubernetes--siren",
+  "displayName": "siren",
+  "description": "A simple, clean AlertManager dashboard",
+  "version": "1.0.0",
+  "author": "shamubernetes",
+  "homepage": "https://github.com/shamubernetes/siren",
+  "skills": []
+}
