@@ -1,0 +1,9 @@
+{
+  "name": "arthur-ficial--apfel-mcp",
+  "displayName": "apfel-mcp",
+  "description": "Token-budget-optimized MCP servers for apfel: url-fetch (Readability-based) + ddg-search (experimental) + search-and-fetch (compound). Built for apfel's 4096-token context window.",
+  "version": "1.0.0",
+  "author": "Arthur-Ficial",
+  "homepage": "https://github.com/Arthur-Ficial/apfel-mcp",
+  "skills": []
+}
