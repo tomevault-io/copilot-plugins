@@ -1,21 +1,22 @@
-## python-testing-practices
+## python-tooling-standards
 
-> Testing best practices using pytest with comprehensive coverage and proper test organization.
+> Standards for using modern Python tooling including uv, ruff, and pre-commit hooks.
 
-- Use pytest as the testing framework for all tests.
-- Organize tests to mirror source code structure (e.g., test_date_utils.py for date_utils.py).
-- Use descriptive test function names that explain what is being tested (e.g., test_format_datetime_with_custom_format).
-- Follow Arrange-Act-Assert (AAA) pattern in test functions.
-- Use pytest fixtures in conftest.py for shared test data and setup.
-- Mark tests appropriately (@pytest.mark.slow, @pytest.mark.integration, @pytest.mark.unit).
-- Aim for high test coverage (>80%) but prioritize meaningful tests over coverage metrics.
-- Use parametrize for testing multiple input scenarios efficiently.
-- Mock external dependencies using pytest-mock or unittest.mock.
-- Test both happy paths and edge cases (empty inputs, None values, invalid data).
-- Use tmp_path fixture for file system tests.
-- Test error handling with pytest.raises().
-- Keep tests isolated and independent; avoid test interdependencies.
-- Run tests with coverage: pytest --cov=python_template --cov-report=html.
+- Use uv for package management and dependency resolution (faster than pip).
+- Run uv sync to install dependencies; use uv add/remove for package management.
+- Use ruff for both linting and formatting (replaces black, flake8, isort).
+- Configure ruff in pyproject.toml with appropriate rules enabled.
+- Run ruff format for code formatting; run ruff check for linting.
+- Enable automatic fixes with ruff check --fix when appropriate.
+- Use pre-commit hooks to enforce code quality before commits.
+- Configure pre-commit with ruff, type checking, and other quality checks.
+- Run pre-commit install after cloning the project.
+- Keep pyproject.toml as the single source of configuration.
+- Use hatchling as the build backend for package distribution.
+- Define all dependencies in pyproject.toml [project.dependencies].
+- Use optional dependencies for dev, test, docs groups.
+- Keep uv.lock in version control for reproducible builds.
+- Update dependencies regularly with uv lock --upgrade.
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
