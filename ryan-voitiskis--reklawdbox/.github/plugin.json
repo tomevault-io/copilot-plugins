@@ -1,0 +1,9 @@
+{
+  "name": "ryan-voitiskis--reklawdbox",
+  "displayName": "reklawdbox",
+  "description": "Agent-powered Rekordbox library management. Clean up metadata, classify genres, and build sets through conversation.",
+  "version": "1.0.0",
+  "author": "ryan-voitiskis",
+  "homepage": "https://github.com/ryan-voitiskis/reklawdbox",
+  "skills": []
+}
