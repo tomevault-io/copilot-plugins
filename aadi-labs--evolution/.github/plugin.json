@@ -1,0 +1,9 @@
+{
+  "name": "aadi-labs--evolution",
+  "displayName": "evolution",
+  "description": " Evolution: Multi-agent code evolution platform. Spawn autonomous AI agents that research, implement, and compete to optimize your codebase. Heterogeneous runtimes (Claude Code, Codex, OpenCode), shar",
+  "version": "1.0.0",
+  "author": "aadi-labs",
+  "homepage": "https://github.com/aadi-labs/evolution",
+  "skills": []
+}
