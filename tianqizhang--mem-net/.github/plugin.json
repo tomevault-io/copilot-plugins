@@ -1,0 +1,9 @@
+{
+  "name": "tianqizhang--mem-net",
+  "displayName": "mem.net",
+  "description": "File-first memory infrastructure for AI agents, built with .NET 8 and Azure backends",
+  "version": "1.0.0",
+  "author": "TianqiZhang",
+  "homepage": "https://github.com/TianqiZhang/mem.net",
+  "skills": []
+}
