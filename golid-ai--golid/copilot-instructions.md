@@ -1,101 +1,139 @@
-## frontend-lib
+## go-handler
 
-> Patterns for frontend lib files — API client, auth, constants, utilities
+> Patterns for Go handler layer files — HTTP request handling, validation, routing
 
 
-# Frontend Lib Patterns
+# Go Handler Layer Patterns
 
-Follow the established patterns in `api.ts`, `auth.ts`, and `constants.ts`.
+Follow the established patterns in `auth.go` and `user.go`.
 
-## API Client (`api.ts`)
+## Structure
 
-### Adding a New API Module
-
-Group types and methods together. Follow the established API object pattern:
-
-```typescript
-// 1. Define TypeScript interfaces matching backend response structs
-export interface Item {
-  id: string;
-  title: string;
-  // ... fields match the Go Detail struct exactly
-}
-
-export interface ItemListResult {
-  items: Item[];
-  total: number;
-  page: number;
-  per_page: number;
-  total_pages: number;
-}
-
-// 2. Query builder for list endpoints (if filterable)
-function buildItemQuery(params?: ItemListParams): string { ... }
-
-// 3. API object with typed methods
-export const itemsApi = {
-  create: (data: CreateItemInput) => post<Item>("/items", data),
-  list: (params?: ItemListParams) => get<ItemListResult>(`/items${buildItemQuery(params)}`),
-  getById: (id: string) => get<Item>(`/items/${id}`),
-  update: (id: string, data: Partial<Item>) => put<Item>(`/items/${id}`, data),
-  delete: (id: string) => del<{ message: string }>(`/items/${id}`),
-};
+```go
+type XHandler struct { xService xServicer }
+func NewXHandler(xService *service.XService) *XHandler { ... }
 ```
 
-### Conventions
+- Handlers are thin — validate input, delegate to service, return JSON.
+- No business logic in handlers. No direct DB access.
+- **Struct field is the interface** (`xServicer`), constructor takes the concrete type. This is the standard pattern — `make new-module` generates it automatically.
 
-- **Use the convenience helpers** — `get`, `post`, `put`, `patch`, `del` from the same file. Never raw `fetch`.
-- **Type every response** — `get<MyType>(...)` not `get<any>(...)`.
-- **All endpoints start with `/`** — the `api()` function prepends `/api/v1`.
-- **`skipAuth: true`** only for public endpoints (login, register, universities).
-- **Optional fields use `?`** — match the Go struct's `omitempty` tags.
+## Service Interfaces
 
-### Search/Filter Query Builder
+Handlers use unexported interfaces (`authServicer`, `userServicer`, `sseHubber`), not concrete service types. This enables mock-based testing. Constructor takes concrete types (callers unchanged), struct field is the interface. See `handler/interfaces.go`.
 
-For list endpoints with search and pagination, use a query builder function:
+## Scaffold Output
 
-```typescript
-function buildItemQuery(params?: { page?: number; perPage?: number; search?: string }): string {
-  const p = new URLSearchParams();
-  if (params?.page) p.set("page", String(params.page));
-  if (params?.perPage) p.set("per_page", String(params.perPage));
-  if (params?.search) p.set("search", params.search);
-  const qs = p.toString();
-  return qs ? `?${qs}` : "";
+`make new-module name=items` generates:
+- `handler/item.go` — Handler with interface-typed service field
+- `handler/item_test.go` — Mock struct + 5 test stubs (Create success, Create validation, List, GetByID not found, Delete)
+- Interface entry appended to `handler/interfaces.go`
+- Fill in test bodies for your specific validation logic and error paths.
+
+## Auth Extraction
+
+Every protected handler starts with:
+
+```go
+userID, err := requireUserID(c)
+if err != nil { return err }
+userType, err := requireUserType(c)
+if err != nil { return err }
+```
+
+Role guards (when needed) go after extraction:
+
+```go
+if userType != "admin" {
+    return apperror.Forbidden("Only admins can create items")
 }
 ```
 
-The scaffold tool generates this pattern automatically with `?search=` and `?page=` params for new modules.
+Resource-level authorization is handled by the service layer, not the handler.
 
-### Error Handling
+## Request Binding
 
-Errors thrown by `api()` are typed as `ApiError` with `message`, `code`, `status`, and optional `details`. Catch them with:
-
-```typescript
-try {
-  await itemsApi.create(data);
-} catch (err) {
-  const apiErr = err as { message?: string; details?: Record<string, string> };
-  if (apiErr.details) { /* field-level errors */ }
-  else { toast.error(apiErr.message || "Something went wrong"); }
+```go
+var req CreateXRequest
+if err := c.Bind(&req); err != nil {
+    return apperror.BadRequest("Invalid request body")
 }
 ```
 
-## Constants (`constants.ts`)
+Define request structs with `json` tags in the same handler file.
 
-- **`PRIVATE_ROUTES`** — add every new protected route path. SSR middleware uses this for auth redirects. Missing entries = unauthenticated users see API errors instead of login redirect.
+## Validation
 
-## Auth (`auth.ts`)
+Simple validations in the handler (required fields). Complex validations in a `validateX` function:
 
-- Token refresh is handled automatically by `api()` on 401 responses.
-- `auth.user` is the reactive user object — read in components, updated via `auth.updateUser()`.
-- Don't access `localStorage` directly — use the `tokens` helper from `api.ts`.
+```go
+func validateCreateItem(req *CreateItemRequest) error {
+    details := make(map[string]string)
+    if req.Title == "" { details["title"] = "Title is required" }
+    if len(details) > 0 {
+        return apperror.Validation("Validation failed", details)
+    }
+    return nil
+}
+```
 
-## API Proxy (`frontend/src/routes/api/[...path].ts`)
+## Response Codes
 
-- In production, all `/api/*` requests are proxied through SolidStart to the internal backend Cloud Run service.
-- In dev, Vite proxy handles this (configured in `app.config.ts`), so the proxy route is not used.
-- This file rarely changes. If you modify it, ensure: hop-by-hop headers are stripped, error responses return valid JSON with `code` field, and `BACKEND_URL` env var is respected.
+- `201 Created` for POST that creates a resource
+- `200 OK` for GET, PUT, POST actions (publish, approve, etc.)
+- `200 OK` with `{"message": "..."}` for DELETE
+
+## Error Responses
+
+Always use `apperror` — never `echo.NewHTTPError`:
+
+```go
+// BAD
+return echo.NewHTTPError(http.StatusForbidden, "not allowed")
+// GOOD
+return apperror.Forbidden("not allowed")
+```
+
+## Route Registration
+
+In `cmd/server/main.go`:
+1. Create service in the services block
+2. Create handler in the handlers block
+3. Register routes on the `protected` group
+
+```go
+// in main():
+xService := service.NewXService(pool)
+xHandler := handler.NewXHandler(xService)
+// ...
+protected.POST("/x", xHandler.Create)
+protected.GET("/x", xHandler.List)
+protected.GET("/x/:id", xHandler.GetByID)
+```
+
+## Query Parameter Parsing
+
+Always validate query params. Never ignore `strconv` errors:
+
+```go
+// BAD — silent invalid page
+page, _ := strconv.Atoi(c.QueryParam("page"))
+
+// GOOD — default on error
+page, err := strconv.Atoi(c.QueryParam("page"))
+if err != nil || page < 1 { page = 1 }
+perPage, err := strconv.Atoi(c.QueryParam("per_page"))
+if err != nil || perPage < 1 || perPage > 100 { perPage = 20 }
+```
+
+For enum-like string params, validate against allowed values:
+
+```go
+status := c.QueryParam("status")
+if status != "" && status != "active" && status != "completed" {
+    return apperror.BadRequest("Invalid status filter")
+}
+```
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
