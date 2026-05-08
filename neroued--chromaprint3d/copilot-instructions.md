@@ -1,13 +1,18 @@
-## reply-in-chinese
+## sync-docs
 
-> 要求 Agent 始终使用简体中文回答
+> 功能性修改后同步文档
 
 
-# 回复语言
+# 文档同步
 
-始终使用简体中文回答用户问题，包括解释、注释说明、提交信息和 PR 描述。
+Agent 结束时 `.cursor/hooks/check-docs-sync.sh` 会自动检查是否遗漏文档更新。
 
-代码标识符（变量名、函数名、类名等）保持英文，不翻译。
+当修改涉及以下内容时，检查 `docs/` 和 `README.md` 是否需要同步更新：
+
+- API 端点或参数变更 → 更新 `README.md`、`docs/development.md`、`docs/agents/web/backend/README.md`
+- CLI 参数或默认值变化 → 更新 `README.md`、`docs/development.md`、`docs/agents/apps/README.md`
+- 构建 / 部署流程变化 → 更新 `README.md`、`docs/development.md`、`docs/deployment.md`
+- 用户可见的功能或行为变更 → 更新 `README.md`、`docs/development.md`、对应前端/后端模块索引
 
 ---
 > Source: [Neroued/ChromaPrint3D](https://github.com/Neroued/ChromaPrint3D) — distributed by [TomeVault](https://tomevault.io).
