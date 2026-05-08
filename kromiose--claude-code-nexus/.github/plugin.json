@@ -1,0 +1,9 @@
+{
+  "name": "kromiose--claude-code-nexus",
+  "displayName": "claude-code-nexus",
+  "description": "Claude API Proxy platform - Seamlessly forward Claude Code requests to any OpenAI-compatible API service with smart model mapping, streaming support, deployed on Cloudflare Worker.",
+  "version": "1.0.0",
+  "author": "KroMiose",
+  "homepage": "https://github.com/KroMiose/claude-code-nexus",
+  "skills": []
+}
