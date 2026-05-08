@@ -1,0 +1,9 @@
+{
+  "name": "eyevinn--strom",
+  "displayName": "strom",
+  "description": "Gstreamer GUI and flow engine",
+  "version": "1.0.0",
+  "author": "Eyevinn",
+  "homepage": "https://github.com/Eyevinn/strom",
+  "skills": []
+}
