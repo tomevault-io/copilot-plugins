@@ -1,0 +1,44 @@
+{
+  "name": "OTTClaw",
+  "owner": "hustwujing",
+  "repo": "OTTClaw",
+  "description": "OpenClaw \u7684\u670d\u52a1\u5668\u7248\u2014\u2014\u8ba9\u6574\u4e2a\u56e2\u961f\u5171\u4eab\u540c\u4e00\u5957 \u9f99\u867e \u80fd\u529b\uff0c\u65e0\u9700\u6bcf\u4eba\u5355\u72ec\u90e8\u7f72\u3002",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hustwujing/OTTClaw",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T04:37:42Z"
+}
