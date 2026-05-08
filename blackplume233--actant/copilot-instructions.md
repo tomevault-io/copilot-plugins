@@ -1,25 +1,14 @@
-## qa-loop
+## ship-testing
 
-> Trigger the QA cyclic verification loop: random-walk test → report → issue → fix → regression, repeating until 100% pass
+> Use incremental testing during /trellis-ship instead of full test suite
 
 
-# /qa-loop Compatibility Stub
+# Ship Testing Convention
 
-`/qa-loop` 的主逻辑已经迁移到项目技能：
+During `/trellis-ship` (Phase 1 review), run **incremental tests** instead of the full suite:
 
-- [.agents/skills/qa-loop/SKILL.md](/Users/muyuli/Workspace/AgentCraft/.agents/skills/qa-loop/SKILL.md)
-
-执行 `qa-loop` 时，应以该技能为准，并继续复用：
-
-- [.agents/skills/qa-engineer/SKILL.md](/Users/muyuli/Workspace/AgentCraft/.agents/skills/qa-engineer/SKILL.md)
-- [.agents/skills/qa-engineer/workflows/cyclic-verification.md](/Users/muyuli/Workspace/AgentCraft/.agents/skills/qa-engineer/workflows/cyclic-verification.md)
-- [.agents/skills/issue-manager/SKILL.md](/Users/muyuli/Workspace/AgentCraft/.agents/skills/issue-manager/SKILL.md)
-
-保留该文件仅用于：
-
-- 兼容历史 `/qa-loop` 用词
-- 指向新的技能入口
-- 防止 slash-command 文档和技能产生双重真相源
+- Use `pnpm test:changed` (vitest `--changed`) which only runs tests related to uncommitted changes
+- Only fall back to `pnpm test` (full suite) when explicitly requested or when changes touch shared infrastructure (e.g. vitest.config.ts, tsconfig, package.json dependencies)
 
 ---
 > Source: [blackplume233/Actant](https://github.com/blackplume233/Actant) — distributed by [TomeVault](https://tomevault.io).
