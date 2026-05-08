@@ -1,101 +1,101 @@
-## agent-harness-spec
+## blockvision-resilience
 
-> Agent harness contract — Spec 1 (Correctness) + Spec 2 (Intelligence). attemptId, TurnMetrics, EngineConfig.onAutoExecuted, modifiableFields
+> BlockVision integration — retry, circuit breaker, sticky-positive cache, layered fallback
 
 
-# Agent Harness Spec — Correctness + Intelligence
+# BlockVision Resilience
 
-The contract between `@t2000/engine` and any host (audric/web today, audric/cli tomorrow). Two specs landed together, both shipped engine v0.41.0–v0.50.3.
+BlockVision Pro is the data source for the entire wallet portfolio + multi-token price feed. It periodically returns 429 under burst load (per-second key limit AND a global edge throttle that fires even under quota). All BlockVision calls MUST go through `fetchBlockVisionWithRetry` in `packages/engine/src/blockvision-prices.ts`.
 
-## Spec 1 — Correctness (`AUDRIC_HARNESS_CORRECTNESS_SPEC_v1.3.md`, local-only)
+## The contract — three layers of resilience
 
-### Item 3 — `attemptId` (the resume identifier)
+### Layer 1 — Retry with jittered exponential backoff
 
-Every `pending_action` event carries a UUID v4 `attemptId` stamped at emit time.
+```
+attempt 1: fire immediately
+attempt 2: wait 250ms ± 25% jitter
+attempt 3: wait 750ms ± 25% jitter (and final attempt)
+```
 
-**Why it exists.** Pre-v1.4.2 the resume route keyed `updateMany` on `(sessionId, turnIndex)`. That pair was ambiguous when:
-- Same turn yielded a second pending action (user edits modifiable fields → engine re-yields).
-- A backfill left multiple rows matching the pair.
+- Honors `Retry-After` header up to 5s cap.
+- Each `fetch()` carries its own `AbortSignal.timeout()` independent of retry sleep.
+- Retries on 429 + 5xx only. Other errors propagate immediately.
 
-The ambiguity overwrote the wrong row's outcome.
+### Layer 2 — Circuit breaker
 
-**The contract.**
-1. Engine stamps `attemptId` on every `pending_action`.
-2. Host persists it on the `TurnMetrics` row at chat-time (within `/api/engine/chat`).
-3. Host calls back into `/api/engine/resume` with `{ attemptId, txDigest, balanceChanges }`.
-4. Resume route runs `prisma.turnMetrics.updateMany({ where: { attemptId }, data: { pendingActionOutcome, writeToolDurationMs } })`.
-5. Host writes a NEW TurnMetrics row for the resume turn itself (post-confirmation narration / chained tools).
+After **10 429s within a 5s rolling window**, the circuit opens for **30s**. While open:
+- New 429s are returned as final (no retry).
+- Subsequent calls don't fire BlockVision at all — they fall through to the fallback path.
+- Per-process state (intentional) — global Redis coordination would add hot-path latency.
 
-**Defensive fallback.** Pre-v1.4.2 sessions can rehydrate `PendingAction` without an `attemptId`. The legacy pair-keyed update stays as a dead-code fallback for one session-TTL rotation, then gets removed.
+Why: naive retry amplifies BV load 3x during sustained outages. At 1k+ users that's a self-inflicted DoS.
 
-### Item 6 — `modifiableFields` (user can edit before approving)
+### Layer 3 — Layered fallback
 
-Optional `modifiableFields: PendingActionModifiableField[]` on every `PendingAction`:
+If BlockVision `/account/coins` returns 429/5xx OR the `apiKey` is missing/blank:
+
+1. Drop to Sui-RPC for the coin list.
+2. Still attempt BV `/coin/price/list` to USD-price non-stable holdings (separate rate limit, frequent cache hit).
+3. Only when BOTH BV endpoints fail, degrade to hardcoded stable allow-list (USDC/USDT/USDe/USDsui = $1.00, everything else `null`).
+
+The returned portfolio carries a `source` field: `'blockvision' | 'sui-rpc-degraded' | 'partial'` so callers can decide whether to badge "approximate" totals.
+
+## Sticky-positive cache rule (DeFi)
+
+`DefiCacheStore` stores the last known-good positive value for 30 minutes (`DEFI_STICKY_TTL_SEC`).
+
+| Source        | TTL    | Write rule |
+|---------------|--------|------------|
+| `blockvision` | 60s    | Always wins. Positive values flow through immediately. |
+| `partial-stale` | 60s | Used when BV returns success but with missing protocol data. |
+| `sui-rpc-degraded` | 15s | **Never overwrites a known-good positive within the sticky window.** Prevents BV throttle blips from poisoning the cache with $0. |
+
+The wallet portfolio cache uses the same pattern — see PR 1+2 in `audric-scaling-spec.md`.
+
+## When `fetch_*` tools see degraded data
 
 ```typescript
-interface PendingActionModifiableField {
-  name: string;          // input key (e.g. "amount", "to")
-  kind: 'amount' | 'address';
-  asset?: string;        // for amount fields, e.g. "USDC"
+// In a tool's call handler:
+const portfolio = await fetchAddressPortfolio(address, ctx.blockvisionApiKey);
+
+if (portfolio.source !== 'blockvision') {
+  // Surface degradation to the user — don't silently lie about the total.
+  return {
+    data: { ... },
+    displayText: `Wallet (~approximate, ${portfolio.source}): ...`,
+  };
 }
 ```
 
-Sourced from `tool-modifiable-fields.ts` in the engine. Absent (or empty) means approve-or-deny only — no edits.
+`portfolio_analysis` MUST treat `partial + 0` DeFi as untrusted and re-fetch via `fetchAddressDefiPortfolio`. See `packages/engine/src/tools/portfolio-analysis.ts` trust gate.
 
-### `EngineConfig.onAutoExecuted` (the post-execute hook)
+## When `BLOCKVISION_API_KEY` is empty
+
+- `apps/web/lib/env.ts` (audric) makes it `requiredString` — boot fails before any request runs. **Do not relax to optional** unless you also accept the entire DeFi/wallet pricing stack degrading to RPC.
+- This is the S.25 incident class — see `env-validation-gate.mdc`.
+
+## What's banned
 
 ```typescript
-onAutoExecuted?: (info: { toolName: string; usdValue: number; walletAddress?: string }) => void | Promise<void>;
+// ❌ Direct fetch — bypasses retry + circuit breaker + sticky cache
+const res = await fetch(`${BLOCKVISION_BASE}/account/coins?...`, { headers });
+
+// ✅ Always through the helper
+const res = await fetchBlockVisionWithRetry(url, { headers, signal: AbortSignal.timeout(4_000) });
 ```
 
-Fires after a write tool successfully executes (whether server-side or client-confirmed). Hosts use it to:
-- Update `sessionSpendUsd` (drives B.4 USD-aware permission gating).
-- Emit telemetry / record `AdviceLog`.
+## Tests live here
 
-## Spec 2 — Intelligence (`AUDRIC_HARNESS_INTELLIGENCE_SPEC_v1.4.1.md`, local-only)
-
-### `<financial_context>` block (silent context)
-
-Every turn's system prompt embeds a `<financial_context>` block built from the daily `UserFinancialContext` snapshot (savings, wallet, debt, HF, APY, recent activity). Built by `buildFinancialContextBlock()`. Refreshed by the 02:00 UTC `financial-context-snapshot` cron.
-
-### BlockVision swap (v1.4 BlockVision migration)
-
-7 `defillama_*` tools were removed and replaced with 1 `token_prices` tool backed by BlockVision. `balance_check` and `portfolio_analysis` rewired to BlockVision Indexer REST API.
-
-`ToolContext.blockvisionApiKey` (server-only) is threaded through from the host. When undefined / empty, the price feed degrades to Sui RPC + the hardcoded stable allow-list — wallets still render but non-stable USD values report as `null`.
-
-`ToolContext.portfolioCache` is a per-request `Map<address, AddressPortfolio>` that lets multiple read tools in the same turn share a BlockVision response (avoids 200–500ms RTT amplification).
-
-### `protocol_deep_dive` exception
-
-This tool is the lone production consumer of `api.llama.fi` (DefiLlama) and stays that way. No other tool may call DefiLlama.
-
-## Spec 3 (upcoming)
-
-Reserved for the next harness milestone. Do not pre-emptively implement spec-3 changes against this rule until the spec lands.
-
-## What hosts MUST do
-
-1. **Stamp `attemptId` on `TurnMetrics` at chat-time.** The pending-action event carries it; persist it before yielding to the client.
-2. **Pass `attemptId` through resume.** Client UI persists it across the user-confirm round-trip and POSTs it back.
-3. **Resume route: `updateMany({ where: { attemptId } })`.** Never re-key on `(sessionId, turnIndex)` for new code.
-4. **Wire `EngineConfig.onAutoExecuted`** to update `sessionSpendUsd` and any post-write side effects.
-5. **Provide `blockvisionApiKey`** in `ToolContext` (server-only, via the typed env proxy — see `env-validation-gate.mdc`).
-6. **Provide `portfolioCache`** as a per-request `Map`. One per turn. Don't share across requests.
-
-## What hosts MUST NOT do
-
-- Don't call `sdk.swap()` / `sdk.save()` / etc. directly when the tool's permission level is `confirm`. Always go through the sponsored-transaction flow (see `audric/.cursor/rules/audric-transaction-flow.mdc`).
-- Don't re-implement balance / position / pricing fetches. Always go through `getCanonicalPortfolio` / `lib/portfolio.ts` (see `audric/.cursor/rules/audric-canonical-portfolio.mdc`).
-- Don't drop `attemptId` "to keep the type simple." It's load-bearing.
-- Don't silently downgrade BlockVision degradation. Surface it to the user via the read tool's `displayText`.
+- `packages/engine/src/__tests__/blockvision-retry.test.ts` — retry, jitter, `Retry-After`, circuit breaker
+- `packages/engine/src/__tests__/defi-portfolio.test.ts` — aggregation + cache poisoning regression
+- `packages/engine/src/__tests__/defi-cache-sticky.test.ts` — sticky-positive write rules
+- All three call `_resetBlockVisionCircuitBreaker()` in `beforeEach` to isolate state.
 
 ## Cross-references
 
-- Pending action types → `packages/engine/src/types.ts` (`PendingAction`, `PermissionResponse`, `EngineConfig`)
-- Resume route reference impl → `audric/apps/web/app/api/engine/resume/route.ts`
-- BlockVision retry/circuit-breaker → `blockvision-resilience.mdc`
-- Sponsored tx client flow → `audric/.cursor/rules/audric-transaction-flow.mdc`
+- Implementation → `packages/engine/src/blockvision-prices.ts` + `packages/engine/src/defi-cache.ts`
+- Engine spec context → `agent-harness-spec.mdc` (Spec 2)
+- Wallet portfolio Redis migration (next PR) → `audric-scaling-spec.md` PR 1+2
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
