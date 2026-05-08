@@ -1,27 +1,90 @@
-## build-from-user-perspective
+## debug-container
 
-> 写代码和改构建配置时，必须站在最小用户环境（CE 裸 clone）视角验证，不能只在自己的全量开发环境里通过
+> 容器/浏览器问题排查指南 — 当用户报告 session 异常时，按此流程读取 CDP 日志定位根因
 
 
-# 从用户视角写代码
+# 容器排查指南
 
-开发者的环境 ≠ 用户的环境。开发者有子模块、有 .env、有本地缓存、有完整数据；用户可能只有 `git clone` 后的裸仓库、空数据库、零配置。**每一行代码都要假设运行在最小环境里。**
+当用户说「session xxx 有问题」或报告浏览器异常行为时，按以下流程排查。
 
-## 规则
+## 容器命名
 
-1. **可选依赖必须有降级路径**——EE 模块、第三方服务、特定环境变量、本地文件，任何不保证存在的东西，代码都必须处理"它不在"的情况。`import` 要有 try/except 或条件守卫，配置要有默认值，UI 要有空状态。
-2. **可选组件显式 opt-in**——不能让功能隐式依赖可选组件的存在。默认路径必须是不含可选组件的最小版本（CE）。
-3. **文件系统探测不可靠**——`mkdir -p` 会创建空目录骗过 `existsSync`，Docker COPY 会传播空目录。如果用文件存在性做判断，检查具体文件而非目录。
-4. **构建期解析必须隔离可选模块**——`if (__EE__) import('@ee/...')` 不是 CE 构建隔离；Vite/Rollup 仍会解析 import 路径。所有 `@ee/*` import 在 CE 模式下都必须有可解析的 stub/alias。
-5. **改完代码后做环境差异检查**——在脑中走一遍"CE 用户裸 clone → docker compose build → 首次启动"的完整路径：每一个 COPY / import / 路径引用 / API 调用，在裸环境里能工作吗？
+每个 session 对应一个 Docker 容器，名称为 `bp-{session_id[:12]}`。
 
-## 本项目特定
+## 排查步骤
 
-- `ee/` 是 git 子模块，CE 用户没有。Dockerfile 用 `mkdir -p ee/frontend ee/backend` 保证 COPY 不报错，但 **版本检测必须通过 `EDITION` 环境变量**，不能靠 `ee/` 目录是否存在。
-- 前端 `vite.config.ts`：`process.env.EDITION` 优先，未设置时降级为 `existsSync(resolve(eeDir, 'index.ts'))`。CE 模式下 `@ee` 必须指向 `frontend/src/ee-stubs`，不能省略 alias。
-- 后端 `config.py`：`_env("EDITION", "")` 优先，未设置时降级为文件系统检测。
-- Docker 构建：`ARG EDITION=ce`，默认 CE。EE 通过 `.env` 中 `EDITION=ee` 或 `--build-arg EDITION=ee` 显式启用。
-- 涉及 EE import、前端构建配置、Dockerfile、可选模块时，必须至少跑一次 `EDITION=ce npm run build`；不能用本地带 `ee` submodule 的默认构建结果替代 CE 验证。
+### 1. 读 CDP 事件日志（最重要）
+
+```bash
+docker exec bp-{id前12位} tail -100 /tmp/cdp-events.jsonl
+```
+
+每行是一个 JSON 对象，关键字段：
+- `ts` — UTC 时间戳
+- `type` — 事件类型：`console` | `network` | `navigation` | `error`
+- `summary` — 一行人类可读摘要
+- `method` — CDP 原始方法名
+
+按类型过滤：
+```bash
+docker exec bp-xxx tail -200 /tmp/cdp-events.jsonl | python3 -c "
+import sys, json
+for line in sys.stdin:
+    e = json.loads(line)
+    if e.get('type') == 'error':
+        print(e['ts'], e['summary'])
+"
+```
+
+### 2. 常见问题模式
+
+| 日志特征 | 可能原因 |
+|---------|---------|
+| 连续 `Network.responseReceived` 302 | 被反爬重定向，需要手动过验证 |
+| `Network.loadingFailed` errorText=net::ERR_* | 网络不通或 DNS 解析失败 |
+| `Runtime.exceptionThrown` | 页面 JS 报错 |
+| 连续重复的 `Page.frameNavigated` 同一 URL | Agent 在重复导航（检查 prompt 规则） |
+| 无任何日志 | CDP logger 可能未启动，见步骤 3 |
+
+### 3. 检查 CDP logger 本身
+
+```bash
+docker exec bp-xxx cat /tmp/cdp-logger-supervisor.log
+```
+
+### 4. 容器进程状态
+
+```bash
+docker exec bp-xxx supervisorctl status
+```
+
+正常状态应有：`browser` RUNNING、`cdp-logger` RUNNING、其他 selenium 进程。
+
+### 5. 后端 API
+
+也可通过 HTTP 读取日志（前端面板使用此接口）：
+```
+GET /api/sessions/{session_id}/logs?tail=100&log_type=network
+```
+
+### 6. 内部 Docker / Selenium 请求不能走环境代理
+
+后端访问浏览器容器、Selenium Grid、WebDriver、CDP readiness 等内部地址时，HTTP 客户端必须显式绕过部署机器的 `HTTP_PROXY` / `HTTPS_PROXY` / `ALL_PROXY` 环境变量，例如 `httpx.AsyncClient(..., trust_env=False)`。
+
+典型症状：
+- `GET /api/browser/tabs` 返回 `Expecting value: line 1 column 1 (char 0)`
+- WebDriver 响应被代理替换成空 body、HTML 错误页、网关错误页
+- 局域网访问 API 本身正常，但浏览器操作接口失败
+
+这类问题不要只从外部 curl 判断“局域网不可用”；要继续确认后端到浏览器容器的内部链路是否被代理或错误 host 劫持。
+
+## JSONL 日志示例
+
+```json
+{"ts":"2026-04-05T12:03:01.123Z","type":"navigation","method":"Page.frameNavigated","summary":"navigated -> https://www.zhipin.com/web/user/"}
+{"ts":"2026-04-05T12:03:01.456Z","type":"network","method":"Network.responseReceived","summary":"<- GET https://www.zhipin.com/api/user 200 45ms"}
+{"ts":"2026-04-05T12:03:02.789Z","type":"error","method":"Runtime.exceptionThrown","summary":"TypeError: Cannot read properties of undefined (reading 'map')"}
+```
 
 ---
 > Source: [NoDeskAI/browser-pilot](https://github.com/NoDeskAI/browser-pilot) — distributed by [TomeVault](https://tomevault.io).
