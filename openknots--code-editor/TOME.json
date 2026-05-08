@@ -4,7 +4,7 @@
   "repo": "code-editor",
   "description": "Cursor-Codex-lite: Gateway-integrated code editor with AI coding agent",
   "type": "config",
-  "source_format": ".cursor/rules/*.mdc",
+  "source_format": "AGENTS.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/OpenKnots/code-editor",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-07T20:48:29Z"
+  "distributed_at": "2026-05-08T07:15:49Z"
 }
