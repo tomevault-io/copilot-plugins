@@ -1,0 +1,9 @@
+{
+  "name": "samufl--rverse",
+  "displayName": "rverse",
+  "description": "Open Source (MIT License) VST Plugin. Load an impact sample and create a custom reversed swoosh into hit transition. This project serves as useful proof of concept for the technology stack intended fo",
+  "version": "1.0.0",
+  "author": "SamuFL",
+  "homepage": "https://github.com/SamuFL/rverse",
+  "skills": []
+}
