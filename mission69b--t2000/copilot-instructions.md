@@ -1,54 +1,70 @@
-## savings-usdc-only
+## single-source-of-truth
 
-> Savings is USDC-or-USDsui only — engine tools and prompts must enforce this. USDsui is a strategic exception; USDC remains the canonical default.
+> Single source of truth for portfolio data — one canonical fetcher per domain, all consumers are thin adapters
 
 
-# Savings = USDC or USDsui (Engine)
+# Single Source of Truth: Portfolio Data
 
-> **Strategic exception (v0.51.0+):** USDsui is permitted alongside USDC for `save_deposit` and `borrow`. The USDC-canonical thesis still applies to **every other asset** (GOLD, SUI, USDT, USDe, ETH, NAVX, WAL): they are holdable/swappable but **never** saveable.
->
-> Why USDsui is the exception: it's the only other Sui-native stable with a productive NAVI pool (USDC pool ~4.6% APY, USDsui pool variable, often higher). Adding it as a saveable asset captures yield optimization without inviting "save anything stable" creep (which would pull in USDe/USDT and break the simplicity invariant).
+## The standard
 
-## balance_check tool
+Every domain concept (wallet balances, lending positions, token prices, transaction history, savings rates) has **exactly one** canonical fetcher. API routes, React hooks, engine tools, and cron jobs are **thin adapters** — they parse inputs, call the canonical fetcher, format the response.
 
-Must return `saveableUsdc` field (USDC wallet balance — the canonical saveable). The `displayText` must distinguish:
-- **Wallet holdings** (GOLD, SUI, USDT, USDe, ETH, etc.) — tokens in the wallet, NOT savings, NOT saveable
-- **NAVI savings deposits** — USDC and/or USDsui deposited into NAVI earning yield
-- **Saveable USDC** — the USDC amount that CAN be saved
-- **USDsui balance** (if present) — also saveable, surface it in the holdings list with a "(saveable)" tag
+Adapters MUST NOT do their own pricing, summing, RPC calls, or token-list management. If you find yourself reaching for `client.getBalance`, hardcoding a stable price, or maintaining a token allow-list outside the canonical, stop and use the canonical instead.
+
+## Canonical files
+
+| Domain | Canonical fetcher | File |
+|---|---|---|
+| Wallet + positions + net worth | `getPortfolio(address)` | `apps/web/lib/portfolio.ts` |
+| Token prices (USD) | `getTokenPrices(coinTypes)` | `apps/web/lib/portfolio.ts` |
+| Transaction history | `getTransactionHistory(address, opts)` | `apps/web/lib/transaction-history.ts` |
+| Lending rates (NAVI) | `getRates()` | `apps/web/lib/rates.ts` |
+
+## Forbidden patterns outside canonical files
+
+These are lint errors (see `.eslintrc` rule `audric/canonical-portfolio`):
 
 ```typescript
-// ❌ BAD — LLM confuses holdings with savings, treats USDsui as a regular holding
-displayText: `Balance: $${total} (Available: $${available}, Savings: $${savings})`
-
-// ✅ GOOD — explicit separation, USDsui flagged as saveable
-displayText: `Wallet holdings (NOT savings): GOLD ${gold}, SUI ${sui}, USDsui ${usdsui} (saveable). NAVI savings: $${savings}. Saveable USDC: ${usdc} USDC.`
+// All of these are FORBIDDEN outside the canonical files above.
+client.getBalance({ owner, coinType })           // wallet read — use getPortfolio
+client.getAllBalances({ owner })                 // wallet read — use getPortfolio
+client.getCoinMetadata({ coinType })             // metadata — use getPortfolio (it returns priced coins)
+fetch('https://api.blockvision.org/...')         // direct vendor call — use getPortfolio / getTokenPrices
+fetch('https://coins.llama.fi/...')              // direct vendor call — use getTokenPrices
+const STABLES = { USDC: 1, USDT: 1, USDsui: 1 } // hardcoded $1 assumption — let getTokenPrices do it
+const TRADEABLE = ['USDC', 'SUI', 'BTC', ...]   // hardcoded token list — getPortfolio returns every held coin
+totalUsd = USDC + USDsui                          // partial-stable sum — use Portfolio.walletValueUsd
+totalUsd = USDC + SUI                             // unit-mixed sum (SUI is tokens, not USD) — use Portfolio.walletValueUsd
 ```
 
-## System prompt
+## Why this rule exists
 
-Must include a "Savings = USDC or USDsui" section that tells the LLM:
-- Only **USDC or USDsui** can be saved via `save_deposit` and used as collateral via `borrow`
-- Wallet holdings ≠ savings positions (the same NAVI pool may contain both deposits and the user's own holdings — but only the deposit row earns APY)
-- Never say non-saveable tokens (GOLD, SUI, USDT, etc.) are "earning APY in savings"
-- When asked "how much can I save?", report `saveableUsdc` plus the user's USDsui wallet balance, separately
-- USDsui pool APY can differ from USDC; if user asks "best stable to save", call `rates_info` to compare
+In April 2026 we shipped a fix for `FullPortfolioCanvas` showing $0 savings for watched addresses. The root cause was five different code paths computing wallet USD: `useBalance` hook, `fetchPortfolio` server function, `/api/balances` raw endpoint, engine `balance_check` tool, and the daily cron — each with different pricing logic, different token coverage, and different bugs. The user surfaces showed five different numbers for the same wallet.
 
-## save_deposit + borrow + repay_debt tools
+That class of bug is structural, not a one-off. Every new feature that adds another portfolio read is another opportunity to drift. Routing every consumer through one fetcher with one set of behaviors makes drift impossible by construction.
 
-Description must:
-- Accept `asset: 'USDC' | 'USDsui'` (default `'USDC'` when omitted, except `repay_debt` where omitting means "highest-APY borrow")
-- Reject every other asset with a clear error
-- Explicitly forbid auto-chaining swap + deposit / swap + repay (the user decides which stable to save or repay)
-- For "save 10 USDC" — execute as USDC. For "save 10 USDsui" — execute as USDsui. Never silently substitute.
-- For "save 10" (no asset specified) — call `balance_check` first, then ask the user which stable they want (or default to whichever they hold more of, with a one-line explanation).
-- **Repay symmetry (v0.51.1+):** A USDsui debt MUST be repaid with USDsui (and USDC debt with USDC). The SDK fetches the correct coin type for the targeted asset, but the user must hold enough of that stable. If they hold only the wrong stable, tell them to swap manually first — never auto-chain.
+## Adapter checklist
 
-## Adding new assets
+Before adding or modifying an API route, hook, canvas, or engine tool that reads portfolio data:
 
-When adding assets to the token registry, they are holdable/swappable but **NOT saveable** — even other stables (USDe, USDT). Only USDC and USDsui go through `save_deposit` / `borrow`. This is enforced by `assertAllowedAsset('save', asset)` and `assertAllowedAsset('borrow', asset)` in `packages/sdk/src/constants.ts`.
+1. **Does the canonical fetcher already cover this read?** If yes, use it. Done.
+2. **Does it cover it but the shape isn't quite right?** Extend the canonical's return type. Don't fork.
+3. **Does it not cover this read at all?** Extend the canonical to cover it. Don't add a parallel path.
+4. **Does the canonical do too much for your one-off read?** It still might be the right call — the 60s in-process cache makes redundant calls cheap.
 
-To extend the saveable set in the future (e.g., a hypothetical USDe-on-NAVI pool), update `OPERATION_ASSETS.save` and `OPERATION_ASSETS.borrow` in `packages/sdk/src/constants.ts` AND revisit this rule — don't bypass the allow-list.
+If you genuinely need to bypass the canonical (e.g. for a write-side balance check that's part of a transaction builder), leave a code comment with `// CANONICAL-BYPASS:` and explain why, plus link to a follow-up issue to consolidate.
+
+## How this is enforced
+
+- **ESLint rule** `audric/canonical-portfolio`: scans imports and call expressions, fails CI on forbidden patterns outside canonical files.
+- **Spec consistency runner** (`apps/web/lib/engine/spec-consistency.ts`): runs at server startup in dev (hard fail) and prod (log only); checks that no consumer re-implements canonical behavior.
+- **Contract test** (`apps/web/lib/__tests__/portfolio-contract.test.ts`): asserts identical output across every adapter for a fixed mocked-RPC test address. Any new adapter added to the test must produce the same numbers.
+
+## Related rules
+
+- [`engineering-principles.mdc`](engineering-principles.mdc) — Principle 2 ("If data exists in one place, import it") is what this rule operationalizes.
+- [`token-data-architecture.mdc`](token-data-architecture.mdc) — canonical token metadata sources (`TOKEN_MAP`, `COIN_REGISTRY`).
+- [`audric-transaction-flow.mdc`](audric-transaction-flow.mdc) — sponsored vs SDK direct, which path runs when.
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
