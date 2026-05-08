@@ -1,0 +1,9 @@
+{
+  "name": "idradev--diagrammer",
+  "displayName": "Diagrammer",
+  "description": "\ud83d\udcd0 A minimal viewer for LLM-authored diagrams. Local-first, schema-driven, no account, no cloud.",
+  "version": "1.0.0",
+  "author": "IdraDev",
+  "homepage": "https://github.com/IdraDev/Diagrammer",
+  "skills": []
+}
