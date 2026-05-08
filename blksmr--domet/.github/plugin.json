@@ -1,0 +1,9 @@
+{
+  "name": "blksmr--domet",
+  "displayName": "domet",
+  "description": "A lightweight React hook made for scroll-based UIs. Use it for a classic scroll-spy, but also for progress bars, lazy-loading sections, or anything that needs to know which section is in view, every t",
+  "version": "1.0.0",
+  "author": "blksmr",
+  "homepage": "https://github.com/blksmr/domet",
+  "skills": []
+}
