@@ -1,139 +1,125 @@
-## go-handler
+## go-service
 
-> Patterns for Go handler layer files — HTTP request handling, validation, routing
+> Patterns for Go service layer files — business logic, DB access, auth checks
 
 
-# Go Handler Layer Patterns
+# Go Service Layer Patterns
 
 Follow the established patterns in `auth.go` and `user.go`.
 
 ## Structure
 
-```go
-type XHandler struct { xService xServicer }
-func NewXHandler(xService *service.XService) *XHandler { ... }
+```
+type XService struct {
+    pool              *pgxpool.Pool
+    paginationDefault int
+    paginationMax     int
+}
+func NewXService(pool *pgxpool.Pool, paginationDefault, paginationMax int) *XService { ... }
 ```
 
-- Handlers are thin — validate input, delegate to service, return JSON.
-- No business logic in handlers. No direct DB access.
-- **Struct field is the interface** (`xServicer`), constructor takes the concrete type. This is the standard pattern — `make new-module` generates it automatically.
+- Constructor takes `*pgxpool.Pool` + pagination config. Auth services may take additional params (JWT secret, durations).
+- **No Echo imports** — services must be framework-agnostic. No `echo.Context`, no `echo.NewHTTPError`. Use `apperror` for errors, plain `context.Context` for context.
+- Define input/output structs in the same file (e.g., `CreateItemInput`, `ItemDetail`).
+- Return `*Detail` structs with formatted timestamps (`time.RFC3339`), not raw DB types.
 
-## Service Interfaces
+## Auth Pattern
 
-Handlers use unexported interfaces (`authServicer`, `userServicer`, `sseHubber`), not concrete service types. This enables mock-based testing. Constructor takes concrete types (callers unchanged), struct field is the interface. See `handler/interfaces.go`.
-
-## Scaffold Output
-
-`make new-module name=items` generates:
-- `handler/item.go` — Handler with interface-typed service field
-- `handler/item_test.go` — Mock struct + 5 test stubs (Create success, Create validation, List, GetByID not found, Delete)
-- Interface entry appended to `handler/interfaces.go`
-- Fill in test bodies for your specific validation logic and error paths.
-
-## Auth Extraction
-
-Every protected handler starts with:
+Every method that operates on a scoped resource must verify membership, not just role:
 
 ```go
-userID, err := requireUserID(c)
-if err != nil { return err }
-userType, err := requireUserType(c)
-if err != nil { return err }
+// Resolve user → entity relationship
+access, err := s.verifyResourceAccess(ctx, resourceID, userID)
+// Then check specific permissions
+if !access.IsAdmin { return apperror.Forbidden("...") }
 ```
 
-Role guards (when needed) go after extraction:
+Create a `verifyXAccess` helper that chains: fetch resource → get parent → verify membership.
+
+## SQL Rules
+
+- **Parameterized queries only** — `$1, $2, ...` placeholders. Never `fmt.Sprintf` with values.
+- **Dynamic WHERE clauses** — use `argIdx` counter pattern for building filtered list queries.
+- **Computed fields via subquery** — e.g., `(SELECT COALESCE(SUM(hours), 0) FROM time_entries WHERE task_id = t.id) AS actual_hours`. Never store computed values.
+- **`rows.Err()` after every `rows.Next()` loop** — partial iteration errors (network, context cancellation) are only surfaced by `rows.Err()`. Without it, the loop silently returns incomplete data.
+
+## Transactions
+
+Wrap any operation with 2+ writes:
 
 ```go
-if userType != "admin" {
-    return apperror.Forbidden("Only admins can create items")
+tx, err := s.pool.Begin(ctx)
+if err != nil { return apperror.Internal(fmt.Errorf("begin tx: %w", err)) }
+defer func() { _ = tx.Rollback(ctx) }()  // no-op after commit — safe to discard
+// ... all queries on tx ...
+if err := tx.Commit(ctx); err != nil { ... }
+```
+
+For operations that need both a check and a mutation (read-then-write), use atomic `UPDATE ... WHERE guard RETURNING` inside the transaction to prevent TOCTOU races. Never SELECT outside the transaction then UPDATE inside it. See `auth.go` `Refresh` method.
+
+## Error Handling
+
+- Always check `pgx.ErrNoRows` explicitly — return `apperror.NotFound` for missing entities.
+- Check real DB errors before ErrNoRows: `if err != nil && err != pgx.ErrNoRows { return 500 }`.
+- Never `_ = pool.Exec(...)` — log failures with `logger.Error`.
+
+## Status Guards
+
+Check parent entity status at the top of mutating methods:
+
+```go
+if access.Status != "active" {
+    return apperror.BadRequest("Can only update items on active resources")
 }
 ```
 
-Resource-level authorization is handled by the service layer, not the handler.
+## Pagination
 
-## Request Binding
+Use `NormalizePagination(page, perPage, s.paginationDefault, s.paginationMax)` helper. Return `XListResult` with `total`, `page`, `per_page`, `total_pages`.
+
+## History/Audit
+
+For entities with audit trails, insert structured history entries:
 
 ```go
-var req CreateXRequest
-if err := c.Bind(&req); err != nil {
-    return apperror.BadRequest("Invalid request body")
+s.addHistory(ctx, id, userID, "Status changed to Complete",
+    map[string]any{"field": "status", "old": oldStatus, "new": newStatus})
+```
+
+Use JSONB `metadata` for structured data + TEXT `action` for human-readable display.
+
+## Nullable TIMESTAMPTZ Columns
+
+**Never scan nullable TIMESTAMPTZ directly into `*string`.** PostgreSQL's binary protocol can't convert timestamptz to string. Always use `*time.Time` intermediate:
+
+```go
+var publishedAt *time.Time
+err := row.Scan(&publishedAt)
+// Then format for JSON:
+if publishedAt != nil {
+    ts := publishedAt.Format(time.RFC3339)
+    result.PublishedAt = &ts
 }
 ```
 
-Define request structs with `json` tags in the same handler file.
+Do NOT use `column::text` casts in SQL as a workaround — they prevent index usage and are fragile.
 
-## Validation
+## Background Side Effects
 
-Simple validations in the handler (required fields). Complex validations in a `validateX` function:
+When a service method triggers a side effect (email, webhook, etc.), use a fire-and-forget goroutine:
 
 ```go
-func validateCreateItem(req *CreateItemRequest) error {
-    details := make(map[string]string)
-    if req.Title == "" { details["title"] = "Title is required" }
-    if len(details) > 0 {
-        return apperror.Validation("Validation failed", details)
+go func() {
+    if err := s.emailSvc.Send(context.Background(), recipientEmail, subject, body); err != nil {
+        logger.Error("email: send failed", slog.String("error", err.Error()))
     }
-    return nil
-}
+}()
 ```
 
-## Response Codes
+Rules: use `context.Background()` (goroutine outlives request), always log errors from goroutines.
 
-- `201 Created` for POST that creates a resource
-- `200 OK` for GET, PUT, POST actions (publish, approve, etc.)
-- `200 OK` with `{"message": "..."}` for DELETE
-
-## Error Responses
-
-Always use `apperror` — never `echo.NewHTTPError`:
-
-```go
-// BAD
-return echo.NewHTTPError(http.StatusForbidden, "not allowed")
-// GOOD
-return apperror.Forbidden("not allowed")
-```
-
-## Route Registration
-
-In `cmd/server/main.go`:
-1. Create service in the services block
-2. Create handler in the handlers block
-3. Register routes on the `protected` group
-
-```go
-// in main():
-xService := service.NewXService(pool)
-xHandler := handler.NewXHandler(xService)
-// ...
-protected.POST("/x", xHandler.Create)
-protected.GET("/x", xHandler.List)
-protected.GET("/x/:id", xHandler.GetByID)
-```
-
-## Query Parameter Parsing
-
-Always validate query params. Never ignore `strconv` errors:
-
-```go
-// BAD — silent invalid page
-page, _ := strconv.Atoi(c.QueryParam("page"))
-
-// GOOD — default on error
-page, err := strconv.Atoi(c.QueryParam("page"))
-if err != nil || page < 1 { page = 1 }
-perPage, err := strconv.Atoi(c.QueryParam("per_page"))
-if err != nil || perPage < 1 || perPage > 100 { perPage = 20 }
-```
-
-For enum-like string params, validate against allowed values:
-
-```go
-status := c.QueryParam("status")
-if status != "" && status != "active" && status != "completed" {
-    return apperror.BadRequest("Invalid status filter")
-}
-```
+- **Retry helper** — Use `service.Retry(3, time.Second, fn)` for external API calls in goroutines.
+- **Request ID propagation** — Capture the request ID before spawning goroutines for log correlation.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
