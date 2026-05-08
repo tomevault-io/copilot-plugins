@@ -1,0 +1,9 @@
+{
+  "name": "eriklangille--rtach",
+  "displayName": "rtach",
+  "description": "Modern terminal session management using libxev",
+  "version": "1.0.0",
+  "author": "eriklangille",
+  "homepage": "https://github.com/eriklangille/rtach",
+  "skills": []
+}
