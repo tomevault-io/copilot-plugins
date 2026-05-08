@@ -1,0 +1,9 @@
+{
+  "name": "leostera--agents",
+  "displayName": "agents",
+  "description": "a rust toolkit for building, running, and evaluating type-safe, composable agents",
+  "version": "1.0.0",
+  "author": "leostera",
+  "homepage": "https://github.com/leostera/agents",
+  "skills": []
+}
