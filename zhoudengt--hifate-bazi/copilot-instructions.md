@@ -1,33 +1,39 @@
-## grpc-rules
+## local-env
 
-> gRPC 与 API 端点注册规范（修改 grpc_gateway 或 proto 时生效）
+> 本地开发环境配置（必须遵守）
 
 
-# gRPC 交互规范
+# 本地开发环境
 
-## 架构
+## 关键事实
 
-前端 (Browser) → gRPC-Web → Web服务 (Port 8001) → gRPC → 微服务 (9001-9010)
+- **本地没有 Docker**，禁止用 docker / docker compose 命令
+- **本地使用虚拟环境** `.venv`，必须用 `.venv/bin/python` 执行所有 Python 命令
+- 禁止用系统 python3 / pip3 安装或运行任何东西
+- 本地 Redis / MySQL 是 brew 原生安装，不是容器
+- **本地 MySQL 密码：123456**
+- 生产环境才用 Docker
 
-## 核心要求
+## 本地启动命令
 
-- ✅ 前端必须使用 gRPC-Web 网关（`/api/v1/*` 路径）
-- ✅ 服务间必须使用 gRPC 通信
-- ✅ 所有 API 端点必须在 `grpc_gateway.py` 中注册
+```bash
+# 激活虚拟环境
+source .venv/bin/activate
 
-## gRPC 端点注册检查（重要！）
+# Redis / MySQL（brew 原生服务）
+brew services start redis
+brew services start mysql
 
-新增 API 端点时，必须检查：
+# Web 服务（必须用虚拟环境的 python）
+.venv/bin/python server/main.py
+```
 
-- [ ] 是否需要通过 gRPC-Web 访问？
-- [ ] 如需 gRPC-Web 访问，是否在 `server/api/grpc_gateway.py` 中注册？
-- [ ] 如是流式接口，是否使用 `_collect_sse_stream()` 处理？
+## 本地测试流程
 
-**已知问题**：流式接口忘记注册到 gRPC 网关，导致 `grpc-status: 12` 错误。
-
-## 详细规范
-
-详见 `standards/grpc-protocol.md`
+1. 先本地单元测试验证核心逻辑
+2. 再启动本地服务跑回归测试 `.venv/bin/python api_regression_test.py --env local`
+3. 全部通过后才提交发布到生产
+4. **禁止**未经本地完整测试就往生产部署
 
 ---
 > Source: [zhoudengt/HiFate-bazi](https://github.com/zhoudengt/HiFate-bazi) — distributed by [TomeVault](https://tomevault.io).
