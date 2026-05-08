@@ -1,0 +1,9 @@
+{
+  "name": "jeremylongshore--startaitools-com",
+  "displayName": "startaitools.com",
+  "description": "AI implementation blog with 37+ technical posts on deployment, data engineering, and DevOps. Hugo static site with case studies and engineering resources.",
+  "version": "1.0.0",
+  "author": "jeremylongshore",
+  "homepage": "https://github.com/jeremylongshore/startaitools.com",
+  "skills": []
+}
