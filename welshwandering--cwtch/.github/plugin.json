@@ -1,0 +1,9 @@
+{
+  "name": "welshwandering--cwtch",
+  "displayName": "cwtch",
+  "description": "Cwtch - Helpful utilities for Claude Code. Manage profiles, check usage, deploy your army of agents. \ud83e\udd16",
+  "version": "1.0.0",
+  "author": "welshwandering",
+  "homepage": "https://github.com/welshwandering/cwtch",
+  "skills": []
+}
