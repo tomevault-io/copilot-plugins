@@ -1,0 +1,9 @@
+{
+  "name": "rolandtolnay--mindsystem",
+  "displayName": "mindsystem",
+  "description": "The engineer's meta-prompting system for Claude Code. Amplifies every step of your development workflow while keeping you in control.",
+  "version": "1.0.0",
+  "author": "rolandtolnay",
+  "homepage": "https://github.com/rolandtolnay/mindsystem",
+  "skills": []
+}
