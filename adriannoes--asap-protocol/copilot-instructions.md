@@ -1,63 +1,44 @@
-## git-commits
+## python-best-practices
 
-> Apply when generating git commit messages, performing commits, pushing to remote, or suggesting commit-related changes. Enforces Conventional Commits format and pre-push CI verification.
+> Guidelines for professional Python development, including Pydantic v2, Python 3.13 typing, Ruff and testing.
 
+# Python Best Practices
 
-# Git Conventional Commits
+You are an AI assistant specialized in Python development. Your approach emphasizes:
 
-Use the [Conventional Commits](https://www.conventionalcommits.org/) specification to generate commit messages.
+- **Clear Project Structure**: Separate directories for source code, tests, docs, and config.
+- **Modular Design**: Distinct files for models, services, controllers, and utilities.
+- **Configuration**: Use environment variables for sensitive or environment-specific data.
+- **Error Handling**: Robust error handling and logging, including context capture.
+- **Testing**: Comprehensive testing with `pytest`.
+- **Documentation**: Detailed docstrings (PEP 257) and README files.
+- **Dependency Management**: Use `uv` strictly as specified in `pyproject.toml`.
+- **Code Style**: Consistency using `Ruff` for linting and formatting.
+- **Data Tech**: Pydantic v2 for all data models.
 
-## Format
-```
-<type>[optional scope]: <description>
+## Rules to Follow:
 
-[optional body]
-
-[optional footer(s)]
-```
-
-## Commit Types
-- **feat**: A new feature (correlates with MINOR in SemVer).
-- **fix**: A bug fix (correlates with PATCH in SemVer).
-- **docs**: Documentation only changes.
-- **style**: Changes that do not affect the meaning of the code (white-space, formatting, etc.).
-- **refactor**: A code change that neither fixes a bug nor adds a feature.
-- **perf**: A code change that improves performance.
-- **test**: Adding missing tests or correcting existing tests.
-- **build**: Changes that affect the build system or external dependencies.
-- **ci**: Changes to CI configuration files and scripts.
-- **chore**: Other changes that don't modify src or test files.
-
-## Rules
-1. **Breaking Changes**: Must be indicated by a `!` after the type/scope OR by `BREAKING CHANGE:` in the footer.
-2. **Case Sensitivity**: Types must be lowercase (except `BREAKING CHANGE` in footers).
-3. **Description**: Short, imperative summary of the change.
-4. **Body**: Longer description of "what" and "why" (not "how").
-5. **Footers**: Used for tracking issues (e.g., `Refs: #123`) or breaking changes.
-
-## Pre-Push CI Verification
-
-Before pushing to the repository, always run the full CI check suite locally to ensure code quality:
-
-1. **Linting**: `uv run ruff check .` - Verify code style and catch common errors
-2. **Formatting**: `uv run ruff format --check .` - Ensure consistent code formatting (or `uv run ruff format .` to auto-fix)
-3. **Type Checking**: `uv run mypy src/ scripts/ tests/` - Validate type annotations (strict for src/scripts, relaxed for tests)
-4. **Tests**: `PYTHONPATH=src uv run pytest --cov=src --cov-report=xml` - Run full test suite with coverage
-5. **Security**: `uv sync --frozen --all-extras --dev --no-extra crewai --no-extra llamaindex && uv run pip-audit --ignore-vuln CVE-2026-4539 --ignore-vuln CVE-2026-3219` — same as the CI security job (see `SECURITY.md`); use full `uv sync --frozen --all-extras --dev` when auditing optional integration extras separately
-
-### Pre-Push CI Verification (Web App / TypeScript)
-
-If you modified files in `apps/web/`:
-1. **Linting**: `npm run lint` or `npx eslint .`
-2. **Type Checking**: `npx tsc --noEmit`
-3. **Tests**: `npx vitest run` (or `npm test`)
-4. **Build Verification**: `npm run build` (Ensures Next.js builds successfully)
-
-**Quick Fix Commands**:
-- Auto-fix linting issues: `uv run ruff check --fix .`
-- Auto-format code: `uv run ruff format .`
-
-All checks must pass before pushing to maintain code quality and prevent CI failures.
+1. **Type Annotations**: ALWAYS add typing annotations to each function or class. Include explicit return types (including `None` where appropriate).
+2. **Docstrings**: Add descriptive docstrings to all Python functions and classes following **PEP 257** (Google-style is preferred).
+3. **Preserve Comments**: Keep existing comments in files unless they are explicitly incorrect.
+4. **Testing Standards**:
+   - ONLY use `pytest` or `pytest` plugins.
+   - All tests must have typing annotations.
+   - Place all tests under `./tests`.
+   - Ensure `__init__.py` exists in test packages.
+5. **Modern Pydantic (v2)**:
+   - Use `model_dump()` instead of `dict()`.
+   - Use `model_validate()` instead of `parse_obj()`.
+   - Use `ConfigDict` for configuration.
+6. **Imports for Type Checking**: When using `TYPE_CHECKING`, import standard pytest fixtures as needed:
+   ```python
+   from typing import Self  # Python 3.11+
+   from _pytest.capture import CaptureFixture
+   from _pytest.fixtures import FixtureRequest
+   from _pytest.logging import LogCaptureFixture
+   from _pytest.monkeypatch import MonkeyPatch
+   from pytest_mock.plugin import MockerFixture
+   ```
 
 ---
 > Source: [adriannoes/asap-protocol](https://github.com/adriannoes/asap-protocol) — distributed by [TomeVault](https://tomevault.io).
