@@ -1,0 +1,14 @@
+{
+  "name": "zehfred--webflow-code-components",
+  "displayName": "webflow-code-components",
+  "description": "AI instruction skills by zehfred",
+  "version": "1.0.0",
+  "author": "zehfred",
+  "homepage": "https://github.com/zehfred/webflow-code-components",
+  "skills": [
+    {
+      "name": "webflow-code-components",
+      "description": ""
+    }
+  ]
+}
