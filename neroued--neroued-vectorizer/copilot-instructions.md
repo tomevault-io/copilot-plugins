@@ -1,37 +1,17 @@
-## post-algo-eval
+## sync-docs
 
-> 算法改进后必须跑 eval 验证效果
+> 文档同步规范
 
 
-# 算法改进后验证
+# 文档同步
 
-当修改涉及以下模块的算法逻辑时，完成代码修改并确认编译通过后，必须跑一次 eval 验证效果：
+当修改涉及以下内容时，检查 README.md 和 AGENTS.md 是否需要同步更新：
 
-- 颜色量化 (`src/quantize/`)
-- 深度排序 / 形状延伸 (`src/stacking/`)
-- Potrace 追踪 / 覆盖率修补 (`src/trace/`)
-- 曲线拟合 / 路径优化 (`src/curve/`)
-- 管线编排 (`src/pipeline.cpp`, `src/pipeline_v2.cpp`)
-- SVG 输出 (`src/output/`)
-- 预处理 / 分割 (`src/preprocess/`, `src/segment/`)
-
-## 验证流程
-
-1. 编译通过 + 单元测试通过
-2. 跑 V2 批量评估（15 张全跑），与上一次结果对比：
-
-```bash
-./build/apps/evaluate_svg \
-  --manifest test_data/images/manifest.json \
-  --svg-dir test_data/images/results/<本次目录名> \
-  --json test_data/images/results/<本次目录名>/report.json \
-  --pipeline v2 \
-  --log-level info \
-  --note "<本次改动简述>"
-```
-
-3. 对比 report.json 中关键指标（score、delta_e_mean、ssim、coverage），确认无回归
-4. 若改动同时影响 V1，额外跑一次 `--pipeline v1` 验证
+- 公共 API 变更（头文件增删、函数签名变化）
+- 配置参数增删
+- 构建选项变化
+- CLI 工具参数变更
+- 依赖变化
 
 ---
 > Source: [Neroued/neroued_vectorizer](https://github.com/Neroued/neroued_vectorizer) — distributed by [TomeVault](https://tomevault.io).
