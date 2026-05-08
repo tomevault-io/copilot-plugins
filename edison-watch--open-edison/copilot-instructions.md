@@ -1,48 +1,58 @@
-## single-user
+## tests
 
-> Single-user design principles for Open Edison
+> Testing approach for Open Edison
 
-## Single-User Design Philosophy
+## Testing Strategy
 
-Open Edison is deliberately designed for single-user deployment. Always maintain this focus.
+Write simple, focused tests for Open Edison's core functionality.
 
-### Core Principles
-
-- **One user, one instance** - No multi-tenancy
-- **Local deployment** - Designed for self-hosting
-- **Simple authentication** - Single API key, no user management
-- **JSON configuration** - No database complexity
-- **Process management** - Subprocess over containers
-
-### What NOT to add
-
-❌ User management systems  
-❌ Database migrations  
-❌ Complex authentication  
-❌ Multi-tenant features  
-❌ Organization/team features  
-
-### What to maintain
-
-✅ Simple API key authentication  
-✅ JSON configuration file  
-✅ Process-based MCP server management  
-✅ Single-port server architecture  
-✅ Local file storage  
-
-### Code Patterns
+### Test Structure
 
 ```python
-# Good: Simple API key check
-def verify_api_key(credentials):
-    if credentials.credentials != config.server.api_key:
-        raise HTTPException(401, "Invalid API key")
+import pytest
+from fastapi.testclient import TestClient
+from src.server import OpenEdisonProxy
 
-# Bad: Complex user lookup
-# def get_user_by_token(token): ...
+@pytest.fixture
+def client():
+    proxy = OpenEdisonProxy()
+    return TestClient(proxy.app)
+
+def test_health_endpoint(client):
+    """Test health check endpoint"""
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json()["status"] == "healthy"
 ```
 
-When in doubt, choose the simpler approach that works for one user on one machine.
+### Test Categories
+
+- **Unit tests** - Configuration, individual functions
+- **Integration tests** - API endpoints, server functionality
+- **Config tests** - JSON loading, validation
+
+### Key Areas to Test
+
+1. **Configuration system** - Loading, saving, validation
+2. **API endpoints** - Health, status, server management
+3. **Authentication** - API key validation
+4. **MCP proxy** - Server start/stop, process management
+
+### Running Tests
+
+```bash
+make test          # Run all tests
+pytest tests/      # Direct pytest
+pytest -v tests/   # Verbose output
+```
+
+### Best Practices
+
+- Test the happy path and error cases
+- Use descriptive test names
+- Keep tests simple and focused
+- Mock external dependencies (MCP servers)
+- Test configuration edge cases
 
 ---
 > Source: [Edison-Watch/open-edison](https://github.com/Edison-Watch/open-edison) — distributed by [TomeVault](https://tomevault.io).
