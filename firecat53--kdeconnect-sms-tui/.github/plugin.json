@@ -1,0 +1,9 @@
+{
+  "name": "firecat53--kdeconnect-sms-tui",
+  "displayName": "kdeconnect-sms-tui",
+  "description": "TUI for SMS/MMS messaging via KdeConnect (read-only mirror)",
+  "version": "1.0.0",
+  "author": "firecat53",
+  "homepage": "https://github.com/firecat53/kdeconnect-sms-tui",
+  "skills": []
+}
