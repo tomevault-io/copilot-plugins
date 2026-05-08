@@ -1,0 +1,9 @@
+{
+  "name": "barryyosi--staging",
+  "displayName": "staging",
+  "description": "Stop committing blindly. Review staged changes in a rich browser UI and send inline feedback directly to your coding agent.",
+  "version": "1.0.0",
+  "author": "barryyosi",
+  "homepage": "https://github.com/barryyosi/staging",
+  "skills": []
+}
