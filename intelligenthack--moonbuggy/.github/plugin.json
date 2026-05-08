@@ -1,0 +1,9 @@
+{
+  "name": "intelligenthack--moonbuggy",
+  "displayName": "moonbuggy",
+  "description": ".NET i18n library \u2014 PO + ICU MessageFormat with zero-allocation source-generated translations",
+  "version": "1.0.0",
+  "author": "intelligenthack",
+  "homepage": "https://github.com/intelligenthack/moonbuggy",
+  "skills": []
+}
