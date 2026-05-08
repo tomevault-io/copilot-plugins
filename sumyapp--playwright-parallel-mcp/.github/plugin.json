@@ -1,0 +1,9 @@
+{
+  "name": "sumyapp--playwright-parallel-mcp",
+  "displayName": "playwright-parallel-mcp",
+  "description": "MCP server for parallel browser automation with Playwright",
+  "version": "1.0.0",
+  "author": "sumyapp",
+  "homepage": "https://github.com/sumyapp/playwright-parallel-mcp",
+  "skills": []
+}
