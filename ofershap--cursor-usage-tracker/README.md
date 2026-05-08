@@ -1,6 +1,8 @@
 # cursor-usage-tracker
 
-> Tome by [ofershap](https://github.com/ofershap/cursor-usage-tracker) — distributed by [TomeVault](https://tomevault.io/claim/ofershap)
+> Tome by [ofershap](https://github.com/ofershap/cursor-usage-tracker) — distributed by [TomeVault](https://tomevault.io)
+
+Monitor Cursor IDE usage, detect spending anomalies, and alert your team. Self-hosted, open-source.
 
 ## GitHub Copilot Config
 
@@ -15,10 +17,10 @@ Original source: `.cursor/rules/*.mdc` in [ofershap/cursor-usage-tracker](https:
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/ofershap)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/ofershap/cursor-usage-tracker](https://github.com/ofershap/cursor-usage-tracker)
 
 ---
 
-Is this your repo? [Claim it](https://tomevault.io/claim/ofershap) to manage distribution and track installs.
+Own this repo? Install the TomeVault Relay to keep every platform's copy in sync on every push: [https://tomevault.io/install](https://tomevault.io/install).
 
 <!-- genome:t-c-p -->
