@@ -1,0 +1,9 @@
+{
+  "name": "smcronin--uspto-cli",
+  "displayName": "uspto-cli",
+  "description": "Agent-ready CLI for the USPTO Open Data Portal API",
+  "version": "1.0.0",
+  "author": "smcronin",
+  "homepage": "https://github.com/smcronin/uspto-cli",
+  "skills": []
+}
