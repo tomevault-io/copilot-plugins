@@ -1,0 +1,9 @@
+{
+  "name": "zeropathai--openerrata",
+  "displayName": "OpenErrata",
+  "description": "Crowdsourced, inline LLM investigations of the things you're reading.",
+  "version": "1.0.0",
+  "author": "ZeroPathAI",
+  "homepage": "https://github.com/ZeroPathAI/OpenErrata",
+  "skills": []
+}
