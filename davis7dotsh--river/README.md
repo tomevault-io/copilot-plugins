@@ -2,6 +2,8 @@
 
 > Sourced from [davis7dotsh/river](https://github.com/davis7dotsh/river) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+the sane way to work with ai agent streams (type safety and stream resuming out of the box)
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
