@@ -7,11 +7,11 @@ Container that runs in the browser that allows you to run Java and view the outp
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [bmarti44/javabox](https://github.com/bmarti44/javabox).
+Original source: `CLAUDE.md` in [bmarti44/javabox](https://github.com/bmarti44/javabox).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
