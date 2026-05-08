@@ -1,99 +1,26 @@
-## backend-plan
+## project-context
 
-> Enforce BACKEND_PLAN.md architecture (FastAPI + Supabase + 6-stage retrieval)
+> Project identity and product context for RAGforEFN
 
 
-# Source of truth
+# Project context
 
-This repository MUST follow the backend architecture defined in:
+This rule applies only when working in this repo (RAGforEFN). Ignore it in other workspaces.
 
-- `docs/BACKEND_PLAN.md`
+## Product
+Perplexity-style conversational research tool over a document corpus. Users ask natural-language questions and get answers with source citations. Three modes: chat (Synthesize), keyword search (Raw), and entity graph (Network).
 
-If any existing code, docs, or tests conflict with that plan, the plan wins.
+## Stack (current — do not revert to old decisions)
+- **Backend**: Python 3.10+ + FastAPI + Uvicorn
+- **Database**: Supabase (PostgreSQL + pgvector) — sole vector store
+- **Embeddings**: OpenAI `text-embedding-3-small` (1536-dim)
+- **LLM**: Any OpenAI-compatible API (OpenRouter, Groq, Ollama, etc.)
+- **Frontend**: React 19 + Vite 6 + TypeScript + Tailwind CSS v4
 
----
+Superseded choices (do not re-introduce): LlamaIndex, LangChain, Qdrant, Pinecone, Chroma, SQLite, Next.js.
 
-# Hard constraints (enforced)
-
-## Backend framework and language
-- Backend code MUST be **Python + FastAPI**.
-- Do not add Node/Express backend code.
-
-## Database
-- **Supabase Postgres is the only database**.
-- Use **pgvector** on Supabase for vector search.
-- Do NOT use SQLite anywhere in the backend codebase:
-  - No `sqlite3` imports
-  - No `.db` reads
-  - No SQLite-backed endpoints
-  - No “better-sqlite3”
-- Do NOT use Qdrant or any other external vector DB (Pinecone/Chroma/Weaviate/FAISS/etc.).
-
-## Config & secrets
-- No hardcoded credentials, keys, URLs, project refs, or secrets.
-- All config MUST come from environment variables (optionally via `.env`).
-- Prefer explicit env var names aligned with the plan, e.g.:
-  - `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
-  - `OPENAI_API_KEY`, `OPENAI_EMBED_MODEL=text-embedding-3-small`
-  - `ANTHROPIC_API_KEY`, `ANTHROPIC_MODEL`
-
----
-
-# Required project structure (match the plan)
-
-Backend code must be organized to match the plan’s structure:
-
-## `ingestion/` (offline)
-- `migrate_sqlite.py` (one-time: SQLite → Supabase tables)
-- `chunk_documents.py`
-- `embed_chunks.py`
-- `create_indexes.py`
-
-## `retrieval/` (online retrieval stages)
-- `query_expansion.py`
-- `summary_search.py`
-- `chunk_search.py`
-- `triple_lookup.py`
-- `context_builder.py`
-
-## `api/` (FastAPI)
-- `main.py`
-- `chat.py`
-- `documents.py`
-- `search.py`
-- `stats.py`
-
-## `config.py`
-- Env var parsing only (no secrets in code).
-
-Do not create or maintain parallel architectures that conflict with this layout (e.g. a separate `src/`-based backend) unless the plan explicitly changes.
-
----
-
-# Retrieval MUST follow the plan’s 6-stage pipeline
-
-Every chat request MUST follow these stages, in order (no shortcuts):
-
-1) **Query Expansion** using `entity_aliases`
-2) **Summary-level retrieval** (coarse pass) over `summary_embedding` → candidate `doc_id`s
-3) **Chunk-level retrieval** (fine pass) over `embedding` restricted to candidate `doc_id`s
-4) **Structured triple lookup** from `rdf_triples` filtered by expanded terms
-5) **Context assembly** (chunks + triples + grounded system instruction)
-6) **LLM generation** (Anthropic Claude)
-
-Any deviation is a bug.
-
----
-
-# API response contract (enforced)
-
-Chat-style responses MUST always include:
-
-- `answer`: string
-- `sources`: array
-- `triples`: array
-
-If there are no sources/triples, return empty arrays (never omit fields).
+## Architecture constraints
+See `project.mdc` and `backend-plan.mdc` for enforced constraints on folder layout, retrieval pipeline, and API contract.
 
 ---
 > Source: [CHUNKYBOI666/RAGforEpsteinFiles](https://github.com/CHUNKYBOI666/RAGforEpsteinFiles) — distributed by [TomeVault](https://tomevault.io).
