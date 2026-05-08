@@ -1,0 +1,9 @@
+{
+  "name": "vichhka-git--opencode-shannon-plugin",
+  "displayName": "opencode-shannon-plugin",
+  "description": " AI Penetration Testing Plugin for OpenCode \u2014 Autonomous pentesting with 600+ Kali Linux tools, Playwright browser automation, and OWASP methodology",
+  "version": "1.0.0",
+  "author": "vichhka-git",
+  "homepage": "https://github.com/vichhka-git/opencode-shannon-plugin",
+  "skills": []
+}
