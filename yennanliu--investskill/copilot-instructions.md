@@ -1,40 +1,41 @@
-## investskill
+## invest-skill
 
-> This repository contains 18 professional investment analysis frameworks for US stock markets. When working in this workspace, Copilot automatically loads these analysis methodologies to provide institutional-quality investment analysis.
+> Investment analysis rules and frameworks for InvestSkill project
 
-# InvestSkill — GitHub Copilot Setup & Usage Guide
 
-This repository contains 18 professional investment analysis frameworks for US stock markets. When working in this workspace, Copilot automatically loads these analysis methodologies to provide institutional-quality investment analysis.
+# InvestSkill — Cursor Rules & Setup Guide
+
+This is the InvestSkill repository — a collection of 18 professional investment analysis frameworks for US stocks. These rules automatically apply when you work in this project.
 
 ## Installation & Setup
 
 ### Automatic Setup
 
-GitHub Copilot automatically loads this file when you work in the InvestSkill repository. **No manual installation required.**
+Cursor automatically loads this file when you open the InvestSkill repository. **No manual installation required.**
 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/yennanliu/InvestSkill.git
-   cd InvestSkill
    ```
 
-2. **Open in your editor:**
-   - **VS Code**: `code .`
-   - **JetBrains IDE** (IntelliJ, PyCharm, etc.): Open the folder
-   - **GitHub.com Web Editor**: Click `.` key in any GitHub repo view
+2. **Open in Cursor:**
+   ```bash
+   cd InvestSkill
+   cursor .
+   ```
 
-3. **Open Copilot Chat** (usually `Ctrl+K` or `Cmd+K`)
-   - Copilot automatically loads `copilot-instructions.md`
-   - You now have access to all 18 analysis frameworks
+3. **Open AI Chat** (usually `Cmd+K`)
+   - Cursor automatically loads the investment analysis rules
+   - All 18 frameworks are immediately available
 
 ### Verify Setup
 
-In Copilot Chat, try:
+In Cursor AI Chat, try:
 ```
-Use the stock-valuation framework to analyze Apple (AAPL)
+@prompts/stock-valuation.md Analyze Apple (AAPL)
 ```
 
-If Copilot references the frameworks, setup is complete!
+If the framework loads, setup is complete!
 
 ---
 
@@ -44,51 +45,50 @@ If Copilot references the frameworks, setup is complete!
 
 | Framework | File | Best For |
 |-----------|------|----------|
-| Stock Evaluation | `prompts/stock-eval.md` | Comprehensive stock quality scoring |
-| Stock Valuation | `prompts/stock-valuation.md` | Multi-method valuation (DCF + comps + EV) |
-| Fundamental Analysis | `prompts/fundamental-analysis.md` | Deep financial statement dive |
-| Technical Analysis | `prompts/technical-analysis.md` | Chart patterns and indicators |
-| DCF Valuation | `prompts/dcf-valuation.md` | Intrinsic value modeling |
-| Economics Analysis | `prompts/economics-analysis.md` | Macro outlook and recession risk |
+| Stock Evaluation | `@prompts/stock-eval.md` | Piotroski scoring, quality metrics |
+| Stock Valuation | `@prompts/stock-valuation.md` | DCF + comparable companies + EV multiples |
+| Fundamental Analysis | `@prompts/fundamental-analysis.md` | Financial statement deep dive |
+| Technical Analysis | `@prompts/technical-analysis.md` | Chart patterns, volume, indicators |
+| DCF Valuation | `@prompts/dcf-valuation.md` | Intrinsic value modeling |
+| Economics Analysis | `@prompts/economics-analysis.md` | Macro indicators, recession probability |
 
 ### Financial Report Analysis (2 frameworks)
 
 | Framework | File | Best For |
 |-----------|------|----------|
-| Financial Report Analyst | `prompts/financial-report-analyst.md` | 10-K/10-Q analysis |
-| Earnings Call Analysis | `prompts/earnings-call-analysis.md` | Management tone and guidance |
+| Financial Report Analyst | `@prompts/financial-report-analyst.md` | 10-K, 10-Q, annual reports |
+| Earnings Call Analysis | `@prompts/earnings-call-analysis.md` | Management tone, guidance, themes |
 
 ### Market Monitoring (4 frameworks)
 
 | Framework | File | Best For |
 |-----------|------|----------|
-| Insider Trading | `prompts/insider-trading.md` | Form 4 insider activity tracking |
-| Institutional Ownership | `prompts/institutional-ownership.md` | 13F smart money moves |
-| Dividend Analysis | `prompts/dividend-analysis.md` | Dividend safety and sustainability |
-| Short Interest | `prompts/short-interest.md` | Squeeze potential and bearish thesis |
+| Insider Trading | `@prompts/insider-trading.md` | Form 4 insider buying/selling |
+| Institutional Ownership | `@prompts/institutional-ownership.md` | 13F holdings, smart money moves |
+| Dividend Analysis | `@prompts/dividend-analysis.md` | Dividend safety, yield trap detection |
+| Short Interest | `@prompts/short-interest.md` | Short squeeze scoring, thesis evaluation |
 
 ### Advanced Analysis (4 frameworks)
 
 | Framework | File | Best For |
 |-----------|------|----------|
-| Competitor Analysis | `prompts/competitor-analysis.md` | Moat and competitive positioning |
-| Options Analysis | `prompts/options-analysis.md` | Greeks, strategy selection, earnings plays |
-| Portfolio Review | `prompts/portfolio-review.md` | Allocation optimization |
-| Sector Analysis | `prompts/sector-analysis.md` | Sector rotation opportunities |
+| Competitor Analysis | `@prompts/competitor-analysis.md` | Moat scoring, Porter's Five Forces |
+| Options Analysis | `@prompts/options-analysis.md` | Greeks, IV rank, strategy selection |
+| Portfolio Review | `@prompts/portfolio-review.md` | Allocation optimization, performance |
+| Sector Analysis | `@prompts/sector-analysis.md` | Sector rotation, opportunity identification |
 
 ### Full Research Bundle (2 frameworks)
 
 | Framework | File | Best For |
 |-----------|------|----------|
-| Research Bundle | `prompts/research-bundle.md` | Comprehensive multi-framework analysis |
-| (Combined) | (all frameworks) | Complete investment thesis |
+| Research Bundle | `@prompts/research-bundle.md` | Complete multi-framework analysis |
 
 ### Meta-Analysis & Visualization (2 frameworks)
 
 | Framework | File | Best For |
 |-----------|------|----------|
-| Result Validator | `prompts/result-validator.md` | Validate any analysis + confidence score (0–100) |
-| Chart Master | `prompts/chart-master.md` | Generate Mermaid/ASCII/HTML charts from financial data |
+| Result Validator | `@prompts/result-validator.md` | Validate any analysis + confidence score |
+| Chart Master | `@prompts/chart-master.md` | Generate Mermaid/ASCII/HTML charts |
 
 ---
 
@@ -96,66 +96,66 @@ If Copilot references the frameworks, setup is complete!
 
 ### Natural Language Queries
 
-Copilot understands the frameworks context naturally:
+Cursor understands the investment context naturally:
 
 ```
 # Evaluate a stock
-Perform a stock evaluation of Microsoft using the Piotroski F-Score methodology
+Perform a comprehensive stock evaluation of Microsoft
 
-# Valuation analysis
-What's a fair valuation for Apple using DCF, comparable companies, and EV multiples?
+# Get a valuation
+What's a fair valuation for Apple using DCF and comparable companies?
+
+# Technical analysis
+Analyze Tesla's technical chart setup and key resistance levels
 
 # Financial statement analysis
-Deep dive into Tesla's balance sheet and cash flow quality
+Deep dive into NVIDIA's balance sheet and cash flow quality
 
-# Market context
-What's the current economic outlook? Is recession likely?
-
-# Technical setup
-What are the key technical levels for NVDA?
+# Economics outlook
+Is a recession likely in the next 12 months?
 
 # Combined analysis
-Analyze Nvidia from both fundamental and technical perspectives
+Analyze Apple from both fundamental and technical angles
 ```
 
 ### Explicit Framework References
 
-Reference specific prompt files for precise methodology:
+Use `@prompts/` references for precise methodology:
 
 ```
 # Stock valuation with all methods
-Use the framework in prompts/stock-valuation.md to analyze AAPL
+@prompts/stock-valuation.md Analyze AAPL using all valuation methods
 
-# Fundamental deep dive
-Apply prompts/fundamental-analysis.md to Microsoft's financials
+# Fundamental analysis
+@prompts/fundamental-analysis.md Deep dive on Microsoft's fundamentals
 
-# Technical analysis
-Reference prompts/technical-analysis.md for Tesla chart patterns
+# Technical setup
+@prompts/technical-analysis.md What are the key chart levels for NVDA?
 
-# Financial report analysis
-Use prompts/financial-report-analyst.md to analyze this 10-K filing: [paste text]
+# Financial reports
+@prompts/financial-report-analyst.md Analyze this 10-K filing: [paste text]
 
-# Earnings transcript analysis
-Apply prompts/earnings-call-analysis.md to this earnings call: [paste transcript]
+# Earnings transcript
+@prompts/earnings-call-analysis.md What's the management tone here? [paste transcript]
 ```
 
 ### With Financial Data
 
 ```
-# Paste financial statements
-Use the fundamental-analysis framework to analyze these financial statements:
+# Paste balance sheet
+@prompts/fundamental-analysis.md
 [paste balance sheet, income statement, cash flow]
 
-# Paste SEC filings
-Use the financial-report-analyst framework on this 10-Q:
-[paste 10-Q text]
+# Paste SEC filing
+@prompts/financial-report-analyst.md
+[paste 10-Q or annual report text]
 
 # Paste earnings transcript
-Analyze this earnings call with the earnings-call-analysis framework:
+@prompts/earnings-call-analysis.md
 [paste earnings call transcript]
 
-# Paste portfolio holdings
-Review my portfolio allocation using the portfolio-review framework:
+# Portfolio holdings
+@prompts/portfolio-review.md Review my portfolio:
 AAPL: 30%
 MSFT: 25%
 NVDA: 20%
@@ -166,95 +166,95 @@ TSLA: 10%
 ### Stock Comparison
 
 ```
-# Compare two stocks
-Compare AAPL and MSFT using the stock-valuation framework
+# Compare valuations
+@prompts/stock-valuation.md Compare AAPL vs MSFT valuations
 
-# Multiple stocks in one analysis
-Analyze AAPL, MSFT, and GOOGL using the research-bundle framework
+# Compare fundamentals
+@prompts/fundamental-analysis.md Compare AAPL and MSFT balance sheets
 
-# Sector comparison
-Compare valuations across tech stocks (AAPL, MSFT, NVDA, GOOGL, META)
+# Multi-stock analysis
+@prompts/research-bundle.md Analyze AAPL, MSFT, and GOOGL
 ```
 
 ### Specialized Analysis
 
 ```
 # Dividend safety
-Is the JNJ dividend safe? Use the dividend-analysis framework
+@prompts/dividend-analysis.md Is the JNJ dividend safe?
 
-# Short squeeze
-What's the short squeeze potential in GME? Use the short-interest framework
+# Short squeeze potential
+@prompts/short-interest.md Evaluate short squeeze potential in GME
 
 # Options strategy
-Find bullish option strategies for AAPL earnings using the options-analysis framework
+@prompts/options-analysis.md Find bullish options strategies for AAPL earnings
 
-# Competitive advantage
-Does Apple have a defensible moat? Use the competitor-analysis framework
+# Competitive moat
+@prompts/competitor-analysis.md Does Apple have a defensible moat?
 
-# Insider buying signals
-What are insiders buying at Tesla? Use the insider-trading framework
+# Insider activity
+@prompts/insider-trading.md What are insiders buying at Tesla?
 
 # Smart money tracking
-Which institutions are rotating into tech? Use the institutional-ownership framework
+@prompts/institutional-ownership.md Which institutions are buying tech stocks?
 
 # Sector opportunities
-Which sectors should I rotate into? Use the sector-analysis framework
+@prompts/sector-analysis.md Which sectors should rotate into?
 ```
 
 ### Full Research Report
 
 ```
-# Comprehensive analysis (all frameworks combined)
-Provide a complete investment analysis on Apple using the research-bundle framework
+# Complete analysis on one stock
+@prompts/research-bundle.md Provide a comprehensive analysis of Apple (AAPL)
 
 # Quick version
-Quick analysis on Microsoft using the research-bundle framework
+@prompts/research-bundle.md Quick analysis of Microsoft
 
 # Multi-stock comparison
-Compare AAPL, MSFT, and GOOGL comprehensively using the research-bundle framework
+@prompts/research-bundle.md Compare AAPL, MSFT, and GOOGL comprehensively
 ```
 
 ### Follow-Up Questions
 
-Copilot remembers the analysis context:
+Cursor remembers context for follow-ups:
 
 ```
 # Initial analysis
-Perform a DCF valuation of MSFT using the dcf-valuation framework
+@prompts/dcf-valuation.md Build a DCF model for Microsoft
 
-# Follow-ups work naturally:
+# Natural follow-ups:
 What if revenue growth slows to 8%?
-How sensitive is the valuation to WACC assumptions?
-What's the downside scenario?
-What's the margin of safety at current price?
+How sensitive is the valuation to WACC?
+What's the downside case?
+What's the margin of safety?
 ```
 
 ---
 
-## Output Format & Standards
+## Output Format Standards
 
 Every analysis in this workspace follows this structure:
 
 ### 1. Executive Summary
 - Clear investment thesis
-- Key bullish/bearish drivers
-- Time horizon
+- Primary bullish/bearish drivers
+- Time horizon and conviction
 
 ### 2. Quantitative Analysis
-- Specific numbers (not estimates)
+- **Specific numbers** (not estimates)
 - Year-over-year or period comparisons
 - Industry/peer benchmarking
-- Valuation multiples
+- Valuation multiples and metrics
 
 ### 3. Qualitative Assessment
 - Management quality and capital allocation
-- Competitive position and economic moat
+- Competitive positioning and economic moat
 - Market opportunity and growth drivers
 - Risk factors and thesis invalidators
 
 ### 4. Standardized Signal Block
 
-All analyses end with this format:
+All analyses MUST end with this format:
 
 ```
 ╔══════════════════════════════════════════════╗
@@ -272,66 +272,99 @@ All analyses end with this format:
 
 ---
 
-## Tips for Best Results
+## File Structure Rules
 
-### 1. Be Specific with Requests
-```
-# Vague
-Analyze Apple
+### When Working on Skills
 
-# Better
-Use the stock-valuation framework to analyze Apple (AAPL), assuming 10% revenue growth and 8.5% WACC
+- **Skill definitions**: `plugins/us-stock-analysis/skills/<skill-name>/SKILL.md`
+  - Requires YAML frontmatter with `description` field
+  - Used only for Claude Code plugin
 
-# Best
-Use prompts/stock-valuation.md to value AAPL with:
-- DCF method: 5-year projection, 8.5% WACC, 2.5% terminal growth
-- Comparable company multiples (vs MSFT, GOOGL, META)
-- EV/EBITDA and P/E analysis
-```
+- **Universal prompts**: `prompts/<skill-name>.md`
+  - Works with Gemini, Copilot, Cursor, and any AI
+  - Must match the corresponding SKILL.md
+  - NO slash commands or platform-specific syntax
 
-### 2. Provide Context Data
-```
-# More useful to Copilot
-Analyze MSFT using fundamental-analysis with:
-- Current market price: $450
-- Market cap: $3.3T
-- Recent P/E ratio: 42x
-- Industry average P/E: 28x
-```
+- **Plugin manifest**: `plugins/us-stock-analysis/.claude-plugin/plugin.json`
+  - Lists all available skills for Claude Code
+  - Update when adding new skills
 
-### 3. Chain Multiple Analyses
-```
-# Comprehensive approach
-1. First: Use stock-eval.md to evaluate NVDA quality
-2. Then: Use technical-analysis.md for chart patterns
-3. Finally: Use institutional-ownership.md for smart money positioning
-```
+- **Marketplace config**: `.claude-plugin/marketplace.json`
+  - Version and marketplace metadata
+  - Update when releasing new versions
 
-### 4. Ask Clarifying Questions
-```
-# After initial analysis, ask:
-What would change this from BULLISH to NEUTRAL?
-What's the most important assumption in this valuation?
-How does this compare to sector peers?
-What's the probability of hitting your base case?
-```
+### When Adding New Skills
 
-### 5. Request Alternative Scenarios
-```
-# Scenario analysis
-What's the valuation in the:
-1. Bull case: 15% revenue growth
-2. Base case: 10% revenue growth
-3. Bear case: 5% revenue growth
-```
+1. **Create skill definition:**
+   ```
+   plugins/us-stock-analysis/skills/<skill-name>/SKILL.md
+   ```
+   - Add frontmatter with `description`
+   - Write the full prompt framework
+   - Include signal block template
+
+2. **Create universal prompt:**
+   ```
+   prompts/<skill-name>.md
+   ```
+   - Copy from SKILL.md
+   - Remove any platform-specific syntax
+   - Ensure it's AI-agnostic
+
+3. **Update manifest files:**
+   - Add to `plugins/us-stock-analysis/.claude-plugin/plugin.json` skills array
+   - Update `.claude-plugin/marketplace.json` version
+   - Update `README.md` skills list and structure
+
+4. **Update documentation:**
+   - Add entry to `README.md` (Skills section)
+   - Update structure diagram in README
+   - Update CHANGELOG.md with new feature
 
 ---
 
-## File Structure
+## Analysis Quality Standards
+
+Every analysis output in this repository MUST include:
+
+1. **Quantitative Data**
+   - Specific numbers (not "around X%" or "approximately")
+   - Financial metrics with actual values
+   - Valuation multiples with proper context
+
+2. **Comparisons**
+   - Year-over-year growth rates
+   - Period-over-period trends
+   - Industry/peer benchmarking
+   - Historical ranges
+
+3. **Context & Benchmarking**
+   - How does metric X compare to peers?
+   - Is this above or below historical average?
+   - What's the industry standard?
+
+4. **Risk Assessment**
+   - What could invalidate this thesis?
+   - Downside scenarios and triggers
+   - Key assumptions and sensitivities
+
+5. **Standardized Signal Block**
+   - Always at the end of every analysis
+   - Uses consistent format
+   - Provides actionable recommendation
+
+---
+
+## Project Structure
 
 ```
 InvestSkill/
-├── prompts/                    # 18 universal analysis frameworks
+├── .cursor/
+│   └── rules/
+│       └── invest-skill.mdc      # This file (auto-loaded)
+├── .github/
+│   └── copilot-instructions.md   # GitHub Copilot integration
+├── prompts/                       # 18 universal frameworks
 │   ├── stock-eval.md
 │   ├── stock-valuation.md
 │   ├── fundamental-analysis.md
@@ -349,65 +382,139 @@ InvestSkill/
 │   ├── portfolio-review.md
 │   ├── sector-analysis.md
 │   └── research-bundle.md
-├── plugins/                    # Claude Code plugin (optional)
-├── .github/copilot-instructions.md  # This file (auto-loaded)
-├── README.md
-└── CHANGELOG.md
+├── plugins/
+│   └── us-stock-analysis/
+│       ├── .claude-plugin/
+│       │   └── plugin.json        # Claude Code plugin manifest
+│       └── skills/                # Claude Code skills
+├── .claude-plugin/
+│   └── marketplace.json           # Marketplace config
+├── GEMINI.md                      # Gemini CLI setup
+├── README.md                      # Complete documentation
+└── CHANGELOG.md                   # Version history
+```
+
+---
+
+## Tips for Best Results
+
+### 1. Use Framework References
+```
+# Good: explicit reference
+@prompts/stock-valuation.md Analyze AAPL
+
+# Also works: natural language (Cursor applies framework context)
+What's a fair valuation for Apple?
+```
+
+### 2. Provide Context Data
+```
+# Better results with specific info
+@prompts/dcf-valuation.md
+Analyze MSFT assuming:
+- Revenue growth: 10% CAGR
+- WACC: 8.5%
+- Terminal growth: 2.5%
+- Current price: $450/share
+```
+
+### 3. Paste Financial Data
+```
+# Cursor can analyze pasted data directly
+@prompts/fundamental-analysis.md
+[paste balance sheet]
+[paste income statement]
+Analyze liquidity and profitability trends
+```
+
+### 4. Chain Multiple Analyses
+```
+# Comprehensive approach
+First: @prompts/stock-eval.md for NVDA quality
+Then: @prompts/technical-analysis.md for chart patterns
+Finally: @prompts/institutional-ownership.md for positioning
+```
+
+### 5. Ask Follow-Ups
+```
+# Cursor remembers context
+@prompts/stock-valuation.md Value MSFT
+
+Then ask:
+What's the valuation if growth slows to 8%?
+How important is the cloud margin assumption?
+What's the bull/bear case range?
+```
+
+---
+
+## Cursor-Specific Tips
+
+### Use @-mentions for Files
+```
+# Reference prompt files directly
+@prompts/stock-valuation.md [your query]
+
+# Cursor will load the framework automatically
+```
+
+### Paste Documents
+```
+# You can paste or upload documents
+@prompts/financial-report-analyst.md [upload 10-K PDF or paste text]
+```
+
+### Use Chat Memory
+```
+# Cursor remembers your conversation
+1. First message: analyze AAPL fundamentals
+2. Follow-up: "What about the technical setup?"
+3. Cursor remembers it's about AAPL
 ```
 
 ---
 
 ## Troubleshooting
 
-### Issue: Copilot not using frameworks
-
+### Framework not loading
 ```
-# Make sure you're in the InvestSkill repository
-# Open Copilot Chat again (Cmd+K or Ctrl+K)
-# Try referencing the framework explicitly:
+# Make sure file reference is correct:
+@prompts/stock-valuation.md (not stock-val or valuation)
 
-Use the framework in prompts/stock-valuation.md to analyze AAPL
+# Files are in the prompts/ directory
+# Verify the exact filename matches
 ```
 
-### Issue: Need more detailed output
-
+### Want more detailed analysis
 ```
-# Ask Copilot for more depth:
-Analyze AAPL using prompts/fundamental-analysis.md with:
-- Detailed balance sheet analysis
-- Cash flow quality assessment
+# Ask Cursor for more depth:
+@prompts/fundamental-analysis.md
+Analyze AAPL with:
+- Detailed cash flow quality metrics
 - Working capital trends
 - Debt maturity schedule
+- Segment margin analysis
 ```
 
-### Issue: Want different format
-
+### Need specific format
 ```
-# Ask for specific output:
-Use the stock-eval framework for MSFT, but format as:
-1. Key metrics (table)
-2. Quality score with reasoning
-3. Bull/bear case bullet points
-4. Investment signal
+# Request format changes:
+@prompts/stock-eval.md Value MSFT, format as:
+1. Executive summary (1 paragraph)
+2. Key metrics (table)
+3. Quality score with breakdown
+4. Bull/bear case
+5. Investment signal
 ```
-
----
-
-## Project Overview
-
-- **18 Institutional-Quality Frameworks** — all tested and validated
-- **Works with Copilot Chat** — integrated into VS Code and JetBrains IDEs
-- **Universal Prompts** — also work with Gemini CLI, Cursor, and any AI tool
-- **Educational Focus** — for learning institutional analysis methods
-- **Always Updated** — maintained at github.com/yennanliu/InvestSkill
 
 ---
 
 ## Additional Resources
 
-- **README.md** — Complete setup guide for all platforms (Claude Code, Gemini, Cursor)
-- **prompts/** — All 18 analysis framework files
-- **plugins/** — Claude Code plugin integration (optional)
+- **README.md** — Full setup for Claude Code, Gemini, Copilot, Cursor
+- **GEMINI.md** — Detailed Gemini CLI guide
+- **.github/copilot-instructions.md** — GitHub Copilot integration guide
+- **prompts/** — All 18 framework files
 - **GitHub Issues** — Report problems or request features
 
 ---
