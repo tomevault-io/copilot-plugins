@@ -1,0 +1,9 @@
+{
+  "name": "nvidia--isv-ncp-validation-suite",
+  "displayName": "ISV-NCP-Validation-Suite",
+  "description": "Validation and management tools for NVIDIA ISV Lab environments.",
+  "version": "1.0.0",
+  "author": "NVIDIA",
+  "homepage": "https://github.com/NVIDIA/ISV-NCP-Validation-Suite",
+  "skills": []
+}
