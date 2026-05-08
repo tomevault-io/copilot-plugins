@@ -1,0 +1,9 @@
+{
+  "name": "shtbox--jellycheckr",
+  "displayName": "jellycheckr",
+  "description": "Jellyfin plugin that detects continuous playback and shows an \"Are you still watching?\" prompt. If there is no response, playback is paused automatically. Ideal for preventing overnight binge sessions",
+  "version": "1.0.0",
+  "author": "shtbox",
+  "homepage": "https://github.com/shtbox/jellycheckr",
+  "skills": []
+}
