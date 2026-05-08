@@ -1,0 +1,9 @@
+{
+  "name": "nitodeco--ralph",
+  "displayName": "ralph",
+  "description": "Ralph is CLI tool and harness for long-running coding agents.",
+  "version": "1.0.0",
+  "author": "nitodeco",
+  "homepage": "https://github.com/nitodeco/ralph",
+  "skills": []
+}
