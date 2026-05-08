@@ -1,18 +1,15 @@
-## no-manual-css-parsing
+## stay-in-browser
 
-> Do not hand-roll CSS parsing; use real parsers or engine pipelines — manual CSS is not scalable.
+> In-browser WASM-only product goal; avoid iframe/WebView as the primary “fix” for rendering/CSS.
 
 
-# CSS: no manual parsing
+# In-browser only (no “just use an iframe”)
 
-Do **not** implement CSS by hand (ad-hoc brace splitting, regex rules, string hacks for selectors, etc.). That approach does **not** scale and will diverge from real CSS behavior.
+This project is a **browser inside the browser** built with **Rust → WebAssembly** and web APIs. The design **must stay inside a normal web page** in a real browser.
 
-Prefer:
-
-- Established **Rust CSS tooling** (e.g. Servo’s **`cssparser`** and a proper selector/cascade story), or  
-- An **embeddable HTML/CSS pipeline** where styles come from a real style system (e.g. [DioxusLabs/blitz](https://github.com/DioxusLabs/blitz) documents **Stylo** for CSS in **`blitz-dom`** — useful as **architecture reference**, not a mandatory dependency).
-
-Choose what fits the **target** (e.g. WASM-in-tab vs native); the rule is **no bespoke CSS grammar**, not “must use Blitz.”
+- **Do not** recommend dropping that approach in favor of **`<iframe>`** (or native WebView) as the main solution to HTML/CSS/layout problems. Treating the real page as the renderer is **not** what this project is for.
+- **Do** improve what stays in-browser: parsing, canvas (or WebGPU) painting, CSS subsets, WASM dependencies, `fetch`/CORS, perf, etc.
+- If you mention outer-browser options, keep it **brief** and **secondary**—default guidance should preserve **WASM in the page**.
 
 ---
 > Source: [pdufour/browserbrowserbrowser](https://github.com/pdufour/browserbrowserbrowser) — distributed by [TomeVault](https://tomevault.io).
