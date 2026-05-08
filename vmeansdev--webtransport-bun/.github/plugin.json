@@ -1,0 +1,9 @@
+{
+  "name": "vmeansdev--webtransport-bun",
+  "displayName": "webtransport-bun",
+  "description": "Production-focused WebTransport for Bun, powered by a Rust napi-rs addon (wtransport). In-process server and client, datagrams + uni/bidi streams, Chromium interop, bounded queues/backpressure default",
+  "version": "1.0.0",
+  "author": "vmeansdev",
+  "homepage": "https://github.com/vmeansdev/webtransport-bun",
+  "skills": []
+}
