@@ -1,0 +1,44 @@
+{
+  "name": "ai-career-copilot",
+  "owner": "Programmergyt",
+  "repo": "ai-career-copilot",
+  "description": "An AI-powered career agent built with LangGraph-based multi-agent workflows. Given a job description (JD) and candidate materials, it performs JD analysis, resume generation, interview Q&A simulation, and skill gap identification.\u4e00\u4e2a\u57fa\u4e8e LangGraph \u591a Agent \u534f\u4f5c\u7684\u6c42\u804c\u8f85\u52a9\u7cfb\u7edf\u3002\u7ed9\u5b9a\u5c97\u4f4d JD \u548c\u4e2a\u4eba\u80cc\u666f\u6750\u6599\uff0c\u81ea\u52a8\u5b8c\u6210 JD \u6df1\u5ea6\u5206\u6790\u3001\u7b80\u5386\u5b9a\u5236\u751f\u6210\u3001\u6a21\u62df\u9762\u8bd5\u95ee\u7b54\u3001\u7f3a\u5931\u6280\u80fd\u4fe1\u606f\u7b49\u4efb\u52a1\u3002",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Programmergyt/ai-career-copilot",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T04:57:56Z"
+}
