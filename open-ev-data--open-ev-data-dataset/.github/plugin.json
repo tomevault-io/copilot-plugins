@@ -1,0 +1,9 @@
+{
+  "name": "open-ev-data--open-ev-data-dataset",
+  "displayName": "open-ev-data-dataset",
+  "description": "This repository provides a structured, versioned, and community-maintained dataset of electric vehicle specifications. Vehicle data is authored as layered JSON fragments and compiled into canonical, f",
+  "version": "1.0.0",
+  "author": "open-ev-data",
+  "homepage": "https://github.com/open-ev-data/open-ev-data-dataset",
+  "skills": []
+}
