@@ -1,0 +1,9 @@
+{
+  "name": "programmergyt--ai-career-copilot",
+  "displayName": "ai-career-copilot",
+  "description": "An AI-powered career agent built with LangGraph-based multi-agent workflows. Given a job description (JD) and candidate materials, it performs JD analysis, resume generation, interview Q&A simulation,",
+  "version": "1.0.0",
+  "author": "Programmergyt",
+  "homepage": "https://github.com/Programmergyt/ai-career-copilot",
+  "skills": []
+}
