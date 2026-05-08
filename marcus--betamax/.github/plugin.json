@@ -1,0 +1,14 @@
+{
+  "name": "marcus--betamax",
+  "displayName": "betamax",
+  "description": "Terminal session recorder with GIF export",
+  "version": "1.0.0",
+  "author": "marcus",
+  "homepage": "https://github.com/marcus/betamax",
+  "skills": [
+    {
+      "name": "betamax-docs",
+      "description": ""
+    }
+  ]
+}
