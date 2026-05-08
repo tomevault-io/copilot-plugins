@@ -1,0 +1,9 @@
+{
+  "name": "tomsej--pi-ext",
+  "displayName": "pi-ext",
+  "description": "Extensions, skills, and themes for Pi coding agent",
+  "version": "1.0.0",
+  "author": "tomsej",
+  "homepage": "https://github.com/tomsej/pi-ext",
+  "skills": []
+}
