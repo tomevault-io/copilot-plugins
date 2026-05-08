@@ -1,0 +1,9 @@
+{
+  "name": "meridian-flow--meridian-cli",
+  "displayName": "meridian-cli",
+  "description": "text is qi for llms",
+  "version": "1.0.0",
+  "author": "meridian-flow",
+  "homepage": "https://github.com/meridian-flow/meridian-cli",
+  "skills": []
+}
