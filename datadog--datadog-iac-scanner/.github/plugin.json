@@ -1,0 +1,9 @@
+{
+  "name": "datadog--datadog-iac-scanner",
+  "displayName": "datadog-iac-scanner",
+  "description": "datadog-iac-scanner",
+  "version": "1.0.0",
+  "author": "DataDog",
+  "homepage": "https://github.com/DataDog/datadog-iac-scanner",
+  "skills": []
+}
