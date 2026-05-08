@@ -1,0 +1,9 @@
+{
+  "name": "tribe-inc--claw-bench",
+  "displayName": "claw-bench",
+  "description": "Benchmarks for model performance in openclaw",
+  "version": "1.0.0",
+  "author": "TRIBE-INC",
+  "homepage": "https://github.com/TRIBE-INC/claw-bench",
+  "skills": []
+}
