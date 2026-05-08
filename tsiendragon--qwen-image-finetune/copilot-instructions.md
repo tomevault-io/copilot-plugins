@@ -1,47 +1,51 @@
-## docs-structure
+## general
 
-> Documentation organization
+> Project-wide conventions for this repo
+
+# project convention
+## commit rules
+Avery time when want to name a new version for the project. Do
+1. Increase the version in @VERSION, depend on the changes to determine which version to increase, refer `Version Update` section
+2. Add change log in @docs/changelog.md
+3. Update todo list in @docs/todo.md
+4. git commit the changes
+5. In the README.md update the new updates and cite relevent docs
+6. Push to remote
+7. git create merge request
+
+## Version Update
+Version format: <major>.<minor>.<patch>
+• MAJOR – any breaking change:
+• CLI/config schema rename/removal; changed defaults that alter results
+• Incompatible checkpoint/state_dict format (no auto-migrator)
+• Incompatible data contract (columns/keys/shapes/labels)
+• Default training/metric semantics change (same seed → different numbers)
+• Removing a documented feature or supported API
+• MINOR – backwards-compatible additions:
+• New features/flags (default OFF), new callbacks/optimizers/schedulers
+• New datasets/loaders adhering to existing interfaces
+• User-visible perf wins without changing outputs
+• PATCH – no API/format change:
+• Bug fixes, small UX/logging/doc updates
+• Internal refactors; dependency bumps that don’t break behavior
+• Quick rules:
+• “Will old scripts/checkpoints/data break or results change by default?” → MAJOR
+• “Can users ignore it and everything stays the same?” + adds capability → MINOR
+• Else → PATCH
+• Pre-release tags: -alpha.N (experimental), -beta.N (feature-complete), -rc.N (bugfix-only)
+• Guardrails:
+•   Provide checkpoint/config migrators; if present and defaults unchanged, avoid MAJOR
+•   CI must load N−1/N−2 checkpoints & configs unless a MAJOR release
 
 
-| 目录 | 用途 | 示例文件 |
-| --- | --- | --- |
-| `docs/guide/` | 汇总面向开发者和运营的功能说明、架构拆解、使用指引；新增特性上线或重要流程改版时补充 | `docs/guide/flux_pipeline_overview.md`, `docs/guide/lora_finetune_workflow.md` |
-| `docs/changelog/` | 维护版本总览与逐版本详情：`docs/changelog/index.md` 概述主要版本亮点，`docs/changelog/v*.md` 存放详细变更 | `docs/changelog/index.md`, `docs/changelog/v1.4.0.md` |
-| `docs/plan/` | `docs/plan/index.md` 汇总在研项目及里程碑，每个计划拆分独立文档记录设计与进度 | `docs/plan/index.md`, `docs/plan/qwen_flux_v2_plan.md` |
-| `docs/spec/` | 按模块/组件划分的最新实现规范；代码改动合入后需同步对应模块说明 | `docs/spec/trainer/flux_trainer.md`, `docs/spec/models/transformer_block.md` |
-| `docs/references/` *(可选)* | 收录外部标准、论文、合规要求，便于跟踪引用；引入新依赖或合规审查时更新 | `docs/references/torch_compile_notes.md`, `docs/references/nvidia_h100_tuning.md` |
-| `docs/TODO.md` | 汇总跨模块待办与完成情况，反映迭代状态；每次完成或新增任务即更新 | `docs/TODO.md` |
-
-## 更新约定
-
-- **版本迭代**：触发 `@VERSION` 变更时，先更新 `docs/changelog/index.md` 中的概览摘要，再为新版本创建/补充 `docs/changelog/vX.Y.Z.md`，并在 `docs/guide/` 补充受影响的使用说明。
-- **新功能立项**：评审通过后在 `docs/plan/index.md` 登记；各功能细节、时间线同步至独立计划文档，方案冻结同时准备 `docs/spec/` 及 `docs/guide/` 草稿。
-- **实验进展**：关键节点、指标变化时更新对应计划文档，并在 `docs/plan/index.md` 标记状态。
-- **接口/协议变更**：代码合入时同步更新相关 `docs/spec/` 模块文件；若影响外部调用，追加 `docs/guide/` 或 README 说明。
-- **外部依赖更新**：新增或升级第三方组件、论文引用需补充 `docs/references/`；影响实施步骤时同步 `docs/spec/` 与 `docs/plan/`。
-- **待办维护**：功能开发、实验、文档任务完成或新增时刷新 `docs/TODO.md`，保证与实际进度一致。
-
-保持各目录文档使用英文编写，必要时在开头注明最近更新时间和责任人，方便交接与审计。
-| 目录 | 用途 | 示例文件 |
-| --- | --- | --- |
-| `docs/guide/` | 汇总面向开发者和运营的功能说明、架构拆解、使用指引；新增特性上线或重要流程改版时补充 | `docs/guide/flux_pipeline_overview.md`, `docs/guide/lora_finetune_workflow.md` |
-| `docs/changelog/` | 维护版本总览与逐版本详情：`docs/changelog/index.md` 概述主要版本亮点，`docs/changelog/v*.md` 存放详细变更 | `docs/changelog/index.md`, `docs/changelog/v1.4.0.md` |
-| `docs/plan/` | `docs/plan/index.md` 汇总在研项目及里程碑，每个计划拆分独立文档记录设计与进度 | `docs/plan/index.md`, `docs/plan/qwen_flux_v2_plan.md` |
-| `docs/spec/` | 按模块/组件划分的最新实现规范；代码改动合入后需同步对应模块说明 | `docs/spec/trainer/flux_trainer.md`, `docs/spec/models/transformer_block.md` |
-| `docs/references/` *(可选)* | 收录外部标准、论文、合规要求，便于跟踪引用；引入新依赖或合规审查时更新 | `docs/references/torch_compile_notes.md`, `docs/references/nvidia_h100_tuning.md` |
-| `docs/TODO.md` | 汇总跨模块待办与完成情况，反映迭代状态；每次完成或新增任务即更新 | `docs/TODO.md` |
-
-## 更新约定
-
-- **版本迭代**：触发 `@VERSION` 变更时，先更新 `docs/changelog/index.md` 中的概览摘要，再为新版本创建/补充 `docs/changelog/vX.Y.Z.md`，并在 `docs/guide/` 补充受影响的使用说明。
-- **新功能立项**：评审通过后在 `docs/plan/index.md` 登记；各功能细节、时间线同步至独立计划文档，方案冻结同时准备 `docs/spec/` 及 `docs/guide/` 草稿。
-- **实验进展**：关键节点、指标变化时更新对应计划文档，并在 `docs/plan/index.md` 标记状态。
-- **接口/协议变更**：代码合入时同步更新相关 `docs/spec/` 模块文件；若影响外部调用，追加 `docs/guide/` 或 README 说明。
-- **外部依赖更新**：新增或升级第三方组件、论文引用需补充 `docs/references/`；影响实施步骤时同步 `docs/spec/` 与 `docs/plan/`。
-- **待办维护**：功能开发、实验、文档任务完成或新增时刷新 `docs/TODO.md`，保证与实际进度一致。
-- **创建文档**: 在开发阶段,先不要加 guide 文档, 只要 plan 文档就行. 等正式 release 的时候才增加 guide 文档
-
-保持各目录文档使用英文编写，必要时在开头注明最近更新时间和责任人，方便交接与审计。
+## Other rules
+1. do note create examples/ script or other script for example usage. Make the code/project concise and clean
+2. Do not use relative import in code. For exmaple, do not use `from ..models.base_network import BaseNetwork`, but use `from qflux.models.base_network import BaseNetwork`
+3. use english in docs
+4. For existing codes, do not modify the code for lint/formatter improvement unless you are told to do so.
+5. Use as less try-except. It is not friendly to debug
+6. Do not create addition markdown documentation for explaning of the code unless you are told so
+7. When creating bash script to run something, just keep the bash file as simple as enough
 
 ---
 > Source: [tsiendragon/qwen-image-finetune](https://github.com/tsiendragon/qwen-image-finetune) — distributed by [TomeVault](https://tomevault.io).
