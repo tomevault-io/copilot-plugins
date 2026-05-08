@@ -1,0 +1,9 @@
+{
+  "name": "corseptem--gardenasmarthome",
+  "displayName": "GardenaSmartHome",
+  "description": "HomeAssistant to Gardena SmartHome devices like automover,  irrigation system etc",
+  "version": "1.0.0",
+  "author": "CorSeptem",
+  "homepage": "https://github.com/CorSeptem/GardenaSmartHome",
+  "skills": []
+}
