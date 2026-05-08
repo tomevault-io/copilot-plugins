@@ -1,95 +1,59 @@
-## audit-codebase
+## ci-workflow
 
-> Deep codebase audit checklist — use when asked to audit, review for release, or grade the codebase
+> CI workflow patterns for GitHub Actions
 
+# CI Workflow Patterns
 
-# Codebase Audit Checklist
+## Job structure
 
-Run this checklist for release readiness audits. Cite exact file paths and line numbers for every finding. Check docs/decisions/ for ADRs before flagging documented design decisions.
+Three jobs: `backend`, `frontend`, `e2e`. Backend and frontend run in parallel. E2E depends on both.
 
-## Backend
+## Backend job checklist
 
-- [ ] All SQL uses $N parameterized placeholders (no fmt.Sprintf with values)
-- [ ] No `_ = fn()` discarded errors in production code
-- [ ] No `echo.NewHTTPError` in production code (use apperror)
-- [ ] Token refresh is transactional and TOCTOU-safe (atomic UPDATE...RETURNING)
-- [ ] Password reset uses SELECT...FOR UPDATE inside transaction
-- [ ] Verification tokens hashed with selector/verifier pattern
-- [ ] All `rows.Next()` loops check `rows.Err()` after iteration
-- [ ] JWT_SECRET rejects CHANGE_ME placeholder at startup
-- [ ] Production entrypoint exits on migration failure
-- [ ] Timeout middleware uses Echo's built-in (no custom goroutine race)
-- [ ] All operational constants in Config struct with env var overrides
-- [ ] ForgotPassword/ResendVerification log errors server-side (anti-enumeration: always return 200)
+- PostgreSQL service container with health check (required for integration tests)
+- `go build` + `go vet` before tests
+- Unit tests: `go test ./... -race -count=1 -coverprofile=coverage-unit.out`
+- Install `migrate` CLI before integration tests
+- Run migrations before integration tests
+- Integration tests: `go test -tags integration ./... -race -count=1 -coverprofile=coverage-integration.out`. Set both `DATABASE_URL` and `TEST_DATABASE_URL` env vars.
+- Merge coverage profiles: concatenate both files (strip duplicate header) into `coverage.out`. This ensures Codecov gets combined coverage from both unit and integration runs.
+- golangci-lint: pin to a version compatible with the Go version in `go.mod`. If no compatible version exists yet (new Go release), use `continue-on-error: true` with a comment linking to the tracking issue.
+- govulncheck: always run, fails CI on vulnerabilities. Fix by upgrading the affected dependency.
+- Codecov: use `codecov/codecov-action@v5` to upload `backend/coverage.out` with `-F backend` flag, only on push (not PR).
 
-## Frontend
+## Frontend job checklist
 
-- [ ] Zero `createResource` (use onMount + signals)
-- [ ] Zero nested `<Show>` for mutually exclusive content states (use Switch/Match)
-- [ ] Zero `window.confirm()` (use DestructiveModal)
-- [ ] Zero onMount/createEffect returning cleanup functions (use onCleanup)
-- [ ] Zero `any` in production code (test files acceptable)
-- [ ] Auth store reacts to token clearing (`auth:session-expired` event)
-- [ ] Auth cookie Secure on HTTPS (both set and clear paths)
-- [ ] Skip link present with correct target and tabindex
-- [ ] Auth guard effects use `on()` syntax (without defer — documented exception in solidjs-pages.mdc)
-- [ ] `batch()` wraps signal updates after every `await`
+- `npm ci` (not `npm install`) for reproducible installs
+- `npm run lint` before build
+- `npm run typecheck` before build
+- `npm run build`
+- `npm run test:coverage` (not `npm test` — the `test` script runs vitest in watch mode)
+- Codecov: upload `frontend/coverage/lcov.info` with `-F frontend` flag from repo root, only on push
+- `npm audit --audit-level=high` with `continue-on-error: true` (transitive dep vulns shouldn't block PRs)
+- Check Generated Types: `npm run generate:types && git diff --exit-code` with `continue-on-error: true` — catches stale TypeScript types when the OpenAPI spec changes
 
-## Security
+## E2E job checklist
 
-- [ ] No endpoints leak DB errors or stack traces to clients
-- [ ] Rate limiting covers auth (strict) and general API
-- [ ] SSE excluded from gzip and timeout middleware
-- [ ] CSP configurable via `CSP_POLICY` env var
-- [ ] CORS rejects all origins when `ALLOWED_ORIGINS` unset (deny-by-default)
-- [ ] Password hashing uses bcrypt with 72-byte max enforcement
-- [ ] Refresh token rotation is atomic (revoke + issue in one transaction)
+- `cp config/.env.example config/.env.local` — create env file before docker compose
+- `docker compose up -d --build` starts backend + db
+- Wait for DB: poll `pg_isready` on the db container (not just backend `/ready`)
+- Install `migrate` CLI + run migrations against the docker compose DB
+- Seed data: `psql < backend/seeds/dev_seed.sql` via docker compose exec
+- Wait for backend: poll `/ready` endpoint (not `/health` — readiness means DB is connected)
+- `npm ci` in frontend (Playwright needs `@playwright/test` from node_modules)
+- `npx playwright install --with-deps chromium`
+- Playwright's `webServer` config starts the frontend dev server automatically — do NOT set `E2E_SKIP_SERVER`
+- `config/.env.example` must be committed (check `.gitignore` exceptions) — CI copies it to `.env.local`
 
-## Tooling — Rename Tool
+## Common mistakes
 
-- [ ] Handles hyphenated names (`my-app` → `MyApp` for PascalCase identifiers)
-- [ ] ALL-CAPS form handles hyphens (`my-app` → `MY_APP`, not `MY-APP`)
-- [ ] Covers all file types: Go, TSX/TS, CSS, docs, Cursor rules, CI, infra, env files, entrypoints, .gcloudignore, benchmarks, openapi.yaml, scaffold, testutil, teardown.sh
-- [ ] ALL-CAPS replacement applied to env files, entrypoints, and config files
-- [ ] Validates project name format (lowercase alphanumeric + hyphens)
-- [ ] Protects domain (`golid.ai`) from corruption via `replaceInFileSafe`
-- [ ] `frontend/.env.example` gets lowercase + titled + ALL-CAPS passes
-
-## Tooling — Scaffold Tool
-
-- [ ] `singularize()` handles -us/-is/-as suffixes (prevents `status` → `statu`)
-- [ ] Template includes `rows.Err()` after `rows.Next()` loops
-- [ ] Template uses `toast` (not `snackbar`) for success/error notifications
-- [ ] Generated Pagination component props match the actual `PaginationProps` interface
-- [ ] Generated code compiles without modification (`go build`, `tsc --noEmit`)
-
-## Documentation
-
-- [ ] Zero broken internal links (check all `*.md` files in docs/)
-- [ ] README Quick Start works on fresh clone (including JWT_SECRET generation)
-- [ ] `docs/quick-start.md` Option B includes JWT_SECRET generation
-- [ ] `example-module.md` matches scaffold output: constructor signatures, interface pattern, ParsePagination, 5-arg List with search, rows.Err, Pagination props, toast, reactive page refetch
-- [ ] Cursor rules reference correct function names, arities, and store APIs — cross-check against actual source:
-  - `go-service.mdc` constructor and `NormalizePagination` signature
-  - `write-tests.mdc` constructor and pagination helper
-  - `frontend-lib.mdc` store method names
-  - `sse-realtime.mdc` `NewSSEHub` signature and notification store
-- [ ] CHANGELOG accurate (rule count, coverage thresholds, feature claims)
-- [ ] All test counts, coverage numbers, and version badges match actual values
-- [ ] Migration numbers in examples don't conflict with existing migrations
-
-## Integration Tests
-
-- [ ] All integration test files compile with current constructor signatures
-- [ ] Test assertions match current service behavior (e.g., error codes, return values)
-- [ ] Concurrency tests enforce correct outcomes (e.g., exactly 1 success for token refresh race)
-
-## Grading
-
-Score out of 100 with subgrades per category. List every finding with severity:
-- **Blocker**: security vulnerability, data loss risk, or generated code that won't compile
-- **Important**: incorrect behavior, stale references that mislead developers, or missing coverage
-- **Minor**: style inconsistency, cosmetic, or documentation clarity
+- **Missing `npm ci`** — any step that runs `npx` with a project dependency needs `npm ci` first. `npx` without node_modules downloads a standalone version that can't find project packages.
+- **golangci-lint + new Go versions** — golangci-lint must be built with a Go version >= the one in `go.mod`. After a Go upgrade, check if a compatible golangci-lint version exists. If not, `continue-on-error: true` until one is released.
+- **Gitignored env files** — `config/.env.example` is needed by the E2E job. The `.gitignore` pattern `config/.env.*` catches it — add `!config/.env.example` exception.
+- **Database name** — CI uses a separate test database. Keep the name consistent with the project (`golid_test`). Update if the project is renamed.
+- **Stale generated types** — `npm run generate:types` produces `frontend/src/lib/api.generated.ts` from `backend/openapi.yaml`. If you update the spec but forget to regenerate, the CI step catches it. Run `cd frontend && npm run generate:types` after any spec change.
+- **Tests pass but typecheck fails** — `vitest run` executes JavaScript at runtime and does not check TypeScript types. Always run `npm run typecheck` locally before pushing frontend test files. Bad imports (non-existent exports, type-only imports used as values) pass at runtime but fail `tsc`.
+- **testutil default DB URL** — `testutil.SetupTestDB()` defaults to `postgres://dev:dev@localhost:5432/golid?sslmode=disable`, matching docker-compose. CI overrides via `TEST_DATABASE_URL`. If you rename the project or change docker-compose credentials, update both.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
