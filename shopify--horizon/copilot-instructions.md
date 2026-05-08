@@ -1,245 +1,928 @@
-## cart-drawer-accessibility
+## chat-window-accessibility
 
-> Cart drawer component accessibility compliance pattern
+> Chat window component accessibility compliance and WCAG compliance for real-time communication features
 
-# Cart Drawer Component Accessibility Standards
+# Chat Window Component Accessibility Standards
 
-Ensures cart drawer components follow WCAG compliance and ARIA Dialog Pattern specifications for ecommerce applications.
+Ensures chat window components follow WCAG compliance and provide proper accessibility for real-time communication, notifications, and assistive technology support.
 
 <rule>
-name: cart_drawer_accessibility_standards
-description: Enforce cart drawer component accessibility standards and ARIA Dialog Pattern compliance
+name: chat_window_accessibility_standards
+description: Enforce chat window component accessibility standards and WCAG compliance for real-time communication features
 filters:
   - type: file_extension
-    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts)$"
+    pattern: "\\.(vue|jsx|tsx|html|liquid|php|js|ts|css|scss|sass|less)$"
 
 actions:
   - type: enforce
     conditions:
-      # Cart activator missing aria-haspopup
-      - pattern: "(?i)<button[^>]*(?:cart|basket|shopping)[^>]*>"
-        pattern_negate: "aria-haspopup=\"dialog\""
-        message: "Cart activator buttons must include aria-haspopup='dialog' to inform users a dialog will open."
+      # Chat window missing proper landmark role
+      - pattern: "(?i)<(div|section)[^>]*(?:chat|conversation|messages)[^>]*>"
+        pattern_negate: "role=\"(log|region|dialog)\""
+        message: "Chat window containers must have role='log' for message history, role='region' for general chat areas, or role='dialog' for popup windows."
 
-      # Cart container missing dialog role
-      - pattern: "(?i)<(div|section|aside)[^>]*(?:cart|basket|drawer)[^>]*>"
-        pattern_negate: "role=\"dialog\""
-        message: "Cart drawer containers must have role='dialog' attribute."
-
-      # Cart container missing aria-modal
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:cart|basket|drawer)[^>]*>"
-        pattern_negate: "aria-modal=\"true\""
-        message: "Cart drawer dialog elements must have aria-modal='true' attribute."
-
-      # Cart container missing proper labeling
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:cart|basket|drawer)[^>]*>"
+      # Chat log missing accessible name
+      - pattern: "(?i)<[^>]*role=\"log\"[^>]*>"
         pattern_negate: "(aria-labelledby|aria-label)"
-        message: "Cart drawer dialog elements must have either aria-labelledby or aria-label for accessibility."
+        message: "Chat log elements must have accessible names via aria-labelledby or aria-label for screen reader identification."
 
-      # Empty aria-label check
-      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:cart|basket|drawer)[^>]*aria-label=\"\"[^>]*>"
-        message: "Cart drawer aria-label should not be empty; provide a meaningful description like 'Shopping Cart'."
+      # Chat messages missing author identification
+      - pattern: "(?i)<(p|div)[^>]*(?:message|chat|conversation)[^>]*>"
+        pattern_negate: "(aria-label|aria-labelledby|class.*visually-hidden|class.*sr-only)"
+        message: "Chat messages must include author identification via visible text, aria-label, or visually hidden content for screen reader users."
 
-      # Close button missing proper functionality
-      - pattern: "(?i)<button[^>]*(?:close|dismiss|cancel)[^>]*(?:cart|basket|drawer)[^>]*>"
-        pattern_negate: "(onClick|onclick|@click|v-on:click)"
-        message: "Cart drawer close buttons should have proper click handlers to close the dialog."
+      # Chat messages in wrong DOM order
+      - pattern: "(?i)<div[^>]*class=\"[^\"]*(?:left|right|user|agent)[^\"]*\"[^>]*>"
+        pattern_negate: "(role=\"log\"|aria-live)"
+        message: "Chat messages must maintain chronological order in DOM structure. Avoid using separate columns that break reading sequence."
 
-      # Close button missing aria-label
-      - pattern: "(?i)<button[^>]*(?:close|dismiss|×|&times;)[^>]*(?:cart|basket|drawer)[^>]*>"
-        pattern_negate: "aria-label=\"[^\"]*[Cc]lose[^\"]*\""
-        message: "Cart drawer close buttons should have aria-label='Close cart' or similar descriptive text."
+      # Chat notifications relying only on sound
+      - pattern: "(?i)(audio|sound|play|new.*message)"
+        pattern_negate: "(aria-live|role=\"status\"|visual.*notification|title.*change|notification.*badge)"
+        message: "Chat notifications must use multiple sensory channels. Combine sound with visual indicators, aria-live announcements, title changes, and notification badges."
 
-      # Missing focus management indicators
-      - pattern: "(?i)(?:openCart|showCart|toggleCart|openDrawer)\\s*\\("
-        message: "When opening cart drawers, ensure focus management is implemented (focus should move to first focusable element inside the dialog)."
+      # Chat window missing keyboard support
+      - pattern: "(?i)<(div|section)[^>]*(?:chat|conversation)[^>]*>"
+        pattern_negate: "(onKeyDown|onkeydown|@keydown|v-on:keydown|tabindex)"
+        message: "Chat windows must support keyboard navigation for opening, closing, and message interaction."
 
-      # Missing checkout button accessibility
-      - pattern: "(?i)<button[^>]*(?:checkout|proceed|purchase)[^>]*(?:cart|basket|drawer)[^>]*>"
-        pattern_negate: "(aria-label|aria-describedby)"
-        message: "Cart drawer checkout buttons should have proper labeling for screen readers."
+      # Chat popup missing focus management
+      - pattern: "(?i)<(div|section)[^>]*role=\"dialog\"[^>]*(?:chat|conversation)[^>]*>"
+        pattern_negate: "(aria-modal|focus|tabindex)"
+        message: "Chat popup windows must implement proper focus management and aria-modal='true' for accessibility."
 
-      # Quantity inputs missing aria-live for screen reader announcements
-      - pattern: "(?i)<input[^>]*type=\"number\"[^>]*(?:quantity|qty)[^>]*>"
-        pattern_negate: "aria-live=\"polite\""
-        message: "Cart quantity inputs must have aria-live='polite' to announce value changes to screen readers."
+      # Chat launcher missing aria-haspopup
+      - pattern: "(?i)<(button|div)[^>]*(?:chat|conversation|support)[^>]*>"
+        pattern_negate: "aria-haspopup=\"dialog\""
+        message: "Chat launcher buttons must include aria-haspopup='dialog' to inform users a dialog will open."
 
-      # Missing focus management for item removal
-      - pattern: "(?i)(?:removeItem|remove.*item|delete.*item)\\s*\\("
-        pattern_negate: "focus\\(|focus\\(\\).*close|close.*focus\\(\\"
-        message: "When removing cart items, implement focus management to shift focus to a logical location (e.g., close button) for better user experience."
+      # Chat window missing focus trap
+      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:chat|conversation)[^>]*>"
+        pattern_negate: "(focus.*trap|tabindex|aria-modal)"
+        message: "Chat popup windows must implement focus trapping to prevent keyboard navigation outside the dialog."
+
+      # Chat input missing proper labeling
+      - pattern: "(?i)<(input|textarea)[^>]*(?:chat|message|reply)[^>]*>"
+        pattern_negate: "(aria-label|aria-labelledby|label|placeholder)"
+        message: "Chat input fields must have proper labels via label elements, aria-label, or aria-labelledby for screen reader context."
+
+      # Chat button missing accessible name
+      - pattern: "(?i)<(button|div)[^>]*(?:chat|conversation|support)[^>]*>"
+        pattern_negate: "(aria-label|aria-labelledby|>.*[A-Za-z]{10,})"
+        message: "Chat buttons must have accessible names via visible text, aria-label, or aria-labelledby for screen reader identification."
+
+      # Chat button missing proper role
+      - pattern: "(?i)<(div|span)[^>]*(?:chat|conversation|support)[^>]*>"
+        pattern_negate: "(role=\"button\"|<button)"
+        message: "Chat controls styled as buttons must have role='button' or use native button elements for proper semantics."
+
+      # Chat window missing expandable state management
+      - pattern: "(?i)<(button|div)[^>]*(?:chat|conversation)[^>]*>"
+        pattern_negate: "aria-expanded=\"(true|false)\""
+        message: "Expandable chat windows must have aria-expanded attribute to indicate open/closed state for screen readers."
+
+      # Chat window missing aria-controls
+      - pattern: "(?i)<(button|div)[^>]*(?:chat|conversation)[^>]*>"
+        pattern_negate: "aria-controls=\"[^\"]+\""
+        message: "Chat controls must have aria-controls referencing the chat window ID for proper association."
+
+      # Chat timeout missing user notification
+      - pattern: "(?i)(timeout|session.*expir|inactive)"
+        pattern_negate: "(notification|warning|extend|20.*second)"
+        message: "Chat timeouts must notify users before expiration and provide at least 20 seconds to extend the session."
+
+      # Chat auto-update missing pause controls
+      - pattern: "(?i)(auto.*update|real.*time|live.*update)"
+        pattern_negate: "(pause|stop|hide|user.*control)"
+        message: "Auto-updating chat content must provide pause/stop controls to prevent overwhelming screen reader users."
+
+      # Chat missing persistent notification system
+      - pattern: "(?i)<(div|section)[^>]*(?:chat|conversation)[^>]*>"
+        pattern_negate: "(notification.*badge|aria-live.*polite|role.*status)"
+        message: "Chat windows must provide persistent notification system including visual badge counter and persistent screen reader announcements when closed."
+
+      # Chat focus not contained within popup
+      - pattern: "(?i)<[^>]*role=\"dialog\"[^>]*(?:chat|conversation)[^>]*>"
+        pattern_negate: "(focus.*trap|tabindex|aria-modal)"
+        message: "Chat popup windows must contain keyboard focus to prevent focus from becoming obscured behind the dialog."
+
+      # Chat messages missing proper contrast
+      - pattern: "(?i)<(p|div)[^>]*(?:message|chat)[^>]*>"
+        pattern_negate: "(color.*#[0-4][0-9a-fA-F]{5}|color.*#[5-9a-fA-F][0-9a-fA-F]{5})"
+        message: "Chat message text must meet WCAG contrast requirements (4.5:1 minimum for normal text, 3:1 for large text)."
+
+      # Chat window not responsive
+      - pattern: "(?i)<(div|section)[^>]*(?:chat|conversation)[^>]*>"
+        pattern_negate: "(max-width|min-width|flex|grid|responsive)"
+        message: "Chat windows must be responsive and work on devices down to 320px width without horizontal scrolling."
+
+      # Chat icon missing alt text
+      - pattern: "(?i)<img[^>]*(?:chat|conversation|support)[^>]*>"
+        pattern_negate: "alt=\"[^\"]+\""
+        message: "Chat-related images must have descriptive alt text for screen reader users."
+
+      # Chat status messages missing role
+      - pattern: "(?i)<(div|span)[^>]*(?:status|notification|typing)[^>]*>"
+        pattern_negate: "role=\"(status|log|alert)\""
+        message: "Chat status messages must use appropriate ARIA roles (status, log, or alert) for screen reader announcements."
 
   - type: suggest
     message: |
-      **Cart Drawer Component Accessibility Best Practices:**
+      **WCAG Chat Window Accessibility Requirements:**
 
-      **Required ARIA Attributes:**
-      - **aria-haspopup='dialog':** Set on cart activator buttons to inform users a dialog will open
-      - **role='dialog':** Set on the cart drawer container element
-      - **aria-modal='true':** Indicates the cart drawer is modal and traps focus
-      - **aria-labelledby:** Reference to visible cart title, OR
-      - **aria-label:** Descriptive label like "Shopping Cart" if no visible title exists
+      **Key Accessibility Features:**
+      - **Easy to find and use:** Intuitive placement and clear labeling
+      - **Multi-sensory notifications:** Visual, auditory, and haptic feedback
+      - **Universal access:** All features available to all users
+      - **Message preservation:** All messages accessible to everyone
 
-      **Keyboard Interaction Requirements:**
-      - **Initial Focus:** When cart drawer opens, focus must move to the first focusable element (typically close button)
-      - **Tab Cycling:** Tab key should cycle through focusable elements within the cart drawer only
-      - **Shift+Tab:** Should cycle backwards through focusable elements within the cart drawer
-      - **Escape Key:** Must close the cart drawer and return focus to the activator
-      - **Focus Trap:** Focus should be contained within the cart drawer while open
+      **WCAG Criteria Implementation:**
 
-      **Focus Management:**
-      - Implement focus trapping to prevent tab navigation outside the cart drawer
-      - Return focus to the cart activator when drawer closes
-      - Move focus to the close button (first focusable element) when drawer opens
-      - Ensure close button is positioned first in DOM order within the dialog container
-      - **Item Removal Focus:** When removing cart items, shift focus to the close button for logical positioning
-      - **Quantity Changes:** Maintain focus on quantity controls during updates to prevent focus loss
+      **1. Info and Relationships (WCAG 1.3.1):**
+      - **Author identification:** Each message must clearly indicate who sent it
+      - **Visual relationships:** Use semantic markup, not just visual styling
+      - **Screen reader support:** Provide context for message ownership
 
-      **Screen Reader Interaction:**
-      - Activator should announce "dialog popup" when focused
-      - On activation, announce "{Cart label}, dialog" when focus moves to cart drawer
-      - Provide clear navigation through cart content
-      - Announce return to activator when drawer closes
-      - **Quantity Updates:** Use aria-live="polite" on quantity inputs to announce value changes
-      - **Item Removal:** Announce item removal with descriptive text (e.g., "Product Name removed from cart")
-      - **Dynamic Content:** Ensure all cart state changes are announced to screen readers
+      **2. Meaningful Sequence (WCAG 1.3.2):**
+      - **Chronological order:** Messages must appear in DOM order matching visual order
+      - **Avoid columns:** Don't separate user/agent messages into different containers
+      - **Reading flow:** Maintain logical conversation sequence for screen readers
 
-      **Structure Requirements:**
-      - All interactive elements must be descendants of the cart drawer container
-      - Position close button first in DOM order within the cart drawer container
-      - Use semantic HTML within the cart drawer (headings, buttons, form labels)
-      - Provide clear visual focus indicators
-      - Close buttons should use aria-label="Close cart" with &times; entity for visual 'x' icon
+      **3. Sensory Characteristics (WCAG 1.3.3):**
+      - **Multiple notification methods:** Combine sound, visual, and screen reader announcements
+      - **No single sense dependency:** Don't rely solely on audio or visual cues
+      - **Universal alerts:** Ensure notifications work for all users
+
+      **4. Orientation (WCAG 1.3.4):**
+      - **Responsive design:** Work in both portrait and landscape modes
+      - **No orientation locks:** Allow users to choose their preferred orientation
+      - **Flexible layouts:** Adapt to different screen sizes and orientations
+
+      **5. Contrast (WCAG 1.4.3):**
+      - **Text contrast:** 4.5:1 minimum for normal text, 3:1 for large text
+      - **Background contrast:** Ensure sufficient contrast for all text elements
+      - **Visual clarity:** Make messages easily readable for all users
+
+      **6. Reflow (WCAG 1.4.10):**
+      - **Responsive design:** Work on devices down to 320px width
+      - **No horizontal scroll:** Content must fit without horizontal scrolling
+      - **Flexible layouts:** Use CSS Grid and Flexbox for adaptability
+
+      **7. Non-text Contrast (WCAG 1.4.11):**
+      - **Image alternatives:** Provide alt text for all images and icons
+      - **Icon identification:** Ensure chat icons are properly labeled
+      - **Visual elements:** Make all non-text content accessible
+
+      **8. Keyboard (WCAG 2.1.1):**
+      - **Full keyboard support:** All chat functions must work with keyboard
+      - **Navigation:** Support Tab, Enter, Space, and Escape keys
+      - **No mouse dependency:** Ensure keyboard-only users can fully participate
+
+      **9. No Keyboard Trap (WCAG 2.1.2):**
+      - **Focus management:** Proper focus trapping within chat windows
+      - **Escape mechanism:** Provide clear way to exit chat
+      - **Focus restoration:** Return focus to launcher when chat closes
+      - **Focus trap:** Prevent keyboard navigation outside chat window while open
+
+      **11. Timing Adjustable (WCAG 2.2.1):**
+      - **Session timeouts:** Notify users before session expiration (minimum 30 seconds notice)
+      - **Extension options:** Provide at least 20 seconds to extend
+      - **Character monitoring:** Listen for input changes, not just key presses
+      - **Screen reader notification:** Use dedicated role="alert" element for important timeout warnings
+
+      **12. Pause, Stop, Hide (WCAG 2.2.2):**
+      - **Content control:** Allow users to pause auto-updating content
+      - **Overwhelm prevention:** Provide mechanisms to reduce screen reader noise
+      - **Essential content:** Balance accessibility with functionality
+
+      **13. Enhanced Notifications (WCAG 4.1.3):**
+      - **Persistent notifications:** Provide visual badge counter on chat launcher when closed
+      - **Screen reader announcements:** Persistent aria-live regions for notifications when chat window is closed
+      - **Multi-sensory feedback:** Combine visual, auditory, and screen reader notifications
+      - **Context awareness:** Notify users about new messages even when chat window is not open
+      - **Enhanced button labeling:** Dynamic accessible name that includes unread message count for better context
+
+      **14. User Interaction Monitoring (WCAG 2.2.1):**
+      - **Session extension on interaction:** Extend chat session on any user interaction, not just sent messages
+      - **Comprehensive monitoring:** Monitor clicks, key presses, input changes, scrolling, and focus events
+      - **Assistive technology support:** Ensure users with typing difficulties can extend sessions through other interactions
+      - **Immediate response:** Reset session timer immediately on any user engagement
+
+      **15. Focus Not Obscured (WCAG 2.4.11):**
+      - **Focus visibility:** Ensure keyboard focus is always visible
+      - **Modal containment:** Keep focus within chat popup windows
+      - **Background prevention:** Don't let focus move behind chat windows
+
+      **16. Name, Role, Value (WCAG 4.1.2):**
+      - **Accessible names:** Clear labels for all interactive elements
+      - **Proper roles:** Use semantic HTML or appropriate ARIA roles
+      - **State management:** Maintain and communicate current states
+
+      **17. Status Messages (WCAG 4.1.3):**
+      - **Real-time updates:** Announce new messages and status changes
+      - **Context awareness:** Provide appropriate level of detail
+      - **Screen reader support:** Use role='log' for message history
+
+      **18. Modal Dialog Requirements:**
+      - **aria-haspopup="dialog":** Set on chat launcher buttons (no aria-controls or aria-expanded needed)
+      - **Focus trapping:** Prevent keyboard navigation outside chat window
+      - **Initial focus:** Move focus to first focusable element when chat opens
+      - **Focus restoration:** Return focus to launcher when chat closes
+      - **Escape key:** Close chat window with Escape key
+      - **Focus trap implementation:** Must handle both forward (Tab) and backward (Shift+Tab) navigation
+      - **Focusable element detection:** Include all interactive elements (buttons, inputs, textareas, links, custom focusable elements)
+      - **Safety checks:** Additional validation to ensure focus remains within chat window
 
       **Implementation Patterns:**
 
-      **Cart Activator Button:**
+      **1. Basic Chat Window Structure (Modal Dialog Pattern):**
       ```html
-      <button class="cart-activator"
-              aria-haspopup="dialog"
-              aria-label="View shopping cart"
-              onclick="openCartDrawer()">
-        <svg aria-hidden="true" width="24" height="24">
-          <!-- Cart icon -->
-        </svg>
-        <span class="cart-count">3</span>
+      <!-- Chat launcher button -->
+      <button id="chat-launcher"
+              aria-haspopup="dialog">
+        <img src="chat-icon.png" alt="" />
+        Chat with Support
+        <span id="notification-badge" class="notification-badge" hidden>0</span>
       </button>
-      ```
 
-      **Cart Drawer Container:**
-      ```html
-      <div role="dialog"
+      **Note:** For modal dialog pattern, use only `aria-haspup="dialog"`. Do not use `aria-controls` or `aria-expanded` as these are not needed for modal dialogs.
+
+      <!-- Chat window -->
+      <div id="chat-window"
+           role="dialog"
            aria-modal="true"
-           aria-labelledby="cart-title"
-           class="cart-drawer"
-           id="cart-drawer">
-        <button type="button"
-                aria-label="Close cart"
-                onclick="closeCartDrawer()"
-                class="cart-close">&times;</button>
-        <h2 id="cart-title">Shopping Cart</h2>
-        <div class="cart-items">
-          <!-- Cart items -->
+           aria-labelledby="chat-heading"
+           hidden>
+        <div class="chat-header">
+          <h2 id="chat-heading">Chat: Customer Support</h2>
+          <button type="button"
+                  aria-label="Close chat"
+                  onclick="closeChat()">
+            ×
+          </button>
         </div>
-        <div class="cart-summary">
-          <p>Total: $99.99</p>
-          <button aria-label="Proceed to checkout"
-                  onclick="proceedToCheckout()">
-            Checkout
+
+        <!-- Message log -->
+        <div class="chat-messages"
+             role="log"
+             aria-labelledby="chat-heading">
+          <div class="message agent" role="article">
+            <div class="message-content">
+              <span class="sr-only">Customer Support: </span>
+              Hi, how can I help you today?
+            </div>
+            <time class="message-time" datetime="2024-01-15T10:00:00Z">10:00 AM</time>
+          </div>
+          <div class="message user" role="article">
+            <div class="message-content">
+              <span class="sr-only">You sent: </span>
+              I'm having trouble resetting my password.
+            </div>
+            <time class="message-time" datetime="2024-01-15T10:01:00Z">10:01 AM</time>
+          </div>
+        </div>
+
+        <!-- Input area -->
+        <div class="chat-input">
+          <label for="message-input" class="visually-hidden">Type your message:</label>
+          <textarea id="message-input"
+                    placeholder="Type your message..."
+                    aria-label="Type your message"></textarea>
+          <button type="button"
+                  aria-label="Send message"
+                  onclick="sendMessage()">
+            Send
           </button>
         </div>
       </div>
       ```
 
-      **Quantity Controls with aria-live:**
+      **2. Chat Message Structure:**
       ```html
-      <div class="quantity-controls">
-        <button class="quantity-btn decrease-btn"
-                aria-label="Decrease quantity"
-                onclick="updateQuantity(itemId, -1)">-</button>
-        <input type="number"
-               class="quantity-input"
-               value="1"
-               min="1"
-               aria-label="Quantity for Product Name"
-               aria-live="polite"
-               onchange="setQuantity(itemId, this.value)">
-        <button class="quantity-btn increase-btn"
-                aria-label="Increase quantity"
-                onclick="updateQuantity(itemId, 1)">+</button>
+      <!-- Good: Proper message structure with author identification -->
+      <div class="chat-messages" role="log" aria-labelledby="chat-heading">
+        <div class="message agent">
+          <div class="message-content">
+            <span class="sr-only">Customer Support: </span>
+            Hi, how can I help you today?
+          </div>
+          <time class="message-time" datetime="2024-01-15T10:00:00Z">10:00 AM</time>
+        </div>
+        <div class="message user">
+          <div class="message-content">
+            <span class="sr-only">You sent: </span>
+            I'm having trouble resetting my password.
+          </div>
+          <time class="message-time" datetime="2024-01-15T10:01:00Z">10:01 AM</time>
+        </div>
+        <div class="message agent">
+          <div class="message-content">
+            <span class="sr-only">Customer Support: </span>
+            I can help with that. What's your email address?
+          </div>
+          <time class="message-time" datetime="2024-01-15T10:01:30Z">10:01 AM</time>
+        </div>
+      </div>
+
+      **Note:** Use div elements for chat messages instead of role="article" to reduce navigation noise for screen reader users. Chat messages are conversational content rather than standalone articles.
+
+      <!-- Bad: Separate columns that break reading order -->
+      <div class="chat-columns">
+        <div class="left-column">
+          <p>Customer Support: Hi</p>
+          <p>Customer Support: How can I help?</p>
+        </div>
+        <div class="right-column">
+          <p>Me: Hi</p>
+          <p>Me: I need help</p>
+        </div>
       </div>
       ```
 
-      **Item Removal with Focus Management:**
+      **3. Multi-Sensory Notifications:**
+      ```html
+      <!-- Status message for new messages -->
+      <div role="status" aria-live="polite" class="chat-status">
+        New message received
+      </div>
+
+      <!-- Visual notification -->
+      <div class="chat-notification" aria-hidden="true">
+        <span class="notification-badge">1</span>
+      </div>
+
+      <!-- Page title update -->
+      <script>
+        function updatePageTitle(message) {
+          const originalTitle = document.title;
+          document.title = `New message - ${originalTitle}`;
+
+          // Restore title after 5 seconds
+          setTimeout(() => {
+            document.title = originalTitle;
+          }, 5000);
+        }
+      </script>
+      ```
+
+      **4. Enhanced Notification System:**
+      ```html
+      <!-- Chat launcher with notification badge -->
+      <button id="chat-launcher"
+              class="chat-launcher"
+              aria-haspopup="dialog">
+        <img src="chat-icon.png" alt="" />
+        Chat with Support
+        <span id="notification-badge" class="notification-badge" hidden>0</span>
+      </button>
+
+      **Note:** The notification badge is part of the button's accessible name, not hidden from screen readers. This provides better context about unread messages.
+
+      **5. Enhanced Button Labeling:**
+      ```html
+      <!-- Dynamic accessible name based on message count -->
+      <button id="chat-launcher"
+              class="chat-launcher"
+              aria-haspopup="dialog">
+        <img src="chat-icon.png" alt="" />
+        Chat with Support
+        <span id="notification-badge" class="notification-badge" hidden>0</span>
+      </button>
+      ```
+
+      **JavaScript for Dynamic Labeling:**
       ```javascript
-      function removeItem(itemId) {
-          const item = cartItems.find(item => item.id === itemId);
-          if (item) {
-              cartItems = cartItems.filter(item => item.id !== itemId);
+      // Update button's accessible name to include message count
+      function updateNotificationBadge() {
+        const launcher = document.getElementById('chat-launcher');
 
-              // Remove only the specific cart item element
-              const cartItem = document.querySelector(`[data-item-id="${itemId}"]`);
-              if (cartItem) {
-                  cartItem.remove();
+        if (messageCount === 1) {
+          launcher.setAttribute('aria-label', 'Chat with Support - 1 new message');
+        } else if (messageCount > 1) {
+          launcher.setAttribute('aria-label', `Chat with Support - ${messageCount} new messages`);
+        }
+      }
+
+      // Reset button's accessible name when chat is opened
+      function clearNotificationBadge() {
+        const launcher = document.getElementById('chat-launcher');
+        launcher.removeAttribute('aria-label');
+      }
+      ```
+
+      <!-- Persistent notification area for screen readers -->
+      <div id="chat-notifications"
+           role="status"
+           aria-live="polite"
+           class="sr-only"
+           aria-label="Chat notifications">
+      </div>
+
+      <style>
+        .notification-badge {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          background: #dc3545;
+          color: white;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.75rem;
+          font-weight: bold;
+          transition: all 0.3s ease;
+        }
+
+        .notification-badge.show {
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1); }
+        }
+      </style>
+
+      <script>
+        let messageCount = 0;
+
+                // Update notification badge
+        function updateNotificationBadge() {
+          const badge = document.getElementById('notification-badge');
+          const chatWindow = document.getElementById('chat-window');
+          const launcher = document.getElementById('chat-launcher');
+
+          if (badge) {
+            // Only show badge when chat is closed
+            if (chatWindow.classList.contains('hidden')) {
+              badge.hidden = false;
+              badge.textContent = messageCount;
+              badge.classList.add('show');
+
+              // Update button's accessible name to include message count
+              if (messageCount === 1) {
+                launcher.setAttribute('aria-label', 'Chat with Support - 1 new message');
+              } else if (messageCount > 1) {
+                launcher.setAttribute('aria-label', `Chat with Support - ${messageCount} new messages`);
               }
 
-              // Update cart state
-              updateCartCount();
-              updateCartTotal();
-
-              // Announce removal to screen readers
-              announceToScreenReader(`${item.name} removed from cart`);
-
-              // Shift focus to close button for logical focus management
-              const closeButton = document.querySelector('.cart-close');
-              if (closeButton) {
-                  closeButton.focus();
-              }
+              // Remove animation after 2 seconds
+              setTimeout(() => {
+                badge.classList.remove('show');
+              }, 2000);
+            } else {
+              // Hide badge when chat is open
+              badge.hidden = true;
+            }
           }
+        }
+
+        // Announce persistent notification for screen readers
+        function announcePersistentNotification(sender) {
+          const notificationArea = document.getElementById('chat-notifications');
+          const chatWindow = document.getElementById('chat-window');
+
+          if (notificationArea && chatWindow.classList.contains('hidden')) {
+            const message = `New message from ${sender === 'agent' ? 'Customer Support' : 'you'}. Chat window is closed.`;
+            notificationArea.textContent = message;
+
+            // Clear notification after 3 seconds
+            setTimeout(() => {
+              notificationArea.textContent = '';
+            }, 3000);
+          }
+        }
+
+        // Clear notification badge
+        function clearNotificationBadge() {
+          const badge = document.getElementById('notification-badge');
+          const launcher = document.getElementById('chat-launcher');
+
+          if (badge) {
+            badge.hidden = true;
+            badge.classList.remove('show');
+          }
+
+          // Reset button's accessible name
+          if (launcher) {
+            launcher.removeAttribute('aria-label');
+          }
+        }
+      </script>
+      ```
+
+      **6. Focus Management:**
+      ```html
+      <!-- Chat popup with focus management -->
+      <div role="dialog"
+           aria-modal="true"
+           aria-labelledby="chat-heading"
+           class="chat-popup">
+        <div class="chat-header">
+          <h2 id="chat-heading">Chat Support</h2>
+          <button type="button"
+                  aria-label="Close chat"
+                  onclick="closeChat()">
+            ×
+          </button>
+        </div>
+
+        <div class="chat-content" tabindex="-1">
+          <!-- Chat messages and input -->
+        </div>
+      </div>
+
+      <script>
+        function openChat() {
+          const chatWindow = document.getElementById('chat-window');
+          const launcher = document.getElementById('chat-launcher');
+
+          chatWindow.hidden = false;
+          launcher.setAttribute('aria-expanded', 'true');
+
+          // Focus first focusable element in chat
+          const firstFocusable = chatWindow.querySelector('button, input, textarea');
+          if (firstFocusable) {
+            firstFocusable.focus();
+          }
+        }
+
+        function closeChat() {
+          const chatWindow = document.getElementById('chat-window');
+          const launcher = document.getElementById('chat-launcher');
+
+          chatWindow.hidden = true;
+          launcher.setAttribute('aria-expanded', 'false');
+
+          // Return focus to launcher
+          launcher.focus();
+        }
+      </script>
+      ```
+
+      **7. Session Timeout Management:**
+      ```html
+      <!-- Timeout warning -->
+      <div class="timeout-warning" hidden>
+        <p>This chat will end in <span id="timeout-countdown">20</span> seconds if you do not reply.</p>
+        <button type="button" onclick="extendSession()">Extend Session</button>
+      </div>
+
+      <!-- Timeout alert for screen readers -->
+      <div role="alert" aria-live="assertive" class="timeout-alert" hidden>
+        This chat will end in 20 seconds if you do not reply.
+      </div>
+
+      <script>
+        let sessionTimeout;
+        let warningTimeout;
+
+        function startSessionTimer() {
+          // Start 5-minute session timer
+          sessionTimeout = setTimeout(() => {
+            showTimeoutWarning();
+          }, 280000); // 4 minutes 40 seconds
+        }
+
+        function showTimeoutWarning() {
+          const warning = document.querySelector('.timeout-warning');
+          const countdown = document.getElementById('timeout-countdown');
+          const timeoutAlert = document.querySelector('.timeout-alert');
+
+          warning.hidden = false;
+          timeoutAlert.hidden = false;
+
+          // 20-second countdown
+          let timeLeft = 20;
+          const countdownInterval = setInterval(() => {
+            timeLeft--;
+            countdown.textContent = timeLeft;
+
+            if (timeLeft <= 0) {
+              clearInterval(countdownInterval);
+              endSession();
+            }
+          }, 1000);
+        }
+
+        function extendSession() {
+          // Set session as extended FIRST to prevent any race conditions
+          isSessionExtended = true;
+
+          const warning = document.querySelector('.timeout-warning');
+          const timeoutAlert = document.querySelector('.timeout-alert');
+
+          // Clear any existing warning timeout
+          if (warningTimeout) {
+            clearInterval(warningTimeout);
+            warningTimeout = null;
+          }
+
+          // Clear the main session timeout as well
+          if (sessionTimeout) {
+            clearTimeout(sessionTimeout);
+            sessionTimeout = null;
+          }
+
+          // Hide warning elements
+          if (warning) warning.hidden = true;
+          if (timeoutAlert) timeoutAlert.hidden = true;
+
+          // Start fresh session timer
+          startSessionTimer();
+        }
+
+        // Extend session on user interaction
+        function extendSessionOnInteraction() {
+          // Only extend if warning is currently showing
+          const warning = document.querySelector('.timeout-warning');
+          if (warning && !warning.hidden) {
+            extendSession();
+          } else {
+            // Just reset the session timer
+            clearTimeout(sessionTimeout);
+            clearInterval(warningTimeout); // Also clear any warning timeout that might be running
+            isSessionExtended = true; // Mark session as extended
+            startSessionTimer();
+          }
+        }
+
+        // Monitor input for activity
+        document.getElementById('message-input').addEventListener('input', () => {
+          // Reset timer on any input
+          clearTimeout(sessionTimeout);
+          startSessionTimer();
+        });
+
+        // Setup comprehensive user interaction monitoring
+        function setupUserInteractionListeners() {
+          const chatWindow = document.getElementById('chat-window');
+
+          // Add listeners for various user interactions
+          chatWindow.addEventListener('click', extendSessionOnInteraction);
+          chatWindow.addEventListener('keydown', extendSessionOnInteraction);
+          chatWindow.addEventListener('keypress', extendSessionOnInteraction);
+          chatWindow.addEventListener('input', extendSessionOnInteraction);
+          chatWindow.addEventListener('scroll', extendSessionOnInteraction);
+
+          // Also listen for focus events on interactive elements
+          const interactiveElements = chatWindow.querySelectorAll('button, input, textarea, [tabindex]:not([tabindex="-1"])');
+          interactiveElements.forEach(element => {
+            element.addEventListener('focus', extendSessionOnInteraction);
+          });
+        }
+      </script>
+      ```
+
+      **Note:** The timeout warning should appear with sufficient notice (minimum 30 seconds) and use a dedicated `role="alert"` element for screen reader announcements. This ensures important timeout information is properly communicated without interfering with chat functionality.
+
+      **8. User Interaction Monitoring:**
+      ```javascript
+      // Setup comprehensive user interaction monitoring
+      function setupUserInteractionListeners() {
+        const chatWindow = document.getElementById('chat-window');
+
+        // Add listeners for various user interactions
+        chatWindow.addEventListener('click', extendSessionOnInteraction);
+        chatWindow.addEventListener('keydown', extendSessionOnInteraction);
+        chatWindow.addEventListener('keypress', extendSessionOnInteraction);
+        chatWindow.addEventListener('input', extendSessionOnInteraction);
+        chatWindow.addEventListener('scroll', extendSessionOnInteraction);
+
+        // Also listen for focus events on interactive elements
+        const interactiveElements = chatWindow.querySelectorAll('button, input, textarea, [tabindex]:not([tabindex="-1"])');
+        interactiveElements.forEach(element => {
+          element.addEventListener('focus', extendSessionOnInteraction);
+        });
+      }
+      ```
+
+      **Note:** Chat sessions should extend on any user interaction, not just sent messages. This is crucial for assistive technology users who may have difficulty typing or need more time to compose messages. Monitor clicks, key presses, input changes, scrolling, and focus events to ensure the session remains active during user engagement.
+
+      **Important:** When extending sessions, ensure both the main session timeout and warning timeout are properly cleared to prevent race conditions where the session can end even after being extended.
+
+      **Session State Management:** Use a dedicated boolean flag (`isSessionExtended`) to track session extension state, rather than relying on DOM element visibility. This prevents race conditions and ensures reliable session management.
+
+      **Race Condition Prevention:** Set the session extension flag BEFORE clearing timeouts to prevent race conditions where the countdown might still call `endSession()` after the session has been extended.
+
+      **Countdown Safety:** Implement proper bounds checking to prevent negative countdown values and ensure the countdown stops immediately when the session is extended. Clear existing intervals before starting new ones to prevent multiple countdowns from running simultaneously.
+
+      **Session Ending Protection:** Implement multiple safety checks in the `endSession()` function to prevent premature session termination. Check session extension status, session activity state, and warning visibility before allowing the session to end.
+
+      **Visual Design Consistency:** Follow the established design pattern used across all accessibility example files, including consistent container styling, typography, color scheme, and layout structure for a cohesive user experience.
+
+      **9. Responsive Chat Design:**
+      ```css
+      /* Responsive chat window */
+      .chat-window {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 350px;
+        height: 500px;
+        max-width: calc(100vw - 40px);
+        max-height: calc(100vh - 40px);
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Mobile responsive adjustments */
+      @media screen and (max-width: 480px) {
+        .chat-window {
+          bottom: 0;
+          right: 0;
+          width: 100%;
+          height: 100vh;
+          max-width: none;
+          max-height: none;
+          border-radius: 0;
+        }
+      }
+
+      /* Ensure minimum width compliance */
+      @media screen and (max-width: 320px) {
+        .chat-window {
+          width: 320px;
+          min-width: 320px;
+        }
+      }
+      ```
+
+      **10. Screen Reader Optimized Messages:**
+      ```html
+      <!-- Message with proper structure -->
+      <div class="message agent" role="article">
+        <div class="message-content">
+          <span class="sr-only">Customer Support: </span>
+          Hi, how can I help you today?
+        </div>
+        <time datetime="2024-01-15T10:30:00Z" class="timestamp">
+          <span class="sr-only">Message sent at </span>
+          10:30 AM
+        </time>
+      </div>
+
+      <!-- Typing indicator -->
+      <div class="typing-indicator" aria-live="polite">
+        <span class="visually-hidden">Customer Support is typing</span>
+        <span class="typing-dots">...</span>
+      </div>
+      ```
+
+      **11. Proper Focus Trap Implementation:**
+      ```javascript
+      // Focus trap variables
+      let focusableElements = [];
+      let firstFocusableElement = null;
+      let lastFocusableElement = null;
+
+      // Setup focus trap
+      function setupFocusTrap() {
+        const chatWindow = document.getElementById('chat-window');
+
+        // Get all focusable elements within the chat window
+        // Include all interactive elements that can receive focus
+        focusableElements = chatWindow.querySelectorAll(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"]), [role="button"]:not([disabled])'
+        );
+
+        if (focusableElements.length > 0) {
+          firstFocusableElement = focusableElements[0];
+          lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+          // Add focus trap event listener
+          chatWindow.addEventListener('keydown', trapFocus);
+        }
+      }
+
+      // Focus trap functionality
+      function trapFocus(event) {
+        if (event.key === 'Tab') {
+          // Check if focus is currently within the chat window
+          const chatWindow = document.getElementById('chat-window');
+          const isFocusInChat = chatWindow.contains(document.activeElement);
+
+          if (event.shiftKey) {
+            // Shift + Tab: move backwards
+            if (document.activeElement === firstFocusableElement) {
+              event.preventDefault();
+              lastFocusableElement.focus();
+            }
+          } else {
+            // Tab: move forwards
+            if (document.activeElement === lastFocusableElement) {
+              event.preventDefault();
+              firstFocusableElement.focus();
+            }
+          }
+
+          // Additional safety check: if focus somehow escapes, bring it back
+          if (!isFocusInChat && focusableElements.length > 0) {
+            event.preventDefault();
+            firstFocusableElement.focus();
+          }
+        }
+      }
+
+      // Clean up focus trap when closing chat
+      function closeChat() {
+        const chatWindow = document.getElementById('chat-window');
+        const launcher = document.getElementById('chat-launcher');
+
+        chatWindow.hidden = true;
+        launcher.setAttribute('aria-expanded', 'false');
+
+        // Remove focus trap
+        chatWindow.removeEventListener('keydown', trapFocus);
+
+        // Return focus to launcher
+        launcher.focus();
       }
       ```
 
       **JavaScript Considerations:**
-      - Implement proper event listeners for Escape key
-      - Manage body scroll when cart drawer is open
-      - Handle focus restoration on cart drawer close
-      - Implement focus trapping within cart drawer
-      - Store reference to activator for focus return
-      - Handle dynamic cart content updates
-      - Ensure proper announcement of cart state changes
-      - **Quantity Management:** Update only specific DOM elements instead of re-rendering entire cart
-      - **Focus Management:** Shift focus to close button when removing items
-      - **Performance:** Avoid unnecessary DOM manipulation to maintain accessibility features
-
-      **Quantity Controls and Item Management:**
-      - **aria-live="polite":** Add to all quantity input fields for screen reader announcements
-      - **Focus Preservation:** Maintain focus on quantity controls during updates to prevent keyboard navigation issues
-      - **Value Announcements:** Screen readers should announce new quantity values when inputs change
-      - **Item Removal Focus:** Shift focus to close button after removing items for logical navigation flow
-      - **Dynamic Updates:** Avoid full cart re-rendering to preserve focus and improve performance
-
-      **Ecommerce-Specific Considerations:**
-      - Announce cart item count changes
-      - Provide clear product information in cart items
-      - Ensure checkout button is prominently accessible
-      - Handle empty cart states appropriately
-      - Provide clear pricing and total information
-      - Support quantity adjustments with proper labeling
-      - Handle cart item removal with confirmation
+      - Implement proper focus management for popup windows
+      - Handle keyboard navigation (Tab, Enter, Escape)
+      - Manage session timeouts with user notifications
+      - Provide pause/stop controls for auto-updating content
+      - Update page titles for new message notifications
+      - Monitor input activity for session extension
+      - Handle focus restoration when chat closes
+      - Implement proper ARIA live regions for status updates
 
       **Accessibility Notes:**
-      - Cart drawers should not contain critical page navigation
-      - Ensure cart content is fully accessible to screen readers
-      - Test with screen readers to ensure proper announcement
-      - Consider using aria-live regions for dynamic cart updates
-      - Provide clear error messages for cart operations
-      - Ensure cart drawer works with keyboard-only navigation
-      - Test focus management with multiple cart activators
+      - Use role="log" for message history with aria-labelledby
+      - Provide multi-sensory notifications for new messages
+      - Maintain chronological message order in DOM
+      - Ensure all interactive elements have accessible names
+      - Test with screen readers for proper announcement
+      - Consider user preferences for notification levels
+      - Provide alternatives to chat (phone, email, etc.)
+      - Test keyboard navigation thoroughly
+      - Validate focus management in popup windows
+      - Use div elements for chat messages to reduce navigation noise (avoid role="article")
+      - Chat messages are conversational content, not standalone articles
+
+      **Testing Requirements:**
+      - Test with screen readers (NVDA, JAWS, VoiceOver)
+      - Verify keyboard navigation works completely
+      - Test focus management in popup windows
+      - Validate message reading order
+      - Test timeout notifications and extensions
+      - Verify responsive design on small screens
+      - Test with different notification preferences
+      - Validate ARIA live region announcements
+      - Test focus restoration when chat closes
+      - Verify contrast ratios meet WCAG requirements
+      - **Test focus trapping thoroughly:** Verify Tab and Shift+Tab navigation stays within chat window
+      - **Test focus escape scenarios:** Ensure focus cannot accidentally leave the chat window
+      - **Test focus restoration:** Verify focus returns to launcher when chat closes
+      - **Test all interactive elements:** Ensure all buttons, inputs, and focusable elements are included in focus trap
+
+      **Common Mistakes to Avoid:**
+      - Chat messages in wrong DOM order
+      - Notifications relying only on sound
+      - Missing keyboard support for chat functions
+      - Poor focus management in popup windows
+      - Missing author identification in messages
+      - Chat windows not responsive to small screens
+      - Missing timeout warnings and extensions
+      - Auto-updating content without pause controls
+      - Focus becoming obscured behind chat windows
+      - Missing accessible names for chat controls
+      - Chat buttons without proper roles
+      - Missing expandable state management
+      - Insufficient contrast for message text
+      - Chat icons without alt text
+      - Missing status message roles
+      - Missing aria-haspopup="dialog" on chat launcher
+      - Missing focus trapping in chat popup windows
+      - Poor focus management when opening/closing chat
+      - **Incomplete focus trap implementation:** Focus trap that only works in one direction (Tab vs Shift+Tab)
+      - **Missing focusable elements:** Focus trap that doesn't include all interactive elements
+      - **Focus escape vulnerabilities:** Focus trap without safety checks to prevent focus from leaving chat window
+      - **Incorrect ARIA attributes for modal dialogs:** Using aria-controls or aria-expanded with modal dialog pattern
+      - **Missing notification context:** Not including unread message count in button's accessible name
+      - **Decorative images with alt text:** Including unnecessary alt text for decorative icons in buttons
+      - **Limited session extension:** Only extending chat session on sent messages instead of all user interactions
+      - **Missing user interaction monitoring:** Not monitoring clicks, key presses, scrolling, and focus events for session extension
 
 metadata:
   priority: high
   version: 1.0
 </rule>
+description:
+globs:
+alwaysApply: false
+---
 
 ---
 > Source: [Shopify/horizon](https://github.com/Shopify/horizon) — distributed by [TomeVault](https://tomevault.io).
