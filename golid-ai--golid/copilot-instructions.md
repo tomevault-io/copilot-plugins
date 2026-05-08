@@ -1,140 +1,84 @@
-## frontend-components
+## frontend-forms
 
-> Patterns for creating and maintaining SolidJS components (atoms, molecules, organisms)
+> Form submission and error display patterns — toast vs Alert, batch() in try/catch, field-level errors
 
 
-# Component Creation Patterns
+# Frontend Forms & Error Display
 
-Follow the established patterns from `Button.tsx` (atom) and `Modal.tsx` (molecule).
+> **Thesis:** Display page-load errors in Switch/Match states, submission errors
+> via toast, and field-level errors inline. Never use try/catch/finally with signals.
 
-## Atom vs Molecule vs Organism
+## Error Display Decision Tree
 
-- **Atom**: No dependencies on other components. Self-contained. (Button, Input, Chip, Avatar, StarRating)
-- **Molecule**: Composes atoms. (Card, Modal, Tabs, Dropzone, Select, DestructiveModal)
-- **Organism**: Composes molecules + atoms into a page section. (Navbar, Sidebar, Footer)
+- API call fails during **page load** → `Switch/Match` error state with `<Alert>` component
+- API call fails during **form submit** → `toast.error()` with message
+- **Field-level validation** errors from backend → inline error messages under each input
+- **Network/auth errors** → handled by `api.ts` automatically (401 refresh, etc.)
 
-## File Structure
+## Form Submission Pattern
 
-```
-components/
-├── atoms/
-│   └── NewComponent/
-│       └── NewComponent.tsx
-├── molecules/
-│   └── NewComponent/
-│       └── NewComponent.tsx
-├── organisms/
-│   └── NewComponent.tsx
-└── index.ts                    ← MUST export here
-```
-
-## Component Template
+Uses `batch()` in both `try` and `catch`, never `finally`.
 
 ```tsx
-import { type Component, splitProps, Show } from "solid-js";
-import { cn } from "~/lib/utils";
+const [saving, setSaving] = createSignal(false);
+const [fieldErrors, setFieldErrors] = createSignal<Record<string, string>>({});
 
-export type NewComponentSize = "sm" | "md" | "lg";
+const handleSubmit = async () => {
+  setSaving(true);
+  setFieldErrors({});
+  try {
+    await api.create(formData);
+    if (!alive) return;
+    batch(() => {
+      setSaving(false);
+      toast.success("Created successfully");
+    });
+    onClose(); // or refetch
+  } catch (err) {
+    if (!alive) return;
+    const apiErr = err as {
+      message?: string;
+      details?: Record<string, string>;
+    };
+    batch(() => {
+      setSaving(false);
+      if (apiErr.details) {
+        setFieldErrors(apiErr.details);
+      } else {
+        toast.error(getErrorMessage(err, "Failed to create"));
+      }
+    });
+  }
+  // NO finally — setSaving(false) is in both try and catch, wrapped in batch()
+};
+```
 
-export interface NewComponentProps {
-  size?: NewComponentSize;
-  class?: string;
-  children?: JSX.Element;
+## Why No `finally`
+
+```tsx
+// BAD — finally runs unbatched after catch, creating intermediate state
+try { ... }
+catch { batch(() => { setError(msg); setSaving(false); }); }
+finally { setSaving(false); } // runs AFTER catch, unbatched — error + saving both true briefly
+
+// GOOD — setSaving(false) inside both branches, always in batch()
+try {
+  if (!alive) return;
+  batch(() => { setSaving(false); toast.success("Done"); });
+} catch {
+  if (!alive) return;
+  batch(() => { setSaving(false); toast.error("Failed"); });
 }
-
-const sizeStyles: Record<NewComponentSize, string> = {
-  sm: "text-sm px-2 py-1",
-  md: "text-base px-3 py-2",
-  lg: "text-lg px-4 py-3",
-};
-
-export const NewComponent: Component<NewComponentProps> = (props) => {
-  const [local, rest] = splitProps(props, ["size", "class", "children"]);
-  const size = () => local.size ?? "md";
-
-  return (
-    <div class={cn(sizeStyles[size()], local.class)} {...rest}>
-      {local.children}
-    </div>
-  );
-};
-
-export default NewComponent;
 ```
 
-## Key Rules
+## Rules
 
-### Styling
-- Use **CSS variables** from `styles/theme.css` for colors — never hardcode hex values
-- Use `cn()` (from `~/lib/utils`) for conditional class merging
-- Support dark mode automatically via CSS variables (`text-foreground`, `bg-background`, etc.)
-- Size variants (`sm`, `md`, `lg`) when the component has variable sizing
-
-### Accessibility
-- Interactive elements need `aria-label` or visible label
-- Keyboard navigation: `onKeyDown` for Enter/Space on custom buttons
-- Focus management: `tabindex`, `focus-visible:` styles
-- Screen reader text: `<span class="sr-only">` for icon-only buttons
-
-### Props
-- Always export the props interface
-- Use `splitProps` to separate local props from spread props
-- Optional props have sensible defaults
-- `class?: string` for style overrides
-
-### Barrel Export
-**Always add to `frontend/src/components/index.ts`:**
-
-```tsx
-export { NewComponent, type NewComponentProps } from "./atoms/NewComponent/NewComponent";
-```
-
-### Lazy Loading (Browser-Only Components)
-
-Components that use browser APIs (Three.js, WebRTC, canvas) must be lazy-loaded with `<Suspense>`:
-
-```tsx
-// In the CONSUMER file (e.g., a section or page):
-import { lazy, Suspense } from "solid-js";
-const Canvas3D = lazy(() => import("~/components/molecules/Canvas3D/Canvas3D")
-  .then(m => ({ default: m.Canvas3D })));
-
-// Usage — Suspense is REQUIRED or the component silently renders nothing:
-<Suspense>
-  <Canvas3D />
-</Suspense>
-```
-
-Inside the lazy component, if `onMount` appends DOM nodes (e.g., `containerRef.appendChild(canvas)`), the return JSX **must include a static wrapper div** — not just a `Switch/Match`. Without a static element, `onMount` may not fire:
-
-```tsx
-// GOOD — static div always in DOM, conditional content inside
-<div ref={containerRef} class="relative w-full h-full">
-  <div class="absolute inset-0 pointer-events-none"
-    style={{ display: loading() || error() ? undefined : "none" }}>
-    <Switch>
-      <Match when={loading()}><Spinner /></Match>
-      <Match when={error()}><ErrorText /></Match>
-    </Switch>
-  </div>
-</div>
-
-// BAD — Switch as only child can prevent onMount from firing
-<div ref={containerRef}>
-  <Switch>
-    <Match when={loading()}>...</Match>
-  </Switch>
-</div>
-```
-
-Never call `onCleanup()` after an `await` — use mutable refs cleaned up in the synchronous `onCleanup` registered during component creation.
-
-### Do NOT
-- Import from other atoms inside an atom (that makes it a molecule)
-- Use `createSignal` for internal state unless the component is interactive (forms, toggles)
-- Use inline styles — use Tailwind classes
-- Create a raw HTML element when a component exists (`<select>` → use `<Select>`, `confirm()` → use `<DestructiveModal>`)
-- Use `lazy()` without a `<Suspense>` boundary — it silently renders nothing
+- `toast.success()` for mutations, never for reads
+- `toast.error()` for submission failures, `<Alert>` for page-load failures
+- Field-level errors: set a `fieldErrors` signal from `apiErr.details`, clear on re-submit, render inline under each `<Input>`
+- Submit button: `<Button loading={saving()} disabled={saving()}>Save</Button>`
+- `setSaving(false)` goes inside both `try` and `catch`, wrapped in `batch()` — never in `finally`
+- Form reset after successful submit: either close modal or clear signals via `batch()`
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
