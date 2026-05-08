@@ -1,0 +1,300 @@
+## claw-pilot
+
+> This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this project is
+
+`claw-pilot` v0.81.0 — **CLI + web dashboard** that orchestrates multiple claw-runtime agent instances on a Linux or macOS server. It handles discovery, provisioning, lifecycle management, permanent cross-channel sessions, and extensible middleware pipeline.
+
+All instances use the **claw-runtime** engine — a native Node.js engine (`src/runtime/`), managed via PID file daemon.
+
+Not published on npm — installed from source only (`/opt/claw-pilot`).
+GitHub: https://github.com/swoelffel/claw-pilot
+
+## Tech stack
+
+- **Runtime**: Node.js >= 22.12.0, ESM, pnpm
+- **CLI**: Commander.js + @inquirer/prompts
+- **HTTP/WS**: Hono + ws
+- **DB**: better-sqlite3 (SQLite, WAL mode, schema v37)
+- **UI**: Lit web components + Vite
+- **Build**: tsdown (CLI) + vite (UI)
+- **Tests**: Vitest
+- **Lint**: oxlint
+- **LLM SDK**: Vercel AI SDK `ai` v6.x
+
+## Language standard
+
+All documentation and code comments must be written in **English**.
+Commit messages follow conventional commits in English.
+Exception: DB migration context and UI localization strings may reference French for historical reasons.
+
+## Contribution workflow
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor guide. The three non-negotiable rules:
+
+1. **Branch off `develop`, PR against `develop`** — never `main`. `main` is reserved for release PRs.
+2. **Never bump `package.json` version** in a feature PR — reserved for the release PR (`develop → main`).
+3. **Never skip lefthook hooks** (`--no-verify`) — CI enforces the same checks and will reject the PR.
+
+## Key commands
+
+```sh
+pnpm build:cli     # Build CLI only (dist/)
+pnpm build         # Build CLI + UI
+pnpm build:safe    # typecheck:all then build
+pnpm test:run      # Run tests once
+pnpm test:e2e      # Run e2e tests (real HTTP server, in-memory DB)
+pnpm typecheck     # tsc --noEmit
+pnpm typecheck:all # tsc --noEmit (backend + UI)
+pnpm lint          # oxlint src/
+pnpm lint:all      # oxlint src/ + ui/src/
+pnpm format        # prettier --write
+pnpm format:check  # prettier --check (CI mode)
+pnpm spellcheck    # cspell (en + fr dictionaries)
+pnpm knip          # Dead code detection
+pnpm check:circular # Circular dependency check via madge
+```
+
+Run a single test file or case:
+```sh
+pnpm vitest run src/dashboard/__tests__/routes.test.ts
+pnpm vitest run -t "POST /api/instances/:slug/start"
+```
+
+Pre-commit hooks (lefthook): format:check + lint:all + typecheck:all.
+Pre-push hooks: test:run + spellcheck + no-silent-catches gate. Commits must follow conventional commits (commitlint).
+
+## Architecture
+
+```
+src/
+  index.ts          # CLI entry point (Commander root)
+  commands/         # CLI commands — thin wrappers over core/
+  core/             # All business logic
+  dashboard/        # HTTP server (Hono) + WebSocket monitor
+  db/               # SQLite schema + migrations (schema.ts) — current version: 37
+  lib/              # Shared utilities (logger, constants, errors, platform, poll, xdg, shell...)
+  runtime/          # claw-runtime engine (bus, provider, session, tool, agent, plugin, middleware, mcp, channel, engine)
+  server/           # ServerConnection interface + LocalConnection impl
+  wizard/           # Interactive creation wizard (@inquirer/prompts)
+ui/
+  src/              # Frontend — Lit web components, built to dist/ui/
+    components/     # Reusable UI components (cards, dialogs, status badges...)
+    services/       # Auth state, WS monitor, router, update poller (extracted from app.ts)
+    localization/   # i18n via @lit/localize (6 languages)
+    styles/         # Design tokens, shared CSS
+templates/          # Workspace bootstrap files + systemd/nginx templates
+docs/architecture/  # Functional architecture (split into focused files) — read before major changes
+docs/main-doc.md    # Redirect stub → architecture/README.md
+```
+
+## Data model (SQLite `~/.claw-pilot/registry.db`)
+
+| Table | Role |
+|---|---|
+| `servers` | Physical servers (V1: always 1 local row) |
+| `instances` | Instances — slug, port, state, config_path, default_named_key_id |
+| `agents` | Agents per instance or blueprint (named_key_id override) |
+| `ports` | Port reservation registry (anti-conflict) |
+| `config` | Global key-value config |
+| `events` | Audit log per instance |
+| `agent_files` | Workspace files per agent |
+| `agent_links` | Agent links (a2a / spawn) |
+| `blueprints` | Reusable team templates |
+| `agent_blueprints` | Standalone reusable agent templates (id TEXT PK, config_json, category) |
+| `agent_blueprint_files` | Workspace files per agent blueprint |
+| `named_api_keys` | Encrypted API keys (AES-256-GCM), global scope |
+| `rt_sessions` | claw-runtime sessions — permanent (one per agent, cross-channel) or ephemeral. Key: `<slug>:<agentId>` (permanent) or `<slug>:<agentId>:<channel>:<peerId>` (ephemeral) |
+| `rt_messages` | Messages per session |
+| `rt_parts` | Message parts (text, tool-call, tool-result) |
+| `rt_events` | Runtime events (bus events persisted for dashboard) |
+| `rt_task_activities` | Task activity timeline — chronological log of all task mutations + comments |
+| `rt_flow_definitions` | Flow definitions — name, steps_json (DAG), trigger_json, enabled |
+| `rt_flow_runs` | Flow run records — status (pending/running/completed/failed/cancelled) |
+| `rt_flow_step_runs` | Step execution — session_id, sitrep_json, result_text, tokens, cost |
+| `search_index` | FTS5 contentless virtual table for global cross-entity search |
+| `search_index_map` | Shadow table mapping (entity_type, entity_id) to FTS5 rowid + original values |
+| `rt_permissions` | Persisted permission rules (allow/deny/ask per scope+pattern) |
+| `rt_auth_profiles` | API key rotation per provider (priority, cooldown, failure tracking) |
+| `rt_pairing_codes` | Device pairing codes (legacy, table retained for additive-only policy) |
+| `user_profiles` | User preferences (language, timezone, style, custom instructions) |
+| `user_model_aliases` | Per-user model aliases |
+| `users` | Dashboard auth (admin/operator/viewer roles) |
+| `sessions` | Server-side dashboard sessions with TTL |
+| `notifications` | Persistent notification inbox — severity, dedup_key, is_read, auto-prune 30 days |
+
+Schema lives in `src/db/schema.ts`. Migrations run on DB open. **Always additive** — never DROP COLUMN/TABLE.
+
+## Code style
+
+### Formatting (Prettier-enforced)
+- Double quotes, always semicolons, trailing commas everywhere
+- Print width: 100, tab width: 2, arrow parens: always
+
+### Imports
+- **Order**: Node builtins (`node:` prefix) → third-party → relative
+- **Named exports only** — no default exports in project code
+- **`import type`** for type-only imports: `import type { Foo } from "./foo.js"`
+- **`.js` extensions** on all relative imports (ESM NodeNext requirement)
+- Namespace imports (`import * as`) only for Node builtins
+
+### Naming conventions
+| Element | Convention | Example |
+|---|---|---|
+| Files | `kebab-case.ts` | `prompt-loop.ts`, `tool-set-builder.ts` |
+| Private files | `_kebab-case.ts` | `_context.ts`, `_helpers.ts` |
+| Variables/functions | `camelCase` | `portAllocator`, `runPromptLoop()` |
+| Private members | `_camelCase` | `_authenticated`, `_handleWsMessage()` |
+| Classes | `PascalCase` | `PortAllocator`, `CliError` |
+| Types/interfaces | `PascalCase` | `InstanceSlug`, `RouteDeps` |
+| Constants | `UPPER_SNAKE_CASE` | `COMPACTION_THRESHOLD`, `SCHEMA_SQL` |
+| DB columns | `snake_case` | `instance_slug`, `created_at` |
+| Lit elements | `cp-` prefix | `cp-instance-card`, `cp-app` |
+
+### Types
+- **`interface`** for object shapes (data, configs, contracts)
+- **`type`** for unions, aliases, template literals
+- **Explicit return types** on all exported functions
+- **Avoid `any`** — suppress with `// eslint-disable-next-line` when unavoidable
+- **`as` assertions** only for JSON.parse results and DB query rows
+
+### Error handling
+- Custom hierarchy: `ClawPilotError` (with `code` string) → specific errors
+- `CliError` for CLI exit codes
+- Route handlers: `try/catch` with `instanceof` checks, return `apiError(c, status, code, msg)`
+- Resource cleanup: `try/finally` or `withContext()` pattern
+- **No silent catches** — every `catch` must log via `logger.debug/warn/error` with `{ error: String(err) }`. Enforced by pre-push hook.
+
+### Comments
+- JSDoc `/** */` on exported functions and types
+- Section dividers: `// ---` banners for major sections
+- Inline comments explain "why", not "what"
+- Numbered step comments in long functions: `// 1. Create user message`
+
+### Async patterns
+- `async/await` everywhere — no raw `.then()` chains
+- Fire-and-forget: prefix with `void` keyword
+- `AbortSignal`/`AbortController` for cancellation
+
+### File organization
+- Co-located tests in `__tests__/` directories next to source
+- E2E tests in `src/e2e/` with helpers in `src/e2e/helpers/`
+- Route modules export `register*Routes(app, deps)` functions
+- Dependency injection via options objects (`RouteDeps`, `PromptLoopInput`, `CommandContext`)
+- No barrel `index.ts` files except for CLI entry and a few subsystem entry points
+
+### Route input validation
+All mutation routes (POST/PATCH/PUT/DELETE with body) use Zod schemas for validation:
+```typescript
+const CreateFooSchema = z.object({ ... });
+const parsed = CreateFooSchema.safeParse(body);
+if (!parsed.success) return apiError(c, 400, "INVALID_BODY", parsed.error.message);
+```
+Schemas are co-located in the route file or in a `*-schemas.ts` sibling.
+
+## Important conventions
+
+### withContext pattern
+Every command wraps its logic in `withContext()` (`src/commands/_context.ts`):
+- Opens DB + registry
+- Resolves `XDG_RUNTIME_DIR`
+- Guarantees DB close in finally block
+
+Never open the DB manually in a command — always use this pattern.
+
+**Exception**: `runtime.ts` commands open the DB directly (no `withContext`) because they manage their own lifecycle.
+
+### ServerConnection abstraction
+All shell/filesystem ops go through `ServerConnection` (`src/server/connection.ts`). Current impl: `LocalConnection`. SSH impl is planned — keep this interface intact.
+
+### claw-runtime PID helpers (src/lib/platform.ts)
+```typescript
+getRuntimePidPath(stateDir)   // <stateDir>/runtime.pid
+getRuntimePid(stateDir)       // PID number or null (checks process.kill(pid, 0))
+isRuntimeRunning(stateDir)    // boolean
+```
+
+### Port allocation
+Default range: **18789–18838** (50 ports, 10 instances at min step 5). Dashboard: **19000**. Always allocate via `src/core/port-allocator.ts`.
+
+### Secrets
+Dashboard tokens are auto-generated (`src/core/secrets.ts`). API keys are stored encrypted in `named_api_keys` (AES-256-GCM via `MASTER_ENCRYPTION_KEY`). Instance `.env` files only contain gateway token + optional Telegram bot token. Never commit secrets.
+
+### Vercel AI SDK v6
+Breaking changes vs v5:
+- `CoreMessage` → `ModelMessage`
+- `maxSteps` → `stopWhen: stepCountIs(n)`
+- `inputTokens`/`outputTokens` are objects: `{ total, noCache, cacheRead, cacheWrite }` / `{ total, text, reasoning }`
+- `finishReason` is an object: `{ unified, raw }` (not a string)
+- `zodSchema()` instead of `zod-to-json-schema`
+- `resolveModel(providerId, modelId)` — 2 separate args, NOT `"provider/model"`
+
+### exactOptionalPropertyTypes
+Use conditional spread for optional fields: `...(val !== undefined ? { key: val } : {})`
+
+### RouteDeps and Monitor
+`RouteDeps` (`src/dashboard/route-deps.ts`) is passed to every route module. It includes `monitor: Monitor`. Tests that construct a `RouteDeps` stub must include `monitor: { setTransitioning: () => {}, clearTransitioning: () => {} } as unknown as RouteDeps["monitor"]` or any compatible stub.
+
+### Server-driven instance transitioning
+STARTING/STOPPING state on instance cards is tracked in `Monitor._transitioning` (in-memory `Map<slug, "starting"|"stopping">`), **not** in the DB (which only holds `running|stopped|error|unknown`). Lifecycle routes call `monitor.setTransitioning(slug, state)` before the operation and `monitor.clearTransitioning(slug)` in `finally`. `Monitor._broadcastNow()` sends an immediate `health_update` WS broadcast including `transitioning` in the payload. The UI reads `instance.transitioning` from that broadcast.
+
+### Permanent sessions (PLAN-16)
+- Primary agents (`kind: "primary"`) get a single permanent session shared across all channels (Telegram, web, CLI)
+- Session key format: `<slug>:<agentId>` — no peerId, no channel in the key
+- Use `getOrCreatePermanentSession(db, { instanceSlug, agentId })` — never pass peerId for permanent keys
+- Subagent sessions remain ephemeral, scoped by `parentSessionId`
+- `buildPermanentSessionKey(instanceSlug, agentId)` takes exactly 2 args (no peerId)
+
+### ClawRuntime daemon
+- Constructor: `new ClawRuntime(config, db, slug, workDir?)` — 4th arg is `stateDir` for workspace file loading
+- Without `workDir`, workspace files (SOUL.md, IDENTITY.md, etc.) are NOT loaded in the system prompt
+- The daemon command (`runtime start --daemon`) passes `stateDir` as `workDir`
+
+### Agent defaults (defaults.ts)
+- `BUILD_AGENT` and `PLAN_AGENT` have NO inline `prompt` — they use workspace files (SOUL.md, IDENTITY.md) or `DEFAULT_INSTRUCTIONS` as fallback
+- Internal agents (`COMPACTION_AGENT`, `TITLE_AGENT`, `SUMMARY_AGENT`, `EXPLORE_AGENT`, `GENERAL_AGENT`) keep their inline prompts (they are not user-configurable)
+
+## Test coverage
+
+~2151 tests passing, ~62% line coverage (+ ~100 e2e). Coverage thresholds enforced in `vitest.config.ts` (lines 61%, stmts 60%, funcs 63%, branches 53%). Tests are under `src/**/__tests__/`. Run with `pnpm test:run` before submitting changes.
+
+## UI development
+
+The dashboard UI uses **Lit** web components with **@lit/localize** for i18n (6 languages).
+Built by Vite into `dist/ui/`, served by the Hono dashboard server on port 19000.
+
+Reference docs:
+
+| Document | Content |
+|----------|---------|
+| `docs/architecture/` | Functional architecture (split into focused files) |
+| `docs/sse-architecture.md` | Real-time streaming architecture (SSE + WS) |
+| `docs/ux-design.md` | UX index — global tokens, routing, screen/component map |
+| `docs/ux-screens/` | Individual screen docs (one file per screen) |
+| `docs/ux-components/` | Individual component and dialog docs |
+| `docs/design-rules.md` | Design system, anti-patterns, delivery checklist |
+| `docs/i18n.md` | i18n architecture, adding languages/features |
+| `docs/registry-db.md` | SQLite schema reference (all tables, columns, migrations) |
+| `docs/runbook-deploy.md` | Deployment workflow, CI/CD validation |
+
+## What NOT to do
+
+- Do not modify `src/server/connection.ts` interface without updating `LocalConnection` and all callers
+- Do not hardcode paths — use `src/lib/platform.ts` and `src/lib/constants.ts`
+- Do not add new DB tables without a corresponding migration in `src/db/schema.ts`
+- Do not use `"provider/model"` string format with `resolveModel()` — pass 2 separate args
+- Do not call `createBus()` — use `getBus(slug)` and `disposeBus(slug)`
+- Do not import from `"zod/v4"` — use `from "zod"` everywhere (standardized on Zod v4 main entrypoint)
+- Do not use `window.__CP_TOKEN__` — use `getToken()` / `setToken()` / `clearToken()` from `ui/src/services/auth-state.ts`
+- Do not add direct `readFileSync` calls in workspace hot paths — use `readWorkspaceFileCached()` from `src/runtime/session/workspace-cache.ts`
+- Do not write SQL aggregations inline in route handlers — add methods to the appropriate repository in `src/core/repositories/`
+- Do not add memory system reads without going through `readWorkspaceFileCached()` — the memory index (`memory-index.db`) is rebuilt from workspace files via FTS5
+
+---
+> Source: [swoelffel/claw-pilot](https://github.com/swoelffel/claw-pilot) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-04-24 -->
