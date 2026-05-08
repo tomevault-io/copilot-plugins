@@ -1,0 +1,9 @@
+{
+  "name": "reichenbach--iwork-mcp",
+  "displayName": "iwork_mcp",
+  "description": "MCP server for Apple iWork automation \u2014 113 tools for Numbers, Pages, and Keynote. Template discovery, Creator Studio AI tools, compound batch operations. One line to install.",
+  "version": "1.0.0",
+  "author": "reichenbach",
+  "homepage": "https://github.com/reichenbach/iwork_mcp",
+  "skills": []
+}
