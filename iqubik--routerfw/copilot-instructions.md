@@ -1,33 +1,43 @@
-## docker
+## file-header
 
-> Docker and Docker Compose conventions
+> File header convention — every builder-owned script must start with a file path comment
 
 
-# Docker Configuration
+# File Header Convention
 
-## Compose Files
+Every file that belongs to the routerFW build system must have a **file path comment** near the top.
 
-- `system/docker-compose.yaml` — Image Builder (2 services: modern + legacy)
-- `system/docker-compose-src.yaml` — Source Builder (2 services: modern + legacy)
+## Format by file type
 
-Services are selected by `_Builder.sh`/`_Builder.bat` based on the ImageBuilder URL version detection.
+| File type | Header format | Position |
+|---|---|---|
+| `.sh` | `# file: relative/path/to/file.sh` | line 2, after `#!/bin/bash` or `#!/bin/sh` |
+| `.bat` | `rem file: relative\path\to\file.bat` | line 2, after `@echo off` |
+| `.ps1` | `# file: relative/path/to/file.ps1` | line 1, or inside `<# ... #>` block |
+| `.env` | `# file: relative/path/to/file.env` | line 1 |
+| `.yaml` | `# file: relative/path/to/file.yaml` | line 1 |
 
-## Volume Mounts Pattern
+## Rules
 
-All compose files mount host directories relative to project root:
-- `../profiles:/profiles` — profile configs
-- `../${HOST_PKGS_DIR}:/input_packages` — custom .ipk packages
-- `../${HOST_FILES_DIR}:/overlay_files` — file overlay
-- `../firmware_output:/output` — build output
+- Path is **relative to repository root** (forward slashes on all platforms)
+- No version suffix required (unlike ib_builder.sh / src_builder.sh which carry `v1.x`)
+- Do NOT add a file header to: generated output, user profile `.conf` files, `firmware_output/`
 
-Environment variables `CONF_FILE`, `HOST_OUTPUT_DIR` are passed from the host builder script.
+## Examples
 
-## Dockerfiles
+```bash
+#!/bin/bash
+# file: system/create_profile.sh
+```
 
-- Modern images use Ubuntu 22.04/24.04
-- Legacy images use Ubuntu 18.04 with `old-releases.ubuntu.com` mirrors
-- Source Builder creates user `build` (UID 1000) to avoid root compilation
-- All images install minimal build dependencies only
+```batch
+@echo off
+rem file: _Builder.bat
+```
+
+```
+# file: system/lang/ru.env
+```
 
 ---
 > Source: [iqubik/routerFW](https://github.com/iqubik/routerFW) — distributed by [TomeVault](https://tomevault.io).
