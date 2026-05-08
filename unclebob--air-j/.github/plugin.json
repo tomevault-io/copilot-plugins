@@ -1,0 +1,9 @@
+{
+  "name": "unclebob--air-j",
+  "displayName": "AIR-J",
+  "description": "A simple language for AIs to use and humans to ignore.  This version is JVM based.",
+  "version": "1.0.0",
+  "author": "unclebob",
+  "homepage": "https://github.com/unclebob/AIR-J",
+  "skills": []
+}
