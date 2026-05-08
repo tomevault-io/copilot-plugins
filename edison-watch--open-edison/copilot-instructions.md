@@ -1,41 +1,13 @@
-## typing
+## ui-implementation-rules
 
-> Modern Python typing for Open Edison
+> Implementing designs and building UI
 
-In Python 3.12+ (which Open Edison uses), use built-in collection types for type annotations.
 
-Use `list`, `dict`, `tuple` directly instead of importing from `typing`.
+# UI Implementation Rules
 
-```python
-# Good
-def process_servers(servers: list[str]) -> dict[str, bool]:
-    return {name: True for name in servers}
-
-# Bad  
-from typing import List, Dict
-def process_servers(servers: List[str]) -> Dict[str, bool]:
-    return {name: True for name in servers}
-```
-
-DO NOT import `list`, `dict`, `tuple` from typing module:
-
-```python
-# This is wrong
-from typing import list  # Don't do this
-```
-
-For Optional types, use the union syntax:
-
-```python
-# Good
-from typing import Optional
-def get_config(path: Optional[str] = None) -> Config:
-    pass
-
-# Also good (Python 3.10+)
-def get_config(path: str | None = None) -> Config:
-    pass
-```
+- Reuse existing UI components from `/frontend/src/components/ui`; these are the primitives we can build with.
+- Create new components by orchestrating UI components if you can't find any existing that solves the problem.
+- Ask the human how they want to proceed when there are missing components and designs.
 
 ---
 > Source: [Edison-Watch/open-edison](https://github.com/Edison-Watch/open-edison) — distributed by [TomeVault](https://tomevault.io).
