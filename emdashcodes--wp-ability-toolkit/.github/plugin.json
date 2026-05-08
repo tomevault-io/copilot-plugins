@@ -1,0 +1,22 @@
+{
+  "name": "emdashcodes--wp-ability-toolkit",
+  "displayName": "wp-ability-toolkit",
+  "description": "A toolkit for WordPress plugin development, testing AI agent integrations, and WordPress Ability API creation.",
+  "version": "1.0.0",
+  "author": "emdashcodes",
+  "homepage": "https://github.com/emdashcodes/wp-ability-toolkit",
+  "skills": [
+    {
+      "name": "wordpress-ability-api",
+      "description": ""
+    },
+    {
+      "name": "wordpress-plugin-scaffold",
+      "description": ""
+    },
+    {
+      "name": "wp-env",
+      "description": ""
+    }
+  ]
+}
