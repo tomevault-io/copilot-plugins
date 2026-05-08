@@ -4,7 +4,7 @@
   "repo": "idt",
   "description": "idt(id tool) - A fast, ergonomic CLI tool for working with various ID formats",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/sh-cho/idt",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T19:59:36Z"
+  "distributed_at": "2026-05-08T12:49:26Z"
 }
