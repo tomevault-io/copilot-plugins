@@ -1,111 +1,42 @@
-## env-validation-gate
+## financial-amounts
 
-> Env validation gate — every app validates its env contract at boot via Zod
+> Financial amount safety — floor vs round, on-chain precision, no rounding up
 
 
-# Env Validation Gate (cross-app standard)
+# Financial Amount Safety
 
-## Why this rule exists
+## Floor display amounts — never round up
 
-April 2026, an audric production deploy ran for ~4 days with `BLOCKVISION_API_KEY=""` (empty string in Vercel UI), silently degrading every BlockVision-backed feature. The bug surfaced as "the LLM thinks the user has no DeFi positions" — three layers below the actual misconfig.
-
-The fix is now the cross-app standard. **Every app in this monorepo (apps/web, apps/server, apps/gateway) MUST validate its env contract at boot via a Zod schema and expose values through a typed proxy.**
-
-## The contract
-
-1. Define a `lib/env.ts` (apps) or `src/env.ts` (server) Zod schema.
-2. Required vars use `z.string().trim().min(1, ...)` — empty string is invalid.
-3. Optional vars normalize empty/whitespace → `undefined`.
-4. Schema runs at first import. Trigger that import from a boot-time hook:
-   - Next.js → `instrumentation.ts` `register()` hook
-   - Node server → top of `server.ts` / `index.ts`
-5. Export a typed `env` proxy that throws on server-only var access from the client.
-6. ESLint `no-restricted-syntax` blocks raw `process.env.X` outside the env module.
-
-## Canonical reference implementation
-
-`audric/apps/web/lib/env.ts` (v0.53.x, ~375 lines, well-commented). Pattern:
+Any amount shown to users or passed to SDK transaction builders must be **<=** the actual on-chain balance. `Math.round` can round up, causing "Insufficient balance" errors.
 
 ```typescript
-import { z } from 'zod';
+// ❌ BAD — Math.round(1.1286 * 100) / 100 = 1.13 (more than on-chain!)
+const amount = Math.round(rawAmount * 100) / 100;
 
-const requiredString = z.string().trim().min(1, 'must be a non-empty string');
-const optionalString = z.string().optional().transform((v) =>
-  v === undefined ? undefined : v.trim().length > 0 ? v.trim() : undefined,
-);
-
-const serverSchema = z.object({
-  ANTHROPIC_API_KEY: requiredString,
-  // ...
-});
-
-const clientSchema = z.object({
-  NEXT_PUBLIC_GOOGLE_CLIENT_ID: requiredString,
-  // ...
-});
-
-// Literal references — Next.js static replacement requires this:
-const runtimeEnv = {
-  ANTHROPIC_API_KEY: process.env.ANTHROPIC_API_KEY,
-  NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-  // ...
-};
-
-const isServer =
-  typeof process !== 'undefined' &&
-  ((typeof process.versions?.node === 'string') ||
-    process.env?.NEXT_RUNTIME === 'edge');
-
-const fullSchema = z.object({ ...serverSchema.shape, ...clientSchema.shape });
-const schemaToValidate = isServer ? fullSchema : clientSchema;
-const parsed = schemaToValidate.safeParse(runtimeEnv);
-
-if (!parsed.success) {
-  // Format ALL issues + the settings URL — operators fix in one click.
-  throw new Error(/* formatted block */);
-}
-
-export const env = new Proxy(parsed.data, {
-  get(target, prop) {
-    if (!isServer && SERVER_ONLY_KEYS.has(prop as string)) {
-      throw new Error(`[env] Cannot access server-only var '${String(prop)}' from the client`);
-    }
-    return target[prop as keyof typeof target];
-  },
-});
+// ✅ GOOD — Math.floor always produces amount <= actual
+const amount = Math.floor(rawAmount * 10000) / 10000;
 ```
 
-## When to copy this to a new app
+## Token decimal precision
 
-Any new app in `apps/*` MUST ship `lib/env.ts` before its first `process.env` read. Don't ship without it. The cost of skipping is the same 4-day silent-degradation bug, just in a different surface.
+Floor to the token's on-chain decimals (capped at 8):
+- SUI: 9 decimals → floor at 4dp for display
+- USDC: 6 decimals → floor at 2dp for display
+- GOLD (XAUM): 9 decimals → floor at 8dp for display
+- Other assets: `Math.min(decimals, 8)` dp
 
-## What's banned across the monorepo
+## SDK transaction amounts
+
+When `sdk.swap()` or `sdk.save()` receives an amount, it converts to raw units via `amount * 10^decimals`. If the display amount was rounded UP, this produces more raw units than the user actually has → transaction fails.
+
+## Preset amounts for chip flows
+
+For assets with tiny balances (< 0.01), use dynamic precision:
 
 ```typescript
-// ❌ Bypasses the gate
-const k = process.env.X;
-
-// ❌ Fallback masks misconfig forever
-const k = process.env.X || 'default';
-
-// ✅ Through the gate
-import { env } from '@/lib/env';
-const k = env.X;
-const k = env.X ?? 'default';   // explicit optional default
+const dp = held >= 1 ? 100 : held >= 0.01 ? 10000 : 100000000;
+const preset = Math.floor(held * fraction * dp) / dp;
 ```
-
-## Exemptions
-
-- `process.env.NODE_ENV` — build-time constant
-- `process.env.NEXT_RUNTIME` — runtime detection inside `lib/env.ts`
-- The env module itself (it's the gate)
-
-## Cross-references
-
-- Canonical implementation → `audric/apps/web/lib/env.ts`
-- Boot-time hook → `audric/apps/web/instrumentation.ts`
-- audric-side rule → `audric/.cursor/rules/env-validation-gate.mdc`
-- The incident → S.25 in `audric-build-tracker.md` + `audric/apps/web/RUNBOOK_zklogin_env_parity.md`
 
 ---
 > Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io).
