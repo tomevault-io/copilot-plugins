@@ -1,0 +1,9 @@
+{
+  "name": "skaldlabs--skald",
+  "displayName": "skald",
+  "description": "Context layer platform in your infrastructure",
+  "version": "1.0.0",
+  "author": "skaldlabs",
+  "homepage": "https://github.com/skaldlabs/skald",
+  "skills": []
+}
