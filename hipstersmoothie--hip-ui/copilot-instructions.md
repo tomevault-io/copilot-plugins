@@ -1,167 +1,23 @@
-## hip-component
+## hip
 
-> You are an expert design system engineer who is well versed in both https://stylexjs.com/ and https://react-spectrum.adobe.com/react-aria/getting-started.html. When implementing components they should follow the same structure as other components in packages/hip-ui/src/components.
+> - Use components from @apps/docs/src/components/
 
 
-You are an expert design system engineer who is well versed in both https://stylexjs.com/ and https://react-spectrum.adobe.com/react-aria/getting-started.html. When implementing components they should follow the same structure as other components in packages/hip-ui/src/components.
+## Components
 
-## Component Creation Process
+- Use components from @apps/docs/src/components/
+- Prefer to use the @apps/docs/src/components/flex/index.tsx or @apps/docs/src/components/grid/index.tsx for layout
+- Dont write custom styles for text, instead use the @apps/docs/src/components/typography/text.tsx component.
+- Always document props interfaces with jsdoc
 
-1. **Component implementation**: Create in `packages/hip-ui/src/components/[component-name]/index.tsx`
-2. **Config creation**: Create `[component-name]-config.ts` with all dependencies
-3. **Register config**: Add to `packages/hip-ui/src/cli/install.tsx` COMPONENT_CONFIGS array
-4. **Documentation**: Create `.mdx` in `apps/docs/src/docs/components/[category]/[component-name].mdx`
-5. **Examples**: Create examples in `apps/docs/src/examples/[component-name]/`
+## Custom styles
 
-## Component Structure
-
-### File Organization
-
-- Each component lives in its own directory: `packages/hip-ui/src/components/[component-name]/`
-- Main component file: `index.tsx`
-- Config file: `[component-name]-config.ts`
-- Optional context file: `context.ts` (for shared state like SizeContext)
-
-### Component File Structure
-
-```typescript
-"use client"; // Required for React hooks, interactions, or react-aria-components
-
-import * as stylex from "@stylexjs/stylex";
-import { ComponentFromAria } from "react-aria-components";
-import { breakpoints } from "../theme/media-queries.stylex"; // Use breakpoints, not mediaQueries
-import { ui } from "../theme/semantic-color.stylex";
-import { spacing } from "../theme/spacing.stylex";
-import { StyleXComponentProps } from "../theme/types";
-
-const styles = stylex.create({
-  base: {
-    padding: spacing["4"],
-    [breakpoints.sm]: { padding: spacing["6"] }, // Responsive styles
-  },
-});
-
-export interface ComponentProps extends StyleXComponentProps<AriaComponentProps> {}
-
-export const Component = ({ style, ...props }: ComponentProps) => {
-  return <AriaComponent {...stylex.props(styles.base, style)} {...props} />;
-};
-
-// For composite components with subcomponents, export both individual and namespace:
-export const ComponentRoot = ({ style, ...props }: ComponentRootProps) => { /* ... */ };
-export const ComponentSection = ({ style, ...props }: ComponentSectionProps) => { /* ... */ };
-
-export const Component = {
-  Root: ComponentRoot,
-  Section: ComponentSection,
-};
-```
-
-### Config File Structure
-
-```typescript
-import { ComponentConfig } from "../../types";
-
-export const componentConfig: ComponentConfig = {
-  name: "component-name",
-  filepath: "./index.tsx",
-  hipDependencies: [
-    // List ALL theme files used (only what's imported)
-    "../theme/spacing.stylex.tsx",
-    "../theme/semantic-color.stylex.tsx",
-    "../theme/media-queries.stylex.tsx", // If using breakpoints
-    "../theme/types.ts",
-  ],
-  dependencies: {
-    "react-aria-components": "^1.13.0", // Only if used
-  },
-};
-```
-
-## Component Rules
-
-### Styling
-
-- **Always use theme tokens** - Never hardcode values
-- Use `semantic-color.stylex.tsx` for colors (`ui.*`, `uiColor.*`)
-- Use `spacing.stylex.tsx`, `radius.stylex.tsx`, `typography.stylex.tsx`, etc. for all values
-- **Responsive styles**: Use `breakpoints` from `media-queries.stylex.tsx` (not `mediaQueries`)
-- Prefer `Flex` and `Grid` components over CSS for layout
-- Use `SizeContext` to propagate size to child components in composite components
-
-### TypeScript
-
-- Always extend `StyleXComponentProps<BaseProps>` for component props
-- Use `stylex.StyleXStyles` for style props (never `className` or React `style`)
-- Export TypeScript interfaces with JSDoc comments for complex props
-- Use `data-*` attributes for conditional styling (e.g., `data-size={size}`)
-
-### Component Composition
-
-- For composite components (e.g., Footer, Card), export both:
-  1. Individual components: `export const FooterRoot = ...`
-  2. Namespace object: `export const Footer = { Root: FooterRoot, ... }`
-- This allows both `Footer.Root` and `FooterRoot` usage patterns
-- Export all related subcomponents from the same file
-
-### React Aria & Icons
-
-- Extend appropriate Aria component props when using React Aria Components
-- Use icons from `lucide-react` exclusively (size handled automatically)
-- Add `"use client"` directive for hooks, interactions, or react-aria-components
-
-## Documentation Structure
-
-### MDX File
-
-Place in `apps/docs/src/docs/components/[category]/[component-name].mdx` (e.g., `navigation/footer.mdx`)
-
-```mdx
----
-title: ComponentName
-description: Brief description.
----
-
-import { PropDocs } from '../../../lib/PropDocs'
-import { Example } from '../../../lib/Example'
-import { Basic } from '../../../examples/component-name/basic'
-
-<Example src={Basic} />
-
-## Installation
-
-```bash
-pnpm hip install component-name
-```
-
-## Props
-
-<PropDocs components={["ComponentName", "SubComponent"]} />
-
-## Features
-
-### Feature Name
-
-<Example src={FeatureExample} />
-```
-
-### Example Files
-
-- Create in `apps/docs/src/examples/[component-name]/`
-- Start with `basic.tsx` for simplest usage
-- Use imports from `@/components/[component-name]`
-- Use StyleX styles (not inline styles) - import spacing/theme tokens as needed
-
-## Checklist
-
-- [ ] Component uses theme tokens (no hardcoded values)
-- [ ] TypeScript interfaces with JSDoc comments
-- [ ] Config file lists all dependencies
-- [ ] Registered in `install.tsx` COMPONENT_CONFIGS
-- [ ] `"use client"` added if needed
-- [ ] Basic example and MDX docs created
-- [ ] Uses `breakpoints` (not `mediaQueries`) for responsive styles
-- [ ] Composite components export both individual and namespace patterns
+- If you need to apply colors use @apps/docs/src/components/theme/semantic-color.stylex.tsx
+- If you need to apply spacing use the tokens in @apps/docs/src/components/theme/spacing.stylex.tsx
+- If you need to apply radius use the tokens in @apps/docs/src/components/theme/radius.stylex.tsx
+- If you need to apply shadow use the tokens in @apps/docs/src/components/theme/shadow.stylex.tsx
+- If you need to apply animations use the tokens in @apps/docs/src/components/theme/animations.stylex.tsx
+- If you need to apply text styles in a stylex block use the tokens in @apps/docs/src/components/theme/typography.stylex.tsx
 
 ---
 > Source: [hipstersmoothie/hip-ui](https://github.com/hipstersmoothie/hip-ui) — distributed by [TomeVault](https://tomevault.io).
