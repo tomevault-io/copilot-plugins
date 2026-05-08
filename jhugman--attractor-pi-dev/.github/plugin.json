@@ -1,0 +1,9 @@
+{
+  "name": "jhugman--attractor-pi-dev",
+  "displayName": "attractor-pi-dev",
+  "description": "An implementation of StrongDM's Attractor using pi.dev",
+  "version": "1.0.0",
+  "author": "jhugman",
+  "homepage": "https://github.com/jhugman/attractor-pi-dev",
+  "skills": []
+}
