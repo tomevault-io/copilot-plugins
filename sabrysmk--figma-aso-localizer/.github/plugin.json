@@ -1,0 +1,9 @@
+{
+  "name": "sabrysmk--figma-aso-localizer",
+  "displayName": "figma-aso-localizer",
+  "description": "Figma plugin for automated ASO screenshot localization. AI-powered translation to 35+ languages with style preservation.",
+  "version": "1.0.0",
+  "author": "sabrysmk",
+  "homepage": "https://github.com/sabrysmk/figma-aso-localizer",
+  "skills": []
+}
