@@ -1,0 +1,44 @@
+{
+  "name": "CLIProxyDashboard",
+  "owner": "Kris4js",
+  "repo": "CLIProxyDashboard",
+  "description": "\u57fa\u4e8e CPA\uff08CliProxyAPI\uff09\u548c https://github.com/parsifa1/codex-board \u6784\u5efa\u7684\u4e8c\u5f00 CPA \u7ba1\u7406\u7f51\u7ad9",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Kris4js/CLIProxyDashboard",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T03:17:17Z"
+}
