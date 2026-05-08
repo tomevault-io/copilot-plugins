@@ -1,11 +1,36 @@
-## testing-rate-limiting
+## testing-standards
 
-> See the dedicated SlowAPI testing skill for transport/server rate-limiter isolation patterns and 429 flake prevention.
+> Testing standards for pytest, fixtures, async patterns, and test organization. Apply when writing or reviewing tests.
 
 
-# Rate Limiting Testing Pattern
+# Testing Standards (Pytest + UV)
 
-Apply `.cursor/skills/testing-rate-limiting/SKILL.md` when working on tests that hit rate-limited endpoints (for example, `/asap`) or when you see flaky HTTP 429 behavior.
+## 1. Tooling & Environment
+- **Runner:** Always use `uv run pytest`.
+- **Async:** We use `pytest-asyncio` with `asyncio_mode = "auto"`.
+- **Parallelism:** We use `pytest-xdist` (`-n auto`).
+
+## 2. Directory Structure
+- **Unit:** `tests/{module}/unit/` (No HTTP, pure logic).
+- **Integration:** `tests/{module}/integration/` (Server, Rate Limits, DB).
+- **E2E:** `tests/e2e/`.
+
+## 3. Fixtures & Mocks
+- **Do NOT import fixtures manually.** They are loaded automatically from `asap.testing.fixtures` via `conftest.py`.
+- **Rate Limiting:** If testing transport/API, you MUST use the patterns in `tests/transport/conftest.py` (e.g., `isolated_limiter_factory`, `NoRateLimitTestBase`) to avoid flaky tests due to global state.
+- **Typing:** All tests must have type hints. Use `TYPE_CHECKING` imports for fixtures like `CaptureFixture` or `MockerFixture`.
+
+## 4. Anti-Patterns
+- Never use `time.sleep()`. Use `asyncio.sleep()`.
+- Do not bypass `ruff` or `mypy` checks in tests.
+
+## 5. CI and pytest-xdist
+
+When running tests in parallel (`-n auto`), follow these rules to avoid INTERNALERROR (exit code 3) and flaky CI:
+
+- **Rate limiter isolation:** The global rate limiter (slowapi) is shared across workers. `tests/conftest.py` provides an autouse fixture `_isolate_rate_limiter` that replaces it with an isolated instance per test. Do not remove this fixture; tests that need specific rate limits (e.g. `tests/transport/integration/test_rate_limiting.py`) skip isolation via `request.fspath` check.
+- **Coverage and xdist:** Do NOT add `--cov=src` or `--cov-report=*` to pytest `addopts` in `pyproject.toml`. Running coverage with pytest-xdist can cause INTERNALERROR. Run coverage only in a dedicated CI job without `-n auto` (e.g. `uv run pytest --cov=src --cov-report=xml --cov-fail-under=85`). The fail-under value is the minimum project coverage threshold; do not lower it without team agreement.
+- **Benchmarks and testpaths:** `testpaths` must include only `tests/`, not `benchmarks/`. The benchmarks use Locust, which monkey-patches gevent/ssl on import; that conflicts with pytest-xdist workers. Run benchmarks separately when needed: `uv run pytest benchmarks/` or `uv run locust -f benchmarks/load_test.py`.
 
 ---
 > Source: [adriannoes/asap-protocol](https://github.com/adriannoes/asap-protocol) — distributed by [TomeVault](https://tomevault.io).
