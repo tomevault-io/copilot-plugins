@@ -4,7 +4,7 @@
   "repo": "InvestSkill",
   "description": "US stock analysis skills for Claude Code",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": ".cursor/rules/*.mdc",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/yennanliu/InvestSkill",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-05-04T10:49:08Z"
+  "distributed_at": "2026-05-08T16:57:29Z"
 }
