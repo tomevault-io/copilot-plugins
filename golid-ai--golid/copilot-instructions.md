@@ -1,140 +1,67 @@
-## document-module
+## external-api
 
-> Document an existing module — use when asked to spec, document, or map a module that's already built
+> Patterns for external API integrations
 
 
-# Document a Module
+# External API Integration Patterns
 
-> **Thesis:** Use this when documenting an existing module. `plan-feature.mdc`
-> plans forward. This documents backward — capturing what was built, why, and
-> how it behaves.
+## Service Wrapper Structure
 
-## Order of Operations
+```go
+type XService struct {
+    apiKey     string
+    configured bool
+    client     *http.Client
+}
 
-1. **Schema first** — read the migrations in `backend/migrations/` to understand tables, enums, relationships, indexes
-2. **Service logic** — read `backend/internal/service/*.go` for business rules, auth checks, transactions, status transitions
-3. **Handler surface** — read `backend/internal/handler/*.go` for request validation, response shapes, route registration in `cmd/server/main.go`
-4. **Frontend routes** — read `frontend/src/routes/(private)/*.tsx` for pages, modals, state management
-5. **Write the spec** — fill the template below
+func NewXService(apiKey string) *XService {
+    if apiKey == "" {
+        slog.Warn("X not configured — feature will be disabled")
+        return &XService{configured: false}
+    }
+    return &XService{apiKey: apiKey, configured: true, client: &http.Client{Timeout: 30 * time.Second}}
+}
 
-## Evidence Standards
-
-- Every business rule must be marked:
-  - `[Verified: service/item.go:142]` — confirmed by reading the code
-  - `[NEEDS VERIFICATION]` — inferred from naming or partial evidence
-- Do NOT invent business rules. If you can't confirm it, mark it unverified.
-- Use concrete evidence: function names, line numbers, SQL column names, enum values
-
-## Spec Template
-
-```markdown
-# Module: [Name]
-
-> **Thesis:** [One sentence — what this module does and why it exists]
-
-| | |
-|---|---|
-| **Domain** | [e.g., Core, Billing, User Management] |
-| **Complexity** | Low / Medium / High / Critical |
-| **Status** | Complete / In Progress / Not Started |
-
----
-
-## Scope
-
-**Includes:**
-- [entities, services, handlers this spec covers]
-
-**Excludes:**
-- [what belongs in other module specs]
-
-**Depends On:**
-- [other modules referenced by FK or service call]
-
----
-
-## Entities
-
-Derived from `backend/migrations/*.sql`:
-
-| Table | Key Columns | Relationships | Notes |
-|-------|-------------|---------------|-------|
-| | | | |
-
----
-
-## State Machine
-
-Derived from service status checks and enum definitions:
-
-| Status | Transitions To | Guard | Side Effects |
-|--------|---------------|-------|-------------|
-| | | | |
-
----
-
-## Business Rules
-
-Derived from service methods. Mark each rule.
-
-### Validation
-- [Verified: service/x.go:line] Rule description
-
-### Auth / Permissions
-- Handler: `requireUserID` + `requireUserType` (authn)
-- Service: `verifyResourceAccess` or equivalent (authz)
-
-### Side Effects
-- Emails, webhooks, SSE events, cascading status changes
-- Fire-and-forget goroutines with `service.Retry()`
-
----
-
-## API Surface
-
-Derived from handler route registration in `cmd/server/main.go`:
-
-| Method | Route | Handler | Auth | Description |
-|--------|-------|---------|------|-------------|
-| GET | /api/v1/x | List | JWT | List with pagination |
-| POST | /api/v1/x | Create | JWT | Create new |
-| GET | /api/v1/x/:id | GetByID | JWT | Get single |
-| PUT | /api/v1/x/:id | Update | JWT | Update |
-| DELETE | /api/v1/x/:id | Delete | JWT | Soft delete |
-
----
-
-## Frontend
-
-| Route | Page | Key Components | Data Fetching |
-|-------|------|---------------|--------------|
-| /x | List page | Table, filters, modals | onMount + signals |
-
----
-
-## Current Implementation
-
-| Layer | Files |
-|-------|-------|
-| Handler | `backend/internal/handler/x.go` |
-| Service | `backend/internal/service/x.go` |
-| Migration | `backend/migrations/000XXX_*.up.sql` |
-| Frontend | `frontend/src/routes/(private)/x/` |
-| Tests | `backend/internal/handler/x_test.go` |
+func (s *XService) IsConfigured() bool { return s.configured }
 ```
 
-## Complexity Ratings
+Every method must check `IsConfigured()` first and return a clean error, not panic.
 
-| Rating | Criteria |
-|--------|----------|
-| Low | < 500 lines, simple CRUD, no state machine |
-| Medium | 500-1,500 lines, has state machine or moderate rules |
-| High | 1,500-3,000 lines, complex state machines, financial calcs |
-| Critical | 3,000+ lines, polymorphic entities, cross-system deps |
+## Config Flow
 
-## Output
+API keys and secrets flow: **env var → Config struct → service constructor → main.go init**.
 
-Save to `docs/modules/[module-name].md`. Create the directory if it doesn't exist.
+```
+.env.local:       EXTERNAL_API_KEY=xxx
+config.go:        ExternalAPIKey string → os.Getenv("EXTERNAL_API_KEY")
+main.go:          externalService := service.NewExternalService(cfg.ExternalAPIKey)
+```
+
+Template IDs, webhook secrets, and other per-service config follow the same pattern. Never hardcode in service files.
+
+## Request Building
+
+- **Verify field names** against the actual API docs. JSON struct tags must match exactly (e.g., `roleIndex` not `role_index`).
+- **Query params vs body** — some APIs put IDs in the URL, not the body. Check the docs.
+- **URL-encode** all query parameter values with `url.QueryEscape()`.
+- **Set timeouts** on the HTTP client (30s default).
+- **Close response bodies** with `defer resp.Body.Close()`.
+
+## Webhook Handling
+
+- **Verify signatures** — HMAC-SHA256 with timing-safe `hmac.Equal`. Read raw body with `io.ReadAll` before parsing.
+- **Return 200 on parse errors** — prevents the external service from retrying malformed events indefinitely.
+- **Return 500 on handler errors** — signals the external service to retry.
+- **Register on public route group** — webhooks don't have JWT auth, they use their own signature verification.
+- **Exclude from gzip middleware** — webhook bodies need to be read raw for signature verification.
+
+## Mailgun Email (Reference Implementation)
+
+The codebase uses Mailgun for transactional email. Key patterns:
+
+- **`IsConfigured()`** — graceful degradation when `MAILGUN_API_KEY` is empty; feature is disabled, no panic.
+- **`Retry()`** — wrap outbound HTTP calls for resilience against transient failures.
+- Config flow: env → Config → service constructor. See `backend/internal/service/email.go`.
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
