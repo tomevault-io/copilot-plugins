@@ -1,0 +1,9 @@
+{
+  "name": "colorado-mesh--mesh-client",
+  "displayName": "mesh-client",
+  "description": "Cross-platform Electron desktop client for Meshtastic and MeshCore on macOS, Linux, and Windows \u2014 BLE, USB serial, Wi\u2011Fi/TCP, MQTT, local SQLite history, routing diagnostics, and keyboard-first workfl",
+  "version": "1.0.0",
+  "author": "Colorado-Mesh",
+  "homepage": "https://github.com/Colorado-Mesh/mesh-client",
+  "skills": []
+}
