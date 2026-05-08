@@ -1,0 +1,9 @@
+{
+  "name": "kludex--whatsapp-client",
+  "displayName": "whatsapp-client",
+  "description": "Async Python client for the WhatsApp Business Cloud API",
+  "version": "1.0.0",
+  "author": "Kludex",
+  "homepage": "https://github.com/Kludex/whatsapp-client",
+  "skills": []
+}
