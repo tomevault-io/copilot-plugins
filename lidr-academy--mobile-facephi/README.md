@@ -7,11 +7,11 @@ Repositorio con el contenido de la Sesion de Mobile de Facephi
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
-Original source: `AGENTS.md` in [LIDR-academy/mobile-facephi](https://github.com/LIDR-academy/mobile-facephi).
+Original source: `CLAUDE.md` in [LIDR-academy/mobile-facephi](https://github.com/LIDR-academy/mobile-facephi).
 
 ## Also available for
 
-- **Claude Code** — `CLAUDE.md`
+- **Codex** — `AGENTS.md`
 - **GitHub Copilot** — `copilot-instructions.md`
 - **Cursor** — `project-config.mdc`
 - **Gemini CLI** — `GEMINI.md`
