@@ -1,0 +1,9 @@
+{
+  "name": "florianbruniaux--node-dep-scope",
+  "displayName": "node-dep-scope",
+  "description": "Symbol-level dependency analyzer for TS/JS \u2014 flags native alternatives (195 packages incl. e18e), duplicates & unused deps, then generates LLM-ready migration prompts for Claude Code.",
+  "version": "1.0.0",
+  "author": "FlorianBruniaux",
+  "homepage": "https://github.com/FlorianBruniaux/node-dep-scope",
+  "skills": []
+}
