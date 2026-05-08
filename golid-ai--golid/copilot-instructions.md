@@ -1,125 +1,56 @@
-## go-service
+## observability
 
-> Patterns for Go service layer files — business logic, DB access, auth checks
+> Observability patterns — use when adding metrics, traces, or monitoring
 
 
-# Go Service Layer Patterns
+# Observability Patterns
 
-Follow the established patterns in `auth.go` and `user.go`.
+Follow the established patterns in `observability/tracer.go` and `observability/metrics.go`.
 
-## Structure
+## Opt-In via Environment Variables
 
-```
-type XService struct {
-    pool              *pgxpool.Pool
-    paginationDefault int
-    paginationMax     int
-}
-func NewXService(pool *pgxpool.Pool, paginationDefault, paginationMax int) *XService { ... }
-```
+- `OTEL_ENDPOINT` — set to enable distributed tracing (e.g., `localhost:4317` for local collector)
+- `METRICS_ENABLED=true` — enables Prometheus `/metrics` endpoint
+- Both are no-op when unset — zero overhead in development
 
-- Constructor takes `*pgxpool.Pool` + pagination config. Auth services may take additional params (JWT secret, durations).
-- **No Echo imports** — services must be framework-agnostic. No `echo.Context`, no `echo.NewHTTPError`. Use `apperror` for errors, plain `context.Context` for context.
-- Define input/output structs in the same file (e.g., `CreateItemInput`, `ItemDetail`).
-- Return `*Detail` structs with formatted timestamps (`time.RFC3339`), not raw DB types.
+## Adding a New Metric
 
-## Auth Pattern
-
-Every method that operates on a scoped resource must verify membership, not just role:
+Register in `observability/metrics.go` using `promauto`:
 
 ```go
-// Resolve user → entity relationship
-access, err := s.verifyResourceAccess(ctx, resourceID, userID)
-// Then check specific permissions
-if !access.IsAdmin { return apperror.Forbidden("...") }
+var MyNewCounter = promauto.NewCounterVec(prometheus.CounterOpts{
+    Name: "my_new_counter_total",
+    Help: "Description of what this counts.",
+}, []string{"label1", "label2"})
 ```
 
-Create a `verifyXAccess` helper that chains: fetch resource → get parent → verify membership.
+**Naming conventions:**
+- snake_case
+- Units in the name: `_seconds`, `_bytes`, `_total`
+- Counters end with `_total`
 
-## SQL Rules
+**Label cardinality:**
+- Use `c.Path()` (route pattern like `/api/v1/me`) NOT `c.Request().URL.Path` (actual URL like `/api/v1/users/abc123`)
+- Never use user IDs, request IDs, or other high-cardinality values as labels
+- Keep label combinations under ~100 unique sets
 
-- **Parameterized queries only** — `$1, $2, ...` placeholders. Never `fmt.Sprintf` with values.
-- **Dynamic WHERE clauses** — use `argIdx` counter pattern for building filtered list queries.
-- **Computed fields via subquery** — e.g., `(SELECT COALESCE(SUM(hours), 0) FROM time_entries WHERE task_id = t.id) AS actual_hours`. Never store computed values.
-- **`rows.Err()` after every `rows.Next()` loop** — partial iteration errors (network, context cancellation) are only surfaced by `rows.Err()`. Without it, the loop silently returns incomplete data.
+## Adding a Trace Span
 
-## Transactions
-
-Wrap any operation with 2+ writes:
+The OTel middleware automatically creates spans for every HTTP request. For sub-operations:
 
 ```go
-tx, err := s.pool.Begin(ctx)
-if err != nil { return apperror.Internal(fmt.Errorf("begin tx: %w", err)) }
-defer func() { _ = tx.Rollback(ctx) }()  // no-op after commit — safe to discard
-// ... all queries on tx ...
-if err := tx.Commit(ctx); err != nil { ... }
+import "go.opentelemetry.io/otel"
+
+tracer := otel.Tracer("service-name")
+ctx, span := tracer.Start(ctx, "operation-name")
+defer span.End()
 ```
 
-For operations that need both a check and a mutation (read-then-write), use atomic `UPDATE ... WHERE guard RETURNING` inside the transaction to prevent TOCTOU races. Never SELECT outside the transaction then UPDATE inside it. See `auth.go` `Refresh` method.
+## Current Metrics
 
-## Error Handling
-
-- Always check `pgx.ErrNoRows` explicitly — return `apperror.NotFound` for missing entities.
-- Check real DB errors before ErrNoRows: `if err != nil && err != pgx.ErrNoRows { return 500 }`.
-- Never `_ = pool.Exec(...)` — log failures with `logger.Error`.
-
-## Status Guards
-
-Check parent entity status at the top of mutating methods:
-
-```go
-if access.Status != "active" {
-    return apperror.BadRequest("Can only update items on active resources")
-}
-```
-
-## Pagination
-
-Use `NormalizePagination(page, perPage, s.paginationDefault, s.paginationMax)` helper. Return `XListResult` with `total`, `page`, `per_page`, `total_pages`.
-
-## History/Audit
-
-For entities with audit trails, insert structured history entries:
-
-```go
-s.addHistory(ctx, id, userID, "Status changed to Complete",
-    map[string]any{"field": "status", "old": oldStatus, "new": newStatus})
-```
-
-Use JSONB `metadata` for structured data + TEXT `action` for human-readable display.
-
-## Nullable TIMESTAMPTZ Columns
-
-**Never scan nullable TIMESTAMPTZ directly into `*string`.** PostgreSQL's binary protocol can't convert timestamptz to string. Always use `*time.Time` intermediate:
-
-```go
-var publishedAt *time.Time
-err := row.Scan(&publishedAt)
-// Then format for JSON:
-if publishedAt != nil {
-    ts := publishedAt.Format(time.RFC3339)
-    result.PublishedAt = &ts
-}
-```
-
-Do NOT use `column::text` casts in SQL as a workaround — they prevent index usage and are fragile.
-
-## Background Side Effects
-
-When a service method triggers a side effect (email, webhook, etc.), use a fire-and-forget goroutine:
-
-```go
-go func() {
-    if err := s.emailSvc.Send(context.Background(), recipientEmail, subject, body); err != nil {
-        logger.Error("email: send failed", slog.String("error", err.Error()))
-    }
-}()
-```
-
-Rules: use `context.Background()` (goroutine outlives request), always log errors from goroutines.
-
-- **Retry helper** — Use `service.Retry(3, time.Second, fn)` for external API calls in goroutines.
-- **Request ID propagation** — Capture the request ID before spawning goroutines for log correlation.
+- `http_requests_total` — counter (method, path, status)
+- `http_request_duration_seconds` — histogram (method, path)
+- `active_sse_connections` — gauge (no labels)
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
