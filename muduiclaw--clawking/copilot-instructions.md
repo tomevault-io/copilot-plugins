@@ -1,0 +1,88 @@
+## clawking
+
+> ClawKing 🦞：把 battle-tested 的 OpenClaw 全套能力打包成可分发的一键安装包。
+
+# AGENTS.md — ClawKing
+
+## 项目定位
+ClawKing 🦞：把 battle-tested 的 OpenClaw 全套能力打包成可分发的一键安装包。
+
+## 核心规则
+
+### 安全红线
+- **零 secrets**：仓库内禁止出现任何真实 API key、token、密码。占位符格式 `__YOUR_xxx__`
+- **发版门禁**：`grep -rE '(sk-|AKIA|ghp_|xoxb-)' --exclude-dir=node_modules` 必须零命中
+- **不含私有文件**：特定私有项目相关内容禁止进入本仓库
+
+### 与 live 环境的关系
+- **只读消费者**：从 `~/clawd` 单向提取通用文件，不反向影响
+- **sync-to-template.sh**：维护者同步工具，白名单机制，只同步通用文件
+- **独立版本**：自己的 VERSION + CHANGELOG，不跟 clawd 版本号
+
+### 局域网设备更新规则
+对局域网内所有设备的更新，**必须走开源项目流程**，用于验证项目安装/升级链路的健壮性：
+```bash
+# ✅ 正确：git pull + setup.sh
+ssh <device> "cd ~/openclaw-starter && git pull && ./setup.sh --update-dashboard"
+
+# ❌ 禁止：从开发机直接推文件
+rsync ~/projects/infra-dashboard/ <device>:~/projects/infra-dashboard/
+scp <local-build>.tar.gz <device>:/tmp/
+```
+- 目的：每次更新都是对开源项目发布流程的真实 E2E 验证
+- 覆盖范围：OpenClaw 升级、infra-dashboard 升级、workspace 文件同步
+- 唯一例外：紧急 hotfix 可临时绕过，但事后必须补发 release 并重新走流程验证
+
+### setup.sh 原则
+- **幂等**：重跑不破坏已有配置
+- **用户配置区不覆盖**：SOUL.md, IDENTITY.md, USER.md, TOOLS.md, MEMORY.md
+- **系统核心区强制覆盖**：scripts/, prompts/, eval/, skills/（覆盖前 .bak 备份）
+- **依赖自动装**：缺啥装啥，用户只需要贴 API key + channel token
+
+### 文件分类
+| 类型 | 文件 | 规则 |
+|------|------|------|
+| 用户自定义 | *.example → 无后缀 | 只首次复制，不覆盖 |
+| 系统核心 | scripts/, prompts/, skills/ | 升级时强制覆盖 + .bak |
+| 配置模板 | openclaw.template.json5 | 全脱敏，变量占位 |
+
+### 验证标准
+- setup.sh 干净环境零报错
+- `openclaw status` = running
+- `curl localhost:3001` = 200
+- `qmd status` ≥ 2 collections
+- secret scan 零命中
+
+## 教训
+（从实践中积累，每次翻车追加）
+- [2026-03-10] **禁止在源码中硬编码 API Key，即使是"内置免费 key"** — generate.mjs 泄露 Gemini key，Oracle 审查发现（be16e0e）
+- [2026-03-10] **服务默认绑定 127.0.0.1 不绑 0.0.0.0；用户输入不可拼入 shell 命令** — 安全审查发现 dashboard 监听所有接口 + 脚本存在注入向量（3ec1cff）
+- [2026-03-10] **macOS plist 修改用 plistlib，不用 sed** — sed 操作 XML plist 易因格式差异静默失败，plistlib 结构化操作才可靠（f3f4248）
+- [2026-03-10] **自动化脚本中 git clone 必须加 GIT_TERMINAL_PROMPT=0** — 无 token 时 git 弹交互式凭证提示导致脚本挂起（4a296de）
+- [2026-03-11] **Setup 脚本中 Homebrew 路径应使用 BREW_PREFIX** — 禁止硬编码 `/opt/homebrew` 以免在 Intel Mac (/usr/local) 上失效
+- [2026-03-11] **脚本应从源文件绝对路径推导 REPO_ROOT 而非 CWD** — 防止在不同目录下执行时将 lock/marker 文件写入错误项目
+- [2026-03-11] **为 Next.js Standalone 环境 Vendor 核心依赖 (如 json5)** — 解决环境受限或打包剥离导致的 module missing 错误
+- [2026-03-12] **Setup 脚本中 Homebrew 路径应使用 BREW_PREFIX** — 禁止硬编码 `/opt/homebrew` 以免在 Intel Mac (/usr/local) 上失效
+- [2026-03-12] **脚本应从源文件绝对路径推导 REPO_ROOT 而非 CWD** — 防止在不同目录下执行时将 lock/marker 文件写入错误项目
+- [2026-03-12] **飞书个人机器人需开启开放策略** — 设置 `groupPolicy: "open"` 可避免集成时出现间歇性配对确认弹窗。
+- [2026-03-12] **macOS 开启 SSH 优先考虑 launchctl** — Ventura+ 系统中 `systemsetup` 依赖 FDA 权限，使用 `launchctl` 开启 SSH 更加稳健。
+- [2026-03-12] **Tailscale 守护进程需多层启动保障** — 依次尝试 brew services、system-daemon 和手动后台运行以应对 macOS 下的启动不确定性。
+- [2026-03-12] **禁止硬编码服务端口** — Guardian 等监控组件应动态从配置文件读取 Gateway 端口，而非写死默认值。
+- [2026-03-13] **异步处理阻塞式授权命令** — 需用户浏览器操作的阻塞命令（如 `tailscale login`）应后台执行，配合轮询获取 URL，防止安装脚本进入死锁。
+- [2026-03-13] **防御性处理 Shell 严格模式** — 在 `set -u` 脚本中，对可能引用未定义变量的外部工具集成（如 `brew shellenv`）需临时关闭 `u` 选项，防止在纯净系统中崩溃。
+- [2026-03-13] **默认安全：禁用弱口令硬编码** — 严禁使用 "0000" 等弱口令作为初始化默认值，应在安装阶段自动生成随机 Token 以保障开箱即用的安全性。
+- [2026-03-13] **保持文档与提示词的通用性** — 避免在模板、注释或系统提示词中引用具体的机器型号（如 "主机" 或 "服务器"），确保代码库的专业感和跨设备适配性。
+- [2026-03-14] **lsof 清理端口残留时必须加 -sTCP:LISTEN** — 避免误杀客户端进程；清理 launchd 托管服务前应先 SIGKILL 同步状态。
+- [2026-03-16] **API 响应解析禁止使用脆弱的 grep/sed** — 应优先使用 python3 -c 或 jq 处理 JSON，并显式过滤 prerelease/draft 发布以确保下载稳定。
+- [2026-03-17] **升级 npm 包前必须先停止 Gateway 进程** — Gateway 占用 dist/ 文件锁会导致 npm 产生 ENOTEMPTY 错误（#15），清理端口需配合 lsof 精确匹配。
+- [2026-03-17] **Workspace 必须同步 docs/reference/templates/ 目录** — OpenClaw 3.12+ 的 cron session 强依赖 this 目录下的 AGENTS.md 模板，缺失会导致启动失败（#14）。
+- [2026-03-19] **发版 push 标签时禁止使用 `--tags`** — 避免将本地无关或过期的标签错误推送到远程，应显式推送特定版本标签。
+- [2026-03-19] **处理可能被 gitignore 的状态文件时使用 `|| true`** — 避免 `git add` 失败中断发版流程。
+- [2026-03-19] **非 root 权限检测服务监听建议用 `nc` 而非 `lsof`** — `nc -z` 不需要 root 权限即可检测端口，`lsof` 无法探测 root 进程。
+- [2026-03-19] **跨平台 `sed` 编辑禁止使用 `-i`** — macOS 和 Linux 行为不一致，建议采用 `sed ... > tmp && mv tmp` 模式。
+- [2026-03-19] **运维脚本需通过 `-t 0` 检测 TTY** — 避免在非交互模式（SSH/CI）下执行 `open` 等 GUI 操作导致脚本挂起。
+- [2026-03-19] **分发开源版本前必须强制清理数据目录和内部路由** — 防止泄露个人数据或未授权的内部代码。
+
+---
+> Source: [MuduiClaw/ClawKing](https://github.com/MuduiClaw/ClawKing) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
