@@ -1,0 +1,9 @@
+{
+  "name": "danjac--django-studio",
+  "displayName": "django-studio",
+  "description": "Django project generator for rapid, opinionated full stack development",
+  "version": "1.0.0",
+  "author": "danjac",
+  "homepage": "https://github.com/danjac/django-studio",
+  "skills": []
+}
