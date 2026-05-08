@@ -2,6 +2,8 @@
 
 > Sourced from [divar-ir/ai-doc-gen](https://github.com/divar-ir/ai-doc-gen) and converted for every major platform by [TomeVault](https://tomevault.io)
 
+AI-powered multi-agent system that automatically analyzes codebases and generates comprehensive documentation. Features GitLab integration, concurrent processing, and multiple LLM support for better code understanding and developer onboarding.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
