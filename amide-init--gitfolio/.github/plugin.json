@@ -1,0 +1,9 @@
+{
+  "name": "amide-init--gitfolio",
+  "displayName": "gitfolio",
+  "description": "Create a polished GitHub portfolio site in under 30 seconds \u2014 just fork, rename to {username}.github.io, and auto-deploy with GitHub Actions.",
+  "version": "1.0.0",
+  "author": "amide-init",
+  "homepage": "https://github.com/amide-init/gitfolio",
+  "skills": []
+}
