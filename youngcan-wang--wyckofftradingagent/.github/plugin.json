@@ -1,0 +1,9 @@
+{
+  "name": "youngcan-wang--wyckofftradingagent",
+  "displayName": "WyckoffTradingAgent",
+  "description": "Open-source Wyckoff trading agent and AI stock screener for volume-price analysis, A-share screening, CLI workflows, and MCP tools.",
+  "version": "1.0.0",
+  "author": "YoungCan-Wang",
+  "homepage": "https://github.com/YoungCan-Wang/WyckoffTradingAgent",
+  "skills": []
+}
