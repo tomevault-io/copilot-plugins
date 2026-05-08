@@ -1,0 +1,9 @@
+{
+  "name": "skeeto--quilt-cpp",
+  "displayName": "quilt.cpp",
+  "description": "Quilt implemented in C++",
+  "version": "1.0.0",
+  "author": "skeeto",
+  "homepage": "https://github.com/skeeto/quilt.cpp",
+  "skills": []
+}
