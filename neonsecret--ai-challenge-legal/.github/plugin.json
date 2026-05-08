@@ -1,0 +1,9 @@
+{
+  "name": "neonsecret--ai-challenge-legal",
+  "displayName": "ai-challenge-legal",
+  "description": "ARLC 2026 Agentic RAG Legal Challenge \u2014 Legal QA pipeline for DIFC court documents. Hybrid BM25 + vector retrieval, cross-encoder reranking, answer-grounded page verification.",
+  "version": "1.0.0",
+  "author": "neonsecret",
+  "homepage": "https://github.com/neonsecret/ai-challenge-legal",
+  "skills": []
+}
