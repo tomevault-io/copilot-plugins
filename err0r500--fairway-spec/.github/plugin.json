@@ -1,0 +1,9 @@
+{
+  "name": "err0r500--fairway-spec",
+  "displayName": "fairway-spec",
+  "description": "A DSL + CLI to specify & visualize your vertical slices",
+  "version": "1.0.0",
+  "author": "err0r500",
+  "homepage": "https://github.com/err0r500/fairway-spec",
+  "skills": []
+}
