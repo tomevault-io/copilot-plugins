@@ -1,81 +1,90 @@
-## tools
+## viewer-isolation
 
-> Editor tools structure in apps/editor
+> Viewer must be editor-agnostic — controlled from outside via props and children
 
 
-# Tools
+# Viewer Isolation
 
-Tools are React components that capture user input (pointer, keyboard) and translate it into `useScene` mutations. They live exclusively in `apps/editor/components/tools/`.
+`@pascal-app/viewer` is a standalone 3D canvas library. It must never know about editor-specific features, UI state, or tools. This keeps it usable in the read-only `/viewer/[id]` route and in any future embedding context.
 
-## Lifecycle
+## The Rule
 
-`ToolManager` reads `useEditor` (phase + mode + tool) and mounts the active tool component. When the tool changes, the old component unmounts, cleaning up any transient state.
+> The viewer is controlled from outside. It exposes control points (props, callbacks, children). It never reaches into `apps/editor`.
 
-See @apps/editor/components/tools/tool-manager.tsx.
+## Forbidden in `packages/viewer`
 
-## Tool Categories by Phase
+```ts
+// ❌ Never import from the editor app
+import { useEditor } from '@/store/use-editor'
+import { ToolManager } from '@/components/tools/tool-manager'
 
-**Site**
-- `site-boundary-editor` — draw/edit property boundary polygon
+// ❌ Never reference editor-specific concepts
+if (isEditorMode) { … }
+```
 
-**Structure**
-- `wall-tool` — draw walls segment by segment
-- `slab-tool` + `slab-boundary-editor` + `slab-hole-editor`
-- `ceiling-tool` + `ceiling-boundary-editor` + `ceiling-hole-editor`
-- `roof-tool`
-- `door-tool` + `door-move-tool`
-- `window-tool` + `window-move-tool`
-- `item-tool` + `item-move-tool`
-- `zone-tool` + `zone-boundary-editor`
+## Correct Pattern — Pass Control from Outside
 
-**Furnish**
-- `item-tool` — place furniture
-
-**Shared utilities**
-- `polygon-editor` — reusable boundary/hole editing logic
-- `cursor-sphere` — 3D cursor visualisation
-
-## Pattern
+The editor mounts the viewer and passes what it needs:
 
 ```tsx
-// apps/editor/components/tools/my-tool/index.tsx
-import { useScene } from '@pascal-app/core'
+// apps/editor/components/editor-canvas.tsx  ✅
+import { Viewer } from '@pascal-app/viewer'
+import { ToolManager } from '../tools/tool-manager'
 import { useEditor } from '../../store/use-editor'
 
-export function MyTool() {
-  const createNode = useScene(s => s.createNode)
-  const setTool = useEditor(s => s.setTool)
-
-  // Pointer handlers mutate the scene store directly.
-  // No local geometry — use a renderer for any preview mesh.
+export function EditorCanvas() {
+  const { selection } = useViewer()
 
   return (
-    <mesh onPointerDown={handleDown} onPointerMove={handleMove}>
-      {/* ghost / preview geometry only */}
-    </mesh>
+    <Viewer
+      theme="light"
+      onSelect={(id) => useViewer.getState().setSelection(id)}
+      onExport={handleExport}
+    >
+      {/* Editor injects tools as children — viewer renders them inside the canvas */}
+      <ToolManager />
+    </Viewer>
   )
 }
 ```
 
-## Rules
+The viewer accepts `children` and renders them inside the R3F canvas. This is the extension point for tools, overlays, and editor-specific systems.
 
-- **Tools mutate `useScene` for committed changes and `useLiveTransforms` for ephemeral drag state.** A tool's end-of-interaction write (click-to-commit, release-to-commit) goes to `useScene` and is captured in undo history. Per-mouse-move previews go to `useLiveTransforms` so history and subscribers aren't spammed.
-- **Live-drag exception for direct mesh transforms.** During an active drag a tool may apply a transform offset directly to `sceneRegistry.nodes.get(id).position`/`rotation`/`scale` *when and only when* the same offset is mirrored into `useLiveTransforms` for that node. This exception exists because the 3D renderers don't reconcile `useLiveTransforms` onto `mesh.position` yet; once a `LiveTransformSystem` does that, this exception goes away. Conditions:
-  - The mesh offset must mirror the `useLiveTransforms` entry (same delta on both), so anything reading `useLiveTransforms` sees the same preview as the 3D view.
-  - The offset must be cleared on tool unmount, cancel, *and* commit — both `mesh.position.set(0, 0, 0)` and `useLiveTransforms.clear(id)`.
-  - The tool must not generate or mutate geometry in this path — only transform writes. Geometry generation still belongs in a core system.
-- **No business logic in tools** — delegate geometry/constraint rules to core systems.
-- **Preview geometry is local** — transient meshes shown while a tool is active live in the tool component, not in the scene store.
-- **Clean up on unmount** — remove any pending/incomplete nodes *and* any live transforms/mesh offsets when the tool unmounts.
-- **Tools must not import from `@pascal-app/viewer`** — use the scene store and core hooks only. `sceneRegistry` is exported from `@pascal-app/core` and is the allowed door into the Three.js graph for the narrow purposes above.
-- Each tool should handle a single, well-scoped interaction. Split complex tools (e.g. "draw + move") into separate components selected by `useEditor`.
+## Viewer's Own State (`useViewer`)
 
-## Adding a New Tool
+The viewer store contains **only presentation state**:
 
-1. Create `apps/editor/components/tools/<name>/index.tsx`.
-2. Register the tool in `ToolManager` under the correct phase and mode.
-3. Add the tool identifier to the `useEditor` tool union type.
-4. If the tool requires new node types, add schema + renderer + system first.
+- `selection` — which nodes are highlighted
+- `cameraMode` — perspective / orthographic
+- `levelMode` — stacked / exploded / solo / manual
+- `wallMode` — up / cutaway / down
+- `theme` — light / dark
+- Display toggles: `showScans`, `showGuides`, `showGrid`
+
+If a piece of state is only meaningful inside the editor (e.g. active tool, phase, edit mode) — it belongs in `useEditor`, not `useViewer`.
+
+## Nested Viewer for Editor-Specific Features
+
+When an editor feature needs to live "inside" the canvas but must not pollute the viewer package, inject it as a child:
+
+```tsx
+// ✅ Editor-specific overlay injected as child
+<Viewer>
+  <SelectionBoxOverlay />   {/* editor only */}
+  <SnapIndicator />         {/* editor only */}
+  <ToolManager />           {/* editor only */}
+</Viewer>
+```
+
+This pattern lets the viewer stay ignorant of these components while they still have access to the R3F context.
+
+## Checklist Before Adding Code to `packages/viewer`
+
+- [ ] Does this feature make sense in the read-only viewer route?
+- [ ] Does it reference `useEditor`, tool state, or phase/mode?
+- [ ] Could it be passed in as a prop or child instead?
+
+If any answer is "editor-specific", keep it in `apps/editor` and inject it via children or props.
 
 ---
 > Source: [pascalorg/editor](https://github.com/pascalorg/editor) — distributed by [TomeVault](https://tomevault.io).
