@@ -1,0 +1,9 @@
+{
+  "name": "tiny-flowlab--novel-studio-copilot-cli",
+  "displayName": "novel-studio-copilot-cli",
+  "description": "AI-powered multi-agent novel creation system for GitHub Copilot CLI",
+  "version": "1.0.0",
+  "author": "tiny-flowlab",
+  "homepage": "https://github.com/tiny-flowlab/novel-studio-copilot-cli",
+  "skills": []
+}
