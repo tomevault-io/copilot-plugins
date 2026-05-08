@@ -1,0 +1,9 @@
+{
+  "name": "kernel-labs-ai--piqueue",
+  "displayName": "piqueue",
+  "description": "Let anyone submit a coding task against your codebase.",
+  "version": "1.0.0",
+  "author": "Kernel-Labs-AI",
+  "homepage": "https://github.com/Kernel-Labs-AI/piqueue",
+  "skills": []
+}
