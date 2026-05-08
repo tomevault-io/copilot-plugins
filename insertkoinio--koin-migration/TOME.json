@@ -1,0 +1,44 @@
+{
+  "name": "koin-migration",
+  "owner": "InsertKoinIO",
+  "repo": "koin-migration",
+  "description": "Koin + Koin Compiler Plugin migration \u2014 reference docs and AI skill that automate the move from Hilt/Dagger/Toothpick/Kodein/manual DI to the Koin Compiler Plugin.",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/InsertKoinIO/koin-migration",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T22:54:17Z"
+}
