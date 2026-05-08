@@ -1,0 +1,9 @@
+{
+  "name": "dnszlsk--gitcoach-cli",
+  "displayName": "gitcoach-cli",
+  "description": "Git CLI tool with educational guidance and optional AI commit messages. Built for the GitHub Copilot CLI Challenge 2026.",
+  "version": "1.0.0",
+  "author": "DNSZLSK",
+  "homepage": "https://github.com/DNSZLSK/gitcoach-cli",
+  "skills": []
+}
