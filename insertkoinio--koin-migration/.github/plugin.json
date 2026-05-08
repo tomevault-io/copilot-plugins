@@ -1,0 +1,9 @@
+{
+  "name": "insertkoinio--koin-migration",
+  "displayName": "koin-migration",
+  "description": "Koin + Koin Compiler Plugin migration \u2014 reference docs and AI skill that automate the move from Hilt/Dagger/Toothpick/Kodein/manual DI to the Koin Compiler Plugin.",
+  "version": "1.0.0",
+  "author": "InsertKoinIO",
+  "homepage": "https://github.com/InsertKoinIO/koin-migration",
+  "skills": []
+}
