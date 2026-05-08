@@ -1,0 +1,9 @@
+{
+  "name": "yukimemi--rvpm",
+  "displayName": "rvpm",
+  "description": "Fast Neovim plugin manager with pre-compiled loader and merge optimization",
+  "version": "1.0.0",
+  "author": "yukimemi",
+  "homepage": "https://github.com/yukimemi/rvpm",
+  "skills": []
+}
