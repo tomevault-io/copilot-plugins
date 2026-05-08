@@ -1,0 +1,9 @@
+{
+  "name": "bastidood--dependency-wrangler",
+  "displayName": "dependency-wrangler",
+  "description": "A Claude Code marketplace for plugins that wrangle your dependencies.",
+  "version": "1.0.0",
+  "author": "BastiDood",
+  "homepage": "https://github.com/BastiDood/dependency-wrangler",
+  "skills": []
+}
