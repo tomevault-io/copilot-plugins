@@ -1,0 +1,9 @@
+{
+  "name": "unjs--env-runner",
+  "displayName": "env-runner",
+  "description": "Generic environment runner for JavaScript runtime.",
+  "version": "1.0.0",
+  "author": "unjs",
+  "homepage": "https://github.com/unjs/env-runner",
+  "skills": []
+}
