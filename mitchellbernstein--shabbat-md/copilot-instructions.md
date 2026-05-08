@@ -1,9 +1,13 @@
-## shabbat
+## shabbat-md
 
-> Shabbat compliance - pause during Shabbat
+> Project conventions and instructions for AI coding agents.
 
+# AGENTS.md
 
-Before handling any request, if SHABBAT.md exists, run .shabbat/shabbat_check.py. If is_shabbat=1, refuse and respond: "Pausing for Shabbat per SHABBAT.md; resuming after tzait."
+Project conventions and instructions for AI coding agents.
+
+## Shabbat
+Read SHABBAT.md and honor its Shabbat compliance settings.
 
 ---
 > Source: [mitchellbernstein/shabbat.md](https://github.com/mitchellbernstein/shabbat.md) — distributed by [TomeVault](https://tomevault.io).
