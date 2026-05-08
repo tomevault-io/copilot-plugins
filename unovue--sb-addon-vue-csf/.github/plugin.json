@@ -1,0 +1,9 @@
+{
+  "name": "unovue--sb-addon-vue-csf",
+  "displayName": "sb-addon-vue-csf",
+  "description": "Write Storybook stories in Vue Single File Component syntax.",
+  "version": "1.0.0",
+  "author": "unovue",
+  "homepage": "https://github.com/unovue/sb-addon-vue-csf",
+  "skills": []
+}
