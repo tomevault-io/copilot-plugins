@@ -4,7 +4,7 @@
   "repo": "vibeconsole",
   "description": "Terminal IDE for AI coding workflows. Multi-terminal, git integration, plugin system, context preservation.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/nesdesignco/vibeconsole",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T20:07:26Z"
+  "distributed_at": "2026-05-08T13:05:26Z"
 }
