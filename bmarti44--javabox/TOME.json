@@ -4,7 +4,7 @@
   "repo": "javabox",
   "description": "Container that runs in the browser that allows you to run Java and view the output",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/bmarti44/javabox",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T12:22:05Z"
+  "distributed_at": "2026-05-08T07:03:28Z"
 }
