@@ -1,0 +1,9 @@
+{
+  "name": "manonstreet--findmysyncplus",
+  "displayName": "FindMySyncPlus",
+  "description": "A fork of FindMySync - A macOS utility (compatible with Sequoia and Tahoe) to decrypt the local Find My cache and post device locations to a Home Assistant endpoint.",
+  "version": "1.0.0",
+  "author": "manonstreet",
+  "homepage": "https://github.com/manonstreet/FindMySyncPlus",
+  "skills": []
+}
