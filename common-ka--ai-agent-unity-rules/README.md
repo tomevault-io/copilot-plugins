@@ -2,6 +2,8 @@
 
 > Tome by [Common-ka](https://github.com/Common-ka/ai-agent-unity-rules) — distributed by [TomeVault](https://tomevault.io)
 
+🎮 Production-ready AI rules for Unity 6.2+. Single Source of Truth for Cursor (.cursor) and Google Antigravity (.agent) with auto-sync workflow.
+
 ## GitHub Copilot Config
 
 The `copilot-instructions.md` file in this directory is the project config converted for GitHub Copilot.
