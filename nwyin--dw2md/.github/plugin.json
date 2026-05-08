@@ -1,0 +1,9 @@
+{
+  "name": "nwyin--dw2md",
+  "displayName": "dw2md",
+  "description": "Crawl a DeepWiki repository and compile all pages into a single, LLM-friendly markdown file",
+  "version": "1.0.0",
+  "author": "nwyin",
+  "homepage": "https://github.com/nwyin/dw2md",
+  "skills": []
+}
