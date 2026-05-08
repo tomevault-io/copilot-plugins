@@ -1,20 +1,22 @@
-## python-logging-practices
+## python-performance-optimization
 
-> Structured logging practices using loguru with proper configuration and formatting.
+> Performance optimization patterns for utility functions including caching, lazy evaluation, and async operations.
 
-- Use loguru for all logging needs; avoid standard library logging.
-- Configure logging once at application startup using setup_logging().
-- Support log rotation, retention, and compression in configuration.
-- Use structured logging with context data: logger.bind(user_id=...).info(...).
-- Implement different log levels appropriately (DEBUG, INFO, WARNING, ERROR, CRITICAL).
-- Configure separate log files for different environments or severity levels.
-- Use logger.opt(exception=True) to log full stack traces.
-- Provide get_logger() factory function that returns configured logger.
-- Add serialization for custom objects in log messages.
-- Use log_calls decorator for automatic function call logging.
-- Configure JSON formatting for production logs if needed.
-- Never log sensitive information (passwords, tokens, PII).
-- Use lazy evaluation for expensive log message formatting.
+- Use @lru_cache for expensive pure functions that are called repeatedly.
+- Implement lazy evaluation for costly operations that may not always be needed.
+- Use generators and iterators for processing large datasets to save memory.
+- Prefer list comprehensions over map/filter for simple transformations.
+- Use async def for I/O-bound operations (file I/O, network calls).
+- Avoid premature optimization; profile first with cProfile or py-spy.
+- Cache compiled regex patterns at module level.
+- Use appropriate data structures (set for membership tests, dict for lookups).
+- Minimize function call overhead in hot paths.
+- Use str.join() instead of repeated string concatenation.
+- Read files in binary mode when text encoding is not needed.
+- Use pathlib.Path for file operations (more efficient than os.path).
+- Batch operations when possible to reduce overhead.
+- Consider using slots for frequently instantiated classes to reduce memory.
+- Use context managers to ensure proper resource cleanup.
 
 ---
 > Source: [Tendo33/IdeaGo](https://github.com/Tendo33/IdeaGo) — distributed by [TomeVault](https://tomevault.io).
