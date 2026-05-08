@@ -1,0 +1,9 @@
+{
+  "name": "y-aslant--upx-tools",
+  "displayName": "UPX-Tools",
+  "description": "UPX\u73b0\u4ee3\u5316GUI\uff0c\u4f7f\u7528Tauri2.0 + TailwindCSS\u5b9e\u73b0\uff0c\u5e76\u96c6\u6210\u4e00\u4e9bWindows\u5c0f\u5de5\u5177",
+  "version": "1.0.0",
+  "author": "Y-ASLant",
+  "homepage": "https://github.com/Y-ASLant/UPX-Tools",
+  "skills": []
+}
