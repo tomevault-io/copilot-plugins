@@ -1,0 +1,9 @@
+{
+  "name": "8gi-foundation--8gent-code",
+  "displayName": "8gent-code",
+  "description": "8gent Code : The Infinite Gentleman Agent, Autonomous coding agent powered by local LLMs",
+  "version": "1.0.0",
+  "author": "8gi-foundation",
+  "homepage": "https://github.com/8gi-foundation/8gent-code",
+  "skills": []
+}
