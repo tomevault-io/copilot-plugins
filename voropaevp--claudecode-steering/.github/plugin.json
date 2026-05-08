@@ -1,0 +1,9 @@
+{
+  "name": "voropaevp--claudecode-steering",
+  "displayName": "claudecode_steering",
+  "description": "Comprehensive steering framework for Claude Code with GPT-5.2 MCP agents - capture your development standards once, enforce them forever",
+  "version": "1.0.0",
+  "author": "voropaevp",
+  "homepage": "https://github.com/voropaevp/claudecode_steering",
+  "skills": []
+}
