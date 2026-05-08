@@ -1,0 +1,44 @@
+{
+  "name": "my-uni",
+  "owner": "wot-ui",
+  "repo": "my-uni",
+  "description": "\u26a1\ufe0f \u4e13\u4e3a uni-app \u5f00\u53d1\u7684\u6478\u9c7c\u63d2\u4ef6\u5e93\uff0c\u5305\u542b\u8def\u7531\u3001CI/CD \u7b49\u63d2\u4ef6\uff0c\u52a9\u4f60\u8f7b\u677e\u5de5\u4f5c\uff0c\u5929\u5929\u6478\u9c7c\uff01",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/wot-ui/my-uni",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T07:05:34Z"
+}
