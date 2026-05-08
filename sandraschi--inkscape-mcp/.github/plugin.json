@@ -1,0 +1,9 @@
+{
+  "name": "sandraschi--inkscape-mcp",
+  "displayName": "inkscape-mcp",
+  "description": "FastMCP 3.1 MCP server for controlling Inkscape svg editor. Includes Webapp",
+  "version": "1.0.0",
+  "author": "sandraschi",
+  "homepage": "https://github.com/sandraschi/inkscape-mcp",
+  "skills": []
+}
