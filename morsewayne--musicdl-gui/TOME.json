@@ -1,0 +1,44 @@
+{
+  "name": "musicdl-gui",
+  "owner": "MorseWayne",
+  "repo": "musicdl-gui",
+  "description": "\u4e00\u4e2a\u57fa\u4e8emusicdl\u5b9e\u73b0\u7684\u7f8e\u89c2\u6613\u7528\u7684\u97f3\u4e50\u4e0b\u8f7d\u5de5\u5177\uff0c\u652f\u6301\u591a\u4e2a\u97f3\u4e50\u5e73\u53f0\u641c\u7d22\uff1aQQ\u97f3\u4e50\u3001\u9177\u6211\u97f3\u4e50\u3001\u54aa\u5495\u97f3\u4e50\u3001\u5343\u5343\u97f3\u4e50\u3001\u9177\u72d7\u97f3\u4e50\u3001\u7f51\u6613\u4e91\u97f3\u4e50 ",
+  "type": "config",
+  "source_format": ".cursor/rules/*.mdc",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/MorseWayne/musicdl-gui",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T04:33:08Z"
+}
