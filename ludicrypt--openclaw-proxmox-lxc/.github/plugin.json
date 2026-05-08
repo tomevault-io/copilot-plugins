@@ -1,0 +1,9 @@
+{
+  "name": "ludicrypt--openclaw-proxmox-lxc",
+  "displayName": "openclaw-proxmox-lxc",
+  "description": "Proxmox VE OpenClaw LXC Helper-Script ",
+  "version": "1.0.0",
+  "author": "ludicrypt",
+  "homepage": "https://github.com/ludicrypt/openclaw-proxmox-lxc",
+  "skills": []
+}
