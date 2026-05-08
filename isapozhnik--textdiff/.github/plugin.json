@@ -1,0 +1,9 @@
+{
+  "name": "isapozhnik--textdiff",
+  "displayName": "TextDiff",
+  "description": "macOS Swift package for token-level text diffs with a display-only SwiftUI/AppKit renderer.",
+  "version": "1.0.0",
+  "author": "iSapozhnik",
+  "homepage": "https://github.com/iSapozhnik/TextDiff",
+  "skills": []
+}
