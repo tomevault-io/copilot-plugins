@@ -1,0 +1,19 @@
+## copy-paste-commands
+
+> Format terminal commands for easy copy-paste when generating commands for the Mage to run manually
+
+
+# Copy-Paste Command Formatting
+
+When generating shell commands for the Mage to run manually (on the Mac Mini, in a separate terminal, etc.):
+
+- Always format commands in a fenced code block with `bash` language tag
+- Chain related commands with `&&` so they can be pasted as a single block
+- Include an `echo` confirmation at the end so the Mage can see it worked
+- Never mix instructions and commands — put the explanation BEFORE the code block, not inside it
+- If a sequence has conditional steps (if X then do Y), provide separate copy-paste blocks for each path
+- Assume the Mage will copy the entire block and paste it verbatim — it must work without editing
+
+---
+> Source: [malteristo/magic](https://github.com/malteristo/magic) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
