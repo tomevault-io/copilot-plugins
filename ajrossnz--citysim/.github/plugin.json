@@ -1,0 +1,9 @@
+{
+  "name": "ajrossnz--citysim",
+  "displayName": "citysim",
+  "description": "A SimCity clone for DOS made from the ground-up with EGA graphics which has an SDL2 based tile editor",
+  "version": "1.0.0",
+  "author": "ajrossnz",
+  "homepage": "https://github.com/ajrossnz/citysim",
+  "skills": []
+}
