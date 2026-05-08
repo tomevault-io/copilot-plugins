@@ -1,0 +1,9 @@
+{
+  "name": "akitaonrails--distrobox-llm",
+  "displayName": "distrobox-llm",
+  "description": "Distrobox to isolate LLM related packages and tools (CUDA)",
+  "version": "1.0.0",
+  "author": "akitaonrails",
+  "homepage": "https://github.com/akitaonrails/distrobox-llm",
+  "skills": []
+}
