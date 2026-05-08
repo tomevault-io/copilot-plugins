@@ -1,0 +1,14 @@
+{
+  "name": "definableai--definable-ai",
+  "displayName": "definable.ai",
+  "description": "Agent Framework that just works out of the box \u2b50",
+  "version": "1.0.0",
+  "author": "definableai",
+  "homepage": "https://github.com/definableai/definable.ai",
+  "skills": [
+    {
+      "name": "readers",
+      "description": ""
+    }
+  ]
+}
