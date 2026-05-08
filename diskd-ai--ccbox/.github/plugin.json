@@ -1,0 +1,9 @@
+{
+  "name": "diskd-ai--ccbox",
+  "displayName": "ccbox",
+  "description": "ccbox: Remote control to manage Codex/Claude/Gemini/Opencode agent sessions",
+  "version": "1.0.0",
+  "author": "diskd-ai",
+  "homepage": "https://github.com/diskd-ai/ccbox",
+  "skills": []
+}
