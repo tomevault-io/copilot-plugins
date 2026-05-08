@@ -1,0 +1,9 @@
+{
+  "name": "manuelfusstc--pulseframework",
+  "displayName": "PulseFramework",
+  "description": "PULSE Framework: CLI (pulse) + MCP Server (pulse_*) for controlled agentic development. Features 30-min rule, 5 safeguards, loop detection, Git checkpoints, and escalation workflows.",
+  "version": "1.0.0",
+  "author": "manuelfussTC",
+  "homepage": "https://github.com/manuelfussTC/PulseFramework",
+  "skills": []
+}
