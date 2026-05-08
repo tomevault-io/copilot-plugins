@@ -1,6 +1,8 @@
-# t2000 — distributed by TomeVault
+# t2000
 
-> Originally from [mission69b/t2000](https://github.com/mission69b/t2000). Converted and distributed by [TomeVault](https://tomevault.io)
+> Source: [mission69b/t2000](https://github.com/mission69b/t2000) — distributed by [TomeVault](https://tomevault.io)
+
+Agentic Finance Infrastructure.
 
 ## GitHub Copilot Config
 
@@ -15,7 +17,7 @@ Original source: `.cursor/rules/*.mdc` in [mission69b/t2000](https://github.com/
 - **Gemini CLI** — `GEMINI.md`
 - **Windsurf** — `project-config.md`
 
-Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. [Browse all formats](https://tomevault.io/claim/mission69b)
+Available for 6 platforms including Claude Code, Cursor, Windsurf, and more. Source: [github.com/mission69b/t2000](https://github.com/mission69b/t2000)
 
 ---
 
