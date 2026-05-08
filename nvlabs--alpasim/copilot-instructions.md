@@ -1,23 +1,34 @@
-## utils-rs-build
+## uv-python
 
-> Build instructions for utils_rs Rust bindings
+> Use uv to run Python instead of activating venvs
 
+# Running Python with uv
 
-# Building utils_rs
+This repository uses `uv` for Python environment management. Do not activate virtual environments explicitly.
 
-When modifying Rust code in `src/utils_rs/`, rebuild the package using:
+## Commands
 
 ```bash
-uv pip install --force-reinstall -e src/utils_rs
+# ✅ Run Python code
+uv run python -c "..."
+uv run python script.py
+
+# ✅ Run all tests
+uv run pytest
+
+# ✅ Run tests for a specific module
+uv run --project src/runtime pytest src/runtime/tests
+
+# ❌ Don't do this
+source .venv/bin/activate
+python script.py
 ```
 
-Do NOT use `maturin develop` or similar commands.
+## Sub-projects
 
-## After Editing
-
-After making changes to the Rust code, update the Python type stubs:
-
-- Update `src/utils_rs/utils_rs.pyi` to reflect any API changes (new functions, changed signatures, etc.)
+Use `--project src/<name>` to select a sub-environment:
+- `uv run --project src/runtime python -c "..."`
+- `uv run --project src/utils python -c "..."`
 
 ---
 > Source: [NVlabs/alpasim](https://github.com/NVlabs/alpasim) — distributed by [TomeVault](https://tomevault.io).
