@@ -1,0 +1,9 @@
+{
+  "name": "descriptinc--dependicus",
+  "displayName": "dependicus",
+  "description": "Dependency governance for monorepos. Tickets, not PRs. Fancy dashboards and a plugin system.",
+  "version": "1.0.0",
+  "author": "descriptinc",
+  "homepage": "https://github.com/descriptinc/dependicus",
+  "skills": []
+}
