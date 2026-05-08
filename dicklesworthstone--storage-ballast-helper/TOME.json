@@ -1,0 +1,44 @@
+{
+  "name": "storage_ballast_helper",
+  "owner": "Dicklesworthstone",
+  "repo": "storage_ballast_helper",
+  "description": "Cross-platform Rust daemon that prevents disk-full incidents for AI coding workloads using predictive pressure control, safe artifact cleanup, and multi-volume ballast pools.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Dicklesworthstone/storage_ballast_helper",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T19:04:08Z"
+}
