@@ -1,0 +1,9 @@
+{
+  "name": "ndevtk--apiclient",
+  "displayName": "APIClient",
+  "description": "API Security Researcher",
+  "version": "1.0.0",
+  "author": "NDevTK",
+  "homepage": "https://github.com/NDevTK/APIClient",
+  "skills": []
+}
