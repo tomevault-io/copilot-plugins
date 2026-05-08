@@ -73,6 +73,5 @@ All in `~/.clawless/`: `config.json`, `MEMORY.md`, `conversation-history.jsonl`,
 - `LOG_LEVEL=debug` — Debug logging
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/HainanZhao)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/HainanZhao)
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [HainanZhao/Clawless](https://github.com/HainanZhao/Clawless) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
