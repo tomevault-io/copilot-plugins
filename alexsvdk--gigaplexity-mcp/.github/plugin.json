@@ -1,0 +1,9 @@
+{
+  "name": "alexsvdk--gigaplexity-mcp",
+  "displayName": "gigaplexity-mcp",
+  "description": "MCP server that turns GigaChat into a web-connected search assistant with ask, research, and reason tools.",
+  "version": "1.0.0",
+  "author": "alexsvdk",
+  "homepage": "https://github.com/alexsvdk/gigaplexity-mcp",
+  "skills": []
+}
