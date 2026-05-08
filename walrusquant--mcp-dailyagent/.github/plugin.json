@@ -1,0 +1,9 @@
+{
+  "name": "walrusquant--mcp-dailyagent",
+  "displayName": "mcp-dailyagent",
+  "description": "Daily Agent \u2014 productivity dashboard + MCP server",
+  "version": "1.0.0",
+  "author": "WalrusQuant",
+  "homepage": "https://github.com/WalrusQuant/mcp-dailyagent",
+  "skills": []
+}
