@@ -1,0 +1,9 @@
+{
+  "name": "grcengclub--claude-grc-engineering",
+  "displayName": "claude-grc-engineering",
+  "description": "Official open-source GRC toolkit from the GRC Engineering Club. Claude Code plugins for evidence collection, SCF crosswalks, multi-framework gap reports, OSCAL workflows.",
+  "version": "1.0.0",
+  "author": "GRCEngClub",
+  "homepage": "https://github.com/GRCEngClub/claude-grc-engineering",
+  "skills": []
+}
