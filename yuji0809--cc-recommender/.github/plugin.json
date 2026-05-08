@@ -1,0 +1,9 @@
+{
+  "name": "yuji0809--cc-recommender",
+  "displayName": "cc-recommender",
+  "description": "\ud83c\udfaf MCP server that recommends optimal Claude Code extensions by analyzing your project",
+  "version": "1.0.0",
+  "author": "yuji0809",
+  "homepage": "https://github.com/yuji0809/cc-recommender",
+  "skills": []
+}
