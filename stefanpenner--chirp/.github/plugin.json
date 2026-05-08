@@ -1,0 +1,9 @@
+{
+  "name": "stefanpenner--chirp",
+  "displayName": "chirp",
+  "description": "Free, Fast, Offline voice-to-text for macOS",
+  "version": "1.0.0",
+  "author": "stefanpenner",
+  "homepage": "https://github.com/stefanpenner/chirp",
+  "skills": []
+}
