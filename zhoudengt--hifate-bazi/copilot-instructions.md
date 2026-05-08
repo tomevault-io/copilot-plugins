@@ -1,39 +1,35 @@
-## local-env
+## orchestrator-rules
 
-> 本地开发环境配置（必须遵守）
+> 数据编排架构规范（始终生效）
 
 
-# 本地开发环境
+# 数据编排架构原则（最高优先级）
 
-## 关键事实
+> **⚠️ 数据只计算一次，所有接口从 `BaziDataOrchestrator.fetch_data()` 统一获取数据，禁止重复计算！**
 
-- **本地没有 Docker**，禁止用 docker / docker compose 命令
-- **本地使用虚拟环境** `.venv`，必须用 `.venv/bin/python` 执行所有 Python 命令
-- 禁止用系统 python3 / pip3 安装或运行任何东西
-- 本地 Redis / MySQL 是 brew 原生安装，不是容器
-- **本地 MySQL 密码：123456**
-- 生产环境才用 Docker
+## 核心架构
 
-## 本地启动命令
-
-```bash
-# 激活虚拟环境
-source .venv/bin/activate
-
-# Redis / MySQL（brew 原生服务）
-brew services start redis
-brew services start mysql
-
-# Web 服务（必须用虚拟环境的 python）
-.venv/bin/python server/main.py
+```
+流式接口/API接口 → BaziDataOrchestrator.fetch_data() → 底层服务
+ （统一入口，只计算一次）
+ 阶段1（独立任务并行，超时15s）: bazi, wangshuai, detail, health...
+ 阶段2（依赖任务并行，超时10s）: rules, fortune_context, personality, rizhu
 ```
 
-## 本地测试流程
+## 绝对禁止
 
-1. 先本地单元测试验证核心逻辑
-2. 再启动本地服务跑回归测试 `.venv/bin/python api_regression_test.py --env local`
-3. 全部通过后才提交发布到生产
-4. **禁止**未经本地完整测试就往生产部署
+- ❌ 流式接口中直接调用底层服务（如 `BaziDetailService.calculate_detail_full()`）
+- ❌ 下游服务重复调用上游服务（导致重复计算）
+- ❌ 绕过 `BaziDataOrchestrator` 获取数据
+
+## 必须遵守
+
+- ✅ 所有接口通过 `BaziDataOrchestrator.fetch_data()` 获取数据
+- ✅ 下游服务接收已计算好的数据作为参数
+
+## 详细规范
+
+详见 `standards/08_数据编排架构规范.md`
 
 ---
 > Source: [zhoudengt/HiFate-bazi](https://github.com/zhoudengt/HiFate-bazi) — distributed by [TomeVault](https://tomevault.io).
