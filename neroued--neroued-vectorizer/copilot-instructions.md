@@ -1,19 +1,53 @@
-## cpp-formatting
+## cross-platform-cpp
 
-> C++ 代码格式化规范
+> C++ 跨平台编译规范
 
 
-# C++ 代码格式化
+# C++ 跨平台编译规范
 
-每次修改 `.cpp`、`.h`、`.hpp`、`.cc`、`.cxx` 文件后，必须使用项目根目录的 `.clang-format` 配置对修改的文件运行格式化：
+本项目支持 Linux / macOS / Windows (MSVC) 三平台。所有 C++ 代码必须在 MSVC 上编译通过。
 
-```bash
-clang-format -i <modified-files>
-```
+## MSVC 禁用项
 
-- 仅对本次修改过的文件执行，不要全量格式化
-- 在所有编辑完成后统一执行一次即可，无需每次编辑后都执行
-- 格式化风格基于 LLVM，缩进 4 空格，列宽限制 100
+- **禁止 `M_PI` / `M_E` / `M_SQRT2` 等 POSIX 数学常量**：MSVC 默认不定义。使用 C++20 `std::numbers::pi`、`std::numbers::e` 等替代，需 `#include <numbers>`。
+- **禁止 `constexpr` 中调用 `std::pow`、`std::exp`、`std::log`、`std::sin` 等**：MSVC 不将这些视为 constexpr。需要编译期求值时使用运行时初始化的 `static` 变量或 LUT。
+- **禁止 VLA（变长数组）**：MSVC 不支持。使用 `std::vector` 或固定大小数组。
+- **禁止 GCC/Clang 扩展**：`__attribute__`、`__builtin_*`、`__typeof__`、`__PRETTY_FUNCTION__`。使用标准等价物（如 `[[nodiscard]]`、`__FUNCSIG__` + `#ifdef` 分支）。
+
+## MSVC OpenMP 2.0 限制
+
+MSVC 仅支持 OpenMP 2.0，以下功能不可用：
+- `#pragma omp parallel for` 的循环变量必须是 `int`（不支持 `size_t`、`unsigned`、迭代器）
+- 不支持 `collapse`、`task`、`taskloop`
+- 不支持自定义类型的 `reduction`：使用 per-thread 数组 + 手动合并
+- OpenMP API 调用（`omp_get_thread_num()` 等）必须用 `#ifdef _OPENMP` 保护
+
+## POSIX 函数兼容
+
+- `popen`/`pclose` → MSVC 下用 `_popen`/`_pclose`，需 `#if defined(_WIN32)` 分支
+- `localtime_r` → MSVC 下用 `localtime_s`（参数顺序不同）
+- `strdup` → MSVC 下用 `_strdup`
+- `strcasecmp` → MSVC 下用 `_stricmp`
+
+## 文件系统路径
+
+禁止硬编码 POSIX 路径，一律使用 `std::filesystem`（C++17）。
+
+## 随机数 / ID 生成
+
+禁止直接读取 `/dev/urandom`，使用 `std::random_device`。
+
+## CMake 外部库链接
+
+禁止硬编码 Linux 特有的库名，使用 find_package 或条件分支。
+
+## 平台宏判断
+
+需要平台差异时，使用标准宏：`_WIN32`、`__APPLE__`。
+
+## 变更检查
+
+每次新增系统调用、数学常量、OpenMP 代码或文件操作时，必须确认 MSVC 兼容性。
 
 ---
 > Source: [Neroued/neroued_vectorizer](https://github.com/Neroued/neroued_vectorizer) — distributed by [TomeVault](https://tomevault.io).
