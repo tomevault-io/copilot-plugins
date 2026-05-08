@@ -1,34 +1,36 @@
-## documentation
+## standards
 
-> Keep user-facing docs aligned with code; verify coverage while working
+> Plan-first, minimal-impact, verifiable changes; SOLID/DRY/KISS/YAGNI; types & style
 
 
-# Documentation maintenance
+# Standards
 
-## Surfaces
+## Plan & approval
 
-Treat as documentation: `docs/**`, root `README.md`, `CONTRIBUTING.md`, and `examples/**/README.md` when the change touches behavior, CLI, config, or workflows those files describe. Public API docstrings follow [standards.mdc](standards.mdc); keep them consistent with any narrative docs that mention the same API.
+- Non-trivial (3+ steps or architecture): Research → Plan → implement only after human approval. Artifacts: `./agent-artifacts/tasks/<task>/research.md`, `plan.md`, todo list. No implementation before approval.
+- Never deviate from an approved plan without asking; one approval does not cover later deviations.
 
-## When to update docs
+## Impact & verification
 
-Update docs in the same change set when behavior could confuse a reader: new/changed CLI commands or flags, defaults, config keys, env vars, user- or operator-visible errors, pipeline/stage semantics, YT/S3 integration, Docker or code upload flows, troubleshooting symptoms, or anything else someone would look up under `docs/` or READMEs.
+- Touch only required files. Root-cause fixes over rewrites. No destructive git without request. No dead code.
+- Done = proof (test/log/command output). No "done" without evidence. Divergence → re-plan, don’t patch.
 
-## Obligation
+## Code
 
-Update every affected surface (or add a focused new section for new behavior). Do not leave stale commands, options, or explanations that contradict the code.
+- SOLID, DRY, KISS, YAGNI. Explicit intent; no dead code. Clarify ambiguity before implementing.
+- Types: prefer dataclasses over `tuple[str,str,int]`, `Union[...]`, or big `dict[str, Any]`; use `Optional`, `List`, etc.; `TYPE_CHECKING` for type-only imports.
+- Public API: type hints + docstrings (Args/Returns); Literal for constrained params. Small, single-purpose functions; early returns; compact style (single-line calls, chained transforms, 88-char line). Prefer `assert` with message; comments only as `TODO:` for team decisions.
+- Quality: run `black --check --diff` on changed files; after changes, align diff with style and update .cursor/rules if needed.
 
-## While working
+## Artifacts & files
 
-- **Early**: Map edited modules/features to the relevant `docs/` pages and READMEs; read them and note gaps or drift.
-- **Before done**: Reconcile implementation with those docs; if public API changed, fix docstrings per `standards.mdc` and any prose that describes that API.
+- Artifacts under `./cursor/artifacts/`: `tasks/<task>/`, `user-preferences/`, `project-details/`.
+- Ensure .cursor/rules exists and is up to date.
 
-## Proof
+## Shell
 
-- **Touches `docs/` or example/root README/CONTRIBUTING**: run `make -C docs html` after installing doc dependencies (e.g. `pip install -e ".[docs]"` using the `docs` optional extra in repo-root `pyproject.toml`); cite success or fix warnings/errors Sphinx reports.
-- **Docstrings only, no prose under `docs/` or those READMEs**: state that Sphinx was not required; still ensure docstrings match behavior.
-- **Pure prose doc edits**: `make -C docs html` is the primary verification.
-
-Done = proof, same spirit as Standards: do not claim completion without evidence appropriate to what changed.
+- Use `cp`/`mv` for new/renamed files.
+- Avoid `| head`, `| tail`, `less`, `more` for monitoring; use command-native limits (e.g. `git log -n 10`) or read files directly.
 
 ---
 > Source: [GregoryKogan/yt-framework](https://github.com/GregoryKogan/yt-framework) — distributed by [TomeVault](https://tomevault.io).
