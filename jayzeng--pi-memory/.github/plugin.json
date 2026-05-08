@@ -1,0 +1,9 @@
+{
+  "name": "jayzeng--pi-memory",
+  "displayName": "pi-memory",
+  "description": "Persistent memory extension for pi with daily logs, scratchpad, and optional qmd\u2011powered semantic search.",
+  "version": "1.0.0",
+  "author": "jayzeng",
+  "homepage": "https://github.com/jayzeng/pi-memory",
+  "skills": []
+}
