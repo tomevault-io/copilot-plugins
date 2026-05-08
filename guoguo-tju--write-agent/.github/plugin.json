@@ -1,0 +1,9 @@
+{
+  "name": "guoguo-tju--write-agent",
+  "displayName": "write_agent",
+  "description": "AI writing assistant built with FastAPI, LangChain, LangGraph, RAG, and OpenAI-compatible APIs for style extraction, rewriting, review, and cover generation",
+  "version": "1.0.0",
+  "author": "guoguo-tju",
+  "homepage": "https://github.com/guoguo-tju/write_agent",
+  "skills": []
+}
