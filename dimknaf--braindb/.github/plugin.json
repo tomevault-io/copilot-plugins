@@ -1,0 +1,9 @@
+{
+  "name": "dimknaf--braindb",
+  "displayName": "braindb",
+  "description": "An \"LLM wiki\" upgraded to a real database \u2014 typed entities, graph relations, HTTP API, and a built-in natural-language agent.",
+  "version": "1.0.0",
+  "author": "dimknaf",
+  "homepage": "https://github.com/dimknaf/braindb",
+  "skills": []
+}
