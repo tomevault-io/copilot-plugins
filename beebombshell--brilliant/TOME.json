@@ -1,0 +1,44 @@
+{
+  "name": "brilliant",
+  "owner": "BeeBombshell",
+  "repo": "brilliant",
+  "description": "An intelligent AI Calendar app that sits on top of your Google Calendar - helps you manage your schedule via conversational AI capabilities. Schedule, manage, and reorganize your events naturally through chat.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/BeeBombshell/brilliant",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T23:03:02Z"
+}
