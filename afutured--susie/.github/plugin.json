@@ -1,0 +1,9 @@
+{
+  "name": "afutured--susie",
+  "displayName": "susie",
+  "description": "Chat with agents on Telegram through ACP.",
+  "version": "1.0.0",
+  "author": "AFutureD",
+  "homepage": "https://github.com/AFutureD/susie",
+  "skills": []
+}
