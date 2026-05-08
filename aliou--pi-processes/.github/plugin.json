@@ -1,0 +1,9 @@
+{
+  "name": "aliou--pi-processes",
+  "displayName": "pi-processes",
+  "description": "Background process management for Pi. Start long-running commands without blocking the conversation.",
+  "version": "1.0.0",
+  "author": "aliou",
+  "homepage": "https://github.com/aliou/pi-processes",
+  "skills": []
+}
