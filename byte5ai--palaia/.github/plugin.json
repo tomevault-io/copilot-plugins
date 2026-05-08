@@ -1,0 +1,9 @@
+{
+  "name": "byte5ai--palaia",
+  "displayName": "palaia",
+  "description": "Palaia \u2014 Local, crash-safe memory for AI agents. Semantic vector search (fastembed/OpenAI/Ollama). SQLite + sqlite-vec or PostgreSQL + pgvector. MCP server for Claude Desktop & Cursor. Multi-agent. Au",
+  "version": "1.0.0",
+  "author": "byte5ai",
+  "homepage": "https://github.com/byte5ai/palaia",
+  "skills": []
+}
