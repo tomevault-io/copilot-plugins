@@ -1,444 +1,291 @@
-## engineering-patterns
+## sveltekit-spa
 
-> >-
+> You are an expert SvelteKit engineer. Follow these rules ALWAYS when generating or editing code.
 
 
-# Engineering Patterns for SvelteKit
+# Cursor Project Rules — SvelteKit (latest) + Runes + TS + Supabase Auth + Postgres + shadcn-svelte
 
-This project runs in SPA mode (`ssr = false`). All code executes in the browser — there are no server routes, server hooks, or server-side rendering.
-
-SPA implications for pattern selection:
-- Module-level singletons are safe (one user per tab, no cross-request leakage).
-- Strategies wrap client-side SDKs or call external APIs/edge functions.
-- Observer patterns use Svelte 5 runes; event buses are client-side only.
-- Services and repositories run entirely in the browser via the Supabase client SDK.
-- If the project ever migrates to SSR, re-evaluate Singleton and Observer patterns for per-request safety.
-
-Composition flow — patterns layer in one direction:
-
-```
-Component → Service → Repository → Adapter (wraps SDK)
-                                  ↑
-                            Singleton (shared client)
-```
-
-Components call services. Services enforce business rules and call repositories. Repositories abstract data access. Adapters wrap third-party SDKs. Singletons provide shared client instances. Strategies and Factories are cross-cutting — used wherever swappable behavior or complex construction is needed.
+You are an expert SvelteKit engineer. Follow these rules ALWAYS when generating or editing code.
 
 ============================================================
-1) Factory — centralized object creation
+0) Core principles
 ============================================================
-Use a factory when constructing objects requires conditional logic, defaults, or async setup that callers should not repeat.
-
-- Export a plain function (or async function) that returns a fully configured instance.
-- Keep construction details hidden; callers receive a typed result.
-- Prefer a factory over a class constructor when multiple creation paths exist.
-- For costly async setup (remote config, auth token exchange), await the factory once at init time and reuse the result.
-
-```typescript
-// src/lib/api/create-api-client.ts
-import type { ApiClient } from './types';
-
-// Async factory — resolves auth headers before returning a ready client.
-export async function createApiClient(baseUrl: string): Promise<ApiClient> {
-  const token = await fetchServiceToken();
-  const headers = { Authorization: `Bearer ${token}` };
-
-  return {
-    get: async (path) => fetch(`${baseUrl}${path}`, { headers }).then((r) => r.json()),
-    post: async (path, body) =>
-      fetch(`${baseUrl}${path}`, {
-        method: 'POST',
-        headers: { ...headers, 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      }).then((r) => r.json()),
-  };
-}
-```
-
-Avoid:
-- Scattering construction logic across multiple call sites — centralize it in the factory.
-- Returning partially initialized objects — the factory's output must be ready to use.
+- Prefer clarity + consistency over cleverness.
+- Make changes minimal and localized.
+- Never introduce new dependencies unless explicitly requested. If a dependency is truly necessary, explain why and propose alternatives.
+- Preserve existing patterns in the codebase (naming, folder structure, error handling, UI primitives).
+- Avoid breaking public APIs/exports without updating all usage sites.
+- Default to shadcn-svelte components for UI primitives unless a plain semantic element is clearly better.
+- MCP usage (required):
+  - Use the Supabase MCP for database/auth inspection and project context in READ-ONLY mode by default.
+  - Do not run mutating Supabase MCP operations (writes, deletes, schema changes) unless explicitly requested by the user.
+  - Use the Svelte MCP whenever Svelte/SvelteKit development is involved.
+  - For Svelte MCP workflows: run `list-sections` first and then fetch ALL relevant sections via `get-documentation` after reviewing `use_cases`.
+  - Use `svelte-autofixer` whenever writing/editing Svelte code, and keep running it until no issues/suggestions remain.
+  - Use `playground-link` only when the user explicitly asks for a playground link, and never when code is being written directly to project files.
 
 ============================================================
-2) Repository — data access abstraction
+1) SvelteKit conventions
 ============================================================
-Encapsulate all Supabase table operations behind a repository interface so business logic never depends on Supabase directly.
-
-- Define an interface describing the data operations (find, create, update, delete).
-- Implement with Supabase queries; export the concrete implementation as the default.
-- For tests, provide a mock factory that satisfies the same interface with in-memory storage.
-- Place repositories in `src/lib/database/repositories/`.
-- Select only the columns you need — avoid `select('*')`.
-- Let Supabase errors propagate — the service layer is responsible for catching and transforming them.
-
-```typescript
-// src/lib/database/repositories/types.ts
-export interface ProjectRepository {
-  findById(id: string): Promise<Project | null>;
-  findByOwner(ownerId: string): Promise<Project[]>;
-  create(data: CreateProjectInput): Promise<Project>;
-  update(id: string, data: UpdateProjectInput): Promise<Project>;
-  remove(id: string): Promise<void>;
-}
-```
-
-```typescript
-// src/lib/database/repositories/project-repository.ts
-import { supabase } from '$lib/supabase/client';
-import type { ProjectRepository } from './types';
-
-export const projectRepository: ProjectRepository = {
-  async findById(id) {
-    const { data, error } = await supabase
-      .from('projects')
-      .select('id, name, owner_id, created_at')
-      .eq('id', id)
-      .maybeSingle();
-    if (error) throw error;
-    return data;
-  },
-  // ... remaining methods follow the same shape
-};
-```
-
-```typescript
-// src/lib/database/repositories/project-repository.mock.ts
-import type { ProjectRepository } from './types';
-
-// In-memory mock for unit tests — no Supabase dependency.
-export function createMockProjectRepository(
-  seed: Project[] = []
-): ProjectRepository {
-  const store = new Map(seed.map((p) => [p.id, p]));
-
-  return {
-    async findById(id) {
-      return store.get(id) ?? null;
-    },
-    async findByOwner(ownerId) {
-      return [...store.values()].filter((p) => p.owner_id === ownerId);
-    },
-    async create(data) {
-      const project = {
-        ...data,
-        id: crypto.randomUUID(),
-        created_at: new Date().toISOString(),
-      } as Project;
-      store.set(project.id, project);
-      return project;
-    },
-    async update(id, data) {
-      const existing = store.get(id);
-      if (!existing) throw new Error('Not found');
-      const updated = { ...existing, ...data };
-      store.set(id, updated);
-      return updated;
-    },
-    async remove(id) {
-      store.delete(id);
-    },
-  };
-}
-```
-
-Avoid:
-- Importing `supabase` outside of repository files — keep the SDK boundary here.
-- Adding business logic (validation, authorization) in repositories — that belongs in services.
+- Use SvelteKit file conventions correctly:
+  - Route components: +page.svelte, layouts: +layout.svelte, data: +page.ts/+layout.ts.
+  - Avoid putting business logic in route files; move reusable logic to src/lib.
+- In SPA mode (ssr=false), do not rely on server-only behavior. Keep Supabase client-side with browser-safe env vars only.
+- Use $app/navigation (goto) and $app/state (page, navigating, updated) for routing concerns.
+  - NEVER use deprecated $app/stores - it's for legacy SvelteKit <2.12 only.
+  - Import page from $app/state: `import { page } from '$app/state'`
+  - Use `page.url.pathname` directly (no $ prefix needed - it's already reactive with runes).
+- Redirects/guards must be done in layouts for sections (e.g., protected area), not sprinkled across many pages.
+- Never compare pathnames with raw string equality — SvelteKit may add or omit trailing slashes.
+  - Always normalize paths before comparing (strip trailing slash if length > 1).
+  - Prefer comparing parsed identifiers (e.g., step numbers, route params) over raw pathname strings.
+- Load function invalidation with `depends`/`invalidate`:
+  - When a `+layout.ts` or `+page.ts` load function depends on auth state, call `depends('auth:session')` inside it so it can be re-run on demand.
+  - After login, logout, or any auth state change, call `invalidate('auth:session')` (from `$app/navigation`) to trigger re-runs of every load function that declared the dependency.
+  - This keeps load functions reactive to auth changes without sprinkling manual checks across pages.
+  - The dependency key is a custom string — not a URL. SvelteKit matches it by exact string equality.
 
 ============================================================
-3) Service Layer — business logic with typed results
+2) Runes + state management
 ============================================================
-Place domain logic in service modules between components and repositories. Services enforce business rules, orchestrate multiple repositories, and return typed results instead of throwing.
-
-Use a `Result<T>` discriminated union so callers handle success and failure explicitly without try/catch:
-
-```typescript
-// src/lib/types/result.ts
-export type Result<T, E = string> =
-  | { ok: true; data: T }
-  | { ok: false; error: E };
-```
-
-- Place services in `src/lib/services/` or `src/lib/database/services/`.
-- Accept repository dependencies as parameters (with defaults) to enable test injection.
-- Keep services free of Svelte reactivity — they are pure async functions.
-- Catch repository/SDK errors and return a `Result` with a user-friendly error string.
-- Components check `result.ok` and render accordingly — no ambient try/catch needed.
-
-```typescript
-// src/lib/services/project-service.ts
-import { projectRepository } from '$lib/database/repositories/project-repository';
-import type { ProjectRepository } from '$lib/database/repositories/types';
-import type { Result } from '$lib/types/result';
-
-export function createProjectService(repo: ProjectRepository = projectRepository) {
-  return {
-    async getProjectForUser(projectId: string, userId: string): Promise<Result<Project>> {
-      try {
-        const project = await repo.findById(projectId);
-        if (!project) return { ok: false, error: 'Project not found' };
-        if (project.owner_id !== userId) return { ok: false, error: 'Access denied' };
-        return { ok: true, data: project };
-      } catch {
-        return { ok: false, error: 'Failed to load project. Please try again.' };
-      }
-    },
-
-    async createProject(userId: string, name: string): Promise<Result<Project>> {
-      const trimmed = name.trim();
-      if (!trimmed) return { ok: false, error: 'Project name is required' };
-      try {
-        const project = await repo.create({ name: trimmed, owner_id: userId });
-        return { ok: true, data: project };
-      } catch {
-        return { ok: false, error: 'Could not create project. Please try again.' };
-      }
-    },
-  };
-}
-
-export const projectService = createProjectService();
-```
-
-Component usage:
-
-```typescript
-const result = await projectService.createProject(userId, name);
-if (result.ok) {
-  goto(`/app/projects/${result.data.id}`);
-} else {
-  serverError = result.error;
-}
-```
-
-Avoid:
-- Letting raw Supabase/SDK errors reach components — always transform in the service.
-- Putting navigation or reactive state updates inside services — return data and let the component act.
-- Skipping the service layer for "simple" CRUD — it's the natural place to add validation and authorization later.
+- Use Runes ($state, $derived, $effect) and avoid legacy writable stores.
+- $derived must be side-effect free:
+  - Never call `goto()`, network requests, or mutate $state inside $derived.
+  - $derived is for pure computations only — use $effect for side effects that react to derived values.
+  - Example: derive a `redirecting` flag with `$derived(status === 'needs-auth')`, then perform `goto()` in a separate `$effect` that reads `status`.
+- Avoid module-level side effects that register listeners on import (especially auth listeners). Use an explicit init function called once (e.g., from root layout onMount) or idempotent subscription guards.
+- Keep state minimal:
+  - Put global app/auth state in src/lib (e.g., src/lib/auth/state.svelte.ts).
+  - Keep page-local state inside the page component unless it must be shared.
+- $effect must be cleanup-safe:
+  - Always return cleanup functions when subscribing to listeners.
+  - Prevent duplicate subscriptions in dev/HMR.
+- $effect dependency tracking is synchronous only:
+  - Svelte 5 only tracks reactive reads that happen synchronously in the $effect body.
+  - Any reactive value read inside an async callback (.then(), await, setTimeout) is NOT tracked.
+  - If an $effect needs to re-run when a reactive value changes, read it into a local variable at the TOP of the effect body, before any async code.
+  - Example: `$effect(() => { const path = page.url.pathname; void fetchData().then(() => { /* use path here */ }); });`
+- Layout guards that gate children rendering must account for all valid sub-states:
+  - If a layout conditionally renders `{@render children()}`, ensure every legitimate child route has a state that passes the gate.
+  - Example: onboarding pages must render even when onboarding status is 'incomplete'.
 
 ============================================================
-4) Singleton — module-level clients
+3) TypeScript rules
 ============================================================
-Use ES module scope to provide a single shared instance. This project already follows this pattern for the Supabase client (`src/lib/supabase/client.ts`).
-
-- Export a `const` at module level — ES modules evaluate once, giving you a singleton for free.
-- In this SPA, a module singleton is safe: one user per browser tab.
-- For any new third-party client (analytics, feature-flag SDK, etc.), follow the same pattern: one file, one export, validated env vars at the top.
-
-```typescript
-// src/lib/supabase/client.ts  (already exists — canonical example)
-import { createClient } from '@supabase/supabase-js';
-import { env } from '$env/dynamic/public';
-
-export const supabase = createClient(env.PUBLIC_SUPABASE_URL, env.PUBLIC_SUPABASE_PUBLISHABLE_KEY);
-```
-
-For expensive clients that should not initialize until first use, use a lazy singleton:
-
-```typescript
-// src/lib/analytics/client.ts
-import { env } from '$env/dynamic/public';
-
-let instance: AnalyticsClient | null = null;
-
-export function getAnalyticsClient(): AnalyticsClient {
-  if (!instance) {
-    instance = createExpensiveClient(env.PUBLIC_ANALYTICS_KEY);
-  }
-  return instance;
-}
-```
-
-Avoid:
-- Creating multiple instances of the same client in different files — always import the singleton.
-- Storing user-specific state in a module singleton — use `$state` in a `.svelte.ts` file instead.
+- Strict TypeScript: no `any`. Prefer `unknown` + narrowing when necessary.
+- Export types for public APIs and reuse them consistently.
+- Use explicit return types on exported functions.
+- Prefer small, typed helper functions over inline logic in components.
 
 ============================================================
-5) Strategy — swappable behaviors
+4) Folder structure + naming
 ============================================================
-Use the strategy pattern when the same operation can be fulfilled by different implementations selected at runtime or configuration time (e.g. analytics providers, AI model clients, storage backends).
-
-- Define a shared interface for the behavior.
-- Implement each variant in its own file.
-- Select the active strategy via env var, feature flag, or function parameter.
-- Use `$env/dynamic/public` for env-based selection (consistent with this project's conventions).
-
-```typescript
-// src/lib/analytics/types.ts
-export interface AnalyticsProvider {
-  track(event: string, properties?: Record<string, unknown>): void;
-  identify(userId: string, traits?: Record<string, unknown>): void;
-  reset(): void;
-}
-```
-
-```typescript
-// src/lib/analytics/posthog-provider.ts
-import type { AnalyticsProvider } from './types';
-
-export function createPosthogProvider(apiKey: string): AnalyticsProvider {
-  return {
-    track(event, properties) { /* PostHog SDK call */ },
-    identify(userId, traits) { /* PostHog SDK call */ },
-    reset() { /* PostHog SDK call */ },
-  };
-}
-```
-
-```typescript
-// src/lib/analytics/index.ts
-import { env } from '$env/dynamic/public';
-import { createPosthogProvider } from './posthog-provider';
-import { createMixpanelProvider } from './mixpanel-provider';
-import type { AnalyticsProvider } from './types';
-
-const factories: Record<string, (key: string) => AnalyticsProvider> = {
-  posthog: createPosthogProvider,
-  mixpanel: createMixpanelProvider,
-};
-
-let provider: AnalyticsProvider | null = null;
-
-export function getAnalytics(): AnalyticsProvider {
-  if (!provider) {
-    const name = env.PUBLIC_ANALYTICS_PROVIDER || 'posthog';
-    const key = env.PUBLIC_ANALYTICS_KEY;
-    const factory = factories[name];
-    if (!factory || !key) throw new Error(`Analytics misconfigured: provider=${name}`);
-    provider = factory(key);
-  }
-  return provider;
-}
-```
-
-Avoid:
-- Hardcoding provider selection with if/else chains in consuming code — centralize it in the strategy resolver.
-- Leaking provider-specific types outside the strategy boundary — all consumers import only your interface.
+- Keep shared code in src/lib:
+  - src/lib/supabase/* for Supabase client config, typed query helpers, and auth utilities
+  - src/lib/auth/* for auth state + actions + guards
+  - src/lib/database/* for typed Postgres query/services (or domain services wrapping Supabase calls)
+  - src/lib/components/* for reusable components
+  - src/lib/components/ui/* for shadcn-svelte components (unmodified copies unless clearly documented)
+  - src/lib/utils/* for pure utilities
+- Name files by responsibility:
+  - auth/state.svelte.ts for reactive global state
+  - auth/actions.ts for sign-in/sign-out flows
+  - auth/guards.ts for useProtectedRoute/isOnboardingRoute helpers
+  - supabase/client.ts for singleton browser client setup
+  - database/services/*.ts for domain-specific data operations
 
 ============================================================
-6) Observer — reactive subscriptions
+5) shadcn-svelte (UI kit) rules
 ============================================================
-In this SPA, Svelte 5 runes (`$state`, `$derived`, `$effect`) are the primary observer mechanism. Use them for all UI-reactive state. For decoupled cross-component events that don't map cleanly to shared state, use a lightweight typed event bus.
-
-Runes (primary approach):
-- This project uses `$state` in `src/lib/auth/state.svelte.ts` — follow that pattern.
-- Export a `$state` object, update it from async functions, let components read it reactively.
-- Use `$derived` for computed values that depend on reactive state.
-
-Event bus (for fire-and-forget notifications between unrelated modules):
-- Useful when multiple unrelated modules need to react to an event without coupling via shared state.
-- Keep the bus typed. Since this is an SPA, one bus instance lives for the tab's lifetime.
-
-```typescript
-// src/lib/events/event-bus.ts
-type Handler<T> = (payload: T) => void;
-
-export function createEventBus<EventMap extends Record<string, unknown>>() {
-  const listeners = new Map<keyof EventMap, Set<Handler<unknown>>>();
-
-  return {
-    on<K extends keyof EventMap>(event: K, handler: Handler<EventMap[K]>): () => void {
-      if (!listeners.has(event)) listeners.set(event, new Set());
-      const set = listeners.get(event)!;
-      set.add(handler as Handler<unknown>);
-      return () => { set.delete(handler as Handler<unknown>); };
-    },
-    emit<K extends keyof EventMap>(event: K, payload: EventMap[K]): void {
-      listeners.get(event)?.forEach((fn) => fn(payload));
-    },
-  };
-}
-```
-
-Always clean up subscriptions inside `$effect` to prevent leaks during HMR and component unmount:
-
-```svelte
-<script lang="ts">
-  import { appEvents } from '$lib/events/app-events';
-
-  $effect(() => {
-    const unsubscribe = appEvents.on('project:created', (payload) => {
-      // handle event
-    });
-    return unsubscribe;
-  });
-</script>
-```
-
-Avoid:
-- Subscribing in `$effect` without returning the unsubscribe function — causes listener leaks in dev/HMR.
-- Using an event bus for state that the UI reads continuously — use `$state` instead.
-- Reaching for legacy Svelte stores (`writable`, `readable`) — use runes.
+- Prefer shadcn-svelte components for consistent design:
+  - Buttons, inputs, labels, cards, dialogs, dropdowns, toasts, tabs, tables, spinners, etc.
+- Import path conventions:
+  - Always import shadcn components from `src/lib/components/ui/*`
+  - Example: `import { Button } from "$lib/components/ui/button";`
+- Do NOT rewrite or “simplify” shadcn component internals unless explicitly requested.
+  - If changes are necessary, comment WHY and keep diffs minimal.
+- Styling:
+  - Prefer Tailwind utility classes on the consuming component over editing UI primitives.
+  - Use `cn()` utility for conditional classes if available in the project.
+- Composition:
+  - Use shadcn patterns (e.g., DialogHeader/DialogFooter, DropdownMenuTrigger, etc.) as intended.
+  - Ensure triggers and focus management stay correct (don’t break accessibility).
+- Forms:
+  - If the project uses a shadcn form pattern, follow it consistently.
+  - Always pair inputs with Label, and show inline error text in a consistent style.
+- Feedback:
+  - Use shadcn Toast/Sonner for success/error messages.
+  - Use Alert components for page-level errors.
 
 ============================================================
-7) Adapter — wrapping third-party SDKs
+6) Forms (Zod + superforms + shadcn)
 ============================================================
-Wrap every third-party SDK behind a thin adapter interface you own. This isolates vendor lock-in, simplifies testing, and keeps import paths consistent.
+This project uses sveltekit-superforms with Zod validation and shadcn-svelte form components (formsnap).
 
-- The adapter interface lives in your codebase (`src/lib/<domain>/types.ts`).
-- The concrete adapter imports the vendor SDK and maps to your interface.
-- The rest of the app imports only your adapter, never the vendor SDK directly.
-- When a second backend is needed, implement the same interface and swap via strategy or config.
-
-```typescript
-// src/lib/storage/types.ts
-export interface FileStorage {
-  upload(path: string, file: File): Promise<{ url: string }>;
-  remove(path: string): Promise<void>;
-  getPublicUrl(path: string): string;
-}
-```
-
-```typescript
-// src/lib/storage/supabase-storage.ts
-import { supabase } from '$lib/supabase/client';
-import type { FileStorage } from './types';
-
-export const supabaseStorage: FileStorage = {
-  async upload(path, file) {
-    const { error } = await supabase.storage.from('uploads').upload(path, file);
-    if (error) throw error;
-    return { url: supabaseStorage.getPublicUrl(path) };
-  },
-  async remove(path) {
-    const { error } = await supabase.storage.from('uploads').remove([path]);
-    if (error) throw error;
-  },
-  getPublicUrl(path) {
-    return supabase.storage.from('uploads').getPublicUrl(path).data.publicUrl;
-  },
-};
-```
-
-Avoid:
-- Importing vendor SDKs directly in components or services — always go through the adapter.
-- Leaking vendor-specific error types past the adapter boundary — catch and rethrow as your own domain errors.
+- Define Zod schemas in `*-schemas.ts` files next to forms. Export both schema and type (`type MySchema = typeof mySchema`).
+- Use `zod4` adapter from `sveltekit-superforms/adapters` with `SPA: true` mode.
+- Initialize: `superForm(defaults(zod4(schema)), { validators: zod4(schema), SPA: true, onUpdate: ... })`
+- Destructure `{ form: formData, enhance }` from superForm.
+- Form state: keep `serverError`, `loading`, and optionally `success` as separate `$state` variables.
+- Markup pattern: `Form.Field` → `Form.Control` with `{#snippet children({ props })}` → spread `{...props}` on Input → `Form.FieldErrors`.
+- Always `bind:value={$formData.fieldName}` (note `$` prefix) and `disabled={loading}` on inputs.
+- Use `Form.Button` for submit with `Spinner` inside when loading.
+- Show server errors (API/Supabase) via Alert, separate from field validation errors.
+- Reference existing forms in `src/lib/components/auth/` and `src/lib/components/account/sections/` for patterns.
 
 ============================================================
-Summary — when to reach for each pattern
+7) Supabase Auth rules
 ============================================================
-| Problem                                        | Pattern         |
-|------------------------------------------------|-----------------|
-| Complex or conditional object construction     | Factory         |
-| Isolating data access from business logic      | Repository      |
-| Orchestrating rules across multiple data calls | Service Layer   |
-| Ensuring one instance of a client/resource     | Singleton       |
-| Runtime-switchable behavior                    | Strategy        |
-| Reactive state or decoupled event notification | Observer        |
-| Insulating code from third-party SDK changes   | Adapter         |
+- Auth state must include:
+  - `user: User | null`
+  - `session: Session | null` where relevant for UI/session-driven logic
+  - `loading: boolean` (true until auth resolves)
+  - `error: string | null` where useful
+- Always handle the full auth lifecycle:
+  - initial loading
+  - signed-out
+  - signed-in
+  - email verification state (if used)
+- Subscribe to auth changes through a single, cleanup-safe listener:
+  - use `supabase.auth.onAuthStateChange(...)`
+  - initialize once (idempotent guard) to avoid duplicate listeners in dev/HMR
+- Auth flows MUST use Supabase primitives:
+  - password sign-in/sign-up where applicable
+  - magic link / OTP / OAuth flows where applicable
+  - sign-out via Supabase auth API (do not manually clear storage)
+- Never manage JWT/session token storage manually; let Supabase client persistence handle it.
+- Keep anon key usage client-safe:
+  - only expose `PUBLIC_*` keys in client code
+  - never expose service role keys in SPA/client code
+- Provide user-friendly error messages by mapping Supabase auth errors to short, actionable text.
 
 ============================================================
-Anti-patterns — signs you are misapplying a pattern
+8) Supabase Database (Postgres) rules
 ============================================================
-- A repository contains business validation or authorization → move to service layer.
-- A component imports `supabase` directly → introduce a repository or adapter.
-- A service mutates `$state` or calls `goto()` → return data/results and let the component act.
-- Multiple files create their own instance of the same SDK client → extract a singleton.
-- An event bus carries state that the UI reads on every render → replace with `$state`.
-- A third-party SDK is imported in more than two files → wrap it in an adapter.
-- A factory is used where a plain object literal would suffice → skip the factory.
+- Prefer typed query helpers and explicit column selection:
+  - centralize table access in `src/lib/database/*` or domain services
+  - select only required columns (avoid broad `select('*')` unless justified)
+- Never scatter raw Supabase table queries across many components:
+  - keep CRUD/query logic in services under `src/lib/database/services/*`.
+- RLS is non-negotiable for user data:
+  - design tables and policies so authorization is enforced in Postgres
+  - assume JWT-based auth context is used for row-level access checks
+- Reads must handle:
+  - loading state
+  - empty state
+  - error state
+- Writes must handle:
+  - disabled submit while pending
+  - success feedback
+  - error feedback
+- Prefer queries with indexes in mind; avoid unbounded reads.
+- Use pagination/range limits for list endpoints to avoid overfetching.
+- Keep a single Supabase client initialization path and reuse it across modules.
 
-END PATTERNS
+============================================================
+9) UX defaults (non-negotiable)
+============================================================
+- Every async operation MUST include:
+  - a visible loading state (spinner/skeleton/progress)
+  - a disabled state for relevant buttons/inputs
+  - an error state with actionable text
+  - an empty state when data lists are empty
+- Prefer shadcn components for UX states:
+  - Skeleton for list/content loading
+  - Spinner inside Button for pending submits
+  - Card + Alert for error/empty states
+- Forms MUST:
+  - show inline validation or at minimum clear errors near fields
+  - disable submit while pending
+  - preserve user input on failure
+  - focus the first invalid field or show a summary at top
+- Navigation MUST:
+  - preserve intent on auth redirect (use `next=` query param)
+  - return the user to `next` after successful login
+- Never block public pages behind global auth loading; gate only protected sections.
+
+============================================================
+9.1) Onboarding flow conventions (mandatory when enabled)
+============================================================
+- Use a single onboarding feature flag source of truth in `src/lib/config/features.ts`:
+  - `featureFlags.enableOnboarding`
+  - never hardcode onboarding toggles in route files.
+- Define onboarding steps as config, not scattered constants:
+  - keep step metadata in `onboardingSteps`
+  - derive count from `onboardingStepCount`
+  - resolve paths with `getOnboardingStepPath(...)`.
+- Keep onboarding persistence in `src/lib/supabase/profiles.ts` helpers:
+  - read with `getCurrentUserProfile()`
+  - save progress with `saveOnboardingStep(...)`
+  - complete with `completeOnboarding()`
+  - compute routing state with `isOnboardingComplete(...)` and `getNextOnboardingStep(...)`.
+- Enforce onboarding in protected layout flow, not per page:
+  - mandatory check belongs in `src/routes/(protected)/app/+layout.svelte`
+  - route identification belongs in `isOnboardingRoute(...)` guard helper.
+- Onboarding pages must prefill from `user_profiles` when values exist.
+- Onboarding steps must prevent skipping forward by redirecting to the required step.
+- Keep onboarding UI compact and centered with shared wrapper component:
+  - use `src/lib/components/onboarding/onboarding-shell.svelte` for logo, step indicator, title/subtext, and content slot.
+- Onboarding schema changes must be tracked in SQL migrations under `supabase/migrations/` and documented in `README.md`.
+
+============================================================
+10) Accessibility + semantics
+============================================================
+- Use semantic HTML first (button for actions, a for navigation).
+- Inputs must have associated labels (prefer shadcn Label).
+- Loading indicators must be accessible:
+  - include aria-busy where relevant
+  - include visually hidden text for spinners if needed
+- Dialogs/menus must manage focus and close on Escape (shadcn patterns usually handle this—don’t break them).
+- Color is never the only signal for error/success.
+
+============================================================
+11) Comments & explainability (required)
+============================================================
+- Add clear, descriptive comments for non-trivial logic so the code is easy to follow.
+- Comment rules:
+  - Explain *why* something exists (guards, edge cases, tricky Supabase/RLS behavior), not just *what* the line does.
+  - Place a short header comment at the top of each file describing its purpose and how it fits into the app.
+  - For functions: add a brief comment explaining inputs/outputs and side effects (network calls, navigation, storage).
+  - For complex blocks: add 1–3 line comments explaining the flow/decision points.
+  - Keep comments accurate and updated; remove outdated comments.
+- Do not over-comment obvious JSX/markup or one-liners; focus on logic, control flow, and integration points.
+- Do NOT use JSDocs comments
+
+============================================================
+12) Error handling + resilience
+============================================================
+- Catch and surface errors; never silently fail.
+- Log unexpected errors to console in dev; keep user messages short and friendly.
+- Prefer predictable error UI over throwing.
+- Avoid infinite redirect loops: guard conditions must be explicit and stable.
+- Handle offline states gracefully for Supabase operations where possible (show “You appear offline”).
+
+============================================================
+13) Performance + reactivity
+============================================================
+- Avoid unnecessary reactive loops:
+  - do not put `goto()` or network calls inside $effect without strong guards.
+- Use derived values for computed UI state instead of recomputing inside markup.
+- Minimize re-renders by keeping state local when possible.
+- Use skeletons for list loading; spinners for short actions; never show blank screens.
+
+============================================================
+14) Code style
+============================================================
+- Prefer early returns.
+- Keep functions small (< ~40 lines) when feasible.
+- Avoid deep nesting; extract helpers.
+- No commented-out code.
+- Use consistent formatting and naming already present in repo.
+
+============================================================
+15) When you (the assistant) are uncertain
+============================================================
+- Ask the user for information or input
+- If a choice affects architecture pick the simplest safe default and keep it consistent.
+
+END RULES
 
 ---
 > Source: [wesselgrift/sveltekit-spa](https://github.com/wesselgrift/sveltekit-spa) — distributed by [TomeVault](https://tomevault.io).
