@@ -1,23 +1,9 @@
-## hip
+## js
 
-> - Use components from @apps/docs/src/components/
+> Typescript authoring rules
 
 
-## Components
-
-- Use components from @apps/docs/src/components/
-- Prefer to use the @apps/docs/src/components/flex/index.tsx or @apps/docs/src/components/grid/index.tsx for layout
-- Dont write custom styles for text, instead use the @apps/docs/src/components/typography/text.tsx component.
-- Always document props interfaces with jsdoc
-
-## Custom styles
-
-- If you need to apply colors use @apps/docs/src/components/theme/semantic-color.stylex.tsx
-- If you need to apply spacing use the tokens in @apps/docs/src/components/theme/spacing.stylex.tsx
-- If you need to apply radius use the tokens in @apps/docs/src/components/theme/radius.stylex.tsx
-- If you need to apply shadow use the tokens in @apps/docs/src/components/theme/shadow.stylex.tsx
-- If you need to apply animations use the tokens in @apps/docs/src/components/theme/animations.stylex.tsx
-- If you need to apply text styles in a stylex block use the tokens in @apps/docs/src/components/theme/typography.stylex.tsx
+- Avoid nesting functions if you dont need to
 
 ---
 > Source: [hipstersmoothie/hip-ui](https://github.com/hipstersmoothie/hip-ui) — distributed by [TomeVault](https://tomevault.io).
