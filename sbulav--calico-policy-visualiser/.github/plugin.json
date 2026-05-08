@@ -1,0 +1,9 @@
+{
+  "name": "sbulav--calico-policy-visualiser",
+  "displayName": "calico-policy-visualiser",
+  "description": " A browser-based tool for Calico NetworkPolicy and GlobalNetworkPolicy visualization.",
+  "version": "1.0.0",
+  "author": "sbulav",
+  "homepage": "https://github.com/sbulav/calico-policy-visualiser",
+  "skills": []
+}
