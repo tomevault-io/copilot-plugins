@@ -1,0 +1,9 @@
+{
+  "name": "mitchellkellerlg--auto-prompt-creator",
+  "displayName": "auto-prompt-creator",
+  "description": "Prompt optimization system for Claude Code. Iteratively improves prompts for cheap models (Haiku) to match expensive model (Opus) quality on defined tasks.",
+  "version": "1.0.0",
+  "author": "MitchellkellerLG",
+  "homepage": "https://github.com/MitchellkellerLG/auto-prompt-creator",
+  "skills": []
+}
