@@ -1,0 +1,44 @@
+{
+  "name": "sensevoice-cut",
+  "owner": "hhhaiai",
+  "repo": "sensevoice-cut",
+  "description": "\u8bed\u97f3\u8f6c\u6587\u5b57 </br> \u73b0\u5728\u300a\u95ea\u7535\u8bf4@ https://shandianshuo.cn \u5728\u7528\u300b </br> \u90e8\u7f72\u4f4d\u7f6e\uff1ahttps://github.com/hhhaiai/sensevoice_docker </br> \u5728\u7ebf\u4f53\u9a8c\u5730\u5740: https://hhhaiai.github.io/sensevoice_docker",
+  "type": "config",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/hhhaiai/sensevoice-cut",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T15:14:11Z"
+}
