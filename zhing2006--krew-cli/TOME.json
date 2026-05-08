@@ -4,7 +4,7 @@
   "repo": "krew-cli",
   "description": "A multi agents meeting CLI.",
   "type": "config",
-  "source_format": "AGENTS.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhing2006/krew-cli",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T12:08:59Z"
+  "distributed_at": "2026-05-08T05:15:39Z"
 }
