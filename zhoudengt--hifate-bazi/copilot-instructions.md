@@ -1,33 +1,29 @@
-## dev-checklist
+## frontend-test-and-backend-only
 
-> 开发检查清单（编辑 Python 文件时自动加载，提交前用 @dev-checklist.mdc 引用）
+> 前端测试账号与后端修改约束（前端不可改，仅后端建议）
 
 
-# 开发检查清单
+# 前端测试与后端修改约束
 
-> 提交前用 `@dev-checklist.mdc` 引用本规则进行检查。
+## 前端测试账号（HelloDestiny / yuanqistation.com）
 
-## 通用开发检查清单
+- **登录页**: https://www.yuanqistation.com/login
+- **八字命理页**: https://www.yuanqistation.com/ba_zml
+- **测试邮箱**: `643795362@qq.com`
+- **测试密码**: `123456asd`
+- **用途**: 仅用于后端联调、接口验证、回归测试；不得用于生产数据或对外暴露。
 
-- [ ] 代码是否在热更新监控范围内（`core/`, `server/`, `services/`）
-- [ ] **开发完成后是否触发热更新（必须！）**
-- [ ] **是否验证对应功能在热更新后正常工作（必须！）**
-- [ ] **如果涉及 API 端点，是否验证端点正确注册到 gRPC 网关（必须！）**
+## 前端不可改动
 
-## API 开发检查清单
+- **约束**: 前端代码与部署由前端团队负责，本仓库及 AI 仅做后端修改。
+- **原则**: 所有需求以「后端兼容现有前端」为前提；接口契约（请求/响应格式、字段名、枚举值）不得破坏，只允许后端扩展或优化。
+- **建议方式**: 仅给出后端修改建议，经确认后再改代码；涉及前端联调的需与前端团队对齐。
 
-- [ ] 是否使用 Pydantic `BaseModel` 定义模型
-- [ ] 是否在 `grpc_gateway.py` 中注册端点
-- [ ] 是否编写了对应的测试案例（测试覆盖率 ≥ 50%）
+## 后端修改建议流程
 
-## 规则开发检查清单
-
-- [ ] 所有规则匹配使用 `RuleService`
-- [ ] 没有文件读取调用（`load_from_file`、`read_excel`、`read_json` 等）
-
-## 完整检查清单
-
-详见 `standards/03_开发者手册.md`
+1. 分析问题，给出**后端可做的修改建议**（含影响范围、兼容性）。
+2. 等待用户确认后再实施代码修改。
+3. 涉及接口契约变更时，在建议中明确「需前端配合」或「无需前端改动」。
 
 ---
 > Source: [zhoudengt/HiFate-bazi](https://github.com/zhoudengt/HiFate-bazi) — distributed by [TomeVault](https://tomevault.io).
