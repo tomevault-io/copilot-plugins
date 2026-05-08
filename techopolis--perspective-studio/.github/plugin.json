@@ -1,0 +1,9 @@
+{
+  "name": "techopolis--perspective-studio",
+  "displayName": "Perspective-Studio",
+  "description": "Your LLM playground on Apple devices. Run open-source AI models locally on your Mac with a native SwiftUI interface.",
+  "version": "1.0.0",
+  "author": "Techopolis",
+  "homepage": "https://github.com/Techopolis/Perspective-Studio",
+  "skills": []
+}
