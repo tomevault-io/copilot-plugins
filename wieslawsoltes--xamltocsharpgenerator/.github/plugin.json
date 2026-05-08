@@ -1,0 +1,9 @@
+{
+  "name": "wieslawsoltes--xamltocsharpgenerator",
+  "displayName": "XamlToCSharpGenerator",
+  "description": "Standalone Avalonia source-generator compiler backend.",
+  "version": "1.0.0",
+  "author": "wieslawsoltes",
+  "homepage": "https://github.com/wieslawsoltes/XamlToCSharpGenerator",
+  "skills": []
+}
