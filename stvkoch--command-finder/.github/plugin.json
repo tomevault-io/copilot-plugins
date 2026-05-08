@@ -1,0 +1,9 @@
+{
+  "name": "stvkoch--command-finder",
+  "displayName": "Command-Finder",
+  "description": "Find shell commands using natural language. Type what you want to do, get the command.",
+  "version": "1.0.0",
+  "author": "stvkoch",
+  "homepage": "https://github.com/stvkoch/Command-Finder",
+  "skills": []
+}
