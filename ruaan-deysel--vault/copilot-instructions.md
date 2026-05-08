@@ -1,45 +1,70 @@
 ## vault
 
-> Read `AGENTS.md` in the project root for comprehensive instructions.
+> > **Read [`../AGENTS.md`](../AGENTS.md) first** — it is the single source of truth for this project.
 
-# Cursor Rules — Vault
+# Copilot Instructions
 
-Read `AGENTS.md` in the project root for comprehensive instructions.
+> **Read [`../AGENTS.md`](../AGENTS.md) first** — it is the single source of truth for this project.
 
-## Key Points
+Go-based Unraid backup/restore plugin with REST API and WebSocket. **Language:** Go 1.26, **Target:** Linux/amd64 (Unraid OS). Third-party community plugin.
 
-- **Language:** Go 1.26 | **Target:** Linux/amd64 (Unraid OS)
-- **Architecture:** Layered (CLI → API Server → Handlers → DB/Storage/Engine)
-- **Storage:** Always implement `storage.Adapter` interface, register in `factory.go`
-- **Engine:** Always implement `engine.Handler` interface, use build tags for platform-specific code
-- **Build:** CGO_ENABLED=0, pure Go (`modernc.org/sqlite`)
-- **Database:** SQLite WAL mode, repos in `internal/db/`
-- **Router:** Chi v5 (`go-chi/chi/v5`), not gorilla/mux
-- **Testing:** Table-driven tests, `httptest` for API handlers
-- **Pre-commit:** Run `make pre-commit-run` before committing
-- **Commits:** Follow Conventional Commits: `feat(scope):`, `fix(scope):`, `docs(scope):`
+## Copilot Workflow
+
+- Follow Go best practices: idiomatic style, `fmt.Errorf("context: %w", err)`, context propagation
+- Code must pass `golangci-lint` and `go vet`
+- Run `make pre-commit-run` before committing
+- Follow **Conventional Commits**: `feat(scope):`, `fix(scope):`, `docs(scope):`
+
+## Path-Specific Instructions
+
+These files in `.github/instructions/` are auto-applied via `applyTo` globs:
+
+| File                            | Applies To                 |
+| ------------------------------- | -------------------------- |
+| `go.instructions.md`            | `**/*.go`                  |
+| `engine.instructions.md`        | `internal/engine/**/*.go`  |
+| `api-handlers.instructions.md`  | `internal/api/**/*.go`     |
+| `storage.instructions.md`       | `internal/storage/**/*.go` |
+| `db.instructions.md`            | `internal/db/**/*.go`      |
+| `tests.instructions.md`         | `**/*_test.go`             |
+| `yaml-markdown.instructions.md` | `**/*.{yaml,yml,md}`       |
+
+## Reusable Prompts
+
+Task-oriented step-by-step guides in `.github/prompts/`:
+
+- `Add Storage Adapter.prompt.md` — Adding a new storage backend
+- `Add API Endpoint.prompt.md` — Adding a REST API endpoint
+- `Add Engine Handler.prompt.md` — Adding a backup engine handler
+- `Add Scheduler Job Type.prompt.md` — Adding a new job type
+- `Debug Backup Issue.prompt.md` — Debugging backup/restore failures
 
 ## Mandatory Post-Change Workflow
 
 > **CRITICAL — Execute automatically after EVERY code change. Do not wait for the user to ask.**
 
-1. `make build` → 2. `make deploy` → 3. `make verify` → 4. Playwright UI verification on `http://<unraid-server>:24085` (set the real host in local, untracked config/env) → 5. Update `CHANGELOG.md` under `## [Unreleased]`
+1. **Build & Test:** `make build` — fix failures before proceeding
+2. **Deploy:** `make deploy` — deploy to Unraid
+3. **Verify API:** `make verify` — endpoint + smoke tests
+4. **Verify UI:** Use Playwright or browser tools to navigate affected pages on `http://<unraid-server>:24085` (from local env/config), take snapshots to confirm correctness
+5. **Update CHANGELOG.md:** Add entries under `## [Unreleased]` using [Keep a Changelog](https://keepachangelog.com/) format. Reference issue numbers where applicable.
 
-**Only skip for:** doc-only changes that don't affect the binary or web UI.
+**Shortcut:** `make redeploy` replaces steps 1–3, but steps 4 and 5 are still required.
 
-See `AGENTS.md` for full details.
+**Only skip when:** Changes are limited to documentation files, comments, or files that don't affect the binary or web UI.
 
-## Commands
+## Quick Commands
 
 ```bash
-make test && make lint        # Test and lint
-make pre-commit-run           # Full pre-commit checks
-make build                    # Ansible: lint → test → cross-compile
-make deploy                   # Deploy to Unraid (Ansible)
-make verify                   # Endpoint + smoke tests
-make redeploy                 # Full lifecycle (uninstall → build → deploy → verify)
+make deps && make build-local  # Setup and build (local dev)
+make test                      # Run unit tests
+make pre-commit-run            # Lint + security checks
+make build                     # Ansible: lint → test → cross-compile
+make deploy                    # Ansible: deploy to Unraid
+make verify                    # Ansible: endpoint checks plus folder/VM smoke tests
+make redeploy                  # Ansible: full lifecycle
 ```
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/ruaan-deysel) — claim your Tome and manage your conversions.
-<!-- tomevault:4.0:copilot_instructions:2026-04-09 -->
+> Source: [ruaan-deysel/vault](https://github.com/ruaan-deysel/vault) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
