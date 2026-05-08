@@ -1,0 +1,9 @@
+{
+  "name": "hkopenai--hk-finance-mcp-server",
+  "displayName": "hk-finance-mcp-server",
+  "description": "This is an MCP server that provides access to finance related data in Hong Kong through a FastMCP interface.",
+  "version": "1.0.0",
+  "author": "hkopenai",
+  "homepage": "https://github.com/hkopenai/hk-finance-mcp-server",
+  "skills": []
+}
