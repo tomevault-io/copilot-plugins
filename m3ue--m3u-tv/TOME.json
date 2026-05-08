@@ -4,7 +4,7 @@
   "repo": "m3u-tv",
   "description": "Cross-platform TV front-end player for the M3U Editor app. Provides a convenient way to view your content on Android TV and Apple TV",
   "type": "config",
-  "source_format": "GEMINI.md",
+  "source_format": "CLAUDE.md",
   "formats": [
     {
       "format": "claude_md",
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/m3ue/m3u-tv",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-24T13:47:31Z"
+  "distributed_at": "2026-05-08T12:48:00Z"
 }
