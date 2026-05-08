@@ -1,0 +1,9 @@
+{
+  "name": "api2r--pkgskills",
+  "displayName": "pkgskills",
+  "description": "AI Skills for R Package Development",
+  "version": "1.0.0",
+  "author": "api2r",
+  "homepage": "https://github.com/api2r/pkgskills",
+  "skills": []
+}
