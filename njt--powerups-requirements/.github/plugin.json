@@ -1,0 +1,9 @@
+{
+  "name": "njt--powerups-requirements",
+  "displayName": "powerups-requirements",
+  "description": "Requirements management toolkit for Claude Code \u2014 skills, agent, hook, and templates",
+  "version": "1.0.0",
+  "author": "njt",
+  "homepage": "https://github.com/njt/powerups-requirements",
+  "skills": []
+}
