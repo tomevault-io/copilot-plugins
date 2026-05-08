@@ -1,0 +1,9 @@
+{
+  "name": "h2oai--tk",
+  "displayName": "tk",
+  "description": "Minimal graph-based issue tracker for long-horizon AI agent tasks",
+  "version": "1.0.0",
+  "author": "h2oai",
+  "homepage": "https://github.com/h2oai/tk",
+  "skills": []
+}
