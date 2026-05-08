@@ -1,0 +1,75 @@
+{
+  "name": "cms-cultivator",
+  "owner": "kanopi",
+  "repo": "cms-cultivator",
+  "description": "A comprehensive Claude Code plugin providing specialized slash commands for Drupal and WordPress development.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "browser-validator",
+      "path": "skills/browser-validator",
+      "github_url": "https://github.com/kanopi/cms-cultivator/tree/main/skills/browser-validator",
+      "description": ""
+    },
+    {
+      "name": "design-analyzer",
+      "path": "skills/design-analyzer",
+      "github_url": "https://github.com/kanopi/cms-cultivator/tree/main/skills/design-analyzer",
+      "description": ""
+    },
+    {
+      "name": "documentation-generator",
+      "path": "skills/documentation-generator",
+      "github_url": "https://github.com/kanopi/cms-cultivator/tree/main/skills/documentation-generator",
+      "description": ""
+    },
+    {
+      "name": "responsive-styling",
+      "path": "skills/responsive-styling",
+      "github_url": "https://github.com/kanopi/cms-cultivator/tree/main/skills/responsive-styling",
+      "description": ""
+    },
+    {
+      "name": "test-scaffolding",
+      "path": "skills/test-scaffolding",
+      "github_url": "https://github.com/kanopi/cms-cultivator/tree/main/skills/test-scaffolding",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/kanopi/cms-cultivator",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T14:30:57Z"
+}
