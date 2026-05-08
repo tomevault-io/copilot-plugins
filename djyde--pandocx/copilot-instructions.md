@@ -1,0 +1,15 @@
+## global
+
+> This is a Tauri 2.0 project.
+
+
+This is a Tauri 2.0 project.
+
+- Use https://v2.tauri.app/develop/calling-rust/ to learn how to write Rust functions that can be called from JavaScript.
+- Use https://v2.tauri.app/plugin/store/ to store key value store data.
+- Always use @tanstack/react-query for asynchronous tasks.
+- All asynchronous tasks should be handled in the lib/query.ts file.
+
+---
+> Source: [djyde/PandocX](https://github.com/djyde/PandocX) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-03 -->
