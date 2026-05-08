@@ -1,0 +1,9 @@
+{
+  "name": "grafana--sigil-sdk",
+  "displayName": "sigil-sdk",
+  "description": "Actually Useful AI Observability",
+  "version": "1.0.0",
+  "author": "grafana",
+  "homepage": "https://github.com/grafana/sigil-sdk",
+  "skills": []
+}
