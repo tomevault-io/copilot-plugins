@@ -1,0 +1,9 @@
+{
+  "name": "pavelzw--pixi-browse",
+  "displayName": "pixi-browse",
+  "description": "Browse conda packages interactively",
+  "version": "1.0.0",
+  "author": "pavelzw",
+  "homepage": "https://github.com/pavelzw/pixi-browse",
+  "skills": []
+}
