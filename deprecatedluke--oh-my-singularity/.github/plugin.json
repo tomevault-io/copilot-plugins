@@ -1,0 +1,9 @@
+{
+  "name": "deprecatedluke--oh-my-singularity",
+  "displayName": "oh-my-singularity",
+  "description": "A task based orchestration TUI for oh-my-pi agent harness enabling highly parallel agentic development.",
+  "version": "1.0.0",
+  "author": "DeprecatedLuke",
+  "homepage": "https://github.com/DeprecatedLuke/oh-my-singularity",
+  "skills": []
+}
