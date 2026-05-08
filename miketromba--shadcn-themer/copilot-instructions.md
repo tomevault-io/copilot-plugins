@@ -1,15 +1,36 @@
-## shadcn-themer
+## db-migrations
 
-> Use these rules and deps while working in our codebase.
+> Review this rule when making any schema changes to our database, running any database migrations, or dealing with database-related errors like RLS issues, adding RLS policies, etc.
 
 
-- `any` types are NOT ALLOWED - always aim to use leverage inference, or, if you have a truly unknown type, use the `unknown` type instead.
-- We use hono RPC for all backend queries - THE RESPONSES ARE ALREADY TYPED SO YOU DO NOT NEED TO CAST TO 'any', etc. Just use the inference we already get!
-- ShadCN: Always use shadcn components where possible when working on the user interface (located in src/components/ui)
-- Lucide Icons: Also we use lucide icons in our project
-- React Query: Use this for all queries and mutations and remember to properly invalidate
+We use drizzle-kit and drizzle's schema system for managing our PG database on Supabase.
+
+## Making schema changes
+
+When altering our schema within the codebase in order to implement a feature, you can then continue working within the codebase since everything will be typesafe according to our schema definition.
+
+## Applying schema changes (migrating)
+
+IMPORTANT: Always ask the user before doing this (or wait for the user to explicitly instruct you to run the migration(s))
+
+We NEVER use drizzle push for this. Instead we use the drizzle migration system.
+
+We have scripts in our package.json for this:
+
+1) Run `pnpm db:generate` - this generates the migration file(s) and plan automatically based on the delta of our schema
+
+2) Run `pnpm db:migrate` - this pushes our schema changes to the live database
+
+
+## Custom migrations
+
+Never manually create migration SQL files. If you need to run a custom migration, e.g. for adding RLS policies or performing certain data migrations that cannot be automatically created via db:generate, you may use the command `pnpm db:generate:custom` which will create a new migration sql file and log it's name/location to the command line. You can then open that file and write your migration SQL in there. When you are finished, you can run the migration with the same migrate command `pnpm db:migrate`.
+
+## RLS / Authorization
+
+- After creating any new tables with automatic migrations, make sure to add another custom migration right after and enable row level security for that table.
+- Only enable RLS, never write any policies - we don't need them since we use an admin connection for all writes and perform our own authorization at the application-level with auth / ownership checks as needed.
 
 ---
-> Converted and distributed by [TomeVault](https://tomevault.io/claim/miketromba)
-> This is a context snippet only. You'll also want the standalone SKILL.md file — [download at TomeVault](https://tomevault.io/claim/miketromba)
-<!-- tomevault:4.0:copilot_instructions:2026-04-08 -->
+> Source: [miketromba/shadcn-themer](https://github.com/miketromba/shadcn-themer) — distributed by [TomeVault](https://tomevault.io).
+<!-- tomevault:4.0:copilot_instructions:2026-05-04 -->
