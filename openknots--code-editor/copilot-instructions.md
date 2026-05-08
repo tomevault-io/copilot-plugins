@@ -1,37 +1,63 @@
-## proxy-not-middleware
+## code-editor
 
-> Prefer Next.js rewrites/proxy in next.config.ts over custom middleware.ts for routing, proxying, and request forwarding
+> Next.js 16 + Tauri desktop code editor. Static export (`output: 'export'`), Turbopack dev.
 
+# AGENTS.md — KnotCode Editor
 
-# Use Proxy Rewrites, Not Middleware
+## Project
 
-This project handles routing, proxying, and request forwarding through Next.js `rewrites` in `next.config.ts` — **not** through `middleware.ts`.
+Next.js 16 + Tauri desktop code editor. Static export (`output: 'export'`), Turbopack dev.
 
-## Rules
+- **Package manager:** pnpm (never npm)
+- **Repo:** `~/Documents/GitHub/OpenKnots/code-editor`
+- **Stack:** Next.js, Tailwind CSS v4, TypeScript strict, Tauri v2
+- **Build check:** `pnpm build` must pass with zero TS errors before committing
 
-- **Never create or modify `middleware.ts`** for proxying, redirecting, or forwarding requests. Use `rewrites` (or `redirects`) in `next.config.ts` instead.
-- If you need to proxy an external API, add a `rewrites()` entry in `next.config.ts`:
+## Git Workflow — Use gitquick (`gq`)
 
-```ts
-async rewrites() {
-  return [
-    {
-      source: '/api/proxy/:path*',
-      destination: 'https://external-api.example.com/:path*',
-    },
-  ]
-}
+This project uses [gitquick](https://github.com/Clawborn/gitquick) for fast git operations.
+
+### Commands
+
+```bash
+gq save "commit message"   # git add -A && git commit -m "message" && git push
+gq sync                     # git pull --rebase && git push
+gq clean                    # delete local branches already merged into main/master
 ```
 
-- For auth-gated or IP-restricted routes, use **API route handlers** (`app/api/*/route.ts`) with server-side checks, not middleware interception.
-- Security headers belong in `next.config.ts` via the `headers()` function, not middleware.
-- CORS handling should use `headers()` in `next.config.ts` or per-route API handler logic.
+### When to use
 
-## Why
+- **`gq save "msg"`** — After completing a feature, fix, or logical unit of work. Stages everything, commits, and pushes in one shot. Default message is "update" if omitted.
+- **`gq sync`** — Before starting new work or when you need to pull latest changes. Rebases local commits on top of remote, then pushes.
+- **`gq clean`** — After PRs are merged. Removes stale local branches that have been merged into main/master.
 
-- `middleware.ts` runs on the Edge Runtime with limited Node.js API support, making it fragile for complex logic.
-- `rewrites` are declarative, easier to audit, and handled at the routing layer before code executes.
-- Keeping proxy/routing config in `next.config.ts` provides a single source of truth for all request routing.
+### Rules
+
+- Always run `pnpm build` (or at minimum `npx tsc --noEmit`) before `gq save` to catch type errors
+- Write meaningful commit messages — not just "update"
+- If there are merge conflicts during `gq sync`, resolve them before continuing
+
+### Agent Workflow Guardrails
+
+- Skill-first policy is required: run `/skill <query>` before creating a new skill.
+- New skill creation is blocked by default unless a recent skill probe exists.
+- Explicit override token for audited bypass only: `--allow-new-skill`.
+
+## Code Conventions
+
+- All colors use CSS theme variables (`var(--brand)`, `var(--brand-contrast)`, etc.) — never hardcode `text-white` on brand elements
+- Tauri desktop: use `data-tauri-drag-region` for window drag, `tauri-no-drag` class to exclude interactive elements
+- Components go in `components/`, views in `components/views/`, contexts in `context/`
+- Prefer `useCallback` and `useMemo` for performance in large components
+- Use `@iconify/react` `Icon` component for all icons (Lucide set)
+
+## Key Architecture
+
+- **Theme system:** CSS custom properties via `data-theme` on `<html>`, presets in `context/theme-context.tsx`, all CSS in `app/globals.css`
+- **Gateway comms:** WebSocket to `ws://127.0.0.1:18789`, JSON RPC via `makeRequest()` in `lib/gateway.ts`
+- **Local filesystem:** Tauri commands in `src-tauri/src/local_fs.rs`, exposed via `context/local-context.tsx`
+- **Terminal:** Max 3 tabs, managed in `components/terminal-panel.tsx`
+- **Agent chat:** Per-chat session keys `agent:main:code-editor:{chatId.slice(0,8)}`, lazy init on first message
 
 ---
 > Source: [OpenKnots/code-editor](https://github.com/OpenKnots/code-editor) — distributed by [TomeVault](https://tomevault.io).
