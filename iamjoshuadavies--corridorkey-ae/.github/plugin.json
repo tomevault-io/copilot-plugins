@@ -1,0 +1,9 @@
+{
+  "name": "iamjoshuadavies--corridorkey-ae",
+  "displayName": "corridorkey-ae",
+  "description": "Native Adobe After Effects plugin for advanced green-screen keying, powered by local ML inference (MLX on macOS, PyTorch/CUDA on Windows). Based on the technique by Niko Pueringer of Corridor Digital.",
+  "version": "1.0.0",
+  "author": "iamjoshuadavies",
+  "homepage": "https://github.com/iamjoshuadavies/corridorkey-ae",
+  "skills": []
+}
