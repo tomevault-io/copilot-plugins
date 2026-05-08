@@ -1,0 +1,9 @@
+{
+  "name": "markpasternak--terminal-weather",
+  "displayName": "terminal-weather",
+  "description": " Animated TUI weather dashboard \u2014 live data, 18 themes, and --one-shot for scripts and pipes.",
+  "version": "1.0.0",
+  "author": "markpasternak",
+  "homepage": "https://github.com/markpasternak/terminal-weather",
+  "skills": []
+}
