@@ -1,19 +1,19 @@
-## 12-skill-repo-scout
+## 13-skill-skill-audit
 
-> SKILL: Scan Backend Repo & Catalog API Surface (use for /repo-scout)
+> SKILL: Audit SKILL.md & qa_agent.md for Bloat & Bad Patterns (use for /skill-audit)
 
-# SKILL: REPO SCOUT
+# SKILL: SKILL AUDIT
 
 ## TRIGGER
-Use this when entering a new backend repository (Go) before writing tests to catalog API surface, infrastructure and test coverage.
+Use this when auditing SKILL.md files and qa_agent.md for bloat, duplication, and harmful patterns.
 
 ## LOGIC SOURCE
-**EXECUTE the instruction set defined in:** `.claude/skills/repo-scout/SKILL.md`
+**EXECUTE the instruction set defined in:** `.claude/skills/skill-audit/SKILL.md`
 
-@.claude/skills/repo-scout/SKILL.md
+@.claude/skills/skill-audit/SKILL.md
 
 ## KEY CONSTRAINT
-- Do NOT use for QA projects — use /init-project for those.
+- Do NOT use for documentation audit — use /doc-lint for that.
 
 ---
 > Source: [vlad-ryzhkov/AI-QA-workshop-feb19](https://github.com/vlad-ryzhkov/AI-QA-workshop-feb19) — distributed by [TomeVault](https://tomevault.io).
