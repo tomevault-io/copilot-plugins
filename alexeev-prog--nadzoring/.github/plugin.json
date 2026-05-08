@@ -1,0 +1,9 @@
+{
+  "name": "alexeev-prog--nadzoring",
+  "displayName": "nadzoring",
+  "description": "An open source tool for detecting website blocks, downdetecting, and network analysis",
+  "version": "1.0.0",
+  "author": "alexeev-prog",
+  "homepage": "https://github.com/alexeev-prog/nadzoring",
+  "skills": []
+}
