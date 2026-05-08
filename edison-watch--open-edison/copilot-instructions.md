@@ -1,55 +1,70 @@
-## logging
+## mcp-servers
 
-> Logging standards for Open Edison
+> MCP server management patterns for Open Edison
 
-## Logging Configuration
+## MCP Server Management
 
-Open Edison uses `loguru` for simple, structured logging.
+Open Edison manages MCP servers as subprocess instances, not containers or database entries.
 
-### Usage Pattern
+### Core Patterns
 
 ```python
-from loguru import logger as log
-
-# Use throughout the codebase
-log.info("Starting MCP server: {}", server_name)
-log.error("Failed to start server: {}", error)
-log.debug("Configuration loaded: {}", config.server.host)
-```
-
-### Log Levels
-
-Configure via `config.json`:
-
-```json
+# MCP server configuration in config.json
 {
-  "logging": {
-    "level": "INFO"
-  }
+  "mcp_servers": [
+    {
+      "name": "filesystem",
+      "command": "uvx", 
+      "args": ["mcp-server-filesystem", "/path"],
+      "env": {"VAR": "value"},
+      "enabled": true
+    }
+  ]
 }
+
+# Process management
+process = subprocess.Popen(
+    [server.command] + server.args,
+    env=server.env,
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+    stdin=subprocess.PIPE,
+    text=True
+)
 ```
 
-Available levels: DEBUG, INFO, WARNING, ERROR, CRITICAL
+### Key Principles
 
-### Best Practices
+- **Subprocess-based** - Each MCP server runs as separate process
+- **JSON configuration** - No database, all config in config.json
+- **Simple lifecycle** - Start, stop, check status
+- **Process isolation** - Servers don't affect each other
 
-- Use structured logging with `{}` placeholders
-- Log important state changes (server start/stop)
-- Include context in error messages
-- Use appropriate log levels
-- No custom logging configuration - keep it simple
-
-### Examples
+### Common Operations
 
 ```python
-# Good
-log.info("🚀 Open Edison starting on {}:{}", host, port)
-log.error("❌ MCP server {} failed to start: {}", name, error)
+from src.proxy import MCPProxy
 
-# Avoid
-print("Starting server...")  # Use logging instead
-log.info(f"Server {name}")   # Use {} placeholders
+proxy = MCPProxy()
+
+# Start server
+await proxy.start_server("filesystem")
+
+# Check if running  
+is_running = await proxy.is_server_running("filesystem")
+
+# Stop server
+await proxy.stop_server("filesystem")
 ```
+
+### Error Handling
+
+- Graceful shutdown with terminate() then kill()
+- Process cleanup on server shutdown
+- Health monitoring for crashed processes
+- Clear error messages for failed starts
+
+Keep MCP server management simple and process-focused.
 
 ---
 > Source: [Edison-Watch/open-edison](https://github.com/Edison-Watch/open-edison) — distributed by [TomeVault](https://tomevault.io).
