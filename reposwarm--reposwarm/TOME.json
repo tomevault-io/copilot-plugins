@@ -2,7 +2,7 @@
   "name": "reposwarm",
   "owner": "reposwarm",
   "repo": "reposwarm",
-  "description": "",
+  "description": "RepoSwarm is an AI powered tools that coding agents can use for multi-repo architecture discovery.",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/reposwarm/reposwarm",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-25T22:26:10Z"
+  "distributed_at": "2026-05-08T16:45:10Z"
 }
