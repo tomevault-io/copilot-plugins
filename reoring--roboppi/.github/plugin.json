@@ -1,0 +1,9 @@
+{
+  "name": "reoring--roboppi",
+  "displayName": "roboppi",
+  "description": " Execution-control runtime for AI agents: budgets, cancellation, circuit breakers, and observability\u2014delegating heavy work to external worker CLIs.",
+  "version": "1.0.0",
+  "author": "reoring",
+  "homepage": "https://github.com/reoring/roboppi",
+  "skills": []
+}
