@@ -1,0 +1,9 @@
+{
+  "name": "sebsto--wispr",
+  "displayName": "wispr",
+  "description": "Privacy-first voice dictation for macOS \u2014 powered by on-device Whisper AI. No cloud, no tracking.",
+  "version": "1.0.0",
+  "author": "sebsto",
+  "homepage": "https://github.com/sebsto/wispr",
+  "skills": []
+}
