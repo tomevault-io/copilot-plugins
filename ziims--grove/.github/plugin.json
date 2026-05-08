@@ -1,0 +1,9 @@
+{
+  "name": "ziims--grove",
+  "displayName": "Grove",
+  "description": "Grove allows you to run multiple AI coding agents simultaneously, each working on its own git branch in an isolated worktree. Monitor their progress, attach to their terminal sessions, and integrate w",
+  "version": "1.0.0",
+  "author": "ZiiMs",
+  "homepage": "https://github.com/ZiiMs/Grove",
+  "skills": []
+}
