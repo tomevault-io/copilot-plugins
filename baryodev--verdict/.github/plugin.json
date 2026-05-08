@@ -1,0 +1,9 @@
+{
+  "name": "baryodev--verdict",
+  "displayName": "Verdict",
+  "description": "Start with zero-allocation core. Scale to enterprise features through opt-in packages. Never compromise on speed.",
+  "version": "1.0.0",
+  "author": "BaryoDev",
+  "homepage": "https://github.com/BaryoDev/Verdict",
+  "skills": []
+}
