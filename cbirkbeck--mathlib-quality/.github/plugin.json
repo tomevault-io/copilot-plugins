@@ -1,0 +1,9 @@
+{
+  "name": "cbirkbeck--mathlib-quality",
+  "displayName": "mathlib-quality",
+  "description": "Claude Code skill plugin for cleaning up, golfing, and bringing Lean 4 code up to mathlib standards",
+  "version": "1.0.0",
+  "author": "CBirkbeck",
+  "homepage": "https://github.com/CBirkbeck/mathlib-quality",
+  "skills": []
+}
