@@ -1,42 +1,11 @@
-## security-standards
+## testing-rate-limiting
 
-> Security standards for code quality, secret management, and input validation. Apply to all Python and TypeScript files.
+> See the dedicated SlowAPI testing skill for transport/server rate-limiter isolation patterns and 429 flake prevention.
 
 
-# Security Standards
+# Rate Limiting Testing Pattern
 
-## 1. Secrets Management
-- **NO Hardcoded Secrets**: Never commit API keys, tokens, or passwords.
-- **Detection**: Patterns like `sk-`, `ghp_`, `eyJ` (JWT) are strictly forbidden in code.
-- **Env Vars**: Use `os.environ` (Python) or `process.env` (Node) loaded from `.env` files.
-- **Access**: Treat `.env` as sensitive. Add to `.gitignore`.
-
-## 2. Input Validation (Zero Trust)
-- **Trust No Input**: unexpected JSON fields, query params, or headers.
-- **Python**: Use **Pydantic v2** models for all ingress data (API requests, message payloads).
-  ```python
-  class Request(BaseModel):
-      id: UUID
-      # forbid extra fields to prevent injection
-      model_config = ConfigDict(extra="forbid")
-  ```
-- **TypeScript**: Use **Zod** schema validation for forms and API routes.
-  ```ts
-  const schema = z.object({ email: z.string().email() });
-  ```
-
-## 3. Dependency Security
-- **Lock Files**: Always commit `uv.lock` and `package-lock.json`.
-- **Review**: Check `pip-audit` or `npm audit` results before major merges.
-
-## 4. Output Encoding
-- **No InnerHTML**: Avoid `dangerouslySetInnerHTML` in React unless sanitized (DOMPurify).
-- **SQL Injection**: Never build SQL strings with format strings (`f"SELECT... {user_input}"`). Use ORM (SQLAlchemy/Prisma) or parameterized queries.
-
-## 5. Authentication & AuthZ
-- **Least Privilege**: Agents run with minimal required OAuth scopes.
-- **Validation**: Verify JWT signatures on every request (Middleware).
-- **State**: Do not store sensitive session data in `localStorage` (use `httpOnly` cookies).
+Apply `.cursor/skills/testing-rate-limiting/SKILL.md` when working on tests that hit rate-limited endpoints (for example, `/asap`) or when you see flaky HTTP 429 behavior.
 
 ---
 > Source: [adriannoes/asap-protocol](https://github.com/adriannoes/asap-protocol) — distributed by [TomeVault](https://tomevault.io).
