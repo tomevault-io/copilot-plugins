@@ -1,54 +1,49 @@
-## mcp-tools
+## new-source
 
-> Rules for adding or modifying MCP tools in src/mcp/server.ts
+> How to add a new source adapter to Primitiv
 
 
-# MCP tools
+# Adding a new source adapter
 
-All tools are registered in `src/mcp/server.ts` via `this.server.registerTool()`.
+Every source adapter follows the same interface. When adding a new source:
 
-## Tool conventions
+## 1. Create the folder
 
-- All tools are **read-only** — set `readOnlyHint: true` in annotations
-- All tools return both `content` (text) and `structuredContent` (parsed object)
-- Error responses set `isError: true` and tell the agent what to do next
-- Input schemas use Zod — define inline, keep simple
+```
+src/sources/<source-name>/
+  <source-name>.ts   — adapter logic
+  index.ts           — barrel export
+```
 
-## Standard error pattern
+## 2. Implement the interface
+
+The adapter must implement this shape (not yet a formal interface — add it to types.ts when the second adapter lands):
 
 ```ts
-if (!this.contract) {
-  return {
-    content: [{ type: "text", text: "No contract found. Run `primitiv build` first." }],
-    isError: true
-  }
+class <Name>Scanner {
+  constructor(private config: <Name>Source) {}
+
+  async scan(): Promise<{ tokens: TokenMap; components: ComponentMap }>
 }
 ```
 
-## Standard success pattern
+## 3. Add config type to types.ts
 
-```ts
-return {
-  content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
-  structuredContent: result
-}
-```
+Add a `<Name>Source` interface to `src/types.ts` and add it to `PrimitivConfig.sources`.
 
-## Current tools
+## 4. Wire it into src/index.ts
 
-| Tool | Input | Returns |
-|------|-------|---------|
-| `get_design_context` | category, tokenCategory | tokens, components, conflicts |
-| `get_token` | name, category | single token |
-| `get_component` | name | single component with props |
-| `get_conflicts` | type, status | filtered conflict list |
+In the `build()` function, check for the new source in config and call its scanner.
 
-## Adding a new tool
+## 5. Update primitiv.config.js example
 
-1. Call `this.server.registerTool()` in the `registerTools()` method
-2. Define input schema with Zod
-3. Handle missing contract case first
-4. Return both text content and structuredContent
+Add the new source as a commented-out example in `primitiv.config.js`.
+
+## Current adapters
+
+- `codebase` — implemented. Scans CSS variables, TypeScript token objects, React components.
+- `figma` — not yet implemented. Will use the Figma REST API.
+- `storybook` — not yet implemented. Will use the Storybook Component Manifest.
 
 ---
 > Source: [AI-by-design/primitiv](https://github.com/AI-by-design/primitiv) — distributed by [TomeVault](https://tomevault.io).
