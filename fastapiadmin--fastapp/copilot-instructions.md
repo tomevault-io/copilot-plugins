@@ -1,37 +1,35 @@
-## tech-stack
+## ui-guidelines
 
-> 核心技术栈、架构和代码规范
+> UI/UX 指南、样式规范和组件使用
 
 
-# 技术栈与架构
+# UI 与样式指南
 
-## 🏗️ 架构概览
-本项目采用分层架构：
-- **表现层**: `src/pages` (视图) + `src/components` (UI 逻辑)
-- **状态层**: `src/store` (Pinia)
-- **数据层**: `src/api` (Alova.js)
+## 🎨 样式系统
+- **引擎**: UnoCSS (原子化 CSS) 是**首选**的样式方案。
+- **配置**: `uno.config.ts`。
+- **预处理**: SCSS 用于复杂的组件样式（极少需要）。
+- **主题**: 通过 `src/theme.json` 和 CSS 变量支持亮色/暗色模式切换。
 
-## 📦 状态管理 (Pinia)
-- **库**: Pinia
-- **持久化**: 使用 `src/store/persist.ts` 进行本地存储。
-- **模式**: 详见 `pinia-store-generator` skill。
-- **规则**: 始终使用 `defineStore` 并遵循 `use{Name}Store` 的命名规范。
-- **Skill**: 使用 **`pinia-store-generator`** 快速创建新的 store。
+### UnoCSS 约定
+- 使用工具类: `flex`, `items-center`, `text-primary`, `m-4`.
+- 响应式前缀: `sm:`, `md:` (在移动端优先的 uni-app 中较少使用)。
+- 图标: 通过 UnoCSS preset 使用 `i-carbon-{icon-name}`。
 
-## 🌐 API 层 (Alova.js)
-- **库**: Alova.js
-- **结构**:
-    - `src/api/core`: 拦截器和实例配置。
-    - `src/api/apiDefinitions.ts`: 自动生成的 API 定义。
-- **Mock**: 支持在 `src/api/mock` 中编写 Mock 数据。
-- **Skill**: 使用 **`alova-api-module`** 创建新的 API 模块和 Mock 数据。
+## 🧩 组件库
+- **核心库**: `wot-design-uni` (`wd-` 前缀)。
+- **文档**: [wot-design-uni](https://wot-ui.cn).
+- **自定义组件**: 在 `src/components` 中创建。
 
-## 🛣️ 路由
-- **库**: `@wot-ui/router` (API) + `vite-plugin-uni-pages` (文件系统路由)
-- **配置**: `pages.config.ts` 控制 `pages.json` 的生成。
-- **导航**: 使用 `useRouter()` 进行 push/replace/back 操作。
-- **Skill**: 参考 **`wot-router-usage`** 了解导航模式和守卫用法。
-- **Skill**: 使用 **`uni-page-generator`** 创建带路由配置的新页面。
+## 📢 全局反馈
+- **Toast/Message**: 请勿直接使用 `uni.showToast`。
+- **标准**: 使用 `GlobalToast`, `GlobalMessage`, `GlobalLoading` 组件。
+- **Skill**: 参考 **`global-feedback`** skill 查看使用示例。
+
+## 📱 布局
+- **系统**: `vite-plugin-uni-layouts`。
+- **默认**: `src/layouts/default.vue`。
+- **TabBar**: `src/layouts/tabbar.vue`。
 
 ---
 > Source: [fastapiadmin/FastApp](https://github.com/fastapiadmin/FastApp) — distributed by [TomeVault](https://tomevault.io).
