@@ -1,0 +1,9 @@
+{
+  "name": "haipingxu--social-science-claude-scholar",
+  "displayName": "social-science-claude-scholar",
+  "description": "Claude Code configuration for social science research (Economics & Political Science) \u2014 42 skills, quality gates, adversarial QA, causal inference workflows",
+  "version": "1.0.0",
+  "author": "HaipingXu",
+  "homepage": "https://github.com/HaipingXu/social-science-claude-scholar",
+  "skills": []
+}
