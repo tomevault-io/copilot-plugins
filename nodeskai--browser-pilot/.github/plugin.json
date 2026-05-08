@@ -1,0 +1,9 @@
+{
+  "name": "nodeskai--browser-pilot",
+  "displayName": "browser-pilot",
+  "description": "Browser-as-infrastructure for AI agents. Isolated Chrome sessions with anti-bot stealth and full control via REST API / CLI / Web UI.",
+  "version": "1.0.0",
+  "author": "NoDeskAI",
+  "homepage": "https://github.com/NoDeskAI/browser-pilot",
+  "skills": []
+}
