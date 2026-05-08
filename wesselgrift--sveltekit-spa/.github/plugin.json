@@ -1,0 +1,9 @@
+{
+  "name": "wesselgrift--sveltekit-spa",
+  "displayName": "sveltekit-spa",
+  "description": "A minimal boilerplate for building SPAs with SvelteKit using adapter-static, Supabase Auth, Supabase Postgres and shadcn-svelte UI.",
+  "version": "1.0.0",
+  "author": "wesselgrift",
+  "homepage": "https://github.com/wesselgrift/sveltekit-spa",
+  "skills": []
+}
