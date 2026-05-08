@@ -1,0 +1,9 @@
+{
+  "name": "vectimus--vectimus",
+  "displayName": "vectimus",
+  "description": "Deterministic governance for AI coding agents. Cedar-based policy engine that intercepts every agent action and evaluates it against deterministic rules before execution.",
+  "version": "1.0.0",
+  "author": "vectimus",
+  "homepage": "https://github.com/vectimus/vectimus",
+  "skills": []
+}
