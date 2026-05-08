@@ -1,0 +1,9 @@
+{
+  "name": "tta-lab--temenos",
+  "displayName": "temenos",
+  "description": "Sacred boundary for AI agents. Filesystem isolation via seatbelt (macOS) and bubblewrap (Linux). YAGNI containers.",
+  "version": "1.0.0",
+  "author": "tta-lab",
+  "homepage": "https://github.com/tta-lab/temenos",
+  "skills": []
+}
