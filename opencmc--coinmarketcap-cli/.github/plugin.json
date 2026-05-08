@@ -1,0 +1,9 @@
+{
+  "name": "opencmc--coinmarketcap-cli",
+  "displayName": "CoinMarketCap-CLI",
+  "description": "Official CoinMarketCap CLI for market data, history, monitoring, and AI-agent workflows.",
+  "version": "1.0.0",
+  "author": "openCMC",
+  "homepage": "https://github.com/openCMC/CoinMarketCap-CLI",
+  "skills": []
+}
