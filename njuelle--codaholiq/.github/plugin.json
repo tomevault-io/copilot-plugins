@@ -1,0 +1,9 @@
+{
+  "name": "njuelle--codaholiq",
+  "displayName": "Codaholiq",
+  "description": "AI automations governance platform for GitHub. Define triggers, choose your AI provider, write prompt templates, and track executions with real-time logs and cost analytics.",
+  "version": "1.0.0",
+  "author": "Njuelle",
+  "homepage": "https://github.com/Njuelle/Codaholiq",
+  "skills": []
+}
