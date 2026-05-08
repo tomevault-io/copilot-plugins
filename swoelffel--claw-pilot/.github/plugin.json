@@ -1,0 +1,9 @@
+{
+  "name": "swoelffel--claw-pilot",
+  "displayName": "claw-pilot",
+  "description": "Multi-agent orchestration runtime with task board, flow engine, budget control, MCP integration and real-time dashboard. Self-hosted on Linux/macOS.",
+  "version": "1.0.0",
+  "author": "swoelffel",
+  "homepage": "https://github.com/swoelffel/claw-pilot",
+  "skills": []
+}
