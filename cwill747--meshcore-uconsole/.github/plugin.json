@@ -1,0 +1,9 @@
+{
+  "name": "cwill747--meshcore-uconsole",
+  "displayName": "meshcore-uconsole",
+  "description": "A gtk-based meshcore companion node and network analyzer for the ClockworkPi uconsole and the HackerGadgets uConsole AIO board",
+  "version": "1.0.0",
+  "author": "cwill747",
+  "homepage": "https://github.com/cwill747/meshcore-uconsole",
+  "skills": []
+}
