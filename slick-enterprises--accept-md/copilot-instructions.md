@@ -1,15 +1,45 @@
-## accept-md
+## handler-and-templates
 
-> - **Monorepo**: packages/core, packages/middleware (accept-md-runtime), packages/cli (accept-md). examples/* and website are separate apps.
+> Handler and template rules — keep JS-compatible for end users
 
-# accept-md — rules for AI and contributors
 
-- **Monorepo**: packages/core, packages/middleware (accept-md-runtime), packages/cli (accept-md). examples/* and website are separate apps.
-- **User-facing code is JS-compatible**: Generated handlers and templates in packages/middleware must be plain JavaScript (no TypeScript types). Examples use route.js / index.js. Init writes .ts only when the user project has tsconfig.json; otherwise .js.
-- **Do not** convert handler templates or example API routes to TypeScript-only. Do not remove support for .js handler files.
-- **Contract changes**: When changing handler or middleware behavior, update both App and Pages examples and the README.
-- **Build & test**: Use `pnpm run build` and `pnpm run test` from repo root. Lint: `pnpm run lint`.
-- See .cursor/rules/ for file-specific rules and docs/CONTRIBUTING.md for full contributing guide.
+# Handler and template rules
+
+## Templates (`packages/middleware/src/templates.ts`)
+
+- `APP_ROUTE_HANDLER_TEMPLATE` and `PAGES_API_HANDLER_TEMPLATE` must be **plain JavaScript** only: no TypeScript syntax (no `import type`, no `: Type` annotations). JSDoc `@param` comments are allowed so that generated `.ts` files type-check.
+- These strings are written to user projects by the CLI. User projects may be JavaScript-only.
+- Escape backslashes in template literals as needed (e.g. regex `\b` in a string is `\\\\b` so the written file gets `\b`).
+
+## Example handlers (`examples/*/api/accept-md/`)
+
+- Use **`.js`** files: `route.js` (App Router), `index.js` (Pages Router).
+- Content must match the templates (plain JS). Do not replace with `.ts` or add types here; the example is the reference for both TS and JS users.
+
+## CLI init (`packages/cli/src/init.ts`)
+
+- Use `routeExt = detection.hasTypeScript ? 'ts' : 'js'` when writing the handler file. Do not hardcode `.ts` only.
+- Write the **template as-is** (no TypeScript-only additions). Doctor must accept both `route.ts` and `route.js` (and both `index.ts` and `index.js` for Pages).
+- **Next.js rewrite pattern**: Use catch-all `/:path*` in `next.config.js` rewrites (not complex regex like `/:path((?!api|_next).)*`). The complex regex doesn't match sub-routes reliably in Next.js. Exclusions for `/api` and `/_next` are handled in the handler code, not in the rewrite pattern.
+
+## Handler path exclusion logic
+
+- The handler template (`APP_ROUTE_HANDLER_TEMPLATE`) must include exclusion logic that returns 404 for paths starting with `/api/` or `/_next/`:
+  ```javascript
+  // Exclude /api and /_next paths - return 404 for these
+  if (path.startsWith('/api/') || path.startsWith('/_next/')) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+  ```
+- This prevents conflicts with Next.js internal routes and API routes.
+- The rewrite pattern uses catch-all `/:path*` to match all routes, then the handler filters out excluded paths.
+
+## Do not
+
+- Add TypeScript-only syntax (e.g. `import type`, `: NextRequest`) to the template strings.
+- Change examples back to `route.ts` / `index.ts` only.
+- Remove the JS path in init or doctor.
+- Use complex regex patterns in Next.js rewrite `source` fields - they don't work reliably for sub-routes. Use catch-all patterns and handle exclusions in code.
 
 ---
 > Source: [slick-enterprises/accept-md](https://github.com/slick-enterprises/accept-md) — distributed by [TomeVault](https://tomevault.io).
