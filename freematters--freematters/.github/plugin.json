@@ -1,0 +1,9 @@
+{
+  "name": "freematters--freematters",
+  "displayName": "freematters",
+  "description": "Agent-native developer tools \u2014 CLI plugins for AI coding agents",
+  "version": "1.0.0",
+  "author": "freematters",
+  "homepage": "https://github.com/freematters/freematters",
+  "skills": []
+}
