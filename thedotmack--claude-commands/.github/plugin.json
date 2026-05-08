@@ -1,0 +1,9 @@
+{
+  "name": "thedotmack--claude-commands",
+  "displayName": "claude",
+  "description": "Custom Claude Code commands for ~/.claude/commands/",
+  "version": "1.0.0",
+  "author": "thedotmack",
+  "homepage": "https://github.com/thedotmack/claude-commands",
+  "skills": []
+}
