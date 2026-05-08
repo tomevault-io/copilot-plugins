@@ -1,0 +1,303 @@
+{
+  "name": "standards",
+  "owner": "williamzujkowski",
+  "repo": "standards",
+  "description": "LLM Software Development Standards Start any project right in 30 seconds. Battle-tested standards from real production systems.",
+  "type": "tome",
+  "source_format": "CLAUDE.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [
+    {
+      "name": "advanced-kubernetes",
+      "path": "skills/cloud-native/advanced-kubernetes",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/cloud-native/advanced-kubernetes",
+      "description": ""
+    },
+    {
+      "name": "api-security",
+      "path": "skills/security/api-security",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/security/api-security",
+      "description": ""
+    },
+    {
+      "name": "authentication",
+      "path": "skills/security/authentication",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/security/authentication",
+      "description": ""
+    },
+    {
+      "name": "authorization",
+      "path": "skills/security/authorization",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/security/authorization",
+      "description": ""
+    },
+    {
+      "name": "broken-reference",
+      "path": "tests/scripts/fixtures/skills/broken-reference",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/tests/scripts/fixtures/skills/broken-reference",
+      "description": ""
+    },
+    {
+      "name": "ci-cd",
+      "path": "skills/devops/ci-cd",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/devops/ci-cd",
+      "description": ""
+    },
+    {
+      "name": "coding-standards",
+      "path": "skills/coding-standards",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/coding-standards",
+      "description": ""
+    },
+    {
+      "name": "documentation",
+      "path": "skills/content/documentation",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/content/documentation",
+      "description": ""
+    },
+    {
+      "name": "gdpr",
+      "path": "skills/compliance/gdpr",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/compliance/gdpr",
+      "description": ""
+    },
+    {
+      "name": "go",
+      "path": "skills/coding-standards/go",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/coding-standards/go",
+      "description": ""
+    },
+    {
+      "name": "graphql",
+      "path": "skills/api/graphql",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/api/graphql",
+      "description": ""
+    },
+    {
+      "name": "infrastructure",
+      "path": "skills/devops/infrastructure",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/devops/infrastructure",
+      "description": ""
+    },
+    {
+      "name": "infrastructure-as-code",
+      "path": "skills/devops/infrastructure-as-code",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/devops/infrastructure-as-code",
+      "description": ""
+    },
+    {
+      "name": "kotlin",
+      "path": "skills/coding-standards/kotlin",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/coding-standards/kotlin",
+      "description": ""
+    },
+    {
+      "name": "kubernetes",
+      "path": "skills/cloud-native/kubernetes",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/cloud-native/kubernetes",
+      "description": ""
+    },
+    {
+      "name": "legacy-bridge",
+      "path": "skills/legacy-bridge",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/legacy-bridge",
+      "description": ""
+    },
+    {
+      "name": "logging",
+      "path": "skills/observability/logging",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/observability/logging",
+      "description": ""
+    },
+    {
+      "name": "metrics",
+      "path": "skills/observability/metrics",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/observability/metrics",
+      "description": ""
+    },
+    {
+      "name": "missing-level1",
+      "path": "tests/scripts/fixtures/skills/missing-level1",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/tests/scripts/fixtures/skills/missing-level1",
+      "description": ""
+    },
+    {
+      "name": "mlops",
+      "path": "skills/ml-ai/mlops",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/ml-ai/mlops",
+      "description": ""
+    },
+    {
+      "name": "mobile-android",
+      "path": "skills/frontend/mobile-android",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/frontend/mobile-android",
+      "description": ""
+    },
+    {
+      "name": "mobile-ios",
+      "path": "skills/frontend/mobile-ios",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/frontend/mobile-ios",
+      "description": ""
+    },
+    {
+      "name": "model-deployment",
+      "path": "skills/ml-ai/model-deployment",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/ml-ai/model-deployment",
+      "description": ""
+    },
+    {
+      "name": "model-development",
+      "path": "skills/ml-ai/model-development",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/ml-ai/model-development",
+      "description": ""
+    },
+    {
+      "name": "monitoring",
+      "path": "skills/devops/monitoring",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/devops/monitoring",
+      "description": ""
+    },
+    {
+      "name": "nist",
+      "path": "skills/compliance/nist",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/compliance/nist",
+      "description": ""
+    },
+    {
+      "name": "nosql",
+      "path": "skills/database/nosql",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/database/nosql",
+      "description": ""
+    },
+    {
+      "name": "python",
+      "path": "skills/coding-standards/python",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/coding-standards/python",
+      "description": ""
+    },
+    {
+      "name": "react",
+      "path": "skills/frontend/react",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/frontend/react",
+      "description": ""
+    },
+    {
+      "name": "mobile-react-native",
+      "path": "skills/frontend/mobile-react-native",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/frontend/mobile-react-native",
+      "description": ""
+    },
+    {
+      "name": "rust",
+      "path": "skills/coding-standards/rust",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/coding-standards/rust",
+      "description": ""
+    },
+    {
+      "name": "service-mesh",
+      "path": "skills/cloud-native/service-mesh",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/cloud-native/service-mesh",
+      "description": ""
+    },
+    {
+      "name": "shell",
+      "path": "skills/coding-standards/shell",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/coding-standards/shell",
+      "description": ""
+    },
+    {
+      "name": "skill-loader",
+      "path": "skills/skill-loader",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/skill-loader",
+      "description": ""
+    },
+    {
+      "name": "sql",
+      "path": "skills/database/sql",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/database/sql",
+      "description": ""
+    },
+    {
+      "name": "swift",
+      "path": "skills/coding-standards/swift",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/coding-standards/swift",
+      "description": ""
+    },
+    {
+      "name": "threat-modeling",
+      "path": "skills/security/threat-modeling",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/security/threat-modeling",
+      "description": ""
+    },
+    {
+      "name": "too-long-level1",
+      "path": "tests/scripts/fixtures/skills/too-long-level1",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/tests/scripts/fixtures/skills/too-long-level1",
+      "description": ""
+    },
+    {
+      "name": "typescript",
+      "path": "skills/coding-standards/typescript",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/coding-standards/typescript",
+      "description": ""
+    },
+    {
+      "name": "unit-testing",
+      "path": "skills/testing/unit-testing",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/testing/unit-testing",
+      "description": ""
+    },
+    {
+      "name": "ux",
+      "path": "skills/design/ux",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/design/ux",
+      "description": ""
+    },
+    {
+      "name": "valid-skill",
+      "path": "tests/scripts/fixtures/skills/valid-skill",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/tests/scripts/fixtures/skills/valid-skill",
+      "description": ""
+    },
+    {
+      "name": "vue",
+      "path": "skills/frontend/vue",
+      "github_url": "https://github.com/williamzujkowski/standards/tree/main/skills/frontend/vue",
+      "description": ""
+    }
+  ],
+  "source_url": "https://github.com/williamzujkowski/standards",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T00:31:36Z"
+}
