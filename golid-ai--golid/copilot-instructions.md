@@ -1,90 +1,113 @@
-## codebase-standards
+## common-commands
 
-> Core codebase standards — applies to every conversation.
+> Common CLI commands for development, deployment, debugging, and GCP operations
 
 
-# Codebase Standards
+# Common Commands
 
-## Backend (Go)
+Quick reference for CLI commands that work in this project. Invoke this rule by name when needed.
 
-- **Parameterized queries only** — never `fmt.Sprintf` with values into SQL. Always use `$N` placeholders.
-- **Transactions for multi-write only** — `pool.Begin` / `defer tx.Rollback` / `tx.Commit` for any operation with 2+ writes. Never wrap a single UPDATE/INSERT in a transaction — it adds overhead with no benefit.
-- **Never discard errors** — no `_ = fn()`. Log with `logger.Error` at minimum. Fire-and-forget goroutines must wrap with error logging.
-- **Check real DB errors before ErrNoRows** — `if err != nil && err != pgx.ErrNoRows { return 500 }`.
-- **Resource membership, not just role** — verify the specific user belongs to the specific resource (item, record, etc.), not just that they're the right `userType`.
-- **Parent status guards** — check parent entity status before mutations (e.g., reject updates on non-active resources).
-- **`apperror` for all errors** — never `echo.NewHTTPError`. Use `apperror.BadRequest`, `.Forbidden`, `.NotFound`, `.Validation`, `.Internal`.
-- **Config over hardcoded values** — platform fee percentages, pagination defaults, timeout durations, and retry counts go in `Config` struct or named constants, not inline in service methods. If you'd need to change it for a different environment, it belongs in config.
-- **Request body size limit** — `middleware.BodyLimit("1M")` is configured in `stack.go`.
-- **SSE uses one-time ticket auth (not JWT in URL)** — See `handler/sse.go` and `service/sse.go`.
-- **Retry on fire-and-forget** — goroutines calling external services use `service.Retry()` with exponential backoff.
-- **Shutdown order** — `e.Shutdown()` first (drain in-flight HTTP), then `sseHub.Shutdown()` (close SSE connections), then `defer db.Close()` (pool cleanup runs last via defer LIFO). Never close the DB pool before draining HTTP/SSE connections.
+## Local Development
 
-## Frontend (SolidJS)
+```bash
+# Frontend dev server (runs in devcontainer terminal task)
+cd frontend && PORT=3000 npm run dev -- --host
 
-- **`Switch/Match` for content states, NEVER nested `<Show>`** — nested `<Show when={!loading()}>` → `<Show when={error()}>` chains create stacked reactive scopes that leak computations during route transitions. Use flat `Switch/Match` with one `Match` per state.
-- **`batch()` async signal updates** — `batch(() => { setData(result); setLoading(false); })` after every `await`. Prevents intermediate states during route transitions. Never use `try/catch/finally` with signals — `finally { setLoading(false) }` runs unbatched after `catch { setError(...) }`, creating an intermediate state. Instead, put `setLoading(false)` inside both `try` and `catch`, wrapped in `batch()`.
-- **`onMount` + `defer: true`** — use `onMount` for initial fetch, `createEffect(on(..., { defer: true }))` for reactive refetches. Never let `createEffect` fire synchronously during mount.
-- **No reactive expressions inside `<Title>`** — pre-compute as `createMemo`, pass resolved string. Inline reactivity in `<Title>` leaks during route transitions.
-- **`onMount` + signals for all page data — no `createResource`** — the project uses `onMount` + `createSignal` + `alive` guard + `batch` for all data fetching. `createResource` causes orphaned computation warnings on route transitions and Suspense issues in conditional components. (`createAsync` + `query` from `@solidjs/router` is the official Solid 2.0 direction but not yet adopted.)
-- **`onCleanup` for cleanup, NEVER return from `onMount` or `createEffect`** — SolidJS silently ignores return values from both `onMount` and `createEffect`. The React pattern `onMount(() => { ...; return () => cleanup() })` compiles without error but the cleanup never runs. Always use `onCleanup(() => cleanup())` inside the body.
-- **`alive` guard on async** — `let alive = true; onCleanup(() => { alive = false; });` then check before setting signals after await.
-- **`PRIVATE_ROUTES` in constants.ts** — add every new protected route or SSR auth redirects won't work.
-- **`redirectTo` for login redirects** — SSR middleware redirects unauthenticated users to `/login?redirectTo=<encodedPath>`. The login page reads `searchParams.redirectTo` after auth succeeds. The param name is `redirectTo` — not `return`, `next`, or `redirect`.
-- **`DestructiveModal` for destructive actions** — never `window.confirm()`.
-- **Signal-driven modals** — `const [active, setActive] = createSignal(null)` for detail views within list pages, not sub-routes.
-- **`lazy()` requires `<Suspense>`** — SolidJS `lazy()` components silently render nothing without a `<Suspense>` boundary. Always wrap `lazy()` usage in `<Suspense>`. SolidStart's router provides Suspense for route-level components, but `lazy()` inside a route needs its own `<Suspense>` wrapper.
-- **`onCleanup` only synchronously** — never call `onCleanup()` inside an `async` function or after an `await`. SolidJS can't track ownership across async boundaries. Instead, declare mutable refs (e.g., `let observer: ResizeObserver | null = null`) and clean them up in the synchronous `onCleanup` registered during component creation.
-- **Static DOM wrapper for lazy components with `onMount` side effects** — when a `lazy()` component uses `onMount` to append DOM nodes (e.g., Three.js canvas via `appendChild`), the component's return JSX must include at least one static (non-conditional) DOM element. A `Switch/Match` as the only child can cause `onMount` not to fire. Wrap conditional content inside a static div.
+# Backend (auto-starts via Air in devcontainer)
+cd backend && air -c .air.toml
 
-## Database
+# Run frontend unit tests
+cd frontend && npx vitest run
 
-- **Idempotent status transitions** — `WHERE status = 'open'` guards so repeated operations don't error.
-- **Always write a down migration** — reverse dependency order: columns, tables, enums.
+# Run a specific test file
+cd frontend && npx vitest run src/routes/(private)/MODULE/MODULE.test.tsx
 
-## Security
+# Run E2E tests (requires full stack running)
+cd frontend && npx playwright install chromium  # first time
+cd frontend && npx playwright test
+cd frontend && npx playwright test tests/e2e/auth.spec.ts  # specific file
 
-- Two-layer auth: handler calls `requireUserID` (authn), service calls `verifyResourceAccess` or equivalent (authz against the specific resource).
-- Webhook endpoints verify signatures (e.g., HMAC-SHA256). Never trust unverified webhooks.
-- External API keys flow from env → Config → service. Never hardcode.
-- Selector.verifier pattern for security tokens — never store tokens as plaintext. Generate a `selector` (DB lookup key, indexed) and `verifier` (compared with `subtle.ConstantTimeCompare` via `verifyHash()`). Store `selector` + `hashVerifier(verifier)`. See `auth_password.go` and `auth_verify.go`.
+# Build backend
+cd backend && go build ./...
 
-## Opt-In Modules
+# Run backend tests
+cd backend && go test ./...
 
-- **`IsConfigured()` for opt-in modules** — queue, rate limiting, email, and tracing use `IsConfigured()` gates triggered by env vars (`REDIS_URL`, `MAILGUN_API_KEY`, `OTEL_ENDPOINT`). When not configured, fall back gracefully: goroutines for queue, in-memory for rate limiting, stdout for email, no-op for tracing. Both paths must be tested.
-- **Never check `service != nil` — use `service.IsConfigured()`** — opt-in services are always instantiated (never nil). The `!= nil` check is always true and bypasses the graceful degradation gate. This causes unnecessary work in dev (e.g., spawning goroutines when Mailgun isn't configured).
-- **Dual-path pattern for queue** — `if h.queue.IsConfigured() { enqueue } else { go func() { Retry(...) }() }`. Handle task creation errors explicitly (`task, err :=` not `task, _ :=`).
-- **Redis fail-open** — rate limiting and queue degrade to in-memory/goroutine when Redis is unreachable. Log the degradation.
+# Run integration tests (requires running PostgreSQL)
+cd backend && go test -tags=integration ./...
 
-## External APIs
+# Tidy Go modules
+cd backend && go mod tidy
 
-- Every external service wrapper uses `IsConfigured()` pattern — graceful degradation when not configured.
-- SSE endpoints must be excluded from gzip + timeout middleware (long-lived connections).
-- Email service uses `IsConfigured()` for graceful degradation — emails are logged to stdout when Mailgun is not configured.
+# Run database migrations
+migrate -path backend/migrations -database "$DATABASE_URL" up
 
-## Nullable Timestamps
+# Re-seed dev data
+psql "$DATABASE_URL" -f backend/seeds/dev_seed.sql
 
-Nullable `TIMESTAMPTZ` columns must scan into `*time.Time`, never `*string`. Format after scan:
-```go
-var t *time.Time
-row.Scan(&t)
-if t != nil { s := t.Format(time.RFC3339); result.Field = &s }
+# Scaffold a new module
+cd backend && make new-module name=notes
+
+# Rename the project
+cd backend && go run ./cmd/rename myapp github.com/user/myapp/backend
 ```
 
-## Testing
+## GCP — Secrets
 
-- **Integration tests**: `//go:build integration` + `testutil.WithTestDB`. Seed with raw SQL, not service methods.
-- **Unit tests**: same `_test.go` file, no build tag, table-driven. For pure logic like validation/parsing.
-- **Always test error paths** — permission denied, invalid status, not found, conflicts. Not just happy paths.
-- **Pre-push verification** — always run both tests AND type check before pushing frontend changes. `vitest run` only checks runtime behavior; `tsc --noEmit` catches import errors, missing exports, and type mismatches that JavaScript silently ignores. CI runs `npm run typecheck` and will fail on type errors that tests pass.
+```bash
+# List all secrets
+gcloud secrets list --project=YOUR_PROJECT --format="table(name)"
 
-## Working Principles
+# Read a secret value
+gcloud secrets versions access latest --secret=SECRET_NAME --project=YOUR_PROJECT
 
-- **Minimal impact** — changes should only touch what's necessary. Don't refactor adjacent code, rename unrelated variables, or "improve" files you weren't asked to change.
-- **Stop and re-plan when stuck** — if a fix takes more than 2 attempts, stop. Re-read the error, check assumptions, and re-plan the approach. Don't keep pushing the same strategy hoping it works on the third try.
-- **Verify before marking done** — run tests, typecheck, and build after every change. Diff behavior against what you expect. A change isn't done until it's proven correct, not just "looks right."
+# Create a new secret
+echo -n "VALUE" | gcloud secrets create SECRET_NAME --data-file=- --project=YOUR_PROJECT
 
-Full details with code examples in the project documentation.
+# Update an existing secret
+echo -n "NEW_VALUE" | gcloud secrets versions add SECRET_NAME --data-file=- --project=YOUR_PROJECT
+```
+
+## GCP — Cloud Run Logs
+
+```bash
+# Structured JSON logs
+gcloud logging read 'resource.type="cloud_run_revision" AND resource.labels.service_name="SERVICE" AND jsonPayload.msg=~"SEARCH_TERM"' \
+  --project=YOUR_PROJECT --limit=10 --format=json
+
+# All errors
+gcloud logging read 'resource.type="cloud_run_revision" AND resource.labels.service_name="SERVICE" AND jsonPayload.level="ERROR"' \
+  --project=YOUR_PROJECT --limit=10 --format=json
+```
+
+## GCP — Deployment
+
+```bash
+# Deploy to QA (both services)
+./scripts/deploy.sh qa
+
+# Deploy to QA (backend only)
+./scripts/deploy.sh qa api
+
+# Deploy to prod
+./scripts/deploy.sh prod
+
+# Pre-flight check
+./scripts/deploy.sh check
+
+# Check deployment URL
+gcloud run services describe SERVICE --region=us-central1 --project=YOUR_PROJECT --format="value(status.url)"
+```
+
+## Git
+
+```bash
+# Check what's ahead of remote
+git log --oneline origin/main..HEAD
+
+# Push from host (devcontainer may not have SSH keys)
+git push
+```
 
 ---
 > Source: [golid-ai/golid](https://github.com/golid-ai/golid) — distributed by [TomeVault](https://tomevault.io).
