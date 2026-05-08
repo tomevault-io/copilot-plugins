@@ -1,0 +1,9 @@
+{
+  "name": "arpagon--pi-rewind",
+  "displayName": "pi-rewind",
+  "description": "Checkpoint/rewind extension for the Pi coding agent. 1 checkpoint per turn, /rewind command, diff preview, safe restore, redo stack.",
+  "version": "1.0.0",
+  "author": "arpagon",
+  "homepage": "https://github.com/arpagon/pi-rewind",
+  "skills": []
+}
