@@ -1,141 +1,187 @@
-## development-workflow
+## mcp-tools-design
 
-> 开发流程和优先级指南
+> MCP 工具设计原则和完整工具清单
 
 
-# 开发流程指南
+# MCP 工具设计指南
 
-## 当前版本：v0.3.1
+## 设计原则
 
-核心功能已完成，当前处于优化和稳定阶段。
+**最小信息熵，最大能力覆盖。**
 
-### 已完成功能
+1. 用最少的工具达成最完整的能力
+2. 统一接口优于分散工具
+3. 参数最小化：删除冗余参数，合并语义相同的参数
+4. 返回结构化数据，包含足够上下文
+5. 错误信息友好，帮助用户定位问题
 
-- ✅ C++ 源码分析（tree-sitter）
-- ✅ Blueprint 内省 API
-- ✅ Asset 引用查询
-- ✅ 跨域引用链追踪
-- ✅ 软引用追踪（Blueprint CDO）
-- ✅ Mermaid 图表输出
-- ✅ 工具集精简（22 → 8）
+## 工具清单（v0.4.0，共 11 个）
 
-### 当前优化方向
+### 分析工具（8 个）
 
-1. **性能优化**：大型项目搜索速度
-2. **准确性提升**：引用链完整性
-3. **用户体验**：错误提示和文档
+| 工具 | 参数 | 用途 |
+|------|------|------|
+| `search` | `query`, `domain`, `scope`, `type_filter`, `max_results` | 统一搜索 C++/Blueprint/Asset |
+| `get_hierarchy` | `name`, `domain`, `scope` | 获取继承层次 |
+| `get_references` | `path`, `domain`, `scope`, `direction` | 获取引用关系 |
+| `get_details` | `path`, `domain`, `scope` | 获取详细信息 |
+| `get_blueprint_graph` | `bp_path`, `graph_name`, `format` | 蓝图节点图（Mermaid/摘要/JSON） |
+| `detect_ue_patterns` | `file_path`, `format` | UE 宏检测（详细/摘要） |
+| `trace_reference_chain` | `start_asset`, `max_depth`, `direction` | 跨域引用链追踪 |
+| `find_cpp_class_usage` | `cpp_class`, `scope`, `max_results` | C++ 类使用查找 |
 
-## 关键文件
+### 技能工具（3 个，v0.4.0 新增）
 
-### MCP Server (Python)
+| 工具 | 参数 | 用途 |
+|------|------|------|
+| `list_unreal_skill` | `query?`, `include_hidden?` | 列出可用技能 |
+| `read_unreal_skill` | `skill_name`, `path?` | 读取技能文档/脚本 |
+| `run_unreal_skill` | `skill_name?`, `script?`, `args?`, `python?` | 执行技能脚本或内联 Python |
 
-- [server.py](mdc:Mcp/src/unreal_analyzer/server.py) - 入口
-- [unified.py](mdc:Mcp/src/unreal_analyzer/tools/unified.py) - 核心工具
-- [cross_domain.py](mdc:Mcp/src/unreal_analyzer/tools/cross_domain.py) - 跨域工具
-- [blueprint.py](mdc:Mcp/src/unreal_analyzer/tools/blueprint.py) - 蓝图工具
-- [cpp.py](mdc:Mcp/src/unreal_analyzer/tools/cpp.py) - C++ 工具
-- [analyzer.py](mdc:Mcp/src/unreal_analyzer/cpp_analyzer/analyzer.py) - C++ 分析器
+## 参数设计原则
 
-### Unreal Plugin (C++)
+### 已统一的参数命名
 
-- [UnrealAnalyzerHttpRoutes.cpp](mdc:Source/UnrealProjectAnalyzer/Private/UnrealAnalyzerHttpRoutes.cpp) - HTTP API 路由
-- [UnrealProjectAnalyzer.cpp](mdc:Source/UnrealProjectAnalyzer/Private/UnrealProjectAnalyzer.cpp) - 插件入口
+| 参数 | 可选值 | 说明 |
+|------|--------|------|
+| `domain` | `cpp`, `blueprint`, `asset`, `all` | 搜索/操作域 |
+| `scope` | `project`, `engine`, `plugin`, `all` | 搜索范围（含插件支持） |
+| `direction` | `outgoing`, `incoming`, `both` | 引用方向（统一命名） |
+| `format` | `mermaid`, `summary`, `json` / `detailed`, `summary` | 输出格式 |
+| `type_filter` | 字符串 | 类型过滤（合并了 asset_type 和 class_filter） |
 
-## 开发命令
+### Scope 语义
 
-### Python MCP Server
+| Scope | C++ 范围 | Blueprint/Asset 范围 |
+|-------|----------|---------------------|
+| `project` | Source/ + Plugins/*/Source/ | /Game/ + 插件资产 |
+| `engine` | Engine/Source/ + Engine/Plugins/ | /Engine/ + /Script/ |
+| `plugin` | 所有 Plugins/*/Source/ | 只有插件资产（非 /Game/、/Engine/、/Script/） |
+| `all` | 全部 | 全部 |
 
-```bash
-cd unreal-project-analyzer
+### 已删除的冗余参数
 
-# 安装依赖
-uv sync
+- `domains` → 合并到 `domain`（单值即可）
+- `asset_type` + `class_filter` → 合并为 `type_filter`
+- `include_comments` → 内部默认 `true`
+- `query_mode` → 内部默认 `smart`
+- `file_pattern` → 内部默认 `*.{h,cpp}`
+- `include_interfaces` → 内部默认 `true`
+- `include_cpp` → 内部默认 `true`
+- `aggregate_results` → 内部默认 `true`
 
-# 运行测试
-uv run pytest
+## Skill 技能系统
 
-# 运行 MCP Server
-uv run unreal-analyzer
+### 设计理念
 
-# Lint
-uv run ruff check .
-uv run ruff format .
+Skill 是可发现、有文档、可执行的编辑器能力：
+- **可发现**：`list_unreal_skill` 返回技能列表（name, description, tags）
+- **有文档**：`read_unreal_skill` 返回 SKILL.md + 目录树
+- **可执行**：`run_unreal_skill` 执行脚本或内联 Python
+
+### 技能包结构
+
+```
+skills/<skill_name>/
+├── SKILL.md              # 技能说明（YAML 题头 + Markdown）
+├── scripts/              # 可执行脚本
+│   └── *.py
+└── docs/                 # 详细文档（可选）
+    └── *.md
 ```
 
-### Unreal 插件
+### 执行模式
 
-1. 复制本仓库目录到 UE 项目的 `Plugins/` 目录
-2. 确保目录名为 `UnrealProjectAnalyzer/`（与 `UnrealProjectAnalyzer.uplugin` 一致）
-3. 用 UE 编辑器打开项目，编译插件
-4. 启用插件
+1. **脚本模式**：`skill_name` + `script` → 执行 `skills/<skill_name>/scripts/<script>`
+2. **内联模式**：`python` → 直接执行内联代码
 
-## 测试指南
+### CppSkillApiSubsystem 原语
 
-### 单元测试
+| 分类 | 操作 |
+|------|------|
+| **Asset** | RenameAsset, DuplicateAsset, DeleteAsset, SaveAsset |
+| **Blueprint** | CreateBlueprint, CompileBlueprint, SaveBlueprint, SetBlueprintCDOPropertyByString, AddBlueprintComponent, RemoveBlueprintComponent |
+| **World** | LoadMap, SpawnActorByClassPath, FindActorByName, DestroyActorByName, SetActorPropertyByString, SetActorTransformByName |
+| **Editor** | ListDirtyPackages, SaveDirtyPackages, UndoLastTransaction, RedoLastTransaction |
+| **Validation** | CompileAllBlueprintsSummary |
 
-```bash
-uv run pytest Mcp/tests/test_cpp_analyzer.py -v
-```
+## 典型调用流程
 
-### 集成测试 (需要 UE 插件运行)
-
-```bash
-# 确保 UE 编辑器已启动且插件已启用
-# 确保 HTTP API 在 localhost:8080 可用
-
-uv run pytest Mcp/tests/test_integration.py -v
-```
-
-### Lyra 项目验证
-
-1. 下载 Lyra 示例项目
-2. 安装 UnrealProjectAnalyzer 插件
-3. 配置 MCP Server 连接
-4. 测试典型查询:
-   - "分析 B_Hero_ShooterMannequin 的继承链"
-   - "GA_Hero_Dash 的触发路径是什么"
-   - "SK_Mannequin 被哪些资产引用"
-
-## Git 工作流
-
-- `main` 分支保持稳定
-- 功能开发使用 feature 分支
-- PR 需要通过测试
-
-## 调试技巧
-
-### MCP Server 调试
+### 场景：分析 GAS Ability
 
 ```python
-# 在 server.py 中添加日志
-import logging
-logging.basicConfig(level=logging.DEBUG)
+# 1. 搜索蓝图
+await search(query="GA_Hero_Dash", domain="blueprint")
+
+# 2. 获取继承层次
+await get_hierarchy(name="/Game/.../GA_Hero_Dash", domain="blueprint")
+
+# 3. 获取依赖
+await get_references(path="/Game/.../GA_Hero_Dash", direction="outgoing")
+
+# 4. 获取节点图（Mermaid 格式）
+await get_blueprint_graph(bp_path="/Game/.../GA_Hero_Dash")
 ```
 
-### Unreal 插件调试
+### 场景：追踪资产引用
 
-```cpp
-// 在代码中添加断点日志
-UE_LOG(LogTemp, Warning, TEXT("DEBUG: variable = %s"), *Variable);
+```python
+# 1. 搜索资产
+await search(query="SK_Mannequin", domain="asset")
+
+# 2. 深度追踪（包含软引用）
+await trace_reference_chain(start_asset="/Game/.../SK_Mannequin", max_depth=3)
 ```
 
-### 查看 HTTP 请求
+### 场景：使用 Skill 批量操作
 
-```bash
-# 直接测试 UE 插件 API
-curl http://localhost:8080/health
-curl http://localhost:8080/blueprint/search?pattern=BP_Player
-curl http://localhost:8080/blueprint/soft-references?bp_path=/Game/BP_Player
+```python
+# 1. 发现可用技能
+await list_unreal_skill(query="asset")
+
+# 2. 阅读技能文档
+await read_unreal_skill(skill_name="cpp_asset_api")
+
+# 3. 阅读详细 API
+await read_unreal_skill(skill_name="cpp_asset_api", path="docs/overview.md")
+
+# 4. 执行内联 Python
+await run_unreal_skill(python="""
+import unreal
+api = unreal.get_editor_subsystem(unreal.CppSkillApiSubsystem)
+success, error = api.rename_asset("/Game/Old", "/Game/New")
+RESULT = {"success": success, "error": error}
+""")
 ```
 
-## 工具设计原则
+## HTTP API（UE 插件）
 
-参考 [mcp-tools-design.mdc](mdc:.cursor/rules/mcp-tools-design.mdc)
+```
+GET /health                           → 健康检查
+GET /blueprint/graph?bp_path=...      → 蓝图节点图
+GET /blueprint/soft-references?...    → 蓝图软引用（CDO 变量默认值）
+GET /analysis/reference-chain?...     → 引用链追踪（含软引用）
+GET /analysis/cpp-class-usage?...     → C++ 类使用
+GET /analysis/job/status?id=...       → 异步任务状态
+GET /analysis/job/result?id=...       → 异步任务结果
+```
 
-核心原则：
-1. **最小信息熵**：删除冗余参数，合并语义相同的参数
-2. **统一命名**：`domain`, `scope`, `direction`, `format`
-3. **合理默认值**：大多数情况下使用默认值即可
+## 版本变更
+
+| 版本 | 工具数 | 变化 |
+|------|--------|------|
+| v0.2.0 | 22 | 原始工具 + unified |
+| v0.3.0 | 9 | 精简：unified + 必要特殊工具 |
+| v0.3.1 | 8 | 进一步精简：合并 detect_ue_patterns + get_cpp_blueprint_exposure |
+| v0.4.0 | 11 | 新增 Skill 工具：list/read/run_unreal_skill |
+
+### v0.4.0 新增
+
+- `list_unreal_skill`: 发现可用技能
+- `read_unreal_skill`: 读取技能文档
+- `run_unreal_skill`: 执行技能脚本或内联 Python
+- `CppSkillApiSubsystem`: C++ 编辑器原语（Asset/Blueprint/World/Editor/Validation）
+- 事件驱动 MCP 生命周期管理
 
 ---
 > Source: [syan2018/UnrealCopilot](https://github.com/syan2018/UnrealCopilot) — distributed by [TomeVault](https://tomevault.io).
