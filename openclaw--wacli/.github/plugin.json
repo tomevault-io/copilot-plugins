@@ -1,0 +1,30 @@
+{
+  "name": "openclaw--wacli",
+  "displayName": "wacli",
+  "description": "WhatsApp CLI: sync, search, send",
+  "version": "1.0.0",
+  "author": "openclaw",
+  "homepage": "https://github.com/openclaw/wacli",
+  "skills": [
+    {
+      "name": "wacli",
+      "description": ""
+    },
+    {
+      "name": "wacli-xcb",
+      "description": ""
+    },
+    {
+      "name": "wacli-hdg",
+      "description": ""
+    },
+    {
+      "name": "wacli",
+      "description": ""
+    },
+    {
+      "name": "wacli-mch",
+      "description": ""
+    }
+  ]
+}
