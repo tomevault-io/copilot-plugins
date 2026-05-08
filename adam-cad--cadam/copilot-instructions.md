@@ -1,42 +1,101 @@
-## deployment-restrictions
+## frontend-architecture
 
-> - **NEVER** run `supabase functions deploy` commands
+> - Located in `src/views/`
 
-# Deployment Restrictions
-version: 1.0.0
+# Frontend Architecture - React/TypeScript
 
-## Function Deployment
+## Component Architecture
 
-### NEVER Deploy Functions
-- **NEVER** run `supabase functions deploy` commands
-- **NEVER** run `npx supabase functions deploy` commands
-- **NEVER** attempt to deploy any Supabase Edge Functions
-- **NEVER** suggest or recommend deploying functions
+### Views (Page Components)
+- Located in `src/views/`
+- Each view represents a full page/route
+- Use React Router for navigation
+- Implement proper loading and error states
+- Examples: `PromptView`, `EditorView`, `HistoryView`
 
-### Local Development Only
-- All function testing should be done locally with `supabase functions serve`
-- Use local Supabase instance for development and testing
-- Function deployment is exclusively the responsibility of the human developer
+### Reusable Components
+- Located in `src/components/`
+- Organized by feature/domain
+- Use TypeScript interfaces for props
+- Follow shadcn/ui patterns
+- Implement proper accessibility
 
-### Code Changes Only
-- AI assistant should only:
-  - Modify function code
-  - Update type definitions
-  - Make local code changes
-  - Run type checks
-  - Test locally if needed
+### Component Categories
+- `ui/`: Base UI components (buttons, inputs, etc.)
+- `chat/`: Components used in ChatSection
+- `parameter/`: Components used in ParameterSection
+- `viewer/`: Components used in ViewerSection
+- `history/`: Components used in the history page
 
-### Deployment Handoff
-- After making function changes, simply inform the user that:
-  - The code changes are complete
-  - Function deployment is required for the changes to take effect
-  - The user needs to deploy manually when ready
+## State Management
 
-## Rationale
-- Production deployments require human oversight
-- Deployment credentials should not be accessed by AI
-- Local testing is sufficient for development workflow
-- Human developer maintains control over when and what gets deployed
+### Contexts (`src/contexts/`)
+- `AuthContext`: User authentication and session
+- `BlobContext`: STL blob generated from OpenSCAD WASM
+- `ColorContext`: Purely stylistic color for model
+- `CurrentMessageContext`: Current message being processed
+- `SelectedItemsContext`: Selected items across components
+
+### React Query
+- Used for server state management
+- Configured in `src/main.tsx`
+- Provides caching, synchronization, and background updates
+- Handle loading, error, and success states
+
+## Custom Hooks (`src/hooks/`)
+- `useOpenSCAD`: OpenSCAD integration
+- `useItemSelection`: Item selection management
+- `useToast`: Toast notification management
+
+## Services (`src/services/`)
+- `conversationService`: Chat/conversation API calls, mutations and queries
+- `messageService`: Message handling and processing, mutations and queries
+- All services use Supabase client for API calls
+
+## Utilities (`src/utils/`)
+- `file-utils`: Primarily for getting a safe filename when exporting a file
+- `parameterUtils`: Parameter validation and processing
+- `downloadUtils`: Functions for downloading generated model
+
+## Types (`src/types/`)
+- `misc.ts`: Miscellaneous type definitions, should probably get broken up in the future
+- Use proper TypeScript interfaces and types
+- Export types for reuse across components
+
+## 3D Graphics Integration
+
+### Three.js Setup
+- Use React Three Fiber for React integration
+- Implement proper cleanup and resource management
+- Handle WebGL context loss gracefully
+- Use proper lighting and materials
+
+### OpenSCAD Integration
+- Web Worker in `src/worker/` for OpenSCAD processing
+- WASM-based OpenSCAD compilation
+- Real-time parameter updates
+- Error handling for compilation failures
+
+## Routing Structure
+- Main routes defined in `src/main.tsx`
+- Error boundaries for route error handling
+
+## Styling
+- Tailwind CSS for utility-first styling
+- shadcn/ui components for consistent design
+- Custom CSS in `src/index.css`
+- Not standard css classes, adam specific, refer to tailwind.config.js for specifics
+
+## Error Handling
+- Error boundaries for component error catching
+- Toast notifications for user feedback
+- Proper error states in components
+
+## Performance
+- React Query for efficient data fetching
+- Proper memoization with `useMemo` and `useCallback`
+- Lazy loading for route components
+- Image optimization and lazy loading
 
 ---
 > Source: [Adam-CAD/CADAM](https://github.com/Adam-CAD/CADAM) — distributed by [TomeVault](https://tomevault.io).
