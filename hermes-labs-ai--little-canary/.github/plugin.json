@@ -1,0 +1,9 @@
+{
+  "name": "hermes-labs-ai--little-canary",
+  "displayName": "little-canary",
+  "description": "Prompt injection detection for LLM apps using sacrificial canary-model probes and structural preflight checks",
+  "version": "1.0.0",
+  "author": "hermes-labs-ai",
+  "homepage": "https://github.com/hermes-labs-ai/little-canary",
+  "skills": []
+}
