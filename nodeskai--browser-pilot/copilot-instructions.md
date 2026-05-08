@@ -1,61 +1,34 @@
-## env-vars
+## fingerprint-popover-sync
 
-> 环境变量管理规范 — 新增/修改环境变量时需同步更新的文件清单和读取机制
+> 浏览器指纹多维度一致性同步规范
 
+# 指纹维度适配与同步规范
 
-# 环境变量管理
+## 问题背景
+指纹伪造是一个涉及前后端、扩展注入以及UI展示的全链路功能。一旦新增、删除或重命名某一个指纹维度时，很容易在各个环节出现不同步的问题（如：后端输出了数据但前端UI未能配置，或注入脚本没有生效，或状态栏指纹弹窗未能展示该维度）。
 
-## 读取机制
+## 核心原则：四端一致性
+当你需要修改指纹维度（如添加新的 CPU 参数、网络参数、字体信息等）时，**必须同时更新以下四个文件**，以保持全链路一致：
 
-项目有两种读取方式，新增变量时必须选对：
+1. **后端生成源**: `backend/app/fingerprint.py`
+   - 修改 `_DEFAULT_POOL` 数据字典。
+   - 必须确保在 `generate_profile()` 的返回值中包含该字段，供下游使用。
 
-| 方式 | 用法 | `.env` 文件生效？ | 场景 |
-|------|------|-------------------|------|
-| `config._env(key, default)` | 先读 `.env` 文件，再 `os.environ`，再 default | 是（直接解析） | **首选**，用于所有业务配置 |
-| `os.environ.get(key, default)` | 仅读环境变量 | 仅通过 `start.sh`（`set -a; source .env`）或 `docker-compose env_file` 间接生效 | 仅用于基础设施级配置（如 `LOG_LEVEL`） |
+2. **浏览器注入脚本**: `services/selenium-chrome/stealth-ext/stealth.js`
+   - 拦截并覆盖相关浏览器 API。
+   - 必须从注入的全局变量 `__FP__` 中读取由 `generate_profile()` 输出的具体维度值，进行真实的指纹伪造。
 
-**规则：新增环境变量优先使用 `config._env()`**，除非变量在 `config.py` 导入之前就需要读取（如 logging 初始化）。
+3. **前端指纹池配置表单**: `frontend/src/components/FingerprintPoolSettings.vue`
+   - 增加表单双向绑定的输入组件（使用恰当的 input 类型或组件）。
+   - 更新 Vue 的 state ref 默认值以及 `openAdd()`、`openEdit()` 和 `buildData()` 里的数据结构解析和组装逻辑。
 
-## 新增/修改环境变量的检查清单
+4. **状态栏指纹弹窗展示**: `frontend/src/components/NoVNCViewer.vue`
+   - 在弹窗 `fpProfile` 详情区增加该维度的只读展示。
+   - 需确保与 `generate_profile()` 输出对齐，展示相应的指标概要信息，并在对应的 `en.ts` / `zh.ts` 文件中补充 i18n 国际化键。
 
-每次新增或修改环境变量时，必须同步更新以下文件：
-
-1. **`.env.example`** — 添加变量和中文说明；敏感生产值只能作为本地 `.env` 配置，不能写入仓库
-2. **`README.md` Configuration 表** — 添加变量、默认值、英文描述
-3. **`backend/app/config.py`** — 使用 `_env()` 读取（如适用）
-
-如果变量影响 Docker 部署：
-4. **`docker-compose.yml`** — `environment` 或 `args` 中引用
-
-## 当前变量全景
-
-| 变量 | 读取位置 | 默认值 | 用途 |
-|------|----------|--------|------|
-| `DATABASE_URL` | config.py | 无代码默认；从 `.env` / 环境变量读取，`.env.example` 仅提供本地开发示例 | 数据库连接 |
-| `DOCKER_HOST_ADDR` | config.py | `localhost` | 后端访问浏览器容器地址 |
-| `API_BASE_URL` | config.py | `http://localhost:8000` | 内置存储文件 URL 前缀 |
-| `OPENAI_API_KEY` | auto_name.py | （空） | Session 自动命名 |
-| `LOG_LEVEL` | logging_config.py | `INFO` | 日志级别 |
-| `APP_TITLE` | config.py | `Browser Pilot` | 品牌名称 |
-| `CLI_COMMAND_NAME` | config.py | `bpilot` | CLI 命令名 |
-| `CLI_INSTALL_COMMAND` | config.py | `pip install bpilot-cli` | CLI 安装命令 |
-| `CONTAINER_PREFIX` | config.py | `bp` | Docker 容器名前缀 |
-| `SELENIUM_IMAGE_NAME` | config.py | `browser-pilot-selenium` | Selenium 镜像名 |
-| `SELENIUM_BASE_IMAGE` | docker-compose.yml | `selenium/standalone-chrome:latest` | Selenium 基础镜像（构建参数） |
-| `NETWORK_EGRESS_DOCKER_NETWORK` | config.py | `browser-pilot-net` | 浏览器容器和托管网络出口容器共用的 Docker 网络 |
-| `NETWORK_EGRESS_CONFIG_DIR` | config.py | `data/network-egress` | 托管 Clash/OpenVPN 出口配置目录 |
-| `NETWORK_EGRESS_CLASH_IMAGE` | config.py | `ghcr.io/metacubex/mihomo:latest` | 托管 Clash 出口镜像 |
-| `NETWORK_EGRESS_CLASH_PROXY_PORT` | config.py | `7890` | 托管 Clash 内部代理端口 |
-| `NETWORK_EGRESS_OPENVPN_IMAGE` | config.py | `browser-pilot-openvpn-egress:latest` | 托管 OpenVPN 出口镜像 |
-| `NETWORK_EGRESS_OPENVPN_PROXY_PORT` | config.py | `8888` | 托管 OpenVPN 内部 HTTP 代理端口 |
-| `POSTGRES_USER` | docker-compose.yml/start.sh | 无 Compose/start.sh 默认；从 `.env` / 环境变量读取，`.env.example` 仅提供本地开发示例 | PG 用户名 |
-| `POSTGRES_PASSWORD` | docker-compose.yml/start.sh | 无 Compose/start.sh 默认；从 `.env` / 环境变量读取，`.env.example` 仅提供本地开发示例 | PG 密码 |
-| `POSTGRES_DB` | docker-compose.yml/start.sh | 无 Compose/start.sh 默认；从 `.env` / 环境变量读取，`.env.example` 仅提供本地开发示例 | PG 数据库名 |
-
-## 数据库密码规则
-
-- `backend/app/config.py` 和 `docker-compose.yml` 禁止硬编码数据库密码或含固定密码的 `DATABASE_URL`。
-- 本地开发示例值只放在 `.env.example`；真实部署必须复制到 `.env` 后修改。
+## 注意事项
+- 在展示和注入时要注意数据格式的兼容性和判空，对于不存在的新增字段使用可选链 `?.` 或 `v-if` 进行容错降级。
+- WebGL 和 Audio 等高阶维度的拦截必须使用与之匹配的数据类型（如 TypedArray）。
 
 ---
 > Source: [NoDeskAI/browser-pilot](https://github.com/NoDeskAI/browser-pilot) — distributed by [TomeVault](https://tomevault.io).
