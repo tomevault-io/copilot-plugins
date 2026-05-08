@@ -1,0 +1,44 @@
+{
+  "name": "Nreki",
+  "owner": "Ruso-0",
+  "repo": "Nreki",
+  "description": "MCP plugin that saves 50%+ tokens per session for AI coding agents. Validates edits in RAM (TypeScript + gopls + pyright), auto-heals errors, catches broken code before it hits disk. Patch mode cuts output tokens 30x. 98% compression on reads. 729 tests. Zero cloud.",
+  "type": "config",
+  "source_format": "AGENTS.md",
+  "formats": [
+    {
+      "format": "claude_md",
+      "display": "CLAUDE.md",
+      "platform": "Claude Code"
+    },
+    {
+      "format": "agents_md",
+      "display": "AGENTS.md",
+      "platform": "Codex"
+    },
+    {
+      "format": "copilot_instructions",
+      "display": "copilot-instructions.md",
+      "platform": "GitHub Copilot"
+    },
+    {
+      "format": "cursor_mdc",
+      "display": ".cursor/rules/*.mdc",
+      "platform": "Cursor"
+    },
+    {
+      "format": "gemini_md",
+      "display": "GEMINI.md",
+      "platform": "Gemini CLI"
+    },
+    {
+      "format": "windsurf_rules",
+      "display": ".windsurf/rules/*.md",
+      "platform": "Windsurf"
+    }
+  ],
+  "skills": [],
+  "source_url": "https://github.com/Ruso-0/Nreki",
+  "distributed_by": "TomeVault",
+  "distributed_at": "2026-05-08T05:12:32Z"
+}
