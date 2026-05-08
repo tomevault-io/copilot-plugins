@@ -1,0 +1,9 @@
+{
+  "name": "allsmog--vuln-scout",
+  "displayName": "vuln-scout",
+  "description": "AI-powered whitebox penetration testing plugin for Claude Code. 9 languages, 22 skills, 7 autonomous agents. STRIDE threat modeling, OWASP 2025 coverage, polyglot monorepo support.",
+  "version": "1.0.0",
+  "author": "allsmog",
+  "homepage": "https://github.com/allsmog/vuln-scout",
+  "skills": []
+}
