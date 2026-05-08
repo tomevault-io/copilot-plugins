@@ -1,0 +1,9 @@
+{
+  "name": "neefrehman--wt",
+  "displayName": "wt",
+  "description": "A configurable worktree management tool, with IDE workspace awareness",
+  "version": "1.0.0",
+  "author": "neefrehman",
+  "homepage": "https://github.com/neefrehman/wt",
+  "skills": []
+}
