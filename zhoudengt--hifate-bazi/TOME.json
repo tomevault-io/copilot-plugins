@@ -2,7 +2,7 @@
   "name": "HiFate-bazi",
   "owner": "zhoudengt",
   "repo": "HiFate-bazi",
-  "description": "",
+  "description": "HiFate \u516b\u5b57\u7cfb\u7edf - \u5b8c\u6574\u7684\u516b\u5b57\u547d\u7406\u5206\u6790\u7cfb\u7edf",
   "type": "config",
   "source_format": ".cursor/rules/*.mdc",
   "formats": [
@@ -40,5 +40,5 @@
   "skills": [],
   "source_url": "https://github.com/zhoudengt/HiFate-bazi",
   "distributed_by": "TomeVault",
-  "distributed_at": "2026-04-29T12:08:39Z"
+  "distributed_at": "2026-05-08T10:46:59Z"
 }
