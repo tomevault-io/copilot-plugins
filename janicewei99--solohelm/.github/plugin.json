@@ -1,0 +1,9 @@
+{
+  "name": "janicewei99--solohelm",
+  "displayName": "SoloHelm",
+  "description": "SoloHelm \u2014 Lightweight project management tool for solo developers and small teams. Built with AI, deployed on Kubernetes via Helm.",
+  "version": "1.0.0",
+  "author": "JaniceWei99",
+  "homepage": "https://github.com/JaniceWei99/SoloHelm",
+  "skills": []
+}
