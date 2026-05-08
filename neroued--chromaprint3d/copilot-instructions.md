@@ -1,31 +1,42 @@
-## end-to-end-change-checklist
+## frontend-architecture
 
-> 前后端联动大型修改必须进行端到端闭环检查（涉及 API/缓存/文件/下载链路时由 Agent 主动引用）
+> 前端分层边界与组件职责约束
 
 
-# 联动变更闭环检查
+# 前端分层边界（Vue）
 
-适用场景：涉及前后端联动、运行时缓存、下载链路、文件落盘与部署可写路径的修改。
+## 依赖方向
 
-## 根因复盘（先做）
+- `components` 只负责 UI 组合与交互，不直接访问 `api/*`。
+- 页面组件统一依赖 `services/*` 或复用 `composables/*` 暴露的能力。
+- `services` 负责业务流程编排，可调用 `api/*`、`domain/*`、`runtime/*`。
+- `api/*` 只放请求封装与接口路径，不放 UI 状态或组件逻辑。
 
-- 禁止只围绕“当前报错点”做局部修补，必须先识别完整业务链路。
-- 必须区分主链路与分支链路（例如常规任务下载 vs 校色板下载），防止只改主链路。
-- 跨层修改默认存在遗漏风险，未完成清单前不得判定“已修复”。
+## 必须遵守
 
-## 实施清单（硬性）
+- 禁止在 `web/frontend/src/components/**/*.vue` 中出现 `from '../api'`、`from '../../api'`、`from './api'`。
+- 新增后端端点时，优先落在 `web/frontend/src/api/<domain>.ts`，并通过 `web/frontend/src/api.ts` 汇总导出。
+- 出现跨面板重复交互逻辑（上传、联动缩放、下载错误处理）时，优先提取到 `composables`。
 
-1. 画出链路：入口 API -> 服务层 -> runtime/cache -> 文件系统 -> 下载响应 -> 前端调用。
-2. 全量检索同类路径：主流程、校色板/管理端点、历史/兼容分支，不得只看单一路径。
-3. 对齐行为语义：`content-type`、文件名、错误码、fallback 策略保持一致。
-4. 校验部署约束：`read_only`、`tmpfs/volume`、目录权限、TTL 清理策略一致。
-5. 最低回归要求：至少覆盖“1 条主链路 + 1 条分支链路”的端到端验证。
+## 快速检查
 
-## 提交前 Gate
+- 组件层是否只做"渲染 + 事件绑定 + 调用 service/composable"？
+- 相同逻辑是否已经在 `composables` 或 `services` 存在？
+- 新增 API 是否按业务域拆分，而不是继续堆在单文件中？
 
-- 仅主链路通过不算完成，必须给出分支链路验证证据。
-- 提交说明需明确：改动覆盖了哪些链路、验证了哪些下载端点。
-- 若有未覆盖分支，必须显式记录风险与后续补齐计划。
+## 格式化
+
+前端文件格式化由 `.cursor/hooks/format-frontend.sh` 自动执行（afterFileEdit hook），无需手动运行。
+
+提交前如需全量检查，可运行：
+
+```bash
+cd web/frontend
+npm run format:check   # prettier --check .
+npm run lint           # vue-tsc -b --pretty false && eslint
+npm run test           # vitest run --coverage
+npm run build          # vue-tsc -b && vite build
+```
 
 ---
 > Source: [Neroued/ChromaPrint3D](https://github.com/Neroued/ChromaPrint3D) — distributed by [TomeVault](https://tomevault.io).
