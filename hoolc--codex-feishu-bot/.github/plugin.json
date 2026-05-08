@@ -1,0 +1,9 @@
+{
+  "name": "hoolc--codex-feishu-bot",
+  "displayName": "codex-feishu-bot",
+  "description": "Feishu bot for Codex App Server with Docker-first deployment and Codex-driven bootstrap.",
+  "version": "1.0.0",
+  "author": "HOOLC",
+  "homepage": "https://github.com/HOOLC/codex-feishu-bot",
+  "skills": []
+}
